@@ -11,10 +11,13 @@ public class GuiThermalGenerator extends GuiContainer {
 
     private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/ThermalGenerator.png");
 
+    TileThermalGenerator tile;
+
     public GuiThermalGenerator(EntityPlayer player, TileThermalGenerator tile) {
         super(new ContainerThermalGenerator(tile, player));
         this.xSize = 176;
-        this .ySize = 167;
+        this.ySize = 167;
+        this.tile = tile;
     }
 
     @Override
@@ -30,6 +33,6 @@ public class GuiThermalGenerator extends GuiContainer {
         this.fontRendererObj.drawString("Thermal Generator", 8, 6, 4210752);
         this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
         this.fontRendererObj.drawString("Liquid Amount", 10, 20, 16448255);
-        this.fontRendererObj.drawString("0", 10, 30, 16448255);
+        this.fontRendererObj.drawString(tile.tank.getFluidAmount() + "", 10, 30, 16448255);
     }
 }

@@ -27,7 +27,7 @@ if (ENV.BUILD_NUMBER) {
 }
 
 minecraft {
-    version = "1.7.10-10.13.3.1358-1.7.10"
+    version = "1.7.10-10.13.2.1351-1.7.10"
     replace "@MODVERSION@", project.version
     replaceIn "Core.java"
 }

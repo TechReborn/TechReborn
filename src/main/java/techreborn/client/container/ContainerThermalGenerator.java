@@ -16,9 +16,9 @@ public class ContainerThermalGenerator extends Container {
         this.tileThermalGenerator = tileThermalGenerator;
         this.player = player;
 
-        this.addSlotToContainer(new Slot(player.inventory, 40, 80, 17));
-        this.addSlotToContainer(new SlotOutput(player.inventory, 41, 80, 53));
-        this.addSlotToContainer(new SlotFake(player.inventory, 42, 59, 42, false, false, 1));
+        this.addSlotToContainer(new Slot(tileThermalGenerator.inventory, 0, 80, 17));
+        this.addSlotToContainer(new SlotOutput(tileThermalGenerator.inventory, 1, 80, 53));
+        this.addSlotToContainer(new SlotFake(tileThermalGenerator.inventory, 2, 59, 42, false, false, 1));
 
         int i;
 
@@ -26,13 +26,13 @@ public class ContainerThermalGenerator extends Container {
         {
             for (int j = 0; j < 9; ++j)
             {
-                this.addSlotToContainer(new Slot(player.inventory , j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+                this.addSlotToContainer(new Slot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
 
         for (i = 0; i < 9; ++i)
         {
-            this.addSlotToContainer(new Slot(player.inventory , i, 8 + i * 18, 142));
+            this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18, 142));
         }
     }
 
