@@ -1,0 +1,12 @@
+/bin
+/out
+/run
+/.gradle
+*.iml
+/.metadata
+/.settings
+./classpath
+/dep
+
+TechReborn.iws
+TechReborn.ipr

@@ -1,0 +1,149 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+    }
+}
+
+apply plugin: 'forge'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
+def ENV = System.getenv()
+if (ENV.BUILD_NUMBER) {
+    version = "0.1." + "${System.getenv().BUILD_NUMBER}"
+} else {
+    version = "0.1.BUILD"
+}
+
+minecraft {
+    version = "1.7.10-10.13.3.1358-1.7.10"
+    replace "@MODVERSION@", project.version
+    replaceIn "Core.java"
+}
+
+group = 'TechReborn'
+
+task deleteOldArtifacts(type: Delete) {
+    delete 'build/libs'
+}
+
+classes.dependsOn deleteOldArtifacts
+
+
+def grabDep(name, url) {
+    ant.get(src: url, dest: 'dep')
+    file("dep/" + url.substring(url.lastIndexOf("/"))).renameTo(file("dep/" + name + ".jar"))
+}
+
+dependencies {
+    def f = new File('dep/')
+    if (f.exists()) {
+        f.delete()
+    }
+    f.mkdirs()
+    if (!f.exists()) {
+        f.mkdir()
+    }
+    println("  Downloading dependencies!")
+    grabDep('industrialcraft-2-2.2.712-experimental-dev.jar', 'http://ic2api.player.to:8080/job/IC2_experimental/712/artifact/build/libs/industrialcraft-2-2.2.712-experimental-dev.jar')
+    println("  Adding dependencies!")
+    compile files("dep/industrialcraft-2-2.2.712-experimental-dev.jar")
+    println("  Finished adding dependencies!")
+}
+
+processResources
+        {
+            // this will ensure that this task is redone when the versions change.
+            inputs.property "version", project.version
+            inputs.property "mcversion", project.minecraft.version
+
+            // replace stuff in mcmod.info, nothing else
+            from(sourceSets.main.resources.srcDirs) {
+                include '*.info'
+
+                // replace version and mcversion
+                expand 'version':project.version, 'mcversion':project.minecraft.version
+            }
+
+            // copy everything else, thats not the mcmod.info
+            from(sourceSets.main.resources.srcDirs) {
+                exclude '**/*.info'
+            }
+        }
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allSource
+    appendix = 'src'
+    classifier = 'src'
+}
+
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    appendix = 'dev'
+    exclude "**/*.psd"
+    classifier = 'dev'
+}
+
+jar {
+    exclude "**/*.psd"
+    appendix = 'universal'
+    classifier = 'universal'
+}
+
+artifacts {
+    archives sourceJar
+    archives deobfJar
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "file:///var/www/maven/")
+            pom {
+                groupId = "TechReborn"
+                version = project.version
+                artifactId = project.archivesBaseName
+                project {
+                    name project.archivesBaseName
+                    packaging 'jar'
+                    description 'TechReborn'
+                    url 'https://github.com/TechReborn/TechReborn'
+                    scm {
+                        url 'https://github.com/TechReborn/TechReborn'
+                        connection 'scm:git:git@github.com:TechReborn/TechReborn.git'
+                        developerConnection 'scm:git:git@github.com:TechReborn/TechReborn.git'
+                    }
+                    issueManagement {
+                        system 'github'
+                        url 'https://github.com/TechReborn/TechReborn/issues'
+                    }
+                    licenses {
+                        license {
+                            name 'License'
+                            url 'https://github.com/TechReborn/TechReborn/blob/master/LICENSE'
+                            distribution 'repo'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id 'modmuss50'
+                            name 'modmuss50'
+                            roles { role 'developer' }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
