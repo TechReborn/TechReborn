@@ -1,5 +1,6 @@
 package techreborn.tiles;
 
+import ic2.api.energy.prefab.BasicSource;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -11,6 +12,7 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
+import net.minecraftforge.oredict.OreDictionary;
 import techreborn.Core;
 import techreborn.util.Inventory;
 import techreborn.util.Tank;
@@ -19,6 +21,11 @@ public class TileThermalGenerator extends TileEntity implements IWrenchable, IFl
 
     public Tank tank = new Tank("TileThermalGenerator", FluidContainerRegistry.BUCKET_VOLUME * 16, this);
     public Inventory inventory = new Inventory(3, "TileThermalGenerator", 64);
+    public BasicSource energySource;
+
+    public TileThermalGenerator() {
+        this.energySource = new BasicSource(this, 1000000, 1);
+    }
 
     @Override
     public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
@@ -90,6 +97,7 @@ public class TileThermalGenerator extends TileEntity implements IWrenchable, IFl
         super.readFromNBT(tagCompound);
         tank.readFromNBT(tagCompound);
         inventory.readFromNBT(tagCompound);
+        energySource.readFromNBT(tagCompound);
     }
 
     @Override
@@ -97,6 +105,7 @@ public class TileThermalGenerator extends TileEntity implements IWrenchable, IFl
         super.writeToNBT(tagCompound);
         tank.writeToNBT(tagCompound);
         inventory.writeToNBT(tagCompound);
+        energySource.writeToNBT(tagCompound);
     }
 
     public Packet getDescriptionPacket() {
@@ -114,17 +123,63 @@ public class TileThermalGenerator extends TileEntity implements IWrenchable, IFl
     @Override
     public void updateEntity() {
         super.updateEntity();
-        if(tank.getFluidAmount() != 0){
-            setInventorySlotContents(2, new ItemStack(tank.getFluidType().getBlock(), 1));
+        drainContainers(this, inventory, 0, 1);
+        energySource.updateEntity();
+        if(tank.getFluidAmount() > 0 && energySource.getEnergyStored() < energySource.getCapacity()){
+            //TODO make power
         }
-//        if(getStackInSlot(0) != null && getStackInSlot(0).getItem() instanceof IFluidContainerItem){
-//            FluidStack liquid = FluidContainerRegistry.getFluidForFilledItem(getStackInSlot(0));
-//            // TODO
-//            if (liquid != null) {
-//                int qty = fill(ForgeDirection.UNKNOWN, liquid, true);
-//
-//                }
-//        }
+    }
+
+    public static boolean drainContainers(IFluidHandler fluidHandler, IInventory inv, int inputSlot, int outputSlot) {
+        ItemStack input = inv.getStackInSlot(inputSlot);
+        ItemStack output = inv.getStackInSlot(outputSlot);
+
+        if (input != null) {
+            FluidStack fluidInContainer = getFluidStackInContainer(input);
+            ItemStack emptyItem = input.getItem().getContainerItem(input);
+            if (fluidInContainer != null && (emptyItem == null || output == null || (output.stackSize < output.getMaxStackSize() && isItemEqual(output, emptyItem, true, true)))) {
+                int used = fluidHandler.fill(ForgeDirection.UNKNOWN, fluidInContainer, false);
+                if (used >= fluidInContainer.amount) {
+                    fluidHandler.fill(ForgeDirection.UNKNOWN, fluidInContainer, true);
+                    if (emptyItem != null)
+                        if (output == null)
+                            inv.setInventorySlotContents(outputSlot, emptyItem);
+                        else
+                            output.stackSize++;
+                    inv.decrStackSize(inputSlot, 1);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static FluidStack getFluidStackInContainer(ItemStack stack) {
+        return FluidContainerRegistry.getFluidForFilledItem(stack);
+    }
+
+    public static boolean isItemEqual(final ItemStack a, final ItemStack b, final boolean matchDamage, final boolean matchNBT) {
+        if (a == null || b == null)
+            return false;
+        if (a.getItem() != b.getItem())
+            return false;
+        if (matchNBT && !ItemStack.areItemStackTagsEqual(a, b))
+            return false;
+        if (matchDamage && a.getHasSubtypes()) {
+            if (isWildcard(a) || isWildcard(b))
+                return true;
+            if (a.getItemDamage() != b.getItemDamage())
+                return false;
+        }
+        return true;
+    }
+
+    public static boolean isWildcard(ItemStack stack) {
+        return isWildcard(stack.getItemDamage());
+    }
+
+    public static boolean isWildcard(int damage) {
+        return damage == -1 || damage == OreDictionary.WILDCARD_VALUE;
     }
 
     @Override
@@ -187,5 +242,15 @@ public class TileThermalGenerator extends TileEntity implements IWrenchable, IFl
         return inventory.isItemValidForSlot(p_94041_1_, p_94041_2_);
     }
 
+    @Override
+    public void onChunkUnload() {
+        energySource.onChunkUnload();
+    }
+
+    @Override
+    public void invalidate() {
+        energySource.invalidate();
+        super.invalidate();
+    }
 
 }
