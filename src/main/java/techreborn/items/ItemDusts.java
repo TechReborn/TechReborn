@@ -13,15 +13,15 @@ import net.minecraft.util.IIcon;
 public class ItemDusts extends Item
 {
 	public static final String[] types = new String[] 
-		{
-			"Almandine", "Aluminium", "Andradite", "Ashes", "Basalt", "Bauxite", "Brass", "Bronze",
-			"Calcite","Charcoal", "Chrome", "Cinnabar", "Clay", "Coal", "Copper", "Dark Ashes", "Diamond",
-			"Electrum","Emerald", "Ender Eye", "Ender Pearl", "Endstone", "Flint", "Gold", "Green Sapphire", "Grossular",
-			"Invar", "Iron", "Lazurite", "Lead", "Magnesium", "Marble", "Netherrack", "Nickel", "Obsidian",
-			"Olivine","Phosphor", "Platinum", "Pyrite", "Pyrope", "Red Garnet", "Redrock", "Ruby", "Saltpeter", "Sapphire",
-			"Silver", "Sodalite", "Spessartine", "Sphalerite", "Steel", "Sulfur", "Tin", "Titanium", "Tungsten", "Uranium", 
-			"Uvarovite", "Yellow Garnet", "Zinc" 
-		};
+	{
+		"Almandine", "Aluminium", "Andradite", "Ashes", "Basalt", "Bauxite", "Brass", "Bronze",
+		"Calcite","Charcoal", "Chrome", "Cinnabar", "Clay", "Coal", "Copper", "Dark Ashes", "Diamond",
+		"Electrum","Emerald", "Ender Eye", "Ender Pearl", "Endstone", "Flint", "Gold", "Green Sapphire", "Grossular",
+		"Invar", "Iron", "Lazurite", "Lead", "Magnesium", "Marble", "Netherrack", "Nickel", "Obsidian",
+		"Olivine","Phosphor", "Platinum", "Pyrite", "Pyrope", "Red Garnet", "Redrock", "Ruby", "Saltpeter", "Sapphire",
+		"Silver", "Sodalite", "Spessartine", "Sphalerite", "Steel", "Sulfur", "Tin", "Titanium", "Tungsten", "Uranium", 
+		"Uvarovite", "Yellow Garnet", "Zinc" 
+	};
 
 	private IIcon[] textures;
 	
