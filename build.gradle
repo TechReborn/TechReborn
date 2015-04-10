@@ -19,6 +19,14 @@ apply plugin: 'forge'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 
+
+repositories {
+    maven {
+        name = "ic2"
+        url = "http://maven.ic2.player.to/"
+    }
+}
+
 def ENV = System.getenv()
 if (ENV.BUILD_NUMBER) {
     version = "0.1." + "${System.getenv().BUILD_NUMBER}"
@@ -40,26 +48,8 @@ task deleteOldArtifacts(type: Delete) {
 
 classes.dependsOn deleteOldArtifacts
 
-
-def grabDep(name, url) {
-    ant.get(src: url, dest: 'dep')
-    file("dep/" + url.substring(url.lastIndexOf("/"))).renameTo(file("dep/" + name + ".jar"))
-}
-
 dependencies {
-    def f = new File('dep/')
-    if (f.exists()) {
-        f.delete()
-    }
-    f.mkdirs()
-    if (!f.exists()) {
-        f.mkdir()
-    }
-    println("  Downloading dependencies!")
-    grabDep('industrialcraft-2-2.2.712-experimental-dev.jar', 'http://ic2api.player.to:8080/job/IC2_experimental/712/artifact/build/libs/industrialcraft-2-2.2.712-experimental-dev.jar')
-    println("  Adding dependencies!")
-    compile files("dep/industrialcraft-2-2.2.712-experimental-dev.jar")
-    println("  Finished adding dependencies!")
+    compile 'net.industrial-craft:industrialcraft-2:2.2.712-experimental:api'
 }
 
 processResources
