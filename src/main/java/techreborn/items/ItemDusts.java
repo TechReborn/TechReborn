@@ -10,7 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
-public class ItemDusts extends Item
+public class ItemDusts extends ItemTR
 {
 	public static final String[] types = new String[] 
 	{
