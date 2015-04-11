@@ -3,6 +3,7 @@ package techreborn.client;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import techreborn.Core;
+import techreborn.init.ModBlocks;
 
 public class TechRebornCreativeTab extends CreativeTabs {
 
@@ -14,6 +15,6 @@ public class TechRebornCreativeTab extends CreativeTabs {
 
 	@Override
 	public Item getTabIconItem() {
-		return Item.getItemFromBlock(Core.thermalGenerator);
+		return Item.getItemFromBlock(ModBlocks.thermalGenerator);
 	}
 }

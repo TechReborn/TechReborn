@@ -11,8 +11,13 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.*;
-import techreborn.Core;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.IFluidHandler;
+import techreborn.init.ModBlocks;
 import techreborn.util.FluidUtils;
 import techreborn.util.Inventory;
 import techreborn.util.Tank;
@@ -55,7 +60,7 @@ public class TileThermalGenerator extends TileEntity implements IWrenchable, IFl
 
     @Override
     public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-        return new ItemStack(Core.thermalGenerator, 1);
+        return new ItemStack(ModBlocks.thermalGenerator, 1);
     }
 
     @Override
