@@ -1,5 +1,6 @@
 package techreborn.tiles;
 
+import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -17,7 +18,7 @@ import techreborn.util.FluidUtils;
 import techreborn.util.Inventory;
 import techreborn.util.Tank;
 
-public class TileQuantumTank extends TileEntity implements IFluidHandler, IInventory {
+public class TileQuantumTank extends TileEntity implements IFluidHandler, IInventory, IWrenchable {
 
     public Tank tank = new Tank("TileQuantumTank", Integer.MAX_VALUE, this);
     public Inventory inventory = new Inventory(3, "TileQuantumTank", 64);
@@ -151,4 +152,39 @@ public class TileQuantumTank extends TileEntity implements IFluidHandler, IInven
     public boolean isItemValidForSlot(int slot, ItemStack stack) {
         return inventory.isItemValidForSlot(slot, stack);
     }
+
+	@Override
+	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public short getFacing() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setFacing(short facing) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
+		return true;
+	}
+
+	@Override
+	public float getWrenchDropRate() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

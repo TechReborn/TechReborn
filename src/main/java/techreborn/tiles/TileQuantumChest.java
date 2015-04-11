@@ -1,5 +1,6 @@
 package techreborn.tiles;
 
+import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -13,7 +14,7 @@ import techreborn.util.FluidUtils;
 import techreborn.util.Inventory;
 
 
-public class TileQuantumChest extends TileEntity implements IInventory {
+public class TileQuantumChest extends TileEntity implements IInventory ,IWrenchable{
 
     //Slot 0 = Input
     //Slot 1 = Output
@@ -163,4 +164,45 @@ public class TileQuantumChest extends TileEntity implements IInventory {
     public boolean isItemValidForSlot(int slot, ItemStack stack) {
         return inventory.isItemValidForSlot(slot, stack);
     }
+
+
+	@Override
+	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public short getFacing() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public void setFacing(short facing) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
+		return true;
+	}
+
+
+	@Override
+	public float getWrenchDropRate() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
