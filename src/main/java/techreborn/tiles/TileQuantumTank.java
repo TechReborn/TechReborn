@@ -27,6 +27,10 @@ public class TileQuantumTank extends TileEntity implements IFluidHandler, IInven
     @Override
     public void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
+        readFromNBTWithoutCoords(tagCompound);
+    }
+
+    public void readFromNBTWithoutCoords(NBTTagCompound tagCompound) {
         tank.readFromNBT(tagCompound);
         inventory.readFromNBT(tagCompound);
     }
@@ -34,9 +38,14 @@ public class TileQuantumTank extends TileEntity implements IFluidHandler, IInven
     @Override
     public void writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
+        writeToNBTWithoutCoords(tagCompound);
+    }
+
+    public void writeToNBTWithoutCoords(NBTTagCompound tagCompound) {
         tank.writeToNBT(tagCompound);
         inventory.writeToNBT(tagCompound);
     }
+
 
     public Packet getDescriptionPacket() {
         NBTTagCompound nbtTag = new NBTTagCompound();
@@ -180,6 +189,15 @@ public class TileQuantumTank extends TileEntity implements IFluidHandler, IInven
 
     @Override
     public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-        return new ItemStack(ModBlocks.quantumTank);
+        return getDropWithNBT();
+    }
+
+    public ItemStack getDropWithNBT() {
+        NBTTagCompound tileEntity = new NBTTagCompound();
+        ItemStack dropStack = new ItemStack(ModBlocks.quantumTank, 1);
+        writeToNBTWithoutCoords(tileEntity);
+        dropStack.setTagCompound(new NBTTagCompound());
+        dropStack.stackTagCompound.setTag("tileEntity", tileEntity);
+        return dropStack;
     }
 }
