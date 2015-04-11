@@ -7,9 +7,11 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
+import techreborn.world.TROreGen;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 @Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = ModInfo.MOD_DEPENDENCUIES, guiFactory = ModInfo.GUI_FACTORY_CLASS)
 public class Core {
@@ -35,6 +37,8 @@ public class Core {
     	ModBlocks.init();
     	//Register ModItems
     	ModItems.init();
+    	// WorldGen
+    	GameRegistry.registerWorldGenerator(new TROreGen(), 0);
     	//Register Gui Handler
         NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
     }
