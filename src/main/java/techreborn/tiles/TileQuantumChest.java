@@ -5,7 +5,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
@@ -78,6 +77,10 @@ public class TileQuantumChest extends TileEntity implements IInventory ,IWrencha
     @Override
     public void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
+        readFromNBTWithoutCoords(tagCompound);
+    }
+
+    public void readFromNBTWithoutCoords(NBTTagCompound tagCompound) {
         inventory.readFromNBT(tagCompound);
 
         storedItem = null;
@@ -96,6 +99,10 @@ public class TileQuantumChest extends TileEntity implements IInventory ,IWrencha
     @Override
     public void writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
+        writeToNBTWithoutCoords(tagCompound);
+    }
+
+    public void writeToNBTWithoutCoords(NBTTagCompound tagCompound) {
         inventory.writeToNBT(tagCompound);
         if (storedItem != null)
         {
@@ -192,6 +199,16 @@ public class TileQuantumChest extends TileEntity implements IInventory ,IWrencha
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.quantumChest);
+		return getDropWithNBT();
 	}
+
+    public ItemStack getDropWithNBT() {
+        NBTTagCompound tileEntity = new NBTTagCompound();
+        ItemStack dropStack = new ItemStack(ModBlocks.quantumChest, 1);
+        writeToNBTWithoutCoords(tileEntity);
+        dropStack.setTagCompound(new NBTTagCompound());
+        dropStack.stackTagCompound.setTag("tileEntity", tileEntity);
+        return dropStack;
+    }
+
 }
