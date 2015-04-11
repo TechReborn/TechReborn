@@ -6,6 +6,7 @@ import techreborn.client.GuiHandler;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
+import techreborn.init.ModRecipes;
 import techreborn.lib.ModInfo;
 import techreborn.world.TROreGen;
 import cpw.mods.fml.common.Mod;
@@ -37,6 +38,8 @@ public class Core {
     	ModBlocks.init();
     	//Register ModItems
     	ModItems.init();
+    	// Recipes
+    	ModRecipes.init();
     	// WorldGen
     	GameRegistry.registerWorldGenerator(new TROreGen(), 0);
     	//Register Gui Handler
