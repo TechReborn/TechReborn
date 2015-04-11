@@ -27,6 +27,7 @@ public class BlockThermalGenerator extends BlockContainer {
 
     public BlockThermalGenerator() {
         super(Material.piston);
+        setHardness(2f);
     }
 
     @Override

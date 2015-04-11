@@ -13,6 +13,7 @@ public class BlockQuantumTank extends BlockContainer {
 
     public BlockQuantumTank() {
         super(Material.piston);
+        setHardness(2f);
     }
 
     @Override

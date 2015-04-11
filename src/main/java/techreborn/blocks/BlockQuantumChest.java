@@ -14,6 +14,7 @@ public class BlockQuantumChest extends BlockContainer {
 
     public BlockQuantumChest() {
         super(Material.piston);
+        setHardness(2f);
     }
 
     @Override
