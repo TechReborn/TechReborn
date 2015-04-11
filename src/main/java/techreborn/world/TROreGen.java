@@ -1,7 +1,5 @@
 package techreborn.world;
 
-import ic2.core.util.Config;
-
 import java.util.Random;
 
 import techreborn.config.ConfigTechReborn;
