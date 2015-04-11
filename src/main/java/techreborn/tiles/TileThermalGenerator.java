@@ -14,6 +14,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.oredict.OreDictionary;
 import techreborn.Core;
+import techreborn.util.FluidUtils;
 import techreborn.util.Inventory;
 import techreborn.util.Tank;
 
@@ -124,7 +125,7 @@ public class TileThermalGenerator extends TileEntity implements IWrenchable, IFl
     @Override
     public void updateEntity() {
         super.updateEntity();
-        drainContainers(this, inventory, 0, 1);
+        FluidUtils.drainContainers(this, inventory, 0, 1);
         energySource.updateEntity();
         if(tank.getFluidAmount() > 0 && energySource.getCapacity() - energySource.getEnergyStored() >= euTick){
             tank.drain(1, true);
@@ -135,59 +136,6 @@ public class TileThermalGenerator extends TileEntity implements IWrenchable, IFl
         } else if(tank.getFluidType() == null && getStackInSlot(2) != null){
             setInventorySlotContents(2, null);
         }
-
-    }
-
-    public static boolean drainContainers(IFluidHandler fluidHandler, IInventory inv, int inputSlot, int outputSlot) {
-        ItemStack input = inv.getStackInSlot(inputSlot);
-        ItemStack output = inv.getStackInSlot(outputSlot);
-
-        if (input != null) {
-            FluidStack fluidInContainer = getFluidStackInContainer(input);
-            ItemStack emptyItem = input.getItem().getContainerItem(input);
-            if (fluidInContainer != null && (emptyItem == null || output == null || (output.stackSize < output.getMaxStackSize() && isItemEqual(output, emptyItem, true, true)))) {
-                int used = fluidHandler.fill(ForgeDirection.UNKNOWN, fluidInContainer, false);
-                if (used >= fluidInContainer.amount) {
-                    fluidHandler.fill(ForgeDirection.UNKNOWN, fluidInContainer, true);
-                    if (emptyItem != null)
-                        if (output == null)
-                            inv.setInventorySlotContents(outputSlot, emptyItem);
-                        else
-                            output.stackSize++;
-                    inv.decrStackSize(inputSlot, 1);
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public static FluidStack getFluidStackInContainer(ItemStack stack) {
-        return FluidContainerRegistry.getFluidForFilledItem(stack);
-    }
-
-    public static boolean isItemEqual(final ItemStack a, final ItemStack b, final boolean matchDamage, final boolean matchNBT) {
-        if (a == null || b == null)
-            return false;
-        if (a.getItem() != b.getItem())
-            return false;
-        if (matchNBT && !ItemStack.areItemStackTagsEqual(a, b))
-            return false;
-        if (matchDamage && a.getHasSubtypes()) {
-            if (isWildcard(a) || isWildcard(b))
-                return true;
-            if (a.getItemDamage() != b.getItemDamage())
-                return false;
-        }
-        return true;
-    }
-
-    public static boolean isWildcard(ItemStack stack) {
-        return isWildcard(stack.getItemDamage());
-    }
-
-    public static boolean isWildcard(int damage) {
-        return damage == -1 || damage == OreDictionary.WILDCARD_VALUE;
     }
 
     @Override
