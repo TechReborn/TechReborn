@@ -1,6 +1,8 @@
 package techreborn;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import techreborn.blocks.BlockOre;
 import techreborn.blocks.BlockQuantumChest;
 import techreborn.blocks.BlockQuantumTank;
 import techreborn.blocks.BlockThermalGenerator;
@@ -9,6 +11,7 @@ import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileQuantumChest;
 import techreborn.tiles.TileQuantumTank;
 import net.minecraft.item.Item;
+import techreborn.itemblocks.ItemBlockOre;
 import techreborn.items.ItemDusts;
 import techreborn.tiles.TileThermalGenerator;
 import cpw.mods.fml.common.Mod;
@@ -22,6 +25,7 @@ public class Core {
     public static Block thermalGenerator;
     public static Block quantumTank;
     public static Block quantumChest;
+    public static Block ore;
 
     public static Item dusts;
 
@@ -42,6 +46,9 @@ public class Core {
         quantumChest = new BlockQuantumChest().setBlockName("techreborn.quantumChest").setBlockTextureName("techreborn:quantumChest").setCreativeTab(TechRebornCreativeTab.instance);
         GameRegistry.registerBlock(quantumChest, "techreborn.quantumChest");
         GameRegistry.registerTileEntity(TileQuantumChest.class, "TileQuantumChest");
+        
+        ore = new BlockOre(Material.rock);
+        GameRegistry.registerBlock(ore, ItemBlockOre.class, "ore");
 
         dusts = new ItemDusts();
         GameRegistry.registerItem(dusts, "dust");
