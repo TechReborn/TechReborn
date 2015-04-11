@@ -15,13 +15,14 @@ import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
 import techreborn.itemblocks.ItemBlockOre;
 import techreborn.items.ItemDusts;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.TileThermalGenerator;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = "techreborn", name = "TechReborn", version = "@MODVERSION@")
+@Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = ModInfo.MOD_DEPENDENCUIES)
 public class Core {
 
     @Mod.Instance
