@@ -7,6 +7,7 @@ import net.minecraftforge.common.config.Configuration;
 public class ConfigTechReborn {
 	private static ConfigTechReborn instance = null;
 	public static String CATEGORY_WORLD = "world";
+    public static String CATEGORY_POWER = "power";
 	
 	//WORLDGEN
 	public static boolean GalenaOreTrue;
@@ -22,6 +23,8 @@ public class ConfigTechReborn {
 	public static boolean OlivineOreTrue;
 	public static boolean SodaliteOreTrue;
 
+    //Power
+    public static int ThermalGenertaorOutput;
 
 	
 	public static Configuration config;
@@ -109,6 +112,11 @@ public class ConfigTechReborn {
 				"Allow SodaliteOre", true,
 				"Allow SodaliteOre to be generated in your world.")
 				.getBoolean(true);
+
+        ThermalGenertaorOutput = config.get(CATEGORY_POWER,
+                "Thermal Generator Power", 30,
+                "The amount of power that the thermal generator makes for 1mb of lava")
+                .getInt();
 		
 		if (config.hasChanged())
 			config.save();
