@@ -2,8 +2,6 @@ package techreborn.items;
 
 import java.util.List;
 
-import techreborn.Core;
-import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -11,26 +9,19 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
-public class ItemDusts extends ItemTR
-{
+public class ItemIngots extends ItemTR{
 	public static final String[] types = new String[] 
 	{
-		"Almandine", "Aluminium", "Andradite", "Ashes", "Basalt", "Bauxite", "Brass", "Bronze",
-		"Calcite","Charcoal", "Chrome", "Cinnabar", "Clay", "Coal", "Copper", "Dark Ashes", "Diamond",
-		"Electrum","Emerald", "Ender Eye", "Ender Pearl", "Endstone", "Flint", "Gold", "Green Sapphire", "Grossular",
-		"Invar", "Iron", "Lazurite", "Lead", "Magnesium", "Marble", "Netherrack", "Nickel", "Obsidian",
-		"Olivine","Phosphor", "Platinum", "Pyrite", "Pyrope", "Red Garnet", "Redrock", "Ruby", "Saltpeter", "Sapphire",
-		"Silver", "Sodalite", "Spessartine", "Sphalerite", "Steel", "Sulfur", "Tin", "Titanium", "Tungsten", "Uranium", 
-		"Uvarovite", "Yellow Garnet", "Zinc" 
+		"IridiumAlloy", "HotTungstenSteel", "TungstenSteel", "Iridium", "Silver", "Aluminium", "Titanium", "Chrome",
+		"Electrum","Tungsten", "Lead", "Zinc", "Brass", "Steel", "Platinum", "Nickel", "Invar", 
 	};
 
 	private IIcon[] textures;
 	
-	public ItemDusts()
+	public ItemIngots()
 	{
-		setUnlocalizedName("techreborn.dust");
 		setHasSubtypes(true);
-		setCreativeTab(TechRebornCreativeTab.instance);
+		setUnlocalizedName("techreborn.ingot");
 	}
 	
 	@Override
@@ -41,7 +32,7 @@ public class ItemDusts extends ItemTR
 
 		for (int i = 0; i < types.length; ++i) 
 		{
-			textures[i] = iconRegister.registerIcon(ModInfo.MOD_ID + "dust");
+			textures[i] = iconRegister.registerIcon(ModInfo.MOD_ID + "ingot");
 		}
 	}
 	
@@ -78,5 +69,5 @@ public class ItemDusts extends ItemTR
 			list.add(new ItemStack(item, 1, meta));
 		}
 	}
-	
+
 }
