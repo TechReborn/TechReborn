@@ -45,7 +45,8 @@ public class BlockOre extends Block{
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list)
 	{
-		for (int meta = 0; meta < types.length; meta++) {
+		for (int meta = 0; meta < types.length; meta++)
+		{
 			list.add(new ItemStack(item, 1, meta));
 		}
 	}
@@ -53,6 +54,7 @@ public class BlockOre extends Block{
 	@Override
 	public int damageDropped(int metaData)
 	{
+		//TODO RubyOre Returns Rubys
 		return metaData;
 	}
 
@@ -62,8 +64,9 @@ public class BlockOre extends Block{
 	{
 		this.textures = new IIcon[types.length];
 
-		for (int i = 0; i < types.length; i++) {
-			textures[i] = iconRegister.registerIcon("cbmreborn:" + types[i]);
+		for (int i = 0; i < types.length; i++) 
+		{
+			textures[i] = iconRegister.registerIcon("techreborn:" + "ore"+types[i]);
 		}
 	}
 
@@ -74,7 +77,8 @@ public class BlockOre extends Block{
 		metaData = MathHelper.clamp_int(metaData, 0, types.length - 1);
 
 		if (ForgeDirection.getOrientation(side) == ForgeDirection.UP
-				|| ForgeDirection.getOrientation(side) == ForgeDirection.DOWN) {
+				|| ForgeDirection.getOrientation(side) == ForgeDirection.DOWN) 
+		{
 			return textures[metaData];
 		} else {
 			return textures[metaData];
