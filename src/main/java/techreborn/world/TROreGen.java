@@ -4,6 +4,7 @@ import java.util.Random;
 
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
+import techreborn.util.LogHelper;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -43,6 +44,7 @@ public class TROreGen implements IWorldGenerator{
 		oreSheldonite = new WorldGenMinable(ModBlocks.ore, 9, 8, Blocks.end_stone);
 		oreOlivine = new WorldGenMinable(ModBlocks.ore, 10, 8, Blocks.end_stone);
 		oreSodalite = new WorldGenMinable(ModBlocks.ore, 11, 8, Blocks.end_stone);
+		LogHelper.info("WorldGen Loaded");
 	}
 	
 	@Override

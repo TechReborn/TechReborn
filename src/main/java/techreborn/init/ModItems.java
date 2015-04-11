@@ -4,6 +4,7 @@ import techreborn.items.ItemDusts;
 import techreborn.items.ItemGems;
 import techreborn.items.ItemIngots;
 import techreborn.items.ItemParts;
+import techreborn.util.LogHelper;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
 
@@ -24,7 +25,8 @@ public class ModItems {
         GameRegistry.registerItem(gems, "gem");
         parts = new ItemParts();
         GameRegistry.registerItem(parts, "part");
-        
+		LogHelper.info("TechReborns Items Loaded");
+
         registerOreDict();
     }
     

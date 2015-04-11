@@ -8,6 +8,7 @@ import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
 import techreborn.init.ModRecipes;
 import techreborn.lib.ModInfo;
+import techreborn.util.LogHelper;
 import techreborn.world.TROreGen;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -29,6 +30,7 @@ public class Core {
 				.replace(ModInfo.MOD_ID, "TechReborn");
 
 		config = ConfigTechReborn.initialize(new File(path));
+		LogHelper.info("PreInitialization Compleate");
     }
 
     @Mod.EventHandler
@@ -44,6 +46,7 @@ public class Core {
     	GameRegistry.registerWorldGenerator(new TROreGen(), 0);
     	//Register Gui Handler
         NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
+		LogHelper.info("Initialization Compleate");
     }
 
 }
