@@ -10,6 +10,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import techreborn.init.ModBlocks;
 import techreborn.util.FluidUtils;
 import techreborn.util.Inventory;
 
@@ -165,44 +166,32 @@ public class TileQuantumChest extends TileEntity implements IInventory ,IWrencha
         return inventory.isItemValidForSlot(slot, stack);
     }
 
-
 	@Override
 	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
-
 	@Override
 	public short getFacing() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
-
 	@Override
 	public void setFacing(short facing) {
-		// TODO Auto-generated method stub
-		
 	}
-
 
 	@Override
 	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
 		return true;
 	}
 
-
 	@Override
 	public float getWrenchDropRate() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 1F;
 	}
-
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		// TODO Auto-generated method stub
-		return null;
+		return new ItemStack(ModBlocks.quantumChest);
 	}
 }
