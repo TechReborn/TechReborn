@@ -12,7 +12,6 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
-import net.minecraftforge.oredict.OreDictionary;
 import techreborn.Core;
 import techreborn.util.FluidUtils;
 import techreborn.util.Inventory;

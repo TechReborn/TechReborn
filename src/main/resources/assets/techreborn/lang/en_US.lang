@@ -1,3 +1,5 @@
 itemGroup.techreborn=Tech Reborn
 
 tile.techreborn.thermalGenerator.name=Thermal Generator
+tile.techreborn.quantumTank.name=Quantum Tank
+tile.techreborn.quantumChest.name=Quantum Chest

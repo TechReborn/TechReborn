@@ -26,7 +26,7 @@ public class BlockThermalGenerator extends BlockContainer {
     private IIcon other;
 
     public BlockThermalGenerator() {
-        super(Material.iron);
+        super(Material.piston);
     }
 
     @Override

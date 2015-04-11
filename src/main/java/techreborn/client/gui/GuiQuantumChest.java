@@ -1,20 +1,23 @@
 package techreborn.client.gui;
 
+
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+import techreborn.client.container.ContainerQuantumChest;
 import techreborn.client.container.ContainerQuantumTank;
+import techreborn.tiles.TileQuantumChest;
 import techreborn.tiles.TileQuantumTank;
 
-public class GuiQuantumTank extends GuiContainer {
+public class GuiQuantumChest extends GuiContainer {
 
     private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/ThermalGenerator.png");
 
-    TileQuantumTank tile;
+    TileQuantumChest tile;
 
-    public GuiQuantumTank(EntityPlayer player, TileQuantumTank tile) {
-        super(new ContainerQuantumTank(tile, player));
+    public GuiQuantumChest(EntityPlayer player, TileQuantumChest tile) {
+        super(new ContainerQuantumChest(tile, player));
         this.xSize = 176;
         this.ySize = 167;
         this.tile = tile;
@@ -30,10 +33,11 @@ public class GuiQuantumTank extends GuiContainer {
 
     protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_)
     {
-        this.fontRendererObj.drawString("Quantum Tank", 8, 6, 4210752);
+        this.fontRendererObj.drawString("Quantum Chest", 8, 6, 4210752);
         this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
-        this.fontRendererObj.drawString("Liquid Amount", 10, 20, 16448255);
-        this.fontRendererObj.drawString(tile.tank.getFluidAmount() + "", 10, 30, 16448255);
+        this.fontRendererObj.drawString("Amount", 10, 20, 16448255);
+        if(tile.storedItem != null)
+            this.fontRendererObj.drawString(tile.storedItem.stackSize + "", 10, 30, 16448255);
     }
 }
 
