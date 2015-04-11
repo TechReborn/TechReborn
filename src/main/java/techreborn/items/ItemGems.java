@@ -2,24 +2,27 @@ package techreborn.items;
 
 import java.util.List;
 
+import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
-public class ItemGems extends ItemTR{
+public class ItemGems extends Item{
 	public static final String[] types = new String[] 
 	{
-		"Ruby", "Sapphire", "Green Sapphire", "Olivine", "RedGarnet", "YellowGarnet" 
+		"Ruby", "Sapphire", "GreenSapphire", "Olivine", "RedGarnet", "YellowGarnet" 
 	};
 
 	private IIcon[] textures;
 	
 	public ItemGems()
 	{
-		setUnlocalizedName("gem");
+		setCreativeTab(TechRebornCreativeTab.instance);
+		setUnlocalizedName("techreborn.gem");
 		setHasSubtypes(true);
 	}
 	
@@ -31,7 +34,7 @@ public class ItemGems extends ItemTR{
 
 		for (int i = 0; i < types.length; ++i) 
 		{
-			textures[i] = iconRegister.registerIcon(ModInfo.MOD_ID + "gem");
+			textures[i] = iconRegister.registerIcon("techreborn:" + "gem"+types[i]);
 		}
 	}
 	
@@ -67,6 +70,12 @@ public class ItemGems extends ItemTR{
 		{
 			list.add(new ItemStack(item, 1, meta));
 		}
+	}
+	
+	@Override
+	public EnumRarity getRarity(ItemStack itemstack) 
+	{
+		return EnumRarity.uncommon;
 	}
 
 }

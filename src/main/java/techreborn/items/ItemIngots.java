@@ -2,14 +2,16 @@ package techreborn.items;
 
 import java.util.List;
 
+import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
-public class ItemIngots extends ItemTR{
+public class ItemIngots extends Item{
 	public static final String[] types = new String[] 
 	{
 		"IridiumAlloy", "HotTungstenSteel", "TungstenSteel", "Iridium", "Silver", "Aluminium", "Titanium", "Chrome",
@@ -20,6 +22,7 @@ public class ItemIngots extends ItemTR{
 	
 	public ItemIngots()
 	{
+		setCreativeTab(TechRebornCreativeTab.instance);
 		setHasSubtypes(true);
 		setUnlocalizedName("techreborn.ingot");
 	}
@@ -32,7 +35,7 @@ public class ItemIngots extends ItemTR{
 
 		for (int i = 0; i < types.length; ++i) 
 		{
-			textures[i] = iconRegister.registerIcon(ModInfo.MOD_ID + "ingot");
+			textures[i] = iconRegister.registerIcon("techreborn:" + "ingot"+types[i]);
 		}
 	}
 	
@@ -68,6 +71,12 @@ public class ItemIngots extends ItemTR{
 		{
 			list.add(new ItemStack(item, 1, meta));
 		}
+	}
+	
+	@Override
+	public EnumRarity getRarity(ItemStack itemstack) 
+	{
+		return EnumRarity.uncommon;
 	}
 
 }

@@ -7,8 +7,10 @@ import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 
 public class ItemDusts extends ItemTR
@@ -16,12 +18,12 @@ public class ItemDusts extends ItemTR
 	public static final String[] types = new String[] 
 	{
 		"Almandine", "Aluminium", "Andradite", "Ashes", "Basalt", "Bauxite", "Brass", "Bronze",
-		"Calcite","Charcoal", "Chrome", "Cinnabar", "Clay", "Coal", "Copper", "Dark Ashes", "Diamond",
-		"Electrum","Emerald", "Ender Eye", "Ender Pearl", "Endstone", "Flint", "Gold", "Green Sapphire", "Grossular",
+		"Calcite","Charcoal", "Chrome", "Cinnabar", "Clay", "Coal", "Copper", "DarkAshes", "Diamond",
+		"Electrum","Emerald", "EnderEye", "EnderPearl", "Endstone", "Flint", "Gold", "GreenSapphire", "Grossular",
 		"Invar", "Iron", "Lazurite", "Lead", "Magnesium", "Marble", "Netherrack", "Nickel", "Obsidian",
-		"Olivine","Phosphor", "Platinum", "Pyrite", "Pyrope", "Red Garnet", "Redrock", "Ruby", "Saltpeter", "Sapphire",
+		"Olivine","Phosphor", "Platinum", "Pyrite", "Pyrope", "RedGarnet", "Redrock", "Ruby", "Saltpeter", "Sapphire",
 		"Silver", "Sodalite", "Spessartine", "Sphalerite", "Steel", "Sulfur", "Tin", "Titanium", "Tungsten", "Uranium", 
-		"Uvarovite", "Yellow Garnet", "Zinc" 
+		"Uvarovite", "YellowGarnet", "Zinc" 
 	};
 
 	private IIcon[] textures;
@@ -41,7 +43,7 @@ public class ItemDusts extends ItemTR
 
 		for (int i = 0; i < types.length; ++i) 
 		{
-			textures[i] = iconRegister.registerIcon(ModInfo.MOD_ID + "dust");
+			textures[i] = iconRegister.registerIcon("techreborn:" + "dust"+types[i]);
 		}
 	}
 	
@@ -78,5 +80,12 @@ public class ItemDusts extends ItemTR
 			list.add(new ItemStack(item, 1, meta));
 		}
 	}
+	
+	@Override
+	public EnumRarity getRarity(ItemStack itemstack) 
+	{
+		return EnumRarity.uncommon;
+	}
+	
 	
 }

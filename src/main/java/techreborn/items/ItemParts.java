@@ -4,12 +4,14 @@ import java.util.List;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 
-public class ItemParts extends ItemTR{
+public class ItemParts extends Item{
 	public static final String[] types = new String[] 
 	{
 		"LazuriteChunk", "SiliconPlate", "MagnaliumPlate", "EnergeyFlowCircuit", "DataControlCircuit", "SuperConductor",
@@ -21,8 +23,9 @@ public class ItemParts extends ItemTR{
 			private IIcon[] textures;
 	public ItemParts()
 	{
+		setCreativeTab(TechRebornCreativeTab.instance);
 		setHasSubtypes(true);
-		setUnlocalizedName("part");
+		setUnlocalizedName("techreborn.part");
 	}
 	
 	@Override
@@ -33,7 +36,7 @@ public class ItemParts extends ItemTR{
 
 		for (int i = 0; i < types.length; ++i) 
 		{
-			textures[i] = iconRegister.registerIcon(ModInfo.MOD_ID + "part");
+			textures[i] = iconRegister.registerIcon("techreborn:" + "part"+types[i]);
 		}
 	}
 	
@@ -69,6 +72,12 @@ public class ItemParts extends ItemTR{
 		{
 			list.add(new ItemStack(item, 1, meta));
 		}
+	}
+	
+	@Override
+	public EnumRarity getRarity(ItemStack itemstack) 
+	{
+		return EnumRarity.rare;
 	}
 
 }
