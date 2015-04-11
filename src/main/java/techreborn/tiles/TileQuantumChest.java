@@ -45,11 +45,11 @@ public class TileQuantumChest extends TileEntity implements IInventory {
 
         if(storedItem != null && getStackInSlot(1) == null){
             ItemStack itemStack = storedItem.copy();
-            itemStack.stackSize = 64;
+            itemStack.stackSize = itemStack.getMaxStackSize();
             setInventorySlotContents(1, itemStack);
-            storedItem.stackSize -= 64;
+            storedItem.stackSize -= itemStack.getMaxStackSize();
         } else if(FluidUtils.isItemEqual(getStackInSlot(1), storedItem, true, true)){
-            int wanted = 64 - getStackInSlot(1).stackSize;
+            int wanted = getStackInSlot(1).getMaxStackSize() - getStackInSlot(1).stackSize;
             if(storedItem.stackSize >= wanted){
                 decrStackSize(1, -wanted);
                 storedItem.stackSize -= wanted;
