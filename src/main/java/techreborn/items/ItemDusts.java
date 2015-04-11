@@ -4,6 +4,7 @@ import java.util.List;
 
 import techreborn.Core;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.lib.ModInfo;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -40,7 +41,7 @@ public class ItemDusts extends ItemTR
 
 		for (int i = 0; i < types.length; ++i) 
 		{
-			textures[i] = iconRegister.registerIcon("techreborn" + "dust");
+			textures[i] = iconRegister.registerIcon(ModInfo.MOD_ID + "dust");
 		}
 	}
 	

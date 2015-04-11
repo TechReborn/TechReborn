@@ -30,7 +30,7 @@ public class BlockOre extends Block{
 	public BlockOre(Material material) 
 	{
 		super(material);
-		setBlockName("ore");
+		setBlockName("techreborn.ore");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setHardness(1f);
 	}

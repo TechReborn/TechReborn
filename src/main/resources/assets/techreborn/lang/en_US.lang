@@ -3,3 +3,17 @@ itemGroup.techreborn=Tech Reborn
 tile.techreborn.thermalGenerator.name=Thermal Generator
 tile.techreborn.quantumTank.name=Quantum Tank
 tile.techreborn.quantumChest.name=Quantum Chest
+
+#Ores
+tile.techreborn.ore.Galena.name=Galena Ore
+tile.techreborn.ore.Iridium.name=Iridium Ore
+tile.techreborn.ore.Ruby.name=Ruby Ore
+tile.techreborn.ore.Sapphire.name=Sapphire Ore
+tile.techreborn.ore.Bauxite.name=Bauxite Ore
+tile.techreborn.ore.Pyrite.name=Pyrite Ore
+tile.techreborn.ore.Cinnabar.name=Cinnabar Ore
+tile.techreborn.ore.Sphalerite.name=Sphalerite Ore
+tile.techreborn.ore.Tungston.name=Tungston Ore
+tile.techreborn.ore.Sheldonite.name=Sheldonite Ore
+tile.techreborn.ore.Olivine.name=Olivine Ore
+tile.techreborn.ore.Sodalite.name=Sodalite Ore

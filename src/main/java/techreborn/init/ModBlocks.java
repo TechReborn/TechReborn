@@ -36,7 +36,7 @@ public class ModBlocks {
         GameRegistry.registerTileEntity(TileQuantumChest.class, "TileQuantumChest");
         
         ore = new BlockOre(Material.rock);
-        GameRegistry.registerBlock(ore, ItemBlockOre.class, "ore");
+        GameRegistry.registerBlock(ore, ItemBlockOre.class, "techreborn.ore");
         
 	    }
 
