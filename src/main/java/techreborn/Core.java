@@ -1,9 +1,5 @@
 package techreborn;
 
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import techreborn.blocks.BlockQuantumChest;
 import techreborn.blocks.BlockQuantumTank;
@@ -12,7 +8,13 @@ import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileQuantumChest;
 import techreborn.tiles.TileQuantumTank;
+import net.minecraft.item.Item;
+import techreborn.items.ItemDusts;
 import techreborn.tiles.TileThermalGenerator;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 @Mod(modid = "techreborn", name = "TechReborn", version = "@MODVERSION@")
 public class Core {
@@ -20,6 +22,9 @@ public class Core {
     public static Block thermalGenerator;
     public static Block quantumTank;
     public static Block quantumChest;
+
+    public static Item dusts;
+
 
     @Mod.Instance
     public static Core INSTANCE;
@@ -37,6 +42,9 @@ public class Core {
         quantumChest = new BlockQuantumChest().setBlockName("techreborn.quantumChest").setBlockTextureName("techreborn:quantumChest").setCreativeTab(TechRebornCreativeTab.instance);
         GameRegistry.registerBlock(quantumChest, "techreborn.quantumChest");
         GameRegistry.registerTileEntity(TileQuantumChest.class, "TileQuantumChest");
+
+        dusts = new ItemDusts();
+        GameRegistry.registerItem(dusts, "dust");
 
         NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
     }
