@@ -1,13 +1,12 @@
 package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import techreborn.client.SlotFake;
 import techreborn.client.SlotOutput;
 import techreborn.tiles.TileQuantumTank;
 
-public class ContainerQuantumTank extends Container {
+public class ContainerQuantumTank extends TechRebornContainer {
     public TileQuantumTank tileQuantumTank;
     public EntityPlayer player;
 

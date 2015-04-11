@@ -19,7 +19,7 @@ import techreborn.util.Tank;
 
 public class TileQuantumTank extends TileEntity implements IFluidHandler, IInventory {
 
-    public Tank tank = new Tank("TileQuantumTank", 2000000000, this);
+    public Tank tank = new Tank("TileQuantumTank", Integer.MAX_VALUE, this);
     public Inventory inventory = new Inventory(3, "TileQuantumTank", 64);
 
     @Override

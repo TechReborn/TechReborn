@@ -1,10 +1,10 @@
 package techreborn.tiles;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
@@ -71,6 +71,37 @@ public class TileQuantumChest extends TileEntity implements IInventory {
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
         worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
         readFromNBT(packet.func_148857_g());
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound tagCompound) {
+        super.readFromNBT(tagCompound);
+        inventory.readFromNBT(tagCompound);
+
+        storedItem = null;
+
+        if (tagCompound.hasKey("storedStack"))
+        {
+            storedItem = ItemStack.
+                    loadItemStackFromNBT((NBTTagCompound)tagCompound.getTag("storedStack"));
+        }
+
+        if(storedItem != null){
+            storedItem.stackSize = tagCompound.getInteger("storedQuantity");
+        }
+    }
+
+    @Override
+    public void writeToNBT(NBTTagCompound tagCompound) {
+        super.writeToNBT(tagCompound);
+        inventory.writeToNBT(tagCompound);
+        if (storedItem != null)
+        {
+            tagCompound.setTag("storedStack", storedItem.writeToNBT(new NBTTagCompound()));
+            tagCompound.setInteger("storedQuantity", storedItem.stackSize);
+        }
+        else
+            tagCompound.setInteger("storedQuantity", 0);
     }
 
     @Override

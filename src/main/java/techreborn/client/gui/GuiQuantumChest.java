@@ -6,9 +6,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import techreborn.client.container.ContainerQuantumChest;
-import techreborn.client.container.ContainerQuantumTank;
 import techreborn.tiles.TileQuantumChest;
-import techreborn.tiles.TileQuantumTank;
 
 public class GuiQuantumChest extends GuiContainer {
 

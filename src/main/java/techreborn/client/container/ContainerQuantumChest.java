@@ -1,14 +1,12 @@
 package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
 import techreborn.client.SlotFake;
 import techreborn.client.SlotOutput;
 import techreborn.tiles.TileQuantumChest;
 
-public class ContainerQuantumChest extends Container {
+public class ContainerQuantumChest extends TechRebornContainer {
     public TileQuantumChest tileQuantumChest;
     public EntityPlayer player;
 
@@ -39,9 +37,4 @@ public class ContainerQuantumChest extends Container {
         return true;
     }
 
-    //TODO enable shift-clicking
-    public ItemStack transferStackInSlot(EntityPlayer player, int slot) {
-        ItemStack stack = null;
-        return stack;
-    }
 }
