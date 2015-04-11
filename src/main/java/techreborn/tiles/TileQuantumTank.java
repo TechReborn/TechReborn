@@ -14,6 +14,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
+import techreborn.init.ModBlocks;
 import techreborn.util.FluidUtils;
 import techreborn.util.Inventory;
 import techreborn.util.Tank;
@@ -153,38 +154,32 @@ public class TileQuantumTank extends TileEntity implements IFluidHandler, IInven
         return inventory.isItemValidForSlot(slot, stack);
     }
 
-	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
+        return false;
+    }
 
-	@Override
-	public short getFacing() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public short getFacing() {
+        return 0;
+    }
 
-	@Override
-	public void setFacing(short facing) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void setFacing(short facing) {
+    }
 
-	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
-		return true;
-	}
+    @Override
+    public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
+        return true;
+    }
 
-	@Override
-	public float getWrenchDropRate() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public float getWrenchDropRate() {
+        return 1F;
+    }
 
-	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+        return new ItemStack(ModBlocks.quantumTank);
+    }
 }
