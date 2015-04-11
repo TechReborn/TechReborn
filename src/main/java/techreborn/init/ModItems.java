@@ -12,6 +12,13 @@ public class ModItems {
     {
     	dusts = new ItemDusts();
         GameRegistry.registerItem(dusts, "dust");
+        
+        registerOreDict();
+    }
+    
+    public static void registerOreDict()
+    {
+    	//TODO
     }
 
 }

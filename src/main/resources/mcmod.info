@@ -1,0 +1,21 @@
+[
+{
+  "modid": "techreborn",
+  "name": "TechReborn",
+  "description": "",
+  "version": "@MODVERSION@",
+  "url": "",
+  "updateUrl": "",
+  "authorList": [
+    "modmuss50, Gigabit101"
+    
+  ],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [
+  ],
+  "parent":"",
+  "dependencies": [
+  ]
+}
+]
