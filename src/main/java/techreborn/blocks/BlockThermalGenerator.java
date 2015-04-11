@@ -55,7 +55,8 @@ public class BlockThermalGenerator extends BlockContainer {
 
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-        player.openGui(Core.INSTANCE, GuiHandler.thermalGeneratorID, world, x, y, z);
+        if(!player.isSneaking())
+            player.openGui(Core.INSTANCE, GuiHandler.thermalGeneratorID, world, x, y, z);
         return true;
     }
 

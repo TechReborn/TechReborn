@@ -17,6 +17,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
+import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.util.FluidUtils;
 import techreborn.util.Inventory;
@@ -27,7 +28,7 @@ public class TileThermalGenerator extends TileEntity implements IWrenchable, IFl
     public Tank tank = new Tank("TileThermalGenerator", FluidContainerRegistry.BUCKET_VOLUME * 10, this);
     public Inventory inventory = new Inventory(3, "TileThermalGenerator", 64);
     public BasicSource energySource;
-    public static final int euTick = 30;
+    public static final int euTick = ConfigTechReborn.ThermalGenertaorOutput;
 
     public TileThermalGenerator() {
         this.energySource = new BasicSource(this, 1000000, 1);

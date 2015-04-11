@@ -6,6 +6,8 @@ import techreborn.blocks.BlockQuantumTank;
 import techreborn.blocks.BlockThermalGenerator;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.itemblocks.ItemBlockOre;
+import techreborn.itemblocks.ItemBlockQuantumChest;
+import techreborn.itemblocks.ItemBlockQuantumTank;
 import techreborn.tiles.TileQuantumChest;
 import techreborn.tiles.TileQuantumTank;
 import techreborn.tiles.TileThermalGenerator;
@@ -27,11 +29,11 @@ public class ModBlocks {
 	    	GameRegistry.registerTileEntity(TileThermalGenerator.class, "TileThermalGenerator");
 
 	        quantumTank = new BlockQuantumTank().setBlockName("techreborn.quantumTank").setBlockTextureName("techreborn:quantumTank").setCreativeTab(TechRebornCreativeTab.instance);
-	        GameRegistry.registerBlock(quantumTank, "techreborn.quantumTank");
+	        GameRegistry.registerBlock(quantumTank, ItemBlockQuantumTank.class, "techreborn.quantumTank");
 	        GameRegistry.registerTileEntity(TileQuantumTank.class, "TileQuantumTank");
 
 	        quantumChest = new BlockQuantumChest().setBlockName("techreborn.quantumChest").setBlockTextureName("techreborn:quantumChest").setCreativeTab(TechRebornCreativeTab.instance);
-	        GameRegistry.registerBlock(quantumChest, "techreborn.quantumChest");
+	        GameRegistry.registerBlock(quantumChest, ItemBlockQuantumChest.class, "techreborn.quantumChest");
 	        GameRegistry.registerTileEntity(TileQuantumChest.class, "TileQuantumChest");
         
 	        ore = new BlockOre(Material.rock);
