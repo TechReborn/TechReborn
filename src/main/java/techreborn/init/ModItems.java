@@ -11,6 +11,7 @@ import techreborn.items.ItemDusts;
 import techreborn.items.ItemGems;
 import techreborn.items.ItemIngots;
 import techreborn.items.ItemParts;
+import techreborn.items.tools.ItemLapotronPack;
 import techreborn.items.tools.ItemLithiumBatpack;
 import techreborn.items.tools.ItemRockCutter;
 import techreborn.util.LogHelper;
@@ -24,6 +25,7 @@ public class ModItems {
     public static Item parts;
     public static Item rockCutter;
     public static Item lithiumBatpack;
+    public static Item lapotronpack;
 
     public static void init()
     {
@@ -39,6 +41,9 @@ public class ModItems {
         GameRegistry.registerItem(rockCutter, "rockCutter");
         lithiumBatpack = new ItemLithiumBatpack(ArmorMaterial.DIAMOND, 7, 1);
         GameRegistry.registerItem(lithiumBatpack, "lithiumBatpack");
+        lapotronpack = new ItemLapotronPack(ArmorMaterial.DIAMOND, 7, 1);
+        GameRegistry.registerItem(lapotronpack, "lapotronPack");
+        
 		LogHelper.info("TechReborns Items Loaded");
 
         registerOreDict();
