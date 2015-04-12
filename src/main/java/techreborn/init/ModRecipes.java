@@ -10,6 +10,7 @@ import techreborn.api.CentrifugeRecipie;
 import techreborn.api.TechRebornAPI;
 import techreborn.util.CraftingHelper;
 import techreborn.util.LogHelper;
+import techreborn.util.RecipeRemover;
 
 public class ModRecipes {
 	
@@ -26,6 +27,11 @@ public class ModRecipes {
 	
 	public static void removeIc2Recipes()
 	{
+		RecipeRemover.removeAnyRecipe(IC2Items.getItem("macerator"));
+		RecipeRemover.removeAnyRecipe(IC2Items.getItem("miningDrill"));
+		RecipeRemover.removeAnyRecipe(IC2Items.getItem("diamondDrill"));
+
+
 		LogHelper.info("IC2 Recipes Removed");
 	}
 	
@@ -37,6 +43,23 @@ public class ModRecipes {
 				'H', IC2Items.getItem("reinforcedGlass"),
 				'C', IC2Items.getItem("electronicCircuit"), 
 				'G', IC2Items.getItem("geothermalGenerator")});
+		CraftingHelper.addShapedOreRecipe(IC2Items.getItem("macerator"),
+				new Object[]{"FDF", "DMD", "FCF", 
+				'F', Items.flint, 
+				'D', Items.diamond,
+				'M', IC2Items.getItem("machine"), 
+				'C', IC2Items.getItem("electronicCircuit")});
+		CraftingHelper.addShapedOreRecipe(IC2Items.getItem("miningDrill"),
+				new Object[]{" S ", "SCS", "SBS", 
+				'S', "ingotSteel", 
+				'B', IC2Items.getItem("reBattery"), 
+				'C', IC2Items.getItem("electronicCircuit")});
+		CraftingHelper.addShapedOreRecipe(IC2Items.getItem("diamondDrill"),
+				new Object[]{" D ", "DBD", "TCT", 
+				'D', "gemDiamond",
+				'T', "ingotTitanium",
+				'B', IC2Items.getItem("miningDrill"), 
+				'C', IC2Items.getItem("advancedCircuit")});
 		
 		
 		
