@@ -12,6 +12,7 @@ import net.minecraft.tileentity.TileEntity;
 import techreborn.init.ModBlocks;
 import techreborn.util.FluidUtils;
 import techreborn.util.Inventory;
+import techreborn.util.ItemUtils;
 
 
 public class TileQuantumChest extends TileEntity implements IInventory ,IWrenchable{
@@ -38,7 +39,7 @@ public class TileQuantumChest extends TileEntity implements IInventory ,IWrencha
             if(storedItem == null){
                 storedItem = getStackInSlot(0);
                 setInventorySlotContents(0, null);
-            } else if (FluidUtils.isItemEqual(storedItem, getStackInSlot(0), true, true)){
+            } else if (ItemUtils.isItemEqual(storedItem, getStackInSlot(0), true, true)){
                 if(storedItem.stackSize <=Integer.MAX_VALUE - getStackInSlot(0).stackSize){
                     storedItem.stackSize += getStackInSlot(0).stackSize;
                     decrStackSize(0, getStackInSlot(0).stackSize);
@@ -51,7 +52,7 @@ public class TileQuantumChest extends TileEntity implements IInventory ,IWrencha
             itemStack.stackSize = itemStack.getMaxStackSize();
             setInventorySlotContents(1, itemStack);
             storedItem.stackSize -= itemStack.getMaxStackSize();
-        } else if(FluidUtils.isItemEqual(getStackInSlot(1), storedItem, true, true)){
+        } else if(ItemUtils.isItemEqual(getStackInSlot(1), storedItem, true, true)){
             int wanted = getStackInSlot(1).getMaxStackSize() - getStackInSlot(1).stackSize;
             if(storedItem.stackSize >= wanted){
                 decrStackSize(1, -wanted);

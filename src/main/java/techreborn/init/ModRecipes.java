@@ -1,5 +1,8 @@
 package techreborn.init;
 
+import net.minecraft.init.Items;
+import techreborn.api.CentrifugeRecipie;
+import techreborn.api.TechRebornAPI;
 import techreborn.util.LogHelper;
 
 public class ModRecipes {
@@ -35,6 +38,7 @@ public class ModRecipes {
 	
 	public static void addMachineRecipes()
 	{
+		TechRebornAPI.registerCentrifugeRecipe(new CentrifugeRecipie(Items.apple, 4, Items.beef, Items.baked_potato, null, null, 120));
 		LogHelper.info("Machine Recipes Added");
 	}
 

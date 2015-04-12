@@ -6,6 +6,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import techreborn.client.SlotFake;
 import techreborn.util.FluidUtils;
+import techreborn.util.ItemUtils;
 
 
 public abstract class TechRebornContainer extends Container {
@@ -45,7 +46,7 @@ public abstract class TechRebornContainer extends Container {
             for (int slotIndex = start; stackToShift.stackSize > 0 && slotIndex < end; slotIndex++) {
                 Slot slot = (Slot) inventorySlots.get(slotIndex);
                 ItemStack stackInSlot = slot.getStack();
-                if (stackInSlot != null && FluidUtils.isItemEqual(stackInSlot, stackToShift, true, true)) {
+                if (stackInSlot != null && ItemUtils.isItemEqual(stackInSlot, stackToShift, true, true)) {
                     int resultingStackSize = stackInSlot.stackSize + stackToShift.stackSize;
                     int max = Math.min(stackToShift.getMaxStackSize(), slot.getSlotStackLimit());
                     if (resultingStackSize <= max) {
