@@ -13,6 +13,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.init.ModItems;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -35,9 +36,9 @@ public class BlockOre extends Block{
 	}
 	
 	@Override
-	public Item getItemDropped(int par1, Random random, int par2)
+	public Item getItemDropped(int meta, Random random, int fortune)
 	{
-		return Item.getItemFromBlock(this);
+		return Item.getItemFromBlock(this);	
 	}
 
 	@Override

@@ -145,3 +145,6 @@ item.techreborn.part.SteelMachineHull.name=Steel Machine Hull
 item.techreborn.part.TitaniumMachineHull.name=Titanium Machine Hull
 item.techreborn.part.BrassMachineHull.name=Brass Machine Hull
 
+#Tools
+item.techreborn.rockcutter.name=Rockcutter
+

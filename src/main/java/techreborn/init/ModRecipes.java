@@ -5,13 +5,15 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import techreborn.api.CentrifugeRecipie;
 import techreborn.api.TechRebornAPI;
+import techreborn.config.ConfigTechReborn;
 import techreborn.util.CraftingHelper;
 import techreborn.util.LogHelper;
 import techreborn.util.RecipeRemover;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ModRecipes {
-		
+	public static ConfigTechReborn config;
+
 	public static void init()
 	{
 		removeIc2Recipes();
@@ -23,10 +25,14 @@ public class ModRecipes {
 	
 	public static void removeIc2Recipes()
 	{
-		RecipeRemover.removeAnyRecipe(IC2Items.getItem("macerator"));
-		RecipeRemover.removeAnyRecipe(IC2Items.getItem("miningDrill"));
-		RecipeRemover.removeAnyRecipe(IC2Items.getItem("diamondDrill"));
-		RecipeRemover.removeAnyRecipe(IC2Items.getItem("solarPanel"));
+		if(config.ExpensiveMacerator);
+			RecipeRemover.removeAnyRecipe(IC2Items.getItem("macerator"));
+		if(config.ExpensiveDrill);
+			RecipeRemover.removeAnyRecipe(IC2Items.getItem("miningDrill"));
+		if(config.ExpensiveDiamondDrill);
+			RecipeRemover.removeAnyRecipe(IC2Items.getItem("diamondDrill"));
+		if(config.ExpensiveSolar);
+			RecipeRemover.removeAnyRecipe(IC2Items.getItem("solarPanel"));
 
 		LogHelper.info("IC2 Recipes Removed");
 	}
@@ -35,27 +41,28 @@ public class ModRecipes {
 	{
 
 		//IC2 Recipes
-		CraftingHelper.addShapedOreRecipe(IC2Items.getItem("macerator"),
+		if(config.ExpensiveMacerator);
+			CraftingHelper.addShapedOreRecipe(IC2Items.getItem("macerator"),
 				new Object[]{"FDF", "DMD", "FCF", 
 				'F', Items.flint, 
 				'D', Items.diamond,
 				'M', IC2Items.getItem("machine"), 
 				'C', IC2Items.getItem("electronicCircuit")});
-		
-		CraftingHelper.addShapedOreRecipe(IC2Items.getItem("miningDrill"),
+		if(config.ExpensiveDrill);
+			CraftingHelper.addShapedOreRecipe(IC2Items.getItem("miningDrill"),
 				new Object[]{" S ", "SCS", "SBS", 
 				'S', "ingotSteel", 
 				'B', IC2Items.getItem("reBattery"), 
 				'C', IC2Items.getItem("electronicCircuit")});
-		
-		CraftingHelper.addShapedOreRecipe(IC2Items.getItem("diamondDrill"),
+		if(config.ExpensiveDiamondDrill);
+			CraftingHelper.addShapedOreRecipe(IC2Items.getItem("diamondDrill"),
 				new Object[]{" D ", "DBD", "TCT", 
 				'D', "gemDiamond",
 				'T', "ingotTitanium",
 				'B', IC2Items.getItem("miningDrill"), 
 				'C', IC2Items.getItem("advancedCircuit")});
-		
-		CraftingHelper.addShapedOreRecipe(IC2Items.getItem("solarPanel"),
+		if(config.ExpensiveSolar);
+			CraftingHelper.addShapedOreRecipe(IC2Items.getItem("solarPanel"),
 				new Object[]{"PPP", "SZS", "CGC", 
 				'P', "paneGlass",
 				'S', new ItemStack(ModItems.parts,1,1),
@@ -124,6 +131,7 @@ public class ModRecipes {
 				new Object[]{"AAA", "AMA", "AAA", 
 				'A', "ingotBrass",
 				'M', new ItemStack(ModItems.parts,1,13)});
+		
 		//Storage Blocks
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage,1,0),
 				new Object[]{"AAA", "AAA", "AAA", 
@@ -210,6 +218,8 @@ public class ModRecipes {
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots,9,14), "blockPlatinum");
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots,9,15), "blockNickel");
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots,9,16), "blockInvar");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.rockCutter), Items.apple);
+
 
 		LogHelper.info("Shapless Recipes Added");
 	}

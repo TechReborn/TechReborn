@@ -29,6 +29,8 @@ public class TechRebornConfigGui extends GuiConfig{
 				"tr.configgui.category.trWorld", TRWORLD.class));
         list.add(new DummyConfigElement.DummyCategoryElement("Power",
                 "tr.configgui.category.trPower", TRPOWER.class));
+        list.add(new DummyConfigElement.DummyCategoryElement("Crafting",
+                "tr.configgui.category.trCrafting", TRCRAFTING.class));
 
 		return list;
 	}
@@ -101,4 +103,28 @@ public class TechRebornConfigGui extends GuiConfig{
                             .toString()));
         }
     }
+    
+	// Crafting
+	public static class TRCRAFTING extends CategoryEntry {
+		public TRCRAFTING(GuiConfig owningScreen, GuiConfigEntries owningEntryList, IConfigElement configElement)
+		{
+			super(owningScreen, owningEntryList, configElement);
+		}
+		
+		@Override
+		protected GuiScreen buildChildScreen()
+		{
+			return new GuiConfig(this.owningScreen,
+					(new ConfigElement(ConfigTechReborn.config
+							.getCategory(ConfigTechReborn.CATEGORY_CRAFTING)))
+							.getChildElements(), this.owningScreen.modID,
+					Configuration.CATEGORY_GENERAL,
+					this.configElement.requiresWorldRestart()
+							|| this.owningScreen.allRequireWorldRestart,
+					this.configElement.requiresMcRestart()
+							|| this.owningScreen.allRequireMcRestart,
+					GuiConfig.getAbridgedConfigPath(ConfigTechReborn.config
+							.toString()));
+		}
+	}
 }

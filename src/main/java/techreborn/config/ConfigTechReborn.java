@@ -8,6 +8,7 @@ public class ConfigTechReborn {
 	private static ConfigTechReborn instance = null;
 	public static String CATEGORY_WORLD = "world";
     public static String CATEGORY_POWER = "power";
+    public static String CATEGORY_CRAFTING = "crafting";
 	
 	//WORLDGEN
 	public static boolean GalenaOreTrue;
@@ -25,6 +26,15 @@ public class ConfigTechReborn {
 
     //Power
     public static int ThermalGenertaorOutput;
+    
+    //Crafting
+    public static boolean ExpensiveMacerator;
+    public static boolean ExpensiveDrill;
+    public static boolean ExpensiveDiamondDrill;
+    public static boolean ExpensiveSolar;
+
+
+
 
 	
 	public static Configuration config;
@@ -112,11 +122,31 @@ public class ConfigTechReborn {
 				"Allow SodaliteOre", true,
 				"Allow SodaliteOre to be generated in your world.")
 				.getBoolean(true);
-
+		
+		//Power
         ThermalGenertaorOutput = config.get(CATEGORY_POWER,
                 "Thermal Generator Power", 30,
                 "The amount of power that the thermal generator makes for 1mb of lava")
                 .getInt();
+        
+		
+		//Crafting
+		ExpensiveMacerator = config.get(CATEGORY_CRAFTING,
+				"Allow Expensive Macerator", true,
+				"Allow TechReborn to overrite the IC2 recipe for Macerator.")
+				.getBoolean(true);
+		ExpensiveDrill = config.get(CATEGORY_CRAFTING,
+				"Allow Expensive Drill", true,
+				"Allow TechReborn to overrite the IC2 recipe for Drill.")
+				.getBoolean(true);
+		ExpensiveDiamondDrill = config.get(CATEGORY_CRAFTING,
+				"Allow Expensive DiamondDrill", true,
+				"Allow TechReborn to overrite the IC2 recipe for DiamondDrill.")
+				.getBoolean(true);
+		ExpensiveSolar = config.get(CATEGORY_CRAFTING,
+				"Allow Expensive Solar pannels", true,
+				"Allow TechReborn to overrite the IC2 recipe for Solar pannels.")
+				.getBoolean(true);
 		
 		if (config.hasChanged())
 			config.save();
