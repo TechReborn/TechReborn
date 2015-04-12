@@ -16,7 +16,7 @@ public class ItemParts extends Item{
 		"LazuriteChunk", "SiliconPlate", "MagnaliumPlate", "EnergeyFlowCircuit", "DataControlCircuit", "SuperConductor",
 		"DataStorageCircuit", "ComputerMonitor", "DiamondSawBlade","DiamondGrinder", "KanthalHeatingCoil", 
 		"NichromeHeatingCoil", "CupronickelHeatingCoil", "MachineParts", "WolframiamGrinder", 
-		"AluminiumMachineHull", "BronzeMachineHull","SteelMachineHull","TitaniumMachineHull" 
+		"AluminiumMachineHull", "BronzeMachineHull","SteelMachineHull","TitaniumMachineHull", "BrassMachineHull" 
 	};
 
 			private IIcon[] textures;
