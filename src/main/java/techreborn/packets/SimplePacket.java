@@ -1,7 +1,9 @@
 package techreborn.packets;
 
-import com.google.common.base.Charsets;
 import io.netty.buffer.ByteBuf;
+
+import java.io.IOException;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -9,7 +11,7 @@ import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 
-import java.io.IOException;
+import com.google.common.base.Charsets;
 
 public abstract class SimplePacket {
     protected EntityPlayer player;

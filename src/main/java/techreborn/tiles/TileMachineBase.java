@@ -1,11 +1,11 @@
 package techreborn.tiles;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
+
 import net.minecraft.tileentity.TileEntity;
 import techreborn.packets.PacketHandler;
-
-import java.util.List;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class TileMachineBase extends TileEntity {
 

@@ -1,6 +1,9 @@
 package techreborn.tiles;
 
 import ic2.api.tile.IWrenchable;
+
+import java.util.List;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -8,13 +11,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import techreborn.init.ModBlocks;
-import techreborn.util.FluidUtils;
 import techreborn.util.Inventory;
 import techreborn.util.ItemUtils;
-
-import java.util.List;
 
 
 public class TileQuantumChest extends TileMachineBase implements IInventory ,IWrenchable{

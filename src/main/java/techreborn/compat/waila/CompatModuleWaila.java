@@ -1,9 +1,9 @@
 package techreborn.compat.waila;
 
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLInterModComms;
 import mcp.mobius.waila.api.IWailaRegistrar;
 import techreborn.tiles.TileMachineBase;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLInterModComms;
 
 public class CompatModuleWaila {
 

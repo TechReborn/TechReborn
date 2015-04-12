@@ -1,21 +1,17 @@
 package techreborn.init;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import ic2.api.item.IC2Items;
-import ic2.core.Ic2Items;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import techreborn.api.CentrifugeRecipie;
 import techreborn.api.TechRebornAPI;
 import techreborn.util.CraftingHelper;
 import techreborn.util.LogHelper;
 import techreborn.util.RecipeRemover;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ModRecipes {
-	
-	public static Item dustIron;
-	
+		
 	public static void init()
 	{
 		removeIc2Recipes();
@@ -30,6 +26,8 @@ public class ModRecipes {
 		RecipeRemover.removeAnyRecipe(IC2Items.getItem("macerator"));
 		RecipeRemover.removeAnyRecipe(IC2Items.getItem("miningDrill"));
 		RecipeRemover.removeAnyRecipe(IC2Items.getItem("diamondDrill"));
+		RecipeRemover.removeAnyRecipe(IC2Items.getItem("solarPanel"));
+
 
 
 		LogHelper.info("IC2 Recipes Removed");
@@ -43,17 +41,20 @@ public class ModRecipes {
 				'H', IC2Items.getItem("reinforcedGlass"),
 				'C', IC2Items.getItem("electronicCircuit"), 
 				'G', IC2Items.getItem("geothermalGenerator")});
+		
 		CraftingHelper.addShapedOreRecipe(IC2Items.getItem("macerator"),
 				new Object[]{"FDF", "DMD", "FCF", 
 				'F', Items.flint, 
 				'D', Items.diamond,
 				'M', IC2Items.getItem("machine"), 
 				'C', IC2Items.getItem("electronicCircuit")});
+		
 		CraftingHelper.addShapedOreRecipe(IC2Items.getItem("miningDrill"),
 				new Object[]{" S ", "SCS", "SBS", 
 				'S', "ingotSteel", 
 				'B', IC2Items.getItem("reBattery"), 
 				'C', IC2Items.getItem("electronicCircuit")});
+		
 		CraftingHelper.addShapedOreRecipe(IC2Items.getItem("diamondDrill"),
 				new Object[]{" D ", "DBD", "TCT", 
 				'D', "gemDiamond",
@@ -61,8 +62,68 @@ public class ModRecipes {
 				'B', IC2Items.getItem("miningDrill"), 
 				'C', IC2Items.getItem("advancedCircuit")});
 		
+		CraftingHelper.addShapedOreRecipe(IC2Items.getItem("solarPanel"),
+				new Object[]{"PPP", "SZS", "CGC", 
+				'P', "paneGlass",
+				'S', new ItemStack(ModItems.parts,1,1),
+				'Z', IC2Items.getItem("carbonPlate"),
+				'G', IC2Items.getItem("generator"),
+				'C', IC2Items.getItem("electronicCircuit")});
 		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.parts,4,6),
+				new Object[]{"EEE", "EAE", "EEE", 
+				'E', "gemEmerald",
+				'A', IC2Items.getItem("electronicCircuit")});
 		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.parts,1,7),
+				new Object[]{"AGA", "RPB", "ASA", 
+				'A', "ingotAluminium",
+				'G', "dyeGreen",
+				'R', "dyeRed",
+				'P', "paneGlass",
+				'B', "dyeBlue",
+				'S', Items.glowstone_dust,});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.parts,4,8),
+				new Object[]{"DSD", "S S", "DSD", 
+				'D', "dustDiamond",
+				'S', "ingotSteel"});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.parts,16,13),
+				new Object[]{"CSC", "SCS", "CSC", 
+				'S', "ingotSteel",
+				'C', IC2Items.getItem("electronicCircuit")});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.parts,2,14),
+				new Object[]{"TST", "SBS", "TST", 
+				'S', "ingotSteel",
+				'T', "ingotTungsten",
+				'C', "blockSteel"});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.parts,1,15),
+				new Object[]{"AAA", "AMA", "AAA", 
+				'A', "ingotAluminium",
+				'M', new ItemStack(ModItems.parts,1,13)});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.parts,1,16),
+				new Object[]{"AAA", "AMA", "AAA", 
+				'A', "ingotBronze",
+				'M', new ItemStack(ModItems.parts,1,13)});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.parts,1,17),
+				new Object[]{"AAA", "AMA", "AAA", 
+				'A', "ingotSteel",
+				'M', new ItemStack(ModItems.parts,1,13)});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.parts,1,18),
+				new Object[]{"AAA", "AMA", "AAA", 
+				'A', "ingotTitanium",
+				'M', new ItemStack(ModItems.parts,1,13)});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.parts,1,19),
+				new Object[]{"AAA", "AMA", "AAA", 
+				'A', "ingotBrass",
+				'M', new ItemStack(ModItems.parts,1,13)});
 		
 		LogHelper.info("Shapped Recipes Added");
 	}

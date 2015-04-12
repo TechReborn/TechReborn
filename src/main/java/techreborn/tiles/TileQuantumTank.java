@@ -1,7 +1,9 @@
 package techreborn.tiles;
 
 import ic2.api.tile.IWrenchable;
-import io.netty.channel.ChannelHandler;
+
+import java.util.List;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -9,19 +11,15 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import techreborn.init.ModBlocks;
-import techreborn.packets.PacketHandler;
 import techreborn.util.FluidUtils;
 import techreborn.util.Inventory;
 import techreborn.util.Tank;
-
-import java.util.List;
 
 public class TileQuantumTank extends TileMachineBase implements IFluidHandler, IInventory, IWrenchable {
 

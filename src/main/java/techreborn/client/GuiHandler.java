@@ -1,7 +1,6 @@
 package techreborn.client;
 
 
-import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import techreborn.client.container.ContainerQuantumChest;
@@ -13,6 +12,7 @@ import techreborn.client.gui.GuiThermalGenerator;
 import techreborn.tiles.TileQuantumChest;
 import techreborn.tiles.TileQuantumTank;
 import techreborn.tiles.TileThermalGenerator;
+import cpw.mods.fml.common.network.IGuiHandler;
 
 public class GuiHandler implements IGuiHandler {
 

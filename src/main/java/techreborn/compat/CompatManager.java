@@ -1,8 +1,8 @@
 package techreborn.compat;
 
+import techreborn.compat.waila.CompatModuleWaila;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
-import techreborn.compat.waila.CompatModuleWaila;
 
 public class CompatManager {
 
