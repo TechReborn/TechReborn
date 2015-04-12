@@ -31,7 +31,7 @@ public class TROreGen implements IWorldGenerator{
 	{
 		//World
 		oreGalena = new WorldGenMinable(ModBlocks.ore, 0, 8, Blocks.stone);
-		oreIridium = new WorldGenMinable(ModBlocks.ore, 1, 8, Blocks.stone);
+		oreIridium = new WorldGenMinable(ModBlocks.ore, 1, 2, Blocks.stone);
 		oreRuby = new WorldGenMinable(ModBlocks.ore, 2, 8, Blocks.stone);
 		oreSapphire = new WorldGenMinable(ModBlocks.ore, 3, 8, Blocks.stone);
 		oreBauxite = new WorldGenMinable(ModBlocks.ore, 4, 8, Blocks.stone);
