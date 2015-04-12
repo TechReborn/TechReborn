@@ -98,7 +98,7 @@ public class ModRecipes {
 				new Object[]{"TST", "SBS", "TST", 
 				'S', "ingotSteel",
 				'T', "ingotTungsten",
-				'C', "blockSteel"});
+				'B', "blockSteel"});
 		
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.parts,1,15),
 				new Object[]{"AAA", "AMA", "AAA", 
