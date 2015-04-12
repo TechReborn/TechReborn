@@ -1,6 +1,7 @@
 package techreborn.tiles;
 
 import ic2.api.tile.IWrenchable;
+import io.netty.channel.ChannelHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -15,6 +16,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import techreborn.init.ModBlocks;
+import techreborn.packets.PacketHandler;
 import techreborn.util.FluidUtils;
 import techreborn.util.Inventory;
 import techreborn.util.Tank;

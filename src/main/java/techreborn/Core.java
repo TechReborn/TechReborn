@@ -12,6 +12,7 @@ import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
 import techreborn.init.ModRecipes;
 import techreborn.lib.ModInfo;
+import techreborn.packets.PacketHandler;
 import techreborn.util.LogHelper;
 import techreborn.world.TROreGen;
 
@@ -48,6 +49,8 @@ public class Core {
 		GameRegistry.registerWorldGenerator(new TROreGen(), 0);
 		//Register Gui Handler
 		NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
+        //packets
+        PacketHandler.setChannels(NetworkRegistry.INSTANCE.newChannel(ModInfo.MOD_ID + "_packets", new PacketHandler()));
 		LogHelper.info("Initialization Compleate");
 	}
 
