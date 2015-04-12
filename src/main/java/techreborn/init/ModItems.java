@@ -92,6 +92,19 @@ public class ModItems {
     	OreDictionary.registerOre("dustYellowGarnet", new ItemStack(dusts,1,56));
     	OreDictionary.registerOre("dustZinc", new ItemStack(dusts,1,57));
     	//Ingots
+    	OreDictionary.registerOre("ingotIridium", new ItemStack(ingots,1,3));
+    	OreDictionary.registerOre("ingotSilver", new ItemStack(ingots,1,4));
+    	OreDictionary.registerOre("ingotAluminium", new ItemStack(ingots,1,5));
+    	OreDictionary.registerOre("ingotTitanium", new ItemStack(ingots,1,6));
+    	OreDictionary.registerOre("ingotChrome", new ItemStack(ingots,1,7));
+    	OreDictionary.registerOre("ingotElectrum", new ItemStack(ingots,1,8));
+    	OreDictionary.registerOre("ingotTungsten", new ItemStack(ingots,1,9));
+    	OreDictionary.registerOre("ingotLead", new ItemStack(ingots,1,10));
+    	OreDictionary.registerOre("ingotZinc", new ItemStack(ingots,1,11));
+    	OreDictionary.registerOre("ingotBrass", new ItemStack(ingots,1,12));
+    	OreDictionary.registerOre("ingotSteel", new ItemStack(ingots,1,13));
+    	OreDictionary.registerOre("ingotPlatinum", new ItemStack(ingots,1,14));
+    	OreDictionary.registerOre("ingotNickel", new ItemStack(ingots,1,15));
     	OreDictionary.registerOre("ingotInvar", new ItemStack(ingots,1,16));
 
     }
