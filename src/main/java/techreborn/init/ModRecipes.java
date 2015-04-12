@@ -28,20 +28,13 @@ public class ModRecipes {
 		RecipeRemover.removeAnyRecipe(IC2Items.getItem("diamondDrill"));
 		RecipeRemover.removeAnyRecipe(IC2Items.getItem("solarPanel"));
 
-
-
 		LogHelper.info("IC2 Recipes Removed");
 	}
 	
 	public static void addShappedRecipes()
 	{
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.thermalGenerator),
-				new Object[]{"III", "IHI", "CGC", 
-				'I', "ingotInvar", 
-				'H', IC2Items.getItem("reinforcedGlass"),
-				'C', IC2Items.getItem("electronicCircuit"), 
-				'G', IC2Items.getItem("geothermalGenerator")});
-		
+
+		//IC2 Recipes
 		CraftingHelper.addShapedOreRecipe(IC2Items.getItem("macerator"),
 				new Object[]{"FDF", "DMD", "FCF", 
 				'F', Items.flint, 
@@ -70,6 +63,13 @@ public class ModRecipes {
 				'G', IC2Items.getItem("generator"),
 				'C', IC2Items.getItem("electronicCircuit")});
 		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.thermalGenerator),
+				new Object[]{"III", "IHI", "CGC", 
+				'I', "ingotInvar", 
+				'H', IC2Items.getItem("reinforcedGlass"),
+				'C', IC2Items.getItem("electronicCircuit"), 
+				'G', IC2Items.getItem("geothermalGenerator")});
+		//TechReborn Recipes
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.parts,4,6),
 				new Object[]{"EEE", "EAE", "EEE", 
 				'E', "gemEmerald",
@@ -124,12 +124,93 @@ public class ModRecipes {
 				new Object[]{"AAA", "AMA", "AAA", 
 				'A', "ingotBrass",
 				'M', new ItemStack(ModItems.parts,1,13)});
+		//Storage Blocks
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage,1,0),
+				new Object[]{"AAA", "AAA", "AAA", 
+				'A', "ingotSilver",});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage,1,1),
+				new Object[]{"AAA", "AAA", "AAA", 
+				'A', "ingotAluminium",});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage,1,2),
+				new Object[]{"AAA", "AAA", "AAA", 
+				'A', "ingotTitanium",});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage,1,3),
+				new Object[]{"AAA", "AAA", "AAA", 
+				'A', "gemSapphire",});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage,1,4),
+				new Object[]{"AAA", "AAA", "AAA", 
+				'A', "gemRuby",});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage,1,5),
+				new Object[]{"AAA", "AAA", "AAA", 
+				'A', "gemGreenSapphire",});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage,1,6),
+				new Object[]{"AAA", "AAA", "AAA", 
+				'A', "ingotChrome",});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage,1,7),
+				new Object[]{"AAA", "AAA", "AAA", 
+				'A', "ingotElectrum",});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage,1,8),
+				new Object[]{"AAA", "AAA", "AAA", 
+				'A', "ingotTungsten",});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage,1,9),
+				new Object[]{"AAA", "AAA", "AAA", 
+				'A', "ingotLead",});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage,1,10),
+				new Object[]{"AAA", "AAA", "AAA", 
+				'A', "ingotZinc",});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage,1,11),
+				new Object[]{"AAA", "AAA", "AAA", 
+				'A', "ingotBrass",});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage,1,12),
+				new Object[]{"AAA", "AAA", "AAA", 
+				'A', "ingotSteel",});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage,1,13),
+				new Object[]{"AAA", "AAA", "AAA", 
+				'A', "ingotPlatinum",});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage,1,14),
+				new Object[]{"AAA", "AAA", "AAA", 
+				'A', "ingotNickel",});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage,1,15),
+				new Object[]{"AAA", "AAA", "AAA", 
+				'A', "ingotInvar",});
 		
 		LogHelper.info("Shapped Recipes Added");
 	}
 	
 	public static void addShaplessRecipes()
 	{
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots,9,4), "blockSilver");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots,9,5), "blockAluminium");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots,9,6), "blockTitanium");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.gems,9,1), "blockSapphire");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.gems,9,0), "blockRuby");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.gems,9,2), "blockGreenSapphire");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots,9,7), "blockChrome");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots,9,8), "blockElectrum");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots,9,9), "blockTungsten");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots,9,10), "blockLead");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots,9,11), "blockZinc");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots,9,12), "blockBrass");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots,9,13), "blockSteel");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots,9,14), "blockPlatinum");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots,9,15), "blockNickel");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots,9,16), "blockInvar");
+
 		LogHelper.info("Shapless Recipes Added");
 	}
 	
