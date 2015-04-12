@@ -27,7 +27,9 @@ public class TileQuantumChest extends TileEntity implements IInventory ,IWrencha
     @Override
     public void updateEntity() {
         if(storedItem != null){
-            setInventorySlotContents(2, new ItemStack(storedItem.getItem()));
+            ItemStack fakeStack = storedItem.copy();
+            fakeStack.stackSize = 1;
+            setInventorySlotContents(2, fakeStack);
         } else {
             setInventorySlotContents(2, null);
         }
