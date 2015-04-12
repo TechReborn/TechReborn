@@ -48,18 +48,18 @@ public class ModBlocks {
 	    
 	    public static void registerOreDict()
 	    {
-	    	OreDictionary.registerOre("oreGalena", new ItemStack(ore,0));
-	    	OreDictionary.registerOre("oreIridium", new ItemStack(ore,1));
-	    	OreDictionary.registerOre("oreRuby", new ItemStack(ore,2));
-	    	OreDictionary.registerOre("oreSapphire", new ItemStack(ore,3));
-	    	OreDictionary.registerOre("oreBauxite", new ItemStack(ore,4));
-	    	OreDictionary.registerOre("orePyrite", new ItemStack(ore,5));
-	    	OreDictionary.registerOre("oreCinnabar", new ItemStack(ore,6));
-	    	OreDictionary.registerOre("oreSphalerite", new ItemStack(ore,7));
-	    	OreDictionary.registerOre("oreTungston", new ItemStack(ore,8));
-	    	OreDictionary.registerOre("oreSheldonite", new ItemStack(ore,9));
-	    	OreDictionary.registerOre("oreOlivine", new ItemStack(ore,10));
-	    	OreDictionary.registerOre("oreSodalite", new ItemStack(ore,11));
+	    	OreDictionary.registerOre("oreGalena", new ItemStack(ore,1,0));
+	    	OreDictionary.registerOre("oreIridium", new ItemStack(ore,1,1));
+	    	OreDictionary.registerOre("oreRuby", new ItemStack(ore,1,2));
+	    	OreDictionary.registerOre("oreSapphire", new ItemStack(ore,1,3));
+	    	OreDictionary.registerOre("oreBauxite", new ItemStack(ore,1,4));
+	    	OreDictionary.registerOre("orePyrite", new ItemStack(ore,1,5));
+	    	OreDictionary.registerOre("oreCinnabar", new ItemStack(ore,1,6));
+	    	OreDictionary.registerOre("oreSphalerite", new ItemStack(ore,1,7));
+	    	OreDictionary.registerOre("oreTungston", new ItemStack(ore,1,8));
+	    	OreDictionary.registerOre("oreSheldonite", new ItemStack(ore,1,9));
+	    	OreDictionary.registerOre("oreOlivine", new ItemStack(ore,1,10));
+	    	OreDictionary.registerOre("oreSodalite", new ItemStack(ore,1,11));
 	    }
 
 }
