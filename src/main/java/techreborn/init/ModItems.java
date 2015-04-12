@@ -5,11 +5,13 @@ import org.apache.logging.log4j.message.MapMessage.MapFormat;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item.ToolMaterial;
+import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraftforge.oredict.OreDictionary;
 import techreborn.items.ItemDusts;
 import techreborn.items.ItemGems;
 import techreborn.items.ItemIngots;
 import techreborn.items.ItemParts;
+import techreborn.items.tools.ItemLithiumBatpack;
 import techreborn.items.tools.ItemRockCutter;
 import techreborn.util.LogHelper;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -21,6 +23,7 @@ public class ModItems {
     public static Item gems;
     public static Item parts;
     public static Item rockCutter;
+    public static Item lithiumBatpack;
 
     public static void init()
     {
@@ -34,6 +37,8 @@ public class ModItems {
         GameRegistry.registerItem(parts, "part");
         rockCutter = new ItemRockCutter(ToolMaterial.EMERALD);
         GameRegistry.registerItem(rockCutter, "rockCutter");
+        lithiumBatpack = new ItemLithiumBatpack(ArmorMaterial.DIAMOND, 7, 1);
+        GameRegistry.registerItem(lithiumBatpack, "lithiumBatpack");
 		LogHelper.info("TechReborns Items Loaded");
 
         registerOreDict();

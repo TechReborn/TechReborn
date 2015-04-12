@@ -16,9 +16,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemRockCutter extends ItemPickaxe implements IElectricItem{
 	
-	public int maxCharge = 40000;
-    public int cost = 200;
-    public int hitCost = 300;
+	public int maxCharge = 10000;
+    public int cost = 500;
     public int tier = 2;
 
 	public ItemRockCutter(ToolMaterial toolMaterial) 
