@@ -1,10 +1,6 @@
 package techreborn.init;
 
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import ic2.api.recipe.Recipes;
 import techreborn.util.LogHelper;
-import techreborn.util.RecipeRemover;
 
 public class ModRecipes {
 	

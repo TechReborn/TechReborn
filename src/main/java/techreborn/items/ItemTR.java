@@ -1,9 +1,9 @@
 package techreborn.items;
 
-import techreborn.client.TechRebornCreativeTab;
-import techreborn.lib.ModInfo;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
+import techreborn.client.TechRebornCreativeTab;
+import techreborn.lib.ModInfo;
 
 public class ItemTR extends Item{
 	

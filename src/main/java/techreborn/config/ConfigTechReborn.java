@@ -1,8 +1,8 @@
 package techreborn.config;
 
-import java.io.File;
-
 import net.minecraftforge.common.config.Configuration;
+
+import java.io.File;
 
 public class ConfigTechReborn {
 	private static ConfigTechReborn instance = null;

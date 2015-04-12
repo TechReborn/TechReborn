@@ -1,7 +1,5 @@
 package techreborn.items;
 
-import java.util.List;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumRarity;
@@ -9,7 +7,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import techreborn.client.TechRebornCreativeTab;
-import techreborn.lib.ModInfo;
+
+import java.util.List;
 
 public class ItemParts extends Item{
 	public static final String[] types = new String[] 

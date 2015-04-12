@@ -1,17 +1,14 @@
 package techreborn.items;
 
-import java.util.List;
-
-import techreborn.Core;
-import techreborn.client.TechRebornCreativeTab;
-import techreborn.lib.ModInfo;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
+import techreborn.client.TechRebornCreativeTab;
+
+import java.util.List;
 
 public class ItemDusts extends ItemTR
 {
