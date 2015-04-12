@@ -67,6 +67,24 @@ public class ModBlocks {
 	    	OreDictionary.registerOre("oreSheldonite", new ItemStack(ore,1,9));
 	    	OreDictionary.registerOre("oreOlivine", new ItemStack(ore,1,10));
 	    	OreDictionary.registerOre("oreSodalite", new ItemStack(ore,1,11));
+	    	
+	    	OreDictionary.registerOre("blockSilver", new ItemStack(storage,1,0));
+	    	OreDictionary.registerOre("blockAluminium", new ItemStack(storage,1,1));
+	    	OreDictionary.registerOre("blockTitanium", new ItemStack(storage,1,2));
+	    	OreDictionary.registerOre("blockSapphire", new ItemStack(storage,1,3));
+	    	OreDictionary.registerOre("blockRuby", new ItemStack(storage,1,4));
+	    	OreDictionary.registerOre("blockGreenSapphire", new ItemStack(storage,1,5));
+	    	OreDictionary.registerOre("blockChrome", new ItemStack(storage,1,6));
+	    	OreDictionary.registerOre("blockElectrum", new ItemStack(storage,1,7));
+	    	OreDictionary.registerOre("blockTungsten", new ItemStack(storage,1,8));
+	    	OreDictionary.registerOre("blockLead", new ItemStack(storage,1,9));
+	    	OreDictionary.registerOre("blockZinc", new ItemStack(storage,1,10));
+	    	OreDictionary.registerOre("blockBrass", new ItemStack(storage,1,11));
+	    	OreDictionary.registerOre("blockSteel", new ItemStack(storage,1,12));
+	    	OreDictionary.registerOre("blockPlatinum", new ItemStack(storage,1,13));
+	    	OreDictionary.registerOre("blockNickel", new ItemStack(storage,1,14));
+	    	OreDictionary.registerOre("blockInvar", new ItemStack(storage,1,15));
+
 	    }
 
 }
