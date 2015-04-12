@@ -92,9 +92,20 @@ jar {
     classifier = 'universal'
 }
 
+task apiZip(type: Zip) {
+    from(sourceSets.main.java) {
+        include 'techreborn/api/**'
+        appendix = 'api'
+        classifier = "api"
+    }
+}
+
+apiZip.mustRunAfter deobfJar
+
 artifacts {
     archives sourceJar
     archives deobfJar
+    archives apiZip
 }
 
 uploadArchives {
@@ -122,7 +133,7 @@ uploadArchives {
                     licenses {
                         license {
                             name 'License'
-                            url 'https://github.com/TechReborn/TechReborn/blob/master/LICENSE'
+                            url 'https://raw.githubusercontent.com/TechReborn/TechReborn/master/LICENSE.md'
                             distribution 'repo'
                         }
                     }
@@ -131,6 +142,11 @@ uploadArchives {
                             id 'modmuss50'
                             name 'modmuss50'
                             roles { role 'developer' }
+                        }
+                        developer {
+                            id 'Gigabit101'
+                            name 'Gigabit101'
+                            roles { role 'Gigabit101' }
                         }
                     }
                 }
