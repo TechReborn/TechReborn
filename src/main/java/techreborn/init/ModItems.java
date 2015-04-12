@@ -106,6 +106,13 @@ public class ModItems {
     	OreDictionary.registerOre("ingotPlatinum", new ItemStack(ingots,1,14));
     	OreDictionary.registerOre("ingotNickel", new ItemStack(ingots,1,15));
     	OreDictionary.registerOre("ingotInvar", new ItemStack(ingots,1,16));
+    	//Gems
+    	OreDictionary.registerOre("gemRuby", new ItemStack(gems,1,0));
+    	OreDictionary.registerOre("gemSapphire", new ItemStack(gems,1,1));
+    	OreDictionary.registerOre("gemGreenSapphire", new ItemStack(gems,1,2));
+    	OreDictionary.registerOre("gemOlivine", new ItemStack(gems,1,3));
+    	OreDictionary.registerOre("gemRedGarnet", new ItemStack(gems,1,4));
+    	OreDictionary.registerOre("gemYellowGarnet", new ItemStack(gems,1,5));
 
     }
 
