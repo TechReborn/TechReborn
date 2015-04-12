@@ -14,8 +14,10 @@ import techreborn.util.FluidUtils;
 import techreborn.util.Inventory;
 import techreborn.util.ItemUtils;
 
+import java.util.List;
 
-public class TileQuantumChest extends TileEntity implements IInventory ,IWrenchable{
+
+public class TileQuantumChest extends TileMachineBase implements IInventory ,IWrenchable{
 
     //Slot 0 = Input
     //Slot 1 = Output
@@ -214,4 +216,13 @@ public class TileQuantumChest extends TileEntity implements IInventory ,IWrencha
         return dropStack;
     }
 
+    @Override
+    public void addWailaInfo(List<String> info) {
+        super.addWailaInfo(info);
+        if(storedItem != null){
+            info.add(storedItem.stackSize + " of " + storedItem.getItem().getItemStackDisplayName(storedItem));
+        } else {
+            info.add("Empty");
+        }
+    }
 }

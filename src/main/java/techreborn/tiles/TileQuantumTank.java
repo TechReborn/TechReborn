@@ -19,7 +19,9 @@ import techreborn.util.FluidUtils;
 import techreborn.util.Inventory;
 import techreborn.util.Tank;
 
-public class TileQuantumTank extends TileEntity implements IFluidHandler, IInventory, IWrenchable {
+import java.util.List;
+
+public class TileQuantumTank extends TileMachineBase implements IFluidHandler, IInventory, IWrenchable {
 
     public Tank tank = new Tank("TileQuantumTank", Integer.MAX_VALUE, this);
     public Inventory inventory = new Inventory(3, "TileQuantumTank", 64);
@@ -199,5 +201,15 @@ public class TileQuantumTank extends TileEntity implements IFluidHandler, IInven
         dropStack.setTagCompound(new NBTTagCompound());
         dropStack.stackTagCompound.setTag("tileEntity", tileEntity);
         return dropStack;
+    }
+
+    @Override
+    public void addWailaInfo(List<String> info) {
+        super.addWailaInfo(info);
+        if(tank.getFluid() != null){
+            info.add(tank.getFluidAmount() + " of " + tank.getFluidType().getName());
+        } else {
+            info.add("Empty");
+        }
     }
 }

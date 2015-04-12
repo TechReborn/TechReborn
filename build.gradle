@@ -58,7 +58,7 @@ task deleteOldArtifacts(type: Delete) {
 classes.dependsOn deleteOldArtifacts
 
 dependencies {
-    compile 'net.industrial-craft:industrialcraft-2:2.2.712-experimental:api'
+    compile 'net.industrial-craft:industrialcraft-2:2.2.712-experimental:dev'
     compile "codechicken:CodeChickenLib:1.7.10-1.1.3.127:dev"
     compile "codechicken:CodeChickenCore:1.7.10-1.0.4.+:dev"
     compile "codechicken:NotEnoughItems:1.7.10-1.0.4.+:dev"
