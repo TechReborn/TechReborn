@@ -37,7 +37,8 @@ if (ENV.BUILD_NUMBER) {
 minecraft {
     version = "1.7.10-10.13.2.1351-1.7.10"
     replace "@MODVERSION@", project.version
-    replaceIn "Core.java"
+    replaceIn "ModInfo.java"
+    replaceIn "package-info.java"
 }
 
 group = 'TechReborn'
@@ -55,7 +56,7 @@ dependencies {
 processResources
         {
             // this will ensure that this task is redone when the versions change.
-            inputs.property "version", project.version
+            inputs.property "@MODVERSION@", project.version
             inputs.property "mcversion", project.minecraft.version
 
             // replace stuff in mcmod.info, nothing else
