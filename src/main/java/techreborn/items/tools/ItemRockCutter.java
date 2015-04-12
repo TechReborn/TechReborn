@@ -1,8 +1,12 @@
 package techreborn.items.tools;
 
+import java.util.List;
+
+import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -35,6 +39,23 @@ public class ItemRockCutter extends ItemPickaxe implements IElectricItem{
 	public void registerIcons(IIconRegister iconRegister) 
 	{
 		this.itemIcon = iconRegister.registerIcon("techreborn:" + "rockcutter");
+	}
+	
+	@SuppressWarnings({"rawtypes", "unchecked"})
+	@SideOnly(Side.CLIENT)
+	public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) 
+	{
+		ItemStack itemStack = new ItemStack(this, 1);
+		if (getChargedItem(itemStack) == this) 
+		{
+			ItemStack charged = new ItemStack(this, 1);
+			ElectricItem.manager.charge(charged, 2147483647, 2147483647, true, false);
+			itemList.add(charged);
+		}
+		if (getEmptyItem(itemStack) == this) 
+		{
+			itemList.add(new ItemStack(this, 1, getMaxDamage()));
+		}
 	}
 	
 	 @Override
