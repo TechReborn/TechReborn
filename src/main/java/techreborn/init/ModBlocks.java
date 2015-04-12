@@ -7,11 +7,13 @@ import net.minecraftforge.oredict.OreDictionary;
 import techreborn.blocks.BlockOre;
 import techreborn.blocks.BlockQuantumChest;
 import techreborn.blocks.BlockQuantumTank;
+import techreborn.blocks.BlockStorage;
 import techreborn.blocks.BlockThermalGenerator;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.itemblocks.ItemBlockOre;
 import techreborn.itemblocks.ItemBlockQuantumChest;
 import techreborn.itemblocks.ItemBlockQuantumTank;
+import techreborn.itemblocks.ItemBlockStorage;
 import techreborn.tiles.TileQuantumChest;
 import techreborn.tiles.TileQuantumTank;
 import techreborn.tiles.TileThermalGenerator;
@@ -24,6 +26,7 @@ public class ModBlocks {
 	    public static Block quantumTank;
 	    public static Block quantumChest;
 	    public static Block ore;
+	    public static Block storage;
 	    
 	    public static void init()
 	    {
@@ -41,6 +44,10 @@ public class ModBlocks {
         
 	        ore = new BlockOre(Material.rock);
 	        GameRegistry.registerBlock(ore, ItemBlockOre.class, "techreborn.ore");
+			LogHelper.info("TechReborns Blocks Loaded");
+			
+			storage = new BlockStorage(Material.rock);
+	        GameRegistry.registerBlock(storage, ItemBlockStorage.class, "techreborn.storage");
 			LogHelper.info("TechReborns Blocks Loaded");
 
 	        registerOreDict();
