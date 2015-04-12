@@ -25,6 +25,14 @@ repositories {
         name = "ic2"
         url = "http://maven.ic2.player.to/"
     }
+    maven {
+        name "Mobius Repo"
+        url "http://mobiusstrip.eu/maven"
+    }
+    maven {
+        name 'CB Repo'
+        url "http://chickenbones.net/maven/"
+    }
 }
 
 def ENV = System.getenv()
@@ -51,6 +59,11 @@ classes.dependsOn deleteOldArtifacts
 
 dependencies {
     compile 'net.industrial-craft:industrialcraft-2:2.2.712-experimental:api'
+    compile "codechicken:CodeChickenLib:1.7.10-1.1.3.127:dev"
+    compile "codechicken:CodeChickenCore:1.7.10-1.0.4.+:dev"
+    compile "codechicken:NotEnoughItems:1.7.10-1.0.4.+:dev"
+    compile "codechicken:ForgeMultipart:1.7.10-1.1.2.331:dev"
+    compile "mcp.mobius.waila:Waila:1.5.10_1.7.10:dev"
 }
 
 processResources
@@ -153,4 +166,9 @@ uploadArchives {
             }
         }
     }
+}
+
+task wrapper(type: Wrapper) {
+    //To update the wrapper change the version bellow then run: gradle wrapper
+    gradleVersion = '2.3'
 }
