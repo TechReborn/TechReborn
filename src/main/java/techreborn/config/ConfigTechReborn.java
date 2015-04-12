@@ -133,19 +133,19 @@ public class ConfigTechReborn {
 		//Crafting
 		ExpensiveMacerator = config.get(CATEGORY_CRAFTING,
 				"Allow Expensive Macerator", true,
-				"Allow TechReborn to overrite the IC2 recipe for Macerator.")
+				"Allow TechReborn to overwrite the IC2 recipe for Macerator.")
 				.getBoolean(true);
 		ExpensiveDrill = config.get(CATEGORY_CRAFTING,
 				"Allow Expensive Drill", true,
-				"Allow TechReborn to overrite the IC2 recipe for Drill.")
+				"Allow TechReborn to overwrite the IC2 recipe for Drill.")
 				.getBoolean(true);
 		ExpensiveDiamondDrill = config.get(CATEGORY_CRAFTING,
 				"Allow Expensive DiamondDrill", true,
-				"Allow TechReborn to overrite the IC2 recipe for DiamondDrill.")
+				"Allow TechReborn to overwrite the IC2 recipe for DiamondDrill.")
 				.getBoolean(true);
 		ExpensiveSolar = config.get(CATEGORY_CRAFTING,
-				"Allow Expensive Solar pannels", true,
-				"Allow TechReborn to overrite the IC2 recipe for Solar pannels.")
+				"Allow Expensive Solar panels", true,
+				"Allow TechReborn to overwrite the IC2 recipe for Solar panels.")
 				.getBoolean(true);
 		
 		if (config.hasChanged())
