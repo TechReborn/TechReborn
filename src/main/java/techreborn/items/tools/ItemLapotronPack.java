@@ -7,6 +7,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.config.ConfigTechReborn;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -16,7 +17,7 @@ import net.minecraft.item.ItemStack;
 
 public class ItemLapotronPack extends ItemArmor implements IElectricItem{
 
-	public int maxCharge = 100000000;
+	public static final int maxCharge = ConfigTechReborn.LapotronPackCharge;
 	public int tier = 3;
 	public double transferLimit = 100000;
 	

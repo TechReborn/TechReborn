@@ -19,13 +19,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.event.ForgeEventFactory;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.config.ConfigTechReborn;
 import techreborn.util.TorchHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemAdvancedDrill extends ItemPickaxe implements IElectricItem{
 
-    public int maxCharge = 60000;
+    public static final int maxCharge = ConfigTechReborn.AdvancedDrillCharge;
     public int cost = 250;;
     public int tier = 2;
     public double transferLimit = 100;

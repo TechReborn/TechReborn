@@ -7,6 +7,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.config.ConfigTechReborn;
 import techreborn.util.TorchHelper;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -24,7 +25,7 @@ import net.minecraftforge.event.ForgeEventFactory;
 
 public class ItemOmniTool extends ItemPickaxe implements IElectricItem{
 
-	public int maxCharge = 20000;
+	public static final int maxCharge = ConfigTechReborn.OmniToolCharge;
     public int cost = 100;
     public int hitCost = 125;
     

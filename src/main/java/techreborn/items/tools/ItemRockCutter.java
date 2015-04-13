@@ -15,12 +15,13 @@ import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.config.ConfigTechReborn;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemRockCutter extends ItemPickaxe implements IElectricItem{
 	
-	public int maxCharge = 10000;
+	public static final int maxCharge = ConfigTechReborn.RockCutterCharge;
     public int cost = 500;
     public int tier = 2;
 
