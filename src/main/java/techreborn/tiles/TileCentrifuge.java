@@ -10,6 +10,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import techreborn.api.CentrifugeRecipie;
 import techreborn.api.TechRebornAPI;
+import techreborn.packets.PacketHandler;
 import techreborn.util.Inventory;
 import techreborn.util.ItemUtils;
 
@@ -180,6 +181,10 @@ public class TileCentrifuge extends TileMachineBase implements IInventory {
     public void writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
         inventory.writeToNBT(tagCompound);
+        writeUpdateToNBT(tagCompound);
+    }
+
+    public void writeUpdateToNBT(NBTTagCompound tagCompound) {
         if(currentRecipe != null){
             tagCompound.setString("recipe", currentRecipe.getInputItem().getUnlocalizedName());
         } else {
@@ -238,6 +243,7 @@ public class TileCentrifuge extends TileMachineBase implements IInventory {
 
     @Override
     public void openInventory() {
+        syncAllWithAll();
         inventory.openInventory();
     }
 
@@ -265,6 +271,24 @@ public class TileCentrifuge extends TileMachineBase implements IInventory {
         NBTTagCompound nbtTag = new NBTTagCompound();
         writeToNBT(nbtTag);
         return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, nbtTag);
+    }
+
+    public Packet getDescriptionPacketWithOutInv() {
+        NBTTagCompound nbtTag = new NBTTagCompound();
+        writeUpdateToNBT(nbtTag);
+        return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, nbtTag);
+    }
+
+    public void syncWithAll() {
+        if (!worldObj.isRemote) {
+            PacketHandler.sendPacketToAllPlayers(getDescriptionPacketWithOutInv(), worldObj);
+        }
+    }
+
+    public void syncAllWithAll() {
+        if (!worldObj.isRemote) {
+            PacketHandler.sendPacketToAllPlayers(getDescriptionPacket(), worldObj);
+        }
     }
 
     @Override
