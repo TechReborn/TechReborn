@@ -11,10 +11,13 @@ public class GuiCentrifuge extends GuiContainer {
 
     private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/centrifuge.png");
 
+    TileCentrifuge centrifuge;
+
     public GuiCentrifuge(EntityPlayer player, TileCentrifuge tileCentrifuge) {
         super(new ContainerCentrifuge(tileCentrifuge, player));
         this.xSize = 176;
         this.ySize = 167;
+        centrifuge = tileCentrifuge;
     }
 
     @Override
@@ -29,5 +32,6 @@ public class GuiCentrifuge extends GuiContainer {
     {
         this.fontRendererObj.drawString("Centrifuge", 110, 6, 4210752);
         this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
+        this.fontRendererObj.drawString(centrifuge.tickTime + " " + centrifuge.isRunning, 110, this.ySize - 96 + 2, 4210752);
     }
 }

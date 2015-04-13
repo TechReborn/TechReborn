@@ -6,6 +6,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import techreborn.api.CentrifugeRecipie;
 import techreborn.api.TechRebornAPI;
 import techreborn.util.Inventory;
@@ -33,71 +36,85 @@ public class TileCentrifuge extends TileMachineBase implements IInventory {
     public void updateEntity() {
         super.updateEntity();
         energy.updateEntity();
-        if(isRunning){
-            if(ItemUtils.isItemEqual(currentRecipe.getInputItem(), getStackInSlot(0), true, true)){
-                if(!hasTakenCells){
-                    if(getStackInSlot(1) != null &&  ItemUtils.isItemEqual(getStackInSlot(1), IC2Items.getItem("resin"), true, true)){
-                        if(getStackInSlot(1).stackSize >= currentRecipe.getCells()){
-                            decrStackSize(1, currentRecipe.getCells());
-                            hasTakenCells = true;
+        if(!worldObj.isRemote){
+            if(isRunning){
+                if(ItemUtils.isItemEqual(currentRecipe.getInputItem(), getStackInSlot(0), true, true)){
+                    if(!hasTakenCells){
+                        if(getStackInSlot(1) != null &&  ItemUtils.isItemEqual(getStackInSlot(1), IC2Items.getItem("resin"), true, true)){
+                            if(getStackInSlot(1).stackSize >= currentRecipe.getCells()){
+                                decrStackSize(1, currentRecipe.getCells());
+                                hasTakenCells = true;
+                            }
+                        }
+                    }
+                    if(hasTakenCells && hasTakenItem){
+                        if(tickTime == currentRecipe.getTickTime()) {
+                            if(areOutputsEmpty()){
+                                setOutput(1, currentRecipe.getOutput1());
+                                setOutput(2, currentRecipe.getOutput2());
+                                setOutput(3, currentRecipe.getOutput3());
+                                setOutput(4, currentRecipe.getOutput4());
+                            } else if(areOutputsEqual()){
+                                if(currentRecipe.getOutput1() != null)
+                                    increacseItemStack(1, 1);
+                                if(currentRecipe.getOutput2() != null)
+                                    increacseItemStack(2, 1);
+                                if(currentRecipe.getOutput3() != null)
+                                    increacseItemStack(3, 1);
+                                if(currentRecipe.getOutput4() != null)
+                                    increacseItemStack(4, 1);
+                            }
+                            tickTime = 0;
+                            isRunning = false;
+                            hasTakenCells = false;
+                            hasTakenItem = false;
+                            syncWithAll();
+                            return;
+                        }
+                        if(energy.canUseEnergy(euTick)){
+                            if(getStackInSlot(0) != null && ItemUtils.isItemEqual(getStackInSlot(0), currentRecipe.getInputItem(), true, true)){
+                                if(energy.useEnergy(5)){
+                                    tickTime ++;
+                                    syncWithAll();
+                                }
+                            }
                         }
                     }
                 }
-                if(hasTakenCells && hasTakenItem){
-                  if(tickTime == currentRecipe.getTickTime()) {
-                      if(areOutputsEqual() || areOutputsEmpty()){
-                          setOutput(1, currentRecipe.getOutput1());
-                          setOutput(2, currentRecipe.getOutput2());
-                          setOutput(3, currentRecipe.getOutput3());
-                          setOutput(4, currentRecipe.getOutput4());
-                          tickTime = 0;
-                          isRunning = false;
-                      }
-                      return;
-                  }
-                  if(energy.canUseEnergy(euTick)){
-                      if(getStackInSlot(0) != null && ItemUtils.isItemEqual(getStackInSlot(0), currentRecipe.getInputItem(), true, true)){
-                          if(useEnergy(5)){
-                              tickTime ++;
-                          }
-                      }
-                  }
-                }
-            }
-        } else {
-            //sets a new recipe
-            if(getStackInSlot(0) != null && currentRecipe == null){
-                for(CentrifugeRecipie recipie: TechRebornAPI.centrifugeRecipies){
-                    if(ItemUtils.isItemEqual(recipie.getInputItem(), getStackInSlot(0), true, true)){
-                        currentRecipe = new CentrifugeRecipie(recipie);
+            } else {
+                //sets a new recipe
+                if(getStackInSlot(0) != null && currentRecipe == null){
+                    for(CentrifugeRecipie recipie: TechRebornAPI.centrifugeRecipies){
+                        if(ItemUtils.isItemEqual(recipie.getInputItem(), getStackInSlot(0), true, true)){
+                            currentRecipe = new CentrifugeRecipie(recipie);
+                        }
                     }
                 }
-            }
-            if(!isRunning && currentRecipe != null){
-                if(areOutputsEqual() || areOutputsEmpty()){
-
-                    if(currentRecipe.getInputItem().stackSize <= getStackInSlot(0).stackSize){
-                        if(energy.canUseEnergy(euTick)){
-                            decrStackSize(0, currentRecipe.getInputItem().stackSize);
-                            hasTakenItem = true;
-                            tickTime = 0;
-                            isRunning = true;
+                if(!isRunning && currentRecipe != null){
+                    if(areOutputsEqual() || areOutputsEmpty()){
+                        if(getStackInSlot(0) != null && currentRecipe.getInputItem().stackSize <= getStackInSlot(0).stackSize){
+                            if(energy.canUseEnergy(euTick)){
+                                decrStackSize(0, currentRecipe.getInputItem().stackSize);
+                                hasTakenItem = true;
+                                tickTime = 0;
+                                isRunning = true;
+                                syncWithAll();
+                            }
                         }
                     }
                 }
             }
         }
-        System.out.println(hasTakenItem);
     }
 
     public boolean areOutputsEqual(){
         if(currentRecipe == null){
             return false;
         }
-        if(ItemUtils.isItemEqual(getOutputItemStack(1), currentRecipe.getOutput1(), true, true)){
-            if(ItemUtils.isItemEqual(getOutputItemStack(2), currentRecipe.getOutput2(), true, true)){
-                if(ItemUtils.isItemEqual(getOutputItemStack(3), currentRecipe.getOutput3(), true, true)){
-                    if(ItemUtils.isItemEqual(getOutputItemStack(4), currentRecipe.getOutput4(), true, true)){
+        if(ItemUtils.isItemEqual(getOutputItemStack(1), currentRecipe.getOutput1(), false, true)){
+            if(ItemUtils.isItemEqual(getOutputItemStack(2), currentRecipe.getOutput2(), false, true)){
+                if(ItemUtils.isItemEqual(getOutputItemStack(3), currentRecipe.getOutput3(), false, true)){
+                    if(ItemUtils.isItemEqual(getOutputItemStack(4), currentRecipe.getOutput4(), false, true)){
                         return true;
                     }
                 }
@@ -110,12 +127,18 @@ public class TileCentrifuge extends TileMachineBase implements IInventory {
         return getOutputItemStack(1) == null && getOutputItemStack(2) == null && getOutputItemStack(3) == null && getOutputItemStack(4) == null;
     }
 
-
     public ItemStack getOutputItemStack(int slot){
         return getStackInSlot(slot + 1);
     }
 
+    public void increacseItemStack(int slot, int amount) {
+        decrStackSize(slot + 1, -amount);
+    }
+
     public void setOutput(int slot, ItemStack stack){
+        if(stack == null){
+            return;
+        }
         setInventorySlotContents(slot + 1, stack);
     }
 
@@ -123,12 +146,27 @@ public class TileCentrifuge extends TileMachineBase implements IInventory {
     public void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
         inventory.readFromNBT(tagCompound);
+        String recipeName = tagCompound.getString("recipe");
+        for(CentrifugeRecipie recipie : TechRebornAPI.centrifugeRecipies){
+            if(recipie.getInputItem().getUnlocalizedName().equals(recipeName)){
+                currentRecipe = new CentrifugeRecipie(recipie);
+            }
+        }
+        isRunning = tagCompound.getBoolean("isRunning");
+        tickTime = tagCompound.getInteger("tickTime");
+        hasTakenCells = tagCompound.getBoolean("hasTakenCells");
+        hasTakenItem = tagCompound.getBoolean("hasTakenItem");
     }
 
     @Override
     public void writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
         inventory.writeToNBT(tagCompound);
+        tagCompound.setString("recipe", currentRecipe.getInputItem().getUnlocalizedName());
+        tagCompound.setBoolean("isRunning", isRunning);
+        tagCompound.setInteger("tickTime", tickTime);
+        tagCompound.setBoolean("hasTakenCells", hasTakenCells);
+        tagCompound.setBoolean("hasTakenItem", hasTakenItem);
     }
 
     @Override
@@ -201,12 +239,15 @@ public class TileCentrifuge extends TileMachineBase implements IInventory {
         energy.onChunkUnload();
     }
 
-    public boolean useEnergy(double amount) {
-        if(energy.canUseEnergy(amount)) {
-            energy.setEnergyStored(energy.getEnergyStored() - amount);
-            return true;
-        } else {
-            return false;
-        }
+    public Packet getDescriptionPacket() {
+        NBTTagCompound nbtTag = new NBTTagCompound();
+        writeToNBT(nbtTag);
+        return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, nbtTag);
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
+        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
+        readFromNBT(packet.func_148857_g());
     }
 }

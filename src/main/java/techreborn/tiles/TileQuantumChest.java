@@ -62,6 +62,7 @@ public class TileQuantumChest extends TileMachineBase implements IInventory ,IWr
                 storedItem = null;
             }
         }
+        syncWithAll();
     }
 
 
