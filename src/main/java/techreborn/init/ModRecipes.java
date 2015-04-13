@@ -239,7 +239,7 @@ public class ModRecipes {
 	
 	public static void addMachineRecipes()
 	{
-		TechRebornAPI.registerCentrifugeRecipe(new CentrifugeRecipie(Items.apple, 4, Items.beef, Items.baked_potato, null, null, 120));
+		TechRebornAPI.registerCentrifugeRecipe(new CentrifugeRecipie(Items.apple, 4, Items.beef, Items.baked_potato, null, null, 120, 4));
 		LogHelper.info("Machine Recipes Added");
 	}
 
