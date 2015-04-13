@@ -13,6 +13,7 @@ import techreborn.itemblocks.ItemBlockStorage;
 import techreborn.tiles.TileCentrifuge;
 import techreborn.tiles.TileQuantumChest;
 import techreborn.tiles.TileQuantumTank;
+import techreborn.tiles.TileRollingMachine;
 import techreborn.tiles.TileThermalGenerator;
 import techreborn.util.LogHelper;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -23,6 +24,8 @@ public class ModBlocks {
 	    public static Block quantumTank;
 	    public static Block quantumChest;
 		public static Block centrifuge;
+	    public static Block RollingMachine;
+
 	    public static Block ore;
 	    public static Block storage;
 	    
@@ -43,7 +46,12 @@ public class ModBlocks {
 			centrifuge = new BlockCentrifuge().setBlockName("techreborn.centrifuge").setBlockTextureName("techreborn:centrifuge").setCreativeTab(TechRebornCreativeTab.instance);
 			GameRegistry.registerBlock(centrifuge, "techreborn.centrifuge");
 			GameRegistry.registerTileEntity(TileCentrifuge.class, "TileCentrifuge");
-        
+			
+			RollingMachine = new BlockRollingMachine(Material.piston);
+			GameRegistry.registerBlock(RollingMachine, "rollingmachine");
+			GameRegistry.registerTileEntity(TileRollingMachine.class, "TileRollingMachine");
+			
+			
 	        ore = new BlockOre(Material.rock);
 	        GameRegistry.registerBlock(ore, ItemBlockOre.class, "techreborn.ore");
 			LogHelper.info("TechReborns Blocks Loaded");
