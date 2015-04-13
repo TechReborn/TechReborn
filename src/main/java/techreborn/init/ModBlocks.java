@@ -4,16 +4,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
-import techreborn.blocks.BlockOre;
-import techreborn.blocks.BlockQuantumChest;
-import techreborn.blocks.BlockQuantumTank;
-import techreborn.blocks.BlockStorage;
-import techreborn.blocks.BlockThermalGenerator;
+import techreborn.blocks.*;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.itemblocks.ItemBlockOre;
 import techreborn.itemblocks.ItemBlockQuantumChest;
 import techreborn.itemblocks.ItemBlockQuantumTank;
 import techreborn.itemblocks.ItemBlockStorage;
+import techreborn.tiles.TileCentrifuge;
 import techreborn.tiles.TileQuantumChest;
 import techreborn.tiles.TileQuantumTank;
 import techreborn.tiles.TileThermalGenerator;
@@ -25,6 +22,7 @@ public class ModBlocks {
 	    public static Block thermalGenerator;
 	    public static Block quantumTank;
 	    public static Block quantumChest;
+		public static Block centrifuge;
 	    public static Block ore;
 	    public static Block storage;
 	    
@@ -41,6 +39,10 @@ public class ModBlocks {
 	        quantumChest = new BlockQuantumChest().setBlockName("techreborn.quantumChest").setBlockTextureName("techreborn:quantumChest").setCreativeTab(TechRebornCreativeTab.instance);
 	        GameRegistry.registerBlock(quantumChest, ItemBlockQuantumChest.class, "techreborn.quantumChest");
 	        GameRegistry.registerTileEntity(TileQuantumChest.class, "TileQuantumChest");
+
+			centrifuge = new BlockCentrifuge().setBlockName("techreborn.centrifuge").setBlockTextureName("techreborn:centrifuge").setCreativeTab(TechRebornCreativeTab.instance);
+			GameRegistry.registerBlock(centrifuge, "techreborn.centrifuge");
+			GameRegistry.registerTileEntity(TileCentrifuge.class, "TileCentrifuge");
         
 	        ore = new BlockOre(Material.rock);
 	        GameRegistry.registerBlock(ore, ItemBlockOre.class, "techreborn.ore");
