@@ -26,6 +26,11 @@ public class ConfigTechReborn {
 
     //Power
     public static int ThermalGenertaorOutput;
+    public static int AdvancedDrillCharge;
+    public static int LapotronPackCharge;
+    public static int LithiumBatpackCharge;
+    public static int OmniToolCharge;
+    public static int RockCutterCharge;
     
     //Crafting
     public static boolean ExpensiveMacerator;
@@ -127,6 +132,26 @@ public class ConfigTechReborn {
         ThermalGenertaorOutput = config.get(CATEGORY_POWER,
                 "Thermal Generator Power", 30,
                 "The amount of power that the thermal generator makes for 1mb of lava")
+                .getInt();
+        AdvancedDrillCharge = config.get(CATEGORY_POWER,
+                "Advanced drill max charge", 60000,
+                "The amount of power that the anvanced drill can hold")
+                .getInt();
+        LapotronPackCharge = config.get(CATEGORY_POWER,
+                "Lapotron Pack max charge", 100000000,
+                "The amount of power that the Lapotron Pack can hold")
+                .getInt();
+        LithiumBatpackCharge = config.get(CATEGORY_POWER,
+                "Lithium Batpack max charge", 4000000,
+                "The amount of power that the Lithium Batpack can hold")
+                .getInt();
+        OmniToolCharge = config.get(CATEGORY_POWER,
+                "OmniTool max charge", 20000,
+                "The amount of power that the OmniTool can hold")
+                .getInt();
+        RockCutterCharge = config.get(CATEGORY_POWER,
+                "RockCutter max charge", 10000,
+                "The amount of power that the RockCutter can hold")
                 .getInt();
         
 		

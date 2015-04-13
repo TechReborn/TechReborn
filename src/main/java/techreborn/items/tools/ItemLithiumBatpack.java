@@ -11,14 +11,15 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.config.ConfigTechReborn;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemLithiumBatpack extends ItemArmor implements IElectricItem{
 
-	public int maxCharge = 40000000;
+	public static final int maxCharge = ConfigTechReborn.LithiumBatpackCharge;
 	public int tier = 3;
-	public double transferLimit = 100000;
+	public double transferLimit = 10000;
 	    
 	public ItemLithiumBatpack(ArmorMaterial armorMaterial, int par3, int par4) 
 	{
