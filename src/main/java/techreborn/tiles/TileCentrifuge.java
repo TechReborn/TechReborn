@@ -1,7 +1,6 @@
 package techreborn.tiles;
 
 import ic2.api.energy.prefab.BasicSink;
-import ic2.api.item.IC2Items;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -40,7 +39,7 @@ public class TileCentrifuge extends TileMachineBase implements IInventory {
             if(isRunning){
                 if(ItemUtils.isItemEqual(currentRecipe.getInputItem(), getStackInSlot(0), true, true)){
                     if(!hasTakenCells){
-                        if(getStackInSlot(1) != null &&  ItemUtils.isItemEqual(getStackInSlot(1), IC2Items.getItem("resin"), true, true)){
+                        if(getStackInSlot(1) != null && getStackInSlot(1) != null && getStackInSlot(1).getUnlocalizedName().equals("ic2.itemFluidCell")){
                             if(getStackInSlot(1).stackSize >= currentRecipe.getCells()){
                                 decrStackSize(1, currentRecipe.getCells());
                                 hasTakenCells = true;
@@ -49,6 +48,9 @@ public class TileCentrifuge extends TileMachineBase implements IInventory {
                     }
                     if(hasTakenCells && hasTakenItem){
                         if(tickTime == currentRecipe.getTickTime()) {
+                            if(areAnyOutputsFull()){
+                                return;
+                            }
                             if(areOutputsEmpty()){
                                 setOutput(1, currentRecipe.getOutput1());
                                 setOutput(2, currentRecipe.getOutput2());
@@ -91,7 +93,7 @@ public class TileCentrifuge extends TileMachineBase implements IInventory {
                     }
                 }
                 if(!isRunning && currentRecipe != null){
-                    if(areOutputsEqual() || areOutputsEmpty()){
+                    if(areOutputsEqual() || areOutputsEmpty() && !areAnyOutputsFull()){
                         if(getStackInSlot(0) != null && currentRecipe.getInputItem().stackSize <= getStackInSlot(0).stackSize){
                             if(energy.canUseEnergy(euTick)){
                                 decrStackSize(0, currentRecipe.getInputItem().stackSize);
@@ -125,6 +127,22 @@ public class TileCentrifuge extends TileMachineBase implements IInventory {
 
     public boolean areOutputsEmpty(){
         return getOutputItemStack(1) == null && getOutputItemStack(2) == null && getOutputItemStack(3) == null && getOutputItemStack(4) == null;
+    }
+
+    public boolean areAnyOutputsFull(){
+        if(currentRecipe.getOutput1() != null && getOutputItemStack(1) != null && getOutputItemStack(1).stackSize + currentRecipe.getOutput1().stackSize > currentRecipe.getOutput1().getMaxStackSize()){
+           return true; 
+        }
+        if(currentRecipe.getOutput2() != null && getOutputItemStack(2) != null && getOutputItemStack(2).stackSize + currentRecipe.getOutput2().stackSize > currentRecipe.getOutput1().getMaxStackSize()){
+            return true;
+        }
+        if(currentRecipe.getOutput3() != null && getOutputItemStack(3) != null && getOutputItemStack(3).stackSize + currentRecipe.getOutput3().stackSize > currentRecipe.getOutput1().getMaxStackSize()){
+            return true;
+        }
+        if(currentRecipe.getOutput4() != null && getOutputItemStack(4) != null && getOutputItemStack(4).stackSize + currentRecipe.getOutput4().stackSize > currentRecipe.getOutput1().getMaxStackSize()){
+            return true;
+        }
+        return false;
     }
 
     public ItemStack getOutputItemStack(int slot){
@@ -162,7 +180,11 @@ public class TileCentrifuge extends TileMachineBase implements IInventory {
     public void writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
         inventory.writeToNBT(tagCompound);
-        tagCompound.setString("recipe", currentRecipe.getInputItem().getUnlocalizedName());
+        if(currentRecipe != null){
+            tagCompound.setString("recipe", currentRecipe.getInputItem().getUnlocalizedName());
+        } else {
+            tagCompound.setString("recipe", "none");
+        }
         tagCompound.setBoolean("isRunning", isRunning);
         tagCompound.setInteger("tickTime", tickTime);
         tagCompound.setBoolean("hasTakenCells", hasTakenCells);
