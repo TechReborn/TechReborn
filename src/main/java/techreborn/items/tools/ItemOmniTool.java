@@ -7,6 +7,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.util.TorchHelper;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -103,36 +104,7 @@ public class ItemOmniTool extends ItemPickaxe implements IElectricItem{
 	    @Override
 	    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float xOffset, float yOffset, float zOffset) 
 	    {
-	        for (int i = 0; i < player.inventory.mainInventory.length; i++) {
-	            ItemStack torchStack = player.inventory.mainInventory[i];
-	            if (torchStack == null || !torchStack.getUnlocalizedName().toLowerCase().contains("torch")) 
-	            {
-	                continue;
-	            }
-	            Item item = torchStack.getItem();
-	            if (!(item instanceof ItemBlock)) 
-	            {
-	                continue;
-	            }
-	            int oldMeta = torchStack.getItemDamage();
-	            int oldSize = torchStack.stackSize;
-	            boolean result = torchStack.tryPlaceItemIntoWorld(player, world, x, y, z, side, xOffset, yOffset, zOffset);
-	            if (player.capabilities.isCreativeMode) 
-	            {
-	                torchStack.setItemDamage(oldMeta);
-	                torchStack.stackSize = oldSize;
-	            } else if (torchStack.stackSize <= 0) 
-	            {
-	                ForgeEventFactory.onPlayerDestroyItem(player, torchStack);
-	                player.inventory.mainInventory[i] = null;
-	            }
-	            if (result) 
-	            {
-	                return true;
-	            }
-	        }
-
-	        return super.onItemUse(stack, player, world, x, y, z, side, xOffset, yOffset, zOffset);
+	        return TorchHelper.placeTorch(stack, player, world, x, y, z, side, xOffset, yOffset, zOffset);
 	    }
 
 	    @Override

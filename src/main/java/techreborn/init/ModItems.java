@@ -11,6 +11,7 @@ import techreborn.items.ItemDusts;
 import techreborn.items.ItemGems;
 import techreborn.items.ItemIngots;
 import techreborn.items.ItemParts;
+import techreborn.items.tools.ItemAdvancedDrill;
 import techreborn.items.tools.ItemLapotronPack;
 import techreborn.items.tools.ItemLithiumBatpack;
 import techreborn.items.tools.ItemOmniTool;
@@ -28,6 +29,7 @@ public class ModItems {
     public static Item lithiumBatpack;
     public static Item lapotronpack;
     public static Item omniTool;
+    public static Item advancedDrill;
 
     public static void init()
     {
@@ -47,6 +49,8 @@ public class ModItems {
         GameRegistry.registerItem(lapotronpack, "lapotronPack");
         omniTool = new ItemOmniTool(ToolMaterial.EMERALD);
         GameRegistry.registerItem(omniTool, "omniTool");
+        advancedDrill = new ItemAdvancedDrill();
+        GameRegistry.registerItem(advancedDrill, "advancedDrill");
         
 		LogHelper.info("TechReborns Items Loaded");
 
