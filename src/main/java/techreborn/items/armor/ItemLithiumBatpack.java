@@ -1,4 +1,4 @@
-package techreborn.items.tools;
+package techreborn.items.armor;
 
 import java.util.List;
 

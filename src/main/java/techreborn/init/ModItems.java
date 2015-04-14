@@ -11,9 +11,10 @@ import techreborn.items.ItemDusts;
 import techreborn.items.ItemGems;
 import techreborn.items.ItemIngots;
 import techreborn.items.ItemParts;
+import techreborn.items.armor.ItemGravityChest;
+import techreborn.items.armor.ItemLapotronPack;
+import techreborn.items.armor.ItemLithiumBatpack;
 import techreborn.items.tools.ItemAdvancedDrill;
-import techreborn.items.tools.ItemLapotronPack;
-import techreborn.items.tools.ItemLithiumBatpack;
 import techreborn.items.tools.ItemOmniTool;
 import techreborn.items.tools.ItemRockCutter;
 import techreborn.util.LogHelper;
@@ -28,6 +29,7 @@ public class ModItems {
     public static Item rockCutter;
     public static Item lithiumBatpack;
     public static Item lapotronpack;
+    public static Item gravityChest;
     public static Item omniTool;
     public static Item advancedDrill;
 
@@ -51,6 +53,8 @@ public class ModItems {
         GameRegistry.registerItem(omniTool, "omniTool");
         advancedDrill = new ItemAdvancedDrill();
         GameRegistry.registerItem(advancedDrill, "advancedDrill");
+        gravityChest = new ItemGravityChest(ArmorMaterial.DIAMOND, 7, 1);
+        GameRegistry.registerItem(gravityChest, "gravityChest");
         
 		LogHelper.info("TechReborns Items Loaded");
 
