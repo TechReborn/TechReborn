@@ -1,6 +1,7 @@
 package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import techreborn.client.SlotOutput;
 import techreborn.tiles.TileCentrifuge;
@@ -10,6 +11,8 @@ public class ContainerCentrifuge extends TechRebornContainer {
     EntityPlayer player;
 
     TileCentrifuge tile;
+
+    public int tickTime;
 
     public ContainerCentrifuge(TileCentrifuge tileCentrifuge, EntityPlayer player){
         tile = tileCentrifuge;
@@ -41,5 +44,25 @@ public class ContainerCentrifuge extends TechRebornContainer {
     @Override
     public boolean canInteractWith(EntityPlayer player) {
         return true;
+    }
+
+    @Override
+    public void addCraftingToCrafters(ICrafting crafting) {
+        super.addCraftingToCrafters(crafting);
+        crafting.sendProgressBarUpdate(this, 0, tile.tickTime);
+    }
+
+    /**
+     * Looks for changes made in the container, sends them to every listener.
+     */
+    public void detectAndSendChanges() {
+        super.detectAndSendChanges();
+        for (int i = 0; i < this.crafters.size(); ++i) {
+            ICrafting icrafting = (ICrafting)this.crafters.get(i);
+            if (this.tickTime != this.tile.tickTime) {
+                icrafting.sendProgressBarUpdate(this, 0, this.tile.tickTime);
+            }
+        }
+        this.tickTime = this.tile.tickTime;
     }
 }

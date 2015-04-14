@@ -10,7 +10,6 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import techreborn.api.CentrifugeRecipie;
 import techreborn.api.TechRebornAPI;
-import techreborn.packets.PacketHandler;
 import techreborn.util.Inventory;
 import techreborn.util.ItemUtils;
 
@@ -78,7 +77,6 @@ public class TileCentrifuge extends TileMachineBase implements IInventory {
                             if(getStackInSlot(0) != null && ItemUtils.isItemEqual(getStackInSlot(0), currentRecipe.getInputItem(), true, true)){
                                 if(energy.useEnergy(5)){
                                     tickTime ++;
-                                    syncWithAll();
                                 }
                             }
                         }
@@ -94,19 +92,19 @@ public class TileCentrifuge extends TileMachineBase implements IInventory {
                     }
                 }
                 if(!isRunning && currentRecipe != null){
-                    if(areOutputsEqual() || areOutputsEmpty() && !areAnyOutputsFull()){
+                    if(areOutputsEqual() || !areAnyOutputsFull()){
                         if(getStackInSlot(0) != null && currentRecipe.getInputItem().stackSize <= getStackInSlot(0).stackSize){
                             if(energy.canUseEnergy(euTick)){
                                 decrStackSize(0, currentRecipe.getInputItem().stackSize);
                                 hasTakenItem = true;
                                 tickTime = 0;
                                 isRunning = true;
-                                syncWithAll();
                             }
                         }
                     }
                 }
             }
+            syncWithAll();
         }
     }
 
@@ -114,16 +112,20 @@ public class TileCentrifuge extends TileMachineBase implements IInventory {
         if(currentRecipe == null){
             return false;
         }
-        if(ItemUtils.isItemEqual(getOutputItemStack(1), currentRecipe.getOutput1(), false, true)){
-            if(ItemUtils.isItemEqual(getOutputItemStack(2), currentRecipe.getOutput2(), false, true)){
-                if(ItemUtils.isItemEqual(getOutputItemStack(3), currentRecipe.getOutput3(), false, true)){
-                    if(ItemUtils.isItemEqual(getOutputItemStack(4), currentRecipe.getOutput4(), false, true)){
-                        return true;
-                    }
-                }
-            }
+        boolean boo = false;
+        if(currentRecipe.getOutput1() != null && ItemUtils.isItemEqual(getOutputItemStack(1), currentRecipe.getOutput1(), false, true)){
+           boo = true;
         }
-        return false;
+        if(currentRecipe.getOutput2() != null && ItemUtils.isItemEqual(getOutputItemStack(2), currentRecipe.getOutput2(), false, true)){
+            boo = true;
+        }
+        if(currentRecipe.getOutput3() != null && ItemUtils.isItemEqual(getOutputItemStack(3), currentRecipe.getOutput3(), false, true)){
+            boo = true;
+        }
+        if(currentRecipe.getOutput4() != null && ItemUtils.isItemEqual(getOutputItemStack(4), currentRecipe.getOutput4(), false, true)){
+            boo = true;
+        }
+        return boo;
     }
 
     public boolean areOutputsEmpty(){
@@ -151,11 +153,20 @@ public class TileCentrifuge extends TileMachineBase implements IInventory {
     }
 
     public void increacseItemStack(int slot, int amount) {
+        if(getOutputItemStack(slot) == null){
+            return;
+        }
+        if(getOutputItemStack(slot).getItem() == null){
+            return;
+        }
         decrStackSize(slot + 1, -amount);
     }
 
     public void setOutput(int slot, ItemStack stack){
         if(stack == null){
+            return;
+        }
+        if(stack.getItem() == null){
             return;
         }
         setInventorySlotContents(slot + 1, stack);
@@ -243,7 +254,6 @@ public class TileCentrifuge extends TileMachineBase implements IInventory {
 
     @Override
     public void openInventory() {
-        syncAllWithAll();
         inventory.openInventory();
     }
 
@@ -271,24 +281,6 @@ public class TileCentrifuge extends TileMachineBase implements IInventory {
         NBTTagCompound nbtTag = new NBTTagCompound();
         writeToNBT(nbtTag);
         return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, nbtTag);
-    }
-
-    public Packet getDescriptionPacketWithOutInv() {
-        NBTTagCompound nbtTag = new NBTTagCompound();
-        writeUpdateToNBT(nbtTag);
-        return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, nbtTag);
-    }
-
-    public void syncWithAll() {
-        if (!worldObj.isRemote) {
-            PacketHandler.sendPacketToAllPlayers(getDescriptionPacketWithOutInv(), worldObj);
-        }
-    }
-
-    public void syncAllWithAll() {
-        if (!worldObj.isRemote) {
-            PacketHandler.sendPacketToAllPlayers(getDescriptionPacket(), worldObj);
-        }
     }
 
     @Override
