@@ -31,15 +31,24 @@ public class RollingMachineRecipie {
 	public RollingMachineRecipie(Item inputItem1,Item inputItem2, Item inputItem3, Item inputItem4, Item inputItem5,
 			Item inputItem6, Item inputItem7, Item inputItem8, Item inputItem9, int inputAmount, 
 			Item output1, int tickTime) {
-		this.inputItem1 = new ItemStack(inputItem1, inputAmount);
-		this.inputItem2 = new ItemStack(inputItem2, inputAmount);
-		this.inputItem3 = new ItemStack(inputItem3, inputAmount);
-		this.inputItem4 = new ItemStack(inputItem4, inputAmount);
-		this.inputItem5 = new ItemStack(inputItem5, inputAmount);
-		this.inputItem6 = new ItemStack(inputItem6, inputAmount);
-		this.inputItem7 = new ItemStack(inputItem7, inputAmount);
-		this.inputItem8 = new ItemStack(inputItem8, inputAmount);
-		this.inputItem9 = new ItemStack(inputItem9, inputAmount);
+		if(inputItem1 != null)
+			this.inputItem1 = new ItemStack(inputItem1, inputAmount);
+		if(inputItem2 != null)
+			this.inputItem2 = new ItemStack(inputItem2, inputAmount);
+		if(inputItem3 != null)
+			this.inputItem3 = new ItemStack(inputItem3, inputAmount);
+		if(inputItem4 != null)
+			this.inputItem4 = new ItemStack(inputItem4, inputAmount);
+		if(inputItem5 != null)
+			this.inputItem5 = new ItemStack(inputItem5, inputAmount);
+		if(inputItem6 != null)
+			this.inputItem6 = new ItemStack(inputItem6, inputAmount);
+		if(inputItem7 != null)
+			this.inputItem7 = new ItemStack(inputItem7, inputAmount);
+		if(inputItem8 != null)
+			this.inputItem8 = new ItemStack(inputItem8, inputAmount);
+		if(inputItem9 != null)
+			this.inputItem9 = new ItemStack(inputItem9, inputAmount);
 
 		this.output1 = new ItemStack(output1);
 		this.tickTime = tickTime;

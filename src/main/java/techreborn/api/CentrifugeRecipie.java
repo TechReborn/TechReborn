@@ -21,10 +21,14 @@ public class CentrifugeRecipie {
 
 	public CentrifugeRecipie(Item inputItem, int inputAmount, Item output1, Item output2, Item output3, Item output4, int tickTime, int cells) {
 		this.inputItem = new ItemStack(inputItem, inputAmount);
-		this.output1 = new ItemStack(output1);
-		this.output2 = new ItemStack(output2);
-		this.output3 = new ItemStack(output3);
-		this.output4 = new ItemStack(output4);
+		if(output1!= null)
+			this.output1 = new ItemStack(output1);
+		if(output2!= null)
+			this.output2 = new ItemStack(output2);
+		if(output3!= null)
+			this.output3 = new ItemStack(output3);
+		if(output4!= null)
+			this.output4 = new ItemStack(output4);
 		this.tickTime = tickTime;
 		this.cells = cells;
 	}
