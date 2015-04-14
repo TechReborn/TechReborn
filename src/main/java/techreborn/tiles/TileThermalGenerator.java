@@ -31,7 +31,7 @@ public class TileThermalGenerator extends TileEntity implements IWrenchable, IFl
     public static final int euTick = ConfigTechReborn.ThermalGenertaorOutput;
 
     public TileThermalGenerator() {
-        this.energySource = new BasicSource(this, 1000000, 1);
+        this.energySource = new BasicSource(this, ConfigTechReborn.ThermalGeneratorCharge, ConfigTechReborn.ThermalGeneratorTier);
     }
 
     @Override

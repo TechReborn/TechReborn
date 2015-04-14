@@ -4,6 +4,7 @@ import ic2.api.energy.prefab.BasicSink;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -11,11 +12,12 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import techreborn.api.CentrifugeRecipie;
 import techreborn.api.TechRebornAPI;
+import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.util.Inventory;
 import techreborn.util.ItemUtils;
 
-public class TileCentrifuge extends TileMachineBase implements IInventory, IWrenchable {
+public class TileCentrifuge extends TileMachineBase implements IInventory, IWrenchable, ISidedInventory {
 
     public BasicSink energy;
     public Inventory inventory = new Inventory(6, "TileCentrifuge", 64);
@@ -26,11 +28,10 @@ public class TileCentrifuge extends TileMachineBase implements IInventory, IWren
     public boolean hasTakenCells = false;
     public boolean hasTakenItem = false;
 
-    public int euTick = 5;
+    public int euTick = ConfigTechReborn.CentrifugeInputTick;
 
     public TileCentrifuge() {
-        //TODO check values, + config
-        energy = new BasicSink(this, 100000, 1);
+        energy = new BasicSink(this, ConfigTechReborn.CentrifugeCharge, ConfigTechReborn.CentrifugeTier);
     }
 
     @Override
@@ -311,5 +312,38 @@ public class TileCentrifuge extends TileMachineBase implements IInventory, IWren
     @Override
     public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
         return new ItemStack(ModBlocks.centrifuge, 1);
+    }
+
+    @Override
+    public int[] getAccessibleSlotsFromSide(int side) {
+        //Top
+        if(side == 1){
+            return new int[]{0};
+        }
+        //Bottom
+        if(side == 0){
+            return new int[]{1};
+        }
+        //Not bottom or top
+        return new int[]{2, 3, 4, 5};
+    }
+
+    @Override
+    public boolean canInsertItem(int slot, ItemStack stack, int side) {
+        //Bottom
+        if(side == 0){
+            return stack.getUnlocalizedName().equals("ic2.itemFluidCell");
+        }
+        //Not bottom or top
+        if(side >= 2){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean canExtractItem(int slot, ItemStack stack, int side) {
+        //Only output slots and sides
+        return slot >= 2 && side >= 2;
     }
 }

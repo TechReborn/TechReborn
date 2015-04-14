@@ -26,6 +26,7 @@ public class ConfigTechReborn {
 
     //Power
     public static int ThermalGenertaorOutput;
+	public static int CentrifugeInputTick;
     //Charge
     public static int AdvancedDrillCharge;
     public static int LapotronPackCharge;
@@ -33,6 +34,8 @@ public class ConfigTechReborn {
     public static int OmniToolCharge;
     public static int RockCutterCharge;
     public static int GravityCharge;
+	public static int CentrifugeCharge;
+	public static int ThermalGeneratorCharge;
     //Teir
     public static int AdvancedDrillTier;
     public static int LapotronPackTier;
@@ -40,7 +43,8 @@ public class ConfigTechReborn {
     public static int OmniToolTier;
     public static int RockCutterTier;
     public static int GravityTier;
-    
+	public static int CentrifugeTier;
+	public static int ThermalGeneratorTier;
     //Crafting
     public static boolean ExpensiveMacerator;
     public static boolean ExpensiveDrill;
@@ -142,6 +146,10 @@ public class ConfigTechReborn {
                 "Thermal Generator Power", 30,
                 "The amount of power that the thermal generator makes for 1mb of lava")
                 .getInt();
+		CentrifugeInputTick = config.get(CATEGORY_POWER,
+				"Centrifuge power usage", 5,
+				"The amount of eu per tick that the Centrifuge uses.")
+				.getInt();
         //Charge
         AdvancedDrillCharge = config.get(CATEGORY_POWER,
                 "Advanced drill max charge", 60000,
@@ -167,6 +175,14 @@ public class ConfigTechReborn {
                 "Gravity Chestplate max charge", 100000,
                 "The amount of power that the Gravity Chestplate can hold")
                 .getInt();
+		CentrifugeCharge = config.get(CATEGORY_POWER,
+				"Centrifuge max charge", 1000000,
+				"The amount of power that the Centrifuge can hold")
+				.getInt();
+		ThermalGeneratorCharge = config.get(CATEGORY_POWER,
+				"Thermal Generator max charge", 1000000,
+				"The amount of power that the Thermal Generator can hold")
+				.getInt();
         //Teir
         AdvancedDrillTier = config.get(CATEGORY_POWER,
                 "Advanced drill Tier", 2,
@@ -192,8 +208,14 @@ public class ConfigTechReborn {
                 "GravityChestplate tier", 3,
                 "The tier of the GravityChestplate")
                 .getInt();
-        
-        
+		CentrifugeTier = config.get(CATEGORY_POWER,
+				"Centrifuge tier", 1,
+				"The tier of the Centrifuge")
+				.getInt();
+		ThermalGeneratorTier = config.get(CATEGORY_POWER,
+				"Thermal Generator tier", 1,
+				"The tier of the Thermal Generator")
+				.getInt();
 		
 		//Crafting
 		ExpensiveMacerator = config.get(CATEGORY_CRAFTING,
