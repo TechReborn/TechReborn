@@ -96,6 +96,12 @@ item.techreborn.dust.Uranium.name=Uranium Dust
 item.techreborn.dust.Uvarovite.name=Uvarovite Dust
 item.techreborn.dust.YellowGarnet.name=YellowGarnet Dust
 item.techreborn.dust.Zinc.name=Zinc Dust
+item.techreborn.dust.Cobalt.name=Cobalt Dust
+item.techreborn.dust.Ardite.name=Ardite Dust
+item.techreborn.dust.Manyullyn.name=Manyullyn Dust
+item.techreborn.dust.AlBrass.name=AlBrass Dust
+item.techreborn.dust.Alumite.name=Alumite Dust
+
 
 #Gems
 item.techreborn.gem.Ruby.name=Ruby
@@ -123,6 +129,12 @@ item.techreborn.ingot.Steel.name=Steel Ingot
 item.techreborn.ingot.Platinum.name=Platinum Ingot
 item.techreborn.ingot.Nickel.name=Nickel Ingot
 item.techreborn.ingot.Invar.name=Invar Ingot
+item.techreborn.ingot.Cobalt.name=Cobalt Ingot
+item.techreborn.ingot.Ardite.name=Ardite Ingot
+item.techreborn.ingot.Manyullyn.name=Manyullyn Ingot
+item.techreborn.ingot.AlBrass.name=AlBrass Ingot
+item.techreborn.ingot.Alumite.name=Alumite Ingot
+
 
 #Parts
 item.techreborn.part.LazuriteChunk.name=Lazurite Chunk

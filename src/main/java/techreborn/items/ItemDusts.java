@@ -20,7 +20,7 @@ public class ItemDusts extends ItemTR
 		"Invar", "Iron", "Lazurite", "Lead", "Magnesium", "Marble", "Netherrack", "Nickel", "Obsidian",
 		"Olivine","Phosphor", "Platinum", "Pyrite", "Pyrope", "RedGarnet", "Redrock", "Ruby", "Saltpeter", "Sapphire",
 		"Silver", "Sodalite", "Spessartine", "Sphalerite", "Steel", "Sulfur", "Tin", "Titanium", "Tungsten", "Uranium", 
-		"Uvarovite", "YellowGarnet", "Zinc" 
+		"Uvarovite", "YellowGarnet", "Zinc", "Cobalt", "Ardite" , "Manyullyn" , "AlBrass", "Alumite"
 	};
 
 	private IIcon[] textures;

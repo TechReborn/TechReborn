@@ -14,7 +14,8 @@ public class ItemIngots extends Item{
 	public static final String[] types = new String[] 
 	{
 		"IridiumAlloy", "HotTungstenSteel", "TungstenSteel", "Iridium", "Silver", "Aluminium", "Titanium", "Chrome",
-		"Electrum","Tungsten", "Lead", "Zinc", "Brass", "Steel", "Platinum", "Nickel", "Invar", 
+		"Electrum","Tungsten", "Lead", "Zinc", "Brass", "Steel", "Platinum", "Nickel", "Invar",
+		"Cobalt", "Ardite" , "Manyullyn" , "AlBrass", "Alumite" 
 	};
 
 	private IIcon[] textures;

@@ -120,6 +120,11 @@ public class ModItems {
     	OreDictionary.registerOre("dustUvarovite", new ItemStack(dusts,1,55));
     	OreDictionary.registerOre("dustYellowGarnet", new ItemStack(dusts,1,56));
     	OreDictionary.registerOre("dustZinc", new ItemStack(dusts,1,57));
+    	OreDictionary.registerOre("ingotCobalt", new ItemStack(dusts,1,58));
+    	OreDictionary.registerOre("ingotArdite", new ItemStack(ingots,1,59));
+    	OreDictionary.registerOre("ingotManyullyn", new ItemStack(ingots,1,60));
+    	OreDictionary.registerOre("ingotAluminumBrass", new ItemStack(ingots,1,61));
+    	OreDictionary.registerOre("ingotAlumite", new ItemStack(ingots,1,62));
     	//Ingots
     	OreDictionary.registerOre("ingotIridium", new ItemStack(ingots,1,3));
     	OreDictionary.registerOre("ingotSilver", new ItemStack(ingots,1,4));
@@ -135,6 +140,12 @@ public class ModItems {
     	OreDictionary.registerOre("ingotPlatinum", new ItemStack(ingots,1,14));
     	OreDictionary.registerOre("ingotNickel", new ItemStack(ingots,1,15));
     	OreDictionary.registerOre("ingotInvar", new ItemStack(ingots,1,16));
+    	OreDictionary.registerOre("ingotCobalt", new ItemStack(ingots,1,17));
+    	OreDictionary.registerOre("ingotArdite", new ItemStack(ingots,1,18));
+    	OreDictionary.registerOre("ingotManyullyn", new ItemStack(ingots,1,19));
+    	OreDictionary.registerOre("ingotAluminumBrass", new ItemStack(ingots,1,20));
+    	OreDictionary.registerOre("ingotAlumite", new ItemStack(ingots,1,21));
+
     	//Gems
     	OreDictionary.registerOre("gemRuby", new ItemStack(gems,1,0));
     	OreDictionary.registerOre("gemSapphire", new ItemStack(gems,1,1));
