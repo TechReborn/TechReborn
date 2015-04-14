@@ -1,6 +1,7 @@
 package techreborn.tiles;
 
 import ic2.api.energy.prefab.BasicSink;
+import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -13,7 +14,7 @@ import techreborn.api.TechRebornAPI;
 import techreborn.util.Inventory;
 import techreborn.util.ItemUtils;
 
-public class TileCentrifuge extends TileMachineBase implements IInventory {
+public class TileCentrifuge extends TileMachineBase implements IInventory, IWrenchable {
 
     public BasicSink energy;
     public Inventory inventory = new Inventory(6, "TileCentrifuge", 64);
@@ -288,4 +289,40 @@ public class TileCentrifuge extends TileMachineBase implements IInventory {
         worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
         readFromNBT(packet.func_148857_g());
     }
+
+	@Override
+	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public short getFacing() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setFacing(short facing) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public float getWrenchDropRate() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
