@@ -41,8 +41,8 @@ public class BlockQuantumChest extends BlockContainer {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister icon) {
-        top = icon.registerIcon("techreborn:quantum_top");
-        other = icon.registerIcon("techreborn:quantum_chest");
+        top = icon.registerIcon("techreborn:machine/quantum_top");
+        other = icon.registerIcon("techreborn:machine/quantum_chest");
     }
 
     @Override

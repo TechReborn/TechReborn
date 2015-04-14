@@ -33,7 +33,7 @@ public class ItemGems extends Item{
 
 		for (int i = 0; i < types.length; ++i) 
 		{
-			textures[i] = iconRegister.registerIcon("techreborn:" + "gem"+types[i]);
+			textures[i] = iconRegister.registerIcon("techreborn:" + "gem/" +types[i]);
 		}
 	}
 	

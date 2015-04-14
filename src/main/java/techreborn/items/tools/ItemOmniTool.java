@@ -44,7 +44,7 @@ public class ItemOmniTool extends ItemPickaxe implements IElectricItem{
 	  @Override
 	  public void registerIcons(IIconRegister iconRegister) 
 	  {
-		  this.itemIcon = iconRegister.registerIcon("techreborn:" + "omnitool");
+		  this.itemIcon = iconRegister.registerIcon("techreborn:" + "tool/omnitool");
 	  }
 
 	    @SuppressWarnings({"rawtypes", "unchecked"})

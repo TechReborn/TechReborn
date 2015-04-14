@@ -64,7 +64,7 @@ public class BlockStorage extends Block{
 
 		for (int i = 0; i < types.length; i++) 
 		{
-			textures[i] = iconRegister.registerIcon("techreborn:" + "storage"+types[i]);
+			textures[i] = iconRegister.registerIcon("techreborn:" + "storage/storage"+types[i]);
 		}
 	}
 

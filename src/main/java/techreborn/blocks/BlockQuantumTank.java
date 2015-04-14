@@ -40,8 +40,8 @@ public class BlockQuantumTank extends BlockContainer {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister icon) {
-        top = icon.registerIcon("techreborn:quantum_top");
-        other = icon.registerIcon("techreborn:ThermalGenerator_other");
+        top = icon.registerIcon("techreborn:machine/quantum_top");
+        other = icon.registerIcon("techreborn:machine/ThermalGenerator_other");
     }
 
     @Override

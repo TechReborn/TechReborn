@@ -33,7 +33,7 @@ public class ItemLapotronPack extends ItemArmor implements IElectricItem{
 	 @Override
 	 public void registerIcons(IIconRegister iconRegister) 
 	 {
-		 this.itemIcon = iconRegister.registerIcon("techreborn:" + "lapotronpack");
+		 this.itemIcon = iconRegister.registerIcon("techreborn:" + "tool/lapotronicEnergyOrb");
 	 }
 	
 	@Override

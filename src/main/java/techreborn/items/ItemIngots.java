@@ -35,7 +35,7 @@ public class ItemIngots extends Item{
 
 		for (int i = 0; i < types.length; ++i) 
 		{
-			textures[i] = iconRegister.registerIcon("techreborn:" + "ingot"+types[i]);
+			textures[i] = iconRegister.registerIcon("techreborn:" + "ingot/" +types[i]+ "Ingot");
 		}
 	}
 	

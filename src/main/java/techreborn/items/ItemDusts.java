@@ -40,7 +40,7 @@ public class ItemDusts extends ItemTR
 
 		for (int i = 0; i < types.length; ++i) 
 		{
-			textures[i] = iconRegister.registerIcon("techreborn:" + "dust"+types[i]);
+			textures[i] = iconRegister.registerIcon("techreborn:" + "dust/" +types[i]+ "Dust");
 		}
 	}
 	

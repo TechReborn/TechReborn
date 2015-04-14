@@ -39,7 +39,7 @@ public class ItemRockCutter extends ItemPickaxe implements IElectricItem{
 	@Override
 	public void registerIcons(IIconRegister iconRegister) 
 	{
-		this.itemIcon = iconRegister.registerIcon("techreborn:" + "rockcutter");
+		this.itemIcon = iconRegister.registerIcon("techreborn:" + "tool/rockcutter");
 	}
 	
 	@SuppressWarnings({"rawtypes", "unchecked"})

@@ -45,7 +45,7 @@ public class ItemAdvancedDrill extends ItemPickaxe implements IElectricItem{
     @Override
     public void registerIcons(IIconRegister iconRegister) 
     {
-        this.itemIcon = iconRegister.registerIcon("techreborn:" + "advancedDrill");
+        this.itemIcon = iconRegister.registerIcon("techreborn:" + "tool/advancedDrill");
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})

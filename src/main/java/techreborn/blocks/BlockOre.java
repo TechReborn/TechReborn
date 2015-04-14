@@ -66,7 +66,7 @@ public class BlockOre extends Block{
 
 		for (int i = 0; i < types.length; i++) 
 		{
-			textures[i] = iconRegister.registerIcon("techreborn:" + "ore"+types[i]);
+			textures[i] = iconRegister.registerIcon("techreborn:" + "ore/ore"+types[i]);
 		}
 	}
 

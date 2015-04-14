@@ -4,6 +4,8 @@ tile.techreborn.thermalGenerator.name=Thermal Generator
 tile.techreborn.quantumTank.name=Quantum Tank
 tile.techreborn.quantumChest.name=Quantum Chest
 tile.techreborn.centrifuge.name=Centrifuge
+tile.techreborn.rollingmachine.name=Rolling machine
+
 
 #Ores
 tile.techreborn.ore.Galena.name=Galena Ore
@@ -99,7 +101,7 @@ item.techreborn.dust.Zinc.name=Zinc Dust
 item.techreborn.dust.Cobalt.name=Cobalt Dust
 item.techreborn.dust.Ardite.name=Ardite Dust
 item.techreborn.dust.Manyullyn.name=Manyullyn Dust
-item.techreborn.dust.AlBrass.name=AlBrass Dust
+item.techreborn.dust.AlBrass.name=AluminiumBrass Dust
 item.techreborn.dust.Alumite.name=Alumite Dust
 
 

@@ -33,7 +33,7 @@ public class ItemLithiumBatpack extends ItemArmor implements IElectricItem{
 	 @Override
 	 public void registerIcons(IIconRegister iconRegister) 
 	 {
-		 this.itemIcon = iconRegister.registerIcon("techreborn:" + "lithiumbatpack");
+		 this.itemIcon = iconRegister.registerIcon("techreborn:" + "tool/lithiumBatpack");
 	 }
 	
 	@Override
