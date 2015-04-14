@@ -23,7 +23,7 @@ public class ItemRockCutter extends ItemPickaxe implements IElectricItem{
 	
 	public static final int maxCharge = ConfigTechReborn.RockCutterCharge;
     public int cost = 500;
-    public int tier = 2;
+    public static final int tier = ConfigTechReborn.RockCutterTier;
 
 	public ItemRockCutter(ToolMaterial toolMaterial) 
 	{

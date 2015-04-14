@@ -26,11 +26,20 @@ public class ConfigTechReborn {
 
     //Power
     public static int ThermalGenertaorOutput;
+    //Charge
     public static int AdvancedDrillCharge;
     public static int LapotronPackCharge;
     public static int LithiumBatpackCharge;
     public static int OmniToolCharge;
     public static int RockCutterCharge;
+    public static int GravityCharge;
+    //Teir
+    public static int AdvancedDrillTier;
+    public static int LapotronPackTier;
+    public static int LithiumBatpackTier;
+    public static int OmniToolTier;
+    public static int RockCutterTier;
+    public static int GravityTier;
     
     //Crafting
     public static boolean ExpensiveMacerator;
@@ -133,6 +142,7 @@ public class ConfigTechReborn {
                 "Thermal Generator Power", 30,
                 "The amount of power that the thermal generator makes for 1mb of lava")
                 .getInt();
+        //Charge
         AdvancedDrillCharge = config.get(CATEGORY_POWER,
                 "Advanced drill max charge", 60000,
                 "The amount of power that the anvanced drill can hold")
@@ -153,6 +163,36 @@ public class ConfigTechReborn {
                 "RockCutter max charge", 10000,
                 "The amount of power that the RockCutter can hold")
                 .getInt();
+        GravityCharge = config.get(CATEGORY_POWER,
+                "Gravity Chestplate max charge", 100000,
+                "The amount of power that the Gravity Chestplate can hold")
+                .getInt();
+        //Teir
+        AdvancedDrillTier = config.get(CATEGORY_POWER,
+                "Advanced drill Tier", 2,
+                "The tier of the Advanced Drill")
+                .getInt();
+        LapotronPackTier = config.get(CATEGORY_POWER,
+                "Lapotron pack tier", 2,
+                "The tier of the Lapotron Pack")
+                .getInt();
+        LithiumBatpackTier = config.get(CATEGORY_POWER,
+                "Lithium Batpack tier", 3,
+                "The tier of the Lithium Batpack")
+                .getInt();
+        OmniToolTier = config.get(CATEGORY_POWER,
+                "Omni Tool tier", 3,
+                "The tier of the OmniTool")
+                .getInt();
+        RockCutterTier = config.get(CATEGORY_POWER,
+                "Rock Cutter tier", 3,
+                "The tier of the RockCutter")
+                .getInt();
+        GravityTier = config.get(CATEGORY_POWER,
+                "GravityChestplate tier", 3,
+                "The tier of the GravityChestplate")
+                .getInt();
+        
         
 		
 		//Crafting

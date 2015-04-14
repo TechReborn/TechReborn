@@ -18,7 +18,7 @@ import net.minecraft.item.ItemStack;
 public class ItemLapotronPack extends ItemArmor implements IElectricItem{
 
 	public static final int maxCharge = ConfigTechReborn.LapotronPackCharge;
-	public int tier = 3;
+	public static final int tier = ConfigTechReborn.LapotronPackTier;
 	public double transferLimit = 100000;
 	
 	public ItemLapotronPack(ArmorMaterial armormaterial, int par2, int par3) 

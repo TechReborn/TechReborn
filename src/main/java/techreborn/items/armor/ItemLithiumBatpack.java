@@ -18,7 +18,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemLithiumBatpack extends ItemArmor implements IElectricItem{
 
 	public static final int maxCharge = ConfigTechReborn.LithiumBatpackCharge;
-	public int tier = 3;
+	public static final int tier = ConfigTechReborn.LithiumBatpackTier;
 	public double transferLimit = 10000;
 	    
 	public ItemLithiumBatpack(ArmorMaterial armorMaterial, int par3, int par4) 

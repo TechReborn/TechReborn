@@ -28,7 +28,7 @@ public class ItemAdvancedDrill extends ItemPickaxe implements IElectricItem{
 
     public static final int maxCharge = ConfigTechReborn.AdvancedDrillCharge;
     public int cost = 250;;
-    public int tier = 2;
+    public static final int tier = ConfigTechReborn.AdvancedDrillTier;
     public double transferLimit = 100;
 
     public ItemAdvancedDrill()

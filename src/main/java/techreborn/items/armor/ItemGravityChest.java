@@ -18,12 +18,13 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.config.ConfigTechReborn;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemGravityChest extends ItemArmor implements IElectricItem, ISpecialArmor{
 	
-	public int maxCharge = 100000;
+	public static int maxCharge = ConfigTechReborn.GravityCharge;
     public int tier = 3;
     public int cost = 100;
     public double transferLimit = 1000;

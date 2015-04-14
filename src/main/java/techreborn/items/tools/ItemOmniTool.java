@@ -26,6 +26,7 @@ import net.minecraftforge.event.ForgeEventFactory;
 public class ItemOmniTool extends ItemPickaxe implements IElectricItem{
 
 	public static final int maxCharge = ConfigTechReborn.OmniToolCharge;
+	public static final int tier = ConfigTechReborn.OmniToolTier;
     public int cost = 100;
     public int hitCost = 125;
     
