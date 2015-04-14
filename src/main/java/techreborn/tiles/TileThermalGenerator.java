@@ -45,9 +45,7 @@ public class TileThermalGenerator extends TileEntity implements IWrenchable, IFl
     }
 
     @Override
-    public void setFacing(short facing) {
-
-    }
+    public void setFacing(short facing) {}
 
     @Override
     public boolean wrenchCanRemove(EntityPlayer entityPlayer) {

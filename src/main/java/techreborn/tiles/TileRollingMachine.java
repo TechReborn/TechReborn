@@ -9,6 +9,7 @@ import ic2.api.tile.IWrenchable;
 import techreborn.api.CentrifugeRecipie;
 import techreborn.api.RollingMachineRecipie;
 import techreborn.api.TechRebornAPI;
+import techreborn.init.ModBlocks;
 import techreborn.util.Inventory;
 
 public class TileRollingMachine extends TileMachineBase implements IWrenchable{
@@ -36,38 +37,30 @@ public class TileRollingMachine extends TileMachineBase implements IWrenchable{
 
 	@Override
 	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public short getFacing() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public void setFacing(short facing) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void setFacing(short facing) {}
 
 	@Override
 	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public float getWrenchDropRate() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 1.0F;
 	}
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		// TODO Auto-generated method stub
-		return null;
+		return new ItemStack(ModBlocks.RollingMachine, 1);
 	}
 
 }

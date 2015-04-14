@@ -11,6 +11,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import techreborn.api.CentrifugeRecipie;
 import techreborn.api.TechRebornAPI;
+import techreborn.init.ModBlocks;
 import techreborn.util.Inventory;
 import techreborn.util.ItemUtils;
 
@@ -290,39 +291,31 @@ public class TileCentrifuge extends TileMachineBase implements IInventory, IWren
         readFromNBT(packet.func_148857_g());
     }
 
-	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
+        return false;
+    }
 
-	@Override
-	public short getFacing() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public short getFacing() {
+        return 0;
+    }
 
-	@Override
-	public void setFacing(short facing) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void setFacing(short facing) {}
 
-	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
-		// TODO Auto-generated method stub
-		return true;
-	}
+    @Override
+    public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
+        return true;
+    }
 
-	@Override
-	public float getWrenchDropRate() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public float getWrenchDropRate() {
+        return 1.0F;
+    }
 
-	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+        return new ItemStack(ModBlocks.centrifuge, 1);
+    }
 }
