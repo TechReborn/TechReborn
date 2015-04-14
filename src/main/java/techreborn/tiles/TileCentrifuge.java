@@ -158,17 +158,11 @@ public class TileCentrifuge extends TileMachineBase implements IInventory, IWren
         if(getOutputItemStack(slot) == null){
             return;
         }
-        if(getOutputItemStack(slot).getItem() == null){
-            return;
-        }
         decrStackSize(slot + 1, -amount);
     }
 
     public void setOutput(int slot, ItemStack stack){
         if(stack == null){
-            return;
-        }
-        if(stack.getItem() == null){
             return;
         }
         setInventorySlotContents(slot + 1, stack);
