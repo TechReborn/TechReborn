@@ -1,7 +1,7 @@
 package techreborn.init;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import ic2.api.item.IC2Items;
-import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -12,7 +12,6 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.util.CraftingHelper;
 import techreborn.util.LogHelper;
 import techreborn.util.RecipeRemover;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ModRecipes {
 	public static ConfigTechReborn config;
@@ -243,6 +242,7 @@ public class ModRecipes {
 	public static void addMachineRecipes()
 	{
 		TechRebornAPI.registerCentrifugeRecipe(new CentrifugeRecipie(Items.apple, 4, Items.beef, Items.baked_potato, null, null, 120, 4));
+		TechRebornAPI.registerCentrifugeRecipe(new CentrifugeRecipie(Items.nether_star, 1, Items.diamond, Items.emerald, Items.bed, Items.cake, 500, 8));
 		TechRebornAPI.registerRollingMachineRecipe(new RollingMachineRecipie(new ItemStack(Blocks.cobblestone), new ItemStack(Blocks.cobblestone), new ItemStack(Blocks.cobblestone), new ItemStack(Blocks.cobblestone), new ItemStack(Blocks.cobblestone), new ItemStack(Blocks.cobblestone), new ItemStack(Blocks.cobblestone), new ItemStack(Blocks.cobblestone), new ItemStack(Blocks.cobblestone), new ItemStack(Blocks.furnace), 4));
 		LogHelper.info("Machine Recipes Added");
 	}

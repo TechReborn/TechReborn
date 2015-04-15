@@ -21,10 +21,10 @@ public class NEIConfig implements IConfigureNEI{
 	@Override
 	public void loadConfig() 
 	{
-		CentrifugeRecipieHandler centrifugeRecipieHandler = new CentrifugeRecipieHandler();
+		CentrifugeRecipeHandler centrifugeRecipeHandler = new CentrifugeRecipeHandler();
 		
-		API.registerRecipeHandler(centrifugeRecipieHandler);
-		API.registerUsageHandler(centrifugeRecipieHandler);
+		API.registerRecipeHandler(centrifugeRecipeHandler);
+		API.registerUsageHandler(centrifugeRecipeHandler);
 	}
 
 }
