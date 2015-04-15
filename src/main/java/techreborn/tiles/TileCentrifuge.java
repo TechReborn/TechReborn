@@ -1,6 +1,7 @@
 package techreborn.tiles;
 
 import ic2.api.energy.prefab.BasicSink;
+import ic2.api.item.IC2Items;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -42,7 +43,7 @@ public class TileCentrifuge extends TileMachineBase implements IInventory, IWren
             if (isRunning) {
                 if (ItemUtils.isItemEqual(currentRecipe.getInputItem(), getStackInSlot(0), true, true)) {
                     if (!hasTakenCells) {
-                        if (getStackInSlot(1) != null && getStackInSlot(1) != null && getStackInSlot(1).getUnlocalizedName().equals("ic2.itemFluidCell")) {
+                        if (getStackInSlot(1) != null && getStackInSlot(1) != null && ItemUtils.isItemEqual(getStackInSlot(1), IC2Items.getItem("cell"), false, false)) {
                             if (getStackInSlot(1).stackSize >= currentRecipe.getCells()) {
                                 decrStackSize(1, currentRecipe.getCells());
                                 hasTakenCells = true;
@@ -333,7 +334,7 @@ public class TileCentrifuge extends TileMachineBase implements IInventory, IWren
     public boolean canInsertItem(int slot, ItemStack stack, int side) {
         //Bottom
         if (side == 0) {
-            return stack.getUnlocalizedName().equals("ic2.itemFluidCell");
+            return ItemUtils.isItemEqual(stack, IC2Items.getItem("cell"), false, false);
         }
         //Not bottom or top
         if (side >= 2) {
