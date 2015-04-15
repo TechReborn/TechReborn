@@ -21,9 +21,9 @@ public class TileMachineBase extends TileEntity {
     }
 
     @SideOnly(Side.CLIENT)
-	public void addWailaInfo(List<String> info) {
+    public void addWailaInfo(List<String> info) {
 
-	}
+    }
 
     public void syncWithAll() {
         if (!worldObj.isRemote) {

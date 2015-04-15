@@ -1,5 +1,7 @@
 package techreborn.blocks;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -10,8 +12,6 @@ import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.client.GuiHandler;
 import techreborn.tiles.TileQuantumTank;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockQuantumTank extends BlockContainer {
 
@@ -32,7 +32,7 @@ public class BlockQuantumTank extends BlockContainer {
 
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-        if(!player.isSneaking())
+        if (!player.isSneaking())
             player.openGui(Core.INSTANCE, GuiHandler.quantumTankID, world, x, y, z);
         return true;
     }

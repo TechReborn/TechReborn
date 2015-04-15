@@ -15,7 +15,7 @@ import techreborn.util.ItemUtils;
 import java.util.List;
 
 
-public class TileQuantumChest extends TileMachineBase implements IInventory ,IWrenchable{
+public class TileQuantumChest extends TileMachineBase implements IInventory, IWrenchable {
 
     //Slot 0 = Input
     //Slot 1 = Output
@@ -27,7 +27,7 @@ public class TileQuantumChest extends TileMachineBase implements IInventory ,IWr
 
     @Override
     public void updateEntity() {
-        if(storedItem != null){
+        if (storedItem != null) {
             ItemStack fakeStack = storedItem.copy();
             fakeStack.stackSize = 1;
             setInventorySlotContents(2, fakeStack);
@@ -35,26 +35,26 @@ public class TileQuantumChest extends TileMachineBase implements IInventory ,IWr
             setInventorySlotContents(2, null);
         }
 
-        if(getStackInSlot(0) != null){
-            if(storedItem == null){
+        if (getStackInSlot(0) != null) {
+            if (storedItem == null) {
                 storedItem = getStackInSlot(0);
                 setInventorySlotContents(0, null);
-            } else if (ItemUtils.isItemEqual(storedItem, getStackInSlot(0), true, true)){
-                if(storedItem.stackSize <=Integer.MAX_VALUE - getStackInSlot(0).stackSize){
+            } else if (ItemUtils.isItemEqual(storedItem, getStackInSlot(0), true, true)) {
+                if (storedItem.stackSize <= Integer.MAX_VALUE - getStackInSlot(0).stackSize) {
                     storedItem.stackSize += getStackInSlot(0).stackSize;
                     decrStackSize(0, getStackInSlot(0).stackSize);
                 }
             }
         }
 
-        if(storedItem != null && getStackInSlot(1) == null){
+        if (storedItem != null && getStackInSlot(1) == null) {
             ItemStack itemStack = storedItem.copy();
             itemStack.stackSize = itemStack.getMaxStackSize();
             setInventorySlotContents(1, itemStack);
             storedItem.stackSize -= itemStack.getMaxStackSize();
-        } else if(ItemUtils.isItemEqual(getStackInSlot(1), storedItem, true, true)){
+        } else if (ItemUtils.isItemEqual(getStackInSlot(1), storedItem, true, true)) {
             int wanted = getStackInSlot(1).getMaxStackSize() - getStackInSlot(1).stackSize;
-            if(storedItem.stackSize >= wanted){
+            if (storedItem.stackSize >= wanted) {
                 decrStackSize(1, -wanted);
                 storedItem.stackSize -= wanted;
             } else {
@@ -89,13 +89,12 @@ public class TileQuantumChest extends TileMachineBase implements IInventory ,IWr
 
         storedItem = null;
 
-        if (tagCompound.hasKey("storedStack"))
-        {
+        if (tagCompound.hasKey("storedStack")) {
             storedItem = ItemStack.
-                    loadItemStackFromNBT((NBTTagCompound)tagCompound.getTag("storedStack"));
+                    loadItemStackFromNBT((NBTTagCompound) tagCompound.getTag("storedStack"));
         }
 
-        if(storedItem != null){
+        if (storedItem != null) {
             storedItem.stackSize = tagCompound.getInteger("storedQuantity");
         }
     }
@@ -108,12 +107,10 @@ public class TileQuantumChest extends TileMachineBase implements IInventory ,IWr
 
     public void writeToNBTWithoutCoords(NBTTagCompound tagCompound) {
         inventory.writeToNBT(tagCompound);
-        if (storedItem != null)
-        {
+        if (storedItem != null) {
             tagCompound.setTag("storedStack", storedItem.writeToNBT(new NBTTagCompound()));
             tagCompound.setInteger("storedQuantity", storedItem.stackSize);
-        }
-        else
+        } else
             tagCompound.setInteger("storedQuantity", 0);
     }
 
@@ -177,34 +174,34 @@ public class TileQuantumChest extends TileMachineBase implements IInventory ,IWr
         return inventory.isItemValidForSlot(slot, stack);
     }
 
-	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
-		return false;
-	}
+    @Override
+    public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
+        return false;
+    }
 
-	@Override
-	public short getFacing() {
-		return 0;
-	}
+    @Override
+    public short getFacing() {
+        return 0;
+    }
 
-	@Override
-	public void setFacing(short facing) {
-	}
+    @Override
+    public void setFacing(short facing) {
+    }
 
-	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
-		return true;
-	}
+    @Override
+    public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
+        return true;
+    }
 
-	@Override
-	public float getWrenchDropRate() {
-		return 1F;
-	}
+    @Override
+    public float getWrenchDropRate() {
+        return 1F;
+    }
 
-	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return getDropWithNBT();
-	}
+    @Override
+    public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+        return getDropWithNBT();
+    }
 
     public ItemStack getDropWithNBT() {
         NBTTagCompound tileEntity = new NBTTagCompound();
@@ -220,11 +217,11 @@ public class TileQuantumChest extends TileMachineBase implements IInventory ,IWr
         super.addWailaInfo(info);
         int size = 0;
         String name = "of nothing";
-        if(storedItem != null){
+        if (storedItem != null) {
             name = storedItem.getDisplayName();
             size += storedItem.stackSize;
         }
-        if( getStackInSlot(1) != null){
+        if (getStackInSlot(1) != null) {
             name = getStackInSlot(1).getDisplayName();
             size += getStackInSlot(1).stackSize;
         }

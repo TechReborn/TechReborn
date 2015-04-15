@@ -6,14 +6,14 @@ import techreborn.init.ModBlocks;
 
 public class TechRebornCreativeTab extends CreativeTabs {
 
-	public static TechRebornCreativeTab instance = new TechRebornCreativeTab();
+    public static TechRebornCreativeTab instance = new TechRebornCreativeTab();
 
-	public TechRebornCreativeTab() {
-		super("techreborn");
-	}
+    public TechRebornCreativeTab() {
+        super("techreborn");
+    }
 
-	@Override
-	public Item getTabIconItem() {
-		return Item.getItemFromBlock(ModBlocks.thermalGenerator);
-	}
+    @Override
+    public Item getTabIconItem() {
+        return Item.getItemFromBlock(ModBlocks.thermalGenerator);
+    }
 }

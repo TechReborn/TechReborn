@@ -1,9 +1,6 @@
 package techreborn.tiles;
 
 import ic2.api.tile.IWrenchable;
-
-import java.util.List;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -20,6 +17,8 @@ import techreborn.init.ModBlocks;
 import techreborn.util.FluidUtils;
 import techreborn.util.Inventory;
 import techreborn.util.Tank;
+
+import java.util.List;
 
 public class TileQuantumTank extends TileMachineBase implements IFluidHandler, IInventory, IWrenchable {
 
@@ -66,9 +65,9 @@ public class TileQuantumTank extends TileMachineBase implements IFluidHandler, I
         super.updateEntity();
         FluidUtils.drainContainers(this, inventory, 0, 1);
         FluidUtils.fillContainers(this, inventory, 0, 1, tank.getFluidType());
-        if(tank.getFluidType() != null && getStackInSlot(2) == null){
+        if (tank.getFluidType() != null && getStackInSlot(2) == null) {
             inventory.setInventorySlotContents(2, new ItemStack(tank.getFluidType().getBlock()));
-        } else if(tank.getFluidType() == null && getStackInSlot(2) != null){
+        } else if (tank.getFluidType() == null && getStackInSlot(2) != null) {
             setInventorySlotContents(2, null);
         }
     }
@@ -206,7 +205,7 @@ public class TileQuantumTank extends TileMachineBase implements IFluidHandler, I
     @Override
     public void addWailaInfo(List<String> info) {
         super.addWailaInfo(info);
-        if(tank.getFluid() != null){
+        if (tank.getFluid() != null) {
             info.add(tank.getFluidAmount() + " of " + tank.getFluidType().getName());
         } else {
             info.add("Empty");

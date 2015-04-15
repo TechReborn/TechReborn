@@ -14,7 +14,7 @@ public class ContainerCentrifuge extends TechRebornContainer {
 
     public int tickTime;
 
-    public ContainerCentrifuge(TileCentrifuge tileCentrifuge, EntityPlayer player){
+    public ContainerCentrifuge(TileCentrifuge tileCentrifuge, EntityPlayer player) {
         tile = tileCentrifuge;
         this.player = player;
 
@@ -58,7 +58,7 @@ public class ContainerCentrifuge extends TechRebornContainer {
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
         for (int i = 0; i < this.crafters.size(); ++i) {
-            ICrafting icrafting = (ICrafting)this.crafters.get(i);
+            ICrafting icrafting = (ICrafting) this.crafters.get(i);
             if (this.tickTime != this.tile.tickTime) {
                 icrafting.sendProgressBarUpdate(this, 0, this.tile.tickTime);
             }

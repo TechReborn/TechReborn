@@ -1,7 +1,7 @@
 package techreborn.blocks;
 
-import java.util.Random;
-
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -14,8 +14,8 @@ import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.client.GuiHandler;
 import techreborn.tiles.TileThermalGenerator;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
+import java.util.Random;
 
 
 public class BlockThermalGenerator extends BlockContainer {
@@ -55,7 +55,7 @@ public class BlockThermalGenerator extends BlockContainer {
 
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-        if(!player.isSneaking())
+        if (!player.isSneaking())
             player.openGui(Core.INSTANCE, GuiHandler.thermalGeneratorID, world, x, y, z);
         return true;
     }

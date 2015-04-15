@@ -1,32 +1,32 @@
 package techreborn.config;
 
-import java.io.File;
-
 import net.minecraftforge.common.config.Configuration;
 
+import java.io.File;
+
 public class ConfigTechReborn {
-	private static ConfigTechReborn instance = null;
-	public static String CATEGORY_WORLD = "world";
+    private static ConfigTechReborn instance = null;
+    public static String CATEGORY_WORLD = "world";
     public static String CATEGORY_POWER = "power";
     public static String CATEGORY_CRAFTING = "crafting";
-	
-	//WORLDGEN
-	public static boolean GalenaOreTrue;
-	public static boolean IridiumOreTrue;
-	public static boolean RubyOreTrue;
-	public static boolean SapphireOreTrue;
-	public static boolean BauxiteOreTrue;
-	public static boolean PyriteOreTrue;
-	public static boolean CinnabarOreTrue;
-	public static boolean SphaleriteOreTrue;
-	public static boolean TungstonOreTrue;
-	public static boolean SheldoniteOreTrue;
-	public static boolean OlivineOreTrue;
-	public static boolean SodaliteOreTrue;
+
+    //WORLDGEN
+    public static boolean GalenaOreTrue;
+    public static boolean IridiumOreTrue;
+    public static boolean RubyOreTrue;
+    public static boolean SapphireOreTrue;
+    public static boolean BauxiteOreTrue;
+    public static boolean PyriteOreTrue;
+    public static boolean CinnabarOreTrue;
+    public static boolean SphaleriteOreTrue;
+    public static boolean TungstonOreTrue;
+    public static boolean SheldoniteOreTrue;
+    public static boolean OlivineOreTrue;
+    public static boolean SodaliteOreTrue;
 
     //Power
     public static int ThermalGenertaorOutput;
-	public static int CentrifugeInputTick;
+    public static int CentrifugeInputTick;
     //Charge
     public static int AdvancedDrillCharge;
     public static int LapotronPackCharge;
@@ -34,8 +34,8 @@ public class ConfigTechReborn {
     public static int OmniToolCharge;
     public static int RockCutterCharge;
     public static int GravityCharge;
-	public static int CentrifugeCharge;
-	public static int ThermalGeneratorCharge;
+    public static int CentrifugeCharge;
+    public static int ThermalGeneratorCharge;
     //Teir
     public static int AdvancedDrillTier;
     public static int LapotronPackTier;
@@ -43,8 +43,8 @@ public class ConfigTechReborn {
     public static int OmniToolTier;
     public static int RockCutterTier;
     public static int GravityTier;
-	public static int CentrifugeTier;
-	public static int ThermalGeneratorTier;
+    public static int CentrifugeTier;
+    public static int ThermalGeneratorTier;
     //Crafting
     public static boolean ExpensiveMacerator;
     public static boolean ExpensiveDrill;
@@ -52,104 +52,97 @@ public class ConfigTechReborn {
     public static boolean ExpensiveSolar;
 
 
+    public static Configuration config;
 
+    private ConfigTechReborn(File configFile) {
+        config = new Configuration(configFile);
+        config.load();
 
-	
-	public static Configuration config;
+        ConfigTechReborn.Configs();
 
-	private ConfigTechReborn(File configFile)
-	{
-		config = new Configuration(configFile);
-		config.load();
+        config.save();
 
-		ConfigTechReborn.Configs();
+    }
 
-		config.save();
+    public static ConfigTechReborn initialize(File configFile) {
 
-	}
+        if (instance == null)
+            instance = new ConfigTechReborn(configFile);
+        else
+            throw new IllegalStateException(
+                    "Cannot initialize TechReborn Config twice");
 
-	public static ConfigTechReborn initialize(File configFile)
-	{
+        return instance;
+    }
 
-		if (instance == null)
-			instance = new ConfigTechReborn(configFile);
-		else
-			throw new IllegalStateException(
-					"Cannot initialize TechReborn Config twice");
+    public static ConfigTechReborn instance() {
+        if (instance == null) {
 
-		return instance;
-	}
+            throw new IllegalStateException(
+                    "Instance of TechReborn Config requested before initialization");
+        }
+        return instance;
+    }
 
-	public static ConfigTechReborn instance()
-	{
-		if (instance == null) {
+    public static void Configs() {
+        GalenaOreTrue = config.get(CATEGORY_WORLD,
+                "Allow GalenaOre", true,
+                "Allow GalenaOre to be generated in your world.")
+                .getBoolean(true);
+        IridiumOreTrue = config.get(CATEGORY_WORLD,
+                "Allow IridiumOre", true,
+                "Allow IridiumOre to be generated in your world.")
+                .getBoolean(true);
+        RubyOreTrue = config.get(CATEGORY_WORLD,
+                "Allow RubyOre", true,
+                "Allow RubyOre to be generated in your world.")
+                .getBoolean(true);
+        SapphireOreTrue = config.get(CATEGORY_WORLD,
+                "Allow SapphireOre", true,
+                "Allow SapphireOre to be generated in your world.")
+                .getBoolean(true);
+        BauxiteOreTrue = config.get(CATEGORY_WORLD,
+                "Allow BauxiteOre", true,
+                "Allow BauxiteOre to be generated in your world.")
+                .getBoolean(true);
+        PyriteOreTrue = config.get(CATEGORY_WORLD,
+                "Allow PyriteOre", true,
+                "Allow PyriteOre to be generated in your world.")
+                .getBoolean(true);
+        CinnabarOreTrue = config.get(CATEGORY_WORLD,
+                "Allow CinnabarOre", true,
+                "Allow CinnabarOre to be generated in your world.")
+                .getBoolean(true);
+        SphaleriteOreTrue = config.get(CATEGORY_WORLD,
+                "Allow SphaleriteOre", true,
+                "Allow SphaleriteOre to be generated in your world.")
+                .getBoolean(true);
+        TungstonOreTrue = config.get(CATEGORY_WORLD,
+                "Allow TungstonOre", true,
+                "Allow TungstonOre to be generated in your world.")
+                .getBoolean(true);
+        SheldoniteOreTrue = config.get(CATEGORY_WORLD,
+                "Allow SheldoniteOre", true,
+                "Allow SheldoniteOre to be generated in your world.")
+                .getBoolean(true);
+        OlivineOreTrue = config.get(CATEGORY_WORLD,
+                "Allow OlivineOre", true,
+                "Allow OlivineOre to be generated in your world.")
+                .getBoolean(true);
+        SodaliteOreTrue = config.get(CATEGORY_WORLD,
+                "Allow SodaliteOre", true,
+                "Allow SodaliteOre to be generated in your world.")
+                .getBoolean(true);
 
-			throw new IllegalStateException(
-					"Instance of TechReborn Config requested before initialization");
-		}
-		return instance;
-	}
-	
-	public static void Configs()
-	{
-		GalenaOreTrue = config.get(CATEGORY_WORLD,
-				"Allow GalenaOre", true,
-				"Allow GalenaOre to be generated in your world.")
-				.getBoolean(true);
-		IridiumOreTrue = config.get(CATEGORY_WORLD,
-				"Allow IridiumOre", true,
-				"Allow IridiumOre to be generated in your world.")
-				.getBoolean(true);
-		RubyOreTrue = config.get(CATEGORY_WORLD,
-				"Allow RubyOre", true,
-				"Allow RubyOre to be generated in your world.")
-				.getBoolean(true);
-		SapphireOreTrue = config.get(CATEGORY_WORLD,
-				"Allow SapphireOre", true,
-				"Allow SapphireOre to be generated in your world.")
-				.getBoolean(true);
-		BauxiteOreTrue = config.get(CATEGORY_WORLD,
-				"Allow BauxiteOre", true,
-				"Allow BauxiteOre to be generated in your world.")
-				.getBoolean(true);
-		PyriteOreTrue = config.get(CATEGORY_WORLD,
-				"Allow PyriteOre", true,
-				"Allow PyriteOre to be generated in your world.")
-				.getBoolean(true);
-		CinnabarOreTrue = config.get(CATEGORY_WORLD,
-				"Allow CinnabarOre", true,
-				"Allow CinnabarOre to be generated in your world.")
-				.getBoolean(true);
-		SphaleriteOreTrue = config.get(CATEGORY_WORLD,
-				"Allow SphaleriteOre", true,
-				"Allow SphaleriteOre to be generated in your world.")
-				.getBoolean(true);
-		TungstonOreTrue = config.get(CATEGORY_WORLD,
-				"Allow TungstonOre", true,
-				"Allow TungstonOre to be generated in your world.")
-				.getBoolean(true);
-		SheldoniteOreTrue = config.get(CATEGORY_WORLD,
-				"Allow SheldoniteOre", true,
-				"Allow SheldoniteOre to be generated in your world.")
-				.getBoolean(true);
-		OlivineOreTrue = config.get(CATEGORY_WORLD,
-				"Allow OlivineOre", true,
-				"Allow OlivineOre to be generated in your world.")
-				.getBoolean(true);
-		SodaliteOreTrue = config.get(CATEGORY_WORLD,
-				"Allow SodaliteOre", true,
-				"Allow SodaliteOre to be generated in your world.")
-				.getBoolean(true);
-		
-		//Power
+        //Power
         ThermalGenertaorOutput = config.get(CATEGORY_POWER,
                 "Thermal Generator Power", 30,
                 "The amount of power that the thermal generator makes for 1mb of lava")
                 .getInt();
-		CentrifugeInputTick = config.get(CATEGORY_POWER,
-				"Centrifuge power usage", 5,
-				"The amount of eu per tick that the Centrifuge uses.")
-				.getInt();
+        CentrifugeInputTick = config.get(CATEGORY_POWER,
+                "Centrifuge power usage", 5,
+                "The amount of eu per tick that the Centrifuge uses.")
+                .getInt();
         //Charge
         AdvancedDrillCharge = config.get(CATEGORY_POWER,
                 "Advanced drill max charge", 60000,
@@ -175,14 +168,14 @@ public class ConfigTechReborn {
                 "Gravity Chestplate max charge", 100000,
                 "The amount of power that the Gravity Chestplate can hold")
                 .getInt();
-		CentrifugeCharge = config.get(CATEGORY_POWER,
-				"Centrifuge max charge", 1000000,
-				"The amount of power that the Centrifuge can hold")
-				.getInt();
-		ThermalGeneratorCharge = config.get(CATEGORY_POWER,
-				"Thermal Generator max charge", 1000000,
-				"The amount of power that the Thermal Generator can hold")
-				.getInt();
+        CentrifugeCharge = config.get(CATEGORY_POWER,
+                "Centrifuge max charge", 1000000,
+                "The amount of power that the Centrifuge can hold")
+                .getInt();
+        ThermalGeneratorCharge = config.get(CATEGORY_POWER,
+                "Thermal Generator max charge", 1000000,
+                "The amount of power that the Thermal Generator can hold")
+                .getInt();
         //Teir
         AdvancedDrillTier = config.get(CATEGORY_POWER,
                 "Advanced drill Tier", 2,
@@ -208,36 +201,36 @@ public class ConfigTechReborn {
                 "GravityChestplate tier", 3,
                 "The tier of the GravityChestplate")
                 .getInt();
-		CentrifugeTier = config.get(CATEGORY_POWER,
-				"Centrifuge tier", 1,
-				"The tier of the Centrifuge")
-				.getInt();
-		ThermalGeneratorTier = config.get(CATEGORY_POWER,
-				"Thermal Generator tier", 1,
-				"The tier of the Thermal Generator")
-				.getInt();
-		
-		//Crafting
-		ExpensiveMacerator = config.get(CATEGORY_CRAFTING,
-				"Allow Expensive Macerator", true,
-				"Allow TechReborn to overwrite the IC2 recipe for Macerator.")
-				.getBoolean(true);
-		ExpensiveDrill = config.get(CATEGORY_CRAFTING,
-				"Allow Expensive Drill", true,
-				"Allow TechReborn to overwrite the IC2 recipe for Drill.")
-				.getBoolean(true);
-		ExpensiveDiamondDrill = config.get(CATEGORY_CRAFTING,
-				"Allow Expensive DiamondDrill", true,
-				"Allow TechReborn to overwrite the IC2 recipe for DiamondDrill.")
-				.getBoolean(true);
-		ExpensiveSolar = config.get(CATEGORY_CRAFTING,
-				"Allow Expensive Solar panels", true,
-				"Allow TechReborn to overwrite the IC2 recipe for Solar panels.")
-				.getBoolean(true);
-		
-		if (config.hasChanged())
-			config.save();
-	}
+        CentrifugeTier = config.get(CATEGORY_POWER,
+                "Centrifuge tier", 1,
+                "The tier of the Centrifuge")
+                .getInt();
+        ThermalGeneratorTier = config.get(CATEGORY_POWER,
+                "Thermal Generator tier", 1,
+                "The tier of the Thermal Generator")
+                .getInt();
+
+        //Crafting
+        ExpensiveMacerator = config.get(CATEGORY_CRAFTING,
+                "Allow Expensive Macerator", true,
+                "Allow TechReborn to overwrite the IC2 recipe for Macerator.")
+                .getBoolean(true);
+        ExpensiveDrill = config.get(CATEGORY_CRAFTING,
+                "Allow Expensive Drill", true,
+                "Allow TechReborn to overwrite the IC2 recipe for Drill.")
+                .getBoolean(true);
+        ExpensiveDiamondDrill = config.get(CATEGORY_CRAFTING,
+                "Allow Expensive DiamondDrill", true,
+                "Allow TechReborn to overwrite the IC2 recipe for DiamondDrill.")
+                .getBoolean(true);
+        ExpensiveSolar = config.get(CATEGORY_CRAFTING,
+                "Allow Expensive Solar panels", true,
+                "Allow TechReborn to overwrite the IC2 recipe for Solar panels.")
+                .getBoolean(true);
+
+        if (config.hasChanged())
+            config.save();
+    }
 
 
 }

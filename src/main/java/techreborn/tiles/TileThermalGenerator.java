@@ -11,12 +11,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.*;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.util.FluidUtils;
@@ -45,7 +40,8 @@ public class TileThermalGenerator extends TileEntity implements IWrenchable, IFl
     }
 
     @Override
-    public void setFacing(short facing) {}
+    public void setFacing(short facing) {
+    }
 
     @Override
     public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
@@ -69,7 +65,7 @@ public class TileThermalGenerator extends TileEntity implements IWrenchable, IFl
 
     @Override
     public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
-       return tank.drain(resource.amount, doDrain);
+        return tank.drain(resource.amount, doDrain);
     }
 
     @Override
@@ -130,13 +126,13 @@ public class TileThermalGenerator extends TileEntity implements IWrenchable, IFl
         super.updateEntity();
         FluidUtils.drainContainers(this, inventory, 0, 1);
         energySource.updateEntity();
-        if(tank.getFluidAmount() > 0 && energySource.getCapacity() - energySource.getEnergyStored() >= euTick){
+        if (tank.getFluidAmount() > 0 && energySource.getCapacity() - energySource.getEnergyStored() >= euTick) {
             tank.drain(1, true);
             energySource.addEnergy(euTick);
         }
-        if(tank.getFluidType() != null && getStackInSlot(2) == null){
+        if (tank.getFluidType() != null && getStackInSlot(2) == null) {
             inventory.setInventorySlotContents(2, new ItemStack(tank.getFluidType().getBlock()));
-        } else if(tank.getFluidType() == null && getStackInSlot(2) != null){
+        } else if (tank.getFluidType() == null && getStackInSlot(2) != null) {
             setInventorySlotContents(2, null);
         }
     }

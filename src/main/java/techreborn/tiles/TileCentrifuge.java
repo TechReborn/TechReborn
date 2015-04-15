@@ -38,35 +38,35 @@ public class TileCentrifuge extends TileMachineBase implements IInventory, IWren
     public void updateEntity() {
         super.updateEntity();
         energy.updateEntity();
-        if(!worldObj.isRemote){
-            if(isRunning){
-                if(ItemUtils.isItemEqual(currentRecipe.getInputItem(), getStackInSlot(0), true, true)){
-                    if(!hasTakenCells){
-                        if(getStackInSlot(1) != null && getStackInSlot(1) != null && getStackInSlot(1).getUnlocalizedName().equals("ic2.itemFluidCell")){
-                            if(getStackInSlot(1).stackSize >= currentRecipe.getCells()){
+        if (!worldObj.isRemote) {
+            if (isRunning) {
+                if (ItemUtils.isItemEqual(currentRecipe.getInputItem(), getStackInSlot(0), true, true)) {
+                    if (!hasTakenCells) {
+                        if (getStackInSlot(1) != null && getStackInSlot(1) != null && getStackInSlot(1).getUnlocalizedName().equals("ic2.itemFluidCell")) {
+                            if (getStackInSlot(1).stackSize >= currentRecipe.getCells()) {
                                 decrStackSize(1, currentRecipe.getCells());
                                 hasTakenCells = true;
                             }
                         }
                     }
-                    if(hasTakenCells && hasTakenItem){
-                        if(tickTime == currentRecipe.getTickTime()) {
-                            if(areAnyOutputsFull()){
+                    if (hasTakenCells && hasTakenItem) {
+                        if (tickTime == currentRecipe.getTickTime()) {
+                            if (areAnyOutputsFull()) {
                                 return;
                             }
-                            if(areOutputsEmpty()){
+                            if (areOutputsEmpty()) {
                                 setOutput(1, currentRecipe.getOutput1());
                                 setOutput(2, currentRecipe.getOutput2());
                                 setOutput(3, currentRecipe.getOutput3());
                                 setOutput(4, currentRecipe.getOutput4());
-                            } else if(areOutputsEqual()){
-                                if(currentRecipe.getOutput1() != null)
+                            } else if (areOutputsEqual()) {
+                                if (currentRecipe.getOutput1() != null)
                                     increacseItemStack(1, 1);
-                                if(currentRecipe.getOutput2() != null)
+                                if (currentRecipe.getOutput2() != null)
                                     increacseItemStack(2, 1);
-                                if(currentRecipe.getOutput3() != null)
+                                if (currentRecipe.getOutput3() != null)
                                     increacseItemStack(3, 1);
-                                if(currentRecipe.getOutput4() != null)
+                                if (currentRecipe.getOutput4() != null)
                                     increacseItemStack(4, 1);
                             }
                             tickTime = 0;
@@ -76,10 +76,10 @@ public class TileCentrifuge extends TileMachineBase implements IInventory, IWren
                             syncWithAll();
                             return;
                         }
-                        if(energy.canUseEnergy(euTick)){
-                            if(getStackInSlot(0) != null && ItemUtils.isItemEqual(getStackInSlot(0), currentRecipe.getInputItem(), true, true)){
-                                if(energy.useEnergy(5)){
-                                    tickTime ++;
+                        if (energy.canUseEnergy(euTick)) {
+                            if (getStackInSlot(0) != null && ItemUtils.isItemEqual(getStackInSlot(0), currentRecipe.getInputItem(), true, true)) {
+                                if (energy.useEnergy(5)) {
+                                    tickTime++;
                                 }
                             }
                         }
@@ -87,17 +87,17 @@ public class TileCentrifuge extends TileMachineBase implements IInventory, IWren
                 }
             } else {
                 //sets a new recipe
-                if(getStackInSlot(0) != null && currentRecipe == null){
-                    for(CentrifugeRecipie recipie: TechRebornAPI.centrifugeRecipies){
-                        if(ItemUtils.isItemEqual(recipie.getInputItem(), getStackInSlot(0), true, true)){
+                if (getStackInSlot(0) != null && currentRecipe == null) {
+                    for (CentrifugeRecipie recipie : TechRebornAPI.centrifugeRecipies) {
+                        if (ItemUtils.isItemEqual(recipie.getInputItem(), getStackInSlot(0), true, true)) {
                             currentRecipe = new CentrifugeRecipie(recipie);
                         }
                     }
                 }
-                if(!isRunning && currentRecipe != null){
-                    if(areOutputsEqual() || !areAnyOutputsFull()){
-                        if(getStackInSlot(0) != null && currentRecipe.getInputItem().stackSize <= getStackInSlot(0).stackSize){
-                            if(energy.canUseEnergy(euTick)){
+                if (!isRunning && currentRecipe != null) {
+                    if (areOutputsEqual() || !areAnyOutputsFull()) {
+                        if (getStackInSlot(0) != null && currentRecipe.getInputItem().stackSize <= getStackInSlot(0).stackSize) {
+                            if (energy.canUseEnergy(euTick)) {
                                 decrStackSize(0, currentRecipe.getInputItem().stackSize);
                                 hasTakenItem = true;
                                 tickTime = 0;
@@ -111,59 +111,59 @@ public class TileCentrifuge extends TileMachineBase implements IInventory, IWren
         }
     }
 
-    public boolean areOutputsEqual(){
-        if(currentRecipe == null){
+    public boolean areOutputsEqual() {
+        if (currentRecipe == null) {
             return false;
         }
         boolean boo = false;
-        if(currentRecipe.getOutput1() != null && ItemUtils.isItemEqual(getOutputItemStack(1), currentRecipe.getOutput1(), false, true)){
-           boo = true;
-        }
-        if(currentRecipe.getOutput2() != null && ItemUtils.isItemEqual(getOutputItemStack(2), currentRecipe.getOutput2(), false, true)){
+        if (currentRecipe.getOutput1() != null && ItemUtils.isItemEqual(getOutputItemStack(1), currentRecipe.getOutput1(), false, true)) {
             boo = true;
         }
-        if(currentRecipe.getOutput3() != null && ItemUtils.isItemEqual(getOutputItemStack(3), currentRecipe.getOutput3(), false, true)){
+        if (currentRecipe.getOutput2() != null && ItemUtils.isItemEqual(getOutputItemStack(2), currentRecipe.getOutput2(), false, true)) {
             boo = true;
         }
-        if(currentRecipe.getOutput4() != null && ItemUtils.isItemEqual(getOutputItemStack(4), currentRecipe.getOutput4(), false, true)){
+        if (currentRecipe.getOutput3() != null && ItemUtils.isItemEqual(getOutputItemStack(3), currentRecipe.getOutput3(), false, true)) {
+            boo = true;
+        }
+        if (currentRecipe.getOutput4() != null && ItemUtils.isItemEqual(getOutputItemStack(4), currentRecipe.getOutput4(), false, true)) {
             boo = true;
         }
         return boo;
     }
 
-    public boolean areOutputsEmpty(){
+    public boolean areOutputsEmpty() {
         return getOutputItemStack(1) == null && getOutputItemStack(2) == null && getOutputItemStack(3) == null && getOutputItemStack(4) == null;
     }
 
-    public boolean areAnyOutputsFull(){
-        if(currentRecipe.getOutput1() != null && getOutputItemStack(1) != null && getOutputItemStack(1).stackSize + currentRecipe.getOutput1().stackSize > currentRecipe.getOutput1().getMaxStackSize()){
-           return true; 
-        }
-        if(currentRecipe.getOutput2() != null && getOutputItemStack(2) != null && getOutputItemStack(2).stackSize + currentRecipe.getOutput2().stackSize > currentRecipe.getOutput1().getMaxStackSize()){
+    public boolean areAnyOutputsFull() {
+        if (currentRecipe.getOutput1() != null && getOutputItemStack(1) != null && getOutputItemStack(1).stackSize + currentRecipe.getOutput1().stackSize > currentRecipe.getOutput1().getMaxStackSize()) {
             return true;
         }
-        if(currentRecipe.getOutput3() != null && getOutputItemStack(3) != null && getOutputItemStack(3).stackSize + currentRecipe.getOutput3().stackSize > currentRecipe.getOutput1().getMaxStackSize()){
+        if (currentRecipe.getOutput2() != null && getOutputItemStack(2) != null && getOutputItemStack(2).stackSize + currentRecipe.getOutput2().stackSize > currentRecipe.getOutput1().getMaxStackSize()) {
             return true;
         }
-        if(currentRecipe.getOutput4() != null && getOutputItemStack(4) != null && getOutputItemStack(4).stackSize + currentRecipe.getOutput4().stackSize > currentRecipe.getOutput1().getMaxStackSize()){
+        if (currentRecipe.getOutput3() != null && getOutputItemStack(3) != null && getOutputItemStack(3).stackSize + currentRecipe.getOutput3().stackSize > currentRecipe.getOutput1().getMaxStackSize()) {
+            return true;
+        }
+        if (currentRecipe.getOutput4() != null && getOutputItemStack(4) != null && getOutputItemStack(4).stackSize + currentRecipe.getOutput4().stackSize > currentRecipe.getOutput1().getMaxStackSize()) {
             return true;
         }
         return false;
     }
 
-    public ItemStack getOutputItemStack(int slot){
+    public ItemStack getOutputItemStack(int slot) {
         return getStackInSlot(slot + 1);
     }
 
     public void increacseItemStack(int slot, int amount) {
-        if(getOutputItemStack(slot) == null){
+        if (getOutputItemStack(slot) == null) {
             return;
         }
         decrStackSize(slot + 1, -amount);
     }
 
-    public void setOutput(int slot, ItemStack stack){
-        if(stack == null){
+    public void setOutput(int slot, ItemStack stack) {
+        if (stack == null) {
             return;
         }
         setInventorySlotContents(slot + 1, stack);
@@ -174,8 +174,8 @@ public class TileCentrifuge extends TileMachineBase implements IInventory, IWren
         super.readFromNBT(tagCompound);
         inventory.readFromNBT(tagCompound);
         String recipeName = tagCompound.getString("recipe");
-        for(CentrifugeRecipie recipie : TechRebornAPI.centrifugeRecipies){
-            if(recipie.getInputItem().getUnlocalizedName().equals(recipeName)){
+        for (CentrifugeRecipie recipie : TechRebornAPI.centrifugeRecipies) {
+            if (recipie.getInputItem().getUnlocalizedName().equals(recipeName)) {
                 currentRecipe = new CentrifugeRecipie(recipie);
             }
         }
@@ -193,7 +193,7 @@ public class TileCentrifuge extends TileMachineBase implements IInventory, IWren
     }
 
     public void writeUpdateToNBT(NBTTagCompound tagCompound) {
-        if(currentRecipe != null){
+        if (currentRecipe != null) {
             tagCompound.setString("recipe", currentRecipe.getInputItem().getUnlocalizedName());
         } else {
             tagCompound.setString("recipe", "none");
@@ -297,7 +297,8 @@ public class TileCentrifuge extends TileMachineBase implements IInventory, IWren
     }
 
     @Override
-    public void setFacing(short facing) {}
+    public void setFacing(short facing) {
+    }
 
     @Override
     public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
@@ -317,11 +318,11 @@ public class TileCentrifuge extends TileMachineBase implements IInventory, IWren
     @Override
     public int[] getAccessibleSlotsFromSide(int side) {
         //Top
-        if(side == 1){
+        if (side == 1) {
             return new int[]{0};
         }
         //Bottom
-        if(side == 0){
+        if (side == 0) {
             return new int[]{1};
         }
         //Not bottom or top
@@ -331,11 +332,11 @@ public class TileCentrifuge extends TileMachineBase implements IInventory, IWren
     @Override
     public boolean canInsertItem(int slot, ItemStack stack, int side) {
         //Bottom
-        if(side == 0){
+        if (side == 0) {
             return stack.getUnlocalizedName().equals("ic2.itemFluidCell");
         }
         //Not bottom or top
-        if(side >= 2){
+        if (side >= 2) {
             return false;
         }
         return true;

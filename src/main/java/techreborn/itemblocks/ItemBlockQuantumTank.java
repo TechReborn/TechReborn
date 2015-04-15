@@ -15,8 +15,7 @@ public class ItemBlockQuantumTank extends ItemBlock {
     }
 
     @Override
-    public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata)
-    {
+    public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata) {
         if (!world.setBlock(x, y, z, ModBlocks.quantumTank, metadata, 3)) {
             return false;
         }
