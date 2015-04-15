@@ -19,9 +19,17 @@ public class NEIConfig implements IConfigureNEI {
     @Override
     public void loadConfig() {
         CentrifugeRecipeHandler centrifugeRecipeHandler = new CentrifugeRecipeHandler();
+        ShapedRollingMachineHandler shapedRollingMachineHandler = new ShapedRollingMachineHandler();
+        ShapelessRollingMachineHandler shapelessRollingMachineHandler = new ShapelessRollingMachineHandler();
 
         API.registerRecipeHandler(centrifugeRecipeHandler);
         API.registerUsageHandler(centrifugeRecipeHandler);
+
+        API.registerUsageHandler(shapedRollingMachineHandler);
+        API.registerRecipeHandler(shapedRollingMachineHandler);
+
+        API.registerUsageHandler(shapelessRollingMachineHandler);
+        API.registerRecipeHandler(shapelessRollingMachineHandler);
     }
 
 }
