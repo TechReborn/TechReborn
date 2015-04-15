@@ -1,5 +1,6 @@
 package techreborn.api;
 
+import net.minecraft.item.ItemStack;
 import techreborn.util.ItemUtils;
 
 import java.util.ArrayList;
@@ -7,7 +8,7 @@ import java.util.ArrayList;
 public final class TechRebornAPI {
 
     public static ArrayList<CentrifugeRecipie> centrifugeRecipies = new ArrayList<CentrifugeRecipie>();
-    public static ArrayList<RollingMachineRecipie> rollingmachineRecipes = new ArrayList<RollingMachineRecipie>();
+    public static ArrayList<RollingMachineRecipe> rollingmachineRecipes = new ArrayList<RollingMachineRecipe>();
 
 
     public static void registerCentrifugeRecipe(CentrifugeRecipie recipie) {
@@ -26,21 +27,14 @@ public final class TechRebornAPI {
             centrifugeRecipies.add(recipie);
     }
 
-    public static void registerRollingMachineRecipe(RollingMachineRecipie recipie) {
-        boolean shouldAdd = true;
-        for (CentrifugeRecipie centrifugeRecipie : centrifugeRecipies) {
-            if (ItemUtils.isItemEqual(centrifugeRecipie.getInputItem(), recipie.getInputItem1(), false, true)) {
-                try {
-                    throw new RegisteredItemRecipe("Item " + recipie.getInputItem1().getUnlocalizedName() + " is already being used in a recipe for the RollingMachine");
-                } catch (RegisteredItemRecipe registeredItemRecipe) {
-                    registeredItemRecipe.printStackTrace();
-                    shouldAdd = false;
-                }
-            }
-        }
-        if (shouldAdd)
-            rollingmachineRecipes.add(recipie);
+    public static void addRollingMachinceRecipe(ItemStack output, Object... components) {
+        RollingMachineRecipe.instance.addRecipe(output, components);
     }
+
+    public void addShapelessRollingMachinceRecipe(ItemStack output, Object... components) {
+        RollingMachineRecipe.instance.addShapelessRecipe(output, components);
+    }
+
 }
 
 
