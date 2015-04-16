@@ -13,6 +13,7 @@ public class BlockCentrifuge extends BlockContainer {
 
     public BlockCentrifuge() {
         super(Material.piston);
+        setHardness(2F);
     }
 
     @Override
