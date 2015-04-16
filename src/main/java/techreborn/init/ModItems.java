@@ -6,6 +6,7 @@ import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import techreborn.items.ItemCells;
 import techreborn.items.ItemDusts;
 import techreborn.items.ItemDustsSmall;
 import techreborn.items.ItemGems;
@@ -26,6 +27,7 @@ public class ModItems {
     public static Item ingots;
     public static Item gems;
     public static Item parts;
+    public static Item cells;
     public static Item rockCutter;
     public static Item lithiumBatpack;
     public static Item lapotronpack;
@@ -44,6 +46,8 @@ public class ModItems {
         GameRegistry.registerItem(gems, "gem");
         parts = new ItemParts();
         GameRegistry.registerItem(parts, "part");
+        cells = new ItemCells();
+        GameRegistry.registerItem(cells, "cell");
         rockCutter = new ItemRockCutter(ToolMaterial.EMERALD);
         GameRegistry.registerItem(rockCutter, "rockCutter");
         lithiumBatpack = new ItemLithiumBatpack(ArmorMaterial.DIAMOND, 7, 1);

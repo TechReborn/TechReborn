@@ -169,6 +169,40 @@ item.techreborn.dustsmall.Manyullyn.name=Small Pile of Manyullyn Dust
 item.techreborn.dustsmall.AlBrass.name=Small Pile of AluminiumBrass Dust
 item.techreborn.dustsmall.Alumite.name=Small Pile of Alumite Dust
 
+#Cells
+item.techreborn.cell.Berylium.name=Berylium Cell
+item.techreborn.cell.biomass.name=Biomass Cell
+item.techreborn.cell.calciumCarbonate.name=Calcium Carbonate Cell
+item.techreborn.cell.calcium.name=Calcium Cell
+item.techreborn.cell.carbon.name=Carbon Cell
+item.techreborn.cell.chlorine.name=Chlorine Cell
+item.techreborn.cell.deuterium.name=Deuterium Cell
+item.techreborn.cell.diesel.name=Diesel Cell
+item.techreborn.cell.ethanol.name=Ethanol Cell
+item.techreborn.cell.glyceryl.name=Glyceryl Cell
+item.techreborn.cell.helium3.name=Helium3 Cell
+item.techreborn.cell.helium.name=Helium Cell
+item.techreborn.cell.heliumPlasma.name=Helium Plasma Cell
+item.techreborn.cell.hydrogen.name=Hydrogen Cell
+item.techreborn.cell.ice.name=Ice Cell
+item.techreborn.cell.lithium.name=Lithium Cell
+item.techreborn.cell.mercury.name=Mercury Cell
+item.techreborn.cell.methane.name=Methane Cell
+item.techreborn.cell.nitrocarbon.name=Nitrocarbon Cell
+item.techreborn.cell.nitroCoalfuel.name=Nitro Coal fuel Cell
+item.techreborn.cell.nitroDiesel.name=Nitro Diesel Cell
+item.techreborn.cell.nitrogen.name=Nitrogen Cell
+item.techreborn.cell.nitrogenDioxide.name=Nitrogen Dioxide Cell
+item.techreborn.cell.oil.name=Oil Cell
+item.techreborn.cell.potassium.name=Potassium Cell
+item.techreborn.cell.seedOil.name=SeedOil Cell
+item.techreborn.cell.silicon.name=Silicon Cell
+item.techreborn.cell.sodium.name=Sodium Cell
+item.techreborn.cell.sodiumPersulfate.name=Sodium Persulfate Cell
+item.techreborn.cell.sodiumSulfide.name=Sodium Sulfide Cell
+item.techreborn.cell.sulfur.name=Sulfur Cell
+item.techreborn.cell.sulfuricAcid.name=Sulfuric Acid Cell
+item.techreborn.cell.wolframium.name=Wolframium Cell
 
 #Gems
 item.techreborn.gem.Ruby.name=Ruby
