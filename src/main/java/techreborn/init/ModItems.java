@@ -7,6 +7,7 @@ import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import techreborn.items.ItemDusts;
+import techreborn.items.ItemDustsSmall;
 import techreborn.items.ItemGems;
 import techreborn.items.ItemIngots;
 import techreborn.items.ItemParts;
@@ -21,6 +22,7 @@ import techreborn.util.LogHelper;
 public class ModItems {
 
     public static Item dusts;
+    public static Item smallDusts;
     public static Item ingots;
     public static Item gems;
     public static Item parts;
@@ -34,6 +36,8 @@ public class ModItems {
     public static void init() {
         dusts = new ItemDusts();
         GameRegistry.registerItem(dusts, "dust");
+        smallDusts = new ItemDustsSmall();
+        GameRegistry.registerItem(smallDusts, "smallDust");
         ingots = new ItemIngots();
         GameRegistry.registerItem(ingots, "ingot");
         gems = new ItemGems();
@@ -51,7 +55,7 @@ public class ModItems {
         advancedDrill = new ItemAdvancedDrill();
         GameRegistry.registerItem(advancedDrill, "advancedDrill");
         gravityChest = new ItemGravityChest(ArmorMaterial.DIAMOND, 7, 1);
-        GameRegistry.registerItem(gravityChest, "gravityChest");
+        GameRegistry.registerItem(gravityChest, "gravitychestplate");
 
         LogHelper.info("TechReborns Items Loaded");
 
@@ -141,7 +145,6 @@ public class ModItems {
         OreDictionary.registerOre("ingotManyullyn", new ItemStack(ingots, 1, 19));
         OreDictionary.registerOre("ingotAluminumBrass", new ItemStack(ingots, 1, 20));
         OreDictionary.registerOre("ingotAlumite", new ItemStack(ingots, 1, 21));
-
         //Gems
         OreDictionary.registerOre("gemRuby", new ItemStack(gems, 1, 0));
         OreDictionary.registerOre("gemSapphire", new ItemStack(gems, 1, 1));
