@@ -44,7 +44,7 @@ public class BlockRollingMachine extends BlockContainer {
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister icon) {
         top = icon.registerIcon("techreborn:machine/rollingmachine_top");
-        other = icon.registerIcon("techreborn:machine/rollingmachine_side");
+        other = icon.registerIcon("techreborn:machine/machine_side");
     }
 
     @Override

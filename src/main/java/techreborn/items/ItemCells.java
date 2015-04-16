@@ -13,11 +13,11 @@ import java.util.List;
 public class ItemCells extends ItemTR {
     public static final String[] types = new String[]
             {
-                    "Berylium", "biomass", "calciumCarbonate", "calcium", "carbon", "carbon", "chlorine", "deuterium",
+                    "Berylium", "biomass", "calciumCarbonate", "calcium", "carbon", "chlorine", "deuterium",
                     "diesel", "ethanol", "glyceryl", "helium3", "helium", "heliumPlasma", "hydrogen", "ice", "lithium",
                     "mercury", "methane", "nitrocarbon", "nitroCoalfuel", "nitroDiesel", "nitrogen", "nitrogenDioxide", "oil", 
                     "potassium", "seedOil", "silicon", "sodium", "sodiumPersulfate", "sodiumSulfide", "sulfur", "sulfuricAcid",
-                    "sulfuricAcid", "wolframium",
+                    "wolframium",
             };
 
     private IIcon[] textures;
