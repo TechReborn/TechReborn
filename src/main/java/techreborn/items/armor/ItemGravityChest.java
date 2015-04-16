@@ -31,7 +31,7 @@ public class ItemGravityChest extends ItemArmor implements IElectricItem, ISpeci
     public ItemGravityChest(ArmorMaterial material, int par3, int par4) {
         super(material, par3, par4);
         setCreativeTab(TechRebornCreativeTab.instance);
-        setUnlocalizedName("techreborn.gravity");
+        setUnlocalizedName("techreborn.gravitychestplate");
         setMaxStackSize(1);
         setMaxDamage(120);
 //		isDamageable();
@@ -40,13 +40,13 @@ public class ItemGravityChest extends ItemArmor implements IElectricItem, ISpeci
     @SideOnly(Side.CLIENT)
     @Override
     public void registerIcons(IIconRegister iconRegister) {
-        this.itemIcon = iconRegister.registerIcon("techreborn:" + "items/gravity");
+        this.itemIcon = iconRegister.registerIcon("techreborn:" + "items/gravitychestplate");
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
-        return "techreborn:" + "textures/models/gravity.png";
+        return "techreborn:" + "textures/models/gravitychestplate.png";
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
