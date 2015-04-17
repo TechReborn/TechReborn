@@ -13,8 +13,6 @@ public class TileBlastFurnace extends TileMachineBase implements IWrenchable {
 	public BasicSink energy;
     public Inventory inventory = new Inventory(3, "TileBlastFurnace", 64);
 
-	public TileBlastFurnace() {
-	}
 
 	@Override
 	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
@@ -43,6 +41,10 @@ public class TileBlastFurnace extends TileMachineBase implements IWrenchable {
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.BlastFurnace, 1);
+	}
+
+	public boolean isComplete(){
+		return false;
 	}
 
 }
