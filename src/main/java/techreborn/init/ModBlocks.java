@@ -23,6 +23,7 @@ public class ModBlocks {
     public static Block centrifuge;
     public static Block RollingMachine;
     public static Block MachineCasing;
+    public static Block BlastFurnace;
 
     public static Block ore;
     public static Block storage;
@@ -47,6 +48,9 @@ public class ModBlocks {
         RollingMachine = new BlockRollingMachine(Material.piston);
         GameRegistry.registerBlock(RollingMachine, "rollingmachine");
         GameRegistry.registerTileEntity(TileRollingMachine.class, "TileRollingMachine");
+        
+        BlastFurnace = new BlockBlastFurnace(Material.piston);
+        GameRegistry.registerBlock(BlastFurnace, "blastFurnace");
         
         MachineCasing = new BlockMachineCasing(Material.piston);
         GameRegistry.registerBlock(MachineCasing, ItemBlockMachineCasing.class, "machinecasing");

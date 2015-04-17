@@ -15,6 +15,7 @@ public class GuiHandler implements IGuiHandler {
     public static final int quantumChestID = 2;
     public static final int centrifugeID = 3;
     public static final int rollingMachineID = 4;
+    public static final int blastFurnaceID = 5;
 
 
     @Override
@@ -29,7 +30,10 @@ public class GuiHandler implements IGuiHandler {
             return new ContainerCentrifuge((TileCentrifuge) world.getTileEntity(x, y, z), player);
         } else if (ID == rollingMachineID) {
             return new ContainerRollingMachine((TileRollingMachine) world.getTileEntity(x, y, z), player);
+        } else if (ID == blastFurnaceID) {
+            return new ContainerBlastFurnace((TileBlastFurnace) world.getTileEntity(x, y, z), player);
         }
+        
 
         return null;
     }
@@ -46,6 +50,8 @@ public class GuiHandler implements IGuiHandler {
             return new GuiCentrifuge(player, (TileCentrifuge) world.getTileEntity(x, y, z));
         } else if (ID == rollingMachineID) {
             return new GuiRollingMachine(player, (TileRollingMachine) world.getTileEntity(x, y, z));
+        } else if (ID == blastFurnaceID) {
+            return new GuiBlastFurnace(player, (TileBlastFurnace) world.getTileEntity(x, y, z));
         }
         return null;
     }
