@@ -36,7 +36,7 @@ public class ConfigTechReborn {
     public static int GravityCharge;
     public static int CentrifugeCharge;
     public static int ThermalGeneratorCharge;
-    //Teir
+    //Tier
     public static int AdvancedDrillTier;
     public static int LapotronPackTier;
     public static int LithiumBatpackTier;

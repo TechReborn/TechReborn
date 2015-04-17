@@ -23,6 +23,11 @@ tile.techreborn.ore.Tungston.name=Tungston Ore
 tile.techreborn.ore.Sheldonite.name=Sheldonite Ore
 tile.techreborn.ore.Olivine.name=Olivine Ore
 tile.techreborn.ore.Sodalite.name=Sodalite Ore
+tile.techreborn.ore.Copper.name=Copper Ore
+tile.techreborn.ore.Tin.name=Tin Ore
+tile.techreborn.ore.Lead.name=Lead Ore
+tile.techreborn.ore.Silver.name=Silver Ore
+
 
 #Storage
 tile.techreborn.storage.Silver.name=Block of Silver

@@ -33,8 +33,6 @@ public class GuiHandler implements IGuiHandler {
         } else if (ID == blastFurnaceID) {
             return new ContainerBlastFurnace((TileBlastFurnace) world.getTileEntity(x, y, z), player);
         }
-        
-
         return null;
     }
 
