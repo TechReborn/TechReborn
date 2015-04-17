@@ -57,4 +57,8 @@ public class TileMachineCasing extends RectangularMultiblockTileEntityBase {
     public void isGoodForInterior() throws MultiblockValidationException {
 
     }
+
+    public MultiBlockCasing getMultiblockController() {
+        return (MultiBlockCasing) super.getMultiblockController();
+    }
 }

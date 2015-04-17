@@ -2,12 +2,15 @@ package techreborn.multiblocks;
 
 import erogenousbeef.coreTR.multiblock.IMultiblockPart;
 import erogenousbeef.coreTR.multiblock.MultiblockControllerBase;
+import erogenousbeef.coreTR.multiblock.MultiblockValidationException;
 import erogenousbeef.coreTR.multiblock.rectangular.RectangularMultiblockControllerBase;
+import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import techreborn.util.LogHelper;
 
 public class MultiBlockCasing extends RectangularMultiblockControllerBase {
+
     public MultiBlockCasing(World world) {
         super(world);
     }
@@ -28,7 +31,7 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 
     @Override
     protected void onMachineAssembled() {
-        LogHelper.all("New multiblock created!");
+        LogHelper.warn("New multiblock created!");
     }
 
     @Override
@@ -119,5 +122,15 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
     @Override
     public void decodeDescriptionPacket(NBTTagCompound data) {
 
+    }
+
+
+    @Override
+    protected void isBlockGoodForInterior(World world, int x, int y, int z) throws MultiblockValidationException {
+        Block block = world.getBlock(x, y, z);
+        if(block.getUnlocalizedName().equals("tile.lava") || block.getUnlocalizedName().equals("tile.air")){
+        } else {
+            super.isBlockGoodForInterior(world, x, y, z);
+        }
     }
 }

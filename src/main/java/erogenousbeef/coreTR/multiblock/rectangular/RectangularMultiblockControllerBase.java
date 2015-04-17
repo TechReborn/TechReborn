@@ -68,7 +68,7 @@ public abstract class RectangularMultiblockControllerBase extends
 						// This is permitted so that we can incorporate certain non-multiblock parts inside interiors
 						part = null;
 					}
-					
+
 					// Validate block type against both part-level and material-level validators.
 					int extremes = 0;
 					if(x == minimumCoord.x) { extremes++; }

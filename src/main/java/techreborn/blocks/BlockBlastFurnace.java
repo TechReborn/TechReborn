@@ -9,10 +9,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.Core;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileBlastFurnace;
+import techreborn.tiles.TileMachineCasing;
 
 public class BlockBlastFurnace extends BlockContainer{
 
@@ -37,7 +39,14 @@ public class BlockBlastFurnace extends BlockContainer{
 	 @Override
 	 public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
 		 if (!player.isSneaking())
-			 player.openGui(Core.INSTANCE, GuiHandler.blastFurnaceID, world, x, y, z);
+			 for(ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS){
+				 if(world.getTileEntity(x + direction.offsetX, y + direction.offsetY, z + direction.offsetZ) instanceof TileMachineCasing){
+					 TileMachineCasing casing = (TileMachineCasing) world.getTileEntity(x + direction.offsetX, y + direction.offsetY, z + direction.offsetZ);
+					 if(casing.getMultiblockController() != null && casing.getMultiblockController().isAssembled()){
+						 player.openGui(Core.INSTANCE, GuiHandler.blastFurnaceID, world, x, y, z);
+					 }
+				 }
+			 }
 		 return true;
 	    }
 	
