@@ -1,11 +1,15 @@
 package techreborn;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import erogenousbeef.coreTR.multiblock.MultiblockEventHandler;
+import erogenousbeef.coreTR.multiblock.MultiblockServerTickHandler;
+import net.minecraftforge.common.MinecraftForge;
 import techreborn.achievement.TRAchievements;
 import techreborn.client.GuiHandler;
 import techreborn.compat.CompatManager;
@@ -57,6 +61,9 @@ public class Core {
         PacketHandler.setChannels(NetworkRegistry.INSTANCE.newChannel(ModInfo.MOD_ID + "_packets", new PacketHandler()));
         //Achievements
         TRAchievements.init();
+        //Multiblock events
+        MinecraftForge.EVENT_BUS.register(new MultiblockEventHandler());
+        FMLCommonHandler.instance().bus().register(new MultiblockServerTickHandler());
         LogHelper.info("Initialization Compleate");
     }
     
