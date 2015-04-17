@@ -5,7 +5,11 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+<<<<<<< HEAD
 import net.minecraftforge.common.MinecraftForge;
+=======
+import techreborn.achievement.TRAchievements;
+>>>>>>> d5628ff93a9b7d42a02be9eb21b95d57313cd15e
 import techreborn.client.GuiHandler;
 import techreborn.compat.CompatManager;
 import techreborn.config.ConfigTechReborn;
@@ -55,6 +59,8 @@ public class Core {
         PacketHandler.setChannels(NetworkRegistry.INSTANCE.newChannel(ModInfo.MOD_ID + "_packets", new PacketHandler()));
         //Events
         MinecraftForge.EVENT_BUS.register(new MultiblockEvent());
+        //Achievements
+        TRAchievements.init();
         LogHelper.info("Initialization Compleate");
     }
 
