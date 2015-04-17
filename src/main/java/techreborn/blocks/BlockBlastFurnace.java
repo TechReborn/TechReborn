@@ -12,7 +12,6 @@ import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
-import techreborn.multiblocks.MultiBlastfurnace;
 import techreborn.tiles.TileBlastFurnace;
 
 public class BlockBlastFurnace extends BlockContainer{
@@ -32,7 +31,7 @@ public class BlockBlastFurnace extends BlockContainer{
 	
 	 @Override
 	 public TileEntity createNewTileEntity(World world, int p_149915_2_) {
-	        return new TileBlastFurnace(new MultiBlastfurnace());
+	        return new TileBlastFurnace();
 	 }
 	 
 	 @Override

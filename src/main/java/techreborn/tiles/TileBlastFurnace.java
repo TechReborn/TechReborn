@@ -4,20 +4,16 @@ import ic2.api.energy.prefab.BasicSink;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import techreborn.api.multiblock.BaseMultiBlock;
-import techreborn.api.multiblock.MultiBlockController;
 import techreborn.init.ModBlocks;
 import techreborn.util.Inventory;
 
-public class TileBlastFurnace extends MultiBlockController implements IWrenchable {
+public class TileBlastFurnace extends TileMachineBase implements IWrenchable {
 
 	public int tickTime;
 	public BasicSink energy;
     public Inventory inventory = new Inventory(3, "TileBlastFurnace", 64);
 
-	public TileBlastFurnace(BaseMultiBlock multiBlock) {
-		super(multiBlock);
-		setParent(this);
+	public TileBlastFurnace() {
 	}
 
 	@Override

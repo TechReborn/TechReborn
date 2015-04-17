@@ -1,10 +1,8 @@
 package techreborn.tiles;
 
 import net.minecraft.tileentity.TileEntity;
-import techreborn.api.multiblock.IMultiblockComponent;
-import techreborn.multiblocks.MultiBlastfurnace;
 
-public class TileMachineCasing extends TileEntity implements IMultiblockComponent {
+public class TileMachineCasing extends TileEntity {
 
     @Override
     public boolean canUpdate() {
@@ -12,8 +10,4 @@ public class TileMachineCasing extends TileEntity implements IMultiblockComponen
         return false;
     }
 
-    @Override
-    public Class getMultiblockType() {
-        return MultiBlastfurnace.class;
-    }
 }
