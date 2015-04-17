@@ -6,8 +6,10 @@ import techreborn.compat.waila.CompatModuleWaila;
 
 public class CompatManager {
 
-    public static void init(FMLInitializationEvent event) {
-        if (Loader.isModLoaded("Waila")) {
+    public static void init(FMLInitializationEvent event) 
+    {
+        if (Loader.isModLoaded("Waila")) 
+        {
             new CompatModuleWaila().init(event);
         }
     }

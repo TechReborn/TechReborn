@@ -16,6 +16,11 @@ public class ConfigTechReborn {
     public static boolean RubyOreTrue;
     public static boolean SapphireOreTrue;
     public static boolean BauxiteOreTrue;
+    public static boolean CopperOreTrue;
+    public static boolean TinOreTrue;
+    public static boolean LeadOreTrue;
+    public static boolean SilverOreTrue;
+
     public static boolean PyriteOreTrue;
     public static boolean CinnabarOreTrue;
     public static boolean SphaleriteOreTrue;
@@ -104,6 +109,22 @@ public class ConfigTechReborn {
         BauxiteOreTrue = config.get(CATEGORY_WORLD,
                 "Allow BauxiteOre", true,
                 "Allow BauxiteOre to be generated in your world.")
+                .getBoolean(true);
+        CopperOreTrue = config.get(CATEGORY_WORLD,
+                "Allow CopperOre", true,
+                "Allow CopperOre to be generated in your world.")
+                .getBoolean(true);
+        TinOreTrue = config.get(CATEGORY_WORLD,
+                "Allow TinOre", true,
+                "Allow TinOre to be generated in your world.")
+                .getBoolean(true);
+        LeadOreTrue = config.get(CATEGORY_WORLD,
+                "Allow LeadOre", true,
+                "Allow LeadOre to be generated in your world.")
+                .getBoolean(true);
+        SilverOreTrue = config.get(CATEGORY_WORLD,
+                "Allow LeadOre", true,
+                "Allow LeadOre to be generated in your world.")
                 .getBoolean(true);
         PyriteOreTrue = config.get(CATEGORY_WORLD,
                 "Allow PyriteOre", true,

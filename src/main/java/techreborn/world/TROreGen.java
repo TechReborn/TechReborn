@@ -26,6 +26,10 @@ public class TROreGen implements IWorldGenerator {
     WorldGenMinable oreSheldonite;
     WorldGenMinable oreOlivine;
     WorldGenMinable oreSodalite;
+    WorldGenMinable oreCopper;
+    WorldGenMinable oreTin;
+    WorldGenMinable oreLead;
+    WorldGenMinable oreSilver;
 
     public TROreGen() {
         //World
@@ -34,6 +38,11 @@ public class TROreGen implements IWorldGenerator {
         oreRuby = new WorldGenMinable(ModBlocks.ore, 2, 8, Blocks.stone);
         oreSapphire = new WorldGenMinable(ModBlocks.ore, 3, 8, Blocks.stone);
         oreBauxite = new WorldGenMinable(ModBlocks.ore, 4, 8, Blocks.stone);
+        oreCopper = new WorldGenMinable(ModBlocks.ore, 12, 8, Blocks.stone);
+        oreTin = new WorldGenMinable(ModBlocks.ore, 13, 8, Blocks.stone);
+        oreLead = new WorldGenMinable(ModBlocks.ore, 14, 8, Blocks.stone);
+        oreSilver = new WorldGenMinable(ModBlocks.ore, 15, 8, Blocks.stone);
+
         //Nether
         orePyrite = new WorldGenMinable(ModBlocks.ore, 5, 8, Blocks.netherrack);
         oreCinnabar = new WorldGenMinable(ModBlocks.ore, 6, 8, Blocks.netherrack);
@@ -98,6 +107,38 @@ public class TROreGen implements IWorldGenerator {
                 yPos = 60 + random.nextInt(60 - 20);
                 zPos = zChunk + random.nextInt(16);
                 oreBauxite.generate(world, random, xPos, yPos, zPos);
+            }
+        }
+        if (config.CopperOreTrue) {
+            for (int i = 0; i <= 16; i++) {
+                xPos = xChunk + random.nextInt(16);
+                yPos = 60 + random.nextInt(60 - 20);
+                zPos = zChunk + random.nextInt(16);
+                oreCopper.generate(world, random, xPos, yPos, zPos);
+            }
+        }
+        if (config.TinOreTrue) {
+            for (int i = 0; i <= 16; i++) {
+                xPos = xChunk + random.nextInt(16);
+                yPos = 60 + random.nextInt(60 - 20);
+                zPos = zChunk + random.nextInt(16);
+                oreTin.generate(world, random, xPos, yPos, zPos);
+            }
+        }
+        if (config.LeadOreTrue) {
+            for (int i = 0; i <= 16; i++) {
+                xPos = xChunk + random.nextInt(16);
+                yPos = 60 + random.nextInt(60 - 20);
+                zPos = zChunk + random.nextInt(16);
+                oreLead.generate(world, random, xPos, yPos, zPos);
+            }
+        }
+        if (config.SilverOreTrue) {
+            for (int i = 0; i <= 16; i++) {
+                xPos = xChunk + random.nextInt(16);
+                yPos = 60 + random.nextInt(60 - 20);
+                zPos = zChunk + random.nextInt(16);
+                oreSilver.generate(world, random, xPos, yPos, zPos);
             }
         }
     }

@@ -2,6 +2,7 @@ package techreborn;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -9,6 +10,7 @@ import net.minecraftforge.common.MinecraftForge;
 import techreborn.achievement.TRAchievements;
 import techreborn.client.GuiHandler;
 import techreborn.compat.CompatManager;
+import techreborn.compat.recipes.RecipeManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.event.MultiblockEvent;
 import techreborn.init.ModBlocks;
@@ -46,6 +48,7 @@ public class Core {
         ModItems.init();
         // Recipes
         ModRecipes.init();
+        
         //Compat
         CompatManager.init(event);
         // WorldGen
@@ -59,6 +62,12 @@ public class Core {
         //Achievements
         TRAchievements.init();
         LogHelper.info("Initialization Compleate");
+    }
+    
+    @Mod.EventHandler
+    public void postinit(FMLPostInitializationEvent event)
+    {
+    	RecipeManager.init();
     }
 
 }
