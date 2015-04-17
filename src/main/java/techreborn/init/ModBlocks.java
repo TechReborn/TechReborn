@@ -51,6 +51,7 @@ public class ModBlocks {
         
         BlastFurnace = new BlockBlastFurnace(Material.piston);
         GameRegistry.registerBlock(BlastFurnace, "blastFurnace");
+        GameRegistry.registerTileEntity(TileBlastFurnace.class, "TileBlastFurnace");
         
         MachineCasing = new BlockMachineCasing(Material.piston);
         GameRegistry.registerBlock(MachineCasing, ItemBlockMachineCasing.class, "machinecasing");
