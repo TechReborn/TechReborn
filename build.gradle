@@ -33,18 +33,6 @@ repositories {
         name 'CB Repo'
         url "http://chickenbones.net/maven/"
     }
-    ivy {
-        name 'COFH'
-        artifactPattern "http://addons.cursecdn.com/files/762/49/[module]-[revision].[ext]"
-    }
-    ivy {
-        name 'ThermalExpansion'
-        artifactPattern "http://addons.cursecdn.com/files/762/50/[module]-[revision].[ext]"
-    }
-    ivy {
-        name 'ThermalFoundation'
-        artifactPattern "http://addons.cursecdn.com/files/2233/780/[module]-[revision].[ext]"
-    }
 }
 
 def ENV = System.getenv()
@@ -69,7 +57,19 @@ task deleteOldArtifacts(type: Delete) {
 
 classes.dependsOn deleteOldArtifacts
 
+def grabDep(name, url) {
+    ant.get(src: url, dest: 'dep')
+    file("dep/" + url.substring(url.lastIndexOf("/"))).renameTo(file("dep/" + name + ".jar"))
+}
+
 dependencies {
+    def f = new File('dep/')
+    if (!f.exists()) {
+        f.mkdirs()
+    }
+    if (!f.exists()) {
+        f.mkdir()
+    }
     compile 'net.industrial-craft:industrialcraft-2:2.2.712-experimental:dev'
     compile "codechicken:CodeChickenLib:1.7.10-1.1.3.127:dev"
     compile "codechicken:CodeChickenCore:1.7.10-1.0.4.+:dev"
@@ -77,9 +77,11 @@ dependencies {
     compile "codechicken:ForgeMultipart:1.7.10-1.1.2.331:dev"
     compile "mcp.mobius.waila:Waila:1.5.10_1.7.10:dev"
     compile 'com.mod-buildcraft:buildcraft:6.4.8:dev'
-    compile group: 'thermalexpansion', name: 'ThermalExpansion', version: '[1.7.10]4.0.1-182', ext: 'jar'
-    compile group: 'cofh', name: 'CoFHCore', version: '[1.7.10]3.0.2-262', ext: 'jar'
-    compile group: 'thermalfoundation', name: 'ThermalFoundation', version: '[1.7.10]1.0.0-81', ext: 'jar'
+    grabDep('ThermalFoundation-[1.7.10]1.0.0-81.jar', 'http://addons-origin.cursecdn.com/files/2233/780/ThermalFoundation-[1.7.10]1.0.0-81.jar')
+    grabDep('CoFHCore-[1.7.10]3.0.2-262.jar', 'http://addons-origin.cursecdn.com/files/2234/198/CoFHCore-[1.7.10]3.0.2-262.jar')
+    grabDep('CoFHLib-[1.7.10]1.0.1-151.jar', 'http://addons-origin.cursecdn.com/files/2233/832/CoFHLib-[1.7.10]1.0.1-151.jar')
+    grabDep('ThermalExpansion-[1.7.10]4.0.1-182.jar', 'http://addons-origin.cursecdn.com/files/2234/200/ThermalExpansion-[1.7.10]4.0.1-182.jar')
+    compile files("dep/ThermalFoundation-[1.7.10]1.0.0-81.ja", "dep/CoFHCore-[1.7.10]3.0.2-262.jar", "dep/CoFHLib-[1.7.10]1.0.1-151.jar", "dep/ThermalExpansion-[1.7.10]4.0.1-182.jar")
 }
 
 processResources
