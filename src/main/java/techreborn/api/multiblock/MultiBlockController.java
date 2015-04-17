@@ -14,4 +14,13 @@ public class MultiBlockController extends TileEntity implements IMultiBlockContr
     public IMultiBlock getMultiBlock() {
         return multiBlock;
     }
+
+    public void setMultiBlock(TileEntity tileEntity, BaseMultiBlock multiBlock){
+        this.multiBlock = multiBlock;
+
+    }
+
+    public void setParent(TileEntity tileEntity){
+        multiBlock.setParent(tileEntity);
+    }
 }

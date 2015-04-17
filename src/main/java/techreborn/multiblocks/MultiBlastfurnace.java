@@ -8,9 +8,6 @@ import java.util.List;
 
 public class MultiBlastfurnace extends BaseMultiBlock {
 
-    public MultiBlastfurnace(TileEntity parent) {
-        super(parent);
-    }
 
     @Override
     public String getName() {
@@ -30,6 +27,6 @@ public class MultiBlastfurnace extends BaseMultiBlock {
 
     @Override
     public void recompute() {
-        
+        setIsComplete(checkIfComplete());
     }
 }

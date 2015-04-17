@@ -8,7 +8,10 @@ public abstract class BaseMultiBlock implements IMultiBlock {
 
     TileEntity parent;
 
-    public BaseMultiBlock(TileEntity parent) {
+    public BaseMultiBlock() {
+    }
+
+    public void setParent(TileEntity parent) {
         this.parent = parent;
     }
 
