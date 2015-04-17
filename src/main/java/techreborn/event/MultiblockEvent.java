@@ -1,5 +1,6 @@
 package techreborn.event;
 
+import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.tileentity.TileEntity;
 import techreborn.api.multiblock.IMultiBlockController;
@@ -7,7 +8,7 @@ import techreborn.api.multiblock.IMultiblockComponent;
 
 public class MultiblockEvent {
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.LOWEST)
     public void blockBreakEvent(net.minecraftforge.event.world.BlockEvent.BreakEvent event) {
         if (event.world.getTileEntity(event.x, event.y, event.z) instanceof IMultiblockComponent) {
             IMultiblockComponent component = (IMultiblockComponent) event.world.getTileEntity(event.x, event.y, event.z);
@@ -28,7 +29,7 @@ public class MultiblockEvent {
     }
 
 
-    @SubscribeEvent(priority =)
+    @SubscribeEvent(priority = EventPriority.LOWEST)
     public void blockPlaceEvent(net.minecraftforge.event.world.BlockEvent.PlaceEvent event) {
         if (event.world.getTileEntity(event.x, event.y, event.z) instanceof IMultiblockComponent) {
             IMultiblockComponent component = (IMultiblockComponent) event.world.getTileEntity(event.x, event.y, event.z);
