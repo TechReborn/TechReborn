@@ -33,6 +33,18 @@ repositories {
         name 'CB Repo'
         url "http://chickenbones.net/maven/"
     }
+    ivy {
+        name 'COFH'
+        artifactPattern "http://addons.cursecdn.com/files/762/49/[module]-[revision].[ext]"
+    }
+    ivy {
+        name 'ThermalExpansion'
+        artifactPattern "http://addons.cursecdn.com/files/762/50/[module]-[revision].[ext]"
+    }
+    ivy {
+        name 'ThermalFoundation'
+        artifactPattern "http://addons.cursecdn.com/files/2233/780/[module]-[revision].[ext]"
+    }
 }
 
 def ENV = System.getenv()
@@ -65,6 +77,9 @@ dependencies {
     compile "codechicken:ForgeMultipart:1.7.10-1.1.2.331:dev"
     compile "mcp.mobius.waila:Waila:1.5.10_1.7.10:dev"
     compile 'com.mod-buildcraft:buildcraft:6.4.8:dev'
+    compile group: 'thermalexpansion', name: 'ThermalExpansion', version: '[1.7.10]4.0.1-182', ext: 'jar'
+    compile group: 'cofh', name: 'CoFHCore', version: '[1.7.10]3.0.2-262', ext: 'jar'
+    compile group: 'thermalfoundation', name: 'ThermalFoundation', version: '[1.7.10]1.0.0-81', ext: 'jar'
 }
 
 processResources
