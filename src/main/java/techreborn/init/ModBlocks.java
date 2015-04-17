@@ -55,6 +55,7 @@ public class ModBlocks {
         
         MachineCasing = new BlockMachineCasing(Material.piston);
         GameRegistry.registerBlock(MachineCasing, ItemBlockMachineCasing.class, "machinecasing");
+        GameRegistry.registerTileEntity(TileMachineCasing.class, "TileMachineCasing");
 
         ore = new BlockOre(Material.rock);
         GameRegistry.registerBlock(ore, ItemBlockOre.class, "techreborn.ore");

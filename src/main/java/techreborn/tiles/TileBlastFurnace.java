@@ -1,18 +1,23 @@
 package techreborn.tiles;
 
-import techreborn.init.ModBlocks;
-import techreborn.util.Inventory;
 import ic2.api.energy.prefab.BasicSink;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import techreborn.api.multiblock.IMultiBlock;
+import techreborn.api.multiblock.MultiBlockController;
+import techreborn.init.ModBlocks;
+import techreborn.util.Inventory;
 
-public class TileBlastFurnace extends TileMachineBase implements IWrenchable {
+public class TileBlastFurnace extends MultiBlockController implements IWrenchable {
 
 	public int tickTime;
 	public BasicSink energy;
     public Inventory inventory = new Inventory(3, "TileBlastFurnace", 64);
+
+	public TileBlastFurnace(IMultiBlock multiBlock) {
+		super(multiBlock);
+	}
 
 	@Override
 	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {

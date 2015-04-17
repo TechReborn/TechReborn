@@ -1,22 +1,25 @@
 package techreborn.blocks;
 
-import java.util.List;
-import java.util.Random;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import techreborn.client.TechRebornCreativeTab;
-import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import techreborn.client.TechRebornCreativeTab;
+import techreborn.tiles.TileMachineCasing;
 
-public class BlockMachineCasing extends Block{
+import java.util.List;
+import java.util.Random;
+
+public class BlockMachineCasing extends BlockContainer {
 	
 	public static final String[] types = new String[] {"Standard", "Reinforced", "Advanced"};
     private IIcon[] textures;
@@ -71,4 +74,8 @@ public class BlockMachineCasing extends Block{
         }
     }
 
+    @Override
+    public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
+        return new TileMachineCasing();
+    }
 }

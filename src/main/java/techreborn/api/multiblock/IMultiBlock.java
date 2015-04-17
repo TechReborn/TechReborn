@@ -9,12 +9,17 @@ public interface IMultiBlock {
     /**
      * This is the name of the multiblock
      */
-    void getName();
+    String getName();
 
     /**
      * This check to see if the multiblock is complete
      */
-    boolean checkIfComplete(int x, int y, int z);
+    boolean checkIfComplete();
+
+    /**
+     * This check to see if the multiblock is complete
+     */
+    boolean isComplete();
 
     /**
      * This is a list of all of the tiles that make up the multiblock

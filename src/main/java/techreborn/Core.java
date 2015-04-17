@@ -5,9 +5,11 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraftforge.common.MinecraftForge;
 import techreborn.client.GuiHandler;
 import techreborn.compat.CompatManager;
 import techreborn.config.ConfigTechReborn;
+import techreborn.event.MultiblockEvent;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
 import techreborn.init.ModRecipes;
@@ -51,6 +53,8 @@ public class Core {
         NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
         //packets
         PacketHandler.setChannels(NetworkRegistry.INSTANCE.newChannel(ModInfo.MOD_ID + "_packets", new PacketHandler()));
+        //Events
+        MinecraftForge.EVENT_BUS.register(new MultiblockEvent());
         LogHelper.info("Initialization Compleate");
     }
 

@@ -2,12 +2,6 @@ package techreborn.blocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import techreborn.Core;
-import techreborn.client.GuiHandler;
-import techreborn.client.TechRebornCreativeTab;
-import techreborn.tiles.TileBlastFurnace;
-import techreborn.tiles.TileCentrifuge;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -15,6 +9,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import techreborn.Core;
+import techreborn.client.GuiHandler;
+import techreborn.client.TechRebornCreativeTab;
+import techreborn.multiblocks.MultiBlastfurnace;
+import techreborn.tiles.TileBlastFurnace;
 
 public class BlockBlastFurnace extends BlockContainer{
 
@@ -33,7 +32,7 @@ public class BlockBlastFurnace extends BlockContainer{
 	
 	 @Override
 	 public TileEntity createNewTileEntity(World world, int p_149915_2_) {
-	        return new TileBlastFurnace();
+	        return new TileBlastFurnace(new MultiBlastfurnace());
 	 }
 	 
 	 @Override

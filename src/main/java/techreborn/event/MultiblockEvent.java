@@ -7,17 +7,20 @@ public class MultiblockEvent {
 
     @SubscribeEvent
     public void blockBreakEvent(net.minecraftforge.event.world.BlockEvent.BreakEvent event){
-        if(event.block instanceof IMultiblockComponent){
-            IMultiblockComponent component = (IMultiblockComponent) event.block;
-            component.getMultiblock(event.world.getBlockMetadata(event.x, event.y, event.z)).recompute();
+        if(event.world.getTileEntity(event.x, event.y, event.z) instanceof IMultiblockComponent){
+            IMultiblockComponent component = (IMultiblockComponent) event.world.getTileEntity(event.x, event.y, event.z);
+//            if(component.getMultiblock() != null)
+//                component.getMultiblock().recompute();
+            //TODO find all multiblock controllers fo the same type that are near this location and recompute.
         }
     }
 
     @SubscribeEvent
     public void blockPlaceEvent(net.minecraftforge.event.world.BlockEvent.PlaceEvent event){
-        if(event.block instanceof  IMultiblockComponent){
-            IMultiblockComponent component = (IMultiblockComponent) event.block;
-            component.getMultiblock(event.world.getBlockMetadata(event.x, event.y, event.z)).recompute();
+        if(event.world.getTileEntity(event.x, event.y, event.z) instanceof IMultiblockComponent){
+            IMultiblockComponent component = (IMultiblockComponent) event.world.getTileEntity(event.x, event.y, event.z);
+//            if(component.getMultiblock() != null)
+//                component.getMultiblock().recompute();
         }
     }
 }
