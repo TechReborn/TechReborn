@@ -1,6 +1,5 @@
 package techreborn.multiblocks;
 
-import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import techreborn.api.multiblock.BaseMultiBlock;
 import techreborn.init.ModBlocks;
@@ -31,6 +30,6 @@ public class MultiBlastfurnace extends BaseMultiBlock {
 
     @Override
     public void recompute() {
-        com
+        
     }
 }
