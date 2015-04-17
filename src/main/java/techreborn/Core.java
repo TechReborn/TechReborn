@@ -5,6 +5,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import techreborn.achievement.TRAchievements;
 import techreborn.client.GuiHandler;
 import techreborn.compat.CompatManager;
 import techreborn.config.ConfigTechReborn;
@@ -51,6 +52,8 @@ public class Core {
         NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
         //packets
         PacketHandler.setChannels(NetworkRegistry.INSTANCE.newChannel(ModInfo.MOD_ID + "_packets", new PacketHandler()));
+        //Achievements
+        TRAchievements.init();
         LogHelper.info("Initialization Compleate");
     }
 
