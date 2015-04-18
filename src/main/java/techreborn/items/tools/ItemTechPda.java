@@ -1,4 +1,4 @@
-package techreborn.items;
+package techreborn.items.tools;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,25 +9,25 @@ import techreborn.Core;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 
-public class ItemTechManuel extends Item{
+public class ItemTechPda extends Item{
 	
-	public ItemTechManuel()
+	public ItemTechPda()
 	{
 		setCreativeTab(TechRebornCreativeTab.instance);
-		setUnlocalizedName("techreborn.manuel");
+		setUnlocalizedName("techreborn.pda");
 		setMaxStackSize(1);
 	}
 	
     @Override
     public void registerIcons(IIconRegister iconRegister)
     {
-        itemIcon = iconRegister.registerIcon("techreborn:" + "tool/manuel");
+        itemIcon = iconRegister.registerIcon("techreborn:" + "tool/pda");
     }
     
     @Override
 	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) 
 	{
-		player.openGui(Core.INSTANCE, GuiHandler.manuelID, world, (int)player.posX, (int)player.posY, (int)player.posY);
+		player.openGui(Core.INSTANCE, GuiHandler.pdaID, world, (int)player.posX, (int)player.posY, (int)player.posY);
 		return itemStack;
 	}
 

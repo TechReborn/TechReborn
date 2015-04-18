@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import techreborn.client.container.*;
 import techreborn.client.gui.*;
+import techreborn.pda.GuiPda;
 import techreborn.tiles.*;
 
 public class GuiHandler implements IGuiHandler {
@@ -16,7 +17,7 @@ public class GuiHandler implements IGuiHandler {
     public static final int centrifugeID = 3;
     public static final int rollingMachineID = 4;
     public static final int blastFurnaceID = 5;
-    public static final int manuelID = 6;
+    public static final int pdaID = 6;
 
 
     @Override
@@ -33,7 +34,7 @@ public class GuiHandler implements IGuiHandler {
             return new ContainerRollingMachine((TileRollingMachine) world.getTileEntity(x, y, z), player);
         } else if (ID == blastFurnaceID) {
             return new ContainerBlastFurnace((TileBlastFurnace) world.getTileEntity(x, y, z), player);
-        } else if (ID == manuelID) {
+        } else if (ID == pdaID) {
             return null;
         }
         
@@ -54,8 +55,8 @@ public class GuiHandler implements IGuiHandler {
             return new GuiRollingMachine(player, (TileRollingMachine) world.getTileEntity(x, y, z));
         } else if (ID == blastFurnaceID) {
             return new GuiBlastFurnace(player, (TileBlastFurnace) world.getTileEntity(x, y, z));
-        } else if (ID == manuelID) {
-            return new GuiManuel(player);
+        } else if (ID == pdaID) {
+            return new GuiPda(player);
         }
         return null;
     }
