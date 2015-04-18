@@ -7,6 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.client.TechRebornCreativeTabMisc;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class ItemCells extends ItemTR {
     public ItemCells() {
         setUnlocalizedName("techreborn.cell");
         setHasSubtypes(true);
-        setCreativeTab(TechRebornCreativeTab.instance);
+        setCreativeTab(TechRebornCreativeTabMisc.instance);
     }
 
     @Override

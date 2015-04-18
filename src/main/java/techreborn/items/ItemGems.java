@@ -1,14 +1,14 @@
 package techreborn.items;
 
+import java.util.List;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import techreborn.client.TechRebornCreativeTab;
-
-import java.util.List;
+import techreborn.client.TechRebornCreativeTabMisc;
 
 public class ItemGems extends Item {
     public static final String[] types = new String[]
@@ -19,7 +19,7 @@ public class ItemGems extends Item {
     private IIcon[] textures;
 
     public ItemGems() {
-        setCreativeTab(TechRebornCreativeTab.instance);
+        setCreativeTab(TechRebornCreativeTabMisc.instance);
         setUnlocalizedName("techreborn.gem");
         setHasSubtypes(true);
     }
