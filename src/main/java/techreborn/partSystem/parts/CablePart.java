@@ -1,12 +1,11 @@
-package me.modmuss50.network.partSystem.parts;
+package techreborn.partSystem.parts;
 
 import ic2.api.energy.tile.IEnergyTile;
-import ic2.core.block.wiring.RenderBlockCable;
 import me.modmuss50.mods.lib.Functions;
 import me.modmuss50.mods.lib.vecmath.Vecs3d;
 import me.modmuss50.mods.lib.vecmath.Vecs3dCube;
-import me.modmuss50.network.partSystem.ModPart;
-import me.modmuss50.network.partSystem.ModPartUtils;
+import techreborn.partSystem.ModPart;
+import techreborn.partSystem.ModPartUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

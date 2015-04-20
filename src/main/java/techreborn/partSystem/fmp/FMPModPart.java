@@ -2,13 +2,12 @@
  * This file was made by modmuss50. View the licence file to see what licence this is is on. You can always ask me if you would like to use part or all of this file in your project.
  */
 
-package me.modmuss50.network.partSystem.fmp;
+package techreborn.partSystem.fmp;
 
 
 import codechicken.lib.raytracer.IndexedCuboid6;
 import codechicken.lib.vec.Cuboid6;
 import codechicken.lib.vec.Vector3;
-import codechicken.microblock.CommonMicroblock;
 import codechicken.microblock.ISidedHollowConnect;
 import codechicken.multipart.JNormalOcclusion;
 import codechicken.multipart.NormalOcclusionTest;
@@ -19,13 +18,12 @@ import cpw.mods.fml.relauncher.SideOnly;
 import me.modmuss50.mods.lib.Location;
 import me.modmuss50.mods.lib.vecmath.Vecs3d;
 import me.modmuss50.mods.lib.vecmath.Vecs3dCube;
-import me.modmuss50.network.partSystem.ModPart;
+import techreborn.partSystem.ModPart;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class FMPModPart extends TMultiPart implements TSlottedPart, JNormalOcclusion, ISidedHollowConnect {

@@ -2,14 +2,13 @@
  * This file was made by modmuss50. View the licence file to see what licence this is is on. You can always ask me if you would like to use part or all of this file in your project.
  */
 
-package me.modmuss50.network.partSystem.QLib;
+package techreborn.partSystem.QLib;
 
 import me.modmuss50.mods.lib.Location;
 import me.modmuss50.mods.lib.vecmath.Vecs3dCube;
-import me.modmuss50.network.partSystem.IModPart;
-import me.modmuss50.network.partSystem.IPartProvider;
-import me.modmuss50.network.partSystem.ModPart;
-import me.modmuss50.network.partSystem.ModPartRegistry;
+import techreborn.partSystem.IPartProvider;
+import techreborn.partSystem.ModPart;
+import techreborn.partSystem.ModPartRegistry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;

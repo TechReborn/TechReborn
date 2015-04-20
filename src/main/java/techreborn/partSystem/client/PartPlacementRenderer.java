@@ -1,12 +1,12 @@
-package me.modmuss50.network.partSystem.client;
+package techreborn.partSystem.client;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import me.modmuss50.mods.lib.Location;
 import me.modmuss50.mods.lib.vecmath.Vecs3d;
-import me.modmuss50.network.partSystem.IModPart;
-import me.modmuss50.network.partSystem.ModPartItem;
+import techreborn.partSystem.IModPart;
+import techreborn.partSystem.ModPartItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.Tessellator;

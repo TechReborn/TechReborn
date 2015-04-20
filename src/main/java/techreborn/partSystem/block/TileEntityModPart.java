@@ -2,13 +2,13 @@
  * This file was made by modmuss50. View the licence file to see what licence this is is on. You can always ask me if you would like to use part or all of this file in your project.
  */
 
-package me.modmuss50.network.partSystem.block;
+package techreborn.partSystem.block;
 
 import me.modmuss50.mods.lib.Location;
 import me.modmuss50.mods.lib.vecmath.Vecs3dCube;
-import me.modmuss50.network.partSystem.ModPart;
-import me.modmuss50.network.partSystem.ModPartRegistry;
-import me.modmuss50.network.partSystem.parts.NullPart;
+import techreborn.partSystem.ModPart;
+import techreborn.partSystem.ModPartRegistry;
+import techreborn.partSystem.parts.NullPart;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
