@@ -4,10 +4,10 @@
 
 package techreborn.partSystem;
 
-import me.modmuss50.mods.lib.Location;
-import me.modmuss50.mods.lib.vecmath.Vecs3dCube;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
+import techreborn.lib.Location;
+import techreborn.lib.vecmath.Vecs3dCube;
 
 import java.util.Map;
 

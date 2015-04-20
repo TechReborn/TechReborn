@@ -4,12 +4,12 @@
 
 package techreborn.partSystem;
 
-import me.modmuss50.mods.lib.Location;
-import me.modmuss50.mods.lib.vecmath.Vecs3dCube;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import techreborn.lib.Location;
+import techreborn.lib.vecmath.Vecs3dCube;
 
 
 public interface IPartProvider {

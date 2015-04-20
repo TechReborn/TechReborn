@@ -4,8 +4,8 @@
 
 package techreborn.partSystem.QLib;
 
-import me.modmuss50.mods.lib.vecmath.Vecs3d;
-import me.modmuss50.mods.lib.vecmath.Vecs3dCube;
+import techreborn.lib.vecmath.Vecs3d;
+import techreborn.lib.vecmath.Vecs3dCube;
 import uk.co.qmunity.lib.vec.Vec3d;
 import uk.co.qmunity.lib.vec.Vec3dCube;
 

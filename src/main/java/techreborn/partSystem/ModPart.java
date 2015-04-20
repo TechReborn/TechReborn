@@ -5,9 +5,9 @@
 package techreborn.partSystem;
 
 
-import me.modmuss50.mods.lib.Location;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import techreborn.lib.Location;
 
 
 /**

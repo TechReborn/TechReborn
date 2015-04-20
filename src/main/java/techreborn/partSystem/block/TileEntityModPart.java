@@ -4,11 +4,6 @@
 
 package techreborn.partSystem.block;
 
-import me.modmuss50.mods.lib.Location;
-import me.modmuss50.mods.lib.vecmath.Vecs3dCube;
-import techreborn.partSystem.ModPart;
-import techreborn.partSystem.ModPartRegistry;
-import techreborn.partSystem.parts.NullPart;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -18,6 +13,11 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+import techreborn.lib.Location;
+import techreborn.lib.vecmath.Vecs3dCube;
+import techreborn.partSystem.ModPart;
+import techreborn.partSystem.ModPartRegistry;
+import techreborn.partSystem.parts.NullPart;
 
 import java.util.ArrayList;
 import java.util.HashMap;

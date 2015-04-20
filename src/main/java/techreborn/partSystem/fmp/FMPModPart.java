@@ -15,13 +15,13 @@ import codechicken.multipart.TMultiPart;
 import codechicken.multipart.TSlottedPart;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import me.modmuss50.mods.lib.Location;
-import me.modmuss50.mods.lib.vecmath.Vecs3d;
-import me.modmuss50.mods.lib.vecmath.Vecs3dCube;
-import techreborn.partSystem.ModPart;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+import techreborn.lib.Location;
+import techreborn.lib.vecmath.Vecs3d;
+import techreborn.lib.vecmath.Vecs3dCube;
+import techreborn.partSystem.ModPart;
 
 import java.util.ArrayList;
 import java.util.List;

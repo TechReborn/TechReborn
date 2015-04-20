@@ -4,12 +4,12 @@
 
 package techreborn.partSystem.parts;
 
-import me.modmuss50.mods.lib.vecmath.Vecs3d;
-import me.modmuss50.mods.lib.vecmath.Vecs3dCube;
-import techreborn.partSystem.ModPart;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import techreborn.lib.vecmath.Vecs3d;
+import techreborn.lib.vecmath.Vecs3dCube;
+import techreborn.partSystem.ModPart;
 
 import java.util.ArrayList;
 import java.util.List;
