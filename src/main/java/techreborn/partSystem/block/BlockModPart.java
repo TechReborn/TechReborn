@@ -4,10 +4,6 @@
 
 package techreborn.partSystem.block;
 
-import me.modmuss50.mods.lib.client.ICustomHighlight;
-import me.modmuss50.mods.lib.vecmath.Vecs3dCube;
-import techreborn.partSystem.IModPart;
-import techreborn.partSystem.ModPart;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -20,6 +16,10 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import techreborn.lib.vecmath.Vecs3dCube;
+import techreborn.partSystem.ICustomHighlight;
+import techreborn.partSystem.IModPart;
+import techreborn.partSystem.ModPart;
 
 import java.util.ArrayList;
 import java.util.List;

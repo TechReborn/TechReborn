@@ -4,11 +4,7 @@
 
 package techreborn.partSystem.QLib;
 
-import me.modmuss50.mods.lib.Location;
-import me.modmuss50.mods.lib.vecmath.Vecs3dCube;
-import techreborn.partSystem.IPartProvider;
-import techreborn.partSystem.ModPart;
-import techreborn.partSystem.ModPartRegistry;
+import techreborn.lib.Location;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -16,6 +12,10 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import techreborn.lib.vecmath.Vecs3dCube;
+import techreborn.partSystem.IPartProvider;
+import techreborn.partSystem.ModPart;
+import techreborn.partSystem.ModPartRegistry;
 import uk.co.qmunity.lib.QLModInfo;
 import uk.co.qmunity.lib.part.IPart;
 import uk.co.qmunity.lib.part.IPartFactory;

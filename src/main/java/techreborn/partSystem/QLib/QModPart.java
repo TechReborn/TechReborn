@@ -4,8 +4,8 @@
 
 package techreborn.partSystem.QLib;
 
-import me.modmuss50.mods.lib.Location;
-import me.modmuss50.mods.lib.vecmath.Vecs3dCube;
+import techreborn.lib.Location;
+import techreborn.lib.vecmath.Vecs3dCube;
 import techreborn.partSystem.ModPart;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;

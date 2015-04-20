@@ -6,8 +6,8 @@ package techreborn.partSystem.block;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-import me.modmuss50.mods.lib.Location;
-import me.modmuss50.mods.lib.vecmath.Vecs3dCube;
+import techreborn.lib.Location;
+import techreborn.lib.vecmath.Vecs3dCube;
 import techreborn.partSystem.IPartProvider;
 import techreborn.partSystem.ModPart;
 import net.minecraft.block.Block;
