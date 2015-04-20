@@ -6,13 +6,14 @@ package techreborn.partSystem;
 
 
 import me.modmuss50.mods.lib.Location;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 
 /**
  * Extend this class to make your multipart
  */
-public abstract class ModPart implements IModPart {
+public abstract class ModPart extends TileEntity implements IModPart {
 
 	/**
 	 * The world of the part
@@ -40,6 +41,7 @@ public abstract class ModPart implements IModPart {
 	 */
 	public void setWorld(World world) {
 		this.world = world;
+		setWorldObj(world);
 	}
 
 	/**
@@ -80,5 +82,19 @@ public abstract class ModPart implements IModPart {
 	 */
 	public void setLocation(Location location) {
 		this.location = location;
+		this.xCoord = location.getX();
+		this.yCoord = location.getY();
+		this.zCoord = location.getZ();
+	}
+
+
+	@Override
+	public World getWorldObj() {
+		return getWorld();
+	}
+
+	@Override
+	public void setWorldObj(World p_145834_1_) {
+		super.setWorldObj(p_145834_1_);
 	}
 }

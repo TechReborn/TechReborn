@@ -1,17 +1,22 @@
 package techreborn.partSystem.parts;
 
+import ic2.api.energy.event.EnergyTileLoadEvent;
+import ic2.api.energy.event.EnergyTileUnloadEvent;
+import ic2.api.energy.tile.IEnergyConductor;
 import ic2.api.energy.tile.IEnergyTile;
+import ic2.core.IC2;
 import me.modmuss50.mods.lib.Functions;
 import me.modmuss50.mods.lib.vecmath.Vecs3d;
 import me.modmuss50.mods.lib.vecmath.Vecs3dCube;
-import techreborn.partSystem.ModPart;
-import techreborn.partSystem.ModPartUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
+import techreborn.partSystem.ModPart;
+import techreborn.partSystem.ModPartUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class CablePart extends ModPart {
+public class CablePart extends ModPart implements IEnergyConductor {
 	public static Vecs3dCube[] boundingBoxes = new Vecs3dCube[14];
 	public static float center = 0.6F;
 	public static float offset = 0.10F;
@@ -27,6 +32,7 @@ public class CablePart extends ModPart {
 	public int ticks = 0;
 	protected ForgeDirection[] dirs = ForgeDirection.values();
 	private boolean[] connections = new boolean[6];
+	public boolean addedToEnergyNet = false;
 
 	public static void
 	refreshBounding() {
@@ -125,6 +131,14 @@ public class CablePart extends ModPart {
 		} else {
 			ticks += 1;
 		}
+
+
+		if(IC2.platform.isSimulating()) {
+			MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
+			this.addedToEnergyNet = true;
+			checkConnectedSides();
+		}
+
 	}
 
 	@Override
@@ -139,6 +153,10 @@ public class CablePart extends ModPart {
 
 	@Override
 	public void onRemoved() {
+		if(IC2.platform.isSimulating() && this.addedToEnergyNet) {
+			MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
+			this.addedToEnergyNet = false;
+		}
 	}
 
 	@Override
@@ -185,5 +203,45 @@ public class CablePart extends ModPart {
 			world.func_147479_m(dx, dy, dz);
 		}
 		world.func_147479_m(x, y, z);
+	}
+
+	@Override
+	public double getConductionLoss() {
+		return 0D;
+	}
+
+	@Override
+	public double getInsulationEnergyAbsorption() {
+		return 256;
+	}
+
+	@Override
+	public double getInsulationBreakdownEnergy() {
+		return 2048;
+	}
+
+	@Override
+	public double getConductorBreakdownEnergy() {
+		return 2048;
+	}
+
+	@Override
+	public void removeInsulation() {
+
+	}
+
+	@Override
+	public void removeConductor() {
+
+	}
+
+	@Override
+	public boolean acceptsEnergyFrom(TileEntity tileEntity, ForgeDirection forgeDirection) {
+		return true;
+	}
+
+	@Override
+	public boolean emitsEnergyTo(TileEntity tileEntity, ForgeDirection forgeDirection) {
+		return true;
 	}
 }
