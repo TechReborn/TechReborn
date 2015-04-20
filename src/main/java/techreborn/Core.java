@@ -17,6 +17,7 @@ import techreborn.compat.recipes.RecipeManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
+import techreborn.init.ModParts;
 import techreborn.init.ModRecipes;
 import techreborn.lib.ModInfo;
 import techreborn.packets.PacketHandler;
@@ -48,6 +49,8 @@ public class Core {
         ModBlocks.init();
         //Register ModItems
         ModItems.init();
+		//Register Multiparts
+		ModParts.init();
         // Recipes
         ModRecipes.init();
         

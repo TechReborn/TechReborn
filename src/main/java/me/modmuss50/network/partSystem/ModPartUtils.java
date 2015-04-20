@@ -53,7 +53,7 @@ public class ModPartUtils {
 		}
 		return false;
 	}
-	
+
 
 	public static boolean hasPart(World world, int x, int y, int z, String name) {
 		return hasPart(world, new Location(x, y, z), name);
