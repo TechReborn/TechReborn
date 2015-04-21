@@ -15,6 +15,8 @@ import codechicken.multipart.TMultiPart;
 import codechicken.multipart.TSlottedPart;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
@@ -175,5 +177,14 @@ public class FMPModPart extends TMultiPart implements TSlottedPart, JNormalOcclu
 	public void onRemoved() {
 		iModPart.onRemoved();
 		super.onRemoved();
+	}
+
+	@Override
+	public boolean renderStatic(Vector3 pos, int pass) {
+		boolean render = false;
+		RenderBlocks renderer = RenderBlocks.getInstance();
+		renderer.blockAccess = getWorld();
+		render = iModPart.renderStatic(new Vecs3d(pos.x, pos.y, pos.z), renderer, pass);
+		return render;
 	}
 }

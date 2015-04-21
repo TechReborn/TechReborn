@@ -4,6 +4,7 @@
 
 package techreborn.partSystem.parts;
 
+import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -38,6 +39,11 @@ public class NullPart extends ModPart {
 	@Override
 	public void renderDynamic(Vecs3d translation, double delta) {
 
+	}
+
+	@Override
+	public boolean renderStatic(Vecs3d translation, RenderBlocks renderBlocks, int pass) {
+		return false;
 	}
 
 	@Override
