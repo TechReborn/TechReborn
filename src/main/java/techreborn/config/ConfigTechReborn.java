@@ -25,7 +25,7 @@ public class ConfigTechReborn {
     public static boolean PyriteOreTrue;
     public static boolean CinnabarOreTrue;
     public static boolean SphaleriteOreTrue;
-    public static boolean TungstonOreTrue;
+    public static boolean TungstenOreTrue;
     public static boolean SheldoniteOreTrue;
     public static boolean OlivineOreTrue;
     public static boolean SodaliteOreTrue;
@@ -139,7 +139,7 @@ public class ConfigTechReborn {
                 StatCollector.translateToLocal("config.techreborn.allow.sphaleriteOre"), true,
                 StatCollector.translateToLocal("config.techreborn.allow.sphaleriteOre.tooltip"))
                 .getBoolean(true);
-        TungstonOreTrue = config.get(CATEGORY_WORLD,
+        TungstenOreTrue = config.get(CATEGORY_WORLD,
                 StatCollector.translateToLocal("config.techreborn.allow.tungstonOre"), true,
                 StatCollector.translateToLocal("config.techreborn.allow.tungstonOre.tooltip"))
                 .getBoolean(true);

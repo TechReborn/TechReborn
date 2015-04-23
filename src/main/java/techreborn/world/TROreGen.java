@@ -173,7 +173,7 @@ public class TROreGen implements IWorldGenerator {
 
     void generateEndOres(Random random, int xChunk, int zChunk, World world) {
         int xPos, yPos, zPos;
-        if (config.TungstonOreTrue) {
+        if (config.TungstenOreTrue) {
             for (int i = 0; i <= 16; i++) {
                 xPos = xChunk + random.nextInt(16);
                 yPos = 60 + random.nextInt(60 - 20);
