@@ -2,7 +2,6 @@ package techreborn.achievement;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import techreborn.init.ModBlocks;
-import techreborn.lib.AchievementNames;
 import techreborn.lib.ModInfo;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
