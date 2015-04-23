@@ -2,6 +2,7 @@ package techreborn;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -21,6 +22,7 @@ import techreborn.init.ModParts;
 import techreborn.init.ModRecipes;
 import techreborn.lib.ModInfo;
 import techreborn.packets.PacketHandler;
+import techreborn.proxies.CommonProxy;
 import techreborn.util.LogHelper;
 import techreborn.world.TROreGen;
 
@@ -29,6 +31,9 @@ import java.io.File;
 @Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = ModInfo.MOD_DEPENDENCUIES, guiFactory = ModInfo.GUI_FACTORY_CLASS)
 public class Core {
     public static ConfigTechReborn config;
+    
+	@SidedProxy(clientSide = ModInfo.CLIENT_PROXY_CLASS, serverSide = ModInfo.SERVER_PROXY_CLASS)
+	public static CommonProxy proxy;
 
     @Mod.Instance
     public static Core INSTANCE;
@@ -52,8 +57,7 @@ public class Core {
 		//Register Multiparts
 		ModParts.init();
         // Recipes
-        ModRecipes.init();
-        
+        ModRecipes.init();      
         //Compat
         CompatManager.init(event);
         // WorldGen
