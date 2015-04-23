@@ -89,7 +89,7 @@ item.techreborn.dust.Phosphor.name=Phosphor Dust
 item.techreborn.dust.Platinum.name=Platinum Dust
 item.techreborn.dust.Pyrite.name=Pyrite Dust
 item.techreborn.dust.Pyrope.name=Pyrope Dust
-item.techreborn.dust.RedGarnet.name=RedGarnet Dust
+item.techreborn.dust.RedGarnet.name=Red Garnet Dust
 item.techreborn.dust.Redrock.name=Redrock Dust
 item.techreborn.dust.Ruby.name=Ruby Dust
 item.techreborn.dust.Saltpeter.name=Saltpeter Dust
@@ -105,12 +105,12 @@ item.techreborn.dust.Titanium.name=Titanium Dust
 item.techreborn.dust.Tungsten.name=Tungsten Dust
 item.techreborn.dust.Uranium.name=Uranium Dust
 item.techreborn.dust.Uvarovite.name=Uvarovite Dust
-item.techreborn.dust.YellowGarnet.name=YellowGarnet Dust
+item.techreborn.dust.YellowGarnet.name=Yellow Garnet Dust
 item.techreborn.dust.Zinc.name=Zinc Dust
 item.techreborn.dust.Cobalt.name=Cobalt Dust
 item.techreborn.dust.Ardite.name=Ardite Dust
 item.techreborn.dust.Manyullyn.name=Manyullyn Dust
-item.techreborn.dust.AlBrass.name=AluminiumBrass Dust
+item.techreborn.dust.AlBrass.name=Aluminium Brass Dust
 item.techreborn.dust.Alumite.name=Alumite Dust
 
 #SmallDusts
@@ -154,7 +154,7 @@ item.techreborn.dustsmall.Phosphor.name=Small Pile of Phosphor Dust
 item.techreborn.dustsmall.Platinum.name=Small Pile of Platinum Dust
 item.techreborn.dustsmall.Pyrite.name=Small Pile of Pyrite Dust
 item.techreborn.dustsmall.Pyrope.name=Small Pile of Pyrope Dust
-item.techreborn.dustsmall.RedGarnet.name=Small Pile of RedGarnet Dust
+item.techreborn.dustsmall.RedGarnet.name=Small Pile of Red Garnet Dust
 item.techreborn.dustsmall.Redrock.name=Small Pile of Redrock Dust
 item.techreborn.dustsmall.Ruby.name=Small Pile of Ruby Dust
 item.techreborn.dustsmall.Saltpeter.name=Small Pile of Saltpeter Dust
@@ -170,12 +170,12 @@ item.techreborn.dustsmall.Titanium.name=Small Pile of Titanium Dust
 item.techreborn.dustsmall.Tungsten.name=Small Pile of Tungsten Dust
 item.techreborn.dustsmall.Uranium.name=Small Pile of Uranium Dust
 item.techreborn.dustsmall.Uvarovite.name=Small Pile of Uvarovite Dust
-item.techreborn.dustsmall.YellowGarnet.name=Small Pile of YellowGarnet Dust
+item.techreborn.dustsmall.YellowGarnet.name=Small Pile of Yellow Garnet Dust
 item.techreborn.dustsmall.Zinc.name=Small Pile of Zinc Dust
 item.techreborn.dustsmall.Cobalt.name=Small Pile of Cobalt Dust
 item.techreborn.dustsmall.Ardite.name=Small Pile of Ardite Dust
 item.techreborn.dustsmall.Manyullyn.name=Small Pile of Manyullyn Dust
-item.techreborn.dustsmall.AlBrass.name=Small Pile of AluminiumBrass Dust
+item.techreborn.dustsmall.AlBrass.name=Small Pile of Aluminium Brass Dust
 item.techreborn.dustsmall.Alumite.name=Small Pile of Alumite Dust
 
 #Cells
@@ -198,13 +198,13 @@ item.techreborn.cell.lithium.name=Lithium Cell
 item.techreborn.cell.mercury.name=Mercury Cell
 item.techreborn.cell.methane.name=Methane Cell
 item.techreborn.cell.nitrocarbon.name=Nitrocarbon Cell
-item.techreborn.cell.nitroCoalfuel.name=Nitro Coal fuel Cell
+item.techreborn.cell.nitroCoalfuel.name=Nitro Coal Fuel Cell
 item.techreborn.cell.nitroDiesel.name=Nitro Diesel Cell
 item.techreborn.cell.nitrogen.name=Nitrogen Cell
 item.techreborn.cell.nitrogenDioxide.name=Nitrogen Dioxide Cell
 item.techreborn.cell.oil.name=Oil Cell
 item.techreborn.cell.potassium.name=Potassium Cell
-item.techreborn.cell.seedOil.name=SeedOil Cell
+item.techreborn.cell.seedOil.name=Seed Oil Cell
 item.techreborn.cell.silicon.name=Silicon Cell
 item.techreborn.cell.sodium.name=Sodium Cell
 item.techreborn.cell.sodiumPersulfate.name=Sodium Persulfate Cell
@@ -270,12 +270,18 @@ item.techreborn.part.BrassMachineHull.name=Brass Machine Hull
 
 #Tools
 item.techreborn.rockcutter.name=Rockcutter
-item.techreborn.lithiumbatpack.name=lithium Batpack
+item.techreborn.lithiumbatpack.name=Lithium Batpack
 item.techreborn.lapotronpack.name=Lapotron Pack
 item.techreborn.omniTool.name=Omni tool
 item.techreborn.advancedDrill.name=Advanced Drill
 
 #Configs
 config.techreborn.allow.galenaOre=Allow GalenaOre
+
+#ConfigGui
+config.techreborn.category.general=General Configs
+config.techreborn.category.world=World Configs
+config.techreborn.category.power=Power Configs
+config.techreborn.category.crafting=Crafting Configs
 
 
