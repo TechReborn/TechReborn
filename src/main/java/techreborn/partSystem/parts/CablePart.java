@@ -5,9 +5,6 @@ import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergyConductor;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.core.IC2;
-import ic2.core.Ic2Items;
-import ic2.core.block.wiring.RenderBlockCable;
-import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
@@ -104,24 +101,11 @@ public class CablePart extends ModPart implements IEnergyConductor {
 	public void renderDynamic(Vecs3d translation, double delta) {
 
 	}
-	//TODO make this static for all cables in the world.
-	FakeCableWorld fakeCableWorld;
 
 
 	@Override
 	public boolean renderStatic(Vecs3d translation, RenderBlocks renderBlocks, int pass) {
-		if(worldObj!= null){
-			if(fakeCableWorld == null){
-				fakeCableWorld = new FakeCableWorld();
-			}
-			RenderBlockCable renderBlockCable = new RenderBlockCable();
-			return renderBlockCable.renderWorldBlock(fakeCableWorld, getX(), getY(), getZ(), Block.getBlockFromItem(Ic2Items.copperCableBlock.getItem()) , 0, RenderBlocks.getInstance());
-
-		}
-//		renderBlocks.renderBlockAllFaces(Blocks.coal_block, getX(), getY(), getZ());
-//		renderBlocks.renderStandardBlock(Blocks.coal_block, getX(), getY() + 1, getZ());
-
-		return true;
+		return false;
 	}
 
 	@Override
