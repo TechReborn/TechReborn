@@ -276,7 +276,80 @@ item.techreborn.omniTool.name=Omni tool
 item.techreborn.advancedDrill.name=Advanced Drill
 
 #Configs
-config.techreborn.allow.galenaOre=Allow GalenaOre
+config.techreborn.allow.galenaOre=Allow Galena Ore
+config.techreborn.allow.galenaOre.tooltip=Decide whether Galena Ore spawns or not
+config.techreborn.allow.iridiumOre=Allow Iridium Ore
+config.techreborn.allow.iridiumOre.tooltip=Decide whether Iridium Ore spawns or not
+config.techreborn.allow.rubyOre=Allow Ruby Ore
+config.techreborn.allow.rubyOre.tooltip=Decide whether Ruby Ore spawns or not
+config.techreborn.allow.sapphireOre=Allow Sapphire Ore
+config.techreborn.allow.sapphireOre.tooltip=Decide whether Sapphire Ore spawns or not
+config.techreborn.allow.bauxiteOre=Allow Bauxite Ore
+config.techreborn.allow.bauxiteOre.tooltip=Decide whether Bauxite Ore spawns or not
+config.techreborn.allow.copperOre=Allow Copper Ore
+config.techreborn.allow.copperOre.tooltip=Decide whether Copper Ore spawns or not
+config.techreborn.allow.tinOre=Allow Tin Ore
+config.techreborn.allow.tinOre.tooltip=Decide whether Tin Ore spawns or not
+config.techreborn.allow.leadOre=Allow Lead Ore
+config.techreborn.allow.leadOre.tooltip=Decide whether Lead Ore spawns or not
+config.techreborn.allow.silverOre=Allow Silver Ore
+config.techreborn.allow.silverOre.tooltip=Decide whether Silver Ore spawns or not
+config.techreborn.allow.pyriteOre=Allow Pyrite Ore
+config.techreborn.allow.pyriteOre.tooltip=Decide whether Pyrite Ore spawns or not
+config.techreborn.allow.cinnabarOre=Allow Cinnabar Ore
+config.techreborn.allow.cinnabarOre.tooltip=Decide whether Cinnabar Ore spawns or not
+config.techreborn.allow.sphaleriteOre=Allow Sphalerite Ore
+config.techreborn.allow.sphaleriteOre.tooltip=Decide whether Sphalerite Ore spawns or not
+config.techreborn.allow.tungstenOre=Allow Tungsten Ore
+config.techreborn.allow.tungstenOre.tooltip=Decide whether Tungsten Ore spawns or not
+config.techreborn.allow.sheldoniteOre=Allow Sheldonite Ore
+config.techreborn.allow.sheldoniteOre.tooltip=Decide whether Sheldonite Ore spawns or not
+config.techreborn.allow.olivineOre=Allow Olivine Ore
+config.techreborn.allow.olivineOre.tooltip=Decide whether Olivine Ore spawns or not
+config.techreborn.allow.sodaliteOre=Allow Sodalite Ore
+config.techreborn.allow.sodaliteOre.tooltip=Decide whether Sodalite Ore spawns or not
+
+config.techreborn.
+config.techreborn.
+config.techreborn.
+config.techreborn.
+config.techreborn.
+config.techreborn.
+config.techreborn.
+config.techreborn.
+
+config.techreborn.
+config.techreborn.
+config.techreborn.
+config.techreborn.
+config.techreborn.
+config.techreborn.
+config.techreborn.
+config.techreborn.
+config.techreborn.
+config.techreborn.
+config.techreborn.
+config.techreborn.
+config.techreborn.
+config.techreborn.
+config.techreborn.
+config.techreborn.
+
+config.techreborn.
+config.techreborn.
+config.techreborn.
+config.techreborn.
+
+config.techreborn.
+config.techreborn.
+config.techreborn.
+config.techreborn.
+config.techreborn.
+config.techreborn.
+config.techreborn.
+config.techreborn.
+config.techreborn.
+config.techreborn.
 
 #ConfigGui
 config.techreborn.category.general=General Configs
