@@ -4,12 +4,15 @@
 
 package techreborn.partSystem.QLib;
 
+import net.minecraft.client.renderer.RenderBlocks;
 import techreborn.lib.Location;
+import techreborn.lib.vecmath.Vecs3d;
 import techreborn.lib.vecmath.Vecs3dCube;
 import techreborn.partSystem.ModPart;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import uk.co.qmunity.lib.client.render.RenderHelper;
 import uk.co.qmunity.lib.part.IPart;
 import uk.co.qmunity.lib.part.IPartCollidable;
 import uk.co.qmunity.lib.part.IPartRenderPlacement;
@@ -22,6 +25,7 @@ import uk.co.qmunity.lib.raytrace.QMovingObjectPosition;
 import uk.co.qmunity.lib.raytrace.RayTracer;
 import uk.co.qmunity.lib.vec.Vec3d;
 import uk.co.qmunity.lib.vec.Vec3dCube;
+import uk.co.qmunity.lib.vec.Vec3i;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +68,11 @@ public class QModPart extends PartBase implements IPartCollidable, IPartSelectab
 	@Override
 	public void renderDynamic(Vec3d translation, double delta, int pass) {
 		iModPart.renderDynamic(ModLib2QLib.convert(translation), delta);
+	}
+
+	@Override
+	public boolean renderStatic(Vec3i translation, RenderHelper renderer, RenderBlocks renderBlocks, int pass) {
+		return iModPart.renderStatic(new Vecs3d(translation.getX(), translation.getY(), translation.getZ()),renderBlocks , pass);
 	}
 
 	@Override
