@@ -6,6 +6,7 @@ import cpw.mods.fml.client.config.GuiConfigEntries;
 import cpw.mods.fml.client.config.GuiConfigEntries.CategoryEntry;
 import cpw.mods.fml.client.config.IConfigElement;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.config.ConfigElement;
 import net.minecraftforge.common.config.Configuration;
 
@@ -21,13 +22,13 @@ public class TechRebornConfigGui extends GuiConfig {
 
     private static List<IConfigElement> getConfigCategories() {
         List<IConfigElement> list = new ArrayList<IConfigElement>();
-        list.add(new DummyConfigElement.DummyCategoryElement("General",
+        list.add(new DummyConfigElement.DummyCategoryElement(StatCollector.translateToLocal("config.techreborn.category.general"),
                 "tr.configgui.category.trGeneral", TRGeneral.class));
-        list.add(new DummyConfigElement.DummyCategoryElement("World Gen",
+        list.add(new DummyConfigElement.DummyCategoryElement(StatCollector.translateToLocal("config.techreborn.category.world"),
                 "tr.configgui.category.trWorld", TRWORLD.class));
-        list.add(new DummyConfigElement.DummyCategoryElement("Power",
+        list.add(new DummyConfigElement.DummyCategoryElement(StatCollector.translateToLocal("config.techreborn.category.power"),
                 "tr.configgui.category.trPower", TRPOWER.class));
-        list.add(new DummyConfigElement.DummyCategoryElement("Crafting",
+        list.add(new DummyConfigElement.DummyCategoryElement(StatCollector.translateToLocal("config.techreborn.category.crafting"),
                 "tr.configgui.category.trCrafting", TRCRAFTING.class));
 
         return list;

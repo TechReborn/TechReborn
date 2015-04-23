@@ -275,5 +275,7 @@ item.techreborn.lapotronpack.name=Lapotron Pack
 item.techreborn.omniTool.name=Omni tool
 item.techreborn.advancedDrill.name=Advanced Drill
 
+#Configs
+config.techreborn.allow.galenaOre=Allow GalenaOre
 
 

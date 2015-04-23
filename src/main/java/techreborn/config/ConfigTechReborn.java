@@ -1,5 +1,6 @@
 package techreborn.config;
 
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.config.Configuration;
 
 import java.io.File;
@@ -91,162 +92,164 @@ public class ConfigTechReborn {
 
     public static void Configs() {
         GalenaOreTrue = config.get(CATEGORY_WORLD,
-                "Allow GalenaOre", true,
-                "Allow GalenaOre to be generated in your world.")
+                StatCollector.translateToLocal("config.techreborn.allow.galenaOre"), true,
+                StatCollector.translateToLocal("config.techreborn.allow.galenaOre.tooltip"))
                 .getBoolean(true);
         IridiumOreTrue = config.get(CATEGORY_WORLD,
-                "Allow IridiumOre", true,
-                "Allow IridiumOre to be generated in your world.")
+                StatCollector.translateToLocal("config.techreborn.allow.iridiumOre"), true,
+                StatCollector.translateToLocal("config.techreborn.allow.iridiumOre.tooltip"))
                 .getBoolean(true);
         RubyOreTrue = config.get(CATEGORY_WORLD,
-                "Allow RubyOre", true,
-                "Allow RubyOre to be generated in your world.")
+                StatCollector.translateToLocal("config.techreborn.allow.rubyOre"), true,
+                StatCollector.translateToLocal("config.techreborn.allow.rubyOre.tooltip"))
                 .getBoolean(true);
         SapphireOreTrue = config.get(CATEGORY_WORLD,
-                "Allow SapphireOre", true,
-                "Allow SapphireOre to be generated in your world.")
+                StatCollector.translateToLocal("config.techreborn.allow.sapphireOre"), true,
+                StatCollector.translateToLocal("config.techreborn.allow.sapphireOre.tooltip"))
                 .getBoolean(true);
         BauxiteOreTrue = config.get(CATEGORY_WORLD,
-                "Allow BauxiteOre", true,
-                "Allow BauxiteOre to be generated in your world.")
+                StatCollector.translateToLocal("config.techreborn.allow.bauxiteOre"), true,
+                StatCollector.translateToLocal("config.techreborn.allow.bauxiteOre.tooltip"))
                 .getBoolean(true);
         CopperOreTrue = config.get(CATEGORY_WORLD,
-                "Allow CopperOre", true,
-                "Allow CopperOre to be generated in your world.")
+                StatCollector.translateToLocal("config.techreborn.allow.copperOre"), true,
+                StatCollector.translateToLocal("config.techreborn.allow.copperOre.tooltip"))
                 .getBoolean(true);
         TinOreTrue = config.get(CATEGORY_WORLD,
-                "Allow TinOre", true,
-                "Allow TinOre to be generated in your world.")
+                StatCollector.translateToLocal("config.techreborn.allow.tinOre"), true,
+                StatCollector.translateToLocal("config.techreborn.allow.tinOre.tooltip"))
                 .getBoolean(true);
         LeadOreTrue = config.get(CATEGORY_WORLD,
-                "Allow LeadOre", true,
-                "Allow LeadOre to be generated in your world.")
+                StatCollector.translateToLocal("config.techreborn.allow.leadOre"), true,
+                StatCollector.translateToLocal("config.techreborn.allow.leadOre.tooltip"))
                 .getBoolean(true);
         SilverOreTrue = config.get(CATEGORY_WORLD,
-                "Allow LeadOre", true,
-                "Allow LeadOre to be generated in your world.")
+                StatCollector.translateToLocal("config.techreborn.allow.silverOre"), true,
+                StatCollector.translateToLocal("config.techreborn.allow.silverOre.tooltip"))
                 .getBoolean(true);
         PyriteOreTrue = config.get(CATEGORY_WORLD,
-                "Allow PyriteOre", true,
-                "Allow PyriteOre to be generated in your world.")
+                StatCollector.translateToLocal("config.techreborn.allow.pyriteOre"), true,
+                StatCollector.translateToLocal("config.techreborn.allow.pyriteOre.tooltip"))
                 .getBoolean(true);
         CinnabarOreTrue = config.get(CATEGORY_WORLD,
-                "Allow CinnabarOre", true,
-                "Allow CinnabarOre to be generated in your world.")
+                StatCollector.translateToLocal("config.techreborn.allow.cinnabarOre"), true,
+                StatCollector.translateToLocal("config.techreborn.allow.cinnabarOre.tooltip"))
                 .getBoolean(true);
         SphaleriteOreTrue = config.get(CATEGORY_WORLD,
-                "Allow SphaleriteOre", true,
-                "Allow SphaleriteOre to be generated in your world.")
+                StatCollector.translateToLocal("config.techreborn.allow.sphaleriteOre"), true,
+                StatCollector.translateToLocal("config.techreborn.allow.sphaleriteOre.tooltip"))
                 .getBoolean(true);
         TungstonOreTrue = config.get(CATEGORY_WORLD,
-                "Allow TungstonOre", true,
-                "Allow TungstonOre to be generated in your world.")
+                StatCollector.translateToLocal("config.techreborn.allow.tungstonOre"), true,
+                StatCollector.translateToLocal("config.techreborn.allow.tungstonOre.tooltip"))
                 .getBoolean(true);
         SheldoniteOreTrue = config.get(CATEGORY_WORLD,
-                "Allow SheldoniteOre", true,
-                "Allow SheldoniteOre to be generated in your world.")
+                StatCollector.translateToLocal("config.techreborn.allow.sheldoniteOre"), true,
+                StatCollector.translateToLocal("config.techreborn.allow.sheldoniteOre.tooltip"))
                 .getBoolean(true);
         OlivineOreTrue = config.get(CATEGORY_WORLD,
-                "Allow OlivineOre", true,
-                "Allow OlivineOre to be generated in your world.")
+                StatCollector.translateToLocal("config.techreborn.allow.olivineOre"), true,
+                StatCollector.translateToLocal("config.techreborn.allow.olivineOre.tooltip"))
                 .getBoolean(true);
         SodaliteOreTrue = config.get(CATEGORY_WORLD,
-                "Allow SodaliteOre", true,
-                "Allow SodaliteOre to be generated in your world.")
+                StatCollector.translateToLocal("config.techreborn.allow.sodaliteOre"), true,
+                StatCollector.translateToLocal("config.techreborn.allow.sodaliteOre.tooltip"))
                 .getBoolean(true);
 
         //Power
         ThermalGenertaorOutput = config.get(CATEGORY_POWER,
-                "Thermal Generator Power", 30,
-                "The amount of power that the thermal generator makes for 1mb of lava")
+                StatCollector.translateToLocal("config.techreborn.thermalGeneratorPower"), 30,
+                StatCollector.translateToLocal("config.techreborn.thermalGeneratorPower.tooltip"))
                 .getInt();
         CentrifugeInputTick = config.get(CATEGORY_POWER,
-                "Centrifuge power usage", 5,
-                "The amount of eu per tick that the Centrifuge uses.")
+                StatCollector.translateToLocal("config.techreborn.centrifugePowerUsage"), 5,
+                StatCollector.translateToLocal("config.techreborn.centrifugePowerUsage.tooltip"))
                 .getInt();
+        
         //Charge
         AdvancedDrillCharge = config.get(CATEGORY_POWER,
-                "Advanced drill max charge", 60000,
-                "The amount of power that the anvanced drill can hold")
+                StatCollector.translateToLocal("config.techreborn.advancedDrillMaxCharge"), 60000,
+                StatCollector.translateToLocal("config.techreborn.advancedDrillMaxCharge.tooltip"))
                 .getInt();
         LapotronPackCharge = config.get(CATEGORY_POWER,
-                "Lapotron Pack max charge", 100000000,
-                "The amount of power that the Lapotron Pack can hold")
+                StatCollector.translateToLocal("config.techreborn.lapotronPackMaxCharge"), 100000000,
+                StatCollector.translateToLocal("config.techreborn.lapotronPackMaxCharge.tooltop"))
                 .getInt();
         LithiumBatpackCharge = config.get(CATEGORY_POWER,
-                "Lithium Batpack max charge", 4000000,
-                "The amount of power that the Lithium Batpack can hold")
+                StatCollector.translateToLocal("config.techreborn.lithiumBatpackMaxCharge"), 4000000,
+                StatCollector.translateToLocal("config.techreborn.lithiumBatpackMaxCharge.tooltip"))
                 .getInt();
         OmniToolCharge = config.get(CATEGORY_POWER,
-                "OmniTool max charge", 20000,
-                "The amount of power that the OmniTool can hold")
+                StatCollector.translateToLocal("config.techreborn.omniToolMaxCharge"), 20000,
+                StatCollector.translateToLocal("config.techreborn.omniToolMaxCharge.tooltip"))
                 .getInt();
         RockCutterCharge = config.get(CATEGORY_POWER,
-                "RockCutter max charge", 10000,
-                "The amount of power that the RockCutter can hold")
+                StatCollector.translateToLocal("config.techreborn.rockCutterMaxCharge"), 10000,
+                StatCollector.translateToLocal("config.techreborn.rockCutterMaxCharge.tooltip"))
                 .getInt();
         GravityCharge = config.get(CATEGORY_POWER,
-                "Gravity Chestplate max charge", 100000,
-                "The amount of power that the Gravity Chestplate can hold")
+                StatCollector.translateToLocal("config.techreborn.gravityChestplateMaxCharge"), 100000,
+                StatCollector.translateToLocal("config.techreborn.gravityChestplateMaxCharge.tooltip"))
                 .getInt();
         CentrifugeCharge = config.get(CATEGORY_POWER,
-                "Centrifuge max charge", 1000000,
-                "The amount of power that the Centrifuge can hold")
+                StatCollector.translateToLocal("config.techreborn.centrifugeMaxCharge"), 1000000,
+                StatCollector.translateToLocal("config.techreborn.centrifugeMaxCharge.tooltip"))
                 .getInt();
         ThermalGeneratorCharge = config.get(CATEGORY_POWER,
-                "Thermal Generator max charge", 1000000,
-                "The amount of power that the Thermal Generator can hold")
+                StatCollector.translateToLocal("config.techreborn.thermalGeneratorMaxCharge"), 1000000,
+                StatCollector.translateToLocal("config.techreborn.thermalGeneratorMaxCharge.tooltip"))
                 .getInt();
+        
         //Teir
         AdvancedDrillTier = config.get(CATEGORY_POWER,
-                "Advanced drill Tier", 2,
-                "The tier of the Advanced Drill")
+                StatCollector.translateToLocal("config.techreborn.advancedDrillTier"), 2,
+                StatCollector.translateToLocal("config.techreborn.advancedDrillTier.tooltip"))
                 .getInt();
         LapotronPackTier = config.get(CATEGORY_POWER,
-                "Lapotron pack tier", 2,
-                "The tier of the Lapotron Pack")
+                StatCollector.translateToLocal("config.techreborn.lapotronPackTier"), 2,
+                StatCollector.translateToLocal("config.techreborn.lapotronPackTier.tooltip"))
                 .getInt();
         LithiumBatpackTier = config.get(CATEGORY_POWER,
-                "Lithium Batpack tier", 3,
-                "The tier of the Lithium Batpack")
+                StatCollector.translateToLocal("config.techreborn.lithiumBatpackTier"), 3,
+                StatCollector.translateToLocal("config.techreborn.lithiumBatpackTier.tooltip"))
                 .getInt();
         OmniToolTier = config.get(CATEGORY_POWER,
-                "Omni Tool tier", 3,
-                "The tier of the OmniTool")
+                StatCollector.translateToLocal("config.techreborn.omniToolTier"), 3,
+                StatCollector.translateToLocal("config.techreborn.omniToolTier.tooltip"))
                 .getInt();
         RockCutterTier = config.get(CATEGORY_POWER,
-                "Rock Cutter tier", 3,
-                "The tier of the RockCutter")
+        		StatCollector.translateToLocal("config.techreborn.rockCutterTier"), 3,
+        		StatCollector.translateToLocal("config.techreborn.rockCutterTier.tooltip"))
                 .getInt();
         GravityTier = config.get(CATEGORY_POWER,
-                "GravityChestplate tier", 3,
-                "The tier of the GravityChestplate")
+        		StatCollector.translateToLocal("config.techreborn.gravityChestplateTier"), 3,
+        		StatCollector.translateToLocal("config.techreborn.gravityChestplateTier.tooltip"))
                 .getInt();
         CentrifugeTier = config.get(CATEGORY_POWER,
-                "Centrifuge tier", 1,
-                "The tier of the Centrifuge")
+        		StatCollector.translateToLocal("config.techreborn.centrifugeTier"), 1,
+        		StatCollector.translateToLocal("config.techreborn.centrifugeTier.tooltip"))
                 .getInt();
         ThermalGeneratorTier = config.get(CATEGORY_POWER,
-                "Thermal Generator tier", 1,
-                "The tier of the Thermal Generator")
+        		StatCollector.translateToLocal("config.techreborn.thermalGeneratorTier"), 1,
+        		StatCollector.translateToLocal("config.techreborn.thermalGeneratorTier.tooltip"))
                 .getInt();
 
         //Crafting
         ExpensiveMacerator = config.get(CATEGORY_CRAFTING,
-                "Allow Expensive Macerator", true,
-                "Allow TechReborn to overwrite the IC2 recipe for Macerator.")
+        		StatCollector.translateToLocal("config.techreborn.allowExpensiveMacerator"), true,
+        		StatCollector.translateToLocal("config.techreborn.allowExpensiveMacerator.tooltip"))
                 .getBoolean(true);
         ExpensiveDrill = config.get(CATEGORY_CRAFTING,
-                "Allow Expensive Drill", true,
-                "Allow TechReborn to overwrite the IC2 recipe for Drill.")
+        		StatCollector.translateToLocal("config.techreborn.allowExpensiveDrill"), true,
+        		StatCollector.translateToLocal("config.techreborn.allowExpensiveDrill.tooltip"))
                 .getBoolean(true);
         ExpensiveDiamondDrill = config.get(CATEGORY_CRAFTING,
-                "Allow Expensive DiamondDrill", true,
-                "Allow TechReborn to overwrite the IC2 recipe for DiamondDrill.")
+        		StatCollector.translateToLocal("config.techreborn.allowExpensiveDiamondDrill"), true,
+        		StatCollector.translateToLocal("config.techreborn.allowExpensiveDiamondDrill.tooltip"))
                 .getBoolean(true);
         ExpensiveSolar = config.get(CATEGORY_CRAFTING,
-                "Allow Expensive Solar panels", true,
-                "Allow TechReborn to overwrite the IC2 recipe for Solar panels.")
+        		StatCollector.translateToLocal("config.techreborn.allowExpensiveSolarPanels"), true,
+        		StatCollector.translateToLocal("config.techreborn.allowExpensiveSolarPanels.tooltip"))
                 .getBoolean(true);
 
         if (config.hasChanged())
