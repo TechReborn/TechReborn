@@ -309,47 +309,53 @@ config.techreborn.allow.olivineOre.tooltip=Decide whether Olivine Ore spawns or 
 config.techreborn.allow.sodaliteOre=Allow Sodalite Ore
 config.techreborn.allow.sodaliteOre.tooltip=Decide whether Sodalite Ore spawns or not
 
-config.techreborn.
-config.techreborn.
-config.techreborn.
-config.techreborn.
-config.techreborn.
-config.techreborn.
-config.techreborn.
-config.techreborn.
+config.techreborn.allowExpensiveMacerator=Allow Expensive Macerator
+config.techreborn.allowExpensiveMacerator.tooltip=
+config.techreborn.allowExpensiveDrill=Allow Expensive Drill
+config.techreborn.allowExpensiveDrill.tooltip=
+config.techreborn.allowExpensiveDiamondDrill=Allow Expensive Diamond Drill
+config.techreborn.allowExpensiveDiamondDrill.tooltip=
+config.techreborn.allowExpensiveSolarPanels=Allow Expensive Solar Panels
+config.techreborn.allowExpensiveSolarPanels.tooltip=
 
-config.techreborn.
-config.techreborn.
-config.techreborn.
-config.techreborn.
-config.techreborn.
-config.techreborn.
-config.techreborn.
-config.techreborn.
-config.techreborn.
-config.techreborn.
-config.techreborn.
-config.techreborn.
-config.techreborn.
-config.techreborn.
-config.techreborn.
-config.techreborn.
+config.techreborn.advancedDrillTier=Advanced Drill Power Tier
+config.techreborn.advancedDrillTier.tooltip=
+config.techreborn.lapotronPackTier=Lapotron Pack Power Tier
+config.techreborn.lapotronPackTier.tooltip=
+config.techreborn.lithiumBatpackTier=Lithium Batpack Power Tier
+config.techreborn.lithiumBatpackTier.tooltip=
+config.techreborn.omniToolTier=OmniTool Tier
+config.techreborn.omniToolTier.tooltip=
+config.techreborn.rockCutterTier=Rock Cutter Power Tier
+config.techreborn.rockCutterTier.tooltip=
+config.techreborn.gravityChestplateTier=Gravity Chestplates Power Tier
+config.techreborn.gravityChestplateTier.tooltip=
+config.techreborn.centrifugeTier=Centrifuge Power Tier
+config.techreborn.centrifugeTier.tooltip=
+config.techreborn.thermalGeneratorTier=Thermal Generator Power Tier
+config.techreborn.thermalGeneratorTier.tooltip=
 
-config.techreborn.
-config.techreborn.
-config.techreborn.
-config.techreborn.
+config.techreborn.thermalGeneratorPower=Thermal Generator Output
+config.techreborn.thermalGeneratorPower.tooltip=
+config.techreborn.centrifugePowerUsage=Centrifuge Input per tick
+config.techreborn.centrifugePowerUsage.tooltip=
 
-config.techreborn.
-config.techreborn.
-config.techreborn.
-config.techreborn.
-config.techreborn.
-config.techreborn.
-config.techreborn.
-config.techreborn.
-config.techreborn.
-config.techreborn.
+config.techreborn.advancedDrillMaxCharge=Maximum charge for Advanced Drill
+config.techreborn.advancedDrillMaxCharge.tooltip=
+config.techreborn.lapotronPackMaxCharge=Maximum charge for
+config.techreborn.lapotronPackMaxCharge.tooltip=
+config.techreborn.omniToolMaxCharge=Maximum charge for
+config.techreborn.omniToolMaxCharge.tooltip=
+config.techreborn.lithiumBatpackMaxCharge=Maximum charge for Lithium Batpack
+config.techreborn.lithiumBatpackMaxCharge.tooltip=
+config.techreborn.rockCutterMaxCharge=Maximum charge for Rock Cutter
+config.techreborn.rockCutterMaxCharge.tooltip=
+config.techreborn.gravityChestplateMaxCharge=Maximum charge for Gravity Chestplate
+config.techreborn.gravityChestplateMaxCharge.tooltip=
+config.techreborn.centrifugeMaxCharge=Maximum charge for Centrifuge
+config.techreborn.centrifugeMaxCharge.tooltip=
+config.techreborn.thermalGeneratorMaxCharge=Maximum charge for Thermal Generator
+config.techreborn.thermalGeneratorMaxCharge.tooltip=
 
 #ConfigGui
 config.techreborn.category.general=General Configs
