@@ -5,14 +5,23 @@ import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergyConductor;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.core.IC2;
+import ic2.core.block.wiring.TileEntityCable;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.entity.Entity;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IIcon;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldSettings;
+import net.minecraft.world.WorldType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
+import techreborn.client.IconSupplier;
 import techreborn.lib.Functions;
 import techreborn.lib.vecmath.Vecs3d;
 import techreborn.lib.vecmath.Vecs3dCube;
@@ -27,18 +36,30 @@ import java.util.List;
 import java.util.Map;
 
 public class CablePart extends ModPart implements IEnergyConductor {
-    public static Vecs3dCube[] boundingBoxes = new Vecs3dCube[14];
-    public static float center = 0.6F;
-    public static float offset = 0.10F;
+    public Vecs3dCube[] boundingBoxes = new Vecs3dCube[14];
+    public float center = 0.6F;
+    public float offset = 0.10F;
     public Map<ForgeDirection, TileEntity> connectedSides;
     public int ticks = 0;
     protected ForgeDirection[] dirs = ForgeDirection.values();
     private boolean[] connections = new boolean[6];
     public boolean addedToEnergyNet = false;
+    TileEntityCable entityCable = new TileEntityCable();
 
-    public static void refreshBounding() {
+    public int type = 3;
+
+    public CablePart(int type) {
+        this.type = type;
+        if(Minecraft.getMinecraft().theWorld != null){
+            entityCable = new TileEntityCable();
+            entityCable.setWorldObj(new fakeWorld());
+            entityCable.changeType((short) type);
+        }
+    }
+
+    public void refreshBounding() {
         float centerFirst = center - offset;
-        double w = 0.2D / 2;
+        double w = getCableThickness(type) / 2;
         boundingBoxes[6] = new Vecs3dCube(centerFirst - w - 0.03, centerFirst
                 - w - 0.08, centerFirst - w - 0.03, centerFirst + w + 0.08,
                 centerFirst + w + 0.04, centerFirst + w + 0.08);
@@ -118,16 +139,31 @@ public class CablePart extends ModPart implements IEnergyConductor {
 
     @Override
     public boolean renderStatic(Vecs3d translation, RenderHelper renderer, int pass) {
-        renderer.setOverrideTexture(Blocks.coal_block.getIcon(0, 0));
-        renderer.renderBox(ModLib2QLib.convert(boundingBoxes[6]));
-        if (connectedSides != null) {
-            for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-                if (connectedSides.containsKey(dir))
-                    renderer.renderBox(ModLib2QLib.convert(boundingBoxes[Functions.getIntDirFromDirection(dir)]));
+            renderer.setOverrideTexture(getIconFromType(type));
+            renderer.renderBox(ModLib2QLib.convert(boundingBoxes[6]));
+            if (connectedSides != null) {
+                for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+                    if (connectedSides.containsKey(dir))
+                        renderer.renderBox(ModLib2QLib.convert(boundingBoxes[Functions.getIntDirFromDirection(dir)]));
+                }
             }
-        }
+
         return true;
     }
+
+
+    public class fakeWorld extends WorldClient{
+        public fakeWorld() {
+            super(new NetHandlerPlayClient(Minecraft.getMinecraft(), null, new NetworkManager(true)), new WorldSettings(0, WorldSettings.GameType.NOT_SET,
+                    false, false, WorldType.DEFAULT), 0, EnumDifficulty.PEACEFUL, Minecraft.getMinecraft().theWorld.theProfiler);
+        }
+
+        @Override
+        public boolean setBlockMetadataWithNotify(int p_72921_1_, int p_72921_2_, int p_72921_3_, int p_72921_4_, int p_72921_5_) {
+            return true;
+        }
+    }
+
 
     @Override
     public void writeToNBT(NBTTagCompound tag) {
@@ -141,7 +177,7 @@ public class CablePart extends ModPart implements IEnergyConductor {
 
     @Override
     public String getName() {
-        return "Cable";
+        return "Cable." + getNameFromType(type);
     }
 
     @Override
@@ -236,24 +272,246 @@ public class CablePart extends ModPart implements IEnergyConductor {
         world.func_147479_m(x, y, z);
     }
 
-    @Override
     public double getConductionLoss() {
-        return 0D;
+        switch(this.type) {
+            case 0:
+                return 0.2D;
+            case 1:
+                return 0.3D;
+            case 2:
+                return 0.5D;
+            case 3:
+                return 0.45D;
+            case 4:
+                return 0.4D;
+            case 5:
+                return 1.0D;
+            case 6:
+                return 0.95D;
+            case 7:
+                return 0.9D;
+            case 8:
+                return 0.8D;
+            case 9:
+                return 0.025D;
+            case 10:
+                return 0.025D;
+            case 11:
+                return 0.5D;
+            case 12:
+                return 0.5D;
+            case 13:
+            default:
+                return 0.025D;
+            case 14:
+                return 0.2D;
+        }
     }
 
-    @Override
+    public static int getMaxCapacity(int type) {
+        switch(type) {
+            case 0:
+                return 128;
+            case 1:
+                return 128;
+            case 2:
+                return 512;
+            case 3:
+                return 512;
+            case 4:
+                return 512;
+            case 5:
+                return 2048;
+            case 6:
+                return 2048;
+            case 7:
+                return 2048;
+            case 8:
+                return 2048;
+            case 9:
+                return 8192;
+            case 10:
+                return 32;
+            case 11:
+                return 8192;
+            case 12:
+                return 8192;
+            case 13:
+                return 32;
+            case 14:
+                return 32;
+            default:
+                return 0;
+        }
+    }
+
+    public static float getCableThickness(int cableType) {
+        float p = 1.0F;
+        switch(cableType) {
+            case 0:
+                p = 6.0F;
+                break;
+            case 1:
+                p = 4.0F;
+                break;
+            case 2:
+                p = 3.0F;
+                break;
+            case 3:
+                p = 6.0F;
+                break;
+            case 4:
+                p = 6.0F;
+                break;
+            case 5:
+                p = 6.0F;
+                break;
+            case 6:
+                p = 10.0F;
+                break;
+            case 7:
+                p = 10.0F;
+                break;
+            case 8:
+                p = 12.0F;
+                break;
+            case 9:
+                p = 4.0F;
+                break;
+            case 10:
+                p = 4.0F;
+                break;
+            case 11:
+                p = 8.0F;
+                break;
+            case 12:
+                p = 8.0F;
+                break;
+            case 13:
+                p = 16.0F;
+                break;
+            case 14:
+                p = 6.0F;
+        }
+
+        return p / 16.0F;
+    }
+
+    public static IIcon getIconFromType(int cableType){
+        IIcon p = null;
+        switch(cableType) {
+            case 0:
+                p = IconSupplier.insulatedCopperCable;
+                break;
+            case 1:
+                p = IconSupplier.copperCable;
+                break;
+            case 2:
+                p = IconSupplier.goldCable;
+                break;
+            case 3:
+                p = IconSupplier.insulatedGoldCable;
+                break;
+            case 4:
+                p = IconSupplier.doubleInsulatedGoldCable;
+                break;
+            case 5:
+                p = IconSupplier.ironCable;
+                break;
+            case 6:
+                p = IconSupplier.insulatedIronCable;
+                break;
+            case 7:
+                p = IconSupplier.doubleInsulatedIronCable;
+                break;
+            case 8:
+                p = IconSupplier.trippleInsulatedIronCable;
+                break;
+            case 9:
+                p = IconSupplier.glassFiberCable;
+                break;
+            case 10:
+                p = IconSupplier.tinCable;
+                break;
+            case 11:
+                p = IconSupplier.detectorCableBlock;//Detector
+                break;
+            case 12:
+                p = IconSupplier.splitterCableBlock;// Splitter
+                break;
+            case 13:
+                p = IconSupplier.insulatedtinCableBlock;
+                break;
+            case 14:
+                p = IconSupplier.copperCable; // unused?
+        }
+
+        return p;
+    }
+
+
+    public static String getNameFromType(int cableType){
+        String p = null;
+        switch(cableType) {
+            case 0:
+                p = "insulatedCopperCable";
+                break;
+            case 1:
+                p = "copperCable";
+                break;
+            case 2:
+                p = "goldCable";
+                break;
+            case 3:
+                p = "insulatedGoldCable";
+                break;
+            case 4:
+                p = "doubleInsulatedGoldCable";
+                break;
+            case 5:
+                p = "ironCable";
+                break;
+            case 6:
+                p = "insulatedIronCable";
+                break;
+            case 7:
+                p = "doubleInsulatedIronCable";
+                break;
+            case 8:
+                p = "trippleInsulatedIronCable";
+                break;
+            case 9:
+                p = "glassFiberCable";
+                break;
+            case 10:
+                p = "tinCable";
+                break;
+            case 11:
+                p = "detectorCableBlock";//Detector
+                break;
+            case 12:
+                p = "splitterCableBlock";// Splitter
+                break;
+            case 13:
+                p = "insulatedtinCable";
+                break;
+            case 14:
+                p = "unused"; // unused?
+        }
+
+        return p;
+    }
+
     public double getInsulationEnergyAbsorption() {
-        return 256;
+        return (double)getMaxCapacity(this.type);
     }
 
-    @Override
     public double getInsulationBreakdownEnergy() {
-        return 2048;
+        return 9001.0D;
     }
 
-    @Override
     public double getConductorBreakdownEnergy() {
-        return 2048;
+        return (double)(getMaxCapacity(this.type) + 1);
     }
 
     @Override

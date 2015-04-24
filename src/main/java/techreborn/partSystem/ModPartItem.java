@@ -8,7 +8,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import techreborn.partSystem.parts.CablePart;
 import uk.co.qmunity.lib.ref.Names;
+
+import java.lang.reflect.InvocationTargetException;
 
 public class ModPartItem extends Item {
 
@@ -38,10 +41,22 @@ public class ModPartItem extends Item {
         } else {
             for (IPartProvider partProvider : ModPartRegistry.providers) {
                 try {
-                    if (partProvider.placePart(item, player, world, x, y, z,
-                            face, x_, y_, z_, modPart.getClass().newInstance())) {
-                        return true;
+                    if(modPart instanceof CablePart){
+                        try {
+                            if (partProvider.placePart(item, player, world, x, y, z, face, x_, y_, z_, modPart.getClass().getDeclaredConstructor(int.class).newInstance(((CablePart) modPart).type))) {
+                                return true;
+                            }
+                        } catch (InvocationTargetException e) {
+                            e.printStackTrace();
+                        } catch (NoSuchMethodException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        if (partProvider.placePart(item, player, world, x, y, z, face, x_, y_, z_, modPart.getClass().newInstance())) {
+                            return true;
+                        }
                     }
+
                 } catch (InstantiationException e) {
                     e.printStackTrace();
                 } catch (IllegalAccessException e) {

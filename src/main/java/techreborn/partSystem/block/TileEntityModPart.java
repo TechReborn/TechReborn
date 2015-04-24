@@ -17,8 +17,10 @@ import techreborn.lib.Location;
 import techreborn.lib.vecmath.Vecs3dCube;
 import techreborn.partSystem.ModPart;
 import techreborn.partSystem.ModPartRegistry;
+import techreborn.partSystem.parts.CablePart;
 import techreborn.partSystem.parts.NullPart;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -161,8 +163,19 @@ public class TileEntityModPart extends TileEntity {
     }
 
     public void addPart(ModPart modPart) {
+        ModPart newPart = null;
         try {
-            ModPart newPart = modPart.getClass().newInstance();
+            if(modPart instanceof CablePart){
+                try {
+                    newPart = modPart.getClass().getDeclaredConstructor(int.class).newInstance(((CablePart) modPart).type);
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                newPart = modPart.getClass().newInstance();
+            }
             newPart.setWorld(getWorldObj());
             newPart.setLocation(new Location(xCoord, yCoord, zCoord));
             parts.put(newPart.getName(), newPart);

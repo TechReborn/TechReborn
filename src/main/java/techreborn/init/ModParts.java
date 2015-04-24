@@ -8,7 +8,9 @@ public class ModParts {
 
 	public static void init()
 	{
-		ModPartRegistry.registerPart(new CablePart());
+		for (int i = 0; i < 14; i++) {
+			ModPartRegistry.registerPart(new CablePart(i));
+		}
 		ModPartRegistry.addProvider(
 				"techreborn.partSystem.QLib.QModPartFactory", "qmunitylib");
 		ModPartRegistry.addProvider("techreborn.partSystem.fmp.FMPFactory",

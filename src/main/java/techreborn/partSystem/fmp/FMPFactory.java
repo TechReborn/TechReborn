@@ -19,7 +19,9 @@ import techreborn.lib.vecmath.Vecs3dCube;
 import techreborn.partSystem.IPartProvider;
 import techreborn.partSystem.ModPart;
 import techreborn.partSystem.ModPartRegistry;
+import techreborn.partSystem.parts.CablePart;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 /**
@@ -32,10 +34,18 @@ public class FMPFactory implements MultiPartRegistry.IPartFactory,
         for (ModPart modPart : ModPartRegistry.parts) {
             if (modPart.getName().equals(type)) {
                 try {
-                    return new FMPModPart(modPart.getClass().newInstance());
+                    if(modPart instanceof CablePart){
+                        return new FMPModPart(modPart.getClass().getDeclaredConstructor(int.class).newInstance(((CablePart) modPart).type));
+                    } else {
+                        return new FMPModPart(modPart.getClass().newInstance());
+                    }
                 } catch (InstantiationException e) {
                     e.printStackTrace();
                 } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
                     e.printStackTrace();
                 }
             }

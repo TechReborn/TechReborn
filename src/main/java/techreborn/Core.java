@@ -73,6 +73,8 @@ public class Core {
 		FMLCommonHandler.instance().bus()
 				.register(new MultiblockServerTickHandler());
 
+		proxy.init();
+
 		LogHelper.info("Initialization Compleate");
 	}
 

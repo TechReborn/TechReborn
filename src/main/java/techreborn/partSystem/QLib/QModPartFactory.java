@@ -16,6 +16,7 @@ import techreborn.lib.vecmath.Vecs3dCube;
 import techreborn.partSystem.IPartProvider;
 import techreborn.partSystem.ModPart;
 import techreborn.partSystem.ModPartRegistry;
+import techreborn.partSystem.parts.CablePart;
 import uk.co.qmunity.lib.QLModInfo;
 import uk.co.qmunity.lib.part.IPart;
 import uk.co.qmunity.lib.part.IPartFactory;
@@ -25,6 +26,7 @@ import uk.co.qmunity.lib.tile.TileMultipart;
 import uk.co.qmunity.lib.vec.Vec3dCube;
 import uk.co.qmunity.lib.vec.Vec3i;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public class QModPartFactory implements IPartFactory, IPartProvider {
@@ -33,6 +35,15 @@ public class QModPartFactory implements IPartFactory, IPartProvider {
         for (ModPart modPart : ModPartRegistry.parts) {
             if (modPart.getName().equals(type)) {
                 try {
+                    if(modPart instanceof CablePart){
+                        try {
+                            return new QModPart(modPart.getClass().getDeclaredConstructor(int.class).newInstance(((CablePart) modPart).type));
+                        } catch (InvocationTargetException e) {
+                            e.printStackTrace();
+                        } catch (NoSuchMethodException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     return new QModPart(modPart.getClass().newInstance());
                 } catch (InstantiationException e) {
                     e.printStackTrace();
