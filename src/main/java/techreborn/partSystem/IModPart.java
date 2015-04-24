@@ -4,29 +4,30 @@
 
 package techreborn.partSystem;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
+
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import techreborn.lib.vecmath.Vecs3d;
 import techreborn.lib.vecmath.Vecs3dCube;
-
-import java.util.List;
-
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
- * This is based of https://github.com/Qmunity/QmunityLib/blob/master/src/main/java/uk/co/qmunity/lib/part/IPart.java
+ * This is based of
+ * https://github.com/Qmunity/QmunityLib/blob/master/src/main/java
+ * /uk/co/qmunity/lib/part/IPart.java
  * <p/>
  * You should not be implementing this.
  */
 public interface IModPart {
 
 	/**
-	 * Adds all of this part's collision boxes to the list. These boxes can depend on the entity that's colliding with them.
+	 * Adds all of this part's collision boxes to the list. These boxes can
+	 * depend on the entity that's colliding with them.
 	 */
 	public void addCollisionBoxesToList(List<Vecs3dCube> boxes, Entity entity);
 
@@ -34,7 +35,6 @@ public interface IModPart {
 	 * Gets this part's selection boxes.
 	 */
 	public List<Vecs3dCube> getSelectionBoxes();
-
 
 	/**
 	 * Gets this part's occlusion boxes.
@@ -49,10 +49,12 @@ public interface IModPart {
 
 	/**
 	 * Renders this part statically. A tessellator has alredy started drawing. <br>
-	 * Only called when there's a block/lighting/render update in the chunk this part is in.
+	 * Only called when there's a block/lighting/render update in the chunk this
+	 * part is in.
 	 */
 	@SideOnly(Side.CLIENT)
-	public boolean renderStatic(Vecs3d translation, RenderBlocks renderBlocks, int pass);
+	public boolean renderStatic(Vecs3d translation, RenderBlocks renderBlocks,
+			int pass);
 
 	/**
 	 * Writes the part's data to an NBT tag, which is saved with the game data.
@@ -105,7 +107,8 @@ public interface IModPart {
 	public void tick();
 
 	/**
-	 * Called when a block or part has been changed. Can be used for cables to check nearby blocks
+	 * Called when a block or part has been changed. Can be used for cables to
+	 * check nearby blocks
 	 */
 	public void nearByChange();
 

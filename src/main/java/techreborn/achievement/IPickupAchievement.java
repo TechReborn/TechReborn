@@ -6,7 +6,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 
 public interface IPickupAchievement {
-	
-	public Achievement getAchievementOnPickup(ItemStack stack, EntityPlayer player, EntityItem item);
+
+	public Achievement getAchievementOnPickup(ItemStack stack,
+			EntityPlayer player, EntityItem item);
 
 }

@@ -4,19 +4,19 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import techreborn.init.ModItems;
 
-public class TechRebornCreativeTabMisc extends CreativeTabs{
-	
-    public static TechRebornCreativeTabMisc instance = new TechRebornCreativeTabMisc();
+public class TechRebornCreativeTabMisc extends CreativeTabs {
 
-    public TechRebornCreativeTabMisc() 
-    {
-        super("techreborn");
-    }
+	public static TechRebornCreativeTabMisc instance = new TechRebornCreativeTabMisc();
 
-    @Override
-    public Item getTabIconItem() 
-    {
-        return ModItems.cells;
-    }
+	public TechRebornCreativeTabMisc()
+	{
+		super("techreborn");
+	}
+
+	@Override
+	public Item getTabIconItem()
+	{
+		return ModItems.cells;
+	}
 
 }
