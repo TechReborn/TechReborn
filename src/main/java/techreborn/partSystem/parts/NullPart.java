@@ -4,6 +4,10 @@
 
 package techreborn.partSystem.parts;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -12,32 +16,33 @@ import techreborn.lib.vecmath.Vecs3dCube;
 import techreborn.partSystem.ModPart;
 import uk.co.qmunity.lib.client.render.RenderHelper;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by mark on 11/12/14.
  */
 public class NullPart extends ModPart {
 	@Override
-	public void addCollisionBoxesToList(List<Vecs3dCube> boxes, Entity entity) {
+	public void addCollisionBoxesToList(List<Vecs3dCube> boxes, Entity entity)
+	{
 		boxes.add(new Vecs3dCube(0, 0, 0, 1, 1, 1));
 	}
 
 	@Override
-	public List<Vecs3dCube> getSelectionBoxes() {
+	public List<Vecs3dCube> getSelectionBoxes()
+	{
 		List<Vecs3dCube> cubes = new ArrayList<Vecs3dCube>();
 		cubes.add(new Vecs3dCube(0, 0, 0, 1, 1, 1));
 		return cubes;
 	}
 
 	@Override
-	public List<Vecs3dCube> getOcclusionBoxes() {
+	public List<Vecs3dCube> getOcclusionBoxes()
+	{
 		return null;
 	}
 
 	@Override
-	public void renderDynamic(Vecs3d translation, double delta) {
+	public void renderDynamic(Vecs3d translation, double delta)
+	{
 
 	}
 
@@ -47,47 +52,56 @@ public class NullPart extends ModPart {
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound tag) {
+	public void writeToNBT(NBTTagCompound tag)
+	{
 
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound tag) {
+	public void readFromNBT(NBTTagCompound tag)
+	{
 
 	}
 
 	@Override
-	public ItemStack getItem() {
+	public ItemStack getItem()
+	{
 		return null;
 	}
 
 	@Override
-	public String getName() {
+	public String getName()
+	{
 		return "NullPart";
 	}
 
 	@Override
-	public String getItemTextureName() {
+	public String getItemTextureName()
+	{
 		return "";
 	}
 
 	@Override
-	public void tick() {
+	public void tick()
+	{
 
 	}
 
 	@Override
-	public void nearByChange() {
+	public void nearByChange()
+	{
 
 	}
 
 	@Override
-	public void onAdded() {
+	public void onAdded()
+	{
 
 	}
 
 	@Override
-	public void onRemoved() {
+	public void onRemoved()
+	{
 
 	}
 }

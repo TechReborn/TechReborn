@@ -4,38 +4,44 @@
 
 package techreborn.partSystem.fmp;
 
+import java.util.List;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import techreborn.lib.Location;
+import techreborn.lib.vecmath.Vecs3dCube;
+import techreborn.partSystem.IPartProvider;
+import techreborn.partSystem.ModPart;
+import techreborn.partSystem.ModPartRegistry;
 import codechicken.lib.vec.BlockCoord;
 import codechicken.lib.vec.Cuboid6;
 import codechicken.multipart.MultiPartRegistry;
 import codechicken.multipart.NormallyOccludedPart;
 import codechicken.multipart.TMultiPart;
 import codechicken.multipart.TileMultipart;
-import techreborn.lib.Location;
-import techreborn.lib.vecmath.Vecs3dCube;
-import techreborn.partSystem.IPartProvider;
-import techreborn.partSystem.ModPart;
-import techreborn.partSystem.ModPartRegistry;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-
-import java.util.List;
-
 
 /**
  * Created by mark on 09/12/14.
  */
-public class FMPFactory implements MultiPartRegistry.IPartFactory, IPartProvider {
+public class FMPFactory implements MultiPartRegistry.IPartFactory,
+		IPartProvider {
 	@Override
-	public TMultiPart createPart(String type, boolean client) {
-		for (ModPart modPart : ModPartRegistry.parts) {
-			if (modPart.getName().equals(type)) {
-				try {
+	public TMultiPart createPart(String type, boolean client)
+	{
+		for (ModPart modPart : ModPartRegistry.parts)
+		{
+			if (modPart.getName().equals(type))
+			{
+				try
+				{
 					return new FMPModPart(modPart.getClass().newInstance());
-				} catch (InstantiationException e) {
+				} catch (InstantiationException e)
+				{
 					e.printStackTrace();
-				} catch (IllegalAccessException e) {
+				} catch (IllegalAccessException e)
+				{
 					e.printStackTrace();
 				}
 			}
@@ -43,45 +49,65 @@ public class FMPFactory implements MultiPartRegistry.IPartFactory, IPartProvider
 		return null;
 	}
 
-	public boolean placePart(ItemStack item, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, ModPart modPart) {
-		return new FakeFMPPlacerItem(modPart).onItemUse(item, player, world, x, y, z, side, hitX, hitY, hitZ);
+	public boolean placePart(ItemStack item, EntityPlayer player, World world,
+			int x, int y, int z, int side, float hitX, float hitY, float hitZ,
+			ModPart modPart)
+	{
+		return new FakeFMPPlacerItem(modPart).onItemUse(item, player, world, x,
+				y, z, side, hitX, hitY, hitZ);
 	}
 
 	@Override
-	public boolean isTileFromProvider(TileEntity tileEntity) {
+	public boolean isTileFromProvider(TileEntity tileEntity)
+	{
 		return tileEntity instanceof TileMultipart;
 	}
 
 	@Override
-	public String modID() {
+	public String modID()
+	{
 		return "ForgeMultipart";
 	}
 
 	@Override
-	public void registerPart() {
-		for (ModPart modPart : ModPartRegistry.parts) {
-			MultiPartRegistry.registerParts(new FMPFactory(), new String[]{modPart.getName()});
+	public void registerPart()
+	{
+		for (ModPart modPart : ModPartRegistry.parts)
+		{
+			MultiPartRegistry.registerParts(new FMPFactory(), new String[]
+			{ modPart.getName() });
 		}
 	}
 
 	@Override
-	public boolean checkOcclusion(World world, Location location, Vecs3dCube cube) {
-		codechicken.multipart.TileMultipart tmp = codechicken.multipart.TileMultipart.getOrConvertTile(world, new BlockCoord(location.getX(), location.getY(), location.getZ()));
+	public boolean checkOcclusion(World world, Location location,
+			Vecs3dCube cube)
+	{
+		codechicken.multipart.TileMultipart tmp = codechicken.multipart.TileMultipart
+				.getOrConvertTile(world, new BlockCoord(location.getX(),
+						location.getY(), location.getZ()));
 		if (tmp == null)
 			return false;
-		return !tmp.occlusionTest(tmp.partList(), new NormallyOccludedPart(new Cuboid6(cube.toAABB())));
+		return !tmp.occlusionTest(tmp.partList(), new NormallyOccludedPart(
+				new Cuboid6(cube.toAABB())));
 	}
 
 	@Override
-	public boolean hasPart(World world, Location location, String name) {
-		TileEntity tileEntity = world.getTileEntity(location.getX(), location.getY(), location.getZ());
-		if (tileEntity instanceof TileMultipart) {
+	public boolean hasPart(World world, Location location, String name)
+	{
+		TileEntity tileEntity = world.getTileEntity(location.getX(),
+				location.getY(), location.getZ());
+		if (tileEntity instanceof TileMultipart)
+		{
 			TileMultipart mp = (TileMultipart) tileEntity;
 			boolean ret = false;
 			List<TMultiPart> t = mp.jPartList();
-			for (TMultiPart p : t) {
-				if (ret == false) {
-					if (p.getType().equals(name)) {
+			for (TMultiPart p : t)
+			{
+				if (ret == false)
+				{
+					if (p.getType().equals(name))
+					{
 						ret = true;
 					}
 				}

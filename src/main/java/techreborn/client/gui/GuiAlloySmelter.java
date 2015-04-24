@@ -4,23 +4,25 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+import techreborn.client.container.ContainerAlloySmelter;
 import techreborn.client.container.ContainerBlastFurnace;
+import techreborn.tiles.TileAlloySmelter;
 import techreborn.tiles.TileBlastFurnace;
 
-public class GuiBlastFurnace extends GuiContainer {
+public class GuiAlloySmelter extends GuiContainer {
 
 	private static final ResourceLocation texture = new ResourceLocation(
 			"techreborn", "textures/gui/industrial_blast_furnace.png");
 
-	TileBlastFurnace blastfurnace;
+	TileAlloySmelter alloysmelter;
 
-	public GuiBlastFurnace(EntityPlayer player,
-			TileBlastFurnace tileblastfurnace)
+	public GuiAlloySmelter(EntityPlayer player,
+			TileAlloySmelter tilealloysmelter)
 	{
-		super(new ContainerBlastFurnace(tileblastfurnace, player));
+		super(new ContainerAlloySmelter(tilealloysmelter, player));
 		this.xSize = 176;
 		this.ySize = 167;
-		blastfurnace = tileblastfurnace;
+		alloysmelter = tilealloysmelter;
 	}
 
 	@Override
@@ -36,7 +38,7 @@ public class GuiBlastFurnace extends GuiContainer {
 	protected void drawGuiContainerForegroundLayer(int p_146979_1_,
 			int p_146979_2_)
 	{
-		this.fontRendererObj.drawString("Blastfurnace", 60, 6, 4210752);
+		this.fontRendererObj.drawString("Alloysmelter", 60, 6, 4210752);
 		this.fontRendererObj.drawString(
 				I18n.format("container.inventory", new Object[0]), 8,
 				this.ySize - 96 + 2, 4210752);

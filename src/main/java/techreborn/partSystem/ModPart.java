@@ -4,11 +4,9 @@
 
 package techreborn.partSystem;
 
-
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import techreborn.lib.Location;
-
 
 /**
  * Extend this class to make your multipart
@@ -25,21 +23,21 @@ public abstract class ModPart extends TileEntity implements IModPart {
 	 */
 	public Location location;
 
-
 	/**
 	 * This is the world
 	 */
 	@Override
-	public World getWorld() {
+	public World getWorld()
+	{
 
 		return world;
 	}
 
 	/**
-	 * This sets the world
-	 * Don't use this unless you know what you are doing.
+	 * This sets the world Don't use this unless you know what you are doing.
 	 */
-	public void setWorld(World world) {
+	public void setWorld(World world)
+	{
 		this.world = world;
 		setWorldObj(world);
 	}
@@ -48,7 +46,8 @@ public abstract class ModPart extends TileEntity implements IModPart {
 	 * Gets the x position in the world
 	 */
 	@Override
-	public int getX() {
+	public int getX()
+	{
 		return location.getX();
 	}
 
@@ -56,7 +55,8 @@ public abstract class ModPart extends TileEntity implements IModPart {
 	 * Gets the y position in the world
 	 */
 	@Override
-	public int getY() {
+	public int getY()
+	{
 		return location.getY();
 	}
 
@@ -64,37 +64,39 @@ public abstract class ModPart extends TileEntity implements IModPart {
 	 * Gets the z position in the world
 	 */
 	@Override
-	public int getZ() {
+	public int getZ()
+	{
 		return location.getZ();
 	}
-
 
 	/**
 	 * Gets the location of the part
 	 */
-	public Location getLocation() {
+	public Location getLocation()
+	{
 		return location;
 	}
-
 
 	/**
 	 * Sets the x position in the world
 	 */
-	public void setLocation(Location location) {
+	public void setLocation(Location location)
+	{
 		this.location = location;
 		this.xCoord = location.getX();
 		this.yCoord = location.getY();
 		this.zCoord = location.getZ();
 	}
 
-
 	@Override
-	public World getWorldObj() {
+	public World getWorldObj()
+	{
 		return getWorld();
 	}
 
 	@Override
-	public void setWorldObj(World p_145834_1_) {
+	public void setWorldObj(World p_145834_1_)
+	{
 		super.setWorldObj(p_145834_1_);
 	}
 }

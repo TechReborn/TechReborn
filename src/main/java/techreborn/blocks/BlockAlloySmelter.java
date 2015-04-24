@@ -1,27 +1,27 @@
 package techreborn.blocks;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.Core;
 import techreborn.client.GuiHandler;
-import techreborn.tiles.TileThermalGenerator;
+import techreborn.client.TechRebornCreativeTab;
+import techreborn.tiles.TileAlloySmelter;
+import techreborn.tiles.TileBlastFurnace;
+import techreborn.tiles.TileMachineCasing;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockThermalGenerator extends BlockContainer {
+public class BlockAlloySmelter extends BlockContainer {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon iconFront;
@@ -32,10 +32,28 @@ public class BlockThermalGenerator extends BlockContainer {
 	@SideOnly(Side.CLIENT)
 	private IIcon iconBottom;
 
-	public BlockThermalGenerator()
+	public BlockAlloySmelter(Material material)
 	{
-		super(Material.piston);
-		setHardness(2f);
+		super(material);
+		setCreativeTab(TechRebornCreativeTab.instance);
+		setBlockName("techreborn.alloysmelter");
+		setHardness(2F);
+	}
+
+	@Override
+	public TileEntity createNewTileEntity(World world, int p_149915_2_)
+	{
+		return new TileAlloySmelter();
+	}
+	
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z,
+			EntityPlayer player, int side, float hitX, float hitY, float hitZ)
+	{
+		if (!player.isSneaking())
+			player.openGui(Core.INSTANCE, GuiHandler.alloySmelterID, world, x, y,
+					z);
+		return true;
 	}
 
 	@Override
@@ -43,9 +61,9 @@ public class BlockThermalGenerator extends BlockContainer {
 	public void registerBlockIcons(IIconRegister icon)
 	{
 		this.blockIcon = icon.registerIcon("techreborn:machine/machine_side");
-		this.iconFront = icon.registerIcon("techreborn:machine/machine_side");
-		this.iconTop = icon
-				.registerIcon("techreborn:machine/ThermalGenerator_top");
+		this.iconFront = icon
+				.registerIcon("techreborn:machine/industrial_blast_furnace_front_off");
+		this.iconTop = icon.registerIcon("techreborn:machine/machine_side");
 		this.iconBottom = icon.registerIcon("techreborn:machine/machine_side");
 	}
 
@@ -128,27 +146,4 @@ public class BlockThermalGenerator extends BlockContainer {
 
 	}
 
-	@Override
-	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
-	{
-		return new TileThermalGenerator();
-	}
-
-	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z,
-			EntityPlayer player, int side, float hitX, float hitY, float hitZ)
-	{
-		if (!player.isSneaking())
-			player.openGui(Core.INSTANCE, GuiHandler.thermalGeneratorID, world,
-					x, y, z);
-		return true;
-	}
-
-	@Override
-	public Item getItemDropped(int p_149650_1_, Random p_149650_2_,
-			int p_149650_3_)
-	{
-		// TODO change when added crafting
-		return Item.getItemFromBlock(Blocks.furnace);
-	}
 }

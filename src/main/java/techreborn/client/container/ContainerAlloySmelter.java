@@ -3,13 +3,14 @@ package techreborn.client.container;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import techreborn.client.SlotOutput;
+import techreborn.tiles.TileAlloySmelter;
 import techreborn.tiles.TileBlastFurnace;
 
-public class ContainerBlastFurnace extends TechRebornContainer {
+public class ContainerAlloySmelter extends TechRebornContainer {
 
 	EntityPlayer player;
 
-	TileBlastFurnace tile;
+	TileAlloySmelter tile;
 
 	@Override
 	public boolean canInteractWith(EntityPlayer player)
@@ -19,17 +20,17 @@ public class ContainerBlastFurnace extends TechRebornContainer {
 
 	public int tickTime;
 
-	public ContainerBlastFurnace(TileBlastFurnace tileblastfurnace,
+	public ContainerAlloySmelter(TileAlloySmelter tileAlloysmelter,
 			EntityPlayer player)
 	{
-		tile = tileblastfurnace;
+		tile = tileAlloysmelter;
 		this.player = player;
 
 		// input
-		this.addSlotToContainer(new Slot(tileblastfurnace.inventory, 0, 56, 25));
-		this.addSlotToContainer(new Slot(tileblastfurnace.inventory, 1, 56, 43));
+		this.addSlotToContainer(new Slot(tileAlloysmelter.inventory, 0, 56, 25));
+		this.addSlotToContainer(new Slot(tileAlloysmelter.inventory, 1, 56, 43));
 		// outputs
-		this.addSlotToContainer(new SlotOutput(tileblastfurnace.inventory, 2,
+		this.addSlotToContainer(new SlotOutput(tileAlloysmelter.inventory, 2,
 				116, 35));
 
 		int i;

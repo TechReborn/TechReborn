@@ -7,11 +7,11 @@ import net.minecraft.item.ItemStack;
 import techreborn.init.ModBlocks;
 import techreborn.util.Inventory;
 
-public class TileBlastFurnace extends TileMachineBase implements IWrenchable {
+public class TileAlloySmelter extends TileMachineBase implements IWrenchable {
 
 	public int tickTime;
 	public BasicSink energy;
-	public Inventory inventory = new Inventory(3, "TileBlastFurnace", 64);
+	public Inventory inventory = new Inventory(3, "TileAlloySmelter", 64);
 
 	@Override
 	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side)
@@ -45,7 +45,7 @@ public class TileBlastFurnace extends TileMachineBase implements IWrenchable {
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
 	{
-		return new ItemStack(ModBlocks.BlastFurnace, 1);
+		return new ItemStack(ModBlocks.AlloySmelter, 1);
 	}
 
 	public boolean isComplete()

@@ -6,7 +6,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 
 public interface ICraftAchievement {
-	
-	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix);
+
+	public Achievement getAchievementOnCraft(ItemStack stack,
+			EntityPlayer player, IInventory matrix);
 
 }

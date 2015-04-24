@@ -7,8 +7,9 @@ import techreborn.init.ModBlocks;
 
 public class ItemBlockStorage extends ItemMultiTexture {
 
-    public ItemBlockStorage(Block block) {
-        super(ModBlocks.storage, ModBlocks.storage, BlockStorage.types);
-    }
+	public ItemBlockStorage(Block block)
+	{
+		super(ModBlocks.storage, ModBlocks.storage, BlockStorage.types);
+	}
 
 }
