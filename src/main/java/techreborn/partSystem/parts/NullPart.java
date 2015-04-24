@@ -4,13 +4,13 @@
 
 package techreborn.partSystem.parts;
 
-import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import techreborn.lib.vecmath.Vecs3d;
 import techreborn.lib.vecmath.Vecs3dCube;
 import techreborn.partSystem.ModPart;
+import uk.co.qmunity.lib.client.render.RenderHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +42,7 @@ public class NullPart extends ModPart {
 	}
 
 	@Override
-	public boolean renderStatic(Vecs3d translation, RenderBlocks renderBlocks, int pass) {
+	public boolean renderStatic(Vecs3d translation, RenderHelper renderBlocks, int pass) {
 		return false;
 	}
 

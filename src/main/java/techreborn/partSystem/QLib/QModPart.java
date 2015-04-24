@@ -5,22 +5,15 @@
 package techreborn.partSystem.QLib;
 
 import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.entity.Entity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import techreborn.lib.Location;
 import techreborn.lib.vecmath.Vecs3d;
 import techreborn.lib.vecmath.Vecs3dCube;
 import techreborn.partSystem.ModPart;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import uk.co.qmunity.lib.client.render.RenderHelper;
-import uk.co.qmunity.lib.part.IPart;
-import uk.co.qmunity.lib.part.IPartCollidable;
-import uk.co.qmunity.lib.part.IPartRenderPlacement;
-import uk.co.qmunity.lib.part.IPartSelectable;
-import uk.co.qmunity.lib.part.IPartTicking;
-import uk.co.qmunity.lib.part.IPartUpdateListener;
-import uk.co.qmunity.lib.part.ITilePartHolder;
-import uk.co.qmunity.lib.part.PartBase;
+import uk.co.qmunity.lib.part.*;
 import uk.co.qmunity.lib.raytrace.QMovingObjectPosition;
 import uk.co.qmunity.lib.raytrace.RayTracer;
 import uk.co.qmunity.lib.vec.Vec3d;
@@ -72,7 +65,7 @@ public class QModPart extends PartBase implements IPartCollidable, IPartSelectab
 
 	@Override
 	public boolean renderStatic(Vec3i translation, RenderHelper renderer, RenderBlocks renderBlocks, int pass) {
-		return iModPart.renderStatic(new Vecs3d(translation.getX(), translation.getY(), translation.getZ()),renderBlocks , pass);
+		return iModPart.renderStatic(new Vecs3d(translation.getX(), translation.getY(), translation.getZ()),renderer , pass);
 	}
 
 	@Override

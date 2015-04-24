@@ -5,8 +5,8 @@ import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergyConductor;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.core.IC2;
-import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.entity.Entity;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -18,6 +18,8 @@ import techreborn.lib.vecmath.Vecs3d;
 import techreborn.lib.vecmath.Vecs3dCube;
 import techreborn.partSystem.ModPart;
 import techreborn.partSystem.ModPartUtils;
+import techreborn.partSystem.QLib.ModLib2QLib;
+import uk.co.qmunity.lib.client.render.RenderHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -91,7 +93,7 @@ public class CablePart extends ModPart implements IEnergyConductor {
 		checkConnectedSides();
 		List<Vecs3dCube> vecs3dCubesList = new ArrayList<Vecs3dCube>();
 		for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-			if (connectedSides.containsKey(dir))
+			if (connectedSides.containsValue(dir))
 				vecs3dCubesList.add(boundingBoxes[Functions.getIntDirFromDirection(dir)]);
 		}
 		return vecs3dCubesList;
@@ -104,8 +106,14 @@ public class CablePart extends ModPart implements IEnergyConductor {
 
 
 	@Override
-	public boolean renderStatic(Vecs3d translation, RenderBlocks renderBlocks, int pass) {
-		return false;
+	public boolean renderStatic(Vecs3d translation, RenderHelper renderer, int pass) {
+		renderer.setOverrideTexture(Blocks.coal_block.getIcon(0, 0));
+		renderer.renderBox(ModLib2QLib.convert(boundingBoxes[6]));
+		for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+			if (connectedSides.containsKey(dir))
+				renderer.renderBox(ModLib2QLib.convert(boundingBoxes[Functions.getIntDirFromDirection(dir)]));
+		}
+		return true;
 	}
 
 	@Override

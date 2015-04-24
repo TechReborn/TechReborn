@@ -6,14 +6,13 @@ package techreborn.partSystem;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import techreborn.lib.vecmath.Vecs3d;
 import techreborn.lib.vecmath.Vecs3dCube;
+import uk.co.qmunity.lib.client.render.RenderHelper;
 
 import java.util.List;
 
@@ -52,7 +51,7 @@ public interface IModPart {
 	 * Only called when there's a block/lighting/render update in the chunk this part is in.
 	 */
 	@SideOnly(Side.CLIENT)
-	public boolean renderStatic(Vecs3d translation, RenderBlocks renderBlocks, int pass);
+	public boolean renderStatic(Vecs3d translation, RenderHelper renderHelper, int pass);
 
 	/**
 	 * Writes the part's data to an NBT tag, which is saved with the game data.

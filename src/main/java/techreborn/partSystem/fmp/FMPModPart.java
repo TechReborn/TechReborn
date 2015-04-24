@@ -16,7 +16,6 @@ import codechicken.multipart.TSlottedPart;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
@@ -24,6 +23,7 @@ import techreborn.lib.Location;
 import techreborn.lib.vecmath.Vecs3d;
 import techreborn.lib.vecmath.Vecs3dCube;
 import techreborn.partSystem.ModPart;
+import uk.co.qmunity.lib.client.render.RenderHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -184,7 +184,11 @@ public class FMPModPart extends TMultiPart implements TSlottedPart, JNormalOcclu
 		boolean render = false;
 		RenderBlocks renderer = RenderBlocks.getInstance();
 		renderer.blockAccess = getWorld();
-		render = iModPart.renderStatic(new Vecs3d(pos.x, pos.y, pos.z), renderer, pass);
+		render = iModPart.renderStatic(new Vecs3d(pos.x, pos.y, pos.z), uk.co.qmunity.lib.client.render.RenderHelper.instance, pass);
+		RenderHelper.instance.resetRenderedSides();
+		RenderHelper.instance.resetTextureRotations();
+		RenderHelper.instance.resetTransformations();
+		RenderHelper.instance.setColor(0xFFFFFF);
 		return render;
 	}
 }
