@@ -2,12 +2,14 @@ package techreborn.client;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+import techreborn.client.container.ContainerAlloySmelter;
 import techreborn.client.container.ContainerBlastFurnace;
 import techreborn.client.container.ContainerCentrifuge;
 import techreborn.client.container.ContainerQuantumChest;
 import techreborn.client.container.ContainerQuantumTank;
 import techreborn.client.container.ContainerRollingMachine;
 import techreborn.client.container.ContainerThermalGenerator;
+import techreborn.client.gui.GuiAlloySmelter;
 import techreborn.client.gui.GuiBlastFurnace;
 import techreborn.client.gui.GuiCentrifuge;
 import techreborn.client.gui.GuiQuantumChest;
@@ -15,6 +17,7 @@ import techreborn.client.gui.GuiQuantumTank;
 import techreborn.client.gui.GuiRollingMachine;
 import techreborn.client.gui.GuiThermalGenerator;
 import techreborn.pda.GuiPda;
+import techreborn.tiles.TileAlloySmelter;
 import techreborn.tiles.TileBlastFurnace;
 import techreborn.tiles.TileCentrifuge;
 import techreborn.tiles.TileQuantumChest;
@@ -31,7 +34,8 @@ public class GuiHandler implements IGuiHandler {
 	public static final int centrifugeID = 3;
 	public static final int rollingMachineID = 4;
 	public static final int blastFurnaceID = 5;
-	public static final int pdaID = 6;
+	public static final int alloySmelterID = 6;
+	public static final int pdaID = 7;
 
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world,
@@ -61,6 +65,10 @@ public class GuiHandler implements IGuiHandler {
 		{
 			return new ContainerBlastFurnace(
 					(TileBlastFurnace) world.getTileEntity(x, y, z), player);
+		} else if (ID == alloySmelterID)
+		{
+			return new ContainerAlloySmelter(
+					(TileAlloySmelter) world.getTileEntity(x, y, z), player);
 		} else if (ID == pdaID)
 		{
 			return null;
@@ -97,6 +105,10 @@ public class GuiHandler implements IGuiHandler {
 		{
 			return new GuiBlastFurnace(player,
 					(TileBlastFurnace) world.getTileEntity(x, y, z));
+		} else if (ID == alloySmelterID)
+		{
+			return new GuiAlloySmelter(player,
+					(TileAlloySmelter) world.getTileEntity(x, y, z));
 		} else if (ID == pdaID)
 		{
 			return new GuiPda(player);

@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import techreborn.blocks.BlockAlloySmelter;
 import techreborn.blocks.BlockBlastFurnace;
 import techreborn.blocks.BlockCentrifuge;
 import techreborn.blocks.BlockMachineCasing;
@@ -19,6 +20,7 @@ import techreborn.itemblocks.ItemBlockOre;
 import techreborn.itemblocks.ItemBlockQuantumChest;
 import techreborn.itemblocks.ItemBlockQuantumTank;
 import techreborn.itemblocks.ItemBlockStorage;
+import techreborn.tiles.TileAlloySmelter;
 import techreborn.tiles.TileBlastFurnace;
 import techreborn.tiles.TileCentrifuge;
 import techreborn.tiles.TileMachineCasing;
@@ -38,6 +40,7 @@ public class ModBlocks {
 	public static Block RollingMachine;
 	public static Block MachineCasing;
 	public static Block BlastFurnace;
+	public static Block AlloySmelter;
 
 	public static Block ore;
 	public static Block storage;
@@ -87,6 +90,10 @@ public class ModBlocks {
 		GameRegistry.registerBlock(BlastFurnace, "blastFurnace");
 		GameRegistry.registerTileEntity(TileBlastFurnace.class,
 				"TileBlastFurnace");
+		
+		AlloySmelter = new BlockAlloySmelter(Material.piston);
+		GameRegistry.registerBlock(AlloySmelter, "alloySmelter");
+		GameRegistry.registerTileEntity(TileAlloySmelter.class, "TileAlloySmalter");
 
 		MachineCasing = new BlockMachineCasing(Material.piston);
 		GameRegistry.registerBlock(MachineCasing, ItemBlockMachineCasing.class,

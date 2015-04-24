@@ -82,7 +82,7 @@ public class Core {
 	@Mod.EventHandler
 	public void postinit(FMLPostInitializationEvent event)
 	{
-		// Has to be done here as buildcraft registers there recipes late
+		// Has to be done here as Buildcraft registers there recipes late
 		RecipeManager.init();
 	}
 
