@@ -13,18 +13,18 @@ import techreborn.lib.vecmath.Vecs3dCube;
 
 public interface IPartProvider {
 
-	public String modID();
+    public String modID();
 
-	public void registerPart();
+    public void registerPart();
 
-	public boolean checkOcclusion(World world, Location location,
-			Vecs3dCube cube);
+    public boolean checkOcclusion(World world, Location location,
+                                  Vecs3dCube cube);
 
-	public boolean hasPart(World world, Location location, String name);
+    public boolean hasPart(World world, Location location, String name);
 
-	public boolean placePart(ItemStack item, EntityPlayer player, World world,
-			int x, int y, int z, int side, float hitX, float hitY, float hitZ,
-			ModPart modPart);
+    public boolean placePart(ItemStack item, EntityPlayer player, World world,
+                             int x, int y, int z, int side, float hitX, float hitY, float hitZ,
+                             ModPart modPart);
 
-	public boolean isTileFromProvider(TileEntity tileEntity);
+    public boolean isTileFromProvider(TileEntity tileEntity);
 }
