@@ -62,6 +62,10 @@ public class ModPartRegistry {
                 iPartProvider = (IPartProvider) Class.forName(className)
                         .newInstance();
                 providers.add(iPartProvider);
+				//I am doing this because the qlibProvider is the most stable
+				if(modid.equals("qmunitylib")){
+					masterProvider = iPartProvider;
+				}
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
                 LogHelper.error("Failed to load " + className

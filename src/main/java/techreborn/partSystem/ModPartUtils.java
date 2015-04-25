@@ -27,7 +27,7 @@ public class ModPartUtils {
 
     public static boolean checkOcclusion(World world, int x, int y, int z,
                                          Vecs3dCube cube) {
-        return checkOcclusion(world, new Location(x, y, z), cube);
+        return !checkOcclusion(world, new Location(x, y, z), cube);
     }
 
     public static boolean checkOcclusionInvert(World world, Location location,

@@ -55,6 +55,7 @@ public class CablePart extends ModPart implements IEnergyConductor {
             entityCable.setWorldObj(new fakeWorld());
             entityCable.changeType((short) type);
         }
+		refreshBounding();
     }
 
     public void refreshBounding() {
@@ -249,10 +250,10 @@ public class CablePart extends ModPart implements IEnergyConductor {
             TileEntity te = world.getTileEntity(getX() + dir.offsetX, getY()
                     + dir.offsetY, getZ() + dir.offsetZ);
             if (shouldConnectTo(te, dir)) {
-                // TODO if (ModPartUtils.checkOcclusion(getWorld(), getX(),
-                // getY(), getZ(), boundingBoxes[d])) {
+                 if (ModPartUtils.checkOcclusion(getWorld(), getX(),
+                 getY(), getZ(), boundingBoxes[d])) {
                 connectedSides.put(dir, te);
-                // }
+                 }
             }
         }
         checkConnections(world, getX(), getY(), getZ());

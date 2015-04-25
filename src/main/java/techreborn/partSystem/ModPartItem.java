@@ -27,18 +27,28 @@ public class ModPartItem extends Item {
                              int x, int y, int z, int face, float x_, float y_, float z_) {
         if (ModPartRegistry.masterProvider != null) {
             try {
-                if (ModPartRegistry.masterProvider.placePart(item, player,
-                        world, x, y, z, face, x_, y_, z_, modPart.getClass()
-                                .newInstance())) {
-                    return true;
-                }
+				if(modPart instanceof CablePart){
+					if (ModPartRegistry.masterProvider.placePart(item, player, world, x, y, z, face, x_, y_, z_, modPart.getClass().getDeclaredConstructor(int.class).newInstance(((CablePart) modPart).type))) {
+						return true;
+					}
+				}else{
+					if (ModPartRegistry.masterProvider.placePart(item, player,
+							world, x, y, z, face, x_, y_, z_, modPart.getClass()
+									.newInstance())) {
+						return true;
+					}
+				}
             } catch (InstantiationException e) {
                 e.printStackTrace();
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
-            }
-            return false;
-        } else {
+            } catch (NoSuchMethodException e) {
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				e.printStackTrace();
+			}
+		}
+		{
             for (IPartProvider partProvider : ModPartRegistry.providers) {
                 try {
                     if(modPart instanceof CablePart){

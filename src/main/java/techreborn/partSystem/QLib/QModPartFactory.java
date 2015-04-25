@@ -111,21 +111,6 @@ public class QModPartFactory implements IPartFactory, IPartProvider {
 
     @Override
     public boolean hasPart(World world, Location location, String name) {
-        TileEntity tileEntity = world.getTileEntity(location.getX(),
-                location.getY(), location.getZ());
-        if (tileEntity instanceof TileMultipart) {
-            TileMultipart mp = (TileMultipart) tileEntity;
-            boolean ret = false;
-            List<IPart> t = mp.getParts();
-            for (IPart p : t) {
-                if (ret == false) {
-                    if (p.getType().equals(name)) {
-                        ret = true;
-                    }
-                }
-            }
-            return ret;
-        }
-        return false;
+        return MultipartCompatibility.getPart(world, location.getX(), location.getY(), location.getZ(), name) == null;
     }
 }
