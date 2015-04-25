@@ -140,15 +140,13 @@ public class CablePart extends ModPart implements IEnergyConductor {
 
     @Override
     public boolean renderStatic(Vecs3d translation, RenderHelper renderer, int pass) {
-            renderer.setOverrideTexture(getIconFromType(type));
-            renderer.renderBox(ModLib2QLib.convert(boundingBoxes[6]));
+            renderer.renderBox(ModLib2QLib.convert(boundingBoxes[6]), getIconFromType(type));
             if (connectedSides != null) {
                 for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
                     if (connectedSides.containsKey(dir))
-                        renderer.renderBox(ModLib2QLib.convert(boundingBoxes[Functions.getIntDirFromDirection(dir)]));
+                        renderer.renderBox(ModLib2QLib.convert(boundingBoxes[Functions.getIntDirFromDirection(dir)]), getIconFromType(type));
                 }
             }
-
         return true;
     }
 
