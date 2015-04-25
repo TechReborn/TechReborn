@@ -27,4 +27,6 @@ public interface IPartProvider {
                              ModPart modPart);
 
     public boolean isTileFromProvider(TileEntity tileEntity);
+
+	public IModPart getPartFromWorld(World world, Location location, String name);
 }

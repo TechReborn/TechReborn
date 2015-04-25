@@ -16,6 +16,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.lib.Location;
 import techreborn.lib.vecmath.Vecs3dCube;
+import techreborn.partSystem.IModPart;
 import techreborn.partSystem.IPartProvider;
 import techreborn.partSystem.ModPart;
 
@@ -116,4 +117,10 @@ public class WorldProvider implements IPartProvider {
     public boolean isTileFromProvider(TileEntity tileEntity) {
         return tileEntity instanceof TileEntityModPart;
     }
+
+	//TODO
+	@Override
+	public IModPart getPartFromWorld(World world, Location location, String name) {
+		return null;
+	}
 }

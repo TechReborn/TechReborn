@@ -16,6 +16,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import techreborn.lib.Location;
 import techreborn.lib.vecmath.Vecs3dCube;
+import techreborn.partSystem.IModPart;
 import techreborn.partSystem.IPartProvider;
 import techreborn.partSystem.ModPart;
 import techreborn.partSystem.ModPartRegistry;
@@ -65,7 +66,13 @@ public class FMPFactory implements MultiPartRegistry.IPartFactory,
         return tileEntity instanceof TileMultipart;
     }
 
-    @Override
+	//TODO
+	@Override
+	public IModPart getPartFromWorld(World world, Location location, String name) {
+		return null;
+	}
+
+	@Override
     public String modID() {
         return "ForgeMultipart";
     }

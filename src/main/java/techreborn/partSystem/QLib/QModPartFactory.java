@@ -13,6 +13,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.lib.Location;
 import techreborn.lib.vecmath.Vecs3dCube;
+import techreborn.partSystem.IModPart;
 import techreborn.partSystem.IPartProvider;
 import techreborn.partSystem.ModPart;
 import techreborn.partSystem.ModPartRegistry;
@@ -79,7 +80,18 @@ public class QModPartFactory implements IPartFactory, IPartProvider {
         return tileEntity instanceof TileMultipart;
     }
 
-    public String getCreatedPartType(ItemStack item, EntityPlayer player,
+	@Override
+	public IModPart getPartFromWorld(World world, Location location, String name) {
+		IPart part = MultipartCompatibility.getPart(world, location.getX(), location.getY(), location.getZ(), name);
+		if(part != null){
+			if(part instanceof QModPart){
+				return ((QModPart) part).iModPart;
+			}
+		}
+		return null;
+	}
+
+	public String getCreatedPartType(ItemStack item, EntityPlayer player,
                                      World world, MovingObjectPosition mop, ModPart modPart) {
         return modPart.getName();
     }

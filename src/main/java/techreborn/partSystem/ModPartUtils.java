@@ -4,6 +4,7 @@
 
 package techreborn.partSystem;
 
+import me.modmuss50.mods.lib.mod.IMod;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 import techreborn.lib.Location;
@@ -25,8 +26,7 @@ public class ModPartUtils {
         return false;
     }
 
-    public static boolean checkOcclusion(World world, int x, int y, int z,
-                                         Vecs3dCube cube) {
+    public static boolean checkOcclusion(World world, int x, int y, int z, Vecs3dCube cube) {
         return !checkOcclusion(world, new Location(x, y, z), cube);
     }
 
@@ -80,4 +80,15 @@ public class ModPartUtils {
         }
         return null;
     }
+
+	public static IModPart getPartFromWorld(World world, Location location, String name){
+		for (IPartProvider partProvider : ModPartRegistry.providers) {
+			IModPart tempPart = null;
+			tempPart = partProvider.getPartFromWorld(world, location, name);
+			if(tempPart != null){
+				return tempPart;
+			}
+		}
+		return null;
+	}
 }
