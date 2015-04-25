@@ -28,7 +28,6 @@ import uk.co.qmunity.lib.vec.Vec3dCube;
 import uk.co.qmunity.lib.vec.Vec3i;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 
 public class QModPartFactory implements IPartFactory, IPartProvider {
     @Override

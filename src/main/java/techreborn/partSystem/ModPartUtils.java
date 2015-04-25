@@ -4,7 +4,6 @@
 
 package techreborn.partSystem;
 
-import me.modmuss50.mods.lib.mod.IMod;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 import techreborn.lib.Location;
