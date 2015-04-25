@@ -21,8 +21,11 @@ public class TileQuantumChest extends TileMachineBase implements IInventory,
 	// Slot 0 = Input
 	// Slot 1 = Output
 	// Slot 2 = Fake Item
+	
+	int storage = (int) Double.MAX_VALUE;
+
 	public Inventory inventory = new Inventory(3, "TileQuantumChest",
-			Integer.MAX_VALUE);
+			storage);
 
 	public ItemStack storedItem;
 

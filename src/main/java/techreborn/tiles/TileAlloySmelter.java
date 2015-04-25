@@ -12,6 +12,7 @@ public class TileAlloySmelter extends TileMachineBase implements IWrenchable {
 	public int tickTime;
 	public BasicSink energy;
 	public Inventory inventory = new Inventory(3, "TileAlloySmelter", 64);
+	
 
 	@Override
 	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side)
