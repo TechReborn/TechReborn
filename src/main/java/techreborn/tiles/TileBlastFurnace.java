@@ -4,7 +4,12 @@ import ic2.api.energy.prefab.BasicSink;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
+import techreborn.blocks.BlockMachineCasing;
 import techreborn.init.ModBlocks;
+import techreborn.lib.Location;
+import techreborn.multiblocks.MultiBlockCasing;
 import techreborn.util.Inventory;
 
 public class TileBlastFurnace extends TileMachineBase implements IWrenchable {
@@ -48,9 +53,24 @@ public class TileBlastFurnace extends TileMachineBase implements IWrenchable {
 		return new ItemStack(ModBlocks.BlastFurnace, 1);
 	}
 
-	public boolean isComplete()
-	{
-		return false;
-	}
+    public int getHeat(){
+        for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
+            TileEntity tileEntity = worldObj.getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
+            if (tileEntity instanceof TileMachineCasing) {
+                if((tileEntity.getBlockType() instanceof BlockMachineCasing)){
+                    int heat;
+                    heat = BlockMachineCasing.getHeatFromMeta(tileEntity.getBlockMetadata());
+                        Location location = new Location(xCoord, yCoord, zCoord, direction);
+                        location.modifyPositionFromSide(direction, 1);
+                        if(worldObj.getBlock(location.getX(), location.getY(), location.getZ()).getUnlocalizedName().equals("tile.lava")){
+                            heat += 500;
+                        }
+                    return heat;
+                }
+            }
+        }
+        return 0;
+    }
+
 
 }

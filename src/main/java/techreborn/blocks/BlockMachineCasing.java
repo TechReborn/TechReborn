@@ -90,4 +90,16 @@ public class BlockMachineCasing extends BlockMultiblockBase {
 	{
 		return new TileMachineCasing();
 	}
+
+    public static int getHeatFromMeta(int meta){
+        switch (meta){
+            case 0:
+                return 1020;
+            case 1:
+                return 1700;
+            case 2:
+                return 2380;
+        }
+        return 0;
+    }
 }

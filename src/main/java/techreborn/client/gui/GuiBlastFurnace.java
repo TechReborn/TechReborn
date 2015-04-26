@@ -37,6 +37,7 @@ public class GuiBlastFurnace extends GuiContainer {
 			int p_146979_2_)
 	{
 		this.fontRendererObj.drawString("Blastfurnace", 60, 6, 4210752);
+        this.fontRendererObj.drawString(blastfurnace.getHeat() + " heat", 75, 20, 4210752);
 		this.fontRendererObj.drawString(
 				I18n.format("container.inventory", new Object[0]), 8,
 				this.ySize - 96 + 2, 4210752);
