@@ -8,7 +8,7 @@ import techreborn.util.ItemUtils;
 public final class TechRebornAPI {
 
 	public static ArrayList<CentrifugeRecipie> centrifugeRecipies = new ArrayList<CentrifugeRecipie>();
-	public static ArrayList<RollingMachineRecipe> rollingmachineRecipes = new ArrayList<RollingMachineRecipe>();
+	public static ArrayList<BlastFurnaceRecipe> blastFurnaceRecipes = new ArrayList<BlastFurnaceRecipe>();
 
 	public static void registerCentrifugeRecipe(CentrifugeRecipie recipie)
 	{
@@ -35,6 +35,28 @@ public final class TechRebornAPI {
 		if (shouldAdd)
 			centrifugeRecipies.add(recipie);
 	}
+
+    public static void registerBlastFurnaceRecipe(BlastFurnaceRecipe recipie) {
+        boolean shouldAdd = true;
+        for (BlastFurnaceRecipe blastFurnaceRecipe : blastFurnaceRecipes) {
+            if (ItemUtils.isItemEqual(blastFurnaceRecipe.getInput1(), recipie.getInput1(), false, true) && ItemUtils.isItemEqual(blastFurnaceRecipe.getInput2(), recipie.getInput2(), false, true)) {
+                {
+                    try {
+                        throw new RegisteredItemRecipe(
+                                "Item "
+                                        + recipie.getInput1()
+                                        .getUnlocalizedName()
+                                        + " and " + recipie.getInput2().getUnlocalizedName() + " is already being used in a recipe for the BlastFurnace");
+                    } catch (RegisteredItemRecipe registeredItemRecipe) {
+                        registeredItemRecipe.printStackTrace();
+                        shouldAdd = false;
+                    }
+                }
+            }
+        }
+        if (shouldAdd)
+            blastFurnaceRecipes.add(recipie);
+    }
 
 	public static void addRollingMachinceRecipe(ItemStack output,
 			Object... components)
