@@ -132,7 +132,7 @@ jar {
     classifier = 'universal'
 }
 
-task apiZip(type: Zip) {
+task apiJar(type: Jar) {
     from(sourceSets.main.java) {
         include 'techreborn/api/**'
         appendix = 'api'
@@ -140,12 +140,12 @@ task apiZip(type: Zip) {
     }
 }
 
-apiZip.mustRunAfter deobfJar
+apiJar.mustRunAfter deobfJar
 
 artifacts {
     archives sourceJar
     archives deobfJar
-    archives apiZip
+    archives apiJar
 }
 
 uploadArchives {
