@@ -56,6 +56,7 @@ public class CablePart extends ModPart implements IEnergyConductor {
             entityCable.changeType((short) type);
         }
 		refreshBounding();
+        connectedSides = new HashMap<ForgeDirection, TileEntity>();
     }
 
     public void refreshBounding() {
@@ -122,7 +123,6 @@ public class CablePart extends ModPart implements IEnergyConductor {
 
     @Override
     public List<Vecs3dCube> getOcclusionBoxes() {
-        checkConnectedSides();
         List<Vecs3dCube> vecs3dCubesList = new ArrayList<Vecs3dCube>();
 
         for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
