@@ -44,17 +44,11 @@ public class CablePart extends ModPart implements IEnergyConductor {
     protected ForgeDirection[] dirs = ForgeDirection.values();
     private boolean[] connections = new boolean[6];
     public boolean addedToEnergyNet = false;
-    TileEntityCable entityCable = new TileEntityCable();
 
     public int type = 3;
 
     public CablePart(int type) {
         this.type = type;
-        if(Minecraft.getMinecraft().theWorld != null){
-            entityCable = new TileEntityCable();
-            entityCable.setWorldObj(new fakeWorld());
-            entityCable.changeType((short) type);
-        }
 		refreshBounding();
         connectedSides = new HashMap<ForgeDirection, TileEntity>();
     }
@@ -149,20 +143,6 @@ public class CablePart extends ModPart implements IEnergyConductor {
             }
         return true;
     }
-
-
-    public class fakeWorld extends WorldClient{
-        public fakeWorld() {
-            super(new NetHandlerPlayClient(Minecraft.getMinecraft(), null, new NetworkManager(true)), new WorldSettings(0, WorldSettings.GameType.NOT_SET,
-                    false, false, WorldType.DEFAULT), 0, EnumDifficulty.PEACEFUL, Minecraft.getMinecraft().theWorld.theProfiler);
-        }
-
-        @Override
-        public boolean setBlockMetadataWithNotify(int p_72921_1_, int p_72921_2_, int p_72921_3_, int p_72921_4_, int p_72921_5_) {
-            return true;
-        }
-    }
-
 
     @Override
     public void writeToNBT(NBTTagCompound tag) {

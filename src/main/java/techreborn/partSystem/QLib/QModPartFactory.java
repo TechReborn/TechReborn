@@ -43,8 +43,9 @@ public class QModPartFactory implements IPartFactory, IPartProvider {
                         } catch (NoSuchMethodException e) {
                             e.printStackTrace();
                         }
+                    } else {
+                        return new QModPart(modPart.getClass().newInstance());
                     }
-                    return new QModPart(modPart.getClass().newInstance());
                 } catch (InstantiationException e) {
                     e.printStackTrace();
                 } catch (IllegalAccessException e) {
