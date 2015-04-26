@@ -13,6 +13,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import techreborn.partSystem.ModPart;
+import techreborn.partSystem.ModPartUtils;
 
 /**
  * This item is never added into the game, it is only used to add the part to

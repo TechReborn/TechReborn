@@ -13,10 +13,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.lib.Location;
 import techreborn.lib.vecmath.Vecs3dCube;
-import techreborn.partSystem.IModPart;
-import techreborn.partSystem.IPartProvider;
-import techreborn.partSystem.ModPart;
-import techreborn.partSystem.ModPartRegistry;
+import techreborn.partSystem.*;
 import techreborn.partSystem.parts.CablePart;
 import uk.co.qmunity.lib.QLModInfo;
 import uk.co.qmunity.lib.part.IPart;
@@ -123,6 +120,9 @@ public class QModPartFactory implements IPartFactory, IPartProvider {
 
     @Override
     public boolean hasPart(World world, Location location, String name) {
+        if(MultipartCompatibility.getPartHolder(world, location.getX(), location.getY(), location.getZ()) == null){
+            return false;
+        }
         return MultipartCompatibility.getPart(world, location.getX(), location.getY(), location.getZ(), name) == null;
     }
 }

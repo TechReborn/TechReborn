@@ -16,10 +16,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import techreborn.lib.Location;
 import techreborn.lib.vecmath.Vecs3dCube;
-import techreborn.partSystem.IModPart;
-import techreborn.partSystem.IPartProvider;
-import techreborn.partSystem.ModPart;
-import techreborn.partSystem.ModPartRegistry;
+import techreborn.partSystem.*;
 import techreborn.partSystem.parts.CablePart;
 
 import java.lang.reflect.InvocationTargetException;
