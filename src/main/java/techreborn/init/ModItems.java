@@ -11,6 +11,7 @@ import techreborn.items.ItemDustsSmall;
 import techreborn.items.ItemGems;
 import techreborn.items.ItemIngots;
 import techreborn.items.ItemParts;
+import techreborn.items.ItemUUmatter;
 import techreborn.items.armor.ItemGravityChest;
 import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
@@ -36,6 +37,7 @@ public class ModItems {
 	public static Item omniTool;
 	public static Item advancedDrill;
 	public static Item manuel;
+	public static Item uuMatter;
 
 	public static void init()
 	{
@@ -65,6 +67,8 @@ public class ModItems {
 		GameRegistry.registerItem(gravityChest, "gravitychestplate");
 		manuel = new ItemTechPda();
 		GameRegistry.registerItem(manuel, "techmanuel");
+		uuMatter = new ItemUUmatter();
+		GameRegistry.registerItem(uuMatter, "uumatter");
 
 		LogHelper.info("TechReborns Items Loaded");
 
