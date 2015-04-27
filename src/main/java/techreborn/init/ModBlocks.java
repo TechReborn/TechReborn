@@ -26,7 +26,10 @@ import techreborn.itemblocks.ItemBlockStorage;
 import techreborn.tiles.TileAlloySmelter;
 import techreborn.tiles.TileBlastFurnace;
 import techreborn.tiles.TileCentrifuge;
+import techreborn.tiles.TileGrinder;
+import techreborn.tiles.TileImplosionCompressor;
 import techreborn.tiles.TileMachineCasing;
+import techreborn.tiles.TileMatterFabricator;
 import techreborn.tiles.TileQuantumChest;
 import techreborn.tiles.TileQuantumTank;
 import techreborn.tiles.TileRollingMachine;
@@ -96,12 +99,15 @@ public class ModBlocks {
 		
 		Grinder = new BlockGrinder(Material.piston);
 		GameRegistry.registerBlock(Grinder, "grinder");
+		GameRegistry.registerTileEntity(TileGrinder.class, "TileGrinder");
 		
 		ImplosionCompressor = new BlockImplosionCompressor(Material.piston);
 		GameRegistry.registerBlock(ImplosionCompressor, "implosioncompressor");
+		GameRegistry.registerTileEntity(TileImplosionCompressor.class, "TileImplosionCompressor");
 		
 		MatterFabricator = new BlockMatterFabricator(Material.piston);
 		GameRegistry.registerBlock(MatterFabricator, "matterfabricator");
+		GameRegistry.registerTileEntity(TileMatterFabricator.class, "TileMatterFabricator");
 
 		MachineCasing = new BlockMachineCasing(Material.piston);
 		GameRegistry.registerBlock(MachineCasing, ItemBlockMachineCasing.class, "machinecasing");
