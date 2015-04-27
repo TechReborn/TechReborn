@@ -34,29 +34,27 @@ public class TROreGen implements IWorldGenerator {
 	public TROreGen()
 	{
 		// World
-		oreGalena = new WorldGenMinable(ModBlocks.ore, 0, 8, Blocks.stone);
-		oreIridium = new WorldGenMinable(ModBlocks.ore, 1, 2, Blocks.stone);
-		oreRuby = new WorldGenMinable(ModBlocks.ore, 2, 8, Blocks.stone);
-		oreSapphire = new WorldGenMinable(ModBlocks.ore, 3, 8, Blocks.stone);
-		oreBauxite = new WorldGenMinable(ModBlocks.ore, 4, 8, Blocks.stone);
-		oreCopper = new WorldGenMinable(ModBlocks.ore, 12, 8, Blocks.stone);
-		oreTin = new WorldGenMinable(ModBlocks.ore, 13, 8, Blocks.stone);
-		oreLead = new WorldGenMinable(ModBlocks.ore, 14, 8, Blocks.stone);
-		oreSilver = new WorldGenMinable(ModBlocks.ore, 15, 8, Blocks.stone);
+		oreGalena = new WorldGenMinable(ModBlocks.ore, 0, ConfigTechReborn.GalenaOreRare, Blocks.stone);
+		oreIridium = new WorldGenMinable(ModBlocks.ore, 1, ConfigTechReborn.IridiumOreRare, Blocks.stone);
+		oreRuby = new WorldGenMinable(ModBlocks.ore, 2, ConfigTechReborn.RubyOreRare, Blocks.stone);
+		oreSapphire = new WorldGenMinable(ModBlocks.ore, 3, ConfigTechReborn.SapphireOreRare, Blocks.stone);
+		oreBauxite = new WorldGenMinable(ModBlocks.ore, 4, ConfigTechReborn.BauxiteOreRare, Blocks.stone);
+		oreCopper = new WorldGenMinable(ModBlocks.ore, 12, ConfigTechReborn.CopperOreRare, Blocks.stone);
+		oreTin = new WorldGenMinable(ModBlocks.ore, 13, ConfigTechReborn.TinOreRare, Blocks.stone);
+		oreLead = new WorldGenMinable(ModBlocks.ore, 14, ConfigTechReborn.LeadOreRare, Blocks.stone);
+		oreSilver = new WorldGenMinable(ModBlocks.ore, 15, ConfigTechReborn.SilverOreRare, Blocks.stone);
 
 		// Nether
-		orePyrite = new WorldGenMinable(ModBlocks.ore, 5, 8, Blocks.netherrack);
-		oreCinnabar = new WorldGenMinable(ModBlocks.ore, 6, 8,
-				Blocks.netherrack);
-		oreSphalerite = new WorldGenMinable(ModBlocks.ore, 7, 8,
-				Blocks.netherrack);
+		orePyrite = new WorldGenMinable(ModBlocks.ore, 5, ConfigTechReborn.PyriteOreRare, Blocks.netherrack);
+		oreCinnabar = new WorldGenMinable(ModBlocks.ore, 6, ConfigTechReborn.CinnabarOreRare, Blocks.netherrack);
+		oreSphalerite = new WorldGenMinable(ModBlocks.ore, 7, ConfigTechReborn.SphaleriteOreRare, Blocks.netherrack);
+		
 		// End
-		oreTungston = new WorldGenMinable(ModBlocks.ore, 8, 8, Blocks.end_stone);
-		oreSheldonite = new WorldGenMinable(ModBlocks.ore, 9, 8,
-				Blocks.end_stone);
-		oreOlivine = new WorldGenMinable(ModBlocks.ore, 10, 8, Blocks.end_stone);
-		oreSodalite = new WorldGenMinable(ModBlocks.ore, 11, 8,
-				Blocks.end_stone);
+		oreTungston = new WorldGenMinable(ModBlocks.ore, 8, ConfigTechReborn.TungstenOreRare, Blocks.end_stone);
+		oreSheldonite = new WorldGenMinable(ModBlocks.ore, 9, ConfigTechReborn.SheldoniteOreRare, Blocks.end_stone);
+		oreOlivine = new WorldGenMinable(ModBlocks.ore, 10, ConfigTechReborn.OlivineOreRare, Blocks.end_stone);
+		oreSodalite = new WorldGenMinable(ModBlocks.ore, 11, ConfigTechReborn.SodaliteOreRare, Blocks.end_stone);
+		
 		LogHelper.info("WorldGen Loaded");
 	}
 	

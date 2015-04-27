@@ -13,22 +13,53 @@ public class ConfigTechReborn {
 
 	// WORLDGEN
 	public static boolean GalenaOreTrue;
+	public static int GalenaOreRare;
+
 	public static boolean IridiumOreTrue;
+	public static int IridiumOreRare;
+
 	public static boolean RubyOreTrue;
+	public static int RubyOreRare;
+
 	public static boolean SapphireOreTrue;
+	public static int SapphireOreRare;
+
 	public static boolean BauxiteOreTrue;
+	public static int BauxiteOreRare;
+
 	public static boolean CopperOreTrue;
+	public static int CopperOreRare;
+
 	public static boolean TinOreTrue;
+	public static int TinOreRare;
+
 	public static boolean LeadOreTrue;
+	public static int LeadOreRare;
+
 	public static boolean SilverOreTrue;
+	public static int SilverOreRare;
 
 	public static boolean PyriteOreTrue;
+	public static int PyriteOreRare;
+
 	public static boolean CinnabarOreTrue;
+	public static int CinnabarOreRare;
+
 	public static boolean SphaleriteOreTrue;
+	public static int SphaleriteOreRare;
+
 	public static boolean TungstenOreTrue;
+	public static int TungstenOreRare;
+
 	public static boolean SheldoniteOreTrue;
+	public static int SheldoniteOreRare;
+
 	public static boolean OlivineOreTrue;
+	public static int OlivineOreRare;
+
 	public static boolean SodaliteOreTrue;
+	public static int SodaliteOreRare;
+
 
 	// Power
 	public static int ThermalGenertaorOutput;
@@ -223,6 +254,148 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.allow.sodaliteOre.tooltip"))
 				.getBoolean(true);
+		GalenaOreRare = config
+				.get(CATEGORY_WORLD,
+						StatCollector
+								.translateToLocal("config.techreborn.galenaOre.rare"),
+						8,
+						StatCollector
+								.translateToLocal("config.techreborn.galenaOre.rare.tooltip"))
+				.getInt();
+		IridiumOreRare = config
+				.get(CATEGORY_WORLD,
+						StatCollector
+								.translateToLocal("config.techreborn.iridiumOre.rare"),
+						1,
+						StatCollector
+								.translateToLocal("config.techreborn.iridiumOre.rare.tooltip"))
+				.getInt();
+		
+		RubyOreRare = config
+				.get(CATEGORY_WORLD,
+						StatCollector
+								.translateToLocal("config.techreborn.rubyOre.rare"),
+						6,
+						StatCollector
+								.translateToLocal("config.techreborn.rubyOre.rare.tooltip"))
+				.getInt();
+		
+		SapphireOreRare = config
+				.get(CATEGORY_WORLD,
+						StatCollector
+								.translateToLocal("config.techreborn.sapphireOre.rare"),
+						6,
+						StatCollector
+								.translateToLocal("config.techreborn.sapphireOre.rare.tooltip"))
+				.getInt();
+		
+		BauxiteOreRare = config
+				.get(CATEGORY_WORLD,
+						StatCollector
+								.translateToLocal("config.techreborn.bauxiteOre.rare"),
+						6,
+						StatCollector
+								.translateToLocal("config.techreborn.bauxiteOre.rare.tooltip"))
+				.getInt();
+		
+		PyriteOreRare = config
+				.get(CATEGORY_WORLD,
+						StatCollector
+								.translateToLocal("config.techreborn.pyriteOre.rare"),
+						6,
+						StatCollector
+								.translateToLocal("config.techreborn.pyriteOre.rare.tooltip"))
+				.getInt();
+		
+		CinnabarOreRare = config
+				.get(CATEGORY_WORLD,
+						StatCollector
+								.translateToLocal("config.techreborn.cinnabarOre.rare"),
+						6,
+						StatCollector
+								.translateToLocal("config.techreborn.cinnabarOre.rare.tooltip"))
+				.getInt();
+		
+		SphaleriteOreRare = config
+				.get(CATEGORY_WORLD,
+						StatCollector
+								.translateToLocal("config.techreborn.sphaleriteOre.rare"),
+						6,
+						StatCollector
+								.translateToLocal("config.techreborn.sphaleriteOre.rare.tooltip"))
+				.getInt();
+		
+		TungstenOreRare = config
+				.get(CATEGORY_WORLD,
+						StatCollector
+								.translateToLocal("config.techreborn.tungstenOre.rare"),
+						6,
+						StatCollector
+								.translateToLocal("config.techreborn.tungstenOre.rare.tooltip"))
+				.getInt();
+		
+		SheldoniteOreRare = config
+				.get(CATEGORY_WORLD,
+						StatCollector
+								.translateToLocal("config.techreborn.sheldoniteOre.rare"),
+						6,
+						StatCollector
+								.translateToLocal("config.techreborn.sheldoniteOre.rare.tooltip"))
+				.getInt();
+		
+		OlivineOreRare = config
+				.get(CATEGORY_WORLD,
+						StatCollector
+								.translateToLocal("config.techreborn.olivineOre.rare"),
+						6,
+						StatCollector
+								.translateToLocal("config.techreborn.olivineOre.rare.tooltip"))
+				.getInt();
+		
+		SodaliteOreRare = config
+				.get(CATEGORY_WORLD,
+						StatCollector
+								.translateToLocal("config.techreborn.sodaliteOre.rare"),
+						6,
+						StatCollector
+								.translateToLocal("config.techreborn.sodaliteOre.rare.tooltip"))
+				.getInt();
+		
+		CopperOreRare = config
+				.get(CATEGORY_WORLD,
+						StatCollector
+								.translateToLocal("config.techreborn.copperOre.rare"),
+						6,
+						StatCollector
+								.translateToLocal("config.techreborn.copperOre.rare.tooltip"))
+				.getInt();
+		
+		TinOreRare = config
+				.get(CATEGORY_WORLD,
+						StatCollector
+								.translateToLocal("config.techreborn.tinOre.rare"),
+						6,
+						StatCollector
+								.translateToLocal("config.techreborn.tinOre.rare.tooltip"))
+				.getInt();
+		
+		LeadOreRare = config
+				.get(CATEGORY_WORLD,
+						StatCollector
+								.translateToLocal("config.techreborn.leadOre.rare"),
+						6,
+						StatCollector
+								.translateToLocal("config.techreborn.leadOre.rare.tooltip"))
+				.getInt();
+		
+		SilverOreRare = config
+				.get(CATEGORY_WORLD,
+						StatCollector
+								.translateToLocal("config.techreborn.silverOre.rare"),
+						6,
+						StatCollector
+								.translateToLocal("config.techreborn.silverOre.rare.tooltip"))
+				.getInt();
 
 		// Power
 		ThermalGenertaorOutput = config
