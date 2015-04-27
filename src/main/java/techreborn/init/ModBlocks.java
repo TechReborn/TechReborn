@@ -7,7 +7,10 @@ import net.minecraftforge.oredict.OreDictionary;
 import techreborn.blocks.BlockAlloySmelter;
 import techreborn.blocks.BlockBlastFurnace;
 import techreborn.blocks.BlockCentrifuge;
+import techreborn.blocks.BlockGrinder;
+import techreborn.blocks.BlockImplosionCompressor;
 import techreborn.blocks.BlockMachineCasing;
+import techreborn.blocks.BlockMatterFabricator;
 import techreborn.blocks.BlockOre;
 import techreborn.blocks.BlockQuantumChest;
 import techreborn.blocks.BlockQuantumTank;
@@ -41,6 +44,9 @@ public class ModBlocks {
 	public static Block MachineCasing;
 	public static Block BlastFurnace;
 	public static Block AlloySmelter;
+	public static Block Grinder;
+	public static Block ImplosionCompressor;
+	public static Block MatterFabricator;
 
 	public static Block ore;
 	public static Block storage;
@@ -51,63 +57,62 @@ public class ModBlocks {
 				.setBlockName("techreborn.thermalGenerator")
 				.setBlockTextureName("techreborn:ThermalGenerator_other")
 				.setCreativeTab(TechRebornCreativeTab.instance);
-		GameRegistry.registerBlock(thermalGenerator,
-				"techreborn.thermalGenerator");
-		GameRegistry.registerTileEntity(TileThermalGenerator.class,
-				"TileThermalGenerator");
+		GameRegistry.registerBlock(thermalGenerator, "techreborn.thermalGenerator");
+		GameRegistry.registerTileEntity(TileThermalGenerator.class, "TileThermalGenerator");
 
 		quantumTank = new BlockQuantumTank()
 				.setBlockName("techreborn.quantumTank")
 				.setBlockTextureName("techreborn:quantumTank")
 				.setCreativeTab(TechRebornCreativeTab.instance);
-		GameRegistry.registerBlock(quantumTank, ItemBlockQuantumTank.class,
-				"techreborn.quantumTank");
-		GameRegistry.registerTileEntity(TileQuantumTank.class,
-				"TileQuantumTank");
+		GameRegistry.registerBlock(quantumTank, ItemBlockQuantumTank.class, "techreborn.quantumTank");
+		GameRegistry.registerTileEntity(TileQuantumTank.class, "TileQuantumTank");
 
 		quantumChest = new BlockQuantumChest()
 				.setBlockName("techreborn.quantumChest")
 				.setBlockTextureName("techreborn:quantumChest")
 				.setCreativeTab(TechRebornCreativeTab.instance);
-		GameRegistry.registerBlock(quantumChest, ItemBlockQuantumChest.class,
-				"techreborn.quantumChest");
-		GameRegistry.registerTileEntity(TileQuantumChest.class,
-				"TileQuantumChest");
+		GameRegistry.registerBlock(quantumChest, ItemBlockQuantumChest.class, "techreborn.quantumChest");
+		GameRegistry.registerTileEntity(TileQuantumChest.class, "TileQuantumChest");
 
 		centrifuge = new BlockCentrifuge()
 				.setBlockName("techreborn.centrifuge")
 				.setBlockTextureName("techreborn:centrifuge")
 				.setCreativeTab(TechRebornCreativeTab.instance);
+		
 		GameRegistry.registerBlock(centrifuge, "techreborn.centrifuge");
 		GameRegistry.registerTileEntity(TileCentrifuge.class, "TileCentrifuge");
 
 		RollingMachine = new BlockRollingMachine(Material.piston);
 		GameRegistry.registerBlock(RollingMachine, "rollingmachine");
-		GameRegistry.registerTileEntity(TileRollingMachine.class,
-				"TileRollingMachine");
+		GameRegistry.registerTileEntity(TileRollingMachine.class, "TileRollingMachine");
 
 		BlastFurnace = new BlockBlastFurnace(Material.piston);
 		GameRegistry.registerBlock(BlastFurnace, "blastFurnace");
-		GameRegistry.registerTileEntity(TileBlastFurnace.class,
-				"TileBlastFurnace");
+		GameRegistry.registerTileEntity(TileBlastFurnace.class, "TileBlastFurnace");
 		
 		AlloySmelter = new BlockAlloySmelter(Material.piston);
 		GameRegistry.registerBlock(AlloySmelter, "alloySmelter");
 		GameRegistry.registerTileEntity(TileAlloySmelter.class, "TileAlloySmalter");
+		
+		Grinder = new BlockGrinder(Material.piston);
+		GameRegistry.registerBlock(Grinder, "grinder");
+		
+		ImplosionCompressor = new BlockImplosionCompressor(Material.piston);
+		GameRegistry.registerBlock(ImplosionCompressor, "implosioncompressor");
+		
+		MatterFabricator = new BlockMatterFabricator(Material.piston);
+		GameRegistry.registerBlock(MatterFabricator, "matterfabricator");
 
 		MachineCasing = new BlockMachineCasing(Material.piston);
-		GameRegistry.registerBlock(MachineCasing, ItemBlockMachineCasing.class,
-				"machinecasing");
-		GameRegistry.registerTileEntity(TileMachineCasing.class,
-				"TileMachineCasing");
+		GameRegistry.registerBlock(MachineCasing, ItemBlockMachineCasing.class, "machinecasing");
+		GameRegistry.registerTileEntity(TileMachineCasing.class, "TileMachineCasing");
 
 		ore = new BlockOre(Material.rock);
 		GameRegistry.registerBlock(ore, ItemBlockOre.class, "techreborn.ore");
 		LogHelper.info("TechReborns Blocks Loaded");
 
 		storage = new BlockStorage(Material.rock);
-		GameRegistry.registerBlock(storage, ItemBlockStorage.class,
-				"techreborn.storage");
+		GameRegistry.registerBlock(storage, ItemBlockStorage.class, "techreborn.storage");
 		LogHelper.info("TechReborns Blocks Loaded");
 
 		registerOreDict();
