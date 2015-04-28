@@ -1,5 +1,7 @@
 package techreborn.init;
 
+import cpw.mods.fml.common.Mod;
+import techreborn.partSystem.IPartProvider;
 import techreborn.partSystem.ModPartRegistry;
 import techreborn.partSystem.block.WorldProvider;
 import techreborn.partSystem.parts.CablePart;
@@ -16,5 +18,10 @@ public class ModParts {
 		ModPartRegistry.addProvider("techreborn.partSystem.fmp.FMPFactory",
 				"ForgeMultipart");
 		ModPartRegistry.addAllPartsToSystems();
+		for(IPartProvider provider : ModPartRegistry.providers){
+			if(provider.modID().equals("qmunitylib")){
+				ModPartRegistry.masterProvider = provider;
+			}
+		}
 	}
 }

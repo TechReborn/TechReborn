@@ -20,7 +20,7 @@ import techreborn.lib.Location;
 import techreborn.util.Inventory;
 import techreborn.util.ItemUtils;
 
-public class TileBlastFurnace extends TileMachineBase implements IWrenchable, IInventory {
+public class TileBlastFurnace extends TileMachineBase implements IWrenchable, IInventory{
 
 	public int tickTime;
 	public BasicSink energy;
@@ -30,7 +30,7 @@ public class TileBlastFurnace extends TileMachineBase implements IWrenchable, II
 
 	public TileBlastFurnace() {
 		//TODO configs
-		energy = new BasicSink(this, ConfigTechReborn.CentrifugeCharge,
+		energy = new BasicSink(this, 1000,
 				ConfigTechReborn.CentrifugeTier);
 	}
 
@@ -83,17 +83,19 @@ public class TileBlastFurnace extends TileMachineBase implements IWrenchable, II
 	}
 
 
-	public void update() {
+	@Override
+	public void updateEntity(){
 		super.updateEntity();
+		energy.updateEntity();
 		if (getStackInSlot(0) != null && getStackInSlot(1) != null) {
 			if (recipe == null) {
 				for (BlastFurnaceRecipe furnaceRecipe : TechRebornAPI.blastFurnaceRecipes) {
-					if (ItemUtils.isItemEqual(getStackInSlot(0), furnaceRecipe.getInput1(), true, true) && ItemUtils.isItemEqual(getStackInSlot(0), furnaceRecipe.getInput2(), true, true)) {
+					if (ItemUtils.isItemEqual(getStackInSlot(0), furnaceRecipe.getInput1(), true, true) && ItemUtils.isItemEqual(getStackInSlot(1), furnaceRecipe.getInput2(), true, true)) {
 						recipe = furnaceRecipe;
 					}
 				}
 			} else {
-				if (!ItemUtils.isItemEqual(getStackInSlot(0), recipe.getInput1(), true, true) || !ItemUtils.isItemEqual(getStackInSlot(0), recipe.getInput2(), true, true)) {
+				if (!ItemUtils.isItemEqual(getStackInSlot(0), recipe.getInput1(), true, true) || !ItemUtils.isItemEqual(getStackInSlot(1), recipe.getInput2(), true, true)) {
 					recipe = null;
 					tickTime = 0;
 					return;
@@ -105,14 +107,14 @@ public class TileBlastFurnace extends TileMachineBase implements IWrenchable, II
 						setInventorySlotContents(3, recipe.getOutput2());
 						tickTime = 0;
 						recipe = null;
-					}
+					} else
 					//When both are the same as the recipe
 					if (ItemUtils.isItemEqual(getStackInSlot(2), recipe.getOutput1(), true, true) && ItemUtils.isItemEqual(getStackInSlot(3), recipe.getOutput2(), true, true) && !areBothOutputsFull()) {
 						decrStackSize(2, -recipe.getOutput1().stackSize);
 						decrStackSize(3, -recipe.getOutput2().stackSize);
 						tickTime = 0;
 						recipe = null;
-					}
+					} else
 					//When slot one has stuff and slot 2 is empty
 					if (ItemUtils.isItemEqual(getStackInSlot(2), recipe.getOutput1(), true, true) && getStackInSlot(3) == null) {
 						//Stops if the first slot if full
@@ -127,7 +129,7 @@ public class TileBlastFurnace extends TileMachineBase implements IWrenchable, II
 						setInventorySlotContents(3, recipe.getOutput2());
 						tickTime = 0;
 						recipe = null;
-					}
+					} else
 					//When slot 2 has stuff and slot 1 is empty
 					if (ItemUtils.isItemEqual(getStackInSlot(3), recipe.getInput2(), true, true) && getStackInSlot(2) == null) {
 						if (recipe.getOutput2() != null
