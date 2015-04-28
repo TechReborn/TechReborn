@@ -34,7 +34,7 @@ public class BlockThermalGenerator extends BlockContainer {
 
 	public BlockThermalGenerator()
 	{
-		super(Material.piston);
+		super(Material.rock);
 		setHardness(2f);
 	}
 

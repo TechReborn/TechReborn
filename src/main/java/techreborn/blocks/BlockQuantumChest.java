@@ -22,7 +22,7 @@ public class BlockQuantumChest extends BlockContainer {
 
 	public BlockQuantumChest()
 	{
-		super(Material.piston);
+		super(Material.rock);
 		setHardness(2f);
 	}
 

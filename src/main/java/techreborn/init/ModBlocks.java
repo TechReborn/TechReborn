@@ -85,31 +85,31 @@ public class ModBlocks {
 		GameRegistry.registerBlock(centrifuge, "techreborn.centrifuge");
 		GameRegistry.registerTileEntity(TileCentrifuge.class, "TileCentrifuge");
 
-		RollingMachine = new BlockRollingMachine(Material.piston);
+		RollingMachine = new BlockRollingMachine(Material.rock);
 		GameRegistry.registerBlock(RollingMachine, "rollingmachine");
 		GameRegistry.registerTileEntity(TileRollingMachine.class, "TileRollingMachine");
 
-		BlastFurnace = new BlockBlastFurnace(Material.piston);
+		BlastFurnace = new BlockBlastFurnace(Material.rock);
 		GameRegistry.registerBlock(BlastFurnace, "blastFurnace");
 		GameRegistry.registerTileEntity(TileBlastFurnace.class, "TileBlastFurnace");
 		
-		AlloySmelter = new BlockAlloySmelter(Material.piston);
+		AlloySmelter = new BlockAlloySmelter(Material.rock);
 		GameRegistry.registerBlock(AlloySmelter, "alloySmelter");
 		GameRegistry.registerTileEntity(TileAlloySmelter.class, "TileAlloySmalter");
 		
-		Grinder = new BlockGrinder(Material.piston);
+		Grinder = new BlockGrinder(Material.rock);
 		GameRegistry.registerBlock(Grinder, "grinder");
 		GameRegistry.registerTileEntity(TileGrinder.class, "TileGrinder");
 		
-		ImplosionCompressor = new BlockImplosionCompressor(Material.piston);
+		ImplosionCompressor = new BlockImplosionCompressor(Material.rock);
 		GameRegistry.registerBlock(ImplosionCompressor, "implosioncompressor");
 		GameRegistry.registerTileEntity(TileImplosionCompressor.class, "TileImplosionCompressor");
 		
-		MatterFabricator = new BlockMatterFabricator(Material.piston);
+		MatterFabricator = new BlockMatterFabricator(Material.rock);
 		GameRegistry.registerBlock(MatterFabricator, "matterfabricator");
 		GameRegistry.registerTileEntity(TileMatterFabricator.class, "TileMatterFabricator");
 
-		MachineCasing = new BlockMachineCasing(Material.piston);
+		MachineCasing = new BlockMachineCasing(Material.rock);
 		GameRegistry.registerBlock(MachineCasing, ItemBlockMachineCasing.class, "machinecasing");
 		GameRegistry.registerTileEntity(TileMachineCasing.class, "TileMachineCasing");
 

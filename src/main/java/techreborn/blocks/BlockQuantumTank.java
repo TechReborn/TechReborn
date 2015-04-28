@@ -22,7 +22,7 @@ public class BlockQuantumTank extends BlockContainer {
 
 	public BlockQuantumTank()
 	{
-		super(Material.piston);
+		super(Material.rock);
 		setHardness(2f);
 	}
 

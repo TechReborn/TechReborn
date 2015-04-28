@@ -30,7 +30,7 @@ public class BlockCentrifuge extends BlockContainer {
 
 	public BlockCentrifuge()
 	{
-		super(Material.piston);
+		super(Material.rock);
 		setHardness(2F);
 	}
 

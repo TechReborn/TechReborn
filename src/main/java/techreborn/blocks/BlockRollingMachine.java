@@ -31,7 +31,7 @@ public class BlockRollingMachine extends BlockContainer {
 
 	public BlockRollingMachine(Material material)
 	{
-		super(material.piston);
+		super(material.rock);
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setBlockName("techreborn.rollingmachine");
 		setHardness(2f);
