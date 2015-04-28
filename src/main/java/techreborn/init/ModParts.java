@@ -15,7 +15,6 @@ public class ModParts {
 				"techreborn.partSystem.QLib.QModPartFactory", "qmunitylib");
 		ModPartRegistry.addProvider("techreborn.partSystem.fmp.FMPFactory",
 				"ForgeMultipart");
-		ModPartRegistry.addProvider(new WorldProvider());
 		ModPartRegistry.addAllPartsToSystems();
 	}
 }

@@ -57,6 +57,8 @@ public class Core {
 		ModItems.init();
 		// Recipes
 		ModRecipes.init();
+		//Client only init, needs to be done before parts system
+		proxy.init();
 		// Compat
 		CompatManager.init(event);
 		// WorldGen
@@ -72,8 +74,6 @@ public class Core {
 		MinecraftForge.EVENT_BUS.register(new MultiblockEventHandler());
 		FMLCommonHandler.instance().bus()
 				.register(new MultiblockServerTickHandler());
-
-		proxy.init();
 
 		LogHelper.info("Initialization Compleate");
 	}

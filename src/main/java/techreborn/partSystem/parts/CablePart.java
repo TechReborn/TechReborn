@@ -22,6 +22,7 @@ import net.minecraft.world.WorldType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.client.IconSupplier;
+import techreborn.client.render.RenderCablePart;
 import techreborn.lib.Functions;
 import techreborn.lib.vecmath.Vecs3d;
 import techreborn.lib.vecmath.Vecs3dCube;
@@ -134,14 +135,7 @@ public class CablePart extends ModPart implements IEnergyConductor {
 
     @Override
     public boolean renderStatic(Vecs3d translation, RenderHelper renderer, int pass) {
-            renderer.renderBox(ModLib2QLib.convert(boundingBoxes[6]), getIconFromType(type));
-            if (connectedSides != null) {
-                for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-                    if (connectedSides.containsKey(dir))
-                        renderer.renderBox(ModLib2QLib.convert(boundingBoxes[Functions.getIntDirFromDirection(dir)]), getIconFromType(type));
-                }
-            }
-        return true;
+		return RenderCablePart.renderStatic(translation, renderer, pass, this);
     }
 
     @Override
@@ -375,59 +369,6 @@ public class CablePart extends ModPart implements IEnergyConductor {
 
         return p / 16.0F;
     }
-
-    public static IIcon getIconFromType(int cableType){
-        IIcon p = null;
-        switch(cableType) {
-            case 0:
-                p = IconSupplier.insulatedCopperCable;
-                break;
-            case 1:
-                p = IconSupplier.copperCable;
-                break;
-            case 2:
-                p = IconSupplier.goldCable;
-                break;
-            case 3:
-                p = IconSupplier.insulatedGoldCable;
-                break;
-            case 4:
-                p = IconSupplier.doubleInsulatedGoldCable;
-                break;
-            case 5:
-                p = IconSupplier.ironCable;
-                break;
-            case 6:
-                p = IconSupplier.insulatedIronCable;
-                break;
-            case 7:
-                p = IconSupplier.doubleInsulatedIronCable;
-                break;
-            case 8:
-                p = IconSupplier.trippleInsulatedIronCable;
-                break;
-            case 9:
-                p = IconSupplier.glassFiberCable;
-                break;
-            case 10:
-                p = IconSupplier.tinCable;
-                break;
-            case 11:
-                p = IconSupplier.detectorCableBlock;//Detector
-                break;
-            case 12:
-                p = IconSupplier.splitterCableBlock;// Splitter
-                break;
-            case 13:
-                p = IconSupplier.insulatedtinCableBlock;
-                break;
-            case 14:
-                p = IconSupplier.copperCable; // unused?
-        }
-
-        return p;
-    }
-
 
     public static String getNameFromType(int cableType){
         String p = null;
