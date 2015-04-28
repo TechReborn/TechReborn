@@ -7,6 +7,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import techreborn.blocks.BlockAlloySmelter;
 import techreborn.blocks.BlockBlastFurnace;
 import techreborn.blocks.BlockCentrifuge;
+import techreborn.blocks.BlockChunkLoader;
 import techreborn.blocks.BlockGrinder;
 import techreborn.blocks.BlockImplosionCompressor;
 import techreborn.blocks.BlockMachineCasing;
@@ -26,6 +27,7 @@ import techreborn.itemblocks.ItemBlockStorage;
 import techreborn.tiles.TileAlloySmelter;
 import techreborn.tiles.TileBlastFurnace;
 import techreborn.tiles.TileCentrifuge;
+import techreborn.tiles.TileChunkLoader;
 import techreborn.tiles.TileGrinder;
 import techreborn.tiles.TileImplosionCompressor;
 import techreborn.tiles.TileMachineCasing;
@@ -50,6 +52,7 @@ public class ModBlocks {
 	public static Block Grinder;
 	public static Block ImplosionCompressor;
 	public static Block MatterFabricator;
+	public static Block ChunkLoader;
 
 	public static Block ore;
 	public static Block storage;
@@ -108,6 +111,10 @@ public class ModBlocks {
 		MatterFabricator = new BlockMatterFabricator(Material.rock);
 		GameRegistry.registerBlock(MatterFabricator, "matterfabricator");
 		GameRegistry.registerTileEntity(TileMatterFabricator.class, "TileMatterFabricator");
+		
+		ChunkLoader = new BlockChunkLoader(Material.rock);
+		GameRegistry.registerBlock(ChunkLoader, "chunkloader");
+		GameRegistry.registerTileEntity(TileChunkLoader.class, "TileChunkLoader");
 
 		MachineCasing = new BlockMachineCasing(Material.rock);
 		GameRegistry.registerBlock(MachineCasing, ItemBlockMachineCasing.class, "machinecasing");
