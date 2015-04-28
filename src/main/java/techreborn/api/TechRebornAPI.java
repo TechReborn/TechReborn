@@ -54,8 +54,12 @@ public final class TechRebornAPI {
                 }
             }
         }
-        if (shouldAdd)
-            blastFurnaceRecipes.add(recipie);
+        if (shouldAdd){
+			blastFurnaceRecipes.add(recipie);
+			//This adds the same recipe but backwards. so you can swap the inputs
+			blastFurnaceRecipes.add(new BlastFurnaceRecipe(recipie.getInput2(), recipie.getInput1(), recipie.output1, recipie.output2, recipie.tickTime, recipie.minHeat));
+		}
+
     }
 
 	public static void addRollingMachinceRecipe(ItemStack output,
