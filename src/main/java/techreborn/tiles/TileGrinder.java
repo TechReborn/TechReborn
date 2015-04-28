@@ -11,7 +11,7 @@ public class TileGrinder extends TileMachineBase implements IWrenchable{
 	
 	public int tickTime;
 	public BasicSink energy;
-	public Inventory inventory = new Inventory(5, "TileGrinder", 64);
+	public Inventory inventory = new Inventory(6, "TileGrinder", 64);
 	
 
 	@Override
