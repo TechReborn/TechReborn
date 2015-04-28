@@ -11,7 +11,7 @@ public class TileImplosionCompressor extends TileMachineBase implements IWrencha
 	
 	public int tickTime;
 	public BasicSink energy;
-	public Inventory inventory = new Inventory(5, "TileImplosionCompressor", 64);
+	public Inventory inventory = new Inventory(4, "TileImplosionCompressor", 64);
 	
 
 	@Override
