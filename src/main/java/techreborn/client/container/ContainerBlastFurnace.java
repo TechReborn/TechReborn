@@ -26,11 +26,11 @@ public class ContainerBlastFurnace extends TechRebornContainer {
 		this.player = player;
 
 		// input
-		this.addSlotToContainer(new Slot(tileblastfurnace.inventory, 0, 56, 25));
-		this.addSlotToContainer(new Slot(tileblastfurnace.inventory, 1, 56, 43));
+		this.addSlotToContainer(new Slot(tileblastfurnace.inventory, 0, 56, 25));//Input 1
+		this.addSlotToContainer(new Slot(tileblastfurnace.inventory, 1, 56, 43));//Input 2
 		// outputs
-		this.addSlotToContainer(new SlotOutput(tileblastfurnace.inventory, 2,
-				116, 35));
+		this.addSlotToContainer(new SlotOutput(tileblastfurnace.inventory, 2, 116, 35));//Output 1
+		this.addSlotToContainer(new SlotOutput(tileblastfurnace.inventory, 3, 116, 53));//Output 2
 
 		int i;
 
