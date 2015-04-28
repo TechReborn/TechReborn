@@ -26,8 +26,8 @@ public class ContainerImplosionCompressor extends TechRebornContainer{
 		this.addSlotToContainer(new Slot(tilecompressor.inventory, 0, 34, 16));
 		this.addSlotToContainer(new Slot(tilecompressor.inventory, 1, 34, 34));
 		// outputs
-		this.addSlotToContainer(new Slot(tilecompressor.inventory, 2, 86, 25));
-		this.addSlotToContainer(new Slot(tilecompressor.inventory, 3, 104, 25));
+		this.addSlotToContainer(new SlotOutput(tilecompressor.inventory, 2, 86, 25));
+		this.addSlotToContainer(new SlotOutput(tilecompressor.inventory, 3, 104, 25));
 
 
 		int i;
