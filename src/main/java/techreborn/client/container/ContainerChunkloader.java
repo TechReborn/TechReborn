@@ -2,11 +2,33 @@ package techreborn.client.container;
 
 import techreborn.tiles.TileChunkLoader;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Slot;
 
 public class ContainerChunkloader extends TechRebornContainer{
+	
+	EntityPlayer player;
+
 
 	public ContainerChunkloader(TileChunkLoader tilechunkloader, EntityPlayer player)
 	{
+		this.player = player;
+	
+		int i;
+
+		for (i = 0; i < 3; ++i)
+		{
+			for (int j = 0; j < 9; ++j)
+			{
+				this.addSlotToContainer(new Slot(player.inventory, j + i * 9
+						+ 9, 8 + j * 18, 84 + i * 18));
+			}
+		}
+
+		for (i = 0; i < 9; ++i)
+		{
+			this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18,
+					142));
+		}
 		
 	}
 

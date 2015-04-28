@@ -5,6 +5,7 @@ import net.minecraft.world.World;
 import techreborn.client.container.ContainerAlloySmelter;
 import techreborn.client.container.ContainerBlastFurnace;
 import techreborn.client.container.ContainerCentrifuge;
+import techreborn.client.container.ContainerChunkloader;
 import techreborn.client.container.ContainerGrinder;
 import techreborn.client.container.ContainerImplosionCompressor;
 import techreborn.client.container.ContainerMatterFabricator;
@@ -15,6 +16,7 @@ import techreborn.client.container.ContainerThermalGenerator;
 import techreborn.client.gui.GuiAlloySmelter;
 import techreborn.client.gui.GuiBlastFurnace;
 import techreborn.client.gui.GuiCentrifuge;
+import techreborn.client.gui.GuiChunkLoader;
 import techreborn.client.gui.GuiGrinder;
 import techreborn.client.gui.GuiImplosionCompressor;
 import techreborn.client.gui.GuiMatterFabricator;
@@ -26,6 +28,7 @@ import techreborn.pda.GuiPda;
 import techreborn.tiles.TileAlloySmelter;
 import techreborn.tiles.TileBlastFurnace;
 import techreborn.tiles.TileCentrifuge;
+import techreborn.tiles.TileChunkLoader;
 import techreborn.tiles.TileGrinder;
 import techreborn.tiles.TileImplosionCompressor;
 import techreborn.tiles.TileMatterFabricator;
@@ -48,6 +51,7 @@ public class GuiHandler implements IGuiHandler {
 	public static final int compresserID = 8;
 	public static final int matterfabID = 9;
 	public static final int pdaID = 10;
+	public static final int chunkloaderID = 11;
 
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world,
@@ -93,6 +97,10 @@ public class GuiHandler implements IGuiHandler {
 		{
 			return new ContainerMatterFabricator(
 					(TileMatterFabricator) world.getTileEntity(x, y, z), player);
+		} else if (ID == chunkloaderID)
+		{
+			return new ContainerChunkloader(
+					(TileChunkLoader) world.getTileEntity(x, y, z), player);
 		} else if (ID == pdaID)
 		{
 			return null;
@@ -145,7 +153,10 @@ public class GuiHandler implements IGuiHandler {
 		{
 			return new GuiMatterFabricator(player,
 					(TileMatterFabricator) world.getTileEntity(x, y, z));
-			
+		} else if (ID == chunkloaderID)
+		{
+			return new GuiChunkLoader(player,
+					(TileChunkLoader) world.getTileEntity(x, y, z));	
 		} else if (ID == pdaID)
 		{
 			return new GuiPda(player);

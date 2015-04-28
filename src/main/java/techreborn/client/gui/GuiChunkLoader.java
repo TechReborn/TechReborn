@@ -2,8 +2,10 @@ package techreborn.client.gui;
 
 import techreborn.client.container.ContainerAlloySmelter;
 import techreborn.client.container.ContainerChunkloader;
+import techreborn.pda.GuiButtonCustomTexture;
 import techreborn.tiles.TileAlloySmelter;
 import techreborn.tiles.TileChunkLoader;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,9 +14,14 @@ import net.minecraft.util.ResourceLocation;
 
 public class GuiChunkLoader extends GuiContainer{
 	
+	private GuiButton plusOneButton;
+	private GuiButton plusTenButton;
+	private GuiButton minusOneButton;
+	private GuiButton minusTenButton;
+	
 	private static final ResourceLocation texture = new ResourceLocation(
 			"techreborn", "textures/gui/industrial_chunkloader.png");
-	
+
 	TileChunkLoader chunkloader;
 
 	public GuiChunkLoader(EntityPlayer player, TileChunkLoader tilechunkloader)
@@ -23,6 +30,24 @@ public class GuiChunkLoader extends GuiContainer{
 		this.xSize = 176;
 		this.ySize = 167;
 		chunkloader = tilechunkloader;
+	}
+	
+	@Override
+	public void initGui()
+	{
+		super.initGui();
+		this.guiLeft = this.width / 2 - this.xSize / 2;
+		this.guiTop = this.height / 2 - this.ySize / 2;
+		plusOneButton = new GuiButton(0, guiLeft + 5, guiTop + 37, 40, 20, "+1");
+		plusTenButton = new GuiButton(0, guiLeft + 45, guiTop + 37, 40, 20, "+10");
+		
+		minusOneButton = new GuiButton(0, guiLeft + 90, guiTop + 37, 40, 20, "-1");
+		minusTenButton = new GuiButton(0, guiLeft + 130, guiTop + 37, 40, 20, "-10");
+
+		buttonList.add(plusOneButton);
+		buttonList.add(plusTenButton);
+		buttonList.add(minusOneButton);
+		buttonList.add(minusTenButton);
 	}
 
 	@Override
@@ -38,7 +63,7 @@ public class GuiChunkLoader extends GuiContainer{
 	protected void drawGuiContainerForegroundLayer(int p_146979_1_,
 			int p_146979_2_)
 	{
-		this.fontRendererObj.drawString("Industrial Chunkloader", 60, 6, 4210752);
+		this.fontRendererObj.drawString("Industrial Chunkloader", 30, 6, 4210752);
 		this.fontRendererObj.drawString(
 				I18n.format("container.inventory", new Object[0]), 8,
 				this.ySize - 96 + 2, 4210752);
