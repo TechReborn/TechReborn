@@ -21,7 +21,7 @@ import techreborn.tiles.TileThermalGenerator;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockThermalGenerator extends BlockContainer {
+public class BlockThermalGenerator extends BlockMachineBase {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon iconFront;
@@ -59,96 +59,4 @@ public class BlockThermalGenerator extends BlockContainer {
 
 	}
 
-	public void onBlockAdded(World world, int x, int y, int z)
-	{
-
-		super.onBlockAdded(world, x, y, z);
-		this.setDefaultDirection(world, x, y, z);
-
-	}
-
-	private void setDefaultDirection(World world, int x, int y, int z)
-	{
-
-		if (!world.isRemote)
-		{
-			Block block1 = world.getBlock(x, y, z - 1);
-			Block block2 = world.getBlock(x, y, z + 1);
-			Block block3 = world.getBlock(x - 1, y, z);
-			Block block4 = world.getBlock(x + 1, y, z);
-
-			byte b = 3;
-
-			if (block1.func_149730_j() && !block2.func_149730_j())
-			{
-				b = 3;
-			}
-			if (block2.func_149730_j() && !block1.func_149730_j())
-			{
-				b = 2;
-			}
-			if (block3.func_149730_j() && !block4.func_149730_j())
-			{
-				b = 5;
-			}
-			if (block4.func_149730_j() && !block3.func_149730_j())
-			{
-				b = 4;
-			}
-
-			world.setBlockMetadataWithNotify(x, y, z, b, 2);
-
-		}
-
-	}
-
-	public void onBlockPlacedBy(World world, int x, int y, int z,
-			EntityLivingBase player, ItemStack itemstack)
-	{
-
-		int l = MathHelper
-				.floor_double((double) (player.rotationYaw * 4.0F / 360F) + 0.5D) & 3;
-
-		if (l == 0)
-		{
-			world.setBlockMetadataWithNotify(x, y, z, 2, 2);
-		}
-		if (l == 1)
-		{
-			world.setBlockMetadataWithNotify(x, y, z, 5, 2);
-		}
-		if (l == 2)
-		{
-			world.setBlockMetadataWithNotify(x, y, z, 3, 2);
-		}
-		if (l == 3)
-		{
-			world.setBlockMetadataWithNotify(x, y, z, 4, 2);
-		}
-
-	}
-
-	@Override
-	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
-	{
-		return new TileThermalGenerator();
-	}
-
-	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z,
-			EntityPlayer player, int side, float hitX, float hitY, float hitZ)
-	{
-		if (!player.isSneaking())
-			player.openGui(Core.INSTANCE, GuiHandler.thermalGeneratorID, world,
-					x, y, z);
-		return true;
-	}
-
-	@Override
-	public Item getItemDropped(int p_149650_1_, Random p_149650_2_,
-			int p_149650_3_)
-	{
-		// TODO change when added crafting
-		return Item.getItemFromBlock(Blocks.furnace);
-	}
 }

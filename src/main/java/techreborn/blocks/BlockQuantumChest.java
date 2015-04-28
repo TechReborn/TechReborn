@@ -13,7 +13,7 @@ import techreborn.tiles.TileQuantumChest;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockQuantumChest extends BlockContainer {
+public class BlockQuantumChest extends BlockMachineBase {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon top;

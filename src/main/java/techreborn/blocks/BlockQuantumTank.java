@@ -13,7 +13,7 @@ import techreborn.tiles.TileQuantumTank;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockQuantumTank extends BlockContainer {
+public class BlockQuantumTank extends BlockMachineBase {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon top;
