@@ -4,6 +4,7 @@ import ic2.api.item.IC2Items;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import techreborn.api.BlastFurnaceRecipe;
 import techreborn.api.CentrifugeRecipie;
 import techreborn.api.TechRebornAPI;
 import techreborn.config.ConfigTechReborn;
@@ -280,6 +281,7 @@ public class ModRecipes {
 		TechRebornAPI.addRollingMachinceRecipe(
 				new ItemStack(Blocks.furnace, 4), "ccc", "c c", "ccc", 'c',
 				Blocks.cobblestone);
+		TechRebornAPI.registerBlastFurnaceRecipe(new BlastFurnaceRecipe(new ItemStack(Items.apple), new ItemStack(Items.ender_pearl), new ItemStack(Items.golden_apple), new ItemStack(Items.diamond), 120, 1000));
 		LogHelper.info("Machine Recipes Added");
 	}
 
