@@ -5,6 +5,9 @@ import net.minecraft.world.World;
 import techreborn.client.container.ContainerAlloySmelter;
 import techreborn.client.container.ContainerBlastFurnace;
 import techreborn.client.container.ContainerCentrifuge;
+import techreborn.client.container.ContainerGrinder;
+import techreborn.client.container.ContainerImplosionCompressor;
+import techreborn.client.container.ContainerMatterFabricator;
 import techreborn.client.container.ContainerQuantumChest;
 import techreborn.client.container.ContainerQuantumTank;
 import techreborn.client.container.ContainerRollingMachine;
@@ -12,6 +15,9 @@ import techreborn.client.container.ContainerThermalGenerator;
 import techreborn.client.gui.GuiAlloySmelter;
 import techreborn.client.gui.GuiBlastFurnace;
 import techreborn.client.gui.GuiCentrifuge;
+import techreborn.client.gui.GuiGrinder;
+import techreborn.client.gui.GuiImplosionCompressor;
+import techreborn.client.gui.GuiMatterFabricator;
 import techreborn.client.gui.GuiQuantumChest;
 import techreborn.client.gui.GuiQuantumTank;
 import techreborn.client.gui.GuiRollingMachine;
@@ -20,6 +26,9 @@ import techreborn.pda.GuiPda;
 import techreborn.tiles.TileAlloySmelter;
 import techreborn.tiles.TileBlastFurnace;
 import techreborn.tiles.TileCentrifuge;
+import techreborn.tiles.TileGrinder;
+import techreborn.tiles.TileImplosionCompressor;
+import techreborn.tiles.TileMatterFabricator;
 import techreborn.tiles.TileQuantumChest;
 import techreborn.tiles.TileQuantumTank;
 import techreborn.tiles.TileRollingMachine;
@@ -35,7 +44,10 @@ public class GuiHandler implements IGuiHandler {
 	public static final int rollingMachineID = 4;
 	public static final int blastFurnaceID = 5;
 	public static final int alloySmelterID = 6;
-	public static final int pdaID = 7;
+	public static final int grinderID = 7;
+	public static final int compresserID = 8;
+	public static final int matterfabID = 9;
+	public static final int pdaID = 10;
 
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world,
@@ -69,6 +81,18 @@ public class GuiHandler implements IGuiHandler {
 		{
 			return new ContainerAlloySmelter(
 					(TileAlloySmelter) world.getTileEntity(x, y, z), player);
+		} else if (ID == grinderID)
+		{
+			return new ContainerGrinder(
+					(TileGrinder) world.getTileEntity(x, y, z), player);
+		} else if (ID == compresserID)
+		{
+			return new ContainerImplosionCompressor(
+					(TileImplosionCompressor) world.getTileEntity(x, y, z), player);
+		} else if (ID == matterfabID)
+		{
+			return new ContainerMatterFabricator(
+					(TileMatterFabricator) world.getTileEntity(x, y, z), player);
 		} else if (ID == pdaID)
 		{
 			return null;
@@ -109,6 +133,19 @@ public class GuiHandler implements IGuiHandler {
 		{
 			return new GuiAlloySmelter(player,
 					(TileAlloySmelter) world.getTileEntity(x, y, z));
+		} else if (ID == grinderID)
+		{
+			return new GuiGrinder(player,
+					(TileGrinder) world.getTileEntity(x, y, z));
+		} else if (ID == compresserID)
+		{
+			return new GuiImplosionCompressor(player,
+					(TileImplosionCompressor) world.getTileEntity(x, y, z));
+		} else if (ID == matterfabID)
+		{
+			return new GuiMatterFabricator(player,
+					(TileMatterFabricator) world.getTileEntity(x, y, z));
+			
 		} else if (ID == pdaID)
 		{
 			return new GuiPda(player);

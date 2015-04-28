@@ -11,7 +11,7 @@ public class TileMatterFabricator extends TileMachineBase implements IWrenchable
 	
 	public int tickTime;
 	public BasicSink energy;
-	public Inventory inventory = new Inventory(5, "TileMatterFabricator", 64);
+	public Inventory inventory = new Inventory(7, "TileMatterFabricator", 64);
 	
 
 	@Override
