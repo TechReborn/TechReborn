@@ -10,6 +10,10 @@ tile.techreborn.machineCasing.Standard.name=Standard Casing
 tile.techreborn.machineCasing.Reinforced.name=Reinforced Casing
 tile.techreborn.machineCasing.Advanced.name=Advanced Casing
 tile.techreborn.blastfurnace.name=Blast Furnace
+tile.techreborn.matterfabricator.name=Matter Fabricator
+tile.techreborn.implosioncompressor.name=Implosion Compressor
+tile.techreborn.grinder.name=Industrial Grinder
+
 
 #Ores
 tile.techreborn.ore.Galena.name=Galena Ore
@@ -267,6 +271,7 @@ item.techreborn.part.BronzeMachineHull.name=Bronze Machine Hull
 item.techreborn.part.SteelMachineHull.name=Steel Machine Hull
 item.techreborn.part.TitaniumMachineHull.name=Titanium Machine Hull
 item.techreborn.part.BrassMachineHull.name=Brass Machine Hull
+item.techreborn.uumattaer.name=UU Matter
 
 #Tools
 item.techreborn.rockcutter.name=Rockcutter

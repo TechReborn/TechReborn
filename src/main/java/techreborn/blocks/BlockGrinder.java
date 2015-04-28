@@ -3,6 +3,7 @@ package techreborn.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.tiles.TileGrinder;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -36,7 +37,7 @@ public class BlockGrinder extends BlockContainer{
 	@Override
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
 	{
-		return null;
+		return new TileGrinder();
 	}
 	
 	@Override
