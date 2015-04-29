@@ -1,5 +1,6 @@
 package techreborn.compat.nei;
 
+import techreborn.api.BlastFurnaceRecipe;
 import techreborn.lib.ModInfo;
 import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
@@ -24,6 +25,7 @@ public class NEIConfig implements IConfigureNEI {
 		CentrifugeRecipeHandler centrifugeRecipeHandler = new CentrifugeRecipeHandler();
 		ShapedRollingMachineHandler shapedRollingMachineHandler = new ShapedRollingMachineHandler();
 		ShapelessRollingMachineHandler shapelessRollingMachineHandler = new ShapelessRollingMachineHandler();
+		BlastFurnaceRecipeHandler blastFurnaceRecipeHandler = new BlastFurnaceRecipeHandler();
 
 		API.registerRecipeHandler(centrifugeRecipeHandler);
 		API.registerUsageHandler(centrifugeRecipeHandler);
@@ -33,6 +35,9 @@ public class NEIConfig implements IConfigureNEI {
 
 		API.registerUsageHandler(shapelessRollingMachineHandler);
 		API.registerRecipeHandler(shapelessRollingMachineHandler);
+
+		API.registerUsageHandler(blastFurnaceRecipeHandler);
+		API.registerRecipeHandler(blastFurnaceRecipeHandler);
 	}
 
 }
