@@ -11,6 +11,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 
 public class GuiChunkLoader extends GuiContainer{
 	
@@ -63,7 +64,7 @@ public class GuiChunkLoader extends GuiContainer{
 	protected void drawGuiContainerForegroundLayer(int p_146979_1_,
 			int p_146979_2_)
 	{
-		this.fontRendererObj.drawString("Industrial Chunkloader", 30, 6, 4210752);
+		this.fontRendererObj.drawString(StatCollector.translateToLocal("tile.techreborn.chunkloader.name"), 30, 6, 4210752);
 		this.fontRendererObj.drawString(
 				I18n.format("container.inventory", new Object[0]), 8,
 				this.ySize - 96 + 2, 4210752);

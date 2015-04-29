@@ -8,6 +8,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 
 public class GuiImplosionCompressor extends GuiContainer{
 	
@@ -38,7 +39,7 @@ public class GuiImplosionCompressor extends GuiContainer{
 	protected void drawGuiContainerForegroundLayer(int p_146979_1_,
 			int p_146979_2_)
 	{
-		this.fontRendererObj.drawString("Implosion Compressor", 60, 6, 4210752);
+		this.fontRendererObj.drawString(StatCollector.translateToLocal("tile.techreborn.implosioncompressor.name"), 60, 6, 4210752);
 		this.fontRendererObj.drawString(
 				I18n.format("container.inventory", new Object[0]), 8,
 				this.ySize - 96 + 2, 4210752);
