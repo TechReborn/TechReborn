@@ -4,14 +4,33 @@ import ic2.api.energy.prefab.BasicSink;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.util.Inventory;
 
 public class TileChunkLoader extends TileMachineBase implements IWrenchable{
 	
-	public int tickTime;
 	public BasicSink energy;
 	public Inventory inventory = new Inventory(1, "TileChunkLoader", 64);
+	
+	public boolean isRunning;
+	public int tickTime;
+	
+	public int euTick = 32;
+	
+	public TileChunkLoader()
+	{
+		energy = new BasicSink(this, 1000,
+				1);
+	}
+	
+	@Override
+	public void updateEntity()
+	{
+		super.updateEntity();
+		energy.updateEntity();
+	}
+
 	
 
 	@Override
