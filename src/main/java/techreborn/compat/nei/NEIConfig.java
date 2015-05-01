@@ -24,28 +24,22 @@ public class NEIConfig implements IConfigureNEI {
 	}
 
 	@Override
-	public void loadConfig()
-	{
-		CentrifugeRecipeHandler centrifugeRecipeHandler = new CentrifugeRecipeHandler();
-		ShapedRollingMachineHandler shapedRollingMachineHandler = new ShapedRollingMachineHandler();
-		ShapelessRollingMachineHandler shapelessRollingMachineHandler = new ShapelessRollingMachineHandler();
-		BlastFurnaceRecipeHandler blastFurnaceRecipeHandler = new BlastFurnaceRecipeHandler();
+	public void loadConfig() {
+        CentrifugeRecipeHandler centrifugeRecipeHandler = new CentrifugeRecipeHandler();
+        ShapedRollingMachineHandler shapedRollingMachineHandler = new ShapedRollingMachineHandler();
+        ShapelessRollingMachineHandler shapelessRollingMachineHandler = new ShapelessRollingMachineHandler();
+        BlastFurnaceRecipeHandler blastFurnaceRecipeHandler = new BlastFurnaceRecipeHandler();
 
-		API.registerRecipeHandler(centrifugeRecipeHandler);
-		API.registerUsageHandler(centrifugeRecipeHandler);
+        API.registerRecipeHandler(centrifugeRecipeHandler);
+        API.registerUsageHandler(centrifugeRecipeHandler);
 
-		API.registerUsageHandler(shapedRollingMachineHandler);
-		API.registerRecipeHandler(shapedRollingMachineHandler);
+        API.registerUsageHandler(shapedRollingMachineHandler);
+        API.registerRecipeHandler(shapedRollingMachineHandler);
 
-		API.registerUsageHandler(shapelessRollingMachineHandler);
-		API.registerRecipeHandler(shapelessRollingMachineHandler);
+        API.registerUsageHandler(shapelessRollingMachineHandler);
+        API.registerRecipeHandler(shapelessRollingMachineHandler);
 
-		API.registerUsageHandler(blastFurnaceRecipeHandler);
-		API.registerRecipeHandler(blastFurnaceRecipeHandler);
-	}
-
-
-	public static void openUsages(TemplateRecipeHandler.RecipeTransferRect rect, GuiContainer parent){
-		Minecraft.getMinecraft().displayGuiScreen(new GuiCraftingRecipe(parent, rect));
-	}
+        API.registerUsageHandler(blastFurnaceRecipeHandler);
+        API.registerRecipeHandler(blastFurnaceRecipeHandler);
+    }
 }
