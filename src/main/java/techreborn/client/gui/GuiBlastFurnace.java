@@ -52,7 +52,7 @@ public class GuiBlastFurnace extends GuiContainer {
 	protected void actionPerformed(GuiButton button) {
 		super.actionPerformed(button);
 		if(button.id == 0){
-			GuiUsageRecipe.openRecipeGui(rect.outputId, rect.results)
+			//GuiUsageRecipe.openRecipeGui(rect.outputId, rect.results);
 		}
 	}
 }
