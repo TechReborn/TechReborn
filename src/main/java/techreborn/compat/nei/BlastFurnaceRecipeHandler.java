@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
 import techreborn.api.BlastFurnaceRecipe;
 import techreborn.api.TechRebornAPI;
+import techreborn.client.gui.GuiBlastFurnace;
 import techreborn.client.gui.GuiCentrifuge;
 import techreborn.config.ConfigTechReborn;
 
@@ -90,7 +91,7 @@ public class BlastFurnaceRecipeHandler extends TemplateRecipeHandler {
 	@Override
 	public Class<? extends GuiContainer> getGuiClass()
 	{
-		return GuiCentrifuge.class;
+		return GuiBlastFurnace.class;
 	}
 
 	@Override

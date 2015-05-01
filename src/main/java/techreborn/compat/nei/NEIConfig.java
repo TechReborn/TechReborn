@@ -1,6 +1,10 @@
 package techreborn.compat.nei;
 
-import techreborn.api.BlastFurnaceRecipe;
+import codechicken.nei.recipe.GuiCraftingRecipe;
+import codechicken.nei.recipe.TemplateRecipeHandler;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import techreborn.lib.ModInfo;
 import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
@@ -40,4 +44,8 @@ public class NEIConfig implements IConfigureNEI {
 		API.registerRecipeHandler(blastFurnaceRecipeHandler);
 	}
 
+
+	public static void openUsages(TemplateRecipeHandler.RecipeTransferRect rect, GuiContainer parent){
+		Minecraft.getMinecraft().displayGuiScreen(new GuiCraftingRecipe(parent, rect));
+	}
 }

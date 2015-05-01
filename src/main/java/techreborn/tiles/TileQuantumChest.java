@@ -21,7 +21,8 @@ public class TileQuantumChest extends TileMachineBase implements IInventory,
 	// Slot 0 = Input
 	// Slot 1 = Output
 	// Slot 2 = Fake Item
-	
+
+	//TODO use long so we can have 9,223,372,036,854,775,807 items instead of 2,147,483,647
 	int storage = (int) Double.MAX_VALUE;
 
 	public Inventory inventory = new Inventory(3, "TileQuantumChest",
