@@ -45,7 +45,7 @@ public class Core {
 				.replace(ModInfo.MOD_ID, "TechReborn");
 
 		config = ConfigTechReborn.initialize(new File(path));
-		LogHelper.info("PreInitialization Compleate");
+		LogHelper.info("PreInitialization Complete");
 	}
 
 	@Mod.EventHandler
@@ -75,7 +75,7 @@ public class Core {
 		FMLCommonHandler.instance().bus()
 				.register(new MultiblockServerTickHandler());
 
-		LogHelper.info("Initialization Compleate");
+		LogHelper.info("Initialization Complete");
 	}
 
 	@Mod.EventHandler

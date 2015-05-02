@@ -447,12 +447,13 @@ public class CablePart extends ModPart implements IEnergyConductor {
     @Override
     public boolean acceptsEnergyFrom(TileEntity tileEntity,
                                      ForgeDirection forgeDirection) {
-        return connectedSides.containsKey(forgeDirection);
+        return connectedSides.containsKey(forgeDirection.getOpposite());
     }
 
     @Override
     public boolean emitsEnergyTo(TileEntity tileEntity,
                                  ForgeDirection forgeDirection) {
-        return connectedSides.containsKey(forgeDirection);
+        //This is not called.
+        return connectedSides.containsKey(forgeDirection.getOpposite());
     }
 }
