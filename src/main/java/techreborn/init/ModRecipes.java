@@ -298,7 +298,7 @@ public class ModRecipes {
 				"UUU", 
 				'U', ModItems.uuMatter 
 			});
-		
+		if(config.UUrecipesWood);
 		CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.log, 8),
 				new Object[]
 				{ 
@@ -307,7 +307,7 @@ public class ModRecipes {
 				 	"   ", 
 					'U', ModItems.uuMatter 
 				});
-		
+		if(config.UUrecipesStone);
 		CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.stone, 16),
 				new Object[]
 				{ 
@@ -316,7 +316,7 @@ public class ModRecipes {
 				 	"   ", 
 					'U', ModItems.uuMatter 
 				});
-		
+		if(config.UUrecipesSnowBlock);
 		CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.snow, 16),
 				new Object[]
 				{ 
@@ -325,7 +325,7 @@ public class ModRecipes {
 				 	"   ", 
 					'U', ModItems.uuMatter 
 				});
-		
+		if(config.UUrecipesGrass);
 		CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.grass, 16),
 				new Object[]
 				{ 
@@ -334,7 +334,7 @@ public class ModRecipes {
 				 	"U  ", 
 					'U', ModItems.uuMatter 
 				});
-		
+		if(config.UUrecipesObsidian);
 		CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.obsidian, 12),
 				new Object[]
 				{ 
@@ -343,7 +343,7 @@ public class ModRecipes {
 				 	"   ", 
 					'U', ModItems.uuMatter 
 				});
-		
+		if(config.UUrecipesGlass);
 		CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.glass, 32),
 				new Object[]
 				{ 
@@ -352,7 +352,7 @@ public class ModRecipes {
 				 	" U ", 
 					'U', ModItems.uuMatter 
 				});
-		
+		if(config.UUrecipesWater);
 		CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.water, 1),
 				new Object[]
 				{ 
@@ -361,7 +361,7 @@ public class ModRecipes {
 				 	" U ", 
 					'U', ModItems.uuMatter 
 				});
-		
+		if(config.UUrecipesLava);
 		CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.lava, 1),
 				new Object[]
 				{ 
@@ -370,7 +370,7 @@ public class ModRecipes {
 				 	" U ", 
 					'U', ModItems.uuMatter 
 				});
-		
+		if(config.UUrecipesCocoa);
 		CraftingHelper.addShapedOreRecipe(new ItemStack(Items.dye, 32, 3),
 				new Object[]
 				{ 
@@ -379,7 +379,7 @@ public class ModRecipes {
 				 	"UU ", 
 					'U', ModItems.uuMatter 
 				});
-		
+		if(config.UUrecipesGlowstoneBlock);
 		CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.glowstone, 8),
 				new Object[]
 				{ 
@@ -388,7 +388,7 @@ public class ModRecipes {
 				 	"UUU", 
 					'U', ModItems.uuMatter 
 				});
-		
+		if(config.UUrecipesCactus);
 		CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.cactus, 48),
 				new Object[]
 				{ 
@@ -397,7 +397,7 @@ public class ModRecipes {
 				 	"U U", 
 					'U', ModItems.uuMatter 
 				});
-		
+		if(config.UUrecipesSugarCane);
 		CraftingHelper.addShapedOreRecipe(new ItemStack(Items.reeds, 48),
 				new Object[]
 				{ 
@@ -406,7 +406,7 @@ public class ModRecipes {
 				 	"U U", 
 					'U', ModItems.uuMatter 
 				});
-		
+		if(config.UUrecipesVine);
 		CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.vine, 24),
 				new Object[]
 				{ 
@@ -415,7 +415,7 @@ public class ModRecipes {
 				 	"U  ", 
 					'U', ModItems.uuMatter 
 				});
-		
+		if(config.UUrecipesSnowBall);
 		CraftingHelper.addShapedOreRecipe(new ItemStack(Items.snowball, 16),
 				new Object[]
 				{ 
@@ -433,7 +433,7 @@ public class ModRecipes {
 				 	"UU ", 
 					'U', ModItems.uuMatter 
 				});
-		
+		if(config.UUrecipeslilypad);
 		CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.waterlily, 64),
 				new Object[]
 				{ 
@@ -442,7 +442,7 @@ public class ModRecipes {
 				 	" U ", 
 					'U', ModItems.uuMatter 
 				});
-		
+		if(config.UUrecipesGunpowder);
 		CraftingHelper.addShapedOreRecipe(new ItemStack(Items.gunpowder, 15),
 				new Object[]
 				{ 
@@ -451,7 +451,7 @@ public class ModRecipes {
 				 	"UUU", 
 					'U', ModItems.uuMatter 
 				});
-		
+		if(config.UUrecipesBone);
 		CraftingHelper.addShapedOreRecipe(new ItemStack(Items.bone, 32),
 				new Object[]
 				{ 
@@ -460,7 +460,7 @@ public class ModRecipes {
 				 	"U  ", 
 					'U', ModItems.uuMatter 
 				});
-		
+		if(config.UUrecipesFeather);
 		CraftingHelper.addShapedOreRecipe(new ItemStack(Items.feather, 32),
 				new Object[]
 				{ 
@@ -469,7 +469,7 @@ public class ModRecipes {
 				 	"U U", 
 					'U', ModItems.uuMatter 
 				});
-		
+		if(config.UUrecipesInk);
 		CraftingHelper.addShapedOreRecipe(new ItemStack(Items.dye, 48),
 				new Object[]
 				{ 
@@ -478,7 +478,7 @@ public class ModRecipes {
 				 	" U ", 
 					'U', ModItems.uuMatter 
 				});
-		
+		if(config.UUrecipesEnderPearl);
 		CraftingHelper.addShapedOreRecipe(new ItemStack(Items.ender_pearl, 1),
 				new Object[]
 				{ 
