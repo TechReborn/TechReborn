@@ -43,7 +43,7 @@ public class BlockDieselGenerator extends BlockMachineBase {
 	public void registerBlockIcons(IIconRegister icon)
 	{
 		this.blockIcon = icon.registerIcon("techreborn:machine/machine_side");
-		this.iconFront = icon.registerIcon("techreborn:machine/electric_alloy_furnace_front_off");
+		this.iconFront = icon.registerIcon("techreborn:machine/machine_side");
 		this.iconTop = icon.registerIcon("techreborn:machine/diesel_generator_top_off");
 		this.iconBottom = icon.registerIcon("techreborn:machine/machine_bottom");
 	}
