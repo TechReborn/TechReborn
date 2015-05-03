@@ -23,6 +23,7 @@ import techreborn.blocks.BlockOre;
 import techreborn.blocks.BlockQuantumChest;
 import techreborn.blocks.BlockQuantumTank;
 import techreborn.blocks.BlockRollingMachine;
+import techreborn.blocks.BlockSemiFluidGenerator;
 import techreborn.blocks.BlockStorage;
 import techreborn.blocks.BlockThermalGenerator;
 import techreborn.client.TechRebornCreativeTab;
@@ -67,6 +68,7 @@ public class ModBlocks {
 	public static Block DieselGenerator;
 	public static Block IndustrialElectrolyzer;
 	public static Block MagicalAbsorber;
+	public static Block Semifluidgenerator;
 
 	public static Block ore;
 	public static Block storage;
@@ -162,6 +164,9 @@ public class ModBlocks {
 		
 		MagicalAbsorber = new BlockMagicEnergyAbsorber(Material.rock);
 		GameRegistry.registerBlock(MagicalAbsorber, "magicrnergyabsorber");
+		
+		Semifluidgenerator = new BlockSemiFluidGenerator(Material.rock);
+		GameRegistry.registerBlock(Semifluidgenerator, "semifluidgenerator");
 
 		registerOreDict();
 	}

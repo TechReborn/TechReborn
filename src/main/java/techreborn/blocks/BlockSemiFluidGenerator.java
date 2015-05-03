@@ -21,7 +21,7 @@ import techreborn.tiles.TileMachineCasing;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockAlloySmelter extends BlockMachineBase {
+public class BlockSemiFluidGenerator extends BlockMachineBase {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon iconFront;
@@ -32,10 +32,10 @@ public class BlockAlloySmelter extends BlockMachineBase {
 	@SideOnly(Side.CLIENT)
 	private IIcon iconBottom;
 
-	public BlockAlloySmelter(Material material)
+	public BlockSemiFluidGenerator(Material material)
 	{
 		super(material);
-		setBlockName("techreborn.alloysmelter");
+		setBlockName("techreborn.semifluidgenerator");
 	}
 
 	@Override
@@ -58,10 +58,10 @@ public class BlockAlloySmelter extends BlockMachineBase {
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister icon)
 	{
-		this.blockIcon = icon.registerIcon("techreborn:machine/machine_side");
-		this.iconFront = icon.registerIcon("techreborn:machine/electric_alloy_furnace_front_off");
+		this.blockIcon = icon.registerIcon("techreborn:machine/semifluid_generator_side");
+		this.iconFront = icon.registerIcon("techreborn:machine/semifluid_generator_side");
 		this.iconTop = icon.registerIcon("techreborn:machine/machine_top");
-		this.iconBottom = icon.registerIcon("techreborn:machine/machine_bottom");
+		this.iconBottom = icon.registerIcon("techreborn:machine/machine_bottem");
 	}
 
 	@SideOnly(Side.CLIENT)
