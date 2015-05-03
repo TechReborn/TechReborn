@@ -61,9 +61,8 @@ public class BlockThermalGenerator extends BlockMachineBase {
 	{
 		this.blockIcon = icon.registerIcon("techreborn:machine/machine_side");
 		this.iconFront = icon.registerIcon("techreborn:machine/machine_side");
-		this.iconTop = icon
-				.registerIcon("techreborn:machine/ThermalGenerator_top");
-		this.iconBottom = icon.registerIcon("techreborn:machine/machine_side");
+		this.iconTop = icon.registerIcon("techreborn:machine/thermal_generator_top_off");
+		this.iconBottom = icon.registerIcon("techreborn:machine/thermal_generator_side_off");
 	}
 
 	@SideOnly(Side.CLIENT)
