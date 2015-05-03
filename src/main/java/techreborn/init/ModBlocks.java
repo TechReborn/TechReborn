@@ -17,6 +17,7 @@ import techreborn.blocks.BlockGrinder;
 import techreborn.blocks.BlockHighlyAdvancedMachine;
 import techreborn.blocks.BlockImplosionCompressor;
 import techreborn.blocks.BlockIndustrialElectrolyzer;
+import techreborn.blocks.BlockLathe;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.blocks.BlockMagicEnergyAbsorber;
 import techreborn.blocks.BlockMagicEnergyConverter;
@@ -73,6 +74,7 @@ public class ModBlocks {
 	public static Block Semifluidgenerator;
 	public static Block AlloyFurnace;
 	public static Block ChemicalReactor;
+	public static Block lathe;
 
 	public static Block ore;
 	public static Block storage;
@@ -177,6 +179,9 @@ public class ModBlocks {
 		
 		ChemicalReactor = new BlockChemicalReactor(Material.rock);
 		GameRegistry.registerBlock(ChemicalReactor, "chemicalreactor");
+		
+		lathe = new BlockLathe(Material.rock);
+		GameRegistry.registerBlock(lathe, "lathe");
 
 		registerOreDict();
 	}
