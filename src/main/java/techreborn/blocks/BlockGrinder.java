@@ -56,8 +56,8 @@ public class BlockGrinder extends BlockMachineBase{
 	public void registerBlockIcons(IIconRegister icon)
 	{
 		this.blockIcon = icon.registerIcon("techreborn:machine/machine_side");
-		this.iconFront = icon.registerIcon("techreborn:machine/grinder_front");
-		this.iconTop = icon.registerIcon("techreborn:machine/grinder_top");
+		this.iconFront = icon.registerIcon("techreborn:machine/industrial_grinder_front_off");
+		this.iconTop = icon.registerIcon("techreborn:machine/industrial_grinder_top_off");
 		this.iconBottom = icon.registerIcon("techreborn:machine/machine_side");
 	}
 

@@ -60,7 +60,7 @@ public class BlockAlloySmelter extends BlockMachineBase {
 	{
 		this.blockIcon = icon.registerIcon("techreborn:machine/machine_side");
 		this.iconFront = icon
-				.registerIcon("techreborn:machine/industrial_blast_furnace_front_off");
+				.registerIcon("techreborn:machine/electric_alloy_furnace_front_off");
 		this.iconTop = icon.registerIcon("techreborn:machine/machine_side");
 		this.iconBottom = icon.registerIcon("techreborn:machine/machine_side");
 	}

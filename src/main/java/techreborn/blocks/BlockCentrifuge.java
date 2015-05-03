@@ -56,9 +56,9 @@ public class BlockCentrifuge extends BlockMachineBase {
 	{
 		this.blockIcon = icon.registerIcon("techreborn:machine/machine_side");
 		this.iconFront = icon
-				.registerIcon("techreborn:machine/industrial_blast_furnace_front_off");
+				.registerIcon("techreborn:machine/centrifuge_front_off");
 		this.iconTop = icon
-				.registerIcon("techreborn:machine/industrial_grinder_top_on");
+				.registerIcon("techreborn:machine/machine_side");
 		this.iconBottom = icon.registerIcon("techreborn:machine/machine_side");
 	}
 

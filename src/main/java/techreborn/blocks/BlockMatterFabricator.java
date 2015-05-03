@@ -57,7 +57,7 @@ public class BlockMatterFabricator extends BlockMachineBase{
 	{
 		this.blockIcon = icon.registerIcon("techreborn:machine/machine_side");
 		this.iconFront = icon.registerIcon("techreborn:machine/matterfabricator_front_off");
-		this.iconTop = icon.registerIcon("techreborn:machine/matterfabricator_top");
+		this.iconTop = icon.registerIcon("techreborn:machine/machine_side");
 		this.iconBottom = icon.registerIcon("techreborn:machine/machine_side");
 	}
 

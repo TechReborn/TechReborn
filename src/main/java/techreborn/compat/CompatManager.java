@@ -4,6 +4,7 @@ import techreborn.compat.waila.CompatModuleWaila;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import techreborn.init.ModParts;
+import techreborn.util.LogHelper;
 
 public class CompatManager {
 
@@ -12,6 +13,7 @@ public class CompatManager {
 		if (Loader.isModLoaded("Waila"))
 		{
 			new CompatModuleWaila().init(event);
+			LogHelper.info("Waila Compat Loaded");
 		}
 		if(Loader.isModLoaded("qmunitylib")){
 			// Register Multiparts
