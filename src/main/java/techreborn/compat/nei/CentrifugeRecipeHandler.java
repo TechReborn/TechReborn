@@ -140,7 +140,7 @@ public class CentrifugeRecipeHandler extends TemplateRecipeHandler {
 	public void loadTransferRects()
 	{
 		this.transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(
-				new Rectangle(75, 22, 15, 13), "tr.centrifuge", new Object[0]));
+				new Rectangle(0, 0, 20, 20), "tr.centrifuge", new Object[0]));
 	}
 
 	public void loadCraftingRecipes(String outputId, Object... results)
