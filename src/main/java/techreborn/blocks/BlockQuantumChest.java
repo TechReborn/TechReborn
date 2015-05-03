@@ -16,9 +16,13 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BlockQuantumChest extends BlockMachineBase {
 
 	@SideOnly(Side.CLIENT)
-	private IIcon top;
+	private IIcon iconFront;
+
 	@SideOnly(Side.CLIENT)
-	private IIcon other;
+	private IIcon iconTop;
+
+	@SideOnly(Side.CLIENT)
+	private IIcon iconBottom;
 
 	public BlockQuantumChest()
 	{
@@ -46,21 +50,19 @@ public class BlockQuantumChest extends BlockMachineBase {
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister icon)
 	{
-		top = icon.registerIcon("techreborn:machine/quantum_top");
-		other = icon.registerIcon("techreborn:machine/quantum_chest");
+		this.blockIcon = icon.registerIcon("techreborn:machine/qchest_side");
+		this.iconFront = icon.registerIcon("techreborn:machine/quantum_chest");
+		this.iconTop = icon.registerIcon("techreborn:machine/quantum_top");
+		this.iconBottom = icon.registerIcon("techreborn:machine/machine_bottom");
 	}
 
-	@Override
 	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int currentSide, int meta)
+	public IIcon getIcon(int side, int metadata)
 	{
-		// TODO chest rotation
-		if (currentSide == 1)
-		{
-			return top;
-		} else
-		{
-			return other;
-		}
+
+		return metadata == 0 && side == 3 ? this.iconFront
+				: side == 1 ? this.iconTop : (side == 0 ? this.iconTop
+						: (side == metadata ? this.iconFront : this.blockIcon));
+
 	}
 }

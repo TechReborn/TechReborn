@@ -13,6 +13,7 @@ import techreborn.blocks.BlockGrinder;
 import techreborn.blocks.BlockHighlyAdvancedMachine;
 import techreborn.blocks.BlockImplosionCompressor;
 import techreborn.blocks.BlockMachineCasing;
+import techreborn.blocks.BlockMagicEnergyConverter;
 import techreborn.blocks.BlockMatterFabricator;
 import techreborn.blocks.BlockOre;
 import techreborn.blocks.BlockQuantumChest;
@@ -57,6 +58,7 @@ public class ModBlocks {
 	public static Block ChunkLoader;
 	public static Block HighAdvancedMachineBlock;
 	public static Block Dragoneggenergysiphoner;
+	public static Block Magicenergeyconverter;
 
 	public static Block ore;
 	public static Block storage;
@@ -137,6 +139,9 @@ public class ModBlocks {
 		
 		Dragoneggenergysiphoner = new BlockDragonEggSiphoner(Material.rock);
 		GameRegistry.registerBlock(Dragoneggenergysiphoner, "dragoneggenergsiphon");
+		
+		Magicenergeyconverter = new BlockMagicEnergyConverter(Material.rock);
+		GameRegistry.registerBlock(Magicenergeyconverter, "magicenergyconverter");
 
 		registerOreDict();
 	}
