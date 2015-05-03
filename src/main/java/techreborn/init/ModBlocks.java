@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import techreborn.blocks.BlockAlloyFurnace;
 import techreborn.blocks.BlockAlloySmelter;
 import techreborn.blocks.BlockAssemblingMachine;
 import techreborn.blocks.BlockBlastFurnace;
@@ -69,6 +70,7 @@ public class ModBlocks {
 	public static Block IndustrialElectrolyzer;
 	public static Block MagicalAbsorber;
 	public static Block Semifluidgenerator;
+	public static Block AlloyFurnace;
 
 	public static Block ore;
 	public static Block storage;
@@ -167,6 +169,9 @@ public class ModBlocks {
 		
 		Semifluidgenerator = new BlockSemiFluidGenerator(Material.rock);
 		GameRegistry.registerBlock(Semifluidgenerator, "semifluidgenerator");
+		
+		AlloyFurnace = new BlockAlloyFurnace(Material.rock);
+		GameRegistry.registerBlock(AlloyFurnace, "alloyfurnace");
 
 		registerOreDict();
 	}

@@ -21,7 +21,7 @@ import techreborn.tiles.TileMachineCasing;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockSemiFluidGenerator extends BlockMachineBase {
+public class BlockAlloyFurnace extends BlockMachineBase {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon iconFront;
@@ -32,36 +32,20 @@ public class BlockSemiFluidGenerator extends BlockMachineBase {
 	@SideOnly(Side.CLIENT)
 	private IIcon iconBottom;
 
-	public BlockSemiFluidGenerator(Material material)
+	public BlockAlloyFurnace(Material material)
 	{
 		super(material);
-		setBlockName("techreborn.semifluidgenerator");
-	}
-
-	@Override
-	public TileEntity createNewTileEntity(World world, int p_149915_2_)
-	{
-		return new TileAlloySmelter();
-	}
-	
-	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z,
-			EntityPlayer player, int side, float hitX, float hitY, float hitZ)
-	{
-		if (!player.isSneaking())
-			player.openGui(Core.INSTANCE, GuiHandler.alloySmelterID, world, x, y,
-					z);
-		return true;
+		setBlockName("techreborn.alloyfurnace");
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister icon)
 	{
-		this.blockIcon = icon.registerIcon("techreborn:machine/semifluid_generator_side");
-		this.iconFront = icon.registerIcon("techreborn:machine/semifluid_generator_side");
-		this.iconTop = icon.registerIcon("techreborn:machine/machine_top");
-		this.iconBottom = icon.registerIcon("techreborn:machine/machine_bottom");
+		this.blockIcon = icon.registerIcon("techreborn:machine/alloy_furnace_side");
+		this.iconFront = icon.registerIcon("techreborn:machine/alloy_furnace_front_off");
+		this.iconTop = icon.registerIcon("techreborn:machine/alloy_furnace_top");
+		this.iconBottom = icon.registerIcon("techreborn:machine/alloy_furnace_bottom");
 	}
 
 	@SideOnly(Side.CLIENT)
