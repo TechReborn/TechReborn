@@ -33,53 +33,55 @@ public class TileQuantumChest extends TileMachineBase implements IInventory,
 	@Override
 	public void updateEntity()
 	{
-		if (storedItem != null)
-		{
-			ItemStack fakeStack = storedItem.copy();
-			fakeStack.stackSize = 1;
-			setInventorySlotContents(2, fakeStack);
-		} else
-		{
-			setInventorySlotContents(2, null);
-		}
-
-		if (getStackInSlot(0) != null)
-		{
-			if (storedItem == null)
+		if(!worldObj.isRemote){
+			if (storedItem != null)
 			{
-				storedItem = getStackInSlot(0);
-				setInventorySlotContents(0, null);
-			} else if (ItemUtils.isItemEqual(storedItem, getStackInSlot(0),
-					true, true))
-			{
-				if (storedItem.stackSize <= Integer.MAX_VALUE
-						- getStackInSlot(0).stackSize)
-				{
-					storedItem.stackSize += getStackInSlot(0).stackSize;
-					decrStackSize(0, getStackInSlot(0).stackSize);
-				}
-			}
-		}
-
-		if (storedItem != null && getStackInSlot(1) == null)
-		{
-			ItemStack itemStack = storedItem.copy();
-			itemStack.stackSize = itemStack.getMaxStackSize();
-			setInventorySlotContents(1, itemStack);
-			storedItem.stackSize -= itemStack.getMaxStackSize();
-		} else if (ItemUtils.isItemEqual(getStackInSlot(1), storedItem, true,
-				true))
-		{
-			int wanted = getStackInSlot(1).getMaxStackSize()
-					- getStackInSlot(1).stackSize;
-			if (storedItem.stackSize >= wanted)
-			{
-				decrStackSize(1, -wanted);
-				storedItem.stackSize -= wanted;
+				ItemStack fakeStack = storedItem.copy();
+				fakeStack.stackSize = 1;
+				setInventorySlotContents(2, fakeStack);
 			} else
 			{
-				decrStackSize(1, -storedItem.stackSize);
-				storedItem = null;
+				setInventorySlotContents(2, null);
+			}
+
+			if (getStackInSlot(0) != null)
+			{
+				if (storedItem == null)
+				{
+					storedItem = getStackInSlot(0);
+					setInventorySlotContents(0, null);
+				} else if (ItemUtils.isItemEqual(storedItem, getStackInSlot(0),
+						true, true))
+				{
+					if (storedItem.stackSize <= Integer.MAX_VALUE
+							- getStackInSlot(0).stackSize)
+					{
+						storedItem.stackSize += getStackInSlot(0).stackSize;
+						decrStackSize(0, getStackInSlot(0).stackSize);
+					}
+				}
+			}
+
+			if (storedItem != null && getStackInSlot(1) == null)
+			{
+				ItemStack itemStack = storedItem.copy();
+				itemStack.stackSize = itemStack.getMaxStackSize();
+				setInventorySlotContents(1, itemStack);
+				storedItem.stackSize -= itemStack.getMaxStackSize();
+			} else if (ItemUtils.isItemEqual(getStackInSlot(1), storedItem, true,
+					true))
+			{
+				int wanted = getStackInSlot(1).getMaxStackSize()
+						- getStackInSlot(1).stackSize;
+				if (storedItem.stackSize >= wanted)
+				{
+					decrStackSize(1, -wanted);
+					storedItem.stackSize -= wanted;
+				} else
+				{
+					decrStackSize(1, -storedItem.stackSize);
+					storedItem = null;
+				}
 			}
 		}
 		syncWithAll();
