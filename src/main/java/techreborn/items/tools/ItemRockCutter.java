@@ -32,7 +32,6 @@ public class ItemRockCutter extends ItemPickaxe implements IElectricItem {
 		setUnlocalizedName("techreborn.rockcutter");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
-		setMaxDamage(27);
 		efficiencyOnProperMaterial = 16F;
 	}
 
