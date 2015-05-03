@@ -117,7 +117,6 @@ public class BlastFurnaceRecipeHandler extends TemplateRecipeHandler {
 					+ centrifugeRecipie.centrifugeRecipie.getTickTime() / 20
 					+ " seconds", 14, 114, -1);
 		}
-
 	}
 
 	@Override
@@ -130,7 +129,7 @@ public class BlastFurnaceRecipeHandler extends TemplateRecipeHandler {
 	public void loadTransferRects()
 	{
 		this.transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(
-				new Rectangle(75, 22, 15, 13), "tr.blast", new Object[0]));
+				new Rectangle(0, 0, 20, 20), "tr.blast", new Object[0]));
 	}
 
 	public void loadCraftingRecipes(String outputId, Object... results)

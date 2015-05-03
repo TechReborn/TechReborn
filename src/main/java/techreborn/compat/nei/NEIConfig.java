@@ -22,13 +22,14 @@ public class NEIConfig implements IConfigureNEI {
 	{
 		return ModInfo.MOD_VERSION;
 	}
+    public static BlastFurnaceRecipeHandler blastFurnaceRecipeHandle;
 
 	@Override
 	public void loadConfig() {
         CentrifugeRecipeHandler centrifugeRecipeHandler = new CentrifugeRecipeHandler();
         ShapedRollingMachineHandler shapedRollingMachineHandler = new ShapedRollingMachineHandler();
         ShapelessRollingMachineHandler shapelessRollingMachineHandler = new ShapelessRollingMachineHandler();
-        BlastFurnaceRecipeHandler blastFurnaceRecipeHandler = new BlastFurnaceRecipeHandler();
+        NEIConfig.blastFurnaceRecipeHandle = new BlastFurnaceRecipeHandler();
 
         API.registerRecipeHandler(centrifugeRecipeHandler);
         API.registerUsageHandler(centrifugeRecipeHandler);
@@ -39,7 +40,7 @@ public class NEIConfig implements IConfigureNEI {
         API.registerUsageHandler(shapelessRollingMachineHandler);
         API.registerRecipeHandler(shapelessRollingMachineHandler);
 
-        API.registerUsageHandler(blastFurnaceRecipeHandler);
-        API.registerRecipeHandler(blastFurnaceRecipeHandler);
+        API.registerUsageHandler(NEIConfig.blastFurnaceRecipeHandle);
+        API.registerRecipeHandler(NEIConfig.blastFurnaceRecipeHandle);
     }
 }

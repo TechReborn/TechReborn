@@ -53,37 +53,40 @@ public class TileQuantumTank extends TileMachineBase implements IFluidHandler,
 		inventory.writeToNBT(tagCompound);
 	}
 
-	public Packet getDescriptionPacket()
-	{
-		NBTTagCompound nbtTag = new NBTTagCompound();
-		writeToNBT(nbtTag);
-		return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord,
-				this.zCoord, 1, nbtTag);
-	}
+    public Packet getDescriptionPacket()
+    {
+        NBTTagCompound nbtTag = new NBTTagCompound();
+        writeToNBT(nbtTag);
+        return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord,
+                this.zCoord, 1, nbtTag);
+    }
 
-	@Override
-	public void onDataPacket(NetworkManager net,
-			S35PacketUpdateTileEntity packet)
-	{
-		worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord,
-				yCoord, zCoord);
-		readFromNBT(packet.func_148857_g());
-	}
+    @Override
+    public void onDataPacket(NetworkManager net,
+                             S35PacketUpdateTileEntity packet)
+    {
+        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord,
+                yCoord, zCoord);
+        readFromNBT(packet.func_148857_g());
+    }
 
 	@Override
 	public void updateEntity()
 	{
 		super.updateEntity();
-		FluidUtils.drainContainers(this, inventory, 0, 1);
-		FluidUtils.fillContainers(this, inventory, 0, 1, tank.getFluidType());
-		if (tank.getFluidType() != null && getStackInSlot(2) == null)
-		{
-			inventory.setInventorySlotContents(2, new ItemStack(tank
-					.getFluidType().getBlock()));
-		} else if (tank.getFluidType() == null && getStackInSlot(2) != null)
-		{
-			setInventorySlotContents(2, null);
-		}
+        if(!worldObj.isRemote){
+            FluidUtils.drainContainers(this, inventory, 0, 1);
+            FluidUtils.fillContainers(this, inventory, 0, 1, tank.getFluidType());
+            if (tank.getFluidType() != null && getStackInSlot(2) == null)
+            {
+                inventory.setInventorySlotContents(2, new ItemStack(tank
+                        .getFluidType().getBlock()));
+            } else if (tank.getFluidType() == null && getStackInSlot(2) != null)
+            {
+                setInventorySlotContents(2, null);
+            }
+            syncWithAll();
+        }
 	}
 
 	// IFluidHandler
@@ -138,9 +141,10 @@ public class TileQuantumTank extends TileMachineBase implements IFluidHandler,
 	}
 
 	@Override
-	public ItemStack decrStackSize(int slotId, int count)
-	{
-		return inventory.decrStackSize(slotId, count);
+	public ItemStack decrStackSize(int slotId, int count) {
+        ItemStack stack = inventory.decrStackSize(slotId, count);
+        syncWithAll();
+		return stack;
 	}
 
 	@Override
@@ -153,6 +157,7 @@ public class TileQuantumTank extends TileMachineBase implements IFluidHandler,
 	public void setInventorySlotContents(int slot, ItemStack stack)
 	{
 		inventory.setInventorySlotContents(slot, stack);
+        syncWithAll();
 	}
 
 	@Override
