@@ -23,6 +23,7 @@ import techreborn.blocks.BlockMagicEnergyAbsorber;
 import techreborn.blocks.BlockMagicEnergyConverter;
 import techreborn.blocks.BlockMatterFabricator;
 import techreborn.blocks.BlockOre;
+import techreborn.blocks.BlockPlateCuttingMachine;
 import techreborn.blocks.BlockQuantumChest;
 import techreborn.blocks.BlockQuantumTank;
 import techreborn.blocks.BlockRollingMachine;
@@ -75,6 +76,7 @@ public class ModBlocks {
 	public static Block AlloyFurnace;
 	public static Block ChemicalReactor;
 	public static Block lathe;
+	public static Block platecuttingmachine;
 
 	public static Block ore;
 	public static Block storage;
@@ -182,6 +184,9 @@ public class ModBlocks {
 		
 		lathe = new BlockLathe(Material.rock);
 		GameRegistry.registerBlock(lathe, "lathe");
+		
+		platecuttingmachine = new BlockPlateCuttingMachine(Material.rock);
+		GameRegistry.registerBlock(platecuttingmachine, "platecuttingmachine");
 
 		registerOreDict();
 	}
