@@ -293,9 +293,200 @@ public class ModRecipes {
 		CraftingHelper.addShapedOreRecipe((IC2Items.getItem("iridiumOre")),
 			new Object[]
 			{ 
-				"III", " I ", "III", 
-				'I', ModItems.uuMatter 
+				"UUU", 
+				" U ", 
+				"UUU", 
+				'U', ModItems.uuMatter 
 			});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.log, 8),
+				new Object[]
+				{ 
+				 	" U ", 
+				 	"   ", 
+				 	"   ", 
+					'U', ModItems.uuMatter 
+				});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.stone, 16),
+				new Object[]
+				{ 
+				 	"   ", 
+				 	" U ", 
+				 	"   ", 
+					'U', ModItems.uuMatter 
+				});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.snow, 16),
+				new Object[]
+				{ 
+				 	"U U", 
+				 	"   ", 
+				 	"   ", 
+					'U', ModItems.uuMatter 
+				});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.grass, 16),
+				new Object[]
+				{ 
+				 	"   ", 
+				 	"U  ", 
+				 	"U  ", 
+					'U', ModItems.uuMatter 
+				});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.obsidian, 12),
+				new Object[]
+				{ 
+				 	"U U",
+				 	"U U", 
+				 	"   ", 
+					'U', ModItems.uuMatter 
+				});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.glass, 32),
+				new Object[]
+				{ 
+				 	" U ",
+				 	"U U", 
+				 	" U ", 
+					'U', ModItems.uuMatter 
+				});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.water, 1),
+				new Object[]
+				{ 
+				 	"   ",
+				 	" U ", 
+				 	" U ", 
+					'U', ModItems.uuMatter 
+				});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.lava, 1),
+				new Object[]
+				{ 
+				 	" U ",
+				 	" U ", 
+				 	" U ", 
+					'U', ModItems.uuMatter 
+				});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(Items.dye, 32, 3),
+				new Object[]
+				{ 
+				 	"UU ",
+				 	"  U", 
+				 	"UU ", 
+					'U', ModItems.uuMatter 
+				});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.glowstone, 8),
+				new Object[]
+				{ 
+				 	" U ",
+				 	"U U", 
+				 	"UUU", 
+					'U', ModItems.uuMatter 
+				});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.cactus, 48),
+				new Object[]
+				{ 
+				 	" U ",
+				 	"UUU", 
+				 	"U U", 
+					'U', ModItems.uuMatter 
+				});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(Items.reeds, 48),
+				new Object[]
+				{ 
+				 	"U U",
+				 	"U U", 
+				 	"U U", 
+					'U', ModItems.uuMatter 
+				});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.vine, 24),
+				new Object[]
+				{ 
+				 	"U  ",
+				 	"U  ", 
+				 	"U  ", 
+					'U', ModItems.uuMatter 
+				});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(Items.snowball, 16),
+				new Object[]
+				{ 
+				 	"   ",
+				 	"   ", 
+				 	"UUU", 
+					'U', ModItems.uuMatter 
+				});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(Items.clay_ball, 48),
+				new Object[]
+				{ 
+				 	"UU ",
+				 	"U  ", 
+				 	"UU ", 
+					'U', ModItems.uuMatter 
+				});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.waterlily, 64),
+				new Object[]
+				{ 
+				 	"U U",
+				 	" U ", 
+				 	" U ", 
+					'U', ModItems.uuMatter 
+				});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(Items.gunpowder, 15),
+				new Object[]
+				{ 
+				 	"UUU",
+				 	"U  ", 
+				 	"UUU", 
+					'U', ModItems.uuMatter 
+				});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(Items.bone, 32),
+				new Object[]
+				{ 
+				 	"U  ",
+				 	"UU ", 
+				 	"U  ", 
+					'U', ModItems.uuMatter 
+				});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(Items.feather, 32),
+				new Object[]
+				{ 
+				 	" U ",
+				 	" U ", 
+				 	"U U", 
+					'U', ModItems.uuMatter 
+				});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(Items.dye, 48),
+				new Object[]
+				{ 
+				 	" UU",
+				 	" UU", 
+				 	" U ", 
+					'U', ModItems.uuMatter 
+				});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(Items.ender_pearl, 1),
+				new Object[]
+				{ 
+				 	"UUU",
+				 	"U U", 
+				 	" U ", 
+					'U', ModItems.uuMatter 
+				});
 		
 		if(config.HideUuRecipes);
 			hideUUrecipes();
