@@ -92,6 +92,44 @@ public class ConfigTechReborn {
 	//UU
 	public static boolean HideUuRecipes;
 	public static boolean UUrecipesIridiamOre;
+	public static boolean UUrecipesWood;
+	public static boolean UUrecipesStone;
+	public static boolean UUrecipesSnowBlock;
+	public static boolean UUrecipesGrass;
+	public static boolean UUrecipesObsidian;
+	public static boolean UUrecipesGlass;
+	public static boolean UUrecipesWater;
+	public static boolean UUrecipesLava;
+	public static boolean UUrecipesCocoa;
+	public static boolean UUrecipesGlowstoneBlock;
+	public static boolean UUrecipesCactus;
+	public static boolean UUrecipesSugarCane;
+	public static boolean UUrecipesVine;
+	public static boolean UUrecipesSnowBall;
+	public static boolean UUrecipeslilypad;
+	public static boolean UUrecipesBone;
+	public static boolean UUrecipesFeather;
+	public static boolean UUrecipesInk;
+	public static boolean UUrecipesEnderPearl;
+	//TODO
+	public static boolean UUrecipesCoal;
+	public static boolean UUrecipesIronOre;
+	public static boolean UUrecipesIronDust;
+	public static boolean UUrecipesGoldOre;
+	public static boolean UUrecipesGoldDust;
+	public static boolean UUrecipesRedStone;
+	public static boolean UUrecipesLapis;
+	public static boolean UUrecipesEmeraldOre;
+	public static boolean UUrecipesEmerald;
+	public static boolean UUrecipesDiamond;
+	public static boolean UUrecipesResin;
+	public static boolean UUrecipesTinDust;
+	public static boolean UUrecipesCopperDust;
+	public static boolean UUrecipesLeadDust;
+	public static boolean UUrecipesPlatinumDust;
+	public static boolean UUrecipesTungstenDust;
+	public static boolean UUrecipesTitaniumDust;
+	public static boolean UUrecipesAluminumDust;
 
 
 	public static Configuration config;
