@@ -9,6 +9,7 @@ import techreborn.blocks.BlockBlastFurnace;
 import techreborn.blocks.BlockCentrifuge;
 import techreborn.blocks.BlockChunkLoader;
 import techreborn.blocks.BlockGrinder;
+import techreborn.blocks.BlockHighlyAdvancedMachine;
 import techreborn.blocks.BlockImplosionCompressor;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.blocks.BlockMatterFabricator;
@@ -53,6 +54,7 @@ public class ModBlocks {
 	public static Block ImplosionCompressor;
 	public static Block MatterFabricator;
 	public static Block ChunkLoader;
+	public static Block HighAdvancedMachineBlock;
 
 	public static Block ore;
 	public static Block storage;
@@ -127,6 +129,9 @@ public class ModBlocks {
 		storage = new BlockStorage(Material.rock);
 		GameRegistry.registerBlock(storage, ItemBlockStorage.class, "techreborn.storage");
 		LogHelper.info("TechReborns Blocks Loaded");
+		
+		HighAdvancedMachineBlock = new BlockHighlyAdvancedMachine(Material.rock);
+		GameRegistry.registerBlock(HighAdvancedMachineBlock, "highlyadvancedmachine");
 
 		registerOreDict();
 	}
