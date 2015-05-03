@@ -17,6 +17,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.client.GuiHandler;
+import techreborn.tiles.TileAlloySmelter;
 import techreborn.tiles.TileThermalGenerator;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -36,6 +37,22 @@ public class BlockThermalGenerator extends BlockMachineBase {
 	{
 		super(Material.rock);
 		setHardness(2f);
+	}
+	
+	@Override
+	public TileEntity createNewTileEntity(World world, int p_149915_2_)
+	{
+		return new TileThermalGenerator();
+	}
+	
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z,
+			EntityPlayer player, int side, float hitX, float hitY, float hitZ)
+	{
+		if (!player.isSneaking())
+			player.openGui(Core.INSTANCE, GuiHandler.thermalGeneratorID, world, x, y,
+					z);
+		return true;
 	}
 
 	@Override
