@@ -5,9 +5,11 @@ import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import techreborn.blocks.BlockAlloySmelter;
+import techreborn.blocks.BlockAssemblingMachine;
 import techreborn.blocks.BlockBlastFurnace;
 import techreborn.blocks.BlockCentrifuge;
 import techreborn.blocks.BlockChunkLoader;
+import techreborn.blocks.BlockDieselGenerator;
 import techreborn.blocks.BlockDragonEggSiphoner;
 import techreborn.blocks.BlockGrinder;
 import techreborn.blocks.BlockHighlyAdvancedMachine;
@@ -59,6 +61,8 @@ public class ModBlocks {
 	public static Block HighAdvancedMachineBlock;
 	public static Block Dragoneggenergysiphoner;
 	public static Block Magicenergeyconverter;
+	public static Block AssemblyMachine;
+	public static Block DieselGenerator;
 
 	public static Block ore;
 	public static Block storage;
@@ -142,6 +146,12 @@ public class ModBlocks {
 		
 		Magicenergeyconverter = new BlockMagicEnergyConverter(Material.rock);
 		GameRegistry.registerBlock(Magicenergeyconverter, "magicenergyconverter");
+		
+		AssemblyMachine = new BlockAssemblingMachine(Material.rock);
+		GameRegistry.registerBlock(AssemblyMachine, "assemblymachine");
+		
+		DieselGenerator = new BlockDieselGenerator(Material.rock);
+		GameRegistry.registerBlock(DieselGenerator, "dieselgenerator");
 
 		registerOreDict();
 	}

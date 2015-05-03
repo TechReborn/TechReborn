@@ -55,7 +55,7 @@ public class BlockRollingMachine extends BlockMachineBase {
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister icon)
 	{
-		this.blockIcon = icon.registerIcon("techreborn:machine/rolling_machine_side_off");
+		this.blockIcon = icon.registerIcon("techreborn:machine/machine_side");
 		this.iconFront = icon.registerIcon("techreborn:machine/rolling_machine_side_off");
 		this.iconTop = icon.registerIcon("techreborn:machine/machine_top");
 		this.iconBottom = icon.registerIcon("techreborn:machine/machine_bottom");

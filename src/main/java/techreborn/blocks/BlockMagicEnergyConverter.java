@@ -42,9 +42,9 @@ public class BlockMagicEnergyConverter extends BlockMachineBase {
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister icon)
 	{
-		this.blockIcon = icon.registerIcon("techreborn:machine/magic_energy_absorber_side");
-		this.iconFront = icon.registerIcon("techreborn:machine/magic_energy_converter_front on");
-		this.iconTop = icon.registerIcon("techreborn:machine/magic_energy_absorber_top");
+		this.blockIcon = icon.registerIcon("techreborn:machine/magic_energy_converter_side");
+		this.iconFront = icon.registerIcon("techreborn:machine/magic_energy_converter_front");
+		this.iconTop = icon.registerIcon("techreborn:machine/magic_energy_converter_side");
 		this.iconBottom = icon.registerIcon("techreborn:machine/magic_energy_absorber_bottom");
 	}
 

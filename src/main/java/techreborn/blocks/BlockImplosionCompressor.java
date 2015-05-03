@@ -58,7 +58,7 @@ public class BlockImplosionCompressor extends BlockMachineBase{
 		this.blockIcon = icon.registerIcon("techreborn:machine/machine_side");
 		this.iconFront = icon.registerIcon("techreborn:machine/implosion_compressor_front_off");
 		this.iconTop = icon.registerIcon("techreborn:machine/advanced_machine_side");
-		this.iconBottom = icon.registerIcon("techreborn:machine/machine_side");
+		this.iconBottom = icon.registerIcon("techreborn:machine/implosion_compressor_bottom");
 	}
 
 	@SideOnly(Side.CLIENT)

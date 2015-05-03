@@ -45,7 +45,7 @@ public class BlockDragonEggSiphoner extends BlockMachineBase {
 		this.blockIcon = icon.registerIcon("techreborn:machine/dragon_egg_energy_siphon_side_off");
 		this.iconFront = icon.registerIcon("techreborn:machine/dragon_egg_energy_siphon_side_off");
 		this.iconTop = icon.registerIcon("techreborn:machine/dragon_egg_energy_siphon_top");
-		this.iconBottom = icon.registerIcon("techreborn:machine/dragon_egg_energy_siphon_side_off");
+		this.iconBottom = icon.registerIcon("techreborn:machine/machine_bottom");
 	}
 
 	@SideOnly(Side.CLIENT)
