@@ -45,7 +45,7 @@ public class BlockAssemblingMachine extends BlockMachineBase {
 		this.blockIcon = icon.registerIcon("techreborn:machine/machine_side");
 		this.iconFront = icon.registerIcon("techreborn:machine/assembling_machine_front_off");
 		this.iconTop = icon.registerIcon("techreborn:machine/assembling_machine_top");
-		this.iconBottom = icon.registerIcon("techreborn:machine/machine_side");
+		this.iconBottom = icon.registerIcon("techreborn:machine/machine_bottom");
 	}
 
 	@SideOnly(Side.CLIENT)

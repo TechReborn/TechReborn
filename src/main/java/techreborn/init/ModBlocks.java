@@ -16,6 +16,7 @@ import techreborn.blocks.BlockHighlyAdvancedMachine;
 import techreborn.blocks.BlockImplosionCompressor;
 import techreborn.blocks.BlockIndustrialElectrolyzer;
 import techreborn.blocks.BlockMachineCasing;
+import techreborn.blocks.BlockMagicEnergyAbsorber;
 import techreborn.blocks.BlockMagicEnergyConverter;
 import techreborn.blocks.BlockMatterFabricator;
 import techreborn.blocks.BlockOre;
@@ -65,6 +66,7 @@ public class ModBlocks {
 	public static Block AssemblyMachine;
 	public static Block DieselGenerator;
 	public static Block IndustrialElectrolyzer;
+	public static Block MagicalAbsorber;
 
 	public static Block ore;
 	public static Block storage;
@@ -157,6 +159,9 @@ public class ModBlocks {
 		
 		IndustrialElectrolyzer = new BlockIndustrialElectrolyzer(Material.rock);
 		GameRegistry.registerBlock(IndustrialElectrolyzer, "industrialelectrolyzer");
+		
+		MagicalAbsorber = new BlockMagicEnergyAbsorber(Material.rock);
+		GameRegistry.registerBlock(MagicalAbsorber, "magicrnergyabsorber");
 
 		registerOreDict();
 	}

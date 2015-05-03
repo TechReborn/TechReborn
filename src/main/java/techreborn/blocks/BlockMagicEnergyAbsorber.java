@@ -21,7 +21,7 @@ import techreborn.tiles.TileMachineCasing;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockMagicEnergyConverter extends BlockMachineBase {
+public class BlockMagicEnergyAbsorber extends BlockMachineBase {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon iconFront;
@@ -32,20 +32,20 @@ public class BlockMagicEnergyConverter extends BlockMachineBase {
 	@SideOnly(Side.CLIENT)
 	private IIcon iconBottom;
 
-	public BlockMagicEnergyConverter(Material material)
+	public BlockMagicEnergyAbsorber(Material material)
 	{
 		super(material);
-		setBlockName("techreborn.magicrnergyconverter");
+		setBlockName("techreborn.magicrnergyabsorber");
 	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister icon)
 	{
-		this.blockIcon = icon.registerIcon("techreborn:machine/magic_energy_converter_side");
-		this.iconFront = icon.registerIcon("techreborn:machine/magic_energy_converter_front_off");
-		this.iconTop = icon.registerIcon("techreborn:machine/magic_energy_converter_top");
-		this.iconBottom = icon.registerIcon("techreborn:machine/magic_energy_converter_bottom");
+		this.blockIcon = icon.registerIcon("techreborn:machine/magic_energy_absorber_side");
+		this.iconFront = icon.registerIcon("techreborn:machine/magic_energy_absorber_side");
+		this.iconTop = icon.registerIcon("techreborn:machine/magic_energy_absorber_top");
+		this.iconBottom = icon.registerIcon("techreborn:machine/magic_energy_absorber_bottom");
 	}
 
 	@SideOnly(Side.CLIENT)
