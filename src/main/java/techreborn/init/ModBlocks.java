@@ -9,6 +9,7 @@ import techreborn.blocks.BlockAlloySmelter;
 import techreborn.blocks.BlockAssemblingMachine;
 import techreborn.blocks.BlockBlastFurnace;
 import techreborn.blocks.BlockCentrifuge;
+import techreborn.blocks.BlockChemicalReactor;
 import techreborn.blocks.BlockChunkLoader;
 import techreborn.blocks.BlockDieselGenerator;
 import techreborn.blocks.BlockDragonEggSiphoner;
@@ -71,6 +72,7 @@ public class ModBlocks {
 	public static Block MagicalAbsorber;
 	public static Block Semifluidgenerator;
 	public static Block AlloyFurnace;
+	public static Block ChemicalReactor;
 
 	public static Block ore;
 	public static Block storage;
@@ -172,6 +174,9 @@ public class ModBlocks {
 		
 		AlloyFurnace = new BlockAlloyFurnace(Material.rock);
 		GameRegistry.registerBlock(AlloyFurnace, "alloyfurnace");
+		
+		ChemicalReactor = new BlockChemicalReactor(Material.rock);
+		GameRegistry.registerBlock(ChemicalReactor, "chemicalreactor");
 
 		registerOreDict();
 	}
