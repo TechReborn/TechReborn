@@ -61,7 +61,6 @@ public class ConfigTechReborn {
 	public static boolean SodaliteOreTrue;
 	public static int SodaliteOreRare;
 
-
 	// Power
 	public static int ThermalGenertaorOutput;
 	public static int CentrifugeInputTick;
@@ -88,8 +87,8 @@ public class ConfigTechReborn {
 	public static boolean ExpensiveDrill;
 	public static boolean ExpensiveDiamondDrill;
 	public static boolean ExpensiveSolar;
-	
-	//UU
+
+	// UU
 	public static boolean HideUuRecipes;
 	public static boolean UUrecipesIridiamOre;
 	public static boolean UUrecipesWood;
@@ -112,7 +111,7 @@ public class ConfigTechReborn {
 	public static boolean UUrecipesFeather;
 	public static boolean UUrecipesInk;
 	public static boolean UUrecipesEnderPearl;
-	//TODO
+	// TODO
 	public static boolean UUrecipesCoal;
 	public static boolean UUrecipesIronOre;
 	public static boolean UUrecipesIronDust;
@@ -131,7 +130,6 @@ public class ConfigTechReborn {
 	public static boolean UUrecipesTungstenDust;
 	public static boolean UUrecipesTitaniumDust;
 	public static boolean UUrecipesAluminumDust;
-
 
 	public static Configuration config;
 
@@ -315,7 +313,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.iridiumOre.rare.tooltip"))
 				.getInt();
-		
+
 		RubyOreRare = config
 				.get(CATEGORY_WORLD,
 						StatCollector
@@ -324,7 +322,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.rubyOre.rare.tooltip"))
 				.getInt();
-		
+
 		SapphireOreRare = config
 				.get(CATEGORY_WORLD,
 						StatCollector
@@ -333,7 +331,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.sapphireOre.rare.tooltip"))
 				.getInt();
-		
+
 		BauxiteOreRare = config
 				.get(CATEGORY_WORLD,
 						StatCollector
@@ -342,7 +340,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.bauxiteOre.rare.tooltip"))
 				.getInt();
-		
+
 		PyriteOreRare = config
 				.get(CATEGORY_WORLD,
 						StatCollector
@@ -351,7 +349,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.pyriteOre.rare.tooltip"))
 				.getInt();
-		
+
 		CinnabarOreRare = config
 				.get(CATEGORY_WORLD,
 						StatCollector
@@ -360,7 +358,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.cinnabarOre.rare.tooltip"))
 				.getInt();
-		
+
 		SphaleriteOreRare = config
 				.get(CATEGORY_WORLD,
 						StatCollector
@@ -369,7 +367,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.sphaleriteOre.rare.tooltip"))
 				.getInt();
-		
+
 		TungstenOreRare = config
 				.get(CATEGORY_WORLD,
 						StatCollector
@@ -378,7 +376,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.tungstenOre.rare.tooltip"))
 				.getInt();
-		
+
 		SheldoniteOreRare = config
 				.get(CATEGORY_WORLD,
 						StatCollector
@@ -387,7 +385,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.sheldoniteOre.rare.tooltip"))
 				.getInt();
-		
+
 		OlivineOreRare = config
 				.get(CATEGORY_WORLD,
 						StatCollector
@@ -396,7 +394,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.olivineOre.rare.tooltip"))
 				.getInt();
-		
+
 		SodaliteOreRare = config
 				.get(CATEGORY_WORLD,
 						StatCollector
@@ -405,7 +403,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.sodaliteOre.rare.tooltip"))
 				.getInt();
-		
+
 		CopperOreRare = config
 				.get(CATEGORY_WORLD,
 						StatCollector
@@ -414,7 +412,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.copperOre.rare.tooltip"))
 				.getInt();
-		
+
 		TinOreRare = config
 				.get(CATEGORY_WORLD,
 						StatCollector
@@ -423,7 +421,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.tinOre.rare.tooltip"))
 				.getInt();
-		
+
 		LeadOreRare = config
 				.get(CATEGORY_WORLD,
 						StatCollector
@@ -432,7 +430,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.leadOre.rare.tooltip"))
 				.getInt();
-		
+
 		SilverOreRare = config
 				.get(CATEGORY_WORLD,
 						StatCollector
@@ -625,7 +623,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.allowExpensiveSolarPanels.tooltip"))
 				.getBoolean(true);
-		//Uu
+		// Uu
 		HideUuRecipes = config
 				.get(CATEGORY_UU,
 						StatCollector
@@ -650,7 +648,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.allow.uurecipesWood.tooltip"))
 				.getBoolean(true);
-		
+
 		UUrecipesStone = config
 				.get(CATEGORY_UU,
 						StatCollector
@@ -659,7 +657,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.allow.uurecipesStone.tooltip"))
 				.getBoolean(true);
-		
+
 		UUrecipesSnowBlock = config
 				.get(CATEGORY_UU,
 						StatCollector
@@ -668,7 +666,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.allow.uurecipesSnowBlock.tooltip"))
 				.getBoolean(true);
-		
+
 		UUrecipesGrass = config
 				.get(CATEGORY_UU,
 						StatCollector
@@ -677,7 +675,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.allow.uurecipesGrass.tooltip"))
 				.getBoolean(true);
-		
+
 		UUrecipesObsidian = config
 				.get(CATEGORY_UU,
 						StatCollector
@@ -686,7 +684,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.allow.uurecipesObsidian.tooltip"))
 				.getBoolean(true);
-		
+
 		UUrecipesGlass = config
 				.get(CATEGORY_UU,
 						StatCollector
@@ -695,7 +693,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.allow.uurecipesGlass.tooltip"))
 				.getBoolean(true);
-		
+
 		UUrecipesWater = config
 				.get(CATEGORY_UU,
 						StatCollector
@@ -704,7 +702,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.allow.uurecipesWater.tooltip"))
 				.getBoolean(true);
-		
+
 		UUrecipesLava = config
 				.get(CATEGORY_UU,
 						StatCollector
@@ -713,7 +711,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.allow.uurecipesLava.tooltip"))
 				.getBoolean(true);
-		
+
 		UUrecipesCocoa = config
 				.get(CATEGORY_UU,
 						StatCollector
@@ -722,7 +720,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.allow.uurecipesCocoa.tooltip"))
 				.getBoolean(true);
-		
+
 		UUrecipesGlowstoneBlock = config
 				.get(CATEGORY_UU,
 						StatCollector
@@ -731,7 +729,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.allow.uurecipesGlowstoneBlock.tooltip"))
 				.getBoolean(true);
-		
+
 		UUrecipesCactus = config
 				.get(CATEGORY_UU,
 						StatCollector
@@ -748,7 +746,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.allow.uurecipesSugarCane.tooltip"))
 				.getBoolean(true);
-		
+
 		UUrecipesVine = config
 				.get(CATEGORY_UU,
 						StatCollector
@@ -757,7 +755,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.allow.uurecipesVine.tooltip"))
 				.getBoolean(true);
-		
+
 		UUrecipesSnowBall = config
 				.get(CATEGORY_UU,
 						StatCollector
@@ -766,7 +764,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.allow.uurecipesSnowBall.tooltip"))
 				.getBoolean(true);
-		
+
 		UUrecipeslilypad = config
 				.get(CATEGORY_UU,
 						StatCollector
@@ -775,7 +773,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.allow.uurecipesLilypad.tooltip"))
 				.getBoolean(true);
-		
+
 		UUrecipesBone = config
 				.get(CATEGORY_UU,
 						StatCollector
@@ -784,7 +782,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.allow.uurecipesBone.tooltip"))
 				.getBoolean(true);
-		
+
 		UUrecipesFeather = config
 				.get(CATEGORY_UU,
 						StatCollector
@@ -793,7 +791,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.allow.uurecipesFeather.tooltip"))
 				.getBoolean(true);
-		
+
 		UUrecipesInk = config
 				.get(CATEGORY_UU,
 						StatCollector
@@ -802,7 +800,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.allow.uurecipesInk.tooltip"))
 				.getBoolean(true);
-		
+
 		UUrecipesEnderPearl = config
 				.get(CATEGORY_UU,
 						StatCollector
@@ -811,7 +809,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.allow.uurecipesEnderPearl.tooltip"))
 				.getBoolean(true);
-		
+
 		UUrecipesGunpowder = config
 				.get(CATEGORY_UU,
 						StatCollector
