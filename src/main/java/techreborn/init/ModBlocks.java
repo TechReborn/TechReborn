@@ -15,6 +15,7 @@ import techreborn.blocks.BlockDieselGenerator;
 import techreborn.blocks.BlockDragonEggSiphoner;
 import techreborn.blocks.BlockGrinder;
 import techreborn.blocks.BlockHighlyAdvancedMachine;
+import techreborn.blocks.BlockIDSU;
 import techreborn.blocks.BlockImplosionCompressor;
 import techreborn.blocks.BlockIndustrialElectrolyzer;
 import techreborn.blocks.BlockLathe;
@@ -77,6 +78,7 @@ public class ModBlocks {
 	public static Block ChemicalReactor;
 	public static Block lathe;
 	public static Block platecuttingmachine;
+	public static Block Idsu;
 
 	public static Block ore;
 	public static Block storage;
@@ -187,6 +189,9 @@ public class ModBlocks {
 		
 		platecuttingmachine = new BlockPlateCuttingMachine(Material.rock);
 		GameRegistry.registerBlock(platecuttingmachine, "platecuttingmachine");
+		
+		Idsu = new BlockIDSU(Material.rock);
+		GameRegistry.registerBlock(Idsu, "idsu");
 
 		registerOreDict();
 	}
