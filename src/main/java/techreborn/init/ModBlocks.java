@@ -14,6 +14,7 @@ import techreborn.blocks.BlockDragonEggSiphoner;
 import techreborn.blocks.BlockGrinder;
 import techreborn.blocks.BlockHighlyAdvancedMachine;
 import techreborn.blocks.BlockImplosionCompressor;
+import techreborn.blocks.BlockIndustrialElectrolyzer;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.blocks.BlockMagicEnergyConverter;
 import techreborn.blocks.BlockMatterFabricator;
@@ -63,6 +64,7 @@ public class ModBlocks {
 	public static Block Magicenergeyconverter;
 	public static Block AssemblyMachine;
 	public static Block DieselGenerator;
+	public static Block IndustrialElectrolyzer;
 
 	public static Block ore;
 	public static Block storage;
@@ -152,6 +154,9 @@ public class ModBlocks {
 		
 		DieselGenerator = new BlockDieselGenerator(Material.rock);
 		GameRegistry.registerBlock(DieselGenerator, "dieselgenerator");
+		
+		IndustrialElectrolyzer = new BlockIndustrialElectrolyzer(Material.rock);
+		GameRegistry.registerBlock(IndustrialElectrolyzer, "industrialelectrolyzer");
 
 		registerOreDict();
 	}
