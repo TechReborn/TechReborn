@@ -10,6 +10,7 @@ public class ConfigTechReborn {
 	public static String CATEGORY_WORLD = "world";
 	public static String CATEGORY_POWER = "power";
 	public static String CATEGORY_CRAFTING = "crafting";
+	public static String CATEGORY_UU = "uu";
 
 	// WORLDGEN
 	public static boolean GalenaOreTrue;
@@ -87,6 +88,11 @@ public class ConfigTechReborn {
 	public static boolean ExpensiveDrill;
 	public static boolean ExpensiveDiamondDrill;
 	public static boolean ExpensiveSolar;
+	
+	//UU
+	public static boolean HideUuRecipes;
+	public static boolean UUrecipesIridiamOre;
+
 
 	public static Configuration config;
 
@@ -579,6 +585,23 @@ public class ConfigTechReborn {
 						true,
 						StatCollector
 								.translateToLocal("config.techreborn.allowExpensiveSolarPanels.tooltip"))
+				.getBoolean(true);
+		//Uu
+		HideUuRecipes = config
+				.get(CATEGORY_UU,
+						StatCollector
+								.translateToLocal("config.techreborn.allow.hiderecipes"),
+						true,
+						StatCollector
+								.translateToLocal("config.techreborn.allow.hiderecipes.tooltip"))
+				.getBoolean(true);
+		UUrecipesIridiamOre = config
+				.get(CATEGORY_UU,
+						StatCollector
+								.translateToLocal("config.techreborn.allow.uurecipesIridiamOre"),
+						true,
+						StatCollector
+								.translateToLocal("config.techreborn.allow.uurecipesIridiamOre.tooltip"))
 				.getBoolean(true);
 
 		if (config.hasChanged())

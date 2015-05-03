@@ -35,6 +35,9 @@ public class TechRebornConfigGui extends GuiConfig {
 		list.add(new DummyConfigElement.DummyCategoryElement(StatCollector
 				.translateToLocal("config.techreborn.category.crafting"),
 				"tr.configgui.category.trCrafting", TRCRAFTING.class));
+		list.add(new DummyConfigElement.DummyCategoryElement(StatCollector
+				.translateToLocal("config.techreborn.category.uu"),
+				"tr.configgui.category.truu", TRUU.class));
 
 		return list;
 	}
@@ -128,6 +131,31 @@ public class TechRebornConfigGui extends GuiConfig {
 			return new GuiConfig(this.owningScreen,
 					(new ConfigElement(ConfigTechReborn.config
 							.getCategory(ConfigTechReborn.CATEGORY_CRAFTING)))
+							.getChildElements(), this.owningScreen.modID,
+					Configuration.CATEGORY_GENERAL,
+					this.configElement.requiresWorldRestart()
+							|| this.owningScreen.allRequireWorldRestart,
+					this.configElement.requiresMcRestart()
+							|| this.owningScreen.allRequireMcRestart,
+					GuiConfig.getAbridgedConfigPath(ConfigTechReborn.config
+							.toString()));
+		}
+	}
+	
+	// Crafting
+	public static class TRUU extends CategoryEntry {
+		public TRUU(GuiConfig owningScreen,
+				GuiConfigEntries owningEntryList, IConfigElement configElement)
+		{
+			super(owningScreen, owningEntryList, configElement);
+		}
+
+		@Override
+		protected GuiScreen buildChildScreen()
+		{
+			return new GuiConfig(this.owningScreen,
+					(new ConfigElement(ConfigTechReborn.config
+							.getCategory(ConfigTechReborn.CATEGORY_UU)))
 							.getChildElements(), this.owningScreen.modID,
 					Configuration.CATEGORY_GENERAL,
 					this.configElement.requiresWorldRestart()

@@ -19,7 +19,7 @@ public class ItemUUmatter extends Item{
 	@Override
 	public void registerIcons(IIconRegister iconRegister)
 	{
-		this.itemIcon = iconRegister.registerIcon("techreborn:"+ "uumatter");
+		this.itemIcon = iconRegister.registerIcon("techreborn:"+ "misc/itemMatter");
 	}
 
 }

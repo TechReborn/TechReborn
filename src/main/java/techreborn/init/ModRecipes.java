@@ -1,5 +1,6 @@
 package techreborn.init;
 
+import codechicken.nei.api.API;
 import ic2.api.item.IC2Items;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -23,6 +24,7 @@ public class ModRecipes {
 		addShappedRecipes();
 		addSmeltingRecipes();
 		addMachineRecipes();
+		addUUrecipes();
 	}
 
 	public static void removeIc2Recipes()
@@ -283,6 +285,26 @@ public class ModRecipes {
 				Blocks.cobblestone);
 		TechRebornAPI.registerBlastFurnaceRecipe(new BlastFurnaceRecipe(new ItemStack(Items.apple), new ItemStack(Items.ender_pearl), new ItemStack(Items.golden_apple), new ItemStack(Items.diamond), 120, 1000));
 		LogHelper.info("Machine Recipes Added");
+	}
+	
+	public static void addUUrecipes()
+	{
+		if(config.UUrecipesIridiamOre);
+		CraftingHelper.addShapedOreRecipe((IC2Items.getItem("iridiumOre")),
+			new Object[]
+			{ 
+				"III", " I ", "III", 
+				'I', ModItems.uuMatter 
+			});
+		
+		if(config.HideUuRecipes);
+			hideUUrecipes();
+		
+	}
+	
+	public static void hideUUrecipes()
+	{
+		//TODO
 	}
 
 }
