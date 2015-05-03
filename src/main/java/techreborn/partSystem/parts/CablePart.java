@@ -4,6 +4,7 @@ import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergyConductor;
 import ic2.api.energy.tile.IEnergyTile;
+import ic2.api.item.IC2Items;
 import ic2.core.IC2;
 import ic2.core.block.wiring.TileEntityCable;
 import net.minecraft.client.Minecraft;
@@ -155,7 +156,7 @@ public class CablePart extends ModPart implements IEnergyConductor {
 
     @Override
     public String getItemTextureName() {
-        return "network:networkCable";
+        return IC2Items.getItem(getTextureNameFromType(type)).getIconIndex().getIconName();
     }
 
     @Override
@@ -414,6 +415,58 @@ public class CablePart extends ModPart implements IEnergyConductor {
                 break;
             case 13:
                 p = "insulatedtinCable";
+                break;
+            case 14:
+                p = "unused"; // unused?
+        }
+
+        return p;
+    }
+
+    public static String getTextureNameFromType(int cableType){
+        String p = null;
+        switch(cableType) {
+            case 0:
+                p = "insulatedCopperCableItem";
+                break;
+            case 1:
+                p = "copperCableItem";
+                break;
+            case 2:
+                p = "goldCableItem";
+                break;
+            case 3:
+                p = "insulatedGoldCableItem";
+                break;
+            case 4:
+                p = "doubleInsulatedGoldCableItem";
+                break;
+            case 5:
+                p = "ironCableItem";
+                break;
+            case 6:
+                p = "insulatedIronCableItem";
+                break;
+            case 7:
+                p = "doubleInsulatedIronCableItem";
+                break;
+            case 8:
+                p = "trippleInsulatedIronCableItem";
+                break;
+            case 9:
+                p = "glassFiberCableItem";
+                break;
+            case 10:
+                p = "tinCableItem";
+                break;
+            case 11:
+                p = "detectorCableItem";//Detector
+                break;
+            case 12:
+                p = "splitterCableItem";// Splitter
+                break;
+            case 13:
+                p = "insulatedTinCableItem";
                 break;
             case 14:
                 p = "unused"; // unused?

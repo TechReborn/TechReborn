@@ -1,16 +1,14 @@
 package techreborn.init;
 
-import cpw.mods.fml.common.Mod;
 import techreborn.partSystem.IPartProvider;
 import techreborn.partSystem.ModPartRegistry;
-import techreborn.partSystem.block.WorldProvider;
 import techreborn.partSystem.parts.CablePart;
 
 public class ModParts {
 
 	public static void init()
 	{
-		for (int i = 0; i < 14; i++) {
+		for (int i = 0; i < 13; i++) {
 			ModPartRegistry.registerPart(new CablePart(i));
 		}
 		ModPartRegistry.addProvider(
