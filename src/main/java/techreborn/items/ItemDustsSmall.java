@@ -12,16 +12,22 @@ import techreborn.client.TechRebornCreativeTabMisc;
 
 public class ItemDustsSmall extends ItemTR {
 	public static final String[] types = new String[]
-	{ "Almandine", "Aluminium", "Andradite", "Basalt", "Bauxite", "Brass",
-			"Bronze", "Calcite", "Charcoal", "Chrome", "Cinnabar", "Clay",
-			"Coal", "Copper", "Diamond", "Electrum", "Emerald", "EnderEye",
-			"EnderPearl", "Endstone", "Gold", "GreenSapphire", "Grossular",
-			"Invar", "Iron", "Lazurite", "Lead", "Magnesium", "Marble",
-			"Netherrack", "Nickel", "Obsidian", "Olivine", "Platinum",
-			"Pyrite", "Pyrope", "RedGarnet", "Ruby", "Saltpeter", "Sapphire",
-			"Silver", "Sodalite", "Steel", "Sulfur", "Tin", "Titanium",
-			"Tungsten", "Zinc", };
-
+	{ 		"Almandine", "AluminumBrass", "Aluminium", "Alumite", "Andradite", 
+			"Antimony", "Ardite", "Ashes", "Basalt", "Bauxite", "Biotite"
+			"Brass", "Bronze", "Cadmium", "Calcite", "Charcoal", "Chrome", 
+			"Cinnabar", "Clay", "Coal", "Cobalt", "Copper", "Cupronickel", 
+			"DarkAshes", "DarkIron", "Diamond", "Electrum", "Emerald",
+			"EnderEye", "EnderPearl", "Endstone", "Flint", "Glowstone", "Gold", "Graphite",
+			"Grossular", "Gunpowder", "Indium", "Invar", "Iridium", "Iron", "Lapis", "Lazurite",
+			"Lead", "Limestone", "Lodestone", "Magnesium", "Magnetite", "Manganese", 
+			"Manyullyn", "Marble", "Mithril", "Netherrack", "Nichrome", "Nickel",
+			"Obsidian", "Osmium", "Peridot", "Phosphorous", "Platinum", "PotassiumFeldspar", 
+			"Pyrite", "Pyrope", "RedGarnet", "Redrock", "Redstone" "Ruby", "Saltpeter",
+			"Sapphire", "Silicon", "Sodalite", "Spessartine", "Sphalerite", 
+			"Steel", "Sulfur", "Tellurium", "Teslatite", "Tetrahedrite", "Tin",
+			"Titanium", "Tungsten", "Uvarovite", "Vinteum", "Voidstone", "YellowGarnet",
+			"Zinc" };
+			
 	private IIcon[] textures;
 
 	public ItemDustsSmall()
