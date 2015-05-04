@@ -12,11 +12,9 @@ import techreborn.client.TechRebornCreativeTabMisc;
 
 public class ItemRods extends Item {
 	public static final String[] types = new String[]
-	{ "aluminum", "antimony", "batteryAlloy", "redAlloy", "blueAlloy", "brass",
-			"cadmium", "chrome", "cupronickel", "electrum", "indium",
-			"invar", "iridium", "kanthal", "lodestone", "magnalium", "nichrome", "nickel",
-			"osmium", "platinum", "steel", "tellurium", "titanium",
-			"tungsten", "hotTungstensteel", "tungstensteel", "zinc" };
+	{ "brass", "bronze", "copper", "electrum", "gold", "invar",
+			"iridium", "iron", "lead", "nickel", "platinum",
+			"silver", "steel", "tin", "titanium", "tungsten" };
 
 	private IIcon[] textures;
 
@@ -35,7 +33,7 @@ public class ItemRods extends Item {
 
 		for (int i = 0; i < types.length; ++i)
 		{
-			textures[i] = iconRegister.registerIcon("techreborn:" + "metalRod"
+			textures[i] = iconRegister.registerIcon("techreborn:" + "metalRod/"
 					+ types[i] + "Rod");
 		}
 	}
