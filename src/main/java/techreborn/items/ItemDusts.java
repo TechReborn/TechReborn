@@ -26,7 +26,7 @@ public class ItemDusts extends ItemTR {
 			"sapphire", "silicon", "sodalite", "spessartine", "sphalerite", 
 			"steel", "sulfur", "tellurium", "teslatite", "tetrahedrite", "tin",
 			"titanium", "tungsten", "uvarovite", "vinteum", "voidstone", "yellowGarnet",
-			"Zinc" };
+			"zinc" };
 
 	private IIcon[] textures;
 
