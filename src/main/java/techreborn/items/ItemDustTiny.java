@@ -11,22 +11,21 @@ import net.minecraft.util.IIcon;
 import techreborn.client.TechRebornCreativeTabMisc;
 
 public class ItemDustTiny extends ItemTR {
-	public static final String[] types = new String[]
-	{ 		"almandine", "aluminumBrass", "aluminium", "alumite", "andradite", 
-			"antimony", "ardite", "ashes", "basalt", "bauxite", "biotite",
-			"brass", "bronze", "cadmium", "calcite", "charcoal", "chrome", 
-			"cinnabar", "clay", "coal", "cobalt", "copper", "cupronickel", 
-			"darkAshes", "darkIron", "diamond", "electrum", "emerald",
-			"enderEye", "enderPearl", "endstone", "flint", "gold", "graphite",
-			"grossular", "indium", "invar", "iridium", "iron", "kanthal", "lapis", "lazurite",
-			"lead", "limestone", "lodestone", "magnesium", "magnetite", "manganese", 
-			"manyullyn", "marble", "mithril", "netherrack", "nichrome", "nickel",
-			"obsidian", "osmium", "peridot", "phosphorous", "platinum", "potassiumFeldspar", 
-			"pyrite", "pyrope", "redGarnet", "redrock", "ruby", "saltpeter",
-			"sapphire", "silicon", "sodalite", "spessartine", "sphalerite", 
-			"steel", "sulfur", "tellurium", "teslatite", "tetrahedrite", "tin",
-			"titanium", "tungsten", "uvarovite", "vinteum", "voidstone", "yellowGarnet",
-			"zinc" };
+	"Almandine", "AluminumBrass", "Aluminium", "Alumite", "Andradite", 
+			"Antimony", "Ardite", "Ashes", "Basalt", "Bauxite", "Biotite",
+			"Brass", "Bronze", "Cadmium", "Calcite", "Charcoal", "Chrome", 
+			"Cinnabar", "Clay", "Coal", "Cobalt", "Copper", "Cupronickel", 
+			"DarkAshes", "DarkIron", "Diamond", "Electrum", "Emerald",
+			"EnderEye", "EnderPearl", "Endstone", "Flint", "Glowstone", "Gold", "Graphite",
+			"Grossular", "Gunpowder", "Indium", "Invar", "Iridium", "Iron", "Lapis", "Lazurite",
+			"Lead", "Limestone", "Lodestone", "Magnesium", "Magnetite", "Manganese", 
+			"Manyullyn", "Marble", "Mithril", "Netherrack", "Nichrome", "Nickel",
+			"Obsidian", "Osmium", "Peridot", "Phosphorous", "Platinum", "PotassiumFeldspar", 
+			"Pyrite", "Pyrope", "RedGarnet", "Redrock", "Redstone", "Ruby", "Saltpeter",
+			"Sapphire", "Silicon", "Sodalite", "Spessartine", "Sphalerite", 
+			"Steel", "Sulfur", "Tellurium", "Teslatite", "Tetrahedrite", "Tin",
+			"Titanium", "Tungsten", "Uvarovite", "Vinteum", "Voidstone", "YellowGarnet",
+			"Zinc" };
 
 	private IIcon[] textures;
 
@@ -45,7 +44,7 @@ public class ItemDustTiny extends ItemTR {
 
 		for (int i = 0; i < types.length; ++i)
 		{
-			textures[i] = iconRegister.registerIcon("techreborn:" + "tinyDust/"
+			textures[i] = iconRegister.registerIcon("techreborn:" + "tinyDust/tiny"
 					+ types[i] + "Dust");
 		}
 	}
