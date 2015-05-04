@@ -11,7 +11,8 @@ import net.minecraft.util.IIcon;
 import techreborn.client.TechRebornCreativeTabMisc;
 
 public class ItemDustTiny extends ItemTR {
-	"Almandine", "AluminumBrass", "Aluminium", "Alumite", "Andradite", 
+	public static final String[] types = new String[]
+	{ 		"Almandine", "AluminumBrass", "Aluminium", "Alumite", "Andradite", 
 			"Antimony", "Ardite", "Ashes", "Basalt", "Bauxite", "Biotite",
 			"Brass", "Bronze", "Cadmium", "Calcite", "Charcoal", "Chrome", 
 			"Cinnabar", "Clay", "Coal", "Cobalt", "Copper", "Cupronickel", 
