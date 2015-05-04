@@ -52,7 +52,6 @@ public class BlockMachineCasing extends BlockMultiblockBase {
 	@Override
 	public int damageDropped(int metaData)
 	{
-		// TODO RubyOre Returns Rubys
 		return metaData;
 	}
 
