@@ -12,13 +12,14 @@ import techreborn.client.TechRebornCreativeTabMisc;
 
 public class ItemPlates extends ItemTR {
 	public static final String[] types = new String[]
-	{ "Berylium", "biomass", "calciumCarbonate", "calcium", "carbon",
-			"chlorine", "deuterium", "diesel", "ethanol", "glyceryl",
-			"helium3", "helium", "heliumPlasma", "hydrogen", "ice", "lithium",
-			"mercury", "methane", "nitrocarbon", "nitroCoalfuel",
-			"nitroDiesel", "nitrogen", "nitrogenDioxide", "oil", "potassium",
-			"seedOil", "silicon", "sodium", "sodiumPersulfate",
-			"sodiumSulfide", "sulfur", "sulfuricAcid", "tritium", "wolframium", };
+	{ "aluminum", "batteryAlloy", "brass", "bronze", "carbon",
+			"chrome", "copper", "diamond", "electrum", "emerald",
+			"gold", "invar", "iridium", "iron", "lapis", "lead",
+			"magnalium", "nickel", "obsidian", "osmium",
+			"peridot", "platinum", "redGarnet", "redstone",
+			"ruby", "sapphire", "silicon", "silver", "steel",
+			"teslatite", "titanium", "tungsten", "tungstensteel", 
+			"yellowGarnet", "zinc" };
 
 	private IIcon[] textures;
 
