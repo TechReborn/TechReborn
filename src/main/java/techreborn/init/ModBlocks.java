@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import techreborn.blocks.BlockAesu;
 import techreborn.blocks.BlockAlloyFurnace;
 import techreborn.blocks.BlockAlloySmelter;
 import techreborn.blocks.BlockAssemblingMachine;
@@ -79,6 +80,7 @@ public class ModBlocks {
 	public static Block lathe;
 	public static Block platecuttingmachine;
 	public static Block Idsu;
+	public static Block Aesu;
 
 	public static Block ore;
 	public static Block storage;
@@ -192,6 +194,9 @@ public class ModBlocks {
 		
 		Idsu = new BlockIDSU(Material.rock);
 		GameRegistry.registerBlock(Idsu, "idsu");
+		
+		Aesu = new BlockAesu(Material.rock);
+		GameRegistry.registerBlock(Aesu, "aesu");
 
 		registerOreDict();
 	}
