@@ -10,19 +10,22 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import techreborn.client.TechRebornCreativeTabMisc;
 
-public class ItemDusts extends ItemTR {
-	public static final String[] types = new String[]
-	{ 		"Almandine", "Aluminium", "Andradite", "Ashes", "Basalt", "Bauxite",
-			"Brass", "Bronze", "Calcite", "Charcoal", "Chrome", "Cinnabar",
-			"Clay", "Coal", "Copper", "DarkAshes", "Diamond", "Electrum",
-			"Emerald", "EnderEye", "EnderPearl", "Endstone", "Flint", "Gold",
-			"GreenSapphire", "Grossular", "Invar", "Iron", "Lazurite", "Lead",
-			"Magnesium", "Marble", "Netherrack", "Nickel", "Obsidian",
-			"Olivine", "Phosphor", "Platinum", "Pyrite", "Pyrope", "RedGarnet",
-			"Redrock", "Ruby", "Saltpeter", "Sapphire", "Silver", "Sodalite",
-			"Spessartine", "Sphalerite", "Steel", "Sulfur", "Tin", "Titanium",
-			"Tungsten", "Uranium", "Uvarovite", "YellowGarnet", "Zinc",
-			"Cobalt", "Ardite", "Manyullyn", "AlBrass", "Alumite" };
+public static final String[] types = new String[]
+	{ 		"almandine", "aluminumBrass", "aluminium", "alumite", "andradite", 
+			"antimony", "ardite", "ashes", "basalt", "bauxite", "biotite"
+			"brass", "bronze", "cadmium", "calcite", "charcoal", "chrome", 
+			"cinnabar", "clay", "coal", "cobalt", "copper", "cupronickel", 
+			"darkAshes", "darkIron", "diamond", "electrum", "emerald",
+			"enderEye", "enderPearl", "endstone", "flint", "gold", "graphite",
+			"grossular", "indium", "invar", "iridium", "iron", "kanthal", "lapis", "lazurite",
+			"lead", "limestone", "lodestone", "magnesium", "magnetite", "manganese", 
+			"manyullyn", "marble", "mithril", "netherrack", "nichrome", "nickel",
+			"obsidian", "osmium", "peridot", "phosphorous", "platinum", "potassiumFeldspar", 
+			"pyrite", "pyrope", "redGarnet", "redrock", "ruby", "saltpeter",
+			"sapphire", "silicon", "sodalite", "spessartine", "sphalerite", 
+			"steel", "sulfur", "tellurium", "teslatite", "tetrahedrite", "tin",
+			"titanium", "tungsten", "uvarovite", "vinteum", "voidstone", "yellowGarnet",
+			"Zinc" };
 
 	private IIcon[] textures;
 
