@@ -14,7 +14,7 @@ public class ItemRods extends Item {
 	public static final String[] types = new String[]
 	{ "brass", "bronze", "copper", "electrum", "gold", "invar",
 			"iridium", "iron", "lead", "nickel", "platinum",
-			"silver", "steel", "tin", "titanium", "tungsten" };
+			"silver", "steel", "tin", "titanium", "tungstensteel" };
 
 	private IIcon[] textures;
 
