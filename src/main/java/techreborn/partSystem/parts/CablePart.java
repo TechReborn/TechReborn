@@ -375,10 +375,10 @@ public class CablePart extends ModPart implements IEnergyConductor {
         String p = null;
         switch(cableType) {
             case 0:
-                p = "insulatedCopperCable";
+                p = "copperCable";
                 break;
             case 1:
-                p = "copperCable";
+                p = "insulatedCopperCable";
                 break;
             case 2:
                 p = "goldCable";
