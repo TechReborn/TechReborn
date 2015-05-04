@@ -12,13 +12,16 @@ import techreborn.client.TechRebornCreativeTabMisc;
 
 public class ItemParts extends Item {
 	public static final String[] types = new String[]
-	{ "LazuriteChunk", "SiliconPlate", "MagnaliumPlate", "EnergeyFlowCircuit",
-			"DataControlCircuit", "SuperConductor", "DataStorageCircuit",
-			"ComputerMonitor", "DiamondSawBlade", "DiamondGrinder",
-			"KanthalHeatingCoil", "NichromeHeatingCoil",
-			"CupronickelHeatingCoil", "MachineParts", "WolframiamGrinder",
-			"AluminiumMachineHull", "BronzeMachineHull", "SteelMachineHull",
-			"TitaniumMachineHull", "BrassMachineHull" };
+	{ "basicCircuitBoard", "advancedCircuitBoard", "advancedCircuitParts", "processorCircuitBoard",
+			"energyFlowCircuit", "dataControlCircuit", "dataOrb", "dataStorageCircuit",
+			"diamondGrindingHead", "diamondSawBlade", "tungstenGrindingHead",
+			"heliumCoolantSimple", "heliumCoolantTriple", "heliumCoolantSix",
+			"NaKCoolantSimple", "NaKCoolantTriple", "NaKCoolantSix",
+			"cupronickelHeatingCoil", "nichromeHeatingCoil", "kanthalHeatingCoil",
+			"bronzeGear", "ironGear", "titaniumGear", "steelGear", "tungstenGear",
+			"laserFocus", "ductTape", "lazuriteChunk", "iridiumAlloyIngot", "rockCutterBlade",
+			"thoriumCell", "doubleThoriumCell", "quadThoriumCell", "plutoniumCell", "doublePlutoniumCell", 
+			"quadPlutoniumCell", "destructoPack, "iridiumNeutronReflector" };
 
 	private IIcon[] textures;
 
