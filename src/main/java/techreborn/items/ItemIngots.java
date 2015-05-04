@@ -12,10 +12,11 @@ import techreborn.client.TechRebornCreativeTabMisc;
 
 public class ItemIngots extends Item {
 	public static final String[] types = new String[]
-	{ "iridiumAlloy", "hotTungstenSteel", "tungstenSteel", "iridium", "silver",
-			"aluminium", "titanium", "chrome", "electrum", "tungsten", "lead",
-			"zinc", "brass", "steel", "platinum", "nickel", "invar", "cobalt",
-			"ardite", "manyullyn", "alBrass", "alumite" };
+	{ "aluminum", "antimony", "batteryAlloy", "redAlloy" "blueAlloy", "brass",
+			"cadmium", "chrome", "cupronickel", "electrum", "indium",
+			"invar", "iridium", "kanthal", "lodestone", "magnalium", "nichrome", "nickel",
+			"osmium", "platinum", "steel", "tellurium", "titanium",
+			"tungsten", "hotTungstensteel", "tungstensteel", "zinc" };
 
 	private IIcon[] textures;
 
