@@ -18,7 +18,7 @@ public class ItemCells extends ItemTR {
 			"mercury", "methane", "nitrocarbon", "nitroCoalfuel",
 			"nitroDiesel", "nitrogen", "nitrogenDioxide", "oil", "potassium",
 			"seedOil", "silicon", "sodium", "sodiumPersulfate",
-			"sodiumSulfide", "sulfur", "sulfuricAcid", "wolframium", };
+			"sodiumSulfide", "sulfur", "sulfuricAcid", "tritium", "wolframium", };
 
 	private IIcon[] textures;
 
