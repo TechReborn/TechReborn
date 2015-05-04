@@ -21,7 +21,7 @@ import techreborn.tiles.TileMachineCasing;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockIDSU extends BlockMachineBase {
+public class BlockVacuumFreezer extends BlockMachineBase {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon iconFront;
@@ -32,25 +32,26 @@ public class BlockIDSU extends BlockMachineBase {
 	@SideOnly(Side.CLIENT)
 	private IIcon iconBottom;
 
-	public BlockIDSU(Material material)
+	public BlockVacuumFreezer(Material material)
 	{
 		super(material);
-		setBlockName("techreborn.idsu");
+		setBlockName("techreborn.vacuumfreezer");
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister icon)
 	{
-		this.blockIcon = icon.registerIcon("techreborn:machine/idsu_side");
-		this.iconFront = icon.registerIcon("techreborn:machine/idsu_front");
-		this.iconTop = icon.registerIcon("techreborn:machine/idsu_side");
-		this.iconBottom = icon.registerIcon("techreborn:machine/idsu_side");
+		this.blockIcon = icon.registerIcon("techreborn:machine/machine_side");
+		this.iconFront = icon.registerIcon("techreborn:machine/vacuum_freezer_front");
+		this.iconTop = icon.registerIcon("techreborn:machine/vacuum_freezer_top");
+		this.iconBottom = icon.registerIcon("techreborn:machine/machine_bottom");
 	}
 
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int metadata)
 	{
+
 		return metadata == 0 && side == 3 ? this.iconFront
 				: side == 1 ? this.iconTop : 
 					side == 0 ? this.iconBottom: (side == 0 ? this.iconTop

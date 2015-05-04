@@ -13,7 +13,9 @@ import techreborn.blocks.BlockCentrifuge;
 import techreborn.blocks.BlockChemicalReactor;
 import techreborn.blocks.BlockChunkLoader;
 import techreborn.blocks.BlockDieselGenerator;
+import techreborn.blocks.BlockDistillationTower;
 import techreborn.blocks.BlockDragonEggSiphoner;
+import techreborn.blocks.BlockElectricCraftingTable;
 import techreborn.blocks.BlockGrinder;
 import techreborn.blocks.BlockHighlyAdvancedMachine;
 import techreborn.blocks.BlockIDSU;
@@ -21,10 +23,12 @@ import techreborn.blocks.BlockImplosionCompressor;
 import techreborn.blocks.BlockIndustrialElectrolyzer;
 import techreborn.blocks.BlockLathe;
 import techreborn.blocks.BlockLesu;
+import techreborn.blocks.BlockLesuStorage;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.blocks.BlockMagicEnergyAbsorber;
 import techreborn.blocks.BlockMagicEnergyConverter;
 import techreborn.blocks.BlockMatterFabricator;
+import techreborn.blocks.BlockMetalShelf;
 import techreborn.blocks.BlockOre;
 import techreborn.blocks.BlockPlateCuttingMachine;
 import techreborn.blocks.BlockQuantumChest;
@@ -34,6 +38,7 @@ import techreborn.blocks.BlockSemiFluidGenerator;
 import techreborn.blocks.BlockStorage;
 import techreborn.blocks.BlockSupercondensator;
 import techreborn.blocks.BlockThermalGenerator;
+import techreborn.blocks.BlockVacuumFreezer;
 import techreborn.blocks.BlockWoodenshelf;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.itemblocks.ItemBlockMachineCasing;
@@ -87,6 +92,11 @@ public class ModBlocks {
 	public static Block Lesu;
 	public static Block Supercondensator;
 	public static Block Woodenshelf;
+	public static Block Metalshelf;
+	public static Block LesuStorage;
+	public static Block Distillationtower;
+	public static Block ElectricCraftingTable;
+	public static Block VacuumFreezer;
 
 	public static Block ore;
 	public static Block storage;
@@ -212,6 +222,21 @@ public class ModBlocks {
 		
 		Woodenshelf = new BlockWoodenshelf(Material.wood);
 		GameRegistry.registerBlock(Woodenshelf, "woodenshelf");
+		
+		Metalshelf = new BlockMetalShelf(Material.rock);
+		GameRegistry.registerBlock(Metalshelf, "metalshelf");
+		
+		LesuStorage = new BlockLesuStorage(Material.rock);
+		GameRegistry.registerBlock(LesuStorage, "lesustorage");
+		
+		Distillationtower = new BlockDistillationTower(Material.rock);
+		GameRegistry.registerBlock(Distillationtower, "distillationtower");
+		
+		ElectricCraftingTable = new BlockElectricCraftingTable(Material.rock);
+		GameRegistry.registerBlock(ElectricCraftingTable, "electriccraftingtable");
+		
+		VacuumFreezer = new BlockVacuumFreezer(Material.rock);
+		GameRegistry.registerBlock(VacuumFreezer, "vacuumfreezer");
 
 		registerOreDict();
 	}

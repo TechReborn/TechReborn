@@ -49,10 +49,10 @@ public class BlockChunkLoader extends BlockMachineBase{
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister icon)
 	{
-		this.blockIcon = icon.registerIcon("techreborn:machine/machine_side");
-		this.iconFront = icon.registerIcon("techreborn:machine/machine_side");
-		this.iconTop = icon.registerIcon("techreborn:machine/machine_side");
-		this.iconBottom = icon.registerIcon("techreborn:machine/machine_side");
+		this.blockIcon = icon.registerIcon("techreborn:machine/industrial_chunk_loader_side");
+		this.iconFront = icon.registerIcon("techreborn:machine/industrial_chunk_loader_side");
+		this.iconTop = icon.registerIcon("techreborn:machine/machine_top");
+		this.iconBottom = icon.registerIcon("techreborn:machine/machine_bottom");
 	}
 
 	@SideOnly(Side.CLIENT)
