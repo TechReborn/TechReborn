@@ -20,6 +20,7 @@ import techreborn.blocks.BlockIDSU;
 import techreborn.blocks.BlockImplosionCompressor;
 import techreborn.blocks.BlockIndustrialElectrolyzer;
 import techreborn.blocks.BlockLathe;
+import techreborn.blocks.BlockLesu;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.blocks.BlockMagicEnergyAbsorber;
 import techreborn.blocks.BlockMagicEnergyConverter;
@@ -31,7 +32,9 @@ import techreborn.blocks.BlockQuantumTank;
 import techreborn.blocks.BlockRollingMachine;
 import techreborn.blocks.BlockSemiFluidGenerator;
 import techreborn.blocks.BlockStorage;
+import techreborn.blocks.BlockSupercondensator;
 import techreborn.blocks.BlockThermalGenerator;
+import techreborn.blocks.BlockWoodenshelf;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.itemblocks.ItemBlockMachineCasing;
 import techreborn.itemblocks.ItemBlockOre;
@@ -81,6 +84,9 @@ public class ModBlocks {
 	public static Block platecuttingmachine;
 	public static Block Idsu;
 	public static Block Aesu;
+	public static Block Lesu;
+	public static Block Supercondensator;
+	public static Block Woodenshelf;
 
 	public static Block ore;
 	public static Block storage;
@@ -197,6 +203,15 @@ public class ModBlocks {
 		
 		Aesu = new BlockAesu(Material.rock);
 		GameRegistry.registerBlock(Aesu, "aesu");
+		
+		Lesu = new BlockLesu(Material.rock);
+		GameRegistry.registerBlock(Lesu, "lesu");
+		
+		Supercondensator = new BlockSupercondensator(Material.rock);
+		GameRegistry.registerBlock(Supercondensator, "supercondensator");
+		
+		Woodenshelf = new BlockWoodenshelf(Material.wood);
+		GameRegistry.registerBlock(Woodenshelf, "woodenshelf");
 
 		registerOreDict();
 	}
