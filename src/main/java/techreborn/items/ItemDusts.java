@@ -10,7 +10,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import techreborn.client.TechRebornCreativeTabMisc;
 
-public static final String[] types = new String[]
+public class ItemDusts extends ItemTR {
+	public static final String[] types = new String[]
 	{ 		"almandine", "aluminumBrass", "aluminium", "alumite", "andradite", 
 			"antimony", "ardite", "ashes", "basalt", "bauxite", "biotite"
 			"brass", "bronze", "cadmium", "calcite", "charcoal", "chrome", 
