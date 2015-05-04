@@ -12,8 +12,8 @@ import techreborn.client.TechRebornCreativeTabMisc;
 
 public class ItemGems extends Item {
 	public static final String[] types = new String[]
-	{ "ruby", "sapphire", "peridot", "RedGarnet",
-			"YellowGarnet" };
+	{ "ruby", "sapphire", "peridot", "redGarnet",
+			"rellowGarnet" };
 
 	private IIcon[] textures;
 
