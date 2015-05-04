@@ -6,11 +6,17 @@ import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import techreborn.items.ItemCells;
+import techreborn.items.ItemCrushedOre;
+import techreborn.items.ItemDustTiny;
 import techreborn.items.ItemDusts;
 import techreborn.items.ItemDustsSmall;
 import techreborn.items.ItemGems;
 import techreborn.items.ItemIngots;
+import techreborn.items.ItemNuggets;
 import techreborn.items.ItemParts;
+import techreborn.items.ItemPlates;
+import techreborn.items.ItemPurifiedCrushedOre;
+import techreborn.items.ItemRods;
 import techreborn.items.ItemUUmatter;
 import techreborn.items.armor.ItemGravityChest;
 import techreborn.items.armor.ItemLapotronPack;
@@ -38,6 +44,12 @@ public class ModItems {
 	public static Item advancedDrill;
 	public static Item manuel;
 	public static Item uuMatter;
+	public static Item dustTiny;
+	public static Item plate;
+	public static Item nuggets;
+	public static Item rods;
+	public static Item crushedOre;
+	public static Item purifiedCrushedOre;
 
 	public static void init()
 	{
@@ -69,6 +81,18 @@ public class ModItems {
 		GameRegistry.registerItem(manuel, "techmanuel");
 		uuMatter = new ItemUUmatter();
 		GameRegistry.registerItem(uuMatter, "uumatter");
+		dustTiny = new ItemDustTiny();
+		GameRegistry.registerItem(dustTiny, "dustTiny");
+		plate = new ItemPlates();
+		GameRegistry.registerItem(plate, "plates");
+		nuggets = new ItemNuggets();
+		GameRegistry.registerItem(nuggets, "nuggets");
+		rods = new ItemRods();
+		GameRegistry.registerItem(rods, "rods");
+		crushedOre = new ItemCrushedOre();
+		GameRegistry.registerItem(crushedOre, "crushedore");
+		purifiedCrushedOre = new ItemPurifiedCrushedOre();
+		GameRegistry.registerItem(purifiedCrushedOre, "purifiedCrushedOre");
 
 		LogHelper.info("TechReborns Items Loaded");
 

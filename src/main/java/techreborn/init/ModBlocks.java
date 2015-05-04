@@ -16,6 +16,8 @@ import techreborn.blocks.BlockDieselGenerator;
 import techreborn.blocks.BlockDistillationTower;
 import techreborn.blocks.BlockDragonEggSiphoner;
 import techreborn.blocks.BlockElectricCraftingTable;
+import techreborn.blocks.BlockFusionCoil;
+import techreborn.blocks.BlockFusionControlComputer;
 import techreborn.blocks.BlockGrinder;
 import techreborn.blocks.BlockHighlyAdvancedMachine;
 import techreborn.blocks.BlockIDSU;
@@ -24,12 +26,14 @@ import techreborn.blocks.BlockIndustrialElectrolyzer;
 import techreborn.blocks.BlockLathe;
 import techreborn.blocks.BlockLesu;
 import techreborn.blocks.BlockLesuStorage;
+import techreborn.blocks.BlockLightningRod;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.blocks.BlockMagicEnergyAbsorber;
 import techreborn.blocks.BlockMagicEnergyConverter;
 import techreborn.blocks.BlockMatterFabricator;
 import techreborn.blocks.BlockMetalShelf;
 import techreborn.blocks.BlockOre;
+import techreborn.blocks.BlockPlasmaGenerator;
 import techreborn.blocks.BlockPlateCuttingMachine;
 import techreborn.blocks.BlockQuantumChest;
 import techreborn.blocks.BlockQuantumTank;
@@ -97,6 +101,10 @@ public class ModBlocks {
 	public static Block Distillationtower;
 	public static Block ElectricCraftingTable;
 	public static Block VacuumFreezer;
+	public static Block PlasmaGenerator;
+	public static Block FusionControlComputer;
+	public static Block FusionCoil;
+	public static Block LightningRod;
 
 	public static Block ore;
 	public static Block storage;
@@ -237,6 +245,18 @@ public class ModBlocks {
 		
 		VacuumFreezer = new BlockVacuumFreezer(Material.rock);
 		GameRegistry.registerBlock(VacuumFreezer, "vacuumfreezer");
+		
+		PlasmaGenerator = new BlockPlasmaGenerator(Material.rock);
+		GameRegistry.registerBlock(PlasmaGenerator, "plasmagenerator");
+		
+		FusionControlComputer = new BlockFusionControlComputer(Material.rock);
+		GameRegistry.registerBlock(FusionControlComputer, "fusioncontrolcomputer");
+		
+		FusionCoil = new BlockFusionCoil(Material.rock);
+		GameRegistry.registerBlock(FusionCoil, "fusioncoil");
+		
+		LightningRod = new BlockLightningRod(Material.rock);
+		GameRegistry.registerBlock(LightningRod, "lightningrod");
 
 		registerOreDict();
 	}
