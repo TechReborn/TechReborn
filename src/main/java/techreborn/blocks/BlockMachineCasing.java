@@ -22,7 +22,7 @@ import erogenousbeef.coreTR.multiblock.BlockMultiblockBase;
 public class BlockMachineCasing extends BlockMultiblockBase {
 
 	public static final String[] types = new String[]
-	{ "Standard", "Reinforced", "Advanced" };
+	{ "standard", "reinforced", "advanced" };
 	private IIcon[] textures;
 
 	public BlockMachineCasing(Material material)
