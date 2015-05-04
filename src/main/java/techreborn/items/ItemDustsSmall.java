@@ -13,7 +13,7 @@ import techreborn.client.TechRebornCreativeTabMisc;
 public class ItemDustsSmall extends ItemTR {
 	public static final String[] types = new String[]
 	{ 		"Almandine", "AluminumBrass", "Aluminium", "Alumite", "Andradite", 
-			"Antimony", "Ardite", "Ashes", "Basalt", "Bauxite", "Biotite"
+			"Antimony", "Ardite", "Ashes", "Basalt", "Bauxite", "Biotite",
 			"Brass", "Bronze", "Cadmium", "Calcite", "Charcoal", "Chrome", 
 			"Cinnabar", "Clay", "Coal", "Cobalt", "Copper", "Cupronickel", 
 			"DarkAshes", "DarkIron", "Diamond", "Electrum", "Emerald",
@@ -22,7 +22,7 @@ public class ItemDustsSmall extends ItemTR {
 			"Lead", "Limestone", "Lodestone", "Magnesium", "Magnetite", "Manganese", 
 			"Manyullyn", "Marble", "Mithril", "Netherrack", "Nichrome", "Nickel",
 			"Obsidian", "Osmium", "Peridot", "Phosphorous", "Platinum", "PotassiumFeldspar", 
-			"Pyrite", "Pyrope", "RedGarnet", "Redrock", "Redstone" "Ruby", "Saltpeter",
+			"Pyrite", "Pyrope", "RedGarnet", "Redrock", "Redstone", "Ruby", "Saltpeter",
 			"Sapphire", "Silicon", "Sodalite", "Spessartine", "Sphalerite", 
 			"Steel", "Sulfur", "Tellurium", "Teslatite", "Tetrahedrite", "Tin",
 			"Titanium", "Tungsten", "Uvarovite", "Vinteum", "Voidstone", "YellowGarnet",

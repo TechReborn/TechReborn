@@ -12,7 +12,7 @@ import techreborn.client.TechRebornCreativeTabMisc;
 
 public class ItemIngots extends Item {
 	public static final String[] types = new String[]
-	{ "aluminum", "antimony", "batteryAlloy", "redAlloy" "blueAlloy", "brass",
+	{ "aluminum", "antimony", "batteryAlloy", "redAlloy", "blueAlloy", "brass",
 			"cadmium", "chrome", "cupronickel", "electrum", "indium",
 			"invar", "iridium", "kanthal", "lodestone", "magnalium", "nichrome", "nickel",
 			"osmium", "platinum", "steel", "tellurium", "titanium",

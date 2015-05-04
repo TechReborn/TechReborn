@@ -13,7 +13,7 @@ import techreborn.client.TechRebornCreativeTabMisc;
 public class ItemDusts extends ItemTR {
 	public static final String[] types = new String[]
 	{ 		"almandine", "aluminumBrass", "aluminium", "alumite", "andradite", 
-			"antimony", "ardite", "ashes", "basalt", "bauxite", "biotite"
+			"antimony", "ardite", "ashes", "basalt", "bauxite", "biotite",
 			"brass", "bronze", "cadmium", "calcite", "charcoal", "chrome", 
 			"cinnabar", "clay", "coal", "cobalt", "copper", "cupronickel", 
 			"darkAshes", "darkIron", "diamond", "electrum", "emerald",
