@@ -40,7 +40,7 @@ public class ItemParts extends Item {
 
 		for (int i = 0; i < types.length; ++i)
 		{
-			textures[i] = iconRegister.registerIcon("techreborn:" + "part/"
+			textures[i] = iconRegister.registerIcon("techreborn:" + "component/"
 					+ types[i]);
 		}
 	}
