@@ -12,11 +12,9 @@ import techreborn.client.TechRebornCreativeTabMisc;
 
 public class ItemPurifiedCrushedOre extends Item {
 	public static final String[] types = new String[]
-	{ "aluminum", "antimony", "batteryAlloy", "redAlloy", "blueAlloy", "brass",
-			"cadmium", "chrome", "cupronickel", "electrum", "indium",
-			"invar", "iridium", "kanthal", "lodestone", "magnalium", "nichrome", "nickel",
-			"osmium", "platinum", "steel", "tellurium", "titanium",
-			"tungsten", "hotTungstensteel", "tungstensteel", "zinc" };
+	{ "Ardite", "Bauxite", "Cadmium", "Cinnabar", "Cobalt", "DarkIron",
+			"Indium", "Nickel", "Osmium", "Platinum", "Pyrite", "Sphalerite",
+			"Tetrahedrite", "Tungsten" };
 
 	private IIcon[] textures;
 
@@ -35,7 +33,7 @@ public class ItemPurifiedCrushedOre extends Item {
 
 		for (int i = 0; i < types.length; ++i)
 		{
-			textures[i] = iconRegister.registerIcon("techreborn:" + "purifiedCrushedOre/"
+			textures[i] = iconRegister.registerIcon("techreborn:" + "purifiedCrushedOre/purifiedCrushed"
 					+ types[i] + "Ore");
 		}
 	}
