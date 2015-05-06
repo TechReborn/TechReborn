@@ -18,7 +18,7 @@ public class ItemPlates extends ItemTR {
 			"magnalium", "nickel", "obsidian", "osmium",
 			"peridot", "platinum", "redGarnet", "redstone",
 			"ruby", "sapphire", "silicon", "silver", "steel",
-			"teslatite", "titanium", "tungsten", "tungstensteel", 
+			"teslatite", "tin", "titanium", "tungsten", "tungstensteel",
 			"yellowGarnet", "zinc" };
 
 	private IIcon[] textures;

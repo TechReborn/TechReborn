@@ -12,7 +12,7 @@ import techreborn.client.TechRebornCreativeTabMisc;
 
 public class ItemCrushedOre extends Item {
 	public static final String[] types = new String[]
-	{ "Ardite", "Bauxite", "Cadmium", "Cinnabar", "Cobalt", "DarkIron",
+	{ "Aluminum", "Ardite", "Bauxite", "Cadmium", "Cinnabar", "Cobalt", "DarkIron",
 			"Indium", "Iridium", "Nickel", "Osmium", "Platinum",
 			"Pyrite", "Sphalerite", "Tetrahedrite", "Tungsten" };
 

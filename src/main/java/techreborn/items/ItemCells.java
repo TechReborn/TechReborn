@@ -8,7 +8,7 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.client.TechRebornCreativeTab;
 
 public class ItemCells extends ItemTR {
 	public static final String[] types = new String[]
@@ -26,7 +26,7 @@ public class ItemCells extends ItemTR {
 	{
 		setUnlocalizedName("techreborn.cell");
 		setHasSubtypes(true);
-		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 	}
 
 	@Override

@@ -12,8 +12,8 @@ import techreborn.client.TechRebornCreativeTabMisc;
 
 public class ItemPurifiedCrushedOre extends Item {
 	public static final String[] types = new String[]
-	{ "Ardite", "Bauxite", "Cadmium", "Cinnabar", "Cobalt", "DarkIron",
-			"Indium", "Nickel", "Osmium", "Platinum", "Pyrite", "Sphalerite",
+	{ "Aluminum", "Ardite", "Bauxite", "Cadmium", "Cinnabar", "Cobalt", "DarkIron",
+			"Indium", "Iridium", "Nickel", "Osmium", "Platinum", "Pyrite", "Sphalerite",
 			"Tetrahedrite", "Tungsten" };
 
 	private IIcon[] textures;

@@ -8,7 +8,7 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.client.TechRebornCreativeTab;
 
 public class ItemParts extends Item {
 	public static final String[] types = new String[]
@@ -18,7 +18,7 @@ public class ItemParts extends Item {
 			"heliumCoolantSimple", "heliumCoolantTriple", "heliumCoolantSix",
 			"NaKCoolantSimple", "NaKCoolantTriple", "NaKCoolantSix",
 			"cupronickelHeatingCoil", "nichromeHeatingCoil", "kanthalHeatingCoil",
-			"bronzeGear", "ironGear", "titaniumGear", "steelGear", "tungstenGear",
+			"bronzeGear", "ironGear", "titaniumGear", "steelGear", "tungstensteelGear",
 			"laserFocus", "ductTape", "lazuriteChunk", "iridiumAlloyIngot", "rockCutterBlade",
 			"thoriumCell", "doubleThoriumCell", "quadThoriumCell", "plutoniumCell", "doublePlutoniumCell", 
 			"quadPlutoniumCell", "destructoPack", "iridiumNeutronReflector" };
@@ -27,7 +27,7 @@ public class ItemParts extends Item {
 
 	public ItemParts()
 	{
-		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		setHasSubtypes(true);
 		setUnlocalizedName("techreborn.part");
 	}

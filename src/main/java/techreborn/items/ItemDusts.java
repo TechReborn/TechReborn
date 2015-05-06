@@ -23,7 +23,7 @@ public class ItemDusts extends ItemTR {
 			"manyullyn", "marble", "mithril", "netherrack", "nichrome", "nickel",
 			"obsidian", "osmium", "peridot", "phosphorous", "platinum", "potassiumFeldspar", 
 			"pyrite", "pyrope", "redGarnet", "redrock", "ruby", "saltpeter",
-			"sapphire", "silicon", "sodalite", "spessartine", "sphalerite", 
+			"sapphire", "silicon", "silver", "sodalite", "spessartine", "sphalerite",
 			"steel", "sulfur", "tellurium", "teslatite", "tetrahedrite", "tin",
 			"titanium", "tungsten", "uvarovite", "vinteum", "voidstone", "yellowGarnet",
 			"zinc" };
