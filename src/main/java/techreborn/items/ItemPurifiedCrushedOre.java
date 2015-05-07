@@ -14,7 +14,7 @@ public class ItemPurifiedCrushedOre extends Item {
 	public static final String[] types = new String[]
 	{ "Aluminum", "Ardite", "Bauxite", "Cadmium", "Cinnabar", "Cobalt", "DarkIron",
 			"Indium", "Iridium", "Nickel", "Osmium", "Platinum", "Pyrite", "Sphalerite",
-			"Tetrahedrite", "Tungsten" };
+			"Tetrahedrite", "Tungsten", "Galena" };
 
 	private IIcon[] textures;
 
