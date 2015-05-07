@@ -52,6 +52,7 @@ import techreborn.itemblocks.ItemBlockQuantumChest;
 import techreborn.itemblocks.ItemBlockQuantumTank;
 import techreborn.itemblocks.ItemBlockStorage;
 import techreborn.tiles.TileAlloySmelter;
+import techreborn.tiles.TileAssemblingMachine;
 import techreborn.tiles.TileBlastFurnace;
 import techreborn.tiles.TileCentrifuge;
 import techreborn.tiles.TileChunkLoader;
@@ -192,6 +193,7 @@ public class ModBlocks {
 		
 		AssemblyMachine = new BlockAssemblingMachine(Material.rock);
 		GameRegistry.registerBlock(AssemblyMachine, "assemblymachine");
+		GameRegistry.registerTileEntity(TileAssemblingMachine.class, "TileAssemblyMachine");
 		
 		DieselGenerator = new BlockDieselGenerator(Material.rock);
 		GameRegistry.registerBlock(DieselGenerator, "dieselgenerator");

@@ -16,6 +16,7 @@ import techreborn.Core;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileAlloySmelter;
+import techreborn.tiles.TileAssemblingMachine;
 import techreborn.tiles.TileBlastFurnace;
 import techreborn.tiles.TileMachineCasing;
 import cpw.mods.fml.relauncher.Side;
@@ -46,6 +47,22 @@ public class BlockAssemblingMachine extends BlockMachineBase {
 		this.iconFront = icon.registerIcon("techreborn:machine/assembling_machine_front_off");
 		this.iconTop = icon.registerIcon("techreborn:machine/assembling_machine_top");
 		this.iconBottom = icon.registerIcon("techreborn:machine/machine_bottom");
+	}
+	
+	@Override
+	public TileEntity createNewTileEntity(World world, int p_149915_2_)
+	{
+		return new TileAssemblingMachine();
+	}
+	
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z,
+			EntityPlayer player, int side, float hitX, float hitY, float hitZ)
+	{
+		if (!player.isSneaking())
+			player.openGui(Core.INSTANCE, GuiHandler.assemblingmachineID, world, x, y,
+					z);
+		return true;
 	}
 
 	@SideOnly(Side.CLIENT)
