@@ -24,10 +24,10 @@ public class TROreGen implements IWorldGenerator {
 	WorldGenMinable oreSphalerite;
 	WorldGenMinable oreTungston;
 	WorldGenMinable oreSheldonite;
-	WorldGenMinable oreOlivine;
+	WorldGenMinable orePeridot;
 	WorldGenMinable oreSodalite;
-	WorldGenMinable oreCopper;
-	WorldGenMinable oreTin;
+	WorldGenMinable oreTetrahedrite;
+	WorldGenMinable oreCassiterite;
 	WorldGenMinable oreLead;
 	WorldGenMinable oreSilver;
 
@@ -39,8 +39,8 @@ public class TROreGen implements IWorldGenerator {
 		oreRuby = new WorldGenMinable(ModBlocks.ore, 2, ConfigTechReborn.RubyOreRare, Blocks.stone);
 		oreSapphire = new WorldGenMinable(ModBlocks.ore, 3, ConfigTechReborn.SapphireOreRare, Blocks.stone);
 		oreBauxite = new WorldGenMinable(ModBlocks.ore, 4, ConfigTechReborn.BauxiteOreRare, Blocks.stone);
-		oreCopper = new WorldGenMinable(ModBlocks.ore, 12, ConfigTechReborn.CopperOreRare, Blocks.stone);
-		oreTin = new WorldGenMinable(ModBlocks.ore, 13, ConfigTechReborn.TinOreRare, Blocks.stone);
+		oreTetrahedrite = new WorldGenMinable(ModBlocks.ore, 12, ConfigTechReborn.TetrahedriteOreRare, Blocks.stone);
+		oreCassiterite = new WorldGenMinable(ModBlocks.ore, 13, ConfigTechReborn.CassiteriteOreRare, Blocks.stone);
 		oreLead = new WorldGenMinable(ModBlocks.ore, 14, ConfigTechReborn.LeadOreRare, Blocks.stone);
 		oreSilver = new WorldGenMinable(ModBlocks.ore, 15, ConfigTechReborn.SilverOreRare, Blocks.stone);
 
@@ -52,7 +52,7 @@ public class TROreGen implements IWorldGenerator {
 		// End
 		oreTungston = new WorldGenMinable(ModBlocks.ore, 8, ConfigTechReborn.TungstenOreRare, Blocks.end_stone);
 		oreSheldonite = new WorldGenMinable(ModBlocks.ore, 9, ConfigTechReborn.SheldoniteOreRare, Blocks.end_stone);
-		oreOlivine = new WorldGenMinable(ModBlocks.ore, 10, ConfigTechReborn.OlivineOreRare, Blocks.end_stone);
+		orePeridot = new WorldGenMinable(ModBlocks.ore, 10, ConfigTechReborn.PeridotOreRare, Blocks.end_stone);
 		oreSodalite = new WorldGenMinable(ModBlocks.ore, 11, ConfigTechReborn.SodaliteOreRare, Blocks.end_stone);
 		
 		LogHelper.info("WorldGen Loaded");
@@ -138,24 +138,24 @@ public class TROreGen implements IWorldGenerator {
 				oreBauxite.generate(world, random, xPos, yPos, zPos);
 			}
 		}
-		if (config.CopperOreTrue)
+		if (config.TetrahedriteOreTrue)
 		{
 			for (int i = 0; i <= 16; i++)
 			{
 				xPos = xChunk + random.nextInt(16);
 				yPos = 60 + random.nextInt(60 - 20);
 				zPos = zChunk + random.nextInt(16);
-				oreCopper.generate(world, random, xPos, yPos, zPos);
+				oreTetrahedrite.generate(world, random, xPos, yPos, zPos);
 			}
 		}
-		if (config.TinOreTrue)
+		if (config.CassiteriteOreTrue)
 		{
 			for (int i = 0; i <= 16; i++)
 			{
 				xPos = xChunk + random.nextInt(16);
 				yPos = 60 + random.nextInt(60 - 20);
 				zPos = zChunk + random.nextInt(16);
-				oreTin.generate(world, random, xPos, yPos, zPos);
+				oreCassiterite.generate(world, random, xPos, yPos, zPos);
 			}
 		}
 		if (config.LeadOreTrue)
@@ -238,14 +238,14 @@ public class TROreGen implements IWorldGenerator {
 				oreSheldonite.generate(world, random, xPos, yPos, zPos);
 			}
 		}
-		if (config.OlivineOreTrue)
+		if (config.PeridotOreTrue)
 		{
 			for (int i = 0; i <= 16; i++)
 			{
 				xPos = xChunk + random.nextInt(16);
 				yPos = 60 + random.nextInt(60 - 20);
 				zPos = zChunk + random.nextInt(16);
-				oreOlivine.generate(world, random, xPos, yPos, zPos);
+				orePeridot.generate(world, random, xPos, yPos, zPos);
 			}
 		}
 		if (config.SodaliteOreTrue)

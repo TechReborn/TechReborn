@@ -20,8 +20,8 @@ public class BlockOre extends Block {
 
 	public static final String[] types = new String[]
 	{ "Galena", "Iridium", "Ruby", "Sapphire", "Bauxite", "Pyrite", "Cinnabar",
-			"Sphalerite", "Tungston", "Sheldonite", "Olivine", "Sodalite",
-			"Copper", "Tin", "Lead", "Silver" };
+			"Sphalerite", "Tungston", "Sheldonite", "Peridot", "Sodalite",
+			"Tetrahedrite", "Cassiterite", "Lead", "Silver" };
 
 	private IIcon[] textures;
 

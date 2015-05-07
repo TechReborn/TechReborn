@@ -28,11 +28,11 @@ public class ConfigTechReborn {
 	public static boolean BauxiteOreTrue;
 	public static int BauxiteOreRare;
 
-	public static boolean CopperOreTrue;
-	public static int CopperOreRare;
+	public static boolean TetrahedriteOreTrue;
+	public static int TetrahedriteOreRare;
 
-	public static boolean TinOreTrue;
-	public static int TinOreRare;
+	public static boolean CassiteriteOreTrue;
+	public static int CassiteriteOreRare;
 
 	public static boolean LeadOreTrue;
 	public static int LeadOreRare;
@@ -55,8 +55,8 @@ public class ConfigTechReborn {
 	public static boolean SheldoniteOreTrue;
 	public static int SheldoniteOreRare;
 
-	public static boolean OlivineOreTrue;
-	public static int OlivineOreRare;
+	public static boolean PeridotOreTrue;
+	public static int PeridotOreRare;
 
 	public static boolean SodaliteOreTrue;
 	public static int SodaliteOreRare;
@@ -209,7 +209,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.allow.bauxiteOre.tooltip"))
 				.getBoolean(true);
-		CopperOreTrue = config
+		TetrahedriteOreTrue = config
 				.get(CATEGORY_WORLD,
 						StatCollector
 								.translateToLocal("config.techreborn.allow.copperOre"),
@@ -217,7 +217,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.allow.copperOre.tooltip"))
 				.getBoolean(true);
-		TinOreTrue = config
+		CassiteriteOreTrue = config
 				.get(CATEGORY_WORLD,
 						StatCollector
 								.translateToLocal("config.techreborn.allow.tinOre"),
@@ -281,7 +281,7 @@ public class ConfigTechReborn {
 						StatCollector
 								.translateToLocal("config.techreborn.allow.sheldoniteOre.tooltip"))
 				.getBoolean(true);
-		OlivineOreTrue = config
+		PeridotOreTrue = config
 				.get(CATEGORY_WORLD,
 						StatCollector
 								.translateToLocal("config.techreborn.allow.olivineOre"),
@@ -386,7 +386,7 @@ public class ConfigTechReborn {
 								.translateToLocal("config.techreborn.sheldoniteOre.rare.tooltip"))
 				.getInt();
 
-		OlivineOreRare = config
+		PeridotOreRare = config
 				.get(CATEGORY_WORLD,
 						StatCollector
 								.translateToLocal("config.techreborn.olivineOre.rare"),
@@ -404,7 +404,7 @@ public class ConfigTechReborn {
 								.translateToLocal("config.techreborn.sodaliteOre.rare.tooltip"))
 				.getInt();
 
-		CopperOreRare = config
+		TetrahedriteOreRare = config
 				.get(CATEGORY_WORLD,
 						StatCollector
 								.translateToLocal("config.techreborn.copperOre.rare"),
@@ -413,7 +413,7 @@ public class ConfigTechReborn {
 								.translateToLocal("config.techreborn.copperOre.rare.tooltip"))
 				.getInt();
 
-		TinOreRare = config
+		CassiteriteOreRare = config
 				.get(CATEGORY_WORLD,
 						StatCollector
 								.translateToLocal("config.techreborn.tinOre.rare"),
