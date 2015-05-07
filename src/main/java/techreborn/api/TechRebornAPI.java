@@ -9,6 +9,8 @@ public final class TechRebornAPI {
 
 	public static ArrayList<CentrifugeRecipie> centrifugeRecipies = new ArrayList<CentrifugeRecipie>();
 	public static ArrayList<BlastFurnaceRecipe> blastFurnaceRecipes = new ArrayList<BlastFurnaceRecipe>();
+	public static ArrayList<AlloySmelterRecipe> alloySmelterRecipes = new ArrayList<AlloySmelterRecipe>();
+
 
 	public static void registerCentrifugeRecipe(CentrifugeRecipie recipie)
 	{
@@ -59,6 +61,27 @@ public final class TechRebornAPI {
 			//This adds the same recipe but backwards. so you can swap the inputs
 			blastFurnaceRecipes.add(new BlastFurnaceRecipe(recipie.getInput2(), recipie.getInput1(), recipie.output1, recipie.output2, recipie.tickTime, recipie.minHeat));
 		}
+
+    }
+    
+    public static void registerAlloySmelterRecipe(AlloySmelterRecipe recipie) {
+        boolean shouldAdd = true;
+        for (AlloySmelterRecipe alloySmelterRecipe : alloySmelterRecipes) {
+            if (ItemUtils.isItemEqual(alloySmelterRecipe.getInput1(), recipie.getInput1(), false, true) && ItemUtils.isItemEqual(alloySmelterRecipe.getInput2(), recipie.getInput2(), false, true)) {
+                {
+                    try {
+                        throw new RegisteredItemRecipe(
+                                "Item "
+                                        + recipie.getInput1()
+                                        .getUnlocalizedName()
+                                        + " and " + recipie.getInput2().getUnlocalizedName() + " is already being used in a recipe for the Alloy Smelter");
+                    } catch (RegisteredItemRecipe registeredItemRecipe) {
+                        registeredItemRecipe.printStackTrace();
+                        shouldAdd = false;
+                    }
+                }
+            }
+        }
 
     }
 
