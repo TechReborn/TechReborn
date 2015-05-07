@@ -30,4 +30,16 @@ public interface IBaseRecipeType {
 	 * @return The recipeName
 	 */
 	public String getRecipeName();
+
+	/**
+	 * This is how long the recipe needs to tick for the crafting operation to complete
+	 * @return tick length
+	 */
+	public int tickTime();
+
+	/**
+	 * This is how much eu Per tick the machine should use
+	 * @return the amount of eu to be used per tick.
+	 */
+	public int euPerTick();
 }

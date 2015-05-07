@@ -16,12 +16,18 @@ public abstract class BaseRecipe implements IBaseRecipeType {
 
 	public String name;
 
-	public BaseRecipe(String name) {
+	public int tickTime;
+
+	public int euPerTick;
+
+	public BaseRecipe(String name, int tickTime, int euPerTick) {
 		inputs = new ArrayList<ItemStack>();
 		outputs = new ArrayList<ItemStack>();
 		this.name = name;
 		//This adds all new recipes
 		RecipeHanderer.addRecipe(this);
+		this.tickTime = tickTime;
+		this.euPerTick = euPerTick;
 	}
 
 	@Override
@@ -37,5 +43,15 @@ public abstract class BaseRecipe implements IBaseRecipeType {
 	@Override
 	public String getRecipeName() {
 		return name;
+	}
+
+	@Override
+	public int tickTime() {
+		return tickTime;
+	}
+
+	@Override
+	public int euPerTick() {
+		return euPerTick;
 	}
 }
