@@ -3,6 +3,7 @@ package techreborn.client.gui;
 import techreborn.client.container.ContainerGrinder;
 import techreborn.client.container.ContainerImplosionCompressor;
 import techreborn.tiles.TileImplosionCompressor;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,6 +26,16 @@ public class GuiImplosionCompressor extends GuiContainer{
 		compresser = tilecompresser;
 
 	}
+	
+    @Override
+    public void initGui() {
+
+        this.buttonList.clear();
+        int k = (this.width - this.xSize) / 2;
+        int l = (this.height - this.ySize) / 2;
+        this.buttonList.add(new GuiButton(0, k + 4,  l + 4, 20, 20, "R"));
+        super.initGui();
+    }
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float p_146976_1_,
