@@ -1,11 +1,12 @@
-package techreborn.blocks;
+package techreborn.blocks.machine;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import techreborn.Core;
+import techreborn.blocks.BlockMachineBase;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
-import techreborn.tiles.TileMatterFabricator;
+import techreborn.tiles.TileImplosionCompressor;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -18,7 +19,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class BlockMatterFabricator extends BlockMachineBase{
+public class BlockImplosionCompressor extends BlockMachineBase{
 	
 	@SideOnly(Side.CLIENT)
 	private IIcon iconFront;
@@ -29,16 +30,16 @@ public class BlockMatterFabricator extends BlockMachineBase{
 	@SideOnly(Side.CLIENT)
 	private IIcon iconBottom;
 
-	public BlockMatterFabricator(Material material)
+	public BlockImplosionCompressor(Material material)
 	{
 		super(material);
-		setBlockName("techreborn.matterfabricator");
+		setBlockName("techreborn.implosioncompressor");
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
 	{
-		return new TileMatterFabricator();
+		return new TileImplosionCompressor();
 	}
 	
 	@Override
@@ -46,7 +47,7 @@ public class BlockMatterFabricator extends BlockMachineBase{
 			EntityPlayer player, int side, float hitX, float hitY, float hitZ)
 	{
 		if (!player.isSneaking())
-			player.openGui(Core.INSTANCE, GuiHandler.matterfabID, world, x, y,
+			player.openGui(Core.INSTANCE, GuiHandler.compresserID, world, x, y,
 					z);
 		return true;
 	}
@@ -55,10 +56,10 @@ public class BlockMatterFabricator extends BlockMachineBase{
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister icon)
 	{
-		this.blockIcon = icon.registerIcon("techreborn:machine/matterfab_off");
-		this.iconFront = icon.registerIcon("techreborn:machine/matterfab_off");
-		this.iconTop = icon.registerIcon("techreborn:machine/matterfab_off");
-		this.iconBottom = icon.registerIcon("techreborn:machine/matterfab_off");
+		this.blockIcon = icon.registerIcon("techreborn:machine/machine_side");
+		this.iconFront = icon.registerIcon("techreborn:machine/implosion_compressor_front_off");
+		this.iconTop = icon.registerIcon("techreborn:machine/advanced_machine_side");
+		this.iconBottom = icon.registerIcon("techreborn:machine/implosion_compressor_bottom");
 	}
 
 	@SideOnly(Side.CLIENT)

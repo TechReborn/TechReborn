@@ -1,4 +1,4 @@
-package techreborn.blocks;
+package techreborn.blocks.storage;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -13,6 +13,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.Core;
+import techreborn.blocks.BlockMachineBase;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileAlloySmelter;
@@ -21,7 +22,7 @@ import techreborn.tiles.TileMachineCasing;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockChemicalReactor extends BlockMachineBase {
+public class BlockIDSU extends BlockMachineBase {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon iconFront;
@@ -32,26 +33,25 @@ public class BlockChemicalReactor extends BlockMachineBase {
 	@SideOnly(Side.CLIENT)
 	private IIcon iconBottom;
 
-	public BlockChemicalReactor(Material material)
+	public BlockIDSU(Material material)
 	{
 		super(material);
-		setBlockName("techreborn.chemicalreactor");
+		setBlockName("techreborn.idsu");
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister icon)
 	{
-		this.blockIcon = icon.registerIcon("techreborn:machine/machine_side");
-		this.iconFront = icon.registerIcon("techreborn:machine/chemical_reactor_side_off");
-		this.iconTop = icon.registerIcon("techreborn:machine/machine_top");
-		this.iconBottom = icon.registerIcon("techreborn:machine/machine_bottom");
+		this.blockIcon = icon.registerIcon("techreborn:machine/idsu_side");
+		this.iconFront = icon.registerIcon("techreborn:machine/idsu_front");
+		this.iconTop = icon.registerIcon("techreborn:machine/idsu_side");
+		this.iconBottom = icon.registerIcon("techreborn:machine/idsu_side");
 	}
 
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int metadata)
 	{
-
 		return metadata == 0 && side == 3 ? this.iconFront
 				: side == 1 ? this.iconTop : 
 					side == 0 ? this.iconBottom: (side == 0 ? this.iconTop

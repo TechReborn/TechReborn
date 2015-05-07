@@ -1,4 +1,4 @@
-package techreborn.blocks;
+package techreborn.blocks.generator;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -13,6 +13,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.Core;
+import techreborn.blocks.BlockMachineBase;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileAlloySmelter;
@@ -21,7 +22,7 @@ import techreborn.tiles.TileMachineCasing;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockIndustrialElectrolyzer extends BlockMachineBase {
+public class BlockMagicEnergyAbsorber extends BlockMachineBase {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon iconFront;
@@ -32,20 +33,20 @@ public class BlockIndustrialElectrolyzer extends BlockMachineBase {
 	@SideOnly(Side.CLIENT)
 	private IIcon iconBottom;
 
-	public BlockIndustrialElectrolyzer(Material material)
+	public BlockMagicEnergyAbsorber(Material material)
 	{
 		super(material);
-		setBlockName("techreborn.industrialelectrolyzer");
+		setBlockName("techreborn.magicrnergyabsorber");
 	}
-
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister icon)
 	{
-		this.blockIcon = icon.registerIcon("techreborn:machine/industrial_electrolyzer_front_off");
-		this.iconFront = icon.registerIcon("techreborn:machine/industrial_electrolyzer_front_off");
-		this.iconTop = icon.registerIcon("techreborn:machine/machine_top");
-		this.iconBottom = icon.registerIcon("techreborn:machine/machine_bottom");
+		this.blockIcon = icon.registerIcon("techreborn:machine/magic_energy_absorber_side");
+		this.iconFront = icon.registerIcon("techreborn:machine/magic_energy_absorber_side");
+		this.iconTop = icon.registerIcon("techreborn:machine/magic_energy_absorber_top");
+		this.iconBottom = icon.registerIcon("techreborn:machine/magic_energy_absorber_bottom");
 	}
 
 	@SideOnly(Side.CLIENT)

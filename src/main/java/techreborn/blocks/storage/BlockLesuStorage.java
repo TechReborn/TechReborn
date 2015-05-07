@@ -1,4 +1,4 @@
-package techreborn.blocks;
+package techreborn.blocks.storage;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -13,6 +13,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.Core;
+import techreborn.blocks.BlockMachineBase;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileAlloySmelter;

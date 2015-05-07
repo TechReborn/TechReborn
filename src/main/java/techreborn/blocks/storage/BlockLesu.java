@@ -1,4 +1,4 @@
-package techreborn.blocks;
+package techreborn.blocks.storage;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -13,6 +13,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.Core;
+import techreborn.blocks.BlockMachineBase;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileAlloySmelter;
@@ -21,7 +22,7 @@ import techreborn.tiles.TileMachineCasing;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockDieselGenerator extends BlockMachineBase {
+public class BlockLesu extends BlockMachineBase {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon iconFront;
@@ -32,20 +33,20 @@ public class BlockDieselGenerator extends BlockMachineBase {
 	@SideOnly(Side.CLIENT)
 	private IIcon iconBottom;
 
-	public BlockDieselGenerator(Material material)
+	public BlockLesu(Material material)
 	{
 		super(material);
-		setBlockName("techreborn.dieselgenerator");
+		setBlockName("techreborn.lesu");
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister icon)
 	{
-		this.blockIcon = icon.registerIcon("techreborn:machine/machine_side");
-		this.iconFront = icon.registerIcon("techreborn:machine/machine_side");
-		this.iconTop = icon.registerIcon("techreborn:machine/diesel_generator_top_off");
-		this.iconBottom = icon.registerIcon("techreborn:machine/machine_bottom");
+		this.blockIcon = icon.registerIcon("techreborn:machine/lesu_side");
+		this.iconFront = icon.registerIcon("techreborn:machine/lesu_front");
+		this.iconTop = icon.registerIcon("techreborn:machine/lesu_side");
+		this.iconBottom = icon.registerIcon("techreborn:machine/lesu_side");
 	}
 
 	@SideOnly(Side.CLIENT)

@@ -1,5 +1,12 @@
-package techreborn.blocks;
+package techreborn.blocks.machine;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import techreborn.Core;
+import techreborn.blocks.BlockMachineBase;
+import techreborn.client.GuiHandler;
+import techreborn.client.TechRebornCreativeTab;
+import techreborn.tiles.TileGrinder;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -11,14 +18,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import techreborn.Core;
-import techreborn.client.GuiHandler;
-import techreborn.tiles.TileCentrifuge;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockCentrifuge extends BlockMachineBase {
-
+public class BlockGrinder extends BlockMachineBase{
+	
 	@SideOnly(Side.CLIENT)
 	private IIcon iconFront;
 
@@ -28,36 +30,36 @@ public class BlockCentrifuge extends BlockMachineBase {
 	@SideOnly(Side.CLIENT)
 	private IIcon iconBottom;
 
-	public BlockCentrifuge()
+	public BlockGrinder(Material material)
 	{
-		super(Material.rock);
-		setHardness(2F);
+		super(material);
+		setBlockName("techreborn.grinder");
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
 	{
-		return new TileCentrifuge();
+		return new TileGrinder();
 	}
-
+	
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z,
 			EntityPlayer player, int side, float hitX, float hitY, float hitZ)
 	{
 		if (!player.isSneaking())
-			player.openGui(Core.INSTANCE, GuiHandler.centrifugeID, world, x, y,
+			player.openGui(Core.INSTANCE, GuiHandler.grinderID, world, x, y,
 					z);
 		return true;
 	}
-
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister icon)
 	{
-		this.blockIcon = icon.registerIcon("techreborn:machine/industrial_centrifuge_side_off");
-		this.iconFront = icon.registerIcon("techreborn:machine/industrial_centrifuge_side_off");
-		this.iconTop = icon.registerIcon("techreborn:machine/industrial_centrifuge_top_off");
-		this.iconBottom = icon.registerIcon("techreborn:machine/industrial_centrifuge_bottom");
+		this.blockIcon = icon.registerIcon("techreborn:machine/machine_side");
+		this.iconFront = icon.registerIcon("techreborn:machine/industrial_grinder_front_off");
+		this.iconTop = icon.registerIcon("techreborn:machine/industrial_grinder_top_off");
+		this.iconBottom = icon.registerIcon("techreborn:machine/machine_bottom");
 	}
 
 	@SideOnly(Side.CLIENT)

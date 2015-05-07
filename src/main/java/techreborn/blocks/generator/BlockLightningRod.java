@@ -1,4 +1,4 @@
-package techreborn.blocks;
+package techreborn.blocks.generator;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -13,6 +13,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.Core;
+import techreborn.blocks.BlockMachineBase;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileAlloySmelter;
@@ -21,7 +22,7 @@ import techreborn.tiles.TileMachineCasing;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockAesu extends BlockMachineBase {
+public class BlockLightningRod extends BlockMachineBase {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon iconFront;
@@ -32,20 +33,20 @@ public class BlockAesu extends BlockMachineBase {
 	@SideOnly(Side.CLIENT)
 	private IIcon iconBottom;
 
-	public BlockAesu(Material material)
+	public BlockLightningRod(Material material)
 	{
 		super(material);
-		setBlockName("techreborn.aesu");
+		setBlockName("techreborn.lightningrod");
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister icon)
 	{
-		this.blockIcon = icon.registerIcon("techreborn:machine/aesu_side");
-		this.iconFront = icon.registerIcon("techreborn:machine/aesu_front");
-		this.iconTop = icon.registerIcon("techreborn:machine/aesu_side");
-		this.iconBottom = icon.registerIcon("techreborn:machine/aesu_side");
+		this.blockIcon = icon.registerIcon("techreborn:machine/idsu_front");
+		this.iconFront = icon.registerIcon("techreborn:machine/idsu_front");
+		this.iconTop = icon.registerIcon("techreborn:machine/lightning_rod_top");
+		this.iconBottom = icon.registerIcon("techreborn:machine/extreme_voltage_machine_side");
 	}
 
 	@SideOnly(Side.CLIENT)

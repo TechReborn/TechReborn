@@ -1,4 +1,4 @@
-package techreborn.blocks;
+package techreborn.blocks.generator;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -13,6 +13,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.Core;
+import techreborn.blocks.BlockMachineBase;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileAlloySmelter;
@@ -21,7 +22,7 @@ import techreborn.tiles.TileMachineCasing;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockVacuumFreezer extends BlockMachineBase {
+public class BlockSemiFluidGenerator extends BlockMachineBase {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon iconFront;
@@ -32,19 +33,35 @@ public class BlockVacuumFreezer extends BlockMachineBase {
 	@SideOnly(Side.CLIENT)
 	private IIcon iconBottom;
 
-	public BlockVacuumFreezer(Material material)
+	public BlockSemiFluidGenerator(Material material)
 	{
 		super(material);
-		setBlockName("techreborn.vacuumfreezer");
+		setBlockName("techreborn.semifluidgenerator");
+	}
+
+	@Override
+	public TileEntity createNewTileEntity(World world, int p_149915_2_)
+	{
+		return new TileAlloySmelter();
+	}
+	
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z,
+			EntityPlayer player, int side, float hitX, float hitY, float hitZ)
+	{
+		if (!player.isSneaking())
+			player.openGui(Core.INSTANCE, GuiHandler.alloySmelterID, world, x, y,
+					z);
+		return true;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister icon)
 	{
-		this.blockIcon = icon.registerIcon("techreborn:machine/machine_side");
-		this.iconFront = icon.registerIcon("techreborn:machine/vacuum_freezer_front");
-		this.iconTop = icon.registerIcon("techreborn:machine/vacuum_freezer_top");
+		this.blockIcon = icon.registerIcon("techreborn:machine/semifluid_generator_side");
+		this.iconFront = icon.registerIcon("techreborn:machine/semifluid_generator_side");
+		this.iconTop = icon.registerIcon("techreborn:machine/machine_top");
 		this.iconBottom = icon.registerIcon("techreborn:machine/machine_bottom");
 	}
 
