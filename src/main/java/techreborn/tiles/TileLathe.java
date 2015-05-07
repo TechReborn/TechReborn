@@ -68,7 +68,7 @@ public class TileLathe extends TileMachineBase implements IWrenchable {
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
 	{
-		return new ItemStack(ModBlocks.AlloySmelter, 1);
+		return new ItemStack(ModBlocks.lathe, 1);
 	}
 
 	public boolean isComplete()

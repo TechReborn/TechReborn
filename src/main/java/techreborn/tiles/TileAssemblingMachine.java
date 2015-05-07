@@ -69,7 +69,7 @@ public class TileAssemblingMachine extends TileMachineBase implements IWrenchabl
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
 	{
-		return new ItemStack(ModBlocks.AlloySmelter, 1);
+		return new ItemStack(ModBlocks.AssemblyMachine, 1);
 	}
 
 	public boolean isComplete()
