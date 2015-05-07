@@ -11,6 +11,7 @@ import techreborn.client.container.ContainerGrinder;
 import techreborn.client.container.ContainerImplosionCompressor;
 import techreborn.client.container.ContainerLathe;
 import techreborn.client.container.ContainerMatterFabricator;
+import techreborn.client.container.ContainerPlateCuttingMachine;
 import techreborn.client.container.ContainerQuantumChest;
 import techreborn.client.container.ContainerQuantumTank;
 import techreborn.client.container.ContainerRollingMachine;
@@ -24,6 +25,7 @@ import techreborn.client.gui.GuiGrinder;
 import techreborn.client.gui.GuiImplosionCompressor;
 import techreborn.client.gui.GuiLathe;
 import techreborn.client.gui.GuiMatterFabricator;
+import techreborn.client.gui.GuiPlateCuttingMachine;
 import techreborn.client.gui.GuiQuantumChest;
 import techreborn.client.gui.GuiQuantumTank;
 import techreborn.client.gui.GuiRollingMachine;
@@ -38,6 +40,7 @@ import techreborn.tiles.TileGrinder;
 import techreborn.tiles.TileImplosionCompressor;
 import techreborn.tiles.TileLathe;
 import techreborn.tiles.TileMatterFabricator;
+import techreborn.tiles.TilePlateCuttingMachine;
 import techreborn.tiles.TileQuantumChest;
 import techreborn.tiles.TileQuantumTank;
 import techreborn.tiles.TileRollingMachine;
@@ -60,6 +63,8 @@ public class GuiHandler implements IGuiHandler {
 	public static final int chunkloaderID = 11;
 	public static final int assemblingmachineID = 12;
 	public static final int latheID = 13;
+	public static final int platecuttingmachineID = 14;
+
 
 
 	@Override
@@ -118,6 +123,10 @@ public class GuiHandler implements IGuiHandler {
 		{
 			return new ContainerLathe(
 					(TileLathe) world.getTileEntity(x, y, z), player);
+		} else if (ID == platecuttingmachineID)
+		{
+			return new ContainerPlateCuttingMachine(
+					(TilePlateCuttingMachine) world.getTileEntity(x, y, z), player);
 		} else if (ID == pdaID)
 		{
 			return null;
@@ -182,6 +191,10 @@ public class GuiHandler implements IGuiHandler {
 		{
 			return new GuiLathe(player,
 					(TileLathe) world.getTileEntity(x, y, z));	
+		} else if (ID == platecuttingmachineID)
+		{
+			return new GuiPlateCuttingMachine(player,
+					(TilePlateCuttingMachine) world.getTileEntity(x, y, z));	
 		} else if (ID == pdaID)
 		{
 			return new GuiPda(player);

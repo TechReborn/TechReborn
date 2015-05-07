@@ -61,6 +61,7 @@ import techreborn.tiles.TileImplosionCompressor;
 import techreborn.tiles.TileLathe;
 import techreborn.tiles.TileMachineCasing;
 import techreborn.tiles.TileMatterFabricator;
+import techreborn.tiles.TilePlateCuttingMachine;
 import techreborn.tiles.TileQuantumChest;
 import techreborn.tiles.TileQuantumTank;
 import techreborn.tiles.TileRollingMachine;
@@ -220,6 +221,7 @@ public class ModBlocks {
 		
 		platecuttingmachine = new BlockPlateCuttingMachine(Material.rock);
 		GameRegistry.registerBlock(platecuttingmachine, "platecuttingmachine");
+		GameRegistry.registerTileEntity(TilePlateCuttingMachine.class, "TilePlateCuttingMachine");
 		
 		Idsu = new BlockIDSU(Material.rock);
 		GameRegistry.registerBlock(Idsu, "idsu");
