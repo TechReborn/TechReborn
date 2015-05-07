@@ -4,6 +4,7 @@ import ic2.api.energy.prefab.BasicSink;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.util.Inventory;
 
@@ -12,6 +13,19 @@ public class TileAlloySmelter extends TileMachineBase implements IWrenchable {
 	public int tickTime;
 	public BasicSink energy;
 	public Inventory inventory = new Inventory(3, "TileAlloySmelter", 64);
+	
+	public TileAlloySmelter()
+	{
+		//TODO configs
+		energy = new BasicSink(this, 1000, 2);
+	}
+	
+	@Override
+	public void updateEntity()
+	{
+		super.updateEntity();
+		energy.updateEntity();
+	}
 	
 
 	@Override
