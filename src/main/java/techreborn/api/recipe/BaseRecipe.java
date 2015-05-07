@@ -25,7 +25,6 @@ public abstract class BaseRecipe implements IBaseRecipeType {
 		outputs = new ArrayList<ItemStack>();
 		this.name = name;
 		//This adds all new recipes
-		RecipeHanderer.addRecipe(this);
 		this.tickTime = tickTime;
 		this.euPerTick = euPerTick;
 	}

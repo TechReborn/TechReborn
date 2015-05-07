@@ -3,6 +3,7 @@ package techreborn.api.recipe;
 import ic2.api.energy.prefab.BasicSink;
 import techreborn.tiles.TileMachineBase;
 import techreborn.util.Inventory;
+import techreborn.util.ItemUtils;
 
 /**
  * Use this in your tile entity to craft things
@@ -45,7 +46,7 @@ public class RecipeCrafter {
 	public int[] inputSlots;
 
 	/**
-	 * This si the list fo the slots that the crafting logic should look fot the output item stacks.
+	 * This is the list for the slots that the crafting logic should look fot the output item stacks.
 	 */
 	public int[] outputSlots;
 
@@ -72,10 +73,44 @@ public class RecipeCrafter {
 	}
 
 
+	IBaseRecipeType currentRecipe;
+	int currentTickTime = 0;
+
 	/**
 	 * Call this on the tile tick
 	 */
 	public void updateEntity(){
-
+		if(currentRecipe == null){
+			for(IBaseRecipeType recipe : RecipeHanderer.getRecipeClassFromName(recipeName)){
+				boolean isFullRecipe = false;
+				for (int i = 0; i < inputs; i++) {
+					if(ItemUtils.isItemEqual(inventory.getStackInSlot(inputSlots[i]), recipe.getInputs().get(i), true, true)){
+						isFullRecipe = true;
+					} else {
+						isFullRecipe = false;
+					}
+				}
+				if(isFullRecipe){
+					currentRecipe = recipe;
+					return;
+				}
+			}
+		} else {
+			for (int i = 0; i < inputs; i++) {
+				if(!ItemUtils.isItemEqual(inventory.getStackInSlot(inputSlots[i]), currentRecipe.getInputs().get(i), true, true)){
+					currentRecipe = null;
+					currentTickTime = 0;
+					return;
+				}
+			}
+			if(currentTickTime >= currentRecipe.tickTime()){
+				//TODO give the player the goodies :)
+				//Need some nicer way of added the crafting things.
+			} else {
+				if(energy.useEnergy(currentRecipe.euPerTick())){
+					currentTickTime ++;
+				}
+			}
+		}
 	}
 }

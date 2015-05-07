@@ -19,7 +19,7 @@ public class RecipeHanderer {
 	public static List<IBaseRecipeType> getRecipeClassFromName(String name){
 		List<IBaseRecipeType> baseRecipeList = new ArrayList<IBaseRecipeType>();
 		for(IBaseRecipeType baseRecipe : recipeList){
-			if(baseRecipe.equals(name)){
+			if(baseRecipe.getRecipeName().equals(name)){
 				baseRecipeList.add(baseRecipe);
 			}
 		}

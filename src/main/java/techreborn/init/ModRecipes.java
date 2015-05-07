@@ -1,6 +1,6 @@
 package techreborn.init;
 
-import codechicken.nei.api.API;
+import cpw.mods.fml.common.registry.GameRegistry;
 import ic2.api.item.IC2Items;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -8,12 +8,11 @@ import net.minecraft.item.ItemStack;
 import techreborn.api.BlastFurnaceRecipe;
 import techreborn.api.CentrifugeRecipie;
 import techreborn.api.TechRebornAPI;
+import techreborn.api.recipe.RecipeHanderer;
 import techreborn.config.ConfigTechReborn;
 import techreborn.recipes.ImplosionCompressorRecipe;
 import techreborn.util.CraftingHelper;
 import techreborn.util.LogHelper;
-import techreborn.util.RecipeRemover;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ModRecipes {
 	public static ConfigTechReborn config;
@@ -196,7 +195,7 @@ public class ModRecipes {
 				Blocks.cobblestone);
 		TechRebornAPI.registerBlastFurnaceRecipe(new BlastFurnaceRecipe(new ItemStack(Items.apple), new ItemStack(Items.ender_pearl), new ItemStack(Items.golden_apple), new ItemStack(Items.diamond), 120, 1000));
 
-		new ImplosionCompressorRecipe(new ItemStack(Items.diamond), new ItemStack(Items.golden_apple), new ItemStack(Items.brewing_stand), new ItemStack(Items.carrot), 120, 5);
+		RecipeHanderer.addRecipe(new ImplosionCompressorRecipe(new ItemStack(Items.diamond), new ItemStack(Items.golden_apple), new ItemStack(Items.brewing_stand), new ItemStack(Items.carrot), 120, 5));
 
 		LogHelper.info("Machine Recipes Added");
 	}
