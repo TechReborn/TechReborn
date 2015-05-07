@@ -536,6 +536,20 @@ public class ModItems {
         OreDictionary.registerOre("crushedPurifiedTetrahedrite", new ItemStack(purifiedCrushedOre, 1, 14));
         OreDictionary.registerOre("crushedPurifiedTungsten", new ItemStack(purifiedCrushedOre, 1, 15));
 
+		// Purified Crushed Ore
+		OreDictionary.registerOre("craftingGrinder", new ItemStack(parts, 1, 8));
+		OreDictionary.registerOre("craftingGrinder", new ItemStack(parts, 1, 10));
+        OreDictionary.registerOre("circuitMaster", new ItemStack(parts, 1, 4));
+        OreDictionary.registerOre("circuitElite", new ItemStack(parts, 1, 5));
+		OreDictionary.registerOre("craftingSuperconductor", new ItemStack(parts, 1, 30));
+		OreDictionary.registerOre("batteryUltimate", new ItemStack(lapotronpack));
+        OreDictionary.registerOre("gearBronze", new ItemStack(parts, 1, 20));
+        OreDictionary.registerOre("gearIron", new ItemStack(parts, 1, 21));
+        OreDictionary.registerOre("gearTitanium", new ItemStack(parts, 1, 22));
+        OreDictionary.registerOre("gearSteel", new ItemStack(parts, 1, 23));
+        OreDictionary.registerOre("gearTungstensteel", new ItemStack(parts, 1, 24));
+		OreDictionary.registerOre("blockLapis", new ItemStack(parts, 1, 27));
+
 	}
 
 }

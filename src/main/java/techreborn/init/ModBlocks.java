@@ -2,6 +2,7 @@ package techreborn.init;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import techreborn.blocks.BlockAesu;
@@ -299,6 +300,10 @@ public class ModBlocks {
 				new ItemStack(storage, 1, 13));
 		OreDictionary.registerOre("blockNickel", new ItemStack(storage, 1, 14));
 		OreDictionary.registerOre("blockInvar", new ItemStack(storage, 1, 15));
+
+		OreDictionary.registerOre("craftingPiston", Blocks.piston);
+		OreDictionary.registerOre("craftingPiston", Blocks.sticky_piston);
+		OreDictionary.registerOre("crafterWood", Blocks.crafting_table);
 
 	}
 
