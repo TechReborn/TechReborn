@@ -164,10 +164,13 @@ public class RecipeCrafter {
 		}
 		if (inventory.getStackInSlot(slot) == null) {
 			inventory.setInventorySlotContents(slot, stack);
+			return;
 		}
 		if (ItemUtils.isItemEqual(inventory.getStackInSlot(slot), stack, true, true)) {
 			if (stack.stackSize + inventory.getStackInSlot(slot).stackSize <= stack.getMaxStackSize()) {
-				inventory.decrStackSize(slot, -stack.stackSize);
+				ItemStack newStack = stack.copy();
+				newStack.stackSize = inventory.getStackInSlot(slot).stackSize + stack.stackSize;
+				inventory.setInventorySlotContents(slot, newStack);
 			}
 		}
 	}
