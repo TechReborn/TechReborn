@@ -255,6 +255,7 @@ public class TileCentrifuge extends TileMachineBase implements IInventory,
 	{
 		super.readFromNBT(tagCompound);
 		inventory.readFromNBT(tagCompound);
+		energy.readFromNBT(tagCompound);
 		String recipeName = tagCompound.getString("recipe");
 		for (CentrifugeRecipie recipie : TechRebornAPI.centrifugeRecipies)
 		{
@@ -274,6 +275,7 @@ public class TileCentrifuge extends TileMachineBase implements IInventory,
 	{
 		super.writeToNBT(tagCompound);
 		inventory.writeToNBT(tagCompound);
+		energy.writeToNBT(tagCompound);
 		writeUpdateToNBT(tagCompound);
 	}
 

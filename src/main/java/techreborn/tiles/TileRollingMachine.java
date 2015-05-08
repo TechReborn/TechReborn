@@ -166,6 +166,7 @@ public class TileRollingMachine extends TileMachineBase implements IWrenchable {
 	{
 		super.readFromNBT(tagCompound);
 		inventory.readFromNBT(tagCompound);
+		energy.readFromNBT(tagCompound);
 		ItemUtils.readInvFromNBT(craftMatrix, "Crafting", tagCompound);
 		isRunning = tagCompound.getBoolean("isRunning");
 		tickTime = tagCompound.getInteger("tickTime");
@@ -176,6 +177,7 @@ public class TileRollingMachine extends TileMachineBase implements IWrenchable {
 	{
 		super.writeToNBT(tagCompound);
 		inventory.writeToNBT(tagCompound);
+		energy.writeToNBT(tagCompound);
 		ItemUtils.writeInvToNBT(craftMatrix, "Crafting", tagCompound);
 		writeUpdateToNBT(tagCompound);
 	}

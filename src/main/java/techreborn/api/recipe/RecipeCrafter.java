@@ -1,9 +1,13 @@
 package techreborn.api.recipe;
 
 import ic2.api.energy.prefab.BasicSink;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import techreborn.tiles.TileMachineBase;
 import techreborn.util.Inventory;
 import techreborn.util.ItemUtils;
+
+import java.util.ArrayList;
 
 /**
  * Use this in your tile entity to craft things
@@ -52,6 +56,7 @@ public class RecipeCrafter {
 
 	/**
 	 * This is the constructor, not a lot to say here :P
+	 *
 	 * @param recipeName
 	 * @param parentTile
 	 * @param energy
@@ -79,38 +84,98 @@ public class RecipeCrafter {
 	/**
 	 * Call this on the tile tick
 	 */
-	public void updateEntity(){
-		if(currentRecipe == null){
-			for(IBaseRecipeType recipe : RecipeHanderer.getRecipeClassFromName(recipeName)){
+	public void updateEntity() {
+		if (parentTile.getWorldObj().isRemote) {
+			return;
+		}
+		if (currentRecipe == null) {
+			for (IBaseRecipeType recipe : RecipeHanderer.getRecipeClassFromName(recipeName)) {
 				boolean isFullRecipe = false;
 				for (int i = 0; i < inputs; i++) {
-					if(ItemUtils.isItemEqual(inventory.getStackInSlot(inputSlots[i]), recipe.getInputs().get(i), true, true)){
+					if (ItemUtils.isItemEqual(inventory.getStackInSlot(inputSlots[i]), recipe.getInputs().get(i), true, true)) {
 						isFullRecipe = true;
 					} else {
 						isFullRecipe = false;
 					}
 				}
-				if(isFullRecipe){
+				if (isFullRecipe) {
 					currentRecipe = recipe;
 					return;
 				}
 			}
 		} else {
 			for (int i = 0; i < inputs; i++) {
-				if(!ItemUtils.isItemEqual(inventory.getStackInSlot(inputSlots[i]), currentRecipe.getInputs().get(i), true, true)){
+				if (!ItemUtils.isItemEqual(inventory.getStackInSlot(inputSlots[i]), currentRecipe.getInputs().get(i), true, true)) {
 					currentRecipe = null;
 					currentTickTime = 0;
 					return;
 				}
 			}
-			if(currentTickTime >= currentRecipe.tickTime()){
-				//TODO give the player the goodies :)
-				//Need some nicer way of added the crafting things.
-			} else {
-				if(energy.useEnergy(currentRecipe.euPerTick())){
-					currentTickTime ++;
+			if (currentTickTime >= currentRecipe.tickTime()) {
+				boolean canGiveInvAll = true;
+				for (int i = 0; i < currentRecipe.getOutputs().size(); i++) {
+					if (!canFitStack(currentRecipe.getOutputs().get(i), outputSlots[i])) {
+						canGiveInvAll = false;
+					}
+				}
+				ArrayList<Integer> filledSlots = new ArrayList<Integer>();
+				if (canGiveInvAll) {
+					for (int i = 0; i < currentRecipe.getOutputs().size(); i++) {
+						if (!filledSlots.contains(outputSlots[i])) {
+							fitStack(currentRecipe.getOutputs().get(i), outputSlots[i]);
+							filledSlots.add(outputSlots[i]);
+						}
+					}
+					for (int i = 0; i < inputs; i++) {
+						if (!filledSlots.contains(inputSlots[i])) {
+							inventory.decrStackSize(inputSlots[i], currentRecipe.getInputs().get(i).stackSize);
+						}
+					}
+					currentRecipe = null;
+					currentTickTime = 0;
+					parentTile.syncWithAll();
+				}
+			} else if (currentTickTime < currentRecipe.tickTime()) {
+				if (energy.useEnergy(currentRecipe.euPerTick())) {
+					currentTickTime++;
 				}
 			}
 		}
+	}
+
+	public boolean canFitStack(ItemStack stack, int slot) {
+		if (stack == null) {
+			return true;
+		}
+		if (inventory.getStackInSlot(slot) == null) {
+			return true;
+		}
+		if (ItemUtils.isItemEqual(inventory.getStackInSlot(slot), stack, true, true)) {
+			if (stack.stackSize + inventory.getStackInSlot(slot).stackSize <= stack.getMaxStackSize()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void fitStack(ItemStack stack, int slot) {
+		if (stack == null) {
+			return;
+		}
+		if (inventory.getStackInSlot(slot) == null) {
+			inventory.setInventorySlotContents(slot, stack);
+		}
+		if (ItemUtils.isItemEqual(inventory.getStackInSlot(slot), stack, true, true)) {
+			if (stack.stackSize + inventory.getStackInSlot(slot).stackSize <= stack.getMaxStackSize()) {
+				inventory.decrStackSize(slot, -stack.stackSize);
+			}
+		}
+	}
+
+	public void readFromNBT(NBTTagCompound tagCompound) {
+	}
+
+	public void writeToNBT(NBTTagCompound tagCompound) {
+
 	}
 }

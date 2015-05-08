@@ -265,12 +265,14 @@ public class TileBlastFurnace extends TileMachineBase implements IWrenchable, II
 		super.readFromNBT(tagCompound);
 		inventory.readFromNBT(tagCompound);
 		tickTime = tagCompound.getInteger("tickTime");
+		energy.readFromNBT(tagCompound);
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
 		inventory.writeToNBT(tagCompound);
+		energy.writeToNBT(tagCompound);
 		writeUpdateToNBT(tagCompound);
 	}
 

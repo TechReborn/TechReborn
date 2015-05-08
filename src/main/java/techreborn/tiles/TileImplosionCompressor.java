@@ -2,6 +2,9 @@ package techreborn.tiles;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import techreborn.api.CentrifugeRecipie;
+import techreborn.api.TechRebornAPI;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.init.ModBlocks;
 import techreborn.util.Inventory;
@@ -66,5 +69,23 @@ public class TileImplosionCompressor extends TileMachineBase implements IWrencha
 	public void updateEntity() {
 		super.updateEntity();
 		crafter.updateEntity();
+		energy.updateEntity();
 	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound tagCompound)
+	{
+		super.readFromNBT(tagCompound);
+		inventory.readFromNBT(tagCompound);
+		energy.readFromNBT(tagCompound);
+	}
+
+	@Override
+	public void writeToNBT(NBTTagCompound tagCompound)
+	{
+		super.writeToNBT(tagCompound);
+		inventory.writeToNBT(tagCompound);
+		energy.writeToNBT(tagCompound);
+	}
+
 }
