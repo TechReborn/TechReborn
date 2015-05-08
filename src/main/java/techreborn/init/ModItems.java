@@ -197,6 +197,7 @@ public class ModItems {
 		OreDictionary.registerOre("dustVoidstone", new ItemStack(dusts, 1, 82));
 		OreDictionary.registerOre("dustYellowGarnet", new ItemStack(dusts, 1, 83));
 		OreDictionary.registerOre("dustZinc", new ItemStack(dusts, 1, 84));
+		OreDictionary.registerOre("dustGalena", new ItemStack(dusts, 1, 85));
 
 		// Small Dusts
 		OreDictionary.registerOre("dustSmallAlmandine", new ItemStack(smallDusts, 1, 0));
@@ -289,6 +290,7 @@ public class ModItems {
 		OreDictionary.registerOre("dustSmallVoidstone", new ItemStack(smallDusts, 1, 85));
 		OreDictionary.registerOre("dustSmallYellowGarnet", new ItemStack(smallDusts, 1, 86));
 		OreDictionary.registerOre("dustSmallZinc", new ItemStack(smallDusts, 1, 87));
+		OreDictionary.registerOre("dustSmallGalena", new ItemStack(smallDusts, 1, 88));
 
         // Tiny Dusts
         OreDictionary.registerOre("dustTinyAlmandine", new ItemStack(tinyDusts, 1, 0));
@@ -381,6 +383,7 @@ public class ModItems {
         OreDictionary.registerOre("dustTinyVoidstone", new ItemStack(tinyDusts, 1, 85));
         OreDictionary.registerOre("dustTinyYellowGarnet", new ItemStack(tinyDusts, 1, 86));
         OreDictionary.registerOre("dustTinyZinc", new ItemStack(tinyDusts, 1, 87));
+		OreDictionary.registerOre("dustTinyGalena", new ItemStack(tinyDusts, 1, 88));
 
 		// Ingots
 		OreDictionary.registerOre("ingotAluminum", new ItemStack(ingots, 1, 0));
@@ -516,6 +519,7 @@ public class ModItems {
         OreDictionary.registerOre("crushedSphalerite", new ItemStack(crushedOre, 1, 13));
         OreDictionary.registerOre("crushedTetrahedrite", new ItemStack(crushedOre, 1, 14));
         OreDictionary.registerOre("crushedTungsten", new ItemStack(crushedOre, 1, 15));
+		OreDictionary.registerOre("crushedGalena", new ItemStack(crushedOre, 1, 16));
 
         // Purified Crushed Ore
         OreDictionary.registerOre("crushedPurifiedAluminum", new ItemStack(purifiedCrushedOre, 1, 0));
@@ -535,6 +539,7 @@ public class ModItems {
         OreDictionary.registerOre("crushedPurifiedSphalerite", new ItemStack(purifiedCrushedOre, 1, 13));
         OreDictionary.registerOre("crushedPurifiedTetrahedrite", new ItemStack(purifiedCrushedOre, 1, 14));
         OreDictionary.registerOre("crushedPurifiedTungsten", new ItemStack(purifiedCrushedOre, 1, 15));
+		OreDictionary.registerOre("crushedPurifiedGalena", new ItemStack(purifiedCrushedOre, 1, 16));
 
 		// Purified Crushed Ore
 		OreDictionary.registerOre("craftingGrinder", new ItemStack(parts, 1, 8));
@@ -548,7 +553,7 @@ public class ModItems {
         OreDictionary.registerOre("gearTitanium", new ItemStack(parts, 1, 22));
         OreDictionary.registerOre("gearSteel", new ItemStack(parts, 1, 23));
         OreDictionary.registerOre("gearTungstensteel", new ItemStack(parts, 1, 24));
-		OreDictionary.registerOre("blockLapis", new ItemStack(parts, 1, 27));
+		OreDictionary.registerOre("blockLapis", new ItemStack(parts, 1, 24));
 
 	}
 
