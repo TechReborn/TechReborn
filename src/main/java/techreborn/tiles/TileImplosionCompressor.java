@@ -79,6 +79,7 @@ public class TileImplosionCompressor extends TileMachineBase implements IWrencha
 		super.readFromNBT(tagCompound);
 		inventory.readFromNBT(tagCompound);
 		energy.readFromNBT(tagCompound);
+		crafter.readFromNBT(tagCompound);
 	}
 
 	@Override
@@ -87,6 +88,7 @@ public class TileImplosionCompressor extends TileMachineBase implements IWrencha
 		super.writeToNBT(tagCompound);
 		inventory.writeToNBT(tagCompound);
 		energy.writeToNBT(tagCompound);
+		crafter.writeToNBT(tagCompound);
 	}
 
 }

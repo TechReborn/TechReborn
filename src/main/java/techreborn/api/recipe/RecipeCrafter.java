@@ -175,10 +175,18 @@ public class RecipeCrafter {
 		}
 	}
 
-	public void readFromNBT(NBTTagCompound tagCompound) {
+	public void readFromNBT(NBTTagCompound tag) {
+		NBTTagCompound data = tag.getCompoundTag("Crater");
+
+		currentTickTime = data.getInteger("currentTickTime");
 	}
 
-	public void writeToNBT(NBTTagCompound tagCompound) {
+	public void writeToNBT(NBTTagCompound tag) {
 
+		NBTTagCompound data = new NBTTagCompound();
+
+		data.setDouble("currentTickTime", currentTickTime);
+
+		tag.setTag("Crater", data);
 	}
 }
