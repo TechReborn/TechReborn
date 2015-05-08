@@ -58,7 +58,7 @@ public class BlockBlastFurnace extends BlockMachineBase {
 							.getTileEntity(x + direction.offsetX, y
 									+ direction.offsetY, z + direction.offsetZ);
 					if (casing.getMultiblockController() != null
-							&& casing.getMultiblockController().isAssembled())
+							&& casing.getMultiblockController().isAssembled() && !casing.getMultiblockController().isStar)
 					{
 						player.openGui(Core.INSTANCE,
 								GuiHandler.blastFurnaceID, world, x, y, z);

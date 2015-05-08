@@ -1,7 +1,6 @@
 package techreborn.compat.nei.recipes;
 
 import codechicken.lib.gui.GuiDraw;
-import codechicken.nei.NEIServerUtils;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -10,6 +9,7 @@ import org.lwjgl.opengl.GL11;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.api.recipe.RecipeHanderer;
 import techreborn.config.ConfigTechReborn;
+import techreborn.util.ItemUtils;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -131,7 +131,7 @@ public abstract class GenericRecipeHander extends TemplateRecipeHandler {
 		for (IBaseRecipeType recipeType : RecipeHanderer.getRecipeClassFromName(getNeiBaseRecipe().getRecipeName()))
 		{
 			for(ItemStack output : recipeType.getOutputs()){
-				if (NEIServerUtils.areStacksSameTypeCrafting(output, result))
+				if (ItemUtils.isItemEqual(output, result, true, false, true))
 				{
 					addCached(recipeType);
 				}
@@ -145,7 +145,7 @@ public abstract class GenericRecipeHander extends TemplateRecipeHandler {
 		for (IBaseRecipeType recipeType : RecipeHanderer.getRecipeClassFromName(getNeiBaseRecipe().getRecipeName()))
 		{
 			for(ItemStack input : recipeType.getInputs()){
-				if (NEIServerUtils.areStacksSameTypeCrafting(input, ingredient))
+				if (ItemUtils.isItemEqual(ingredient, input, true, false, true))
 				{
 					addCached(recipeType);
 				}

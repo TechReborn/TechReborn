@@ -40,8 +40,16 @@ public class ItemUtils {
 		}
 		if (a == null || b == null)
 			return false;
-
-		return OreDictionary.itemMatches(a, b, false);
+		if(useOreDic){
+			for (int inta : OreDictionary.getOreIDs(a)){
+				for (int intb : OreDictionary.getOreIDs(b)){
+					if(inta == intb){
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 

@@ -195,7 +195,7 @@ public class ModRecipes {
 				Blocks.cobblestone);
 		TechRebornAPI.registerBlastFurnaceRecipe(new BlastFurnaceRecipe(new ItemStack(Items.apple), new ItemStack(Items.ender_pearl), new ItemStack(Items.golden_apple), new ItemStack(Items.diamond), 120, 1000));
 
-		RecipeHanderer.addRecipe(new ImplosionCompressorRecipe(new ItemStack(Items.diamond), new ItemStack(Items.golden_apple), new ItemStack(Items.brewing_stand), new ItemStack(Items.carrot), 120, 5));
+		RecipeHanderer.addRecipe(new ImplosionCompressorRecipe(new ItemStack(Items.record_11), new ItemStack(Items.golden_apple), new ItemStack(Items.brewing_stand), new ItemStack(Items.carrot), 120, 5));
 
 		LogHelper.info("Machine Recipes Added");
 	}
