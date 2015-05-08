@@ -92,7 +92,7 @@ public class RecipeCrafter {
 			for (IBaseRecipeType recipe : RecipeHanderer.getRecipeClassFromName(recipeName)) {
 				boolean isFullRecipe = false;
 				for (int i = 0; i < inputs; i++) {
-					if (ItemUtils.isItemEqual(inventory.getStackInSlot(inputSlots[i]), recipe.getInputs().get(i), true, true)) {
+					if (ItemUtils.isItemEqual(inventory.getStackInSlot(inputSlots[i]), recipe.getInputs().get(i), true, true, true)) {
 						isFullRecipe = true;
 					} else {
 						isFullRecipe = false;
@@ -105,7 +105,7 @@ public class RecipeCrafter {
 			}
 		} else {
 			for (int i = 0; i < inputs; i++) {
-				if (!ItemUtils.isItemEqual(inventory.getStackInSlot(inputSlots[i]), currentRecipe.getInputs().get(i), true, true)) {
+				if (!ItemUtils.isItemEqual(inventory.getStackInSlot(inputSlots[i]), currentRecipe.getInputs().get(i), true, true, true)) {
 					currentRecipe = null;
 					currentTickTime = 0;
 					return;
@@ -150,7 +150,7 @@ public class RecipeCrafter {
 		if (inventory.getStackInSlot(slot) == null) {
 			return true;
 		}
-		if (ItemUtils.isItemEqual(inventory.getStackInSlot(slot), stack, true, true)) {
+		if (ItemUtils.isItemEqual(inventory.getStackInSlot(slot), stack, true, true, true)) {
 			if (stack.stackSize + inventory.getStackInSlot(slot).stackSize <= stack.getMaxStackSize()) {
 				return true;
 			}
@@ -166,7 +166,7 @@ public class RecipeCrafter {
 			inventory.setInventorySlotContents(slot, stack);
 			return;
 		}
-		if (ItemUtils.isItemEqual(inventory.getStackInSlot(slot), stack, true, true)) {
+		if (ItemUtils.isItemEqual(inventory.getStackInSlot(slot), stack, true, true, true)) {
 			if (stack.stackSize + inventory.getStackInSlot(slot).stackSize <= stack.getMaxStackSize()) {
 				ItemStack newStack = stack.copy();
 				newStack.stackSize = inventory.getStackInSlot(slot).stackSize + stack.stackSize;

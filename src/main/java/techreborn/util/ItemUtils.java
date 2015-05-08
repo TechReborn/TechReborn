@@ -6,10 +6,13 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.oredict.OreDictionary;
 
+import java.util.List;
+
 /**
  * Created by mark on 12/04/15.
  */
 public class ItemUtils {
+
 	public static boolean isItemEqual(final ItemStack a, final ItemStack b,
 			final boolean matchDamage, final boolean matchNBT)
 	{
@@ -28,6 +31,19 @@ public class ItemUtils {
 		}
 		return true;
 	}
+
+	public static boolean isItemEqual(ItemStack a, ItemStack b,
+									  boolean matchDamage, boolean matchNBT, boolean useOreDic)
+	{
+		if(isItemEqual(a, b, matchDamage, matchNBT)){
+			return true;
+		}
+		if (a == null || b == null)
+			return false;
+
+		return OreDictionary.itemMatches(a, b, false);
+	}
+
 
 	public static boolean isWildcard(ItemStack stack)
 	{
