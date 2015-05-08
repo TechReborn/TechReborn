@@ -56,6 +56,7 @@ import techreborn.tiles.TileAssemblingMachine;
 import techreborn.tiles.TileBlastFurnace;
 import techreborn.tiles.TileCentrifuge;
 import techreborn.tiles.TileChunkLoader;
+import techreborn.tiles.TileDragonEggSiphoner;
 import techreborn.tiles.TileGrinder;
 import techreborn.tiles.TileImplosionCompressor;
 import techreborn.tiles.TileLathe;
@@ -189,6 +190,7 @@ public class ModBlocks {
 		
 		Dragoneggenergysiphoner = new BlockDragonEggSiphoner(Material.rock);
 		GameRegistry.registerBlock(Dragoneggenergysiphoner, "dragoneggenergsiphon");
+		GameRegistry.registerTileEntity(TileDragonEggSiphoner.class, "TileDragonEggSiphoner");
 		
 		Magicenergeyconverter = new BlockMagicEnergyConverter(Material.rock);
 		GameRegistry.registerBlock(Magicenergeyconverter, "magicenergyconverter");

@@ -64,6 +64,7 @@ public class ConfigTechReborn {
 	// Power
 	public static int ThermalGenertaorOutput;
 	public static int CentrifugeInputTick;
+	public static int DragoneggsiphonerOutput;
 	// Charge
 	public static int AdvancedDrillCharge;
 	public static int LapotronPackCharge;
@@ -448,6 +449,16 @@ public class ConfigTechReborn {
 						30,
 						StatCollector
 								.translateToLocal("config.techreborn.thermalGeneratorPower.tooltip"))
+								
+				.getInt();
+		DragoneggsiphonerOutput = config
+				.get(CATEGORY_POWER,
+						StatCollector
+								.translateToLocal("config.techreborn.dragoneggsiphonerPower"),
+						30,
+						StatCollector
+								.translateToLocal("config.techreborn.dragoneggsiphonerPower.tooltip"))
+								
 				.getInt();
 		CentrifugeInputTick = config
 				.get(CATEGORY_POWER,

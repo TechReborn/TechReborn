@@ -18,6 +18,7 @@ import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileAlloySmelter;
 import techreborn.tiles.TileBlastFurnace;
+import techreborn.tiles.TileDragonEggSiphoner;
 import techreborn.tiles.TileMachineCasing;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -47,6 +48,12 @@ public class BlockDragonEggSiphoner extends BlockMachineBase {
 		this.iconFront = icon.registerIcon("techreborn:machine/dragon_egg_energy_siphon_side_off");
 		this.iconTop = icon.registerIcon("techreborn:machine/dragon_egg_energy_siphon_top");
 		this.iconBottom = icon.registerIcon("techreborn:machine/machine_bottom");
+	}
+	
+	@Override
+	public TileEntity createNewTileEntity(World world, int p_149915_2_)
+	{
+		return new TileDragonEggSiphoner();
 	}
 
 	@SideOnly(Side.CLIENT)
