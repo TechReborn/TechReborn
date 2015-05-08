@@ -23,7 +23,7 @@ public class BlockQuantumTank extends BlockMachineBase {
 	public BlockQuantumTank()
 	{
 		super(Material.rock);
-		setHardness(2f);
+		setBlockName("techreborn.quantumTank");
 	}
 
 	@Override

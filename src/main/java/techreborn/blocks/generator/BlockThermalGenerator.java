@@ -37,7 +37,7 @@ public class BlockThermalGenerator extends BlockMachineBase {
 	public BlockThermalGenerator()
 	{
 		super(Material.rock);
-		setHardness(2f);
+		setBlockName("techreborn.thermalGenerator");
 	}
 	
 	@Override

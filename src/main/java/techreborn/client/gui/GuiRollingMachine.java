@@ -11,7 +11,7 @@ import techreborn.tiles.TileRollingMachine;
 public class GuiRollingMachine extends GuiContainer {
 
 	private static final ResourceLocation texture = new ResourceLocation(
-			"techreborn", "textures/gui/rollingmachine.png");
+			"techreborn", "textures/gui/rolling_machine.png");
 	TileRollingMachine rollingMachine;
 
 	public GuiRollingMachine(EntityPlayer player,

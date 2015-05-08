@@ -26,6 +26,9 @@ public class BlockAlloyFurnace extends BlockMachineBase {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon iconFront;
+	
+	@SideOnly(Side.CLIENT)
+	private IIcon iconFrontOn;
 
 	@SideOnly(Side.CLIENT)
 	private IIcon iconTop;
@@ -45,6 +48,7 @@ public class BlockAlloyFurnace extends BlockMachineBase {
 	{
 		this.blockIcon = icon.registerIcon("techreborn:machine/alloy_furnace_side");
 		this.iconFront = icon.registerIcon("techreborn:machine/alloy_furnace_front_off");
+		this.iconFrontOn = icon.registerIcon("techreborn:machine/alloy_furnace_front_on");
 		this.iconTop = icon.registerIcon("techreborn:machine/alloy_furnace_top");
 		this.iconBottom = icon.registerIcon("techreborn:machine/alloy_furnace_bottom");
 	}
@@ -52,7 +56,6 @@ public class BlockAlloyFurnace extends BlockMachineBase {
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int metadata)
 	{
-
 		return metadata == 0 && side == 3 ? this.iconFront
 				: side == 1 ? this.iconTop : 
 					side == 0 ? this.iconBottom: (side == 0 ? this.iconTop

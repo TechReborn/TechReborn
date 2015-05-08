@@ -32,7 +32,7 @@ public class BlockCentrifuge extends BlockMachineBase {
 	public BlockCentrifuge()
 	{
 		super(Material.rock);
-		setHardness(2F);
+		setBlockName("techreborn.centrifuge");
 	}
 
 	@Override
