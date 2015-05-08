@@ -1,6 +1,7 @@
 package techreborn.tiles;
 
 import ic2.api.energy.prefab.BasicSink;
+import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -8,7 +9,7 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.util.Inventory;
 
-public class TileChunkLoader extends TileMachineBase implements IWrenchable{
+public class TileChunkLoader extends TileMachineBase implements IWrenchable, IEnergyTile {
 	
 	public BasicSink energy;
 	public Inventory inventory = new Inventory(1, "TileChunkLoader", 64);

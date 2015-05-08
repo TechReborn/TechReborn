@@ -1,6 +1,7 @@
 package techreborn.tiles;
 
 import ic2.api.energy.prefab.BasicSink;
+import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -20,7 +21,7 @@ import techreborn.lib.Location;
 import techreborn.util.Inventory;
 import techreborn.util.ItemUtils;
 
-public class TileBlastFurnace extends TileMachineBase implements IWrenchable, IInventory{
+public class TileBlastFurnace extends TileMachineBase implements IWrenchable, IInventory, IEnergyTile {
 
 	public int tickTime;
 	public BasicSink energy;

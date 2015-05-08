@@ -1,6 +1,7 @@
 package techreborn.tiles;
 
 import ic2.api.energy.prefab.BasicSink;
+import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.item.IC2Items;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,7 +20,7 @@ import techreborn.util.Inventory;
 import techreborn.util.ItemUtils;
 
 public class TileCentrifuge extends TileMachineBase implements IInventory,
-		IWrenchable, ISidedInventory {
+		IWrenchable, ISidedInventory, IEnergyTile {
 
 	public BasicSink energy;
 	public Inventory inventory = new Inventory(6, "TileCentrifuge", 64);

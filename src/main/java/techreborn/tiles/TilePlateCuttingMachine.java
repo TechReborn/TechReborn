@@ -1,6 +1,7 @@
 package techreborn.tiles;
 
 import ic2.api.energy.prefab.BasicSink;
+import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -9,7 +10,7 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.util.Inventory;
 
-public class TilePlateCuttingMachine extends TileMachineBase implements IWrenchable {
+public class TilePlateCuttingMachine extends TileMachineBase implements IWrenchable, IEnergyTile {
 
 	public int tickTime;
 	public BasicSink energy;

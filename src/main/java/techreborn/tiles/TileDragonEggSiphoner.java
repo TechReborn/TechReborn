@@ -2,6 +2,7 @@ package techreborn.tiles;
 
 import ic2.api.energy.prefab.BasicSink;
 import ic2.api.energy.prefab.BasicSource;
+import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -12,7 +13,7 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.util.Inventory;
 
-public class TileDragonEggSiphoner extends TileMachineBase implements IWrenchable {
+public class TileDragonEggSiphoner extends TileMachineBase implements IWrenchable, IEnergyTile {
 
 	public BasicSource energy;
 	public Inventory inventory = new Inventory(3, "TileAlloySmelter", 64);
