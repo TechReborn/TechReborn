@@ -7,6 +7,7 @@ import techreborn.client.container.ContainerAssemblingMachine;
 import techreborn.client.container.ContainerBlastFurnace;
 import techreborn.client.container.ContainerCentrifuge;
 import techreborn.client.container.ContainerChunkloader;
+import techreborn.client.container.ContainerDieselGenerator;
 import techreborn.client.container.ContainerGrinder;
 import techreborn.client.container.ContainerImplosionCompressor;
 import techreborn.client.container.ContainerLathe;
@@ -21,6 +22,7 @@ import techreborn.client.gui.GuiAssemblingMachine;
 import techreborn.client.gui.GuiBlastFurnace;
 import techreborn.client.gui.GuiCentrifuge;
 import techreborn.client.gui.GuiChunkLoader;
+import techreborn.client.gui.GuiDieselGenerator;
 import techreborn.client.gui.GuiGrinder;
 import techreborn.client.gui.GuiImplosionCompressor;
 import techreborn.client.gui.GuiLathe;
@@ -36,6 +38,7 @@ import techreborn.tiles.TileAssemblingMachine;
 import techreborn.tiles.TileBlastFurnace;
 import techreborn.tiles.TileCentrifuge;
 import techreborn.tiles.TileChunkLoader;
+import techreborn.tiles.TileDieselGenerator;
 import techreborn.tiles.TileGrinder;
 import techreborn.tiles.TileImplosionCompressor;
 import techreborn.tiles.TileLathe;
@@ -64,6 +67,7 @@ public class GuiHandler implements IGuiHandler {
 	public static final int assemblingmachineID = 12;
 	public static final int latheID = 13;
 	public static final int platecuttingmachineID = 14;
+	public static final int dieselGeneratorID = 15;
 
 
 
@@ -127,6 +131,10 @@ public class GuiHandler implements IGuiHandler {
 		{
 			return new ContainerPlateCuttingMachine(
 					(TilePlateCuttingMachine) world.getTileEntity(x, y, z), player);
+		} else if (ID == dieselGeneratorID)
+		{
+			return new ContainerDieselGenerator(
+					(TileDieselGenerator) world.getTileEntity(x, y, z), player);
 		} else if (ID == pdaID)
 		{
 			return null;
@@ -195,6 +203,10 @@ public class GuiHandler implements IGuiHandler {
 		{
 			return new GuiPlateCuttingMachine(player,
 					(TilePlateCuttingMachine) world.getTileEntity(x, y, z));	
+		} else if (ID == dieselGeneratorID)
+		{
+			return new GuiDieselGenerator(player,
+					(TileDieselGenerator) world.getTileEntity(x, y, z));	
 		} else if (ID == pdaID)
 		{
 			return new GuiPda(player);

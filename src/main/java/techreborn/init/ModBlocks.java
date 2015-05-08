@@ -56,6 +56,7 @@ import techreborn.tiles.TileAssemblingMachine;
 import techreborn.tiles.TileBlastFurnace;
 import techreborn.tiles.TileCentrifuge;
 import techreborn.tiles.TileChunkLoader;
+import techreborn.tiles.TileDieselGenerator;
 import techreborn.tiles.TileDragonEggSiphoner;
 import techreborn.tiles.TileGrinder;
 import techreborn.tiles.TileImplosionCompressor;
@@ -187,6 +188,7 @@ public class ModBlocks {
 		
 		DieselGenerator = new BlockDieselGenerator(Material.rock);
 		GameRegistry.registerBlock(DieselGenerator, "dieselgenerator");
+		GameRegistry.registerTileEntity(TileDieselGenerator.class, "TileDieselGenerator");
 		
 		IndustrialElectrolyzer = new BlockIndustrialElectrolyzer(Material.rock);
 		GameRegistry.registerBlock(IndustrialElectrolyzer, "industrialelectrolyzer");
