@@ -27,7 +27,7 @@ public class BlockQuantumChest extends BlockMachineBase {
 	public BlockQuantumChest()
 	{
 		super(Material.rock);
-		setHardness(2f);
+		setBlockName("techreborn.quantumChest");
 	}
 
 	@Override

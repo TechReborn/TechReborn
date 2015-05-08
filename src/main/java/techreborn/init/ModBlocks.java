@@ -116,32 +116,19 @@ public class ModBlocks {
 
 	public static void init()
 	{
-		thermalGenerator = new BlockThermalGenerator()
-				.setBlockName("techreborn.thermalGenerator")
-				.setBlockTextureName("techreborn:ThermalGenerator_other")
-				.setCreativeTab(TechRebornCreativeTab.instance);
+		thermalGenerator = new BlockThermalGenerator();
 		GameRegistry.registerBlock(thermalGenerator, "techreborn.thermalGenerator");
 		GameRegistry.registerTileEntity(TileThermalGenerator.class, "TileThermalGenerator");
 
-		quantumTank = new BlockQuantumTank()
-				.setBlockName("techreborn.quantumTank")
-				.setBlockTextureName("techreborn:quantumTank")
-				.setCreativeTab(TechRebornCreativeTab.instance);
+		quantumTank = new BlockQuantumTank();
 		GameRegistry.registerBlock(quantumTank, ItemBlockQuantumTank.class, "techreborn.quantumTank");
 		GameRegistry.registerTileEntity(TileQuantumTank.class, "TileQuantumTank");
 
-		quantumChest = new BlockQuantumChest()
-				.setBlockName("techreborn.quantumChest")
-				.setBlockTextureName("techreborn:quantumChest")
-				.setCreativeTab(TechRebornCreativeTab.instance);
+		quantumChest = new BlockQuantumChest();
 		GameRegistry.registerBlock(quantumChest, ItemBlockQuantumChest.class, "techreborn.quantumChest");
 		GameRegistry.registerTileEntity(TileQuantumChest.class, "TileQuantumChest");
 
-		centrifuge = new BlockCentrifuge()
-				.setBlockName("techreborn.centrifuge")
-				.setBlockTextureName("techreborn:centrifuge")
-				.setCreativeTab(TechRebornCreativeTab.instance);
-		
+		centrifuge = new BlockCentrifuge();
 		GameRegistry.registerBlock(centrifuge, "techreborn.centrifuge");
 		GameRegistry.registerTileEntity(TileCentrifuge.class, "TileCentrifuge");
 
