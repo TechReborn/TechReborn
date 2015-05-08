@@ -170,7 +170,6 @@ public class ModBlocks {
 
 		storage = new BlockStorage(Material.rock);
 		GameRegistry.registerBlock(storage, ItemBlockStorage.class, "techreborn.storage");
-		LogHelper.info("TechReborns Blocks Loaded");
 		
 		HighAdvancedMachineBlock = new BlockHighlyAdvancedMachine(Material.rock);
 		GameRegistry.registerBlock(HighAdvancedMachineBlock, "highlyadvancedmachine");
