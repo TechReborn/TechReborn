@@ -22,6 +22,7 @@ import techreborn.items.armor.ItemGravityChest;
 import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
 import techreborn.items.tools.ItemAdvancedDrill;
+import techreborn.items.tools.ItemFluidbucket;
 import techreborn.items.tools.ItemOmniTool;
 import techreborn.items.tools.ItemRockCutter;
 import techreborn.items.tools.ItemTechPda;
@@ -50,6 +51,7 @@ public class ModItems {
 	public static Item rods;
 	public static Item crushedOre;
 	public static Item purifiedCrushedOre;
+	public static Item fluidBucket;
 
 	public static void init()
 	{
@@ -93,6 +95,8 @@ public class ModItems {
 		GameRegistry.registerItem(manuel, "techmanuel");
 		uuMatter = new ItemUUmatter();
 		GameRegistry.registerItem(uuMatter, "uumatter");
+		fluidBucket = new ItemFluidbucket(ModFluids.BlockFluidBerylium);
+		GameRegistry.registerItem(fluidBucket, "fluidbucket");
 
 		LogHelper.info("TechReborns Items Loaded");
 
