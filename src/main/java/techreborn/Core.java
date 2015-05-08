@@ -17,6 +17,7 @@ import techreborn.compat.CompatManager;
 import techreborn.compat.recipes.RecipeManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
+import techreborn.init.ModFluids;
 import techreborn.init.ModItems;
 import techreborn.init.ModRecipes;
 import techreborn.lib.ModInfo;
@@ -55,6 +56,8 @@ public class Core {
 		ModBlocks.init();
 		// Register ModItems
 		ModItems.init();
+		// Register Fluids
+		ModFluids.init();
 		// Recipes
 		ModRecipes.init();
 		//Client only init, needs to be done before parts system
