@@ -6,6 +6,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import scala.tools.nsc.backend.icode.analysis.TypeFlowAnalysis;
+import techreborn.compat.nei.recipes.AlloySmelterRecipeHandler;
+import techreborn.compat.nei.recipes.AssemblingMachineRecipeHandler;
 import techreborn.compat.nei.recipes.GenericRecipeHander;
 import techreborn.compat.nei.recipes.ImplosionCompressorRecipeHandler;
 import techreborn.lib.ModInfo;
@@ -33,10 +35,19 @@ public class NEIConfig implements IConfigureNEI {
         ShapedRollingMachineHandler shapedRollingMachineHandler = new ShapedRollingMachineHandler();
         ShapelessRollingMachineHandler shapelessRollingMachineHandler = new ShapelessRollingMachineHandler();
         NEIConfig.blastFurnaceRecipeHandle = new BlastFurnaceRecipeHandler();
+        
 
 		ImplosionCompressorRecipeHandler implosion = new ImplosionCompressorRecipeHandler();
 		API.registerUsageHandler(implosion);
 		API.registerRecipeHandler(implosion);
+		
+		AlloySmelterRecipeHandler alloy = new AlloySmelterRecipeHandler();
+		API.registerUsageHandler(alloy);
+		API.registerRecipeHandler(alloy);
+		
+		AssemblingMachineRecipeHandler assembling = new AssemblingMachineRecipeHandler();
+		API.registerUsageHandler(assembling);
+		API.registerRecipeHandler(assembling);
 
         API.registerRecipeHandler(centrifugeRecipeHandler);
         API.registerUsageHandler(centrifugeRecipeHandler);

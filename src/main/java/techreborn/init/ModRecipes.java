@@ -10,6 +10,8 @@ import techreborn.api.CentrifugeRecipie;
 import techreborn.api.TechRebornAPI;
 import techreborn.api.recipe.RecipeHanderer;
 import techreborn.config.ConfigTechReborn;
+import techreborn.recipes.AlloySmelterRecipe;
+import techreborn.recipes.AssemblingMachineRecipe;
 import techreborn.recipes.ImplosionCompressorRecipe;
 import techreborn.util.CraftingHelper;
 import techreborn.util.LogHelper;
@@ -196,6 +198,9 @@ public class ModRecipes {
 		TechRebornAPI.registerBlastFurnaceRecipe(new BlastFurnaceRecipe(new ItemStack(Items.apple), new ItemStack(Items.ender_pearl), new ItemStack(Items.golden_apple), new ItemStack(Items.diamond), 120, 1000));
 
 		RecipeHanderer.addRecipe(new ImplosionCompressorRecipe(new ItemStack(Items.record_11), new ItemStack(Items.golden_apple), new ItemStack(Items.brewing_stand), new ItemStack(Items.carrot), 120, 5));
+
+		RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(Items.coal), new ItemStack(Blocks.sand), new ItemStack(Items.diamond), 120, 5));
+		RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(Items.coal), new ItemStack(Blocks.sand), new ItemStack(Items.diamond), 120, 5));
 
 		LogHelper.info("Machine Recipes Added");
 	}
