@@ -8,6 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
@@ -29,9 +30,13 @@ public class TileDragonEggSiphoner extends TileMachineBase implements IWrenchabl
 	{
 		super.updateEntity();
 		energy.updateEntity();
-		if(worldObj.getBlock(xCoord, yCoord + 1, zCoord) == Blocks.dragon_egg)
+		
+		if(!worldObj.isRemote)
 		{
-			energy.addEnergy(euTick);
+			if(worldObj.getBlock(xCoord, yCoord + 1, zCoord) == Blocks.dragon_egg)
+			{
+				energy.addEnergy(euTick);
+			}
 		}
 	}
 
