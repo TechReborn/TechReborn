@@ -5,6 +5,7 @@ import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 import org.lwjgl.opengl.GL11;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.api.recipe.RecipeHanderer;
