@@ -2,6 +2,7 @@ package techreborn.client;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+import techreborn.client.container.ContainerAesu;
 import techreborn.client.container.ContainerAlloySmelter;
 import techreborn.client.container.ContainerAssemblingMachine;
 import techreborn.client.container.ContainerBlastFurnace;
@@ -18,6 +19,7 @@ import techreborn.client.container.ContainerQuantumChest;
 import techreborn.client.container.ContainerQuantumTank;
 import techreborn.client.container.ContainerRollingMachine;
 import techreborn.client.container.ContainerThermalGenerator;
+import techreborn.client.gui.GuiAesu;
 import techreborn.client.gui.GuiAlloySmelter;
 import techreborn.client.gui.GuiAssemblingMachine;
 import techreborn.client.gui.GuiBlastFurnace;
@@ -35,6 +37,7 @@ import techreborn.client.gui.GuiQuantumTank;
 import techreborn.client.gui.GuiRollingMachine;
 import techreborn.client.gui.GuiThermalGenerator;
 import techreborn.pda.GuiPda;
+import techreborn.tiles.TileAesu;
 import techreborn.tiles.TileAlloySmelter;
 import techreborn.tiles.TileAssemblingMachine;
 import techreborn.tiles.TileBlastFurnace;
@@ -72,6 +75,7 @@ public class GuiHandler implements IGuiHandler {
 	public static final int platecuttingmachineID = 14;
 	public static final int dieselGeneratorID = 15;
 	public static final int industrialElectrolyzerID = 16;
+	public static final int aesuID =17;
 
 
 
@@ -143,6 +147,10 @@ public class GuiHandler implements IGuiHandler {
 		{
 			return new ContainerIndustrialElectrolyzer(
 					(TileIndustrialElectrolyzer) world.getTileEntity(x, y, z), player);
+		} else if (ID == aesuID)
+		{
+			return new ContainerAesu(
+					(TileAesu) world.getTileEntity(x, y, z), player);
 		} else if (ID == pdaID)
 		{
 			return null;
@@ -219,6 +227,10 @@ public class GuiHandler implements IGuiHandler {
 		{
 			return new GuiIndustrialElectrolyzer(player,
 					(TileIndustrialElectrolyzer) world.getTileEntity(x, y, z));	
+		} else if (ID == aesuID)
+		{
+			return new GuiAesu(player,
+					(TileAesu) world.getTileEntity(x, y, z));	
 		} else if (ID == pdaID)
 		{
 			return new GuiPda(player);

@@ -51,6 +51,7 @@ import techreborn.itemblocks.ItemBlockOre;
 import techreborn.itemblocks.ItemBlockQuantumChest;
 import techreborn.itemblocks.ItemBlockQuantumTank;
 import techreborn.itemblocks.ItemBlockStorage;
+import techreborn.tiles.TileAesu;
 import techreborn.tiles.TileAlloySmelter;
 import techreborn.tiles.TileAssemblingMachine;
 import techreborn.tiles.TileBlastFurnace;
@@ -220,6 +221,7 @@ public class ModBlocks {
 		
 		Aesu = new BlockAesu(Material.rock);
 		GameRegistry.registerBlock(Aesu, "aesu");
+		GameRegistry.registerTileEntity(TileAesu.class, "TileAesu");
 		
 		Lesu = new BlockLesu(Material.rock);
 		GameRegistry.registerBlock(Lesu, "lesu");
