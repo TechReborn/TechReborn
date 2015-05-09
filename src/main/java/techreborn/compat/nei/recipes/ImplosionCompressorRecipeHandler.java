@@ -12,19 +12,15 @@ public class ImplosionCompressorRecipeHandler extends GenericRecipeHander implem
 	public void addPositionedStacks(List<PositionedStack> input, List<PositionedStack> outputs, IBaseRecipeType recipeType) {
 		int offset = 4;
 		PositionedStack pStack = new PositionedStack(recipeType.getInputs().get(0), 34 - offset, 16 - offset);
-		pStack.setMaxSize(1);
 		input.add(pStack);
 
 		PositionedStack pStack2 = new PositionedStack(recipeType.getInputs().get(1), 34 - offset, 34 - offset);
-		pStack2.setMaxSize(1);
 		input.add(pStack2);
 
 		PositionedStack pStack3 = new PositionedStack(recipeType.getOutputs().get(0), 86 - offset, 25 - offset);
-		pStack3.setMaxSize(1);
 		outputs.add(pStack3);
 
 		PositionedStack pStack4 = new PositionedStack(recipeType.getOutputs().get(1), 104 - offset, 25 - offset);
-		pStack4.setMaxSize(1);
 		outputs.add(pStack4);
 	}
 

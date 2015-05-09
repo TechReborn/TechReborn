@@ -3,6 +3,7 @@ package techreborn.tiles;
 import ic2.api.energy.tile.IEnergyTile;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import techreborn.init.ModBlocks;
 import techreborn.util.Inventory;
 import ic2.api.energy.prefab.BasicSink;
@@ -54,5 +55,32 @@ public class TileGrinder extends TileMachineBase implements IWrenchable, IEnergy
 	{
 		return false;
 	}
+
+    @Override
+    public void readFromNBT(NBTTagCompound tagCompound)
+    {
+        super.readFromNBT(tagCompound);
+        inventory.readFromNBT(tagCompound);
+        energy.readFromNBT(tagCompound);
+    }
+
+    @Override
+    public void writeToNBT(NBTTagCompound tagCompound)
+    {
+        super.writeToNBT(tagCompound);
+        inventory.writeToNBT(tagCompound);
+        energy.writeToNBT(tagCompound);
+    }
+
+    @Override
+    public void invalidate()
+    {
+        energy.invalidate();
+    }
+    @Override
+    public void onChunkUnload()
+    {
+        energy.onChunkUnload();
+    }
 
 }

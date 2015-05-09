@@ -7,6 +7,7 @@ import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import techreborn.api.recipe.RecipeCrafter;
@@ -79,5 +80,32 @@ public class TileDragonEggSiphoner extends TileMachineBase implements IWrenchabl
 	{
 		return false;
 	}
+
+    @Override
+    public void invalidate()
+    {
+        energy.invalidate();
+    }
+    @Override
+    public void onChunkUnload()
+    {
+        energy.onChunkUnload();
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound tagCompound)
+    {
+        super.readFromNBT(tagCompound);
+        inventory.readFromNBT(tagCompound);
+        energy.readFromNBT(tagCompound);
+    }
+
+    @Override
+    public void writeToNBT(NBTTagCompound tagCompound)
+    {
+        super.writeToNBT(tagCompound);
+        inventory.writeToNBT(tagCompound);
+        energy.writeToNBT(tagCompound);
+    }
 
 }
