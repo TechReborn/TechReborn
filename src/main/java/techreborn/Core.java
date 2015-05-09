@@ -6,13 +6,16 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import erogenousbeef.coreTR.multiblock.MultiblockEventHandler;
 import erogenousbeef.coreTR.multiblock.MultiblockServerTickHandler;
 import net.minecraftforge.common.MinecraftForge;
 import techreborn.achievement.TRAchievements;
+import techreborn.api.recipe.RecipeHanderer;
 import techreborn.client.GuiHandler;
+import techreborn.command.TechRebornDevCommand;
 import techreborn.compat.CompatManager;
 import techreborn.compat.recipes.RecipeManager;
 import techreborn.config.ConfigTechReborn;
@@ -86,6 +89,13 @@ public class Core {
 	{
 		// Has to be done here as Buildcraft registers there recipes late
 		RecipeManager.init();
+		//RecipeHanderer.addOreDicRecipes();
+		LogHelper.info(RecipeHanderer.recipeList.size() + " recipes loaded");
+	}
+
+	@Mod.EventHandler
+	public void serverStarting(FMLServerStartingEvent event){
+		event.registerServerCommand(new TechRebornDevCommand());
 	}
 
 }
