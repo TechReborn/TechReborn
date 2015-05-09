@@ -58,6 +58,9 @@ public class ModItems {
 	public static Item purifiedCrushedOre;
 	
 	public static Item bucketBerylium;
+	public static Item bucketcalcium;
+	public static Item bucketcalciumcarbonate;
+	public static Item bucketChlorite;
 
 	public static void init()
 	{
@@ -108,6 +111,24 @@ public class ModItems {
 		GameRegistry.registerItem(bucketBerylium, "bucketBerylium");
 		FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack("fluidberylium", FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(bucketBerylium), new ItemStack(Items.bucket));
 		BucketHandler.INSTANCE.buckets.put(ModFluids.BlockFluidBerylium, bucketBerylium);
+		
+		bucketcalcium = new ItemFluidbucket(ModFluids.BlockFluidCalcium);
+		bucketcalcium.setUnlocalizedName("bucketCalcium").setContainerItem(Items.bucket);
+		GameRegistry.registerItem(bucketcalcium, "bucketCalcium");
+		FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack("fluidcalcium", FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(bucketcalcium), new ItemStack(Items.bucket));
+		BucketHandler.INSTANCE.buckets.put(ModFluids.BlockFluidCalcium, bucketcalcium);
+		
+		bucketcalciumcarbonate = new ItemFluidbucket(ModFluids.BlockFluidCalciumCarbonate);
+		bucketcalciumcarbonate.setUnlocalizedName("bucketcalciumcarbonate").setContainerItem(Items.bucket);
+		GameRegistry.registerItem(bucketcalciumcarbonate, "bucketcalciumcarbonate");
+		FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack("fluidcalciumcarbonate", FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(bucketcalciumcarbonate), new ItemStack(Items.bucket));
+		BucketHandler.INSTANCE.buckets.put(ModFluids.BlockFluidCalciumCarbonate, bucketcalciumcarbonate);
+		
+		bucketChlorite = new ItemFluidbucket(ModFluids.BlockFluidChlorite);
+		bucketChlorite.setUnlocalizedName("bucketchlorite").setContainerItem(Items.bucket);
+		GameRegistry.registerItem(bucketChlorite, "bucketcalchlorite");
+		FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack("fluidchlorite", FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(bucketcalciumcarbonate), new ItemStack(Items.bucket));
+		BucketHandler.INSTANCE.buckets.put(ModFluids.BlockFluidChlorite, bucketChlorite);
 			
 		MinecraftForge.EVENT_BUS.register(BucketHandler.INSTANCE);
 
