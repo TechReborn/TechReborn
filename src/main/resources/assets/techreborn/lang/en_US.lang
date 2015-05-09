@@ -80,6 +80,9 @@ tile.techreborn.storage.Nickel.name=Block of Nickel
 tile.techreborn.storage.Invar.name=Block of Invar
 tile.techreborn.storage.Tungsten.name=Block of Tungsten
 
+#Fluids
+
+
 #Dusts
 item.techreborn.dust.Almandine.name=Almandine Dust
 item.techreborn.dust.Aluminium.name=Aluminium Dust
@@ -328,6 +331,32 @@ item.techreborn.lithiumbatpack.name=Lithium Batpack
 item.techreborn.lapotronpack.name=Lapotron Pack
 item.techreborn.omniTool.name=Omni tool
 item.techreborn.advancedDrill.name=Advanced Drill
+
+#Buckets
+item.bucketberylium.name=Berylium Bucket
+item.bucketcalcium.name=Calcium Bucket
+item.bucketcalciumcarbonate.name=Calciumcarbonate Bucket
+item.bucketchlorite.name=Chlorite Bucket
+item.bucketdeuterium.name=Deuterium Bucket
+item.bucketglyceryl.name=Glyceryl Bucket
+item.buckethelium.name=Helium Bucket
+item.buckethelium3.name=Helium3 Bucket
+item.bucketheliumplasma.name=Heliumplasma Bucket
+item.buckethydrogen.name=Hydrogen Bucket
+item.bucketlithium.name=Lithium Bucket
+item.bucketmercury.name=Mercury Bucket
+item.bucketmethane.name=Methane Bucket
+item.bucketnitrocoalfuel.name=Nitrocoalfuel Bucket
+item.bucketnitrofuel.name=Nitrofuel Bucket
+item.bucketnitrogen.name=Nitrogen Bucket
+item.bucketnitrogendioxide.name=Nitrogendioxide Bucket
+item.bucketpotassium.name=Potassium Bucket
+item.bucketsilicon.name=Silicon Bucket
+item.bucketsodium.name=Sodium Bucket
+item.bucketsodiumpersulfate.name=Sodiumpersulfate Bucket
+item.buckettritium.name=Tritium Bucket
+item.bucketwolframium.name=Wolframium Bucket
+
 
 #Configs
 config.techreborn.allow.galenaOre=Allow Galena Ore
