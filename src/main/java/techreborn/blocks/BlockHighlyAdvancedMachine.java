@@ -20,7 +20,7 @@ public class BlockHighlyAdvancedMachine extends BlockMachineBase{
 	public BlockHighlyAdvancedMachine(Material material)
 	{
 		super(material);
-		setBlockName("techreboen.highlyadvancedmachine");
+		setBlockName("techreborn.highlyAdvancedMachine");
 	}
 	
 	@Override

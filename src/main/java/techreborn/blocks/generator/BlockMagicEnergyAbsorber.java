@@ -36,7 +36,7 @@ public class BlockMagicEnergyAbsorber extends BlockMachineBase {
 	public BlockMagicEnergyAbsorber(Material material)
 	{
 		super(material);
-		setBlockName("techreborn.magicrnergyabsorber");
+		setBlockName("techreborn.magicenergyabsorber");
 	}
 	
 	@Override

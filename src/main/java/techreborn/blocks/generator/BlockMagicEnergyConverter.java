@@ -36,7 +36,7 @@ public class BlockMagicEnergyConverter extends BlockMachineBase {
 	public BlockMagicEnergyConverter(Material material)
 	{
 		super(material);
-		setBlockName("techreborn.magicrnergyconverter");
+		setBlockName("techreborn.magicenergyconverter");
 	}
 	
 	@Override

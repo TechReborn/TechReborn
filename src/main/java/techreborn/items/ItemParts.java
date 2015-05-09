@@ -12,7 +12,7 @@ import techreborn.client.TechRebornCreativeTab;
 
 public class ItemParts extends Item {
 	public static final String[] types = new String[]
-	{ "basicCircuitBoard", "advancedCircuitBoard", "advancedCircuitParts", "processorCircuitBoard",
+	{ "advancedCircuitParts", "basicCircuitBoard", "advancedCircuitBoard", "processorCircuitBoard",
 			"energyFlowCircuit", "dataControlCircuit", "dataOrb", "dataStorageCircuit",
 			"diamondGrindingHead", "diamondSawBlade", "tungstenGrindingHead",
 			"heliumCoolantSimple", "heliumCoolantTriple", "heliumCoolantSix",
