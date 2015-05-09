@@ -55,67 +55,8 @@ public class RecipeHanderer {
 	public static void addOreDicRecipes(){
 		recipeListBackup.clear();
 		recipeListBackup.addAll(recipeList);
-		ArrayList<IBaseRecipeType> newRecipes = new ArrayList<IBaseRecipeType>();
-		for(IBaseRecipeType baseRecipe : recipeList){
-			if(baseRecipe instanceof BaseRecipe){
-				for (int i = 0; i < baseRecipe.getInputs().size(); i++) {
-					BaseRecipe newRecipe = (BaseRecipe) baseRecipe;
-					for(int oreId : OreDictionary.getOreIDs(((BaseRecipe) baseRecipe).inputs.get(i))){
-						for(ItemStack itemStack : getInputs(OreDictionary.getOreName(oreId))){
-							System.out.println(itemStack.getDisplayName());
-							newRecipe.inputs.set(i, itemStack);
-						}
-					}
-					newRecipes.add(newRecipe);
-				}
-				for (int i = 0; i < baseRecipe.getOutputs().size(); i++) {
-					BaseRecipe newRecipe = (BaseRecipe) baseRecipe;
-					for(int oreId : OreDictionary.getOreIDs(((BaseRecipe) baseRecipe).outputs.get(i))){
-						for(ItemStack itemStack : OreDictionary.getOres(OreDictionary.getOreName(oreId))){
-							newRecipe.outputs.set(i, itemStack);
-						}
-					}
-					newRecipes.add(newRecipe);
-				}
-
-			}
-		}
-		recipeList.addAll(newRecipes);
+		//TODO add all of the recipes with all the different ores
 	}
 
-	public static List<ItemStack> getInputs(String name) {
-		List ores = getOres(name);
-		boolean hasInvalidEntries = false;
-		Iterator ret = ores.iterator();
-
-		while(ret.hasNext()) {
-			ItemStack i$ = (ItemStack)ret.next();
-			if(i$.getItem() == null) {
-				hasInvalidEntries = true;
-				break;
-			}
-		}
-
-		if(!hasInvalidEntries) {
-			return ores;
-		} else {
-			ArrayList ret1 = new ArrayList(ores.size());
-			Iterator i$1 = ores.iterator();
-
-			while(i$1.hasNext()) {
-				ItemStack stack = (ItemStack)i$1.next();
-				if(stack.getItem() != null) {
-					ret1.add(stack);
-				}
-			}
-
-			return Collections.unmodifiableList(ret1);
-		}
-	}
-
-	private static List<ItemStack> getOres(String name) {
-		ArrayList ret = OreDictionary.getOres(name);
-		return ret;
-	}
 
 }
