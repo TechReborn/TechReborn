@@ -40,7 +40,7 @@ public class GuiGrinder extends GuiContainer{
 	protected void drawGuiContainerForegroundLayer(int p_146979_1_,
 			int p_146979_2_)
 	{
-		this.fontRendererObj.drawString(StatCollector.translateToLocal("tile.techreborn.grinder.name"), 60, 6, 4210752);
+		this.fontRendererObj.drawString(StatCollector.translateToLocal("tile.techreborn.grinder.name"), 40, 6, 4210752);
 		this.fontRendererObj.drawString(
 				I18n.format("container.inventory", new Object[0]), 8,
 				this.ySize - 96 + 2, 4210752);

@@ -53,7 +53,7 @@ public class GuiBlastFurnace extends GuiContainer {
 			int p_146979_2_)
 	{
         super.drawGuiContainerForegroundLayer(p_146979_1_, p_146979_2_);
-		this.fontRendererObj.drawString(StatCollector.translateToLocal("tile.techreborn.blastfurnace.name"), 60, 6, 4210752);
+		this.fontRendererObj.drawString(StatCollector.translateToLocal("tile.techreborn.blastfurnace.name"), 35, 6, 4210752);
         this.fontRendererObj.drawString(blastfurnace.getHeat() + " heat", 75, 20, 4210752);
 		this.fontRendererObj.drawString(
 				I18n.format("container.inventory", new Object[0]), 8,
