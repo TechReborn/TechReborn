@@ -84,10 +84,4 @@ public class ItemDusts extends ItemTR {
 		}
 	}
 
-	@Override
-	public EnumRarity getRarity(ItemStack itemstack)
-	{
-		return EnumRarity.uncommon;
-	}
-
 }

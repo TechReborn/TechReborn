@@ -76,10 +76,4 @@ public class ItemCells extends ItemTR {
 		}
 	}
 
-	@Override
-	public EnumRarity getRarity(ItemStack itemstack)
-	{
-		return EnumRarity.uncommon;
-	}
-
 }

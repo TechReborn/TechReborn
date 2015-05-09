@@ -72,10 +72,4 @@ public class ItemRods extends Item {
 		}
 	}
 
-	@Override
-	public EnumRarity getRarity(ItemStack itemstack)
-	{
-		return EnumRarity.uncommon;
-	}
-
 }

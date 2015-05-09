@@ -77,10 +77,4 @@ public class ItemPlates extends ItemTR {
 		}
 	}
 
-	@Override
-	public EnumRarity getRarity(ItemStack itemstack)
-	{
-		return EnumRarity.uncommon;
-	}
-
 }

@@ -84,10 +84,4 @@ public class ItemDustsSmall extends ItemTR {
 		}
 	}
 
-	@Override
-	public EnumRarity getRarity(ItemStack itemstack)
-	{
-		return EnumRarity.epic;
-	}
-
 }

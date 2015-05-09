@@ -76,18 +76,10 @@ public class ItemDustTiny extends ItemTR {
 	}
 
 	// Adds Dusts SubItems To Creative Tab
-	public void getSubItems(Item item, CreativeTabs creativeTabs, List list)
-	{
-		for (int meta = 0; meta < types.length; ++meta)
-		{
+	public void getSubItems(Item item, CreativeTabs creativeTabs, List list) {
+		for (int meta = 0; meta < types.length; ++meta) {
 			list.add(new ItemStack(item, 1, meta));
 		}
-	}
-
-	@Override
-	public EnumRarity getRarity(ItemStack itemstack)
-	{
-		return EnumRarity.uncommon;
 	}
 
 }

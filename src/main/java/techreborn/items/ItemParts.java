@@ -78,11 +78,4 @@ public class ItemParts extends Item {
 			list.add(new ItemStack(item, 1, meta));
 		}
 	}
-
-	@Override
-	public EnumRarity getRarity(ItemStack itemstack)
-	{
-		return EnumRarity.rare;
-	}
-
 }
