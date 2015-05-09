@@ -92,7 +92,7 @@ public class RecipeCrafter {
 			for (IBaseRecipeType recipe : RecipeHanderer.getRecipeClassFromName(recipeName)) {
 				boolean isFullRecipe = false;
 				for (int i = 0; i < inputs; i++) {
-					if (ItemUtils.isItemEqual(inventory.getStackInSlot(inputSlots[i]), recipe.getInputs().get(i), true, true, true)) {
+					if (ItemUtils.isItemEqual(inventory.getStackInSlot(inputSlots[i]), recipe.getInputs().get(i), true, true, true) && inventory.getStackInSlot(inputSlots[i]).stackSize >= recipe.getInputs().get(i).stackSize) {
 						isFullRecipe = true;
 					} else {
 						isFullRecipe = false;
@@ -105,7 +105,7 @@ public class RecipeCrafter {
 			}
 		} else {
 			for (int i = 0; i < inputs; i++) {
-				if (!ItemUtils.isItemEqual(inventory.getStackInSlot(inputSlots[i]), currentRecipe.getInputs().get(i), true, true, true)) {
+				if (!ItemUtils.isItemEqual(inventory.getStackInSlot(inputSlots[i]), currentRecipe.getInputs().get(i), true, true, true) || (inventory.getStackInSlot(inputSlots[i]) == null || (inventory.getStackInSlot(inputSlots[i]).stackSize < currentRecipe.getInputs().get(i).stackSize))) {
 					currentRecipe = null;
 					currentTickTime = 0;
 					return;

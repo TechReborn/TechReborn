@@ -2,6 +2,7 @@ package techreborn.client;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+import techreborn.client.container.ContainerAesu;
 import techreborn.client.container.ContainerAlloySmelter;
 import techreborn.client.container.ContainerAssemblingMachine;
 import techreborn.client.container.ContainerBlastFurnace;
@@ -10,6 +11,7 @@ import techreborn.client.container.ContainerChunkloader;
 import techreborn.client.container.ContainerDieselGenerator;
 import techreborn.client.container.ContainerGrinder;
 import techreborn.client.container.ContainerImplosionCompressor;
+import techreborn.client.container.ContainerIndustrialElectrolyzer;
 import techreborn.client.container.ContainerLathe;
 import techreborn.client.container.ContainerMatterFabricator;
 import techreborn.client.container.ContainerPlateCuttingMachine;
@@ -17,6 +19,7 @@ import techreborn.client.container.ContainerQuantumChest;
 import techreborn.client.container.ContainerQuantumTank;
 import techreborn.client.container.ContainerRollingMachine;
 import techreborn.client.container.ContainerThermalGenerator;
+import techreborn.client.gui.GuiAesu;
 import techreborn.client.gui.GuiAlloySmelter;
 import techreborn.client.gui.GuiAssemblingMachine;
 import techreborn.client.gui.GuiBlastFurnace;
@@ -25,6 +28,7 @@ import techreborn.client.gui.GuiChunkLoader;
 import techreborn.client.gui.GuiDieselGenerator;
 import techreborn.client.gui.GuiGrinder;
 import techreborn.client.gui.GuiImplosionCompressor;
+import techreborn.client.gui.GuiIndustrialElectrolyzer;
 import techreborn.client.gui.GuiLathe;
 import techreborn.client.gui.GuiMatterFabricator;
 import techreborn.client.gui.GuiPlateCuttingMachine;
@@ -33,6 +37,7 @@ import techreborn.client.gui.GuiQuantumTank;
 import techreborn.client.gui.GuiRollingMachine;
 import techreborn.client.gui.GuiThermalGenerator;
 import techreborn.pda.GuiPda;
+import techreborn.tiles.TileAesu;
 import techreborn.tiles.TileAlloySmelter;
 import techreborn.tiles.TileAssemblingMachine;
 import techreborn.tiles.TileBlastFurnace;
@@ -41,6 +46,7 @@ import techreborn.tiles.TileChunkLoader;
 import techreborn.tiles.TileDieselGenerator;
 import techreborn.tiles.TileGrinder;
 import techreborn.tiles.TileImplosionCompressor;
+import techreborn.tiles.TileIndustrialElectrolyzer;
 import techreborn.tiles.TileLathe;
 import techreborn.tiles.TileMatterFabricator;
 import techreborn.tiles.TilePlateCuttingMachine;
@@ -68,6 +74,8 @@ public class GuiHandler implements IGuiHandler {
 	public static final int latheID = 13;
 	public static final int platecuttingmachineID = 14;
 	public static final int dieselGeneratorID = 15;
+	public static final int industrialElectrolyzerID = 16;
+	public static final int aesuID =17;
 
 
 
@@ -135,6 +143,14 @@ public class GuiHandler implements IGuiHandler {
 		{
 			return new ContainerDieselGenerator(
 					(TileDieselGenerator) world.getTileEntity(x, y, z), player);
+		} else if (ID == industrialElectrolyzerID)
+		{
+			return new ContainerIndustrialElectrolyzer(
+					(TileIndustrialElectrolyzer) world.getTileEntity(x, y, z), player);
+		} else if (ID == aesuID)
+		{
+			return new ContainerAesu(
+					(TileAesu) world.getTileEntity(x, y, z), player);
 		} else if (ID == pdaID)
 		{
 			return null;
@@ -207,6 +223,14 @@ public class GuiHandler implements IGuiHandler {
 		{
 			return new GuiDieselGenerator(player,
 					(TileDieselGenerator) world.getTileEntity(x, y, z));	
+		} else if (ID == industrialElectrolyzerID)
+		{
+			return new GuiIndustrialElectrolyzer(player,
+					(TileIndustrialElectrolyzer) world.getTileEntity(x, y, z));	
+		} else if (ID == aesuID)
+		{
+			return new GuiAesu(player,
+					(TileAesu) world.getTileEntity(x, y, z));	
 		} else if (ID == pdaID)
 		{
 			return new GuiPda(player);

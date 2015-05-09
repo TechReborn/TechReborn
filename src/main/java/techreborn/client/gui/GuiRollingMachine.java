@@ -1,5 +1,6 @@
 package techreborn.client.gui;
 
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
@@ -36,10 +37,20 @@ public class GuiRollingMachine extends GuiContainer {
 	protected void drawGuiContainerForegroundLayer(int p_146979_1_,
 			int p_146979_2_)
 	{
-		this.fontRendererObj.drawString(StatCollector.translateToLocal("tile.techreborn.rollingmachine.name"), 8, 6, 4210752);
+		this.fontRendererObj.drawString(StatCollector.translateToLocal("tile.techreborn.rollingmachine.name"), 50, 6, 4210752);
 		this.fontRendererObj.drawString(
 				I18n.format("container.inventory", new Object[0]), 8,
 				this.ySize - 96 + 2, 4210752);
 	}
+	
+    @Override
+    public void initGui() 
+    {
+        this.buttonList.clear();
+        int k = (this.width - this.xSize) / 2;
+        int l = (this.height - this.ySize) / 2;
+        this.buttonList.add(new GuiButton(0, k + 4,  l + 4, 20, 20, "R"));
+        super.initGui();
+    }
 
 }

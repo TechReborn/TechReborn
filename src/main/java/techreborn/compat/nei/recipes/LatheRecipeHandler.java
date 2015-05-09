@@ -14,11 +14,9 @@ public class LatheRecipeHandler extends GenericRecipeHander implements INeiBaseR
 	public void addPositionedStacks(List<PositionedStack> input, List<PositionedStack> outputs, IBaseRecipeType recipeType) {
 		int offset = 4;
 		PositionedStack pStack = new PositionedStack(recipeType.getInputs().get(0), 56 - offset, 17 - offset);
-		pStack.setMaxSize(1);
 		input.add(pStack);
 
 		PositionedStack pStack3 = new PositionedStack(recipeType.getOutputs().get(0), 116 - offset, 35 - offset);
-		pStack3.setMaxSize(1);
 		outputs.add(pStack3);
 	}
 

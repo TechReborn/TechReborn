@@ -41,6 +41,7 @@ tile.techreborn.plasmagenerator.name=Plasma Generator
 tile.techreborn.fusioncontrolcomputer.name=Fusion Control Computer
 tile.techreborn.fusioncoil.name=Fusion Coil
 tile.techreborn.lightningrod.name=Lightning Rod
+tile.techreborn.assemblinmachine.name=Assembling Machine
 
 
 #Ores
@@ -81,7 +82,29 @@ tile.techreborn.storage.Invar.name=Block of Invar
 tile.techreborn.storage.Tungsten.name=Block of Tungsten
 
 #Fluids
-
+tile.techreborn.berylium.name=Berylium Source
+tile.techreborn.calcium.name=Calcium Source
+tile.techreborn.calciumcarbonate.name=Calciumcarbonate Source
+tile.techreborn.chlorite.name=Chlorite Source
+tile.techreborn.deuterium.name=Deuterium Source
+tile.techreborn.glyceryl.name=Glyceryl Source
+tile.techreborn.helium.name=Helium Source
+tile.techreborn.helium3.name=Helium3 Source
+tile.techreborn.heliumplasma.name=Heliumplasma Source
+tile.techreborn.hydrogen.name=Hydrogen Source
+tile.techreborn.lithium.name=Lithium Source
+tile.techreborn.mercury.name=Mercury Source
+tile.techreborn.methane.name=Methane Source
+tile.techreborn.nitrocoalfuel.name=Nitrocoalfuel Source
+tile.techreborn.nitrofuel.name=Nitrofuel Source
+tile.techreborn.nitrogen.name=Nitrogen Source
+tile.techreborn.nitrogendioxide.name=Nitrogendioxide Source
+tile.techreborn.potassium.name=Potassium Source
+tile.techreborn.silicon.name=Silicon Source
+tile.techreborn.sodium.name=Sodium Source
+tile.techreborn.sodiumpersulfate.name=Sodiumpersulfate Source
+tile.techreborn.tritium.name=Tritium Source
+tile.techreborn.wolframium.name=Wolframium Source
 
 #Dusts
 item.techreborn.dust.almandine.name=Almandine Dust

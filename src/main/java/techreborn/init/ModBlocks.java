@@ -51,6 +51,7 @@ import techreborn.itemblocks.ItemBlockOre;
 import techreborn.itemblocks.ItemBlockQuantumChest;
 import techreborn.itemblocks.ItemBlockQuantumTank;
 import techreborn.itemblocks.ItemBlockStorage;
+import techreborn.tiles.TileAesu;
 import techreborn.tiles.TileAlloySmelter;
 import techreborn.tiles.TileAssemblingMachine;
 import techreborn.tiles.TileBlastFurnace;
@@ -60,6 +61,7 @@ import techreborn.tiles.TileDieselGenerator;
 import techreborn.tiles.TileDragonEggSiphoner;
 import techreborn.tiles.TileGrinder;
 import techreborn.tiles.TileImplosionCompressor;
+import techreborn.tiles.TileIndustrialElectrolyzer;
 import techreborn.tiles.TileLathe;
 import techreborn.tiles.TileMachineCasing;
 import techreborn.tiles.TileMatterFabricator;
@@ -192,6 +194,7 @@ public class ModBlocks {
 		
 		IndustrialElectrolyzer = new BlockIndustrialElectrolyzer(Material.rock);
 		GameRegistry.registerBlock(IndustrialElectrolyzer, "industrialelectrolyzer");
+		GameRegistry.registerTileEntity(TileIndustrialElectrolyzer.class, "TileIndustrialElectrolyzer");
 		
 		MagicalAbsorber = new BlockMagicEnergyAbsorber(Material.rock);
 		GameRegistry.registerBlock(MagicalAbsorber, "magicrnergyabsorber");
@@ -218,6 +221,7 @@ public class ModBlocks {
 		
 		Aesu = new BlockAesu(Material.rock);
 		GameRegistry.registerBlock(Aesu, "aesu");
+		GameRegistry.registerTileEntity(TileAesu.class, "TileAesu");
 		
 		Lesu = new BlockLesu(Material.rock);
 		GameRegistry.registerBlock(Lesu, "lesu");

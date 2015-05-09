@@ -6,36 +6,28 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import techreborn.client.container.ContainerAesu;
 import techreborn.client.container.ContainerAlloySmelter;
 import techreborn.client.container.ContainerBlastFurnace;
+import techreborn.tiles.TileAesu;
 import techreborn.tiles.TileAlloySmelter;
 import techreborn.tiles.TileBlastFurnace;
 
-public class GuiAlloySmelter extends GuiContainer {
+public class GuiAesu extends GuiContainer {
 
 	private static final ResourceLocation texture = new ResourceLocation(
-			"techreborn", "textures/gui/industrial_blast_furnace.png");
+			"techreborn", "textures/gui/aesu.png");
 
-	TileAlloySmelter alloysmelter;
+	TileAesu aesu;
 
-	public GuiAlloySmelter(EntityPlayer player,
-			TileAlloySmelter tilealloysmelter)
+	public GuiAesu(EntityPlayer player,
+			TileAesu tileaesu)
 	{
-		super(new ContainerAlloySmelter(tilealloysmelter, player));
+		super(new ContainerAesu(tileaesu, player));
 		this.xSize = 176;
 		this.ySize = 167;
-		alloysmelter = tilealloysmelter;
+		aesu = tileaesu;
 	}
-	
-    @Override
-    public void initGui() {
-
-        this.buttonList.clear();
-        int k = (this.width - this.xSize) / 2;
-        int l = (this.height - this.ySize) / 2;
-        this.buttonList.add(new GuiButton(0, k + 4,  l + 4, 20, 20, "R"));
-        super.initGui();
-    }
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float p_146976_1_,
@@ -50,9 +42,6 @@ public class GuiAlloySmelter extends GuiContainer {
 	protected void drawGuiContainerForegroundLayer(int p_146979_1_,
 			int p_146979_2_)
 	{
-		this.fontRendererObj.drawString(StatCollector.translateToLocal("tile.techreborn.alloysmelter.name"), 40, 6, 4210752);
-		this.fontRendererObj.drawString(
-				I18n.format("container.inventory", new Object[0]), 8,
-				this.ySize - 96 + 2, 4210752);
+		this.fontRendererObj.drawString(StatCollector.translateToLocal("tile.techreborn.aesu.name"), 40, 6, 4210752);
 	}
 }

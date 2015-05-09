@@ -1,20 +1,43 @@
 package techreborn.tiles;
 
+import ic2.api.energy.prefab.BasicSink;
 import ic2.api.energy.tile.IEnergyTile;
+import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import techreborn.api.recipe.RecipeCrafter;
+import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.util.Inventory;
-import ic2.api.energy.prefab.BasicSink;
-import ic2.api.tile.IWrenchable;
 
-public class TileMatterFabricator extends TileMachineBase implements IWrenchable, IEnergyTile {
-	
+public class TileIndustrialElectrolyzer extends TileMachineBase implements IWrenchable, IEnergyTile {
+
 	public int tickTime;
 	public BasicSink energy;
-	public Inventory inventory = new Inventory(7, "TileMatterFabricator", 64);
+	public Inventory inventory = new Inventory(7, "TileIndustrialElectrolyzer", 64);
+	public RecipeCrafter crafter;
 	
+	public TileIndustrialElectrolyzer()
+	{
+		//TODO configs
+		energy = new BasicSink(this, 1000, 2);
+		//Input slots
+		int[] inputs = new int[2];
+		inputs[0] = 0;
+		inputs[1] = 1;
+		int[] outputs = new int[1];
+		outputs[0] = 2;
+		crafter = new RecipeCrafter("industrialelectrolyzerRecipe", this, energy, 2, 2, inventory, inputs, outputs);
+	}
+	
+	@Override
+	public void updateEntity()
+	{
+		super.updateEntity();
+		energy.updateEntity();
+		crafter.updateEntity();
+	}
 
 	@Override
 	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side)
@@ -48,14 +71,13 @@ public class TileMatterFabricator extends TileMachineBase implements IWrenchable
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
 	{
-		return new ItemStack(ModBlocks.MatterFabricator, 1);
+		return new ItemStack(ModBlocks.IndustrialElectrolyzer, 1);
 	}
 
 	public boolean isComplete()
 	{
 		return false;
 	}
-
 
     @Override
     public void readFromNBT(NBTTagCompound tagCompound)
@@ -83,5 +105,6 @@ public class TileMatterFabricator extends TileMachineBase implements IWrenchable
     {
         energy.onChunkUnload();
     }
+
 
 }

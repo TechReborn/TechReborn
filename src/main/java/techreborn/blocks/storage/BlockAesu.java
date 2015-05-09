@@ -16,6 +16,7 @@ import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.tiles.TileAesu;
 import techreborn.tiles.TileAlloySmelter;
 import techreborn.tiles.TileBlastFurnace;
 import techreborn.tiles.TileMachineCasing;
@@ -38,6 +39,23 @@ public class BlockAesu extends BlockMachineBase {
 		super(material);
 		setBlockName("techreborn.aesu");
 	}
+	
+	@Override
+	public TileEntity createNewTileEntity(World world, int p_149915_2_)
+	{
+		return new TileAesu();
+	}
+	
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z,
+			EntityPlayer player, int side, float hitX, float hitY, float hitZ)
+	{
+		if (!player.isSneaking())
+			player.openGui(Core.INSTANCE, GuiHandler.aesuID, world, x, y,
+					z);
+		return true;
+	}
+
 
 	@Override
 	@SideOnly(Side.CLIENT)
