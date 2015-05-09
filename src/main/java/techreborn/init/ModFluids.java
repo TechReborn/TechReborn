@@ -48,9 +48,6 @@ public class ModFluids {
 		BlockFluidChlorite = new BlockFluidChlorite(fluidChlorite, Material.water);
 		GameRegistry.registerBlock(BlockFluidChlorite, ModInfo.MOD_ID + "_" + BlockFluidChlorite.getUnlocalizedName().substring(5));
 		fluidChlorite.setUnlocalizedName(BlockFluidChlorite.getUnlocalizedName());
-		
-		//TODO
-		BucketHandler.INSTANCE.buckets.put(ModFluids.BlockFluidBerylium, ModItems.cells);
-		MinecraftForge.EVENT_BUS.register(BucketHandler.INSTANCE);
+
 	}
 }

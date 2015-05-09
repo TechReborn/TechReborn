@@ -54,10 +54,10 @@ public class Core {
 	{
 		// Register ModBlocks
 		ModBlocks.init();
-		// Register ModItems
-		ModItems.init();
 		// Register Fluids
 		ModFluids.init();
+		// Register ModItems
+		ModItems.init();
 		// Recipes
 		ModRecipes.init();
 		//Client only init, needs to be done before parts system

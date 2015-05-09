@@ -8,6 +8,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.init.ModFluids;
 import techreborn.lib.ModInfo;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
