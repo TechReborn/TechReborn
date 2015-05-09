@@ -58,7 +58,7 @@ public class TileAesu extends TileMachineBase implements IWrenchable, IEnergyTil
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
 	{
-		return new ItemStack(ModBlocks.AlloySmelter, 1);
+		return new ItemStack(ModBlocks.Aesu, 1);
 	}
 
 	public boolean isComplete()
