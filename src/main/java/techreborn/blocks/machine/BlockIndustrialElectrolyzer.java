@@ -18,6 +18,7 @@ import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileAlloySmelter;
 import techreborn.tiles.TileBlastFurnace;
+import techreborn.tiles.TileIndustrialElectrolyzer;
 import techreborn.tiles.TileMachineCasing;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -38,6 +39,23 @@ public class BlockIndustrialElectrolyzer extends BlockMachineBase {
 		super(material);
 		setBlockName("techreborn.industrialelectrolyzer");
 	}
+	
+	@Override
+	public TileEntity createNewTileEntity(World world, int p_149915_2_)
+	{
+		return new TileIndustrialElectrolyzer();
+	}
+	
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z,
+			EntityPlayer player, int side, float hitX, float hitY, float hitZ)
+	{
+		if (!player.isSneaking())
+			player.openGui(Core.INSTANCE, GuiHandler.industrialElectrolyzerID, world, x, y,
+					z);
+		return true;
+	}
+
 
 	@Override
 	@SideOnly(Side.CLIENT)

@@ -10,6 +10,7 @@ import techreborn.client.container.ContainerChunkloader;
 import techreborn.client.container.ContainerDieselGenerator;
 import techreborn.client.container.ContainerGrinder;
 import techreborn.client.container.ContainerImplosionCompressor;
+import techreborn.client.container.ContainerIndustrialElectrolyzer;
 import techreborn.client.container.ContainerLathe;
 import techreborn.client.container.ContainerMatterFabricator;
 import techreborn.client.container.ContainerPlateCuttingMachine;
@@ -25,6 +26,7 @@ import techreborn.client.gui.GuiChunkLoader;
 import techreborn.client.gui.GuiDieselGenerator;
 import techreborn.client.gui.GuiGrinder;
 import techreborn.client.gui.GuiImplosionCompressor;
+import techreborn.client.gui.GuiIndustrialElectrolyzer;
 import techreborn.client.gui.GuiLathe;
 import techreborn.client.gui.GuiMatterFabricator;
 import techreborn.client.gui.GuiPlateCuttingMachine;
@@ -41,6 +43,7 @@ import techreborn.tiles.TileChunkLoader;
 import techreborn.tiles.TileDieselGenerator;
 import techreborn.tiles.TileGrinder;
 import techreborn.tiles.TileImplosionCompressor;
+import techreborn.tiles.TileIndustrialElectrolyzer;
 import techreborn.tiles.TileLathe;
 import techreborn.tiles.TileMatterFabricator;
 import techreborn.tiles.TilePlateCuttingMachine;
@@ -68,6 +71,7 @@ public class GuiHandler implements IGuiHandler {
 	public static final int latheID = 13;
 	public static final int platecuttingmachineID = 14;
 	public static final int dieselGeneratorID = 15;
+	public static final int industrialElectrolyzerID = 16;
 
 
 
@@ -135,6 +139,10 @@ public class GuiHandler implements IGuiHandler {
 		{
 			return new ContainerDieselGenerator(
 					(TileDieselGenerator) world.getTileEntity(x, y, z), player);
+		} else if (ID == industrialElectrolyzerID)
+		{
+			return new ContainerIndustrialElectrolyzer(
+					(TileIndustrialElectrolyzer) world.getTileEntity(x, y, z), player);
 		} else if (ID == pdaID)
 		{
 			return null;
@@ -207,6 +215,10 @@ public class GuiHandler implements IGuiHandler {
 		{
 			return new GuiDieselGenerator(player,
 					(TileDieselGenerator) world.getTileEntity(x, y, z));	
+		} else if (ID == industrialElectrolyzerID)
+		{
+			return new GuiIndustrialElectrolyzer(player,
+					(TileIndustrialElectrolyzer) world.getTileEntity(x, y, z));	
 		} else if (ID == pdaID)
 		{
 			return new GuiPda(player);

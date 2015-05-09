@@ -60,6 +60,7 @@ import techreborn.tiles.TileDieselGenerator;
 import techreborn.tiles.TileDragonEggSiphoner;
 import techreborn.tiles.TileGrinder;
 import techreborn.tiles.TileImplosionCompressor;
+import techreborn.tiles.TileIndustrialElectrolyzer;
 import techreborn.tiles.TileLathe;
 import techreborn.tiles.TileMachineCasing;
 import techreborn.tiles.TileMatterFabricator;
@@ -192,6 +193,7 @@ public class ModBlocks {
 		
 		IndustrialElectrolyzer = new BlockIndustrialElectrolyzer(Material.rock);
 		GameRegistry.registerBlock(IndustrialElectrolyzer, "industrialelectrolyzer");
+		GameRegistry.registerTileEntity(TileIndustrialElectrolyzer.class, "TileIndustrialElectrolyzer");
 		
 		MagicalAbsorber = new BlockMagicEnergyAbsorber(Material.rock);
 		GameRegistry.registerBlock(MagicalAbsorber, "magicrnergyabsorber");
