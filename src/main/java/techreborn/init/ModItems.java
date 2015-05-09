@@ -61,6 +61,27 @@ public class ModItems {
 	public static Item bucketcalcium;
 	public static Item bucketcalciumcarbonate;
 	public static Item bucketChlorite;
+	public static Item bucketDeuterium;
+	public static Item bucketGlyceryl;
+	public static Item bucketHelium;
+	public static Item bucketHelium3;
+	public static Item bucketHeliumplasma;
+	public static Item bucketHydrogen;
+	public static Item bucketLithium;
+	public static Item bucketMercury;
+	public static Item bucketMethane;
+	public static Item bucketNitrocoalfuel;
+	public static Item bucketNitrofuel;
+	public static Item bucketNitrogen;
+	public static Item bucketNitrogendioxide;
+	public static Item bucketPotassium;
+	public static Item bucketSilicon;
+	public static Item bucketSodium;
+	public static Item bucketSodiumpersulfate;
+	public static Item bucketTritium;
+	public static Item bucketWolframium;
+
+
 
 	public static void init()
 	{
