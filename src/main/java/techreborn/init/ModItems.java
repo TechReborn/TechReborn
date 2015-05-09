@@ -1,9 +1,13 @@
 package techreborn.init;
 
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import techreborn.items.ItemCells;
 import techreborn.items.ItemCrushedOre;
@@ -22,9 +26,11 @@ import techreborn.items.armor.ItemGravityChest;
 import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
 import techreborn.items.tools.ItemAdvancedDrill;
+import techreborn.items.tools.ItemFluidbucket;
 import techreborn.items.tools.ItemOmniTool;
 import techreborn.items.tools.ItemRockCutter;
 import techreborn.items.tools.ItemTechPda;
+import techreborn.util.BucketHandler;
 import techreborn.util.LogHelper;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -50,6 +56,8 @@ public class ModItems {
 	public static Item rods;
 	public static Item crushedOre;
 	public static Item purifiedCrushedOre;
+	
+	public static Item bucketBerylium;
 
 	public static void init()
 	{
@@ -93,6 +101,16 @@ public class ModItems {
 		GameRegistry.registerItem(manuel, "techmanuel");
 		uuMatter = new ItemUUmatter();
 		GameRegistry.registerItem(uuMatter, "uumatter");
+		
+		// buckets
+		bucketBerylium = new ItemFluidbucket(ModFluids.BlockFluidBerylium);
+		bucketBerylium.setUnlocalizedName("bucketBerylium").setContainerItem(Items.bucket);
+		GameRegistry.registerItem(bucketBerylium, "bucketBerylium");
+		FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack("fluidberylium", FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(bucketBerylium), new ItemStack(Items.bucket));
+		BucketHandler.INSTANCE.buckets.put(ModFluids.BlockFluidBerylium, bucketBerylium);
+			
+		MinecraftForge.EVENT_BUS.register(BucketHandler.INSTANCE);
+
 
 		LogHelper.info("TechReborns Items Loaded");
 
