@@ -1,5 +1,6 @@
 package techreborn;
 
+import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
@@ -7,6 +8,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import erogenousbeef.coreTR.multiblock.MultiblockEventHandler;
@@ -96,6 +98,16 @@ public class Core {
 	@Mod.EventHandler
 	public void serverStarting(FMLServerStartingEvent event){
 		event.registerServerCommand(new TechRebornDevCommand());
+	}
+	
+	@SubscribeEvent
+	public void onConfigChanged(
+			ConfigChangedEvent.OnConfigChangedEvent cfgChange)
+	{
+		if (cfgChange.modID.equals("TechReborn")) {
+			ConfigTechReborn.Configs();
+
+		}
 	}
 
 }
