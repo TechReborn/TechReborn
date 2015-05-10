@@ -22,7 +22,7 @@ public class TileHeatGenerator extends TileMachineBase implements IWrenchable, I
 
 	public TileHeatGenerator()
 	{
-		energy = new BasicSource(this, 1000, 1);
+		energy = new BasicSource(this, 1000, ConfigTechReborn.heatGeneratorOutput);
 	}
 	
 	@Override
