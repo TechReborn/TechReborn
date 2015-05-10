@@ -22,8 +22,6 @@ public class TileMatterFabricator extends TileMachineBase implements IWrenchable
 				ConfigTechReborn.CentrifugeTier);
 	}
 
-
-
 	@Override
 	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side)
 	{
