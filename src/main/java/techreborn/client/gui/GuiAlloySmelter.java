@@ -14,7 +14,7 @@ import techreborn.tiles.TileBlastFurnace;
 public class GuiAlloySmelter extends GuiContainer {
 
 	private static final ResourceLocation texture = new ResourceLocation(
-			"techreborn", "textures/gui/industrial_blast_furnace.png");
+			"techreborn", "textures/gui/electric_alloy_furnace.png");
 
 	TileAlloySmelter alloysmelter;
 
