@@ -78,8 +78,8 @@ public class RecipeCrafter {
 	}
 
 
-	IBaseRecipeType currentRecipe;
-	int currentTickTime = 0;
+	public IBaseRecipeType currentRecipe;
+	public int currentTickTime = 0;
 
 	/**
 	 * Call this on the tile tick

@@ -52,11 +52,4 @@ public class RecipeHanderer {
 	}
 
 
-	public static void addOreDicRecipes(){
-		recipeListBackup.clear();
-		recipeListBackup.addAll(recipeList);
-		//TODO add all of the recipes with all the different ores
-	}
-
-
 }

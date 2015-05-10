@@ -36,12 +36,6 @@ public class TechRebornDevCommand extends CommandBase {
 		} else if ("help".equals(args[0])) {
 			sender.addChatMessage(new ChatComponentText("recipes - Reloads all of the machine recipes"));
 		} else if ("recipes".equals(args[0])) {
-			long startTime = System.currentTimeMillis();
-			RecipeHanderer.recipeList.clear();
-			RecipeHanderer.recipeList.addAll(RecipeHanderer.recipeListBackup);
-			RecipeHanderer.addOreDicRecipes();
-			long endTime = System.currentTimeMillis();
-			sender.addChatMessage(new ChatComponentText("Reloaded oreDictionary Recipes in" + (endTime - startTime) + " milliseconds"));
 			sender.addChatMessage(new ChatComponentText(RecipeHanderer.recipeList.size() + " recipes loaded"));
 		}
 
