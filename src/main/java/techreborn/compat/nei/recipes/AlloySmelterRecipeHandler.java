@@ -2,6 +2,7 @@ package techreborn.compat.nei.recipes;
 
 import codechicken.nei.PositionedStack;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraftforge.oredict.OreDictionary;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.client.gui.GuiAlloySmelter;
 import techreborn.client.gui.GuiImplosionCompressor;
@@ -12,10 +13,10 @@ public class AlloySmelterRecipeHandler extends GenericRecipeHander implements IN
 	@Override
 	public void addPositionedStacks(List<PositionedStack> input, List<PositionedStack> outputs, IBaseRecipeType recipeType) {
 		int offset = 4;
-		PositionedStack pStack = new PositionedStack(recipeType.getInputs().get(0), 56 - offset, 25 - offset);
+		PositionedStack pStack = new PositionedStack(OreDictionary.getOres(OreDictionary.getOreName(OreDictionary.getOreID(recipeType.getInputs().get(0)))), 56 - offset, 25 - offset);
 		input.add(pStack);
 
-		PositionedStack pStack2 = new PositionedStack(recipeType.getInputs().get(1), 56 - offset, 43 - offset);
+		PositionedStack pStack2 = new PositionedStack(OreDictionary.getOres(OreDictionary.getOreName(OreDictionary.getOreID(recipeType.getInputs().get(1)))), 56 - offset, 43 - offset);
 		input.add(pStack2);
 
 		PositionedStack pStack3 = new PositionedStack(recipeType.getOutputs().get(0), 116 - offset, 35 - offset);

@@ -16,7 +16,7 @@ import techreborn.util.LogHelper;
 public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 
     public boolean hasLava;
-	public boolean isStar;
+	public boolean isStar = false;
 
     public MultiBlockCasing(World world) {
         super(world);
@@ -93,13 +93,20 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 		}
 
 
-		if(checkIfStarShape(minimumCoord.x, minimumCoord.y, minimumCoord.z)){
-			isStar = true;
-			return;
-		} else {
-			isStar = false;
-		}
+//		if(checkIfStarShape(minimumCoord.x, minimumCoord.y, minimumCoord.z)){
+//			isStar = true;
+//			return;
+//		} else {
+//			isStar = false;
+//		}
 
+        if (deltaY < 4)
+        {
+        throw new MultiblockValidationException(
+                String.format(
+                        "Machine is too small, it must be at least %d blocks in the Y dimension",
+                        minY));
+        }
 
 		// Now we run a simple check on each block within that volume.
 		// Any block deviating = NO DEAL SIR
@@ -410,7 +417,8 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 		}
 		{//middle blocks
 			for (int i = 0; i < 3; i++) {
-				te = this.worldObj.getTileEntity(x + 1, y + i, z);
+                System.out.println(this.worldObj.getBlock(x, y - 1, z));
+                te = this.worldObj.getTileEntity(x + 1, y + i, z);
 				isSolid = checkTeIsCenter(te);
 				if(!isSolid){
 					return false;
@@ -444,7 +452,7 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 	}
 
 	public boolean checkTeIsCorner(TileEntity te){
-		return (te.blockType instanceof BlockMachineCasing && te.blockMetadata == 0);
+        return (te.blockType instanceof BlockMachineCasing && te.blockMetadata == 0);
 	}
 
 	public boolean checkTeIsCenter(TileEntity te){

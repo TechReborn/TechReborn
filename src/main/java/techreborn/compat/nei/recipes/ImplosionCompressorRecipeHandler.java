@@ -2,19 +2,23 @@ package techreborn.compat.nei.recipes;
 
 import codechicken.nei.PositionedStack;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.client.gui.GuiImplosionCompressor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ImplosionCompressorRecipeHandler extends GenericRecipeHander implements INeiBaseRecipe {
 	@Override
 	public void addPositionedStacks(List<PositionedStack> input, List<PositionedStack> outputs, IBaseRecipeType recipeType) {
 		int offset = 4;
-		PositionedStack pStack = new PositionedStack(recipeType.getInputs().get(0), 34 - offset, 16 - offset);
+		PositionedStack pStack = new PositionedStack(OreDictionary.getOres(OreDictionary.getOreName(OreDictionary.getOreID(recipeType.getInputs().get(0)))), 34 - offset, 16 - offset);
 		input.add(pStack);
 
-		PositionedStack pStack2 = new PositionedStack(recipeType.getInputs().get(1), 34 - offset, 34 - offset);
+		PositionedStack pStack2 = new PositionedStack(OreDictionary.getOres(OreDictionary.getOreName(OreDictionary.getOreID(recipeType.getInputs().get(1)))), 34 - offset, 34 - offset);
 		input.add(pStack2);
 
 		PositionedStack pStack3 = new PositionedStack(recipeType.getOutputs().get(0), 86 - offset, 25 - offset);
