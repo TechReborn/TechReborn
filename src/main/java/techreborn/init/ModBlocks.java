@@ -53,6 +53,7 @@ import techreborn.itemblocks.ItemBlockQuantumChest;
 import techreborn.itemblocks.ItemBlockQuantumTank;
 import techreborn.itemblocks.ItemBlockStorage;
 import techreborn.tiles.TileAesu;
+import techreborn.tiles.TileAlloyFurnace;
 import techreborn.tiles.TileAlloySmelter;
 import techreborn.tiles.TileAssemblingMachine;
 import techreborn.tiles.TileBlastFurnace;
@@ -207,6 +208,7 @@ public class ModBlocks {
 		
 		AlloyFurnace = new BlockAlloyFurnace(Material.rock);
 		GameRegistry.registerBlock(AlloyFurnace, "alloyfurnace");
+		GameRegistry.registerTileEntity(TileAlloyFurnace.class, "TileAlloyFurnace");
 		
 		ChemicalReactor = new BlockChemicalReactor(Material.rock);
 		GameRegistry.registerBlock(ChemicalReactor, "chemicalreactor");
