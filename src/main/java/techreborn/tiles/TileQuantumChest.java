@@ -241,7 +241,11 @@ public class TileQuantumChest extends TileMachineBase implements IInventory,
 	@Override
 	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
 	{
-		return true;
+		if (entityPlayer.isSneaking())
+		{
+			return true;
+		}
+		return false;
 	}
 
 	@Override

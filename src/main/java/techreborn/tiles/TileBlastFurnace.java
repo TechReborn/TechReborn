@@ -50,8 +50,13 @@ public class TileBlastFurnace extends TileMachineBase implements IWrenchable, II
 	}
 
 	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
-		return true;
+	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
+	{
+		if (entityPlayer.isSneaking())
+		{
+			return true;
+		}
+		return false;
 	}
 
 	@Override

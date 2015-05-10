@@ -59,7 +59,11 @@ public class TileIndustrialElectrolyzer extends TileMachineBase implements IWren
 	@Override
 	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
 	{
-		return true;
+		if (entityPlayer.isSneaking())
+		{
+			return true;
+		}
+		return false;
 	}
 
 	@Override

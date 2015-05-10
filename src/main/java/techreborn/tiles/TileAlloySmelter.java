@@ -59,7 +59,11 @@ public class TileAlloySmelter extends TileMachineBase implements IWrenchable, IE
 	@Override
 	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
 	{
-		return true;
+		if (entityPlayer.isSneaking())
+		{
+			return true;
+		}
+		return false;
 	}
 
 	@Override

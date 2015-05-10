@@ -76,7 +76,11 @@ public class TileHeatGenerator extends TileMachineBase implements IWrenchable, I
 	@Override
 	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
 	{
-		return true;
+		if (entityPlayer.isSneaking())
+		{
+			return true;
+		}
+		return false;
 	}
 
 	@Override

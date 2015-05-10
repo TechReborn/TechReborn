@@ -58,7 +58,11 @@ public class TileLathe extends TileMachineBase implements IWrenchable, IEnergyTi
 	@Override
 	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
 	{
-		return true;
+		if (entityPlayer.isSneaking())
+		{
+			return true;
+		}
+		return false;
 	}
 
 	@Override

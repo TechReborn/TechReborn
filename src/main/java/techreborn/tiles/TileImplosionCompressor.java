@@ -51,7 +51,11 @@ public class TileImplosionCompressor extends TileMachineBase implements IWrencha
 	@Override
 	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
 	{
-		return true;
+		if (entityPlayer.isSneaking())
+		{
+			return true;
+		}
+		return false;
 	}
 
 	@Override

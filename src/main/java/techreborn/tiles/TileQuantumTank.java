@@ -222,7 +222,11 @@ public class TileQuantumTank extends TileMachineBase implements IFluidHandler,
 	@Override
 	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
 	{
-		return true;
+		if (entityPlayer.isSneaking())
+		{
+			return true;
+		}
+		return false;
 	}
 
 	@Override

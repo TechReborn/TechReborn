@@ -147,7 +147,11 @@ public class TileRollingMachine extends TileMachineBase implements IWrenchable, 
 	@Override
 	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
 	{
-		return true;
+		if (entityPlayer.isSneaking())
+		{
+			return true;
+		}
+		return false;
 	}
 
 	@Override

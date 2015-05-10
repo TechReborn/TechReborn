@@ -46,7 +46,11 @@ public class TileAesu extends TileMachineBase implements IWrenchable, IEnergyTil
 	@Override
 	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
 	{
-		return true;
+		if (entityPlayer.isSneaking())
+		{
+			return true;
+		}
+		return false;
 	}
 
 	@Override

@@ -36,7 +36,11 @@ public class TileGrinder extends TileMachineBase implements IWrenchable, IEnergy
 	@Override
 	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
 	{
-		return true;
+		if (entityPlayer.isSneaking())
+		{
+			return true;
+		}
+		return false;
 	}
 
 	@Override
