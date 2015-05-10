@@ -21,15 +21,15 @@ public class ContainerGrinder extends TechRebornContainer{
 		this.player = player;
 
 		// input
-		this.addSlotToContainer(new Slot(tileGrinder.inventory, 0, 29, 26));
-		this.addSlotToContainer(new Slot(tileGrinder.inventory, 1, 29, 44));
+		this.addSlotToContainer(new Slot(tileGrinder.inventory, 0, 32, 26));
+		this.addSlotToContainer(new Slot(tileGrinder.inventory, 1, 32, 44));
 
 
 		// outputs
-		this.addSlotToContainer(new SlotOutput(tileGrinder.inventory, 2, 73, 35));
-		this.addSlotToContainer(new SlotOutput(tileGrinder.inventory, 3, 91, 35));
-		this.addSlotToContainer(new SlotOutput(tileGrinder.inventory, 4, 109, 35));
-		this.addSlotToContainer(new SlotOutput(tileGrinder.inventory, 5, 127, 35));
+		this.addSlotToContainer(new SlotOutput(tileGrinder.inventory, 2, 77, 35));
+		this.addSlotToContainer(new SlotOutput(tileGrinder.inventory, 3, 95, 35));
+		this.addSlotToContainer(new SlotOutput(tileGrinder.inventory, 4, 113, 35));
+		this.addSlotToContainer(new SlotOutput(tileGrinder.inventory, 5, 131, 35));
 
 		int i;
 
