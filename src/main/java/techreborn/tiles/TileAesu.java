@@ -3,6 +3,7 @@ package techreborn.tiles;
 import ic2.api.energy.prefab.BasicSink;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
+import ic2.core.block.wiring.TileEntityElectricBlock;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import techreborn.api.recipe.RecipeCrafter;
@@ -10,13 +11,15 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.util.Inventory;
 
-public class TileAesu extends TileMachineBase implements IWrenchable, IEnergyTile {
+public class TileAesu extends TileEntityElectricBlock implements IWrenchable {
 
+    public static final int MAX_OUTPUT = 8192;
+    public static final int MAX_STORAGE = 1000000000; //One billion!
 	public Inventory inventory = new Inventory(2, "TileAesu", 64);
 	
 	public TileAesu()
 	{
-
+		super(5, TileAesu.MAX_OUTPUT, TileAesu.MAX_STORAGE);
 	}
 	
 	@Override
@@ -68,6 +71,12 @@ public class TileAesu extends TileMachineBase implements IWrenchable, IEnergyTil
 	public boolean isComplete()
 	{
 		return false;
+	}
+
+	@Override
+	public String getInventoryName()
+	{
+		return "AESU";
 	}
 
 }
