@@ -35,7 +35,7 @@ public class BlockFluidBase extends BlockFluidClassic{
 	@Override
 	public void registerBlockIcons(IIconRegister register) 
 	{
-		stillIcon = register.registerIcon(ModInfo.MOD_ID.toLowerCase() + ":" + "fluids/" + getUnlocalizedName().substring(16) + "_still");
+		stillIcon = register.registerIcon(ModInfo.MOD_ID.toLowerCase() + ":" + "fluids/" + getUnlocalizedName().substring(16) + "_flowing");
 		flowingIcon = register.registerIcon(ModInfo.MOD_ID.toLowerCase() + ":" + "fluids/" + getUnlocalizedName().substring(16) + "_flowing");
 		
 		this.stack.getFluid().setIcons(stillIcon, flowingIcon);
