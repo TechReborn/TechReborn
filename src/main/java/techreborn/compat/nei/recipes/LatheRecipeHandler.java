@@ -6,6 +6,7 @@ import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.client.gui.GuiAlloySmelter;
 import techreborn.client.gui.GuiImplosionCompressor;
 import techreborn.client.gui.GuiLathe;
+import techreborn.util.ItemUtils;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class LatheRecipeHandler extends GenericRecipeHander implements INeiBaseR
 	@Override
 	public void addPositionedStacks(List<PositionedStack> input, List<PositionedStack> outputs, IBaseRecipeType recipeType) {
 		int offset = 4;
-		PositionedStack pStack = new PositionedStack(recipeType.getInputs().get(0), 56 - offset, 17 - offset);
+		PositionedStack pStack = new PositionedStack(ItemUtils.getStackWithAllOre(recipeType.getInputs().get(0)), 56 - offset, 17 - offset);
 		input.add(pStack);
 
 		PositionedStack pStack3 = new PositionedStack(recipeType.getOutputs().get(0), 116 - offset, 35 - offset);

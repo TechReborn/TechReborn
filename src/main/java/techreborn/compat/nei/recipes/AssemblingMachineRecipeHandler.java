@@ -5,6 +5,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.client.gui.GuiAssemblingMachine;
 import techreborn.client.gui.GuiImplosionCompressor;
+import techreborn.util.ItemUtils;
 
 import java.util.List;
 
@@ -12,10 +13,10 @@ public class AssemblingMachineRecipeHandler extends GenericRecipeHander implemen
 	@Override
 	public void addPositionedStacks(List<PositionedStack> input, List<PositionedStack> outputs, IBaseRecipeType recipeType) {
 		int offset = 4;
-		PositionedStack pStack = new PositionedStack(recipeType.getInputs().get(0), 47 - offset, 17 - offset);
+		PositionedStack pStack = new PositionedStack(ItemUtils.getStackWithAllOre(recipeType.getInputs().get(0)), 47 - offset, 17 - offset);
 		input.add(pStack);
 
-		PositionedStack pStack2 = new PositionedStack(recipeType.getInputs().get(1), 65 - offset, 17 - offset);
+		PositionedStack pStack2 = new PositionedStack(ItemUtils.getStackWithAllOre(recipeType.getInputs().get(1)), 65 - offset, 17 - offset);
 		input.add(pStack2);
 
 		PositionedStack pStack3 = new PositionedStack(recipeType.getOutputs().get(0), 116 - offset, 35 - offset);
