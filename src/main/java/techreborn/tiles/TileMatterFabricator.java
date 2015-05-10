@@ -4,6 +4,7 @@ import ic2.api.energy.tile.IEnergyTile;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.util.Inventory;
 import ic2.api.energy.prefab.BasicSink;
@@ -14,7 +15,14 @@ public class TileMatterFabricator extends TileMachineBase implements IWrenchable
 	public int tickTime;
 	public BasicSink energy;
 	public Inventory inventory = new Inventory(7, "TileMatterFabricator", 64);
-	
+
+	public TileMatterFabricator() {
+		//TODO configs
+		energy = new BasicSink(this, 1000,
+				ConfigTechReborn.CentrifugeTier);
+	}
+
+
 
 	@Override
 	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side)
