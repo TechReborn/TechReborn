@@ -6,6 +6,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.client.gui.GuiAlloySmelter;
 import techreborn.client.gui.GuiImplosionCompressor;
+import techreborn.util.ItemUtils;
 
 import java.util.List;
 
@@ -13,10 +14,10 @@ public class AlloySmelterRecipeHandler extends GenericRecipeHander implements IN
 	@Override
 	public void addPositionedStacks(List<PositionedStack> input, List<PositionedStack> outputs, IBaseRecipeType recipeType) {
 		int offset = 4;
-		PositionedStack pStack = new PositionedStack(OreDictionary.getOres(OreDictionary.getOreName(OreDictionary.getOreID(recipeType.getInputs().get(0)))), 56 - offset, 25 - offset);
+		PositionedStack pStack = new PositionedStack(ItemUtils.getStackWithAllOre(recipeType.getInputs().get(0)), 56 - offset, 25 - offset);
 		input.add(pStack);
 
-		PositionedStack pStack2 = new PositionedStack(OreDictionary.getOres(OreDictionary.getOreName(OreDictionary.getOreID(recipeType.getInputs().get(1)))), 56 - offset, 43 - offset);
+		PositionedStack pStack2 = new PositionedStack(ItemUtils.getStackWithAllOre(recipeType.getInputs().get(1)), 56 - offset, 43 - offset);
 		input.add(pStack2);
 
 		PositionedStack pStack3 = new PositionedStack(recipeType.getOutputs().get(0), 116 - offset, 35 - offset);

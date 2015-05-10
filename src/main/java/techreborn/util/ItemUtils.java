@@ -1,11 +1,13 @@
 package techreborn.util;
 
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.oredict.OreDictionary;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -109,5 +111,18 @@ public class ItemUtils {
 	public static ItemStack readItemFromNBT(NBTTagCompound data)
 	{
 		return ItemStack.loadItemStackFromNBT(data);
+	}
+
+	public static List<ItemStack> getStackWithAllOre(ItemStack stack){
+		ArrayList<ItemStack> list = new ArrayList<ItemStack>();
+		for (int oreID : OreDictionary.getOreIDs(stack)){
+			for(ItemStack ore : OreDictionary.getOres(OreDictionary.getOreName(oreID))){
+				list.add(ore);
+			}
+		}
+		if(list.isEmpty()){
+			list.add(stack);
+		}
+		return list;
 	}
 }
