@@ -88,7 +88,7 @@ public class TileHeatGenerator extends TileMachineBase implements IWrenchable, I
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
 	{
-		return new ItemStack(ModBlocks.Dragoneggenergysiphoner, 1);
+		return new ItemStack(ModBlocks.heatGenerator, 1);
 	}
 
 	public boolean isComplete()
