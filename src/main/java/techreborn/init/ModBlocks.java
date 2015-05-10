@@ -20,6 +20,7 @@ import techreborn.blocks.BlockSupercondensator;
 import techreborn.blocks.BlockWoodenshelf;
 import techreborn.blocks.generator.BlockDieselGenerator;
 import techreborn.blocks.generator.BlockDragonEggSiphoner;
+import techreborn.blocks.generator.BlockHeatGenerator;
 import techreborn.blocks.generator.BlockLightningRod;
 import techreborn.blocks.generator.BlockMagicEnergyAbsorber;
 import techreborn.blocks.generator.BlockMagicEnergyConverter;
@@ -60,6 +61,7 @@ import techreborn.tiles.TileChunkLoader;
 import techreborn.tiles.TileDieselGenerator;
 import techreborn.tiles.TileDragonEggSiphoner;
 import techreborn.tiles.TileGrinder;
+import techreborn.tiles.TileHeatGenerator;
 import techreborn.tiles.TileImplosionCompressor;
 import techreborn.tiles.TileIndustrialElectrolyzer;
 import techreborn.tiles.TileLathe;
@@ -113,6 +115,7 @@ public class ModBlocks {
 	public static Block FusionControlComputer;
 	public static Block FusionCoil;
 	public static Block LightningRod;
+	public static Block heatGenerator;
 
 	public static Block ore;
 	public static Block storage;
@@ -258,6 +261,10 @@ public class ModBlocks {
 		
 		LightningRod = new BlockLightningRod(Material.rock);
 		GameRegistry.registerBlock(LightningRod, "lightningrod");
+		
+		heatGenerator = new BlockHeatGenerator(Material.rock);
+		GameRegistry.registerBlock(heatGenerator, "heatgenerator");
+		GameRegistry.registerTileEntity(TileHeatGenerator.class, "TileHeatGenerator");
 
 		registerOreDict();
 	}
