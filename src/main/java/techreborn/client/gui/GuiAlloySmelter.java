@@ -55,5 +55,7 @@ public class GuiAlloySmelter extends GuiContainer {
 		this.fontRendererObj.drawString(
 				I18n.format("container.inventory", new Object[0]), 8,
 				this.ySize - 96 + 2, 4210752);
+		
+		
 	}
 }

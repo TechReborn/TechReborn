@@ -5,6 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
@@ -17,6 +18,7 @@ public class BlockMachineBase extends BlockContainer{
 		super(Material.rock);
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setHardness(2f);
+		setStepSound(soundTypeMetal);
 	}
 
 	@Override
@@ -93,5 +95,13 @@ public class BlockMachineBase extends BlockContainer{
 		}
 
 	}
+	
+	public boolean canCreatureSpawn(EnumCreatureType type, World world, int x,
+			int y, int z)
+	{
+		return false;
+	}
+	
+	
 
 }

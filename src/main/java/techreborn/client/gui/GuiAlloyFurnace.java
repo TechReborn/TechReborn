@@ -10,6 +10,8 @@ import net.minecraftforge.oredict.OreDictionary;
 import techreborn.client.container.ContainerAlloyFurnace;
 import techreborn.client.container.ContainerAlloySmelter;
 import techreborn.client.container.ContainerBlastFurnace;
+import techreborn.compat.nei.recipes.AlloySmelterRecipeHandler;
+import techreborn.recipes.AlloySmelterRecipe;
 import techreborn.tiles.TileAlloyFurnace;
 import techreborn.tiles.TileAlloySmelter;
 import techreborn.tiles.TileBlastFurnace;
@@ -27,7 +29,6 @@ public class GuiAlloyFurnace extends GuiContainer {
 		super(new ContainerAlloyFurnace(tileAlloyFurnace, player));
 		this.xSize = 176;
 		this.ySize = 167;
-		alloyfurnace = tileAlloyFurnace;
 	}
 	
     @Override
@@ -58,5 +59,6 @@ public class GuiAlloyFurnace extends GuiContainer {
 		this.fontRendererObj.drawString(
 				I18n.format("container.inventory", new Object[0]), 8,
 				this.ySize - 96 + 2, 4210752);
+
 	}
 }
