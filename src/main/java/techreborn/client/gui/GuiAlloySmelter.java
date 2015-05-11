@@ -13,14 +13,11 @@ import techreborn.tiles.TileBlastFurnace;
 
 public class GuiAlloySmelter extends GuiContainer {
 
-	private static final ResourceLocation texture = new ResourceLocation(
-			"techreborn", "textures/gui/electric_alloy_furnace.png");
+	private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/electric_alloy_furnace.png");
 
 	TileAlloySmelter alloysmelter;
 
-	public GuiAlloySmelter(EntityPlayer player,
-			TileAlloySmelter tilealloysmelter)
-	{
+	public GuiAlloySmelter(EntityPlayer player, TileAlloySmelter tilealloysmelter) {
 		super(new ContainerAlloySmelter(tilealloysmelter, player));
 		this.xSize = 176;
 		this.ySize = 167;
@@ -29,35 +26,36 @@ public class GuiAlloySmelter extends GuiContainer {
 	
     @Override
     public void initGui() {
-
         this.buttonList.clear();
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
-        this.buttonList.add(new GuiButton(0, k + 4,  l + 4, 20, 20, "R"));
+        this.buttonList.add(new GuiButton(0, k + 4, l + 4, 20, 20, "R"));
         super.initGui();
     }
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float p_146976_1_,
-			int p_146976_2_, int p_146976_3_)
-	{
+	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_) {
 		this.mc.getTextureManager().bindTexture(texture);
 		int k = (this.width - this.xSize) / 2;
 		int l = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
+
+		int j = 0;
+
+        if(alloysmelter.crafter.currentRecipe != null) {
+            j = this.alloysmelter.crafter.currentTickTime * 24 / this.alloysmelter.crafter.currentRecipe.tickTime();
+        }
+		this.drawTexturedModalRect(k + 79, l + 34, 176, 14, j + 1, 16);
+
+        j = (int)this.alloysmelter.energy.getEnergyStored() * 12 / this.alloysmelter.energy.getCapacity();
+        if(j > 0) {
+            this.drawTexturedModalRect(k + 56, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);
+        }
 	}
 
-	protected void drawGuiContainerForegroundLayer(int p_146979_1_,
-			int p_146979_2_)
-	{
+	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
 		String name = StatCollector.translateToLocal("tile.techreborn.alloysmelter.name");
 		this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
-		this.fontRendererObj.drawString(
-				I18n.format("container.inventory", new Object[0]), 8,
-				this.ySize - 96 + 2, 4210752);
-		
-		System.out.print(alloysmelter.crafter.currentTickTime);
-		
-		
+		this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
 	}
 }
