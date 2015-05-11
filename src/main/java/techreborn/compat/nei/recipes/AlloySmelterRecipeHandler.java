@@ -14,10 +14,10 @@ public class AlloySmelterRecipeHandler extends GenericRecipeHander implements IN
 	@Override
 	public void addPositionedStacks(List<PositionedStack> input, List<PositionedStack> outputs, IBaseRecipeType recipeType) {
 		int offset = 4;
-		PositionedStack pStack = new PositionedStack(ItemUtils.getStackWithAllOre(recipeType.getInputs().get(0)), 56 - offset, 25 - offset);
+		PositionedStack pStack = new PositionedStack(ItemUtils.getStackWithAllOre(recipeType.getInputs().get(0)), 47 - offset, 17 - offset);
 		input.add(pStack);
 
-		PositionedStack pStack2 = new PositionedStack(ItemUtils.getStackWithAllOre(recipeType.getInputs().get(1)), 56 - offset, 43 - offset);
+		PositionedStack pStack2 = new PositionedStack(ItemUtils.getStackWithAllOre(recipeType.getInputs().get(1)), 65 - offset, 17 - offset);
 		input.add(pStack2);
 
 		PositionedStack pStack3 = new PositionedStack(recipeType.getOutputs().get(0), 116 - offset, 35 - offset);
@@ -31,7 +31,7 @@ public class AlloySmelterRecipeHandler extends GenericRecipeHander implements IN
 
 	@Override
 	public String getGuiTexture() {
-		return "techreborn:textures/gui/industrial_blast_furnace.png";
+		return "techreborn:textures/gui/electric_alloy_furnace.png";
 	}
 
 	@Override
