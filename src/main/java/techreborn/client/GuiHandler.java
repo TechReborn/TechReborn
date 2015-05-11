@@ -13,6 +13,7 @@ import techreborn.client.container.ContainerDieselGenerator;
 import techreborn.client.container.ContainerGrinder;
 import techreborn.client.container.ContainerImplosionCompressor;
 import techreborn.client.container.ContainerIndustrialElectrolyzer;
+import techreborn.client.container.ContainerIndustrialSawmill;
 import techreborn.client.container.ContainerLathe;
 import techreborn.client.container.ContainerMatterFabricator;
 import techreborn.client.container.ContainerPlateCuttingMachine;
@@ -31,6 +32,7 @@ import techreborn.client.gui.GuiDieselGenerator;
 import techreborn.client.gui.GuiGrinder;
 import techreborn.client.gui.GuiImplosionCompressor;
 import techreborn.client.gui.GuiIndustrialElectrolyzer;
+import techreborn.client.gui.GuiIndustrialSawmill;
 import techreborn.client.gui.GuiLathe;
 import techreborn.client.gui.GuiMatterFabricator;
 import techreborn.client.gui.GuiPlateCuttingMachine;
@@ -50,6 +52,7 @@ import techreborn.tiles.TileDieselGenerator;
 import techreborn.tiles.TileGrinder;
 import techreborn.tiles.TileImplosionCompressor;
 import techreborn.tiles.TileIndustrialElectrolyzer;
+import techreborn.tiles.TileIndustrialSawmill;
 import techreborn.tiles.TileLathe;
 import techreborn.tiles.TileMatterFabricator;
 import techreborn.tiles.TilePlateCuttingMachine;
@@ -80,6 +83,7 @@ public class GuiHandler implements IGuiHandler {
 	public static final int industrialElectrolyzerID = 16;
 	public static final int aesuID =17;
 	public static final int alloyFurnaceID = 18;
+	public static final int sawMillID = 19;
 
 
 
@@ -159,6 +163,10 @@ public class GuiHandler implements IGuiHandler {
 		{
 			return new ContainerAlloyFurnace(
 					(TileAlloyFurnace) world.getTileEntity(x, y, z), player);
+		} else if (ID == sawMillID)
+		{
+			return new ContainerIndustrialSawmill(
+					(TileIndustrialSawmill) world.getTileEntity(x, y, z), player);
 		} else if (ID == pdaID)
 		{
 			return null;
@@ -243,6 +251,10 @@ public class GuiHandler implements IGuiHandler {
 		{
 			return new GuiAlloyFurnace(player,
 					(TileAlloyFurnace) world.getTileEntity(x, y, z));	
+		} else if (ID == sawMillID)
+		{
+			return new GuiIndustrialSawmill(player,
+					(TileIndustrialSawmill) world.getTileEntity(x, y, z));	
 		} else if (ID == pdaID)
 		{
 			return new GuiPda(player);

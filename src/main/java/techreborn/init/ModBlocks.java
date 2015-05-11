@@ -37,6 +37,7 @@ import techreborn.blocks.machine.BlockDistillationTower;
 import techreborn.blocks.machine.BlockGrinder;
 import techreborn.blocks.machine.BlockImplosionCompressor;
 import techreborn.blocks.machine.BlockIndustrialElectrolyzer;
+import techreborn.blocks.machine.BlockIndustrialSawmill;
 import techreborn.blocks.machine.BlockLathe;
 import techreborn.blocks.machine.BlockMatterFabricator;
 import techreborn.blocks.machine.BlockPlateCuttingMachine;
@@ -65,6 +66,7 @@ import techreborn.tiles.TileGrinder;
 import techreborn.tiles.TileHeatGenerator;
 import techreborn.tiles.TileImplosionCompressor;
 import techreborn.tiles.TileIndustrialElectrolyzer;
+import techreborn.tiles.TileIndustrialSawmill;
 import techreborn.tiles.TileLathe;
 import techreborn.tiles.TileMachineCasing;
 import techreborn.tiles.TileMatterFabricator;
@@ -117,6 +119,7 @@ public class ModBlocks {
 	public static Block FusionCoil;
 	public static Block LightningRod;
 	public static Block heatGenerator;
+	public static Block industrialSawmill;
 
 	public static Block ore;
 	public static Block storage;
@@ -267,6 +270,10 @@ public class ModBlocks {
 		heatGenerator = new BlockHeatGenerator(Material.rock);
 		GameRegistry.registerBlock(heatGenerator, "heatgenerator");
 		GameRegistry.registerTileEntity(TileHeatGenerator.class, "TileHeatGenerator");
+		
+		industrialSawmill = new BlockIndustrialSawmill(Material.rock);
+		GameRegistry.registerBlock(industrialSawmill, "industrialSawmill");
+		GameRegistry.registerTileEntity(TileIndustrialSawmill.class, "TileIndustrialSawmill");
 
 		registerOreDict();
 	}
