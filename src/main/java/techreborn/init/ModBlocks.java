@@ -59,6 +59,7 @@ import techreborn.tiles.TileAlloySmelter;
 import techreborn.tiles.TileAssemblingMachine;
 import techreborn.tiles.TileBlastFurnace;
 import techreborn.tiles.TileCentrifuge;
+import techreborn.tiles.TileChemicalReactor;
 import techreborn.tiles.TileChunkLoader;
 import techreborn.tiles.TileDieselGenerator;
 import techreborn.tiles.TileDragonEggSiphoner;
@@ -215,6 +216,7 @@ public class ModBlocks {
 		
 		ChemicalReactor = new BlockChemicalReactor(Material.rock);
 		GameRegistry.registerBlock(ChemicalReactor, "chemicalreactor");
+		GameRegistry.registerTileEntity(TileChemicalReactor.class, "TileChemicalReactor");
 		
 		lathe = new BlockLathe(Material.rock);
 		GameRegistry.registerBlock(lathe, "lathe");

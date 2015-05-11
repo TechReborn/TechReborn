@@ -8,6 +8,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import scala.tools.nsc.backend.icode.analysis.TypeFlowAnalysis;
 import techreborn.compat.nei.recipes.AlloySmelterRecipeHandler;
 import techreborn.compat.nei.recipes.AssemblingMachineRecipeHandler;
+import techreborn.compat.nei.recipes.ChemicalReactorRecipeHandler;
 import techreborn.compat.nei.recipes.GenericRecipeHander;
 import techreborn.compat.nei.recipes.ImplosionCompressorRecipeHandler;
 import techreborn.compat.nei.recipes.IndustrialSawmillRecipeHandler;
@@ -65,6 +66,10 @@ public class NEIConfig implements IConfigureNEI {
 		PlateCuttingMachineRecipeHandler plate = new PlateCuttingMachineRecipeHandler();
 		API.registerUsageHandler(plate);
 		API.registerRecipeHandler(plate);
+		
+		ChemicalReactorRecipeHandler chem = new ChemicalReactorRecipeHandler();
+		API.registerUsageHandler(chem);
+		API.registerRecipeHandler(chem);
 
         API.registerRecipeHandler(centrifugeRecipeHandler);
         API.registerUsageHandler(centrifugeRecipeHandler);

@@ -8,6 +8,7 @@ import techreborn.client.container.ContainerAlloySmelter;
 import techreborn.client.container.ContainerAssemblingMachine;
 import techreborn.client.container.ContainerBlastFurnace;
 import techreborn.client.container.ContainerCentrifuge;
+import techreborn.client.container.ContainerChemicalReactor;
 import techreborn.client.container.ContainerChunkloader;
 import techreborn.client.container.ContainerDieselGenerator;
 import techreborn.client.container.ContainerGrinder;
@@ -27,6 +28,7 @@ import techreborn.client.gui.GuiAlloySmelter;
 import techreborn.client.gui.GuiAssemblingMachine;
 import techreborn.client.gui.GuiBlastFurnace;
 import techreborn.client.gui.GuiCentrifuge;
+import techreborn.client.gui.GuiChemicalReactor;
 import techreborn.client.gui.GuiChunkLoader;
 import techreborn.client.gui.GuiDieselGenerator;
 import techreborn.client.gui.GuiGrinder;
@@ -47,6 +49,7 @@ import techreborn.tiles.TileAlloySmelter;
 import techreborn.tiles.TileAssemblingMachine;
 import techreborn.tiles.TileBlastFurnace;
 import techreborn.tiles.TileCentrifuge;
+import techreborn.tiles.TileChemicalReactor;
 import techreborn.tiles.TileChunkLoader;
 import techreborn.tiles.TileDieselGenerator;
 import techreborn.tiles.TileGrinder;
@@ -84,6 +87,7 @@ public class GuiHandler implements IGuiHandler {
 	public static final int aesuID =17;
 	public static final int alloyFurnaceID = 18;
 	public static final int sawMillID = 19;
+	public static final int chemicalReactorID = 20;
 
 
 
@@ -166,7 +170,11 @@ public class GuiHandler implements IGuiHandler {
 		} else if (ID == sawMillID)
 		{
 			return new ContainerIndustrialSawmill(
-					(TileIndustrialSawmill) world.getTileEntity(x, y, z), player);
+					(TileIndustrialSawmill) world.getTileEntity(x, y, z), player);	
+		} else if (ID == chemicalReactorID)
+		{
+			return new ContainerChemicalReactor(
+					(TileChemicalReactor) world.getTileEntity(x, y, z), player);	
 		} else if (ID == pdaID)
 		{
 			return null;
@@ -255,6 +263,10 @@ public class GuiHandler implements IGuiHandler {
 		{
 			return new GuiIndustrialSawmill(player,
 					(TileIndustrialSawmill) world.getTileEntity(x, y, z));	
+		} else if (ID == chemicalReactorID)
+		{
+			return new GuiChemicalReactor(player,
+					(TileChemicalReactor) world.getTileEntity(x, y, z));	
 		} else if (ID == pdaID)
 		{
 			return new GuiPda(player);

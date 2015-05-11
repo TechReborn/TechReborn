@@ -18,6 +18,7 @@ import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileAlloySmelter;
 import techreborn.tiles.TileBlastFurnace;
+import techreborn.tiles.TileChemicalReactor;
 import techreborn.tiles.TileMachineCasing;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -37,6 +38,22 @@ public class BlockChemicalReactor extends BlockMachineBase {
 	{
 		super(material);
 		setBlockName("techreborn.chemicalreactor");
+	}
+	
+	@Override
+	public TileEntity createNewTileEntity(World world, int p_149915_2_)
+	{
+		return new TileChemicalReactor();
+	}
+	
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z,
+			EntityPlayer player, int side, float hitX, float hitY, float hitZ)
+	{
+		if (!player.isSneaking())
+			player.openGui(Core.INSTANCE, GuiHandler.chemicalReactorID, world, x, y,
+					z);
+		return true;
 	}
 
 	@Override

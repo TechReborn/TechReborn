@@ -9,9 +9,11 @@ import techreborn.api.BlastFurnaceRecipe;
 import techreborn.api.CentrifugeRecipie;
 import techreborn.api.TechRebornAPI;
 import techreborn.api.recipe.RecipeHanderer;
+import techreborn.compat.nei.recipes.ChemicalReactorRecipeHandler;
 import techreborn.config.ConfigTechReborn;
 import techreborn.recipes.AlloySmelterRecipe;
 import techreborn.recipes.AssemblingMachineRecipe;
+import techreborn.recipes.ChemicalReactorRecipe;
 import techreborn.recipes.ImplosionCompressorRecipe;
 import techreborn.recipes.IndustrialSawmillRecipe;
 import techreborn.recipes.LatheRecipe;
@@ -207,6 +209,8 @@ public class ModRecipes {
 		RecipeHanderer.addRecipe(new LatheRecipe(new ItemStack(Items.coal), new ItemStack(Items.diamond), 120, 5));
 		RecipeHanderer.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Items.coal), new ItemStack(Blocks.sand), new ItemStack(Items.diamond), new ItemStack(Items.diamond), new ItemStack(Items.diamond) , 120, 5));
 		RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(new ItemStack(Items.coal), new ItemStack(Items.diamond), 120, 5));
+		//TODO
+		RecipeHanderer.addRecipe(new ChemicalReactorRecipe(new ItemStack(Items.coal), new ItemStack(Blocks.sand), new ItemStack(Items.diamond), 120, 5));
 
 		LogHelper.info("Machine Recipes Added");
 	}
