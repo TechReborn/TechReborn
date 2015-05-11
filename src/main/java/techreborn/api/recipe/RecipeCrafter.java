@@ -85,9 +85,9 @@ public class RecipeCrafter {
 	 * Call this on the tile tick
 	 */
 	public void updateEntity() {
-		if (parentTile.getWorldObj().isRemote) {
+		/*if (parentTile.getWorldObj().isRemote) {
 			return;
-		}
+		}*/
 		if (currentRecipe == null) {
 			for (IBaseRecipeType recipe : RecipeHanderer.getRecipeClassFromName(recipeName)) {
 				boolean isFullRecipe = false;
