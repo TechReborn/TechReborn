@@ -9,31 +9,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import techreborn.achievement.ICraftAchievement;
 import techreborn.achievement.IPickupAchievement;
+import techreborn.achievement.TRAchievements;
 import techreborn.blocks.BlockOre;
 import techreborn.init.ModBlocks;
 
-public class ItemBlockOre extends ItemMultiTexture implements
-		IPickupAchievement, ICraftAchievement {
+public class ItemBlockOre extends ItemBlockBase {
 
 	public ItemBlockOre(Block block)
 	{
 		super(ModBlocks.ore, ModBlocks.ore, BlockOre.types);
 	}
-
-	@Override
-	public Achievement getAchievementOnCraft(ItemStack stack,
-			EntityPlayer player, IInventory matrix)
-	{
-		return field_150939_a instanceof ICraftAchievement ? ((ICraftAchievement) field_150939_a)
-				.getAchievementOnCraft(stack, player, matrix) : null;
-	}
-
-	@Override
-	public Achievement getAchievementOnPickup(ItemStack stack,
-			EntityPlayer player, EntityItem item)
-	{
-		return field_150939_a instanceof IPickupAchievement ? ((IPickupAchievement) field_150939_a)
-				.getAchievementOnPickup(stack, player, item) : null;
-	}
-
+	
 }
