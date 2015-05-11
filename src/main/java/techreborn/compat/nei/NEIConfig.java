@@ -12,8 +12,10 @@ import techreborn.compat.nei.recipes.GenericRecipeHander;
 import techreborn.compat.nei.recipes.ImplosionCompressorRecipeHandler;
 import techreborn.compat.nei.recipes.IndustrialSawmillRecipeHandler;
 import techreborn.compat.nei.recipes.LatheRecipeHandler;
+import techreborn.compat.nei.recipes.PlateCuttingMachineRecipeHandler;
 import techreborn.lib.ModInfo;
 import techreborn.recipes.IndustrialSawmillRecipe;
+import techreborn.recipes.PlateCuttingMachineRecipe;
 import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
 
@@ -59,6 +61,10 @@ public class NEIConfig implements IConfigureNEI {
 		IndustrialSawmillRecipeHandler sawmill = new IndustrialSawmillRecipeHandler();
 		API.registerUsageHandler(sawmill);
 		API.registerRecipeHandler(sawmill);
+		
+		PlateCuttingMachineRecipeHandler plate = new PlateCuttingMachineRecipeHandler();
+		API.registerUsageHandler(plate);
+		API.registerRecipeHandler(plate);
 
         API.registerRecipeHandler(centrifugeRecipeHandler);
         API.registerUsageHandler(centrifugeRecipeHandler);

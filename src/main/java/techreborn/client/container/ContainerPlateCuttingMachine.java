@@ -31,9 +31,9 @@ public class ContainerPlateCuttingMachine extends TechRebornContainer {
 		// input
 		this.addSlotToContainer(new Slot(tileplatecuttingmachine.inventory, 0, 56, 17));
 		// outputs
-		this.addSlotToContainer(new SlotOutput(tileplatecuttingmachine.inventory, 2, 116, 35));
+		this.addSlotToContainer(new SlotOutput(tileplatecuttingmachine.inventory, 1, 116, 35));
 		// power
-		this.addSlotToContainer(new Slot(tileplatecuttingmachine.inventory, 1, 56, 53));
+		this.addSlotToContainer(new Slot(tileplatecuttingmachine.inventory, 2, 56, 53));
 
 		int i;
 

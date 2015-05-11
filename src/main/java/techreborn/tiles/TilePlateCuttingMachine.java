@@ -26,8 +26,8 @@ public class TilePlateCuttingMachine extends TileMachineBase implements IWrencha
 		int[] inputs = new int[1];
 		inputs[0] = 0;
 		int[] outputs = new int[1];
-		outputs[0] = 2;
-		crafter = new RecipeCrafter("plateCuttingMachineRecipe", this, energy, 2, 2, inventory, inputs, outputs);
+		outputs[0] = 1;
+		crafter = new RecipeCrafter("plateCuttingMachineRecipe", this, energy, 1, 1, inventory, inputs, outputs);
 	}
 	
 	@Override

@@ -15,6 +15,7 @@ import techreborn.recipes.AssemblingMachineRecipe;
 import techreborn.recipes.ImplosionCompressorRecipe;
 import techreborn.recipes.IndustrialSawmillRecipe;
 import techreborn.recipes.LatheRecipe;
+import techreborn.recipes.PlateCuttingMachineRecipe;
 import techreborn.util.CraftingHelper;
 import techreborn.util.LogHelper;
 
@@ -203,9 +204,9 @@ public class ModRecipes {
 
 		RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(Items.coal), new ItemStack(Blocks.sand), new ItemStack(Items.diamond), 120, 5));
 		RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(Items.coal), new ItemStack(Blocks.sand), new ItemStack(Items.diamond), 120, 5));
-		//TODO BORKEN 
 		RecipeHanderer.addRecipe(new LatheRecipe(new ItemStack(Items.coal), new ItemStack(Items.diamond), 120, 5));
 		RecipeHanderer.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Items.coal), new ItemStack(Blocks.sand), new ItemStack(Items.diamond), new ItemStack(Items.diamond), new ItemStack(Items.diamond) , 120, 5));
+		RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(new ItemStack(Items.coal), new ItemStack(Items.diamond), 120, 5));
 
 		LogHelper.info("Machine Recipes Added");
 	}
