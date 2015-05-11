@@ -204,7 +204,7 @@ public class ModRecipes {
 		RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(Items.coal), new ItemStack(Blocks.sand), new ItemStack(Items.diamond), 120, 5));
 		RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(Items.coal), new ItemStack(Blocks.sand), new ItemStack(Items.diamond), 120, 5));
 		//TODO BORKEN 
-//		RecipeHanderer.addRecipe(new LatheRecipe(new ItemStack(Items.coal), new ItemStack(Items.diamond), 120, 5));
+		RecipeHanderer.addRecipe(new LatheRecipe(new ItemStack(Items.coal), new ItemStack(Items.diamond), 120, 5));
 		RecipeHanderer.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Items.coal), new ItemStack(Blocks.sand), new ItemStack(Items.diamond), new ItemStack(Items.diamond), new ItemStack(Items.diamond) , 120, 5));
 
 		LogHelper.info("Machine Recipes Added");
