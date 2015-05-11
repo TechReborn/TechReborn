@@ -138,6 +138,7 @@ public class RecipeCrafter {
 			} else if (currentTickTime < currentRecipe.tickTime()) {
 				if (energy.useEnergy(currentRecipe.euPerTick())) {
 					currentTickTime++;
+					parentTile.syncWithAll();
 				}
 			}
 		}

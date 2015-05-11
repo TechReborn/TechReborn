@@ -56,6 +56,8 @@ public class GuiAlloySmelter extends GuiContainer {
 				I18n.format("container.inventory", new Object[0]), 8,
 				this.ySize - 96 + 2, 4210752);
 		
+		System.out.print(alloysmelter.crafter.currentTickTime);
+		
 		
 	}
 }
