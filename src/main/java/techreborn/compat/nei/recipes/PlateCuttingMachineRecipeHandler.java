@@ -24,7 +24,7 @@ public class PlateCuttingMachineRecipeHandler extends GenericRecipeHander implem
 
 	@Override
 	public String getRecipeName() {
-		return "latheRecipe";
+		return "plateCuttingMachineRecipe";
 	}
 
 	@Override
