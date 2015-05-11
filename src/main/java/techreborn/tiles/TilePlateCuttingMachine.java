@@ -5,6 +5,7 @@ import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
@@ -80,5 +81,21 @@ public class TilePlateCuttingMachine extends TileMachineBase implements IWrencha
 	{
 		return false;
 	}
+	
+    public void readFromNBT(NBTTagCompound tagCompound)
+    {
+        super.readFromNBT(tagCompound);
+        inventory.readFromNBT(tagCompound);
+
+    }
+
+    @Override
+    public void writeToNBT(NBTTagCompound tagCompound)
+    {
+        super.writeToNBT(tagCompound);
+        inventory.writeToNBT(tagCompound);
+
+    }
+
 
 }
