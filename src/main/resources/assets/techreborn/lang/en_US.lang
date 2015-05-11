@@ -1,10 +1,11 @@
 itemGroup.techreborn=Tech Reborn
 
 #machines
+tile.techreborn.industrialBlock.name=Industrial
 tile.techreborn.thermalGenerator.name=Thermal Generator
 tile.techreborn.quantumTank.name=Quantum Tank
 tile.techreborn.quantumChest.name=Quantum Chest
-tile.techreborn.centrifuge.name=Industrial Centrifuge
+tile.techreborn.centrifuge.name=Centrifuge
 tile.techreborn.rollingmachine.name=Rolling machine
 tile.techreborn.machineCasing.standard.name=Standard Machine Casing
 tile.techreborn.machineCasing.reinforced.name=Reinforced Machine Casing
