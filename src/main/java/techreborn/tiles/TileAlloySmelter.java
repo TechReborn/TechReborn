@@ -15,7 +15,7 @@ public class TileAlloySmelter extends TileMachineBase implements IWrenchable, IE
 
 	public int tickTime;
 	public BasicSink energy;
-	public Inventory inventory = new Inventory(3, "TileAlloySmelter", 64);
+	public Inventory inventory = new Inventory(8, "TileAlloySmelter", 64);
 	public RecipeCrafter crafter;
 	
 	public TileAlloySmelter()
