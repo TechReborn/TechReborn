@@ -30,8 +30,15 @@ public class ContainerAlloySmelter extends TechRebornContainer {
 		this.addSlotToContainer(new Slot(tileAlloysmelter.inventory, 0, 47, 17));
 		this.addSlotToContainer(new Slot(tileAlloysmelter.inventory, 1, 65, 17));
 		// outputs
-		this.addSlotToContainer(new SlotOutput(tileAlloysmelter.inventory, 2,
-				116, 35));
+		this.addSlotToContainer(new SlotOutput(tileAlloysmelter.inventory, 2, 116, 35));
+		// battery
+		this.addSlotToContainer(new Slot(tileAlloysmelter.inventory, 3, 56, 53));
+		// upgrades
+		this.addSlotToContainer(new Slot(tileAlloysmelter.inventory, 4, 152, 8));
+		this.addSlotToContainer(new Slot(tileAlloysmelter.inventory, 5, 152, 26));
+		this.addSlotToContainer(new Slot(tileAlloysmelter.inventory, 6, 152, 44));
+		this.addSlotToContainer(new Slot(tileAlloysmelter.inventory, 7, 152, 62));
+
 
 		int i;
 

@@ -34,6 +34,11 @@ public class ContainerAssemblingMachine extends TechRebornContainer {
 		this.addSlotToContainer(new SlotOutput(tileAssemblingMachine.inventory, 2,116, 35));
 		// power
 		this.addSlotToContainer(new Slot(tileAssemblingMachine.inventory, 3, 56, 53));
+		// upgrades
+		this.addSlotToContainer(new Slot(tileAssemblingMachine.inventory, 4, 152, 8));
+		this.addSlotToContainer(new Slot(tileAssemblingMachine.inventory, 5, 152, 26));
+		this.addSlotToContainer(new Slot(tileAssemblingMachine.inventory, 6, 152, 44));
+		this.addSlotToContainer(new Slot(tileAssemblingMachine.inventory, 7, 152, 62));
 
 		int i;
 
