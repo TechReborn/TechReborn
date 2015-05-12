@@ -81,21 +81,24 @@ public class TilePlateCuttingMachine extends TileMachineBase implements IWrencha
 	{
 		return false;
 	}
-	
-    public void readFromNBT(NBTTagCompound tagCompound)
-    {
-        super.readFromNBT(tagCompound);
-        inventory.readFromNBT(tagCompound);
 
-    }
+	@Override
+	public void readFromNBT(NBTTagCompound tagCompound)
+	{
+		super.readFromNBT(tagCompound);
+		inventory.readFromNBT(tagCompound);
+		energy.readFromNBT(tagCompound);
+		crafter.readFromNBT(tagCompound);
+	}
 
-    @Override
-    public void writeToNBT(NBTTagCompound tagCompound)
-    {
-        super.writeToNBT(tagCompound);
-        inventory.writeToNBT(tagCompound);
-
-    }
+	@Override
+	public void writeToNBT(NBTTagCompound tagCompound)
+	{
+		super.writeToNBT(tagCompound);
+		inventory.writeToNBT(tagCompound);
+		energy.writeToNBT(tagCompound);
+		crafter.writeToNBT(tagCompound);
+	}
 
 
 }
