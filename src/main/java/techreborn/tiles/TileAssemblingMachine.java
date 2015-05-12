@@ -15,7 +15,7 @@ public class TileAssemblingMachine extends TileMachineBase implements IWrenchabl
 
 	public int tickTime;
 	public BasicSink energy;
-	public Inventory inventory = new Inventory(4, "TileAssemblingMachine", 64);
+	public Inventory inventory = new Inventory(8, "TileAssemblingMachine", 64);
 	public RecipeCrafter crafter;
 	
 	public TileAssemblingMachine()
