@@ -1,5 +1,6 @@
 package techreborn.compat;
 
+import techreborn.compat.ee3.EmcValues;
 import techreborn.compat.waila.CompatModuleWaila;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -15,9 +16,15 @@ public class CompatManager {
 			new CompatModuleWaila().init(event);
 			LogHelper.info("Waila Compat Loaded");
 		}
-		if(Loader.isModLoaded("qmunitylib")){
+		if(Loader.isModLoaded("qmunitylib"))
+		{
 			// Register Multiparts
 			ModParts.init();
+		}
+		if(Loader.isModLoaded("qmunitylib"))
+		{
+			// Register Emc Values
+			EmcValues.init();
 		}
 	}
 }

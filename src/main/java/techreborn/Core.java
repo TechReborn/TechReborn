@@ -80,8 +80,7 @@ public class Core {
 		TRAchievements.init();
 		// Multiblock events
 		MinecraftForge.EVENT_BUS.register(new MultiblockEventHandler());
-		FMLCommonHandler.instance().bus()
-				.register(new MultiblockServerTickHandler());
+		FMLCommonHandler.instance().bus().register(new MultiblockServerTickHandler());
 
 		LogHelper.info("Initialization Complete");
 	}
