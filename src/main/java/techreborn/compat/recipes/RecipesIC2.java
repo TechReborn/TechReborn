@@ -8,6 +8,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import ic2.api.item.IC2Items;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.oredict.OreDictionary;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
@@ -433,50 +434,137 @@ public class RecipesIC2 {
 
     public static void addTRMaceratorRecipes() {
         //Macerator
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreAluminm"), null, new ItemStack(ModItems.crushedOre, 2, 0));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreArdite"), null, new ItemStack(ModItems.crushedOre, 2, 1));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreBauxite"), null, new ItemStack(ModItems.crushedOre, 2, 2));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreCadmium"), null, new ItemStack(ModItems.crushedOre, 2, 3));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreCinnabar"), null, new ItemStack(ModItems.crushedOre, 2, 4));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreCobalt"), null, new ItemStack(ModItems.crushedOre, 2, 5));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreDarkIron"), null, new ItemStack(ModItems.crushedOre, 2, 6));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreIndium"), null, new ItemStack(ModItems.crushedOre, 2, 7));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreIridium"), null, new ItemStack(ModItems.crushedOre, 2, 8));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreNickel"), null, new ItemStack(ModItems.crushedOre, 2, 9));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreOsmium"), null, new ItemStack(ModItems.crushedOre, 2, 10));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("orePlatinum"), null, new ItemStack(ModItems.crushedOre, 2, 11));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("orePyrite"), null, new ItemStack(ModItems.crushedOre, 2, 12));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreSphalerite"), null, new ItemStack(ModItems.crushedOre, 2, 13));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreTetrahedrite"), null, new ItemStack(ModItems.crushedOre, 2, 14));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreTungsten"), null, new ItemStack(ModItems.crushedOre, 2, 15));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreGalena"), null, new ItemStack(ModItems.crushedOre, 2, 16));
 
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreRedstone"), null, new ItemStack(Items.redstone, 10));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreLapis"), null, new ItemStack(ModItems.dusts, 12, 40));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreDiamond"), null, new ItemStack(ModItems.dusts, 2, 25));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreEmerald"), null, new ItemStack(ModItems.dusts, 2, 27));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreRuby"), null, new ItemStack(ModItems.dusts, 2, 64));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreSapphire"), null, new ItemStack(ModItems.dusts, 2, 66));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("orePeridot"), null, new ItemStack(ModItems.dusts, 2, 56));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreSulfur"), null, new ItemStack(ModItems.dusts, 8, 73));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreSaltpeter"), null, new ItemStack(ModItems.dusts, 8, 65));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreTeslatite"), null, new ItemStack(ModItems.dusts, 10, 75));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreMithril"), null, new ItemStack(ModItems.dusts, 2, 50));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreVinteum"), null, new ItemStack(ModItems.dusts, 2, 81));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("limestone"), null, new ItemStack(ModItems.dusts, 1, 43));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("stoneNetherrack"), null, new ItemStack(ModItems.dusts, 2, 51));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("stoneEndstone"), null, new ItemStack(ModItems.dusts, 2, 51));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("stoneRedrock"), null, new ItemStack(ModItems.dusts, 2, 63));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreMagnetite"), null, new ItemStack(ModItems.dusts, 2, 46));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreLodestone"), null, new ItemStack(ModItems.dusts, 2, 44));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreTellurium"), null, new ItemStack(ModItems.dusts, 2, 74));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreSilicon"), null, new ItemStack(ModItems.dusts, 2, 67));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreVoidstone"), null, new ItemStack(ModItems.dusts, 2, 82));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreCalcite"), null, new ItemStack(ModItems.dusts, 2, 14));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreSodalite"), null, new ItemStack(ModItems.dusts, 12, 69));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("oreGraphite"), null, new ItemStack(ModItems.dusts, 12, 33));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("blockMarble"), null, new ItemStack(ModItems.dusts, 12, 49));
-        Recipes.macerator.addRecipe(new RecipeInputOreDict("blockBasalt"), null, new ItemStack(ModItems.dusts, 12, 8));
+        if(OreDictionary.doesOreNameExist("oreAluminum")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreAluminum"), null, new ItemStack(ModItems.crushedOre, 2, 0));
+        }
+        if(OreDictionary.doesOreNameExist("oreArdite")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreArdite"), null, new ItemStack(ModItems.crushedOre, 2, 1));
+        }
+        if(OreDictionary.doesOreNameExist("oreBauxite")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreBauxite"), null, new ItemStack(ModItems.crushedOre, 2, 2));
+        }
+        if(OreDictionary.doesOreNameExist("oreCadmium")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreCadmium"), null, new ItemStack(ModItems.crushedOre, 2, 3));
+        }
+        if(OreDictionary.doesOreNameExist("oreCinnabar")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreCinnabar"), null, new ItemStack(ModItems.crushedOre, 2, 4));
+        }
+        if(OreDictionary.doesOreNameExist("oreCobalt")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreCobalt"), null, new ItemStack(ModItems.crushedOre, 2, 5));
+        }
+        if(OreDictionary.doesOreNameExist("oreDarkIron")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreDarkIron"), null, new ItemStack(ModItems.crushedOre, 2, 6));
+        }
+        if(OreDictionary.doesOreNameExist("oreIndium")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreIndium"), null, new ItemStack(ModItems.crushedOre, 2, 7));
+        }
+        if(OreDictionary.doesOreNameExist("oreIridium")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreIridium"), null, new ItemStack(ModItems.crushedOre, 2, 8));
+        }
+        if(OreDictionary.doesOreNameExist("oreNickel")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreNickel"), null, new ItemStack(ModItems.crushedOre, 2, 9));
+        }
+        if(OreDictionary.doesOreNameExist("oreOsmium")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreOsmium"), null, new ItemStack(ModItems.crushedOre, 2, 10));
+        }
+        if(OreDictionary.doesOreNameExist("orePlatinum")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("orePlatinum"), null, new ItemStack(ModItems.crushedOre, 2, 11));
+        }
+        if(OreDictionary.doesOreNameExist("orePyrite")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("orePyrite"), null, new ItemStack(ModItems.crushedOre, 2, 12));
+        }
+        if(OreDictionary.doesOreNameExist("oreSphalerite")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreSphalerite"), null, new ItemStack(ModItems.crushedOre, 2, 13));
+        }
+        if(OreDictionary.doesOreNameExist("oreTetrahedrite")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreTetrahedrite"), null, new ItemStack(ModItems.crushedOre, 2, 14));
+        }
+        if(OreDictionary.doesOreNameExist("oreTungsten")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreTungsten"), null, new ItemStack(ModItems.crushedOre, 2, 15));
+        }
+        if(OreDictionary.doesOreNameExist("oreGalena")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreGalena"), null, new ItemStack(ModItems.crushedOre, 2, 16));
+        }
+
+        if(OreDictionary.doesOreNameExist("oreRedstone")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreRedstone"), null, new ItemStack(Items.redstone, 10));
+        }
+        if(OreDictionary.doesOreNameExist("oreLapis")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreLapis"), null, new ItemStack(ModItems.dusts, 12, 40));
+        }
+        if(OreDictionary.doesOreNameExist("oreDiamond")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreDiamond"), null, new ItemStack(ModItems.dusts, 2, 25));
+        }
+        if(OreDictionary.doesOreNameExist("oreEmerald")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreEmerald"), null, new ItemStack(ModItems.dusts, 2, 27));
+        }
+        if(OreDictionary.doesOreNameExist("oreRuby")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreRuby"), null, new ItemStack(ModItems.dusts, 2, 64));
+        }
+        if(OreDictionary.doesOreNameExist("oreSapphire")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreSapphire"), null, new ItemStack(ModItems.dusts, 2, 66));
+        }
+        if(OreDictionary.doesOreNameExist("orePeridot")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("orePeridot"), null, new ItemStack(ModItems.dusts, 2, 56));
+        }
+        if(OreDictionary.doesOreNameExist("oreSulfur")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreSulfur"), null, new ItemStack(ModItems.dusts, 8, 73));
+        }
+        if(OreDictionary.doesOreNameExist("oreSaltpeter")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreSaltpeter"), null, new ItemStack(ModItems.dusts, 8, 65));
+        }
+        if(OreDictionary.doesOreNameExist("oreTeslatite")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreTeslatite"), null, OreDictionary.getOres("dustTeslatite").get(0));
+        }
+        if(OreDictionary.doesOreNameExist("oreMithril")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreMithril"), null, new ItemStack(ModItems.dusts, 2, 50));
+        }
+        if(OreDictionary.doesOreNameExist("oreVinteum")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreVinteum"), null, new ItemStack(ModItems.dusts, 2, 81));
+        }
+        if(OreDictionary.doesOreNameExist("limestone")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("limestone"), null, new ItemStack(ModItems.dusts, 1, 43));
+        }
+        if(OreDictionary.doesOreNameExist("stoneNetherrack")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("stoneNetherrack"), null, new ItemStack(ModItems.dusts, 2, 51));
+        }
+        if(OreDictionary.doesOreNameExist("stoneEndstone")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("stoneEndstone"), null, new ItemStack(ModItems.dusts, 2, 51));
+        }
+        if(OreDictionary.doesOreNameExist("stoneRedrock")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("stoneRedrock"), null, new ItemStack(ModItems.dusts, 2, 63));
+        }
+        if(OreDictionary.doesOreNameExist("oreMagnetite")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreMagnetite"), null, new ItemStack(ModItems.dusts, 2, 46));
+        }
+        if(OreDictionary.doesOreNameExist("oreLodestone")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreLodestone"), null, new ItemStack(ModItems.dusts, 2, 44));
+        }
+        if(OreDictionary.doesOreNameExist("oreTellurium")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreTellurium"), null, new ItemStack(ModItems.dusts, 2, 74));
+        }
+        if(OreDictionary.doesOreNameExist("oreSilicon")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreSilicon"), null, new ItemStack(ModItems.dusts, 2, 67));
+        }
+        if(OreDictionary.doesOreNameExist("oreVoidstone")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreVoidstone"), null, new ItemStack(ModItems.dusts, 2, 82));
+        }
+        if(OreDictionary.doesOreNameExist("oreCalcite")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreCalcite"), null, new ItemStack(ModItems.dusts, 2, 14));
+        }
+        if(OreDictionary.doesOreNameExist("oreSodalite")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreSodalite"), null, new ItemStack(ModItems.dusts, 12, 69));
+        }
+        if(OreDictionary.doesOreNameExist("oreGraphite")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreGraphite"), null, new ItemStack(ModItems.dusts, 12, 33));
+        }
+        if(OreDictionary.doesOreNameExist("blockMarble")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("blockMarble"), null, new ItemStack(ModItems.dusts, 12, 49));
+        }
+        if(OreDictionary.doesOreNameExist("blockBasalt")) {
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("blockBasalt"), null, new ItemStack(ModItems.dusts, 12, 8));
+        }
     }
 
     public static void addTROreWashingRecipes() {
