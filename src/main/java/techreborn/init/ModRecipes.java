@@ -4,7 +4,9 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import ic2.api.item.IC2Items;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 import techreborn.api.BlastFurnaceRecipe;
 import techreborn.api.CentrifugeRecipie;
 import techreborn.api.TechRebornAPI;
@@ -30,6 +32,7 @@ public class ModRecipes {
 		addShappedRecipes();
 		addSmeltingRecipes();
 		addMachineRecipes();
+        addAlloySmelterRecipes();
 		addUUrecipes();
 	}
 
@@ -134,37 +137,37 @@ public class ModRecipes {
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9,
 				4), "blockSilver");
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9,
-				5), "blockAluminium");
+                5), "blockAluminium");
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9,
-				6), "blockTitanium");
+                6), "blockTitanium");
 		CraftingHelper.addShapelessOreRecipe(
-				new ItemStack(ModItems.gems, 9, 1), "blockSapphire");
+                new ItemStack(ModItems.gems, 9, 1), "blockSapphire");
 		CraftingHelper.addShapelessOreRecipe(
-				new ItemStack(ModItems.gems, 9, 0), "blockRuby");
+                new ItemStack(ModItems.gems, 9, 0), "blockRuby");
 		CraftingHelper.addShapelessOreRecipe(
-				new ItemStack(ModItems.gems, 9, 2), "blockGreenSapphire");
+                new ItemStack(ModItems.gems, 9, 2), "blockGreenSapphire");
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9,
-				7), "blockChrome");
+                7), "blockChrome");
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9,
-				8), "blockElectrum");
+                8), "blockElectrum");
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9,
-				9), "blockTungsten");
+                9), "blockTungsten");
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9,
-				10), "blockLead");
+                10), "blockLead");
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9,
-				11), "blockZinc");
+                11), "blockZinc");
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9,
-				12), "blockBrass");
+                12), "blockBrass");
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9,
-				13), "blockSteel");
+                13), "blockSteel");
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9,
-				14), "blockPlatinum");
+                14), "blockPlatinum");
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9,
-				15), "blockNickel");
+                15), "blockNickel");
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9,
-				16), "blockInvar");
+                16), "blockInvar");
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.rockCutter,
-				1, 27), Items.apple);
+                1, 27), Items.apple);
 
 		LogHelper.info("Shapless Recipes Added");
 	}
@@ -172,19 +175,19 @@ public class ModRecipes {
 	public static void addSmeltingRecipes()
 	{
 		GameRegistry.addSmelting(new ItemStack(ModItems.dusts, 1, 27),
-				new ItemStack(Items.iron_ingot), 1F);
+                new ItemStack(Items.iron_ingot), 1F);
 		GameRegistry.addSmelting(new ItemStack(ModItems.dusts, 1, 23),
-				new ItemStack(Items.gold_ingot), 1F);
+                new ItemStack(Items.gold_ingot), 1F);
 		GameRegistry.addSmelting(new ItemStack(ModItems.dusts, 1, 14),
-				IC2Items.getItem("copperIngot"), 1F);
+                IC2Items.getItem("copperIngot"), 1F);
 		GameRegistry.addSmelting(new ItemStack(ModItems.dusts, 1, 51),
-				IC2Items.getItem("tinIngot"), 1F);
+                IC2Items.getItem("tinIngot"), 1F);
 		GameRegistry.addSmelting(new ItemStack(ModItems.dusts, 1, 7),
-				IC2Items.getItem("bronzeIngot"), 1F);
+                IC2Items.getItem("bronzeIngot"), 1F);
 		GameRegistry.addSmelting(new ItemStack(ModItems.dusts, 1, 29),
-				IC2Items.getItem("leadIngot"), 1F);
+                IC2Items.getItem("leadIngot"), 1F);
 		GameRegistry.addSmelting(new ItemStack(ModItems.dusts, 1, 45),
-				IC2Items.getItem("silverIngot"), 1F);
+                IC2Items.getItem("silverIngot"), 1F);
 
 		LogHelper.info("Smelting Recipes Added");
 	}
@@ -207,13 +210,156 @@ public class ModRecipes {
 		RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(Items.coal), new ItemStack(Blocks.sand), new ItemStack(Items.diamond), 120, 5));
 		RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(Items.coal), new ItemStack(Blocks.sand), new ItemStack(Items.diamond), 120, 5));
 		RecipeHanderer.addRecipe(new LatheRecipe(new ItemStack(Items.coal), new ItemStack(Items.diamond), 120, 5));
-		RecipeHanderer.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Items.coal), new ItemStack(Blocks.sand), new ItemStack(Items.diamond), new ItemStack(Items.diamond), new ItemStack(Items.diamond) , 120, 5));
+		RecipeHanderer.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Items.coal), new ItemStack(Blocks.sand), new ItemStack(Items.diamond), new ItemStack(Items.diamond), new ItemStack(Items.diamond), 120, 5));
 		RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(new ItemStack(Items.coal), new ItemStack(Items.diamond), 120, 5));
 		//TODO
 		RecipeHanderer.addRecipe(new ChemicalReactorRecipe(new ItemStack(Items.coal), new ItemStack(Blocks.sand), new ItemStack(Items.diamond), 120, 5));
 
 		LogHelper.info("Machine Recipes Added");
 	}
+
+	public static void addAlloySmelterRecipes(){
+        //Bronze
+        RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.ingots, 3, 9), new ItemStack(ModItems.ingots, 1, 26), new ItemStack(ModItems.ingots, 4, 6), 200, 16));
+        RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.ingots, 3, 9), new ItemStack(ModItems.dusts, 1, 77), new ItemStack(ModItems.ingots, 4, 6), 200, 16));
+        RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.dusts, 3, 21), new ItemStack(ModItems.ingots, 1, 26), new ItemStack(ModItems.ingots, 4, 6), 200, 16));
+        RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.dusts, 3, 21), new ItemStack(ModItems.dusts, 1, 77), new ItemStack(ModItems.ingots, 4, 6), 200, 16));
+
+        //Electrum
+        RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(Items.gold_ingot, 1), new ItemStack(ModItems.ingots, 1, 23), new ItemStack(ModItems.ingots, 2, 11), 200, 16));
+        RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(Items.gold_ingot, 1), new ItemStack(ModItems.dusts, 1, 68), new ItemStack(ModItems.ingots, 2, 11), 200, 16));
+        RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.dusts, 3, 32), new ItemStack(ModItems.ingots, 1, 26), new ItemStack(ModItems.ingots, 2, 11), 200, 16));
+        RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.dusts, 3, 32), new ItemStack(ModItems.dusts, 1, 68), new ItemStack(ModItems.ingots, 2, 11), 200, 16));
+
+        //Invar
+        RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(Items.iron_ingot, 2), new ItemStack(ModItems.ingots, 1, 20), new ItemStack(ModItems.ingots, 3, 13), 200, 16));
+        RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(Items.iron_ingot, 2), new ItemStack(ModItems.dusts, 1, 53), new ItemStack(ModItems.ingots, 3, 13), 200, 16));
+        RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.dusts, 2, 38), new ItemStack(ModItems.ingots, 1, 20), new ItemStack(ModItems.ingots, 3, 13), 200, 16));
+        RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.dusts, 2, 38), new ItemStack(ModItems.dusts, 1, 53), new ItemStack(ModItems.ingots, 3, 13), 200, 16));
+
+        //Cupronickel
+        RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.ingots, 1, 9), new ItemStack(ModItems.ingots, 1, 20), new ItemStack(ModItems.ingots, 2, 10), 200, 16));
+        RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.ingots, 1, 9), new ItemStack(ModItems.dusts, 1, 53), new ItemStack(ModItems.ingots, 2, 10), 200, 16));
+        RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.dusts, 1, 21), new ItemStack(ModItems.ingots, 1, 20), new ItemStack(ModItems.ingots, 2, 10), 200, 16));
+        RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.dusts, 1, 21), new ItemStack(ModItems.dusts, 1, 53), new ItemStack(ModItems.ingots, 2, 10), 200, 16));
+
+        //Nichrome
+        RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.ingots, 1, 8), new ItemStack(ModItems.ingots, 4, 20), new ItemStack(ModItems.ingots, 5, 19), 200, 16));
+        RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.ingots, 1, 8), new ItemStack(ModItems.dusts, 4, 53), new ItemStack(ModItems.ingots, 5, 19), 200, 16));
+        RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.dusts, 1, 16), new ItemStack(ModItems.ingots, 4, 20), new ItemStack(ModItems.ingots, 5, 19), 200, 16));
+        RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.dusts, 1, 16), new ItemStack(ModItems.dusts, 4, 53), new ItemStack(ModItems.ingots, 5, 19), 200, 16));
+
+        //Magnalium
+        RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.dusts, 1, 45), new ItemStack(ModItems.ingots, 4, 0), new ItemStack(ModItems.ingots, 3, 18), 200, 16));
+        RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.dusts, 1, 45), new ItemStack(ModItems.dusts, 4, 2), new ItemStack(ModItems.ingots, 3, 18), 200, 16));
+
+        //Battery Alloy
+        RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.ingots, 4, 16), new ItemStack(ModItems.ingots, 1, 1), new ItemStack(ModItems.ingots, 5, 2), 200, 16));
+        RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.ingots, 4, 16), new ItemStack(ModItems.dusts, 1, 5), new ItemStack(ModItems.ingots, 5, 2), 200, 16));
+        RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.dusts, 4, 42), new ItemStack(ModItems.ingots, 1, 1), new ItemStack(ModItems.ingots, 5, 2), 200, 16));
+        RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.dusts, 4, 42), new ItemStack(ModItems.dusts, 1, 5), new ItemStack(ModItems.ingots, 5, 2), 200, 16));
+
+        //Brass
+        if(OreDictionary.doesOreNameExist("ingotBrass")) {
+            ItemStack brassStack = OreDictionary.getOres("ingotBrass").get(0);
+            brassStack.stackSize = 4;
+            RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.ingots, 3, 9), new ItemStack(ModItems.ingots, 1, 31), brassStack, 200, 16));
+            RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.ingots, 3, 9), new ItemStack(ModItems.dusts, 1, 84), brassStack, 200, 16));
+            RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.dusts, 3, 21), new ItemStack(ModItems.ingots, 1, 31), brassStack, 200, 16));
+            RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.dusts, 3, 21), new ItemStack(ModItems.dusts, 1, 84), brassStack, 200, 16));
+        }
+
+        //Red Alloy
+        if(OreDictionary.doesOreNameExist("ingotRedAlloy")) {
+            ItemStack redAlloyStack = OreDictionary.getOres("ingotRedAlloy").get(0);
+            redAlloyStack.stackSize = 1;
+            RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(Items.redstone, 4), new ItemStack(ModItems.ingots, 1, 9), redAlloyStack, 200, 16));
+            RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(Items.redstone, 4), new ItemStack(Items.iron_ingot, 1), redAlloyStack, 200, 16));
+        }
+
+        //Blue Alloy
+        if(OreDictionary.doesOreNameExist("ingotBlueAlloy")) {
+            ItemStack blueAlloyStack = OreDictionary.getOres("ingotBlueAlloy").get(0);
+            blueAlloyStack.stackSize = 1;
+            RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.dusts, 4, 75), new ItemStack(ModItems.ingots, 1, 23), blueAlloyStack, 200, 16));
+        }
+
+        //Blue Alloy
+        if(OreDictionary.doesOreNameExist("ingotPurpleAlloy") && OreDictionary.doesOreNameExist("dustInfusedTeslatite")) {
+            ItemStack purpleAlloyStack = OreDictionary.getOres("ingotPurpleAlloy").get(0);
+            purpleAlloyStack.stackSize = 1;
+            ItemStack infusedTeslatiteStack = OreDictionary.getOres("ingotPurpleAlloy").get(0);
+            infusedTeslatiteStack.stackSize = 8;
+            RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.ingots, 1, 3), new ItemStack(ModItems.ingots, 1, 4), purpleAlloyStack, 200, 16));
+            RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(Items.gold_ingot, 1), infusedTeslatiteStack, purpleAlloyStack, 200, 16));
+        }
+
+        //Aluminum Brass
+        if(OreDictionary.doesOreNameExist("ingotAluminumBrass")) {
+            ItemStack aluminumBrassStack = OreDictionary.getOres("ingotAluminumBrass").get(0);
+            aluminumBrassStack.stackSize = 4;
+            RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.ingots, 3, 9), new ItemStack(ModItems.ingots, 1, 0), aluminumBrassStack, 200, 16));
+            RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.ingots, 3, 9), new ItemStack(ModItems.dusts, 1, 2), aluminumBrassStack, 200, 16));
+            RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.dusts, 3, 21), new ItemStack(ModItems.ingots, 1, 0), aluminumBrassStack, 200, 16));
+            RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.dusts, 3, 21), new ItemStack(ModItems.dusts, 1, 2), aluminumBrassStack, 200, 16));
+        }
+
+        //Manyullyn
+        if(OreDictionary.doesOreNameExist("ingotManyullyn") && OreDictionary.doesOreNameExist("ingotCobalt") && OreDictionary.doesOreNameExist("ingotArdite")) {
+            ItemStack manyullynStack = OreDictionary.getOres("ingotManyullyn").get(0);
+            manyullynStack.stackSize = 1;
+            ItemStack cobaltStack = OreDictionary.getOres("ingotCobalt").get(0);
+            cobaltStack.stackSize = 1;
+            ItemStack arditeStack = OreDictionary.getOres("ingotArdite").get(0);
+            arditeStack.stackSize = 1;
+            RecipeHanderer.addRecipe(new AlloySmelterRecipe(cobaltStack, arditeStack, manyullynStack, 200, 16));
+            RecipeHanderer.addRecipe(new AlloySmelterRecipe(cobaltStack, new ItemStack(ModItems.dusts, 1, 6), manyullynStack, 200, 16));
+            RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.dusts, 1, 20), arditeStack, manyullynStack, 200, 16));
+            RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(ModItems.dusts, 1, 20), new ItemStack(ModItems.dusts, 1, 6), manyullynStack, 200, 16));
+        }
+
+        //Conductive Iron
+        if(OreDictionary.doesOreNameExist("ingotConductiveIron")) {
+            ItemStack conductiveIronStack = OreDictionary.getOres("ingotConductiveIron").get(0);
+            conductiveIronStack.stackSize = 1;
+            RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(Items.redstone, 1), new ItemStack(Items.iron_ingot, 1), conductiveIronStack, 200, 16));
+        }
+
+        //Redstone Alloy
+        if(OreDictionary.doesOreNameExist("ingotRedstoneAlloy") && OreDictionary.doesOreNameExist("itemSilicon")) {
+            ItemStack redstoneAlloyStack = OreDictionary.getOres("ingotRedstoneAlloy").get(0);
+            redstoneAlloyStack.stackSize = 1;
+            ItemStack siliconStack = OreDictionary.getOres("itemSilicon").get(0);
+            siliconStack.stackSize = 1;
+            RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(Items.redstone, 1), siliconStack, redstoneAlloyStack, 200, 16));
+        }
+
+        //Pulsating Iron
+        if(OreDictionary.doesOreNameExist("ingotPhasedIron")) {
+            ItemStack pulsatingIronStack = OreDictionary.getOres("ingotPhasedIron").get(0);
+            pulsatingIronStack.stackSize = 1;
+            RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(Items.iron_ingot, 1), new ItemStack(Items.ender_pearl, 1), pulsatingIronStack, 200, 16));
+            RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(Items.iron_ingot, 1), new ItemStack(ModItems.dusts, 1, 29), pulsatingIronStack, 200, 16));
+        }
+
+        //Vibrant Alloy
+        if(OreDictionary.doesOreNameExist("ingotEnergeticAlloy") && OreDictionary.doesOreNameExist("ingotPhasedGold")) {
+            ItemStack energeticAlloyStack = OreDictionary.getOres("ingotEnergeticAlloy").get(0);
+            energeticAlloyStack.stackSize = 1;
+            ItemStack vibrantAlloyStack = OreDictionary.getOres("ingotPhasedGold").get(0);
+            vibrantAlloyStack.stackSize = 1;
+            RecipeHanderer.addRecipe(new AlloySmelterRecipe(energeticAlloyStack, new ItemStack(Items.ender_pearl, 1), vibrantAlloyStack, 200, 16));
+            RecipeHanderer.addRecipe(new AlloySmelterRecipe(energeticAlloyStack, new ItemStack(ModItems.dusts, 1, 29), vibrantAlloyStack, 200, 16));
+        }
+
+        //Soularium
+        if(OreDictionary.doesOreNameExist("ingotSoularium")) {
+            ItemStack soulariumStack = OreDictionary.getOres("ingotSoularium").get(0);
+            soulariumStack.stackSize = 1;
+            RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(Blocks.soul_sand, 1), new ItemStack(Items.gold_ingot, 1), soulariumStack, 200, 16));
+        }
+
+    }
 	
 	public static void addUUrecipes()
 	{

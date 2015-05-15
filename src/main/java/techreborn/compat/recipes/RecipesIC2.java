@@ -487,6 +487,7 @@ public class RecipesIC2 {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreGalena"), null, new ItemStack(ModItems.crushedOre, 2, 16));
         }
 
+
         if(OreDictionary.doesOreNameExist("oreRedstone")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreRedstone"), null, new ItemStack(Items.redstone, 10));
         }
@@ -515,7 +516,9 @@ public class RecipesIC2 {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreSaltpeter"), null, new ItemStack(ModItems.dusts, 8, 65));
         }
         if(OreDictionary.doesOreNameExist("oreTeslatite")) {
-            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreTeslatite"), null, OreDictionary.getOres("dustTeslatite").get(0));
+            ItemStack teslatiteStack = OreDictionary.getOres("dustTeslatite").get(0);
+            teslatiteStack.stackSize = 10;
+            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreTeslatite"), null, teslatiteStack);
         }
         if(OreDictionary.doesOreNameExist("oreMithril")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreMithril"), null, new ItemStack(ModItems.dusts, 2, 50));
