@@ -113,7 +113,6 @@ public class ConfigTechReborn {
     public static boolean UUrecipesFeather;
     public static boolean UUrecipesInk;
     public static boolean UUrecipesEnderPearl;
-    // TODO
     public static boolean UUrecipesCoal;
     public static boolean UUrecipesIronOre;
     public static boolean UUrecipesIronDust;
@@ -826,14 +825,179 @@ public class ConfigTechReborn {
                                 .translateToLocal("config.techreborn.allow.uurecipesEnderPearl.tooltip"))
                 .getBoolean(true);
 
-        UUrecipesGunpowder = config
+        UUrecipesCoal = config
                 .get(CATEGORY_UU,
                         StatCollector
-                                .translateToLocal("config.techreborn.allow.uurecipesGunPowder"),
+                                .translateToLocal("config.techreborn.allow.UUrecipesCoal"),
                         true,
                         StatCollector
-                                .translateToLocal("config.techreborn.allow.uurecipesGunPowder.tooltip"))
+                                .translateToLocal("config.techreborn.allow.UUrecipesCoal.tooltip"))
                 .getBoolean(true);
+        
+        UUrecipesIronOre = config
+                .get(CATEGORY_UU,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesIronOre"),
+                        true,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesIronOre.tooltip"))
+                .getBoolean(true);
+        
+        UUrecipesIronDust = config
+                .get(CATEGORY_UU,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesIronDust"),
+                        true,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesIronDust.tooltip"))
+                .getBoolean(true);
+        
+        UUrecipesGoldOre = config
+                .get(CATEGORY_UU,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesGoldOre"),
+                        true,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesGoldOre.tooltip"))
+                .getBoolean(true);
+        
+        UUrecipesGoldDust = config
+                .get(CATEGORY_UU,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesGoldDust"),
+                        true,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesGoldDust.tooltip"))
+                .getBoolean(true);
+        
+        UUrecipesRedStone = config
+                .get(CATEGORY_UU,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesRedStone"),
+                        true,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesRedStone.tooltip"))
+                .getBoolean(true);
+        
+        UUrecipesLapis = config
+                .get(CATEGORY_UU,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesLapis"),
+                        true,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesLapis.tooltip"))
+                .getBoolean(true);
+
+        
+        UUrecipesEmeraldOre = config
+                .get(CATEGORY_UU,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesEmeraldOre"),
+                        true,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesEmeraldOre.tooltip"))
+                .getBoolean(true);
+
+        
+        UUrecipesEmerald = config
+                .get(CATEGORY_UU,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesEmerald"),
+                        true,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesEmerald.tooltip"))
+                .getBoolean(true);
+
+        
+        UUrecipesDiamond = config
+                .get(CATEGORY_UU,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesDiamond"),
+                        true,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesDiamond.tooltip"))
+                .getBoolean(true);
+
+        
+        UUrecipesResin = config
+                .get(CATEGORY_UU,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesResin"),
+                        true,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesResin.tooltip"))
+                .getBoolean(true);
+
+        
+        UUrecipesTinDust = config
+                .get(CATEGORY_UU,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesTinDust"),
+                        true,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesTinDust.tooltip"))
+                .getBoolean(true);
+
+        
+        UUrecipesCopperDust = config
+                .get(CATEGORY_UU,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesCopperDust"),
+                        true,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesCopperDust.tooltip"))
+                .getBoolean(true);
+
+        
+        UUrecipesLeadDust = config
+                .get(CATEGORY_UU,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesLeadDust"),
+                        true,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesLeadDust.tooltip"))
+                .getBoolean(true);
+
+        
+        UUrecipesPlatinumDust = config
+                .get(CATEGORY_UU,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesPlatinumDust"),
+                        true,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesPlatinumDust.tooltip"))
+                .getBoolean(true);
+
+        
+        UUrecipesTungstenDust = config
+                .get(CATEGORY_UU,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesTungstenDust"),
+                        true,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesTungstenDust.tooltip"))
+                .getBoolean(true);
+
+        
+        UUrecipesTitaniumDust = config
+                .get(CATEGORY_UU,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesTitaniumDust"),
+                        true,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesTitaniumDust.tooltip"))
+                .getBoolean(true);
+
+        
+        UUrecipesAluminumDust = config
+                .get(CATEGORY_UU,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesAluminumDust"),
+                        true,
+                        StatCollector
+                                .translateToLocal("config.techreborn.allow.UUrecipesAluminumDust.tooltip"))
+                .getBoolean(true);
+
 
         if (config.hasChanged())
             config.save();

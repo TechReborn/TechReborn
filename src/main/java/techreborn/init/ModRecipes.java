@@ -507,6 +507,7 @@ public class ModRecipes {
 				 	"UU ", 
 					'U', ModItems.uuMatter 
 				});
+		
 		if(config.UUrecipeslilypad);
 		CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.waterlily, 64),
 				new Object[]
@@ -516,6 +517,7 @@ public class ModRecipes {
 				 	" U ", 
 					'U', ModItems.uuMatter 
 				});
+		
 		if(config.UUrecipesGunpowder);
 		CraftingHelper.addShapedOreRecipe(new ItemStack(Items.gunpowder, 15),
 				new Object[]
@@ -525,6 +527,7 @@ public class ModRecipes {
 				 	"UUU", 
 					'U', ModItems.uuMatter 
 				});
+		
 		if(config.UUrecipesBone);
 		CraftingHelper.addShapedOreRecipe(new ItemStack(Items.bone, 32),
 				new Object[]
@@ -534,6 +537,7 @@ public class ModRecipes {
 				 	"U  ", 
 					'U', ModItems.uuMatter 
 				});
+		
 		if(config.UUrecipesFeather);
 		CraftingHelper.addShapedOreRecipe(new ItemStack(Items.feather, 32),
 				new Object[]
@@ -543,6 +547,7 @@ public class ModRecipes {
 				 	"U U", 
 					'U', ModItems.uuMatter 
 				});
+		
 		if(config.UUrecipesInk);
 		CraftingHelper.addShapedOreRecipe(new ItemStack(Items.dye, 48),
 				new Object[]
@@ -552,6 +557,7 @@ public class ModRecipes {
 				 	" U ", 
 					'U', ModItems.uuMatter 
 				});
+		
 		if(config.UUrecipesEnderPearl);
 		CraftingHelper.addShapedOreRecipe(new ItemStack(Items.ender_pearl, 1),
 				new Object[]
@@ -561,6 +567,155 @@ public class ModRecipes {
 				 	" U ", 
 					'U', ModItems.uuMatter 
 				});
+		
+		if(config.UUrecipesCoal);
+		CraftingHelper.addShapedOreRecipe(new ItemStack(Items.coal, 5),
+				new Object[]
+				{ 
+				 	"  U",
+				 	"U  ", 
+				 	"  U", 
+					'U', ModItems.uuMatter 
+				});
+		
+		if(config.UUrecipesIronOre);
+		CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.iron_ore, 2),
+				new Object[]
+				{ 
+				 	"U U",
+				 	" U ", 
+				 	"U U", 
+					'U', ModItems.uuMatter 
+				});
+		
+		if(config.UUrecipesGoldOre);
+		CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.gold_ore, 2),
+				new Object[]
+				{ 
+				 	" U ",
+				 	"UUU", 
+				 	" U ", 
+					'U', ModItems.uuMatter 
+				});
+		
+		if(config.UUrecipesRedStone);
+		CraftingHelper.addShapedOreRecipe(new ItemStack(Items.redstone, 24),
+				new Object[]
+				{ 
+				 	"   ",
+				 	" U ", 
+				 	"UUU", 
+					'U', ModItems.uuMatter 
+				});
+		
+		if(config.UUrecipesLapis);
+		CraftingHelper.addShapedOreRecipe(new ItemStack(Items.dye, 9 , 4),
+				new Object[]
+				{ 
+				 	" U ",
+				 	" U ", 
+				 	" UU", 
+					'U', ModItems.uuMatter 
+				});
+		
+		if(config.UUrecipesEmeraldOre);
+		CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.emerald_ore, 1),
+				new Object[]
+				{ 
+				 	"UU ",
+				 	"U U", 
+				 	" UU", 
+					'U', ModItems.uuMatter 
+				});
+		if(config.UUrecipesEmerald);
+		CraftingHelper.addShapedOreRecipe(new ItemStack(Items.emerald, 2),
+				new Object[]
+				{ 
+				 	"UUU",
+				 	"UUU", 
+				 	" U ", 
+					'U', ModItems.uuMatter 
+				});
+		if(config.UUrecipesDiamond);
+		CraftingHelper.addShapedOreRecipe(new ItemStack(Items.diamond, 1),
+				new Object[]
+				{ 
+				 	"UUU",
+				 	"UUU", 
+				 	"UUU", 
+					'U', ModItems.uuMatter 
+				});
+		
+		if(config.UUrecipesTinDust);
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.dusts, 10, 77),
+				new Object[]
+				{ 
+				 	"   ",
+				 	"U U", 
+				 	"  U", 
+					'U', ModItems.uuMatter 
+				});
+		
+		if(config.UUrecipesCopperDust);
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.dusts, 10, 21),
+				new Object[]
+				{ 
+				 	"  U",
+				 	"U U", 
+				 	"   ", 
+					'U', ModItems.uuMatter 
+				});
+		
+		if(config.UUrecipesLeadDust);
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.dusts, 14, 42),
+				new Object[]
+				{ 
+				 	"UUU",
+				 	"UUU", 
+				 	"U  ", 
+					'U', ModItems.uuMatter 
+				});
+		
+		if(config.UUrecipesPlatinumDust);
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.dusts, 1, 58),
+				new Object[]
+				{ 
+				 	"  U",
+				 	"UUU", 
+				 	"UUU", 
+					'U', ModItems.uuMatter 
+				});
+		
+		if(config.UUrecipesTungstenDust);
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.dusts, 1, 79),
+				new Object[]
+				{ 
+				 	"U  ",
+				 	"UUU", 
+				 	"UUU", 
+					'U', ModItems.uuMatter 
+				});
+		
+		if(config.UUrecipesTitaniumDust);
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.dusts, 2, 78),
+				new Object[]
+				{ 
+				 	"UUU",
+				 	" U ", 
+				 	" U ", 
+					'U', ModItems.uuMatter 
+				});
+		
+		if(config.UUrecipesAluminumDust);
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.dusts, 16, 2),
+				new Object[]
+				{ 
+				 	" U ",
+				 	" U ", 
+				 	"UUU", 
+					'U', ModItems.uuMatter 
+				});
+
 		
 		if(config.HideUuRecipes);
 			hideUUrecipes();
