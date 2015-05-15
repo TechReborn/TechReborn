@@ -32,7 +32,7 @@ public class ItemFluidbucket extends ItemBucket{
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister par1IconRegister) 
 	{
-		this.itemIcon = par1IconRegister.registerIcon("techreborn:" + iconName);
+		this.itemIcon = par1IconRegister.registerIcon("techreborn:bucket/" + iconName);
 	}
 
 }
