@@ -15,7 +15,7 @@ public class TileChemicalReactor extends TileMachineBase implements IWrenchable,
 
 	public int tickTime;
 	public BasicSink energy;
-	public Inventory inventory = new Inventory(3, "TileChemicalReactor", 64);
+	public Inventory inventory = new Inventory(8, "TileChemicalReactor", 64);
 	public RecipeCrafter crafter;
 	
 	public TileChemicalReactor()

@@ -32,7 +32,13 @@ public class ContainerChemicalReactor extends TechRebornContainer {
 		this.addSlotToContainer(new Slot(tilechemicalReactor.inventory, 1, 90, 21));
 		// outputs
 		this.addSlotToContainer(new SlotOutput(tilechemicalReactor.inventory, 2, 80, 51));
-		//TODO battery Slot
+		// battery
+		this.addSlotToContainer(new Slot(tilechemicalReactor.inventory, 3, 8, 51));
+		// upgrades
+		this.addSlotToContainer(new Slot(tilechemicalReactor.inventory, 4, 152, 8));
+		this.addSlotToContainer(new Slot(tilechemicalReactor.inventory, 5, 152, 26));
+		this.addSlotToContainer(new Slot(tilechemicalReactor.inventory, 6, 152, 44));
+		this.addSlotToContainer(new Slot(tilechemicalReactor.inventory, 7, 152, 62));
 
 		int i;
 
