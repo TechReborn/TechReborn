@@ -21,7 +21,7 @@ public class CompatManager {
 			// Register Multiparts
 			ModParts.init();
 		}
-		if(Loader.isModLoaded("qmunitylib"))
+		if(Loader.isModLoaded("EE3"))
 		{
 			// Register Emc Values
 			EmcValues.init();
