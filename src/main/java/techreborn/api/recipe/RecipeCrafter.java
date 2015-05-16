@@ -4,6 +4,9 @@ import ic2.api.energy.prefab.BasicSink;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import techreborn.packets.PacketHandler;
 import techreborn.tiles.TileMachineBase;
 import techreborn.util.Inventory;
 import techreborn.util.ItemUtils;
@@ -124,11 +127,7 @@ public class RecipeCrafter {
 							filledSlots.add(outputSlots[i]);
 						}
 					}
-					for (int i = 0; i < inputs; i++) {
-						if (!filledSlots.contains(inputSlots[i])) {
-							inventory.decrStackSize(inputSlots[i], currentRecipe.getInputs().get(i).stackSize);
-						}
-					}
+					useAllInputs();
 					currentRecipe = null;
 					currentTickTime = 0;
 					parentTile.syncWithAll();
@@ -178,6 +177,19 @@ public class RecipeCrafter {
 		return true;
 	}
 
+	public void useAllInputs(){
+		if(currentRecipe == null){
+			return;
+		}
+		for(ItemStack input : currentRecipe.getInputs()){
+			for(int inputSlot : inputSlots){
+				if(ItemUtils.isItemEqual(input, inventory.getStackInSlot(inputSlot), true, true, true)){
+					inventory.decrStackSize(inputSlot, input.stackSize);
+				}
+			}
+		}
+	}
+
 	public boolean canFitStack(ItemStack stack, int slot) {
 		if (stack == null) {
 			return true;
@@ -194,10 +206,6 @@ public class RecipeCrafter {
 	}
 
 	public void fitStack(ItemStack stack, int slot) {
-		//Don't do this on the client.
-		if (parentTile.getWorldObj().isRemote) {
-			return;
-		}
 		if (stack == null) {
 			return;
 		}
