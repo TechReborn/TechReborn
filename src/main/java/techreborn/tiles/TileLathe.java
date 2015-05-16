@@ -1,5 +1,7 @@
 package techreborn.tiles;
 
+import java.util.List;
+
 import ic2.api.energy.prefab.BasicSink;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
@@ -110,5 +112,15 @@ public class TileLathe extends TileMachineBase implements IWrenchable, IEnergyTi
     {
         energy.onChunkUnload();
     }
+    
+	@Override
+	public void addWailaInfo(List<String> info)
+	{
+		super.addWailaInfo(info);
+		info.add("Power Stored " + energy.getEnergyStored() +" EU");
+		if(crafter.currentRecipe !=null){
+		info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
+		}
+	}
 
 }

@@ -1,5 +1,7 @@
 package techreborn.tiles;
 
+import java.util.List;
+
 import ic2.api.energy.prefab.BasicSink;
 import ic2.api.energy.prefab.BasicSource;
 import ic2.api.energy.tile.IEnergyTile;
@@ -18,11 +20,11 @@ import techreborn.util.Inventory;
 public class TileHeatGenerator extends TileMachineBase implements IWrenchable, IEnergyTile {
 
 	public BasicSource energy;
-	public static final int euTick = 1;
+	public static final int euTick = ConfigTechReborn.heatGeneratorOutput;
 
 	public TileHeatGenerator()
 	{
-		energy = new BasicSource(this, 1000, ConfigTechReborn.heatGeneratorOutput);
+		energy = new BasicSource(this, 1000, euTick);
 	}
 	
 	@Override
@@ -53,6 +55,7 @@ public class TileHeatGenerator extends TileMachineBase implements IWrenchable, I
 			{
 				energy.addEnergy(euTick);
 			}
+			
 		}
 	}
 
@@ -124,5 +127,13 @@ public class TileHeatGenerator extends TileMachineBase implements IWrenchable, I
         super.writeToNBT(tagCompound);
         energy.writeToNBT(tagCompound);
     }
+    
+	@Override
+	public void addWailaInfo(List<String> info)
+	{
+		super.addWailaInfo(info);
+		info.add("Power Generarating " + euTick +" EU/t");
+
+	}
 
 }

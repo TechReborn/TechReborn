@@ -1,5 +1,9 @@
 package techreborn.tiles;
 
+import java.util.List;
+
+import javax.rmi.CORBA.Tie;
+
 import ic2.api.energy.prefab.BasicSink;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
@@ -28,7 +32,7 @@ public class TileAlloySmelter extends TileMachineBase implements IWrenchable, IE
 		inputs[1] = 1;
 		int[] outputs = new int[1];
 		outputs[0] = 2;
-		crafter = new RecipeCrafter("alloySmelterRecipe", this, energy, 2, 2, inventory, inputs, outputs);
+		crafter = new RecipeCrafter("alloySmelterRecipe", this, energy, 2, 1, inventory, inputs, outputs);
 	}
 	
 	@Override
@@ -111,5 +115,15 @@ public class TileAlloySmelter extends TileMachineBase implements IWrenchable, IE
     {
         energy.onChunkUnload();
     }
+    
+	@Override
+	public void addWailaInfo(List<String> info)
+	{
+		super.addWailaInfo(info);
+		info.add("Power Stored " + energy.getEnergyStored() +" EU");
+		if(crafter.currentRecipe !=null){
+		info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
+		}
+	}
 
 }
