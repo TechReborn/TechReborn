@@ -1,6 +1,7 @@
 package techreborn.api.recipe;
 
 import ic2.api.energy.prefab.BasicSink;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import techreborn.tiles.TileMachineBase;
@@ -87,26 +88,16 @@ public class RecipeCrafter {
 	public void updateEntity() {
 		if (currentRecipe == null) {
 			for (IBaseRecipeType recipe : RecipeHanderer.getRecipeClassFromName(recipeName)) {
-				boolean isFullRecipe = false;
-				for (int i = 0; i < inputs; i++) {
-					if (ItemUtils.isItemEqual(inventory.getStackInSlot(inputSlots[i]), recipe.getInputs().get(i), true, true, true) && inventory.getStackInSlot(inputSlots[i]).stackSize >= recipe.getInputs().get(i).stackSize) {
-						isFullRecipe = true;
-					} else {
-						isFullRecipe = false;
-					}
-				}
-				if (isFullRecipe) {
+				if(hasAllInputs(recipe)){
 					currentRecipe = recipe;
 					return;
 				}
 			}
 		} else {
-			for (int i = 0; i < inputs; i++) {
-				if (!ItemUtils.isItemEqual(inventory.getStackInSlot(inputSlots[i]), currentRecipe.getInputs().get(i), true, true, true) || (inventory.getStackInSlot(inputSlots[i]) == null || (inventory.getStackInSlot(inputSlots[i]).stackSize < currentRecipe.getInputs().get(i).stackSize))) {
-					currentRecipe = null;
-					currentTickTime = 0;
-					return;
-				}
+			if(!hasAllInputs()){
+				currentRecipe = null;
+				currentTickTime = 0;
+				return;
 			}
 			if (currentTickTime >= currentRecipe.tickTime()) {
 				boolean canGiveInvAll = true;
@@ -139,6 +130,40 @@ public class RecipeCrafter {
 				}
 			}
 		}
+	}
+
+	public boolean hasAllInputs(){
+		if(currentRecipe == null){
+			return false;
+		}
+		for(ItemStack input : currentRecipe.getInputs()){
+			Boolean hasItem = false;
+			for(int inputslot : inputSlots){
+				if(ItemUtils.isItemEqual(input, inventory.getStackInSlot(inputslot), true, true, true)){
+					hasItem = true;
+				}
+			}
+			if(!hasItem)
+				return false;
+		}
+		return true;
+	}
+
+	public boolean hasAllInputs(IBaseRecipeType recipeType){
+		if(recipeType == null){
+			return false;
+		}
+		for(ItemStack input : recipeType.getInputs()){
+			Boolean hasItem = false;
+			for(int inputslot : inputSlots){
+				if(ItemUtils.isItemEqual(input, inventory.getStackInSlot(inputslot), true, true, true)){
+					hasItem = true;
+				}
+			}
+			if(!hasItem)
+				return false;
+		}
+		return true;
 	}
 
 	public boolean canFitStack(ItemStack stack, int slot) {
