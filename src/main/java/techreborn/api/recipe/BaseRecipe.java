@@ -1,6 +1,7 @@
 package techreborn.api.recipe;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,5 +53,15 @@ public abstract class BaseRecipe implements IBaseRecipeType {
 	@Override
 	public int euPerTick() {
 		return euPerTick;
+	}
+
+	@Override
+	public boolean canCraft(TileEntity tile) {
+		return true;
+	}
+
+	@Override
+	public boolean onCraft(TileEntity tile) {
+		return true;
 	}
 }

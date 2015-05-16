@@ -88,10 +88,18 @@ public class RecipeCrafter {
 	public void updateEntity() {
 		if (currentRecipe == null) {
 			for (IBaseRecipeType recipe : RecipeHanderer.getRecipeClassFromName(recipeName)) {
-				if(hasAllInputs(recipe)){
-					currentRecipe = recipe;
-					parentTile.syncWithAll();
-					return;
+				if(recipe.canCraft(parentTile) && hasAllInputs(recipe)){
+					boolean canGiveInvAll = true;
+					for (int i = 0; i < recipe.getOutputs().size(); i++) {
+						if (!canFitStack(recipe.getOutputs().get(i), outputSlots[i])) {
+							canGiveInvAll = false;
+						}
+					}
+					if(canGiveInvAll){
+						currentRecipe = recipe;
+						parentTile.syncWithAll();
+						return;
+					}
 				}
 			}
 		} else {
@@ -109,7 +117,7 @@ public class RecipeCrafter {
 					}
 				}
 				ArrayList<Integer> filledSlots = new ArrayList<Integer>();
-				if (canGiveInvAll) {
+				if (canGiveInvAll && currentRecipe.onCraft(parentTile)) {
 					for (int i = 0; i < currentRecipe.getOutputs().size(); i++) {
 						if (!filledSlots.contains(outputSlots[i])) {
 							fitStack(currentRecipe.getOutputs().get(i), outputSlots[i]);
