@@ -90,6 +90,7 @@ public class RecipeCrafter {
 			for (IBaseRecipeType recipe : RecipeHanderer.getRecipeClassFromName(recipeName)) {
 				if(hasAllInputs(recipe)){
 					currentRecipe = recipe;
+					parentTile.syncWithAll();
 					return;
 				}
 			}
@@ -97,6 +98,7 @@ public class RecipeCrafter {
 			if(!hasAllInputs()){
 				currentRecipe = null;
 				currentTickTime = 0;
+				parentTile.syncWithAll();
 				return;
 			}
 			if (currentTickTime >= currentRecipe.tickTime()) {
@@ -124,9 +126,11 @@ public class RecipeCrafter {
 					parentTile.syncWithAll();
 				}
 			} else if (currentTickTime < currentRecipe.tickTime()) {
-				if (energy.useEnergy(currentRecipe.euPerTick())) {
+				if (energy.canUseEnergy(currentRecipe.euPerTick())) {
+					if(!parentTile.getWorldObj().isRemote){
+						this.energy.setEnergyStored(this.energy.getEnergyStored() - currentRecipe.euPerTick());
+					}
 					currentTickTime++;
-					parentTile.syncWithAll();
 				}
 			}
 		}
