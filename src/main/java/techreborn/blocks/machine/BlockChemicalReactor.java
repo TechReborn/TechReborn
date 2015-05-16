@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.Core;
@@ -17,6 +18,7 @@ import techreborn.blocks.BlockMachineBase;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileAlloySmelter;
+import techreborn.tiles.TileAssemblingMachine;
 import techreborn.tiles.TileBlastFurnace;
 import techreborn.tiles.TileChemicalReactor;
 import techreborn.tiles.TileMachineCasing;
@@ -27,6 +29,9 @@ public class BlockChemicalReactor extends BlockMachineBase {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon iconFront;
+	
+	@SideOnly(Side.CLIENT)
+	private IIcon iconFrontOn;
 
 	@SideOnly(Side.CLIENT)
 	private IIcon iconTop;
@@ -62,13 +67,18 @@ public class BlockChemicalReactor extends BlockMachineBase {
 	{
 		this.blockIcon = icon.registerIcon("techreborn:machine/machine_side");
 		this.iconFront = icon.registerIcon("techreborn:machine/chemical_reactor_side_off");
+		this.iconFrontOn = icon.registerIcon("techreborn:machine/chemical_reactor_side_on");
 		this.iconTop = icon.registerIcon("techreborn:machine/machine_top");
 		this.iconBottom = icon.registerIcon("techreborn:machine/machine_bottom");
 	}
 
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int metadata)
-	{
+	@Override
+	public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int side) {
+		int metadata = blockAccess.getBlockMetadata(x, y, z);
+		TileChemicalReactor tileChemicalReactor = (TileChemicalReactor) blockAccess.getTileEntity(x, y, z);
+		if(side == metadata && tileChemicalReactor.crafter.currentRecipe != null){
+			return this.iconFrontOn;
+		}
 
 		return metadata == 0 && side == 3 ? this.iconFront
 				: side == 1 ? this.iconTop : 

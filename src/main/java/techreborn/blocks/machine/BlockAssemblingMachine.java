@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.Core;
@@ -30,6 +31,9 @@ public class BlockAssemblingMachine extends BlockMachineBase {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon iconTop;
+	
+	@SideOnly(Side.CLIENT)
+	private IIcon iconFrontOn;
 
 	@SideOnly(Side.CLIENT)
 	private IIcon iconBottom;
@@ -46,6 +50,7 @@ public class BlockAssemblingMachine extends BlockMachineBase {
 	{
 		this.blockIcon = icon.registerIcon("techreborn:machine/machine_side");
 		this.iconFront = icon.registerIcon("techreborn:machine/assembling_machine_front_off");
+		this.iconFrontOn = icon.registerIcon("techreborn:machine/assembling_machine_front_off");
 		this.iconTop = icon.registerIcon("techreborn:machine/assembling_machine_top");
 		this.iconBottom = icon.registerIcon("techreborn:machine/machine_bottom");
 	}
@@ -66,9 +71,13 @@ public class BlockAssemblingMachine extends BlockMachineBase {
 		return true;
 	}
 
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int metadata)
-	{
+	@Override
+	public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int side) {
+		int metadata = blockAccess.getBlockMetadata(x, y, z);
+		TileAssemblingMachine tileAssemblingMachine = (TileAssemblingMachine) blockAccess.getTileEntity(x, y, z);
+		if(side == metadata && tileAssemblingMachine.crafter.currentRecipe != null){
+			return this.iconFrontOn;
+		}
 		return metadata == 0 && side == 3 ? this.iconFront
 				: side == 1 ? this.iconTop : 
 					side == 0 ? this.iconBottom: (side == 0 ? this.iconTop
