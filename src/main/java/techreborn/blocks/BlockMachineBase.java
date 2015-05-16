@@ -101,7 +101,5 @@ public class BlockMachineBase extends BlockContainer{
 	{
 		return false;
 	}
-	
-	
 
 }

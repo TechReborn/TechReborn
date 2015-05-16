@@ -85,5 +85,15 @@ public class BlockPlateCuttingMachine extends BlockMachineBase {
 						: (side == metadata ? this.iconFront : this.blockIcon));
 
 	}
+	
+	@SideOnly(Side.CLIENT)
+	public IIcon getIcon(int side, int metadata)
+	{
+		return metadata == 0 && side == 3 ? this.iconFront
+				: side == 1 ? this.iconTop : 
+					side == 0 ? this.iconBottom: (side == 0 ? this.iconTop
+						: (side == metadata ? this.iconFront : this.blockIcon));
+
+	}
 
 }
