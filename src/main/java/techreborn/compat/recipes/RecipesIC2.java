@@ -9,9 +9,11 @@ import net.minecraft.item.ItemStack;
 import ic2.api.item.IC2Items;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.oredict.OreDictionary;
+import techreborn.api.recipe.RecipeHanderer;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
+import techreborn.recipes.AssemblingMachineRecipe;
 import techreborn.util.CraftingHelper;
 import techreborn.util.LogHelper;
 import techreborn.util.RecipeRemover;
@@ -27,6 +29,7 @@ public class RecipesIC2 {
         addTRMaceratorRecipes();
         addTROreWashingRecipes();
         addTRThermalCentrifugeRecipes();
+        addAssemblingMachineRecipes();
 	}
 
 	public static void removeIc2Recipes()
@@ -667,5 +670,37 @@ public class RecipesIC2 {
         Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedTetrahedrite"), tetrahedriteHeat, new ItemStack(ModItems.tinyDusts, 1, 5), new ItemStack(ModItems.dusts, 1, 76));
         Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedTungsten"), tungstenHeat, new ItemStack(ModItems.tinyDusts, 1, 49), new ItemStack(ModItems.dusts, 1, 79));
         Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedGalena"), galenaHeat, new ItemStack(ModItems.tinyDusts, 1, 76), new ItemStack(ModItems.dusts, 1, 85));
+    }
+
+    public static void addAssemblingMachineRecipes() {
+        //Ender Eye
+        RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(Items.ender_pearl, 1), new ItemStack(Items.blaze_powder), new ItemStack(Items.ender_eye), 120, 5));
+        RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(Items.ender_pearl, 6), new ItemStack(Items.blaze_rod), new ItemStack(Items.ender_eye, 6), 120, 5));
+
+        //Data Control Circuit
+        RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(ModItems.parts, 1, 3), new ItemStack(ModItems.parts, 1, 7), new ItemStack(ModItems.parts, 1, 5), 120, 5));
+
+        //Data Storage Circuit
+        RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(ModItems.plate, 8, 9), IC2Items.getItem("advancedCircuit"), new ItemStack(ModItems.parts, 1, 7), 120, 5));
+        RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(ModItems.plate, 8, 20), IC2Items.getItem("advancedCircuit"), new ItemStack(ModItems.parts, 1, 7), 120, 5));
+
+        //Data Orb
+        RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(ModItems.parts, 1, 5), new ItemStack(ModItems.parts, 8, 7), new ItemStack(ModItems.parts, 1, 6), 120, 5));
+
+        //Basic Circuit Board
+        RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(ModItems.plate, 1, 0), new ItemStack(ModItems.plate, 2, 34), new ItemStack(ModItems.parts, 2, 1), 120, 5));
+        RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(ModItems.plate, 1, 13), new ItemStack(ModItems.plate, 2, 34), new ItemStack(ModItems.parts, 2, 1), 120, 5));
+
+        //Advanced Circuit Board
+        RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(ModItems.plate, 2, 34), IC2Items.getItem("electronicCircuit"), new ItemStack(ModItems.parts, 1, 2), 120, 5));
+        RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(ModItems.plate, 4, 34), new ItemStack(ModItems.plate, 1, 26), new ItemStack(ModItems.parts, 2, 2), 120, 5));
+
+        //Processor Circuit Board
+        RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(ModItems.plate, 1, 21), IC2Items.getItem("advancedCircuit"), new ItemStack(ModItems.parts, 1, 2), 120, 5));
+
+        //Frequency Transmitter
+        RecipeHanderer.addRecipe(new AssemblingMachineRecipe(IC2Items.getItem("electronicCircuit"), IC2Items.getItem("insulatedCopperCableItem"), IC2Items.getItem("frequencyTransmitter"), 120, 5));
+
+
     }
 }
