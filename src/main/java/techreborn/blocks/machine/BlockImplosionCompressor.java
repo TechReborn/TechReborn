@@ -2,10 +2,12 @@ package techreborn.blocks.machine;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.world.IBlockAccess;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.tiles.TileAlloyFurnace;
 import techreborn.tiles.TileImplosionCompressor;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -23,6 +25,9 @@ public class BlockImplosionCompressor extends BlockMachineBase{
 	
 	@SideOnly(Side.CLIENT)
 	private IIcon iconFront;
+
+	@SideOnly(Side.CLIENT)
+	private IIcon iconFrontOn;
 
 	@SideOnly(Side.CLIENT)
 	private IIcon iconTop;
@@ -58,19 +63,22 @@ public class BlockImplosionCompressor extends BlockMachineBase{
 	{
 		this.blockIcon = icon.registerIcon("techreborn:machine/machine_side");
 		this.iconFront = icon.registerIcon("techreborn:machine/implosion_compressor_front_off");
+		this.iconFrontOn = icon.registerIcon("techreborn:machine/implosion_compressor_front_on");
 		this.iconTop = icon.registerIcon("techreborn:machine/advanced_machine_side");
 		this.iconBottom = icon.registerIcon("techreborn:machine/implosion_compressor_bottom");
 	}
 
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int metadata)
-	{
+	@Override
+	public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int side) {
+		int metadata = blockAccess.getBlockMetadata(x, y, z);
+		TileImplosionCompressor tileImplosionCompressor = (TileImplosionCompressor) blockAccess.getTileEntity(x, y, z);
+		if(side == metadata && tileImplosionCompressor.crafter.currentRecipe != null){
+			return this.iconFrontOn;
+		}
 
 		return metadata == 0 && side == 3 ? this.iconFront
-				: side == 1 ? this.iconTop : 
-					side == 0 ? this.iconBottom: (side == 0 ? this.iconTop
+				: side == 1 ? this.iconTop :
+				side == 0 ? this.iconBottom: (side == 0 ? this.iconTop
 						: (side == metadata ? this.iconFront : this.blockIcon));
-
 	}
-
 }

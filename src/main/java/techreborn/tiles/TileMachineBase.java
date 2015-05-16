@@ -30,7 +30,9 @@ public class TileMachineBase extends TileEntity {
         if (!worldObj.isRemote) {
             PacketHandler.sendPacketToAllPlayers(getDescriptionPacket(),
                     worldObj);
-        }
+        } else {
+			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+		}
     }
 
     public Packet getDescriptionPacket() {
