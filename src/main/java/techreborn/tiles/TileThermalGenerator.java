@@ -103,7 +103,7 @@ public class TileThermalGenerator extends TileEntity implements IWrenchable,
 	{
 		if (fluid != null)
 		{
-			if (FluidRegistry.getFluidName(fluid.getID()).contentEquals("lava"))
+			if (fluid == FluidRegistry.LAVA)
 			{
 				return true;
 			}
