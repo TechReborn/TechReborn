@@ -6,6 +6,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import techreborn.api.BlastFurnaceRecipe;
 import techreborn.api.CentrifugeRecipie;
@@ -16,6 +18,7 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.recipes.AlloySmelterRecipe;
 import techreborn.recipes.AssemblingMachineRecipe;
 import techreborn.recipes.ChemicalReactorRecipe;
+import techreborn.recipes.GrinderRecipe;
 import techreborn.recipes.ImplosionCompressorRecipe;
 import techreborn.recipes.IndustrialSawmillRecipe;
 import techreborn.recipes.LatheRecipe;
@@ -214,6 +217,8 @@ public class ModRecipes {
 		RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(new ItemStack(Items.coal), new ItemStack(Items.diamond), 120, 5));
 		//TODO
 		RecipeHanderer.addRecipe(new ChemicalReactorRecipe(new ItemStack(Items.coal), new ItemStack(Blocks.sand), new ItemStack(Items.diamond), 120, 5));
+
+		RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Items.diamond), new FluidStack(ModFluids.fluidMercury, 500), new ItemStack(Blocks.brick_block), null, null, null, 400, 5));
 
 		LogHelper.info("Machine Recipes Added");
 	}

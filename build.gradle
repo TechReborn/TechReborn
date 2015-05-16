@@ -84,7 +84,7 @@ dependencies {
     compile "codechicken:NotEnoughItems:1.7.10-1.0.4.+:dev"
     compile "codechicken:ForgeMultipart:1.7.10-1.1.2.331:dev"
     compile "mcp.mobius.waila:Waila:1.5.10_1.7.10:dev"
-    compile 'com.mod-buildcraft:buildcraft:6.4.8:dev'
+    compile 'com.mod-buildcraft:buildcraft:6.4.15:dev'
     compile "qmunity:QmunityLib:0.1.+:deobf"
     compile "com.pahimar.ee3:EquivalentExchange3:1.7.10-0.3.505:dev"
     grabDep('ThermalFoundation-[1.7.10]1.0.0-81.jar', 'http://addons-origin.cursecdn.com/files/2233/780/ThermalFoundation-[1.7.10]1.0.0-81.jar')
