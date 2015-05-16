@@ -85,9 +85,6 @@ public class RecipeCrafter {
 	 * Call this on the tile tick
 	 */
 	public void updateEntity() {
-		/*if (parentTile.getWorldObj().isRemote) {
-			return;
-		}*/
 		if (currentRecipe == null) {
 			for (IBaseRecipeType recipe : RecipeHanderer.getRecipeClassFromName(recipeName)) {
 				boolean isFullRecipe = false;
@@ -160,6 +157,10 @@ public class RecipeCrafter {
 	}
 
 	public void fitStack(ItemStack stack, int slot) {
+		//Don't do this on the client.
+		if (parentTile.getWorldObj().isRemote) {
+			return;
+		}
 		if (stack == null) {
 			return;
 		}
