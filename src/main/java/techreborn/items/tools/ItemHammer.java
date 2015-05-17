@@ -31,9 +31,9 @@ public class ItemHammer extends ItemTR{
     public boolean getShareTag(){
         return true;
     }
+    
     @Override
     public boolean doesContainerItemLeaveCraftingGrid(ItemStack itemStack) {
-
         return false;
     }
 
