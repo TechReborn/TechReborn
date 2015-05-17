@@ -11,6 +11,7 @@ import techreborn.blocks.BlockFusionCoil;
 import techreborn.blocks.BlockFusionControlComputer;
 import techreborn.blocks.BlockHighlyAdvancedMachine;
 import techreborn.blocks.BlockMachineCasing;
+import techreborn.blocks.BlockMachineFrame;
 import techreborn.blocks.BlockMetalShelf;
 import techreborn.blocks.BlockOre;
 import techreborn.blocks.BlockQuantumChest;
@@ -124,6 +125,7 @@ public class ModBlocks {
 
 	public static Block ore;
 	public static Block storage;
+	public static Block machineframe;
 
 	public static void init()
 	{
@@ -276,6 +278,9 @@ public class ModBlocks {
 		industrialSawmill = new BlockIndustrialSawmill(Material.rock);
 		GameRegistry.registerBlock(industrialSawmill, "industrialSawmill");
 		GameRegistry.registerTileEntity(TileIndustrialSawmill.class, "TileIndustrialSawmill");
+		
+		machineframe = new BlockMachineFrame(Material.iron);
+		GameRegistry.registerBlock(machineframe, "machineframe");
 
 		registerOreDict();
 	}
@@ -320,6 +325,7 @@ public class ModBlocks {
 		OreDictionary.registerOre("craftingPiston", Blocks.piston);
 		OreDictionary.registerOre("craftingPiston", Blocks.sticky_piston);
 		OreDictionary.registerOre("crafterWood", Blocks.crafting_table);
+		OreDictionary.registerOre("machineBasic", new ItemStack(machineframe, 1));
 
 	}
 
