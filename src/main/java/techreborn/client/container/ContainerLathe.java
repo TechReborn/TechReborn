@@ -33,6 +33,11 @@ public class ContainerLathe extends TechRebornContainer {
 		this.addSlotToContainer(new SlotOutput(tilelathe.inventory, 1, 116, 35));
 		// power
 		this.addSlotToContainer(new Slot(tilelathe.inventory, 2, 56, 53));
+		// upgrades
+		this.addSlotToContainer(new Slot(tilelathe.inventory, 3, 152, 8));
+		this.addSlotToContainer(new Slot(tilelathe.inventory, 4, 152, 26));
+		this.addSlotToContainer(new Slot(tilelathe.inventory, 5, 152, 44));
+		this.addSlotToContainer(new Slot(tilelathe.inventory, 6, 152, 62));
 
 		int i;
 

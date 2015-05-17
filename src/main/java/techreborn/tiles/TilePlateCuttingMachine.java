@@ -17,7 +17,7 @@ public class TilePlateCuttingMachine extends TileMachineBase implements IWrencha
 
 	public int tickTime;
 	public BasicSink energy;
-	public Inventory inventory = new Inventory(3, "TilePlateCuttingMachine", 64);
+	public Inventory inventory = new Inventory(7, "TilePlateCuttingMachine", 64);
 	public RecipeCrafter crafter;
 	
 	public TilePlateCuttingMachine()

@@ -17,7 +17,7 @@ public class TileLathe extends TileMachineBase implements IWrenchable, IEnergyTi
 
 	public int tickTime;
 	public BasicSink energy;
-	public Inventory inventory = new Inventory(3, "TileLathe", 64);
+	public Inventory inventory = new Inventory(7, "TileLathe", 64);
 	public RecipeCrafter crafter;
 	
 	public TileLathe()

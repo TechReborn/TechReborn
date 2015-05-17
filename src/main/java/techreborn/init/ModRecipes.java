@@ -233,7 +233,6 @@ public class ModRecipes {
 		// :( I cant do this 
 //	    List<ItemStack> anyhammer = Arrays.asList(hammerIron, hammerDiamond);
 
-
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.plate, 1, 13), hammerIron, new ItemStack(Items.iron_ingot));
 
 	}
