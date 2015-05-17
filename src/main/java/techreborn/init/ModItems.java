@@ -27,6 +27,7 @@ import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
 import techreborn.items.tools.ItemAdvancedDrill;
 import techreborn.items.tools.ItemFluidbucket;
+import techreborn.items.tools.ItemHammer;
 import techreborn.items.tools.ItemOmniTool;
 import techreborn.items.tools.ItemRockCutter;
 import techreborn.items.tools.ItemTechPda;
@@ -80,6 +81,9 @@ public class ModItems {
 	public static Item bucketSodiumpersulfate;
 	public static Item bucketTritium;
 	public static Item bucketWolframium;
+	
+	public static Item hammerIron;
+	public static Item hammerDiamond;
 
 
 
@@ -125,6 +129,14 @@ public class ModItems {
 		GameRegistry.registerItem(manuel, "techmanuel");
 		uuMatter = new ItemUUmatter();
 		GameRegistry.registerItem(uuMatter, "uumatter");
+		
+		hammerIron = new ItemHammer(80);
+		hammerIron.setUnlocalizedName("hammerIron").setContainerItem(hammerIron);
+		GameRegistry.registerItem(hammerIron, "hammerIron");
+		
+		hammerDiamond = new ItemHammer(200);
+		hammerDiamond.setUnlocalizedName("hammerDiamond").setContainerItem(hammerDiamond);
+		GameRegistry.registerItem(hammerDiamond, "hammerDiamond");
 		
 		// buckets
 		bucketBerylium = new ItemFluidbucket(ModFluids.BlockFluidBerylium);

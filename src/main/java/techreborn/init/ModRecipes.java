@@ -1,5 +1,8 @@
 package techreborn.init;
 
+import java.util.Arrays;
+import java.util.List;
+
 import cpw.mods.fml.common.registry.GameRegistry;
 import ic2.api.item.IC2Items;
 import net.minecraft.init.Blocks;
@@ -37,6 +40,7 @@ public class ModRecipes {
 		addMachineRecipes();
         addAlloySmelterRecipes();
 		addUUrecipes();
+		addHammerRecipes();
 	}
 
 	public static void addShappedRecipes()
@@ -221,6 +225,17 @@ public class ModRecipes {
 		RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Items.diamond), new FluidStack(ModFluids.fluidMercury, 500), new ItemStack(Blocks.brick_block), null, null, null, 400, 5));
 
 		LogHelper.info("Machine Recipes Added");
+	}
+	public static void addHammerRecipes(){
+		ItemStack hammerIron = new ItemStack(ModItems.hammerIron, 1, OreDictionary.WILDCARD_VALUE);
+		ItemStack hammerDiamond = new ItemStack(ModItems.hammerDiamond, 1, OreDictionary.WILDCARD_VALUE);
+		
+		// :( I cant do this 
+//	    List<ItemStack> anyhammer = Arrays.asList(hammerIron, hammerDiamond);
+
+
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.plate, 1, 13), hammerIron, new ItemStack(Items.iron_ingot));
+
 	}
 
 	public static void addAlloySmelterRecipes(){
