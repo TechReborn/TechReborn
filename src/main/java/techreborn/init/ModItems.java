@@ -609,7 +609,7 @@ public class ModItems {
         // Nuggets
         OreDictionary.registerOre("nuggetAluminum", new ItemStack(nuggets, 1, 0));
         OreDictionary.registerOre("nuggetAluminium", new ItemStack(nuggets, 1, 0));
-        OreDictionary.registerOre("ingotAntimony", new ItemStack(nuggets, 1, 1));
+        OreDictionary.registerOre("nuggetAntimony", new ItemStack(nuggets, 1, 1));
         OreDictionary.registerOre("nuggetBrass", new ItemStack(nuggets, 1, 2));
         OreDictionary.registerOre("nuggetBronze", new ItemStack(nuggets, 1, 3));
         OreDictionary.registerOre("nuggetChrome", new ItemStack(nuggets, 1, 4));
@@ -739,7 +739,7 @@ public class ModItems {
         OreDictionary.registerOre("gearTitanium", new ItemStack(parts, 1, 22));
         OreDictionary.registerOre("gearSteel", new ItemStack(parts, 1, 23));
         OreDictionary.registerOre("gearTungstensteel", new ItemStack(parts, 1, 24));
-		OreDictionary.registerOre("blockLapis", new ItemStack(parts, 1, 24));
+		OreDictionary.registerOre("blockLapis", new ItemStack(parts, 1, 27));
 
 	}
 

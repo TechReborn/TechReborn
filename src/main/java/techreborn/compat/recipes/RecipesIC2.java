@@ -3,6 +3,7 @@ package techreborn.compat.recipes;
 import cpw.mods.fml.common.Mod;
 import ic2.api.recipe.RecipeInputOreDict;
 import ic2.api.recipe.Recipes;
+import ic2.core.IC2;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -677,6 +678,37 @@ public class RecipesIC2 {
         RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(Items.ender_pearl, 1), new ItemStack(Items.blaze_powder), new ItemStack(Items.ender_eye), 120, 5));
         RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(Items.ender_pearl, 6), new ItemStack(Items.blaze_rod), new ItemStack(Items.ender_eye, 6), 120, 5));
 
+        //Redstone Lamp
+        RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(Items.redstone, 4), new ItemStack(Items.glowstone_dust, 4), new ItemStack(Blocks.redstone_lamp), 120, 5));
+
+        //Note Block
+        RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(Blocks.planks, 8), new ItemStack(Items.redstone, 1), new ItemStack(Blocks.noteblock), 120, 5));
+
+        //Jukebox
+        RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(Items.diamond, 1), new ItemStack(Blocks.planks, 8), new ItemStack(Blocks.jukebox), 120, 5));
+
+        //Clock
+        RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(Items.redstone, 1), new ItemStack(Items.gold_ingot, 4), new ItemStack(Items.clock), 120, 5));
+
+        //Compass
+        RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(Items.redstone, 1), new ItemStack(Items.iron_ingot, 4), new ItemStack(Items.clock), 120, 5));
+
+        //Lead
+        RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(Items.string, 1), new ItemStack(Items.slime_ball, 1), new ItemStack(Items.lead, 2), 120, 5));
+
+        //Circuit Parts
+        RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(Items.glowstone_dust), new ItemStack(ModItems.dusts, 1, 41), new ItemStack(ModItems.parts, 1, 0), 120, 5));
+        RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(Items.glowstone_dust), new ItemStack(ModItems.dusts, 1, 40), new ItemStack(ModItems.parts, 1, 0), 120, 5));
+
+        //Electronic Circuit
+        RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(ModItems.parts, 1, 1), new ItemStack(IC2Items.getItem("insulatedCopperCableItem").getItem(), 3), IC2Items.getItem("electronicCircuit"), 120, 5));
+
+        //Advanced Circuit
+        RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(ModItems.parts, 1, 2), new ItemStack(ModItems.parts, 2, 0), IC2Items.getItem("advancedCircuit"), 120, 5));
+
+        //Energy Flow Circuit
+        RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(ModItems.parts, 1, 3), new ItemStack(IC2Items.getItem("lapotronCrystal").getItem(), 1, OreDictionary.WILDCARD_VALUE), new ItemStack(ModItems.parts, 1, 4), 120, 5));
+
         //Data Control Circuit
         RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(ModItems.parts, 1, 3), new ItemStack(ModItems.parts, 1, 7), new ItemStack(ModItems.parts, 1, 5), 120, 5));
 
@@ -696,11 +728,20 @@ public class RecipesIC2 {
         RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(ModItems.plate, 4, 34), new ItemStack(ModItems.plate, 1, 26), new ItemStack(ModItems.parts, 2, 2), 120, 5));
 
         //Processor Circuit Board
-        RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(ModItems.plate, 1, 21), IC2Items.getItem("advancedCircuit"), new ItemStack(ModItems.parts, 1, 2), 120, 5));
+        RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(ModItems.plate, 1, 21), IC2Items.getItem("advancedCircuit"), new ItemStack(ModItems.parts, 1, 3), 120, 5));
 
         //Frequency Transmitter
         RecipeHanderer.addRecipe(new AssemblingMachineRecipe(IC2Items.getItem("electronicCircuit"), IC2Items.getItem("insulatedCopperCableItem"), IC2Items.getItem("frequencyTransmitter"), 120, 5));
 
+        //Wind Mill
+        RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(ModItems.plate, 2, 16), IC2Items.getItem("generator"), IC2Items.getItem("windMill"), 120, 5));
+        RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(IC2Items.getItem("carbonPlate").getItem(), 4), IC2Items.getItem("generator"), IC2Items.getItem("windMill"), 120, 5));
+
+        //Water Mill
+        RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(ModItems.plate, 4, 0), IC2Items.getItem("generator"), IC2Items.getItem("waterMill"), 120, 5));
+
+        //Industrial TNT
+        RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(ModItems.dusts, 5, 31), new ItemStack(Blocks.tnt), new ItemStack(IC2Items.getItem("industrialTnt").getItem(), 5), 120, 5));
 
     }
 }
