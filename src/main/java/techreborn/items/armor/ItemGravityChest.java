@@ -30,59 +30,47 @@ public class ItemGravityChest extends ItemArmor implements IElectricItem,
 	public double transferLimit = 1000;
 	public int energyPerDamage = 100;
 
-	public ItemGravityChest(ArmorMaterial material, int par3, int par4)
-	{
+	public ItemGravityChest(ArmorMaterial material, int par3, int par4){
 		super(material, par3, par4);
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setUnlocalizedName("techreborn.gravitychestplate");
 		setMaxStackSize(1);
 		setMaxDamage(120);
-		// isDamageable();
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void registerIcons(IIconRegister iconRegister)
-	{
-		this.itemIcon = iconRegister.registerIcon("techreborn:"
-				+ "items/gravitychestplate");
+	public void registerIcons(IIconRegister iconRegister){
+		this.itemIcon = iconRegister.registerIcon("techreborn:" + "items/gravitychestplate");
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public String getArmorTexture(ItemStack stack, Entity entity, int slot,
-			String type)
-	{
+	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type){
 		return "techreborn:" + "textures/models/gravitychestplate.png";
 	}
 
 	@SuppressWarnings(
 	{ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs par2CreativeTabs,
-			List itemList)
-	{
+	public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList){
 		ItemStack itemStack = new ItemStack(this, 1);
-		if (getChargedItem(itemStack) == this)
-		{
+		if (getChargedItem(itemStack) == this){
 			ItemStack charged = new ItemStack(this, 1);
 			ElectricItem.manager.charge(charged, 2147483647, 2147483647, true,
 					false);
 			itemList.add(charged);
 		}
-		if (getEmptyItem(itemStack) == this)
-		{
+		if (getEmptyItem(itemStack) == this){
 			itemList.add(new ItemStack(this, 1, getMaxDamage()));
 		}
 	}
 
 	@Override
-	public void onArmorTick(World world, EntityPlayer player, ItemStack stack)
-	{
+	public void onArmorTick(World world, EntityPlayer player, ItemStack stack){
 		if (world.isRemote)
 			;
-		if (ElectricItem.manager.canUse(stack, cost))
-		{
+		if (ElectricItem.manager.canUse(stack, cost)){
 			player.capabilities.allowFlying = true;
 
 			if (player.fallDistance > 0.0F)
@@ -101,56 +89,45 @@ public class ItemGravityChest extends ItemArmor implements IElectricItem,
 	}
 
 	@Override
-	public boolean canProvideEnergy(ItemStack itemStack)
-	{
+	public boolean canProvideEnergy(ItemStack itemStack){
 		return true;
 	}
 
 	@Override
-	public Item getChargedItem(ItemStack itemStack)
-	{
+	public Item getChargedItem(ItemStack itemStack){
 		return this;
 	}
 
 	@Override
-	public Item getEmptyItem(ItemStack itemStack)
-	{
+	public Item getEmptyItem(ItemStack itemStack){
 		return this;
 	}
 
 	@Override
-	public double getMaxCharge(ItemStack itemStack)
-	{
+	public double getMaxCharge(ItemStack itemStack){
 		return maxCharge;
 	}
 
 	@Override
-	public int getTier(ItemStack itemStack)
-	{
+	public int getTier(ItemStack itemStack){
 		return tier;
 	}
 
 	@Override
-	public double getTransferLimit(ItemStack itemStack)
-	{
+	public double getTransferLimit(ItemStack itemStack){
 		return transferLimit;
 	}
 
-	public int getEnergyPerDamage()
-	{
+	public int getEnergyPerDamage(){
 		return energyPerDamage;
 	}
 
 	@Override
-	public ArmorProperties getProperties(EntityLivingBase player,
-			ItemStack armor, DamageSource source, double damage, int slot)
-	{
-		if (source.isUnblockable())
-		{
+	public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot){
+		if (source.isUnblockable()){
 			return new net.minecraftforge.common.ISpecialArmor.ArmorProperties(
 					0, 0.0D, 3);
-		} else
-		{
+		} else {
 			double absorptionRatio = getBaseAbsorptionRatio()
 					* getDamageAbsorptionRatio();
 			int energyPerDamage = getEnergyPerDamage();
@@ -163,33 +140,25 @@ public class ItemGravityChest extends ItemArmor implements IElectricItem,
 	}
 
 	@Override
-	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot)
-	{
-		if (ElectricItem.manager.getCharge(armor) >= getEnergyPerDamage())
-		{
+	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot){
+		if (ElectricItem.manager.getCharge(armor) >= getEnergyPerDamage()){
 			return (int) Math.round(20D * getBaseAbsorptionRatio()
 					* getDamageAbsorptionRatio());
-		} else
-		{
+		} else{
 			return 0;
 		}
 	}
 
 	@Override
-	public void damageArmor(EntityLivingBase entity, ItemStack stack,
-			DamageSource source, int damage, int slot)
-	{
-		ElectricItem.manager.discharge(stack, damage * getEnergyPerDamage(),
-				0x7fffffff, true, false, false);
+	public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot){
+		ElectricItem.manager.discharge(stack, damage * getEnergyPerDamage(), 0x7fffffff, true, false, false);
 	}
 
-	public double getDamageAbsorptionRatio()
-	{
+	public double getDamageAbsorptionRatio(){
 		return 1.1000000000000001D;
 	}
 
-	private double getBaseAbsorptionRatio()
-	{
+	private double getBaseAbsorptionRatio(){
 		return 0.14999999999999999D;
 	}
 
