@@ -3,6 +3,7 @@ package techreborn.init;
 import java.util.Arrays;
 import java.util.List;
 
+import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ic2.api.item.IC2Items;
 import net.minecraft.init.Blocks;
@@ -39,6 +40,7 @@ public class ModRecipes {
 		addSmeltingRecipes();
 		addMachineRecipes();
         addAlloySmelterRecipes();
+        addLatheRecipes();
 		addUUrecipes();
 		addHammerRecipes();
 	}
@@ -379,6 +381,30 @@ public class ModRecipes {
         }
 
     }
+
+	public static void addLatheRecipes() {
+		//Metal Rods
+        RecipeHanderer.addRecipe(new LatheRecipe(new ItemStack(ModItems.ingots, 1, 5), new ItemStack(ModItems.rods, 1, 0), 300, 16));
+        RecipeHanderer.addRecipe(new LatheRecipe(new ItemStack(ModItems.ingots, 1, 6), new ItemStack(ModItems.rods, 1, 1), 380, 16));
+        RecipeHanderer.addRecipe(new LatheRecipe(new ItemStack(ModItems.ingots, 1, 9), new ItemStack(ModItems.rods, 1, 2), 300, 16));
+        RecipeHanderer.addRecipe(new LatheRecipe(new ItemStack(ModItems.ingots, 1, 11), new ItemStack(ModItems.rods, 1, 3), 740, 16));
+        RecipeHanderer.addRecipe(new LatheRecipe(new ItemStack(Items.gold_ingot), new ItemStack(ModItems.rods, 1, 4), 980, 16));
+        RecipeHanderer.addRecipe(new LatheRecipe(new ItemStack(ModItems.ingots, 1, 13), new ItemStack(ModItems.rods, 1, 5), 280, 16));
+        RecipeHanderer.addRecipe(new LatheRecipe(new ItemStack(ModItems.ingots, 1, 14), new ItemStack(ModItems.rods, 1, 6), 960, 16));
+        RecipeHanderer.addRecipe(new LatheRecipe(new ItemStack(Items.iron_ingot), new ItemStack(ModItems.rods, 1, 7), 280, 16));
+        RecipeHanderer.addRecipe(new LatheRecipe(new ItemStack(ModItems.ingots, 1, 16), new ItemStack(ModItems.rods, 1, 8), 1020, 16));
+        RecipeHanderer.addRecipe(new LatheRecipe(new ItemStack(ModItems.ingots, 1, 20), new ItemStack(ModItems.rods, 1, 9), 280, 16));
+        RecipeHanderer.addRecipe(new LatheRecipe(new ItemStack(ModItems.ingots, 1, 22), new ItemStack(ModItems.rods, 1, 10), 960, 16));
+        RecipeHanderer.addRecipe(new LatheRecipe(new ItemStack(ModItems.ingots, 1, 23), new ItemStack(ModItems.rods, 1, 11), 520, 16));
+        RecipeHanderer.addRecipe(new LatheRecipe(new ItemStack(ModItems.ingots, 1, 24), new ItemStack(ModItems.rods, 1, 12), 280, 16));
+        RecipeHanderer.addRecipe(new LatheRecipe(new ItemStack(ModItems.ingots, 1, 26), new ItemStack(ModItems.rods, 1, 13), 580, 16));
+        RecipeHanderer.addRecipe(new LatheRecipe(new ItemStack(ModItems.ingots, 1, 27), new ItemStack(ModItems.rods, 1, 14), 240, 16));
+        RecipeHanderer.addRecipe(new LatheRecipe(new ItemStack(ModItems.ingots, 1, 30), new ItemStack(ModItems.rods, 1, 15), 580, 16));
+
+        //Laser Focus
+        RecipeHanderer.addRecipe(new LatheRecipe(new ItemStack(ModItems.plate, 1, 22), new ItemStack(ModItems.parts, 1, 25), 10, 16));
+        RecipeHanderer.addRecipe(new LatheRecipe(new ItemStack(ModItems.plate, 1, 24), new ItemStack(ModItems.parts, 1, 25), 10, 16));
+	}
 	
 	public static void addUUrecipes()
 	{
