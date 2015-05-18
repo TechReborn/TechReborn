@@ -41,6 +41,7 @@ public class ModRecipes {
 		addMachineRecipes();
         addAlloySmelterRecipes();
         addLatheRecipes();
+        addPlateCuttingMachineRecipes();
 		addUUrecipes();
 		addHammerRecipes();
 	}
@@ -103,40 +104,40 @@ public class ModRecipes {
 					'A', "ingotTungsten", });
 
 		CraftingHelper.addShapedOreRecipe(
-				new ItemStack(ModBlocks.storage, 1, 9), 
-				new Object[]
-				{ "AAA", "AAA", "AAA", 
-					'A', "ingotLead", });
+                new ItemStack(ModBlocks.storage, 1, 9),
+                new Object[]
+                        {"AAA", "AAA", "AAA",
+                                'A', "ingotLead",});
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage, 1, 10),
-				new Object[]
-				{ "AAA", "AAA", "AAA", 
-			      'A', "ingotZinc", });
+                new Object[]
+                        {"AAA", "AAA", "AAA",
+                                'A', "ingotZinc",});
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage, 1, 11),
-				new Object[]
-			    { "AAA", "AAA", "AAA", 
-			      'A', "ingotBrass", });
+                new Object[]
+                        {"AAA", "AAA", "AAA",
+                                'A', "ingotBrass",});
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage, 1, 12),
-				new Object[]
-				{ "AAA", "AAA", "AAA", 
-				  'A', "ingotSteel", });
+                new Object[]
+                        {"AAA", "AAA", "AAA",
+                                'A', "ingotSteel",});
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage, 1, 13), 
-				new Object[]
-			    { "AAA", "AAA", "AAA", 
-			      'A', "ingotPlatinum", });
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage, 1, 13),
+                new Object[]
+                        {"AAA", "AAA", "AAA",
+                                'A', "ingotPlatinum",});
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage, 1, 14),
-				new Object[]
-			    { "AAA", "AAA", "AAA", 
-			      'A', "ingotNickel", });
+                new Object[]
+                        {"AAA", "AAA", "AAA",
+                                'A', "ingotNickel",});
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage, 1, 15), 
-				new Object[]
-			    { "AAA", "AAA", "AAA", 
-			      'A', "ingotInvar", });
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage, 1, 15),
+                new Object[]
+                        {"AAA", "AAA", "AAA",
+                                'A', "ingotInvar",});
 
 		LogHelper.info("Shapped Recipes Added");
 	}
@@ -405,6 +406,141 @@ public class ModRecipes {
         RecipeHanderer.addRecipe(new LatheRecipe(new ItemStack(ModItems.plate, 1, 22), new ItemStack(ModItems.parts, 1, 25), 10, 16));
         RecipeHanderer.addRecipe(new LatheRecipe(new ItemStack(ModItems.plate, 1, 24), new ItemStack(ModItems.parts, 1, 25), 10, 16));
 	}
+
+    public static void addPlateCuttingMachineRecipes() {
+        //Storage Blocks
+        if(OreDictionary.doesOreNameExist("blockAluminum")) {
+            ItemStack blockStack = OreDictionary.getOres("blockAluminum").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 0), 200, 16));
+        }
+        if(OreDictionary.doesOreNameExist("blockBrass")) {
+            ItemStack blockStack = OreDictionary.getOres("blockBrass").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 2), 200, 116));
+        }
+        if(OreDictionary.doesOreNameExist("blockBronze")) {
+            ItemStack blockStack = OreDictionary.getOres("blockBronze").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 3), 200, 16));
+        }
+        if(OreDictionary.doesOreNameExist("blockCoal")) {
+            ItemStack blockStack = OreDictionary.getOres("blockCoal").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 4), 200, 16));
+        }
+        if(OreDictionary.doesOreNameExist("blockChrome")) {
+            ItemStack blockStack = OreDictionary.getOres("blockChrome").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 5), 200, 16));
+        }
+        if(OreDictionary.doesOreNameExist("blockCopper")) {
+            ItemStack blockStack = OreDictionary.getOres("blockCopper").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 6), 200, 16));
+        }
+        if(OreDictionary.doesOreNameExist("blockDiamond")) {
+            ItemStack blockStack = OreDictionary.getOres("blockDiamond").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 7), 200, 16));
+        }
+        if(OreDictionary.doesOreNameExist("blockElectrum")) {
+            ItemStack blockStack = OreDictionary.getOres("blockElectrum").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 8), 200, 16));
+        }
+        if(OreDictionary.doesOreNameExist("blockEmerald")) {
+            ItemStack blockStack = OreDictionary.getOres("blockEmerald").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 9), 200, 16));
+        }
+        if(OreDictionary.doesOreNameExist("blockGold")) {
+            ItemStack blockStack = OreDictionary.getOres("blockGold").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 10), 200, 16));
+        }
+        if(OreDictionary.doesOreNameExist("blockInvar")) {
+            ItemStack blockStack = OreDictionary.getOres("blockInvar").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 11), 200, 16));
+        }
+        if(OreDictionary.doesOreNameExist("blockIridium")) {
+            ItemStack blockStack = OreDictionary.getOres("blockIridium").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 12), 200, 16));
+        }
+        if(OreDictionary.doesOreNameExist("blockIron")) {
+            ItemStack blockStack = OreDictionary.getOres("blockIron").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 13), 200, 16));
+        }
+        if(OreDictionary.doesOreNameExist("blockLapis")) {
+            ItemStack blockStack = OreDictionary.getOres("blockLapis").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 14), 200, 16));
+        }
+        if(OreDictionary.doesOreNameExist("blockLead")) {
+            ItemStack blockStack = OreDictionary.getOres("blockLead").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 15), 200, 16));
+        }
+        if(OreDictionary.doesOreNameExist("blockNickel")) {
+            ItemStack blockStack = OreDictionary.getOres("blockNickel").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 17), 200, 16));
+        }
+        if(OreDictionary.doesOreNameExist("blockOsmium")) {
+            ItemStack blockStack = OreDictionary.getOres("blockOsmium").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 19), 200, 16));
+        }
+        if(OreDictionary.doesOreNameExist("blockPeridot")) {
+            ItemStack blockStack = OreDictionary.getOres("blockPeridot").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 20), 200, 16));
+        }
+        if(OreDictionary.doesOreNameExist("blockPlatinum")) {
+            ItemStack blockStack = OreDictionary.getOres("blockPlatinum").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 21), 200, 16));
+        }
+        if(OreDictionary.doesOreNameExist("blockRedGarnet")) {
+            ItemStack blockStack = OreDictionary.getOres("blockRedGarnet").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 22), 200, 16));
+        }
+        if(OreDictionary.doesOreNameExist("BlockRedstone")) {
+            ItemStack blockStack = OreDictionary.getOres("blockRedstone").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 23), 200, 16));
+        }
+        if(OreDictionary.doesOreNameExist("blockRuby")) {
+            ItemStack blockStack = OreDictionary.getOres("blockRuby").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 24), 200, 16));
+        }
+        if(OreDictionary.doesOreNameExist("blockSapphire")) {
+            ItemStack blockStack = OreDictionary.getOres("blockSapphire").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 25), 200, 16));
+        }
+        if(OreDictionary.doesOreNameExist("blockSilver")) {
+            ItemStack blockStack = OreDictionary.getOres("blockSilver").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 27), 200, 16));
+        }
+        if(OreDictionary.doesOreNameExist("blockSteel")) {
+            ItemStack blockStack = OreDictionary.getOres("blockSteel").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 28), 200, 16));
+        }
+        if(OreDictionary.doesOreNameExist("blockTeslatite")) {
+            ItemStack blockStack = OreDictionary.getOres("blockTeslatite").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 29), 200, 16));
+        }
+        if(OreDictionary.doesOreNameExist("blockTin")) {
+            ItemStack blockStack = OreDictionary.getOres("blockTin").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 30), 200, 16));
+        }
+        if(OreDictionary.doesOreNameExist("blockTitanium")) {
+            ItemStack blockStack = OreDictionary.getOres("blockTitanium").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 31), 200, 16));
+        }
+        if(OreDictionary.doesOreNameExist("blockTungsten")) {
+            ItemStack blockStack = OreDictionary.getOres("blockTungsten").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 32), 200, 16));
+        }
+        if(OreDictionary.doesOreNameExist("blockTungstensteel")) {
+            ItemStack blockStack = OreDictionary.getOres("blockTungstensteel").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 33), 200, 16));
+        }
+        if(OreDictionary.doesOreNameExist("blockYellowGarnet")) {
+            ItemStack blockStack = OreDictionary.getOres("blockYellowGarnet").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 34), 200, 16));
+        }
+        if(OreDictionary.doesOreNameExist("blockZinc")) {
+            ItemStack blockStack = OreDictionary.getOres("blockZinc").get(0);
+            RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(blockStack, new ItemStack(ModItems.plate, 9, 35), 200, 16));
+        }
+
+        //Obsidian
+        RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(new ItemStack(Blocks.obsidian), new ItemStack(ModItems.plate, 1, 18), 100, 4));
+    }
 	
 	public static void addUUrecipes()
 	{
