@@ -1,4 +1,4 @@
-package techreborn.recipes;
+package techreborn.api.recipe.machines;
 
 
 import net.minecraft.item.ItemStack;
