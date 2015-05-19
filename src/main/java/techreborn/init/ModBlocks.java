@@ -48,7 +48,6 @@ import techreborn.blocks.storage.BlockAesu;
 import techreborn.blocks.storage.BlockIDSU;
 import techreborn.blocks.storage.BlockLesu;
 import techreborn.blocks.storage.BlockLesuStorage;
-import techreborn.client.TechRebornCreativeTab;
 import techreborn.itemblocks.ItemBlockMachineCasing;
 import techreborn.itemblocks.ItemBlockOre;
 import techreborn.itemblocks.ItemBlockQuantumChest;

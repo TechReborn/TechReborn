@@ -1,8 +1,8 @@
 package techreborn.client.container;
 
-import techreborn.tiles.TileChunkLoader;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
+import techreborn.tiles.TileChunkLoader;
 
 public class ContainerChunkloader extends TechRebornContainer{
 	

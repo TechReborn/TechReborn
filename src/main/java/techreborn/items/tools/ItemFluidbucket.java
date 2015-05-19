@@ -1,14 +1,13 @@
 package techreborn.items.tools;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import techreborn.client.TechRebornCreativeTabMisc;
-import techreborn.lib.ModInfo;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBucket;
+import techreborn.client.TechRebornCreativeTabMisc;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemFluidbucket extends ItemBucket{
 	private String iconName;

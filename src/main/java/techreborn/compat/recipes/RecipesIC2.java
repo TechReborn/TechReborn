@@ -1,13 +1,11 @@
 package techreborn.compat.recipes;
 
-import cpw.mods.fml.common.Mod;
+import ic2.api.item.IC2Items;
 import ic2.api.recipe.RecipeInputOreDict;
 import ic2.api.recipe.Recipes;
-import ic2.core.IC2;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import ic2.api.item.IC2Items;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.oredict.OreDictionary;
 import techreborn.api.recipe.RecipeHanderer;

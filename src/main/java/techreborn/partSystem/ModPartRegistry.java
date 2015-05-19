@@ -4,15 +4,15 @@
 
 package techreborn.partSystem;
 
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.item.Item;
-import techreborn.client.TechRebornCreativeTab;
-import techreborn.util.LogHelper;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import net.minecraft.item.Item;
+import techreborn.client.TechRebornCreativeTab;
+import techreborn.util.LogHelper;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ModPartRegistry {
 

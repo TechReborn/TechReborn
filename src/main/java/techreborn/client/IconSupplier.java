@@ -1,9 +1,9 @@
 package techreborn.client;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class IconSupplier {
     public static IIcon insulatedCopperCable;

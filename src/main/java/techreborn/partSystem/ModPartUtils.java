@@ -4,12 +4,12 @@
 
 package techreborn.partSystem;
 
+import java.util.Map;
+
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 import techreborn.lib.Location;
 import techreborn.lib.vecmath.Vecs3dCube;
-
-import java.util.Map;
 
 public class ModPartUtils {
 

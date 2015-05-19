@@ -2,11 +2,8 @@ package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
-import net.minecraft.inventory.SlotFurnace;
 import techreborn.client.SlotOutput;
 import techreborn.tiles.TileAlloyFurnace;
-import techreborn.tiles.TileAlloySmelter;
-import techreborn.tiles.TileBlastFurnace;
 
 public class ContainerAlloyFurnace extends TechRebornContainer {
 

@@ -1,16 +1,12 @@
 package techreborn.compat.nei.recipes;
 
-import codechicken.nei.PositionedStack;
+import java.util.List;
+
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.client.gui.GuiImplosionCompressor;
 import techreborn.util.ItemUtils;
-
-import java.util.ArrayList;
-import java.util.List;
+import codechicken.nei.PositionedStack;
 
 public class ImplosionCompressorRecipeHandler extends GenericRecipeHander implements INeiBaseRecipe {
 	@Override

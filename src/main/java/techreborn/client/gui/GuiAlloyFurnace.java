@@ -6,15 +6,8 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.oredict.OreDictionary;
 import techreborn.client.container.ContainerAlloyFurnace;
-import techreborn.client.container.ContainerAlloySmelter;
-import techreborn.client.container.ContainerBlastFurnace;
-import techreborn.compat.nei.recipes.AlloySmelterRecipeHandler;
-import techreborn.recipes.AlloySmelterRecipe;
 import techreborn.tiles.TileAlloyFurnace;
-import techreborn.tiles.TileAlloySmelter;
-import techreborn.tiles.TileBlastFurnace;
 
 public class GuiAlloyFurnace extends GuiContainer {
 

@@ -3,8 +3,6 @@ package techreborn.client.container;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import techreborn.client.SlotOutput;
-import techreborn.tiles.TileAlloySmelter;
-import techreborn.tiles.TileBlastFurnace;
 import techreborn.tiles.TileChemicalReactor;
 
 public class ContainerChemicalReactor extends TechRebornContainer {

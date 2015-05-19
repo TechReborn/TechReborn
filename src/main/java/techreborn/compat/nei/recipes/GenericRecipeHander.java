@@ -1,20 +1,22 @@
 package techreborn.compat.nei.recipes;
 
-import codechicken.lib.gui.GuiDraw;
-import codechicken.nei.PositionedStack;
-import codechicken.nei.recipe.TemplateRecipeHandler;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
+
 import org.lwjgl.opengl.GL11;
+
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.api.recipe.RecipeHanderer;
 import techreborn.config.ConfigTechReborn;
 import techreborn.util.ItemUtils;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
+import codechicken.lib.gui.GuiDraw;
+import codechicken.nei.PositionedStack;
+import codechicken.nei.recipe.TemplateRecipeHandler;
 
 public abstract class GenericRecipeHander extends TemplateRecipeHandler {
 

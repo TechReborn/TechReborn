@@ -4,8 +4,6 @@
 
 package techreborn.partSystem.block;
 
-import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,6 +17,8 @@ import techreborn.lib.vecmath.Vecs3dCube;
 import techreborn.partSystem.IModPart;
 import techreborn.partSystem.IPartProvider;
 import techreborn.partSystem.ModPart;
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 /**
  * Created by mark on 10/12/14.

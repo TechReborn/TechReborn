@@ -6,9 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import techreborn.client.container.ContainerDieselGenerator;
-import techreborn.client.container.ContainerThermalGenerator;
 import techreborn.tiles.TileDieselGenerator;
-import techreborn.tiles.TileThermalGenerator;
 
 public class GuiDieselGenerator extends GuiContainer {
 

@@ -1,15 +1,12 @@
 package techreborn.client.gui;
 
-import techreborn.client.container.ContainerAlloySmelter;
-import techreborn.client.container.ContainerGrinder;
-import techreborn.tiles.TileAlloySmelter;
-import techreborn.tiles.TileGrinder;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import techreborn.client.container.ContainerGrinder;
+import techreborn.tiles.TileGrinder;
 
 public class GuiGrinder extends GuiContainer{
 	

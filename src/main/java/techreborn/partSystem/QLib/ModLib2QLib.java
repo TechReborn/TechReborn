@@ -4,13 +4,13 @@
 
 package techreborn.partSystem.QLib;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import techreborn.lib.vecmath.Vecs3d;
 import techreborn.lib.vecmath.Vecs3dCube;
 import uk.co.qmunity.lib.vec.Vec3d;
 import uk.co.qmunity.lib.vec.Vec3dCube;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by mark on 09/12/14.

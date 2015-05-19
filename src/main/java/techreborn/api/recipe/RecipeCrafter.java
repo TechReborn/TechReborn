@@ -1,17 +1,14 @@
 package techreborn.api.recipe;
 
 import ic2.api.energy.prefab.BasicSink;
-import net.minecraft.item.Item;
+
+import java.util.ArrayList;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import techreborn.packets.PacketHandler;
 import techreborn.tiles.TileMachineBase;
 import techreborn.util.Inventory;
 import techreborn.util.ItemUtils;
-
-import java.util.ArrayList;
 
 /**
  * Use this in your tile entity to craft things

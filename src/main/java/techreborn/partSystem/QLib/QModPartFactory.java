@@ -4,6 +4,8 @@
 
 package techreborn.partSystem.QLib;
 
+import java.lang.reflect.InvocationTargetException;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -13,7 +15,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.lib.Location;
 import techreborn.lib.vecmath.Vecs3dCube;
-import techreborn.partSystem.*;
+import techreborn.partSystem.IModPart;
+import techreborn.partSystem.IPartProvider;
+import techreborn.partSystem.ModPart;
+import techreborn.partSystem.ModPartRegistry;
 import techreborn.partSystem.parts.CablePart;
 import uk.co.qmunity.lib.QLModInfo;
 import uk.co.qmunity.lib.part.IPart;
@@ -23,8 +28,6 @@ import uk.co.qmunity.lib.part.compat.MultipartCompatibility;
 import uk.co.qmunity.lib.tile.TileMultipart;
 import uk.co.qmunity.lib.vec.Vec3dCube;
 import uk.co.qmunity.lib.vec.Vec3i;
-
-import java.lang.reflect.InvocationTargetException;
 
 public class QModPartFactory implements IPartFactory, IPartProvider {
     @Override

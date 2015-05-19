@@ -4,6 +4,17 @@
 
 package techreborn.partSystem.fmp;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.entity.Entity;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.world.World;
+import techreborn.lib.Location;
+import techreborn.lib.vecmath.Vecs3d;
+import techreborn.lib.vecmath.Vecs3dCube;
+import techreborn.partSystem.ModPart;
+import uk.co.qmunity.lib.client.render.RenderHelper;
 import codechicken.lib.raytracer.IndexedCuboid6;
 import codechicken.lib.vec.Cuboid6;
 import codechicken.lib.vec.Vector3;
@@ -14,17 +25,6 @@ import codechicken.multipart.TMultiPart;
 import codechicken.multipart.TSlottedPart;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.world.World;
-import techreborn.lib.Location;
-import techreborn.lib.vecmath.Vecs3d;
-import techreborn.lib.vecmath.Vecs3dCube;
-import techreborn.partSystem.ModPart;
-import uk.co.qmunity.lib.client.render.RenderHelper;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class FMPModPart extends TMultiPart implements TSlottedPart,
         JNormalOcclusion, ISidedHollowConnect {

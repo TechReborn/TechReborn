@@ -1,14 +1,12 @@
 package techreborn.compat.nei.recipes;
 
-import codechicken.nei.PositionedStack;
+import java.util.List;
+
 import net.minecraft.client.gui.inventory.GuiContainer;
 import techreborn.api.recipe.IBaseRecipeType;
-import techreborn.client.gui.GuiAlloySmelter;
-import techreborn.client.gui.GuiImplosionCompressor;
 import techreborn.client.gui.GuiLathe;
 import techreborn.util.ItemUtils;
-
-import java.util.List;
+import codechicken.nei.PositionedStack;
 
 public class LatheRecipeHandler extends GenericRecipeHander implements INeiBaseRecipe {
 	@Override

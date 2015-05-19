@@ -1,22 +1,14 @@
 package techreborn.compat.nei;
 
-import codechicken.nei.recipe.GuiCraftingRecipe;
-import codechicken.nei.recipe.TemplateRecipeHandler;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import scala.tools.nsc.backend.icode.analysis.TypeFlowAnalysis;
 import techreborn.compat.nei.recipes.AlloySmelterRecipeHandler;
 import techreborn.compat.nei.recipes.AssemblingMachineRecipeHandler;
+import techreborn.compat.nei.recipes.CentrifugeRecipeHandler;
 import techreborn.compat.nei.recipes.ChemicalReactorRecipeHandler;
-import techreborn.compat.nei.recipes.GenericRecipeHander;
 import techreborn.compat.nei.recipes.ImplosionCompressorRecipeHandler;
 import techreborn.compat.nei.recipes.IndustrialSawmillRecipeHandler;
 import techreborn.compat.nei.recipes.LatheRecipeHandler;
 import techreborn.compat.nei.recipes.PlateCuttingMachineRecipeHandler;
 import techreborn.lib.ModInfo;
-import techreborn.recipes.IndustrialSawmillRecipe;
-import techreborn.recipes.PlateCuttingMachineRecipe;
 import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
 
@@ -37,7 +29,6 @@ public class NEIConfig implements IConfigureNEI {
 
 	@Override
 	public void loadConfig() {
-        CentrifugeRecipeHandler centrifugeRecipeHandler = new CentrifugeRecipeHandler();
         ShapedRollingMachineHandler shapedRollingMachineHandler = new ShapedRollingMachineHandler();
         ShapelessRollingMachineHandler shapelessRollingMachineHandler = new ShapelessRollingMachineHandler();
         NEIConfig.blastFurnaceRecipeHandle = new BlastFurnaceRecipeHandler();
@@ -70,9 +61,10 @@ public class NEIConfig implements IConfigureNEI {
 		ChemicalReactorRecipeHandler chem = new ChemicalReactorRecipeHandler();
 		API.registerUsageHandler(chem);
 		API.registerRecipeHandler(chem);
-
-        API.registerRecipeHandler(centrifugeRecipeHandler);
-        API.registerUsageHandler(centrifugeRecipeHandler);
+		
+		CentrifugeRecipeHandler cent = new CentrifugeRecipeHandler();
+		API.registerUsageHandler(cent);
+		API.registerRecipeHandler(cent);
 
         API.registerUsageHandler(shapedRollingMachineHandler);
         API.registerRecipeHandler(shapedRollingMachineHandler);

@@ -1,7 +1,5 @@
 package techreborn.client.gui;
 
-import codechicken.nei.recipe.GuiRecipe;
-import codechicken.nei.recipe.IRecipeHandler;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;

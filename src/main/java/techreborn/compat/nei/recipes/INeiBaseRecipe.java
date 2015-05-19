@@ -1,10 +1,10 @@
 package techreborn.compat.nei.recipes;
 
-import codechicken.nei.PositionedStack;
+import java.util.List;
+
 import net.minecraft.client.gui.inventory.GuiContainer;
 import techreborn.api.recipe.IBaseRecipeType;
-
-import java.util.List;
+import codechicken.nei.PositionedStack;
 
 /**
  * Use this to make your neiHandler

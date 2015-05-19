@@ -1,17 +1,17 @@
 package techreborn.multiblocks;
 
-import erogenousbeef.coreTR.common.CoordTriplet;
-import erogenousbeef.coreTR.multiblock.IMultiblockPart;
-import erogenousbeef.coreTR.multiblock.MultiblockControllerBase;
-import erogenousbeef.coreTR.multiblock.MultiblockValidationException;
-import erogenousbeef.coreTR.multiblock.rectangular.RectangularMultiblockControllerBase;
-import erogenousbeef.coreTR.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.util.LogHelper;
+import erogenousbeef.coreTR.common.CoordTriplet;
+import erogenousbeef.coreTR.multiblock.IMultiblockPart;
+import erogenousbeef.coreTR.multiblock.MultiblockControllerBase;
+import erogenousbeef.coreTR.multiblock.MultiblockValidationException;
+import erogenousbeef.coreTR.multiblock.rectangular.RectangularMultiblockControllerBase;
+import erogenousbeef.coreTR.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 
 public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 

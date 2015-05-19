@@ -6,7 +6,9 @@ package techreborn.partSystem.block;
 
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
+
 import org.lwjgl.opengl.GL11;
+
 import techreborn.lib.vecmath.Vecs3d;
 import techreborn.partSystem.ModPart;
 

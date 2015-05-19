@@ -6,12 +6,8 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import techreborn.client.container.ContainerAlloySmelter;
 import techreborn.client.container.ContainerAssemblingMachine;
-import techreborn.client.container.ContainerBlastFurnace;
-import techreborn.tiles.TileAlloySmelter;
 import techreborn.tiles.TileAssemblingMachine;
-import techreborn.tiles.TileBlastFurnace;
 
 public class GuiAssemblingMachine extends GuiContainer {
 

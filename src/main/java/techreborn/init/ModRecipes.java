@@ -1,26 +1,18 @@
 package techreborn.init;
 
-import java.util.Arrays;
-import java.util.List;
-
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.registry.GameRegistry;
 import ic2.api.item.IC2Items;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import techreborn.api.BlastFurnaceRecipe;
-import techreborn.api.CentrifugeRecipie;
 import techreborn.api.TechRebornAPI;
 import techreborn.api.recipe.RecipeHanderer;
-import techreborn.compat.nei.recipes.ChemicalReactorRecipeHandler;
 import techreborn.config.ConfigTechReborn;
 import techreborn.recipes.AlloySmelterRecipe;
 import techreborn.recipes.AssemblingMachineRecipe;
+import techreborn.recipes.CentrifugeRecipe;
 import techreborn.recipes.ChemicalReactorRecipe;
 import techreborn.recipes.GrinderRecipe;
 import techreborn.recipes.ImplosionCompressorRecipe;
@@ -29,6 +21,7 @@ import techreborn.recipes.LatheRecipe;
 import techreborn.recipes.PlateCuttingMachineRecipe;
 import techreborn.util.CraftingHelper;
 import techreborn.util.LogHelper;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ModRecipes {
 	public static ConfigTechReborn config;
@@ -204,15 +197,8 @@ public class ModRecipes {
 
 	public static void addMachineRecipes()
 	{
-		TechRebornAPI.registerCentrifugeRecipe(new CentrifugeRecipie(
-				Items.apple, 4, Items.beef, Items.baked_potato, null, null,
-				120, 4));
-		TechRebornAPI.registerCentrifugeRecipe(new CentrifugeRecipie(
-				Items.nether_star, 1, Items.diamond, Items.emerald, Items.bed,
-				Items.cake, 500, 8));
-		TechRebornAPI.addRollingMachinceRecipe(
-				new ItemStack(Blocks.furnace, 4), "ccc", "c c", "ccc", 'c',
-				Blocks.cobblestone);
+
+		TechRebornAPI.addRollingMachinceRecipe(new ItemStack(Blocks.furnace, 4), "ccc", "c c", "ccc", 'c', Blocks.cobblestone);
 		TechRebornAPI.registerBlastFurnaceRecipe(new BlastFurnaceRecipe(new ItemStack(Items.apple), new ItemStack(Items.ender_pearl), new ItemStack(Items.golden_apple), new ItemStack(Items.diamond), 120, 1000));
 
 		RecipeHanderer.addRecipe(new ImplosionCompressorRecipe(new ItemStack(Blocks.end_stone, 4), IC2Items.getItem("copperIngot"), new ItemStack(Items.brewing_stand), new ItemStack(Items.carrot), 120, 5));
@@ -227,6 +213,7 @@ public class ModRecipes {
 
 		RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Items.diamond), new FluidStack(ModFluids.fluidMercury, 500), new ItemStack(Blocks.brick_block), null, null, null, 400, 5));
 
+		RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Items.coal), new ItemStack(Blocks.sand), new ItemStack(Items.diamond), new ItemStack(Items.emerald), new ItemStack(Items.apple), new ItemStack(Items.arrow), 1, 10));
 		LogHelper.info("Machine Recipes Added");
 	}
 	public static void addHammerRecipes(){

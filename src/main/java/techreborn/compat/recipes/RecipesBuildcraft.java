@@ -1,7 +1,6 @@
 package techreborn.compat.recipes;
 
 import ic2.api.item.IC2Items;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import techreborn.util.CraftingHelper;
 import techreborn.util.RecipeRemover;

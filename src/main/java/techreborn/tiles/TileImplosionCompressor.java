@@ -1,18 +1,17 @@
 package techreborn.tiles;
 
+import ic2.api.energy.prefab.BasicSink;
+import ic2.api.energy.tile.IEnergyTile;
+import ic2.api.tile.IWrenchable;
+
 import java.util.List;
 
-import ic2.api.energy.tile.IEnergyTile;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import techreborn.api.CentrifugeRecipie;
-import techreborn.api.TechRebornAPI;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.init.ModBlocks;
 import techreborn.util.Inventory;
-import ic2.api.energy.prefab.BasicSink;
-import ic2.api.tile.IWrenchable;
 
 public class TileImplosionCompressor extends TileMachineBase implements IWrenchable, IEnergyTile {
 	

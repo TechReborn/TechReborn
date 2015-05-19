@@ -5,7 +5,6 @@ import net.minecraft.inventory.Slot;
 import techreborn.client.SlotFake;
 import techreborn.client.SlotOutput;
 import techreborn.tiles.TileDieselGenerator;
-import techreborn.tiles.TileThermalGenerator;
 
 public class ContainerDieselGenerator extends TechRebornContainer {
 	public TileDieselGenerator tiledieselGenerator;

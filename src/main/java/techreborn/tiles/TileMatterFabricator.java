@@ -1,14 +1,14 @@
 package techreborn.tiles;
 
+import ic2.api.energy.prefab.BasicSink;
 import ic2.api.energy.tile.IEnergyTile;
+import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.util.Inventory;
-import ic2.api.energy.prefab.BasicSink;
-import ic2.api.tile.IWrenchable;
 
 public class TileMatterFabricator extends TileMachineBase implements IWrenchable, IEnergyTile {
 	

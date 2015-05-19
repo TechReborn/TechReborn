@@ -1,21 +1,23 @@
 package techreborn.compat.nei;
 
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.item.ItemStack;
+
+import org.lwjgl.opengl.GL11;
+
+import techreborn.api.BlastFurnaceRecipe;
+import techreborn.api.TechRebornAPI;
+import techreborn.client.gui.GuiBlastFurnace;
+import techreborn.config.ConfigTechReborn;
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.NEIServerUtils;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.item.ItemStack;
-import org.lwjgl.opengl.GL11;
-import techreborn.api.BlastFurnaceRecipe;
-import techreborn.api.TechRebornAPI;
-import techreborn.client.gui.GuiBlastFurnace;
-import techreborn.client.gui.GuiCentrifuge;
-import techreborn.config.ConfigTechReborn;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by mark on 29/04/15.

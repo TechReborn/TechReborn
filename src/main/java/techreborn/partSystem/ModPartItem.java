@@ -4,6 +4,8 @@
 
 package techreborn.partSystem;
 
+import java.lang.reflect.InvocationTargetException;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -11,8 +13,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.partSystem.parts.CablePart;
 import uk.co.qmunity.lib.ref.Names;
-
-import java.lang.reflect.InvocationTargetException;
 
 public class ModPartItem extends Item {
 

@@ -3,9 +3,9 @@ package techreborn.items.tools;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import techreborn.items.ItemTR;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import techreborn.items.ItemTR;
 
 public class ItemHammer extends ItemTR{
 	private String iconName;

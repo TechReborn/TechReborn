@@ -2,10 +2,10 @@ package techreborn.compat;
 
 import techreborn.compat.ee3.EmcValues;
 import techreborn.compat.waila.CompatModuleWaila;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
 import techreborn.init.ModParts;
 import techreborn.util.LogHelper;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
 
 public class CompatManager {
 

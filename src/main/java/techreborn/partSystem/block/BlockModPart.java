@@ -4,6 +4,9 @@
 
 package techreborn.partSystem.block;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -20,9 +23,6 @@ import techreborn.lib.vecmath.Vecs3dCube;
 import techreborn.partSystem.ICustomHighlight;
 import techreborn.partSystem.IModPart;
 import techreborn.partSystem.ModPart;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by mark on 10/12/14.

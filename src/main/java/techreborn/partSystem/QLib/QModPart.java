@@ -4,6 +4,9 @@
 
 package techreborn.partSystem.QLib;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
@@ -26,9 +29,6 @@ import uk.co.qmunity.lib.raytrace.RayTracer;
 import uk.co.qmunity.lib.vec.Vec3d;
 import uk.co.qmunity.lib.vec.Vec3dCube;
 import uk.co.qmunity.lib.vec.Vec3i;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class QModPart extends PartBase implements IPartCollidable,
         IPartSelectable, IPartRenderPlacement, IPartTicking,

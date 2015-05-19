@@ -1,15 +1,12 @@
 package techreborn.client.gui;
 
-import techreborn.client.container.ContainerImplosionCompressor;
-import techreborn.client.container.ContainerMatterFabricator;
-import techreborn.tiles.TileImplosionCompressor;
-import techreborn.tiles.TileMatterFabricator;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import techreborn.client.container.ContainerMatterFabricator;
+import techreborn.tiles.TileMatterFabricator;
 
 public class GuiMatterFabricator extends GuiContainer{
 	

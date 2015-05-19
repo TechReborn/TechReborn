@@ -4,6 +4,12 @@
 
 package techreborn.partSystem.block;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -19,12 +25,6 @@ import techreborn.partSystem.ModPart;
 import techreborn.partSystem.ModPartRegistry;
 import techreborn.partSystem.parts.CablePart;
 import techreborn.partSystem.parts.NullPart;
-
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class TileEntityModPart extends TileEntity {
 

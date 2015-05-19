@@ -1,21 +1,17 @@
 package techreborn.tiles;
 
-import java.util.List;
-
-import ic2.api.energy.prefab.BasicSink;
 import ic2.api.energy.prefab.BasicSource;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
+
+import java.util.List;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-import techreborn.api.recipe.RecipeCrafter;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
-import techreborn.util.Inventory;
 
 public class TileHeatGenerator extends TileMachineBase implements IWrenchable, IEnergyTile {
 

@@ -1,6 +1,8 @@
 package techreborn.tiles;
 
+import ic2.api.energy.prefab.BasicSink;
 import ic2.api.energy.tile.IEnergyTile;
+import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -10,14 +12,11 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
-import net.minecraftforge.fluids.IFluidTank;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.util.FluidUtils;
 import techreborn.util.Inventory;
-import ic2.api.energy.prefab.BasicSink;
-import ic2.api.tile.IWrenchable;
 
 public class TileGrinder extends TileMachineBase implements IWrenchable, IEnergyTile, IFluidHandler {
 	

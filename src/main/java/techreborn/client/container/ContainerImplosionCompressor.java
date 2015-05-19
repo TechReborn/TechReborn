@@ -1,11 +1,9 @@
 package techreborn.client.container;
 
-import techreborn.client.SlotOutput;
-import techreborn.tiles.TileAlloySmelter;
-import techreborn.tiles.TileGrinder;
-import techreborn.tiles.TileImplosionCompressor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
+import techreborn.client.SlotOutput;
+import techreborn.tiles.TileImplosionCompressor;
 
 public class ContainerImplosionCompressor extends TechRebornContainer{
 	

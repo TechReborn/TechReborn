@@ -1,15 +1,12 @@
 package techreborn.compat.nei.recipes;
 
-import codechicken.nei.PositionedStack;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraftforge.oredict.OreDictionary;
-import techreborn.api.recipe.IBaseRecipeType;
-import techreborn.client.gui.GuiAlloySmelter;
-import techreborn.client.gui.GuiChemicalReactor;
-import techreborn.client.gui.GuiImplosionCompressor;
-import techreborn.util.ItemUtils;
-
 import java.util.List;
+
+import net.minecraft.client.gui.inventory.GuiContainer;
+import techreborn.api.recipe.IBaseRecipeType;
+import techreborn.client.gui.GuiChemicalReactor;
+import techreborn.util.ItemUtils;
+import codechicken.nei.PositionedStack;
 
 public class ChemicalReactorRecipeHandler extends GenericRecipeHander implements INeiBaseRecipe {
 	@Override

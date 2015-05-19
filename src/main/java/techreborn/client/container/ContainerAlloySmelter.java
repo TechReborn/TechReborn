@@ -4,7 +4,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import techreborn.client.SlotOutput;
 import techreborn.tiles.TileAlloySmelter;
-import techreborn.tiles.TileBlastFurnace;
 
 public class ContainerAlloySmelter extends TechRebornContainer {
 

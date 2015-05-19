@@ -7,9 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import techreborn.client.container.ContainerAlloySmelter;
-import techreborn.client.container.ContainerBlastFurnace;
 import techreborn.tiles.TileAlloySmelter;
-import techreborn.tiles.TileBlastFurnace;
 
 public class GuiAlloySmelter extends GuiContainer {
 

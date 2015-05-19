@@ -6,11 +6,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import techreborn.client.container.ContainerAlloySmelter;
-import techreborn.client.container.ContainerBlastFurnace;
 import techreborn.client.container.ContainerLathe;
-import techreborn.tiles.TileAlloySmelter;
-import techreborn.tiles.TileBlastFurnace;
 import techreborn.tiles.TileLathe;
 
 public class GuiLathe extends GuiContainer {

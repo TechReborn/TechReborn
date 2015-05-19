@@ -6,36 +6,26 @@ import ic2.api.energy.tile.IEnergyConductor;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.item.IC2Items;
 import ic2.core.IC2;
-import ic2.core.block.wiring.TileEntityCable;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.WorldClient;
-import net.minecraft.client.network.NetHandlerPlayClient;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
-import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldSettings;
-import net.minecraft.world.WorldType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
-import techreborn.client.IconSupplier;
 import techreborn.client.render.RenderCablePart;
 import techreborn.lib.Functions;
 import techreborn.lib.vecmath.Vecs3d;
 import techreborn.lib.vecmath.Vecs3dCube;
 import techreborn.partSystem.ModPart;
 import techreborn.partSystem.ModPartUtils;
-import techreborn.partSystem.QLib.ModLib2QLib;
 import uk.co.qmunity.lib.client.render.RenderHelper;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class CablePart extends ModPart implements IEnergyConductor {
     public Vecs3dCube[] boundingBoxes = new Vecs3dCube[14];
