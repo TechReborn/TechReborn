@@ -38,6 +38,18 @@ public class GuiChemicalReactor extends GuiContainer {
 		int l = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
 
+		int j = 0;
+
+		if(chemicalReactor.crafter.currentRecipe != null) {
+			j = this.chemicalReactor.crafter.currentTickTime * 11 / this.chemicalReactor.crafter.currentRecipe.tickTime();
+		}
+        this.drawTexturedModalRect(k + 73, l + 39, 177, 15, 30, j);
+
+		j = (int)this.chemicalReactor.energy.getEnergyStored() * 12 / this.chemicalReactor.energy.getCapacity();
+		if(j > 0) {
+			this.drawTexturedModalRect(k + 9, l + 32 + 12 - j, 176, 12 - j, 14, j + 2);
+		}
+
 	}
 
 	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
