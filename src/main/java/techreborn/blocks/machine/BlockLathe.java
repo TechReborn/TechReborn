@@ -40,7 +40,7 @@ public class BlockLathe extends BlockMachineBase {
 	{
 		this.blockIcon = icon.registerIcon("techreborn:machine/machine_side");
 		this.iconFront = icon.registerIcon("techreborn:machine/lathe_front_off");
-		this.iconFront = icon.registerIcon("techreborn:machine/lathe_front_on");
+		this.iconFrontOn = icon.registerIcon("techreborn:machine/lathe_front_on");
 		this.iconTop = icon.registerIcon("techreborn:machine/machine_top");
 		this.iconBottom = icon.registerIcon("techreborn:machine/machine_bottom");
 	}

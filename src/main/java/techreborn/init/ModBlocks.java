@@ -126,8 +126,7 @@ public class ModBlocks {
 	public static Block storage;
 	public static Block machineframe;
 
-	public static void init()
-	{
+	public static void init(){
 		thermalGenerator = new BlockThermalGenerator();
 		GameRegistry.registerBlock(thermalGenerator, "techreborn.thermalGenerator");
 		GameRegistry.registerTileEntity(TileThermalGenerator.class, "TileThermalGeneratorTR");
@@ -284,8 +283,7 @@ public class ModBlocks {
 		registerOreDict();
 	}
 
-	public static void registerOreDict()
-	{
+	public static void registerOreDict(){
 		OreDictionary.registerOre("oreGalena", new ItemStack(ore, 1, 0));
 		OreDictionary.registerOre("oreIridium", new ItemStack(ore, 1, 1));
 		OreDictionary.registerOre("oreRuby", new ItemStack(ore, 1, 2));

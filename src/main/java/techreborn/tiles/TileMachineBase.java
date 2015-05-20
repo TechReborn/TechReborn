@@ -43,8 +43,7 @@ public class TileMachineBase extends TileEntity {
     }
 
     @Override
-    public void onDataPacket(NetworkManager net,
-                             S35PacketUpdateTileEntity packet) {
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
         worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord,
                 yCoord, zCoord);
         readFromNBT(packet.func_148857_g());
