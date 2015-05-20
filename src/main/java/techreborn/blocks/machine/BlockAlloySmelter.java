@@ -65,7 +65,7 @@ public class BlockAlloySmelter extends BlockMachineBase {
 	public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int side) {
 		int metadata = blockAccess.getBlockMetadata(x, y, z);
 		TileAlloySmelter tileAlloySmelter = (TileAlloySmelter) blockAccess.getTileEntity(x, y, z);
-		if(side == metadata && tileAlloySmelter.crafter.currentRecipe != null){
+		if(side == metadata && tileAlloySmelter.crafter.currentRecipe != null && tileAlloySmelter.crafter.currentTickTime !=0){
 			return this.iconFrontOn;
 		}
 

@@ -19,10 +19,11 @@ public class TileAlloySmelter extends TileMachineBase implements IWrenchable, IE
 	public BasicSink energy;
 	public Inventory inventory = new Inventory(8, "TileAlloySmelter", 64);
 	public RecipeCrafter crafter;
+	public int capacity = 1000;
 	
 	public TileAlloySmelter(){
 		//TODO configs
-		energy = new BasicSink(this, 1000, 2);
+		energy = new BasicSink(this, capacity, 1);
 		//Input slots
 		int[] inputs = new int[2];
 		inputs[0] = 0;
@@ -94,6 +95,8 @@ public class TileAlloySmelter extends TileMachineBase implements IWrenchable, IE
     @Override
     public void invalidate(){
         energy.invalidate();
+        
+        super.invalidate();
     }
     @Override
     public void onChunkUnload(){
@@ -103,7 +106,7 @@ public class TileAlloySmelter extends TileMachineBase implements IWrenchable, IE
 	@Override
 	public void addWailaInfo(List<String> info){
 		super.addWailaInfo(info);
-		info.add("Power Stored " + energy.getEnergyStored() +" EU");
+		info.add("Power Stored " + energy.getEnergyStored() + "/" + energy.getCapacity() +" EU");
 		if(crafter.currentRecipe !=null){
 		info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
 		}

@@ -135,6 +135,7 @@ public class RecipeCrafter {
 						this.energy.setEnergyStored(this.energy.getEnergyStored() - currentRecipe.euPerTick());
 					}
 					currentTickTime++;
+					parentTile.syncWithAll();
 				}
 			}
 		}

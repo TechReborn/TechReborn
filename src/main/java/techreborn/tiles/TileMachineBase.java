@@ -18,7 +18,7 @@ public class TileMachineBase extends TileEntity {
     public void updateEntity() {
         super.updateEntity();
         // TODO make this happen less
-        // syncWithAll();
+//        syncWithAll();
     }
 
     @SideOnly(Side.CLIENT)
