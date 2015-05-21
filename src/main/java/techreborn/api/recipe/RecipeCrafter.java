@@ -86,55 +86,55 @@ public class RecipeCrafter {
 	 * Call this on the tile tick
 	 */
 	public void updateEntity() {
-		if (currentRecipe == null) {
+		if (currentRecipe == null) {//It will now look for new recipes.
 			for (IBaseRecipeType recipe : RecipeHanderer.getRecipeClassFromName(recipeName)) {
-				if(recipe.canCraft(parentTile) && hasAllInputs(recipe)){
+				if(recipe.canCraft(parentTile) && hasAllInputs(recipe)){//This checks to see if it has all of the inputs
 					boolean canGiveInvAll = true;
-					for (int i = 0; i < recipe.getOutputs().size(); i++) {
+					for (int i = 0; i < recipe.getOutputs().size(); i++) {//This checks to see if it can fit all of the outputs
 						if (!canFitStack(recipe.getOutputs().get(i), outputSlots[i])) {
 							canGiveInvAll = false;
 						}
 					}
 					if(canGiveInvAll){
-						currentRecipe = recipe;
+						currentRecipe = recipe;//Sets the current recipe then syncs
 						parentTile.syncWithAll();
 						return;
 					}
 				}
 			}
 		} else {
-			if(!hasAllInputs()){
+			if(!hasAllInputs()){//If it doesn't have all the inputs reset
 				currentRecipe = null;
 				currentTickTime = 0;
 				parentTile.syncWithAll();
 				return;
 			}
-			if (currentTickTime >= currentRecipe.tickTime()) {
+			if (currentTickTime >= currentRecipe.tickTime()) {//If it has reached the recipe tick time
 				boolean canGiveInvAll = true;
-				for (int i = 0; i < currentRecipe.getOutputs().size(); i++) {
+				for (int i = 0; i < currentRecipe.getOutputs().size(); i++) {//Checks to see if it can fit the output
 					if (!canFitStack(currentRecipe.getOutputs().get(i), outputSlots[i])) {
 						canGiveInvAll = false;
 					}
 				}
-				ArrayList<Integer> filledSlots = new ArrayList<Integer>();
+				ArrayList<Integer> filledSlots = new ArrayList<Integer>();//The slots that have been filled
 				if (canGiveInvAll && currentRecipe.onCraft(parentTile)) {
 					for (int i = 0; i < currentRecipe.getOutputs().size(); i++) {
-						if (!filledSlots.contains(outputSlots[i])) {
-							fitStack(currentRecipe.getOutputs().get(i), outputSlots[i]);
+						if (!filledSlots.contains(outputSlots[i])) {//checks it has not been filled
+							fitStack(currentRecipe.getOutputs().get(i), outputSlots[i]);//fills the slot with the output stack
 							filledSlots.add(outputSlots[i]);
 						}
 					}
-					useAllInputs();
-					currentRecipe = null;
+					useAllInputs();//this uses all the inputs
+					currentRecipe = null;//resets
 					currentTickTime = 0;
 					parentTile.syncWithAll();
 				}
 			} else if (currentTickTime < currentRecipe.tickTime()) {
-				if (energy.canUseEnergy(currentRecipe.euPerTick())) {
-					if(!parentTile.getWorldObj().isRemote){
+				if (energy.canUseEnergy(currentRecipe.euPerTick())) {//This checks to see if it can use the power
+					if(!parentTile.getWorldObj().isRemote){//remove the power on the server side only
 						this.energy.setEnergyStored(this.energy.getEnergyStored() - currentRecipe.euPerTick());
 					}
-					currentTickTime++;
+					currentTickTime++;//increase the ticktime
 					parentTile.syncWithAll();
 				}
 			}
@@ -147,7 +147,7 @@ public class RecipeCrafter {
 		}
 		for(ItemStack input : currentRecipe.getInputs()){
 			Boolean hasItem = false;
-			for(int inputSlot : inputSlots){
+			for(int inputSlot : inputSlots){//Checks to see if it can find the input
 				if(ItemUtils.isItemEqual(input, inventory.getStackInSlot(inputSlot), true, true, true) && inventory.getStackInSlot(inputSlot).stackSize >= input.stackSize){
 					hasItem = true;
 				}
@@ -180,7 +180,7 @@ public class RecipeCrafter {
 			return;
 		}
 		for(ItemStack input : currentRecipe.getInputs()){
-			for(int inputSlot : inputSlots){
+			for(int inputSlot : inputSlots){//Uses all of the inputs
 				if(ItemUtils.isItemEqual(input, inventory.getStackInSlot(inputSlot), true, true, true)){
 					inventory.decrStackSize(inputSlot, input.stackSize);
 				}
@@ -188,7 +188,7 @@ public class RecipeCrafter {
 		}
 	}
 
-	public boolean canFitStack(ItemStack stack, int slot) {
+	public boolean canFitStack(ItemStack stack, int slot) {//Checks to see if it can fit the stack
 		if (stack == null) {
 			return true;
 		}
@@ -203,18 +203,18 @@ public class RecipeCrafter {
 		return false;
 	}
 
-	public void fitStack(ItemStack stack, int slot) {
+	public void fitStack(ItemStack stack, int slot) {//This fits a stack into a slot
 		if (stack == null) {
 			return;
 		}
-		if (inventory.getStackInSlot(slot) == null) {
+		if (inventory.getStackInSlot(slot) == null) {//If the slot is empty set the contents
 			inventory.setInventorySlotContents(slot, stack);
 			return;
 		}
-		if (ItemUtils.isItemEqual(inventory.getStackInSlot(slot), stack, true, true, true)) {
-			if (stack.stackSize + inventory.getStackInSlot(slot).stackSize <= stack.getMaxStackSize()) {
+		if (ItemUtils.isItemEqual(inventory.getStackInSlot(slot), stack, true, true, true)) {//If the slot has stuff in
+			if (stack.stackSize + inventory.getStackInSlot(slot).stackSize <= stack.getMaxStackSize()) {//Check to see if it fits
 				ItemStack newStack = stack.copy();
-				newStack.stackSize = inventory.getStackInSlot(slot).stackSize + stack.stackSize;
+				newStack.stackSize = inventory.getStackInSlot(slot).stackSize + stack.stackSize;//Sets the new stack size
 				inventory.setInventorySlotContents(slot, newStack);
 			}
 		}
