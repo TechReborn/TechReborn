@@ -234,4 +234,8 @@ public class RecipeCrafter {
 
 		tag.setTag("Crater", data);
 	}
+
+	public boolean isActive(){
+		return currentRecipe != null && currentTickTime != 0;
+	}
 }

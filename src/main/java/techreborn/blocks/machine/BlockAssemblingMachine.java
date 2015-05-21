@@ -65,7 +65,7 @@ public class BlockAssemblingMachine extends BlockMachineBase {
 	public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int side) {
 		int metadata = blockAccess.getBlockMetadata(x, y, z);
 		TileAssemblingMachine tileAssemblingMachine = (TileAssemblingMachine) blockAccess.getTileEntity(x, y, z);
-		if(side == metadata && tileAssemblingMachine.crafter.currentRecipe != null){
+		if(side == metadata && tileAssemblingMachine.crafter.isActive()){
 			return this.iconFrontOn;
 		}
 		return metadata == 0 && side == 3 ? this.iconFront

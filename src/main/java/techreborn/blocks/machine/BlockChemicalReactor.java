@@ -65,7 +65,7 @@ public class BlockChemicalReactor extends BlockMachineBase {
 	public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int side) {
 		int metadata = blockAccess.getBlockMetadata(x, y, z);
 		TileChemicalReactor tileChemicalReactor = (TileChemicalReactor) blockAccess.getTileEntity(x, y, z);
-		if(side == metadata && tileChemicalReactor.crafter.currentRecipe != null){
+		if(side == metadata && tileChemicalReactor.crafter.isActive()){
 			return this.iconFrontOn;
 		}
 
