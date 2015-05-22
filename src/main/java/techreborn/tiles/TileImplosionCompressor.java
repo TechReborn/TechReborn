@@ -3,15 +3,14 @@ package techreborn.tiles;
 import ic2.api.energy.prefab.BasicSink;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
-
-import java.util.List;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.init.ModBlocks;
 import techreborn.util.Inventory;
+
+import java.util.List;
 
 public class TileImplosionCompressor extends TileMachineBase implements IWrenchable, IEnergyTile {
 	
@@ -105,5 +104,16 @@ public class TileImplosionCompressor extends TileMachineBase implements IWrencha
 		info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
 		}
 	}
+
+    @Override
+    public void invalidate()
+    {
+        energy.invalidate();
+    }
+    @Override
+    public void onChunkUnload()
+    {
+        energy.onChunkUnload();
+    }
 
 }

@@ -5,6 +5,7 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
@@ -93,7 +94,7 @@ public class BlockMachineBase extends BlockContainer{
 		{
 			world.setBlockMetadataWithNotify(x, y, z, 4, 2);
 		}
-
+        super.onBlockPlacedBy(world, x, y, z, player, itemstack);
 	}
 	
 	public boolean canCreatureSpawn(EnumCreatureType type, World world, int x,
@@ -101,5 +102,4 @@ public class BlockMachineBase extends BlockContainer{
 	{
 		return false;
 	}
-
 }

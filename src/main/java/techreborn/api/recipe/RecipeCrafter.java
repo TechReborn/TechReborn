@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+
 import techreborn.tiles.TileMachineBase;
 import techreborn.util.Inventory;
 import techreborn.util.ItemUtils;
@@ -81,6 +82,7 @@ public class RecipeCrafter {
 
 	public IBaseRecipeType currentRecipe;
 	public int currentTickTime = 0;
+    double lastEnergy;
 
 	/**
 	 * Call this on the tile tick
@@ -98,18 +100,19 @@ public class RecipeCrafter {
 					if(canGiveInvAll){
 						currentRecipe = recipe;//Sets the current recipe then syncs
 						parentTile.needsSync = true;
-						return;
 					}
 				}
 			}
+            if(lastEnergy != energy.getEnergyStored()){
+                parentTile.needsSync = true;
+            }
 		} else {
 			if(!hasAllInputs()){//If it doesn't have all the inputs reset
 				currentRecipe = null;
 				currentTickTime = 0;
 				parentTile.needsSync = true;
-				return;
 			}
-			if (currentTickTime >= currentRecipe.tickTime()) {//If it has reached the recipe tick time
+			if (currentRecipe != null && currentTickTime >= currentRecipe.tickTime()) {//If it has reached the recipe tick time
 				boolean canGiveInvAll = true;
 				for (int i = 0; i < currentRecipe.getOutputs().size(); i++) {//Checks to see if it can fit the output
 					if (!canFitStack(currentRecipe.getOutputs().get(i), outputSlots[i])) {
@@ -127,9 +130,12 @@ public class RecipeCrafter {
 					useAllInputs();//this uses all the inputs
 					currentRecipe = null;//resets
 					currentTickTime = 0;
-					parentTile.needsSync = true;
+					//Force sync after craft
+                    parentTile.syncWithAll();
+                    parentTile.needsSync = false;
+                    parentTile.ticksSinceLastSync = 0;
 				}
-			} else if (currentTickTime < currentRecipe.tickTime()) {
+			} else if (currentRecipe != null && currentTickTime < currentRecipe.tickTime()) {
 				if (energy.canUseEnergy(currentRecipe.euPerTick())) {//This checks to see if it can use the power
 					if(!parentTile.getWorldObj().isRemote){//remove the power on the server side only
 						this.energy.setEnergyStored(this.energy.getEnergyStored() - currentRecipe.euPerTick());
@@ -139,6 +145,7 @@ public class RecipeCrafter {
 				}
 			}
 		}
+        lastEnergy = energy.getEnergyStored();
 	}
 
 	public boolean hasAllInputs(){
