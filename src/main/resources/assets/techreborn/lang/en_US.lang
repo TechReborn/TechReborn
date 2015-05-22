@@ -44,8 +44,12 @@ tile.techreborn.fusioncoil.name=Fusion Coil
 tile.techreborn.lightningrod.name=Lightning Rod
 tile.techreborn.assemblinmachine.name=Assembling Machine
 tile.techreborn.heatgenerator.name=Heat Generator
-tile.techreborn.machineframe.name=Machine Block
-
+tile.techreborn.machineFrame.aluminum.name=Aluminum Machine Hull
+tile.techreborn.machineFrame.iron.name=Iron Machine Hull
+tile.techreborn.machineFrame.bronze.name=Brone Machine Hull
+tile.techreborn.machineFrame.brass.name=Brass Machine Hull
+tile.techreborn.machineFrame.steel.name=Steel Machine Hull
+tile.techreborn.machineFrame.titanium.name=Titanium Machine Hull
 
 #Ores
 tile.techreborn.ore.Galena.name=Galena Ore
