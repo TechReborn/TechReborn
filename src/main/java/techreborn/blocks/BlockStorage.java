@@ -19,9 +19,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BlockStorage extends Block {
 
 	public static final String[] types = new String[]
-	{ "Silver", "Aluminium", "Titanium", "Sapphire", "Ruby", "GreenSapphire",
-			"Chrome", "Electrum", "Tungsten", "Lead", "Zinc", "Brass", "Steel",
-			"Platinum", "Nickel", "Invar", };
+	{ "silver", "aluminum", "titanium", "chrome", "steel", "brass", "lead",
+			"electrum", "zinc", "platinum", "tungsten", "nickel", "invar", "osmium",
+			"iridium" };
 
 	private IIcon[] textures;
 
@@ -64,7 +64,7 @@ public class BlockStorage extends Block {
 		for (int i = 0; i < types.length; i++)
 		{
 			textures[i] = iconRegister.registerIcon("techreborn:"
-					+ "storage/storage" + types[i]);
+					+ "storage/" + types[i] + "_block");
 		}
 	}
 

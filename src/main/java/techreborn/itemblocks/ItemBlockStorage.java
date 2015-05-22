@@ -5,7 +5,7 @@ import net.minecraft.item.ItemMultiTexture;
 import techreborn.blocks.BlockStorage;
 import techreborn.init.ModBlocks;
 
-public class ItemBlockStorage extends ItemMultiTexture {
+public class ItemBlockStorage extends ItemBlockBase {
 
 	public ItemBlockStorage(Block block)
 	{

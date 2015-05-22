@@ -5,20 +5,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
-import techreborn.blocks.BlockChunkLoader;
-import techreborn.blocks.BlockElectricCraftingTable;
-import techreborn.blocks.BlockFusionCoil;
-import techreborn.blocks.BlockFusionControlComputer;
-import techreborn.blocks.BlockHighlyAdvancedMachine;
-import techreborn.blocks.BlockMachineCasing;
-import techreborn.blocks.BlockMachineFrame;
-import techreborn.blocks.BlockMetalShelf;
-import techreborn.blocks.BlockOre;
-import techreborn.blocks.BlockQuantumChest;
-import techreborn.blocks.BlockQuantumTank;
-import techreborn.blocks.BlockStorage;
-import techreborn.blocks.BlockSupercondensator;
-import techreborn.blocks.BlockWoodenshelf;
+import techreborn.blocks.*;
 import techreborn.blocks.generator.BlockDieselGenerator;
 import techreborn.blocks.generator.BlockDragonEggSiphoner;
 import techreborn.blocks.generator.BlockHeatGenerator;
@@ -120,6 +107,7 @@ public class ModBlocks {
 
 	public static Block ore;
 	public static Block storage;
+    public static Block storage2;
 	public static Block machineframe;
 
 	public static void init(){
@@ -174,8 +162,11 @@ public class ModBlocks {
 		ore = new BlockOre(Material.rock);
 		GameRegistry.registerBlock(ore, ItemBlockOre.class, "techreborn.ore");
 
-		storage = new BlockStorage(Material.rock);
+		storage = new BlockStorage(Material.iron);
 		GameRegistry.registerBlock(storage, ItemBlockStorage.class, "techreborn.storage");
+
+        storage2 = new BlockStorage2(Material.iron);
+        GameRegistry.registerBlock(storage2, ItemBlockStorage2.class, "techreborn.storage2");
 		
 		HighAdvancedMachineBlock = new BlockHighlyAdvancedMachine(Material.rock);
 		GameRegistry.registerBlock(HighAdvancedMachineBlock, "highlyadvancedmachine");

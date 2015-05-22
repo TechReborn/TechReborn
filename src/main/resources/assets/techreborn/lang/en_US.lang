@@ -71,22 +71,32 @@ tile.techreborn.ore.Silver.name=Silver Ore
 
 
 #Storage
-tile.techreborn.storage.Silver.name=Block of Silver
-tile.techreborn.storage.Aluminium.name=Block of Aluminium
-tile.techreborn.storage.Titanium.name=Block of Titanium
-tile.techreborn.storage.Sapphire.name=Block of Sapphire
-tile.techreborn.storage.Ruby.name=Block of Ruby
-tile.techreborn.storage.GreenSapphire.name=Block of Peridot
-tile.techreborn.storage.Chrome.name=Block of Chrome
-tile.techreborn.storage.Electrum.name=Block of Electrum
-tile.techreborn.storage.Lead.name=Block of Lead
-tile.techreborn.storage.Zinc.name=Block of Zinc
-tile.techreborn.storage.Brass.name=Block of Brass
-tile.techreborn.storage.Steel.name=Block of Steel
-tile.techreborn.storage.Platinum.name=Block of Platinum
-tile.techreborn.storage.Nickel.name=Block of Nickel
-tile.techreborn.storage.Invar.name=Block of Invar
-tile.techreborn.storage.Tungsten.name=Block of Tungsten
+tile.techreborn.storage.silver.name=Block of Silver
+tile.techreborn.storage.aluminum.name=Block of Aluminum
+tile.techreborn.storage.titanium.name=Block of Titanium
+tile.techreborn.storage.chrome.name=Block of Chrome
+tile.techreborn.storage.steel.name=Block of Steel
+tile.techreborn.storage.brass.name=Block of Brass
+tile.techreborn.storage.lead.name=Block of Lead
+tile.techreborn.storage.electrum.name=Block of Electrum
+tile.techreborn.storage.zinc.name=Block of Zinc
+tile.techreborn.storage.platinum.name=Block of Platinum
+tile.techreborn.storage.tungsten.name=Block of Tungsten
+tile.techreborn.storage.nickel.name=Block of Nickel
+tile.techreborn.storage.invar.name=Block of Invar
+tile.techreborn.storage.osmium.name=Block of Osmium
+tile.techreborn.storage.iridium.name=Block of Iridium
+tile.techreborn.storage2.tungstensteel.name=Block of Tungstensteel
+tile.techreborn.storage2.lodestone.name=Block of Lodestone
+tile.techreborn.storage2.tellurium.name=Block of Tellurium
+tile.techreborn.storage2.iridium_reinforced_tungstensteel.name=Iridium Reinforced Tungstensteel Block
+tile.techreborn.storage2.iridium_reinforced_stone.name=Iridium Reinforced Stone
+tile.techreborn.storage2.ruby.name=Block of Ruby
+tile.techreborn.storage2.sapphire.name=Block of Sapphire
+tile.techreborn.storage2.peridot.name=Block of Peridot
+tile.techreborn.storage2.yellow_garnet.name=Block of Yellow Garnet
+tile.techreborn.storage2.red_garnet.name=Block of Red Garnet
+
 
 #Fluids
 tile.techreborn.berylium.name=Berylium Source
@@ -747,5 +757,3 @@ config.techreborn.category.general=General Configs
 config.techreborn.category.world=World Configs
 config.techreborn.category.power=Power Configs
 config.techreborn.category.crafting=Crafting Configs
-
-
