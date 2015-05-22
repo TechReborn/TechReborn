@@ -1,6 +1,7 @@
 package techreborn.client;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import techreborn.client.container.ContainerAesu;
 import techreborn.client.container.ContainerAlloyFurnace;
@@ -43,26 +44,7 @@ import techreborn.client.gui.GuiQuantumTank;
 import techreborn.client.gui.GuiRollingMachine;
 import techreborn.client.gui.GuiThermalGenerator;
 import techreborn.pda.GuiPda;
-import techreborn.tiles.TileAesu;
-import techreborn.tiles.TileAlloyFurnace;
-import techreborn.tiles.TileAlloySmelter;
-import techreborn.tiles.TileAssemblingMachine;
-import techreborn.tiles.TileBlastFurnace;
-import techreborn.tiles.TileCentrifuge;
-import techreborn.tiles.TileChemicalReactor;
-import techreborn.tiles.TileChunkLoader;
-import techreborn.tiles.TileDieselGenerator;
-import techreborn.tiles.TileGrinder;
-import techreborn.tiles.TileImplosionCompressor;
-import techreborn.tiles.TileIndustrialElectrolyzer;
-import techreborn.tiles.TileIndustrialSawmill;
-import techreborn.tiles.TileLathe;
-import techreborn.tiles.TileMatterFabricator;
-import techreborn.tiles.TilePlateCuttingMachine;
-import techreborn.tiles.TileQuantumChest;
-import techreborn.tiles.TileQuantumTank;
-import techreborn.tiles.TileRollingMachine;
-import techreborn.tiles.TileThermalGenerator;
+import techreborn.tiles.*;
 import cpw.mods.fml.common.network.IGuiHandler;
 
 public class GuiHandler implements IGuiHandler {
@@ -95,6 +77,10 @@ public class GuiHandler implements IGuiHandler {
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world,
 			int x, int y, int z)
 	{
+
+        if(world.getTileEntity(x, y, z) instanceof TileMachineBase){
+            ((TileMachineBase) world.getTileEntity(x, y, z)).syncWithAll();
+        }
 		if (ID == thermalGeneratorID)
 		{
 			return new ContainerThermalGenerator(

@@ -1,9 +1,9 @@
 package techreborn.tiles;
 
-import techreborn.multiblocks.MultiBlockCasing;
 import erogenousbeef.coreTR.multiblock.MultiblockControllerBase;
 import erogenousbeef.coreTR.multiblock.MultiblockValidationException;
 import erogenousbeef.coreTR.multiblock.rectangular.RectangularMultiblockTileEntityBase;
+import techreborn.multiblocks.MultiBlockCasing;
 
 public class TileMachineCasing extends RectangularMultiblockTileEntityBase {
 

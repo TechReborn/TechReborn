@@ -1,15 +1,15 @@
 package techreborn.tiles;
 
-import java.util.List;
-
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import techreborn.packets.PacketHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 public class TileMachineBase extends TileEntity {
 
@@ -19,11 +19,9 @@ public class TileMachineBase extends TileEntity {
     @Override
     public void updateEntity() {
         super.updateEntity();
-		//Force a sync evey 30 seconds
-		if(needsSync && ticksSinceLastSync >= 10 || ticksSinceLastSync == 600){
+		//Force a sync evey 10 seconds
+		if(needsSync && !worldObj.isRemote){
 			syncWithAll();
-			needsSync = false;
-			ticksSinceLastSync = 0;
 		}
 		ticksSinceLastSync ++;
     }
@@ -40,6 +38,8 @@ public class TileMachineBase extends TileEntity {
         } else {
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 		}
+        needsSync = false;
+        ticksSinceLastSync = 0;
     }
 
     public Packet getDescriptionPacket() {

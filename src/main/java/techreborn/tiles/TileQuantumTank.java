@@ -1,9 +1,6 @@
 package techreborn.tiles;
 
 import ic2.api.tile.IWrenchable;
-
-import java.util.List;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -20,6 +17,8 @@ import techreborn.init.ModBlocks;
 import techreborn.util.FluidUtils;
 import techreborn.util.Inventory;
 import techreborn.util.Tank;
+
+import java.util.List;
 
 public class TileQuantumTank extends TileMachineBase implements IFluidHandler,
 		IInventory, IWrenchable {
