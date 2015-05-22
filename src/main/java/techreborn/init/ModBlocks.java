@@ -48,11 +48,7 @@ import techreborn.blocks.storage.BlockAesu;
 import techreborn.blocks.storage.BlockIDSU;
 import techreborn.blocks.storage.BlockLesu;
 import techreborn.blocks.storage.BlockLesuStorage;
-import techreborn.itemblocks.ItemBlockMachineCasing;
-import techreborn.itemblocks.ItemBlockOre;
-import techreborn.itemblocks.ItemBlockQuantumChest;
-import techreborn.itemblocks.ItemBlockQuantumTank;
-import techreborn.itemblocks.ItemBlockStorage;
+import techreborn.itemblocks.*;
 import techreborn.tiles.TileAesu;
 import techreborn.tiles.TileAlloyFurnace;
 import techreborn.tiles.TileAlloySmelter;
@@ -177,7 +173,6 @@ public class ModBlocks {
 
 		ore = new BlockOre(Material.rock);
 		GameRegistry.registerBlock(ore, ItemBlockOre.class, "techreborn.ore");
-		LogHelper.info("TechReborns Blocks Loaded");
 
 		storage = new BlockStorage(Material.rock);
 		GameRegistry.registerBlock(storage, ItemBlockStorage.class, "techreborn.storage");
@@ -276,9 +271,11 @@ public class ModBlocks {
 		industrialSawmill = new BlockIndustrialSawmill(Material.rock);
 		GameRegistry.registerBlock(industrialSawmill, "industrialSawmill");
 		GameRegistry.registerTileEntity(TileIndustrialSawmill.class, "TileIndustrialSawmillTR");
-		
+
 		machineframe = new BlockMachineFrame(Material.iron);
-		GameRegistry.registerBlock(machineframe, "machineframe");
+		GameRegistry.registerBlock(machineframe, ItemBlockMachineFrame.class, "techreborn.machineFrame");
+		LogHelper.info("TechReborns Blocks Loaded");
+
 
 		registerOreDict();
 	}
