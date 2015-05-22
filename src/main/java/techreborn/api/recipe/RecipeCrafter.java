@@ -97,7 +97,7 @@ public class RecipeCrafter {
 					}
 					if(canGiveInvAll){
 						currentRecipe = recipe;//Sets the current recipe then syncs
-						parentTile.syncWithAll();
+						parentTile.needsSync = true;
 						return;
 					}
 				}
@@ -106,7 +106,7 @@ public class RecipeCrafter {
 			if(!hasAllInputs()){//If it doesn't have all the inputs reset
 				currentRecipe = null;
 				currentTickTime = 0;
-				parentTile.syncWithAll();
+				parentTile.needsSync = true;
 				return;
 			}
 			if (currentTickTime >= currentRecipe.tickTime()) {//If it has reached the recipe tick time
@@ -127,7 +127,7 @@ public class RecipeCrafter {
 					useAllInputs();//this uses all the inputs
 					currentRecipe = null;//resets
 					currentTickTime = 0;
-					parentTile.syncWithAll();
+					parentTile.needsSync = true;
 				}
 			} else if (currentTickTime < currentRecipe.tickTime()) {
 				if (energy.canUseEnergy(currentRecipe.euPerTick())) {//This checks to see if it can use the power
@@ -135,7 +135,7 @@ public class RecipeCrafter {
 						this.energy.setEnergyStored(this.energy.getEnergyStored() - currentRecipe.euPerTick());
 					}
 					currentTickTime++;//increase the ticktime
-					parentTile.syncWithAll();
+					parentTile.needsSync = true;
 				}
 			}
 		}

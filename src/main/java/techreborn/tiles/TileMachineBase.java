@@ -12,13 +12,20 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class TileMachineBase extends TileEntity {
-    private int facing;
+
+	public boolean needsSync = false;
+	public int ticksSinceLastSync = 0;
 
     @Override
     public void updateEntity() {
         super.updateEntity();
-        // TODO make this happen less
-//        syncWithAll();
+		//Force a sync evey 30 seconds
+		if(needsSync && ticksSinceLastSync >= 10 || ticksSinceLastSync == 600){
+			syncWithAll();
+			needsSync = false;
+			ticksSinceLastSync = 0;
+		}
+		ticksSinceLastSync ++;
     }
 
     @SideOnly(Side.CLIENT)
