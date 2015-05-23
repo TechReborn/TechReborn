@@ -1,5 +1,7 @@
 package techreborn.api.recipe;
 
+import net.minecraft.item.ItemStack;
+
 import java.util.ArrayList;
 import java.util.List;
 

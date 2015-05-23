@@ -113,6 +113,9 @@ public class ItemUtils {
 	}
 
 	public static List<ItemStack> getStackWithAllOre(ItemStack stack){
+        if(stack == null){
+            return new ArrayList<ItemStack>();
+        }
 		ArrayList<ItemStack> list = new ArrayList<ItemStack>();
 		for (int oreID : OreDictionary.getOreIDs(stack)){
 			for(ItemStack ore : OreDictionary.getOres(OreDictionary.getOreName(oreID))){
