@@ -1,67 +1,67 @@
 package techreborn.api.recipe;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Extend this to add a recipe
  */
 public abstract class BaseRecipe implements IBaseRecipeType {
 
-	public ArrayList<ItemStack> inputs;
+    public ArrayList<ItemStack> inputs;
 
-	public ArrayList<ItemStack> outputs;
+    public ArrayList<ItemStack> outputs;
 
-	public String name;
+    public String name;
 
-	public int tickTime;
+    public int tickTime;
 
-	public int euPerTick;
+    public int euPerTick;
 
-	public BaseRecipe(String name, int tickTime, int euPerTick) {
-		inputs = new ArrayList<ItemStack>();
-		outputs = new ArrayList<ItemStack>();
-		this.name = name;
-		//This adds all new recipes
-		this.tickTime = tickTime;
-		this.euPerTick = euPerTick;
-	}
+    public BaseRecipe(String name, int tickTime, int euPerTick) {
+        inputs = new ArrayList<ItemStack>();
+        outputs = new ArrayList<ItemStack>();
+        this.name = name;
+        //This adds all new recipes
+        this.tickTime = tickTime;
+        this.euPerTick = euPerTick;
+    }
 
-	@Override
-	public List<ItemStack> getOutputs() {
-		return outputs;
-	}
+    @Override
+    public List<ItemStack> getOutputs() {
+        return outputs;
+    }
 
-	@Override
-	public List<ItemStack> getInputs() {
-		return inputs;
-	}
+    @Override
+    public List<ItemStack> getInputs() {
+        return inputs;
+    }
 
-	@Override
-	public String getRecipeName() {
-		return name;
-	}
+    @Override
+    public String getRecipeName() {
+        return name;
+    }
 
-	@Override
-	public int tickTime() {
-		return tickTime;
-	}
+    @Override
+    public int tickTime() {
+        return tickTime;
+    }
 
-	@Override
-	public int euPerTick() {
-		return euPerTick;
-	}
+    @Override
+    public int euPerTick() {
+        return euPerTick;
+    }
 
-	@Override
-	public boolean canCraft(TileEntity tile) {
-		return true;
-	}
+    @Override
+    public boolean canCraft(TileEntity tile) {
+        return true;
+    }
 
-	@Override
-	public boolean onCraft(TileEntity tile) {
-		return true;
-	}
+    @Override
+    public boolean onCraft(TileEntity tile) {
+        return true;
+    }
 }
