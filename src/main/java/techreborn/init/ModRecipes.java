@@ -1,5 +1,6 @@
 package techreborn.init;
 
+import cpw.mods.fml.common.Mod;
 import ic2.api.item.IC2Items;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -211,7 +212,8 @@ public class ModRecipes {
 		//TODO
 		RecipeHanderer.addRecipe(new ChemicalReactorRecipe(new ItemStack(Items.coal), new ItemStack(Blocks.sand), new ItemStack(Items.diamond), 120, 5));
 
-		RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Items.diamond), new FluidStack(ModFluids.fluidMercury, 500), new ItemStack(Blocks.brick_block), null, null, null, 400, 5));
+		RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 1), null, new FluidStack(ModFluids.fluidMercury, 500), IC2Items.getItem("iridiumOre"), new ItemStack(ModItems.smallDusts, 6, 39), new ItemStack(ModItems.dusts, 6, 58), null, 400, 5));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 1), new ItemStack(ModItems.cells, 1, 16), null, IC2Items.getItem("iridiumOre"), new ItemStack(ModItems.smallDusts, 6, 39), new ItemStack(ModItems.dusts, 6, 58), null, 400, 5));
 
 		RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Items.coal), new ItemStack(Blocks.sand), new ItemStack(Items.diamond), new ItemStack(Items.emerald), new ItemStack(Items.apple), new ItemStack(Items.arrow), 1, 10));
 		LogHelper.info("Machine Recipes Added");

@@ -24,11 +24,11 @@ public class TileGrinder extends TileMachineBase implements IWrenchable, IEnergy
 
 	public TileGrinder() {
 		//TODO configs
-		energy = new BasicSink(this, 1000,
-				ConfigTechReborn.CentrifugeTier);
+		energy = new BasicSink(this, 1000, ConfigTechReborn.CentrifugeTier);
 
-		int[] inputs = new int[1];
+		int[] inputs = new int[2];
 		inputs[0] = 0;
+		inputs[1] = 1;
 		int[] outputs = new int[4];
 		outputs[0] = 2;
 		outputs[1] = 3;
