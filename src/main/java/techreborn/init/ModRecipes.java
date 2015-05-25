@@ -27,8 +27,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class ModRecipes {
 	public static ConfigTechReborn config;
 
-	public static void init()
-	{
+	public static void init() {
 		addShaplessRecipes();
 		addShappedRecipes();
 		addSmeltingRecipes();
@@ -40,8 +39,7 @@ public class ModRecipes {
 		addHammerRecipes();
 	}
 
-	public static void addShappedRecipes()
-	{
+	public static void addShappedRecipes() {
 		// Storage Blocks
 		CraftingHelper.addShapedOreRecipe(
 				new ItemStack(ModBlocks.storage, 1, 0),
@@ -136,8 +134,7 @@ public class ModRecipes {
 		LogHelper.info("Shapped Recipes Added");
 	}
 
-	public static void addShaplessRecipes()
-	{
+	public static void addShaplessRecipes() {
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9,
 				4), "blockSilver");
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9,
@@ -176,8 +173,7 @@ public class ModRecipes {
 		LogHelper.info("Shapless Recipes Added");
 	}
 
-	public static void addSmeltingRecipes()
-	{
+	public static void addSmeltingRecipes() {
 		GameRegistry.addSmelting(new ItemStack(ModItems.dusts, 1, 27),
                 new ItemStack(Items.iron_ingot), 1F);
 		GameRegistry.addSmelting(new ItemStack(ModItems.dusts, 1, 23),
@@ -196,8 +192,7 @@ public class ModRecipes {
 		LogHelper.info("Smelting Recipes Added");
 	}
 
-	public static void addMachineRecipes()
-	{
+	public static void addMachineRecipes() {
 
 		TechRebornAPI.addRollingMachinceRecipe(new ItemStack(Blocks.furnace, 4), "ccc", "c c", "ccc", 'c', Blocks.cobblestone);
 		TechRebornAPI.registerBlastFurnaceRecipe(new BlastFurnaceRecipe(new ItemStack(Items.apple), new ItemStack(Items.ender_pearl), new ItemStack(Items.golden_apple), new ItemStack(Items.diamond), 120, 1000));
@@ -213,11 +208,12 @@ public class ModRecipes {
 		RecipeHanderer.addRecipe(new ChemicalReactorRecipe(new ItemStack(Items.coal), new ItemStack(Blocks.sand), new ItemStack(Items.diamond), 120, 5));
 
 		RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 1), null, new FluidStack(ModFluids.fluidMercury, 500), IC2Items.getItem("iridiumOre"), new ItemStack(ModItems.smallDusts, 6, 39), new ItemStack(ModItems.dusts, 6, 58), null, 400, 5));
-        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 1), new ItemStack(ModItems.cells, 1, 16), null, IC2Items.getItem("iridiumOre"), new ItemStack(ModItems.smallDusts, 6, 39), new ItemStack(ModItems.dusts, 6, 58), null, 400, 5));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 1), new ItemStack(ModItems.cells, 1, 16), null, IC2Items.getItem("iridiumOre"), new ItemStack(ModItems.smallDusts, 6, 39), new ItemStack(ModItems.dusts, 6, 58), IC2Items.getItem("cell"), 400, 5));
 
-		RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Items.coal), new ItemStack(Blocks.sand), new ItemStack(Items.diamond), new ItemStack(Items.emerald), new ItemStack(Items.apple), new ItemStack(Items.arrow), 1, 10));
+		RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Items.coal), null, new ItemStack(Items.diamond), new ItemStack(Items.emerald), new ItemStack(Items.apple), new ItemStack(Items.arrow), 1, 10));
 		LogHelper.info("Machine Recipes Added");
 	}
+
 	public static void addHammerRecipes(){
 		ItemStack hammerIron = new ItemStack(ModItems.hammerIron, 1, OreDictionary.WILDCARD_VALUE);
 		ItemStack hammerDiamond = new ItemStack(ModItems.hammerDiamond, 1, OreDictionary.WILDCARD_VALUE);
@@ -531,8 +527,7 @@ public class ModRecipes {
         RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(new ItemStack(Blocks.obsidian), new ItemStack(ModItems.plate, 1, 18), 100, 4));
     }
 	
-	public static void addUUrecipes()
-	{
+	public static void addUUrecipes() {
 		if(config.UUrecipesIridiamOre);
 		CraftingHelper.addShapedOreRecipe((IC2Items.getItem("iridiumOre")),
 			new Object[]
@@ -892,8 +887,7 @@ public class ModRecipes {
 		
 	}
 	
-	public static void hideUUrecipes()
-	{
+	public static void hideUUrecipes() {
 		//TODO
 	}
 

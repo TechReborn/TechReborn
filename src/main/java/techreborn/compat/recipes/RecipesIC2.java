@@ -10,6 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.oredict.OreDictionary;
 import techreborn.api.recipe.RecipeHanderer;
 import techreborn.api.recipe.machines.AssemblingMachineRecipe;
+import techreborn.api.recipe.machines.CentrifugeRecipe;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
@@ -20,8 +21,7 @@ import techreborn.util.RecipeRemover;
 public class RecipesIC2 {
 	public static ConfigTechReborn config;
 	
-	public static void init()
-	{
+	public static void init() {
 		removeIc2Recipes();
         addShappedIc2Recipes();
         addShapedTrRecipes();
@@ -29,10 +29,10 @@ public class RecipesIC2 {
         addTROreWashingRecipes();
         addTRThermalCentrifugeRecipes();
         addAssemblingMachineRecipes();
+        addIndustrialCentrifugeRecipes();
 	}
 
-	public static void removeIc2Recipes()
-	{
+	public static void removeIc2Recipes() {
 		if (config.ExpensiveMacerator);
 		RecipeRemover.removeAnyRecipe(IC2Items.getItem("macerator"));
 		if (config.ExpensiveDrill);
@@ -741,5 +741,98 @@ public class RecipesIC2 {
         //Industrial TNT
         RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(ModItems.dusts, 5, 31), new ItemStack(Blocks.tnt), new ItemStack(IC2Items.getItem("industrialTnt").getItem(), 5), 120, 5));
 
+    }
+
+    public static void addIndustrialCentrifugeRecipes() {
+        //Plantball/Bio Chaff
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Blocks.grass, 16), null, new ItemStack(IC2Items.getItem("biochaff").getItem(), 8), new ItemStack(IC2Items.getItem("plantBall").getItem(), 8), new ItemStack(Items.clay_ball), new ItemStack(Blocks.sand, 8), 2500, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Blocks.dirt, 16), null, new ItemStack(IC2Items.getItem("biochaff").getItem(), 4), new ItemStack(IC2Items.getItem("plantBall").getItem(), 4), new ItemStack(Items.clay_ball), new ItemStack(Blocks.sand, 8), 2500, 5));
+
+        //Methane
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Items.mushroom_stew, 16), IC2Items.getItem("cell"), new ItemStack(ModItems.cells, 1, 17), null, null, null, 5000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Items.apple, 32), IC2Items.getItem("cell"), new ItemStack(ModItems.cells, 1, 17), null, null, null, 5000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Items.porkchop, 12), IC2Items.getItem("cell"), new ItemStack(ModItems.cells, 1, 17), null, null, null, 5000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Items.cooked_porkchop, 16), IC2Items.getItem("cell"), new ItemStack(ModItems.cells, 1, 17), null, null, null, 5000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Items.bread, 64), IC2Items.getItem("cell"), new ItemStack(ModItems.cells, 1, 17), null, null, null, 5000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Items.fish, 12), IC2Items.getItem("cell"), new ItemStack(ModItems.cells, 1, 17), null, null, null, 5000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Items.cooked_fished, 16), IC2Items.getItem("cell"), new ItemStack(ModItems.cells, 1, 17), null, null, null, 5000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Items.beef, 12), IC2Items.getItem("cell"), new ItemStack(ModItems.cells, 1, 17), null, null, null, 5000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Items.cooked_beef, 16), IC2Items.getItem("cell"), new ItemStack(ModItems.cells, 1, 17), null, null, null, 5000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Blocks.pumpkin, 16), IC2Items.getItem("cell"), new ItemStack(ModItems.cells, 1, 17), null, null, null, 5000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Items.speckled_melon, 1), IC2Items.getItem("cell"), new ItemStack(ModItems.cells, 1, 17), new ItemStack(Items.gold_nugget, 6), null, null, 5000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Items.spider_eye, 32), IC2Items.getItem("cell"), new ItemStack(ModItems.cells, 1, 17), null, null, null, 5000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Items.chicken, 12), IC2Items.getItem("cell"), new ItemStack(ModItems.cells, 1, 17), null, null, null, 5000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Items.cooked_chicken, 16), IC2Items.getItem("cell"), new ItemStack(ModItems.cells, 1, 17), null, null, null, 5000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Items.rotten_flesh, 16), IC2Items.getItem("cell"), new ItemStack(ModItems.cells, 1, 17), null, null, null, 5000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Items.melon, 64), IC2Items.getItem("cell"), new ItemStack(ModItems.cells, 1, 17), null, null, null, 5000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Items.cookie, 64), IC2Items.getItem("cell"), new ItemStack(ModItems.cells, 1, 17), null, null, null, 5000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Items.cake, 8), IC2Items.getItem("cell"), new ItemStack(ModItems.cells, 1, 17), null, null, null, 5000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Items.golden_carrot, 1), IC2Items.getItem("cell"), new ItemStack(ModItems.cells, 1, 17), new ItemStack(Items.gold_nugget, 6), null, null, 5000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Items.carrot, 16), IC2Items.getItem("cell"), new ItemStack(ModItems.cells, 1, 17), null, null, null, 5000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Items.baked_potato, 24), IC2Items.getItem("cell"), new ItemStack(ModItems.cells, 1, 17), null, null, null, 5000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Items.potato, 16), IC2Items.getItem("cell"), new ItemStack(ModItems.cells, 1, 17), null, null, null, 5000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Items.poisonous_potato, 12), IC2Items.getItem("cell"), new ItemStack(ModItems.cells, 1, 17), null, null, null, 5000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Items.nether_wart, 1), IC2Items.getItem("cell"), new ItemStack(ModItems.cells, 1, 17), null, null, null, 5000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(IC2Items.getItem("terraWart").getItem(), 16), IC2Items.getItem("cell"), new ItemStack(ModItems.cells, 1, 17), null, null, null, 5000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Blocks.brown_mushroom, 1), IC2Items.getItem("cell"), new ItemStack(ModItems.cells, 1, 17), null, null, null, 5000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Blocks.red_mushroom, 1), IC2Items.getItem("cell"), new ItemStack(ModItems.cells, 1, 17), null, null, null, 5000, 5));
+
+        //Rubber Wood Yields
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(IC2Items.getItem("rubberWood").getItem(), 15), new ItemStack(IC2Items.getItem("cell").getItem(), 5), new ItemStack(IC2Items.getItem("resin").getItem(), 8), new ItemStack(IC2Items.getItem("plantBall").getItem(), 6), new ItemStack(ModItems.cells, 1, 17), new ItemStack(ModItems.cells, 4, 4), 5000, 5));
+
+        //Soul Sand Byproducts
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Blocks.soul_sand, 16), IC2Items.getItem("cell"), new ItemStack(ModItems.cells, 1, 23), new ItemStack(ModItems.dusts, 4, 65), new ItemStack(ModItems.dusts, 1, 19), new ItemStack(Blocks.sand, 10), 2500, 5));
+
+        //Mycelium Byproducts
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Blocks.mycelium, 8), null, new ItemStack(Blocks.brown_mushroom, 2), new ItemStack(Blocks.red_mushroom, 2), new ItemStack(Items.clay_ball, 1), new ItemStack(Blocks.sand, 4), 1640, 5));
+
+        //Ice
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(ModItems.cells, 1, 14), null, new ItemStack(Blocks.ice, 1), IC2Items.getItem("cell"), null, null, 40, 5));
+
+        //Blaze Powder Byproducts
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Items.blaze_powder), null, new ItemStack(ModItems.dusts, 1, 23), new ItemStack(ModItems.dusts, 1, 73), null, null, 1240, 5));
+
+        //Magma Cream Products
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Items.magma_cream, 1), null, new ItemStack(Items.blaze_powder, 1), new ItemStack(Items.slime_ball, 1), null, null, 2500, 5));
+
+        //Dust Byproducts
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(ModItems.dusts, 1, 58), null, new ItemStack(ModItems.tinyDusts, 1, 39), new ItemStack(ModItems.smallDusts, 1, 55), null, null, 3000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(ModItems.dusts, 2, 26), null, new ItemStack(ModItems.dusts, 1, 68), new ItemStack(ModItems.dusts, 1, 32), null, null, 2400, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(ModItems.dusts, 3, 36), null, new ItemStack(ModItems.dusts, 2, 38), new ItemStack(ModItems.dusts, 1, 53), null, null, 1340, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(ModItems.dusts, 8, 49), null, new ItemStack(ModItems.dusts, 1, 45), new ItemStack(ModItems.dusts, 7, 14), null, null, 1280, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(ModItems.dusts, 4, 63), null, new ItemStack(ModItems.dusts, 2, 14), new ItemStack(ModItems.dusts, 1, 31), new ItemStack(ModItems.dusts, 1, 18), null, 640, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(ModItems.dusts, 16, 8), null, new ItemStack(ModItems.dusts, 1, 56), new ItemStack(ModItems.dusts, 3, 14), new ItemStack(ModItems.dusts, 8, 45), new ItemStack(ModItems.dusts, 4, 23), 2680, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Items.glowstone_dust, 16), IC2Items.getItem("cell"), new ItemStack(Items.redstone, 8), new ItemStack(ModItems.dusts, 8, 32), new ItemStack(ModItems.cells, 1, 11), null, 25000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(ModItems.dusts, 8, 49), null, new ItemStack(ModItems.dusts, 1, 45), new ItemStack(ModItems.dusts, 7, 14), null, null, 1280, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(ModItems.dusts, 16, 83), null, new ItemStack(ModItems.dusts, 5, 4), new ItemStack(ModItems.dusts, 8, 34), new ItemStack(ModItems.dusts, 3, 80), null, 2940, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(ModItems.dusts, 16, 62), null, new ItemStack(ModItems.dusts, 3, 61), new ItemStack(ModItems.dusts, 5, 0), new ItemStack(ModItems.dusts, 8, 70), null, 2940, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(ModItems.dusts, 5, 57), new ItemStack(IC2Items.getItem("cell").getItem(), 3), new ItemStack(ModItems.cells, 3, 3), null, null, null, 1280, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(ModItems.dusts, 2, 23), null, new ItemStack(ModItems.dusts, 2, 7), null, null, null, 240, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(ModItems.dusts, 1, 7), IC2Items.getItem("cell"), new ItemStack(ModItems.cells, 1, 4), null, null, null, 80, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(Items.redstone, 10), new ItemStack(IC2Items.getItem("cell").getItem(), 4), new ItemStack(ModItems.cells, 1, 26), new ItemStack(ModItems.dusts, 3, 60), new ItemStack(ModItems.dusts, 1, 64), new ItemStack(ModItems.cells, 3, 16), 6800, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(ModItems.dusts, 2, 48), null, new ItemStack(ModItems.dusts, 1, 20), new ItemStack(ModItems.dusts, 1, 6), null, null, 1240, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(ModItems.dusts, 5, 52), null, new ItemStack(ModItems.dusts, 4, 53), new ItemStack(ModItems.dusts, 1, 16), null, null, 2240, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(ModItems.dusts, 2, 22), null, new ItemStack(ModItems.dusts, 1, 21), new ItemStack(ModItems.dusts, 1, 53), null, null, 960, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(ModItems.dusts, 3, 39), null, new ItemStack(ModItems.dusts, 1, 38), new ItemStack(ModItems.dusts, 1, 2), new ItemStack(ModItems.dusts, 1, 16), null, 1040, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(ModItems.dusts, 16, 30), new ItemStack(IC2Items.getItem("cell").getItem(), 2), new ItemStack(ModItems.cells, 1, 10), new ItemStack(ModItems.cells, 1, 11), new ItemStack(ModItems.tinyDusts, 1, 82), new ItemStack(Blocks.sand, 12), 4800, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(ModItems.dusts, 2, 17), IC2Items.getItem("cell"), new ItemStack(ModItems.cells, 1, 16), new ItemStack(ModItems.dusts, 1, 73), null, null, 80, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(ModItems.dusts, 4, 11), null, new ItemStack(ModItems.dusts, 1, 84), new ItemStack(ModItems.dusts, 3, 21), null, null, 2000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(ModItems.dusts, 4, 1), null, new ItemStack(ModItems.dusts, 1, 2), new ItemStack(ModItems.dusts, 3, 21), null, null, 2000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(ModItems.dusts, 4, 12), null, new ItemStack(ModItems.dusts, 1, 77), new ItemStack(ModItems.dusts, 3, 21), null, null, 2420, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(ModItems.dusts, 1, 31), null, IC2Items.getItem("silicondioxideDust"), null, null, null, 160, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(ModItems.dusts, 16, 51), null, new ItemStack(Items.redstone, 1), new ItemStack(ModItems.dusts, 4, 73), new ItemStack(ModItems.dusts, 1, 8), new ItemStack(Items.gold_nugget, 1), 2400, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(ModItems.dusts, 1, 28), null, new ItemStack(ModItems.dusts, 1, 29), new ItemStack(Items.blaze_powder, 1), null, null, 1280, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(ModItems.dusts, 8, 76), null, new ItemStack(ModItems.dusts, 3, 21), new ItemStack(ModItems.dusts, 1, 5), new ItemStack(ModItems.dusts, 3, 73), new ItemStack(ModItems.dusts, 1, 38), 3640, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(ModItems.dusts, 16, 40), null, new ItemStack(ModItems.dusts, 12, 41), new ItemStack(ModItems.dusts, 2, 69), new ItemStack(ModItems.dusts, 1, 60), new ItemStack(ModItems.dusts, 1, 14), 3580, 5));
+
+        //Deuterium/Tritium
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(ModItems.cells, 16, 11), null, new ItemStack(ModItems.cells, 1, 6), new ItemStack(IC2Items.getItem("cell").getItem(), 15), null, null, 10000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(ModItems.cells, 4, 6), null, new ItemStack(ModItems.cells, 1, 32), new ItemStack(IC2Items.getItem("cell").getItem(), 3), null, null, 3000, 5));
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(new ItemStack(ModItems.cells, 4, 13), null, new ItemStack(ModItems.cells, 1, 6), new ItemStack(IC2Items.getItem("cell").getItem(), 3), null, null, 3000, 5));
+
+        //Lava Cell Byproducts
+        ItemStack lavaCells = IC2Items.getItem("lavaCell");
+        lavaCells.stackSize = 8;
+        RecipeHanderer.addRecipe(new CentrifugeRecipe(lavaCells, null, new ItemStack(ModItems.nuggets, 4, 6), new ItemStack(ModItems.ingots, 2, 9), new ItemStack(ModItems.tinyDusts, 1, 82), new ItemStack(ModItems.ingots, 17, 26), 6000, 5));
     }
 }
