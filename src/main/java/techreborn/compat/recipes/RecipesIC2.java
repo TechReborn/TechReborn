@@ -28,6 +28,7 @@ public class RecipesIC2 {
         addTRMaceratorRecipes();
         addTROreWashingRecipes();
         addTRThermalCentrifugeRecipes();
+        addMetalFormerRecipes();
         addAssemblingMachineRecipes();
         addIndustrialCentrifugeRecipes();
 	}
@@ -669,6 +670,30 @@ public class RecipesIC2 {
         Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedTetrahedrite"), tetrahedriteHeat, new ItemStack(ModItems.tinyDusts, 1, 5), new ItemStack(ModItems.dusts, 1, 76));
         Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedTungsten"), tungstenHeat, new ItemStack(ModItems.tinyDusts, 1, 49), new ItemStack(ModItems.dusts, 1, 79));
         Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedGalena"), galenaHeat, new ItemStack(ModItems.tinyDusts, 1, 76), new ItemStack(ModItems.dusts, 1, 85));
+    }
+
+    public static void addMetalFormerRecipes() {
+        //Metal Former
+        NBTTagCompound mode = new NBTTagCompound();
+        mode.setInteger("mode", 1);
+        Recipes.metalformerRolling.addRecipe(new RecipeInputOreDict("ingotAluminum"), mode, new ItemStack(ModItems.plate, 1, 0));
+        Recipes.metalformerRolling.addRecipe(new RecipeInputOreDict("ingotBatteryAlloy"), mode, new ItemStack(ModItems.plate, 1, 1));
+        Recipes.metalformerRolling.addRecipe(new RecipeInputOreDict("ingotBrass"), mode, new ItemStack(ModItems.plate, 1, 2));
+        Recipes.metalformerRolling.addRecipe(new RecipeInputOreDict("ingotChrome"), mode, new ItemStack(ModItems.plate, 1, 5));
+        Recipes.metalformerRolling.addRecipe(new RecipeInputOreDict("ingotElectrum"), mode, new ItemStack(ModItems.plate, 1, 8));
+        Recipes.metalformerRolling.addRecipe(new RecipeInputOreDict("ingotInvar"), mode, new ItemStack(ModItems.plate, 1, 11));
+        Recipes.metalformerRolling.addRecipe(new RecipeInputOreDict("ingotIridium"), mode, new ItemStack(ModItems.plate, 1, 12));
+        Recipes.metalformerRolling.addRecipe(new RecipeInputOreDict("ingotMagnalium"), mode, new ItemStack(ModItems.plate, 1, 16));
+        Recipes.metalformerRolling.addRecipe(new RecipeInputOreDict("ingotNickel"), mode, new ItemStack(ModItems.plate, 1, 17));
+        Recipes.metalformerRolling.addRecipe(new RecipeInputOreDict("ingotOsmium"), mode, new ItemStack(ModItems.plate, 1, 19));
+        Recipes.metalformerRolling.addRecipe(new RecipeInputOreDict("ingotPlatinum"), mode, new ItemStack(ModItems.plate, 1, 21));
+        Recipes.metalformerRolling.addRecipe(new RecipeInputOreDict("ingotSilver"), mode, new ItemStack(ModItems.plate, 1, 27));
+        Recipes.metalformerRolling.addRecipe(new RecipeInputOreDict("ingotTitanium"), mode, new ItemStack(ModItems.plate, 1, 31));
+        Recipes.metalformerRolling.addRecipe(new RecipeInputOreDict("ingotTungsten"), mode, new ItemStack(ModItems.plate, 1, 32));
+        Recipes.metalformerRolling.addRecipe(new RecipeInputOreDict("ingotTungstensteel"), mode, new ItemStack(ModItems.plate, 1, 33));
+        Recipes.metalformerRolling.addRecipe(new RecipeInputOreDict("ingotZinc"), mode, new ItemStack(ModItems.plate, 1, 35));
+        Recipes.metalformerRolling.addRecipe(new RecipeInputOreDict("ingotRedAlloy"), mode, new ItemStack(ModItems.plate, 1, 23));
+        Recipes.metalformerRolling.addRecipe(new RecipeInputOreDict("ingotBlueAlloy"), mode, new ItemStack(ModItems.plate, 1, 29));
     }
 
     public static void addAssemblingMachineRecipes() {
