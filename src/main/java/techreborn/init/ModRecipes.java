@@ -135,59 +135,35 @@ public class ModRecipes {
 	}
 
 	public static void addShaplessRecipes() {
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9,
-				4), "blockSilver");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9,
-                5), "blockAluminium");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9,
-                6), "blockTitanium");
-		CraftingHelper.addShapelessOreRecipe(
-                new ItemStack(ModItems.gems, 9, 1), "blockSapphire");
-		CraftingHelper.addShapelessOreRecipe(
-                new ItemStack(ModItems.gems, 9, 0), "blockRuby");
-		CraftingHelper.addShapelessOreRecipe(
-                new ItemStack(ModItems.gems, 9, 2), "blockGreenSapphire");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9,
-                7), "blockChrome");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9,
-                8), "blockElectrum");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9,
-                9), "blockTungsten");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9,
-                10), "blockLead");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9,
-                11), "blockZinc");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9,
-                12), "blockBrass");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9,
-                13), "blockSteel");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9,
-                14), "blockPlatinum");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9,
-                15), "blockNickel");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9,
-                16), "blockInvar");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.rockCutter,
-                1, 27), Items.apple);
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 4), "blockSilver");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 5), "blockAluminium");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 6), "blockTitanium");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.gems, 9, 1), "blockSapphire");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.gems, 9, 0), "blockRuby");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.gems, 9, 2), "blockGreenSapphire");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 7), "blockChrome");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 8), "blockElectrum");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 9), "blockTungsten");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 10), "blockLead");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 11), "blockZinc");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 12), "blockBrass");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 13), "blockSteel");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 14), "blockPlatinum");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 15), "blockNickel");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 16), "blockInvar");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.rockCutter, 1, 27), Items.apple);
 
 		LogHelper.info("Shapless Recipes Added");
 	}
 
 	public static void addSmeltingRecipes() {
-		GameRegistry.addSmelting(new ItemStack(ModItems.dusts, 1, 27),
-                new ItemStack(Items.iron_ingot), 1F);
-		GameRegistry.addSmelting(new ItemStack(ModItems.dusts, 1, 23),
-                new ItemStack(Items.gold_ingot), 1F);
-		GameRegistry.addSmelting(new ItemStack(ModItems.dusts, 1, 14),
-                IC2Items.getItem("copperIngot"), 1F);
-		GameRegistry.addSmelting(new ItemStack(ModItems.dusts, 1, 51),
-                IC2Items.getItem("tinIngot"), 1F);
-		GameRegistry.addSmelting(new ItemStack(ModItems.dusts, 1, 7),
-                IC2Items.getItem("bronzeIngot"), 1F);
-		GameRegistry.addSmelting(new ItemStack(ModItems.dusts, 1, 29),
-                IC2Items.getItem("leadIngot"), 1F);
-		GameRegistry.addSmelting(new ItemStack(ModItems.dusts, 1, 45),
-                IC2Items.getItem("silverIngot"), 1F);
+		GameRegistry.addSmelting(new ItemStack(ModItems.dusts, 1, 27), new ItemStack(Items.iron_ingot), 1F);
+		GameRegistry.addSmelting(new ItemStack(ModItems.dusts, 1, 23), new ItemStack(Items.gold_ingot), 1F);
+		GameRegistry.addSmelting(new ItemStack(ModItems.dusts, 1, 14), IC2Items.getItem("copperIngot"), 1F);
+		GameRegistry.addSmelting(new ItemStack(ModItems.dusts, 1, 51), IC2Items.getItem("tinIngot"), 1F);
+		GameRegistry.addSmelting(new ItemStack(ModItems.dusts, 1, 7), IC2Items.getItem("bronzeIngot"), 1F);
+		GameRegistry.addSmelting(new ItemStack(ModItems.dusts, 1, 29), IC2Items.getItem("leadIngot"), 1F);
+		GameRegistry.addSmelting(new ItemStack(ModItems.dusts, 1, 45), IC2Items.getItem("silverIngot"), 1F);
 
 		LogHelper.info("Smelting Recipes Added");
 	}
@@ -524,7 +500,7 @@ public class ModRecipes {
         }
 
         //Obsidian
-        RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(new ItemStack(Blocks.obsidian), new ItemStack(ModItems.plate, 1, 18), 100, 4));
+        RecipeHanderer.addRecipe(new PlateCuttingMachineRecipe(new ItemStack(Blocks.obsidian), new ItemStack(ModItems.plate, 9, 18), 100, 4));
     }
 	
 	public static void addUUrecipes() {
