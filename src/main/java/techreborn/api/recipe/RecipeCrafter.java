@@ -188,6 +188,7 @@ public class RecipeCrafter {
             for (int inputSlot : inputSlots) {//Uses all of the inputs
                 if (ItemUtils.isItemEqual(input, inventory.getStackInSlot(inputSlot), true, true, true)) {
                     inventory.decrStackSize(inputSlot, input.stackSize);
+                    break;
                 }
             }
         }
