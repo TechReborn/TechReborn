@@ -1,5 +1,6 @@
 package techreborn.compat.recipes;
 
+import cpw.mods.fml.common.Mod;
 import ic2.api.item.IC2Items;
 import ic2.api.recipe.RecipeInputOreDict;
 import ic2.api.recipe.Recipes;
@@ -7,12 +8,16 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import techreborn.api.recipe.RecipeHanderer;
 import techreborn.api.recipe.machines.AssemblingMachineRecipe;
 import techreborn.api.recipe.machines.CentrifugeRecipe;
+import techreborn.api.recipe.machines.GrinderRecipe;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
+import techreborn.init.ModFluids;
 import techreborn.init.ModItems;
 import techreborn.util.CraftingHelper;
 import techreborn.util.LogHelper;
@@ -31,6 +36,7 @@ public class RecipesIC2 {
         addMetalFormerRecipes();
         addAssemblingMachineRecipes();
         addIndustrialCentrifugeRecipes();
+        addIndustrialGrinderRecipes();
 	}
 
 	public static void removeIc2Recipes() {
@@ -765,7 +771,6 @@ public class RecipesIC2 {
 
         //Industrial TNT
         RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(ModItems.dusts, 5, 31), new ItemStack(Blocks.tnt), new ItemStack(IC2Items.getItem("industrialTnt").getItem(), 5), 120, 5));
-
     }
 
     public static void addIndustrialCentrifugeRecipes() {
@@ -859,5 +864,356 @@ public class RecipesIC2 {
         ItemStack lavaCells = IC2Items.getItem("lavaCell");
         lavaCells.stackSize = 8;
         RecipeHanderer.addRecipe(new CentrifugeRecipe(lavaCells, null, new ItemStack(ModItems.nuggets, 4, 6), new ItemStack(ModItems.ingots, 2, 9), new ItemStack(ModItems.tinyDusts, 1, 82), new ItemStack(ModItems.ingots, 17, 26), 6000, 5));
+    }
+
+    public static void addIndustrialGrinderRecipes() {
+        //Coal Ore
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.coal_ore, 1), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(Items.coal, 1), new ItemStack(ModItems.smallDusts, 6, 19), new ItemStack(ModItems.smallDusts, 2, 19), null, 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.coal_ore, 1), IC2Items.getItem("waterCell"), null, new ItemStack(Items.coal, 1), new ItemStack(ModItems.smallDusts, 6, 19), new ItemStack(ModItems.smallDusts, 2, 19), IC2Items.getItem("cell"), 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.coal_ore, 1), new ItemStack(Items.water_bucket), null, new ItemStack(Items.coal, 1), new ItemStack(ModItems.smallDusts, 6, 19), new ItemStack(ModItems.smallDusts, 2, 19), new ItemStack(Items.bucket), 100, 120));
+
+        //Iron Ore
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.iron_ore, 1), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(ModItems.dusts, 2, 38), new ItemStack(ModItems.smallDusts, 1, 55), new ItemStack(ModItems.smallDusts, 1, 80), null, 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.iron_ore, 1), IC2Items.getItem("waterCell"), null, new ItemStack(ModItems.dusts, 2, 38), new ItemStack(ModItems.smallDusts, 1, 55), new ItemStack(ModItems.smallDusts, 1, 80), IC2Items.getItem("cell"), 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.iron_ore, 1), new ItemStack(Items.water_bucket), null, new ItemStack(ModItems.dusts, 2, 38), new ItemStack(ModItems.smallDusts, 1, 55), new ItemStack(ModItems.smallDusts, 1, 80), new ItemStack(Items.bucket), 100, 120));
+
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.iron_ore, 1), null, new FluidStack(ModFluids.fluidSodiumpersulfate, 1000), new ItemStack(ModItems.dusts, 2, 38), new ItemStack(ModItems.dusts, 1, 53), new ItemStack(ModItems.smallDusts, 1, 80), null, 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.iron_ore, 1), new ItemStack(ModItems.cells, 1, 28), null, new ItemStack(ModItems.dusts, 2, 38), new ItemStack(ModItems.dusts, 1, 53), new ItemStack(ModItems.smallDusts, 1, 80), IC2Items.getItem("cell"), 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.iron_ore, 1), new ItemStack(ModItems.bucketSodiumpersulfate), null, new ItemStack(ModItems.dusts, 2, 38), new ItemStack(ModItems.dusts, 1, 53), new ItemStack(ModItems.smallDusts, 1, 80), new ItemStack(Items.bucket), 100, 120));
+
+        //Gold Ore
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.gold_ore, 1), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(ModItems.dusts, 2, 32), new ItemStack(ModItems.smallDusts, 1, 21), new ItemStack(ModItems.smallDusts, 1, 55), null, 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.gold_ore, 1), IC2Items.getItem("waterCell"), null, new ItemStack(ModItems.dusts, 2, 32), new ItemStack(ModItems.smallDusts, 1, 21), new ItemStack(ModItems.smallDusts, 1, 55), IC2Items.getItem("cell"), 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.gold_ore, 1), new ItemStack(Items.water_bucket), null, new ItemStack(ModItems.dusts, 2, 32), new ItemStack(ModItems.smallDusts, 1, 21), new ItemStack(ModItems.smallDusts, 1, 55), new ItemStack(Items.bucket), 100, 120));
+
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.gold_ore, 1), null, new FluidStack(ModFluids.fluidSodiumpersulfate, 1000), new ItemStack(ModItems.dusts, 2, 32), new ItemStack(ModItems.dusts, 1, 21), new ItemStack(ModItems.smallDusts, 1, 55), null, 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.gold_ore, 1), new ItemStack(ModItems.cells, 1, 28), null, new ItemStack(ModItems.dusts, 2, 32), new ItemStack(ModItems.dusts, 1, 21), new ItemStack(ModItems.smallDusts, 1, 55), IC2Items.getItem("cell"), 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.gold_ore, 1), new ItemStack(ModItems.bucketSodiumpersulfate), null, new ItemStack(ModItems.dusts, 2, 32), new ItemStack(ModItems.dusts, 1, 21), new ItemStack(ModItems.smallDusts, 1, 55), new ItemStack(Items.bucket), 100, 120));
+
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.gold_ore, 1), null, new FluidStack(ModFluids.fluidMercury, 1000), new ItemStack(ModItems.dusts, 3, 32), new ItemStack(ModItems.smallDusts, 1, 21), new ItemStack(ModItems.smallDusts, 1, 55), null, 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.gold_ore, 1), new ItemStack(ModItems.cells, 1, 16), null, new ItemStack(ModItems.dusts, 3, 32), new ItemStack(ModItems.smallDusts, 1, 21), new ItemStack(ModItems.smallDusts, 1, 55), IC2Items.getItem("cell"), 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.gold_ore, 1), new ItemStack(ModItems.bucketMercury), null, new ItemStack(ModItems.dusts, 3, 32), new ItemStack(ModItems.smallDusts, 1, 21), new ItemStack(ModItems.smallDusts, 1, 55), new ItemStack(Items.bucket), 100, 120));
+
+        //Diamond Ore
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.diamond_ore, 1), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(Items.diamond, 1), new ItemStack(ModItems.smallDusts, 6, 25), new ItemStack(ModItems.smallDusts, 2, 19), null, 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.diamond_ore, 1), IC2Items.getItem("waterCell"), null, new ItemStack(Items.diamond, 1), new ItemStack(ModItems.smallDusts, 6, 25), new ItemStack(ModItems.smallDusts, 2, 19), IC2Items.getItem("cell"), 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.diamond_ore, 1), new ItemStack(Items.water_bucket), null, new ItemStack(Items.diamond, 1), new ItemStack(ModItems.smallDusts, 6, 25), new ItemStack(ModItems.smallDusts, 2, 19), new ItemStack(Items.bucket), 100, 120));
+
+        //Emerald Ore
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.emerald_ore, 1), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(Items.emerald, 1), new ItemStack(ModItems.smallDusts, 6, 27), new ItemStack(ModItems.smallDusts, 2, 2), null, 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.emerald_ore, 1), IC2Items.getItem("waterCell"), null, new ItemStack(Items.emerald, 1), new ItemStack(ModItems.smallDusts, 6, 27), new ItemStack(ModItems.smallDusts, 2, 2), IC2Items.getItem("cell"), 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.emerald_ore, 1), new ItemStack(Items.water_bucket), null, new ItemStack(Items.emerald, 1), new ItemStack(ModItems.smallDusts, 6, 27), new ItemStack(ModItems.smallDusts, 2, 2), new ItemStack(Items.bucket), 100, 120));
+
+        //Redstone
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.redstone_ore, 1), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(Items.redstone, 10), new ItemStack(ModItems.smallDusts, 1, 17), new ItemStack(ModItems.smallDusts, 1, 32), null, 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.redstone_ore, 1), IC2Items.getItem("waterCell"), null, new ItemStack(Items.redstone, 10), new ItemStack(ModItems.smallDusts, 1, 17), new ItemStack(ModItems.smallDusts, 1, 32), IC2Items.getItem("cell"), 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.redstone_ore, 1), new ItemStack(Items.water_bucket), null, new ItemStack(Items.redstone, 10), new ItemStack(ModItems.smallDusts, 1, 17), new ItemStack(ModItems.smallDusts, 1, 32), new ItemStack(Items.bucket), 100, 120));
+
+        //Lapis Lazuli Ore
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.lapis_ore, 1), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(Items.dye, 6, 4), new ItemStack(ModItems.smallDusts, 36, 42), new ItemStack(ModItems.smallDusts, 8, 43), null, 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.lapis_ore, 1), IC2Items.getItem("waterCell"), null, new ItemStack(Items.dye, 6, 4), new ItemStack(ModItems.smallDusts, 36, 42), new ItemStack(ModItems.smallDusts, 8, 43), IC2Items.getItem("cell"), 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.lapis_ore, 1), new ItemStack(Items.water_bucket), null, new ItemStack(Items.dye, 6 , 4), new ItemStack(ModItems.smallDusts, 36, 42), new ItemStack(ModItems.smallDusts, 8, 43), new ItemStack(Items.bucket), 100, 120));
+
+        //Copper Ore
+        if(OreDictionary.doesOreNameExist("oreCopper")) {
+            ItemStack oreStack = OreDictionary.getOres("oreCopper").get(0);
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(ModItems.dusts, 2, 21), new ItemStack(ModItems.smallDusts, 1, 33), new ItemStack(ModItems.smallDusts, 1, 55), null, 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, new ItemStack(ModItems.dusts, 2, 21), new ItemStack(ModItems.smallDusts, 1, 33), new ItemStack(ModItems.smallDusts, 1, 55), IC2Items.getItem("cell"), 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, new ItemStack(ModItems.dusts, 2, 21), new ItemStack(ModItems.smallDusts, 1, 33), new ItemStack(ModItems.smallDusts, 1, 55), new ItemStack(Items.bucket), 100, 120));
+
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(ModFluids.fluidSodiumpersulfate, 1000), new ItemStack(ModItems.dusts, 2, 21), new ItemStack(ModItems.smallDusts, 1, 33), new ItemStack(ModItems.dusts, 1, 53), null, 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(ModItems.cells, 1, 28), null, new ItemStack(ModItems.dusts, 2, 21), new ItemStack(ModItems.smallDusts, 1, 33), new ItemStack(ModItems.dusts, 1, 53), IC2Items.getItem("cell"), 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(ModItems.bucketSodiumpersulfate), null, new ItemStack(ModItems.dusts, 2, 21), new ItemStack(ModItems.smallDusts, 1, 33), new ItemStack(ModItems.dusts, 1, 53), new ItemStack(Items.bucket), 100, 120));
+
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(ModFluids.fluidMercury, 1000), new ItemStack(ModItems.dusts, 2, 21), new ItemStack(ModItems.dusts, 1, 32), new ItemStack(ModItems.smallDusts, 1, 55), null, 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(ModItems.cells, 1, 16), null, new ItemStack(ModItems.dusts, 2, 21), new ItemStack(ModItems.dusts, 1, 32), new ItemStack(ModItems.smallDusts, 1, 55), IC2Items.getItem("cell"), 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(ModItems.bucketMercury), null, new ItemStack(ModItems.dusts, 2, 21), new ItemStack(ModItems.dusts, 1, 32), new ItemStack(ModItems.smallDusts, 1, 55), new ItemStack(Items.bucket), 100, 120));
+        }
+
+        //Tin Ore
+        if(OreDictionary.doesOreNameExist("oreTin")) {
+            ItemStack oreStack = OreDictionary.getOres("oreTin").get(0);
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(ModItems.dusts, 2, 77), new ItemStack(ModItems.smallDusts, 1, 40), new ItemStack(ModItems.smallDusts, 1, 87), null, 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, new ItemStack(ModItems.dusts, 2, 77), new ItemStack(ModItems.smallDusts, 1, 40), new ItemStack(ModItems.smallDusts, 1, 87), IC2Items.getItem("cell"), 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, new ItemStack(ModItems.dusts, 2, 77), new ItemStack(ModItems.smallDusts, 1, 40), new ItemStack(ModItems.smallDusts, 1, 87), new ItemStack(Items.bucket), 100, 120));
+
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(ModFluids.fluidSodiumpersulfate, 1000), new ItemStack(ModItems.dusts, 2, 77), new ItemStack(ModItems.smallDusts, 1, 40), new ItemStack(ModItems.dusts, 1, 84), null, 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(ModItems.cells, 1, 28), null, new ItemStack(ModItems.dusts, 2, 77), new ItemStack(ModItems.smallDusts, 1, 40), new ItemStack(ModItems.dusts, 1, 84), IC2Items.getItem("cell"), 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(ModItems.bucketSodiumpersulfate), null, new ItemStack(ModItems.dusts, 2, 77), new ItemStack(ModItems.smallDusts, 1, 40), new ItemStack(ModItems.dusts, 1, 84), new ItemStack(Items.bucket), 100, 120));
+        }
+
+        //Nickel Ore
+        if(OreDictionary.doesOreNameExist("oreNickel")) {
+            ItemStack oreStack = OreDictionary.getOres("oreNickel").get(0);
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(ModItems.dusts, 2, 53), new ItemStack(ModItems.smallDusts, 1, 40), new ItemStack(ModItems.smallDusts, 1, 60), null, 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, new ItemStack(ModItems.dusts, 2, 53), new ItemStack(ModItems.smallDusts, 1, 40), new ItemStack(ModItems.smallDusts, 1, 60), IC2Items.getItem("cell"), 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, new ItemStack(ModItems.dusts, 2, 53), new ItemStack(ModItems.smallDusts, 1, 40), new ItemStack(ModItems.smallDusts, 1, 60), new ItemStack(Items.bucket), 100, 120));
+
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(ModFluids.fluidSodiumpersulfate, 1000), new ItemStack(ModItems.dusts, 2, 53), new ItemStack(ModItems.smallDusts, 1, 40), new ItemStack(ModItems.smallDusts, 1, 60), null, 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(ModItems.cells, 1, 28), null, new ItemStack(ModItems.dusts, 3, 53), new ItemStack(ModItems.smallDusts, 1, 40), new ItemStack(ModItems.smallDusts, 1, 60), IC2Items.getItem("cell"), 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(ModItems.bucketSodiumpersulfate), null, new ItemStack(ModItems.dusts, 3, 53), new ItemStack(ModItems.smallDusts, 1, 40), new ItemStack(ModItems.smallDusts, 1, 60), new ItemStack(Items.bucket), 100, 120));
+
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(ModFluids.fluidMercury, 1000), new ItemStack(ModItems.dusts, 2, 53), new ItemStack(ModItems.smallDusts, 1, 40), new ItemStack(ModItems.dusts, 1, 58), null, 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(ModItems.cells, 1, 16), null, new ItemStack(ModItems.dusts, 2, 53), new ItemStack(ModItems.smallDusts, 1, 40), new ItemStack(ModItems.dusts, 1, 58), IC2Items.getItem("cell"), 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(ModItems.bucketMercury), null, new ItemStack(ModItems.dusts, 2, 53), new ItemStack(ModItems.smallDusts, 1, 40), new ItemStack(ModItems.dusts, 1, 58), new ItemStack(Items.bucket), 100, 120));
+        }
+
+        //Zinc Ore
+        if(OreDictionary.doesOreNameExist("oreZinc")) {
+            ItemStack oreStack = OreDictionary.getOres("oreZinc").get(0);
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(ModItems.dusts, 2, 84), new ItemStack(ModItems.smallDusts, 1, 40), new ItemStack(ModItems.smallDusts, 1, 80), null, 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, new ItemStack(ModItems.dusts, 2, 84), new ItemStack(ModItems.smallDusts, 1, 40), new ItemStack(ModItems.smallDusts, 1, 80), IC2Items.getItem("cell"), 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, new ItemStack(ModItems.dusts, 2, 84), new ItemStack(ModItems.smallDusts, 1, 40), new ItemStack(ModItems.smallDusts, 1, 80), new ItemStack(Items.bucket), 100, 120));
+
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(ModFluids.fluidSodiumpersulfate, 1000), new ItemStack(ModItems.dusts, 2, 84), new ItemStack(ModItems.smallDusts, 1, 40), new ItemStack(ModItems.dusts, 1, 77), null, 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(ModItems.cells, 1, 28), null, new ItemStack(ModItems.dusts, 2, 84), new ItemStack(ModItems.smallDusts, 1, 40), new ItemStack(ModItems.dusts, 1, 77), IC2Items.getItem("cell"), 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(ModItems.bucketSodiumpersulfate), null, new ItemStack(ModItems.dusts, 2, 84), new ItemStack(ModItems.smallDusts, 1, 40), new ItemStack(ModItems.dusts, 1, 77), new ItemStack(Items.bucket), 100, 120));
+        }
+
+        //Silver Ore
+        if(OreDictionary.doesOreNameExist("oreSilver")) {
+            ItemStack oreStack = OreDictionary.getOres("oreSilver").get(0);
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(ModItems.dusts, 2, 68), new ItemStack(ModItems.smallDusts, 1, 44), new ItemStack(ModItems.smallDusts, 1, 76), null, 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, new ItemStack(ModItems.dusts, 2, 68), new ItemStack(ModItems.smallDusts, 1, 44), new ItemStack(ModItems.smallDusts, 1, 76), IC2Items.getItem("cell"), 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, new ItemStack(ModItems.dusts, 2, 68), new ItemStack(ModItems.smallDusts, 1, 44), new ItemStack(ModItems.smallDusts, 1, 76), new ItemStack(Items.bucket), 100, 120));
+
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(ModFluids.fluidMercury, 1000), new ItemStack(ModItems.dusts, 3, 68), new ItemStack(ModItems.smallDusts, 1, 44), new ItemStack(ModItems.smallDusts, 1, 76), null, 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(ModItems.cells, 1, 16), null, new ItemStack(ModItems.dusts, 3, 68), new ItemStack(ModItems.smallDusts, 1, 44), new ItemStack(ModItems.smallDusts, 1, 76), IC2Items.getItem("cell"), 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(ModItems.bucketMercury), null, new ItemStack(ModItems.dusts, 3, 68), new ItemStack(ModItems.smallDusts, 1, 44), new ItemStack(ModItems.smallDusts, 1, 76), new ItemStack(Items.bucket), 100, 120));
+        }
+
+        //Lead Ore
+        if(OreDictionary.doesOreNameExist("oreLead")) {
+            ItemStack oreStack = OreDictionary.getOres("oreLead").get(0);
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(ModItems.dusts, 2, 42), new ItemStack(ModItems.smallDusts, 1, 71), new ItemStack(ModItems.smallDusts, 1, 76), null, 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, new ItemStack(ModItems.dusts, 2, 42), new ItemStack(ModItems.smallDusts, 1, 71), new ItemStack(ModItems.smallDusts, 1, 76), IC2Items.getItem("cell"), 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, new ItemStack(ModItems.dusts, 2, 42), new ItemStack(ModItems.smallDusts, 1, 71), new ItemStack(ModItems.smallDusts, 1, 76), new ItemStack(Items.bucket), 100, 120));
+
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(ModFluids.fluidMercury, 1000), new ItemStack(ModItems.dusts, 2, 42), new ItemStack(ModItems.dusts, 1, 68), new ItemStack(ModItems.smallDusts, 1, 76), null, 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(ModItems.cells, 1, 16), null, new ItemStack(ModItems.dusts, 2, 42), new ItemStack(ModItems.dusts, 1, 68), new ItemStack(ModItems.smallDusts, 1, 76), IC2Items.getItem("cell"), 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(ModItems.bucketMercury), null, new ItemStack(ModItems.dusts, 2, 42), new ItemStack(ModItems.dusts, 1, 68), new ItemStack(ModItems.smallDusts, 1, 76), new ItemStack(Items.bucket), 100, 120));
+        }
+
+        //Aluminum Ore
+        if(OreDictionary.doesOreNameExist("oreAluminum")) {
+            ItemStack oreStack = OreDictionary.getOres("oreAluminum").get(0);
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(ModItems.dusts, 2, 2), new ItemStack(ModItems.smallDusts, 1, 9), new ItemStack(ModItems.smallDusts, 1, 9), null, 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, new ItemStack(ModItems.dusts, 2, 2), new ItemStack(ModItems.smallDusts, 1, 9), new ItemStack(ModItems.smallDusts, 1, 9), IC2Items.getItem("cell"), 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, new ItemStack(ModItems.dusts, 2, 2), new ItemStack(ModItems.smallDusts, 1, 9), new ItemStack(ModItems.smallDusts, 1, 9), new ItemStack(Items.bucket), 100, 120));
+        }
+
+        //Ardite Ore
+        if(OreDictionary.doesOreNameExist("oreCobalt")) {
+            ItemStack oreStack = OreDictionary.getOres("oreCobalt").get(0);
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(ModItems.dusts, 2, 6), new ItemStack(ModItems.smallDusts, 1, 6), new ItemStack(ModItems.smallDusts, 1, 6), null, 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, new ItemStack(ModItems.dusts, 2, 6), new ItemStack(ModItems.smallDusts, 1, 6), new ItemStack(ModItems.smallDusts, 1, 6), IC2Items.getItem("cell"), 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, new ItemStack(ModItems.dusts, 2, 6), new ItemStack(ModItems.smallDusts, 1, 6), new ItemStack(ModItems.smallDusts, 1, 6), new ItemStack(Items.bucket), 100, 120));
+        }
+
+        //Cobalt Ore
+        if(OreDictionary.doesOreNameExist("oreArdite")) {
+            ItemStack oreStack = OreDictionary.getOres("oreArdite").get(0);
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(ModItems.dusts, 2, 20), new ItemStack(ModItems.smallDusts, 1, 20), new ItemStack(ModItems.smallDusts, 1, 20), null, 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, new ItemStack(ModItems.dusts, 2, 20), new ItemStack(ModItems.smallDusts, 1, 20), new ItemStack(ModItems.smallDusts, 1, 20), IC2Items.getItem("cell"), 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, new ItemStack(ModItems.dusts, 2, 20), new ItemStack(ModItems.smallDusts, 1, 20), new ItemStack(ModItems.smallDusts, 1, 20), new ItemStack(Items.bucket), 100, 120));
+        }
+
+        //Dark Iron Ore
+        if(OreDictionary.doesOreNameExist("oreDarkIron")) {
+            ItemStack oreStack = OreDictionary.getOres("oreDarkIron").get(0);
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(ModItems.dusts, 2, 24), new ItemStack(ModItems.smallDusts, 2, 24), new ItemStack(ModItems.smallDusts, 2, 40), null, 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, new ItemStack(ModItems.dusts, 2, 24), new ItemStack(ModItems.smallDusts, 2, 24), new ItemStack(ModItems.smallDusts, 2, 40), IC2Items.getItem("cell"), 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, new ItemStack(ModItems.dusts, 2, 24), new ItemStack(ModItems.smallDusts, 2, 24), new ItemStack(ModItems.smallDusts, 2, 40), new ItemStack(Items.bucket), 100, 120));
+        }
+
+        //Cadmium Ore
+        if(OreDictionary.doesOreNameExist("oreCadmium")) {
+            ItemStack oreStack = OreDictionary.getOres("oreCadmium").get(0);
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(ModItems.dusts, 2, 13), new ItemStack(ModItems.smallDusts, 1, 13), new ItemStack(ModItems.smallDusts, 1, 13), null, 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, new ItemStack(ModItems.dusts, 2, 13), new ItemStack(ModItems.smallDusts, 1, 13), new ItemStack(ModItems.smallDusts, 1, 13), IC2Items.getItem("cell"), 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, new ItemStack(ModItems.dusts, 2, 13), new ItemStack(ModItems.smallDusts, 1, 13), new ItemStack(ModItems.smallDusts, 1, 13), new ItemStack(Items.bucket), 100, 120));
+        }
+
+        //Indium Ore
+        if(OreDictionary.doesOreNameExist("oreIndium")) {
+            ItemStack oreStack = OreDictionary.getOres("oreIndium").get(0);
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(ModItems.dusts, 2, 35), new ItemStack(ModItems.smallDusts, 1, 37), new ItemStack(ModItems.smallDusts, 1, 37), null, 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, new ItemStack(ModItems.dusts, 2, 35), new ItemStack(ModItems.smallDusts, 1, 37), new ItemStack(ModItems.smallDusts, 1, 37), IC2Items.getItem("cell"), 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, new ItemStack(ModItems.dusts, 2, 35), new ItemStack(ModItems.smallDusts, 1, 37), new ItemStack(ModItems.smallDusts, 1, 37), new ItemStack(Items.bucket), 100, 120));
+        }
+
+        //Osmium Ore
+        if(OreDictionary.doesOreNameExist("oreOsmium")) {
+            ItemStack oreStack = OreDictionary.getOres("oreOsmium").get(0);
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(ModItems.dusts, 2, 55), new ItemStack(ModItems.smallDusts, 1, 57), new ItemStack(ModItems.smallDusts, 1, 57), null, 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, new ItemStack(ModItems.dusts, 2, 55), new ItemStack(ModItems.smallDusts, 1, 57), new ItemStack(ModItems.smallDusts, 1, 57), IC2Items.getItem("cell"), 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, new ItemStack(ModItems.dusts, 2, 55), new ItemStack(ModItems.smallDusts, 1, 57), new ItemStack(ModItems.smallDusts, 1, 57), new ItemStack(Items.bucket), 100, 120));
+        }
+
+        //Teslatite Ore
+        if(OreDictionary.doesOreNameExist("oreTeslatite") && OreDictionary.doesOreNameExist("dustTeslatite")) {
+            ItemStack oreStack = OreDictionary.getOres("oreTeslatite").get(0);
+            ItemStack dustStack = OreDictionary.getOres("dustTeslatite").get(0);
+            dustStack.stackSize = 10;
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), dustStack, new ItemStack(ModItems.smallDusts, 1, 72), new ItemStack(ModItems.smallDusts, 1, 32), null, 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, dustStack, new ItemStack(ModItems.smallDusts, 1, 72), new ItemStack(ModItems.smallDusts, 1, 32), IC2Items.getItem("cell"), 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, dustStack, new ItemStack(ModItems.smallDusts, 1, 72), new ItemStack(ModItems.smallDusts, 1, 32), new ItemStack(Items.bucket), 100, 120));
+        }
+
+        //Sulfur Ore
+        if(OreDictionary.doesOreNameExist("oreSulfur")) {
+            ItemStack oreStack = OreDictionary.getOres("oreSulfur").get(0);
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(ModItems.dusts, 8, 73), new ItemStack(ModItems.smallDusts, 1, 76), new ItemStack(ModItems.smallDusts, 1, 76), null, 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, new ItemStack(ModItems.dusts, 8, 73), new ItemStack(ModItems.smallDusts, 1, 76), new ItemStack(ModItems.smallDusts, 1, 76), IC2Items.getItem("cell"), 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, new ItemStack(ModItems.dusts, 8, 73), new ItemStack(ModItems.smallDusts, 1, 76), new ItemStack(ModItems.smallDusts, 1, 76), new ItemStack(Items.bucket), 100, 120));
+        }
+
+        //Saltpeter Ore
+        if(OreDictionary.doesOreNameExist("oreSaltpeter")) {
+            ItemStack oreStack = OreDictionary.getOres("oreSaltpeter").get(0);
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(ModItems.dusts, 8, 65), new ItemStack(ModItems.smallDusts, 1, 68), new ItemStack(ModItems.smallDusts, 1, 68), null, 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, new ItemStack(ModItems.dusts, 8, 65), new ItemStack(ModItems.smallDusts, 1, 68), new ItemStack(ModItems.smallDusts, 1, 68), IC2Items.getItem("cell"), 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, new ItemStack(ModItems.dusts, 8, 65), new ItemStack(ModItems.smallDusts, 1, 86), new ItemStack(ModItems.smallDusts, 1, 68), new ItemStack(Items.bucket), 100, 120));
+        }
+
+        //Apatite Ore
+        if(OreDictionary.doesOreNameExist("oreApatite")) {
+            ItemStack oreStack = OreDictionary.getOres("oreApatite").get(0);
+            ItemStack gemStack = OreDictionary.getOres("gemApatite").get(0);
+            gemStack.stackSize = 6;
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), gemStack, gemStack, new ItemStack(ModItems.smallDusts, 4, 57), null, 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, gemStack, gemStack, new ItemStack(ModItems.smallDusts, 4, 57), IC2Items.getItem("cell"), 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, gemStack, gemStack, new ItemStack(ModItems.smallDusts, 4, 57), new ItemStack(Items.bucket), 100, 120));
+        }
+
+        //Apatite Ore
+        if(OreDictionary.doesOreNameExist("oreApatite")) {
+            ItemStack oreStack = OreDictionary.getOres("oreApatite").get(0);
+            ItemStack gemStack = OreDictionary.getOres("gemApatite").get(0);
+            gemStack.stackSize = 6;
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), gemStack, gemStack, new ItemStack(ModItems.smallDusts, 4, 57), null, 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, gemStack, gemStack, new ItemStack(ModItems.smallDusts, 4, 57), IC2Items.getItem("cell"), 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, gemStack, gemStack, new ItemStack(ModItems.smallDusts, 4, 57), new ItemStack(Items.bucket), 100, 120));
+        }
+
+        //Nether Quartz Ore
+        if(OreDictionary.doesOreNameExist("dustNetherQuartz")) {
+            ItemStack dustStack = OreDictionary.getOres("dustNetherQuartz").get(0);
+            dustStack.stackSize = 4;
+            RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.quartz_ore, 1), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(Items.quartz, 2), dustStack, new ItemStack(ModItems.smallDusts, 2, 53), null, 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.quartz_ore, 1), IC2Items.getItem("waterCell"), null, new ItemStack(Items.quartz, 2), dustStack, new ItemStack(ModItems.smallDusts, 2, 53), IC2Items.getItem("cell"), 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(Blocks.quartz_ore, 1), new ItemStack(Items.water_bucket), null, new ItemStack(Items.quartz, 2), dustStack, new ItemStack(ModItems.smallDusts, 2, 53), new ItemStack(Items.bucket), 100, 120));
+        }
+
+        //Certus Quartz Ore
+        if(OreDictionary.doesOreNameExist("oreCertusQuartz")) {
+            ItemStack oreStack = OreDictionary.getOres("oreCertusQuartz").get(0);
+            ItemStack gemStack = OreDictionary.getOres("crystalCertusQuartz").get(0);
+            ItemStack dustStack = OreDictionary.getOres("dustCertusQuartz").get(0);
+            dustStack.stackSize = 2;
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), gemStack, dustStack, null, null, 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, gemStack, dustStack, null, IC2Items.getItem("cell"), 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, gemStack, dustStack, null, new ItemStack(Items.bucket), 100, 120));
+        }
+
+        //Charged Certus Quartz Ore
+        if(OreDictionary.doesOreNameExist("oreChargedCertusQuartz")) {
+            ItemStack oreStack = OreDictionary.getOres("oreChargedCertusQuartz").get(0);
+            ItemStack gemStack = OreDictionary.getOres("crystalChargedCertusQuartz").get(0);
+            ItemStack dustStack = OreDictionary.getOres("dustCertusQuartz").get(0);
+            dustStack.stackSize = 2;
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), gemStack, dustStack, null, null, 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, gemStack, dustStack, null, IC2Items.getItem("cell"), 100, 120));
+            RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, gemStack, dustStack, null, new ItemStack(Items.bucket), 100, 120));
+        }
+
+        //Galena Ore
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 0), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(ModItems.dusts, 2, 85), new ItemStack(ModItems.smallDusts, 1, 76), new ItemStack(ModItems.smallDusts, 1, 71), null, 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 0), IC2Items.getItem("waterCell"), null, new ItemStack(ModItems.dusts, 2, 85), new ItemStack(ModItems.smallDusts, 1, 76), new ItemStack(ModItems.smallDusts, 1, 71), IC2Items.getItem("cell"), 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 0), new ItemStack(Items.water_bucket), null, new ItemStack(ModItems.dusts, 2, 85), new ItemStack(ModItems.smallDusts, 1, 76), new ItemStack(ModItems.smallDusts, 1, 71), new ItemStack(Items.bucket), 100, 120));
+
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 0), null, new FluidStack(ModFluids.fluidMercury, 1000), new ItemStack(ModItems.dusts, 2, 85), new ItemStack(ModItems.smallDusts, 1, 76), new ItemStack(ModItems.dusts, 1, 68), null, 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 0), new ItemStack(ModItems.cells, 1, 16), null, new ItemStack(ModItems.dusts, 2, 85), new ItemStack(ModItems.smallDusts, 1, 76), new ItemStack(ModItems.dusts, 1, 68), IC2Items.getItem("cell"), 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 0), new ItemStack(ModItems.bucketMercury), null, new ItemStack(ModItems.dusts, 2, 85), new ItemStack(ModItems.smallDusts, 1, 76), new ItemStack(ModItems.dusts, 1, 68), new ItemStack(Items.bucket), 100, 120));
+
+        //Iridium Ore
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 1), null, new FluidStack(FluidRegistry.WATER, 1000), IC2Items.getItem("iridiumOre"), new ItemStack(ModItems.smallDusts, 6, 39), new ItemStack(ModItems.smallDusts, 2, 60), null, 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 1), IC2Items.getItem("waterCell"), null, IC2Items.getItem("iridiumOre"), new ItemStack(ModItems.smallDusts, 6, 39), new ItemStack(ModItems.smallDusts, 2, 60), IC2Items.getItem("cell"), 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 1), new ItemStack(Items.water_bucket), null, IC2Items.getItem("iridiumOre"), new ItemStack(ModItems.smallDusts, 6, 39), new ItemStack(ModItems.smallDusts, 2, 60), new ItemStack(Items.bucket), 100, 120));
+
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 1), null, new FluidStack(ModFluids.fluidMercury, 1000), IC2Items.getItem("iridiumOre"), new ItemStack(ModItems.smallDusts, 6, 39), new ItemStack(ModItems.dusts, 2, 58), null, 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 1), new ItemStack(ModItems.cells, 1, 16), null, IC2Items.getItem("iridiumOre"), new ItemStack(ModItems.smallDusts, 6, 39), new ItemStack(ModItems.dusts, 2, 58), IC2Items.getItem("cell"), 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 1), new ItemStack(ModItems.bucketMercury), null, IC2Items.getItem("iridiumOre"), new ItemStack(ModItems.smallDusts, 6, 39), new ItemStack(ModItems.dusts, 2, 58), new ItemStack(Items.bucket), 100, 120));
+
+        //Ruby Ore
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 2), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(ModItems.gems, 1, 0), new ItemStack(ModItems.smallDusts, 6, 67), new ItemStack(ModItems.smallDusts, 2, 16), null, 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 2), IC2Items.getItem("waterCell"), null, new ItemStack(ModItems.gems, 1, 0), new ItemStack(ModItems.smallDusts, 6, 67), new ItemStack(ModItems.smallDusts, 2, 16), IC2Items.getItem("cell"), 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 2), new ItemStack(Items.water_bucket), null, new ItemStack(ModItems.gems, 1, 0), new ItemStack(ModItems.smallDusts, 6, 67), new ItemStack(ModItems.smallDusts, 2, 16), new ItemStack(Items.bucket), 100, 120));
+
+        //Sapphire Ore
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 3), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(ModItems.gems, 1, 1), new ItemStack(ModItems.smallDusts, 6, 69), new ItemStack(ModItems.smallDusts, 2, 2), null, 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 3), IC2Items.getItem("waterCell"), null, new ItemStack(ModItems.gems, 1, 1), new ItemStack(ModItems.smallDusts, 6, 69), new ItemStack(ModItems.smallDusts, 2, 2), IC2Items.getItem("cell"), 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 3), new ItemStack(Items.water_bucket), null, new ItemStack(ModItems.gems, 1, 1), new ItemStack(ModItems.smallDusts, 6, 69), new ItemStack(ModItems.smallDusts, 2, 2), new ItemStack(Items.bucket), 100, 120));
+
+        //Bauxite Ore
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 4), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(ModItems.dusts, 8, 9), new ItemStack(ModItems.smallDusts, 4, 35), new ItemStack(ModItems.smallDusts, 4, 81), null, 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 4), IC2Items.getItem("waterCell"), null, new ItemStack(ModItems.dusts, 8, 9), new ItemStack(ModItems.smallDusts, 4, 35), new ItemStack(ModItems.smallDusts, 4, 81), IC2Items.getItem("cell"), 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 4), new ItemStack(Items.water_bucket), null, new ItemStack(ModItems.dusts, 8, 9), new ItemStack(ModItems.smallDusts, 4, 35), new ItemStack(ModItems.smallDusts, 4, 81), new ItemStack(Items.bucket), 100, 120));
+
+        //Pyrite Ore
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 5), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(ModItems.dusts, 2, 60), new ItemStack(ModItems.smallDusts, 1, 76), new ItemStack(ModItems.smallDusts, 1, 59), null, 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 5), IC2Items.getItem("waterCell"), null, new ItemStack(ModItems.dusts, 2, 60), new ItemStack(ModItems.smallDusts, 1, 76), new ItemStack(ModItems.smallDusts, 1, 59), IC2Items.getItem("cell"), 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 5), new ItemStack(Items.water_bucket), null, new ItemStack(ModItems.dusts, 2, 60), new ItemStack(ModItems.smallDusts, 1, 76), new ItemStack(ModItems.smallDusts, 1, 59), new ItemStack(Items.bucket), 100, 120));
+
+        //Cinnabar Ore
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 6), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(ModItems.dusts, 2, 17), new ItemStack(ModItems.smallDusts, 1, 66), new ItemStack(ModItems.smallDusts, 1, 32), null, 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 6), IC2Items.getItem("waterCell"), null, new ItemStack(ModItems.dusts, 2, 17), new ItemStack(ModItems.smallDusts, 1, 66), new ItemStack(ModItems.smallDusts, 1, 32), IC2Items.getItem("cell"), 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 6), new ItemStack(Items.water_bucket), null, new ItemStack(ModItems.dusts, 2, 17), new ItemStack(ModItems.smallDusts, 1, 66), new ItemStack(ModItems.smallDusts, 1, 32), new ItemStack(Items.bucket), 100, 120));
+
+        //Sphalerite Ore
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 7), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(ModItems.dusts, 2, 71), new ItemStack(ModItems.smallDusts, 1, 87), new ItemStack(ModItems.smallDusts, 1, 86), null, 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 7), IC2Items.getItem("waterCell"), null, new ItemStack(ModItems.dusts, 2, 71), new ItemStack(ModItems.smallDusts, 1, 87), new ItemStack(ModItems.smallDusts, 1, 86), IC2Items.getItem("cell"), 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 7), new ItemStack(Items.water_bucket), null, new ItemStack(ModItems.dusts, 2, 71), new ItemStack(ModItems.smallDusts, 1, 87), new ItemStack(ModItems.smallDusts, 1, 86), new ItemStack(Items.bucket), 100, 120));
+
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 7), null, new FluidStack(ModFluids.fluidSodiumpersulfate, 1000), new ItemStack(ModItems.dusts, 2, 71), new ItemStack(ModItems.dusts, 1, 84), new ItemStack(ModItems.smallDusts, 1, 86), null, 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 7), new ItemStack(ModItems.cells, 1, 28), null, new ItemStack(ModItems.dusts, 2, 71), new ItemStack(ModItems.dusts, 1, 84), new ItemStack(ModItems.smallDusts, 1, 86), IC2Items.getItem("cell"), 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 7), new ItemStack(ModItems.bucketSodiumpersulfate), null, new ItemStack(ModItems.dusts, 2, 71), new ItemStack(ModItems.dusts, 1, 84), new ItemStack(ModItems.smallDusts, 1, 86), new ItemStack(Items.bucket), 100, 120));
+
+        //Tungsten Ore
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 8), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(ModItems.dusts, 2, 79), new ItemStack(ModItems.smallDusts, 1, 49), new ItemStack(ModItems.smallDusts, 1, 71), null, 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 8), IC2Items.getItem("waterCell"), null, new ItemStack(ModItems.dusts, 2, 79), new ItemStack(ModItems.smallDusts, 1, 49), new ItemStack(ModItems.smallDusts, 1, 71), IC2Items.getItem("cell"), 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 8), new ItemStack(Items.water_bucket), null, new ItemStack(ModItems.dusts, 2, 79), new ItemStack(ModItems.smallDusts, 1, 49), new ItemStack(ModItems.smallDusts, 1, 71), new ItemStack(Items.bucket), 100, 120));
+
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 8), null, new FluidStack(ModFluids.fluidMercury, 1000), new ItemStack(ModItems.dusts, 2, 79), new ItemStack(ModItems.smallDusts, 1, 49), new ItemStack(ModItems.dusts, 1, 68), null, 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 8), new ItemStack(ModItems.cells, 1, 16), null, new ItemStack(ModItems.dusts, 2, 79), new ItemStack(ModItems.smallDusts, 1, 49), new ItemStack(ModItems.dusts, 1, 68), IC2Items.getItem("cell"), 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 8), new ItemStack(ModItems.bucketMercury), null, new ItemStack(ModItems.dusts, 2, 79), new ItemStack(ModItems.smallDusts, 1, 49), new ItemStack(ModItems.dusts, 1, 68), new ItemStack(Items.bucket), 100, 120));
+
+        //Sheldonite Ore
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 9), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(ModItems.dusts, 2, 58), new ItemStack(ModItems.smallDusts, 1, 39), new ItemStack(ModItems.smallDusts, 1, 39), null, 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 9), IC2Items.getItem("waterCell"), null, new ItemStack(ModItems.dusts, 2, 58), new ItemStack(ModItems.smallDusts, 1, 39), new ItemStack(ModItems.smallDusts, 1, 39), IC2Items.getItem("cell"), 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 9), new ItemStack(Items.water_bucket), null, new ItemStack(ModItems.dusts, 2, 58), new ItemStack(ModItems.smallDusts, 1, 39), new ItemStack(ModItems.smallDusts, 1, 39), new ItemStack(Items.bucket), 100, 120));
+
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 9), null, new FluidStack(ModFluids.fluidMercury, 1000), new ItemStack(ModItems.dusts, 3, 58), new ItemStack(ModItems.smallDusts, 1, 39), new ItemStack(ModItems.smallDusts, 1, 39), null, 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 9), new ItemStack(ModItems.cells, 1, 16), null, new ItemStack(ModItems.dusts, 3, 58), new ItemStack(ModItems.smallDusts, 1, 39), new ItemStack(ModItems.smallDusts, 1, 39), IC2Items.getItem("cell"), 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 9), new ItemStack(ModItems.bucketMercury), null, new ItemStack(ModItems.dusts, 3, 58), new ItemStack(ModItems.smallDusts, 1, 39), new ItemStack(ModItems.smallDusts, 1, 39), new ItemStack(Items.bucket), 100, 120));
+
+        //Peridot Ore
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 10), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(ModItems.gems, 1, 2), new ItemStack(ModItems.smallDusts, 6, 58), new ItemStack(ModItems.smallDusts, 2, 63), null, 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 10), IC2Items.getItem("waterCell"), null, new ItemStack(ModItems.gems, 1, 2), new ItemStack(ModItems.smallDusts, 6, 58), new ItemStack(ModItems.smallDusts, 2, 63), IC2Items.getItem("cell"), 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 10), new ItemStack(Items.water_bucket), null, new ItemStack(ModItems.gems, 1, 2), new ItemStack(ModItems.smallDusts, 6, 58), new ItemStack(ModItems.smallDusts, 2, 63), new ItemStack(Items.bucket), 100, 120));
+
+        //Sodalite Ore
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 11), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(ModItems.dusts, 12, 69), new ItemStack(ModItems.smallDusts, 4, 43), new ItemStack(ModItems.smallDusts, 4, 42), null, 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 11), IC2Items.getItem("waterCell"), null, new ItemStack(ModItems.dusts, 12, 69), new ItemStack(ModItems.smallDusts, 4, 43), new ItemStack(ModItems.smallDusts, 4, 42), IC2Items.getItem("cell"), 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 11), new ItemStack(Items.water_bucket), null, new ItemStack(ModItems.dusts, 12, 69), new ItemStack(ModItems.smallDusts, 4, 43), new ItemStack(ModItems.smallDusts, 4, 42), new ItemStack(Items.bucket), 100, 120));
+
+        //Tetrahedrite Ore
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 12), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(ModItems.dusts, 2, 76), new ItemStack(ModItems.smallDusts, 1, 5), new ItemStack(ModItems.smallDusts, 1, 87), null, 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 12), IC2Items.getItem("waterCell"), null, new ItemStack(ModItems.dusts, 2, 76), new ItemStack(ModItems.smallDusts, 1, 5), new ItemStack(ModItems.smallDusts, 1, 87), IC2Items.getItem("cell"), 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 12), new ItemStack(Items.water_bucket), null, new ItemStack(ModItems.dusts, 2, 76), new ItemStack(ModItems.smallDusts, 1, 5), new ItemStack(ModItems.smallDusts, 1, 87), new ItemStack(Items.bucket), 100, 120));
+
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 12), null, new FluidStack(ModFluids.fluidSodiumpersulfate, 1000), new ItemStack(ModItems.dusts, 3, 76), new ItemStack(ModItems.smallDusts, 1, 5), new ItemStack(ModItems.smallDusts, 1, 87), null, 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 12), new ItemStack(ModItems.cells, 1, 28), null, new ItemStack(ModItems.dusts, 3, 76), new ItemStack(ModItems.smallDusts, 1, 5), new ItemStack(ModItems.smallDusts, 1, 87), IC2Items.getItem("cell"), 100, 120));
+        RecipeHanderer.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 12), new ItemStack(ModItems.bucketSodiumpersulfate), null, new ItemStack(ModItems.dusts, 3, 76), new ItemStack(ModItems.smallDusts, 1, 5), new ItemStack(ModItems.smallDusts, 1, 87), new ItemStack(Items.bucket), 100, 120));
     }
 }
