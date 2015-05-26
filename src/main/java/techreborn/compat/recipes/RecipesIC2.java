@@ -474,9 +474,6 @@ public class RecipesIC2 {
         if(OreDictionary.doesOreNameExist("oreNickel")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreNickel"), null, new ItemStack(ModItems.crushedOre, 2, 9));
         }
-        if(OreDictionary.doesOreNameExist("oreOsmium")) {
-            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreOsmium"), null, new ItemStack(ModItems.crushedOre, 2, 10));
-        }
         if(OreDictionary.doesOreNameExist("orePlatinum")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("orePlatinum"), null, new ItemStack(ModItems.crushedOre, 2, 11));
         }
