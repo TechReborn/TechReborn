@@ -1021,6 +1021,40 @@ public class RecipesIC2 {
             }
         }
 
+        //Uranium Ore
+        if(OreDictionary.doesOreNameExist("oreUranium")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreUranium").get(0);
+                ItemStack uranium238Stack = IC2Items.getItem("Uran238");
+                uranium238Stack.stackSize = 8;
+                ItemStack uranium235Stack = IC2Items.getItem("smallUran235");
+                uranium235Stack.stackSize = 2;
+                RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), uranium238Stack, uranium235Stack, null, null, 100, 120));
+                RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, uranium238Stack, uranium235Stack, null, IC2Items.getItem("cell"), 100, 120));
+                RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, uranium238Stack, uranium235Stack, null, new ItemStack(Items.bucket), 100, 120));
+            }
+            catch (Exception e) {
+                LogHelper.info("Failed to Load Grinder Recipe for Uranium Ore");
+            }
+        }
+
+        //Pitchblende Ore
+        if(OreDictionary.doesOreNameExist("orePitchblende")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("orePitchblende").get(0);
+                ItemStack uranium238Stack = IC2Items.getItem("Uran238");
+                uranium238Stack.stackSize = 8;
+                ItemStack uranium235Stack = IC2Items.getItem("smallUran235");
+                uranium235Stack.stackSize = 2;
+                RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), uranium238Stack, uranium235Stack, null, null, 100, 120));
+                RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, uranium238Stack, uranium235Stack, null, IC2Items.getItem("cell"), 100, 120));
+                RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, uranium238Stack, uranium235Stack, null, new ItemStack(Items.bucket), 100, 120));
+            }
+            catch (Exception e) {
+                LogHelper.info("Failed to Load Grinder Recipe for Uranium Ore");
+            }
+        }
+
         //Aluminum Ore
         if(OreDictionary.doesOreNameExist("oreAluminum")) {
             try {
@@ -1093,9 +1127,50 @@ public class RecipesIC2 {
                 RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(ModItems.dusts, 2, 35), new ItemStack(ModItems.smallDusts, 1, 37), new ItemStack(ModItems.smallDusts, 1, 37), null, 100, 120));
                 RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, new ItemStack(ModItems.dusts, 2, 35), new ItemStack(ModItems.smallDusts, 1, 37), new ItemStack(ModItems.smallDusts, 1, 37), IC2Items.getItem("cell"), 100, 120));
                 RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, new ItemStack(ModItems.dusts, 2, 35), new ItemStack(ModItems.smallDusts, 1, 37), new ItemStack(ModItems.smallDusts, 1, 37), new ItemStack(Items.bucket), 100, 120));
+            } catch (Exception e) {
+                LogHelper.info("Failed to Load Grinder Recipe for Indium Ore");
+            }
+        }
+
+        //Calcite Ore
+        if(OreDictionary.doesOreNameExist("oreCalcite") && OreDictionary.doesOreNameExist("gemCalcite")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreCalcite").get(0);
+                ItemStack gemStack = OreDictionary.getOres("gemCalcite").get(0);
+                RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), gemStack, new ItemStack(ModItems.smallDusts, 6, 14), null, null, 100, 120));
+                RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, gemStack,  new ItemStack(ModItems.smallDusts, 6, 14), null, IC2Items.getItem("cell"), 100, 120));
+                RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, gemStack,  new ItemStack(ModItems.smallDusts, 6, 14), null, new ItemStack(Items.bucket), 100, 120));
             }
             catch (Exception e) {
-                LogHelper.info("Failed to Load Grinder Recipe for Indium Ore");
+                LogHelper.info("Failed to Load Grinder Recipe for Calcite Ore");
+            }
+        }
+
+        //Magnetite Ore
+        if(OreDictionary.doesOreNameExist("oreMagnetite") && OreDictionary.doesOreNameExist("chunkMagnetite")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreMagnetite").get(0);
+                ItemStack chunkStack = OreDictionary.getOres("chunkMagnetite").get(0);
+                RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), chunkStack, new ItemStack(ModItems.smallDusts, 6, 48), null, null, 100, 120));
+                RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, chunkStack, new ItemStack(ModItems.smallDusts, 6, 48), null, IC2Items.getItem("cell"), 100, 120));
+                RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, chunkStack, new ItemStack(ModItems.smallDusts, 6, 48), null, new ItemStack(Items.bucket), 100, 120));
+            }
+            catch (Exception e) {
+                LogHelper.info("Failed to Load Grinder Recipe for Magnetite Ore");
+            }
+        }
+
+        //Graphite Ore
+        if(OreDictionary.doesOreNameExist("oreGraphite") && OreDictionary.doesOreNameExist("chunkGraphite")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreGraphite").get(0);
+                ItemStack chunkStack = OreDictionary.getOres("chunkGraphite").get(0);
+                RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), chunkStack, new ItemStack(ModItems.smallDusts, 6, 34), null, null, 100, 120));
+                RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, chunkStack, new ItemStack(ModItems.smallDusts, 6, 34), null, IC2Items.getItem("cell"), 100, 120));
+                RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, chunkStack, new ItemStack(ModItems.smallDusts, 6, 34), null, new ItemStack(Items.bucket), 100, 120));
+            }
+            catch (Exception e) {
+                LogHelper.info("Failed to Load Grinder Recipe for Graphite Ore");
             }
         }
 
@@ -1154,7 +1229,7 @@ public class RecipesIC2 {
         }
 
         //Apatite Ore
-        if(OreDictionary.doesOreNameExist("oreApatite")) {
+        if(OreDictionary.doesOreNameExist("oreApatite") & OreDictionary.doesOreNameExist("gemApatite")) {
             try {
                 ItemStack oreStack = OreDictionary.getOres("oreApatite").get(0);
                 ItemStack gemStack = OreDictionary.getOres("gemApatite").get(0);
@@ -1211,6 +1286,74 @@ public class RecipesIC2 {
             }
             catch (Exception e) {
                 LogHelper.info("Failed to Load Grinder Recipe for Charged Certus Quartz Ore");
+            }
+        }
+
+        //Amethyst Ore
+        if(OreDictionary.doesOreNameExist("oreAmethyst") && OreDictionary.doesOreNameExist("gemAmethyst")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreAmethyst").get(0);
+                ItemStack gemStack = OreDictionary.getOres("gemAmethyst").get(0);
+                gemStack.stackSize = 2;
+                ItemStack dustStack = OreDictionary.getOres("gemAmethyst").get(0);
+                dustStack.stackSize = 1;
+                RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), gemStack, dustStack, null, null, 100, 120));
+                RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, gemStack, dustStack, null, IC2Items.getItem("cell"), 100, 120));
+                RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, gemStack, dustStack, null, new ItemStack(Items.bucket), 100, 120));
+            }
+            catch (Exception e) {
+                LogHelper.info("Failed to Load Grinder Recipe for Certus Quartz Ore");
+            }
+        }
+
+        //Topaz Ore
+        if(OreDictionary.doesOreNameExist("oreTopaz") && OreDictionary.doesOreNameExist("gemTopaz")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreTopaz").get(0);
+                ItemStack gemStack = OreDictionary.getOres("gemTopaz").get(0);
+                gemStack.stackSize = 2;
+                ItemStack dustStack = OreDictionary.getOres("gemTopaz").get(0);
+                dustStack.stackSize = 1;
+                RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), gemStack, dustStack, null, null, 100, 120));
+                RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, gemStack, dustStack, null, IC2Items.getItem("cell"), 100, 120));
+                RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, gemStack, dustStack, null, new ItemStack(Items.bucket), 100, 120));
+            }
+            catch (Exception e) {
+                LogHelper.info("Failed to Load Grinder Recipe for Topaz Ore");
+            }
+        }
+
+        //Tanzanite Ore
+        if(OreDictionary.doesOreNameExist("oreTanzanite") && OreDictionary.doesOreNameExist("gemTanzanite")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreTanzanite").get(0);
+                ItemStack gemStack = OreDictionary.getOres("gemTanzanite").get(0);
+                gemStack.stackSize = 2;
+                ItemStack dustStack = OreDictionary.getOres("gemTanzanite").get(0);
+                dustStack.stackSize = 1;
+                RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), gemStack, dustStack, null, null, 100, 120));
+                RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, gemStack, dustStack, null, IC2Items.getItem("cell"), 100, 120));
+                RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, gemStack, dustStack, null, new ItemStack(Items.bucket), 100, 120));
+            }
+            catch (Exception e) {
+                LogHelper.info("Failed to Load Grinder Recipe for Tanzanite Ore");
+            }
+        }
+
+        //Malachite Ore
+        if(OreDictionary.doesOreNameExist("oreMalachite") && OreDictionary.doesOreNameExist("gemMalachite")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreMalachite").get(0);
+                ItemStack gemStack = OreDictionary.getOres("gemMalachite").get(0);
+                gemStack.stackSize = 2;
+                ItemStack dustStack = OreDictionary.getOres("gemMalachite").get(0);
+                dustStack.stackSize = 1;
+                RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), gemStack, dustStack, null, null, 100, 120));
+                RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, gemStack, dustStack, null, IC2Items.getItem("cell"), 100, 120));
+                RecipeHanderer.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, gemStack, dustStack, null, new ItemStack(Items.bucket), 100, 120));
+            }
+            catch (Exception e) {
+                LogHelper.info("Failed to Load Grinder Recipe for Malachite Ore");
             }
         }
 
