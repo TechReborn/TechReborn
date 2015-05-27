@@ -36,7 +36,7 @@ public class TileMachineBase extends TileEntity {
     public void syncWithAll() {
         if (!worldObj.isRemote) {
             //PacketHandler.sendPacketToAllPlayers(getSyncPacket());
-            PacketHandler.sendPacketToAllPlayers(getDescriptionPacket(),
+            PacketHandler.sendPacketToAllPlayers(getDescriptionPacket2(),
                     worldObj);
         } else {
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
