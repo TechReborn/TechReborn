@@ -82,5 +82,4 @@ public class TileAlloyFurnace extends TileMachineBase implements IWrenchable {
         inventory.writeToNBT(tagCompound);
 
     }
-
 }

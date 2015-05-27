@@ -20,9 +20,8 @@ public class PacketHandler extends
 		FMLIndexedMessageToMessageCodec<SimplePacket> {
 	private static EnumMap<Side, FMLEmbeddedChannel> channels;
 
-	public PacketHandler()
-	{
-
+	public PacketHandler() {
+        addDiscriminator(0, PacketSync.class);
 	}
 
 	public static EnumMap<Side, FMLEmbeddedChannel> getChannels()

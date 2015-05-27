@@ -92,6 +92,20 @@ public class TileAlloySmelter extends TileMachineBase implements IWrenchable, IE
     }
 
     @Override
+    public void readSyncFromNBT(NBTTagCompound tagCompound) {
+        super.readSyncFromNBT(tagCompound);
+        energy.readFromNBT(tagCompound);
+        crafter.readFromNBT(tagCompound);
+    }
+
+    @Override
+    public void writeSyncToNBT(NBTTagCompound tagCompound) {
+        super.writeSyncToNBT(tagCompound);
+        energy.writeToNBT(tagCompound);
+        crafter.writeToNBT(tagCompound);
+    }
+
+    @Override
     public void invalidate(){
         energy.invalidate();
         

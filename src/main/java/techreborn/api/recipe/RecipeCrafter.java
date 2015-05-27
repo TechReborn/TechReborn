@@ -181,7 +181,7 @@ public class RecipeCrafter {
     }
 
     public void useAllInputs() {
-        if (currentRecipe == null) {
+        if (currentRecipe == null || !parentTile.getWorldObj().isRemote) {
             return;
         }
         for (ItemStack input : currentRecipe.getInputs()) {
