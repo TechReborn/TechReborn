@@ -94,8 +94,16 @@ public class TileImplosionCompressor extends TileMachineBase implements IWrencha
 		energy.writeToNBT(tagCompound);
 		crafter.writeToNBT(tagCompound);
 	}
-	
-	@Override
+
+    @Override
+    public void writeSyncToNBT(NBTTagCompound tagCompound) {
+        super.writeSyncToNBT(tagCompound);
+        energy.writeToNBT(tagCompound);
+        crafter.writeToNBT(tagCompound);
+    }
+
+
+    @Override
 	public void addWailaInfo(List<String> info)
 	{
 		super.addWailaInfo(info);

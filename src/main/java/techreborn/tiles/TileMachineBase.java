@@ -8,8 +8,6 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import techreborn.packets.PacketHandler;
-import techreborn.packets.PacketSync;
-import techreborn.packets.SimplePacket;
 
 import java.util.List;
 
@@ -35,8 +33,7 @@ public class TileMachineBase extends TileEntity {
 
     public void syncWithAll() {
         if (!worldObj.isRemote) {
-            //PacketHandler.sendPacketToAllPlayers(getSyncPacket());
-            PacketHandler.sendPacketToAllPlayers(getDescriptionPacket2(),
+            PacketHandler.sendPacketToAllPlayers(getSyncPacket(),
                     worldObj);
         } else {
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
@@ -45,17 +42,11 @@ public class TileMachineBase extends TileEntity {
         ticksSinceLastSync = 0;
     }
 
-    public Packet getDescriptionPacket2() {
+    public Packet getSyncPacket() {
         NBTTagCompound nbtTag = new NBTTagCompound();
         writeSyncToNBT(nbtTag);
         return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord,
                 this.zCoord, 1, nbtTag);
-    }
-
-    public SimplePacket getSyncPacket() {
-        NBTTagCompound nbtTag = new NBTTagCompound();
-        writeSyncToNBT(nbtTag);
-        return new PacketSync(nbtTag, xCoord, yCoord, zCoord);
     }
 
     public Packet getDescriptionPacket() {
@@ -70,10 +61,6 @@ public class TileMachineBase extends TileEntity {
         worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord,
                 yCoord, zCoord);
         readFromNBT(packet.func_148857_g());
-    }
-
-    public void readSyncFromNBT(NBTTagCompound tagCompound) {
-
     }
 
     public void writeSyncToNBT(NBTTagCompound tagCompound) {

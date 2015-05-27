@@ -110,6 +110,14 @@ public class TileCentrifuge extends TileMachineBase implements  IWrenchable, IEn
     }
 
     @Override
+    public void writeSyncToNBT(NBTTagCompound tagCompound) {
+        super.writeSyncToNBT(tagCompound);
+        energy.writeToNBT(tagCompound);
+        crafter.writeToNBT(tagCompound);
+    }
+
+
+    @Override
     public void invalidate()
     {
         energy.invalidate();

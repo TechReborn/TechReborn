@@ -21,7 +21,6 @@ public class PacketHandler extends
 	private static EnumMap<Side, FMLEmbeddedChannel> channels;
 
 	public PacketHandler() {
-        addDiscriminator(0, PacketSync.class);
 	}
 
 	public static EnumMap<Side, FMLEmbeddedChannel> getChannels()

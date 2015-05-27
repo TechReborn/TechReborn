@@ -102,6 +102,14 @@ public class TileLathe extends TileMachineBase implements IWrenchable, IEnergyTi
     }
 
     @Override
+    public void writeSyncToNBT(NBTTagCompound tagCompound) {
+        super.writeSyncToNBT(tagCompound);
+        energy.writeToNBT(tagCompound);
+        crafter.writeToNBT(tagCompound);
+    }
+
+
+    @Override
     public void invalidate()
     {
         energy.invalidate();
