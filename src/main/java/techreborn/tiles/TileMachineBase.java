@@ -37,6 +37,7 @@ public class TileMachineBase extends TileEntity {
                     worldObj);
         } else {
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+			worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
 		}
         needsSync = false;
         ticksSinceLastSync = 0;
@@ -60,7 +61,7 @@ public class TileMachineBase extends TileEntity {
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
         worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord,
                 yCoord, zCoord);
-        readFromNBT(packet.func_148857_g());
+		readFromNBT(packet.func_148857_g());
     }
 
     public void writeSyncToNBT(NBTTagCompound tagCompound) {
