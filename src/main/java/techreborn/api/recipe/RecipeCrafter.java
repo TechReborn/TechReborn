@@ -82,6 +82,7 @@ public class RecipeCrafter {
     public int currentTickTime = 0;
     public int currentNeededTicks = 0;
     double lastEnergy;
+    public boolean isactive = false;
 
     /**
      * Call this on the tile tick
@@ -102,6 +103,7 @@ public class RecipeCrafter {
                     if (canGiveInvAll) {
                         currentRecipe = recipe;//Sets the current recipe then syncs
                         this.currentNeededTicks = currentRecipe.tickTime();
+                        parentTile.syncWithAll();//update texture
                     }
                 }
             }
@@ -109,6 +111,7 @@ public class RecipeCrafter {
             if (!hasAllInputs()) {//If it doesn't have all the inputs reset
                 currentRecipe = null;
                 currentTickTime = 0;
+                parentTile.syncWithAll();//update texture
             }
             if (currentRecipe != null && currentTickTime >= currentRecipe.tickTime()) {//If it has reached the recipe tick time
                 boolean canGiveInvAll = true;
@@ -128,7 +131,7 @@ public class RecipeCrafter {
                     useAllInputs();//this uses all the inputs
                     currentRecipe = null;//resets
                     currentTickTime = 0;
-                    //Force sync after craft
+                    //Force sync after craft to update texture
                     parentTile.syncWithAll();
                 }
             } else if (currentRecipe != null && currentTickTime < currentRecipe.tickTime()) {
@@ -226,6 +229,8 @@ public class RecipeCrafter {
         NBTTagCompound data = tag.getCompoundTag("Crater");
 
         currentTickTime = data.getInteger("currentTickTime");
+
+        isactive = data.getBoolean("isActive");
     }
 
     public void writeToNBT(NBTTagCompound tag) {
@@ -233,11 +238,16 @@ public class RecipeCrafter {
         NBTTagCompound data = new NBTTagCompound();
 
         data.setDouble("currentTickTime", currentTickTime);
+        data.setBoolean("isActive", isActiveServer());
 
         tag.setTag("Crater", data);
     }
 
-    public boolean isActive() {
+    private boolean isActiveServer() {
         return currentRecipe != null && currentTickTime != 0;
+    }
+
+    public boolean isActive() {
+        return isactive;
     }
 }

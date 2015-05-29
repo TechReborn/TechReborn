@@ -46,9 +46,6 @@ public class GuiImplosionCompressor extends GuiContainer{
             j = this.containerImplosionCompressor.currentTickTime * 20 / this.containerImplosionCompressor.currentNeededTicks;
         }
 
-
-        System.out.println(this.containerImplosionCompressor.currentTickTime);
-
 		this.drawTexturedModalRect(k + 60, l + 38, 176, 14, j + 1, 16);
 
 		j = this.containerImplosionCompressor.energy * 12 / this.compresser.energy.getCapacity();

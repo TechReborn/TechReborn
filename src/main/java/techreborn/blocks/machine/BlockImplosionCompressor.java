@@ -65,7 +65,7 @@ public class BlockImplosionCompressor extends BlockMachineBase{
 	public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int side) {
 		int metadata = blockAccess.getBlockMetadata(x, y, z);
 		TileImplosionCompressor tileImplosionCompressor = (TileImplosionCompressor) blockAccess.getTileEntity(x, y, z);
-		if(side == metadata && tileImplosionCompressor.crafter.currentRecipe != null){
+		if(side == metadata && tileImplosionCompressor.crafter.isActive()){
 			return this.iconFrontOn;
 		}
 
