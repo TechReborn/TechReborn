@@ -5,7 +5,7 @@ import net.minecraft.inventory.Slot;
 import techreborn.client.SlotOutput;
 import techreborn.tiles.TileImplosionCompressor;
 
-public class ContainerImplosionCompressor extends TechRebornContainer{
+public class ContainerImplosionCompressor extends ContainerCrafting{
 	
 	EntityPlayer player;
 
@@ -17,6 +17,7 @@ public class ContainerImplosionCompressor extends TechRebornContainer{
 	public ContainerImplosionCompressor(TileImplosionCompressor tilecompressor,
 			EntityPlayer player)
 	{
+        super(tilecompressor.crafter);
 		tile = tilecompressor;
 		this.player = player;
 

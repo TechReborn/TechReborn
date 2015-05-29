@@ -80,12 +80,16 @@ public class RecipeCrafter {
 
     public IBaseRecipeType currentRecipe;
     public int currentTickTime = 0;
+    public int currentNeededTicks = 0;
     double lastEnergy;
 
     /**
      * Call this on the tile tick
      */
     public void updateEntity() {
+        if(parentTile.getWorldObj().isRemote){
+            return;
+        }
         if (currentRecipe == null) {//It will now look for new recipes.
             for (IBaseRecipeType recipe : RecipeHanderer.getRecipeClassFromName(recipeName)) {
                 if (recipe.canCraft(parentTile) && hasAllInputs(recipe)) {//This checks to see if it has all of the inputs
@@ -97,18 +101,14 @@ public class RecipeCrafter {
                     }
                     if (canGiveInvAll) {
                         currentRecipe = recipe;//Sets the current recipe then syncs
-                        parentTile.needsSync = true;
+                        this.currentNeededTicks = currentRecipe.tickTime();
                     }
                 }
-            }
-            if (lastEnergy != energy.getEnergyStored()) {
-                parentTile.needsSync = true;
             }
         } else {
             if (!hasAllInputs()) {//If it doesn't have all the inputs reset
                 currentRecipe = null;
                 currentTickTime = 0;
-                parentTile.needsSync = true;
             }
             if (currentRecipe != null && currentTickTime >= currentRecipe.tickTime()) {//If it has reached the recipe tick time
                 boolean canGiveInvAll = true;
@@ -130,8 +130,6 @@ public class RecipeCrafter {
                     currentTickTime = 0;
                     //Force sync after craft
                     parentTile.syncWithAll();
-                    parentTile.needsSync = false;
-                    parentTile.ticksSinceLastSync = 0;
                 }
             } else if (currentRecipe != null && currentTickTime < currentRecipe.tickTime()) {
                 if (energy.canUseEnergy(currentRecipe.euPerTick())) {//This checks to see if it can use the power
@@ -139,11 +137,9 @@ public class RecipeCrafter {
                         this.energy.setEnergyStored(this.energy.getEnergyStored() - currentRecipe.euPerTick());
                     }
                     currentTickTime++;//increase the ticktime
-                    parentTile.needsSync = true;
                 }
             }
         }
-        lastEnergy = energy.getEnergyStored();
     }
 
     public boolean hasAllInputs() {

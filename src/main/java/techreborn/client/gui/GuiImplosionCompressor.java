@@ -6,6 +6,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import techreborn.client.container.ContainerCrafting;
 import techreborn.client.container.ContainerImplosionCompressor;
 import techreborn.tiles.TileImplosionCompressor;
 
@@ -14,9 +15,11 @@ public class GuiImplosionCompressor extends GuiContainer{
 	private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/implosion_compressor.png");
 
 	TileImplosionCompressor compresser;
+    ContainerImplosionCompressor containerImplosionCompressor;
 	
 	public GuiImplosionCompressor(EntityPlayer player, TileImplosionCompressor tilecompresser) {
 		super(new ContainerImplosionCompressor(tilecompresser, player));
+        containerImplosionCompressor = (ContainerImplosionCompressor) this.inventorySlots;
 		this.xSize = 176;
 		this.ySize = 167;
 		compresser = tilecompresser;
@@ -38,14 +41,17 @@ public class GuiImplosionCompressor extends GuiContainer{
 		int l = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
 
-		int j = 0;
+        int j = 0;
+        if(this.containerImplosionCompressor.currentTickTime != 0){
+            j = this.containerImplosionCompressor.currentTickTime * 20 / this.containerImplosionCompressor.currentNeededTicks;
+        }
 
-		if(compresser.crafter.currentRecipe != null) {
-			j = this.compresser.crafter.currentTickTime * 20 / this.compresser.crafter.currentRecipe.tickTime();
-		}
+
+        System.out.println(this.containerImplosionCompressor.currentTickTime);
+
 		this.drawTexturedModalRect(k + 60, l + 38, 176, 14, j + 1, 16);
 
-		j = (int)this.compresser.energy.getEnergyStored() * 12 / this.compresser.energy.getCapacity();
+		j = this.containerImplosionCompressor.energy * 12 / this.compresser.energy.getCapacity();
 		if(j > 0) {
 			this.drawTexturedModalRect(k + 16, l + 37 + 12 - j, 176, 12 - j, 14, j + 2);
 		}

@@ -77,10 +77,6 @@ public class GuiHandler implements IGuiHandler {
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world,
 			int x, int y, int z)
 	{
-
-        if(world.getTileEntity(x, y, z) instanceof TileMachineBase){
-            ((TileMachineBase) world.getTileEntity(x, y, z)).syncWithAll();
-        }
 		if (ID == thermalGeneratorID)
 		{
 			return new ContainerThermalGenerator(
