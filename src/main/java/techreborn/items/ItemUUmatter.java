@@ -11,7 +11,7 @@ public class ItemUUmatter extends Item{
 	public ItemUUmatter()
 	{
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
-		setUnlocalizedName("techreborn.uumattaer");
+		setUnlocalizedName("techreborn.uuMatter");
 	}
 	
 	@SideOnly(Side.CLIENT)
