@@ -31,8 +31,7 @@ public class TROreGen implements IWorldGenerator {
 	WorldGenMinable oreLead;
 	WorldGenMinable oreSilver;
 
-	public TROreGen()
-	{
+	public TROreGen(){
 		// World
 		oreGalena = new WorldGenMinable(ModBlocks.ore, 0, ConfigTechReborn.GalenaOreRare, Blocks.stone);
 		oreIridium = new WorldGenMinable(ModBlocks.ore, 1, ConfigTechReborn.IridiumOreRare, Blocks.stone);
@@ -58,8 +57,7 @@ public class TROreGen implements IWorldGenerator {
 		LogHelper.info("WorldGen Loaded");
 	}
 	
-	public void retroGen(Random random, int chunkX, int chunkZ, World world) 
-	{
+	public void retroGen(Random random, int chunkX, int chunkZ, World world) {
 		//TODO
 		generateUndergroundOres(random, chunkX, chunkZ, world);
 		generateHellOres(random, chunkX, chunkZ, world);
@@ -69,16 +67,12 @@ public class TROreGen implements IWorldGenerator {
 
 	@Override
 	public void generate(Random random, int xChunk, int zChunk, World world,
-			IChunkProvider chunkGenerator, IChunkProvider chunkProvider)
-	{
-		if (world.provider.isSurfaceWorld())
-		{
+			IChunkProvider chunkGenerator, IChunkProvider chunkProvider){
+		if (world.provider.isSurfaceWorld()){
 			generateUndergroundOres(random, xChunk * 16, zChunk * 16, world);
-		} else if (world.provider.isHellWorld)
-		{
-			generateHellOres(random, xChunk * 16, zChunk * 16, world);
-		} else
-		{
+			} else if (world.provider.isHellWorld){
+				generateHellOres(random, xChunk * 16, zChunk * 16, world);
+			} else if (world.provider.dimensionId == 1){
 			generateEndOres(random, xChunk * 16, zChunk * 16, world);
 		}
 
@@ -88,90 +82,72 @@ public class TROreGen implements IWorldGenerator {
 			World world)
 	{
 		int xPos, yPos, zPos;
-		if (config.GalenaOreTrue)
-		{
-			for (int i = 0; i <= 16; i++)
-			{
+		if (config.GalenaOreTrue){
+			for (int i = 0; i <= 16; i++){
 				xPos = xChunk + random.nextInt(16);
 				yPos = 60 + random.nextInt(60 - 20);
 				zPos = zChunk + random.nextInt(16);
 				oreGalena.generate(world, random, xPos, yPos, zPos);
 			}
 		}
-		if (config.IridiumOreTrue)
-		{
-			for (int i = 0; i <= 16; i++)
-			{
+		if (config.IridiumOreTrue){
+			for (int i = 0; i <= 16; i++){
 				xPos = xChunk + random.nextInt(16);
 				yPos = 60 + random.nextInt(60 - 20);
 				zPos = zChunk + random.nextInt(16);
 				oreIridium.generate(world, random, xPos, yPos, zPos);
 			}
 		}
-		if (config.RubyOreTrue)
-		{
-			for (int i = 0; i <= 16; i++)
-			{
+		if (config.RubyOreTrue){
+			for (int i = 0; i <= 16; i++){
 				xPos = xChunk + random.nextInt(16);
 				yPos = 60 + random.nextInt(60 - 20);
 				zPos = zChunk + random.nextInt(16);
 				oreRuby.generate(world, random, xPos, yPos, zPos);
 			}
 		}
-		if (config.SapphireOreTrue)
-		{
-			for (int i = 0; i <= 16; i++)
-			{
+		if (config.SapphireOreTrue){
+			for (int i = 0; i <= 16; i++){
 				xPos = xChunk + random.nextInt(16);
 				yPos = 60 + random.nextInt(60 - 20);
 				zPos = zChunk + random.nextInt(16);
 				oreSapphire.generate(world, random, xPos, yPos, zPos);
 			}
 		}
-		if (config.BauxiteOreTrue)
-		{
-			for (int i = 0; i <= 16; i++)
-			{
+		if (config.BauxiteOreTrue){
+			for (int i = 0; i <= 16; i++){
 				xPos = xChunk + random.nextInt(16);
 				yPos = 60 + random.nextInt(60 - 20);
 				zPos = zChunk + random.nextInt(16);
 				oreBauxite.generate(world, random, xPos, yPos, zPos);
 			}
 		}
-		if (config.TetrahedriteOreTrue)
-		{
-			for (int i = 0; i <= 16; i++)
-			{
+		if (config.TetrahedriteOreTrue){
+			for (int i = 0; i <= 16; i++){
 				xPos = xChunk + random.nextInt(16);
 				yPos = 60 + random.nextInt(60 - 20);
 				zPos = zChunk + random.nextInt(16);
 				oreTetrahedrite.generate(world, random, xPos, yPos, zPos);
 			}
 		}
-		if (config.CassiteriteOreTrue)
-		{
-			for (int i = 0; i <= 16; i++)
-			{
+		if (config.CassiteriteOreTrue){
+			for (int i = 0; i <= 16; i++){
 				xPos = xChunk + random.nextInt(16);
 				yPos = 60 + random.nextInt(60 - 20);
 				zPos = zChunk + random.nextInt(16);
 				oreCassiterite.generate(world, random, xPos, yPos, zPos);
 			}
 		}
-		if (config.LeadOreTrue)
-		{
-			for (int i = 0; i <= 16; i++)
-			{
+		if (config.LeadOreTrue){
+			for (int i = 0; i <= 16; i++){
 				xPos = xChunk + random.nextInt(16);
 				yPos = 60 + random.nextInt(60 - 20);
 				zPos = zChunk + random.nextInt(16);
 				oreLead.generate(world, random, xPos, yPos, zPos);
 			}
 		}
-		if (config.SilverOreTrue)
-		{
-			for (int i = 0; i <= 16; i++)
-			{
+		if (config.SilverOreTrue){
+			for (int i = 0; i <= 16; i++){
 				xPos = xChunk + random.nextInt(16);
 				yPos = 60 + random.nextInt(60 - 20);
 				zPos = zChunk + random.nextInt(16);
@@ -180,33 +156,26 @@ public class TROreGen implements IWorldGenerator {
 		}
 	}
 
-	void generateHellOres(Random random, int xChunk, int zChunk, World world)
-	{
+	void generateHellOres(Random random, int xChunk, int zChunk, World world){
 		int xPos, yPos, zPos;
-		if (config.PyriteOreTrue)
-		{
-			for (int i = 0; i <= 16; i++)
-			{
+		if (config.PyriteOreTrue){
+			for (int i = 0; i <= 16; i++){
 				xPos = xChunk + random.nextInt(16);
 				yPos = 60 + random.nextInt(60 - 20);
 				zPos = zChunk + random.nextInt(16);
 				orePyrite.generate(world, random, xPos, yPos, zPos);
 			}
 		}
-		if (config.CinnabarOreTrue)
-		{
-			for (int i = 0; i <= 16; i++)
-			{
+		if (config.CinnabarOreTrue){
+			for (int i = 0; i <= 16; i++){
 				xPos = xChunk + random.nextInt(16);
 				yPos = 60 + random.nextInt(60 - 20);
 				zPos = zChunk + random.nextInt(16);
 				oreCinnabar.generate(world, random, xPos, yPos, zPos);
 			}
 		}
-		if (config.SphaleriteOreTrue)
-		{
-			for (int i = 0; i <= 16; i++)
-			{
+		if (config.SphaleriteOreTrue){
+			for (int i = 0; i <= 16; i++){
 				xPos = xChunk + random.nextInt(16);
 				yPos = 60 + random.nextInt(60 - 20);
 				zPos = zChunk + random.nextInt(16);
@@ -215,43 +184,34 @@ public class TROreGen implements IWorldGenerator {
 		}
 	}
 
-	void generateEndOres(Random random, int xChunk, int zChunk, World world)
-	{
+	void generateEndOres(Random random, int xChunk, int zChunk, World world){
 		int xPos, yPos, zPos;
-		if (config.TungstenOreTrue)
-		{
-			for (int i = 0; i <= 16; i++)
-			{
+		if (config.TungstenOreTrue){
+			for (int i = 0; i <= 16; i++){
 				xPos = xChunk + random.nextInt(16);
 				yPos = 60 + random.nextInt(60 - 20);
 				zPos = zChunk + random.nextInt(16);
 				oreTungston.generate(world, random, xPos, yPos, zPos);
 			}
 		}
-		if (config.SheldoniteOreTrue)
-		{
-			for (int i = 0; i <= 16; i++)
-			{
+		if (config.SheldoniteOreTrue){
+			for (int i = 0; i <= 16; i++){
 				xPos = xChunk + random.nextInt(16);
 				yPos = 60 + random.nextInt(60 - 20);
 				zPos = zChunk + random.nextInt(16);
 				oreSheldonite.generate(world, random, xPos, yPos, zPos);
 			}
 		}
-		if (config.PeridotOreTrue)
-		{
-			for (int i = 0; i <= 16; i++)
-			{
+		if (config.PeridotOreTrue){
+			for (int i = 0; i <= 16; i++){
 				xPos = xChunk + random.nextInt(16);
 				yPos = 60 + random.nextInt(60 - 20);
 				zPos = zChunk + random.nextInt(16);
 				orePeridot.generate(world, random, xPos, yPos, zPos);
 			}
 		}
-		if (config.SodaliteOreTrue)
-		{
-			for (int i = 0; i <= 16; i++)
-			{
+		if (config.SodaliteOreTrue){
+			for (int i = 0; i <= 16; i++){
 				xPos = xChunk + random.nextInt(16);
 				yPos = 60 + random.nextInt(60 - 20);
 				zPos = zChunk + random.nextInt(16);
