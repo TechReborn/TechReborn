@@ -13,22 +13,22 @@ public class ImplosionCompressorRecipeHandler extends GenericRecipeHander implem
     public void addPositionedStacks(List<PositionedStack> input, List<PositionedStack> outputs, IBaseRecipeType recipeType) {
         int offset = 4;
         if (recipeType.getInputs().size() > 0) {
-            PositionedStack pStack = new PositionedStack(ItemUtils.getStackWithAllOre(recipeType.getInputs().get(0)), 34 - offset, 16 - offset);
+            PositionedStack pStack = new PositionedStack(ItemUtils.getStackWithAllOre(recipeType.getInputs().get(0)), 37 - offset, 26 - offset);
             input.add(pStack);
         }
 
         if (recipeType.getInputs().size() > 1) {
-            PositionedStack pStack2 = new PositionedStack(ItemUtils.getStackWithAllOre(recipeType.getInputs().get(1)), 34 - offset, 34 - offset);
+            PositionedStack pStack2 = new PositionedStack(ItemUtils.getStackWithAllOre(recipeType.getInputs().get(1)), 37 - offset, 44 - offset);
             input.add(pStack2);
         }
 
         if (recipeType.getOutputs().size() > 0) {
-            PositionedStack pStack3 = new PositionedStack(recipeType.getOutputs().get(0), 86 - offset, 25 - offset);
+            PositionedStack pStack3 = new PositionedStack(recipeType.getOutputs().get(0), 93 - offset, 35 - offset);
             outputs.add(pStack3);
         }
 
         if (recipeType.getOutputs().size() > 1) {
-            PositionedStack pStack4 = new PositionedStack(recipeType.getOutputs().get(1), 104 - offset, 25 - offset);
+            PositionedStack pStack4 = new PositionedStack(recipeType.getOutputs().get(1), 111 - offset, 35 - offset);
             outputs.add(pStack4);
         }
     }
