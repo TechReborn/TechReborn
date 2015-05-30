@@ -94,6 +94,16 @@ public class RecipeCrafter {
     double speedMultiplier = 0;
 
     /**
+     * This is used to change the speed of the crafting operation.
+     *
+     * 1 = none;
+     * 1.2 = 20% speed increase
+     * 1.75 = 75% increase
+     * 5 = uses 5 times more power
+     */
+    double powerMultiplier = 1;
+
+    /**
      * Call this on the tile tick
      */
     public void updateEntity() {
@@ -144,10 +154,7 @@ public class RecipeCrafter {
                     parentTile.syncWithAll();
                 }
             } else if (currentRecipe != null && currentTickTime < currentNeededTicks) {
-                if (energy.canUseEnergy(currentRecipe.euPerTick())) {//This checks to see if it can use the power
-                    if (!parentTile.getWorldObj().isRemote) {//remove the power on the server side only
-                        this.energy.setEnergyStored(this.energy.getEnergyStored() - currentRecipe.euPerTick());
-                    }
+                if (energy.useEnergy(getEuPerTick())) {//This uses the power
                     currentTickTime++;//increase the ticktime
                 }
             }
@@ -260,7 +267,6 @@ public class RecipeCrafter {
         return isactive;
     }
 
-
     public void addSpeedMulti(double amount){
         if(speedMultiplier + amount >= 0.99)
         speedMultiplier += amount;
@@ -272,5 +278,21 @@ public class RecipeCrafter {
 
     public double getSpeedMultiplier(){
         return speedMultiplier;
+    }
+
+    public void addPowerMulti(double amount){
+        powerMultiplier += amount;
+    }
+
+    public void resetPowerMulti(){
+        powerMultiplier = 1;
+    }
+
+    public double getPowerMultiplier(){
+        return powerMultiplier;
+    }
+
+    public double getEuPerTick(){
+        return currentRecipe.euPerTick() * powerMultiplier;
     }
 }
