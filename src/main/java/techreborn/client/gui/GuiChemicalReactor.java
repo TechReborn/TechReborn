@@ -14,9 +14,11 @@ public class GuiChemicalReactor extends GuiContainer {
 	private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/chemical_reactor.png");
 
 	TileChemicalReactor chemicalReactor;
+    ContainerChemicalReactor containerChemicalReactor;
 
 	public GuiChemicalReactor(EntityPlayer player, TileChemicalReactor tilechemicalReactor) {
 		super(new ContainerChemicalReactor(tilechemicalReactor, player));
+        containerChemicalReactor = (ContainerChemicalReactor) this.inventorySlots;
 		this.xSize = 176;
 		this.ySize = 167;
 		chemicalReactor = tilechemicalReactor;
@@ -40,12 +42,12 @@ public class GuiChemicalReactor extends GuiContainer {
 
 		int j = 0;
 
-		if(chemicalReactor.crafter.currentRecipe != null) {
-			j = this.chemicalReactor.crafter.currentTickTime * 11 / this.chemicalReactor.crafter.currentRecipe.tickTime();
-		}
+        if(this.containerChemicalReactor.currentTickTime != 0){
+            j = this.containerChemicalReactor.currentTickTime * 20 / this.containerChemicalReactor.currentNeededTicks;
+        }
         this.drawTexturedModalRect(k + 73, l + 39, 177, 15, 30, j);
 
-		j = (int)this.chemicalReactor.energy.getEnergyStored() * 12 / this.chemicalReactor.energy.getCapacity();
+        j = this.containerChemicalReactor.energy * 12 / this.chemicalReactor.energy.getCapacity();
 		if(j > 0) {
 			this.drawTexturedModalRect(k + 9, l + 32 + 12 - j, 176, 12 - j, 14, j + 2);
 		}

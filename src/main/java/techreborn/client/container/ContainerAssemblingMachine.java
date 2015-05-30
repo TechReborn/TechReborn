@@ -5,7 +5,7 @@ import net.minecraft.inventory.Slot;
 import techreborn.client.SlotOutput;
 import techreborn.tiles.TileAssemblingMachine;
 
-public class ContainerAssemblingMachine extends TechRebornContainer {
+public class ContainerAssemblingMachine extends ContainerCrafting {
 
 	EntityPlayer player;
 
@@ -22,6 +22,7 @@ public class ContainerAssemblingMachine extends TechRebornContainer {
 	public ContainerAssemblingMachine(TileAssemblingMachine tileAssemblingMachine,
 			EntityPlayer player)
 	{
+        super(tileAssemblingMachine.crafter);
 		tile = tileAssemblingMachine;
 		this.player = player;
 

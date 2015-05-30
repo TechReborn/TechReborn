@@ -15,8 +15,11 @@ public class GuiPlateCuttingMachine extends GuiContainer {
 
 	TilePlateCuttingMachine platecuttingmachine;
 
+    ContainerPlateCuttingMachine containerPlateCuttingMachine;
+
 	public GuiPlateCuttingMachine(EntityPlayer player, TilePlateCuttingMachine tileplatecuttingmachine) {
 		super(new ContainerPlateCuttingMachine(tileplatecuttingmachine, player));
+        containerPlateCuttingMachine = (ContainerPlateCuttingMachine) this.inventorySlots;
 		this.xSize = 176;
 		this.ySize = 167;
 		platecuttingmachine = tileplatecuttingmachine;
@@ -40,12 +43,12 @@ public class GuiPlateCuttingMachine extends GuiContainer {
 
 		int j = 0;
 
-		if(platecuttingmachine.crafter.currentRecipe != null) {
-			j = this.platecuttingmachine.crafter.currentTickTime * 20 / this.platecuttingmachine.crafter.currentRecipe.tickTime();
-		}
+        if(this.containerPlateCuttingMachine.currentTickTime != 0){
+            j = this.containerPlateCuttingMachine.currentTickTime * 20 / this.containerPlateCuttingMachine.currentNeededTicks;
+        }
 		this.drawTexturedModalRect(k + 83, l + 34, 176, 14, j, 16);
 
-		j = (int)this.platecuttingmachine.energy.getEnergyStored() * 12 / this.platecuttingmachine.energy.getCapacity();
+		j = this.containerPlateCuttingMachine.energy * 12 / this.platecuttingmachine.energy.getCapacity();
 		if(j > 0) {
 			this.drawTexturedModalRect(k + 56, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);
 		}

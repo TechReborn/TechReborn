@@ -14,9 +14,11 @@ public class GuiAssemblingMachine extends GuiContainer {
 	private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/assembling_machine.png");
 
 	TileAssemblingMachine assemblingmachine;
+    ContainerAssemblingMachine containerAssemblingMachine;
 
 	public GuiAssemblingMachine(EntityPlayer player, TileAssemblingMachine tileassemblinmachine) {
 		super(new ContainerAssemblingMachine(tileassemblinmachine, player));
+        containerAssemblingMachine = (ContainerAssemblingMachine) this.inventorySlots;
 		this.xSize = 176;
 		this.ySize = 167;
 		assemblingmachine = tileassemblinmachine;
@@ -40,12 +42,12 @@ public class GuiAssemblingMachine extends GuiContainer {
 
 		int j = 0;
 
-		if(assemblingmachine.crafter.currentRecipe != null) {
-			j = this.assemblingmachine.crafter.currentTickTime * 20 / this.assemblingmachine.crafter.currentRecipe.tickTime();
-		}
+        if(this.containerAssemblingMachine.currentTickTime != 0){
+            j = this.containerAssemblingMachine.currentTickTime * 20 / this.containerAssemblingMachine.currentNeededTicks;
+        }
         this.drawTexturedModalRect(k + 86, l + 34, 176, 14, j + 1, 16);
 
-		j = (int)this.assemblingmachine.energy.getEnergyStored() * 12 / this.assemblingmachine.energy.getCapacity();
+        j = this.containerAssemblingMachine.energy * 12 / this.assemblingmachine.energy.getCapacity();
 		if(j > 0) {
             this.drawTexturedModalRect(k + 56, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);
 		}

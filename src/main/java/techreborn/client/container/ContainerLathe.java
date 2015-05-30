@@ -5,7 +5,7 @@ import net.minecraft.inventory.Slot;
 import techreborn.client.SlotOutput;
 import techreborn.tiles.TileLathe;
 
-public class ContainerLathe extends TechRebornContainer {
+public class ContainerLathe extends ContainerCrafting {
 
 	EntityPlayer player;
 
@@ -22,6 +22,7 @@ public class ContainerLathe extends TechRebornContainer {
 	public ContainerLathe(TileLathe tilelathe,
 			EntityPlayer player)
 	{
+        super(tilelathe.crafter);
 		tile = tilelathe;
 		this.player = player;
 

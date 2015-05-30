@@ -14,9 +14,11 @@ public class GuiLathe extends GuiContainer {
 	private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/lathe.png");
 
 	TileLathe lathe;
+    ContainerLathe containerLathe;
 
 	public GuiLathe(EntityPlayer player, TileLathe tilelathe) {
 		super(new ContainerLathe(tilelathe, player));
+        containerLathe = (ContainerLathe) this.inventorySlots;
 		this.xSize = 176;
 		this.ySize = 167;
 		lathe = tilelathe;
@@ -40,12 +42,12 @@ public class GuiLathe extends GuiContainer {
 
 		int j = 0;
 
-		if(lathe.crafter.currentRecipe != null) {
-			j = this.lathe.crafter.currentTickTime * 20 / this.lathe.crafter.currentRecipe.tickTime();
-		}
+        if(this.containerLathe.currentTickTime != 0){
+            j = this.containerLathe.currentTickTime * 20 / this.containerLathe.currentNeededTicks;
+        }
 		this.drawTexturedModalRect(k + 80, l + 34, 176, 14, j, 16);
 
-		j = (int)this.lathe.energy.getEnergyStored() * 12 / this.lathe.energy.getCapacity();
+        j = this.containerLathe.energy * 12 / this.lathe.energy.getCapacity();
 		if(j > 0) {
 			this.drawTexturedModalRect(k + 56, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);
 		}
