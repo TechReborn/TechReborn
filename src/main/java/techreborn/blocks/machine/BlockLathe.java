@@ -65,7 +65,7 @@ public class BlockLathe extends BlockMachineBase {
 	public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int side) {
 		int metadata = blockAccess.getBlockMetadata(x, y, z);
 		TileLathe tileLathe = (TileLathe) blockAccess.getTileEntity(x, y, z);
-		if(side == metadata && tileLathe.crafter.currentRecipe != null){
+		if(side == metadata && tileLathe.crafter.isActive()){
 			return this.iconFrontOn;
 		}
 

@@ -65,7 +65,7 @@ public class BlockPlateCuttingMachine extends BlockMachineBase {
 	public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int side) {
 		int metadata = blockAccess.getBlockMetadata(x, y, z);
 		TilePlateCuttingMachine tilePlateCuttingMachine = (TilePlateCuttingMachine) blockAccess.getTileEntity(x, y, z);
-		if(side == metadata && tilePlateCuttingMachine.crafter.currentRecipe != null){
+		if(side == metadata && tilePlateCuttingMachine.crafter.isActive()){
 			return this.iconFrontOn;
 		}
 		return metadata == 0 && side == 3 ? this.iconFront

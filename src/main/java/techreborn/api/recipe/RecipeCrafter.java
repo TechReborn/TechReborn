@@ -85,6 +85,15 @@ public class RecipeCrafter {
     public boolean isactive = false;
 
     /**
+     * This is used to change the speed of the crafting operation.
+     *
+     * 0 = none;
+     * 0.2 = 20% speed increase
+     * 0.75 = 75% increase
+     */
+    double speedMultiplier = 0;
+
+    /**
      * Call this on the tile tick
      */
     public void updateEntity() {
@@ -102,7 +111,7 @@ public class RecipeCrafter {
                     }
                     if (canGiveInvAll) {
                         currentRecipe = recipe;//Sets the current recipe then syncs
-                        this.currentNeededTicks = currentRecipe.tickTime();
+                        this.currentNeededTicks = (int)(currentRecipe.tickTime() * (1.0 - speedMultiplier));
                         parentTile.syncWithAll();//update texture
                     }
                 }
@@ -113,7 +122,7 @@ public class RecipeCrafter {
                 currentTickTime = 0;
                 parentTile.syncWithAll();//update texture
             }
-            if (currentRecipe != null && currentTickTime >= currentRecipe.tickTime()) {//If it has reached the recipe tick time
+            if (currentRecipe != null && currentTickTime >= currentNeededTicks) {//If it has reached the recipe tick time
                 boolean canGiveInvAll = true;
                 for (int i = 0; i < currentRecipe.getOutputs().size(); i++) {//Checks to see if it can fit the output
                     if (!canFitStack(currentRecipe.getOutputs().get(i), outputSlots[i])) {
@@ -134,7 +143,7 @@ public class RecipeCrafter {
                     //Force sync after craft to update texture
                     parentTile.syncWithAll();
                 }
-            } else if (currentRecipe != null && currentTickTime < currentRecipe.tickTime()) {
+            } else if (currentRecipe != null && currentTickTime < currentNeededTicks) {
                 if (energy.canUseEnergy(currentRecipe.euPerTick())) {//This checks to see if it can use the power
                     if (!parentTile.getWorldObj().isRemote) {//remove the power on the server side only
                         this.energy.setEnergyStored(this.energy.getEnergyStored() - currentRecipe.euPerTick());
@@ -249,5 +258,19 @@ public class RecipeCrafter {
 
     public boolean isActive() {
         return isactive;
+    }
+
+
+    public void addSpeedMulti(double amount){
+        if(speedMultiplier + amount >= 0.99)
+        speedMultiplier += amount;
+    }
+
+    public void resetSpeedMulti(){
+        speedMultiplier = 0;
+    }
+
+    public double getSpeedMultiplier(){
+        return speedMultiplier;
     }
 }

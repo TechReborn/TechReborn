@@ -34,7 +34,7 @@ public class GuiGrinder extends GuiContainer{
         int j = 0;
 
         if(grinder.crafter.currentRecipe != null) {
-            j = this.grinder.crafter.currentTickTime * 24 / this.grinder.crafter.currentRecipe.tickTime();
+            j = this.grinder.crafter.currentTickTime * 24 / this.grinder.crafter.currentNeededTicks;
         }
         this.drawTexturedModalRect(k + 51, l + 35, 176, 14, j + 1, 16);
 

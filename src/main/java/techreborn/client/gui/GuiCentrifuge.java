@@ -41,7 +41,7 @@ public class GuiCentrifuge extends GuiContainer {
         int j = 0;
 
         if(centrifuge.crafter.currentRecipe != null) {
-            j = this.centrifuge.crafter.currentTickTime * 11 / this.centrifuge.crafter.currentRecipe.tickTime();
+            j = this.centrifuge.crafter.currentTickTime * 11 / this.centrifuge.crafter.currentNeededTicks;
         }
         this.drawTexturedModalRect(k + 83, l + 23 + 10 - j, 177, 15 + 10 - j, 10, j);
         this.drawTexturedModalRect(k + 98, l + 38, 177, 51, j, 10);
