@@ -173,7 +173,7 @@ public class ModRecipes {
 		TechRebornAPI.addRollingMachinceRecipe(new ItemStack(Blocks.furnace, 4), "ccc", "c c", "ccc", 'c', Blocks.cobblestone);
 		TechRebornAPI.registerBlastFurnaceRecipe(new BlastFurnaceRecipe(new ItemStack(Items.apple), new ItemStack(Items.ender_pearl), new ItemStack(Items.golden_apple), new ItemStack(Items.diamond), 120, 1000));
 
-		RecipeHanderer.addRecipe(new ImplosionCompressorRecipe(new ItemStack(Blocks.end_stone, 4), null, new ItemStack(Items.brewing_stand), new ItemStack(Items.carrot), 120, 5));
+		RecipeHanderer.addRecipe(new ImplosionCompressorRecipe(new ItemStack(Blocks.netherrack, 4), new ItemStack(Blocks.diamond_block, 1), new ItemStack(ModItems.bucketTritium), null, 120, 5));
 
 		RecipeHanderer.addRecipe(new AlloySmelterRecipe(new ItemStack(Items.coal), new ItemStack(Blocks.sand), new ItemStack(Items.diamond), 120, 5));
 		RecipeHanderer.addRecipe(new AssemblingMachineRecipe(new ItemStack(Items.coal), new ItemStack(Blocks.sand), new ItemStack(Items.diamond), 120, 5));

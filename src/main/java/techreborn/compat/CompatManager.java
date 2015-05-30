@@ -1,5 +1,6 @@
 package techreborn.compat;
 
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import techreborn.compat.ee3.EmcValues;
 import techreborn.compat.waila.CompatModuleWaila;
 import techreborn.init.ModParts;
@@ -21,10 +22,13 @@ public class CompatManager {
 			// Register Multiparts
 			ModParts.init();
 		}
-		if(Loader.isModLoaded("EE3"))
-		{
-			// Register Emc Values
-			EmcValues.init();
-		}
 	}
+
+    public static void postInit(FMLPostInitializationEvent event){
+        if(Loader.isModLoaded("EE3"))
+        {
+            // Register Emc Values and machine crafting handlers
+            EmcValues.init();
+        }
+    }
 }

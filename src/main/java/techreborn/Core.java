@@ -90,6 +90,8 @@ public class Core {
 	{
 		// Has to be done here as Buildcraft registers there recipes late
 		RecipeManager.init();
+        //Has to be done after the recipes have been added
+        CompatManager.postInit(event);
 		//RecipeHanderer.addOreDicRecipes();
 		LogHelper.info(RecipeHanderer.recipeList.size() + " recipes loaded");
 	}
