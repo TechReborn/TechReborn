@@ -231,6 +231,7 @@ public class RecipeCrafter {
         currentTickTime = data.getInteger("currentTickTime");
 
         isactive = data.getBoolean("isActive");
+        System.out.println(isactive);
     }
 
     public void writeToNBT(NBTTagCompound tag) {
@@ -244,7 +245,7 @@ public class RecipeCrafter {
     }
 
     private boolean isActiveServer() {
-        return currentRecipe != null && currentTickTime != 0;
+        return currentRecipe != null;
     }
 
     public boolean isActive() {
