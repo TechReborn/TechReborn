@@ -111,6 +111,7 @@ public class RecipeCrafter {
             return;
         }
         if (currentRecipe == null) {//It will now look for new recipes.
+            currentTickTime = 0;
             for (IBaseRecipeType recipe : RecipeHanderer.getRecipeClassFromName(recipeName)) {
                 if (recipe.canCraft(parentTile) && hasAllInputs(recipe)) {//This checks to see if it has all of the inputs
                     boolean canGiveInvAll = true;
@@ -130,8 +131,7 @@ public class RecipeCrafter {
         } else {
             if (!hasAllInputs()) {//If it doesn't have all the inputs reset
                 currentRecipe = null;
-                currentTickTime = 0;
-                parentTile.syncWithAll();//update texture
+                currentTickTime = -1;
             }
             if (currentRecipe != null && currentTickTime >= currentNeededTicks) {//If it has reached the recipe tick time
                 boolean canGiveInvAll = true;
