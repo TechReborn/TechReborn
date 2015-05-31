@@ -42,12 +42,12 @@ public class GuiChemicalReactor extends GuiContainer {
 
 		int j = 0;
 
-        if(this.containerChemicalReactor.currentTickTime != 0){
-            j = this.containerChemicalReactor.currentTickTime * 20 / this.containerChemicalReactor.currentNeededTicks;
+        if(this.chemicalReactor.crafter.currentTickTime != 0){
+            j = this.chemicalReactor.crafter.currentTickTime * 20 / this.chemicalReactor.crafter.currentNeededTicks;
         }
         this.drawTexturedModalRect(k + 73, l + 39, 177, 15, 30, j);
 
-        j = this.containerChemicalReactor.energy * 12 / this.chemicalReactor.energy.getCapacity();
+        j = (int) (this.chemicalReactor.crafter.energy.getEnergyStored() * 12 / this.chemicalReactor.energy.getCapacity());
 		if(j > 0) {
 			this.drawTexturedModalRect(k + 9, l + 32 + 12 - j, 176, 12 - j, 14, j + 2);
 		}

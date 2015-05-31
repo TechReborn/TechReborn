@@ -117,6 +117,7 @@ public class RecipeCrafter {
                     for (int i = 0; i < recipe.getOutputs().size(); i++) {//This checks to see if it can fit all of the outputs
                         if (!canFitStack(recipe.getOutputs().get(i), outputSlots[i])) {
                             canGiveInvAll = false;
+                            break;
                         }
                     }
                     if (canGiveInvAll) {
