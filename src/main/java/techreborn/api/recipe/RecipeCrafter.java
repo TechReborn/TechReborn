@@ -107,6 +107,7 @@ public class RecipeCrafter {
      * Call this on the tile tick
      */
     public void updateEntity() {
+        speedMultiplier = 0.9;
         if(parentTile.getWorldObj().isRemote){
             return;
         }
@@ -124,7 +125,9 @@ public class RecipeCrafter {
                     if (canGiveInvAll) {
                         currentRecipe = recipe;//Sets the current recipe then syncs
                         this.currentNeededTicks = (int)(currentRecipe.tickTime() * (1.0 - speedMultiplier));
-                        parentTile.syncWithAll();//update texture
+                        this.currentTickTime = 0;
+                    } else {
+                        this.currentTickTime = 0;
                     }
                 }
             }
@@ -151,8 +154,6 @@ public class RecipeCrafter {
                     useAllInputs();//this uses all the inputs
                     currentRecipe = null;//resets
                     currentTickTime = 0;
-                    //Force sync after craft to update texture
-                    parentTile.syncWithAll();
                 }
             } else if (currentRecipe != null && currentTickTime < currentNeededTicks) {
                 if (energy.useEnergy(getEuPerTick())) {//This uses the power
