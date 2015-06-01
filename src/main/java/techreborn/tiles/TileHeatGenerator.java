@@ -124,13 +124,6 @@ public class TileHeatGenerator extends TileMachineBase implements IWrenchable, I
     }
 
     @Override
-    public void writeSyncToNBT(NBTTagCompound tagCompound) {
-        super.writeSyncToNBT(tagCompound);
-        energy.writeToNBT(tagCompound);
-    }
-
-
-    @Override
 	public void addWailaInfo(List<String> info)
 	{
 		super.addWailaInfo(info);

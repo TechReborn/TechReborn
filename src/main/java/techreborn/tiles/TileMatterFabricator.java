@@ -84,13 +84,6 @@ public class TileMatterFabricator extends TileMachineBase implements IWrenchable
     }
 
     @Override
-    public void writeSyncToNBT(NBTTagCompound tagCompound) {
-        super.writeSyncToNBT(tagCompound);
-        energy.writeToNBT(tagCompound);
-    }
-
-
-    @Override
     public void invalidate()
     {
         energy.invalidate();

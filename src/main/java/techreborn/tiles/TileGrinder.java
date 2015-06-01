@@ -98,16 +98,7 @@ public class TileGrinder extends TileMachineBase implements IWrenchable, IEnergy
 		tank.writeToNBT(tagCompound);
 		crafter.writeToNBT(tagCompound);
     }
-
-    @Override
-    public void writeSyncToNBT(NBTTagCompound tagCompound) {
-        super.writeSyncToNBT(tagCompound);
-        energy.writeToNBT(tagCompound);
-        crafter.writeToNBT(tagCompound);
-        tank.writeToNBT(tagCompound);
-    }
-
-
+	
     @Override
     public void invalidate() {
         energy.invalidate();
