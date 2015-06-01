@@ -151,21 +151,6 @@ public class CablePart extends ModPart implements IEnergyConductor {
 
     @Override
     public void tick() {
-        if (ticks == 0) {
-            checkConnectedSides();
-            ticks += 1;
-        } else if (ticks == 40) {
-            ticks = 0;
-        } else {
-            ticks += 1;
-        }
-
-        if (IC2.platform.isSimulating()) {
-            MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
-            this.addedToEnergyNet = true;
-            checkConnectedSides();
-        }
-
     }
 
     @Override
