@@ -40,7 +40,7 @@ public class GuiAlloySmelter extends GuiContainer {
 
 		int j = 0;
 
-        if(alloysmelter.crafter.currentRecipe != null) {
+        if(alloysmelter.crafter.currentTickTime != 0) {
             j = this.alloysmelter.crafter.currentTickTime * 24 / this.alloysmelter.crafter.currentNeededTicks;
         }
 		this.drawTexturedModalRect(k + 79, l + 34, 176, 14, j + 1, 16);

@@ -11,40 +11,22 @@ import techreborn.packets.PacketHandler;
 
 import java.util.List;
 
-public class TileMachineBase extends TileEntity {
+public abstract class TileMachineBase extends TileEntity {
 
-	public boolean needsSync = false;
-	public int ticksSinceLastSync = 0;
-
-    @Override
-    public void updateEntity() {
-        super.updateEntity();
-		//Force a sync evey 10 seconds
-		if(needsSync && !worldObj.isRemote){
-			syncWithAll();
+	@Deprecated
+	/**
+	 * Try not to use this
+	 */
+	public void syncWithAll() {
+		if (!worldObj.isRemote) {
+			PacketHandler.sendPacketToAllPlayers(getDescriptionPacket(),
+					worldObj);
 		}
-		ticksSinceLastSync ++;
-    }
+	}
 
     @SideOnly(Side.CLIENT)
     public void addWailaInfo(List<String> info) {
 
-    }
-
-    public void syncWithAll() {
-        if (!worldObj.isRemote) {
-            PacketHandler.sendPacketToAllPlayers(getSyncPacket(),
-                    worldObj);
-        }
-        needsSync = false;
-        ticksSinceLastSync = 0;
-    }
-
-    public Packet getSyncPacket() {
-        NBTTagCompound nbtTag = new NBTTagCompound();
-        writeSyncToNBT(nbtTag);
-        return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord,
-                this.zCoord, 1, nbtTag);
     }
 
     public Packet getDescriptionPacket() {
@@ -60,10 +42,5 @@ public class TileMachineBase extends TileEntity {
                 yCoord, zCoord);
 		readFromNBT(packet.func_148857_g());
     }
-
-    public void writeSyncToNBT(NBTTagCompound tagCompound) {
-
-    }
-
 
 }

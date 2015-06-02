@@ -3,6 +3,9 @@ package techreborn.api.recipe;
 import ic2.api.energy.prefab.BasicSink;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import techreborn.packets.PacketHandler;
 import techreborn.tiles.TileMachineBase;
 import techreborn.util.Inventory;
 import techreborn.util.ItemUtils;
@@ -80,7 +83,7 @@ public class RecipeCrafter {
 
     public IBaseRecipeType currentRecipe;
     public int currentTickTime = 0;
-    public int currentNeededTicks = 0;
+    public int currentNeededTicks = 1;//Set to 1 to stop rare crashes
     double lastEnergy;
     public boolean isactive = false;
 
@@ -111,26 +114,31 @@ public class RecipeCrafter {
             return;
         }
         if (currentRecipe == null) {//It will now look for new recipes.
+            currentTickTime = 0;
             for (IBaseRecipeType recipe : RecipeHanderer.getRecipeClassFromName(recipeName)) {
                 if (recipe.canCraft(parentTile) && hasAllInputs(recipe)) {//This checks to see if it has all of the inputs
                     boolean canGiveInvAll = true;
                     for (int i = 0; i < recipe.getOutputs().size(); i++) {//This checks to see if it can fit all of the outputs
                         if (!canFitStack(recipe.getOutputs().get(i), outputSlots[i])) {
                             canGiveInvAll = false;
+                            break;
                         }
                     }
                     if (canGiveInvAll) {
                         currentRecipe = recipe;//Sets the current recipe then syncs
                         this.currentNeededTicks = (int)(currentRecipe.tickTime() * (1.0 - speedMultiplier));
-                        parentTile.syncWithAll();//update texture
+                        this.currentTickTime = 0;
+						syncIsActive();
+                    } else {
+                        this.currentTickTime = 0;
                     }
                 }
             }
         } else {
             if (!hasAllInputs()) {//If it doesn't have all the inputs reset
                 currentRecipe = null;
-                currentTickTime = 0;
-                parentTile.syncWithAll();//update texture
+                currentTickTime = -1;
+				syncIsActive();
             }
             if (currentRecipe != null && currentTickTime >= currentNeededTicks) {//If it has reached the recipe tick time
                 boolean canGiveInvAll = true;
@@ -150,8 +158,7 @@ public class RecipeCrafter {
                     useAllInputs();//this uses all the inputs
                     currentRecipe = null;//resets
                     currentTickTime = 0;
-                    //Force sync after craft to update texture
-                    parentTile.syncWithAll();
+					syncIsActive();
                 }
             } else if (currentRecipe != null && currentTickTime < currentNeededTicks) {
                 if (energy.useEnergy(getEuPerTick())) {//This uses the power
@@ -244,9 +251,15 @@ public class RecipeCrafter {
     public void readFromNBT(NBTTagCompound tag) {
         NBTTagCompound data = tag.getCompoundTag("Crater");
 
-        currentTickTime = data.getInteger("currentTickTime");
+		if(data.hasKey("currentTickTime"))
+        	currentTickTime = data.getInteger("currentTickTime");
 
         isactive = data.getBoolean("isActive");
+		if(parentTile.getWorldObj().isRemote){
+			System.out.println(isactive);
+			parentTile.getWorldObj().markBlockForUpdate(parentTile.xCoord, parentTile.yCoord, parentTile.zCoord);
+			parentTile.getWorldObj().markBlockRangeForRenderUpdate(parentTile.xCoord, parentTile.yCoord, parentTile.zCoord, parentTile.xCoord, parentTile.yCoord, parentTile.zCoord);
+		}
     }
 
     public void writeToNBT(NBTTagCompound tag) {
@@ -258,6 +271,7 @@ public class RecipeCrafter {
 
         tag.setTag("Crater", data);
     }
+
 
     private boolean isActiveServer() {
         return currentRecipe != null;
@@ -295,4 +309,19 @@ public class RecipeCrafter {
     public double getEuPerTick(){
         return currentRecipe.euPerTick() * powerMultiplier;
     }
+
+
+	public void syncIsActive() {
+		if (!parentTile.getWorldObj().isRemote) {
+			PacketHandler.sendPacketToAllPlayers(parentTile.getDescriptionPacket(),
+					parentTile.getWorldObj());
+		}
+	}
+
+	public Packet getSyncPacket() {
+		NBTTagCompound nbtTag = new NBTTagCompound();
+		writeToNBT(nbtTag);
+		return new S35PacketUpdateTileEntity(this.parentTile.xCoord, this.parentTile.yCoord,
+				this.parentTile.zCoord, 1, nbtTag);
+	}
 }

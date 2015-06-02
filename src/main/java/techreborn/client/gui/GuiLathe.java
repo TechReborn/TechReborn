@@ -42,12 +42,12 @@ public class GuiLathe extends GuiContainer {
 
 		int j = 0;
 
-        if(this.containerLathe.currentTickTime != 0){
-            j = this.containerLathe.currentTickTime * 20 / this.containerLathe.currentNeededTicks;
+        if(this.lathe.crafter.currentTickTime != 0){
+            j = this.lathe.crafter.currentTickTime * 20 / this.lathe.crafter.currentNeededTicks;
         }
 		this.drawTexturedModalRect(k + 80, l + 34, 176, 14, j, 16);
 
-        j = this.containerLathe.energy * 12 / this.lathe.energy.getCapacity();
+        j = (int) (this.lathe.energy.getEnergyStored() * 12 / this.lathe.energy.getCapacity());
 		if(j > 0) {
 			this.drawTexturedModalRect(k + 56, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);
 		}

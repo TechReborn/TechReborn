@@ -1,7 +1,11 @@
 package techreborn.blocks;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+
+
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -11,8 +15,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.init.ModItems;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -34,10 +40,17 @@ public class BlockOre extends Block {
 	}
 
 	@Override
-	public Item getItemDropped(int meta, Random random, int fortune)
-	{
+	public Item getItemDropped(int meta, Random random, int fortune){
+		if (meta == 5){
+			return new ItemStack(ModItems.dusts, 1, 60).getItem();
+		}
 		return Item.getItemFromBlock(this);
 	}
+		
+    @Override
+    protected boolean canSilkHarvest() {
+        return true;
+    }
 
 	@Override
 	@SideOnly(Side.CLIENT)
@@ -50,9 +63,7 @@ public class BlockOre extends Block {
 	}
 
 	@Override
-	public int damageDropped(int metaData)
-	{
-		// TODO RubyOre Returns Rubys
+	public int damageDropped(int metaData){
 		return metaData;
 	}
 

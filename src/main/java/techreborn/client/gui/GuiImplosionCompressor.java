@@ -42,13 +42,13 @@ public class GuiImplosionCompressor extends GuiContainer{
 		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
 
         int j = 0;
-        if(this.containerImplosionCompressor.currentTickTime != 0){
-            j = this.containerImplosionCompressor.currentTickTime * 20 / this.containerImplosionCompressor.currentNeededTicks;
+        if(this.compresser.crafter.currentTickTime != 0){
+            j = this.compresser.crafter.currentTickTime * 20 / this.compresser.crafter.currentNeededTicks;
         }
 
 		this.drawTexturedModalRect(k + 60, l + 38, 176, 14, j + 1, 16);
 
-		j = this.containerImplosionCompressor.energy * 12 / this.compresser.energy.getCapacity();
+		j = (int) (this.compresser.crafter.energy.getEnergyStored() * 12 / this.compresser.energy.getCapacity());
 		if(j > 0) {
 			this.drawTexturedModalRect(k + 16, l + 37 + 12 - j, 176, 12 - j, 14, j + 2);
 		}

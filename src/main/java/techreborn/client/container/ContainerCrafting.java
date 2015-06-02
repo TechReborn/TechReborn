@@ -9,9 +9,9 @@ public abstract class ContainerCrafting extends TechRebornContainer {
 
     RecipeCrafter crafter;
 
-    public int currentTickTime = 0;
-    public int currentNeededTicks = 0;
-    public int energy;
+    int currentTickTime = 0;
+    int currentNeededTicks = 0;
+    int energy;
 
     public ContainerCrafting(RecipeCrafter crafter) {
         this.crafter = crafter;
@@ -52,5 +52,8 @@ public abstract class ContainerCrafting extends TechRebornContainer {
         } else if(id == 2){
             this.energy = value;
         }
+        this.crafter.currentTickTime = currentTickTime;
+        this.crafter.currentNeededTicks = currentNeededTicks;
+        this.crafter.energy.setEnergyStored(energy);
     }
 }

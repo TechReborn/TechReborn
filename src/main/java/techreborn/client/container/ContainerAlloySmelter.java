@@ -5,7 +5,7 @@ import net.minecraft.inventory.Slot;
 import techreborn.client.SlotOutput;
 import techreborn.tiles.TileAlloySmelter;
 
-public class ContainerAlloySmelter extends TechRebornContainer {
+public class ContainerAlloySmelter extends ContainerCrafting {
 
 	EntityPlayer player;
 
@@ -22,6 +22,7 @@ public class ContainerAlloySmelter extends TechRebornContainer {
 	public ContainerAlloySmelter(TileAlloySmelter tileAlloysmelter,
 			EntityPlayer player)
 	{
+        super(tileAlloysmelter.crafter);
 		tile = tileAlloysmelter;
 		this.player = player;
 

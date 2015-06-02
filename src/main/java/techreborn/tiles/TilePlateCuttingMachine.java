@@ -102,14 +102,6 @@ public class TilePlateCuttingMachine extends TileMachineBase implements IWrencha
 	}
 
     @Override
-    public void writeSyncToNBT(NBTTagCompound tagCompound) {
-        super.writeSyncToNBT(tagCompound);
-        energy.writeToNBT(tagCompound);
-        crafter.writeToNBT(tagCompound);
-    }
-
-
-    @Override
 	public void addWailaInfo(List<String> info)
 	{
 		super.addWailaInfo(info);
