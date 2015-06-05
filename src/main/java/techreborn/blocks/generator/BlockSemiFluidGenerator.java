@@ -1,9 +1,19 @@
 package techreborn.blocks.generator;
 
+import java.util.Map;
+import net.minecraftforge.fluids.*;
+import net.minecraft.util.ChatComponentText;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
+import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
+import techreborn.client.GuiHandler;
+import techreborn.tiles.TileSemifluidGenerator;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -22,6 +32,22 @@ public class BlockSemiFluidGenerator extends BlockMachineBase {
 	{
 		super(material);
 		setBlockName("techreborn.semifluidgenerator");
+	}
+	
+	@Override
+	public TileEntity createNewTileEntity(World world, int p_149915_2_)
+	{
+		return new TileSemifluidGenerator();
+	}
+	
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z,
+			EntityPlayer player, int side, float hitX, float hitY, float hitZ)
+	{
+		if (!player.isSneaking())
+			player.openGui(Core.INSTANCE, GuiHandler.semifluidGeneratorID, world, x, y,
+					z);
+		return true;
 	}
 
 	@Override

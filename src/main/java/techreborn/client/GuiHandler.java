@@ -23,6 +23,7 @@ import techreborn.client.container.ContainerQuantumChest;
 import techreborn.client.container.ContainerQuantumTank;
 import techreborn.client.container.ContainerRollingMachine;
 import techreborn.client.container.ContainerThermalGenerator;
+import techreborn.client.container.ContainerSemifluidGenerator;
 import techreborn.client.gui.GuiAesu;
 import techreborn.client.gui.GuiAlloyFurnace;
 import techreborn.client.gui.GuiAlloySmelter;
@@ -43,6 +44,7 @@ import techreborn.client.gui.GuiQuantumChest;
 import techreborn.client.gui.GuiQuantumTank;
 import techreborn.client.gui.GuiRollingMachine;
 import techreborn.client.gui.GuiThermalGenerator;
+import techreborn.client.gui.GuiSemifluidGenerator;
 import techreborn.pda.GuiPda;
 import techreborn.tiles.*;
 import cpw.mods.fml.common.network.IGuiHandler;
@@ -70,6 +72,7 @@ public class GuiHandler implements IGuiHandler {
 	public static final int alloyFurnaceID = 18;
 	public static final int sawMillID = 19;
 	public static final int chemicalReactorID = 20;
+	public static final int semifluidGeneratorID = 21;
 
 
 
@@ -81,6 +84,10 @@ public class GuiHandler implements IGuiHandler {
 		{
 			return new ContainerThermalGenerator(
 					(TileThermalGenerator) world.getTileEntity(x, y, z), player);
+		} else if (ID == semifluidGeneratorID)
+		{
+			return new ContainerSemifluidGenerator(
+				(TileSemifluidGenerator) world.getTileEntity(x, y, z), player);			
 		} else if (ID == quantumTankID)
 		{
 			return new ContainerQuantumTank(
@@ -173,7 +180,12 @@ public class GuiHandler implements IGuiHandler {
 		{
 			return new GuiThermalGenerator(player,
 					(TileThermalGenerator) world.getTileEntity(x, y, z));
-		} else if (ID == quantumTankID)
+		} else if (ID == semifluidGeneratorID)
+		{
+			return new GuiSemifluidGenerator(player,
+				(TileSemifluidGenerator) world.getTileEntity(x, y, z));			
+		}
+		else if (ID == quantumTankID)
 		{
 			return new GuiQuantumTank(player,
 					(TileQuantumTank) world.getTileEntity(x, y, z));

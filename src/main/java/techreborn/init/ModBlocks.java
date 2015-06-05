@@ -59,6 +59,7 @@ import techreborn.tiles.TileQuantumChest;
 import techreborn.tiles.TileQuantumTank;
 import techreborn.tiles.TileRollingMachine;
 import techreborn.tiles.TileThermalGenerator;
+import techreborn.tiles.TileSemifluidGenerator;
 import techreborn.util.LogHelper;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -195,6 +196,7 @@ public class ModBlocks {
 		
 		Semifluidgenerator = new BlockSemiFluidGenerator(Material.rock);
 		GameRegistry.registerBlock(Semifluidgenerator, "semifluidgenerator");
+		GameRegistry.registerTileEntity(TileSemifluidGenerator.class, "TileSemifluidGenerator");
 		
 		AlloyFurnace = new BlockAlloyFurnace(Material.rock);
 		GameRegistry.registerBlock(AlloyFurnace, "alloyfurnace");
