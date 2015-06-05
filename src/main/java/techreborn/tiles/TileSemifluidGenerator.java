@@ -50,6 +50,9 @@ public class TileSemifluidGenerator extends TileEntity implements IWrenchable,
 		fluids.put("oil", 64000);
 		fluids.put("fluidsodium", 30000);
 		fluids.put("fluidlithium", 60000);
+		fluids.put("biofuel", 32000);
+		fluids.put("bioethanol", 32000);
+		fluids.put("fuel", 128000);
 	}
 
 	@Override
