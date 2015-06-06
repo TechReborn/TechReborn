@@ -1,5 +1,6 @@
 package techreborn.tiles;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import ic2.api.energy.prefab.BasicSink;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
@@ -72,7 +73,8 @@ public class TileImplosionCompressor extends TileMachineBase implements IWrencha
 
 	@Override
 	public void updateEntity() {
-		super.updateEntity();
+        System.out.println("hello");
+        super.updateEntity();
 		crafter.updateEntity();
 		energy.updateEntity();
 	}
@@ -109,11 +111,13 @@ public class TileImplosionCompressor extends TileMachineBase implements IWrencha
     public void invalidate()
     {
         energy.invalidate();
+        super.invalidate();
     }
     @Override
     public void onChunkUnload()
     {
         energy.onChunkUnload();
+        super.onChunkUnload();
     }
 
 }

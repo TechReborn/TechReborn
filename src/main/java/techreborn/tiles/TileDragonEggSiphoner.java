@@ -85,11 +85,13 @@ public class TileDragonEggSiphoner extends TileMachineBase implements IWrenchabl
     public void invalidate()
     {
         energy.invalidate();
+        super.invalidate();
     }
     @Override
     public void onChunkUnload()
     {
         energy.onChunkUnload();
+        super.onChunkUnload();
     }
 
     @Override

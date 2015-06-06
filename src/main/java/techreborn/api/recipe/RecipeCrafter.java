@@ -125,7 +125,7 @@ public class RecipeCrafter {
                         }
                     }
                     if (canGiveInvAll) {
-                        currentRecipe = recipe;//Sets the current recipe then syncs
+                        setCurrentRecipe(recipe);//Sets the current recipe then syncs
                         this.currentNeededTicks = (int)(currentRecipe.tickTime() * (1.0 - speedMultiplier));
                         this.currentTickTime = 0;
 						syncIsActive();
@@ -150,6 +150,7 @@ public class RecipeCrafter {
                 ArrayList<Integer> filledSlots = new ArrayList<Integer>();//The slots that have been filled
                 if (canGiveInvAll && currentRecipe.onCraft(parentTile)) {
                     for (int i = 0; i < currentRecipe.getOutputs().size(); i++) {
+                        System.out.println(currentRecipe.getOutputs().get(i).stackSize);
                         if (!filledSlots.contains(outputSlots[i])) {//checks it has not been filled
                             fitStack(currentRecipe.getOutputs().get(i), outputSlots[i]);//fills the slot with the output stack
                             filledSlots.add(outputSlots[i]);
@@ -323,4 +324,12 @@ public class RecipeCrafter {
 		return new S35PacketUpdateTileEntity(this.parentTile.xCoord, this.parentTile.yCoord,
 				this.parentTile.zCoord, 1, nbtTag);
 	}
+
+    public void setCurrentRecipe(IBaseRecipeType recipe){
+        try {
+            this.currentRecipe = (IBaseRecipeType) recipe.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+    }
 }

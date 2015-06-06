@@ -31,7 +31,18 @@ public class TileChunkLoader extends TileMachineBase implements IWrenchable, IEn
 		energy.updateEntity();
 	}
 
-	
+    @Override
+    public void invalidate()
+    {
+        energy.invalidate();
+        super.invalidate();
+    }
+    @Override
+    public void onChunkUnload()
+    {
+        energy.onChunkUnload();
+        super.onChunkUnload();
+    }
 
 	@Override
 	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side)

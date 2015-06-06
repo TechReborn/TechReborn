@@ -105,11 +105,13 @@ public class TileLathe extends TileMachineBase implements IWrenchable, IEnergyTi
     public void invalidate()
     {
         energy.invalidate();
+        super.invalidate();
     }
     @Override
     public void onChunkUnload()
     {
         energy.onChunkUnload();
+        super.onChunkUnload();
     }
     
 	@Override

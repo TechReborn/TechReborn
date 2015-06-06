@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Extend this to add a recipe
  */
-public abstract class BaseRecipe implements IBaseRecipeType {
+public abstract class BaseRecipe implements IBaseRecipeType , Cloneable {
 
     public ArrayList<ItemStack> inputs;
 
@@ -32,7 +32,7 @@ public abstract class BaseRecipe implements IBaseRecipeType {
 
     @Override
     public List<ItemStack> getOutputs() {
-        return outputs;
+        return (List<ItemStack>) outputs.clone();
     }
 
     @Override
@@ -63,5 +63,10 @@ public abstract class BaseRecipe implements IBaseRecipeType {
     @Override
     public boolean onCraft(TileEntity tile) {
         return true;
+    }
+
+    @Override
+    public Object clone()throws CloneNotSupportedException{
+        return super.clone();
     }
 }
