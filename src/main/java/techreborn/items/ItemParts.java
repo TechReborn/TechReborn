@@ -14,7 +14,7 @@ public class ItemParts extends Item {
 	{ "advancedCircuitParts", "basicCircuitBoard", "advancedCircuitBoard", "processorCircuitBoard",
 			"energyFlowCircuit", "dataControlCircuit", "dataOrb", "dataStorageCircuit",
 			"diamondGrindingHead", "diamondSawBlade", "tungstenGrindingHead",
-			"heliumCoolantSimple", "heliumCoolantTriple", "heliumCoolantSix",
+			"heliumCoolantSimple", "HeliumCoolantTriple", "HeliumCoolantSix",
 			"NaKCoolantSimple", "NaKCoolantTriple", "NaKCoolantSix",
 			"cupronickelHeatingCoil", "nichromeHeatingCoil", "kanthalHeatingCoil",
 			"bronzeGear", "ironGear", "titaniumGear", "steelGear", "tungstensteelGear",
