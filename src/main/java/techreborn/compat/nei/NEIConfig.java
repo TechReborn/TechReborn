@@ -2,6 +2,7 @@ package techreborn.compat.nei;
 
 import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
+import techreborn.api.recipe.machines.GrinderRecipe;
 import techreborn.compat.nei.recipes.*;
 import techreborn.lib.ModInfo;
 
@@ -57,6 +58,10 @@ public class NEIConfig implements IConfigureNEI {
         CentrifugeRecipeHandler cent = new CentrifugeRecipeHandler();
         API.registerUsageHandler(cent);
         API.registerRecipeHandler(cent);
+
+		GrinderRecipeHandler grind = new GrinderRecipeHandler();
+		API.registerUsageHandler(grind);
+		API.registerRecipeHandler(grind);
 
         API.registerUsageHandler(shapedRollingMachineHandler);
         API.registerRecipeHandler(shapedRollingMachineHandler);

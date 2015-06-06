@@ -21,7 +21,7 @@ public class TileGrinder extends TileMachineBase implements IWrenchable, IEnergy
 	public int tickTime;
 	public BasicSink energy;
 	public Inventory inventory = new Inventory(6, "TileGrinder", 64);
-	public Tank tank = new Tank("TileGrinder",16000, this);
+	public Tank tank = new Tank("TileGrinder", 16000, this);
 	public RecipeCrafter crafter;
 
 	public TileGrinder() {
