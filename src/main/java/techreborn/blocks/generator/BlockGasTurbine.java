@@ -1,12 +1,16 @@
 package techreborn.blocks.generator;
 
+import ic2.api.item.IC2Items;
+
 import java.util.Map;
+import java.util.Random;
+
 import net.minecraftforge.fluids.*;
 import net.minecraft.util.ChatComponentText;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
@@ -69,6 +73,12 @@ public class BlockGasTurbine extends BlockMachineBase {
 					side == 0 ? this.iconBottom: (side == 0 ? this.iconTop
 						: (side == metadata ? this.iconFront : this.blockIcon));
 
+	}
+	
+	@Override
+	public Item getItemDropped(int meta, Random random, int fortune)
+	{
+		return IC2Items.getItem("machine").getItem();
 	}
 
 }
