@@ -255,8 +255,7 @@ public class RecipeCrafter {
         	currentTickTime = data.getInteger("currentTickTime");
 
         isactive = data.getBoolean("isActive");
-		if(parentTile.getWorldObj().isRemote){
-			System.out.println(isactive);
+		if(parentTile != null && parentTile.getWorldObj() != null && parentTile.getWorldObj().isRemote){
 			parentTile.getWorldObj().markBlockForUpdate(parentTile.xCoord, parentTile.yCoord, parentTile.zCoord);
 			parentTile.getWorldObj().markBlockRangeForRenderUpdate(parentTile.xCoord, parentTile.yCoord, parentTile.zCoord, parentTile.xCoord, parentTile.yCoord, parentTile.zCoord);
 		}
