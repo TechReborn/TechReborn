@@ -14,13 +14,14 @@ import techreborn.init.ModBlocks;
 import techreborn.init.ModFluids;
 import techreborn.util.FluidUtils;
 import techreborn.util.Inventory;
+import techreborn.util.Tank;
 
 public class TileGrinder extends TileMachineBase implements IWrenchable, IEnergyTile, IFluidHandler {
 	
 	public int tickTime;
 	public BasicSink energy;
 	public Inventory inventory = new Inventory(6, "TileGrinder", 64);
-	public FluidTank tank = new FluidTank(16000);
+	public Tank tank = new Tank("TileGrinder",16000, this);
 	public RecipeCrafter crafter;
 
 	public TileGrinder() {
@@ -112,7 +113,9 @@ public class TileGrinder extends TileMachineBase implements IWrenchable, IEnergy
 	@Override
 	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
 		if(resource.getFluid() == FluidRegistry.WATER || resource.getFluid() == ModFluids.fluidMercury || resource.getFluid() == ModFluids.fluidSodiumpersulfate) {
-			return tank.fill(resource, doFill);
+			int filled = tank.fill(resource, doFill);
+			tank.compareAndUpdate();
+			return filled;
 		}
 		return 0;
 	}
@@ -122,12 +125,16 @@ public class TileGrinder extends TileMachineBase implements IWrenchable, IEnergy
 		if (resource == null || !resource.isFluidEqual(tank.getFluid())) {
 			return null;
 		}
-		return tank.drain(resource.amount, doDrain);
+		FluidStack fluidStack = tank.drain(resource.amount, doDrain);
+		tank.compareAndUpdate();
+		return fluidStack;
 	}
 
 	@Override
 	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
-		return tank.drain(maxDrain, doDrain);
+		FluidStack drained = tank.drain(maxDrain, doDrain);
+		tank.compareAndUpdate();
+		return drained;
 	}
 
 	@Override
