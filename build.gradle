@@ -198,5 +198,5 @@ uploadArchives {
 
 task wrapper(type: Wrapper) {
     //To update the wrapper change the version bellow then run: gradle wrapper
-    gradleVersion = '2.3'
+    gradleVersion = '2.4'
 }
