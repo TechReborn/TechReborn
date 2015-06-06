@@ -15,6 +15,7 @@ import techreborn.blocks.generator.BlockMagicEnergyConverter;
 import techreborn.blocks.generator.BlockPlasmaGenerator;
 import techreborn.blocks.generator.BlockSemiFluidGenerator;
 import techreborn.blocks.generator.BlockThermalGenerator;
+import techreborn.blocks.generator.BlockGasTurbine;
 import techreborn.blocks.machine.BlockAlloyFurnace;
 import techreborn.blocks.machine.BlockAlloySmelter;
 import techreborn.blocks.machine.BlockAssemblingMachine;
@@ -60,6 +61,7 @@ import techreborn.tiles.TileQuantumTank;
 import techreborn.tiles.TileRollingMachine;
 import techreborn.tiles.TileThermalGenerator;
 import techreborn.tiles.TileSemifluidGenerator;
+import techreborn.tiles.TileGasTurbine;
 import techreborn.util.LogHelper;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -85,6 +87,7 @@ public class ModBlocks {
 	public static Block IndustrialElectrolyzer;
 	public static Block MagicalAbsorber;
 	public static Block Semifluidgenerator;
+	public static Block Gasturbine;
 	public static Block AlloyFurnace;
 	public static Block ChemicalReactor;
 	public static Block lathe;
@@ -104,8 +107,8 @@ public class ModBlocks {
 	public static Block FusionCoil;
 	public static Block LightningRod;
 	public static Block heatGenerator;
-	public static Block industrialSawmill;
-
+	public static Block industrialSawmill;	
+	
 	public static Block ore;
 	public static Block storage;
     public static Block storage2;
@@ -197,6 +200,10 @@ public class ModBlocks {
 		Semifluidgenerator = new BlockSemiFluidGenerator(Material.rock);
 		GameRegistry.registerBlock(Semifluidgenerator, "semifluidgenerator");
 		GameRegistry.registerTileEntity(TileSemifluidGenerator.class, "TileSemifluidGenerator");
+		
+		Gasturbine = new BlockGasTurbine(Material.rock);
+		GameRegistry.registerBlock(Gasturbine, "gasturbine");
+		GameRegistry.registerTileEntity(TileGasTurbine.class, "TileGassTurbine");
 		
 		AlloyFurnace = new BlockAlloyFurnace(Material.rock);
 		GameRegistry.registerBlock(AlloyFurnace, "alloyfurnace");

@@ -1,6 +1,7 @@
 itemGroup.techreborn=Tech Reborn
 
 #machines
+tile.techreborn.gasTurbine.name=Gas Turbine
 tile.techreborn.industrialBlock.name=Industrial
 tile.techreborn.thermalGenerator.name=Thermal Generator
 tile.techreborn.quantumTank.name=Quantum Tank
