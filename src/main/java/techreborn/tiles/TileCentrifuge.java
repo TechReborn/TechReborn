@@ -113,11 +113,13 @@ public class TileCentrifuge extends TileMachineBase implements  IWrenchable, IEn
     public void invalidate()
     {
         energy.invalidate();
+        super.invalidate();
     }
     @Override
     public void onChunkUnload()
     {
         energy.onChunkUnload();
+        super.onChunkUnload();
     }
     
 	@Override

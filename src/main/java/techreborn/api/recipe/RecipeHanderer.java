@@ -9,7 +9,7 @@ public class RecipeHanderer {
     /**
      * This is the array list of all of the recipes for all of the machines
      */
-    public static ArrayList<IBaseRecipeType> recipeList = new ArrayList<IBaseRecipeType>();
+    public static final ArrayList<IBaseRecipeType> recipeList = new ArrayList<IBaseRecipeType>();
 
     /**
      * This is a backedup clone of the master recipeList

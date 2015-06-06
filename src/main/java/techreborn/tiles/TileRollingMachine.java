@@ -192,4 +192,17 @@ public class TileRollingMachine extends TileMachineBase implements IWrenchable, 
 		tagCompound.setBoolean("isRunning", isRunning);
 		tagCompound.setInteger("tickTime", tickTime);
 	}
+
+    @Override
+    public void invalidate()
+    {
+        energy.invalidate();
+        super.invalidate();
+    }
+    @Override
+    public void onChunkUnload()
+    {
+        energy.onChunkUnload();
+        super.onChunkUnload();
+    }
 }

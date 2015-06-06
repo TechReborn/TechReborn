@@ -241,15 +241,18 @@ public class TileBlastFurnace extends TileMachineBase implements IWrenchable, II
 		return inventory.isItemValidForSlot(p_94041_1_, p_94041_2_);
 	}
 
-	@Override
-	public void invalidate() {
-		energy.invalidate();
-	}
-
-	@Override
-	public void onChunkUnload() {
-		energy.onChunkUnload();
-	}
+    @Override
+    public void invalidate()
+    {
+        energy.invalidate();
+        super.invalidate();
+    }
+    @Override
+    public void onChunkUnload()
+    {
+        energy.onChunkUnload();
+        super.onChunkUnload();
+    }
 
 	public Packet getDescriptionPacket() {
 		NBTTagCompound nbtTag = new NBTTagCompound();

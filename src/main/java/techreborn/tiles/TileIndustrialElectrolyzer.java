@@ -104,11 +104,13 @@ public class TileIndustrialElectrolyzer extends TileMachineBase implements IWren
     public void invalidate()
     {
         energy.invalidate();
+        super.invalidate();
     }
     @Override
     public void onChunkUnload()
     {
         energy.onChunkUnload();
+        super.onChunkUnload();
     }
     
 	@Override

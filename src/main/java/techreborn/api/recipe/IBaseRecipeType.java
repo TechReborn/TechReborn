@@ -57,4 +57,6 @@ public interface IBaseRecipeType {
      * @return return true if fluid was taken and should craft
      */
     public boolean onCraft(TileEntity tile);
+
+    public Object clone()throws CloneNotSupportedException;
 }

@@ -12,7 +12,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import techreborn.client.TechRebornCreativeTab;
 
-public class BlockMachineBase extends BlockContainer{
+public class BlockMachineBase extends BlockContainer {
 
 	public BlockMachineBase(Material material)
 	{

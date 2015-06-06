@@ -102,11 +102,13 @@ public class TileHeatGenerator extends TileMachineBase implements IWrenchable, I
     public void invalidate()
     {
         energy.invalidate();
+        super.invalidate();
     }
     @Override
     public void onChunkUnload()
     {
         energy.onChunkUnload();
+        super.onChunkUnload();
     }
 
     @Override

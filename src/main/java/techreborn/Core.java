@@ -92,7 +92,7 @@ public class Core {
 		RecipeManager.init();
         //Has to be done after the recipes have been added
         CompatManager.postInit(event);
-		//RecipeHanderer.addOreDicRecipes();
+
 		LogHelper.info(RecipeHanderer.recipeList.size() + " recipes loaded");
 	}
 

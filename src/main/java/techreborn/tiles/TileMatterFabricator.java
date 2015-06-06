@@ -87,11 +87,13 @@ public class TileMatterFabricator extends TileMachineBase implements IWrenchable
     public void invalidate()
     {
         energy.invalidate();
+        super.invalidate();
     }
     @Override
     public void onChunkUnload()
     {
         energy.onChunkUnload();
+        super.onChunkUnload();
     }
 
 }

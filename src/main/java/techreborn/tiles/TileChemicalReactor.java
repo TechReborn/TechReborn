@@ -106,11 +106,13 @@ public class TileChemicalReactor extends TileMachineBase implements IWrenchable,
     public void invalidate()
     {
         energy.invalidate();
+        super.invalidate();
     }
     @Override
     public void onChunkUnload()
     {
         energy.onChunkUnload();
+        super.onChunkUnload();
     }
     
 	@Override

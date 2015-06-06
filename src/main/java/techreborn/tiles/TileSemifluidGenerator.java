@@ -283,6 +283,7 @@ public class TileSemifluidGenerator extends TileEntity implements IWrenchable,
 	public void onChunkUnload()
 	{
 		energySource.onChunkUnload();
+        super.onChunkUnload();
 	}
 
 	@Override
