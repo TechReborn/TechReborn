@@ -23,30 +23,25 @@ public class GrinderRecipeHandler extends GenericRecipeHander implements INeiBas
 			input.add(pStack);
 		}
 
-
 		if (recipeType.getInputs().size() > 1) {
 			PositionedStack pStack2 = new PositionedStack(ItemUtils.getStackWithAllOre(recipeType.getInputs().get(1)), 32 - offset, 44 - offset);
 			input.add(pStack2);
 		}
-
 
 		if (recipeType.getOutputs().size() > 0) {
 			PositionedStack pStack3 = new PositionedStack(recipeType.getOutputs().get(0), 2 - offset, 77 - offset);
 			outputs.add(pStack3);
 		}
 
-
 		if (recipeType.getInputs().size() > 1) {
 			PositionedStack pStack4 = new PositionedStack(recipeType.getOutputs().get(1), 2 - offset, 95 - offset);
 			outputs.add(pStack4);
 		}
 
-
 		if (recipeType.getInputs().size() > 2) {
 			PositionedStack pStack5 = new PositionedStack(recipeType.getOutputs().get(2), 4 - offset, 113 - offset);
 			outputs.add(pStack5);
 		}
-
 
 		if (recipeType.getInputs().size() > 3) {
 			PositionedStack pStack6 = new PositionedStack(recipeType.getOutputs().get(3), 5 - offset, 131 - offset);

@@ -91,20 +91,26 @@ public class TileGasTurbine extends TileEntity implements IWrenchable,
 	@Override
 	public int fill(ForgeDirection from, FluidStack resource, boolean doFill)
 	{
-		return tank.fill(resource, doFill);
+		int fill = tank.fill(resource, doFill);
+		tank.compareAndUpdate();
+		return fill;
 	}
 
 	@Override
 	public FluidStack drain(ForgeDirection from, FluidStack resource,
 			boolean doDrain)
 	{
-		return tank.drain(resource.amount, doDrain);
+		FluidStack drain = tank.drain(resource.amount, doDrain);
+		tank.compareAndUpdate();
+		return drain;
 	}
 
 	@Override
 	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain)
 	{
-		return tank.drain(maxDrain, doDrain);
+		FluidStack drain = tank.drain(maxDrain, doDrain);
+		tank.compareAndUpdate();
+		return drain;
 	}
 
 	@Override
