@@ -5,7 +5,7 @@ import net.minecraft.inventory.Slot;
 import techreborn.client.SlotOutput;
 import techreborn.tiles.TileGrinder;
 
-public class ContainerGrinder extends TechRebornContainer{
+public class ContainerGrinder extends ContainerCrafting{
 	
 	EntityPlayer player;
 
@@ -16,6 +16,7 @@ public class ContainerGrinder extends TechRebornContainer{
 	public ContainerGrinder(TileGrinder tileGrinder,
 			EntityPlayer player)
 	{
+		super(tileGrinder.crafter);
 		tile = tileGrinder;
 		this.player = player;
 
