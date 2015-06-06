@@ -40,15 +40,26 @@ public class BlockOre extends Block {
 	}
 
 	@Override
-	public Item getItemDropped(int meta, Random random, int fortune){
-		if (meta == 5){
-			return new ItemStack(ModItems.dusts, 1, 60).getItem();
+	public Item getItemDropped(int meta, Random random, int fortune)
+	{
+		if (meta == 2)
+		{
+			return new ItemStack(ModItems.gems, fortune, 0).getItem();
+		}
+		if (meta == 3)
+		{
+			return new ItemStack(ModItems.gems, fortune, 1).getItem();
+		}
+		if (meta == 5)
+		{
+			return new ItemStack(ModItems.dusts, fortune, 60).getItem();
 		}
 		return Item.getItemFromBlock(this);
 	}
 		
     @Override
-    protected boolean canSilkHarvest() {
+    protected boolean canSilkHarvest() 
+    {
         return true;
     }
 
@@ -63,7 +74,20 @@ public class BlockOre extends Block {
 	}
 
 	@Override
-	public int damageDropped(int metaData){
+	public int damageDropped(int metaData)
+	{
+		if(metaData == 2 )
+		{
+			return 0;
+		}
+		else if(metaData == 3)
+		{
+			return 1;
+		}
+		else if(metaData == 5)
+		{
+			return 60;
+		}
 		return metaData;
 	}
 
@@ -90,7 +114,8 @@ public class BlockOre extends Block {
 				|| ForgeDirection.getOrientation(side) == ForgeDirection.DOWN)
 		{
 			return textures[metaData];
-		} else
+		} 
+		else
 		{
 			return textures[metaData];
 		}
