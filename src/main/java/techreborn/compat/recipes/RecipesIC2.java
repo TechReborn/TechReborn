@@ -22,6 +22,8 @@ import techreborn.init.ModItems;
 import techreborn.util.CraftingHelper;
 import techreborn.util.LogHelper;
 import techreborn.util.RecipeRemover;
+import techreborn.items.ItemParts;
+import techreborn.blocks.BlockOre;
 
 public class RecipesIC2 {
 	public static ConfigTechReborn config;
@@ -391,8 +393,8 @@ public class RecipesIC2 {
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.quantumChest),
 				new Object[]
                         {"DCD", "ATA", "DQD",
-                                'D', new ItemStack(ModItems.parts, 1, 8),
-                                'C', new ItemStack(ModItems.parts, 1, 40),
+                                'D', ItemParts.getPartByName("dataOrb"),
+                                'C', ItemParts.getPartByName("computerMonitor"),
                                 'A', ModBlocks.HighAdvancedMachineBlock,
 								'Q', ModBlocks.digitalChest,
 								'T', IC2Items.getItem("teleporter")});
@@ -401,10 +403,19 @@ public class RecipesIC2 {
 				new Object[]
 						{"PPP", "PDP", "PCP",
 								'P', "plateSteel",
-								'D', new ItemStack(ModItems.parts, 1, 8),
-								'C', new ItemStack(ModItems.parts, 1, 40)							
+								'D', ItemParts.getPartByName("dataOrb"),
+								'C', BlockOre.getOreByName("computerMonitor")
 						}
 				);
+				
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.digitalChest),
+		new Object[]
+				{"PPP", "PDP", "PCP",
+						'P', "plateAluminum",
+						'D', ItemParts.getPartByName("dataOrb"),
+						'C', ItemParts.getPartByName("computerMonitor")
+				}
+		);
 
 		LogHelper.info("Added Expensive IC2 Recipes");
 	}
