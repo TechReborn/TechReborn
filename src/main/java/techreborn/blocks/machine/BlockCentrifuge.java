@@ -15,7 +15,6 @@ import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
 import techreborn.client.GuiHandler;
-import techreborn.tiles.TileAlloySmelter;
 import techreborn.tiles.TileCentrifuge;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -74,17 +73,19 @@ public class BlockCentrifuge extends BlockMachineBase {
 	public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int side) {
 		int metadata = blockAccess.getBlockMetadata(x, y, z);
 		TileCentrifuge tileCentrifuge = (TileCentrifuge) blockAccess.getTileEntity(x, y, z);
-		if(side == metadata && tileCentrifuge.crafter.isActive()){
+		if(side >= 2 && tileCentrifuge.crafter.isActive()){
 			return this.iconFrontOn;
 		}
+		
 		if(side == 1 && tileCentrifuge.crafter.isActive()){
 			return this.iconTopOn;
 		}
-		
+
+
 		return metadata == 0 && side == 3 ? this.iconFront
 				: side == 1 ? this.iconTop : 
 					side == 0 ? this.iconBottom: (side == 0 ? this.iconTop
-						: (side == metadata ? this.iconFront : this.blockIcon));
+						: (side == metadata ? this.iconFront : this.iconFront));
 
 	}
 	
@@ -94,7 +95,7 @@ public class BlockCentrifuge extends BlockMachineBase {
 		return metadata == 0 && side == 3 ? this.iconFront
 				: side == 1 ? this.iconTop : 
 					side == 0 ? this.iconBottom: (side == 0 ? this.iconTop
-						: (side == metadata ? this.iconFront : this.blockIcon));
+						: (side == metadata ? this.iconFront : this.iconFront));
 
 	}
 	
