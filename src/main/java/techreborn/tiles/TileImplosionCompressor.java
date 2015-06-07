@@ -96,15 +96,15 @@ public class TileImplosionCompressor extends TileMachineBase implements IWrencha
 		crafter.writeToNBT(tagCompound);
 	}
 
-    @Override
-	public void addWailaInfo(List<String> info)
-	{
-		super.addWailaInfo(info);
-		info.add("Power Stored " + energy.getEnergyStored() +" EU");
-		if(crafter.currentRecipe !=null){
-		info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
-		}
-	}
+//    @Override
+//	public void addWailaInfo(List<String> info)
+//	{
+//		super.addWailaInfo(info);
+//		info.add("Power Stored " + energy.getEnergyStored() +" EU");
+//		if(crafter.currentRecipe !=null){
+//		info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
+//		}
+//	}
 
     @Override
     public void invalidate()
