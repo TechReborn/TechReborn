@@ -8,8 +8,27 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.init.ModItems;
 
 public class ItemPlates extends ItemTR {
+		
+	public static ItemStack getPlateByName(String name, int count)
+	{
+		int index = -1;
+		for (int i = 0; i < types.length; i++) {
+			if (types[i].equals(name)) {
+				index = i;
+				break;
+			}
+		}
+		return new ItemStack(ModItems.plate, count, index);
+	}
+	
+	public static ItemStack getPlateByName(String name)
+	{
+		return getPlateByName(name, 1);
+	}
+	
 	public static final String[] types = new String[]
 	{ "aluminum", "batteryAlloy", "brass", "bronze", "carbon",
 			"chrome", "copper", "diamond", "electrum", "emerald",

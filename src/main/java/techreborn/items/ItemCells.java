@@ -8,8 +8,26 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.init.ModItems;
 
-public class ItemCells extends ItemTR {
+public class ItemCells extends ItemTR {	
+	public static ItemStack getCellByName(String name, int count)
+	{
+		int index = -1;
+		for (int i = 0; i < types.length; i++) {
+			if (types[i].equals(name)) {
+				index = i;
+				break;
+			}
+		}
+		return new ItemStack(ModItems.cells, count, index);
+	}
+	
+	public static ItemStack getCellByName(String name)
+	{
+		return getCellByName(name, 1);
+	}
+	
 	public static final String[] types = new String[]
 	{ "Berylium", "biomass", "calciumCarbonate", "calcium", "carbon",
 			"chlorine", "deuterium", "diesel", "ethanol", "glyceryl",

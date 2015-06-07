@@ -8,8 +8,26 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.init.ModItems;
 
-public class ItemIngots extends Item {
+public class ItemIngots extends Item {	
+	public static ItemStack getIngotByName(String name, int count)
+	{
+		int index = -1;
+		for (int i = 0; i < types.length; i++) {
+			if (types[i].equals(name)) {
+				index = i;
+				break;
+			}
+		}
+		return new ItemStack(ModItems.ingots, count, index);
+	}
+	
+	public static ItemStack getIngotByName(String name)
+	{
+		return getIngotByName(name, 1);
+	}
+	
 	public static final String[] types = new String[]
 	{ "aluminum", "antimony", "batteryAlloy", "redAlloy", "blueAlloy", "brass",
 			"bronze", "cadmium", "chrome", "copper", "cupronickel", "electrum", "indium",

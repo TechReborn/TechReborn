@@ -8,8 +8,27 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.init.ModItems;
 
-public class ItemGems extends Item {
+public class ItemGems extends Item {	
+	
+	public static ItemStack getGemByName(String name, int count)
+	{
+		int index = -1;
+		for (int i = 0; i < types.length; i++) {
+			if (types[i].equals(name)) {
+				index = i;
+				break;
+			}
+		}
+		return new ItemStack(ModItems.gems, count, index);
+	}
+	
+	public static ItemStack getGemByName(String name)
+	{
+		return getGemByName(name, 1);
+	}
+	
 	public static final String[] types = new String[]
 	{ "ruby", "sapphire", "peridot", "redGarnet",
 			"yellowGarnet" };
