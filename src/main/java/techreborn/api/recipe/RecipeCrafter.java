@@ -192,7 +192,7 @@ public class RecipeCrafter {
         for (ItemStack input : recipeType.getInputs()) {
             Boolean hasItem = false;
             for (int inputslot : inputSlots) {
-                if (ItemUtils.isItemEqual(input, inventory.getStackInSlot(inputslot), true, true, true)) {
+                if (ItemUtils.isItemEqual(input, inventory.getStackInSlot(inputslot), true, true, true) && inventory.getStackInSlot(inputslot).stackSize >= input.stackSize) {
                     hasItem = true;
                 }
             }
