@@ -28,19 +28,20 @@ public class TileAesu extends TileEntityElectricBlock implements IWrenchable {
 	@Override
 	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side)
 	{
-		return false;
+		return true;
 	}
 
 	@Override
 	public short getFacing()
 	{
-		return 0;
+		return (short) getBlockMetadata();
 	}
 
 	@Override
 	public void setFacing(short facing)
 	{
-	}
+        worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, facing, 2);
+    }
 
 	@Override
 	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
