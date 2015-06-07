@@ -23,6 +23,8 @@ import techreborn.util.CraftingHelper;
 import techreborn.util.LogHelper;
 import techreborn.util.RecipeRemover;
 import techreborn.items.ItemParts;
+import techreborn.items.ItemIngots;
+import techreborn.items.ItemDusts;
 
 public class RecipesIC2 {
 	public static ConfigTechReborn config;
@@ -406,7 +408,92 @@ public class RecipesIC2 {
 					'L', IC2Items.getItem("lapotronCrystal"),
 					'P', IC2Items.getItem("iridiumPlate")					
 				});
+				
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.lapotronicOrb),
+			new Object[]
+				{"LLL", "LPL", "LLL",
+					'L', IC2Items.getItem("lapotronCrystal"),
+					'P', IC2Items.getItem("iridiumPlate")					
+				});
+				
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("tungstenGrindingHead", 2),
+			new Object[]
+				{"TST", "SBS", "TST",
+					'T', "plateTungsten",
+					'S', "plateSteel",
+					'B', "blockSteel"
+				});
+				
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.MatterFabricator),
+			new Object[]
+				{"ETE", "AOA", "ETE",
+					'E', ItemParts.getPartByName("energyFlowCircuit"),
+					'T', IC2Items.getItem("teleporter"),
+					'A', ModBlocks.HighAdvancedMachineBlock,
+					'O', ModItems.lapotronicOrb
+				});
+				
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("iridiumAlloyIngot"),
+			new Object[]
+				{"IAI", "ADA", "IAI",
+					'I', ItemIngots.getIngotByName("iridium"),
+					'D', ItemDusts.getDustByName("diamond"),
+					'A', IC2Items.getItem("advancedAlloy")
+				});	
 
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("energyFlowCircuit", 4),
+			new Object[]
+				{"ATA", "LIL", "ATA",
+					'T', "plateTungsten",
+					'I', IC2Items.getItem("iridiumPlate"),
+					'A', IC2Items.getItem("advancedCircuit"),
+					'L', IC2Items.getItem("lapotronCrystal")
+				});	
+				
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Supercondensator),
+			new Object[]
+				{"EOE", "SAS", "EOE",
+					'E', ItemParts.getPartByName("energyFlowCircuit"),
+					'O', ModItems.lapotronicOrb,
+					'S', ItemParts.getPartByName("superconductor"),
+					'A', ModBlocks.HighAdvancedMachineBlock
+				});		
+
+		//TODO: change to lappack
+		//CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.lapotronpack),
+		//	new Object[]
+		//		{"EOE", "SLS", "EOE",
+		//			'E', ItemParts.getPartByName("energyFlowCircuit"),
+		//			'O', ModItems.lapotronicOrb,
+		//			'S', ItemParts.getPartByName("superconductor"),
+		//			'L', IC2Items.getItem("Energypack")
+		//		});					
+		
+		//CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("superconductor", 4),
+		//	new Object[]
+		//		{"CCC", "TIT", "EEE",
+		//			'E', ItemParts.getPartByName("energyFlowCircuit"),
+		//			'C', IC2Items.getItem("coolantSix"),
+		//			'T', "ingotTungsten",
+		//			'I', IC2Items.getItem("iridiumPlate")
+		//		});		
+				
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("superconductor", 4),
+			new Object[]
+				{"CCC", "TIT", "EEE",
+					'E', ItemParts.getPartByName("energyFlowCircuit"),
+					'C', ItemParts.getPartByName("heliumCoolantSimple"),
+					'T', "ingotTungsten",
+					'I', IC2Items.getItem("iridiumPlate")
+				});	
+				
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("diamondSawBlade"),
+		new Object[]
+				{"DSD", "S S", "DSD",
+					'S', "plateSteel",
+					'D', ItemDusts.getDustByName("diamond")
+				});	
+		
 		LogHelper.info("Added Expensive IC2 Recipes");
 	}
 
