@@ -12,6 +12,6 @@ public class AlloySmelterRecipe extends BaseRecipe {
         if (input2 != null)
             inputs.add(input2);
         if (output1 != null)
-            outputs.add(output1);
+            addOutput(output1);
     }
 }

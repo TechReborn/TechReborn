@@ -8,8 +8,27 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.init.ModItems;
 
 public class ItemDustsSmall extends ItemTR {
+	
+	public static ItemStack getSmallDustByName(String name, int count)
+	{
+		int index = -1;
+		for (int i = 0; i < types.length; i++) {
+			if (types[i].equals(name)) {
+				index = i;
+				break;
+			}
+		}
+		return new ItemStack(ModItems.smallDusts, count, index);
+	}
+	
+	public static ItemStack getSmallDustByName(String name)
+	{
+		return getSmallDustByName(name, 1);
+	}
+	
 	public static final String[] types = new String[]
 	{ 		"Almandine", "AluminumBrass", "Aluminum", "Alumite", "Andradite",
 			"Antimony", "Ardite", "Ashes", "Basalt", "Bauxite", "Biotite",

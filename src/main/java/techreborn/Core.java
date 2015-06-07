@@ -44,8 +44,7 @@ public class Core {
 	public static Core INSTANCE;
 
 	@Mod.EventHandler
-	public void preinit(FMLPreInitializationEvent event)
-	{
+	public void preinit(FMLPreInitializationEvent event){
 		INSTANCE = this;
 		String path = event.getSuggestedConfigurationFile().getAbsolutePath()
 				.replace(ModInfo.MOD_ID, "TechReborn");
@@ -55,8 +54,7 @@ public class Core {
 	}
 
 	@Mod.EventHandler
-	public void init(FMLInitializationEvent event)
-	{
+	public void init(FMLInitializationEvent event){
 		// Register ModBlocks
 		ModBlocks.init();
 		// Register Fluids
@@ -86,8 +84,7 @@ public class Core {
 	}
 
 	@Mod.EventHandler
-	public void postinit(FMLPostInitializationEvent event)
-	{
+	public void postinit(FMLPostInitializationEvent event){
 		// Has to be done here as Buildcraft registers there recipes late
 		RecipeManager.init();
         //Has to be done after the recipes have been added
@@ -102,13 +99,9 @@ public class Core {
 	}
 	
 	@SubscribeEvent
-	public void onConfigChanged(
-			ConfigChangedEvent.OnConfigChangedEvent cfgChange)
-	{
+	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent cfgChange){
 		if (cfgChange.modID.equals("TechReborn")) {
 			ConfigTechReborn.Configs();
-
 		}
 	}
-
 }

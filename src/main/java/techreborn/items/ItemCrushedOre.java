@@ -8,8 +8,26 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.init.ModItems;
 
 public class ItemCrushedOre extends Item {
+	public static ItemStack getCrushedOreByName(String name, int count)
+	{
+		int index = -1;
+		for (int i = 0; i < types.length; i++) {
+			if (types[i].equals(name)) {
+				index = i;
+				break;
+			}
+		}
+		return new ItemStack(ModItems.crushedOre, count, index);
+	}
+	
+	public static ItemStack getCrushedOreByName(String name)
+	{
+		return getCrushedOreByName(name, 1);
+	}
+	
 	public static final String[] types = new String[]
 	{ "Aluminum", "Ardite", "Bauxite", "Cadmium", "Cinnabar", "Cobalt", "DarkIron",
 			"Indium", "Iridium", "Nickel", "Osmium", "Platinum",

@@ -8,8 +8,27 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.init.ModItems;
 
 public class ItemNuggets extends Item {
+	
+	public static ItemStack getNuggetByName(String name, int count)
+	{
+		int index = -1;
+		for (int i = 0; i < types.length; i++) {
+			if (types[i].equals(name)) {
+				index = i;
+				break;
+			}
+		}
+		return new ItemStack(ModItems.nuggets, count, index);
+	}
+	
+	public static ItemStack getNuggetByName(String name)
+	{
+		return getNuggetByName(name, 1);
+	}
+	
 	public static final String[] types = new String[]
 	{ "aluminum", "antimony", "brass", "bronze", "chrome", "copper",
 			"electrum", "invar", "iridium", "iron", "lead",

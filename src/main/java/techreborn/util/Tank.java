@@ -59,6 +59,9 @@ public class Tank extends FluidTank {
 	}
 
 	public void compareAndUpdate() {
+		if(tile.getWorldObj().isRemote){
+			return;
+		}
 		FluidStack current = this.getFluid();
 		if (current != null) {
 			if (lastBeforeUpdate != null) {

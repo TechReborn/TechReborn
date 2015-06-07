@@ -97,25 +97,26 @@ public class TileSemifluidGenerator extends TileEntity implements IWrenchable,
 	@Override
 	public int fill(ForgeDirection from, FluidStack resource, boolean doFill)
 	{
-		int filled = tank.fill(resource, doFill);
-		return filled;
+		int fill = tank.fill(resource, doFill);
+ 		tank.compareAndUpdate();
+ 		return fill;
 	}
 
 	@Override
 	public FluidStack drain(ForgeDirection from, FluidStack resource,
 			boolean doDrain)
 	{
-		FluidStack drained = tank.drain(resource.amount, doDrain);
-		tank.compareAndUpdate();
-		return drained;
+		FluidStack drain = tank.drain(resource.amount, doDrain);
+ 		tank.compareAndUpdate();
+ 		return drain;
 	}
 
 	@Override
 	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain)
 	{
-		FluidStack drained = tank.drain(maxDrain, doDrain);
-		tank.compareAndUpdate();
-		return drained;
+		FluidStack drain = tank.drain(maxDrain, doDrain);
+ 		tank.compareAndUpdate();
+ 		return drain;
 	}
 
 	@Override

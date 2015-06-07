@@ -13,7 +13,7 @@ public abstract class BaseRecipe implements IBaseRecipeType , Cloneable {
 
     public ArrayList<ItemStack> inputs;
 
-    public ArrayList<ItemStack> outputs;
+    private ArrayList<ItemStack> outputs;
 
     public String name;
 
@@ -31,11 +31,21 @@ public abstract class BaseRecipe implements IBaseRecipeType , Cloneable {
     }
 
     @Override
-    public List<ItemStack> getOutputs() {
-        return (List<ItemStack>) outputs.clone();
+    public ItemStack getOutput(int i) {
+        return outputs.get(i).copy();
     }
 
-    @Override
+	@Override
+	public int getOutputsSize() {
+		return outputs.size();
+	}
+
+	public void addOutput(ItemStack stack){
+		outputs.add(stack);
+	}
+
+
+	@Override
     public List<ItemStack> getInputs() {
         return inputs;
     }

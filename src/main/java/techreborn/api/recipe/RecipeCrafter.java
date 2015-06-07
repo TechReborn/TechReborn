@@ -118,8 +118,8 @@ public class RecipeCrafter {
             for (IBaseRecipeType recipe : RecipeHanderer.getRecipeClassFromName(recipeName)) {
                 if (recipe.canCraft(parentTile) && hasAllInputs(recipe)) {//This checks to see if it has all of the inputs
                     boolean canGiveInvAll = true;
-                    for (int i = 0; i < recipe.getOutputs().size(); i++) {//This checks to see if it can fit all of the outputs
-                        if (!canFitStack(recipe.getOutputs().get(i), outputSlots[i])) {
+                    for (int i = 0; i < recipe.getOutputsSize(); i++) {//This checks to see if it can fit all of the outputs
+                        if (!canFitStack(recipe.getOutput(i), outputSlots[i])) {
                             canGiveInvAll = false;
                             break;
                         }
@@ -142,17 +142,17 @@ public class RecipeCrafter {
             }
             if (currentRecipe != null && currentTickTime >= currentNeededTicks) {//If it has reached the recipe tick time
                 boolean canGiveInvAll = true;
-                for (int i = 0; i < currentRecipe.getOutputs().size(); i++) {//Checks to see if it can fit the output
-                    if (!canFitStack(currentRecipe.getOutputs().get(i), outputSlots[i])) {
+                for (int i = 0; i < currentRecipe.getOutputsSize(); i++) {//Checks to see if it can fit the output
+                    if (!canFitStack(currentRecipe.getOutput(i), outputSlots[i])) {
                         canGiveInvAll = false;
                     }
                 }
                 ArrayList<Integer> filledSlots = new ArrayList<Integer>();//The slots that have been filled
                 if (canGiveInvAll && currentRecipe.onCraft(parentTile)) {
-                    for (int i = 0; i < currentRecipe.getOutputs().size(); i++) {
-                        System.out.println(currentRecipe.getOutputs().get(i).stackSize);
+                    for (int i = 0; i < currentRecipe.getOutputsSize(); i++) {
+                        System.out.println(currentRecipe.getOutput(i).stackSize);
                         if (!filledSlots.contains(outputSlots[i])) {//checks it has not been filled
-                            fitStack(currentRecipe.getOutputs().get(i), outputSlots[i]);//fills the slot with the output stack
+                            fitStack(currentRecipe.getOutput(i).copy(), outputSlots[i]);//fills the slot with the output stack
                             filledSlots.add(outputSlots[i]);
                         }
                     }

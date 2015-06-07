@@ -8,8 +8,26 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.init.ModItems;
 
 public class ItemParts extends Item {
+	public static ItemStack getPartByName(String name, int count)
+	{
+		int index = -1;
+		for (int i = 0; i < types.length; i++) {
+			if (types[i].equals(name)) {
+				index = i;
+				break;
+			}
+		}
+		return new ItemStack(ModItems.parts, count, index);
+	}
+	
+	public static ItemStack getPartByName(String name)
+	{
+		return getPartByName(name, 1);
+	}
+	
 	public static final String[] types = new String[]
 	{ "advancedCircuitParts", "basicCircuitBoard", "advancedCircuitBoard", "processorCircuitBoard",
 			"energyFlowCircuit", "dataControlCircuit", "dataOrb", "dataStorageCircuit",
@@ -20,7 +38,7 @@ public class ItemParts extends Item {
 			"bronzeGear", "ironGear", "titaniumGear", "steelGear", "tungstensteelGear",
 			"laserFocus", "ductTape", "lazuriteChunk", "iridiumAlloyIngot", "rockCutterBlade", "superconductor",
 			"thoriumCell", "doubleThoriumCell", "quadThoriumCell", "plutoniumCell", "doublePlutoniumCell", 
-			"quadPlutoniumCell", "destructoPack", "iridiumNeutronReflector", "massHoleDevice" };
+			"quadPlutoniumCell", "destructoPack", "iridiumNeutronReflector", "massHoleDevice", "computerMonitor" };
 
 	private IIcon[] textures;
 

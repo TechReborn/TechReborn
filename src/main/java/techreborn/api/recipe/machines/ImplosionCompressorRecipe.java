@@ -12,8 +12,8 @@ public class ImplosionCompressorRecipe extends BaseRecipe {
         if (input2 != null)
             inputs.add(input2);
         if (output1 != null)
-            outputs.add(output1);
+            addOutput(output1);
         if (output2 != null)
-            outputs.add(output2);
+            addOutput(output2);
     }
 }

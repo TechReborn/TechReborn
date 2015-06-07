@@ -174,7 +174,11 @@ public class TileGasTurbine extends TileEntity implements IWrenchable,
 	public void updateEntity()
 	{
 		super.updateEntity();
-		FluidUtils.drainContainers(this, inventory, 0, 1);
+		if(!worldObj.isRemote){
+			FluidUtils.drainContainers(this, inventory, 0, 1);
+			tank.compareAndUpdate();
+		}
+
 		energySource.updateEntity();
 		if (tank.getFluidAmount() > 0
 				&& energySource.getCapacity() - energySource.getEnergyStored() >= euTick)

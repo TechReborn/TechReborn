@@ -9,8 +9,8 @@ public class EmcValues {
 	public static void init()
 	{
 		for(IBaseRecipeType recipeType : RecipeHanderer.recipeList){
-            if(recipeType.getOutputs().size() == 1){
-                RecipeRegistryProxy.addRecipe(recipeType.getOutputs().get(0), recipeType.getInputs());
+            if(recipeType.getOutputsSize() == 1){
+                RecipeRegistryProxy.addRecipe(recipeType.getOutput(0), recipeType.getInputs());
             }
         }
 	}

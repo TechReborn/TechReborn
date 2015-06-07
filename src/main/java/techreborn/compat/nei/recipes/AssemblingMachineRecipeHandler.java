@@ -21,8 +21,8 @@ public class AssemblingMachineRecipeHandler extends GenericRecipeHander implemen
             input.add(pStack2);
         }
 
-        if (recipeType.getOutputs().size() > 0) {
-            PositionedStack pStack3 = new PositionedStack(recipeType.getOutputs().get(0), 116 - offset, 35 - offset);
+        if (recipeType.getOutputsSize() > 0) {
+            PositionedStack pStack3 = new PositionedStack(recipeType.getOutput(0), 116 - offset, 35 - offset);
             outputs.add(pStack3);
         }
 

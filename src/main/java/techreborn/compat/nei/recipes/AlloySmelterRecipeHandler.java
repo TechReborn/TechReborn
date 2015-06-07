@@ -18,7 +18,7 @@ public class AlloySmelterRecipeHandler extends GenericRecipeHander implements IN
         PositionedStack pStack2 = new PositionedStack(ItemUtils.getStackWithAllOre(recipeType.getInputs().get(1)), 65 - offset, 17 - offset);
         input.add(pStack2);
 
-        PositionedStack pStack3 = new PositionedStack(recipeType.getOutputs().get(0), 116 - offset, 35 - offset);
+        PositionedStack pStack3 = new PositionedStack(recipeType.getOutput(0), 116 - offset, 35 - offset);
         outputs.add(pStack3);
     }
 

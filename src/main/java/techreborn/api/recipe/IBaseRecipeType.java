@@ -18,11 +18,17 @@ public interface IBaseRecipeType {
     public List<ItemStack> getInputs();
 
     /**
-     * Use this to get all of the outputs
+     * This gets the output form the array list
      *
-     * @return the List of outputs
+     * @return the output
      */
-    public List<ItemStack> getOutputs();
+    public ItemStack getOutput(int i);
+
+	/**
+	 *
+	 * @return The ammount of outputs
+	 */
+	public int getOutputsSize();
 
     /**
      * This is the name to check that the recipe is the one that should be used in

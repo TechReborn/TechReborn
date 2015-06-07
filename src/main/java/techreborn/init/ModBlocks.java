@@ -57,6 +57,7 @@ import techreborn.tiles.TileMachineCasing;
 import techreborn.tiles.TileMatterFabricator;
 import techreborn.tiles.TilePlateCuttingMachine;
 import techreborn.tiles.TileQuantumChest;
+import techreborn.tiles.TileDigitalChest;
 import techreborn.tiles.TileQuantumTank;
 import techreborn.tiles.TileRollingMachine;
 import techreborn.tiles.TileThermalGenerator;
@@ -70,6 +71,7 @@ public class ModBlocks {
 	public static Block thermalGenerator;
 	public static Block quantumTank;
 	public static Block quantumChest;
+	public static Block digitalChest;
 	public static Block centrifuge;
 	public static Block RollingMachine;
 	public static Block MachineCasing;
@@ -126,6 +128,10 @@ public class ModBlocks {
 		quantumChest = new BlockQuantumChest();
 		GameRegistry.registerBlock(quantumChest, ItemBlockQuantumChest.class, "techreborn.quantumChest");
 		GameRegistry.registerTileEntity(TileQuantumChest.class, "TileQuantumChestTR");
+		
+		digitalChest = new BlockDigitalChest();
+		GameRegistry.registerBlock(digitalChest, ItemBlockDigitalChest.class, "techreborn.digitalChest");
+		GameRegistry.registerTileEntity(TileDigitalChest.class, "TileDigitalChestTR");
 
 		centrifuge = new BlockCentrifuge();
 		GameRegistry.registerBlock(centrifuge, "techreborn.centrifuge");

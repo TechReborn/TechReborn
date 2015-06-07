@@ -22,8 +22,8 @@ public class ChemicalReactorRecipeHandler extends GenericRecipeHander implements
             input.add(pStack2);
         }
 
-        if (recipeType.getOutputs().size() > 0) {
-            PositionedStack pStack3 = new PositionedStack(recipeType.getOutputs().get(0), 80 - offset, 51 - offset);
+        if (recipeType.getOutputsSize() > 0) {
+            PositionedStack pStack3 = new PositionedStack(recipeType.getOutput(0), 80 - offset, 51 - offset);
             outputs.add(pStack3);
         }
     }

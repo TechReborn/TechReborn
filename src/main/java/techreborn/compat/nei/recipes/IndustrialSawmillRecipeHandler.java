@@ -22,18 +22,18 @@ public class IndustrialSawmillRecipeHandler extends GenericRecipeHander implemen
             input.add(pStack2);
         }
 
-        if (recipeType.getOutputs().size() > 0) {
-            PositionedStack pStack3 = new PositionedStack(recipeType.getOutputs().get(0), 84 - offset, 35 - offset);
+        if (recipeType.getOutputsSize() > 0) {
+            PositionedStack pStack3 = new PositionedStack(recipeType.getOutput(0), 84 - offset, 35 - offset);
             outputs.add(pStack3);
         }
 
-        if (recipeType.getOutputs().size() > 1) {
-            PositionedStack pStack4 = new PositionedStack(recipeType.getOutputs().get(1), 102 - offset, 35 - offset);
+        if (recipeType.getOutputsSize() > 1) {
+            PositionedStack pStack4 = new PositionedStack(recipeType.getOutput(1), 102 - offset, 35 - offset);
             outputs.add(pStack4);
         }
 
-        if (recipeType.getOutputs().size() > 2) {
-            PositionedStack pStack5 = new PositionedStack(recipeType.getOutputs().get(2), 120 - offset, 35 - offset);
+        if (recipeType.getOutputsSize() > 2) {
+            PositionedStack pStack5 = new PositionedStack(recipeType.getOutput(2), 120 - offset, 35 - offset);
             outputs.add(pStack5);
         }
     }
