@@ -12,8 +12,6 @@ public class GuiPda extends GuiScreen {
 
 	private static final ResourceLocation pdaGuipages = new ResourceLocation(
 			"techreborn:" + "textures/gui/pda.png");
-	public static final ResourceLocation buttonOre = new ResourceLocation(
-			"techreborn:" + "textures/blocks/ore/book_of_revealing");
 
 	public GuiPda(EntityPlayer player)
 	{
@@ -25,21 +23,13 @@ public class GuiPda extends GuiScreen {
 		super.initGui();
 		this.guiLeft = this.width / 2 - this.guiWidth / 2;
 		this.guiTop = this.height / 2 - this.guiHeight / 2;
-		GuiButtonCustomTexture oresButton = new GuiButtonCustomTexture(1,
-				guiLeft + 20, guiTop + 20, 0, 224, 16, 16, buttonOre);
-
-		buttonList.add(oresButton);
 	}
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks)
 	{
-
 		mc.getTextureManager().bindTexture(pdaGuipages);
-		drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.guiWidth,
-				this.guiHeight);
-		mc.renderEngine.bindTexture(buttonOre);
-
+		drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.guiWidth,this.guiHeight);
 		super.drawScreen(mouseX, mouseY, partialTicks);
 	}
 

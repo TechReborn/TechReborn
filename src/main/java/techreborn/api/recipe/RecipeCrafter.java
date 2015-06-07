@@ -130,7 +130,8 @@ public class RecipeCrafter {
                         this.currentTickTime = 0;
 						syncIsActive();
                     } else {
-                        this.currentTickTime = 0;
+                        this.currentTickTime = -1;
+                        syncIsActive();
                     }
                 }
             }
@@ -273,7 +274,7 @@ public class RecipeCrafter {
 
 
     private boolean isActiveServer() {
-        return currentRecipe != null;
+        return currentRecipe != null && energy.getEnergyStored() >= currentRecipe.euPerTick();
     }
 
     public boolean isActive() {

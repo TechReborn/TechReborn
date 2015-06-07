@@ -43,15 +43,27 @@ public class GuiIndustrialSawmill extends GuiContainer {
 		int k = (this.width - this.xSize) / 2;
 		int l = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
+
+        int j = 0;
+
+        if(sawmill.crafter.currentTickTime != 0) {
+            j = this.sawmill.crafter.currentTickTime * 24 / this.sawmill.crafter.currentNeededTicks;
+        }
+        this.drawTexturedModalRect(k + 57, l + 36, 176, 11, j - 1, 13);
+
+        j = (int)this.sawmill.energy.getEnergyStored() * 12 / this.sawmill.energy.getCapacity();
+        if(j > 0) {
+            this.drawTexturedModalRect(k + 36, l + 66 + 12 - j, 176, 12 - j, 14, j + 2);
+        }
 	}
 
 	protected void drawGuiContainerForegroundLayer(int p_146979_1_,
 			int p_146979_2_)
 	{
-		String name = StatCollector.translateToLocal("tile.techreborn.tilesawmill.name");
+		String name = StatCollector.translateToLocal("tile.techreborn.industrialSawmill.name");
 		this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
 		this.fontRendererObj.drawString(
-				I18n.format("container.inventory", new Object[0]), 8,
+				I18n.format("container.inventory", new Object[0]), 58,
 				this.ySize - 96 + 2, 4210752);
 	}
 }

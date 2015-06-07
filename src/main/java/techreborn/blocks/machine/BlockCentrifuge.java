@@ -10,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
@@ -22,9 +23,15 @@ public class BlockCentrifuge extends BlockMachineBase {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon iconFront;
+	
+	@SideOnly(Side.CLIENT)
+	private IIcon iconFrontOn;
 
 	@SideOnly(Side.CLIENT)
 	private IIcon iconTop;
+	
+	@SideOnly(Side.CLIENT)
+	private IIcon iconTopOn;
 
 	@SideOnly(Side.CLIENT)
 	private IIcon iconBottom;
@@ -55,20 +62,40 @@ public class BlockCentrifuge extends BlockMachineBase {
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister icon)
 	{
-		this.blockIcon = icon.registerIcon("techreborn:machine/industrial_centrifuge_side_off");
 		this.iconFront = icon.registerIcon("techreborn:machine/industrial_centrifuge_side_off");
+		this.iconFrontOn = icon.registerIcon("techreborn:machine/industrial_centrifuge_side_on");
 		this.iconTop = icon.registerIcon("techreborn:machine/industrial_centrifuge_top_off");
+		this.iconTopOn = icon.registerIcon("techreborn:machine/industrial_centrifuge_top_on");
 		this.iconBottom = icon.registerIcon("techreborn:machine/industrial_centrifuge_bottom");
 	}
 
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int metadata)
-	{
+	@Override
+	public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int side) {
+		int metadata = blockAccess.getBlockMetadata(x, y, z);
+		TileCentrifuge tileCentrifuge = (TileCentrifuge) blockAccess.getTileEntity(x, y, z);
+		if(side >= 2 && tileCentrifuge.crafter.isActive()){
+			return this.iconFrontOn;
+		}
+		
+		if(side == 1 && tileCentrifuge.crafter.isActive()){
+			return this.iconTopOn;
+		}
+
 
 		return metadata == 0 && side == 3 ? this.iconFront
 				: side == 1 ? this.iconTop : 
 					side == 0 ? this.iconBottom: (side == 0 ? this.iconTop
-						: (side == metadata ? this.iconFront : this.blockIcon));
+						: (side == metadata ? this.iconFront : this.iconFront));
+
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public IIcon getIcon(int side, int metadata)
+	{
+		return metadata == 0 && side == 3 ? this.iconFront
+				: side == 1 ? this.iconTop : 
+					side == 0 ? this.iconBottom: (side == 0 ? this.iconTop
+						: (side == metadata ? this.iconFront : this.iconFront));
 
 	}
 	

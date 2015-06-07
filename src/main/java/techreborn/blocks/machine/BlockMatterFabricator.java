@@ -22,6 +22,9 @@ public class BlockMatterFabricator extends BlockMachineBase{
 	
 	@SideOnly(Side.CLIENT)
 	private IIcon iconFront;
+	
+	@SideOnly(Side.CLIENT)
+	private IIcon iconFrontOn;
 
 	@SideOnly(Side.CLIENT)
 	private IIcon iconTop;
@@ -57,6 +60,7 @@ public class BlockMatterFabricator extends BlockMachineBase{
 	{
 		this.blockIcon = icon.registerIcon("techreborn:machine/matterfab_off");
 		this.iconFront = icon.registerIcon("techreborn:machine/matterfab_off");
+		this.iconFrontOn = icon.registerIcon("techreborn:machine/matterfab_on");
 		this.iconTop = icon.registerIcon("techreborn:machine/matterfab_off");
 		this.iconBottom = icon.registerIcon("techreborn:machine/matterfab_off");
 	}

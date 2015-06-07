@@ -9,6 +9,7 @@ import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
 import techreborn.client.GuiHandler;
+import techreborn.packets.PacketHandler;
 import techreborn.tiles.TileAesu;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -58,14 +59,13 @@ public class BlockAesu extends BlockMachineBase {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int metadata)
-	{
-
+	public IIcon getIcon(int side, int metadata) {
+        if(side == metadata)
+            return this.iconFront;
 		return metadata == 0 && side == 3 ? this.iconFront
 				: side == 1 ? this.iconTop : 
 					side == 0 ? this.iconBottom: (side == 0 ? this.iconTop
 						: (side == metadata ? this.iconFront : this.blockIcon));
-
 	}
 
 }

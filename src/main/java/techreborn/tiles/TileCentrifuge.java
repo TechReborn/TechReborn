@@ -131,6 +131,7 @@ public class TileCentrifuge extends TileMachineBase implements  IWrenchable, IEn
 		if(crafter.currentRecipe !=null){
 		info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
 		}
+		info.add("Round and round it goes");
 	}
 
 	@Override
