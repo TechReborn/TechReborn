@@ -3,6 +3,7 @@ package techreborn;
 import java.io.File;
 
 import net.minecraftforge.common.MinecraftForge;
+import org.apache.commons.lang3.time.StopWatch;
 import techreborn.achievement.TRAchievements;
 import techreborn.api.recipe.RecipeHanderer;
 import techreborn.client.GuiHandler;
@@ -62,7 +63,11 @@ public class Core {
 		// Register ModItems
 		ModItems.init();
 		// Recipes
+        StopWatch watch = new StopWatch();
+        watch.start();
 		ModRecipes.init();
+        LogHelper.all(watch + " : main recipes");
+        watch.stop();
 		//Client only init, needs to be done before parts system
 		proxy.init();
 		// Compat
@@ -86,7 +91,11 @@ public class Core {
 	@Mod.EventHandler
 	public void postinit(FMLPostInitializationEvent event){
 		// Has to be done here as Buildcraft registers there recipes late
+        StopWatch watch = new StopWatch();
+        watch.start();
 		RecipeManager.init();
+        LogHelper.all(watch + " : main recipes");
+        watch.stop();
         //Has to be done after the recipes have been added
         CompatManager.postInit(event);
 
