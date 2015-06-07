@@ -26,7 +26,7 @@ public class BlockDigitalChest extends BlockMachineBase {
 	public BlockDigitalChest()
 	{
 		super(Material.rock);
-		setBlockName("techreborn.DigitalChest");
+		setBlockName("techreborn.digitalChest");
 	}
 
 	@Override

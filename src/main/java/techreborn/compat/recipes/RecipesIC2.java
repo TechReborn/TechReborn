@@ -105,6 +105,22 @@ public class RecipesIC2 {
                                 'H', IC2Items.getItem("reinforcedGlass"),
                                 'C', "circuitBasic",
                                 'G', IC2Items.getItem("geothermalGenerator")});
+								
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Gasturbine),
+				new Object[]
+				{"IAI", "WGW", "IAI",
+				'I', "plateInvar",
+				'A', IC2Items.getItem("advancedCircuit"),
+				'W', IC2Items.getItem("windMill"),
+				'G', IC2Items.getItem("reinforcedGlass")});
+				
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Gasturbine),
+			new Object[]
+			{"IAI", "WGW", "IAI",
+				'I', "plateAluminum",
+				'A', IC2Items.getItem("advancedCircuit"),
+				'W', IC2Items.getItem("windMill"),
+				'G', IC2Items.getItem("reinforcedGlass")});
 
         CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Semifluidgenerator),
                 new Object[]
@@ -365,14 +381,46 @@ public class RecipesIC2 {
                                 'C', "circuitElite",
                                 'B', ModBlocks.HighAdvancedMachineBlock});
 
-
-
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.quantumTank),
+                new Object[]
+                        {"EPE", "PCP", "EPE",
+                                'P', "platePlatinum",
+                                'E', "circuitMaster",
+                                'C', ModBlocks.quantumChest});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.quantumChest),
+				new Object[]
+                        {"DCD", "ATA", "DQD",
+                                'D', new ItemStack(ModItems.parts, 1, 8),
+                                'C', new ItemStack(ModItems.parts, 1, 40),
+                                'A', ModBlocks.HighAdvancedMachineBlock,
+								'Q', ModBlocks.digitalChest,
+								'T', IC2Items.getItem("teleporter")});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.digitalChest),
+				new Object[]
+						{"PPP", "PDP", "PCP",
+								'P', "plateSteel",
+								'D', new ItemStack(ModItems.parts, 1, 8),
+								'C', new ItemStack(ModItems.parts, 1, 40)							
+						}
+				);
 
 		LogHelper.info("Added Expensive IC2 Recipes");
 	}
 
 	public static void addShapedTrRecipes()
 	{
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.parts, 1, 40),
+				new Object[]
+						{ "PLP", "RGB", "PYP",
+							'P', "plateAluminum",
+							'L', "dyeLime",
+							'R', "dyeRed",
+							'G', "paneGlass",
+							'B', "dyeBlue",
+							'Y', Items.glowstone_dust});
+		
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.parts, 4, 6),
 				new Object[]
 				{ "EEE", "EAE", "EEE",
