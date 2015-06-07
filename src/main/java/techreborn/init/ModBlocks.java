@@ -106,6 +106,7 @@ public class ModBlocks {
 	public static Block VacuumFreezer;
 	public static Block PlasmaGenerator;
 	public static Block FusionControlComputer;
+	public static Block ComputerCube;
 	public static Block FusionCoil;
 	public static Block LightningRod;
 	public static Block heatGenerator;
@@ -260,6 +261,9 @@ public class ModBlocks {
 		
 		PlasmaGenerator = new BlockPlasmaGenerator(Material.rock);
 		GameRegistry.registerBlock(PlasmaGenerator, "plasmagenerator");
+		
+		ComputerCube = new BlockComputerCube(Material.rock);
+		GameRegistry.registerBlock(ComputerCube, "computercube");
 		
 		FusionControlComputer = new BlockFusionControlComputer(Material.rock);
 		GameRegistry.registerBlock(FusionControlComputer, "fusioncontrolcomputer");

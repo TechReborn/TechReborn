@@ -22,6 +22,7 @@ import techreborn.items.ItemPlates;
 import techreborn.items.ItemPurifiedCrushedOre;
 import techreborn.items.ItemRods;
 import techreborn.items.ItemUUmatter;
+import techreborn.items.ItemLapotronicOrb;
 import techreborn.items.armor.ItemGravityChest;
 import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
@@ -51,6 +52,7 @@ public class ModItems {
 	public static Item gravityChest;
 	public static Item omniTool;
 	public static Item advancedDrill;
+	public static Item lapotronicOrb;
 	public static Item manuel;
 	public static Item uuMatter;
 	public static Item plate;
@@ -119,6 +121,8 @@ public class ModItems {
 		GameRegistry.registerItem(lithiumBatpack, "lithiumBatpack");
 		lapotronpack = new ItemLapotronPack(ArmorMaterial.DIAMOND, 7, 1);
 		GameRegistry.registerItem(lapotronpack, "lapotronPack");
+		lapotronicOrb = new ItemLapotronicOrb();
+		GameRegistry.registerItem(lapotronicOrb, "lapotronicOrb");
 		omniTool = new ItemOmniTool(ToolMaterial.EMERALD);
 		GameRegistry.registerItem(omniTool, "omniTool");
 		advancedDrill = new ItemAdvancedDrill();

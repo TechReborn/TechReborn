@@ -381,13 +381,6 @@ public class RecipesIC2 {
                                 'H', "plateChrome",
                                 'C', "circuitElite",
                                 'B', ModBlocks.HighAdvancedMachineBlock});
-
-        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.quantumTank),
-                new Object[]
-                        {"EPE", "PCP", "EPE",
-                                'P', "platePlatinum",
-                                'E', "circuitMaster",
-                                'C', ModBlocks.quantumChest});
 		
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.quantumChest),
 				new Object[]
@@ -398,29 +391,50 @@ public class RecipesIC2 {
 								'Q', ModBlocks.digitalChest,
 								'T', IC2Items.getItem("teleporter")});
 		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ComputerCube),
+			new Object[]
+				{"DME", "MAM", "EMD",
+						'E', ItemParts.getPartByName("energyFlowCircuit"),
+						'D', ItemParts.getPartByName("dataOrb"),
+						'M', ItemParts.getPartByName("computerMonitor"),
+						'A', IC2Items.getItem("advancedMachine")
+				});				
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.lapotronicOrb),
+			new Object[]
+				{"LLL", "LPL", "LLL",
+					'L', IC2Items.getItem("lapotronCrystal"),
+					'P', IC2Items.getItem("iridiumPlate")					
+				});
+
+		LogHelper.info("Added Expensive IC2 Recipes");
+	}
+
+	public static void addShapedTrRecipes()
+	{		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.quantumTank),
+			new Object[]
+				{"EPE", "PCP", "EPE",
+						'P', "platePlatinum",
+						'E', "circuitMaster",
+						'C', ModBlocks.quantumChest});
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.digitalChest),
+			new Object[]
+					{"PPP", "PDP", "PCP",
+							'P', "plateAluminum",
+							'D', ItemParts.getPartByName("dataOrb"),
+							'C', ItemParts.getPartByName("computerMonitor")
+					});
+					
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.digitalChest),
 				new Object[]
 						{"PPP", "PDP", "PCP",
 								'P', "plateSteel",
 								'D', ItemParts.getPartByName("dataOrb"),
 								'C', ItemParts.getPartByName("computerMonitor")
-						}
-				);
-				
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.digitalChest),
-		new Object[]
-				{"PPP", "PDP", "PCP",
-						'P', "plateAluminum",
-						'D', ItemParts.getPartByName("dataOrb"),
-						'C', ItemParts.getPartByName("computerMonitor")
-				}
-		);
-
-		LogHelper.info("Added Expensive IC2 Recipes");
-	}
-
-	public static void addShapedTrRecipes()
-	{
+						});	
+		
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.parts, 1, 40),
 				new Object[]
 						{ "PLP", "RGB", "PYP",

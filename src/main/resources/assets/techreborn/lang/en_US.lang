@@ -42,6 +42,7 @@ tile.techreborn.electriccraftingtable.name=Electric Autocrafting Table
 tile.techreborn.vacuumfreezer.name=Vacuum Freezer
 tile.techreborn.plasmagenerator.name=Plasma Generator
 tile.techreborn.fusioncontrolcomputer.name=Fusion Control Computer
+tile.techreborn.computercube.name=TechReborn Computer Cube
 tile.techreborn.fusioncoil.name=Fusion Coil
 tile.techreborn.lightningrod.name=Lightning Rod
 tile.techreborn.assemblinmachine.name=Assembling Machine
@@ -646,6 +647,7 @@ item.techreborn.lithiumbatpack.name=Lithium Batpack
 item.techreborn.lapotronpack.name=Lapotron Pack
 item.techreborn.omniTool.name=Omni tool
 item.techreborn.advancedDrill.name=Advanced Drill
+item.techreborn.lapotronicorb.name=Lapotronic Energy Orb
 
 #Buckets
 item.bucketberylium.name=Berylium Bucket

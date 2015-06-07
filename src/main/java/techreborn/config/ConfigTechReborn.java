@@ -70,6 +70,7 @@ public class ConfigTechReborn {
     public static int AdvancedDrillCharge;
     public static int LapotronPackCharge;
     public static int LithiumBatpackCharge;
+	public static int LapotronicOrbMaxCharge;
     public static int OmniToolCharge;
     public static int RockCutterCharge;
     public static int GravityCharge;
@@ -78,6 +79,7 @@ public class ConfigTechReborn {
     // Tier
     public static int AdvancedDrillTier;
     public static int LapotronPackTier;
+	public static int LapotronicOrbTier;
     public static int LithiumBatpackTier;
     public static int OmniToolTier;
     public static int RockCutterTier;
@@ -490,6 +492,14 @@ public class ConfigTechReborn {
                         StatCollector
                                 .translateToLocal("config.techreborn.lapotronPackMaxCharge.tooltop"))
                 .getInt();
+		LapotronicOrbMaxCharge = config
+				.get(CATEGORY_POWER,
+						StatCollector
+								.translateToLocal("config.techreborn.lapotronicOrbMaxCharge"),
+						10000000,
+						StatCollector
+								.translateToLocal("config.techreborn.lapotronicOrbMaxCharge"))
+					.getInt();
         LithiumBatpackCharge = config
                 .get(CATEGORY_POWER,
                         StatCollector
@@ -555,6 +565,14 @@ public class ConfigTechReborn {
                         2,
                         StatCollector
                                 .translateToLocal("config.techreborn.lapotronPackTier.tooltip"))
+                .getInt();
+		LapotronicOrbTier = config
+                .get(CATEGORY_POWER,
+                        StatCollector
+                                .translateToLocal("config.techreborn.lapotronicOrbTier"),
+                        2,
+                        StatCollector
+                                .translateToLocal("config.techreborn.lapotronicOrbTier.tooltip"))
                 .getInt();
         LithiumBatpackTier = config
                 .get(CATEGORY_POWER,
