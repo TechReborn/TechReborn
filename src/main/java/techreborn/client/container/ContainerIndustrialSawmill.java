@@ -5,7 +5,7 @@ import net.minecraft.inventory.Slot;
 import techreborn.client.SlotOutput;
 import techreborn.tiles.TileIndustrialSawmill;
 
-public class ContainerIndustrialSawmill extends TechRebornContainer {
+public class ContainerIndustrialSawmill extends ContainerCrafting {
 
 	EntityPlayer player;
 
@@ -22,6 +22,7 @@ public class ContainerIndustrialSawmill extends TechRebornContainer {
 	public ContainerIndustrialSawmill(TileIndustrialSawmill tileIndustrialSawmill,
 			EntityPlayer player)
 	{
+        super(tileIndustrialSawmill.crafter);
 		tile = tileIndustrialSawmill;
 		this.player = player;
 

@@ -130,7 +130,8 @@ public class RecipeCrafter {
                         this.currentTickTime = 0;
 						syncIsActive();
                     } else {
-                        this.currentTickTime = 0;
+                        this.currentTickTime = -1;
+                        syncIsActive();
                     }
                 }
             }

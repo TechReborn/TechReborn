@@ -52,6 +52,7 @@ tile.techreborn.machineFrame.bronze.name=Brone Machine Hull
 tile.techreborn.machineFrame.brass.name=Brass Machine Hull
 tile.techreborn.machineFrame.steel.name=Steel Machine Hull
 tile.techreborn.machineFrame.titanium.name=Titanium Machine Hull
+tile.techreborn.industrialSawmill.name=Saw Mill
 
 #Ores
 tile.techreborn.ore.Galena.name=Galena Ore
