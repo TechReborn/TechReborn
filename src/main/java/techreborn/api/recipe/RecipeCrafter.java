@@ -152,7 +152,7 @@ public class RecipeCrafter {
                     for (int i = 0; i < currentRecipe.getOutputsSize(); i++) {
                         System.out.println(currentRecipe.getOutput(i).stackSize);
                         if (!filledSlots.contains(outputSlots[i])) {//checks it has not been filled
-                            fitStack(currentRecipe.getOutput(i), outputSlots[i]);//fills the slot with the output stack
+                            fitStack(currentRecipe.getOutput(i).copy(), outputSlots[i]);//fills the slot with the output stack
                             filledSlots.add(outputSlots[i]);
                         }
                     }
