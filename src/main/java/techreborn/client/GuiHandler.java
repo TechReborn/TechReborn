@@ -21,6 +21,7 @@ import techreborn.client.container.ContainerMatterFabricator;
 import techreborn.client.container.ContainerPlateCuttingMachine;
 import techreborn.client.container.ContainerQuantumChest;
 import techreborn.client.container.ContainerQuantumTank;
+import techreborn.client.container.ContainerDigitalChest;
 import techreborn.client.container.ContainerRollingMachine;
 import techreborn.client.container.ContainerThermalGenerator;
 import techreborn.client.container.ContainerSemifluidGenerator;
@@ -43,6 +44,7 @@ import techreborn.client.gui.GuiMatterFabricator;
 import techreborn.client.gui.GuiPlateCuttingMachine;
 import techreborn.client.gui.GuiQuantumChest;
 import techreborn.client.gui.GuiQuantumTank;
+import techreborn.client.gui.GuiDigitalChest;
 import techreborn.client.gui.GuiRollingMachine;
 import techreborn.client.gui.GuiThermalGenerator;
 import techreborn.client.gui.GuiSemifluidGenerator;
@@ -76,6 +78,7 @@ public class GuiHandler implements IGuiHandler {
 	public static final int chemicalReactorID = 20;
 	public static final int semifluidGeneratorID = 21;
 	public static final int gasTurbineID = 22;
+	public static final int digitalChestID = 23;
 
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world,
@@ -97,6 +100,10 @@ public class GuiHandler implements IGuiHandler {
 		{
 			return new ContainerQuantumTank(
 					(TileQuantumTank) world.getTileEntity(x, y, z), player);
+		} else if (ID == digitalChestID)
+		{
+			return new ContainerDigitalChest(
+					(TileDigitalChest) world.getTileEntity(x, y, z), player);
 		} else if (ID == quantumChestID)
 		{
 			return new ContainerQuantumChest(
@@ -197,6 +204,10 @@ public class GuiHandler implements IGuiHandler {
 		{
 			return new GuiQuantumTank(player,
 					(TileQuantumTank) world.getTileEntity(x, y, z));
+		} else if (ID == digitalChestID)
+		{
+			return new GuiDigitalChest(player,
+					(TileDigitalChest) world.getTileEntity(x, y, z));
 		} else if (ID == quantumChestID)
 		{
 			return new GuiQuantumChest(player,

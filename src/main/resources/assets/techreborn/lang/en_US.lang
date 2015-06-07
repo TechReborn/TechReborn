@@ -6,6 +6,7 @@ tile.techreborn.industrialBlock.name=Industrial
 tile.techreborn.thermalGenerator.name=Thermal Generator
 tile.techreborn.quantumTank.name=Quantum Tank
 tile.techreborn.quantumChest.name=Quantum Chest
+tile.techreborn.digitalChest.name=Digital Chest
 tile.techreborn.centrifuge.name=Centrifuge
 tile.techreborn.rollingmachine.name=Rolling machine
 tile.techreborn.machineCasing.standard.name=Standard Machine Casing
@@ -636,6 +637,7 @@ item.techreborn.part.quadPlutoniumCell.name=Quad Fuel Rod (Plutonium)
 item.techreborn.part.destructoPack.name=Destructopack
 item.techreborn.part.iridiumNeutronReflector.name=Iridium Neutron Reflector
 item.techreborn.part.massHoleDevice.name=Mass Hole Device
+item.techreborn.part.computerMonitor.name=Computer Monitor
 
 
 #Tools
