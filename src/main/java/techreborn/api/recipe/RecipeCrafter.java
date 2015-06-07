@@ -274,7 +274,7 @@ public class RecipeCrafter {
 
 
     private boolean isActiveServer() {
-        return currentRecipe != null;
+        return currentRecipe != null && energy.getEnergyStored() >= currentRecipe.euPerTick();
     }
 
     public boolean isActive() {
