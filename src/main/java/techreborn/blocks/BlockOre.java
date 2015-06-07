@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-
-
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -21,8 +18,26 @@ import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import techreborn.init.ModBlocks;
 
 public class BlockOre extends Block {
+
+	public static ItemStack getOreByName(String name, int count)
+	{
+		int index = -1;
+		for (int i = 0; i < types.length; i++) {
+			if (types[i].equals(name)) {
+				index = i;
+				break;
+			}
+		}
+		return new ItemStack(ModBlocks.ore, count, index);
+	}
+	
+	public static ItemStack getOreByName(String name)
+	{
+		return getOreByName(name, 1);
+	}
 
 	public static final String[] types = new String[]
 	{ "Galena", "Iridium", "Ruby", "Sapphire", "Bauxite", "Pyrite", "Cinnabar",
