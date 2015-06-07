@@ -21,23 +21,23 @@ public class CentrifugeRecipeHandler extends GenericRecipeHander implements INei
             input.add(pStack2);
         }
 
-        if (recipeType.getOutputs().size() > 0) {
-            PositionedStack pStack3 = new PositionedStack(recipeType.getOutputs().get(0), 80 - offset, 5 - offset);
+        if (recipeType.getOutputsSize() > 0) {
+            PositionedStack pStack3 = new PositionedStack(recipeType.getOutput(0), 80 - offset, 5 - offset);
             outputs.add(pStack3);
         }
 
-        if (recipeType.getOutputs().size() > 1) {
-            PositionedStack pStack4 = new PositionedStack(recipeType.getOutputs().get(1), 110 - offset, 35 - offset);
+        if (recipeType.getOutputsSize() > 1) {
+            PositionedStack pStack4 = new PositionedStack(recipeType.getOutput(1), 110 - offset, 35 - offset);
             outputs.add(pStack4);
         }
 
-        if (recipeType.getOutputs().size() > 2) {
-            PositionedStack pStack5 = new PositionedStack(recipeType.getOutputs().get(2), 80 - offset, 65 - offset);
+        if (recipeType.getOutputsSize() > 2) {
+            PositionedStack pStack5 = new PositionedStack(recipeType.getOutput(2), 80 - offset, 65 - offset);
             outputs.add(pStack5);
         }
 
-        if (recipeType.getOutputs().size() > 3) {
-            PositionedStack pStack6 = new PositionedStack(recipeType.getOutputs().get(3), 50 - offset, 35 - offset);
+        if (recipeType.getOutputsSize() > 3) {
+            PositionedStack pStack6 = new PositionedStack(recipeType.getOutput(3), 50 - offset, 35 - offset);
             outputs.add(pStack6);
         }
     }

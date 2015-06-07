@@ -10,6 +10,6 @@ public class PlateCuttingMachineRecipe extends BaseRecipe {
         if (input1 != null)
             inputs.add(input1);
         if (output1 != null)
-            outputs.add(output1);
+			addOutput(output1);
     }
 }

@@ -113,11 +113,11 @@ public abstract class GenericRecipeHander extends TemplateRecipeHandler {
     @Override
     public void loadCraftingRecipes(ItemStack result) {
         for (IBaseRecipeType recipeType : RecipeHanderer.getRecipeClassFromName(getNeiBaseRecipe().getRecipeName())) {
-            for (ItemStack output : recipeType.getOutputs()) {
-                if (ItemUtils.isItemEqual(output, result, true, false, true)) {
-                    addCached(recipeType);
-                }
-            }
+			for (int i = 0; i < recipeType.getOutputsSize(); i++) {
+				if (ItemUtils.isItemEqual(recipeType.getOutput(i), result, true, false, true)) {
+					addCached(recipeType);
+				}
+			}
         }
     }
 
