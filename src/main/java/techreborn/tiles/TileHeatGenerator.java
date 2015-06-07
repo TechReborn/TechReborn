@@ -125,12 +125,12 @@ public class TileHeatGenerator extends TileMachineBase implements IWrenchable, I
         energy.writeToNBT(tagCompound);
     }
 
-    @Override
-	public void addWailaInfo(List<String> info)
-	{
-		super.addWailaInfo(info);
-		info.add("Power Generarating " + euTick +" EU/t");
-
-	}
+//    @Override
+//	public void addWailaInfo(List<String> info)
+//	{
+//		super.addWailaInfo(info);
+//		info.add("Power Generarating " + euTick +" EU/t");
+//
+//	}
 
 }

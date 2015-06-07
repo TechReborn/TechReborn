@@ -115,14 +115,14 @@ public class TileChemicalReactor extends TileMachineBase implements IWrenchable,
         super.onChunkUnload();
     }
     
-	@Override
-	public void addWailaInfo(List<String> info)
-	{
-		super.addWailaInfo(info);
-		info.add("Power Stored " + energy.getEnergyStored() +" EU");
-		if(crafter.currentRecipe !=null){
-		info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
-		}
-	}
+//	@Override
+//	public void addWailaInfo(List<String> info)
+//	{
+//		super.addWailaInfo(info);
+//		info.add("Power Stored " + energy.getEnergyStored() +" EU");
+//		if(crafter.currentRecipe !=null){
+//		info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
+//		}
+//	}
 
 }
