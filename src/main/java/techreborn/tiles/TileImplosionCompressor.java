@@ -73,7 +73,6 @@ public class TileImplosionCompressor extends TileMachineBase implements IWrencha
 
 	@Override
 	public void updateEntity() {
-        System.out.println("hello");
         super.updateEntity();
 		crafter.updateEntity();
 		energy.updateEntity();
