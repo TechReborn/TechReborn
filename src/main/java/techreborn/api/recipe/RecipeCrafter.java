@@ -150,7 +150,6 @@ public class RecipeCrafter {
                 ArrayList<Integer> filledSlots = new ArrayList<Integer>();//The slots that have been filled
                 if (canGiveInvAll && currentRecipe.onCraft(parentTile)) {
                     for (int i = 0; i < currentRecipe.getOutputsSize(); i++) {
-                        System.out.println(currentRecipe.getOutput(i).stackSize);
                         if (!filledSlots.contains(outputSlots[i])) {//checks it has not been filled
                             fitStack(currentRecipe.getOutput(i).copy(), outputSlots[i]);//fills the slot with the output stack
                             filledSlots.add(outputSlots[i]);
