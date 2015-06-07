@@ -4,6 +4,7 @@ import ic2.api.energy.prefab.BasicSink;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import techreborn.api.recipe.RecipeCrafter;
@@ -12,7 +13,7 @@ import techreborn.util.Inventory;
 
 import java.util.List;
 
-public class TileAlloySmelter extends TileMachineBase implements IWrenchable, IEnergyTile {
+public class TileAlloySmelter extends TileMachineBase implements IWrenchable, IEnergyTile, IInventory {
 
 	public int tickTime;
 	public BasicSink energy;
@@ -111,5 +112,65 @@ public class TileAlloySmelter extends TileMachineBase implements IWrenchable, IE
 		if(crafter.currentRecipe !=null){
 		info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
 		}
+	}
+
+	@Override
+	public int getSizeInventory() {
+		return inventory.getSizeInventory();
+	}
+
+	@Override
+	public ItemStack getStackInSlot(int slot) {
+		return inventory.getStackInSlot(slot);
+	}
+
+	@Override
+	public ItemStack decrStackSize(int slot, int amount) {
+		return inventory.decrStackSize(slot, amount);
+	}
+
+	@Override
+	public ItemStack getStackInSlotOnClosing(int slot) {
+		return inventory.getStackInSlotOnClosing(slot);
+	}
+
+	@Override
+	public void setInventorySlotContents(int slot, ItemStack stack) {
+		inventory.setInventorySlotContents(slot, stack);
+	}
+
+	@Override
+	public String getInventoryName() {
+		return inventory.getInventoryName();
+	}
+
+	@Override
+	public boolean hasCustomInventoryName() {
+		return inventory.hasCustomInventoryName();
+	}
+
+	@Override
+	public int getInventoryStackLimit() {
+		return inventory.getInventoryStackLimit();
+	}
+
+	@Override
+	public boolean isUseableByPlayer(EntityPlayer player) {
+		return inventory.isUseableByPlayer(player);
+	}
+
+	@Override
+	public void openInventory() {
+		inventory.openInventory();
+	}
+
+	@Override
+	public void closeInventory() {
+		inventory.closeInventory();
+	}
+
+	@Override
+	public boolean isItemValidForSlot(int slot, ItemStack stack) {
+		return inventory.isItemValidForSlot(slot, stack);
 	}
 }
