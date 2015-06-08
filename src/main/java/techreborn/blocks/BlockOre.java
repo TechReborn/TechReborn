@@ -97,22 +97,22 @@ public class BlockOre extends Block {
 		}
 
 		//Cinnabar
-        if (metadata == 6)
-        {
-            OreDrop cinnabar = new OreDrop(ItemDusts.getDustByName("cinnabar"));
-            OreDrop redstone = new OreDrop(new ItemStack(Items.redstone), 0.25);
-            OreDropSet set = new OreDropSet(cinnabar, redstone);
-            return set.drop(fortune, world.rand);
-        }
+		if (metadata == 6)
+		{
+			OreDrop cinnabar = new OreDrop(ItemDusts.getDustByName("cinnabar"));
+			OreDrop redstone = new OreDrop(new ItemStack(Items.redstone), 0.25);
+			OreDropSet set = new OreDropSet(cinnabar, redstone);
+			return set.drop(fortune, world.rand);
+		}
 
 		//Sphalerite 1, 1/8 yellow garnet
-        if (metadata == 7)
-        {
-            OreDrop sphalerite = new OreDrop(ItemDusts.getDustByName("sphalerite"));
-            OreDrop yellowGarnet = new OreDrop(ItemGems.getGemByName("yellowGarnet"), 0.125);
-            OreDropSet set = new OreDropSet(sphalerite, yellowGarnet);
-            return set.drop(fortune, world.rand);
-        }
+		if (metadata == 7)
+		{
+			OreDrop sphalerite = new OreDrop(ItemDusts.getDustByName("sphalerite"));
+			OreDrop yellowGarnet = new OreDrop(ItemGems.getGemByName("yellowGarnet"), 0.125);
+			OreDropSet set = new OreDropSet(sphalerite, yellowGarnet);
+			return set.drop(fortune, world.rand);
+		}
 
 		ArrayList<ItemStack> block = new ArrayList<ItemStack>();
 		block.add(new ItemStack(Item.getItemFromBlock(this)));
