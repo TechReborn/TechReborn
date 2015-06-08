@@ -55,6 +55,7 @@ import techreborn.tiles.TileIndustrialSawmill;
 import techreborn.tiles.TileLathe;
 import techreborn.tiles.TileMachineCasing;
 import techreborn.tiles.TileMatterFabricator;
+import techreborn.tiles.TileMetalShelf;
 import techreborn.tiles.TilePlateCuttingMachine;
 import techreborn.tiles.TileQuantumChest;
 import techreborn.tiles.TileDigitalChest;
@@ -246,6 +247,7 @@ public class ModBlocks {
 		
 		Metalshelf = new BlockMetalShelf(Material.rock);
 		GameRegistry.registerBlock(Metalshelf, "metalshelf");
+		GameRegistry.registerTileEntity(TileMetalShelf.class, "TileMetalShelf");
 		
 		LesuStorage = new BlockLesuStorage(Material.rock);
 		GameRegistry.registerBlock(LesuStorage, "lesustorage");
