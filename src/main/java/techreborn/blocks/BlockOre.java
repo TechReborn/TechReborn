@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.pahimar.ee3.item.ItemGem;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -63,7 +65,7 @@ public class BlockOre extends Block {
 		if (metadata == 2)
 		{
 			OreDrop ruby = new OreDrop(ItemGems.getGemByName("ruby"));
-			OreDrop redGarnet = new OreDrop(ItemGems.getGemByName("redGarnet"), 2);
+			OreDrop redGarnet = new OreDrop(ItemGems.getGemByName("redGarnet"), 0.02);
 			OreDropSet set = new OreDropSet(ruby, redGarnet);
 			return set.drop(fortune, world.rand);
 		}
@@ -72,23 +74,45 @@ public class BlockOre extends Block {
 		if (metadata == 3)
 		{
 			OreDrop sapphire = new OreDrop(ItemGems.getGemByName("sapphire"));
-			OreDrop peridot = new OreDrop(ItemGems.getGemByName("peridot"), 3);
+			OreDrop peridot = new OreDrop(ItemGems.getGemByName("peridot"), 0.03);
 			OreDropSet set = new OreDropSet(sapphire, peridot);
 			return set.drop(fortune, world.rand);
 		}
 
-		//Pyrite 1
-		//if (metadata == 5)
-		//{
-		//	OreDrop pyriteDust = new OreDrop(ItemDusts.getDustByName("pyrite"));
-		//	OreDropSet = new OreDropSet(pyriteDust);
-		//}
+		//Pyrite
+		if (metadata == 5)
+		{
+			OreDrop pyriteDust = new OreDrop(ItemDusts.getDustByName("pyrite"));
+			OreDropSet set = new OreDropSet(pyriteDust);
+			return set.drop(fortune, world.rand);
+		}
 
-		//Sodolite 6, aluminum 1/2
+		//Sodolite
+		if (metadata == 11)
+		{
+			OreDrop sodalite = new OreDrop(ItemDusts.getDustByName("sodalite", 6));
+			OreDrop aluminum = new OreDrop(ItemDusts.getDustByName("aluminum"), 0.50);
+			OreDropSet set = new OreDropSet(sodalite, aluminum);
+			return set.drop(fortune, world.rand);
+		}
 
-		//Cinnabar 1, 1/4 redstone
+		//Cinnabar
+        if (metadata == 6)
+        {
+            OreDrop cinnabar = new OreDrop(ItemDusts.getDustByName("cinnabar"));
+            OreDrop redstone = new OreDrop(new ItemStack(Items.redstone), 0.25);
+            OreDropSet set = new OreDropSet(cinnabar, redstone);
+            return set.drop(fortune, world.rand);
+        }
 
 		//Sphalerite 1, 1/8 yellow garnet
+        if (metadata == 7)
+        {
+            OreDrop sphalerite = new OreDrop(ItemDusts.getDustByName("sphalerite"));
+            OreDrop yellowGarnet = new OreDrop(ItemGems.getGemByName("yellowGarnet"), 0.125);
+            OreDropSet set = new OreDropSet(sphalerite, yellowGarnet);
+            return set.drop(fortune, world.rand);
+        }
 
 		ArrayList<ItemStack> block = new ArrayList<ItemStack>();
 		block.add(new ItemStack(Item.getItemFromBlock(this)));
