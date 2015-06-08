@@ -1,11 +1,8 @@
 package techreborn.compat.recipes;
 
-import cpw.mods.fml.common.Mod;
 import ic2.api.item.IC2Items;
 import ic2.api.recipe.RecipeInputOreDict;
 import ic2.api.recipe.Recipes;
-import ic2.core.item.resources.ItemCell;
-import ic2.core.item.resources.ItemDust;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
