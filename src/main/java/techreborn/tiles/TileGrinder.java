@@ -5,6 +5,7 @@ import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -17,7 +18,7 @@ import techreborn.util.FluidUtils;
 import techreborn.util.Inventory;
 import techreborn.util.Tank;
 
-public class TileGrinder extends TileMachineBase implements IWrenchable, IEnergyTile, IFluidHandler, IInventory {
+public class TileGrinder extends TileMachineBase implements IWrenchable, IEnergyTile, IFluidHandler, IInventory, ISidedInventory {
 	
 	public int tickTime;
 	public BasicSink energy;
@@ -218,5 +219,26 @@ public class TileGrinder extends TileMachineBase implements IWrenchable, IEnergy
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack stack) {
 		return inventory.isItemValidForSlot(slot, stack);
+	}
+	
+	// ISidedInventory 
+	@Override
+	public int[] getAccessibleSlotsFromSide(int side)
+	{
+        return side == ForgeDirection.DOWN.ordinal() ? new int[]{0, 1, 2, 3, 4, 5} : new int[]{0, 1, 2, 3, 4, 5};
+	}
+
+	@Override
+	public boolean canInsertItem(int slotIndex, ItemStack itemStack, int side)
+	{
+		if (slotIndex >= 1)
+			return false;
+        return isItemValidForSlot(slotIndex, itemStack);
+	}
+
+	@Override
+	public boolean canExtractItem(int slotIndex, ItemStack itemStack, int side)
+	{
+        return slotIndex == 2 || slotIndex == 3 || slotIndex == 4 || slotIndex == 5;
 	}
 }
