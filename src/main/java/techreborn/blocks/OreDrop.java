@@ -49,13 +49,13 @@ public class OreDrop
 		int chanceOfEachBonus = 100 / (level + 2);
 		int roll = random.nextInt(100);
 		
-		if (roll <= chanceOfEachBonus * level) //If level = 0, this is always false
+		if (roll < chanceOfEachBonus * level) //If level = 0, this is always false
 		{
-			return (roll / chanceOfEachBonus) + 2;
+			return count * ((roll / chanceOfEachBonus) + 2);
 		}
 		else
 		{
-			return 1;
+			return count;
 		}		
 	}
 	
