@@ -30,7 +30,6 @@ import techreborn.items.ItemIngots;
 import techreborn.items.ItemDusts;
 
 public class RecipesIC2 {
-    public static ConfigTechReborn config;
 
     public static void init() {
         removeIc2Recipes();
