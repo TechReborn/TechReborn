@@ -13,25 +13,22 @@ import net.minecraft.block.Block;
 
 public class OreDropSet
 {
-	public OreDropSet(OreDrop primary, OreDrop... secondaries)
+	public OreDropSet(OreDrop... oreDrops)
 	{
-		this.primary = primary;
-		this.secondaries = secondaries;
+		this.dropSet = oreDrops;
 	}
 	
 	public ArrayList<ItemStack> drop(int fortune, Random random)
 	{
 		ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
 
-		for (OreDrop drop : secondaries)
+		for (OreDrop drop : dropSet)
 		{
 			drops.add(drop.getDrops(fortune, random));
 		}
 
-		drops.add(primary.getDrops(fortune, random));
 		return drops;
 	}
-	
-	public OreDrop primary;
-	public OreDrop[] secondaries;
+
+	public OreDrop[] dropSet;
 }

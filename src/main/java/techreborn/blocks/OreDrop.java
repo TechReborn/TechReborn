@@ -59,7 +59,7 @@ public class OreDrop
 		}		
 	}
 	
-	//Each fortune level increases probability by 50% of base, up to a limit of 100%.
+	//Each fortune level increases probability by 50% (configurable) of base, up to a limit of 100%, obviously.
 	//So, if base is 5% and we have Fortune III, chance is 5% + (3 * 2.5%) = 12.5%
 	private boolean calculateFortuneSingle(int level, Random random)
 	{
