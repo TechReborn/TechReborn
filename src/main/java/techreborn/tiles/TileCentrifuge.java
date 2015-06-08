@@ -127,10 +127,10 @@ public class TileCentrifuge extends TileMachineBase implements  IWrenchable, IEn
 	public void addWailaInfo(List<String> info)
 	{
 		super.addWailaInfo(info);
-		info.add("Power Stored " + energy.getEnergyStored() +" EU");
-		if(crafter.currentRecipe !=null){
-		info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
-		}
+//		info.add("Power Stored " + energy.getEnergyStored() +" EU");
+//		if(crafter.currentRecipe !=null){
+//		info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
+//		}
 		info.add("Round and round it goes");
 	}
 
