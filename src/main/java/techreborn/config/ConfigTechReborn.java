@@ -61,6 +61,8 @@ public class ConfigTechReborn {
     public static boolean SodaliteOreTrue;
     public static int SodaliteOreRare;
 
+    public static double FortuneSecondaryOreMultiplierPerLevel;
+
     // Power
     public static int ThermalGenertaorOutput;
     public static int CentrifugeInputTick;
@@ -438,6 +440,15 @@ public class ConfigTechReborn {
                                 .translateToLocal("config.techreborn.silverOre.rare.tooltip"))
                 .getInt();
 
+        FortuneSecondaryOreMultiplierPerLevel = config
+                .get(CATEGORY_WORLD,
+                        StatCollector
+                                .translateToLocal("config.techreborn.fortuneSecondaryOreMultiplierPerLevel"),
+                        0.5,
+                        StatCollector
+                                .translateToLocal("config.techreborn.fortuneSecondaryOreMultiplierPerLevel.tooltip"))
+                .getDouble();
+				
         // Power
         ThermalGenertaorOutput = config
                 .get(CATEGORY_POWER,

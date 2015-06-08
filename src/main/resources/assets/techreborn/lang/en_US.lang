@@ -710,6 +710,9 @@ config.techreborn.allow.olivineOre.tooltip=Decide whether Olivine Ore spawns or 
 config.techreborn.allow.sodaliteOre=Allow Sodalite Ore
 config.techreborn.allow.sodaliteOre.tooltip=Decide whether Sodalite Ore spawns or not
 
+config.techreborn.fortuneSecondaryOreMultiplierPerLevel=Fortune's Effect on Secondaries
+config.techreborn.fortuneSecondaryOreMultiplierPerLevel.tooltip=How much of an increase should each level of fortune have on secondary ore drops?
+
 config.techreborn.allowExpensiveMacerator=Allow Expensive Macerator
 config.techreborn.allowExpensiveMacerator.tooltip=
 config.techreborn.allowExpensiveDrill=Allow Expensive Drill
