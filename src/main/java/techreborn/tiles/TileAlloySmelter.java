@@ -180,12 +180,14 @@ public class TileAlloySmelter extends TileMachineBase implements IWrenchable, IE
 	@Override
 	public int[] getAccessibleSlotsFromSide(int side)
 	{
-        return side == ForgeDirection.DOWN.ordinal() ? new int[]{0, 1} : new int[]{0, 1};
+        return side == ForgeDirection.DOWN.ordinal() ? new int[]{0, 1, 2} : new int[]{0, 1, 2};
 	}
 
 	@Override
 	public boolean canInsertItem(int slotIndex, ItemStack itemStack, int side)
 	{
+		if (slotIndex == 2)
+			return false;
         return isItemValidForSlot(slotIndex, itemStack);
 	}
 

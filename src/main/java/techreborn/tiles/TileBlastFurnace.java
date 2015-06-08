@@ -294,12 +294,14 @@ public class TileBlastFurnace extends TileMachineBase implements IWrenchable, II
 	@Override
 	public int[] getAccessibleSlotsFromSide(int side)
 	{
-        return side == ForgeDirection.DOWN.ordinal() ? new int[]{0, 1} : new int[]{0, 1};
+        return side == ForgeDirection.DOWN.ordinal() ? new int[]{0, 1, 2, 3} : new int[]{0, 1, 2, 3};
 	}
 
 	@Override
 	public boolean canInsertItem(int slotIndex, ItemStack itemStack, int side)
 	{
+		if (slotIndex >= 1)
+			return false;
         return isItemValidForSlot(slotIndex, itemStack);
 	}
 
