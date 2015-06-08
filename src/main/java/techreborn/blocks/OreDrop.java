@@ -19,11 +19,11 @@ public class OreDrop
 		this.baseChance = 100;		
 	}	
 
-	public OreDrop(ItemStack drop, Integer baseChance)
+	public OreDrop(ItemStack drop, double baseChance)
 	{
 		this.drop = drop;
 		this.count = drop.stackSize;
-		this.baseChance = baseChance;
+		this.baseChance = (int)(baseChance * 100);
 	}
 	
 	public ItemStack getDrops(int fortuneLevel, Random random)
