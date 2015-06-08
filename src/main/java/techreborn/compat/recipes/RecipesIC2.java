@@ -61,35 +61,35 @@ public class RecipesIC2 {
     public static void addShappedIc2Recipes() {
 		if (ConfigTechReborn.ExpensiveMacerator)
 			CraftingHelper.addShapedOreRecipe(IC2Items.getItem("macerator"),
-			"FDF", "DMD", "FCF",
-				'F', Items.flint,
-				'D', Items.diamond,
-				'M', IC2Items.getItem("machine"),
-				'C', IC2Items.getItem("electronicCircuit"));
+				"FDF", "DMD", "FCF",
+					'F', Items.flint,
+					'D', Items.diamond,
+					'M', IC2Items.getItem("machine"),
+					'C', IC2Items.getItem("electronicCircuit"));
 
 		if (ConfigTechReborn.ExpensiveDrill)
 			CraftingHelper.addShapedOreRecipe(IC2Items.getItem("miningDrill"),
-			" S ", "SCS", "SBS",
-				'S', "ingotSteel",
-				'B', IC2Items.getItem("reBattery"),
-				'C', IC2Items.getItem("electronicCircuit"));
+				" S ", "SCS", "SBS",
+					'S', "ingotSteel",
+					'B', IC2Items.getItem("reBattery"),
+					'C', IC2Items.getItem("electronicCircuit"));
 
 		if (ConfigTechReborn.ExpensiveDiamondDrill)
 			CraftingHelper.addShapedOreRecipe(IC2Items.getItem("diamondDrill"),
-			" D ", "DBD", "TCT",
-				'D', "gemDiamond",
-				'T', "ingotTitanium",
-				'B', IC2Items.getItem("miningDrill"),
-				'C', IC2Items.getItem("advancedCircuit"));
+				" D ", "DBD", "TCT",
+					'D', "gemDiamond",
+					'T', "ingotTitanium",
+					'B', IC2Items.getItem("miningDrill"),
+					'C', IC2Items.getItem("advancedCircuit"));
 
 		if (ConfigTechReborn.ExpensiveSolar)
 			CraftingHelper.addShapedOreRecipe(IC2Items.getItem("solarPanel"),
-			"PPP", "SZS", "CGC",
-				'P', "paneGlass",
-				'S', new ItemStack(ModItems.parts, 1, 1),
-				'Z', IC2Items.getItem("carbonPlate"),
-				'G', IC2Items.getItem("generator"),
-				'C', IC2Items.getItem("electronicCircuit"));
+				"PPP", "SZS", "CGC",
+					'P', "paneGlass",
+					'S', new ItemStack(ModItems.parts, 1, 1),
+					'Z', IC2Items.getItem("carbonPlate"),
+					'G', IC2Items.getItem("generator"),
+					'C', IC2Items.getItem("electronicCircuit"));
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.thermalGenerator),
 			"III", "IHI", "CGC",
