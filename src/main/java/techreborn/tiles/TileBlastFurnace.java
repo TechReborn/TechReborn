@@ -5,6 +5,7 @@ import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -21,7 +22,7 @@ import techreborn.lib.Location;
 import techreborn.util.Inventory;
 import techreborn.util.ItemUtils;
 
-public class TileBlastFurnace extends TileMachineBase implements IWrenchable, IInventory, IEnergyTile {
+public class TileBlastFurnace extends TileMachineBase implements IWrenchable, IInventory, IEnergyTile, ISidedInventory {
 
 	public int tickTime;
 	public BasicSink energy;
@@ -287,6 +288,25 @@ public class TileBlastFurnace extends TileMachineBase implements IWrenchable, II
 
 	public void writeUpdateToNBT(NBTTagCompound tagCompound) {
 		tagCompound.setInteger("tickTime", tickTime);
+	}
+	
+	// ISidedInventory 
+	@Override
+	public int[] getAccessibleSlotsFromSide(int side)
+	{
+        return side == ForgeDirection.DOWN.ordinal() ? new int[]{0, 1} : new int[]{0, 1};
+	}
+
+	@Override
+	public boolean canInsertItem(int slotIndex, ItemStack itemStack, int side)
+	{
+        return isItemValidForSlot(slotIndex, itemStack);
+	}
+
+	@Override
+	public boolean canExtractItem(int slotIndex, ItemStack itemStack, int side)
+	{
+        return slotIndex == 2 || slotIndex == 3;
 	}
 
 
