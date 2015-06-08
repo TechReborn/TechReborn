@@ -231,7 +231,7 @@ public class TileGrinder extends TileMachineBase implements IWrenchable, IEnergy
 	@Override
 	public boolean canInsertItem(int slotIndex, ItemStack itemStack, int side)
 	{
-		if (slotIndex >= 1)
+		if (slotIndex >= 2)
 			return false;
         return isItemValidForSlot(slotIndex, itemStack);
 	}
