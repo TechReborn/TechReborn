@@ -7,7 +7,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
 import techreborn.api.recipe.IBaseRecipeType;
-import techreborn.api.recipe.RecipeHanderer;
+import techreborn.api.recipe.RecipeHandler;
 import techreborn.config.ConfigTechReborn;
 import techreborn.util.ItemUtils;
 
@@ -102,7 +102,7 @@ public abstract class GenericRecipeHander extends TemplateRecipeHandler {
 
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(getNeiBaseRecipe().getRecipeName())) {
-            for (IBaseRecipeType recipeType : RecipeHanderer.getRecipeClassFromName(getNeiBaseRecipe().getRecipeName())) {
+            for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(getNeiBaseRecipe().getRecipeName())) {
                 addCached(recipeType);
             }
         } else {
@@ -112,7 +112,7 @@ public abstract class GenericRecipeHander extends TemplateRecipeHandler {
 
     @Override
     public void loadCraftingRecipes(ItemStack result) {
-        for (IBaseRecipeType recipeType : RecipeHanderer.getRecipeClassFromName(getNeiBaseRecipe().getRecipeName())) {
+        for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(getNeiBaseRecipe().getRecipeName())) {
 			for (int i = 0; i < recipeType.getOutputsSize(); i++) {
 				if (ItemUtils.isItemEqual(recipeType.getOutput(i), result, true, false, true)) {
 					addCached(recipeType);
@@ -123,7 +123,7 @@ public abstract class GenericRecipeHander extends TemplateRecipeHandler {
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (IBaseRecipeType recipeType : RecipeHanderer.getRecipeClassFromName(getNeiBaseRecipe().getRecipeName())) {
+        for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(getNeiBaseRecipe().getRecipeName())) {
             for (ItemStack input : recipeType.getInputs()) {
                 if (ItemUtils.isItemEqual(ingredient, input, true, false, true)) {
                     addCached(recipeType);

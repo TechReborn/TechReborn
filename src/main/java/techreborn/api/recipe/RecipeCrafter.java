@@ -115,7 +115,7 @@ public class RecipeCrafter {
         }
         if (currentRecipe == null) {//It will now look for new recipes.
             currentTickTime = 0;
-            for (IBaseRecipeType recipe : RecipeHanderer.getRecipeClassFromName(recipeName)) {
+            for (IBaseRecipeType recipe : RecipeHandler.getRecipeClassFromName(recipeName)) {
                 if (recipe.canCraft(parentTile) && hasAllInputs(recipe)) {//This checks to see if it has all of the inputs
                     boolean canGiveInvAll = true;
                     for (int i = 0; i < recipe.getOutputsSize(); i++) {//This checks to see if it can fit all of the outputs

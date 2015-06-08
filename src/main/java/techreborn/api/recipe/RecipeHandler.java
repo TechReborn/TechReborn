@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class RecipeHanderer {
+public class RecipeHandler {
 
     /**
      * This is the array list of all of the recipes for all of the machines

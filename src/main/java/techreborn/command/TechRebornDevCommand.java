@@ -4,7 +4,7 @@ package techreborn.command;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
-import techreborn.api.recipe.RecipeHanderer;
+import techreborn.api.recipe.RecipeHandler;
 
 public class TechRebornDevCommand extends CommandBase {
 
@@ -30,7 +30,7 @@ public class TechRebornDevCommand extends CommandBase {
 		} else if ("help".equals(args[0])) {
 			sender.addChatMessage(new ChatComponentText("recipes - Reloads all of the machine recipes"));
 		} else if ("recipes".equals(args[0])) {
-			sender.addChatMessage(new ChatComponentText(RecipeHanderer.recipeList.size() + " recipes loaded"));
+			sender.addChatMessage(new ChatComponentText(RecipeHandler.recipeList.size() + " recipes loaded"));
 		}
 
 	}

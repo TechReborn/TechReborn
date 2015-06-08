@@ -5,7 +5,7 @@ import java.io.File;
 import net.minecraftforge.common.MinecraftForge;
 import org.apache.commons.lang3.time.StopWatch;
 import techreborn.achievement.TRAchievements;
-import techreborn.api.recipe.RecipeHanderer;
+import techreborn.api.recipe.RecipeHandler;
 import techreborn.client.GuiHandler;
 import techreborn.command.TechRebornDevCommand;
 import techreborn.compat.CompatManager;
@@ -99,7 +99,7 @@ public class Core {
         //Has to be done after the recipes have been added
         CompatManager.postInit(event);
 
-		LogHelper.info(RecipeHanderer.recipeList.size() + " recipes loaded");
+		LogHelper.info(RecipeHandler.recipeList.size() + " recipes loaded");
 	}
 
 	@Mod.EventHandler
