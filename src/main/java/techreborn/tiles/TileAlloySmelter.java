@@ -176,7 +176,7 @@ public class TileAlloySmelter extends TileMachineBase implements IWrenchable, IE
 		return inventory.isItemValidForSlot(slot, stack);
 	}
 
-	// IInventory 
+	// ISidedInventory 
 	@Override
 	public int[] getAccessibleSlotsFromSide(int side)
 	{
@@ -192,6 +192,6 @@ public class TileAlloySmelter extends TileMachineBase implements IWrenchable, IE
 	@Override
 	public boolean canExtractItem(int slotIndex, ItemStack itemStack, int side)
 	{
-        return slotIndex == 2 || slotIndex == 2;
+        return slotIndex == 2;
 	}
 }
