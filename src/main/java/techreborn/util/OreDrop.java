@@ -1,4 +1,4 @@
-package techreborn.blocks;
+package techreborn.util;
 
 
 import java.util.Random;

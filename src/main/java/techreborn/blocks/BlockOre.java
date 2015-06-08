@@ -2,9 +2,7 @@ package techreborn.blocks;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-import com.pahimar.ee3.item.ItemGem;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -17,12 +15,13 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.client.TechRebornCreativeTabMisc;
-import techreborn.init.ModItems;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import techreborn.init.ModBlocks;
 import techreborn.items.ItemDusts;
 import techreborn.items.ItemGems;
+import techreborn.util.OreDrop;
+import techreborn.util.OreDropSet;
 
 public class BlockOre extends Block {
 
