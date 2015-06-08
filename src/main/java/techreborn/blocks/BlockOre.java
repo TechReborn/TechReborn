@@ -19,6 +19,8 @@ import techreborn.init.ModItems;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import techreborn.init.ModBlocks;
+import techreborn.items.ItemDusts;
+import techreborn.items.ItemGems;
 
 public class BlockOre extends Block {
 
@@ -55,21 +57,42 @@ public class BlockOre extends Block {
 	}
 
 	@Override
-	public Item getItemDropped(int meta, Random random, int fortune)
+	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune)
 	{
-		if (meta == 2)
+		//Ruby
+		if (metadata == 2)
 		{
-			return new ItemStack(ModItems.gems, fortune, 0).getItem();
+			OreDrop ruby = new OreDrop(ItemGems.getGemByName("ruby"));
+			OreDrop redGarnet = new OreDrop(ItemGems.getGemByName("redGarnet"), 2);
+			OreDropSet set = new OreDropSet(ruby, redGarnet);
+			return set.drop(fortune, world.rand);
 		}
-		if (meta == 3)
+
+		//Sapphire
+		if (metadata == 3)
 		{
-			return new ItemStack(ModItems.gems, fortune, 1).getItem();
+			OreDrop sapphire = new OreDrop(ItemGems.getGemByName("sapphire"));
+			OreDrop peridot = new OreDrop(ItemGems.getGemByName("peridot"), 3);
+			OreDropSet set = new OreDropSet(sapphire, peridot);
+			return set.drop(fortune, world.rand);
 		}
-		if (meta == 5)
-		{
-			return new ItemStack(ModItems.dusts, fortune, 60).getItem();
-		}
-		return Item.getItemFromBlock(this);
+
+		//Pyrite 1
+		//if (metadata == 5)
+		//{
+		//	OreDrop pyriteDust = new OreDrop(ItemDusts.getDustByName("pyrite"));
+		//	OreDropSet = new OreDropSet(pyriteDust);
+		//}
+
+		//Sodolite 6, aluminum 1/2
+
+		//Cinnabar 1, 1/4 redstone
+
+		//Sphalerite 1, 1/8 yellow garnet
+
+		ArrayList<ItemStack> block = new ArrayList<ItemStack>();
+		block.add(new ItemStack(Item.getItemFromBlock(this)));
+		return  block;
 	}
 		
     @Override
@@ -135,5 +158,4 @@ public class BlockOre extends Block {
 			return textures[metaData];
 		}
 	}
-
 }
