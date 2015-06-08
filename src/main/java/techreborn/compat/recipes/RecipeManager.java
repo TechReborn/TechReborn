@@ -14,7 +14,7 @@ public class RecipeManager {
 			LogHelper.info("IC2 Compat Loaded");
 		}
 		
-		if (Loader.isModLoaded("BuildCraft|Factory"))
+		if (Loader.isModLoaded("BuildCraft|Builders"))
 		{
 			RecipesBuildcraft.init();
 			

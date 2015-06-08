@@ -1,10 +1,10 @@
 package techreborn.compat.recipes;
 
+import buildcraft.BuildCraftBuilders;
 import ic2.api.item.IC2Items;
 import net.minecraft.item.ItemStack;
 import techreborn.util.CraftingHelper;
 import techreborn.util.RecipeRemover;
-import buildcraft.BuildCraftFactory;
 
 public class RecipesBuildcraft {
 
@@ -17,14 +17,14 @@ public class RecipesBuildcraft {
 	public static void removeRecipes()
 	{
 		RecipeRemover.removeAnyRecipe(new ItemStack(
-				BuildCraftFactory.quarryBlock));
+				BuildCraftBuilders.quarryBlock));
 	}
 
 	public static void addRecipies()
 	{
 		//Quarry
 		CraftingHelper.addShapedOreRecipe(
-				new ItemStack (BuildCraftFactory.quarryBlock),
+				new ItemStack (BuildCraftBuilders.quarryBlock),
 				new Object[]
 				{ 
 					"IAI", "GIG", "DED",

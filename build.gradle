@@ -41,6 +41,10 @@ repositories {
         name = "Qmunity"
         url = "http://maven.bluepowermod.com/"
     }
+    ivy {
+        name "BuildCraft"
+        artifactPattern "http://www.mod-buildcraft.com/releases/BuildCraft/[revision]/[module]-[revision]-[classifier].[ext]"
+    }
 }
 
 def ENV = System.getenv()
@@ -84,14 +88,9 @@ dependencies {
     compile "codechicken:NotEnoughItems:1.7.10-1.0.4.+:dev"
     compile "codechicken:ForgeMultipart:1.7.10-1.1.2.331:dev"
     compile "mcp.mobius.waila:Waila:1.5.10_1.7.10:dev"
-    compile 'com.mod-buildcraft:buildcraft:6.4.15:dev'
+    compile name: 'buildcraft', version: '7.0.8', classifier: "dev", ext: 'jar'
     compile "qmunity:QmunityLib:0.1.+:deobf"
     compile "com.pahimar.ee3:EquivalentExchange3:1.7.10-0.3.505:dev"
-    grabDep('ThermalFoundation-[1.7.10]1.0.0-81.jar', 'http://addons-origin.cursecdn.com/files/2233/780/ThermalFoundation-[1.7.10]1.0.0-81.jar')
-    grabDep('CoFHCore-[1.7.10]3.0.2-262.jar', 'http://addons-origin.cursecdn.com/files/2234/198/CoFHCore-[1.7.10]3.0.2-262.jar')
-    grabDep('CoFHLib-[1.7.10]1.0.1-151.jar', 'http://addons-origin.cursecdn.com/files/2233/832/CoFHLib-[1.7.10]1.0.1-151.jar')
-    grabDep('ThermalExpansion-[1.7.10]4.0.1-182.jar', 'http://addons-origin.cursecdn.com/files/2234/200/ThermalExpansion-[1.7.10]4.0.1-182.jar')
-    //compile files("dep/ThermalFoundation-[1.7.10]1.0.0-81.jar", "dep/CoFHCore-[1.7.10]3.0.2-262.jar", "dep/CoFHLib-[1.7.10]1.0.1-151.jar", "dep/ThermalExpansion-[1.7.10]4.0.1-182.jar")
 }
 
 processResources
