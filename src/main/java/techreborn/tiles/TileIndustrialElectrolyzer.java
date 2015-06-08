@@ -4,15 +4,18 @@ import ic2.api.energy.prefab.BasicSink;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.init.ModBlocks;
 import techreborn.util.Inventory;
 
 import java.util.List;
 
-public class TileIndustrialElectrolyzer extends TileMachineBase implements IWrenchable, IEnergyTile {
+public class TileIndustrialElectrolyzer extends TileMachineBase implements IWrenchable, IEnergyTile, IInventory, ISidedInventory {
 
 	public int tickTime;
 	public BasicSink energy;
@@ -113,15 +116,95 @@ public class TileIndustrialElectrolyzer extends TileMachineBase implements IWren
         super.onChunkUnload();
     }
     
+//	@Override
+//	public void addWailaInfo(List<String> info)
+//	{
+//		super.addWailaInfo(info);
+//		info.add("Power Stored " + energy.getEnergyStored() +" EU");
+//		if(crafter.currentRecipe !=null){
+//		info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
+//		}
+//	}
+	
 	@Override
-	public void addWailaInfo(List<String> info)
-	{
-		super.addWailaInfo(info);
-		info.add("Power Stored " + energy.getEnergyStored() +" EU");
-		if(crafter.currentRecipe !=null){
-		info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
-		}
+	public int getSizeInventory() {
+		return inventory.getSizeInventory();
 	}
 
+	@Override
+	public ItemStack getStackInSlot(int slot) {
+		return inventory.getStackInSlot(slot);
+	}
+
+	@Override
+	public ItemStack decrStackSize(int slot, int amount) {
+		return inventory.decrStackSize(slot, amount);
+	}
+
+	@Override
+	public ItemStack getStackInSlotOnClosing(int slot) {
+		return inventory.getStackInSlotOnClosing(slot);
+	}
+
+	@Override
+	public void setInventorySlotContents(int slot, ItemStack stack) {
+		inventory.setInventorySlotContents(slot, stack);
+	}
+
+	@Override
+	public String getInventoryName() {
+		return inventory.getInventoryName();
+	}
+
+	@Override
+	public boolean hasCustomInventoryName() {
+		return inventory.hasCustomInventoryName();
+	}
+
+	@Override
+	public int getInventoryStackLimit() {
+		return inventory.getInventoryStackLimit();
+	}
+
+	@Override
+	public boolean isUseableByPlayer(EntityPlayer player) {
+		return inventory.isUseableByPlayer(player);
+	}
+
+	@Override
+	public void openInventory() {
+		inventory.openInventory();
+	}
+
+	@Override
+	public void closeInventory() {
+		inventory.closeInventory();
+	}
+
+	@Override
+	public boolean isItemValidForSlot(int slot, ItemStack stack) {
+		return inventory.isItemValidForSlot(slot, stack);
+	}
+
+	// ISidedInventory 
+	@Override
+	public int[] getAccessibleSlotsFromSide(int side)
+	{
+        return side == ForgeDirection.DOWN.ordinal() ? new int[]{0, 1, 2, 3, 4, 5} : new int[]{0, 1, 2, 3, 4, 5};
+	}
+
+	@Override
+	public boolean canInsertItem(int slotIndex, ItemStack itemStack, int side)
+	{
+		if(slotIndex >= 1)
+			return false;
+        return isItemValidForSlot(slotIndex, itemStack);
+	}
+
+	@Override
+	public boolean canExtractItem(int slotIndex, ItemStack itemStack, int side)
+	{
+        return slotIndex == 2 || slotIndex == 3 || slotIndex == 4 || slotIndex == 5;
+	}
 
 }
