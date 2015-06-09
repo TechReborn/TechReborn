@@ -12,10 +12,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import techreborn.api.recipe.RecipeHandler;
-import techreborn.api.recipe.machines.AssemblingMachineRecipe;
-import techreborn.api.recipe.machines.CentrifugeRecipe;
-import techreborn.api.recipe.machines.GrinderRecipe;
-import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
+import techreborn.api.recipe.machines.*;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModFluids;
@@ -42,6 +39,7 @@ public class RecipesIC2 {
         addIndustrialCentrifugeRecipes();
         addIndustrialGrinderRecipes();
         addImplosionCompressorRecipes();
+        addChemicalReactorRecipes();
     }
 
     public static void removeIc2Recipes() {
@@ -1519,4 +1517,30 @@ public class RecipesIC2 {
 		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("redGarnet", 4), new ItemStack(IC2Items.getItem("industrialTnt").getItem(), 24), ItemGems.getGemByName("redGarnet", 3), ItemDusts.getDustByName("darkAshes", 12), 20, 30));
 		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("peridot", 4), new ItemStack(IC2Items.getItem("industrialTnt").getItem(), 24), ItemGems.getGemByName("peridot", 3), ItemDusts.getDustByName("darkAshes", 12), 20, 30));
 	}
+
+    public static void addChemicalReactorRecipes() {
+        RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemCells.getCellByName("calcium", 1), ItemCells.getCellByName("carbon", 1), ItemCells.getCellByName("calciumCarbonate", 2), 240, 30));
+        RecipeHandler.addRecipe(new ChemicalReactorRecipe(new ItemStack(Items.gold_nugget, 8), new ItemStack(Items.melon, 1), new ItemStack(Items.speckled_melon, 1), 40, 30));
+        RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemCells.getCellByName("nitrogen", 1), ItemCells.getCellByName("carbon", 1), ItemCells.getCellByName("nitrocarbon", 2), 1500, 30));
+        RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemCells.getCellByName("carbon", 1), ItemCells.getCellByName("hydrogen", 4), ItemCells.getCellByName("methane", 5), 3500, 30));
+        RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemCells.getCellByName("sulfur", 1), ItemCells.getCellByName("sodium", 1), ItemCells.getCellByName("sodiumSulfide", 2), 100, 30));
+        RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemDusts.getDustByName("calcite", 1), ItemDusts.getDustByName("phosphorous", 1), new ItemStack(IC2Items.getItem("fertilizer").getItem(), 3), 100, 30));
+        RecipeHandler.addRecipe(new ChemicalReactorRecipe(new ItemStack(Items.blaze_powder, 1), new ItemStack(Items.ender_pearl, 1), new ItemStack(Items.ender_eye, 1), 40, 30));
+        RecipeHandler.addRecipe(new ChemicalReactorRecipe(new ItemStack(Items.gold_nugget, 8), new ItemStack(Items.carrot, 1), new ItemStack(Items.golden_carrot, 1), 40, 30));
+        RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemCells.getCellByName("glyceryl", 1), ItemCells.getCellByName("diesel", 4), ItemCells.getCellByName("nitroDiesel", 5), 1000, 30));
+        RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemDusts.getDustByName("calcite", 1), null, new ItemStack(IC2Items.getItem("fertilizer").getItem(), 1), 100, 30));
+        RecipeHandler.addRecipe(new ChemicalReactorRecipe(new ItemStack(Items.gold_ingot, 8), new ItemStack(Items.apple, 1), new ItemStack(Items.golden_apple, 1), 40, 30));
+        RecipeHandler.addRecipe(new ChemicalReactorRecipe(new ItemStack(Blocks.gold_block, 8), new ItemStack(Items.apple, 1), new ItemStack(Items.golden_apple, 1, 1), 40, 30));
+        RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemCells.getCellByName("sodiumSulfide", 1), IC2Items.getItem("airCell"), ItemCells.getCellByName("sodiumPersulfate", 2), 2000, 30));
+        RecipeHandler.addRecipe(new ChemicalReactorRecipe(new ItemStack(Items.blaze_powder, 1), new ItemStack(Items.slime_ball, 1), new ItemStack(Items.magma_cream, 1), 40, 30));
+        RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemCells.getCellByName("nitrocarbon", 1), IC2Items.getItem("waterCell"), ItemCells.getCellByName("glyceryl", 2), 580, 30));
+        RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemDusts.getDustByName("calcite", 1), ItemDusts.getDustByName("sulfur", 1), new ItemStack(IC2Items.getItem("fertilizer").getItem(), 2), 100, 30));
+        ItemStack waterCells = IC2Items.getItem("waterCell").copy();
+        waterCells.stackSize = 2;
+        RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemCells.getCellByName("sulfur", 1), waterCells, ItemCells.getCellByName("sulfuricAcid", 3), 1140, 30));
+        ItemStack waterCells2 = IC2Items.getItem("waterCell").copy();
+        waterCells2.stackSize = 5;
+        RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemCells.getCellByName("hydrogen", 4), IC2Items.getItem("airCell"), waterCells2, 10, 30));
+        RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemCells.getCellByName("nitrogen", 1), IC2Items.getItem("airCell"), ItemCells.getCellByName("nitrogenDioxide", 2), 1240, 30));
+    }
 }
