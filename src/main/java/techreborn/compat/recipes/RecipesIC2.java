@@ -5,6 +5,7 @@ import ic2.api.recipe.RecipeInputOreDict;
 import ic2.api.recipe.Recipes;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -14,6 +15,7 @@ import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.AssemblingMachineRecipe;
 import techreborn.api.recipe.machines.CentrifugeRecipe;
 import techreborn.api.recipe.machines.GrinderRecipe;
+import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModFluids;
@@ -39,6 +41,7 @@ public class RecipesIC2 {
         addAssemblingMachineRecipes();
         addIndustrialCentrifugeRecipes();
         addIndustrialGrinderRecipes();
+        addImplosionCompressorRecipes();
     }
 
     public static void removeIc2Recipes() {
@@ -1504,4 +1507,16 @@ public class RecipesIC2 {
         RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 12), ItemCells.getCellByName("sodiumPersulfate", 1), null, ItemDusts.getDustByName("tetrahedrite", 3), ItemDustsSmall.getSmallDustByName("Antimony", 1), ItemDustsSmall.getSmallDustByName("Zinc", 1), IC2Items.getItem("cell"), 100, 120));
         RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 12), new ItemStack(ModItems.bucketSodiumpersulfate), null, ItemDusts.getDustByName("tetrahedrite", 3), ItemDustsSmall.getSmallDustByName("Antimony", 1), ItemDustsSmall.getSmallDustByName("Zinc", 1), new ItemStack(Items.bucket), 100, 120));
     }
+
+	public static void addImplosionCompressorRecipes() {
+		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemParts.getPartByName("iridiumAlloyIngot"), new ItemStack(IC2Items.getItem("industrialTnt").getItem(), 8), IC2Items.getItem("iridiumPlate"), ItemDusts.getDustByName("darkAshes", 4), 20, 30));
+		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("diamond", 4), new ItemStack(IC2Items.getItem("industrialTnt").getItem(), 32), new ItemStack(IC2Items.getItem("industrialDiamond").getItem(), 3), ItemDusts.getDustByName("darkAshes", 16), 20, 30));
+		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(IC2Items.getItem("coalChunk"), new ItemStack(IC2Items.getItem("industrialTnt").getItem(), 8), IC2Items.getItem("industrialDiamond"), ItemDusts.getDustByName("darkAshes", 4), 20, 30));
+		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("emerald", 4), new ItemStack(IC2Items.getItem("industrialTnt").getItem(), 24), new ItemStack(Items.emerald, 3), ItemDusts.getDustByName("darkAshes", 12), 20, 30));
+		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("sapphire", 4), new ItemStack(IC2Items.getItem("industrialTnt").getItem(), 24), ItemGems.getGemByName("sapphire", 3), ItemDusts.getDustByName("darkAshes", 12), 20, 30));
+		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("ruby", 4), new ItemStack(IC2Items.getItem("industrialTnt").getItem(), 24), ItemGems.getGemByName("ruby", 3), ItemDusts.getDustByName("darkAshes", 12), 20, 30));
+		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("yellowGarnet", 4), new ItemStack(IC2Items.getItem("industrialTnt").getItem(), 24), ItemGems.getGemByName("yellowGarnet", 3), ItemDusts.getDustByName("darkAshes", 12), 20, 30));
+		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("redGarnet", 4), new ItemStack(IC2Items.getItem("industrialTnt").getItem(), 24), ItemGems.getGemByName("redGarnet", 3), ItemDusts.getDustByName("darkAshes", 12), 20, 30));
+		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("peridot", 4), new ItemStack(IC2Items.getItem("industrialTnt").getItem(), 24), ItemGems.getGemByName("peridot", 3), ItemDusts.getDustByName("darkAshes", 12), 20, 30));
+	}
 }
