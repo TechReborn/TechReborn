@@ -30,7 +30,7 @@ public class ItemUpgrade extends ItemTR implements IMachineUpgrade {
 	}
 
 	public static final String[] types = new String[]
-			{"20xSpeed", "20xPower"};
+			{"0.2Speed", "0.2Power", "0.5Speed"};
 
 	private IIcon[] textures;
 
@@ -38,6 +38,7 @@ public class ItemUpgrade extends ItemTR implements IMachineUpgrade {
 		setUnlocalizedName("techreborn.upgrade");
 		setHasSubtypes(true);
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setMaxStackSize(1);
 	}
 
 	@Override
@@ -81,12 +82,19 @@ public class ItemUpgrade extends ItemTR implements IMachineUpgrade {
 
 	@Override
 	public void processUpgrade(RecipeCrafter crafter, ItemStack stack) {
-		if(stack.getItemDamage() == 0){
-			crafter.addSpeedMulti(0.2);
-			crafter.addPowerMulti(0.5);
+		//Remember the max speed multiplier can only be 0.99!!
+
+		if(stack.getItemDamage() == 0){//Check the meta data here
+			crafter.addSpeedMulti(0.2);//This will set the speed multiplier to 0.8
+			crafter.addPowerMulti(0.5);//This will use eu/tick x 1.5
+			//crafter.addPowerMulti(2); This will use twice the amount of power.
 		}
 		if(stack.getItemDamage() == 1){
-			crafter.addPowerMulti(-0.2);
+			crafter.addPowerMulti(-0.2);//This will use eu/tick 0.8
+		}
+		if(stack.getItemDamage() == 2){
+			crafter.addSpeedMulti(0.5);
+			crafter.addPowerMulti(1);
 		}
 	}
 }

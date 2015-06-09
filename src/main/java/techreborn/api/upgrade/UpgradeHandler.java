@@ -33,5 +33,7 @@ public class UpgradeHandler {
 				((IMachineUpgrade) stack.getItem()).processUpgrade(crafter, stack);
 			}
 		}
+		if(crafter.currentRecipe != null)
+			crafter.currentNeededTicks = (int)(crafter.currentRecipe.tickTime() * (1.0 - crafter.getSpeedMultiplier()));
 	}
 }

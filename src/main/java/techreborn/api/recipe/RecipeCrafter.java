@@ -282,8 +282,11 @@ public class RecipeCrafter {
     }
 
     public void addSpeedMulti(double amount){
-        if(speedMultiplier + amount >= 0.99)
-        speedMultiplier += amount;
+        if(speedMultiplier + amount <= 0.99){
+			speedMultiplier += amount;
+		} else {
+			speedMultiplier = 0.99;
+		}
     }
 
     public void resetSpeedMulti(){
