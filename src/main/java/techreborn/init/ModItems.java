@@ -23,6 +23,7 @@ import techreborn.items.ItemPurifiedCrushedOre;
 import techreborn.items.ItemRods;
 import techreborn.items.ItemUUmatter;
 import techreborn.items.ItemLapotronicOrb;
+import techreborn.items.ItemUpgrade;
 import techreborn.items.armor.ItemGravityChest;
 import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
@@ -86,6 +87,7 @@ public class ModItems {
 	
 	public static Item hammerIron;
 	public static Item hammerDiamond;
+	public static Item upgrades;
 
 
 
@@ -133,6 +135,9 @@ public class ModItems {
 		GameRegistry.registerItem(manuel, "techmanuel");
 		uuMatter = new ItemUUmatter();
 		GameRegistry.registerItem(uuMatter, "uumatter");
+
+		upgrades = new ItemUpgrade();
+		GameRegistry.registerItem(upgrades, "upgrades");
 		
 		hammerIron = new ItemHammer(80);
 		hammerIron.setUnlocalizedName("hammerIron").setContainerItem(hammerIron);

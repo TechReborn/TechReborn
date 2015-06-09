@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.api.recipe.RecipeCrafter;
+import techreborn.api.upgrade.UpgradeHandler;
 import techreborn.init.ModBlocks;
 import techreborn.util.Inventory;
 
@@ -22,6 +23,7 @@ public class TileAlloySmelter extends TileMachineBase implements IWrenchable, IE
 	public Inventory inventory = new Inventory(8, "TileAlloySmelter", 64);
 	public RecipeCrafter crafter;
 	public int capacity = 1000;
+	UpgradeHandler upgrades;
 	
 	public TileAlloySmelter(){
 		//TODO configs
@@ -33,6 +35,7 @@ public class TileAlloySmelter extends TileMachineBase implements IWrenchable, IE
 		int[] outputs = new int[1];
 		outputs[0] = 2;
 		crafter = new RecipeCrafter("alloySmelterRecipe", this, energy, 2, 1, inventory, inputs, outputs);
+		upgrades = new UpgradeHandler(crafter, inventory, 4, 5, 6, 7);
 	}
 	
 	@Override
@@ -40,6 +43,7 @@ public class TileAlloySmelter extends TileMachineBase implements IWrenchable, IE
 		super.updateEntity();
 		energy.updateEntity();
 		crafter.updateEntity();
+		upgrades.tick();
 	}
 
 	@Override

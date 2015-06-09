@@ -97,7 +97,7 @@ public class RecipeCrafter {
     double speedMultiplier = 0;
 
     /**
-     * This is used to change the speed of the crafting operation.
+     * This is used to change the power of the crafting operation.
      *
      * 1 = none;
      * 1.2 = 20% speed increase
