@@ -49,6 +49,10 @@ repositories {
         name "TiC"
         url "http://dvs1.progwml6.com/files/maven"
     }
+    ivy {
+        name = 'ThaumCraft 4 API'
+        artifactPattern 'https://dl.dropboxusercontent.com/u/47135879/[module](-[classifier])-1.7.10-[revision](.[ext])'
+    }
 }
 
 def ENV = System.getenv()
@@ -100,6 +104,8 @@ dependencies {
     compile "mods.natura:natura:1.7.10-98.6a6cca1:deobf"
     compile "mantle:Mantle:1.7.10-0.3.2.jenkins187:deobf"
     compile "com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.7.10-2.1.0.1283:deobf"
+    compile 'Azanor:Thaumcraft:4.2.3.5:deobf@jar'
+    runtime "com.github.azanor:baubles:1.0.1.10:deobf@jar"
 }
 
 processResources
