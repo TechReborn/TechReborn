@@ -97,7 +97,7 @@ dependencies {
     compile "com.pahimar.ee3:EquivalentExchange3:1.7.10-0.3.505:dev"
     compile "net.sengir.forestry:forestry_1.7.10:3.5.7.16:api"
     compile "tconstruct:TConstruct:1.7.10-1.8.5.build958:deobf"
-    compile "natura:natura:natura-1.7.10-98.6a6cca1:deobf"
+    compile "mods.natura:natura:1.7.10-98.6a6cca1:deobf"
     compile "mantle:Mantle:1.7.10-0.3.2.jenkins187:deobf"
 }
 
