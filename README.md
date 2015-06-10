@@ -4,4 +4,6 @@ TechReborn is a ressurection of GregTech 4 for modern Minecraft. It brings most 
 
 TechReborn is currently in a pre-alpha state.
 
+We have permission to use Greg's textures, see here :https://i.imgur.com/YQEMrq5.png?1
+
 [![Build Status](http://modmuss50.me:8080/buildStatus/icon?job=TechReborn)](http://modmuss50.me:8080/job/TechReborn/)
