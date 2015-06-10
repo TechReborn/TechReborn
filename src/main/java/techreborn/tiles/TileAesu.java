@@ -46,6 +46,7 @@ public class TileAesu extends TileEntityElectricBlock implements IWrenchable {
 	public void setFacing(short facing)
 	{
         worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, facing, 2);
+		super.setFacing(facing);
     }
 
 	@Override
