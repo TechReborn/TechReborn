@@ -153,7 +153,7 @@ public class ModBlocks {
 		
 		Grinder = new BlockGrinder(Material.rock);
 		GameRegistry.registerBlock(Grinder, "grinder");
-		GameRegistry.registerTileEntity(TileGrinder.class, "TileGrinder");
+		GameRegistry.registerTileEntity(TileGrinder.class, "TileGrinderTR");
 		
 		ImplosionCompressor = new BlockImplosionCompressor(Material.rock);
 		GameRegistry.registerBlock(ImplosionCompressor, "implosioncompressor");
@@ -196,7 +196,7 @@ public class ModBlocks {
 		
 		DieselGenerator = new BlockDieselGenerator(Material.rock);
 		GameRegistry.registerBlock(DieselGenerator, "dieselgenerator");
-		GameRegistry.registerTileEntity(TileDieselGenerator.class, "TileDieselGenerator");
+		GameRegistry.registerTileEntity(TileDieselGenerator.class, "TileDieselGeneratorTR");
 		
 		IndustrialElectrolyzer = new BlockIndustrialElectrolyzer(Material.rock);
 		GameRegistry.registerBlock(IndustrialElectrolyzer, "industrialelectrolyzer");
@@ -207,15 +207,15 @@ public class ModBlocks {
 		
 		Semifluidgenerator = new BlockSemiFluidGenerator(Material.rock);
 		GameRegistry.registerBlock(Semifluidgenerator, "semifluidgenerator");
-		GameRegistry.registerTileEntity(TileSemifluidGenerator.class, "TileSemifluidGenerator");
+		GameRegistry.registerTileEntity(TileSemifluidGenerator.class, "TileSemifluidGeneratorTR");
 		
 		Gasturbine = new BlockGasTurbine(Material.rock);
 		GameRegistry.registerBlock(Gasturbine, "gasturbine");
-		GameRegistry.registerTileEntity(TileGasTurbine.class, "TileGassTurbine");
+		GameRegistry.registerTileEntity(TileGasTurbine.class, "TileGassTurbineTR");
 		
 		AlloyFurnace = new BlockAlloyFurnace(Material.rock);
 		GameRegistry.registerBlock(AlloyFurnace, "alloyfurnace");
-		GameRegistry.registerTileEntity(TileAlloyFurnace.class, "TileAlloyFurnace");
+		GameRegistry.registerTileEntity(TileAlloyFurnace.class, "TileAlloyFurnaceTR");
 		
 		ChemicalReactor = new BlockChemicalReactor(Material.rock);
 		GameRegistry.registerBlock(ChemicalReactor, "chemicalreactor");
