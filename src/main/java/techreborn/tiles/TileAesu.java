@@ -112,7 +112,7 @@ public class TileAesu extends TileEntityElectricBlock implements IWrenchable {
 			e.printStackTrace();
 		}
 
-		LogHelper.info("Set output to " + getOutput());
+		LogHelper.debug("Set output to " + getOutput());
 	}
 
 }
