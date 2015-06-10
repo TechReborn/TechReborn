@@ -2,7 +2,9 @@ package techreborn.blocks.storage;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
@@ -68,4 +70,12 @@ public class BlockAesu extends BlockMachineBase {
 						: (side == metadata ? this.iconFront : this.blockIcon));
 	}
 
+	@Override
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemstack) {
+		super.onBlockPlacedBy(world, x, y, z, player, itemstack);
+		TileEntity tile = world.getTileEntity(x, y, z);
+		if(tile instanceof TileAesu){
+			((TileAesu) tile).setFacing((short) world.getBlockMetadata(x, y, z));
+		}
+	}
 }
