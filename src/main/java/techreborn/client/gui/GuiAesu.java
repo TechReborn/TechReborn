@@ -11,12 +11,16 @@ import techreborn.packets.PacketAesu;
 import techreborn.packets.PacketHandler;
 import techreborn.tiles.TileAesu;
 
+import java.awt.*;
+
 public class GuiAesu extends GuiContainer {
 
 	private static final ResourceLocation texture = new ResourceLocation(
 			"techreborn", "textures/gui/aesu.png");
 
 	TileAesu aesu;
+
+	ContainerAesu containerAesu;
 
 	public GuiAesu(EntityPlayer player,
 			TileAesu tileaesu)
@@ -25,6 +29,7 @@ public class GuiAesu extends GuiContainer {
 		this.xSize = 176;
 		this.ySize = 167;
 		aesu = tileaesu;
+		this.containerAesu  = (ContainerAesu) this.inventorySlots;
 	}
 
 	@Override
@@ -52,7 +57,9 @@ public class GuiAesu extends GuiContainer {
 	protected void drawGuiContainerForegroundLayer(int p_146979_1_,
 			int p_146979_2_)
 	{
-		this.fontRendererObj.drawString(StatCollector.translateToLocal("tile.techreborn.aesu.name"), 40, 6, 4210752);
+		this.fontRendererObj.drawString(StatCollector.translateToLocal("tile.techreborn.aesu.name"), 40, 6, Color.WHITE.getRGB());
+		this.fontRendererObj.drawString(containerAesu.euOut + " eu/tick", 10, 20, Color.WHITE.getRGB());
+		this.fontRendererObj.drawString(containerAesu.storedEu + " eu", 10, 30, Color.WHITE.getRGB());
 	}
 
 	@Override

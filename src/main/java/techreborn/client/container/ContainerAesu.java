@@ -1,6 +1,9 @@
 package techreborn.client.container;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import techreborn.tiles.TileAesu;
 
@@ -16,7 +19,8 @@ public class ContainerAesu extends TechRebornContainer {
 		return true;
 	}
 
-	public int tickTime;
+	public int euOut;
+	public int storedEu;
 
 	public ContainerAesu(TileAesu tileaesu,
 			EntityPlayer player)
@@ -43,6 +47,37 @@ public class ContainerAesu extends TechRebornContainer {
 		{
 			this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18,
 					142));
+		}
+	}
+
+	@Override
+	public void detectAndSendChanges() {
+		super.detectAndSendChanges();
+		for (int i = 0; i < this.crafters.size(); i++) {
+			ICrafting icrafting = (ICrafting)this.crafters.get(i);
+			if(this.euOut != tile.output){
+				icrafting.sendProgressBarUpdate(this, 0, tile.output);
+			}
+			if(this.storedEu != tile.energy){
+				icrafting.sendProgressBarUpdate(this, 1, (int) tile.energy);
+			}
+		}
+	}
+
+	@Override
+	public void addCraftingToCrafters(ICrafting crafting) {
+		super.addCraftingToCrafters(crafting);
+		crafting.sendProgressBarUpdate(this, 0, tile.output);
+		crafting.sendProgressBarUpdate(this, 1, (int) tile.energy);
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void updateProgressBar(int id, int value) {
+		if(id == 0){
+			this.euOut = value;
+		} else if(id == 1){
+			this.storedEu = value;
 		}
 	}
 
