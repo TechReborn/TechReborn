@@ -151,7 +151,6 @@ public class ModRecipes {
 
 		RecipeHandler.addRecipe(new AssemblingMachineRecipe(new ItemStack(Items.coal), new ItemStack(Blocks.sand), new ItemStack(Items.diamond), 120, 5));
 		RecipeHandler.addRecipe(new LatheRecipe(new ItemStack(Items.coal), new ItemStack(Items.diamond), 120, 5));
-		RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Items.coal), new ItemStack(Blocks.sand), new ItemStack(Items.diamond), new ItemStack(Items.diamond), new ItemStack(Items.diamond), 120, 5));
 		RecipeHandler.addRecipe(new PlateCuttingMachineRecipe(new ItemStack(Items.coal), new ItemStack(Items.diamond), 120, 5));
 		//TODO
 		RecipeHandler.addRecipe(new ChemicalReactorRecipe(new ItemStack(Items.coal), new ItemStack(Blocks.sand), new ItemStack(Items.diamond), 120, 5));
