@@ -96,7 +96,7 @@ dependencies {
     compile "codechicken:NotEnoughItems:1.7.10-1.0.4.+:dev"
     compile "codechicken:ForgeMultipart:1.7.10-1.1.2.331:dev"
     compile "mcp.mobius.waila:Waila:1.5.10_1.7.10:dev"
-    compile name: 'buildcraft', version: '7.0.8', classifier: "dev", ext: 'jar'
+    compile name: 'buildcraft', version: '7.0.9', classifier: "dev", ext: 'jar'
     compile "qmunity:QmunityLib:0.1.+:deobf"
     compile "com.pahimar.ee3:EquivalentExchange3:1.7.10-0.3.505:dev"
     compile "net.sengir.forestry:forestry_1.7.10:3.5.7.16:api"
