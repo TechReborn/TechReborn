@@ -19,7 +19,7 @@ public class GrinderRecipeHandler extends GenericRecipeHander implements INeiBas
 	public void addPositionedStacks(List<PositionedStack> input, List<PositionedStack> outputs, IBaseRecipeType recipeType) {
 		int offset = 4;
 		if (recipeType.getInputs().size() > 0) {
-			PositionedStack pStack = new PositionedStack(ItemUtils.getStackWithAllOre(recipeType.getInputs().get(0)), 0 - offset, 32 - offset);
+			PositionedStack pStack = new PositionedStack(ItemUtils.getStackWithAllOre(recipeType.getInputs().get(0)), 32 - offset, 26 - offset);
 			input.add(pStack);
 		}
 
@@ -29,22 +29,22 @@ public class GrinderRecipeHandler extends GenericRecipeHander implements INeiBas
 		}
 
 		if (recipeType.getOutputsSize() > 0) {
-			PositionedStack pStack3 = new PositionedStack(recipeType.getOutput(0), 2 - offset, 77 - offset);
+			PositionedStack pStack3 = new PositionedStack(recipeType.getOutput(0), 77 - offset, 35 - offset);
 			outputs.add(pStack3);
 		}
 
 		if (recipeType.getOutputsSize() > 1) {
-			PositionedStack pStack4 = new PositionedStack(recipeType.getOutput(1), 2 - offset, 95 - offset);
+			PositionedStack pStack4 = new PositionedStack(recipeType.getOutput(1), 95 - offset, 35 - offset);
 			outputs.add(pStack4);
 		}
 
 		if (recipeType.getOutputsSize() > 2) {
-			PositionedStack pStack5 = new PositionedStack(recipeType.getOutput(2), 4 - offset, 113 - offset);
+			PositionedStack pStack5 = new PositionedStack(recipeType.getOutput(2), 113 - offset, 35 - offset);
 			outputs.add(pStack5);
 		}
 
 		if (recipeType.getOutputsSize() > 3) {
-			PositionedStack pStack6 = new PositionedStack(recipeType.getOutput(3), 5 - offset, 131 - offset);
+			PositionedStack pStack6 = new PositionedStack(recipeType.getOutput(3), 131 - offset, 35 - offset);
 			outputs.add(pStack6);
 		}
 
