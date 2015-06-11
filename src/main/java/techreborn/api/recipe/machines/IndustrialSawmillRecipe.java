@@ -67,4 +67,9 @@ public class IndustrialSawmillRecipe extends BaseRecipe {
         }
         return false;
     }
+
+	@Override
+	public boolean useOreDic() {
+		return false;
+	}
 }

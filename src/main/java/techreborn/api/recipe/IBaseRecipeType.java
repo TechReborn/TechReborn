@@ -65,4 +65,6 @@ public interface IBaseRecipeType {
     public boolean onCraft(TileEntity tile);
 
     public Object clone()throws CloneNotSupportedException;
+
+	public boolean useOreDic();
 }

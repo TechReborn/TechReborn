@@ -4,6 +4,7 @@ import ic2.api.item.IC2Items;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import techreborn.api.BlastFurnaceRecipe;
@@ -159,6 +160,9 @@ public class ModRecipes {
         RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 1), new ItemStack(ModItems.cells, 1, 16), null, IC2Items.getItem("iridiumOre"), new ItemStack(ModItems.smallDusts, 6, 39), new ItemStack(ModItems.dusts, 6, 58), IC2Items.getItem("cell"), 400, 5));
 
 		RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.coal), null, new ItemStack(Items.diamond), new ItemStack(Items.emerald), new ItemStack(Items.apple), new ItemStack(Items.arrow), 1, 10));
+
+		RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log, 1), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(Blocks.planks, 6, 0), ItemDusts.getDustByName("ashes", 1), null, 100, 10));
+
 		LogHelper.info("Machine Recipes Added");
 	}
 

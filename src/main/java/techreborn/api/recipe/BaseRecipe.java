@@ -79,4 +79,9 @@ public abstract class BaseRecipe implements IBaseRecipeType , Cloneable {
     public Object clone()throws CloneNotSupportedException{
         return super.clone();
     }
+
+	@Override
+	public boolean useOreDic() {
+		return true;
+	}
 }

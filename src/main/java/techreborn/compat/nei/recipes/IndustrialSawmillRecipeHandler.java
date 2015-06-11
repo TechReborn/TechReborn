@@ -13,12 +13,12 @@ public class IndustrialSawmillRecipeHandler extends GenericRecipeHander implemen
     public void addPositionedStacks(List<PositionedStack> input, List<PositionedStack> outputs, IBaseRecipeType recipeType) {
         int offset = 4;
         if (recipeType.getInputs().size() > 0) {
-            PositionedStack pStack = new PositionedStack(ItemUtils.getStackWithAllOre(recipeType.getInputs().get(0)), 32 - offset, 26 - offset);
+            PositionedStack pStack = new PositionedStack(recipeType.getInputs().get(0), 32 - offset, 26 - offset);
             input.add(pStack);
         }
 
         if (recipeType.getInputs().size() > 1) {
-            PositionedStack pStack2 = new PositionedStack(ItemUtils.getStackWithAllOre(recipeType.getInputs().get(1)), 32 - offset, 44 - offset);
+            PositionedStack pStack2 = new PositionedStack(recipeType.getInputs().get(1), 32 - offset, 44 - offset);
             input.add(pStack2);
         }
 
