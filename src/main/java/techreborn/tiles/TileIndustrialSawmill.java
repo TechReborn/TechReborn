@@ -9,17 +9,21 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.*;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.init.ModBlocks;
+import techreborn.init.ModFluids;
 import techreborn.util.Inventory;
+import techreborn.util.Tank;
 
 import java.util.List;
 
-public class TileIndustrialSawmill extends TileMachineBase implements IWrenchable, IEnergyTile, IInventory, ISidedInventory {
+public class TileIndustrialSawmill extends TileMachineBase implements IWrenchable, IEnergyTile, IFluidHandler, IInventory, ISidedInventory {
 
 	public int tickTime;
 	public BasicSink energy;
 	public Inventory inventory = new Inventory(5, "TileIndustrialSawmill", 64);
+	public Tank tank = new Tank("TileGrinder", 16000, this);
 	public RecipeCrafter crafter;
 	
 	public TileIndustrialSawmill()
@@ -95,6 +99,7 @@ public class TileIndustrialSawmill extends TileMachineBase implements IWrenchabl
         super.readFromNBT(tagCompound);
         inventory.readFromNBT(tagCompound);
         energy.readFromNBT(tagCompound);
+		tank.readFromNBT(tagCompound);
         crafter.readFromNBT(tagCompound);
     }
 
@@ -104,6 +109,7 @@ public class TileIndustrialSawmill extends TileMachineBase implements IWrenchabl
         super.writeToNBT(tagCompound);
         inventory.writeToNBT(tagCompound);
         energy.writeToNBT(tagCompound);
+		tank.writeToNBT(tagCompound);
         crafter.writeToNBT(tagCompound);
     }
 
@@ -128,6 +134,52 @@ public class TileIndustrialSawmill extends TileMachineBase implements IWrenchabl
 		if(crafter.currentRecipe !=null){
 		info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
 		}
+	}
+
+	/* IFluidHandler */
+	@Override
+	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
+		if(resource.getFluid() == FluidRegistry.WATER || resource.getFluid() == ModFluids.fluidMercury || resource.getFluid() == ModFluids.fluidSodiumpersulfate) {
+			int filled = tank.fill(resource, doFill);
+			tank.compareAndUpdate();
+			return filled;
+		}
+		return 0;
+	}
+
+	@Override
+	public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
+		if (resource == null || !resource.isFluidEqual(tank.getFluid())) {
+			return null;
+		}
+		FluidStack fluidStack = tank.drain(resource.amount, doDrain);
+		tank.compareAndUpdate();
+		return fluidStack;
+	}
+
+	@Override
+	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
+		FluidStack drained = tank.drain(maxDrain, doDrain);
+		tank.compareAndUpdate();
+		return drained;
+	}
+
+	@Override
+	public boolean canFill(ForgeDirection from, Fluid fluid) {
+		if(fluid == FluidRegistry.WATER) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean canDrain(ForgeDirection from, Fluid fluid) {
+		return false;
+	}
+
+	@Override
+	public FluidTankInfo[] getTankInfo(ForgeDirection from) {
+		return new FluidTankInfo[] { tank.getInfo() };
 	}
 
 	@Override
