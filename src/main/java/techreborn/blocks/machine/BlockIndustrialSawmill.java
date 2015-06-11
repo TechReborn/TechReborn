@@ -61,10 +61,10 @@ public class BlockIndustrialSawmill extends BlockMachineBase {
 	public void registerBlockIcons(IIconRegister icon)
 	{
 		this.blockIcon = icon.registerIcon("techreborn:machine/machine_side");
-		this.iconFront = icon.registerIcon("techreborn:machine/industrial_sawmill_off");
-		this.iconFront = icon.registerIcon("techreborn:machine/industrial_sawmill_on");
-		this.iconTop = icon.registerIcon("techreborn:machine/machine_top");
-		this.iconBottom = icon.registerIcon("techreborn:machine/machine_bottom");
+		this.iconFront = icon.registerIcon("techreborn:machine/industrial_sawmill_front_off");
+		this.iconFrontOn = icon.registerIcon("techreborn:machine/industrial_sawmill_front_on");
+		this.iconTop = icon.registerIcon("techreborn:machine/advanced_machine_side");
+		this.iconBottom = icon.registerIcon("techreborn:machine/advanced_machine_side");
 	}
 	
 	@Override
