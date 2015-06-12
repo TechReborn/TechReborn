@@ -34,16 +34,16 @@ public class ItemDusts extends ItemTR {
 			"brass", "bronze", "cadmium", "calcite", "charcoal", "chrome", 
 			"cinnabar", "clay", "coal", "cobalt", "copper", "cupronickel", 
 			"darkAshes", "darkIron", "diamond", "electrum", "emerald",
-			"enderEye", "enderPearl", "endstone", "flint", "gold", "graphite",
+			"enderEye", "enderPearl", "endstone", "flint", "galena", "gold", "graphite",
 			"grossular", "indium", "invar", "iridium", "iron", "kanthal", "lapis", "lazurite",
 			"lead", "limestone", "lodestone", "magnesium", "magnetite", "manganese", 
 			"manyullyn", "marble", "mithril", "netherrack", "nichrome", "nickel",
 			"obsidian", "osmium", "peridot", "phosphorous", "platinum", "potassiumFeldspar", 
 			"pyrite", "pyrope", "redGarnet", "redrock", "ruby", "saltpeter",
-			"sapphire", "silicon", "silver", "sodalite", "spessartine", "sphalerite",
+			"sapphire", "sawDust", "silicon", "silver", "sodalite", "spessartine", "sphalerite",
 			"steel", "sulfur", "tellurium", "teslatite", "tetrahedrite", "tin",
 			"titanium", "tungsten", "uvarovite", "vinteum", "voidstone", "yellowGarnet",
-			"zinc", "galena" };
+			"zinc" };
 
 	private IIcon[] textures;
 
