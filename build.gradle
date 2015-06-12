@@ -99,13 +99,13 @@ dependencies {
     compile name: 'buildcraft', version: '7.0.9', classifier: "dev", ext: 'jar'
     compile "qmunity:QmunityLib:0.1.+:deobf"
     compile "com.pahimar.ee3:EquivalentExchange3:1.7.10-0.3.505:dev"
-    compile "net.sengir.forestry:forestry_1.7.10:3.5.7.16:api"
+    compile "net.sengir.forestry:forestry_1.7.10:3.5.7.16:dev"
     compile "tconstruct:TConstruct:1.7.10-1.8.5.build958:deobf"
     compile "mods.natura:natura:1.7.10-98.6a6cca1:deobf"
     compile "mantle:Mantle:1.7.10-0.3.2.jenkins187:deobf"
     compile "com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.7.10-2.1.0.1283:deobf"
     compile 'Azanor:Thaumcraft:4.2.3.5:deobf@jar'
-    runtime "com.github.azanor:baubles:1.0.1.10:deobf@jar"
+    compile "com.github.azanor:baubles:1.0.1.10:deobf@jar"
 }
 
 processResources
