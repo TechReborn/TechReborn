@@ -16,91 +16,91 @@ import java.util.List;
 
 public class ShapedRollingMachineHandler extends ShapedRecipeHandler {
 
-    @Override
-    public Class<? extends GuiContainer> getGuiClass() {
-        return GuiRollingMachine.class;
-    }
+	@Override
+	public Class<? extends GuiContainer> getGuiClass() {
+		return GuiRollingMachine.class;
+	}
 
-    @Override
-    public void loadTransferRects() {
-        this.transferRects.add(new RecipeTransferRect(new Rectangle(84, 23, 24,
-                18), "rollingcrafting", new Object[0]));
-    }
+	@Override
+	public void loadTransferRects() {
+		this.transferRects.add(new RecipeTransferRect(new Rectangle(84, 23, 24,
+				18), "rollingcrafting", new Object[0]));
+	}
 
-    @Override
-    public String getRecipeName() {
-        return "rollingcrafting";
-    }
+	@Override
+	public String getRecipeName() {
+		return "rollingcrafting";
+	}
 
-    @Override
-    public String getOverlayIdentifier() {
-        return "rollingcrafting";
-    }
+	@Override
+	public String getOverlayIdentifier() {
+		return "rollingcrafting";
+	}
 
-    @Override
-    public void loadCraftingRecipes(String outputId, Object... results) {
-        if (outputId.equals("rollingcrafting")
-                && getClass() == ShapedRollingMachineHandler.class) {
-            for (IRecipe irecipe : (List<IRecipe>) RollingMachineRecipe.instance
-                    .getRecipeList()) {
-                CachedShapedRecipe recipe = null;
-                if (irecipe instanceof ShapedRecipes)
-                    recipe = new CachedShapedRecipe((ShapedRecipes) irecipe);
-                else if (irecipe instanceof ShapedOreRecipe)
-                    recipe = forgeShapedRecipe((ShapedOreRecipe) irecipe);
+	@Override
+	public void loadCraftingRecipes(String outputId, Object... results) {
+		if (outputId.equals("rollingcrafting")
+				&& getClass() == ShapedRollingMachineHandler.class) {
+			for (IRecipe irecipe : (List<IRecipe>) RollingMachineRecipe.instance
+					.getRecipeList()) {
+				CachedShapedRecipe recipe = null;
+				if (irecipe instanceof ShapedRecipes)
+					recipe = new CachedShapedRecipe((ShapedRecipes) irecipe);
+				else if (irecipe instanceof ShapedOreRecipe)
+					recipe = forgeShapedRecipe((ShapedOreRecipe) irecipe);
 
-                if (recipe == null)
-                    continue;
+				if (recipe == null)
+					continue;
 
-                recipe.computeVisuals();
-                arecipes.add(recipe);
-            }
-        } else {
-            super.loadCraftingRecipes(outputId, results);
-        }
-    }
+				recipe.computeVisuals();
+				arecipes.add(recipe);
+			}
+		} else {
+			super.loadCraftingRecipes(outputId, results);
+		}
+	}
 
-    @Override
-    public void loadCraftingRecipes(ItemStack result) {
-        for (IRecipe irecipe : (List<IRecipe>) RollingMachineRecipe.instance
-                .getRecipeList()) {
-            if (NEIServerUtils.areStacksSameTypeCrafting(
-                    irecipe.getRecipeOutput(), result)) {
-                CachedShapedRecipe recipe = null;
-                if (irecipe instanceof ShapedRecipes)
-                    recipe = new CachedShapedRecipe((ShapedRecipes) irecipe);
-                else if (irecipe instanceof ShapedOreRecipe)
-                    recipe = forgeShapedRecipe((ShapedOreRecipe) irecipe);
+	@Override
+	public void loadCraftingRecipes(ItemStack result) {
+		for (IRecipe irecipe : (List<IRecipe>) RollingMachineRecipe.instance
+				.getRecipeList()) {
+			if (NEIServerUtils.areStacksSameTypeCrafting(
+					irecipe.getRecipeOutput(), result)) {
+				CachedShapedRecipe recipe = null;
+				if (irecipe instanceof ShapedRecipes)
+					recipe = new CachedShapedRecipe((ShapedRecipes) irecipe);
+				else if (irecipe instanceof ShapedOreRecipe)
+					recipe = forgeShapedRecipe((ShapedOreRecipe) irecipe);
 
-                if (recipe == null)
-                    continue;
+				if (recipe == null)
+					continue;
 
-                recipe.computeVisuals();
-                arecipes.add(recipe);
-            }
-        }
-    }
+				recipe.computeVisuals();
+				arecipes.add(recipe);
+			}
+		}
+	}
 
-    @Override
-    public void loadUsageRecipes(ItemStack ingredient) {
-        for (IRecipe irecipe : (List<IRecipe>) RollingMachineRecipe.instance
-                .getRecipeList()) {
-            CachedShapedRecipe recipe = null;
-            if (irecipe instanceof ShapedRecipes)
-                recipe = new CachedShapedRecipe((ShapedRecipes) irecipe);
-            else if (irecipe instanceof ShapedOreRecipe)
-                recipe = forgeShapedRecipe((ShapedOreRecipe) irecipe);
+	@Override
+	public void loadUsageRecipes(ItemStack ingredient) {
+		for (IRecipe irecipe : (List<IRecipe>) RollingMachineRecipe.instance
+				.getRecipeList()) {
+			CachedShapedRecipe recipe = null;
+			if (irecipe instanceof ShapedRecipes)
+				recipe = new CachedShapedRecipe((ShapedRecipes) irecipe);
+			else if (irecipe instanceof ShapedOreRecipe)
+				recipe = forgeShapedRecipe((ShapedOreRecipe) irecipe);
 
-            if (recipe == null
-                    || !recipe.contains(recipe.ingredients,
-                    ingredient.getItem()))
-                continue;
+			if (recipe == null
+					|| !recipe.contains(recipe.ingredients,
+					ingredient.getItem()))
+				continue;
 
-            recipe.computeVisuals();
-            if (recipe.contains(recipe.ingredients, ingredient)) {
-                recipe.setIngredientPermutation(recipe.ingredients, ingredient);
-                arecipes.add(recipe);
-            }
-        }
-    }
+			recipe.computeVisuals();
+			if (recipe.contains(recipe.ingredients, ingredient)) {
+				recipe.setIngredientPermutation(recipe.ingredients, ingredient);
+				arecipes.add(recipe);
+			}
+		}
+	}
 }

@@ -13,10 +13,6 @@ import java.util.List;
 
 public abstract class TileMachineBase extends TileEntity {
 
-	@Deprecated
-	/**
-	 * Try not to use this
-	 */
 	public void syncWithAll() {
 		if (!worldObj.isRemote) {
 			PacketHandler.sendPacketToAllPlayers(getDescriptionPacket(),

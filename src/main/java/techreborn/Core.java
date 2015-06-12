@@ -9,7 +9,7 @@ import techreborn.api.recipe.RecipeHandler;
 import techreborn.client.GuiHandler;
 import techreborn.command.TechRebornDevCommand;
 import techreborn.compat.CompatManager;
-import techreborn.compat.recipes.RecipeManager;
+import techreborn.compat.ICompatModule;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModFluids;
@@ -52,6 +52,9 @@ public class Core {
 
 		config = ConfigTechReborn.initialize(new File(path));
 		LogHelper.info("PreInitialization Complete");
+		for(ICompatModule compatModule : CompatManager.INSTANCE.compatModules){
+			compatModule.preInit(event);
+		}
 	}
 
 	@Mod.EventHandler
@@ -71,7 +74,9 @@ public class Core {
 		//Client only init, needs to be done before parts system
 		proxy.init();
 		// Compat
-		CompatManager.init(event);
+		for(ICompatModule compatModule : CompatManager.INSTANCE.compatModules){
+			compatModule.init(event);
+		}
 		// WorldGen
 		GameRegistry.registerWorldGenerator(new TROreGen(), 0);
 		// Register Gui Handler
@@ -93,18 +98,20 @@ public class Core {
 		// Has to be done here as Buildcraft registers there recipes late
         StopWatch watch = new StopWatch();
         watch.start();
-		RecipeManager.init();
         LogHelper.all(watch + " : main recipes");
         watch.stop();
-        //Has to be done after the recipes have been added
-        CompatManager.postInit(event);
-
+		for(ICompatModule compatModule : CompatManager.INSTANCE.compatModules){
+			compatModule.postInit(event);
+		}
 		LogHelper.info(RecipeHandler.recipeList.size() + " recipes loaded");
 	}
 
 	@Mod.EventHandler
 	public void serverStarting(FMLServerStartingEvent event){
 		event.registerServerCommand(new TechRebornDevCommand());
+		for(ICompatModule compatModule : CompatManager.INSTANCE.compatModules){
+			compatModule.serverStarting(event);
+		}
 	}
 	
 	@SubscribeEvent

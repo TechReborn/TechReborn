@@ -1,34 +1,40 @@
 package techreborn.compat;
 
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import techreborn.compat.ee3.EmcValues;
-import techreborn.compat.waila.CompatModuleWaila;
-import techreborn.init.ModParts;
-import techreborn.util.LogHelper;
 import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
+import techreborn.compat.ee3.EmcValues;
+import techreborn.compat.qLib.QLib;
+import techreborn.compat.recipes.RecipesBuildcraft;
+import techreborn.compat.recipes.RecipesIC2;
+import techreborn.compat.recipes.RecipesThermalExpansion;
+import techreborn.compat.waila.CompatModuleWaila;
+
+import java.util.ArrayList;
 
 public class CompatManager {
 
-	public static void init(FMLInitializationEvent event)
-	{
-		if (Loader.isModLoaded("Waila"))
-		{
-			new CompatModuleWaila().init(event);
-			LogHelper.info("Waila Compat Loaded");
-		}
-		if(Loader.isModLoaded("qmunitylib"))
-		{
-			// Register Multiparts
-			ModParts.init();
-		}
+	public ArrayList<ICompatModule> compatModules = new ArrayList<ICompatModule>();
+
+	public static CompatManager INSTANCE = new CompatManager();
+
+
+	public CompatManager() {
+		registerCompact(CompatModuleWaila.class, "Waila");
+		registerCompact(RecipesIC2.class, "IC2");
+		registerCompact(RecipesBuildcraft.class, "BuildCraft");
+		registerCompact(RecipesThermalExpansion.class, "ThermalExpansion");
+		registerCompact(EmcValues.class, "EE3");
+		registerCompact(QLib.class, "qmunitylib");
 	}
 
-    public static void postInit(FMLPostInitializationEvent event){
-        if(Loader.isModLoaded("EE3"))
-        {
-            // Register Emc Values and machine crafting handlers
-            EmcValues.init();
-        }
-    }
+	public void registerCompact(Class<?> moduleClass, String modid) {
+		if (Loader.isModLoaded(modid)) {
+			try {
+				compatModules.add((ICompatModule) moduleClass.newInstance());
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

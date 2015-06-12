@@ -74,10 +74,10 @@ public class GrinderRecipeHandler extends GenericRecipeHander implements INeiBas
 	public void drawBackground(int recipeIndex) {
 		super.drawBackground(recipeIndex);
 		CachedRecipe recipe = arecipes.get(recipeIndex);
-		if(recipe instanceof CachedGenericRecipe){
-			if(((CachedGenericRecipe) recipe).recipie instanceof GrinderRecipe){
+		if (recipe instanceof CachedGenericRecipe) {
+			if (((CachedGenericRecipe) recipe).recipie instanceof GrinderRecipe) {
 				GrinderRecipe grinderRecipe = (GrinderRecipe) ((CachedGenericRecipe) recipe).recipie;
-				if(grinderRecipe.fluidStack != null){
+				if (grinderRecipe.fluidStack != null) {
 					IIcon fluidIcon = grinderRecipe.fluidStack.getFluid().getIcon();
 					if (fluidIcon != null) {
 //					GuiDraw.drawRect(7, 16, 176, 31, 0);
