@@ -1,6 +1,8 @@
 package techreborn.init;
 
+import cpw.mods.fml.common.Loader;
 import ic2.api.item.IC2Items;
+import mods.natura.common.NContent;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -38,6 +40,7 @@ public class ModRecipes {
         addPlateCuttingMachineRecipes();
 		addUUrecipes();
 		addHammerRecipes();
+        addIndustrialSawmillRecipes();
 	}
 
 	public static void addShappedRecipes() {
@@ -160,8 +163,6 @@ public class ModRecipes {
         RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 1), new ItemStack(ModItems.cells, 1, 16), null, IC2Items.getItem("iridiumOre"), new ItemStack(ModItems.smallDusts, 6, 39), new ItemStack(ModItems.dusts, 6, 58), IC2Items.getItem("cell"), 400, 5));
 
 		RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.coal), null, new ItemStack(Items.diamond), new ItemStack(Items.emerald), new ItemStack(Items.apple), new ItemStack(Items.arrow), 1, 10));
-
-		RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log, 1), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(Blocks.planks, 6, 0), ItemDusts.getDustByName("ashes", 1), null, 100, 10));
 
 		LogHelper.info("Machine Recipes Added");
 	}
@@ -477,6 +478,83 @@ public class ModRecipes {
 
         //Obsidian
         RecipeHandler.addRecipe(new PlateCuttingMachineRecipe(new ItemStack(Blocks.obsidian), ItemPlates.getPlateByName("obsidian", 9), 100, 4));
+    }
+
+    public static void addIndustrialSawmillRecipes() {
+        ItemStack pulpStack = OreDictionary.getOres("pulpWood").get(0);
+        RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log, 1, 0), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(Blocks.planks, 6, 0), pulpStack, null, 200, 30, false));
+        RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log, 1, 0), IC2Items.getItem("waterCell"), null, new ItemStack(Blocks.planks, 6, 0), pulpStack, IC2Items.getItem("emptyCell"), 200, 30, false));
+        RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log, 1, 0), new ItemStack(Items.water_bucket), null, new ItemStack(Blocks.planks, 6, 0), pulpStack, new ItemStack(Items.bucket), 200, 30, false));
+
+        RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log, 1, 1), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(Blocks.planks, 6, 1), pulpStack, null, 200, 30, false));
+        RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log, 1, 1), IC2Items.getItem("waterCell"), null, new ItemStack(Blocks.planks, 6, 1), pulpStack, IC2Items.getItem("emptyCell"), 200, 30, false));
+        RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log, 1, 1), new ItemStack(Items.water_bucket), null, new ItemStack(Blocks.planks, 6, 1), pulpStack, new ItemStack(Items.bucket), 200, 30, false));
+
+        RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log, 1, 2), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(Blocks.planks, 6, 2), pulpStack, null, 200, 30, false));
+        RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log, 1, 2), IC2Items.getItem("waterCell"), null, new ItemStack(Blocks.planks, 6, 2), pulpStack, IC2Items.getItem("emptyCell"), 200, 30, false));
+        RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log, 1, 2), new ItemStack(Items.water_bucket), null, new ItemStack(Blocks.planks, 6, 2), pulpStack, new ItemStack(Items.bucket), 200, 30, false));
+
+        RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log, 1, 3), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(Blocks.planks, 6, 3), pulpStack, null, 200, 30, false));
+        RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log, 1, 3), IC2Items.getItem("waterCell"), null, new ItemStack(Blocks.planks, 6, 3), pulpStack, IC2Items.getItem("emptyCell"), 200, 30, false));
+        RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log, 1, 3), new ItemStack(Items.water_bucket), null, new ItemStack(Blocks.planks, 6, 3), pulpStack, new ItemStack(Items.bucket), 200, 30, false));
+
+        RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log2, 1, 0), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(Blocks.planks, 6, 4), pulpStack, null, 200, 30, false));
+        RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log2, 1, 0), IC2Items.getItem("waterCell"), null, new ItemStack(Blocks.planks, 6, 4), pulpStack, IC2Items.getItem("emptyCell"), 200, 30, false));
+        RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log2, 1, 0), new ItemStack(Items.water_bucket), null, new ItemStack(Blocks.planks, 6, 4), pulpStack, new ItemStack(Items.bucket), 200, 30, false));
+
+        RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log2, 1, 1), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(Blocks.planks, 6, 5), pulpStack, null, 200, 30, false));
+        RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log2, 1, 1), IC2Items.getItem("waterCell"), null, new ItemStack(Blocks.planks, 6, 5), pulpStack, IC2Items.getItem("emptyCell"), 200, 30, false));
+        RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log2, 1, 1), new ItemStack(Items.water_bucket), null, new ItemStack(Blocks.planks, 6, 5), pulpStack, new ItemStack(Items.bucket), 200, 30, false));
+
+        if(Loader.isModLoaded("Natura")) {
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.tree, 1, 0), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(NContent.planks, 6, 0), pulpStack, null, 200, 30, false));
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.tree, 1, 0), IC2Items.getItem("waterCell"), null, new ItemStack(NContent.planks, 6, 0), pulpStack, IC2Items.getItem("emptyCell"), 200, 30, false));
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.tree, 1, 0), new ItemStack(Items.water_bucket), null, new ItemStack(NContent.planks, 6, 0), pulpStack, new ItemStack(Items.bucket), 200, 30, false));
+
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.tree, 1, 1), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(NContent.planks, 6, 1), pulpStack, null, 200, 30, false));
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.tree, 1, 1), IC2Items.getItem("waterCell"), null, new ItemStack(NContent.planks, 6, 1), pulpStack, IC2Items.getItem("emptyCell"), 200, 30, false));
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.tree, 1, 1), new ItemStack(Items.water_bucket), null, new ItemStack(NContent.planks, 6, 1), pulpStack, new ItemStack(Items.bucket), 200, 30, false));
+
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.tree, 1, 2), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(NContent.planks, 6, 2), pulpStack, null, 200, 30, false));
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.tree, 1, 2), IC2Items.getItem("waterCell"), null, new ItemStack(NContent.planks, 6, 2), pulpStack, IC2Items.getItem("emptyCell"), 200, 30, false));
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.tree, 1, 2), new ItemStack(Items.water_bucket), null, new ItemStack(NContent.planks, 6, 2), pulpStack, new ItemStack(Items.bucket), 200, 30, false));
+
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.tree, 1, 3), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(NContent.planks, 6, 5), pulpStack, null, 200, 30, false));
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.tree, 1, 3), IC2Items.getItem("waterCell"), null, new ItemStack(NContent.planks, 6, 5), pulpStack, IC2Items.getItem("emptyCell"), 200, 30, false));
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.tree, 1, 3), new ItemStack(Items.water_bucket), null, new ItemStack(NContent.planks, 6, 5), pulpStack, new ItemStack(Items.bucket), 200, 30, false));
+
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.redwood, 1, 1), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(NContent.planks, 6, 3), pulpStack, null, 200, 30, false));
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.redwood, 1, 1), IC2Items.getItem("waterCell"), null, new ItemStack(NContent.planks, 6, 3), pulpStack, IC2Items.getItem("emptyCell"), 200, 30, false));
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.redwood, 1, 1), new ItemStack(Items.water_bucket), null, new ItemStack(NContent.planks, 6, 3), pulpStack, new ItemStack(Items.bucket), 200, 30, false));
+
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.willow, 1, 0), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(NContent.planks, 6, 10), pulpStack, null, 200, 30, false));
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.willow, 1, 0), IC2Items.getItem("waterCell"), null, new ItemStack(NContent.planks, 6, 10), pulpStack, IC2Items.getItem("emptyCell"), 200, 30, false));
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.willow, 1, 0), new ItemStack(Items.water_bucket), null, new ItemStack(NContent.planks, 6, 10), pulpStack, new ItemStack(Items.bucket), 200, 30, false));
+
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.rareTree, 1, 0), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(NContent.planks, 6, 6), pulpStack, null, 200, 30, false));
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.rareTree, 1, 0), IC2Items.getItem("waterCell"), null, new ItemStack(NContent.planks, 6, 6), pulpStack, IC2Items.getItem("emptyCell"), 200, 30, false));
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.rareTree, 1, 0), new ItemStack(Items.water_bucket), null, new ItemStack(NContent.planks, 6, 6), pulpStack, new ItemStack(Items.bucket), 200, 30, false));
+
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.rareTree, 1, 1), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(NContent.planks, 6, 7), pulpStack, null, 200, 30, false));
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.rareTree, 1, 1), IC2Items.getItem("waterCell"), null, new ItemStack(NContent.planks, 6, 7), pulpStack, IC2Items.getItem("emptyCell"), 200, 30, false));
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.rareTree, 1, 1), new ItemStack(Items.water_bucket), null, new ItemStack(NContent.planks, 6, 7), pulpStack, new ItemStack(Items.bucket), 200, 30, false));
+
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.rareTree, 1, 2), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(NContent.planks, 6, 8), pulpStack, null, 200, 30, false));
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.rareTree, 1, 2), IC2Items.getItem("waterCell"), null, new ItemStack(NContent.planks, 6, 8), pulpStack, IC2Items.getItem("emptyCell"), 200, 30, false));
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.rareTree, 1, 2), new ItemStack(Items.water_bucket), null, new ItemStack(NContent.planks, 6, 8), pulpStack, new ItemStack(Items.bucket), 200, 30, false));
+
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.rareTree, 1, 3), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(NContent.planks, 6, 9), pulpStack, null, 200, 30, false));
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.rareTree, 1, 3), IC2Items.getItem("waterCell"), null, new ItemStack(NContent.planks, 6, 9), pulpStack, IC2Items.getItem("emptyCell"), 200, 30, false));
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.rareTree, 1, 3), new ItemStack(Items.water_bucket), null, new ItemStack(NContent.planks, 6, 9), pulpStack, new ItemStack(Items.bucket), 200, 30, false));
+
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.darkTree, 1, 0), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(NContent.planks, 6, 11), pulpStack, null, 200, 30, false));
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.darkTree, 1, 0), IC2Items.getItem("waterCell"), null, new ItemStack(NContent.planks, 6, 11), pulpStack, IC2Items.getItem("emptyCell"), 200, 30, false));
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.darkTree, 1, 0), new ItemStack(Items.water_bucket), null, new ItemStack(NContent.planks, 6, 11), pulpStack, new ItemStack(Items.bucket), 200, 30, false));
+
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.darkTree, 1, 1), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(NContent.planks, 6, 12), pulpStack, null, 200, 30, false));
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.darkTree, 1, 1), IC2Items.getItem("waterCell"), null, new ItemStack(NContent.planks, 6, 12), pulpStack, IC2Items.getItem("emptyCell"), 200, 30, false));
+            RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(NContent.darkTree, 1, 1), new ItemStack(Items.water_bucket), null, new ItemStack(NContent.planks, 6, 12), pulpStack, new ItemStack(Items.bucket), 200, 30, false));
+        }
     }
 	
 	public static void addUUrecipes() {
