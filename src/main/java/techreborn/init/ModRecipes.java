@@ -1,7 +1,5 @@
 package techreborn.init;
 
-import biomesoplenty.api.content.BOPCBlocks;
-import cpw.mods.fml.common.Loader;
 import ic2.api.item.IC2Items;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
