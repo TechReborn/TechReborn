@@ -25,6 +25,7 @@ public class CompatManager {
 		registerCompact(RecipesNatura.class, "Natura");
 		registerCompact(RecipesBiomesOPlenty.class, "BiomesOPlenty");
 		registerCompact(RecipesThaumcraft.class, "Thaumcraft");
+		registerCompact(RecipesForestry.class, "Forestry");
 	}
 
 	public void registerCompact(Class<?> moduleClass, String modid) {
