@@ -393,6 +393,8 @@ public class ModItems {
 		OreDictionary.registerOre("dustVoidstone", ItemDusts.getDustByName("voidstone"));
 		OreDictionary.registerOre("dustYellowGarnet", ItemDusts.getDustByName("yellowGarnet"));
 		OreDictionary.registerOre("dustZinc", ItemDusts.getDustByName("zinc"));
+		OreDictionary.registerOre("pulpWood", ItemDusts.getDustByName("sawDust"));
+
 
 		// Small Dusts
 		OreDictionary.registerOre("dustSmallAlmandine", ItemDustsSmall.getSmallDustByName("Almandine"));
