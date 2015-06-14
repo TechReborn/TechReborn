@@ -6,8 +6,10 @@ public class LesuNetwork {
 
     public ArrayList<TileLesuStorage> storages = new ArrayList<TileLesuStorage>();
 
+    public TileLesu master;
+
     public void addElement(TileLesuStorage lesuStorage){
-        if(!storages.contains(lesuStorage)){
+        if(!storages.contains(lesuStorage) && storages.size() < 5000){
             storages.add(lesuStorage);
         }
     }

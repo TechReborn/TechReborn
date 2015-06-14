@@ -7,6 +7,7 @@ import ic2.core.util.Util;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import techreborn.blocks.storage.EUStorageTile;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.util.Inventory;
@@ -14,7 +15,7 @@ import techreborn.util.LogHelper;
 
 import java.lang.reflect.Field;
 
-public class TileAesu extends TileEntityElectricBlock implements IWrenchable {
+public class TileAesu extends EUStorageTile implements IWrenchable {
 
     public static final int MAX_OUTPUT = 8192;
     public static final int MAX_STORAGE = 1000000000; //One billion!
@@ -122,18 +123,7 @@ public class TileAesu extends TileEntityElectricBlock implements IWrenchable {
 		if(OUTPUT <= -1){
 			OUTPUT = 0;
 		}
-
-		//TODO make a better way and not use reflection for this.
-		try {
-			Field field = getClass().getSuperclass().getDeclaredField("output");
-			field.setAccessible(true);
-			field.set(this, OUTPUT);
-		} catch (NoSuchFieldException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		}
-
+        output = OUTPUT;
 		LogHelper.debug("Set output to " + getOutput());
 	}
 
