@@ -233,7 +233,7 @@ public class ModBlocks {
 		GameRegistry.registerBlock(Idsu, "idsu");
 		
 		Aesu = new BlockAesu(Material.rock);
-		GameRegistry.registerBlock(Aesu, "aesu");
+		GameRegistry.registerBlock(Aesu, ItemBlockAesu.class,  "aesu");
 		GameRegistry.registerTileEntity(TileAesu.class, "TileAesuTR");
 		
 		Lesu = new BlockLesu(Material.rock);
