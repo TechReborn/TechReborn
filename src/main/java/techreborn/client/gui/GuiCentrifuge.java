@@ -40,15 +40,15 @@ public class GuiCentrifuge extends GuiContainer {
 
         int j = 0;
 
-        if(centrifuge.crafter.currentRecipe != null) {
-            j = this.centrifuge.crafter.currentTickTime * 11 / this.centrifuge.crafter.currentNeededTicks;
+        j = centrifuge.getProgressScaled(11);
+        if(j > 0) {
+            this.drawTexturedModalRect(k + 83, l + 23 + 10 - j, 177, 15 + 10 - j, 10, j);
+            this.drawTexturedModalRect(k + 98, l + 38, 177, 51, j, 10);
+            this.drawTexturedModalRect(k + 83, l + 53, 177, 39, 10, j);
+            this.drawTexturedModalRect(k + 68 + 10 - j, l + 38, 177 + 10 - j, 27, j, 10);
         }
-        this.drawTexturedModalRect(k + 83, l + 23 + 10 - j, 177, 15 + 10 - j, 10, j);
-        this.drawTexturedModalRect(k + 98, l + 38, 177, 51, j, 10);
-        this.drawTexturedModalRect(k + 83, l + 53, 177, 39, 10, j);
-        this.drawTexturedModalRect(k + 68 + 10 - j, l + 38, 177 + 10 - j, 27, j, 10);
 
-        j = (int)this.centrifuge.energy.getEnergyStored() * 12 / this.centrifuge.energy.getCapacity();
+        j = centrifuge.getEnergyScaled(12);
         if(j > 0) {
             this.drawTexturedModalRect(k + 9, l + 32 + 12 - j, 176, 12 - j, 14, j + 2);
         }

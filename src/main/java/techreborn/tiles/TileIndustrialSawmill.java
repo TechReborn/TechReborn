@@ -130,7 +130,7 @@ public class TileIndustrialSawmill extends TileMachineBase implements IWrenchabl
 	public void addWailaInfo(List<String> info)
 	{
 		super.addWailaInfo(info);
-		info.add("Power Stored " + energy.getEnergyStored() +" EU");
+		info.add("Power Stored " + energy.getEnergyStored() + " EU");
 		if(crafter.currentRecipe !=null){
 		info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
 		}
@@ -261,6 +261,17 @@ public class TileIndustrialSawmill extends TileMachineBase implements IWrenchabl
 	public boolean canExtractItem(int slotIndex, ItemStack itemStack, int side)
 	{
         return slotIndex == 2 || slotIndex == 3 || slotIndex == 4;
+	}
+
+	public int getProgressScaled(int scale) {
+		if(crafter.currentTickTime != 0) {
+			return crafter.currentTickTime * scale / crafter.currentNeededTicks;
+		}
+		return 0;
+	}
+
+	public int getEnergyScaled(int scale) {
+		return (int)energy.getEnergyStored() * scale / energy.getCapacity();
 	}
 
 }

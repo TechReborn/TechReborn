@@ -33,12 +33,12 @@ public class GuiGrinder extends GuiContainer{
 
         int j = 0;
 
-        if(grinder.crafter.currentRecipe != null) {
-            j = this.grinder.crafter.currentTickTime * 24 / this.grinder.crafter.currentNeededTicks;
+        j = grinder.getProgressScaled(24);
+        if(j > 0) {
+            this.drawTexturedModalRect(k + 56, l + 38, 176, 14, j + 1, 16);
         }
-        this.drawTexturedModalRect(k + 51, l + 35, 176, 14, j + 1, 16);
 
-        j = (int)this.grinder.energy.getEnergyStored() * 12 / this.grinder.energy.getCapacity();
+        j = grinder.getEnergyScaled(12);
         if(j > 0) {
             this.drawTexturedModalRect(k + 132, l + 63 + 12 - j, 176, 12 - j, 14, j + 2);
         }
