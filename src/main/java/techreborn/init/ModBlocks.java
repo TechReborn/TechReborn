@@ -37,33 +37,9 @@ import techreborn.blocks.storage.BlockIDSU;
 import techreborn.blocks.storage.BlockLesu;
 import techreborn.blocks.storage.BlockLesuStorage;
 import techreborn.itemblocks.*;
-import techreborn.tiles.TileAesu;
-import techreborn.tiles.TileAlloyFurnace;
-import techreborn.tiles.TileAlloySmelter;
-import techreborn.tiles.TileAssemblingMachine;
-import techreborn.tiles.TileBlastFurnace;
-import techreborn.tiles.TileCentrifuge;
-import techreborn.tiles.TileChemicalReactor;
-import techreborn.tiles.TileChunkLoader;
-import techreborn.tiles.TileDieselGenerator;
-import techreborn.tiles.TileDragonEggSiphoner;
-import techreborn.tiles.TileGrinder;
-import techreborn.tiles.TileHeatGenerator;
-import techreborn.tiles.TileImplosionCompressor;
-import techreborn.tiles.TileIndustrialElectrolyzer;
-import techreborn.tiles.TileIndustrialSawmill;
-import techreborn.tiles.TileLathe;
-import techreborn.tiles.TileMachineCasing;
-import techreborn.tiles.TileMatterFabricator;
-import techreborn.tiles.TileMetalShelf;
-import techreborn.tiles.TilePlateCuttingMachine;
-import techreborn.tiles.TileQuantumChest;
-import techreborn.tiles.TileDigitalChest;
-import techreborn.tiles.TileQuantumTank;
-import techreborn.tiles.TileRollingMachine;
-import techreborn.tiles.TileThermalGenerator;
-import techreborn.tiles.TileSemifluidGenerator;
-import techreborn.tiles.TileGasTurbine;
+import techreborn.tiles.*;
+import techreborn.tiles.lesu.TileLesu;
+import techreborn.tiles.lesu.TileLesuStorage;
 import techreborn.util.LogHelper;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -238,6 +214,7 @@ public class ModBlocks {
 		
 		Lesu = new BlockLesu(Material.rock);
 		GameRegistry.registerBlock(Lesu, "lesu");
+        GameRegistry.registerTileEntity(TileLesu.class, "TileLesuTR");
 		
 		Supercondensator = new BlockSupercondensator(Material.rock);
 		GameRegistry.registerBlock(Supercondensator, "supercondensator");
@@ -251,6 +228,7 @@ public class ModBlocks {
 		
 		LesuStorage = new BlockLesuStorage(Material.rock);
 		GameRegistry.registerBlock(LesuStorage, "lesustorage");
+        GameRegistry.registerTileEntity(TileLesuStorage.class, "TileLesuStorageTR");
 		
 		Distillationtower = new BlockDistillationTower(Material.rock);
 		GameRegistry.registerBlock(Distillationtower, "distillationtower");

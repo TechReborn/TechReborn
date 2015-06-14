@@ -1,11 +1,25 @@
 package techreborn.blocks.storage;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 import techreborn.blocks.BlockMachineBase;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import techreborn.init.ModBlocks;
+import techreborn.lib.Location;
+import techreborn.tiles.lesu.TileLesu;
+import techreborn.tiles.lesu.TileLesuStorage;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class BlockLesuStorage extends BlockMachineBase {
 
@@ -44,5 +58,28 @@ public class BlockLesuStorage extends BlockMachineBase {
 						: (side == metadata ? this.iconFront : this.blockIcon));
 
 	}
+
+    @Override
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemstack) {
+        super.onBlockPlacedBy(world, x, y, z, player, itemstack);
+        if(world.getTileEntity(x, y, z) instanceof TileLesuStorage){
+            ((TileLesuStorage) world.getTileEntity(x, y, z)).rebuildNetwork();
+        }
+    }
+
+    @Override
+    public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
+        super.breakBlock(world, x, y, z, block, meta);
+        if(world.getTileEntity(x, y, z) instanceof TileLesuStorage){
+            ((TileLesuStorage) world.getTileEntity(x, y, z)).removeFromNetwork();
+        }
+    }
+
+    @Override
+    public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
+    {
+        return new TileLesuStorage();
+    }
+
 
 }

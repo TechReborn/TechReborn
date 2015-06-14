@@ -7,7 +7,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class Location {
+public class Location implements Comparable<Location> {
 	public int x;
 	public int y;
 	public int z;
