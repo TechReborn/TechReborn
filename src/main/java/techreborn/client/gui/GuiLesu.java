@@ -14,9 +14,6 @@ import techreborn.tiles.lesu.TileLesu;
 
 import java.awt.*;
 
-/**
- * Created by Mark on 14/06/2015.
- */
 public class GuiLesu extends GuiContainer {
 
     private static final ResourceLocation texture = new ResourceLocation(
@@ -34,18 +31,6 @@ public class GuiLesu extends GuiContainer {
         this.ySize = 200;
         aesu = tileaesu;
         this.containerLesu  = (ContainerLesu) this.inventorySlots;
-    }
-
-    @Override
-    public void initGui() {
-        super.initGui();
-        this.buttonList.clear();
-        int k = (this.width - this.xSize) / 2;
-        int l = (this.height - this.ySize) / 2;
-        this.buttonList.add(new GuiButton(0, k + 96, l + 8, 18, 20, "++"));
-        this.buttonList.add(new GuiButton(1, k + 96, l + 8 + 22, 18, 20, "+"));
-        this.buttonList.add(new GuiButton(2, k + 96, l + 8 + (22*2), 18, 20, "-"));
-        this.buttonList.add(new GuiButton(3, k + 96, l + 8 + (22*3), 18, 20, "--"));
     }
 
     @Override
@@ -67,11 +52,5 @@ public class GuiLesu extends GuiContainer {
         this.fontRendererObj.drawString(containerLesu.euChange + " eu change", 10, 40, Color.WHITE.getRGB());
         this.fontRendererObj.drawString(containerLesu.connectedBlocks + " blocks", 10, 50, Color.WHITE.getRGB());
         this.fontRendererObj.drawString(containerLesu.euStorage + " max eu", 10, 60, Color.WHITE.getRGB());
-    }
-
-    @Override
-    protected void actionPerformed(GuiButton button) {
-        super.actionPerformed(button);
-        PacketHandler.sendPacketToServer(new PacketAesu(button.id, aesu));
     }
 }

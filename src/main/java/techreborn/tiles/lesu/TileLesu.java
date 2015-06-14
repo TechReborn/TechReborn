@@ -1,22 +1,36 @@
 package techreborn.tiles.lesu;
 
 
+import ic2.api.tile.IWrenchable;
 import net.minecraftforge.common.util.ForgeDirection;
-import techreborn.tiles.TileAesu;
+import techreborn.blocks.storage.EUStorageTile;
+import techreborn.config.ConfigTechReborn;
+import techreborn.util.Inventory;
 
 import java.util.ArrayList;
 
-public class TileLesu extends TileAesu {
+public class TileLesu extends EUStorageTile implements IWrenchable {
 
-    public int baseEU = 1000000000;
-    public int storgeBlockSize = 100000;
+    public int baseEU = 0;
+    public int storgeBlockSize = 1000000;
 
     private ArrayList<LesuNetwork> countedNetworks = new ArrayList<LesuNetwork>();
     public int connectedBlocks = 0;
     public int currentBlocks = 0;
 
+    private double euLastTick = 0;
+    private double euChange;
+    private int ticks;
+
+    public Inventory inventory = new Inventory(2, "TileAesu", 64);
+
+    public TileLesu() {
+        super(5, 0, 0);
+    }
+
     @Override
     public void updateEntity() {
+        super.updateEntity();
         if(worldObj.isRemote){
             return;
         }
@@ -38,6 +52,33 @@ public class TileLesu extends TileAesu {
         }
         if(currentBlocks != connectedBlocks){
             maxStorage = (connectedBlocks * storgeBlockSize) + baseEU;
+            output = connectedBlocks;
         }
+
+        if(ticks == ConfigTechReborn.aveargeEuOutTickTime){
+            euChange = -1;
+            ticks = 0;
+
+        } else {
+            ticks ++;
+            euChange += energy - euLastTick;
+            if(euLastTick == energy){
+                euChange = 0;
+            }
+        }
+
+        euLastTick = energy;
+    }
+
+    @Override
+    public String getInventoryName() {
+        return "Lesu";
+    }
+
+    public double getEuChange(){
+        if(euChange == -1){
+            return -1;
+        }
+        return (euChange / ticks);
     }
 }
