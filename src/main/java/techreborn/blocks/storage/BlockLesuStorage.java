@@ -69,11 +69,13 @@ public class BlockLesuStorage extends BlockMachineBase {
 
     @Override
     public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
-        super.breakBlock(world, x, y, z, block, meta);
-        if(world.getTileEntity(x, y, z) instanceof TileLesuStorage){
+        if(world.getTileEntity(x, y, z) instanceof TileLesuStorage) {
             ((TileLesuStorage) world.getTileEntity(x, y, z)).removeFromNetwork();
         }
+        super.breakBlock(world, x, y, z, block, meta);
     }
+
+
 
     @Override
     public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
