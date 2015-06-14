@@ -24,7 +24,6 @@ import techreborn.items.ItemRods;
 import techreborn.items.ItemUUmatter;
 import techreborn.items.ItemLapotronicOrb;
 import techreborn.items.ItemUpgrade;
-import techreborn.items.armor.ItemGravityChest;
 import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
 import techreborn.items.tools.ItemAdvancedDrill;
@@ -50,7 +49,6 @@ public class ModItems {
 	public static Item rockCutter;
 	public static Item lithiumBatpack;
 	public static Item lapotronpack;
-	public static Item gravityChest;
 	public static Item omniTool;
 	public static Item advancedDrill;
 	public static Item lapotronicOrb;
@@ -129,8 +127,6 @@ public class ModItems {
 		GameRegistry.registerItem(omniTool, "omniTool");
 		advancedDrill = new ItemAdvancedDrill();
 		GameRegistry.registerItem(advancedDrill, "advancedDrill");
-		gravityChest = new ItemGravityChest(ArmorMaterial.DIAMOND, 7, 1);
-		GameRegistry.registerItem(gravityChest, "gravitychestplate");
 		manuel = new ItemTechPda();
 		GameRegistry.registerItem(manuel, "techmanuel");
 		uuMatter = new ItemUUmatter();
