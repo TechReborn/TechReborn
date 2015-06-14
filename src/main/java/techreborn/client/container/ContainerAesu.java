@@ -21,6 +21,7 @@ public class ContainerAesu extends TechRebornContainer {
 
 	public int euOut;
 	public int storedEu;
+    public int euChange;
 
 	public ContainerAesu(TileAesu tileaesu,
 			EntityPlayer player)
@@ -61,6 +62,9 @@ public class ContainerAesu extends TechRebornContainer {
 			if(this.storedEu != tile.energy){
 				icrafting.sendProgressBarUpdate(this, 1, (int) tile.energy);
 			}
+            if(this.euChange != tile.getEuChange()){
+                icrafting.sendProgressBarUpdate(this, 2, (int) tile.getEuChange());
+            }
 		}
 	}
 
@@ -69,6 +73,7 @@ public class ContainerAesu extends TechRebornContainer {
 		super.addCraftingToCrafters(crafting);
 		crafting.sendProgressBarUpdate(this, 0, tile.output);
 		crafting.sendProgressBarUpdate(this, 1, (int) tile.energy);
+        crafting.sendProgressBarUpdate(this, 2 , (int) tile.getEuChange());
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -78,7 +83,9 @@ public class ContainerAesu extends TechRebornContainer {
 			this.euOut = value;
 		} else if(id == 1){
 			this.storedEu = value;
-		}
+		} else if(id == 2){
+            this.euChange = value;
+        }
 	}
 
 }

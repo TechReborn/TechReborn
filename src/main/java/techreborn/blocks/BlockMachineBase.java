@@ -2,13 +2,13 @@ package techreborn.blocks;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockContainer;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -131,6 +131,11 @@ public class BlockMachineBase extends BlockContainer {
 
             if (itemStack != null && itemStack.stackSize > 0)
             {
+                if(itemStack.getItem() instanceof ItemBlock){
+                    if(((ItemBlock) itemStack.getItem()).field_150939_a instanceof BlockLiquid || ((ItemBlock) itemStack.getItem()).field_150939_a instanceof BlockStaticLiquid || ((ItemBlock) itemStack.getItem()).field_150939_a instanceof BlockDynamicLiquid){
+                        return;
+                    }
+                }
                 Random rand = new Random();
 
                 float dX = rand.nextFloat() * 0.8F + 0.1F;

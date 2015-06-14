@@ -157,7 +157,8 @@ public class TileDieselGenerator extends TileEntity implements IWrenchable,
 	public void updateEntity()
 	{
 		super.updateEntity();
-		FluidUtils.drainContainers(this, inventory, 0, 1);
+        if(!worldObj.isRemote)
+		    FluidUtils.drainContainers(this, inventory, 0, 1);
 		energySource.updateEntity();
 		if (tank.getFluidAmount() > 0
 				&& energySource.getCapacity() - energySource.getEnergyStored() >= euTick)

@@ -16,6 +16,7 @@ public class TileAesu extends TileEntityElectricBlock implements IWrenchable {
     public static final int MAX_STORAGE = 1000000000; //One billion!
 	public Inventory inventory = new Inventory(2, "TileAesu", 64);
 	private int OUTPUT = 64; //The current output
+    private double euLastTick = 0;
 	
 	public TileAesu()
 	{
@@ -26,7 +27,7 @@ public class TileAesu extends TileEntityElectricBlock implements IWrenchable {
 	public void updateEntity()
 	{
 		super.updateEntity();
-
+        euLastTick = energy;
 	}
 
 	@Override
@@ -114,5 +115,10 @@ public class TileAesu extends TileEntityElectricBlock implements IWrenchable {
 
 		LogHelper.debug("Set output to " + getOutput());
 	}
+
+    public double getEuChange(){
+        return energy - euLastTick;
+    }
+
 
 }
