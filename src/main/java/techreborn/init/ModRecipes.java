@@ -32,7 +32,6 @@ public class ModRecipes {
 		addShaplessRecipes();
 		addShappedRecipes();
 		addSmeltingRecipes();
-		addMachineRecipes();
         addAlloySmelterRecipes();
         addLatheRecipes();
         addPlateCuttingMachineRecipes();
@@ -144,33 +143,9 @@ public class ModRecipes {
 		LogHelper.info("Smelting Recipes Added");
 	}
 
-	public static void addMachineRecipes() {
-
-		TechRebornAPI.addRollingMachinceRecipe(new ItemStack(Blocks.furnace, 4), "ccc", "c c", "ccc", 'c', Blocks.cobblestone);
-		TechRebornAPI.registerBlastFurnaceRecipe(new BlastFurnaceRecipe(new ItemStack(Items.apple), new ItemStack(Items.ender_pearl), new ItemStack(Items.golden_apple), new ItemStack(Items.diamond), 120, 1000));
-
-		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(new ItemStack(Blocks.netherrack, 4), new ItemStack(Blocks.diamond_block, 1), new ItemStack(ModItems.bucketTritium), null, 120, 5));
-
-		RecipeHandler.addRecipe(new AssemblingMachineRecipe(new ItemStack(Items.coal), new ItemStack(Blocks.sand), new ItemStack(Items.diamond), 120, 5));
-		RecipeHandler.addRecipe(new LatheRecipe(new ItemStack(Items.coal), new ItemStack(Items.diamond), 120, 5));
-		RecipeHandler.addRecipe(new PlateCuttingMachineRecipe(new ItemStack(Items.coal), new ItemStack(Items.diamond), 120, 5));
-		//TODO
-		RecipeHandler.addRecipe(new ChemicalReactorRecipe(new ItemStack(Items.coal), new ItemStack(Blocks.sand), new ItemStack(Items.diamond), 120, 5));
-
-		RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 1), null, new FluidStack(ModFluids.fluidMercury, 500), IC2Items.getItem("iridiumOre"), new ItemStack(ModItems.smallDusts, 6, 39), new ItemStack(ModItems.dusts, 6, 58), null, 400, 5));
-        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 1), new ItemStack(ModItems.cells, 1, 16), null, IC2Items.getItem("iridiumOre"), new ItemStack(ModItems.smallDusts, 6, 39), new ItemStack(ModItems.dusts, 6, 58), IC2Items.getItem("cell"), 400, 5));
-
-		RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.coal), null, new ItemStack(Items.diamond), new ItemStack(Items.emerald), new ItemStack(Items.apple), new ItemStack(Items.arrow), 1, 10));
-
-		LogHelper.info("Machine Recipes Added");
-	}
-
 	public static void addHammerRecipes(){
 		ItemStack hammerIron = new ItemStack(ModItems.hammerIron, 1, OreDictionary.WILDCARD_VALUE);
 		ItemStack hammerDiamond = new ItemStack(ModItems.hammerDiamond, 1, OreDictionary.WILDCARD_VALUE);
-		
-		// :( I cant do this 
-//	    List<ItemStack> anyhammer = Arrays.asList(hammerIron, hammerDiamond);
 
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.plate, 1, 13), hammerIron, new ItemStack(Items.iron_ingot));
 
