@@ -18,6 +18,7 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -43,6 +44,36 @@ public class ChargeHud
 	{
 		EntityPlayer player = mc.thePlayer;
 		ItemStack stack = player.getCurrentArmor(2);
+		ItemStack stack2 = mc.thePlayer.inventory.getCurrentItem();
+		
+		if(stack2 != null)
+		{
+			if ((stack2.getItem() instanceof IElectricItem))
+			{
+				double MaxCharge = ((IElectricItem) stack2.getItem()).getMaxCharge(stack2);
+				double CurrentCharge = ElectricItem.manager.getCharge(stack2);
+				Color color = Color.GREEN;
+				double quarter = MaxCharge / 4;
+				double half = MaxCharge / 2;
+		        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		        GL11.glEnable(32826);
+		        RenderHelper.enableStandardItemLighting();
+		        RenderHelper.enableGUIStandardItemLighting();
+		        RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack2, 0, 20);
+				RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, stack2, 0, 20);
+				if(CurrentCharge <= half)
+				{
+					color = Color.YELLOW;
+				}
+				if(CurrentCharge <= quarter)
+				{
+					color = Color.DARK_RED;
+				}
+				mc.fontRenderer.drawString(color + Double.toString(CurrentCharge) + "/" + Double.toString(MaxCharge), 20, 25, 0);
+
+			}
+		}
+		
 		if(stack != null)
 		{
 			if((stack.getItem() instanceof IElectricItem) && ConfigTechReborn.ShowChargeHud)
