@@ -136,6 +136,9 @@ public class ConfigTechReborn {
     public static boolean UUrecipesTungstenDust;
     public static boolean UUrecipesTitaniumDust;
     public static boolean UUrecipesAluminumDust;
+    
+    // Client
+    public static boolean ShowChargeHud;
 
     public static Configuration config;
 
@@ -1034,6 +1037,15 @@ public class ConfigTechReborn {
                         true,
                         StatCollector
                                 .translateToLocal("config.techreborn.allow.UUrecipesAluminumDust.tooltip"))
+                .getBoolean(true);
+        
+        ShowChargeHud = config
+                .get(CATEGORY_POWER,
+                        StatCollector
+                                .translateToLocal("config.techreborn.showChargehud"),
+                        true,
+                        StatCollector
+                                .translateToLocal("config.techreborn.showChargehud.tooltip"))
                 .getBoolean(true);
 
 
