@@ -3,6 +3,7 @@ package techreborn.client.hud;
 import org.lwjgl.opengl.GL11;
 
 import codechicken.lib.colour.ColourARGB;
+import techreborn.client.keybindings.KeyBindings;
 import techreborn.config.ConfigTechReborn;
 import techreborn.util.Color;
 import ic2.api.item.ElectricItem;
@@ -28,11 +29,24 @@ public class ChargeHud
 {
 	public static final ChargeHud instance = new ChargeHud();
 	private static Minecraft mc = Minecraft.getMinecraft();
+	public static KeyBindings key;
+	public static boolean showHud = true;
+
 	
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent(priority = EventPriority.LOW)
 	public void onRenderExperienceBar(RenderGameOverlayEvent event) 
 	{
+		if (key.config.isPressed())
+		{
+			if (showHud == true)
+			{
+				showHud = false;
+			}
+			else if (showHud == false)
+			showHud = true;
+		}
+
 		if (event.isCancelable() || event.type != ElementType.ALL)
 			return;
 		
@@ -45,62 +59,64 @@ public class ChargeHud
 		EntityPlayer player = mc.thePlayer;
 		ItemStack stack = player.getCurrentArmor(2);
 		ItemStack stack2 = mc.thePlayer.inventory.getCurrentItem();
-		
-		if(stack2 != null)
+		if (showHud == true)
 		{
-			if ((stack2.getItem() instanceof IElectricItem))
+			if(stack2 != null)
 			{
-				double MaxCharge = ((IElectricItem) stack2.getItem()).getMaxCharge(stack2);
-				double CurrentCharge = ElectricItem.manager.getCharge(stack2);
-				Color color = Color.GREEN;
-				double quarter = MaxCharge / 4;
-				double half = MaxCharge / 2;
-		        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		        GL11.glEnable(32826);
-		        RenderHelper.enableStandardItemLighting();
-		        RenderHelper.enableGUIStandardItemLighting();
-		        RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack2, 0, 20);
-				RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, stack2, 0, 20);
-				if(CurrentCharge <= half)
+				if ((stack2.getItem() instanceof IElectricItem))
 				{
-					color = Color.YELLOW;
+					double MaxCharge = ((IElectricItem) stack2.getItem()).getMaxCharge(stack2);
+					double CurrentCharge = ElectricItem.manager.getCharge(stack2);
+					Color color = Color.GREEN;
+					double quarter = MaxCharge / 4;
+					double half = MaxCharge / 2;
+			        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+			        GL11.glEnable(32826);
+			        RenderHelper.enableStandardItemLighting();
+			        RenderHelper.enableGUIStandardItemLighting();
+			        RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack2, 0, 20);
+					RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, stack2, 0, 20);
+					if(CurrentCharge <= half)
+					{
+						color = Color.YELLOW;
+					}
+					if(CurrentCharge <= quarter)
+					{
+						color = Color.DARK_RED;
+					}
+					mc.fontRenderer.drawString(color + Double.toString(CurrentCharge) + "/" + Double.toString(MaxCharge), 20, 25, 0);
+	
 				}
-				if(CurrentCharge <= quarter)
-				{
-					color = Color.DARK_RED;
-				}
-				mc.fontRenderer.drawString(color + Double.toString(CurrentCharge) + "/" + Double.toString(MaxCharge), 20, 25, 0);
-
 			}
-		}
-		
-		if(stack != null)
-		{
-			if((stack.getItem() instanceof IElectricItem) && ConfigTechReborn.ShowChargeHud)
+			
+			if(stack != null)
 			{
-				double MaxCharge = ((IElectricItem) stack.getItem()).getMaxCharge(stack);
-				double CurrentCharge = ElectricItem.manager.getCharge(stack);
-				Color color = Color.GREEN;
-				double quarter = MaxCharge / 4;
-				double half = MaxCharge / 2;
-		        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		        GL11.glEnable(32826);
-		        RenderHelper.enableStandardItemLighting();
-		        RenderHelper.enableGUIStandardItemLighting();
-				//Render the stack
-		        RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack, 0, 0);
-				//Render Overlay
-				RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, stack, 0, 0);
-				//Get the color depending on current charge
-				if(CurrentCharge <= half)
+				if((stack.getItem() instanceof IElectricItem) && ConfigTechReborn.ShowChargeHud)
 				{
-					color = Color.YELLOW;
+					double MaxCharge = ((IElectricItem) stack.getItem()).getMaxCharge(stack);
+					double CurrentCharge = ElectricItem.manager.getCharge(stack);
+					Color color = Color.GREEN;
+					double quarter = MaxCharge / 4;
+					double half = MaxCharge / 2;
+			        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+			        GL11.glEnable(32826);
+			        RenderHelper.enableStandardItemLighting();
+			        RenderHelper.enableGUIStandardItemLighting();
+					//Render the stack
+			        RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack, 0, 0);
+					//Render Overlay
+					RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, stack, 0, 0);
+					//Get the color depending on current charge
+					if(CurrentCharge <= half)
+					{
+						color = Color.YELLOW;
+					}
+					if(CurrentCharge <= quarter)
+					{
+						color = Color.DARK_RED;
+					}
+					mc.fontRenderer.drawString(color + Double.toString(CurrentCharge) + "/" + Double.toString(MaxCharge), 20, 5, 0);
 				}
-				if(CurrentCharge <= quarter)
-				{
-					color = Color.DARK_RED;
-				}
-				mc.fontRenderer.drawString(color + Double.toString(CurrentCharge) + "/" + Double.toString(MaxCharge), 20, 5, 0);
 			}
 		}
 	}

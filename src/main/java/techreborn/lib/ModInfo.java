@@ -8,4 +8,10 @@ public class ModInfo {
 	public static final String SERVER_PROXY_CLASS = "techreborn.proxies.CommonProxy";
 	public static final String CLIENT_PROXY_CLASS = "techreborn.proxies.ClientProxy";
 	public static final String GUI_FACTORY_CLASS = "techreborn.config.TechRebornGUIFactory";
+	
+	public static final class Keys 
+	{
+		public static final String CATEGORY = "keys.techreborn.category";
+		public static final String CONFIG = "keys.techreborn.config";
+	}
 }
