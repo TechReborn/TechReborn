@@ -4,6 +4,7 @@ import ic2.api.tile.IWrenchable;
 import ic2.core.block.wiring.TileEntityElectricBlock;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.util.Inventory;
 import techreborn.util.LogHelper;
@@ -17,6 +18,8 @@ public class TileAesu extends TileEntityElectricBlock implements IWrenchable {
 	public Inventory inventory = new Inventory(2, "TileAesu", 64);
 	private int OUTPUT = 64; //The current output
     private double euLastTick = 0;
+    private double euChange;
+    private int ticks;
 	
 	public TileAesu()
 	{
@@ -27,6 +30,13 @@ public class TileAesu extends TileEntityElectricBlock implements IWrenchable {
 	public void updateEntity()
 	{
 		super.updateEntity();
+        if(ticks == ConfigTechReborn.aveargeEuOutTickTime){
+            euChange = -1;
+            ticks = 0;
+        } else {
+            ticks ++;
+            euChange += energy - euLastTick;
+        }
         euLastTick = energy;
 	}
 
@@ -117,7 +127,10 @@ public class TileAesu extends TileEntityElectricBlock implements IWrenchable {
 	}
 
     public double getEuChange(){
-        return energy - euLastTick;
+        if(euChange == -1){
+            return -1;
+        }
+        return (euChange / ticks);
     }
 
 

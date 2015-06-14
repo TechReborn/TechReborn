@@ -760,6 +760,8 @@ config.techreborn.centrifugeMaxCharge=Maximum charge for Centrifuge
 config.techreborn.centrifugeMaxCharge.tooltip=
 config.techreborn.thermalGeneratorMaxCharge=Maximum charge for Thermal Generator
 config.techreborn.thermalGeneratorMaxCharge.tooltip=
+config.techreborn.aveargeEuOutTickTim=Eu out time
+config.techreborn.aveargeEuOutTickTime.tooltip=How often in ticks to update the eu out
 
 #ConfigGui
 config.techreborn.category.general=General Configs

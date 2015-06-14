@@ -68,6 +68,7 @@ public class ConfigTechReborn {
     public static int CentrifugeInputTick;
     public static int DragoneggsiphonerOutput;
     public static int heatGeneratorOutput;
+    public static int aveargeEuOutTickTime;
     // Charge
     public static int AdvancedDrillCharge;
     public static int LapotronPackCharge;
@@ -558,6 +559,14 @@ public class ConfigTechReborn {
                         1000000,
                         StatCollector
                                 .translateToLocal("config.techreborn.thermalGeneratorMaxCharge.tooltip"))
+                .getInt();
+        aveargeEuOutTickTime = config
+                .get(CATEGORY_POWER,
+                        StatCollector
+                                .translateToLocal("config.techreborn.aveargeEuOutTickTime"),
+                        100,
+                        StatCollector
+                                .translateToLocal("config.techreborn.aveargeEuOutTickTime.tooltip"))
                 .getInt();
 
         // Teir

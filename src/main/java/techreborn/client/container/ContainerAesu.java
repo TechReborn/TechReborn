@@ -62,7 +62,7 @@ public class ContainerAesu extends TechRebornContainer {
 			if(this.storedEu != tile.energy){
 				icrafting.sendProgressBarUpdate(this, 1, (int) tile.energy);
 			}
-            if(this.euChange != tile.getEuChange()){
+            if(this.euChange != tile.getEuChange() && tile.getEuChange() != -1){
                 icrafting.sendProgressBarUpdate(this, 2, (int) tile.getEuChange());
             }
 		}
