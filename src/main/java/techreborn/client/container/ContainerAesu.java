@@ -29,8 +29,8 @@ public class ContainerAesu extends TechRebornContainer {
 		this.player = player;
 
 		// input
-		this.addSlotToContainer(new Slot(tileaesu.inventory, 0, 128, 14));
-		this.addSlotToContainer(new Slot(tileaesu.inventory, 1, 128, 50));
+		this.addSlotToContainer(new Slot(tileaesu.inventory, 0, 116, 23));
+		this.addSlotToContainer(new Slot(tileaesu.inventory, 1, 116, 59));
 
 		int i;
 
@@ -39,14 +39,14 @@ public class ContainerAesu extends TechRebornContainer {
 			for (int j = 0; j < 9; ++j)
 			{
 				this.addSlotToContainer(new Slot(player.inventory, j + i * 9
-						+ 9, 8 + j * 18, 84 + i * 18));
+						+ 9, 7 + j * 16, 84 + i * 18 + 30));
 			}
 		}
 
 		for (i = 0; i < 9; ++i)
 		{
-			this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18,
-					142));
+			this.addSlotToContainer(new Slot(player.inventory, i, 7 + i * 16,
+					142 + 30));
 		}
 	}
 
