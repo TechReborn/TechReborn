@@ -52,22 +52,18 @@ public class ChargeHud
 				Color color = Color.GREEN;
 				double quarter = MaxCharge / 4;
 				double half = MaxCharge / 2;
-				double threeQuarters = MaxCharge / 4 * 3; 
 		        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		        GL11.glEnable(32826);
 		        RenderHelper.enableStandardItemLighting();
 		        RenderHelper.enableGUIStandardItemLighting();
 				//Render the stack
 		        RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack, 0, 0);
-				RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, stack, 0, 0);
 				//Render Overlay
-				if(CurrentCharge <= threeQuarters)
-				{
-					color = Color.YELLOW;
-				}
+				RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, stack, 0, 0);
+				//Get the color depending on current charge
 				if(CurrentCharge <= half)
 				{
-					color = Color.RED;
+					color = Color.YELLOW;
 				}
 				if(CurrentCharge <= quarter)
 				{
