@@ -11,6 +11,7 @@ import techreborn.client.container.ContainerBlastFurnace;
 import techreborn.client.container.ContainerCentrifuge;
 import techreborn.client.container.ContainerChemicalReactor;
 import techreborn.client.container.ContainerChunkloader;
+import techreborn.client.container.ContainerDestructoPack;
 import techreborn.client.container.ContainerDieselGenerator;
 import techreborn.client.container.ContainerGrinder;
 import techreborn.client.container.ContainerImplosionCompressor;
@@ -34,6 +35,7 @@ import techreborn.client.gui.GuiBlastFurnace;
 import techreborn.client.gui.GuiCentrifuge;
 import techreborn.client.gui.GuiChemicalReactor;
 import techreborn.client.gui.GuiChunkLoader;
+import techreborn.client.gui.GuiDestructoPack;
 import techreborn.client.gui.GuiDieselGenerator;
 import techreborn.client.gui.GuiGrinder;
 import techreborn.client.gui.GuiImplosionCompressor;
@@ -79,7 +81,8 @@ public class GuiHandler implements IGuiHandler {
 	public static final int semifluidGeneratorID = 21;
 	public static final int gasTurbineID = 22;
 	public static final int digitalChestID = 23;
-
+	public static final int destructoPackID = 25;
+	
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world,
 			int x, int y, int z)
@@ -179,6 +182,8 @@ public class GuiHandler implements IGuiHandler {
 		} else if (ID == pdaID)
 		{
 			return null;
+		} else if (ID == destructoPackID) {
+			return new ContainerDestructoPack(player);
 		}
 
 		return null;
@@ -283,6 +288,8 @@ public class GuiHandler implements IGuiHandler {
 		} else if (ID == pdaID)
 		{
 			return new GuiPda(player);
+		} else if (ID == destructoPackID) {
+			return new GuiDestructoPack(new ContainerDestructoPack(player));
 		}
 		return null;
 	}

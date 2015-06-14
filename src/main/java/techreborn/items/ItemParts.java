@@ -4,9 +4,13 @@ import java.util.List;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
+import techreborn.Core;
+import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModItems;
 
@@ -94,5 +98,15 @@ public class ItemParts extends Item {
 		{
 			list.add(new ItemStack(item, 1, meta));
 		}
+	}
+	
+	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
+		switch (itemStack.getItemDamage()) {
+			case 37: // Destructo pack
+				player.openGui(Core.INSTANCE, GuiHandler.destructoPackID, world,
+						(int) player.posX, (int) player.posY, (int) player.posY);
+				break;
+		}
+		return itemStack;
 	}
 }
