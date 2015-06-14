@@ -2,6 +2,7 @@ package techreborn.client.hud;
 
 import org.lwjgl.opengl.GL11;
 
+import techreborn.config.ConfigTechReborn;
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
 import ic2.api.item.IElectricItemManager;
@@ -41,7 +42,7 @@ public class ChargeHud
 		ItemStack stack = player.getCurrentArmor(2);;
 		if(stack != null)
 		{
-			if((stack.getItem() instanceof IElectricItem))
+			if((stack.getItem() instanceof IElectricItem) && ConfigTechReborn.ShowChargeHud)
 			{
 				double MaxCharge = ((IElectricItem) stack.getItem()).getMaxCharge(stack);
 				double CurrentCharge = ElectricItem.manager.getCharge(stack);
