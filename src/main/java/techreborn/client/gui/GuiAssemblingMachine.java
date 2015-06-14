@@ -42,14 +42,14 @@ public class GuiAssemblingMachine extends GuiContainer {
 
 		int j = 0;
 
-        if(this.assemblingmachine.crafter.currentTickTime != 0){
-            j = this.assemblingmachine.crafter.currentTickTime * 20 / this.assemblingmachine.crafter.currentNeededTicks;
-        }
-        this.drawTexturedModalRect(k + 86, l + 34, 176, 14, j + 1, 16);
-
-        j = (int) (this.assemblingmachine.energy.getEnergyStored() * 12 / this.assemblingmachine.energy.getCapacity());
+		j = assemblingmachine.getProgressScaled(20);
 		if(j > 0) {
-            this.drawTexturedModalRect(k + 56, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);
+			this.drawTexturedModalRect(k + 86, l + 34, 176, 14, j + 1, 16);
+		}
+
+		j = assemblingmachine.getEnergyScaled(12);
+		if(j > 0) {
+			this.drawTexturedModalRect(k + 56, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);
 		}
 	}
 

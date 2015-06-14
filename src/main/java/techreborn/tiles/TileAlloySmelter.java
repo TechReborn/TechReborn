@@ -200,4 +200,15 @@ public class TileAlloySmelter extends TileMachineBase implements IWrenchable, IE
 	{
         return slotIndex == 2;
 	}
+
+	public int getProgressScaled(int scale) {
+		if(crafter.currentTickTime != 0) {
+			return crafter.currentTickTime * scale / crafter.currentNeededTicks;
+		}
+		return 0;
+	}
+
+    public int getEnergyScaled(int scale) {
+        return (int)energy.getEnergyStored() * scale / energy.getCapacity();
+    }
 }

@@ -241,4 +241,15 @@ public class TileGrinder extends TileMachineBase implements IWrenchable, IEnergy
 	{
         return slotIndex == 2 || slotIndex == 3 || slotIndex == 4 || slotIndex == 5;
 	}
+
+	public int getProgressScaled(int scale) {
+		if(crafter.currentTickTime != 0) {
+			return crafter.currentTickTime * scale / crafter.currentNeededTicks;
+		}
+		return 0;
+	}
+
+	public int getEnergyScaled(int scale) {
+		return (int)energy.getEnergyStored() * scale / energy.getCapacity();
+	}
 }

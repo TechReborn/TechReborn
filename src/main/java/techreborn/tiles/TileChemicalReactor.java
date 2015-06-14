@@ -209,4 +209,15 @@ public class TileChemicalReactor extends TileMachineBase implements IWrenchable,
 //		}
 //	}
 
+	public int getProgressScaled(int scale) {
+		if(crafter.currentTickTime != 0) {
+			return crafter.currentTickTime * scale / crafter.currentNeededTicks;
+		}
+		return 0;
+	}
+
+	public int getEnergyScaled(int scale) {
+		return (int)energy.getEnergyStored() * scale / energy.getCapacity();
+	}
+
 }

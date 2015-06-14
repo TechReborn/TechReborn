@@ -40,12 +40,12 @@ public class GuiAlloySmelter extends GuiContainer {
 
 		int j = 0;
 
-        if(alloysmelter.crafter.currentTickTime != 0) {
-            j = this.alloysmelter.crafter.currentTickTime * 24 / this.alloysmelter.crafter.currentNeededTicks;
-        }
-		this.drawTexturedModalRect(k + 79, l + 34, 176, 14, j + 1, 16);
+        j = alloysmelter.getProgressScaled(24);
+		if(j > 0) {
+			this.drawTexturedModalRect(k + 79, l + 34, 176, 14, j + 1, 16);
+		}
 
-        j = (int)this.alloysmelter.energy.getEnergyStored() * 12 / this.alloysmelter.energy.getCapacity();
+        j = alloysmelter.getEnergyScaled(12);
         if(j > 0) {
             this.drawTexturedModalRect(k + 56, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);
         }

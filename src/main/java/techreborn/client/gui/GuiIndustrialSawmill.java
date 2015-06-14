@@ -46,15 +46,17 @@ public class GuiIndustrialSawmill extends GuiContainer {
 
         int j = 0;
 
-        if(sawmill.crafter.currentTickTime != 0) {
-            j = this.sawmill.crafter.currentTickTime * 24 / this.sawmill.crafter.currentNeededTicks;
-        }
-        this.drawTexturedModalRect(k + 57, l + 36, 176, 11, j - 1, 13);
-
-        j = (int)this.sawmill.energy.getEnergyStored() * 12 / this.sawmill.energy.getCapacity();
+        j = sawmill.getProgressScaled(24);
         if(j > 0) {
-            this.drawTexturedModalRect(k + 36, l + 66 + 12 - j, 176, 12 - j, 14, j + 2);
+            this.drawTexturedModalRect(k + 56, l + 38, 176, 14, j - 1, 11);
         }
+
+
+		j = sawmill.getEnergyScaled(12);
+		if(j > 0) {
+			this.drawTexturedModalRect(k + 33, l + 65 + 12 - j, 176, 12 - j, 14, j + 2);
+		}
+
 	}
 
 	protected void drawGuiContainerForegroundLayer(int p_146979_1_,
