@@ -121,24 +121,23 @@ public class RecipeCrafter {
                     for (int i = 0; i < recipe.getOutputsSize(); i++) {//This checks to see if it can fit all of the outputs
                         if (!canFitStack(recipe.getOutput(i), outputSlots[i], recipe.useOreDic())) {
                             canGiveInvAll = false;
-                            break;
+                            return;
                         }
                     }
                     if (canGiveInvAll) {
                         setCurrentRecipe(recipe);//Sets the current recipe then syncs
                         this.currentNeededTicks = (int)(currentRecipe.tickTime() * (1.0 - speedMultiplier));
-                        this.currentTickTime = 0;
+                        this.currentTickTime = -1;
 						syncIsActive();
                     } else {
-                        this.currentTickTime = -1;
-                        syncIsActive();
+                        this.currentTickTime = -0;
                     }
                 }
             }
         } else {
             if (!hasAllInputs()) {//If it doesn't have all the inputs reset
                 currentRecipe = null;
-                currentTickTime = -1;
+                currentTickTime = 0;
 				syncIsActive();
             }
             if (currentRecipe != null && currentTickTime >= currentNeededTicks) {//If it has reached the recipe tick time
@@ -274,7 +273,7 @@ public class RecipeCrafter {
 
 
     private boolean isActiveServer() {
-        return currentRecipe != null && energy.getEnergyStored() >= currentRecipe.euPerTick();
+        return currentRecipe != null && energy.getEnergyStored() >= currentRecipe.euPerTick() && currentTickTime != -1;
     }
 
     public boolean isActive() {
