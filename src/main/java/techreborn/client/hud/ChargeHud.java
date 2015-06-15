@@ -39,7 +39,7 @@ public class ChargeHud
 	{
 		if (key.config.isPressed())
 		{
-			if (showHud == true)
+			if (showHud)
 			{
 				showHud = false;
 			}
@@ -84,7 +84,7 @@ public class ChargeHud
 					{
 						color = Color.DARK_RED;
 					}
-					mc.fontRenderer.drawString(color + Double.toString(CurrentCharge) + "/" + Double.toString(MaxCharge), 20, 25, 0);
+					mc.fontRenderer.drawString(color + Integer.toString((int)CurrentCharge) + "/" + Integer.toString((int)MaxCharge), 20, 25, 0);
 	
 				}
 			}
