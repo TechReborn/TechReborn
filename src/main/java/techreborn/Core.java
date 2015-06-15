@@ -89,7 +89,7 @@ public class Core {
 		TRAchievements.init();
 		// Multiblock events
 		MinecraftForge.EVENT_BUS.register(new MultiblockEventHandler());
-		// IESU manager
+		// IDSU manager
 		MinecraftForge.EVENT_BUS.register(new IDSUManager());
 		FMLCommonHandler.instance().bus().register(new MultiblockServerTickHandler());
 

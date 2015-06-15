@@ -22,7 +22,7 @@ import java.util.Map;
 public class IDSUManager {
 
 
-	public static ArrayList<IDSUWorldSaveData> worldData = new ArrayList<IDSUWorldSaveData>();
+	public static ArrayList<IDSUWorldSaveData> worldData = new ArrayList<>();
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void worldSave(WorldEvent.Save event){
@@ -65,7 +65,7 @@ public class IDSUManager {
 
 	public class IDSUWorldSaveData {
 
-		public HashMap<Integer, IDSUValueSaveData> idsuValues = new HashMap<Integer, IDSUValueSaveData>();
+		public HashMap<Integer, IDSUValueSaveData> idsuValues = new HashMap<>();
 
 		public World world;
 
@@ -78,7 +78,7 @@ public class IDSUManager {
 		public IDSUWorldSaveData(World world) {
 			this.world = world;
 			this.saveHandler = world.getSaveHandler();
-			folder = new File(saveHandler.getWorldDirectory(), "iesuData");
+			folder = new File(saveHandler.getWorldDirectory(), "idsuData");
 			file = new File(folder,"idsu.json");
 			idsuValues.put(0, new IDSUValueSaveData());
 		}
