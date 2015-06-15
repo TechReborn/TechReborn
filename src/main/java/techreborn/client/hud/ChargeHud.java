@@ -39,12 +39,7 @@ public class ChargeHud
 	{
 		if (key.config.isPressed())
 		{
-			if (showHud)
-			{
-				showHud = false;
-			}
-			else if (showHud == false)
-			showHud = true;
+			showHud = !showHud;
 		}
 
 		if (event.isCancelable() || event.type != ElementType.ALL)
@@ -59,7 +54,7 @@ public class ChargeHud
 		EntityPlayer player = mc.thePlayer;
 		ItemStack stack = player.getCurrentArmor(2);
 		ItemStack stack2 = mc.thePlayer.inventory.getCurrentItem();
-		if (showHud == true)
+		if (showHud)
 		{
 			if(stack2 != null)
 			{
