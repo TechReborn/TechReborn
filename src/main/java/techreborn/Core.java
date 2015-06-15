@@ -18,6 +18,7 @@ import techreborn.init.ModRecipes;
 import techreborn.lib.ModInfo;
 import techreborn.packets.PacketHandler;
 import techreborn.proxies.CommonProxy;
+import techreborn.tiles.iesu.IDSUManager;
 import techreborn.util.LogHelper;
 import techreborn.world.TROreGen;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
@@ -88,6 +89,8 @@ public class Core {
 		TRAchievements.init();
 		// Multiblock events
 		MinecraftForge.EVENT_BUS.register(new MultiblockEventHandler());
+		// IESU manager
+		MinecraftForge.EVENT_BUS.register(new IDSUManager());
 		FMLCommonHandler.instance().bus().register(new MultiblockServerTickHandler());
 
 		LogHelper.info("Initialization Complete");
