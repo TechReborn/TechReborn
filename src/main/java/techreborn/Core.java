@@ -90,7 +90,8 @@ public class Core {
 		// Multiblock events
 		MinecraftForge.EVENT_BUS.register(new MultiblockEventHandler());
 		// IDSU manager
-		MinecraftForge.EVENT_BUS.register(new IDSUManager());
+		IDSUManager.INSTANCE = new IDSUManager();
+		MinecraftForge.EVENT_BUS.register(IDSUManager.INSTANCE);
 		FMLCommonHandler.instance().bus().register(new MultiblockServerTickHandler());
 
 		LogHelper.info("Initialization Complete");

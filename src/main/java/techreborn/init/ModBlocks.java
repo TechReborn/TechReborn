@@ -38,6 +38,7 @@ import techreborn.blocks.storage.BlockLesu;
 import techreborn.blocks.storage.BlockLesuStorage;
 import techreborn.itemblocks.*;
 import techreborn.tiles.*;
+import techreborn.tiles.iesu.TileIDSU;
 import techreborn.tiles.lesu.TileLesu;
 import techreborn.tiles.lesu.TileLesuStorage;
 import techreborn.util.LogHelper;
@@ -207,6 +208,7 @@ public class ModBlocks {
 		
 		Idsu = new BlockIDSU(Material.rock);
 		GameRegistry.registerBlock(Idsu, "idsu");
+		GameRegistry.registerTileEntity(TileIDSU.class, "TileIDSUTR");
 		
 		Aesu = new BlockAesu(Material.rock);
 		GameRegistry.registerBlock(Aesu, ItemBlockAesu.class,  "aesu");

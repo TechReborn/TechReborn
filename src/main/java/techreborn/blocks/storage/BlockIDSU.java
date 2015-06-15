@@ -2,10 +2,16 @@ package techreborn.blocks.storage;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 import techreborn.blocks.BlockMachineBase;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import techreborn.tiles.iesu.IDSUManager;
+import techreborn.tiles.iesu.TileIDSU;
 
 public class BlockIDSU extends BlockMachineBase {
 
@@ -44,4 +50,22 @@ public class BlockIDSU extends BlockMachineBase {
 
 	}
 
+	@Override
+	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
+		return new TileIDSU();
+	}
+
+
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitx, float hity, float hitz) {
+		if(world.isRemote){
+			return true;
+		}
+		if(player.isSneaking()){
+			player.addChatComponentMessage(new ChatComponentText(IDSUManager.INSTANCE.getSaveDataForWorld(world, 0).getStoredPower() + " eu"));
+		} else {
+			IDSUManager.INSTANCE.getSaveDataForWorld(world, 0).addEnergy(150);
+		}
+		return true;
+	}
 }
