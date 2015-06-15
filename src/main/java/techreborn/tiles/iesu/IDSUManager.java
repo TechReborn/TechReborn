@@ -22,7 +22,7 @@ import java.util.Map;
 public class IDSUManager {
 
 
-	public static ArrayList<IDSUWorldSaveData> worldData = new ArrayList<>();
+	public static ArrayList<IDSUWorldSaveData> worldData = new ArrayList<IDSUWorldSaveData>();
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void worldSave(WorldEvent.Save event){
@@ -65,7 +65,7 @@ public class IDSUManager {
 
 	public class IDSUWorldSaveData {
 
-		public HashMap<Integer, IDSUValueSaveData> idsuValues = new HashMap<>();
+		public HashMap<Integer, IDSUValueSaveData> idsuValues = new HashMap<Integer, IDSUValueSaveData>();
 
 		public World world;
 
