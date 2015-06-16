@@ -8,6 +8,7 @@ import techreborn.client.gui.*;
 import techreborn.pda.GuiPda;
 import techreborn.tiles.*;
 import cpw.mods.fml.common.network.IGuiHandler;
+import techreborn.tiles.iesu.TileIDSU;
 import techreborn.tiles.lesu.TileLesu;
 
 public class GuiHandler implements IGuiHandler {
@@ -38,6 +39,7 @@ public class GuiHandler implements IGuiHandler {
 	public static final int digitalChestID = 23;
 	public static final int destructoPackID = 25;
     public static final int lesuID = 26;
+	public static final int idsuID = 27;
 	
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world,
@@ -142,7 +144,9 @@ public class GuiHandler implements IGuiHandler {
 			return new ContainerDestructoPack(player);
 		} else if (ID == lesuID) {
             return new ContainerLesu((TileLesu) world.getTileEntity(x, y, z), player);
-        }
+        } else if (ID == idsuID) {
+			return new ContainerIDSU((TileIDSU) world.getTileEntity(x, y, z), player);
+		}
 
 		return null;
 	}
@@ -250,7 +254,9 @@ public class GuiHandler implements IGuiHandler {
 			return new GuiDestructoPack(new ContainerDestructoPack(player));
 		} else if (ID == lesuID) {
             return new GuiLesu(player, (TileLesu)world.getTileEntity(x, y, z));
-        }
+        } else if (ID == idsuID) {
+			return new GuiIDSU(player, (TileIDSU)world.getTileEntity(x, y, z));
+		}
 		return null;
 	}
 }
