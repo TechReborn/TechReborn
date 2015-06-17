@@ -1,12 +1,8 @@
 package techreborn.client.container;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
-import techreborn.tiles.TileAesu;
-import techreborn.tiles.iesu.TileIDSU;
+import techreborn.tiles.idsu.TileIDSU;
 
 
 public class ContainerIDSU extends TechRebornContainer {

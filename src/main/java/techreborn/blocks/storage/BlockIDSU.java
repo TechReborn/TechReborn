@@ -1,10 +1,10 @@
 package techreborn.blocks.storage;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import techreborn.Core;
@@ -12,8 +12,9 @@ import techreborn.blocks.BlockMachineBase;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import techreborn.client.GuiHandler;
-import techreborn.tiles.iesu.IDSUManager;
-import techreborn.tiles.iesu.TileIDSU;
+import techreborn.packets.PacketHandler;
+import techreborn.tiles.idsu.IDSUManager;
+import techreborn.tiles.idsu.TileIDSU;
 
 public class BlockIDSU extends BlockMachineBase {
 
@@ -62,6 +63,9 @@ public class BlockIDSU extends BlockMachineBase {
 	public boolean onBlockActivated(World world, int x, int y, int z,
 									EntityPlayer player, int side, float hitX, float hitY, float hitZ)
 	{
+		if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER){
+			PacketHandler.sendPacketToPlayer(IDSUManager.INSTANCE.getPacket(world, player), player);
+		}
 		if (!player.isSneaking())
 			player.openGui(Core.INSTANCE, GuiHandler.idsuID, world, x, y,
 					z);

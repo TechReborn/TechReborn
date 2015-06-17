@@ -1,14 +1,13 @@
 package techreborn.client;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import techreborn.client.container.*;
 import techreborn.client.gui.*;
 import techreborn.pda.GuiPda;
 import techreborn.tiles.*;
 import cpw.mods.fml.common.network.IGuiHandler;
-import techreborn.tiles.iesu.TileIDSU;
+import techreborn.tiles.idsu.TileIDSU;
 import techreborn.tiles.lesu.TileLesu;
 
 public class GuiHandler implements IGuiHandler {

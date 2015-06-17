@@ -38,7 +38,7 @@ import techreborn.blocks.storage.BlockLesu;
 import techreborn.blocks.storage.BlockLesuStorage;
 import techreborn.itemblocks.*;
 import techreborn.tiles.*;
-import techreborn.tiles.iesu.TileIDSU;
+import techreborn.tiles.idsu.TileIDSU;
 import techreborn.tiles.lesu.TileLesu;
 import techreborn.tiles.lesu.TileLesuStorage;
 import techreborn.util.LogHelper;

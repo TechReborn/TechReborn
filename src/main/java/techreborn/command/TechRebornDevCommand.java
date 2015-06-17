@@ -3,8 +3,11 @@ package techreborn.command;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentText;
 import techreborn.api.recipe.RecipeHandler;
+import techreborn.packets.PacketHandler;
+import techreborn.tiles.idsu.IDSUManager;
 
 public class TechRebornDevCommand extends CommandBase {
 
@@ -28,11 +31,13 @@ public class TechRebornDevCommand extends CommandBase {
 		if (args.length == 0) {
 			sender.addChatMessage(new ChatComponentText("You need to use arguments"));
 		} else if ("help".equals(args[0])) {
-			sender.addChatMessage(new ChatComponentText("recipes - Reloads all of the machine recipes"));
+			sender.addChatMessage(new ChatComponentText("recipes - Shows size of the recipe array"));
+			sender.addChatMessage(new ChatComponentText("idsu - Resyncs the idsu server instance to the senders client"));
 		} else if ("recipes".equals(args[0])) {
 			sender.addChatMessage(new ChatComponentText(RecipeHandler.recipeList.size() + " recipes loaded"));
+		} else if ("idsu".equals(args[0])){
+			PacketHandler.sendPacketToPlayer(IDSUManager.INSTANCE.getPacket(sender.getEntityWorld(), (EntityPlayer) sender), (EntityPlayer) sender);
 		}
-
 	}
 }
 

@@ -18,7 +18,7 @@ import techreborn.init.ModRecipes;
 import techreborn.lib.ModInfo;
 import techreborn.packets.PacketHandler;
 import techreborn.proxies.CommonProxy;
-import techreborn.tiles.iesu.IDSUManager;
+import techreborn.tiles.idsu.IDSUManager;
 import techreborn.util.LogHelper;
 import techreborn.world.TROreGen;
 import cpw.mods.fml.client.event.ConfigChangedEvent;

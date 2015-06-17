@@ -39,7 +39,7 @@ public class ElementTextField extends ElementBase
     protected boolean smartCaret = true;
     protected boolean smartCaretCase = true;
 
-    protected boolean enableStencil = true;
+    protected boolean enableStencil = false;
 
     public ElementTextField(GuiBase gui, int posX, int posY, int width, int height)
     {

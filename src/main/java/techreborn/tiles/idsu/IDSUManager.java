@@ -1,14 +1,17 @@
-package techreborn.tiles.iesu;
+package techreborn.tiles.idsu;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraftforge.event.world.WorldEvent;
-import techreborn.util.LogHelper;
+import techreborn.packets.PacketSendIDSUManager;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -16,9 +19,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.TreeMap;
 
 
@@ -29,6 +30,7 @@ public class IDSUManager {
 
 	public HashMap<World, IDSUWorldSaveData> worldData = new HashMap<World, IDSUWorldSaveData>();
 
+	//@SideOnly(Side.SERVER)
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void worldSave(WorldEvent.Save event){
 		if(event.world != null && event.world.getSaveHandler() != null && event.world.getSaveHandler().getWorldDirectory() != null){
@@ -38,6 +40,7 @@ public class IDSUManager {
 		}
 	}
 
+	//@SideOnly(Side.SERVER)
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void worldLoad(WorldEvent.Load event){
 		if(event.world != null && event.world.getSaveHandler() != null && event.world.getSaveHandler().getWorldDirectory() != null){
@@ -51,6 +54,7 @@ public class IDSUManager {
 		}
 	}
 
+	//@SideOnly(Side.SERVER)
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void worldClosed(WorldEvent.Unload event){
 		if(event.world != null && event.world.getSaveHandler() != null && event.world.getSaveHandler().getWorldDirectory() != null){
@@ -73,6 +77,48 @@ public class IDSUManager {
 		}
 		//LogHelper.fatal("FAILED TO GET SAVEDATA!!! This should NEVER have been called, report to TechReborn DEV!");
 		//return new IDSUValueSaveData();
+	}
+
+
+	public IDSUWorldSaveData getWorldDataFormWorld(World world){
+		//System.out.println(world);
+		if(worldData.containsKey(world)){
+			return worldData.get(world);
+		} else {
+			IDSUWorldSaveData worldSaveData = new IDSUWorldSaveData(world);
+			worldData.put(world ,worldSaveData);
+			worldSaveData.load();
+			return  worldSaveData;
+		}
+	}
+
+	//@SideOnly(Side.SERVER)
+	public PacketSendIDSUManager getPacket(World world, EntityPlayer player){
+		Gson gson = new Gson();
+		String json = gson.toJson(getWorldDataFormWorld(world).idsuValues);
+		if(getWorldDataFormWorld(world).idsuValues.isEmpty()){
+			json = "EMPTY";
+		}
+		return new PacketSendIDSUManager(json, player);
+	}
+
+	//@SideOnly(Side.CLIENT)
+	public void loadFromString(String json, World world){
+		if(json.equals("EMPTY")){
+			return;
+		}
+		IDSUWorldSaveData worldSaveData;
+		if(worldData.containsKey(world)){
+			worldSaveData = worldData.get(world);
+		} else {
+			worldSaveData = new IDSUWorldSaveData(world);
+			worldData.put(world ,worldSaveData);
+		}
+		Gson gson = new Gson();
+		Type typeOfHashMap = new TypeToken<TreeMap<Integer, IDSUValueSaveData>>() { }.getType();
+		worldSaveData.idsuValues.clear();
+		worldSaveData.idsuValues = gson.fromJson(json, typeOfHashMap);
+		//System.out.println(world);
 	}
 
 
@@ -105,6 +151,7 @@ public class IDSUManager {
 			}
 		}
 
+		//@SideOnly(Side.SERVER)
 		public void load(){
 			if(!file.exists()){
 				return;
@@ -120,6 +167,7 @@ public class IDSUManager {
 			}
 		}
 
+		//@SideOnly(Side.SERVER)
 		public void save(){
 			if(idsuValues.isEmpty()){
 				return;
