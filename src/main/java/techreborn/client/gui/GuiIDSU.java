@@ -8,6 +8,7 @@ import net.minecraft.world.World;
 import techreborn.client.container.ContainerIDSU;
 import techreborn.cofhLib.gui.GuiBase;
 import techreborn.cofhLib.gui.element.ElementListBox;
+import techreborn.cofhLib.gui.element.ElementTextField;
 import techreborn.cofhLib.gui.element.ElementTextFieldLimited;
 import techreborn.cofhLib.gui.element.listbox.ListBoxElementText;
 import techreborn.packets.PacketHandler;
@@ -15,6 +16,7 @@ import techreborn.packets.PacketIdsu;
 import techreborn.tiles.idsu.ClientSideIDSUManager;
 import techreborn.tiles.idsu.IDSUManager;
 import techreborn.tiles.idsu.TileIDSU;
+import techreborn.util.LogHelper;
 
 public class GuiIDSU extends GuiBase {
 
@@ -26,6 +28,7 @@ public class GuiIDSU extends GuiBase {
 	ElementListBox listBox;
 
 	ElementTextFieldLimited idFeild;
+	ElementTextField nameFeild;
 
 
 	public GuiIDSU(EntityPlayer player,
@@ -83,6 +86,9 @@ public class GuiIDSU extends GuiBase {
 
 		addElement(idFeild);
 
+		nameFeild = new ElementTextField(this, 10, 100, 50, 10);
+
+		addElement(nameFeild);
 
 
 	}
@@ -90,7 +96,28 @@ public class GuiIDSU extends GuiBase {
 	@Override
 	protected void actionPerformed(GuiButton button) {
 		super.actionPerformed(button);
-		PacketHandler.sendPacketToServer(new PacketIdsu(button.id, idsu, Integer.parseInt(idFeild.getText()), "TestName"));
+		if(isInteger(idFeild.getText())){
+			PacketHandler.sendPacketToServer(new PacketIdsu(button.id, idsu, Integer.parseInt(idFeild.getText()), nameFeild.getText()));
+		} else {
+			LogHelper.info("There was an issue in the gui!, Please report this to the TechReborn Devs");
+		}
+
+	}
+
+	public static boolean isInteger(String s) {
+		return isInteger(s,10);
+	}
+
+	public static boolean isInteger(String s, int radix) {
+		if(s.isEmpty()) return false;
+		for(int i = 0; i < s.length(); i++) {
+			if(i == 0 && s.charAt(i) == '-') {
+				if(s.length() == 1) return false;
+				else continue;
+			}
+			if(Character.digit(s.charAt(i),radix) < 0) return false;
+		}
+		return true;
 	}
 
 }

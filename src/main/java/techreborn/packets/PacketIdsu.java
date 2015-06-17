@@ -26,9 +26,6 @@ public class PacketIdsu extends SimplePacket {
 		this.buttonID = buttonID;
 		this.channel = channel;
 		this.newName = newName;
-		if(this.newName.equals("")){
-			this.newName = "BLANK!!!";
-		}
 	}
 
 	@Override
