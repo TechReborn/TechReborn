@@ -11,6 +11,7 @@ import org.lwjgl.opengl.GL11;
 import techreborn.client.container.ContainerIDSU;
 import techreborn.cofhLib.gui.GuiBase;
 import techreborn.cofhLib.gui.element.ElementListBox;
+import techreborn.cofhLib.gui.element.ElementTextFieldLimited;
 import techreborn.cofhLib.gui.element.listbox.ListBoxElementText;
 import techreborn.tiles.iesu.TileIDSU;
 
@@ -25,6 +26,8 @@ public class GuiIDSU extends GuiBase {
 	ContainerIDSU containerIDSU;
 
 	ElementListBox listBox;
+
+	ElementTextFieldLimited idFeild;
 
 
 	public GuiIDSU(EntityPlayer player,
@@ -52,11 +55,16 @@ public class GuiIDSU extends GuiBase {
 		this.buttonList.add(new GuiButton(1, k + 96, l + 8 + 22, 18, 20, "+"));
 		this.buttonList.add(new GuiButton(2, k + 96, l + 8 + (22*2), 18, 20, "-"));
 		this.buttonList.add(new GuiButton(3, k + 96, l + 8 + (22*3), 18, 20, "--"));
-		listBox = new ElementListBox(this, k + 20, l + 20, 60, 60);
+		listBox = new ElementListBox(this, 20, 20, 60, 60);
 		for (int i = 0; i < 15; i++) {
 			listBox.add(new ListBoxElementText("Name " + i));
 		}
 		addElement(listBox);
+
+		idFeild = new ElementTextFieldLimited(this, 20, 10, 20, 10);
+		idFeild.setFilter("1234567890", false);
+		addElement(idFeild);
+
 	}
 
 }

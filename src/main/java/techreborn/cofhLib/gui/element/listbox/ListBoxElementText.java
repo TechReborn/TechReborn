@@ -39,7 +39,7 @@ public class ListBoxElementText implements IListBoxElement
     public void draw(ElementListBox listBox, int x, int y, int backColor, int textColor)
     {
 
-        listBox.getFontRenderer().drawStringWithShadow(_text, x, y, textColor);
+        Minecraft.getMinecraft().fontRenderer.drawString(_text, x, y, textColor);
     }
 
 }
