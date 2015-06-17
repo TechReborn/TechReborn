@@ -114,7 +114,7 @@ public class BlockOre extends Block {
 		}
 
 		ArrayList<ItemStack> block = new ArrayList<ItemStack>();
-		block.add(new ItemStack(Item.getItemFromBlock(this)));
+		block.add(new ItemStack(Item.getItemFromBlock(this), 1, metadata));
 		return  block;
 	}
 		
