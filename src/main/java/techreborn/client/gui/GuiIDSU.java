@@ -48,13 +48,14 @@ public class GuiIDSU extends GuiBase {
 	@Override
 	public void initGui() {
 		super.initGui();
-		this.buttonList.clear();
-		int k = (this.width - this.xSize) / 2;
-		int l = (this.height - this.ySize) / 2;
-		this.buttonList.add(new GuiButton(0, k + 96, l + 8, 18, 20, "++"));
-		this.buttonList.add(new GuiButton(1, k + 96, l + 8 + 22, 18, 20, "+"));
-		this.buttonList.add(new GuiButton(2, k + 96, l + 8 + (22*2), 18, 20, "-"));
-		this.buttonList.add(new GuiButton(3, k + 96, l + 8 + (22*3), 18, 20, "--"));
+//		this.buttonList.clear();
+//		int k = (this.width - this.xSize) / 2;
+//		int l = (this.height - this.ySize) / 2;
+//		this.buttonList.add(new GuiButton(0, k + 96, l + 8, 18, 20, "++"));
+//		this.buttonList.add(new GuiButton(1, k + 96, l + 8 + 22, 18, 20, "+"));
+//		this.buttonList.add(new GuiButton(2, k + 96, l + 8 + (22*2), 18, 20, "-"));
+//		this.buttonList.add(new GuiButton(3, k + 96, l + 8 + (22*3), 18, 20, "--"));
+		
 		listBox = new ElementListBox(this, 20, 20, 60, 60);
 		for (int i = 0; i < 15; i++) {
 			listBox.add(new ListBoxElementText("Name " + i));
