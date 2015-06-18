@@ -16,7 +16,7 @@ import java.util.List;
 public abstract class ElementBase
 {
 
-    protected GuiBase gui;
+    public GuiBase gui;
     protected ResourceLocation texture;
 
     protected int posX;

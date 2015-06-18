@@ -1,12 +1,15 @@
 package techreborn.cofhLib.gui;
 
-import com.pahimar.ee3.reference.Textures;
+import techreborn.lib.ModInfo;
 
 public class GuiProps
 {
 
+
+	public static final String RESOURCE_PREFIX = ModInfo.MOD_ID + ":";
+
     /* GUI */
-    public static final String PATH_GFX = Textures.RESOURCE_PREFIX + "textures/";
+    public static final String PATH_GFX = RESOURCE_PREFIX + "textures/";
     public static final String PATH_ARMOR = PATH_GFX + "armor/";
     public static final String PATH_GUI = PATH_GFX + "gui/";
     public static final String PATH_RENDER = PATH_GFX + "blocks/";

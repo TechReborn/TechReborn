@@ -23,7 +23,7 @@ public class ElementListBox extends ElementBase {
 	private final int _marginRight = 2;
 	private final int _marginBottom = 2;
 
-	private final List<IListBoxElement> _elements = new LinkedList<IListBoxElement>();
+	public List<IListBoxElement> _elements = new LinkedList<IListBoxElement>();
 
 	private int _firstIndexDisplayed;
 	private int _selectedIndex;
