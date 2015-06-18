@@ -2,14 +2,12 @@ package techreborn.client.hud;
 
 import org.lwjgl.opengl.GL11;
 
-import codechicken.lib.colour.ColourARGB;
 import techreborn.client.keybindings.KeyBindings;
 import techreborn.config.ConfigTechReborn;
 import techreborn.util.Color;
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
 import ic2.api.item.IElectricItemManager;
-import ic2.core.item.ElectricItemManager;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
