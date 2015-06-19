@@ -108,7 +108,7 @@ public class ChargeHud
 					{
 						color = Color.DARK_RED;
 					}
-					mc.fontRenderer.drawString(color + Double.toString(CurrentCharge) + "/" + Double.toString(MaxCharge), 20, 5, 0);
+					mc.fontRenderer.drawString(color + Integer.toString((int)CurrentCharge) + "/" + Integer.toString((int)MaxCharge), 20, 5, 0);
 				}
 			}
 		}
