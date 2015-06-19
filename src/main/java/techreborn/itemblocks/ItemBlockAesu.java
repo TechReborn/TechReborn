@@ -35,7 +35,7 @@ public class ItemBlockAesu extends ItemBlock {
         {
             if (stack.getTagCompound().getCompoundTag("tileEntity") != null)
                 list.add(stack.getTagCompound().getCompoundTag("tileEntity")
-                        .getDouble("energy")
+                        .getInteger("energy")
                         + " eu");
         }
     }

@@ -58,9 +58,9 @@ public class GuiAesu extends GuiContainer {
 			int p_146979_2_)
 	{
 		this.fontRendererObj.drawString(StatCollector.translateToLocal("tile.techreborn.aesu.name"), 40, 10, Color.WHITE.getRGB());
-		this.fontRendererObj.drawString(containerAesu.euOut + " eu/tick", 10, 20, Color.WHITE.getRGB());
-		this.fontRendererObj.drawString(containerAesu.storedEu + " eu", 10, 30, Color.WHITE.getRGB());
-        this.fontRendererObj.drawString(containerAesu.euChange + " eu change", 10, 40, Color.WHITE.getRGB());
+		this.fontRendererObj.drawString((int)containerAesu.euOut + " eu/tick", 10, 20, Color.WHITE.getRGB());
+		this.fontRendererObj.drawString((int)containerAesu.storedEu + " eu", 10, 30, Color.WHITE.getRGB());
+        this.fontRendererObj.drawString((int)containerAesu.euChange + " eu change", 10, 40, Color.WHITE.getRGB());
 	}
 
 	@Override

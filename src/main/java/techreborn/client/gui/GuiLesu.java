@@ -47,10 +47,10 @@ public class GuiLesu extends GuiContainer {
                                                    int p_146979_2_)
     {
         this.fontRendererObj.drawString(StatCollector.translateToLocal("tile.techreborn.lesu.name"), 40, 10, Color.WHITE.getRGB());
-        this.fontRendererObj.drawString(containerLesu.euOut + " eu/tick", 10, 20, Color.WHITE.getRGB());
-        this.fontRendererObj.drawString(containerLesu.storedEu + " eu", 10, 30, Color.WHITE.getRGB());
-        this.fontRendererObj.drawString(containerLesu.euChange + " eu change", 10, 40, Color.WHITE.getRGB());
-        this.fontRendererObj.drawString(containerLesu.connectedBlocks + " blocks", 10, 50, Color.WHITE.getRGB());
-        this.fontRendererObj.drawString(containerLesu.euStorage + " max eu", 10, 60, Color.WHITE.getRGB());
+        this.fontRendererObj.drawString((int)containerLesu.euOut + " eu/tick", 10, 20, Color.WHITE.getRGB());
+        this.fontRendererObj.drawString((int)containerLesu.storedEu + " eu", 10, 30, Color.WHITE.getRGB());
+        this.fontRendererObj.drawString((int)containerLesu.euChange + " eu change", 10, 40, Color.WHITE.getRGB());
+        this.fontRendererObj.drawString((int)containerLesu.connectedBlocks + " blocks", 10, 50, Color.WHITE.getRGB());
+//        this.fontRendererObj.drawString((int)containerLesu.euStorage + " max eu", 10, 60, Color.WHITE.getRGB());
     }
 }
