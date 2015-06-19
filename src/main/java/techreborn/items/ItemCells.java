@@ -1,26 +1,44 @@
 package techreborn.items;
 
+import java.util.Iterator;
 import java.util.List;
 
+import ic2.api.item.IC2Items;
+import ic2.core.Ic2Items;
+import ic2.core.item.ItemFluidCell;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModItems;
+import techreborn.util.LogHelper;
 
+@Deprecated
 public class ItemCells extends ItemTR {	
 	public static ItemStack getCellByName(String name, int count)
 	{
-		int index = -1;
-		for (int i = 0; i < types.length; i++) {
-			if (types[i].equals(name)) {
-				index = i;
-				break;
-			}
-		}
-		return new ItemStack(ModItems.cells, count, index);
+        ItemFluidCell itemFluidCell = (ItemFluidCell) Ic2Items.FluidCell.getItem();
+        Fluid fluid = FluidRegistry.getFluid("fluid" + name.toLowerCase());
+        if(fluid != null){
+            ItemStack stack = Ic2Items.FluidCell.copy();
+            itemFluidCell.fill(stack, new FluidStack(fluid.getID(), 2147483647), true);
+            return stack;
+        } else {
+            LogHelper.error("Could not find " + "fluid" + name + " in the fluid registry!");
+        }
+        int index = -1;
+        for (int i = 0; i < types.length; i++) {
+            if (types[i].equals(name)) {
+                index = i;
+                break;
+            }
+        }
+        return new ItemStack(ModItems.cells, count, index);
 	}
 	
 	public static ItemStack getCellByName(String name)
