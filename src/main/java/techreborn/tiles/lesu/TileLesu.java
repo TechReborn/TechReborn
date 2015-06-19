@@ -61,6 +61,9 @@ public class TileLesu extends EUStorageTile implements IWrenchable {
 
         } else {
             ticks ++;
+            if(euChange == -1){
+                euChange = 0;
+            }
             euChange += energy - euLastTick;
             if(euLastTick == energy){
                 euChange = 0;
@@ -77,7 +80,7 @@ public class TileLesu extends EUStorageTile implements IWrenchable {
 
     public double getEuChange(){
         if(euChange == -1){
-            return -1;
+            return 0;
         }
         return (euChange / ticks);
     }
