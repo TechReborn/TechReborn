@@ -35,15 +35,11 @@ public abstract class EUStorageTile extends TileEntityInventory implements IEner
     private boolean isEmittingRedstone = false;
     private int redstoneUpdateInhibit = 5;
     public boolean addedToEnergyNet = false;
-    public final InvSlotCharge chargeSlot;
-    public final InvSlotDischarge dischargeSlot;
 
     public EUStorageTile(int tier1, int output1, int maxStorage1) {
         this.tier = tier1;
         this.output = output1;
         this.maxStorage = maxStorage1;
-        this.chargeSlot = new InvSlotCharge(this, 0, tier1);
-        this.dischargeSlot = new InvSlotDischarge(this, 1, tier1, InvSlot.InvSide.BOTTOM);
     }
 
     public float getChargeLevel() {
@@ -93,19 +89,6 @@ public abstract class EUStorageTile extends TileEntityInventory implements IEner
     public void updateEntity() {
         super.updateEntity();
         boolean needsInvUpdate = false;
-        double shouldEmitRedstone;
-        if(this.energy >= 1.0D) {
-            shouldEmitRedstone = this.chargeSlot.charge(this.energy);
-            this.energy -= shouldEmitRedstone;
-            needsInvUpdate = shouldEmitRedstone > 0.0D;
-        }
-
-        if(this.getDemandedEnergy() > 0.0D && !this.dischargeSlot.isEmpty()) {
-            shouldEmitRedstone = this.dischargeSlot.discharge((double)this.maxStorage - this.energy, false);
-            this.energy += shouldEmitRedstone;
-            needsInvUpdate = shouldEmitRedstone > 0.0D;
-        }
-
         if(this.redstoneMode == 5 || this.redstoneMode == 6) {
             this.hasRedstone = this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord);
         }
