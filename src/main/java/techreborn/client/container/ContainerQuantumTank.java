@@ -3,6 +3,7 @@ package techreborn.client.container;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import techreborn.client.SlotFake;
+import techreborn.client.SlotFluid;
 import techreborn.client.SlotOutput;
 import techreborn.tiles.TileQuantumTank;
 
@@ -17,7 +18,7 @@ public class ContainerQuantumTank extends TechRebornContainer {
 		this.tileQuantumTank = tileQuantumTank;
 		this.player = player;
 
-		this.addSlotToContainer(new Slot(tileQuantumTank.inventory, 0, 80, 17));
+		this.addSlotToContainer(new SlotFluid(tileQuantumTank.inventory, 0, 80, 17));
 		this.addSlotToContainer(new SlotOutput(tileQuantumTank.inventory, 1,
 				80, 53));
 		this.addSlotToContainer(new SlotFake(tileQuantumTank.inventory, 2, 59,
