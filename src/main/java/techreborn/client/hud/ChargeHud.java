@@ -77,7 +77,7 @@ public class ChargeHud
 					{
 						color = Color.DARK_RED;
 					}
-					mc.fontRenderer.drawString(color + Integer.toString((int)CurrentCharge) + "/" + Integer.toString((int)MaxCharge), 20, 25, 0);
+					mc.fontRenderer.drawString(color + GetEUString(CurrentCharge) + "/" + GetEUString(MaxCharge), 20, 25, 0);
 	
 				}
 			}
@@ -108,9 +108,20 @@ public class ChargeHud
 					{
 						color = Color.DARK_RED;
 					}
-					mc.fontRenderer.drawString(color + Integer.toString((int)CurrentCharge) + "/" + Integer.toString((int)MaxCharge), 20, 5, 0);
+					mc.fontRenderer.drawString(color + GetEUString(CurrentCharge) + "/" + GetEUString(MaxCharge), 20, 5, 0);
 				}
 			}
+		}
+	}
+
+	private String GetEUString(double euValue)
+	{
+		if (euValue > 1000) {
+			double tenX = Math.round(euValue / 100);
+			return Double.toString(tenX / 10.0).concat(" k EU");
+		}
+		else {
+			return Double.toString(Math.floor(euValue)).concat(" EU");
 		}
 	}
 }
