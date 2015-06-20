@@ -248,7 +248,7 @@ public class GuiHandler implements IGuiHandler {
 					(TileChemicalReactor) world.getTileEntity(x, y, z));	
 		} else if (ID == pdaID)
 		{
-			return new GuiPda(player);
+			return new GuiPda(player, new ContainerPda(player));
 		} else if (ID == destructoPackID) {
 			return new GuiDestructoPack(new ContainerDestructoPack(player));
 		} else if (ID == lesuID) {
