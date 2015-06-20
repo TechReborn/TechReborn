@@ -3,12 +3,12 @@ package techreborn.blocks.fluid;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.fluids.Fluid;
 
-public class BlockFluidLithium extends BlockFluidBase{
+public class BlockFluidTechReborn extends BlockFluidBase{
 
-	public BlockFluidLithium(Fluid fluid, Material material)
+	public BlockFluidTechReborn(Fluid fluid, Material material, String name)
 	{
 		super(fluid, material);
-		setBlockName("techreborn.lithium");
+		setBlockName(name);
 	}
 
 }
