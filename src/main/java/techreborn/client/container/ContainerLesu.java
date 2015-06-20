@@ -5,6 +5,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
+import techreborn.config.ConfigTechReborn;
 import techreborn.tiles.lesu.TileLesu;
 
 public class ContainerLesu extends TechRebornContainer {
@@ -96,7 +97,7 @@ public class ContainerLesu extends TechRebornContainer {
         } else if(id == 4){
             this.euStorage = value;
         }
-        this.euStorage = (connectedBlocks * 100000) + 1000000000;
+        this.euStorage = ((connectedBlocks + 1) * ConfigTechReborn.lesuStoragePerBlock);
     }
 
 }

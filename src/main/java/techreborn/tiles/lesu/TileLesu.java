@@ -11,9 +11,6 @@ import java.util.ArrayList;
 
 public class TileLesu extends EUStorageTile implements IWrenchable {
 
-    public int baseEU = 0;
-    public int storgeBlockSize = 1000000;
-
     private ArrayList<LesuNetwork> countedNetworks = new ArrayList<LesuNetwork>();
     public int connectedBlocks = 0;
     public int currentBlocks = 0;
@@ -51,14 +48,13 @@ public class TileLesu extends EUStorageTile implements IWrenchable {
             }
         }
         if(currentBlocks != connectedBlocks){
-            maxStorage = (connectedBlocks * storgeBlockSize) + baseEU;
-            output = connectedBlocks;
+            maxStorage = ((connectedBlocks + 1) * ConfigTechReborn.lesuStoragePerBlock);
+            output = (connectedBlocks * ConfigTechReborn.extraOutputPerLesuBlock) + ConfigTechReborn.baseLesuOutput;
         }
 
         if(ticks == ConfigTechReborn.aveargeEuOutTickTime){
             euChange = -1;
             ticks = 0;
-
         } else {
             ticks ++;
             if(euChange == -1){

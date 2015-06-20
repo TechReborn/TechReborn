@@ -69,6 +69,9 @@ public class ConfigTechReborn {
     public static int DragoneggsiphonerOutput;
     public static int heatGeneratorOutput;
     public static int aveargeEuOutTickTime;
+	public static int extraOutputPerLesuBlock;
+	public static int baseLesuOutput;
+	public static int lesuStoragePerBlock;
     // Charge
     public static int AdvancedDrillCharge;
     public static int LapotronPackCharge;
@@ -571,6 +574,22 @@ public class ConfigTechReborn {
                         StatCollector
                                 .translateToLocal("config.techreborn.aveargeEuOutTickTime.tooltip"))
                 .getInt();
+		lesuStoragePerBlock = config.get(CATEGORY_POWER,
+					StatCollector.translateToLocal("config.techreborn.lesuStoragePerBlock"),
+					1000000,
+					StatCollector.translateToLocal("config.techreborn.lesuStoragePerBlock.tooltip"))
+				.getInt();
+		baseLesuOutput = config.get(CATEGORY_POWER,
+					StatCollector.translateToLocal("config.techreborn.baseLesuOutput"),
+					16,
+					StatCollector.translateToLocal("config.techreborn.baseLesuOutput.tooltip"))
+				.getInt();
+		extraOutputPerLesuBlock = config.get(CATEGORY_POWER,
+					StatCollector.translateToLocal("config.techreborn.extraOutputPerLesuBlock"),
+					8,
+					StatCollector.translateToLocal("config.techreborn.extraOutputPerLesuBlock.tooltip"))
+				.getInt();
+
 
         // Teir
         AdvancedDrillTier = config

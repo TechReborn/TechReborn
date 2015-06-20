@@ -116,7 +116,11 @@ public class ChargeHud
 
 	private String GetEUString(double euValue)
 	{
-		if (euValue > 1000) {
+		if (euValue > 1000000) {
+			double tenX = Math.round(euValue / 100000);
+			return Double.toString(tenX / 10.0).concat(" m EU");
+		}
+		else if (euValue > 1000) {
 			double tenX = Math.round(euValue / 100);
 			return Double.toString(tenX / 10.0).concat(" k EU");
 		}
