@@ -5,8 +5,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.ISaveHandler;
@@ -25,40 +23,38 @@ import java.util.TreeMap;
 
 public class IDSUManager {
 
-
 	public static IDSUManager INSTANCE;
+
+	public static final String savename = "idsu.json";
 
 	public HashMap<World, IDSUWorldSaveData> worldData = new HashMap<World, IDSUWorldSaveData>();
 
-	//@SideOnly(Side.SERVER)
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
-	public void worldSave(WorldEvent.Save event){
-		if(event.world != null && event.world.getSaveHandler() != null && event.world.getSaveHandler().getWorldDirectory() != null){
-			if(worldData.containsKey(event.world)){
+	public void worldSave(WorldEvent.Save event) {
+		if (event.world != null && event.world.getSaveHandler() != null && event.world.getSaveHandler().getWorldDirectory() != null) {
+			if (worldData.containsKey(event.world)) {
 				worldData.get(event.world).save();
 			}
 		}
 	}
 
-	//@SideOnly(Side.SERVER)
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
-	public void worldLoad(WorldEvent.Load event){
-		if(event.world != null && event.world.getSaveHandler() != null && event.world.getSaveHandler().getWorldDirectory() != null){
-			if(worldData.containsKey(event.world)){
+	public void worldLoad(WorldEvent.Load event) {
+		if (event.world != null && event.world.getSaveHandler() != null && event.world.getSaveHandler().getWorldDirectory() != null) {
+			if (worldData.containsKey(event.world)) {
 				worldData.get(event.world).load();
 			} else {
 				IDSUWorldSaveData worldSaveData = new IDSUWorldSaveData(event.world);
-				worldData.put(event.world ,worldSaveData);
+				worldData.put(event.world, worldSaveData);
 				worldSaveData.load();
 			}
 		}
 	}
 
-	//@SideOnly(Side.SERVER)
 	@SubscribeEvent(priority = EventPriority.LOWEST)
-	public void worldClosed(WorldEvent.Unload event){
-		if(event.world != null && event.world.getSaveHandler() != null && event.world.getSaveHandler().getWorldDirectory() != null){
-			if(worldData.containsKey(event.world)){
+	public void worldClosed(WorldEvent.Unload event) {
+		if (event.world != null && event.world.getSaveHandler() != null && event.world.getSaveHandler().getWorldDirectory() != null) {
+			if (worldData.containsKey(event.world)) {
 				worldData.get(event.world).save();
 			}
 		}
@@ -66,59 +62,54 @@ public class IDSUManager {
 		worldData.clear();
 	}
 
-	public IDSUValueSaveData getSaveDataForWorld(World world, int channel){
-		if(worldData.containsKey(world)){
+	public IDSUValueSaveData getSaveDataForWorld(World world, int channel) {
+		if (worldData.containsKey(world)) {
 			return worldData.get(world).getSaves(channel);
 		} else {
 			IDSUWorldSaveData worldSaveData = new IDSUWorldSaveData(world);
-			worldData.put(world ,worldSaveData);
+			worldData.put(world, worldSaveData);
 			worldSaveData.load();
-			return  worldSaveData.getSaves(channel);
+			return worldSaveData.getSaves(channel);
 		}
-		//LogHelper.fatal("FAILED TO GET SAVEDATA!!! This should NEVER have been called, report to TechReborn DEV!");
-		//return new IDSUValueSaveData();
 	}
 
 
-	public IDSUWorldSaveData getWorldDataFormWorld(World world){
-		//System.out.println(world);
-		if(worldData.containsKey(world)){
+	public IDSUWorldSaveData getWorldDataFormWorld(World world) {
+		if (worldData.containsKey(world)) {
 			return worldData.get(world);
 		} else {
 			IDSUWorldSaveData worldSaveData = new IDSUWorldSaveData(world);
-			worldData.put(world ,worldSaveData);
+			worldData.put(world, worldSaveData);
 			worldSaveData.load();
-			return  worldSaveData;
+			return worldSaveData;
 		}
 	}
 
-	//@SideOnly(Side.SERVER)
-	public PacketSendIDSUManager getPacket(World world, EntityPlayer player){
+	public PacketSendIDSUManager getPacket(World world, EntityPlayer player) {
 		Gson gson = new Gson();
 		String json = gson.toJson(getWorldDataFormWorld(world).idsuValues);
-		if(getWorldDataFormWorld(world).idsuValues.isEmpty()){
+		if (getWorldDataFormWorld(world).idsuValues.isEmpty()) {
 			json = "EMPTY";
 		}
 		return new PacketSendIDSUManager(json, player);
 	}
 
-	//@SideOnly(Side.CLIENT)
-	public void loadFromString(String json, World world){
-		if(json.equals("EMPTY")){
+	public void loadFromString(String json, World world) {
+		if (json.equals("EMPTY")) {
 			return;
 		}
 		IDSUWorldSaveData worldSaveData;
-		if(worldData.containsKey(world)){
+		if (worldData.containsKey(world)) {
 			worldSaveData = worldData.get(world);
 		} else {
 			worldSaveData = new IDSUWorldSaveData(world);
-			worldData.put(world ,worldSaveData);
+			worldData.put(world, worldSaveData);
 		}
 		Gson gson = new Gson();
-		Type typeOfHashMap = new TypeToken<TreeMap<Integer, IDSUValueSaveData>>() { }.getType();
+		Type typeOfHashMap = new TypeToken<TreeMap<Integer, IDSUValueSaveData>>() {
+		}.getType();
 		worldSaveData.idsuValues.clear();
 		worldSaveData.idsuValues = gson.fromJson(json, typeOfHashMap);
-		//System.out.println(world);
 	}
 
 
@@ -138,11 +129,11 @@ public class IDSUManager {
 			this.world = world;
 			this.saveHandler = world.getSaveHandler();
 			folder = new File(saveHandler.getWorldDirectory(), "idsuData");
-			file = new File(folder,"idsu.json");
+			file = new File(folder, savename);
 		}
 
-		public IDSUValueSaveData getSaves(int i){
-			if(idsuValues.containsKey(i)){
+		public IDSUValueSaveData getSaves(int i) {
+			if (idsuValues.containsKey(i)) {
 				return idsuValues.get(i);
 			} else {
 				IDSUValueSaveData data = new IDSUValueSaveData();
@@ -151,15 +142,15 @@ public class IDSUManager {
 			}
 		}
 
-		//@SideOnly(Side.SERVER)
-		public void load(){
-			if(!file.exists()){
+		public void load() {
+			if (!file.exists()) {
 				return;
 			}
 			try {
 				Gson gson = new Gson();
 				BufferedReader reader = new BufferedReader(new FileReader(file));
-				Type typeOfHashMap = new TypeToken<TreeMap<Integer, IDSUValueSaveData>>() { }.getType();
+				Type typeOfHashMap = new TypeToken<TreeMap<Integer, IDSUValueSaveData>>() {
+				}.getType();
 				idsuValues.clear();
 				idsuValues = gson.fromJson(reader, typeOfHashMap);
 			} catch (Exception e) {
@@ -167,13 +158,12 @@ public class IDSUManager {
 			}
 		}
 
-		//@SideOnly(Side.SERVER)
-		public void save(){
-			if(idsuValues.isEmpty()){
+		public void save() {
+			if (idsuValues.isEmpty()) {
 				return;
 			}
-			if(!file.exists()){
-				if(!folder.exists()){
+			if (!file.exists()) {
+				if (!folder.exists()) {
 					folder.mkdirs();
 				}
 				try {

@@ -33,7 +33,7 @@ public class PacketSendIDSUManager extends SimplePacket {
 	@Override
 	public void readData(ByteBuf in) throws IOException {
 		PacketBuffer buffer = new PacketBuffer(in);
-		json = buffer.readStringFromBuffer(99999999);
+		json = buffer.readStringFromBuffer(Integer.MAX_VALUE / 4);
 		player = readPlayer(in);
 	}
 
@@ -44,18 +44,16 @@ public class PacketSendIDSUManager extends SimplePacket {
 		if(player.worldObj != null){
 			GuiIDSU.listBox._elements.clear();
 			for(World world : ClientSideIDSUManager.CLIENT.worldData.keySet()){
-				//	System.out.println(world.n + ":" + idsu.getWorldObj().getProviderName());
-				//if(world.getProviderName().equals(idsu.getWorldObj().getProviderName())){
 				IDSUManager.IDSUWorldSaveData saveData = ClientSideIDSUManager.CLIENT.getWorldDataFormWorld(world);
 				for(Integer id : saveData.idsuValues.keySet()){
 					IDSUManager.IDSUValueSaveData valueSaveData = saveData.idsuValues.get(id);
+					System.out.println("added " + valueSaveData.name + " - " + id);
 					if(!valueSaveData.name.isEmpty()){
 						GuiIDSU.listBox._elements.add(new ListBoxElementText(valueSaveData.name + " - " + id));
 					} else {
 						GuiIDSU.listBox._elements.add(new ListBoxElementText(id.toString()));
 					}
 				}
-				//	}
 			}
 		}
 	}

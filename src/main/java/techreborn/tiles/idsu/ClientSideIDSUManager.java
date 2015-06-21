@@ -12,7 +12,7 @@ public class ClientSideIDSUManager {
 	public static IDSUManager CLIENT = new IDSUManager();
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
-	public void worldLoad(WorldEvent.Load event){
+	public void worldLoad(WorldEvent.Load event) {
 		CLIENT = new IDSUManager();
 	}
 

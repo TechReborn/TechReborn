@@ -4,24 +4,15 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import net.minecraft.world.World;
 import techreborn.client.container.ContainerIDSU;
-import techreborn.client.gui.componets.TabIDConfig;
 import techreborn.cofhLib.gui.GuiBase;
 import techreborn.cofhLib.gui.element.ElementListBox;
 import techreborn.cofhLib.gui.element.ElementTextField;
 import techreborn.cofhLib.gui.element.ElementTextFieldLimited;
-import techreborn.cofhLib.gui.element.listbox.IListBoxElement;
-import techreborn.cofhLib.gui.element.listbox.ListBoxElementText;
 import techreborn.packets.PacketHandler;
 import techreborn.packets.PacketIdsu;
-import techreborn.tiles.idsu.ClientSideIDSUManager;
-import techreborn.tiles.idsu.IDSUManager;
 import techreborn.tiles.idsu.TileIDSU;
 import techreborn.util.LogHelper;
-
-import java.util.LinkedList;
-import java.util.List;
 
 public class GuiIDSU extends GuiBase {
 
@@ -36,15 +27,13 @@ public class GuiIDSU extends GuiBase {
 	ElementTextField nameFeild;
 
 
-
 	public GuiIDSU(EntityPlayer player,
-				   TileIDSU tileIDSU)
-	{
+				   TileIDSU tileIDSU) {
 		super(new ContainerIDSU(tileIDSU, player));
 		this.xSize = 156;
 		this.ySize = 200;
 		idsu = tileIDSU;
-		this.containerIDSU  = (ContainerIDSU) this.inventorySlots;
+		this.containerIDSU = (ContainerIDSU) this.inventorySlots;
 		texture = new ResourceLocation(
 				"techreborn", "textures/gui/aesu.png");
 		drawTitle = false;
@@ -60,17 +49,18 @@ public class GuiIDSU extends GuiBase {
 		int l = (this.height - this.ySize) / 2;
 		this.buttonList.add(new GuiButton(0, k + 96, l + 8, 18, 20, "++"));
 		this.buttonList.add(new GuiButton(1, k + 96, l + 8 + 22, 18, 20, "+"));
-		this.buttonList.add(new GuiButton(2, k + 96, l + 8 + (22*2), 18, 20, "-"));
-		this.buttonList.add(new GuiButton(3, k + 96, l + 8 + (22*3), 18, 20, "--"));
+		this.buttonList.add(new GuiButton(2, k + 96, l + 8 + (22 * 2), 18, 20, "-"));
+		this.buttonList.add(new GuiButton(3, k + 96, l + 8 + (22 * 3), 18, 20, "--"));
 		this.buttonList.add(new GuiButton(4, k + 40, l + 10, 10, 10, "+"));
 
 		listBox.gui = this;
+		listBox.setSelectedIndex(containerIDSU.channel);
 
 //		listBox.borderColor = new GuiColor(120, 120, 120, 0).getColor();
 //		listBox.backgroundColor = new GuiColor(0, 0, 0, 32).getColor();
 		addElement(listBox);
 
-		idFeild = new ElementTextFieldLimited(this, 10, 10, 30, 10,  (short) 4);
+		idFeild = new ElementTextFieldLimited(this, 10, 10, 30, 10, (short) 4);
 		idFeild.setFilter("1234567890", false);
 
 		addElement(idFeild);
@@ -87,7 +77,7 @@ public class GuiIDSU extends GuiBase {
 	@Override
 	protected void actionPerformed(GuiButton button) {
 		super.actionPerformed(button);
-		if(isInteger(idFeild.getText())){
+		if (isInteger(idFeild.getText())) {
 			PacketHandler.sendPacketToServer(new PacketIdsu(button.id, idsu, Integer.parseInt(idFeild.getText()), nameFeild.getText()));
 		} else {
 			LogHelper.info("There was an issue in the gui!, Please report this to the TechReborn Devs");
@@ -96,17 +86,17 @@ public class GuiIDSU extends GuiBase {
 	}
 
 	public static boolean isInteger(String s) {
-		return isInteger(s,10);
+		return isInteger(s, 10);
 	}
 
 	public static boolean isInteger(String s, int radix) {
-		if(s.isEmpty()) return false;
-		for(int i = 0; i < s.length(); i++) {
-			if(i == 0 && s.charAt(i) == '-') {
-				if(s.length() == 1) return false;
+		if (s.isEmpty()) return false;
+		for (int i = 0; i < s.length(); i++) {
+			if (i == 0 && s.charAt(i) == '-') {
+				if (s.length() == 1) return false;
 				else continue;
 			}
-			if(Character.digit(s.charAt(i),radix) < 0) return false;
+			if (Character.digit(s.charAt(i), radix) < 0) return false;
 		}
 		return true;
 	}
