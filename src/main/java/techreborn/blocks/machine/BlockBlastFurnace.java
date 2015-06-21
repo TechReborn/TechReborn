@@ -51,22 +51,8 @@ public class BlockBlastFurnace extends BlockMachineBase {
 			EntityPlayer player, int side, float hitX, float hitY, float hitZ)
 	{
 		if (!player.isSneaking())
-			for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS)
-			{
-				if (world.getTileEntity(x + direction.offsetX, y
-						+ direction.offsetY, z + direction.offsetZ) instanceof TileMachineCasing)
-				{
-					TileMachineCasing casing = (TileMachineCasing) world
-							.getTileEntity(x + direction.offsetX, y
-									+ direction.offsetY, z + direction.offsetZ);
-					if (casing.getMultiblockController() != null
-							&& casing.getMultiblockController().isAssembled() && !casing.getMultiblockController().isStar)
-					{
-						player.openGui(Core.INSTANCE,
-								GuiHandler.blastFurnaceID, world, x, y, z);
-					}
-				}
-			}
+			player.openGui(Core.INSTANCE, GuiHandler.blastFurnaceID, world, x, y,
+					z);
 		return true;
 	}
 

@@ -118,11 +118,11 @@ public class ChargeHud
 	{
 		if (euValue > 1000000) {
 			double tenX = Math.round(euValue / 100000);
-			return Double.toString(tenX / 10.0).concat(" m EU");
+			return Double.toString(tenX / 10.0).concat("M ");
 		}
 		else if (euValue > 1000) {
 			double tenX = Math.round(euValue / 100);
-			return Double.toString(tenX / 10.0).concat(" k EU");
+			return Double.toString(tenX / 10.0).concat("k ");
 		}
 		else {
 			return Double.toString(Math.floor(euValue)).concat(" EU");
