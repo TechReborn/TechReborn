@@ -117,6 +117,7 @@ processResources
             // replace stuff in mcmod.info, nothing else
             from(sourceSets.main.resources.srcDirs) {
                 include '*.info'
+                include 'package-info.java'
 
                 // replace version and mcversion
                 expand 'version':project.version, 'mcversion':project.minecraft.version
@@ -125,6 +126,7 @@ processResources
             // copy everything else, thats not the mcmod.info
             from(sourceSets.main.resources.srcDirs) {
                 exclude '**/*.info'
+                exclude 'package-info.java'
             }
         }
 
@@ -148,11 +150,13 @@ jar {
 }
 
 task apiJar(type: Jar) {
-    from(sourceSets.main.java) {
-        include 'techreborn/api/**'
-        appendix = 'api'
-        classifier = "api"
-    }
+    from sourceSets.main.allSource
+    from sourceSets.main.output
+        include 'techreborn/api/**/*'
+
+    appendix = 'api'
+    classifier = "api"
+
 }
 
 apiJar.mustRunAfter deobfJar
