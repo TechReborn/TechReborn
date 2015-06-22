@@ -8,6 +8,7 @@ import techreborn.compat.nei.recipes.CentrifugeRecipeHandler;
 import techreborn.compat.nei.recipes.ChemicalReactorRecipeHandler;
 import techreborn.compat.nei.recipes.GrinderRecipeHandler;
 import techreborn.compat.nei.recipes.ImplosionCompressorRecipeHandler;
+import techreborn.compat.nei.recipes.IndustrialElectrolyzerRecipeHandler;
 import techreborn.compat.nei.recipes.IndustrialSawmillRecipeHandler;
 import techreborn.compat.nei.recipes.LatheRecipeHandler;
 import techreborn.compat.nei.recipes.PlateCuttingMachineRecipeHandler;
@@ -69,7 +70,11 @@ public class NEIConfig implements IConfigureNEI {
 		GrinderRecipeHandler grind = new GrinderRecipeHandler();
 		API.registerUsageHandler(grind);
 		API.registerRecipeHandler(grind);
-
+		
+		IndustrialElectrolyzerRecipeHandler elec = new IndustrialElectrolyzerRecipeHandler();
+		API.registerUsageHandler(elec);
+		API.registerRecipeHandler(elec);
+		
 		API.registerUsageHandler(shapedRollingMachineHandler);
 		API.registerRecipeHandler(shapedRollingMachineHandler);
 
