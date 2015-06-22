@@ -1,6 +1,9 @@
 package techreborn.client.container;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import techreborn.client.SlotOutput;
 import techreborn.tiles.TileMatterFabricator;
@@ -11,7 +14,7 @@ public class ContainerMatterFabricator extends TechRebornContainer{
 
 	TileMatterFabricator tile;
 
-	public int tickTime;
+	public int progressTime;
 
 	public ContainerMatterFabricator(TileMatterFabricator tileMatterfab,
 			EntityPlayer player)
@@ -53,6 +56,38 @@ public class ContainerMatterFabricator extends TechRebornContainer{
 	public boolean canInteractWith(EntityPlayer p_75145_1_)
 	{
 		return true;
+	}
+
+	@Override
+	public void detectAndSendChanges() {
+		super.detectAndSendChanges();
+		for (int i = 0; i < this.crafters.size(); i++) {
+			ICrafting icrafting = (ICrafting) this.crafters.get(i);
+			if (this.progressTime != tile.progresstime) {
+				icrafting.sendProgressBarUpdate(this, 0, tile.progresstime);
+			}
+		}
+	}
+
+	@Override
+	public void addCraftingToCrafters(ICrafting crafting) {
+		super.addCraftingToCrafters(crafting);
+		crafting.sendProgressBarUpdate(this, 0, tile.progresstime);
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void updateProgressBar(int id, int value) {
+		if (id == 0) {
+			this.progressTime = value;
+		}
+	}
+
+	public int getProgressScaled(int scale) {
+		if(progressTime != 0) {
+			return progressTime * scale / tile.maxProgresstime();
+		}
+		return 0;
 	}
 
 }

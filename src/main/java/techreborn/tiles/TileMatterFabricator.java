@@ -2,6 +2,7 @@ package techreborn.tiles;
 
 import ic2.api.energy.prefab.BasicSink;
 import ic2.api.energy.tile.IEnergyTile;
+import ic2.api.recipe.RecipeOutput;
 import ic2.api.recipe.Recipes;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,28 +11,23 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
-import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
 import techreborn.util.Inventory;
 import techreborn.util.ItemUtils;
 
-import java.util.Iterator;
-import java.util.Map.Entry;
-
 public class TileMatterFabricator extends TileMachineBase implements IWrenchable, IEnergyTile, IInventory, ISidedInventory {
 
-	public static int sMatterFabricationRate = 166666;
+	public static int fabricationRate = 166666;
 	public int tickTime;
 	public BasicSink energy;
 	public Inventory inventory = new Inventory(7, "TileMatterFabricator", 64);
-	private int mAmplifier = 0;
-	private int mProgresstime = 0;
+	private int amplifier = 0;
+	public int progresstime = 0;
 
 	public TileMatterFabricator() {
 		//TODO configs
-		energy = new BasicSink(this, 100000,
-				ConfigTechReborn.CentrifugeTier);
+		energy = new BasicSink(this, 10000000, 6);
 	}
 
 	@Override
@@ -175,48 +171,43 @@ public class TileMatterFabricator extends TileMachineBase implements IWrenchable
 	}
 
 	public int maxProgresstime() {
-		return sMatterFabricationRate;
+		return fabricationRate;
 	}
 
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
+		energy.updateEntity();
+
 		if (!super.worldObj.isRemote) {
-
-			if (this.energy.getEnergyStored() > 0 && !super.worldObj.isBlockIndirectlyGettingPowered(super.xCoord, super.yCoord, super.zCoord)) {
-				Iterator tIterator = Recipes.matterAmplifier.getRecipes().entrySet().iterator();
-
-				while (this.mAmplifier < 100000 && tIterator.hasNext()) {
-					Entry tEntry = (Entry) tIterator.next();
-					ItemStack tStack = (ItemStack) tEntry.getKey();
-					int tValue = (int) ((long) ((Integer) tEntry.getValue()).intValue() * (long) this.maxProgresstime() / 166666L);
-					if (tValue > 0) {
-						for (int i = 0; this.mAmplifier < 100000 && i < 5; ++i) {
-							if (inventory.getStackInSlot(i) != null && ItemUtils.isItemEqual(inventory.getStackInSlot(i), tStack, true, false)) {
-								this.mAmplifier += tValue;
-								inventory.decrStackSize(i, 1);
-							}
-						}
+			for (int i = 0; i < 5; i++) {
+				ItemStack stack = inventory.getStackInSlot(i);
+				if (this.amplifier < 100000 && stack != null) {
+					int amp = (int) ((long) (getValue(stack) * (long) this.maxProgresstime() / 166666L));
+					if (ItemUtils.isItemEqual(stack, inventory.getStackInSlot(i), true, true)) {
+						this.amplifier += amp;
+						inventory.decrStackSize(i, 1);
 					}
-				}
-
-				if (this.mAmplifier > 0) {
-					if (this.mAmplifier > this.energy.getEnergyStored()) {
-						this.mProgresstime += this.energy.getEnergyStored();
-						this.mAmplifier -= this.energy.getEnergyStored();
-						this.decreaseStoredEnergy(this.energy.getEnergyStored(), true);
-					} else {
-						this.mProgresstime += this.mAmplifier;
-						this.decreaseStoredEnergy(this.mAmplifier, true);
-						this.mAmplifier = 0;
-					}
-				}
-
-				if (this.mProgresstime > this.maxProgresstime() && this.spaceForOutput()) {
-					this.mProgresstime -= this.maxProgresstime();
-					this.addOutputProducts();
 				}
 			}
+
+			if (this.amplifier > 0) {
+				if (this.amplifier > this.energy.getEnergyStored()) {
+					this.progresstime += this.energy.getEnergyStored();
+					this.amplifier -= this.energy.getEnergyStored();
+					this.decreaseStoredEnergy(this.energy.getEnergyStored(), true);
+				} else {
+					this.progresstime += this.amplifier;
+					this.decreaseStoredEnergy(this.amplifier, true);
+					this.amplifier = 0;
+				}
+			}
+
+			if (this.progresstime > this.maxProgresstime() && this.spaceForOutput()) {
+				this.progresstime -= this.maxProgresstime();
+				this.addOutputProducts();
+			}
+
 		}
 
 	}
@@ -247,6 +238,18 @@ public class TileMatterFabricator extends TileMachineBase implements IWrenchable
 				return true;
 			}
 		}
+	}
+
+	public int getValue(ItemStack itemStack) {
+		int value = getValue(Recipes.matterAmplifier.getOutputFor(itemStack, false));
+		return value;
+	}
+
+	private static Integer getValue(RecipeOutput output) {
+		if (output != null && output.metadata != null) {
+			return output.metadata.getInteger("amplification");
+		}
+		return 0;
 	}
 
 }
