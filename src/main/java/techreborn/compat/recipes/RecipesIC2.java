@@ -62,6 +62,7 @@ public class RecipesIC2 implements ICompatModule {
 		addIndustrialGrinderRecipes();
 		addImplosionCompressorRecipes();
 		addChemicalReactorRecipes();
+		addIndustrialElectrolyzerRecipes();
 	}
 
 	@Override
@@ -74,7 +75,7 @@ public class RecipesIC2 implements ICompatModule {
 
 	}
 
-	public static void removeIc2Recipes() {
+	static void removeIc2Recipes() {
 		if (ConfigTechReborn.ExpensiveMacerator)
 			RecipeRemover.removeAnyRecipe(IC2Items.getItem("macerator"));
 		if (ConfigTechReborn.ExpensiveDrill)
@@ -87,7 +88,7 @@ public class RecipesIC2 implements ICompatModule {
 		LogHelper.info("IC2 Recipes Removed");
 	}
 
-	public static void addShappedIc2Recipes() {
+	static void addShappedIc2Recipes() {
 		if (ConfigTechReborn.ExpensiveMacerator)
 			CraftingHelper.addShapedOreRecipe(IC2Items.getItem("macerator"),
 					"FDF", "DMD", "FCF",
@@ -447,7 +448,7 @@ public class RecipesIC2 implements ICompatModule {
 		LogHelper.info("Added Expensive IC2 Recipes");
 	}
 
-	public static void addShapedTrRecipes() {
+	static void addShapedTrRecipes() {
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.quantumTank),
 				"EPE", "PCP", "EPE",
 				'P', "platePlatinum",
@@ -532,7 +533,7 @@ public class RecipesIC2 implements ICompatModule {
 				'M', new ItemStack(ModItems.parts, 1, 13));
 	}
 
-	public static void addTRMaceratorRecipes() {
+	static void addTRMaceratorRecipes() {
 		//Macerator
 
 		if (OreDictionary.doesOreNameExist("oreAluminum")) {
@@ -667,7 +668,7 @@ public class RecipesIC2 implements ICompatModule {
 		}
 	}
 
-	public static void addTROreWashingRecipes() {
+	static void addTROreWashingRecipes() {
 		//Ore Washing Plant
 		NBTTagCompound liquidAmount = new NBTTagCompound();
 		liquidAmount.setInteger("amount", 1000);
@@ -694,7 +695,7 @@ public class RecipesIC2 implements ICompatModule {
 		}
 	}
 
-	public static void addTRThermalCentrifugeRecipes() {
+	static void addTRThermalCentrifugeRecipes() {
 		//Thermal Centrifuge
 
 		//Heat Values
@@ -775,7 +776,7 @@ public class RecipesIC2 implements ICompatModule {
 		}
 	}
 
-	public static void addMetalFormerRecipes() {
+	static void addMetalFormerRecipes() {
 		//Metal Former
 		NBTTagCompound mode = new NBTTagCompound();
 		mode.setInteger("mode", 1);
@@ -799,7 +800,7 @@ public class RecipesIC2 implements ICompatModule {
 		Recipes.metalformerRolling.addRecipe(new RecipeInputOreDict("ingotBlueAlloy"), mode, ItemPlates.getPlateByName("teslatite"));
 	}
 
-	public static void addAssemblingMachineRecipes() {
+	static void addAssemblingMachineRecipes() {
 		//Ender Eye
 		RecipeHandler.addRecipe(new AssemblingMachineRecipe(new ItemStack(Items.ender_pearl, 1), new ItemStack(Items.blaze_powder), new ItemStack(Items.ender_eye), 120, 5));
 		RecipeHandler.addRecipe(new AssemblingMachineRecipe(new ItemStack(Items.ender_pearl, 6), new ItemStack(Items.blaze_rod), new ItemStack(Items.ender_eye, 6), 120, 5));
@@ -870,7 +871,7 @@ public class RecipesIC2 implements ICompatModule {
 		RecipeHandler.addRecipe(new AssemblingMachineRecipe(ItemDusts.getDustByName("flint", 5), new ItemStack(Blocks.tnt), new ItemStack(IC2Items.getItem("industrialTnt").getItem(), 5), 120, 5));
 	}
 
-	public static void addIndustrialCentrifugeRecipes() {
+	static void addIndustrialCentrifugeRecipes() {
 		//Plantball/Bio Chaff
 		RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Blocks.grass, 16), null, new ItemStack(IC2Items.getItem("biochaff").getItem(), 8), new ItemStack(IC2Items.getItem("plantBall").getItem(), 8), new ItemStack(Items.clay_ball), new ItemStack(Blocks.sand, 8), 2500, 5));
 		RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Blocks.dirt, 16), null, new ItemStack(IC2Items.getItem("biochaff").getItem(), 4), new ItemStack(IC2Items.getItem("plantBall").getItem(), 4), new ItemStack(Items.clay_ball), new ItemStack(Blocks.sand, 8), 2500, 5));
@@ -962,7 +963,7 @@ public class RecipesIC2 implements ICompatModule {
 		RecipeHandler.addRecipe(new CentrifugeRecipe(lavaCells, null, ItemNuggets.getNuggetByName("electrum", 4), ItemIngots.getIngotByName("copper", 2), ItemDustTiny.getTinyDustByName("Tungsten", 1), ItemIngots.getIngotByName("tin", 17), 6000, 5));
 	}
 
-	public static void addIndustrialGrinderRecipes() {
+	static void addIndustrialGrinderRecipes() {
 		//Coal Ore
 		RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(Blocks.coal_ore, 1), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(Items.coal, 1), ItemDustsSmall.getSmallDustByName("Coal", 6), ItemDustsSmall.getSmallDustByName("Coal", 2), null, 100, 120));
 		RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(Blocks.coal_ore, 1), IC2Items.getItem("waterCell"), null, new ItemStack(Items.coal, 1), ItemDustsSmall.getSmallDustByName("Coal", 6), ItemDustsSmall.getSmallDustByName("Coal", 2), IC2Items.getItem("cell"), 100, 120));
@@ -1518,7 +1519,7 @@ public class RecipesIC2 implements ICompatModule {
 		RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 12), new ItemStack(ModItems.bucketSodiumpersulfate), null, ItemDusts.getDustByName("tetrahedrite", 3), ItemDustsSmall.getSmallDustByName("Antimony", 1), ItemDustsSmall.getSmallDustByName("Zinc", 1), new ItemStack(Items.bucket), 100, 120));
 	}
 
-	public static void addImplosionCompressorRecipes() {
+	static void addImplosionCompressorRecipes() {
 		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemParts.getPartByName("iridiumAlloyIngot"), new ItemStack(IC2Items.getItem("industrialTnt").getItem(), 8), IC2Items.getItem("iridiumPlate"), ItemDusts.getDustByName("darkAshes", 4), 20, 30));
 		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("diamond", 4), new ItemStack(IC2Items.getItem("industrialTnt").getItem(), 32), new ItemStack(IC2Items.getItem("industrialDiamond").getItem(), 3), ItemDusts.getDustByName("darkAshes", 16), 20, 30));
 		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(IC2Items.getItem("coalChunk"), new ItemStack(IC2Items.getItem("industrialTnt").getItem(), 8), IC2Items.getItem("industrialDiamond"), ItemDusts.getDustByName("darkAshes", 4), 20, 30));
@@ -1530,7 +1531,7 @@ public class RecipesIC2 implements ICompatModule {
 		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("peridot", 4), new ItemStack(IC2Items.getItem("industrialTnt").getItem(), 24), ItemGems.getGemByName("peridot", 3), ItemDusts.getDustByName("darkAshes", 12), 20, 30));
 	}
 
-	public static void addChemicalReactorRecipes() {
+	static void addChemicalReactorRecipes() {
 		RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemCells.getCellByName("calcium", 1), ItemCells.getCellByName("carbon", 1), ItemCells.getCellByName("calciumCarbonate", 2), 240, 30));
 		RecipeHandler.addRecipe(new ChemicalReactorRecipe(new ItemStack(Items.gold_nugget, 8), new ItemStack(Items.melon, 1), new ItemStack(Items.speckled_melon, 1), 40, 30));
 		RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemCells.getCellByName("nitrogen", 1), ItemCells.getCellByName("carbon", 1), ItemCells.getCellByName("nitrocarbon", 2), 1500, 30));
@@ -1554,5 +1555,9 @@ public class RecipesIC2 implements ICompatModule {
 		waterCells2.stackSize = 5;
 		RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemCells.getCellByName("hydrogen", 4), IC2Items.getItem("airCell"), waterCells2, 10, 30));
 		RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemCells.getCellByName("nitrogen", 1), IC2Items.getItem("airCell"), ItemCells.getCellByName("nitrogenDioxide", 2), 1240, 30));
+	}
+
+	static void addIndustrialElectrolyzerRecipes() {
+
 	}
 }
