@@ -18,7 +18,7 @@ import techreborn.util.ItemUtils;
 
 public class TileMatterFabricator extends TileMachineBase implements IWrenchable, IEnergyTile, IInventory, ISidedInventory {
 
-	public static int fabricationRate = 166666;
+	public static int fabricationRate = 2666656;
 	public int tickTime;
 	public BasicSink energy;
 	public Inventory inventory = new Inventory(7, "TileMatterFabricator", 64);
@@ -183,13 +183,16 @@ public class TileMatterFabricator extends TileMachineBase implements IWrenchable
 			for (int i = 0; i < 5; i++) {
 				ItemStack stack = inventory.getStackInSlot(i);
 				if (this.amplifier < 100000 && stack != null) {
-					int amp = (int) ((long) (getValue(stack) * (long) this.maxProgresstime() / 166666L));
+					int amp = (int) ((long) (getValue(stack) / 32));
+					System.out.println(amp);
 					if (ItemUtils.isItemEqual(stack, inventory.getStackInSlot(i), true, true)) {
 						this.amplifier += amp;
 						inventory.decrStackSize(i, 1);
 					}
 				}
 			}
+
+
 
 			if (this.amplifier > 0) {
 				if (this.amplifier > this.energy.getEnergyStored()) {
@@ -201,7 +204,14 @@ public class TileMatterFabricator extends TileMachineBase implements IWrenchable
 					this.decreaseStoredEnergy(this.amplifier, true);
 					this.amplifier = 0;
 				}
+			} else if(amplifier == 0){
+				if(energy.useEnergy(4096)){
+					this.progresstime += 50;
+				}
+
 			}
+
+
 
 			if (this.progresstime > this.maxProgresstime() && this.spaceForOutput()) {
 				this.progresstime -= this.maxProgresstime();
