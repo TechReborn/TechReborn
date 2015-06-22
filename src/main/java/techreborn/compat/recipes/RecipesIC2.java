@@ -16,11 +16,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import techreborn.api.recipe.RecipeHandler;
-import techreborn.api.recipe.machines.AssemblingMachineRecipe;
-import techreborn.api.recipe.machines.CentrifugeRecipe;
-import techreborn.api.recipe.machines.ChemicalReactorRecipe;
-import techreborn.api.recipe.machines.GrinderRecipe;
-import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
+import techreborn.api.recipe.machines.*;
 import techreborn.compat.ICompatModule;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
@@ -1558,6 +1554,6 @@ public class RecipesIC2 implements ICompatModule {
 	}
 
 	static void addIndustrialElectrolyzerRecipes() {
-
+		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(null, ItemDusts.getDustByName("chrome"), ItemGems.getGemByName("ruby"), null, null, null, 100, 128));
 	}
 }
