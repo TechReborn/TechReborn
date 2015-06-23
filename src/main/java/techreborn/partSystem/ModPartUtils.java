@@ -61,10 +61,10 @@ public class ModPartUtils {
     }
 
     public static Item getItemForPart(String string) {
-        for (Map.Entry<Item, String> item : ModPartRegistry.itemParts
+        for (Map.Entry<String, Item> item : ModPartRegistry.itemParts
                 .entrySet()) {
             if (item.getValue().equals(string)) {
-                return item.getKey();
+                return item.getValue();
             }
         }
         return null;

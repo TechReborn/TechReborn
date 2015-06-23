@@ -1,5 +1,6 @@
 package techreborn.init;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import ic2.api.item.IC2Items;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -7,23 +8,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
-import techreborn.api.BlastFurnaceRecipe;
-import techreborn.api.TechRebornAPI;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.AlloySmelterRecipe;
-import techreborn.api.recipe.machines.AssemblingMachineRecipe;
-import techreborn.api.recipe.machines.CentrifugeRecipe;
-import techreborn.api.recipe.machines.ChemicalReactorRecipe;
-import techreborn.api.recipe.machines.GrinderRecipe;
-import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
 import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
 import techreborn.api.recipe.machines.LatheRecipe;
 import techreborn.api.recipe.machines.PlateCuttingMachineRecipe;
 import techreborn.config.ConfigTechReborn;
-import techreborn.items.*;
+import techreborn.items.ItemDusts;
+import techreborn.items.ItemIngots;
+import techreborn.items.ItemParts;
+import techreborn.items.ItemPlates;
+import techreborn.items.ItemRods;
 import techreborn.util.CraftingHelper;
 import techreborn.util.LogHelper;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ModRecipes {
 	public static ConfigTechReborn config;

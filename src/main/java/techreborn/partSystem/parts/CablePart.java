@@ -297,10 +297,10 @@ public class CablePart extends ModPart implements IEnergyConductor {
     public static float getCableThickness(int cableType) {
         float p = 1.0F;
         switch(cableType) {
-            case 0:
+            case 1:
                 p = 6.0F;
                 break;
-            case 1:
+            case 0:
                 p = 4.0F;
                 break;
             case 2:

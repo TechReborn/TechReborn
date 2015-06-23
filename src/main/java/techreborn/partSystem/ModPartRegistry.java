@@ -8,8 +8,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import ic2.api.item.IC2Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.init.ModParts;
+import techreborn.partSystem.parts.CablePart;
 import techreborn.util.LogHelper;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -22,7 +26,7 @@ public class ModPartRegistry {
 
     public static IPartProvider masterProvider = null;
 
-    public static Map<Item, String> itemParts = new HashMap<Item, String>();
+    public static Map<String, Item> itemParts = new HashMap<String, Item>();
 
     public static void registerPart(ModPart iModPart) {
         parts.add(iModPart);
@@ -38,7 +42,10 @@ public class ModPartRegistry {
                     .setCreativeTab(TechRebornCreativeTab.instance)
                     .setTextureName(modPart.getItemTextureName());
             GameRegistry.registerItem(part, modPart.getName());
-            itemParts.put(part, modPart.getName());
+            itemParts.put(modPart.getName(), part);
+			if(modPart instanceof CablePart){
+				GameRegistry.addShapelessRecipe(new ItemStack(part), IC2Items.getItem(CablePart.getTextureNameFromType(((CablePart) modPart).type)));
+			}
         }
 
         for (IPartProvider iPartProvider : providers) {
@@ -47,9 +54,9 @@ public class ModPartRegistry {
     }
 
     public static Item getItem(String string) {
-        for (Map.Entry<Item, String> entry : itemParts.entrySet()) {
+        for (Map.Entry<String, Item> entry : itemParts.entrySet()) {
             if (entry.getValue().equals(string)) {
-                return entry.getKey();
+                return entry.getValue();
             }
         }
         return null;
