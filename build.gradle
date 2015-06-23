@@ -67,6 +67,7 @@ minecraft {
     replace "@MODVERSION@", project.version
     replaceIn "ModInfo.java"
     replaceIn "package-info.java"
+    replaceIn "mcmod.info"
 }
 
 group = 'TechReborn'
