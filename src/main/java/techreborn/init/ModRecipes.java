@@ -123,7 +123,6 @@ public class ModRecipes {
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 14), "blockPlatinum");
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 15), "blockNickel");
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 16), "blockInvar");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.rockCutter, 1, 27), Items.apple);
 
 		LogHelper.info("Shapless Recipes Added");
 	}
