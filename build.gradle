@@ -116,7 +116,7 @@ processResources
 
             // replace stuff in mcmod.info, nothing else
             from(sourceSets.main.resources.srcDirs) {
-                include '*.info'
+                include 'mcmod.info'
                 include 'package-info.java'
 
                 // replace version and mcversion
@@ -125,7 +125,7 @@ processResources
 
             // copy everything else, thats not the mcmod.info
             from(sourceSets.main.resources.srcDirs) {
-                exclude '**/*.info'
+                exclude 'mcmod.info'
                 exclude 'package-info.java'
             }
         }
