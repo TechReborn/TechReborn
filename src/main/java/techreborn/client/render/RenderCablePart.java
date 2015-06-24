@@ -1,5 +1,7 @@
 package techreborn.client.render;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.client.IconSupplier;
@@ -11,6 +13,7 @@ import uk.co.qmunity.lib.client.render.RenderHelper;
 
 
 public class RenderCablePart {
+	@SideOnly(Side.CLIENT)
 	public static boolean renderStatic(Vecs3d translation, RenderHelper renderer, int pass, CablePart part) {
 		renderer.renderBox(ModLib2QLib.convert(part.boundingBoxes[6]), getIconFromType(part.type));
 		if (part.connectedSides != null) {
@@ -21,7 +24,7 @@ public class RenderCablePart {
 		}
 		return true;
 	}
-
+	@SideOnly(Side.CLIENT)
 	public static IIcon getIconFromType(int cableType){
 		IIcon p = null;
 		switch(cableType) {
