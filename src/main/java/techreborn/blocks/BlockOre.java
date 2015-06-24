@@ -54,7 +54,7 @@ public class BlockOre extends Block {
 		super(material);
 		setBlockName("techreborn.ore");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
-		setHardness(1f);
+		setHardness(2.0f);
 	}
 
 	@Override
