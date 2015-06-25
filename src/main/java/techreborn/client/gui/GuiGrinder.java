@@ -35,7 +35,7 @@ public class GuiGrinder extends GuiContainer{
 
         j = grinder.getProgressScaled(24);
         if(j > 0) {
-            this.drawTexturedModalRect(k + 56, l + 38, 176, 14, j + 1, 16);
+            this.drawTexturedModalRect(k + 50, l + 36, 176, 14, j + 1, 16);
         }
 
         j = grinder.getEnergyScaled(12);
