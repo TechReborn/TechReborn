@@ -14,6 +14,7 @@ public class Inventory implements IInventory {
 	private final String name;
 	private final int stackLimit;
 	private TileEntity tile = new TileEntity();
+	public boolean hasChanged = false;
 
 	public Inventory(int size, String invName, int invStackLimit)
 	{
@@ -43,10 +44,12 @@ public class Inventory implements IInventory {
 			{
 				ItemStack result = contents[slotId].splitStack(count);
 				markDirty();
+				hasChanged = true;
 				return result;
 			}
 			ItemStack stack = contents[slotId];
 			setInventorySlotContents(slotId, null);
+			hasChanged = true;
 			return stack;
 		}
 		return null;
@@ -67,6 +70,7 @@ public class Inventory implements IInventory {
 			itemstack.stackSize = this.getInventoryStackLimit();
 		}
 		markDirty();
+		hasChanged = true;
 	}
 
 	@Override
@@ -124,6 +128,7 @@ public class Inventory implements IInventory {
 						ItemStack.loadItemStackFromNBT(slot));
 			}
 		}
+		hasChanged = true;
 	}
 
 	public void writeToNBT(NBTTagCompound data)

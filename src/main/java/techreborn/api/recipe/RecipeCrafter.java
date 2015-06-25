@@ -106,6 +106,8 @@ public class RecipeCrafter {
      */
     double powerMultiplier = 1;
 
+	int ticksSinceLastChange;
+
     /**
      * Call this on the tile tick
      */
@@ -113,7 +115,12 @@ public class RecipeCrafter {
         if(parentTile.getWorldObj().isRemote){
             return;
         }
-        if (currentRecipe == null) {//It will now look for new recipes.
+		ticksSinceLastChange ++;
+		if(ticksSinceLastChange == 20){//Force a has chanced every second
+			inventory.hasChanged = true;
+			ticksSinceLastChange = 0;
+		}
+        if (currentRecipe == null && inventory.hasChanged) {//It will now look for new recipes.
             currentTickTime = 0;
             for (IBaseRecipeType recipe : RecipeHandler.getRecipeClassFromName(recipeName)) {
                 if (recipe.canCraft(parentTile) && hasAllInputs(recipe)) {//This checks to see if it has all of the inputs
@@ -135,7 +142,7 @@ public class RecipeCrafter {
                 }
             }
         } else {
-            if (!hasAllInputs()) {//If it doesn't have all the inputs reset
+            if (inventory.hasChanged && !hasAllInputs()) {//If it doesn't have all the inputs reset
                 currentRecipe = null;
                 currentTickTime = 0;
 				syncIsActive();
@@ -166,6 +173,9 @@ public class RecipeCrafter {
                 }
             }
         }
+		if(inventory.hasChanged){
+			inventory.hasChanged = false;
+		}
     }
 
     public boolean hasAllInputs() {

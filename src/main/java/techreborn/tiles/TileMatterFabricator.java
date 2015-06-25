@@ -191,7 +191,7 @@ public class TileMatterFabricator extends TileMachineBase implements IWrenchable
 					}
 				}
 			}
-			
+
 			if (this.amplifier > 0) {
 				if (this.amplifier > this.energy.getEnergyStored()) {
 					this.progresstime += this.energy.getEnergyStored();
