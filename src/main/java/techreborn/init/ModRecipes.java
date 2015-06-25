@@ -481,7 +481,7 @@ public class ModRecipes {
     
     public static void addBlastFurnaceRecipes()
     {
-        RecipeHandler.addRecipe(new BlastFurnaceRecipe(new ItemStack(Items.apple), new ItemStack(Items.diamond), new ItemStack(Blocks.acacia_stairs), new ItemStack(Blocks.anvil), 200, 30));
+        RecipeHandler.addRecipe(new BlastFurnaceRecipe(new ItemStack(Items.apple), new ItemStack(Items.diamond), new ItemStack(Blocks.acacia_stairs), new ItemStack(Blocks.anvil), 200, 30, 500));
     }
 	
 	public static void addUUrecipes() {
