@@ -8,12 +8,15 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
 import techreborn.api.recipe.RecipeCrafter;
+import techreborn.blocks.BlockMachineCasing;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModFluids;
+import techreborn.lib.Location;
 import techreborn.util.FluidUtils;
 import techreborn.util.Inventory;
 import techreborn.util.Tank;
@@ -76,12 +79,34 @@ public class TileGrinder extends TileMachineBase implements IWrenchable, IEnergy
 	public boolean isComplete() {
 		return false;
 	}
+	
+	public boolean getMutliBlock() {
+		for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
+			TileEntity tileEntity = worldObj.getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
+			if (tileEntity instanceof TileMachineCasing) {
+				if ((tileEntity.getBlockType() instanceof BlockMachineCasing)) {
+					int heat;
+					heat = BlockMachineCasing.getHeatFromMeta(tileEntity.getBlockMetadata());
+					Location location = new Location(xCoord, yCoord, zCoord, direction);
+					location.modifyPositionFromSide(direction, 1);
+					if (worldObj.getBlock(location.getX(), location.getY(), location.getZ()).getUnlocalizedName().equals("tile.lava")) {
+						heat += 500;
+					}
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		energy.updateEntity();
-		crafter.updateEntity();
+        if(getMutliBlock())
+        {
+        	energy.updateEntity();
+        	crafter.updateEntity();
+        }
 	}
 
     @Override
