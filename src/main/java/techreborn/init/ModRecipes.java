@@ -126,6 +126,8 @@ public class ModRecipes {
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 14), "blockPlatinum");
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 15), "blockNickel");
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 16), "blockInvar");
+		CraftingHelper.addShapelessOreRecipe(ItemDusts.getDustByName("titanium"), (ItemDustsSmall.getSmallDustByName("Titanium")), (ItemDustsSmall.getSmallDustByName("Titanium")), (ItemDustsSmall.getSmallDustByName("Titanium")), (ItemDustsSmall.getSmallDustByName("Titanium")));
+
 
 		LogHelper.info("Shapless Recipes Added");
 	}
@@ -481,7 +483,7 @@ public class ModRecipes {
     
     public static void addBlastFurnaceRecipes()
     {
-        RecipeHandler.addRecipe(new BlastFurnaceRecipe(new ItemStack(Items.apple), new ItemStack(Items.diamond), new ItemStack(Blocks.acacia_stairs), new ItemStack(Blocks.anvil), 200, 30, 500));
+        RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDusts.getDustByName("titanium"), null, null, (ItemIngots.getIngotByName("titanium")), 500, 128000, 1500));
     }
 	
 	public static void addUUrecipes() {
