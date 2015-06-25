@@ -14,6 +14,8 @@ import techreborn.util.ItemUtils;
 
 import java.util.List;
 
+import org.lwjgl.opengl.GL11;
+
 public class GrinderRecipeHandler extends GenericRecipeHander implements INeiBaseRecipe {
 	@Override
 	public void addPositionedStacks(List<PositionedStack> input, List<PositionedStack> outputs, IBaseRecipeType recipeType) {
@@ -80,18 +82,13 @@ public class GrinderRecipeHandler extends GenericRecipeHander implements INeiBas
 				if (grinderRecipe.fluidStack != null) {
 					IIcon fluidIcon = grinderRecipe.fluidStack.getFluid().getIcon();
 					if (fluidIcon != null) {
-//					GuiDraw.drawRect(7, 16, 176, 31, 0);
-//					drawTexturedModalRect(k + 7, l + 15, 176, 31, 20, 55);
 
 						Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
-						int liquidHeight = grinderRecipe.fluidStack.amount * 47 / 16000;
-						DrawUtil.drawRepeated(fluidIcon, 11, 19 + 47 - liquidHeight, 12.0D, liquidHeight, GuiDraw.gui.getZLevel());
+						int liquidHeight = grinderRecipe.fluidStack.amount * 100 / 16000;
+						DrawUtil.drawRepeated(fluidIcon, 7, 22 + 47 - liquidHeight, 14.0D, liquidHeight, GuiDraw.gui.getZLevel());
 
-
-//					this.mc.renderEngine.bindTexture(texture);
-//					drawTexturedModalRect(k + 11, l + 19, 176, 86, 12, 47);
 					}
-					GuiDraw.drawString(grinderRecipe.fluidStack.amount + "mb of " + grinderRecipe.fluidStack.getLocalizedName(), 14, 124, -1);
+					GuiDraw.drawString(grinderRecipe.fluidStack.amount + "mb of " + grinderRecipe.fluidStack.getLocalizedName(), 14, 135, -1);
 				}
 			}
 		}
