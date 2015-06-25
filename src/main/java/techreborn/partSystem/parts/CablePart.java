@@ -1,6 +1,5 @@
 package techreborn.partSystem.parts;
 
-import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergyConductor;
 import ic2.api.energy.tile.IEnergyTile;

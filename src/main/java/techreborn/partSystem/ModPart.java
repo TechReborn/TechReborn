@@ -90,4 +90,9 @@ public abstract class ModPart extends TileEntity implements IModPart {
     public void setWorldObj(World p_145834_1_) {
         super.setWorldObj(p_145834_1_);
     }
+
+	@Override
+	public String getItemTextureName() {
+		return "";
+	}
 }

@@ -180,7 +180,7 @@ public class TileMatterFabricator extends TileMachineBase implements IWrenchable
 		energy.updateEntity();
 
 		if (!super.worldObj.isRemote) {
-			for (int i = 0; i < 5; i++) {
+			for (int i = 0; i < 6; i++) {
 				ItemStack stack = inventory.getStackInSlot(i);
 				if (this.amplifier < 100000 && stack != null) {
 					int amp = (int) ((long) (getValue(stack) / 32));
@@ -191,9 +191,7 @@ public class TileMatterFabricator extends TileMachineBase implements IWrenchable
 					}
 				}
 			}
-
-
-
+			
 			if (this.amplifier > 0) {
 				if (this.amplifier > this.energy.getEnergyStored()) {
 					this.progresstime += this.energy.getEnergyStored();
@@ -210,8 +208,6 @@ public class TileMatterFabricator extends TileMachineBase implements IWrenchable
 				}
 
 			}
-
-
 
 			if (this.progresstime > this.maxProgresstime() && this.spaceForOutput()) {
 				this.progresstime -= this.maxProgresstime();
