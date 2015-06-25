@@ -1,5 +1,6 @@
 package techreborn.items;
 
+import java.security.InvalidParameterException;
 import java.util.List;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -14,14 +15,12 @@ public class ItemPurifiedCrushedOre extends Item {
 	
 	public static ItemStack getPurifiedCrushedOreByName(String name, int count)
 	{
-		int index = -1;
 		for (int i = 0; i < types.length; i++) {
 			if (types[i].equals(name)) {
-				index = i;
-				break;
+				return new ItemStack(ModItems.purifiedCrushedOre, count, i);
 			}
 		}
-		return new ItemStack(ModItems.purifiedCrushedOre, count, index);
+		throw new InvalidParameterException("The crushed ore " + name + " could not be found.");
 	}
 	
 	public static ItemStack getPurifiedCrushedOreByName(String name)

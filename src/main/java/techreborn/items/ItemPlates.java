@@ -1,5 +1,6 @@
 package techreborn.items;
 
+import java.security.InvalidParameterException;
 import java.util.List;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -14,14 +15,12 @@ public class ItemPlates extends ItemTR {
 		
 	public static ItemStack getPlateByName(String name, int count)
 	{
-		int index = -1;
 		for (int i = 0; i < types.length; i++) {
 			if (types[i].equals(name)) {
-				index = i;
-				break;
+				return new ItemStack(ModItems.plate, count, i);
 			}
 		}
-		return new ItemStack(ModItems.plate, count, index);
+		throw new InvalidParameterException("The plate " + name + " could not be found.");
 	}
 	
 	public static ItemStack getPlateByName(String name)
@@ -31,7 +30,7 @@ public class ItemPlates extends ItemTR {
 	
 	public static final String[] types = new String[]
 	{ "aluminum", "batteryAlloy", "brass", "bronze", "carbon",
-			"chrome", "copper", "diamond", "electrum", "emerald",
+			"chrome", "coal", "copper", "diamond", "electrum", "emerald",
 			"gold", "invar", "iridium", "iron", "lapis", "lead",
 			"magnalium", "nickel", "obsidian", "osmium",
 			"peridot", "platinum", "redGarnet", "redstone",

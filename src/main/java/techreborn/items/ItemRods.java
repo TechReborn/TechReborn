@@ -1,5 +1,6 @@
 package techreborn.items;
 
+import java.security.InvalidParameterException;
 import java.util.List;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -14,14 +15,12 @@ public class ItemRods extends Item {
 	
 	public static ItemStack getRodByName(String name, int count)
 	{
-		int index = -1;
 		for (int i = 0; i < types.length; i++) {
 			if (types[i].equals(name)) {
-				index = i;
-				break;
+				return new ItemStack(ModItems.rods, count, i);
 			}
 		}
-		return new ItemStack(ModItems.rods, count, index);
+		throw new InvalidParameterException("The rod " + name + " could not be found.");
 	}
 	
 	public static ItemStack getRodByName(String name)

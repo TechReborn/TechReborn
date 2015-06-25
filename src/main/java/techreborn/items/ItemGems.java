@@ -1,5 +1,6 @@
 package techreborn.items;
 
+import java.security.InvalidParameterException;
 import java.util.List;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -14,14 +15,12 @@ public class ItemGems extends Item {
 	
 	public static ItemStack getGemByName(String name, int count)
 	{
-		int index = -1;
 		for (int i = 0; i < types.length; i++) {
 			if (types[i].equals(name)) {
-				index = i;
-				break;
+				return new ItemStack(ModItems.gems, count, i);
 			}
 		}
-		return new ItemStack(ModItems.gems, count, index);
+		throw new InvalidParameterException("The gem " + name + " could not be found.");
 	}
 	
 	public static ItemStack getGemByName(String name)

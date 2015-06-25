@@ -1,5 +1,6 @@
 package techreborn.items;
 
+import java.security.InvalidParameterException;
 import java.util.List;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -14,14 +15,12 @@ public class ItemDustsSmall extends ItemTR {
 	
 	public static ItemStack getSmallDustByName(String name, int count)
 	{
-		int index = -1;
 		for (int i = 0; i < types.length; i++) {
 			if (types[i].equals(name)) {
-				index = i;
-				break;
+				return new ItemStack(ModItems.smallDusts, count, i);
 			}
 		}
-		return new ItemStack(ModItems.smallDusts, count, index);
+		throw new InvalidParameterException("The small dust " + name + " could not be found.");
 	}
 	
 	public static ItemStack getSmallDustByName(String name)

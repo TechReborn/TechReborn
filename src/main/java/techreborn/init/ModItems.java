@@ -301,7 +301,7 @@ public class ModItems {
         OreDictionary.registerOre("gemYellowGarnet", ItemGems.getGemByName("yellowGarnet"));
 
 		// Dusts
-		OreDictionary.registerOre("dustAlmandine", ItemDusts.getDustByName("almadine"));
+		OreDictionary.registerOre("dustAlmandine", ItemDusts.getDustByName("almandine"));
 		OreDictionary.registerOre("dustAluminumBrass", ItemDusts.getDustByName("aluminumBrass"));
 		OreDictionary.registerOre("dustAluminum", ItemDusts.getDustByName("aluminum"));
 		OreDictionary.registerOre("dustAluminium", ItemDusts.getDustByName("aluminum"));
@@ -643,7 +643,7 @@ public class ModItems {
         OreDictionary.registerOre("plateBrass", ItemPlates.getPlateByName("brass"));
         OreDictionary.registerOre("plateBronze", ItemPlates.getPlateByName("bronze"));
         OreDictionary.registerOre("plateCoal", ItemPlates.getPlateByName("coal"));
-        OreDictionary.registerOre("plateChrome", ItemPlates.getPlateByName("chome"));
+        OreDictionary.registerOre("plateChrome", ItemPlates.getPlateByName("chrome"));
         OreDictionary.registerOre("plateCopper", ItemPlates.getPlateByName("copper"));
         OreDictionary.registerOre("plateDiamond", ItemPlates.getPlateByName("diamond"));
         OreDictionary.registerOre("plateElectrum", ItemPlates.getPlateByName("electrum"));

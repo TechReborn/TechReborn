@@ -1,5 +1,6 @@
 package techreborn.items;
 
+import java.security.InvalidParameterException;
 import java.util.List;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -13,14 +14,12 @@ import techreborn.init.ModItems;
 public class ItemDusts extends ItemTR {
 	public static ItemStack getDustByName(String name, int count)
 	{
-		int index = -1;
 		for (int i = 0; i < types.length; i++) {
 			if (types[i].equals(name)) {
-				index = i;
-				break;
+				return new ItemStack(ModItems.dusts, count, i);
 			}
 		}
-		return new ItemStack(ModItems.dusts, count, index);
+		throw new InvalidParameterException("The gem " + name + " could not be found.");
 	}
 	
 	public static ItemStack getDustByName(String name)

@@ -10,19 +10,18 @@ import techreborn.api.upgrade.IMachineUpgrade;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
 
+import java.security.InvalidParameterException;
 import java.util.List;
 
 public class ItemUpgrade extends ItemTR implements IMachineUpgrade {
 
 	public static ItemStack getUpgradeByName(String name, int count) {
-		int index = -1;
 		for (int i = 0; i < types.length; i++) {
 			if (types[i].equals(name)) {
-				index = i;
-				break;
+				return new ItemStack(ModItems.plate, count, i);
 			}
 		}
-		return new ItemStack(ModItems.plate, count, index);
+		throw new InvalidParameterException("The upgrade " + name + " could not be found.");
 	}
 
 	public static ItemStack getUpgradeByName(String name) {

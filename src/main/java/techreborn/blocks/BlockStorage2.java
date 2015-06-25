@@ -1,5 +1,6 @@
 package techreborn.blocks;
 
+import java.security.InvalidParameterException;
 import java.util.List;
 import java.util.Random;
 
@@ -15,8 +16,19 @@ import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.client.TechRebornCreativeTabMisc;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import techreborn.init.ModBlocks;
 
 public class BlockStorage2 extends Block {
+
+	public static ItemStack getStorageBlockByName(String name, int count)
+	{
+		for (int i = 0; i < types.length; i++) {
+			if (types[i].equals(name)) {
+				return new ItemStack(ModBlocks.storage2, count, i);
+			}
+		}
+		throw new InvalidParameterException("The storage block " + name + " could not be found.");
+	}
 
     public static final String[] types = new String[]
             { "tungstensteel", "lodestone", "tellurium", "iridium_reinforced_tungstensteel",

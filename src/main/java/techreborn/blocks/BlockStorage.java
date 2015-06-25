@@ -15,8 +15,19 @@ import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.client.TechRebornCreativeTabMisc;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import techreborn.init.ModBlocks;
 
 public class BlockStorage extends Block {
+
+	public static ItemStack getStorageBlockByName(String name, int count)
+	{
+		for (int i = 0; i < types.length; i++) {
+			if (types[i].equals(name)) {
+				return new ItemStack(ModBlocks.storage, count, i);
+			}
+		}
+		return BlockStorage2.getStorageBlockByName(name, count);
+	}
 
 	public static final String[] types = new String[]
 	{ "silver", "aluminum", "titanium", "chrome", "steel", "brass", "lead",

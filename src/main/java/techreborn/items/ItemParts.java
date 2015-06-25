@@ -1,5 +1,6 @@
 package techreborn.items;
 
+import java.security.InvalidParameterException;
 import java.util.List;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -17,14 +18,12 @@ import techreborn.init.ModItems;
 public class ItemParts extends Item {
 	public static ItemStack getPartByName(String name, int count)
 	{
-		int index = -1;
 		for (int i = 0; i < types.length; i++) {
 			if (types[i].equals(name)) {
-				index = i;
-				break;
+				return new ItemStack(ModItems.parts, count, i);
 			}
 		}
-		return new ItemStack(ModItems.parts, count, index);
+		throw new InvalidParameterException("The part " + name + " could not be found.");
 	}
 	
 	public static ItemStack getPartByName(String name)
