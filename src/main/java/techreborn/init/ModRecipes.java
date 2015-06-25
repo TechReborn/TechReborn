@@ -15,6 +15,7 @@ import techreborn.api.recipe.machines.LatheRecipe;
 import techreborn.api.recipe.machines.PlateCuttingMachineRecipe;
 import techreborn.config.ConfigTechReborn;
 import techreborn.items.ItemDusts;
+import techreborn.items.ItemDustsSmall;
 import techreborn.items.ItemIngots;
 import techreborn.items.ItemParts;
 import techreborn.items.ItemPlates;
@@ -128,13 +129,13 @@ public class ModRecipes {
 	}
 
 	public static void addSmeltingRecipes() {
-		GameRegistry.addSmelting(new ItemStack(ModItems.dusts, 1, 27), new ItemStack(Items.iron_ingot), 1F);
-		GameRegistry.addSmelting(new ItemStack(ModItems.dusts, 1, 23), new ItemStack(Items.gold_ingot), 1F);
-		GameRegistry.addSmelting(new ItemStack(ModItems.dusts, 1, 14), IC2Items.getItem("copperIngot"), 1F);
-		GameRegistry.addSmelting(new ItemStack(ModItems.dusts, 1, 51), IC2Items.getItem("tinIngot"), 1F);
-		GameRegistry.addSmelting(new ItemStack(ModItems.dusts, 1, 7), IC2Items.getItem("bronzeIngot"), 1F);
-		GameRegistry.addSmelting(new ItemStack(ModItems.dusts, 1, 29), IC2Items.getItem("leadIngot"), 1F);
-		GameRegistry.addSmelting(new ItemStack(ModItems.dusts, 1, 45), IC2Items.getItem("silverIngot"), 1F);
+		GameRegistry.addSmelting(ItemDusts.getDustByName("iron", 1), new ItemStack(Items.iron_ingot), 1F);
+		GameRegistry.addSmelting(ItemDusts.getDustByName("gold", 1), new ItemStack(Items.gold_ingot), 1F);
+		GameRegistry.addSmelting(ItemDusts.getDustByName("copper", 1), IC2Items.getItem("copperIngot"), 1F);
+		GameRegistry.addSmelting(ItemDusts.getDustByName("tin", 1), IC2Items.getItem("tinIngot"), 1F);
+		GameRegistry.addSmelting(ItemDusts.getDustByName("bronze", 1), IC2Items.getItem("bronzeIngot"), 1F);
+		GameRegistry.addSmelting(ItemDusts.getDustByName("lead", 1), IC2Items.getItem("leadIngot"), 1F);
+		GameRegistry.addSmelting(ItemDusts.getDustByName("silver", 1), IC2Items.getItem("silverIngot"), 1F);
 
 		LogHelper.info("Smelting Recipes Added");
 	}
