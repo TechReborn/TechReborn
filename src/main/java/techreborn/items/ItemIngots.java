@@ -15,7 +15,7 @@ public class ItemIngots extends Item {
 	public static ItemStack getIngotByName(String name, int count)
 	{
 		for (int i = 0; i < types.length; i++) {
-			if (types[i].equals(name)) {
+			if (types[i].equalsIgnoreCase(name)) {
 				return new ItemStack(ModItems.ingots, count, i);
 			}
 		}

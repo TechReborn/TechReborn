@@ -15,7 +15,7 @@ public class ItemDusts extends ItemTR {
 	public static ItemStack getDustByName(String name, int count)
 	{
 		for (int i = 0; i < types.length; i++) {
-			if (types[i].equals(name)) {
+			if (types[i].equalsIgnoreCase(name)) {
 				return new ItemStack(ModItems.dusts, count, i);
 			}
 		}

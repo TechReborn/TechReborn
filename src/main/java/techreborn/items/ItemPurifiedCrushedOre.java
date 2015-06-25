@@ -16,7 +16,7 @@ public class ItemPurifiedCrushedOre extends Item {
 	public static ItemStack getPurifiedCrushedOreByName(String name, int count)
 	{
 		for (int i = 0; i < types.length; i++) {
-			if (types[i].equals(name)) {
+			if (types[i].equalsIgnoreCase(name)) {
 				return new ItemStack(ModItems.purifiedCrushedOre, count, i);
 			}
 		}

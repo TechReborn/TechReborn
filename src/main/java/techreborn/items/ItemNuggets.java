@@ -16,7 +16,7 @@ public class ItemNuggets extends Item {
 	public static ItemStack getNuggetByName(String name, int count)
 	{
 		for (int i = 0; i < types.length; i++) {
-			if (types[i].equals(name)) {
+			if (types[i].equalsIgnoreCase(name)) {
 				return new ItemStack(ModItems.nuggets, count, i);
 			}
 		}
