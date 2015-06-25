@@ -1,9 +1,11 @@
 package techreborn.partSystem.parts;
 
+import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergyConductor;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.item.IC2Items;
+import ic2.api.network.INetworkTileEntityEventListener;
 import ic2.core.IC2;
 
 import java.util.ArrayList;
@@ -13,6 +15,7 @@ import java.util.Map;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ic2.core.network.NetworkManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -28,7 +31,7 @@ import techreborn.partSystem.ModPart;
 import techreborn.partSystem.ModPartUtils;
 import uk.co.qmunity.lib.client.render.RenderHelper;
 
-public class CablePart extends ModPart implements IEnergyConductor {
+public class CablePart extends ModPart implements IEnergyConductor, INetworkTileEntityEventListener {
     public Vecs3dCube[] boundingBoxes = new Vecs3dCube[14];
     public float center = 0.6F;
     public float offset = 0.10F;
@@ -38,13 +41,19 @@ public class CablePart extends ModPart implements IEnergyConductor {
     private boolean[] connections = new boolean[6];
     public boolean addedToEnergyNet = false;
 
-    public int type = 3;
+    public int type = 0;//TODO save this to nbt and not use the constructor.
 
+	@Deprecated
     public CablePart(int type) {
         this.type = type;
 		refreshBounding();
         connectedSides = new HashMap<ForgeDirection, TileEntity>();
     }
+
+	public CablePart(){
+		this(0);
+	}
+
 
     public void refreshBounding() {
         float centerFirst = center - offset;
@@ -131,8 +140,7 @@ public class CablePart extends ModPart implements IEnergyConductor {
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound tag) {
-
+    public void writeToNBT(NBTTagCompound tag) {;
     }
 
     @Override
@@ -153,6 +161,11 @@ public class CablePart extends ModPart implements IEnergyConductor {
 
     @Override
     public void tick() {
+		if(IC2.platform.isSimulating() && !this.addedToEnergyNet) {
+			MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
+			this.addedToEnergyNet = true;
+			nearByChange();
+		}
     }
 
     @Override
@@ -163,7 +176,13 @@ public class CablePart extends ModPart implements IEnergyConductor {
     @Override
     public void onAdded() {
         checkConnections(world, getX(), getY(), getZ());
-    }
+		if(IC2.platform.isSimulating()) {
+			MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
+			this.addedToEnergyNet = true;
+			nearByChange();
+		}
+
+	}
 
     @Override
     public void onRemoved() {
@@ -477,13 +496,28 @@ public class CablePart extends ModPart implements IEnergyConductor {
     @Override
     public boolean acceptsEnergyFrom(TileEntity tileEntity,
                                      ForgeDirection forgeDirection) {
-        return connectedSides.containsKey(forgeDirection.getOpposite());
+        return true;
     }
 
     @Override
     public boolean emitsEnergyTo(TileEntity tileEntity,
                                  ForgeDirection forgeDirection) {
-        //This is not called.
-        return connectedSides.containsKey(forgeDirection.getOpposite());
+        return true;
     }
+
+	@Override
+	public void onNetworkEvent(int i) {
+		switch(i) {
+			case 0:
+				this.worldObj.playSoundEffect((double)((float)this.xCoord + 0.5F), (double)((float)this.yCoord + 0.5F), (double)((float)this.zCoord + 0.5F), "random.fizz", 0.5F, 2.6F + (this.worldObj.rand.nextFloat() - this.worldObj.rand.nextFloat()) * 0.8F);
+
+				for(int l = 0; l < 8; ++l) {
+					this.worldObj.spawnParticle("largesmoke", (double)this.xCoord + Math.random(), (double)this.yCoord + 1.2D, (double)this.zCoord + Math.random(), 0.0D, 0.0D, 0.0D);
+				}
+
+				return;
+			default:
+				IC2.platform.displayError("An unknown event type was received over multiplayer.\nThis could happen due to corrupted data or a bug.\n\n(Technical information: event ID " + i + ", tile entity below)\n" + "T: " + this + " (" + this.xCoord + ", " + this.yCoord + ", " + this.zCoord + ")", new Object[0]);
+		}
+	}
 }

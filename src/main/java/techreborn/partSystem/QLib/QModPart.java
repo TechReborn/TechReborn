@@ -122,10 +122,12 @@ public class QModPart extends PartBase implements IPartCollidable,
 
     @Override
     public void onAdded() {
-        if (iModPart.location != null) {
-            iModPart.nearByChange();
-            iModPart.onAdded();
-        }
+		if (iModPart.world == null || iModPart.location == null) {
+			iModPart.setWorld(getWorld());
+			iModPart.setLocation(new Location(getX(), getY(), getZ()));
+		}
+		iModPart.nearByChange();
+		iModPart.onAdded();
     }
 
     @Override

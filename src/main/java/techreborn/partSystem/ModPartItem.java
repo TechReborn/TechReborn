@@ -26,7 +26,6 @@ public class ModPartItem extends Item {
     @Override
     public boolean onItemUse(ItemStack item, EntityPlayer player, World world,
                              int x, int y, int z, int face, float x_, float y_, float z_) {
-        System.out.println(ModPartUtils.hasPart(world, x, y, z, modPart.getName()));
         ForgeDirection dir = ForgeDirection.getOrientation(face);
         if(ModPartUtils.hasPart(world, x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ, modPart.getName())){
             x = x + dir.offsetX;
