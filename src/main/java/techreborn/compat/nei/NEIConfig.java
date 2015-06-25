@@ -4,6 +4,7 @@ import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
 import techreborn.compat.nei.recipes.AlloySmelterRecipeHandler;
 import techreborn.compat.nei.recipes.AssemblingMachineRecipeHandler;
+import techreborn.compat.nei.recipes.BlastFurnaceRecipeHandler;
 import techreborn.compat.nei.recipes.CentrifugeRecipeHandler;
 import techreborn.compat.nei.recipes.ChemicalReactorRecipeHandler;
 import techreborn.compat.nei.recipes.GrinderRecipeHandler;
@@ -26,14 +27,11 @@ public class NEIConfig implements IConfigureNEI {
 		return ModInfo.MOD_VERSION;
 	}
 
-	public static BlastFurnaceRecipeHandler blastFurnaceRecipeHandle;
 
 	@Override
 	public void loadConfig() {
 		ShapedRollingMachineHandler shapedRollingMachineHandler = new ShapedRollingMachineHandler();
 		ShapelessRollingMachineHandler shapelessRollingMachineHandler = new ShapelessRollingMachineHandler();
-		NEIConfig.blastFurnaceRecipeHandle = new BlastFurnaceRecipeHandler();
-
 
 		ImplosionCompressorRecipeHandler implosion = new ImplosionCompressorRecipeHandler();
 		API.registerUsageHandler(implosion);
@@ -75,13 +73,15 @@ public class NEIConfig implements IConfigureNEI {
 		API.registerUsageHandler(elec);
 		API.registerRecipeHandler(elec);
 		
+		BlastFurnaceRecipeHandler blast = new BlastFurnaceRecipeHandler();
+		API.registerUsageHandler(blast);
+		API.registerRecipeHandler(blast);
+		
 		API.registerUsageHandler(shapedRollingMachineHandler);
 		API.registerRecipeHandler(shapedRollingMachineHandler);
 
 		API.registerUsageHandler(shapelessRollingMachineHandler);
 		API.registerRecipeHandler(shapelessRollingMachineHandler);
 
-		API.registerUsageHandler(NEIConfig.blastFurnaceRecipeHandle);
-		API.registerRecipeHandler(NEIConfig.blastFurnaceRecipeHandle);
 	}
 }

@@ -6,36 +6,7 @@ import net.minecraft.item.ItemStack;
 import techreborn.util.ItemUtils;
 
 public final class TechRebornAPI {
-
-	public static ArrayList<BlastFurnaceRecipe> blastFurnaceRecipes = new ArrayList<BlastFurnaceRecipe>();
-
-    public static void registerBlastFurnaceRecipe(BlastFurnaceRecipe recipie) {
-        boolean shouldAdd = true;
-        for (BlastFurnaceRecipe blastFurnaceRecipe : blastFurnaceRecipes) {
-            if (ItemUtils.isItemEqual(blastFurnaceRecipe.getInput1(), recipie.getInput1(), false, true) && ItemUtils.isItemEqual(blastFurnaceRecipe.getInput2(), recipie.getInput2(), false, true)) {
-                {
-                    try {
-                        throw new RegisteredItemRecipe(
-                                "Item "
-                                        + recipie.getInput1()
-                                        .getUnlocalizedName()
-                                        + " and " + recipie.getInput2().getUnlocalizedName() + " is already being used in a recipe for the BlastFurnace");
-                    } catch (RegisteredItemRecipe registeredItemRecipe) {
-                        registeredItemRecipe.printStackTrace();
-                        shouldAdd = false;
-                    }
-                }
-            }
-        }
-        if (shouldAdd){
-			blastFurnaceRecipes.add(recipie);
-			//This adds the same recipe but backwards. so you can swap the inputs
-			blastFurnaceRecipes.add(new BlastFurnaceRecipe(recipie.getInput2(), recipie.getInput1(), recipie.output1, recipie.output2, recipie.tickTime, recipie.minHeat));
-		}
-
-    }
     
-
 	public static void addRollingMachinceRecipe(ItemStack output,
 			Object... components)
 	{

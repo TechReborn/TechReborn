@@ -10,6 +10,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.AlloySmelterRecipe;
+import techreborn.api.recipe.machines.BlastFurnaceRecipe;
 import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
 import techreborn.api.recipe.machines.LatheRecipe;
 import techreborn.api.recipe.machines.PlateCuttingMachineRecipe;
@@ -36,6 +37,7 @@ public class ModRecipes {
 		addUUrecipes();
 		addHammerRecipes();
         addIndustrialSawmillRecipes();
+        addBlastFurnaceRecipes();
 	}
 
 	public static void addShappedRecipes() {
@@ -475,6 +477,11 @@ public class ModRecipes {
         RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log2, 1, 1), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(Blocks.planks, 6, 5), pulpStack, null, 200, 30, false));
         RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log2, 1, 1), IC2Items.getItem("waterCell"), null, new ItemStack(Blocks.planks, 6, 5), pulpStack, IC2Items.getItem("cell"), 200, 30, false));
         RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log2, 1, 1), new ItemStack(Items.water_bucket), null, new ItemStack(Blocks.planks, 6, 5), pulpStack, new ItemStack(Items.bucket), 200, 30, false));
+    }
+    
+    public static void addBlastFurnaceRecipes()
+    {
+        RecipeHandler.addRecipe(new BlastFurnaceRecipe(new ItemStack(Items.apple), new ItemStack(Items.diamond), new ItemStack(Blocks.acacia_stairs), new ItemStack(Blocks.anvil), 200, 30));
     }
 	
 	public static void addUUrecipes() {
