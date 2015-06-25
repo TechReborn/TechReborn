@@ -15,13 +15,12 @@ import uk.co.qmunity.lib.client.render.RenderHelper;
 public class RenderCablePart {
 	@SideOnly(Side.CLIENT)
 	public static boolean renderStatic(Vecs3d translation, RenderHelper renderer, int pass, CablePart part) {
-		renderer.renderBox(ModLib2QLib.convert(part.boundingBoxes[6]), getIconFromType(part.type));
-		if (part.connectedSides != null) {
+		IIcon icon = getIconFromType(part.type);
+		renderer.renderBox(ModLib2QLib.convert(part.boundingBoxes[6]), icon);
 			for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-				if (part.connectedSides.containsKey(dir))
-					renderer.renderBox(ModLib2QLib.convert(part.boundingBoxes[Functions.getIntDirFromDirection(dir)]), getIconFromType(part.type));
+				if (part.connectedSides.get(dir) != null)
+					renderer.renderBox(ModLib2QLib.convert(part.boundingBoxes[Functions.getIntDirFromDirection(dir)]), icon);
 			}
-		}
 		return true;
 	}
 	@SideOnly(Side.CLIENT)

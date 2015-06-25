@@ -16,6 +16,7 @@ import java.util.Map;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ic2.core.network.NetworkManager;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -131,7 +132,6 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
 
     @Override
     public void renderDynamic(Vecs3d translation, double delta) {
-
     }
 
     @Override

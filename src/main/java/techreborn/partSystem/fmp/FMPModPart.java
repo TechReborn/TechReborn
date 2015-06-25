@@ -7,6 +7,7 @@ package techreborn.partSystem.fmp;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
@@ -25,6 +26,7 @@ import codechicken.multipart.TMultiPart;
 import codechicken.multipart.TSlottedPart;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import uk.co.qmunity.lib.vec.Vec3i;
 
 public class FMPModPart extends TMultiPart implements TSlottedPart,
         JNormalOcclusion, ISidedHollowConnect {
@@ -176,12 +178,10 @@ public class FMPModPart extends TMultiPart implements TSlottedPart,
 
     @Override
     public boolean renderStatic(Vector3 pos, int pass) {
-        boolean render = false;
-        render = iModPart.renderStatic(new Vecs3d(pos.x, pos.y, pos.z), uk.co.qmunity.lib.client.render.RenderHelper.instance, pass);
-        RenderHelper.instance.resetRenderedSides();
-        RenderHelper.instance.resetTextureRotations();
-        RenderHelper.instance.resetTransformations();
-        RenderHelper.instance.setColor(0xFFFFFF);
-        return render;
-    }
+		RenderHelper.instance.setRenderCoords(getWorld(), (int) pos.x, (int) pos.y, (int) pos.z);
+		iModPart.renderStatic(new Vecs3d((int) pos.x, (int) pos.y, (int) pos.z), RenderHelper.instance, pass);
+		RenderHelper.instance.reset();
+		return false;
+
+	}
 }
