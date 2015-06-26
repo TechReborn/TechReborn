@@ -42,7 +42,7 @@ public class ModRecipes {
 		addImplosionCompressorRecipes();
 	}
 
-	public static void addGeneralShappedRecipes() {
+	static void addGeneralShappedRecipes() {
 
 		// Storage Blocks
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage, 1, 0),
@@ -219,7 +219,7 @@ public class ModRecipes {
 		LogHelper.info("Shapped Recipes Added");
 	}
 
-	public static void addShaplessRecipes() {
+	static void addShaplessRecipes() {
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 4), "blockSilver");
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 5), "blockAluminium");
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 6), "blockTitanium");
@@ -242,7 +242,7 @@ public class ModRecipes {
 		LogHelper.info("Shapless Recipes Added");
 	}
 
-	public static void addMachineRecipies()
+	static void addMachineRecipies()
 	{
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ComputerCube),
 				"DME", "MAM", "EMD",
@@ -539,7 +539,7 @@ public class ModRecipes {
 				'T', IC2Items.getItem("teleporter"));
 	}
 
-	public static void addSmeltingRecipes() {
+	static void addSmeltingRecipes() {
 		GameRegistry.addSmelting(ItemDusts.getDustByName("iron", 1), new ItemStack(Items.iron_ingot), 1F);
 		GameRegistry.addSmelting(ItemDusts.getDustByName("gold", 1), new ItemStack(Items.gold_ingot), 1F);
 		GameRegistry.addSmelting(ItemDusts.getDustByName("copper", 1), IC2Items.getItem("copperIngot"), 1F);
@@ -551,7 +551,7 @@ public class ModRecipes {
 		LogHelper.info("Smelting Recipes Added");
 	}
 
-	public static void addHammerRecipes(){
+	static void addHammerRecipes(){
 		ItemStack hammerIron = new ItemStack(ModItems.hammerIron, 1, OreDictionary.WILDCARD_VALUE);
 		ItemStack hammerDiamond = new ItemStack(ModItems.hammerDiamond, 1, OreDictionary.WILDCARD_VALUE);
 
@@ -559,7 +559,7 @@ public class ModRecipes {
 
 	}
 
-	public static void addAlloySmelterRecipes(){
+	static void addAlloySmelterRecipes(){
         //Bronze
         RecipeHandler.addRecipe(new AlloySmelterRecipe(ItemIngots.getIngotByName("copper", 3), ItemIngots.getIngotByName("tin", 1), ItemIngots.getIngotByName("bronze", 4), 200, 16));
         RecipeHandler.addRecipe(new AlloySmelterRecipe(ItemIngots.getIngotByName("copper", 3), ItemDusts.getDustByName("tin", 1), ItemIngots.getIngotByName("bronze", 4), 200, 16));
@@ -702,7 +702,7 @@ public class ModRecipes {
 
     }
 
-	public static void addLatheRecipes() {
+	static void addLatheRecipes() {
 		//Metal Rods
         RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("brass", 1), ItemRods.getRodByName("brass", 1), 300, 16));
         RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("bronze", 1), ItemRods.getRodByName("bronze", 1), 380, 16));
@@ -726,7 +726,7 @@ public class ModRecipes {
         RecipeHandler.addRecipe(new LatheRecipe(ItemPlates.getPlateByName("redGarnet", 1), ItemParts.getPartByName("laserFocus", 1), 10, 16));
 	}
 
-    public static void addPlateCuttingMachineRecipes() {
+    static void addPlateCuttingMachineRecipes() {
         //Storage Blocks
         if(OreDictionary.doesOreNameExist("blockAluminum")) {
             ItemStack blockStack = OreDictionary.getOres("blockAluminum").get(0);
@@ -861,7 +861,7 @@ public class ModRecipes {
         RecipeHandler.addRecipe(new PlateCuttingMachineRecipe(new ItemStack(Blocks.obsidian), ItemPlates.getPlateByName("obsidian", 9), 100, 4));
     }
 
-    public static void addIndustrialSawmillRecipes() {
+    static void addIndustrialSawmillRecipes() {
         ItemStack pulpStack = OreDictionary.getOres("pulpWood").get(0);
         RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log, 1, 0), null, new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(Blocks.planks, 6, 0), pulpStack, null, 200, 30, false));
         RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log, 1, 0), IC2Items.getItem("waterCell"), null, new ItemStack(Blocks.planks, 6, 0), pulpStack, IC2Items.getItem("cell"), 200, 30, false));
@@ -888,7 +888,7 @@ public class ModRecipes {
         RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log2, 1, 1), new ItemStack(Items.water_bucket), null, new ItemStack(Blocks.planks, 6, 5), pulpStack, new ItemStack(Items.bucket), 200, 30, false));
     }
     
-    public static void addBlastFurnaceRecipes()
+    static void addBlastFurnaceRecipes()
     {
         RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDusts.getDustByName("titanium"), null, ItemIngots.getIngotByName("titanium"), null, 3600, 120, 1500));
 		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsSmall.getSmallDustByName("titanium", 4), null, ItemIngots.getIngotByName("titanium"), null, 3600, 120, 1500));
@@ -922,7 +922,7 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(new BlastFurnaceRecipe(BlockOre.getOreByName("pyrite"), ItemDusts.getDustByName("calcite"), new ItemStack(Items.iron_ingot, 2), ItemDusts.getDustByName("darkAshes"), 140, 120, 15000));
 	}
 	
-	public static void addUUrecipes() {
+	static void addUUrecipes() {
 		if(ConfigTechReborn.UUrecipesIridiamOre)
 			CraftingHelper.addShapedOreRecipe((IC2Items.getItem("iridiumOre")),
 					"UUU",
@@ -1187,7 +1187,7 @@ public class ModRecipes {
 		
 	}
 	
-	public static void hideUUrecipes() {
+	static void hideUUrecipes() {
 		//TODO
 	}
 
