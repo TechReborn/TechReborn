@@ -3,7 +3,9 @@ package techreborn;
 import java.io.File;
 
 import net.minecraftforge.common.MinecraftForge;
+
 import org.apache.commons.lang3.time.StopWatch;
+
 import techreborn.achievement.TRAchievements;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.client.GuiHandler;
@@ -20,6 +22,7 @@ import techreborn.packets.PacketHandler;
 import techreborn.proxies.CommonProxy;
 import techreborn.tiles.idsu.IDSUManager;
 import techreborn.util.LogHelper;
+import techreborn.world.DungeonLoot;
 import techreborn.world.TROreGen;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -80,6 +83,7 @@ public class Core {
 		}
 		// WorldGen
 		GameRegistry.registerWorldGenerator(new TROreGen(), 0);
+		DungeonLoot.init();
 		// Register Gui Handler
 		NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
 		// packets
