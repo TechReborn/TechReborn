@@ -5,7 +5,7 @@ import net.minecraft.inventory.Slot;
 import techreborn.client.SlotOutput;
 import techreborn.tiles.TileIndustrialElectrolyzer;
 
-public class ContainerIndustrialElectrolyzer extends TechRebornContainer {
+public class ContainerIndustrialElectrolyzer extends ContainerCrafting {
 
 	EntityPlayer player;
 
@@ -19,9 +19,9 @@ public class ContainerIndustrialElectrolyzer extends TechRebornContainer {
 
 	public int tickTime;
 
-	public ContainerIndustrialElectrolyzer(TileIndustrialElectrolyzer electrolyzer,
-			EntityPlayer player)
+	public ContainerIndustrialElectrolyzer(TileIndustrialElectrolyzer electrolyzer, EntityPlayer player)
 	{
+		super(electrolyzer.crafter);
 		tile = electrolyzer;
 		this.player = player;
 
@@ -38,7 +38,6 @@ public class ContainerIndustrialElectrolyzer extends TechRebornContainer {
 
 
 		int i;
-
 		for (i = 0; i < 3; ++i)
 		{
 			for (int j = 0; j < 9; ++j)

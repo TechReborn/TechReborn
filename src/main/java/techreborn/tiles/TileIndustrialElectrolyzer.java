@@ -9,17 +9,25 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.IFluidHandler;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.init.ModBlocks;
+import techreborn.init.ModFluids;
 import techreborn.util.Inventory;
+import techreborn.util.Tank;
 
 import java.util.List;
 
-public class TileIndustrialElectrolyzer extends TileMachineBase implements IWrenchable, IEnergyTile, IInventory, ISidedInventory {
+public class TileIndustrialElectrolyzer extends TileMachineBase implements IWrenchable, IEnergyTile, IFluidHandler, IInventory, ISidedInventory {
 
 	public int tickTime;
 	public BasicSink energy;
 	public Inventory inventory = new Inventory(7, "TileIndustrialElectrolyzer", 64);
+	public Tank tank = new Tank("TileIndustrialElectrolyzer", 16000, this);
 	public RecipeCrafter crafter;
 	
 	public TileIndustrialElectrolyzer()
@@ -32,7 +40,7 @@ public class TileIndustrialElectrolyzer extends TileMachineBase implements IWren
 		inputs[1] = 1;
 		int[] outputs = new int[1];
 		outputs[0] = 2;
-		crafter = new RecipeCrafter("industrialelectrolyzerRecipe", this, energy, 2, 2, inventory, inputs, outputs);
+		crafter = new RecipeCrafter("industrialelectrolyzerRecipe", this, energy, 2, 1, inventory, inputs, outputs);
 	}
 	
 	@Override
@@ -93,6 +101,8 @@ public class TileIndustrialElectrolyzer extends TileMachineBase implements IWren
         super.readFromNBT(tagCompound);
         inventory.readFromNBT(tagCompound);
         energy.readFromNBT(tagCompound);
+        crafter.readFromNBT(tagCompound);
+        tank.readFromNBT(tagCompound);
     }
 
     @Override
@@ -101,6 +111,8 @@ public class TileIndustrialElectrolyzer extends TileMachineBase implements IWren
         super.writeToNBT(tagCompound);
         inventory.writeToNBT(tagCompound);
         energy.writeToNBT(tagCompound);
+		tank.writeToNBT(tagCompound);
+		crafter.writeToNBT(tagCompound);
     }
 
     @Override
@@ -205,6 +217,52 @@ public class TileIndustrialElectrolyzer extends TileMachineBase implements IWren
 	public boolean canExtractItem(int slotIndex, ItemStack itemStack, int side)
 	{
         return slotIndex == 2 || slotIndex == 3 || slotIndex == 4 || slotIndex == 5;
+	}
+
+	/* IFluidHandler */
+	@Override
+	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
+		if(resource.getFluid() == FluidRegistry.WATER || resource.getFluid() == ModFluids.fluidMercury || resource.getFluid() == ModFluids.fluidSodiumpersulfate) {
+			int filled = tank.fill(resource, doFill);
+			tank.compareAndUpdate();
+			return filled;
+		}
+		return 0;
+	}
+
+	@Override
+	public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
+		if (resource == null || !resource.isFluidEqual(tank.getFluid())) {
+			return null;
+		}
+		FluidStack fluidStack = tank.drain(resource.amount, doDrain);
+		tank.compareAndUpdate();
+		return fluidStack;
+	}
+
+	@Override
+	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
+		FluidStack drained = tank.drain(maxDrain, doDrain);
+		tank.compareAndUpdate();
+		return drained;
+	}
+
+	@Override
+	public boolean canFill(ForgeDirection from, Fluid fluid) {
+		if(fluid == FluidRegistry.WATER || fluid == ModFluids.fluidMercury || fluid == ModFluids.fluidSodiumpersulfate) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean canDrain(ForgeDirection from, Fluid fluid) {
+		return false;
+	}
+
+	@Override
+	public FluidTankInfo[] getTankInfo(ForgeDirection from) {
+		return new FluidTankInfo[] { tank.getInfo() };
 	}
 
 }

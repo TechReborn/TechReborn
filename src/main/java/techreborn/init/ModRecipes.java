@@ -1920,7 +1920,7 @@ public class ModRecipes {
 	}
 
 	static void addIndustrialElectrolyzerRecipes() {
-		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(null, ItemDusts.getDustByName("chrome"), ItemGems.getGemByName("ruby"), null, null, null, 100, 128));
+		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(null, ItemDusts.getDustByName("chrome"), new FluidStack(FluidRegistry.WATER, 1000), ItemGems.getGemByName("ruby"), null, null, null, 100, 128));
 	}
 
 }
