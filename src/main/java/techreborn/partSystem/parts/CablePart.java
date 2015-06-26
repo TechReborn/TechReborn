@@ -496,13 +496,13 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
     @Override
     public boolean acceptsEnergyFrom(TileEntity tileEntity,
                                      ForgeDirection forgeDirection) {
-        return true;
+        return connectedSides.containsKey(forgeDirection);
     }
 
     @Override
     public boolean emitsEnergyTo(TileEntity tileEntity,
                                  ForgeDirection forgeDirection) {
-        return true;
+        return connectedSides.containsKey(forgeDirection);
     }
 
 	@Override
