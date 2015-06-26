@@ -24,7 +24,7 @@ import techreborn.init.ModFluids;
 import techreborn.init.ModItems;
 import techreborn.items.ItemCells;
 import techreborn.items.ItemCrushedOre;
-import techreborn.items.ItemDustTiny;
+import techreborn.items.ItemDustsTiny;
 import techreborn.items.ItemDusts;
 import techreborn.items.ItemDustsSmall;
 import techreborn.items.ItemGems;
@@ -668,26 +668,26 @@ public class RecipesIC2 implements ICompatModule {
 		//Ore Washing Plant
 		NBTTagCompound liquidAmount = new NBTTagCompound();
 		liquidAmount.setInteger("amount", 1000);
-		Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedAluminum"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Aluminum", 1), ItemDustTiny.getTinyDustByName("Aluminum", 2), IC2Items.getItem("stoneDust"));
-		Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedArdite"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Ardite", 1), ItemDustTiny.getTinyDustByName("Ardite", 2), IC2Items.getItem("stoneDust"));
-		Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedBauxite"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Bauxite", 1), ItemDustTiny.getTinyDustByName("Bauxite", 2), IC2Items.getItem("stoneDust"));
-		Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedCadmium"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Cadmium", 1), ItemDustTiny.getTinyDustByName("Cadmium", 2), IC2Items.getItem("stoneDust"));
-		Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedCinnabar"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Cinnabar", 1), ItemDustTiny.getTinyDustByName("Cinnabar", 2), IC2Items.getItem("stoneDust"));
-		Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedCobalt"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Cobalt", 1), ItemDustTiny.getTinyDustByName("Cobalt", 2), IC2Items.getItem("stoneDust"));
-		Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedDarkIron"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("DarkIron", 1), ItemDustTiny.getTinyDustByName("DarkIron", 2), IC2Items.getItem("stoneDust"));
-		Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedIndium"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Indium", 1), ItemDustTiny.getTinyDustByName("Indium", 2), IC2Items.getItem("stoneDust"));
-		Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedNickel"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Nickel", 1), ItemDustTiny.getTinyDustByName("Nickel", 2), IC2Items.getItem("stoneDust"));
-		Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedOsmium"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Osmium", 1), ItemDustTiny.getTinyDustByName("Osmium", 2), IC2Items.getItem("stoneDust"));
-		Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedPyrite"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Pyrite", 1), ItemDustTiny.getTinyDustByName("Pyrite", 2), IC2Items.getItem("stoneDust"));
-		Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedSphalerite"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Sphalerite", 1), ItemDustTiny.getTinyDustByName("Sphalerite", 2), IC2Items.getItem("stoneDust"));
-		Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedTetrahedrite"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Tetrahedrite", 1), ItemDustTiny.getTinyDustByName("Tetrahedrite", 2), IC2Items.getItem("stoneDust"));
-		Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedGalena"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Galena", 1), ItemDustTiny.getTinyDustByName("Galena", 2), IC2Items.getItem("stoneDust"));
+		Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedAluminum"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Aluminum", 1), ItemDustsTiny.getTinyDustByName("Aluminum", 2), IC2Items.getItem("stoneDust"));
+		Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedArdite"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Ardite", 1), ItemDustsTiny.getTinyDustByName("Ardite", 2), IC2Items.getItem("stoneDust"));
+		Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedBauxite"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Bauxite", 1), ItemDustsTiny.getTinyDustByName("Bauxite", 2), IC2Items.getItem("stoneDust"));
+		Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedCadmium"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Cadmium", 1), ItemDustsTiny.getTinyDustByName("Cadmium", 2), IC2Items.getItem("stoneDust"));
+		Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedCinnabar"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Cinnabar", 1), ItemDustsTiny.getTinyDustByName("Cinnabar", 2), IC2Items.getItem("stoneDust"));
+		Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedCobalt"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Cobalt", 1), ItemDustsTiny.getTinyDustByName("Cobalt", 2), IC2Items.getItem("stoneDust"));
+		Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedDarkIron"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("DarkIron", 1), ItemDustsTiny.getTinyDustByName("DarkIron", 2), IC2Items.getItem("stoneDust"));
+		Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedIndium"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Indium", 1), ItemDustsTiny.getTinyDustByName("Indium", 2), IC2Items.getItem("stoneDust"));
+		Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedNickel"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Nickel", 1), ItemDustsTiny.getTinyDustByName("Nickel", 2), IC2Items.getItem("stoneDust"));
+		Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedOsmium"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Osmium", 1), ItemDustsTiny.getTinyDustByName("Osmium", 2), IC2Items.getItem("stoneDust"));
+		Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedPyrite"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Pyrite", 1), ItemDustsTiny.getTinyDustByName("Pyrite", 2), IC2Items.getItem("stoneDust"));
+		Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedSphalerite"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Sphalerite", 1), ItemDustsTiny.getTinyDustByName("Sphalerite", 2), IC2Items.getItem("stoneDust"));
+		Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedTetrahedrite"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Tetrahedrite", 1), ItemDustsTiny.getTinyDustByName("Tetrahedrite", 2), IC2Items.getItem("stoneDust"));
+		Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedGalena"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Galena", 1), ItemDustsTiny.getTinyDustByName("Galena", 2), IC2Items.getItem("stoneDust"));
 
 		if(!Loader.isModLoaded("aobd"))
 		{
-			Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedPlatinum"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Platinum", 1), ItemDustTiny.getTinyDustByName("Platinum", 2), IC2Items.getItem("stoneDust"));
-			Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedIridium"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Iridium", 1), ItemDustTiny.getTinyDustByName("Iridium", 2), IC2Items.getItem("stoneDust"));
-			Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedTungsten"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Tungsten", 1), ItemDustTiny.getTinyDustByName("Tungsten", 2), IC2Items.getItem("stoneDust"));
+			Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedPlatinum"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Platinum", 1), ItemDustsTiny.getTinyDustByName("Platinum", 2), IC2Items.getItem("stoneDust"));
+			Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedIridium"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Iridium", 1), ItemDustsTiny.getTinyDustByName("Iridium", 2), IC2Items.getItem("stoneDust"));
+			Recipes.oreWashing.addRecipe(new RecipeInputOreDict("crushedTungsten"), liquidAmount, ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Tungsten", 1), ItemDustsTiny.getTinyDustByName("Tungsten", 2), IC2Items.getItem("stoneDust"));
 		}
 	}
 
@@ -730,45 +730,45 @@ public class RecipesIC2 implements ICompatModule {
 		NBTTagCompound galenaHeat = new NBTTagCompound();
 		galenaHeat.setInteger("minHeat", 2500);
 
-		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedAluminum"), aluminumHeat, ItemDustTiny.getTinyDustByName("Bauxite", 1), ItemDusts.getDustByName("aluminum", 1), IC2Items.getItem("stoneDust"));
-		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedArdite"), arditeHeat, ItemDustTiny.getTinyDustByName("Ardite", 1), ItemDusts.getDustByName("ardite", 1), IC2Items.getItem("stoneDust"));
-		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedBauxite"), bauxiteHeat, ItemDustTiny.getTinyDustByName("Aluminum", 1), ItemDusts.getDustByName("bauxite", 1), IC2Items.getItem("stoneDust"));
-		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedCadmium"), cadmiumHeat, ItemDustTiny.getTinyDustByName("Cadmium", 1), ItemDusts.getDustByName("cadmium", 1), IC2Items.getItem("stoneDust"));
-		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedCinnabar"), cinnabarHeat, ItemDustTiny.getTinyDustByName("Redstone", 1), ItemDusts.getDustByName("cinnabar", 1), IC2Items.getItem("stoneDust"));
-		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedCobalt"), cobaltHeat, ItemDustTiny.getTinyDustByName("Cobalt", 1), ItemDusts.getDustByName("cobalt", 1), IC2Items.getItem("stoneDust"));
-		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedDarkIron"), darkIronHeat, ItemDustTiny.getTinyDustByName("Iron", 1), ItemDusts.getDustByName("darkIron", 1), IC2Items.getItem("stoneDust"));
-		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedIndium"), indiumHeat, ItemDustTiny.getTinyDustByName("Indium", 1), ItemDusts.getDustByName("indium", 1), IC2Items.getItem("stoneDust"));
-		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedNickel"), nickelHeat, ItemDustTiny.getTinyDustByName("Iron", 1), ItemDusts.getDustByName("nickel", 1), IC2Items.getItem("stoneDust"));
-		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedOsmium"), osmiumHeat, ItemDustTiny.getTinyDustByName("Osmium", 1), ItemDusts.getDustByName("osmium", 1), IC2Items.getItem("stoneDust"));
-		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPyrite"), pyriteHeat, ItemDustTiny.getTinyDustByName("Sulfur", 1), ItemDusts.getDustByName("pyrite", 1), IC2Items.getItem("stoneDust"));
-		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedSphalerite"), sphaleriteHeat, ItemDustTiny.getTinyDustByName("Zinc", 1), ItemDusts.getDustByName("sphalerite", 1), IC2Items.getItem("stoneDust"));
-		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedTetrahedrite"), tetrahedriteHeat, ItemDustTiny.getTinyDustByName("Antimony", 1), ItemDusts.getDustByName("tetrahedrite", 1), IC2Items.getItem("stoneDust"));
-		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedGalena"), galenaHeat, ItemDustTiny.getTinyDustByName("Sulfur", 1), ItemDusts.getDustByName("galena", 1), IC2Items.getItem("stoneDust"));
+		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedAluminum"), aluminumHeat, ItemDustsTiny.getTinyDustByName("Bauxite", 1), ItemDusts.getDustByName("aluminum", 1), IC2Items.getItem("stoneDust"));
+		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedArdite"), arditeHeat, ItemDustsTiny.getTinyDustByName("Ardite", 1), ItemDusts.getDustByName("ardite", 1), IC2Items.getItem("stoneDust"));
+		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedBauxite"), bauxiteHeat, ItemDustsTiny.getTinyDustByName("Aluminum", 1), ItemDusts.getDustByName("bauxite", 1), IC2Items.getItem("stoneDust"));
+		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedCadmium"), cadmiumHeat, ItemDustsTiny.getTinyDustByName("Cadmium", 1), ItemDusts.getDustByName("cadmium", 1), IC2Items.getItem("stoneDust"));
+		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedCinnabar"), cinnabarHeat, ItemDustsTiny.getTinyDustByName("Redstone", 1), ItemDusts.getDustByName("cinnabar", 1), IC2Items.getItem("stoneDust"));
+		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedCobalt"), cobaltHeat, ItemDustsTiny.getTinyDustByName("Cobalt", 1), ItemDusts.getDustByName("cobalt", 1), IC2Items.getItem("stoneDust"));
+		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedDarkIron"), darkIronHeat, ItemDustsTiny.getTinyDustByName("Iron", 1), ItemDusts.getDustByName("darkIron", 1), IC2Items.getItem("stoneDust"));
+		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedIndium"), indiumHeat, ItemDustsTiny.getTinyDustByName("Indium", 1), ItemDusts.getDustByName("indium", 1), IC2Items.getItem("stoneDust"));
+		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedNickel"), nickelHeat, ItemDustsTiny.getTinyDustByName("Iron", 1), ItemDusts.getDustByName("nickel", 1), IC2Items.getItem("stoneDust"));
+		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedOsmium"), osmiumHeat, ItemDustsTiny.getTinyDustByName("Osmium", 1), ItemDusts.getDustByName("osmium", 1), IC2Items.getItem("stoneDust"));
+		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPyrite"), pyriteHeat, ItemDustsTiny.getTinyDustByName("Sulfur", 1), ItemDusts.getDustByName("pyrite", 1), IC2Items.getItem("stoneDust"));
+		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedSphalerite"), sphaleriteHeat, ItemDustsTiny.getTinyDustByName("Zinc", 1), ItemDusts.getDustByName("sphalerite", 1), IC2Items.getItem("stoneDust"));
+		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedTetrahedrite"), tetrahedriteHeat, ItemDustsTiny.getTinyDustByName("Antimony", 1), ItemDusts.getDustByName("tetrahedrite", 1), IC2Items.getItem("stoneDust"));
+		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedGalena"), galenaHeat, ItemDustsTiny.getTinyDustByName("Sulfur", 1), ItemDusts.getDustByName("galena", 1), IC2Items.getItem("stoneDust"));
 
-		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedAluminum"), aluminumHeat, ItemDustTiny.getTinyDustByName("Bauxite", 1), ItemDusts.getDustByName("aluminum", 1));
-		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedArdite"), arditeHeat, ItemDustTiny.getTinyDustByName("Ardite", 1), ItemDusts.getDustByName("ardite", 1));
-		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedBauxite"), bauxiteHeat, ItemDustTiny.getTinyDustByName("Aluminum", 1), ItemDusts.getDustByName("bauxite", 1));
-		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedCadmium"), cadmiumHeat, ItemDustTiny.getTinyDustByName("Cadmium", 1), ItemDusts.getDustByName("cadmium", 1));
-		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedCinnabar"), cinnabarHeat, ItemDustTiny.getTinyDustByName("Redstone", 1), ItemDusts.getDustByName("cinnabar", 1));
-		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedCobalt"), cobaltHeat, ItemDustTiny.getTinyDustByName("Cobalt", 1), ItemDusts.getDustByName("cobalt", 1));
-		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedDarkIron"), darkIronHeat, ItemDustTiny.getTinyDustByName("Iron", 1), ItemDusts.getDustByName("darkIron", 1));
-		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedIndium"), indiumHeat, ItemDustTiny.getTinyDustByName("Indium", 1), ItemDusts.getDustByName("indium", 1));
-		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedNickel"), nickelHeat, ItemDustTiny.getTinyDustByName("Iron", 1), ItemDusts.getDustByName("nickel", 1));
-		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedOsmium"), osmiumHeat, ItemDustTiny.getTinyDustByName("Osmium", 1), ItemDusts.getDustByName("osmium", 1));
-		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedPyrite"), pyriteHeat, ItemDustTiny.getTinyDustByName("Sulfur", 1), ItemDusts.getDustByName("pyrite", 1));
-		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedSphalerite"), sphaleriteHeat, ItemDustTiny.getTinyDustByName("Zinc", 1), ItemDusts.getDustByName("sphalerite", 1));
-		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedTetrahedrite"), tetrahedriteHeat, ItemDustTiny.getTinyDustByName("Antimony", 1), ItemDusts.getDustByName("tetrahedrite", 1));
-		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedGalena"), galenaHeat, ItemDustTiny.getTinyDustByName("Sulfur", 1), ItemDusts.getDustByName("galena", 1));
+		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedAluminum"), aluminumHeat, ItemDustsTiny.getTinyDustByName("Bauxite", 1), ItemDusts.getDustByName("aluminum", 1));
+		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedArdite"), arditeHeat, ItemDustsTiny.getTinyDustByName("Ardite", 1), ItemDusts.getDustByName("ardite", 1));
+		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedBauxite"), bauxiteHeat, ItemDustsTiny.getTinyDustByName("Aluminum", 1), ItemDusts.getDustByName("bauxite", 1));
+		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedCadmium"), cadmiumHeat, ItemDustsTiny.getTinyDustByName("Cadmium", 1), ItemDusts.getDustByName("cadmium", 1));
+		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedCinnabar"), cinnabarHeat, ItemDustsTiny.getTinyDustByName("Redstone", 1), ItemDusts.getDustByName("cinnabar", 1));
+		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedCobalt"), cobaltHeat, ItemDustsTiny.getTinyDustByName("Cobalt", 1), ItemDusts.getDustByName("cobalt", 1));
+		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedDarkIron"), darkIronHeat, ItemDustsTiny.getTinyDustByName("Iron", 1), ItemDusts.getDustByName("darkIron", 1));
+		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedIndium"), indiumHeat, ItemDustsTiny.getTinyDustByName("Indium", 1), ItemDusts.getDustByName("indium", 1));
+		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedNickel"), nickelHeat, ItemDustsTiny.getTinyDustByName("Iron", 1), ItemDusts.getDustByName("nickel", 1));
+		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedOsmium"), osmiumHeat, ItemDustsTiny.getTinyDustByName("Osmium", 1), ItemDusts.getDustByName("osmium", 1));
+		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedPyrite"), pyriteHeat, ItemDustsTiny.getTinyDustByName("Sulfur", 1), ItemDusts.getDustByName("pyrite", 1));
+		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedSphalerite"), sphaleriteHeat, ItemDustsTiny.getTinyDustByName("Zinc", 1), ItemDusts.getDustByName("sphalerite", 1));
+		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedTetrahedrite"), tetrahedriteHeat, ItemDustsTiny.getTinyDustByName("Antimony", 1), ItemDusts.getDustByName("tetrahedrite", 1));
+		Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedGalena"), galenaHeat, ItemDustsTiny.getTinyDustByName("Sulfur", 1), ItemDusts.getDustByName("galena", 1));
 
 		if(!Loader.isModLoaded("aobd"))
 		{
-			Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedIridium"), iridiumHeat, ItemDustTiny.getTinyDustByName("Platinum", 1), ItemDusts.getDustByName("iridium", 1), IC2Items.getItem("stoneDust"));
-			Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPlatinum"), platinumHeat, ItemDustTiny.getTinyDustByName("Iridium", 1), ItemDusts.getDustByName("platinum", 1), IC2Items.getItem("stoneDust"));
-			Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedTungsten"), tungstenHeat, ItemDustTiny.getTinyDustByName("Manganese", 1), ItemDusts.getDustByName("tungsten", 1), IC2Items.getItem("stoneDust"));
+			Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedIridium"), iridiumHeat, ItemDustsTiny.getTinyDustByName("Platinum", 1), ItemDusts.getDustByName("iridium", 1), IC2Items.getItem("stoneDust"));
+			Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPlatinum"), platinumHeat, ItemDustsTiny.getTinyDustByName("Iridium", 1), ItemDusts.getDustByName("platinum", 1), IC2Items.getItem("stoneDust"));
+			Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedTungsten"), tungstenHeat, ItemDustsTiny.getTinyDustByName("Manganese", 1), ItemDusts.getDustByName("tungsten", 1), IC2Items.getItem("stoneDust"));
 
-			Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedIridium"), iridiumHeat, ItemDustTiny.getTinyDustByName("Platinum", 1), ItemDusts.getDustByName("iridium", 1));
-			Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedPlatinum"), platinumHeat, ItemDustTiny.getTinyDustByName("Iridium", 1), ItemDusts.getDustByName("platinum", 1));
-			Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedTungsten"), tungstenHeat, ItemDustTiny.getTinyDustByName("Manganese", 1), ItemDusts.getDustByName("tungsten", 1));
+			Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedIridium"), iridiumHeat, ItemDustsTiny.getTinyDustByName("Platinum", 1), ItemDusts.getDustByName("iridium", 1));
+			Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedPlatinum"), platinumHeat, ItemDustsTiny.getTinyDustByName("Iridium", 1), ItemDusts.getDustByName("platinum", 1));
+			Recipes.centrifuge.addRecipe(new RecipeInputOreDict("crushedPurifiedTungsten"), tungstenHeat, ItemDustsTiny.getTinyDustByName("Manganese", 1), ItemDusts.getDustByName("tungsten", 1));
 		}
 	}
 
@@ -920,7 +920,7 @@ public class RecipesIC2 implements ICompatModule {
 		RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.magma_cream, 1), null, new ItemStack(Items.blaze_powder, 1), new ItemStack(Items.slime_ball, 1), null, null, 2500, 5));
 
 		//Dust Byproducts
-		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("platinum", 1), null, ItemDustTiny.getTinyDustByName("Iridium", 1), ItemDustsSmall.getSmallDustByName("Nickel", 1), null, null, 3000, 5));
+		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("platinum", 1), null, ItemDustsTiny.getTinyDustByName("Iridium", 1), ItemDustsSmall.getSmallDustByName("Nickel", 1), null, null, 3000, 5));
 		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("electrum", 2), null, ItemDusts.getDustByName("silver", 1), ItemDusts.getDustByName("gold", 1), null, null, 2400, 5));
 		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("invar", 3), null, ItemDusts.getDustByName("iron", 2), ItemDusts.getDustByName("nickel", 1), null, null, 1340, 5));
 		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("marble", 8), null, ItemDusts.getDustByName("magnesium", 1), ItemDusts.getDustByName("calcite", 7), null, null, 1280, 5));
@@ -937,7 +937,7 @@ public class RecipesIC2 implements ICompatModule {
 		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("nichrome", 5), null, ItemDusts.getDustByName("nickel", 4), ItemDusts.getDustByName("chrome", 1), null, null, 2240, 5));
 		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("cupronickel", 2), null, ItemDusts.getDustByName("copper", 1), ItemDusts.getDustByName("nickel", 1), null, null, 960, 5));
 		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("kanthal", 3), null, ItemDusts.getDustByName("iron", 1), ItemDusts.getDustByName("aluminum", 1), ItemDusts.getDustByName("chrome", 1), null, 1040, 5));
-		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("endstone", 16), new ItemStack(IC2Items.getItem("cell").getItem(), 2), ItemCells.getCellByName("helium3", 1), ItemCells.getCellByName("helium"), ItemDustTiny.getTinyDustByName("Tungsten", 1), new ItemStack(Blocks.sand, 12), 4800, 5));
+		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("endstone", 16), new ItemStack(IC2Items.getItem("cell").getItem(), 2), ItemCells.getCellByName("helium3", 1), ItemCells.getCellByName("helium"), ItemDustsTiny.getTinyDustByName("Tungsten", 1), new ItemStack(Blocks.sand, 12), 4800, 5));
 		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("cinnabar", 2), IC2Items.getItem("cell"), ItemCells.getCellByName("mercury", 1), ItemDusts.getDustByName("sulfur", 1), null, null, 80, 5));
 		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("brass", 4), null, ItemDusts.getDustByName("zinc", 1), ItemDusts.getDustByName("copper", 3), null, null, 2000, 5));
 		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("aluminumBrass", 4), null, ItemDusts.getDustByName("aluminum", 1), ItemDusts.getDustByName("copper", 3), null, null, 2000, 5));
@@ -956,7 +956,7 @@ public class RecipesIC2 implements ICompatModule {
 		//Lava Cell Byproducts
 		ItemStack lavaCells = IC2Items.getItem("lavaCell");
 		lavaCells.stackSize = 8;
-		RecipeHandler.addRecipe(new CentrifugeRecipe(lavaCells, null, ItemNuggets.getNuggetByName("electrum", 4), ItemIngots.getIngotByName("copper", 2), ItemDustTiny.getTinyDustByName("Tungsten", 1), ItemIngots.getIngotByName("tin", 17), 6000, 5));
+		RecipeHandler.addRecipe(new CentrifugeRecipe(lavaCells, null, ItemNuggets.getNuggetByName("electrum", 4), ItemIngots.getIngotByName("copper", 2), ItemDustsTiny.getTinyDustByName("Tungsten", 1), ItemIngots.getIngotByName("tin", 17), 6000, 5));
 	}
 
 	static void addIndustrialGrinderRecipes() {
