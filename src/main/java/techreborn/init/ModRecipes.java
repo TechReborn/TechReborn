@@ -22,24 +22,28 @@ public class ModRecipes {
 
 	public static void init() {
 		addShaplessRecipes();
-		addShappedRecipes();
+		addGeneralShappedRecipes();
+		addHammerRecipes();
+
 		addSmeltingRecipes();
+		addUUrecipes();
+
         addAlloySmelterRecipes();
         addLatheRecipes();
         addPlateCuttingMachineRecipes();
-		addUUrecipes();
-		addHammerRecipes();
-        addIndustrialSawmillRecipes();
-        addBlastFurnaceRecipes();
 		addAssemblingMachineRecipes();
 		addIndustrialCentrifugeRecipes();
-		addIndustrialGrinderRecipes();
-		addImplosionCompressorRecipes();
 		addChemicalReactorRecipes();
 		addIndustrialElectrolyzerRecipes();
+
+        addIndustrialSawmillRecipes();
+        addBlastFurnaceRecipes();
+		addIndustrialGrinderRecipes();
+		addImplosionCompressorRecipes();
 	}
 
-	public static void addShappedRecipes() {
+	public static void addGeneralShappedRecipes() {
+
 		// Storage Blocks
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				 "AAA", "AAA", "AAA",
@@ -104,24 +108,6 @@ public class ModRecipes {
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage, 1, 15),
 			"AAA", "AAA", "AAA",
 				'A', "ingotInvar");
-
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.quantumTank),
-				"EPE", "PCP", "EPE",
-				'P', "platePlatinum",
-				'E', "circuitMaster",
-				'C', ModBlocks.quantumChest);
-
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.digitalChest),
-				"PPP", "PDP", "PCP",
-				'P', "plateAluminum",
-				'D', ItemParts.getPartByName("dataOrb"),
-				'C', ItemParts.getPartByName("computerMonitor"));
-
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.digitalChest),
-				"PPP", "PDP", "PCP",
-				'P', "plateSteel",
-				'D', ItemParts.getPartByName("dataOrb"),
-				'C', ItemParts.getPartByName("computerMonitor"));
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.parts, 1, 40),
 				"PLP", "RGB", "PYP",
@@ -213,6 +199,82 @@ public class ModRecipes {
 				"DSD", "S S", "DSD",
 				'S', "plateSteel",
 				'D', ItemDusts.getDustByName("diamond"));
+
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.lapotronicOrb),
+				"LLL", "LPL", "LLL",
+				'L', IC2Items.getItem("lapotronCrystal"),
+				'P', IC2Items.getItem("iridiumPlate"));
+
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.lapotronicOrb),
+				"LLL", "LPL", "LLL",
+				'L', IC2Items.getItem("lapotronCrystal"),
+				'P', IC2Items.getItem("iridiumPlate"));
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("tungstenGrindingHead", 2),
+				"TST", "SBS", "TST",
+				'T', "plateTungsten",
+				'S', "plateSteel",
+				'B', "blockSteel");
+
+		LogHelper.info("Shapped Recipes Added");
+	}
+
+	public static void addShaplessRecipes() {
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 4), "blockSilver");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 5), "blockAluminium");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 6), "blockTitanium");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.gems, 9, 1), "blockSapphire");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.gems, 9, 0), "blockRuby");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.gems, 9, 2), "blockGreenSapphire");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 7), "blockChrome");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 8), "blockElectrum");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 9), "blockTungsten");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 10), "blockLead");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 11), "blockZinc");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 12), "blockBrass");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 13), "blockSteel");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 14), "blockPlatinum");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 15), "blockNickel");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 16), "blockInvar");
+		CraftingHelper.addShapelessOreRecipe(ItemDusts.getDustByName("titanium"), (ItemDustsSmall.getSmallDustByName("Titanium")), (ItemDustsSmall.getSmallDustByName("Titanium")), (ItemDustsSmall.getSmallDustByName("Titanium")), (ItemDustsSmall.getSmallDustByName("Titanium")));
+
+
+		LogHelper.info("Shapless Recipes Added");
+	}
+
+	public static void addMachineRecipies()
+	{
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ComputerCube),
+				"DME", "MAM", "EMD",
+				'E', ItemParts.getPartByName("energyFlowCircuit"),
+				'D', ItemParts.getPartByName("dataOrb"),
+				'M', ItemParts.getPartByName("computerMonitor"),
+				'A', IC2Items.getItem("advancedMachine"));
+
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.quantumTank),
+				"EPE", "PCP", "EPE",
+				'P', "platePlatinum",
+				'E', "circuitMaster",
+				'C', ModBlocks.quantumChest);
+
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.digitalChest),
+				"PPP", "PDP", "PCP",
+				'P', "plateAluminum",
+				'D', ItemParts.getPartByName("dataOrb"),
+				'C', ItemParts.getPartByName("computerMonitor"));
+
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.digitalChest),
+				"PPP", "PDP", "PCP",
+				'P', "plateSteel",
+				'D', ItemParts.getPartByName("dataOrb"),
+				'C', ItemParts.getPartByName("computerMonitor"));
+
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.MatterFabricator),
+				"ETE", "AOA", "ETE",
+				'E', ItemParts.getPartByName("energyFlowCircuit"),
+				'T', IC2Items.getItem("teleporter"),
+				'A', ModBlocks.HighAdvancedMachineBlock,
+				'O', ModItems.lapotronicOrb);
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.thermalGenerator),
 				"III", "IHI", "CGC",
@@ -475,61 +537,6 @@ public class ModRecipes {
 				'A', ModBlocks.HighAdvancedMachineBlock,
 				'Q', ModBlocks.digitalChest,
 				'T', IC2Items.getItem("teleporter"));
-
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ComputerCube),
-				"DME", "MAM", "EMD",
-				'E', ItemParts.getPartByName("energyFlowCircuit"),
-				'D', ItemParts.getPartByName("dataOrb"),
-				'M', ItemParts.getPartByName("computerMonitor"),
-				'A', IC2Items.getItem("advancedMachine"));
-
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.lapotronicOrb),
-				"LLL", "LPL", "LLL",
-				'L', IC2Items.getItem("lapotronCrystal"),
-				'P', IC2Items.getItem("iridiumPlate"));
-
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.lapotronicOrb),
-				"LLL", "LPL", "LLL",
-				'L', IC2Items.getItem("lapotronCrystal"),
-				'P', IC2Items.getItem("iridiumPlate"));
-
-		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("tungstenGrindingHead", 2),
-				"TST", "SBS", "TST",
-				'T', "plateTungsten",
-				'S', "plateSteel",
-				'B', "blockSteel");
-
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.MatterFabricator),
-				"ETE", "AOA", "ETE",
-				'E', ItemParts.getPartByName("energyFlowCircuit"),
-				'T', IC2Items.getItem("teleporter"),
-				'A', ModBlocks.HighAdvancedMachineBlock,
-				'O', ModItems.lapotronicOrb);
-
-		LogHelper.info("Shapped Recipes Added");
-	}
-
-	public static void addShaplessRecipes() {
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 4), "blockSilver");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 5), "blockAluminium");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 6), "blockTitanium");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.gems, 9, 1), "blockSapphire");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.gems, 9, 0), "blockRuby");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.gems, 9, 2), "blockGreenSapphire");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 7), "blockChrome");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 8), "blockElectrum");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 9), "blockTungsten");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 10), "blockLead");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 11), "blockZinc");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 12), "blockBrass");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 13), "blockSteel");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 14), "blockPlatinum");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 15), "blockNickel");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 16), "blockInvar");
-		CraftingHelper.addShapelessOreRecipe(ItemDusts.getDustByName("titanium"), (ItemDustsSmall.getSmallDustByName("Titanium")), (ItemDustsSmall.getSmallDustByName("Titanium")), (ItemDustsSmall.getSmallDustByName("Titanium")), (ItemDustsSmall.getSmallDustByName("Titanium")));
-
-
-		LogHelper.info("Shapless Recipes Added");
 	}
 
 	public static void addSmeltingRecipes() {
