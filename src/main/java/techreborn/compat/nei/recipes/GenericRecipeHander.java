@@ -8,7 +8,6 @@ import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.api.recipe.RecipeHandler;
-import techreborn.config.ConfigTechReborn;
 import techreborn.util.ItemUtils;
 
 import java.awt.*;
@@ -78,7 +77,7 @@ public abstract class GenericRecipeHander extends TemplateRecipeHandler {
 			CachedGenericRecipe genericRecipe = (CachedGenericRecipe) recipe;
 			float scale = 0.9F;
 			GL11.glScalef(scale, scale, scale);
-			GuiDraw.drawString("EU needed: " + (ConfigTechReborn.CentrifugeInputTick * genericRecipe.recipie.tickTime()), 16, 105, -1);
+			GuiDraw.drawString("EU needed: " + (genericRecipe.recipie.euPerTick() * genericRecipe.recipie.tickTime()), 16, 105, -1);
 			GuiDraw.drawString("Ticks to process: "+ genericRecipe.recipie.tickTime(), 14, 115, -1);
 			GuiDraw.drawString("Time to process: " + genericRecipe.recipie.tickTime() / 20 + " seconds", 14, 125, -1);
 		}
