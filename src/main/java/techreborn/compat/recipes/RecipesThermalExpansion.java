@@ -17,6 +17,7 @@ public class RecipesThermalExpansion implements ICompatModule {
 	public void init(FMLInitializationEvent event) {
 		// TODO remove basic machine frame recipe
 		// TODO replace iron in recipe to steel
+		// TODO add industrial blast furnace recipes for Enderium and Fluxed Electrum
 	}
 
 	@Override

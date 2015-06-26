@@ -15,6 +15,7 @@ import techreborn.api.recipe.machines.BlastFurnaceRecipe;
 import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
 import techreborn.api.recipe.machines.LatheRecipe;
 import techreborn.api.recipe.machines.PlateCuttingMachineRecipe;
+import techreborn.blocks.BlockOre;
 import techreborn.config.ConfigTechReborn;
 import techreborn.items.*;
 import techreborn.util.CraftingHelper;
@@ -505,6 +506,10 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemIngots.getIngotByName("tungsten"), ItemIngots.getIngotByName("steel"), ItemIngots.getIngotByName("hotTungstensteel"), ItemDusts.getDustByName("darkAshes", 4), 500, 500, 3000));
 
 		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemCells.getCellByName("silicon", 2), null, ItemPlates.getPlateByName("silicon"), new ItemStack(IC2Items.getItem("cell").getItem(), 2), 1000, 120, 1500));
+
+		RecipeHandler.addRecipe(new BlastFurnaceRecipe(new ItemStack(Blocks.iron_ore), ItemDusts.getDustByName("calcite"), new ItemStack(Items.iron_ingot, 3), ItemDusts.getDustByName("darkAshes"), 140, 120, 15000));
+
+		RecipeHandler.addRecipe(new BlastFurnaceRecipe(BlockOre.getOreByName("pyrite"), ItemDusts.getDustByName("calcite"), new ItemStack(Items.iron_ingot, 2), ItemDusts.getDustByName("darkAshes"), 140, 120, 15000));
 	}
 	
 	public static void addUUrecipes() {
