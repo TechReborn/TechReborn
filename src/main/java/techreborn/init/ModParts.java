@@ -27,11 +27,5 @@ public class ModParts {
 				ModPartRegistry.masterProvider = provider;
 			}
 		}
-		for (int i = 0; i < 13; i++) {
-			Item stack = ModPartRegistry.itemParts.get("Cable." + i);
-			if(stack != null){
-				stackCable.put(i, new ItemStack(stack));
-			}
-		}
 	}
 }

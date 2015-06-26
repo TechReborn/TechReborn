@@ -15,9 +15,8 @@ import java.util.Map;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ic2.core.network.NetworkManager;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.Entity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -25,6 +24,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.client.render.RenderCablePart;
+import techreborn.init.ModParts;
 import techreborn.lib.Functions;
 import techreborn.lib.vecmath.Vecs3d;
 import techreborn.lib.vecmath.Vecs3dCube;
@@ -41,6 +41,7 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
     protected ForgeDirection[] dirs = ForgeDirection.values();
     private boolean[] connections = new boolean[6];
     public boolean addedToEnergyNet = false;
+	public ItemStack stack;
 
     public int type = 0;//TODO save this to nbt and not use the constructor.
 
@@ -194,7 +195,7 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
 
     @Override
     public ItemStack getItem() {
-        return new ItemStack(ModPartUtils.getItemForPart(getName()));
+        return ModParts.stackCable.get(type);
     }
 
     public boolean shouldConnectTo(TileEntity entity, ForgeDirection dir) {

@@ -9,12 +9,14 @@ import java.util.List;
 
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.entity.Entity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import techreborn.lib.Location;
 import techreborn.lib.vecmath.Vecs3d;
 import techreborn.lib.vecmath.Vecs3dCube;
 import techreborn.partSystem.ModPart;
+import techreborn.util.LogHelper;
 import uk.co.qmunity.lib.client.render.RenderHelper;
 import codechicken.lib.raytracer.IndexedCuboid6;
 import codechicken.lib.vec.Cuboid6;
@@ -178,10 +180,23 @@ public class FMPModPart extends TMultiPart implements TSlottedPart,
 
     @Override
     public boolean renderStatic(Vector3 pos, int pass) {
+		boolean render;
 		RenderHelper.instance.setRenderCoords(getWorld(), (int) pos.x, (int) pos.y, (int) pos.z);
-		iModPart.renderStatic(new Vecs3d((int) pos.x, (int) pos.y, (int) pos.z), RenderHelper.instance, pass);
+		render = iModPart.renderStatic(new Vecs3d((int) pos.x, (int) pos.y, (int) pos.z), RenderHelper.instance, pass);
 		RenderHelper.instance.reset();
-		return false;
-
+		return render;
 	}
+
+	@Override
+	public Iterable<ItemStack> getDrops() {
+		List<ItemStack> stackArrayList = new ArrayList<ItemStack>();
+		if(iModPart.getItem() != null){
+			stackArrayList.add(iModPart.getItem());
+		} else {
+			LogHelper.error("Part " + iModPart.getName() + " has a null drop");
+		}
+		return stackArrayList;
+	}
+
+
 }

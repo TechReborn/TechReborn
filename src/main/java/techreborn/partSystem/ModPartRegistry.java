@@ -45,6 +45,8 @@ public class ModPartRegistry {
             itemParts.put(modPart.getName(), part);
 			if(modPart instanceof CablePart){
 				GameRegistry.addShapelessRecipe(new ItemStack(part), IC2Items.getItem(CablePart.getTextureNameFromType(((CablePart) modPart).type)));
+				((CablePart) modPart).stack = new ItemStack(part);
+				ModParts.stackCable.put(((CablePart) modPart).type, new ItemStack(part));
 			}
         }
 
