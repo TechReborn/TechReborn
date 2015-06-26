@@ -25,7 +25,7 @@ public class ModRecipes {
 
 	public static void init() {
 		addShapelessRecipes();
-		addGeneralShappedRecipes();
+		addGeneralShapedRecipes();
 		addHammerRecipes();
 		addMachineRecipes();
 
@@ -46,7 +46,7 @@ public class ModRecipes {
 		addImplosionCompressorRecipes();
 	}
 
-	static void addGeneralShappedRecipes() {
+	static void addGeneralShapedRecipes() {
 
 		// Storage Blocks
 		for(String name : ArrayUtils.addAll(BlockStorage.types, BlockStorage2.types))	{
