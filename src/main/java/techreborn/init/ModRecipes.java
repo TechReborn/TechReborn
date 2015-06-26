@@ -15,12 +15,7 @@ import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
 import techreborn.api.recipe.machines.LatheRecipe;
 import techreborn.api.recipe.machines.PlateCuttingMachineRecipe;
 import techreborn.config.ConfigTechReborn;
-import techreborn.items.ItemDusts;
-import techreborn.items.ItemDustsSmall;
-import techreborn.items.ItemIngots;
-import techreborn.items.ItemParts;
-import techreborn.items.ItemPlates;
-import techreborn.items.ItemRods;
+import techreborn.items.*;
 import techreborn.util.CraftingHelper;
 import techreborn.util.LogHelper;
 
@@ -483,8 +478,13 @@ public class ModRecipes {
     
     public static void addBlastFurnaceRecipes()
     {
-        RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDusts.getDustByName("titanium"), null, null, (ItemIngots.getIngotByName("titanium")), 500, 128000, 1500));
-    }
+        RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDusts.getDustByName("titanium"), null, ItemIngots.getIngotByName("titanium"), null, 3600, 120, 1500));
+		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsSmall.getSmallDustByName("titanium", 4), null, ItemIngots.getIngotByName("titanium"), null, 3600, 120, 1500));
+		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsTiny.getTinyDustByName("titanium", 9), null, ItemIngots.getIngotByName("titanium"), null, 3600, 120, 1500));
+		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDusts.getDustByName("aluminum"), null, ItemIngots.getIngotByName("aluminum"), null, 2200, 120, 1700));
+		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsSmall.getSmallDustByName("aluminum", 4), null, ItemIngots.getIngotByName("aluminum"), null, 2200, 120, 1700));
+		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsTiny.getTinyDustByName("aluminum", 9), null, ItemIngots.getIngotByName("aluminum"), null, 2200, 120, 1700));
+	}
 	
 	public static void addUUrecipes() {
 		if(ConfigTechReborn.UUrecipesIridiamOre)

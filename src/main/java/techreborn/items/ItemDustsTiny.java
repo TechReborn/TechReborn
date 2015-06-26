@@ -11,7 +11,7 @@ import net.minecraft.util.IIcon;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
 
-public class ItemDustTiny extends ItemTR {
+public class ItemDustsTiny extends ItemTR {
 	
 	public static ItemStack getTinyDustByName(String name, int count)
 	{
@@ -47,7 +47,7 @@ public class ItemDustTiny extends ItemTR {
 
 	private IIcon[] textures;
 
-	public ItemDustTiny()
+	public ItemDustsTiny()
 	{
 		setUnlocalizedName("techreborn.dusttiny");
 		setHasSubtypes(true);
