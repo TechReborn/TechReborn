@@ -1,9 +1,7 @@
 package techreborn.items;
 
-import java.util.Iterator;
 import java.util.List;
 
-import ic2.api.item.IC2Items;
 import ic2.core.Ic2Items;
 import ic2.core.item.ItemFluidCell;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -18,8 +16,8 @@ import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModItems;
 import techreborn.util.LogHelper;
 
-@Deprecated
-public class ItemCells extends ItemTR {	
+public class ItemCells extends ItemTR {
+
 	public static ItemStack getCellByName(String name, int count)
 	{
         ItemFluidCell itemFluidCell = (ItemFluidCell) Ic2Items.FluidCell.getItem();
@@ -27,6 +25,7 @@ public class ItemCells extends ItemTR {
         if(fluid != null){
             ItemStack stack = Ic2Items.FluidCell.copy();
             itemFluidCell.fill(stack, new FluidStack(fluid.getID(), 2147483647), true);
+			stack.stackSize = count;
             return stack;
         } else {
             LogHelper.error("Could not find " + "fluid" + name + " in the fluid registry!");
