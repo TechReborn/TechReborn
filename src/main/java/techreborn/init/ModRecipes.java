@@ -24,9 +24,10 @@ public class ModRecipes {
 	public static ConfigTechReborn config;
 
 	public static void init() {
-		addShaplessRecipes();
-		addGeneralShappedRecipes();
+		addShapelessRecipes();
+		addGeneralShapedRecipes();
 		addHammerRecipes();
+		addMachineRecipes();
 
 		addSmeltingRecipes();
 		addUUrecipes();
@@ -45,7 +46,7 @@ public class ModRecipes {
 		addImplosionCompressorRecipes();
 	}
 
-	static void addGeneralShappedRecipes() {
+	static void addGeneralShapedRecipes() {
 
 		// Storage Blocks
 		for(String name : ArrayUtils.addAll(BlockStorage.types, BlockStorage2.types))	{
@@ -176,7 +177,7 @@ public class ModRecipes {
 		LogHelper.info("Shapped Recipes Added");
 	}
 
-	static void addShaplessRecipes() {
+	static void addShapelessRecipes() {
 
 		for(String name : ArrayUtils.addAll(BlockStorage.types, BlockStorage2.types))	{
 			try {
@@ -212,7 +213,7 @@ public class ModRecipes {
 		LogHelper.info("Shapless Recipes Added");
 	}
 
-	static void addMachineRecipies()
+	static void addMachineRecipes()
 	{
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ComputerCube),
 				"DME", "MAM", "EMD",
