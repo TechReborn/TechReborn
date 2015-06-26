@@ -9,6 +9,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import techreborn.client.container.ContainerCrafting;
 import techreborn.client.container.ContainerImplosionCompressor;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.TileImplosionCompressor;
 
 public class GuiImplosionCompressor extends GuiContainer{
@@ -50,7 +51,7 @@ public class GuiImplosionCompressor extends GuiContainer{
         if(compresser.getMutliBlock() != true)
         {
     		GuiDraw.drawTooltipBox(k + 30, l + 50 + 12 - j, 114, 10);
-    		this.fontRendererObj.drawString("MISSING MULTIBLOCK", k + 38, l + 52 + 12 - j, -1);
+    		this.fontRendererObj.drawString(ModInfo.MISSING_MULTIBLOCK, k + 38, l + 52 + 12 - j, -1);
         }
 
 		this.drawTexturedModalRect(k + 60, l + 38, 176, 14, j + 1, 16);

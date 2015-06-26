@@ -1,5 +1,7 @@
 package techreborn.lib;
 
+import net.minecraft.util.StatCollector;
+
 public class ModInfo {
 	public static final String MOD_NAME = "TechReborn";
 	public static final String MOD_ID = "techreborn";
@@ -9,6 +11,8 @@ public class ModInfo {
 	public static final String SERVER_PROXY_CLASS = "techreborn.proxies.CommonProxy";
 	public static final String CLIENT_PROXY_CLASS = "techreborn.proxies.ClientProxy";
 	public static final String GUI_FACTORY_CLASS = "techreborn.config.TechRebornGUIFactory";
+	
+	public static final String MISSING_MULTIBLOCK = StatCollector.translateToLocal("techreborn.message.missingmultiblock");
 	
 	public static final class Keys 
 	{

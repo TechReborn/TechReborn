@@ -8,6 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import techreborn.client.container.ContainerBlastFurnace;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.TileBlastFurnace;
 
 
@@ -49,7 +50,7 @@ public class GuiBlastFurnace extends GuiContainer {
         if(blastfurnace.getHeat() == 0)
         {
     		GuiDraw.drawTooltipBox(k + 30, l + 50 + 12 - 0, 114, 10);
-    		this.fontRendererObj.drawString("MISSING MULTIBLOCK", k + 38, l + 52 + 12 - 0, -1);
+    		this.fontRendererObj.drawString(ModInfo.MISSING_MULTIBLOCK, k + 38, l + 52 + 12 - 0, -1);
         }
 
 	}
