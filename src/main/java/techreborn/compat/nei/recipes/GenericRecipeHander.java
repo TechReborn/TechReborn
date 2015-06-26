@@ -52,7 +52,7 @@ public abstract class GenericRecipeHander extends TemplateRecipeHandler {
 
 	@Override
 	public String getRecipeName() {
-		return getNeiBaseRecipe().getRecipeName();
+		return RecipeHandler.getUserFreindlyName(getNeiBaseRecipe().getRecipeName());
 	}
 
 	@Override

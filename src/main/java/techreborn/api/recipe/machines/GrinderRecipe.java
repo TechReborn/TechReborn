@@ -28,7 +28,12 @@ public class GrinderRecipe extends BaseRecipe {
         this.fluidStack = fluidStack;
     }
 
-    @Override
+	@Override
+	public String getUserFreindlyName() {
+		return "Grinder";
+	}
+
+	@Override
     public boolean canCraft(TileEntity tile) {
         if (fluidStack == null) {
             return true;

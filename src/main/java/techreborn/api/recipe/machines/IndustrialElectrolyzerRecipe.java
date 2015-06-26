@@ -28,8 +28,13 @@ public class IndustrialElectrolyzerRecipe extends BaseRecipe {
 			addOutput(output4);
         this.fluidStack = fluidStack;
 	}
-	
-    @Override
+
+	@Override
+	public String getUserFreindlyName() {
+		return "Industrial Electrolyzer";
+	}
+
+	@Override
     public boolean canCraft(TileEntity tile) {
         if (fluidStack == null) {
             return true;

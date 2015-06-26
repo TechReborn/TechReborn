@@ -14,4 +14,9 @@ public class AssemblingMachineRecipe extends BaseRecipe {
         if (output1 != null)
             addOutput(output1);
     }
+
+	@Override
+	public String getUserFreindlyName() {
+		return "Assembling Machine";
+	}
 }

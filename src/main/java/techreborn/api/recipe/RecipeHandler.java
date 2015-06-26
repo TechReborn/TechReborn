@@ -32,6 +32,15 @@ public class RecipeHandler {
         return baseRecipeList;
     }
 
+	public static String getUserFreindlyName(String name) {
+		for (IBaseRecipeType baseRecipe : recipeList) {
+			if (baseRecipe.getRecipeName().equals(name)) {
+				return baseRecipe.getUserFreindlyName();
+			}
+		}
+		return "";
+	}
+
     /**
      * Add a recipe to the system
      *

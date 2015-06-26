@@ -16,4 +16,9 @@ public class ImplosionCompressorRecipe extends BaseRecipe {
         if (output2 != null)
             addOutput(output2);
     }
+
+	@Override
+	public String getUserFreindlyName() {
+		return "Implosion Compressor";
+	}
 }

@@ -38,6 +38,13 @@ public interface IBaseRecipeType {
      */
     public String getRecipeName();
 
+	/**
+	 * This should be a user friendly name
+	 *
+	 * @return
+	 */
+	public String getUserFreindlyName();
+
     /**
      * This is how long the recipe needs to tick for the crafting operation to complete
      *

@@ -25,6 +25,11 @@ public class BlastFurnaceRecipe extends BaseRecipe {
     }
 
 	@Override
+	public String getUserFreindlyName() {
+		return "Blast Furnace";
+	}
+
+	@Override
 	public boolean canCraft(TileEntity tile) {
 		if(tile instanceof TileBlastFurnace){
 			TileBlastFurnace blastFurnace = (TileBlastFurnace) tile;

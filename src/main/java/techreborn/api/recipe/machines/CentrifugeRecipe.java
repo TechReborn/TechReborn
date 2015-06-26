@@ -20,4 +20,9 @@ public class CentrifugeRecipe extends BaseRecipe {
         if (output4 != null)
             addOutput(output4);
     }
+
+	@Override
+	public String getUserFreindlyName() {
+		return "Centrifuge";
+	}
 }
