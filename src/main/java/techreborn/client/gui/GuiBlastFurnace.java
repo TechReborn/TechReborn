@@ -1,5 +1,6 @@
 package techreborn.client.gui;
 
+import codechicken.lib.gui.GuiDraw;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
@@ -44,6 +45,12 @@ public class GuiBlastFurnace extends GuiContainer {
 		int k = (this.width - this.xSize) / 2;
 		int l = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
+		
+        if(blastfurnace.getHeat() == 0)
+        {
+    		GuiDraw.drawTooltipBox(k + 30, l + 50 + 12 - 0, 114, 10);
+    		this.fontRendererObj.drawString("MISSING MULTIBLOCK", k + 38, l + 52 + 12 - 0, -1);
+        }
 
 	}
 

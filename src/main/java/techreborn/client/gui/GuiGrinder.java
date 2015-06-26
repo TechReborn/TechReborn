@@ -1,5 +1,6 @@
 package techreborn.client.gui;
 
+import codechicken.lib.gui.GuiDraw;
 import ic2.core.util.DrawUtil;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -41,6 +42,12 @@ public class GuiGrinder extends GuiContainer{
         j = grinder.getEnergyScaled(12);
         if(j > 0) {
             this.drawTexturedModalRect(k + 132, l + 63 + 12 - j, 176, 12 - j, 14, j + 2);
+        }
+        
+        if(grinder.getMutliBlock() != true)
+        {
+    		GuiDraw.drawTooltipBox(k + 30, l + 50 + 12 - j, 114, 10);
+    		this.fontRendererObj.drawString("MISSING MULTIBLOCK", k + 38, l + 52 + 12 - j, -1);
         }
 
         if(grinder.tank.getFluidAmount() != 0) {

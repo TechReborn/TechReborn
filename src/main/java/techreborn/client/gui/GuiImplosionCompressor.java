@@ -1,5 +1,6 @@
 package techreborn.client.gui;
 
+import codechicken.lib.gui.GuiDraw;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
@@ -44,6 +45,12 @@ public class GuiImplosionCompressor extends GuiContainer{
         int j = 0;
         if(this.compresser.crafter.currentTickTime != 0){
             j = this.compresser.crafter.currentTickTime * 20 / this.compresser.crafter.currentNeededTicks;
+        }
+        
+        if(compresser.getMutliBlock() != true)
+        {
+    		GuiDraw.drawTooltipBox(k + 30, l + 50 + 12 - j, 114, 10);
+    		this.fontRendererObj.drawString("MISSING MULTIBLOCK", k + 38, l + 52 + 12 - j, -1);
         }
 
 		this.drawTexturedModalRect(k + 60, l + 38, 176, 14, j + 1, 16);
