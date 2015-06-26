@@ -9,9 +9,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
+import org.apache.commons.lang3.ArrayUtils;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.*;
 import techreborn.blocks.BlockOre;
+import techreborn.blocks.BlockStorage;
+import techreborn.blocks.BlockStorage2;
 import techreborn.config.ConfigTechReborn;
 import techreborn.items.*;
 import techreborn.util.CraftingHelper;
@@ -45,17 +48,11 @@ public class ModRecipes {
 	static void addGeneralShappedRecipes() {
 
 		// Storage Blocks
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage, 1, 0),
-				 "AAA", "AAA", "AAA",
-					'A', "ingotSilver");
-
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage, 1, 1),
-				 "AAA", "AAA", "AAA",
-					'A', "ingotAluminium");
-
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage, 1, 2),
-				 "AAA", "AAA", "AAA",
-					'A', "ingotTitanium");
+		for(String name : ArrayUtils.addAll(BlockStorage.types, BlockStorage2.types))	{
+			CraftingHelper.addShapedOreRecipe(BlockStorage.getStorageBlockByName(name),
+					"AAA", "AAA", "AAA",
+					'A', "ingot" + name.substring(0, 1).toUpperCase() + name.substring(1));
+		}
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage, 1, 3),
 				 "AAA", "AAA", "AAA",
@@ -68,46 +65,6 @@ public class ModRecipes {
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage, 1, 5),
 				 "AAA", "AAA", "AAA",
 					'A', "gemGreenSapphire");
-
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage, 1, 6),
-				 "AAA", "AAA", "AAA",
-					'A', "ingotChrome");
-
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage, 1, 7),
-				 "AAA", "AAA", "AAA",
-					'A', "ingotElectrum");
-
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage, 1, 8),
-				 "AAA", "AAA", "AAA",
-					'A', "ingotTungsten");
-
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage, 1, 9),
-				"AAA", "AAA", "AAA",
-					'A', "ingotLead");
-
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage, 1, 10),
-			"AAA", "AAA", "AAA",
-				'A', "ingotZinc");
-
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage, 1, 11),
-			"AAA", "AAA", "AAA",
-				'A', "ingotBrass");
-
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage, 1, 12),
-			"AAA", "AAA", "AAA",
-				'A', "ingotSteel");
-
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage, 1, 13),
-			"AAA", "AAA", "AAA",
-				'A', "ingotPlatinum");
-
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage, 1, 14),
-			"AAA", "AAA", "AAA",
-				'A', "ingotNickel");
-
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage, 1, 15),
-			"AAA", "AAA", "AAA",
-				'A', "ingotInvar");
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.parts, 1, 40),
 				"PLP", "RGB", "PYP",
@@ -220,24 +177,37 @@ public class ModRecipes {
 	}
 
 	static void addShaplessRecipes() {
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 4), "blockSilver");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 5), "blockAluminium");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 6), "blockTitanium");
+
+		for(String name : ArrayUtils.addAll(BlockStorage.types, BlockStorage2.types))	{
+			try {
+				CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName(name, 9),
+						"A  ", "   ", "   ",
+						'A', "block" + name.substring(0, 1).toUpperCase() + name.substring(1));
+			}
+			catch (Exception e) {
+				//Iridium reinforced tungstensteel, etc.
+			}
+		}
+
+		for(String name : ItemDustsSmall.types)
+		{
+			CraftingHelper.addShapedOreRecipe(ItemDustsSmall.getSmallDustByName(name, 4),
+					"A  ", "   ", "   ",
+					'A', ItemDusts.getDustByName(name));
+			CraftingHelper.addShapedOreRecipe(ItemDustsTiny.getTinyDustByName(name, 9),
+					" A ", "   ", "   ",
+					'A', ItemDusts.getDustByName(name));
+			CraftingHelper.addShapedOreRecipe(ItemDusts.getDustByName(name, 1),
+					"AA ", "AA ", "   ",
+					'A', ItemDustsSmall.getSmallDustByName(name));
+			CraftingHelper.addShapedOreRecipe(ItemDusts.getDustByName(name, 1),
+					"AAA", "AAA", "AAA",
+					'A', ItemDustsTiny.getTinyDustByName(name));
+		}
+
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.gems, 9, 1), "blockSapphire");
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.gems, 9, 0), "blockRuby");
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.gems, 9, 2), "blockGreenSapphire");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 7), "blockChrome");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 8), "blockElectrum");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 9), "blockTungsten");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 10), "blockLead");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 11), "blockZinc");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 12), "blockBrass");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 13), "blockSteel");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 14), "blockPlatinum");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 15), "blockNickel");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.ingots, 9, 16), "blockInvar");
-		CraftingHelper.addShapelessOreRecipe(ItemDusts.getDustByName("titanium"), (ItemDustsSmall.getSmallDustByName("Titanium")), (ItemDustsSmall.getSmallDustByName("Titanium")), (ItemDustsSmall.getSmallDustByName("Titanium")), (ItemDustsSmall.getSmallDustByName("Titanium")));
-
 
 		LogHelper.info("Shapless Recipes Added");
 	}

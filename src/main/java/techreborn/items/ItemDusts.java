@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -18,6 +19,16 @@ public class ItemDusts extends ItemTR {
 			if (types[i].equalsIgnoreCase(name)) {
 				return new ItemStack(ModItems.dusts, count, i);
 			}
+		}
+
+		if (name.equalsIgnoreCase("glowstone"))	{
+			return new ItemStack(Items.glowstone_dust, count);
+		}
+		if (name.equalsIgnoreCase("redstone")) {
+			return new ItemStack(Items.redstone, count);
+		}
+		if (name.equalsIgnoreCase("gunpowder")) {
+			return new ItemStack(Items.gunpowder, count);
 		}
 		throw new InvalidParameterException("The gem " + name + " could not be found.");
 	}

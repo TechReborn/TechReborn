@@ -29,6 +29,11 @@ public class BlockStorage extends Block {
 		return BlockStorage2.getStorageBlockByName(name, count);
 	}
 
+	public static ItemStack getStorageBlockByName(String name)
+	{
+		return getStorageBlockByName(name, 1);
+	}
+
 	public static final String[] types = new String[]
 	{ "silver", "aluminum", "titanium", "chrome", "steel", "brass", "lead",
 			"electrum", "zinc", "platinum", "tungsten", "nickel", "invar", "osmium",
