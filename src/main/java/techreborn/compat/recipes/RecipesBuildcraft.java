@@ -8,7 +8,9 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import ic2.api.item.IC2Items;
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 import techreborn.compat.ICompatModule;
 import techreborn.util.CraftingHelper;
 import techreborn.util.LogHelper;
@@ -24,18 +26,18 @@ public class RecipesBuildcraft implements ICompatModule {
 	}
 
 	public static void addRecipies() {
+		Item drill = IC2Items.getItem("diamondDrill").getItem();
+		ItemStack drillStack = new ItemStack(drill, 1, OreDictionary.WILDCARD_VALUE); 
 		//Quarry
-		CraftingHelper.addShapedOreRecipe(
-				new ItemStack(quarryBlock),
-				new Object[]
-						{
-								"IAI", "GIG", "DED",
-								'I', "gearIron",
-								'G', "gearGold",
-								'D', "gearDiamond",
-								'A', IC2Items.getItem("advancedCircuit"),
-								'E', IC2Items.getItem("diamondDrill")
-						}
+		CraftingHelper.addShapedOreRecipe(new ItemStack(quarryBlock),new Object[]
+			{
+				"IAI", "GIG", "DED",
+				'I', "gearIron",
+				'G', "gearGold",
+				'D', "gearDiamond",
+				'A', IC2Items.getItem("advancedCircuit"),
+				'E', drillStack
+			}
 		);
 	}
 

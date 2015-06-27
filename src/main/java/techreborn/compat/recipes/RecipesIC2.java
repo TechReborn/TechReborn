@@ -10,6 +10,7 @@ import ic2.api.recipe.RecipeInputOreDict;
 import ic2.api.recipe.Recipes;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.oredict.OreDictionary;
@@ -69,6 +70,9 @@ public class RecipesIC2 implements ICompatModule {
 	}
 
 	static void addShappedIc2Recipes() {
+		Item drill = IC2Items.getItem("miningDrill").getItem();
+		ItemStack drillStack = new ItemStack(drill, 1, OreDictionary.WILDCARD_VALUE); 
+		
 		if (ConfigTechReborn.ExpensiveMacerator)
 			CraftingHelper.addShapedOreRecipe(IC2Items.getItem("macerator"),
 					"FDF", "DMD", "FCF",
@@ -89,7 +93,7 @@ public class RecipesIC2 implements ICompatModule {
 					" D ", "DBD", "TCT",
 					'D', "gemDiamond",
 					'T', "ingotTitanium",
-					'B', IC2Items.getItem("miningDrill"),
+					'B', drillStack,
 					'C', IC2Items.getItem("advancedCircuit"));
 
 		if (ConfigTechReborn.ExpensiveSolar)
