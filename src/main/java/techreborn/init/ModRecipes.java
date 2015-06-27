@@ -1997,7 +1997,7 @@ public class ModRecipes {
 		));
 
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
-				ItemDusts.getDustByName("peridot", 5),
+				ItemDusts.getDustByName("greenSapphire", 5),
 				IC2Items.getItem("cell"),
 				null,
 				ItemDusts.getDustByName("aluminum", 2),
@@ -2039,5 +2039,173 @@ public class ModRecipes {
 				null,
 				20, 106
 		));
+
+		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+				ItemCells.getCellByName("glyceryl", 20),
+				null,
+				null,
+				ItemCells.getCellByName("carbon", 3),
+				ItemCells.getCellByName("hydrogen", 5),
+				ItemCells.getCellByName("nitrogen", 3),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 9, 0),
+				800, 90
+		));
+
+		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+				ItemDusts.getDustByName("peridot", 9),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 4, 0),
+				null,
+				ItemDusts.getDustByName("magnesium", 2),
+				ItemDusts.getDustByName("iron"),
+				ItemCells.getCellByName("silicon", 2),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 2, 5),
+				200, 120
+		));
+
+		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+				ItemCells.getCellByName("calciumCarbonate", 5),
+				null,
+				null,
+				ItemCells.getCellByName("carbon"),
+				ItemCells.getCellByName("calcium"),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 1, 5),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 2, 0),
+				400, 90
+		));
+
+		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+				ItemCells.getCellByName("sodiumPersulfate", 6),
+				null,
+				null,
+				ItemCells.getCellByName("sodium"),
+				ItemDusts.getDustByName("sulfur"),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 2, 5),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 3, 0),
+				420, 90
+		));
+
+		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+				ItemDusts.getDustByName("pyrope", 20),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 9, 0),
+				null,
+				ItemDusts.getDustByName("aluminum", 2),
+				ItemDusts.getDustByName("magnesium", 3),
+				ItemCells.getCellByName("silicon", 3),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 6, 5),
+				400, 120
+		));
+
+		ItemStack sand = new ItemStack(Blocks.sand);
+		sand.stackSize = 16;
+
+		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+				sand,
+				new ItemStack(IC2Items.getItem("cell").getItem(), 2, 0),
+				null,
+				ItemCells.getCellByName("silicon", 1),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 1, 5),
+				null,
+				null,
+				1000, 25
+		));
+
+		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+				ItemDusts.getDustByName("almandine", 20),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 9, 0),
+				null,
+				ItemDusts.getDustByName("aluminum", 2),
+				ItemDusts.getDustByName("iron", 3),
+				ItemCells.getCellByName("silicon", 3),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 6, 5),
+				480, 120
+		));
+
+		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+				ItemDusts.getDustByName("spessartine", 20),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 9, 0),
+				null,
+				ItemDusts.getDustByName("aluminum", 2),
+				ItemDusts.getDustByName("manganese", 3),
+				ItemCells.getCellByName("silicon", 3),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 6, 5),
+				480, 120
+		));
+
+		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+				ItemDusts.getDustByName("andradite", 20),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 12, 0),
+				null,
+				ItemCells.getCellByName("calcium", 3),
+				ItemDusts.getDustByName("iron", 2),
+				ItemCells.getCellByName("silicon", 3),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 6, 5),
+				480, 120
+		));
+
+		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+				ItemDusts.getDustByName("grossular", 20),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 12, 0),
+				null,
+				ItemCells.getCellByName("calcium", 3),
+				ItemDusts.getDustByName("aluminum", 2),
+				ItemCells.getCellByName("silicon", 3),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 6, 5),
+				440, 120
+		));
+
+		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+				ItemDusts.getDustByName("Uvarovite", 20),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 12, 0),
+				null,
+				ItemCells.getCellByName("calcium", 3),
+				ItemDusts.getDustByName("chrome", 2),
+				ItemCells.getCellByName("silicon", 3),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 6, 5),
+				480, 120
+		));
+
+		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+				new ItemStack(IC2Items.getItem("cell").getItem(), 6, 10),
+				null,
+				null,
+				ItemCells.getCellByName("hydrogen", 4),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 1, 5),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 1, 0),
+				null,
+				100, 30
+		));
+
+		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+				ItemDusts.getDustByName("darkAshes"),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 2, 0),
+				null,
+				ItemCells.getCellByName("carbon", 2),
+				null,
+				null,
+				null,
+				20, 30
+		));
+
+		for(String name : OreDictionary.getOreNames())
+		{
+			name.toUpperCase();
+		}
+
+		if (OreDictionary.doesOreNameExist("salt")) {
+			ItemStack salt = OreDictionary.getOres("dustSalt").get(0);
+			salt.stackSize = 2;
+			RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+					salt,
+					new ItemStack(IC2Items.getItem("cell").getItem(), 2, 0),
+					null,
+					ItemCells.getCellByName("sodium"),
+					ItemDusts.getDustByName("chlorine"),
+					null,
+					null,
+					40, 60
+			));
+		}
+
+
 	}
 }
