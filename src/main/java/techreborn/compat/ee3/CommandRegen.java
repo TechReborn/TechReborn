@@ -58,6 +58,7 @@ public class CommandRegen extends CommandBase {
 		commandSender.addChatMessage(new ChatComponentText("Regening EMC Values"));
 		DynamicEnergyValueInitThread.initEnergyValueRegistry();
 		EnergyValueRegistry.getInstance().setShouldRegenNextRestart(false);
+		EnergyValueRegistry.getInstance().save();
 		commandSender.addChatMessage(new ChatComponentText("Syncing all EMC Values"));
 		new CommandSyncEnergyValues().processCommand(commandSender, args);
 	}
