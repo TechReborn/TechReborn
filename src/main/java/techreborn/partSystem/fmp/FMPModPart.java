@@ -104,11 +104,11 @@ public class FMPModPart extends TMultiPart implements TSlottedPart,
         return cubes;
     }
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void renderDynamic(Vector3 pos, float frame, int pass) {
-        iModPart.renderDynamic(new Vecs3d(pos.x, pos.y, pos.z), frame);
-    }
+//    @Override
+//    @SideOnly(Side.CLIENT)
+//    public void renderDynamic(Vector3 pos, float frame, int pass) {
+//        iModPart.renderDynamic(new Vecs3d(pos.x, pos.y, pos.z), frame);
+//    }
 
     @Override
     public String getType() {
@@ -178,14 +178,14 @@ public class FMPModPart extends TMultiPart implements TSlottedPart,
         super.onRemoved();
     }
 
-    @Override
-    public boolean renderStatic(Vector3 pos, int pass) {
-		boolean render;
-		RenderHelper.instance.setRenderCoords(getWorld(), (int) pos.x, (int) pos.y, (int) pos.z);
-		render = iModPart.renderStatic(new Vecs3d((int) pos.x, (int) pos.y, (int) pos.z), RenderHelper.instance, pass);
-		RenderHelper.instance.reset();
-		return render;
-	}
+//    @Override
+//    public boolean renderStatic(Vector3 pos, int pass) {
+//		boolean render;
+//		RenderHelper.instance.setRenderCoords(getWorld(), (int) pos.x, (int) pos.y, (int) pos.z);
+//		render = iModPart.renderStatic(new Vecs3d((int) pos.x, (int) pos.y, (int) pos.z), RenderHelper.instance, pass);
+//		RenderHelper.instance.reset();
+//		return render;
+//	}
 
 	@Override
 	public Iterable<ItemStack> getDrops() {
