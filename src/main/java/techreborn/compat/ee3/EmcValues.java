@@ -12,6 +12,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
+import ic2.api.item.IC2Items;
 import ic2.api.recipe.IRecipeInput;
 import ic2.api.recipe.RecipeInputFluidContainer;
 import ic2.api.recipe.RecipeInputItemStack;
@@ -20,6 +21,7 @@ import ic2.api.recipe.RecipeOutput;
 import ic2.api.recipe.Recipes;
 import ic2.core.AdvRecipe;
 import ic2.core.AdvShapelessRecipe;
+import ic2.core.Ic2Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
@@ -146,6 +148,16 @@ public class EmcValues implements ICompatModule {
 		addOre("ingotSilver", 1024);
 		addOre("ingotTin", 256);
 		addOre("ingotLead", 256);
+		addOre("dustSteel", 512);
+		addOre("dustCoal", 32);
+		addOre("dustDiamond", 8192);
+		addOre("dustSulfur", 32);
+		addOre("dustLead", 256);
+
+		addStack(IC2Items.getItem("rubber"), 32);
+		addStack(IC2Items.getItem("carbonPlate"), 256);
+		addStack(IC2Items.getItem("energyCrystal"), 32896 / 9);
+		addStack(Ic2Items.energyCrystal, 32896);
 		addIC2Handlers();
 	}
 
@@ -167,5 +179,14 @@ public class EmcValues implements ICompatModule {
 
 		EnergyValueRegistryProxy.addPreAssignedEnergyValue(stack, energyValue);
 	}
+
+
+	private void addStack(ItemStack itemStack, float value) {
+		WrappedStack stack = WrappedStack.wrap(itemStack);
+		EnergyValue energyValue = new EnergyValue(value);
+
+		EnergyValueRegistryProxy.addPreAssignedEnergyValue(stack, energyValue);
+	}
+
 
 }
