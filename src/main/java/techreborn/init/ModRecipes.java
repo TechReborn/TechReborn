@@ -2186,12 +2186,7 @@ public class ModRecipes {
 				20, 30
 		));
 
-		for(String name : OreDictionary.getOreNames())
-		{
-			name.toUpperCase();
-		}
-
-		if (OreDictionary.doesOreNameExist("salt")) {
+		if (OreDictionary.doesOreNameExist("dustSalt")) {
 			ItemStack salt = OreDictionary.getOres("dustSalt").get(0);
 			salt.stackSize = 2;
 			RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
