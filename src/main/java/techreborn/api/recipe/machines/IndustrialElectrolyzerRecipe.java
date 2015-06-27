@@ -1,5 +1,6 @@
 package techreborn.api.recipe.machines;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.FluidStack;
@@ -27,6 +28,25 @@ public class IndustrialElectrolyzerRecipe extends BaseRecipe {
 		if (output4 != null)
 			addOutput(output4);
         this.fluidStack = fluidStack;
+	}
+
+	public IndustrialElectrolyzerRecipe(boolean userOreDic, ItemStack inputCells, ItemStack input2, FluidStack fluidStack, ItemStack output1, ItemStack output2, ItemStack output3, ItemStack output4, int tickTime, int euPerTick)
+	{
+		super("industrialElectrolyzerRecipe", tickTime, euPerTick);
+		this.useOreDictionary = userOreDic;
+		if (inputCells != null)
+			inputs.add(inputCells);
+		if( input2 != null)
+			inputs.add(input2);
+		if (output1 != null)
+			addOutput(output1);
+		if (output2 != null)
+			addOutput(output2);
+		if (output3 != null)
+			addOutput(output3);
+		if (output4 != null)
+			addOutput(output4);
+		this.fluidStack = fluidStack;
 	}
 
 	@Override
@@ -76,4 +96,12 @@ public class IndustrialElectrolyzerRecipe extends BaseRecipe {
         }
         return false;
     }
+
+	@Override
+	public boolean useOreDic()
+	{
+		return useOreDictionary;
+	}
+
+	private boolean useOreDictionary = true;
 }

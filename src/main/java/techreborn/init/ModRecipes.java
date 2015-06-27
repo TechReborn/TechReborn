@@ -1929,7 +1929,7 @@ public class ModRecipes {
 				ItemDusts.getDustByName("sulfur"),
 				new ItemStack(IC2Items.getItem("cell").getItem(), 2, 5),
 				new ItemStack(IC2Items.getItem("cell").getItem(), 3, 0),
-				100, 128
+				400, 90
 		));
 
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
@@ -1953,6 +1953,82 @@ public class ModRecipes {
 				null,
 				140, 90
 		));
-	}
 
+		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+				ItemDusts.getDustByName("sapphire", 5),
+				IC2Items.getItem("cell"),
+				null,
+				ItemDusts.getDustByName("aluminum", 2),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 1, 5),
+				null,
+				null,
+				100, 60
+		));
+
+		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+				ItemCells.getCellByName("nitrogenDioxide", 3),
+				null,
+				null,
+				ItemCells.getCellByName("nitrogen", 1),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 1, 5),
+				null,
+				IC2Items.getItem("cell"),
+				160, 60
+		));
+
+		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+				ItemCells.getCellByName("sodiumSulfide", 2),
+				null,
+				null,
+				ItemCells.getCellByName("sodium", 1),
+				ItemDusts.getDustByName("sulfur", 1),
+				null,
+				IC2Items.getItem("cell"),
+				200, 60
+		));
+
+		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+				ItemDusts.getDustByName("peridot", 5),
+				IC2Items.getItem("cell"),
+				null,
+				ItemDusts.getDustByName("aluminum", 2),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 1, 5),
+				null,
+				null,
+				100, 60
+		));
+
+		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+				ItemDusts.getDustByName("emerald", 29),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 18, 0),
+				null,
+				ItemCells.getCellByName("berylium", 3),
+				ItemDusts.getDustByName("aluminum", 2),
+				ItemCells.getCellByName("silicon", 6),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 9, 5),
+				520, 120
+		));
+
+		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+				new ItemStack(IC2Items.getItem("silicondioxideDust").getItem(), 3, 0),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 2, 0),
+				null,
+				ItemCells.getCellByName("silicon", 1),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 1, 5),
+				null,
+				null,
+				60, 60
+		));
+
+		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(false,
+				new ItemStack(Items.dye, 3, 15),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 1, 0),
+				null,
+				ItemCells.getCellByName("calcium", 1),
+				null,
+				null,
+				null,
+				20, 106
+		));
+	}
 }
