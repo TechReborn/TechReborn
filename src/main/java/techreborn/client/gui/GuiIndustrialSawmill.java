@@ -1,5 +1,6 @@
 package techreborn.client.gui;
 
+import codechicken.lib.gui.GuiDraw;
 import ic2.core.util.DrawUtil;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -10,6 +11,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import techreborn.client.container.ContainerIndustrialSawmill;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.TileIndustrialSawmill;
 
 public class GuiIndustrialSawmill extends GuiContainer {
@@ -75,6 +77,12 @@ public class GuiIndustrialSawmill extends GuiContainer {
 				drawTexturedModalRect(k + 11, l + 19, 176, 86, 12, 47);
 			}
 		}
+		
+        if(sawmill.getMutliBlock() != true)
+        {
+    		GuiDraw.drawTooltipBox(k + 30, l + 50 + 12 - 0, 114, 10);
+    		this.fontRendererObj.drawString(ModInfo.MISSING_MULTIBLOCK, k + 38, l + 52 + 12 - 0, -1);
+        }
 
 	}
 
