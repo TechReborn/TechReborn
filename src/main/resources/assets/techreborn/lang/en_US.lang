@@ -53,7 +53,7 @@ tile.techreborn.machineFrame.bronze.name=Brone Machine Hull
 tile.techreborn.machineFrame.brass.name=Brass Machine Hull
 tile.techreborn.machineFrame.steel.name=Steel Machine Hull
 tile.techreborn.machineFrame.titanium.name=Titanium Machine Hull
-tile.techreborn.industrialSawmill.name=Saw Mill
+tile.techreborn.industrialsawmill.name=Saw Mill
 
 #Ores
 tile.techreborn.ore.Galena.name=Galena Ore
@@ -768,6 +768,10 @@ config.techreborn.category.general=General Configs
 config.techreborn.category.world=World Configs
 config.techreborn.category.power=Power Configs
 config.techreborn.category.crafting=Crafting Configs
+config.techreborn.category.uu=UU Configs
+config.techreborn.category.emc=EMC Configs
+
+
 
 #Message
 techreborn.message.missingmultiblock=MISSING MULTIBLOCK
