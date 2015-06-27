@@ -1,9 +1,12 @@
 package techreborn.client.gui;
 
+import ic2.core.util.DrawUtil;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import techreborn.client.container.ContainerIndustrialSawmill;
@@ -52,6 +55,25 @@ public class GuiIndustrialSawmill extends GuiContainer {
 		j = sawmill.getEnergyScaled(12);
 		if(j > 0) {
 			this.drawTexturedModalRect(k + 33, l + 65 + 12 - j, 176, 12 - j, 14, j + 2);
+		}
+		
+		if (sawmill.tank.getFluidAmount() != 0)
+		{
+			IIcon fluidIcon = sawmill.tank.getFluid().getFluid().getIcon();
+			if (fluidIcon != null)
+			{
+				drawTexturedModalRect(k + 7, l + 15, 176, 31, 20, 55);
+
+				this.mc.renderEngine
+						.bindTexture(TextureMap.locationBlocksTexture);
+				int liquidHeight = sawmill.tank.getFluidAmount() * 47
+						/ sawmill.tank.getCapacity();
+				DrawUtil.drawRepeated(fluidIcon, k + 11, l + 19 + 47
+						- liquidHeight, 12.0D, liquidHeight, this.zLevel);
+
+				this.mc.renderEngine.bindTexture(texture);
+				drawTexturedModalRect(k + 11, l + 19, 176, 86, 12, 47);
+			}
 		}
 
 	}

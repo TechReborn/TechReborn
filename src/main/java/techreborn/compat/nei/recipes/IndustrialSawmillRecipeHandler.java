@@ -3,6 +3,7 @@ package techreborn.compat.nei.recipes;
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
+import codechicken.nei.recipe.TemplateRecipeHandler.CachedRecipe;
 import ic2.core.util.DrawUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -10,8 +11,10 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.IIcon;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.api.recipe.machines.GrinderRecipe;
+import techreborn.api.recipe.machines.IndustrialElectrolyzerRecipe;
 import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
 import techreborn.client.gui.GuiIndustrialSawmill;
+import techreborn.compat.nei.recipes.GenericRecipeHander.CachedGenericRecipe;
 
 import java.awt.Rectangle;
 import java.util.List;
@@ -69,7 +72,7 @@ public class IndustrialSawmillRecipeHandler extends GenericRecipeHander implemen
 	@Override
 	public void loadTransferRects() {
 		this.transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(
-				new Rectangle(80, 20, 20, 20), getNeiBaseRecipe().getRecipeName(), new Object[0]));
+				new Rectangle(55, 20, 20, 20), getNeiBaseRecipe().getRecipeName(), new Object[0]));
 	}
 
 	@Override
@@ -78,22 +81,17 @@ public class IndustrialSawmillRecipeHandler extends GenericRecipeHander implemen
 		CachedRecipe recipe = arecipes.get(recipeIndex);
 		if (recipe instanceof CachedGenericRecipe) {
 			if (((CachedGenericRecipe) recipe).recipie instanceof IndustrialSawmillRecipe) {
-				IndustrialSawmillRecipe sawmillRecipe = (IndustrialSawmillRecipe) ((CachedGenericRecipe) recipe).recipie;
-				if (sawmillRecipe.fluidStack != null) {
-					IIcon fluidIcon = sawmillRecipe.fluidStack.getFluid().getIcon();
+				IndustrialSawmillRecipe grinderRecipe = (IndustrialSawmillRecipe) ((CachedGenericRecipe) recipe).recipie;
+				if (grinderRecipe.fluidStack != null) {
+					IIcon fluidIcon = grinderRecipe.fluidStack.getFluid().getIcon();
 					if (fluidIcon != null) {
-//					GuiDraw.drawRect(7, 16, 176, 31, 0);
-//					drawTexturedModalRect(k + 7, l + 15, 176, 31, 20, 55);
 
 						Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
-						int liquidHeight = sawmillRecipe.fluidStack.amount * 47 / 16000;
-						DrawUtil.drawRepeated(fluidIcon, 11, 19 + 47 - liquidHeight, 12.0D, liquidHeight, GuiDraw.gui.getZLevel());
+						int liquidHeight = grinderRecipe.fluidStack.amount * 100 / 16000;
+						DrawUtil.drawRepeated(fluidIcon, 7, 22 + 47 - liquidHeight, 14.0D, liquidHeight, GuiDraw.gui.getZLevel());
 
-
-//					this.mc.renderEngine.bindTexture(texture);
-//					drawTexturedModalRect(k + 11, l + 19, 176, 86, 12, 47);
 					}
-					GuiDraw.drawString(sawmillRecipe.fluidStack.amount + "mb of " + sawmillRecipe.fluidStack.getLocalizedName(), 14, 124, -1);
+					GuiDraw.drawString(grinderRecipe.fluidStack.amount + "mb of " + grinderRecipe.fluidStack.getLocalizedName(), 14, 135, -1);
 				}
 			}
 		}
