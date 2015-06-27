@@ -30,7 +30,7 @@ public class ItemDusts extends ItemTR {
 		if (name.equalsIgnoreCase("gunpowder")) {
 			return new ItemStack(Items.gunpowder, count);
 		}
-		throw new InvalidParameterException("The gem " + name + " could not be found.");
+		throw new InvalidParameterException("The dust " + name + " could not be found.");
 	}
 	
 	public static ItemStack getDustByName(String name)

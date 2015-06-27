@@ -3,6 +3,7 @@ package techreborn.init;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ic2.api.item.IC2Items;
 import ic2.core.Ic2Items;
+import ic2.core.item.resources.ItemCell;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -1920,7 +1921,38 @@ public class ModRecipes {
 	}
 
 	static void addIndustrialElectrolyzerRecipes() {
-		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(null, ItemDusts.getDustByName("chrome"), new FluidStack(FluidRegistry.WATER, 1000), ItemGems.getGemByName("ruby"), null, null, null, 100, 128));
+		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+				null,
+				ItemCells.getCellByName("sulfuricAcid", 7),
+				null,
+				ItemCells.getCellByName("hydrogen", 2),
+				ItemDusts.getDustByName("sulfur"),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 2, 5),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 3, 0),
+				100, 128
+		));
+
+		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+				null,
+				ItemCells.getCellByName("nitrocarbon", 2),
+				null,
+				ItemCells.getCellByName("nitrogen"),
+				ItemCells.getCellByName("carbon"),
+				null,
+				null,
+				80, 60
+		));
+
+		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+				ItemDusts.getDustByName("ruby", 6),
+				IC2Items.getItem("cell"),
+				null,
+				ItemDusts.getDustByName("aluminum", 2),
+				new ItemStack(IC2Items.getItem("cell").getItem(), 1, 5),
+				ItemDusts.getDustByName("chrome", 1),
+				null,
+				140, 90
+		));
 	}
 
 }
