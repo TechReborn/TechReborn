@@ -15,8 +15,7 @@ public class GuiRollingMachine extends GuiContainer {
 			"techreborn", "textures/gui/rolling_machine.png");
 	TileRollingMachine rollingMachine;
 
-	public GuiRollingMachine(EntityPlayer player,
-			TileRollingMachine tileRollingmachine)
+	public GuiRollingMachine(EntityPlayer player, TileRollingMachine tileRollingmachine)
 	{
 		super(new ContainerRollingMachine(tileRollingmachine, player));
 		this.xSize = 176;
@@ -25,8 +24,7 @@ public class GuiRollingMachine extends GuiContainer {
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float p_146976_1_,
-			int p_146976_2_, int p_146976_3_)
+	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_)
 	{
 		this.mc.getTextureManager().bindTexture(texture);
 		int k = (this.width - this.xSize) / 2;

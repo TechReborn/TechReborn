@@ -18,8 +18,7 @@ public class GuiBlastFurnace extends GuiContainer {
 
 	TileBlastFurnace blastfurnace;
 
-	public GuiBlastFurnace(EntityPlayer player,
-			TileBlastFurnace tileblastfurnace)
+	public GuiBlastFurnace(EntityPlayer player, TileBlastFurnace tileblastfurnace)
 	{
 		super(new ContainerBlastFurnace(tileblastfurnace, player));
 		this.xSize = 176;
@@ -29,17 +28,13 @@ public class GuiBlastFurnace extends GuiContainer {
 
     @Override
     public void initGui() {
-
-        this.buttonList.clear();
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
-        this.buttonList.add(new GuiButton(0, k + 4,  l + 4, 20, 20, "R"));
         super.initGui();
     }
 
     @Override
-	protected void drawGuiContainerBackgroundLayer(float p_146976_1_,
-			int p_146976_2_, int p_146976_3_)
+	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_)
 	{
 		this.mc.getTextureManager().bindTexture(texture);
 		int k = (this.width - this.xSize) / 2;

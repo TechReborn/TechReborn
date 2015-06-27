@@ -2,6 +2,7 @@ package techreborn.compat.nei.recipes;
 
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
+import codechicken.nei.recipe.TemplateRecipeHandler;
 import ic2.core.util.DrawUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -12,6 +13,7 @@ import techreborn.api.recipe.machines.GrinderRecipe;
 import techreborn.client.gui.GuiGrinder;
 import techreborn.util.ItemUtils;
 
+import java.awt.Rectangle;
 import java.util.List;
 
 import org.lwjgl.opengl.GL11;
@@ -70,6 +72,12 @@ public class GrinderRecipeHandler extends GenericRecipeHander implements INeiBas
 	@Override
 	public INeiBaseRecipe getNeiBaseRecipe() {
 		return this;
+	}
+	
+	@Override
+	public void loadTransferRects() {
+		this.transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(
+				new Rectangle(40, 20, 20, 20), getNeiBaseRecipe().getRecipeName(), new Object[0]));
 	}
 
 	@Override

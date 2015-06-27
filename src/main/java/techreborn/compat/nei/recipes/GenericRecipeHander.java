@@ -89,10 +89,10 @@ public abstract class GenericRecipeHander extends TemplateRecipeHandler {
 		return 1;
 	}
 
-	public void loadTransferRects() {
-		this.transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(
-				new Rectangle(0, 0, 20, 20), getNeiBaseRecipe().getRecipeName(), new Object[0]));
-	}
+//	public void loadTransferRects() {
+//		this.transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(
+//				new Rectangle(0, 0, 20, 20), getNeiBaseRecipe().getRecipeName(), new Object[0]));
+//	}
 
 	public void loadCraftingRecipes(String outputId, Object... results) {
 		if (outputId.equals(getNeiBaseRecipe().getRecipeName())) {

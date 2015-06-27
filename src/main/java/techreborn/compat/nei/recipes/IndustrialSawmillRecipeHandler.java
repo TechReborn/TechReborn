@@ -2,6 +2,7 @@ package techreborn.compat.nei.recipes;
 
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
+import codechicken.nei.recipe.TemplateRecipeHandler;
 import ic2.core.util.DrawUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -12,6 +13,7 @@ import techreborn.api.recipe.machines.GrinderRecipe;
 import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
 import techreborn.client.gui.GuiIndustrialSawmill;
 
+import java.awt.Rectangle;
 import java.util.List;
 
 public class IndustrialSawmillRecipeHandler extends GenericRecipeHander implements INeiBaseRecipe {
@@ -62,6 +64,12 @@ public class IndustrialSawmillRecipeHandler extends GenericRecipeHander implemen
 	@Override
 	public INeiBaseRecipe getNeiBaseRecipe() {
 		return this;
+	}
+	
+	@Override
+	public void loadTransferRects() {
+		this.transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(
+				new Rectangle(80, 20, 20, 20), getNeiBaseRecipe().getRecipeName(), new Object[0]));
 	}
 
 	@Override
