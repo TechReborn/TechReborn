@@ -11,6 +11,7 @@ public class ConfigTechReborn {
     public static String CATEGORY_POWER = "power";
     public static String CATEGORY_CRAFTING = "crafting";
     public static String CATEGORY_UU = "uu";
+    public static String CATEGORY_EMC = "emc";
 
     // WORLDGEN
     public static boolean GalenaOreTrue;
@@ -139,6 +140,8 @@ public class ConfigTechReborn {
     public static boolean UUrecipesTungstenDust;
     public static boolean UUrecipesTitaniumDust;
     public static boolean UUrecipesAluminumDust;
+    
+    //EMC
     
     // Client
     public static boolean ShowChargeHud;

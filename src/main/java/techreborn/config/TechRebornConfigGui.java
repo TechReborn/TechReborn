@@ -38,6 +38,9 @@ public class TechRebornConfigGui extends GuiConfig {
 		list.add(new DummyConfigElement.DummyCategoryElement(StatCollector
 				.translateToLocal("config.techreborn.category.uu"),
 				"tr.configgui.category.truu", TRUU.class));
+		list.add(new DummyConfigElement.DummyCategoryElement(StatCollector
+				.translateToLocal("config.techreborn.category.emc"),
+				"tr.configgui.category.tremc", TREMC.class));
 
 		return list;
 	}
@@ -156,6 +159,30 @@ public class TechRebornConfigGui extends GuiConfig {
 			return new GuiConfig(this.owningScreen,
 					(new ConfigElement(ConfigTechReborn.config
 							.getCategory(ConfigTechReborn.CATEGORY_UU)))
+							.getChildElements(), this.owningScreen.modID,
+					Configuration.CATEGORY_GENERAL,
+					this.configElement.requiresWorldRestart()
+							|| this.owningScreen.allRequireWorldRestart,
+					this.configElement.requiresMcRestart()
+							|| this.owningScreen.allRequireMcRestart,
+					GuiConfig.getAbridgedConfigPath(ConfigTechReborn.config
+							.toString()));
+		}
+	}
+	
+	// Emc
+	public static class TREMC extends CategoryEntry {
+		public TREMC(GuiConfig owningScreen, GuiConfigEntries owningEntryList, IConfigElement configElement)
+		{
+			super(owningScreen, owningEntryList, configElement);
+		}
+
+		@Override
+		protected GuiScreen buildChildScreen()
+		{
+			return new GuiConfig(this.owningScreen,
+					(new ConfigElement(ConfigTechReborn.config
+							.getCategory(ConfigTechReborn.CATEGORY_EMC)))
 							.getChildElements(), this.owningScreen.modID,
 					Configuration.CATEGORY_GENERAL,
 					this.configElement.requiresWorldRestart()
