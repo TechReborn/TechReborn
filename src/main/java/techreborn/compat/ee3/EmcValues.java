@@ -22,6 +22,7 @@ import ic2.api.recipe.Recipes;
 import ic2.core.AdvRecipe;
 import ic2.core.AdvShapelessRecipe;
 import ic2.core.Ic2Items;
+import ic2.core.item.resources.ItemIngot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
@@ -30,6 +31,7 @@ import net.minecraftforge.fluids.FluidStack;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.compat.ICompatModule;
+import techreborn.items.ItemPlates;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -149,15 +151,26 @@ public class EmcValues implements ICompatModule {
 		addOre("ingotTin", 256);
 		addOre("ingotLead", 256);
 		addOre("dustSteel", 512);
+		addOre("ingotRefinedIron", 512);
 		addOre("dustCoal", 32);
 		addOre("dustDiamond", 8192);
 		addOre("dustSulfur", 32);
 		addOre("dustLead", 256);
+		addOre("ingotBronze", 160);
+		addOre("ingotElectrum", 2052);
+		addOre("dustLapis", 864);
+		addOre("dustSilver", 1024);
+		addOre("dustTin", 256);
 
 		addStack(IC2Items.getItem("rubber"), 32);
 		addStack(IC2Items.getItem("carbonPlate"), 256);
-		addStack(IC2Items.getItem("energyCrystal"), 32896 / 9);
-		addStack(Ic2Items.energyCrystal, 32896);
+		addStack(Ic2Items.energyCrystal, 32896 / 9);
+		addStack(Ic2Items.chargingEnergyCrystal, 32896 / 9);
+		addStack(IC2Items.getItem("refinedIronIngot"), 512);
+		addStack(Ic2Items.plateadviron, 512);
+		addStack(ItemPlates.getPlateByName("steel"), 512);
+		addStack(Ic2Items.reBattery, 608);
+		addStack(Ic2Items.chargedReBattery, 608);
 		addIC2Handlers();
 	}
 
