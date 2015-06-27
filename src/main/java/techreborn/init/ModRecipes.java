@@ -216,6 +216,15 @@ public class ModRecipes {
 
 	static void addMachineRecipes()
 	{
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.industrialSawmill),
+				"PAP",
+				"SSS",
+				"ACA",
+				'P', IC2Items.getItem("pump"),
+				'A', IC2Items.getItem("advancedCircuit"),
+				'S', ItemParts.getPartByName("diamondSawBlade"),
+				'C', IC2Items.getItem("advancedMachine"));
+
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ComputerCube),
 				"DME", "MAM", "EMD",
 				'E', ItemParts.getPartByName("energyFlowCircuit"),
