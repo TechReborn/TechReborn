@@ -15,7 +15,6 @@ import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
 import techreborn.client.GuiHandler;
-import techreborn.tiles.TileIndustrialElectrolyzer;
 import techreborn.tiles.TileIndustrialSawmill;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

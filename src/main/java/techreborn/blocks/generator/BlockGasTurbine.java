@@ -2,11 +2,8 @@ package techreborn.blocks.generator;
 
 import ic2.api.item.IC2Items;
 
-import java.util.Map;
 import java.util.Random;
 
-import net.minecraftforge.fluids.*;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;

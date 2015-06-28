@@ -14,7 +14,6 @@ import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
-import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.tiles.TileQuantumChest;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

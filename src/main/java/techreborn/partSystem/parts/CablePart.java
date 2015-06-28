@@ -42,6 +42,7 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
     private boolean[] connections = new boolean[6];
     public boolean addedToEnergyNet = false;
 	public ItemStack stack;
+    private boolean hasCheckedSinceStartup;
 
     public int type = 0;//TODO save this to nbt and not use the constructor.
 
@@ -93,12 +94,6 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
 
     @Override
     public void addCollisionBoxesToList(List<Vecs3dCube> boxes, Entity entity) {
-        if (world != null || location != null) {
-            checkConnectedSides();
-        } else {
-            connectedSides = new HashMap<ForgeDirection, TileEntity>();
-        }
-
         for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
             if (connectedSides.containsKey(dir))
                 boxes.add(boundingBoxes[Functions.getIntDirFromDirection(dir)]);
@@ -109,7 +104,6 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
     @Override
     public List<Vecs3dCube> getSelectionBoxes() {
         List<Vecs3dCube> vec3dCubeList = new ArrayList<Vecs3dCube>();
-        checkConnectedSides();
         for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
             if (connectedSides.containsKey(dir))
                 vec3dCubeList.add(boundingBoxes[Functions
@@ -167,6 +161,13 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
 			this.addedToEnergyNet = true;
 			nearByChange();
 		}
+        if(worldObj != null){
+            if(worldObj.getTotalWorldTime() % 40 == 0 || hasCheckedSinceStartup == false){
+                checkConnectedSides();
+                hasCheckedSinceStartup = true;
+            }
+        }
+
     }
 
     @Override
@@ -182,7 +183,7 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
 			this.addedToEnergyNet = true;
 			nearByChange();
 		}
-
+        checkConnectedSides();
 	}
 
     @Override
@@ -224,6 +225,9 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
                  getY(), getZ(), boundingBoxes[d])) {
                 connectedSides.put(dir, te);
                  }
+            }
+            if(te != null){
+                te.getWorldObj().markBlockForUpdate(te.xCoord, te.yCoord, te.zCoord);
             }
         }
         checkConnections(world, getX(), getY(), getZ());

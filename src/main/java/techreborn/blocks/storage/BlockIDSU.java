@@ -15,7 +15,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import techreborn.client.GuiHandler;
 import techreborn.packets.PacketHandler;
-import techreborn.tiles.TileAesu;
 import techreborn.tiles.idsu.IDSUManager;
 import techreborn.tiles.idsu.TileIDSU;
 

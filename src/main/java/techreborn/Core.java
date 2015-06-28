@@ -22,7 +22,6 @@ import techreborn.packets.PacketHandler;
 import techreborn.proxies.CommonProxy;
 import techreborn.tiles.idsu.IDSUManager;
 import techreborn.util.LogHelper;
-import techreborn.world.DungeonLoot;
 import techreborn.world.TROreGen;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
