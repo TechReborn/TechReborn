@@ -86,13 +86,12 @@ public class GuiIndustrialSawmill extends GuiContainer {
 
 	}
 
-	protected void drawGuiContainerForegroundLayer(int p_146979_1_,
-			int p_146979_2_)
+	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_)
 	{
 		String name = StatCollector.translateToLocal("tile.techreborn.industrialSawmill.name");
 		this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
 		this.fontRendererObj.drawString(
-				I18n.format("container.inventory", new Object[0]), 58,
-				this.ySize - 96 + 2, 4210752);
+		I18n.format("container.inventory", new Object[0]), 58,
+		this.ySize - 96 + 2, 4210752);
 	}
 }
