@@ -156,7 +156,7 @@ public class EmcValues implements ICompatModule {
 		addOre("dustDiamond", 8192);
 		addOre("dustSulfur", 32);
 		addOre("dustLead", 256);
-		addOre("ingotBronze", 160);
+		addOre("ingotBronze", 256);
 		addOre("ingotElectrum", 2052);
 		addOre("dustLapis", 864);
 		addOre("dustSilver", 1024);
