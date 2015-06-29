@@ -4,6 +4,7 @@ import ic2.api.energy.prefab.BasicSink;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
+import ic2.api.item.IElectricItemManager;
 import ic2.api.tile.IWrenchable;
 import ic2.core.item.ElectricItemManager;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,7 +22,7 @@ import techreborn.util.Inventory;
 
 import java.util.List;
 
-public class TileChargeBench extends TileMachineBase implements IWrenchable, IEnergyTile, IInventory {
+public class TileChargeBench extends TileMachineBase implements IWrenchable, IEnergyTile, IInventory, ISidedInventory {
 
 	public BasicSink energy;
 	public Inventory inventory = new Inventory(6, "TileChargeBench", 64);
@@ -182,23 +183,28 @@ public class TileChargeBench extends TileMachineBase implements IWrenchable, IEn
     }
 
 	// ISidedInventory 
-//	@Override
-//	public int[] getAccessibleSlotsFromSide(int side)
-//	{
-//        return side == ForgeDirection.DOWN.ordinal() ? new int[]{0, 1, 2} : new int[]{0, 1, 2};
-//	}
-//
-//	@Override
-//	public boolean canInsertItem(int slotIndex, ItemStack itemStack, int side)
-//	{
-//		if (slotIndex == 2)
-//			return false;
-//        return isItemValidForSlot(slotIndex, itemStack);
-//	}
-//
-//	@Override
-//	public boolean canExtractItem(int slotIndex, ItemStack itemStack, int side)
-//	{
-//        return slotIndex == 2;
-//	}
+	@Override
+	public int[] getAccessibleSlotsFromSide(int side)
+	{
+        return side == ForgeDirection.DOWN.ordinal() ? new int[]{0, 1, 2, 3, 4, 5} : new int[]{0, 1, 2, 3, 4, 5};
+	}
+
+	@Override
+	public boolean canInsertItem(int slotIndex, ItemStack itemStack, int side)
+	{
+        return isItemValidForSlot(slotIndex, itemStack);
+	}
+
+	@Override
+	public boolean canExtractItem(int slotIndex, ItemStack itemStack, int side)
+	{
+        if(itemStack.getItem() instanceof IElectricItem)
+        {
+			double CurrentCharge = ElectricItem.manager.getCharge(itemStack);
+			double MaxCharge = ((IElectricItem) itemStack.getItem()).getMaxCharge(itemStack);
+			if(CurrentCharge == MaxCharge)
+				return true;
+        }
+        return false;
+	}
 }
