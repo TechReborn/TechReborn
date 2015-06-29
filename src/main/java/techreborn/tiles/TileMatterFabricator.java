@@ -184,10 +184,11 @@ public class TileMatterFabricator extends TileMachineBase implements IWrenchable
 				ItemStack stack = inventory.getStackInSlot(i);
 				if (this.amplifier < 100000 && stack != null) {
 					int amp = (int) ((long) (getValue(stack) / 32));
-					System.out.println(amp);
 					if (ItemUtils.isItemEqual(stack, inventory.getStackInSlot(i), true, true)) {
-						this.amplifier += amp;
-						inventory.decrStackSize(i, 1);
+						if(energy.useEnergy(1)){
+							this.amplifier += amp;
+							inventory.decrStackSize(i, 1);
+						}
 					}
 				}
 			}
