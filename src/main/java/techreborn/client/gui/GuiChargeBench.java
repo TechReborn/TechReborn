@@ -37,6 +37,13 @@ public class GuiChargeBench extends GuiContainer {
 		int k = (this.width - this.xSize) / 2;
 		int l = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
+		
+		int j = 0;
+
+        j = chargebench.getEnergyScaled(12);
+        if(j > 0) {
+            this.drawTexturedModalRect(k + 10, l + 32 + 12 - j, 176, 12 - j, 14, j + 2);
+        }
 	}
 
 	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {

@@ -25,8 +25,7 @@ public class TileChargeBench extends TileMachineBase implements IWrenchable, IEn
 
 	public BasicSink energy;
 	public Inventory inventory = new Inventory(6, "TileChargeBench", 64);
-	public int capacity = 100000;
-	public int[] chargeSlot = {0, 1, 2, 3, 4, 5};
+	public int capacity = 1000;
 	
 	public TileChargeBench(){
 		energy = new BasicSink(this, capacity, 3);
@@ -45,7 +44,7 @@ public class TileChargeBench extends TileMachineBase implements IWrenchable, IEn
 				ItemStack stack = inventory.getStackInSlot(i);
 				double MaxCharge = ((IElectricItem) stack.getItem()).getMaxCharge(stack);
 				double CurrentCharge = ElectricItem.manager.getCharge(stack);
-				if(CurrentCharge != MaxCharge)
+				if(CurrentCharge != MaxCharge && energy.getEnergyStored() >= 128)
 				{
 					ElectricItem.manager.charge(stack, MaxCharge - CurrentCharge, 2, false, false);
 					energy.useEnergy(128);
@@ -177,6 +176,10 @@ public class TileChargeBench extends TileMachineBase implements IWrenchable, IEn
 	public boolean isItemValidForSlot(int slot, ItemStack stack) {
 		return inventory.isItemValidForSlot(slot, stack);
 	}
+	
+    public int getEnergyScaled(int scale) {
+        return (int)energy.getEnergyStored() * scale / energy.getCapacity();
+    }
 
 	// ISidedInventory 
 //	@Override
