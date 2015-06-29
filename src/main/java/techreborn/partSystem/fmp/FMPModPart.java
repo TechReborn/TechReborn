@@ -11,6 +11,7 @@ import codechicken.lib.data.MCDataInput;
 import codechicken.lib.data.MCDataOutput;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
@@ -180,6 +181,7 @@ public class FMPModPart extends TMultiPart implements TSlottedPart,
     public void onRemoved() {
         iModPart.onRemoved();
         super.onRemoved();
+
     }
 
     @Override
@@ -195,7 +197,7 @@ public class FMPModPart extends TMultiPart implements TSlottedPart,
 	public Iterable<ItemStack> getDrops() {
 		List<ItemStack> stackArrayList = new ArrayList<ItemStack>();
 		if(iModPart.getItem() != null){
-			stackArrayList.add(iModPart.getItem());
+			stackArrayList.add(iModPart.getItem().copy());
 		} else {
 			LogHelper.error("Part " + iModPart.getName() + " has a null drop");
 		}
