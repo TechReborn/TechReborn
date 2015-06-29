@@ -21,6 +21,7 @@ import techreborn.init.ModItems;
 import techreborn.items.ItemCrushedOre;
 import techreborn.items.ItemDustsTiny;
 import techreborn.items.ItemDusts;
+import techreborn.items.ItemGems;
 import techreborn.items.ItemIngots;
 import techreborn.items.ItemParts;
 import techreborn.items.ItemPlates;
@@ -181,7 +182,7 @@ public class RecipesIC2 implements ICompatModule {
 			Recipes.macerator.addRecipe(new RecipeInputOreDict("oreEmerald"), null, ItemDusts.getDustByName("emerald", 2));
 		}
 		if (OreDictionary.doesOreNameExist("oreRuby")) {
-			Recipes.macerator.addRecipe(new RecipeInputOreDict("oreRuby"), null, ItemDusts.getDustByName("ruby", 2));
+			Recipes.macerator.addRecipe(new RecipeInputOreDict("oreRuby"), null, ItemGems.getGemByName("ruby", 2));
 		}
 		if (OreDictionary.doesOreNameExist("oreSapphire")) {
 			Recipes.macerator.addRecipe(new RecipeInputOreDict("oreSapphire"), null, ItemDusts.getDustByName("sapphire", 2));
@@ -247,6 +248,9 @@ public class RecipesIC2 implements ICompatModule {
 		}
 		if (OreDictionary.doesOreNameExist("blockBasalt")) {
 			Recipes.macerator.addRecipe(new RecipeInputOreDict("blockBasalt"), null, ItemDusts.getDustByName("basalt", 2));
+		}
+		if (OreDictionary.doesOreNameExist("gemRuby")) {
+			Recipes.macerator.addRecipe(new RecipeInputOreDict("gemRuby"), null, ItemDusts.getDustByName("ruby", 2));
 		}
 	}
 

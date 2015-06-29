@@ -157,7 +157,7 @@ public class ModRecipes {
 		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("diamondSawBlade"),
 				"DSD", "S S", "DSD",
 				'S', "plateSteel",
-				'D', ItemDusts.getDustByName("diamond"));
+				'D', "dustDiamond");
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.lapotronicOrb),
 				"LLL", "LPL", "LLL",
