@@ -70,8 +70,5 @@ public class CentrifugeRecipeHandler extends GenericRecipeHander implements INei
 		this.transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(new Rectangle(94, 25, 10, 10), getNeiBaseRecipe().getRecipeName(), new Object[0]));
 		this.transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(new Rectangle(78, 15, 10, 10), getNeiBaseRecipe().getRecipeName(), new Object[0]));
 		this.transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(new Rectangle(78, 40, 10, 10), getNeiBaseRecipe().getRecipeName(), new Object[0]));
-
-
-
 	}
 }
