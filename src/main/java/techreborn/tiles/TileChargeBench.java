@@ -36,11 +36,13 @@ public class TileChargeBench extends TileMachineBase implements IWrenchable, IEn
 	public void updateEntity(){
 		super.updateEntity();
 		energy.updateEntity();
-		if(inventory.getStackInSlot(0) != null)
+		
+		for (int i = 0; i < 6; i++)
+		if(inventory.getStackInSlot(i) != null)
 		{
-			if(inventory.getStackInSlot(0).getItem() instanceof IElectricItem)
+			if(inventory.getStackInSlot(i).getItem() instanceof IElectricItem)
 			{
-				ItemStack stack = inventory.getStackInSlot(0);
+				ItemStack stack = inventory.getStackInSlot(i);
 				double MaxCharge = ((IElectricItem) stack.getItem()).getMaxCharge(stack);
 				double CurrentCharge = ElectricItem.manager.getCharge(stack);
 				if(CurrentCharge != MaxCharge)
@@ -52,6 +54,7 @@ public class TileChargeBench extends TileMachineBase implements IWrenchable, IEn
 		}
 	}
 
+	
 	@Override
 	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side){
 		return false;
@@ -195,8 +198,4 @@ public class TileChargeBench extends TileMachineBase implements IWrenchable, IEn
 //	{
 //        return slotIndex == 2;
 //	}
-//
-//    public int getEnergyScaled(int scale) {
-//        return (int)energy.getEnergyStored() * scale / energy.getCapacity();
-//    }
 }
