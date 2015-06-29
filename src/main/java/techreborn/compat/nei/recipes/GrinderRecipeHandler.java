@@ -77,7 +77,7 @@ public class GrinderRecipeHandler extends GenericRecipeHander implements INeiBas
 	@Override
 	public void loadTransferRects() {
 		this.transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(
-				new Rectangle(40, 20, 20, 20), getNeiBaseRecipe().getRecipeName(), new Object[0]));
+				new Rectangle(44, 20, 25, 20), getNeiBaseRecipe().getRecipeName(), new Object[0]));
 	}
 
 	@Override

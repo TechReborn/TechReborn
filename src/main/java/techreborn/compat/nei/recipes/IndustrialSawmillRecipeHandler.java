@@ -72,7 +72,7 @@ public class IndustrialSawmillRecipeHandler extends GenericRecipeHander implemen
 	@Override
 	public void loadTransferRects() {
 		this.transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(
-				new Rectangle(55, 20, 20, 20), getNeiBaseRecipe().getRecipeName(), new Object[0]));
+				new Rectangle(50, 20, 25, 20), getNeiBaseRecipe().getRecipeName(), new Object[0]));
 	}
 
 	@Override

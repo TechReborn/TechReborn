@@ -48,6 +48,6 @@ public class LatheRecipeHandler extends GenericRecipeHander implements INeiBaseR
 	@Override
 	public void loadTransferRects() {
 		this.transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(
-				new Rectangle(80, 20, 20, 20), getNeiBaseRecipe().getRecipeName(), new Object[0]));
+				new Rectangle(75, 20, 25, 20), getNeiBaseRecipe().getRecipeName(), new Object[0]));
 	}
 }
