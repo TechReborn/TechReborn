@@ -28,11 +28,12 @@ import techreborn.init.ModParts;
 import techreborn.lib.Functions;
 import techreborn.lib.vecmath.Vecs3d;
 import techreborn.lib.vecmath.Vecs3dCube;
+import techreborn.partSystem.IPartDesc;
 import techreborn.partSystem.ModPart;
 import techreborn.partSystem.ModPartUtils;
 import uk.co.qmunity.lib.client.render.RenderHelper;
 
-public class CablePart extends ModPart implements IEnergyConductor, INetworkTileEntityEventListener {
+public class CablePart extends ModPart implements IEnergyConductor, INetworkTileEntityEventListener, IPartDesc {
     public Vecs3dCube[] boundingBoxes = new Vecs3dCube[14];
     public float center = 0.6F;
     public float offset = 0.10F;
@@ -135,12 +136,13 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound tag) {;
+    public void writeToNBT(NBTTagCompound tag) {
+		writeConnectedSidesToNBT(tag);
     }
 
     @Override
     public void readFromNBT(NBTTagCompound tag) {
-
+		readFromNBT(tag);
     }
 
     @Override
@@ -524,5 +526,37 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
 			default:
 				IC2.platform.displayError("An unknown event type was received over multiplayer.\nThis could happen due to corrupted data or a bug.\n\n(Technical information: event ID " + i + ", tile entity below)\n" + "T: " + this + " (" + this.xCoord + ", " + this.yCoord + ", " + this.zCoord + ")", new Object[0]);
 		}
+	}
+
+	private void readConnectedSidesFromNBT(NBTTagCompound tagCompound){
+
+		NBTTagCompound ourCompound = tagCompound.getCompoundTag("connectedSides");
+
+		for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+			connections[dir.ordinal()] = ourCompound.getBoolean(dir.ordinal()+"");
+		}
+		checkConnectedSides();
+	}
+
+	private void writeConnectedSidesToNBT(NBTTagCompound tagCompound){
+
+		NBTTagCompound ourCompound = new NBTTagCompound();
+		int i=0;
+		for(boolean b : connections) {
+			ourCompound.setBoolean(i+"", b);
+			i++;
+		}
+
+		tagCompound.setTag("connectedSides", ourCompound);
+	}
+
+	@Override
+	public void readDesc(NBTTagCompound tagCompound) {
+		readConnectedSidesFromNBT(tagCompound);
+	}
+
+	@Override
+	public void writeDesc(NBTTagCompound tagCompound) {
+		writeConnectedSidesToNBT(tagCompound);
 	}
 }

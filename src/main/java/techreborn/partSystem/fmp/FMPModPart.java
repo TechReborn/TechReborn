@@ -7,14 +7,18 @@ package techreborn.partSystem.fmp;
 import java.util.ArrayList;
 import java.util.List;
 
+import codechicken.lib.data.MCDataInput;
+import codechicken.lib.data.MCDataOutput;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import techreborn.lib.Location;
 import techreborn.lib.vecmath.Vecs3d;
 import techreborn.lib.vecmath.Vecs3dCube;
+import techreborn.partSystem.IPartDesc;
 import techreborn.partSystem.ModPart;
 import techreborn.util.LogHelper;
 import uk.co.qmunity.lib.client.render.RenderHelper;
@@ -208,4 +212,22 @@ public class FMPModPart extends TMultiPart implements TSlottedPart,
         }
         iModPart.nearByChange();
     }
+
+	@Override
+	public void readDesc(MCDataInput packet) {
+		super.readDesc(packet);
+		if(iModPart instanceof IPartDesc){
+			((IPartDesc) iModPart).readDesc(packet.readNBTTagCompound());
+		}
+	}
+
+	@Override
+	public void writeDesc(MCDataOutput packet) {
+		super.writeDesc(packet);
+		if(iModPart instanceof IPartDesc){
+			NBTTagCompound tagCompound = new NBTTagCompound();
+			((IPartDesc) iModPart).writeDesc(tagCompound);
+			packet.writeNBTTagCompound(tagCompound);
+		}
+	}
 }
