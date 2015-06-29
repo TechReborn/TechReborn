@@ -3,6 +3,7 @@ package techreborn.client.container;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import techreborn.client.SlotFake;
+import techreborn.client.SlotFluid;
 import techreborn.client.SlotOutput;
 import techreborn.tiles.TileThermalGenerator;
 
@@ -17,7 +18,7 @@ public class ContainerThermalGenerator extends TechRebornContainer {
 		this.tileThermalGenerator = tileThermalGenerator;
 		this.player = player;
 
-		this.addSlotToContainer(new Slot(tileThermalGenerator.inventory, 0, 80,
+		this.addSlotToContainer(new SlotFluid(tileThermalGenerator.inventory, 0, 80,
 				17));
 		this.addSlotToContainer(new SlotOutput(tileThermalGenerator.inventory,
 				1, 80, 53));
