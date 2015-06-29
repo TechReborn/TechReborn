@@ -2199,7 +2199,7 @@ public class ModRecipes {
 					new ItemStack(IC2Items.getItem("cell").getItem(), 2, 0),
 					null,
 					ItemCells.getCellByName("sodium"),
-					ItemDusts.getDustByName("chlorine"),
+					ItemCells.getCellByName("chlorine"),
 					null,
 					null,
 					40, 60
