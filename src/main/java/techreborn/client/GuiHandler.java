@@ -39,6 +39,7 @@ public class GuiHandler implements IGuiHandler {
 	public static final int destructoPackID = 25;
     public static final int lesuID = 26;
 	public static final int idsuID = 27;
+	public static final int chargeBench = 28;
 	
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world,
@@ -145,7 +146,10 @@ public class GuiHandler implements IGuiHandler {
             return new ContainerLesu((TileLesu) world.getTileEntity(x, y, z), player);
         } else if (ID == idsuID) {
 			return new ContainerIDSU((TileIDSU) world.getTileEntity(x, y, z), player);
+        } else if (ID == chargeBench) {
+			return new ContainerChargeBench((TileChargeBench) world.getTileEntity(x, y, z), player);
 		}
+		
 
 		return null;
 	}
@@ -255,6 +259,8 @@ public class GuiHandler implements IGuiHandler {
             return new GuiLesu(player, (TileLesu)world.getTileEntity(x, y, z));
         } else if (ID == idsuID) {
 			return new GuiIDSU(player, (TileIDSU)world.getTileEntity(x, y, z));
+        } else if (ID == chargeBench) {
+			return new GuiChargeBench(player, (TileChargeBench)world.getTileEntity(x, y, z));
 		}
 		return null;
 	}

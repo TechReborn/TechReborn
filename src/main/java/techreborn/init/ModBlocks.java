@@ -21,6 +21,7 @@ import techreborn.blocks.machine.BlockAlloySmelter;
 import techreborn.blocks.machine.BlockAssemblingMachine;
 import techreborn.blocks.machine.BlockBlastFurnace;
 import techreborn.blocks.machine.BlockCentrifuge;
+import techreborn.blocks.machine.BlockChargeBench;
 import techreborn.blocks.machine.BlockChemicalReactor;
 import techreborn.blocks.machine.BlockDistillationTower;
 import techreborn.blocks.machine.BlockGrinder;
@@ -89,6 +90,7 @@ public class ModBlocks {
 	public static Block LightningRod;
 	public static Block heatGenerator;
 	public static Block industrialSawmill;	
+	public static Block chargeBench;
 	
 	public static Block ore;
 	public static Block storage;
@@ -143,6 +145,10 @@ public class ModBlocks {
 		ChunkLoader = new BlockChunkLoader(Material.rock);
 		GameRegistry.registerBlock(ChunkLoader, "chunkloader");
 		GameRegistry.registerTileEntity(TileChunkLoader.class, "TileChunkLoaderTR");
+		
+		chargeBench = new BlockChargeBench(Material.rock);
+		GameRegistry.registerBlock(chargeBench, "chargebench");
+		GameRegistry.registerTileEntity(TileChargeBench.class, "TileChargeBench");
 
 		MachineCasing = new BlockMachineCasing(Material.rock);
 		GameRegistry.registerBlock(MachineCasing, ItemBlockMachineCasing.class, "machinecasing");
