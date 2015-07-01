@@ -42,6 +42,16 @@ public interface IEnergyInterfaceTile {
 	public int addEnergy(int energy);
 
 	/**
+	 *
+	 * Will try add add the full amount of energy, if simulate is true it wont add the energy
+	 *
+	 * @param energy amount to add
+	 *
+	 * @return The amount of energy that was added.
+	 */
+	public int addEnergy(int energy, boolean simulate);
+
+	/**
 	 * Returns true if it can use the full amount of energy
 	 *
 	 * @param energy amount of energy to use from the tile.
@@ -55,9 +65,19 @@ public interface IEnergyInterfaceTile {
 	 *
 	 * @param energy energy to use
 	 *
-	 * @return if the energy was used
+	 * @return the amount of energy used
 	 */
-	public boolean useEnergy(int energy);
+	public int useEnergy(int energy);
+
+
+	/**
+	 * Will try and use the full amount of energy, if simulate is true it wont add the energy
+	 *
+	 * @param energy energy to use
+	 *
+	 * @return the amount of energy used
+	 */
+	public int useEnergy(int energy, boolean simulate);
 
 	/**
 	 *
