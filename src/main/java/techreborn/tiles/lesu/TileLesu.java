@@ -5,11 +5,12 @@ import ic2.api.tile.IWrenchable;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.blocks.storage.EUStorageTile;
 import techreborn.config.ConfigTechReborn;
+import techreborn.powerSystem.TilePowerAcceptor;
 import techreborn.util.Inventory;
 
 import java.util.ArrayList;
 
-public class TileLesu extends EUStorageTile implements IWrenchable {
+public class TileLesu extends TilePowerAcceptor  {//TODO wrench
 
     private ArrayList<LesuNetwork> countedNetworks = new ArrayList<LesuNetwork>();
     public int connectedBlocks = 0;
@@ -18,11 +19,13 @@ public class TileLesu extends EUStorageTile implements IWrenchable {
     private double euLastTick = 0;
     private double euChange;
     private int ticks;
+	private int output;
+	private int maxStorage;
 
     public Inventory inventory = new Inventory(2, "TileAesu", 64);
 
     public TileLesu() {
-        super(5, 0, 0);
+        super(5);
     }
 
     @Override
@@ -42,6 +45,7 @@ public class TileLesu extends EUStorageTile implements IWrenchable {
                             connectedBlocks += network.storages.size();
                             countedNetworks.add(network);
                             network.master = this;
+							break;
                         }
                     }
                 }
@@ -60,19 +64,15 @@ public class TileLesu extends EUStorageTile implements IWrenchable {
             if(euChange == -1){
                 euChange = 0;
             }
-            euChange += energy - euLastTick;
-            if(euLastTick == energy){
+            euChange += getEnergy() - euLastTick;
+            if(euLastTick == getEnergy()){
                 euChange = 0;
             }
         }
 
-        euLastTick = energy;
+        euLastTick = getEnergy();
     }
 
-    @Override
-    public String getInventoryName() {
-        return "Lesu";
-    }
 
     public double getEuChange(){
         if(euChange == -1){
@@ -80,4 +80,29 @@ public class TileLesu extends EUStorageTile implements IWrenchable {
         }
         return (euChange / ticks);
     }
+
+	@Override
+	public double getMaxPower() {
+		return maxStorage;
+	}
+
+	@Override
+	public boolean canAcceptEnergy(ForgeDirection direction) {
+		return direction.ordinal() != blockMetadata;
+	}
+
+	@Override
+	public boolean canProvideEnergy(ForgeDirection direction) {
+		return direction.ordinal() == blockMetadata;
+	}
+
+	@Override
+	public double getMaxOutput() {
+		return output;
+	}
+
+	@Override
+	public double getMaxInput() {
+		return 8192;
+	}
 }

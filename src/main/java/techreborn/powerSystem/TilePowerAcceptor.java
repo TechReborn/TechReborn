@@ -20,9 +20,9 @@ import techreborn.tiles.TileMachineBase;
 
 
 @Optional.InterfaceList(value = {
-		@Optional.Interface(iface = "ic2.api.energy.tile.IEnergyTile", modid = "IC2", striprefs = true),
-		@Optional.Interface(iface = "ic2.api.energy.tile.IEnergySink", modid = "IC2", striprefs = true),
-		@Optional.Interface(iface = "ic2.api.energy.tile.IEnergySource", modid = "IC2", striprefs = true)
+		@Optional.Interface(iface = "ic2.api.energy.tile.IEnergyTile", modid = "IC2"),
+		@Optional.Interface(iface = "ic2.api.energy.tile.IEnergySink", modid = "IC2"),
+		@Optional.Interface(iface = "ic2.api.energy.tile.IEnergySource", modid = "IC2")
 })
 public abstract class TilePowerAcceptor extends TileMachineBase implements
 		IEnergyReceiver, IEnergyProvider, //Cofh
@@ -31,12 +31,9 @@ public abstract class TilePowerAcceptor extends TileMachineBase implements
 {
 	public int tier;
 	private double energy;
-	public final TileEntity parent;
-	public int maxEnergy;
 
-	public TilePowerAcceptor(int tier, TileEntity parent) {
+	public TilePowerAcceptor(int tier) {
 		this.tier = tier;
-		this.parent = parent;
 	}
 
 	//IC2
@@ -56,11 +53,6 @@ public abstract class TilePowerAcceptor extends TileMachineBase implements
 		if (PowerSystem.EUPOWENET && !addedToEnet &&
 				!FMLCommonHandler.instance().getEffectiveSide().isClient() &&
 				Info.isIc2Available()) {
-			worldObj = parent.getWorldObj();
-			xCoord = parent.xCoord;
-			yCoord = parent.yCoord;
-			zCoord = parent.zCoord;
-
 			MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
 
 			addedToEnet = true;
@@ -210,11 +202,6 @@ public abstract class TilePowerAcceptor extends TileMachineBase implements
 	}
 
 	@Override
-	public double getMaxPower() {
-		return maxEnergy;
-	}
-
-	@Override
 	public double addEnergy(double energy) {
 		return addEnergy(energy, true);
 	}
@@ -253,8 +240,8 @@ public abstract class TilePowerAcceptor extends TileMachineBase implements
 	public boolean canAddEnergy(double energy) {
 		return this.energy + energy <= getMaxPower();
 	}
-
 	//TechReborn END
+
 	@Override
 	public void readFromNBT(NBTTagCompound tag) {
 		super.readFromNBT(tag);
