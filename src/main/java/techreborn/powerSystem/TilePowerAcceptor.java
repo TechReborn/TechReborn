@@ -30,8 +30,9 @@ public abstract class TilePowerAcceptor extends TileMachineBase implements
 		IEnergyTile, IEnergySink, IEnergySource //Ic2
 {
 	public int tier;
-	private int energy;
+	private double energy;
 	public final TileEntity parent;
+	public int maxEnergy;
 
 	public TilePowerAcceptor(int tier, TileEntity parent) {
 		this.tier = tier;
@@ -160,21 +161,21 @@ public abstract class TilePowerAcceptor extends TileMachineBase implements
 		if (!canAcceptEnergy(from)) {
 			return 0;
 		}
-		return addEnergy(maxReceive, simulate);
+		return (int) ((int) addEnergy(maxReceive, simulate) * PowerSystem.euPerRF);
 	}
 
 	@Override
 	public int getEnergyStored(ForgeDirection from) {
 		if (!PowerSystem.RFPOWENET)
 			return 0;
-		return getEnergy();
+		return (int) ((int) getEnergy() * PowerSystem.euPerRF);
 	}
 
 	@Override
 	public int getMaxEnergyStored(ForgeDirection from) {
 		if (!PowerSystem.RFPOWENET)
 			return 0;
-		return getMaxPower();
+		return (int) ((int) getMaxPower() * PowerSystem.euPerRF);
 	}
 
 	@Override
@@ -184,22 +185,88 @@ public abstract class TilePowerAcceptor extends TileMachineBase implements
 		if (!canAcceptEnergy(from)) {
 			return 0;
 		}
-		return useEnergy(maxExtract, simulate);
+		return (int) ((int) useEnergy(maxExtract, simulate) * PowerSystem.euPerRF);
 	}
 	//END COFH
 
+
+
+	//TechReborn
+
+	@Override
+	public double getEnergy() {
+		return energy;
+	}
+
+	@Override
+	public void setEnergy(double energy) {
+		this.energy = energy;
+
+		if (this.energy > getMaxPower()) {
+			this.energy = getMaxPower();
+		} else if (this.energy < 0) {
+			this.energy = 0;
+		}
+	}
+
+	@Override
+	public double getMaxPower() {
+		return maxEnergy;
+	}
+
+	@Override
+	public double addEnergy(double energy) {
+		return addEnergy(energy, true);
+	}
+
+	@Override
+	public double addEnergy(double energy, boolean simulate) {
+		double energyReceived = Math.min(getMaxPower() - energy, Math.min(this.getMaxPower(), energy));
+
+		if (!simulate) {
+			this.energy += energyReceived;
+		}
+		return energyReceived;
+	}
+
+	@Override
+	public boolean canUseEnergy(double energy) {
+		return this.energy >= energy;
+	}
+
+	@Override
+	public double useEnergy(double energy) {
+		return useEnergy(energy, true);
+	}
+
+	@Override
+	public double useEnergy(double energy, boolean simulate) {
+		double energyExtracted = Math.min(energy, Math.min(this.getMaxOutput(), energy));
+
+		if (!simulate) {
+			this.energy -= energyExtracted;
+		}
+		return energyExtracted;
+	}
+
+	@Override
+	public boolean canAddEnergy(double energy) {
+		return this.energy + energy <= getMaxPower();
+	}
+
+	//TechReborn END
 	@Override
 	public void readFromNBT(NBTTagCompound tag) {
 		super.readFromNBT(tag);
 		NBTTagCompound data = tag.getCompoundTag("TilePowerAcceptor");
-		energy = data.getInteger("energy");
+		energy = data.getDouble("energy");
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound tag) {
 		super.writeToNBT(tag);
 		NBTTagCompound data = new NBTTagCompound();
-		data.setInteger("energy", energy);
+		data.setDouble("energy", energy);
 		tag.setTag("TilePowerAcceptor", data);
 	}
 }

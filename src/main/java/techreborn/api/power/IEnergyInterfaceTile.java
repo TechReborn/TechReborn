@@ -8,20 +8,20 @@ public interface IEnergyInterfaceTile {
 	 *
 	 * @return Amount of energy in the tile
 	 */
-	public int getEnergy();
+	public double getEnergy();
 
 	/**
 	 * Sets the energy in the tile
 	 *
 	 * @param energy the amount of energy to set.
 	 */
-	public void setEnergy(int energy);
+	public void setEnergy(double energy);
 
 	/**
 	 * Gets the max stored energy in the tile
 	 * @return The max energy
 	 */
-	public int getMaxPower();
+	public double getMaxPower();
 
 	/**
 	 *
@@ -29,7 +29,7 @@ public interface IEnergyInterfaceTile {
 	 *
 	 * @return will return true if can fit all
 	 */
-	public boolean canAddEnergy(int energy);
+	public boolean canAddEnergy(double energy);
 
 	/**
 	 *
@@ -39,7 +39,7 @@ public interface IEnergyInterfaceTile {
 	 *
 	 * @return The amount of energy that was added.
 	 */
-	public int addEnergy(int energy);
+	public double addEnergy(double energy);
 
 	/**
 	 *
@@ -49,7 +49,7 @@ public interface IEnergyInterfaceTile {
 	 *
 	 * @return The amount of energy that was added.
 	 */
-	public int addEnergy(int energy, boolean simulate);
+	public double addEnergy(double energy, boolean simulate);
 
 	/**
 	 * Returns true if it can use the full amount of energy
@@ -58,7 +58,7 @@ public interface IEnergyInterfaceTile {
 	 *
 	 * @return if all the energy can be used.
 	 */
-	public boolean canUseEnergy(int energy);
+	public boolean canUseEnergy(double energy);
 
 	/**
 	 * Will try and use the full amount of energy
@@ -67,7 +67,7 @@ public interface IEnergyInterfaceTile {
 	 *
 	 * @return the amount of energy used
 	 */
-	public int useEnergy(int energy);
+	public double useEnergy(double energy);
 
 
 	/**
@@ -77,7 +77,7 @@ public interface IEnergyInterfaceTile {
 	 *
 	 * @return the amount of energy used
 	 */
-	public int useEnergy(int energy, boolean simulate);
+	public double useEnergy(double energy, boolean simulate);
 
 	/**
 	 *
@@ -99,12 +99,13 @@ public interface IEnergyInterfaceTile {
 	 *
 	 * @return the max amount of energy outputted per tick.
 	 */
-	public int getMaxOutput();
+	public double getMaxOutput();
 
 	/**
 	 *  Return -1 if you don't want to accept power ever.
 	 *
 	 * @return The max amount of energy that can be added to the tile in one tick.
 	 */
-	public int getMaxInput();
+	public double getMaxInput();
+
 }
