@@ -1,9 +1,7 @@
 package techreborn.asm;
 
 import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.ModAPIManager;
 import cpw.mods.fml.common.ModContainer;
-import cpw.mods.fml.common.discovery.ASMDataTable;
 import cpw.mods.fml.common.versioning.InvalidVersionSpecificationException;
 import cpw.mods.fml.common.versioning.VersionRange;
 import net.minecraft.launchwrapper.IClassTransformer;
@@ -14,6 +12,7 @@ import org.objectweb.asm.tree.AnnotationNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.FieldNode;
 import org.objectweb.asm.tree.MethodNode;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -21,47 +20,17 @@ import java.util.Map;
 
 public class ClassTransformation implements IClassTransformer {
 
-	private static boolean scrappedData = false;
-	static  String strippableDesc;
 	private static final String[] emptyList = {};
+	static String strippableDesc;
+	private static Map<String, ModContainer> mods;
+
 
 	public ClassTransformation() {
 		strippableDesc = Type.getDescriptor(Strippable.class);
 	}
 
-
-	@Override
-	public byte[] transform(String name, String transformedName, byte[] bytes) {
-
-		if (bytes == null) {
-			return null;
-		}
-
-		ClassReader cr = new ClassReader(bytes);
-		ClassNode cn = new ClassNode();
-		cr.accept(cn, 0);
-		if (strip(cn)) {
-			ClassWriter cw = new ClassWriter(0);
-			cn.accept(cw);
-			bytes = cw.toByteArray();
-			System.out.println("Striped " + name);
-		} else {
-			//LogHelper.trace("Nothing stripped from " + transformedName);
-		}
-
-		return bytes;
-	}
-
 	static boolean strip(ClassNode cn) {
 		boolean altered = false;
-		if (cn.visibleAnnotations != null) {
-			for (AnnotationNode n : cn.visibleAnnotations) {
-				AnnotationInfo node = parseAnnotation(n, strippableDesc);
-				if(node != null){
-
-				}
-			}
-		}
 		if (cn.methods != null) {
 			Iterator<MethodNode> iter = cn.methods.iterator();
 			while (iter.hasNext()) {
@@ -95,7 +64,6 @@ public class ClassTransformation implements IClassTransformer {
 
 
 	static AnnotationInfo parseAnnotation(AnnotationNode node, String desc) {
-
 		AnnotationInfo info = null;
 		if (node.desc.equals(desc)) {
 			info = new AnnotationInfo();
@@ -109,11 +77,6 @@ public class ClassTransformation implements IClassTransformer {
 							continue;
 						}
 						info.values = ((List<?>) v).toArray(emptyList);
-					} else if ("side".equals(k) && v instanceof String[]) {
-						String t = ((String[]) v)[1];
-						if (t != null) {
-							info.side = t.toUpperCase().intern();
-						}
 					}
 				}
 			}
@@ -159,15 +122,7 @@ public class ClassTransformation implements IClassTransformer {
 		return false;
 	}
 
-	static class AnnotationInfo {
-
-		public String side = "NONE";
-		public String[] values = emptyList;
-	}
-
-	private static Map<String, ModContainer> mods;
 	static Map<String, ModContainer> getLoadedMods() {
-
 		if (mods == null) {
 			mods = new HashMap<String, ModContainer>();
 			for (ModContainer m : Loader.instance().getModList()) {
@@ -175,5 +130,28 @@ public class ClassTransformation implements IClassTransformer {
 			}
 		}
 		return mods;
+	}
+
+	@Override
+	public byte[] transform(String name, String transformedName, byte[] bytes) {
+		if (bytes == null) {
+			return null;
+		}
+		ClassReader cr = new ClassReader(bytes);
+		ClassNode cn = new ClassNode();
+		cr.accept(cn, 0);
+		if (strip(cn)) {
+			ClassWriter cw = new ClassWriter(0);
+			cn.accept(cw);
+			bytes = cw.toByteArray();
+			LoadingPlugin.stripedClases++;
+		}
+		return bytes;
+	}
+
+	static class AnnotationInfo {
+
+		public String side = "NONE";
+		public String[] values = emptyList;
 	}
 }
