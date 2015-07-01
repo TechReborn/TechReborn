@@ -114,8 +114,8 @@ processResources
                 include 'mcmod.info'
 
                 // replace version and mcversion
-                // ${version}   are the exact strings being replaced
-                expand '@MODVERSION@':project.version
+                // ${version}   and    ${mcversion}    are the exact strings being replaced
+                expand 'version':project.version, 'mcversion':project.minecraft.version
             }
 
             // copy everything else, that's not the mcmod.info
@@ -123,15 +123,14 @@ processResources
                 exclude 'mcmod.info'
             }
         }
+
 task sourceJar(type: Jar) {
     from sourceSets.main.allSource
-    appendix = 'src'
     classifier = 'src'
 }
 
 task deobfJar(type: Jar) {
     from sourceSets.main.output
-    appendix = 'dev'
     exclude "**/*.psd"
     classifier = 'dev'
 }
@@ -151,9 +150,7 @@ task apiJar(type: Jar) {
     from sourceSets.main.output
         include 'techreborn/api/**/*'
 
-    appendix = 'api'
     classifier = "api"
-
 }
 
 apiJar.mustRunAfter deobfJar

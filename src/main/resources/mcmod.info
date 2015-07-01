@@ -3,7 +3,8 @@
   "modid": "techreborn",
   "name": "TechReborn",
   "description": "TechReborn, The Gregtech revival you dream about on a cool mid summer's eve.",
-  "version": "@MODVERSION@",
+  "version": "$version",
+  "mcversion": "$mcversion",
   "url": "https://github.com/TechReborn/TechReborn",
   "updateUrl": "",
   "authorList": [
