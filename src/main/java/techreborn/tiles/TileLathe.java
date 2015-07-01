@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.api.recipe.RecipeCrafter;
+import techreborn.asm.Strippable;
 import techreborn.init.ModBlocks;
 import techreborn.util.Inventory;
 
@@ -33,7 +34,7 @@ public class TileLathe extends TileMachineBase implements IWrenchable, IEnergyTi
 		outputs[0] = 1;
 		crafter = new RecipeCrafter("latheRecipe", this, energy, 1, 1, inventory, inputs, outputs);
 	}
-	
+
 	@Override
 	public void updateEntity()
 	{

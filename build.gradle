@@ -137,6 +137,10 @@ task deobfJar(type: Jar) {
 }
 
 jar {
+    manifest {
+        attributes 'FMLCorePlugin': 'techreborn.asm.LoadingPlugin'
+        attributes 'FMLCorePluginContainsFMLMod': 'true'
+    }
     exclude "**/*.psd"
     appendix = 'universal'
     classifier = 'universal'
