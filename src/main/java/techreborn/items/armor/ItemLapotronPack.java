@@ -1,10 +1,9 @@
 package techreborn.items.armor;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
-
-import java.util.List;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -13,8 +12,8 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 public class ItemLapotronPack extends ItemArmor implements IElectricItem {
 

@@ -1,8 +1,8 @@
 package techreborn.cofhLib.gui.element;
 
-import techreborn.cofhLib.gui.GuiProps;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
+import techreborn.cofhLib.gui.GuiProps;
 
 public abstract class ElementButtonManaged extends ElementBase
 {

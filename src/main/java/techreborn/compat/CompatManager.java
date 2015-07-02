@@ -2,7 +2,13 @@ package techreborn.compat;
 
 import cpw.mods.fml.common.Loader;
 import techreborn.compat.ee3.EmcValues;
-import techreborn.compat.recipes.*;
+import techreborn.compat.recipes.RecipesBiomesOPlenty;
+import techreborn.compat.recipes.RecipesBuildcraft;
+import techreborn.compat.recipes.RecipesForestry;
+import techreborn.compat.recipes.RecipesIC2;
+import techreborn.compat.recipes.RecipesNatura;
+import techreborn.compat.recipes.RecipesThaumcraft;
+import techreborn.compat.recipes.RecipesThermalExpansion;
 import techreborn.compat.waila.CompatModuleWaila;
 
 import java.util.ArrayList;

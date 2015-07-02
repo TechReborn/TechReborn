@@ -1,14 +1,9 @@
 package techreborn.client.gui;
 
-import techreborn.init.ModItems;
-
-import com.mojang.realmsclient.gui.ChatFormatting;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.Container;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 

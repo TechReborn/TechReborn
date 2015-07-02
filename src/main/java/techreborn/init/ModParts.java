@@ -1,6 +1,5 @@
 package techreborn.init;
 
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import techreborn.partSystem.IPartProvider;
 import techreborn.partSystem.ModPartRegistry;

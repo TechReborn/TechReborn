@@ -13,8 +13,6 @@ import techreborn.api.recipe.RecipeCrafter;
 import techreborn.init.ModBlocks;
 import techreborn.util.Inventory;
 
-import java.util.List;
-
 public class TileAssemblingMachine extends TileMachineBase implements IWrenchable, IEnergyTile, IInventory, ISidedInventory {
 
 	public int tickTime;

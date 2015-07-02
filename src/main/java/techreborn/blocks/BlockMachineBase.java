@@ -1,8 +1,10 @@
 package techreborn.blocks;
 
-import java.util.Random;
-
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
+import net.minecraft.block.BlockDynamicLiquid;
+import net.minecraft.block.BlockLiquid;
+import net.minecraft.block.BlockStaticLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
@@ -15,6 +17,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import techreborn.client.TechRebornCreativeTab;
+
+import java.util.Random;
 
 public class BlockMachineBase extends BlockContainer {
 

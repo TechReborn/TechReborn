@@ -4,23 +4,15 @@ import ic2.api.energy.prefab.BasicSink;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
-import ic2.api.item.IElectricItemManager;
 import ic2.api.tile.IWrenchable;
-import ic2.core.item.ElectricItemManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
-import techreborn.api.recipe.RecipeCrafter;
-import techreborn.api.upgrade.UpgradeHandler;
-import techreborn.client.hud.ChargeHud;
 import techreborn.init.ModBlocks;
 import techreborn.util.Inventory;
-
-import java.util.List;
 
 public class TileChargeBench extends TileMachineBase implements IWrenchable, IEnergyTile, IInventory, ISidedInventory {
 

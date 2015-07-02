@@ -1,7 +1,6 @@
 package techreborn.world;
 
-import java.util.Random;
-
+import cpw.mods.fml.common.IWorldGenerator;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -9,7 +8,8 @@ import net.minecraft.world.gen.feature.WorldGenMinable;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.util.LogHelper;
-import cpw.mods.fml.common.IWorldGenerator;
+
+import java.util.Random;
 
 public class TROreGen implements IWorldGenerator {
 	public static ConfigTechReborn config;

@@ -1,11 +1,20 @@
 package techreborn;
 
-import java.io.File;
-
+import cpw.mods.fml.client.event.ConfigChangedEvent;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
+import erogenousbeef.coreTR.multiblock.MultiblockEventHandler;
+import erogenousbeef.coreTR.multiblock.MultiblockServerTickHandler;
 import net.minecraftforge.common.MinecraftForge;
-
 import org.apache.commons.lang3.time.StopWatch;
-
 import techreborn.achievement.TRAchievements;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.client.GuiHandler;
@@ -24,19 +33,8 @@ import techreborn.proxies.CommonProxy;
 import techreborn.tiles.idsu.IDSUManager;
 import techreborn.util.LogHelper;
 import techreborn.world.TROreGen;
-import cpw.mods.fml.client.event.ConfigChangedEvent;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
-import erogenousbeef.coreTR.multiblock.MultiblockEventHandler;
-import erogenousbeef.coreTR.multiblock.MultiblockServerTickHandler;
+
+import java.io.File;
 
 @Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = ModInfo.MOD_DEPENDENCUIES, guiFactory = ModInfo.GUI_FACTORY_CLASS)
 public class Core {

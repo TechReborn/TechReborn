@@ -20,8 +20,6 @@ import techreborn.init.ModFluids;
 import techreborn.util.Inventory;
 import techreborn.util.Tank;
 
-import java.util.List;
-
 public class TileIndustrialElectrolyzer extends TileMachineBase implements IWrenchable, IEnergyTile, IFluidHandler, IInventory, ISidedInventory {
 
 	public int tickTime;

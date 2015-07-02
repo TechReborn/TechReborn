@@ -7,7 +7,7 @@ import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.client.gui.GuiImplosionCompressor;
 import techreborn.util.ItemUtils;
 
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.List;
 
 public class ImplosionCompressorRecipeHandler extends GenericRecipeHander implements INeiBaseRecipe {

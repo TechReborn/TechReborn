@@ -7,7 +7,7 @@ import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.client.gui.GuiAlloySmelter;
 import techreborn.util.ItemUtils;
 
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.List;
 
 public class AlloySmelterRecipeHandler extends GenericRecipeHander implements INeiBaseRecipe {

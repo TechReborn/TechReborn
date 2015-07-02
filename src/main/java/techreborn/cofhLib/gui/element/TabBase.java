@@ -1,8 +1,8 @@
 package techreborn.cofhLib.gui.element;
 
-import techreborn.cofhLib.render.RenderHelper;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
+import techreborn.cofhLib.render.RenderHelper;
 
 /**
  * Base class for a tab element. Has self-contained rendering methods and a link back to the {@link techreborn.cofhLib.gui.GuiBase} it is a part of.

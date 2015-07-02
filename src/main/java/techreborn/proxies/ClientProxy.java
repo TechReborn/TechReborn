@@ -6,7 +6,6 @@ import techreborn.client.IconSupplier;
 import techreborn.client.hud.ChargeHud;
 import techreborn.client.keybindings.KeyBindings;
 import techreborn.tiles.idsu.ClientSideIDSUManager;
-import techreborn.tiles.idsu.IDSUManager;
 
 public class ClientProxy extends CommonProxy {
 

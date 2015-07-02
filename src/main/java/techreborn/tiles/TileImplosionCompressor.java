@@ -16,8 +16,6 @@ import techreborn.init.ModBlocks;
 import techreborn.lib.Location;
 import techreborn.util.Inventory;
 
-import java.util.List;
-
 public class TileImplosionCompressor extends TileMachineBase implements IWrenchable, IEnergyTile, IInventory, ISidedInventory {
 	
 	public int tickTime;

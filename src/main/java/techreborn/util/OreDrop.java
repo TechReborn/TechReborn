@@ -1,9 +1,10 @@
 package techreborn.util;
 
 
-import java.util.Random;
 import net.minecraft.item.ItemStack;
 import techreborn.config.ConfigTechReborn;
+
+import java.util.Random;
 
 public class OreDrop
 {

@@ -1,12 +1,12 @@
 package techreborn.client;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SlotFilteredVoid extends Slot {
 	

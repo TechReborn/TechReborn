@@ -1,10 +1,10 @@
 package techreborn.cofhLib.gui.element;
 
-import techreborn.cofhLib.gui.GuiBase;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
+import techreborn.cofhLib.gui.GuiBase;
 
 import java.util.List;
 

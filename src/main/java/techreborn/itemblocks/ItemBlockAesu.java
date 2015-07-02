@@ -2,7 +2,6 @@ package techreborn.itemblocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ic2.api.item.ElectricItem;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,7 +12,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import techreborn.init.ModBlocks;
 import techreborn.tiles.TileAesu;
-import techreborn.tiles.TileQuantumChest;
 
 import java.util.List;
 

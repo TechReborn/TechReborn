@@ -1,11 +1,9 @@
 package techreborn.pda;
 
+import cpw.mods.fml.client.config.GuiButtonExt;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.client.config.GuiButtonExt;
 
 public class GuiButtonCustomTexture extends GuiButtonExt {
 

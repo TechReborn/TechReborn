@@ -1,5 +1,7 @@
 package techreborn.blocks.storage;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
@@ -12,8 +14,6 @@ import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
 import techreborn.client.GuiHandler;
 import techreborn.tiles.TileAesu;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockAesu extends BlockMachineBase {
 

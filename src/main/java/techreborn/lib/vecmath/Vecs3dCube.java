@@ -1,9 +1,9 @@
 package techreborn.lib.vecmath;
 
-import java.util.List;
-
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class Vecs3dCube {
 

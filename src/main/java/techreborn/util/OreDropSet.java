@@ -1,8 +1,9 @@
 package techreborn.util;
 
+import net.minecraft.item.ItemStack;
+
 import java.util.ArrayList;
 import java.util.Random;
-import net.minecraft.item.ItemStack;
 
 public class OreDropSet
 {

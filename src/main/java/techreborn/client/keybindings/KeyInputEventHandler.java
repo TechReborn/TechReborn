@@ -1,9 +1,9 @@
 package techreborn.client.keybindings;
 
-import techreborn.lib.Key;
-import techreborn.util.LogHelper;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent;
+import techreborn.lib.Key;
+import techreborn.util.LogHelper;
 
 public class KeyInputEventHandler 
 {

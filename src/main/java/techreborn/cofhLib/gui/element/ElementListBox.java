@@ -4,11 +4,14 @@ import techreborn.cofhLib.gui.GuiBase;
 import techreborn.cofhLib.gui.GuiColor;
 import techreborn.cofhLib.gui.element.listbox.IListBoxElement;
 import techreborn.cofhLib.util.helpers.StringHelper;
-import static org.lwjgl.opengl.GL11.*;
 
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+
+import static org.lwjgl.opengl.GL11.glPopMatrix;
+import static org.lwjgl.opengl.GL11.glPushMatrix;
+import static org.lwjgl.opengl.GL11.glTranslated;
 
 public class ElementListBox extends ElementBase {
 

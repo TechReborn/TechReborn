@@ -1,7 +1,7 @@
 package techreborn.cofhLib.gui.element.listbox;
 
-import techreborn.cofhLib.gui.element.ElementListBox;
 import net.minecraft.client.Minecraft;
+import techreborn.cofhLib.gui.element.ElementListBox;
 
 public class ListBoxElementText implements IListBoxElement
 {

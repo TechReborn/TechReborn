@@ -2,18 +2,15 @@ package techreborn.compat.nei.recipes;
 
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
-import codechicken.nei.recipe.TemplateRecipeHandler.CachedRecipe;
+import ic2.core.util.DrawUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.IIcon;
 import techreborn.api.recipe.IBaseRecipeType;
-import techreborn.api.recipe.machines.GrinderRecipe;
 import techreborn.api.recipe.machines.IndustrialElectrolyzerRecipe;
 import techreborn.client.gui.GuiIndustrialElectrolyzer;
-import techreborn.compat.nei.recipes.GenericRecipeHander.CachedGenericRecipe;
 import techreborn.util.ItemUtils;
-import ic2.core.util.DrawUtil;
 
 import java.util.List;
 

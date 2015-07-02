@@ -1,8 +1,5 @@
 package techreborn.items;
 
-import java.security.InvalidParameterException;
-import java.util.List;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
@@ -11,6 +8,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
+
+import java.security.InvalidParameterException;
+import java.util.List;
 
 public class ItemDusts extends ItemTR {
 	public static ItemStack getDustByName(String name, int count)

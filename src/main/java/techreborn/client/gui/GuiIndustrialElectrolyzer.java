@@ -1,8 +1,6 @@
 package techreborn.client.gui;
 
 import ic2.core.util.DrawUtil;
-import codechicken.lib.gui.GuiDraw;
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.I18n;
@@ -11,7 +9,6 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import techreborn.client.container.ContainerIndustrialElectrolyzer;
-import techreborn.lib.ModInfo;
 import techreborn.tiles.TileIndustrialElectrolyzer;
 
 public class GuiIndustrialElectrolyzer extends GuiContainer {

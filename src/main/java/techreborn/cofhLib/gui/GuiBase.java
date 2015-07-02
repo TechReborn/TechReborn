@@ -1,11 +1,5 @@
 package techreborn.cofhLib.gui;
 
-import techreborn.cofhLib.audio.SoundBase;
-import techreborn.cofhLib.gui.element.ElementBase;
-import techreborn.cofhLib.gui.element.TabBase;
-import techreborn.cofhLib.gui.slot.SlotFalseCopy;
-import techreborn.cofhLib.render.RenderHelper;
-import techreborn.cofhLib.util.helpers.StringHelper;
 import cpw.mods.fml.client.FMLClientHandler;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.FontRenderer;
@@ -21,6 +15,12 @@ import net.minecraftforge.fluids.FluidStack;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+import techreborn.cofhLib.audio.SoundBase;
+import techreborn.cofhLib.gui.element.ElementBase;
+import techreborn.cofhLib.gui.element.TabBase;
+import techreborn.cofhLib.gui.slot.SlotFalseCopy;
+import techreborn.cofhLib.render.RenderHelper;
+import techreborn.cofhLib.util.helpers.StringHelper;
 
 import java.util.ArrayList;
 import java.util.Iterator;

@@ -10,11 +10,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.api.recipe.RecipeCrafter;
-import techreborn.asm.Strippable;
 import techreborn.init.ModBlocks;
 import techreborn.util.Inventory;
-
-import java.util.List;
 
 public class TileLathe extends TileMachineBase implements IWrenchable, IEnergyTile, IInventory, ISidedInventory {
 

@@ -6,7 +6,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import techreborn.client.container.ContainerAesu;
-import techreborn.client.gui.componets.GuiHiddenButton;
 import techreborn.packets.PacketAesu;
 import techreborn.packets.PacketHandler;
 import techreborn.tiles.TileAesu;

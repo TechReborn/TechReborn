@@ -1,8 +1,5 @@
 package techreborn.tiles;
 
-import java.util.Map;
-import java.util.HashMap;
-
 import ic2.api.energy.prefab.BasicSource;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
@@ -15,12 +12,20 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.IFluidHandler;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.util.FluidUtils;
 import techreborn.util.Inventory;
 import techreborn.util.Tank;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class TileSemifluidGenerator extends TileEntity implements IWrenchable,
 		IFluidHandler, IInventory, IEnergyTile {

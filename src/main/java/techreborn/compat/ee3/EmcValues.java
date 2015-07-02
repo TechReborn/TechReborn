@@ -22,7 +22,6 @@ import ic2.api.recipe.Recipes;
 import ic2.core.AdvRecipe;
 import ic2.core.AdvShapelessRecipe;
 import ic2.core.Ic2Items;
-import ic2.core.item.resources.ItemIngot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;

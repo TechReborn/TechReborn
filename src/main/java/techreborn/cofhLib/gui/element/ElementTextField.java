@@ -1,15 +1,19 @@
 package techreborn.cofhLib.gui.element;
 
-import techreborn.cofhLib.gui.GuiBase;
-import techreborn.cofhLib.gui.GuiColor;
-import techreborn.cofhLib.util.helpers.MathHelper;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ChatAllowedCharacters;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
+import techreborn.cofhLib.gui.GuiBase;
+import techreborn.cofhLib.gui.GuiColor;
+import techreborn.cofhLib.util.helpers.MathHelper;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_STENCIL_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_STENCIL_TEST;
+import static org.lwjgl.opengl.GL11.glClear;
+import static org.lwjgl.opengl.GL11.glDisable;
+import static org.lwjgl.opengl.GL11.glEnable;
 
 
 public class ElementTextField extends ElementBase

@@ -14,8 +14,6 @@ import techreborn.api.upgrade.UpgradeHandler;
 import techreborn.init.ModBlocks;
 import techreborn.util.Inventory;
 
-import java.util.List;
-
 public class TileAlloySmelter extends TileMachineBase implements IWrenchable, IEnergyTile, IInventory, ISidedInventory {
 
 	public int tickTime;

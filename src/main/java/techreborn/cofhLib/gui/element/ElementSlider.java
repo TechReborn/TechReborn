@@ -1,10 +1,10 @@
 package techreborn.cofhLib.gui.element;
 
 import com.pahimar.ee3.reference.Textures;
-import techreborn.cofhLib.gui.GuiBase;
-import techreborn.cofhLib.gui.GuiColor;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
+import techreborn.cofhLib.gui.GuiBase;
+import techreborn.cofhLib.gui.GuiColor;
 
 public abstract class ElementSlider extends ElementBase
 {

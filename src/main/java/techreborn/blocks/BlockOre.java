@@ -1,8 +1,7 @@
 package techreborn.blocks;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -15,13 +14,14 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.client.TechRebornCreativeTabMisc;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import techreborn.init.ModBlocks;
 import techreborn.items.ItemDusts;
 import techreborn.items.ItemGems;
 import techreborn.util.OreDrop;
 import techreborn.util.OreDropSet;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BlockOre extends Block {
 

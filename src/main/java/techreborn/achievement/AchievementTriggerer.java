@@ -1,10 +1,10 @@
 package techreborn.achievement;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Achievement;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemPickupEvent;
+import net.minecraft.item.ItemStack;
+import net.minecraft.stats.Achievement;
 
 public class AchievementTriggerer {
 

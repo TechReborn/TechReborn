@@ -1,5 +1,6 @@
 package techreborn.init;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
@@ -11,18 +12,18 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import techreborn.items.ItemCells;
 import techreborn.items.ItemCrushedOre;
-import techreborn.items.ItemDustsTiny;
 import techreborn.items.ItemDusts;
 import techreborn.items.ItemDustsSmall;
+import techreborn.items.ItemDustsTiny;
 import techreborn.items.ItemGems;
 import techreborn.items.ItemIngots;
+import techreborn.items.ItemLapotronicOrb;
 import techreborn.items.ItemNuggets;
 import techreborn.items.ItemParts;
 import techreborn.items.ItemPlates;
 import techreborn.items.ItemPurifiedCrushedOre;
 import techreborn.items.ItemRods;
 import techreborn.items.ItemUUmatter;
-import techreborn.items.ItemLapotronicOrb;
 import techreborn.items.ItemUpgrade;
 import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
@@ -34,7 +35,6 @@ import techreborn.items.tools.ItemRockCutter;
 import techreborn.items.tools.ItemTechPda;
 import techreborn.util.BucketHandler;
 import techreborn.util.LogHelper;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ModItems {
 

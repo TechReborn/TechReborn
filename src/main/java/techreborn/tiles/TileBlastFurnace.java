@@ -13,15 +13,12 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
-import techreborn.api.TechRebornAPI;
 import techreborn.api.recipe.RecipeCrafter;
-import techreborn.api.upgrade.UpgradeHandler;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.lib.Location;
 import techreborn.util.Inventory;
-import techreborn.util.ItemUtils;
 
 public class TileBlastFurnace extends TileMachineBase implements IWrenchable, IInventory, IEnergyTile, ISidedInventory {
 

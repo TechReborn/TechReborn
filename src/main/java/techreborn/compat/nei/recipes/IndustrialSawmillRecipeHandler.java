@@ -3,20 +3,16 @@ package techreborn.compat.nei.recipes;
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
-import codechicken.nei.recipe.TemplateRecipeHandler.CachedRecipe;
 import ic2.core.util.DrawUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.IIcon;
 import techreborn.api.recipe.IBaseRecipeType;
-import techreborn.api.recipe.machines.GrinderRecipe;
-import techreborn.api.recipe.machines.IndustrialElectrolyzerRecipe;
 import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
 import techreborn.client.gui.GuiIndustrialSawmill;
-import techreborn.compat.nei.recipes.GenericRecipeHander.CachedGenericRecipe;
 
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.List;
 
 public class IndustrialSawmillRecipeHandler extends GenericRecipeHander implements INeiBaseRecipe {

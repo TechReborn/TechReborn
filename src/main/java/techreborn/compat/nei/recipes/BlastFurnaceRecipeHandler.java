@@ -4,11 +4,10 @@ import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import techreborn.api.recipe.IBaseRecipeType;
-import techreborn.client.gui.GuiAlloySmelter;
 import techreborn.client.gui.GuiBlastFurnace;
 import techreborn.util.ItemUtils;
 
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.List;
 
 public class BlastFurnaceRecipeHandler extends GenericRecipeHander implements INeiBaseRecipe {

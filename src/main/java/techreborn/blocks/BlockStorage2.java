@@ -1,9 +1,7 @@
 package techreborn.blocks;
 
-import java.security.InvalidParameterException;
-import java.util.List;
-import java.util.Random;
-
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -14,9 +12,11 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.client.TechRebornCreativeTabMisc;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import techreborn.init.ModBlocks;
+
+import java.security.InvalidParameterException;
+import java.util.List;
+import java.util.Random;
 
 public class BlockStorage2 extends Block {
 

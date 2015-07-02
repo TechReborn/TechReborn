@@ -13,10 +13,8 @@ import techreborn.api.recipe.machines.GrinderRecipe;
 import techreborn.client.gui.GuiGrinder;
 import techreborn.util.ItemUtils;
 
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.List;
-
-import org.lwjgl.opengl.GL11;
 
 public class GrinderRecipeHandler extends GenericRecipeHander implements INeiBaseRecipe {
 	@Override

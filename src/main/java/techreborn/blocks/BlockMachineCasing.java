@@ -1,8 +1,8 @@
 package techreborn.blocks;
 
-import java.util.List;
-import java.util.Random;
-
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import erogenousbeef.coreTR.multiblock.BlockMultiblockBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -15,9 +15,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileMachineCasing;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import erogenousbeef.coreTR.multiblock.BlockMultiblockBase;
+
+import java.util.List;
+import java.util.Random;
 
 public class BlockMachineCasing extends BlockMultiblockBase {
 

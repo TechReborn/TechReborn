@@ -10,8 +10,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 
-import java.util.List;
-
 public class TileHeatGenerator extends TileMachineBase implements IWrenchable, IEnergyTile {
 
 	public BasicSource energy;

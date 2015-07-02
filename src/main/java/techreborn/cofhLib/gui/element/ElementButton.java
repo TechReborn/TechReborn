@@ -1,9 +1,9 @@
 package techreborn.cofhLib.gui.element;
 
 import com.pahimar.ee3.util.ResourceLocationHelper;
+import net.minecraft.util.ResourceLocation;
 import techreborn.cofhLib.render.RenderHelper;
 import techreborn.cofhLib.util.helpers.StringHelper;
-import net.minecraft.util.ResourceLocation;
 
 import java.util.List;
 

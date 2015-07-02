@@ -4,7 +4,6 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
 import techreborn.client.container.ContainerGasTurbine;
 import techreborn.tiles.TileGasTurbine;
 

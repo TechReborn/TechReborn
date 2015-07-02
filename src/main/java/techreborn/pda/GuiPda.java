@@ -1,14 +1,11 @@
 package techreborn.pda;
 
-import java.awt.Container;
-
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ResourceLocation;
 import techreborn.client.container.ContainerPda;
 import techreborn.cofhLib.gui.GuiBase;
 import techreborn.cofhLib.gui.GuiColor;
 import techreborn.cofhLib.gui.element.ElementSlider;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
 
 public class GuiPda extends GuiBase {
 

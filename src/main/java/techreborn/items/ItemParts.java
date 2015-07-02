@@ -1,8 +1,5 @@
 package techreborn.items;
 
-import java.security.InvalidParameterException;
-import java.util.List;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,6 +11,9 @@ import techreborn.Core;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModItems;
+
+import java.security.InvalidParameterException;
+import java.util.List;
 
 public class ItemParts extends Item {
 	public static ItemStack getPartByName(String name, int count)

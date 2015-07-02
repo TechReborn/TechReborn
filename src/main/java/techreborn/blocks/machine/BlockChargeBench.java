@@ -1,5 +1,7 @@
 package techreborn.blocks.machine;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,10 +11,7 @@ import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
 import techreborn.client.GuiHandler;
-import techreborn.tiles.TileAlloyFurnace;
 import techreborn.tiles.TileChargeBench;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockChargeBench extends BlockMachineBase {
 

@@ -1,9 +1,8 @@
 package techreborn.util;
 
-import org.apache.logging.log4j.Level;
-
-import techreborn.lib.ModInfo;
 import cpw.mods.fml.common.FMLLog;
+import org.apache.logging.log4j.Level;
+import techreborn.lib.ModInfo;
 
 public class LogHelper {
 

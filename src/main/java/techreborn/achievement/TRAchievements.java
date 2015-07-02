@@ -1,11 +1,11 @@
 package techreborn.achievement;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraftforge.common.AchievementPage;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
-import cpw.mods.fml.common.FMLCommonHandler;
 
 public class TRAchievements {
 

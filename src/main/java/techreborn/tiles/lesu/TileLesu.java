@@ -1,9 +1,7 @@
 package techreborn.tiles.lesu;
 
 
-import ic2.api.tile.IWrenchable;
 import net.minecraftforge.common.util.ForgeDirection;
-import techreborn.blocks.storage.EUStorageTile;
 import techreborn.config.ConfigTechReborn;
 import techreborn.powerSystem.TilePowerAcceptor;
 import techreborn.util.Inventory;

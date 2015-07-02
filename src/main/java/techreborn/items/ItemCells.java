@@ -1,7 +1,5 @@
 package techreborn.items;
 
-import java.util.List;
-
 import ic2.core.Ic2Items;
 import ic2.core.item.ItemFluidCell;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -15,6 +13,8 @@ import net.minecraftforge.fluids.FluidStack;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModItems;
 import techreborn.util.LogHelper;
+
+import java.util.List;
 
 public class ItemCells extends ItemTR {
 

@@ -1,27 +1,23 @@
 package techreborn.client.hud;
 
-import org.lwjgl.opengl.GL11;
-
-import techreborn.client.keybindings.KeyBindings;
-import techreborn.config.ConfigTechReborn;
-import techreborn.util.Color;
-import ic2.api.item.ElectricItem;
-import ic2.api.item.IElectricItem;
-import ic2.api.item.IElectricItemManager;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ic2.api.item.ElectricItem;
+import ic2.api.item.IElectricItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
+import org.lwjgl.opengl.GL11;
+import techreborn.client.keybindings.KeyBindings;
+import techreborn.config.ConfigTechReborn;
+import techreborn.util.Color;
 
 public class ChargeHud 
 {

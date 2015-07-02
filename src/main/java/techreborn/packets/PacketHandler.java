@@ -1,20 +1,19 @@
 package techreborn.packets;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
-
-import java.io.IOException;
-import java.util.EnumMap;
-import java.util.logging.Logger;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.network.Packet;
-import net.minecraft.world.World;
 import cpw.mods.fml.common.network.FMLEmbeddedChannel;
 import cpw.mods.fml.common.network.FMLIndexedMessageToMessageCodec;
 import cpw.mods.fml.common.network.FMLOutboundHandler;
 import cpw.mods.fml.relauncher.Side;
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandlerContext;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.network.Packet;
+import net.minecraft.world.World;
+
+import java.io.IOException;
+import java.util.EnumMap;
+import java.util.logging.Logger;
 
 public class PacketHandler extends
 		FMLIndexedMessageToMessageCodec<SimplePacket> {

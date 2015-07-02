@@ -1,11 +1,9 @@
 package techreborn.api.recipe.machines;
 
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.FluidStack;
 import techreborn.api.recipe.BaseRecipe;
-import techreborn.tiles.TileGrinder;
 import techreborn.tiles.TileIndustrialElectrolyzer;
 
 public class IndustrialElectrolyzerRecipe extends BaseRecipe {

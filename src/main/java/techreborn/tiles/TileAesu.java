@@ -2,7 +2,6 @@ package techreborn.tiles;
 
 import ic2.api.energy.EnergyNet;
 import ic2.api.tile.IWrenchable;
-import ic2.core.block.wiring.TileEntityElectricBlock;
 import ic2.core.util.Util;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -12,8 +11,6 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.util.Inventory;
 import techreborn.util.LogHelper;
-
-import java.lang.reflect.Field;
 
 public class TileAesu extends EUStorageTile implements IWrenchable {
 

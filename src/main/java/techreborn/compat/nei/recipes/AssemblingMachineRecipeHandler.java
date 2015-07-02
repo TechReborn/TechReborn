@@ -7,7 +7,7 @@ import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.client.gui.GuiAssemblingMachine;
 import techreborn.util.ItemUtils;
 
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.List;
 
 public class AssemblingMachineRecipeHandler extends GenericRecipeHander implements INeiBaseRecipe {

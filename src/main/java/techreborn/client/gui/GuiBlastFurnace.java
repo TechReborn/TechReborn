@@ -1,7 +1,6 @@
 package techreborn.client.gui;
 
 import codechicken.lib.gui.GuiDraw;
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
