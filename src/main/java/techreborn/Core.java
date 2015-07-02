@@ -16,6 +16,7 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModFluids;
 import techreborn.init.ModItems;
+import techreborn.init.ModParts;
 import techreborn.init.ModRecipes;
 import techreborn.lib.ModInfo;
 import techreborn.packets.PacketHandler;
@@ -68,6 +69,8 @@ public class Core {
 		ModFluids.init();
 		// Register ModItems
 		ModItems.init();
+		//Multiparts
+		ModParts.init();
 		// Recipes
         StopWatch watch = new StopWatch();
         watch.start();

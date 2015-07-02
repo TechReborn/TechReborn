@@ -4,17 +4,16 @@
 
 package techreborn.partSystem;
 
-import java.util.List;
-
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import techreborn.lib.vecmath.Vecs3d;
 import techreborn.lib.vecmath.Vecs3dCube;
-import uk.co.qmunity.lib.client.render.RenderHelper;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 /**
  * This is based of
@@ -25,93 +24,93 @@ import cpw.mods.fml.relauncher.SideOnly;
  */
 public interface IModPart {
 
-    /**
-     * Adds all of this part's collision boxes to the list. These boxes can
-     * depend on the entity that's colliding with them.
-     */
-    public void addCollisionBoxesToList(List<Vecs3dCube> boxes, Entity entity);
+	/**
+	 * Adds all of this part's collision boxes to the list. These boxes can
+	 * depend on the entity that's colliding with them.
+	 */
+	public void addCollisionBoxesToList(List<Vecs3dCube> boxes, Entity entity);
 
-    /**
-     * Gets this part's selection boxes.
-     */
-    public List<Vecs3dCube> getSelectionBoxes();
+	/**
+	 * Gets this part's selection boxes.
+	 */
+	public List<Vecs3dCube> getSelectionBoxes();
 
-    /**
-     * Gets this part's occlusion boxes.
-     */
-    public List<Vecs3dCube> getOcclusionBoxes();
+	/**
+	 * Gets this part's occlusion boxes.
+	 */
+	public List<Vecs3dCube> getOcclusionBoxes();
 
-    /**
-     * Renders this part dynamically (every render tick).
-     */
-    @SideOnly(Side.CLIENT)
-    public void renderDynamic(Vecs3d translation, double delta);
+	/**
+	 * Renders this part dynamically (every render tick).
+	 */
+	@SideOnly(Side.CLIENT)
+	public void renderDynamic(Vecs3d translation, double delta);
 
-    /**
-     * Renders this part statically. A tessellator has alredy started drawing. <br>
-     * Only called when there's a block/lighting/render update in the chunk this
-     * part is in.
-     */
-    @SideOnly(Side.CLIENT)
-    public boolean renderStatic(Vecs3d translation, RenderHelper renderHelper, int pass);
+	/**
+	 * Renders this part statically. A tessellator has alredy started drawing. <br>
+	 * Only called when there's a block/lighting/render update in the chunk this
+	 * part is in.
+	 */
+	@SideOnly(Side.CLIENT)
+	public boolean renderStatic(Vecs3d translation, int pass);
 
-    /**
-     * Writes the part's data to an NBT tag, which is saved with the game data.
-     */
-    public void writeToNBT(NBTTagCompound tag);
+	/**
+	 * Writes the part's data to an NBT tag, which is saved with the game data.
+	 */
+	public void writeToNBT(NBTTagCompound tag);
 
-    /**
-     * Reads the part's data from an NBT tag, which was stored in the game data.
-     */
-    public void readFromNBT(NBTTagCompound tag);
+	/**
+	 * Reads the part's data from an NBT tag, which was stored in the game data.
+	 */
+	public void readFromNBT(NBTTagCompound tag);
 
-    /**
-     * Gets the itemstack that places this part.
-     */
-    public ItemStack getItem();
+	/**
+	 * Gets the itemstack that places this part.
+	 */
+	public ItemStack getItem();
 
-    /**
-     * Gets the name of this part.
-     */
-    public String getName();
+	/**
+	 * Gets the name of this part.
+	 */
+	public String getName();
 
-    /**
-     * Gets the world of this part.
-     */
-    public World getWorld();
+	/**
+	 * Gets the world of this part.
+	 */
+	public World getWorld();
 
-    /**
-     * This is the item texture eg: "network:cable"
-     */
-    public String getItemTextureName();
+	/**
+	 * This is the item texture eg: "network:cable"
+	 */
+	public String getItemTextureName();
 
-    /**
-     * Gets the X cord of this part.
-     */
-    public int getX();
+	/**
+	 * Gets the X cord of this part.
+	 */
+	public int getX();
 
-    /**
-     * Gets the Y cord of this part.
-     */
-    public int getY();
+	/**
+	 * Gets the Y cord of this part.
+	 */
+	public int getY();
 
-    /**
-     * Gets the Z cord of this part.
-     */
-    public int getZ();
+	/**
+	 * Gets the Z cord of this part.
+	 */
+	public int getZ();
 
-    /**
-     * Called every tick
-     */
-    public void tick();
+	/**
+	 * Called every tick
+	 */
+	public void tick();
 
-    /**
-     * Called when a block or part has been changed. Can be used for cables to
-     * check nearby blocks
-     */
-    public void nearByChange();
+	/**
+	 * Called when a block or part has been changed. Can be used for cables to
+	 * check nearby blocks
+	 */
+	public void nearByChange();
 
-    public void onAdded();
+	public void onAdded();
 
-    public void onRemoved();
+	public void onRemoved();
 }

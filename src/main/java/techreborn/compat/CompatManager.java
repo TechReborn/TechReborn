@@ -2,7 +2,6 @@ package techreborn.compat;
 
 import cpw.mods.fml.common.Loader;
 import techreborn.compat.ee3.EmcValues;
-import techreborn.compat.qLib.QLib;
 import techreborn.compat.recipes.*;
 import techreborn.compat.waila.CompatModuleWaila;
 
@@ -21,7 +20,6 @@ public class CompatManager {
 		registerCompact(RecipesBuildcraft.class, "BuildCraft|Core");
 		registerCompact(RecipesThermalExpansion.class, "ThermalExpansion");
 		registerCompact(EmcValues.class, "EE3");
-		registerCompact(QLib.class, "qmunitylib");
 		registerCompact(RecipesNatura.class, "Natura");
 		registerCompact(RecipesBiomesOPlenty.class, "BiomesOPlenty");
 		registerCompact(RecipesThaumcraft.class, "Thaumcraft");

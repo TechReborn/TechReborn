@@ -4,9 +4,6 @@
 
 package techreborn.partSystem.QLib;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
@@ -30,127 +27,130 @@ import uk.co.qmunity.lib.vec.Vec3d;
 import uk.co.qmunity.lib.vec.Vec3dCube;
 import uk.co.qmunity.lib.vec.Vec3i;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class QModPart extends PartBase implements IPartCollidable,
-        IPartSelectable, IPartRenderPlacement, IPartTicking,
-        IPartUpdateListener {
+		IPartSelectable, IPartRenderPlacement, IPartTicking,
+		IPartUpdateListener {
 
-    ModPart iModPart;
+	ModPart iModPart;
 
-    public QModPart(ModPart iModPart) {
-        this.iModPart = iModPart;
+	public QModPart(ModPart iModPart) {
+		this.iModPart = iModPart;
 
-    }
+	}
 
-    @Override
-    public void setParent(ITilePartHolder parent) {
-        super.setParent(parent);
-    }
+	@Override
+	public void setParent(ITilePartHolder parent) {
+		super.setParent(parent);
+	}
 
-    @Override
-    public String getType() {
-        return iModPart.getName();
-    }
+	@Override
+	public String getType() {
+		return iModPart.getName();
+	}
 
-    @Override
-    public ItemStack getItem() {
-        return iModPart.getItem();
-    }
+	@Override
+	public ItemStack getItem() {
+		return iModPart.getItem();
+	}
 
-    @Override
-    public void addCollisionBoxesToList(List<Vec3dCube> boxes, Entity entity) {
-        List<Vecs3dCube> cubes = new ArrayList<Vecs3dCube>();
-        iModPart.addCollisionBoxesToList(cubes, entity);
-        for (Vecs3dCube cube : cubes) {
-            if (cube != null)
-                boxes.add(ModLib2QLib.convert(cube));
-        }
-    }
+	@Override
+	public void addCollisionBoxesToList(List<Vec3dCube> boxes, Entity entity) {
+		List<Vecs3dCube> cubes = new ArrayList<Vecs3dCube>();
+		iModPart.addCollisionBoxesToList(cubes, entity);
+		for (Vecs3dCube cube : cubes) {
+			if (cube != null)
+				boxes.add(ModLib2QLib.convert(cube));
+		}
+	}
 
-    @Override
-    public void renderDynamic(Vec3d translation, double delta, int pass) {
-        iModPart.renderDynamic(ModLib2QLib.convert(translation), delta);
-    }
+	@Override
+	public void renderDynamic(Vec3d translation, double delta, int pass) {
+		iModPart.renderDynamic(ModLib2QLib.convert(translation), delta);
+	}
 
-    @Override
-    public boolean renderStatic(Vec3i translation, RenderHelper renderer, RenderBlocks renderBlocks, int pass) {
-        return iModPart.renderStatic(new Vecs3d(translation.getX(), translation.getY(), translation.getZ()), renderer, pass);
-    }
+	@Override
+	public boolean renderStatic(Vec3i translation, RenderHelper renderer, RenderBlocks renderBlocks, int pass) {
+		return iModPart.renderStatic(new Vecs3d(translation.getX(), translation.getY(), translation.getZ()), pass);
+	}
 
 
-    @Override
-    public QMovingObjectPosition rayTrace(Vec3d start, Vec3d end) {
-        return RayTracer.instance().rayTraceCubes(this, start, end);
-    }
+	@Override
+	public QMovingObjectPosition rayTrace(Vec3d start, Vec3d end) {
+		return RayTracer.instance().rayTraceCubes(this, start, end);
+	}
 
-    @Override
-    public List<Vec3dCube> getSelectionBoxes() {
-        return ModLib2QLib.convert2(iModPart.getSelectionBoxes());
-    }
+	@Override
+	public List<Vec3dCube> getSelectionBoxes() {
+		return ModLib2QLib.convert2(iModPart.getSelectionBoxes());
+	}
 
-    @Override
-    public World getWorld() {
-        return getParent().getWorld();
-    }
+	@Override
+	public World getWorld() {
+		return getParent().getWorld();
+	}
 
-    @Override
-    public void update() {
-        if (iModPart.world == null || iModPart.location == null) {
-            iModPart.setWorld(getWorld());
-            iModPart.setLocation(new Location(getX(), getY(), getZ()));
-        }
-        iModPart.tick();
-    }
+	@Override
+	public void update() {
+		if (iModPart.world == null || iModPart.location == null) {
+			iModPart.setWorld(getWorld());
+			iModPart.setLocation(new Location(getX(), getY(), getZ()));
+		}
+		iModPart.tick();
+	}
 
-    @Override
-    public void onPartChanged(IPart part) {
-        iModPart.nearByChange();
-    }
+	@Override
+	public void onPartChanged(IPart part) {
+		iModPart.nearByChange();
+	}
 
-    @Override
-    public void onNeighborBlockChange() {
-        iModPart.nearByChange();
-    }
+	@Override
+	public void onNeighborBlockChange() {
+		iModPart.nearByChange();
+	}
 
-    @Override
-    public void onNeighborTileChange() {
-        if (iModPart.world == null || iModPart.location == null) {
-            iModPart.setWorld(getWorld());
-            iModPart.setLocation(new Location(getX(), getY(), getZ()));
-        }
-        iModPart.nearByChange();
-    }
+	@Override
+	public void onNeighborTileChange() {
+		if (iModPart.world == null || iModPart.location == null) {
+			iModPart.setWorld(getWorld());
+			iModPart.setLocation(new Location(getX(), getY(), getZ()));
+		}
+		iModPart.nearByChange();
+	}
 
-    @Override
-    public void onAdded() {
+	@Override
+	public void onAdded() {
 		if (iModPart.world == null || iModPart.location == null) {
 			iModPart.setWorld(getWorld());
 			iModPart.setLocation(new Location(getX(), getY(), getZ()));
 		}
 		iModPart.nearByChange();
 		iModPart.onAdded();
-    }
+	}
 
-    @Override
-    public void onRemoved() {
-        iModPart.onRemoved();
-    }
+	@Override
+	public void onRemoved() {
+		iModPart.onRemoved();
+	}
 
-    @Override
-    public void onLoaded() {
-        if (iModPart.world == null || iModPart.location == null) {
-            iModPart.setWorld(getWorld());
-            iModPart.setLocation(new Location(getX(), getY(), getZ()));
-        }
-        iModPart.nearByChange();
-    }
+	@Override
+	public void onLoaded() {
+		if (iModPart.world == null || iModPart.location == null) {
+			iModPart.setWorld(getWorld());
+			iModPart.setLocation(new Location(getX(), getY(), getZ()));
+		}
+		iModPart.nearByChange();
+	}
 
-    @Override
-    public void onUnloaded() {
+	@Override
+	public void onUnloaded() {
 
-    }
+	}
 
-    @Override
-    public void onConverted() {
+	@Override
+	public void onConverted() {
 
-    }
+	}
 }
