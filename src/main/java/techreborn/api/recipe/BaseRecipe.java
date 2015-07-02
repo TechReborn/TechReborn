@@ -84,4 +84,9 @@ public abstract class BaseRecipe implements IBaseRecipeType , Cloneable {
 	public boolean useOreDic() {
 		return true;
 	}
+
+	@Override
+	public List<ItemStack> getOutputs() {
+		return outputs;
+	}
 }

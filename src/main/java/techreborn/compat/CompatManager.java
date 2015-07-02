@@ -2,6 +2,7 @@ package techreborn.compat;
 
 import cpw.mods.fml.common.Loader;
 import techreborn.compat.ee3.EmcValues;
+import techreborn.compat.minetweaker.MinetweakerCompat;
 import techreborn.compat.recipes.RecipesBiomesOPlenty;
 import techreborn.compat.recipes.RecipesBuildcraft;
 import techreborn.compat.recipes.RecipesForestry;
@@ -30,6 +31,7 @@ public class CompatManager {
 		registerCompact(RecipesBiomesOPlenty.class, "BiomesOPlenty");
 		registerCompact(RecipesThaumcraft.class, "Thaumcraft");
 		registerCompact(RecipesForestry.class, "Forestry");
+		registerCompact(MinetweakerCompat.class, "MineTweaker");
 	}
 
 	public void registerCompact(Class<?> moduleClass, String modid) {
