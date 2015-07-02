@@ -1,9 +1,6 @@
 package techreborn.asm;
 
 import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.ModContainer;
-import cpw.mods.fml.common.versioning.InvalidVersionSpecificationException;
-import cpw.mods.fml.common.versioning.VersionRange;
 import net.minecraft.launchwrapper.IClassTransformer;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
@@ -13,17 +10,13 @@ import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.FieldNode;
 import org.objectweb.asm.tree.MethodNode;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 public class ClassTransformation implements IClassTransformer {
 
 	private static final String[] emptyList = {};
 	static String strippableDesc;
-	private static Map<String, ModContainer> mods;
-
 
 	public ClassTransformation() {
 		strippableDesc = Type.getDescriptor(Strippable.class);
@@ -85,26 +78,24 @@ public class ClassTransformation implements IClassTransformer {
 	}
 
 	static boolean checkRemove(AnnotationInfo node, Iterator<? extends Object> iter) {
-
 		if (node != null) {
 			boolean needsRemoved = false;
-				String[] value = node.values;
-				for (int j = 0, l = value.length; j < l; ++j) {
-					String clazz = value[j];
-					String mod = clazz.substring(4);
-					if (clazz.startsWith("mod:")) {
-						int i = mod.indexOf('@');
-						if (i > 0) {
-							clazz = mod.substring(i + 1);
-							mod = mod.substring(0, i);
-						}
-						if(!Loader.isModLoaded(mod)){
-							needsRemoved = true;
-						}
+			String[] value = node.values;
+			for (int j = 0, l = value.length; j < l; ++j) {
+				String clazz = value[j];
+				String mod = clazz.substring(4);
+				if (clazz.startsWith("mod:")) {
+					int i = mod.indexOf('@');
+					if (i > 0) {
+						mod = mod.substring(0, i);
 					}
-					if (needsRemoved) {
-						break;
+					if (!Loader.isModLoaded(mod)) {
+						needsRemoved = true;
 					}
+				}
+				if (needsRemoved) {
+					break;
+				}
 			}
 			if (needsRemoved) {
 				iter.remove();
@@ -112,16 +103,6 @@ public class ClassTransformation implements IClassTransformer {
 			}
 		}
 		return false;
-	}
-
-	static Map<String, ModContainer> getLoadedMods() {
-		if (mods == null) {
-			mods = new HashMap<String, ModContainer>();
-			for (ModContainer m : Loader.instance().getModList()) {
-				mods.put(m.getModId(), m);
-			}
-		}
-		return mods;
 	}
 
 	@Override
@@ -142,7 +123,6 @@ public class ClassTransformation implements IClassTransformer {
 	}
 
 	static class AnnotationInfo {
-
 		public String side = "NONE";
 		public String[] values = emptyList;
 	}
