@@ -6,5 +6,5 @@ public class PowerSystem {
 
 	public static boolean EUPOWENET = true;
 
-	public static double euPerRF = 0.2; // 5eu = 1rf? //TODO
+	public static double euPerRF = 5; // 5eu = 1rf? //TODO
 }

@@ -16,7 +16,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.api.power.IEnergyInterfaceTile;
 import techreborn.asm.Strippable;
-import techreborn.tiles.TileMachineBase;
 
 
 @Optional.InterfaceList(value = {
@@ -24,7 +23,7 @@ import techreborn.tiles.TileMachineBase;
 		@Optional.Interface(iface = "ic2.api.energy.tile.IEnergySink", modid = "IC2"),
 		@Optional.Interface(iface = "ic2.api.energy.tile.IEnergySource", modid = "IC2")
 })
-public abstract class TilePowerAcceptor extends TileMachineBase implements
+public abstract class TilePowerAcceptor extends RFProviderTile implements
 		IEnergyReceiver, IEnergyProvider, //Cofh
 		IEnergyInterfaceTile,//TechReborn
 		IEnergyTile, IEnergySink, IEnergySource //Ic2
@@ -180,8 +179,6 @@ public abstract class TilePowerAcceptor extends TileMachineBase implements
 		return (int) ((int) useEnergy(maxExtract, simulate) * PowerSystem.euPerRF);
 	}
 	//END COFH
-
-
 
 	//TechReborn
 
