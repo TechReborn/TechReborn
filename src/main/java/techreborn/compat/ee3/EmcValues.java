@@ -31,6 +31,7 @@ import net.minecraftforge.fluids.FluidStack;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.compat.ICompatModule;
+import techreborn.items.ItemParts;
 import techreborn.items.ItemPlates;
 
 import java.util.ArrayList;
@@ -171,6 +172,7 @@ public class EmcValues implements ICompatModule {
 		addStack(ItemPlates.getPlateByName("steel"), 512);
 		addStack(Ic2Items.reBattery, 608);
 		addStack(Ic2Items.chargedReBattery, 608);
+		addStack(ItemParts.getPartByName("lazuriteChunk"), 7776);
 		addIC2Handlers();
 	}
 
