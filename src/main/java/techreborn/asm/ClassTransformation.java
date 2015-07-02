@@ -87,8 +87,7 @@ public class ClassTransformation implements IClassTransformer {
 	static boolean checkRemove(AnnotationInfo node, Iterator<? extends Object> iter) {
 
 		if (node != null) {
-			boolean needsRemoved = true;
-			if (!needsRemoved) {
+			boolean needsRemoved = false;
 				String[] value = node.values;
 				for (int j = 0, l = value.length; j < l; ++j) {
 					String clazz = value[j];
@@ -99,20 +98,13 @@ public class ClassTransformation implements IClassTransformer {
 							clazz = mod.substring(i + 1);
 							mod = mod.substring(0, i);
 						}
-						needsRemoved = !Loader.isModLoaded(mod);
-						if (!needsRemoved && i > 0) {
-							ModContainer modc = getLoadedMods().get(mod);
-							try {
-								needsRemoved = !VersionRange.createFromVersionSpec(clazz).containsVersion(modc.getProcessedVersion());
-							} catch (InvalidVersionSpecificationException e) {
-								needsRemoved = true;
-							}
+						if(!Loader.isModLoaded(mod)){
+							needsRemoved = true;
 						}
 					}
 					if (needsRemoved) {
 						break;
 					}
-				}
 			}
 			if (needsRemoved) {
 				iter.remove();
