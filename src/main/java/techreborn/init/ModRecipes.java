@@ -1953,7 +1953,6 @@ public class ModRecipes {
 
 	static void addIndustrialElectrolyzerRecipes() {
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
-				null,
 				ItemCells.getCellByName("sulfuricAcid", 7),
 				null,
 				ItemCells.getCellByName("hydrogen", 2),
@@ -1964,7 +1963,6 @@ public class ModRecipes {
 		));
 
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
-				null,
 				ItemCells.getCellByName("nitrocarbon", 2),
 				null,
 				ItemCells.getCellByName("nitrogen"),
@@ -1977,7 +1975,6 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
 				ItemDusts.getDustByName("ruby", 6),
 				IC2Items.getItem("cell"),
-				null,
 				ItemDusts.getDustByName("aluminum", 2),
 				new ItemStack(IC2Items.getItem("cell").getItem(), 1, 5),
 				ItemDusts.getDustByName("chrome", 1),
@@ -1988,7 +1985,6 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
 				ItemDusts.getDustByName("sapphire", 5),
 				IC2Items.getItem("cell"),
-				null,
 				ItemDusts.getDustByName("aluminum", 2),
 				new ItemStack(IC2Items.getItem("cell").getItem(), 1, 5),
 				null,
@@ -1998,7 +1994,6 @@ public class ModRecipes {
 
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
 				ItemCells.getCellByName("nitrogenDioxide", 3),
-				null,
 				null,
 				ItemCells.getCellByName("nitrogen", 1),
 				new ItemStack(IC2Items.getItem("cell").getItem(), 1, 5),
@@ -2010,7 +2005,6 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
 				ItemCells.getCellByName("sodiumSulfide", 2),
 				null,
-				null,
 				ItemCells.getCellByName("sodium", 1),
 				ItemDusts.getDustByName("sulfur", 1),
 				null,
@@ -2021,7 +2015,6 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
 				ItemDusts.getDustByName("greenSapphire", 5),
 				IC2Items.getItem("cell"),
-				null,
 				ItemDusts.getDustByName("aluminum", 2),
 				new ItemStack(IC2Items.getItem("cell").getItem(), 1, 5),
 				null,
@@ -2032,7 +2025,6 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
 				ItemDusts.getDustByName("emerald", 29),
 				new ItemStack(IC2Items.getItem("cell").getItem(), 18, 0),
-				null,
 				ItemCells.getCellByName("berylium", 3),
 				ItemDusts.getDustByName("aluminum", 2),
 				ItemCells.getCellByName("silicon", 6),
@@ -2043,7 +2035,6 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
 				new ItemStack(IC2Items.getItem("silicondioxideDust").getItem(), 3, 0),
 				new ItemStack(IC2Items.getItem("cell").getItem(), 2, 0),
-				null,
 				ItemCells.getCellByName("silicon", 1),
 				new ItemStack(IC2Items.getItem("cell").getItem(), 1, 5),
 				null,
@@ -2051,12 +2042,10 @@ public class ModRecipes {
 				60, 60
 		));
 
-		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(false,
-				new ItemStack(Items.dye, 3, 15),
+		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(new ItemStack(Items.dye, 3, 15),
 				new ItemStack(IC2Items.getItem("cell").getItem(), 1, 0),
 				null,
 				ItemCells.getCellByName("calcium", 1),
-				null,
 				null,
 				null,
 				20, 106
@@ -2064,7 +2053,6 @@ public class ModRecipes {
 
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
 				ItemCells.getCellByName("glyceryl", 20),
-				null,
 				null,
 				ItemCells.getCellByName("carbon", 3),
 				ItemCells.getCellByName("hydrogen", 5),
@@ -2076,7 +2064,6 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
 				ItemDusts.getDustByName("peridot", 9),
 				new ItemStack(IC2Items.getItem("cell").getItem(), 4, 0),
-				null,
 				ItemDusts.getDustByName("magnesium", 2),
 				ItemDusts.getDustByName("iron"),
 				ItemCells.getCellByName("silicon", 2),
@@ -2086,7 +2073,6 @@ public class ModRecipes {
 
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
 				ItemCells.getCellByName("calciumCarbonate", 5),
-				null,
 				null,
 				ItemCells.getCellByName("carbon"),
 				ItemCells.getCellByName("calcium"),
@@ -2098,7 +2084,6 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
 				ItemCells.getCellByName("sodiumPersulfate", 6),
 				null,
-				null,
 				ItemCells.getCellByName("sodium"),
 				ItemDusts.getDustByName("sulfur"),
 				new ItemStack(IC2Items.getItem("cell").getItem(), 2, 5),
@@ -2109,7 +2094,6 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
 				ItemDusts.getDustByName("pyrope", 20),
 				new ItemStack(IC2Items.getItem("cell").getItem(), 9, 0),
-				null,
 				ItemDusts.getDustByName("aluminum", 2),
 				ItemDusts.getDustByName("magnesium", 3),
 				ItemCells.getCellByName("silicon", 3),
@@ -2123,7 +2107,6 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
 				sand,
 				new ItemStack(IC2Items.getItem("cell").getItem(), 2, 0),
-				null,
 				ItemCells.getCellByName("silicon", 1),
 				new ItemStack(IC2Items.getItem("cell").getItem(), 1, 5),
 				null,
@@ -2134,7 +2117,6 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
 				ItemDusts.getDustByName("almandine", 20),
 				new ItemStack(IC2Items.getItem("cell").getItem(), 9, 0),
-				null,
 				ItemDusts.getDustByName("aluminum", 2),
 				ItemDusts.getDustByName("iron", 3),
 				ItemCells.getCellByName("silicon", 3),
@@ -2145,7 +2127,6 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
 				ItemDusts.getDustByName("spessartine", 20),
 				new ItemStack(IC2Items.getItem("cell").getItem(), 9, 0),
-				null,
 				ItemDusts.getDustByName("aluminum", 2),
 				ItemDusts.getDustByName("manganese", 3),
 				ItemCells.getCellByName("silicon", 3),
@@ -2156,7 +2137,6 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
 				ItemDusts.getDustByName("andradite", 20),
 				new ItemStack(IC2Items.getItem("cell").getItem(), 12, 0),
-				null,
 				ItemCells.getCellByName("calcium", 3),
 				ItemDusts.getDustByName("iron", 2),
 				ItemCells.getCellByName("silicon", 3),
@@ -2167,7 +2147,6 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
 				ItemDusts.getDustByName("grossular", 20),
 				new ItemStack(IC2Items.getItem("cell").getItem(), 12, 0),
-				null,
 				ItemCells.getCellByName("calcium", 3),
 				ItemDusts.getDustByName("aluminum", 2),
 				ItemCells.getCellByName("silicon", 3),
@@ -2178,7 +2157,6 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
 				ItemDusts.getDustByName("Uvarovite", 20),
 				new ItemStack(IC2Items.getItem("cell").getItem(), 12, 0),
-				null,
 				ItemCells.getCellByName("calcium", 3),
 				ItemDusts.getDustByName("chrome", 2),
 				ItemCells.getCellByName("silicon", 3),
@@ -2188,7 +2166,6 @@ public class ModRecipes {
 
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
 				new ItemStack(IC2Items.getItem("cell").getItem(), 6, 10),
-				null,
 				null,
 				ItemCells.getCellByName("hydrogen", 4),
 				new ItemStack(IC2Items.getItem("cell").getItem(), 1, 5),
@@ -2200,7 +2177,6 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
 				ItemDusts.getDustByName("darkAshes"),
 				new ItemStack(IC2Items.getItem("cell").getItem(), 2, 0),
-				null,
 				ItemCells.getCellByName("carbon", 2),
 				null,
 				null,
@@ -2214,7 +2190,6 @@ public class ModRecipes {
 			RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
 					salt,
 					new ItemStack(IC2Items.getItem("cell").getItem(), 2, 0),
-					null,
 					ItemCells.getCellByName("sodium"),
 					ItemCells.getCellByName("chlorine"),
 					null,

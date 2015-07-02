@@ -33,9 +33,6 @@ public class ContainerIndustrialElectrolyzer extends ContainerCrafting {
 		this.addSlotToContainer(new SlotOutput(electrolyzer.inventory, 3, 70, 19));
 		this.addSlotToContainer(new SlotOutput(electrolyzer.inventory, 4, 90, 19));
 		this.addSlotToContainer(new SlotOutput(electrolyzer.inventory, 5, 110, 19));
-		// power
-		this.addSlotToContainer(new Slot(electrolyzer.inventory, 6, 8, 51));
-
 
 		int i;
 		for (i = 0; i < 3; ++i)

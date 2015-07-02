@@ -40,25 +40,6 @@ public class GuiIndustrialElectrolyzer extends GuiContainer {
 		int k = (this.width - this.xSize) / 2;
 		int l = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
-		
-		if (eletrolyzer.tank.getFluidAmount() != 0)
-		{
-			IIcon fluidIcon = eletrolyzer.tank.getFluid().getFluid().getIcon();
-			if (fluidIcon != null)
-			{
-				drawTexturedModalRect(k + 7, l + 15, 176, 31, 20, 55);
-
-				this.mc.renderEngine
-						.bindTexture(TextureMap.locationBlocksTexture);
-				int liquidHeight = eletrolyzer.tank.getFluidAmount() * 47
-						/ eletrolyzer.tank.getCapacity();
-				DrawUtil.drawRepeated(fluidIcon, k + 11, l + 19 + 47
-						- liquidHeight, 12.0D, liquidHeight, this.zLevel);
-
-				this.mc.renderEngine.bindTexture(texture);
-				drawTexturedModalRect(k + 11, l + 19, 176, 86, 12, 47);
-			}
-		}
 	}
 
 	protected void drawGuiContainerForegroundLayer(int p_146979_1_,
