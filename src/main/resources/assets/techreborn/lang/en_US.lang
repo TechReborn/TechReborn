@@ -786,6 +786,8 @@ config.techreborn.thermalGeneratorMaxCharge=Maximum charge for Thermal Generator
 config.techreborn.thermalGeneratorMaxCharge.tooltip=
 config.techreborn.aveargeEuOutTickTim=Eu out time
 config.techreborn.aveargeEuOutTickTime.tooltip=How often in ticks to update the eu out
+config.techreborn.euPerRF=Eu per RF
+config.techreborn.euPerRF.tooltip=How many eu are in each RF
 
 #ConfigGui
 config.techreborn.category.general=General Configs
