@@ -1,10 +1,12 @@
 itemGroup.techreborn=Tech Reborn
 
 #machines
+tile.techreborn.gasTurbine.name=Turbine à gaz
 tile.techreborn.industrialBlock.name=Industriel
 tile.techreborn.thermalGenerator.name=Générateur thermique
 tile.techreborn.quantumTank.name=Réservoir quantique
-tile.techreborn.quantumChest.name=Coche quantique
+tile.techreborn.quantumChest.name=Coffre quantique
+tile.techreborn.digitalChest.name=Coffre digital
 tile.techreborn.centrifuge.name=Centrifugeuse
 tile.techreborn.rollingmachine.name=Lamineuse
 tile.techreborn.machineCasing.standard.name=Boitier de machine standard
@@ -39,7 +41,8 @@ tile.techreborn.distillationtower.name=Tour de distillation
 tile.techreborn.electriccraftingtable.name=Table d'autotraitement électrique
 tile.techreborn.vacuumfreezer.name=Congélateur à vide
 tile.techreborn.plasmagenerator.name=Générateur plasma
-tile.techreborn.fusioncontrolcomputer.name=Ordianteur de contrôle de fusion
+tile.techreborn.fusioncontrolcomputer.name=Ordinateur de contrôle de fusion
+tile.techreborn.computercube.name=Cube d'ordinateur TechReborn
 tile.techreborn.fusioncoil.name=Bobine de fusion
 tile.techreborn.lightningrod.name=Paratonnerre
 tile.techreborn.assemblinmachine.name=Machine d'assemblage
@@ -50,6 +53,8 @@ tile.techreborn.machineFrame.bronze.name=Coque de machine en bronze
 tile.techreborn.machineFrame.brass.name=Coque de machine en laiton
 tile.techreborn.machineFrame.steel.name=Coque de machine en acier
 tile.techreborn.machineFrame.titanium.name=Coque de machine en titane
+tile.techreborn.industrialsawmill.name=Scierie
+tile.techreborn.chargebench.name=Banc de charge
 
 #Ores
 tile.techreborn.ore.Galena.name=Minerai de galène
@@ -122,6 +127,29 @@ tile.techreborn.sodium.name=Source de sodium
 tile.techreborn.sodiumpersulfate.name=Source de persulfate de sodium
 tile.techreborn.tritium.name=Source de tritium
 tile.techreborn.wolframium.name=Source de wolfanium
+fluid.fluid.fluidberylium=Bérylium
+fluid.fluid.fluidcalcium=Calcium
+fluid.fluid.fluidcalciumcarbonate=Carbonate de calcium
+fluid.fluid.fluidchlorite=Chlorite
+fluid.fluid.fluiddeuterium=Deutérium
+fluid.fluid.fluidglyceryl=Glycéryle
+fluid.fluid.fluidhelium=Hélium
+fluid.fluid.fluidhelium3=Hélium3
+fluid.fluid.fluidheliumplasma=Plasmea d'hélium
+fluid.fluid.fluidhydrogen=Hydrogène
+fluid.fluid.fluidlithium=Lithium
+fluid.fluid.fluidmercury=Mercure
+fluid.fluid.fluidmethane=Méthane
+fluid.fluid.fluidnitrocoalfuel=Carburant nitrocarbonate
+fluid.fluid.fluidnitrofuel=Carburant azote
+fluid.fluid.fluidnitrogen=Azote
+fluid.fluid.fluidnitrogendioxide=Dioxyde d'azote
+fluid.fluid.fluidpotassium=Potassium
+fluid.fluid.fluidsilicon=Siliciun
+fluid.fluid.fluidsodium=Sodium
+fluid.fluid.fluidsodiumpersulfate=Persulfate de sodium
+fluid.fluid.fluidtritium=Tritium
+fluid.fluid.fluidwolframium=Wolframium
 
 #Dusts
 item.techreborn.dust.almandine.name=Poudre d'almandine
@@ -635,6 +663,7 @@ item.techreborn.part.quadPlutoniumCell.name=Quadruple tige de carburant (Plutoni
 item.techreborn.part.destructoPack.name=Destructeur de paquet
 item.techreborn.part.iridiumNeutronReflector.name=Réflecteur de neutron en iridium
 item.techreborn.part.massHoleDevice.name=Dispositif de trou massif
+item.techreborn.part.computerMonitor.name=Console d'ordinateur
 
 
 #Tools
@@ -643,6 +672,7 @@ item.techreborn.lithiumbatpack.name=propulseur au lithium
 item.techreborn.lapotronpack.name=Packet de lapoton
 item.techreborn.omniTool.name=Multi outil
 item.techreborn.advancedDrill.name=Foret avancé
+item.techreborn.lapotronicorb.name=Orbe d'énergie Lapotronique
 
 #Buckets
 item.bucketberylium.name=Seau de berylium
@@ -704,13 +734,16 @@ config.techreborn.allow.olivineOre.tooltip=Decidez si le minerai d'olivine est g
 config.techreborn.allow.sodaliteOre=Permet le minerai de sodalite
 config.techreborn.allow.sodaliteOre.tooltip=Decidez si le minerai de sodalite est généré ou pas
 
-config.techreborn.allowExpensiveMacerator=Allow Expensive Macerator
+config.techreborn.fortuneSecondaryOreMultiplierPerLevel=Fortune's Effect on Secondaries
+config.techreborn.fortuneSecondaryOreMultiplierPerLevel.tooltip=How much of an increase should each level of fortune have on secondary ore drops?
+
+config.techreborn.allowExpensiveMacerator=Autorisez un macérateur couteux
 config.techreborn.allowExpensiveMacerator.tooltip=
-config.techreborn.allowExpensiveDrill=Allow Expensive Drill
+config.techreborn.allowExpensiveDrill=Autorisez un foret couteux
 config.techreborn.allowExpensiveDrill.tooltip=
-config.techreborn.allowExpensiveDiamondDrill=Allow Expensive Diamond Drill
+config.techreborn.allowExpensiveDiamondDrill=Autorisez un foret diamant couteux
 config.techreborn.allowExpensiveDiamondDrill.tooltip=
-config.techreborn.allowExpensiveSolarPanels=Allow Expensive Solar Panels
+config.techreborn.allowExpensiveSolarPanels=Autorisez des panneaux solaires couteux
 config.techreborn.allowExpensiveSolarPanels.tooltip=
 
 config.techreborn.advancedDrillTier=Advanced Drill Power Tier
@@ -751,9 +784,18 @@ config.techreborn.centrifugeMaxCharge=Maximum charge for Centrifuge
 config.techreborn.centrifugeMaxCharge.tooltip=
 config.techreborn.thermalGeneratorMaxCharge=Maximum charge for Thermal Generator
 config.techreborn.thermalGeneratorMaxCharge.tooltip=
+config.techreborn.aveargeEuOutTickTim=Eu out time
+config.techreborn.aveargeEuOutTickTime.tooltip=How often in ticks to update the eu out
 
 #ConfigGui
-config.techreborn.category.general=Configuration générale
-config.techreborn.category.world=Configuration du monde
-config.techreborn.category.power=Configuration de l'énergie
-config.techreborn.category.crafting=Configuration d'artisanat
+config.techreborn.category.general=Options générales
+config.techreborn.category.world=Options du monde
+config.techreborn.category.power=Options d'énergie
+config.techreborn.category.crafting=Options d'artisanat
+config.techreborn.category.uu=Options UU
+config.techreborn.category.emc=options EMC
+
+
+
+#Message
+techreborn.message.missingmultiblock=MULTIBLOC MANQUANT
