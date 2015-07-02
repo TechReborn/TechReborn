@@ -53,6 +53,10 @@ repositories {
         name = 'ThaumCraft 4 API'
         artifactPattern 'https://dl.dropboxusercontent.com/u/47135879/[module](-[classifier])-1.7.10-[revision](.[ext])'
     }
+    ivy {
+        name "MineTweaker3"
+        artifactPattern "http://minetweaker3.powerofbytes.com/download/[module]-[classifier]-[revision].[ext]"
+    }
 }
 
 def ENV = System.getenv()
@@ -104,6 +108,7 @@ dependencies {
     compile "com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.7.10-2.1.0.1283:deobf"
     compile 'Azanor:Thaumcraft:4.2.3.5:deobf@jar'
     compile "com.github.azanor:baubles:1.0.1.10:deobf@jar"
+    compile name: "MineTweaker3", version: "1.7.10-3.0.9C", classifier: "Dev"
 }
 
 
