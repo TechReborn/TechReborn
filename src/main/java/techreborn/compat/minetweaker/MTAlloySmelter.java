@@ -13,7 +13,11 @@ import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.AlloySmelterRecipe;
 import techreborn.util.ItemUtils;
 
-@ZenClass("techreborn.crafting.AlloySmelter")
+/**
+ * 		mods.techreborn.alloySmelter.addRecipe(<minecraft:gold_ingot>, <minecraft:iron_ingot>, <minecraft:diamond>, 20, 100);
+ */
+
+@ZenClass("mods.techreborn.alloySmelter")
 public class MTAlloySmelter {
 
 	@ZenMethod
