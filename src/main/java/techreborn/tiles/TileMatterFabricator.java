@@ -203,13 +203,7 @@ public class TileMatterFabricator extends TileMachineBase implements IWrenchable
 					this.decreaseStoredEnergy(this.amplifier, true);
 					this.amplifier = 0;
 				}
-			} else if(amplifier == 0){
-				if(energy.useEnergy(4096)){
-					this.progresstime += 50;
-				}
-
 			}
-
 			if (this.progresstime > this.maxProgresstime() && this.spaceForOutput()) {
 				this.progresstime -= this.maxProgresstime();
 				this.addOutputProducts();
