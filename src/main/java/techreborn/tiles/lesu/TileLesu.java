@@ -3,6 +3,7 @@ package techreborn.tiles.lesu;
 
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.config.ConfigTechReborn;
+import techreborn.lib.Functions;
 import techreborn.powerSystem.TilePowerAcceptor;
 import techreborn.util.Inventory;
 
@@ -91,7 +92,7 @@ public class TileLesu extends TilePowerAcceptor  {//TODO wrench
 
 	@Override
 	public boolean canProvideEnergy(ForgeDirection direction) {
-		return direction.ordinal() == blockMetadata;
+		return Functions.getIntDirFromDirection(direction) == blockMetadata;
 	}
 
 	@Override

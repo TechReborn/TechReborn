@@ -20,6 +20,7 @@ public class LesuNetwork {
     }
 
     private void  rebuild(){
+		master = null;
         for(TileLesuStorage lesuStorage : storages){
             lesuStorage.findAndJoinNetwork(lesuStorage.getWorldObj(), lesuStorage.xCoord, lesuStorage.yCoord, lesuStorage.zCoord);
         }
@@ -33,6 +34,9 @@ public class LesuNetwork {
             for(TileLesuStorage lesuStorage : tileLesuStorages){
                 lesuStorage.setNetwork(this);
             }
+			if(network.master != null && this.master == null){
+				this.master = network.master;
+			}
         }
     }
 
@@ -43,11 +47,6 @@ public class LesuNetwork {
             }
         }
         storages.clear();
-    }
-
-
-    public void printInfo(){
-        System.out.println(storages.size());
     }
 
 }

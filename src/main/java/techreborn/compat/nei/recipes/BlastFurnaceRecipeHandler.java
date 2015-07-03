@@ -1,9 +1,16 @@
 package techreborn.compat.nei.recipes;
 
+import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
+import ic2.core.util.DrawUtil;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.util.IIcon;
 import techreborn.api.recipe.IBaseRecipeType;
+import techreborn.api.recipe.machines.BlastFurnaceRecipe;
+import techreborn.api.recipe.machines.GrinderRecipe;
 import techreborn.client.gui.GuiBlastFurnace;
 import techreborn.util.ItemUtils;
 
@@ -59,5 +66,18 @@ public class BlastFurnaceRecipeHandler extends GenericRecipeHander implements IN
 	public void loadTransferRects() {
 		this.transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(
 				new Rectangle(55, 20, 25, 20), getNeiBaseRecipe().getRecipeName(), new Object[0]));
+	}
+
+	@Override
+	public void drawBackground(int recipeIndex) {
+		super.drawBackground(recipeIndex);
+		CachedRecipe recipe = arecipes.get(recipeIndex);
+		if (recipe instanceof CachedGenericRecipe) {
+			if (((CachedGenericRecipe) recipe).recipie instanceof BlastFurnaceRecipe) {
+				BlastFurnaceRecipe blastFurnaceRecipeHandler = (BlastFurnaceRecipe) ((CachedGenericRecipe) recipe).recipie;
+				GuiDraw.drawString("Requires " + blastFurnaceRecipeHandler.neededHeat + " heat", 14, 135, -1);
+			}
+		}
+
 	}
 }
