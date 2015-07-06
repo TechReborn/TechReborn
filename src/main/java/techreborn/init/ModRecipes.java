@@ -153,7 +153,7 @@ public class ModRecipes {
 		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("energyFlowCircuit", 4),
 				"ATA", "LIL", "ATA",
 				'T', "plateTungsten",
-				'I', IC2Items.getItem("iridiumPlate"),
+				'I', "plateIridium",
 				'A', IC2Items.getItem("advancedCircuit"),
 				'L', IC2Items.getItem("lapotronCrystal"));
 
