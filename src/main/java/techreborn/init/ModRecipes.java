@@ -1841,11 +1841,6 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 2), IC2Items.getItem("waterCell"), null, ItemGems.getGemByName("ruby", 1), ItemDustsSmall.getSmallDustByName("Ruby", 6), ItemDustsSmall.getSmallDustByName("Chrome", 2), IC2Items.getItem("cell"), 100, 120));
 		RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 2), new ItemStack(Items.water_bucket), null, ItemGems.getGemByName("ruby", 1), ItemDustsSmall.getSmallDustByName("Ruby", 6), ItemDustsSmall.getSmallDustByName("Chrome", 2), new ItemStack(Items.bucket), 100, 120));
 		
-		//Ruby Ore
-		RecipeHandler.addRecipe(new GrinderRecipe(ItemGems.getGemByName("ruby", 1), null, new FluidStack(FluidRegistry.WATER, 1000), ItemDusts.getDustByName("ruby", 1), ItemDustsSmall.getSmallDustByName("Ruby", 6), ItemDustsSmall.getSmallDustByName("Chrome", 2), null, 100, 120));
-		RecipeHandler.addRecipe(new GrinderRecipe(ItemGems.getGemByName("ruby", 1), IC2Items.getItem("waterCell"), null, ItemDusts.getDustByName("ruby", 1), ItemDustsSmall.getSmallDustByName("Ruby", 6), ItemDustsSmall.getSmallDustByName("Chrome", 2), IC2Items.getItem("cell"), 100, 120));
-		RecipeHandler.addRecipe(new GrinderRecipe(ItemGems.getGemByName("ruby", 1), new ItemStack(Items.water_bucket), null, ItemDusts.getDustByName("ruby", 1), ItemDustsSmall.getSmallDustByName("Ruby", 6), ItemDustsSmall.getSmallDustByName("Chrome", 2), new ItemStack(Items.bucket), 100, 120));
-
 		//Sapphire Ore
 		RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 3), null, new FluidStack(FluidRegistry.WATER, 1000), ItemGems.getGemByName("sapphire", 1), ItemDustsSmall.getSmallDustByName("Sapphire", 6), ItemDustsSmall.getSmallDustByName("Aluminum", 2), null, 100, 120));
 		RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 3), IC2Items.getItem("waterCell"), null, ItemGems.getGemByName("sapphire", 1), ItemDustsSmall.getSmallDustByName("Sapphire", 6), ItemDustsSmall.getSmallDustByName("Aluminum", 2), IC2Items.getItem("cell"), 100, 120));
