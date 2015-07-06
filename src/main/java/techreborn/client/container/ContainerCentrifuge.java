@@ -32,7 +32,7 @@ public class ContainerCentrifuge extends TechRebornContainer {
 		this.addSlotToContainer(new SlotOutput(tileCentrifuge.inventory, 4, 80, 65));
 		this.addSlotToContainer(new SlotOutput(tileCentrifuge.inventory, 5, 50, 35));
 		// battery
-		this.addSlotToContainer(new Slot(tileCentrifuge.inventory, 6, 56, 53));
+		this.addSlotToContainer(new Slot(tileCentrifuge.inventory, 6, 8, 51));
 		// upgrades
 		this.addSlotToContainer(new Slot(tileCentrifuge.inventory, 7, 152, 8));
 		this.addSlotToContainer(new Slot(tileCentrifuge.inventory, 8, 152, 26));
