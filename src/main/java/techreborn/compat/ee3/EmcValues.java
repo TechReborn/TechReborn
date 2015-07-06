@@ -6,6 +6,7 @@ import com.pahimar.ee3.api.exchange.RecipeRegistryProxy;
 import com.pahimar.ee3.exchange.EnergyValueRegistry;
 import com.pahimar.ee3.exchange.OreStack;
 import com.pahimar.ee3.exchange.WrappedStack;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -145,34 +146,41 @@ public class EmcValues implements ICompatModule {
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
-		MinecraftForge.EVENT_BUS.register(this);
-		addOre("ingotCopper", 128);
-		addOre("ingotSilver", 1024);
-		addOre("ingotTin", 256);
-		addOre("ingotLead", 256);
-		addOre("dustSteel", 512);
-		addOre("ingotRefinedIron", 512);
-		addOre("dustCoal", 32);
-		addOre("dustDiamond", 8192);
-		addOre("dustSulfur", 32);
-		addOre("dustLead", 256);
-		addOre("ingotBronze", 256);
-		addOre("ingotElectrum", 2052);
-		addOre("dustLapis", 864);
-		addOre("dustSilver", 1024);
-		addOre("dustTin", 256);
+		if(!Loader.isModLoaded("EE3Compatibility")){
+			MinecraftForge.EVENT_BUS.register(this);
+			addOre("ingotCopper", 128);
+			addOre("ingotSilver", 1024);
+			addOre("ingotTin", 256);
+			addOre("ingotLead", 256);
+			addOre("dustSteel", 512);
+			addOre("ingotRefinedIron", 512);
+			addOre("dustCoal", 32);
+			addOre("dustDiamond", 8192);
+			addOre("dustSulfur", 32);
+			addOre("dustLead", 256);
+			addOre("ingotBronze", 256);
+			addOre("ingotElectrum", 2052);
+			addOre("dustLapis", 864);
+			addOre("dustSilver", 1024);
+			addOre("dustTin", 256);
+		}
 
-		addStack(IC2Items.getItem("rubber"), 32);
-		addStack(IC2Items.getItem("carbonPlate"), 256);
-		addStack(Ic2Items.energyCrystal, 32896 / 9);
-		addStack(Ic2Items.chargingEnergyCrystal, 32896 / 9);
-		addStack(IC2Items.getItem("refinedIronIngot"), 512);
-		addStack(Ic2Items.plateadviron, 512);
+		if(!Loader.isModLoaded("EE3Compatibility")){
+			addStack(IC2Items.getItem("rubber"), 32);
+			addStack(IC2Items.getItem("carbonPlate"), 256);
+			addStack(Ic2Items.energyCrystal, 32896 / 9);
+			addStack(Ic2Items.chargingEnergyCrystal, 32896 / 9);
+			addStack(IC2Items.getItem("refinedIronIngot"), 512);
+			addStack(Ic2Items.plateadviron, 512);
+			addStack(Ic2Items.reBattery, 608);
+			addStack(Ic2Items.chargedReBattery, 608);
+		}
+
 		addStack(ItemPlates.getPlateByName("steel"), 512);
-		addStack(Ic2Items.reBattery, 608);
-		addStack(Ic2Items.chargedReBattery, 608);
 		addStack(ItemParts.getPartByName("lazuriteChunk"), 7776);
-		addIC2Handlers();
+		if(!Loader.isModLoaded("EE3Compatibility")){
+			addIC2Handlers();
+		}
 	}
 
 	@Override
