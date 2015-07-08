@@ -1,7 +1,7 @@
 {
   "projectName": "Techreborn",
   "version": "0.2.0",
-  "forgeVersion": "1.7.10-10.13.4.1481-1.7.10",
+  "forgeVersion": "1.7.10-10.13.3.1403-1.7.10",
   "libraries": [
     {
       "name": "industrialcraft-2-2.2.746-experimental-dev.jar",
