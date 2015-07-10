@@ -71,6 +71,7 @@
       "name": "Thaumcraft-deobf-1.7.10-4.2.3.5.jar",
       "url": "https://dl.dropboxusercontent.com/u/47135879/Thaumcraft-deobf-1.7.10-4.2.3.5.jar"
     }
+  ],
   "manifest": [
     "Manifest-Version: 1.0",
     "FMLCorePlugin: techreborn.asm.LoadingPlugin",
