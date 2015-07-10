@@ -1,7 +1,8 @@
 {
   "projectName": "Techreborn",
-  "version": "0.2.0",
+  "version": "0.2.%BUILD%",
   "forgeVersion": "1.7.10-10.13.3.1403-1.7.10",
+  "bytecodeVersion": "1.7",
   "libraries": [
     {
       "name": "industrialcraft-2-2.2.746-experimental-dev.jar",
@@ -70,6 +71,10 @@
       "name": "Thaumcraft-deobf-1.7.10-4.2.3.5.jar",
       "url": "https://dl.dropboxusercontent.com/u/47135879/Thaumcraft-deobf-1.7.10-4.2.3.5.jar"
     }
+  "manifest": [
+    "Manifest-Version: 1.0",
+    "FMLCorePlugin: techreborn.asm.LoadingPlugin",
+    "FMLCorePluginContainsFMLMod: true"
   ],
   "devJar": true,
   "srcJar": true
