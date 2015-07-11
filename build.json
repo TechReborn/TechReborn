@@ -78,5 +78,7 @@
     "FMLCorePluginContainsFMLMod: true"
   ],
   "devJar": true,
-  "srcJar": true
+  "srcJar": true,
+  "apiJar": true,
+  "apiPackage": "techreborn/api/"
 }
