@@ -77,7 +77,7 @@ public class ModRecipes {
 				 "AAA", "AAA", "AAA",
 					'A', "gemSapphire");
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage, 1, 4),
+		CraftingHelper.addShapedOreRecipe(BlockStorage.getStorageBlockByName("ruby"),
 				 "AAA", "AAA", "AAA",
 					'A', "gemRuby");
 
