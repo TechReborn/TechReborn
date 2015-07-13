@@ -789,6 +789,8 @@ config.techreborn.aveargeEuOutTickTim=Eu out time
 config.techreborn.aveargeEuOutTickTime.tooltip=How often in ticks to update the eu out
 config.techreborn.euPerRF=Eu per RF
 config.techreborn.euPerRF.tooltip=How many eu are in each RF
+config.techreborn.farmeu=Farm EU per Tick
+config.techreborn.farmeu.tooltip=Amount of eu used per tick by the farm
 
 #ConfigGui
 config.techreborn.category.general=General Configs

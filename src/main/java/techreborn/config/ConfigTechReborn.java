@@ -74,6 +74,7 @@ public class ConfigTechReborn {
 	public static int baseLesuOutput;
 	public static int lesuStoragePerBlock;
 	public static int euPerRF;
+    public static int farmEu;
     // Charge
     public static int AdvancedDrillCharge;
     public static int LapotronPackCharge;
@@ -598,6 +599,12 @@ public class ConfigTechReborn {
 				4,
 				StatCollector.translateToLocal("config.techreborn.euPerRF.tooltip"))
 				.getInt();
+        farmEu = config.get(CATEGORY_POWER,
+                StatCollector.translateToLocal("config.techreborn.farmeu"),
+                32,
+                StatCollector.translateToLocal("config.techreborn.farmeu.tooltip"))
+                .getInt();
+
 
 
         // Teir

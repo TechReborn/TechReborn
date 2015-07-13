@@ -4,14 +4,9 @@ import com.mojang.authlib.GameProfile;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeavesBase;
 import net.minecraft.block.BlockSapling;
-import net.minecraft.block.IGrowable;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.MinecraftForge;
@@ -19,11 +14,11 @@ import net.minecraftforge.common.util.FakePlayerFactory;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.world.BlockEvent;
 import techreborn.api.farm.IFarmLogicDevice;
+import techreborn.config.ConfigTechReborn;
 import techreborn.lib.Location;
 import techreborn.tiles.TileFarm;
 import techreborn.util.ItemUtils;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -46,15 +41,17 @@ public class FarmTree implements IFarmLogicDevice {
         if (tileFarm.getWorldObj().isRemote) {
             return;
         }
-        if (tileFarm.getWorldObj().getTotalWorldTime() % 20 == 0 || tileFarm.inventory.hasChanged) {
-            calculateFarmLand(tileFarm);
-        }
-        if (tileFarm.getWorldObj().getTotalWorldTime() % 10 == 0) {
-            farmLandTick(tileFarm);
-            saplinTick(tileFarm);
-        }
-        for (int i = 0; i < 5; i++) {
-            harvestTick(tileFarm);
+        if(tileFarm.energy.useEnergy(ConfigTechReborn.farmEu)){
+            if (tileFarm.getWorldObj().getTotalWorldTime() % 20 == 0 || tileFarm.inventory.hasChanged) {
+                calculateFarmLand(tileFarm);
+            }
+            if (tileFarm.getWorldObj().getTotalWorldTime() % 10 == 0) {
+                farmLandTick(tileFarm);
+                saplinTick(tileFarm);
+            }
+            for (int i = 0; i < 5; i++) {
+                harvestTick(tileFarm);
+            }
         }
     }
 

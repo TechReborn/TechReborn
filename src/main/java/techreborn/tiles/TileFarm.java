@@ -1,5 +1,7 @@
 package techreborn.tiles;
 
+import ic2.api.energy.prefab.BasicSink;
+import ic2.api.energy.tile.IEnergyTile;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -8,31 +10,36 @@ import techreborn.api.farm.IFarmLogicContainer;
 import techreborn.api.farm.IFarmLogicDevice;
 import techreborn.util.Inventory;
 
-public class TileFarm extends TileMachineBase implements IInventory {
+public class TileFarm extends TileMachineBase implements IInventory, IEnergyTile {
 
     public Inventory inventory = new Inventory(14, "TileFarm", 64);
 
     IFarmLogicDevice logicDevice;
 
     public int size = 4;
+    public BasicSink energy;
 
     public TileFarm() {
+        energy = new BasicSink(this, 100000, 2);
     }
 
     @Override
     public void readFromNBT(NBTTagCompound tagCompound) {
+        energy.readFromNBT(tagCompound);
         inventory.readFromNBT(tagCompound);
         super.readFromNBT(tagCompound);
     }
 
     @Override
     public void writeToNBT(NBTTagCompound tagCompound) {
+        energy.writeToNBT(tagCompound);
         inventory.writeToNBT(tagCompound);
         super.writeToNBT(tagCompound);
     }
 
     @Override
     public void updateEntity() {
+        energy.updateEntity();
         if(inventory.hasChanged){
             if(inventory.getStackInSlot(0) != null && inventory.getStackInSlot(0).getItem() instanceof IFarmLogicContainer){
                 IFarmLogicContainer device = (IFarmLogicContainer) inventory.getStackInSlot(0).getItem();
@@ -106,5 +113,18 @@ public class TileFarm extends TileMachineBase implements IInventory {
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack stack) {
         return inventory.isItemValidForSlot(slot, stack);
+    }
+
+    @Override
+    public void invalidate()
+    {
+        energy.invalidate();
+        super.invalidate();
+    }
+    @Override
+    public void onChunkUnload()
+    {
+        energy.onChunkUnload();
+        super.onChunkUnload();
     }
 }
