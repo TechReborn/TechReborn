@@ -10,21 +10,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
-import techreborn.items.ItemCells;
-import techreborn.items.ItemCrushedOre;
-import techreborn.items.ItemDusts;
-import techreborn.items.ItemDustsSmall;
-import techreborn.items.ItemDustsTiny;
-import techreborn.items.ItemGems;
-import techreborn.items.ItemIngots;
-import techreborn.items.ItemLapotronicOrb;
-import techreborn.items.ItemNuggets;
-import techreborn.items.ItemParts;
-import techreborn.items.ItemPlates;
-import techreborn.items.ItemPurifiedCrushedOre;
-import techreborn.items.ItemRods;
-import techreborn.items.ItemUUmatter;
-import techreborn.items.ItemUpgrade;
+import techreborn.items.*;
 import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
 import techreborn.items.tools.ItemAdvancedDrill;
@@ -86,7 +72,7 @@ public class ModItems {
 	public static Item hammerIron;
 	public static Item hammerDiamond;
 	public static Item upgrades;
-
+    public static Item farmPatten;
 
 
 	public static void init()
@@ -142,6 +128,9 @@ public class ModItems {
 		hammerDiamond = new ItemHammer(200);
 		hammerDiamond.setUnlocalizedName("hammerDiamond").setContainerItem(hammerDiamond);
 		GameRegistry.registerItem(hammerDiamond, "hammerDiamond");
+
+        farmPatten = new ItemFarmPatten();
+        GameRegistry.registerItem(farmPatten, "farmPatten");
 		
 		// buckets
 		bucketBerylium = new ItemFluidbucket(ModFluids.BlockFluidBerylium);

@@ -21,8 +21,6 @@ public class PacketHandler extends
 
 	public PacketHandler() {
 		addDiscriminator(0, PacketAesu.class);
-		addDiscriminator(1, PacketIdsu.class);
-		addDiscriminator(2, PacketSendIDSUManager.class);
 	}
 
 	public static EnumMap<Side, FMLEmbeddedChannel> getChannels()

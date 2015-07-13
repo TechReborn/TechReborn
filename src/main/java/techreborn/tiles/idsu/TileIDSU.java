@@ -9,12 +9,14 @@ import ic2.api.tile.IEnergyStorage;
 import ic2.core.IC2;
 import ic2.core.block.TileEntityBlock;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
+import techreborn.Core;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.packets.PacketHandler;
@@ -29,8 +31,8 @@ public class TileIDSU extends TileEntityBlock implements IEnergySink, IEnergySou
 			IDSUManager.INSTANCE.getSaveDataForWorld(worldObj, channel).name = name;
 			IDSUManager.INSTANCE.getWorldDataFormWorld(worldObj).save();
 			if (worldObj.isRemote) {
-				PacketHandler.sendPacketToPlayer(IDSUManager.INSTANCE.getPacket(worldObj, player), player);
-			}
+                Core.packetPipeline.sendTo(IDSUManager.INSTANCE.getPacket(worldObj), (EntityPlayerMP) player);
+            }
 		}
 	}
 
@@ -60,6 +62,10 @@ public class TileIDSU extends TileEntityBlock implements IEnergySink, IEnergySou
 		this.output = output1;
 		this.maxStorage = maxStorage1;
 	}
+
+    public TileIDSU(){
+        this(5, 2048, 100000000);
+    }
 
 	public float getChargeLevel() {
 		float ret = (float) this.getEnergy() / (float) this.maxStorage;

@@ -7,6 +7,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
@@ -66,7 +67,7 @@ public class BlockIDSU extends BlockMachineBase {
 									EntityPlayer player, int side, float hitX, float hitY, float hitZ)
 	{
 		if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER){
-			PacketHandler.sendPacketToPlayer(IDSUManager.INSTANCE.getPacket(world, player), player);
+			Core.packetPipeline.sendTo(IDSUManager.INSTANCE.getPacket(world), (EntityPlayerMP) player);
 		}
 		if (!player.isSneaking())
 			player.openGui(Core.INSTANCE, GuiHandler.idsuID, world, x, y,

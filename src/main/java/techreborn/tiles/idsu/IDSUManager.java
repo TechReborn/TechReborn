@@ -85,13 +85,13 @@ public class IDSUManager {
 		}
 	}
 
-	public PacketSendIDSUManager getPacket(World world, EntityPlayer player) {
+	public PacketSendIDSUManager getPacket(World world) {
 		Gson gson = new Gson();
 		String json = gson.toJson(getWorldDataFormWorld(world).idsuValues);
 		if (getWorldDataFormWorld(world).idsuValues.isEmpty()) {
 			json = "EMPTY";
 		}
-		return new PacketSendIDSUManager(json, player);
+		return new PacketSendIDSUManager(json);
 	}
 
 	public void loadFromString(String json, World world) {

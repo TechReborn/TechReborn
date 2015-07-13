@@ -29,6 +29,7 @@ import techreborn.init.ModParts;
 import techreborn.init.ModRecipes;
 import techreborn.lib.ModInfo;
 import techreborn.packets.PacketHandler;
+import techreborn.packets.PacketPipeline;
 import techreborn.proxies.CommonProxy;
 import techreborn.tiles.idsu.IDSUManager;
 import techreborn.util.LogHelper;
@@ -45,6 +46,8 @@ public class Core {
 
 	@Mod.Instance
 	public static Core INSTANCE;
+
+    public static final PacketPipeline packetPipeline = new PacketPipeline();
 
 	@Mod.EventHandler
 	public void preinit(FMLPreInitializationEvent event){
@@ -97,7 +100,7 @@ public class Core {
 		IDSUManager.INSTANCE = new IDSUManager();
 		MinecraftForge.EVENT_BUS.register(IDSUManager.INSTANCE);
 		FMLCommonHandler.instance().bus().register(new MultiblockServerTickHandler());
-
+        packetPipeline.initalise();
 		LogHelper.info("Initialization Complete");
 	}
 
@@ -111,6 +114,7 @@ public class Core {
 		for(ICompatModule compatModule : CompatManager.INSTANCE.compatModules){
 			compatModule.postInit(event);
 		}
+        packetPipeline.postInitialise();
 		LogHelper.info(RecipeHandler.recipeList.size() + " recipes loaded");
 	}
 

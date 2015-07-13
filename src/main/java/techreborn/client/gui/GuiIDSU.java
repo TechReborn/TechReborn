@@ -4,6 +4,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import techreborn.Core;
 import techreborn.client.container.ContainerIDSU;
 import techreborn.cofhLib.gui.GuiBase;
 import techreborn.cofhLib.gui.element.ElementListBox;
@@ -78,8 +79,8 @@ public class GuiIDSU extends GuiBase {
 	protected void actionPerformed(GuiButton button) {
 		super.actionPerformed(button);
 		if (isInteger(idFeild.getText())) {
-			PacketHandler.sendPacketToServer(new PacketIdsu(button.id, idsu, Integer.parseInt(idFeild.getText()), nameFeild.getText()));
-		} else {
+            Core.packetPipeline.sendToServer(new PacketIdsu(button.id, idsu, Integer.parseInt(idFeild.getText()), nameFeild.getText()));
+        } else {
 			LogHelper.info("There was an issue in the gui!, Please report this to the TechReborn Devs");
 		}
 

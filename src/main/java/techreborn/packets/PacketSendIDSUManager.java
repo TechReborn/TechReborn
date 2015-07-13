@@ -1,6 +1,7 @@
 package techreborn.packets;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandlerContext;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.world.World;
@@ -11,34 +12,39 @@ import techreborn.tiles.idsu.IDSUManager;
 
 import java.io.IOException;
 
-public class PacketSendIDSUManager extends SimplePacket {
+public class PacketSendIDSUManager extends AbstractPacket {
 
 	String json;
 
 	public PacketSendIDSUManager() {
 	}
 
-	public PacketSendIDSUManager(String json, EntityPlayer player) {
+	public PacketSendIDSUManager(String json) {
 		this.json = json;
-		this.player = player;
 	}
 
 	@Override
-	public void writeData(ByteBuf out) throws IOException {
+    public void encodeInto(ChannelHandlerContext ctx, ByteBuf out) {
 		PacketBuffer buffer = new PacketBuffer(out);
-		buffer.writeStringToBuffer(json);
-		writePlayer(player, out);
-	}
+        try {
+            buffer.writeStringToBuffer(json);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 	@Override
-	public void readData(ByteBuf in) throws IOException {
+    public void decodeInto(ChannelHandlerContext ctx, ByteBuf in) {
 		PacketBuffer buffer = new PacketBuffer(in);
-		json = buffer.readStringFromBuffer(Integer.MAX_VALUE / 4);
-		player = readPlayer(in);
-	}
+        try {
+            json = buffer.readStringFromBuffer(9999999);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 	@Override
-	public void execute() {
+    public void handleClientSide(EntityPlayer player) {
 		ClientSideIDSUManager.CLIENT.loadFromString(json, player.worldObj);
 
 		if(player.worldObj != null){
@@ -57,4 +63,9 @@ public class PacketSendIDSUManager extends SimplePacket {
 			}
 		}
 	}
+
+    @Override
+    public void handleServerSide(EntityPlayer player) {
+
+    }
 }
