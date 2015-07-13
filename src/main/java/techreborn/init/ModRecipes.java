@@ -25,6 +25,7 @@ import techreborn.blocks.BlockOre;
 import techreborn.blocks.BlockStorage;
 import techreborn.blocks.BlockStorage2;
 import techreborn.config.ConfigTechReborn;
+import techreborn.farm.FarmTree;
 import techreborn.items.ItemCells;
 import techreborn.items.ItemDusts;
 import techreborn.items.ItemDustsSmall;
@@ -62,6 +63,7 @@ public class ModRecipes {
         addBlastFurnaceRecipes();
 		addIndustrialGrinderRecipes();
 		addImplosionCompressorRecipes();
+        addLogs();
 	}
 
 	static void addGeneralShapedRecipes() {
@@ -2194,4 +2196,9 @@ public class ModRecipes {
 
 
 	}
+
+    static void addLogs(){
+        FarmTree.harvestableLogs.add(Blocks.log);
+        FarmTree.harvestableLogs.add(Blocks.log2);
+    }
 }
