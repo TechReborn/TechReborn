@@ -1,17 +1,32 @@
 package techreborn.farm;
 
+import com.mojang.authlib.GameProfile;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeavesBase;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.block.IGrowable;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.FakePlayerFactory;
+import net.minecraftforge.event.ForgeEventFactory;
+import net.minecraftforge.event.world.BlockEvent;
 import techreborn.api.farm.IFarmLogicDevice;
 import techreborn.lib.Location;
 import techreborn.tiles.TileFarm;
 import techreborn.util.ItemUtils;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class FarmTree implements IFarmLogicDevice {
 
@@ -22,6 +37,9 @@ public class FarmTree implements IFarmLogicDevice {
     int harvesty = 0;
     int harvestz = 0;
     boolean isHavrvesting = false;
+
+    protected static EntityPlayer fakePlayer = null;
+    public static GameProfile gameProfile = new GameProfile(UUID.nameUUIDFromBytes("BlameMJ".getBytes()), "BlameMJ");
 
     @Override
     public void tick(TileFarm tileFarm) {
@@ -71,7 +89,6 @@ public class FarmTree implements IFarmLogicDevice {
     int sapz = 0;
     boolean isplanting;
 
-    //TODO use saplins from inv
     public void saplinTick(TileFarm tileFarm) {
         if(!isplanting){
             sapx = - tileFarm.size;
@@ -84,7 +101,7 @@ public class FarmTree implements IFarmLogicDevice {
             if(getSaplinStack(tileFarm) != null){
                 Block saplin = Block.getBlockFromItem(getSaplinStack(tileFarm).getItem());
                 int meta = getSaplinStack(tileFarm).getItemDamage();
-                if (saplin != null && tileFarm.getWorldObj().getBlock(xpos, ypos, zpos) == Blocks.air && saplin.canBlockStay(tileFarm.getWorldObj(), xpos, ypos, zpos) && saplin.canPlaceBlockAt(tileFarm.getWorldObj(), xpos, ypos, zpos)) {
+                if (saplin != null && tileFarm.getWorldObj().getBlock(xpos, ypos, zpos) == Blocks.air && saplin.canBlockStay(tileFarm.getWorldObj(), xpos, ypos, zpos) && saplin.canPlaceBlockAt(tileFarm.getWorldObj(), xpos, ypos, zpos) && removeInputStack(new ItemStack(saplin, 1, meta), tileFarm)) {
                     tileFarm.getWorldObj().setBlock(xpos, ypos, zpos, saplin, meta, 2);
                 }
                 sapx ++;
@@ -111,9 +128,9 @@ public class FarmTree implements IFarmLogicDevice {
             } else {
                 Block block = tileFarm.getWorldObj().getBlock(harvestx + tileFarm.xCoord, harvesty + tileFarm.yCoord, harvestz + tileFarm.zCoord);
                 if(block instanceof BlockLeavesBase){
-                    tileFarm.getWorldObj().setBlockToAir(harvestx + tileFarm.xCoord, harvesty + tileFarm.yCoord, harvestz + tileFarm.zCoord);
+                    breakBlock(tileFarm, new Location(harvestx + tileFarm.xCoord, harvesty + tileFarm.yCoord, harvestz + tileFarm.zCoord));
                 } else if(harvestableLogs.contains(block)){
-                    tileFarm.getWorldObj().setBlockToAir(harvestx + tileFarm.xCoord, harvesty + tileFarm.yCoord, harvestz + tileFarm.zCoord);
+                    breakBlock(tileFarm, new Location(harvestx + tileFarm.xCoord, harvesty + tileFarm.yCoord, harvestz + tileFarm.zCoord));;
                 }
                     harvestx ++;
                  if(harvestx >= tileFarm.size + overlap){
@@ -133,8 +150,9 @@ public class FarmTree implements IFarmLogicDevice {
         }
     }
 
+
     public boolean removeInputStack(ItemStack stack, TileFarm tileFarm) {
-        for (int i = 1; i < 3; i++) {
+        for (int i = 1; i < 9; i++) {
             if (ItemUtils.isItemEqual(stack, tileFarm.getStackInSlot(i), true, true)) {
                 tileFarm.decrStackSize(i, 1);
                 return true;
@@ -152,5 +170,90 @@ public class FarmTree implements IFarmLogicDevice {
         }
         return null;
     }
+
+
+    public void breakBlock(TileFarm farm, Location location) {
+        World world = farm.getWorldObj();
+        int x = location.x;
+        int y = location.y;
+        int z = location.z;
+        world.destroyBlockInWorldPartially(world.rand.nextInt(), x, y, z, -1);
+
+
+        Block block = world.getBlock(x, y, z);
+        int meta = world.getBlockMetadata(x, y, z);
+
+        BlockEvent.BreakEvent breakEvent = new BlockEvent.BreakEvent(x, y, z, world, block, meta,
+                getFakePlayer((WorldServer) world));
+        MinecraftForge.EVENT_BUS.post(breakEvent);
+
+        if (!breakEvent.isCanceled()) {
+            List<ItemStack> stacks = getItemStackFromBlock((WorldServer) world, x, y, z);
+
+            if (stacks != null) {
+                for (ItemStack s : stacks) {
+                    if (s != null) {
+                        addStackToInventroy(farm, s);
+                    }
+                }
+            }
+
+            world.playAuxSFXAtEntity(
+                    null,
+                    2001,
+                    x, y, z,
+                    Block.getIdFromBlock(block)
+                            + (meta << 12));
+
+            world.setBlockToAir(x, y, z);
+        }
+
+    }
+
+    public List<ItemStack> getItemStackFromBlock(WorldServer world, int i, int j, int k) {
+        Block block = world.getBlock(i, j, k);
+
+        if (block == null || block.isAir(world, i, j, k)) {
+            return null;
+        }
+
+        int meta = world.getBlockMetadata(i, j, k);
+
+        ArrayList<ItemStack> dropsList = block.getDrops(world, i, j, k, meta, 0);
+        float dropChance = ForgeEventFactory.fireBlockHarvesting(dropsList, world, block, i, j, k, meta, 0, 1.0F,
+                false, getFakePlayer(world));
+
+        ArrayList<ItemStack> returnList = new ArrayList<ItemStack>();
+        for (ItemStack s : dropsList) {
+            if (world.rand.nextFloat() <= dropChance) {
+                returnList.add(s);
+            }
+        }
+
+        return returnList;
+    }
+
+    public EntityPlayer getFakePlayer(WorldServer world) {
+        if (fakePlayer == null) {
+            fakePlayer = FakePlayerFactory.get(world, gameProfile);
+        } else {
+            fakePlayer.worldObj = world;
+        }
+
+        return fakePlayer;
+    }
+
+    public void addStackToInventroy(TileFarm farm, ItemStack stack){
+        for (int i = 5; i < 14; i++) {
+            if(farm.getStackInSlot(i) == null){
+                farm.setInventorySlotContents(i, stack);
+                return;
+            } else if(ItemUtils.isItemEqual(stack, farm.getStackInSlot(i), true, true) && farm.getStackInSlot(i).stackSize + stack.stackSize <= stack.getMaxStackSize()){
+                farm.decrStackSize(i, - stack.stackSize);
+                return;
+            }
+        }
+    }
+
 
 }
