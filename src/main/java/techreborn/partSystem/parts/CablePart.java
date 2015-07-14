@@ -21,6 +21,7 @@ import techreborn.init.ModParts;
 import techreborn.lib.Functions;
 import techreborn.lib.vecmath.Vecs3d;
 import techreborn.lib.vecmath.Vecs3dCube;
+import techreborn.partSystem.IModPart;
 import techreborn.partSystem.IPartDesc;
 import techreborn.partSystem.ModPart;
 import techreborn.partSystem.ModPartUtils;
@@ -44,17 +45,14 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
 
 	public int type = 0;//TODO save this to nbt and not use the constructor.
 
-	@Deprecated
-	public CablePart(int type) {
-		this.type = type;
-		refreshBounding();
-		connectedSides = new HashMap<ForgeDirection, TileEntity>();
-	}
-
 	public CablePart() {
-		this(0);
+        connectedSides = new HashMap<ForgeDirection, TileEntity>();
 	}
 
+    public void setType(int newType){
+        this.type = newType;
+        refreshBounding();
+    }
 
 	public void refreshBounding() {
 		float centerFirst = center - offset;
@@ -134,12 +132,13 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
 
 	@Override
 	public void writeToNBT(NBTTagCompound tag) {
+        tag.setInteger("type", type);
 		writeConnectedSidesToNBT(tag);
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound tag) {
-		readFromNBT(tag);
+		type = tag.getInteger("type");
 	}
 
 	@Override
@@ -193,7 +192,14 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
 		}
 	}
 
-	@Override
+    @Override
+    public IModPart copy() {
+        CablePart part = new CablePart();
+        part.setType(type);
+        return part;
+    }
+
+    @Override
 	public ItemStack getItem() {
 		return ModParts.stackCable.get(type);
 	}

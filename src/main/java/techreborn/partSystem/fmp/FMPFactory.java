@@ -34,21 +34,7 @@ public class FMPFactory implements MultiPartRegistry.IPartFactory,
 	public TMultiPart createPart(String type, boolean client) {
 		for (ModPart modPart : ModPartRegistry.parts) {
 			if (modPart.getName().equals(type)) {
-				try {
-					if (modPart instanceof CablePart) {
-						return new FMPModPart(modPart.getClass().getDeclaredConstructor(int.class).newInstance(((CablePart) modPart).type));
-					} else {
-						return new FMPModPart(modPart.getClass().newInstance());
-					}
-				} catch (InstantiationException e) {
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					e.printStackTrace();
-				} catch (NoSuchMethodException e) {
-					e.printStackTrace();
-				} catch (InvocationTargetException e) {
-					e.printStackTrace();
-				}
+				return new FMPModPart((ModPart) modPart.copy());
 			}
 		}
 		return null;

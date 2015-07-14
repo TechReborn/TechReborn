@@ -36,56 +36,18 @@ public class ModPartItem extends Item {
 			return false;
 		}
 		if (ModPartRegistry.masterProvider != null) {
-			try {
-				if (modPart instanceof CablePart) {
-					if (ModPartRegistry.masterProvider.placePart(item, player, world, x, y, z, face, x_, y_, z_, modPart.getClass().getDeclaredConstructor(int.class).newInstance(((CablePart) modPart).type))) {
-						player.swingItem();
-						return true;
-					}
-				} else {
 					if (ModPartRegistry.masterProvider.placePart(item, player,
-							world, x, y, z, face, x_, y_, z_, modPart.getClass()
-									.newInstance())) {
+							world, x, y, z, face, x_, y_, z_, (ModPart) modPart.copy())) {
 						player.swingItem();
 						return true;
 					}
-				}
-			} catch (InstantiationException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			} catch (NoSuchMethodException e) {
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				e.printStackTrace();
-			}
 		}
 		{
 			for (IPartProvider partProvider : ModPartRegistry.providers) {
-				try {
-					if (modPart instanceof CablePart) {
-						try {
-							if (partProvider.placePart(item, player, world, x, y, z, face, x_, y_, z_, modPart.getClass().getDeclaredConstructor(int.class).newInstance(((CablePart) modPart).type))) {
-								player.swingItem();
-								return true;
-							}
-						} catch (InvocationTargetException e) {
-							e.printStackTrace();
-						} catch (NoSuchMethodException e) {
-							e.printStackTrace();
-						}
-					} else {
-						if (partProvider.placePart(item, player, world, x, y, z, face, x_, y_, z_, modPart.getClass().newInstance())) {
+						if (partProvider.placePart(item, player, world, x, y, z, face, x_, y_, z_, (ModPart) modPart.copy())) {
 							player.swingItem();
 							return true;
-						}
-					}
-
-				} catch (InstantiationException e) {
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					e.printStackTrace();
-				}
+                        }
 			}
 			return true;
 		}

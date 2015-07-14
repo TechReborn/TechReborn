@@ -14,7 +14,8 @@ public class ModParts {
 	public static void init()
 	{
 		for (int i = 0; i < 13; i++) {
-			CablePart part = new CablePart(i);
+			CablePart part = new CablePart();
+            part.setType(i);
 			ModPartRegistry.registerPart(part);
 		}
 		//ModPartRegistry.addProvider("techreborn.partSystem.QLib.QModPartFactory", "qmunitylib");

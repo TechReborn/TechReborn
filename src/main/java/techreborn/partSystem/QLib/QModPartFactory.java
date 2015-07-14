@@ -34,23 +34,7 @@ public class QModPartFactory implements IPartFactory, IPartProvider {
 	public IPart createPart(String type, boolean client) {
 		for (ModPart modPart : ModPartRegistry.parts) {
 			if (modPart.getName().equals(type)) {
-				try {
-					if (modPart instanceof CablePart) {
-						try {
-							return new QModPart(modPart.getClass().getDeclaredConstructor(int.class).newInstance(((CablePart) modPart).type));
-						} catch (InvocationTargetException e) {
-							e.printStackTrace();
-						} catch (NoSuchMethodException e) {
-							e.printStackTrace();
-						}
-					} else {
-						return new QModPart(modPart.getClass().newInstance());
-					}
-				} catch (InstantiationException e) {
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					e.printStackTrace();
-				}
+				return new QModPart((ModPart) modPart.copy());
 			}
 		}
 		return null;

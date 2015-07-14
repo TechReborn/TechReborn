@@ -113,4 +113,6 @@ public interface IModPart {
 	public void onAdded();
 
 	public void onRemoved();
+
+    public IModPart copy();
 }

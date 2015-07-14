@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import techreborn.lib.vecmath.Vecs3d;
 import techreborn.lib.vecmath.Vecs3dCube;
+import techreborn.partSystem.IModPart;
 import techreborn.partSystem.ModPart;
 
 import java.util.ArrayList;
@@ -89,4 +90,9 @@ public class NullPart extends ModPart {
 	public void onRemoved() {
 
 	}
+
+    @Override
+    public IModPart copy() {
+        return new NullPart();
+    }
 }
