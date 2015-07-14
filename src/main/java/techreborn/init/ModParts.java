@@ -4,6 +4,7 @@ import net.minecraft.item.ItemStack;
 import techreborn.partSystem.IPartProvider;
 import techreborn.partSystem.ModPartRegistry;
 import techreborn.partSystem.parts.CablePart;
+import techreborn.partSystem.parts.FarmInventoryCable;
 
 import java.util.HashMap;
 
@@ -18,9 +19,10 @@ public class ModParts {
             part.setType(i);
 			ModPartRegistry.registerPart(part);
 		}
-		//ModPartRegistry.addProvider("techreborn.partSystem.QLib.QModPartFactory", "qmunitylib");
+        ModPartRegistry.registerPart(new FarmInventoryCable());
 		ModPartRegistry.addProvider("techreborn.partSystem.fmp.FMPFactory",
 				"ForgeMultipart");
+        ModPartRegistry.addProvider("techreborn.partSystem.QLib.QModPartFactory", "qmunitylib");
 		ModPartRegistry.addAllPartsToSystems();
 		for(IPartProvider provider : ModPartRegistry.providers){
 			if(provider.modID().equals("ForgeMultipart")){

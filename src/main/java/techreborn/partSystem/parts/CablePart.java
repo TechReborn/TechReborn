@@ -43,7 +43,7 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
 	public ItemStack stack;
 	private boolean hasCheckedSinceStartup;
 
-	public int type = 0;//TODO save this to nbt and not use the constructor.
+	public int type = 0;
 
 	public CablePart() {
         connectedSides = new HashMap<ForgeDirection, TileEntity>();
@@ -160,7 +160,7 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
 			nearByChange();
 		}
 		if (worldObj != null) {
-			if (worldObj.getTotalWorldTime() % 40 == 0 || hasCheckedSinceStartup == false) {
+			if (worldObj.getTotalWorldTime() % 40 == 0 || !hasCheckedSinceStartup) {
 				checkConnectedSides();
 				hasCheckedSinceStartup = true;
 			}
