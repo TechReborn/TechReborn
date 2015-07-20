@@ -1,15 +1,18 @@
 package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import techreborn.client.SlotOutput;
 import techreborn.tiles.TileBlastFurnace;
 
-public class ContainerBlastFurnace extends TechRebornContainer {
+public class ContainerBlastFurnace extends ContainerCrafting {
 
 	EntityPlayer player;
 
 	TileBlastFurnace tile;
+
+    public int heat;
 
 	@Override
 	public boolean canInteractWith(EntityPlayer player)
@@ -22,7 +25,8 @@ public class ContainerBlastFurnace extends TechRebornContainer {
 	public ContainerBlastFurnace(TileBlastFurnace tileblastfurnace,
 			EntityPlayer player)
 	{
-		tile = tileblastfurnace;
+        super(tileblastfurnace.crafter);
+        tile = tileblastfurnace;
 		this.player = player;
 
 		// input
@@ -50,4 +54,28 @@ public class ContainerBlastFurnace extends TechRebornContainer {
 		}
 	}
 
+    @Override
+    public void detectAndSendChanges() {
+        super.detectAndSendChanges();
+        for (int i = 0; i < this.crafters.size(); i++) {
+            ICrafting icrafting = (ICrafting)this.crafters.get(i);
+            if(this.heat != tile.getHeat()){
+                icrafting.sendProgressBarUpdate(this, 10, tile.getHeat());
+            }
+        }
+    }
+
+    @Override
+    public void addCraftingToCrafters(ICrafting crafting) {
+        super.addCraftingToCrafters(crafting);
+        crafting.sendProgressBarUpdate(this, 10, tile.getHeat());
+    }
+
+    @Override
+    public void updateProgressBar(int id, int value) {
+        if(id == 10){
+            this.heat = value;
+        }
+        super.updateProgressBar(id, value);
+    }
 }

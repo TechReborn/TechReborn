@@ -30,7 +30,7 @@ public class TileBlastFurnace extends TileMachineBase implements IWrenchable, II
 	
 	public TileBlastFurnace() {
 		//TODO configs
-		energy = new BasicSink(this, 1000,ConfigTechReborn.CentrifugeTier);
+		energy = new BasicSink(this, 10000,ConfigTechReborn.CentrifugeTier);
 		int[] inputs = new int[2];
 		inputs[0] = 0;
 		inputs[1] = 1;
@@ -86,16 +86,18 @@ public class TileBlastFurnace extends TileMachineBase implements IWrenchable, II
 		for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
 			TileEntity tileEntity = worldObj.getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
 			if (tileEntity instanceof TileMachineCasing) {
-				if ((tileEntity.getBlockType() instanceof BlockMachineCasing)) {
-					int heat;
-					heat = BlockMachineCasing.getHeatFromMeta(tileEntity.getBlockMetadata());
-					Location location = new Location(xCoord, yCoord, zCoord, direction);
-					location.modifyPositionFromSide(direction, 1);
-					if (worldObj.getBlock(location.getX(), location.getY(), location.getZ()).getUnlocalizedName().equals("tile.lava")) {
-						heat += 500;
-					}
-					return heat;
-				}
+                if(((TileMachineCasing) tileEntity).isConnected()){
+                    if ((tileEntity.getBlockType() instanceof BlockMachineCasing)) {
+                        int heat;
+                        heat = BlockMachineCasing.getHeatFromMeta(tileEntity.getBlockMetadata());
+                        Location location = new Location(xCoord, yCoord, zCoord, direction);
+                        location.modifyPositionFromSide(direction, 1);
+                        if (worldObj.getBlock(location.getX(), location.getY(), location.getZ()).getUnlocalizedName().equals("tile.lava")) {
+                            heat += 500;
+                        }
+                        return heat;
+                    }
+                }
 			}
 		}
 		return 0;
@@ -322,6 +324,18 @@ public class TileBlastFurnace extends TileMachineBase implements IWrenchable, II
 	{
         return slotIndex == 2 || slotIndex == 3;
 	}
+
+    public int getProgressScaled(int scale) {
+        if(crafter.currentTickTime != 0) {
+            return crafter.currentTickTime * scale / crafter.currentNeededTicks;
+        }
+        return 0;
+    }
+
+    public int getEnergyScaled(int scale) {
+        return (int)energy.getEnergyStored() * scale / energy.getCapacity();
+    }
+
 
 
 }

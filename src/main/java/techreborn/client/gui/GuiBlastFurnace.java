@@ -15,7 +15,9 @@ public class GuiBlastFurnace extends GuiContainer {
 
 	private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/industrial_blast_furnace.png");
 
-	TileBlastFurnace blastfurnace;
+    TileBlastFurnace blastfurnace;
+
+    ContainerBlastFurnace containerBlastFurnace;
 
 	public GuiBlastFurnace(EntityPlayer player, TileBlastFurnace tileblastfurnace)
 	{
@@ -23,6 +25,7 @@ public class GuiBlastFurnace extends GuiContainer {
 		this.xSize = 176;
 		this.ySize = 167;
 		blastfurnace = tileblastfurnace;
+        this.containerBlastFurnace = (ContainerBlastFurnace) this.inventorySlots;
 	}
 
     @Override
@@ -40,10 +43,22 @@ public class GuiBlastFurnace extends GuiContainer {
 		int l = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
 		
-        if(blastfurnace.getHeat() == 0)
+        if(containerBlastFurnace.heat == 0)
         {
     		GuiDraw.drawTooltipBox(k + 30, l + 50 + 12 - 0, 114, 10);
     		this.fontRendererObj.drawString(ModInfo.MISSING_MULTIBLOCK, k + 38, l + 52 + 12 - 0, -1);
+        }
+
+        int j = 0;
+        this.mc.getTextureManager().bindTexture(texture);
+        j = blastfurnace.getProgressScaled(24);
+        if(j > 0) {
+            this.drawTexturedModalRect(k + 64, l + 37, 176, 14, j + 1, 16);
+        }
+
+        j = blastfurnace.getEnergyScaled(12);
+        if(j > 0) {
+            this.drawTexturedModalRect(k + 9, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);
         }
 
 	}
@@ -53,7 +68,9 @@ public class GuiBlastFurnace extends GuiContainer {
         super.drawGuiContainerForegroundLayer(p_146979_1_, p_146979_2_);
 		String name = StatCollector.translateToLocal("tile.techreborn.blastfurnace.name");
 		this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
-        this.fontRendererObj.drawString("Current Heat: " +blastfurnace.getHeat(), 40, 60, 4210752);
+        if(containerBlastFurnace.heat != 0){
+            this.fontRendererObj.drawString("Current Heat: " + containerBlastFurnace.heat, 40, 60, 4210752);
+        }
 		this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
 	}
 }

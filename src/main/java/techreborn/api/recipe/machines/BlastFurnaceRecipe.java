@@ -33,7 +33,7 @@ public class BlastFurnaceRecipe extends BaseRecipe {
 	public boolean canCraft(TileEntity tile) {
 		if(tile instanceof TileBlastFurnace){
 			TileBlastFurnace blastFurnace = (TileBlastFurnace) tile;
-			return blastFurnace.getHeat() >- neededHeat;
+			return blastFurnace.getHeat() >= neededHeat;
 		}
 		return false;
 	}
