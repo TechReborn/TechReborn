@@ -30,7 +30,7 @@ public class TileIndustrialElectrolyzer extends TileMachineBase implements IWren
 	public TileIndustrialElectrolyzer()
 	{
 		//TODO configs
-		energy = new BasicSink(this, 1000, 2);
+		energy = new BasicSink(this, 10000, 2);
 		//Input slots
 		int[] inputs = new int[2];
 		inputs[0] = 0;
@@ -40,7 +40,7 @@ public class TileIndustrialElectrolyzer extends TileMachineBase implements IWren
 		outputs[1] = 3;
 		outputs[2] = 4;
 		outputs[3] = 5;
-		crafter = new RecipeCrafter("industrialelectrolyzerRecipe", this, energy, 2, 4, inventory, inputs, outputs);
+		crafter = new RecipeCrafter("industrialElectrolyzerRecipe", this, energy, 2, 4, inventory, inputs, outputs);
 	}
 	
 	@Override
@@ -49,7 +49,7 @@ public class TileIndustrialElectrolyzer extends TileMachineBase implements IWren
 		super.updateEntity();
 		energy.updateEntity();
 		crafter.updateEntity();
-	}
+    }
 
 	@Override
 	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side)
