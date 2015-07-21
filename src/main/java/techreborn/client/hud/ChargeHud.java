@@ -40,7 +40,10 @@ public class ChargeHud
 			return;
 		
 		if (mc.inGameHasFocus || (mc.currentScreen != null && mc.gameSettings.showDebugInfo))
-			drawChargeHud(event.resolution);
+		{
+			if (ConfigTechReborn.ShowChargeHud)
+				drawChargeHud(event.resolution);
+		}
 	}
 	
 	public void drawChargeHud(ScaledResolution res)
