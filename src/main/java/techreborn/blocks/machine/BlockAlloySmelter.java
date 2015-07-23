@@ -72,12 +72,10 @@ public class BlockAlloySmelter extends BlockMachineBase {
 		if(side == metadata && tileAlloySmelter.crafter.isActive()){
 			return this.iconFrontOn;
 		}
-
 		return metadata == 0 && side == 3 ? this.iconFront
 				: side == 1 ? this.iconTop : 
 					side == 0 ? this.iconBottom: (side == 0 ? this.iconTop
 						: (side == metadata ? this.iconFront : this.blockIcon));
-
 	}
 	
 	@SideOnly(Side.CLIENT)

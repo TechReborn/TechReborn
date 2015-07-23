@@ -14,8 +14,8 @@ import techreborn.util.LogHelper;
 
 public class TileAesu extends EUStorageTile implements IWrenchable {
 
-    public static final int MAX_OUTPUT = 8192;
-    public static final int MAX_STORAGE = 1000000000; //One billion!
+    public static final int MAX_OUTPUT = ConfigTechReborn.aesuMaxOutput;
+    public static final int MAX_STORAGE = ConfigTechReborn.aesuMaxStorage;
 	public Inventory inventory = new Inventory(2, "TileAesu", 64);
 	private int OUTPUT = 64; //The current output
     private double euLastTick = 0;
