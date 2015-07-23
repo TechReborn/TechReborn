@@ -19,7 +19,10 @@ public abstract class RFProviderTile extends TileMachineBase implements IEnergyR
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		//sendPower();
+        if(worldObj.isRemote){
+            return;
+        }
+		sendPower();
 	}
 
 	public void sendPower() {//TODO fix this
@@ -31,9 +34,8 @@ public abstract class RFProviderTile extends TileMachineBase implements IEnergyR
 
 			TileEntity tile = worldObj.getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
 			if (isPoweredTile(tile, direction)) {
-				System.out.println(canProvideEnergy(direction));
-				if(canProvideEnergy(direction)){
-					if (tile instanceof IEnergyHandler) {
+                if(canProvideEnergy(direction)){
+                    if (tile instanceof IEnergyHandler) {
 						IEnergyHandler handler = (IEnergyHandler) tile;
 						int neededRF = handler.receiveEnergy(
 								direction.getOpposite(),
