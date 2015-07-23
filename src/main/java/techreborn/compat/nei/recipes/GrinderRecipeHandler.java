@@ -3,13 +3,13 @@ package techreborn.compat.nei.recipes;
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
-import ic2.core.util.DrawUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.IIcon;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.api.recipe.machines.GrinderRecipe;
+import techreborn.client.GuiUtil;
 import techreborn.client.gui.GuiGrinder;
 import techreborn.util.ItemUtils;
 
@@ -91,7 +91,7 @@ public class GrinderRecipeHandler extends GenericRecipeHander implements INeiBas
 
 						Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
 						int liquidHeight = grinderRecipe.fluidStack.amount * 100 / 16000;
-						DrawUtil.drawRepeated(fluidIcon, 7, 22 + 47 - liquidHeight, 14.0D, liquidHeight, GuiDraw.gui.getZLevel());
+						GuiUtil.drawRepeated(fluidIcon, 7, 22 + 47 - liquidHeight, 14.0D, liquidHeight, GuiDraw.gui.getZLevel());
 
 					}
 					GuiDraw.drawString(grinderRecipe.fluidStack.amount + "mb of " + grinderRecipe.fluidStack.getLocalizedName(), 14, 135, -1);

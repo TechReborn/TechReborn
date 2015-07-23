@@ -3,14 +3,9 @@ package techreborn.compat.nei.recipes;
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
-import ic2.core.util.DrawUtil;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.util.IIcon;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.api.recipe.machines.BlastFurnaceRecipe;
-import techreborn.api.recipe.machines.GrinderRecipe;
 import techreborn.client.gui.GuiBlastFurnace;
 import techreborn.util.ItemUtils;
 

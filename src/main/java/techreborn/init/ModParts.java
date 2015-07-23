@@ -1,5 +1,6 @@
 package techreborn.init;
 
+import cpw.mods.fml.common.Loader;
 import net.minecraft.item.ItemStack;
 import techreborn.partSystem.IPartProvider;
 import techreborn.partSystem.ModPartRegistry;
@@ -14,11 +15,13 @@ public class ModParts {
 
 	public static void init()
 	{
-		for (int i = 0; i < 13; i++) {
-			CablePart part = new CablePart();
-            part.setType(i);
-			ModPartRegistry.registerPart(part);
-		}
+        if(Loader.isModLoaded("IC2")){
+            for (int i = 0; i < 13; i++) {
+                CablePart part = new CablePart();
+                part.setType(i);
+                ModPartRegistry.registerPart(part);
+            }
+        }
         ModPartRegistry.registerPart(new FarmInventoryCable());
 		ModPartRegistry.addProvider("techreborn.partSystem.fmp.FMPFactory",
 				"ForgeMultipart");

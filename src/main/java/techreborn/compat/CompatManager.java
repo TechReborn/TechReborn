@@ -24,7 +24,7 @@ public class CompatManager {
 	public CompatManager() {
 		registerCompact(CompatModuleWaila.class, "Waila");
 		registerCompact(RecipesIC2.class, "IC2");
-		registerCompact(RecipesBuildcraft.class, "BuildCraft|Core");
+		registerCompact(RecipesBuildcraft.class, "BuildCraft|Core", "IC2");
 		registerCompact(RecipesThermalExpansion.class, "ThermalExpansion");
 		registerCompact(EmcValues.class, "EE3");
 		registerCompact(RecipesNatura.class, "Natura");
@@ -34,15 +34,18 @@ public class CompatManager {
 		registerCompact(MinetweakerCompat.class, "MineTweaker");
 	}
 
-	public void registerCompact(Class<?> moduleClass, String modid) {
-		if (Loader.isModLoaded(modid)) {
-			try {
-				compatModules.add((ICompatModule) moduleClass.newInstance());
-			} catch (InstantiationException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			}
+	public void registerCompact(Class<?> moduleClass, String... modid) {
+        for(String id : modid){
+            if(!Loader.isModLoaded(id)){
+                return;
+            }
+        }
+		try {
+			compatModules.add((ICompatModule) moduleClass.newInstance());
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
 		}
 	}
 }
