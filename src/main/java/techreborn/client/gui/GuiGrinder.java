@@ -1,7 +1,6 @@
 package techreborn.client.gui;
 
 import codechicken.lib.gui.GuiDraw;
-import ic2.core.util.DrawUtil;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.I18n;
@@ -9,6 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import techreborn.client.GuiUtil;
 import techreborn.client.container.ContainerGrinder;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.TileGrinder;
@@ -58,7 +58,7 @@ public class GuiGrinder extends GuiContainer{
 
                 this.mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
                 int liquidHeight = grinder.tank.getFluidAmount() * 47 / grinder.tank.getCapacity();
-                DrawUtil.drawRepeated(fluidIcon, k + 11, l + 19 + 47 - liquidHeight, 12.0D, liquidHeight, this.zLevel);
+                GuiUtil.drawRepeated(fluidIcon, k + 11, l + 19 + 47 - liquidHeight, 12.0D, liquidHeight, this.zLevel);
 
 
                 this.mc.renderEngine.bindTexture(texture);

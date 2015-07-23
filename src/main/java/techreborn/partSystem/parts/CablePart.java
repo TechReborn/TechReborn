@@ -1,5 +1,6 @@
 package techreborn.partSystem.parts;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ic2.api.energy.event.EnergyTileLoadEvent;
@@ -8,7 +9,6 @@ import ic2.api.energy.tile.IEnergyConductor;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.item.IC2Items;
 import ic2.api.network.INetworkTileEntityEventListener;
-import ic2.core.IC2;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -25,6 +25,7 @@ import techreborn.partSystem.IModPart;
 import techreborn.partSystem.IPartDesc;
 import techreborn.partSystem.ModPart;
 import techreborn.partSystem.ModPartUtils;
+import techreborn.util.LogHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -154,7 +155,7 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
 
 	@Override
 	public void tick() {
-		if (IC2.platform.isSimulating() && !this.addedToEnergyNet) {
+		if (!FMLCommonHandler.instance().getEffectiveSide().isClient() && !this.addedToEnergyNet) {
 			MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
 			this.addedToEnergyNet = true;
 			nearByChange();
@@ -176,7 +177,7 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
 	@Override
 	public void onAdded() {
 		checkConnections(world, getX(), getY(), getZ());
-		if (IC2.platform.isSimulating()) {
+		if (!FMLCommonHandler.instance().getEffectiveSide().isClient()) {
 			MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
 			this.addedToEnergyNet = true;
 			nearByChange();
@@ -186,7 +187,7 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
 
 	@Override
 	public void onRemoved() {
-		if (IC2.platform.isSimulating() && this.addedToEnergyNet) {
+		if (!FMLCommonHandler.instance().getEffectiveSide().isClient() && this.addedToEnergyNet) {
 			MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
 			this.addedToEnergyNet = false;
 		}
@@ -527,7 +528,7 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
 
 				return;
 			default:
-				IC2.platform.displayError("An unknown event type was received over multiplayer.\nThis could happen due to corrupted data or a bug.\n\n(Technical information: event ID " + i + ", tile entity below)\n" + "T: " + this + " (" + this.xCoord + ", " + this.yCoord + ", " + this.zCoord + ")", new Object[0]);
+
 		}
 	}
 

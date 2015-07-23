@@ -1,18 +1,16 @@
 package techreborn.tiles;
 
-import ic2.api.energy.EnergyNet;
 import ic2.api.tile.IWrenchable;
-import ic2.core.util.Util;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import techreborn.blocks.storage.EUStorageTile;
+import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
+import techreborn.powerSystem.TilePowerAcceptor;
 import techreborn.util.Inventory;
-import techreborn.util.LogHelper;
 
-public class TileAesu extends EUStorageTile implements IWrenchable {
+public class TileAesu extends TilePowerAcceptor implements IWrenchable {
 
     public static final int MAX_OUTPUT = ConfigTechReborn.aesuMaxOutput;
     public static final int MAX_STORAGE = ConfigTechReborn.aesuMaxStorage;
@@ -24,7 +22,7 @@ public class TileAesu extends EUStorageTile implements IWrenchable {
 	
 	public TileAesu()
 	{
-		super(5, TileAesu.MAX_OUTPUT, TileAesu.MAX_STORAGE);
+		super(5);
 	}
 	
 	@Override
@@ -37,13 +35,13 @@ public class TileAesu extends EUStorageTile implements IWrenchable {
 
         } else {
             ticks ++;
-            euChange += energy - euLastTick;
-            if(euLastTick == energy){
+            euChange += getEnergy() - euLastTick;
+            if(euLastTick == getEnergy()){
                 euChange = 0;
             }
         }
 
-        euLastTick = energy;
+        euLastTick = getEnergy();
 	}
 
 	@Override
@@ -58,14 +56,13 @@ public class TileAesu extends EUStorageTile implements IWrenchable {
 	@Override
 	public short getFacing()
 	{
-		return super.getFacing();
+		return (short) worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
 	}
 
 	@Override
 	public void setFacing(short facing)
 	{
         worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, facing, 2);
-		super.setFacing(facing);
     }
 
 	@Override
@@ -95,12 +92,6 @@ public class TileAesu extends EUStorageTile implements IWrenchable {
 		return false;
 	}
 
-	@Override
-	public String getInventoryName()
-	{
-		return "AESU";
-	}
-
 	public void handleGuiInputFromClient(int id){
 		if(id == 0){
 			OUTPUT += 256;
@@ -120,8 +111,6 @@ public class TileAesu extends EUStorageTile implements IWrenchable {
 		if(OUTPUT <= -1){
 			OUTPUT = 0;
 		}
-        output = OUTPUT;
-		LogHelper.debug("Set output to " + getOutput());
 	}
 
     public double getEuChange(){
@@ -143,21 +132,42 @@ public class TileAesu extends EUStorageTile implements IWrenchable {
 
     public void writeToNBTWithoutCoords(NBTTagCompound tagCompound)
     {
-        tagCompound.setDouble("energy", this.energy);
+        super.writeToNBTWithoutCoords(tagCompound);
         tagCompound.setDouble("euChange", euChange);
         tagCompound.setDouble("euLastTick", euLastTick);
-        tagCompound.setBoolean("active", this.getActive());
-        tagCompound.setByte("redstoneMode", this.redstoneMode);
         inventory.writeToNBT(tagCompound);
     }
 
     public void readFromNBTWithoutCoords(NBTTagCompound nbttagcompound) {
-        this.energy = Util.limit(nbttagcompound.getDouble("energy"), 0.0D, (double) this.maxStorage + EnergyNet.instance.getPowerFromTier(this.tier));
-        this.redstoneMode = nbttagcompound.getByte("redstoneMode");
+        super.readFromNBTWithoutCoords(nbttagcompound);
         this.euChange = nbttagcompound.getDouble("euChange");
         this.euLastTick = nbttagcompound.getDouble("euLastTick");
         inventory.readFromNBT(nbttagcompound);
     }
 
 
+    @Override
+    public double getMaxPower() {
+        return TileAesu.MAX_STORAGE;
+    }
+
+    @Override
+    public boolean canAcceptEnergy(ForgeDirection direction) {
+        return true;
+    }
+
+    @Override
+    public boolean canProvideEnergy(ForgeDirection direction) {
+        return true;
+    }
+
+    @Override
+    public double getMaxOutput() {
+        return OUTPUT;
+    }
+
+    @Override
+    public double getMaxInput() {
+        return 4096 * 2;
+    }
 }

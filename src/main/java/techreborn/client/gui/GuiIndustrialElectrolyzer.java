@@ -1,6 +1,5 @@
 package techreborn.client.gui;
 
-import ic2.core.util.DrawUtil;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.I18n;

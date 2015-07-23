@@ -256,6 +256,17 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
 		tag.setTag("TilePowerAcceptor", data);
 	}
 
+    public void readFromNBTWithoutCoords(NBTTagCompound tag) {
+        NBTTagCompound data = tag.getCompoundTag("TilePowerAcceptor");
+        energy = data.getDouble("energy");
+    }
+
+    public void writeToNBTWithoutCoords(NBTTagCompound tag) {
+        NBTTagCompound data = new NBTTagCompound();
+        data.setDouble("energy", energy);
+        tag.setTag("TilePowerAcceptor", data);
+    }
+
     public int getEnergyScaled(int scale) {
         return (int)(getEnergy() * scale / getMaxPower());
     }

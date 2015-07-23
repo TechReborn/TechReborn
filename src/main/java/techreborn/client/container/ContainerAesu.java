@@ -56,11 +56,11 @@ public class ContainerAesu extends TechRebornContainer {
 		super.detectAndSendChanges();
 		for (int i = 0; i < this.crafters.size(); i++) {
 			ICrafting icrafting = (ICrafting)this.crafters.get(i);
-			if(this.euOut != tile.output){
-				icrafting.sendProgressBarUpdate(this, 0, tile.output);
+			if(this.euOut != tile.getMaxOutput()){
+				icrafting.sendProgressBarUpdate(this, 0, (int) tile.getMaxOutput());
 			}
-			if(this.storedEu != tile.energy){
-				icrafting.sendProgressBarUpdate(this, 1, (int) tile.energy);
+			if(this.storedEu != tile.getEnergy()){
+				icrafting.sendProgressBarUpdate(this, 1, (int) tile.getEnergy());
 			}
             if(this.euChange != tile.getEuChange() && tile.getEuChange() != -1){
                 icrafting.sendProgressBarUpdate(this, 2, (int) tile.getEuChange());
@@ -71,8 +71,8 @@ public class ContainerAesu extends TechRebornContainer {
 	@Override
 	public void addCraftingToCrafters(ICrafting crafting) {
 		super.addCraftingToCrafters(crafting);
-		crafting.sendProgressBarUpdate(this, 0, tile.output);
-		crafting.sendProgressBarUpdate(this, 1, (int) tile.energy);
+		crafting.sendProgressBarUpdate(this, 0, (int) tile.getMaxOutput());
+		crafting.sendProgressBarUpdate(this, 1, (int) tile.getEnergy());
         crafting.sendProgressBarUpdate(this, 2 , (int) tile.getEuChange());
 	}
 

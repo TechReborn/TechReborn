@@ -82,6 +82,9 @@ public class ItemBlockAesu extends ItemBlock {
 
     public void writeToNBTWithoutCoords(NBTTagCompound tagCompound, double energy)
     {
+        NBTTagCompound data = new NBTTagCompound();
+        data.setDouble("energy", energy);
+        tagCompound.setTag("TilePowerAcceptor", data);
         tagCompound.setDouble("energy", energy);
         tagCompound.setDouble("euChange", 0);
         tagCompound.setDouble("euLastTick", 0);
