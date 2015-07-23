@@ -1,6 +1,12 @@
 package techreborn.api.recipe;
 
+import net.minecraft.item.ItemStack;
+import org.apache.commons.lang3.time.StopWatch;
+import techreborn.util.ItemUtils;
+import techreborn.util.LogHelper;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -11,10 +17,12 @@ public class RecipeHandler {
      */
     public static final ArrayList<IBaseRecipeType> recipeList = new ArrayList<IBaseRecipeType>();
 
+
+    public static HashMap<IBaseRecipeType, String> stackMap = new HashMap<IBaseRecipeType, String>();
     /**
-     * This is a backedup clone of the master recipeList
+     * This is a list of all the registered machine names.
      */
-    public static ArrayList<IBaseRecipeType> recipeListBackup = new ArrayList<IBaseRecipeType>();
+    public static ArrayList<String> machineNames = new ArrayList<String>();
 
     /**
      * Use this to get all of the recipes form a recipe name
@@ -32,14 +40,14 @@ public class RecipeHandler {
         return baseRecipeList;
     }
 
-	public static String getUserFreindlyName(String name) {
-		for (IBaseRecipeType baseRecipe : recipeList) {
-			if (baseRecipe.getRecipeName().equals(name)) {
-				return baseRecipe.getUserFreindlyName();
-			}
-		}
-		return "";
-	}
+    public static String getUserFreindlyName(String name) {
+        for (IBaseRecipeType baseRecipe : recipeList) {
+            if (baseRecipe.getRecipeName().equals(name)) {
+                return baseRecipe.getUserFreindlyName();
+            }
+        }
+        return "";
+    }
 
     /**
      * Add a recipe to the system
@@ -53,8 +61,40 @@ public class RecipeHandler {
         if (recipeList.contains(recipe)) {
             return;
         }
+        if (!machineNames.contains(recipe.getRecipeName())) {
+            machineNames.add(recipe.getRecipeName());
+        }
         recipeList.add(recipe);
+        StringBuffer buffer = new StringBuffer();
+        for (StackTraceElement ste : Thread.currentThread().getStackTrace()) {
+            buffer.append(ste);
+        }
+        stackMap.put(recipe, buffer.toString());
     }
 
+
+    public static void scanForDupeRecipes() throws Exception {
+        StopWatch watch = new StopWatch();
+        watch.start();
+        for (IBaseRecipeType baseRecipeType : recipeList) {
+            for (IBaseRecipeType recipe : recipeList) {
+                if (baseRecipeType != recipe && baseRecipeType.getRecipeName().equals(recipe.getRecipeName())) {
+                    for (int i = 0; i < baseRecipeType.getInputs().size(); i++) {
+                        if (ItemUtils.isItemEqual(baseRecipeType.getInputs().get(i), recipe.getInputs().get(i), true, false, false)) {
+                            StringBuffer itemInfo = new StringBuffer();
+                            for(ItemStack inputs : baseRecipeType.getInputs()){
+                                itemInfo.append(":" + inputs.getItem().getUnlocalizedName() + "," + inputs.getDisplayName() + "," + inputs.stackSize);
+                            }
+                            LogHelper.all(stackMap.get(baseRecipeType));
+                           // throw new Exception("Found a duplicate recipe for " + baseRecipeType.getRecipeName() + " with inputs " + itemInfo.toString());
+                        }
+                    }
+                }
+            }
+        }
+        LogHelper.all(watch + " : Scanning dupe recipes");
+        watch.stop();
+
+    }
 
 }

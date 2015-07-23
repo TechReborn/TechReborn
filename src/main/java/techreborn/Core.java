@@ -105,17 +105,15 @@ public class Core {
 	}
 
 	@Mod.EventHandler
-	public void postinit(FMLPostInitializationEvent event){
+	public void postinit(FMLPostInitializationEvent event) throws Exception {
 		// Has to be done here as Buildcraft registers there recipes late
-        StopWatch watch = new StopWatch();
-        watch.start();
-        LogHelper.all(watch + " : main recipes");
-        watch.stop();
 		for(ICompatModule compatModule : CompatManager.INSTANCE.compatModules){
 			compatModule.postInit(event);
 		}
         packetPipeline.postInitialise();
 		LogHelper.info(RecipeHandler.recipeList.size() + " recipes loaded");
+
+//        RecipeHandler.scanForDupeRecipes();
 	}
 
 	@Mod.EventHandler
