@@ -1,6 +1,5 @@
 package techreborn.tiles;
 
-import ic2.api.energy.prefab.BasicSink;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,31 +9,27 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.*;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModFluids;
 import techreborn.lib.Location;
+import techreborn.powerSystem.TilePowerAcceptor;
 import techreborn.util.Inventory;
 import techreborn.util.Tank;
 
-public class TileGrinder extends TileMachineBase implements IWrenchable, IEnergyTile, IFluidHandler, IInventory, ISidedInventory {
+public class TileGrinder extends TilePowerAcceptor implements IWrenchable, IEnergyTile, IFluidHandler, IInventory, ISidedInventory {
 	
 	public int tickTime;
-	public BasicSink energy;
 	public Inventory inventory = new Inventory(6, "TileGrinder", 64);
 	public Tank tank = new Tank("TileGrinder", 16000, this);
 	public RecipeCrafter crafter;
 
 	public TileGrinder() {
-		//TODO configs
-		energy = new BasicSink(this, 1000, ConfigTechReborn.CentrifugeTier);
+        super(ConfigTechReborn.CentrifugeTier);
+        //TODO configs
 
 		int[] inputs = new int[2];
 		inputs[0] = 0;
@@ -44,7 +39,7 @@ public class TileGrinder extends TileMachineBase implements IWrenchable, IEnergy
 		outputs[1] = 3;
 		outputs[2] = 4;
 		outputs[3] = 5;
-		crafter = new RecipeCrafter("grinderRecipe", this, energy, 1, 4, inventory, inputs, outputs);
+		crafter = new RecipeCrafter("grinderRecipe", this, 1, 4, inventory, inputs, outputs);
 	}
 
 	@Override
@@ -107,7 +102,6 @@ public class TileGrinder extends TileMachineBase implements IWrenchable, IEnergy
 		super.updateEntity();
         if(getMutliBlock())
         {
-        	energy.updateEntity();
         	crafter.updateEntity();
         }
 	}
@@ -116,7 +110,6 @@ public class TileGrinder extends TileMachineBase implements IWrenchable, IEnergy
     public void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
         inventory.readFromNBT(tagCompound);
-        energy.readFromNBT(tagCompound);
 		tank.readFromNBT(tagCompound);
 		crafter.readFromNBT(tagCompound);
     }
@@ -125,7 +118,6 @@ public class TileGrinder extends TileMachineBase implements IWrenchable, IEnergy
     public void writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
         inventory.writeToNBT(tagCompound);
-        energy.writeToNBT(tagCompound);
 		tank.writeToNBT(tagCompound);
 		crafter.writeToNBT(tagCompound);
     }
@@ -133,13 +125,11 @@ public class TileGrinder extends TileMachineBase implements IWrenchable, IEnergy
     @Override
     public void invalidate()
     {
-        energy.invalidate();
         super.invalidate();
     }
     @Override
     public void onChunkUnload()
     {
-        energy.onChunkUnload();
         super.onChunkUnload();
     }
 
@@ -277,7 +267,28 @@ public class TileGrinder extends TileMachineBase implements IWrenchable, IEnergy
 		return 0;
 	}
 
-	public int getEnergyScaled(int scale) {
-		return (int)energy.getEnergyStored() * scale / energy.getCapacity();
-	}
+    @Override
+    public double getMaxPower() {
+        return 10000;
+    }
+
+    @Override
+    public boolean canAcceptEnergy(ForgeDirection direction) {
+        return true;
+    }
+
+    @Override
+    public boolean canProvideEnergy(ForgeDirection direction) {
+        return false;
+    }
+
+    @Override
+    public double getMaxOutput() {
+        return 0;
+    }
+
+    @Override
+    public double getMaxInput() {
+        return 32;
+    }
 }

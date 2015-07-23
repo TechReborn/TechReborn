@@ -1,6 +1,5 @@
 package techreborn.tiles;
 
-import ic2.api.energy.prefab.BasicSink;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,34 +11,32 @@ import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.api.upgrade.UpgradeHandler;
 import techreborn.init.ModBlocks;
+import techreborn.powerSystem.TilePowerAcceptor;
 import techreborn.util.Inventory;
 
-public class TileAlloySmelter extends TileMachineBase implements IWrenchable, IEnergyTile, IInventory, ISidedInventory {
+public class TileAlloySmelter extends TilePowerAcceptor implements IWrenchable, IEnergyTile, IInventory, ISidedInventory {
 
 	public int tickTime;
-	public BasicSink energy;
 	public Inventory inventory = new Inventory(8, "TileAlloySmelter", 64);
 	public RecipeCrafter crafter;
 	public int capacity = 1000;
 	UpgradeHandler upgrades;
 	
 	public TileAlloySmelter(){
-		//TODO configs
-		energy = new BasicSink(this, capacity, 1);
+        super(1);
 		//Input slots
 		int[] inputs = new int[2];
 		inputs[0] = 0;
 		inputs[1] = 1;
 		int[] outputs = new int[1];
 		outputs[0] = 2;
-		crafter = new RecipeCrafter("alloySmelterRecipe", this, energy, 2, 1, inventory, inputs, outputs);
+		crafter = new RecipeCrafter("alloySmelterRecipe", this, 2, 1, inventory, inputs, outputs);
 		upgrades = new UpgradeHandler(crafter, inventory, 4, 5, 6, 7);
 	}
 	
 	@Override
 	public void updateEntity(){
 		super.updateEntity();
-		energy.updateEntity();
 		crafter.updateEntity();
 		upgrades.tick();
 	}
@@ -84,7 +81,6 @@ public class TileAlloySmelter extends TileMachineBase implements IWrenchable, IE
     public void readFromNBT(NBTTagCompound tagCompound){
         super.readFromNBT(tagCompound);
         inventory.readFromNBT(tagCompound);
-        energy.readFromNBT(tagCompound);
         crafter.readFromNBT(tagCompound);
     }
 
@@ -92,21 +88,7 @@ public class TileAlloySmelter extends TileMachineBase implements IWrenchable, IE
     public void writeToNBT(NBTTagCompound tagCompound){
         super.writeToNBT(tagCompound);
         inventory.writeToNBT(tagCompound);
-        energy.writeToNBT(tagCompound);
         crafter.writeToNBT(tagCompound);
-    }
-
-    @Override
-    public void invalidate()
-    {
-        energy.invalidate();
-        super.invalidate();
-    }
-    @Override
-    public void onChunkUnload()
-    {
-        energy.onChunkUnload();
-        super.onChunkUnload();
     }
     
 //	@Override
@@ -206,7 +188,28 @@ public class TileAlloySmelter extends TileMachineBase implements IWrenchable, IE
 		return 0;
 	}
 
-    public int getEnergyScaled(int scale) {
-        return (int)energy.getEnergyStored() * scale / energy.getCapacity();
+    @Override
+    public double getMaxPower() {
+        return capacity;
+    }
+
+    @Override
+    public boolean canAcceptEnergy(ForgeDirection direction) {
+        return true;
+    }
+
+    @Override
+    public boolean canProvideEnergy(ForgeDirection direction) {
+        return false;
+    }
+
+    @Override
+    public double getMaxOutput() {
+        return 0;
+    }
+
+    @Override
+    public double getMaxInput() {
+        return 32;
     }
 }

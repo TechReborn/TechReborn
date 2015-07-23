@@ -52,7 +52,7 @@ public class GuiImplosionCompressor extends GuiContainer{
 
 		this.drawTexturedModalRect(k + 60, l + 38, 176, 14, j + 1, 16);
 
-		j = (int) (this.compresser.crafter.energy.getEnergyStored() * 12 / this.compresser.energy.getCapacity());
+		j = (int) (this.compresser.crafter.energy.getEnergy() * 12 / this.compresser.getMaxPower());
 		if(j > 0) {
 			this.drawTexturedModalRect(k + 16, l + 37 + 12 - j, 176, 12 - j, 14, j + 2);
 		}

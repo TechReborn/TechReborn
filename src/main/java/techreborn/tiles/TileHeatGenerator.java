@@ -1,52 +1,50 @@
 package techreborn.tiles;
 
-import ic2.api.energy.prefab.BasicSource;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
+import techreborn.powerSystem.TilePowerAcceptor;
 
-public class TileHeatGenerator extends TileMachineBase implements IWrenchable, IEnergyTile {
+public class TileHeatGenerator extends TilePowerAcceptor implements IWrenchable, IEnergyTile {
 
-	public BasicSource energy;
 	public static final int euTick = ConfigTechReborn.heatGeneratorOutput;
 
 	public TileHeatGenerator()
 	{
-		energy = new BasicSource(this, 1000, euTick);
+        super(1);
 	}
 	
 	@Override
 	public void updateEntity()
 	{
 		super.updateEntity();
-		energy.updateEntity();
 		
 		if(!worldObj.isRemote)
 		{
 			if(worldObj.getBlock(xCoord + 1, yCoord, zCoord) == Blocks.lava)
 			{
-				energy.addEnergy(euTick);
+				addEnergy(euTick);
 			}
 			else if(worldObj.getBlock(xCoord, yCoord, zCoord + 1) == Blocks.lava)
 			{
-				energy.addEnergy(euTick);
+				addEnergy(euTick);
 			}
 			else if(worldObj.getBlock(xCoord, yCoord, zCoord - 1) == Blocks.lava)
 			{
-				energy.addEnergy(euTick);
+				addEnergy(euTick);
 			}
 			else if(worldObj.getBlock(xCoord - 1, yCoord, zCoord) == Blocks.lava)
 			{
-				energy.addEnergy(euTick);
+				addEnergy(euTick);
 			}
 			else if(worldObj.getBlock(xCoord, yCoord - 1, zCoord) == Blocks.lava)
 			{
-				energy.addEnergy(euTick);
+				addEnergy(euTick);
 			}
 			
 		}
@@ -96,31 +94,30 @@ public class TileHeatGenerator extends TileMachineBase implements IWrenchable, I
 		return false;
 	}
 
+
     @Override
-    public void invalidate()
-    {
-        energy.invalidate();
-        super.invalidate();
-    }
-    @Override
-    public void onChunkUnload()
-    {
-        energy.onChunkUnload();
-        super.onChunkUnload();
+    public double getMaxPower() {
+        return 10000;
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound tagCompound)
-    {
-        super.readFromNBT(tagCompound);
-        energy.readFromNBT(tagCompound);
+    public boolean canAcceptEnergy(ForgeDirection direction) {
+        return false;
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound tagCompound)
-    {
-        super.writeToNBT(tagCompound);
-        energy.writeToNBT(tagCompound);
+    public boolean canProvideEnergy(ForgeDirection direction) {
+        return true;
+    }
+
+    @Override
+    public double getMaxOutput() {
+        return 64;
+    }
+
+    @Override
+    public double getMaxInput() {
+        return 0;
     }
 
 //    @Override

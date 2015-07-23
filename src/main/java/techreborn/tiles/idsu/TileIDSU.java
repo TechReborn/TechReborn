@@ -19,7 +19,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.Core;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
-import techreborn.packets.PacketHandler;
 
 public class TileIDSU extends TileEntityBlock implements IEnergySink, IEnergySource, INetworkClientTileEntityEventListener, IEnergyStorage {
 

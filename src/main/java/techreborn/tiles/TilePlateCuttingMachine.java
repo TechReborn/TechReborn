@@ -1,6 +1,5 @@
 package techreborn.tiles;
 
-import ic2.api.energy.prefab.BasicSink;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,32 +10,31 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.init.ModBlocks;
+import techreborn.powerSystem.TilePowerAcceptor;
 import techreborn.util.Inventory;
 
-public class TilePlateCuttingMachine extends TileMachineBase implements IWrenchable, IEnergyTile, IInventory, ISidedInventory {
+public class TilePlateCuttingMachine extends TilePowerAcceptor implements IWrenchable, IEnergyTile, IInventory, ISidedInventory {
 
 	public int tickTime;
-	public BasicSink energy;
 	public Inventory inventory = new Inventory(7, "TilePlateCuttingMachine", 64);
 	public RecipeCrafter crafter;
 	
 	public TilePlateCuttingMachine()
 	{
-		//TODO configs
-		energy = new BasicSink(this, 1000, 2);
+        super(2);
+        //TODO configs
 		//Input slots
 		int[] inputs = new int[1];
 		inputs[0] = 0;
 		int[] outputs = new int[1];
 		outputs[0] = 1;
-		crafter = new RecipeCrafter("plateCuttingMachineRecipe", this, energy, 1, 1, inventory, inputs, outputs);
+		crafter = new RecipeCrafter("plateCuttingMachineRecipe", this, 1, 1, inventory, inputs, outputs);
 	}
 	
 	@Override
 	public void updateEntity()
 	{
 		super.updateEntity();
-		energy.updateEntity();
 		crafter.updateEntity();
 	}
 
@@ -89,7 +87,6 @@ public class TilePlateCuttingMachine extends TileMachineBase implements IWrencha
 	{
 		super.readFromNBT(tagCompound);
 		inventory.readFromNBT(tagCompound);
-		energy.readFromNBT(tagCompound);
 		crafter.readFromNBT(tagCompound);
 	}
 
@@ -98,7 +95,6 @@ public class TilePlateCuttingMachine extends TileMachineBase implements IWrencha
 	{
 		super.writeToNBT(tagCompound);
 		inventory.writeToNBT(tagCompound);
-		energy.writeToNBT(tagCompound);
 		crafter.writeToNBT(tagCompound);
 	}
 
@@ -112,18 +108,6 @@ public class TilePlateCuttingMachine extends TileMachineBase implements IWrencha
 //		}
 //	}
 
-    @Override
-    public void invalidate()
-    {
-        energy.invalidate();
-        super.invalidate();
-    }
-    @Override
-    public void onChunkUnload()
-    {
-        energy.onChunkUnload();
-        super.onChunkUnload();
-    }
     
 	@Override
 	public int getSizeInventory() {
@@ -213,9 +197,29 @@ public class TilePlateCuttingMachine extends TileMachineBase implements IWrencha
 		return 0;
 	}
 
-	public int getEnergyScaled(int scale) {
-		return (int)energy.getEnergyStored() * scale / energy.getCapacity();
-	}
 
+    @Override
+    public double getMaxPower() {
+        return 10000;
+    }
 
+    @Override
+    public boolean canAcceptEnergy(ForgeDirection direction) {
+        return true;
+    }
+
+    @Override
+    public boolean canProvideEnergy(ForgeDirection direction) {
+        return false;
+    }
+
+    @Override
+    public double getMaxOutput() {
+        return 0;
+    }
+
+    @Override
+    public double getMaxInput() {
+        return 64;
+    }
 }

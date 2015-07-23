@@ -1,6 +1,5 @@
 package techreborn.tiles;
 
-import ic2.api.energy.prefab.BasicSink;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,15 +8,16 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.api.RollingMachineRecipe;
 import techreborn.init.ModBlocks;
+import techreborn.powerSystem.TilePowerAcceptor;
 import techreborn.util.Inventory;
 import techreborn.util.ItemUtils;
 
 //TODO add tick and power bars.
-public class TileRollingMachine extends TileMachineBase implements IWrenchable, IEnergyTile, IInventory {
+public class TileRollingMachine extends TilePowerAcceptor implements IWrenchable, IEnergyTile, IInventory {
 
-	public BasicSink energy;
 	public Inventory inventory = new Inventory(2, "TileRollingMachine", 64);
 	public final InventoryCrafting craftMatrix = new InventoryCrafting(
 			new RollingTileContainer(), 3, 3);
@@ -29,7 +29,32 @@ public class TileRollingMachine extends TileMachineBase implements IWrenchable, 
 
 	public int euTick = 5;
 
-	private static class RollingTileContainer extends Container {
+    @Override
+    public double getMaxPower() {
+        return 100000;
+    }
+
+    @Override
+    public boolean canAcceptEnergy(ForgeDirection direction) {
+        return true;
+    }
+
+    @Override
+    public boolean canProvideEnergy(ForgeDirection direction) {
+        return false;
+    }
+
+    @Override
+    public double getMaxOutput() {
+        return 0;
+    }
+
+    @Override
+    public double getMaxInput() {
+        return 64;
+    }
+
+    private static class RollingTileContainer extends Container {
 
 		@Override
 		public boolean canInteractWith(EntityPlayer entityplayer)
@@ -41,14 +66,13 @@ public class TileRollingMachine extends TileMachineBase implements IWrenchable, 
 
 	public TileRollingMachine()
 	{
-		energy = new BasicSink(this, 100000, 1);
+        super(1);
 	}
 
 	@Override
 	public void updateEntity()
 	{
 		super.updateEntity();
-		energy.updateEntity();
 		if (!worldObj.isRemote)
 		{
 			currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(
@@ -95,8 +119,9 @@ public class TileRollingMachine extends TileMachineBase implements IWrenchable, 
 			}
 			if (currentRecipe != null)
 			{
-				if (energy.canUseEnergy(euTick) && tickTime < runTime)
+				if (canUseEnergy(euTick) && tickTime < runTime)
 				{
+                    useEnergy(euTick);
 					tickTime++;
 				}
 			}
@@ -172,7 +197,6 @@ public class TileRollingMachine extends TileMachineBase implements IWrenchable, 
 	{
 		super.readFromNBT(tagCompound);
 		inventory.readFromNBT(tagCompound);
-		energy.readFromNBT(tagCompound);
 		ItemUtils.readInvFromNBT(craftMatrix, "Crafting", tagCompound);
 		isRunning = tagCompound.getBoolean("isRunning");
 		tickTime = tagCompound.getInteger("tickTime");
@@ -183,7 +207,6 @@ public class TileRollingMachine extends TileMachineBase implements IWrenchable, 
 	{
 		super.writeToNBT(tagCompound);
 		inventory.writeToNBT(tagCompound);
-		energy.writeToNBT(tagCompound);
 		ItemUtils.writeInvToNBT(craftMatrix, "Crafting", tagCompound);
 		writeUpdateToNBT(tagCompound);
 	}
@@ -197,13 +220,11 @@ public class TileRollingMachine extends TileMachineBase implements IWrenchable, 
     @Override
     public void invalidate()
     {
-        energy.invalidate();
         super.invalidate();
     }
     @Override
     public void onChunkUnload()
     {
-        energy.onChunkUnload();
         super.onChunkUnload();
     }
 

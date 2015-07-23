@@ -1,6 +1,5 @@
 package techreborn.tiles;
 
-import ic2.api.energy.prefab.BasicSink;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,33 +10,31 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.init.ModBlocks;
+import techreborn.powerSystem.TilePowerAcceptor;
 import techreborn.util.Inventory;
 
-public class TileChemicalReactor extends TileMachineBase implements IWrenchable, IEnergyTile , IInventory, ISidedInventory{
+public class TileChemicalReactor extends TilePowerAcceptor implements IWrenchable, IEnergyTile , IInventory, ISidedInventory{
 
 	public int tickTime;
-	public BasicSink energy;
 	public Inventory inventory = new Inventory(8, "TileChemicalReactor", 64);
 	public RecipeCrafter crafter;
 	
 	public TileChemicalReactor()
 	{
-		//TODO configs
-		energy = new BasicSink(this, 1000, 2);
+        super(2);
 		//Input slots
 		int[] inputs = new int[2];
 		inputs[0] = 0;
 		inputs[1] = 1;
 		int[] outputs = new int[1];
 		outputs[0] = 2;
-		crafter = new RecipeCrafter("chemicalReactorRecipe", this, energy, 2, 2, inventory, inputs, outputs);
+		crafter = new RecipeCrafter("chemicalReactorRecipe", this, 2, 2, inventory, inputs, outputs);
 	}
 	
 	@Override
 	public void updateEntity()
 	{
 		super.updateEntity();
-		energy.updateEntity();
 		crafter.updateEntity();
 	}
 
@@ -90,7 +87,6 @@ public class TileChemicalReactor extends TileMachineBase implements IWrenchable,
     {
         super.readFromNBT(tagCompound);
         inventory.readFromNBT(tagCompound);
-        energy.readFromNBT(tagCompound);
         crafter.readFromNBT(tagCompound);
     }
 
@@ -99,21 +95,7 @@ public class TileChemicalReactor extends TileMachineBase implements IWrenchable,
     {
         super.writeToNBT(tagCompound);
         inventory.writeToNBT(tagCompound);
-        energy.writeToNBT(tagCompound);
         crafter.writeToNBT(tagCompound);
-    }
-
-    @Override
-    public void invalidate()
-    {
-        energy.invalidate();
-        super.invalidate();
-    }
-    @Override
-    public void onChunkUnload()
-    {
-        energy.onChunkUnload();
-        super.onChunkUnload();
     }
     
 	@Override
@@ -214,8 +196,28 @@ public class TileChemicalReactor extends TileMachineBase implements IWrenchable,
 		return 0;
 	}
 
-	public int getEnergyScaled(int scale) {
-		return (int)energy.getEnergyStored() * scale / energy.getCapacity();
-	}
+    @Override
+    public double getMaxPower() {
+        return 10000;
+    }
 
+    @Override
+    public boolean canAcceptEnergy(ForgeDirection direction) {
+        return true;
+    }
+
+    @Override
+    public boolean canProvideEnergy(ForgeDirection direction) {
+        return false;
+    }
+
+    @Override
+    public double getMaxOutput() {
+        return 0;
+    }
+
+    @Override
+    public double getMaxInput() {
+        return 128;
+    }
 }

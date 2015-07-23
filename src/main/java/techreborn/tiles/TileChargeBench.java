@@ -1,6 +1,5 @@
 package techreborn.tiles;
 
-import ic2.api.energy.prefab.BasicSink;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
@@ -12,22 +11,21 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.init.ModBlocks;
+import techreborn.powerSystem.TilePowerAcceptor;
 import techreborn.util.Inventory;
 
-public class TileChargeBench extends TileMachineBase implements IWrenchable, IEnergyTile, IInventory, ISidedInventory {
+public class TileChargeBench extends TilePowerAcceptor implements IWrenchable, IEnergyTile, IInventory, ISidedInventory {
 
-	public BasicSink energy;
 	public Inventory inventory = new Inventory(6, "TileChargeBench", 64);
 	public int capacity = 100000;
 	
 	public TileChargeBench(){
-		energy = new BasicSink(this, capacity, 4);
+        super(4);
 	}
 	
 	@Override
 	public void updateEntity(){
 		super.updateEntity();
-		energy.updateEntity();
 		
 		for (int i = 0; i < 6; i++)
 		if(inventory.getStackInSlot(i) != null)
@@ -39,10 +37,10 @@ public class TileChargeBench extends TileMachineBase implements IWrenchable, IEn
 				double amount = ((IElectricItem) stack.getItem()).getTransferLimit(stack);
 				double CurrentCharge = ElectricItem.manager.getCharge(stack);
 				int teir = ((IElectricItem) stack.getItem()).getTier(stack);
-				if(CurrentCharge != MaxCharge && energy.getEnergyStored() >= 0)
+				if(CurrentCharge != MaxCharge && getEnergy() >= 0)
 				{
 					ElectricItem.manager.charge(stack, MaxCharge - CurrentCharge, 3, false, false);
-					energy.useEnergy(amount);
+					useEnergy(amount);
 				}
 			}
 		}
@@ -89,27 +87,12 @@ public class TileChargeBench extends TileMachineBase implements IWrenchable, IEn
     public void readFromNBT(NBTTagCompound tagCompound){
         super.readFromNBT(tagCompound);
         inventory.readFromNBT(tagCompound);
-        energy.readFromNBT(tagCompound);
     }
 
     @Override
     public void writeToNBT(NBTTagCompound tagCompound){
         super.writeToNBT(tagCompound);
         inventory.writeToNBT(tagCompound);
-        energy.writeToNBT(tagCompound);
-    }
-
-    @Override
-    public void invalidate()
-    {
-        energy.invalidate();
-        super.invalidate();
-    }
-    @Override
-    public void onChunkUnload()
-    {
-        energy.onChunkUnload();
-        super.onChunkUnload();
     }
 
 	@Override
@@ -171,10 +154,6 @@ public class TileChargeBench extends TileMachineBase implements IWrenchable, IEn
 	public boolean isItemValidForSlot(int slot, ItemStack stack) {
 		return inventory.isItemValidForSlot(slot, stack);
 	}
-	
-    public int getEnergyScaled(int scale) {
-        return (int)energy.getEnergyStored() * scale / energy.getCapacity();
-    }
 
 	// ISidedInventory 
 	@Override
@@ -201,4 +180,29 @@ public class TileChargeBench extends TileMachineBase implements IWrenchable, IEn
         }
         return false;
 	}
+
+    @Override
+    public double getMaxPower() {
+        return capacity;
+    }
+
+    @Override
+    public boolean canAcceptEnergy(ForgeDirection direction) {
+        return true;
+    }
+
+    @Override
+    public boolean canProvideEnergy(ForgeDirection direction) {
+        return false;
+    }
+
+    @Override
+    public double getMaxOutput() {
+        return 0;
+    }
+
+    @Override
+    public double getMaxInput() {
+        return 512;
+    }
 }

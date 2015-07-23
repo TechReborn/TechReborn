@@ -18,9 +18,10 @@ import techreborn.blocks.BlockMachineCasing;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.lib.Location;
+import techreborn.powerSystem.TilePowerAcceptor;
 import techreborn.util.Inventory;
 
-public class TileBlastFurnace extends TileMachineBase implements IWrenchable, IInventory, IEnergyTile, ISidedInventory {
+public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, IInventory, IEnergyTile, ISidedInventory {
 
 	public int tickTime;
 	public BasicSink energy;
@@ -29,15 +30,15 @@ public class TileBlastFurnace extends TileMachineBase implements IWrenchable, II
 	public static int euTick = 5;
 	
 	public TileBlastFurnace() {
-		//TODO configs
-		energy = new BasicSink(this, 10000,ConfigTechReborn.CentrifugeTier);
+        super(ConfigTechReborn.CentrifugeTier);
+        //TODO configs
 		int[] inputs = new int[2];
 		inputs[0] = 0;
 		inputs[1] = 1;
 		int[] outputs = new int[2];
 		outputs[0] = 2;
 		outputs[1] = 3;
-		crafter = new RecipeCrafter("blastFurnaceRecipe", this, energy, 2, 2, inventory, inputs, outputs);
+		crafter = new RecipeCrafter("blastFurnaceRecipe", this, 2, 2, inventory, inputs, outputs);
 	}
 	
 	@Override
@@ -337,5 +338,28 @@ public class TileBlastFurnace extends TileMachineBase implements IWrenchable, II
     }
 
 
+    @Override
+    public double getMaxPower() {
+        return 10000;
+    }
 
+    @Override
+    public boolean canAcceptEnergy(ForgeDirection direction) {
+        return false;
+    }
+
+    @Override
+    public boolean canProvideEnergy(ForgeDirection direction) {
+        return false;
+    }
+
+    @Override
+    public double getMaxOutput() {
+        return 0;
+    }
+
+    @Override
+    public double getMaxInput() {
+        return 128;
+    }
 }

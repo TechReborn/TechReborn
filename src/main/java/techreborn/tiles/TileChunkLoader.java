@@ -1,17 +1,17 @@
 package techreborn.tiles;
 
-import ic2.api.energy.prefab.BasicSink;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.init.ModBlocks;
+import techreborn.powerSystem.TilePowerAcceptor;
 import techreborn.util.Inventory;
 
-public class TileChunkLoader extends TileMachineBase implements IWrenchable, IEnergyTile, IInventory {
-	
-	public BasicSink energy;
+public class TileChunkLoader extends TilePowerAcceptor implements IWrenchable, IEnergyTile, IInventory {
+
 	public Inventory inventory = new Inventory(1, "TileChunkLoader", 64);
 	
 	public boolean isRunning;
@@ -21,29 +21,8 @@ public class TileChunkLoader extends TileMachineBase implements IWrenchable, IEn
 	
 	public TileChunkLoader()
 	{
-		energy = new BasicSink(this, 1000,
-				1);
+        super(1);
 	}
-	
-	@Override
-	public void updateEntity()
-	{
-		super.updateEntity();
-		energy.updateEntity();
-	}
-
-    @Override
-    public void invalidate()
-    {
-        energy.invalidate();
-        super.invalidate();
-    }
-    @Override
-    public void onChunkUnload()
-    {
-        energy.onChunkUnload();
-        super.onChunkUnload();
-    }
 
 	@Override
 	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side)
@@ -149,4 +128,28 @@ public class TileChunkLoader extends TileMachineBase implements IWrenchable, IEn
 		return inventory.isItemValidForSlot(slot, stack);
 	}
 
+    @Override
+    public double getMaxPower() {
+        return 10000;
+    }
+
+    @Override
+    public boolean canAcceptEnergy(ForgeDirection direction) {
+        return true;
+    }
+
+    @Override
+    public boolean canProvideEnergy(ForgeDirection direction) {
+        return false;
+    }
+
+    @Override
+    public double getMaxOutput() {
+        return 0;
+    }
+
+    @Override
+    public double getMaxInput() {
+        return 32;
+    }
 }

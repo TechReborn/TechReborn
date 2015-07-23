@@ -1,6 +1,5 @@
 package techreborn.tiles;
 
-import ic2.api.energy.prefab.BasicSource;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,34 +9,26 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.*;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
+import techreborn.powerSystem.TilePowerAcceptor;
 import techreborn.util.FluidUtils;
 import techreborn.util.Inventory;
 import techreborn.util.Tank;
 
-public class TileDieselGenerator extends TileEntity implements IWrenchable,
+public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchable,
 		IFluidHandler, IInventory, IEnergyTile {
 
 	public Tank tank = new Tank("TileDieselGenerator",
 			FluidContainerRegistry.BUCKET_VOLUME * 10, this);
 	public Inventory inventory = new Inventory(3, "TileDieselGenerator", 64);
-	public BasicSource energySource;
 	public static final int euTick = ConfigTechReborn.ThermalGenertaorOutput;
 
 	public TileDieselGenerator()
 	{
-		this.energySource = new BasicSource(this,
-				ConfigTechReborn.ThermalGeneratorCharge,
-				ConfigTechReborn.ThermalGeneratorTier);
+        super(ConfigTechReborn.ThermalGeneratorTier);
 	}
 
 	@Override
@@ -129,7 +120,6 @@ public class TileDieselGenerator extends TileEntity implements IWrenchable,
 		super.readFromNBT(tagCompound);
 		tank.readFromNBT(tagCompound);
 		inventory.readFromNBT(tagCompound);
-		energySource.readFromNBT(tagCompound);
 	}
 
 	@Override
@@ -138,7 +128,6 @@ public class TileDieselGenerator extends TileEntity implements IWrenchable,
 		super.writeToNBT(tagCompound);
 		tank.writeToNBT(tagCompound);
 		inventory.writeToNBT(tagCompound);
-		energySource.writeToNBT(tagCompound);
 	}
 
 	public Packet getDescriptionPacket()
@@ -164,12 +153,11 @@ public class TileDieselGenerator extends TileEntity implements IWrenchable,
 		super.updateEntity();
         if(!worldObj.isRemote)
 		    FluidUtils.drainContainers(this, inventory, 0, 1);
-		energySource.updateEntity();
 		if (tank.getFluidAmount() > 0
-				&& energySource.getCapacity() - energySource.getEnergyStored() >= euTick)
+				&& getMaxPower() - getEnergy() >= euTick)
 		{
 			tank.drain(1, true);
-			energySource.addEnergy(euTick);
+            addEnergy(euTick);
 		}
 		if (tank.getFluidType() != null && getStackInSlot(2) == null)
 		{
@@ -253,17 +241,28 @@ public class TileDieselGenerator extends TileEntity implements IWrenchable,
 		return inventory.isItemValidForSlot(p_94041_1_, p_94041_2_);
 	}
 
-	@Override
-	public void onChunkUnload()
-	{
-		energySource.onChunkUnload();
-	}
+    @Override
+    public double getMaxPower() {
+        return ConfigTechReborn.ThermalGeneratorCharge;
+    }
 
-	@Override
-	public void invalidate()
-	{
-		energySource.invalidate();
-		super.invalidate();
-	}
+    @Override
+    public boolean canAcceptEnergy(ForgeDirection direction) {
+        return false;
+    }
 
+    @Override
+    public boolean canProvideEnergy(ForgeDirection direction) {
+        return true;
+    }
+
+    @Override
+    public double getMaxOutput() {
+        return 64;
+    }
+
+    @Override
+    public double getMaxInput() {
+        return 0;
+    }
 }

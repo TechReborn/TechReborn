@@ -41,7 +41,8 @@ public class FarmTree implements IFarmLogicDevice {
         if (tileFarm.getWorldObj().isRemote) {
             return;
         }
-        if(tileFarm.energy.useEnergy(ConfigTechReborn.farmEu)){
+        if(tileFarm.canUseEnergy(ConfigTechReborn.farmEu)){
+            tileFarm.useEnergy(ConfigTechReborn.farmEu);
             if (tileFarm.getWorldObj().getTotalWorldTime() % 20 == 0 || tileFarm.inventory.hasChanged) {
                 calculateFarmLand(tileFarm);
             }

@@ -1,6 +1,5 @@
 package techreborn.tiles;
 
-import ic2.api.energy.prefab.BasicSink;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,33 +9,29 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.*;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModFluids;
 import techreborn.lib.Location;
+import techreborn.powerSystem.TilePowerAcceptor;
 import techreborn.util.Inventory;
 import techreborn.util.Tank;
 
 import java.util.List;
 
-public class TileIndustrialSawmill extends TileMachineBase implements IWrenchable, IEnergyTile, IFluidHandler, IInventory, ISidedInventory {
+public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrenchable, IEnergyTile, IFluidHandler, IInventory, ISidedInventory {
 
 	public int tickTime;
-	public BasicSink energy;
 	public Inventory inventory = new Inventory(5, "TileIndustrialSawmill", 64);
 	public Tank tank = new Tank("TileGrinder", 16000, this);
 	public RecipeCrafter crafter;
 	
 	public TileIndustrialSawmill()
 	{
-		//TODO configs
-		energy = new BasicSink(this, 1000, 2);
+        super(2);
+        //TODO configs
 		//Input slots
 		int[] inputs = new int[2];
 		inputs[0] = 0;
@@ -45,7 +40,7 @@ public class TileIndustrialSawmill extends TileMachineBase implements IWrenchabl
 		outputs[0] = 2;
 		outputs[1] = 3;
 		outputs[2] = 4;
-		crafter = new RecipeCrafter("industrialSawmillRecipe", this, energy, 2, 3, inventory, inputs, outputs);
+		crafter = new RecipeCrafter("industrialSawmillRecipe", this, 2, 3, inventory, inputs, outputs);
 	}
 	
 	@Override
@@ -54,7 +49,6 @@ public class TileIndustrialSawmill extends TileMachineBase implements IWrenchabl
 		super.updateEntity();
         if(getMutliBlock())
         {
-        	energy.updateEntity();
         	crafter.updateEntity();
         }
 	}
@@ -128,7 +122,6 @@ public class TileIndustrialSawmill extends TileMachineBase implements IWrenchabl
     {
         super.readFromNBT(tagCompound);
         inventory.readFromNBT(tagCompound);
-        energy.readFromNBT(tagCompound);
 		tank.readFromNBT(tagCompound);
         crafter.readFromNBT(tagCompound);
     }
@@ -138,29 +131,15 @@ public class TileIndustrialSawmill extends TileMachineBase implements IWrenchabl
     {
         super.writeToNBT(tagCompound);
         inventory.writeToNBT(tagCompound);
-        energy.writeToNBT(tagCompound);
 		tank.writeToNBT(tagCompound);
         crafter.writeToNBT(tagCompound);
     }
 
-    @Override
-    public void invalidate()
-    {
-        energy.invalidate();
-        super.invalidate();
-    }
-    @Override
-    public void onChunkUnload()
-    {
-        energy.onChunkUnload();
-        super.onChunkUnload();
-    }
-    
 	@Override
 	public void addWailaInfo(List<String> info)
 	{
 		super.addWailaInfo(info);
-		info.add("Power Stored " + energy.getEnergyStored() + " EU");
+		info.add("Power Stored " + getEnergy() + " EU");
 		if(crafter.currentRecipe !=null){
 		info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
 		}
@@ -300,8 +279,28 @@ public class TileIndustrialSawmill extends TileMachineBase implements IWrenchabl
 		return 0;
 	}
 
-	public int getEnergyScaled(int scale) {
-		return (int)energy.getEnergyStored() * scale / energy.getCapacity();
-	}
+    @Override
+    public double getMaxPower() {
+        return 10000;
+    }
 
+    @Override
+    public boolean canAcceptEnergy(ForgeDirection direction) {
+        return true;
+    }
+
+    @Override
+    public boolean canProvideEnergy(ForgeDirection direction) {
+        return false;
+    }
+
+    @Override
+    public double getMaxOutput() {
+        return 0;
+    }
+
+    @Override
+    public double getMaxInput() {
+        return 64;
+    }
 }

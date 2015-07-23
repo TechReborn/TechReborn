@@ -28,8 +28,8 @@ public abstract class ContainerCrafting extends TechRebornContainer {
             if(this.currentNeededTicks != crafter.currentNeededTicks){
                 icrafting.sendProgressBarUpdate(this, 1, crafter.currentNeededTicks);
             }
-            if(this.energy != (int)crafter.energy.getEnergyStored()){
-                icrafting.sendProgressBarUpdate(this, 2, (int)crafter.energy.getEnergyStored());
+            if(this.energy != (int)crafter.energy.getEnergy()){
+                icrafting.sendProgressBarUpdate(this, 2, (int)crafter.energy.getEnergy());
             }
         }
     }
@@ -39,7 +39,7 @@ public abstract class ContainerCrafting extends TechRebornContainer {
         super.addCraftingToCrafters(crafting);
         crafting.sendProgressBarUpdate(this, 0, crafter.currentTickTime);
         crafting.sendProgressBarUpdate(this, 1, crafter.currentNeededTicks);
-        crafting.sendProgressBarUpdate(this, 2, (int)crafter.energy.getEnergyStored());
+        crafting.sendProgressBarUpdate(this, 2, (int)crafter.energy.getEnergy());
     }
 
     @SideOnly(Side.CLIENT)
@@ -54,6 +54,6 @@ public abstract class ContainerCrafting extends TechRebornContainer {
         }
         this.crafter.currentTickTime = currentTickTime;
         this.crafter.currentNeededTicks = currentNeededTicks;
-        this.crafter.energy.setEnergyStored(energy);
+        this.crafter.energy.setEnergy(energy);
     }
 }

@@ -1,45 +1,42 @@
 package techreborn.tiles;
 
-import ic2.api.energy.prefab.BasicSink;
 import ic2.api.energy.tile.IEnergyTile;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.api.farm.IFarmLogicContainer;
 import techreborn.api.farm.IFarmLogicDevice;
+import techreborn.powerSystem.TilePowerAcceptor;
 import techreborn.util.Inventory;
 
-public class TileFarm extends TileMachineBase implements IInventory, IEnergyTile {
+public class TileFarm extends TilePowerAcceptor implements IInventory, IEnergyTile {
 
     public Inventory inventory = new Inventory(14, "TileFarm", 64);
 
     IFarmLogicDevice logicDevice;
 
     public int size = 4;
-    public BasicSink energy;
 
     public TileFarm() {
-        energy = new BasicSink(this, 100000, 2);
+        super(2);
     }
 
     @Override
     public void readFromNBT(NBTTagCompound tagCompound) {
-        energy.readFromNBT(tagCompound);
         inventory.readFromNBT(tagCompound);
         super.readFromNBT(tagCompound);
     }
 
     @Override
     public void writeToNBT(NBTTagCompound tagCompound) {
-        energy.writeToNBT(tagCompound);
         inventory.writeToNBT(tagCompound);
         super.writeToNBT(tagCompound);
     }
 
     @Override
     public void updateEntity() {
-        energy.updateEntity();
         if(inventory.hasChanged){
             if(inventory.getStackInSlot(0) != null && inventory.getStackInSlot(0).getItem() instanceof IFarmLogicContainer){
                 IFarmLogicContainer device = (IFarmLogicContainer) inventory.getStackInSlot(0).getItem();
@@ -115,16 +112,29 @@ public class TileFarm extends TileMachineBase implements IInventory, IEnergyTile
         return inventory.isItemValidForSlot(slot, stack);
     }
 
+
     @Override
-    public void invalidate()
-    {
-        energy.invalidate();
-        super.invalidate();
+    public double getMaxPower() {
+        return 100000;
     }
+
     @Override
-    public void onChunkUnload()
-    {
-        energy.onChunkUnload();
-        super.onChunkUnload();
+    public boolean canAcceptEnergy(ForgeDirection direction) {
+        return true;
+    }
+
+    @Override
+    public boolean canProvideEnergy(ForgeDirection direction) {
+        return false;
+    }
+
+    @Override
+    public double getMaxOutput() {
+        return 0;
+    }
+
+    @Override
+    public double getMaxInput() {
+        return 128;
     }
 }

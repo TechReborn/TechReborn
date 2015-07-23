@@ -17,6 +17,8 @@ import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.api.power.IEnergyInterfaceTile;
 import techreborn.asm.Strippable;
 
+import java.util.List;
+
 
 @Optional.InterfaceList(value = {
 		@Optional.Interface(iface = "ic2.api.energy.tile.IEnergyTile", modid = "IC2"),
@@ -253,4 +255,16 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
 		data.setDouble("energy", energy);
 		tag.setTag("TilePowerAcceptor", data);
 	}
+
+    public int getEnergyScaled(int scale) {
+        return (int)(getEnergy() * scale / getMaxPower());
+    }
+
+    @Override
+    public void addWailaInfo(List<String> info) {
+        super.addWailaInfo(info);
+        info.add("Energy buffer Size " + getMaxPower() + "eu");
+        info.add("Max Input " + getMaxInput() + "eu");
+        info.add("Max Output " + getMaxOutput() + "eu");
+    }
 }

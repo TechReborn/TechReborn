@@ -1,6 +1,5 @@
 package techreborn.tiles;
 
-import ic2.api.energy.prefab.BasicSink;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,17 +13,17 @@ import techreborn.api.recipe.RecipeCrafter;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.init.ModBlocks;
 import techreborn.lib.Location;
+import techreborn.powerSystem.TilePowerAcceptor;
 import techreborn.util.Inventory;
 
-public class TileImplosionCompressor extends TileMachineBase implements IWrenchable, IEnergyTile, IInventory, ISidedInventory {
+public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenchable, IEnergyTile, IInventory, ISidedInventory {
 	
 	public int tickTime;
-	public BasicSink energy;
 	public Inventory inventory = new Inventory(4, "TileImplosionCompressor", 64);
 	public RecipeCrafter crafter;
 
 	public TileImplosionCompressor() {
-		energy = new BasicSink(this, 100000, 1);
+        super(1);
 		//Input slots
 		int[] inputs = new int[2];
 		inputs[0] = 0;
@@ -32,7 +31,7 @@ public class TileImplosionCompressor extends TileMachineBase implements IWrencha
 		int[] outputs = new int[2];
 		outputs[0] = 2;
 		outputs[1] = 3;
-		crafter = new RecipeCrafter("implosionCompressorRecipe", this, energy, 2, 2, inventory, inputs, outputs);
+		crafter = new RecipeCrafter("implosionCompressorRecipe", this, 2, 2, inventory, inputs, outputs);
 	}
 
 	@Override
@@ -99,7 +98,6 @@ public class TileImplosionCompressor extends TileMachineBase implements IWrencha
         if(getMutliBlock())
         {
         	crafter.updateEntity();
-        	energy.updateEntity();
         }
 	}
 	
@@ -109,7 +107,6 @@ public class TileImplosionCompressor extends TileMachineBase implements IWrencha
 	{
 		super.readFromNBT(tagCompound);
 		inventory.readFromNBT(tagCompound);
-		energy.readFromNBT(tagCompound);
 		crafter.readFromNBT(tagCompound);
 	}
 
@@ -118,7 +115,6 @@ public class TileImplosionCompressor extends TileMachineBase implements IWrencha
 	{
 		super.writeToNBT(tagCompound);
 		inventory.writeToNBT(tagCompound);
-		energy.writeToNBT(tagCompound);
 		crafter.writeToNBT(tagCompound);
 	}
 
@@ -131,20 +127,6 @@ public class TileImplosionCompressor extends TileMachineBase implements IWrencha
 //		info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
 //		}
 //	}
-
-    @Override
-    public void invalidate()
-    {
-        energy.invalidate();
-        super.invalidate();
-    }
-    @Override
-    public void onChunkUnload()
-    {
-        energy.onChunkUnload();
-        super.onChunkUnload();
-    }
-
 
 	@Override
 	public int getSizeInventory() {
@@ -234,8 +216,28 @@ public class TileImplosionCompressor extends TileMachineBase implements IWrencha
 		return 0;
 	}
 
-	public int getEnergyScaled(int scale) {
-		return (int)energy.getEnergyStored() * scale / energy.getCapacity();
-	}
+    @Override
+    public double getMaxPower() {
+        return 100000;
+    }
 
+    @Override
+    public boolean canAcceptEnergy(ForgeDirection direction) {
+        return true;
+    }
+
+    @Override
+    public boolean canProvideEnergy(ForgeDirection direction) {
+        return false;
+    }
+
+    @Override
+    public double getMaxOutput() {
+        return 0;
+    }
+
+    @Override
+    public double getMaxInput() {
+        return 64;
+    }
 }

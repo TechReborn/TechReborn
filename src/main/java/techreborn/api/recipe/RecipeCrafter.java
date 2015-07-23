@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import techreborn.api.power.IEnergyInterfaceTile;
 import techreborn.packets.PacketHandler;
 import techreborn.tiles.TileMachineBase;
 import techreborn.util.Inventory;
@@ -30,7 +31,7 @@ public class RecipeCrafter {
     /**
      * This is the place to use the power from
      */
-    public BasicSink energy;
+    public IEnergyInterfaceTile energy;
 
     /**
      * This is the amount of inputs that the setRecipe has
@@ -62,17 +63,18 @@ public class RecipeCrafter {
      *
      * @param recipeName
      * @param parentTile
-     * @param energy
      * @param inputs
      * @param outputs
      * @param inventory
      * @param inputSlots
      * @param outputSlots
      */
-    public RecipeCrafter(String recipeName, TileMachineBase parentTile, BasicSink energy, int inputs, int outputs, Inventory inventory, int[] inputSlots, int[] outputSlots) {
+    public RecipeCrafter(String recipeName, TileMachineBase parentTile, int inputs, int outputs, Inventory inventory, int[] inputSlots, int[] outputSlots) {
         this.recipeName = recipeName;
         this.parentTile = parentTile;
-        this.energy = energy;
+        if(parentTile instanceof IEnergyInterfaceTile){
+            energy = (IEnergyInterfaceTile) parentTile;
+        }
         this.inputs = inputs;
         this.outputs = outputs;
         this.inventory = inventory;
@@ -168,7 +170,8 @@ public class RecipeCrafter {
 					syncIsActive();
                 }
             } else if (currentRecipe != null && currentTickTime < currentNeededTicks) {
-                if (energy.useEnergy(getEuPerTick())) {//This uses the power
+                if (energy.canUseEnergy(getEuPerTick())) {//This uses the power
+                    energy.useEnergy(getEuPerTick());
                     currentTickTime++;//increase the ticktime
                 }
             }
@@ -283,7 +286,7 @@ public class RecipeCrafter {
 
 
     private boolean isActiveServer() {
-        return currentRecipe != null && energy.getEnergyStored() >= currentRecipe.euPerTick() && currentTickTime != -1;
+        return currentRecipe != null && energy.getEnergy() >= currentRecipe.euPerTick() && currentTickTime != -1;
     }
 
     public boolean isActive() {

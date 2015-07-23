@@ -1,6 +1,5 @@
 package techreborn.tiles;
 
-import ic2.api.energy.prefab.BasicSink;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.recipe.RecipeOutput;
 import ic2.api.recipe.Recipes;
@@ -13,21 +12,21 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
+import techreborn.powerSystem.TilePowerAcceptor;
 import techreborn.util.Inventory;
 import techreborn.util.ItemUtils;
 
-public class TileMatterFabricator extends TileMachineBase implements IWrenchable, IEnergyTile, IInventory, ISidedInventory {
+public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchable, IEnergyTile, IInventory, ISidedInventory {
 
 	public static int fabricationRate = 2666656;
 	public int tickTime;
-	public BasicSink energy;
 	public Inventory inventory = new Inventory(7, "TileMatterFabricator", 64);
 	private int amplifier = 0;
 	public int progresstime = 0;
 
 	public TileMatterFabricator() {
-		//TODO configs
-		energy = new BasicSink(this, 10000000, 6);
+        super(6);
+        //TODO configs
 	}
 
 	@Override
@@ -70,26 +69,12 @@ public class TileMatterFabricator extends TileMachineBase implements IWrenchable
 	public void readFromNBT(NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
 		inventory.readFromNBT(tagCompound);
-		energy.readFromNBT(tagCompound);
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
 		inventory.writeToNBT(tagCompound);
-		energy.writeToNBT(tagCompound);
-	}
-
-	@Override
-	public void invalidate() {
-		energy.invalidate();
-		super.invalidate();
-	}
-
-	@Override
-	public void onChunkUnload() {
-		energy.onChunkUnload();
-		super.onChunkUnload();
 	}
 
 	@Override
@@ -177,7 +162,6 @@ public class TileMatterFabricator extends TileMachineBase implements IWrenchable
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		energy.updateEntity();
 
 		if (!super.worldObj.isRemote) {
 			for (int i = 0; i < 6; i++) {
@@ -185,19 +169,20 @@ public class TileMatterFabricator extends TileMachineBase implements IWrenchable
 				if (this.amplifier < 100000 && stack != null) {
 					int amp = (int) ((long) (getValue(stack) / 32));
 					if (ItemUtils.isItemEqual(stack, inventory.getStackInSlot(i), true, true)) {
-						if(energy.useEnergy(1)){
-							this.amplifier += amp;
-							inventory.decrStackSize(i, 1);
-						}
+                        if(canUseEnergy(1)){
+                            useEnergy(1);
+                            this.amplifier += amp;
+                            inventory.decrStackSize(i, 1);
+                        }
 					}
 				}
 			}
 
 			if (this.amplifier > 0) {
-				if (this.amplifier > this.energy.getEnergyStored()) {
-					this.progresstime += this.energy.getEnergyStored();
-					this.amplifier -= this.energy.getEnergyStored();
-					this.decreaseStoredEnergy(this.energy.getEnergyStored(), true);
+				if (this.amplifier > this.getEnergy()) {
+					this.progresstime += this.getEnergy();
+					this.amplifier -= this.getEnergy();
+					this.decreaseStoredEnergy(this.getEnergy(), true);
 				} else {
 					this.progresstime += this.amplifier;
 					this.decreaseStoredEnergy(this.amplifier, true);
@@ -228,12 +213,12 @@ public class TileMatterFabricator extends TileMachineBase implements IWrenchable
 
 
 	public boolean decreaseStoredEnergy(double aEnergy, boolean aIgnoreTooLessEnergy) {
-		if (energy.getEnergyStored() - aEnergy < 0 && !aIgnoreTooLessEnergy) {
+		if (this.getEnergy() - aEnergy < 0 && !aIgnoreTooLessEnergy) {
 			return false;
 		} else {
-			energy.setEnergyStored(energy.getEnergyStored() - aEnergy);
-			if (energy.getEnergyStored() < 0) {
-				energy.setEnergyStored(0);
+			setEnergy(this.getEnergy() - aEnergy);
+            if (this.getEnergy() < 0) {
+                setEnergy(0);
 				return false;
 			} else {
 				return true;
@@ -253,4 +238,28 @@ public class TileMatterFabricator extends TileMachineBase implements IWrenchable
 		return 0;
 	}
 
+    @Override
+    public double getMaxPower() {
+        return 100000000;
+    }
+
+    @Override
+    public boolean canAcceptEnergy(ForgeDirection direction) {
+        return true;
+    }
+
+    @Override
+    public boolean canProvideEnergy(ForgeDirection direction) {
+        return false;
+    }
+
+    @Override
+    public double getMaxOutput() {
+        return 0;
+    }
+
+    @Override
+    public double getMaxInput() {
+        return 4096;
+    }
 }
