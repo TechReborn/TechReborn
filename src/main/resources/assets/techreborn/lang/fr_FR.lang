@@ -786,8 +786,8 @@ config.techreborn.thermalGeneratorMaxCharge=Charge maximale du générateur ther
 config.techreborn.thermalGeneratorMaxCharge.tooltip=
 config.techreborn.aveargeEuOutTickTim=Temps de sortie d'EU
 config.techreborn.aveargeEuOutTickTime.tooltip=Combien de fois par tic mettre à jour l'UE 
-config.techreborn.euPerRF=EU par RF  
-onfig.techreborn.euPerRF.tooltip=Combien d'EU dans chaque RF  
+config.techreborn.euPerRF=Convertion des EU
+onfig.techreborn.euPerRF.tooltip=Quantité de RF pour 1 EU. Par défaut 4, donc 4RF == 1EU et .25EU == 1RF  
 
 #ConfigGui
 config.techreborn.category.general=Options générales
