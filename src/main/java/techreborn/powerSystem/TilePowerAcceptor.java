@@ -86,7 +86,7 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
 	public double getDemandedEnergy() {
 		if (!PowerSystem.EUPOWENET)
 			return 0;
-		return getMaxInput();
+		return getMaxPower() - getEnergy();
 	}
 
 	@Strippable("mod:IC2")
@@ -154,21 +154,21 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
 		if (!canAcceptEnergy(from)) {
 			return 0;
 		}
-		return (int) ((int) addEnergy(maxReceive, simulate) * PowerSystem.euPerRF);
+		return (int) ((int) addEnergy(maxReceive, simulate) / PowerSystem.euPerRF);
 	}
 
 	@Override
 	public int getEnergyStored(ForgeDirection from) {
 		if (!PowerSystem.RFPOWENET)
 			return 0;
-		return (int) ((int) getEnergy() * PowerSystem.euPerRF);
+		return (int) ((int) getEnergy() / PowerSystem.euPerRF);
 	}
 
 	@Override
 	public int getMaxEnergyStored(ForgeDirection from) {
 		if (!PowerSystem.RFPOWENET)
 			return 0;
-		return (int) ((int) getMaxPower() * PowerSystem.euPerRF);
+		return (int) ((int) getMaxPower() / PowerSystem.euPerRF);
 	}
 
 	@Override
@@ -178,7 +178,7 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
 		if (!canAcceptEnergy(from)) {
 			return 0;
 		}
-		return (int) ((int) useEnergy(maxExtract, simulate) * PowerSystem.euPerRF);
+		return (int) ((int) useEnergy(maxExtract, simulate) / PowerSystem.euPerRF);
 	}
 	//END COFH
 
@@ -186,7 +186,7 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
 
 	@Override
 	public double getEnergy() {
-		return energy;
+		return energy / PowerSystem.euPerRF;
 	}
 
 	@Override
@@ -263,8 +263,23 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
     @Override
     public void addWailaInfo(List<String> info) {
         super.addWailaInfo(info);
-        info.add("Energy buffer Size " + getMaxPower() + "eu");
-        info.add("Max Input " + getMaxInput() + "eu");
-        info.add("Max Output " + getMaxOutput() + "eu");
+        info.add("Energy buffer Size " + getEUString(getMaxPower()));
+        info.add("Max Input " + getEUString(getMaxInput()));
+        info.add("Max Output " + getEUString(getMaxOutput()));
+    }
+
+    private String getEUString(double euValue)
+    {
+        if (euValue >= 1000000) {
+            double tenX = Math.round(euValue / 100000);
+            return Double.toString(tenX / 10.0).concat(" m EU");
+        }
+        else if (euValue >= 1000) {
+            double tenX = Math.round(euValue / 100);
+            return Double.toString(tenX / 10.0).concat(" k EU");
+        }
+        else {
+            return Double.toString(Math.floor(euValue)).concat(" EU");
+        }
     }
 }
