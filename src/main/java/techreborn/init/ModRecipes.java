@@ -75,7 +75,7 @@ public class ModRecipes {
 					'A', "ingot" + name.substring(0, 1).toUpperCase() + name.substring(1));
 		}
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage, 1, 3),
+		CraftingHelper.addShapedOreRecipe(BlockStorage.getStorageBlockByName("sapphire"),
 				 "AAA", "AAA", "AAA",
 					'A', "gemSapphire");
 
@@ -83,9 +83,6 @@ public class ModRecipes {
 				 "AAA", "AAA", "AAA",
 					'A', "gemRuby");
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.storage, 1, 5),
-				 "AAA", "AAA", "AAA",
-					'A', "gemGreenSapphire");
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.parts, 1, 40),
 				"PLP", "RGB", "PYP",
