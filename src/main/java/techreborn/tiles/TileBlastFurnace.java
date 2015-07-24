@@ -25,9 +25,9 @@ import techreborn.util.Inventory;
 public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, IInventory, IEnergyTile, ISidedInventory {
 
 	public int tickTime;
-	public BasicSink energy;
 	public Inventory inventory = new Inventory(4, "TileBlastFurnace", 64);
 	public RecipeCrafter crafter;
+	public int capacity = 1000;
 	public static int euTick = 5;
 	
 	public TileBlastFurnace() {
@@ -46,7 +46,6 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 	public void updateEntity()
 	{
 		super.updateEntity();
-		energy.updateEntity();
 		crafter.updateEntity();
 	}
 
@@ -104,99 +103,6 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 		}
 		return 0;
 	}
-
-
-//	@Override
-//	public void updateEntity(){
-//		super.updateEntity();
-//		energy.updateEntity();
-//		if (getStackInSlot(0) != null && getStackInSlot(1) != null) {
-//			if (recipe == null) {
-//				for (BlastFurnaceRecipe furnaceRecipe : TechRebornAPI.blastFurnaceRecipes) {
-//					if (ItemUtils.isItemEqual(getStackInSlot(0), furnaceRecipe.getInput1(), true, true) && ItemUtils.isItemEqual(getStackInSlot(1), furnaceRecipe.getInput2(), true, true)) {
-//						recipe = furnaceRecipe;
-//					}
-//				}
-//			} else {
-//				if (!ItemUtils.isItemEqual(getStackInSlot(0), recipe.getInput1(), true, true) || !ItemUtils.isItemEqual(getStackInSlot(1), recipe.getInput2(), true, true)) {
-//					recipe = null;
-//					tickTime = 0;
-//					return;
-//				}
-//				if (tickTime >= recipe.getTickTime()) {
-//					//When both slots are empty
-//					if (getStackInSlot(2) == null && getStackInSlot(3) == null) {
-//						setInventorySlotContents(2, recipe.getOutput1());
-//						setInventorySlotContents(3, recipe.getOutput2());
-//						tickTime = 0;
-//						recipe = null;
-//					} else
-//					//When both are the same as the recipe
-//					if (ItemUtils.isItemEqual(getStackInSlot(2), recipe.getOutput1(), true, true) && ItemUtils.isItemEqual(getStackInSlot(3), recipe.getOutput2(), true, true) && !areBothOutputsFull()) {
-//						decrStackSize(2, -recipe.getOutput1().stackSize);
-//						decrStackSize(3, -recipe.getOutput2().stackSize);
-//						tickTime = 0;
-//						recipe = null;
-//					} else
-//					//When slot one has stuff and slot 2 is empty
-//					if (ItemUtils.isItemEqual(getStackInSlot(2), recipe.getOutput1(), true, true) && getStackInSlot(3) == null) {
-//						//Stops if the first slot if full
-//						if (recipe.getOutput1() != null
-//								&& getStackInSlot(2) != null
-//								&& getStackInSlot(2).stackSize
-//								+ recipe.getOutput1().stackSize > recipe
-//								.getOutput1().getMaxStackSize()) {
-//							return;
-//						}
-//						decrStackSize(2, recipe.getOutput1().stackSize);
-//						setInventorySlotContents(3, recipe.getOutput2());
-//						tickTime = 0;
-//						recipe = null;
-//					} else
-//					//When slot 2 has stuff and slot 1 is empty
-//					if (ItemUtils.isItemEqual(getStackInSlot(3), recipe.getInput2(), true, true) && getStackInSlot(2) == null) {
-//						if (recipe.getOutput2() != null
-//								&& getStackInSlot(3) != null
-//								&& getStackInSlot(3).stackSize
-//								+ recipe.getOutput2().stackSize > recipe
-//								.getOutput1().getMaxStackSize()) {
-//							return;
-//						}
-//						decrStackSize(3, recipe.getOutput2().stackSize);
-//						setInventorySlotContents(2, recipe.getOutput1());
-//						tickTime = 0;
-//						recipe = null;
-//					}
-//				} else if (getHeat() >= recipe.getMinHeat()) {
-//					if (energy.canUseEnergy(5)) {
-//						tickTime++;
-//						energy.useEnergy(5);
-//					}
-//				}
-//			}
-//		} else {
-//			recipe = null;
-//			tickTime = 0;
-//		}
-//	}
-//
-//	public boolean areBothOutputsFull() {
-//		if (recipe.getOutput1() != null
-//				&& getStackInSlot(2) != null
-//				&& getStackInSlot(2).stackSize
-//				+ recipe.getOutput1().stackSize > recipe
-//				.getOutput1().getMaxStackSize()) {
-//			return true;
-//		}
-//		if (recipe.getOutput2() != null
-//				&& getStackInSlot(3) != null
-//				&& getStackInSlot(3).stackSize
-//				+ recipe.getOutput2().stackSize > recipe
-//				.getOutput1().getMaxStackSize()) {
-//			return true;
-//		}
-//		return false;
-//	}
 
 	@Override
 	public int getSizeInventory() {
@@ -258,19 +164,6 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 		return inventory.isItemValidForSlot(p_94041_1_, p_94041_2_);
 	}
 
-    @Override
-    public void invalidate()
-    {
-        energy.invalidate();
-        super.invalidate();
-    }
-    @Override
-    public void onChunkUnload()
-    {
-        energy.onChunkUnload();
-        super.onChunkUnload();
-    }
-
 	public Packet getDescriptionPacket() {
 		NBTTagCompound nbtTag = new NBTTagCompound();
 		writeToNBT(nbtTag);
@@ -291,14 +184,12 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 		super.readFromNBT(tagCompound);
 		inventory.readFromNBT(tagCompound);
 		tickTime = tagCompound.getInteger("tickTime");
-		energy.readFromNBT(tagCompound);
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
 		inventory.writeToNBT(tagCompound);
-		energy.writeToNBT(tagCompound);
 		writeUpdateToNBT(tagCompound);
 	}
 
@@ -334,11 +225,6 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
         return 0;
     }
 
-    public int getEnergyScaled(int scale) {
-        return (int)energy.getEnergyStored() * scale / energy.getCapacity();
-    }
-
-
     @Override
     public double getMaxPower() {
         return 10000;
@@ -346,7 +232,7 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 
     @Override
     public boolean canAcceptEnergy(ForgeDirection direction) {
-        return false;
+        return true;
     }
 
     @Override
