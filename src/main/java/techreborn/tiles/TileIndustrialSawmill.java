@@ -26,7 +26,7 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
 
 	public int tickTime;
 	public Inventory inventory = new Inventory(5, "TileIndustrialSawmill", 64);
-	public Tank tank = new Tank("TileGrinder", 16000, this);
+	public Tank tank = new Tank("TileSawmill", 16000, this);
 	public RecipeCrafter crafter;
 	
 	public TileIndustrialSawmill()
