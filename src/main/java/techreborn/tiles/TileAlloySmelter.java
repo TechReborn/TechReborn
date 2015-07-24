@@ -11,6 +11,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.api.upgrade.UpgradeHandler;
 import techreborn.init.ModBlocks;
+import techreborn.lib.Reference;
 import techreborn.powerSystem.TilePowerAcceptor;
 import techreborn.util.Inventory;
 
@@ -30,7 +31,7 @@ public class TileAlloySmelter extends TilePowerAcceptor implements IWrenchable, 
 		inputs[1] = 1;
 		int[] outputs = new int[1];
 		outputs[0] = 2;
-		crafter = new RecipeCrafter("alloySmelterRecipe", this, 2, 1, inventory, inputs, outputs);
+		crafter = new RecipeCrafter(Reference.alloySmelteRecipe, this, 2, 1, inventory, inputs, outputs);
 		upgrades = new UpgradeHandler(crafter, inventory, 4, 5, 6, 7);
 	}
 	

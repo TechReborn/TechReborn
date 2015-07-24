@@ -5,6 +5,7 @@ import codechicken.nei.recipe.TemplateRecipeHandler;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.client.gui.GuiIndustrialElectrolyzer;
+import techreborn.lib.Reference;
 import techreborn.util.ItemUtils;
 
 import java.awt.*;
@@ -45,7 +46,7 @@ public class IndustrialElectrolyzerRecipeHandler extends GenericRecipeHander imp
 
 	@Override
 	public String getRecipeName() {
-		return "industrialElectrolyzerRecipe";
+		return Reference.industrialElectrolyzerRecipe;
 	}
 
 	@Override

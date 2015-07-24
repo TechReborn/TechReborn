@@ -5,6 +5,7 @@ import codechicken.nei.recipe.TemplateRecipeHandler;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.client.gui.GuiLathe;
+import techreborn.lib.Reference;
 import techreborn.util.ItemUtils;
 
 import java.awt.*;
@@ -27,7 +28,7 @@ public class LatheRecipeHandler extends GenericRecipeHander implements INeiBaseR
 
 	@Override
 	public String getRecipeName() {
-		return "latheRecipe";
+		return Reference.latheRecipe;
 	}
 
 	@Override

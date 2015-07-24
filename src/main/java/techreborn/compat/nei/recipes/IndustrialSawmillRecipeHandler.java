@@ -11,6 +11,7 @@ import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
 import techreborn.client.GuiUtil;
 import techreborn.client.gui.GuiIndustrialSawmill;
+import techreborn.lib.Reference;
 
 import java.awt.*;
 import java.util.List;
@@ -47,7 +48,7 @@ public class IndustrialSawmillRecipeHandler extends GenericRecipeHander implemen
 
 	@Override
 	public String getRecipeName() {
-		return "industrialSawmillRecipe";
+		return Reference.industrialSawmillRecipe;
 	}
 
 	@Override

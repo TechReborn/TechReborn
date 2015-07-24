@@ -7,6 +7,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.api.recipe.machines.BlastFurnaceRecipe;
 import techreborn.client.gui.GuiBlastFurnace;
+import techreborn.lib.Reference;
 import techreborn.util.ItemUtils;
 
 import java.awt.*;
@@ -39,7 +40,7 @@ public class BlastFurnaceRecipeHandler extends GenericRecipeHander implements IN
 
 	@Override
 	public String getRecipeName() {
-		return "blastFurnaceRecipe";
+		return Reference.blastFurnaceRecipe;
 	}
 
 	@Override

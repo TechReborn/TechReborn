@@ -800,7 +800,16 @@ config.techreborn.category.crafting=Crafting Configs
 config.techreborn.category.uu=UU Configs
 config.techreborn.category.emc=EMC Configs
 
-
+#Recipe Handlers
+techreborn.recipe.alloysmelter=Alloy Furnace Recipe
+techreborn.recipe.assemblingmachine=Assembling Machine Recipe
+techreborn.recipe.blastfurnace=Blast Furnace Recipe
+techreborn.recipe.centrifuge=Centrifuge Recipe
+techreborn.recipe.grinder=Industrial Grinder Recipe
+techreborn.recipe.industrialelectrolyzer=Industrial Electrolyzer Recipe
+techreborn.recipe.industrialsawmill=Industrial Sawmill Recipe
+techreborn.recipe.lathe=Lathe Recipe
+techreborn.recipe.platecuttingmachine=Plate Cutting Machine Recipe
 
 #Message
 techreborn.message.missingmultiblock=MISSING MULTIBLOCK

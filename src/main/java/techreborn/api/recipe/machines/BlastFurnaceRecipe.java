@@ -3,6 +3,7 @@ package techreborn.api.recipe.machines;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import techreborn.api.recipe.BaseRecipe;
+import techreborn.lib.Reference;
 import techreborn.tiles.TileBlastFurnace;
 
 public class BlastFurnaceRecipe extends BaseRecipe {
@@ -11,7 +12,7 @@ public class BlastFurnaceRecipe extends BaseRecipe {
 	public int neededHeat;
 
     public BlastFurnaceRecipe(ItemStack input1, ItemStack input2, ItemStack output1 , ItemStack output2, int tickTime, int euPerTick, int neededHeat) {
-        super("blastFurnaceRecipe", tickTime, euPerTick);
+        super(Reference.blastFurnaceRecipe, tickTime, euPerTick);
         if (input1 != null)
             inputs.add(input1);
         if (input2 != null)

@@ -10,6 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.init.ModBlocks;
+import techreborn.lib.Reference;
 import techreborn.powerSystem.TilePowerAcceptor;
 import techreborn.util.Inventory;
 
@@ -31,7 +32,7 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor implements IWr
 		outputs[1] = 3;
 		outputs[2] = 4;
 		outputs[3] = 5;
-		crafter = new RecipeCrafter("industrialElectrolyzerRecipe", this, 2, 4, inventory, inputs, outputs);
+		crafter = new RecipeCrafter(Reference.industrialElectrolyzerRecipe, this, 2, 4, inventory, inputs, outputs);
 	}
 	
 	@Override

@@ -13,6 +13,7 @@ import techreborn.api.recipe.RecipeCrafter;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.init.ModBlocks;
 import techreborn.lib.Location;
+import techreborn.lib.Reference;
 import techreborn.powerSystem.TilePowerAcceptor;
 import techreborn.util.Inventory;
 
@@ -31,7 +32,7 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
 		int[] outputs = new int[2];
 		outputs[0] = 2;
 		outputs[1] = 3;
-		crafter = new RecipeCrafter("implosionCompressorRecipe", this, 2, 2, inventory, inputs, outputs);
+		crafter = new RecipeCrafter(Reference.implosionCompressorRecipe, this, 2, 2, inventory, inputs, outputs);
 	}
 
 	@Override

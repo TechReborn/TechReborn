@@ -10,6 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.init.ModBlocks;
+import techreborn.lib.Reference;
 import techreborn.powerSystem.TilePowerAcceptor;
 import techreborn.util.Inventory;
 
@@ -28,7 +29,7 @@ public class TileLathe extends TilePowerAcceptor implements IWrenchable, IEnergy
 		inputs[0] = 0;
 		int[] outputs = new int[1];
 		outputs[0] = 1;
-		crafter = new RecipeCrafter("latheRecipe", this, 1, 1, inventory, inputs, outputs);
+		crafter = new RecipeCrafter(Reference.latheRecipe, this, 1, 1, inventory, inputs, outputs);
 	}
 
 	@Override

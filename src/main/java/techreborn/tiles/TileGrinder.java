@@ -16,6 +16,7 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModFluids;
 import techreborn.lib.Location;
+import techreborn.lib.Reference;
 import techreborn.powerSystem.TilePowerAcceptor;
 import techreborn.util.Inventory;
 import techreborn.util.Tank;
@@ -39,7 +40,7 @@ public class TileGrinder extends TilePowerAcceptor implements IWrenchable, IEner
 		outputs[1] = 3;
 		outputs[2] = 4;
 		outputs[3] = 5;
-		crafter = new RecipeCrafter("grinderRecipe", this, 1, 4, inventory, inputs, outputs);
+		crafter = new RecipeCrafter(Reference.grinderRecipe, this, 1, 4, inventory, inputs, outputs);
 	}
 
 	@Override

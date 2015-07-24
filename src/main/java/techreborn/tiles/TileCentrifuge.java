@@ -11,6 +11,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
+import techreborn.lib.Reference;
 import techreborn.powerSystem.TilePowerAcceptor;
 import techreborn.util.Inventory;
 
@@ -37,7 +38,7 @@ public class TileCentrifuge extends TilePowerAcceptor implements  IWrenchable, I
 		outputs[2] = 4;
 		outputs[3] = 5;
 
-		crafter = new RecipeCrafter("centrifugeRecipe", this, 2, 4, inventory, inputs, outputs);
+		crafter = new RecipeCrafter(Reference.centrifugeRecipe, this, 2, 4, inventory, inputs, outputs);
 	}
 	
 	@Override

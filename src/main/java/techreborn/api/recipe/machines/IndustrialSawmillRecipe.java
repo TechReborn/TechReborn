@@ -4,6 +4,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.FluidStack;
 import techreborn.api.recipe.BaseRecipe;
+import techreborn.lib.Reference;
 import techreborn.tiles.TileIndustrialSawmill;
 
 public class IndustrialSawmillRecipe extends BaseRecipe {
@@ -13,7 +14,7 @@ public class IndustrialSawmillRecipe extends BaseRecipe {
     public boolean canUseOreDict = false;
 
     public IndustrialSawmillRecipe(ItemStack input1, ItemStack input2, FluidStack fluidStack, ItemStack output1, ItemStack output2, ItemStack output3, int tickTime, int euPerTick) {
-        super("industrialSawmillRecipe", tickTime, euPerTick);
+        super(Reference.industrialSawmillRecipe, tickTime, euPerTick);
         if (input1 != null)
             inputs.add(input1);
         if (input2 != null)

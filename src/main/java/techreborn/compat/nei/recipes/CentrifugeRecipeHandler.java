@@ -5,6 +5,7 @@ import codechicken.nei.recipe.TemplateRecipeHandler;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.client.gui.GuiCentrifuge;
+import techreborn.lib.Reference;
 import techreborn.util.ItemUtils;
 
 import java.awt.*;
@@ -46,7 +47,7 @@ public class CentrifugeRecipeHandler extends GenericRecipeHander implements INei
 
 	@Override
 	public String getRecipeName() {
-		return "centrifugeRecipe";
+		return Reference.centrifugeRecipe;
 	}
 
 	@Override

@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.FluidStack;
 import techreborn.api.recipe.BaseRecipe;
+import techreborn.lib.Reference;
 import techreborn.tiles.TileGrinder;
 
 public class GrinderRecipe extends BaseRecipe {
@@ -12,7 +13,7 @@ public class GrinderRecipe extends BaseRecipe {
     public FluidStack fluidStack;
 
     public GrinderRecipe(ItemStack input1, ItemStack input2, FluidStack fluidStack, ItemStack output1, ItemStack output2, ItemStack output3, ItemStack output4, int tickTime, int euPerTick) {
-        super("grinderRecipe", tickTime, euPerTick);
+        super(Reference.grinderRecipe, tickTime, euPerTick);
         if (input1 != null)
             inputs.add(input1);
         if( input2 != null)

@@ -5,6 +5,7 @@ import codechicken.nei.recipe.TemplateRecipeHandler;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.client.gui.GuiChemicalReactor;
+import techreborn.lib.Reference;
 import techreborn.util.ItemUtils;
 
 import java.awt.*;
@@ -32,7 +33,7 @@ public class ChemicalReactorRecipeHandler extends GenericRecipeHander implements
 
 	@Override
 	public String getRecipeName() {
-		return "chemicalReactorRecipe";
+		return Reference.chemicalReactorRecipe;
 	}
 
 	@Override

@@ -5,6 +5,7 @@ import codechicken.nei.recipe.TemplateRecipeHandler;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.client.gui.GuiPlateCuttingMachine;
+import techreborn.lib.Reference;
 import techreborn.util.ItemUtils;
 
 import java.awt.*;
@@ -26,7 +27,7 @@ public class PlateCuttingMachineRecipeHandler extends GenericRecipeHander implem
 
 	@Override
 	public String getRecipeName() {
-		return "plateCuttingMachineRecipe";
+		return Reference.plateCuttingMachineRecipe;
 	}
 
 	@Override

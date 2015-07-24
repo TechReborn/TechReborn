@@ -11,6 +11,7 @@ import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.api.recipe.machines.GrinderRecipe;
 import techreborn.client.GuiUtil;
 import techreborn.client.gui.GuiGrinder;
+import techreborn.lib.Reference;
 import techreborn.util.ItemUtils;
 
 import java.awt.*;
@@ -54,7 +55,7 @@ public class GrinderRecipeHandler extends GenericRecipeHander implements INeiBas
 
 	@Override
 	public String getRecipeName() {
-		return "grinderRecipe";
+		return Reference.grinderRecipe;
 	}
 
 	@Override

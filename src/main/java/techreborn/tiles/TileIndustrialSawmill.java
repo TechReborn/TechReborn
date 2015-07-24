@@ -15,6 +15,7 @@ import techreborn.blocks.BlockMachineCasing;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModFluids;
 import techreborn.lib.Location;
+import techreborn.lib.Reference;
 import techreborn.powerSystem.TilePowerAcceptor;
 import techreborn.util.Inventory;
 import techreborn.util.Tank;
@@ -40,7 +41,7 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
 		outputs[0] = 2;
 		outputs[1] = 3;
 		outputs[2] = 4;
-		crafter = new RecipeCrafter("industrialSawmillRecipe", this, 2, 3, inventory, inputs, outputs);
+		crafter = new RecipeCrafter(Reference.industrialSawmillRecipe, this, 2, 3, inventory, inputs, outputs);
 	}
 	
 	@Override
