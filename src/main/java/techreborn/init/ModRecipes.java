@@ -606,7 +606,7 @@ public class ModRecipes {
 
 		RecipeHandler.addRecipe(new BlastFurnaceRecipe(new ItemStack(Blocks.iron_ore), ItemDusts.getDustByName("calcite"), new ItemStack(Items.iron_ingot, 3), ItemDusts.getDustByName("darkAshes"), 140, 120, 15000));
 
-		RecipeHandler.addRecipe(new BlastFurnaceRecipe(BlockOre.getOreByName("pyrite"), ItemDusts.getDustByName("calcite"), new ItemStack(Items.iron_ingot, 2), ItemDusts.getDustByName("darkAshes"), 140, 120, 15000));
+		RecipeHandler.addRecipe(new BlastFurnaceRecipe(new ItemStack(ModBlocks.ore, 1, 5), ItemDusts.getDustByName("calcite"), new ItemStack(Items.iron_ingot, 2), ItemDusts.getDustByName("darkAshes"), 140, 120, 15000));
 	}
 	
 	static void addUUrecipes() {
