@@ -1,12 +1,18 @@
 package techreborn.items;
 
+import ic2.api.item.IC2Items;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidContainerItem;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModItems;
+import techreborn.util.LogHelper;
 
 import java.util.List;
 
@@ -15,16 +21,18 @@ public class ItemCells extends ItemTR {
     //TODO recode this only using the ic2 api
 	public static ItemStack getCellByName(String name, int count)
 	{
-//        ItemFluidCell itemFluidCell = (ItemFluidCell) Ic2Items.FluidCell.getItem();
-//        Fluid fluid = FluidRegistry.getFluid("fluid" + name.toLowerCase());
-//        if(fluid != null){
-//            ItemStack stack = Ic2Items.FluidCell.copy();
-//            itemFluidCell.fill(stack, new FluidStack(fluid.getID(), 2147483647), true);
-//			stack.stackSize = count;
-//            return stack;
-//        } else {
-//            LogHelper.error("Could not find " + "fluid" + name + " in the fluid registry!");
-//        }
+        Fluid fluid = FluidRegistry.getFluid("fluid" + name.toLowerCase());
+        if(fluid != null){
+            ItemStack stack = IC2Items.getItem("FluidCell").copy();
+            if(stack != null && stack.getItem() instanceof IFluidContainerItem){
+                IFluidContainerItem containerItem = (IFluidContainerItem)stack.getItem();
+                containerItem.fill(stack, new FluidStack(fluid.getID(), 2147483647), true);
+                stack.stackSize = count;
+                return stack;
+            }
+        } else {
+            LogHelper.error("Could not find " + "fluid" + name + " in the fluid registry!");
+        }
         int index = -1;
         for (int i = 0; i < types.length; i++) {
             if (types[i].equals(name)) {
