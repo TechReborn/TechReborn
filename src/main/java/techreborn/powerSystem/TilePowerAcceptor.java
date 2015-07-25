@@ -268,7 +268,7 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
     }
 
     public int getEnergyScaled(int scale) {
-        return (int)(getEnergy() * scale / getMaxPower());
+        return (int) ((getEnergyStored(ForgeDirection.UNKNOWN) * scale / getMaxEnergyStored(ForgeDirection.UNKNOWN)) * PowerSystem.euPerRF);
     }
 
     @Override
