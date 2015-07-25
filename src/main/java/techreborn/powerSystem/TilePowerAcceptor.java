@@ -144,7 +144,7 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
 	public boolean canConnectEnergy(ForgeDirection from) {
 		if (!PowerSystem.RFPOWENET)
 			return false;
-		return canAcceptEnergy(from);
+		return canAcceptEnergy(from) || canProvideEnergy(from);
 	}
 
 	@Override
@@ -154,7 +154,12 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
 		if (!canAcceptEnergy(from)) {
 			return 0;
 		}
-		return (int) ((int) addEnergy(maxReceive, simulate) / PowerSystem.euPerRF);
+        int energyReceived = Math.min(getMaxEnergyStored(ForgeDirection.UNKNOWN) - getEnergyStored(ForgeDirection.UNKNOWN), Math.min((int)this.getMaxInput(), maxReceive));
+
+        if (!simulate) {
+            energy += energyReceived;
+        }
+        return energyReceived;
 	}
 
 	@Override
@@ -178,6 +183,7 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
 		if (!canAcceptEnergy(from)) {
 			return 0;
 		}
+        maxExtract *= PowerSystem.euPerRF;
 		return (int) ((int) useEnergy(maxExtract, simulate) / PowerSystem.euPerRF);
 	}
 	//END COFH

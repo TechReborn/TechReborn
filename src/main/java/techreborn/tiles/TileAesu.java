@@ -7,6 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
+import techreborn.lib.Functions;
 import techreborn.powerSystem.TilePowerAcceptor;
 import techreborn.util.Inventory;
 
@@ -153,12 +154,12 @@ public class TileAesu extends TilePowerAcceptor implements IWrenchable {
 
     @Override
     public boolean canAcceptEnergy(ForgeDirection direction) {
-        return true;
+        return worldObj.getBlockMetadata(xCoord, yCoord, zCoord) != Functions.getIntDirFromDirection(direction);
     }
 
     @Override
     public boolean canProvideEnergy(ForgeDirection direction) {
-        return true;
+        return worldObj.getBlockMetadata(xCoord, yCoord, zCoord) == Functions.getIntDirFromDirection(direction);
     }
 
     @Override
