@@ -46,6 +46,7 @@ public class GuiCentrifuge extends GuiContainer {
         }
 
         j = centrifuge.getEnergyScaled(12);
+
         if(j > 0) {
             this.drawTexturedModalRect(k + 9, l + 32 + 12 - j, 176, 12 - j, 14, j + 2);
         }

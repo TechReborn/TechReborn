@@ -25,7 +25,7 @@ public abstract class RFProviderTile extends TileMachineBase implements IEnergyR
 		sendPower();
 	}
 
-	public void sendPower() {//TODO fix this
+	public void sendPower() {
 		if (!PowerSystem.RFPOWENET) {
 			return;
 		}

@@ -16,12 +16,15 @@ public class GuiIndustrialElectrolyzer extends GuiContainer {
 
 	TileIndustrialElectrolyzer eletrolyzer;
 
+    ContainerIndustrialElectrolyzer containerIndustrialElectrolyzer;
+
 	public GuiIndustrialElectrolyzer(EntityPlayer player, TileIndustrialElectrolyzer tileeletrolyzer)
 	{
 		super(new ContainerIndustrialElectrolyzer(tileeletrolyzer, player));
 		this.xSize = 176;
 		this.ySize = 167;
 		eletrolyzer = tileeletrolyzer;
+        containerIndustrialElectrolyzer = (ContainerIndustrialElectrolyzer) this.inventorySlots;
 	}
 	
     @Override

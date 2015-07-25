@@ -18,7 +18,6 @@ import java.util.List;
 
 public class ItemCells extends ItemTR {
 
-    //TODO recode this only using the ic2 api
 	public static ItemStack getCellByName(String name, int count)
 	{
         Fluid fluid = FluidRegistry.getFluid("fluid" + name.toLowerCase());
