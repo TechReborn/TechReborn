@@ -10,7 +10,7 @@ public final class TechRebornAPI {
 		RollingMachineRecipe.instance.addRecipe(output, components);
 	}
 
-	public void addShapelessRollingMachinceRecipe(ItemStack output,
+	public static void addShapelessRollingMachinceRecipe(ItemStack output,
 			Object... components)
 	{
 		RollingMachineRecipe.instance.addShapelessRecipe(output, components);

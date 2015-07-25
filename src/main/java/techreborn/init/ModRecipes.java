@@ -3,11 +3,13 @@ package techreborn.init;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.ArrayUtils;
+import techreborn.api.TechRebornAPI;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.AlloySmelterRecipe;
 import techreborn.api.recipe.machines.AssemblingMachineRecipe;
@@ -238,6 +240,8 @@ public class ModRecipes {
 				'I', "plateIron",
 				'A', "plateAluminum");
 
+
+        TechRebornAPI.addShapelessRollingMachinceRecipe(new ItemStack(Items.diamond), new ItemStack(Blocks.dirt));
 
 	}
 
