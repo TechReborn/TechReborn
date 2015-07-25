@@ -328,7 +328,7 @@ public class RecipeCrafter {
 
 	public void syncIsActive() {
 		if (!parentTile.getWorldObj().isRemote) {
-			PacketHandler.sendPacketToAllPlayers(parentTile.getDescriptionPacket(),
+			PacketHandler.sendPacketToAllPlayers(getSyncPacket(),
 					parentTile.getWorldObj());
 		}
 	}
