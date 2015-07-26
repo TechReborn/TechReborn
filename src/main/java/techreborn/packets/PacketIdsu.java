@@ -66,6 +66,6 @@ public class PacketIdsu extends AbstractPacket {
     @Override
     public void handleServerSide(EntityPlayer player) {
         idsu = (TileIDSU) player.getEntityWorld().getTileEntity(x, y, z);
-        idsu.handleGuiInputFromClient(buttonID, channel, player, newName);
+        idsu.handleGuiInputFromClient(buttonID);
     }
 }

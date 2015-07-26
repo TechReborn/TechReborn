@@ -34,11 +34,8 @@ public class TechRebornDevCommand extends CommandBase {
 			sender.addChatMessage(new ChatComponentText("You need to use arguments, see /trdev help"));
 		} else if ("help".equals(args[0])) {
 			sender.addChatMessage(new ChatComponentText("recipes 	- Shows size of the recipe array"));
-			sender.addChatMessage(new ChatComponentText("idsu 		- Resyncs the idsu server instance to the senders client"));
 		} else if ("recipes".equals(args[0])) {
 			sender.addChatMessage(new ChatComponentText(RecipeHandler.recipeList.size() + " recipes loaded"));
-		} else if ("idsu".equals(args[0])){
-            Core.packetPipeline.sendTo(IDSUManager.INSTANCE.getPacket(sender.getEntityWorld()), (EntityPlayerMP) sender);
 		}
 	}
 }

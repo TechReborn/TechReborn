@@ -122,7 +122,6 @@ public class PacketPipeline extends MessageToMessageCodec<FMLProxyPacket, Abstra
 
     private void registerPackets() {
         registerPacket(PacketIdsu.class);
-        registerPacket(PacketSendIDSUManager.class);
     }
 
     // Method to call from FMLPostInitializationEvent

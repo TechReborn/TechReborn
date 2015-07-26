@@ -9,54 +9,56 @@ import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.Core;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
+import techreborn.lib.Functions;
 import techreborn.powerSystem.TilePowerAcceptor;
 
 public class TileIDSU extends TilePowerAcceptor {
 
-	public int channelID = 0;
+	public String ownerUdid;
 
-	public void handleGuiInputFromClient(int buttonID, int channel, EntityPlayer player, String name) {
-		if (buttonID == 4) {
-			channelID = channel;
-			IDSUManager.INSTANCE.getSaveDataForWorld(worldObj, channel).name = name;
-			IDSUManager.INSTANCE.getWorldDataFormWorld(worldObj).save();
-			if (worldObj.isRemote) {
-                Core.packetPipeline.sendTo(IDSUManager.INSTANCE.getPacket(worldObj), (EntityPlayerMP) player);
-            }
-		}
-	}
-
+    @Override
 	public double getEnergy() {
-		return IDSUManager.INSTANCE.getSaveDataForWorld(worldObj, channelID).storedPower;
-	}
-
-	public void setEnergy(double energy) {
-		IDSUManager.INSTANCE.getSaveDataForWorld(worldObj, channelID).storedPower = energy;
+		return IDSUManager.INSTANCE.getSaveDataForWorld(worldObj, ownerUdid).storedPower;
 	}
 
     @Override
+	public void setEnergy(double energy) {
+		IDSUManager.INSTANCE.getSaveDataForWorld(worldObj, ownerUdid).storedPower = energy;
+	}
+
+    @Override
+    public void readFromNBTWithoutCoords(NBTTagCompound tag) {
+
+    }
+
+    @Override
+    public void writeToNBTWithoutCoords(NBTTagCompound tag) {
+
+    }
+
+    @Override
     public double getMaxPower() {
-        return 0;
+        return 1000000000;
     }
 
     @Override
     public boolean canAcceptEnergy(ForgeDirection direction) {
-        return false;
+        return worldObj.getBlockMetadata(xCoord, yCoord, zCoord) != Functions.getIntDirFromDirection(direction);
     }
 
     @Override
     public boolean canProvideEnergy(ForgeDirection direction) {
-        return false;
+        return worldObj.getBlockMetadata(xCoord, yCoord, zCoord) == Functions.getIntDirFromDirection(direction);
     }
 
     @Override
     public double getMaxOutput() {
-        return 0;
+        return output;
     }
 
     @Override
     public double getMaxInput() {
-        return 0;
+        return maxStorage;
     }
 
     public int tier;
@@ -88,12 +90,12 @@ public class TileIDSU extends TilePowerAcceptor {
 
 	public void readFromNBT(NBTTagCompound nbttagcompound) {
 		super.readFromNBT(nbttagcompound);
-		this.channelID = nbttagcompound.getInteger("channel");
+		this.ownerUdid = nbttagcompound.getString("ownerUdid");
 	}
 
 	public void writeToNBT(NBTTagCompound nbttagcompound) {
 		super.writeToNBT(nbttagcompound);
-		nbttagcompound.setInteger("channel", this.channelID);
+		nbttagcompound.setString("ownerUdid", this.ownerUdid);
 	}
 
 	public void updateEntity() {
@@ -105,13 +107,13 @@ public class TileIDSU extends TilePowerAcceptor {
 
 		} else {
 			ticks++;
-			euChange += getStored() - euLastTick;
-			if (euLastTick == getStored()) {
+			euChange += getEnergy() - euLastTick;
+			if (euLastTick == getEnergy()) {
 				euChange = 0;
 			}
 		}
 
-		euLastTick = getStored();
+		euLastTick = getEnergy();
 
 		boolean needsInvUpdate = false;
 
@@ -122,50 +124,10 @@ public class TileIDSU extends TilePowerAcceptor {
 
 	}
 
-	public boolean acceptsEnergyFrom(TileEntity emitter, ForgeDirection direction) {
-		return false;
-	}
-
-	public boolean emitsEnergyTo(TileEntity receiver, ForgeDirection direction) {
-		return false;
-	}
-
-	public void drawEnergy(double amount) {
-		setEnergy(getEnergy() - amount);
-	}
-
-	public double getDemandedEnergy() {
-		return (double) this.maxStorage - this.getEnergy();
-	}
-
-	public double injectEnergy(ForgeDirection directionFrom, double amount, double voltage) {
-		if (this.getEnergy() >= (double) this.maxStorage) {
-			return amount;
-		} else {
-			setEnergy(this.getEnergy() + amount);
-			return 0.0D;
-		}
-	}
-
-	public int getSourceTier() {
-		return this.tier;
-	}
-
-	public int getSinkTier() {
-		return this.tier;
-	}
-
-
-	public void onGuiClosed(EntityPlayer entityPlayer) {
-	}
-
 	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
 		return false;
 	}
 
-	public void setFacing(short facing) {
-
-	}
 
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
 		NBTTagCompound tileEntity = new NBTTagCompound();
@@ -176,34 +138,6 @@ public class TileIDSU extends TilePowerAcceptor {
 		return dropStack;
 	}
 
-	public int getStored() {
-		return (int) this.getEnergy();
-	}
-
-	public int getCapacity() {
-		return (int) this.maxStorage;
-	}
-
-	public int getOutput() {
-		return this.output;
-	}
-
-	public double getOutputEnergyUnitsPerTick() {
-		return (double) this.output;
-	}
-
-	public void setStored(int energy1) {
-		setEnergy(energy1);
-	}
-
-	public int addEnergy(int amount) {
-		setEnergy(getEnergy() + amount);
-		return amount;
-	}
-
-	public boolean isTeleporterCompatible(ForgeDirection side) {
-		return true;
-	}
 
 	public double getEuChange() {
 		if (euChange == -1) {
@@ -211,4 +145,25 @@ public class TileIDSU extends TilePowerAcceptor {
 		}
 		return (euChange / ticks);
 	}
+
+    public void handleGuiInputFromClient(int id){
+        if(id == 0){
+            output += 256;
+        }
+        if(id == 1){
+            output += 64;
+        }
+        if(id == 2){
+            output -= 64;
+        }
+        if(id == 3){
+            output -= 256;
+        }
+        if(output > 4096){
+            output = 4096;
+        }
+        if(output <= -1){
+            output = 0;
+        }
+    }
 }

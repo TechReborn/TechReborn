@@ -58,9 +58,6 @@ public class ContainerIDSU extends TechRebornContainer {
 			if (this.euChange != tile.getEuChange() && tile.getEuChange() != -1) {
 				icrafting.sendProgressBarUpdate(this, 2, (int) tile.getEuChange());
 			}
-			if (this.channel != tile.channelID) {
-				icrafting.sendProgressBarUpdate(this, 3, tile.channelID);
-			}
 		}
 	}
 
@@ -70,7 +67,6 @@ public class ContainerIDSU extends TechRebornContainer {
 		crafting.sendProgressBarUpdate(this, 0, tile.output);
 		crafting.sendProgressBarUpdate(this, 1, (int) tile.getEnergy());
 		crafting.sendProgressBarUpdate(this, 2, (int) tile.getEuChange());
-		crafting.sendProgressBarUpdate(this, 3, tile.channelID);
 	}
 
 	@SideOnly(Side.CLIENT)

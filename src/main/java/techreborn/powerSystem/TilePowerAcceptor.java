@@ -99,7 +99,7 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
 	@Strippable("mod:IC2")
 	@Override
 	public double injectEnergy(ForgeDirection directionFrom, double amount, double voltage) {
-		energy += amount;
+        setEnergy(getEnergy() + amount);
 		return 0;
 	}
 
@@ -159,7 +159,7 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
         int energyReceived = Math.min(getMaxEnergyStored(ForgeDirection.UNKNOWN) - getEnergyStored(ForgeDirection.UNKNOWN), Math.min((int)this.getMaxInput() * ConfigTechReborn.euPerRF, maxReceive));
 
         if (!simulate) {
-            energy += energyReceived;
+            setEnergy(getEnergy() + energyReceived);
         }
         return energyReceived / ConfigTechReborn.euPerRF;
 	}
@@ -189,7 +189,7 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
         int energyExtracted = Math.min(getEnergyStored(ForgeDirection.UNKNOWN), Math.min(maxExtract, maxExtract));
 
         if (!simulate) {
-            energy -= energyExtracted;
+            setEnergy(energy - energyExtracted);
         }
         return energyExtracted / ConfigTechReborn.euPerRF;
 	}
@@ -206,10 +206,10 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
 	public void setEnergy(double energy) {
 		this.energy = energy;
 
-		if (this.energy > getMaxPower()) {
-			this.energy = getMaxPower();
+		if (this.getEnergy() > getMaxPower()) {
+			this.setEnergy(getMaxPower());
 		} else if (this.energy < 0) {
-			this.energy = 0;
+            this.setEnergy(0);
 		}
 	}
 
@@ -223,7 +223,7 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
 		double energyReceived = Math.min(getMaxPower() - energy, Math.min(this.getMaxPower(), energy));
 
 		if (!simulate) {
-			this.energy += energyReceived;
+            setEnergy(energy + energyReceived);
 		}
 		return energyReceived;
 	}
@@ -243,7 +243,7 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
 		double energyExtracted = Math.min(energy, Math.min(this.getMaxOutput(), energy));
 
 		if (!simulate) {
-			this.energy -= energyExtracted;
+            setEnergy(energy - energyExtracted);
 		}
 		return energyExtracted;
 	}

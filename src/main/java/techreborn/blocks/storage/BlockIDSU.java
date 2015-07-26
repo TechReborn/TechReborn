@@ -66,9 +66,6 @@ public class BlockIDSU extends BlockMachineBase {
 	public boolean onBlockActivated(World world, int x, int y, int z,
 									EntityPlayer player, int side, float hitX, float hitY, float hitZ)
 	{
-		if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER){
-			Core.packetPipeline.sendTo(IDSUManager.INSTANCE.getPacket(world), (EntityPlayerMP) player);
-		}
 		if (!player.isSneaking())
 			player.openGui(Core.INSTANCE, GuiHandler.idsuID, world, x, y,
 					z);
@@ -80,7 +77,8 @@ public class BlockIDSU extends BlockMachineBase {
 		super.onBlockPlacedBy(world, x, y, z, player, itemstack);
 		TileEntity tile = world.getTileEntity(x, y, z);
 		if(tile instanceof TileIDSU){
-			((TileIDSU) tile).setFacing((short) world.getBlockMetadata(x, y, z));
-		}
+            ((TileIDSU) tile).ownerUdid = player.getUniqueID().toString();
+            System.out.println(((TileIDSU) tile).ownerUdid);
+        }
 	}
 }

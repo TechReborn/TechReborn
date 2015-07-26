@@ -8,7 +8,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraftforge.event.world.WorldEvent;
-import techreborn.packets.PacketSendIDSUManager;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -57,7 +56,7 @@ public class IDSUManager {
 		worldData.clear();
 	}
 
-	public IDSUValueSaveData getSaveDataForWorld(World world, int channel) {
+	public IDSUValueSaveData getSaveDataForWorld(World world, String channel) {
 		if (worldData.containsKey(world)) {
 			return worldData.get(world).getSaves(channel);
 		} else {
@@ -80,14 +79,6 @@ public class IDSUManager {
 		}
 	}
 
-	public PacketSendIDSUManager getPacket(World world) {
-		Gson gson = new Gson();
-		String json = gson.toJson(getWorldDataFormWorld(world).idsuValues);
-		if (getWorldDataFormWorld(world).idsuValues.isEmpty()) {
-			json = "EMPTY";
-		}
-		return new PacketSendIDSUManager(json);
-	}
 
 	public void loadFromString(String json, World world) {
 		if (json.equals("EMPTY")) {
@@ -110,7 +101,7 @@ public class IDSUManager {
 
 	public class IDSUWorldSaveData {
 
-		public TreeMap<Integer, IDSUValueSaveData> idsuValues = new TreeMap<Integer, IDSUValueSaveData>();
+		public TreeMap<String, IDSUValueSaveData> idsuValues = new TreeMap<String, IDSUValueSaveData>();
 
 		public World world;
 
@@ -127,12 +118,12 @@ public class IDSUManager {
 			file = new File(folder, savename);
 		}
 
-		public IDSUValueSaveData getSaves(int i) {
-			if (idsuValues.containsKey(i)) {
-				return idsuValues.get(i);
+		public IDSUValueSaveData getSaves(String udid) {
+			if (idsuValues.containsKey(udid)) {
+				return idsuValues.get(udid);
 			} else {
 				IDSUValueSaveData data = new IDSUValueSaveData();
-				idsuValues.put(i, data);
+				idsuValues.put(udid, data);
 				return data;
 			}
 		}
