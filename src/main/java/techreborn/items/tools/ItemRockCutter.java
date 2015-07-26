@@ -58,7 +58,7 @@ public class ItemRockCutter extends ItemPickaxe implements IElectricItem {
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList){
 		ItemStack itemStack = new ItemStack(this, 1);
-		if (getChargedItem(itemStack) == this){
+		if (getChargedItem(itemStack) == this && ElectricItem.manager != null){
 			ItemStack charged = new ItemStack(this, 1);
 			ElectricItem.manager.charge(charged, 2147483647, 2147483647, true,
 					false);

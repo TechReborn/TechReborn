@@ -21,16 +21,18 @@ public class ItemCells extends ItemTR {
 	public static ItemStack getCellByName(String name, int count)
 	{
         Fluid fluid = FluidRegistry.getFluid("fluid" + name.toLowerCase());
-        if(fluid != null){
-            ItemStack stack = IC2Items.getItem("FluidCell").copy();
-            if(stack != null && stack.getItem() instanceof IFluidContainerItem){
-                IFluidContainerItem containerItem = (IFluidContainerItem)stack.getItem();
-                containerItem.fill(stack, new FluidStack(fluid.getID(), 2147483647), true);
-                stack.stackSize = count;
-                return stack;
+        if(IC2Items.getItem("FluidCell") != null){
+            if(fluid != null){
+                ItemStack stack = IC2Items.getItem("FluidCell").copy();
+                if(stack != null && stack.getItem() instanceof IFluidContainerItem){
+                    IFluidContainerItem containerItem = (IFluidContainerItem)stack.getItem();
+                    containerItem.fill(stack, new FluidStack(fluid.getID(), 2147483647), true);
+                    stack.stackSize = count;
+                    return stack;
+                }
+            } else {
+                LogHelper.error("Could not find " + "fluid" + name + " in the fluid registry!");
             }
-        } else {
-            LogHelper.error("Could not find " + "fluid" + name + " in the fluid registry!");
         }
         int index = -1;
         for (int i = 0; i < types.length; i++) {

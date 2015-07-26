@@ -41,7 +41,7 @@ public class ChargeHud
 		
 		if (mc.inGameHasFocus || (mc.currentScreen != null && mc.gameSettings.showDebugInfo))
 		{
-			if (ConfigTechReborn.ShowChargeHud)
+			if (ConfigTechReborn.ShowChargeHud && ElectricItem.manager != null)
 				drawChargeHud(event.resolution);	
 		}
 	}

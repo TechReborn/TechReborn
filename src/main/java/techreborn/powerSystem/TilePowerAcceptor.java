@@ -156,7 +156,7 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
 			return 0;
 		}
         maxReceive *= ConfigTechReborn.euPerRF;
-        int energyReceived = Math.min(getMaxEnergyStored(ForgeDirection.UNKNOWN) - getEnergyStored(ForgeDirection.UNKNOWN), Math.min((int)this.getMaxInput(), maxReceive));
+        int energyReceived = Math.min(getMaxEnergyStored(ForgeDirection.UNKNOWN) - getEnergyStored(ForgeDirection.UNKNOWN), Math.min((int)this.getMaxInput() * ConfigTechReborn.euPerRF, maxReceive));
 
         if (!simulate) {
             energy += energyReceived;
