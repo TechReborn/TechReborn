@@ -50,7 +50,9 @@ public class ItemRockCutter extends ItemPickaxe implements IElectricItem {
 	@Override
 	public void addInformation(ItemStack iS, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
 	{
-			par3List.add(Color.WHITE + "Silk Touch I");
+		if(!iS.isItemEnchanted()){
+            par3List.add(Color.WHITE + "Silk Touch I");
+        }
 	}
 
 	@SuppressWarnings(
@@ -75,7 +77,15 @@ public class ItemRockCutter extends ItemPickaxe implements IElectricItem {
 		return Items.diamond_pickaxe.canHarvestBlock(block, stack);
 	}
 
-	@Override
+    @Override
+    public float func_150893_a(ItemStack stack, Block block) {
+        if(!stack.isItemEnchanted()){
+            stack.addEnchantment(Enchantment.silkTouch, 1);
+        }
+        return super.func_150893_a(stack, block);
+    }
+
+    @Override
 	public boolean isRepairable(){
 		return false;
 	}
