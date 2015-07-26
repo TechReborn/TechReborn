@@ -16,6 +16,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.api.power.IEnergyInterfaceTile;
 import techreborn.asm.Strippable;
+import techreborn.config.ConfigTechReborn;
 
 import java.util.List;
 
@@ -154,26 +155,27 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
 		if (!canAcceptEnergy(from)) {
 			return 0;
 		}
+        maxReceive *= ConfigTechReborn.euPerRF;
         int energyReceived = Math.min(getMaxEnergyStored(ForgeDirection.UNKNOWN) - getEnergyStored(ForgeDirection.UNKNOWN), Math.min((int)this.getMaxInput(), maxReceive));
 
         if (!simulate) {
             energy += energyReceived;
         }
-        return energyReceived;
+        return energyReceived / ConfigTechReborn.euPerRF;
 	}
 
 	@Override
 	public int getEnergyStored(ForgeDirection from) {
 		if (!PowerSystem.RFPOWENET)
 			return 0;
-		return (int) ((int) getEnergy() / PowerSystem.euPerRF);
+		return ((int) getEnergy() / ConfigTechReborn.euPerRF);
 	}
 
 	@Override
 	public int getMaxEnergyStored(ForgeDirection from) {
 		if (!PowerSystem.RFPOWENET)
 			return 0;
-		return (int) ((int) getMaxPower() / PowerSystem.euPerRF);
+		return ((int) getMaxPower() / ConfigTechReborn.euPerRF);
 	}
 
 	@Override
@@ -183,8 +185,13 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
 		if (!canAcceptEnergy(from)) {
 			return 0;
 		}
-        maxExtract *= PowerSystem.euPerRF;
-		return (int) ((int) useEnergy(maxExtract, simulate) / PowerSystem.euPerRF);
+        maxExtract *= ConfigTechReborn.euPerRF;
+        int energyExtracted = Math.min(getEnergyStored(ForgeDirection.UNKNOWN), Math.min(maxExtract, maxExtract));
+
+        if (!simulate) {
+            energy -= energyExtracted;
+        }
+        return energyExtracted / ConfigTechReborn.euPerRF;
 	}
 	//END COFH
 
@@ -192,7 +199,7 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
 
 	@Override
 	public double getEnergy() {
-		return energy / PowerSystem.euPerRF;
+		return energy;
 	}
 
 	@Override
@@ -274,7 +281,7 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
     }
 
     public int getEnergyScaled(int scale) {
-        return (int) ((getEnergyStored(ForgeDirection.UNKNOWN) * scale / getMaxEnergyStored(ForgeDirection.UNKNOWN)) * PowerSystem.euPerRF);
+        return (int) ((getEnergyStored(ForgeDirection.UNKNOWN) * scale / getMaxEnergyStored(ForgeDirection.UNKNOWN)) * ConfigTechReborn.euPerRF);
     }
 
     @Override
