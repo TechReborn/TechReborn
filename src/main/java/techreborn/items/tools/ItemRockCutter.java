@@ -76,6 +76,15 @@ public class ItemRockCutter extends ItemPickaxe implements IElectricItem {
 	public boolean canHarvestBlock(Block block, ItemStack stack){
 		return Items.diamond_pickaxe.canHarvestBlock(block, stack);
 	}
+    
+    @Override
+    public int getHarvestLevel(ItemStack stack, String toolClass)
+    {
+        if(!stack.isItemEnchanted()){
+            stack.addEnchantment(Enchantment.silkTouch, 1);
+        }
+        return  super.getHarvestLevel(stack, toolClass);
+    }
 
     @Override
     public float func_150893_a(ItemStack stack, Block block) {
