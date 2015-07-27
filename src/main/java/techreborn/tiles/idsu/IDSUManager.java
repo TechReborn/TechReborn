@@ -135,7 +135,7 @@ public class IDSUManager {
 			try {
 				Gson gson = new Gson();
 				BufferedReader reader = new BufferedReader(new FileReader(file));
-				Type typeOfHashMap = new TypeToken<TreeMap<Integer, IDSUValueSaveData>>() {
+				Type typeOfHashMap = new TypeToken<TreeMap<String, IDSUValueSaveData>>() {
 				}.getType();
 				idsuValues.clear();
 				idsuValues = gson.fromJson(reader, typeOfHashMap);
@@ -175,14 +175,6 @@ public class IDSUManager {
 	public class IDSUValueSaveData {
 
 		public double storedPower = 0;
-
-		public String name = "";
-
-		public IDSUValueSaveData(double storedPower, String name) {
-			this.storedPower = storedPower;
-			this.name = name;
-		}
-
 
 		public IDSUValueSaveData(double storedPower) {
 			this.storedPower = storedPower;
