@@ -2,6 +2,7 @@ package techreborn.api.recipe;
 
 import net.minecraft.item.ItemStack;
 import org.apache.commons.lang3.time.StopWatch;
+import techreborn.api.recipe.recipeConfig.RecipeConfigManager;
 import techreborn.util.ItemUtils;
 import techreborn.util.LogHelper;
 
@@ -59,6 +60,9 @@ public class RecipeHandler {
             return;
         }
         if (recipeList.contains(recipe)) {
+            return;
+        }
+        if(!RecipeConfigManager.canLoadRecipe(recipe)){
             return;
         }
         if (!machineNames.contains(recipe.getRecipeName())) {

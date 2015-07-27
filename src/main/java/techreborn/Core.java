@@ -17,6 +17,8 @@ import net.minecraftforge.common.MinecraftForge;
 import org.apache.commons.lang3.time.StopWatch;
 import techreborn.achievement.TRAchievements;
 import techreborn.api.recipe.RecipeHandler;
+import techreborn.api.recipe.recipeConfig.RecipeConfig;
+import techreborn.api.recipe.recipeConfig.RecipeConfigManager;
 import techreborn.client.GuiHandler;
 import techreborn.command.TechRebornDevCommand;
 import techreborn.compat.CompatManager;
@@ -60,6 +62,8 @@ public class Core {
 		for(ICompatModule compatModule : CompatManager.INSTANCE.compatModules){
 			compatModule.preInit(event);
 		}
+
+        RecipeConfigManager.load(event.getModConfigurationDirectory());
 	}
 
 	@Mod.EventHandler
@@ -114,6 +118,8 @@ public class Core {
 		LogHelper.info(RecipeHandler.recipeList.size() + " recipes loaded");
 
 //        RecipeHandler.scanForDupeRecipes();
+
+        RecipeConfigManager.save();
 	}
 
 	@Mod.EventHandler
