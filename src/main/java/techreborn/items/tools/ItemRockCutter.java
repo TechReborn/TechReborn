@@ -76,7 +76,7 @@ public class ItemRockCutter extends ItemPickaxe implements IElectricItem {
 	public boolean canHarvestBlock(Block block, ItemStack stack){
 		return Items.diamond_pickaxe.canHarvestBlock(block, stack);
 	}
-
+    
     @Override
     public int getHarvestLevel(ItemStack stack, String toolClass)
     {
