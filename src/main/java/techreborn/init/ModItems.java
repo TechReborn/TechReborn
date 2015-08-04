@@ -14,6 +14,7 @@ import techreborn.items.*;
 import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
 import techreborn.items.tools.ItemAdvancedDrill;
+import techreborn.items.tools.ItemCloakingDevice;
 import techreborn.items.tools.ItemFluidbucket;
 import techreborn.items.tools.ItemHammer;
 import techreborn.items.tools.ItemOmniTool;
@@ -44,6 +45,7 @@ public class ModItems {
 	public static Item rods;
 	public static Item crushedOre;
 	public static Item purifiedCrushedOre;
+	public static Item cloakingDevice;
 	
 	public static Item bucketBerylium;
 	public static Item bucketcalcium;
@@ -131,6 +133,9 @@ public class ModItems {
 
         farmPatten = new ItemFarmPatten();
         GameRegistry.registerItem(farmPatten, "farmPatten");
+        
+        cloakingDevice = new ItemCloakingDevice();
+        GameRegistry.registerItem(cloakingDevice, "cloakingdevice");
 		
 		// buckets
 		bucketBerylium = new ItemFluidbucket(ModFluids.BlockFluidBerylium);
