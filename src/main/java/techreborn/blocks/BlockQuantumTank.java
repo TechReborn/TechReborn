@@ -23,6 +23,7 @@ public class BlockQuantumTank extends BlockMachineBase {
 	{
 		super(Material.rock);
 		setBlockName("techreborn.quantumTank");
+		setHardness(2.0F);
 	}
 
 	@Override
@@ -32,12 +33,10 @@ public class BlockQuantumTank extends BlockMachineBase {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z,
-			EntityPlayer player, int side, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
 	{
 		if (!player.isSneaking())
-			player.openGui(Core.INSTANCE, GuiHandler.quantumTankID, world, x,
-					y, z);
+			player.openGui(Core.INSTANCE, GuiHandler.quantumTankID, world, x, y, z);
 		return true;
 	}
 

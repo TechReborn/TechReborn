@@ -34,6 +34,7 @@ public class BlockQuantumChest extends BlockContainer {
 		super(Material.rock);
 		setBlockName("techreborn.quantumChest");
 		setCreativeTab(TechRebornCreativeTab.instance);
+		setHardness(2.0F);
 	}
 	@Override
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
