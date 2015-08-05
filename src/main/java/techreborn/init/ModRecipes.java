@@ -167,9 +167,16 @@ public class ModRecipes {
 
 		for(String name : ArrayUtils.addAll(BlockStorage.types, BlockStorage2.types))	{
 			try {
-				CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName(name, 9),
-						"A  ", "   ", "   ",
-						'A', "block" + name.substring(0, 1).toUpperCase() + name.substring(1));
+				ItemStack item = ItemIngots.getIngotByName(name, 9);
+				if(item == null){
+					item = ItemGems.getGemByName(name, 9);
+				}
+				if(item == null){
+					continue;
+				}
+
+				GameRegistry.addShapelessRecipe(BlockStorage.getStorageBlockByName(name), item);
+				GameRegistry.addShapelessRecipe(item, BlockStorage.getStorageBlockByName(name));
 			}
 			catch (Exception e) {
 				//Iridium reinforced tungstensteel, etc.
@@ -192,9 +199,9 @@ public class ModRecipes {
 					'A', ItemDustsTiny.getTinyDustByName(name));
 		}
 
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.gems, 9, 1), "blockSapphire");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.gems, 9, 0), "blockRuby");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.gems, 9, 2), "blockGreenSapphire");
+//		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.gems, 9, 1), "blockSapphire");
+//		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.gems, 9, 0), "blockRuby");
+//		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.gems, 9, 2), "blockGreenSapphire");
 
 		LogHelper.info("Shapless Recipes Added");
 	}
