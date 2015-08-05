@@ -1,6 +1,5 @@
 package techreborn.client.gui;
 
-import codechicken.lib.gui.GuiDraw;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.I18n;
@@ -79,7 +78,7 @@ public class GuiIndustrialSawmill extends GuiContainer {
 		
         if(sawmill.getMutliBlock() != true)
         {
-    		GuiDraw.drawTooltipBox(k + 30, l + 50 + 12 - 0, 114, 10);
+    		GuiUtil.drawTooltipBox(k + 30, l + 50 + 12 - 0, 114, 10);
     		this.fontRendererObj.drawString(ModInfo.MISSING_MULTIBLOCK, k + 38, l + 52 + 12 - 0, -1);
         }
 

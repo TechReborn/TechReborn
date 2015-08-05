@@ -1,11 +1,11 @@
 package techreborn.client.gui;
 
-import codechicken.lib.gui.GuiDraw;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import techreborn.client.GuiUtil;
 import techreborn.client.container.ContainerBlastFurnace;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.TileBlastFurnace;
@@ -45,7 +45,7 @@ public class GuiBlastFurnace extends GuiContainer {
 		
         if(containerBlastFurnace.heat == 0)
         {
-    		GuiDraw.drawTooltipBox(k + 30, l + 50 + 12 - 0, 114, 10);
+    		GuiUtil.drawTooltipBox(k + 30, l + 50 + 12 - 0, 114, 10);
     		this.fontRendererObj.drawString(ModInfo.MISSING_MULTIBLOCK, k + 38, l + 52 + 12 - 0, -1);
         }
 
