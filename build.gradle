@@ -146,7 +146,6 @@ jar {
         attributes 'FMLCorePluginContainsFMLMod': 'true'
     }
     exclude "**/*.psd"
-    appendix = 'universal'
     classifier = 'universal'
 }
 
