@@ -215,7 +215,7 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
 
 	@Override
 	public double addEnergy(double energy) {
-		return addEnergy(energy, true);
+		return addEnergy(energy, false);
 	}
 
 	@Override
@@ -229,21 +229,21 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
 	}
 
 	@Override
-	public boolean canUseEnergy(double energy) {
-		return this.energy >= energy;
+	public boolean canUseEnergy(double input) {
+		return input <= energy;
 	}
 
 	@Override
 	public double useEnergy(double energy) {
-		return useEnergy(energy, true);
+		return useEnergy(energy, false);
 	}
 
 	@Override
-	public double useEnergy(double energy, boolean simulate) {
-		double energyExtracted = Math.min(energy, Math.min(this.getMaxOutput(), energy));
+	public double useEnergy(double extract, boolean simulate) {
+		double energyExtracted = Math.max(extract, Math.max(this.getMaxOutput(), extract));
 
 		if (!simulate) {
-            setEnergy(energy - energyExtracted);
+			setEnergy(energy - energyExtracted);
 		}
 		return energyExtracted;
 	}
