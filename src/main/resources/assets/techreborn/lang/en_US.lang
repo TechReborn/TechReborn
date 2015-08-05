@@ -665,6 +665,7 @@ item.techreborn.part.destructoPack.name=Destructopack
 item.techreborn.part.iridiumNeutronReflector.name=Iridium Neutron Reflector
 item.techreborn.part.massHoleDevice.name=Mass Hole Device
 item.techreborn.part.computerMonitor.name=Computer Monitor
+item.techreborn.part.machineParts.name=Machine Parts
 
 
 #Tools

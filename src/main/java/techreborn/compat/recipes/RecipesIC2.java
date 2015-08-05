@@ -60,7 +60,7 @@ public class RecipesIC2 implements ICompatModule {
     public void addTRRecipes(){
         //General
         CraftingHelper.addShapedOreRecipe(
-                new ItemStack(ModItems.parts, 16, 13),
+				ItemParts.getPartByName("machineParts", 16),
                 "CSC", "SCS", "CSC",
                 'S', "ingotSteel",
                 'C', IC2Items.getItem("electronicCircuit"));
@@ -416,7 +416,11 @@ public class RecipesIC2 implements ICompatModule {
         RecipeHandler.addRecipe(new AssemblingMachineRecipe(ItemPlates.getPlateByName("aluminum", 4), IC2Items.getItem("generator"), IC2Items.getItem("waterMill"), 120, 5));
 
 
-        //CentrifugeRecipes
+		RecipeHandler.addRecipe(new AssemblingMachineRecipe(ItemPlates.getPlateByName("aluminum", 4), IC2Items.getItem("generator"), IC2Items.getItem("waterMill"), 120, 5));
+
+
+
+		//CentrifugeRecipes
 
         //Plantball/Bio Chaff
         RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Blocks.grass, 16), null, new ItemStack(IC2Items.getItem("biochaff").getItem(), 8), new ItemStack(IC2Items.getItem("plantBall").getItem(), 8), new ItemStack(Items.clay_ball), new ItemStack(Blocks.sand, 8), 2500, 5));

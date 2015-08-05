@@ -12,10 +12,22 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.init.ModBlocks;
 
+import java.security.InvalidParameterException;
 import java.util.List;
 
 public class BlockMachineFrame extends Block {
+
+	public static ItemStack getFrameByName(String name, int count)
+	{
+		for (int i = 0; i < types.length; i++) {
+			if (types[i].equalsIgnoreCase(name)) {
+				return new ItemStack(ModBlocks.machineframe, count, i);
+			}
+		}
+		throw new InvalidParameterException("The part " + name + " could not be found.");
+	}
 
     public static final String[] types = new String[]
             { "aluminum", "iron", "bronze", "brass", "steel", "titanium" };

@@ -22,6 +22,7 @@ import techreborn.api.recipe.machines.IndustrialElectrolyzerRecipe;
 import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
 import techreborn.api.recipe.machines.LatheRecipe;
 import techreborn.api.recipe.machines.PlateCuttingMachineRecipe;
+import techreborn.blocks.BlockMachineFrame;
 import techreborn.blocks.BlockOre;
 import techreborn.blocks.BlockStorage;
 import techreborn.blocks.BlockStorage2;
@@ -913,6 +914,12 @@ public class ModRecipes {
 		//Basic Circuit Board
 		RecipeHandler.addRecipe(new AssemblingMachineRecipe(ItemPlates.getPlateByName("aluminum", 1), ItemPlates.getPlateByName("electrum", 2), ItemParts.getPartByName("basicCircuitBoard", 2), 120, 5));
 		RecipeHandler.addRecipe(new AssemblingMachineRecipe(ItemPlates.getPlateByName("iron", 1), ItemPlates.getPlateByName("electrum", 2), ItemParts.getPartByName("basicCircuitBoard", 2), 120, 5));
+
+
+		for(String type : BlockMachineFrame.types){
+			RecipeHandler.addRecipe(new AssemblingMachineRecipe(ItemParts.getPartByName("machineParts", 1), ItemPlates.getPlateByName(type, 8), BlockMachineFrame.getFrameByName(type, 1), 400, 8));
+		}
+
 	}
 
 	static void addIndustrialCentrifugeRecipes() {
