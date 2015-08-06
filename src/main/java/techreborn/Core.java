@@ -35,6 +35,7 @@ import techreborn.packets.PacketPipeline;
 import techreborn.proxies.CommonProxy;
 import techreborn.tiles.idsu.IDSUManager;
 import techreborn.util.LogHelper;
+import techreborn.util.VersionChecker;
 import techreborn.world.TROreGen;
 
 import java.io.File;
@@ -51,6 +52,8 @@ public class Core {
 
     public static final PacketPipeline packetPipeline = new PacketPipeline();
 
+	public VersionChecker versionChecker;
+
 	@Mod.EventHandler
 	public void preinit(FMLPreInitializationEvent event){
 		INSTANCE = this;
@@ -58,12 +61,15 @@ public class Core {
 				.replace(ModInfo.MOD_ID, "TechReborn");
 
 		config = ConfigTechReborn.initialize(new File(path));
-		LogHelper.info("PreInitialization Complete");
+
 		for(ICompatModule compatModule : CompatManager.INSTANCE.compatModules){
 			compatModule.preInit(event);
 		}
 
         RecipeConfigManager.load(event.getModConfigurationDirectory());
+		versionChecker = new VersionChecker("TechReborn");
+		versionChecker.checkVersionThreaded();
+		LogHelper.info("PreInitialization Complete");
 	}
 
 	@Mod.EventHandler
