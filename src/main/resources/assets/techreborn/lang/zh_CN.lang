@@ -1,4 +1,4 @@
-itemGroup.techreborn=科技重生
+itemGroup.techreborn=Tech Reborn
 
 #机器
 tile.techreborn.gasTurbine.name=燃气发电机
@@ -36,7 +36,7 @@ tile.techreborn.lesu.name=LESU
 tile.techreborn.supercondensator.name=超级电容
 tile.techreborn.woodenshelf.name=木制货架
 tile.techreborn.metalshelf.name=金属货架
-tile.techreborn.lesustorage.name=LESU方块
+tile.techreborn.lesustorage.name=LESU
 tile.techreborn.distillationtower.name=蒸馏塔
 tile.techreborn.electriccraftingtable.name=电动工作台
 tile.techreborn.vacuumfreezer.name=真空冷冻器
@@ -105,8 +105,8 @@ tile.techreborn.farm.name=Farm
 
 
 #流体
-tile.techreborn.berylium.name=熔融铍
-tile.techreborn.calcium.name=熔融钙
+tile.techreborn.berylium.name=液态铍
+tile.techreborn.calcium.name=液态钙
 tile.techreborn.calciumcarbonate.name=熔融碳酸钙
 tile.techreborn.chlorite.name=亚氯酸盐
 tile.techreborn.deuterium.name=氘
@@ -115,19 +115,19 @@ tile.techreborn.helium.name=氦
 tile.techreborn.helium3.name=氦-3
 tile.techreborn.heliumplasma.name=等离子氦
 tile.techreborn.hydrogen.name=氢
-tile.techreborn.lithium.name=熔融锂
+tile.techreborn.lithium.name=液态锂
 tile.techreborn.mercury.name=汞
 tile.techreborn.methane.name=甲烷
 tile.techreborn.nitrocoalfuel.name=硝基煤油
 tile.techreborn.nitrofuel.name=硝基燃油
 tile.techreborn.nitrogen.name=氮
 tile.techreborn.nitrogendioxide.name=二氧化氮
-tile.techreborn.potassium.name=熔融钾
-tile.techreborn.silicon.name=熔融硅
-tile.techreborn.sodium.name=熔融钠
+tile.techreborn.potassium.name=液态钾
+tile.techreborn.silicon.name=液态硅
+tile.techreborn.sodium.name=液态钠
 tile.techreborn.sodiumpersulfate.name=过硫酸钠
 tile.techreborn.tritium.name=氚
-tile.techreborn.wolframium.name=熔融钨
+tile.techreborn.wolframium.name=液态钨
 fluid.fluid.fluidberylium=铍
 fluid.fluid.fluidcalcium=钙
 fluid.fluid.fluidcalciumcarbonate=碳酸钙
@@ -638,9 +638,9 @@ item.techreborn.part.tungstenGrindingHead.name=钨研磨头
 item.techreborn.part.heliumCoolantSimple.name=60k氦冷却单元
 item.techreborn.part.HeliumCoolantTriple.name=180k氦冷却单元
 item.techreborn.part.HeliumCoolantSix.name=360k氦冷却单元
-item.techreborn.part.NaKCoolantSimple.name=60k纳钾冷却单元
-item.techreborn.part.NaKCoolantTriple.name=180k纳钾冷却单元
-item.techreborn.part.NaKCoolantSix.name=360k纳钾冷却单元
+item.techreborn.part.NaKCoolantSimple.name=60k钠钾冷却单元
+item.techreborn.part.NaKCoolantTriple.name=180k钠钾冷却单元
+item.techreborn.part.NaKCoolantSix.name=360k钠钾冷却单元
 item.techreborn.part.cupronickelHeatingCoil.name=白铜加热线圈
 item.techreborn.part.nichromeHeatingCoil.name=镍铬合金加热线圈
 item.techreborn.part.kanthalHeatingCoil.name=坝塔尔合金加热线圈
