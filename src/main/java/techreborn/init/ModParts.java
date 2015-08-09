@@ -15,7 +15,7 @@ public class ModParts {
 
     public static void init() {
         if (Loader.isModLoaded("IC2")) {
-            for (int i = 0; i < 13; i++) {
+            for (int i = 0; i < 11; i++) {
                 CablePart part = new CablePart();
                 part.setType(i);
                 ModPartRegistry.registerPart(part);

@@ -65,7 +65,7 @@ tile.techreborn.ore.Bauxite.name=Bauxite Ore
 tile.techreborn.ore.Pyrite.name=Pyrite Ore
 tile.techreborn.ore.Cinnabar.name=Cinnabar Ore
 tile.techreborn.ore.Sphalerite.name=Sphalerite Ore
-tile.techreborn.ore.Tungsten.name=Tungsten Ore
+tile.techreborn.ore.Tungston.name=Tungsten Ore
 tile.techreborn.ore.Sheldonite.name=Sheldonite Ore
 tile.techreborn.ore.Peridot.name=Peridot Ore
 tile.techreborn.ore.Sodalite.name=Sodalite Ore
@@ -239,6 +239,8 @@ item.techreborn.dust.voidstone.name=Voidstone Dust
 item.techreborn.dust.yellowGarnet.name=Yellow Garnet Dust
 item.techreborn.dust.zinc.name=Zinc Dust
 item.techreborn.dust.galena.name=Galena Dust
+item.techreborn.dust.greenSapphire.name=Green Sapphire Dust
+item.techreborn.dust.sawDust.name=Saw Dust
 
 
 #Small Dusts
@@ -701,6 +703,9 @@ item.bucketsodiumpersulfate.name=Sodiumpersulfate Bucket
 item.buckettritium.name=Tritium Bucket
 item.bucketwolframium.name=Wolframium Bucket
 
+#Items
+item.techreborn.uuMatter.name=UU-Matter
+item.techreborn.pda.name=PDA
 
 #Configs
 config.techreborn.allow.galenaOre=Allow Galena Ore
@@ -814,3 +819,17 @@ techreborn.recipe.platecuttingmachine=Plate Cutting Machine Recipe
 
 #Message
 techreborn.message.missingmultiblock=MISSING MULTIBLOCK
+
+#Cables
+Cable.copperCable.name=Copper Cable
+Cable.insulatedCopperCable.name=Insulated Copper Cable
+Cable.goldCable.name=Gold Cable
+Cable.insulatedGoldCable.name=Insulated Copper Cable
+Cable.doubleInsulatedGoldCable.name=Double Insulated Copper Cable
+Cable.ironCable.name=Iron Cable
+Cable.copperCable.name=Copper Cable
+Cable.insulatedIronCable.name=Insulated Iron Cable
+Cable.doubleInsulatedIronCable.name=Double Insulated Copper Cable
+Cable.trippleInsulatedIronCable.name=Tipple Insulated Copper Cable
+Cable.glassFiberCable.name=Glass Fiber Cable
+Cable.tinCable.name=Tin Cable
