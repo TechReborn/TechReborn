@@ -13,46 +13,42 @@ import java.util.Random;
 
 public class BlockMagicEnergyConverter extends BlockMachineBase {
 
-	@SideOnly(Side.CLIENT)
-	private IIcon iconFront;
+    @SideOnly(Side.CLIENT)
+    private IIcon iconFront;
 
-	@SideOnly(Side.CLIENT)
-	private IIcon iconTop;
+    @SideOnly(Side.CLIENT)
+    private IIcon iconTop;
 
-	@SideOnly(Side.CLIENT)
-	private IIcon iconBottom;
+    @SideOnly(Side.CLIENT)
+    private IIcon iconBottom;
 
-	public BlockMagicEnergyConverter(Material material)
-	{
-		super(material);
-		setBlockName("techreborn.magicenergyconverter");
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister icon)
-	{
-		this.blockIcon = icon.registerIcon("techreborn:machine/magic_energy_converter_side");
-		this.iconFront = icon.registerIcon("techreborn:machine/magic_energy_converter_front_off");
-		this.iconTop = icon.registerIcon("techreborn:machine/magic_energy_converter_top");
-		this.iconBottom = icon.registerIcon("techreborn:machine/magic_energy_converter_bottom");
-	}
+    public BlockMagicEnergyConverter(Material material) {
+        super(material);
+        setBlockName("techreborn.magicenergyconverter");
+    }
 
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int metadata)
-	{
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerBlockIcons(IIconRegister icon) {
+        this.blockIcon = icon.registerIcon("techreborn:machine/magic_energy_converter_side");
+        this.iconFront = icon.registerIcon("techreborn:machine/magic_energy_converter_front_off");
+        this.iconTop = icon.registerIcon("techreborn:machine/magic_energy_converter_top");
+        this.iconBottom = icon.registerIcon("techreborn:machine/magic_energy_converter_bottom");
+    }
 
-		return metadata == 0 && side == 3 ? this.iconFront
-				: side == 1 ? this.iconTop : 
-					side == 0 ? this.iconBottom: (side == 0 ? this.iconTop
-						: (side == metadata ? this.iconFront : this.blockIcon));
+    @SideOnly(Side.CLIENT)
+    public IIcon getIcon(int side, int metadata) {
 
-	}
-	
-	@Override
-	public Item getItemDropped(int meta, Random random, int fortune)
-	{
-		return IC2Items.getItem("machine").getItem();
-	}
+        return metadata == 0 && side == 3 ? this.iconFront
+                : side == 1 ? this.iconTop :
+                side == 0 ? this.iconBottom : (side == 0 ? this.iconTop
+                        : (side == metadata ? this.iconFront : this.blockIcon));
+
+    }
+
+    @Override
+    public Item getItemDropped(int meta, Random random, int fortune) {
+        return IC2Items.getItem("machine").getItem();
+    }
 
 }

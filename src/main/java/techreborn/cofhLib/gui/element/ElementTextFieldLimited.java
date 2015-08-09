@@ -1,19 +1,16 @@
 package techreborn.cofhLib.gui.element;
 
-public class ElementTextFieldLimited extends ElementTextField
-{
+public class ElementTextFieldLimited extends ElementTextField {
 
     protected boolean includeVanilla = true;
     protected String filter;
 
-    public ElementTextFieldLimited(techreborn.cofhLib.gui.GuiBase gui, int posX, int posY, int width, int height)
-    {
+    public ElementTextFieldLimited(techreborn.cofhLib.gui.GuiBase gui, int posX, int posY, int width, int height) {
 
         super(gui, posX, posY, width, height);
     }
 
-    public ElementTextFieldLimited(techreborn.cofhLib.gui.GuiBase gui, int posX, int posY, int width, int height, short limit)
-    {
+    public ElementTextFieldLimited(techreborn.cofhLib.gui.GuiBase gui, int posX, int posY, int width, int height, short limit) {
 
         super(gui, posX, posY, width, height, limit);
     }
@@ -23,8 +20,7 @@ public class ElementTextFieldLimited extends ElementTextField
      * @param includeVanilla Include vanilla disallowed characters
      * @return this
      */
-    public ElementTextFieldLimited setFilter(String pattern, boolean includeVanilla)
-    {
+    public ElementTextFieldLimited setFilter(String pattern, boolean includeVanilla) {
 
         filter = pattern;
         this.includeVanilla = includeVanilla;
@@ -32,8 +28,7 @@ public class ElementTextFieldLimited extends ElementTextField
     }
 
     @Override
-    public boolean isAllowedCharacter(char charTyped)
-    {
+    public boolean isAllowedCharacter(char charTyped) {
 
         return (!includeVanilla || super.isAllowedCharacter(charTyped)) && (filter == null || filter.indexOf(charTyped) >= 0);
     }

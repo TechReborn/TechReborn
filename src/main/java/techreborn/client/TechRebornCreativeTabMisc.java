@@ -6,17 +6,15 @@ import techreborn.init.ModItems;
 
 public class TechRebornCreativeTabMisc extends CreativeTabs {
 
-	public static TechRebornCreativeTabMisc instance = new TechRebornCreativeTabMisc();
+    public static TechRebornCreativeTabMisc instance = new TechRebornCreativeTabMisc();
 
-	public TechRebornCreativeTabMisc()
-	{
-		super("techreborn");
-	}
+    public TechRebornCreativeTabMisc() {
+        super("techreborn");
+    }
 
-	@Override
-	public Item getTabIconItem()
-	{
-		return ModItems.cells;
-	}
+    @Override
+    public Item getTabIconItem() {
+        return ModItems.cells;
+    }
 
 }

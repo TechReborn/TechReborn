@@ -15,8 +15,7 @@ public class ContainerLesu extends TechRebornContainer {
     TileLesu tile;
 
     @Override
-    public boolean canInteractWith(EntityPlayer player)
-    {
+    public boolean canInteractWith(EntityPlayer player) {
         return true;
     }
 
@@ -27,8 +26,7 @@ public class ContainerLesu extends TechRebornContainer {
     public double euStorage;
 
     public ContainerLesu(TileLesu tileaesu,
-                         EntityPlayer player)
-    {
+                         EntityPlayer player) {
         tile = tileaesu;
         this.player = player;
 
@@ -38,17 +36,14 @@ public class ContainerLesu extends TechRebornContainer {
 
         int i;
 
-        for (i = 0; i < 3; ++i)
-        {
-            for (int j = 0; j < 9; ++j)
-            {
+        for (i = 0; i < 3; ++i) {
+            for (int j = 0; j < 9; ++j) {
                 this.addSlotToContainer(new Slot(player.inventory, j + i * 9
                         + 9, 7 + j * 16, 84 + i * 18 + 30));
             }
         }
 
-        for (i = 0; i < 9; ++i)
-        {
+        for (i = 0; i < 9; ++i) {
             this.addSlotToContainer(new Slot(player.inventory, i, 7 + i * 16,
                     142 + 30));
         }
@@ -58,17 +53,17 @@ public class ContainerLesu extends TechRebornContainer {
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
         for (int i = 0; i < this.crafters.size(); i++) {
-            ICrafting icrafting = (ICrafting)this.crafters.get(i);
-            if(this.euOut != tile.getMaxOutput()){
+            ICrafting icrafting = (ICrafting) this.crafters.get(i);
+            if (this.euOut != tile.getMaxOutput()) {
                 icrafting.sendProgressBarUpdate(this, 0, (int) tile.getMaxOutput());
             }
-            if(this.storedEu != tile.getEnergy()){
+            if (this.storedEu != tile.getEnergy()) {
                 icrafting.sendProgressBarUpdate(this, 1, (int) tile.getEnergy());
             }
-            if(this.euChange != tile.getEuChange() && tile.getEuChange() != -1){
+            if (this.euChange != tile.getEuChange() && tile.getEuChange() != -1) {
                 icrafting.sendProgressBarUpdate(this, 2, (int) tile.getEuChange());
             }
-            if(this.connectedBlocks != tile.connectedBlocks){
+            if (this.connectedBlocks != tile.connectedBlocks) {
                 icrafting.sendProgressBarUpdate(this, 3, tile.connectedBlocks);
             }
         }
@@ -79,22 +74,22 @@ public class ContainerLesu extends TechRebornContainer {
         super.addCraftingToCrafters(crafting);
         crafting.sendProgressBarUpdate(this, 0, (int) tile.getMaxOutput());
         crafting.sendProgressBarUpdate(this, 1, (int) tile.getEnergy());
-        crafting.sendProgressBarUpdate(this, 2 , (int) tile.getEuChange());
-        crafting.sendProgressBarUpdate(this, 3 , tile.connectedBlocks);
+        crafting.sendProgressBarUpdate(this, 2, (int) tile.getEuChange());
+        crafting.sendProgressBarUpdate(this, 3, tile.connectedBlocks);
     }
 
     @SideOnly(Side.CLIENT)
     @Override
     public void updateProgressBar(int id, int value) {
-        if(id == 0){
+        if (id == 0) {
             this.euOut = value;
-        } else if(id == 1){
+        } else if (id == 1) {
             this.storedEu = value;
-        } else if(id == 2){
+        } else if (id == 2) {
             this.euChange = value;
-        } else if(id == 3){
+        } else if (id == 3) {
             this.connectedBlocks = value;
-        } else if(id == 4){
+        } else if (id == 4) {
             this.euStorage = value;
         }
         this.euStorage = ((connectedBlocks + 1) * ConfigTechReborn.lesuStoragePerBlock);

@@ -17,20 +17,17 @@ import java.util.List;
 
 public class ItemBlockAesu extends ItemBlock {
 
-    public ItemBlockAesu(Block p_i45328_1_)
-    {
+    public ItemBlockAesu(Block p_i45328_1_) {
         super(p_i45328_1_);
     }
 
     @SuppressWarnings(
-            { "rawtypes", "unchecked" })
+            {"rawtypes", "unchecked"})
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List list,
-                               boolean par4)
-    {
-        if (stack != null && stack.hasTagCompound())
-        {
+                               boolean par4) {
+        if (stack != null && stack.hasTagCompound()) {
             if (stack.getTagCompound().getCompoundTag("tileEntity") != null)
                 list.add(stack.getTagCompound().getCompoundTag("tileEntity")
                         .getInteger("energy")
@@ -41,20 +38,16 @@ public class ItemBlockAesu extends ItemBlock {
     @Override
     public boolean placeBlockAt(ItemStack stack, EntityPlayer player,
                                 World world, int x, int y, int z, int side, float hitX, float hitY,
-                                float hitZ, int metadata)
-    {
-        if (!world.setBlock(x, y, z, ModBlocks.Aesu, metadata, 3))
-        {
+                                float hitZ, int metadata) {
+        if (!world.setBlock(x, y, z, ModBlocks.Aesu, metadata, 3)) {
             return false;
         }
-        if (world.getBlock(x, y, z) == ModBlocks.Aesu)
-        {
+        if (world.getBlock(x, y, z) == ModBlocks.Aesu) {
             world.getBlock(x, y, z).onBlockPlacedBy(world, x, y, z, player,
                     stack);
             world.getBlock(x, y, z).onPostBlockPlaced(world, x, y, z, metadata);
         }
-        if (stack != null && stack.hasTagCompound())
-        {
+        if (stack != null && stack.hasTagCompound()) {
             ((TileAesu) world.getTileEntity(x, y, z))
                     .readFromNBTWithoutCoords(stack.getTagCompound()
                             .getCompoundTag("tileEntity"));
@@ -63,15 +56,14 @@ public class ItemBlockAesu extends ItemBlock {
     }
 
     @SuppressWarnings(
-            { "rawtypes", "unchecked" })
+            {"rawtypes", "unchecked"})
     @SideOnly(Side.CLIENT)
-    public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList){
+    public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
         itemList.add(getDropWithNBT(0));
         itemList.add(getDropWithNBT(1000000000));
     }
 
-    public ItemStack getDropWithNBT(double energy)
-    {
+    public ItemStack getDropWithNBT(double energy) {
         NBTTagCompound tileEntity = new NBTTagCompound();
         ItemStack dropStack = new ItemStack(ModBlocks.Aesu, 1);
         writeToNBTWithoutCoords(tileEntity, energy);
@@ -80,8 +72,7 @@ public class ItemBlockAesu extends ItemBlock {
         return dropStack;
     }
 
-    public void writeToNBTWithoutCoords(NBTTagCompound tagCompound, double energy)
-    {
+    public void writeToNBTWithoutCoords(NBTTagCompound tagCompound, double energy) {
         NBTTagCompound data = new NBTTagCompound();
         data.setDouble("energy", energy);
         tagCompound.setTag("TilePowerAcceptor", data);

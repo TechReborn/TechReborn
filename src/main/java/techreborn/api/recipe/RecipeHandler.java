@@ -62,7 +62,7 @@ public class RecipeHandler {
         if (recipeList.contains(recipe)) {
             return;
         }
-        if(!RecipeConfigManager.canLoadRecipe(recipe)){
+        if (!RecipeConfigManager.canLoadRecipe(recipe)) {
             return;
         }
         if (!machineNames.contains(recipe.getRecipeName())) {
@@ -86,11 +86,11 @@ public class RecipeHandler {
                     for (int i = 0; i < baseRecipeType.getInputs().size(); i++) {
                         if (ItemUtils.isItemEqual(baseRecipeType.getInputs().get(i), recipe.getInputs().get(i), true, false, false)) {
                             StringBuffer itemInfo = new StringBuffer();
-                            for(ItemStack inputs : baseRecipeType.getInputs()){
+                            for (ItemStack inputs : baseRecipeType.getInputs()) {
                                 itemInfo.append(":" + inputs.getItem().getUnlocalizedName() + "," + inputs.getDisplayName() + "," + inputs.stackSize);
                             }
                             LogHelper.all(stackMap.get(baseRecipeType));
-                           // throw new Exception("Found a duplicate recipe for " + baseRecipeType.getRecipeName() + " with inputs " + itemInfo.toString());
+                            // throw new Exception("Found a duplicate recipe for " + baseRecipeType.getRecipeName() + " with inputs " + itemInfo.toString());
                         }
                     }
                 }

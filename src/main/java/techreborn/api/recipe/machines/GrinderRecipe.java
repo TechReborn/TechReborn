@@ -16,7 +16,7 @@ public class GrinderRecipe extends BaseRecipe {
         super(Reference.grinderRecipe, tickTime, euPerTick);
         if (input1 != null)
             inputs.add(input1);
-        if( input2 != null)
+        if (input2 != null)
             inputs.add(input2);
         if (output1 != null)
             addOutput(output1);
@@ -29,12 +29,12 @@ public class GrinderRecipe extends BaseRecipe {
         this.fluidStack = fluidStack;
     }
 
-	@Override
-	public String getUserFreindlyName() {
-		return "Grinder";
-	}
+    @Override
+    public String getUserFreindlyName() {
+        return "Grinder";
+    }
 
-	@Override
+    @Override
     public boolean canCraft(TileEntity tile) {
         if (fluidStack == null) {
             return true;

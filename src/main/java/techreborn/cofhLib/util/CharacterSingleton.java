@@ -1,30 +1,25 @@
 package techreborn.cofhLib.util;
 
-public class CharacterSingleton implements CharSequence
-{
+public class CharacterSingleton implements CharSequence {
 
     public char character;
 
     @Override
-    public int length()
-    {
+    public int length() {
 
         return 1;
     }
 
     @Override
-    public char charAt(int index)
-    {
+    public char charAt(int index) {
 
         return character;
     }
 
     @Override
-    public CharSequence subSequence(int start, int end)
-    {
+    public CharSequence subSequence(int start, int end) {
 
-        if (start == end)
-        {
+        if (start == end) {
             return "";
         }
         return this;

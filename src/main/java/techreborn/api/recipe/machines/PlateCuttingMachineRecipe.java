@@ -11,11 +11,11 @@ public class PlateCuttingMachineRecipe extends BaseRecipe {
         if (input1 != null)
             inputs.add(input1);
         if (output1 != null)
-			addOutput(output1);
+            addOutput(output1);
     }
 
-	@Override
-	public String getUserFreindlyName() {
-		return "Plate Cutting Machine";
-	}
+    @Override
+    public String getUserFreindlyName() {
+        return "Plate Cutting Machine";
+    }
 }

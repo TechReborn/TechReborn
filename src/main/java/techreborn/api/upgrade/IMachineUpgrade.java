@@ -5,5 +5,5 @@ import techreborn.api.recipe.RecipeCrafter;
 
 public interface IMachineUpgrade {
 
-	public void processUpgrade(RecipeCrafter crafter, ItemStack stack);
+    public void processUpgrade(RecipeCrafter crafter, ItemStack stack);
 }

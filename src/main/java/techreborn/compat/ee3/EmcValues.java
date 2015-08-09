@@ -13,7 +13,6 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
-import ic2.api.item.IC2Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import techreborn.api.recipe.IBaseRecipeType;
@@ -25,71 +24,71 @@ import techreborn.items.ItemPlates;
 public class EmcValues implements ICompatModule {
 
 
-	@Override
-	public void preInit(FMLPreInitializationEvent event) {
+    @Override
+    public void preInit(FMLPreInitializationEvent event) {
 
-	}
+    }
 
-	@Override
-	public void init(FMLInitializationEvent event) {
-		for (IBaseRecipeType recipeType : RecipeHandler.recipeList) {
-			if (recipeType.getOutputsSize() == 1) {
-				RecipeRegistryProxy.addRecipe(recipeType.getOutput(0), recipeType.getInputs());
-			}
-		}
-	}
+    @Override
+    public void init(FMLInitializationEvent event) {
+        for (IBaseRecipeType recipeType : RecipeHandler.recipeList) {
+            if (recipeType.getOutputsSize() == 1) {
+                RecipeRegistryProxy.addRecipe(recipeType.getOutput(0), recipeType.getInputs());
+            }
+        }
+    }
 
-	@Override
-	public void postInit(FMLPostInitializationEvent event) {
-		if(!Loader.isModLoaded("EE3Compatibility")){
-			MinecraftForge.EVENT_BUS.register(this);
-			addOre("ingotCopper", 128);
-			addOre("ingotSilver", 1024);
-			addOre("ingotTin", 256);
-			addOre("ingotLead", 256);
-			addOre("dustSteel", 512);
-			addOre("ingotRefinedIron", 512);
-			addOre("dustCoal", 32);
-			addOre("dustDiamond", 8192);
-			addOre("dustSulfur", 32);
-			addOre("dustLead", 256);
-			addOre("ingotBronze", 256);
-			addOre("ingotElectrum", 2052);
-			addOre("dustLapis", 864);
-			addOre("dustSilver", 1024);
-			addOre("dustTin", 256);
-		}
+    @Override
+    public void postInit(FMLPostInitializationEvent event) {
+        if (!Loader.isModLoaded("EE3Compatibility")) {
+            MinecraftForge.EVENT_BUS.register(this);
+            addOre("ingotCopper", 128);
+            addOre("ingotSilver", 1024);
+            addOre("ingotTin", 256);
+            addOre("ingotLead", 256);
+            addOre("dustSteel", 512);
+            addOre("ingotRefinedIron", 512);
+            addOre("dustCoal", 32);
+            addOre("dustDiamond", 8192);
+            addOre("dustSulfur", 32);
+            addOre("dustLead", 256);
+            addOre("ingotBronze", 256);
+            addOre("ingotElectrum", 2052);
+            addOre("dustLapis", 864);
+            addOre("dustSilver", 1024);
+            addOre("dustTin", 256);
+        }
 
-		addStack(ItemPlates.getPlateByName("steel"), 512);
-		addStack(ItemParts.getPartByName("lazuriteChunk"), 7776);
-	}
+        addStack(ItemPlates.getPlateByName("steel"), 512);
+        addStack(ItemParts.getPartByName("lazuriteChunk"), 7776);
+    }
 
-	@Override
-	public void serverStarting(FMLServerStartingEvent event) {
-		event.registerServerCommand(new CommandRegen());
-		event.registerServerCommand(new CommandReload());
-	}
+    @Override
+    public void serverStarting(FMLServerStartingEvent event) {
+        event.registerServerCommand(new CommandRegen());
+        event.registerServerCommand(new CommandReload());
+    }
 
-	@SubscribeEvent
-	public void serverTick(TickEvent.ServerTickEvent event) {
-		//This should be a fix for the things not saving
-		EnergyValueRegistry.getInstance().setShouldRegenNextRestart(false);
-	}
+    @SubscribeEvent
+    public void serverTick(TickEvent.ServerTickEvent event) {
+        //This should be a fix for the things not saving
+        EnergyValueRegistry.getInstance().setShouldRegenNextRestart(false);
+    }
 
-	private void addOre(String name, float value) {
-		WrappedStack stack = WrappedStack.wrap(new OreStack(name));
-		EnergyValue energyValue = new EnergyValue(value);
+    private void addOre(String name, float value) {
+        WrappedStack stack = WrappedStack.wrap(new OreStack(name));
+        EnergyValue energyValue = new EnergyValue(value);
 
-		EnergyValueRegistryProxy.addPreAssignedEnergyValue(stack, energyValue);
-	}
+        EnergyValueRegistryProxy.addPreAssignedEnergyValue(stack, energyValue);
+    }
 
 
-	private void addStack(ItemStack itemStack, float value) {
-		WrappedStack stack = WrappedStack.wrap(itemStack);
-		EnergyValue energyValue = new EnergyValue(value);
+    private void addStack(ItemStack itemStack, float value) {
+        WrappedStack stack = WrappedStack.wrap(itemStack);
+        EnergyValue energyValue = new EnergyValue(value);
 
-		EnergyValueRegistryProxy.addPreAssignedEnergyValue(stack, energyValue);
-	}
+        EnergyValueRegistryProxy.addPreAssignedEnergyValue(stack, energyValue);
+    }
 
 
 }

@@ -6,9 +6,8 @@ import techreborn.init.ModBlocks;
 
 public class ItemBlockOre extends ItemBlockBase {
 
-	public ItemBlockOre(Block block)
-	{
-		super(ModBlocks.ore, ModBlocks.ore, BlockOre.types);
-	}
-	
+    public ItemBlockOre(Block block) {
+        super(ModBlocks.ore, ModBlocks.ore, BlockOre.types);
+    }
+
 }

@@ -16,96 +16,85 @@ import java.security.InvalidParameterException;
 import java.util.List;
 
 public class ItemParts extends Item {
-	public static ItemStack getPartByName(String name, int count)
-	{
-		for (int i = 0; i < types.length; i++) {
-			if (types[i].equalsIgnoreCase(name)) {
-				return new ItemStack(ModItems.parts, count, i);
-			}
-		}
-		throw new InvalidParameterException("The part " + name + " could not be found.");
-	}
-	
-	public static ItemStack getPartByName(String name)
-	{
-		return getPartByName(name, 1);
-	}
-	
-	public static final String[] types = new String[]
-	{ "advancedCircuitParts", "basicCircuitBoard", "advancedCircuitBoard", "processorCircuitBoard",
-			"energyFlowCircuit", "dataControlCircuit", "dataOrb", "dataStorageCircuit",
-			"diamondGrindingHead", "diamondSawBlade", "tungstenGrindingHead",
-			"heliumCoolantSimple", "HeliumCoolantTriple", "HeliumCoolantSix",
-			"NaKCoolantSimple", "NaKCoolantTriple", "NaKCoolantSix",
-			"cupronickelHeatingCoil", "nichromeHeatingCoil", "kanthalHeatingCoil",
-			"bronzeGear", "ironGear", "titaniumGear", "steelGear", "tungstensteelGear",
-			"laserFocus", "ductTape", "lazuriteChunk", "iridiumAlloyIngot", "rockCutterBlade", "superconductor",
-			"thoriumCell", "doubleThoriumCell", "quadThoriumCell", "plutoniumCell", "doublePlutoniumCell", 
-			"quadPlutoniumCell", "destructoPack", "iridiumNeutronReflector", "massHoleDevice", "computerMonitor", "machineParts" };
+    public static ItemStack getPartByName(String name, int count) {
+        for (int i = 0; i < types.length; i++) {
+            if (types[i].equalsIgnoreCase(name)) {
+                return new ItemStack(ModItems.parts, count, i);
+            }
+        }
+        throw new InvalidParameterException("The part " + name + " could not be found.");
+    }
 
-	private IIcon[] textures;
+    public static ItemStack getPartByName(String name) {
+        return getPartByName(name, 1);
+    }
 
-	public ItemParts()
-	{
-		setCreativeTab(TechRebornCreativeTab.instance);
-		setHasSubtypes(true);
-		setUnlocalizedName("techreborn.part");
-	}
+    public static final String[] types = new String[]
+            {"advancedCircuitParts", "basicCircuitBoard", "advancedCircuitBoard", "processorCircuitBoard",
+                    "energyFlowCircuit", "dataControlCircuit", "dataOrb", "dataStorageCircuit",
+                    "diamondGrindingHead", "diamondSawBlade", "tungstenGrindingHead",
+                    "heliumCoolantSimple", "HeliumCoolantTriple", "HeliumCoolantSix",
+                    "NaKCoolantSimple", "NaKCoolantTriple", "NaKCoolantSix",
+                    "cupronickelHeatingCoil", "nichromeHeatingCoil", "kanthalHeatingCoil",
+                    "bronzeGear", "ironGear", "titaniumGear", "steelGear", "tungstensteelGear",
+                    "laserFocus", "ductTape", "lazuriteChunk", "iridiumAlloyIngot", "rockCutterBlade", "superconductor",
+                    "thoriumCell", "doubleThoriumCell", "quadThoriumCell", "plutoniumCell", "doublePlutoniumCell",
+                    "quadPlutoniumCell", "destructoPack", "iridiumNeutronReflector", "massHoleDevice", "computerMonitor", "machineParts"};
 
-	@Override
-	// Registers Textures For All Dusts
-	public void registerIcons(IIconRegister iconRegister)
-	{
-		textures = new IIcon[types.length];
+    private IIcon[] textures;
 
-		for (int i = 0; i < types.length; ++i)
-		{
-			textures[i] = iconRegister.registerIcon("techreborn:" + "component/"
-					+ types[i]);
-		}
-	}
+    public ItemParts() {
+        setCreativeTab(TechRebornCreativeTab.instance);
+        setHasSubtypes(true);
+        setUnlocalizedName("techreborn.part");
+    }
 
-	@Override
-	// Adds Texture what match's meta data
-	public IIcon getIconFromDamage(int meta)
-	{
-		if (meta < 0 || meta >= textures.length)
-		{
-			meta = 0;
-		}
+    @Override
+    // Registers Textures For All Dusts
+    public void registerIcons(IIconRegister iconRegister) {
+        textures = new IIcon[types.length];
 
-		return textures[meta];
-	}
+        for (int i = 0; i < types.length; ++i) {
+            textures[i] = iconRegister.registerIcon("techreborn:" + "component/"
+                    + types[i]);
+        }
+    }
 
-	@Override
-	// gets Unlocalized Name depending on meta data
-	public String getUnlocalizedName(ItemStack itemStack)
-	{
-		int meta = itemStack.getItemDamage();
-		if (meta < 0 || meta >= types.length)
-		{
-			meta = 0;
-		}
+    @Override
+    // Adds Texture what match's meta data
+    public IIcon getIconFromDamage(int meta) {
+        if (meta < 0 || meta >= textures.length) {
+            meta = 0;
+        }
 
-		return super.getUnlocalizedName() + "." + types[meta];
-	}
+        return textures[meta];
+    }
 
-	// Adds Dusts SubItems To Creative Tab
-	public void getSubItems(Item item, CreativeTabs creativeTabs, List list)
-	{
-		for (int meta = 0; meta < types.length; ++meta)
-		{
-			list.add(new ItemStack(item, 1, meta));
-		}
-	}
-	
-	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
-		switch (itemStack.getItemDamage()) {
-			case 37: // Destructo pack
-				player.openGui(Core.INSTANCE, GuiHandler.destructoPackID, world,
-						(int) player.posX, (int) player.posY, (int) player.posY);
-				break;
-		}
-		return itemStack;
-	}
+    @Override
+    // gets Unlocalized Name depending on meta data
+    public String getUnlocalizedName(ItemStack itemStack) {
+        int meta = itemStack.getItemDamage();
+        if (meta < 0 || meta >= types.length) {
+            meta = 0;
+        }
+
+        return super.getUnlocalizedName() + "." + types[meta];
+    }
+
+    // Adds Dusts SubItems To Creative Tab
+    public void getSubItems(Item item, CreativeTabs creativeTabs, List list) {
+        for (int meta = 0; meta < types.length; ++meta) {
+            list.add(new ItemStack(item, 1, meta));
+        }
+    }
+
+    public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
+        switch (itemStack.getItemDamage()) {
+            case 37: // Destructo pack
+                player.openGui(Core.INSTANCE, GuiHandler.destructoPackID, world,
+                        (int) player.posX, (int) player.posY, (int) player.posY);
+                break;
+        }
+        return itemStack;
+    }
 }

@@ -13,12 +13,12 @@ import java.util.List;
 
 public abstract class TileMachineBase extends TileEntity {
 
-	public void syncWithAll() {
-		if (!worldObj.isRemote) {
-			PacketHandler.sendPacketToAllPlayers(getDescriptionPacket(),
-					worldObj);
-		}
-	}
+    public void syncWithAll() {
+        if (!worldObj.isRemote) {
+            PacketHandler.sendPacketToAllPlayers(getDescriptionPacket(),
+                    worldObj);
+        }
+    }
 
     @SideOnly(Side.CLIENT)
     public void addWailaInfo(List<String> info) {
@@ -36,7 +36,7 @@ public abstract class TileMachineBase extends TileEntity {
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
         worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord,
                 yCoord, zCoord);
-		readFromNBT(packet.func_148857_g());
+        readFromNBT(packet.func_148857_g());
     }
 
 }

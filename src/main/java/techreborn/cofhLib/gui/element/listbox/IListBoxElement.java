@@ -2,8 +2,7 @@ package techreborn.cofhLib.gui.element.listbox;
 
 import techreborn.cofhLib.gui.element.ElementListBox;
 
-public interface IListBoxElement
-{
+public interface IListBoxElement {
 
     public int getHeight();
 

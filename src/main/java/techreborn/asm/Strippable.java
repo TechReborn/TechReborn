@@ -1,10 +1,6 @@
 package techreborn.asm;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * When used on a class, methods from referenced interfaces will not be removed <br>
@@ -17,6 +13,6 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD, ElementType.CONSTRUCTOR, ElementType.FIELD, ElementType.TYPE})
 public @interface Strippable {
 
-	public String[] value();
+    public String[] value();
 
 }

@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Extend this to add a recipe
  */
-public abstract class BaseRecipe implements IBaseRecipeType , Cloneable {
+public abstract class BaseRecipe implements IBaseRecipeType, Cloneable {
 
     public ArrayList<ItemStack> inputs;
 
@@ -35,17 +35,17 @@ public abstract class BaseRecipe implements IBaseRecipeType , Cloneable {
         return outputs.get(i).copy();
     }
 
-	@Override
-	public int getOutputsSize() {
-		return outputs.size();
-	}
+    @Override
+    public int getOutputsSize() {
+        return outputs.size();
+    }
 
-	public void addOutput(ItemStack stack){
-		outputs.add(stack);
-	}
+    public void addOutput(ItemStack stack) {
+        outputs.add(stack);
+    }
 
 
-	@Override
+    @Override
     public List<ItemStack> getInputs() {
         return inputs;
     }
@@ -76,17 +76,17 @@ public abstract class BaseRecipe implements IBaseRecipeType , Cloneable {
     }
 
     @Override
-    public Object clone()throws CloneNotSupportedException{
+    public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
 
-	@Override
-	public boolean useOreDic() {
-		return true;
-	}
+    @Override
+    public boolean useOreDic() {
+        return true;
+    }
 
-	@Override
-	public List<ItemStack> getOutputs() {
-		return outputs;
-	}
+    @Override
+    public List<ItemStack> getOutputs() {
+        return outputs;
+    }
 }

@@ -84,22 +84,19 @@ public abstract class TechRebornContainer extends Container {
         return changed;
     }
 
-	private boolean tryShiftItem(ItemStack stackToShift, int numSlots)
-	{
-		for (int machineIndex = 0; machineIndex < numSlots - 9 * 4; machineIndex++)
-		{
-			Slot slot = (Slot) inventorySlots.get(machineIndex);
-			if (slot instanceof SlotFake)
-			{
-				continue;
-			}
-			if (!slot.isItemValid(stackToShift))
-				continue;
-			if (shiftItemStack(stackToShift, machineIndex, machineIndex + 1))
-				return true;
-		}
-		return false;
-	}
+    private boolean tryShiftItem(ItemStack stackToShift, int numSlots) {
+        for (int machineIndex = 0; machineIndex < numSlots - 9 * 4; machineIndex++) {
+            Slot slot = (Slot) inventorySlots.get(machineIndex);
+            if (slot instanceof SlotFake) {
+                continue;
+            }
+            if (!slot.isItemValid(stackToShift))
+                continue;
+            if (shiftItemStack(stackToShift, machineIndex, machineIndex + 1))
+                return true;
+        }
+        return false;
+    }
 
     public static boolean canStacksMerge(ItemStack stack1, ItemStack stack2) {
         if (stack1 == null || stack2 == null) {

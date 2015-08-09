@@ -13,46 +13,42 @@ import java.util.Random;
 
 public class BlockVacuumFreezer extends BlockMachineBase {
 
-	@SideOnly(Side.CLIENT)
-	private IIcon iconFront;
+    @SideOnly(Side.CLIENT)
+    private IIcon iconFront;
 
-	@SideOnly(Side.CLIENT)
-	private IIcon iconTop;
+    @SideOnly(Side.CLIENT)
+    private IIcon iconTop;
 
-	@SideOnly(Side.CLIENT)
-	private IIcon iconBottom;
+    @SideOnly(Side.CLIENT)
+    private IIcon iconBottom;
 
-	public BlockVacuumFreezer(Material material)
-	{
-		super(material);
-		setBlockName("techreborn.vacuumfreezer");
-	}
+    public BlockVacuumFreezer(Material material) {
+        super(material);
+        setBlockName("techreborn.vacuumfreezer");
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister icon)
-	{
-		this.blockIcon = icon.registerIcon("techreborn:machine/machine_side");
-		this.iconFront = icon.registerIcon("techreborn:machine/vacuum_freezer_front");
-		this.iconTop = icon.registerIcon("techreborn:machine/vacuum_freezer_top");
-		this.iconBottom = icon.registerIcon("techreborn:machine/machine_bottom");
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerBlockIcons(IIconRegister icon) {
+        this.blockIcon = icon.registerIcon("techreborn:machine/machine_side");
+        this.iconFront = icon.registerIcon("techreborn:machine/vacuum_freezer_front");
+        this.iconTop = icon.registerIcon("techreborn:machine/vacuum_freezer_top");
+        this.iconBottom = icon.registerIcon("techreborn:machine/machine_bottom");
+    }
 
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int metadata)
-	{
+    @SideOnly(Side.CLIENT)
+    public IIcon getIcon(int side, int metadata) {
 
-		return metadata == 0 && side == 3 ? this.iconFront
-				: side == 1 ? this.iconTop : 
-					side == 0 ? this.iconBottom: (side == 0 ? this.iconTop
-						: (side == metadata ? this.iconFront : this.blockIcon));
+        return metadata == 0 && side == 3 ? this.iconFront
+                : side == 1 ? this.iconTop :
+                side == 0 ? this.iconBottom : (side == 0 ? this.iconTop
+                        : (side == metadata ? this.iconFront : this.blockIcon));
 
-	}
-	
-	@Override
-	public Item getItemDropped(int meta, Random random, int fortune)
-	{
-		return IC2Items.getItem("advancedMachine").getItem();
-	}
+    }
+
+    @Override
+    public Item getItemDropped(int meta, Random random, int fortune) {
+        return IC2Items.getItem("advancedMachine").getItem();
+    }
 
 }

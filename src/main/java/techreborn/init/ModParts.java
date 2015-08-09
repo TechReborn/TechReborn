@@ -11,11 +11,10 @@ import java.util.HashMap;
 
 public class ModParts {
 
-	public static HashMap<Integer, ItemStack> stackCable = new HashMap<Integer, ItemStack>();
+    public static HashMap<Integer, ItemStack> stackCable = new HashMap<Integer, ItemStack>();
 
-	public static void init()
-	{
-        if(Loader.isModLoaded("IC2")){
+    public static void init() {
+        if (Loader.isModLoaded("IC2")) {
             for (int i = 0; i < 13; i++) {
                 CablePart part = new CablePart();
                 part.setType(i);
@@ -23,14 +22,14 @@ public class ModParts {
             }
         }
         ModPartRegistry.registerPart(new FarmInventoryCable());
-		ModPartRegistry.addProvider("techreborn.partSystem.fmp.FMPFactory",
-				"ForgeMultipart");
+        ModPartRegistry.addProvider("techreborn.partSystem.fmp.FMPFactory",
+                "ForgeMultipart");
         ModPartRegistry.addProvider("techreborn.partSystem.QLib.QModPartFactory", "qmunitylib");
-		ModPartRegistry.addAllPartsToSystems();
-		for(IPartProvider provider : ModPartRegistry.providers){
-			if(provider.modID().equals("ForgeMultipart")){
-				ModPartRegistry.masterProvider = provider;
-			}
-		}
-	}
+        ModPartRegistry.addAllPartsToSystems();
+        for (IPartProvider provider : ModPartRegistry.providers) {
+            if (provider.modID().equals("ForgeMultipart")) {
+                ModPartRegistry.masterProvider = provider;
+            }
+        }
+    }
 }

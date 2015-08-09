@@ -12,121 +12,112 @@ import techreborn.util.Inventory;
 
 public class TileChunkLoader extends TilePowerAcceptor implements IWrenchable, IEnergyTile, IInventory {
 
-	public Inventory inventory = new Inventory(1, "TileChunkLoader", 64);
-	
-	public boolean isRunning;
-	public int tickTime;
-	
-	public int euTick = 32;
-	
-	public TileChunkLoader()
-	{
+    public Inventory inventory = new Inventory(1, "TileChunkLoader", 64);
+
+    public boolean isRunning;
+    public int tickTime;
+
+    public int euTick = 32;
+
+    public TileChunkLoader() {
         super(1);
-	}
+    }
 
-	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side)
-	{
-		return false;
-	}
+    @Override
+    public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
+        return false;
+    }
 
-	@Override
-	public short getFacing()
-	{
-		return 0;
-	}
+    @Override
+    public short getFacing() {
+        return 0;
+    }
 
-	@Override
-	public void setFacing(short facing)
-	{
-	}
+    @Override
+    public void setFacing(short facing) {
+    }
 
-	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
-	{
-		if (entityPlayer.isSneaking())
-		{
-			return true;
-		}
-		return false;
-	}
+    @Override
+    public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
+        if (entityPlayer.isSneaking()) {
+            return true;
+        }
+        return false;
+    }
 
-	@Override
-	public float getWrenchDropRate()
-	{
-		return 1.0F;
-	}
+    @Override
+    public float getWrenchDropRate() {
+        return 1.0F;
+    }
 
-	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
-	{
-		return new ItemStack(ModBlocks.ChunkLoader, 1);
-	}
+    @Override
+    public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+        return new ItemStack(ModBlocks.ChunkLoader, 1);
+    }
 
-	public boolean isComplete()
-	{
-		return false;
-	}
+    public boolean isComplete() {
+        return false;
+    }
 
-	@Override
-	public int getSizeInventory() {
-		return inventory.getSizeInventory();
-	}
+    @Override
+    public int getSizeInventory() {
+        return inventory.getSizeInventory();
+    }
 
-	@Override
-	public ItemStack getStackInSlot(int slot) {
-		return inventory.getStackInSlot(slot);
-	}
+    @Override
+    public ItemStack getStackInSlot(int slot) {
+        return inventory.getStackInSlot(slot);
+    }
 
-	@Override
-	public ItemStack decrStackSize(int slot, int amount) {
-		return inventory.decrStackSize(slot, amount);
-	}
+    @Override
+    public ItemStack decrStackSize(int slot, int amount) {
+        return inventory.decrStackSize(slot, amount);
+    }
 
-	@Override
-	public ItemStack getStackInSlotOnClosing(int slot) {
-		return inventory.getStackInSlotOnClosing(slot);
-	}
+    @Override
+    public ItemStack getStackInSlotOnClosing(int slot) {
+        return inventory.getStackInSlotOnClosing(slot);
+    }
 
-	@Override
-	public void setInventorySlotContents(int slot, ItemStack stack) {
-		inventory.setInventorySlotContents(slot, stack);
-	}
+    @Override
+    public void setInventorySlotContents(int slot, ItemStack stack) {
+        inventory.setInventorySlotContents(slot, stack);
+    }
 
-	@Override
-	public String getInventoryName() {
-		return inventory.getInventoryName();
-	}
+    @Override
+    public String getInventoryName() {
+        return inventory.getInventoryName();
+    }
 
-	@Override
-	public boolean hasCustomInventoryName() {
-		return inventory.hasCustomInventoryName();
-	}
+    @Override
+    public boolean hasCustomInventoryName() {
+        return inventory.hasCustomInventoryName();
+    }
 
-	@Override
-	public int getInventoryStackLimit() {
-		return inventory.getInventoryStackLimit();
-	}
+    @Override
+    public int getInventoryStackLimit() {
+        return inventory.getInventoryStackLimit();
+    }
 
-	@Override
-	public boolean isUseableByPlayer(EntityPlayer player) {
-		return inventory.isUseableByPlayer(player);
-	}
+    @Override
+    public boolean isUseableByPlayer(EntityPlayer player) {
+        return inventory.isUseableByPlayer(player);
+    }
 
-	@Override
-	public void openInventory() {
-		inventory.openInventory();
-	}
+    @Override
+    public void openInventory() {
+        inventory.openInventory();
+    }
 
-	@Override
-	public void closeInventory() {
-		inventory.closeInventory();
-	}
+    @Override
+    public void closeInventory() {
+        inventory.closeInventory();
+    }
 
-	@Override
-	public boolean isItemValidForSlot(int slot, ItemStack stack) {
-		return inventory.isItemValidForSlot(slot, stack);
-	}
+    @Override
+    public boolean isItemValidForSlot(int slot, ItemStack stack) {
+        return inventory.isItemValidForSlot(slot, stack);
+    }
 
     @Override
     public double getMaxPower() {

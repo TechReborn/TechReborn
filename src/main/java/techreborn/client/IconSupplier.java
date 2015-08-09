@@ -35,10 +35,10 @@ public class IconSupplier {
             doubleInsulatedIronCable = reg.registerIcon("ic2" + ":wiring/cable/blockIronCableII");
             trippleInsulatedIronCable = reg.registerIcon("ic2" + ":wiring/cable/blockIronCableIII");
             glassFiberCable = reg.registerIcon("ic2" + ":wiring/cable/blockGlassCable");
-            tinCable= reg.registerIcon("ic2" + ":wiring/cable/blockTinCable");
-            detectorCableBlock= reg.registerIcon("ic2" + ":wiring/cable/blockDetectorCable");
-            splitterCableBlock= reg.registerIcon("ic2" + ":wiring/cable/blockSplitterCable");
-            insulatedtinCableBlock= reg.registerIcon("ic2" + ":wiring/cable/blockTinCableI");
+            tinCable = reg.registerIcon("ic2" + ":wiring/cable/blockTinCable");
+            detectorCableBlock = reg.registerIcon("ic2" + ":wiring/cable/blockDetectorCable");
+            splitterCableBlock = reg.registerIcon("ic2" + ":wiring/cable/blockSplitterCable");
+            insulatedtinCableBlock = reg.registerIcon("ic2" + ":wiring/cable/blockTinCableI");
         }
     }
 }

@@ -44,15 +44,15 @@ public class RecipeConfig {
         this.machine = machine;
     }
 
-    public void addInputs(ConfigItem item){
-        if(inputs == null){
+    public void addInputs(ConfigItem item) {
+        if (inputs == null) {
             inputs = new ArrayList<ConfigItem>();
         }
         inputs.add(item);
     }
 
-    public void addOutputs(ConfigItem item){
-        if(outputs == null){
+    public void addOutputs(ConfigItem item) {
+        if (outputs == null) {
             outputs = new ArrayList<ConfigItem>();
         }
         outputs.add(item);

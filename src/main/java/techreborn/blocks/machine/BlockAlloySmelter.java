@@ -20,77 +20,71 @@ import java.util.Random;
 
 public class BlockAlloySmelter extends BlockMachineBase {
 
-	@SideOnly(Side.CLIENT)
-	private IIcon iconFront;
-	
-	@SideOnly(Side.CLIENT)
-	private IIcon iconFrontOn;
+    @SideOnly(Side.CLIENT)
+    private IIcon iconFront;
 
-	@SideOnly(Side.CLIENT)
-	private IIcon iconTop;
+    @SideOnly(Side.CLIENT)
+    private IIcon iconFrontOn;
 
-	@SideOnly(Side.CLIENT)
-	private IIcon iconBottom;
+    @SideOnly(Side.CLIENT)
+    private IIcon iconTop;
 
-	public BlockAlloySmelter(Material material)
-	{
-		super(material);
-		setBlockName("techreborn.alloysmelter");
-	}
+    @SideOnly(Side.CLIENT)
+    private IIcon iconBottom;
 
-	@Override
-	public TileEntity createNewTileEntity(World world, int p_149915_2_)
-	{
-		return new TileAlloySmelter();
-	}
-	
-	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z,
-			EntityPlayer player, int side, float hitX, float hitY, float hitZ)
-	{
-		if (!player.isSneaking())
-			player.openGui(Core.INSTANCE, GuiHandler.alloySmelterID, world, x, y,
-					z);
-		return true;
-	}
+    public BlockAlloySmelter(Material material) {
+        super(material);
+        setBlockName("techreborn.alloysmelter");
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister icon)
-	{
-		this.blockIcon = icon.registerIcon("techreborn:machine/machine_side");
-		this.iconFront = icon.registerIcon("techreborn:machine/electric_alloy_furnace_front_off");
-		this.iconFrontOn = icon.registerIcon("techreborn:machine/electric_alloy_furnace_front_on");
-		this.iconTop = icon.registerIcon("techreborn:machine/machine_top");
-		this.iconBottom = icon.registerIcon("techreborn:machine/machine_bottom");
-	}
+    @Override
+    public TileEntity createNewTileEntity(World world, int p_149915_2_) {
+        return new TileAlloySmelter();
+    }
 
-	@Override
-	public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int side) {
-		int metadata = blockAccess.getBlockMetadata(x, y, z);
-		TileAlloySmelter tileAlloySmelter = (TileAlloySmelter) blockAccess.getTileEntity(x, y, z);
-		if(side == metadata && tileAlloySmelter.crafter.isActive()){
-			return this.iconFrontOn;
-		}
-		return metadata == 0 && side == 3 ? this.iconFront
-				: side == 1 ? this.iconTop : 
-					side == 0 ? this.iconBottom: (side == 0 ? this.iconTop
-						: (side == metadata ? this.iconFront : this.blockIcon));
-	}
-	
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int metadata)
-	{
-		return metadata == 0 && side == 3 ? this.iconFront
-				: side == 1 ? this.iconTop : 
-					side == 0 ? this.iconBottom: (side == 0 ? this.iconTop
-						: (side == metadata ? this.iconFront : this.blockIcon));
+    @Override
+    public boolean onBlockActivated(World world, int x, int y, int z,
+                                    EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+        if (!player.isSneaking())
+            player.openGui(Core.INSTANCE, GuiHandler.alloySmelterID, world, x, y,
+                    z);
+        return true;
+    }
 
-	}
-	
-	@Override
-	public Item getItemDropped(int meta, Random random, int fortune)
-	{
-		return IC2Items.getItem("machine").getItem();
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerBlockIcons(IIconRegister icon) {
+        this.blockIcon = icon.registerIcon("techreborn:machine/machine_side");
+        this.iconFront = icon.registerIcon("techreborn:machine/electric_alloy_furnace_front_off");
+        this.iconFrontOn = icon.registerIcon("techreborn:machine/electric_alloy_furnace_front_on");
+        this.iconTop = icon.registerIcon("techreborn:machine/machine_top");
+        this.iconBottom = icon.registerIcon("techreborn:machine/machine_bottom");
+    }
+
+    @Override
+    public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int side) {
+        int metadata = blockAccess.getBlockMetadata(x, y, z);
+        TileAlloySmelter tileAlloySmelter = (TileAlloySmelter) blockAccess.getTileEntity(x, y, z);
+        if (side == metadata && tileAlloySmelter.crafter.isActive()) {
+            return this.iconFrontOn;
+        }
+        return metadata == 0 && side == 3 ? this.iconFront
+                : side == 1 ? this.iconTop :
+                side == 0 ? this.iconBottom : (side == 0 ? this.iconTop
+                        : (side == metadata ? this.iconFront : this.blockIcon));
+    }
+
+    @SideOnly(Side.CLIENT)
+    public IIcon getIcon(int side, int metadata) {
+        return metadata == 0 && side == 3 ? this.iconFront
+                : side == 1 ? this.iconTop :
+                side == 0 ? this.iconBottom : (side == 0 ? this.iconTop
+                        : (side == metadata ? this.iconFront : this.blockIcon));
+
+    }
+
+    @Override
+    public Item getItemDropped(int meta, Random random, int fortune) {
+        return IC2Items.getItem("machine").getItem();
+    }
 }

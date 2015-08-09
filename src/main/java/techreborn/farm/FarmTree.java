@@ -41,7 +41,7 @@ public class FarmTree implements IFarmLogicDevice {
         if (tileFarm.getWorldObj().isRemote) {
             return;
         }
-        if(tileFarm.canUseEnergy(ConfigTechReborn.farmEu)){
+        if (tileFarm.canUseEnergy(ConfigTechReborn.farmEu)) {
             tileFarm.useEnergy(ConfigTechReborn.farmEu);
             if (tileFarm.getWorldObj().getTotalWorldTime() % 20 == 0 || tileFarm.inventory.hasChanged) {
                 calculateFarmLand(tileFarm);
@@ -88,26 +88,26 @@ public class FarmTree implements IFarmLogicDevice {
     boolean isplanting;
 
     public void saplinTick(TileFarm tileFarm) {
-        if(!isplanting){
-            sapx = - tileFarm.size;
+        if (!isplanting) {
+            sapx = -tileFarm.size;
             sapz = -tileFarm.size;
             isplanting = true;
         } else {
             int xpos = sapx + tileFarm.xCoord;
             int ypos = tileFarm.yCoord + 2;
             int zpos = sapz + tileFarm.zCoord;
-            if(getSaplinStack(tileFarm) != null){
+            if (getSaplinStack(tileFarm) != null) {
                 Block saplin = Block.getBlockFromItem(getSaplinStack(tileFarm).getItem());
                 int meta = getSaplinStack(tileFarm).getItemDamage();
                 if (saplin != null && tileFarm.getWorldObj().getBlock(xpos, ypos, zpos) == Blocks.air && saplin.canBlockStay(tileFarm.getWorldObj(), xpos, ypos, zpos) && saplin.canPlaceBlockAt(tileFarm.getWorldObj(), xpos, ypos, zpos) && removeInputStack(new ItemStack(saplin, 1, meta), tileFarm)) {
                     tileFarm.getWorldObj().setBlock(xpos, ypos, zpos, saplin, meta, 2);
                 }
-                sapx ++;
-                if(sapx == tileFarm.size){
-                    sapx =  - tileFarm.size;
-                    sapz ++;
+                sapx++;
+                if (sapx == tileFarm.size) {
+                    sapx = -tileFarm.size;
+                    sapz++;
                 }
-                if(sapz >= tileFarm.size){
+                if (sapz >= tileFarm.size) {
                     sapz = -tileFarm.size;
                     sapx = -tileFarm.size;
                 }
@@ -120,25 +120,26 @@ public class FarmTree implements IFarmLogicDevice {
         if (farmlandToPlace.isEmpty()) {
             if (!isHavrvesting) {
                 harvestx = -tileFarm.size - overlap;
-                harvesty = + 2;
+                harvesty = +2;
                 harvestz = -tileFarm.size - overlap;
                 isHavrvesting = true;
             } else {
                 Block block = tileFarm.getWorldObj().getBlock(harvestx + tileFarm.xCoord, harvesty + tileFarm.yCoord, harvestz + tileFarm.zCoord);
-                if(block instanceof BlockLeavesBase){
+                if (block instanceof BlockLeavesBase) {
                     breakBlock(tileFarm, new Location(harvestx + tileFarm.xCoord, harvesty + tileFarm.yCoord, harvestz + tileFarm.zCoord));
-                } else if(harvestableLogs.contains(block)){
-                    breakBlock(tileFarm, new Location(harvestx + tileFarm.xCoord, harvesty + tileFarm.yCoord, harvestz + tileFarm.zCoord));;
+                } else if (harvestableLogs.contains(block)) {
+                    breakBlock(tileFarm, new Location(harvestx + tileFarm.xCoord, harvesty + tileFarm.yCoord, harvestz + tileFarm.zCoord));
+                    ;
                 }
-                    harvestx ++;
-                 if(harvestx >= tileFarm.size + overlap){
+                harvestx++;
+                if (harvestx >= tileFarm.size + overlap) {
                     harvestx = -tileFarm.size - overlap;
-                    harvestz ++;
-                } else if(harvestz >= tileFarm.size + overlap){
+                    harvestz++;
+                } else if (harvestz >= tileFarm.size + overlap) {
                     harvestx = -tileFarm.size - overlap;
                     harvestz = -tileFarm.size - overlap;
-                    harvesty ++;
-                } else if(harvesty > 12){
+                    harvesty++;
+                } else if (harvesty > 12) {
                     harvestx = 0;
                     harvesty = 2;
                     harvestz = 0;
@@ -162,7 +163,7 @@ public class FarmTree implements IFarmLogicDevice {
 
     public ItemStack getSaplinStack(TileFarm tileFarm) {
         for (int i = 1; i < 14; i++) {
-            if(tileFarm.getStackInSlot(i) != null && Block.getBlockFromItem(tileFarm.getStackInSlot(i).getItem()) instanceof BlockSapling){
+            if (tileFarm.getStackInSlot(i) != null && Block.getBlockFromItem(tileFarm.getStackInSlot(i).getItem()) instanceof BlockSapling) {
                 return tileFarm.getStackInSlot(i);
             }
         }
@@ -241,13 +242,13 @@ public class FarmTree implements IFarmLogicDevice {
         return fakePlayer;
     }
 
-    public void addStackToInventroy(TileFarm farm, ItemStack stack){
+    public void addStackToInventroy(TileFarm farm, ItemStack stack) {
         for (int i = 5; i < 14; i++) {
-            if(farm.getStackInSlot(i) == null){
+            if (farm.getStackInSlot(i) == null) {
                 farm.setInventorySlotContents(i, stack);
                 return;
-            } else if(ItemUtils.isItemEqual(stack, farm.getStackInSlot(i), true, true) && farm.getStackInSlot(i).stackSize + stack.stackSize <= stack.getMaxStackSize()){
-                farm.decrStackSize(i, - stack.stackSize);
+            } else if (ItemUtils.isItemEqual(stack, farm.getStackInSlot(i), true, true) && farm.getStackInSlot(i).stackSize + stack.stackSize <= stack.getMaxStackSize()) {
+                farm.decrStackSize(i, -stack.stackSize);
                 return;
             }
         }

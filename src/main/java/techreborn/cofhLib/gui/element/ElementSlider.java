@@ -6,8 +6,7 @@ import org.lwjgl.opengl.GL11;
 import techreborn.cofhLib.gui.GuiBase;
 import techreborn.cofhLib.gui.GuiColor;
 
-public abstract class ElementSlider extends ElementBase
-{
+public abstract class ElementSlider extends ElementBase {
     protected int _value;
     protected int _valueMin;
     protected int _valueMax;
@@ -23,103 +22,84 @@ public abstract class ElementSlider extends ElementBase
     protected ResourceLocation hoverTexture = Textures.Gui.Elements.BUTTON_HOVER;
     protected ResourceLocation disabledTexture = Textures.Gui.Elements.BUTTON_DISABLED;
 
-    protected ElementSlider(GuiBase containerScreen, int x, int y, int width, int height, int maxValue)
-    {
+    protected ElementSlider(GuiBase containerScreen, int x, int y, int width, int height, int maxValue) {
         this(containerScreen, x, y, width, height, maxValue, 0);
     }
 
-    protected ElementSlider(GuiBase containerScreen, int x, int y, int width, int height, int maxValue, int minValue)
-    {
+    protected ElementSlider(GuiBase containerScreen, int x, int y, int width, int height, int maxValue, int minValue) {
         super(containerScreen, x, y, width, height);
         _valueMax = maxValue;
         _valueMin = minValue;
     }
 
-    protected ElementSlider(GuiBase containerScreen, String elementName, int x, int y, int width, int height, int maxValue, int minValue)
-    {
+    protected ElementSlider(GuiBase containerScreen, String elementName, int x, int y, int width, int height, int maxValue, int minValue) {
         super(containerScreen, x, y, width, height);
         this.name = elementName;
         _valueMax = maxValue;
         _valueMin = minValue;
     }
 
-    public ElementSlider setColor(int backgroundColor, int borderColor)
-    {
+    public ElementSlider setColor(int backgroundColor, int borderColor) {
         this.borderColor = borderColor;
         this.backgroundColor = backgroundColor;
         return this;
     }
 
-    public ElementSlider setSliderSize(int width, int height)
-    {
+    public ElementSlider setSliderSize(int width, int height) {
         _sliderWidth = width;
         _sliderHeight = height;
         return this;
     }
 
-    public int getValue()
-    {
+    public int getValue() {
         return this._value;
     }
 
-    public int getValueMin()
-    {
+    public int getValueMin() {
         return this._valueMin;
     }
 
-    public int getValueMax()
-    {
+    public int getValueMax() {
         return this._valueMax;
     }
 
-    public ElementSlider setValue(int value)
-    {
+    public ElementSlider setValue(int value) {
         value = Math.max(_valueMin, Math.min(_valueMax, value));
-        if (value != _value)
-        {
+        if (value != _value) {
             _value = value;
             onValueChanged(_value);
         }
         return this;
     }
 
-    public ElementSlider setMinValue(int minValue)
-    {
+    public ElementSlider setMinValue(int minValue) {
         _valueMin = minValue;
         return this;
     }
 
-    public ElementSlider setMaxValue(int maxValue)
-    {
+    public ElementSlider setMaxValue(int maxValue) {
         _valueMax = maxValue;
         return this;
     }
 
     @Override
-    public void drawBackground(int mouseX, int mouseY, float gameTicks)
-    {
+    public void drawBackground(int mouseX, int mouseY, float gameTicks) {
         drawModalRect(posX - 1, posY - 1, posX + sizeX + 1, posY + sizeY + 1, borderColor);
         drawModalRect(posX, posY, posX + sizeX, posY + sizeY, backgroundColor);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
     }
 
-    protected void drawSlider(int mouseX, int mouseY, int sliderX, int sliderY)
-    {
+    protected void drawSlider(int mouseX, int mouseY, int sliderX, int sliderY) {
         int sliderMidX = _sliderWidth / 2;
         int sliderMidY = _sliderHeight / 2;
         int sliderEndX = _sliderWidth - sliderMidX;
         int sliderEndY = _sliderHeight - sliderMidY;
 
-        if (!isEnabled())
-        {
+        if (!isEnabled()) {
             gui.bindTexture(disabledTexture);
-        }
-        else if (isHovering(mouseX, mouseY))
-        {
+        } else if (isHovering(mouseX, mouseY)) {
             gui.bindTexture(hoverTexture);
-        }
-        else
-        {
+        } else {
             gui.bindTexture(enabledTexture);
         }
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -130,8 +110,7 @@ public abstract class ElementSlider extends ElementBase
     }
 
     @Override
-    public void drawForeground(int mouseX, int mouseY)
-    {
+    public void drawForeground(int mouseX, int mouseY) {
         int sliderX = posX + getSliderX();
         int sliderY = posY + getSliderY();
 
@@ -139,44 +118,36 @@ public abstract class ElementSlider extends ElementBase
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
     }
 
-    protected boolean isHovering(int x, int y)
-    {
+    protected boolean isHovering(int x, int y) {
         return intersectsWith(x, y);
     }
 
-    public int getSliderX()
-    {
+    public int getSliderX() {
         return 0;
     }
 
-    public int getSliderY()
-    {
+    public int getSliderY() {
         return 0;
     }
 
     @Override
-    public boolean onMousePressed(int mouseX, int mouseY, int mouseButton)
-    {
+    public boolean onMousePressed(int mouseX, int mouseY, int mouseButton) {
         _isDragging = mouseButton == 0;
         update(mouseX, mouseY);
         return true;
     }
 
     @Override
-    public void onMouseReleased(int mouseX, int mouseY)
-    {
-        if (_isDragging)
-        {
+    public void onMouseReleased(int mouseX, int mouseY) {
+        if (_isDragging) {
             onStopDragging();
         }
         _isDragging = false;
     }
 
     @Override
-    public void update(int mouseX, int mouseY)
-    {
-        if (_isDragging)
-        {
+    public void update(int mouseX, int mouseY) {
+        if (_isDragging) {
             dragSlider(mouseX - posX, mouseY - posY);
         }
     }
@@ -184,41 +155,32 @@ public abstract class ElementSlider extends ElementBase
     protected abstract void dragSlider(int x, int y);
 
     @Override
-    public boolean onMouseWheel(int mouseX, int mouseY, int movement)
-    {
-        if (movement > 0)
-        {
+    public boolean onMouseWheel(int mouseX, int mouseY, int movement) {
+        if (movement > 0) {
             setValue(_value - 1);
-        }
-        else if (movement < 0)
-        {
+        } else if (movement < 0) {
             setValue(_value + 1);
         }
         return true;
     }
 
-    public void onValueChanged(int value)
-    {
+    public void onValueChanged(int value) {
         return;
     }
 
-    public void onStopDragging()
-    {
+    public void onStopDragging() {
         return;
     }
 
-    public void setEnabledTexture(ResourceLocation enabledTexture)
-    {
+    public void setEnabledTexture(ResourceLocation enabledTexture) {
         this.enabledTexture = enabledTexture;
     }
 
-    public void setDisabledTexture(ResourceLocation disabledTexture)
-    {
+    public void setDisabledTexture(ResourceLocation disabledTexture) {
         this.disabledTexture = disabledTexture;
     }
 
-    public void setHoverTexture(ResourceLocation hoverTexture)
-    {
+    public void setHoverTexture(ResourceLocation hoverTexture) {
         this.hoverTexture = hoverTexture;
     }
 }

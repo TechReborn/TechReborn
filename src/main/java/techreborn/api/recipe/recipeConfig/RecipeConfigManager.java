@@ -16,14 +16,14 @@ public class RecipeConfigManager {
 
     static File configFile = null;
 
-    public static void load(File configDir){
-        if(configFile == null){
+    public static void load(File configDir) {
+        if (configFile == null) {
             configFile = new File(configDir, "techRebornRecipes.json");
         }
     }
 
-    public static void save(){
-        if(configFile.exists()){
+    public static void save() {
+        if (configFile.exists()) {
             configFile.delete();
         }
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -38,12 +38,12 @@ public class RecipeConfigManager {
     }
 
 
-    public static boolean canLoadRecipe(IBaseRecipeType recipeType){
+    public static boolean canLoadRecipe(IBaseRecipeType recipeType) {
         RecipeConfig config = new RecipeConfig();
-        for(ItemStack stack : recipeType.getInputs()){
+        for (ItemStack stack : recipeType.getInputs()) {
             config.addInputs(itemToConfig(stack));
         }
-        for(ItemStack stack : recipeType.getOutputs()){
+        for (ItemStack stack : recipeType.getOutputs()) {
             config.addOutputs(itemToConfig(stack));
         }
         config.enabled = true;
@@ -53,7 +53,7 @@ public class RecipeConfigManager {
     }
 
 
-    public static ConfigItem itemToConfig(ItemStack stack){
+    public static ConfigItem itemToConfig(ItemStack stack) {
         ConfigItem newItem = new ConfigItem();
         newItem.setItemName(stack.getItem().getUnlocalizedName());
         newItem.setMeta(stack.getItemDamage());

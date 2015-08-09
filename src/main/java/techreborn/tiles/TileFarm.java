@@ -37,15 +37,15 @@ public class TileFarm extends TilePowerAcceptor implements IInventory, IEnergyTi
 
     @Override
     public void updateEntity() {
-        if(inventory.hasChanged){
-            if(inventory.getStackInSlot(0) != null && inventory.getStackInSlot(0).getItem() instanceof IFarmLogicContainer){
+        if (inventory.hasChanged) {
+            if (inventory.getStackInSlot(0) != null && inventory.getStackInSlot(0).getItem() instanceof IFarmLogicContainer) {
                 IFarmLogicContainer device = (IFarmLogicContainer) inventory.getStackInSlot(0).getItem();
                 logicDevice = device.getLogicFromStack(inventory.getStackInSlot(0));
             } else {
                 logicDevice = null;
             }
         }
-        if(logicDevice != null){
+        if (logicDevice != null) {
             logicDevice.tick(this);
         }
         super.updateEntity();

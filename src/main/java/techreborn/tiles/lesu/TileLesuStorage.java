@@ -11,22 +11,22 @@ public class TileLesuStorage extends TileMachineBase {
     @Override
     public void updateEntity() {
         super.updateEntity();
-        if(network == null){
+        if (network == null) {
             findAndJoinNetwork(worldObj, xCoord, yCoord, zCoord);
         } else {
-            if(network.master != null && network.master.getWorldObj().getTileEntity(network.master.xCoord, network.master.yCoord, network.master.zCoord) != network.master){
-				network.master = null;
-			}
+            if (network.master != null && network.master.getWorldObj().getTileEntity(network.master.xCoord, network.master.yCoord, network.master.zCoord) != network.master) {
+                network.master = null;
+            }
         }
     }
 
     public final void findAndJoinNetwork(World world, int x, int y, int z) {
         network = new LesuNetwork();
         network.addElement(this);
-        for(ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS){
-            if(world.getTileEntity(x + direction.offsetX, y + direction.offsetY, z + direction.offsetZ) instanceof TileLesuStorage){
+        for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
+            if (world.getTileEntity(x + direction.offsetX, y + direction.offsetY, z + direction.offsetZ) instanceof TileLesuStorage) {
                 TileLesuStorage lesu = (TileLesuStorage) world.getTileEntity(x + direction.offsetX, y + direction.offsetY, z + direction.offsetZ);
-                if(lesu.network != null){
+                if (lesu.network != null) {
                     lesu.network.merge(network);
                 }
             }

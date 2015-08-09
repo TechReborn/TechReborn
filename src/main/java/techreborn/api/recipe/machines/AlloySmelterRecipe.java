@@ -16,8 +16,8 @@ public class AlloySmelterRecipe extends BaseRecipe {
             addOutput(output1);
     }
 
-	@Override
-	public String getUserFreindlyName() {
-		return "Alloy Smelter";
-	}
+    @Override
+    public String getUserFreindlyName() {
+        return "Alloy Smelter";
+    }
 }

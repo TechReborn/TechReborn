@@ -18,14 +18,13 @@ import java.util.List;
 
 public class ItemCells extends ItemTR {
 
-	public static ItemStack getCellByName(String name, int count)
-	{
+    public static ItemStack getCellByName(String name, int count) {
         Fluid fluid = FluidRegistry.getFluid("fluid" + name.toLowerCase());
-        if(IC2Items.getItem("FluidCell") != null){
-            if(fluid != null){
+        if (IC2Items.getItem("FluidCell") != null) {
+            if (fluid != null) {
                 ItemStack stack = IC2Items.getItem("FluidCell").copy();
-                if(stack != null && stack.getItem() instanceof IFluidContainerItem){
-                    IFluidContainerItem containerItem = (IFluidContainerItem)stack.getItem();
+                if (stack != null && stack.getItem() instanceof IFluidContainerItem) {
+                    IFluidContainerItem containerItem = (IFluidContainerItem) stack.getItem();
                     containerItem.fill(stack, new FluidStack(fluid.getID(), 2147483647), true);
                     stack.stackSize = count;
                     return stack;
@@ -42,76 +41,66 @@ public class ItemCells extends ItemTR {
             }
         }
         return new ItemStack(ModItems.cells, count, index);
-	}
-	
-	public static ItemStack getCellByName(String name)
-	{
-		return getCellByName(name, 1);
-	}
-	
-	public static final String[] types = new String[]
-	{ "Berylium", "biomass", "calciumCarbonate", "calcium", "carbon",
-			"chlorine", "deuterium", "diesel", "ethanol", "glyceryl",
-			"helium3", "helium", "heliumPlasma", "hydrogen", "ice", "lithium",
-			"mercury", "methane", "nitrocarbon", "nitroCoalfuel",
-			"nitroDiesel", "nitrogen", "nitrogenDioxide", "oil", "potassium",
-			"seedOil", "silicon", "sodium", "sodiumPersulfate",
-			"sodiumSulfide", "sulfur", "sulfuricAcid", "tritium", "wolframium", };
+    }
 
-	private IIcon[] textures;
+    public static ItemStack getCellByName(String name) {
+        return getCellByName(name, 1);
+    }
 
-	public ItemCells()
-	{
-		setUnlocalizedName("techreborn.cell");
-		setHasSubtypes(true);
-		setCreativeTab(TechRebornCreativeTab.instance);
-	}
+    public static final String[] types = new String[]
+            {"Berylium", "biomass", "calciumCarbonate", "calcium", "carbon",
+                    "chlorine", "deuterium", "diesel", "ethanol", "glyceryl",
+                    "helium3", "helium", "heliumPlasma", "hydrogen", "ice", "lithium",
+                    "mercury", "methane", "nitrocarbon", "nitroCoalfuel",
+                    "nitroDiesel", "nitrogen", "nitrogenDioxide", "oil", "potassium",
+                    "seedOil", "silicon", "sodium", "sodiumPersulfate",
+                    "sodiumSulfide", "sulfur", "sulfuricAcid", "tritium", "wolframium",};
 
-	@Override
-	// Registers Textures For All Dusts
-	public void registerIcons(IIconRegister iconRegister)
-	{
-		textures = new IIcon[types.length];
+    private IIcon[] textures;
 
-		for (int i = 0; i < types.length; ++i)
-		{
-			textures[i] = iconRegister.registerIcon("techreborn:" + "cells/"
-					+ types[i] + "Cell");
-		}
-	}
+    public ItemCells() {
+        setUnlocalizedName("techreborn.cell");
+        setHasSubtypes(true);
+        setCreativeTab(TechRebornCreativeTab.instance);
+    }
 
-	@Override
-	// Adds Texture what match's meta data
-	public IIcon getIconFromDamage(int meta)
-	{
-		if (meta < 0 || meta >= textures.length)
-		{
-			meta = 0;
-		}
+    @Override
+    // Registers Textures For All Dusts
+    public void registerIcons(IIconRegister iconRegister) {
+        textures = new IIcon[types.length];
 
-		return textures[meta];
-	}
+        for (int i = 0; i < types.length; ++i) {
+            textures[i] = iconRegister.registerIcon("techreborn:" + "cells/"
+                    + types[i] + "Cell");
+        }
+    }
 
-	@Override
-	// gets Unlocalized Name depending on meta data
-	public String getUnlocalizedName(ItemStack itemStack)
-	{
-		int meta = itemStack.getItemDamage();
-		if (meta < 0 || meta >= types.length)
-		{
-			meta = 0;
-		}
+    @Override
+    // Adds Texture what match's meta data
+    public IIcon getIconFromDamage(int meta) {
+        if (meta < 0 || meta >= textures.length) {
+            meta = 0;
+        }
 
-		return super.getUnlocalizedName() + "." + types[meta];
-	}
+        return textures[meta];
+    }
 
-	// Adds Dusts SubItems To Creative Tab
-	public void getSubItems(Item item, CreativeTabs creativeTabs, List list)
-	{
-		for (int meta = 0; meta < types.length; ++meta)
-		{
-			list.add(new ItemStack(item, 1, meta));
-		}
-	}
+    @Override
+    // gets Unlocalized Name depending on meta data
+    public String getUnlocalizedName(ItemStack itemStack) {
+        int meta = itemStack.getItemDamage();
+        if (meta < 0 || meta >= types.length) {
+            meta = 0;
+        }
+
+        return super.getUnlocalizedName() + "." + types[meta];
+    }
+
+    // Adds Dusts SubItems To Creative Tab
+    public void getSubItems(Item item, CreativeTabs creativeTabs, List list) {
+        for (int meta = 0; meta < types.length; ++meta) {
+            list.add(new ItemStack(item, 1, meta));
+        }
+    }
 
 }

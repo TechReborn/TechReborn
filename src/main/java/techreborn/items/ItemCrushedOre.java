@@ -12,80 +12,69 @@ import java.security.InvalidParameterException;
 import java.util.List;
 
 public class ItemCrushedOre extends Item {
-	public static ItemStack getCrushedOreByName(String name, int count)
-	{
-		for (int i = 0; i < types.length; i++) {
-			if (types[i].equalsIgnoreCase(name)) {
-				return new ItemStack(ModItems.crushedOre, count, i);
-			}
-		}
-		throw new InvalidParameterException("The gem " + name + " could not be found.");
-	}
-	
-	public static ItemStack getCrushedOreByName(String name)
-	{
-		return getCrushedOreByName(name, 1);
-	}
-	
-	public static final String[] types = new String[]
-	{ "Aluminum", "Ardite", "Bauxite", "Cadmium", "Cinnabar", "Cobalt", "DarkIron",
-			"Indium", "Iridium", "Nickel", "Osmium", "Platinum",
-			"Pyrite", "Sphalerite", "Tetrahedrite", "Tungsten", "Galena" };
+    public static ItemStack getCrushedOreByName(String name, int count) {
+        for (int i = 0; i < types.length; i++) {
+            if (types[i].equalsIgnoreCase(name)) {
+                return new ItemStack(ModItems.crushedOre, count, i);
+            }
+        }
+        throw new InvalidParameterException("The gem " + name + " could not be found.");
+    }
 
-	private IIcon[] textures;
+    public static ItemStack getCrushedOreByName(String name) {
+        return getCrushedOreByName(name, 1);
+    }
 
-	public ItemCrushedOre()
-	{
-		setCreativeTab(TechRebornCreativeTabMisc.instance);
-		setHasSubtypes(true);
-		setUnlocalizedName("techreborn.crushedore");
-	}
+    public static final String[] types = new String[]
+            {"Aluminum", "Ardite", "Bauxite", "Cadmium", "Cinnabar", "Cobalt", "DarkIron",
+                    "Indium", "Iridium", "Nickel", "Osmium", "Platinum",
+                    "Pyrite", "Sphalerite", "Tetrahedrite", "Tungsten", "Galena"};
 
-	@Override
-	// Registers Textures For All Dusts
-	public void registerIcons(IIconRegister iconRegister)
-	{
-		textures = new IIcon[types.length];
+    private IIcon[] textures;
 
-		for (int i = 0; i < types.length; ++i)
-		{
-			textures[i] = iconRegister.registerIcon("techreborn:" + "crushedOre/crushed"
-					+ types[i] + "Ore");
-		}
-	}
+    public ItemCrushedOre() {
+        setCreativeTab(TechRebornCreativeTabMisc.instance);
+        setHasSubtypes(true);
+        setUnlocalizedName("techreborn.crushedore");
+    }
 
-	@Override
-	// Adds Texture what match's meta data
-	public IIcon getIconFromDamage(int meta)
-	{
-		if (meta < 0 || meta >= textures.length)
-		{
-			meta = 0;
-		}
+    @Override
+    // Registers Textures For All Dusts
+    public void registerIcons(IIconRegister iconRegister) {
+        textures = new IIcon[types.length];
 
-		return textures[meta];
-	}
+        for (int i = 0; i < types.length; ++i) {
+            textures[i] = iconRegister.registerIcon("techreborn:" + "crushedOre/crushed"
+                    + types[i] + "Ore");
+        }
+    }
 
-	@Override
-	// gets Unlocalized Name depending on meta data
-	public String getUnlocalizedName(ItemStack itemStack)
-	{
-		int meta = itemStack.getItemDamage();
-		if (meta < 0 || meta >= types.length)
-		{
-			meta = 0;
-		}
+    @Override
+    // Adds Texture what match's meta data
+    public IIcon getIconFromDamage(int meta) {
+        if (meta < 0 || meta >= textures.length) {
+            meta = 0;
+        }
 
-		return super.getUnlocalizedName() + "." + types[meta];
-	}
+        return textures[meta];
+    }
 
-	// Adds Dusts SubItems To Creative Tab
-	public void getSubItems(Item item, CreativeTabs creativeTabs, List list)
-	{
-		for (int meta = 0; meta < types.length; ++meta)
-		{
-			list.add(new ItemStack(item, 1, meta));
-		}
-	}
+    @Override
+    // gets Unlocalized Name depending on meta data
+    public String getUnlocalizedName(ItemStack itemStack) {
+        int meta = itemStack.getItemDamage();
+        if (meta < 0 || meta >= types.length) {
+            meta = 0;
+        }
+
+        return super.getUnlocalizedName() + "." + types[meta];
+    }
+
+    // Adds Dusts SubItems To Creative Tab
+    public void getSubItems(Item item, CreativeTabs creativeTabs, List list) {
+        for (int meta = 0; meta < types.length; ++meta) {
+            list.add(new ItemStack(item, 1, meta));
+        }
+    }
 
 }

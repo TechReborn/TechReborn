@@ -8,41 +8,41 @@ public class LesuNetwork {
 
     public TileLesu master;
 
-    public void addElement(TileLesuStorage lesuStorage){
-        if(!storages.contains(lesuStorage) && storages.size() < 5000){
+    public void addElement(TileLesuStorage lesuStorage) {
+        if (!storages.contains(lesuStorage) && storages.size() < 5000) {
             storages.add(lesuStorage);
         }
     }
 
-    public void removeElement(TileLesuStorage lesuStorage){
+    public void removeElement(TileLesuStorage lesuStorage) {
         storages.remove(lesuStorage);
         rebuild();
     }
 
-    private void  rebuild(){
-		master = null;
-        for(TileLesuStorage lesuStorage : storages){
+    private void rebuild() {
+        master = null;
+        for (TileLesuStorage lesuStorage : storages) {
             lesuStorage.findAndJoinNetwork(lesuStorage.getWorldObj(), lesuStorage.xCoord, lesuStorage.yCoord, lesuStorage.zCoord);
         }
     }
 
-    public void merge(LesuNetwork network){
-        if(network != this){
+    public void merge(LesuNetwork network) {
+        if (network != this) {
             ArrayList<TileLesuStorage> tileLesuStorages = new ArrayList<TileLesuStorage>();
             tileLesuStorages.addAll(network.storages);
             network.clear(false);
-            for(TileLesuStorage lesuStorage : tileLesuStorages){
+            for (TileLesuStorage lesuStorage : tileLesuStorages) {
                 lesuStorage.setNetwork(this);
             }
-			if(network.master != null && this.master == null){
-				this.master = network.master;
-			}
+            if (network.master != null && this.master == null) {
+                this.master = network.master;
+            }
         }
     }
 
     private void clear(boolean clearTiles) {
         if (clearTiles) {
-            for(TileLesuStorage tileLesuStorage : storages){
+            for (TileLesuStorage tileLesuStorage : storages) {
                 tileLesuStorage.resetNetwork();
             }
         }

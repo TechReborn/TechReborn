@@ -19,16 +19,16 @@ import techreborn.partSystem.ModPart;
  * the world.
  */
 public class FakeFMPPlacerItem extends JItemMultiPart {
-	ModPart modPart;
+    ModPart modPart;
 
-	public FakeFMPPlacerItem(ModPart part) {
-		modPart = part;
-	}
+    public FakeFMPPlacerItem(ModPart part) {
+        modPart = part;
+    }
 
-	@Override
-	public TMultiPart newPart(ItemStack item, EntityPlayer player, World world,
-							  BlockCoord pos, int side, Vector3 vhit) {
-		TMultiPart w = MultiPartRegistry.createPart(modPart.getName(), false);
-		return w;
-	}
+    @Override
+    public TMultiPart newPart(ItemStack item, EntityPlayer player, World world,
+                              BlockCoord pos, int side, Vector3 vhit) {
+        TMultiPart w = MultiPartRegistry.createPart(modPart.getName(), false);
+        return w;
+    }
 }

@@ -19,85 +19,73 @@ import java.util.Random;
 
 public class BlockStorage extends Block {
 
-	public static ItemStack getStorageBlockByName(String name, int count)
-	{
-		for (int i = 0; i < types.length; i++) {
-			if (types[i].equals(name)) {
-				return new ItemStack(ModBlocks.storage, count, i);
-			}
-		}
-		return BlockStorage2.getStorageBlockByName(name, count);
-	}
+    public static ItemStack getStorageBlockByName(String name, int count) {
+        for (int i = 0; i < types.length; i++) {
+            if (types[i].equals(name)) {
+                return new ItemStack(ModBlocks.storage, count, i);
+            }
+        }
+        return BlockStorage2.getStorageBlockByName(name, count);
+    }
 
-	public static ItemStack getStorageBlockByName(String name)
-	{
-		return getStorageBlockByName(name, 1);
-	}
+    public static ItemStack getStorageBlockByName(String name) {
+        return getStorageBlockByName(name, 1);
+    }
 
-	public static final String[] types = new String[]
-	{ "silver", "aluminum", "titanium", "chrome", "steel", "brass", "lead",
-			"electrum", "zinc", "platinum", "tungsten", "nickel", "invar", "osmium",
-			"iridium" };
+    public static final String[] types = new String[]
+            {"silver", "aluminum", "titanium", "chrome", "steel", "brass", "lead",
+                    "electrum", "zinc", "platinum", "tungsten", "nickel", "invar", "osmium",
+                    "iridium"};
 
-	private IIcon[] textures;
+    private IIcon[] textures;
 
-	public BlockStorage(Material material)
-	{
-		super(material);
-		setBlockName("techreborn.storage");
-		setCreativeTab(TechRebornCreativeTabMisc.instance);
-		setHardness(2f);
-	}
+    public BlockStorage(Material material) {
+        super(material);
+        setBlockName("techreborn.storage");
+        setCreativeTab(TechRebornCreativeTabMisc.instance);
+        setHardness(2f);
+    }
 
-	@Override
-	public Item getItemDropped(int par1, Random random, int par2)
-	{
-		return Item.getItemFromBlock(this);
-	}
+    @Override
+    public Item getItemDropped(int par1, Random random, int par2) {
+        return Item.getItemFromBlock(this);
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list)
-	{
-		for (int meta = 0; meta < types.length; meta++)
-		{
-			list.add(new ItemStack(item, 1, meta));
-		}
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list) {
+        for (int meta = 0; meta < types.length; meta++) {
+            list.add(new ItemStack(item, 1, meta));
+        }
+    }
 
-	@Override
-	public int damageDropped(int metaData)
-	{
-		return metaData;
-	}
+    @Override
+    public int damageDropped(int metaData) {
+        return metaData;
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister iconRegister)
-	{
-		this.textures = new IIcon[types.length];
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerBlockIcons(IIconRegister iconRegister) {
+        this.textures = new IIcon[types.length];
 
-		for (int i = 0; i < types.length; i++)
-		{
-			textures[i] = iconRegister.registerIcon("techreborn:"
-					+ "storage/" + types[i] + "_block");
-		}
-	}
+        for (int i = 0; i < types.length; i++) {
+            textures[i] = iconRegister.registerIcon("techreborn:"
+                    + "storage/" + types[i] + "_block");
+        }
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int metaData)
-	{
-		metaData = MathHelper.clamp_int(metaData, 0, types.length - 1);
+    @Override
+    @SideOnly(Side.CLIENT)
+    public IIcon getIcon(int side, int metaData) {
+        metaData = MathHelper.clamp_int(metaData, 0, types.length - 1);
 
-		if (ForgeDirection.getOrientation(side) == ForgeDirection.UP
-				|| ForgeDirection.getOrientation(side) == ForgeDirection.DOWN)
-		{
-			return textures[metaData];
-		} else
-		{
-			return textures[metaData];
-		}
-	}
+        if (ForgeDirection.getOrientation(side) == ForgeDirection.UP
+                || ForgeDirection.getOrientation(side) == ForgeDirection.DOWN) {
+            return textures[metaData];
+        } else {
+            return textures[metaData];
+        }
+    }
 
 }

@@ -44,7 +44,7 @@ public class FarmInventoryCable extends ModPart implements IPartDesc {
                 centerFirst - w, centerFirst + w, centerFirst + w, centerFirst
                 + w);
 
-        w = 0.4F /2;
+        w = 0.4F / 2;
         int i = 0;
         for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
             double xMin1 = (dir.offsetX < 0 ? 0.0

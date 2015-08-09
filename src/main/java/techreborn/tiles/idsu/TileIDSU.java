@@ -1,12 +1,9 @@
 package techreborn.tiles.idsu;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
-import techreborn.Core;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.lib.Functions;
@@ -14,17 +11,17 @@ import techreborn.powerSystem.TilePowerAcceptor;
 
 public class TileIDSU extends TilePowerAcceptor {
 
-	public String ownerUdid;
+    public String ownerUdid;
 
     @Override
-	public double getEnergy() {
-		return IDSUManager.INSTANCE.getSaveDataForWorld(worldObj, ownerUdid).storedPower;
-	}
+    public double getEnergy() {
+        return IDSUManager.INSTANCE.getSaveDataForWorld(worldObj, ownerUdid).storedPower;
+    }
 
     @Override
-	public void setEnergy(double energy) {
-		IDSUManager.INSTANCE.getSaveDataForWorld(worldObj, ownerUdid).storedPower = energy;
-	}
+    public void setEnergy(double energy) {
+        IDSUManager.INSTANCE.getSaveDataForWorld(worldObj, ownerUdid).storedPower = energy;
+    }
 
     @Override
     public void readFromNBTWithoutCoords(NBTTagCompound tag) {
@@ -62,107 +59,107 @@ public class TileIDSU extends TilePowerAcceptor {
     }
 
     public int tier;
-	public int output;
-	public double maxStorage;
-	private double euLastTick = 0;
-	private double euChange;
-	private int ticks;
+    public int output;
+    public double maxStorage;
+    private double euLastTick = 0;
+    private double euChange;
+    private int ticks;
 
-	public TileIDSU(int tier1, int output1, int maxStorage1) {
+    public TileIDSU(int tier1, int output1, int maxStorage1) {
         super(tier1);
-		this.tier = tier1;
-		this.output = output1;
-		this.maxStorage = maxStorage1;
-	}
+        this.tier = tier1;
+        this.output = output1;
+        this.maxStorage = maxStorage1;
+    }
 
-    public TileIDSU(){
+    public TileIDSU() {
         this(5, 2048, 100000000);
     }
 
-	public float getChargeLevel() {
-		float ret = (float) this.getEnergy() / (float) this.maxStorage;
-		if (ret > 1.0F) {
-			ret = 1.0F;
-		}
+    public float getChargeLevel() {
+        float ret = (float) this.getEnergy() / (float) this.maxStorage;
+        if (ret > 1.0F) {
+            ret = 1.0F;
+        }
 
-		return ret;
-	}
+        return ret;
+    }
 
-	public void readFromNBT(NBTTagCompound nbttagcompound) {
-		super.readFromNBT(nbttagcompound);
-		this.ownerUdid = nbttagcompound.getString("ownerUdid");
-	}
+    public void readFromNBT(NBTTagCompound nbttagcompound) {
+        super.readFromNBT(nbttagcompound);
+        this.ownerUdid = nbttagcompound.getString("ownerUdid");
+    }
 
-	public void writeToNBT(NBTTagCompound nbttagcompound) {
-		super.writeToNBT(nbttagcompound);
-		nbttagcompound.setString("ownerUdid", this.ownerUdid);
-	}
+    public void writeToNBT(NBTTagCompound nbttagcompound) {
+        super.writeToNBT(nbttagcompound);
+        nbttagcompound.setString("ownerUdid", this.ownerUdid);
+    }
 
-	public void updateEntity() {
-		super.updateEntity();
+    public void updateEntity() {
+        super.updateEntity();
 
-		if (ticks == ConfigTechReborn.aveargeEuOutTickTime) {
-			euChange = -1;
-			ticks = 0;
+        if (ticks == ConfigTechReborn.aveargeEuOutTickTime) {
+            euChange = -1;
+            ticks = 0;
 
-		} else {
-			ticks++;
-			euChange += getEnergy() - euLastTick;
-			if (euLastTick == getEnergy()) {
-				euChange = 0;
-			}
-		}
+        } else {
+            ticks++;
+            euChange += getEnergy() - euLastTick;
+            if (euLastTick == getEnergy()) {
+                euChange = 0;
+            }
+        }
 
-		euLastTick = getEnergy();
+        euLastTick = getEnergy();
 
-		boolean needsInvUpdate = false;
-
-
-		if (needsInvUpdate) {
-			this.markDirty();
-		}
-
-	}
-
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
-		return false;
-	}
+        boolean needsInvUpdate = false;
 
 
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		NBTTagCompound tileEntity = new NBTTagCompound();
-		ItemStack dropStack = new ItemStack(ModBlocks.Idsu, 1);
-		writeToNBT(tileEntity);
-		dropStack.setTagCompound(new NBTTagCompound());
-		dropStack.stackTagCompound.setTag("tileEntity", tileEntity);
-		return dropStack;
-	}
+        if (needsInvUpdate) {
+            this.markDirty();
+        }
+
+    }
+
+    public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
+        return false;
+    }
 
 
-	public double getEuChange() {
-		if (euChange == -1) {
-			return -1;
-		}
-		return (euChange / ticks);
-	}
+    public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+        NBTTagCompound tileEntity = new NBTTagCompound();
+        ItemStack dropStack = new ItemStack(ModBlocks.Idsu, 1);
+        writeToNBT(tileEntity);
+        dropStack.setTagCompound(new NBTTagCompound());
+        dropStack.stackTagCompound.setTag("tileEntity", tileEntity);
+        return dropStack;
+    }
 
-    public void handleGuiInputFromClient(int id){
-        if(id == 0){
+
+    public double getEuChange() {
+        if (euChange == -1) {
+            return -1;
+        }
+        return (euChange / ticks);
+    }
+
+    public void handleGuiInputFromClient(int id) {
+        if (id == 0) {
             output += 256;
         }
-        if(id == 1){
+        if (id == 1) {
             output += 64;
         }
-        if(id == 2){
+        if (id == 2) {
             output -= 64;
         }
-        if(id == 3){
+        if (id == 3) {
             output -= 256;
         }
-        if(output > 4096){
+        if (output > 4096) {
             output = 4096;
         }
-        if(output <= -1){
+        if (output <= -1) {
             output = 0;
         }
     }

@@ -11,83 +11,72 @@ import techreborn.init.ModItems;
 import java.security.InvalidParameterException;
 import java.util.List;
 
-public class ItemIngots extends Item {	
-	public static ItemStack getIngotByName(String name, int count)
-	{
-		for (int i = 0; i < types.length; i++) {
-			if (types[i].equalsIgnoreCase(name)) {
-				return new ItemStack(ModItems.ingots, count, i);
-			}
-		}
-		throw new InvalidParameterException("The ingot " + name + " could not be found.");
-	}
-	
-	public static ItemStack getIngotByName(String name)
-	{
-		return getIngotByName(name, 1);
-	}
-	
-	public static final String[] types = new String[]
-	{ "aluminum", "antimony", "batteryAlloy", "redAlloy", "blueAlloy", "brass",
-			"bronze", "cadmium", "chrome", "copper", "cupronickel", "electrum", "indium",
-			"invar", "iridium", "kanthal", "lead", "lodestone", "magnalium", "nichrome", "nickel",
-			"osmium", "platinum", "silver", "steel", "tellurium", "tin", "titanium",
-			"tungsten", "hotTungstensteel", "tungstensteel", "zinc" };
+public class ItemIngots extends Item {
+    public static ItemStack getIngotByName(String name, int count) {
+        for (int i = 0; i < types.length; i++) {
+            if (types[i].equalsIgnoreCase(name)) {
+                return new ItemStack(ModItems.ingots, count, i);
+            }
+        }
+        throw new InvalidParameterException("The ingot " + name + " could not be found.");
+    }
 
-	private IIcon[] textures;
+    public static ItemStack getIngotByName(String name) {
+        return getIngotByName(name, 1);
+    }
 
-	public ItemIngots()
-	{
-		setCreativeTab(TechRebornCreativeTabMisc.instance);
-		setHasSubtypes(true);
-		setUnlocalizedName("techreborn.ingot");
-	}
+    public static final String[] types = new String[]
+            {"aluminum", "antimony", "batteryAlloy", "redAlloy", "blueAlloy", "brass",
+                    "bronze", "cadmium", "chrome", "copper", "cupronickel", "electrum", "indium",
+                    "invar", "iridium", "kanthal", "lead", "lodestone", "magnalium", "nichrome", "nickel",
+                    "osmium", "platinum", "silver", "steel", "tellurium", "tin", "titanium",
+                    "tungsten", "hotTungstensteel", "tungstensteel", "zinc"};
 
-	@Override
-	// Registers Textures For All Dusts
-	public void registerIcons(IIconRegister iconRegister)
-	{
-		textures = new IIcon[types.length];
+    private IIcon[] textures;
 
-		for (int i = 0; i < types.length; ++i)
-		{
-			textures[i] = iconRegister.registerIcon("techreborn:" + "ingot/"
-					+ types[i] + "Ingot");
-		}
-	}
+    public ItemIngots() {
+        setCreativeTab(TechRebornCreativeTabMisc.instance);
+        setHasSubtypes(true);
+        setUnlocalizedName("techreborn.ingot");
+    }
 
-	@Override
-	// Adds Texture what match's meta data
-	public IIcon getIconFromDamage(int meta)
-	{
-		if (meta < 0 || meta >= textures.length)
-		{
-			meta = 0;
-		}
+    @Override
+    // Registers Textures For All Dusts
+    public void registerIcons(IIconRegister iconRegister) {
+        textures = new IIcon[types.length];
 
-		return textures[meta];
-	}
+        for (int i = 0; i < types.length; ++i) {
+            textures[i] = iconRegister.registerIcon("techreborn:" + "ingot/"
+                    + types[i] + "Ingot");
+        }
+    }
 
-	@Override
-	// gets Unlocalized Name depending on meta data
-	public String getUnlocalizedName(ItemStack itemStack)
-	{
-		int meta = itemStack.getItemDamage();
-		if (meta < 0 || meta >= types.length)
-		{
-			meta = 0;
-		}
+    @Override
+    // Adds Texture what match's meta data
+    public IIcon getIconFromDamage(int meta) {
+        if (meta < 0 || meta >= textures.length) {
+            meta = 0;
+        }
 
-		return super.getUnlocalizedName() + "." + types[meta];
-	}
+        return textures[meta];
+    }
 
-	// Adds Dusts SubItems To Creative Tab
-	public void getSubItems(Item item, CreativeTabs creativeTabs, List list)
-	{
-		for (int meta = 0; meta < types.length; ++meta)
-		{
-			list.add(new ItemStack(item, 1, meta));
-		}
-	}
+    @Override
+    // gets Unlocalized Name depending on meta data
+    public String getUnlocalizedName(ItemStack itemStack) {
+        int meta = itemStack.getItemDamage();
+        if (meta < 0 || meta >= types.length) {
+            meta = 0;
+        }
+
+        return super.getUnlocalizedName() + "." + types[meta];
+    }
+
+    // Adds Dusts SubItems To Creative Tab
+    public void getSubItems(Item item, CreativeTabs creativeTabs, List list) {
+        for (int meta = 0; meta < types.length; ++meta) {
+            list.add(new ItemStack(item, 1, meta));
+        }
+    }
 
 }

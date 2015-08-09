@@ -44,12 +44,12 @@ public class IndustrialSawmillRecipe extends BaseRecipe {
         this.canUseOreDict = canUseOreDict;
     }
 
-	@Override
-	public String getUserFreindlyName() {
-		return "Industrial Sawmill";
-	}
+    @Override
+    public String getUserFreindlyName() {
+        return "Industrial Sawmill";
+    }
 
-	@Override
+    @Override
     public boolean canCraft(TileEntity tile) {
         if (fluidStack == null) {
             return true;
@@ -92,8 +92,8 @@ public class IndustrialSawmillRecipe extends BaseRecipe {
         return false;
     }
 
-	@Override
-	public boolean useOreDic() {
-		return canUseOreDict;
-	}
+    @Override
+    public boolean useOreDic() {
+        return canUseOreDict;
+    }
 }

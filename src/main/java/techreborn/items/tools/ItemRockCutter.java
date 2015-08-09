@@ -22,115 +22,112 @@ import java.util.List;
 
 public class ItemRockCutter extends ItemPickaxe implements IElectricItem {
 
-	public static final int maxCharge = ConfigTechReborn.RockCutterCharge;
-	public int cost = 500;
-	public static final int tier = ConfigTechReborn.RockCutterTier;
+    public static final int maxCharge = ConfigTechReborn.RockCutterCharge;
+    public int cost = 500;
+    public static final int tier = ConfigTechReborn.RockCutterTier;
 
-	public ItemRockCutter(ToolMaterial toolMaterial){
-		super(toolMaterial);
-		setUnlocalizedName("techreborn.rockcutter");
-		setCreativeTab(TechRebornCreativeTab.instance);
-		setMaxStackSize(1);
-		efficiencyOnProperMaterial = 16F;
-	}
+    public ItemRockCutter(ToolMaterial toolMaterial) {
+        super(toolMaterial);
+        setUnlocalizedName("techreborn.rockcutter");
+        setCreativeTab(TechRebornCreativeTab.instance);
+        setMaxStackSize(1);
+        efficiencyOnProperMaterial = 16F;
+    }
 
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerIcons(IIconRegister iconRegister){
-		this.itemIcon = iconRegister.registerIcon("techreborn:" + "tool/rockcutter");
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public boolean hasEffect(ItemStack ist)
-	{
-			return true;
-	}
-	
-	@Override
-	public void addInformation(ItemStack iS, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
-	{
-		if(!iS.isItemEnchanted()){
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void registerIcons(IIconRegister iconRegister) {
+        this.itemIcon = iconRegister.registerIcon("techreborn:" + "tool/rockcutter");
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public boolean hasEffect(ItemStack ist) {
+        return true;
+    }
+
+    @Override
+    public void addInformation(ItemStack iS, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+        if (!iS.isItemEnchanted()) {
             par3List.add(Color.WHITE + "Silk Touch I");
         }
-	}
+    }
 
-	@SuppressWarnings(
-	{ "rawtypes", "unchecked" })
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList){
-		ItemStack itemStack = new ItemStack(this, 1);
-		if (getChargedItem(itemStack) == this && ElectricItem.manager != null){
-			ItemStack charged = new ItemStack(this, 1);
-			ElectricItem.manager.charge(charged, 2147483647, 2147483647, true,
-					false);
-			itemList.add(charged);
-		}
-		
-		if (getEmptyItem(itemStack) == this){
-			itemList.add(new ItemStack(this, 1, getMaxDamage()));
-		}
-	}
+    @SuppressWarnings(
+            {"rawtypes", "unchecked"})
+    @SideOnly(Side.CLIENT)
+    public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
+        ItemStack itemStack = new ItemStack(this, 1);
+        if (getChargedItem(itemStack) == this && ElectricItem.manager != null) {
+            ItemStack charged = new ItemStack(this, 1);
+            ElectricItem.manager.charge(charged, 2147483647, 2147483647, true,
+                    false);
+            itemList.add(charged);
+        }
 
-	@Override
-	public boolean canHarvestBlock(Block block, ItemStack stack){
-		return Items.diamond_pickaxe.canHarvestBlock(block, stack);
-	}
-    
+        if (getEmptyItem(itemStack) == this) {
+            itemList.add(new ItemStack(this, 1, getMaxDamage()));
+        }
+    }
+
     @Override
-    public int getHarvestLevel(ItemStack stack, String toolClass)
-    {
-        if(!stack.isItemEnchanted()){
+    public boolean canHarvestBlock(Block block, ItemStack stack) {
+        return Items.diamond_pickaxe.canHarvestBlock(block, stack);
+    }
+
+    @Override
+    public int getHarvestLevel(ItemStack stack, String toolClass) {
+        if (!stack.isItemEnchanted()) {
             stack.addEnchantment(Enchantment.silkTouch, 1);
         }
-        return  super.getHarvestLevel(stack, toolClass);
+        return super.getHarvestLevel(stack, toolClass);
     }
 
     @Override
     public float func_150893_a(ItemStack stack, Block block) {
-        if(!stack.isItemEnchanted()){
+        if (!stack.isItemEnchanted()) {
             stack.addEnchantment(Enchantment.silkTouch, 1);
         }
         return super.func_150893_a(stack, block);
     }
 
     @Override
-	public boolean isRepairable(){
-		return false;
-	}
+    public boolean isRepairable() {
+        return false;
+    }
 
-	public void onCreated(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer){
-		par1ItemStack.addEnchantment(Enchantment.silkTouch, 1);
-	}
+    public void onCreated(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+        par1ItemStack.addEnchantment(Enchantment.silkTouch, 1);
+    }
 
-	@Override
-	public boolean canProvideEnergy(ItemStack itemStack){
-		return false;
-	}
+    @Override
+    public boolean canProvideEnergy(ItemStack itemStack) {
+        return false;
+    }
 
-	@Override
-	public Item getChargedItem(ItemStack itemStack){
-		return this;
-	}
+    @Override
+    public Item getChargedItem(ItemStack itemStack) {
+        return this;
+    }
 
-	@Override
-	public Item getEmptyItem(ItemStack itemStack){
-		return this;
-	}
+    @Override
+    public Item getEmptyItem(ItemStack itemStack) {
+        return this;
+    }
 
-	@Override
-	public double getMaxCharge(ItemStack itemStack){
-		return maxCharge;
-	}
+    @Override
+    public double getMaxCharge(ItemStack itemStack) {
+        return maxCharge;
+    }
 
-	@Override
-	public int getTier(ItemStack itemStack){
-		return tier;
-	}
+    @Override
+    public int getTier(ItemStack itemStack) {
+        return tier;
+    }
 
-	@Override
-	public double getTransferLimit(ItemStack itemStack){
-		return 300;
-	}
+    @Override
+    public double getTransferLimit(ItemStack itemStack) {
+        return 300;
+    }
 
 }

@@ -23,125 +23,125 @@ import java.util.List;
 
 public class ItemOmniTool extends ItemPickaxe implements IElectricItem {
 
-	public static final int maxCharge = ConfigTechReborn.OmniToolCharge;
-	public static final int tier = ConfigTechReborn.OmniToolTier;
-	public int cost = 100;
-	public int hitCost = 125;
+    public static final int maxCharge = ConfigTechReborn.OmniToolCharge;
+    public static final int tier = ConfigTechReborn.OmniToolTier;
+    public int cost = 100;
+    public int hitCost = 125;
 
-	public ItemOmniTool(ToolMaterial toolMaterial){
-		super(toolMaterial);
-		efficiencyOnProperMaterial = 13F;
-		setCreativeTab(TechRebornCreativeTab.instance);
-		setMaxStackSize(1);
-		setMaxDamage(200);
-		setUnlocalizedName("techreborn.omniTool");
-	}
+    public ItemOmniTool(ToolMaterial toolMaterial) {
+        super(toolMaterial);
+        efficiencyOnProperMaterial = 13F;
+        setCreativeTab(TechRebornCreativeTab.instance);
+        setMaxStackSize(1);
+        setMaxDamage(200);
+        setUnlocalizedName("techreborn.omniTool");
+    }
 
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerIcons(IIconRegister iconRegister){
-		this.itemIcon = iconRegister.registerIcon("techreborn:" + "tool/omnitool");
-	}
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void registerIcons(IIconRegister iconRegister) {
+        this.itemIcon = iconRegister.registerIcon("techreborn:" + "tool/omnitool");
+    }
 
-	@SuppressWarnings(
-	{ "rawtypes", "unchecked" })
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList){
-		ItemStack itemStack = new ItemStack(this, 1);
-		
-		if (getChargedItem(itemStack) == this && ElectricItem.manager != null){
-			ItemStack charged = new ItemStack(this, 1);
-			ElectricItem.manager.charge(charged, 2147483647, 2147483647, true,
-					false);
-			itemList.add(charged);
-		}
-		if (getEmptyItem(itemStack) == this){
-			itemList.add(new ItemStack(this, 1, getMaxDamage()));
-		}
-	}
+    @SuppressWarnings(
+            {"rawtypes", "unchecked"})
+    @SideOnly(Side.CLIENT)
+    public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
+        ItemStack itemStack = new ItemStack(this, 1);
 
-	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World world, Block block,
-			int par4, int par5, int par6, EntityLivingBase entityLiving){
-		
-		ElectricItem.manager.use(stack, cost, entityLiving);
-		
-		return true;
-	}
+        if (getChargedItem(itemStack) == this && ElectricItem.manager != null) {
+            ItemStack charged = new ItemStack(this, 1);
+            ElectricItem.manager.charge(charged, 2147483647, 2147483647, true,
+                    false);
+            itemList.add(charged);
+        }
+        if (getEmptyItem(itemStack) == this) {
+            itemList.add(new ItemStack(this, 1, getMaxDamage()));
+        }
+    }
 
-	@Override
-	public boolean canHarvestBlock(Block block, ItemStack stack){
-		return Items.diamond_axe.canHarvestBlock(block, stack)
-				|| Items.diamond_sword.canHarvestBlock(block, stack)
-				|| Items.diamond_pickaxe.canHarvestBlock(block, stack)
-				|| Items.diamond_shovel.canHarvestBlock(block, stack)
-				|| Items.shears.canHarvestBlock(block, stack);
-	}
+    @Override
+    public boolean onBlockDestroyed(ItemStack stack, World world, Block block,
+                                    int par4, int par5, int par6, EntityLivingBase entityLiving) {
 
-	@Override
-	public float getDigSpeed(ItemStack stack, Block block, int meta){
-		if (!ElectricItem.manager.canUse(stack, cost)){
-			return 5.0F;
-		}
+        ElectricItem.manager.use(stack, cost, entityLiving);
 
-		if (Items.wooden_axe.getDigSpeed(stack, block, meta) > 1.0F
-				|| Items.wooden_sword.getDigSpeed(stack, block, meta) > 1.0F
-				|| Items.wooden_pickaxe.getDigSpeed(stack, block, meta) > 1.0F
-				|| Items.wooden_shovel.getDigSpeed(stack, block, meta) > 1.0F
-				|| Items.shears.getDigSpeed(stack, block, meta) > 1.0F){
-			return efficiencyOnProperMaterial;
-		} else{
-			return super.getDigSpeed(stack, block, meta);
-		}
-	}
+        return true;
+    }
 
-	@Override
-	public boolean hitEntity(ItemStack itemstack, EntityLivingBase entityliving, EntityLivingBase attacker){
-		if (ElectricItem.manager.use(itemstack, hitCost, attacker)){
-			entityliving.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) attacker), 8F);
-		}
-		return false;
-	}
+    @Override
+    public boolean canHarvestBlock(Block block, ItemStack stack) {
+        return Items.diamond_axe.canHarvestBlock(block, stack)
+                || Items.diamond_sword.canHarvestBlock(block, stack)
+                || Items.diamond_pickaxe.canHarvestBlock(block, stack)
+                || Items.diamond_shovel.canHarvestBlock(block, stack)
+                || Items.shears.canHarvestBlock(block, stack);
+    }
 
-	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world,
-			int x, int y, int z, int side, float xOffset, float yOffset, float zOffset){
-		return TorchHelper.placeTorch(stack, player, world, x, y, z, side, xOffset, yOffset, zOffset);
-	}
+    @Override
+    public float getDigSpeed(ItemStack stack, Block block, int meta) {
+        if (!ElectricItem.manager.canUse(stack, cost)) {
+            return 5.0F;
+        }
 
-	@Override
-	public boolean isRepairable(){
-		return false;
-	}
+        if (Items.wooden_axe.getDigSpeed(stack, block, meta) > 1.0F
+                || Items.wooden_sword.getDigSpeed(stack, block, meta) > 1.0F
+                || Items.wooden_pickaxe.getDigSpeed(stack, block, meta) > 1.0F
+                || Items.wooden_shovel.getDigSpeed(stack, block, meta) > 1.0F
+                || Items.shears.getDigSpeed(stack, block, meta) > 1.0F) {
+            return efficiencyOnProperMaterial;
+        } else {
+            return super.getDigSpeed(stack, block, meta);
+        }
+    }
 
-	@Override
-	public Item getChargedItem(ItemStack itemStack){
-		return this;
-	}
+    @Override
+    public boolean hitEntity(ItemStack itemstack, EntityLivingBase entityliving, EntityLivingBase attacker) {
+        if (ElectricItem.manager.use(itemstack, hitCost, attacker)) {
+            entityliving.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) attacker), 8F);
+        }
+        return false;
+    }
 
-	@Override
-	public Item getEmptyItem(ItemStack itemStack){
-		return this;
-	}
+    @Override
+    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world,
+                             int x, int y, int z, int side, float xOffset, float yOffset, float zOffset) {
+        return TorchHelper.placeTorch(stack, player, world, x, y, z, side, xOffset, yOffset, zOffset);
+    }
 
-	@Override
-	public boolean canProvideEnergy(ItemStack itemStack){
-		return false;
-	}
+    @Override
+    public boolean isRepairable() {
+        return false;
+    }
 
-	@Override
-	public double getMaxCharge(ItemStack itemStack){
-		return maxCharge;
-	}
+    @Override
+    public Item getChargedItem(ItemStack itemStack) {
+        return this;
+    }
 
-	@Override
-	public int getTier(ItemStack itemStack){
-		return 2;
-	}
+    @Override
+    public Item getEmptyItem(ItemStack itemStack) {
+        return this;
+    }
 
-	@Override
-	public double getTransferLimit(ItemStack itemStack){
-		return 200;
-	}
+    @Override
+    public boolean canProvideEnergy(ItemStack itemStack) {
+        return false;
+    }
+
+    @Override
+    public double getMaxCharge(ItemStack itemStack) {
+        return maxCharge;
+    }
+
+    @Override
+    public int getTier(ItemStack itemStack) {
+        return 2;
+    }
+
+    @Override
+    public double getTransferLimit(ItemStack itemStack) {
+        return 200;
+    }
 
 }

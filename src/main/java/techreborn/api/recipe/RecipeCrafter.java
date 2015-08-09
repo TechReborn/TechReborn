@@ -1,6 +1,5 @@
 package techreborn.api.recipe;
 
-import ic2.api.energy.prefab.BasicSink;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
@@ -72,7 +71,7 @@ public class RecipeCrafter {
     public RecipeCrafter(String recipeName, TileMachineBase parentTile, int inputs, int outputs, Inventory inventory, int[] inputSlots, int[] outputSlots) {
         this.recipeName = recipeName;
         this.parentTile = parentTile;
-        if(parentTile instanceof IEnergyInterfaceTile){
+        if (parentTile instanceof IEnergyInterfaceTile) {
             energy = (IEnergyInterfaceTile) parentTile;
         }
         this.inputs = inputs;
@@ -91,7 +90,7 @@ public class RecipeCrafter {
 
     /**
      * This is used to change the speed of the crafting operation.
-     *
+     * <p/>
      * 0 = none;
      * 0.2 = 20% speed increase
      * 0.75 = 75% increase
@@ -100,7 +99,7 @@ public class RecipeCrafter {
 
     /**
      * This is used to change the power of the crafting operation.
-     *
+     * <p/>
      * 1 = none;
      * 1.2 = 20% speed increase
      * 1.75 = 75% increase
@@ -108,20 +107,20 @@ public class RecipeCrafter {
      */
     double powerMultiplier = 1;
 
-	int ticksSinceLastChange;
+    int ticksSinceLastChange;
 
     /**
      * Call this on the tile tick
      */
     public void updateEntity() {
-        if(parentTile.getWorldObj().isRemote){
+        if (parentTile.getWorldObj().isRemote) {
             return;
         }
-		ticksSinceLastChange ++;
-		if(ticksSinceLastChange == 20){//Force a has chanced every second
-			inventory.hasChanged = true;
-			ticksSinceLastChange = 0;
-		}
+        ticksSinceLastChange++;
+        if (ticksSinceLastChange == 20) {//Force a has chanced every second
+            inventory.hasChanged = true;
+            ticksSinceLastChange = 0;
+        }
         if (currentRecipe == null && inventory.hasChanged) {//It will now look for new recipes.
             currentTickTime = 0;
             for (IBaseRecipeType recipe : RecipeHandler.getRecipeClassFromName(recipeName)) {
@@ -135,9 +134,9 @@ public class RecipeCrafter {
                     }
                     if (canGiveInvAll) {
                         setCurrentRecipe(recipe);//Sets the current recipe then syncs
-                        this.currentNeededTicks = (int)(currentRecipe.tickTime() * (1.0 - speedMultiplier));
+                        this.currentNeededTicks = (int) (currentRecipe.tickTime() * (1.0 - speedMultiplier));
                         this.currentTickTime = -1;
-						syncIsActive();
+                        syncIsActive();
                     } else {
                         this.currentTickTime = -0;
                     }
@@ -147,7 +146,7 @@ public class RecipeCrafter {
             if (inventory.hasChanged && !hasAllInputs()) {//If it doesn't have all the inputs reset
                 currentRecipe = null;
                 currentTickTime = 0;
-				syncIsActive();
+                syncIsActive();
             }
             if (currentRecipe != null && currentTickTime >= currentNeededTicks) {//If it has reached the recipe tick time
                 boolean canGiveInvAll = true;
@@ -167,7 +166,7 @@ public class RecipeCrafter {
                     useAllInputs();//this uses all the inputs
                     currentRecipe = null;//resets
                     currentTickTime = 0;
-					syncIsActive();
+                    syncIsActive();
                 }
             } else if (currentRecipe != null && currentTickTime < currentNeededTicks) {
                 if (energy.canUseEnergy(getEuPerTick())) {//This uses the power
@@ -176,9 +175,9 @@ public class RecipeCrafter {
                 }
             }
         }
-		if(inventory.hasChanged){
-			inventory.hasChanged = false;
-		}
+        if (inventory.hasChanged) {
+            inventory.hasChanged = false;
+        }
     }
 
     public boolean hasAllInputs() {
@@ -264,14 +263,14 @@ public class RecipeCrafter {
     public void readFromNBT(NBTTagCompound tag) {
         NBTTagCompound data = tag.getCompoundTag("Crater");
 
-		if(data.hasKey("currentTickTime"))
-        	currentTickTime = data.getInteger("currentTickTime");
+        if (data.hasKey("currentTickTime"))
+            currentTickTime = data.getInteger("currentTickTime");
 
         isactive = data.getBoolean("isActive");
-		if(parentTile != null && parentTile.getWorldObj() != null && parentTile.getWorldObj().isRemote){
-			parentTile.getWorldObj().markBlockForUpdate(parentTile.xCoord, parentTile.yCoord, parentTile.zCoord);
-			parentTile.getWorldObj().markBlockRangeForRenderUpdate(parentTile.xCoord, parentTile.yCoord, parentTile.zCoord, parentTile.xCoord, parentTile.yCoord, parentTile.zCoord);
-		}
+        if (parentTile != null && parentTile.getWorldObj() != null && parentTile.getWorldObj().isRemote) {
+            parentTile.getWorldObj().markBlockForUpdate(parentTile.xCoord, parentTile.yCoord, parentTile.zCoord);
+            parentTile.getWorldObj().markBlockRangeForRenderUpdate(parentTile.xCoord, parentTile.yCoord, parentTile.zCoord, parentTile.xCoord, parentTile.yCoord, parentTile.zCoord);
+        }
     }
 
     public void writeToNBT(NBTTagCompound tag) {
@@ -293,54 +292,54 @@ public class RecipeCrafter {
         return isactive;
     }
 
-    public void addSpeedMulti(double amount){
-        if(speedMultiplier + amount <= 0.99){
-			speedMultiplier += amount;
-		} else {
-			speedMultiplier = 0.99;
-		}
+    public void addSpeedMulti(double amount) {
+        if (speedMultiplier + amount <= 0.99) {
+            speedMultiplier += amount;
+        } else {
+            speedMultiplier = 0.99;
+        }
     }
 
-    public void resetSpeedMulti(){
+    public void resetSpeedMulti() {
         speedMultiplier = 0;
     }
 
-    public double getSpeedMultiplier(){
+    public double getSpeedMultiplier() {
         return speedMultiplier;
     }
 
-    public void addPowerMulti(double amount){
+    public void addPowerMulti(double amount) {
         powerMultiplier += amount;
     }
 
-    public void resetPowerMulti(){
+    public void resetPowerMulti() {
         powerMultiplier = 1;
     }
 
-    public double getPowerMultiplier(){
+    public double getPowerMultiplier() {
         return powerMultiplier;
     }
 
-    public double getEuPerTick(){
+    public double getEuPerTick() {
         return currentRecipe.euPerTick() * powerMultiplier;
     }
 
 
-	public void syncIsActive() {
-		if (!parentTile.getWorldObj().isRemote) {
-			PacketHandler.sendPacketToAllPlayers(getSyncPacket(),
-					parentTile.getWorldObj());
-		}
-	}
+    public void syncIsActive() {
+        if (!parentTile.getWorldObj().isRemote) {
+            PacketHandler.sendPacketToAllPlayers(getSyncPacket(),
+                    parentTile.getWorldObj());
+        }
+    }
 
-	public Packet getSyncPacket() {
-		NBTTagCompound nbtTag = new NBTTagCompound();
-		writeToNBT(nbtTag);
-		return new S35PacketUpdateTileEntity(this.parentTile.xCoord, this.parentTile.yCoord,
-				this.parentTile.zCoord, 1, nbtTag);
-	}
+    public Packet getSyncPacket() {
+        NBTTagCompound nbtTag = new NBTTagCompound();
+        writeToNBT(nbtTag);
+        return new S35PacketUpdateTileEntity(this.parentTile.xCoord, this.parentTile.yCoord,
+                this.parentTile.zCoord, 1, nbtTag);
+    }
 
-    public void setCurrentRecipe(IBaseRecipeType recipe){
+    public void setCurrentRecipe(IBaseRecipeType recipe) {
         try {
             this.currentRecipe = (IBaseRecipeType) recipe.clone();
         } catch (CloneNotSupportedException e) {

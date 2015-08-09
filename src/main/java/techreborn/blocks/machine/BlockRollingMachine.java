@@ -19,61 +19,55 @@ import java.util.Random;
 
 public class BlockRollingMachine extends BlockMachineBase {
 
-	@SideOnly(Side.CLIENT)
-	private IIcon iconFront;
+    @SideOnly(Side.CLIENT)
+    private IIcon iconFront;
 
-	@SideOnly(Side.CLIENT)
-	private IIcon iconTop;
+    @SideOnly(Side.CLIENT)
+    private IIcon iconTop;
 
-	@SideOnly(Side.CLIENT)
-	private IIcon iconBottom;
+    @SideOnly(Side.CLIENT)
+    private IIcon iconBottom;
 
-	public BlockRollingMachine(Material material)
-	{
-		super(material.rock);
-		setBlockName("techreborn.rollingmachine");
-	}
+    public BlockRollingMachine(Material material) {
+        super(material.rock);
+        setBlockName("techreborn.rollingmachine");
+    }
 
-	@Override
-	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
-	{
-		return new TileRollingMachine();
-	}
+    @Override
+    public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
+        return new TileRollingMachine();
+    }
 
-	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z,
-			EntityPlayer player, int side, float hitX, float hitY, float hitZ)
-	{
-		if (!player.isSneaking())
-			player.openGui(Core.INSTANCE, GuiHandler.rollingMachineID, world,
-					x, y, z);
-		return true;
-	}
+    @Override
+    public boolean onBlockActivated(World world, int x, int y, int z,
+                                    EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+        if (!player.isSneaking())
+            player.openGui(Core.INSTANCE, GuiHandler.rollingMachineID, world,
+                    x, y, z);
+        return true;
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister icon)
-	{
-		this.blockIcon = icon.registerIcon("techreborn:machine/machine_side");
-		this.iconFront = icon.registerIcon("techreborn:machine/rolling_machine_side_off");
-		this.iconTop = icon.registerIcon("techreborn:machine/machine_top");
-		this.iconBottom = icon.registerIcon("techreborn:machine/machine_bottom");
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerBlockIcons(IIconRegister icon) {
+        this.blockIcon = icon.registerIcon("techreborn:machine/machine_side");
+        this.iconFront = icon.registerIcon("techreborn:machine/rolling_machine_side_off");
+        this.iconTop = icon.registerIcon("techreborn:machine/machine_top");
+        this.iconBottom = icon.registerIcon("techreborn:machine/machine_bottom");
+    }
 
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int metadata)
-	{
-		return metadata == 0 && side == 3 ? this.iconFront
-				: side == 1 ? this.iconTop : 
-					side == 0 ? this.iconBottom: (side == 0 ? this.iconTop
-						: (side == metadata ? this.iconFront : this.blockIcon));
+    @SideOnly(Side.CLIENT)
+    public IIcon getIcon(int side, int metadata) {
+        return metadata == 0 && side == 3 ? this.iconFront
+                : side == 1 ? this.iconTop :
+                side == 0 ? this.iconBottom : (side == 0 ? this.iconTop
+                        : (side == metadata ? this.iconFront : this.blockIcon));
 
-	}
-	
-	@Override
-	public Item getItemDropped(int meta, Random random, int fortune)
-	{
-		return IC2Items.getItem("machine").getItem();
-	}
+    }
+
+    @Override
+    public Item getItemDropped(int meta, Random random, int fortune) {
+        return IC2Items.getItem("machine").getItem();
+    }
 
 }

@@ -9,23 +9,23 @@ import techreborn.tiles.idsu.TileIDSU;
 import java.io.IOException;
 
 public class PacketIdsu extends AbstractPacket {
-	public PacketIdsu() {
-	}
+    public PacketIdsu() {
+    }
 
-	int buttonID, channel;
+    int buttonID, channel;
 
-	String newName;
+    String newName;
 
-	TileIDSU idsu;
+    TileIDSU idsu;
 
     int x, y, z;
 
-	public PacketIdsu(int buttonID, TileIDSU idsu, int channel, String newName) {
-		this.idsu = idsu;
-		this.buttonID = buttonID;
-		this.channel = channel;
-		this.newName = newName;
-	}
+    public PacketIdsu(int buttonID, TileIDSU idsu, int channel, String newName) {
+        this.idsu = idsu;
+        this.buttonID = buttonID;
+        this.channel = channel;
+        this.newName = newName;
+    }
 
 
     @Override

@@ -14,8 +14,8 @@ public class LatheRecipe extends BaseRecipe {
             addOutput(output1);
     }
 
-	@Override
-	public String getUserFreindlyName() {
-		return "Lathe";
-	}
+    @Override
+    public String getUserFreindlyName() {
+        return "Lathe";
+    }
 }

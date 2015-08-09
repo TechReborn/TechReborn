@@ -38,7 +38,7 @@ public class GuiCentrifuge extends GuiContainer {
         int j = 0;
 
         j = centrifuge.getProgressScaled(11);
-        if(j > 0) {
+        if (j > 0) {
             this.drawTexturedModalRect(k + 83, l + 23 + 10 - j, 177, 15 + 10 - j, 10, j);
             this.drawTexturedModalRect(k + 98, l + 38, 177, 51, j, 10);
             this.drawTexturedModalRect(k + 83, l + 53, 177, 39, 10, j);
@@ -47,10 +47,10 @@ public class GuiCentrifuge extends GuiContainer {
 
         j = centrifuge.getEnergyScaled(12);
 
-        if(j > 0) {
+        if (j > 0) {
             this.drawTexturedModalRect(k + 9, l + 32 + 12 - j, 176, 12 - j, 14, j + 2);
         }
-}
+    }
 
     protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
         String namePt1 = StatCollector.translateToLocal("tile.techreborn.industrialBlock.name");

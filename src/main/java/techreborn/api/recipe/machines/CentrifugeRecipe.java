@@ -22,8 +22,8 @@ public class CentrifugeRecipe extends BaseRecipe {
             addOutput(output4);
     }
 
-	@Override
-	public String getUserFreindlyName() {
-		return "Centrifuge";
-	}
+    @Override
+    public String getUserFreindlyName() {
+        return "Centrifuge";
+    }
 }

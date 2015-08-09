@@ -18,8 +18,8 @@ public class ImplosionCompressorRecipe extends BaseRecipe {
             addOutput(output2);
     }
 
-	@Override
-	public String getUserFreindlyName() {
-		return "Implosion Compressor";
-	}
+    @Override
+    public String getUserFreindlyName() {
+        return "Implosion Compressor";
+    }
 }

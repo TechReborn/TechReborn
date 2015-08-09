@@ -2,11 +2,10 @@ package techreborn.cofhLib.gui;
 
 import techreborn.lib.ModInfo;
 
-public class GuiProps
-{
+public class GuiProps {
 
 
-	public static final String RESOURCE_PREFIX = ModInfo.MOD_ID + ":";
+    public static final String RESOURCE_PREFIX = ModInfo.MOD_ID + ":";
 
     /* GUI */
     public static final String PATH_GFX = RESOURCE_PREFIX + "textures/";

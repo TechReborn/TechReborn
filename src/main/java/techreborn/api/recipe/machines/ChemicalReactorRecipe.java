@@ -16,8 +16,8 @@ public class ChemicalReactorRecipe extends BaseRecipe {
             addOutput(output1);
     }
 
-	@Override
-	public String getUserFreindlyName() {
-		return "Chemical Reactor";
-	}
+    @Override
+    public String getUserFreindlyName() {
+        return "Chemical Reactor";
+    }
 }

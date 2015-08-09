@@ -24,17 +24,15 @@ public interface IBaseRecipeType {
      */
     public ItemStack getOutput(int i);
 
-	/**
-	 *
-	 * @return The ammount of outputs
-	 */
-	public int getOutputsSize();
+    /**
+     * @return The ammount of outputs
+     */
+    public int getOutputsSize();
 
-	/**
-	 *
-	 * @return get outputs
-	 */
-	public List<ItemStack> getOutputs();
+    /**
+     * @return get outputs
+     */
+    public List<ItemStack> getOutputs();
 
     /**
      * This is the name to check that the recipe is the one that should be used in
@@ -44,12 +42,12 @@ public interface IBaseRecipeType {
      */
     public String getRecipeName();
 
-	/**
-	 * This should be a user friendly name
-	 *
-	 * @return
-	 */
-	public String getUserFreindlyName();
+    /**
+     * This should be a user friendly name
+     *
+     * @return
+     */
+    public String getUserFreindlyName();
 
     /**
      * This is how long the recipe needs to tick for the crafting operation to complete
@@ -77,7 +75,7 @@ public interface IBaseRecipeType {
      */
     public boolean onCraft(TileEntity tile);
 
-    public Object clone()throws CloneNotSupportedException;
+    public Object clone() throws CloneNotSupportedException;
 
-	public boolean useOreDic();
+    public boolean useOreDic();
 }

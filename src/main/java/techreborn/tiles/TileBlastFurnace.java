@@ -1,6 +1,5 @@
 package techreborn.tiles;
 
-import ic2.api.energy.prefab.BasicSink;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,70 +23,67 @@ import techreborn.util.Inventory;
 
 public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, IInventory, IEnergyTile, ISidedInventory {
 
-	public int tickTime;
-	public Inventory inventory = new Inventory(4, "TileBlastFurnace", 64);
-	public RecipeCrafter crafter;
-	public int capacity = 1000;
-	public static int euTick = 5;
-	
-	public TileBlastFurnace() {
+    public int tickTime;
+    public Inventory inventory = new Inventory(4, "TileBlastFurnace", 64);
+    public RecipeCrafter crafter;
+    public int capacity = 1000;
+    public static int euTick = 5;
+
+    public TileBlastFurnace() {
         super(ConfigTechReborn.CentrifugeTier);
         //TODO configs
-		int[] inputs = new int[2];
-		inputs[0] = 0;
-		inputs[1] = 1;
-		int[] outputs = new int[2];
-		outputs[0] = 2;
-		outputs[1] = 3;
-		crafter = new RecipeCrafter(Reference.blastFurnaceRecipe, this, 2, 2, inventory, inputs, outputs);
-	}
-	
-	@Override
-	public void updateEntity()
-	{
-		super.updateEntity();
-		crafter.updateEntity();
-	}
+        int[] inputs = new int[2];
+        inputs[0] = 0;
+        inputs[1] = 1;
+        int[] outputs = new int[2];
+        outputs[0] = 2;
+        outputs[1] = 3;
+        crafter = new RecipeCrafter(Reference.blastFurnaceRecipe, this, 2, 2, inventory, inputs, outputs);
+    }
 
-	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
-		return false;
-	}
+    @Override
+    public void updateEntity() {
+        super.updateEntity();
+        crafter.updateEntity();
+    }
 
-	@Override
-	public short getFacing() {
-		return 0;
-	}
+    @Override
+    public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
+        return false;
+    }
 
-	@Override
-	public void setFacing(short facing) {
-	}
+    @Override
+    public short getFacing() {
+        return 0;
+    }
 
-	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
-	{
-		if (entityPlayer.isSneaking())
-		{
-			return true;
-		}
-		return false;
-	}
+    @Override
+    public void setFacing(short facing) {
+    }
 
-	@Override
-	public float getWrenchDropRate() {
-		return 1.0F;
-	}
+    @Override
+    public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
+        if (entityPlayer.isSneaking()) {
+            return true;
+        }
+        return false;
+    }
 
-	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.BlastFurnace, 1);
-	}
+    @Override
+    public float getWrenchDropRate() {
+        return 1.0F;
+    }
 
-	public int getHeat() {
-		for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
-			TileEntity tileEntity = worldObj.getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
-			if (tileEntity instanceof TileMachineCasing) {
-                if(((TileMachineCasing) tileEntity).isConnected()){
+    @Override
+    public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+        return new ItemStack(ModBlocks.BlastFurnace, 1);
+    }
+
+    public int getHeat() {
+        for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
+            TileEntity tileEntity = worldObj.getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
+            if (tileEntity instanceof TileMachineCasing) {
+                if (((TileMachineCasing) tileEntity).isConnected()) {
                     if ((tileEntity.getBlockType() instanceof BlockMachineCasing)) {
                         int heat;
                         heat = BlockMachineCasing.getHeatFromMeta(tileEntity.getBlockMetadata());
@@ -99,127 +95,124 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
                         return heat;
                     }
                 }
-			}
-		}
-		return 0;
-	}
+            }
+        }
+        return 0;
+    }
 
-	@Override
-	public int getSizeInventory() {
-		return inventory.getSizeInventory();
-	}
+    @Override
+    public int getSizeInventory() {
+        return inventory.getSizeInventory();
+    }
 
-	@Override
-	public ItemStack getStackInSlot(int p_70301_1_) {
-		return inventory.getStackInSlot(p_70301_1_);
-	}
+    @Override
+    public ItemStack getStackInSlot(int p_70301_1_) {
+        return inventory.getStackInSlot(p_70301_1_);
+    }
 
-	@Override
-	public ItemStack decrStackSize(int p_70298_1_, int p_70298_2_) {
-		return inventory.decrStackSize(p_70298_1_, p_70298_2_);
-	}
+    @Override
+    public ItemStack decrStackSize(int p_70298_1_, int p_70298_2_) {
+        return inventory.decrStackSize(p_70298_1_, p_70298_2_);
+    }
 
-	@Override
-	public ItemStack getStackInSlotOnClosing(int p_70304_1_) {
-		return inventory.getStackInSlotOnClosing(p_70304_1_);
-	}
+    @Override
+    public ItemStack getStackInSlotOnClosing(int p_70304_1_) {
+        return inventory.getStackInSlotOnClosing(p_70304_1_);
+    }
 
-	@Override
-	public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) {
-		inventory.setInventorySlotContents(p_70299_1_, p_70299_2_);
-	}
+    @Override
+    public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) {
+        inventory.setInventorySlotContents(p_70299_1_, p_70299_2_);
+    }
 
-	@Override
-	public String getInventoryName() {
-		return inventory.getInventoryName();
-	}
+    @Override
+    public String getInventoryName() {
+        return inventory.getInventoryName();
+    }
 
-	@Override
-	public boolean hasCustomInventoryName() {
-		return inventory.hasCustomInventoryName();
-	}
+    @Override
+    public boolean hasCustomInventoryName() {
+        return inventory.hasCustomInventoryName();
+    }
 
-	@Override
-	public int getInventoryStackLimit() {
-		return inventory.getInventoryStackLimit();
-	}
+    @Override
+    public int getInventoryStackLimit() {
+        return inventory.getInventoryStackLimit();
+    }
 
-	@Override
-	public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
-		return inventory.isUseableByPlayer(p_70300_1_);
-	}
+    @Override
+    public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
+        return inventory.isUseableByPlayer(p_70300_1_);
+    }
 
-	@Override
-	public void openInventory() {
-		inventory.openInventory();
-	}
+    @Override
+    public void openInventory() {
+        inventory.openInventory();
+    }
 
-	@Override
-	public void closeInventory() {
-		inventory.closeInventory();
-	}
+    @Override
+    public void closeInventory() {
+        inventory.closeInventory();
+    }
 
-	@Override
-	public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
-		return inventory.isItemValidForSlot(p_94041_1_, p_94041_2_);
-	}
+    @Override
+    public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
+        return inventory.isItemValidForSlot(p_94041_1_, p_94041_2_);
+    }
 
-	public Packet getDescriptionPacket() {
-		NBTTagCompound nbtTag = new NBTTagCompound();
-		writeToNBT(nbtTag);
-		return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord,
-				this.zCoord, 1, nbtTag);
-	}
+    public Packet getDescriptionPacket() {
+        NBTTagCompound nbtTag = new NBTTagCompound();
+        writeToNBT(nbtTag);
+        return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord,
+                this.zCoord, 1, nbtTag);
+    }
 
-	@Override
-	public void onDataPacket(NetworkManager net,
-							 S35PacketUpdateTileEntity packet) {
-		worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord,
-				yCoord, zCoord);
-		readFromNBT(packet.func_148857_g());
-	}
+    @Override
+    public void onDataPacket(NetworkManager net,
+                             S35PacketUpdateTileEntity packet) {
+        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord,
+                yCoord, zCoord);
+        readFromNBT(packet.func_148857_g());
+    }
 
-	@Override
-	public void readFromNBT(NBTTagCompound tagCompound) {
-		super.readFromNBT(tagCompound);
-		inventory.readFromNBT(tagCompound);
-		tickTime = tagCompound.getInteger("tickTime");
-	}
+    @Override
+    public void readFromNBT(NBTTagCompound tagCompound) {
+        super.readFromNBT(tagCompound);
+        inventory.readFromNBT(tagCompound);
+        tickTime = tagCompound.getInteger("tickTime");
+    }
 
-	@Override
-	public void writeToNBT(NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
-		inventory.writeToNBT(tagCompound);
-		writeUpdateToNBT(tagCompound);
-	}
+    @Override
+    public void writeToNBT(NBTTagCompound tagCompound) {
+        super.writeToNBT(tagCompound);
+        inventory.writeToNBT(tagCompound);
+        writeUpdateToNBT(tagCompound);
+    }
 
-	public void writeUpdateToNBT(NBTTagCompound tagCompound) {
-		tagCompound.setInteger("tickTime", tickTime);
-	}
-	
-	// ISidedInventory 
-	@Override
-	public int[] getAccessibleSlotsFromSide(int side)
-	{
+    public void writeUpdateToNBT(NBTTagCompound tagCompound) {
+        tagCompound.setInteger("tickTime", tickTime);
+    }
+
+    // ISidedInventory
+    @Override
+    public int[] getAccessibleSlotsFromSide(int side) {
         return side == ForgeDirection.DOWN.ordinal() ? new int[]{0, 1, 2, 3} : new int[]{0, 1, 2, 3};
-	}
+    }
 
-	@Override
-	public boolean canInsertItem(int slotIndex, ItemStack itemStack, int side)
-	{
-		if (slotIndex >= 1)
-			return false;
+    @Override
+    public boolean canInsertItem(int slotIndex, ItemStack itemStack, int side) {
+        if (slotIndex >= 1)
+            return false;
         return isItemValidForSlot(slotIndex, itemStack);
-	}
+    }
 
-	@Override
-	public boolean canExtractItem(int slotIndex, ItemStack itemStack, int side)
-	{
+    @Override
+    public boolean canExtractItem(int slotIndex, ItemStack itemStack, int side) {
         return slotIndex == 2 || slotIndex == 3;
-	}
+    }
 
     public int getProgressScaled(int scale) {
-        if(crafter.currentTickTime != 0) {
+        if (crafter.currentTickTime != 0) {
             return crafter.currentTickTime * scale / crafter.currentNeededTicks;
         }
         return 0;

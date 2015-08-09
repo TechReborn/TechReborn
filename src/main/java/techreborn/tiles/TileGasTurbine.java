@@ -23,272 +23,235 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TileGasTurbine extends TileEntity implements IWrenchable,
-		IFluidHandler, IInventory, IEnergyTile {
+        IFluidHandler, IInventory, IEnergyTile {
 
-	public Tank tank = new Tank("TileGasTurbine",
-			FluidContainerRegistry.BUCKET_VOLUME * 10, this);
-	public Inventory inventory = new Inventory(3, "TileGasTurbine", 64);
-	public BasicSource energySource;
-	
-	//TODO: run this off config
-	public static final int euTick = 16;
+    public Tank tank = new Tank("TileGasTurbine",
+            FluidContainerRegistry.BUCKET_VOLUME * 10, this);
+    public Inventory inventory = new Inventory(3, "TileGasTurbine", 64);
+    public BasicSource energySource;
 
-	Map<String, Integer> fluids = new HashMap<String, Integer>();
-	
-	//We use this to keep track of fractional millibuckets, allowing us to hit our eu/bucket targets while still only ever removing integer millibucket amounts.
-	double pendingWithdraw = 0.0;
-	
-	public TileGasTurbine()
-	{
-		//TODO: fix this to have Gas Turbine generator values
-		this.energySource = new BasicSource(this,
-				ConfigTechReborn.ThermalGeneratorCharge,
-				ConfigTechReborn.ThermalGeneratorTier);
-				
-		fluids.put("fluidhydrogen", 15000);
-		fluids.put("fluidmethane", 45000);
-	}
+    //TODO: run this off config
+    public static final int euTick = 16;
 
-	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side)
-	{
-		return false;
-	}
+    Map<String, Integer> fluids = new HashMap<String, Integer>();
 
-	@Override
-	public short getFacing()
-	{
-		return 0;
-	}
+    //We use this to keep track of fractional millibuckets, allowing us to hit our eu/bucket targets while still only ever removing integer millibucket amounts.
+    double pendingWithdraw = 0.0;
 
-	@Override
-	public void setFacing(short facing)
-	{
-	}
+    public TileGasTurbine() {
+        //TODO: fix this to have Gas Turbine generator values
+        this.energySource = new BasicSource(this,
+                ConfigTechReborn.ThermalGeneratorCharge,
+                ConfigTechReborn.ThermalGeneratorTier);
 
-	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
-	{
-		if (entityPlayer.isSneaking())
-		{
-			return true;
-		}
-		return false;
-	}
+        fluids.put("fluidhydrogen", 15000);
+        fluids.put("fluidmethane", 45000);
+    }
 
-	@Override
-	public float getWrenchDropRate()
-	{
-		return 1.0F;
-	}
+    @Override
+    public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
+        return false;
+    }
 
-	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
-	{
-		return new ItemStack(ModBlocks.Gasturbine, 1);
-	}
+    @Override
+    public short getFacing() {
+        return 0;
+    }
 
-	@Override
-	public int fill(ForgeDirection from, FluidStack resource, boolean doFill)
-	{
-		int fill = tank.fill(resource, doFill);
-		tank.compareAndUpdate();
-		return fill;
-	}
+    @Override
+    public void setFacing(short facing) {
+    }
 
-	@Override
-	public FluidStack drain(ForgeDirection from, FluidStack resource,
-			boolean doDrain)
-	{
-		FluidStack drain = tank.drain(resource.amount, doDrain);
-		tank.compareAndUpdate();
-		return drain;
-	}
+    @Override
+    public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
+        if (entityPlayer.isSneaking()) {
+            return true;
+        }
+        return false;
+    }
 
-	@Override
-	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain)
-	{
-		FluidStack drain = tank.drain(maxDrain, doDrain);
-		tank.compareAndUpdate();
-		return drain;
-	}
+    @Override
+    public float getWrenchDropRate() {
+        return 1.0F;
+    }
 
-	@Override
-	public boolean canFill(ForgeDirection from, Fluid fluid)
-	{		
-		if (fluid != null)
-		{
-			return fluids.containsKey(FluidRegistry.getFluidName(fluid));
-		}
-		return false;
-	}
+    @Override
+    public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+        return new ItemStack(ModBlocks.Gasturbine, 1);
+    }
 
-	@Override
-	public boolean canDrain(ForgeDirection from, Fluid fluid)
-	{
-		return tank.getFluid() == null || tank.getFluid().getFluid() == fluid;
-	}
+    @Override
+    public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
+        int fill = tank.fill(resource, doFill);
+        tank.compareAndUpdate();
+        return fill;
+    }
 
-	@Override
-	public FluidTankInfo[] getTankInfo(ForgeDirection from)
-	{
-		return getTankInfo(from);
-	}
+    @Override
+    public FluidStack drain(ForgeDirection from, FluidStack resource,
+                            boolean doDrain) {
+        FluidStack drain = tank.drain(resource.amount, doDrain);
+        tank.compareAndUpdate();
+        return drain;
+    }
 
-	@Override
-	public void readFromNBT(NBTTagCompound tagCompound)
-	{
-		super.readFromNBT(tagCompound);
-		tank.readFromNBT(tagCompound);
-		inventory.readFromNBT(tagCompound);
-		energySource.readFromNBT(tagCompound);
-	}
+    @Override
+    public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
+        FluidStack drain = tank.drain(maxDrain, doDrain);
+        tank.compareAndUpdate();
+        return drain;
+    }
 
-	@Override
-	public void writeToNBT(NBTTagCompound tagCompound)
-	{
-		super.writeToNBT(tagCompound);
-		tank.writeToNBT(tagCompound);
-		inventory.writeToNBT(tagCompound);
-		energySource.writeToNBT(tagCompound);
-	}
+    @Override
+    public boolean canFill(ForgeDirection from, Fluid fluid) {
+        if (fluid != null) {
+            return fluids.containsKey(FluidRegistry.getFluidName(fluid));
+        }
+        return false;
+    }
 
-	public Packet getDescriptionPacket()
-	{
-		NBTTagCompound nbtTag = new NBTTagCompound();
-		writeToNBT(nbtTag);
-		return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord,
-				this.zCoord, 1, nbtTag);
-	}
+    @Override
+    public boolean canDrain(ForgeDirection from, Fluid fluid) {
+        return tank.getFluid() == null || tank.getFluid().getFluid() == fluid;
+    }
 
-	@Override
-	public void onDataPacket(NetworkManager net,
-			S35PacketUpdateTileEntity packet)
-	{
-		worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord,
-				yCoord, zCoord);
-		readFromNBT(packet.func_148857_g());
-	}
+    @Override
+    public FluidTankInfo[] getTankInfo(ForgeDirection from) {
+        return getTankInfo(from);
+    }
 
-	@Override
-	public void updateEntity()
-	{
-		super.updateEntity();
-		if(!worldObj.isRemote){
-			FluidUtils.drainContainers(this, inventory, 0, 1);
-			tank.compareAndUpdate();
-		}
+    @Override
+    public void readFromNBT(NBTTagCompound tagCompound) {
+        super.readFromNBT(tagCompound);
+        tank.readFromNBT(tagCompound);
+        inventory.readFromNBT(tagCompound);
+        energySource.readFromNBT(tagCompound);
+    }
 
-		energySource.updateEntity();
-		if (tank.getFluidAmount() > 0
-				&& energySource.getCapacity() - energySource.getEnergyStored() >= euTick)
-		{
-			Integer euPerBucket = fluids.get(tank.getFluidType().getName());
-			//float totalTicks = (float)euPerBucket / 8f; //x eu per bucket / 8 eu per tick
-			//float millibucketsPerTick = 1000f / totalTicks;			
-			float millibucketsPerTick = 16000f / (float)euPerBucket;			
-			pendingWithdraw += millibucketsPerTick;
-			
-			int currentWithdraw = (int)pendingWithdraw; //float --> int conversion floors the float
-			pendingWithdraw -= currentWithdraw;
-			
-			tank.drain(currentWithdraw, true);
-			energySource.addEnergy(euTick);
-		}
-		if (tank.getFluidType() != null && getStackInSlot(2) == null)
-		{
-			inventory.setInventorySlotContents(2, new ItemStack(tank
-					.getFluidType().getBlock()));
-		} else if (tank.getFluidType() == null && getStackInSlot(2) != null)
-		{
-			setInventorySlotContents(2, null);
-		}
-	}
+    @Override
+    public void writeToNBT(NBTTagCompound tagCompound) {
+        super.writeToNBT(tagCompound);
+        tank.writeToNBT(tagCompound);
+        inventory.writeToNBT(tagCompound);
+        energySource.writeToNBT(tagCompound);
+    }
 
-	@Override
-	public int getSizeInventory()
-	{
-		return inventory.getSizeInventory();
-	}
+    public Packet getDescriptionPacket() {
+        NBTTagCompound nbtTag = new NBTTagCompound();
+        writeToNBT(nbtTag);
+        return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord,
+                this.zCoord, 1, nbtTag);
+    }
 
-	@Override
-	public ItemStack getStackInSlot(int p_70301_1_)
-	{
-		return inventory.getStackInSlot(p_70301_1_);
-	}
+    @Override
+    public void onDataPacket(NetworkManager net,
+                             S35PacketUpdateTileEntity packet) {
+        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord,
+                yCoord, zCoord);
+        readFromNBT(packet.func_148857_g());
+    }
 
-	@Override
-	public ItemStack decrStackSize(int p_70298_1_, int p_70298_2_)
-	{
-		return inventory.decrStackSize(p_70298_1_, p_70298_2_);
-	}
+    @Override
+    public void updateEntity() {
+        super.updateEntity();
+        if (!worldObj.isRemote) {
+            FluidUtils.drainContainers(this, inventory, 0, 1);
+            tank.compareAndUpdate();
+        }
 
-	@Override
-	public ItemStack getStackInSlotOnClosing(int p_70304_1_)
-	{
-		return inventory.getStackInSlotOnClosing(p_70304_1_);
-	}
+        energySource.updateEntity();
+        if (tank.getFluidAmount() > 0
+                && energySource.getCapacity() - energySource.getEnergyStored() >= euTick) {
+            Integer euPerBucket = fluids.get(tank.getFluidType().getName());
+            //float totalTicks = (float)euPerBucket / 8f; //x eu per bucket / 8 eu per tick
+            //float millibucketsPerTick = 1000f / totalTicks;
+            float millibucketsPerTick = 16000f / (float) euPerBucket;
+            pendingWithdraw += millibucketsPerTick;
 
-	@Override
-	public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_)
-	{
-		inventory.setInventorySlotContents(p_70299_1_, p_70299_2_);
-	}
+            int currentWithdraw = (int) pendingWithdraw; //float --> int conversion floors the float
+            pendingWithdraw -= currentWithdraw;
 
-	@Override
-	public String getInventoryName()
-	{
-		return inventory.getInventoryName();
-	}
+            tank.drain(currentWithdraw, true);
+            energySource.addEnergy(euTick);
+        }
+        if (tank.getFluidType() != null && getStackInSlot(2) == null) {
+            inventory.setInventorySlotContents(2, new ItemStack(tank
+                    .getFluidType().getBlock()));
+        } else if (tank.getFluidType() == null && getStackInSlot(2) != null) {
+            setInventorySlotContents(2, null);
+        }
+    }
 
-	@Override
-	public boolean hasCustomInventoryName()
-	{
-		return inventory.hasCustomInventoryName();
-	}
+    @Override
+    public int getSizeInventory() {
+        return inventory.getSizeInventory();
+    }
 
-	@Override
-	public int getInventoryStackLimit()
-	{
-		return inventory.getInventoryStackLimit();
-	}
+    @Override
+    public ItemStack getStackInSlot(int p_70301_1_) {
+        return inventory.getStackInSlot(p_70301_1_);
+    }
 
-	@Override
-	public boolean isUseableByPlayer(EntityPlayer p_70300_1_)
-	{
-		return inventory.isUseableByPlayer(p_70300_1_);
-	}
+    @Override
+    public ItemStack decrStackSize(int p_70298_1_, int p_70298_2_) {
+        return inventory.decrStackSize(p_70298_1_, p_70298_2_);
+    }
 
-	@Override
-	public void openInventory()
-	{
-		inventory.openInventory();
-	}
+    @Override
+    public ItemStack getStackInSlotOnClosing(int p_70304_1_) {
+        return inventory.getStackInSlotOnClosing(p_70304_1_);
+    }
 
-	@Override
-	public void closeInventory()
-	{
-		inventory.closeInventory();
-	}
+    @Override
+    public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) {
+        inventory.setInventorySlotContents(p_70299_1_, p_70299_2_);
+    }
 
-	@Override
-	public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_)
-	{
-		return inventory.isItemValidForSlot(p_94041_1_, p_94041_2_);
-	}
+    @Override
+    public String getInventoryName() {
+        return inventory.getInventoryName();
+    }
 
-	@Override
-	public void onChunkUnload()
-	{
-		energySource.onChunkUnload();
+    @Override
+    public boolean hasCustomInventoryName() {
+        return inventory.hasCustomInventoryName();
+    }
+
+    @Override
+    public int getInventoryStackLimit() {
+        return inventory.getInventoryStackLimit();
+    }
+
+    @Override
+    public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
+        return inventory.isUseableByPlayer(p_70300_1_);
+    }
+
+    @Override
+    public void openInventory() {
+        inventory.openInventory();
+    }
+
+    @Override
+    public void closeInventory() {
+        inventory.closeInventory();
+    }
+
+    @Override
+    public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
+        return inventory.isItemValidForSlot(p_94041_1_, p_94041_2_);
+    }
+
+    @Override
+    public void onChunkUnload() {
+        energySource.onChunkUnload();
         super.onChunkUnload();
-	}
+    }
 
-	@Override
-	public void invalidate()
-	{
-		energySource.invalidate();
-		super.invalidate();
-	}
+    @Override
+    public void invalidate() {
+        energySource.invalidate();
+        super.invalidate();
+    }
 
 }

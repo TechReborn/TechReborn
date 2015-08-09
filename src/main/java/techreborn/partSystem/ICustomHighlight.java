@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public interface ICustomHighlight {
 
-	ArrayList<AxisAlignedBB> getBoxes(World world, int x, int y, int z,
-									  EntityPlayer player);
+    ArrayList<AxisAlignedBB> getBoxes(World world, int x, int y, int z,
+                                      EntityPlayer player);
 
 }

@@ -9,7 +9,7 @@ import techreborn.util.Inventory;
 
 import java.util.ArrayList;
 
-public class TileLesu extends TilePowerAcceptor  {//TODO wrench
+public class TileLesu extends TilePowerAcceptor {//TODO wrench
 
     private ArrayList<LesuNetwork> countedNetworks = new ArrayList<LesuNetwork>();
     public int connectedBlocks = 0;
@@ -18,8 +18,8 @@ public class TileLesu extends TilePowerAcceptor  {//TODO wrench
     private double euLastTick = 0;
     private double euChange;
     private int ticks;
-	private int output;
-	private int maxStorage;
+    private int output;
+    private int maxStorage;
 
     public Inventory inventory = new Inventory(2, "TileAesu", 64);
 
@@ -30,41 +30,41 @@ public class TileLesu extends TilePowerAcceptor  {//TODO wrench
     @Override
     public void updateEntity() {
         super.updateEntity();
-        if(worldObj.isRemote){
+        if (worldObj.isRemote) {
             return;
         }
         countedNetworks.clear();
         connectedBlocks = 0;
-        for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS){
-            if(worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ) instanceof TileLesuStorage){
-                if(((TileLesuStorage) worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ)).network != null){
+        for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+            if (worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ) instanceof TileLesuStorage) {
+                if (((TileLesuStorage) worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ)).network != null) {
                     LesuNetwork network = ((TileLesuStorage) worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ)).network;
-                    if(!countedNetworks.contains(network)){
-                        if(network.master == null || network.master == this){
+                    if (!countedNetworks.contains(network)) {
+                        if (network.master == null || network.master == this) {
                             connectedBlocks += network.storages.size();
                             countedNetworks.add(network);
                             network.master = this;
-							break;
+                            break;
                         }
                     }
                 }
             }
         }
-        if(currentBlocks != connectedBlocks){
+        if (currentBlocks != connectedBlocks) {
             maxStorage = ((connectedBlocks + 1) * ConfigTechReborn.lesuStoragePerBlock);
             output = (connectedBlocks * ConfigTechReborn.extraOutputPerLesuBlock) + ConfigTechReborn.baseLesuOutput;
         }
 
-        if(ticks == ConfigTechReborn.aveargeEuOutTickTime){
+        if (ticks == ConfigTechReborn.aveargeEuOutTickTime) {
             euChange = -1;
             ticks = 0;
         } else {
-            ticks ++;
-            if(euChange == -1){
+            ticks++;
+            if (euChange == -1) {
                 euChange = 0;
             }
             euChange += getEnergy() - euLastTick;
-            if(euLastTick == getEnergy()){
+            if (euLastTick == getEnergy()) {
                 euChange = 0;
             }
         }
@@ -73,35 +73,35 @@ public class TileLesu extends TilePowerAcceptor  {//TODO wrench
     }
 
 
-    public double getEuChange(){
-        if(euChange == -1){
+    public double getEuChange() {
+        if (euChange == -1) {
             return 0;
         }
         return (euChange / ticks);
     }
 
-	@Override
-	public double getMaxPower() {
-		return maxStorage;
-	}
+    @Override
+    public double getMaxPower() {
+        return maxStorage;
+    }
 
-	@Override
-	public boolean canAcceptEnergy(ForgeDirection direction) {
-		return Functions.getIntDirFromDirection(direction) != worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
-	}
+    @Override
+    public boolean canAcceptEnergy(ForgeDirection direction) {
+        return Functions.getIntDirFromDirection(direction) != worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+    }
 
-	@Override
-	public boolean canProvideEnergy(ForgeDirection direction) {
+    @Override
+    public boolean canProvideEnergy(ForgeDirection direction) {
         return Functions.getIntDirFromDirection(direction) == worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
-	}
+    }
 
-	@Override
-	public double getMaxOutput() {
-		return output;
-	}
+    @Override
+    public double getMaxOutput() {
+        return output;
+    }
 
-	@Override
-	public double getMaxInput() {
-		return 8192;
-	}
+    @Override
+    public double getMaxInput() {
+        return 8192;
+    }
 }

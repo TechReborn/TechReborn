@@ -5,8 +5,8 @@ import org.lwjgl.input.Keyboard;
 import techreborn.lib.ModInfo;
 
 public class KeyBindings {
-	
-	public static KeyBinding config = new KeyBinding(ModInfo.Keys.CONFIG,
-			Keyboard.KEY_P, ModInfo.Keys.CATEGORY);
+
+    public static KeyBinding config = new KeyBinding(ModInfo.Keys.CONFIG,
+            Keyboard.KEY_P, ModInfo.Keys.CATEGORY);
 
 }

@@ -20,24 +20,22 @@ import java.util.Random;
 
 public class BlockStorage2 extends Block {
 
-	public static ItemStack getStorageBlockByName(String name, int count)
-	{
-		for (int i = 0; i < types.length; i++) {
-			if (types[i].equals(name)) {
-				return new ItemStack(ModBlocks.storage2, count, i);
-			}
-		}
-		throw new InvalidParameterException("The storage block " + name + " could not be found.");
-	}
+    public static ItemStack getStorageBlockByName(String name, int count) {
+        for (int i = 0; i < types.length; i++) {
+            if (types[i].equals(name)) {
+                return new ItemStack(ModBlocks.storage2, count, i);
+            }
+        }
+        throw new InvalidParameterException("The storage block " + name + " could not be found.");
+    }
 
     public static final String[] types = new String[]
-            { "tungstensteel", "lodestone", "tellurium", "iridium_reinforced_tungstensteel",
-                    "iridium_reinforced_stone", "ruby", "sapphire", "peridot", "yellow_garnet", "red_garnet" };
+            {"tungstensteel", "lodestone", "tellurium", "iridium_reinforced_tungstensteel",
+                    "iridium_reinforced_stone", "ruby", "sapphire", "peridot", "yellow_garnet", "red_garnet"};
 
     private IIcon[] textures;
 
-    public BlockStorage2(Material material)
-    {
+    public BlockStorage2(Material material) {
         super(material);
         setBlockName("techreborn.storage2");
         setCreativeTab(TechRebornCreativeTabMisc.instance);
@@ -45,35 +43,29 @@ public class BlockStorage2 extends Block {
     }
 
     @Override
-    public Item getItemDropped(int par1, Random random, int par2)
-    {
+    public Item getItemDropped(int par1, Random random, int par2) {
         return Item.getItemFromBlock(this);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list)
-    {
-        for (int meta = 0; meta < types.length; meta++)
-        {
+    public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list) {
+        for (int meta = 0; meta < types.length; meta++) {
             list.add(new ItemStack(item, 1, meta));
         }
     }
 
     @Override
-    public int damageDropped(int metaData)
-    {
+    public int damageDropped(int metaData) {
         return metaData;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister iconRegister)
-    {
+    public void registerBlockIcons(IIconRegister iconRegister) {
         this.textures = new IIcon[types.length];
 
-        for (int i = 0; i < types.length; i++)
-        {
+        for (int i = 0; i < types.length; i++) {
             textures[i] = iconRegister.registerIcon("techreborn:"
                     + "storage/" + types[i] + "_block");
         }
@@ -82,16 +74,13 @@ public class BlockStorage2 extends Block {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int side, int metaData)
-    {
+    public IIcon getIcon(int side, int metaData) {
         metaData = MathHelper.clamp_int(metaData, 0, types.length - 1);
 
         if (ForgeDirection.getOrientation(side) == ForgeDirection.UP
-                || ForgeDirection.getOrientation(side) == ForgeDirection.DOWN)
-        {
+                || ForgeDirection.getOrientation(side) == ForgeDirection.DOWN) {
             return textures[metaData];
-        } else
-        {
+        } else {
             return textures[metaData];
         }
     }

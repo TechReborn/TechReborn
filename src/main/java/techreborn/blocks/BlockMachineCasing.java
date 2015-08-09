@@ -21,77 +21,66 @@ import java.util.Random;
 
 public class BlockMachineCasing extends BlockMultiblockBase {
 
-	public static final String[] types = new String[]
-	{ "standard", "reinforced", "advanced" };
-	private IIcon[] textures;
+    public static final String[] types = new String[]
+            {"standard", "reinforced", "advanced"};
+    private IIcon[] textures;
 
-	public BlockMachineCasing(Material material)
-	{
-		super(material);
-		setCreativeTab(TechRebornCreativeTab.instance);
-		setBlockName("techreborn.machineCasing");
-		setHardness(2F);
-	}
+    public BlockMachineCasing(Material material) {
+        super(material);
+        setCreativeTab(TechRebornCreativeTab.instance);
+        setBlockName("techreborn.machineCasing");
+        setHardness(2F);
+    }
 
-	@Override
-	public Item getItemDropped(int meta, Random random, int fortune)
-	{
-		return Item.getItemFromBlock(this);
-	}
+    @Override
+    public Item getItemDropped(int meta, Random random, int fortune) {
+        return Item.getItemFromBlock(this);
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list)
-	{
-		for (int meta = 0; meta < types.length; meta++)
-		{
-			list.add(new ItemStack(item, 1, meta));
-		}
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list) {
+        for (int meta = 0; meta < types.length; meta++) {
+            list.add(new ItemStack(item, 1, meta));
+        }
+    }
 
-	@Override
-	public int damageDropped(int metaData)
-	{
-		return metaData;
-	}
+    @Override
+    public int damageDropped(int metaData) {
+        return metaData;
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister iconRegister)
-	{
-		this.textures = new IIcon[types.length];
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerBlockIcons(IIconRegister iconRegister) {
+        this.textures = new IIcon[types.length];
 
-		for (int i = 0; i < types.length; i++)
-		{
-			textures[i] = iconRegister.registerIcon("techreborn:"
-					+ "machine/casing" + types[i]);
-		}
-	}
+        for (int i = 0; i < types.length; i++) {
+            textures[i] = iconRegister.registerIcon("techreborn:"
+                    + "machine/casing" + types[i]);
+        }
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int metaData)
-	{
-		metaData = MathHelper.clamp_int(metaData, 0, types.length - 1);
+    @Override
+    @SideOnly(Side.CLIENT)
+    public IIcon getIcon(int side, int metaData) {
+        metaData = MathHelper.clamp_int(metaData, 0, types.length - 1);
 
-		if (ForgeDirection.getOrientation(side) == ForgeDirection.UP
-				|| ForgeDirection.getOrientation(side) == ForgeDirection.DOWN)
-		{
-			return textures[metaData];
-		} else
-		{
-			return textures[metaData];
-		}
-	}
+        if (ForgeDirection.getOrientation(side) == ForgeDirection.UP
+                || ForgeDirection.getOrientation(side) == ForgeDirection.DOWN) {
+            return textures[metaData];
+        } else {
+            return textures[metaData];
+        }
+    }
 
-	@Override
-	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
-	{
-		return new TileMachineCasing();
-	}
+    @Override
+    public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
+        return new TileMachineCasing();
+    }
 
-    public static int getHeatFromMeta(int meta){
-        switch (meta){
+    public static int getHeatFromMeta(int meta) {
+        switch (meta) {
             case 0:
                 return 1020;
             case 1:

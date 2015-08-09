@@ -19,77 +19,77 @@ import java.util.List;
  * Created by mark on 11/12/14.
  */
 public class NullPart extends ModPart {
-	@Override
-	public void addCollisionBoxesToList(List<Vecs3dCube> boxes, Entity entity) {
-		boxes.add(new Vecs3dCube(0, 0, 0, 1, 1, 1));
-	}
+    @Override
+    public void addCollisionBoxesToList(List<Vecs3dCube> boxes, Entity entity) {
+        boxes.add(new Vecs3dCube(0, 0, 0, 1, 1, 1));
+    }
 
-	@Override
-	public List<Vecs3dCube> getSelectionBoxes() {
-		List<Vecs3dCube> cubes = new ArrayList<Vecs3dCube>();
-		cubes.add(new Vecs3dCube(0, 0, 0, 1, 1, 1));
-		return cubes;
-	}
+    @Override
+    public List<Vecs3dCube> getSelectionBoxes() {
+        List<Vecs3dCube> cubes = new ArrayList<Vecs3dCube>();
+        cubes.add(new Vecs3dCube(0, 0, 0, 1, 1, 1));
+        return cubes;
+    }
 
-	@Override
-	public List<Vecs3dCube> getOcclusionBoxes() {
-		return null;
-	}
+    @Override
+    public List<Vecs3dCube> getOcclusionBoxes() {
+        return null;
+    }
 
-	@Override
-	public void renderDynamic(Vecs3d translation, double delta) {
+    @Override
+    public void renderDynamic(Vecs3d translation, double delta) {
 
-	}
+    }
 
-	@Override
-	public boolean renderStatic(Vecs3d translation, int pass) {
-		return false;
-	}
+    @Override
+    public boolean renderStatic(Vecs3d translation, int pass) {
+        return false;
+    }
 
-	@Override
-	public void writeToNBT(NBTTagCompound tag) {
+    @Override
+    public void writeToNBT(NBTTagCompound tag) {
 
-	}
+    }
 
-	@Override
-	public void readFromNBT(NBTTagCompound tag) {
+    @Override
+    public void readFromNBT(NBTTagCompound tag) {
 
-	}
+    }
 
-	@Override
-	public ItemStack getItem() {
-		return null;
-	}
+    @Override
+    public ItemStack getItem() {
+        return null;
+    }
 
-	@Override
-	public String getName() {
-		return "NullPart";
-	}
+    @Override
+    public String getName() {
+        return "NullPart";
+    }
 
-	@Override
-	public String getItemTextureName() {
-		return "";
-	}
+    @Override
+    public String getItemTextureName() {
+        return "";
+    }
 
-	@Override
-	public void tick() {
+    @Override
+    public void tick() {
 
-	}
+    }
 
-	@Override
-	public void nearByChange() {
+    @Override
+    public void nearByChange() {
 
-	}
+    }
 
-	@Override
-	public void onAdded() {
+    @Override
+    public void onAdded() {
 
-	}
+    }
 
-	@Override
-	public void onRemoved() {
+    @Override
+    public void onRemoved() {
 
-	}
+    }
 
     @Override
     public IModPart copy() {
