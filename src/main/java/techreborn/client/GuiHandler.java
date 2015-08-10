@@ -5,7 +5,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import techreborn.client.container.*;
 import techreborn.client.gui.*;
-import techreborn.pda.GuiPda;
+import techreborn.pda.GuiManual;
+import techreborn.pda.pages.BasePage;
 import techreborn.tiles.*;
 import techreborn.tiles.idsu.TileIDSU;
 import techreborn.tiles.lesu.TileLesu;
@@ -205,7 +206,7 @@ public class GuiHandler implements IGuiHandler {
             return new GuiChemicalReactor(player,
                     (TileChemicalReactor) world.getTileEntity(x, y, z));
         } else if (ID == pdaID) {
-            return new GuiPda(player, new ContainerPda(player));
+            return new GuiManual();
         } else if (ID == destructoPackID) {
             return new GuiDestructoPack(new ContainerDestructoPack(player));
         } else if (ID == lesuID) {
