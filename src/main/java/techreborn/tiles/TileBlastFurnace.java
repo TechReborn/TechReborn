@@ -1,5 +1,6 @@
 package techreborn.tiles;
 
+import erogenousbeef.coreTR.multiblock.IMultiblockPart;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,6 +19,7 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.lib.Location;
 import techreborn.lib.Reference;
+import techreborn.multiblocks.MultiBlockCasing;
 import techreborn.powerSystem.TilePowerAcceptor;
 import techreborn.util.Inventory;
 
@@ -84,16 +86,18 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
             TileEntity tileEntity = worldObj.getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
             if (tileEntity instanceof TileMachineCasing) {
                 if (((TileMachineCasing) tileEntity).isConnected()) {
-                    if ((tileEntity.getBlockType() instanceof BlockMachineCasing)) {
-                        int heat;
-                        heat = BlockMachineCasing.getHeatFromMeta(tileEntity.getBlockMetadata());
-                        Location location = new Location(xCoord, yCoord, zCoord, direction);
-                        location.modifyPositionFromSide(direction, 1);
-                        if (worldObj.getBlock(location.getX(), location.getY(), location.getZ()).getUnlocalizedName().equals("tile.lava")) {
-                            heat += 500;
-                        }
-                        return heat;
+                    MultiBlockCasing casing = ((TileMachineCasing) tileEntity).getMultiblockController();
+                    int heat = 0;
+
+                    for (IMultiblockPart part : casing.connectedParts) {
+                        heat += BlockMachineCasing.getHeatFromMeta(part.getWorldObj().getBlockMetadata(part.getWorldLocation().x, part.getWorldLocation().y, part.getWorldLocation().z));
                     }
+                    Location location = new Location(xCoord, yCoord, zCoord, direction);
+                    location.modifyPositionFromSide(direction, 1);
+                    if (worldObj.getBlock(location.getX(), location.getY(), location.getZ()).getUnlocalizedName().equals("tile.lava") && worldObj.getBlock(location.getX(), location.getY() + 1, location.getZ()).getUnlocalizedName().equals("tile.lava")) {
+                        heat += 500;
+                    }
+                    return heat;
                 }
             }
         }

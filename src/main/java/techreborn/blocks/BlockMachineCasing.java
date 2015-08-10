@@ -82,11 +82,11 @@ public class BlockMachineCasing extends BlockMultiblockBase {
     public static int getHeatFromMeta(int meta) {
         switch (meta) {
             case 0:
-                return 1020;
+                return 1020 / 25;
             case 1:
-                return 1700;
+                return 1700 / 25;
             case 2:
-                return 2380;
+                return 2380 / 25;
         }
         return 0;
     }

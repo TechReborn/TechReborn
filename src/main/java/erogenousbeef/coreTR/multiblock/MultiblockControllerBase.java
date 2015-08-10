@@ -35,7 +35,7 @@ public abstract class MultiblockControllerBase {
 
 	protected AssemblyState assemblyState;
 
-	protected HashSet<IMultiblockPart> connectedParts;
+	public HashSet<IMultiblockPart> connectedParts;
 
 	/**
 	 * This is a deterministically-picked coordinate that identifies this
