@@ -22,6 +22,8 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
         super(world);
     }
 
+
+
     /**
      * @return True if the machine is "whole" and should be assembled. False
      * otherwise.
@@ -191,6 +193,7 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
         }
     }
 
+
     @Override
     public void onAttachedPartWithMultiblockData(IMultiblockPart part,
                                                  NBTTagCompound data) {
@@ -317,110 +320,110 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
     }
 
 
-    /**
-     * This is horrible code, don't look at this
-     *
-     * @param x
-     * @param y
-     * @param z
-     * @return
-     */
-
-    public boolean checkIfStarShape(int x, int y, int z) {
-        boolean isSolid = true;
-
-        TileEntity te;
-        {//corners
-            te = this.worldObj.getTileEntity(x, y, z);
-            isSolid = checkTeIsCorner(te);
-            if (!isSolid) {
-                return false;
-            }
-
-            te = this.worldObj.getTileEntity(x + 2, y, z);
-            isSolid = checkTeIsCorner(te);
-            if (!isSolid) {
-                return false;
-            }
-
-            te = this.worldObj.getTileEntity(x, y, z + 2);
-            isSolid = checkTeIsCorner(te);
-            if (!isSolid) {
-                return false;
-            }
-
-            te = this.worldObj.getTileEntity(x + 2, y, z + 2);
-            isSolid = checkTeIsCorner(te);
-            if (!isSolid) {
-                return false;
-            }
-
-            te = this.worldObj.getTileEntity(x, y + 2, z);
-            isSolid = checkTeIsCorner(te);
-            if (!isSolid) {
-                return false;
-            }
-
-            te = this.worldObj.getTileEntity(x + 2, y + 2, z);
-            isSolid = checkTeIsCorner(te);
-            if (!isSolid) {
-                return false;
-            }
-
-            te = this.worldObj.getTileEntity(x, y + 2, z + 2);
-            isSolid = checkTeIsCorner(te);
-            if (!isSolid) {
-                return false;
-            }
-
-            te = this.worldObj.getTileEntity(x + 2, y + 2, z + 2);
-            isSolid = checkTeIsCorner(te);
-            if (!isSolid) {
-                return false;
-            }
-        }
-        {//middle blocks
-            for (int i = 0; i < 3; i++) {
-                System.out.println(this.worldObj.getBlock(x, y - 1, z));
-                te = this.worldObj.getTileEntity(x + 1, y + i, z);
-                isSolid = checkTeIsCenter(te);
-                if (!isSolid) {
-                    return false;
-                }
-                te = this.worldObj.getTileEntity(x, y + i, z + 1);
-                isSolid = checkTeIsCenter(te);
-                if (!isSolid) {
-                    return false;
-                }
-
-                te = this.worldObj.getTileEntity(x + 1, y + i, z + 1);
-                isSolid = checkTeIsCenter(te);
-                if (!isSolid) {
-                    return false;
-                }
-
-                te = this.worldObj.getTileEntity(x + 2, y + i, z + 1);
-                isSolid = checkTeIsCenter(te);
-                if (!isSolid) {
-                    return false;
-                }
-
-                te = this.worldObj.getTileEntity(x + 1, y + i, z + 2);
-                isSolid = checkTeIsCenter(te);
-                if (!isSolid) {
-                    return false;
-                }
-            }
-        }
-        return isSolid;
-    }
-
-    public boolean checkTeIsCorner(TileEntity te) {
-        return (te.blockType instanceof BlockMachineCasing && te.blockMetadata == 0);
-    }
-
-    public boolean checkTeIsCenter(TileEntity te) {
-        return (te.blockType instanceof BlockMachineCasing && te.blockMetadata == 1);
-    }
+//    /**
+//     * This is horrible code, don't look at this
+//     *
+//     * @param x
+//     * @param y
+//     * @param z
+//     * @return
+//     */
+//
+//    public boolean checkIfStarShape(int x, int y, int z) {
+//        boolean isSolid = true;
+//
+//        TileEntity te;
+//        {//corners
+//            te = this.worldObj.getTileEntity(x, y, z);
+//            isSolid = checkTeIsCorner(te);
+//            if (!isSolid) {
+//                return false;
+//            }
+//
+//            te = this.worldObj.getTileEntity(x + 2, y, z);
+//            isSolid = checkTeIsCorner(te);
+//            if (!isSolid) {
+//                return false;
+//            }
+//
+//            te = this.worldObj.getTileEntity(x, y, z + 2);
+//            isSolid = checkTeIsCorner(te);
+//            if (!isSolid) {
+//                return false;
+//            }
+//
+//            te = this.worldObj.getTileEntity(x + 2, y, z + 2);
+//            isSolid = checkTeIsCorner(te);
+//            if (!isSolid) {
+//                return false;
+//            }
+//
+//            te = this.worldObj.getTileEntity(x, y + 2, z);
+//            isSolid = checkTeIsCorner(te);
+//            if (!isSolid) {
+//                return false;
+//            }
+//
+//            te = this.worldObj.getTileEntity(x + 2, y + 2, z);
+//            isSolid = checkTeIsCorner(te);
+//            if (!isSolid) {
+//                return false;
+//            }
+//
+//            te = this.worldObj.getTileEntity(x, y + 2, z + 2);
+//            isSolid = checkTeIsCorner(te);
+//            if (!isSolid) {
+//                return false;
+//            }
+//
+//            te = this.worldObj.getTileEntity(x + 2, y + 2, z + 2);
+//            isSolid = checkTeIsCorner(te);
+//            if (!isSolid) {
+//                return false;
+//            }
+//        }
+//        {//middle blocks
+//            for (int i = 0; i < 3; i++) {
+//                System.out.println(this.worldObj.getBlock(x, y - 1, z));
+//                te = this.worldObj.getTileEntity(x + 1, y + i, z);
+//                isSolid = checkTeIsCenter(te);
+//                if (!isSolid) {
+//                    return false;
+//                }
+//                te = this.worldObj.getTileEntity(x, y + i, z + 1);
+//                isSolid = checkTeIsCenter(te);
+//                if (!isSolid) {
+//                    return false;
+//                }
+//
+//                te = this.worldObj.getTileEntity(x + 1, y + i, z + 1);
+//                isSolid = checkTeIsCenter(te);
+//                if (!isSolid) {
+//                    return false;
+//                }
+//
+//                te = this.worldObj.getTileEntity(x + 2, y + i, z + 1);
+//                isSolid = checkTeIsCenter(te);
+//                if (!isSolid) {
+//                    return false;
+//                }
+//
+//                te = this.worldObj.getTileEntity(x + 1, y + i, z + 2);
+//                isSolid = checkTeIsCenter(te);
+//                if (!isSolid) {
+//                    return false;
+//                }
+//            }
+//        }
+//        return isSolid;
+//    }
+//
+//    public boolean checkTeIsCorner(TileEntity te) {
+//        return (te.blockType instanceof BlockMachineCasing && te.blockMetadata == 0);
+//    }
+//
+//    public boolean checkTeIsCenter(TileEntity te) {
+//        return (te.blockType instanceof BlockMachineCasing && te.blockMetadata == 1);
+//    }
 
 }
