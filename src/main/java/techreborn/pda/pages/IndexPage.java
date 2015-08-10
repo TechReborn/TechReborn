@@ -39,6 +39,7 @@ public class IndexPage extends TitledPage{
 	public void actionPerformed(GuiButton button) {
 		if (button instanceof GuiButtonTextOnly)
 			collection.changeActivePage(((GuiButtonTextOnly)button).LINKED_PAGE);
+		if (button.id == 0) collection.changeActivePage("CONTENTS");
 	}
 
 	@Override
@@ -54,5 +55,6 @@ public class IndexPage extends TitledPage{
 				((GuiButtonTextOnly) this.buttonList.get(k)).drawButton(this.mc, mouseX + offsetX, mouseY + offsetY);
 			}
 		}
+		buttonList.add(new GuiButton(0, offsetX + 20, offsetY + 180, "BACK"));
 	}
 }
