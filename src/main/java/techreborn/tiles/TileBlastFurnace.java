@@ -85,12 +85,12 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
         for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
             TileEntity tileEntity = worldObj.getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
             if (tileEntity instanceof TileMachineCasing) {
-                if (((TileMachineCasing) tileEntity).isConnected()) {
+                if (((TileMachineCasing) tileEntity).isConnected() && ((TileMachineCasing) tileEntity).getMultiblockController().isAssembled()) {
                     MultiBlockCasing casing = ((TileMachineCasing) tileEntity).getMultiblockController();
                     int heat = 0;
-
+                    
                     for (IMultiblockPart part : casing.connectedParts) {
-                        heat += BlockMachineCasing.getHeatFromMeta(part.getWorldObj().getBlockMetadata(part.getWorldLocation().x, part.getWorldLocation().y, part.getWorldLocation().z));
+                            heat += BlockMachineCasing.getHeatFromMeta(part.getWorldObj().getBlockMetadata(part.getWorldLocation().x, part.getWorldLocation().y, part.getWorldLocation().z));
                     }
                     Location location = new Location(xCoord, yCoord, zCoord, direction);
                     location.modifyPositionFromSide(direction, 1);
