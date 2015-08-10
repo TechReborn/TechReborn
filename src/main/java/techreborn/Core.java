@@ -16,6 +16,7 @@ import erogenousbeef.coreTR.multiblock.MultiblockServerTickHandler;
 import net.minecraftforge.common.MinecraftForge;
 import org.apache.commons.lang3.time.StopWatch;
 import techreborn.achievement.TRAchievements;
+import techreborn.api.TechRebornItems;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.recipeConfig.RecipeConfigManager;
 import techreborn.client.GuiHandler;

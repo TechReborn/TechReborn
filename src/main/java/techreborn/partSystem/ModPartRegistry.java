@@ -36,7 +36,6 @@ public class ModPartRegistry {
         LogHelper.info("Started to load all parts");
 
         for (ModPart modPart : ModPartRegistry.parts) {
-            System.out.println(modPart.getName());
             Item part = new ModPartItem(modPart)
                     .setUnlocalizedName(modPart.getName())
                     .setCreativeTab(TechRebornCreativeTab.instance)
