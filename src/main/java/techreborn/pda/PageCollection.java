@@ -12,7 +12,7 @@ import techreborn.pda.pages.BasePage;
 public class PageCollection extends Gui{
 	
 	public final List<BasePage> pages = Lists.newArrayList();
-	private String ACTIVE_PAGE = "INDEX";
+	private String ACTIVE_PAGE = "CONTENTS";
 	protected int x;
 	protected int y;
 

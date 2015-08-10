@@ -14,8 +14,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
+import techreborn.pda.pages.BlocksPage;
+import techreborn.pda.pages.ContentsPage;
 import techreborn.pda.pages.CraftingInfoPage;
 import techreborn.pda.pages.IndexPage;
+import techreborn.pda.pages.ItemsPage;
 import techreborn.pda.pages.TitledPage;
 
 @SideOnly(Side.CLIENT)
@@ -39,6 +42,10 @@ public class GuiManual extends GuiScreen{
 		pageIndex = 0;
 		final PageCollection pageCollection = new PageCollection();
 		pageCollection.addPage(new IndexPage("INDEX", pageCollection));
+		pageCollection.addPage(new ContentsPage("CONTENTS", pageCollection));
+		pageCollection.addPage(new ItemsPage("ITEMS", pageCollection));
+		pageCollection.addPage(new BlocksPage("BLOCKS", pageCollection));
+
 
 		pageCollection.addPage(new CraftingInfoPage("BLOCK_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.Aesu), ""));
 		pageCollection.addPage(new CraftingInfoPage("BLOCK_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.AlloyFurnace), ""));
