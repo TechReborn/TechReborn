@@ -15,11 +15,15 @@ public class GuiAlloyFurnace extends GuiContainer {
 
     TileAlloyFurnace alloyfurnace;
 
+    ContainerAlloyFurnace containerAlloyFurnace;
+
     public GuiAlloyFurnace(EntityPlayer player,
                            TileAlloyFurnace tileAlloyFurnace) {
         super(new ContainerAlloyFurnace(tileAlloyFurnace, player));
         this.xSize = 176;
         this.ySize = 167;
+        this.alloyfurnace = tileAlloyFurnace;
+        this.containerAlloyFurnace = (ContainerAlloyFurnace) this.inventorySlots;
     }
 
     @Override
@@ -36,7 +40,17 @@ public class GuiAlloyFurnace extends GuiContainer {
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
+
+        if (this.alloyfurnace.isBurning())
+        {
+            int i1 = this.alloyfurnace.getBurnTimeRemainingScaled(13);
+            this.drawTexturedModalRect(k + 56, l + 36 + 12 - i1, 176, 12 - i1, 14, i1 + 1);
+            i1 = this.alloyfurnace.getCookProgressScaled(24);
+            this.drawTexturedModalRect(k + 79, l + 34, 176, 14, i1 + 1, 16);
+        }
     }
+
+
 
     protected void drawGuiContainerForegroundLayer(int p_146979_1_,
                                                    int p_146979_2_) {

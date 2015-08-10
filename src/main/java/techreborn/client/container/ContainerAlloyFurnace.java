@@ -1,6 +1,7 @@
 package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import techreborn.client.SlotOutput;
 import techreborn.tiles.TileAlloyFurnace;
@@ -46,4 +47,47 @@ public class ContainerAlloyFurnace extends TechRebornContainer {
         }
     }
 
+    int currentItemBurnTime;
+    int burnTime;
+    int cookTime;
+
+    @Override
+    public void addCraftingToCrafters(ICrafting crafting) {
+        super.addCraftingToCrafters(crafting);
+        crafting.sendProgressBarUpdate(this, 0, tile.currentItemBurnTime);
+        crafting.sendProgressBarUpdate(this, 1, tile.burnTime);
+        crafting.sendProgressBarUpdate(this, 2, tile.cookTime);
+    }
+
+    @Override
+    public void detectAndSendChanges() {
+        for (int i = 0; i < this.crafters.size(); i++) {
+            ICrafting crafting = (ICrafting) this.crafters.get(i);
+            if (this.currentItemBurnTime != tile.currentItemBurnTime) {
+                crafting.sendProgressBarUpdate(this, 0, tile.currentItemBurnTime);
+            }
+            if (this.burnTime != tile.burnTime) {
+                crafting.sendProgressBarUpdate(this, 1, tile.burnTime);
+            }
+            if (this.cookTime !=  tile.cookTime) {
+                crafting.sendProgressBarUpdate(this, 2, tile.cookTime);
+            }
+        }
+        super.detectAndSendChanges();
+    }
+
+    @Override
+    public void updateProgressBar(int id, int value) {
+        super.updateProgressBar(id, value);
+        if(id == 0){
+            this.currentItemBurnTime = value;
+        } else if(id ==1){
+            this.burnTime = value;
+        } else if(id == 2){
+            this.cookTime = value;
+        }
+        this.tile.currentItemBurnTime = this.currentItemBurnTime;
+        this.tile.burnTime = this.burnTime;
+        this.tile.cookTime = this.cookTime;
+    }
 }

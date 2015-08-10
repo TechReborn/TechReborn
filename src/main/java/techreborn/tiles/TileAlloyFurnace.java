@@ -1,17 +1,40 @@
 package techreborn.tiles;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import ic2.api.tile.IWrenchable;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
+import techreborn.api.recipe.IBaseRecipeType;
+import techreborn.api.recipe.RecipeHandler;
 import techreborn.init.ModBlocks;
+import techreborn.lib.Reference;
 import techreborn.util.Inventory;
+import techreborn.util.ItemUtils;
 
 public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, IInventory {
 
     public int tickTime;
     public Inventory inventory = new Inventory(4, "TileAlloyFurnace", 64);
+
+    int input1 = 0;
+    int input2 = 1;
+
+    int output = 2;
+
+    int fuel = 3;
+
+
+    public int burnTime;
+
+    public int currentItemBurnTime;
+    public int cookTime;
 
     public TileAlloyFurnace() {
 
@@ -20,6 +43,201 @@ public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, II
     @Override
     public void updateEntity() {
         super.updateEntity();
+
+        boolean flag = this.burnTime > 0;
+        boolean flag1 = false;
+
+        if (this.burnTime > 0)
+        {
+            --this.burnTime;
+        }
+
+        if (!this.worldObj.isRemote)
+        {
+            if (this.burnTime != 0 || getStackInSlot(input1) != null && getStackInSlot(fuel) != null)
+            {
+                if (this.burnTime == 0 && this.canSmelt())
+                {
+                    this.currentItemBurnTime = this.burnTime = getItemBurnTime(getStackInSlot(fuel));
+
+                    if (this.burnTime > 0)
+                    {
+                        flag1 = true;
+
+                        if (this.getStackInSlot(fuel) != null)
+                        {
+                            decrStackSize(fuel, 1);
+                        }
+                    }
+                }
+
+                if (this.isBurning() && this.canSmelt())
+                {
+                    ++this.cookTime;
+
+                    if (this.cookTime == 200)
+                    {
+                        this.cookTime = 0;
+                        this.smeltItem();
+                        flag1 = true;
+                    }
+                }
+                else
+                {
+                    this.cookTime = 0;
+                }
+            }
+
+            if (flag != this.burnTime > 0)
+            {
+                flag1 = true;
+                //TODO sync on/off
+            }
+        }
+
+        if (flag1)
+        {
+            this.markDirty();
+        }
+
+    }
+
+    private boolean canSmelt()
+    {
+        if (this.getStackInSlot(input1) == null || this.getStackInSlot(input2) == null)
+        {
+            return false;
+        }
+        else
+        {
+            ItemStack itemstack = null;
+            for(IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelteRecipe)){
+                for(ItemStack input : recipeType.getInputs()){
+                    if(ItemUtils.isItemEqual(input, getStackInSlot(input1), true, true, true) || ItemUtils.isItemEqual(input, getStackInSlot(input2), true, true, true)){
+                        itemstack = recipeType.getOutput(0);
+                        break;
+                    }
+                }
+                if(itemstack != null){
+                    break;
+                }
+            }
+
+            if (itemstack == null) return false;
+            if (this.getStackInSlot(output) == null) return true;
+            if (!this.getStackInSlot(output).isItemEqual(itemstack)) return false;
+            int result = getStackInSlot(output).stackSize + itemstack.stackSize;
+            return result <= getInventoryStackLimit() && result <= this.getStackInSlot(output).getMaxStackSize(); //Forge BugFix: Make it respect stack sizes properly.
+        }
+    }
+
+    /**
+     * Turn one item from the furnace source stack into the appropriate smelted item in the furnace result stack
+     */
+    public void smeltItem()
+    {
+        if (this.canSmelt())
+        {
+            ItemStack itemstack = null;
+            for(IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelteRecipe)){
+                for(ItemStack input : recipeType.getInputs()){
+                    if(ItemUtils.isItemEqual(input, getStackInSlot(input1), true, true, true) || ItemUtils.isItemEqual(input, getStackInSlot(input2), true, true, true)){
+                        itemstack = recipeType.getOutput(0);
+                        break;
+                    }
+                }
+                if(itemstack != null){
+                    break;
+                }
+            }
+
+            if (this.getStackInSlot(output) == null)
+            {
+                setInventorySlotContents(output, itemstack.copy());
+            }
+            else if (this.getStackInSlot(output).getItem() == itemstack.getItem())
+            {
+                decrStackSize(output, -itemstack.stackSize);
+            }
+
+            this.decrStackSize(input1, 1);
+
+            if (this.getStackInSlot(input1).stackSize <= 0)
+            {
+                setInventorySlotContents(0, null);
+            }
+        }
+    }
+
+    /**
+     * Furnace isBurning
+     */
+    public boolean isBurning()
+    {
+        return this.burnTime > 0;
+    }
+
+    public int getBurnTimeRemainingScaled(int scale)
+    {
+        if (this.currentItemBurnTime == 0)
+        {
+            this.currentItemBurnTime = 200;
+        }
+
+        return this.burnTime * scale / this.currentItemBurnTime;
+    }
+
+    public int getCookProgressScaled(int scale)
+    {
+        return this.cookTime * scale / 200;
+    }
+
+
+
+    /**
+     * Returns the number of ticks that the supplied fuel item will keep the furnace burning, or 0 if the item isn't
+     * fuel
+     */
+    public static int getItemBurnTime(ItemStack stack)
+    {
+        if (stack == null)
+        {
+            return 0;
+        }
+        else
+        {
+            Item item = stack.getItem();
+
+            if (item instanceof ItemBlock && Block.getBlockFromItem(item) != Blocks.air)
+            {
+                Block block = Block.getBlockFromItem(item);
+
+                if (block == Blocks.wooden_slab)
+                {
+                    return 150;
+                }
+
+                if (block.getMaterial() == Material.wood)
+                {
+                    return 300;
+                }
+
+                if (block == Blocks.coal_block)
+                {
+                    return 16000;
+                }
+            }
+
+            if (item instanceof ItemTool && ((ItemTool)item).getToolMaterialName().equals("WOOD")) return 200;
+            if (item instanceof ItemSword && ((ItemSword)item).getToolMaterialName().equals("WOOD")) return 200;
+            if (item instanceof ItemHoe && ((ItemHoe)item).getToolMaterialName().equals("WOOD")) return 200;
+            if (item == Items.stick) return 100;
+            if (item == Items.coal) return 1600;
+            if (item == Items.lava_bucket) return 20000;
+            if (item == Item.getItemFromBlock(Blocks.sapling)) return 100;
+            if (item == Items.blaze_rod) return 2400;
+            return GameRegistry.getFuelValue(stack);
+        }
     }
 
     @Override
