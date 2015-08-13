@@ -17,7 +17,7 @@ public class TRTickHandler extends TickEvent {
 	@SubscribeEvent(priority=EventPriority.NORMAL, receiveCanceled=true)
 	public void onPlayerTick(TickEvent.PlayerTickEvent e) {
 		EntityPlayer player = e.player;
-		Item chestslot = player.getEquipmentInSlot(3) != null ? player.getEquipmentInSlot(3v).getItem() : null;
+		Item chestslot = player.getEquipmentInSlot(3) != null ? player.getEquipmentInSlot(3).getItem() : null;
 		
 		if(previouslyWearing != chestslot && previouslyWearing == ModItems.cloakingDevice && player.isInvisible())
 			player.setInvisible(false);
