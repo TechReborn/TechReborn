@@ -84,6 +84,7 @@ public class ConfigTechReborn {
     public static int LapotronicOrbMaxCharge;
     public static int OmniToolCharge;
     public static int RockCutterCharge;
+    public static int CloakingDeviceCharge;
     public static int GravityCharge;
     public static int CentrifugeCharge;
     public static int ThermalGeneratorCharge;
@@ -94,9 +95,12 @@ public class ConfigTechReborn {
     public static int LithiumBatpackTier;
     public static int OmniToolTier;
     public static int RockCutterTier;
+    public static int CloakingDeviceTier;
     public static int GravityTier;
     public static int CentrifugeTier;
     public static int ThermalGeneratorTier;
+    // EU/T
+    public static int CloakingDeviceEUTick;
     // Crafting
     public static boolean ExpensiveMacerator;
     public static boolean ExpensiveDrill;
@@ -357,6 +361,10 @@ public class ConfigTechReborn {
                 .get(CATEGORY_POWER, StatCollector.translateToLocal("config.techreborn.rockCutterMaxCharge"), 10000,
                         StatCollector.translateToLocal("config.techreborn.rockCutterMaxCharge.tooltip"))
                 .getInt();
+        CloakingDeviceCharge = config
+                .get(CATEGORY_POWER, StatCollector.translateToLocal("config.techreborn.cloakingDeviceMaxCharge"), 10000000,
+                        StatCollector.translateToLocal("config.techreborn.cloakingDeviceMaxCharge.tooltip"))
+                .getInt();
         GravityCharge = config
                 .get(CATEGORY_POWER, StatCollector.translateToLocal("config.techreborn.gravityChestplateMaxCharge"),
                         100000, StatCollector.translateToLocal("config.techreborn.gravityChestplateMaxCharge.tooltip"))
@@ -409,6 +417,10 @@ public class ConfigTechReborn {
                 StatCollector.translateToLocal("config.techreborn.omniToolTier.tooltip")).getInt();
         RockCutterTier = config.get(CATEGORY_POWER, StatCollector.translateToLocal("config.techreborn.rockCutterTier"),
                 3, StatCollector.translateToLocal("config.techreborn.rockCutterTier.tooltip")).getInt();
+        CloakingDeviceTier = config.get(CATEGORY_POWER, StatCollector.translateToLocal("config.techreborn.cloakingDeviceTier"),
+                3, StatCollector.translateToLocal("config.techreborn.cloakingDeviceTier.tooltip")).getInt();
+        CloakingDeviceEUTick = config.get(CATEGORY_POWER, StatCollector.translateToLocal("config.techreborn.cloakingDeviceEUTick"),
+                10000, StatCollector.translateToLocal("config.techreborn.cloakingDeviceEUTick.tooltip")).getInt();
         GravityTier = config
                 .get(CATEGORY_POWER, StatCollector.translateToLocal("config.techreborn.gravityChestplateTier"), 3,
                         StatCollector.translateToLocal("config.techreborn.gravityChestplateTier.tooltip"))
