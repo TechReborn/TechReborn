@@ -6,6 +6,8 @@ import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import tconstruct.armor.ArmorTickHandler;
 import techreborn.api.TechRebornItems;
 import techreborn.init.ModItems;
 import techreborn.items.tools.ItemCloakingDevice;
@@ -15,21 +17,15 @@ public class TRTickHandler extends TickEvent {
 		super(type, side, phase);
 		
 	}
-	
+	public Item previouslyWearing;
 	@SubscribeEvent(priority=EventPriority.NORMAL, receiveCanceled=true)
 	public void onPlayerTick(TickEvent.PlayerTickEvent e) {
 		EntityPlayer player = e.player;
+		Item chestslot = player.getEquipmentInSlot(3) != null ? player.getEquipmentInSlot(3).getItem() : null;
 		
-		if(player.getEquipmentInSlot(3)== null) {
+		if(previouslyWearing != chestslot && previouslyWearing == ModItems.cloakingDevice && player.isInvisible())
 			player.setInvisible(false);
-		
-		}			
-		else if(player.getEquipmentInSlot(3).getItem() != ModItems.cloakingDevice) {
-			player.setInvisible(false);
-		}
-			
-		
-			
+		previouslyWearing = chestslot;
 	}
 
 	
