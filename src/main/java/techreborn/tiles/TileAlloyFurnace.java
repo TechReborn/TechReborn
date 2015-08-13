@@ -102,6 +102,23 @@ public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, II
 
     }
 
+    public boolean hasAllInputs(IBaseRecipeType recipeType) {
+        if (recipeType == null) {
+            return false;
+        }
+        for (ItemStack input : recipeType.getInputs()) {
+            Boolean hasItem = false;
+            for (int inputslot = 0; inputslot < 2; inputslot++) {
+                if (ItemUtils.isItemEqual(input, inventory.getStackInSlot(inputslot), true, true, recipeType.useOreDic()) && inventory.getStackInSlot(inputslot).stackSize >= input.stackSize) {
+                    hasItem = true;
+                }
+            }
+            if (!hasItem)
+                return false;
+        }
+        return true;
+    }
+
     private boolean canSmelt()
     {
         if (this.getStackInSlot(input1) == null || this.getStackInSlot(input2) == null)
@@ -112,13 +129,8 @@ public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, II
         {
             ItemStack itemstack = null;
             for(IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelteRecipe)){
-                for(ItemStack input : recipeType.getInputs()){
-                    if(ItemUtils.isItemEqual(input, getStackInSlot(input1), true, true, true) || ItemUtils.isItemEqual(input, getStackInSlot(input2), true, true, true)){
-                        itemstack = recipeType.getOutput(0);
-                        break;
-                    }
-                }
-                if(itemstack != null){
+                if(hasAllInputs(recipeType)){
+                    itemstack = recipeType.getOutput(0);
                     break;
                 }
             }
@@ -160,12 +172,19 @@ public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, II
                 decrStackSize(output, -itemstack.stackSize);
             }
 
+            for(IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelteRecipe)){
+                for(ItemStack input : recipeType.getInputs()){
+                    if(ItemUtils.isItemEqual(input, getStackInSlot(input1), true, true, true)){
+                        this.decrStackSize(input1, input.stackSize);
+                    } else if(ItemUtils.isItemEqual(input, getStackInSlot(input2), true, true, true)){
+                        this.decrStackSize(input2, input.stackSize);
+                    }
+                }
+            }
+
             this.decrStackSize(input1, 1);
 
-            if (this.getStackInSlot(input1).stackSize <= 0)
-            {
-                setInventorySlotContents(0, null);
-            }
+
         }
     }
 
