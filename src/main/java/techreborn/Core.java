@@ -114,7 +114,7 @@ public class Core {
         IDSUManager.INSTANCE = new IDSUManager();
         MinecraftForge.EVENT_BUS.register(IDSUManager.INSTANCE);
         FMLCommonHandler.instance().bus().register(new MultiblockServerTickHandler());
-        FMLCommonHandler.instance().bus().register(new TRTickHandler(TickEvent.Type.PLAYER, Side.SERVER, Phase.START));
+        FMLCommonHandler.instance().bus().register(new TRTickHandler());
         packetPipeline.initalise();
         LogHelper.info("Initialization Complete");
     }
