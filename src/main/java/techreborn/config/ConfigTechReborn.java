@@ -1,5 +1,6 @@
 package techreborn.config;
 
+import cpw.mods.fml.common.Loader;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.config.Configuration;
 
@@ -77,6 +78,8 @@ public class ConfigTechReborn {
     public static int farmEu;
     public static int aesuMaxOutput;
     public static int aesuMaxStorage;
+    public static boolean enableRF;
+    public static boolean enableEU;
     // Charge
     public static int AdvancedDrillCharge;
     public static int LapotronPackCharge;
@@ -335,6 +338,16 @@ public class ConfigTechReborn {
                 .get(CATEGORY_POWER, StatCollector.translateToLocal("config.techreborn.aesuMaxStorage"), 1000000000,
                         StatCollector.translateToLocal("config.techreborn.aesuMaxStorage.tooltip"))
                 .getInt();
+
+        enableRF = config
+                .get(CATEGORY_POWER, StatCollector.translateToLocal("config.techreborn.enableRF"), !Loader.isModLoaded("IC2"),
+                        StatCollector.translateToLocal("config.techreborn.enableRF.tooltip"))
+                .getBoolean();
+
+        enableEU = config
+                .get(CATEGORY_POWER, StatCollector.translateToLocal("config.techreborn.enableEU"), Loader.isModLoaded("IC2"),
+                        StatCollector.translateToLocal("config.techreborn.enableEU"))
+                .getBoolean();
 
         // Charge
         AdvancedDrillCharge = config
