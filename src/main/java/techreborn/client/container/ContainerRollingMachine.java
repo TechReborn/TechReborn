@@ -1,6 +1,7 @@
 package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -60,6 +61,58 @@ public class ContainerRollingMachine extends TechRebornContainer {
         ItemStack output = RollingMachineRecipe.instance.findMatchingRecipe(
                 tile.craftMatrix, tile.getWorldObj());
         tile.inventory.setInventorySlotContents(1, output);
+    }
+
+    int currentItemBurnTime;
+    int burnTime;
+    int energy;
+
+    @Override
+    public void addCraftingToCrafters(ICrafting crafting) {
+        super.addCraftingToCrafters(crafting);
+        crafting.sendProgressBarUpdate(this, 0, tile.runTime);
+        crafting.sendProgressBarUpdate(this, 1, tile.tickTime);
+        crafting.sendProgressBarUpdate(this, 2, (int) tile.getEnergy());
+    }
+
+    @Override
+    public void detectAndSendChanges() {
+        for (int i = 0; i < this.crafters.size(); i++) {
+            ICrafting crafting = (ICrafting) this.crafters.get(i);
+            if (this.currentItemBurnTime != tile.runTime) {
+                crafting.sendProgressBarUpdate(this, 0, tile.runTime);
+            }
+            if (this.burnTime != tile.tickTime) {
+                crafting.sendProgressBarUpdate(this, 1, tile.tickTime);
+            }
+            if (this.energy !=  (int) tile.getEnergy()) {
+                crafting.sendProgressBarUpdate(this, 2, (int) tile.getEnergy());
+            }
+        }
+        super.detectAndSendChanges();
+    }
+
+    @Override
+    public void updateProgressBar(int id, int value) {
+        super.updateProgressBar(id, value);
+        if(id == 0){
+            this.currentItemBurnTime = value;
+        } else if(id ==1){
+            this.burnTime = value;
+        } else if(id == 2){
+            this.energy = value;
+        }
+        this.tile.runTime = this.currentItemBurnTime;
+        this.tile.tickTime = this.burnTime;
+        this.tile.setEnergy(this.energy);
+    }
+
+    public int getBurnTimeRemainingScaled(int scale)
+    {
+        if(burnTime == 0 || this.currentItemBurnTime == 0){
+            return 0;
+        }
+        return this.burnTime * scale / this.currentItemBurnTime;
     }
 
 }

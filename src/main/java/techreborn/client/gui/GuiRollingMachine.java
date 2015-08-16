@@ -14,12 +14,14 @@ public class GuiRollingMachine extends GuiContainer {
     private static final ResourceLocation texture = new ResourceLocation(
             "techreborn", "textures/gui/rolling_machine.png");
     TileRollingMachine rollingMachine;
+    ContainerRollingMachine containerRollingMachine;
 
     public GuiRollingMachine(EntityPlayer player, TileRollingMachine tileRollingmachine) {
         super(new ContainerRollingMachine(tileRollingmachine, player));
         this.xSize = 176;
         this.ySize = 167;
         rollingMachine = tileRollingmachine;
+        containerRollingMachine = (ContainerRollingMachine) this.inventorySlots;
     }
 
     @Override
@@ -28,6 +30,14 @@ public class GuiRollingMachine extends GuiContainer {
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
+
+        int j = this.containerRollingMachine.getBurnTimeRemainingScaled(24);
+        this.drawTexturedModalRect(k + 91, l + 34, 176, 14, j + 1, 19);
+
+        j = this.rollingMachine.getEnergyScaled(12);
+        if (j > 0) {
+            this.drawTexturedModalRect(k + 7, l + 33 + 12 - j, 176, 12 - j, 14, j + 2);
+        }
     }
 
     protected void drawGuiContainerForegroundLayer(int p_146979_1_,
