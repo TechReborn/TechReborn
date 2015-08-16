@@ -677,6 +677,7 @@ item.techreborn.lapotronpack.name=Lapotron Pack
 item.techreborn.omniTool.name=Omni tool
 item.techreborn.advancedDrill.name=Advanced Drill
 item.techreborn.lapotronicorb.name=Lapotronic Energy Orb
+item.techreborn.cloakingdevice.name=Cloaking Device
 
 #Buckets
 item.bucketberylium.name=Berylium Bucket
@@ -834,6 +835,14 @@ Cable.ironCable.name=Iron Cable
 Cable.copperCable.name=Copper Cable
 Cable.insulatedIronCable.name=Insulated Iron Cable
 Cable.doubleInsulatedIronCable.name=Double Insulated Copper Cable
-Cable.trippleInsulatedIronCable.name=Tipple Insulated Copper Cable
+Cable.trippleInsulatedIronCable.name=Triple Insulated Copper Cable
 Cable.glassFiberCable.name=Glass Fiber Cable
 Cable.tinCable.name=Tin Cable
+
+#PDA
+item.techreborn.advancedDrill.description=This Tool is a advanced version of the mining drill, when this item is activated it will dig out a 3x3.
+tile.techreborn.alloyfurnace.description=This Machine is your first step into TechReborn with this you can fuse metals into other metals. These other metals can be used to craft the higher tier machines.
+tile.techreborn.alloysmelter.description=This machine is a upgraded version of the Alloy Furnace, This block requires EU or RF.
+tile.techreborn.assemblingmachine.description=This block is used to craft some of the more complex machines that can't be crafted in a normal crafting table.
+tile.techreborn.blastfurnace.description=This Machine needs a 3x4x3 of machine casings behind it to increase its internal heat, The hotter the machine is the more recipes will open up to you. This machine also needs EU/RF.
+

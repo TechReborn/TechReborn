@@ -59,7 +59,9 @@ public class RecipesIC2 implements ICompatModule {
 
     public void addTRRecipes() {
         //General
-        CraftingHelper.addShapedOreRecipe(
+    	CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.manuel), IC2Items.getItem("plateiron"), Items.book);
+        
+    	CraftingHelper.addShapedOreRecipe(
                 ItemParts.getPartByName("machineParts", 16),
                 "CSC", "SCS", "CSC",
                 'S', "ingotSteel",
@@ -1189,7 +1191,7 @@ public class RecipesIC2 implements ICompatModule {
     static void addShappedIc2Recipes() {
         Item drill = IC2Items.getItem("miningDrill").getItem();
         ItemStack drillStack = new ItemStack(drill, 1, OreDictionary.WILDCARD_VALUE);
-
+        
         if (ConfigTechReborn.ExpensiveMacerator)
             CraftingHelper.addShapedOreRecipe(IC2Items.getItem("macerator"),
                     "FDF", "DMD", "FCF",

@@ -90,7 +90,7 @@ public class BasePage extends GuiScreen {
 
 	@Override
 	 public void actionPerformed(GuiButton button) {
-		if (button.id == 0)collection.changeActivePage("INDEX");
+		if (button.id == 0)collection.changeActivePage("CONTENTS");
 	}
 	@Override
 	public void mouseMovedOrUp(int par1, int par2, int par3){super.mouseMovedOrUp(par1, par2, par3);}
