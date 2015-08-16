@@ -105,11 +105,6 @@ public class ModRecipes {
                 'A', "ingotBronze",
                 'M', new ItemStack(ModItems.parts, 1, 13));
 
-        CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.parts, 1, 17),
-                "AAA", "AMA", "AAA",
-                'A', "ingotSteel",
-                'M', new ItemStack(ModItems.parts, 1, 13));
-
         CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.parts, 1, 18),
                 "AAA", "AMA", "AAA",
                 'A', "ingotTitanium",
@@ -225,7 +220,11 @@ public class ModRecipes {
                 'A', "plateAluminum");
 
 
-        TechRebornAPI.addShapelessRollingMachinceRecipe(new ItemStack(Items.diamond), new ItemStack(Blocks.dirt));
+
+        TechRebornAPI.addRollingMachinceRecipe(ItemParts.getPartByName("cupronickelHeatingCoil"),
+                "NCN", "C C", "NCN",
+                'N', ItemIngots.getIngotByName("cupronickel"),
+                'C', ItemIngots.getIngotByName("copper"));
 
     }
 

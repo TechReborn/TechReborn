@@ -19,13 +19,23 @@ import techreborn.util.LogHelper;
 
 public class ModItems {
 
+
+    //This are deprected to stop people using them in the recipes.
+    @Deprecated
     public static Item gems;
+    @Deprecated
     public static Item ingots;
+    @Deprecated
     public static Item nuggets;
+    @Deprecated
     public static Item dusts;
+    @Deprecated
     public static Item smallDusts;
+    @Deprecated
     public static Item tinyDusts;
+    @Deprecated
     public static Item parts;
+    @Deprecated
     public static Item cells;
     public static Item rockCutter;
     public static Item lithiumBatpack;
