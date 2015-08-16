@@ -2,8 +2,12 @@ package techreborn.pda.pages;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.item.ItemStack;
+import techreborn.init.ModBlocks;
+import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
 import techreborn.pda.PageCollection;
+import techreborn.pda.util.GuiButtonCustomTexture;
 import techreborn.pda.util.GuiButtonTextOnly;
 
 public class ContentsPage extends TitledPage{
@@ -19,6 +23,7 @@ public class ContentsPage extends TitledPage{
 		buttonList.add(new GuiButton(0, getXMin() + 25, getYMin() + 20, "ITEMS"));
 		buttonList.add(new GuiButton(1, getXMin() + 25, getYMin() + 40, "BLOCKS"));
 		buttonList.add(new GuiButton(2, getXMin() + 25, getYMin() + 160, "INDEX"));
+		buttonList.add(new GuiButtonCustomTexture(3, getXMin() + 25, getYMin() + 60, 0, 46, 60, 20, new ItemStack(ModBlocks.Aesu), "INDEX"));
 	}
 
 	@Override

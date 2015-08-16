@@ -2,8 +2,11 @@ package techreborn.pda.pages;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.item.ItemStack;
+import techreborn.init.ModItems;
 import techreborn.pda.PageCollection;
 import techreborn.pda.util.GuiButtonAHeight;
+import techreborn.pda.util.GuiButtonCustomTexture;
 import techreborn.pda.util.GuiButtonTextOnly;
 
 public class ItemsPage extends TitledPage{
@@ -15,7 +18,7 @@ public class ItemsPage extends TitledPage{
 	@SuppressWarnings("unchecked")
 	@Override
 	public void initGui() {
-//		buttonList.clear();
+		buttonList.clear();
 		int row = 0;
 		int collum = 0;
 		for (BasePage page : collection.pages){
