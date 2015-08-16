@@ -117,12 +117,19 @@ public class RecipesIC2 implements ICompatModule {
                 'I', "plateInvar",
                 'H', IC2Items.getItem("reinforcedGlass"),
                 'C', "circuitBasic",
-                'G', IC2Items.getItem("geothermalGenerator"));
+                'G', new ItemStack(ModBlocks.heatGenerator));
 
         CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.thermalGenerator),
                 "AAA", "AHA", "CGC",
                 'A', "plateAluminum",
                 'H', IC2Items.getItem("reinforcedGlass"),
+                'C', "circuitBasic",
+                'G', new ItemStack(ModBlocks.heatGenerator));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.heatGenerator),
+                "III", "IHI", "CGC",
+                'I', "plateIron",
+                'H', new ItemStack(Blocks.iron_bars),
                 'C', "circuitBasic",
                 'G', IC2Items.getItem("geothermalGenerator"));
 

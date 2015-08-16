@@ -3,6 +3,7 @@ package techreborn.tiles;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -136,8 +137,15 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
     @Override
     public void updateEntity() {
         super.updateEntity();
-        if (!worldObj.isRemote)
+        if (!worldObj.isRemote){
             FluidUtils.drainContainers(this, inventory, 0, 1);
+            for(ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS){
+                if (worldObj.getBlock(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ) == Blocks.lava) {
+                    addEnergy(euTick);
+                }
+            }
+        }
+
         if (tank.getFluidAmount() > 0
                 && getMaxPower() - getEnergy() >= euTick) {
             tank.drain(1, true);
