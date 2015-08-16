@@ -1161,19 +1161,27 @@ public class RecipesIC2 implements ICompatModule {
                     40, 60
             ));
         }
-
-
     }
 
     static void removeIc2Recipes() {
-        if (ConfigTechReborn.ExpensiveMacerator)
+        if (ConfigTechReborn.ExpensiveMacerator){
             RecipeRemover.removeAnyRecipe(IC2Items.getItem("macerator"));
-        if (ConfigTechReborn.ExpensiveDrill)
+        }
+        if (ConfigTechReborn.ExpensiveDrill){
             RecipeRemover.removeAnyRecipe(IC2Items.getItem("miningDrill"));
-        if (ConfigTechReborn.ExpensiveDiamondDrill)
+        }
+        if (ConfigTechReborn.ExpensiveDiamondDrill){
             RecipeRemover.removeAnyRecipe(IC2Items.getItem("diamondDrill"));
-        if (ConfigTechReborn.ExpensiveSolar)
+        }
+        if (ConfigTechReborn.ExpensiveSolar){
             RecipeRemover.removeAnyRecipe(IC2Items.getItem("solarPanel"));
+        }
+        if (ConfigTechReborn.ExpensiveWatermill){
+        	RecipeRemover.removeAnyRecipe(IC2Items.getItem("waterMill"));
+        }
+        if (ConfigTechReborn.ExpensiveWindmill){
+        	RecipeRemover.removeAnyRecipe(IC2Items.getItem("windMill"));
+        }
 
         LogHelper.info("IC2 Recipes Removed");
     }

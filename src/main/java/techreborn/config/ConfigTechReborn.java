@@ -111,6 +111,8 @@ public class ConfigTechReborn {
     public static boolean ExpensiveDrill;
     public static boolean ExpensiveDiamondDrill;
     public static boolean ExpensiveSolar;
+    public static boolean ExpensiveWatermill;
+    public static boolean ExpensiveWindmill;
     // UU
     public static boolean HideUuRecipes;
     public static boolean UUrecipesIridiamOre;
@@ -465,6 +467,14 @@ public class ConfigTechReborn {
         ExpensiveSolar = config
                 .get(CATEGORY_CRAFTING, StatCollector.translateToLocal("config.techreborn.allowExpensiveSolarPanels"),
                         true, StatCollector.translateToLocal("config.techreborn.allowExpensiveSolarPanels.tooltip"))
+                .getBoolean(true);
+        ExpensiveWatermill = config
+                .get(CATEGORY_CRAFTING, StatCollector.translateToLocal("config.techreborn.allowExpensiveWatermill"),
+                        true, StatCollector.translateToLocal("config.techreborn.allowExpensiveWatermill.tooltip"))
+                .getBoolean(true);
+        ExpensiveWindmill = config
+                .get(CATEGORY_CRAFTING, StatCollector.translateToLocal("config.techreborn.allowExpensiveWindmill"),
+                        true, StatCollector.translateToLocal("config.techreborn.allowExpensiveWindmill.tooltip"))
                 .getBoolean(true);
         // Uu
         HideUuRecipes = config.get(CATEGORY_UU, StatCollector.translateToLocal("config.techreborn.allow.hiderecipes"),
