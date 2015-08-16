@@ -2,6 +2,7 @@ package techreborn.pda.pages;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import techreborn.lib.ModInfo;
 import techreborn.pda.PageCollection;
 import techreborn.pda.util.GuiButtonTextOnly;
 
@@ -40,6 +41,7 @@ public class ContentsPage extends TitledPage{
 				((GuiButtonTextOnly) this.buttonList.get(k)).drawButton(this.mc, mouseX + offsetX, mouseY + offsetY);
 			}
 		}
+		drawCenteredString(minecraft.fontRenderer, ttl(ModInfo.MOD_NAME + "   " + ModInfo.MOD_VERSION), offsetX + 128, offsetY + 185, 848465);
 	}
 
 }
