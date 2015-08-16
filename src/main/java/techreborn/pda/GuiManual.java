@@ -46,7 +46,6 @@ public class GuiManual extends GuiScreen{
 		pageCollection.addPage(new ItemsPage("ITEMS", pageCollection));
 		pageCollection.addPage(new BlocksPage("BLOCKS", pageCollection));
 
-
 		pageCollection.addPage(new CraftingInfoPage("BLOCK_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.Aesu), ""));
 		pageCollection.addPage(new CraftingInfoPage("BLOCK_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.AlloyFurnace), ""));
 		pageCollection.addPage(new CraftingInfoPage("BLOCK_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.AlloySmelter), ""));
@@ -91,9 +90,14 @@ public class GuiManual extends GuiScreen{
 		pageCollection.addPage(new CraftingInfoPage("BLOCK_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.VacuumFreezer), ""));
 		pageCollection.addPage(new CraftingInfoPage("BLOCK_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.Woodenshelf), ""));
 
+		pageCollection.addPage(new CraftingInfoPage("ITEM_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModItems.advancedDrill), ""));
+		pageCollection.addPage(new CraftingInfoPage("ITEM_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModItems.cloakingDevice), ""));
 		pageCollection.addPage(new CraftingInfoPage("ITEM_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModItems.lapotronicOrb), ""));
-		//TODO add the rest of the items
-		//TODO add scroll bar
+		pageCollection.addPage(new CraftingInfoPage("ITEM_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModItems.lapotronpack), ""));
+		pageCollection.addPage(new CraftingInfoPage("ITEM_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModItems.lithiumBatpack), ""));
+		pageCollection.addPage(new CraftingInfoPage("ITEM_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModItems.omniTool), ""));
+		pageCollection.addPage(new CraftingInfoPage("ITEM_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModItems.rockCutter), ""));
+		pageCollection.addPage(new CraftingInfoPage("ITEM_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModItems.uuMatter), ""));
 		
 		return pageCollection;
 	}
