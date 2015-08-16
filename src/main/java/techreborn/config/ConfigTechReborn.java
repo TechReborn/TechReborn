@@ -13,6 +13,8 @@ public class ConfigTechReborn {
     public static String CATEGORY_CRAFTING = "crafting";
     public static String CATEGORY_UU = "uu";
     public static String CATEGORY_EMC = "emc";
+    public static String CATEGORY_INTEGRATION = "Integration";
+
 
     // WORLDGEN
     public static boolean GalenaOreTrue;
@@ -101,7 +103,7 @@ public class ConfigTechReborn {
     public static int CloakingDeviceTier;
     public static int GravityTier;
     public static int CentrifugeTier;
-    public static int ThermalGeneratorTier;
+    public static int ThermalGeneratorTier;  
     // EU/T
     public static int CloakingDeviceEUTick;
     // Crafting
@@ -109,7 +111,6 @@ public class ConfigTechReborn {
     public static boolean ExpensiveDrill;
     public static boolean ExpensiveDiamondDrill;
     public static boolean ExpensiveSolar;
-
     // UU
     public static boolean HideUuRecipes;
     public static boolean UUrecipesIridiamOre;
@@ -151,7 +152,10 @@ public class ConfigTechReborn {
     public static boolean UUrecipesTungstenDust;
     public static boolean UUrecipesTitaniumDust;
     public static boolean UUrecipesAluminumDust;
-
+    // Integration
+    public static boolean AllowForestryRecipes;
+    public static boolean AllowBOPRecipes;
+    public static boolean AllowNaturaRecipes;
     // EMC
 
     // Client
@@ -648,13 +652,19 @@ public class ConfigTechReborn {
                         StatCollector.translateToLocal("config.techreborn.allow.UUrecipesTitaniumDust.tooltip"))
                 .getBoolean(true);
 
-        UUrecipesAluminumDust = config
-                .get(CATEGORY_UU, StatCollector.translateToLocal("config.techreborn.allow.UUrecipesAluminumDust"), true,
-                        StatCollector.translateToLocal("config.techreborn.allow.UUrecipesAluminumDust.tooltip"))
-                .getBoolean(true);
+        UUrecipesAluminumDust = config.get(CATEGORY_UU, StatCollector.translateToLocal("config.techreborn.allow.UUrecipesAluminumDust"),
+        		true, StatCollector.translateToLocal("config.techreborn.allow.UUrecipesAluminumDust.tooltip")).getBoolean(true);
 
         ShowChargeHud = config.get(CATEGORY_POWER, StatCollector.translateToLocal("config.techreborn.showChargehud"),
                 true, StatCollector.translateToLocal("config.techreborn.showChargehud.tooltip")).getBoolean(true);
+        
+        //Integration
+        AllowBOPRecipes = config.get(CATEGORY_INTEGRATION, StatCollector.translateToLocal("config.techreborn.allowBopRecipes"),
+                true, StatCollector.translateToLocal("config.techreborn.allowBopRecipes.tooltip")).getBoolean(true);
+        AllowForestryRecipes = config.get(CATEGORY_INTEGRATION, StatCollector.translateToLocal("config.techreborn.allowForestryRecipes"),
+                true, StatCollector.translateToLocal("config.techreborn.allowForestryRecipes.tooltip")).getBoolean(true);
+        AllowNaturaRecipes = config.get(CATEGORY_INTEGRATION, StatCollector.translateToLocal("config.techreborn.allowNaturaRecipes"),
+                true, StatCollector.translateToLocal("config.techreborn.allowNaturaRecipes.tooltip")).getBoolean(true);
 
         if (config.hasChanged())
             config.save();
