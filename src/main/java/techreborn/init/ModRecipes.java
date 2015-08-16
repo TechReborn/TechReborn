@@ -12,6 +12,7 @@ import techreborn.api.TechRebornAPI;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.*;
 import techreborn.blocks.BlockMachineFrame;
+import techreborn.blocks.BlockOre;
 import techreborn.blocks.BlockStorage;
 import techreborn.blocks.BlockStorage2;
 import techreborn.config.ConfigTechReborn;
@@ -590,9 +591,9 @@ public class ModRecipes {
 
         RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemIngots.getIngotByName("tungsten"), ItemIngots.getIngotByName("steel"), ItemIngots.getIngotByName("hotTungstensteel"), ItemDusts.getDustByName("darkAshes", 4), 500, 500, 3000));
 
-        RecipeHandler.addRecipe(new BlastFurnaceRecipe(new ItemStack(Blocks.iron_ore), ItemDusts.getDustByName("calcite"), new ItemStack(Items.iron_ingot, 3), ItemDusts.getDustByName("darkAshes"), 140, 120, 15000));
+        RecipeHandler.addRecipe(new BlastFurnaceRecipe(new ItemStack(Blocks.iron_ore), ItemDusts.getDustByName("calcite"), new ItemStack(Items.iron_ingot, 3), ItemDusts.getDustByName("darkAshes"), 140, 120, 1000));
 
-        RecipeHandler.addRecipe(new BlastFurnaceRecipe(new ItemStack(ModBlocks.ore, 1, 5), ItemDusts.getDustByName("calcite"), new ItemStack(Items.iron_ingot, 2), ItemDusts.getDustByName("darkAshes"), 140, 120, 15000));
+        RecipeHandler.addRecipe(new BlastFurnaceRecipe(BlockOre.getOreByName("Pyrite"), ItemDusts.getDustByName("calcite"), new ItemStack(Items.iron_ingot, 2), ItemDusts.getDustByName("darkAshes"), 140, 120, 1000));
     }
 
     static void addUUrecipes() {
