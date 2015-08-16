@@ -55,6 +55,6 @@ public class IndexPage extends TitledPage{
 				((GuiButtonTextOnly) this.buttonList.get(k)).drawButton(this.mc, mouseX + offsetX, mouseY + offsetY);
 			}
 		}
-		buttonList.add(new GuiButton(0, offsetX + 20, offsetY + 180, "BACK"));
+		buttonList.add(new GuiButton(0, offsetX + 20, offsetY + 180, ttl("techreborn.pda.backbutton")));
 	}
 }

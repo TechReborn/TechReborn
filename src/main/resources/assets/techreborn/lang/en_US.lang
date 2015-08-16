@@ -840,6 +840,12 @@ Cable.glassFiberCable.name=Glass Fiber Cable
 Cable.tinCable.name=Tin Cable
 
 #PDA
+techreborn.pda.contents=Contents Page
+techreborn.pda.itemspage=Items
+techreborn.pda.blockspage=Blocks
+techreborn.pda.index=Index
+techreborn.pda.backbutton=BACK
+
 item.techreborn.advancedDrill.description=This Tool is a advanced version of the mining drill, when this item is activated it will dig out a 3x3.
 tile.techreborn.alloyfurnace.description=This Machine is your first step into TechReborn with this you can fuse metals into other metals. These other metals can be used to craft the higher tier machines.
 tile.techreborn.alloysmelter.description=This machine is a upgraded version of the Alloy Furnace, This block requires EU or RF.

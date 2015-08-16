@@ -15,7 +15,7 @@ public class ItemsPage extends TitledPage{
 	@SuppressWarnings("unchecked")
 	@Override
 	public void initGui() {
-		buttonList.clear();
+//		buttonList.clear();
 		int row = 0;
 		int collum = 0;
 		for (BasePage page : collection.pages){
@@ -57,6 +57,6 @@ public class ItemsPage extends TitledPage{
 				((GuiButtonTextOnly) this.buttonList.get(k)).drawButton(this.mc, mouseX + offsetX, mouseY + offsetY);
 			}
 		}
-		buttonList.add(new GuiButton(0, offsetX + 20, offsetY + 180, "BACK"));
+		buttonList.add(new GuiButton(0, offsetX + 20, offsetY + 180, ttl("techreborn.pda.backbutton")));
 	}
 }
