@@ -21,13 +21,9 @@ import techreborn.lib.ModInfo;
 import techreborn.pda.PageCollection;
 
 public class VersionPage extends TitledPage{
-	
-	private List<String> formattedDescription;
-	private String rawDescription;
 
 	public VersionPage(String name, PageCollection collection, String unlocalizedTitle, int colour) {
 		super(name, false, collection, unlocalizedTitle, 77777);
-		rawDescription = Core.INSTANCE.versionChecker.getChangeLogSinceCurrentVersion().toString();
 	}
 	
 	@Override
