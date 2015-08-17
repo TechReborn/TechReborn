@@ -19,6 +19,7 @@ import techreborn.pda.pages.CraftingInfoPage;
 import techreborn.pda.pages.IndexPage;
 import techreborn.pda.pages.ItemsPage;
 import techreborn.pda.pages.TitledPage;
+import techreborn.pda.pages.VersionPage;
 
 @SideOnly(Side.CLIENT)
 public class GuiManual extends GuiScreen{
@@ -50,8 +51,7 @@ public class GuiManual extends GuiScreen{
 		pageCollection.addPage(new ItemsPage("POWER_GENERATION", pageCollection, "POWER_GENERATION_PAGE"));
 		pageCollection.addPage(new ItemsPage("POWER_STORAGE", pageCollection, "POWER_STORAGE_PAGE"));
 		pageCollection.addPage(new ItemsPage("MULTIBLOCK", pageCollection, "MULTIBLOCK_PAGE"));
-
-
+		pageCollection.addPage(new VersionPage("VERSION", pageCollection, "VERSION PAGE", 777777));
 
 		pageCollection.addPage(new CraftingInfoPage("POWER_STORAGE_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.Aesu), ""));
 		pageCollection.addPage(new CraftingInfoPage("MACHINES_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.AlloyFurnace), ""));
