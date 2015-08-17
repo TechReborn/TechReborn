@@ -25,7 +25,7 @@ public class IndexPage extends TitledPage{
 				else if (indexName==null) indexName = page.getReferenceName();
 				int colour = 0000000;
 
-				buttonList.add(new GuiButtonTextOnly(999, getXMin()+5+collum*81, getYMin()+20+(row*7), 82, 7, indexName, page.getReferenceName(), colour));
+				buttonList.add(new GuiButtonTextOnly(999, getXMin()+5+collum*81, getYMin()+20+(row*7), 82, 7, indexName, page.getReferenceName(), 6666666));
 				row++;
 				if (row > 21){
 					row = 0;

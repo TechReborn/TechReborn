@@ -4,6 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.client.config.GuiButtonExt;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
@@ -15,12 +16,14 @@ public class GuiButtonCustomTexture extends GuiButtonExt {
     public int textureV;
     public ItemStack itemstack;
 	public String LINKED_PAGE;
+	public String NAME;
     
-    public GuiButtonCustomTexture(int id, int xPos, int yPos, int u, int v, int width, int height, ItemStack stack, String linkedPage) {
+    public GuiButtonCustomTexture(int id, int xPos, int yPos, int u, int v, int width, int height, ItemStack stack, String linkedPage, String name) {
         super(id, xPos, yPos, width, height, "_");
         textureU = u;
         textureV = v;
         itemstack = stack;
+        NAME = name;
 		this.LINKED_PAGE = linkedPage;
     }
 
@@ -40,8 +43,14 @@ public class GuiButtonCustomTexture extends GuiButtonExt {
                 this.drawTexturedModalRect(this.xPosition, this.yPosition, u, v, width, height);
 				GL11.glPopMatrix();
             }
+            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+            GL11.glEnable(32826);
+            RenderHelper.enableStandardItemLighting();
+            RenderHelper.enableGUIStandardItemLighting();
             RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, itemstack, this.xPosition, this.yPosition);
-            this.drawString(mc.fontRenderer, itemstack.getDisplayName(), this.xPosition + 20, this.yPosition + 3, 515611);
+            this.drawString(mc.fontRenderer, this.NAME, this.xPosition + 20, this.yPosition + 3, 777777);
         }
     }
+	public boolean getIsHovering(){return field_146123_n;}
+
 }
