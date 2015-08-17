@@ -1,5 +1,7 @@
 package techreborn.pda.util;
 
+import java.awt.Color;
+
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
@@ -51,7 +53,7 @@ public class GuiButtonTextOnly extends GuiButton{
 			}
 			GL11.glPushMatrix();
 			GL11.glScalef(0.7F, 0.7F, 1);
-			fontrenderer.drawString(trimmedDisplayString, (int)(xPosition*1.45), (int)((yPosition + (height - 8) / 2)*1.45), textColour);
+			fontrenderer.drawString(trimmedDisplayString, (int)(xPosition*1.45), (int)((yPosition + (height - 8) / 2)*1.45), Color.WHITE.getRGB());
 			GL11.glPopMatrix();
 		}
 	}

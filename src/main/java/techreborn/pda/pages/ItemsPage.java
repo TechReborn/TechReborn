@@ -2,6 +2,8 @@ package techreborn.pda.pages;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.item.ItemStack;
 import techreborn.init.ModItems;
 import techreborn.pda.PageCollection;
@@ -29,9 +31,8 @@ public class ItemsPage extends TitledPage{
 				if (page.getReferenceName() != null && page.getReferenceName().contains(PAGE)){
 					if (indexName==null && page instanceof CraftingInfoPage) indexName = ttl(((CraftingInfoPage)page).result.getUnlocalizedName()+".name");
 					else if (indexName==null) indexName = page.getReferenceName();
-					int colour = 77777777;
-	
-					buttonList.add(new GuiButtonTextOnly(999, getXMin()+5+collum*81, getYMin()+20+(row*7), 82, 7, indexName, page.getReferenceName(), 6666666));
+					int colour = 77777777;					
+					buttonList.add(new GuiButtonTextOnly(999, getXMin()+20+collum*120, getYMin()+20+(row*7), 82, 7, indexName, page.getReferenceName(), 6666666));
 					row++;
 					if (row > 21){
 						row = 0;
