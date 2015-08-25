@@ -22,6 +22,8 @@ import techreborn.items.*;
 import techreborn.util.CraftingHelper;
 import techreborn.util.LogHelper;
 
+import java.util.ArrayList;
+
 public class ModRecipes {
     public static ConfigTechReborn config;
 
@@ -155,13 +157,29 @@ public class ModRecipes {
 		);
 
 		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("rockCutterBlade"),
-				"SDS ", "SDS", "SDS",
+				"SDS", "SDS", "SDS",
 				'D', new ItemStack(Items.diamond),
 				'S', "ingotSteel"
 		);
 
+		for(String part : ItemParts.types){
+			if(part.endsWith("Gear")){
+				CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName(part),
+						" O ", "OIO", " O ",
+						'I', new ItemStack(Items.iron_ingot),
+						'O', "ingot" + capitalizeFirstLetter(part.replace("Gear", ""))
+				);
+			}
+		}
+
         LogHelper.info("Shapped Recipes Added");
     }
+
+	public static String capitalizeFirstLetter(String original){
+		if(original.length() == 0)
+			return original;
+		return original.substring(0, 1).toUpperCase() + original.substring(1);
+	}
 
     static void addShapelessRecipes() {
 
