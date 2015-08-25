@@ -135,6 +135,13 @@ public class ModRecipes {
                 'S', "plateSteel",
                 'B', "blockSteel");
 
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("destructoPack"),
+				"CIC", "IBI", "CIC",
+				'C', ItemParts.getPartByName("basicCircuitBoard"),
+				'I', "ingotAluminum",
+				'B', new ItemStack(Items.lava_bucket)
+		);
+
         LogHelper.info("Shapped Recipes Added");
     }
 
