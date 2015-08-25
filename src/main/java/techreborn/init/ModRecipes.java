@@ -75,14 +75,10 @@ public class ModRecipes {
                 'B', "dyeBlue",
                 'Y', Items.glowstone_dust);
 
-        CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.parts, 1, 7),
-                "AGA", "RPB", "ASA",
-                'A', "ingotAluminium",
-                'G', "dyeGreen",
-                'R', "dyeRed",
-                'P', "paneGlass",
-                'B', "dyeBlue",
-                'S', Items.glowstone_dust);
+        CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("dataStorageCircuit"),
+                "EEE", "ECE", "EEE",
+                'E', new ItemStack(Items.emerald),
+                'C', ItemParts.getPartByName("basicCircuitBoard"));
 
         CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.parts, 4, 8),
                 "DSD", "S S", "DSD",
