@@ -1,7 +1,7 @@
 itemGroup.techreborn=Tech Reborn
 
 #机器
-tile.techreborn.gasTurbine.name=燃气发电机
+tile.techreborn.gasTurbine.name=燃气轮机
 tile.techreborn.industrialBlock.name=工业
 tile.techreborn.thermalGenerator.name=热敏发电机
 tile.techreborn.quantumTank.name=量子槽
@@ -65,7 +65,7 @@ tile.techreborn.ore.Bauxite.name=铝土矿石
 tile.techreborn.ore.Pyrite.name=黄铁矿石
 tile.techreborn.ore.Cinnabar.name=朱砂矿石
 tile.techreborn.ore.Sphalerite.name=闪锌矿石
-tile.techreborn.ore.Tungsten.name=钨矿石
+tile.techreborn.ore.Tungston.name=钨矿石
 tile.techreborn.ore.Sheldonite.name=铂矿石
 tile.techreborn.ore.Peridot.name=橄榄石矿石
 tile.techreborn.ore.Sodalite.name=方钠石矿石
@@ -239,6 +239,8 @@ item.techreborn.dust.voidstone.name=虚空石粉
 item.techreborn.dust.yellowGarnet.name=黄色石榴石粉
 item.techreborn.dust.zinc.name=锌粉
 item.techreborn.dust.galena.name=方铅矿粉
+item.techreborn.dust.greenSapphire.name=绿色蓝宝石粉
+item.techreborn.dust.sawDust.name=木浆
 
 
 #小堆粉
@@ -701,6 +703,10 @@ item.bucketsodiumpersulfate.name=过硫化钠桶
 item.buckettritium.name=氚桶
 item.bucketwolframium.name=钨桶
 
+#Items
+item.techreborn.uuMatter.name=UU-物质
+item.techreborn.pda.name=PDA
+
 #Configs
 config.techreborn.allow.galenaOre=Allow Galena Ore
 config.techreborn.allow.galenaOre.tooltip=Decide whether Galena Ore spawns or not
@@ -791,6 +797,10 @@ config.techreborn.euPerRF=EU Conversion
 config.techreborn.euPerRF.tooltip=The amount of RF that equal 1 EU. 4 by default, so 4RF == 1EU and .25EU == 1RF
 config.techreborn.farmeu=Farm EU per Tick
 config.techreborn.farmeu.tooltip=Amount of eu used per tick by the farm
+config.techreborn.enableRF=Enable RF support
+config.techreborn.enableRF.tooltip= Enable RF support for all machines.
+config.techreborn.enableEU=Enable EU support
+config.techreborn.enableEU.tooltip= Enable EU support for all machines.
 
 #ConfigGui
 config.techreborn.category.general=General Configs
@@ -813,3 +823,17 @@ techreborn.recipe.platecuttingmachine=板材切割机
 
 #消息
 techreborn.message.missingmultiblock=多方块结构缺失
+
+#Cables
+Cable.copperCable.name=铜质导线
+Cable.insulatedCopperCable.name=绝缘铜质导线
+Cable.goldCable.name=金质导线
+Cable.insulatedGoldCable.name=绝缘金质导线
+Cable.doubleInsulatedGoldCable.name=双层绝缘金质导线
+Cable.ironCable.name=高压导线
+Cable.copperCable.name=铜质导线
+Cable.insulatedIronCable.name=绝缘高压导线
+Cable.doubleInsulatedIronCable.name=双层绝缘高压导线
+Cable.trippleInsulatedIronCable.name=三层绝缘高压导线
+Cable.glassFiberCable.name=玻璃纤维导线
+Cable.tinCable.name=锡质导线
