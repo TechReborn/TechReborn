@@ -142,6 +142,13 @@ public class ModRecipes {
 				'B', new ItemStack(Items.lava_bucket)
 		);
 
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.cloakingDevice),
+				"CIC", "IOI", "CIC",
+				'C', "ingotChrome",
+				'I', "plateIridium",
+				'O', new ItemStack(ModItems.lapotronicOrb)
+		);
+
         LogHelper.info("Shapped Recipes Added");
     }
 
