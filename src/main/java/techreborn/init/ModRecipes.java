@@ -1,5 +1,6 @@
 package techreborn.init;
 
+import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -143,6 +144,20 @@ public class ModRecipes {
 				'C', "ingotChrome",
 				'I', "plateIridium",
 				'O', new ItemStack(ModItems.lapotronicOrb)
+		);
+
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.rockCutter),
+				"DT ", "DT ", "DCB",
+				'D', ItemParts.getPartByName("rockCutterBlade"),
+				'T', "ingotTitanium",
+				'C', ItemParts.getPartByName("basicCircuitBoard"),
+				'B', new ItemStack(Items.diamond)
+		);
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("rockCutterBlade"),
+				"SDS ", "SDS", "SDS",
+				'D', new ItemStack(Items.diamond),
+				'S', "ingotSteel"
 		);
 
         LogHelper.info("Shapped Recipes Added");
