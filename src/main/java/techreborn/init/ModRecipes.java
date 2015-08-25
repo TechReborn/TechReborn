@@ -149,7 +149,7 @@ public class ModRecipes {
                 if (item == null) {
                     continue;
                 }
-                
+
                 GameRegistry.addShapelessRecipe(BlockStorage.getStorageBlockByName(name), item);
                 GameRegistry.addShapelessRecipe(item, BlockStorage.getStorageBlockByName(name, 9));
             } catch (Exception e) {
@@ -158,18 +158,10 @@ public class ModRecipes {
         }
 
         for (String name : ItemDustsSmall.types) {
-            CraftingHelper.addShapedOreRecipe(ItemDustsSmall.getSmallDustByName(name, 4),
-                    "A  ", "   ", "   ",
-                    'A', ItemDusts.getDustByName(name));
-            CraftingHelper.addShapedOreRecipe(ItemDustsTiny.getTinyDustByName(name, 9),
-                    " A ", "   ", "   ",
-                    'A', ItemDusts.getDustByName(name));
-            CraftingHelper.addShapedOreRecipe(ItemDusts.getDustByName(name, 1),
-                    "AA ", "AA ", "   ",
-                    'A', ItemDustsSmall.getSmallDustByName(name));
-            CraftingHelper.addShapedOreRecipe(ItemDusts.getDustByName(name, 1),
-                    "AAA", "AAA", "AAA",
-                    'A', ItemDustsTiny.getTinyDustByName(name));
+            GameRegistry.addShapelessRecipe(ItemDustsSmall.getSmallDustByName(name, 4), ItemDusts.getDustByName(name));
+            GameRegistry.addShapelessRecipe(ItemDustsTiny.getTinyDustByName(name, 9), ItemDusts.getDustByName(name));
+            GameRegistry.addShapelessRecipe(ItemDusts.getDustByName(name, 1), ItemDustsSmall.getSmallDustByName(name), ItemDustsSmall.getSmallDustByName(name), ItemDustsSmall.getSmallDustByName(name), ItemDustsSmall.getSmallDustByName(name));
+            GameRegistry.addShapelessRecipe(ItemDusts.getDustByName(name, 1), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name));
         }
 
 //		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.gems, 9, 1), "blockSapphire");
