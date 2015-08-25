@@ -149,9 +149,9 @@ public class ModRecipes {
                 if (item == null) {
                     continue;
                 }
-
+                
                 GameRegistry.addShapelessRecipe(BlockStorage.getStorageBlockByName(name), item);
-                GameRegistry.addShapelessRecipe(item, BlockStorage.getStorageBlockByName(name));
+                GameRegistry.addShapelessRecipe(item, BlockStorage.getStorageBlockByName(name, 9));
             } catch (Exception e) {
                 //Iridium reinforced tungstensteel, etc.
             }
