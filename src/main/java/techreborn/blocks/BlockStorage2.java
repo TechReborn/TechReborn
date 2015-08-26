@@ -31,7 +31,7 @@ public class BlockStorage2 extends Block {
 
     public static final String[] types = new String[]
             {"tungstensteel", "lodestone", "tellurium", "iridium_reinforced_tungstensteel",
-                    "iridium_reinforced_stone", "ruby", "sapphire", "peridot", "yellow_garnet", "red_garnet"};
+                    "iridium_reinforced_stone", "ruby", "sapphire", "peridot", "yellowGarnet", "redGarnet"};
 
     private IIcon[] textures;
 

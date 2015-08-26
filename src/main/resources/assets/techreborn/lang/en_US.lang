@@ -99,8 +99,8 @@ tile.techreborn.storage2.iridium_reinforced_stone.name=Iridium Reinforced Stone
 tile.techreborn.storage2.ruby.name=Block of Ruby
 tile.techreborn.storage2.sapphire.name=Block of Sapphire
 tile.techreborn.storage2.peridot.name=Block of Peridot
-tile.techreborn.storage2.yellow_garnet.name=Block of Yellow Garnet
-tile.techreborn.storage2.red_garnet.name=Block of Red Garnet
+tile.techreborn.storage2.yellowGarnet.name=Block of Yellow Garnet
+tile.techreborn.storage2.redGarnet.name=Block of Red Garnet
 tile.techreborn.farm.name=Farm
 
 
