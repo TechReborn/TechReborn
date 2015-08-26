@@ -141,7 +141,7 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
             FluidUtils.drainContainers(this, inventory, 0, 1);
             for(ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS){
                 if (worldObj.getBlock(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ) == Blocks.lava) {
-                    addEnergy(euTick);
+                    addEnergy(1);
                 }
             }
         }
