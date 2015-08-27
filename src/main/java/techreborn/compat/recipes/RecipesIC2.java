@@ -49,7 +49,8 @@ public class RecipesIC2 implements ICompatModule {
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
-
+        //Has to be done later, not sure why
+        RecipeRemover.removeAnyRecipe(IC2Items.getItem("iridiumPlate"));
     }
 
     @Override
