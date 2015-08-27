@@ -4,14 +4,17 @@ import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
-import minetweaker.api.minecraft.MineTweakerMC;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.AlloySmelterRecipe;
+import techreborn.lib.Reference;
+import techreborn.util.CraftingHelper;
 import techreborn.util.ItemUtils;
+
+import java.util.List;
 
 /**
  * mods.techreborn.alloySmelter.addRecipe(<minecraft:gold_ingot>, <minecraft:iron_ingot>, <minecraft:diamond>, 20, 100);
@@ -20,96 +23,117 @@ import techreborn.util.ItemUtils;
 @ZenClass("mods.techreborn.alloySmelter")
 public class MTAlloySmelter {
 
-    @ZenMethod
-    public static void addRecipe(IItemStack output, IItemStack input1, IItemStack input2, int ticktime, int eutick) {
-        MineTweakerAPI.apply(new AddRecipeAction(input1, input2, output, ticktime, eutick));
-    }
 
-    @ZenMethod
-    public static void remove(IIngredient output) {
-        for (IBaseRecipeType recipeType : RecipeHandler.recipeList) {
-            if (recipeType.getRecipeName().equals("alloySmelterRecipe")) {
-                for (ItemStack outputstack : recipeType.getOutputs()) {
-                    if (ItemUtils.isItemEqual(MineTweakerMC.getItemStack(output), outputstack, true, false, false)) {
-                        MineTweakerAPI.apply(new RemoveRecipeAction(recipeType));
-                    }
-                }
-            }
-        }
-    }
+	@ZenMethod
+	public static void addRecipe(IItemStack output, IIngredient input1, IIngredient input2, int ticktime, int euTick) {
+		ItemStack oInput1 = (ItemStack) MinetweakerCompat.toObject(input1);
+		if (oInput1 == null)
+			return;
 
-    private static class AddRecipeAction extends AlloySmelterRecipe implements IUndoableAction {
+		ItemStack oInput2 = (ItemStack) MinetweakerCompat.toObject(input2);
+		if (oInput2 == null)
+			return;
 
-        public AddRecipeAction(IItemStack input1, IItemStack input2, IItemStack output1, int tickTime, int euPerTick) {
-            super(MineTweakerMC.getItemStack(input1), MineTweakerMC.getItemStack(input2), MineTweakerMC.getItemStack(output1), tickTime, euPerTick);
-        }
+		AlloySmelterRecipe r = new AlloySmelterRecipe(oInput1, oInput2, MinetweakerCompat.toStack(output), ticktime, euTick);
 
-        @Override
-        public void apply() {
-            RecipeHandler.addRecipe(this);
-        }
+		MineTweakerAPI.apply(new Add(r));
+	}
 
-        @Override
-        public boolean canUndo() {
-            return false;
-        }
+	private static class Add implements IUndoableAction {
+		private final AlloySmelterRecipe recipe;
 
-        @Override
-        public void undo() {
+		public Add(AlloySmelterRecipe recipe) {
+			this.recipe = recipe;
+		}
 
-        }
+		@Override
+		public void apply() {
+			RecipeHandler.addRecipe(recipe);
+		}
 
-        @Override
-        public String describe() {
-            return "Adding recipe to the alloy furnace";
-        }
+		@Override
+		public boolean canUndo() {
+			return true;
+		}
 
-        @Override
-        public String describeUndo() {
-            return "Removing recipe to the alloy furnace";
-        }
+		@Override
+		public void undo() {
+			RecipeHandler.recipeList.remove(recipe);
+		}
 
-        @Override
-        public Object getOverrideKey() {
-            return null;
-        }
-    }
+		@Override
+		public String describe() {
+			return "Adding Alloy Smelter Recipe for " + recipe.getOutput(0).getDisplayName();
+		}
 
-    private static class RemoveRecipeAction implements IUndoableAction {
-        private final IBaseRecipeType recipe;
+		@Override
+		public String describeUndo() {
+			return "Removing Alloy Smelter Recipe for " + recipe.getOutput(0).getDisplayName();
+		}
 
-        public RemoveRecipeAction(IBaseRecipeType recipeType) {
-            this.recipe = recipeType;
-        }
+		@Override
+		public Object getOverrideKey() {
+			return null;
+		}
+	}
 
-        @Override
-        public void apply() {
-            RecipeHandler.recipeList.remove(recipe);
-        }
+	@ZenMethod
+	public static void removeRecipe(IItemStack output)
+	{
+		MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(output)));
+	}
+	private static class Remove implements IUndoableAction
+	{
+		private final ItemStack output;
+		List<AlloySmelterRecipe> removedRecipes;
+		public Remove(ItemStack output)
+		{
+			this.output = output;
+		}
+		@Override
+		public void apply()
+		{
+			for(IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelteRecipe)){
+				for(ItemStack stack : recipeType.getOutputs()){
+					if(ItemUtils.isItemEqual(stack, output, true, false)){
+						removedRecipes.add((AlloySmelterRecipe) recipeType);
+						RecipeHandler.recipeList.remove(recipeType);
+						break;
+					}
+				}
+			}
+		}
+		@Override
+		public void undo()
+		{
+			if(removedRecipes!=null){
+				for(AlloySmelterRecipe recipe : removedRecipes){
+					if(recipe!=null){
+						RecipeHandler.addRecipe(recipe);
+					}
+				}
+			}
 
-        @Override
-        public boolean canUndo() {
-            return false;
-        }
-
-        @Override
-        public void undo() {
-
-        }
-
-        @Override
-        public String describe() {
-            return "Removing" + recipe.getUserFreindlyName() + "recipe";
-        }
-
-        @Override
-        public String describeUndo() {
-            return "Restoring" + recipe.getUserFreindlyName() + "recipe";
-        }
-
-        @Override
-        public Object getOverrideKey() {
-            return null;
-        }
-    }
+		}
+		@Override
+		public String describe()
+		{
+			return "Removing Alloy Smelter Recipe for " + output.getDisplayName();
+		}
+		@Override
+		public String describeUndo()
+		{
+			return "Re-Adding Alloy Smelter Recipe for " + output.getDisplayName();
+		}
+		@Override
+		public Object getOverrideKey()
+		{
+			return null;
+		}
+		@Override
+		public boolean canUndo()
+		{
+			return true;
+		}
+	}
 }
