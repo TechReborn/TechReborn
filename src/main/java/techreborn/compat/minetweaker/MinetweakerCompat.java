@@ -9,11 +9,14 @@ import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
 import minetweaker.api.item.IngredientStack;
+import minetweaker.api.liquid.ILiquidStack;
 import minetweaker.api.oredict.IOreDictEntry;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
 import techreborn.compat.ICompatModule;
 
 import static minetweaker.api.minecraft.MineTweakerMC.getItemStack;
+import static minetweaker.api.minecraft.MineTweakerMC.getLiquidStack;
 
 
 public class MinetweakerCompat implements ICompatModule {
@@ -33,6 +36,13 @@ public class MinetweakerCompat implements ICompatModule {
 		MineTweakerAPI.registerClass(MTAssemblingMachine.class);
 		MineTweakerAPI.registerClass(MTBlastFurnace.class);
 		MineTweakerAPI.registerClass(MTCentrifuge.class);
+		MineTweakerAPI.registerClass(MTChemicalReactor.class);
+		MineTweakerAPI.registerClass(MTGrinder.class);
+		MineTweakerAPI.registerClass(MTImplosionCompressor.class);
+		MineTweakerAPI.registerClass(MTIndustrialElectrolyzer.class);
+		MineTweakerAPI.registerClass(MTIndustrialSawmill.class);
+		MineTweakerAPI.registerClass(MTLathe.class);
+		MineTweakerAPI.registerClass(MTPlateCuttingMachine.class);
 	}
 
 	@Override
@@ -58,6 +68,10 @@ public class MinetweakerCompat implements ICompatModule {
 			} else
 				return null;
 		}
+	}
+	public static FluidStack toFluidStack(ILiquidStack iStack)
+	{
+		return getLiquidStack(iStack);
 	}
 
 }
