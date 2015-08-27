@@ -9,14 +9,11 @@ import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
 import minetweaker.api.item.IngredientStack;
-import minetweaker.api.liquid.ILiquidStack;
 import minetweaker.api.oredict.IOreDictEntry;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
 import techreborn.compat.ICompatModule;
 
 import static minetweaker.api.minecraft.MineTweakerMC.getItemStack;
-import static minetweaker.api.minecraft.MineTweakerMC.getLiquidStack;
 
 
 public class MinetweakerCompat implements ICompatModule {
@@ -33,6 +30,9 @@ public class MinetweakerCompat implements ICompatModule {
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
 		MineTweakerAPI.registerClass(MTAlloySmelter.class);
+		MineTweakerAPI.registerClass(MTAssemblingMachine.class);
+		MineTweakerAPI.registerClass(MTBlastFurnace.class);
+		MineTweakerAPI.registerClass(MTCentrifuge.class);
 	}
 
 	@Override
