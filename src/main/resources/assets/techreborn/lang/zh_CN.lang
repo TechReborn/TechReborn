@@ -99,8 +99,8 @@ tile.techreborn.storage2.iridium_reinforced_stone.name=铱强化石
 tile.techreborn.storage2.ruby.name=红宝石块
 tile.techreborn.storage2.sapphire.name=蓝宝石块
 tile.techreborn.storage2.peridot.name=橄榄石块
-tile.techreborn.storage2.yellow_garnet.name=黄色石榴石块
-tile.techreborn.storage2.red_garnet.name=红色石榴石块
+tile.techreborn.storage2.yellowGarnet.name=黄色石榴石块
+tile.techreborn.storage2.redGarnet.name=红色石榴石块
 tile.techreborn.farm.name=Farm
 
 
@@ -239,7 +239,7 @@ item.techreborn.dust.voidstone.name=虚空石粉
 item.techreborn.dust.yellowGarnet.name=黄色石榴石粉
 item.techreborn.dust.zinc.name=锌粉
 item.techreborn.dust.galena.name=方铅矿粉
-item.techreborn.dust.greenSapphire.name=绿色蓝宝石粉
+item.techreborn.dust.greenSapphire.name=橄榄石粉
 item.techreborn.dust.sawDust.name=木浆
 
 
@@ -465,7 +465,7 @@ item.techreborn.cell.wolframium.name=钨单元
 #宝石
 item.techreborn.gem.ruby.name=红宝石
 item.techreborn.gem.sapphire.name=蓝宝石
-item.techreborn.gem.peridot.name=绿色蓝宝石
+item.techreborn.gem.peridot.name=橄榄石
 item.techreborn.gem.redGarnet.name=红色石榴石
 item.techreborn.gem.yellowGarnet.name=黄色石榴石
 
@@ -677,6 +677,7 @@ item.techreborn.lapotronpack.name=兰波顿充电背包
 item.techreborn.omniTool.name=万能工具
 item.techreborn.advancedDrill.name=高级电钻
 item.techreborn.lapotronicorb.name=蓝波顿能量球
+item.techreborn.cloakingdevice.name=隐形装置
 
 #桶
 item.bucketberylium.name=铍桶
@@ -824,7 +825,7 @@ techreborn.recipe.platecuttingmachine=板材切割机
 #消息
 techreborn.message.missingmultiblock=多方块结构缺失
 
-#Cables
+#导线
 Cable.copperCable.name=铜质导线
 Cable.insulatedCopperCable.name=绝缘铜质导线
 Cable.goldCable.name=金质导线
@@ -837,3 +838,16 @@ Cable.doubleInsulatedIronCable.name=双层绝缘高压导线
 Cable.trippleInsulatedIronCable.name=三层绝缘高压导线
 Cable.glassFiberCable.name=玻璃纤维导线
 Cable.tinCable.name=锡质导线
+
+#PDA
+techreborn.pda.contents=目录页面
+techreborn.pda.itemspage=物品
+techreborn.pda.blockspage=方块
+techreborn.pda.index=首页
+techreborn.pda.backbutton=返回
+
+item.techreborn.advancedDrill.description=这个工具是一个高级版本的采矿钻头,当它被激活时将以3 x3的范围挖掘。
+tile.techreborn.alloyfurnace.description=这是你初次步入TechReborn时第一次能融合金属们变成另外一种金属的机器。这样加工出来的金属可以用来加工更高级别的机器。
+tile.techreborn.alloysmelter.description=这台机器是一个升级版本的合金炉,它需要使用EU或RF。
+tile.techreborn.assemblingmachine.description=这台机器用于加工许多不能用普通工作台加工的复杂设备。
+tile.techreborn.blastfurnace.description=这台机器需要在后面放置一个3x4x3的机器外壳来增加其内部热量，更高热量的高炉可以给你带来更多配方。这台机器也需要使用EU或RF。
