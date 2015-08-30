@@ -28,10 +28,23 @@ public class CompatManager {
         registerCompact(MinetweakerCompat.class, "MineTweaker3");
     }
 
-    public void registerCompact(Class<?> moduleClass, String... modid) {
-        for (String id : modid) {
-            if (!Loader.isModLoaded(id)) {
-                return;
+    public void registerCompact(Class<?> moduleClass, Object... objs) {
+        for(Object obj : objs){
+            if(obj instanceof String){
+                String modid = (String) obj;
+                if(modid.startsWith("!")){
+                    if (Loader.isModLoaded(modid.replace("!", ""))) {
+                        return;
+                    }
+                } else {
+                    if (!Loader.isModLoaded(modid)) {
+                        return;
+                    }
+                }
+            } else if(obj instanceof Boolean){
+                if(!(Boolean)obj){
+                    return;
+                }
             }
         }
         try {
