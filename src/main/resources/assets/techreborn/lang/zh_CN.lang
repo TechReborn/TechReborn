@@ -704,112 +704,112 @@ item.bucketsodiumpersulfate.name=过硫化钠桶
 item.buckettritium.name=氚桶
 item.bucketwolframium.name=钨桶
 
-#Items
+#物品
 item.techreborn.uuMatter.name=UU-物质
 item.techreborn.pda.name=PDA
 
-#Configs
-config.techreborn.allow.galenaOre=Allow Galena Ore
-config.techreborn.allow.galenaOre.tooltip=Decide whether Galena Ore spawns or not
-config.techreborn.allow.iridiumOre=Allow Iridium Ore
-config.techreborn.allow.iridiumOre.tooltip=Decide whether Iridium Ore spawns or not
-config.techreborn.allow.rubyOre=Allow Ruby Ore
-config.techreborn.allow.rubyOre.tooltip=Decide whether Ruby Ore spawns or not
-config.techreborn.allow.sapphireOre=Allow Sapphire Ore
-config.techreborn.allow.sapphireOre.tooltip=Decide whether Sapphire Ore spawns or not
-config.techreborn.allow.bauxiteOre=Allow Bauxite Ore
-config.techreborn.allow.bauxiteOre.tooltip=Decide whether Bauxite Ore spawns or not
-config.techreborn.allow.copperOre=Allow Copper Ore
-config.techreborn.allow.copperOre.tooltip=Decide whether Copper Ore spawns or not
-config.techreborn.allow.tinOre=Allow Tin Ore
-config.techreborn.allow.tinOre.tooltip=Decide whether Tin Ore spawns or not
-config.techreborn.allow.leadOre=Allow Lead Ore
-config.techreborn.allow.leadOre.tooltip=Decide whether Lead Ore spawns or not
-config.techreborn.allow.silverOre=Allow Silver Ore
-config.techreborn.allow.silverOre.tooltip=Decide whether Silver Ore spawns or not
-config.techreborn.allow.pyriteOre=Allow Pyrite Ore
-config.techreborn.allow.pyriteOre.tooltip=Decide whether Pyrite Ore spawns or not
-config.techreborn.allow.cinnabarOre=Allow Cinnabar Ore
-config.techreborn.allow.cinnabarOre.tooltip=Decide whether Cinnabar Ore spawns or not
-config.techreborn.allow.sphaleriteOre=Allow Sphalerite Ore
-config.techreborn.allow.sphaleriteOre.tooltip=Decide whether Sphalerite Ore spawns or not
-config.techreborn.allow.tungstenOre=Allow Tungsten Ore
-config.techreborn.allow.tungstenOre.tooltip=Decide whether Tungsten Ore spawns or not
-config.techreborn.allow.sheldoniteOre=Allow Sheldonite Ore
-config.techreborn.allow.sheldoniteOre.tooltip=Decide whether Sheldonite Ore spawns or not
-config.techreborn.allow.olivineOre=Allow Olivine Ore
-config.techreborn.allow.olivineOre.tooltip=Decide whether Olivine Ore spawns or not
-config.techreborn.allow.sodaliteOre=Allow Sodalite Ore
-config.techreborn.allow.sodaliteOre.tooltip=Decide whether Sodalite Ore spawns or not
+#配置
+config.techreborn.allow.galenaOre=允许方铅矿石
+config.techreborn.allow.galenaOre.tooltip=决定方铅矿石是否生成
+config.techreborn.allow.iridiumOre=允许铱矿石
+config.techreborn.allow.iridiumOre.tooltip=决定铱矿石是否生成
+config.techreborn.allow.rubyOre=允许红宝石矿石
+config.techreborn.allow.rubyOre.tooltip=决定红宝石矿石是否生成
+config.techreborn.allow.sapphireOre=允许蓝宝石矿石
+config.techreborn.allow.sapphireOre.tooltip=决定蓝宝石矿石是否生成
+config.techreborn.allow.bauxiteOre=允许铝土矿矿石
+config.techreborn.allow.bauxiteOre.tooltip=决定铝土矿矿石是否生成
+config.techreborn.allow.copperOre=允许铜矿石
+config.techreborn.allow.copperOre.tooltip=决定铜矿石是否生成
+config.techreborn.allow.tinOre=允许锡矿石
+config.techreborn.allow.tinOre.tooltip=决定锡矿石是否生成
+config.techreborn.allow.leadOre=允许铅矿石
+config.techreborn.allow.leadOre.tooltip=决定铅矿石是否生成
+config.techreborn.allow.silverOre=允许银矿石
+config.techreborn.allow.silverOre.tooltip=决定银矿石是否生成
+config.techreborn.allow.pyriteOre=允许黄铁矿矿石
+config.techreborn.allow.pyriteOre.tooltip=决定黄铁矿矿石是否生成
+config.techreborn.allow.cinnabarOre=允许朱砂矿石
+config.techreborn.allow.cinnabarOre.tooltip=决定朱砂矿石是否生成
+config.techreborn.allow.sphaleriteOre=允许闪锌矿石
+config.techreborn.allow.sphaleriteOre.tooltip=决定闪锌矿石是否生成
+config.techreborn.allow.tungstenOre=允许钨矿石
+config.techreborn.allow.tungstenOre.tooltip=决定钨矿石是否生成
+config.techreborn.allow.sheldoniteOre=允许铂矿石
+config.techreborn.allow.sheldoniteOre.tooltip=决定铂矿石是否生成
+config.techreborn.allow.olivineOre=允许橄榄石矿石
+config.techreborn.allow.olivineOre.tooltip=决定橄榄石矿石是否生成
+config.techreborn.allow.sodaliteOre=允许方钠石矿石
+config.techreborn.allow.sodaliteOre.tooltip=决定方钠石矿石是否生成
 
 config.techreborn.fortuneSecondaryOreMultiplierPerLevel=Fortune's Effect on Secondaries
 config.techreborn.fortuneSecondaryOreMultiplierPerLevel.tooltip=How much of an increase should each level of fortune have on secondary ore drops?
 
-config.techreborn.allowExpensiveMacerator=Allow Expensive Macerator
+config.techreborn.allowExpensiveMacerator=磨粉机昂贵合成
 config.techreborn.allowExpensiveMacerator.tooltip=
-config.techreborn.allowExpensiveDrill=Allow Expensive Drill
+config.techreborn.allowExpensiveDrill=采矿钻头昂贵合成
 config.techreborn.allowExpensiveDrill.tooltip=
-config.techreborn.allowExpensiveDiamondDrill=Allow Expensive Diamond Drill
+config.techreborn.allowExpensiveDiamondDrill=钻头钻头昂贵合成
 config.techreborn.allowExpensiveDiamondDrill.tooltip=
-config.techreborn.allowExpensiveSolarPanels=Allow Expensive Solar Panels
+config.techreborn.allowExpensiveSolarPanels=昂贵合成太阳能板
 config.techreborn.allowExpensiveSolarPanels.tooltip=
 
-config.techreborn.advancedDrillTier=Advanced Drill Power Tier
+config.techreborn.advancedDrillTier=高级电钻能源等级
 config.techreborn.advancedDrillTier.tooltip=
-config.techreborn.lapotronPackTier=Lapotron Pack Power Tier
+config.techreborn.lapotronPackTier=兰波顿充电背包能源等级
 config.techreborn.lapotronPackTier.tooltip=
-config.techreborn.lithiumBatpackTier=Lithium Batpack Power Tier
+config.techreborn.lithiumBatpackTier=锂充电背包能源等级
 config.techreborn.lithiumBatpackTier.tooltip=
-config.techreborn.omniToolTier=OmniTool Tier
+config.techreborn.omniToolTier=万能工具等级
 config.techreborn.omniToolTier.tooltip=
-config.techreborn.rockCutterTier=Rock Cutter Power Tier
+config.techreborn.rockCutterTier=岩石切割机能源等级
 config.techreborn.rockCutterTier.tooltip=
 config.techreborn.gravityChestplateTier=Gravity Chestplates Power Tier
 config.techreborn.gravityChestplateTier.tooltip=
-config.techreborn.centrifugeTier=Centrifuge Power Tier
+config.techreborn.centrifugeTier=离心机能源等级
 config.techreborn.centrifugeTier.tooltip=
-config.techreborn.thermalGeneratorTier=Thermal Generator Power Tier
+config.techreborn.thermalGeneratorTier=热敏发电机能源等级
 config.techreborn.thermalGeneratorTier.tooltip=
 
-config.techreborn.thermalGeneratorPower=Thermal Generator Output
+config.techreborn.thermalGeneratorPower=热敏发电机输出能源
 config.techreborn.thermalGeneratorPower.tooltip=
-config.techreborn.centrifugePowerUsage=Centrifuge Input per tick
+config.techreborn.centrifugePowerUsage=离心机每t输入能源
 config.techreborn.centrifugePowerUsage.tooltip=
 
-config.techreborn.advancedDrillMaxCharge=Maximum charge for Advanced Drill
+config.techreborn.advancedDrillMaxCharge=高级电钻最大蓄能
 config.techreborn.advancedDrillMaxCharge.tooltip=
 config.techreborn.lapotronPackMaxCharge=Maximum charge for
 config.techreborn.lapotronPackMaxCharge.tooltip=
 config.techreborn.omniToolMaxCharge=Maximum charge for
 config.techreborn.omniToolMaxCharge.tooltip=
-config.techreborn.lithiumBatpackMaxCharge=Maximum charge for Lithium Batpack
+config.techreborn.lithiumBatpackMaxCharge=锂充电背包最大蓄能
 config.techreborn.lithiumBatpackMaxCharge.tooltip=
-config.techreborn.rockCutterMaxCharge=Maximum charge for Rock Cutter
+config.techreborn.rockCutterMaxCharge=岩石切割机最大蓄能
 config.techreborn.rockCutterMaxCharge.tooltip=
 config.techreborn.gravityChestplateMaxCharge=Maximum charge for Gravity Chestplate
 config.techreborn.gravityChestplateMaxCharge.tooltip=
-config.techreborn.centrifugeMaxCharge=Maximum charge for Centrifuge
+config.techreborn.centrifugeMaxCharge=离心机最大蓄能
 config.techreborn.centrifugeMaxCharge.tooltip=
-config.techreborn.thermalGeneratorMaxCharge=Maximum charge for Thermal Generator
+config.techreborn.thermalGeneratorMaxCharge=热敏发电机最大蓄能
 config.techreborn.thermalGeneratorMaxCharge.tooltip=
 config.techreborn.aveargeEuOutTickTim=Eu out time
 config.techreborn.aveargeEuOutTickTime.tooltip=How often in ticks to update the eu out
-config.techreborn.euPerRF=EU Conversion
-config.techreborn.euPerRF.tooltip=The amount of RF that equal 1 EU. 4 by default, so 4RF == 1EU and .25EU == 1RF
+config.techreborn.euPerRF=EU转换效率
+config.techreborn.euPerRF.tooltip=多少RF能等同于1EU。默认是4,所以4RF == 1EU并且25EU == 1RF。
 config.techreborn.farmeu=Farm EU per Tick
 config.techreborn.farmeu.tooltip=Amount of eu used per tick by the farm
-config.techreborn.enableRF=Enable RF support
-config.techreborn.enableRF.tooltip= Enable RF support for all machines.
-config.techreborn.enableEU=Enable EU support
-config.techreborn.enableEU.tooltip= Enable EU support for all machines.
+config.techreborn.enableRF=开启RF支持
+config.techreborn.enableRF.tooltip=开启所有机器对RF的支持。
+config.techreborn.enableEU=开启EU支持
+config.techreborn.enableEU.tooltip=开启所有机器对EU的支持。
 
-#ConfigGui
-config.techreborn.category.general=General Configs
-config.techreborn.category.world=World Configs
-config.techreborn.category.power=Power Configs
-config.techreborn.category.crafting=Crafting Configs
-config.techreborn.category.uu=UU Configs
-config.techreborn.category.emc=EMC Configs
+#Gui配置
+config.techreborn.category.general=常规配置
+config.techreborn.category.world=世界配置
+config.techreborn.category.power=能源配置
+config.techreborn.category.crafting=加工配置
+config.techreborn.category.uu=UU配置
+config.techreborn.category.emc=EMC配置
 
 #配方处理过程
 techreborn.recipe.alloysmelter=合金冶炼炉
