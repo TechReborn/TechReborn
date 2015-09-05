@@ -37,41 +37,28 @@ public class MultiblockRenderEvent {
 
 	private static RenderBlocks blockRender = RenderBlocks.getInstance();
 	public MultiblockSet currentMultiblock;
-	public ChunkCoordinates anchor;
-	public int angle;
 
 	public void setMultiblock(MultiblockSet set) {
 		currentMultiblock = set;
-		anchor = null;
-		angle = 0;
 	}
 
 	@SubscribeEvent
 	public void onWorldRenderLast(RenderWorldLastEvent event) {
 		Minecraft mc = Minecraft.getMinecraft();
-		if(mc.thePlayer != null && mc.objectMouseOver != null && (!mc.thePlayer.isSneaking() || anchor != null)) {
+		if(mc.thePlayer != null && mc.objectMouseOver != null && !mc.thePlayer.isSneaking()) {
 			mc.thePlayer.getCurrentEquippedItem();
 			renderPlayerLook(mc.thePlayer, mc.objectMouseOver);
 		}
 	}
 
-	@SubscribeEvent
-	public void onPlayerInteract(PlayerInteractEvent event) {
-		if(currentMultiblock != null && anchor == null && event.action == PlayerInteractEvent.Action.RIGHT_CLICK_AIR && event.entityPlayer == Minecraft.getMinecraft().thePlayer) {
-			anchor = new ChunkCoordinates(event.x, event.y, event.z);
-			angle = MathHelper.floor_double(event.entityPlayer.rotationYaw * 4.0 / 360.0 + 0.5) & 3;
-			event.setCanceled(true);
-		}
-	}
-
 	private void renderPlayerLook(EntityPlayer player, MovingObjectPosition src) {
 		if(currentMultiblock != null) {
-			int anchorX = anchor != null ? anchor.posX : src.blockX;
-			int anchorY = anchor != null ? anchor.posY : src.blockY;
-			int anchorZ = anchor != null ? anchor.posZ : src.blockZ;
+			int anchorX = src.blockX;
+			int anchorY = src.blockY + 1;
+			int anchorZ = src.blockZ;
 
 			rendering = true;
-			Multiblock mb = anchor != null ? currentMultiblock.getForIndex(angle) : currentMultiblock.getForEntity(player);
+			Multiblock mb =currentMultiblock.getForEntity(player);
 			boolean didAny = false;
 			for(MultiblockComponent comp : mb.getComponents())
 				if(renderComponent(player.worldObj, mb, comp, anchorX, anchorY, anchorZ))
@@ -90,8 +77,6 @@ public class MultiblockRenderEvent {
 		int x = pos.posX + anchorX;
 		int y = pos.posY + anchorY;
 		int z = pos.posZ + anchorZ;
-		if(anchor != null && comp.matches(world, x, y, z))
-			return false;
 
 		GL11.glPushMatrix();
 		GL11.glEnable(GL11.GL_BLEND);
