@@ -43,9 +43,9 @@ public class CompatManager {
                 }
             } else if(obj instanceof Boolean){
                 if(!(Boolean)obj){
+                }
                     return;
                 }
-            }
         }
         try {
             compatModules.add((ICompatModule) moduleClass.newInstance());

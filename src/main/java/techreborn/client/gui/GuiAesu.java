@@ -24,8 +24,8 @@ public class GuiAesu extends GuiContainer {
     public GuiAesu(EntityPlayer player,
                    TileAesu tileaesu) {
         super(new ContainerAesu(tileaesu, player));
-        this.xSize = 156;
-        this.ySize = 200;
+        this.xSize = 176;
+        this.ySize = 165;
         aesu = tileaesu;
         this.containerAesu = (ContainerAesu) this.inventorySlots;
     }
@@ -36,10 +36,10 @@ public class GuiAesu extends GuiContainer {
         this.buttonList.clear();
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
-        this.buttonList.add(new GuiButton(0, k + 96, l + 8, 18, 20, "++"));
-        this.buttonList.add(new GuiButton(1, k + 96, l + 8 + 22, 18, 20, "+"));
-        this.buttonList.add(new GuiButton(2, k + 96, l + 8 + (22 * 2), 18, 20, "-"));
-        this.buttonList.add(new GuiButton(3, k + 96, l + 8 + (22 * 3), 18, 20, "--"));
+        this.buttonList.add(new GuiButton(0, k + 128, l + 5, 20, 20, "++"));
+        this.buttonList.add(new GuiButton(1, k + 128, l + 5 + 22, 20, 20, "+"));
+        this.buttonList.add(new GuiButton(2, k + 128, l + 5 + (22 * 2), 20, 20, "-"));
+        this.buttonList.add(new GuiButton(3, k + 128, l + 5 + (22 * 3), 20, 20, "--"));
     }
 
     @Override
