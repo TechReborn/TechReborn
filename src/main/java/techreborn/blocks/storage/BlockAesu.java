@@ -69,12 +69,4 @@ public class BlockAesu extends BlockMachineBase {
                         : (side == metadata ? this.iconFront : this.blockIcon));
     }
 
-    @Override
-    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemstack) {
-        super.onBlockPlacedBy(world, x, y, z, player, itemstack);
-        TileEntity tile = world.getTileEntity(x, y, z);
-        if (tile instanceof TileAesu) {
-            ((TileAesu) tile).setFacing((short) world.getBlockMetadata(x, y, z));
-        }
-    }
 }

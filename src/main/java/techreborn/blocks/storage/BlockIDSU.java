@@ -42,8 +42,12 @@ public class BlockIDSU extends BlockMachineBase {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int side) {
-        int metadata = getTileMeta((World) blockAccess, x, y, z);
+        int metadata = getTileMeta(blockAccess, x, y, z);
+        if (side == metadata && blockAccess.getBlockMetadata(x, y, z) == 1) {
+            return this.iconFront;
+        }
         return metadata == 0 && side == 3 ? this.iconFront
                 : side == 1 ? this.iconTop :
                 side == 0 ? this.iconBottom : (side == 0 ? this.iconTop
@@ -65,13 +69,4 @@ public class BlockIDSU extends BlockMachineBase {
         return true;
     }
 
-    @Override
-    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemstack) {
-        super.onBlockPlacedBy(world, x, y, z, player, itemstack);
-        TileEntity tile = world.getTileEntity(x, y, z);
-        if (tile instanceof TileIDSU) {
-            ((TileIDSU) tile).ownerUdid = player.getUniqueID().toString();
-            System.out.println(((TileIDSU) tile).ownerUdid);
-        }
-    }
 }

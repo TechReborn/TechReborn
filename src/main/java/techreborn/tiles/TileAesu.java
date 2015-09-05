@@ -53,12 +53,12 @@ public class TileAesu extends TilePowerAcceptor implements IWrenchable {
 
     @Override
     public short getFacing() {
-        return (short) worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+        return (short) getMeta();
     }
 
     @Override
     public void setFacing(short facing) {
-        worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, facing, 2);
+        setMeta(facing);
     }
 
     @Override
@@ -142,12 +142,12 @@ public class TileAesu extends TilePowerAcceptor implements IWrenchable {
 
     @Override
     public boolean canAcceptEnergy(ForgeDirection direction) {
-        return worldObj.getBlockMetadata(xCoord, yCoord, zCoord) != Functions.getIntDirFromDirection(direction);
+        return getMeta() != Functions.getIntDirFromDirection(direction);
     }
 
     @Override
     public boolean canProvideEnergy(ForgeDirection direction) {
-        return worldObj.getBlockMetadata(xCoord, yCoord, zCoord) == Functions.getIntDirFromDirection(direction);
+        return getMeta() == Functions.getIntDirFromDirection(direction);
     }
 
     @Override
