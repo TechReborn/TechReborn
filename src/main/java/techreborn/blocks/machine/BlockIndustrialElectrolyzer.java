@@ -63,28 +63,16 @@ public class BlockIndustrialElectrolyzer extends BlockMachineBase {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int side) {
-        int metadata = blockAccess.getBlockMetadata(x, y, z);
-        TileIndustrialElectrolyzer tileIndustrialElectrolyzer = (TileIndustrialElectrolyzer) blockAccess.getTileEntity(x, y, z);
-        if (side == metadata && tileIndustrialElectrolyzer.crafter.isActive()) {
+        int metadata = getTileMeta(blockAccess, x, y, z);
+        if (side == metadata && blockAccess.getBlockMetadata(x, y, z) == 1) {
             return this.iconFrontOn;
         }
-
         return metadata == 0 && side == 3 ? this.iconFront
                 : side == 1 ? this.iconTop :
                 side == 0 ? this.iconBottom : (side == 0 ? this.iconTop
                         : (side == metadata ? this.iconFront : this.blockIcon));
-
-    }
-
-    @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int side, int metadata) {
-
-        return metadata == 0 && side == 3 ? this.iconFront
-                : side == 1 ? this.iconTop :
-                side == 0 ? this.iconBottom : (side == 0 ? this.iconTop
-                        : (side == metadata ? this.iconFront : this.blockIcon));
-
     }
 
     @Override

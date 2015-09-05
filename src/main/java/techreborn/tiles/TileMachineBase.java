@@ -13,6 +13,8 @@ import java.util.List;
 
 public abstract class TileMachineBase extends TileEntity {
 
+    int meta;
+
     public void syncWithAll() {
         if (!worldObj.isRemote) {
             PacketHandler.sendPacketToAllPlayers(getDescriptionPacket(),
@@ -39,4 +41,27 @@ public abstract class TileMachineBase extends TileEntity {
         readFromNBT(packet.func_148857_g());
     }
 
+    public int getMeta() {
+        return meta;
+    }
+
+    public void setMeta(int meta) {
+        this.meta = meta;
+        syncWithAll();
+        worldObj.notifyBlockChange(xCoord, yCoord, zCoord, blockType);
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound tagCompound) {
+        super.readFromNBT(tagCompound);
+        meta = tagCompound.getInteger("meta");
+    }
+
+    @Override
+    public void writeToNBT(NBTTagCompound tagCompound) {
+        super.writeToNBT(tagCompound);
+        tagCompound.setInteger("meta", meta);
+    }
 }

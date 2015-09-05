@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
@@ -52,24 +53,16 @@ public class BlockMatterFabricator extends BlockMachineBase {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister icon) {
-        this.blockIcon = icon.registerIcon("techreborn:machine/matterfab_off");
-        this.iconFront = icon.registerIcon("techreborn:machine/matterfab_off");
-        this.iconFrontOn = icon.registerIcon("techreborn:machine/matterfab_on");
-        this.iconTop = icon.registerIcon("techreborn:machine/matterfab_off");
-        this.iconBottom = icon.registerIcon("techreborn:machine/matterfab_off");
-    }
-
-    @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int side, int metadata) {
-
+    public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int side) {
+        int metadata = getTileMeta(blockAccess, x, y, z);
+        if (side == metadata && blockAccess.getBlockMetadata(x, y, z) == 1) {
+            return this.iconFrontOn;
+        }
         return metadata == 0 && side == 3 ? this.iconFront
                 : side == 1 ? this.iconTop :
                 side == 0 ? this.iconBottom : (side == 0 ? this.iconTop
                         : (side == metadata ? this.iconFront : this.blockIcon));
-
     }
-
     @Override
     public Item getItemDropped(int meta, Random random, int fortune) {
         return IC2Items.getItem("advancedMachine").getItem();

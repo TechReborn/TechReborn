@@ -11,8 +11,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.ChunkCache;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.tiles.TileMachineBase;
 
 import java.util.Random;
 
@@ -61,6 +64,7 @@ public class BlockMachineBase extends BlockContainer {
             }
 
             world.setBlockMetadataWithNotify(x, y, z, b, 2);
+            setTileMeta(world, x, y, z, b);
 
         }
 
@@ -73,16 +77,16 @@ public class BlockMachineBase extends BlockContainer {
                 .floor_double((double) (player.rotationYaw * 4.0F / 360F) + 0.5D) & 3;
 
         if (l == 0) {
-            world.setBlockMetadataWithNotify(x, y, z, 2, 2);
+            setTileMeta(world, x, y, z, 2);
         }
         if (l == 1) {
-            world.setBlockMetadataWithNotify(x, y, z, 5, 2);
+            setTileMeta(world, x, y, z, 5);
         }
         if (l == 2) {
-            world.setBlockMetadataWithNotify(x, y, z, 3, 2);
+            setTileMeta(world, x, y, z, 3);
         }
         if (l == 3) {
-            world.setBlockMetadataWithNotify(x, y, z, 4, 2);
+            setTileMeta(world, x, y, z, 4);
         }
         super.onBlockPlacedBy(world, x, y, z, player, itemstack);
     }
@@ -136,5 +140,22 @@ public class BlockMachineBase extends BlockContainer {
                 itemStack.stackSize = 0;
             }
         }
+    }
+
+    public void setTileMeta(World world, int x, int y, int z, int meta){
+        if(world.getTileEntity(x, y, z) instanceof TileMachineBase){
+            ((TileMachineBase) world.getTileEntity(x, y, z)).setMeta(meta);
+        }
+    }
+
+    public int getTileMeta(World world, int x, int y, int z){
+        if(world.getTileEntity(x, y, z) instanceof TileMachineBase){
+            return ((TileMachineBase) world.getTileEntity(x, y, z)).getMeta();
+        }
+        return 0;
+    }
+
+    public int getTileMeta(IBlockAccess blockAccess, int x, int y, int z){
+        return getTileMeta(blockAccess.getTileEntity(x, y,z).getWorldObj(), x, y, z);
     }
 }

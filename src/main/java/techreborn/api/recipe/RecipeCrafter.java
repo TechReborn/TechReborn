@@ -136,7 +136,7 @@ public class RecipeCrafter {
                         setCurrentRecipe(recipe);//Sets the current recipe then syncs
                         this.currentNeededTicks = (int) (currentRecipe.tickTime() * (1.0 - speedMultiplier));
                         this.currentTickTime = -1;
-                        syncIsActive();
+                        setIsActive();
                     } else {
                         this.currentTickTime = -0;
                     }
@@ -146,7 +146,7 @@ public class RecipeCrafter {
             if (inventory.hasChanged && !hasAllInputs()) {//If it doesn't have all the inputs reset
                 currentRecipe = null;
                 currentTickTime = 0;
-                syncIsActive();
+                setIsActive();
             }
             if (currentRecipe != null && currentTickTime >= currentNeededTicks) {//If it has reached the recipe tick time
                 boolean canGiveInvAll = true;
@@ -166,7 +166,7 @@ public class RecipeCrafter {
                     useAllInputs();//this uses all the inputs
                     currentRecipe = null;//resets
                     currentTickTime = 0;
-                    syncIsActive();
+                    setIsActive();
                 }
             } else if (currentRecipe != null && currentTickTime < currentNeededTicks) {
                 if (energy.canUseEnergy(getEuPerTick())) {//This uses the power
@@ -325,18 +325,13 @@ public class RecipeCrafter {
     }
 
 
-    public void syncIsActive() {
-        if (!parentTile.getWorldObj().isRemote) {
-            PacketHandler.sendPacketToAllPlayers(getSyncPacket(),
-                    parentTile.getWorldObj());
-        }
-    }
-
-    public Packet getSyncPacket() {
-        NBTTagCompound nbtTag = new NBTTagCompound();
-        writeToNBT(nbtTag);
-        return new S35PacketUpdateTileEntity(this.parentTile.xCoord, this.parentTile.yCoord,
-                this.parentTile.zCoord, 1, nbtTag);
+    public void setIsActive() {
+       if(isActiveServer()){
+           parentTile.getWorldObj().setBlockMetadataWithNotify(parentTile.xCoord, parentTile.yCoord, parentTile.zCoord, 1, 2);
+       } else {
+           parentTile.getWorldObj().setBlockMetadataWithNotify(parentTile.xCoord, parentTile.yCoord, parentTile.zCoord, 0, 2);
+       }
+        parentTile.getWorldObj().markBlockForUpdate(parentTile.xCoord, parentTile.yCoord, parentTile.zCoord);
     }
 
     public void setCurrentRecipe(IBaseRecipeType recipe) {

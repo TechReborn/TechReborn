@@ -9,6 +9,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import techreborn.blocks.BlockMachineBase;
 import techreborn.tiles.lesu.TileLesuStorage;
@@ -38,14 +39,13 @@ public class BlockLesuStorage extends BlockMachineBase {
         this.iconBottom = icon.registerIcon("techreborn:machine/lesu_block");
     }
 
-    @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int side, int metadata) {
-
+    @Override
+    public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int side) {
+        int metadata = getTileMeta((World) blockAccess, x, y, z);
         return metadata == 0 && side == 3 ? this.iconFront
                 : side == 1 ? this.iconTop :
                 side == 0 ? this.iconBottom : (side == 0 ? this.iconTop
                         : (side == metadata ? this.iconFront : this.blockIcon));
-
     }
 
     @Override
