@@ -86,7 +86,6 @@ public class RecipeCrafter {
     public int currentTickTime = 0;
     public int currentNeededTicks = 1;//Set to 1 to stop rare crashes
     double lastEnergy;
-    public boolean isactive = false;
 
     /**
      * This is used to change the speed of the crafting operation.
@@ -266,7 +265,6 @@ public class RecipeCrafter {
         if (data.hasKey("currentTickTime"))
             currentTickTime = data.getInteger("currentTickTime");
 
-        isactive = data.getBoolean("isActive");
         if (parentTile != null && parentTile.getWorldObj() != null && parentTile.getWorldObj().isRemote) {
             parentTile.getWorldObj().markBlockForUpdate(parentTile.xCoord, parentTile.yCoord, parentTile.zCoord);
             parentTile.getWorldObj().markBlockRangeForRenderUpdate(parentTile.xCoord, parentTile.yCoord, parentTile.zCoord, parentTile.xCoord, parentTile.yCoord, parentTile.zCoord);
@@ -278,19 +276,14 @@ public class RecipeCrafter {
         NBTTagCompound data = new NBTTagCompound();
 
         data.setDouble("currentTickTime", currentTickTime);
-        data.setBoolean("isActive", isActiveServer());
 
         tag.setTag("Crater", data);
     }
 
 
-    private boolean isActiveServer() {
-        return currentRecipe != null && energy.getEnergy() >= currentRecipe.euPerTick() && currentTickTime != -1;
-    }
-
-    public boolean isActive() {
-        return isactive;
-    }
+    private boolean isActive() {
+        return currentRecipe != null && energy.getEnergy() >= currentRecipe.euPerTick();
+}
 
     public void addSpeedMulti(double amount) {
         if (speedMultiplier + amount <= 0.99) {
@@ -326,7 +319,7 @@ public class RecipeCrafter {
 
 
     public void setIsActive() {
-       if(isActiveServer()){
+       if(isActive()){
            parentTile.getWorldObj().setBlockMetadataWithNotify(parentTile.xCoord, parentTile.yCoord, parentTile.zCoord, 1, 2);
        } else {
            parentTile.getWorldObj().setBlockMetadataWithNotify(parentTile.xCoord, parentTile.yCoord, parentTile.zCoord, 0, 2);
