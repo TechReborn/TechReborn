@@ -8,6 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import powercrystals.minefactoryreloaded.api.IDeepStorageUnit;
 import techreborn.init.ModBlocks;
 import techreborn.util.Inventory;
 import techreborn.util.ItemUtils;
@@ -15,7 +16,7 @@ import techreborn.util.ItemUtils;
 import java.util.List;
 
 public class TileQuantumChest extends TileMachineBase implements IInventory,
-        IWrenchable {
+        IWrenchable, IDeepStorageUnit {
 
     // Slot 0 = Input
     // Slot 1 = Output
@@ -245,4 +246,28 @@ public class TileQuantumChest extends TileMachineBase implements IInventory,
         info.add(size + " " + name);
 
     }
+    
+	@Override
+	public ItemStack getStoredItemType() {
+		return this.storedItem;
+	}
+
+	@Override
+	public void setStoredItemCount(int amount) {
+		this.storedItem.stackSize = 0;
+		this.storedItem.stackSize += (amount);
+		this.markDirty();
+	}
+
+	@Override
+	public void setStoredItemType(ItemStack type, int amount) {
+		this.storedItem = type;
+		this.storedItem.stackSize = amount;
+		this.markDirty();
+	}
+
+	@Override
+	public int getMaxStoredCount() {
+		return this.storage;
+	}
 }
