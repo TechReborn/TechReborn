@@ -66,9 +66,9 @@ configurations {
 
 def ENV = System.getenv()
 if (ENV.BUILD_NUMBER) {
-    version = "0.4.0." + "${System.getenv().BUILD_NUMBER}"
+    version = "0.4.1." + "${System.getenv().BUILD_NUMBER}"
 } else {
-    version = "0.4.0.BUILD"
+    version = "0.4.1.BUILD"
 }
 
 minecraft {
