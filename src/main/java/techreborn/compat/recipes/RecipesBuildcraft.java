@@ -1,23 +1,20 @@
 package techreborn.compat.recipes;
 
-import buildcraft.BuildCraftEnergy;
-import buildcraft.api.core.BuildCraftAPI;
-import buildcraft.api.fuels.BuildcraftFuelRegistry;
+import buildcraft.api.fuels.IFuel;
 import buildcraft.core.Version;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import forestry.api.fuels.FuelManager;
-import forestry.api.fuels.GeneratorFuel;
 import ic2.api.item.IC2Items;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
+import techreborn.api.fuel.FluidPowerManager;
 import techreborn.compat.ICompatModule;
+import techreborn.config.ConfigTechReborn;
 import techreborn.util.CraftingHelper;
 import techreborn.util.LogHelper;
 import techreborn.util.RecipeRemover;
@@ -54,9 +51,7 @@ public class RecipesBuildcraft implements ICompatModule {
 
     @Override
     public void init(FMLInitializationEvent event) {
-		if(!FuelManager.generatorFuel.containsKey(BuildCraftEnergy.fluidFuel)){
-			FuelManager.generatorFuel.put(BuildCraftEnergy.fluidFuel, new GeneratorFuel(new FluidStack(BuildCraftEnergy.fluidFuel, 1000), 38400, 6000));
-		}
+
     }
 
     @Override
@@ -87,6 +82,9 @@ public class RecipesBuildcraft implements ICompatModule {
         }
         removeRecipes();
         addRecipies();
+		for(IFuel fuel : buildcraft.energy.fuels.FuelManager.INSTANCE.getFuels()){
+			FluidPowerManager.fluidPowerValues.put(fuel.getFluid(), (double) (fuel.getPowerPerCycle() / fuel.getTotalBurningTime()) * ConfigTechReborn.euPerRF);
+		}
     }
 
     @Override

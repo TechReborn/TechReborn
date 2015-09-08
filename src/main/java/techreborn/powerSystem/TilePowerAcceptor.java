@@ -303,4 +303,8 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
             return Double.toString(Math.floor(euValue)).concat(" EU");
         }
     }
+
+	public double getFreeSpace(){
+		return getMaxPower() - energy;
+	}
 }

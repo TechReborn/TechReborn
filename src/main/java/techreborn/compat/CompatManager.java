@@ -25,7 +25,6 @@ public class CompatManager {
         registerCompact(RecipesBiomesOPlenty.class, "BiomesOPlenty");
         registerCompact(RecipesThaumcraft.class, "Thaumcraft");
         registerCompact(RecipesForestry.class, "Forestry");
-		registerCompact(FuelsNoForestry.class, "!Forestry");
         registerCompact(MinetweakerCompat.class, "MineTweaker3");
     }
 

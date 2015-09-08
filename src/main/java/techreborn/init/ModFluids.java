@@ -1,13 +1,11 @@
 package techreborn.init;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import forestry.api.fuels.FuelManager;
-import forestry.api.fuels.GeneratorFuel;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
+import techreborn.api.fuel.FluidPowerManager;
 import techreborn.blocks.fluid.BlockFluidTechReborn;
 import techreborn.lib.ModInfo;
 
@@ -152,7 +150,7 @@ public class ModFluids {
         BlockFluidNitrocoalfuel = new BlockFluidTechReborn(fluidNitrocoalfuel, Material.water, "techreborn.nitrocoalfuel");
         GameRegistry.registerBlock(BlockFluidNitrocoalfuel, ModInfo.MOD_ID + "_" + BlockFluidNitrocoalfuel.getUnlocalizedName().substring(5));
         fluidNitrocoalfuel.setUnlocalizedName(fluidNitrocoalfuel.getUnlocalizedName());
-		FuelManager.generatorFuel.put(fluidNitrocoalfuel, new GeneratorFuel(new FluidStack(fluidNitrocoalfuel, 1000), 48000, 6000));
+		FluidPowerManager.fluidPowerValues.put(fluidNitrocoalfuel, 48.0);
 
         FluidRegistry.registerFluid(fluidNitrofuel);
         BlockFluidNitrofuel = new BlockFluidTechReborn(fluidNitrofuel, Material.water, "techreborn.nitrofuel");

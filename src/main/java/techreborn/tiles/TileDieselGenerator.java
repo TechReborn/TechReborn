@@ -11,6 +11,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
+import techreborn.api.fuel.FluidPowerManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.powerSystem.TilePowerAcceptor;
@@ -80,12 +81,7 @@ public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchabl
 
     @Override
     public boolean canFill(ForgeDirection from, Fluid fluid) {
-        if (fluid != null) {
-            if (FluidRegistry.getFluidName(fluid.getID()).contentEquals("lava")) {
-                return true;
-            }
-        }
-        return false;
+        return FluidPowerManager.fluidPowerValues.containsKey(fluid);
     }
 
     @Override
@@ -130,19 +126,27 @@ public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchabl
     @Override
     public void updateEntity() {
         super.updateEntity();
-        if (!worldObj.isRemote)
-            FluidUtils.drainContainers(this, inventory, 0, 1);
-        if (tank.getFluidAmount() > 0
-                && getMaxPower() - getEnergy() >= euTick) {
-            tank.drain(1, true);
-            addEnergy(euTick);
-        }
-        if (tank.getFluidType() != null && getStackInSlot(2) == null) {
-            inventory.setInventorySlotContents(2, new ItemStack(tank
-                    .getFluidType().getBlock()));
-        } else if (tank.getFluidType() == null && getStackInSlot(2) != null) {
-            setInventorySlotContents(2, null);
-        }
+		if (!worldObj.isRemote) {
+			FluidUtils.drainContainers(this, inventory, 0, 1);
+			FluidUtils.fillContainers(this, inventory, 0, 1, tank.getFluidType());
+			if (tank.getFluidType() != null && getStackInSlot(2) == null) {
+				inventory.setInventorySlotContents(2, new ItemStack(tank
+						.getFluidType().getBlock()));
+				syncWithAll();
+			} else if (tank.getFluidType() == null && getStackInSlot(2) != null) {
+				setInventorySlotContents(2, null);
+				syncWithAll();
+			}
+
+			if (!tank.isEmpty()) {
+				double powerIn = FluidPowerManager.fluidPowerValues.get(tank.getFluidType());
+				if(getFreeSpace() >= powerIn){
+					addEnergy(powerIn);
+					tank.drain(1, true);
+				}
+			}
+		}
+
     }
 
     @Override

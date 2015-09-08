@@ -4,6 +4,8 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import forestry.api.fuels.FuelManager;
+import forestry.api.fuels.GeneratorFuel;
 import forestry.core.config.ForestryBlock;
 import ic2.api.item.IC2Items;
 import net.minecraft.init.Items;
@@ -11,10 +13,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
+import techreborn.api.fuel.FluidPowerManager;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
 import techreborn.compat.ICompatModule;
 import techreborn.config.ConfigTechReborn;
+
+import java.rmi.UnexpectedException;
 
 public class RecipesForestry implements ICompatModule {
     @Override
@@ -266,7 +271,18 @@ public class RecipesForestry implements ICompatModule {
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
-
+		for(Object fuel : FuelManager.generatorFuel.entrySet().toArray()){
+			if(fuel instanceof GeneratorFuel){
+				GeneratorFuel generatorFuel = (GeneratorFuel) fuel;
+				FluidPowerManager.fluidPowerValues.put(generatorFuel.fuelConsumed.getFluid(), (double) (generatorFuel.eu / generatorFuel.rate));
+			} else {
+				try {
+					throw new UnexpectedException(fuel + " should be an instace of GeneratorFuel");
+				} catch (UnexpectedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
     }
 
     @Override
