@@ -1,15 +1,21 @@
 package techreborn.compat.recipes;
 
+import buildcraft.BuildCraftEnergy;
+import buildcraft.api.core.BuildCraftAPI;
+import buildcraft.api.fuels.BuildcraftFuelRegistry;
 import buildcraft.core.Version;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import forestry.api.fuels.FuelManager;
+import forestry.api.fuels.GeneratorFuel;
 import ic2.api.item.IC2Items;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import techreborn.compat.ICompatModule;
 import techreborn.util.CraftingHelper;
@@ -48,7 +54,9 @@ public class RecipesBuildcraft implements ICompatModule {
 
     @Override
     public void init(FMLInitializationEvent event) {
-
+		if(!FuelManager.generatorFuel.containsKey(BuildCraftEnergy.fluidFuel)){
+			FuelManager.generatorFuel.put(BuildCraftEnergy.fluidFuel, new GeneratorFuel(new FluidStack(BuildCraftEnergy.fluidFuel, 1000), 38400, 6000));
+		}
     }
 
     @Override
