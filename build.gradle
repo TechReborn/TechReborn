@@ -108,6 +108,7 @@ dependencies {
     compile "qmunity:QmunityLib:0.1.+:deobf"
     compile "com.pahimar.ee3:EquivalentExchange3:1.7.10-0.3.505:dev"
     compile "net.sengir.forestry:forestry_1.7.10:3.6.3.20:dev"
+    shade "net.sengir.forestry:forestry_1.7.10:3.6.3.20:api"
     compile "tconstruct:TConstruct:1.7.10-1.8.5.build958:deobf"
     compile "mods.natura:natura:1.7.10-98.6a6cca1:deobf"
     compile "mantle:Mantle:1.7.10-0.3.2.jenkins187:deobf"
@@ -155,7 +156,9 @@ jar {
     classifier = 'universal'
     configurations.shade.each { dep ->
         from(project.zipTree(dep)){
-            exclude 'META-INF', 'META-INF/**'
+            include 'ic2/api/'
+            include 'forestry/api/fuels/'
+            exclude 'META-INF', 'META-INF/**', '**/*.java'
         }
     }
 }
