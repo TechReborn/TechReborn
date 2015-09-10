@@ -123,7 +123,7 @@ public class TileSemifluidGenerator extends TileEntity implements IWrenchable,
 
     @Override
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-        return getTankInfo(from);
+        return new FluidTankInfo[]{tank.getInfo()};
     }
 
     @Override

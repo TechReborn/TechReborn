@@ -39,7 +39,8 @@ public class ItemParts extends Item {
                     "bronzeGear", "ironGear", "titaniumGear", "steelGear", "tungstensteelGear",
                     "laserFocus", "ductTape", "lazuriteChunk", "iridiumAlloyIngot", "rockCutterBlade", "superconductor",
                     "thoriumCell", "doubleThoriumCell", "quadThoriumCell", "plutoniumCell", "doublePlutoniumCell",
-                    "quadPlutoniumCell", "destructoPack", "iridiumNeutronReflector", "massHoleDevice", "computerMonitor", "machineParts"};
+                    "quadPlutoniumCell", "destructoPack", "iridiumNeutronReflector", "massHoleDevice", "computerMonitor"
+                    , "machineParts", ""};
 
     private IIcon[] textures;
 

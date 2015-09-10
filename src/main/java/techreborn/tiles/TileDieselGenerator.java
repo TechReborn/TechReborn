@@ -91,7 +91,7 @@ public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchabl
 
     @Override
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-        return getTankInfo(from);
+        return new FluidTankInfo[]{tank.getInfo()};
     }
 
     @Override

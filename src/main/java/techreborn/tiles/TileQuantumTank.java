@@ -108,7 +108,7 @@ public class TileQuantumTank extends TileMachineBase implements IFluidHandler,
 
     @Override
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-        return getTankInfo(from);
+        return new FluidTankInfo[]{tank.getInfo()};
     }
 
     // IInventory
