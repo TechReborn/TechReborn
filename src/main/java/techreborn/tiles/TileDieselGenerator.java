@@ -65,18 +65,26 @@ public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchabl
 
     @Override
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
-        return tank.fill(resource, doFill);
+        int filled = tank.fill(resource, doFill);
+        tank.compareAndUpdate();
+        return filled;
     }
 
     @Override
-    public FluidStack drain(ForgeDirection from, FluidStack resource,
-                            boolean doDrain) {
-        return tank.drain(resource.amount, doDrain);
+    public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
+        if (resource == null || !resource.isFluidEqual(tank.getFluid())) {
+            return null;
+        }
+        FluidStack fluidStack = tank.drain(resource.amount, doDrain);
+        tank.compareAndUpdate();
+        return fluidStack;
     }
 
     @Override
     public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
-        return tank.drain(maxDrain, doDrain);
+        FluidStack drained = tank.drain(maxDrain, doDrain);
+        tank.compareAndUpdate();
+        return drained;
     }
 
     @Override
