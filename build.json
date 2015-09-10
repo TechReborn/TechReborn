@@ -1,12 +1,17 @@
 {
   "projectName": "TechReborn",
-  "version": "0.2.%BUILD%",
+  "version": "0.4.2.%BUILD%",
   "forgeVersion": "1.7.10-10.13.3.1403-1.7.10",
   "bytecodeVersion": "1.7",
   "libraries": [
     {
-      "name": "industrialcraft-2-2.2.746-experimental-dev.jar",
-      "url": "http://ic2api.player.to:8080/job/IC2_experimental/746/artifact/build/libs/industrialcraft-2-2.2.746-experimental-dev.jar"
+      "name": "industrialcraft-2-2.2.767-experimental-dev.jar",
+      "url": "http://ic2api.player.to:8080/job/IC2_experimental/767/artifact/build/libs/industrialcraft-2-2.2.767-experimental-dev.jar"
+    },
+	{
+      "name": "industrialcraft-2-2.2.767-experimental-api.jar",
+      "url": "http://ic2api.player.to:8080/job/IC2_experimental/767/artifact/build/libs/industrialcraft-2-2.2.767-experimental-api.jar",
+	  "copyToJar": true
     },
     {
       "name": "CodeChickenCore-1.7.10-1.0.4.29-dev.jar",
@@ -41,19 +46,16 @@
       "url": "http://ic2api.player.to:8080/job/Forestry_Dev/628/artifact/build/dist/forestry_1.7.10-3.7.0.628-unstable-dev.jar"
     },
     {
-      "name": "TConstruct-1.7.10-1.8.6a.build969-deobf.jar",
-      "url": "https://dvs1.progwml6.com/jenkins/job/TConstruct_1.7.x/969/artifact/build/libs/TConstruct-1.7.10-1.8.6a.build969-deobf.jar",
-      "disableSSLCert": true
+      "name": "TConstruct-1.7.10-1.8.7.build981-deobf.jar",
+      "url": "http://modmuss50.me/files/TConstruct-1.7.10-1.8.7.build981-deobf.jar"
     },
     {
-      "name": "natura-1.7.10-98.6a6cca1-deobf.jar",
-      "url": "https://dvs1.progwml6.com/jenkins/job/Natura%201.7.x/98/artifact/build/libs/natura-1.7.10-98.6a6cca1-deobf.jar",
-      "disableSSLCert": true
+      "name": "natura-1.7.10-101.04f2bb2-deobf.jar",
+      "url": "http://modmuss50.me/files/natura-1.7.10-101.04f2bb2-deobf.jar"
     },
     {
-      "name": "Mantle-1.7.10-0.3.2.jenkins187-deobf.jar",
-      "url": "https://dvs1.progwml6.com/jenkins/job/Mantle_Gradle/187/artifact/build/libs/Mantle-1.7.10-0.3.2.jenkins187-deobf.jar",
-      "disableSSLCert": true
+      "name": "Mantle-1.7.10-0.3.2.jenkins190-deobf.jarr",
+      "url": "http://modmuss50.me/files/Mantle-1.7.10-0.3.2.jenkins190-deobf.jar"
     },
     {
       "name": "BiomesOPlenty-1.7.10-2.1.0.1364-deobf.jar",
