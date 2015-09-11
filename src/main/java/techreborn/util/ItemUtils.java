@@ -106,7 +106,7 @@ public class ItemUtils {
         ArrayList<ItemStack> list = new ArrayList<ItemStack>();
         for (int oreID : OreDictionary.getOreIDs(stack)) {
             for (ItemStack ore : OreDictionary.getOres(OreDictionary.getOreName(oreID))) {
-                ItemStack newOre = ore;
+                ItemStack newOre = ore.copy();
                 newOre.stackSize = stack.stackSize;
                 list.add(newOre);
             }
