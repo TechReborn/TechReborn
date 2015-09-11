@@ -16,17 +16,17 @@ public class ChemicalReactorRecipeHandler extends GenericRecipeHander implements
     public void addPositionedStacks(List<PositionedStack> input, List<PositionedStack> outputs, IBaseRecipeType recipeType) {
         int offset = 4;
         if (recipeType.getInputs().size() > 0) {
-            PositionedStack pStack = new PositionedStack(ItemUtils.getStackWithAllOre(recipeType.getInputs().get(0)), 70 - offset, 21 - offset);
+            PositionedStack pStack = new PositionedStack(ItemUtils.getStackWithAllOre(recipeType.getInputs().get(0)), 70 - offset, 21 - offset, false);
             input.add(pStack);
         }
 
         if (recipeType.getInputs().size() > 1) {
-            PositionedStack pStack2 = new PositionedStack(ItemUtils.getStackWithAllOre(recipeType.getInputs().get(1)), 90 - offset, 21 - offset);
+            PositionedStack pStack2 = new PositionedStack(ItemUtils.getStackWithAllOre(recipeType.getInputs().get(1)), 90 - offset, 21 - offset, false);
             input.add(pStack2);
         }
 
         if (recipeType.getOutputsSize() > 0) {
-            PositionedStack pStack3 = new PositionedStack(recipeType.getOutput(0), 80 - offset, 51 - offset);
+            PositionedStack pStack3 = new PositionedStack(recipeType.getOutput(0), 80 - offset, 51 - offset, false);
             outputs.add(pStack3);
         }
     }

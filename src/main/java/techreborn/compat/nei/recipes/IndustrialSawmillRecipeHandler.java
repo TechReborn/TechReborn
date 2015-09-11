@@ -21,27 +21,27 @@ public class IndustrialSawmillRecipeHandler extends GenericRecipeHander implemen
     public void addPositionedStacks(List<PositionedStack> input, List<PositionedStack> outputs, IBaseRecipeType recipeType) {
         int offset = 4;
         if (recipeType.getInputs().size() > 0) {
-            PositionedStack pStack = new PositionedStack(recipeType.getInputs().get(0), 32 - offset, 26 - offset);
+            PositionedStack pStack = new PositionedStack(recipeType.getInputs().get(0), 32 - offset, 26 - offset, false);
             input.add(pStack);
         }
 
         if (recipeType.getInputs().size() > 1) {
-            PositionedStack pStack2 = new PositionedStack(recipeType.getInputs().get(1), 32 - offset, 44 - offset);
+            PositionedStack pStack2 = new PositionedStack(recipeType.getInputs().get(1), 32 - offset, 44 - offset, false);
             input.add(pStack2);
         }
 
         if (recipeType.getOutputsSize() > 0) {
-            PositionedStack pStack3 = new PositionedStack(recipeType.getOutput(0), 84 - offset, 35 - offset);
+            PositionedStack pStack3 = new PositionedStack(recipeType.getOutput(0), 84 - offset, 35 - offset, false);
             outputs.add(pStack3);
         }
 
         if (recipeType.getOutputsSize() > 1) {
-            PositionedStack pStack4 = new PositionedStack(recipeType.getOutput(1), 102 - offset, 35 - offset);
+            PositionedStack pStack4 = new PositionedStack(recipeType.getOutput(1), 102 - offset, 35 - offset, false);
             outputs.add(pStack4);
         }
 
         if (recipeType.getOutputsSize() > 2) {
-            PositionedStack pStack5 = new PositionedStack(recipeType.getOutput(2), 120 - offset, 35 - offset);
+            PositionedStack pStack5 = new PositionedStack(recipeType.getOutput(2), 120 - offset, 35 - offset, false);
             outputs.add(pStack5);
         }
     }

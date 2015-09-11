@@ -22,32 +22,32 @@ public class GrinderRecipeHandler extends GenericRecipeHander implements INeiBas
     public void addPositionedStacks(List<PositionedStack> input, List<PositionedStack> outputs, IBaseRecipeType recipeType) {
         int offset = 4;
         if (recipeType.getInputs().size() > 0) {
-            PositionedStack pStack = new PositionedStack(ItemUtils.getStackWithAllOre(recipeType.getInputs().get(0)), 32 - offset, 26 - offset);
+            PositionedStack pStack = new PositionedStack(ItemUtils.getStackWithAllOre(recipeType.getInputs().get(0)), 32 - offset, 26 - offset, false);
             input.add(pStack);
         }
 
         if (recipeType.getInputs().size() > 1) {
-            PositionedStack pStack2 = new PositionedStack(ItemUtils.getStackWithAllOre(recipeType.getInputs().get(1)), 32 - offset, 44 - offset);
+            PositionedStack pStack2 = new PositionedStack(ItemUtils.getStackWithAllOre(recipeType.getInputs().get(1)), 32 - offset, 44 - offset, false);
             input.add(pStack2);
         }
 
         if (recipeType.getOutputsSize() > 0) {
-            PositionedStack pStack3 = new PositionedStack(recipeType.getOutput(0), 77 - offset, 35 - offset);
+            PositionedStack pStack3 = new PositionedStack(recipeType.getOutput(0), 77 - offset, 35 - offset, false);
             outputs.add(pStack3);
         }
 
         if (recipeType.getOutputsSize() > 1) {
-            PositionedStack pStack4 = new PositionedStack(recipeType.getOutput(1), 95 - offset, 35 - offset);
+            PositionedStack pStack4 = new PositionedStack(recipeType.getOutput(1), 95 - offset, 35 - offset, false);
             outputs.add(pStack4);
         }
 
         if (recipeType.getOutputsSize() > 2) {
-            PositionedStack pStack5 = new PositionedStack(recipeType.getOutput(2), 113 - offset, 35 - offset);
+            PositionedStack pStack5 = new PositionedStack(recipeType.getOutput(2), 113 - offset, 35 - offset, false);
             outputs.add(pStack5);
         }
 
         if (recipeType.getOutputsSize() > 3) {
-            PositionedStack pStack6 = new PositionedStack(recipeType.getOutput(3), 131 - offset, 35 - offset);
+            PositionedStack pStack6 = new PositionedStack(recipeType.getOutput(3), 131 - offset, 35 - offset, false);
             outputs.add(pStack6);
         }
 
