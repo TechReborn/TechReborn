@@ -79,6 +79,10 @@
     "FMLCorePlugin: techreborn.asm.LoadingPlugin",
     "FMLCorePluginContainsFMLMod: true"
   ],
+    "versionStrings": [
+    "@MODVERSION@",
+	"$version"
+  ],
   "devJar": true,
   "srcJar": true,
   "apiJar": true,
