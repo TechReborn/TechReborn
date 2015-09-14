@@ -10,6 +10,7 @@ import forestry.core.config.ForestryBlock;
 import ic2.api.item.IC2Items;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -20,6 +21,8 @@ import techreborn.compat.ICompatModule;
 import techreborn.config.ConfigTechReborn;
 
 import java.rmi.UnexpectedException;
+import java.util.Iterator;
+import java.util.Map;
 
 public class RecipesForestry implements ICompatModule {
     @Override
@@ -271,17 +274,12 @@ public class RecipesForestry implements ICompatModule {
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
-		for(Object fuel : FuelManager.generatorFuel.entrySet().toArray()){
-			if(fuel instanceof GeneratorFuel){
-				GeneratorFuel generatorFuel = (GeneratorFuel) fuel;
-				FluidPowerManager.fluidPowerValues.put(generatorFuel.fuelConsumed.getFluid(), (double) (generatorFuel.eu / generatorFuel.rate));
-			} else {
-				try {
-					throw new UnexpectedException(fuel + " should be an instace of GeneratorFuel");
-				} catch (UnexpectedException e) {
-					e.printStackTrace();
-				}
-			}
+		Iterator entries =  FuelManager.generatorFuel.entrySet().iterator();
+		while (entries.hasNext()) {
+			Map.Entry thisEntry = (Map.Entry) entries.next();
+			Fluid fluid = (Fluid) thisEntry.getKey();
+			GeneratorFuel generatorFuel = (GeneratorFuel) thisEntry.getValue();
+			FluidPowerManager.fluidPowerValues.put(fluid, (double) (generatorFuel.eu / generatorFuel.rate));
 		}
     }
 

@@ -83,7 +83,7 @@ public class RecipesBuildcraft implements ICompatModule {
         removeRecipes();
         addRecipies();
 		for(IFuel fuel : buildcraft.energy.fuels.FuelManager.INSTANCE.getFuels()){
-			FluidPowerManager.fluidPowerValues.put(fuel.getFluid(), (double) (fuel.getPowerPerCycle() / fuel.getTotalBurningTime()) * ConfigTechReborn.euPerRF);
+			FluidPowerManager.fluidPowerValues.put(fuel.getFluid(), (double) fuel.getPowerPerCycle() / ConfigTechReborn.euPerRF);
 		}
     }
 
