@@ -8,6 +8,7 @@ import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergySink;
 import ic2.api.energy.tile.IEnergySource;
+import ic2.api.energy.tile.IEnergySourceInfo;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.info.Info;
 import net.minecraft.nbt.NBTTagCompound;
@@ -27,9 +28,10 @@ import java.util.List;
         @Optional.Interface(iface = "ic2.api.energy.tile.IEnergySource", modid = "IC2")
 })
 public abstract class TilePowerAcceptor extends RFProviderTile implements
-        IEnergyReceiver, IEnergyProvider, //Cofh
-        IEnergyInterfaceTile,//TechReborn
-        IEnergyTile, IEnergySink, IEnergySource //Ic2
+        IEnergyReceiver, IEnergyProvider,           //Cofh
+        IEnergyInterfaceTile,                       //TechReborn
+        IEnergyTile, IEnergySink, IEnergySource,    //Ic2
+        IEnergySourceInfo                           //IC2 Classic
 {
     public int tier;
     private double energy;
@@ -307,4 +309,12 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
 	public double getFreeSpace(){
 		return getMaxPower() - energy;
 	}
+
+    //IC2 Classic
+
+
+    @Override
+    public int getMaxEnergyAmount() {
+        return (int) getMaxOutput();
+    }
 }
