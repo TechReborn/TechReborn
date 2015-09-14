@@ -60,6 +60,7 @@ public class Core {
 
     @Mod.EventHandler
     public void preinit(FMLPreInitializationEvent event) {
+        event.getModMetadata().version = ModInfo.MOD_VERSION;
         INSTANCE = this;
         String path = event.getSuggestedConfigurationFile().getAbsolutePath()
                 .replace(ModInfo.MOD_ID, "TechReborn");
