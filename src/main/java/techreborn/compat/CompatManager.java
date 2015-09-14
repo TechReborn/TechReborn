@@ -1,6 +1,7 @@
 package techreborn.compat;
 
 import cpw.mods.fml.common.Loader;
+import ic2.api.info.IC2Classic;
 import techreborn.compat.ee3.EmcValues;
 import techreborn.compat.minetweaker.MinetweakerCompat;
 import techreborn.compat.recipes.*;
@@ -17,7 +18,7 @@ public class CompatManager {
 
     public CompatManager() {
         registerCompact(CompatModuleWaila.class, "Waila");
-        registerCompact(RecipesIC2.class, "IC2");
+        registerCompact(RecipesIC2.class, "IC2", !IC2Classic.isIc2ClassicLoaded());
         registerCompact(RecipesBuildcraft.class, "BuildCraft|Core", "IC2");
         registerCompact(RecipesThermalExpansion.class, "ThermalExpansion");
         registerCompact(EmcValues.class, "EE3");
