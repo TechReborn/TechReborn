@@ -21,16 +21,10 @@ import java.util.Random;
 public class BlockMatterFabricator extends BlockMachineBase {
 
     @SideOnly(Side.CLIENT)
-    private IIcon iconFront;
+    private IIcon iconOff;
 
     @SideOnly(Side.CLIENT)
-    private IIcon iconFrontOn;
-
-    @SideOnly(Side.CLIENT)
-    private IIcon iconTop;
-
-    @SideOnly(Side.CLIENT)
-    private IIcon iconBottom;
+    private IIcon iconOn;
 
     public BlockMatterFabricator(Material material) {
         super(material);
@@ -56,16 +50,26 @@ public class BlockMatterFabricator extends BlockMachineBase {
     public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int side) {
         int metadata = getTileMeta(blockAccess, x, y, z);
         if (side == metadata && blockAccess.getBlockMetadata(x, y, z) == 1) {
-            return this.iconFrontOn;
+            return this.iconOn;
+        } else {
+            return this.iconOff;
         }
-        return metadata == 0 && side == 3 ? this.iconFront
-                : side == 1 ? this.iconTop :
-                side == 0 ? this.iconBottom : (side == 0 ? this.iconTop
-                        : (side == metadata ? this.iconFront : this.blockIcon));
     }
     @Override
     public Item getItemDropped(int meta, Random random, int fortune) {
         return IC2Items.getItem("advancedMachine").getItem();
+    }
+
+    @Override
+    public IIcon getIcon(int side, int meta) {
+        return iconOff;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerBlockIcons(IIconRegister icon) {
+        this.iconOn = icon.registerIcon("techreborn:machine/matter_fabricator_off");
+        this.iconOff = icon.registerIcon("techreborn:machine/matter_fabricator_on");
     }
 
 }

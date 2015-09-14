@@ -14,6 +14,7 @@ import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
 import techreborn.client.GuiHandler;
+import techreborn.packets.PacketAesu;
 import techreborn.tiles.TileCentrifuge;
 
 import java.util.Random;
@@ -83,6 +84,18 @@ public class BlockCentrifuge extends BlockMachineBase {
 			}
 			return this.iconFront;
 		}
+
+    }
+
+    @Override
+    public IIcon getIcon(int side, int meta) {
+        if(side == 1){
+            return this.iconTop;
+        } else if(side == 3){
+            return this.iconFront;
+        } else {
+           return this.iconFront;
+        }
     }
 
     @Override

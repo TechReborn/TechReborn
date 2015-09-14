@@ -70,4 +70,15 @@ public class BlockAlloyFurnace extends BlockMachineBase {
                         : (side == metadata ? this.iconFront : this.blockIcon));
     }
 
+    @Override
+    public IIcon getIcon(int side, int meta) {
+        if(side == 1){
+            return this.iconTop;
+        } else if(side == 3){
+            return this.iconFront;
+        } else {
+            return this.blockIcon;
+        }
+    }
+
 }

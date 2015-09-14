@@ -78,4 +78,15 @@ public class BlockLathe extends BlockMachineBase {
     public Item getItemDropped(int meta, Random random, int fortune) {
         return IC2Items.getItem("machine").getItem();
     }
+
+    @Override
+    public IIcon getIcon(int side, int meta) {
+        if(side == 1){
+            return this.iconTop;
+        } else if(side == 3){
+            return this.iconFront;
+        } else {
+            return this.blockIcon;
+        }
+    }
 }

@@ -53,4 +53,15 @@ public class BlockVacuumFreezer extends BlockMachineBase {
         return IC2Items.getItem("advancedMachine").getItem();
     }
 
+    @Override
+    public IIcon getIcon(int side, int meta) {
+        if(side == 1){
+            return this.iconTop;
+        } else if(side == 3){
+            return this.iconFront;
+        } else {
+            return this.blockIcon;
+        }
+    }
+
 }
