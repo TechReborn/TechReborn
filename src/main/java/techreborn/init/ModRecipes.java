@@ -116,22 +116,6 @@ public class ModRecipes {
 				'A', "ingotAluminium",
 				'M', new ItemStack(ModItems.parts, 1, 13));
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.parts, 1, 16),
-				"AAA", "AMA", "AAA",
-				'A', "ingotBronze",
-				'M', new ItemStack(ModItems.parts, 1, 13));
-
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.parts, 1, 18),
-				"AAA", "AMA", "AAA",
-				'A', "ingotTitanium",
-				'M', new ItemStack(ModItems.parts, 1, 13));
-
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.parts, 1, 19),
-				"AAA", "AMA", "AAA",
-				'A', "ingotBrass",
-				'M', new ItemStack(ModItems.parts, 1, 13));
-
-
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Supercondensator),
 				"EOE", "SAS", "EOE",
 				'E', ItemParts.getPartByName("energyFlowCircuit"),
@@ -187,6 +171,25 @@ public class ModRecipes {
 				);
 			}
 		}
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("cupronickelHeatingCoil"),
+				"NCN", "C C", "NCN",
+				'N', "ingotNickel",
+				'C', "ingotCopper"
+		);
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("nichromeHeatingCoil"),
+				" N ", "NCN", " N ",
+				'N', "ingotNickel",
+				'C', "ingotChrome"
+		);
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("kanthalHeatingCoil"),
+				"III", "CAA", "AAA",
+				'I', "ingotSteel",
+				'C', "ingotChrome",
+				'A', "ingotAluminum"
+		);
 
 		LogHelper.info("Shapped Recipes Added");
 	}
