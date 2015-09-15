@@ -49,6 +49,9 @@ public class ContentsPage extends TitledPage{
 		if (button.id == 5)collection.changeActivePage("MULTIBLOCKS");
 		if (button.id == 6)collection.changeActivePage("UPGRADES");
 		if (button.id == 7)collection.changeActivePage("VERSION");
-		if (button.id == 8)mc.displayGuiScreen(new TechRebornConfigGui(this));
+		if (button.id == 8){
+			buttonList.clear();
+			mc.displayGuiScreen(new TechRebornConfigGui(this));
+		}
 	}
 }

@@ -1478,6 +1478,26 @@ public class ModRecipes {
 				80, 60
 		));
 
+		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+				ItemDusts.getDustByName("pyrite", 3),
+				null,
+				ItemDusts.getDustByName("iron"),
+				ItemDusts.getDustByName("sulfur"),
+				null,
+				null,
+				120, 128
+		));
+
+		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+				ItemDusts.getDustByName("sphalerite", 2),
+				null,
+				ItemDusts.getDustByName("zinc"),
+				ItemDusts.getDustByName("sulfur"),
+				null,
+				null,
+				150, 100
+		));
+
 
 	}
 
