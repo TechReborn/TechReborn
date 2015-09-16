@@ -37,7 +37,7 @@ public class ItemParts extends Item {
                     "NaKCoolantSimple", "NaKCoolantTriple", "NaKCoolantSix",
                     "cupronickelHeatingCoil", "nichromeHeatingCoil", "kanthalHeatingCoil",
                     "bronzeGear", "ironGear", "titaniumGear", "steelGear", "tungstensteelGear",
-                    "laserFocus", "ductTape", "lazuriteChunk", "iridiumAlloyIngot", "rockCutterBlade", "superconductor",
+                    "laserFocus", "ductTape", "lazuriteChunk", "iridiumAlloyIngot", "rockCutterBlade", "superConductor",
                     "thoriumCell", "doubleThoriumCell", "quadThoriumCell", "plutoniumCell", "doublePlutoniumCell",
                     "quadPlutoniumCell", "destructoPack", "iridiumNeutronReflector", "massHoleDevice", "computerMonitor"
                     , "machineParts", ""};
