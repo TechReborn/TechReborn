@@ -143,19 +143,19 @@ public class BlockMachineBase extends BlockContainer {
     }
 
     public void setTileMeta(World world, int x, int y, int z, int meta){
-        if(world.getTileEntity(x, y, z) instanceof TileMachineBase){
+        if(world.getTileEntity(x, y, z) != null && world.getTileEntity(x, y, z) instanceof TileMachineBase){
             ((TileMachineBase) world.getTileEntity(x, y, z)).setMeta(meta);
         }
     }
 
     public int getTileMeta(World world, int x, int y, int z){
-        if(world.getTileEntity(x, y, z) instanceof TileMachineBase){
+        if(world.getTileEntity(x, y, z) != null && world.getTileEntity(x, y, z) instanceof TileMachineBase){
             return ((TileMachineBase) world.getTileEntity(x, y, z)).getMeta();
         }
         return 0;
     }
 
     public int getTileMeta(IBlockAccess blockAccess, int x, int y, int z){
-        return getTileMeta(blockAccess.getTileEntity(x, y,z).getWorldObj(), x, y, z);
+        return blockAccess.getTileEntity(x, y, z) != null ? getTileMeta(blockAccess.getTileEntity(x, y,z).getWorldObj(), x, y, z) : null;
     }
 }
