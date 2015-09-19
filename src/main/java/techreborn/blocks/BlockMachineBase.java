@@ -156,6 +156,6 @@ public class BlockMachineBase extends BlockContainer {
     }
 
     public int getTileMeta(IBlockAccess blockAccess, int x, int y, int z){
-        return blockAccess.getTileEntity(x, y, z) != null ? getTileMeta(blockAccess.getTileEntity(x, y,z).getWorldObj(), x, y, z) : null;
+        return blockAccess.getTileEntity(x, y, z) != null ? getTileMeta(blockAccess.getTileEntity(x, y,z).getWorldObj(), x, y, z) : 0;
     }
 }
