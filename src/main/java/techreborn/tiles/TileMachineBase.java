@@ -13,7 +13,7 @@ import java.util.List;
 
 public abstract class TileMachineBase extends TileEntity {
 
-    int meta;
+    int rotation;
 
     public void syncWithAll() {
         if (!worldObj.isRemote) {
@@ -41,12 +41,12 @@ public abstract class TileMachineBase extends TileEntity {
         readFromNBT(packet.func_148857_g());
     }
 
-    public int getMeta() {
-        return meta;
+    public int getRotation() {
+        return rotation;
     }
 
-    public void setMeta(int meta) {
-        this.meta = meta;
+    public void setRotation(int rotation) {
+        this.rotation = rotation;
         syncWithAll();
         worldObj.notifyBlockChange(xCoord, yCoord, zCoord, blockType);
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
@@ -56,12 +56,12 @@ public abstract class TileMachineBase extends TileEntity {
     @Override
     public void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
-        meta = tagCompound.getInteger("meta");
+        rotation = tagCompound.getInteger("rotation");
     }
 
     @Override
     public void writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
-        tagCompound.setInteger("meta", meta);
+        tagCompound.setInteger("rotation", rotation);
     }
 }

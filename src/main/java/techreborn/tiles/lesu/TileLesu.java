@@ -87,12 +87,12 @@ public class TileLesu extends TilePowerAcceptor {//TODO wrench
 
     @Override
     public boolean canAcceptEnergy(ForgeDirection direction) {
-        return Functions.getIntDirFromDirection(direction) != getMeta();
+        return Functions.getIntDirFromDirection(direction) != getRotation();
     }
 
     @Override
     public boolean canProvideEnergy(ForgeDirection direction) {
-        return Functions.getIntDirFromDirection(direction) == getMeta();
+        return Functions.getIntDirFromDirection(direction) == getRotation();
     }
 
     @Override

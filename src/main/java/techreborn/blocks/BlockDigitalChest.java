@@ -55,7 +55,7 @@ public class BlockDigitalChest extends BlockMachineBase {
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int side) {
-        int metadata = getTileMeta(blockAccess, x, y, z);
+        int metadata = getTileRotation(blockAccess, x, y, z);
         if (side == metadata && blockAccess.getBlockMetadata(x, y, z) == 1) {
             return this.iconFront;
         }

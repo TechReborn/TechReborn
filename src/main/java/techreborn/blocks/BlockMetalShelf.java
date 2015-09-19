@@ -44,7 +44,7 @@ public class BlockMetalShelf extends BlockMachineBase {
 
     @Override
     public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int side) {
-        int metadata = getTileMeta((World) blockAccess, x, y, z);
+        int metadata = getTileRotation((World) blockAccess, x, y, z);
         return metadata == 0 && side == 3 ? this.iconFrontEmpty
                 : side == 1 ? this.iconTop :
                 side == 0 ? this.iconBottom : (side == 0 ? this.iconTop

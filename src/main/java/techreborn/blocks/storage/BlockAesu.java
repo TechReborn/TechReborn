@@ -4,9 +4,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
@@ -59,7 +57,7 @@ public class BlockAesu extends BlockMachineBase {
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int side) {
-        int metadata = getTileMeta(blockAccess, x, y, z);
+        int metadata = getTileRotation(blockAccess, x, y, z);
         if (side == metadata && blockAccess.getBlockMetadata(x, y, z) == 1) {
             return this.iconFront;
         }

@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import techreborn.blocks.BlockMachineBase;
 
 import java.util.Random;
@@ -41,7 +40,7 @@ public class BlockVacuumFreezer extends BlockMachineBase {
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int side) {
-        int metadata = getTileMeta(blockAccess, x, y, z);
+        int metadata = getTileRotation(blockAccess, x, y, z);
         return metadata == 0 && side == 3 ? this.iconFront
                 : side == 1 ? this.iconTop :
                 side == 0 ? this.iconBottom : (side == 0 ? this.iconTop
