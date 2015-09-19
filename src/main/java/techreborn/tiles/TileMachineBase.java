@@ -56,7 +56,11 @@ public abstract class TileMachineBase extends TileEntity {
     @Override
     public void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
-        rotation = tagCompound.getInteger("rotation");
+		if(tagCompound.hasKey("meta") && !tagCompound.hasKey("rotation")){
+			rotation = tagCompound.getInteger("meta");
+		} else {
+			rotation = tagCompound.getInteger("rotation");
+		}
     }
 
     @Override
