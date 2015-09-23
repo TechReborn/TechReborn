@@ -105,7 +105,7 @@ dependencies {
     compile "codechicken:ForgeMultipart:1.7.10-1.2.0.345:dev"
     compile "mcp.mobius.waila:Waila:1.5.10_1.7.10:dev"
     compile name: 'buildcraft', version: '7.0.20', classifier: "dev", ext: 'jar'
-    compile "qmunity:QmunityLib:0.1.+:deobf"
+    compile "qmunity:QmunityLib:0.2.+:deobf"
     compile "com.pahimar.ee3:EquivalentExchange3:1.7.10-0.3.505:dev"
     compile "net.sengir.forestry:forestry_1.7.10:3.6.3.20:dev"
     shade "net.sengir.forestry:forestry_1.7.10:3.6.3.20:api"
