@@ -31,6 +31,7 @@ public class ContentsPage extends TitledPage{
 		
 		buttonList.add(new GuiButtonCustomTexture(7, getXMin() + 160, getYMin() + 180, 0, 46, 80, 20, new ItemStack(ModItems.lapotronicOrb), "INDEX", "Changelog"));
 		buttonList.add(new GuiButtonCustomTexture(8, getXMin() + 25, getYMin() + 180, 0, 46, 80, 20, new ItemStack(ModItems.lapotronicOrb), "INDEX", "Configs"));
+		buttonList.add(new GuiButtonCustomTexture(9, getXMin() + 95, getYMin() + 180, 0, 46, 80, 20, new ItemStack(ModItems.lapotronicOrb), "INDEX", "CONFIG"));
 
 	}
 	
@@ -53,5 +54,7 @@ public class ContentsPage extends TitledPage{
 			buttonList.clear();
 			mc.displayGuiScreen(new TechRebornConfigGui(this));
 		}
+		if (button.id == 9)collection.changeActivePage("CONFIG");
+
 	}
 }

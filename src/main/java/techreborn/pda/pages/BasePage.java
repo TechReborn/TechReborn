@@ -21,7 +21,7 @@ public class BasePage extends GuiScreen {
 	//Name Displayed in the index page
 	public String INDEX_NAME;
 	public boolean hasIndexButton = false;
-	public static final ResourceLocation PAGE_TEXTURE = new ResourceLocation("techreborn:textures/gui/pda.png");
+	public static final ResourceLocation PAGE_TEXTURE = new ResourceLocation("techreborn:textures/pda/gui/pda.png");
 	private final int xSize = 256;
 	private final int ySize = 202;
 	protected PageCollection collection;

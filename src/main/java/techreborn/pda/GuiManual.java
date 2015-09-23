@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
+import techreborn.pda.pages.ConfigPage;
 import techreborn.pda.pages.ContentsPage;
 import techreborn.pda.pages.CraftingInfoPage;
 import techreborn.pda.pages.IndexPage;
@@ -53,6 +54,7 @@ public class GuiManual extends GuiScreen{
 		pageCollection.addPage(new ItemsPage("POWER_STORAGE", pageCollection, "POWER_STORAGE_PAGE"));
 		pageCollection.addPage(new VersionPage("VERSION", pageCollection, "VERSION PAGE", 777777));
 		pageCollection.addPage(new MultiBlockPage("MULTIBLOCKS", pageCollection, "MULTIBLOCK_PAGE"));
+		pageCollection.addPage(new ConfigPage("CONFIG", pageCollection, "PDA_CONFIG"));
 
 		pageCollection.addPage(new CraftingInfoPage("POWER_STORAGE_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.Aesu), ""));
 		pageCollection.addPage(new CraftingInfoPage("MACHINES_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.AlloyFurnace), ""));
