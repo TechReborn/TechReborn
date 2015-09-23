@@ -1,4 +1,4 @@
-package techreborn;
+package techreborn.api;
 
 
 import net.minecraft.block.Block;
