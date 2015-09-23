@@ -183,6 +183,7 @@ public class GuiManual extends GuiScreen{
 		super.initGui();
 		this.guiLeft = (this.width - this.xSize) / 2;
 		this.guiTop = (this.height - this.ySize) / 2;
+		ConfigPage.load();
 	}
 	
 	@Override
