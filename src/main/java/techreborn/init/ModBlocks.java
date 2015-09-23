@@ -66,7 +66,6 @@ public class ModBlocks {
     public static Block heatGenerator;
     public static Block industrialSawmill;
     public static Block chargeBench;
-    public static Block farm;
 
     public static Block ore;
     public static Block storage;
@@ -249,9 +248,7 @@ public class ModBlocks {
         machineframe = new BlockMachineFrame(Material.iron);
         GameRegistry.registerBlock(machineframe, ItemBlockMachineFrame.class, "techreborn.machineFrame");
 
-        farm = new BlockFarm();
-        GameRegistry.registerBlock(farm, "techreborn.farm");
-        GameRegistry.registerTileEntity(TileFarm.class, "TileFarmTR");
+
 
 
         registerOreDict();

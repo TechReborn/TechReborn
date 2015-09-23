@@ -71,7 +71,6 @@ public class GuiManual extends GuiScreen{
 		pageCollection.addPage(new CraftingInfoPage("MACHINES_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.Distillationtower), ""));
 		pageCollection.addPage(new CraftingInfoPage("POWER_GENERATION_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.Dragoneggenergysiphoner), ""));
 		pageCollection.addPage(new CraftingInfoPage("MACHINES_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.ElectricCraftingTable), ""));
-		pageCollection.addPage(new CraftingInfoPage("MACHINES_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.farm), ""));
 		pageCollection.addPage(new CraftingInfoPage("MACHINES_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.FusionCoil), ""));
 		pageCollection.addPage(new CraftingInfoPage("MACHINES_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.FusionControlComputer), ""));
 		pageCollection.addPage(new CraftingInfoPage("BLOCK_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.Gasturbine), ""));

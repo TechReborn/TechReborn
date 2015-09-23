@@ -78,7 +78,6 @@ public class ModItems {
     public static Item hammerIron;
     public static Item hammerDiamond;
     public static Item upgrades;
-    public static Item farmPatten;
 
 
     public static void init() {
@@ -133,9 +132,6 @@ public class ModItems {
         hammerDiamond = new ItemHammer(200);
         hammerDiamond.setUnlocalizedName("hammerDiamond").setContainerItem(hammerDiamond);
         GameRegistry.registerItem(hammerDiamond, "hammerDiamond");
-
-        farmPatten = new ItemFarmPatten();
-        GameRegistry.registerItem(farmPatten, "farmPatten");
 
         cloakingDevice = new ItemCloakingDevice();
         GameRegistry.registerItem(cloakingDevice, "cloakingdevice");

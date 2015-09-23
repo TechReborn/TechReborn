@@ -125,8 +125,6 @@ public class GuiHandler implements IGuiHandler {
             return new ContainerIDSU((TileIDSU) world.getTileEntity(x, y, z), player);
         } else if (ID == chargeBench) {
             return new ContainerChargeBench((TileChargeBench) world.getTileEntity(x, y, z), player);
-        } else if (ID == farmID) {
-            return new ContainerFarm((TileFarm) world.getTileEntity(x, y, z), player);
         }
 
 
@@ -215,8 +213,6 @@ public class GuiHandler implements IGuiHandler {
             return new GuiIDSU(player, (TileIDSU) world.getTileEntity(x, y, z));
         } else if (ID == chargeBench) {
             return new GuiChargeBench(player, (TileChargeBench) world.getTileEntity(x, y, z));
-        } else if (ID == farmID) {
-            return new GuiFarm(new ContainerFarm((TileFarm) world.getTileEntity(x, y, z), player));
         }
         return null;
     }
