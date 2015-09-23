@@ -38,10 +38,12 @@ import techreborn.items.ItemRods;
 import techreborn.util.CraftingHelper;
 import techreborn.util.LogHelper;
 import techreborn.util.OreUtil;
+import techreborn.util.RecipeUtils;
 
 import java.security.InvalidParameterException;
 
-public class ModRecipes {
+public class
+		ModRecipes {
 	public static ConfigTechReborn config;
 
 	public static void init() {
@@ -191,6 +193,40 @@ public class ModRecipes {
 				'C', "ingotChrome",
 				'A', "ingotAluminum"
 		);
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("heliumCoolantSimple"),
+				" T ", "TCT", " T ",
+				'T', "ingotTin",
+				'C', ItemCells.getCellByName("helium", 1, false)
+		);
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("HeliumCoolantTriple"),
+				"TTT", "CCC", "TTT",
+				'T', "ingotTin",
+				'C', ItemParts.getPartByName("heliumCoolantSimple")
+		);
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("HeliumCoolantSix"),
+				"THT", "TCT", "THT",
+				'T', "ingotTin",
+				'C', "ingotCopper",
+				'H', ItemParts.getPartByName("HeliumCoolantTriple")
+		);
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("NaKCoolantTriple"),
+				"TTT", "CCC", "TTT",
+				'T', "ingotTin",
+				'C', ItemParts.getPartByName("NaKCoolantSimple")
+		);
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("NaKCoolantSix"),
+				"THT", "TCT", "THT",
+				'T', "ingotTin",
+				'C', "ingotCopper",
+				'H', ItemParts.getPartByName("NaKCoolantTriple")
+		);
+
+		GameRegistry.addShapelessRecipe(ItemCells.getCellByName("heliumPlasma"), ItemCells.getCellByName("tritium"), ItemCells.getCellByName("deuterium"));
 
 		LogHelper.info("Shapped Recipes Added");
 	}
@@ -996,6 +1032,9 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("tetrahedrite", 8), null, ItemDusts.getDustByName("copper", 3), ItemDusts.getDustByName("antimony", 1), ItemDusts.getDustByName("sulfur", 3), ItemDusts.getDustByName("iron", 1), 3640, 5));
 		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("lapis", 16), null, ItemDusts.getDustByName("lazurite", 12), ItemDusts.getDustByName("sodalite", 2), ItemDusts.getDustByName("pyrite", 7), ItemDusts.getDustByName("calcite", 1), 3580, 5));
 
+
+		RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.glowstone_dust, 16), RecipeUtils.getEmptyCell(1), ItemCells.getCellByName("helium", 1, false), ItemDusts.getDustByName("gold", 8), new ItemStack(Items.redstone), null, 25000, 20));
+		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("endstone", 16), RecipeUtils.getEmptyCell(2), ItemCells.getCellByName("helium3", 1, false), ItemCells.getCellByName("helium", 1, false), ItemDustsTiny.getTinyDustByName("Tungsten"), new ItemStack(Blocks.sand, 12), 4800, 5));
 	}
 
 	static void addIndustrialGrinderRecipes() {
@@ -1509,4 +1548,7 @@ public class ModRecipes {
 		FarmTree.harvestableLogs.add(Blocks.log);
 		FarmTree.harvestableLogs.add(Blocks.log2);
 	}
+
+
+
 }

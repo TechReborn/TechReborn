@@ -1164,6 +1164,14 @@ public class RecipesIC2 implements ICompatModule {
                     40, 60
             ));
         }
+
+        CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("NaKCoolantSimple"),
+                "TST", "PCP", "TST",
+                'T', "ingotTin",
+                'S', ItemCells.getCellByName("sodium"),
+                'P', ItemCells.getCellByName("potassium"),
+                'C', IC2Items.getItem("reactorCoolantSimple")
+        );
     }
 
     static void removeIc2Recipes() {

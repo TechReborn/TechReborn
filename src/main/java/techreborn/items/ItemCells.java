@@ -19,8 +19,13 @@ import java.util.List;
 public class ItemCells extends ItemTR {
 
     public static ItemStack getCellByName(String name, int count) {
+        return getCellByName(name, count, true);
+    }
+
+
+    public static ItemStack getCellByName(String name, int count, boolean lookForIC2) {
         Fluid fluid = FluidRegistry.getFluid("fluid" + name.toLowerCase());
-        if (IC2Items.getItem("FluidCell") != null) {
+        if (lookForIC2 && IC2Items.getItem("FluidCell") != null) {
             if (fluid != null) {
                 ItemStack stack = IC2Items.getItem("FluidCell").copy();
                 if (stack != null && stack.getItem() instanceof IFluidContainerItem) {
@@ -54,7 +59,7 @@ public class ItemCells extends ItemTR {
                     "mercury", "methane", "nitrocarbon", "nitroCoalfuel",
                     "nitroDiesel", "nitrogen", "nitrogenDioxide", "oil", "potassium",
                     "seedOil", "silicon", "sodium", "sodiumPersulfate",
-                    "sodiumSulfide", "sulfur", "sulfuricAcid", "tritium", "wolframium",};
+                    "sodiumSulfide", "sulfur", "sulfuricAcid", "tritium", "wolframium", "empty"};
 
     private IIcon[] textures;
 
