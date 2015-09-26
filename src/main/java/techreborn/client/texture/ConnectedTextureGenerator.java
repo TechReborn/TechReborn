@@ -11,16 +11,17 @@ import techreborn.lib.ModInfo;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Random;
 
 public class ConnectedTextureGenerator extends TextureAtlasSprite {
 
     public BufferedImage output_image = null;
     String type;
+    ConnectedTexture connectedTexture;
 
-    public ConnectedTextureGenerator(String name, String type) {
+    public ConnectedTextureGenerator(String name, String type, ConnectedTexture connectedTexture) {
         super(name);
         this.type = type;
+        this.connectedTexture = connectedTexture;
     }
 
     public static String getDerivedName(String s2) {
@@ -31,38 +32,24 @@ public class ConnectedTextureGenerator extends TextureAtlasSprite {
         return new ResourceLocation("techreborn", "textures/blocks/machine/casing" + type + ".png");
     }
 
-    private static int[] createTexture(int w, int[] type_data) {
-        int red = 0;
-        int green = 0;
-        int blue = 0;
-        int alpha = 0;
-        int count = 0;
-        for (int i = 0; i < type_data.length; i++) {
-            int x = (i % w);
-            int y = (i - x) / w;
-            if (y >= 1 || y <= 14 || x >= 1 || x <= 14) {
-                red += getRed(type_data[i]);
-                green += getGreen(type_data[i]);
-                blue += getBlue(type_data[i]);
-                alpha += getAlpha(type_data[i]);
-                count ++;
-            }
-        }
-        red = red / count;
-        green = green / count;
-        blue = blue / count;
-        alpha = alpha / count;
-
-
+    private static int[] createTexture(int w, int[] type_data, int[] edge_data, ConnectedTexture connectedTexture) {
         int[] new_data = type_data;
-
-        Random generator = new Random();
         for (int i = 0; i < type_data.length; i += 1) {
             int x = (i % w);
             int y = (i - x) / w;
-
-            if (y <= 1 || y >= 14 || x <= 1 || x >= 14) {
-                new_data[i] = makeCol(red + (generator.nextInt(3) - 5), green + (generator.nextInt(3) - 5), blue + 5, alpha);
+            if(getAlpha(edge_data[i]) != 0){
+                if(y <= 1 && connectedTexture.isUp()){
+                    new_data[i] = edge_data[i];
+                }
+                if(y >= 14 && connectedTexture.isDown()){
+                    new_data[i] = edge_data[i];
+                }
+                if(x <= 1 && connectedTexture.isLeft()){
+                    new_data[i] = edge_data[i];
+                }
+                if(x >= 14 && connectedTexture.isRight()){
+                    new_data[i] = edge_data[i];
+                }
             }
         }
         return new_data;
@@ -97,6 +84,7 @@ public class ConnectedTextureGenerator extends TextureAtlasSprite {
     public boolean load(IResourceManager manager, ResourceLocation location) {
         int mp = Minecraft.getMinecraft().gameSettings.mipmapLevels;
         BufferedImage[] type_image = new BufferedImage[1 + mp];
+        BufferedImage[] edge_image = new BufferedImage[1 + mp];
 
         AnimationMetadataSection animation = null;
 
@@ -104,6 +92,9 @@ public class ConnectedTextureGenerator extends TextureAtlasSprite {
             IResource typeResource = manager.getResource(getTypeResource(type));
             type_image[0] = ImageIO.read(typeResource.getInputStream());
             animation = (AnimationMetadataSection) typeResource.getMetadata("animation");
+
+            IResource edgeResource = manager.getResource(getTypeResource(type + "_edge"));
+            edge_image[0] = ImageIO.read(edgeResource.getInputStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -112,16 +103,17 @@ public class ConnectedTextureGenerator extends TextureAtlasSprite {
 
         output_image = new BufferedImage(w, h, 2);
         int[] type_data = new int[w * w];
+        int[] edge_data = new int[w * w];
         
         for (int y = 0; y < h; y += w) {
             type_image[0].getRGB(0, y, w, w, type_data, 0, w);
-            int[] new_data = createTexture(w, type_data);
+            edge_image[0].getRGB(0, y, w, w, edge_data, 0, w);
+            int[] new_data = createTexture(w, type_data, edge_data, connectedTexture);
             output_image.setRGB(0, y, w, w, new_data, 0, w);
         }
 
         type_image[0] = output_image;
         this.loadSprite(type_image, animation, (float) Minecraft.getMinecraft().gameSettings.anisotropicFiltering > 1.0F);
-        System.out.println("Loaded texture!");
         return false;
     }
 }
