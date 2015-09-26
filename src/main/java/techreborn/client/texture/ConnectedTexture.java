@@ -1,7 +1,5 @@
 package techreborn.client.texture;
 
-import net.minecraft.util.IIcon;
-
 public class ConnectedTexture {
 
     private boolean up, down, left, right;

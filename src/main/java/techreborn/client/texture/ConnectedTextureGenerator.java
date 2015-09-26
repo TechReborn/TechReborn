@@ -44,10 +44,10 @@ public class ConnectedTextureGenerator extends TextureAtlasSprite {
                 if(y >= 14 && connectedTexture.isDown()){
                     new_data[i] = edge_data[i];
                 }
-                if(x <= 1 && connectedTexture.isLeft()){
+                if(x <= 1 && connectedTexture.isRight()){
                     new_data[i] = edge_data[i];
                 }
-                if(x >= 14 && connectedTexture.isRight()){
+                if(x >= 14 && connectedTexture.isLeft()){
                     new_data[i] = edge_data[i];
                 }
             }
