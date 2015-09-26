@@ -11,6 +11,7 @@ import techreborn.lib.ModInfo;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Random;
 
 public class ConnectedTextureGenerator extends TextureAtlasSprite {
 
@@ -35,26 +36,33 @@ public class ConnectedTextureGenerator extends TextureAtlasSprite {
         int green = 0;
         int blue = 0;
         int alpha = 0;
+        int count = 0;
         for (int i = 0; i < type_data.length; i++) {
-            red += getRed(type_data[i]);
-            green += getGreen(type_data[i]);
-            blue += getBlue(type_data[i]);
-            alpha += getAlpha(type_data[i]);
+            int x = (i % w);
+            int y = (i - x) / w;
+            if (y >= 1 || y <= 14 || x >= 1 || x <= 14) {
+                red += getRed(type_data[i]);
+                green += getGreen(type_data[i]);
+                blue += getBlue(type_data[i]);
+                alpha += getAlpha(type_data[i]);
+                count ++;
+            }
         }
-        red = red / type_data.length;
-        green = green / type_data.length;
-        blue = blue / type_data.length;
-        alpha = alpha / type_data.length;
+        red = red / count;
+        green = green / count;
+        blue = blue / count;
+        alpha = alpha / count;
 
 
         int[] new_data = type_data;
 
-        for (int i = 0; i < 256; i += 1) {
+        Random generator = new Random();
+        for (int i = 0; i < type_data.length; i += 1) {
             int x = (i % w);
             int y = (i - x) / w;
 
-            if (y <= 2 || y >= 14 || x <= 2 || x >= 14) {
-                new_data[i] = makeCol(red, green, blue, alpha);
+            if (y <= 1 || y >= 14 || x <= 1 || x >= 14) {
+                new_data[i] = makeCol(red + (generator.nextInt(3) - 5), green + (generator.nextInt(3) - 5), blue + 5, alpha);
             }
         }
         return new_data;
