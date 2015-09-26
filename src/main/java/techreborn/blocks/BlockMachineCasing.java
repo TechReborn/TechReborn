@@ -3,8 +3,11 @@ package techreborn.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import erogenousbeef.coreTR.multiblock.BlockMultiblockBase;
+import forestry.core.render.TextureManager;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -14,6 +17,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.client.texture.ConnectedTextureGenerator;
 import techreborn.tiles.TileMachineCasing;
 
 import java.util.List;
@@ -50,14 +54,33 @@ public class BlockMachineCasing extends BlockMultiblockBase {
         return metaData;
     }
 
+//    @Override
+//    @SideOnly(Side.CLIENT)
+//    public void registerBlockIcons(IIconRegister iconRegister) {
+//        this.textures = new IIcon[types.length];
+//
+//        for (int i = 0; i < types.length; i++) {
+//            textures[i] = iconRegister.registerIcon("techreborn:"
+//                    + "machine/casing" + types[i]);
+//        }
+//    }
+
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
         this.textures = new IIcon[types.length];
-
-        for (int i = 0; i < types.length; i++) {
-            textures[i] = iconRegister.registerIcon("techreborn:"
-                    + "machine/casing" + types[i]);
+        if(iconRegister instanceof TextureMap){
+            TextureMap map = (TextureMap) iconRegister;
+            for (int i = 0; i < types.length; i++) {
+                String name = ConnectedTextureGenerator.getDerivedName(types[i]);
+                System.out.println(name);
+                TextureAtlasSprite texture = map.getTextureExtry(name);
+                if(texture == null){
+                    texture = new ConnectedTextureGenerator(name, types[i]);
+                    map.setTextureEntry(name, texture);
+                }
+                textures[i] = map.getTextureExtry(name);
+            }
         }
     }
 
