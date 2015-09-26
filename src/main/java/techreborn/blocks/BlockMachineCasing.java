@@ -17,7 +17,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.client.texture.ConnectedTexture;
-import techreborn.client.texture.ConnectedTextureGenerator;
+import techreborn.client.texture.CasingConnectedTextureGenerator;
 import techreborn.tiles.TileMachineCasing;
 
 import java.util.List;
@@ -95,11 +95,11 @@ public class BlockMachineCasing extends BlockMultiblockBase {
     public IIcon genIcon(ConnectedTexture connectedTexture, IIconRegister iconRegister, int texNum, int meta) {
         if (iconRegister instanceof TextureMap) {
             TextureMap map = (TextureMap) iconRegister;
-            String name = ConnectedTextureGenerator.getDerivedName(types[meta] + "." + texNum);
+            String name = CasingConnectedTextureGenerator.getDerivedName(types[meta] + "." + texNum);
             System.out.println(name);
             TextureAtlasSprite texture = map.getTextureExtry(name);
             if (texture == null) {
-                texture = new ConnectedTextureGenerator(name, types[meta], connectedTexture);
+                texture = new CasingConnectedTextureGenerator(name, types[meta], connectedTexture);
                 map.setTextureEntry(name, texture);
             }
             return map.getTextureExtry(name);

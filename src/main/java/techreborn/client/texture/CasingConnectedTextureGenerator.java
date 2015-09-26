@@ -12,13 +12,13 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class ConnectedTextureGenerator extends TextureAtlasSprite {
+public class CasingConnectedTextureGenerator extends TextureAtlasSprite {
 
     public BufferedImage output_image = null;
     String type;
     ConnectedTexture connectedTexture;
 
-    public ConnectedTextureGenerator(String name, String type, ConnectedTexture connectedTexture) {
+    public CasingConnectedTextureGenerator(String name, String type, ConnectedTexture connectedTexture) {
         super(name);
         this.type = type;
         this.connectedTexture = connectedTexture;
