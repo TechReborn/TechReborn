@@ -11,8 +11,12 @@ import techreborn.api.recipe.RecipeHandler;
 import techreborn.util.ItemUtils;
 
 import java.awt.*;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public abstract class GenericRecipeHander extends TemplateRecipeHandler {
 
@@ -77,7 +81,11 @@ public abstract class GenericRecipeHander extends TemplateRecipeHandler {
             CachedGenericRecipe genericRecipe = (CachedGenericRecipe) recipe;
             float scale = 0.9F;
             GL11.glScalef(scale, scale, scale);
-            GuiDraw.drawString("EU needed: " + (String.format("%,d", genericRecipe.recipie.euPerTick() * genericRecipe.recipie.tickTime())), 16, 105, -1);
+            DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
+            DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
+            symbols.setGroupingSeparator('.');
+            formatter.setDecimalFormatSymbols(symbols);
+            GuiDraw.drawString("EU needed:" + formatter.format(new Integer(genericRecipe.recipie.euPerTick() * genericRecipe.recipie.tickTime()).longValue()), 16, 105, -1);
             GuiDraw.drawString("Ticks to process: " + genericRecipe.recipie.tickTime(), 14, 115, -1);
             GuiDraw.drawString("Time to process: " + genericRecipe.recipie.tickTime() / 20 + " seconds", 14, 125, -1);
         }
