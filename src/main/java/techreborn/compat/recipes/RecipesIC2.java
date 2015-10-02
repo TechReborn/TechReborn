@@ -6,6 +6,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
+import ic2.api.info.IC2Classic;
 import ic2.api.item.IC2Items;
 import ic2.api.recipe.RecipeInputOreDict;
 import ic2.api.recipe.Recipes;
@@ -38,6 +39,8 @@ public class RecipesIC2 implements ICompatModule {
 
     @Override
     public void init(FMLInitializationEvent event) {
+        if(IC2Classic.isIc2ClassicLoaded())
+            return;
         removeIc2Recipes();
         addShappedIc2Recipes();
         addTRMaceratorRecipes();
@@ -49,6 +52,8 @@ public class RecipesIC2 implements ICompatModule {
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
+        if(IC2Classic.isIc2ClassicLoaded())
+            return;
         //Has to be done later, not sure why
         RecipeRemover.removeAnyRecipe(IC2Items.getItem("iridiumPlate"));
     }

@@ -18,8 +18,8 @@ public class CompatManager {
 
     public CompatManager() {
         registerCompact(CompatModuleWaila.class, "Waila");
-        registerCompact(RecipesIC2.class, "IC2", !IC2Classic.isIc2ClassicLoaded());
-        registerCompact(RecipesIC2Classic.class, IC2Classic.isIc2ClassicLoaded() && ! IC2Classic.isIc2ExpLoaded());
+        registerCompact(RecipesIC2.class, "IC2", "!IC2-Classic-Spmod");
+        registerCompact(RecipesIC2Classic.class, "IC2-Classic-Spmod");
         registerCompact(RecipesBuildcraft.class, "BuildCraft|Core", "IC2");
         registerCompact(RecipesThermalExpansion.class, "ThermalExpansion");
         registerCompact(EmcValues.class, "EE3");
@@ -35,7 +35,7 @@ public class CompatManager {
             if(obj instanceof String){
                 String modid = (String) obj;
                 if(modid.startsWith("!")){
-                    if (Loader.isModLoaded(modid.replace("!", ""))) {
+                    if (Loader.isModLoaded(modid.replaceAll("!", ""))) {
                         return;
                     }
                 } else {
@@ -44,8 +44,8 @@ public class CompatManager {
                     }
                 }
             } else if(obj instanceof Boolean){
-                if(!(Boolean)obj){
-                }
+                Boolean boo = (Boolean) obj;
+                if(boo == false){}
                     return;
                 }
         }
