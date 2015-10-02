@@ -18,6 +18,7 @@ import net.minecraft.world.World;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.client.texture.ConnectedTexture;
 import techreborn.client.texture.CasingConnectedTextureGenerator;
+import techreborn.config.ConfigTechReborn;
 import techreborn.tiles.TileMachineCasing;
 
 import java.util.List;
@@ -70,6 +71,15 @@ public class BlockMachineCasing extends BlockMultiblockBase {
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
         this.icons = new IIcon[types.length][16];
+        if(!ConfigTechReborn.useConnectedTextures){
+            for (int i = 0; i < types.length; i++) {
+                for (int j = 0; j < 15; j++) {
+                    icons[i][j] = iconRegister.registerIcon("techreborn:" + "machine/casing"
+                            + types[i]);
+                }
+            }
+            return;
+        }
         for (int i = 0; i < types.length; i++) {
                                                     //  up   down  left  right
             icons[i][0] = genIcon(new ConnectedTexture(true, true, true, true), iconRegister, 0, i);

@@ -16,6 +16,7 @@ import net.minecraft.world.World;
 import techreborn.blocks.BlockMachineBase;
 import techreborn.client.texture.ConnectedTexture;
 import techreborn.client.texture.LesuConnectedTextureGenerator;
+import techreborn.config.ConfigTechReborn;
 import techreborn.tiles.lesu.TileLesuStorage;
 
 public class BlockLesuStorage extends BlockMachineBase {
@@ -32,6 +33,13 @@ public class BlockLesuStorage extends BlockMachineBase {
     public void registerBlockIcons(IIconRegister iconRegister) {
         this.icons = new IIcon[1][16];
             //  up   down  left  right
+        if(!ConfigTechReborn.useConnectedTextures){
+            for (int j = 0; j < 15; j++) {
+                icons[0][j] = iconRegister.registerIcon("techreborn:" + "machine/lesu_block");
+            }
+            return;
+        }
+
         int i = 0;
             icons[i][0] = genIcon(new ConnectedTexture(true, true, true, true), iconRegister, 0, i);
             icons[i][1] = genIcon(new ConnectedTexture(true, false, true, true), iconRegister, 1, i);

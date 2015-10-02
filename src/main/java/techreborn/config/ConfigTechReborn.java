@@ -15,7 +15,6 @@ public class ConfigTechReborn {
     public static String CATEGORY_EMC = "emc";
     public static String CATEGORY_INTEGRATION = "Integration";
 
-
     // WORLDGEN
     public static boolean GalenaOreTrue;
     public static int GalenaOreRare;
@@ -162,6 +161,7 @@ public class ConfigTechReborn {
 
     // Client
     public static boolean ShowChargeHud;
+    public static boolean useConnectedTextures;
 
     public static Configuration config;
 
@@ -663,10 +663,13 @@ public class ConfigTechReborn {
                 .getBoolean(true);
 
         UUrecipesAluminumDust = config.get(CATEGORY_UU, StatCollector.translateToLocal("config.techreborn.allow.UUrecipesAluminumDust"),
-        		true, StatCollector.translateToLocal("config.techreborn.allow.UUrecipesAluminumDust.tooltip")).getBoolean(true);
+                true, StatCollector.translateToLocal("config.techreborn.allow.UUrecipesAluminumDust.tooltip")).getBoolean(true);
 
         ShowChargeHud = config.get(CATEGORY_POWER, StatCollector.translateToLocal("config.techreborn.showChargehud"),
                 true, StatCollector.translateToLocal("config.techreborn.showChargehud.tooltip")).getBoolean(true);
+
+        useConnectedTextures = config.get(CATEGORY_INTEGRATION, StatCollector.translateToLocal("config.techreborn.connectTextures"),
+                true, StatCollector.translateToLocal("config.techreborn.connectTextures.tooltip")).getBoolean(true);
         
         //Integration
         AllowBOPRecipes = config.get(CATEGORY_INTEGRATION, StatCollector.translateToLocal("config.techreborn.allowBopRecipes"),

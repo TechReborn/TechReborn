@@ -802,6 +802,8 @@ config.techreborn.enableRF=Enable RF support
 config.techreborn.enableRF.tooltip= Enable RF support for all machines.
 config.techreborn.enableEU=Enable EU support
 config.techreborn.enableEU.tooltip= Enable EU support for all machines.
+config.techreborn.connectTextures=Enable Connected textures
+config.techreborn.connectTextures.tooltip= Enable Connected textures
 
 #ConfigGui
 config.techreborn.category.general=General Configs
