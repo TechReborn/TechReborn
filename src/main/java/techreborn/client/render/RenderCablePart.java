@@ -2,9 +2,12 @@ package techreborn.client.render;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ic2.api.info.IC2Classic;
+import ic2.api.item.IC2Items;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.client.IconSupplier;
@@ -56,6 +59,9 @@ public class RenderCablePart {
 
     @SideOnly(Side.CLIENT)
     public static IIcon getIconFromType(int cableType) {
+        if(IC2Classic.getLoadedIC2Type() == IC2Classic.IC2Type.SpeigersClassic){
+            return Block.getBlockFromItem(IC2Items.getItem("copperCableBlock").getItem()).getIcon(0, cableType * 16);
+        }
         IIcon p = null;
         switch (cableType) {
             case 0:

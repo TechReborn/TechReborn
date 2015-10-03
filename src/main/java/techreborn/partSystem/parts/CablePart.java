@@ -7,8 +7,10 @@ import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergyConductor;
 import ic2.api.energy.tile.IEnergyTile;
+import ic2.api.info.IC2Classic;
 import ic2.api.item.IC2Items;
 import ic2.api.network.INetworkTileEntityEventListener;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -149,6 +151,9 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
     @SideOnly(Side.CLIENT)
     @Override
     public String getItemTextureName() {
+        if(IC2Classic.getLoadedIC2Type() == IC2Classic.IC2Type.SpeigersClassic){
+            return IC2Items.getItem("copperCableBlock").getItem().getIcon(new ItemStack(IC2Items.getItem("copperCableBlock").getItem(), type), 1).getIconName();
+        }
         return IC2Items.getItem(getTextureNameFromType(type)).getIconIndex().getIconName();
     }
 
