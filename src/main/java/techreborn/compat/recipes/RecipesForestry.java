@@ -8,8 +8,6 @@ import forestry.api.arboriculture.EnumWoodType;
 import forestry.api.arboriculture.TreeManager;
 import forestry.api.fuels.FuelManager;
 import forestry.api.fuels.GeneratorFuel;
-import forestry.arboriculture.WoodItemAccess;
-import forestry.core.config.ForestryBlock;
 import ic2.api.item.IC2Items;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -23,7 +21,6 @@ import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
 import techreborn.compat.ICompatModule;
 import techreborn.config.ConfigTechReborn;
 
-import java.rmi.UnexpectedException;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -36,31 +33,41 @@ public class RecipesForestry implements ICompatModule {
 
     @Override
     public void init(FMLInitializationEvent event) {
-    	if (ConfigTechReborn.AllowForestryRecipes) {
-	        ItemStack pulpStack = OreDictionary.getOres("pulpWood").get(0);
-			for (EnumWoodType woodType : EnumWoodType.VALUES) {
-				for (int i = 0; i < 1; i++) {
-					ItemStack log =  TreeManager.woodItemAccess.getLog(woodType, i == 0 ? true : false);
-					log.stackSize = 1;
-					ItemStack plank = TreeManager.woodItemAccess.getPlanks(woodType, i == 0 ? true : false);
-					plank.stackSize = 6;
-					RecipeHandler.addRecipe(new IndustrialSawmillRecipe(log, null, new FluidStack(FluidRegistry.WATER, 1000), plank, pulpStack, null, 200, 30, false));
-					RecipeHandler.addRecipe(new IndustrialSawmillRecipe(log, IC2Items.getItem("waterCell"), null, plank, pulpStack, IC2Items.getItem("cell"), 200, 30, false));
-					RecipeHandler.addRecipe(new IndustrialSawmillRecipe(log, new ItemStack(Items.water_bucket), null, plank, pulpStack, new ItemStack(Items.bucket), 200, 30, false));
-				}
-			}
-    	}
+
     }
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
-		Iterator entries =  FuelManager.generatorFuel.entrySet().iterator();
-		while (entries.hasNext()) {
-			Map.Entry thisEntry = (Map.Entry) entries.next();
-			Fluid fluid = (Fluid) thisEntry.getKey();
-			GeneratorFuel generatorFuel = (GeneratorFuel) thisEntry.getValue();
-			FluidPowerManager.fluidPowerValues.put(fluid, (double) (generatorFuel.eu / generatorFuel.rate));
-		}
+        if (ConfigTechReborn.AllowForestryRecipes) {
+            ItemStack pulpStack = OreDictionary.getOres("pulpWood").get(0);
+            for (EnumWoodType woodType : EnumWoodType.VALUES) {
+                ItemStack log = TreeManager.woodItemAccess.getLog(woodType, true);
+                log.stackSize = 1;
+                ItemStack plank = TreeManager.woodItemAccess.getPlanks(woodType, true);
+                plank.stackSize = 6;
+                System.out.println(log.getDisplayName() + ":" + plank.getDisplayName());
+                RecipeHandler.addRecipe(new IndustrialSawmillRecipe(log, null, new FluidStack(FluidRegistry.WATER, 1000), plank, pulpStack, null, 200, 30, false));
+                RecipeHandler.addRecipe(new IndustrialSawmillRecipe(log, IC2Items.getItem("waterCell"), null, plank, pulpStack, IC2Items.getItem("cell"), 200, 30, false));
+                RecipeHandler.addRecipe(new IndustrialSawmillRecipe(log, new ItemStack(Items.water_bucket), null, plank, pulpStack, new ItemStack(Items.bucket), 200, 30, false));
+
+                log = TreeManager.woodItemAccess.getLog(woodType, false);
+                log.stackSize = 1;
+                plank = TreeManager.woodItemAccess.getPlanks(woodType, false);
+                plank.stackSize = 6;
+                System.out.println(log.getDisplayName() + ":" + plank.getDisplayName());
+                RecipeHandler.addRecipe(new IndustrialSawmillRecipe(log, null, new FluidStack(FluidRegistry.WATER, 1000), plank, pulpStack, null, 200, 30, false));
+                RecipeHandler.addRecipe(new IndustrialSawmillRecipe(log, IC2Items.getItem("waterCell"), null, plank, pulpStack, IC2Items.getItem("cell"), 200, 30, false));
+                RecipeHandler.addRecipe(new IndustrialSawmillRecipe(log, new ItemStack(Items.water_bucket), null, plank, pulpStack, new ItemStack(Items.bucket), 200, 30, false));
+            }
+        }
+
+        Iterator entries = FuelManager.generatorFuel.entrySet().iterator();
+        while (entries.hasNext()) {
+            Map.Entry thisEntry = (Map.Entry) entries.next();
+            Fluid fluid = (Fluid) thisEntry.getKey();
+            GeneratorFuel generatorFuel = (GeneratorFuel) thisEntry.getValue();
+            FluidPowerManager.fluidPowerValues.put(fluid, (double) (generatorFuel.eu / generatorFuel.rate));
+        }
     }
 
     @Override

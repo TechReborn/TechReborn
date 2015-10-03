@@ -29,7 +29,7 @@ public class IndustrialSawmillRecipe extends BaseRecipe {
     }
 
     public IndustrialSawmillRecipe(ItemStack input1, ItemStack input2, FluidStack fluidStack, ItemStack output1, ItemStack output2, ItemStack output3, int tickTime, int euPerTick, boolean canUseOreDict) {
-        super("industrialSawmillRecipe", tickTime, euPerTick);
+        super(Reference.industrialSawmillRecipe, tickTime, euPerTick);
         if (input1 != null)
             inputs.add(input1);
         if (input2 != null)
