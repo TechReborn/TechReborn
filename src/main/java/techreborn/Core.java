@@ -131,7 +131,7 @@ public class Core {
 
 //        RecipeHandler.scanForDupeRecipes();
 
-        RecipeConfigManager.save();
+        //RecipeConfigManager.save();
     }
 
     @Mod.EventHandler
