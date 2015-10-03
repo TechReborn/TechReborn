@@ -1,10 +1,15 @@
 package techreborn.client.texture;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.data.AnimationMetadataSection;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import techreborn.lib.ModInfo;
 
@@ -115,5 +120,22 @@ public class CasingConnectedTextureGenerator extends TextureAtlasSprite {
         type_image[0] = output_image;
         this.loadSprite(type_image, animation, (float) Minecraft.getMinecraft().gameSettings.anisotropicFiltering > 1.0F);
         return false;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static IIcon genIcon(ConnectedTexture connectedTexture, IIconRegister iconRegister, int texNum, int meta, String[] types) {
+        if (iconRegister instanceof TextureMap) {
+            TextureMap map = (TextureMap) iconRegister;
+            String name = CasingConnectedTextureGenerator.getDerivedName(types[meta] + "." + texNum);
+            System.out.println(name);
+            TextureAtlasSprite texture = map.getTextureExtry(name);
+            if (texture == null) {
+                texture = new CasingConnectedTextureGenerator(name, types[meta], connectedTexture);
+                map.setTextureEntry(name, texture);
+            }
+            return map.getTextureExtry(name);
+        } else {
+            return null;
+        }
     }
 }

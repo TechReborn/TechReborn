@@ -5,8 +5,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -41,22 +39,22 @@ public class BlockLesuStorage extends BlockMachineBase {
         }
 
         int i = 0;
-            icons[i][0] = genIcon(new ConnectedTexture(true, true, true, true), iconRegister, 0, i);
-            icons[i][1] = genIcon(new ConnectedTexture(true, false, true, true), iconRegister, 1, i);
-            icons[i][2] = genIcon(new ConnectedTexture(false, true, true, true), iconRegister, 2, i);
-            icons[i][3] = genIcon(new ConnectedTexture(true, true, true, false), iconRegister, 3, i);
-            icons[i][4] = genIcon(new ConnectedTexture(true, true, false, true), iconRegister, 4, i);
-            icons[i][5] = genIcon(new ConnectedTexture(true, true, false, false), iconRegister, 5, i);
-            icons[i][6] = genIcon(new ConnectedTexture(false, false, true, true), iconRegister, 6, i);
-            icons[i][7] = genIcon(new ConnectedTexture(false, true, false, true), iconRegister, 7, i);
-            icons[i][8] = genIcon(new ConnectedTexture(false, true, true, false), iconRegister, 8, i);
-            icons[i][9] = genIcon(new ConnectedTexture(true, false, false, true), iconRegister, 9, i);
-            icons[i][10] = genIcon(new ConnectedTexture(true, false, true, false), iconRegister, 10, i);
-            icons[i][11] = genIcon(new ConnectedTexture(false, true, false, false), iconRegister, 11, i);
-            icons[i][12] = genIcon(new ConnectedTexture(true, false, false, false), iconRegister, 12, i);
-            icons[i][13] = genIcon(new ConnectedTexture(false, false, false, true), iconRegister, 13, i);
-            icons[i][14] = genIcon(new ConnectedTexture(false, false, true, false), iconRegister, 14, i);
-            icons[i][15] = genIcon(new ConnectedTexture(false, false, false, false), iconRegister, 15, i);
+            icons[i][0] = LesuConnectedTextureGenerator.genIcon(new ConnectedTexture(true, true, true, true), iconRegister, 0, i);
+            icons[i][1] = LesuConnectedTextureGenerator.genIcon(new ConnectedTexture(true, false, true, true), iconRegister, 1, i);
+            icons[i][2] = LesuConnectedTextureGenerator.genIcon(new ConnectedTexture(false, true, true, true), iconRegister, 2, i);
+            icons[i][3] = LesuConnectedTextureGenerator.genIcon(new ConnectedTexture(true, true, true, false), iconRegister, 3, i);
+            icons[i][4] = LesuConnectedTextureGenerator.genIcon(new ConnectedTexture(true, true, false, true), iconRegister, 4, i);
+            icons[i][5] = LesuConnectedTextureGenerator.genIcon(new ConnectedTexture(true, true, false, false), iconRegister, 5, i);
+            icons[i][6] = LesuConnectedTextureGenerator.genIcon(new ConnectedTexture(false, false, true, true), iconRegister, 6, i);
+            icons[i][7] = LesuConnectedTextureGenerator.genIcon(new ConnectedTexture(false, true, false, true), iconRegister, 7, i);
+            icons[i][8] = LesuConnectedTextureGenerator.genIcon(new ConnectedTexture(false, true, true, false), iconRegister, 8, i);
+            icons[i][9] = LesuConnectedTextureGenerator.genIcon(new ConnectedTexture(true, false, false, true), iconRegister, 9, i);
+            icons[i][10] = LesuConnectedTextureGenerator.genIcon(new ConnectedTexture(true, false, true, false), iconRegister, 10, i);
+            icons[i][11] = LesuConnectedTextureGenerator.genIcon(new ConnectedTexture(false, true, false, false), iconRegister, 11, i);
+            icons[i][12] = LesuConnectedTextureGenerator.genIcon(new ConnectedTexture(true, false, false, false), iconRegister, 12, i);
+            icons[i][13] = LesuConnectedTextureGenerator.genIcon(new ConnectedTexture(false, false, false, true), iconRegister, 13, i);
+            icons[i][14] = LesuConnectedTextureGenerator.genIcon(new ConnectedTexture(false, false, true, false), iconRegister, 14, i);
+            icons[i][15] = LesuConnectedTextureGenerator.genIcon(new ConnectedTexture(false, false, false, false), iconRegister, 15, i);
     }
 
     @Override
@@ -71,21 +69,7 @@ public class BlockLesuStorage extends BlockMachineBase {
     }
 
 
-    public IIcon genIcon(ConnectedTexture connectedTexture, IIconRegister iconRegister, int texNum, int meta) {
-        if (iconRegister instanceof TextureMap) {
-            TextureMap map = (TextureMap) iconRegister;
-            String name = LesuConnectedTextureGenerator.getDerivedName("lesu." + texNum);
-            System.out.println(name);
-            TextureAtlasSprite texture = map.getTextureExtry(name);
-            if (texture == null) {
-                texture = new LesuConnectedTextureGenerator(name, "lesu", connectedTexture);
-                map.setTextureEntry(name, texture);
-            }
-            return map.getTextureExtry(name);
-        } else {
-            return null;
-        }
-    }
+
 
     @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemstack) {

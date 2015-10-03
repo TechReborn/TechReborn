@@ -6,8 +6,6 @@ import erogenousbeef.coreTR.multiblock.BlockMultiblockBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -82,40 +80,24 @@ public class BlockMachineCasing extends BlockMultiblockBase {
         }
         for (int i = 0; i < types.length; i++) {
                                                     //  up   down  left  right
-            icons[i][0] = genIcon(new ConnectedTexture(true, true, true, true), iconRegister, 0, i);
-            icons[i][1] = genIcon(new ConnectedTexture(true, false, true, true), iconRegister, 1, i);
-            icons[i][2] = genIcon(new ConnectedTexture(false, true, true, true), iconRegister, 2, i);
-            icons[i][3] = genIcon(new ConnectedTexture(true, true, true, false), iconRegister, 3, i);
-            icons[i][4] = genIcon(new ConnectedTexture(true, true, false, true), iconRegister, 4, i);
-            icons[i][5] = genIcon(new ConnectedTexture(true, true, false, false), iconRegister, 5, i);
-            icons[i][6] = genIcon(new ConnectedTexture(false, false, true, true), iconRegister, 6, i);
-            icons[i][7] = genIcon(new ConnectedTexture(false, true, false, true), iconRegister, 7, i);
-            icons[i][8] = genIcon(new ConnectedTexture(false, true, true, false), iconRegister, 8, i);
-            icons[i][9] = genIcon(new ConnectedTexture(true, false, false, true), iconRegister, 9, i);
-            icons[i][10] = genIcon(new ConnectedTexture(true, false, true, false), iconRegister, 10, i);
-            icons[i][11] = genIcon(new ConnectedTexture(false, true, false, false), iconRegister, 11, i);
-            icons[i][12] = genIcon(new ConnectedTexture(true, false, false, false), iconRegister, 12, i);
-            icons[i][13] = genIcon(new ConnectedTexture(false, false, false, true), iconRegister, 13, i);
-            icons[i][14] = genIcon(new ConnectedTexture(false, false, true, false), iconRegister, 14, i);
-            icons[i][15] = genIcon(new ConnectedTexture(false, false, false, false), iconRegister, 15, i);
+            icons[i][0] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(true, true, true, true), iconRegister, 0, i, types);
+            icons[i][1] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(true, false, true, true), iconRegister, 1, i, types);
+            icons[i][2] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(false, true, true, true), iconRegister, 2, i, types);
+            icons[i][3] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(true, true, true, false), iconRegister, 3, i, types);
+            icons[i][4] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(true, true, false, true), iconRegister, 4, i, types);
+            icons[i][5] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(true, true, false, false), iconRegister, 5, i, types);
+            icons[i][6] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(false, false, true, true), iconRegister, 6, i, types);
+            icons[i][7] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(false, true, false, true), iconRegister, 7, i, types);
+            icons[i][8] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(false, true, true, false), iconRegister, 8, i, types);
+            icons[i][9] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(true, false, false, true), iconRegister, 9, i, types);
+            icons[i][10] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(true, false, true, false), iconRegister, 10, i, types);
+            icons[i][11] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(false, true, false, false), iconRegister, 11, i, types);
+            icons[i][12] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(true, false, false, false), iconRegister, 12, i, types);
+            icons[i][13] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(false, false, false, true), iconRegister, 13, i, types);
+            icons[i][14] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(false, false, true, false), iconRegister, 14, i, types);
+            icons[i][15] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(false, false, false, false), iconRegister, 15, i, types);
         }
 
-    }
-
-    public IIcon genIcon(ConnectedTexture connectedTexture, IIconRegister iconRegister, int texNum, int meta) {
-        if (iconRegister instanceof TextureMap) {
-            TextureMap map = (TextureMap) iconRegister;
-            String name = CasingConnectedTextureGenerator.getDerivedName(types[meta] + "." + texNum);
-            System.out.println(name);
-            TextureAtlasSprite texture = map.getTextureExtry(name);
-            if (texture == null) {
-                texture = new CasingConnectedTextureGenerator(name, types[meta], connectedTexture);
-                map.setTextureEntry(name, texture);
-            }
-            return map.getTextureExtry(name);
-        } else {
-            return null;
-        }
     }
 
     @Override
