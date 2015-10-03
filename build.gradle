@@ -220,7 +220,7 @@ uploadArchives {
                         developer {
                             id 'Gigabit101'
                             name 'Gigabit101'
-                            roles { role 'Gigabit101' }
+                            roles { role 'developer' }
                         }
                     }
                 }
