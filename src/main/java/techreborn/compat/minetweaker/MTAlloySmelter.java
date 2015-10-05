@@ -14,6 +14,7 @@ import techreborn.lib.Reference;
 import techreborn.util.CraftingHelper;
 import techreborn.util.ItemUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -85,7 +86,7 @@ public class MTAlloySmelter {
 	private static class Remove implements IUndoableAction
 	{
 		private final ItemStack output;
-		List<AlloySmelterRecipe> removedRecipes;
+		List<AlloySmelterRecipe> removedRecipes = new ArrayList<AlloySmelterRecipe>();
 		public Remove(ItemStack output)
 		{
 			this.output = output;

@@ -13,6 +13,7 @@ import techreborn.api.recipe.machines.AssemblingMachineRecipe;
 import techreborn.lib.Reference;
 import techreborn.util.ItemUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @ZenClass("mods.techreborn.assemblingMachine")
@@ -79,7 +80,7 @@ public class MTAssemblingMachine {
 	private static class Remove implements IUndoableAction
 	{
 		private final ItemStack output;
-		List<AssemblingMachineRecipe> removedRecipes;
+		List<AssemblingMachineRecipe> removedRecipes = new ArrayList<AssemblingMachineRecipe>();
 		public Remove(ItemStack output)
 		{
 			this.output = output;

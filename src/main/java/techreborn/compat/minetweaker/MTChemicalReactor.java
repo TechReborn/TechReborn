@@ -13,6 +13,7 @@ import techreborn.api.recipe.machines.ChemicalReactorRecipe;
 import techreborn.lib.Reference;
 import techreborn.util.ItemUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @ZenClass("mods.techreborn.chemicalReactorRecipe")
@@ -78,7 +79,7 @@ public class MTChemicalReactor{
     private static class Remove implements IUndoableAction
     {
         private final ItemStack output;
-        List<ChemicalReactorRecipe> removedRecipes;
+        List<ChemicalReactorRecipe> removedRecipes = new ArrayList<ChemicalReactorRecipe>();
         public Remove(ItemStack output)
         {
             this.output = output;

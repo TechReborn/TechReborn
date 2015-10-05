@@ -13,6 +13,7 @@ import techreborn.api.recipe.machines.LatheRecipe;
 import techreborn.lib.Reference;
 import techreborn.util.ItemUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @ZenClass("mods.techreborn.lathe")
@@ -74,7 +75,7 @@ public class MTLathe {
 
     private static class Remove implements IUndoableAction {
         private final ItemStack output;
-        List<LatheRecipe> removedRecipes;
+        List<LatheRecipe> removedRecipes = new ArrayList<LatheRecipe>();
 
         public Remove(ItemStack output) {
             this.output = output;

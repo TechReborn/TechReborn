@@ -13,6 +13,7 @@ import techreborn.api.recipe.machines.PlateCuttingMachineRecipe;
 import techreborn.lib.Reference;
 import techreborn.util.ItemUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @ZenClass("mods.techreborn.plateCuttingMachine")
@@ -74,7 +75,7 @@ public class MTPlateCuttingMachine {
 
     private static class Remove implements IUndoableAction {
         private final ItemStack output;
-        List<PlateCuttingMachineRecipe> removedRecipes;
+        List<PlateCuttingMachineRecipe> removedRecipes = new ArrayList<PlateCuttingMachineRecipe>();
 
         public Remove(ItemStack output) {
             this.output = output;

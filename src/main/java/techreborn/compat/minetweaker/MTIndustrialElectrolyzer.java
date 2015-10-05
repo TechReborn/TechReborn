@@ -13,6 +13,7 @@ import techreborn.api.recipe.machines.IndustrialElectrolyzerRecipe;
 import techreborn.lib.Reference;
 import techreborn.util.ItemUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @ZenClass("mods.techreborn.industrialElectrolyzer")
@@ -78,7 +79,7 @@ public class MTIndustrialElectrolyzer {
     private static class Remove implements IUndoableAction
     {
         private final ItemStack output;
-        List<IndustrialElectrolyzerRecipe> removedRecipes;
+        List<IndustrialElectrolyzerRecipe> removedRecipes = new ArrayList<IndustrialElectrolyzerRecipe>();
         public Remove(ItemStack output)
         {
             this.output = output;

@@ -13,6 +13,7 @@ import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
 import techreborn.lib.Reference;
 import techreborn.util.ItemUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @ZenClass("mods.techreborn.implosionCompressor")
@@ -78,7 +79,7 @@ public class MTImplosionCompressor {
     private static class Remove implements IUndoableAction
     {
         private final ItemStack output;
-        List<ImplosionCompressorRecipe> removedRecipes;
+        List<ImplosionCompressorRecipe> removedRecipes = new ArrayList<ImplosionCompressorRecipe>();
         public Remove(ItemStack output)
         {
             this.output = output;

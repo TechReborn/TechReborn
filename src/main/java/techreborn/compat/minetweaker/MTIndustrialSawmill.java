@@ -15,6 +15,7 @@ import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
 import techreborn.lib.Reference;
 import techreborn.util.ItemUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @ZenClass("mods.techreborn.industrialSawmill")
@@ -101,7 +102,7 @@ public class MTIndustrialSawmill {
     private static class Remove implements IUndoableAction
     {
         private final ItemStack output;
-        List<IndustrialSawmillRecipe> removedRecipes;
+        List<IndustrialSawmillRecipe> removedRecipes = new ArrayList<IndustrialSawmillRecipe>();
         public Remove(ItemStack output)
         {
             this.output = output;

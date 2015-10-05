@@ -13,6 +13,7 @@ import techreborn.api.recipe.machines.CentrifugeRecipe;
 import techreborn.lib.Reference;
 import techreborn.util.ItemUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @ZenClass("mods.techreborn.centrifuge")
@@ -78,7 +79,7 @@ public class MTCentrifuge {
 	private static class Remove implements IUndoableAction
 	{
 		private final ItemStack output;
-		List<CentrifugeRecipe> removedRecipes;
+		List<CentrifugeRecipe> removedRecipes = new ArrayList<CentrifugeRecipe>();
 		public Remove(ItemStack output)
 		{
 			this.output = output;

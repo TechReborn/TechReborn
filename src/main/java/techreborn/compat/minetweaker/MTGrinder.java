@@ -15,6 +15,7 @@ import techreborn.api.recipe.machines.GrinderRecipe;
 import techreborn.lib.Reference;
 import techreborn.util.ItemUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @ZenClass("mods.techreborn.grinder")
@@ -90,7 +91,7 @@ public class MTGrinder {
     private static class Remove implements IUndoableAction
     {
         private final ItemStack output;
-        List<GrinderRecipe> removedRecipes;
+        List<GrinderRecipe> removedRecipes = new ArrayList<GrinderRecipe>();
         public Remove(ItemStack output)
         {
             this.output = output;

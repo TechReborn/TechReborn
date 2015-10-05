@@ -13,6 +13,7 @@ import techreborn.api.recipe.machines.BlastFurnaceRecipe;
 import techreborn.lib.Reference;
 import techreborn.util.ItemUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @ZenClass("mods.techreborn.blastFurnace")
@@ -78,7 +79,7 @@ public class MTBlastFurnace {
 	private static class Remove implements IUndoableAction
 	{
 		private final ItemStack output;
-		List<BlastFurnaceRecipe> removedRecipes;
+		List<BlastFurnaceRecipe> removedRecipes = new ArrayList<BlastFurnaceRecipe>();
 		public Remove(ItemStack output)
 		{
 			this.output = output;
