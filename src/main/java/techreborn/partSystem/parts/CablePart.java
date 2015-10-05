@@ -10,7 +10,6 @@ import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.info.IC2Classic;
 import ic2.api.item.IC2Items;
 import ic2.api.network.INetworkTileEntityEventListener;
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -19,7 +18,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.client.render.RenderCablePart;
-import techreborn.init.ModParts;
 import techreborn.lib.Functions;
 import techreborn.lib.Location;
 import techreborn.lib.vecmath.Vecs3d;
@@ -40,274 +38,15 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
     public float offset = 0.10F;
     public Map<ForgeDirection, TileEntity> connectedSides;
     public int ticks = 0;
-    protected ForgeDirection[] dirs = ForgeDirection.values();
-    private boolean[] connections = new boolean[6];
     public boolean addedToEnergyNet = false;
     public ItemStack stack;
-    private boolean hasCheckedSinceStartup;
-
     public int type = 0;
+    protected ForgeDirection[] dirs = ForgeDirection.values();
+    private boolean[] connections = new boolean[6];
+    private boolean hasCheckedSinceStartup;
 
     public CablePart() {
         connectedSides = new HashMap<ForgeDirection, TileEntity>();
-    }
-
-    public void setType(int newType) {
-        this.type = newType;
-        refreshBounding();
-    }
-
-    public void refreshBounding() {
-        float centerFirst = center - offset;
-        double w = getCableThickness(type) / 2;
-        boundingBoxes[6] = new Vecs3dCube(centerFirst - w - 0.03, centerFirst
-                - w - 0.08, centerFirst - w - 0.03, centerFirst + w + 0.08,
-                centerFirst + w + 0.04, centerFirst + w + 0.08);
-
-        boundingBoxes[6] = new Vecs3dCube(centerFirst - w, centerFirst - w,
-                centerFirst - w, centerFirst + w, centerFirst + w, centerFirst
-                + w);
-
-        int i = 0;
-        for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-            double xMin1 = (dir.offsetX < 0 ? 0.0
-                    : (dir.offsetX == 0 ? centerFirst - w : centerFirst + w));
-            double xMax1 = (dir.offsetX > 0 ? 1.0
-                    : (dir.offsetX == 0 ? centerFirst + w : centerFirst - w));
-
-            double yMin1 = (dir.offsetY < 0 ? 0.0
-                    : (dir.offsetY == 0 ? centerFirst - w : centerFirst + w));
-            double yMax1 = (dir.offsetY > 0 ? 1.0
-                    : (dir.offsetY == 0 ? centerFirst + w : centerFirst - w));
-
-            double zMin1 = (dir.offsetZ < 0 ? 0.0
-                    : (dir.offsetZ == 0 ? centerFirst - w : centerFirst + w));
-            double zMax1 = (dir.offsetZ > 0 ? 1.0
-                    : (dir.offsetZ == 0 ? centerFirst + w : centerFirst - w));
-
-            boundingBoxes[i] = new Vecs3dCube(xMin1, yMin1, zMin1, xMax1,
-                    yMax1, zMax1);
-            i++;
-        }
-    }
-
-    @Override
-    public void addCollisionBoxesToList(List<Vecs3dCube> boxes, Entity entity) {
-        for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-            if (connectedSides.containsKey(dir))
-                boxes.add(boundingBoxes[Functions.getIntDirFromDirection(dir)]);
-        }
-        boxes.add(boundingBoxes[6]);
-    }
-
-    @Override
-    public List<Vecs3dCube> getSelectionBoxes() {
-        List<Vecs3dCube> vec3dCubeList = new ArrayList<Vecs3dCube>();
-        for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-            if (connectedSides.containsKey(dir))
-                vec3dCubeList.add(boundingBoxes[Functions
-                        .getIntDirFromDirection(dir)]);
-        }
-        vec3dCubeList.add(boundingBoxes[6]);
-        return vec3dCubeList;
-    }
-
-    @Override
-    public List<Vecs3dCube> getOcclusionBoxes() {
-        List<Vecs3dCube> vecs3dCubesList = new ArrayList<Vecs3dCube>();
-        vecs3dCubesList.add(boundingBoxes[6]);
-        return vecs3dCubesList;
-    }
-
-    @Override
-    public void renderDynamic(Vecs3d translation, double delta) {
-    }
-
-    @Override
-    public boolean renderStatic(Vecs3d translation, int pass) {
-        return RenderCablePart.renderStatic(translation, pass, this);
-    }
-
-    @Override
-    public void writeToNBT(NBTTagCompound tag) {
-        tag.setInteger("type", type);
-        writeConnectedSidesToNBT(tag);
-    }
-
-    @Override
-    public void readFromNBT(NBTTagCompound tag) {
-        type = tag.getInteger("type");
-    }
-
-    @Override
-    public String getName() {
-        return "Cable." + getNameFromType(type);
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public String getItemTextureName() {
-        if(IC2Classic.getLoadedIC2Type() == IC2Classic.IC2Type.SpeigersClassic){
-            return IC2Items.getItem("copperCableBlock").getItem().getIcon(new ItemStack(IC2Items.getItem("copperCableBlock").getItem(), type), 1).getIconName();
-        }
-        return IC2Items.getItem(getTextureNameFromType(type)).getIconIndex().getIconName();
-    }
-
-    @Override
-    public void tick() {
-        if (!FMLCommonHandler.instance().getEffectiveSide().isClient() && !this.addedToEnergyNet) {
-            MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
-            this.addedToEnergyNet = true;
-            nearByChange();
-        }
-        if (worldObj != null) {
-            if (worldObj.getTotalWorldTime() % 40 == 0 || !hasCheckedSinceStartup) {
-                checkConnectedSides();
-                hasCheckedSinceStartup = true;
-            }
-        }
-
-    }
-
-    @Override
-    public void nearByChange() {
-        checkConnectedSides();
-        for(ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS){
-            worldObj.markBlockForUpdate(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
-            IModPart part = ModPartUtils.getPartFromWorld(world, new Location(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ) , this.getName());
-            if(part != null){
-                CablePart cablePart = (CablePart) part;
-                cablePart.checkConnectedSides();
-            }
-        }
-    }
-
-    @Override
-    public void onAdded() {
-        checkConnections(world, getX(), getY(), getZ());
-        if (!FMLCommonHandler.instance().getEffectiveSide().isClient()) {
-            MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
-            this.addedToEnergyNet = true;
-            nearByChange();
-        }
-        nearByChange();
-    }
-
-    @Override
-    public void onRemoved() {
-        if (!FMLCommonHandler.instance().getEffectiveSide().isClient() && this.addedToEnergyNet) {
-            MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
-            this.addedToEnergyNet = false;
-        }
-    }
-
-    @Override
-    public IModPart copy() {
-        CablePart part = new CablePart();
-        part.setType(type);
-        return part;
-    }
-
-    @Override
-    public ItemStack getItem() {
-        return new ItemStack(IC2Items.getItem("copperCableItem").getItem(), 1, type);
-    }
-
-    public boolean shouldConnectTo(TileEntity entity, ForgeDirection dir) {
-        if (entity == null) {
-            return false;
-        } else if (entity instanceof IEnergyTile) {
-            return true;
-        } else {
-            if(ModPartUtils.hasPart(entity.getWorldObj(), entity.xCoord, entity.yCoord, entity.zCoord, this.getName())){
-                CablePart otherCable = (CablePart) ModPartUtils.getPartFromWorld(entity.getWorldObj(), new Location(entity.xCoord, entity.yCoord, entity.zCoord), this.getName());
-                int thisDir = Functions.getIntDirFromDirection(dir);
-                int thereDir = Functions.getIntDirFromDirection(dir.getOpposite());
-                boolean hasconnection = otherCable.connections[thereDir];
-
-                otherCable.connections[thereDir] = false;
-
-                if(ModPartUtils.checkOcclusion(entity.getWorldObj(), entity.xCoord, entity.yCoord, entity.zCoord, boundingBoxes[thereDir])){
-                    otherCable.connections[thereDir] = true;
-                    return true;
-                }
-                otherCable.connections[thereDir] = hasconnection;
-            }
-            return false;
-        }
-    }
-
-    public void checkConnectedSides() {
-        refreshBounding();
-        connectedSides = new HashMap<ForgeDirection, TileEntity>();
-        for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-            int d = Functions.getIntDirFromDirection(dir);
-            if (world == null) {
-                return;
-            }
-            TileEntity te = world.getTileEntity(getX() + dir.offsetX, getY()
-                    + dir.offsetY, getZ() + dir.offsetZ);
-            if (shouldConnectTo(te, dir)) {
-                if (ModPartUtils.checkOcclusion(getWorld(), getX(),
-                        getY(), getZ(), boundingBoxes[d])) {
-                    connectedSides.put(dir, te);
-                }
-            }
-            if (te != null) {
-                te.getWorldObj().markBlockForUpdate(te.xCoord, te.yCoord, te.zCoord);
-            }
-        }
-        checkConnections(world, getX(), getY(), getZ());
-        getWorld().markBlockForUpdate(getX(), getY(), getZ());
-    }
-
-    public void checkConnections(World world, int x, int y, int z) {
-        for (int i = 0; i < 6; i++) {
-            ForgeDirection dir = dirs[i];
-            int dx = x + dir.offsetX;
-            int dy = y + dir.offsetY;
-            int dz = z + dir.offsetZ;
-            connections[i] = shouldConnectTo(world.getTileEntity(dx, dy, dz),
-                    dir);
-            world.func_147479_m(dx, dy, dz);
-        }
-        world.func_147479_m(x, y, z);
-    }
-
-    public double getConductionLoss() {
-        switch (this.type) {
-            case 0:
-                return 0.2D;
-            case 1:
-                return 0.3D;
-            case 2:
-                return 0.5D;
-            case 3:
-                return 0.45D;
-            case 4:
-                return 0.4D;
-            case 5:
-                return 1.0D;
-            case 6:
-                return 0.95D;
-            case 7:
-                return 0.9D;
-            case 8:
-                return 0.8D;
-            case 9:
-                return 0.025D;
-            case 10:
-                return 0.025D;
-            case 11:
-                return 0.5D;
-            case 12:
-                return 0.5D;
-            case 13:
-            default:
-                return 0.025D;
-            case 14:
-                return 0.2D;
-        }
     }
 
     public static int getMaxCapacity(int type) {
@@ -501,6 +240,264 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
         }
 
         return p;
+    }
+
+    public void setType(int newType) {
+        this.type = newType;
+        refreshBounding();
+    }
+
+    public void refreshBounding() {
+        float centerFirst = center - offset;
+        double w = getCableThickness(type) / 2;
+        boundingBoxes[6] = new Vecs3dCube(centerFirst - w - 0.03, centerFirst
+                - w - 0.08, centerFirst - w - 0.03, centerFirst + w + 0.08,
+                centerFirst + w + 0.04, centerFirst + w + 0.08);
+
+        boundingBoxes[6] = new Vecs3dCube(centerFirst - w, centerFirst - w,
+                centerFirst - w, centerFirst + w, centerFirst + w, centerFirst
+                + w);
+
+        int i = 0;
+        for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+            double xMin1 = (dir.offsetX < 0 ? 0.0
+                    : (dir.offsetX == 0 ? centerFirst - w : centerFirst + w));
+            double xMax1 = (dir.offsetX > 0 ? 1.0
+                    : (dir.offsetX == 0 ? centerFirst + w : centerFirst - w));
+
+            double yMin1 = (dir.offsetY < 0 ? 0.0
+                    : (dir.offsetY == 0 ? centerFirst - w : centerFirst + w));
+            double yMax1 = (dir.offsetY > 0 ? 1.0
+                    : (dir.offsetY == 0 ? centerFirst + w : centerFirst - w));
+
+            double zMin1 = (dir.offsetZ < 0 ? 0.0
+                    : (dir.offsetZ == 0 ? centerFirst - w : centerFirst + w));
+            double zMax1 = (dir.offsetZ > 0 ? 1.0
+                    : (dir.offsetZ == 0 ? centerFirst + w : centerFirst - w));
+
+            boundingBoxes[i] = new Vecs3dCube(xMin1, yMin1, zMin1, xMax1,
+                    yMax1, zMax1);
+            i++;
+        }
+    }
+
+    @Override
+    public void addCollisionBoxesToList(List<Vecs3dCube> boxes, Entity entity) {
+        for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+            if (connectedSides.containsKey(dir))
+                boxes.add(boundingBoxes[Functions.getIntDirFromDirection(dir)]);
+        }
+        boxes.add(boundingBoxes[6]);
+    }
+
+    @Override
+    public List<Vecs3dCube> getSelectionBoxes() {
+        List<Vecs3dCube> vec3dCubeList = new ArrayList<Vecs3dCube>();
+        for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+            if (connectedSides.containsKey(dir))
+                vec3dCubeList.add(boundingBoxes[Functions
+                        .getIntDirFromDirection(dir)]);
+        }
+        vec3dCubeList.add(boundingBoxes[6]);
+        return vec3dCubeList;
+    }
+
+    @Override
+    public List<Vecs3dCube> getOcclusionBoxes() {
+        List<Vecs3dCube> vecs3dCubesList = new ArrayList<Vecs3dCube>();
+        vecs3dCubesList.add(boundingBoxes[6]);
+        return vecs3dCubesList;
+    }
+
+    @Override
+    public void renderDynamic(Vecs3d translation, double delta) {
+    }
+
+    @Override
+    public boolean renderStatic(Vecs3d translation, int pass) {
+        return RenderCablePart.renderStatic(translation, pass, this);
+    }
+
+    @Override
+    public void writeToNBT(NBTTagCompound tag) {
+        tag.setInteger("type", type);
+        writeConnectedSidesToNBT(tag);
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound tag) {
+        type = tag.getInteger("type");
+    }
+
+    @Override
+    public String getName() {
+        return "Cable." + getNameFromType(type);
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public String getItemTextureName() {
+        if (IC2Classic.getLoadedIC2Type() == IC2Classic.IC2Type.SpeigersClassic) {
+            return IC2Items.getItem("copperCableBlock").getItem().getIcon(new ItemStack(IC2Items.getItem("copperCableBlock").getItem(), type), 1).getIconName();
+        }
+        return IC2Items.getItem(getTextureNameFromType(type)).getIconIndex().getIconName();
+    }
+
+    @Override
+    public void tick() {
+        if (!FMLCommonHandler.instance().getEffectiveSide().isClient() && !this.addedToEnergyNet) {
+            MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
+            this.addedToEnergyNet = true;
+            nearByChange();
+        }
+        if (worldObj != null) {
+            if (worldObj.getTotalWorldTime() % 80 == 0 || !hasCheckedSinceStartup) {
+                checkConnectedSides();
+                hasCheckedSinceStartup = true;
+            }
+        }
+
+    }
+
+    @Override
+    public void nearByChange() {
+        checkConnectedSides();
+        for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
+            worldObj.markBlockForUpdate(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
+            IModPart part = ModPartUtils.getPartFromWorld(world, new Location(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ), this.getName());
+            if (part != null) {
+                CablePart cablePart = (CablePart) part;
+                cablePart.checkConnectedSides();
+            }
+        }
+    }
+
+    @Override
+    public void onAdded() {
+        checkConnections(world, getX(), getY(), getZ());
+        if (!FMLCommonHandler.instance().getEffectiveSide().isClient()) {
+            MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
+            this.addedToEnergyNet = true;
+            nearByChange();
+        }
+        nearByChange();
+    }
+
+    @Override
+    public void onRemoved() {
+        if (!FMLCommonHandler.instance().getEffectiveSide().isClient() && this.addedToEnergyNet) {
+            MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
+            this.addedToEnergyNet = false;
+        }
+    }
+
+    @Override
+    public IModPart copy() {
+        CablePart part = new CablePart();
+        part.setType(type);
+        return part;
+    }
+
+    @Override
+    public ItemStack getItem() {
+        return new ItemStack(IC2Items.getItem("copperCableItem").getItem(), 1, type);
+    }
+
+    public boolean shouldConnectTo(TileEntity entity, ForgeDirection dir) {
+        if (entity == null) {
+            return false;
+        } else if (entity instanceof IEnergyTile) {
+            return true;
+        } else {
+            if (ModPartUtils.hasPart(entity.getWorldObj(), entity.xCoord, entity.yCoord, entity.zCoord, this.getName())) {
+                CablePart otherCable = (CablePart) ModPartUtils.getPartFromWorld(entity.getWorldObj(), new Location(entity.xCoord, entity.yCoord, entity.zCoord), this.getName());
+                int thisDir = Functions.getIntDirFromDirection(dir);
+                int thereDir = Functions.getIntDirFromDirection(dir.getOpposite());
+                boolean hasconnection = otherCable.connections[thereDir];
+
+                otherCable.connections[thereDir] = false;
+
+                if (ModPartUtils.checkOcclusion(entity.getWorldObj(), entity.xCoord, entity.yCoord, entity.zCoord, boundingBoxes[thereDir])) {
+                    otherCable.connections[thereDir] = true;
+                    return true;
+                }
+                otherCable.connections[thereDir] = hasconnection;
+            }
+            return false;
+        }
+    }
+
+    public void checkConnectedSides() {
+        refreshBounding();
+        connectedSides = new HashMap<ForgeDirection, TileEntity>();
+        for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+            int d = Functions.getIntDirFromDirection(dir);
+            if (world == null) {
+                return;
+            }
+            TileEntity te = world.getTileEntity(getX() + dir.offsetX, getY()
+                    + dir.offsetY, getZ() + dir.offsetZ);
+            if (shouldConnectTo(te, dir)) {
+                if (ModPartUtils.checkOcclusion(getWorld(), getX(),
+                        getY(), getZ(), boundingBoxes[d])) {
+                    connectedSides.put(dir, te);
+                }
+            }
+            if (te != null) {
+                te.getWorldObj().markBlockForUpdate(te.xCoord, te.yCoord, te.zCoord);
+            }
+        }
+        checkConnections(world, getX(), getY(), getZ());
+        getWorld().markBlockForUpdate(getX(), getY(), getZ());
+    }
+
+    public void checkConnections(World world, int x, int y, int z) {
+        for (int i = 0; i < 6; i++) {
+            ForgeDirection dir = dirs[i];
+            int dx = x + dir.offsetX;
+            int dy = y + dir.offsetY;
+            int dz = z + dir.offsetZ;
+            connections[i] = shouldConnectTo(world.getTileEntity(dx, dy, dz),
+                    dir);
+            world.func_147479_m(dx, dy, dz);
+        }
+        world.func_147479_m(x, y, z);
+    }
+
+    public double getConductionLoss() {
+        switch (this.type) {
+            case 0:
+                return 0.2D;
+            case 1:
+                return 0.3D;
+            case 2:
+                return 0.5D;
+            case 3:
+                return 0.45D;
+            case 4:
+                return 0.4D;
+            case 5:
+                return 1.0D;
+            case 6:
+                return 0.95D;
+            case 7:
+                return 0.9D;
+            case 8:
+                return 0.8D;
+            case 9:
+                return 0.025D;
+            case 10:
+                return 0.025D;
+            case 11:
+                return 0.5D;
+            case 12:
+                return 0.5D;
+            case 13:
+            default:
+                return 0.025D;
+            case 14:
+                return 0.2D;
+        }
     }
 
     public double getInsulationEnergyAbsorption() {
