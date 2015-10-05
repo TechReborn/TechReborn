@@ -10,7 +10,7 @@ We have permission to use Greg's textures, see here :https://i.imgur.com/YQEMrq5
 
 ## Debugging the coremod
 
-If you need to debug the coremod method and method striping code you must use a custom launch argument to tell forge about the Loading plugin, this is not needed when not running in a none developer environment.
+If you need to debug the coremod method striping code you must use a custom launch argument to tell forge about the Loading plugin, this is not needed when not running in a none developer environment.
 
 `-Dfml.coreMods.load=techreborn.asm.LoadingPlugin`
 
