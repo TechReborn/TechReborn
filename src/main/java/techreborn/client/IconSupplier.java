@@ -25,8 +25,8 @@ public class IconSupplier {
     public void onTextureStitch(TextureStitchEvent.Pre event) {
         TextureMap reg = event.map;
         if (reg.getTextureType() == 0) {
-            insulatedCopperCable = reg.registerIcon("ic2" + ":wiring/cable/blockCableO");
-            copperCable = reg.registerIcon("ic2" + ":wiring/cable/blockCable");
+            insulatedCopperCable = reg.registerIcon("ic2" + ":wiring/cable/blockCable");
+            copperCable = reg.registerIcon("ic2" + ":wiring/cable/blockCableO");
             goldCable = reg.registerIcon("ic2" + ":wiring/cable/blockGoldCable");
             insulatedGoldCable = reg.registerIcon("ic2" + ":wiring/cable/blockGoldCableI");
             doubleInsulatedGoldCable = reg.registerIcon("ic2" + ":wiring/cable/blockGoldCableII");

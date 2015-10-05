@@ -33,19 +33,25 @@ public class ModPartRegistry {
     }
 
     public static void addAllPartsToSystems() {
+        for (IPartProvider iPartProvider : providers) {
+            iPartProvider.init();
+        }
+
         LogHelper.info("Started to load all parts");
 
         for (ModPart modPart : ModPartRegistry.parts) {
-            Item part = new ModPartItem(modPart)
-                    .setUnlocalizedName(modPart.getName())
-                    .setCreativeTab(TechRebornCreativeTab.instance)
-                    .setTextureName(modPart.getItemTextureName());
-            GameRegistry.registerItem(part, modPart.getName());
-            itemParts.put(modPart.getName(), part);
-            if (modPart instanceof CablePart) {
-                GameRegistry.addShapelessRecipe(new ItemStack(part), IC2Items.getItem(CablePart.getTextureNameFromType(((CablePart) modPart).type)));
-                ((CablePart) modPart).stack = new ItemStack(part);
-                ModParts.stackCable.put(((CablePart) modPart).type, new ItemStack(part));
+            if(modPart.needsItem()){
+                Item part = new ModPartItem(modPart)
+                        .setUnlocalizedName(modPart.getName())
+                        .setCreativeTab(TechRebornCreativeTab.instance)
+                        .setTextureName(modPart.getItemTextureName());
+                GameRegistry.registerItem(part, modPart.getName());
+                itemParts.put(modPart.getName(), part);
+                if (modPart instanceof CablePart) {
+                    GameRegistry.addShapelessRecipe(new ItemStack(part), IC2Items.getItem(CablePart.getTextureNameFromType(((CablePart) modPart).type)));
+                    ((CablePart) modPart).stack = new ItemStack(part);
+                    ModParts.stackCable.put(((CablePart) modPart).type, new ItemStack(part));
+                }
             }
         }
 

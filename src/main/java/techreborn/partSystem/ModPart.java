@@ -95,4 +95,9 @@ public abstract class ModPart extends TileEntity implements IModPart {
     public String getItemTextureName() {
         return "";
     }
+
+    @Override
+    public boolean needsItem() {
+        return true;
+    }
 }

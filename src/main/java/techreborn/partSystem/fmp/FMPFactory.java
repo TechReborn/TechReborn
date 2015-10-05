@@ -4,6 +4,7 @@
 
 package techreborn.partSystem.fmp;
 
+import codechicken.lib.data.MCDataInput;
 import codechicken.lib.vec.BlockCoord;
 import codechicken.lib.vec.Cuboid6;
 import codechicken.multipart.MultiPartRegistry;
@@ -12,6 +13,7 @@ import codechicken.multipart.TMultiPart;
 import codechicken.multipart.TileMultipart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import techreborn.lib.Location;
@@ -20,15 +22,14 @@ import techreborn.partSystem.IModPart;
 import techreborn.partSystem.IPartProvider;
 import techreborn.partSystem.ModPart;
 import techreborn.partSystem.ModPartRegistry;
+import techreborn.partSystem.parts.CableConverter;
 
 import java.util.List;
 
-/**
- * Created by mark on 09/12/14.
- */
-public class FMPFactory implements MultiPartRegistry.IPartFactory,
+public class FMPFactory implements MultiPartRegistry.IPartFactory2,
         IPartProvider {
-    @Override
+
+
     public TMultiPart createPart(String type, boolean client) {
         for (ModPart modPart : ModPartRegistry.parts) {
             if (modPart.getName().equals(type)) {
@@ -50,10 +51,32 @@ public class FMPFactory implements MultiPartRegistry.IPartFactory,
         return tileEntity instanceof TileMultipart;
     }
 
-    //TODO
     @Override
     public IModPart getPartFromWorld(World world, Location location, String name) {
+        TileEntity tileEntity = world.getTileEntity(location.getX(),
+                location.getY(), location.getZ());
+        if (tileEntity instanceof TileMultipart) {
+            TileMultipart mp = (TileMultipart) tileEntity;
+            boolean ret = false;
+            List<TMultiPart> t = mp.jPartList();
+            for (TMultiPart p : t) {
+                if (ret == false) {
+                    if (p.getType().equals(name)) {
+                        if(p instanceof FMPModPart){
+                            return ((FMPModPart) p).iModPart;
+                        }
+                        ret = true;
+                    }
+                }
+            }
+            return null;
+        }
         return null;
+    }
+
+    @Override
+    public void init() {
+        MultiPartRegistry.registerConverter(new CableConverter());
     }
 
     @Override
@@ -99,5 +122,15 @@ public class FMPFactory implements MultiPartRegistry.IPartFactory,
             return ret;
         }
         return false;
+    }
+
+    @Override
+    public TMultiPart createPart(String s, NBTTagCompound nbtTagCompound) {
+        return createPart(s, false);
+    }
+
+    @Override
+    public TMultiPart createPart(String s, MCDataInput mcDataInput) {
+        return createPart(s, false);
     }
 }

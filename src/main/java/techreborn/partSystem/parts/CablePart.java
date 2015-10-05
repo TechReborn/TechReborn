@@ -21,6 +21,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.client.render.RenderCablePart;
 import techreborn.init.ModParts;
 import techreborn.lib.Functions;
+import techreborn.lib.Location;
 import techreborn.lib.vecmath.Vecs3d;
 import techreborn.lib.vecmath.Vecs3dCube;
 import techreborn.partSystem.IModPart;
@@ -114,12 +115,7 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
     @Override
     public List<Vecs3dCube> getOcclusionBoxes() {
         List<Vecs3dCube> vecs3dCubesList = new ArrayList<Vecs3dCube>();
-
-        for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-            if (connectedSides.containsKey(dir))
-                vecs3dCubesList.add(boundingBoxes[Functions
-                        .getIntDirFromDirection(dir)]);
-        }
+        vecs3dCubesList.add(boundingBoxes[6]);
         return vecs3dCubesList;
     }
 
@@ -176,6 +172,14 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
     @Override
     public void nearByChange() {
         checkConnectedSides();
+        for(ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS){
+            worldObj.markBlockForUpdate(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
+            IModPart part = ModPartUtils.getPartFromWorld(world, new Location(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ) , this.getName());
+            if(part != null){
+                CablePart cablePart = (CablePart) part;
+                cablePart.checkConnectedSides();
+            }
+        }
     }
 
     @Override
@@ -186,7 +190,7 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
             this.addedToEnergyNet = true;
             nearByChange();
         }
-        checkConnectedSides();
+        nearByChange();
     }
 
     @Override
@@ -206,7 +210,7 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
 
     @Override
     public ItemStack getItem() {
-        return ModParts.stackCable.get(type);
+        return new ItemStack(IC2Items.getItem("copperCableItem").getItem(), 1, type);
     }
 
     public boolean shouldConnectTo(TileEntity entity, ForgeDirection dir) {
@@ -215,8 +219,21 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
         } else if (entity instanceof IEnergyTile) {
             return true;
         } else {
-            return ModPartUtils.hasPart(entity.getWorldObj(), entity.xCoord,
-                    entity.yCoord, entity.zCoord, this.getName());
+            if(ModPartUtils.hasPart(entity.getWorldObj(), entity.xCoord, entity.yCoord, entity.zCoord, this.getName())){
+                CablePart otherCable = (CablePart) ModPartUtils.getPartFromWorld(entity.getWorldObj(), new Location(entity.xCoord, entity.yCoord, entity.zCoord), this.getName());
+                int thisDir = Functions.getIntDirFromDirection(dir);
+                int thereDir = Functions.getIntDirFromDirection(dir.getOpposite());
+                boolean hasconnection = otherCable.connections[thereDir];
+
+                otherCable.connections[thereDir] = false;
+
+                if(ModPartUtils.checkOcclusion(entity.getWorldObj(), entity.xCoord, entity.yCoord, entity.zCoord, boundingBoxes[thereDir])){
+                    otherCable.connections[thereDir] = true;
+                    return true;
+                }
+                otherCable.connections[thereDir] = hasconnection;
+            }
+            return false;
         }
     }
 
@@ -386,10 +403,10 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
         String p = null;
         switch (cableType) {
             case 0:
-                p = "copperCable";
+                p = "insulatedCopperCable";
                 break;
             case 1:
-                p = "insulatedCopperCable";
+                p = "copperCable";
                 break;
             case 2:
                 p = "goldCable";
@@ -438,10 +455,10 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
         String p = null;
         switch (cableType) {
             case 0:
-                p = "copperCableItem";
+                p = "insulatedCopperCableItem";
                 break;
             case 1:
-                p = "insulatedCopperCableItem";
+                p = "copperCableItem";
                 break;
             case 2:
                 p = "goldCableItem";
@@ -566,5 +583,10 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
     @Override
     public void writeDesc(NBTTagCompound tagCompound) {
         writeConnectedSidesToNBT(tagCompound);
+    }
+
+    @Override
+    public boolean needsItem() {
+        return false;
     }
 }

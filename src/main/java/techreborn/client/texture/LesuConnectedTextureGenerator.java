@@ -129,7 +129,6 @@ public class LesuConnectedTextureGenerator extends TextureAtlasSprite {
         if (iconRegister instanceof TextureMap) {
             TextureMap map = (TextureMap) iconRegister;
             String name = LesuConnectedTextureGenerator.getDerivedName("lesu." + texNum);
-            System.out.println(name);
             TextureAtlasSprite texture = map.getTextureExtry(name);
             if (texture == null) {
                 texture = new LesuConnectedTextureGenerator(name, "lesu", connectedTexture);

@@ -59,23 +59,6 @@ public class FMPModPart extends TMultiPart implements TSlottedPart,
         return NormalOcclusionTest.apply(this, npart);
     }
 
-    public void addCollisionBoxesToList(List<Vecs3dCube> l,
-                                        AxisAlignedBB bounds, Entity entity) {
-        List<Vecs3dCube> boxes = new ArrayList<Vecs3dCube>();
-        List<Vecs3dCube> boxes_ = new ArrayList<Vecs3dCube>();
-        iModPart.addCollisionBoxesToList(boxes_, entity);
-        for (Vecs3dCube c : boxes_) {
-            Vecs3dCube cube = c.clone();
-            cube.add(getX(), getY(), getZ());
-            boxes.add(cube);
-        }
-        boxes_.clear();
-
-        for (Vecs3dCube c : boxes) {
-            if (c.toAABB().intersectsWith(bounds))
-                l.add(c);
-        }
-    }
 
     @Override
     public Iterable<Cuboid6> getCollisionBoxes() {

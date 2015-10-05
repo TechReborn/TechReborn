@@ -72,6 +72,11 @@ public class QModPartFactory implements IPartFactory, IPartProvider {
         return null;
     }
 
+    @Override
+    public void init() {
+
+    }
+
     public String getCreatedPartType(ItemStack item, EntityPlayer player,
                                      World world, MovingObjectPosition mop, ModPart modPart) {
         return modPart.getName();

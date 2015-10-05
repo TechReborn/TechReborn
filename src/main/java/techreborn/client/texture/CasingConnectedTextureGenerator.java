@@ -127,7 +127,6 @@ public class CasingConnectedTextureGenerator extends TextureAtlasSprite {
         if (iconRegister instanceof TextureMap) {
             TextureMap map = (TextureMap) iconRegister;
             String name = CasingConnectedTextureGenerator.getDerivedName(types[meta] + "." + texNum);
-            System.out.println(name);
             TextureAtlasSprite texture = map.getTextureExtry(name);
             if (texture == null) {
                 texture = new CasingConnectedTextureGenerator(name, types[meta], connectedTexture);

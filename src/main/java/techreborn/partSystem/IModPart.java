@@ -115,4 +115,6 @@ public interface IModPart {
     public void onRemoved();
 
     public IModPart copy();
+
+    public boolean needsItem();
 }
