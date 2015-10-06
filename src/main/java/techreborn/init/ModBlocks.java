@@ -181,7 +181,7 @@ public class ModBlocks {
 
         lathe = new BlockLathe(Material.rock);
         GameRegistry.registerBlock(lathe, "lathe");
-        GameRegistry.registerTileEntity(TileLathe.class, "TileLathe");
+        GameRegistry.registerTileEntity(TileLathe.class, "TileLatheTR");
 
         platecuttingmachine = new BlockPlateCuttingMachine(Material.rock);
         GameRegistry.registerBlock(platecuttingmachine, "platecuttingmachine");
@@ -207,7 +207,7 @@ public class ModBlocks {
 
         Metalshelf = new BlockMetalShelf(Material.rock);
         GameRegistry.registerBlock(Metalshelf, "metalshelf");
-        GameRegistry.registerTileEntity(TileMetalShelf.class, "TileMetalShelf");
+        GameRegistry.registerTileEntity(TileMetalShelf.class, "TileMetalShelfTR");
 
         LesuStorage = new BlockLesuStorage(Material.rock);
         GameRegistry.registerBlock(LesuStorage, "lesustorage");
