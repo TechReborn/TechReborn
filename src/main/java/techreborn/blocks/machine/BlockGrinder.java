@@ -78,10 +78,10 @@ public class BlockGrinder extends BlockMachineBase {
                         : (side == metadata ? this.iconFront : this.blockIcon));
     }
 
-    @Override
-    public Item getItemDropped(int meta, Random random, int fortune) {
-        return IC2Items.getItem("machine").getItem();
-    }
+//    @Override
+//    public Item getItemDropped(int meta, Random random, int fortune) {
+//        return IC2Items.getItem("machine").getItem();
+//    } //TODO get a standalone way for this
 
     @Override
     public IIcon getIcon(int side, int meta) {
