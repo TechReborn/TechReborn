@@ -8,6 +8,7 @@ import forestry.api.arboriculture.EnumWoodType;
 import forestry.api.arboriculture.TreeManager;
 import forestry.api.fuels.FuelManager;
 import forestry.api.fuels.GeneratorFuel;
+import forestry.core.config.Version;
 import ic2.api.item.IC2Items;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -18,6 +19,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import techreborn.api.fuel.FluidPowerManager;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
+import techreborn.compat.CompatManager;
 import techreborn.compat.ICompatModule;
 import techreborn.config.ConfigTechReborn;
 
@@ -27,8 +29,11 @@ import java.util.Map;
 public class RecipesForestry implements ICompatModule {
     @Override
     public void preInit(FMLPreInitializationEvent event) {
-
-
+            System.out.println(Version.VERSION);
+        System.out.println();
+        if(!Version.VERSION.split(".")[0].equals("4")){
+            CompatManager.INSTANCE.compatModules.remove(this);
+        }
     }
 
     @Override
