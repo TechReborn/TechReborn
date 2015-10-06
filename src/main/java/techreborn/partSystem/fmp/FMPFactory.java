@@ -11,6 +11,8 @@ import codechicken.multipart.MultiPartRegistry;
 import codechicken.multipart.NormallyOccludedPart;
 import codechicken.multipart.TMultiPart;
 import codechicken.multipart.TileMultipart;
+import cpw.mods.fml.common.Loader;
+import ic2.api.info.IC2Classic;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -76,7 +78,9 @@ public class FMPFactory implements MultiPartRegistry.IPartFactory2,
 
     @Override
     public void init() {
-        MultiPartRegistry.registerConverter(new CableConverter());
+        if(Loader.isModLoaded("IC2")){
+            MultiPartRegistry.registerConverter(new CableConverter());
+        }
     }
 
     @Override

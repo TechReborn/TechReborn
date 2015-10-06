@@ -50,7 +50,8 @@ public class FMPModPart extends TMultiPart implements TSlottedPart,
     public Iterable<Cuboid6> getOcclusionBoxes() {
         List<Cuboid6> cubes = new ArrayList<Cuboid6>();
         for (Vecs3dCube c : iModPart.getOcclusionBoxes())
-            cubes.add(new Cuboid6(c.toAABB()));
+            if(c != null)
+                cubes.add(new Cuboid6(c.toAABB()));
         return cubes;
     }
 
