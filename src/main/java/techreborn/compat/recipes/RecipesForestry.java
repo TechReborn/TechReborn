@@ -19,10 +19,8 @@ import net.minecraftforge.oredict.OreDictionary;
 import techreborn.api.fuel.FluidPowerManager;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
-import techreborn.compat.CompatManager;
 import techreborn.compat.ICompatModule;
 import techreborn.config.ConfigTechReborn;
-import techreborn.util.LogHelper;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -30,10 +28,6 @@ import java.util.Map;
 public class RecipesForestry implements ICompatModule {
     @Override
     public void preInit(FMLPreInitializationEvent event) {
-        if(!Version.VERSION.split(".")[0].equals("4")){
-            CompatManager.INSTANCE.compatModules.remove(this);
-            LogHelper.error("Disabled forestry integration because you are not using forestry version 4!");
-        }
     }
 
     @Override
