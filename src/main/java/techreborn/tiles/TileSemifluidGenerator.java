@@ -38,9 +38,6 @@ public class TileSemifluidGenerator extends TilePowerAcceptor implements IWrench
     public TileSemifluidGenerator() {
         super(ConfigTechReborn.ThermalGeneratorTier);
         //TODO: fix this to have SemiFluid generator values
-        this.energySource = new BasicSource(this,
-                ConfigTechReborn.ThermalGeneratorCharge,
-                ConfigTechReborn.ThermalGeneratorTier);
 
         fluids.put("creosote", 3000);
         fluids.put("biomass", 8000);
