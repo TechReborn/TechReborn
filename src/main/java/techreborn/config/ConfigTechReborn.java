@@ -163,6 +163,8 @@ public class ConfigTechReborn {
     public static boolean ShowChargeHud;
     public static boolean useConnectedTextures;
 
+    public static boolean rainExplosions;
+
     public static Configuration config;
 
     private ConfigTechReborn(File configFile) {
@@ -670,6 +672,9 @@ public class ConfigTechReborn {
 
         useConnectedTextures = config.get(CATEGORY_INTEGRATION, StatCollector.translateToLocal("config.techreborn.connectTextures"),
                 true, StatCollector.translateToLocal("config.techreborn.connectTextures.tooltip")).getBoolean(true);
+
+        rainExplosions = config.get(CATEGORY_POWER, StatCollector.translateToLocal("config.techreborn.rainExplosions"),
+                true, StatCollector.translateToLocal("config.techreborn.rainExplosions.tooltip")).getBoolean(true);
         
         //Integration
         AllowBOPRecipes = config.get(CATEGORY_INTEGRATION, StatCollector.translateToLocal("config.techreborn.allowBopRecipes"),

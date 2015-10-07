@@ -804,6 +804,8 @@ config.techreborn.enableEU=Enable EU support
 config.techreborn.enableEU.tooltip= Enable EU support for all machines.
 config.techreborn.connectTextures=Enable Connected textures
 config.techreborn.connectTextures.tooltip= Enable Connected textures
+config.techreborn.rainExplosions=Enable machine explosions when rain hits
+config.techreborn.rainExplosions.tooltip= When this is enabled machines will explode when they come in contact with rain.
 
 #ConfigGui
 config.techreborn.category.general=General Configs

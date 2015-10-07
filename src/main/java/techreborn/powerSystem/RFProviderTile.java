@@ -4,10 +4,14 @@ import cofh.api.energy.IEnergyConnection;
 import cofh.api.energy.IEnergyHandler;
 import cofh.api.energy.IEnergyProvider;
 import cofh.api.energy.IEnergyReceiver;
+import net.minecraft.client.particle.EntityHugeExplodeFX;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.Explosion;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.api.power.IEnergyInterfaceTile;
 import techreborn.tiles.TileMachineBase;
+
+import java.util.Random;
 
 /**
  * This is done in a different class so the updateEntity can be striped for ic2 and this one will still get called.
@@ -15,12 +19,22 @@ import techreborn.tiles.TileMachineBase;
 public abstract class RFProviderTile extends TileMachineBase implements IEnergyReceiver, IEnergyProvider, IEnergyInterfaceTile {
 
 
+    Random random = new Random();
+
     @Override
     public void updateEntity() {
         super.updateEntity();
         if (worldObj.isRemote) {
             return;
         }
+        if(worldObj.canBlockSeeTheSky(xCoord, yCoord + 1, zCoord) && worldObj.isRaining() || worldObj.isThundering())
+            if (getEnergy() >= 1 && random.nextInt(160) == 0) {
+                Explosion explosion = new Explosion(this.worldObj, null, xCoord, yCoord, zCoord, getEnergy() < 100000? 2F : 4F);
+                explosion.isFlaming = true;
+                explosion.isSmoking = getEnergy() > 100000;
+                explosion.doExplosionA();
+                explosion.doExplosionB(false);
+            }
         sendPower();
     }
 
