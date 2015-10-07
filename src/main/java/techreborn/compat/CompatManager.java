@@ -26,7 +26,7 @@ public class CompatManager {
         registerCompact(RecipesNatura.class, "Natura");
         registerCompact(RecipesBiomesOPlenty.class, "BiomesOPlenty");
         registerCompact(RecipesThaumcraft.class, "Thaumcraft");
-        registerCompact(RecipesForestry.class, "Forestry");
+        registerCompact(RecipesForestry.class, "Forestry", isForestry4());
         registerCompact(MinetweakerCompat.class, "MineTweaker3");
     }
 
@@ -55,6 +55,15 @@ public class CompatManager {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
+        }
+    }
+
+    public boolean isForestry4(){
+        try {
+            Class.forName("forestry.api.arboriculture.EnumWoodType");
+            return true;
+        } catch( ClassNotFoundException e ) {
+            return false;
         }
     }
 }

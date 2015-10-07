@@ -46,9 +46,4 @@ public class BlockMagicEnergyConverter extends BlockMachineBase {
 
     }
 
-//    @Override
-//    public Item getItemDropped(int meta, Random random, int fortune) {
-//        return IC2Items.getItem("machine").getItem();
-//    }//TODO
-
 }

@@ -1,11 +1,14 @@
 package techreborn.blocks;
 
+import cpw.mods.fml.common.Loader;
+import ic2.api.item.IC2Items;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -14,8 +17,10 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.init.ModBlocks;
 import techreborn.tiles.TileMachineBase;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class BlockMachineBase extends BlockContainer {
@@ -156,5 +161,20 @@ public class BlockMachineBase extends BlockContainer {
 
     public int getTileRotation(IBlockAccess blockAccess, int x, int y, int z){
         return blockAccess.getTileEntity(x, y, z) != null ? getTileRotation(blockAccess.getTileEntity(x, y, z).getWorldObj(), x, y, z) : 0;
+    }
+
+    @Override
+    public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
+        ArrayList<ItemStack> items = new ArrayList<ItemStack>();
+        if(Loader.isModLoaded("IC2")){
+            items.add(IC2Items.getItem(isAdvanced() ? "advancedMachine" : "machine"));
+        } else {
+            items.add(isAdvanced()? new ItemStack(Item.getItemFromBlock(ModBlocks.MachineCasing), 1, 0) : new ItemStack(Item.getItemFromBlock(ModBlocks.MachineCasing), 1, 2));
+        }
+        return items;
+    }
+
+    public boolean isAdvanced(){
+        return false;
     }
 }
