@@ -1,7 +1,5 @@
 package techreborn.tiles;
 
-import ic2.api.energy.prefab.BasicSource;
-import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -10,11 +8,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
+import techreborn.powerSystem.TilePowerAcceptor;
 import techreborn.util.FluidUtils;
 import techreborn.util.Inventory;
 import techreborn.util.Tank;
@@ -22,13 +20,12 @@ import techreborn.util.Tank;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TileSemifluidGenerator extends TileEntity implements IWrenchable,
-        IFluidHandler, IInventory, IEnergyTile {
+public class TileSemifluidGenerator extends TilePowerAcceptor implements IWrenchable,
+        IFluidHandler, IInventory{
 
     public Tank tank = new Tank("TileSemifluidGenerator",
             FluidContainerRegistry.BUCKET_VOLUME * 10, this);
     public Inventory inventory = new Inventory(3, "TileSemifluidGenerator", 64);
-    public BasicSource energySource;
 
     //TODO: run this off config
     public static final int euTick = 8;
@@ -39,6 +36,7 @@ public class TileSemifluidGenerator extends TileEntity implements IWrenchable,
     double pendingWithdraw = 0.0;
 
     public TileSemifluidGenerator() {
+        super(ConfigTechReborn.ThermalGeneratorTier);
         //TODO: fix this to have SemiFluid generator values
         this.energySource = new BasicSource(this,
                 ConfigTechReborn.ThermalGeneratorCharge,
@@ -131,7 +129,6 @@ public class TileSemifluidGenerator extends TileEntity implements IWrenchable,
         super.readFromNBT(tagCompound);
         tank.readFromNBT(tagCompound);
         inventory.readFromNBT(tagCompound);
-        energySource.readFromNBT(tagCompound);
     }
 
     @Override
@@ -139,7 +136,6 @@ public class TileSemifluidGenerator extends TileEntity implements IWrenchable,
         super.writeToNBT(tagCompound);
         tank.writeToNBT(tagCompound);
         inventory.writeToNBT(tagCompound);
-        energySource.writeToNBT(tagCompound);
     }
 
     public Packet getDescriptionPacket() {
@@ -162,9 +158,9 @@ public class TileSemifluidGenerator extends TileEntity implements IWrenchable,
         super.updateEntity();
         if (!worldObj.isRemote)
             FluidUtils.drainContainers(this, inventory, 0, 1);
-        energySource.updateEntity();
+
         if (tank.getFluidAmount() > 0
-                && energySource.getCapacity() - energySource.getEnergyStored() >= euTick) {
+                && getMaxPower() - getEnergy() >= euTick) {
             Integer euPerBucket = fluids.get(tank.getFluidType().getName());
             //float totalTicks = (float)euPerBucket / 8f; //x eu per bucket / 8 eu per tick
             //float millibucketsPerTick = 1000f / totalTicks;
@@ -175,7 +171,7 @@ public class TileSemifluidGenerator extends TileEntity implements IWrenchable,
             pendingWithdraw -= currentWithdraw;
 
             tank.drain(currentWithdraw, true);
-            energySource.addEnergy(euTick);
+            addEnergy(euTick);
         }
         if (tank.getFluidType() != null && getStackInSlot(2) == null) {
             inventory.setInventorySlotContents(2, new ItemStack(tank
@@ -246,15 +242,27 @@ public class TileSemifluidGenerator extends TileEntity implements IWrenchable,
     }
 
     @Override
-    public void onChunkUnload() {
-        energySource.onChunkUnload();
-        super.onChunkUnload();
+    public double getMaxPower() {
+        return ConfigTechReborn.ThermalGeneratorCharge;
     }
 
     @Override
-    public void invalidate() {
-        energySource.invalidate();
-        super.invalidate();
+    public boolean canAcceptEnergy(ForgeDirection direction) {
+        return false;
     }
 
+    @Override
+    public boolean canProvideEnergy(ForgeDirection direction) {
+        return true;
+    }
+
+    @Override
+    public double getMaxOutput() {
+        return euTick;
+    }
+
+    @Override
+    public double getMaxInput() {
+        return 0;
+    }
 }

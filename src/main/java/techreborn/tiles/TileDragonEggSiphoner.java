@@ -1,35 +1,33 @@
 package techreborn.tiles;
 
-import ic2.api.energy.prefab.BasicSource;
-import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
+import techreborn.powerSystem.TilePowerAcceptor;
 import techreborn.util.Inventory;
 
-public class TileDragonEggSiphoner extends TileMachineBase implements IWrenchable, IEnergyTile, IInventory {
+public class TileDragonEggSiphoner extends TilePowerAcceptor implements IWrenchable, IInventory {
 
-    public BasicSource energy;
     public Inventory inventory = new Inventory(3, "TileAlloySmelter", 64);
     public static final int euTick = ConfigTechReborn.DragoneggsiphonerOutput;
 
     public TileDragonEggSiphoner() {
-        energy = new BasicSource(this, 1000, 2);
+        super(2);
     }
 
     @Override
     public void updateEntity() {
         super.updateEntity();
-        energy.updateEntity();
 
         if (!worldObj.isRemote) {
             if (worldObj.getBlock(xCoord, yCoord + 1, zCoord) == Blocks.dragon_egg) {
-                energy.addEnergy(euTick);
+                addEnergy(euTick);
             }
         }
     }
@@ -71,29 +69,15 @@ public class TileDragonEggSiphoner extends TileMachineBase implements IWrenchabl
     }
 
     @Override
-    public void invalidate() {
-        energy.invalidate();
-        super.invalidate();
-    }
-
-    @Override
-    public void onChunkUnload() {
-        energy.onChunkUnload();
-        super.onChunkUnload();
-    }
-
-    @Override
     public void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
         inventory.readFromNBT(tagCompound);
-        energy.readFromNBT(tagCompound);
     }
 
     @Override
     public void writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
         inventory.writeToNBT(tagCompound);
-        energy.writeToNBT(tagCompound);
     }
 
     @Override
@@ -156,4 +140,28 @@ public class TileDragonEggSiphoner extends TileMachineBase implements IWrenchabl
         return inventory.isItemValidForSlot(slot, stack);
     }
 
+    @Override
+    public double getMaxPower() {
+        return 1000;
+    }
+
+    @Override
+    public boolean canAcceptEnergy(ForgeDirection direction) {
+        return false;
+    }
+
+    @Override
+    public boolean canProvideEnergy(ForgeDirection direction) {
+        return true;
+    }
+
+    @Override
+    public double getMaxOutput() {
+        return euTick;
+    }
+
+    @Override
+    public double getMaxInput() {
+        return 0;
+    }
 }
