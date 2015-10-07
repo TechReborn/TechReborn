@@ -6,6 +6,8 @@ TechReborn is currently in a beta state.
 
 We have permission to use Greg's textures, see here :https://i.imgur.com/YQEMrq5.png?1
 
+The current main maintainers are @modmuss50 and @gigabit101 if you need any help please contact one of us.
+
 [![Build Status](http://modmuss50.me:8080/buildStatus/icon?job=TechReborn)](http://modmuss50.me:8080/job/TechReborn/)
 
 ## Debugging the coremod
