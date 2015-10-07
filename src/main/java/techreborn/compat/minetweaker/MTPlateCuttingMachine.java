@@ -22,9 +22,7 @@ public class MTPlateCuttingMachine {
     @ZenMethod
     public static void addRecipe(IItemStack output, IIngredient input1, int ticktime, int euTick) {
         ItemStack oInput1 = (ItemStack) MinetweakerCompat.toObject(input1);
-        if (oInput1 == null)
-            return;
-
+        PlateCuttingMachineRecipe r = new PlateCuttingMachineRecipe(oInput1, MinetweakerCompat.toStack(output), ticktime, euTick);
         PlateCuttingMachineRecipe r = new PlateCuttingMachineRecipe(oInput1, MinetweakerCompat.toStack(output), ticktime, euTick);
 
         MineTweakerAPI.apply(new Add(r));

@@ -28,12 +28,8 @@ public class MTGrinder {
     @ZenMethod
     public static void addRecipe(IItemStack output1 ,IItemStack output2 ,IItemStack output3,IItemStack output4, IIngredient input1, IIngredient input2, ILiquidStack fluid, int ticktime, int euTick) {
         ItemStack oInput1 = (ItemStack) MinetweakerCompat.toObject(input1);
-        if (oInput1 == null)
-            return;
 
         ItemStack oInput2 = (ItemStack) MinetweakerCompat.toObject(input2);
-        if (oInput2 == null)
-            return;
 
         FluidStack fluidStack = null;
         if(fluid != null){

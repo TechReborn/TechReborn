@@ -28,12 +28,7 @@ public class MTAlloySmelter {
 	@ZenMethod
 	public static void addRecipe(IItemStack output, IIngredient input1, IIngredient input2, int ticktime, int euTick) {
 		ItemStack oInput1 = (ItemStack) MinetweakerCompat.toObject(input1);
-		if (oInput1 == null)
-			return;
-
 		ItemStack oInput2 = (ItemStack) MinetweakerCompat.toObject(input2);
-		if (oInput2 == null)
-			return;
 
 		AlloySmelterRecipe r = new AlloySmelterRecipe(oInput1, oInput2, MinetweakerCompat.toStack(output), ticktime, euTick);
 

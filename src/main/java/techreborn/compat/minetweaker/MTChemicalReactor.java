@@ -21,12 +21,7 @@ public class MTChemicalReactor{
     @ZenMethod
     public static void addRecipe(IItemStack output1, IIngredient input1, IIngredient input2, int ticktime, int euTick) {
         ItemStack oInput1 = (ItemStack) MinetweakerCompat.toObject(input1);
-        if (oInput1 == null)
-            return;
-
         ItemStack oInput2 = (ItemStack) MinetweakerCompat.toObject(input2);
-        if (oInput2 == null)
-            return;
 
         ChemicalReactorRecipe r = new ChemicalReactorRecipe(oInput1, oInput2, MinetweakerCompat.toStack(output1), ticktime, euTick);
 

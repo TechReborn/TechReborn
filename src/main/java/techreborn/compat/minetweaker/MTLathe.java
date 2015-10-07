@@ -22,8 +22,6 @@ public class MTLathe {
     @ZenMethod
     public static void addRecipe(IItemStack output, IIngredient input1, int ticktime, int euTick) {
         ItemStack oInput1 = (ItemStack) MinetweakerCompat.toObject(input1);
-        if (oInput1 == null)
-            return;
 
         LatheRecipe r = new LatheRecipe(oInput1, MinetweakerCompat.toStack(output), ticktime, euTick);
 

@@ -21,12 +21,7 @@ public class MTCentrifuge {
 	@ZenMethod
 	public static void addRecipe(IItemStack output1,IItemStack output2,IItemStack output3,IItemStack output4, IIngredient input1, IIngredient input2, int ticktime, int euTick) {
 		ItemStack oInput1 = (ItemStack) MinetweakerCompat.toObject(input1);
-		if (oInput1 == null)
-			return;
-
 		ItemStack oInput2 = (ItemStack) MinetweakerCompat.toObject(input2);
-		if (oInput2 == null)
-			return;
 
 		CentrifugeRecipe r = new CentrifugeRecipe(oInput1, oInput2, MinetweakerCompat.toStack(output1), MinetweakerCompat.toStack(output2),MinetweakerCompat.toStack(output3), MinetweakerCompat.toStack(output4), ticktime, euTick);
 
