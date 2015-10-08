@@ -119,6 +119,9 @@ public class IDSUManager {
         }
 
         public IDSUValueSaveData getSaves(String udid) {
+            if(udid == null){
+                return null;
+            }
             if (idsuValues.containsKey(udid)) {
                 return idsuValues.get(udid);
             } else {

@@ -15,11 +15,17 @@ public class TileIDSU extends TilePowerAcceptor {
 
     @Override
     public double getEnergy() {
+        if(ownerUdid == null){
+            return 0;
+        }
         return IDSUManager.INSTANCE.getSaveDataForWorld(worldObj, ownerUdid).storedPower;
     }
 
     @Override
     public void setEnergy(double energy) {
+        if(ownerUdid == null){
+            return;
+        }
         IDSUManager.INSTANCE.getSaveDataForWorld(worldObj, ownerUdid).storedPower = energy;
     }
 
@@ -92,6 +98,9 @@ public class TileIDSU extends TilePowerAcceptor {
 
     public void writeToNBT(NBTTagCompound nbttagcompound) {
         super.writeToNBT(nbttagcompound);
+        if(this.ownerUdid == null){
+            return;
+        }
         nbttagcompound.setString("ownerUdid", this.ownerUdid);
     }
 
