@@ -9,7 +9,6 @@
  */
 package techreborn.client.render;
 
-
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -26,6 +25,8 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
+
 import org.lwjgl.opengl.GL11;
 import techreborn.client.multiblock.IMultiblockRenderHook;
 import techreborn.client.multiblock.Multiblock;
@@ -37,9 +38,13 @@ public class MultiblockRenderEvent {
 
 	private static RenderBlocks blockRender = RenderBlocks.getInstance();
 	public MultiblockSet currentMultiblock;
+	public static ChunkCoordinates anchor;
+	public static int angle;
 
 	public void setMultiblock(MultiblockSet set) {
 		currentMultiblock = set;
+		anchor = null;
+		angle = 0;
 	}
 
 	@SubscribeEvent
@@ -50,12 +55,21 @@ public class MultiblockRenderEvent {
 			renderPlayerLook(mc.thePlayer, mc.objectMouseOver);
 		}
 	}
+	
+	@SubscribeEvent
+	public void onPlayerInteract(PlayerInteractEvent event) {
+		if(currentMultiblock != null && anchor == null && event.action == Action.RIGHT_CLICK_BLOCK && event.entityPlayer == Minecraft.getMinecraft().thePlayer) {
+			anchor = new ChunkCoordinates(event.x, event.y, event.z);
+			angle = MathHelper.floor_double(event.entityPlayer.rotationYaw * 4.0 / 360.0 + 0.5) & 3;
+			event.setCanceled(true);
+		}
+	}
 
 	private void renderPlayerLook(EntityPlayer player, MovingObjectPosition src) {
 		if(currentMultiblock != null) {
-			int anchorX = src.blockX;
-			int anchorY = src.blockY + 1;
-			int anchorZ = src.blockZ;
+			int anchorX = anchor != null ? anchor.posX : src.blockX;
+			int anchorY = anchor != null ? anchor.posY +1 : src.blockY + 1;
+			int anchorZ = anchor != null ? anchor.posZ : src.blockZ;
 
 			rendering = true;
 			Multiblock mb =currentMultiblock.getForEntity(player);

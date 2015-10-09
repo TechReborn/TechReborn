@@ -1,5 +1,7 @@
 package techreborn.pda.util;
 
+import java.awt.Color;
+
 import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.client.config.GuiButtonExt;
@@ -48,7 +50,7 @@ public class GuiButtonCustomTexture extends GuiButtonExt {
             RenderHelper.enableStandardItemLighting();
             RenderHelper.enableGUIStandardItemLighting();
             RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, itemstack, this.xPosition, this.yPosition);
-            this.drawString(mc.fontRenderer, this.NAME, this.xPosition + 20, this.yPosition + 3, 777777);
+            this.drawString(mc.fontRenderer, this.NAME, this.xPosition + 20, this.yPosition + 3, Color.white.getRGB());
         }
     }
 	public boolean getIsHovering(){return field_146123_n;}

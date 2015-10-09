@@ -1,5 +1,7 @@
 package techreborn.pda.pages;
 
+import java.awt.Color;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.item.ItemStack;
@@ -11,10 +13,10 @@ import techreborn.pda.PageCollection;
 import techreborn.pda.util.GuiButtonCustomTexture;
 import techreborn.pda.util.GuiButtonTextOnly;
 
-public class ContentsPage extends TitledPage{
+public class ContentsPage extends TitledPage {
 
 	public ContentsPage(String name, PageCollection collection) {
-		super(name, false, collection, "techreborn.pda.contents", 518915);
+		super(name, false, collection, "techreborn.pda.contents", Color.white.getRGB());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -31,8 +33,6 @@ public class ContentsPage extends TitledPage{
 		
 		buttonList.add(new GuiButtonCustomTexture(7, getXMin() + 160, getYMin() + 180, 0, 46, 80, 20, new ItemStack(ModItems.lapotronicOrb), "INDEX", "Changelog"));
 		buttonList.add(new GuiButtonCustomTexture(8, getXMin() + 25, getYMin() + 180, 0, 46, 80, 20, new ItemStack(ModItems.lapotronicOrb), "INDEX", "Configs"));
-		buttonList.add(new GuiButtonCustomTexture(9, getXMin() + 95, getYMin() + 180, 0, 46, 80, 20, new ItemStack(ModItems.lapotronicOrb), "INDEX", "CONFIG"));
-
 	}
 	
 	@Override
