@@ -599,9 +599,6 @@ public class ModItems {
         OreDictionary.registerOre("circuitData", ItemParts.getPartByName("dataStorageCircuit"));
         OreDictionary.registerOre("craftingSuperconductor", ItemParts.getPartByName("superconductor"));
         OreDictionary.registerOre("batteryUltimate", ItemParts.getPartByName("diamondGrindingHead"));
-        OreDictionary.registerOre("gearBronze", ItemParts.getPartByName("bronzeGear"));
-        OreDictionary.registerOre("gearIron", ItemParts.getPartByName("ironGear"));
-        OreDictionary.registerOre("gearTitanium", ItemParts.getPartByName("titaniumGear"));
         OreDictionary.registerOre("gearSteel", ItemParts.getPartByName("steelGear"));
         OreDictionary.registerOre("gearTungstensteel", ItemParts.getPartByName("tungstensteelGear"));
         OreDictionary.registerOre("blockLapis", ItemParts.getPartByName("lazuriteChunk"));
