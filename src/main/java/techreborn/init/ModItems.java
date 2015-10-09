@@ -268,13 +268,6 @@ public class ModItems {
 
     public static void registerOreDict() {
 
-        // Gems
-        OreDictionary.registerOre("gemRuby", ItemGems.getGemByName("ruby"));
-        OreDictionary.registerOre("gemSapphire", ItemGems.getGemByName("sapphire"));
-        OreDictionary.registerOre("gemPeridot", ItemGems.getGemByName("peridot"));
-        OreDictionary.registerOre("gemRedGarnet", ItemGems.getGemByName("redGarnet"));
-        OreDictionary.registerOre("gemYellowGarnet", ItemGems.getGemByName("yellowGarnet"));
-
         // Dusts
         OreDictionary.registerOre("dustAlmandine", ItemDusts.getDustByName("almandine"));
         OreDictionary.registerOre("dustAluminumBrass", ItemDusts.getDustByName("aluminumBrass"));
