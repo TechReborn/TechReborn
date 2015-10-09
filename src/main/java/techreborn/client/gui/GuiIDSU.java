@@ -21,21 +21,18 @@ public class GuiIDSU extends GuiBase {
 
     ContainerIDSU containerIDSU;
 
-    public static ElementListBox listBox = new ElementListBox(null, 10, 28, 80, 60);
+    public static ElementListBox listBox = new ElementListBox(null, 10, 28, 100, 40);
 
     ElementTextFieldLimited idFeild;
     ElementTextField nameFeild;
 
-
-    public GuiIDSU(EntityPlayer player,
-                   TileIDSU tileIDSU) {
+    public GuiIDSU(EntityPlayer player, TileIDSU tileIDSU) {
         super(new ContainerIDSU(tileIDSU, player));
-        this.xSize = 156;
-        this.ySize = 200;
+        this.xSize = 176;
+        this.ySize = 165;
         idsu = tileIDSU;
         this.containerIDSU = (ContainerIDSU) this.inventorySlots;
-        texture = new ResourceLocation(
-                "techreborn", "textures/gui/aesu.png");
+        texture = new ResourceLocation("techreborn", "textures/gui/aesu.png");
         drawTitle = false;
         drawInventory = false;
         name = StatCollector.translateToLocal("tile.techreborn.aesu.name");
@@ -47,10 +44,10 @@ public class GuiIDSU extends GuiBase {
         this.buttonList.clear();
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
-        this.buttonList.add(new GuiButton(0, k + 96, l + 8, 18, 20, "++"));
-        this.buttonList.add(new GuiButton(1, k + 96, l + 8 + 22, 18, 20, "+"));
-        this.buttonList.add(new GuiButton(2, k + 96, l + 8 + (22 * 2), 18, 20, "-"));
-        this.buttonList.add(new GuiButton(3, k + 96, l + 8 + (22 * 3), 18, 20, "--"));
+        this.buttonList.add(new GuiButton(0, k + 128, l + 5, 15, 15, "++"));
+        this.buttonList.add(new GuiButton(1, k + 128, l + 5 + 20, 15, 15, "+"));
+        this.buttonList.add(new GuiButton(2, k + 128, l + 5 + (20 * 2), 15, 15, "-"));
+        this.buttonList.add(new GuiButton(3, k + 128, l + 5 + (20 * 3), 15, 15, "--"));
         this.buttonList.add(new GuiButton(4, k + 40, l + 10, 10, 10, "+"));
 
         listBox.gui = this;
@@ -65,7 +62,7 @@ public class GuiIDSU extends GuiBase {
 
         addElement(idFeild);
 
-        nameFeild = new ElementTextField(this, 10, 100, 50, 10);
+        nameFeild = new ElementTextField(this, 70, 10, 50, 10);
 
         addElement(nameFeild);
 
