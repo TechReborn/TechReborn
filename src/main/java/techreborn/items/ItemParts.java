@@ -36,11 +36,10 @@ public class ItemParts extends Item {
                     "heliumCoolantSimple", "HeliumCoolantTriple", "HeliumCoolantSix",
                     "NaKCoolantSimple", "NaKCoolantTriple", "NaKCoolantSix",
                     "cupronickelHeatingCoil", "nichromeHeatingCoil", "kanthalHeatingCoil",
-                    "bronzeGear", "ironGear", "titaniumGear", "steelGear", "tungstensteelGear",
                     "laserFocus", "ductTape", "lazuriteChunk", "iridiumAlloyIngot", "rockCutterBlade", "superConductor",
                     "thoriumCell", "doubleThoriumCell", "quadThoriumCell", "plutoniumCell", "doublePlutoniumCell",
                     "quadPlutoniumCell", "destructoPack", "iridiumNeutronReflector", "massHoleDevice", "computerMonitor"
-                    , "machineParts", ""};
+                    ,"machineParts"};
 
     private IIcon[] textures;
 

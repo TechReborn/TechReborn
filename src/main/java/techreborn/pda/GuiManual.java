@@ -59,7 +59,6 @@ public class GuiManual extends GuiScreen{
 		pageCollection.addPage(new CraftingInfoPage("POWER_STORAGE_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.Aesu), ""));
 		pageCollection.addPage(new CraftingInfoPage("MACHINES_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.AlloyFurnace), ""));
 		pageCollection.addPage(new CraftingInfoPage("MACHINES_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.AlloySmelter), ""));
-		pageCollection.addPage(new CraftingInfoPage("MACHINES_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.AssemblyMachine), ""));
 		pageCollection.addPage(new CraftingInfoPage("MACHINES_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.BlastFurnace), ""));
 		pageCollection.addPage(new CraftingInfoPage("MACHINES_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.centrifuge), ""));
 		pageCollection.addPage(new CraftingInfoPage("MACHINES_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.chargeBench), ""));
@@ -80,7 +79,6 @@ public class GuiManual extends GuiScreen{
 		pageCollection.addPage(new CraftingInfoPage("POWER_STORAGE_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.Idsu), ""));
 		pageCollection.addPage(new CraftingInfoPage("MACHINES_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.ImplosionCompressor), ""));
 		pageCollection.addPage(new CraftingInfoPage("MACHINES_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.IndustrialElectrolyzer), ""));
-		pageCollection.addPage(new CraftingInfoPage("MACHINES_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.lathe), ""));
 		pageCollection.addPage(new CraftingInfoPage("POWER_STORAGE_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.Lesu), ""));
 		pageCollection.addPage(new CraftingInfoPage("POWER_STORAGE_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.LesuStorage), ""));
 		pageCollection.addPage(new CraftingInfoPage("POWER_GENERATION_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.LightningRod), ""));
@@ -88,16 +86,13 @@ public class GuiManual extends GuiScreen{
 		pageCollection.addPage(new CraftingInfoPage("POWER_GENERATION_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.MagicalAbsorber), ""));
 		pageCollection.addPage(new CraftingInfoPage("POWER_GENERATION_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.Magicenergeyconverter), ""));
 		pageCollection.addPage(new CraftingInfoPage("MACHINES_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.MatterFabricator), ""));
-		pageCollection.addPage(new CraftingInfoPage("MACHINES_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.Metalshelf), ""));
 		pageCollection.addPage(new CraftingInfoPage("MACHINES_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.PlasmaGenerator), ""));
-		pageCollection.addPage(new CraftingInfoPage("MACHINES_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.platecuttingmachine), ""));
 		pageCollection.addPage(new CraftingInfoPage("MACHINES_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.quantumChest), ""));
 		pageCollection.addPage(new CraftingInfoPage("MACHINES_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.quantumTank), ""));
 		pageCollection.addPage(new CraftingInfoPage("MACHINES_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.RollingMachine), ""));
 		pageCollection.addPage(new CraftingInfoPage("POWER_GENERATION_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.Semifluidgenerator), ""));
 		pageCollection.addPage(new CraftingInfoPage("POWER_GENERATION_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.thermalGenerator), ""));
 		pageCollection.addPage(new CraftingInfoPage("MACHINES_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.VacuumFreezer), ""));
-		pageCollection.addPage(new CraftingInfoPage("MACHINES_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModBlocks.Woodenshelf), ""));
 
 		pageCollection.addPage(new CraftingInfoPage("TOOLS_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModItems.advancedDrill), ""));
 		pageCollection.addPage(new CraftingInfoPage("TOOLS_PAGE."+getNextPageIndex(), pageCollection, new ItemStack(ModItems.cloakingDevice), ""));

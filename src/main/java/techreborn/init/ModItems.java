@@ -32,8 +32,6 @@ public class ModItems {
     @Deprecated
     public static Item smallDusts;
     @Deprecated
-    public static Item tinyDusts;
-    @Deprecated
     public static Item parts;
     @Deprecated
     public static Item cells;
@@ -46,7 +44,6 @@ public class ModItems {
     public static Item manuel;
     public static Item uuMatter;
     public static Item plate;
-    public static Item rods;
     public static Item crushedOre;
     public static Item purifiedCrushedOre;
     public static Item cloakingDevice;
@@ -74,9 +71,7 @@ public class ModItems {
     public static Item bucketSodiumpersulfate;
     public static Item bucketTritium;
     public static Item bucketWolframium;
-
-    public static Item hammerIron;
-    public static Item hammerDiamond;
+    
     public static Item upgrades;
 
 
@@ -89,14 +84,10 @@ public class ModItems {
         GameRegistry.registerItem(dusts, "dust");
         smallDusts = new ItemDustsSmall();
         GameRegistry.registerItem(smallDusts, "smallDust");
-        tinyDusts = new ItemDustsTiny();
-        GameRegistry.registerItem(tinyDusts, "tinyDust");
         plate = new ItemPlates();
         GameRegistry.registerItem(plate, "plates");
         nuggets = new ItemNuggets();
         GameRegistry.registerItem(nuggets, "nuggets");
-        rods = new ItemRods();
-        GameRegistry.registerItem(rods, "rods");
         crushedOre = new ItemCrushedOre();
         GameRegistry.registerItem(crushedOre, "crushedore");
         purifiedCrushedOre = new ItemPurifiedCrushedOre();
@@ -124,14 +115,6 @@ public class ModItems {
 
         upgrades = new ItemUpgrade();
         GameRegistry.registerItem(upgrades, "upgrades");
-
-        hammerIron = new ItemHammer(80);
-        hammerIron.setUnlocalizedName("hammerIron").setContainerItem(hammerIron);
-        GameRegistry.registerItem(hammerIron, "hammerIron");
-
-        hammerDiamond = new ItemHammer(200);
-        hammerDiamond.setUnlocalizedName("hammerDiamond").setContainerItem(hammerDiamond);
-        GameRegistry.registerItem(hammerDiamond, "hammerDiamond");
 
         cloakingDevice = new ItemCloakingDevice();
         GameRegistry.registerItem(cloakingDevice, "cloakingdevice");
@@ -477,99 +460,6 @@ public class ModItems {
         OreDictionary.registerOre("dustSmallYellowGarnet", ItemDustsSmall.getSmallDustByName("YellowGarnet"));
         OreDictionary.registerOre("dustSmallZinc", ItemDustsSmall.getSmallDustByName("Zinc"));
 
-        // Tiny Dusts
-        OreDictionary.registerOre("dustTinyAlmandine", ItemDustsTiny.getTinyDustByName("Almandine"));
-        OreDictionary.registerOre("dustTinyAluminumBrass", ItemDustsTiny.getTinyDustByName("AluminumBrass"));
-        OreDictionary.registerOre("dustTinyAluminum", ItemDustsTiny.getTinyDustByName("Aluminum"));
-        OreDictionary.registerOre("dustTinyAluminium", ItemDustsTiny.getTinyDustByName("Aluminum"));
-        OreDictionary.registerOre("dustTinyAlumite", ItemDustsTiny.getTinyDustByName("Alumite"));
-        OreDictionary.registerOre("dustTinyAndradite", ItemDustsTiny.getTinyDustByName("Andradite"));
-        OreDictionary.registerOre("dustTinyAntimony", ItemDustsTiny.getTinyDustByName("Antimony"));
-        OreDictionary.registerOre("dustTinyArdite", ItemDustsTiny.getTinyDustByName("Ardite"));
-        OreDictionary.registerOre("dustTinyAsh", ItemDustsTiny.getTinyDustByName("Ashes"));
-        OreDictionary.registerOre("dustTinyBasalt", ItemDustsTiny.getTinyDustByName("Basalt"));
-        OreDictionary.registerOre("dustTinyBauxite", ItemDustsTiny.getTinyDustByName("Bauxite"));
-        OreDictionary.registerOre("dustTinyBiotite", ItemDustsTiny.getTinyDustByName("Biotite"));
-        OreDictionary.registerOre("dustTinyBrass", ItemDustsTiny.getTinyDustByName("Brass"));
-        OreDictionary.registerOre("dustTinyBronze", ItemDustsTiny.getTinyDustByName("Bronze"));
-        OreDictionary.registerOre("dustTinyCadmium", ItemDustsTiny.getTinyDustByName("Cadmium"));
-        OreDictionary.registerOre("dustTinyCalcite", ItemDustsTiny.getTinyDustByName("Calcite"));
-        OreDictionary.registerOre("dustTinyCharcoal", ItemDustsTiny.getTinyDustByName("Charcoal"));
-        OreDictionary.registerOre("dustTinyChrome", ItemDustsTiny.getTinyDustByName("Chrome"));
-        OreDictionary.registerOre("dustTinyCinnabar", ItemDustsTiny.getTinyDustByName("Cinnabar"));
-        OreDictionary.registerOre("dustTinyClay", ItemDustsTiny.getTinyDustByName("Clay"));
-        OreDictionary.registerOre("dustTinyCoal", ItemDustsTiny.getTinyDustByName("Coal"));
-        OreDictionary.registerOre("dustTinyCobalt", ItemDustsTiny.getTinyDustByName("Cobalt"));
-        OreDictionary.registerOre("dustTinyCopper", ItemDustsTiny.getTinyDustByName("Copper"));
-        OreDictionary.registerOre("dustTinyCupronickel", ItemDustsTiny.getTinyDustByName("Cupronickel"));
-        OreDictionary.registerOre("dustTinyDarkAsh", ItemDustsTiny.getTinyDustByName("DarkAshes"));
-        OreDictionary.registerOre("dustTinyDarkIron", ItemDustsTiny.getTinyDustByName("DarkIron"));
-        OreDictionary.registerOre("dustTinyDiamond", ItemDustsTiny.getTinyDustByName("Diamond"));
-        OreDictionary.registerOre("dustTinyElectrum", ItemDustsTiny.getTinyDustByName("Electrum"));
-        OreDictionary.registerOre("dustTinyEmerald", ItemDustsTiny.getTinyDustByName("Emerald"));
-        OreDictionary.registerOre("dustTinyEnderEye", ItemDustsTiny.getTinyDustByName("EnderEye"));
-        OreDictionary.registerOre("dustTinyEnderPearl", ItemDustsTiny.getTinyDustByName("EnderPearl"));
-        OreDictionary.registerOre("dustTinyEndstone", ItemDustsTiny.getTinyDustByName("Endstone"));
-        OreDictionary.registerOre("dustTinyFlint", ItemDustsTiny.getTinyDustByName("Flint"));
-        OreDictionary.registerOre("dustTinyGalena", ItemDustsTiny.getTinyDustByName("Galena"));
-        OreDictionary.registerOre("dustTinyGlowstone", ItemDustsTiny.getTinyDustByName("Glowstone"));
-        OreDictionary.registerOre("dustTinyGold", ItemDustsTiny.getTinyDustByName("Gold"));
-        OreDictionary.registerOre("dustTinyGraphite", ItemDustsTiny.getTinyDustByName("Graphite"));
-        OreDictionary.registerOre("dustTinyGrossular", ItemDustsTiny.getTinyDustByName("Grossular"));
-        OreDictionary.registerOre("dustTinyGunpowder", ItemDustsTiny.getTinyDustByName("Gunpowder"));
-        OreDictionary.registerOre("dustTinyIndium", ItemDustsTiny.getTinyDustByName("Indium"));
-        OreDictionary.registerOre("dustTinyInvar", ItemDustsTiny.getTinyDustByName("Invar"));
-        OreDictionary.registerOre("dustTinyIridium", ItemDustsTiny.getTinyDustByName("Iridium"));
-        OreDictionary.registerOre("dustTinyIron", ItemDustsTiny.getTinyDustByName("Iron"));
-        OreDictionary.registerOre("dustTinyKanthal", ItemDustsTiny.getTinyDustByName("Kanthal"));
-        OreDictionary.registerOre("dustTinyLapis", ItemDustsTiny.getTinyDustByName("Lapis"));
-        OreDictionary.registerOre("dustTinyLazurite", ItemDustsTiny.getTinyDustByName("Lazurite"));
-        OreDictionary.registerOre("dustTinyLead", ItemDustsTiny.getTinyDustByName("Lead"));
-        OreDictionary.registerOre("dustTinyLimestone", ItemDustsTiny.getTinyDustByName("Limestone"));
-        OreDictionary.registerOre("dustTinyLodestone", ItemDustsTiny.getTinyDustByName("Lodestone"));
-        OreDictionary.registerOre("dustTinyMagnesium", ItemDustsTiny.getTinyDustByName("Magnesium"));
-        OreDictionary.registerOre("dustTinyMagnetite", ItemDustsTiny.getTinyDustByName("Magnetite"));
-        OreDictionary.registerOre("dustTinyManganese", ItemDustsTiny.getTinyDustByName("Manganese"));
-        OreDictionary.registerOre("dustTinyManyullyn", ItemDustsTiny.getTinyDustByName("Manyullyn"));
-        OreDictionary.registerOre("dustTinyMarble", ItemDustsTiny.getTinyDustByName("Marble"));
-        OreDictionary.registerOre("dustTinyMithril", ItemDustsTiny.getTinyDustByName("Mithril"));
-        OreDictionary.registerOre("dustTinyNetherrack", ItemDustsTiny.getTinyDustByName("Netherrack"));
-        OreDictionary.registerOre("dustTinyNichrome", ItemDustsTiny.getTinyDustByName("Nichrome"));
-        OreDictionary.registerOre("dustTinyNickel", ItemDustsTiny.getTinyDustByName("Nickel"));
-        OreDictionary.registerOre("dustTinyObsidian", ItemDustsTiny.getTinyDustByName("Obsidian"));
-        OreDictionary.registerOre("dustTinyOsmium", ItemDustsTiny.getTinyDustByName("Osmium"));
-        OreDictionary.registerOre("dustTinyPeridot", ItemDustsTiny.getTinyDustByName("Peridot"));
-        OreDictionary.registerOre("dustTinyPhosphorous", ItemDustsTiny.getTinyDustByName("Phosphorous"));
-        OreDictionary.registerOre("dustTinyPlatinum", ItemDustsTiny.getTinyDustByName("Platinum"));
-        OreDictionary.registerOre("dustTinyPotassiumFeldspar", ItemDustsTiny.getTinyDustByName("PotassiumFeldspar"));
-        OreDictionary.registerOre("dustTinyPyrite", ItemDustsTiny.getTinyDustByName("Pyrite"));
-        OreDictionary.registerOre("dustTinyPyrope", ItemDustsTiny.getTinyDustByName("Pyrope"));
-        OreDictionary.registerOre("dustTinyRedGarnet", ItemDustsTiny.getTinyDustByName("RedGarnet"));
-        OreDictionary.registerOre("dustTinyRedrock", ItemDustsTiny.getTinyDustByName("Redrock"));
-        OreDictionary.registerOre("dustTinyRedstone", ItemDustsTiny.getTinyDustByName("Redstone"));
-        OreDictionary.registerOre("dustTinyRuby", ItemDustsTiny.getTinyDustByName("Ruby"));
-        OreDictionary.registerOre("dustTinySaltpeter", ItemDustsTiny.getTinyDustByName("Saltpeter"));
-        OreDictionary.registerOre("dustTinySapphire", ItemDustsTiny.getTinyDustByName("Sapphire"));
-        OreDictionary.registerOre("dustTinySilver", ItemDustsTiny.getTinyDustByName("Silver"));
-        OreDictionary.registerOre("dustTinySilicon", ItemDustsTiny.getTinyDustByName("Silicon"));
-        OreDictionary.registerOre("dustTinySodalite", ItemDustsTiny.getTinyDustByName("Sodalite"));
-        OreDictionary.registerOre("dustTinySpessartine", ItemDustsTiny.getTinyDustByName("Spessartine"));
-        OreDictionary.registerOre("dustTinySphalerite", ItemDustsTiny.getTinyDustByName("Sphalerite"));
-        OreDictionary.registerOre("dustTinySteel", ItemDustsTiny.getTinyDustByName("Steel"));
-        OreDictionary.registerOre("dustTinySulfur", ItemDustsTiny.getTinyDustByName("Sulfur"));
-        OreDictionary.registerOre("dustTinyTellurium", ItemDustsTiny.getTinyDustByName("Tellurium"));
-        OreDictionary.registerOre("dustTinyTeslatite", ItemDustsTiny.getTinyDustByName("Teslatite"));
-        OreDictionary.registerOre("dustTinyTetrahedrite", ItemDustsTiny.getTinyDustByName("Tetrahedrite"));
-        OreDictionary.registerOre("dustTinyCopper", ItemDustsTiny.getTinyDustByName("Copper"));
-        OreDictionary.registerOre("dustTinyTin", ItemDustsTiny.getTinyDustByName("Tin"));
-        OreDictionary.registerOre("dustTinyTitanium", ItemDustsTiny.getTinyDustByName("Titanium"));
-        OreDictionary.registerOre("dustTinyTungsten", ItemDustsTiny.getTinyDustByName("Tungsten"));
-        OreDictionary.registerOre("dustTinyUvarovite", ItemDustsTiny.getTinyDustByName("Uvarovite"));
-        OreDictionary.registerOre("dustTinyVinteum", ItemDustsTiny.getTinyDustByName("Vinteum"));
-        OreDictionary.registerOre("dustTinyVoidstone", ItemDustsTiny.getTinyDustByName("Voidstone"));
-        OreDictionary.registerOre("dustTinyYellowGarnet", ItemDustsTiny.getTinyDustByName("YellowGarnet"));
-        OreDictionary.registerOre("dustTinyZinc", ItemDustsTiny.getTinyDustByName("Zinc"));
-
         // Ingots
         OreDictionary.registerOre("ingotAluminum", ItemIngots.getIngotByName("aluminum"));
         OreDictionary.registerOre("ingotAluminium", ItemIngots.getIngotByName("aluminum"));
@@ -667,24 +557,6 @@ public class ModItems {
         OreDictionary.registerOre("plateTungstensteel", ItemPlates.getPlateByName("tungstensteel"));
         OreDictionary.registerOre("plateYellowGarnet", ItemPlates.getPlateByName("yellowGarnet"));
         OreDictionary.registerOre("plateZinc", ItemPlates.getPlateByName("zinc"));
-
-        // Rods
-        OreDictionary.registerOre("stickBrass", ItemRods.getRodByName("brass"));
-        OreDictionary.registerOre("stickBronze", ItemRods.getRodByName("bronze"));
-        OreDictionary.registerOre("stickCopper", ItemRods.getRodByName("copper"));
-        OreDictionary.registerOre("stickElectrum", ItemRods.getRodByName("electrum"));
-        OreDictionary.registerOre("stickGold", ItemRods.getRodByName("gold"));
-        OreDictionary.registerOre("stickInvar", ItemRods.getRodByName("invar"));
-        OreDictionary.registerOre("stickIridium", ItemRods.getRodByName("iridium"));
-        OreDictionary.registerOre("stickIron", ItemRods.getRodByName("iron"));
-        OreDictionary.registerOre("stickLead", ItemRods.getRodByName("lead"));
-        OreDictionary.registerOre("stickNickel", ItemRods.getRodByName("nickel"));
-        OreDictionary.registerOre("stickPlatinum", ItemRods.getRodByName("platinum"));
-        OreDictionary.registerOre("stickSilver", ItemRods.getRodByName("silver"));
-        OreDictionary.registerOre("stickSteel", ItemRods.getRodByName("steel"));
-        OreDictionary.registerOre("stickTin", ItemRods.getRodByName("tin"));
-        OreDictionary.registerOre("stickTitanium", ItemRods.getRodByName("titanium"));
-        OreDictionary.registerOre("stickTungstensteel", ItemRods.getRodByName("tungstensteel"));
 
         // Crushed Ore
         OreDictionary.registerOre("crushedAluminum", ItemCrushedOre.getCrushedOreByName("Aluminum"));

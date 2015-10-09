@@ -28,12 +28,10 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.items.ItemCells;
 import techreborn.items.ItemDusts;
 import techreborn.items.ItemDustsSmall;
-import techreborn.items.ItemDustsTiny;
 import techreborn.items.ItemGems;
 import techreborn.items.ItemIngots;
 import techreborn.items.ItemParts;
 import techreborn.items.ItemPlates;
-import techreborn.items.ItemRods;
 import techreborn.util.CraftingHelper;
 import techreborn.util.LogHelper;
 import techreborn.util.OreUtil;
@@ -48,7 +46,6 @@ public class
 	public static void init() {
 		addShapelessRecipes();
 		addGeneralShapedRecipes();
-		addHammerRecipes();
 		addMachineRecipes();
 
 		addSmeltingRecipes();
@@ -260,9 +257,9 @@ public class
 
 		for (String name : ItemDustsSmall.types) {
 			GameRegistry.addShapelessRecipe(ItemDustsSmall.getSmallDustByName(name, 4), ItemDusts.getDustByName(name));
-			GameRegistry.addShapelessRecipe(ItemDustsTiny.getTinyDustByName(name, 9), ItemDusts.getDustByName(name));
+//			GameRegistry.addShapelessRecipe(ItemDustsTiny.getTinyDustByName(name, 9), ItemDusts.getDustByName(name));
 			GameRegistry.addShapelessRecipe(ItemDusts.getDustByName(name, 1), ItemDustsSmall.getSmallDustByName(name), ItemDustsSmall.getSmallDustByName(name), ItemDustsSmall.getSmallDustByName(name), ItemDustsSmall.getSmallDustByName(name));
-			GameRegistry.addShapelessRecipe(ItemDusts.getDustByName(name, 1), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name));
+//			GameRegistry.addShapelessRecipe(ItemDusts.getDustByName(name, 1), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name));
 		}
 
 
@@ -304,17 +301,6 @@ public class
 				'L', "blockLapis",
 				'C', "circuitBasic");
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Woodenshelf),
-				"WWW", "A A", "WWW",
-				'W', "plankWood",
-				'A', "plateAluminum");
-
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Metalshelf),
-				"III", "A A", "III",
-				'I', "plateIron",
-				'A', "plateAluminum");
-
-
 		TechRebornAPI.addRollingMachinceRecipe(ItemParts.getPartByName("cupronickelHeatingCoil"),
 				"NCN", "C C", "NCN",
 				'N', ItemIngots.getIngotByName("cupronickel"),
@@ -327,12 +313,6 @@ public class
 		GameRegistry.addSmelting(ItemDusts.getDustByName("gold", 1), new ItemStack(Items.gold_ingot), 1F);
 
 		LogHelper.info("Smelting Recipes Added");
-	}
-
-	static void addHammerRecipes() {
-		ItemStack hammerIron = new ItemStack(ModItems.hammerIron, 1, OreDictionary.WILDCARD_VALUE);
-		ItemStack hammerDiamond = new ItemStack(ModItems.hammerDiamond, 1, OreDictionary.WILDCARD_VALUE);
-
 	}
 
 	static void addAlloySmelterRecipes() {
@@ -480,22 +460,23 @@ public class
 
 	static void addLatheRecipes() {
 		//Metal Rods
-		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("brass", 1), ItemRods.getRodByName("brass", 1), 300, 16));
-		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("bronze", 1), ItemRods.getRodByName("bronze", 1), 380, 16));
-		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("copper", 1), ItemRods.getRodByName("copper", 1), 300, 16));
-		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("electrum", 1), ItemRods.getRodByName("electrum", 1), 740, 16));
-		RecipeHandler.addRecipe(new LatheRecipe(new ItemStack(Items.gold_ingot), ItemRods.getRodByName("gold", 1), 980, 16));
-		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("invar", 1), ItemRods.getRodByName("invar", 1), 280, 16));
-		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("iridium", 1), ItemRods.getRodByName("iridium", 1), 960, 16));
-		RecipeHandler.addRecipe(new LatheRecipe(new ItemStack(Items.iron_ingot), ItemRods.getRodByName("iron", 1), 280, 16));
-		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("lead", 1), ItemRods.getRodByName("lead", 1), 1020, 16));
-		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("nickel", 1), ItemRods.getRodByName("nickel", 1), 280, 16));
-		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("platinum", 1), ItemRods.getRodByName("platinum", 1), 960, 16));
-		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("silver", 1), ItemRods.getRodByName("silver", 1), 520, 16));
-		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("steel", 1), ItemRods.getRodByName("steel", 1), 280, 16));
-		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("tin", 1), ItemRods.getRodByName("tin", 1), 580, 16));
-		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("titanium", 1), ItemRods.getRodByName("titanium", 1), 240, 16));
-		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("tungstensteel", 1), ItemRods.getRodByName("tungstensteel", 1), 580, 16));
+		//NOT NEEDED 
+//		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("brass", 1), ItemRods.getRodByName("brass", 1), 300, 16));
+//		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("bronze", 1), ItemRods.getRodByName("bronze", 1), 380, 16));
+//		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("copper", 1), ItemRods.getRodByName("copper", 1), 300, 16));
+//		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("electrum", 1), ItemRods.getRodByName("electrum", 1), 740, 16));
+//		RecipeHandler.addRecipe(new LatheRecipe(new ItemStack(Items.gold_ingot), ItemRods.getRodByName("gold", 1), 980, 16));
+//		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("invar", 1), ItemRods.getRodByName("invar", 1), 280, 16));
+//		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("iridium", 1), ItemRods.getRodByName("iridium", 1), 960, 16));
+//		RecipeHandler.addRecipe(new LatheRecipe(new ItemStack(Items.iron_ingot), ItemRods.getRodByName("iron", 1), 280, 16));
+//		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("lead", 1), ItemRods.getRodByName("lead", 1), 1020, 16));
+//		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("nickel", 1), ItemRods.getRodByName("nickel", 1), 280, 16));
+//		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("platinum", 1), ItemRods.getRodByName("platinum", 1), 960, 16));
+//		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("silver", 1), ItemRods.getRodByName("silver", 1), 520, 16));
+//		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("steel", 1), ItemRods.getRodByName("steel", 1), 280, 16));
+//		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("tin", 1), ItemRods.getRodByName("tin", 1), 580, 16));
+//		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("titanium", 1), ItemRods.getRodByName("titanium", 1), 240, 16));
+//		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("tungstensteel", 1), ItemRods.getRodByName("tungstensteel", 1), 580, 16));
 
 		//Laser Focus
 		RecipeHandler.addRecipe(new LatheRecipe(ItemPlates.getPlateByName("ruby", 1), ItemParts.getPartByName("laserFocus", 1), 10, 16));
@@ -661,22 +642,22 @@ public class
 	static void addBlastFurnaceRecipes() {
 		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDusts.getDustByName("titanium"), null, ItemIngots.getIngotByName("titanium"), null, 3600, 120, 1500));
 		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsSmall.getSmallDustByName("titanium", 4), null, ItemIngots.getIngotByName("titanium"), null, 3600, 120, 1500));
-		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsTiny.getTinyDustByName("titanium", 9), null, ItemIngots.getIngotByName("titanium"), null, 3600, 120, 1500));
+//		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsTiny.getTinyDustByName("titanium", 9), null, ItemIngots.getIngotByName("titanium"), null, 3600, 120, 1500));
 		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDusts.getDustByName("aluminum"), null, ItemIngots.getIngotByName("aluminum"), null, 2200, 120, 1700));
 		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsSmall.getSmallDustByName("aluminum", 4), null, ItemIngots.getIngotByName("aluminum"), null, 2200, 120, 1700));
-		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsTiny.getTinyDustByName("aluminum", 9), null, ItemIngots.getIngotByName("aluminum"), null, 2200, 120, 1700));
+//		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsTiny.getTinyDustByName("aluminum", 9), null, ItemIngots.getIngotByName("aluminum"), null, 2200, 120, 1700));
 		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDusts.getDustByName("kanthal"), null, ItemIngots.getIngotByName("kanthal"), null, 5500, 120, 2500));
 		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsSmall.getSmallDustByName("kanthal", 4), null, ItemIngots.getIngotByName("kanthal"), null, 5500, 120, 2500));
-		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsTiny.getTinyDustByName("kanthal", 9), null, ItemIngots.getIngotByName("kanthal"), null, 5500, 120, 2500));
+//		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsTiny.getTinyDustByName("kanthal", 9), null, ItemIngots.getIngotByName("kanthal"), null, 5500, 120, 2500));
 		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDusts.getDustByName("tungsten"), null, ItemIngots.getIngotByName("tungsten"), null, 18000, 120, 2500));
 		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsSmall.getSmallDustByName("tungsten", 4), null, ItemIngots.getIngotByName("tungsten"), null, 18000, 120, 2500));
-		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsTiny.getTinyDustByName("tungsten", 9), null, ItemIngots.getIngotByName("tungsten"), null, 18000, 120, 2500));
+//		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsTiny.getTinyDustByName("tungsten", 9), null, ItemIngots.getIngotByName("tungsten"), null, 18000, 120, 2500));
 		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDusts.getDustByName("chrome"), null, ItemIngots.getIngotByName("chrome"), null, 4420, 120, 1700));
 		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsSmall.getSmallDustByName("chrome", 4), null, ItemIngots.getIngotByName("chrome"), null, 4420, 120, 1700));
-		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsTiny.getTinyDustByName("chrome", 9), null, ItemIngots.getIngotByName("chrome"), null, 4420, 120, 1700));
+//		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsTiny.getTinyDustByName("chrome", 9), null, ItemIngots.getIngotByName("chrome"), null, 4420, 120, 1700));
 		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDusts.getDustByName("steel"), null, ItemIngots.getIngotByName("steel"), null, 2800, 120, 1000));
 		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsSmall.getSmallDustByName("steel", 4), null, ItemIngots.getIngotByName("steel"), null, 2800, 120, 1000));
-		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsTiny.getTinyDustByName("steel", 9), null, ItemIngots.getIngotByName("steel"), null, 2800, 120, 1000));
+//		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsTiny.getTinyDustByName("steel", 9), null, ItemIngots.getIngotByName("steel"), null, 2800, 120, 1000));
 
 		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDusts.getDustByName("galena", 2), null, ItemIngots.getIngotByName("silver"), ItemIngots.getIngotByName("lead"), 80, 120, 1500));
 
@@ -1009,7 +990,7 @@ public class
 		RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.magma_cream, 1), null, new ItemStack(Items.blaze_powder, 1), new ItemStack(Items.slime_ball, 1), null, null, 2500, 5));
 
 		//Dust Byproducts
-		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("platinum", 1), null, ItemDustsTiny.getTinyDustByName("Iridium", 1), ItemDustsSmall.getSmallDustByName("Nickel", 1), null, null, 3000, 5));
+//		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("platinum", 1), null, ItemDustsTiny.getTinyDustByName("Iridium", 1), ItemDustsSmall.getSmallDustByName("Nickel", 1), null, null, 3000, 5));
 		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("electrum", 2), null, ItemDusts.getDustByName("silver", 1), ItemDusts.getDustByName("gold", 1), null, null, 2400, 5));
 		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("invar", 3), null, ItemDusts.getDustByName("iron", 2), ItemDusts.getDustByName("nickel", 1), null, null, 1340, 5));
 		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("marble", 8), null, ItemDusts.getDustByName("magnesium", 1), ItemDusts.getDustByName("calcite", 7), null, null, 1280, 5));
@@ -1032,7 +1013,7 @@ public class
 
 
 		RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.glowstone_dust, 16), RecipeUtils.getEmptyCell(1), ItemCells.getCellByName("helium", 1, false), ItemDusts.getDustByName("gold", 8), new ItemStack(Items.redstone), null, 25000, 20));
-		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("endstone", 16), RecipeUtils.getEmptyCell(2), ItemCells.getCellByName("helium3", 1, false), ItemCells.getCellByName("helium", 1, false), ItemDustsTiny.getTinyDustByName("Tungsten"), new ItemStack(Blocks.sand, 12), 4800, 5));
+//		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("endstone", 16), RecipeUtils.getEmptyCell(2), ItemCells.getCellByName("helium3", 1, false), ItemCells.getCellByName("helium", 1, false), ItemDustsTiny.getTinyDustByName("Tungsten"), new ItemStack(Blocks.sand, 12), 4800, 5));
 	}
 
 	static void addIndustrialGrinderRecipes() {

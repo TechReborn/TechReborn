@@ -38,7 +38,6 @@ public class ModBlocks {
     public static Block HighAdvancedMachineBlock;
     public static Block Dragoneggenergysiphoner;
     public static Block Magicenergeyconverter;
-    public static Block AssemblyMachine;
     public static Block DieselGenerator;
     public static Block IndustrialElectrolyzer;
     public static Block MagicalAbsorber;
@@ -46,14 +45,10 @@ public class ModBlocks {
     public static Block Gasturbine;
     public static Block AlloyFurnace;
     public static Block ChemicalReactor;
-    public static Block lathe;
-    public static Block platecuttingmachine;
     public static Block Idsu;
     public static Block Aesu;
     public static Block Lesu;
     public static Block Supercondensator;
-    public static Block Woodenshelf;
-    public static Block Metalshelf;
     public static Block LesuStorage;
     public static Block Distillationtower;
     public static Block ElectricCraftingTable;
@@ -147,10 +142,10 @@ public class ModBlocks {
 
         Magicenergeyconverter = new BlockMagicEnergyConverter(Material.rock);
         GameRegistry.registerBlock(Magicenergeyconverter, "magicenergyconverter");
-
-        AssemblyMachine = new BlockAssemblingMachine(Material.rock);
-        GameRegistry.registerBlock(AssemblyMachine, "assemblymachine");
-        GameRegistry.registerTileEntity(TileAssemblingMachine.class, "TileAssemblyMachineTR");
+        	//NOT NEEDED
+//        AssemblyMachine = new BlockAssemblingMachine(Material.rock);
+//        GameRegistry.registerBlock(AssemblyMachine, "assemblymachine");
+//        GameRegistry.registerTileEntity(TileAssemblingMachine.class, "TileAssemblyMachineTR");
 
         DieselGenerator = new BlockDieselGenerator(Material.rock);
         GameRegistry.registerBlock(DieselGenerator, "dieselgenerator");
@@ -179,14 +174,6 @@ public class ModBlocks {
         GameRegistry.registerBlock(ChemicalReactor, "chemicalreactor");
         GameRegistry.registerTileEntity(TileChemicalReactor.class, "TileChemicalReactorTR");
 
-        lathe = new BlockLathe(Material.rock);
-        GameRegistry.registerBlock(lathe, "lathe");
-        GameRegistry.registerTileEntity(TileLathe.class, "TileLatheTR");
-
-        platecuttingmachine = new BlockPlateCuttingMachine(Material.rock);
-        GameRegistry.registerBlock(platecuttingmachine, "platecuttingmachine");
-        GameRegistry.registerTileEntity(TilePlateCuttingMachine.class, "TilePlateCuttingMachineTR");
-
         Idsu = new BlockIDSU(Material.rock);
         GameRegistry.registerBlock(Idsu, "idsu");
         GameRegistry.registerTileEntity(TileIDSU.class, "TileIDSUTR");
@@ -201,13 +188,6 @@ public class ModBlocks {
 
         Supercondensator = new BlockSupercondensator(Material.rock);
         GameRegistry.registerBlock(Supercondensator, "supercondensator");
-
-        Woodenshelf = new BlockWoodenshelf(Material.wood);
-        GameRegistry.registerBlock(Woodenshelf, "woodenshelf");
-
-        Metalshelf = new BlockMetalShelf(Material.rock);
-        GameRegistry.registerBlock(Metalshelf, "metalshelf");
-        GameRegistry.registerTileEntity(TileMetalShelf.class, "TileMetalShelfTR");
 
         LesuStorage = new BlockLesuStorage(Material.rock);
         GameRegistry.registerBlock(LesuStorage, "lesustorage");

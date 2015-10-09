@@ -20,22 +20,16 @@ tile.techreborn.implosioncompressor.name=Implosion Compressor
 tile.techreborn.grinder.name=Industrial Grinder
 tile.techreborn.chunkloader.name=Industrial Chunkloader
 tile.techreborn.magicenergyconverter.name=Magic Energy Converter
-tile.techreborn.assemblingmachine.name=Assembling Machine
 tile.techreborn.dieselgenerator.name=Diesel Generator
 tile.techreborn.industrialelectrolyzer.name=Industrial Electrolyzer
 tile.techreborn.magicenergyabsorber.name=Magic Energy Absorber
 tile.techreborn.semifluidgenerator.name=Semifluid Generator
 tile.techreborn.alloyfurnace.name=Iron Alloy Furnace
 tile.techreborn.chemicalreactor.name=Chemical Reactor
-tile.techreborn.lathe.name=Electric Lathe
-tile.techreborn.platecuttingmachine.name=Plate Cutting Machine
 tile.techreborn.dragoneggsiphoner.name=Dragon Egg Energy Siphon
 tile.techreborn.idsu.name=IDSU
 tile.techreborn.aesu.name=AESU
 tile.techreborn.lesu.name=LESU
-tile.techreborn.supercondensator.name=Supercondensator
-tile.techreborn.woodenshelf.name=Wooden Shelf
-tile.techreborn.metalshelf.name=Metal Shelf
 tile.techreborn.lesustorage.name=LESU Block
 tile.techreborn.distillationtower.name=Distillation Tower
 tile.techreborn.electriccraftingtable.name=Electric Autocrafting Table
@@ -73,7 +67,6 @@ tile.techreborn.ore.Tetrahedrite.name=Tetrahedrite Ore
 tile.techreborn.ore.Cassiterite.name=Cassiterite Ore
 tile.techreborn.ore.Lead.name=Lead Ore
 tile.techreborn.ore.Silver.name=Silver Ore
-
 
 #Storage
 tile.techreborn.storage.silver.name=Block of Silver
@@ -334,98 +327,6 @@ item.techreborn.dustsmall.YellowGarnet.name=Small Pile of Yellow Garnet Dust
 item.techreborn.dustsmall.Zinc.name=Small Pile of Zinc Dust
 item.techreborn.dustsmall.Galena.name=Small Pile of Galena Dust
 
-
-#Tiny Dusts
-item.techreborn.dusttiny.Almandine.name=Tiny Pile of Almandine Dust
-item.techreborn.dusttiny.AluminumBrass.name=Tiny Pile of Aluminum Brass Dust
-item.techreborn.dusttiny.Aluminum.name=Tiny Pile of Aluminum Dust
-item.techreborn.dusttiny.Alumite.name=Tiny Pile of Alumite Dust
-item.techreborn.dusttiny.Andradite.name=Tiny Pile of Andradite Dust
-item.techreborn.dusttiny.Antimony.name=Tiny Pile of Antimony Dust
-item.techreborn.dusttiny.Ardite.name=Tiny Pile of Ardite Dust
-item.techreborn.dusttiny.Ashes.name=Tiny Pile of Ashes
-item.techreborn.dusttiny.Basalt.name=Tiny Pile of Basalt Dust
-item.techreborn.dusttiny.Bauxite.name=Tiny Pile of Bauxite Dust
-item.techreborn.dusttiny.Biotite.name=Tiny Pile of Biotite Dust
-item.techreborn.dusttiny.Brass.name=Tiny Pile of Brass Dust
-item.techreborn.dusttiny.Bronze.name=Tiny Pile of Bronze Dust
-item.techreborn.dusttiny.Cadmium.name=Tiny Pile of Cadmium Dust
-item.techreborn.dusttiny.Calcite.name=Tiny Pile of Calcite Dust
-item.techreborn.dusttiny.Charcoal.name=Tiny Pile of Charcoal Dust
-item.techreborn.dusttiny.Chrome.name=Tiny Pile of Chrome Dust
-item.techreborn.dusttiny.Cinnabar.name=Tiny Pile of Cinnabar Dust
-item.techreborn.dusttiny.Clay.name=Tiny Pile of Clay Dust
-item.techreborn.dusttiny.Coal.name=Tiny Pile of Coal Dust
-item.techreborn.dusttiny.Cobalt.name=Tiny Pile of Cobalt Dust
-item.techreborn.dusttiny.Copper.name=Tiny Pile of Copper Dust
-item.techreborn.dusttiny.Cupronickel.name=Tiny Pile of Cupronickel Dust
-item.techreborn.dusttiny.DarkAshes.name=Tiny Pile of Dark Ashes
-item.techreborn.dusttiny.DarkIron.name=Tiny Pile of Dark Iron Dust
-item.techreborn.dusttiny.Diamond.name=Tiny Pile of Diamond Dust
-item.techreborn.dusttiny.Electrum.name=Tiny Pile of Electrum Dust
-item.techreborn.dusttiny.Emerald.name=Tiny Pile of Emerald Dust
-item.techreborn.dusttiny.EnderEye.name=Tiny Pile of Ender Eye Dust
-item.techreborn.dusttiny.EnderPearl.name=Tiny Pile of Ender Pearl Dust
-item.techreborn.dusttiny.Endstone.name=Tiny Pile of Endstone Dust
-item.techreborn.dusttiny.Flint.name=Tiny Pile of Flint Dust
-item.techreborn.dusttiny.Glowstone.name=Tiny Pile of Glowstone Dust
-item.techreborn.dusttiny.Gold.name=Tiny Pile of Gold Dust
-item.techreborn.dusttiny.Graphite.name=Tiny Pile of Graphite Dust
-item.techreborn.dusttiny.Grossular.name=Tiny Pile of Grossular Dust
-item.techreborn.dusttiny.Gunpowder.name=Tiny Pile of Gunpowder
-item.techreborn.dusttiny.Indium.name=Tiny Pile of Indium Dust
-item.techreborn.dusttiny.Invar.name=Tiny Pile of Invar Dust
-item.techreborn.dusttiny.Iridium.name=Tiny Pile of Iridium Dust
-item.techreborn.dusttiny.Iron.name=Tiny Pile of Iron Dust
-item.techreborn.dusttiny.Kanthal.name=Tiny Pile of Kanthal Dust
-item.techreborn.dusttiny.Lapis.name=Tiny Pile of Lapis Lazuli Dust
-item.techreborn.dusttiny.Lazurite.name=Tiny Pile of Lazurite Dust
-item.techreborn.dusttiny.Lead.name=Tiny Pile of Lead Dust
-item.techreborn.dusttiny.Limestone.name=Tiny Pile of Limestone Dust
-item.techreborn.dusttiny.Lodestone.name=Tiny Pile of Lodestone
-item.techreborn.dusttiny.Magnesium.name=Tiny Pile of Magnesium Dust
-item.techreborn.dusttiny.Magnetite.name=Tiny Pile of Magnetite Dust
-item.techreborn.dusttiny.Manganese.name=Tiny Pile of Manganese Dust
-item.techreborn.dusttiny.Manyullyn.name=Tiny Pile of Manyullyn Dust
-item.techreborn.dusttiny.Marble.name=Tiny Pile of Marble Dust
-item.techreborn.dusttiny.Mithril.name=Tiny Pile of Mithril Dust
-item.techreborn.dusttiny.Netherrack.name=Tiny Pile of Netherrack Dust
-item.techreborn.dusttiny.Nichrome.name=Tiny Pile of Nichrome Dust
-item.techreborn.dusttiny.Nickel.name=Tiny Pile of Nickel Dust
-item.techreborn.dusttiny.Obsidian.name=Tiny Pile of Obsidian Dust
-item.techreborn.dusttiny.Osmium.name=Tiny Pile of Osmium Dust
-item.techreborn.dusttiny.Peridot.name=Tiny Pile of Peridot
-item.techreborn.dusttiny.Phosphorous.name=Tiny Pile of Phosphorous Dust
-item.techreborn.dusttiny.Platinum.name=Tiny Pile of Platinum Dust
-item.techreborn.dusttiny.PotassiumFeldspar.name=Tiny Pile of Potassium Feldspar Dust
-item.techreborn.dusttiny.Pyrite.name=Tiny Pile of Pyrite Dust
-item.techreborn.dusttiny.Pyrope.name=Tiny Pile of Pyrope Dust
-item.techreborn.dusttiny.RedGarnet.name=Tiny Pile of Red Garnet Dust
-item.techreborn.dusttiny.Redrock.name=Tiny Pile of Red Rock Dust
-item.techreborn.dusttiny.Redstone.name=Tiny Pile of Redstone
-item.techreborn.dusttiny.Ruby.name=Tiny Pile of Ruby Dust
-item.techreborn.dusttiny.Saltpeter.name=Tiny Pile of Saltpeter Dust
-item.techreborn.dusttiny.Sapphire.name=Tiny Pile of Sapphire Dust
-item.techreborn.dusttiny.Silicon.name=Tiny Pile of Silicon Dust
-item.techreborn.dusttiny.Silver.name=Tiny Pile of Silver Dust
-item.techreborn.dusttiny.Sodalite.name=Tiny Pile of Sodalite Dust
-item.techreborn.dusttiny.Spessartine.name=Tiny Pile of Spessartine Dust
-item.techreborn.dusttiny.Sphalerite.name=Tiny Pile of Sphalerite Dust
-item.techreborn.dusttiny.Steel.name=Tiny Pile of Steel Dust
-item.techreborn.dusttiny.Sulfur.name=Tiny Pile of Sulfur Dust
-item.techreborn.dusttiny.Tellurium.name=Tiny Pile of Tellurium Dust
-item.techreborn.dusttiny.Teslatite.name=Tiny Pile of Teslatite Dust
-item.techreborn.dusttiny.Tetrahedrite.name=Tiny Pile of Tetrahedrite Dust
-item.techreborn.dusttiny.Tin.name=Tiny Pile of Tin Dust
-item.techreborn.dusttiny.Titanium.name=Tiny Pile of Titanium Dust
-item.techreborn.dusttiny.Tungsten.name=Tiny Pile of Tungsten Dust
-item.techreborn.dusttiny.Uvarovite.name=Tiny Pile of Uvarovite Dust
-item.techreborn.dusttiny.Vinteum.name=Tiny Pile of Vinteum Dust
-item.techreborn.dusttiny.Voidstone.name=Tiny Pile of Voidstone Dust
-item.techreborn.dusttiny.YellowGarnet.name=Tiny Pile of Yellow Garnet Dust
-item.techreborn.dusttiny.Zinc.name=Tiny Pile of Zinc Dust
-item.techreborn.dusttiny.Galena.name=Tiny Pile of Galena Dust
-
 #Cells
 item.techreborn.cell.Berylium.name=Berylium Cell
 item.techreborn.cell.biomass.name=Biomass Cell
@@ -503,7 +404,6 @@ item.techreborn.ingot.hotTungstensteel.name=Hot Tungstensteel Ingot
 item.techreborn.ingot.tungstensteel.name=Tungstensteel Ingot
 item.techreborn.ingot.zinc.name=Zinc Ingot
 
-
 #Nuggets
 item.techreborn.nuggets.aluminum.name=Aluminum Nugget
 item.techreborn.nuggets.antimony.name=Antimony Nugget
@@ -526,26 +426,6 @@ item.techreborn.nuggets.titanium.name=Titanium Nugget
 item.techreborn.nuggets.tungsten.name=Tungsten Nugget
 item.techreborn.nuggets.zinc.name=Zinc Nugget
 
-
-#Metal Rod
-item.techreborn.rod.brass.name=Brass Rod
-item.techreborn.rod.bronze.name=Bronze Rod
-item.techreborn.rod.copper.name=Copper Rod
-item.techreborn.rod.electrum.name=Electrum Rod
-item.techreborn.rod.gold.name=Gold Rod
-item.techreborn.rod.invar.name=Invar Rod
-item.techreborn.rod.iridium.name=Iridium Rod
-item.techreborn.rod.iron.name=Iron Rod
-item.techreborn.rod.lead.name=Lead Rod
-item.techreborn.rod.nickel.name=Nickel Rod
-item.techreborn.rod.platinum.name=Platinum Rod
-item.techreborn.rod.silver.name=Silver Rod
-item.techreborn.rod.steel.name=Steel Rod
-item.techreborn.rod.tin.name=Tin Rod
-item.techreborn.rod.titanium.name=Titanium Rod
-item.techreborn.rod.tungstensteel.name=Tungstensteel Rod
-
-
 #Crushed Ore
 item.techreborn.crushedore.Aluminum.name=Crushed Aluminum Ore
 item.techreborn.crushedore.Ardite.name=Crushed Ardite Ore
@@ -565,7 +445,6 @@ item.techreborn.crushedore.Tetrahedrite.name=Crushed Tetrahedrite Ore
 item.techreborn.crushedore.Tungsten.name=Purified Crushed Tungsten Ore
 item.techreborn.crushedore.Galena.name=Crushed Galena Ore
 
-
 #Purified Crushed Ore
 item.techreborn.purifiedcrushedore.Aluminum.name=Purified Crushed Aluminum Ore
 item.techreborn.purifiedcrushedore.Ardite.name=Purified Crushed Ardite Ore
@@ -584,7 +463,6 @@ item.techreborn.purifiedcrushedore.Sphalerite.name=Purified Crushed Sphalerite O
 item.techreborn.purifiedcrushedore.Tetrahedrite.name=Purified Crushed Tetrahedrite Ore
 item.techreborn.purifiedcrushedore.Tungsten.name=Purified Crushed Tungsten Ore
 item.techreborn.purifiedcrushedore.Galena.name=Purified Crushed Galena Ore
-
 
 #Plates
 item.techreborn.plate.aluminum.name=Aluminum Plate
@@ -625,7 +503,6 @@ item.techreborn.plate.tungstensteel.name=Tungstensteel Plate
 item.techreborn.plate.yellowGarnet.name=Yellow Garnet Plate
 item.techreborn.plate.zinc.name=Zinc Plate
 
-
 #Parts
 item.techreborn.part.advancedCircuitParts.name=Advanced Circuit Parts
 item.techreborn.part.basicCircuitBoard.name=Basic Circuit Board
@@ -647,9 +524,6 @@ item.techreborn.part.NaKCoolantSix.name=360k NaK Coolant Cell
 item.techreborn.part.cupronickelHeatingCoil.name=Cupronickel Heating Coil
 item.techreborn.part.nichromeHeatingCoil.name=Nichrome Heating Coil
 item.techreborn.part.kanthalHeatingCoil.name=Kanthal Heating Coil
-item.techreborn.part.bronzeGear.name=Bronze Gear
-item.techreborn.part.ironGear.name=Iron Gear
-item.techreborn.part.titaniumGear.name=Titanium Gear
 item.techreborn.part.steelGear.name=Steel Gear
 item.techreborn.part.tungstensteelGear.name=Tungstensteel Gear
 item.techreborn.part.laserFocus.name=Laser Focus
@@ -669,7 +543,6 @@ item.techreborn.part.iridiumNeutronReflector.name=Iridium Neutron Reflector
 item.techreborn.part.massHoleDevice.name=Mass Hole Device
 item.techreborn.part.computerMonitor.name=Computer Monitor
 item.techreborn.part.machineParts.name=Machine Parts
-
 
 #Tools
 item.techreborn.rockcutter.name=Rockcutter

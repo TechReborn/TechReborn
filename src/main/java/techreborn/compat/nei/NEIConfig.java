@@ -31,21 +31,9 @@ public class NEIConfig implements IConfigureNEI {
         API.registerUsageHandler(alloy);
         API.registerRecipeHandler(alloy);
 
-        AssemblingMachineRecipeHandler assembling = new AssemblingMachineRecipeHandler();
-        API.registerUsageHandler(assembling);
-        API.registerRecipeHandler(assembling);
-
-        LatheRecipeHandler lathe = new LatheRecipeHandler();
-        API.registerUsageHandler(lathe);
-        API.registerRecipeHandler(lathe);
-
         IndustrialSawmillRecipeHandler sawmill = new IndustrialSawmillRecipeHandler();
         API.registerUsageHandler(sawmill);
         API.registerRecipeHandler(sawmill);
-
-        PlateCuttingMachineRecipeHandler plate = new PlateCuttingMachineRecipeHandler();
-        API.registerUsageHandler(plate);
-        API.registerRecipeHandler(plate);
 
         ChemicalReactorRecipeHandler chem = new ChemicalReactorRecipeHandler();
         API.registerUsageHandler(chem);
