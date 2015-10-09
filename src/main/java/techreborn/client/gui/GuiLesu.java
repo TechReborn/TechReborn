@@ -21,8 +21,8 @@ public class GuiLesu extends GuiContainer {
     public GuiLesu(EntityPlayer player,
                    TileLesu tileaesu) {
         super(new ContainerLesu(tileaesu, player));
-        this.xSize = 156;
-        this.ySize = 200;
+        this.xSize = 176;
+        this.ySize = 165;
         aesu = tileaesu;
         this.containerLesu = (ContainerLesu) this.inventorySlots;
     }
