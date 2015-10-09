@@ -36,10 +36,10 @@ public class GuiAesu extends GuiContainer {
         this.buttonList.clear();
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
-        this.buttonList.add(new GuiButton(0, k + 128, l + 5, 20, 20, "++"));
-        this.buttonList.add(new GuiButton(1, k + 128, l + 5 + 22, 20, 20, "+"));
-        this.buttonList.add(new GuiButton(2, k + 128, l + 5 + (22 * 2), 20, 20, "-"));
-        this.buttonList.add(new GuiButton(3, k + 128, l + 5 + (22 * 3), 20, 20, "--"));
+        this.buttonList.add(new GuiButton(0, k + 128, l + 5, 15, 15, "++"));
+        this.buttonList.add(new GuiButton(1, k + 128, l + 5 + 20, 15, 15, "+"));
+        this.buttonList.add(new GuiButton(2, k + 128, l + 5 + (20 * 2), 15, 15, "-"));
+        this.buttonList.add(new GuiButton(3, k + 128, l + 5 + (20 * 3), 15, 15, "--"));
     }
 
     @Override

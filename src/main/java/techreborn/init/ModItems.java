@@ -591,7 +591,6 @@ public class ModItems {
         OreDictionary.registerOre("crushedPurifiedTetrahedrite", ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Tetrahedrite"));
         OreDictionary.registerOre("crushedPurifiedTungsten", ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Tungsten"));
 
-        // Purified Crushed Ore
         OreDictionary.registerOre("craftingGrinder", ItemParts.getPartByName("diamondGrindingHead"));
         OreDictionary.registerOre("craftingGrinder", ItemParts.getPartByName("tungstenGrindingHead"));
         OreDictionary.registerOre("circuitMaster", ItemParts.getPartByName("energyFlowCircuit"));
@@ -599,7 +598,6 @@ public class ModItems {
         OreDictionary.registerOre("circuitData", ItemParts.getPartByName("dataStorageCircuit"));
         OreDictionary.registerOre("craftingSuperconductor", ItemParts.getPartByName("superconductor"));
         OreDictionary.registerOre("batteryUltimate", ItemParts.getPartByName("diamondGrindingHead"));
-        OreDictionary.registerOre("gearTungstensteel", ItemParts.getPartByName("tungstensteelGear"));
         OreDictionary.registerOre("blockLapis", ItemParts.getPartByName("lazuriteChunk"));
 
     }
