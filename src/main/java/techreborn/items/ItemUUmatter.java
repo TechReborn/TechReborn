@@ -18,5 +18,4 @@ public class ItemUUmatter extends Item {
     public void registerIcons(IIconRegister iconRegister) {
         this.itemIcon = iconRegister.registerIcon("techreborn:" + "misc/itemMatter");
     }
-
 }
