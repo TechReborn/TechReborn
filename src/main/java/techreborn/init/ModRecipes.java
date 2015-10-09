@@ -52,7 +52,6 @@ public class
 		addUUrecipes();
 
 		addAlloySmelterRecipes();
-		addLatheRecipes();
 		addPlateCuttingMachineRecipes();
 		addAssemblingMachineRecipes();
 		addIndustrialCentrifugeRecipes();
@@ -170,12 +169,6 @@ public class
 			}
 		}
 
-		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("cupronickelHeatingCoil"),
-				"NCN", "C C", "NCN",
-				'N', "ingotNickel",
-				'C', "ingotCopper"
-		);
-
 		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("nichromeHeatingCoil"),
 				" N ", "NCN", " N ",
 				'N', "ingotNickel",
@@ -257,15 +250,8 @@ public class
 
 		for (String name : ItemDustsSmall.types) {
 			GameRegistry.addShapelessRecipe(ItemDustsSmall.getSmallDustByName(name, 4), ItemDusts.getDustByName(name));
-//			GameRegistry.addShapelessRecipe(ItemDustsTiny.getTinyDustByName(name, 9), ItemDusts.getDustByName(name));
 			GameRegistry.addShapelessRecipe(ItemDusts.getDustByName(name, 1), ItemDustsSmall.getSmallDustByName(name), ItemDustsSmall.getSmallDustByName(name), ItemDustsSmall.getSmallDustByName(name), ItemDustsSmall.getSmallDustByName(name));
-//			GameRegistry.addShapelessRecipe(ItemDusts.getDustByName(name, 1), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name), ItemDustsTiny.getTinyDustByName(name));
 		}
-
-
-//		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.gems, 9, 1), "blockSapphire");
-//		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.gems, 9, 0), "blockRuby");
-//		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.gems, 9, 2), "blockGreenSapphire");
 
 		LogHelper.info("Shapless Recipes Added");
 	}
@@ -456,31 +442,6 @@ public class
 			RecipeHandler.addRecipe(new AlloySmelterRecipe(new ItemStack(Blocks.soul_sand, 1), new ItemStack(Items.gold_ingot, 1), soulariumStack, 200, 16));
 		}
 
-	}
-
-	static void addLatheRecipes() {
-		//Metal Rods
-		//NOT NEEDED 
-//		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("brass", 1), ItemRods.getRodByName("brass", 1), 300, 16));
-//		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("bronze", 1), ItemRods.getRodByName("bronze", 1), 380, 16));
-//		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("copper", 1), ItemRods.getRodByName("copper", 1), 300, 16));
-//		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("electrum", 1), ItemRods.getRodByName("electrum", 1), 740, 16));
-//		RecipeHandler.addRecipe(new LatheRecipe(new ItemStack(Items.gold_ingot), ItemRods.getRodByName("gold", 1), 980, 16));
-//		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("invar", 1), ItemRods.getRodByName("invar", 1), 280, 16));
-//		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("iridium", 1), ItemRods.getRodByName("iridium", 1), 960, 16));
-//		RecipeHandler.addRecipe(new LatheRecipe(new ItemStack(Items.iron_ingot), ItemRods.getRodByName("iron", 1), 280, 16));
-//		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("lead", 1), ItemRods.getRodByName("lead", 1), 1020, 16));
-//		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("nickel", 1), ItemRods.getRodByName("nickel", 1), 280, 16));
-//		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("platinum", 1), ItemRods.getRodByName("platinum", 1), 960, 16));
-//		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("silver", 1), ItemRods.getRodByName("silver", 1), 520, 16));
-//		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("steel", 1), ItemRods.getRodByName("steel", 1), 280, 16));
-//		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("tin", 1), ItemRods.getRodByName("tin", 1), 580, 16));
-//		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("titanium", 1), ItemRods.getRodByName("titanium", 1), 240, 16));
-//		RecipeHandler.addRecipe(new LatheRecipe(ItemIngots.getIngotByName("tungstensteel", 1), ItemRods.getRodByName("tungstensteel", 1), 580, 16));
-
-		//Laser Focus
-		RecipeHandler.addRecipe(new LatheRecipe(ItemPlates.getPlateByName("ruby", 1), ItemParts.getPartByName("laserFocus", 1), 10, 16));
-		RecipeHandler.addRecipe(new LatheRecipe(ItemPlates.getPlateByName("redGarnet", 1), ItemParts.getPartByName("laserFocus", 1), 10, 16));
 	}
 
 	static void addPlateCuttingMachineRecipes() {
