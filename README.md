@@ -1,6 +1,6 @@
 # TechReborn
 
-TechReborn is a resurrection of GregTech 4 for modern Minecraft. It brings most of GT4's features and behaviors to Minecraft, with lots of tweaks, and a few editions. It also aims to be more compatible with other mods than GregTech, and has the ultimate goal of becoming a standalone mod, compatible with but not dependent on IC2.
+TechReborn is a resurrection of GregTech 2.78 for modern Minecraft. It brings most of GT4's features and behaviors to Minecraft, with lots of tweaks, and a few editions. It also aims to be more compatible with other mods than GregTech, and has the ultimate goal of becoming a standalone mod, compatible with but not dependent on IC2.
 
 TechReborn is currently in a beta state.
 
@@ -17,3 +17,5 @@ If you need to debug the coremod method striping code you must use a custom laun
 `-Dfml.coreMods.load=techreborn.asm.LoadingPlugin`
 
 Add that to your JVM arguments in the run configurations in your chosen IDE. This is not mandatory but it is only needed if you want to debug the asm core mod code.
+
+REMOVED ALL THE JUNK FROM OTHER VERSION 2.78 ONLY 

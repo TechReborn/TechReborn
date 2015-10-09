@@ -11,14 +11,12 @@ import org.apache.commons.lang3.ArrayUtils;
 import techreborn.api.TechRebornAPI;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.AlloySmelterRecipe;
-import techreborn.api.recipe.machines.AssemblingMachineRecipe;
 import techreborn.api.recipe.machines.BlastFurnaceRecipe;
 import techreborn.api.recipe.machines.CentrifugeRecipe;
 import techreborn.api.recipe.machines.ChemicalReactorRecipe;
 import techreborn.api.recipe.machines.GrinderRecipe;
 import techreborn.api.recipe.machines.IndustrialElectrolyzerRecipe;
 import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
-import techreborn.api.recipe.machines.LatheRecipe;
 import techreborn.api.recipe.machines.PlateCuttingMachineRecipe;
 import techreborn.blocks.BlockMachineFrame;
 import techreborn.blocks.BlockOre;
@@ -53,7 +51,6 @@ public class
 
 		addAlloySmelterRecipes();
 		addPlateCuttingMachineRecipes();
-		addAssemblingMachineRecipes();
 		addIndustrialCentrifugeRecipes();
 		addChemicalReactorRecipes();
 		addIndustrialElectrolyzerRecipes();
@@ -893,50 +890,6 @@ public class
 
 	static void hideUUrecipes() {
 		//TODO
-	}
-
-	static void addAssemblingMachineRecipes() {
-		//Ender Eye
-		RecipeHandler.addRecipe(new AssemblingMachineRecipe(new ItemStack(Items.ender_pearl, 1), new ItemStack(Items.blaze_powder), new ItemStack(Items.ender_eye), 120, 5));
-		RecipeHandler.addRecipe(new AssemblingMachineRecipe(new ItemStack(Items.ender_pearl, 6), new ItemStack(Items.blaze_rod), new ItemStack(Items.ender_eye, 6), 120, 5));
-
-		//Redstone Lamp
-		RecipeHandler.addRecipe(new AssemblingMachineRecipe(new ItemStack(Items.redstone, 4), new ItemStack(Items.glowstone_dust, 4), new ItemStack(Blocks.redstone_lamp), 120, 5));
-
-		//Note Block
-		RecipeHandler.addRecipe(new AssemblingMachineRecipe(new ItemStack(Blocks.planks, 8), new ItemStack(Items.redstone, 1), new ItemStack(Blocks.noteblock), 120, 5));
-
-		//Jukebox
-		RecipeHandler.addRecipe(new AssemblingMachineRecipe(new ItemStack(Items.diamond, 1), new ItemStack(Blocks.planks, 8), new ItemStack(Blocks.jukebox), 120, 5));
-
-		//Clock
-		RecipeHandler.addRecipe(new AssemblingMachineRecipe(new ItemStack(Items.redstone, 1), new ItemStack(Items.gold_ingot, 4), new ItemStack(Items.clock), 120, 5));
-
-		//Compass
-		RecipeHandler.addRecipe(new AssemblingMachineRecipe(new ItemStack(Items.redstone, 1), new ItemStack(Items.iron_ingot, 4), new ItemStack(Items.clock), 120, 5));
-
-		//Lead
-		RecipeHandler.addRecipe(new AssemblingMachineRecipe(new ItemStack(Items.string, 1), new ItemStack(Items.slime_ball, 1), new ItemStack(Items.lead, 2), 120, 5));
-
-		//Circuit Parts
-		RecipeHandler.addRecipe(new AssemblingMachineRecipe(new ItemStack(Items.glowstone_dust), ItemDusts.getDustByName("lazurite", 1), ItemParts.getPartByName("advancedCircuitParts", 2), 120, 5));
-		RecipeHandler.addRecipe(new AssemblingMachineRecipe(new ItemStack(Items.glowstone_dust), ItemDusts.getDustByName("lapis", 1), ItemParts.getPartByName("advancedCircuitParts", 2), 120, 5));
-
-		//Data Control Circuit
-		RecipeHandler.addRecipe(new AssemblingMachineRecipe(ItemParts.getPartByName("processorCircuitBoard", 1), ItemParts.getPartByName("dataStorageCircuit", 1), ItemParts.getPartByName("dataControlCircuit", 1), 120, 5));
-
-		//Data Orb
-		RecipeHandler.addRecipe(new AssemblingMachineRecipe(ItemParts.getPartByName("dataControlCircuit", 1), ItemParts.getPartByName("dataStorageCircuit", 8), ItemParts.getPartByName("dataOrb"), 120, 5));
-
-		//Basic Circuit Board
-		RecipeHandler.addRecipe(new AssemblingMachineRecipe(ItemPlates.getPlateByName("aluminum", 1), ItemPlates.getPlateByName("electrum", 2), ItemParts.getPartByName("basicCircuitBoard", 2), 120, 5));
-		RecipeHandler.addRecipe(new AssemblingMachineRecipe(ItemPlates.getPlateByName("iron", 1), ItemPlates.getPlateByName("electrum", 2), ItemParts.getPartByName("basicCircuitBoard", 2), 120, 5));
-
-
-		for (String type : BlockMachineFrame.types) {
-			RecipeHandler.addRecipe(new AssemblingMachineRecipe(ItemParts.getPartByName("machineParts", 1), ItemPlates.getPlateByName(type, 8), BlockMachineFrame.getFrameByName(type, 1), 400, 8));
-		}
-
 	}
 
 	static void addIndustrialCentrifugeRecipes() {

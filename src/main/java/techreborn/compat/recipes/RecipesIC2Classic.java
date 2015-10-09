@@ -369,49 +369,7 @@ public class RecipesIC2Classic implements ICompatModule {
         //Blast Furnace
         RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemCells.getCellByName("silicon", 2), null, ItemPlates.getPlateByName("silicon"), new ItemStack(IC2Items.getItem("cell").getItem(), 2), 1000, 120, 1500));
 
-        //AssemblingMachineRecipes
-
-        //Electronic Circuit
-        RecipeHandler.addRecipe(new AssemblingMachineRecipe(ItemParts.getPartByName("basicCircuitBoard", 1), new ItemStack(IC2Items.getItem("insulatedCopperCableItem").getItem(), 3), IC2Items.getItem("electronicCircuit"), 120, 5));
-
-
-        //Advanced Circuit
-        RecipeHandler.addRecipe(new AssemblingMachineRecipe(ItemParts.getPartByName("advancedCircuitBoard", 1), ItemParts.getPartByName("advancedCircuitParts", 2), IC2Items.getItem("advancedCircuit"), 120, 5));
-
-        //Energy Flow Circuit
-        RecipeHandler.addRecipe(new AssemblingMachineRecipe(ItemParts.getPartByName("processorCircuitBoard", 1), new ItemStack(IC2Items.getItem("lapotronCrystal").getItem(), 1, OreDictionary.WILDCARD_VALUE), new ItemStack(ModItems.parts, 1, 4), 120, 5));
-
-
-        //Data Storage Circuit
-        RecipeHandler.addRecipe(new AssemblingMachineRecipe(ItemPlates.getPlateByName("emerald", 8), IC2Items.getItem("advancedCircuit"), ItemParts.getPartByName("dataStorageCircuit", 1), 120, 5));
-        RecipeHandler.addRecipe(new AssemblingMachineRecipe(ItemPlates.getPlateByName("peridot", 8), IC2Items.getItem("advancedCircuit"), ItemParts.getPartByName("dataStorageCircuit", 1), 120, 5));
-
-        //Advanced Circuit Board
-        RecipeHandler.addRecipe(new AssemblingMachineRecipe(ItemPlates.getPlateByName("electrum", 2), IC2Items.getItem("electronicCircuit"), ItemParts.getPartByName("advancedCircuitBoard", 1), 120, 5));
-        RecipeHandler.addRecipe(new AssemblingMachineRecipe(ItemPlates.getPlateByName("electrum", 4), ItemPlates.getPlateByName("silicon", 1), ItemParts.getPartByName("advancedCircuitBoard", 2), 120, 5));
-
-        //Processor Circuit Board
-        RecipeHandler.addRecipe(new AssemblingMachineRecipe(ItemPlates.getPlateByName("platinum", 1), IC2Items.getItem("advancedCircuit"), ItemParts.getPartByName("processorCircuitBoard", 1), 120, 5));
-
-        //Frequency Transmitter
-        RecipeHandler.addRecipe(new AssemblingMachineRecipe(IC2Items.getItem("electronicCircuit"), IC2Items.getItem("insulatedCopperCableItem"), IC2Items.getItem("frequencyTransmitter"), 120, 5));
-
-        //Wind Mill
-        RecipeHandler.addRecipe(new AssemblingMachineRecipe(ItemPlates.getPlateByName("magnalium", 2), IC2Items.getItem("generator"), IC2Items.getItem("windMill"), 120, 5));
-        RecipeHandler.addRecipe(new AssemblingMachineRecipe(new ItemStack(IC2Items.getItem("carbonPlate").getItem(), 4), IC2Items.getItem("generator"), IC2Items.getItem("windMill"), 120, 5));
-
-        //Water Mill
-        RecipeHandler.addRecipe(new AssemblingMachineRecipe(ItemPlates.getPlateByName("aluminum", 4), IC2Items.getItem("generator"), IC2Items.getItem("waterMill"), 120, 5));
-
-
-        RecipeHandler.addRecipe(new AssemblingMachineRecipe(ItemPlates.getPlateByName("aluminum", 4), IC2Items.getItem("generator"), IC2Items.getItem("waterMill"), 120, 5));
-
-
         //CentrifugeRecipes
-
-
-        //Industrial TNT
-        RecipeHandler.addRecipe(new AssemblingMachineRecipe(ItemDusts.getDustByName("flint", 5), new ItemStack(Blocks.tnt), new ItemStack(IC2Items.getItem("industrialTnt").getItem(), 5), 120, 5));
 
 
         //Methane
