@@ -98,13 +98,6 @@ public class
 				'D', "dustDiamond",
 				'S', "ingotSteel");
 
-
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.parts, 2, 14),
-				"TST", "SBS", "TST",
-				'S', "ingotSteel",
-				'T', "ingotTungsten",
-				'B', "blockSteel");
-
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.parts, 1, 15),
 				"AAA", "AMA", "AAA",
 				'A', "ingotAluminium",
