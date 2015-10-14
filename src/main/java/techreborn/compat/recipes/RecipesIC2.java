@@ -39,8 +39,6 @@ public class RecipesIC2 implements ICompatModule {
 
     @Override
     public void init(FMLInitializationEvent event) {
-        if(IC2Classic.isIc2ClassicLoaded())
-            return;
         removeIc2Recipes();
         addShappedIc2Recipes();
         addTRMaceratorRecipes();
@@ -52,8 +50,6 @@ public class RecipesIC2 implements ICompatModule {
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
-        if(IC2Classic.isIc2ClassicLoaded())
-            return;
         //Has to be done later, not sure why
         RecipeRemover.removeAnyRecipe(IC2Items.getItem("iridiumPlate"));
     }
@@ -376,9 +372,10 @@ public class RecipesIC2 implements ICompatModule {
         //CentrifugeRecipes
 
         //Plantball/Bio Chaff
-        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Blocks.grass, 16), null, new ItemStack(IC2Items.getItem("biochaff").getItem(), 8), new ItemStack(IC2Items.getItem("plantBall").getItem(), 8), new ItemStack(Items.clay_ball), new ItemStack(Blocks.sand, 8), 2500, 5));
-        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Blocks.dirt, 16), null, new ItemStack(IC2Items.getItem("biochaff").getItem(), 4), new ItemStack(IC2Items.getItem("plantBall").getItem(), 4), new ItemStack(Items.clay_ball), new ItemStack(Blocks.sand, 8), 2500, 5));
-
+        if(!IC2Classic.isIc2ClassicLoaded()){
+            RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Blocks.grass, 16), null, new ItemStack(IC2Items.getItem("biochaff").getItem(), 8), new ItemStack(IC2Items.getItem("plantBall").getItem(), 8), new ItemStack(Items.clay_ball), new ItemStack(Blocks.sand, 8), 2500, 5));
+            RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Blocks.dirt, 16), null, new ItemStack(IC2Items.getItem("biochaff").getItem(), 4), new ItemStack(IC2Items.getItem("plantBall").getItem(), 4), new ItemStack(Items.clay_ball), new ItemStack(Blocks.sand, 8), 2500, 5));
+        }
 
         //Methane
         RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.mushroom_stew, 16), IC2Items.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
@@ -1236,7 +1233,7 @@ public class RecipesIC2 implements ICompatModule {
         }
 
 
-        if (OreDictionary.doesOreNameExist("oreRedstone")) {
+        if (!IC2Classic.isIc2ClassicLoaded() && OreDictionary.doesOreNameExist("oreRedstone")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreRedstone"), null, new ItemStack(Items.redstone, 10));
         }
         if (OreDictionary.doesOreNameExist("oreLapis")) {

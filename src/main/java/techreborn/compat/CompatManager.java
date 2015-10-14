@@ -15,11 +15,15 @@ public class CompatManager {
 
     public static CompatManager INSTANCE = new CompatManager();
 
+    public static boolean isIC2Loaded = false;
+    public static boolean isIC2ClassicLoaded = false;
 
     public CompatManager() {
+        isIC2Loaded = Loader.isModLoaded("IC2");
+        isIC2ClassicLoaded = IC2Classic.isIc2ClassicLoaded();
+
         registerCompact(CompatModuleWaila.class, "Waila");
-        registerCompact(RecipesIC2.class, "IC2", "!IC2-Classic-Spmod");
-        registerCompact(RecipesIC2Classic.class, "IC2-Classic-Spmod");
+        registerCompact(RecipesIC2.class, "IC2");
         registerCompact(RecipesBuildcraft.class, "BuildCraft|Core", "IC2");
         registerCompact(RecipesThermalExpansion.class, "ThermalExpansion");
         registerCompact(EmcValues.class, "EE3");
