@@ -2,8 +2,6 @@ package techreborn.items.tools;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ic2.api.item.ElectricItem;
-import ic2.api.item.IElectricItem;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -11,16 +9,16 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
+import techreborn.powerSystem.PoweredPickaxe;
 import techreborn.util.Color;
 
 import java.util.List;
 
-public class ItemRockCutter extends ItemPickaxe implements IElectricItem {
+public class ItemRockCutter extends PoweredPickaxe {
 
     public static final int maxCharge = ConfigTechReborn.RockCutterCharge;
     public int cost = 500;
@@ -58,10 +56,9 @@ public class ItemRockCutter extends ItemPickaxe implements IElectricItem {
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
         ItemStack itemStack = new ItemStack(this, 1);
-        if (getChargedItem(itemStack) == this && ElectricItem.manager != null) {
+        if (getChargedItem(itemStack) == this) {
             ItemStack charged = new ItemStack(this, 1);
-            ElectricItem.manager.charge(charged, 2147483647, 2147483647, true,
-                    false);
+            setEnergy(maxCharge, charged);
             itemList.add(charged);
         }
 
@@ -72,7 +69,13 @@ public class ItemRockCutter extends ItemPickaxe implements IElectricItem {
 
     @Override
     public boolean canHarvestBlock(Block block, ItemStack stack) {
-        return Items.diamond_pickaxe.canHarvestBlock(block, stack);
+        if(Items.diamond_pickaxe.canHarvestBlock(block, stack)) {
+            if (canUseEnergy(cost, stack)) {
+                useEnergy(cost, stack);
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -100,34 +103,29 @@ public class ItemRockCutter extends ItemPickaxe implements IElectricItem {
         par1ItemStack.addEnchantment(Enchantment.silkTouch, 1);
     }
 
-    @Override
-    public boolean canProvideEnergy(ItemStack itemStack) {
-        return false;
-    }
 
     @Override
-    public Item getChargedItem(ItemStack itemStack) {
-        return this;
-    }
-
-    @Override
-    public Item getEmptyItem(ItemStack itemStack) {
-        return this;
-    }
-
-    @Override
-    public double getMaxCharge(ItemStack itemStack) {
+    public double getMaxPower(ItemStack stack) {
         return maxCharge;
     }
 
     @Override
-    public int getTier(ItemStack itemStack) {
-        return tier;
+    public boolean canAcceptEnergy(ItemStack stack) {
+        return true;
     }
 
     @Override
-    public double getTransferLimit(ItemStack itemStack) {
-        return 300;
+    public boolean canProvideEnergy(ItemStack stack) {
+        return false;
     }
 
+    @Override
+    public double getMaxTransfer(ItemStack stack) {
+        return 200;
+    }
+
+    @Override
+    public int getStackTeir(ItemStack stack) {
+        return 2;
+    }
 }

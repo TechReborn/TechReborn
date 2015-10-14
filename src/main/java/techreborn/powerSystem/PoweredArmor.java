@@ -1,12 +1,12 @@
 package techreborn.powerSystem;
 
 import cofh.api.energy.IEnergyContainerItem;
-import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ic2.api.item.IElectricItem;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import techreborn.api.power.IEnergyInterfaceItem;
@@ -15,10 +15,11 @@ import techreborn.config.ConfigTechReborn;
 
 import java.util.List;
 
-@Optional.InterfaceList(value = {
-        @Optional.Interface(iface = "ic2.api.item.IElectricItem", modid = "IC2")
-})
-public abstract class PoweredItem extends Item implements IEnergyInterfaceItem, IElectricItem, IEnergyContainerItem {
+public abstract class PoweredArmor extends ItemArmor implements IEnergyInterfaceItem, IElectricItem, IEnergyContainerItem {
+
+    public PoweredArmor(ArmorMaterial material, int renderIndex, int armorType) {
+        super(material, renderIndex, armorType);
+    }
 
     @SuppressWarnings(
             {"rawtypes", "unchecked"})

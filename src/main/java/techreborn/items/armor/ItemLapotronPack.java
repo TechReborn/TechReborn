@@ -12,10 +12,11 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
+import techreborn.powerSystem.PoweredArmor;
 
 import java.util.List;
 
-public class ItemLapotronPack extends ItemArmor implements IElectricItem {
+public class ItemLapotronPack extends PoweredArmor {
 
     public static final int maxCharge = ConfigTechReborn.LapotronPackCharge;
     public static final int tier = ConfigTechReborn.LapotronPackTier;
@@ -40,19 +41,14 @@ public class ItemLapotronPack extends ItemArmor implements IElectricItem {
         return "techreborn:" + "textures/models/lapotronpack.png";
     }
 
-    @SuppressWarnings(
-            {"rawtypes", "unchecked"})
-    @SideOnly(Side.CLIENT)
-    public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
-        ItemStack itemStack = new ItemStack(this, 1);
-        if (getChargedItem(itemStack) == this && ElectricItem.manager != null) {
-            ItemStack charged = new ItemStack(this, 1);
-            ElectricItem.manager.charge(charged, 2147483647, 2147483647, true, false);
-            itemList.add(charged);
-        }
-        if (getEmptyItem(itemStack) == this) {
-            itemList.add(new ItemStack(this, 1, getMaxDamage()));
-        }
+    @Override
+    public double getMaxPower(ItemStack stack) {
+        return maxCharge;
+    }
+
+    @Override
+    public boolean canAcceptEnergy(ItemStack stack) {
+        return true;
     }
 
     @Override
@@ -61,28 +57,14 @@ public class ItemLapotronPack extends ItemArmor implements IElectricItem {
     }
 
     @Override
-    public Item getChargedItem(ItemStack itemStack) {
-        return this;
+    public double getMaxTransfer(ItemStack stack) {
+        return transferLimit;
     }
 
     @Override
-    public Item getEmptyItem(ItemStack itemStack) {
-        return this;
-    }
-
-    @Override
-    public double getMaxCharge(ItemStack itemStack) {
-        return maxCharge;
-    }
-
-    @Override
-    public int getTier(ItemStack itemStack) {
+    public int getStackTeir(ItemStack stack) {
         return tier;
     }
 
-    @Override
-    public double getTransferLimit(ItemStack itemStack) {
-        return transferLimit;
-    }
 
 }

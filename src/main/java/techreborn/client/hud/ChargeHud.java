@@ -4,8 +4,6 @@ import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ic2.api.item.ElectricItem;
-import ic2.api.item.IElectricItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.RenderHelper;
@@ -15,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import org.lwjgl.opengl.GL11;
+import techreborn.api.power.IEnergyInterfaceItem;
 import techreborn.client.keybindings.KeyBindings;
 import techreborn.config.ConfigTechReborn;
 import techreborn.util.Color;
@@ -37,7 +36,7 @@ public class ChargeHud {
             return;
 
         if (mc.inGameHasFocus || (mc.currentScreen != null && mc.gameSettings.showDebugInfo)) {
-            if (ConfigTechReborn.ShowChargeHud && ElectricItem.manager != null)
+            if (ConfigTechReborn.ShowChargeHud)
                 drawChargeHud(event.resolution);
         }
     }
@@ -48,9 +47,9 @@ public class ChargeHud {
         ItemStack stack2 = mc.thePlayer.inventory.getCurrentItem();
         if (showHud) {
             if (stack2 != null) {
-                if ((stack2.getItem() instanceof IElectricItem)) {
-                    double MaxCharge = ((IElectricItem) stack2.getItem()).getMaxCharge(stack2);
-                    double CurrentCharge = ElectricItem.manager.getCharge(stack2);
+                if ((stack2.getItem() instanceof IEnergyInterfaceItem)) {
+                    double MaxCharge = ((IEnergyInterfaceItem) stack2.getItem()).getMaxPower(stack2);
+                    double CurrentCharge = ((IEnergyInterfaceItem) stack2.getItem()).getEnergy(stack2);
                     Color color = Color.GREEN;
                     double quarter = MaxCharge / 4;
                     double half = MaxCharge / 2;
@@ -72,9 +71,9 @@ public class ChargeHud {
             }
 
             if (stack != null) {
-                if ((stack.getItem() instanceof IElectricItem) && ConfigTechReborn.ShowChargeHud) {
-                    double MaxCharge = ((IElectricItem) stack.getItem()).getMaxCharge(stack);
-                    double CurrentCharge = ElectricItem.manager.getCharge(stack);
+                if ((stack.getItem() instanceof IEnergyInterfaceItem) && ConfigTechReborn.ShowChargeHud) {
+                    double MaxCharge = ((IEnergyInterfaceItem) stack.getItem()).getMaxPower(stack);
+                    double CurrentCharge = ((IEnergyInterfaceItem) stack2.getItem()).getEnergy(stack2);
                     Color color = Color.GREEN;
                     double quarter = MaxCharge / 4;
                     double half = MaxCharge / 2;

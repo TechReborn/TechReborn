@@ -16,11 +16,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
+import techreborn.powerSystem.PoweredPickaxe;
 import techreborn.util.TorchHelper;
 
 import java.util.List;
 
-public class ItemAdvancedDrill extends ItemPickaxe implements IElectricItem {
+public class ItemAdvancedDrill extends PoweredPickaxe {
 
     public static final int maxCharge = ConfigTechReborn.AdvancedDrillCharge;
     public int cost = 250;
@@ -41,21 +42,6 @@ public class ItemAdvancedDrill extends ItemPickaxe implements IElectricItem {
     public void registerIcons(IIconRegister iconRegister) {
         this.itemIcon = iconRegister.registerIcon("techreborn:"
                 + "tool/advancedDrill");
-    }
-
-    @SuppressWarnings(
-            {"rawtypes", "unchecked"})
-    @SideOnly(Side.CLIENT)
-    public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
-        ItemStack itemStack = new ItemStack(this, 1);
-        if (getChargedItem(itemStack) == this && ElectricItem.manager != null) {
-            ItemStack charged = new ItemStack(this, 1);
-            ElectricItem.manager.charge(charged, 2147483647, 2147483647, true, false);
-            itemList.add(charged);
-        }
-        if (getEmptyItem(itemStack) == this) {
-            itemList.add(new ItemStack(this, 1, getMaxDamage()));
-        }
     }
 
     @Override
@@ -99,33 +85,29 @@ public class ItemAdvancedDrill extends ItemPickaxe implements IElectricItem {
         return false;
     }
 
-    @Override
-    public boolean canProvideEnergy(ItemStack itemStack) {
-        return false;
-    }
 
     @Override
-    public double getMaxCharge(ItemStack itemStack) {
+    public double getMaxPower(ItemStack stack) {
         return maxCharge;
     }
 
     @Override
-    public int getTier(ItemStack itemStack) {
-        return tier;
+    public boolean canAcceptEnergy(ItemStack stack) {
+        return true;
     }
 
     @Override
-    public double getTransferLimit(ItemStack itemStack) {
+    public boolean canProvideEnergy(ItemStack stack) {
+        return false;
+    }
+
+    @Override
+    public double getMaxTransfer(ItemStack stack) {
         return transferLimit;
     }
 
     @Override
-    public Item getChargedItem(ItemStack itemStack) {
-        return this;
-    }
-
-    @Override
-    public Item getEmptyItem(ItemStack itemStack) {
-        return this;
+    public int getStackTeir(ItemStack stack) {
+        return tier;
     }
 }

@@ -12,10 +12,11 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
+import techreborn.powerSystem.PoweredArmor;
 
 import java.util.List;
 
-public class ItemLithiumBatpack extends ItemArmor implements IElectricItem {
+public class ItemLithiumBatpack extends PoweredArmor {
 
     public static final int maxCharge = ConfigTechReborn.LithiumBatpackCharge;
     public static final int tier = ConfigTechReborn.LithiumBatpackTier;
@@ -56,34 +57,29 @@ public class ItemLithiumBatpack extends ItemArmor implements IElectricItem {
         }
     }
 
-    @Override
-    public boolean canProvideEnergy(ItemStack itemStack) {
-        return true;
-    }
 
     @Override
-    public Item getChargedItem(ItemStack itemStack) {
-        return this;
-    }
-
-    @Override
-    public Item getEmptyItem(ItemStack itemStack) {
-        return this;
-    }
-
-    @Override
-    public double getMaxCharge(ItemStack itemStack) {
+    public double getMaxPower(ItemStack stack) {
         return maxCharge;
     }
 
     @Override
-    public int getTier(ItemStack itemStack) {
-        return tier;
+    public boolean canAcceptEnergy(ItemStack stack) {
+        return true;
     }
 
     @Override
-    public double getTransferLimit(ItemStack itemStack) {
+    public boolean canProvideEnergy(ItemStack stack) {
+        return true;
+    }
+
+    @Override
+    public double getMaxTransfer(ItemStack stack) {
         return transferLimit;
     }
 
+    @Override
+    public int getStackTeir(ItemStack stack) {
+        return tier;
+    }
 }

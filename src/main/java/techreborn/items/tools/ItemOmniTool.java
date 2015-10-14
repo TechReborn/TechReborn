@@ -2,8 +2,6 @@ package techreborn.items.tools;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ic2.api.item.ElectricItem;
-import ic2.api.item.IElectricItem;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -17,11 +15,12 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
+import techreborn.powerSystem.PoweredPickaxe;
 import techreborn.util.TorchHelper;
 
 import java.util.List;
 
-public class ItemOmniTool extends ItemPickaxe implements IElectricItem {
+public class ItemOmniTool extends PoweredPickaxe{
 
     public static final int maxCharge = ConfigTechReborn.OmniToolCharge;
     public static final int tier = ConfigTechReborn.OmniToolTier;
@@ -49,10 +48,9 @@ public class ItemOmniTool extends ItemPickaxe implements IElectricItem {
     public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
         ItemStack itemStack = new ItemStack(this, 1);
 
-        if (getChargedItem(itemStack) == this && ElectricItem.manager != null) {
+        if (getChargedItem(itemStack) == this) {
             ItemStack charged = new ItemStack(this, 1);
-            ElectricItem.manager.charge(charged, 2147483647, 2147483647, true,
-                    false);
+            setEnergy(maxCharge, charged);
             itemList.add(charged);
         }
         if (getEmptyItem(itemStack) == this) {
@@ -63,8 +61,7 @@ public class ItemOmniTool extends ItemPickaxe implements IElectricItem {
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World world, Block block,
                                     int par4, int par5, int par6, EntityLivingBase entityLiving) {
-
-        ElectricItem.manager.use(stack, cost, entityLiving);
+        useEnergy(cost, stack);
 
         return true;
     }
@@ -80,7 +77,8 @@ public class ItemOmniTool extends ItemPickaxe implements IElectricItem {
 
     @Override
     public float getDigSpeed(ItemStack stack, Block block, int meta) {
-        if (!ElectricItem.manager.canUse(stack, cost)) {
+        if (canUseEnergy(cost, stack)) {
+            useEnergy(cost, stack);
             return 5.0F;
         }
 
@@ -97,7 +95,8 @@ public class ItemOmniTool extends ItemPickaxe implements IElectricItem {
 
     @Override
     public boolean hitEntity(ItemStack itemstack, EntityLivingBase entityliving, EntityLivingBase attacker) {
-        if (ElectricItem.manager.use(itemstack, hitCost, attacker)) {
+        if (canUseEnergy(hitCost, itemstack)) {
+            useEnergy(hitCost, itemstack);
             entityliving.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) attacker), 8F);
         }
         return false;
@@ -114,14 +113,16 @@ public class ItemOmniTool extends ItemPickaxe implements IElectricItem {
         return false;
     }
 
+
+
     @Override
-    public Item getChargedItem(ItemStack itemStack) {
-        return this;
+    public double getMaxPower(ItemStack stack) {
+        return maxCharge;
     }
 
     @Override
-    public Item getEmptyItem(ItemStack itemStack) {
-        return this;
+    public boolean canAcceptEnergy(ItemStack stack) {
+        return true;
     }
 
     @Override
@@ -130,18 +131,13 @@ public class ItemOmniTool extends ItemPickaxe implements IElectricItem {
     }
 
     @Override
-    public double getMaxCharge(ItemStack itemStack) {
-        return maxCharge;
-    }
-
-    @Override
-    public int getTier(ItemStack itemStack) {
-        return 2;
-    }
-
-    @Override
-    public double getTransferLimit(ItemStack itemStack) {
+    public double getMaxTransfer(ItemStack stack) {
         return 200;
+    }
+
+    @Override
+    public int getStackTeir(ItemStack stack) {
+        return 2;
     }
 
 }
