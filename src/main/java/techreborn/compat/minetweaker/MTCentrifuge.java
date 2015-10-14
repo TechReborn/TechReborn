@@ -83,7 +83,7 @@ public class MTCentrifuge {
 		public void apply()
 		{
 			for(IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.centrifugeRecipe)){
-				for(ItemStack stack : recipeType.getOutputs()){
+				for(ItemStack stack : recipeType.getInputs()){//TODO might not be the right way to do this
 					if(ItemUtils.isItemEqual(stack, output, true, false)){
 						removedRecipes.add((CentrifugeRecipe) recipeType);
 						RecipeHandler.recipeList.remove(recipeType);
