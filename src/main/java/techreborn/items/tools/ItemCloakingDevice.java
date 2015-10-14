@@ -2,8 +2,7 @@ package techreborn.items.tools;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ic2.api.item.ElectricItem;
-import ic2.api.item.IElectricItem;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,12 +10,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.world.World;
+import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
-import techreborn.items.ItemTR;
+import techreborn.powerSystem.PoweredItem;
 
 import java.util.List;
 
-public class ItemCloakingDevice extends ItemTR implements IElectricItem {
+public class ItemCloakingDevice extends PoweredItem {
     public static int Teir = ConfigTechReborn.CloakingDeviceTier;
     public static int MaxCharge = ConfigTechReborn.CloakingDeviceCharge;
     public static int Limit = 100;
@@ -26,19 +26,18 @@ public class ItemCloakingDevice extends ItemTR implements IElectricItem {
     public ItemCloakingDevice() {
         setUnlocalizedName("techreborn.cloakingdevice");
         setMaxStackSize(1);
+        setCreativeTab(TechRebornCreativeTab.instance);
     }
 
     @Override
     public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
-        if (ElectricItem.manager != null) {
-            if (ElectricItem.manager.use(itemStack, ConfigTechReborn.CloakingDeviceEUTick, player)) {
-                player.setInvisible(true);
-            } else {
-                if (!player.isPotionActive(Potion.invisibility)) {
-                    player.setInvisible(false);
-                }
+        if(canUseEnergy(ConfigTechReborn.CloakingDeviceEUTick, itemStack)){
+            useEnergy(ConfigTechReborn.CloakingDeviceEUTick, itemStack);
+            player.setInvisible(true);
+        } else {
+            if (!player.isPotionActive(Potion.invisibility)) {
+                player.setInvisible(false);
             }
-
         }
     }
 
@@ -49,17 +48,36 @@ public class ItemCloakingDevice extends ItemTR implements IElectricItem {
     }
 
     @Override
+    public double getMaxPower(ItemStack stack) {
+        return MaxCharge;
+    }
+
+    @Override
+    public boolean canAcceptEnergy(ItemStack stack) {
+        return true;
+    }
+
+    @Override
     public boolean canProvideEnergy(ItemStack itemStack) {
         return false;
+    }
+
+    @Override
+    public double getMaxTransfer(ItemStack stack) {
+        return Limit;
+    }
+
+    @Override
+    public int getStackTeir(ItemStack stack) {
+        return Teir;
     }
 
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
         ItemStack itemStack = new ItemStack(this, 1);
-        if (getChargedItem(itemStack) == this && ElectricItem.manager != null) {
+        if (getChargedItem(itemStack) == this) {
             ItemStack charged = new ItemStack(this, 1);
-            ElectricItem.manager.charge(charged, 2147483647, 2147483647, true,
-                    false);
+            setEnergy(MaxCharge, charged);
             itemList.add(charged);
         }
         if (getEmptyItem(itemStack) == this) {
@@ -69,11 +87,9 @@ public class ItemCloakingDevice extends ItemTR implements IElectricItem {
 
     @Override
     public double getDurabilityForDisplay(ItemStack stack) {
-        if (ElectricItem.manager != null) {
-            double charge = (ElectricItem.manager.getCharge(stack) / getMaxCharge(stack));
-            return 1 - charge;
-        }
-        return 1;
+        double charge = (getEnergy(stack) / getMaxCharge(stack));
+        return 1 - charge;
+
     }
 
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
@@ -97,28 +113,12 @@ public class ItemCloakingDevice extends ItemTR implements IElectricItem {
         return true;
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
-    public Item getChargedItem(ItemStack itemStack) {
-        return this;
+    public void registerIcons(IIconRegister iconRegister) {
+        this.itemIcon = iconRegister.registerIcon("techreborn:"
+                + "techreborn.cloakingdevice");
     }
 
-    @Override
-    public Item getEmptyItem(ItemStack itemStack) {
-        return this;
-    }
 
-    @Override
-    public double getMaxCharge(ItemStack itemStack) {
-        return MaxCharge;
-    }
-
-    @Override
-    public int getTier(ItemStack itemStack) {
-        return Teir;
-    }
-
-    @Override
-    public double getTransferLimit(ItemStack itemStack) {
-        return Limit;
-    }
 }
