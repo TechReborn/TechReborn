@@ -71,6 +71,68 @@ public class MTCentrifuge {
 	{
 		MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(output)));
 	}
+
+	@ZenMethod
+	public static void removeInputRecipe(IItemStack output)
+	{
+		MineTweakerAPI.apply(new RemoveInput(MinetweakerCompat.toStack(output)));
+	}
+
+	private static class RemoveInput implements IUndoableAction
+	{
+		private final ItemStack output;
+		List<CentrifugeRecipe> removedRecipes = new ArrayList<CentrifugeRecipe>();
+		public RemoveInput(ItemStack output)
+		{
+			this.output = output;
+		}
+		@Override
+		public void apply()
+		{
+			for(IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.centrifugeRecipe)){
+				for(ItemStack stack : recipeType.getInputs()){
+					if(ItemUtils.isItemEqual(stack, output, true, false)){
+						removedRecipes.add((CentrifugeRecipe) recipeType);
+						RecipeHandler.recipeList.remove(recipeType);
+						break;
+					}
+				}
+			}
+		}
+		@Override
+		public void undo()
+		{
+			if(removedRecipes!=null){
+				for(CentrifugeRecipe recipe : removedRecipes){
+					if(recipe!=null){
+						RecipeHandler.addRecipe(recipe);
+					}
+				}
+			}
+
+		}
+		@Override
+		public String describe()
+		{
+			return "Removing Centrifuge Recipe for " + output.getDisplayName();
+		}
+		@Override
+		public String describeUndo()
+		{
+			return "Re-Adding Centrifuge Recipe for " + output.getDisplayName();
+		}
+		@Override
+		public Object getOverrideKey()
+		{
+			return null;
+		}
+		@Override
+		public boolean canUndo()
+		{
+			return true;
+		}
+	}
+
 	private static class Remove implements IUndoableAction
 	{
 		private final ItemStack output;
@@ -83,7 +145,7 @@ public class MTCentrifuge {
 		public void apply()
 		{
 			for(IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.centrifugeRecipe)){
-				for(ItemStack stack : recipeType.getInputs()){//TODO might not be the right way to do this
+				for(ItemStack stack : recipeType.getOutputs()){
 					if(ItemUtils.isItemEqual(stack, output, true, false)){
 						removedRecipes.add((CentrifugeRecipe) recipeType);
 						RecipeHandler.recipeList.remove(recipeType);
