@@ -1,6 +1,5 @@
 package techreborn.tiles;
 
-import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
 import ic2.api.tile.IWrenchable;
@@ -10,11 +9,12 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
+import techreborn.api.power.IEnergyInterfaceItem;
 import techreborn.init.ModBlocks;
 import techreborn.powerSystem.TilePowerAcceptor;
 import techreborn.util.Inventory;
 
-public class TileChargeBench extends TilePowerAcceptor implements IWrenchable, IEnergyTile, IInventory, ISidedInventory {
+public class TileChargeBench extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory {
 
     public Inventory inventory = new Inventory(6, "TileChargeBench", 64);
     public int capacity = 100000;
@@ -29,12 +29,20 @@ public class TileChargeBench extends TilePowerAcceptor implements IWrenchable, I
 
         for (int i = 0; i < 6; i++)
             if (inventory.getStackInSlot(i) != null) {
-                if (inventory.getStackInSlot(i).getItem() instanceof IElectricItem) {
+                if(inventory.getStackInSlot(i).getItem() instanceof IEnergyInterfaceItem){
+                    ItemStack stack = inventory.getStackInSlot(i);
+                    double MaxCharge = ((IEnergyInterfaceItem) stack.getItem()).getMaxPower(stack);
+                    double amount = ((IEnergyInterfaceItem) stack.getItem()).getMaxTransfer(stack);
+                    double CurrentCharge = ((IEnergyInterfaceItem) stack.getItem()).getEnergy(stack);
+                    if (CurrentCharge != MaxCharge && getEnergy() >= 0) {
+                        ((IEnergyInterfaceItem) stack.getItem()).addEnergy(MaxCharge - CurrentCharge, false, stack);
+                        useEnergy(amount);
+                    }
+                } else if (inventory.getStackInSlot(i).getItem() instanceof IElectricItem) {
                     ItemStack stack = inventory.getStackInSlot(i);
                     double MaxCharge = ((IElectricItem) stack.getItem()).getMaxCharge(stack);
                     double amount = ((IElectricItem) stack.getItem()).getTransferLimit(stack);
                     double CurrentCharge = ElectricItem.manager.getCharge(stack);
-                    int teir = ((IElectricItem) stack.getItem()).getTier(stack);
                     if (CurrentCharge != MaxCharge && getEnergy() >= 0) {
                         ElectricItem.manager.charge(stack, MaxCharge - CurrentCharge, 3, false, false);
                         useEnergy(amount);
