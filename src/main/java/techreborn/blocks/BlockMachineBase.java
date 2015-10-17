@@ -16,8 +16,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
+import techreborn.lib.Functions;
 import techreborn.tiles.TileMachineBase;
 
 import java.util.ArrayList;
@@ -176,5 +178,20 @@ public class BlockMachineBase extends BlockContainer {
 
     public boolean isAdvanced(){
         return false;
+    }
+
+    @Override
+    public boolean rotateBlock(World worldObj, int x, int y, int z, ForgeDirection axis) {
+        if(axis == ForgeDirection.UNKNOWN){
+            return false;
+        } else {
+            TileEntity tile = worldObj.getTileEntity(x, y, z);
+            if(tile != null && tile instanceof TileMachineBase){
+                TileMachineBase machineBase = (TileMachineBase) tile;
+                machineBase.setRotation(ForgeDirection.getOrientation(machineBase.getRotation()).getRotation(axis).ordinal());
+                return true;
+            }
+            return false;
+        }
     }
 }

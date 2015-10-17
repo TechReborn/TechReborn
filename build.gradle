@@ -97,8 +97,8 @@ dependencies {
     if (!f.exists()) {
         f.mkdir()
     }
-    compile 'net.industrial-craft:industrialcraft-2:2.2.780-experimental:dev'
-    shade 'net.industrial-craft:industrialcraft-2:2.2.780-experimental:api'
+    compile 'net.industrial-craft:industrialcraft-2:2.2.782-experimental:dev'
+    shade 'net.industrial-craft:industrialcraft-2:2.2.782-experimental:api'
     compile "codechicken:CodeChickenLib:1.7.10-1.1.3.136:dev"
     compile "codechicken:CodeChickenCore:1.7.10-1.0.6.+:dev"
     compile "codechicken:NotEnoughItems:1.7.10-1.0.4.+:dev"
