@@ -16,7 +16,7 @@ public class StackToolTipEvent {
             ((IListInfoProvider) event.itemStack.getItem()).addInfo(event.toolTip, false);
         } else{
             Block block = Block.getBlockFromItem(event.itemStack.getItem());
-            if(block != null && block instanceof BlockContainer){
+            if(block != null && block instanceof BlockContainer && block.getClass().getCanonicalName().startsWith("techreborn.")){
                 TileEntity tile = block.createTileEntity(Minecraft.getMinecraft().theWorld, event.itemStack.getItemDamage());
                 if(tile instanceof IListInfoProvider){
                     ((IListInfoProvider) tile).addInfo(event.toolTip, false);
