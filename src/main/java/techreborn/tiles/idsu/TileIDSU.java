@@ -32,12 +32,10 @@ public class TileIDSU extends TilePowerAcceptor {
 
     @Override
     public void readFromNBTWithoutCoords(NBTTagCompound tag) {
-
     }
 
     @Override
     public void writeToNBTWithoutCoords(NBTTagCompound tag) {
-
     }
 
     @Override
