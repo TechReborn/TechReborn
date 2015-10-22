@@ -13,6 +13,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
+import techreborn.api.IListInfoProvider;
 import techreborn.init.ModBlocks;
 import techreborn.util.FluidUtils;
 import techreborn.util.Inventory;
@@ -21,7 +22,7 @@ import techreborn.util.Tank;
 import java.util.List;
 
 public class TileQuantumTank extends TileMachineBase implements IFluidHandler,
-        IInventory, IWrenchable {
+        IInventory, IWrenchable, IListInfoProvider {
 
     public Tank tank = new Tank("TileQuantumTank", Integer.MAX_VALUE, this);
     public Inventory inventory = new Inventory(3, "TileQuantumTank", 64);
@@ -217,13 +218,16 @@ public class TileQuantumTank extends TileMachineBase implements IFluidHandler,
     }
 
     @Override
-    public void addWailaInfo(List<String> info) {
-        super.addWailaInfo(info);
-        if (tank.getFluid() != null) {
-            info.add(tank.getFluidAmount() + " of "
-                    + tank.getFluidType().getName());
-        } else {
-            info.add("Empty");
+    public void addInfo(List<String> info, boolean isRealTile) {
+        if(isRealTile){
+            if (tank.getFluid() != null) {
+                info.add(tank.getFluidAmount() + " of "
+                        + tank.getFluidType().getName());
+            } else {
+                info.add("Empty");
+            }
         }
+        info.add("Capacity " + tank.getCapacity() + " mb");
+
     }
 }

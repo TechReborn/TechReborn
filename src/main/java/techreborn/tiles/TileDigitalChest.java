@@ -8,6 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import techreborn.api.IListInfoProvider;
 import techreborn.init.ModBlocks;
 import techreborn.util.Inventory;
 import techreborn.util.ItemUtils;
@@ -15,7 +16,7 @@ import techreborn.util.ItemUtils;
 import java.util.List;
 
 public class TileDigitalChest extends TileMachineBase implements IInventory,
-        IWrenchable {
+        IWrenchable, IListInfoProvider {
 
     // Slot 0 = Input
     // Slot 1 = Output
@@ -230,8 +231,7 @@ public class TileDigitalChest extends TileMachineBase implements IInventory,
     }
 
     @Override
-    public void addWailaInfo(List<String> info) {
-        super.addWailaInfo(info);
+    public void addInfo(List<String> info, boolean isRealTile) {
         int size = 0;
         String name = "of nothing";
         if (storedItem != null) {
@@ -245,4 +245,5 @@ public class TileDigitalChest extends TileMachineBase implements IInventory,
         info.add(size + " " + name);
 
     }
+
 }

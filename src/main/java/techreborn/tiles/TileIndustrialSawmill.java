@@ -10,6 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
+import techreborn.api.IListInfoProvider;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.init.ModBlocks;
@@ -22,7 +23,7 @@ import techreborn.util.Tank;
 
 import java.util.List;
 
-public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrenchable, IEnergyTile, IFluidHandler, IInventory, ISidedInventory {
+public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrenchable, IEnergyTile, IFluidHandler, IInventory, ISidedInventory, IListInfoProvider {
 
     public int tickTime;
     public Inventory inventory = new Inventory(5, "TileIndustrialSawmill", 64);
@@ -124,11 +125,13 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
     }
 
     @Override
-    public void addWailaInfo(List<String> info) {
-        super.addWailaInfo(info);
-        info.add("Power Stored " + getEnergy() + " EU");
-        if (crafter.currentRecipe != null) {
-            info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
+    public void addInfo(List<String> info, boolean isRealTile) {
+        super.addInfo(info, isRealTile);
+        if(isRealTile){
+            info.add("Power Stored " + getEnergy() + " EU");
+            if (crafter.currentRecipe != null) {
+                info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
+            }
         }
     }
 

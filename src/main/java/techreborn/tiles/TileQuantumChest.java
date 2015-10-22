@@ -9,6 +9,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import powercrystals.minefactoryreloaded.api.IDeepStorageUnit;
+import techreborn.api.IListInfoProvider;
 import techreborn.init.ModBlocks;
 import techreborn.util.Inventory;
 import techreborn.util.ItemUtils;
@@ -16,7 +17,7 @@ import techreborn.util.ItemUtils;
 import java.util.List;
 
 public class TileQuantumChest extends TileMachineBase implements IInventory,
-        IWrenchable, IDeepStorageUnit {
+        IWrenchable, IDeepStorageUnit, IListInfoProvider {
 
     // Slot 0 = Input
     // Slot 1 = Output
@@ -230,22 +231,7 @@ public class TileQuantumChest extends TileMachineBase implements IInventory,
         return dropStack;
     }
 
-    @Override
-    public void addWailaInfo(List<String> info) {
-        super.addWailaInfo(info);
-        int size = 0;
-        String name = "of nothing";
-        if (storedItem != null) {
-            name = storedItem.getDisplayName();
-            size += storedItem.stackSize;
-        }
-        if (getStackInSlot(1) != null) {
-            name = getStackInSlot(1).getDisplayName();
-            size += getStackInSlot(1).stackSize;
-        }
-        info.add(size + " " + name);
 
-    }
     
 	@Override
 	public ItemStack getStoredItemType() {
@@ -270,4 +256,21 @@ public class TileQuantumChest extends TileMachineBase implements IInventory,
 	public int getMaxStoredCount() {
 		return this.storage;
 	}
+
+    @Override
+    public void addInfo(List<String> info, boolean isRealTile) {
+        if(isRealTile){
+            int size = 0;
+            String name = "of nothing";
+            if (storedItem != null) {
+                name = storedItem.getDisplayName();
+                size += storedItem.stackSize;
+            }
+            if (getStackInSlot(1) != null) {
+                name = getStackInSlot(1).getDisplayName();
+                size += getStackInSlot(1).stackSize;
+            }
+            info.add(size + " " + name);
+        }
+    }
 }

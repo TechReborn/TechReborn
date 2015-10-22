@@ -1,15 +1,11 @@
 package techreborn.tiles;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import techreborn.packets.PacketHandler;
-
-import java.util.List;
 
 public abstract class TileMachineBase extends TileEntity {
 
@@ -20,11 +16,6 @@ public abstract class TileMachineBase extends TileEntity {
             PacketHandler.sendPacketToAllPlayers(getDescriptionPacket(),
                     worldObj);
         }
-    }
-
-    @SideOnly(Side.CLIENT)
-    public void addWailaInfo(List<String> info) {
-
     }
 
     public Packet getDescriptionPacket() {

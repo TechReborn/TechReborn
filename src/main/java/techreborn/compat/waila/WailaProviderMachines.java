@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import techreborn.api.IListInfoProvider;
 import techreborn.tiles.TileMachineBase;
 
 import java.util.ArrayList;
@@ -23,7 +24,9 @@ public class WailaProviderMachines implements IWailaDataProvider {
 
         TileMachineBase machine = (TileMachineBase) accessor.getTileEntity();
 
-        machine.addWailaInfo(info);
+        if(accessor.getTileEntity() instanceof IListInfoProvider){
+            ((IListInfoProvider) accessor.getTileEntity()).addInfo(info, true);
+        }
         tip.addAll(info);
         info.clear();
 

@@ -1,5 +1,7 @@
 package techreborn.items;
 
+import ic2.api.reactor.IReactor;
+import ic2.api.reactor.IReactorComponent;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,7 +17,7 @@ import techreborn.init.ModItems;
 import java.security.InvalidParameterException;
 import java.util.List;
 
-public class ItemParts extends Item {
+public class ItemParts extends Item implements IReactorComponent {
     public static ItemStack getPartByName(String name, int count) {
         for (int i = 0; i < types.length; i++) {
             if (types[i].equalsIgnoreCase(name)) {
@@ -96,5 +98,41 @@ public class ItemParts extends Item {
                 break;
         }
         return itemStack;
+    }
+
+
+    @Override
+    public void processChamber(IReactor iReactor, ItemStack itemStack, int i, int i1, boolean b) {
+
+    }
+
+    @Override
+    public boolean acceptUraniumPulse(IReactor iReactor, ItemStack itemStack, ItemStack itemStack1, int i, int i1, int i2, int i3, boolean b) {
+        return false;
+    }
+
+    @Override
+    public boolean canStoreHeat(IReactor iReactor, ItemStack itemStack, int i, int i1) {
+        return false;
+    }
+
+    @Override
+    public int getMaxHeat(IReactor iReactor, ItemStack itemStack, int i, int i1) {
+        return 0;
+    }
+
+    @Override
+    public int getCurrentHeat(IReactor iReactor, ItemStack itemStack, int i, int i1) {
+        return 0;
+    }
+
+    @Override
+    public int alterHeat(IReactor iReactor, ItemStack itemStack, int i, int i1, int i2) {
+        return 0;
+    }
+
+    @Override
+    public float influenceExplosion(IReactor iReactor, ItemStack itemStack) {
+        return 0;
     }
 }

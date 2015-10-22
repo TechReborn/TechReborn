@@ -8,6 +8,7 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
+import techreborn.api.IListInfoProvider;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
@@ -17,7 +18,7 @@ import techreborn.util.Inventory;
 
 import java.util.List;
 
-public class TileCentrifuge extends TilePowerAcceptor implements IWrenchable, IEnergyTile, IInventory, ISidedInventory {
+public class TileCentrifuge extends TilePowerAcceptor implements IWrenchable, IEnergyTile, IInventory, ISidedInventory, IListInfoProvider {
 
     public int tickTime;
     public Inventory inventory = new Inventory(11, "TileCentrifuge", 64);
@@ -97,8 +98,7 @@ public class TileCentrifuge extends TilePowerAcceptor implements IWrenchable, IE
     }
 
     @Override
-    public void addWailaInfo(List<String> info) {
-        super.addWailaInfo(info);
+    public void addInfo(List<String> info, boolean isRealTile) {
 //		info.add("Power Stored " + energy.getEnergyStored() +" EU");
 //		if(crafter.currentRecipe !=null){
 //		info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");

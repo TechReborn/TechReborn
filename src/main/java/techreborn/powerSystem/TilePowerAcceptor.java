@@ -15,6 +15,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
+import techreborn.api.IListInfoProvider;
 import techreborn.api.power.IEnergyInterfaceTile;
 import techreborn.asm.Strippable;
 import techreborn.config.ConfigTechReborn;
@@ -29,7 +30,7 @@ import java.util.List;
 })
 public abstract class TilePowerAcceptor extends RFProviderTile implements
         IEnergyReceiver, IEnergyProvider,           //Cofh
-        IEnergyInterfaceTile,                       //TechReborn
+        IEnergyInterfaceTile, IListInfoProvider,     //TechReborn
         IEnergyTile, IEnergySink, IEnergySource,    //Ic2
         IEnergySourceInfo                           //IC2 Classic
 {
@@ -287,8 +288,7 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
     }
 
     @Override
-    public void addWailaInfo(List<String> info) {
-        super.addWailaInfo(info);
+    public void addInfo(List<String> info, boolean isRealTile) {
         info.add("Energy buffer Size " + getEUString(getMaxPower()));
         info.add("Max Input " + getEUString(getMaxInput()));
         info.add("Max Output " + getEUString(getMaxOutput()));
@@ -317,4 +317,6 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
     public int getMaxEnergyAmount() {
         return (int) getMaxOutput();
     }
+
+
 }
