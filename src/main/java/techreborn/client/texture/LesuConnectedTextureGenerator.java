@@ -114,8 +114,12 @@ public class LesuConnectedTextureGenerator extends TextureAtlasSprite {
         int[] edge_data = new int[w * w];
         
         for (int y = 0; y < h; y += w) {
-            type_image[0].getRGB(0, y, w, w, type_data, 0, w);
-            edge_image[0].getRGB(0, y, w, w, edge_data, 0, w);
+            try {
+                type_image[0].getRGB(0, y, w, w, type_data, 0, w);
+                edge_image[0].getRGB(0, y, w, w, edge_data, 0, w);
+            } catch (Exception e) {
+                e.fillInStackTrace();
+            }
             int[] new_data = createTexture(w, type_data, edge_data, connectedTexture);
             output_image.setRGB(0, y, w, w, new_data, 0, w);
         }
