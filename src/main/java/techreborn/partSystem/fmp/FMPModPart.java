@@ -210,4 +210,20 @@ public class FMPModPart extends TMultiPart implements TSlottedPart,
             packet.writeNBTTagCompound(tagCompound);
         }
     }
+
+    @Override
+    public void onWorldJoin() {
+        if (iModPart.world == null || iModPart.location == null) {
+            iModPart.setWorld(world());
+            iModPart.setLocation(new Location(x(), y(), z()));
+        }
+        iModPart.onAdded();
+    }
+
+    @Override
+    public void onWorldSeparate() {
+        iModPart.onChunkUnload();
+    }
+
+
 }

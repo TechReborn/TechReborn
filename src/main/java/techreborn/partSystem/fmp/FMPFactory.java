@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import techreborn.lib.Location;
 import techreborn.lib.vecmath.Vecs3dCube;
 import techreborn.partSystem.IModPart;
@@ -80,6 +81,7 @@ public class FMPFactory implements MultiPartRegistry.IPartFactory2,
     public void init() {
         if(Loader.isModLoaded("IC2")){
             MultiPartRegistry.registerConverter(new CableConverter());
+            MinecraftForge.EVENT_BUS.register(new CableConverter());
         }
     }
 
