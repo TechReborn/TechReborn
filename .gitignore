@@ -13,3 +13,4 @@ TechReborn.ipr
 Thumbs.db
 changelog.txt
 *.log
+.idea/*
