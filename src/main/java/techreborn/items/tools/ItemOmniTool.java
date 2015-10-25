@@ -42,22 +42,6 @@ public class ItemOmniTool extends PoweredPickaxe{
         this.itemIcon = iconRegister.registerIcon("techreborn:" + "tool/omnitool");
     }
 
-    @SuppressWarnings(
-            {"rawtypes", "unchecked"})
-    @SideOnly(Side.CLIENT)
-    public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
-        ItemStack itemStack = new ItemStack(this, 1);
-
-        if (getChargedItem(itemStack) == this) {
-            ItemStack charged = new ItemStack(this, 1);
-            setEnergy(maxCharge, charged);
-            itemList.add(charged);
-        }
-        if (getEmptyItem(itemStack) == this) {
-            itemList.add(new ItemStack(this, 1, getMaxDamage()));
-        }
-    }
-
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World world, Block block,
                                     int par4, int par5, int par6, EntityLivingBase entityLiving) {

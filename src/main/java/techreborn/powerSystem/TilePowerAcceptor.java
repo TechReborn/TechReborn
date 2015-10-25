@@ -19,6 +19,7 @@ import techreborn.api.IListInfoProvider;
 import techreborn.api.power.IEnergyInterfaceTile;
 import techreborn.asm.Strippable;
 import techreborn.config.ConfigTechReborn;
+import techreborn.lib.ChatColor;
 
 import java.util.List;
 
@@ -289,9 +290,9 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
 
     @Override
     public void addInfo(List<String> info, boolean isRealTile) {
-        info.add("Energy buffer Size " + getEUString(getMaxPower()));
-        info.add("Max Input " + getEUString(getMaxInput()));
-        info.add("Max Output " + getEUString(getMaxOutput()));
+        info.add(ChatColor.LIGHT_PURPLE + "Energy buffer Size " + ChatColor.GREEN + getEUString(getMaxPower()));
+        info.add(ChatColor.LIGHT_PURPLE +"Max Input " + ChatColor.GREEN + getEUString(getMaxInput()));
+        info.add(ChatColor.LIGHT_PURPLE +"Max Output " + ChatColor.GREEN + getEUString(getMaxOutput()));
     }
 
     private String getEUString(double euValue) {

@@ -26,15 +26,18 @@ public abstract class PoweredArmor extends ItemArmor implements IEnergyInterface
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
         ItemStack itemStack = new ItemStack(this, 1);
+        itemList.add(itemStack);
 
-        if (getChargedItem(itemStack) == this) {
-            ItemStack charged = new ItemStack(this, 1);
-            setEnergy(getMaxCharge(charged), charged);
-            itemList.add(charged);
-        }
-        if (getEmptyItem(itemStack) == this) {
-            itemList.add(new ItemStack(this, 1, getMaxDamage()));
-        }
+        ItemStack charged = new ItemStack(this, 1);
+        setEnergy(getMaxPower(charged), charged);
+        itemList.add(charged);
+    }
+
+    @Override
+    public double getDurabilityForDisplay(ItemStack stack) {
+        double charge = (getEnergy(stack) / getMaxPower(stack));
+        return 1 - charge;
+
     }
 
     //TechReborn

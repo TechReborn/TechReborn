@@ -72,26 +72,6 @@ public class ItemCloakingDevice extends PoweredItem {
         return Teir;
     }
 
-    @SideOnly(Side.CLIENT)
-    public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
-        ItemStack itemStack = new ItemStack(this, 1);
-        if (getChargedItem(itemStack) == this) {
-            ItemStack charged = new ItemStack(this, 1);
-            setEnergy(MaxCharge, charged);
-            itemList.add(charged);
-        }
-        if (getEmptyItem(itemStack) == this) {
-            itemList.add(new ItemStack(this, 1, getMaxDamage()));
-        }
-    }
-
-    @Override
-    public double getDurabilityForDisplay(ItemStack stack) {
-        double charge = (getEnergy(stack) / getMaxCharge(stack));
-        return 1 - charge;
-
-    }
-
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
         ItemStack itemstack1 = player.getCurrentArmor(3);
 

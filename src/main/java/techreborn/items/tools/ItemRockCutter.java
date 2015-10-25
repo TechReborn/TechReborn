@@ -51,22 +51,6 @@ public class ItemRockCutter extends PoweredPickaxe {
         }
     }
 
-    @SuppressWarnings(
-            {"rawtypes", "unchecked"})
-    @SideOnly(Side.CLIENT)
-    public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
-        ItemStack itemStack = new ItemStack(this, 1);
-        if (getChargedItem(itemStack) == this) {
-            ItemStack charged = new ItemStack(this, 1);
-            setEnergy(maxCharge, charged);
-            itemList.add(charged);
-        }
-
-        if (getEmptyItem(itemStack) == this) {
-            itemList.add(new ItemStack(this, 1, getMaxDamage()));
-        }
-    }
-
     @Override
     public boolean canHarvestBlock(Block block, ItemStack stack) {
         if(Items.diamond_pickaxe.canHarvestBlock(block, stack)) {

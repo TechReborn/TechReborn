@@ -41,23 +41,6 @@ public class ItemLithiumBatpack extends PoweredArmor {
         return "techreborn:" + "textures/models/lithiumbatpack.png";
     }
 
-    @SuppressWarnings(
-            {"rawtypes", "unchecked"})
-    @SideOnly(Side.CLIENT)
-    public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
-        ItemStack itemStack = new ItemStack(this, 1);
-        if (getChargedItem(itemStack) == this && ElectricItem.manager != null) {
-            ItemStack charged = new ItemStack(this, 1);
-            ElectricItem.manager.charge(charged, 2147483647, 2147483647, true,
-                    false);
-            itemList.add(charged);
-        }
-        if (getEmptyItem(itemStack) == this) {
-            itemList.add(new ItemStack(this, 1, getMaxDamage()));
-        }
-    }
-
-
     @Override
     public double getMaxPower(ItemStack stack) {
         return maxCharge;
