@@ -9,6 +9,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import ic2.api.info.IC2Classic;
 import ic2.api.item.IC2Items;
 import ic2.api.recipe.RecipeInputOreDict;
+import ic2.api.recipe.RecipeOutput;
 import ic2.api.recipe.Recipes;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -61,9 +62,9 @@ public class RecipesIC2 implements ICompatModule {
 
     public void addTRRecipes() {
         //General
-    	CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.manuel), IC2Items.getItem("plateiron"), Items.book);
-        
-    	CraftingHelper.addShapedOreRecipe(
+        CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.manuel), IC2Items.getItem("plateiron"), Items.book);
+
+        CraftingHelper.addShapedOreRecipe(
                 ItemParts.getPartByName("machineParts", 16),
                 "CSC", "SCS", "CSC",
                 'S', "ingotSteel",
@@ -372,7 +373,7 @@ public class RecipesIC2 implements ICompatModule {
         //CentrifugeRecipes
 
         //Plantball/Bio Chaff
-        if(!IC2Classic.isIc2ClassicLoaded()){
+        if (!IC2Classic.isIc2ClassicLoaded()) {
             RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Blocks.grass, 16), null, new ItemStack(IC2Items.getItem("biochaff").getItem(), 8), new ItemStack(IC2Items.getItem("plantBall").getItem(), 8), new ItemStack(Items.clay_ball), new ItemStack(Blocks.sand, 8), 2500, 5));
             RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Blocks.dirt, 16), null, new ItemStack(IC2Items.getItem("biochaff").getItem(), 4), new ItemStack(IC2Items.getItem("plantBall").getItem(), 4), new ItemStack(Items.clay_ball), new ItemStack(Blocks.sand, 8), 2500, 5));
         }
@@ -1112,23 +1113,23 @@ public class RecipesIC2 implements ICompatModule {
     }
 
     static void removeIc2Recipes() {
-        if (ConfigTechReborn.ExpensiveMacerator){
+        if (ConfigTechReborn.ExpensiveMacerator) {
             RecipeRemover.removeAnyRecipe(IC2Items.getItem("macerator"));
         }
-        if (ConfigTechReborn.ExpensiveDrill){
+        if (ConfigTechReborn.ExpensiveDrill) {
             RecipeRemover.removeAnyRecipe(IC2Items.getItem("miningDrill"));
         }
-        if (ConfigTechReborn.ExpensiveDiamondDrill){
+        if (ConfigTechReborn.ExpensiveDiamondDrill) {
             RecipeRemover.removeAnyRecipe(IC2Items.getItem("diamondDrill"));
         }
-        if (ConfigTechReborn.ExpensiveSolar){
+        if (ConfigTechReborn.ExpensiveSolar) {
             RecipeRemover.removeAnyRecipe(IC2Items.getItem("solarPanel"));
         }
-        if (ConfigTechReborn.ExpensiveWatermill){
-        	RecipeRemover.removeAnyRecipe(IC2Items.getItem("waterMill"));
+        if (ConfigTechReborn.ExpensiveWatermill) {
+            RecipeRemover.removeAnyRecipe(IC2Items.getItem("waterMill"));
         }
-        if (ConfigTechReborn.ExpensiveWindmill){
-        	RecipeRemover.removeAnyRecipe(IC2Items.getItem("windMill"));
+        if (ConfigTechReborn.ExpensiveWindmill) {
+            RecipeRemover.removeAnyRecipe(IC2Items.getItem("windMill"));
         }
 
         LogHelper.info("IC2 Recipes Removed");
@@ -1137,7 +1138,7 @@ public class RecipesIC2 implements ICompatModule {
     static void addShappedIc2Recipes() {
         Item drill = IC2Items.getItem("miningDrill").getItem();
         ItemStack drillStack = new ItemStack(drill, 1, OreDictionary.WILDCARD_VALUE);
-        
+
         if (ConfigTechReborn.ExpensiveMacerator)
             CraftingHelper.addShapedOreRecipe(IC2Items.getItem("macerator"),
                     "FDF", "DMD", "FCF",
@@ -1314,7 +1315,7 @@ public class RecipesIC2 implements ICompatModule {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("blockBasalt"), null, ItemDusts.getDustByName("basalt", 2));
         }
         if (OreDictionary.doesOreNameExist("gemRuby")) {
-            Recipes.macerator.addRecipe(new RecipeInputOreDict("gemRuby"), null, ItemDusts.getDustByName("ruby", 2));
+            Recipes.macerator.getRecipes().put(new RecipeInputOreDict("gemRuby"), new RecipeOutput(new NBTTagCompound(), ItemDusts.getDustByName("ruby")));
         }
     }
 
