@@ -9,6 +9,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.Explosion;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.api.power.IEnergyInterfaceTile;
+import techreborn.config.ConfigTechReborn;
 import techreborn.tiles.TileMachineBase;
 
 import java.util.Random;
@@ -27,7 +28,7 @@ public abstract class RFProviderTile extends TileMachineBase implements IEnergyR
         if (worldObj.isRemote) {
             return;
         }
-        if(worldObj.canBlockSeeTheSky(xCoord, yCoord + 1, zCoord) && worldObj.isRaining() || worldObj.isThundering())
+        if(ConfigTechReborn.rainExplosions && worldObj.canBlockSeeTheSky(xCoord, yCoord + 1, zCoord) && worldObj.isRaining() || worldObj.isThundering())
             if (getEnergy() >= 1 && random.nextInt(160) == 0) {
                 Explosion explosion = new Explosion(this.worldObj, null, xCoord, yCoord, zCoord, getEnergy() < 100000? 2F : 4F);
                 explosion.isFlaming = true;
