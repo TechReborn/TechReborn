@@ -33,6 +33,7 @@ public class MinetweakerCompat implements ICompatModule {
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
 		MineTweakerAPI.registerClass(MTAlloySmelter.class);
+		MineTweakerAPI.registerClass(MTAssemblingMachine.class);
 		MineTweakerAPI.registerClass(MTBlastFurnace.class);
 		MineTweakerAPI.registerClass(MTCentrifuge.class);
 		MineTweakerAPI.registerClass(MTChemicalReactor.class);
