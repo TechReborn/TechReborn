@@ -7,6 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.client.GuiUtil;
 import techreborn.client.container.ContainerBlastFurnace;
 import techreborn.client.multiblock.Multiblock;
@@ -124,7 +125,7 @@ public class GuiBlastFurnace extends GuiContainer {
 					
 					MultiblockSet set = new MultiblockSet(multiblock);
 					ClientProxy.multiblockRenderEvent.setMultiblock(set);
-					ClientProxy.multiblockRenderEvent.anchor = new ChunkCoordinates(blastfurnace.xCoord + 2, blastfurnace.yCoord - 1, blastfurnace.zCoord);
+					ClientProxy.multiblockRenderEvent.anchor = new ChunkCoordinates(blastfurnace.xCoord - (ForgeDirection.getOrientation(blastfurnace.getRotation()).offsetX * 2), blastfurnace.yCoord - 1, blastfurnace.zCoord - (ForgeDirection.getOrientation(blastfurnace.getRotation()).offsetZ * 2));
 				}
 				button.displayString = "A";
 			} else {
