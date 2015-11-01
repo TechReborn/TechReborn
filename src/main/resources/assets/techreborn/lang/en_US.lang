@@ -23,6 +23,7 @@ tile.techreborn.magicenergyconverter.name=Magic Energy Converter
 tile.techreborn.dieselgenerator.name=Diesel Generator
 tile.techreborn.industrialelectrolyzer.name=Industrial Electrolyzer
 tile.techreborn.magicenergyabsorber.name=Magic Energy Absorber
+tile.techreborn.assemblingmachine.name=Assembling Machine
 tile.techreborn.semifluidgenerator.name=Semifluid Generator
 tile.techreborn.alloyfurnace.name=Iron Alloy Furnace
 tile.techreborn.chemicalreactor.name=Chemical Reactor

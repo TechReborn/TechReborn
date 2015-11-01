@@ -15,11 +15,14 @@ public class GuiDieselGenerator extends GuiContainer {
 
     TileDieselGenerator tile;
 
+    ContainerDieselGenerator containerDieselGenerator;
+
     public GuiDieselGenerator(EntityPlayer player, TileDieselGenerator tile) {
         super(new ContainerDieselGenerator(tile, player));
         this.xSize = 176;
         this.ySize = 167;
         this.tile = tile;
+        containerDieselGenerator = (ContainerDieselGenerator) this.inventorySlots;
     }
 
     @Override
@@ -39,7 +42,11 @@ public class GuiDieselGenerator extends GuiContainer {
                 I18n.format("container.inventory", new Object[0]), 8,
                 this.ySize - 96 + 2, 4210752);
         this.fontRendererObj.drawString("Liquid Amount", 10, 20, 16448255);
-        this.fontRendererObj.drawString(tile.tank.getFluidAmount() + "", 10,
+        this.fontRendererObj.drawString(containerDieselGenerator.fluid + "", 10,
                 30, 16448255);
+
+        this.fontRendererObj.drawString("EU Amount", 10, 40, 16448255);
+        this.fontRendererObj.drawString(containerDieselGenerator.energy + "", 10,
+                50, 16448255);
     }
 }

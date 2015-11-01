@@ -227,7 +227,7 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
         double energyReceived = Math.min(getMaxPower() - energy, Math.min(this.getMaxPower(), energy));
 
         if (!simulate) {
-            setEnergy(energy + energyReceived);
+            setEnergy(getEnergy() + energyReceived);
         }
         return energyReceived;
     }

@@ -38,6 +38,7 @@ public class ModBlocks {
     public static Block HighAdvancedMachineBlock;
     public static Block Dragoneggenergysiphoner;
     public static Block Magicenergeyconverter;
+    public static Block AssemblyMachine;
     public static Block DieselGenerator;
     public static Block IndustrialElectrolyzer;
     public static Block MagicalAbsorber;
@@ -142,10 +143,10 @@ public class ModBlocks {
 
         Magicenergeyconverter = new BlockMagicEnergyConverter(Material.rock);
         GameRegistry.registerBlock(Magicenergeyconverter, "magicenergyconverter");
-        	//NOT NEEDED
-//        AssemblyMachine = new BlockAssemblingMachine(Material.rock);
-//        GameRegistry.registerBlock(AssemblyMachine, "assemblymachine");
-//        GameRegistry.registerTileEntity(TileAssemblingMachine.class, "TileAssemblyMachineTR");
+
+        AssemblyMachine = new BlockAssemblingMachine(Material.rock);
+        GameRegistry.registerBlock(AssemblyMachine, "assemblymachine");
+        GameRegistry.registerTileEntity(TileAssemblingMachine.class, "TileAssemblyMachineTR");
 
         DieselGenerator = new BlockDieselGenerator(Material.rock);
         GameRegistry.registerBlock(DieselGenerator, "dieselgenerator");

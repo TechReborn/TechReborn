@@ -25,6 +25,7 @@ public class GuiHandler implements IGuiHandler {
     public static final int matterfabID = 9;
     public static final int pdaID = 10;
     public static final int chunkloaderID = 11;
+    public static final int assemblingmachineID = 12;
     public static final int dieselGeneratorID = 15;
     public static final int industrialElectrolyzerID = 16;
     public static final int aesuID = 17;
@@ -85,7 +86,10 @@ public class GuiHandler implements IGuiHandler {
         } else if (ID == chunkloaderID) {
             return new ContainerChunkloader(
                     (TileChunkLoader) world.getTileEntity(x, y, z), player);
-        } else if (ID == dieselGeneratorID) {
+        } else if (ID == assemblingmachineID) {
+            return new ContainerAssemblingMachine(
+                    (TileAssemblingMachine) world.getTileEntity(x, y, z), player);
+        }else if (ID == dieselGeneratorID) {
             return new ContainerDieselGenerator(
                     (TileDieselGenerator) world.getTileEntity(x, y, z), player);
         } else if (ID == industrialElectrolyzerID) {
@@ -164,7 +168,10 @@ public class GuiHandler implements IGuiHandler {
         } else if (ID == chunkloaderID) {
             return new GuiChunkLoader(player,
                     (TileChunkLoader) world.getTileEntity(x, y, z));
-        } else if (ID == dieselGeneratorID) {
+        } else if (ID == assemblingmachineID) {
+            return new GuiAssemblingMachine(player,
+                    (TileAssemblingMachine) world.getTileEntity(x, y, z));
+        }else if (ID == dieselGeneratorID) {
             return new GuiDieselGenerator(player,
                     (TileDieselGenerator) world.getTileEntity(x, y, z));
         } else if (ID == industrialElectrolyzerID) {
