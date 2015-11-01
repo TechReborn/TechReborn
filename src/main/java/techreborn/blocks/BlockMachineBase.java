@@ -169,10 +169,13 @@ public class BlockMachineBase extends BlockContainer {
     public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
         ArrayList<ItemStack> items = new ArrayList<ItemStack>();
         if(Loader.isModLoaded("IC2")){
-            items.add(IC2Items.getItem(isAdvanced() ? "advancedMachine" : "machine"));
+            ItemStack stack = IC2Items.getItem(isAdvanced() ? "advancedMachine" : "machine").copy();
+            stack.stackSize = 1;
+            items.add(stack);
         } else {
-            items.add(isAdvanced()? new ItemStack(Item.getItemFromBlock(ModBlocks.MachineCasing), 1, 0) : new ItemStack(Item.getItemFromBlock(ModBlocks.MachineCasing), 1, 2));
+            items.add(isAdvanced()? new ItemStack(Item.getItemFromBlock(ModBlocks.MachineCasing), 1, 2) : new ItemStack(Item.getItemFromBlock(ModBlocks.MachineCasing), 1, 0));
         }
+        System.out.println(items.toString());
         return items;
     }
 
