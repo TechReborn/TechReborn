@@ -35,7 +35,7 @@ public class ItemCells extends ItemTR {
                     return stack;
                 }
             } else {
-                LogHelper.error("Could not find " + "fluid" + name + " in the fluid registry!");
+                LogHelper.debug("Could not find " + "fluid" + name + " in the fluid registry!");
             }
         }
         int index = -1;
