@@ -12,6 +12,7 @@ import java.awt.*;
 import java.util.List;
 
 public class AlloySmelterRecipeHandler extends GenericRecipeHander implements INeiBaseRecipe {
+
     @Override
     public void addPositionedStacks(List<PositionedStack> input, List<PositionedStack> outputs, IBaseRecipeType recipeType) {
         int offset = 4;

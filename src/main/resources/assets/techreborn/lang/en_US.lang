@@ -766,6 +766,7 @@ config.techreborn.category.emc=EMC Configs
 
 #Recipe Handlers
 techreborn.recipe.alloysmelter=Alloy Furnace Recipe
+techreborn.recipe.ironalloysmelter=Iron Alloy Furnace Recipe
 techreborn.recipe.assemblingmachine=Assembling Machine Recipe
 techreborn.recipe.blastfurnace=Blast Furnace Recipe
 techreborn.recipe.centrifuge=Centrifuge Recipe
