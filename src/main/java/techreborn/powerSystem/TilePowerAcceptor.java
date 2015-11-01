@@ -291,8 +291,12 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
     @Override
     public void addInfo(List<String> info, boolean isRealTile) {
         info.add(ChatFormatting.LIGHT_PURPLE + "Energy buffer Size " + ChatFormatting.GREEN + getEUString(getMaxPower()));
-        info.add(ChatFormatting.LIGHT_PURPLE +"Max Input " + ChatFormatting.GREEN + getEUString(getMaxInput()));
-        info.add(ChatFormatting.LIGHT_PURPLE +"Max Output " + ChatFormatting.GREEN + getEUString(getMaxOutput()));
+        if(getMaxInput() != 0){
+            info.add(ChatFormatting.LIGHT_PURPLE +"Max Input " + ChatFormatting.GREEN + getEUString(getMaxInput()));
+        }
+        if(getMaxOutput() != 0){
+            info.add(ChatFormatting.LIGHT_PURPLE +"Max Output " + ChatFormatting.GREEN + getEUString(getMaxOutput()));
+        }
     }
 
     private String getEUString(double euValue) {
