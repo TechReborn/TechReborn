@@ -2,6 +2,8 @@ package techreborn.pda.pages;
 
 import java.awt.Button;
 
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -80,7 +82,6 @@ public class BasePage extends GuiScreen {
 	}
 
 	public void renderOverlayComponents(Minecraft minecraft, int offsetX, int offsetY, int mouseX, int mouseY){
-
 	}
 
 	public void drawScreen(Minecraft minecraft, int offsetX, int offsetY, int mouseX, int mouseY) {
