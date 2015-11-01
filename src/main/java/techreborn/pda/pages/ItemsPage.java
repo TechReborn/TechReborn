@@ -1,5 +1,7 @@
 package techreborn.pda.pages;
 
+import java.awt.Color;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -15,7 +17,7 @@ public class ItemsPage extends TitledPage{
 	public String PAGE;
 	
 	public ItemsPage(String name, PageCollection collection, String page) {
-		super(name, false, collection, page, 7777777);
+		super(name, false, collection, page, Color.white.getRGB());
 		PAGE = page;
 	}
 
@@ -41,13 +43,14 @@ public class ItemsPage extends TitledPage{
 				}
 			}
 		}
+		buttonList.add(new GuiButton(1, getXMin() + 20, getYMin() + 180, ttl("techreborn.pda.backbutton")));
 	}
 
 	@Override
 	public void actionPerformed(GuiButton button) {
 		if (button instanceof GuiButtonTextOnly)
 			collection.changeActivePage(((GuiButtonTextOnly)button).LINKED_PAGE);
-		if (button.id == 0) collection.changeActivePage("CONTENTS");
+		if (button.id == 1) collection.changeActivePage("CONTENTS");
 	}
 
 	@Override
@@ -63,6 +66,5 @@ public class ItemsPage extends TitledPage{
 				((GuiButtonTextOnly) this.buttonList.get(k)).drawButton(this.mc, mouseX + offsetX, mouseY + offsetY);
 			}
 		}
-		buttonList.add(new GuiButton(0, offsetX + 20, offsetY + 180, ttl("techreborn.pda.backbutton")));
 	}
 }

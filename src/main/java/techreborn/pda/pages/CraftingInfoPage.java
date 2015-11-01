@@ -1,5 +1,6 @@
 package techreborn.pda.pages;
 
+import java.awt.Color;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -42,7 +43,7 @@ public class CraftingInfoPage extends TitledPage{
 	private float descriptionScale = 0.66f;
 
 	public CraftingInfoPage(String name, PageCollection collection, ItemStack itemStack, String unlocalizedDescription) {
-		super(name, true, collection, itemStack.getUnlocalizedName()+".name", 7777777);
+		super(name, true, collection, itemStack.getUnlocalizedName()+".name",  Color.white.getRGB());
 		this.result = itemStack;
 		this.recipe = getFirstRecipeForItem(itemStack);
 		for (ItemStack stack : recipe) if (stack != null) hasRecipe = true;
@@ -62,7 +63,7 @@ public class CraftingInfoPage extends TitledPage{
 			}
 			else {
 				drawTexturedModalRect(offsetX + 119, offsetY + 17, 0, 202, 18, 18);
-				drawString(fontRendererObj, "No Crafting Recipe", offsetX + 145, offsetY + 17, 6666666);
+				drawString(fontRendererObj, "No Crafting Recipe", offsetX + 145, offsetY + 17,  Color.white.getRGB());
 			}
 		}
 		GL11.glPopMatrix();
@@ -123,7 +124,7 @@ public class CraftingInfoPage extends TitledPage{
 				s = s.substring(2);
 				offset += fontRendererObj.FONT_HEIGHT/2;
 			}
-			fontRendererObj.drawString(s, 0, offset, 6666666);
+			fontRendererObj.drawString(s, 0, offset,  Color.white.getRGB());
 			offset += fontRendererObj.FONT_HEIGHT;
 		}
 		GL11.glPopMatrix();

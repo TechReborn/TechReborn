@@ -23,7 +23,7 @@ import techreborn.pda.PageCollection;
 public class VersionPage extends TitledPage{
 
 	public VersionPage(String name, PageCollection collection, String unlocalizedTitle, int colour) {
-		super(name, false, collection, unlocalizedTitle, 77777);
+		super(name, false, collection, unlocalizedTitle,  Color.white.getRGB());
 	}
 	
 	@Override
