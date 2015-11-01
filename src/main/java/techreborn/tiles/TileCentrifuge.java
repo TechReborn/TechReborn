@@ -99,10 +99,7 @@ public class TileCentrifuge extends TilePowerAcceptor implements IWrenchable, IE
 
     @Override
     public void addInfo(List<String> info, boolean isRealTile) {
-//		info.add("Power Stored " + energy.getEnergyStored() +" EU");
-//		if(crafter.currentRecipe !=null){
-//		info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
-//		}
+        super.addInfo(info, isRealTile);
         info.add("Round and round it goes");
     }
 
