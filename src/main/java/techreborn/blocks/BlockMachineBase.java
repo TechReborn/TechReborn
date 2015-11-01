@@ -17,6 +17,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.BlockFluidBase;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
 import techreborn.lib.Functions;
@@ -122,7 +123,7 @@ public class BlockMachineBase extends BlockContainer {
 
             if (itemStack != null && itemStack.stackSize > 0) {
                 if (itemStack.getItem() instanceof ItemBlock) {
-                    if (((ItemBlock) itemStack.getItem()).field_150939_a instanceof BlockLiquid || ((ItemBlock) itemStack.getItem()).field_150939_a instanceof BlockStaticLiquid || ((ItemBlock) itemStack.getItem()).field_150939_a instanceof BlockDynamicLiquid) {
+                    if (((ItemBlock) itemStack.getItem()).field_150939_a instanceof BlockFluidBase || ((ItemBlock) itemStack.getItem()).field_150939_a instanceof BlockStaticLiquid || ((ItemBlock) itemStack.getItem()).field_150939_a instanceof BlockDynamicLiquid) {
                         return;
                     }
                 }
