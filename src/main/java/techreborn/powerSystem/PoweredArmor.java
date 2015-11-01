@@ -40,6 +40,12 @@ public abstract class PoweredArmor extends ItemArmor implements IEnergyInterface
 
     }
 
+    @Override
+    public boolean showDurabilityBar(ItemStack stack) {
+        return true;
+    }
+
+
     //TechReborn
     @Override
     public double getEnergy(ItemStack stack) {

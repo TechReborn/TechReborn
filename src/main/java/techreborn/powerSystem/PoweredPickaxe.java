@@ -41,6 +41,12 @@ public abstract class PoweredPickaxe extends ItemPickaxe implements IEnergyInter
 
     }
 
+    @Override
+    public boolean showDurabilityBar(ItemStack stack) {
+        return true;
+    }
+
+
     //TechReborn
     @Override
     public double getEnergy(ItemStack stack) {

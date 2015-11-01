@@ -88,11 +88,6 @@ public class ItemCloakingDevice extends PoweredItem {
         return 0;
     }
 
-    @Override
-    public boolean showDurabilityBar(ItemStack stack) {
-        return true;
-    }
-
     @SideOnly(Side.CLIENT)
     @Override
     public void registerIcons(IIconRegister iconRegister) {

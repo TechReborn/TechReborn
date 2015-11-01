@@ -39,6 +39,12 @@ public abstract class PoweredItem extends Item implements IEnergyInterfaceItem, 
 
     }
 
+    @Override
+    public boolean showDurabilityBar(ItemStack stack) {
+        return true;
+    }
+
+
     //TechReborn
     @Override
     public double getEnergy(ItemStack stack) {
