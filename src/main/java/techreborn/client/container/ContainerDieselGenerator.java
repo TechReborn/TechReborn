@@ -1,6 +1,9 @@
 package techreborn.client.container;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import techreborn.client.SlotFake;
 import techreborn.client.SlotOutput;
@@ -9,6 +12,8 @@ import techreborn.tiles.TileDieselGenerator;
 public class ContainerDieselGenerator extends TechRebornContainer {
     public TileDieselGenerator tiledieselGenerator;
     public EntityPlayer player;
+    public int energy;
+    public int fluid;
 
     public ContainerDieselGenerator(TileDieselGenerator tiledieselGenerator,
                                     EntityPlayer player) {
@@ -41,5 +46,37 @@ public class ContainerDieselGenerator extends TechRebornContainer {
     @Override
     public boolean canInteractWith(EntityPlayer player) {
         return true;
+    }
+
+    @Override
+    public void detectAndSendChanges() {
+        super.detectAndSendChanges();
+        for (int i = 0; i < this.crafters.size(); i++) {
+            ICrafting icrafting = (ICrafting) this.crafters.get(i);
+            if (this.energy != (int) tiledieselGenerator.getEnergy()) {
+                icrafting.sendProgressBarUpdate(this, 0, (int) tiledieselGenerator.getEnergy());
+            }
+            if (this.fluid != tiledieselGenerator.tank.getFluidAmount()) {
+                icrafting.sendProgressBarUpdate(this, 1, tiledieselGenerator.tank.getFluidAmount());
+            }
+        }
+    }
+
+    @Override
+    public void addCraftingToCrafters(ICrafting crafting) {
+        super.addCraftingToCrafters(crafting);
+        crafting.sendProgressBarUpdate(this, 0, (int) tiledieselGenerator.getEnergy());
+        crafting.sendProgressBarUpdate(this, 1, tiledieselGenerator.tank.getFluidAmount());
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void updateProgressBar(int id, int value) {
+        if (id == 0) {
+            this.energy = value;
+        }else
+        if (id == 1) {
+            this.fluid = value;
+        }
     }
 }

@@ -89,11 +89,13 @@ public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchabl
 
     @Override
     public boolean canFill(ForgeDirection from, Fluid fluid) {
+        System.out.println("hi");
         return FluidPowerManager.fluidPowerValues.containsKey(fluid);
     }
 
     @Override
     public boolean canDrain(ForgeDirection from, Fluid fluid) {
+        System.out.println("hi");
         return tank.getFluid() == null || tank.getFluid().getFluid() == fluid;
     }
 
@@ -149,9 +151,10 @@ public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchabl
 			if (!tank.isEmpty()) {
 				double powerIn = FluidPowerManager.fluidPowerValues.get(tank.getFluidType());
 				if(getFreeSpace() >= powerIn){
-					addEnergy(powerIn);
+					addEnergy(powerIn, false);
 					tank.drain(1, true);
-				}
+                    System.out.println(getEnergy() + ":" + tank.getFluidAmount());
+                }
 			}
 		}
 
