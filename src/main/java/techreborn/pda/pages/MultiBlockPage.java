@@ -43,6 +43,7 @@ public class MultiBlockPage extends TitledPage{
 	@Override
 	public void renderOverlayComponents(Minecraft minecraft, int offsetX, int offsetY, int mouseX, int mouseY) {
 		super.renderOverlayComponents(minecraft, offsetX, offsetY, mouseX, mouseY);
+		drawCenteredString(fontRendererObj, ttl("techreborn.pda.multiblock.decripion"), offsetX + 128, offsetY + 20, Color.white.getRGB());
 	}
 
 	@Override

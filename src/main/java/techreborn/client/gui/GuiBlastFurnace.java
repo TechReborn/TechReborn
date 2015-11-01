@@ -1,13 +1,19 @@
 package techreborn.client.gui;
 
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import techreborn.client.GuiUtil;
 import techreborn.client.container.ContainerBlastFurnace;
+import techreborn.client.multiblock.Multiblock;
+import techreborn.client.multiblock.MultiblockSet;
+import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
+import techreborn.proxies.ClientProxy;
 import techreborn.tiles.TileBlastFurnace;
 
 
@@ -31,6 +37,8 @@ public class GuiBlastFurnace extends GuiContainer {
     public void initGui() {
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
+		GuiButton button = new GuiButton(212, k + 4, l + 6, 20, 20, "");
+		buttonList.add(button);
         super.initGui();
     }
 
@@ -69,4 +77,60 @@ public class GuiBlastFurnace extends GuiContainer {
         }
         this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
     }
+    
+	@Override
+	public void actionPerformed(GuiButton button) {
+		super.actionPerformed(button);
+		if(button.id == 212){
+			if(ClientProxy.multiblockRenderEvent.currentMultiblock == null){
+				{//This code here makes a basic multiblock and then sets to the selected one.
+					Multiblock multiblock = new Multiblock();
+					multiblock.addComponent(0, 0, 0, ModBlocks.MachineCasing, 0);
+					multiblock.addComponent(1, 0, 0, ModBlocks.MachineCasing, 0);
+					multiblock.addComponent(0, 0, 1, ModBlocks.MachineCasing, 0);
+					multiblock.addComponent(-1, 0, 0, ModBlocks.MachineCasing, 0);
+					multiblock.addComponent(0, 0, -1, ModBlocks.MachineCasing, 0);
+					multiblock.addComponent(-1, 0, -1, ModBlocks.MachineCasing, 0);
+					multiblock.addComponent(-1, 0, 1, ModBlocks.MachineCasing, 0);
+					multiblock.addComponent(1, 0, -1, ModBlocks.MachineCasing, 0);
+					multiblock.addComponent(1, 0, 1, ModBlocks.MachineCasing, 0);
+					
+					multiblock.addComponent(1, 1, 0, ModBlocks.MachineCasing, 0);
+					multiblock.addComponent(0, 1, 1, ModBlocks.MachineCasing, 0);
+					multiblock.addComponent(-1, 1, 0, ModBlocks.MachineCasing, 0);
+					multiblock.addComponent(0, 1, -1, ModBlocks.MachineCasing, 0);
+					multiblock.addComponent(-1, 1, -1, ModBlocks.MachineCasing, 0);
+					multiblock.addComponent(-1, 1, 1, ModBlocks.MachineCasing, 0);
+					multiblock.addComponent(1, 1, -1, ModBlocks.MachineCasing, 0);
+					multiblock.addComponent(1, 1, 1, ModBlocks.MachineCasing, 0);
+					
+					multiblock.addComponent(1, 2, 0, ModBlocks.MachineCasing, 0);
+					multiblock.addComponent(0, 2, 1, ModBlocks.MachineCasing, 0);
+					multiblock.addComponent(-1, 2, 0, ModBlocks.MachineCasing, 0);
+					multiblock.addComponent(0, 2, -1, ModBlocks.MachineCasing, 0);
+					multiblock.addComponent(-1, 2, -1, ModBlocks.MachineCasing, 0);
+					multiblock.addComponent(-1, 2, 1, ModBlocks.MachineCasing, 0);
+					multiblock.addComponent(1, 2, -1, ModBlocks.MachineCasing, 0);
+					multiblock.addComponent(1, 2, 1, ModBlocks.MachineCasing, 0);
+					
+					multiblock.addComponent(1, 3, 0, ModBlocks.MachineCasing, 0);
+					multiblock.addComponent(0, 3, 1, ModBlocks.MachineCasing, 0);
+					multiblock.addComponent(-1, 3, 0, ModBlocks.MachineCasing, 0);
+					multiblock.addComponent(0, 3, -1, ModBlocks.MachineCasing, 0);
+					multiblock.addComponent(-1, 3, -1, ModBlocks.MachineCasing, 0);
+					multiblock.addComponent(-1, 3, 1, ModBlocks.MachineCasing, 0);
+					multiblock.addComponent(1, 3, -1, ModBlocks.MachineCasing, 0);
+					multiblock.addComponent(1, 3, 1, ModBlocks.MachineCasing, 0);
+					
+					MultiblockSet set = new MultiblockSet(multiblock);
+					ClientProxy.multiblockRenderEvent.setMultiblock(set);
+					ClientProxy.multiblockRenderEvent.anchor = new ChunkCoordinates(blastfurnace.xCoord + 2, blastfurnace.yCoord - 1, blastfurnace.zCoord);
+				}
+				button.displayString = "A";
+			} else {
+				ClientProxy.multiblockRenderEvent.setMultiblock(null);
+				button.displayString = "B";
+			}
+		}
+	}
 }
