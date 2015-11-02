@@ -12,6 +12,7 @@ package techreborn.client.render;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -27,11 +28,14 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 
+import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.event.world.WorldEvent;
 import org.lwjgl.opengl.GL11;
 import techreborn.client.multiblock.IMultiblockRenderHook;
 import techreborn.client.multiblock.Multiblock;
 import techreborn.client.multiblock.MultiblockSet;
 import techreborn.client.multiblock.component.MultiblockComponent;
+import techreborn.lib.Location;
 
 public class MultiblockRenderEvent {
 	public static boolean rendering = false;
@@ -39,12 +43,14 @@ public class MultiblockRenderEvent {
 	private static RenderBlocks blockRender = RenderBlocks.getInstance();
 	public MultiblockSet currentMultiblock;
 	public static ChunkCoordinates anchor;
+	public Location partent;
 	public static int angle;
 
 	public void setMultiblock(MultiblockSet set) {
 		currentMultiblock = set;
 		anchor = null;
 		angle = 0;
+		partent = null;
 	}
 
 	@SubscribeEvent
@@ -92,6 +98,9 @@ public class MultiblockRenderEvent {
 		int y = pos.posY + anchorY;
 		int z = pos.posZ + anchorZ;
 
+		if(!world.isAirBlock(x, y, z))
+			return false;
+
 		GL11.glPushMatrix();
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -108,5 +117,19 @@ public class MultiblockRenderEvent {
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glPopMatrix();
 		return true;
+	}
+
+	@SubscribeEvent
+	public void breakBlock(BlockEvent.BreakEvent event){
+		if(partent != null){
+			if(event.x == partent.x && event.y == partent.y && event.z == partent.z && Minecraft.getMinecraft().theWorld == partent.world){
+				setMultiblock(null);
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public void worldUnloaded(WorldEvent.Unload event){
+		setMultiblock(null);
 	}
 }

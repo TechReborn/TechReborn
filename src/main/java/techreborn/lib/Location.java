@@ -12,6 +12,7 @@ public class Location implements Comparable<Location> {
     public int y;
     public int z;
     public int depth;
+    public World world;
 
     public Location(int x, int y, int z) {
         this.x = x;
@@ -24,6 +25,21 @@ public class Location implements Comparable<Location> {
         this.y = y;
         this.z = z;
         this.depth = depth;
+    }
+
+    public Location(int x, int y, int z, int depth, World world) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.depth = depth;
+        this.world = world;
+    }
+
+    public Location(int x, int y, int z, World world) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.world = world;
     }
 
     public Location(int xCoord, int yCoord, int zCoord, ForgeDirection dir) {
@@ -252,5 +268,24 @@ public class Location implements Comparable<Location> {
 
     public int compareTo(Location o) {
         return ((Integer) depth).compareTo(o.depth);
+    }
+
+    public World getWorld() {
+        return world;
+    }
+
+    public void setWorld(World world) {
+        this.world = world;
+    }
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "x=" + x +
+                ", y=" + y +
+                ", z=" + z +
+                ", depth=" + depth +
+                ", world=" + world +
+                '}';
     }
 }
