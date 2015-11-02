@@ -85,7 +85,7 @@ public abstract class GenericRecipeHander extends TemplateRecipeHandler {
             DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
             symbols.setGroupingSeparator('.');
             formatter.setDecimalFormatSymbols(symbols);
-            GuiDraw.drawString("EU needed:" + formatter.format(new Integer(genericRecipe.recipie.euPerTick() * genericRecipe.recipie.tickTime()).longValue()), 16, 105, -1);
+            GuiDraw.drawString("EU needed: " + formatter.format(new Integer(genericRecipe.recipie.euPerTick() * genericRecipe.recipie.tickTime()).longValue()), 16, 105, -1);
             GuiDraw.drawString("Ticks to process: " + genericRecipe.recipie.tickTime(), 14, 115, -1);
             GuiDraw.drawString("Time to process: " + genericRecipe.recipie.tickTime() / 20 + " seconds", 14, 125, -1);
         }

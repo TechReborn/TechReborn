@@ -31,6 +31,10 @@ public class NEIConfig implements IConfigureNEI {
         API.registerUsageHandler(alloy);
         API.registerRecipeHandler(alloy);
 
+        IronAlloySmelterRecipeHandler ironAlloy = new IronAlloySmelterRecipeHandler();
+        API.registerUsageHandler(ironAlloy);
+        API.registerRecipeHandler(ironAlloy);
+
         IndustrialSawmillRecipeHandler sawmill = new IndustrialSawmillRecipeHandler();
         API.registerUsageHandler(sawmill);
         API.registerRecipeHandler(sawmill);

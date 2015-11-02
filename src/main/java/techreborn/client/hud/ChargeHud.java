@@ -43,57 +43,56 @@ public class ChargeHud {
 
     public void drawChargeHud(ScaledResolution res) {
         EntityPlayer player = mc.thePlayer;
-        ItemStack stack = player.getCurrentArmor(2);
-        ItemStack stack2 = mc.thePlayer.inventory.getCurrentItem();
-        if (showHud) {
-            if (stack2 != null) {
-                if ((stack2.getItem() instanceof IEnergyInterfaceItem)) {
-                    double MaxCharge = ((IEnergyInterfaceItem) stack2.getItem()).getMaxPower(stack2);
-                    double CurrentCharge = ((IEnergyInterfaceItem) stack2.getItem()).getEnergy(stack2);
-                    Color color = Color.GREEN;
-                    double quarter = MaxCharge / 4;
-                    double half = MaxCharge / 2;
-                    GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-                    GL11.glEnable(32826);
-                    RenderHelper.enableStandardItemLighting();
-                    RenderHelper.enableGUIStandardItemLighting();
-                    RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack2, 0, 20);
-                    RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, stack2, 0, 20);
-                    if (CurrentCharge <= half) {
-                        color = Color.YELLOW;
-                    }
-                    if (CurrentCharge <= quarter) {
-                        color = Color.DARK_RED;
-                    }
-                    mc.fontRenderer.drawString(color + GetEUString(CurrentCharge) + "/" + GetEUString(MaxCharge), 20, 25, 0);
+        ItemStack armorstack = player.getCurrentArmor(2);
+        ItemStack stack = mc.thePlayer.inventory.getCurrentItem();
 
-                }
+        int y = 5;
+
+        if (armorstack != null && ConfigTechReborn.ShowChargeHud && armorstack.getItem() instanceof IEnergyInterfaceItem) {
+            double MaxCharge = ((IEnergyInterfaceItem) armorstack.getItem()).getMaxPower(armorstack);
+            double CurrentCharge = ((IEnergyInterfaceItem) armorstack.getItem()).getEnergy(armorstack);
+            Color color = Color.GREEN;
+            double quarter = MaxCharge / 4;
+            double half = MaxCharge / 2;
+            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+            GL11.glEnable(32826);
+            RenderHelper.enableStandardItemLighting();
+            RenderHelper.enableGUIStandardItemLighting();
+            //Render the stack
+            RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, armorstack, 0, y - 5);
+            //Render Overlay
+            RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, armorstack, 0, y - 5);
+            //Get the color depending on current charge
+            if (CurrentCharge <= half) {
+                color = Color.YELLOW;
             }
+            if (CurrentCharge <= quarter) {
+                color = Color.DARK_RED;
+            }
+            mc.fontRenderer.drawString(color + GetEUString(CurrentCharge) + "/" + GetEUString(MaxCharge), 20, y, 0);
+            y += 20;
+        }
 
-            if (stack != null) {
-                if ((stack.getItem() instanceof IEnergyInterfaceItem) && ConfigTechReborn.ShowChargeHud) {
-                    double MaxCharge = ((IEnergyInterfaceItem) stack.getItem()).getMaxPower(stack);
-                    double CurrentCharge = ((IEnergyInterfaceItem) stack2.getItem()).getEnergy(stack2);
-                    Color color = Color.GREEN;
-                    double quarter = MaxCharge / 4;
-                    double half = MaxCharge / 2;
-                    GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-                    GL11.glEnable(32826);
-                    RenderHelper.enableStandardItemLighting();
-                    RenderHelper.enableGUIStandardItemLighting();
-                    //Render the stack
-                    RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack, 0, 0);
-                    //Render Overlay
-                    RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, stack, 0, 0);
-                    //Get the color depending on current charge
-                    if (CurrentCharge <= half) {
-                        color = Color.YELLOW;
-                    }
-                    if (CurrentCharge <= quarter) {
-                        color = Color.DARK_RED;
-                    }
-                    mc.fontRenderer.drawString(color + GetEUString(CurrentCharge) + "/" + GetEUString(MaxCharge), 20, 5, 0);
+        if (showHud) {
+            if (stack != null && stack.getItem() instanceof IEnergyInterfaceItem) {
+                double MaxCharge = ((IEnergyInterfaceItem) stack.getItem()).getMaxPower(stack);
+                double CurrentCharge = ((IEnergyInterfaceItem) stack.getItem()).getEnergy(stack);
+                Color color = Color.GREEN;
+                double quarter = MaxCharge / 4;
+                double half = MaxCharge / 2;
+                GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+                GL11.glEnable(32826);
+                RenderHelper.enableStandardItemLighting();
+                RenderHelper.enableGUIStandardItemLighting();
+                RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack, 0, y - 5);
+                RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, stack, 0, y - 5);
+                if (CurrentCharge <= half) {
+                    color = Color.YELLOW;
                 }
+                if (CurrentCharge <= quarter) {
+                    color = Color.DARK_RED;
+                }
+                mc.fontRenderer.drawString(color + GetEUString(CurrentCharge) + "/" + GetEUString(MaxCharge), 20, y, 0);
             }
         }
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
