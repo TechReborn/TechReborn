@@ -17,6 +17,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.INetHandler;
 import net.minecraft.network.NetHandlerPlayServer;
+import techreborn.partSystem.fmp.PacketFMPPlacePart;
 
 import java.util.*;
 
@@ -118,6 +119,7 @@ public class PacketPipeline extends MessageToMessageCodec<FMLProxyPacket, Abstra
 
     private void registerPackets() {
         registerPacket(PacketIdsu.class);
+        registerPacket(PacketFMPPlacePart.class);
     }
 
     // Method to call from FMLPostInitializationEvent

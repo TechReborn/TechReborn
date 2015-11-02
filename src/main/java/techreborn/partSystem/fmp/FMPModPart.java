@@ -16,10 +16,8 @@ import codechicken.multipart.TMultiPart;
 import codechicken.multipart.TSlottedPart;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import techreborn.lib.Location;
 import techreborn.lib.vecmath.Vecs3d;
@@ -50,7 +48,7 @@ public class FMPModPart extends TMultiPart implements TSlottedPart,
     public Iterable<Cuboid6> getOcclusionBoxes() {
         List<Cuboid6> cubes = new ArrayList<Cuboid6>();
         for (Vecs3dCube c : iModPart.getOcclusionBoxes())
-            if(c != null)
+            if (c != null)
                 cubes.add(new Cuboid6(c.toAABB()));
         return cubes;
     }
