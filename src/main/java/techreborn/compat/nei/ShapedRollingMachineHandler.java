@@ -29,7 +29,7 @@ public class ShapedRollingMachineHandler extends ShapedRecipeHandler {
 
     @Override
     public String getRecipeName() {
-        return "rollingcrafting";
+        return "Shaped Rolling Machine";
     }
 
     @Override
@@ -102,5 +102,10 @@ public class ShapedRollingMachineHandler extends ShapedRecipeHandler {
                 arecipes.add(recipe);
             }
         }
+    }
+
+    @Override
+    public String getGuiTexture() {
+        return "techreborn:textures/gui/rolling_machine.png";
     }
 }
