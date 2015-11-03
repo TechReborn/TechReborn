@@ -15,6 +15,7 @@ import techreborn.client.multiblock.MultiblockSet;
 import techreborn.init.ModBlocks;
 import techreborn.lib.Location;
 import techreborn.lib.ModInfo;
+import techreborn.partSystem.fmp.PacketFMPPlacePart;
 import techreborn.proxies.ClientProxy;
 import techreborn.tiles.TileBlastFurnace;
 
@@ -45,6 +46,9 @@ public class GuiBlastFurnace extends GuiContainer {
 		ChunkCoordinates coordinates = new ChunkCoordinates(blastfurnace.xCoord - (ForgeDirection.getOrientation(blastfurnace.getRotation()).offsetX * 2), blastfurnace.yCoord - 1, blastfurnace.zCoord - (ForgeDirection.getOrientation(blastfurnace.getRotation()).offsetZ * 2));
 		if(coordinates.equals(ClientProxy.multiblockRenderEvent.anchor) && blastfurnace.getHeat() != 0){
 			ClientProxy.multiblockRenderEvent.setMultiblock(null);
+			button.displayString = "B";
+		} else {
+			button.displayString = "A";
 		}
     }
 
@@ -118,7 +122,8 @@ public class GuiBlastFurnace extends GuiContainer {
 					multiblock.addComponent(-1, 2, 1, ModBlocks.MachineCasing, 0);
 					multiblock.addComponent(1, 2, -1, ModBlocks.MachineCasing, 0);
 					multiblock.addComponent(1, 2, 1, ModBlocks.MachineCasing, 0);
-					
+
+					multiblock.addComponent(0, 3, 0, ModBlocks.MachineCasing, 0);
 					multiblock.addComponent(1, 3, 0, ModBlocks.MachineCasing, 0);
 					multiblock.addComponent(0, 3, 1, ModBlocks.MachineCasing, 0);
 					multiblock.addComponent(-1, 3, 0, ModBlocks.MachineCasing, 0);

@@ -38,7 +38,6 @@ import techreborn.client.multiblock.component.MultiblockComponent;
 import techreborn.lib.Location;
 
 public class MultiblockRenderEvent {
-	public static boolean rendering = false;
 
 	private static RenderBlocks blockRender = RenderBlocks.getInstance();
 	public MultiblockSet currentMultiblock;
@@ -77,18 +76,9 @@ public class MultiblockRenderEvent {
 			int anchorY = anchor != null ? anchor.posY +1 : src.blockY + 1;
 			int anchorZ = anchor != null ? anchor.posZ : src.blockZ;
 
-			rendering = true;
 			Multiblock mb =currentMultiblock.getForEntity(player);
-			boolean didAny = false;
 			for(MultiblockComponent comp : mb.getComponents())
-				if(renderComponent(player.worldObj, mb, comp, anchorX, anchorY, anchorZ))
-					didAny = true;
-			rendering = false;
-
-			if(!didAny) {
-				setMultiblock(null);
-				player.addChatComponentMessage(new ChatComponentText("Structure Complete!").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GREEN)));
-			}
+				renderComponent(player.worldObj, mb, comp, anchorX, anchorY, anchorZ);
 		}
 	}
 
