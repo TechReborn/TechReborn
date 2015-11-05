@@ -108,4 +108,9 @@ public class ShapelessRollingMachineHandler extends ShapelessRecipeHandler {
         return new CachedShapelessRecipe(recipe.recipeItems,
                 recipe.getRecipeOutput());
     }
+
+    @Override
+    public String getGuiTexture() {
+        return "techreborn:textures/gui/rolling_machine.png";
+    }
 }

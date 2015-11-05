@@ -13,7 +13,9 @@ import techreborn.client.container.ContainerBlastFurnace;
 import techreborn.client.multiblock.Multiblock;
 import techreborn.client.multiblock.MultiblockSet;
 import techreborn.init.ModBlocks;
+import techreborn.lib.Location;
 import techreborn.lib.ModInfo;
+import techreborn.partSystem.fmp.PacketFMPPlacePart;
 import techreborn.proxies.ClientProxy;
 import techreborn.tiles.TileBlastFurnace;
 
@@ -41,6 +43,13 @@ public class GuiBlastFurnace extends GuiContainer {
 		GuiButton button = new GuiButton(212, k + 4, l + 6, 20, 20, "");
 		buttonList.add(button);
         super.initGui();
+		ChunkCoordinates coordinates = new ChunkCoordinates(blastfurnace.xCoord - (ForgeDirection.getOrientation(blastfurnace.getRotation()).offsetX * 2), blastfurnace.yCoord - 1, blastfurnace.zCoord - (ForgeDirection.getOrientation(blastfurnace.getRotation()).offsetZ * 2));
+		if(coordinates.equals(ClientProxy.multiblockRenderEvent.anchor) && blastfurnace.getHeat() != 0){
+			ClientProxy.multiblockRenderEvent.setMultiblock(null);
+			button.displayString = "B";
+		} else {
+			button.displayString = "A";
+		}
     }
 
     @Override
@@ -113,7 +122,8 @@ public class GuiBlastFurnace extends GuiContainer {
 					multiblock.addComponent(-1, 2, 1, ModBlocks.MachineCasing, 0);
 					multiblock.addComponent(1, 2, -1, ModBlocks.MachineCasing, 0);
 					multiblock.addComponent(1, 2, 1, ModBlocks.MachineCasing, 0);
-					
+
+					multiblock.addComponent(0, 3, 0, ModBlocks.MachineCasing, 0);
 					multiblock.addComponent(1, 3, 0, ModBlocks.MachineCasing, 0);
 					multiblock.addComponent(0, 3, 1, ModBlocks.MachineCasing, 0);
 					multiblock.addComponent(-1, 3, 0, ModBlocks.MachineCasing, 0);
@@ -125,6 +135,7 @@ public class GuiBlastFurnace extends GuiContainer {
 					
 					MultiblockSet set = new MultiblockSet(multiblock);
 					ClientProxy.multiblockRenderEvent.setMultiblock(set);
+					ClientProxy.multiblockRenderEvent.partent = new Location(blastfurnace.xCoord, blastfurnace.yCoord, blastfurnace.zCoord, blastfurnace.getWorldObj());
 					ClientProxy.multiblockRenderEvent.anchor = new ChunkCoordinates(blastfurnace.xCoord - (ForgeDirection.getOrientation(blastfurnace.getRotation()).offsetX * 2), blastfurnace.yCoord - 1, blastfurnace.zCoord - (ForgeDirection.getOrientation(blastfurnace.getRotation()).offsetZ * 2));
 				}
 				button.displayString = "A";
