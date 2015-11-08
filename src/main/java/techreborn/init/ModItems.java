@@ -17,6 +17,7 @@ import techreborn.items.*;
 import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
 import techreborn.items.tools.*;
+import techreborn.powerSystem.PoweredItem;
 
 public class ModItems {
 
@@ -76,7 +77,7 @@ public class ModItems {
     public static Item upgrades;
 
 
-    public static void init() {
+    public static void init() throws InstantiationException, IllegalAccessException {
         gems = new ItemGems();
         GameRegistry.registerItem(gems, "gem");
         ingots = new ItemIngots();
@@ -97,17 +98,17 @@ public class ModItems {
         GameRegistry.registerItem(parts, "part");
         cells = new ItemCells();
         GameRegistry.registerItem(cells, "cell");
-        rockCutter = new ItemRockCutter(ToolMaterial.EMERALD);
+        rockCutter = PoweredItem.createItem(ItemRockCutter.class);
         GameRegistry.registerItem(rockCutter, "rockCutter");
-        lithiumBatpack = new ItemLithiumBatpack(ArmorMaterial.DIAMOND, 7, 1);
+        lithiumBatpack = PoweredItem.createItem(ItemLithiumBatpack.class);
         GameRegistry.registerItem(lithiumBatpack, "lithiumBatpack");
-        lapotronpack = new ItemLapotronPack(ArmorMaterial.DIAMOND, 7, 1);
+        lapotronpack = PoweredItem.createItem(ItemLapotronPack.class);
         GameRegistry.registerItem(lapotronpack, "lapotronPack");
-        lapotronicOrb = new ItemLapotronicOrb();
+        lapotronicOrb = PoweredItem.createItem(ItemLapotronicOrb.class);
         GameRegistry.registerItem(lapotronicOrb, "lapotronicOrb");
-        omniTool = new ItemOmniTool(ToolMaterial.EMERALD);
+        omniTool = PoweredItem.createItem(ItemOmniTool.class);
         GameRegistry.registerItem(omniTool, "omniTool");
-        advancedDrill = new ItemAdvancedDrill();
+        advancedDrill = PoweredItem.createItem(ItemAdvancedDrill.class);
         GameRegistry.registerItem(advancedDrill, "advancedDrill");
         manuel = new ItemTechPda();
         GameRegistry.registerItem(manuel, "techmanuel");
@@ -117,7 +118,7 @@ public class ModItems {
         upgrades = new ItemUpgrade();
         GameRegistry.registerItem(upgrades, "upgrades");
 
-        cloakingDevice = new ItemCloakingDevice();
+        cloakingDevice = PoweredItem.createItem(ItemCloakingDevice.class);
         GameRegistry.registerItem(cloakingDevice, "cloakingdevice");
 
         // buckets

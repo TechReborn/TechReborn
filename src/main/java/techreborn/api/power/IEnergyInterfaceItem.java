@@ -2,7 +2,7 @@ package techreborn.api.power;
 
 import net.minecraft.item.ItemStack;
 
-public interface IEnergyInterfaceItem {
+public interface IEnergyInterfaceItem extends IEnergyItemInfo{
     /**
      * @return Amount of energy in the tile
      */
@@ -15,12 +15,6 @@ public interface IEnergyInterfaceItem {
      */
     public void setEnergy(double energy, ItemStack stack);
 
-    /**
-     * Gets the max stored energy in the tile
-     *
-     * @return The max energy
-     */
-    public double getMaxPower(ItemStack stack);
 
     /**
      * @param energy amount of energy to add to the tile
@@ -68,21 +62,6 @@ public interface IEnergyInterfaceItem {
      * @return the amount of energy used
      */
     public double useEnergy(double energy, boolean simulate, ItemStack stack);
-
-    /**
-     * @return if it can accept energy
-     */
-    public boolean canAcceptEnergy(ItemStack stack);
-
-    /**
-     * @return if it can provide energy
-     */
-    public boolean canProvideEnergy(ItemStack stack);
-
-
-    public double getMaxTransfer(ItemStack stack);
-
-    public int getStackTeir(ItemStack stack);
 
 }
 

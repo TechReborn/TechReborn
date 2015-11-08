@@ -11,6 +11,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import reborncore.client.gui.GuiUtil;
 import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockSet;
+import reborncore.common.misc.Location;
 import techreborn.client.container.ContainerBlastFurnace;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;

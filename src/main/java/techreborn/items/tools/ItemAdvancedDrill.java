@@ -5,17 +5,23 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ic2.api.item.ElectricItem;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import reborncore.common.util.TorchHelper;
+import techreborn.api.power.IEnergyItemInfo;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
-import techreborn.powerSystem.PoweredPickaxe;
+import techreborn.powerSystem.PoweredItem;
 
-public class ItemAdvancedDrill extends PoweredPickaxe {
+import java.util.List;
+
+public class ItemAdvancedDrill extends ItemPickaxe implements IEnergyItemInfo {
 
     public static final int maxCharge = ConfigTechReborn.AdvancedDrillCharge;
     public int cost = 250;
@@ -103,5 +109,29 @@ public class ItemAdvancedDrill extends PoweredPickaxe {
     @Override
     public int getStackTeir(ItemStack stack) {
         return tier;
+    }
+
+    @SuppressWarnings(
+            {"rawtypes", "unchecked"})
+    @SideOnly(Side.CLIENT)
+    public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
+        ItemStack itemStack = new ItemStack(this, 1);
+        itemList.add(itemStack);
+
+        ItemStack charged = new ItemStack(this, 1);
+        PoweredItem.setEnergy(getMaxPower(charged), charged);
+        itemList.add(charged);
+    }
+
+    @Override
+    public double getDurabilityForDisplay(ItemStack stack) {
+        double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
+        return 1 - charge;
+
+    }
+
+    @Override
+    public boolean showDurabilityBar(ItemStack stack) {
+        return true;
     }
 }

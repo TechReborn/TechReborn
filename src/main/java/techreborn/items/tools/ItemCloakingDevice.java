@@ -3,16 +3,21 @@ package techreborn.items.tools;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.world.World;
+import techreborn.api.power.IEnergyItemInfo;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
 import techreborn.powerSystem.PoweredItem;
 
-public class ItemCloakingDevice extends PoweredItem {
+import java.util.List;
+
+public class ItemCloakingDevice extends Item implements IEnergyItemInfo {
     public static int Teir = ConfigTechReborn.CloakingDeviceTier;
     public static int MaxCharge = ConfigTechReborn.CloakingDeviceCharge;
     public static int Limit = 100;
@@ -27,8 +32,8 @@ public class ItemCloakingDevice extends PoweredItem {
 
     @Override
     public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
-        if (canUseEnergy(ConfigTechReborn.CloakingDeviceEUTick, itemStack)) {
-            useEnergy(ConfigTechReborn.CloakingDeviceEUTick, itemStack);
+        if (PoweredItem.canUseEnergy(ConfigTechReborn.CloakingDeviceEUTick, itemStack)) {
+            PoweredItem.useEnergy(ConfigTechReborn.CloakingDeviceEUTick, itemStack);
             player.setInvisible(true);
         } else {
             if (!player.isPotionActive(Potion.invisibility)) {
@@ -91,5 +96,25 @@ public class ItemCloakingDevice extends PoweredItem {
                 + "techreborn.cloakingdevice");
     }
 
+    @SideOnly(Side.CLIENT)
+    public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
+        ItemStack itemStack = new ItemStack(this, 1);
+        itemList.add(itemStack);
+
+        ItemStack charged = new ItemStack(this, 1);
+        PoweredItem.setEnergy(getMaxPower(charged), charged);
+        itemList.add(charged);
+    }
+
+
+    public double getDurabilityForDisplay(ItemStack stack) {
+        double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
+        return 1 - charge;
+
+    }
+
+    public boolean showDurabilityBar(ItemStack stack) {
+        return true;
+    }
 
 }

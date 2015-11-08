@@ -74,7 +74,7 @@ public class Core {
     }
 
     @Mod.EventHandler
-    public void init(FMLInitializationEvent event) {
+    public void init(FMLInitializationEvent event) throws IllegalAccessException, InstantiationException {
         // Register ModBlocks
         ModBlocks.init();
         // Register Fluids

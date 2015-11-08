@@ -3,20 +3,26 @@ package techreborn.items.armor;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import techreborn.api.power.IEnergyItemInfo;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
-import techreborn.powerSystem.PoweredArmor;
+import techreborn.powerSystem.PoweredItem;
 
-public class ItemLapotronPack extends PoweredArmor {
+import java.util.List;
+
+public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo {
 
     public static final int maxCharge = ConfigTechReborn.LapotronPackCharge;
     public static final int tier = ConfigTechReborn.LapotronPackTier;
     public double transferLimit = 100000;
 
-    public ItemLapotronPack(ArmorMaterial armormaterial, int par2, int par3) {
-        super(armormaterial, par2, par3);
+    public ItemLapotronPack() {
+        super(ItemArmor.ArmorMaterial.DIAMOND, 7, 1);
         setCreativeTab(TechRebornCreativeTab.instance);
         setUnlocalizedName("techreborn.lapotronpack");
         setMaxStackSize(1);
@@ -57,6 +63,30 @@ public class ItemLapotronPack extends PoweredArmor {
     @Override
     public int getStackTeir(ItemStack stack) {
         return tier;
+    }
+
+    @SuppressWarnings(
+            {"rawtypes", "unchecked"})
+    @SideOnly(Side.CLIENT)
+    public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
+        ItemStack itemStack = new ItemStack(this, 1);
+        itemList.add(itemStack);
+
+        ItemStack charged = new ItemStack(this, 1);
+        PoweredItem.setEnergy(getMaxPower(charged), charged);
+        itemList.add(charged);
+    }
+
+    @Override
+    public double getDurabilityForDisplay(ItemStack stack) {
+        double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
+        return 1 - charge;
+
+    }
+
+    @Override
+    public boolean showDurabilityBar(ItemStack stack) {
+        return true;
     }
 
 

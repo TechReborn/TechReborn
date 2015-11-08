@@ -4,26 +4,32 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import reborncore.common.util.TorchHelper;
+import techreborn.api.power.IEnergyItemInfo;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
-import techreborn.powerSystem.PoweredPickaxe;
+import techreborn.powerSystem.PoweredItem;
 
-public class ItemOmniTool extends PoweredPickaxe {
+import java.util.List;
+
+public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
 
     public static final int maxCharge = ConfigTechReborn.OmniToolCharge;
     public static final int tier = ConfigTechReborn.OmniToolTier;
     public int cost = 100;
     public int hitCost = 125;
 
-    public ItemOmniTool(ToolMaterial toolMaterial) {
-        super(toolMaterial);
+    public ItemOmniTool() {
+        super(ToolMaterial.EMERALD);
         efficiencyOnProperMaterial = 13F;
         setCreativeTab(TechRebornCreativeTab.instance);
         setMaxStackSize(1);
@@ -40,7 +46,7 @@ public class ItemOmniTool extends PoweredPickaxe {
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World world, Block block,
                                     int par4, int par5, int par6, EntityLivingBase entityLiving) {
-        useEnergy(cost, stack);
+        PoweredItem.useEnergy(cost, stack);
 
         return true;
     }
@@ -56,8 +62,8 @@ public class ItemOmniTool extends PoweredPickaxe {
 
     @Override
     public float getDigSpeed(ItemStack stack, Block block, int meta) {
-        if (canUseEnergy(cost, stack)) {
-            useEnergy(cost, stack);
+        if (PoweredItem.canUseEnergy(cost, stack)) {
+            PoweredItem.useEnergy(cost, stack);
             return 5.0F;
         }
 
@@ -74,8 +80,8 @@ public class ItemOmniTool extends PoweredPickaxe {
 
     @Override
     public boolean hitEntity(ItemStack itemstack, EntityLivingBase entityliving, EntityLivingBase attacker) {
-        if (canUseEnergy(hitCost, itemstack)) {
-            useEnergy(hitCost, itemstack);
+        if (PoweredItem.canUseEnergy(hitCost, itemstack)) {
+            PoweredItem.useEnergy(hitCost, itemstack);
             entityliving.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) attacker), 8F);
         }
         return false;
@@ -116,6 +122,30 @@ public class ItemOmniTool extends PoweredPickaxe {
     @Override
     public int getStackTeir(ItemStack stack) {
         return 2;
+    }
+
+    @SuppressWarnings(
+            {"rawtypes", "unchecked"})
+    @SideOnly(Side.CLIENT)
+    public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
+        ItemStack itemStack = new ItemStack(this, 1);
+        itemList.add(itemStack);
+
+        ItemStack charged = new ItemStack(this, 1);
+        PoweredItem.setEnergy(getMaxPower(charged), charged);
+        itemList.add(charged);
+    }
+
+    @Override
+    public double getDurabilityForDisplay(ItemStack stack) {
+        double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
+        return 1 - charge;
+
+    }
+
+    @Override
+    public boolean showDurabilityBar(ItemStack stack) {
+        return true;
     }
 
 }
