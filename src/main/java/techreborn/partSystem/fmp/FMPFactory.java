@@ -24,7 +24,6 @@ import techreborn.partSystem.IModPart;
 import techreborn.partSystem.IPartProvider;
 import techreborn.partSystem.ModPart;
 import techreborn.partSystem.ModPartRegistry;
-import techreborn.partSystem.parts.CableConverter;
 
 import java.util.List;
 
@@ -75,6 +74,7 @@ public class FMPFactory implements MultiPartRegistry.IPartFactory2,
         }
         return null;
     }
+
 
     @Override
     public void init() {

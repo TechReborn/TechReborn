@@ -66,9 +66,9 @@ configurations {
 
 def ENV = System.getenv()
 if (ENV.BUILD_NUMBER) {
-    version = "0.5.5." + "${System.getenv().BUILD_NUMBER}"
+    version = "0.5.6." + "${System.getenv().BUILD_NUMBER}"
 } else {
-    version = "0.5.5.BUILD"
+    version = "0.5.6.BUILD"
 }
 
 minecraft {
@@ -116,8 +116,8 @@ dependencies {
     compile 'Azanor:Thaumcraft:4.2.3.5:deobf@jar'
     compile "com.github.azanor:baubles:1.0.1.10:deobf@jar"
     compile name: "MineTweaker3", version: "1.7.10-3.0.9C", classifier: "Dev"
-    shade 'IC2-Classic-API-STANDALONE:IC2-Classic-API-STANDALONE:0.0.0.1:dev'
-    compile 'RebornCore:RebornCore:1.1.0.19-5:api'
+    shade 'IC2-Classic-API-STANDALONE:IC2-Classic-API-STANDALONE:1.1.0.19-5:api'
+    compile 'RebornCore:RebornCore:0.0.0.3:dev'
 
 	testCompile 'junit:junit:4.12'
 }

@@ -89,13 +89,11 @@ public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchabl
 
     @Override
     public boolean canFill(ForgeDirection from, Fluid fluid) {
-        System.out.println("hi");
         return FluidPowerManager.fluidPowerValues.containsKey(fluid);
     }
 
     @Override
     public boolean canDrain(ForgeDirection from, Fluid fluid) {
-        System.out.println("hi");
         return tank.getFluid() == null || tank.getFluid().getFluid() == fluid;
     }
 

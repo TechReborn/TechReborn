@@ -1,4 +1,4 @@
-package techreborn.partSystem.parts;
+package techreborn.partSystem.fmp;
 
 import codechicken.lib.packet.PacketCustom;
 import codechicken.lib.raytracer.RayTracer;
@@ -23,10 +23,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import techreborn.partSystem.fmp.FMPModPart;
+import reborncore.RebornCore;
+import reborncore.common.packets.AddDiscriminatorEvent;
+import reborncore.common.packets.PacketHandler;
+import techreborn.Core;
+import techreborn.partSystem.parts.CablePart;
 
 import java.util.Arrays;
 
@@ -52,39 +55,36 @@ public class CableConverter implements MultiPartRegistry.IPartConverter {
         return null;
     }
 
-    private ThreadLocal<Object> placing = new ThreadLocal<Object>();
+    private final ThreadLocal<Object> placing = new ThreadLocal<Object>();
 
     @SubscribeEvent(priority = EventPriority.LOW)
     public void playerInteract(PlayerInteractEvent event) {
         if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK && event.entityPlayer.worldObj.isRemote) {
-            if (placing.get() != null)
-                return;
+            if (placing.get() != null) return;//for mods that do dumb stuff and call this event like MFR
             placing.set(event);
-            if (place(event.entityPlayer, event.entityPlayer.worldObj))
-                event.setCanceled(true);
+            if (place(event.entityPlayer, event.entityPlayer.worldObj)) event.setCanceled(true);
             placing.set(null);
         }
     }
 
     public static boolean place(EntityPlayer player, World world) {
         MovingObjectPosition hit = RayTracer.reTrace(world, player);
-        if (hit == null)
-            return false;
+        if (hit == null) return false;
 
-        BlockCoord pos = new BlockCoord(hit.blockX, hit.blockY, hit.blockZ).offset(hit.sideHit);
+        BlockCoord pos = new BlockCoord(hit.blockX, hit.blockY, hit.blockZ);
         ItemStack held = player.getHeldItem();
+
         FMPModPart part = null;
-        if (held == null)
-            return false;
+        if (held == null) return false;
 
         Item heldItem = held.getItem();
+        if (heldItem == IC2Items.getItem("copperCableItem").getItem()) {
+            CablePart cablePart = new CablePart();
+            cablePart.setType(held.getItemDamage());
+            part = new FMPModPart(cablePart);
+        }
 
-
-        if (heldItem == IC2Items.getItem("copperCableItem").getItem())
-            part = placeCable(world, pos, hit.sideHit, held);
-
-        if (part == null)
-            return false;
+        if (part == null) return false;
 
         if (world.isRemote && !player.isSneaking())//attempt to use block activated like normal and tell the server the right stuff
         {
@@ -92,24 +92,21 @@ public class CableConverter implements MultiPartRegistry.IPartConverter {
             Block block = world.getBlock(hit.blockX, hit.blockY, hit.blockZ);
             if (!ignoreActivate(block) && block.onBlockActivated(world, hit.blockX, hit.blockY, hit.blockZ, player, hit.sideHit, (float) f.x, (float) f.y, (float) f.z)) {
                 player.swingItem();
-                PacketCustom.sendToServer(new C08PacketPlayerBlockPlacement(
-                        hit.blockX, hit.blockY, hit.blockZ, hit.sideHit,
-                        player.inventory.getCurrentItem(),
-                        (float) f.x, (float) f.y, (float) f.z));
+                PacketCustom.sendToServer(new C08PacketPlayerBlockPlacement(hit.blockX, hit.blockY, hit.blockZ, hit.sideHit, player.inventory.getCurrentItem(), (float) f.x, (float) f.y, (float) f.z));
                 return true;
             }
         }
 
         TileMultipart tile = TileMultipart.getOrConvertTile(world, pos);
-        if (tile == null || !tile.canAddPart(part))
-            return false;
+        if (tile == null || !tile.canAddPart(part)) {
+            pos = pos.offset(hit.sideHit);
+            tile = TileMultipart.getOrConvertTile(world, pos);
+            if (tile == null || !tile.canAddPart(part)) return false;
+        }
 
         if (!world.isRemote) {
             TileMultipart.addPart(world, pos, part);
-            world.playSoundEffect(pos.x + 0.5, pos.y + 0.5, pos.z + 0.5,
-                    Blocks.wool.stepSound.func_150496_b(),
-                    (Blocks.wool.stepSound.getVolume() + 1.0F) / 2.0F,
-                    Blocks.wool.stepSound.getPitch() * 0.8F);
+            world.playSoundEffect(pos.x + 0.5, pos.y + 0.5, pos.z + 0.5, Blocks.wool.stepSound.func_150496_b(), (Blocks.wool.stepSound.getVolume() + 1.0F) / 2.0F, Blocks.wool.stepSound.getPitch() * 0.8F);
             if (!player.capabilities.isCreativeMode) {
                 held.stackSize--;
                 if (held.stackSize == 0) {
@@ -119,28 +116,22 @@ public class CableConverter implements MultiPartRegistry.IPartConverter {
             }
         } else {
             player.swingItem();
-            //  new PacketCustom(McMultipartSPH.channel, 1).sendToServer();
+            PacketHandler.sendPacketToServer(new PacketFMPPlacePart());
         }
         return true;
     }
 
+    /**
+     * Because vanilla is weird.
+     */
     private static boolean ignoreActivate(Block block) {
-        if (block instanceof BlockFence)
-            return true;
+        if (block instanceof BlockFence) return true;
         return false;
     }
 
-    public static FMPModPart placeCable(World world, BlockCoord pos, int side, ItemStack held) {
-        if (side == 0)
-            return null;
-        pos = pos.copy().offset(side ^ 1);
-        Block block = world.getBlock(pos.x, pos.y, pos.z);
-        if (!block.isSideSolid(world, pos.x, pos.y, pos.z, ForgeDirection.getOrientation(side)) && (side != 1 || block.canPlaceTorchOnTop(world, pos.x, pos.y, pos.z)))
-            return null;
-
-        CablePart part = new CablePart();
-        part.setType(held.getItemDamage() * 16);
-        return new FMPModPart(part);
+    @SubscribeEvent
+    public void addDiscriminator(AddDiscriminatorEvent event) {
+        event.getPacketHandler().addDiscriminator(event.getPacketHandler().nextDiscriminator, PacketFMPPlacePart.class);
     }
 
 }

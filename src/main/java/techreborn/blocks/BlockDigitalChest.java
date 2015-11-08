@@ -64,4 +64,15 @@ public class BlockDigitalChest extends BlockMachineBase {
                 side == 0 ? this.iconBottom : (side == 0 ? this.iconTop
                         : (side == metadata ? this.iconFront : this.blockIcon));
     }
+
+    @Override
+    public IIcon getIcon(int side, int meta) {
+        if(side == 1){
+            return this.iconTop;
+        } else if(side == 3){
+            return this.iconFront;
+        } else {
+            return this.blockIcon;
+        }
+    }
 }

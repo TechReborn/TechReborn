@@ -7,7 +7,7 @@ import techreborn.client.StackToolTipEvent;
 import techreborn.client.VersionCheckerClient;
 import techreborn.client.hud.ChargeHud;
 import techreborn.client.keybindings.KeyBindings;
-import techreborn.client.render.MultiblockRenderEvent;
+import reborncore.client.multiblock.MultiblockRenderEvent;
 
 public class ClientProxy extends CommonProxy {
 

@@ -20,6 +20,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.common.util.CraftingHelper;
+import reborncore.common.util.OreUtil;
 import reborncore.common.util.RecipeRemover;
 import techreborn.Core;
 import techreborn.api.recipe.RecipeHandler;
@@ -452,7 +453,7 @@ public class RecipesIC2 implements ICompatModule {
 
 
         //Copper Ore
-        if (OreDictionary.doesOreNameExist("oreCopper")) {
+        if (OreUtil.doesOreExistAndValid("oreCopper")) {
             try {
                 ItemStack oreStack = OreDictionary.getOres("oreCopper").get(0);
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, ItemDusts.getDustByName("copper", 2), ItemDustsSmall.getSmallDustByName("Gold", 1), ItemDustsSmall.getSmallDustByName("Nickel", 1), IC2Items.getItem("cell"), 100, 120));
@@ -466,7 +467,7 @@ public class RecipesIC2 implements ICompatModule {
         }
 
         //Tin Ore
-        if (OreDictionary.doesOreNameExist("oreTin")) {
+        if (OreUtil.doesOreExistAndValid("oreTin")) {
             try {
                 ItemStack oreStack = OreDictionary.getOres("oreTin").get(0);
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, ItemDusts.getDustByName("tin", 2), ItemDustsSmall.getSmallDustByName("Iron", 1), ItemDustsSmall.getSmallDustByName("Zinc", 1), IC2Items.getItem("cell"), 100, 120));
@@ -477,7 +478,7 @@ public class RecipesIC2 implements ICompatModule {
         }
 
         //Nickel Ore
-        if (OreDictionary.doesOreNameExist("oreNickel")) {
+        if (OreUtil.doesOreExistAndValid("oreNickel")) {
             try {
                 ItemStack oreStack = OreDictionary.getOres("oreNickel").get(0);
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, ItemDusts.getDustByName("nickel", 2), ItemDustsSmall.getSmallDustByName("Iron", 1), ItemDustsSmall.getSmallDustByName("Platinum", 1), IC2Items.getItem("cell"), 100, 120));
@@ -489,7 +490,7 @@ public class RecipesIC2 implements ICompatModule {
         }
 
         //Zinc Ore
-        if (OreDictionary.doesOreNameExist("oreZinc")) {
+        if (OreUtil.doesOreExistAndValid("oreZinc")) {
             try {
                 ItemStack oreStack = OreDictionary.getOres("oreZinc").get(0);
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, ItemDusts.getDustByName("zinc", 2), ItemDustsSmall.getSmallDustByName("Iron", 1), ItemDustsSmall.getSmallDustByName("Tin", 1), IC2Items.getItem("cell"), 100, 120));
@@ -500,7 +501,7 @@ public class RecipesIC2 implements ICompatModule {
         }
 
         //Silver Ore
-        if (OreDictionary.doesOreNameExist("oreSilver")) {
+        if (OreUtil.doesOreExistAndValid("oreSilver")) {
             try {
                 ItemStack oreStack = OreDictionary.getOres("oreSilver").get(0);
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, ItemDusts.getDustByName("silver", 2), ItemDustsSmall.getSmallDustByName("Lead", 1), ItemDustsSmall.getSmallDustByName("Sulfur", 1), IC2Items.getItem("cell"), 100, 120));
@@ -511,7 +512,7 @@ public class RecipesIC2 implements ICompatModule {
         }
 
         //Lead Ore
-        if (OreDictionary.doesOreNameExist("oreLead")) {
+        if (OreUtil.doesOreExistAndValid("oreLead")) {
             try {
                 ItemStack oreStack = OreDictionary.getOres("oreLead").get(0);
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, ItemDusts.getDustByName("lead", 2), ItemDustsSmall.getSmallDustByName("Silver", 1), ItemDustsSmall.getSmallDustByName("Sulfur", 1), IC2Items.getItem("cell"), 100, 120));
@@ -522,7 +523,7 @@ public class RecipesIC2 implements ICompatModule {
         }
 
         //Uranium Ore
-        if (OreDictionary.doesOreNameExist("oreUranium")) {
+        if (OreUtil.doesOreExistAndValid("oreUranium")) {
             try {
                 ItemStack oreStack = OreDictionary.getOres("oreUranium").get(0);
                 ItemStack uranium238Stack = IC2Items.getItem("Uran238");
@@ -538,7 +539,7 @@ public class RecipesIC2 implements ICompatModule {
         }
 
         //Pitchblende Ore
-        if (OreDictionary.doesOreNameExist("orePitchblende")) {
+        if (OreUtil.doesOreExistAndValid("orePitchblende")) {
             try {
                 ItemStack oreStack = OreDictionary.getOres("orePitchblende").get(0);
                 ItemStack uranium238Stack = IC2Items.getItem("Uran238");
@@ -554,7 +555,7 @@ public class RecipesIC2 implements ICompatModule {
         }
 
         //Aluminum Ore
-        if (OreDictionary.doesOreNameExist("oreAluminum")) {
+        if (OreUtil.doesOreExistAndValid("oreAluminum")) {
             try {
                 ItemStack oreStack = OreDictionary.getOres("oreAluminum").get(0);
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, ItemDusts.getDustByName("aluminum", 2), ItemDustsSmall.getSmallDustByName("Bauxite", 1), ItemDustsSmall.getSmallDustByName("Bauxite", 1), IC2Items.getItem("cell"), 100, 120));
@@ -564,7 +565,7 @@ public class RecipesIC2 implements ICompatModule {
         }
 
         //Ardite Ore
-        if (OreDictionary.doesOreNameExist("oreArdite")) {
+        if (OreUtil.doesOreExistAndValid("oreArdite")) {
             try {
                 ItemStack oreStack = OreDictionary.getOres("oreArdite").get(0);
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, ItemDusts.getDustByName("ardite", 2), ItemDustsSmall.getSmallDustByName("Ardite", 1), ItemDustsSmall.getSmallDustByName("Ardite", 1), IC2Items.getItem("cell"), 100, 120));
@@ -574,7 +575,7 @@ public class RecipesIC2 implements ICompatModule {
         }
 
         //Cobalt Ore
-        if (OreDictionary.doesOreNameExist("oreCobalt")) {
+        if (OreUtil.doesOreExistAndValid("oreCobalt")) {
             try {
                 ItemStack oreStack = OreDictionary.getOres("oreCobalt").get(0);
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, ItemDusts.getDustByName("cobalt", 2), ItemDustsSmall.getSmallDustByName("Cobalt", 1), ItemDustsSmall.getSmallDustByName("Cobalt", 1), IC2Items.getItem("cell"), 100, 120));
@@ -584,7 +585,7 @@ public class RecipesIC2 implements ICompatModule {
         }
 
         //Dark Iron Ore
-        if (OreDictionary.doesOreNameExist("oreDarkIron")) {
+        if (OreUtil.doesOreExistAndValid("oreDarkIron")) {
             try {
                 ItemStack oreStack = OreDictionary.getOres("oreDarkIron").get(0);
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, ItemDusts.getDustByName("darkIron", 2), ItemDustsSmall.getSmallDustByName("DarkIron", 1), ItemDustsSmall.getSmallDustByName("Iron", 1), IC2Items.getItem("cell"), 100, 120));
@@ -594,7 +595,7 @@ public class RecipesIC2 implements ICompatModule {
         }
 
         //Cadmium Ore
-        if (OreDictionary.doesOreNameExist("oreCadmium")) {
+        if (OreUtil.doesOreExistAndValid("oreCadmium")) {
             try {
                 ItemStack oreStack = OreDictionary.getOres("oreCadmium").get(0);
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, ItemDusts.getDustByName("cadmium", 2), ItemDustsSmall.getSmallDustByName("Cadmium", 1), ItemDustsSmall.getSmallDustByName("Cadmium", 1), IC2Items.getItem("cell"), 100, 120));
@@ -604,7 +605,7 @@ public class RecipesIC2 implements ICompatModule {
         }
 
         //Indium Ore
-        if (OreDictionary.doesOreNameExist("oreIndium")) {
+        if (OreUtil.doesOreExistAndValid("oreIndium")) {
             try {
                 ItemStack oreStack = OreDictionary.getOres("oreIndium").get(0);
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, ItemDusts.getDustByName("indium", 2), ItemDustsSmall.getSmallDustByName("Indium", 1), ItemDustsSmall.getSmallDustByName("Indium", 1), IC2Items.getItem("cell"), 100, 120));
@@ -614,7 +615,7 @@ public class RecipesIC2 implements ICompatModule {
         }
 
         //Calcite Ore
-        if (OreDictionary.doesOreNameExist("oreCalcite") && OreDictionary.doesOreNameExist("gemCalcite")) {
+        if (OreUtil.doesOreExistAndValid("oreCalcite") && OreUtil.doesOreExistAndValid("gemCalcite")) {
             try {
                 ItemStack oreStack = OreDictionary.getOres("oreCalcite").get(0);
                 ItemStack gemStack = OreDictionary.getOres("gemCalcite").get(0);
@@ -625,7 +626,7 @@ public class RecipesIC2 implements ICompatModule {
         }
 
         //Magnetite Ore
-        if (OreDictionary.doesOreNameExist("oreMagnetite") && OreDictionary.doesOreNameExist("chunkMagnetite")) {
+        if (OreUtil.doesOreExistAndValid("oreMagnetite") && OreUtil.doesOreExistAndValid("chunkMagnetite")) {
             try {
                 ItemStack oreStack = OreDictionary.getOres("oreMagnetite").get(0);
                 ItemStack chunkStack = OreDictionary.getOres("chunkMagnetite").get(0);
@@ -636,7 +637,7 @@ public class RecipesIC2 implements ICompatModule {
         }
 
         //Graphite Ore
-        if (OreDictionary.doesOreNameExist("oreGraphite") && OreDictionary.doesOreNameExist("chunkGraphite")) {
+        if (OreUtil.doesOreExistAndValid("oreGraphite") && OreUtil.doesOreExistAndValid("chunkGraphite")) {
             try {
                 ItemStack oreStack = OreDictionary.getOres("oreGraphite").get(0);
                 ItemStack chunkStack = OreDictionary.getOres("chunkGraphite").get(0);
@@ -647,7 +648,7 @@ public class RecipesIC2 implements ICompatModule {
         }
 
         //Osmium Ore
-        if (OreDictionary.doesOreNameExist("oreOsmium")) {
+        if (OreUtil.doesOreExistAndValid("oreOsmium")) {
             try {
                 ItemStack oreStack = OreDictionary.getOres("oreOsmium").get(0);
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, ItemDusts.getDustByName("osmium", 2), ItemDustsSmall.getSmallDustByName("Osmium", 1), ItemDustsSmall.getSmallDustByName("Osmium", 1), IC2Items.getItem("cell"), 100, 120));
@@ -657,7 +658,7 @@ public class RecipesIC2 implements ICompatModule {
         }
 
         //Teslatite Ore
-        if (OreDictionary.doesOreNameExist("oreTeslatite") && OreDictionary.doesOreNameExist("dustTeslatite")) {
+        if (OreUtil.doesOreExistAndValid("oreTeslatite") && OreUtil.doesOreExistAndValid("dustTeslatite")) {
             try {
                 ItemStack oreStack = OreDictionary.getOres("oreTeslatite").get(0);
                 ItemStack dustStack = OreDictionary.getOres("dustTeslatite").get(0);
@@ -669,7 +670,7 @@ public class RecipesIC2 implements ICompatModule {
         }
 
         //Sulfur Ore
-        if (OreDictionary.doesOreNameExist("oreSulfur")) {
+        if (OreUtil.doesOreExistAndValid("oreSulfur")) {
             try {
                 ItemStack oreStack = OreDictionary.getOres("oreSulfur").get(0);
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, ItemDusts.getDustByName("sulfur", 2), ItemDustsSmall.getSmallDustByName("Sulfur", 1), ItemDustsSmall.getSmallDustByName("Sulfur", 1), IC2Items.getItem("cell"), 100, 120));
@@ -679,7 +680,7 @@ public class RecipesIC2 implements ICompatModule {
         }
 
         //Saltpeter Ore
-        if (OreDictionary.doesOreNameExist("oreSaltpeter")) {
+        if (OreUtil.doesOreExistAndValid("oreSaltpeter")) {
             try {
                 ItemStack oreStack = OreDictionary.getOres("oreSaltpeter").get(0);
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, ItemDusts.getDustByName("saltpeter", 2), ItemDustsSmall.getSmallDustByName("Saltpeter", 1), ItemDustsSmall.getSmallDustByName("Saltpeter", 1), IC2Items.getItem("cell"), 100, 120));
@@ -689,7 +690,7 @@ public class RecipesIC2 implements ICompatModule {
         }
 
         //Apatite Ore
-        if (OreDictionary.doesOreNameExist("oreApatite") & OreDictionary.doesOreNameExist("gemApatite")) {
+        if (OreUtil.doesOreExistAndValid("oreApatite") & OreUtil.doesOreExistAndValid("gemApatite")) {
             try {
                 ItemStack oreStack = OreDictionary.getOres("oreApatite").get(0);
                 ItemStack gemStack = OreDictionary.getOres("gemApatite").get(0);
@@ -701,7 +702,7 @@ public class RecipesIC2 implements ICompatModule {
         }
 
         //Nether Quartz Ore
-        if (OreDictionary.doesOreNameExist("dustNetherQuartz")) {
+        if (OreUtil.doesOreExistAndValid("dustNetherQuartz")) {
             try {
                 ItemStack dustStack = OreDictionary.getOres("dustNetherQuartz").get(0);
                 dustStack.stackSize = 4;
@@ -712,7 +713,7 @@ public class RecipesIC2 implements ICompatModule {
         }
 
         //Certus Quartz Ore
-        if (OreDictionary.doesOreNameExist("oreCertusQuartz")) {
+        if (OreUtil.doesOreExistAndValid("oreCertusQuartz")) {
             try {
                 ItemStack oreStack = OreDictionary.getOres("oreCertusQuartz").get(0);
                 ItemStack gemStack = OreDictionary.getOres("crystalCertusQuartz").get(0);
@@ -725,7 +726,7 @@ public class RecipesIC2 implements ICompatModule {
         }
 
         //Charged Certus Quartz Ore
-        if (OreDictionary.doesOreNameExist("oreChargedCertusQuartz")) {
+        if (OreUtil.doesOreExistAndValid("oreChargedCertusQuartz")) {
             try {
                 ItemStack oreStack = OreDictionary.getOres("oreChargedCertusQuartz").get(0);
                 ItemStack gemStack = OreDictionary.getOres("crystalChargedCertusQuartz").get(0);
@@ -738,7 +739,7 @@ public class RecipesIC2 implements ICompatModule {
         }
 
         //Amethyst Ore
-        if (OreDictionary.doesOreNameExist("oreAmethyst") && OreDictionary.doesOreNameExist("gemAmethyst")) {
+        if (OreUtil.doesOreExistAndValid("oreAmethyst") && OreUtil.doesOreExistAndValid("gemAmethyst")) {
             try {
                 ItemStack oreStack = OreDictionary.getOres("oreAmethyst").get(0);
                 ItemStack gemStack = OreDictionary.getOres("gemAmethyst").get(0);
@@ -752,7 +753,7 @@ public class RecipesIC2 implements ICompatModule {
         }
 
         //Topaz Ore
-        if (OreDictionary.doesOreNameExist("oreTopaz") && OreDictionary.doesOreNameExist("gemTopaz")) {
+        if (OreUtil.doesOreExistAndValid("oreTopaz") && OreUtil.doesOreExistAndValid("gemTopaz")) {
             try {
                 ItemStack oreStack = OreDictionary.getOres("oreTopaz").get(0);
                 ItemStack gemStack = OreDictionary.getOres("gemTopaz").get(0);
@@ -766,7 +767,7 @@ public class RecipesIC2 implements ICompatModule {
         }
 
         //Tanzanite Ore
-        if (OreDictionary.doesOreNameExist("oreTanzanite") && OreDictionary.doesOreNameExist("gemTanzanite")) {
+        if (OreUtil.doesOreExistAndValid("oreTanzanite") && OreUtil.doesOreExistAndValid("gemTanzanite")) {
             try {
                 ItemStack oreStack = OreDictionary.getOres("oreTanzanite").get(0);
                 ItemStack gemStack = OreDictionary.getOres("gemTanzanite").get(0);
@@ -780,7 +781,7 @@ public class RecipesIC2 implements ICompatModule {
         }
 
         //Malachite Ore
-        if (OreDictionary.doesOreNameExist("oreMalachite") && OreDictionary.doesOreNameExist("gemMalachite")) {
+        if (OreUtil.doesOreExistAndValid("oreMalachite") && OreUtil.doesOreExistAndValid("gemMalachite")) {
             try {
                 ItemStack oreStack = OreDictionary.getOres("oreMalachite").get(0);
                 ItemStack gemStack = OreDictionary.getOres("gemMalachite").get(0);
@@ -1089,7 +1090,7 @@ public class RecipesIC2 implements ICompatModule {
                 20, 30
         ));
 
-        if (OreDictionary.doesOreNameExist("dustSalt")) {
+        if (OreUtil.doesOreExistAndValid("dustSalt")) {
             ItemStack salt = OreDictionary.getOres("dustSalt").get(0);
             salt.stackSize = 2;
             RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
@@ -1184,137 +1185,137 @@ public class RecipesIC2 implements ICompatModule {
     static void addTRMaceratorRecipes() {
         //Macerator
 
-        if (OreDictionary.doesOreNameExist("oreAluminum")) {
+        if (OreUtil.doesOreExistAndValid("oreAluminum")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreAluminum"), null, ItemCrushedOre.getCrushedOreByName("Aluminum", 2));
         }
-        if (OreDictionary.doesOreNameExist("oreArdite")) {
+        if (OreUtil.doesOreExistAndValid("oreArdite")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreArdite"), null, ItemCrushedOre.getCrushedOreByName("Ardite", 2));
         }
-        if (OreDictionary.doesOreNameExist("oreBauxite")) {
+        if (OreUtil.doesOreExistAndValid("oreBauxite")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreBauxite"), null, ItemCrushedOre.getCrushedOreByName("Bauxite", 2));
         }
-        if (OreDictionary.doesOreNameExist("oreCadmium")) {
+        if (OreUtil.doesOreExistAndValid("oreCadmium")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreCadmium"), null, ItemCrushedOre.getCrushedOreByName("Cadmium", 2));
         }
-        if (OreDictionary.doesOreNameExist("oreCinnabar")) {
+        if (OreUtil.doesOreExistAndValid("oreCinnabar")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreCinnabar"), null, ItemCrushedOre.getCrushedOreByName("Cinnabar", 2));
         }
-        if (OreDictionary.doesOreNameExist("oreCobalt")) {
+        if (OreUtil.doesOreExistAndValid("oreCobalt")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreCobalt"), null, ItemCrushedOre.getCrushedOreByName("Cobalt", 2));
         }
-        if (OreDictionary.doesOreNameExist("oreDarkIron")) {
+        if (OreUtil.doesOreExistAndValid("oreDarkIron")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreDarkIron"), null, ItemCrushedOre.getCrushedOreByName("DarkIron", 2));
         }
-        if (OreDictionary.doesOreNameExist("oreIndium")) {
+        if (OreUtil.doesOreExistAndValid("oreIndium")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreIndium"), null, ItemCrushedOre.getCrushedOreByName("Indium", 2));
         }
-        if (OreDictionary.doesOreNameExist("oreIridium")) {
+        if (OreUtil.doesOreExistAndValid("oreIridium")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreIridium"), null, ItemCrushedOre.getCrushedOreByName("Iridium", 2));
         }
-        if (OreDictionary.doesOreNameExist("oreNickel")) {
+        if (OreUtil.doesOreExistAndValid("oreNickel")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreNickel"), null, ItemCrushedOre.getCrushedOreByName("Nickel", 2));
         }
-        if (OreDictionary.doesOreNameExist("orePlatinum")) {
+        if (OreUtil.doesOreExistAndValid("orePlatinum")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("orePlatinum"), null, ItemCrushedOre.getCrushedOreByName("Platinum", 2));
         }
-        if (OreDictionary.doesOreNameExist("orePyrite")) {
+        if (OreUtil.doesOreExistAndValid("orePyrite")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("orePyrite"), null, ItemCrushedOre.getCrushedOreByName("Pyrite", 2));
         }
-        if (OreDictionary.doesOreNameExist("oreSphalerite")) {
+        if (OreUtil.doesOreExistAndValid("oreSphalerite")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreSphalerite"), null, ItemCrushedOre.getCrushedOreByName("Sphalerite", 2));
         }
-        if (OreDictionary.doesOreNameExist("oreTetrahedrite")) {
+        if (OreUtil.doesOreExistAndValid("oreTetrahedrite")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreTetrahedrite"), null, ItemCrushedOre.getCrushedOreByName("Tetrahedrite", 2));
         }
-        if (OreDictionary.doesOreNameExist("oreTungsten")) {
+        if (OreUtil.doesOreExistAndValid("oreTungsten")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreTungsten"), null, ItemCrushedOre.getCrushedOreByName("Tungsten", 2));
         }
-        if (OreDictionary.doesOreNameExist("oreGalena")) {
+        if (OreUtil.doesOreExistAndValid("oreGalena")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreGalena"), null, ItemCrushedOre.getCrushedOreByName("Galena", 2));
         }
 
 
-        if (!IC2Classic.isIc2ClassicLoaded() && OreDictionary.doesOreNameExist("oreRedstone")) {
+        if (!IC2Classic.isIc2ClassicLoaded() && OreUtil.doesOreExistAndValid("oreRedstone")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreRedstone"), null, new ItemStack(Items.redstone, 10));
         }
-        if (OreDictionary.doesOreNameExist("oreLapis")) {
+        if (OreUtil.doesOreExistAndValid("oreLapis")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreLapis"), null, ItemDusts.getDustByName("lapis", 12));
         }
-        if (OreDictionary.doesOreNameExist("oreDiamond")) {
+        if (OreUtil.doesOreExistAndValid("oreDiamond")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreDiamond"), null, ItemDusts.getDustByName("diamond", 2));
         }
-        if (OreDictionary.doesOreNameExist("oreEmerald")) {
+        if (OreUtil.doesOreExistAndValid("oreEmerald")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreEmerald"), null, ItemDusts.getDustByName("emerald", 2));
         }
-        if (OreDictionary.doesOreNameExist("oreRuby")) {
+        if (OreUtil.doesOreExistAndValid("oreRuby")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreRuby"), null, ItemGems.getGemByName("ruby", 2));
         }
-        if (OreDictionary.doesOreNameExist("oreSapphire")) {
+        if (OreUtil.doesOreExistAndValid("oreSapphire")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreSapphire"), null, ItemDusts.getDustByName("sapphire", 2));
         }
-        if (OreDictionary.doesOreNameExist("orePeridot")) {
+        if (OreUtil.doesOreExistAndValid("orePeridot")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("orePeridot"), null, ItemDusts.getDustByName("peridot", 2));
         }
-        if (OreDictionary.doesOreNameExist("oreSulfur")) {
+        if (OreUtil.doesOreExistAndValid("oreSulfur")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreSulfur"), null, ItemDusts.getDustByName("sulfur", 2));
         }
-        if (OreDictionary.doesOreNameExist("oreSaltpeter")) {
+        if (OreUtil.doesOreExistAndValid("oreSaltpeter")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreSaltpeter"), null, ItemDusts.getDustByName("saltpeter", 2));
         }
-        if (OreDictionary.doesOreNameExist("oreTeslatite")) {
+        if (OreUtil.doesOreExistAndValid("oreTeslatite")) {
             ItemStack teslatiteStack = OreDictionary.getOres("dustTeslatite").get(0);
             teslatiteStack.stackSize = 10;
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreTeslatite"), null, teslatiteStack);
         }
-        if (OreDictionary.doesOreNameExist("oreMithril")) {
+        if (OreUtil.doesOreExistAndValid("oreMithril")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreMithril"), null, ItemDusts.getDustByName("mithril", 2));
         }
-        if (OreDictionary.doesOreNameExist("oreVinteum")) {
+        if (OreUtil.doesOreExistAndValid("oreVinteum")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreVinteum"), null, ItemDusts.getDustByName("vinteum", 2));
         }
-        if (OreDictionary.doesOreNameExist("limestone")) {
+        if (OreUtil.doesOreExistAndValid("limestone")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("limestone"), null, ItemDusts.getDustByName("limestone", 2));
         }
-        if (OreDictionary.doesOreNameExist("stoneNetherrack")) {
+        if (OreUtil.doesOreExistAndValid("stoneNetherrack")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("stoneNetherrack"), null, ItemDusts.getDustByName("netherrack", 2));
         }
-        if (OreDictionary.doesOreNameExist("stoneEndstone")) {
+        if (OreUtil.doesOreExistAndValid("stoneEndstone")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("stoneEndstone"), null, ItemDusts.getDustByName("endstone", 2));
         }
-        if (OreDictionary.doesOreNameExist("stoneRedrock")) {
+        if (OreUtil.doesOreExistAndValid("stoneRedrock")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("stoneRedrock"), null, ItemDusts.getDustByName("redrock", 2));
         }
-        if (OreDictionary.doesOreNameExist("oreMagnetite")) {
+        if (OreUtil.doesOreExistAndValid("oreMagnetite")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreMagnetite"), null, ItemDusts.getDustByName("magnetite", 2));
         }
-        if (OreDictionary.doesOreNameExist("oreLodestone")) {
+        if (OreUtil.doesOreExistAndValid("oreLodestone")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreLodestone"), null, ItemDusts.getDustByName("lodestone", 2));
         }
-        if (OreDictionary.doesOreNameExist("oreTellurium")) {
+        if (OreUtil.doesOreExistAndValid("oreTellurium")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreTellurium"), null, ItemDusts.getDustByName("tellurium", 2));
         }
-        if (OreDictionary.doesOreNameExist("oreSilicon")) {
+        if (OreUtil.doesOreExistAndValid("oreSilicon")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreSilicon"), null, ItemDusts.getDustByName("silicon", 2));
         }
-        if (OreDictionary.doesOreNameExist("oreVoidstone")) {
+        if (OreUtil.doesOreExistAndValid("oreVoidstone")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreVoidstone"), null, ItemDusts.getDustByName("voidstone", 2));
         }
-        if (OreDictionary.doesOreNameExist("oreCalcite")) {
+        if (OreUtil.doesOreExistAndValid("oreCalcite")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreCalcite"), null, ItemDusts.getDustByName("calcite", 2));
         }
-        if (OreDictionary.doesOreNameExist("oreSodalite")) {
+        if (OreUtil.doesOreExistAndValid("oreSodalite")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreSodalite"), null, ItemDusts.getDustByName("sodalite", 2));
         }
-        if (OreDictionary.doesOreNameExist("oreGraphite")) {
+        if (OreUtil.doesOreExistAndValid("oreGraphite")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("oreGraphite"), null, ItemDusts.getDustByName("graphite", 2));
         }
-        if (OreDictionary.doesOreNameExist("blockMarble")) {
+        if (OreUtil.doesOreExistAndValid("blockMarble")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("blockMarble"), null, ItemDusts.getDustByName("marble", 2));
         }
-        if (OreDictionary.doesOreNameExist("blockBasalt")) {
+        if (OreUtil.doesOreExistAndValid("blockBasalt")) {
             Recipes.macerator.addRecipe(new RecipeInputOreDict("blockBasalt"), null, ItemDusts.getDustByName("basalt", 2));
         }
-        if (OreDictionary.doesOreNameExist("gemRuby")) {
+        if (OreUtil.doesOreExistAndValid("gemRuby")) {
             Recipes.macerator.getRecipes().put(new RecipeInputOreDict("gemRuby"), new RecipeOutput(new NBTTagCompound(), ItemDusts.getDustByName("ruby")));
         }
     }
