@@ -74,16 +74,6 @@ public class RecipeHandler {
             buffer.append(ste);
         }
         stackMap.put(recipe, buffer.toString());
-        for(ItemStack stack : recipe.getOutputs()){
-            if(stack.getItem() == null){
-                throw new NullPointerException("Null item in stack!");
-            }
-        }
-        for(ItemStack stack : recipe.getInputs()){
-            if(stack.getItem() == null){
-                throw new NullPointerException("Null item in stack!");
-            }
-        }
     }
 
 
