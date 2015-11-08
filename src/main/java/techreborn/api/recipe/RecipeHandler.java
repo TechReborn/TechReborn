@@ -3,6 +3,7 @@ package techreborn.api.recipe;
 import net.minecraft.item.ItemStack;
 import org.apache.commons.lang3.time.StopWatch;
 import reborncore.common.util.ItemUtils;
+import scala.actors.threadpool.Arrays;
 import techreborn.Core;
 import techreborn.api.recipe.recipeConfig.RecipeConfigManager;
 
@@ -74,6 +75,16 @@ public class RecipeHandler {
             buffer.append(ste);
         }
         stackMap.put(recipe, buffer.toString());
+        for(ItemStack stack : recipe.getOutputs()){
+            if(stack.getItem() == null){
+                throw new NullPointerException("Null item in stack!");
+            }
+        }
+        for(ItemStack stack : recipe.getInputs()){
+            if(stack.getItem() == null){
+                throw new NullPointerException("Null item in stack!");
+            }
+        }
     }
 
 
