@@ -2,13 +2,10 @@ package techreborn.api.recipe;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import reborncore.common.util.Inventory;
+import reborncore.common.util.ItemUtils;
 import techreborn.api.power.IEnergyInterfaceTile;
-import techreborn.packets.PacketHandler;
 import techreborn.tiles.TileMachineBase;
-import techreborn.util.Inventory;
-import techreborn.util.ItemUtils;
 
 import java.util.ArrayList;
 
@@ -283,7 +280,7 @@ public class RecipeCrafter {
 
     private boolean isActive() {
         return currentRecipe != null && energy.getEnergy() >= currentRecipe.euPerTick();
-}
+    }
 
     public void addSpeedMulti(double amount) {
         if (speedMultiplier + amount <= 0.99) {
@@ -319,11 +316,11 @@ public class RecipeCrafter {
 
 
     public void setIsActive() {
-       if(isActive()){
-           parentTile.getWorldObj().setBlockMetadataWithNotify(parentTile.xCoord, parentTile.yCoord, parentTile.zCoord, 1, 2);
-       } else {
-           parentTile.getWorldObj().setBlockMetadataWithNotify(parentTile.xCoord, parentTile.yCoord, parentTile.zCoord, 0, 2);
-       }
+        if (isActive()) {
+            parentTile.getWorldObj().setBlockMetadataWithNotify(parentTile.xCoord, parentTile.yCoord, parentTile.zCoord, 1, 2);
+        } else {
+            parentTile.getWorldObj().setBlockMetadataWithNotify(parentTile.xCoord, parentTile.yCoord, parentTile.zCoord, 0, 2);
+        }
         parentTile.getWorldObj().markBlockForUpdate(parentTile.xCoord, parentTile.yCoord, parentTile.zCoord);
     }
 

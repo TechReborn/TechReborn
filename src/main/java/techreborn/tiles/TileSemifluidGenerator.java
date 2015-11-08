@@ -10,18 +10,18 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
+import reborncore.common.util.FluidUtils;
+import reborncore.common.util.Inventory;
+import reborncore.common.util.Tank;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.powerSystem.TilePowerAcceptor;
-import techreborn.util.FluidUtils;
-import techreborn.util.Inventory;
-import techreborn.util.Tank;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class TileSemifluidGenerator extends TilePowerAcceptor implements IWrenchable,
-        IFluidHandler, IInventory{
+        IFluidHandler, IInventory {
 
     public Tank tank = new Tank("TileSemifluidGenerator",
             FluidContainerRegistry.BUCKET_VOLUME * 10, this);

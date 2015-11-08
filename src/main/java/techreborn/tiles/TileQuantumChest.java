@@ -9,10 +9,10 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import powercrystals.minefactoryreloaded.api.IDeepStorageUnit;
-import techreborn.api.IListInfoProvider;
+import reborncore.api.IListInfoProvider;
+import reborncore.common.util.Inventory;
+import reborncore.common.util.ItemUtils;
 import techreborn.init.ModBlocks;
-import techreborn.util.Inventory;
-import techreborn.util.ItemUtils;
 
 import java.util.List;
 
@@ -232,34 +232,33 @@ public class TileQuantumChest extends TileMachineBase implements IInventory,
     }
 
 
-    
-	@Override
-	public ItemStack getStoredItemType() {
-		return this.storedItem;
-	}
+    @Override
+    public ItemStack getStoredItemType() {
+        return this.storedItem;
+    }
 
-	@Override
-	public void setStoredItemCount(int amount) {
-		this.storedItem.stackSize = 0;
-		this.storedItem.stackSize += (amount);
-		this.markDirty();
-	}
+    @Override
+    public void setStoredItemCount(int amount) {
+        this.storedItem.stackSize = 0;
+        this.storedItem.stackSize += (amount);
+        this.markDirty();
+    }
 
-	@Override
-	public void setStoredItemType(ItemStack type, int amount) {
-		this.storedItem = type;
-		this.storedItem.stackSize = amount;
-		this.markDirty();
-	}
+    @Override
+    public void setStoredItemType(ItemStack type, int amount) {
+        this.storedItem = type;
+        this.storedItem.stackSize = amount;
+        this.markDirty();
+    }
 
-	@Override
-	public int getMaxStoredCount() {
-		return this.storage;
-	}
+    @Override
+    public int getMaxStoredCount() {
+        return this.storage;
+    }
 
     @Override
     public void addInfo(List<String> info, boolean isRealTile) {
-        if(isRealTile){
+        if (isRealTile) {
             int size = 0;
             String name = "of nothing";
             if (storedItem != null) {

@@ -1,8 +1,8 @@
 package techreborn.api.upgrade;
 
 import net.minecraft.item.ItemStack;
+import reborncore.common.util.Inventory;
 import techreborn.api.recipe.RecipeCrafter;
-import techreborn.util.Inventory;
 
 import java.util.ArrayList;
 

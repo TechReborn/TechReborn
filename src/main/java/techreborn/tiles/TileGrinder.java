@@ -10,16 +10,16 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
+import reborncore.common.misc.Location;
+import reborncore.common.util.Inventory;
+import reborncore.common.util.Tank;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModFluids;
-import techreborn.lib.Location;
 import techreborn.lib.Reference;
 import techreborn.powerSystem.TilePowerAcceptor;
-import techreborn.util.Inventory;
-import techreborn.util.Tank;
 
 public class TileGrinder extends TilePowerAcceptor implements IWrenchable, IEnergyTile, IFluidHandler, IInventory, ISidedInventory {
 

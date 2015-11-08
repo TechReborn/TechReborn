@@ -1,30 +1,27 @@
 package techreborn.client.gui;
 
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import techreborn.Core;
+import reborncore.common.packets.PacketHandler;
 import techreborn.client.container.ContainerIDSU;
-import techreborn.cofhLib.gui.GuiBase;
-import techreborn.cofhLib.gui.element.ElementListBox;
-import techreborn.cofhLib.gui.element.ElementTextField;
-import techreborn.cofhLib.gui.element.ElementTextFieldLimited;
 import techreborn.packets.PacketIdsu;
 import techreborn.tiles.idsu.TileIDSU;
-import techreborn.util.LogHelper;
 
-public class GuiIDSU extends GuiBase {
+import java.awt.*;
+
+public class GuiIDSU extends GuiContainer {
+
+    private static final ResourceLocation texture = new ResourceLocation(
+            "techreborn", "textures/gui/aesu.png");
 
 
     TileIDSU idsu;
 
     ContainerIDSU containerIDSU;
 
-    public static ElementListBox listBox = new ElementListBox(null, 10, 28, 100, 40);
-
-    ElementTextFieldLimited idFeild;
-    ElementTextField nameFeild;
 
     public GuiIDSU(EntityPlayer player, TileIDSU tileIDSU) {
         super(new ContainerIDSU(tileIDSU, player));
@@ -32,10 +29,6 @@ public class GuiIDSU extends GuiBase {
         this.ySize = 165;
         idsu = tileIDSU;
         this.containerIDSU = (ContainerIDSU) this.inventorySlots;
-        texture = new ResourceLocation("techreborn", "textures/gui/aesu.png");
-        drawTitle = false;
-        drawInventory = false;
-        name = StatCollector.translateToLocal("tile.techreborn.aesu.name");
     }
 
     @Override
@@ -49,36 +42,29 @@ public class GuiIDSU extends GuiBase {
         this.buttonList.add(new GuiButton(2, k + 128, l + 5 + (20 * 2), 15, 15, "-"));
         this.buttonList.add(new GuiButton(3, k + 128, l + 5 + (20 * 3), 15, 15, "--"));
         this.buttonList.add(new GuiButton(4, k + 40, l + 10, 10, 10, "+"));
+    }
 
-        listBox.gui = this;
-        listBox.setSelectedIndex(containerIDSU.channel);
+    @Override
+    protected void drawGuiContainerBackgroundLayer(float p_146976_1_,
+                                                   int p_146976_2_, int p_146976_3_) {
+        this.mc.getTextureManager().bindTexture(texture);
+        int k = (this.width - this.xSize) / 2;
+        int l = (this.height - this.ySize) / 2;
+        this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
+    }
 
-//		listBox.borderColor = new GuiColor(120, 120, 120, 0).getColor();
-//		listBox.backgroundColor = new GuiColor(0, 0, 0, 32).getColor();
-        addElement(listBox);
-
-        idFeild = new ElementTextFieldLimited(this, 10, 10, 30, 10, (short) 4);
-        idFeild.setFilter("1234567890", false);
-
-        addElement(idFeild);
-
-        nameFeild = new ElementTextField(this, 70, 10, 50, 10);
-
-        addElement(nameFeild);
-
-//		tabs.add(new TabIDConfig(this));
-
-
+    protected void drawGuiContainerForegroundLayer(int p_146979_1_,
+                                                   int p_146979_2_) {
+        this.fontRendererObj.drawString(StatCollector.translateToLocal("tile.techreborn.idsu.name"), 40, 10, Color.WHITE.getRGB());
+        this.fontRendererObj.drawString(containerIDSU.euOut + " eu/tick", 10, 20, Color.WHITE.getRGB());
+        this.fontRendererObj.drawString(containerIDSU.storedEu + " eu", 10, 30, Color.WHITE.getRGB());
+        this.fontRendererObj.drawString(containerIDSU.euChange + " eu change", 10, 40, Color.WHITE.getRGB());
     }
 
     @Override
     protected void actionPerformed(GuiButton button) {
         super.actionPerformed(button);
-        if (isInteger(idFeild.getText())) {
-            Core.packetPipeline.sendToServer(new PacketIdsu(button.id, idsu, Integer.parseInt(idFeild.getText()), nameFeild.getText()));
-        } else {
-            LogHelper.info("There was an issue in the gui!, Please report this to the TechReborn Devs");
-        }
+        PacketHandler.sendPacketToServer(new PacketIdsu(button.id, idsu));
 
     }
 

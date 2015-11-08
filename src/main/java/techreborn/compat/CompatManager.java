@@ -35,10 +35,10 @@ public class CompatManager {
     }
 
     public void registerCompact(Class<?> moduleClass, Object... objs) {
-        for(Object obj : objs){
-            if(obj instanceof String){
+        for (Object obj : objs) {
+            if (obj instanceof String) {
                 String modid = (String) obj;
-                if(modid.startsWith("!")){
+                if (modid.startsWith("!")) {
                     if (Loader.isModLoaded(modid.replaceAll("!", ""))) {
                         return;
                     }
@@ -47,11 +47,12 @@ public class CompatManager {
                         return;
                     }
                 }
-            } else if(obj instanceof Boolean){
+            } else if (obj instanceof Boolean) {
                 Boolean boo = (Boolean) obj;
-                if(boo == false){}
-                    return;
+                if (boo == false) {
                 }
+                return;
+            }
         }
         try {
             compatModules.add((ICompatModule) moduleClass.newInstance());
@@ -62,11 +63,11 @@ public class CompatManager {
         }
     }
 
-    public boolean isForestry4(){
+    public boolean isForestry4() {
         try {
             Class.forName("forestry.api.arboriculture.EnumWoodType");
             return true;
-        } catch( ClassNotFoundException e ) {
+        } catch (ClassNotFoundException e) {
             return false;
         }
     }

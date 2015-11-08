@@ -4,17 +4,15 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import reborncore.common.util.Color;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
 import techreborn.powerSystem.PoweredPickaxe;
-import techreborn.util.Color;
 
 import java.util.List;
 
@@ -53,7 +51,7 @@ public class ItemRockCutter extends PoweredPickaxe {
 
     @Override
     public boolean canHarvestBlock(Block block, ItemStack stack) {
-        if(Items.diamond_pickaxe.canHarvestBlock(block, stack)) {
+        if (Items.diamond_pickaxe.canHarvestBlock(block, stack)) {
             if (canUseEnergy(cost, stack)) {
                 useEnergy(cost, stack);
                 return true;

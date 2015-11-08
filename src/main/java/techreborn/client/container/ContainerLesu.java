@@ -5,10 +5,11 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
+import reborncore.common.container.RebornContainer;
 import techreborn.config.ConfigTechReborn;
 import techreborn.tiles.lesu.TileLesu;
 
-public class ContainerLesu extends TechRebornContainer {
+public class ContainerLesu extends RebornContainer {
 
     EntityPlayer player;
 

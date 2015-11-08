@@ -1,8 +1,9 @@
 package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
+import reborncore.common.container.RebornContainer;
 
-public class ContainerPda extends TechRebornContainer {
+public class ContainerPda extends RebornContainer {
 
     EntityPlayer player;
 

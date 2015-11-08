@@ -2,11 +2,12 @@ package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
-import techreborn.client.SlotFake;
-import techreborn.client.SlotOutput;
+import reborncore.client.gui.SlotFake;
+import reborncore.client.gui.SlotOutput;
+import reborncore.common.container.RebornContainer;
 import techreborn.tiles.TileSemifluidGenerator;
 
-public class ContainerSemifluidGenerator extends TechRebornContainer {
+public class ContainerSemifluidGenerator extends RebornContainer {
     public TileSemifluidGenerator tileSemifluidGenerator;
     public EntityPlayer player;
 

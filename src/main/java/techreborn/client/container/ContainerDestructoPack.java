@@ -3,11 +3,12 @@ package techreborn.client.container;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import techreborn.client.SlotFilteredVoid;
+import reborncore.client.gui.SlotFilteredVoid;
+import reborncore.common.container.RebornContainer;
+import reborncore.common.util.Inventory;
 import techreborn.init.ModItems;
-import techreborn.util.Inventory;
 
-public class ContainerDestructoPack extends TechRebornContainer {
+public class ContainerDestructoPack extends RebornContainer {
 
     private EntityPlayer player;
     private Inventory inv;

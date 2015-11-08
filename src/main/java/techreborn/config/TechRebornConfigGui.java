@@ -182,7 +182,7 @@ public class TechRebornConfigGui extends GuiConfig {
                             .toString()));
         }
     }
-    
+
     //Mod Integration
     public static class TRINT extends CategoryEntry {
         public TRINT(GuiConfig owningScreen, GuiConfigEntries owningEntryList, IConfigElement configElement) {

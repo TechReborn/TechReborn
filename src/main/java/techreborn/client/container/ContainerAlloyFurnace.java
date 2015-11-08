@@ -3,10 +3,11 @@ package techreborn.client.container;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
-import techreborn.client.SlotOutput;
+import reborncore.client.gui.SlotOutput;
+import reborncore.common.container.RebornContainer;
 import techreborn.tiles.TileAlloyFurnace;
 
-public class ContainerAlloyFurnace extends TechRebornContainer {
+public class ContainerAlloyFurnace extends RebornContainer {
 
     EntityPlayer player;
 
@@ -69,7 +70,7 @@ public class ContainerAlloyFurnace extends TechRebornContainer {
             if (this.burnTime != tile.burnTime) {
                 crafting.sendProgressBarUpdate(this, 1, tile.burnTime);
             }
-            if (this.cookTime !=  tile.cookTime) {
+            if (this.cookTime != tile.cookTime) {
                 crafting.sendProgressBarUpdate(this, 2, tile.cookTime);
             }
         }
@@ -79,11 +80,11 @@ public class ContainerAlloyFurnace extends TechRebornContainer {
     @Override
     public void updateProgressBar(int id, int value) {
         super.updateProgressBar(id, value);
-        if(id == 0){
+        if (id == 0) {
             this.currentItemBurnTime = value;
-        } else if(id ==1){
+        } else if (id == 1) {
             this.burnTime = value;
-        } else if(id == 2){
+        } else if (id == 2) {
             this.cookTime = value;
         }
         this.tile.currentItemBurnTime = this.currentItemBurnTime;

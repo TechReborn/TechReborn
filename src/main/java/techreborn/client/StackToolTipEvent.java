@@ -8,9 +8,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import org.lwjgl.input.Keyboard;
-import techreborn.api.IListInfoProvider;
+import reborncore.api.IListInfoProvider;
+import reborncore.common.util.Color;
 import techreborn.api.power.IEnergyInterfaceItem;
-import techreborn.util.Color;
 
 public class StackToolTipEvent {
 

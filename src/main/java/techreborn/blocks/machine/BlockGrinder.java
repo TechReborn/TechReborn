@@ -2,11 +2,9 @@ package techreborn.blocks.machine;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ic2.api.item.IC2Items;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
@@ -15,8 +13,6 @@ import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
 import techreborn.client.GuiHandler;
 import techreborn.tiles.TileGrinder;
-
-import java.util.Random;
 
 public class BlockGrinder extends BlockMachineBase {
 
@@ -80,9 +76,9 @@ public class BlockGrinder extends BlockMachineBase {
 
     @Override
     public IIcon getIcon(int side, int meta) {
-        if(side == 1){
+        if (side == 1) {
             return this.iconTop;
-        } else if(side == 3){
+        } else if (side == 3) {
             return this.iconFront;
         } else {
             return this.blockIcon;

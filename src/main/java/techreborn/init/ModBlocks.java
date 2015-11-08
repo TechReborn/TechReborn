@@ -6,6 +6,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import techreborn.Core;
 import techreborn.blocks.*;
 import techreborn.blocks.generator.*;
 import techreborn.blocks.machine.*;
@@ -18,7 +19,6 @@ import techreborn.tiles.*;
 import techreborn.tiles.idsu.TileIDSU;
 import techreborn.tiles.lesu.TileLesu;
 import techreborn.tiles.lesu.TileLesuStorage;
-import techreborn.util.LogHelper;
 
 public class ModBlocks {
 
@@ -230,10 +230,8 @@ public class ModBlocks {
         GameRegistry.registerBlock(machineframe, ItemBlockMachineFrame.class, "techreborn.machineFrame");
 
 
-
-
         registerOreDict();
-        LogHelper.info("TechReborns Blocks Loaded");
+        Core.logHelper.info("TechReborns Blocks Loaded");
     }
 
     public static void registerOreDict() {

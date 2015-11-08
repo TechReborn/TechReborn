@@ -102,7 +102,7 @@ public class ConfigTechReborn {
     public static int CloakingDeviceTier;
     public static int GravityTier;
     public static int CentrifugeTier;
-    public static int ThermalGeneratorTier;  
+    public static int ThermalGeneratorTier;
     // EU/T
     public static int CloakingDeviceEUTick;
     // Crafting
@@ -675,7 +675,7 @@ public class ConfigTechReborn {
 
         rainExplosions = config.get(CATEGORY_POWER, StatCollector.translateToLocal("config.techreborn.rainExplosions"),
                 true, StatCollector.translateToLocal("config.techreborn.rainExplosions.tooltip")).getBoolean(true);
-        
+
         //Integration
         AllowBOPRecipes = config.get(CATEGORY_INTEGRATION, StatCollector.translateToLocal("config.techreborn.allowBopRecipes"),
                 true, StatCollector.translateToLocal("config.techreborn.allowBopRecipes.tooltip")).getBoolean(true);

@@ -10,9 +10,9 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
+import techreborn.Core;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModItems;
-import techreborn.util.LogHelper;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class ItemCells extends ItemTR {
                     return stack;
                 }
             } else {
-                LogHelper.debug("Could not find " + "fluid" + name + " in the fluid registry!");
+                Core.logHelper.debug("Could not find " + "fluid" + name + " in the fluid registry!");
             }
         }
         int index = -1;

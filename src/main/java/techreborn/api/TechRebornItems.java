@@ -4,10 +4,10 @@ import net.minecraft.item.Item;
 
 public class TechRebornItems {
 
-    public static Item getItem(String name){
+    public static Item getItem(String name) {
         try {
             Object e = Class.forName("techreborn.init.ModItems").getField(name).get(null);
-            return e instanceof Item ?(Item)e:null;
+            return e instanceof Item ? (Item) e : null;
         } catch (NoSuchFieldException e1) {
             e1.printStackTrace();
             return null;

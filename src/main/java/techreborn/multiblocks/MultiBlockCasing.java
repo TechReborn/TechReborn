@@ -1,17 +1,15 @@
 package techreborn.multiblocks;
 
-import erogenousbeef.coreTR.common.CoordTriplet;
-import erogenousbeef.coreTR.multiblock.IMultiblockPart;
-import erogenousbeef.coreTR.multiblock.MultiblockControllerBase;
-import erogenousbeef.coreTR.multiblock.MultiblockValidationException;
-import erogenousbeef.coreTR.multiblock.rectangular.RectangularMultiblockControllerBase;
-import erogenousbeef.coreTR.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import techreborn.blocks.BlockMachineCasing;
-import techreborn.util.LogHelper;
+import reborncore.common.multiblock.CoordTriplet;
+import reborncore.common.multiblock.IMultiblockPart;
+import reborncore.common.multiblock.MultiblockControllerBase;
+import reborncore.common.multiblock.MultiblockValidationException;
+import reborncore.common.multiblock.rectangular.RectangularMultiblockControllerBase;
+import reborncore.common.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 
 public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 
@@ -21,7 +19,6 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
     public MultiBlockCasing(World world) {
         super(world);
     }
-
 
 
     /**
@@ -211,7 +208,7 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 
     @Override
     protected void onMachineAssembled() {
-        LogHelper.warn("New multiblock created!");
+
     }
 
     @Override

@@ -2,7 +2,7 @@ package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
-import techreborn.client.SlotOutput;
+import reborncore.client.gui.SlotOutput;
 import techreborn.tiles.TileCentrifuge;
 
 public class ContainerCentrifuge extends ContainerCrafting {
@@ -19,8 +19,8 @@ public class ContainerCentrifuge extends ContainerCrafting {
     }
 
     public ContainerCentrifuge(TileCentrifuge tileCentrifuge, EntityPlayer player) {
-		super(tileCentrifuge.crafter);
-		tile = tileCentrifuge;
+        super(tileCentrifuge.crafter);
+        tile = tileCentrifuge;
         this.player = player;
 
         // input

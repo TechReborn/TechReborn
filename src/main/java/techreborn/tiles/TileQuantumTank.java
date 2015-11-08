@@ -13,11 +13,11 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
-import techreborn.api.IListInfoProvider;
+import reborncore.api.IListInfoProvider;
+import reborncore.common.util.FluidUtils;
+import reborncore.common.util.Inventory;
+import reborncore.common.util.Tank;
 import techreborn.init.ModBlocks;
-import techreborn.util.FluidUtils;
-import techreborn.util.Inventory;
-import techreborn.util.Tank;
 
 import java.util.List;
 
@@ -219,7 +219,7 @@ public class TileQuantumTank extends TileMachineBase implements IFluidHandler,
 
     @Override
     public void addInfo(List<String> info, boolean isRealTile) {
-        if(isRealTile){
+        if (isRealTile) {
             if (tank.getFluid() != null) {
                 info.add(tank.getFluidAmount() + " of "
                         + tank.getFluidType().getName());

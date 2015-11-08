@@ -7,13 +7,13 @@ import minetweaker.api.item.IItemStack;
 import minetweaker.api.liquid.ILiquidStack;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
+import reborncore.common.util.ItemUtils;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.GrinderRecipe;
 import techreborn.lib.Reference;
-import techreborn.util.ItemUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,22 +21,22 @@ import java.util.List;
 @ZenClass("mods.techreborn.grinder")
 public class MTGrinder {
     @ZenMethod
-    public static void addRecipe(IItemStack output1 ,IItemStack output2 ,IItemStack output3,IItemStack output4, IIngredient input1, IIngredient input2, int ticktime, int euTick) {
-        addRecipe(output1, output2, output3, output4, input1, input2, null,  ticktime, euTick);
+    public static void addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient input1, IIngredient input2, int ticktime, int euTick) {
+        addRecipe(output1, output2, output3, output4, input1, input2, null, ticktime, euTick);
     }
 
     @ZenMethod
-    public static void addRecipe(IItemStack output1 ,IItemStack output2 ,IItemStack output3,IItemStack output4, IIngredient input1, IIngredient input2, ILiquidStack fluid, int ticktime, int euTick) {
+    public static void addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient input1, IIngredient input2, ILiquidStack fluid, int ticktime, int euTick) {
         ItemStack oInput1 = (ItemStack) MinetweakerCompat.toObject(input1);
 
         ItemStack oInput2 = (ItemStack) MinetweakerCompat.toObject(input2);
 
         FluidStack fluidStack = null;
-        if(fluid != null){
+        if (fluid != null) {
             fluidStack = MinetweakerCompat.toFluidStack(fluid);
         }
 
-        GrinderRecipe r = new GrinderRecipe(oInput1, oInput2,fluidStack, MinetweakerCompat.toStack(output1), MinetweakerCompat.toStack(output2), MinetweakerCompat.toStack(output3), MinetweakerCompat.toStack(output4), ticktime, euTick);
+        GrinderRecipe r = new GrinderRecipe(oInput1, oInput2, fluidStack, MinetweakerCompat.toStack(output1), MinetweakerCompat.toStack(output2), MinetweakerCompat.toStack(output3), MinetweakerCompat.toStack(output4), ticktime, euTick);
 
         MineTweakerAPI.apply(new Add(r));
     }
@@ -80,24 +80,23 @@ public class MTGrinder {
     }
 
     @ZenMethod
-    public static void removeRecipe(IItemStack output)
-    {
+    public static void removeRecipe(IItemStack output) {
         MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(output)));
     }
-    private static class Remove implements IUndoableAction
-    {
+
+    private static class Remove implements IUndoableAction {
         private final ItemStack output;
         List<GrinderRecipe> removedRecipes = new ArrayList<GrinderRecipe>();
-        public Remove(ItemStack output)
-        {
+
+        public Remove(ItemStack output) {
             this.output = output;
         }
+
         @Override
-        public void apply()
-        {
-            for(IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.grinderRecipe)){
-                for(ItemStack stack : recipeType.getOutputs()){
-                    if(ItemUtils.isItemEqual(stack, output, true, false)){
+        public void apply() {
+            for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.grinderRecipe)) {
+                for (ItemStack stack : recipeType.getOutputs()) {
+                    if (ItemUtils.isItemEqual(stack, output, true, false)) {
                         removedRecipes.add((GrinderRecipe) recipeType);
                         RecipeHandler.recipeList.remove(recipeType);
                         break;
@@ -105,36 +104,36 @@ public class MTGrinder {
                 }
             }
         }
+
         @Override
-        public void undo()
-        {
-            if(removedRecipes!=null){
-                for(GrinderRecipe recipe : removedRecipes){
-                    if(recipe!=null){
+        public void undo() {
+            if (removedRecipes != null) {
+                for (GrinderRecipe recipe : removedRecipes) {
+                    if (recipe != null) {
                         RecipeHandler.addRecipe(recipe);
                     }
                 }
             }
 
         }
+
         @Override
-        public String describe()
-        {
+        public String describe() {
             return "Removing Grinder Recipe for " + output.getDisplayName();
         }
+
         @Override
-        public String describeUndo()
-        {
+        public String describeUndo() {
             return "Re-Adding Grinder Recipe for " + output.getDisplayName();
         }
+
         @Override
-        public Object getOverrideKey()
-        {
+        public Object getOverrideKey() {
             return null;
         }
+
         @Override
-        public boolean canUndo()
-        {
+        public boolean canUndo() {
             return true;
         }
     }

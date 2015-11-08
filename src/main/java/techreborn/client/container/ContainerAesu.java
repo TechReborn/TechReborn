@@ -5,9 +5,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
+import reborncore.common.container.RebornContainer;
 import techreborn.tiles.TileAesu;
 
-public class ContainerAesu extends TechRebornContainer {
+public class ContainerAesu extends RebornContainer {
 
     EntityPlayer player;
 
@@ -29,7 +30,7 @@ public class ContainerAesu extends TechRebornContainer {
 
         // input
         //this.addSlotToContainer(new Slot(tileaesu.inventory, 0, 116, 23));
-       // this.addSlotToContainer(new Slot(tileaesu.inventory, 1, 116, 59));
+        // this.addSlotToContainer(new Slot(tileaesu.inventory, 1, 116, 59));
 
         int i;
 

@@ -5,13 +5,13 @@ import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
 import net.minecraft.item.ItemStack;
+import reborncore.common.util.ItemUtils;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.IndustrialElectrolyzerRecipe;
 import techreborn.lib.Reference;
-import techreborn.util.ItemUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.List;
 @ZenClass("mods.techreborn.industrialElectrolyzer")
 public class MTIndustrialElectrolyzer {
     @ZenMethod
-    public static void addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4,IIngredient cells, IIngredient input2, int ticktime, int euTick) {
+    public static void addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient cells, IIngredient input2, int ticktime, int euTick) {
         ItemStack oInput1 = (ItemStack) MinetweakerCompat.toObject(cells);
         ItemStack oInput2 = (ItemStack) MinetweakerCompat.toObject(input2);
 
@@ -67,24 +67,23 @@ public class MTIndustrialElectrolyzer {
     }
 
     @ZenMethod
-    public static void removeRecipe(IItemStack output)
-    {
+    public static void removeRecipe(IItemStack output) {
         MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(output)));
     }
-    private static class Remove implements IUndoableAction
-    {
+
+    private static class Remove implements IUndoableAction {
         private final ItemStack output;
         List<IndustrialElectrolyzerRecipe> removedRecipes = new ArrayList<IndustrialElectrolyzerRecipe>();
-        public Remove(ItemStack output)
-        {
+
+        public Remove(ItemStack output) {
             this.output = output;
         }
+
         @Override
-        public void apply()
-        {
-            for(IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.industrialElectrolyzerRecipe)){
-                for(ItemStack stack : recipeType.getOutputs()){
-                    if(ItemUtils.isItemEqual(stack, output, true, false)){
+        public void apply() {
+            for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.industrialElectrolyzerRecipe)) {
+                for (ItemStack stack : recipeType.getOutputs()) {
+                    if (ItemUtils.isItemEqual(stack, output, true, false)) {
                         removedRecipes.add((IndustrialElectrolyzerRecipe) recipeType);
                         RecipeHandler.recipeList.remove(recipeType);
                         break;
@@ -92,36 +91,36 @@ public class MTIndustrialElectrolyzer {
                 }
             }
         }
+
         @Override
-        public void undo()
-        {
-            if(removedRecipes!=null){
-                for(IndustrialElectrolyzerRecipe recipe : removedRecipes){
-                    if(recipe!=null){
+        public void undo() {
+            if (removedRecipes != null) {
+                for (IndustrialElectrolyzerRecipe recipe : removedRecipes) {
+                    if (recipe != null) {
                         RecipeHandler.addRecipe(recipe);
                     }
                 }
             }
 
         }
+
         @Override
-        public String describe()
-        {
+        public String describe() {
             return "Removing IndustrialElectrolyzerRecipe for " + output.getDisplayName();
         }
+
         @Override
-        public String describeUndo()
-        {
+        public String describeUndo() {
             return "Re-Adding IndustrialElectrolyzerRecipe for " + output.getDisplayName();
         }
+
         @Override
-        public Object getOverrideKey()
-        {
+        public Object getOverrideKey() {
             return null;
         }
+
         @Override
-        public boolean canUndo()
-        {
+        public boolean canUndo() {
             return true;
         }
     }

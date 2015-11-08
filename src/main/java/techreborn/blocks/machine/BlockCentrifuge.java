@@ -2,11 +2,9 @@ package techreborn.blocks.machine;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ic2.api.item.IC2Items;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
@@ -15,8 +13,6 @@ import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
 import techreborn.client.GuiHandler;
 import techreborn.tiles.TileCentrifuge;
-
-import java.util.Random;
 
 public class BlockCentrifuge extends BlockMachineBase {
 
@@ -69,31 +65,31 @@ public class BlockCentrifuge extends BlockMachineBase {
     public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int side) {
         int metadata = getTileRotation(blockAccess, x, y, z);
         if (blockAccess.getBlockMetadata(x, y, z) == 1) {
-			if(side == 1){
-				return this.iconTopOn;
-			} else if(side == 0){
-				return this.iconBottom;
-			}
-			return this.iconFrontOn;
+            if (side == 1) {
+                return this.iconTopOn;
+            } else if (side == 0) {
+                return this.iconBottom;
+            }
+            return this.iconFrontOn;
         } else {
-			if(side == 1){
-				return this.iconTop;
-			} else if(side == 0){
-				return this.iconBottom;
-			}
-			return this.iconFront;
-		}
+            if (side == 1) {
+                return this.iconTop;
+            } else if (side == 0) {
+                return this.iconBottom;
+            }
+            return this.iconFront;
+        }
 
     }
 
     @Override
     public IIcon getIcon(int side, int meta) {
-        if(side == 1){
+        if (side == 1) {
             return this.iconTop;
-        } else if(side == 3){
+        } else if (side == 3) {
             return this.iconFront;
         } else {
-           return this.iconFront;
+            return this.iconFront;
         }
     }
 

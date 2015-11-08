@@ -5,12 +5,13 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import reborncore.client.gui.SlotFake;
+import reborncore.client.gui.SlotOutput;
+import reborncore.common.container.RebornContainer;
 import techreborn.api.RollingMachineRecipe;
-import techreborn.client.SlotFake;
-import techreborn.client.SlotOutput;
 import techreborn.tiles.TileRollingMachine;
 
-public class ContainerRollingMachine extends TechRebornContainer {
+public class ContainerRollingMachine extends RebornContainer {
 
     EntityPlayer player;
     TileRollingMachine tile;
@@ -85,7 +86,7 @@ public class ContainerRollingMachine extends TechRebornContainer {
             if (this.burnTime != tile.tickTime) {
                 crafting.sendProgressBarUpdate(this, 1, tile.tickTime);
             }
-            if (this.energy !=  (int) tile.getEnergy()) {
+            if (this.energy != (int) tile.getEnergy()) {
                 crafting.sendProgressBarUpdate(this, 2, (int) tile.getEnergy());
             }
         }
@@ -95,11 +96,11 @@ public class ContainerRollingMachine extends TechRebornContainer {
     @Override
     public void updateProgressBar(int id, int value) {
         super.updateProgressBar(id, value);
-        if(id == 0){
+        if (id == 0) {
             this.currentItemBurnTime = value;
-        } else if(id ==1){
+        } else if (id == 1) {
             this.burnTime = value;
-        } else if(id == 2){
+        } else if (id == 2) {
             this.energy = value;
         }
         this.tile.runTime = this.currentItemBurnTime;
@@ -107,9 +108,8 @@ public class ContainerRollingMachine extends TechRebornContainer {
         this.tile.setEnergy(this.energy);
     }
 
-    public int getBurnTimeRemainingScaled(int scale)
-    {
-        if(burnTime == 0 || this.currentItemBurnTime == 0){
+    public int getBurnTimeRemainingScaled(int scale) {
+        if (burnTime == 0 || this.currentItemBurnTime == 0) {
             return 0;
         }
         return this.burnTime * scale / this.currentItemBurnTime;

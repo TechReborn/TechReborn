@@ -1,6 +1,5 @@
 package techreborn.tiles;
 
-import erogenousbeef.coreTR.multiblock.IMultiblockPart;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,15 +12,16 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+import reborncore.common.misc.Location;
+import reborncore.common.multiblock.IMultiblockPart;
+import reborncore.common.util.Inventory;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
-import techreborn.lib.Location;
 import techreborn.lib.Reference;
 import techreborn.multiblocks.MultiBlockCasing;
 import techreborn.powerSystem.TilePowerAcceptor;
-import techreborn.util.Inventory;
 
 public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, IInventory, IEnergyTile, ISidedInventory {
 
@@ -90,12 +90,12 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
                     Location location = new Location(xCoord, yCoord, zCoord, direction);
                     location.modifyPositionFromSide(direction, 1);
                     int heat = 0;
-                    if(worldObj.getBlock(location.getX(), location.getY() - 1, location.getZ()) == tileEntity.getBlockType()){
+                    if (worldObj.getBlock(location.getX(), location.getY() - 1, location.getZ()) == tileEntity.getBlockType()) {
                         return 0;
                     }
 
                     for (IMultiblockPart part : casing.connectedParts) {
-                            heat += BlockMachineCasing.getHeatFromMeta(part.getWorldObj().getBlockMetadata(part.getWorldLocation().x, part.getWorldLocation().y, part.getWorldLocation().z));
+                        heat += BlockMachineCasing.getHeatFromMeta(part.getWorldObj().getBlockMetadata(part.getWorldLocation().x, part.getWorldLocation().y, part.getWorldLocation().z));
                     }
 
                     if (worldObj.getBlock(location.getX(), location.getY(), location.getZ()).getUnlocalizedName().equals("tile.lava") && worldObj.getBlock(location.getX(), location.getY() + 1, location.getZ()).getUnlocalizedName().equals("tile.lava")) {

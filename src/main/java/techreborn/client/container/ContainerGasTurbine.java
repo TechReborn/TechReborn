@@ -2,11 +2,12 @@ package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
-import techreborn.client.SlotFake;
-import techreborn.client.SlotOutput;
+import reborncore.client.gui.SlotFake;
+import reborncore.client.gui.SlotOutput;
+import reborncore.common.container.RebornContainer;
 import techreborn.tiles.TileGasTurbine;
 
-public class ContainerGasTurbine extends TechRebornContainer {
+public class ContainerGasTurbine extends RebornContainer {
     public TileGasTurbine tileGasTurbine;
     public EntityPlayer player;
 

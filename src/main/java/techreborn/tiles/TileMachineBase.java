@@ -5,7 +5,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import techreborn.packets.PacketHandler;
+import reborncore.common.packets.PacketHandler;
 
 public abstract class TileMachineBase extends TileEntity {
 
@@ -47,11 +47,11 @@ public abstract class TileMachineBase extends TileEntity {
     @Override
     public void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
-		if(tagCompound.hasKey("meta") && !tagCompound.hasKey("rotation")){
-			rotation = tagCompound.getInteger("meta");
-		} else {
-			rotation = tagCompound.getInteger("rotation");
-		}
+        if (tagCompound.hasKey("meta") && !tagCompound.hasKey("rotation")) {
+            rotation = tagCompound.getInteger("meta");
+        } else {
+            rotation = tagCompound.getInteger("rotation");
+        }
     }
 
     @Override

@@ -10,7 +10,6 @@ import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import techreborn.api.power.IEnergyInterfaceItem;
-import techreborn.asm.Strippable;
 import techreborn.config.ConfigTechReborn;
 
 import java.util.List;
@@ -125,31 +124,26 @@ public abstract class PoweredPickaxe extends ItemPickaxe implements IEnergyInter
 
 
     //IC2
-    @Strippable("mod:IC2")
     @Override
     public Item getChargedItem(ItemStack itemStack) {
         return this;
     }
 
-    @Strippable("mod:IC2")
     @Override
     public Item getEmptyItem(ItemStack itemStack) {
         return this;
     }
 
-    @Strippable("mod:IC2")
     @Override
     public double getMaxCharge(ItemStack itemStack) {
         return getMaxPower(itemStack);
     }
 
-    @Strippable("mod:IC2")
     @Override
     public int getTier(ItemStack itemStack) {
         return getStackTeir(itemStack);
     }
 
-    @Strippable("mod:IC2")
     @Override
     public double getTransferLimit(ItemStack itemStack) {
         return getMaxTransfer(itemStack);

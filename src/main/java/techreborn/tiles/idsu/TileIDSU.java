@@ -5,9 +5,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 import org.apache.commons.lang3.StringUtils;
+import reborncore.common.misc.Functions;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
-import techreborn.lib.Functions;
 import techreborn.powerSystem.TilePowerAcceptor;
 
 public class TileIDSU extends TilePowerAcceptor {
@@ -16,7 +16,7 @@ public class TileIDSU extends TilePowerAcceptor {
 
     @Override
     public double getEnergy() {
-        if(ownerUdid == null && StringUtils.isBlank(ownerUdid) || StringUtils.isEmpty(ownerUdid)) {
+        if (ownerUdid == null && StringUtils.isBlank(ownerUdid) || StringUtils.isEmpty(ownerUdid)) {
             return 0.0;
         }
         return IDSUManager.INSTANCE.getSaveDataForWorld(worldObj, ownerUdid).storedPower;
@@ -24,7 +24,7 @@ public class TileIDSU extends TilePowerAcceptor {
 
     @Override
     public void setEnergy(double energy) {
-        if(ownerUdid == null && StringUtils.isBlank(ownerUdid) || StringUtils.isEmpty(ownerUdid)) {
+        if (ownerUdid == null && StringUtils.isBlank(ownerUdid) || StringUtils.isEmpty(ownerUdid)) {
             return;
         }
         IDSUManager.INSTANCE.getSaveDataForWorld(worldObj, ownerUdid).storedPower = energy;
@@ -99,7 +99,7 @@ public class TileIDSU extends TilePowerAcceptor {
 
     public void writeToNBT(NBTTagCompound nbttagcompound) {
         super.writeToNBT(nbttagcompound);
-        if(ownerUdid == null && StringUtils.isBlank(ownerUdid) || StringUtils.isEmpty(ownerUdid)) {
+        if (ownerUdid == null && StringUtils.isBlank(ownerUdid) || StringUtils.isEmpty(ownerUdid)) {
             return;
         }
         nbttagcompound.setString("ownerUdid", this.ownerUdid);

@@ -1,6 +1,7 @@
 package techreborn.itemblocks;
 
 import net.minecraft.block.Block;
+import reborncore.common.itemblock.ItemBlockBase;
 import techreborn.blocks.BlockStorage;
 import techreborn.init.ModBlocks;
 

@@ -8,8 +8,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import techreborn.lib.Location;
-import techreborn.lib.vecmath.Vecs3dCube;
+import reborncore.common.misc.Location;
+import reborncore.common.misc.vecmath.Vecs3dCube;
 
 public interface IPartProvider {
 

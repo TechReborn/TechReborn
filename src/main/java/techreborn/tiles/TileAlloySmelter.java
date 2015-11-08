@@ -8,12 +8,12 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
+import reborncore.common.util.Inventory;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.api.upgrade.UpgradeHandler;
 import techreborn.init.ModBlocks;
 import techreborn.lib.Reference;
 import techreborn.powerSystem.TilePowerAcceptor;
-import techreborn.util.Inventory;
 
 public class TileAlloySmelter extends TilePowerAcceptor implements IWrenchable, IEnergyTile, IInventory, ISidedInventory {
 

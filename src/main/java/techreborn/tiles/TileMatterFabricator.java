@@ -10,11 +10,11 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
+import reborncore.common.util.Inventory;
+import reborncore.common.util.ItemUtils;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
 import techreborn.powerSystem.TilePowerAcceptor;
-import techreborn.util.Inventory;
-import techreborn.util.ItemUtils;
 
 public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchable, IEnergyTile, IInventory, ISidedInventory {
 

@@ -19,6 +19,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
+import reborncore.common.util.CraftingHelper;
+import reborncore.common.util.RecipeRemover;
+import techreborn.Core;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.*;
 import techreborn.compat.ICompatModule;
@@ -27,9 +30,6 @@ import techreborn.init.ModBlocks;
 import techreborn.init.ModFluids;
 import techreborn.init.ModItems;
 import techreborn.items.*;
-import techreborn.util.CraftingHelper;
-import techreborn.util.LogHelper;
-import techreborn.util.RecipeRemover;
 
 public class RecipesIC2 implements ICompatModule {
 
@@ -461,7 +461,7 @@ public class RecipesIC2 implements ICompatModule {
 
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, ItemCells.getCellByName("mercury", 1), null, ItemDusts.getDustByName("copper", 2), ItemDustsSmall.getSmallDustByName("Gold", 1), ItemDusts.getDustByName("nickel", 1), IC2Items.getItem("cell"), 100, 120));
             } catch (Exception e) {
-                LogHelper.info("Failed to Load Grinder Recipe for Copper Ore");
+                Core.logHelper.info("Failed to Load Grinder Recipe for Copper Ore");
             }
         }
 
@@ -472,7 +472,7 @@ public class RecipesIC2 implements ICompatModule {
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, ItemDusts.getDustByName("tin", 2), ItemDustsSmall.getSmallDustByName("Iron", 1), ItemDustsSmall.getSmallDustByName("Zinc", 1), IC2Items.getItem("cell"), 100, 120));
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, ItemCells.getCellByName("sodiumPersulfate", 1), null, ItemDusts.getDustByName("tin", 2), ItemDustsSmall.getSmallDustByName("Iron", 1), ItemDusts.getDustByName("zinc", 1), IC2Items.getItem("cell"), 100, 120));
             } catch (Exception e) {
-                LogHelper.info("Failed to Load Grinder Recipe for Tin Ore");
+                Core.logHelper.info("Failed to Load Grinder Recipe for Tin Ore");
             }
         }
 
@@ -484,7 +484,7 @@ public class RecipesIC2 implements ICompatModule {
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, ItemCells.getCellByName("sodiumPersulfate", 1), null, ItemDusts.getDustByName("nickel", 3), ItemDustsSmall.getSmallDustByName("Iron", 1), ItemDustsSmall.getSmallDustByName("Platinum", 1), IC2Items.getItem("cell"), 100, 120));
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, ItemCells.getCellByName("mercury", 1), null, ItemDusts.getDustByName("nickel", 2), ItemDustsSmall.getSmallDustByName("Iron", 1), ItemDusts.getDustByName("platinum", 1), IC2Items.getItem("cell"), 100, 120));
             } catch (Exception e) {
-                LogHelper.info("Failed to Load Grinder Recipe for Nickel Ore");
+                Core.logHelper.info("Failed to Load Grinder Recipe for Nickel Ore");
             }
         }
 
@@ -495,7 +495,7 @@ public class RecipesIC2 implements ICompatModule {
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, ItemDusts.getDustByName("zinc", 2), ItemDustsSmall.getSmallDustByName("Iron", 1), ItemDustsSmall.getSmallDustByName("Tin", 1), IC2Items.getItem("cell"), 100, 120));
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, ItemCells.getCellByName("sodiumPersulfate", 1), null, ItemDusts.getDustByName("zinc", 2), ItemDustsSmall.getSmallDustByName("Iron", 1), ItemDusts.getDustByName("iron", 1), IC2Items.getItem("cell"), 100, 120));
             } catch (Exception e) {
-                LogHelper.info("Failed to Load Grinder Recipe for Zinc Ore");
+                Core.logHelper.info("Failed to Load Grinder Recipe for Zinc Ore");
             }
         }
 
@@ -506,7 +506,7 @@ public class RecipesIC2 implements ICompatModule {
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, ItemDusts.getDustByName("silver", 2), ItemDustsSmall.getSmallDustByName("Lead", 1), ItemDustsSmall.getSmallDustByName("Sulfur", 1), IC2Items.getItem("cell"), 100, 120));
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, ItemCells.getCellByName("mercury", 1), null, ItemDusts.getDustByName("silver", 3), ItemDustsSmall.getSmallDustByName("Lead", 1), ItemDustsSmall.getSmallDustByName("Sulfur", 1), IC2Items.getItem("cell"), 100, 120));
             } catch (Exception e) {
-                LogHelper.info("Failed to Load Grinder Recipe for Silver Ore");
+                Core.logHelper.info("Failed to Load Grinder Recipe for Silver Ore");
             }
         }
 
@@ -517,7 +517,7 @@ public class RecipesIC2 implements ICompatModule {
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, ItemDusts.getDustByName("lead", 2), ItemDustsSmall.getSmallDustByName("Silver", 1), ItemDustsSmall.getSmallDustByName("Sulfur", 1), IC2Items.getItem("cell"), 100, 120));
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, ItemCells.getCellByName("mercury", 1), null, ItemDusts.getDustByName("lead", 2), ItemDusts.getDustByName("silver", 1), ItemDustsSmall.getSmallDustByName("Sulfur", 1), IC2Items.getItem("cell"), 100, 120));
             } catch (Exception e) {
-                LogHelper.info("Failed to Load Grinder Recipe for Lead Ore");
+                Core.logHelper.info("Failed to Load Grinder Recipe for Lead Ore");
             }
         }
 
@@ -533,7 +533,7 @@ public class RecipesIC2 implements ICompatModule {
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, uranium238Stack, uranium235Stack, null, IC2Items.getItem("cell"), 100, 120));
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, uranium238Stack, uranium235Stack, null, new ItemStack(Items.bucket), 100, 120));
             } catch (Exception e) {
-                LogHelper.info("Failed to Load Grinder Recipe for Uranium Ore");
+                Core.logHelper.info("Failed to Load Grinder Recipe for Uranium Ore");
             }
         }
 
@@ -549,7 +549,7 @@ public class RecipesIC2 implements ICompatModule {
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, uranium238Stack, uranium235Stack, null, IC2Items.getItem("cell"), 100, 120));
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, uranium238Stack, uranium235Stack, null, new ItemStack(Items.bucket), 100, 120));
             } catch (Exception e) {
-                LogHelper.info("Failed to Load Grinder Recipe for Uranium Ore");
+                Core.logHelper.info("Failed to Load Grinder Recipe for Uranium Ore");
             }
         }
 
@@ -559,7 +559,7 @@ public class RecipesIC2 implements ICompatModule {
                 ItemStack oreStack = OreDictionary.getOres("oreAluminum").get(0);
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, ItemDusts.getDustByName("aluminum", 2), ItemDustsSmall.getSmallDustByName("Bauxite", 1), ItemDustsSmall.getSmallDustByName("Bauxite", 1), IC2Items.getItem("cell"), 100, 120));
             } catch (Exception e) {
-                LogHelper.info("Failed to Load Grinder Recipe for Lead Ore");
+                Core.logHelper.info("Failed to Load Grinder Recipe for Lead Ore");
             }
         }
 
@@ -569,7 +569,7 @@ public class RecipesIC2 implements ICompatModule {
                 ItemStack oreStack = OreDictionary.getOres("oreArdite").get(0);
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, ItemDusts.getDustByName("ardite", 2), ItemDustsSmall.getSmallDustByName("Ardite", 1), ItemDustsSmall.getSmallDustByName("Ardite", 1), IC2Items.getItem("cell"), 100, 120));
             } catch (Exception e) {
-                LogHelper.info("Failed to Load Grinder Recipe for Ardite Ore");
+                Core.logHelper.info("Failed to Load Grinder Recipe for Ardite Ore");
             }
         }
 
@@ -579,7 +579,7 @@ public class RecipesIC2 implements ICompatModule {
                 ItemStack oreStack = OreDictionary.getOres("oreCobalt").get(0);
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, ItemDusts.getDustByName("cobalt", 2), ItemDustsSmall.getSmallDustByName("Cobalt", 1), ItemDustsSmall.getSmallDustByName("Cobalt", 1), IC2Items.getItem("cell"), 100, 120));
             } catch (Exception e) {
-                LogHelper.info("Failed to Load Grinder Recipe for Cobalt Ore");
+                Core.logHelper.info("Failed to Load Grinder Recipe for Cobalt Ore");
             }
         }
 
@@ -589,7 +589,7 @@ public class RecipesIC2 implements ICompatModule {
                 ItemStack oreStack = OreDictionary.getOres("oreDarkIron").get(0);
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, ItemDusts.getDustByName("darkIron", 2), ItemDustsSmall.getSmallDustByName("DarkIron", 1), ItemDustsSmall.getSmallDustByName("Iron", 1), IC2Items.getItem("cell"), 100, 120));
             } catch (Exception e) {
-                LogHelper.info("Failed to Load Grinder Recipe for Dark Iron Ore");
+                Core.logHelper.info("Failed to Load Grinder Recipe for Dark Iron Ore");
             }
         }
 
@@ -599,7 +599,7 @@ public class RecipesIC2 implements ICompatModule {
                 ItemStack oreStack = OreDictionary.getOres("oreCadmium").get(0);
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, ItemDusts.getDustByName("cadmium", 2), ItemDustsSmall.getSmallDustByName("Cadmium", 1), ItemDustsSmall.getSmallDustByName("Cadmium", 1), IC2Items.getItem("cell"), 100, 120));
             } catch (Exception e) {
-                LogHelper.info("Failed to Load Grinder Recipe for Cadmium Ore");
+                Core.logHelper.info("Failed to Load Grinder Recipe for Cadmium Ore");
             }
         }
 
@@ -609,7 +609,7 @@ public class RecipesIC2 implements ICompatModule {
                 ItemStack oreStack = OreDictionary.getOres("oreIndium").get(0);
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, ItemDusts.getDustByName("indium", 2), ItemDustsSmall.getSmallDustByName("Indium", 1), ItemDustsSmall.getSmallDustByName("Indium", 1), IC2Items.getItem("cell"), 100, 120));
             } catch (Exception e) {
-                LogHelper.info("Failed to Load Grinder Recipe for Indium Ore");
+                Core.logHelper.info("Failed to Load Grinder Recipe for Indium Ore");
             }
         }
 
@@ -620,7 +620,7 @@ public class RecipesIC2 implements ICompatModule {
                 ItemStack gemStack = OreDictionary.getOres("gemCalcite").get(0);
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, gemStack, ItemDustsSmall.getSmallDustByName("Calcite", 6), null, IC2Items.getItem("cell"), 100, 120));
             } catch (Exception e) {
-                LogHelper.info("Failed to Load Grinder Recipe for Calcite Ore");
+                Core.logHelper.info("Failed to Load Grinder Recipe for Calcite Ore");
             }
         }
 
@@ -631,7 +631,7 @@ public class RecipesIC2 implements ICompatModule {
                 ItemStack chunkStack = OreDictionary.getOres("chunkMagnetite").get(0);
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, chunkStack, ItemDustsSmall.getSmallDustByName("Magnetite", 6), null, IC2Items.getItem("cell"), 100, 120));
             } catch (Exception e) {
-                LogHelper.info("Failed to Load Grinder Recipe for Magnetite Ore");
+                Core.logHelper.info("Failed to Load Grinder Recipe for Magnetite Ore");
             }
         }
 
@@ -642,7 +642,7 @@ public class RecipesIC2 implements ICompatModule {
                 ItemStack chunkStack = OreDictionary.getOres("chunkGraphite").get(0);
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, chunkStack, ItemDustsSmall.getSmallDustByName("Graphite", 6), null, IC2Items.getItem("cell"), 100, 120));
             } catch (Exception e) {
-                LogHelper.info("Failed to Load Grinder Recipe for Graphite Ore");
+                Core.logHelper.info("Failed to Load Grinder Recipe for Graphite Ore");
             }
         }
 
@@ -652,7 +652,7 @@ public class RecipesIC2 implements ICompatModule {
                 ItemStack oreStack = OreDictionary.getOres("oreOsmium").get(0);
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, ItemDusts.getDustByName("osmium", 2), ItemDustsSmall.getSmallDustByName("Osmium", 1), ItemDustsSmall.getSmallDustByName("Osmium", 1), IC2Items.getItem("cell"), 100, 120));
             } catch (Exception e) {
-                LogHelper.info("Failed to Load Grinder Recipe for Osmium Ore");
+                Core.logHelper.info("Failed to Load Grinder Recipe for Osmium Ore");
             }
         }
 
@@ -664,7 +664,7 @@ public class RecipesIC2 implements ICompatModule {
                 dustStack.stackSize = 10;
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, dustStack, ItemDustsSmall.getSmallDustByName("Sodalite", 1), ItemDustsSmall.getSmallDustByName("Glowstone", 1), IC2Items.getItem("cell"), 100, 120));
             } catch (Exception e) {
-                LogHelper.info("Failed to Load Grinder Recipe for Teslatite Ore");
+                Core.logHelper.info("Failed to Load Grinder Recipe for Teslatite Ore");
             }
         }
 
@@ -674,7 +674,7 @@ public class RecipesIC2 implements ICompatModule {
                 ItemStack oreStack = OreDictionary.getOres("oreSulfur").get(0);
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, ItemDusts.getDustByName("sulfur", 2), ItemDustsSmall.getSmallDustByName("Sulfur", 1), ItemDustsSmall.getSmallDustByName("Sulfur", 1), IC2Items.getItem("cell"), 100, 120));
             } catch (Exception e) {
-                LogHelper.info("Failed to Load Grinder Recipe for Sulfur Ore");
+                Core.logHelper.info("Failed to Load Grinder Recipe for Sulfur Ore");
             }
         }
 
@@ -684,7 +684,7 @@ public class RecipesIC2 implements ICompatModule {
                 ItemStack oreStack = OreDictionary.getOres("oreSaltpeter").get(0);
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, ItemDusts.getDustByName("saltpeter", 2), ItemDustsSmall.getSmallDustByName("Saltpeter", 1), ItemDustsSmall.getSmallDustByName("Saltpeter", 1), IC2Items.getItem("cell"), 100, 120));
             } catch (Exception e) {
-                LogHelper.info("Failed to Load Grinder Recipe for Saltpeter Ore");
+                Core.logHelper.info("Failed to Load Grinder Recipe for Saltpeter Ore");
             }
         }
 
@@ -696,7 +696,7 @@ public class RecipesIC2 implements ICompatModule {
                 gemStack.stackSize = 6;
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, gemStack, gemStack, ItemDustsSmall.getSmallDustByName("Phosphorous", 4), IC2Items.getItem("cell"), 100, 120));
             } catch (Exception e) {
-                LogHelper.info("Failed to Load Grinder Recipe for Apatite Ore");
+                Core.logHelper.info("Failed to Load Grinder Recipe for Apatite Ore");
             }
         }
 
@@ -707,7 +707,7 @@ public class RecipesIC2 implements ICompatModule {
                 dustStack.stackSize = 4;
                 RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(Blocks.quartz_ore, 1), IC2Items.getItem("waterCell"), null, new ItemStack(Items.quartz, 2), dustStack, ItemDustsSmall.getSmallDustByName("Netherrack", 2), IC2Items.getItem("cell"), 100, 120));
             } catch (Exception e) {
-                LogHelper.info("Failed to Load Grinder Recipe for Nether Quartz Ore");
+                Core.logHelper.info("Failed to Load Grinder Recipe for Nether Quartz Ore");
             }
         }
 
@@ -720,7 +720,7 @@ public class RecipesIC2 implements ICompatModule {
                 dustStack.stackSize = 2;
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, gemStack, dustStack, null, IC2Items.getItem("cell"), 100, 120));
             } catch (Exception e) {
-                LogHelper.info("Failed to Load Grinder Recipe for Certus Quartz Ore");
+                Core.logHelper.info("Failed to Load Grinder Recipe for Certus Quartz Ore");
             }
         }
 
@@ -733,7 +733,7 @@ public class RecipesIC2 implements ICompatModule {
                 dustStack.stackSize = 2;
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, gemStack, dustStack, null, IC2Items.getItem("cell"), 100, 120));
             } catch (Exception e) {
-                LogHelper.info("Failed to Load Grinder Recipe for Charged Certus Quartz Ore");
+                Core.logHelper.info("Failed to Load Grinder Recipe for Charged Certus Quartz Ore");
             }
         }
 
@@ -747,7 +747,7 @@ public class RecipesIC2 implements ICompatModule {
                 dustStack.stackSize = 1;
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, gemStack, dustStack, null, IC2Items.getItem("cell"), 100, 120));
             } catch (Exception e) {
-                LogHelper.info("Failed to Load Grinder Recipe for Certus Quartz Ore");
+                Core.logHelper.info("Failed to Load Grinder Recipe for Certus Quartz Ore");
             }
         }
 
@@ -761,7 +761,7 @@ public class RecipesIC2 implements ICompatModule {
                 dustStack.stackSize = 1;
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, gemStack, dustStack, null, IC2Items.getItem("cell"), 100, 120));
             } catch (Exception e) {
-                LogHelper.info("Failed to Load Grinder Recipe for Topaz Ore");
+                Core.logHelper.info("Failed to Load Grinder Recipe for Topaz Ore");
             }
         }
 
@@ -775,7 +775,7 @@ public class RecipesIC2 implements ICompatModule {
                 dustStack.stackSize = 1;
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, gemStack, dustStack, null, IC2Items.getItem("cell"), 100, 120));
             } catch (Exception e) {
-                LogHelper.info("Failed to Load Grinder Recipe for Tanzanite Ore");
+                Core.logHelper.info("Failed to Load Grinder Recipe for Tanzanite Ore");
             }
         }
 
@@ -789,7 +789,7 @@ public class RecipesIC2 implements ICompatModule {
                 dustStack.stackSize = 1;
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, IC2Items.getItem("waterCell"), null, gemStack, dustStack, null, IC2Items.getItem("cell"), 100, 120));
             } catch (Exception e) {
-                LogHelper.info("Failed to Load Grinder Recipe for Malachite Ore");
+                Core.logHelper.info("Failed to Load Grinder Recipe for Malachite Ore");
             }
         }
 
@@ -1132,7 +1132,7 @@ public class RecipesIC2 implements ICompatModule {
             RecipeRemover.removeAnyRecipe(IC2Items.getItem("windMill"));
         }
 
-        LogHelper.info("IC2 Recipes Removed");
+        Core.logHelper.info("IC2 Recipes Removed");
     }
 
     static void addShappedIc2Recipes() {
@@ -1178,7 +1178,7 @@ public class RecipesIC2 implements ICompatModule {
                 'D', ItemDusts.getDustByName("diamond"),
                 'A', IC2Items.getItem("advancedAlloy"));
 
-        LogHelper.info("Added Expensive IC2 Recipes");
+        Core.logHelper.info("Added Expensive IC2 Recipes");
     }
 
     static void addTRMaceratorRecipes() {

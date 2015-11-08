@@ -5,11 +5,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
+import reborncore.common.misc.Functions;
+import reborncore.common.util.Inventory;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
-import techreborn.lib.Functions;
 import techreborn.powerSystem.TilePowerAcceptor;
-import techreborn.util.Inventory;
 
 public class TileAesu extends TilePowerAcceptor implements IWrenchable {
 

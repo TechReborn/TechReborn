@@ -9,6 +9,7 @@ import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.data.AnimationMetadataSection;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
+import reborncore.client.texture.ConnectedTexture;
 import techreborn.lib.ModInfo;
 
 import javax.imageio.ImageIO;
@@ -45,17 +46,17 @@ public class LesuConnectedTextureGenerator extends TextureAtlasSprite {
         for (int i = 0; i < type_data.length; i += 1) {
             int x = (i % w);
             int y = (i - x) / w;
-            if(getAlpha(edge_data[i]) != 0){
-                if(y <= 1 && connectedTexture.isUp()){
+            if (getAlpha(edge_data[i]) != 0) {
+                if (y <= 1 && connectedTexture.isUp()) {
                     new_data[i] = edge_data[i];
                 }
-                if(y >= 14 && connectedTexture.isDown()){
+                if (y >= 14 && connectedTexture.isDown()) {
                     new_data[i] = edge_data[i];
                 }
-                if(x <= 1 && connectedTexture.isRight()){
+                if (x <= 1 && connectedTexture.isRight()) {
                     new_data[i] = edge_data[i];
                 }
-                if(x >= 14 && connectedTexture.isLeft()){
+                if (x >= 14 && connectedTexture.isLeft()) {
                     new_data[i] = edge_data[i];
                 }
             }
@@ -112,7 +113,7 @@ public class LesuConnectedTextureGenerator extends TextureAtlasSprite {
         output_image = new BufferedImage(w, h, 2);
         int[] type_data = new int[w * w];
         int[] edge_data = new int[w * w];
-        
+
         for (int y = 0; y < h; y += w) {
             try {
                 type_image[0].getRGB(0, y, w, w, type_data, 0, w);

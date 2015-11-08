@@ -2,9 +2,9 @@ package techreborn.api.recipe;
 
 import net.minecraft.item.ItemStack;
 import org.apache.commons.lang3.time.StopWatch;
+import reborncore.common.util.ItemUtils;
+import techreborn.Core;
 import techreborn.api.recipe.recipeConfig.RecipeConfigManager;
-import techreborn.util.ItemUtils;
-import techreborn.util.LogHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -89,14 +89,14 @@ public class RecipeHandler {
                             for (ItemStack inputs : baseRecipeType.getInputs()) {
                                 itemInfo.append(":" + inputs.getItem().getUnlocalizedName() + "," + inputs.getDisplayName() + "," + inputs.stackSize);
                             }
-                            LogHelper.all(stackMap.get(baseRecipeType));
+                            Core.logHelper.all(stackMap.get(baseRecipeType));
                             // throw new Exception("Found a duplicate recipe for " + baseRecipeType.getRecipeName() + " with inputs " + itemInfo.toString());
                         }
                     }
                 }
             }
         }
-        LogHelper.all(watch + " : Scanning dupe recipes");
+        Core.logHelper.all(watch + " : Scanning dupe recipes");
         watch.stop();
 
     }

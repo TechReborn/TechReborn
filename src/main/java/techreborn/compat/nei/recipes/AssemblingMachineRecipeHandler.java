@@ -3,10 +3,10 @@ package techreborn.compat.nei.recipes;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import reborncore.common.util.ItemUtils;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.client.gui.GuiAssemblingMachine;
 import techreborn.lib.Reference;
-import techreborn.util.ItemUtils;
 
 import java.awt.*;
 import java.util.List;

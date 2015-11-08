@@ -7,12 +7,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.IIcon;
+import reborncore.client.gui.GuiUtil;
+import reborncore.common.util.ItemUtils;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.api.recipe.machines.GrinderRecipe;
-import techreborn.client.GuiUtil;
 import techreborn.client.gui.GuiGrinder;
 import techreborn.lib.Reference;
-import techreborn.util.ItemUtils;
 
 import java.awt.*;
 import java.util.List;

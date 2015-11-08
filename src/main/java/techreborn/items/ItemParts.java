@@ -41,7 +41,7 @@ public class ItemParts extends Item implements IReactorComponent {
                     "laserFocus", "ductTape", "lazuriteChunk", "iridiumAlloyIngot", "rockCutterBlade", "superConductor",
                     "thoriumCell", "doubleThoriumCell", "quadThoriumCell", "plutoniumCell", "doublePlutoniumCell",
                     "quadPlutoniumCell", "destructoPack", "iridiumNeutronReflector", "massHoleDevice", "computerMonitor"
-                    ,"machineParts"};
+                    , "machineParts"};
 
     private IIcon[] textures;
 

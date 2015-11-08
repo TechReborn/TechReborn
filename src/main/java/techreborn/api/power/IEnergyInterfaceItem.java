@@ -77,7 +77,7 @@ public interface IEnergyInterfaceItem {
     /**
      * @return if it can provide energy
      */
-    public boolean canProvideEnergy(ItemStack stack );
+    public boolean canProvideEnergy(ItemStack stack);
 
 
     public double getMaxTransfer(ItemStack stack);

@@ -2,7 +2,7 @@ package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
-import techreborn.client.SlotOutput;
+import reborncore.client.gui.SlotOutput;
 import techreborn.tiles.TileIndustrialElectrolyzer;
 
 public class ContainerIndustrialElectrolyzer extends ContainerCrafting {

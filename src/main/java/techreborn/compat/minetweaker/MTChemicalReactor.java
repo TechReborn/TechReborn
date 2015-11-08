@@ -5,19 +5,19 @@ import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
 import net.minecraft.item.ItemStack;
+import reborncore.common.util.ItemUtils;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.ChemicalReactorRecipe;
 import techreborn.lib.Reference;
-import techreborn.util.ItemUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @ZenClass("mods.techreborn.chemicalReactorRecipe")
-public class MTChemicalReactor{
+public class MTChemicalReactor {
     @ZenMethod
     public static void addRecipe(IItemStack output1, IIngredient input1, IIngredient input2, int ticktime, int euTick) {
         ItemStack oInput1 = (ItemStack) MinetweakerCompat.toObject(input1);
@@ -67,24 +67,23 @@ public class MTChemicalReactor{
     }
 
     @ZenMethod
-    public static void removeRecipe(IItemStack output)
-    {
+    public static void removeRecipe(IItemStack output) {
         MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(output)));
     }
-    private static class Remove implements IUndoableAction
-    {
+
+    private static class Remove implements IUndoableAction {
         private final ItemStack output;
         List<ChemicalReactorRecipe> removedRecipes = new ArrayList<ChemicalReactorRecipe>();
-        public Remove(ItemStack output)
-        {
+
+        public Remove(ItemStack output) {
             this.output = output;
         }
+
         @Override
-        public void apply()
-        {
-            for(IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.chemicalReactorRecipe)){
-                for(ItemStack stack : recipeType.getOutputs()){
-                    if(ItemUtils.isItemEqual(stack, output, true, false)){
+        public void apply() {
+            for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.chemicalReactorRecipe)) {
+                for (ItemStack stack : recipeType.getOutputs()) {
+                    if (ItemUtils.isItemEqual(stack, output, true, false)) {
                         removedRecipes.add((ChemicalReactorRecipe) recipeType);
                         RecipeHandler.recipeList.remove(recipeType);
                         break;
@@ -92,36 +91,36 @@ public class MTChemicalReactor{
                 }
             }
         }
+
         @Override
-        public void undo()
-        {
-            if(removedRecipes!=null){
-                for(ChemicalReactorRecipe recipe : removedRecipes){
-                    if(recipe!=null){
+        public void undo() {
+            if (removedRecipes != null) {
+                for (ChemicalReactorRecipe recipe : removedRecipes) {
+                    if (recipe != null) {
                         RecipeHandler.addRecipe(recipe);
                     }
                 }
             }
 
         }
+
         @Override
-        public String describe()
-        {
+        public String describe() {
             return "Removing Chemical Recipe for " + output.getDisplayName();
         }
+
         @Override
-        public String describeUndo()
-        {
+        public String describeUndo() {
             return "Re-Adding Chemical Recipe for " + output.getDisplayName();
         }
+
         @Override
-        public Object getOverrideKey()
-        {
+        public Object getOverrideKey() {
             return null;
         }
+
         @Override
-        public boolean canUndo()
-        {
+        public boolean canUndo() {
             return true;
         }
     }

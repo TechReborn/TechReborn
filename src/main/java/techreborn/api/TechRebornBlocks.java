@@ -5,10 +5,10 @@ import net.minecraft.block.Block;
 
 public class TechRebornBlocks {
 
-    public static Block getBlock(String name){
+    public static Block getBlock(String name) {
         try {
             Object e = Class.forName("techreborn.init.ModBlocks").getField(name).get(null);
-            return e instanceof Block ?(Block)e:null;
+            return e instanceof Block ? (Block) e : null;
         } catch (NoSuchFieldException e1) {
             e1.printStackTrace();
             return null;

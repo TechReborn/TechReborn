@@ -5,7 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
-import techreborn.api.fuel.FluidPowerManager;
+import reborncore.api.fuel.FluidPowerManager;
 import techreborn.blocks.fluid.BlockFluidTechReborn;
 import techreborn.lib.ModInfo;
 
@@ -150,7 +150,7 @@ public class ModFluids {
         BlockFluidNitrocoalfuel = new BlockFluidTechReborn(fluidNitrocoalfuel, Material.water, "techreborn.nitrocoalfuel");
         GameRegistry.registerBlock(BlockFluidNitrocoalfuel, ModInfo.MOD_ID + "_" + BlockFluidNitrocoalfuel.getUnlocalizedName().substring(5));
         fluidNitrocoalfuel.setUnlocalizedName(fluidNitrocoalfuel.getUnlocalizedName());
-		FluidPowerManager.fluidPowerValues.put(fluidNitrocoalfuel, 48.0);
+        FluidPowerManager.fluidPowerValues.put(fluidNitrocoalfuel, 48.0);
 
         FluidRegistry.registerFluid(fluidNitrofuel);
         BlockFluidNitrofuel = new BlockFluidTechReborn(fluidNitrofuel, Material.water, "techreborn.nitrofuel");

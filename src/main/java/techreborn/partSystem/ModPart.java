@@ -6,7 +6,7 @@ package techreborn.partSystem;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import techreborn.lib.Location;
+import reborncore.common.misc.Location;
 
 /**
  * Extend this class to make your multipart

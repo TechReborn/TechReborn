@@ -16,9 +16,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
-import techreborn.api.IListInfoProvider;
+import reborncore.api.IListInfoProvider;
 import techreborn.api.power.IEnergyInterfaceTile;
-import techreborn.asm.Strippable;
 import techreborn.config.ConfigTechReborn;
 
 import java.util.List;
@@ -44,17 +43,14 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
 
     //IC2
 
-    @Strippable("mod:IC2")
     protected boolean addedToEnet;
 
-    @Strippable("mod:IC2")
     @Override
     public void updateEntity() {
         super.updateEntity();
         onLoaded();
     }
 
-    @Strippable("mod:IC2")
     public void onLoaded() {
         if (PowerSystem.EUPOWENET && !addedToEnet &&
                 !FMLCommonHandler.instance().getEffectiveSide().isClient() &&
@@ -65,14 +61,12 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
         }
     }
 
-    @Strippable("mod:IC2")
     @Override
     public void invalidate() {
         super.invalidate();
         onChunkUnload();
     }
 
-    @Strippable("mod:IC2")
     @Override
     public void onChunkUnload() {
         super.onChunkUnload();
@@ -86,7 +80,6 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
         }
     }
 
-    @Strippable("mod:IC2")
     @Override
     public double getDemandedEnergy() {
         if (!PowerSystem.EUPOWENET)
@@ -94,20 +87,17 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
         return getMaxPower() - getEnergy();
     }
 
-    @Strippable("mod:IC2")
     @Override
     public int getSinkTier() {
         return tier;
     }
 
-    @Strippable("mod:IC2")
     @Override
     public double injectEnergy(ForgeDirection directionFrom, double amount, double voltage) {
         setEnergy(getEnergy() + amount);
         return 0;
     }
 
-    @Strippable("mod:IC2")
     @Override
     public boolean acceptsEnergyFrom(TileEntity emitter, ForgeDirection direction) {
         if (!PowerSystem.EUPOWENET)
@@ -115,7 +105,6 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
         return canAcceptEnergy(direction);
     }
 
-    @Strippable("mod:IC2")
     @Override
     public boolean emitsEnergyTo(TileEntity receiver, ForgeDirection direction) {
         if (!PowerSystem.EUPOWENET)
@@ -123,7 +112,6 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
         return canProvideEnergy(direction);
     }
 
-    @Strippable("mod:IC2")
     @Override
     public double getOfferedEnergy() {
         if (!PowerSystem.EUPOWENET)
@@ -131,13 +119,11 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
         return getEnergy();
     }
 
-    @Strippable("mod:IC2")
     @Override
     public void drawEnergy(double amount) {
         useEnergy((int) amount);
     }
 
-    @Strippable("mod:IC2")
     @Override
     public int getSourceTier() {
         return tier;
@@ -291,11 +277,11 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
     @Override
     public void addInfo(List<String> info, boolean isRealTile) {
         info.add(ChatFormatting.LIGHT_PURPLE + "Energy buffer Size " + ChatFormatting.GREEN + getEUString(getMaxPower()));
-        if(getMaxInput() != 0){
-            info.add(ChatFormatting.LIGHT_PURPLE +"Max Input " + ChatFormatting.GREEN + getEUString(getMaxInput()));
+        if (getMaxInput() != 0) {
+            info.add(ChatFormatting.LIGHT_PURPLE + "Max Input " + ChatFormatting.GREEN + getEUString(getMaxInput()));
         }
-        if(getMaxOutput() != 0){
-            info.add(ChatFormatting.LIGHT_PURPLE +"Max Output " + ChatFormatting.GREEN + getEUString(getMaxOutput()));
+        if (getMaxOutput() != 0) {
+            info.add(ChatFormatting.LIGHT_PURPLE + "Max Output " + ChatFormatting.GREEN + getEUString(getMaxOutput()));
         }
     }
 
@@ -311,9 +297,9 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
         }
     }
 
-	public double getFreeSpace(){
-		return getMaxPower() - energy;
-	}
+    public double getFreeSpace() {
+        return getMaxPower() - energy;
+    }
 
     //IC2 Classic
 

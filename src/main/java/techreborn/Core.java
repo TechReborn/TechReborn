@@ -11,10 +11,13 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-import erogenousbeef.coreTR.multiblock.MultiblockEventHandler;
-import erogenousbeef.coreTR.multiblock.MultiblockServerTickHandler;
 import net.minecraftforge.common.MinecraftForge;
 import org.apache.commons.lang3.time.StopWatch;
+import reborncore.common.multiblock.MultiblockEventHandler;
+import reborncore.common.multiblock.MultiblockServerTickHandler;
+import reborncore.common.packets.AddDiscriminatorEvent;
+import reborncore.common.util.LogHelper;
+import reborncore.common.util.VersionChecker;
 import techreborn.achievement.TRAchievements;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.recipeConfig.RecipeConfigManager;
@@ -26,12 +29,10 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.events.TRTickHandler;
 import techreborn.init.*;
 import techreborn.lib.ModInfo;
-import techreborn.packets.PacketHandler;
-import techreborn.packets.PacketPipeline;
+import techreborn.packets.PacketAesu;
+import techreborn.packets.PacketIdsu;
 import techreborn.proxies.CommonProxy;
 import techreborn.tiles.idsu.IDSUManager;
-import techreborn.util.LogHelper;
-import techreborn.util.VersionChecker;
 import techreborn.world.TROreGen;
 
 import java.io.File;
@@ -46,14 +47,17 @@ public class Core {
     @Mod.Instance
     public static Core INSTANCE;
 
-    public static final PacketPipeline packetPipeline = new PacketPipeline();
-
     public VersionChecker versionChecker;
+
+    public static LogHelper logHelper = new LogHelper(new ModInfo());
 
     @Mod.EventHandler
     public void preinit(FMLPreInitializationEvent event) {
         event.getModMetadata().version = ModInfo.MOD_VERSION;
         INSTANCE = this;
+        FMLCommonHandler.instance().bus().register(this);
+        MinecraftForge.EVENT_BUS.register(this);
+
         String path = event.getSuggestedConfigurationFile().getAbsolutePath()
                 .replace(ModInfo.MOD_ID, "TechReborn");
 
@@ -64,9 +68,9 @@ public class Core {
         }
 
         RecipeConfigManager.load(event.getModConfigurationDirectory());
-        versionChecker = new VersionChecker("TechReborn");
+        versionChecker = new VersionChecker("TechReborn", new ModInfo());
         versionChecker.checkVersionThreaded();
-        LogHelper.info("PreInitialization Complete");
+        logHelper.info("PreInitialization Complete");
     }
 
     @Mod.EventHandler
@@ -83,7 +87,7 @@ public class Core {
         StopWatch watch = new StopWatch();
         watch.start();
         ModRecipes.init();
-        LogHelper.all(watch + " : main recipes");
+        logHelper.all(watch + " : main recipes");
         watch.stop();
         //Client only init, needs to be done before parts system
         proxy.init();
@@ -96,9 +100,7 @@ public class Core {
 //		DungeonLoot.init();
         // Register Gui Handler
         NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
-        // packets
-        PacketHandler.setChannels(NetworkRegistry.INSTANCE.newChannel(
-                ModInfo.MOD_ID + "_packets", new PacketHandler()));
+
         // Achievements
         TRAchievements.init();
         // Multiblock events
@@ -108,8 +110,7 @@ public class Core {
         MinecraftForge.EVENT_BUS.register(IDSUManager.INSTANCE);
         FMLCommonHandler.instance().bus().register(new MultiblockServerTickHandler());
         FMLCommonHandler.instance().bus().register(new TRTickHandler());
-        packetPipeline.initalise();
-        LogHelper.info("Initialization Complete");
+        logHelper.info("Initialization Complete");
     }
 
     @Mod.EventHandler
@@ -118,8 +119,7 @@ public class Core {
         for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
             compatModule.postInit(event);
         }
-        packetPipeline.postInitialise();
-        LogHelper.info(RecipeHandler.recipeList.size() + " recipes loaded");
+        logHelper.info(RecipeHandler.recipeList.size() + " recipes loaded");
 
 //        RecipeHandler.scanForDupeRecipes();
 
@@ -139,5 +139,12 @@ public class Core {
         if (cfgChange.modID.equals("TechReborn")) {
             ConfigTechReborn.Configs();
         }
+    }
+
+
+    @SubscribeEvent
+    public void addDiscriminator(AddDiscriminatorEvent event) {
+        event.getPacketHandler().addDiscriminator(event.getPacketHandler().nextDiscriminator, PacketAesu.class);
+        event.getPacketHandler().addDiscriminator(event.getPacketHandler().nextDiscriminator, PacketIdsu.class);
     }
 }

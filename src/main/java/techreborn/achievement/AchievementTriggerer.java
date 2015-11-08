@@ -5,6 +5,8 @@ import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemPickupEvent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
+import reborncore.common.achievement.ICraftAchievement;
+import reborncore.common.achievement.IPickupAchievement;
 
 public class AchievementTriggerer {
 

@@ -2,10 +2,10 @@ package techreborn.tiles.lesu;
 
 
 import net.minecraftforge.common.util.ForgeDirection;
+import reborncore.common.misc.Functions;
+import reborncore.common.util.Inventory;
 import techreborn.config.ConfigTechReborn;
-import techreborn.lib.Functions;
 import techreborn.powerSystem.TilePowerAcceptor;
-import techreborn.util.Inventory;
 
 import java.util.ArrayList;
 

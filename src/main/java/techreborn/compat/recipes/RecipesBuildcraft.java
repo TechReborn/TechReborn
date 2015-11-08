@@ -12,12 +12,12 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
-import techreborn.api.fuel.FluidPowerManager;
+import reborncore.api.fuel.FluidPowerManager;
+import reborncore.common.util.CraftingHelper;
+import reborncore.common.util.RecipeRemover;
+import techreborn.Core;
 import techreborn.compat.ICompatModule;
 import techreborn.config.ConfigTechReborn;
-import techreborn.util.CraftingHelper;
-import techreborn.util.LogHelper;
-import techreborn.util.RecipeRemover;
 
 public class RecipesBuildcraft implements ICompatModule {
 
@@ -56,7 +56,7 @@ public class RecipesBuildcraft implements ICompatModule {
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
-        LogHelper.info("Trying to change the quarry recipe");
+        Core.logHelper.info("Trying to change the quarry recipe");
         try {
             String itemClass = "buildcraft.BuildCraftBuilders";
             if (!Version.getVersion().startsWith("7")) {//Buildcraft 6
@@ -64,27 +64,27 @@ public class RecipesBuildcraft implements ICompatModule {
                     itemClass = "buildcraft.BuildCraftFactory";
                 }
             } else if (!Version.getVersion().startsWith("7") && !Loader.isModLoaded("BuildCraft|Builders")) { //Buildcraft 7
-                LogHelper.info("Buildcraft not found");
+                Core.logHelper.info("Buildcraft not found");
                 return;
             }
             Object obj = Class.forName(itemClass).getField("quarryBlock").get(null);
             if (obj instanceof Block) {
                 quarryBlock = (Block) obj;
-                LogHelper.info("Found Quarry Block from buildcraft at " + itemClass + ":quarryBlock");
+                Core.logHelper.info("Found Quarry Block from buildcraft at " + itemClass + ":quarryBlock");
             } else {
-                LogHelper.fatal("Could not retrieve quarry block from Buildcraft! This is a fatal error!");
+                Core.logHelper.fatal("Could not retrieve quarry block from Buildcraft! This is a fatal error!");
                 return;
             }
         } catch (Exception ex) {
-            LogHelper.fatal("Could not retrieve quarry block from Buildcraft! This is a fatal error!");
+            Core.logHelper.fatal("Could not retrieve quarry block from Buildcraft! This is a fatal error!");
             ex.printStackTrace();
             return;
         }
         removeRecipes();
         addRecipies();
-		for(IFuel fuel : buildcraft.energy.fuels.FuelManager.INSTANCE.getFuels()){
-			FluidPowerManager.fluidPowerValues.put(fuel.getFluid(), (double) fuel.getPowerPerCycle() / ConfigTechReborn.euPerRF);
-		}
+        for (IFuel fuel : buildcraft.energy.fuels.FuelManager.INSTANCE.getFuels()) {
+            FluidPowerManager.fluidPowerValues.put(fuel.getFluid(), (double) fuel.getPowerPerCycle() / ConfigTechReborn.euPerRF);
+        }
     }
 
     @Override

@@ -5,9 +5,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
+import techreborn.Core;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
-import techreborn.util.LogHelper;
 
 import java.util.Random;
 
@@ -54,7 +54,7 @@ public class TROreGen implements IWorldGenerator {
         orePeridot = new WorldGenMinable(ModBlocks.ore, 10, ConfigTechReborn.PeridotOreRare, Blocks.end_stone);
         oreSodalite = new WorldGenMinable(ModBlocks.ore, 11, ConfigTechReborn.SodaliteOreRare, Blocks.end_stone);
 
-        LogHelper.info("WorldGen Loaded");
+        Core.logHelper.info("WorldGen Loaded");
     }
 
     public void retroGen(Random random, int chunkX, int chunkZ, World world) {

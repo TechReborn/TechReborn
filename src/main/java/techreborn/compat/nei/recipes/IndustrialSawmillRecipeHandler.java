@@ -7,9 +7,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.IIcon;
+import reborncore.client.gui.GuiUtil;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
-import techreborn.client.GuiUtil;
 import techreborn.client.gui.GuiIndustrialSawmill;
 import techreborn.lib.Reference;
 

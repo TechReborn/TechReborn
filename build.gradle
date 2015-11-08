@@ -116,8 +116,9 @@ dependencies {
     compile 'Azanor:Thaumcraft:4.2.3.5:deobf@jar'
     compile "com.github.azanor:baubles:1.0.1.10:deobf@jar"
     compile name: "MineTweaker3", version: "1.7.10-3.0.9C", classifier: "Dev"
-    shade 'IC2-Classic-API-STANDALONE:IC2-Classic-API-STANDALONE:1.1.0.19-5:api'
-	
+    shade 'IC2-Classic-API-STANDALONE:IC2-Classic-API-STANDALONE:0.0.0.1:dev'
+    compile 'RebornCore:RebornCore:1.1.0.19-5:api'
+
 	testCompile 'junit:junit:4.12'
 }
 
@@ -151,10 +152,6 @@ task deobfJar(type: Jar) {
 }
 
 jar {
-    manifest {
-        attributes 'FMLCorePlugin': 'techreborn.asm.LoadingPlugin'
-        attributes 'FMLCorePluginContainsFMLMod': 'true'
-    }
     exclude "**/*.psd"
     classifier = 'universal'
     configurations.shade.each { dep ->

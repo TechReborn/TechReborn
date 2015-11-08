@@ -9,11 +9,11 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
+import reborncore.common.util.Inventory;
+import reborncore.common.util.ItemUtils;
 import techreborn.api.RollingMachineRecipe;
 import techreborn.init.ModBlocks;
 import techreborn.powerSystem.TilePowerAcceptor;
-import techreborn.util.Inventory;
-import techreborn.util.ItemUtils;
 
 //TODO add tick and power bars.
 public class TileRollingMachine extends TilePowerAcceptor implements IWrenchable, IEnergyTile, IInventory {

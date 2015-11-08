@@ -4,6 +4,7 @@ import cpw.mods.fml.client.GuiModList;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.GuiScreenEvent;
+import reborncore.client.gui.GuiUtil;
 import techreborn.Core;
 
 import java.awt.*;

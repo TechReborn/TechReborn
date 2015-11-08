@@ -2,9 +2,10 @@ package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
+import reborncore.common.container.RebornContainer;
 import techreborn.tiles.TileChargeBench;
 
-public class ContainerChargeBench extends TechRebornContainer {
+public class ContainerChargeBench extends RebornContainer {
 
     EntityPlayer player;
 

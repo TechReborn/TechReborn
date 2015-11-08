@@ -2,17 +2,13 @@ package techreborn.blocks.generator;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ic2.api.item.IC2Items;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import techreborn.blocks.BlockMachineBase;
 import techreborn.tiles.TileDragonEggSiphoner;
-
-import java.util.Random;
 
 public class BlockDragonEggSiphoner extends BlockMachineBase {
 

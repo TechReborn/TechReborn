@@ -10,12 +10,12 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import reborncore.common.util.BucketHandler;
+import techreborn.Core;
 import techreborn.items.*;
 import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
 import techreborn.items.tools.*;
-import techreborn.util.BucketHandler;
-import techreborn.util.LogHelper;
 
 public class ModItems {
 
@@ -71,7 +71,7 @@ public class ModItems {
     public static Item bucketSodiumpersulfate;
     public static Item bucketTritium;
     public static Item bucketWolframium;
-    
+
     public static Item upgrades;
 
 
@@ -261,7 +261,7 @@ public class ModItems {
         MinecraftForge.EVENT_BUS.register(BucketHandler.INSTANCE);
 
 
-        LogHelper.info("TechReborns Items Loaded");
+        Core.logHelper.info("TechReborns Items Loaded");
 
         registerOreDict();
     }

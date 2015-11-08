@@ -10,16 +10,16 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
-import techreborn.api.IListInfoProvider;
+import reborncore.api.IListInfoProvider;
+import reborncore.common.misc.Location;
+import reborncore.common.util.Inventory;
+import reborncore.common.util.Tank;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModFluids;
-import techreborn.lib.Location;
 import techreborn.lib.Reference;
 import techreborn.powerSystem.TilePowerAcceptor;
-import techreborn.util.Inventory;
-import techreborn.util.Tank;
 
 import java.util.List;
 
@@ -127,7 +127,7 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
     @Override
     public void addInfo(List<String> info, boolean isRealTile) {
         super.addInfo(info, isRealTile);
-        if(isRealTile){
+        if (isRealTile) {
             info.add("Power Stored " + getEnergy() + " EU");
             if (crafter.currentRecipe != null) {
                 info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");

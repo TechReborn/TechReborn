@@ -10,8 +10,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import techreborn.lib.vecmath.Vecs3d;
-import techreborn.lib.vecmath.Vecs3dCube;
+import reborncore.common.misc.vecmath.Vecs3d;
+import reborncore.common.misc.vecmath.Vecs3dCube;
 
 import java.util.List;
 

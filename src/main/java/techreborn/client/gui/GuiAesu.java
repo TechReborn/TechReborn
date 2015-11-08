@@ -5,9 +5,9 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import reborncore.common.packets.PacketHandler;
 import techreborn.client.container.ContainerAesu;
 import techreborn.packets.PacketAesu;
-import techreborn.packets.PacketHandler;
 import techreborn.tiles.TileAesu;
 
 import java.awt.*;

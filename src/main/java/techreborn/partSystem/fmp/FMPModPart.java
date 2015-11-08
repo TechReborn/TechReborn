@@ -16,17 +16,14 @@ import codechicken.multipart.TMultiPart;
 import codechicken.multipart.TSlottedPart;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
-import techreborn.lib.Location;
-import techreborn.lib.vecmath.Vecs3d;
-import techreborn.lib.vecmath.Vecs3dCube;
+import reborncore.common.misc.Location;
+import reborncore.common.misc.vecmath.Vecs3d;
+import reborncore.common.misc.vecmath.Vecs3dCube;
 import techreborn.partSystem.IPartDesc;
 import techreborn.partSystem.ModPart;
-import techreborn.util.LogHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +47,7 @@ public class FMPModPart extends TMultiPart implements TSlottedPart,
     public Iterable<Cuboid6> getOcclusionBoxes() {
         List<Cuboid6> cubes = new ArrayList<Cuboid6>();
         for (Vecs3dCube c : iModPart.getOcclusionBoxes())
-            if(c != null)
+            if (c != null)
                 cubes.add(new Cuboid6(c.toAABB()));
         return cubes;
     }
@@ -176,8 +173,6 @@ public class FMPModPart extends TMultiPart implements TSlottedPart,
         List<ItemStack> stackArrayList = new ArrayList<ItemStack>();
         if (iModPart.getItem() != null) {
             stackArrayList.add(iModPart.getItem().copy());
-        } else {
-            LogHelper.error("Part " + iModPart.getName() + " has a null drop");
         }
         return stackArrayList;
     }

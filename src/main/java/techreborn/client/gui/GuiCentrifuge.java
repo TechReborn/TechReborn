@@ -58,6 +58,6 @@ public class GuiCentrifuge extends GuiContainer {
         this.fontRendererObj.drawString(namePt1, 98, 6, 4210752);
         this.fontRendererObj.drawString(namePt2, 98, 14, 4210752);
         this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
-		this.fontRendererObj.drawString(centrifuge.getProgressScaled(100) + "%", 98, this.ySize - 96 + 2, 4210752);
+        this.fontRendererObj.drawString(centrifuge.getProgressScaled(100) + "%", 98, this.ySize - 96 + 2, 4210752);
     }
 }

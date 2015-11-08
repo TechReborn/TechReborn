@@ -12,15 +12,14 @@ import codechicken.multipart.NormallyOccludedPart;
 import codechicken.multipart.TMultiPart;
 import codechicken.multipart.TileMultipart;
 import cpw.mods.fml.common.Loader;
-import ic2.api.info.IC2Classic;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import techreborn.lib.Location;
-import techreborn.lib.vecmath.Vecs3dCube;
+import reborncore.common.misc.Location;
+import reborncore.common.misc.vecmath.Vecs3dCube;
 import techreborn.partSystem.IModPart;
 import techreborn.partSystem.IPartProvider;
 import techreborn.partSystem.ModPart;
@@ -65,7 +64,7 @@ public class FMPFactory implements MultiPartRegistry.IPartFactory2,
             for (TMultiPart p : t) {
                 if (ret == false) {
                     if (p.getType().equals(name)) {
-                        if(p instanceof FMPModPart){
+                        if (p instanceof FMPModPart) {
                             return ((FMPModPart) p).iModPart;
                         }
                         ret = true;
@@ -79,7 +78,7 @@ public class FMPFactory implements MultiPartRegistry.IPartFactory2,
 
     @Override
     public void init() {
-        if(Loader.isModLoaded("IC2")){
+        if (Loader.isModLoaded("IC2")) {
             MultiPartRegistry.registerConverter(new CableConverter());
             MinecraftForge.EVENT_BUS.register(new CableConverter());
         }

@@ -9,10 +9,10 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import ic2.api.item.IC2Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import techreborn.Core;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModParts;
 import techreborn.partSystem.parts.CablePart;
-import techreborn.util.LogHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,10 +37,10 @@ public class ModPartRegistry {
             iPartProvider.init();
         }
 
-        LogHelper.info("Started to load all parts");
+        Core.logHelper.info("Started to load all parts");
 
         for (ModPart modPart : ModPartRegistry.parts) {
-            if(modPart.needsItem()){
+            if (modPart.needsItem()) {
                 Item part = new ModPartItem(modPart)
                         .setUnlocalizedName(modPart.getName())
                         .setCreativeTab(TechRebornCreativeTab.instance)
@@ -82,15 +82,15 @@ public class ModPartRegistry {
                 }
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
-                LogHelper.error("Failed to load " + className
+                Core.logHelper.error("Failed to load " + className
                         + " to the part system!");
             } catch (InstantiationException e) {
                 e.printStackTrace();
-                LogHelper.error("Failed to load " + className
+                Core.logHelper.error("Failed to load " + className
                         + " to the part system!");
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
-                LogHelper.error("Failed to load " + className
+                Core.logHelper.error("Failed to load " + className
                         + " to the part system!");
             }
         }

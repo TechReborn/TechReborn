@@ -72,9 +72,9 @@ public class BlockAlloyFurnace extends BlockMachineBase {
 
     @Override
     public IIcon getIcon(int side, int meta) {
-        if(side == 1){
+        if (side == 1) {
             return this.iconTop;
-        } else if(side == 3){
+        } else if (side == 3) {
             return this.iconFront;
         } else {
             return this.blockIcon;

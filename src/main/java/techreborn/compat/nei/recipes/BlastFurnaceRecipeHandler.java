@@ -4,11 +4,11 @@ import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import reborncore.common.util.ItemUtils;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.api.recipe.machines.BlastFurnaceRecipe;
 import techreborn.client.gui.GuiBlastFurnace;
 import techreborn.lib.Reference;
-import techreborn.util.ItemUtils;
 
 import java.awt.*;
 import java.util.List;

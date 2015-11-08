@@ -9,10 +9,10 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
+import reborncore.common.util.Inventory;
 import techreborn.api.power.IEnergyInterfaceItem;
 import techreborn.init.ModBlocks;
 import techreborn.powerSystem.TilePowerAcceptor;
-import techreborn.util.Inventory;
 
 public class TileChargeBench extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory {
 
@@ -29,7 +29,7 @@ public class TileChargeBench extends TilePowerAcceptor implements IWrenchable, I
 
         for (int i = 0; i < 6; i++)
             if (inventory.getStackInSlot(i) != null) {
-                if(inventory.getStackInSlot(i).getItem() instanceof IEnergyInterfaceItem){
+                if (inventory.getStackInSlot(i).getItem() instanceof IEnergyInterfaceItem) {
                     ItemStack stack = inventory.getStackInSlot(i);
                     double MaxCharge = ((IEnergyInterfaceItem) stack.getItem()).getMaxPower(stack);
                     double amount = ((IEnergyInterfaceItem) stack.getItem()).getMaxTransfer(stack);

@@ -1,2 +1,2 @@
-gource -f -1920x1080 --seconds-per-day 4 --auto-skip-seconds 1 --key --title "TechReborn"
+gource -f -1920x1080 --seconds-per-day 1 --auto-skip-seconds 1 --key --title "TechReborn" --camera-mode overview  --multi-sampling  --hide filenames,mouse --file-idle-time 0 --bloom-multiplier 0.05 --bloom-intensity 0.75
 pause

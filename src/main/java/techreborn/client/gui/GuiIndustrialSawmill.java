@@ -7,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import techreborn.client.GuiUtil;
+import reborncore.client.gui.GuiUtil;
 import techreborn.client.container.ContainerIndustrialSawmill;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.TileIndustrialSawmill;

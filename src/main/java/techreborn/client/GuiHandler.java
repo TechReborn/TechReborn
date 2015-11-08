@@ -6,7 +6,6 @@ import net.minecraft.world.World;
 import techreborn.client.container.*;
 import techreborn.client.gui.*;
 import techreborn.pda.GuiManual;
-import techreborn.pda.pages.BasePage;
 import techreborn.tiles.*;
 import techreborn.tiles.idsu.TileIDSU;
 import techreborn.tiles.lesu.TileLesu;
@@ -89,7 +88,7 @@ public class GuiHandler implements IGuiHandler {
         } else if (ID == assemblingmachineID) {
             return new ContainerAssemblingMachine(
                     (TileAssemblingMachine) world.getTileEntity(x, y, z), player);
-        }else if (ID == dieselGeneratorID) {
+        } else if (ID == dieselGeneratorID) {
             return new ContainerDieselGenerator(
                     (TileDieselGenerator) world.getTileEntity(x, y, z), player);
         } else if (ID == industrialElectrolyzerID) {
@@ -171,7 +170,7 @@ public class GuiHandler implements IGuiHandler {
         } else if (ID == assemblingmachineID) {
             return new GuiAssemblingMachine(player,
                     (TileAssemblingMachine) world.getTileEntity(x, y, z));
-        }else if (ID == dieselGeneratorID) {
+        } else if (ID == dieselGeneratorID) {
             return new GuiDieselGenerator(player,
                     (TileDieselGenerator) world.getTileEntity(x, y, z));
         } else if (ID == industrialElectrolyzerID) {

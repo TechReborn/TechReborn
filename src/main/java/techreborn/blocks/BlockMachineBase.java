@@ -2,7 +2,10 @@ package techreborn.blocks;
 
 import cpw.mods.fml.common.Loader;
 import ic2.api.item.IC2Items;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
+import net.minecraft.block.BlockDynamicLiquid;
+import net.minecraft.block.BlockStaticLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
@@ -20,7 +23,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.BlockFluidBase;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
-import techreborn.lib.Functions;
 import techreborn.tiles.TileMachineBase;
 
 import java.util.ArrayList;
@@ -149,48 +151,48 @@ public class BlockMachineBase extends BlockContainer {
         }
     }
 
-    public void setTileRotation(World world, int x, int y, int z, int meta){
-        if(world.getTileEntity(x, y, z) != null && world.getTileEntity(x, y, z) instanceof TileMachineBase){
+    public void setTileRotation(World world, int x, int y, int z, int meta) {
+        if (world.getTileEntity(x, y, z) != null && world.getTileEntity(x, y, z) instanceof TileMachineBase) {
             ((TileMachineBase) world.getTileEntity(x, y, z)).setRotation(meta);
         }
     }
 
-    public int getTileRotation(World world, int x, int y, int z){
-        if(world.getTileEntity(x, y, z) != null && world.getTileEntity(x, y, z) instanceof TileMachineBase){
+    public int getTileRotation(World world, int x, int y, int z) {
+        if (world.getTileEntity(x, y, z) != null && world.getTileEntity(x, y, z) instanceof TileMachineBase) {
             return ((TileMachineBase) world.getTileEntity(x, y, z)).getRotation();
         }
         return 0;
     }
 
-    public int getTileRotation(IBlockAccess blockAccess, int x, int y, int z){
+    public int getTileRotation(IBlockAccess blockAccess, int x, int y, int z) {
         return blockAccess.getTileEntity(x, y, z) != null ? getTileRotation(blockAccess.getTileEntity(x, y, z).getWorldObj(), x, y, z) : 0;
     }
 
     @Override
     public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
         ArrayList<ItemStack> items = new ArrayList<ItemStack>();
-        if(Loader.isModLoaded("IC2")){
+        if (Loader.isModLoaded("IC2")) {
             ItemStack stack = IC2Items.getItem(isAdvanced() ? "advancedMachine" : "machine").copy();
             stack.stackSize = 1;
             items.add(stack);
         } else {
-            items.add(isAdvanced()? new ItemStack(Item.getItemFromBlock(ModBlocks.MachineCasing), 1, 2) : new ItemStack(Item.getItemFromBlock(ModBlocks.MachineCasing), 1, 0));
+            items.add(isAdvanced() ? new ItemStack(Item.getItemFromBlock(ModBlocks.MachineCasing), 1, 2) : new ItemStack(Item.getItemFromBlock(ModBlocks.MachineCasing), 1, 0));
         }
         System.out.println(items.toString());
         return items;
     }
 
-    public boolean isAdvanced(){
+    public boolean isAdvanced() {
         return false;
     }
 
     @Override
     public boolean rotateBlock(World worldObj, int x, int y, int z, ForgeDirection axis) {
-        if(axis == ForgeDirection.UNKNOWN){
+        if (axis == ForgeDirection.UNKNOWN) {
             return false;
         } else {
             TileEntity tile = worldObj.getTileEntity(x, y, z);
-            if(tile != null && tile instanceof TileMachineBase){
+            if (tile != null && tile instanceof TileMachineBase) {
                 TileMachineBase machineBase = (TileMachineBase) tile;
                 machineBase.setRotation(ForgeDirection.getOrientation(machineBase.getRotation()).getRotation(axis).ordinal());
                 return true;

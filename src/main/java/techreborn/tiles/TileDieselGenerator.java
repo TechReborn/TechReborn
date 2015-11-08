@@ -11,13 +11,13 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
-import techreborn.api.fuel.FluidPowerManager;
+import reborncore.api.fuel.FluidPowerManager;
+import reborncore.common.util.FluidUtils;
+import reborncore.common.util.Inventory;
+import reborncore.common.util.Tank;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.powerSystem.TilePowerAcceptor;
-import techreborn.util.FluidUtils;
-import techreborn.util.Inventory;
-import techreborn.util.Tank;
 
 public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchable,
         IFluidHandler, IInventory, IEnergyTile {
@@ -136,27 +136,27 @@ public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchabl
     @Override
     public void updateEntity() {
         super.updateEntity();
-		if (!worldObj.isRemote) {
-			FluidUtils.drainContainers(this, inventory, 0, 1);
-			FluidUtils.fillContainers(this, inventory, 0, 1, tank.getFluidType());
-			if (tank.getFluidType() != null && getStackInSlot(2) == null) {
-				inventory.setInventorySlotContents(2, new ItemStack(tank
-						.getFluidType().getBlock()));
-				syncWithAll();
-			} else if (tank.getFluidType() == null && getStackInSlot(2) != null) {
-				setInventorySlotContents(2, null);
-				syncWithAll();
-			}
+        if (!worldObj.isRemote) {
+            FluidUtils.drainContainers(this, inventory, 0, 1);
+            FluidUtils.fillContainers(this, inventory, 0, 1, tank.getFluidType());
+            if (tank.getFluidType() != null && getStackInSlot(2) == null) {
+                inventory.setInventorySlotContents(2, new ItemStack(tank
+                        .getFluidType().getBlock()));
+                syncWithAll();
+            } else if (tank.getFluidType() == null && getStackInSlot(2) != null) {
+                setInventorySlotContents(2, null);
+                syncWithAll();
+            }
 
-			if (!tank.isEmpty()) {
-				double powerIn = FluidPowerManager.fluidPowerValues.get(tank.getFluidType());
-				if(getFreeSpace() >= powerIn){
-					addEnergy(powerIn, false);
-					tank.drain(1, true);
+            if (!tank.isEmpty()) {
+                double powerIn = FluidPowerManager.fluidPowerValues.get(tank.getFluidType());
+                if (getFreeSpace() >= powerIn) {
+                    addEnergy(powerIn, false);
+                    tank.drain(1, true);
                     System.out.println(getEnergy() + ":" + tank.getFluidAmount());
                 }
-			}
-		}
+            }
+        }
 
     }
 
