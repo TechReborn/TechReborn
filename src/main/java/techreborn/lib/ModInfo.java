@@ -13,8 +13,6 @@ public class ModInfo implements IModInfo {
     public static final String CLIENT_PROXY_CLASS = "techreborn.proxies.ClientProxy";
     public static final String GUI_FACTORY_CLASS = "techreborn.config.TechRebornGUIFactory";
 
-    public static final String MISSING_MULTIBLOCK = StatCollector.translateToLocal("techreborn.message.missingmultiblock");
-
     @Override
     public String MOD_NAME() {
         return MOD_NAME;

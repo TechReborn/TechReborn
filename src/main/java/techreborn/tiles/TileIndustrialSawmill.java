@@ -123,7 +123,7 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
         tank.writeToNBT(tagCompound);
         crafter.writeToNBT(tagCompound);
     }
-    
+
     /* IFluidHandler */
     @Override
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {

@@ -47,7 +47,7 @@ public class GuiGrinder extends GuiContainer {
 
         if (grinder.getMutliBlock() != true) {
             GuiDraw.drawTooltipBox(k + 30, l + 50 + 12 - j, 114, 10);
-            this.fontRendererObj.drawString(ModInfo.MISSING_MULTIBLOCK, k + 38, l + 52 + 12 - j, -1);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("techreborn.message.missingmultiblock"), k + 38, l + 52 + 12 - j, -1);
         }
 
         if (grinder.tank.getFluidAmount() != 0) {

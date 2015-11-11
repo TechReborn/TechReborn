@@ -7,8 +7,8 @@ tile.techreborn.thermalGenerator.name=Thermal Generator
 tile.techreborn.quantumTank.name=Quantum Tank
 tile.techreborn.quantumChest.name=Quantum Chest
 tile.techreborn.digitalChest.name=Digital Chest
-tile.techreborn.centrifuge.name=Centrifuge
-tile.techreborn.rollingmachine.name=Rolling machine
+tile.techreborn.centrifuge.name=Industrial Centrifuge
+tile.techreborn.rollingmachine.name=Rolling Machine
 tile.techreborn.machineCasing.standard.name=Standard Machine Casing
 tile.techreborn.machineCasing.reinforced.name=Reinforced Machine Casing
 tile.techreborn.machineCasing.advanced.name=Advanced Machine Casing
@@ -553,6 +553,8 @@ item.techreborn.part.iridiumNeutronReflector.name=Iridium Neutron Reflector
 item.techreborn.part.massHoleDevice.name=Mass Hole Device
 item.techreborn.part.computerMonitor.name=Computer Monitor
 item.techreborn.part.machineParts.name=Machine Parts
+item.techreborn.part.neutronReflector.name=Neutron Reflector
+item.techreborn.part.thickNeutronReflector.name=Thick Neutron Reflector
 
 #Tools
 item.techreborn.rockcutter.name=Rockcutter
@@ -772,6 +774,15 @@ config.techreborn.category.power=Power Configs
 config.techreborn.category.crafting=Crafting Configs
 config.techreborn.category.uu=UU Configs
 config.techreborn.category.emc=EMC Configs
+config.techreborn.category.integration=Integration
+
+tr.configgui.category.trGeneral.tooltip=General
+tr.configgui.category.trWorld.tooltip=World
+tr.configgui.category.trPower.tooltip=Power
+tr.configgui.category.trCrafting.tooltip=Crafting
+tr.configgui.category.truu.tooltip=UU
+tr.configgui.category.tremc.tooltip=EMC
+tr.configgui.category.treinter.tooltip=Mod Integration
 
 #Recipe Handlers
 techreborn.recipe.alloysmelter=Alloy Furnace Recipe
@@ -784,6 +795,8 @@ techreborn.recipe.industrialelectrolyzer=Industrial Electrolyzer Recipe
 techreborn.recipe.industrialsawmill=Industrial Sawmill Recipe
 techreborn.recipe.lathe=Lathe Recipe
 techreborn.recipe.platecuttingmachine=Plate Cutting Machine Recipe
+techreborn.recipe.chemicalReactor=Chemical Reactor Recipe
+techreborn.recipe.implosioncompressor=Implosion Compressor
 
 #Message
 techreborn.message.missingmultiblock=MISSING MULTIBLOCK
