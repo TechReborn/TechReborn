@@ -162,8 +162,6 @@ public class ConfigTechReborn {
     // Client
     public static boolean ShowChargeHud;
     public static boolean useConnectedTextures;
-
-    public static boolean rainExplosions;
     public static boolean oreUnifer;
 
     public static Configuration config;
@@ -673,9 +671,6 @@ public class ConfigTechReborn {
 
         useConnectedTextures = config.get(CATEGORY_INTEGRATION, StatCollector.translateToLocal("config.techreborn.connectTextures"),
                 true, StatCollector.translateToLocal("config.techreborn.connectTextures.tooltip")).getBoolean(true);
-
-        rainExplosions = config.get(CATEGORY_POWER, StatCollector.translateToLocal("config.techreborn.rainExplosions"),
-                true, StatCollector.translateToLocal("config.techreborn.rainExplosions.tooltip")).getBoolean(true);
 
         oreUnifer = config.get(CATEGORY_INTEGRATION, StatCollector.translateToLocal("config.techreborn.oreUnifer"),
                 true, StatCollector.translateToLocal("config.techreborn.oreUnifer.tooltip")).getBoolean(false);

@@ -27,14 +27,6 @@ public abstract class RFProviderTile extends TileMachineBase implements IEnergyR
         if (worldObj.isRemote) {
             return;
         }
-        if (ConfigTechReborn.rainExplosions && worldObj.canBlockSeeTheSky(xCoord, yCoord + 1, zCoord) && worldObj.isRaining() || worldObj.isThundering())
-            if (getEnergy() >= 1 && random.nextInt(160) == 0) {
-                Explosion explosion = new Explosion(this.worldObj, null, xCoord, yCoord, zCoord, getEnergy() < 100000 ? 2F : 4F);
-                explosion.isFlaming = true;
-                explosion.isSmoking = getEnergy() > 100000;
-                explosion.doExplosionA();
-                explosion.doExplosionB(false);
-            }
         sendPower();
     }
 
