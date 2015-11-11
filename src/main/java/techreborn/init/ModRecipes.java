@@ -210,6 +210,41 @@ public class
                 'C', ItemParts.getPartByName("energyFlowCircuit")
         );
 
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.LightningRod),
+                "CAC", "ACA", "CAC",
+                'A', new ItemStack(ModBlocks.MachineCasing, 1, 2),
+                'S', ItemParts.getPartByName("superConductor"),
+                'C', ItemParts.getPartByName("energyFlowCircuit")
+        );
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.FusionCoil),
+                "CSC", "NAN", "CRC",
+                'A', new ItemStack(ModBlocks.MachineCasing, 1, 2),
+                'N', new ItemStack(ModBlocks.FusionCoil),
+                'C', ItemParts.getPartByName("energyFlowCircuit"),
+                'S', ItemParts.getPartByName("superConductor"),
+                'R', ItemParts.getPartByName("iridiumNeutronReflector")
+        );
+
+        CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("iridiumNeutronReflector"),
+                "PPP", "PIP", "PPP",
+                'P', ItemParts.getPartByName("thickNeutronReflector"),
+                'I', "ingotIridium"
+        );
+
+        CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("thickNeutronReflector"),
+                " P ", "PCP", " P ",
+                'P', ItemParts.getPartByName("neutronReflector"),
+                'C', ItemCells.getCellByName("Berylium")
+        );
+
+        CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("neutronReflector"),
+                "TCT", "CPC", "TCT",
+                'T', "dustTin",
+                'C', "dustCoal",
+                'P', "plateCopper"
+        );
+
         GameRegistry.addShapelessRecipe(ItemCells.getCellByName("heliumPlasma"), ItemCells.getCellByName("tritium"), ItemCells.getCellByName("deuterium"));
 
         Core.logHelper.info("Shapped Recipes Added");
