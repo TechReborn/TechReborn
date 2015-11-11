@@ -190,6 +190,26 @@ public class
                 'H', ItemParts.getPartByName("NaKCoolantTriple")
         );
 
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Aesu),
+                "LLL", "LCL", "LLL",
+                'L', new ItemStack(ModItems.lapotronicOrb),
+                'C', new ItemStack(ModBlocks.ComputerCube)
+        );
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Idsu),
+                "PAP", "ACA", "PAP",
+                'P', ItemPlates.getPlateByName("iridium"),
+                'C', new ItemStack(Blocks.ender_chest),
+                'A', new ItemStack(ModBlocks.Aesu)
+        );
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.FusionControlComputer),
+                "CCC", "PTP", "CCC",
+                'P', new ItemStack(ModBlocks.ComputerCube),
+                'T', new ItemStack(ModBlocks.FusionCoil),
+                'C', ItemParts.getPartByName("energyFlowCircuit")
+        );
+
         GameRegistry.addShapelessRecipe(ItemCells.getCellByName("heliumPlasma"), ItemCells.getCellByName("tritium"), ItemCells.getCellByName("deuterium"));
 
         Core.logHelper.info("Shapped Recipes Added");

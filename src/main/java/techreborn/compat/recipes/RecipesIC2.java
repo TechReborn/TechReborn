@@ -342,6 +342,14 @@ public class RecipesIC2 implements ICompatModule {
                 'Q', ModBlocks.digitalChest,
                 'T', IC2Items.getItem("teleporter"));
 
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.PlasmaGenerator),
+                "PPP", "PTP", "CGC",
+                'P', ItemPlates.getPlateByName("tungstensteel"),
+                'T', IC2Items.getItem("hvTransformer"),
+                'G', IC2Items.getItem("generator"),
+                'C', ItemParts.getPartByName("energyFlowCircuit")
+        );
+
 
         //Smetling
         GameRegistry.addSmelting(ItemDusts.getDustByName("copper", 1), IC2Items.getItem("copperIngot"), 1F);
