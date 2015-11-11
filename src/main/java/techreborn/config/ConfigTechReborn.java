@@ -164,6 +164,7 @@ public class ConfigTechReborn {
     public static boolean useConnectedTextures;
 
     public static boolean rainExplosions;
+    public static boolean oreUnifer;
 
     public static Configuration config;
 
@@ -675,6 +676,9 @@ public class ConfigTechReborn {
 
         rainExplosions = config.get(CATEGORY_POWER, StatCollector.translateToLocal("config.techreborn.rainExplosions"),
                 true, StatCollector.translateToLocal("config.techreborn.rainExplosions.tooltip")).getBoolean(true);
+
+        oreUnifer = config.get(CATEGORY_INTEGRATION, StatCollector.translateToLocal("config.techreborn.oreUnifer"),
+                true, StatCollector.translateToLocal("config.techreborn.oreUnifer.tooltip")).getBoolean(false);
 
         //Integration
         AllowBOPRecipes = config.get(CATEGORY_INTEGRATION, StatCollector.translateToLocal("config.techreborn.allowBopRecipes"),

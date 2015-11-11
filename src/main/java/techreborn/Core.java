@@ -27,6 +27,7 @@ import techreborn.command.TechRebornDevCommand;
 import techreborn.compat.CompatManager;
 import techreborn.compat.ICompatModule;
 import techreborn.config.ConfigTechReborn;
+import techreborn.events.OreUnifier;
 import techreborn.events.TRTickHandler;
 import techreborn.init.*;
 import techreborn.lib.ModInfo;
@@ -112,12 +113,13 @@ public class Core {
         MinecraftForge.EVENT_BUS.register(IDSUManager.INSTANCE);
         FMLCommonHandler.instance().bus().register(new MultiblockServerTickHandler());
         FMLCommonHandler.instance().bus().register(new TRTickHandler());
+        FMLCommonHandler.instance().bus().register(new OreUnifier());
         logHelper.info("Initialization Complete");
     }
 
     @Mod.EventHandler
     public void postinit(FMLPostInitializationEvent event) throws Exception {
-        // Has to be done here as Buildcraft registers there recipes late
+        // Has to be done here as Buildcraft registers their recipes late
         for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
             compatModule.postInit(event);
         }
