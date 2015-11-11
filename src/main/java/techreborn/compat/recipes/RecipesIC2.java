@@ -90,12 +90,7 @@ public class RecipesIC2 implements ICompatModule {
 
         CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.lapotronicOrb),
                 "LLL", "LPL", "LLL",
-                'L', IC2Items.getItem("lapotronCrystal"),
-                'P', IC2Items.getItem("iridiumPlate"));
-
-        CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.lapotronicOrb),
-                "LLL", "LPL", "LLL",
-                'L', IC2Items.getItem("lapotronCrystal"),
+                'L', new ItemStack(IC2Items.getItem("lapotronCrystal").getItem(), 1, OreDictionary.WILDCARD_VALUE),
                 'P', IC2Items.getItem("iridiumPlate"));
 
         CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.industrialSawmill),
