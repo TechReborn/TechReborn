@@ -123,18 +123,7 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
         tank.writeToNBT(tagCompound);
         crafter.writeToNBT(tagCompound);
     }
-
-    @Override
-    public void addInfo(List<String> info, boolean isRealTile) {
-        super.addInfo(info, isRealTile);
-        if (isRealTile) {
-            info.add("Power Stored " + getEnergy() + " EU");
-            if (crafter.currentRecipe != null) {
-                info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
-            }
-        }
-    }
-
+    
     /* IFluidHandler */
     @Override
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
