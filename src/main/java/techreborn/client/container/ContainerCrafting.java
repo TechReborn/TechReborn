@@ -23,7 +23,7 @@ public abstract class ContainerCrafting extends RebornContainer {
         super.detectAndSendChanges();
         for (int i = 0; i < this.crafters.size(); i++) {
             ICrafting icrafting = (ICrafting) this.crafters.get(i);
-            if (this.currentTickTime != crafter.currentTickTime) {
+            if (this.currentTickTime != crafter.currentTickTime || crafter.currentTickTime == -1) {
                 icrafting.sendProgressBarUpdate(this, 0, crafter.currentTickTime);
             }
             if (this.currentNeededTicks != crafter.currentNeededTicks) {
@@ -48,6 +48,9 @@ public abstract class ContainerCrafting extends RebornContainer {
     public void updateProgressBar(int id, int value) {
         if (id == 0) {
             this.currentTickTime = value;
+            if(this.currentTickTime == -1){
+                this.currentTickTime = 0;
+            }
         } else if (id == 1) {
             this.currentNeededTicks = value;
         } else if (id == 2) {

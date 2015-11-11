@@ -134,14 +134,14 @@ public class RecipeCrafter {
                         this.currentTickTime = -1;
                         setIsActive();
                     } else {
-                        this.currentTickTime = -0;
+                        this.currentTickTime = -1;
                     }
                 }
             }
         } else {
             if (inventory.hasChanged && !hasAllInputs()) {//If it doesn't have all the inputs reset
                 currentRecipe = null;
-                currentTickTime = 0;
+                currentTickTime = -1;
                 setIsActive();
             }
             if (currentRecipe != null && currentTickTime >= currentNeededTicks) {//If it has reached the recipe tick time
@@ -161,7 +161,7 @@ public class RecipeCrafter {
                     }
                     useAllInputs();//this uses all the inputs
                     currentRecipe = null;//resets
-                    currentTickTime = 0;
+                    currentTickTime = -1;
                     setIsActive();
                 }
             } else if (currentRecipe != null && currentTickTime < currentNeededTicks) {
