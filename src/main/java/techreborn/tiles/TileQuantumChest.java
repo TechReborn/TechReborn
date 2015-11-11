@@ -26,56 +26,71 @@ public class TileQuantumChest extends TileMachineBase implements IInventory,
     //TODO use long so we can have 9,223,372,036,854,775,807 items instead of 2,147,483,647
     int storage = (int) Double.MAX_VALUE;
 
-    public Inventory inventory = new Inventory(3, "TileQuantumChest",
-            storage);
+    public Inventory inventory = new Inventory(3, "TileQuantumChest", storage);
 
     public ItemStack storedItem;
 
-    @Override
-    public void updateEntity() {
-        if (!worldObj.isRemote) {
-            if (storedItem != null) {
-                ItemStack fakeStack = storedItem.copy();
-                fakeStack.stackSize = 1;
-                setInventorySlotContents(2, fakeStack);
-            } else {
-                setInventorySlotContents(2, null);
-            }
+	@Override
+	public void updateEntity() 
+	{
+		if (!worldObj.isRemote) 
+		{
+			if (storedItem != null) 
+			{
+				ItemStack fakeStack = storedItem.copy();
+				fakeStack.stackSize = 1;
+				setInventorySlotContents(2, fakeStack);
+			} 
+			else if (storedItem == null && getStackInSlot(1) != null)
+			{
+				ItemStack fakeStack = getStackInSlot(1).copy();
+				fakeStack.stackSize = 1;
+				setInventorySlotContents(2, fakeStack);
+			}
+			else 
+			{
+				setInventorySlotContents(2, null);
+			}
 
-            if (getStackInSlot(0) != null) {
-                if (storedItem == null) {
-                    storedItem = getStackInSlot(0);
-                    setInventorySlotContents(0, null);
-                } else if (ItemUtils.isItemEqual(storedItem, getStackInSlot(0),
-                        true, true)) {
-                    if (storedItem.stackSize <= Integer.MAX_VALUE
-                            - getStackInSlot(0).stackSize) {
-                        storedItem.stackSize += getStackInSlot(0).stackSize;
-                        decrStackSize(0, getStackInSlot(0).stackSize);
-                    }
-                }
-            }
+			if (getStackInSlot(0) != null) 
+			{
+				if (storedItem == null && getStackInSlot(1) == null) 
+				{
+					storedItem = getStackInSlot(0);
+					setInventorySlotContents(0, null);
+				} 
+				else if (ItemUtils.isItemEqual(storedItem, getStackInSlot(0), true, true)) 
+				{
+					if (storedItem.stackSize <= storage - getStackInSlot(0).stackSize) 
+					{
+						storedItem.stackSize += getStackInSlot(0).stackSize;
+						decrStackSize(0, getStackInSlot(0).stackSize);
+					}
+				}
+			}
 
-            if (storedItem != null && getStackInSlot(1) == null) {
-                ItemStack itemStack = storedItem.copy();
-                itemStack.stackSize = itemStack.getMaxStackSize();
-                setInventorySlotContents(1, itemStack);
-                storedItem.stackSize -= itemStack.getMaxStackSize();
-            } else if (ItemUtils.isItemEqual(getStackInSlot(1), storedItem, true,
-                    true)) {
-                int wanted = getStackInSlot(1).getMaxStackSize()
-                        - getStackInSlot(1).stackSize;
-                if (storedItem.stackSize >= wanted) {
-                    decrStackSize(1, -wanted);
-                    storedItem.stackSize -= wanted;
-                } else {
-                    decrStackSize(1, -storedItem.stackSize);
-                    storedItem = null;
-                }
-            }
-        }
-        syncWithAll();
-    }
+			if (storedItem != null && getStackInSlot(1) == null) 
+			{
+				ItemStack itemStack = storedItem.copy();
+				itemStack.stackSize = itemStack.getMaxStackSize();
+				setInventorySlotContents(1, itemStack);
+				storedItem.stackSize -= itemStack.getMaxStackSize();
+			} else if (ItemUtils.isItemEqual(getStackInSlot(1), storedItem, true, true)) 
+			{
+				int wanted = getStackInSlot(1).getMaxStackSize() - getStackInSlot(1).stackSize;
+				if (storedItem.stackSize >= wanted) 
+				{
+					decrStackSize(1, -wanted);
+					storedItem.stackSize -= wanted;
+				} else 
+				{
+					decrStackSize(1, -storedItem.stackSize);
+					storedItem = null;
+				}
+			}
+		}
+		syncWithAll();
+	}
 
     public Packet getDescriptionPacket() {
         NBTTagCompound nbtTag = new NBTTagCompound();
