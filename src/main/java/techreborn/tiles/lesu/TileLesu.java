@@ -13,7 +13,6 @@ public class TileLesu extends TilePowerAcceptor {//TODO wrench
 
     private ArrayList<LesuNetwork> countedNetworks = new ArrayList<LesuNetwork>();
     public int connectedBlocks = 0;
-    public int currentBlocks = 0;
 
     private double euLastTick = 0;
     private double euChange;
@@ -50,10 +49,8 @@ public class TileLesu extends TilePowerAcceptor {//TODO wrench
                 }
             }
         }
-        if (currentBlocks != connectedBlocks) {
-            maxStorage = ((connectedBlocks + 1) * ConfigTechReborn.lesuStoragePerBlock);
-            output = (connectedBlocks * ConfigTechReborn.extraOutputPerLesuBlock) + ConfigTechReborn.baseLesuOutput;
-        }
+        maxStorage = ((connectedBlocks + 1) * ConfigTechReborn.lesuStoragePerBlock);
+        output = (connectedBlocks * ConfigTechReborn.extraOutputPerLesuBlock) + ConfigTechReborn.baseLesuOutput;
 
         if (ticks == ConfigTechReborn.aveargeEuOutTickTime) {
             euChange = -1;
