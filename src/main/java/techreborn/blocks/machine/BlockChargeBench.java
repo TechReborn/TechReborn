@@ -52,8 +52,8 @@ public class BlockChargeBench extends BlockMachineBase {
         this.blockIcon = icon.registerIcon("techreborn:machine/machine_side");
         this.iconFront = icon.registerIcon("techreborn:machine/machine_side");
         this.iconFrontOn = icon.registerIcon("techreborn:machine/machine_side");
-        this.iconTop = icon.registerIcon("techreborn:machine/machine_side");
-        this.iconBottom = icon.registerIcon("techreborn:machine/machine_side");
+        this.iconTop = icon.registerIcon("techreborn:machine/machine_top");
+        this.iconBottom = icon.registerIcon("techreborn:machine/machine_bottom");
     }
 
     @Override
