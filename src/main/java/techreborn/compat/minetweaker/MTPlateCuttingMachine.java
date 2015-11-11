@@ -66,8 +66,10 @@ public class MTPlateCuttingMachine {
     }
 
     @ZenMethod
-    public static void removeRecipe(IItemStack output) {
-        MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(output)));
+    public static void removeRecipe(IIngredient output) {
+        for(IItemStack  itemStack : output.getItems()){
+            MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(itemStack)));
+        }
     }
 
     private static class Remove implements IUndoableAction {
