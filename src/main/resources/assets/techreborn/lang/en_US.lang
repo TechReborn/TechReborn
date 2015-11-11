@@ -122,6 +122,7 @@ tile.techreborn.sodium.name=Sodium Source
 tile.techreborn.sodiumpersulfate.name=Sodiumpersulfate Source
 tile.techreborn.tritium.name=Tritium Source
 tile.techreborn.wolframium.name=Wolframium Source
+tile.techreborn.supercondensator.name=Supercondensator
 fluid.fluid.fluidberylium=Berylium
 fluid.fluid.fluidcalcium=Calcium
 fluid.fluid.fluidcalciumcarbonate=Calciumcarbonate
@@ -145,6 +146,13 @@ fluid.fluid.fluidsodium=Sodium
 fluid.fluid.fluidsodiumpersulfate=Sodiumpersulfate
 fluid.fluid.fluidtritium=Tritium
 fluid.fluid.fluidwolframium=Wolframium
+fluid.tile.techreborn.glyceryl=Glyceryl
+fluid.tile.techreborn.berylium=Berylium
+fluid.tile.techreborn.chlorite=Chlorite
+fluid.tile.techreborn.helium3=Helium3
+fluid.tile.techreborn.deuterium=Deuterium
+fluid.tile.techreborn.helium=Helium
+fluid.tile.techreborn.calciumcarbonate=Calcium Carbonate
 
 #Dusts
 item.techreborn.dust.almandine.name=Almandine Dust
@@ -363,6 +371,7 @@ item.techreborn.cell.sulfur.name=Sulfur Cell
 item.techreborn.cell.sulfuricAcid.name=Sulfuric Acid Cell
 item.techreborn.cell.tritium.name=Tritium Cell
 item.techreborn.cell.wolframium.name=Wolframium Cell
+item.techreborn.cell.empty.name=Empty Cell
 
 #Gems
 item.techreborn.gem.ruby.name=Ruby
@@ -806,3 +815,5 @@ tile.techreborn.alloysmelter.description=This machine is a upgraded version of t
 tile.techreborn.assemblingmachine.description=This block is used to craft some of the more complex machines that can't be crafted in a normal crafting table.
 tile.techreborn.blastfurnace.description=This Machine needs a 3x4x3 of machine casings behind it to increase its internal heat, The hotter the machine is the more recipes will open up to you. This machine also needs EU/RF.
 
+keys.techreborn.category=TechReborn Category
+keys.techreborn.config=Config
