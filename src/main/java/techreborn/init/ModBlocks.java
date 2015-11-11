@@ -231,7 +231,7 @@ public class ModBlocks {
 
 
         GameRegistry.registerTileEntity(TileMachineBase.class, "TileMachineBaseTR");
-        
+
         registerOreDict();
         Core.logHelper.info("TechReborns Blocks Loaded");
     }

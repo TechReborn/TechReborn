@@ -17,10 +17,17 @@ public class CompatManager {
 
     public static boolean isIC2Loaded = false;
     public static boolean isIC2ClassicLoaded = false;
+    public static boolean isClassicEnet = false;
 
     public CompatManager() {
         isIC2Loaded = Loader.isModLoaded("IC2");
         isIC2ClassicLoaded = IC2Classic.isIc2ClassicLoaded();
+        if(isIC2ClassicLoaded){
+            isClassicEnet = true;
+        }
+        if(Loader.isModLoaded("Uncomplication")){
+            isClassicEnet = true;
+        }
 
         registerCompact(CompatModuleWaila.class, "Waila");
         registerCompact(RecipesIC2.class, "IC2");
@@ -71,4 +78,5 @@ public class CompatManager {
             return false;
         }
     }
+
 }

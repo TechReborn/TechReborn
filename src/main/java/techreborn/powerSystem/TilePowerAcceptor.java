@@ -18,6 +18,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 import reborncore.api.IListInfoProvider;
 import techreborn.api.power.IEnergyInterfaceTile;
+import techreborn.compat.CompatManager;
 import techreborn.config.ConfigTechReborn;
 
 import java.util.List;
@@ -282,6 +283,9 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
         }
         if (getMaxOutput() != 0) {
             info.add(ChatFormatting.LIGHT_PURPLE + "Max Output " + ChatFormatting.GREEN + getEUString(getMaxOutput()));
+        }
+        if(CompatManager.isClassicEnet && isRealTile){
+            info.add(ChatFormatting.LIGHT_PURPLE + "Stored energy " + ChatFormatting.GREEN + getEUString(energy));
         }
     }
 
