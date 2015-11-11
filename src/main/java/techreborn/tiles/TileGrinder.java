@@ -11,6 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
 import reborncore.common.misc.Location;
+import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
 import techreborn.api.recipe.RecipeCrafter;
@@ -104,6 +105,8 @@ public class TileGrinder extends TilePowerAcceptor implements IWrenchable, IEner
         if (getMutliBlock()) {
             crafter.updateEntity();
         }
+        FluidUtils.drainContainers(this, inventory, 0, 5);
+        FluidUtils.drainContainers(this, inventory, 1, 5);
     }
 
     @Override

@@ -12,6 +12,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
 import reborncore.api.IListInfoProvider;
 import reborncore.common.misc.Location;
+import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
 import techreborn.api.recipe.RecipeCrafter;
@@ -50,6 +51,8 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
         if (getMutliBlock()) {
             crafter.updateEntity();
         }
+        FluidUtils.drainContainers(this, inventory, 0, 4);
+        FluidUtils.drainContainers(this, inventory, 1, 4);
     }
 
     public boolean getMutliBlock() {
