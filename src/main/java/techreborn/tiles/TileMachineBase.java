@@ -7,7 +7,7 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import reborncore.common.packets.PacketHandler;
 
-public abstract class TileMachineBase extends TileEntity {
+public class TileMachineBase extends TileEntity {
 
     int rotation;
 
