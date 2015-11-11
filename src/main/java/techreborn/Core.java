@@ -88,7 +88,6 @@ public class Core {
         // Recipes
         StopWatch watch = new StopWatch();
         watch.start();
-        OreUtil.scanForOres();
         ModRecipes.init();
         logHelper.all(watch + " : main recipes");
         watch.stop();
