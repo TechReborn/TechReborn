@@ -8,6 +8,8 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +20,17 @@ public class RollingMachineRecipe {
     private final List<IRecipe> recipes = new ArrayList<IRecipe>();
 
     public static final RollingMachineRecipe instance = new RollingMachineRecipe();
+
+    public  void addShapedOreRecipe(ItemStack outputItemStack,
+                                    Object... objectInputs) {
+        recipes.add(new ShapedOreRecipe(outputItemStack, objectInputs));
+    }
+
+    public  void addShapelessOreRecipe(ItemStack outputItemStack,
+                                       Object... objectInputs) {
+        recipes
+                .add(new ShapelessOreRecipe(outputItemStack, objectInputs));
+    }
 
     public void addRecipe(ItemStack output, Object... components) {
         String s = "";

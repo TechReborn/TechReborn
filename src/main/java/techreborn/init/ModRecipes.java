@@ -318,10 +318,10 @@ public class
                 'L', "blockLapis",
                 'C', "circuitBasic");
 
-        TechRebornAPI.addRollingMachinceRecipe(ItemParts.getPartByName("cupronickelHeatingCoil"),
+        TechRebornAPI.addRollingOreMachinceRecipe(ItemParts.getPartByName("cupronickelHeatingCoil"),
                 "NCN", "C C", "NCN",
-                'N', ItemIngots.getIngotByName("cupronickel"),
-                'C', ItemIngots.getIngotByName("copper"));
+                'N', "ingotCupronickel",
+                'C', "ingotCopper");
 
     }
 
