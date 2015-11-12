@@ -16,8 +16,7 @@ public class ContainerRollingMachine extends RebornContainer {
     EntityPlayer player;
     TileRollingMachine tile;
 
-    public ContainerRollingMachine(TileRollingMachine tileRollingmachine,
-                                   EntityPlayer player) {
+    public ContainerRollingMachine(TileRollingMachine tileRollingmachine, EntityPlayer player) {
         tile = tileRollingmachine;
         this.player = player;
 
@@ -30,12 +29,7 @@ public class ContainerRollingMachine extends RebornContainer {
         }
 
         // output
-        this.addSlotToContainer(new SlotOutput(tileRollingmachine.inventory, 0,
-                124, 35));
-
-        // fakeOutput
-        this.addSlotToContainer(new SlotFake(tileRollingmachine.inventory, 1,
-                124, 10, false, false, 1));
+        this.addSlotToContainer(new SlotOutput(tileRollingmachine.inventory, 0, 124, 35));
 
         int i;
 
