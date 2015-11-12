@@ -52,14 +52,18 @@ public class GuiGrinder extends GuiContainer {
         if (grinder.tank.getFluidAmount() != 0) {
             IIcon fluidIcon = grinder.tank.getFluid().getFluid().getIcon();
             if (fluidIcon != null) {
+                this.mc.renderEngine.bindTexture(texture);
                 drawTexturedModalRect(k + 7, l + 15, 176, 31, 20, 55);
 
-                this.mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-                int liquidHeight = grinder.tank.getFluidAmount() * 47 / grinder.tank.getCapacity();
-                GuiUtil.drawRepeated(fluidIcon, k + 11, l + 19 + 47 - liquidHeight, 12.0D, liquidHeight, this.zLevel);
-
+                this.mc.renderEngine
+                        .bindTexture(TextureMap.locationBlocksTexture);
+                int liquidHeight = grinder.tank.getFluidAmount() * 47
+                        / grinder.tank.getCapacity();
+                GuiUtil.drawRepeated(fluidIcon, k + 11, l + 19 + 47
+                        - liquidHeight, 12.0D, liquidHeight, this.zLevel);
 
                 this.mc.renderEngine.bindTexture(texture);
+
                 drawTexturedModalRect(k + 11, l + 19, 176, 86, 12, 47);
             }
         }

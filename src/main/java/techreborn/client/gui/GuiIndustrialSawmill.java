@@ -57,7 +57,8 @@ public class GuiIndustrialSawmill extends GuiContainer {
         if (sawmill.tank.getFluidAmount() != 0) {
             IIcon fluidIcon = sawmill.tank.getFluid().getFluid().getIcon();
             if (fluidIcon != null) {
-                drawTexturedModalRect(k + 7, l + 15, 176, 31, 20, 55);
+                this.mc.renderEngine.bindTexture(texture);
+
 
                 this.mc.renderEngine
                         .bindTexture(TextureMap.locationBlocksTexture);
@@ -67,10 +68,10 @@ public class GuiIndustrialSawmill extends GuiContainer {
                         - liquidHeight, 12.0D, liquidHeight, this.zLevel);
 
                 this.mc.renderEngine.bindTexture(texture);
-                drawTexturedModalRect(k + 11, l + 19, 176, 86, 12, 47);
+               // drawTexturedModalRect(k + 7, l + 15, 176, 31, 20, 55);
             }
         }
-
+        drawTexturedModalRect(k + 11, l + 19, 176, 86, 12, 47);
         if (sawmill.getMutliBlock() != true) {
             GuiUtil.drawTooltipBox(k + 30, l + 50 + 12 - 0, 114, 10);
             this.fontRendererObj.drawString(StatCollector.translateToLocal("techreborn.message.missingmultiblock"), k + 38, l + 52 + 12 - 0, -1);
