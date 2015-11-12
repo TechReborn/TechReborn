@@ -9,7 +9,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.ArrayUtils;
 import reborncore.common.util.CraftingHelper;
-import reborncore.common.util.LogHelper;
 import reborncore.common.util.OreUtil;
 import techreborn.Core;
 import techreborn.api.TechRebornAPI;
@@ -23,7 +22,6 @@ import techreborn.items.*;
 import techreborn.utils.RecipeUtils;
 
 import java.security.InvalidParameterException;
-import java.util.ArrayList;
 
 public class
         ModRecipes {

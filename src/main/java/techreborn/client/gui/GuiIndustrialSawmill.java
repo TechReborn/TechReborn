@@ -9,7 +9,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import reborncore.client.gui.GuiUtil;
 import techreborn.client.container.ContainerIndustrialSawmill;
-import techreborn.lib.ModInfo;
 import techreborn.tiles.TileIndustrialSawmill;
 
 public class GuiIndustrialSawmill extends GuiContainer {

@@ -8,7 +8,6 @@ import net.minecraft.item.ItemStack;
 import techreborn.api.power.IEnergyItemInfo;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
-import techreborn.powerSystem.PoweredItem;
 
 
 public class ItemLapotronicOrb extends Item implements IEnergyItemInfo{

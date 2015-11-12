@@ -17,7 +17,6 @@ import reborncore.common.multiblock.MultiblockEventHandler;
 import reborncore.common.multiblock.MultiblockServerTickHandler;
 import reborncore.common.packets.AddDiscriminatorEvent;
 import reborncore.common.util.LogHelper;
-import reborncore.common.util.OreUtil;
 import reborncore.common.util.VersionChecker;
 import techreborn.achievement.TRAchievements;
 import techreborn.api.recipe.RecipeHandler;

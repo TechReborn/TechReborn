@@ -10,7 +10,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import reborncore.client.gui.GuiUtil;
 import techreborn.client.container.ContainerGrinder;
-import techreborn.lib.ModInfo;
 import techreborn.tiles.TileGrinder;
 
 public class GuiGrinder extends GuiContainer {

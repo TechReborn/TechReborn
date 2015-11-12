@@ -25,10 +25,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import reborncore.RebornCore;
 import reborncore.common.packets.AddDiscriminatorEvent;
 import reborncore.common.packets.PacketHandler;
-import techreborn.Core;
 import techreborn.partSystem.parts.CablePart;
 
 import java.util.Arrays;

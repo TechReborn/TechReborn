@@ -5,7 +5,6 @@ import cpw.mods.fml.common.gameevent.TickEvent;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.common.util.ItemUtils;
 import techreborn.config.ConfigTechReborn;

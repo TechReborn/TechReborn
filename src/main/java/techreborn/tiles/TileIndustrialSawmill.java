@@ -22,8 +22,6 @@ import techreborn.init.ModFluids;
 import techreborn.lib.Reference;
 import techreborn.powerSystem.TilePowerAcceptor;
 
-import java.util.List;
-
 public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrenchable, IEnergyTile, IFluidHandler, IInventory, ISidedInventory, IListInfoProvider {
 
     public int tickTime;

@@ -1,6 +1,5 @@
 package techreborn.lib;
 
-import net.minecraft.util.StatCollector;
 import reborncore.common.IModInfo;
 
 public class ModInfo implements IModInfo {

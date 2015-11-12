@@ -5,10 +5,8 @@ import cofh.api.energy.IEnergyHandler;
 import cofh.api.energy.IEnergyProvider;
 import cofh.api.energy.IEnergyReceiver;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.Explosion;
 import net.minecraftforge.common.util.ForgeDirection;
 import techreborn.api.power.IEnergyInterfaceTile;
-import techreborn.config.ConfigTechReborn;
 import techreborn.tiles.TileMachineBase;
 
 import java.util.Random;

@@ -7,7 +7,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import techreborn.client.container.ContainerImplosionCompressor;
-import techreborn.lib.ModInfo;
 import techreborn.tiles.TileImplosionCompressor;
 
 public class GuiImplosionCompressor extends GuiContainer {
