@@ -767,6 +767,9 @@ config.techreborn.sphaleriteOre.rare.tooltip=rarity of Sphalerite Ore
 config.techreborn.tinOre.rare.tooltip=rarity of Tin Ore
 config.techreborn.tungstenOre.rare.tooltip=rarity of Tungsten Ore
 
+config.techreborn.oreUnifer=Ore Unification
+config.techreborn.oreUnifer.tooltip=Enable/Disable the auto ore unification
+
 #ConfigGui
 config.techreborn.category.general=General Configs
 config.techreborn.category.world=World Configs
