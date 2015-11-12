@@ -54,7 +54,7 @@ public class GuiCentrifuge extends GuiContainer {
 
     protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
         String namePt1 = StatCollector.translateToLocal("tile.techreborn.industrialBlock.name");
-        String namePt2 = StatCollector.translateToLocal("tile.techreborn.centrifuge.name");
+        String namePt2 = StatCollector.translateToLocal("tile.techreborn.centrifuge.name").replace(namePt1 + " ", "");
         this.fontRendererObj.drawString(namePt1, 98, 6, 4210752);
         this.fontRendererObj.drawString(namePt2, 98, 14, 4210752);
         this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
