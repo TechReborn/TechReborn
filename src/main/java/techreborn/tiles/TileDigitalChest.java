@@ -90,7 +90,6 @@ public class TileDigitalChest extends TileMachineBase implements IInventory,
 				}
 			}
 		}
-		syncWithAll();
 	}
 
     public Packet getDescriptionPacket() {

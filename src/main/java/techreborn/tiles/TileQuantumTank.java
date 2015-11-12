@@ -76,25 +76,31 @@ public class TileQuantumTank extends TileMachineBase implements IFluidHandler,
             } else if (tank.getFluidType() == null && getStackInSlot(2) != null) {
                 setInventorySlotContents(2, null);
             }
-            syncWithAll();
+            tank.compareAndUpdate();
         }
     }
 
     // IFluidHandler
     @Override
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
-        return tank.fill(resource, doFill);
+        int fill = tank.fill(resource, doFill);
+        tank.compareAndUpdate();
+        return fill;
     }
 
     @Override
     public FluidStack drain(ForgeDirection from, FluidStack resource,
                             boolean doDrain) {
-        return tank.drain(resource.amount, doDrain);
+        FluidStack drain = tank.drain(resource.amount, doDrain);
+        tank.compareAndUpdate();
+        return drain;
     }
 
     @Override
     public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
-        return tank.drain(maxDrain, doDrain);
+        FluidStack drain = tank.drain(maxDrain, doDrain);
+        tank.compareAndUpdate();
+        return drain;
     }
 
     @Override

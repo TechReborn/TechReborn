@@ -90,7 +90,6 @@ public class TileQuantumChest extends TileMachineBase implements IInventory,
 				}
 			}
 		}
-		syncWithAll();
 	}
 
     public Packet getDescriptionPacket() {
