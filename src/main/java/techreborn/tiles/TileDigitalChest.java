@@ -54,7 +54,7 @@ public class TileDigitalChest extends TileMachineBase implements IInventory,
 
 			if (getStackInSlot(0) != null) 
 			{
-				if (storedItem == null && getStackInSlot(1) == null) 
+				if (storedItem == null) 
 				{
 					storedItem = getStackInSlot(0);
 					setInventorySlotContents(0, null);

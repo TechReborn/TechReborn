@@ -54,7 +54,7 @@ public class TileQuantumChest extends TileMachineBase implements IInventory,
 
 			if (getStackInSlot(0) != null) 
 			{
-				if (storedItem == null && getStackInSlot(1) == null) 
+				if (storedItem == null) 
 				{
 					storedItem = getStackInSlot(0);
 					setInventorySlotContents(0, null);
@@ -75,7 +75,8 @@ public class TileQuantumChest extends TileMachineBase implements IInventory,
 				itemStack.stackSize = itemStack.getMaxStackSize();
 				setInventorySlotContents(1, itemStack);
 				storedItem.stackSize -= itemStack.getMaxStackSize();
-			} else if (ItemUtils.isItemEqual(getStackInSlot(1), storedItem, true, true)) 
+			} 
+			else if (ItemUtils.isItemEqual(getStackInSlot(1), storedItem, true, true)) 
 			{
 				int wanted = getStackInSlot(1).getMaxStackSize() - getStackInSlot(1).stackSize;
 				if (storedItem.stackSize >= wanted) 
@@ -100,10 +101,8 @@ public class TileQuantumChest extends TileMachineBase implements IInventory,
     }
 
     @Override
-    public void onDataPacket(NetworkManager net,
-                             S35PacketUpdateTileEntity packet) {
-        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord,
-                yCoord, zCoord);
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
+        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
         readFromNBT(packet.func_148857_g());
     }
 
