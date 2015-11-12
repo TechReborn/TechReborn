@@ -44,7 +44,7 @@ public class TileChargeBench extends TilePowerAcceptor implements IWrenchable, I
                     double amount = ((IElectricItem) stack.getItem()).getTransferLimit(stack);
                     double CurrentCharge = ElectricItem.manager.getCharge(stack);
                     if (CurrentCharge != MaxCharge && getEnergy() >= 0) {
-                        ElectricItem.manager.charge(stack, MaxCharge - CurrentCharge, 3, false, false);
+                        ElectricItem.manager.charge(stack, MaxCharge - CurrentCharge, 4, false, false);
                         useEnergy(amount);
                     }
                 }
