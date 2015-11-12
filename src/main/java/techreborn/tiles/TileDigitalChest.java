@@ -25,8 +25,7 @@ public class TileDigitalChest extends TileMachineBase implements IInventory,
     //TODO use long so we can have 9,223,372,036,854,775,807 items instead of 2,147,483,647
     int storage = 32767;
 
-    public Inventory inventory = new Inventory(3, "TileDigitalChest",
-            storage);
+    public Inventory inventory = new Inventory(3, "TileDigitalChest", storage);
 
     public ItemStack storedItem;
 
@@ -75,14 +74,16 @@ public class TileDigitalChest extends TileMachineBase implements IInventory,
 				itemStack.stackSize = itemStack.getMaxStackSize();
 				setInventorySlotContents(1, itemStack);
 				storedItem.stackSize -= itemStack.getMaxStackSize();
-			} else if (ItemUtils.isItemEqual(getStackInSlot(1), storedItem, true, true)) 
+			} 
+			else if (ItemUtils.isItemEqual(getStackInSlot(1), storedItem, true, true)) 
 			{
 				int wanted = getStackInSlot(1).getMaxStackSize() - getStackInSlot(1).stackSize;
 				if (storedItem.stackSize >= wanted) 
 				{
 					decrStackSize(1, -wanted);
 					storedItem.stackSize -= wanted;
-				} else 
+				} 
+				else 
 				{
 					decrStackSize(1, -storedItem.stackSize);
 					storedItem = null;

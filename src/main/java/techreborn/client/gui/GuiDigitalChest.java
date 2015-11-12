@@ -31,16 +31,15 @@ public class GuiDigitalChest extends GuiContainer {
         this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
     }
 
-    protected void drawGuiContainerForegroundLayer(int p_146979_1_,
-                                                   int p_146979_2_) {
+    protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
         String name = StatCollector.translateToLocal("tile.techreborn.digitalChest.name");
         this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
         this.fontRendererObj.drawString(
                 I18n.format("container.inventory", new Object[0]), 8,
                 this.ySize - 96 + 2, 4210752);
         this.fontRendererObj.drawString("Amount", 10, 20, 16448255);
-        if (tile.storedItem != null)
-            this.fontRendererObj.drawString(tile.storedItem.stackSize + "", 10, 30, 16448255);
+        if (tile.storedItem != null && tile.getStackInSlot(1) != null)
+            this.fontRendererObj.drawString(tile.storedItem.stackSize + tile.getStackInSlot(1).stackSize + "", 10, 30, 16448255);
        	if (tile.storedItem == null && tile.getStackInSlot(1) != null)
         	this.fontRendererObj.drawString(tile.getStackInSlot(1).stackSize + "", 10, 30, 16448255);
     }
