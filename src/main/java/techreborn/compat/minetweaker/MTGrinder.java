@@ -5,6 +5,7 @@ import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
 import minetweaker.api.liquid.ILiquidStack;
+import minetweaker.api.minecraft.MineTweakerMC;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import reborncore.common.util.ItemUtils;
@@ -81,16 +82,14 @@ public class MTGrinder {
 
     @ZenMethod
     public static void removeRecipe(IIngredient output) {
-        for(IItemStack  itemStack : output.getItems()){
-            MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(itemStack)));
-        }
+        MineTweakerAPI.apply(new Remove(output));
     }
 
     private static class Remove implements IUndoableAction {
-        private final ItemStack output;
+        private final IIngredient output;
         List<GrinderRecipe> removedRecipes = new ArrayList<GrinderRecipe>();
 
-        public Remove(ItemStack output) {
+        public Remove(IIngredient output) {
             this.output = output;
         }
 
@@ -98,7 +97,7 @@ public class MTGrinder {
         public void apply() {
             for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.grinderRecipe)) {
                 for (ItemStack stack : recipeType.getOutputs()) {
-                    if (ItemUtils.isItemEqual(stack, output, true, false)) {
+                    if (output.matches(MineTweakerMC.getIItemStack(stack))) {
                         removedRecipes.add((GrinderRecipe) recipeType);
                         RecipeHandler.recipeList.remove(recipeType);
                         break;
@@ -121,12 +120,12 @@ public class MTGrinder {
 
         @Override
         public String describe() {
-            return "Removing Grinder Recipe for " + output.getDisplayName();
+            return "Removing Grinder Recipe";
         }
 
         @Override
         public String describeUndo() {
-            return "Re-Adding Grinder Recipe for " + output.getDisplayName();
+            return "Re-Adding Grinder Recipe";
         }
 
         @Override

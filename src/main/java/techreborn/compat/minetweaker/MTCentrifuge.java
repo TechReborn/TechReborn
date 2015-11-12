@@ -4,6 +4,7 @@ import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
+import minetweaker.api.minecraft.MineTweakerMC;
 import net.minecraft.item.ItemStack;
 import reborncore.common.util.ItemUtils;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -68,23 +69,21 @@ public class MTCentrifuge {
 
     @ZenMethod
     public static void removeRecipe(IIngredient output) {
-        for(IItemStack  itemStack : output.getItems()){
-            MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(itemStack)));
-        }
+        MineTweakerAPI.apply(new Remove(output));
     }
 
     @ZenMethod
     public static void removeInputRecipe(IIngredient output) {
         for(IItemStack  itemStack : output.getItems()){
-            MineTweakerAPI.apply(new RemoveInput(MinetweakerCompat.toStack(itemStack)));
+            MineTweakerAPI.apply(new RemoveInput(output));
         }
     }
 
     private static class RemoveInput implements IUndoableAction {
-        private final ItemStack output;
+        private final IIngredient output;
         List<CentrifugeRecipe> removedRecipes = new ArrayList<CentrifugeRecipe>();
 
-        public RemoveInput(ItemStack output) {
+        public RemoveInput(IIngredient output) {
             this.output = output;
         }
 
@@ -92,7 +91,7 @@ public class MTCentrifuge {
         public void apply() {
             for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.centrifugeRecipe)) {
                 for (ItemStack stack : recipeType.getInputs()) {
-                    if (ItemUtils.isItemEqual(stack, output, true, false)) {
+                    if (output.matches(MineTweakerMC.getIItemStack(stack))) {
                         removedRecipes.add((CentrifugeRecipe) recipeType);
                         RecipeHandler.recipeList.remove(recipeType);
                         break;
@@ -115,12 +114,12 @@ public class MTCentrifuge {
 
         @Override
         public String describe() {
-            return "Removing Centrifuge Recipe for " + output.getDisplayName();
+            return "Removing Centrifuge Recipe for";
         }
 
         @Override
         public String describeUndo() {
-            return "Re-Adding Centrifuge Recipe for " + output.getDisplayName();
+            return "Re-Adding Centrifuge Recipe";
         }
 
         @Override
@@ -135,10 +134,10 @@ public class MTCentrifuge {
     }
 
     private static class Remove implements IUndoableAction {
-        private final ItemStack output;
+        private final IIngredient output;
         List<CentrifugeRecipe> removedRecipes = new ArrayList<CentrifugeRecipe>();
 
-        public Remove(ItemStack output) {
+        public Remove(IIngredient output) {
             this.output = output;
         }
 
@@ -146,7 +145,7 @@ public class MTCentrifuge {
         public void apply() {
             for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.centrifugeRecipe)) {
                 for (ItemStack stack : recipeType.getOutputs()) {
-                    if (ItemUtils.isItemEqual(stack, output, true, false)) {
+                    if (output.matches(MineTweakerMC.getIItemStack(stack))) {
                         removedRecipes.add((CentrifugeRecipe) recipeType);
                         RecipeHandler.recipeList.remove(recipeType);
                         break;
@@ -169,12 +168,12 @@ public class MTCentrifuge {
 
         @Override
         public String describe() {
-            return "Removing Centrifuge Recipe for " + output.getDisplayName();
+            return "Removing Centrifuge Recipe for ";
         }
 
         @Override
         public String describeUndo() {
-            return "Re-Adding Centrifuge Recipe for " + output.getDisplayName();
+            return "Re-Adding Centrifuge Recipe for ";
         }
 
         @Override

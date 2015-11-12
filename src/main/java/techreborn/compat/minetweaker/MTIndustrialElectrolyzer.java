@@ -4,6 +4,7 @@ import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
+import minetweaker.api.minecraft.MineTweakerMC;
 import net.minecraft.item.ItemStack;
 import reborncore.common.util.ItemUtils;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -68,16 +69,14 @@ public class MTIndustrialElectrolyzer {
 
     @ZenMethod
     public static void removeRecipe(IIngredient output) {
-        for(IItemStack  itemStack : output.getItems()){
-            MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(itemStack)));
-        }
+        MineTweakerAPI.apply(new Remove(output));
     }
 
     private static class Remove implements IUndoableAction {
-        private final ItemStack output;
+        private final IIngredient output;
         List<IndustrialElectrolyzerRecipe> removedRecipes = new ArrayList<IndustrialElectrolyzerRecipe>();
 
-        public Remove(ItemStack output) {
+        public Remove(IIngredient output) {
             this.output = output;
         }
 
@@ -85,7 +84,7 @@ public class MTIndustrialElectrolyzer {
         public void apply() {
             for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.industrialElectrolyzerRecipe)) {
                 for (ItemStack stack : recipeType.getOutputs()) {
-                    if (ItemUtils.isItemEqual(stack, output, true, false)) {
+                    if (output.matches(MineTweakerMC.getIItemStack(stack))) {
                         removedRecipes.add((IndustrialElectrolyzerRecipe) recipeType);
                         RecipeHandler.recipeList.remove(recipeType);
                         break;
@@ -108,12 +107,12 @@ public class MTIndustrialElectrolyzer {
 
         @Override
         public String describe() {
-            return "Removing IndustrialElectrolyzerRecipe for " + output.getDisplayName();
+            return "Removing IndustrialElectrolyzerRecipe";
         }
 
         @Override
         public String describeUndo() {
-            return "Re-Adding IndustrialElectrolyzerRecipe for " + output.getDisplayName();
+            return "Re-Adding IndustrialElectrolyzerRecipe";
         }
 
         @Override

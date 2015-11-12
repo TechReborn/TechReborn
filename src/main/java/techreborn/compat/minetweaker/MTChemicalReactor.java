@@ -4,6 +4,7 @@ import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
+import minetweaker.api.minecraft.MineTweakerMC;
 import net.minecraft.item.ItemStack;
 import reborncore.common.util.ItemUtils;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -68,16 +69,14 @@ public class MTChemicalReactor {
 
     @ZenMethod
     public static void removeRecipe(IIngredient output) {
-        for(IItemStack  itemStack : output.getItems()){
-            MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(itemStack)));
-        }
+        MineTweakerAPI.apply(new Remove(output));
     }
 
     private static class Remove implements IUndoableAction {
-        private final ItemStack output;
+        private final IIngredient output;
         List<ChemicalReactorRecipe> removedRecipes = new ArrayList<ChemicalReactorRecipe>();
 
-        public Remove(ItemStack output) {
+        public Remove(IIngredient output) {
             this.output = output;
         }
 
@@ -85,7 +84,7 @@ public class MTChemicalReactor {
         public void apply() {
             for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.chemicalReactorRecipe)) {
                 for (ItemStack stack : recipeType.getOutputs()) {
-                    if (ItemUtils.isItemEqual(stack, output, true, false)) {
+                    if (output.matches(MineTweakerMC.getIItemStack(stack))) {
                         removedRecipes.add((ChemicalReactorRecipe) recipeType);
                         RecipeHandler.recipeList.remove(recipeType);
                         break;
@@ -108,12 +107,12 @@ public class MTChemicalReactor {
 
         @Override
         public String describe() {
-            return "Removing Chemical Recipe for " + output.getDisplayName();
+            return "Removing Chemical Recipe";
         }
 
         @Override
         public String describeUndo() {
-            return "Re-Adding Chemical Recipe for " + output.getDisplayName();
+            return "Re-Adding Chemical Recipe";
         }
 
         @Override

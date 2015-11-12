@@ -4,6 +4,7 @@ import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
+import minetweaker.api.minecraft.MineTweakerMC;
 import net.minecraft.item.ItemStack;
 import reborncore.common.util.ItemUtils;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -69,16 +70,14 @@ public class MTAssemblingMachine {
 
     @ZenMethod
     public static void removeRecipe(IIngredient output) {
-        for(IItemStack  itemStack : output.getItems()){
-            MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(itemStack)));
-        }
+        MineTweakerAPI.apply(new Remove(output));
     }
 
     private static class Remove implements IUndoableAction {
-        private final ItemStack output;
+        private final IIngredient output;
         List<AssemblingMachineRecipe> removedRecipes = new ArrayList<AssemblingMachineRecipe>();
 
-        public Remove(ItemStack output) {
+        public Remove(IIngredient output) {
             this.output = output;
         }
 
@@ -86,7 +85,7 @@ public class MTAssemblingMachine {
         public void apply() {
             for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.assemblingMachineRecipe)) {
                 for (ItemStack stack : recipeType.getOutputs()) {
-                    if (ItemUtils.isItemEqual(stack, output, true, false)) {
+                    if (output.matches(MineTweakerMC.getIItemStack(stack))) {
                         removedRecipes.add((AssemblingMachineRecipe) recipeType);
                         RecipeHandler.recipeList.remove(recipeType);
                         break;
@@ -109,12 +108,12 @@ public class MTAssemblingMachine {
 
         @Override
         public String describe() {
-            return "Removing Assembling Machine Recipe for " + output.getDisplayName();
+            return "Removing Assembling Machine Recipe";
         }
 
         @Override
         public String describeUndo() {
-            return "Re-Adding Assembling Machine Recipe for " + output.getDisplayName();
+            return "Re-Adding Assembling Machine Recipe";
         }
 
         @Override
