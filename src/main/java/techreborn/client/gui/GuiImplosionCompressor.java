@@ -38,21 +38,21 @@ public class GuiImplosionCompressor extends GuiContainer {
         int l = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
 
-        int j = 0;
-        if (this.compresser.crafter.currentTickTime != 0) {
-            j = this.compresser.crafter.currentTickTime * 20 / this.compresser.crafter.currentNeededTicks;
-        }
-
         if (compresser.getMutliBlock() != true) {
-            GuiDraw.drawTooltipBox(k + 30, l + 50 + 12 - j, 114, 10);
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("techreborn.message.missingmultiblock"), k + 38, l + 52 + 12 - j, -1);
+            GuiDraw.drawTooltipBox(k + 30, l + 50 + 12 - 0, 114, 10);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("techreborn.message.missingmultiblock"), k + 38, l + 52 + 12 - 0, -1);
+        }
+        
+        int j = 0;
+        this.mc.getTextureManager().bindTexture(texture);
+        j = compresser.getProgressScaled(24);
+        if (j > 0) {
+            this.drawTexturedModalRect(k + 60, l + 37, 176, 14, j + 1, 16);
         }
 
-        this.drawTexturedModalRect(k + 60, l + 38, 176, 14, j + 1, 16);
-
-        j = (int) (this.compresser.crafter.energy.getEnergy() * 12 / this.compresser.getMaxPower());
+        j = compresser.getEnergyScaled(12);
         if (j > 0) {
-            this.drawTexturedModalRect(k + 16, l + 37 + 12 - j, 176, 12 - j, 14, j + 2);
+            this.drawTexturedModalRect(k + 14, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);
         }
     }
 
