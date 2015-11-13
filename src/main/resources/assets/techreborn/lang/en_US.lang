@@ -710,6 +710,47 @@ config.techreborn.lapotronicOrbMaxCharge= Lapotronic Orb Max Charge
 config.techreborn.lapotronicOrbTier.tooltip= Lapatronic Orb Tier
 config.techreborn.lesuStoragePerBlock.tooltip= LESU Storage Block extra output
 config.techreborn.showChargehud.tooltip=Show Charge Hud
+#Config UU
+config.techreborn.allow.UUrecipesAluminumDust= Allow UU recipes for AluminumDust
+config.techreborn.allow.UUrecipesCoal= Allow UU recipes for Coal
+config.techreborn.allow.UUrecipesCopperDust= Allow UU recipes for Copper Dust
+config.techreborn.allow.UUrecipesDiamond= Allow UU recipes for Diamond
+config.techreborn.allow.UUrecipesEmerald= Allow UU recipes for Emerald
+config.techreborn.allow.UUrecipesEmeraldOre= Allow UU recipes for Emerald Ore
+config.techreborn.allow.UUrecipesGoldDust= Allow UU recipes for Gold Dust
+config.techreborn.allow.UUrecipesGoldOre= Allow UU recipes for Gold Ore
+config.techreborn.allow.UUrecipesIronDust= Allow UU recipes for Iron Dust
+config.techreborn.allow.UUrecipesIronOre= Allow UU recipes for Iron Ore
+config.techreborn.allow.UUrecipesLapis= Allow UU recipes for Lapis
+config.techreborn.allow.UUrecipesLeadDust= Allow UU recipes for Lapis dust
+config.techreborn.allow.UUrecipesPlatinumDust= Allow UU recipes for Platinum Dust
+config.techreborn.allow.UUrecipesRedStone= Allow UU recipes for Redstone
+config.techreborn.allow.UUrecipesResin= Allow UU recipes for Sticky Resin
+config.techreborn.allow.UUrecipesTinDust= Allow UU recipes for Tin Dust
+config.techreborn.allow.UUrecipesTitaniumDust= Allow UU recipes for Titanium Dust
+config.techreborn.allow.UUrecipesTungstenDust= Allow UU recipes for Tungsten Dust
+config.techreborn.allow.uurecipesBone= Allow UU recipes for Bone
+config.techreborn.allow.uurecipesCactus= Allow UU recipes for Cactus
+config.techreborn.allow.uurecipesCocoa= Allow UU recipes for Cocoa
+config.techreborn.allow.uurecipesEnderPearl= Allow UU recipes for Ender Pearl
+config.techreborn.allow.uurecipesFeather= Allow UU recipes for Feather
+config.techreborn.allow.uurecipesGlass= Allow UU recipes for Glass
+config.techreborn.allow.uurecipesGlowstoneBlock= Allow UU recipes for Glowstone Blocks
+config.techreborn.allow.uurecipesGrass= Allow UU recipes for Grass
+config.techreborn.allow.uurecipesInk= Allow UU recipes for Ink Sacks
+config.techreborn.allow.uurecipesIridiamOre= Allow UU recipes for IridiamOre
+config.techreborn.allow.uurecipesLava= Allow UU recipes for Lava
+config.techreborn.allow.uurecipesLilypad= Allow UU recipes for Lilypad
+config.techreborn.allow.uurecipesObsidian= Allow UU recipes for Obsidian
+config.techreborn.allow.uurecipesSnowBall= Allow UU recipes for Snowball
+config.techreborn.allow.uurecipesSnowBlock= Allow UU recipes for SnowBlock
+config.techreborn.allow.uurecipesStone= Allow UU recipes for Stone
+config.techreborn.allow.uurecipesSugarCane= Allow UU recipes for SugarCane
+config.techreborn.allow.uurecipesVine= Allow UU recipes for Vine
+config.techreborn.allow.uurecipesWater= Allow UU recipes for Water
+config.techreborn.allow.uurecipesWood= Allow UU recipes for Wood
+
+#Config Tooltips UU
 config.techreborn.allow.UUrecipesAluminumDust.tooltip= Allow UU recipes for AluminumDust
 config.techreborn.allow.UUrecipesCoal.tooltip= Allow UU recipes for Coal
 config.techreborn.allow.UUrecipesCopperDust.tooltip= Allow UU recipes for Copper Dust
@@ -749,6 +790,8 @@ config.techreborn.allow.uurecipesSugarCane.tooltip= Allow UU recipes for SugarCa
 config.techreborn.allow.uurecipesVine.tooltip= Allow UU recipes for Vine
 config.techreborn.allow.uurecipesWater.tooltip= Allow UU recipes for Water
 config.techreborn.allow.uurecipesWood.tooltip= Allow UU recipes for Wood
+
+
 config.techreborn.allow.tungstonOre.tooltip= Allow UU recipes for Tungston Ore
 config.techreborn.bauxiteOre.rare.tooltip=rarity of Bauxite Ore
 config.techreborn.cinnabarOre.rare.tooltip=rarity of Cinnabar Ore
