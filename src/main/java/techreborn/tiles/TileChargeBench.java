@@ -12,6 +12,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import reborncore.common.util.Inventory;
 import techreborn.api.power.IEnergyInterfaceItem;
 import techreborn.init.ModBlocks;
+import techreborn.powerSystem.PoweredItem;
 import techreborn.powerSystem.TilePowerAcceptor;
 
 public class TileChargeBench extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory {
@@ -27,28 +28,21 @@ public class TileChargeBench extends TilePowerAcceptor implements IWrenchable, I
     public void updateEntity() {
         super.updateEntity();
 
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 6; i++) {
             if (inventory.getStackInSlot(i) != null) {
-                if (inventory.getStackInSlot(i).getItem() instanceof IEnergyInterfaceItem) {
+                if (getEnergy() > 0) {
                     ItemStack stack = inventory.getStackInSlot(i);
-                    double MaxCharge = ((IEnergyInterfaceItem) stack.getItem()).getMaxPower(stack);
-                    double amount = ((IEnergyInterfaceItem) stack.getItem()).getMaxTransfer(stack);
-                    double CurrentCharge = ((IEnergyInterfaceItem) stack.getItem()).getEnergy(stack);
-                    if (CurrentCharge != MaxCharge && getEnergy() >= 0) {
-                        ((IEnergyInterfaceItem) stack.getItem()).addEnergy(MaxCharge - CurrentCharge, false, stack);
-                        useEnergy(amount);
-                    }
-                } else if (inventory.getStackInSlot(i).getItem() instanceof IElectricItem) {
-                    ItemStack stack = inventory.getStackInSlot(i);
-                    double MaxCharge = ((IElectricItem) stack.getItem()).getMaxCharge(stack);
-                    double amount = ((IElectricItem) stack.getItem()).getTransferLimit(stack);
-                    double CurrentCharge = ElectricItem.manager.getCharge(stack);
-                    if (CurrentCharge != MaxCharge && getEnergy() >= 0) {
-                        ElectricItem.manager.charge(stack, MaxCharge - CurrentCharge, 4, false, false);
-                        useEnergy(amount);
+                    if (stack.getItem() instanceof IEnergyInterfaceItem) {
+                        IEnergyInterfaceItem interfaceItem = (IEnergyInterfaceItem) stack.getItem();
+                        double trans = Math.min(interfaceItem.getMaxPower(stack) - interfaceItem.getEnergy(stack), Math.min(interfaceItem.getMaxTransfer(stack), getEnergy()));
+                        interfaceItem.setEnergy(trans + interfaceItem.getEnergy(stack), stack);
+                        useEnergy(trans);
+                    } else if (stack.getItem() instanceof IElectricItem) {
+                        useEnergy(ElectricItem.manager.charge(stack, getEnergy(), 4, false, false));
                     }
                 }
             }
+        }
     }
 
 

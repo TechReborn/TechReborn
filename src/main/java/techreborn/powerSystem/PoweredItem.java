@@ -45,5 +45,20 @@ public abstract class PoweredItem {
         }
     }
 
+    public static double addEnergy(double energy, ItemStack stack){
+        if(stack.getItem() instanceof IEnergyInterfaceItem){
+            return ((IEnergyInterfaceItem) stack.getItem()).addEnergy(energy, stack);
+        }
+        return 0;
+    }
+
+    public static double getMaxPower(ItemStack stack){
+        if(stack.getItem() instanceof IEnergyInterfaceItem){
+            return ((IEnergyInterfaceItem) stack.getItem()).getMaxPower(stack);
+        }
+        return 0;
+    }
+
+
 
 }
