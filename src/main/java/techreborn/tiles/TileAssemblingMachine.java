@@ -1,6 +1,8 @@
 package techreborn.tiles;
 
 import ic2.api.energy.tile.IEnergyTile;
+import ic2.api.item.ElectricItem;
+import ic2.api.item.IElectricItem;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -35,6 +37,28 @@ public class TileAssemblingMachine extends TilePowerAcceptor implements IWrencha
     public void updateEntity() {
         super.updateEntity();
         crafter.updateEntity();
+        charge(3);
+    }
+    
+    public void charge(int slot)
+    {
+    	if(getStackInSlot(slot) != null)
+    	{
+	    	if(getStackInSlot(slot).getItem() instanceof IElectricItem)
+	    	{
+	    		if(getEnergy() != getMaxPower())
+	    		{
+	                ItemStack stack = inventory.getStackInSlot(slot);
+	                double MaxCharge = ((IElectricItem) stack.getItem()).getMaxCharge(stack);
+	                double CurrentCharge = ElectricItem.manager.getCharge(stack);
+	                if (CurrentCharge != 0) 
+	                {
+	                	ElectricItem.manager.discharge(stack, 5, 4, false, false, false);
+	                    addEnergy(5);
+	                }
+	    		}
+	    	}
+    	}
     }
 
     @Override
