@@ -4,7 +4,6 @@ import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
-import minetweaker.api.minecraft.MineTweakerMC;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -74,14 +73,16 @@ public class MTAlloySmelter {
 
     @ZenMethod
     public static void removeRecipe(IIngredient output) {
-        MineTweakerAPI.apply(new Remove(output));
+        for(IItemStack  itemStack : output.getItems()){
+            MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(itemStack)));
+        }
     }
 
     private static class Remove implements IUndoableAction {
-        private final IIngredient output;
+        private final ItemStack output;
         List<AlloySmelterRecipe> removedRecipes = new ArrayList<AlloySmelterRecipe>();
 
-        public Remove(IIngredient output) {
+        public Remove(ItemStack output) {
             this.output = output;
         }
 
@@ -89,7 +90,7 @@ public class MTAlloySmelter {
         public void apply() {
             for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelteRecipe)) {
                 for (ItemStack stack : recipeType.getOutputs()) {
-                    if(output.matches(MineTweakerMC.getIItemStack(stack))) {
+                    if (ItemUtils.isItemEqual(stack, output, true, false)) {
                         removedRecipes.add((AlloySmelterRecipe) recipeType);
                         RecipeHandler.recipeList.remove(recipeType);
                         break;
@@ -112,12 +113,12 @@ public class MTAlloySmelter {
 
         @Override
         public String describe() {
-            return "Removing Alloy Smelter Recipe";
+            return "Removing Alloy Smelter Recipe for " + output.getDisplayName();
         }
 
         @Override
         public String describeUndo() {
-            return "Re-Adding Alloy Smelter Recipe for ";
+            return "Re-Adding Alloy Smelter Recipe for " + output.getDisplayName();
         }
 
         @Override

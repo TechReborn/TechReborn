@@ -5,7 +5,6 @@ import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
 import minetweaker.api.liquid.ILiquidStack;
-import minetweaker.api.minecraft.MineTweakerMC;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -92,14 +91,16 @@ public class MTIndustrialSawmill {
 
     @ZenMethod
     public static void removeRecipe(IIngredient output) {
-        MineTweakerAPI.apply(new Remove(output));
+        for(IItemStack  itemStack : output.getItems()){
+            MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(itemStack)));
+        }
     }
 
     private static class Remove implements IUndoableAction {
-        private final IIngredient output;
+        private final ItemStack output;
         List<IndustrialSawmillRecipe> removedRecipes = new ArrayList<IndustrialSawmillRecipe>();
 
-        public Remove(IIngredient output) {
+        public Remove(ItemStack output) {
             this.output = output;
         }
 
@@ -107,7 +108,7 @@ public class MTIndustrialSawmill {
         public void apply() {
             for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.industrialSawmillRecipe)) {
                 for (ItemStack stack : recipeType.getOutputs()) {
-                    if (output.matches(MineTweakerMC.getIItemStack(stack))) {
+                    if (ItemUtils.isItemEqual(stack, output, true, false)) {
                         removedRecipes.add((IndustrialSawmillRecipe) recipeType);
                         RecipeHandler.recipeList.remove(recipeType);
                         break;
@@ -130,12 +131,12 @@ public class MTIndustrialSawmill {
 
         @Override
         public String describe() {
-            return "Removing Sawmill Recipe";
+            return "Removing Sawmill Recipe for " + output.getDisplayName();
         }
 
         @Override
         public String describeUndo() {
-            return "Re-Adding Sawmill Recipe";
+            return "Re-Adding Sawmill Recipe for " + output.getDisplayName();
         }
 
         @Override

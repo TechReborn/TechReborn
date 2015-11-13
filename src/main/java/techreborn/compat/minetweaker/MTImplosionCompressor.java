@@ -4,7 +4,6 @@ import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
-import minetweaker.api.minecraft.MineTweakerMC;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -69,14 +68,16 @@ public class MTImplosionCompressor {
 
     @ZenMethod
     public static void removeRecipe(IIngredient output) {
-        MineTweakerAPI.apply(new Remove(output));
+        for(IItemStack  itemStack : output.getItems()){
+            MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(itemStack)));
+        }
     }
 
     private static class Remove implements IUndoableAction {
-        private final IIngredient output;
+        private final ItemStack output;
         List<ImplosionCompressorRecipe> removedRecipes = new ArrayList<ImplosionCompressorRecipe>();
 
-        public Remove(IIngredient output) {
+        public Remove(ItemStack output) {
             this.output = output;
         }
 
@@ -84,7 +85,7 @@ public class MTImplosionCompressor {
         public void apply() {
             for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.implosionCompressorRecipe)) {
                 for (ItemStack stack : recipeType.getOutputs()) {
-                    if (output.matches(MineTweakerMC.getIItemStack(stack))) {
+                    if (ItemUtils.isItemEqual(stack, output, true, false)) {
                         removedRecipes.add((ImplosionCompressorRecipe) recipeType);
                         RecipeHandler.recipeList.remove(recipeType);
                         break;
@@ -107,12 +108,12 @@ public class MTImplosionCompressor {
 
         @Override
         public String describe() {
-            return "Removing Implosion Recipe";
+            return "Removing Implosion Recipe for " + output.getDisplayName();
         }
 
         @Override
         public String describeUndo() {
-            return "Re-Adding Implosion Recipe";
+            return "Re-Adding Implosion Recipe for " + output.getDisplayName();
         }
 
         @Override
