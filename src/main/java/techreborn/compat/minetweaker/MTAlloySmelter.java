@@ -72,10 +72,8 @@ public class MTAlloySmelter {
     }
 
     @ZenMethod
-    public static void removeRecipe(IIngredient output) {
-        for(IItemStack  itemStack : output.getItems()){
-            MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(itemStack)));
-        }
+    public static void removeRecipe(IItemStack output) {
+        MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(output)));
     }
 
     private static class Remove implements IUndoableAction {

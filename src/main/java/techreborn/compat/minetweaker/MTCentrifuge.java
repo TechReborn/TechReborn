@@ -66,17 +66,13 @@ public class MTCentrifuge {
     }
 
     @ZenMethod
-    public static void removeRecipe(IIngredient output) {
-        for(IItemStack  itemStack : output.getItems()){
-            MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(itemStack)));
-        }
+    public static void removeRecipe(IItemStack output) {
+        MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(output)));
     }
 
     @ZenMethod
-    public static void removeInputRecipe(IIngredient output) {
-        for(IItemStack  itemStack : output.getItems()){
-            MineTweakerAPI.apply(new RemoveInput(MinetweakerCompat.toStack(itemStack)));
-        }
+    public static void removeInputRecipe(IItemStack output) {
+        MineTweakerAPI.apply(new RemoveInput(MinetweakerCompat.toStack(output)));
     }
 
     private static class RemoveInput implements IUndoableAction {
