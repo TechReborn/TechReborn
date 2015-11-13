@@ -30,6 +30,8 @@ public class ContainerRollingMachine extends RebornContainer {
 
         // output
         this.addSlotToContainer(new SlotOutput(tileRollingmachine.inventory, 0, 124, 35));
+        // battery
+        this.addSlotToContainer(new Slot(tileRollingmachine.inventory, 2, 8, 51));
 
         int i;
 

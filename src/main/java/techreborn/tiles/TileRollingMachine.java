@@ -1,6 +1,8 @@
 package techreborn.tiles;
 
 import ic2.api.energy.tile.IEnergyTile;
+import ic2.api.item.ElectricItem;
+import ic2.api.item.IElectricItem;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -18,7 +20,7 @@ import techreborn.powerSystem.TilePowerAcceptor;
 //TODO add tick and power bars.
 public class TileRollingMachine extends TilePowerAcceptor implements IWrenchable, IEnergyTile, IInventory {
 
-    public Inventory inventory = new Inventory(2, "TileRollingMachine", 64);
+    public Inventory inventory = new Inventory(3, "TileRollingMachine", 64);
     public final InventoryCrafting craftMatrix = new InventoryCrafting(
             new RollingTileContainer(), 3, 3);
 
@@ -32,6 +34,27 @@ public class TileRollingMachine extends TilePowerAcceptor implements IWrenchable
     @Override
     public double getMaxPower() {
         return 100000;
+    }
+    
+    public void charge(int slot)
+    {
+    	if(getStackInSlot(slot) != null)
+    	{
+	    	if(getStackInSlot(slot).getItem() instanceof IElectricItem)
+	    	{
+	    		if(getEnergy() != getMaxPower())
+	    		{
+	                ItemStack stack = inventory.getStackInSlot(slot);
+	                double MaxCharge = ((IElectricItem) stack.getItem()).getMaxCharge(stack);
+	                double CurrentCharge = ElectricItem.manager.getCharge(stack);
+	                if (CurrentCharge != 0) 
+	                {
+	                	ElectricItem.manager.discharge(stack, 5, 4, false, false, false);
+	                    addEnergy(5);
+	                }
+	    		}
+	    	}
+    	}
     }
 
     @Override
@@ -70,6 +93,7 @@ public class TileRollingMachine extends TilePowerAcceptor implements IWrenchable
     @Override
     public void updateEntity() {
         super.updateEntity();
+        charge(2);
         if (!worldObj.isRemote) {
             currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(
                     craftMatrix, worldObj);
