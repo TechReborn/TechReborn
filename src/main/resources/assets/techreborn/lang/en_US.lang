@@ -42,7 +42,7 @@ tile.techreborn.fusioncoil.name=Fusion Coil
 tile.techreborn.lightningrod.name=Lightning Rod
 tile.techreborn.assemblinmachine.name=Assembling Machine
 tile.techreborn.heatgenerator.name=Heat Generator
-tile.techreborn.machineFrame.aluminum.name=Aluminum Machine Hull
+tile.techreborn.machineFrame.aluminum.name=Aluminium  Machine Hull
 tile.techreborn.machineFrame.iron.name=Iron Machine Hull
 tile.techreborn.machineFrame.bronze.name=Bronze Machine Hull
 tile.techreborn.machineFrame.brass.name=Brass Machine Hull
@@ -71,7 +71,7 @@ tile.techreborn.ore.Silver.name=Silver Ore
 
 #Storage
 tile.techreborn.storage.silver.name=Block of Silver
-tile.techreborn.storage.aluminum.name=Block of Aluminum
+tile.techreborn.storage.aluminum.name=Block of Aluminium
 tile.techreborn.storage.titanium.name=Block of Titanium
 tile.techreborn.storage.chrome.name=Block of Chrome
 tile.techreborn.storage.steel.name=Block of Steel
@@ -156,8 +156,8 @@ fluid.tile.techreborn.calciumcarbonate=Calcium Carbonate
 
 #Dusts
 item.techreborn.dust.almandine.name=Almandine Dust
-item.techreborn.dust.aluminumBrass.name=Aluminum Brass Dust
-item.techreborn.dust.aluminum.name=Aluminum Dust
+item.techreborn.dust.aluminumBrass.name=Aluminium Brass Dust
+item.techreborn.dust.aluminum.name=Aluminium Dust
 item.techreborn.dust.alumite.name=Alumite Dust
 item.techreborn.dust.andradite.name=Andradite Dust
 item.techreborn.dust.antimony.name=Antimony Dust
@@ -247,8 +247,8 @@ item.techreborn.dust.sawDust.name=Saw Dust
 
 #Small Dusts
 item.techreborn.dustsmall.Almandine.name=Small Pile of Almandine Dust
-item.techreborn.dustsmall.AluminumBrass.name=Small Pile of Aluminum Brass Dust
-item.techreborn.dustsmall.Aluminum.name=Small Pile of Aluminum Dust
+item.techreborn.dustsmall.AluminumBrass.name=Small Pile of Aluminium Brass Dust
+item.techreborn.dustsmall.Aluminum.name=Small Pile of Aluminium Dust
 item.techreborn.dustsmall.Alumite.name=Small Pile of Alumite Dust
 item.techreborn.dustsmall.Andradite.name=Small Pile of Andradite Dust
 item.techreborn.dustsmall.Antimony.name=Small Pile of Antimony Dust
@@ -381,7 +381,7 @@ item.techreborn.gem.redGarnet.name=Red Garnet
 item.techreborn.gem.yellowGarnet.name=Yellow Garnet
 
 #Ingots
-item.techreborn.ingot.aluminum.name=Aluminum Ingot
+item.techreborn.ingot.aluminum.name=Aluminium Ingot
 item.techreborn.ingot.antimony.name=Antimony Ingot
 item.techreborn.ingot.batteryAlloy.name=Battery Alloy Ingot
 item.techreborn.ingot.redAlloy.name=Red Alloy Ingot
@@ -415,7 +415,7 @@ item.techreborn.ingot.tungstensteel.name=Tungstensteel Ingot
 item.techreborn.ingot.zinc.name=Zinc Ingot
 
 #Nuggets
-item.techreborn.nuggets.aluminum.name=Aluminum Nugget
+item.techreborn.nuggets.aluminum.name=Aluminium Nugget
 item.techreborn.nuggets.antimony.name=Antimony Nugget
 item.techreborn.nuggets.brass.name=Brass Nugget
 item.techreborn.nuggets.bronze.name=Bronze Nugget
@@ -437,7 +437,7 @@ item.techreborn.nuggets.tungsten.name=Tungsten Nugget
 item.techreborn.nuggets.zinc.name=Zinc Nugget
 
 #Crushed Ore
-item.techreborn.crushedore.Aluminum.name=Crushed Aluminum Ore
+item.techreborn.crushedore.Aluminum.name=Crushed Aluminium Ore
 item.techreborn.crushedore.Ardite.name=Crushed Ardite Ore
 item.techreborn.crushedore.Bauxite.name=Crushed Bauxite Ore
 item.techreborn.crushedore.Cadmium.name=Crushed Cadmium Ore
@@ -456,7 +456,7 @@ item.techreborn.crushedore.Tungsten.name=Purified Crushed Tungsten Ore
 item.techreborn.crushedore.Galena.name=Crushed Galena Ore
 
 #Purified Crushed Ore
-item.techreborn.purifiedcrushedore.Aluminum.name=Purified Crushed Aluminum Ore
+item.techreborn.purifiedcrushedore.Aluminum.name=Purified Crushed Aluminium Ore
 item.techreborn.purifiedcrushedore.Ardite.name=Purified Crushed Ardite Ore
 item.techreborn.purifiedcrushedore.Bauxite.name=Purified Crushed Bauxite Ore
 item.techreborn.purifiedcrushedore.Cadmium.name=Purified Crushed Cadmium Ore
@@ -475,7 +475,7 @@ item.techreborn.purifiedcrushedore.Tungsten.name=Purified Crushed Tungsten Ore
 item.techreborn.purifiedcrushedore.Galena.name=Purified Crushed Galena Ore
 
 #Plates
-item.techreborn.plate.aluminum.name=Aluminum Plate
+item.techreborn.plate.aluminum.name=Aluminium Plate
 item.techreborn.plate.batteryAlloy.name=Battery Alloy Plate
 item.techreborn.plate.brass.name=Brass Plate
 item.techreborn.plate.bronze.name=Bronze Plate
@@ -711,7 +711,7 @@ config.techreborn.lapotronicOrbTier.tooltip= Lapatronic Orb Tier
 config.techreborn.lesuStoragePerBlock.tooltip= LESU Storage Block extra output
 config.techreborn.showChargehud.tooltip=Show Charge Hud
 #Config UU
-config.techreborn.allow.UUrecipesAluminumDust= Allow UU recipes for AluminumDust
+config.techreborn.allow.UUrecipesAluminumDust= Allow UU recipes for AluminiumDust
 config.techreborn.allow.UUrecipesCoal= Allow UU recipes for Coal
 config.techreborn.allow.UUrecipesCopperDust= Allow UU recipes for Copper Dust
 config.techreborn.allow.UUrecipesDiamond= Allow UU recipes for Diamond
@@ -751,7 +751,7 @@ config.techreborn.allow.uurecipesWater= Allow UU recipes for Water
 config.techreborn.allow.uurecipesWood= Allow UU recipes for Wood
 
 #Config Tooltips UU
-config.techreborn.allow.UUrecipesAluminumDust.tooltip= Allow UU recipes for AluminumDust
+config.techreborn.allow.UUrecipesAluminumDust.tooltip= Allow UU recipes for AluminiumDust
 config.techreborn.allow.UUrecipesCoal.tooltip= Allow UU recipes for Coal
 config.techreborn.allow.UUrecipesCopperDust.tooltip= Allow UU recipes for Copper Dust
 config.techreborn.allow.UUrecipesDiamond.tooltip= Allow UU recipes for Diamond
