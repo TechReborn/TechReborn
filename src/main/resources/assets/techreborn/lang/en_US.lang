@@ -813,6 +813,23 @@ config.techreborn.tungstenOre.rare.tooltip=rarity of Tungsten Ore
 config.techreborn.oreUnifer=Ore Unification
 config.techreborn.oreUnifer.tooltip=Enable/Disable the auto ore unification
 
+config.techreborn.aesuMaxOutput=AESU max output
+config.techreborn.aesuMaxStorage=AESU max storage
+config.techreborn.aveargeEuOutTickTime=Time to calculate average output
+config.techreborn.baseLesuOutput=Base lesu output
+config.techreborn.cloakingDeviceEUTick=Clocking Device EU usage per tick
+config.techreborn.cloakingDeviceMaxCharge=Cloaking Device Max Charge
+config.techreborn.cloakingDeviceTier=Cloaking Device Tier
+config.techreborn.dragoneggsiphonerPower=Dragon Egg Siphoner EU output
+config.techreborn.extraOutputPerLesuBlock=LESU block power
+config.techreborn.heatGeneratorOutput=Heat Generator Output
+config.techreborn.lapotronicOrbTier=Lapotronic Orb Tier
+config.techreborn.lesuStoragePerBlock=Lesu Storage Per Block
+config.techreborn.showChargehud=Show charge HUD
+config.techreborn.allowExpensiveWatermill=Allow Expensive Watermill
+config.techreborn.allowExpensiveWindmill=Allow Expensive Windmill
+
+
 #ConfigGui
 config.techreborn.category.general=General Configs
 config.techreborn.category.world=World Configs
@@ -876,3 +893,8 @@ tile.techreborn.blastfurnace.description=This Machine needs a 3x4x3 of machine c
 
 keys.techreborn.category=TechReborn Category
 keys.techreborn.config=Config
+
+achievement.TechReborn:ore_Pickup=New ore!
+achievement.TechReborn:ore_Pickup.desc=Mine a techreborn ore
+achievement.TechReborn:centrifuge_Craft=Time to spin
+achievement.TechReborn:thermalgen_Craft=Time to heat
