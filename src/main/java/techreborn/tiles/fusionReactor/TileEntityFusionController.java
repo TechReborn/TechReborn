@@ -6,6 +6,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 import reborncore.common.util.Inventory;
+import reborncore.common.util.ItemUtils;
+import techreborn.api.reactor.FusionReactorRecipe;
+import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.init.ModBlocks;
 import techreborn.powerSystem.TilePowerAcceptor;
 
@@ -16,6 +19,17 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 
     //0= no coils, 1 = coils
     public int coilStatus = 0;
+
+    int topStackSlot = 0;
+    int bottomStackSlot = 1;
+    int outputStackSlot = 2;
+
+    public int crafingTickTime = 0;
+    public int finalTickTime = 0;
+    public int neededPower = 0;
+
+    FusionReactorRecipe currentRecipe = null;
+    boolean hasStartedCrafting = false;
 
     public TileEntityFusionController() {
         super(4);
@@ -164,5 +178,115 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
         if(worldObj.getTotalWorldTime() % 20 == 0){
             checkCoils();
         }
+
+if(!worldObj.isRemote){
+    if(coilStatus == 1){
+        if(currentRecipe == null){
+            if(inventory.hasChanged){
+                for(FusionReactorRecipe reactorRecipe : FusionReactorRecipeHelper.reactorRecipes){
+                    System.out.println(getStackInSlot(topStackSlot) + "@" + reactorRecipe.getTopInput());
+                    if(ItemUtils.isItemEqual(getStackInSlot(topStackSlot), reactorRecipe.getTopInput(), true, true, true)){
+                        if(reactorRecipe.getBottomInput() != null){
+                            if(ItemUtils.isItemEqual(getStackInSlot(bottomStackSlot), reactorRecipe.getBottomInput(), true, true, true) == false){
+                                break;
+                            }
+                        }
+                        if(canFitStack(reactorRecipe.getOutput(), outputStackSlot, true)){
+                            currentRecipe = reactorRecipe;
+                            hasStartedCrafting = false;
+                            crafingTickTime = 0;
+                            finalTickTime = currentRecipe.getTickTime();
+                            neededPower = (int) currentRecipe.getStartEU();
+                            break;
+                        }
+                    }
+                }
+            }
+        } else {
+            if(inventory.hasChanged){
+                if(!validateRecipe()){
+                    resetCrafter();
+                }
+            }
+            if(!hasStartedCrafting){
+                if(canUseEnergy(currentRecipe.getStartEU())){
+                    setEnergy(getEnergy() - currentRecipe.getStartEU());
+                    hasStartedCrafting = true;
+                }
+            } else {
+                if(crafingTickTime < currentRecipe.getTickTime()){
+                    if(currentRecipe.getEuTick() > 0){ //Power gen
+                        addEnergy(currentRecipe.getEuTick()); //Waste power if it has no where to go
+                        crafingTickTime++;
+                    } else { //Power user
+                        if(canUseEnergy(currentRecipe.getEuTick() * -1)){
+                            setEnergy(getEnergy() - (currentRecipe.getEuTick() * -1));
+                            crafingTickTime++;
+                        }
+                    }
+                } else {
+                    if(canFitStack(currentRecipe.getOutput(), outputStackSlot, true)){
+                        if(getStackInSlot(outputStackSlot) == null){
+                            setInventorySlotContents(outputStackSlot, currentRecipe.getOutput().copy());
+                        } else {
+                            decrStackSize(outputStackSlot, -currentRecipe.getOutput().stackSize);
+                        }
+                        decrStackSize(topStackSlot, currentRecipe.getTopInput().stackSize);
+                        if(currentRecipe.getBottomInput() != null){
+                            decrStackSize(bottomStackSlot, currentRecipe.getBottomInput().stackSize);
+                        }
+                        resetCrafter();
+                    }
+                }
+            }
+        }
+    } else {
+        if(currentRecipe != null){
+            resetCrafter();
+        }
+    }
+}
+
+
+        if (inventory.hasChanged) {
+            inventory.hasChanged = false;
+        }
+    }
+
+    private boolean validateRecipe(){
+        if(ItemUtils.isItemEqual(getStackInSlot(topStackSlot), currentRecipe.getTopInput(), true, true, true)){
+            if(currentRecipe.getBottomInput() != null){
+                if(ItemUtils.isItemEqual(getStackInSlot(bottomStackSlot), currentRecipe.getBottomInput(), true, true, true) == false){
+                    return false;
+                }
+            }
+            if(canFitStack(currentRecipe.getOutput(), outputStackSlot, true)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void resetCrafter(){
+        currentRecipe = null;
+        crafingTickTime = 0;
+        finalTickTime = 0;
+        neededPower = 0;
+        hasStartedCrafting = false;
+    }
+
+    public boolean canFitStack(ItemStack stack, int slot, boolean oreDic) {//Checks to see if it can fit the stack
+        if (stack == null) {
+            return true;
+        }
+        if (inventory.getStackInSlot(slot) == null) {
+            return true;
+        }
+        if (ItemUtils.isItemEqual(inventory.getStackInSlot(slot), stack, true, true, oreDic)) {
+            if (stack.stackSize + inventory.getStackInSlot(slot).stackSize <= stack.getMaxStackSize()) {
+                return true;
+            }
+        }
+        return false;
     }
 }

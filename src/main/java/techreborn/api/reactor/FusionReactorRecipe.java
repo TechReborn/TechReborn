@@ -41,6 +41,15 @@ public class FusionReactorRecipe {
      */
     int tickTime;
 
+    /**
+     *
+     * @param topInput This is the top slot stack
+     * @param bottomInput This is the bottom slot stack
+     * @param output This is the output stack
+     * @param startEU This is the inital EU amount
+     * @param euTick This is the eu that is transfured every tick
+     * @param tickTime This is the time the recipe takes to process
+     */
     public FusionReactorRecipe(ItemStack topInput, ItemStack bottomInput, ItemStack output, double startEU, double euTick, int tickTime) {
         this.topInput = topInput;
         this.bottomInput = bottomInput;

@@ -12,6 +12,8 @@ import reborncore.common.util.CraftingHelper;
 import reborncore.common.util.OreUtil;
 import techreborn.Core;
 import techreborn.api.TechRebornAPI;
+import techreborn.api.reactor.FusionReactorRecipe;
+import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.*;
 import techreborn.blocks.BlockOre;
@@ -45,6 +47,14 @@ public class
         addBlastFurnaceRecipes();
         addIndustrialGrinderRecipes();
         addImplosionCompressorRecipes();
+        addReactorRecipes();
+    }
+
+    static void addReactorRecipes(){
+
+        FusionReactorRecipeHelper.registerRecipe(new FusionReactorRecipe(ItemCells.getCellByName("tritium"), ItemCells.getCellByName("deuterium"), ItemCells.getCellByName("helium"), 40000000, 32768, 1024));
+        FusionReactorRecipeHelper.registerRecipe(new FusionReactorRecipe(ItemCells.getCellByName("tritium"), ItemCells.getCellByName("deuterium"), ItemCells.getCellByName("helium3"), 60000000, 32768, 2048));
+        FusionReactorRecipeHelper.registerRecipe(new FusionReactorRecipe(ItemCells.getCellByName("wolframium"), ItemCells.getCellByName("Berylium"), ItemDusts.getDustByName("platinum"), 80000000, -2048, 1024));
     }
 
     static void addGeneralShapedRecipes() {
@@ -244,8 +254,6 @@ public class
                 'C', "dustCoal",
                 'P', "plateCopper"
         );
-
-        GameRegistry.addShapelessRecipe(ItemCells.getCellByName("heliumPlasma"), ItemCells.getCellByName("tritium"), ItemCells.getCellByName("deuterium"));
 
         Core.logHelper.info("Shapped Recipes Added");
     }

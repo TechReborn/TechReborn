@@ -14,6 +14,9 @@ public class ContainerFusionReactor extends RebornContainer {
 
     public int coilStatus;
     public int energy;
+    public int tickTime;
+    public int finalTickTime;
+    public int neededEU;
 
     TileEntityFusionController fusionController;
 
@@ -58,6 +61,15 @@ public class ContainerFusionReactor extends RebornContainer {
             if (this.energy != (int) fusionController.getEnergy()) {
                 icrafting.sendProgressBarUpdate(this, 1, (int) fusionController.getEnergy());
             }
+            if (this.tickTime != fusionController.crafingTickTime) {
+                icrafting.sendProgressBarUpdate(this, 2,  fusionController.crafingTickTime);
+            }
+            if (this.finalTickTime != fusionController.finalTickTime) {
+                icrafting.sendProgressBarUpdate(this, 3,  fusionController.finalTickTime);
+            }
+            if (this.neededEU != fusionController.neededPower) {
+                icrafting.sendProgressBarUpdate(this, 4,  fusionController.neededPower);
+            }
         }
     }
 
@@ -66,6 +78,9 @@ public class ContainerFusionReactor extends RebornContainer {
         super.addCraftingToCrafters(crafting);
         crafting.sendProgressBarUpdate(this, 0, fusionController.coilStatus);
         crafting.sendProgressBarUpdate(this, 1, (int) fusionController.getEnergy());
+        crafting.sendProgressBarUpdate(this, 2, fusionController.crafingTickTime);
+        crafting.sendProgressBarUpdate(this, 3, fusionController.finalTickTime);
+        crafting.sendProgressBarUpdate(this, 4, fusionController.neededPower);
     }
 
     @SideOnly(Side.CLIENT)
@@ -75,6 +90,16 @@ public class ContainerFusionReactor extends RebornContainer {
             this.coilStatus = value;
         }  else if (id == 1) {
             this.energy = value;
+        } else if(id == 2){
+            this.tickTime = value;
+        } else if(id == 3){
+            this.finalTickTime = value;
+        } else if(id == 4){
+            this.neededEU = value;
         }
+    }
+
+    public int getProgressScaled(){
+        return Math.max(0, Math.min(24, (this.tickTime > 0 ? 1 : 0) + this.tickTime * 24 / (this.finalTickTime < 1 ? 1 : this.finalTickTime)));
     }
 }

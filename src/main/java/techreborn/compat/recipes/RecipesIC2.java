@@ -23,6 +23,8 @@ import reborncore.common.util.CraftingHelper;
 import reborncore.common.util.OreUtil;
 import reborncore.common.util.RecipeRemover;
 import techreborn.Core;
+import techreborn.api.reactor.FusionReactorRecipe;
+import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.*;
 import techreborn.compat.ICompatModule;
@@ -51,6 +53,8 @@ public class RecipesIC2 implements ICompatModule {
         addTRThermalCentrifugeRecipes();
         addMetalFormerRecipes();
         addTRRecipes();
+
+        FusionReactorRecipeHelper.registerRecipe(new FusionReactorRecipe(ItemCells.getCellByName("wolframium"), ItemCells.getCellByName("lithium"), IC2Items.getItem("iridiumOre"), 90000000, -2048, 1024));
     }
 
     @Override

@@ -28,6 +28,8 @@ public class GuiFusionReactor extends GuiContainer {
 
         this.fontRendererObj.drawString("EU: " + containerFusionReactor.energy, 11, 8, 16448255);
         this.fontRendererObj.drawString("Coils: " + (containerFusionReactor.coilStatus == 1 ? "Yes" : "No") , 11, 16, 16448255);
+        this.fontRendererObj.drawString("Start EU: " + containerFusionReactor.neededEU, 11, 24, 16448255);
+
     }
 
     @Override
@@ -40,7 +42,7 @@ public class GuiFusionReactor extends GuiContainer {
         drawTexturedModalRect(k + 88, l + 36, 176, 0, 14, 14);
 
         //progressBar
-        drawTexturedModalRect(k + 111, l + 34, 176, 14, 24, 16);
+        drawTexturedModalRect(k + 111, l + 34, 176, 14, containerFusionReactor.getProgressScaled(), 16);
 
     }
 }
