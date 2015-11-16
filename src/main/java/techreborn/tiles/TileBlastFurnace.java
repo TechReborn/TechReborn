@@ -1,6 +1,5 @@
 package techreborn.tiles;
 
-import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -23,7 +22,7 @@ import techreborn.lib.Reference;
 import techreborn.multiblocks.MultiBlockCasing;
 import techreborn.powerSystem.TilePowerAcceptor;
 
-public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, IInventory, IEnergyTile, ISidedInventory {
+public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory {
 
     public int tickTime;
     public Inventory inventory = new Inventory(4, "TileBlastFurnace", 64);

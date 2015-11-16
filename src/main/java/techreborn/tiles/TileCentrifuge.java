@@ -1,6 +1,5 @@
 package techreborn.tiles;
 
-import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
 import ic2.api.tile.IWrenchable;
@@ -20,7 +19,7 @@ import techreborn.powerSystem.TilePowerAcceptor;
 
 import java.util.List;
 
-public class TileCentrifuge extends TilePowerAcceptor implements IWrenchable, IEnergyTile, IInventory, ISidedInventory, IListInfoProvider {
+public class TileCentrifuge extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory, IListInfoProvider {
 
     public int tickTime;
     public Inventory inventory = new Inventory(11, "TileCentrifuge", 64);

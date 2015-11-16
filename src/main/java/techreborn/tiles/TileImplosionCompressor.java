@@ -1,6 +1,5 @@
 package techreborn.tiles;
 
-import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -17,7 +16,7 @@ import techreborn.init.ModBlocks;
 import techreborn.lib.Reference;
 import techreborn.powerSystem.TilePowerAcceptor;
 
-public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenchable, IEnergyTile, IInventory, ISidedInventory {
+public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory {
 
     public int tickTime;
     public Inventory inventory = new Inventory(4, "TileImplosionCompressor", 64);

@@ -46,6 +46,9 @@ public class BlockDieselGenerator extends BlockMachineBase {
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z,
                                     EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+        if(fillBlockWithFluid(world, x, y, z, player, side, hitX, hitY, hitZ)){
+            return true;
+        }
         if (!player.isSneaking())
             player.openGui(Core.INSTANCE, GuiHandler.dieselGeneratorID, world, x, y,
                     z);

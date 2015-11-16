@@ -1,6 +1,5 @@
 package techreborn.tiles;
 
-import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
 import ic2.api.tile.IWrenchable;
@@ -18,7 +17,7 @@ import techreborn.init.ModBlocks;
 import techreborn.powerSystem.TilePowerAcceptor;
 
 //TODO add tick and power bars.
-public class TileRollingMachine extends TilePowerAcceptor implements IWrenchable, IEnergyTile, IInventory {
+public class TileRollingMachine extends TilePowerAcceptor implements IWrenchable, IInventory {
 
     public Inventory inventory = new Inventory(3, "TileRollingMachine", 64);
     public final InventoryCrafting craftMatrix = new InventoryCrafting(

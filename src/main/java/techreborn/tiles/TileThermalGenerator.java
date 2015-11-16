@@ -1,6 +1,5 @@
 package techreborn.tiles;
 
-import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -20,7 +19,7 @@ import techreborn.init.ModBlocks;
 import techreborn.powerSystem.TilePowerAcceptor;
 
 public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchable,
-        IFluidHandler, IInventory, IEnergyTile {
+        IFluidHandler, IInventory {
 
     public Tank tank = new Tank("TileThermalGenerator",
             FluidContainerRegistry.BUCKET_VOLUME * 10, this);

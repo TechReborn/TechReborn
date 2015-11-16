@@ -1,6 +1,5 @@
 package techreborn.tiles;
 
-import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -10,7 +9,7 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.powerSystem.TilePowerAcceptor;
 
-public class TileHeatGenerator extends TilePowerAcceptor implements IWrenchable, IEnergyTile {
+public class TileHeatGenerator extends TilePowerAcceptor implements IWrenchable {
 
     public static final int euTick = ConfigTechReborn.heatGeneratorOutput;
 

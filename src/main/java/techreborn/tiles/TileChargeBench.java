@@ -12,7 +12,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 import reborncore.common.util.Inventory;
 import techreborn.api.power.IEnergyInterfaceItem;
 import techreborn.init.ModBlocks;
-import techreborn.powerSystem.PoweredItem;
 import techreborn.powerSystem.TilePowerAcceptor;
 
 public class TileChargeBench extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory {

@@ -1,6 +1,5 @@
 package techreborn.tiles;
 
-import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -10,7 +9,7 @@ import reborncore.common.util.Inventory;
 import techreborn.init.ModBlocks;
 import techreborn.powerSystem.TilePowerAcceptor;
 
-public class TileChunkLoader extends TilePowerAcceptor implements IWrenchable, IEnergyTile, IInventory {
+public class TileChunkLoader extends TilePowerAcceptor implements IWrenchable, IInventory {
 
     public Inventory inventory = new Inventory(1, "TileChunkLoader", 64);
 

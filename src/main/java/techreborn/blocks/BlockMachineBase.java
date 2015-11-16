@@ -204,10 +204,10 @@ public class BlockMachineBase extends BlockContainer {
 
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, int side, float hitX, float hitY, float hitZ) {
-        if(super.onBlockActivated(world, x, y, z, entityplayer, side, hitX, hitY, hitZ)){
+        if(fillBlockWithFluid(world, x, y, z, entityplayer, side, hitX, hitY, hitZ)){
             return true;
         }
-        return fillBlockWithFluid(world, x, y, z, entityplayer, side, hitX, hitY, hitZ);
+        return super.onBlockActivated(world, x, y, z, entityplayer, side, hitX, hitY, hitZ);
     }
 
     public boolean fillBlockWithFluid(World world, int x, int y, int z, EntityPlayer entityplayer, int side, float hitX, float hitY, float hitZ) {

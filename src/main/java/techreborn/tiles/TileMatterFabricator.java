@@ -1,6 +1,5 @@
 package techreborn.tiles;
 
-import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.recipe.RecipeOutput;
 import ic2.api.recipe.Recipes;
 import ic2.api.tile.IWrenchable;
@@ -16,7 +15,7 @@ import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
 import techreborn.powerSystem.TilePowerAcceptor;
 
-public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchable, IEnergyTile, IInventory, ISidedInventory {
+public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory {
 
     public static int fabricationRate = 2666656;
     public int tickTime;
