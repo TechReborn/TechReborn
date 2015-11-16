@@ -97,6 +97,15 @@ public class ContainerFusionReactor extends RebornContainer {
         } else if(id == 4){
             this.neededEU = value;
         }
+        if(tickTime == -1){
+            tickTime = 0;
+        }
+        if(finalTickTime == -1){
+            finalTickTime = 0;
+        }
+        if(neededEU == -1){
+            neededEU = 0;
+        }
     }
 
     public int getProgressScaled(){

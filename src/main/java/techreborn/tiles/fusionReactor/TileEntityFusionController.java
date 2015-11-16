@@ -42,21 +42,33 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 
     @Override
     public boolean canAcceptEnergy(ForgeDirection direction) {
+        if(direction == ForgeDirection.DOWN || direction == ForgeDirection.UP){
+            return false;
+        }
         return true;
     }
 
     @Override
     public boolean canProvideEnergy(ForgeDirection direction) {
-        return true;
+        if(direction == ForgeDirection.DOWN || direction == ForgeDirection.UP){
+            return true;
+        }
+        return false;
     }
 
     @Override
     public double getMaxOutput() {
+        if(!hasStartedCrafting){
+            return 0;
+        }
         return 1000000;
     }
 
     @Override
     public double getMaxInput() {
+        if(hasStartedCrafting){
+            return 0;
+        }
         return 8192;
     }
 
@@ -64,7 +76,10 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
     public void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
         inventory.readFromNBT(tagCompound);
-
+        crafingTickTime = tagCompound.getInteger("crafingTickTime");
+        finalTickTime = tagCompound.getInteger("finalTickTime");
+        neededPower = tagCompound.getInteger("neededPower");
+        hasStartedCrafting = tagCompound.getBoolean("hasStartedCrafting");
     }
 
     @Override
@@ -72,6 +87,19 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
         super.writeToNBT(tagCompound);
         inventory.writeToNBT(tagCompound);
 
+        if(crafingTickTime == -1){
+            crafingTickTime = 0;
+        }
+        if(finalTickTime == -1){
+            finalTickTime = 0;
+        }
+        if(neededPower == -1){
+            neededPower = 0;
+        }
+        tagCompound.setInteger("crafingTickTime", crafingTickTime);
+        tagCompound.setInteger("finalTickTime", finalTickTime);
+        tagCompound.setInteger("neededPower", neededPower);
+        tagCompound.setBoolean("hasStartedCrafting", hasStartedCrafting);
     }
 
     @Override
@@ -135,7 +163,7 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
     }
 
 
-    private boolean checkCoils() {
+    public boolean checkCoils() {
         if ((isCoil(this.xCoord + 3, this.yCoord, this.zCoord + 1)) &&
                 (isCoil(this.xCoord + 3, this.yCoord, this.zCoord)) &&
                 (isCoil(this.xCoord + 3, this.yCoord, this.zCoord - 1)) &&
@@ -175,77 +203,82 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
     public void updateEntity() {
         super.updateEntity();
         //TODO improve this code a lot
-        if(worldObj.getTotalWorldTime() % 20 == 0){
+
+        if (worldObj.getTotalWorldTime() % 20 == 0) {
             checkCoils();
         }
 
-if(!worldObj.isRemote){
-    if(coilStatus == 1){
-        if(currentRecipe == null){
-            if(inventory.hasChanged){
-                for(FusionReactorRecipe reactorRecipe : FusionReactorRecipeHelper.reactorRecipes){
-                    System.out.println(getStackInSlot(topStackSlot) + "@" + reactorRecipe.getTopInput());
-                    if(ItemUtils.isItemEqual(getStackInSlot(topStackSlot), reactorRecipe.getTopInput(), true, true, true)){
-                        if(reactorRecipe.getBottomInput() != null){
-                            if(ItemUtils.isItemEqual(getStackInSlot(bottomStackSlot), reactorRecipe.getBottomInput(), true, true, true) == false){
-                                break;
+        if (!worldObj.isRemote) {
+            if (coilStatus == 1) {
+                if (currentRecipe == null) {
+                    if (inventory.hasChanged || crafingTickTime != 0) {
+                        for (FusionReactorRecipe reactorRecipe : FusionReactorRecipeHelper.reactorRecipes) {
+                            System.out.println(getStackInSlot(topStackSlot) + "@" + reactorRecipe.getTopInput());
+                            if (ItemUtils.isItemEqual(getStackInSlot(topStackSlot), reactorRecipe.getTopInput(), true, true, true)) {
+                                if (reactorRecipe.getBottomInput() != null) {
+                                    if (ItemUtils.isItemEqual(getStackInSlot(bottomStackSlot), reactorRecipe.getBottomInput(), true, true, true) == false) {
+                                        break;
+                                    }
+                                }
+                                if (canFitStack(reactorRecipe.getOutput(), outputStackSlot, true)) {
+                                    currentRecipe = reactorRecipe;
+                                    if(crafingTickTime != 0){
+                                        finalTickTime = currentRecipe.getTickTime();
+                                        neededPower = (int) currentRecipe.getStartEU();
+                                    }
+                                    hasStartedCrafting = false;
+                                    crafingTickTime = 0;
+                                    finalTickTime = currentRecipe.getTickTime();
+                                    neededPower = (int) currentRecipe.getStartEU();
+                                    break;
+                                }
                             }
-                        }
-                        if(canFitStack(reactorRecipe.getOutput(), outputStackSlot, true)){
-                            currentRecipe = reactorRecipe;
-                            hasStartedCrafting = false;
-                            crafingTickTime = 0;
-                            finalTickTime = currentRecipe.getTickTime();
-                            neededPower = (int) currentRecipe.getStartEU();
-                            break;
-                        }
-                    }
-                }
-            }
-        } else {
-            if(inventory.hasChanged){
-                if(!validateRecipe()){
-                    resetCrafter();
-                }
-            }
-            if(!hasStartedCrafting){
-                if(canUseEnergy(currentRecipe.getStartEU())){
-                    setEnergy(getEnergy() - currentRecipe.getStartEU());
-                    hasStartedCrafting = true;
-                }
-            } else {
-                if(crafingTickTime < currentRecipe.getTickTime()){
-                    if(currentRecipe.getEuTick() > 0){ //Power gen
-                        addEnergy(currentRecipe.getEuTick()); //Waste power if it has no where to go
-                        crafingTickTime++;
-                    } else { //Power user
-                        if(canUseEnergy(currentRecipe.getEuTick() * -1)){
-                            setEnergy(getEnergy() - (currentRecipe.getEuTick() * -1));
-                            crafingTickTime++;
                         }
                     }
                 } else {
-                    if(canFitStack(currentRecipe.getOutput(), outputStackSlot, true)){
-                        if(getStackInSlot(outputStackSlot) == null){
-                            setInventorySlotContents(outputStackSlot, currentRecipe.getOutput().copy());
-                        } else {
-                            decrStackSize(outputStackSlot, -currentRecipe.getOutput().stackSize);
+                    if (inventory.hasChanged) {
+                        if (!validateRecipe()) {
+                            resetCrafter();
                         }
-                        decrStackSize(topStackSlot, currentRecipe.getTopInput().stackSize);
-                        if(currentRecipe.getBottomInput() != null){
-                            decrStackSize(bottomStackSlot, currentRecipe.getBottomInput().stackSize);
-                        }
-                        resetCrafter();
                     }
+                    if (!hasStartedCrafting) {
+                        if (canUseEnergy(currentRecipe.getStartEU())) {
+                            setEnergy(getEnergy() - currentRecipe.getStartEU());
+                            hasStartedCrafting = true;
+                        }
+                    } else {
+                        if (crafingTickTime < currentRecipe.getTickTime()) {
+                            if (currentRecipe.getEuTick() > 0) { //Power gen
+                                addEnergy(currentRecipe.getEuTick()); //Waste power if it has no where to go
+                                crafingTickTime++;
+                            } else { //Power user
+                                if (canUseEnergy(currentRecipe.getEuTick() * -1)) {
+                                    setEnergy(getEnergy() - (currentRecipe.getEuTick() * -1));
+                                    crafingTickTime++;
+                                }
+                            }
+                        } else {
+                            if (canFitStack(currentRecipe.getOutput(), outputStackSlot, true)) {
+                                if (getStackInSlot(outputStackSlot) == null) {
+                                    setInventorySlotContents(outputStackSlot, currentRecipe.getOutput().copy());
+                                } else {
+                                    decrStackSize(outputStackSlot, -currentRecipe.getOutput().stackSize);
+                                }
+                                decrStackSize(topStackSlot, currentRecipe.getTopInput().stackSize);
+                                if (currentRecipe.getBottomInput() != null) {
+                                    decrStackSize(bottomStackSlot, currentRecipe.getBottomInput().stackSize);
+                                }
+                                resetCrafter();
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (currentRecipe != null) {
+                    resetCrafter();
                 }
             }
         }
-    } else {
-        if(currentRecipe != null){
-            resetCrafter();
-        }
-    }
-}
 
 
         if (inventory.hasChanged) {
@@ -253,25 +286,25 @@ if(!worldObj.isRemote){
         }
     }
 
-    private boolean validateRecipe(){
-        if(ItemUtils.isItemEqual(getStackInSlot(topStackSlot), currentRecipe.getTopInput(), true, true, true)){
-            if(currentRecipe.getBottomInput() != null){
-                if(ItemUtils.isItemEqual(getStackInSlot(bottomStackSlot), currentRecipe.getBottomInput(), true, true, true) == false){
+    private boolean validateRecipe() {
+        if (ItemUtils.isItemEqual(getStackInSlot(topStackSlot), currentRecipe.getTopInput(), true, true, true)) {
+            if (currentRecipe.getBottomInput() != null) {
+                if (ItemUtils.isItemEqual(getStackInSlot(bottomStackSlot), currentRecipe.getBottomInput(), true, true, true) == false) {
                     return false;
                 }
             }
-            if(canFitStack(currentRecipe.getOutput(), outputStackSlot, true)){
+            if (canFitStack(currentRecipe.getOutput(), outputStackSlot, true)) {
                 return true;
             }
         }
         return false;
     }
 
-    private void resetCrafter(){
+    private void resetCrafter() {
         currentRecipe = null;
-        crafingTickTime = 0;
-        finalTickTime = 0;
-        neededPower = 0;
+        crafingTickTime = -1;
+        finalTickTime = -1;
+        neededPower = -1;
         hasStartedCrafting = false;
     }
 
@@ -288,5 +321,11 @@ if(!worldObj.isRemote){
             }
         }
         return false;
+    }
+
+    @Override
+    public void onLoaded() {
+        super.onLoaded();
+        checkCoils();
     }
 }

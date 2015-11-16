@@ -85,7 +85,7 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
     public double getDemandedEnergy() {
         if (!PowerSystem.EUPOWENET)
             return 0;
-        return getMaxPower() - getEnergy();
+        return Math.min(getMaxPower() - getEnergy(), getMaxInput());
     }
 
     @Override
@@ -117,7 +117,7 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
     public double getOfferedEnergy() {
         if (!PowerSystem.EUPOWENET)
             return 0;
-        return getEnergy();
+        return Math.min(getEnergy(), getMaxOutput());
     }
 
     @Override

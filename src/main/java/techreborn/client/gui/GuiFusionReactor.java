@@ -27,8 +27,8 @@ public class GuiFusionReactor extends GuiContainer {
         this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
 
         this.fontRendererObj.drawString("EU: " + containerFusionReactor.energy, 11, 8, 16448255);
-        this.fontRendererObj.drawString("Coils: " + (containerFusionReactor.coilStatus == 1 ? "Yes" : "No") , 11, 16, 16448255);
-        this.fontRendererObj.drawString("Start EU: " + containerFusionReactor.neededEU, 11, 24, 16448255);
+        this.fontRendererObj.drawString("Coils: " + (containerFusionReactor.coilStatus == 1 ? "Yes" : "No"), 11, 16, 16448255);
+        this.fontRendererObj.drawString("Start EU: " + percentage(containerFusionReactor.neededEU, containerFusionReactor.energy), 11, 24, 16448255);
 
     }
 
@@ -44,5 +44,11 @@ public class GuiFusionReactor extends GuiContainer {
         //progressBar
         drawTexturedModalRect(k + 111, l + 34, 176, 14, containerFusionReactor.getProgressScaled(), 16);
 
+    }
+
+    public int percentage(int MaxValue, int CurrentValue) {
+        if (CurrentValue == 0)
+            return 0;
+        return (int) ((CurrentValue * 100.0f) / MaxValue);
     }
 }

@@ -68,7 +68,7 @@ public class FustionReacorRecipeHandler  extends TemplateRecipeHandler {
             symbols.setGroupingSeparator('.');
             formatter.setDecimalFormatSymbols(symbols);
             GuiDraw.drawString("Start: " + formatter.format(genericRecipe.recipe.getStartEU()) + "EU", 16, 105, -1);
-            GuiDraw.drawString("EU/t: " + formatter.format(new Integer((int) (genericRecipe.recipe.getEuTick() * genericRecipe.recipe.getTickTime())).longValue()), 16, 115, -1);
+            GuiDraw.drawString("EU/t: " + genericRecipe.recipe.getEuTick() , 16, 115, -1);
             GuiDraw.drawString("Ticks to process: " + genericRecipe.recipe.getTickTime(), 14, 125, -1);
             GuiDraw.drawString("Time to process: " + genericRecipe.recipe.getTickTime() / 20 + " seconds", 14, 135, -1);
         }
