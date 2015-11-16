@@ -65,5 +65,9 @@ public class NEIConfig implements IConfigureNEI {
         API.registerUsageHandler(shapelessRollingMachineHandler);
         API.registerRecipeHandler(shapelessRollingMachineHandler);
 
+        AssemblingMachineRecipeHandler assemblingMachineRecipe = new AssemblingMachineRecipeHandler();
+        API.registerUsageHandler(assemblingMachineRecipe);
+        API.registerRecipeHandler(assemblingMachineRecipe);
+
     }
 }
