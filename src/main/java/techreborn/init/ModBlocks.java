@@ -16,6 +16,7 @@ import techreborn.blocks.storage.BlockLesu;
 import techreborn.blocks.storage.BlockLesuStorage;
 import techreborn.itemblocks.*;
 import techreborn.tiles.*;
+import techreborn.tiles.fusionReactor.TileEntityFusionController;
 import techreborn.tiles.idsu.TileIDSU;
 import techreborn.tiles.lesu.TileLesu;
 import techreborn.tiles.lesu.TileLesuStorage;
@@ -211,6 +212,7 @@ public class ModBlocks {
 
         FusionControlComputer = new BlockFusionControlComputer(Material.rock);
         GameRegistry.registerBlock(FusionControlComputer, "fusioncontrolcomputer");
+        GameRegistry.registerTileEntity(TileEntityFusionController.class, "TileEntityFustionControllerTR");
 
         FusionCoil = new BlockFusionCoil(Material.rock);
         GameRegistry.registerBlock(FusionCoil, "fusioncoil");

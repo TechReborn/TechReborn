@@ -2,17 +2,23 @@ package techreborn.client.gui;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.inventory.Container;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import techreborn.client.container.ContainerFusionReactor;
+import techreborn.tiles.fusionReactor.TileEntityFusionController;
 
 
 public class GuiFusionReactor extends GuiContainer {
 
     private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/fusion_reactor.png");
 
-    public GuiFusionReactor(Container container) {
-        super(container);
+    ContainerFusionReactor containerFusionReactor;
+
+    public GuiFusionReactor(EntityPlayer player,
+                            TileEntityFusionController tileaesu) {
+        super(new ContainerFusionReactor(tileaesu, player));
+        containerFusionReactor = (ContainerFusionReactor) this.inventorySlots;
     }
 
     protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
@@ -20,8 +26,8 @@ public class GuiFusionReactor extends GuiContainer {
         this.fontRendererObj.drawString(name, 87, 6, 4210752);
         this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
 
-        this.fontRendererObj.drawString("EU: xxxx", 11, 8, 16448255);
-        this.fontRendererObj.drawString("Coils: " + "Yes" , 11, 16, 16448255);
+        this.fontRendererObj.drawString("EU: " + containerFusionReactor.energy, 11, 8, 16448255);
+        this.fontRendererObj.drawString("Coils: " + (containerFusionReactor.coilStatus == 1 ? "Yes" : "No") , 11, 16, 16448255);
     }
 
     @Override
