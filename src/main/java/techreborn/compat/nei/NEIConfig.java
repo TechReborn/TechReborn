@@ -69,5 +69,9 @@ public class NEIConfig implements IConfigureNEI {
         API.registerUsageHandler(assemblingMachineRecipe);
         API.registerRecipeHandler(assemblingMachineRecipe);
 
+        FustionReacorRecipeHandler fustionReacorRecipeHandler = new FustionReacorRecipeHandler();
+        API.registerUsageHandler(fustionReacorRecipeHandler);
+        API.registerRecipeHandler(fustionReacorRecipeHandler);
+
     }
 }
