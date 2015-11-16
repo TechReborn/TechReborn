@@ -20,23 +20,18 @@ tile.techreborn.implosioncompressor.name=Compresseur à implosion
 tile.techreborn.grinder.name=Broyeur industriel
 tile.techreborn.chunkloader.name=Chargeur de chunk industriel
 tile.techreborn.magicenergyconverter.name=Convertiseur d'énergie magique
-tile.techreborn.assemblingmachine.name=Machine d'assemblage
 tile.techreborn.dieselgenerator.name=Générateur diesel
 tile.techreborn.industrialelectrolyzer.name=Électrolyseur industriel
 tile.techreborn.magicenergyabsorber.name=Absorbeur d'énergie magique
+tile.techreborn.assemblingmachine.name=Machine d'assemblage
 tile.techreborn.semifluidgenerator.name=Générateur semi-fluide
 tile.techreborn.alloyfurnace.name=Four en fer d'alliage
 tile.techreborn.chemicalreactor.name=Réacteur chimique
-tile.techreborn.lathe.name=Tour électrique
-tile.techreborn.platecuttingmachine.name=Machine de découpe de plaques
 tile.techreborn.dragoneggsiphoner.name=Syphon d'énergie d'oeuf de dragon
 tile.techreborn.idsu.name=USID
 tile.techreborn.aesu.name=USEA
 tile.techreborn.lesu.name=USEL
-tile.techreborn.supercondensator.name=Supercondensateur
-tile.techreborn.woodenshelf.name=Étagère en bois
-tile.techreborn.metalshelf.name=Étagère métalique
-tile.techreborn.lesustorage.name=Bloc USEL
+tile.techreborn.lesustorage.name=Stockage USEL
 tile.techreborn.distillationtower.name=Tour de distillation
 tile.techreborn.electriccraftingtable.name=Table d'autotraitement électrique
 tile.techreborn.vacuumfreezer.name=Congélateur à vide
@@ -54,7 +49,7 @@ tile.techreborn.machineFrame.brass.name=Coque de machine en laiton
 tile.techreborn.machineFrame.steel.name=Coque de machine en acier
 tile.techreborn.machineFrame.titanium.name=Coque de machine en titane
 tile.techreborn.industrialsawmill.name=Scierie
-tile.techreborn.chargebench.name=Banc de charge
+tile.techreborn.chargebench.name=Banc de recharge
 
 #Ores
 tile.techreborn.ore.Galena.name=Minerai de galène
@@ -73,7 +68,6 @@ tile.techreborn.ore.Tetrahedrite.name=Minerai de tétrahèdrite
 tile.techreborn.ore.Cassiterite.name=Minerai de cassitérite
 tile.techreborn.ore.Lead.name=Minerai de plomb
 tile.techreborn.ore.Silver.name=Minerai d'argent
-
 
 #Storage
 tile.techreborn.storage.silver.name=Bloc d'argent
@@ -101,6 +95,7 @@ tile.techreborn.storage2.sapphire.name=Bloc de saphirs
 tile.techreborn.storage2.peridot.name=Bloc de péridot
 tile.techreborn.storage2.yellow_garnet.name=Bloc de grenat jaune
 tile.techreborn.storage2.red_garnet.name=Bloc de grenat rouge
+tile.techreborn.farm.name=Ferme
 
 
 #Fluids
@@ -127,6 +122,7 @@ tile.techreborn.sodium.name=Source de sodium
 tile.techreborn.sodiumpersulfate.name=Source de persulfate de sodium
 tile.techreborn.tritium.name=Source de tritium
 tile.techreborn.wolframium.name=Source de wolfanium
+tile.techreborn.supercondensator.name=Supercondensateur
 fluid.fluid.fluidberylium=Bérylium
 fluid.fluid.fluidcalcium=Calcium
 fluid.fluid.fluidcalciumcarbonate=Carbonate de calcium
@@ -145,11 +141,18 @@ fluid.fluid.fluidnitrofuel=Carburant azote
 fluid.fluid.fluidnitrogen=Azote
 fluid.fluid.fluidnitrogendioxide=Dioxyde d'azote
 fluid.fluid.fluidpotassium=Potassium
-fluid.fluid.fluidsilicon=Siliciun
+fluid.fluid.fluidsilicon=Silicium
 fluid.fluid.fluidsodium=Sodium
 fluid.fluid.fluidsodiumpersulfate=Persulfate de sodium
 fluid.fluid.fluidtritium=Tritium
 fluid.fluid.fluidwolframium=Wolframium
+fluid.tile.techreborn.glyceryl=Glycéryle
+fluid.tile.techreborn.berylium=Bérylium
+fluid.tile.techreborn.chlorite=Chlorite
+fluid.tile.techreborn.helium3=Hélium3
+fluid.tile.techreborn.deuterium=Deutérium
+fluid.tile.techreborn.helium=Hélium
+fluid.tile.techreborn.calciumcarbonate=Carbonate de calcium
 
 #Dusts
 item.techreborn.dust.almandine.name=Poudre d'almandine
@@ -238,6 +241,8 @@ item.techreborn.dust.voidstone.name=Poudre de pierre du néant
 item.techreborn.dust.yellowGarnet.name=Poudre de grenat jaune
 item.techreborn.dust.zinc.name=Poudre de zinc 
 item.techreborn.dust.galena.name=Poudre de galène
+item.techreborn.dust.greenSapphire.name=Poudre de saphir vert
+item.techreborn.dust.sawDust.name=Sciure
 
 
 #Small Dusts
@@ -331,98 +336,6 @@ item.techreborn.dustsmall.YellowGarnet.name=Petit tas de poudre de grenat jaune
 item.techreborn.dustsmall.Zinc.name=Petit tas de poudre de zinc
 item.techreborn.dustsmall.Galena.name=Petit tas de poudre de galène
 
-
-#Tiny Dusts
-item.techreborn.dusttiny.Almandine.name=Minuscule tas de poudre d'almandine
-item.techreborn.dusttiny.AluminumBrass.name=Minuscule tas de poudre de laiton d'aluminium
-item.techreborn.dusttiny.Aluminum.name=Minuscule tas de poudre d'aluminium
-item.techreborn.dusttiny.Alumite.name=Minuscule tas de poudre d'alumite
-item.techreborn.dusttiny.Andradite.name=Minuscule tas de poudre d'andradite
-item.techreborn.dusttiny.Antimony.name=Minuscule tas de poudre d'antimoine
-item.techreborn.dusttiny.Ardite.name=Minuscule tas de poudre d'ardite
-item.techreborn.dusttiny.Ashes.name=Minuscule tas de cendres
-item.techreborn.dusttiny.Basalt.name=Minuscule tas de poudre de basalt
-item.techreborn.dusttiny.Bauxite.name=Minuscule tas de poudre de bauxite
-item.techreborn.dusttiny.Biotite.name=Minuscule tas de poudre de biotite
-item.techreborn.dusttiny.Brass.name=Minuscule tas de poudre de laiton
-item.techreborn.dusttiny.Bronze.name=Minuscule tas de poudre de bronze
-item.techreborn.dusttiny.Cadmium.name=Minuscule tas de poudre de cadmium
-item.techreborn.dusttiny.Calcite.name=Minuscule tas de poudre de calcite
-item.techreborn.dusttiny.Charcoal.name=Minuscule tas de poudre de charbon de bois
-item.techreborn.dusttiny.Chrome.name=Minuscule tas de poudre de chrome
-item.techreborn.dusttiny.Cinnabar.name=Minuscule tas de poudre de cinabre
-item.techreborn.dusttiny.Clay.name=Minuscule tas de poudre d'argile
-item.techreborn.dusttiny.Coal.name=Minuscule tas de poudre de charbon
-item.techreborn.dusttiny.Cobalt.name=Minuscule tas de poudre de cobalt
-item.techreborn.dusttiny.Copper.name=Minuscule tas de poudre de cuivre
-item.techreborn.dusttiny.Cupronickel.name=Minuscule tas de poudre de cupronickel
-item.techreborn.dusttiny.DarkAshes.name=Minuscule tas de cendres sombres
-item.techreborn.dusttiny.DarkIron.name=Minuscule tas de poudre de fer sombre
-item.techreborn.dusttiny.Diamond.name=Minuscule tas de poudre de diamant
-item.techreborn.dusttiny.Electrum.name=Minuscule tas de poudre d'électrum
-item.techreborn.dusttiny.Emerald.name=Minuscule tas de poudre d'émeraude
-item.techreborn.dusttiny.EnderEye.name=Minuscule tas de poudre d'oeil du néant
-item.techreborn.dusttiny.EnderPearl.name=Minuscule tas de poudre de perle du néant
-item.techreborn.dusttiny.Endstone.name=Minuscule tas de poudre de pierre du néant
-item.techreborn.dusttiny.Flint.name=Minuscule tas de poudre de silex
-item.techreborn.dusttiny.Glowstone.name=Minuscule tas de poudre de pierre lumineuse
-item.techreborn.dusttiny.Gold.name=Minuscule tas de poudre d'or
-item.techreborn.dusttiny.Graphite.name=Minuscule tas de poudre de graphite
-item.techreborn.dusttiny.Grossular.name=Minuscule tas de poudre de grossularite
-item.techreborn.dusttiny.Gunpowder.name=Minuscule tas de poudre à canon
-item.techreborn.dusttiny.Indium.name=Minuscule tas de poudre d'indium
-item.techreborn.dusttiny.Invar.name=Minuscule tas de poudre d'invar
-item.techreborn.dusttiny.Iridium.name=Minuscule tas de poudre d'iridium
-item.techreborn.dusttiny.Iron.name=Minuscule tas de poudre de fer
-item.techreborn.dusttiny.Kanthal.name=Minuscule tas de poudre de kanthal
-item.techreborn.dusttiny.Lapis.name=Minuscule tas de poudre de lapis lazuli
-item.techreborn.dusttiny.Lazurite.name=Minuscule tas de poudre de lazurite
-item.techreborn.dusttiny.Lead.name=Minuscule tas de poudre de plomb
-item.techreborn.dusttiny.Limestone.name=Minuscule tas de poudre de calcaire
-item.techreborn.dusttiny.Lodestone.name=Minuscule tas de poudre d'aimant naturel
-item.techreborn.dusttiny.Magnesium.name=Minuscule tas de poudre de magnésium
-item.techreborn.dusttiny.Magnetite.name=Minuscule tas de poudre de magnétite
-item.techreborn.dusttiny.Manganese.name=Minuscule tas de poudre de manganèse
-item.techreborn.dusttiny.Manyullyn.name=Minuscule tas de poudre de manyullyn
-item.techreborn.dusttiny.Marble.name=Minuscule tas de poudre de marbre
-item.techreborn.dusttiny.Mithril.name=Minuscule tas de poudre de mithril
-item.techreborn.dusttiny.Netherrack.name=Minuscule tas de poudre de pierre du nether
-item.techreborn.dusttiny.Nichrome.name=Minuscule tas de poudre de nichrome
-item.techreborn.dusttiny.Nickel.name=Minuscule tas de poudre de nickel
-item.techreborn.dusttiny.Obsidian.name=Minuscule tas de poudre d'obsidienne
-item.techreborn.dusttiny.Osmium.name=Minuscule tas de poudre d'osmium
-item.techreborn.dusttiny.Peridot.name=Minuscule tas de péridot
-item.techreborn.dusttiny.Phosphorous.name=Minuscule tas de poudre phosphoré
-item.techreborn.dusttiny.Platinum.name=Minuscule tas de poudre de platine
-item.techreborn.dusttiny.PotassiumFeldspar.name=Minuscule tas de poudre de feldspaths potassiques
-item.techreborn.dusttiny.Pyrite.name=Minuscule tas de poudre de pyrite
-item.techreborn.dusttiny.Pyrope.name=Minuscule tas de poudre de pyrope
-item.techreborn.dusttiny.RedGarnet.name=Minuscule tas de poudre de grenat rouge
-item.techreborn.dusttiny.Redrock.name=Minuscule tas de poudre de roche rouge
-item.techreborn.dusttiny.Redstone.name=Minuscule tas de redstone
-item.techreborn.dusttiny.Ruby.name=Minuscule tas de poudre de rubis
-item.techreborn.dusttiny.Saltpeter.name=Minuscule tas de poudre de salpètre
-item.techreborn.dusttiny.Sapphire.name=Minuscule tas de poudre de saphir
-item.techreborn.dusttiny.Silicon.name=Minuscule tas de poudre de silicium
-item.techreborn.dusttiny.Silver.name=Minuscule tas de poudre d'argent
-item.techreborn.dusttiny.Sodalite.name=Minuscule tas de poudre de sodalite
-item.techreborn.dusttiny.Spessartine.name=Minuscule tas de poudre de spessartine
-item.techreborn.dusttiny.Sphalerite.name=Minuscule tas de poudre de sphalérite
-item.techreborn.dusttiny.Steel.name=Minuscule tas de poudre d'acier
-item.techreborn.dusttiny.Sulfur.name=Minuscule tas de poudre de souffre
-item.techreborn.dusttiny.Tellurium.name=Minuscule tas de poudre de tellure
-item.techreborn.dusttiny.Teslatite.name=Minuscule tas de poudre de teslatite
-item.techreborn.dusttiny.Tetrahedrite.name=Minuscule tas de poudre de tétrahédrite
-item.techreborn.dusttiny.Tin.name=Minuscule tas de poudre d'étain
-item.techreborn.dusttiny.Titanium.name=Minuscule tas de poudre de titane
-item.techreborn.dusttiny.Tungsten.name=Minuscule tas de poudre de tungstène
-item.techreborn.dusttiny.Uvarovite.name=Minuscule tas de poudre de uvarovite
-item.techreborn.dusttiny.Vinteum.name=Minuscule tas de poudre de vinteum
-item.techreborn.dusttiny.Voidstone.name=Minuscule tas de poudre de pierre du néant
-item.techreborn.dusttiny.YellowGarnet.name=Minuscule tas de poudre de grenat jaune
-item.techreborn.dusttiny.Zinc.name=Minuscule tas de poudre de zinc
-item.techreborn.dusttiny.Galena.name=Minuscule tas de poudre de galène
-
 #Cells
 item.techreborn.cell.Berylium.name=Cellule de bérylium
 item.techreborn.cell.biomass.name=Cellule de biomass
@@ -458,6 +371,7 @@ item.techreborn.cell.sulfur.name=Cellule de souffre
 item.techreborn.cell.sulfuricAcid.name=Cellule d'acide sulfurique
 item.techreborn.cell.tritium.name=Cellule de tritium
 item.techreborn.cell.wolframium.name=Cellule de wolframium
+item.techreborn.cell.empty.name=Cellule vide
 
 #Gems
 item.techreborn.gem.ruby.name=Rubis
@@ -500,7 +414,6 @@ item.techreborn.ingot.hotTungstensteel.name=Lingot d'acier au tungstène chaud
 item.techreborn.ingot.tungstensteel.name=Lingot d'acier au tungstène
 item.techreborn.ingot.zinc.name=Lingot de zinc
 
-
 #Nuggets
 item.techreborn.nuggets.aluminum.name=Pépite d'aluminum
 item.techreborn.nuggets.antimony.name=Pépite d'antimoine
@@ -523,26 +436,6 @@ item.techreborn.nuggets.titanium.name=Pépite de titane
 item.techreborn.nuggets.tungsten.name=Pépite de tungstène
 item.techreborn.nuggets.zinc.name=Pépite de zinc
 
-
-#Metal Rod
-item.techreborn.rod.brass.name=Tige de laiton
-item.techreborn.rod.bronze.name=Tige de bronze
-item.techreborn.rod.copper.name=Tige de cuivre
-item.techreborn.rod.electrum.name=Tige d'électrum
-item.techreborn.rod.gold.name=Tige d'or
-item.techreborn.rod.invar.name=Tige d'invar
-item.techreborn.rod.iridium.name=Tige d'iridium
-item.techreborn.rod.iron.name=Tige de fer
-item.techreborn.rod.lead.name=Tige de plomb
-item.techreborn.rod.nickel.name=Tige de nickel
-item.techreborn.rod.platinum.name=Tige de platine
-item.techreborn.rod.silver.name=Tige d'argent
-item.techreborn.rod.steel.name=Tige d'acier
-item.techreborn.rod.tin.name=Tige d'étain
-item.techreborn.rod.titanium.name=Tige de titani
-item.techreborn.rod.tungstensteel.name=Tige d'acier au tungstène
-
-
 #Crushed Ore
 item.techreborn.crushedore.Aluminum.name=Minerai d'aluminum écrasé
 item.techreborn.crushedore.Ardite.name=Minerai d'ardite écrasé
@@ -561,7 +454,6 @@ item.techreborn.crushedore.Sphalerite.name=Minerai de sphalérite écrasé
 item.techreborn.crushedore.Tetrahedrite.name=Minerai de tétrahédrite écrasé
 item.techreborn.crushedore.Tungsten.name=Minerai de tungstène écrasé
 item.techreborn.crushedore.Galena.name=Minerai de galène écrasé
-
 
 #Purified Crushed Ore
 item.techreborn.purifiedcrushedore.Aluminum.name=Minerai d'aluminum écrasé purifié
@@ -582,13 +474,13 @@ item.techreborn.purifiedcrushedore.Tetrahedrite.name=Minerai de tétrahédrite �
 item.techreborn.purifiedcrushedore.Tungsten.name=Minerai de tungstène écrasé purifié
 item.techreborn.purifiedcrushedore.Galena.name=Minerai de galène écrasé purifié
 
-
 #Plates
 item.techreborn.plate.aluminum.name=Plaque d'aluminum
 item.techreborn.plate.batteryAlloy.name=Plaque d'alliage de batterie
 item.techreborn.plate.brass.name=Plaque de laiton
 item.techreborn.plate.bronze.name=Plaque de bronze 
-item.techreborn.plate.carbon.name=Plaque de charbon 
+item.techreborn.plate.carbon.name=Plaque de carbone
+item.techreborn.plate.coal.name=Plaque de charbon
 item.techreborn.plate.chrome.name=Plaque de chrome 
 item.techreborn.plate.copper.name=Plaque de cuivre
 item.techreborn.plate.diamond.name=Plaque de diamant
@@ -621,7 +513,6 @@ item.techreborn.plate.tungstensteel.name=Plaque d'acier au tungstène
 item.techreborn.plate.yellowGarnet.name=Plaque de grenat jaune
 item.techreborn.plate.zinc.name=Plaque de zinc
 
-
 #Parts
 item.techreborn.part.advancedCircuitParts.name=Pièces de circuit avancé
 item.techreborn.part.basicCircuitBoard.name=Circuit imprimé de base
@@ -643,9 +534,6 @@ item.techreborn.part.NaKCoolantSix.name=Cellule 360k de refroisissement au NaK
 item.techreborn.part.cupronickelHeatingCoil.name=Réchauffeur en cupronickel
 item.techreborn.part.nichromeHeatingCoil.name=Réchauffeur en nichrome
 item.techreborn.part.kanthalHeatingCoil.name=Réchauffeur en kanthal
-item.techreborn.part.bronzeGear.name=Engrenage en bronze
-item.techreborn.part.ironGear.name=Engrenage en fer
-item.techreborn.part.titaniumGear.name=Engrenage en  titane
 item.techreborn.part.steelGear.name=Engrenage en acier
 item.techreborn.part.tungstensteelGear.name=Engrenage en acier au tungstène
 item.techreborn.part.laserFocus.name=Foyer de laser
@@ -664,7 +552,9 @@ item.techreborn.part.destructoPack.name=Destructeur de paquet
 item.techreborn.part.iridiumNeutronReflector.name=Réflecteur de neutron en iridium
 item.techreborn.part.massHoleDevice.name=Dispositif de trou massif
 item.techreborn.part.computerMonitor.name=Console d'ordinateur
-
+item.techreborn.part.machineParts.name=Pièces de machine
+item.techreborn.part.neutronReflector.name=Réflecteur de neutron
+item.techreborn.part.thickNeutronReflector.name=Réflecteur de neutron épais
 
 #Tools
 item.techreborn.rockcutter.name=Foreuse
@@ -673,6 +563,7 @@ item.techreborn.lapotronpack.name=Packet de lapoton
 item.techreborn.omniTool.name=Multi-outil
 item.techreborn.advancedDrill.name=Foret avancé
 item.techreborn.lapotronicorb.name=Orbe d'énergie Lapotronique
+item.techreborn.cloakingdevice.name=Dispositif de dissimulation
 
 #Buckets
 item.bucketberylium.name=Seau de berylium
@@ -699,6 +590,9 @@ item.bucketsodiumpersulfate.name=Seau de persulfate de sodium
 item.buckettritium.name=Seau de tritium
 item.bucketwolframium.name=Seau de wolfanium
 
+#Items
+item.techreborn.uuMatter.name=Matière UU
+item.techreborn.pda.name=PDA
 
 #Configs
 config.techreborn.allow.galenaOre=Permet le minerai de galène
@@ -787,7 +681,154 @@ config.techreborn.thermalGeneratorMaxCharge.tooltip=
 config.techreborn.aveargeEuOutTickTim=Temps de sortie d'EU
 config.techreborn.aveargeEuOutTickTime.tooltip=Combien de fois par tic mettre à jour l'UE 
 config.techreborn.euPerRF=Convertion des EU
-onfig.techreborn.euPerRF.tooltip=Quantité de RF pour 1 EU. Par défaut 4, donc 4RF == 1EU et .25EU == 1RF  
+config.techreborn.euPerRF.tooltip=Quantité de RF pour 1 EU. Par défaut 4, donc 4RF == 1EU et .25EU == 1RF  
+config.techreborn.farmeu=Ferme EU par Tic
+config.techreborn.farmeu.tooltip=Quantité de eu utilisé par tic par la ferme
+config.techreborn.enableRF=Active le support RF
+config.techreborn.enableRF.tooltip= Active le support RF pour toutes les machines.
+config.techreborn.enableEU=Active le support EU 
+config.techreborn.enableEU.tooltip= Active le support EU pour toutes les machines.
+config.techreborn.connectTextures=Active les textures connectées
+config.techreborn.connectTextures.tooltip=Active les textures connectées
+config.techreborn.rainExplosions=Active les explosions de machine quand la pluie touche
+config.techreborn.rainExplosions.tooltip= Lorque ceci est activé,les machines exploserons lorsqu'elles seront en contact avec la pluie.
+config.techreborn.allowExpensiveWatermill.tooltip= Allow Expensive Watermill
+config.techreborn.allowExpensiveWindmill.tooltip= Allow Expensive Watermill
+config.techreborn.allowBopRecipes.tooltip= Allow BOP Recipes
+config.techreborn.allowForestryRecipes.tooltip= Allow Forestry Recipes
+config.techreborn.allowNaturaRecipes.tooltip= Allow Natura Recipes 
+config.techreborn.aesuMaxOutput.tooltip= AESU max output
+config.techreborn.aesuMaxStorage.tooltip= AESU max storage
+config.techreborn.baseLesuOutput.tooltip= Base LESU output
+config.techreborn.cloakingDeviceEUTick.tooltip= Cloaking Device Eu/Tick
+config.techreborn.cloakingDeviceMaxCharge.tooltip= Cloaking Device Max Charge
+config.techreborn.cloakingDeviceTier.tooltip= Cloaking Device Tier
+config.techreborn.dragoneggsiphonerPower.tooltip=Dragon Egg Siphoner Eu/Tick
+config.techreborn.extraOutputPerLesuBlock.tooltip= LESU Storage Block extra output
+config.techreborn.heatGeneratorOutput.tooltip= Heat Generator output
+config.techreborn.lapotronicOrbMaxCharge= Lapotronic Orb Max Charge
+config.techreborn.lapotronicOrbTier.tooltip= Lapatronic Orb Tier
+config.techreborn.lesuStoragePerBlock.tooltip= LESU Storage Block extra output
+config.techreborn.showChargehud.tooltip=Show Charge Hud
+#Config UU
+config.techreborn.allow.UUrecipesAluminumDust= Allow UU recipes for AluminiumDust
+config.techreborn.allow.UUrecipesCoal= Allow UU recipes for Coal
+config.techreborn.allow.UUrecipesCopperDust= Allow UU recipes for Copper Dust
+config.techreborn.allow.UUrecipesDiamond= Allow UU recipes for Diamond
+config.techreborn.allow.UUrecipesEmerald= Allow UU recipes for Emerald
+config.techreborn.allow.UUrecipesEmeraldOre= Allow UU recipes for Emerald Ore
+config.techreborn.allow.UUrecipesGoldDust= Allow UU recipes for Gold Dust
+config.techreborn.allow.UUrecipesGoldOre= Allow UU recipes for Gold Ore
+config.techreborn.allow.UUrecipesIronDust= Allow UU recipes for Iron Dust
+config.techreborn.allow.UUrecipesIronOre= Allow UU recipes for Iron Ore
+config.techreborn.allow.UUrecipesLapis= Allow UU recipes for Lapis
+config.techreborn.allow.UUrecipesLeadDust= Allow UU recipes for Lapis dust
+config.techreborn.allow.UUrecipesPlatinumDust= Allow UU recipes for Platinum Dust
+config.techreborn.allow.UUrecipesRedStone= Allow UU recipes for Redstone
+config.techreborn.allow.UUrecipesResin= Allow UU recipes for Sticky Resin
+config.techreborn.allow.UUrecipesTinDust= Allow UU recipes for Tin Dust
+config.techreborn.allow.UUrecipesTitaniumDust= Allow UU recipes for Titanium Dust
+config.techreborn.allow.UUrecipesTungstenDust= Allow UU recipes for Tungsten Dust
+config.techreborn.allow.uurecipesBone= Allow UU recipes for Bone
+config.techreborn.allow.uurecipesCactus= Allow UU recipes for Cactus
+config.techreborn.allow.uurecipesCocoa= Allow UU recipes for Cocoa
+config.techreborn.allow.uurecipesEnderPearl= Allow UU recipes for Ender Pearl
+config.techreborn.allow.uurecipesFeather= Allow UU recipes for Feather
+config.techreborn.allow.uurecipesGlass= Allow UU recipes for Glass
+config.techreborn.allow.uurecipesGlowstoneBlock= Allow UU recipes for Glowstone Blocks
+config.techreborn.allow.uurecipesGrass= Allow UU recipes for Grass
+config.techreborn.allow.uurecipesInk= Allow UU recipes for Ink Sacks
+config.techreborn.allow.uurecipesIridiamOre= Allow UU recipes for IridiamOre
+config.techreborn.allow.uurecipesLava= Allow UU recipes for Lava
+config.techreborn.allow.uurecipesLilypad= Allow UU recipes for Lilypad
+config.techreborn.allow.uurecipesObsidian= Allow UU recipes for Obsidian
+config.techreborn.allow.uurecipesSnowBall= Allow UU recipes for Snowball
+config.techreborn.allow.uurecipesSnowBlock= Allow UU recipes for SnowBlock
+config.techreborn.allow.uurecipesStone= Allow UU recipes for Stone
+config.techreborn.allow.uurecipesSugarCane= Allow UU recipes for SugarCane
+config.techreborn.allow.uurecipesVine= Allow UU recipes for Vine
+config.techreborn.allow.uurecipesWater= Allow UU recipes for Water
+config.techreborn.allow.uurecipesWood= Allow UU recipes for Wood
+
+#Config Tooltips UU
+config.techreborn.allow.UUrecipesAluminumDust.tooltip= Allow UU recipes for AluminiumDust
+config.techreborn.allow.UUrecipesCoal.tooltip= Allow UU recipes for Coal
+config.techreborn.allow.UUrecipesCopperDust.tooltip= Allow UU recipes for Copper Dust
+config.techreborn.allow.UUrecipesDiamond.tooltip= Allow UU recipes for Diamond
+config.techreborn.allow.UUrecipesEmerald.tooltip= Allow UU recipes for Emerald
+config.techreborn.allow.UUrecipesEmeraldOre.tooltip= Allow UU recipes for Emerald Ore
+config.techreborn.allow.UUrecipesGoldDust.tooltip= Allow UU recipes for Gold Dust
+config.techreborn.allow.UUrecipesGoldOre.tooltip= Allow UU recipes for Gold Ore
+config.techreborn.allow.UUrecipesIronDust.tooltip= Allow UU recipes for Iron Dust
+config.techreborn.allow.UUrecipesIronOre.tooltip= Allow UU recipes for Iron Ore
+config.techreborn.allow.UUrecipesLapis.tooltip= Allow UU recipes for Lapis
+config.techreborn.allow.UUrecipesLeadDust.tooltip= Allow UU recipes for Lapis dust
+config.techreborn.allow.UUrecipesPlatinumDust.tooltip= Allow UU recipes for Platinum Dust
+config.techreborn.allow.UUrecipesRedStone.tooltip= Allow UU recipes for Redstone
+config.techreborn.allow.UUrecipesResin.tooltip= Allow UU recipes for Sticky Resin
+config.techreborn.allow.UUrecipesTinDust.tooltip= Allow UU recipes for Tin Dust
+config.techreborn.allow.UUrecipesTitaniumDust.tooltip= Allow UU recipes for Titanium Dust
+config.techreborn.allow.UUrecipesTungstenDust.tooltip= Allow UU recipes for Tungsten Dust
+config.techreborn.allow.hiderecipes.tooltip= Hide UU recipes from NEI
+config.techreborn.allow.uurecipesBone.tooltip= Allow UU recipes for Bone
+config.techreborn.allow.uurecipesCactus.tooltip= Allow UU recipes for Cactus
+config.techreborn.allow.uurecipesCocoa.tooltip= Allow UU recipes for Cocoa
+config.techreborn.allow.uurecipesEnderPearl.tooltip= Allow UU recipes for Ender Pearl
+config.techreborn.allow.uurecipesFeather.tooltip= Allow UU recipes for Feather
+config.techreborn.allow.uurecipesGlass.tooltip= Allow UU recipes for Glass
+config.techreborn.allow.uurecipesGlowstoneBlock.tooltip= Allow UU recipes for Glowstone Blocks
+config.techreborn.allow.uurecipesGrass.tooltip= Allow UU recipes for Grass
+config.techreborn.allow.uurecipesInk.tooltip= Allow UU recipes for Ink Sacks
+config.techreborn.allow.uurecipesIridiamOre.tooltip= Allow UU recipes for IridiamOre
+config.techreborn.allow.uurecipesLava.tooltip= Allow UU recipes for Lava
+config.techreborn.allow.uurecipesLilypad.tooltip= Allow UU recipes for Lilypad
+config.techreborn.allow.uurecipesObsidian.tooltip= Allow UU recipes for Obsidian
+config.techreborn.allow.uurecipesSnowBall.tooltip= Allow UU recipes for Snowball
+config.techreborn.allow.uurecipesSnowBlock.tooltip= Allow UU recipes for SnowBlock
+config.techreborn.allow.uurecipesStone.tooltip= Allow UU recipes for Stone
+config.techreborn.allow.uurecipesSugarCane.tooltip= Allow UU recipes for SugarCane
+config.techreborn.allow.uurecipesVine.tooltip= Allow UU recipes for Vine
+config.techreborn.allow.uurecipesWater.tooltip= Allow UU recipes for Water
+config.techreborn.allow.uurecipesWood.tooltip= Allow UU recipes for Wood
+
+
+config.techreborn.allow.tungstonOre.tooltip= Allow UU recipes for Tungston Ore
+config.techreborn.bauxiteOre.rare.tooltip=rareté du minerai de bauxite
+config.techreborn.cinnabarOre.rare.tooltip=rareté du minerai de cinnabar
+config.techreborn.copperOre.rare.tooltip=rareté du minerai de cuivre
+config.techreborn.galenaOre.rare.tooltip=rareté du minerai de galène
+config.techreborn.iridiumOre.rare.tooltip=rareté du minerai d'iridium
+config.techreborn.leadOre.rare.tooltip=rareté du minerai de plomb
+config.techreborn.olivineOre.rare.tooltip=rareté du minerai d'olivine
+config.techreborn.pyriteOre.rare.tooltip=rareté du minerai de pyrite
+config.techreborn.rubyOre.rare.tooltip=rareté du minerai de rubis
+config.techreborn.sapphireOre.rare.tooltip=rareté du minerai de saphir
+config.techreborn.sheldoniteOre.rare.tooltip=rareté du minerai de sheldonite
+config.techreborn.silverOre.rare.tooltip=rareté du minerai d'argent
+config.techreborn.sodaliteOre.rare.tooltip=rareté du minerai de sodalite
+config.techreborn.sphaleriteOre.rare.tooltip=rareté du minerai de sphalérite
+config.techreborn.tinOre.rare.tooltip=rareté du minerai d'étain
+config.techreborn.tungstenOre.rare.tooltip=rareté du minerai de tungstène
+
+config.techreborn.oreUnifer=Unification des minerai
+config.techreborn.oreUnifer.tooltip=Active/Désactive l'unification auto des minerai
+
+config.techreborn.aesuMaxOutput=AESU max output
+config.techreborn.aesuMaxStorage=AESU max storage
+config.techreborn.aveargeEuOutTickTime=Time to calculate average output
+config.techreborn.baseLesuOutput=Base lesu output
+config.techreborn.cloakingDeviceEUTick=Clocking Device EU usage per tick
+config.techreborn.cloakingDeviceMaxCharge=Cloaking Device Max Charge
+config.techreborn.cloakingDeviceTier=Cloaking Device Tier
+config.techreborn.dragoneggsiphonerPower=Dragon Egg Siphoner EU output
+config.techreborn.extraOutputPerLesuBlock=LESU block power
+config.techreborn.heatGeneratorOutput=Heat Generator Output
+config.techreborn.lapotronicOrbTier=Lapotronic Orb Tier
+config.techreborn.lesuStoragePerBlock=Lesu Storage Per Block
+config.techreborn.showChargehud=Show charge HUD
+config.techreborn.allowExpensiveWatermill=Allow Expensive Watermill
+config.techreborn.allowExpensiveWindmill=Allow Expensive Windmill
+
 
 #ConfigGui
 config.techreborn.category.general=Options générales
@@ -795,9 +836,65 @@ config.techreborn.category.world=Options du monde
 config.techreborn.category.power=Options d'énergie
 config.techreborn.category.crafting=Options d'artisanat
 config.techreborn.category.uu=Options UU
-config.techreborn.category.emc=options EMC
+config.techreborn.category.emc=Options EMC
+config.techreborn.category.integration=Intégration
 
+tr.configgui.category.trGeneral.tooltip=Général
+tr.configgui.category.trWorld.tooltip=Monde
+tr.configgui.category.trPower.tooltip=Énergie
+tr.configgui.category.trCrafting.tooltip=Artisanat
+tr.configgui.category.truu.tooltip=UU
+tr.configgui.category.tremc.tooltip=EMC
+tr.configgui.category.treinter.tooltip=Intégration de mod
 
+#Recipe Handlers
+techreborn.recipe.alloysmelter=Alloy Furnace Recipe
+techreborn.recipe.ironalloysmelter=Iron Alloy Furnace Recipe
+techreborn.recipe.assemblingmachine=Assembling Machine Recipe
+techreborn.recipe.blastfurnace=Blast Furnace Recipe
+techreborn.recipe.centrifuge=Centrifuge Recipe
+techreborn.recipe.grinder=Industrial Grinder Recipe
+techreborn.recipe.industrialelectrolyzer=Industrial Electrolyzer Recipe
+techreborn.recipe.industrialsawmill=Industrial Sawmill Recipe
+techreborn.recipe.lathe=Lathe Recipe
+techreborn.recipe.platecuttingmachine=Plate Cutting Machine Recipe
+techreborn.recipe.chemicalReactor=Chemical Reactor Recipe
+techreborn.recipe.implosioncompressor=Implosion Compressor
 
 #Message
 techreborn.message.missingmultiblock=MULTIBLOC MANQUANT
+
+#Cables
+Cable.copperCable.name=Copper Cable
+Cable.insulatedCopperCable.name=Insulated Copper Cable
+Cable.goldCable.name=Gold Cable
+Cable.insulatedGoldCable.name=Insulated Copper Cable
+Cable.doubleInsulatedGoldCable.name=Double Insulated Copper Cable
+Cable.ironCable.name=Iron Cable
+Cable.copperCable.name=Copper Cable
+Cable.insulatedIronCable.name=Insulated Iron Cable
+Cable.doubleInsulatedIronCable.name=Double Insulated Copper Cable
+Cable.trippleInsulatedIronCable.name=Triple Insulated Copper Cable
+Cable.glassFiberCable.name=Glass Fiber Cable
+Cable.tinCable.name=Tin Cable
+
+#PDA
+techreborn.pda.contents=Sommaire
+techreborn.pda.itemspage=Éléments
+techreborn.pda.blockspage=Blocs
+techreborn.pda.index=Index
+techreborn.pda.backbutton=Préc.
+
+item.techreborn.advancedDrill.description=This Tool is a advanced version of the mining drill, when this item is activated it will dig out a 3x3.
+tile.techreborn.alloyfurnace.description=This Machine is your first step into TechReborn with this you can fuse metals into other metals. These other metals can be used to craft the higher tier machines.
+tile.techreborn.alloysmelter.description=This machine is a upgraded version of the Alloy Furnace, This block requires EU or RF.
+tile.techreborn.assemblingmachine.description=This block is used to craft some of the more complex machines that can't be crafted in a normal crafting table.
+tile.techreborn.blastfurnace.description=This Machine needs a 3x4x3 of machine casings behind it to increase its internal heat, The hotter the machine is the more recipes will open up to you. This machine also needs EU/RF.
+
+keys.techreborn.category=Catégories TechReborn
+keys.techreborn.config=Configuration
+
+achievement.TechReborn:ore_Pickup=Nouveau minerai !
+achievement.TechReborn:ore_Pickup.desc=Minez un minerai techreborn
+achievement.TechReborn:centrifuge_Craft=Il est temps de tourner
+achievement.TechReborn:thermalgen_Craft=Il est temps de chauffer
