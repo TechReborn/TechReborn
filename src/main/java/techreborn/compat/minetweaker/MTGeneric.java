@@ -75,8 +75,8 @@ public class MTGeneric {
     }
 
     @ZenMethod
-    public static void removeRecipe(IItemStack output, String machineName) {
-        MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(output), machineName));
+    public static void removeRecipe(IItemStack output) {
+        MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(output), instance.getMachineName()));
     }
 
     private static class Remove implements IUndoableAction {
