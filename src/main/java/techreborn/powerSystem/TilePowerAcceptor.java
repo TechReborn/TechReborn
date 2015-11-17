@@ -231,12 +231,10 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
 
     @Override
     public double useEnergy(double extract, boolean simulate) {
-        double energyExtracted = Math.min(getMaxPower() - energy, Math.min(getMaxPower(), extract));
-
         if (!simulate) {
-            setEnergy(energy - energyExtracted);
+            setEnergy(energy - extract);
         }
-        return energyExtracted;
+        return extract;
     }
 
     @Override
@@ -284,9 +282,9 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
         if (getMaxOutput() != 0) {
             info.add(ChatFormatting.LIGHT_PURPLE + "Max Output " + ChatFormatting.GREEN + getEUString(getMaxOutput()));
         }
-        if(CompatManager.isClassicEnet && isRealTile){
-            info.add(ChatFormatting.LIGHT_PURPLE + "Stored energy " + ChatFormatting.GREEN + getEUString(energy));
-        }
+//        if(isRealTile){ //TODO sync to client
+//            info.add(ChatFormatting.LIGHT_PURPLE + "Stored energy " + ChatFormatting.GREEN + getEUString(energy));
+//        }
     }
 
     private String getEUString(double euValue) {

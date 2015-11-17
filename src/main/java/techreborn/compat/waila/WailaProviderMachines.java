@@ -21,9 +21,6 @@ public class WailaProviderMachines implements IWailaDataProvider {
     @Override
     public List<String> getWailaBody(ItemStack item, List<String> tip,
                                      IWailaDataAccessor accessor, IWailaConfigHandler config) {
-
-        TileMachineBase machine = (TileMachineBase) accessor.getTileEntity();
-
         if (accessor.getTileEntity() instanceof IListInfoProvider) {
             ((IListInfoProvider) accessor.getTileEntity()).addInfo(info, true);
         }
