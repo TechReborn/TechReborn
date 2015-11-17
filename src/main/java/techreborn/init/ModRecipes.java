@@ -331,6 +331,9 @@ public class
                 'N', "ingotCupronickel",
                 'C', "ingotCopper");
 
+
+        RecipeHandler.addRecipe(new VacuumFreezerRecipe(ItemIngots.getIngotByName("hotTungstensteel"), ItemIngots.getIngotByName("tungstensteel"), 440, 128));
+        RecipeHandler.addRecipe(new VacuumFreezerRecipe(ItemCells.getCellByName("water"), ItemCells.getCellByName("cell"), 60, 128));
     }
 
     static void addSmeltingRecipes() {

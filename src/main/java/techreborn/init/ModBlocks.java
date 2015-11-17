@@ -203,6 +203,7 @@ public class ModBlocks {
 
         VacuumFreezer = new BlockVacuumFreezer(Material.rock);
         GameRegistry.registerBlock(VacuumFreezer, "vacuumfreezer");
+        GameRegistry.registerTileEntity(TileVacuumFreezer.class, "TileVacuumFreezerTR");
 
         PlasmaGenerator = new BlockPlasmaGenerator(Material.rock);
         GameRegistry.registerBlock(PlasmaGenerator, "plasmagenerator");

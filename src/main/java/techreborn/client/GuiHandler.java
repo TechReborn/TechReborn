@@ -40,6 +40,7 @@ public class GuiHandler implements IGuiHandler {
     public static final int idsuID = 27;
     public static final int chargeBench = 28;
     public static final int fusionID = 29;
+    public static final int vacuumFreezerID = 30;
 
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world,
@@ -119,6 +120,8 @@ public class GuiHandler implements IGuiHandler {
             return new ContainerChargeBench((TileChargeBench) world.getTileEntity(x, y, z), player);
         } else if (ID == fusionID) {
             return new ContainerFusionReactor((TileEntityFusionController) world.getTileEntity(x, y, z), player);
+        }else if (ID == vacuumFreezerID) {
+            return new ContainerVacuumFreezer((TileVacuumFreezer) world.getTileEntity(x, y, z), player);
         }
 
 
@@ -203,6 +206,8 @@ public class GuiHandler implements IGuiHandler {
             return new GuiChargeBench(player, (TileChargeBench) world.getTileEntity(x, y, z));
         }else if (ID == fusionID) {
             return new GuiFusionReactor(player, (TileEntityFusionController) world.getTileEntity(x, y, z));
+        }else if (ID == vacuumFreezerID) {
+            return new GuiVacuumFreezer(player, (TileVacuumFreezer) world.getTileEntity(x, y, z));
         }
         return null;
     }

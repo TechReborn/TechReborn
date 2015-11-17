@@ -2,6 +2,7 @@ package techreborn.compat.nei;
 
 import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
+import techreborn.api.recipe.machines.VacuumFreezerRecipe;
 import techreborn.compat.nei.recipes.*;
 import techreborn.lib.ModInfo;
 
@@ -72,6 +73,10 @@ public class NEIConfig implements IConfigureNEI {
         FustionReacorRecipeHandler fustionReacorRecipeHandler = new FustionReacorRecipeHandler();
         API.registerUsageHandler(fustionReacorRecipeHandler);
         API.registerRecipeHandler(fustionReacorRecipeHandler);
+
+        VacuumFreezerRecipeHandler vacuumFreezerRecipe = new VacuumFreezerRecipeHandler();
+        API.registerUsageHandler(vacuumFreezerRecipe);
+        API.registerRecipeHandler(vacuumFreezerRecipe);
 
     }
 }

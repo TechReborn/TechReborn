@@ -15,4 +15,5 @@ public class Reference {
     public static String industrialSawmillRecipe = StatCollector.translateToLocal("techreborn.recipe.industrialsawmill");
     public static String latheRecipe = StatCollector.translateToLocal("techreborn.recipe.lathe");
     public static String plateCuttingMachineRecipe = StatCollector.translateToLocal("techreborn.recipe.platecuttingmachine");
+    public static String vacuumFreezerRecipe = StatCollector.translateToLocal("tile.techreborn.vacuumfreezer.name");
 }
