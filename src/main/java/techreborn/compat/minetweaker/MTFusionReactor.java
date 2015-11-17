@@ -73,18 +73,16 @@ public class MTFusionReactor {
     }
 
     @ZenMethod
-    public static void removeRecipe(IItemStack output, String machineName) {
-        MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(output), machineName));
+    public static void removeRecipe(IItemStack output) {
+        MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(output)));
     }
 
     private static class Remove implements IUndoableAction {
         private final ItemStack output;
         List<FusionReactorRecipe> removedRecipes = new ArrayList<FusionReactorRecipe>();
-        private final String name;
 
-        public Remove(ItemStack output, String machineName) {
+        public Remove(ItemStack output) {
             this.output = output;
-            this.name = machineName;
         }
 
         @Override
@@ -113,12 +111,12 @@ public class MTFusionReactor {
 
         @Override
         public String describe() {
-            return "Removing " + name + " recipe for " + output.getDisplayName();
+            return "Removing Fusion Reactor recipe for " + output.getDisplayName();
         }
 
         @Override
         public String describeUndo() {
-            return "Re-Adding " + name +" recipe for " + output.getDisplayName();
+            return "Re-Adding Fusion Reactor recipe for " + output.getDisplayName();
         }
 
         @Override
