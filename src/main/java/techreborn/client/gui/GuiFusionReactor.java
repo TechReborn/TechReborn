@@ -1,11 +1,20 @@
 package techreborn.client.gui;
 
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.common.util.ForgeDirection;
+import reborncore.client.multiblock.Multiblock;
+import reborncore.client.multiblock.MultiblockSet;
+import reborncore.common.misc.Location;
+import techreborn.client.ClientMultiBlocks;
 import techreborn.client.container.ContainerFusionReactor;
+import techreborn.init.ModBlocks;
+import techreborn.proxies.ClientProxy;
 import techreborn.tiles.fusionReactor.TileEntityFusionController;
 
 
@@ -14,11 +23,13 @@ public class GuiFusionReactor extends GuiContainer {
     private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/fusion_reactor.png");
 
     ContainerFusionReactor containerFusionReactor;
+    TileEntityFusionController fusionController;
 
     public GuiFusionReactor(EntityPlayer player,
                             TileEntityFusionController tileaesu) {
         super(new ContainerFusionReactor(tileaesu, player));
         containerFusionReactor = (ContainerFusionReactor) this.inventorySlots;
+        this.fusionController = tileaesu;
     }
 
     protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
@@ -30,6 +41,22 @@ public class GuiFusionReactor extends GuiContainer {
         this.fontRendererObj.drawString("Coils: " + (containerFusionReactor.coilStatus == 1 ? "Yes" : "No"), 11, 16, 16448255);
         this.fontRendererObj.drawString("Start EU: " + percentage(containerFusionReactor.neededEU, containerFusionReactor.energy) + "%", 11, 24, 16448255);
 
+    }
+
+    @Override
+    public void initGui() {
+        int k = (this.width - this.xSize) / 2;
+        int l = (this.height - this.ySize) / 2;
+        GuiButton button = new GuiButton(212, k + this.xSize - 24, l + 4, 20, 20, "");
+        buttonList.add(button);
+        super.initGui();
+        ChunkCoordinates coordinates = new ChunkCoordinates(fusionController.xCoord - (ForgeDirection.getOrientation(fusionController.getRotation()).offsetX * 2), fusionController.yCoord - 1, fusionController.zCoord - (ForgeDirection.getOrientation(fusionController.getRotation()).offsetZ * 2));
+        if(coordinates.equals(ClientProxy.multiblockRenderEvent.anchor)){
+            ClientProxy.multiblockRenderEvent.setMultiblock(null);
+            button.displayString = "B";
+        } else {
+            button.displayString = "A";
+        }
     }
 
     @Override
@@ -50,5 +77,24 @@ public class GuiFusionReactor extends GuiContainer {
         if (CurrentValue == 0)
             return 0;
         return (int) ((CurrentValue * 100.0f) / MaxValue);
+    }
+
+    @Override
+    public void actionPerformed(GuiButton button) {
+        super.actionPerformed(button);
+        if(button.id == 212){
+            if(ClientProxy.multiblockRenderEvent.currentMultiblock == null){
+                {//This code here makes a basic multiblock and then sets to the selected one.
+                    MultiblockSet set = new MultiblockSet(ClientMultiBlocks.reactor);
+                    ClientProxy.multiblockRenderEvent.setMultiblock(set);
+                    ClientProxy.multiblockRenderEvent.partent = new Location(fusionController.xCoord, fusionController.yCoord, fusionController.zCoord, fusionController.getWorldObj());
+                    ClientProxy.multiblockRenderEvent.anchor = new ChunkCoordinates(fusionController.xCoord , fusionController.yCoord -1 , fusionController.zCoord);
+                }
+                button.displayString = "A";
+            } else {
+                ClientProxy.multiblockRenderEvent.setMultiblock(null);
+                button.displayString = "B";
+            }
+        }
     }
 }

@@ -3,6 +3,7 @@ package techreborn.proxies;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import reborncore.client.multiblock.MultiblockRenderEvent;
+import techreborn.client.ClientMultiBlocks;
 import techreborn.client.IconSupplier;
 import techreborn.client.StackToolTipEvent;
 import techreborn.client.VersionCheckerClient;
@@ -23,5 +24,6 @@ public class ClientProxy extends CommonProxy {
         multiblockRenderEvent = new MultiblockRenderEvent();
         MinecraftForge.EVENT_BUS.register(multiblockRenderEvent);
         ClientRegistry.registerKeyBinding(KeyBindings.config);
+        ClientMultiBlocks.init();
     }
 }

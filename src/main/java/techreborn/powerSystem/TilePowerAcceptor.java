@@ -231,7 +231,7 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
 
     @Override
     public double useEnergy(double extract, boolean simulate) {
-        double energyExtracted = Math.min(extract, Math.min(this.getMaxOutput(), extract));
+        double energyExtracted = Math.min(getMaxPower() - energy, Math.min(getMaxPower(), extract));
 
         if (!simulate) {
             setEnergy(energy - energyExtracted);
