@@ -10,6 +10,7 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import org.lwjgl.input.Keyboard;
 import reborncore.api.IListInfoProvider;
 import reborncore.common.util.Color;
+import techreborn.Core;
 import techreborn.api.power.IEnergyInterfaceItem;
 
 public class StackToolTipEvent {
@@ -35,12 +36,16 @@ public class StackToolTipEvent {
                 event.toolTip.add(Color.GREEN + "" + (int) ((IEnergyInterfaceItem) event.itemStack.getItem()).getMaxTransfer(event.itemStack) + ChatFormatting.LIGHT_PURPLE + " eu/tick in/out");
             }
         } else {
-            Block block = Block.getBlockFromItem(event.itemStack.getItem());
-            if (block != null && block instanceof BlockContainer && block.getClass().getCanonicalName().startsWith("techreborn.")) {
-                TileEntity tile = block.createTileEntity(Minecraft.getMinecraft().theWorld, event.itemStack.getItemDamage());
-                if (tile instanceof IListInfoProvider) {
-                    ((IListInfoProvider) tile).addInfo(event.toolTip, false);
+            try{
+                Block block = Block.getBlockFromItem(event.itemStack.getItem());
+                if (block != null && block instanceof BlockContainer && block.getClass().getCanonicalName().startsWith("techreborn.")) {
+                    TileEntity tile = block.createTileEntity(Minecraft.getMinecraft().theWorld, event.itemStack.getItemDamage());
+                    if (tile instanceof IListInfoProvider) {
+                        ((IListInfoProvider) tile).addInfo(event.toolTip, false);
+                    }
                 }
+            } catch (NullPointerException e){
+                Core.logHelper.debug("Failed to load info for " + event.itemStack.getDisplayName());
             }
         }
     }
