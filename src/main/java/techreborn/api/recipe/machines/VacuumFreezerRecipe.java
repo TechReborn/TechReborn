@@ -24,7 +24,9 @@ public class VacuumFreezerRecipe extends BaseRecipe {
     @Override
     public boolean canCraft(TileEntity tile) {
         if(tile instanceof TileVacuumFreezer){
-            return ((TileVacuumFreezer) tile).multiBlockStatus == 1;
+            if(((TileVacuumFreezer) tile).multiBlockStatus == 1){
+                return true;
+            }
         }
         return false;
     }

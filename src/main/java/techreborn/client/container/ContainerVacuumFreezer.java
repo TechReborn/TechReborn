@@ -68,6 +68,7 @@ public class ContainerVacuumFreezer extends ContainerCrafting {
     @SideOnly(Side.CLIENT)
     @Override
     public void updateProgressBar(int id, int value) {
+        super.updateProgressBar(id, value);
          if (id == 3) {
             machineStatus = value;
         }

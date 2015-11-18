@@ -1,12 +1,19 @@
 package techreborn.client.gui;
 
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.common.util.ForgeDirection;
 import reborncore.client.gui.GuiUtil;
+import reborncore.client.multiblock.MultiblockSet;
+import reborncore.common.misc.Location;
+import techreborn.client.ClientMultiBlocks;
 import techreborn.client.container.ContainerVacuumFreezer;
+import techreborn.proxies.ClientProxy;
 import techreborn.tiles.TileVacuumFreezer;
 
 public class GuiVacuumFreezer extends GuiContainer {
@@ -28,7 +35,16 @@ public class GuiVacuumFreezer extends GuiContainer {
     public void initGui() {
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
+        GuiButton button = new GuiButton(212, k + this.xSize - 24, l + 4, 20, 20, "");
+        buttonList.add(button);
         super.initGui();
+        ChunkCoordinates coordinates = new ChunkCoordinates(crafter.xCoord, crafter.yCoord - 1, crafter.zCoord);
+        if(coordinates.equals(ClientProxy.multiblockRenderEvent.anchor)){
+            ClientProxy.multiblockRenderEvent.setMultiblock(null);
+            button.displayString = "B";
+        } else {
+            button.displayString = "A";
+        }
     }
 
     @Override
@@ -42,7 +58,7 @@ public class GuiVacuumFreezer extends GuiContainer {
 
         j = crafter.getProgressScaled(24);
         if (j > 0) {
-            this.drawTexturedModalRect(k + 79, l + 34, 176, 14, j + 1, 16);
+            this.drawTexturedModalRect(k + 79, l + 37, 176, 14, j + 1, 16);
         }
 
         j = crafter.getEnergyScaled(12);
@@ -60,5 +76,24 @@ public class GuiVacuumFreezer extends GuiContainer {
         String name = StatCollector.translateToLocal("tile.techreborn.alloysmelter.name");
         this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
         this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
+    }
+
+    @Override
+    public void actionPerformed(GuiButton button) {
+        super.actionPerformed(button);
+        if(button.id == 212){
+            if(ClientProxy.multiblockRenderEvent.currentMultiblock == null){
+                {//This code here makes a basic multiblock and then sets to the selected one.
+                    MultiblockSet set = new MultiblockSet(ClientMultiBlocks.frezzer);
+                    ClientProxy.multiblockRenderEvent.setMultiblock(set);
+                    ClientProxy.multiblockRenderEvent.partent = new Location(crafter.xCoord, crafter.yCoord, crafter.zCoord, crafter.getWorldObj());
+                    ClientProxy.multiblockRenderEvent.anchor = new ChunkCoordinates(crafter.xCoord , crafter.yCoord -1 , crafter.zCoord);
+                }
+                button.displayString = "A";
+            } else {
+                ClientProxy.multiblockRenderEvent.setMultiblock(null);
+                button.displayString = "B";
+            }
+        }
     }
 }

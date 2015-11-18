@@ -25,7 +25,7 @@ public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,
         int[] inputs = new int[1];
         inputs[0] = 0;
         int[] outputs = new int[1];
-        outputs[0] = 0;
+        outputs[0] = 1;
         crafter = new RecipeCrafter(Reference.vacuumFreezerRecipe, this, 2, 1, inventory, inputs, outputs);
     }
 
@@ -193,10 +193,10 @@ public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,
                         if (worldObj.getBlock(xCoord - xDir + i, yCoord - yDir + j, zCoord - zDir + k) != ModBlocks.MachineCasing) {
                             return false;
                         }
-                        if (worldObj.getBlockMetadata(xCoord - xDir + i, yCoord - yDir + j, zCoord - zDir + k) != (((i == 0) && (j == 0) && (k != 0)) || ((i == 0) && (j != 0) && (k == 0)) || ((i != 0) && (j == 0) && (k == 0)) ? 1 : 2)) {
+                        if (worldObj.getBlockMetadata(xCoord - xDir + i, yCoord - yDir + j, zCoord - zDir + k) != (((i == 0) && (j == 0) && (k != 0)) || ((i == 0) && (j != 0) && (k == 0)) || ((i != 0) && (j == 0) && (k == 0)) ? 2 : 1)) {
                             return false;
                         }
-                    } else if (worldObj.getBlockMetadata(xCoord - xDir + i, yCoord - yDir + j, zCoord - zDir + k) != 0) {
+                    } else if (!worldObj.isAirBlock(xCoord - xDir + i, yCoord - yDir + j, zCoord - zDir + k)) {
                         return false;
                     }
                 }
