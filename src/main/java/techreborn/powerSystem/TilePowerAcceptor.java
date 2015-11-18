@@ -269,10 +269,6 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
         tag.setTag("TilePowerAcceptor", data);
     }
 
-    public int getEnergyScaled(int scale) {
-        return (int) ((energy * scale / getMaxOutput() * ConfigTechReborn.euPerRF));
-    }
-
     @Override
     public void addInfo(List<String> info, boolean isRealTile) {
         info.add(ChatFormatting.LIGHT_PURPLE + "Energy buffer Size " + ChatFormatting.GREEN + getEUString(getMaxPower()));
@@ -311,5 +307,9 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
         return (int) getMaxOutput();
     }
 
+
+    public int getEnergyScaled(int scale) {
+        return (int) ((energy * scale / getMaxPower()));
+    }
 
 }
