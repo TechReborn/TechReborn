@@ -124,6 +124,7 @@ public class TileAesu extends TilePowerAcceptor implements IWrenchable {
         super.writeToNBTWithoutCoords(tagCompound);
         tagCompound.setDouble("euChange", euChange);
         tagCompound.setDouble("euLastTick", euLastTick);
+        tagCompound.setInteger("output", OUTPUT);
         inventory.writeToNBT(tagCompound);
     }
 
@@ -131,6 +132,7 @@ public class TileAesu extends TilePowerAcceptor implements IWrenchable {
         super.readFromNBTWithoutCoords(nbttagcompound);
         this.euChange = nbttagcompound.getDouble("euChange");
         this.euLastTick = nbttagcompound.getDouble("euLastTick");
+        this.OUTPUT = nbttagcompound.getInteger("output");
         inventory.readFromNBT(nbttagcompound);
     }
 

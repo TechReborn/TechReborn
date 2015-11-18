@@ -39,7 +39,8 @@ public class GuiFusionReactor extends GuiContainer {
 
         this.fontRendererObj.drawString("EU: " + containerFusionReactor.energy, 11, 8, 16448255);
         this.fontRendererObj.drawString("Coils: " + (containerFusionReactor.coilStatus == 1 ? "Yes" : "No"), 11, 16, 16448255);
-        this.fontRendererObj.drawString("Start EU: " + percentage(containerFusionReactor.neededEU, containerFusionReactor.energy) + "%", 11, 24, 16448255);
+        if(containerFusionReactor.neededEU > 1 && containerFusionReactor.tickTime < 1)
+            this.fontRendererObj.drawString("Start EU: " + percentage(containerFusionReactor.neededEU, containerFusionReactor.energy) + "%", 11, 24, 16448255);
 
     }
 

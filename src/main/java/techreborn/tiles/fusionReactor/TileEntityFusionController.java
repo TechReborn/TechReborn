@@ -213,7 +213,6 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
                 if (currentRecipe == null) {
                     if (inventory.hasChanged || crafingTickTime != 0) {
                         for (FusionReactorRecipe reactorRecipe : FusionReactorRecipeHelper.reactorRecipes) {
-                            System.out.println(getStackInSlot(topStackSlot) + "@" + reactorRecipe.getTopInput());
                             if (ItemUtils.isItemEqual(getStackInSlot(topStackSlot), reactorRecipe.getTopInput(), true, true, true)) {
                                 if (reactorRecipe.getBottomInput() != null) {
                                     if (ItemUtils.isItemEqual(getStackInSlot(bottomStackSlot), reactorRecipe.getBottomInput(), true, true, true) == false) {
@@ -239,11 +238,12 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
                     if (inventory.hasChanged) {
                         if (!validateRecipe()) {
                             resetCrafter();
+                            return;
                         }
                     }
                     if (!hasStartedCrafting) {
-                        if (canUseEnergy(currentRecipe.getStartEU())) {
-                            setEnergy(getEnergy() - currentRecipe.getStartEU());
+                        if (canUseEnergy(currentRecipe.getStartEU() + 64)) {
+                            useEnergy(currentRecipe.getStartEU());
                             hasStartedCrafting = true;
                         }
                     } else {
