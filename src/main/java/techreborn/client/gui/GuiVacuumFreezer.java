@@ -38,7 +38,7 @@ public class GuiVacuumFreezer extends GuiContainer {
         GuiButton button = new GuiButton(212, k + this.xSize - 24, l + 4, 20, 20, "");
         buttonList.add(button);
         super.initGui();
-        ChunkCoordinates coordinates = new ChunkCoordinates(crafter.xCoord, crafter.yCoord - 1, crafter.zCoord);
+        ChunkCoordinates coordinates = new ChunkCoordinates(crafter.xCoord, crafter.yCoord - 5, crafter.zCoord);
         if(coordinates.equals(ClientProxy.multiblockRenderEvent.anchor)){
             ClientProxy.multiblockRenderEvent.setMultiblock(null);
             button.displayString = "B";
@@ -87,7 +87,7 @@ public class GuiVacuumFreezer extends GuiContainer {
                     MultiblockSet set = new MultiblockSet(ClientMultiBlocks.frezzer);
                     ClientProxy.multiblockRenderEvent.setMultiblock(set);
                     ClientProxy.multiblockRenderEvent.partent = new Location(crafter.xCoord, crafter.yCoord, crafter.zCoord, crafter.getWorldObj());
-                    ClientProxy.multiblockRenderEvent.anchor = new ChunkCoordinates(crafter.xCoord , crafter.yCoord -1 , crafter.zCoord);
+                    ClientProxy.multiblockRenderEvent.anchor = new ChunkCoordinates(crafter.xCoord , crafter.yCoord -5 , crafter.zCoord);
                 }
                 button.displayString = "A";
             } else {

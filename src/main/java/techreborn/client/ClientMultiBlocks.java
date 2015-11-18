@@ -60,7 +60,7 @@ public class ClientMultiBlocks {
             for (int j = -1; j < 2; j++) {
                 for (int k = -1; k < 2; k++) {
                     if ((i != 0) || (j != 0) || (k != 0)) {
-                        reactor.addComponent(xDir + i, yDir + j, zDir + k, ModBlocks.MachineCasing, (((i == 0) && (j == 0) && (k != 0)) || ((i == 0) && (j != 0) && (k == 0)) || ((i != 0) && (j == 0) && (k == 0)) ? 2 : 1));
+                        frezzer.addComponent(xDir + i, yDir + j, zDir + k, ModBlocks.MachineCasing, (((i == 0) && (j == 0) && (k != 0)) || ((i == 0) && (j != 0) && (k == 0)) || ((i != 0) && (j == 0) && (k == 0)) ? 2 : 1));
                     }
                 }
             }
