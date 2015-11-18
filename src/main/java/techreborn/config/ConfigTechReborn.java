@@ -673,7 +673,7 @@ public class ConfigTechReborn {
                 true, StatCollector.translateToLocal("config.techreborn.connectTextures.tooltip")).getBoolean(true);
 
         oreUnifer = config.get(CATEGORY_INTEGRATION, StatCollector.translateToLocal("config.techreborn.oreUnifer"),
-                true, StatCollector.translateToLocal("config.techreborn.oreUnifer.tooltip")).getBoolean(false);
+                false, StatCollector.translateToLocal("config.techreborn.oreUnifer.tooltip")).getBoolean(false);
 
         //Integration
         AllowBOPRecipes = config.get(CATEGORY_INTEGRATION, StatCollector.translateToLocal("config.techreborn.allowBopRecipes"),

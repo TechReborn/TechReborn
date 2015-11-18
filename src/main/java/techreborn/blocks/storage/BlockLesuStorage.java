@@ -32,7 +32,7 @@ public class BlockLesuStorage extends BlockMachineBase {
         this.icons = new IIcon[1][16];
         //  up   down  left  right
         if (!ConfigTechReborn.useConnectedTextures) {
-            for (int j = 0; j < 15; j++) {
+            for (int j = 0; j < 16; j++) {
                 icons[0][j] = iconRegister.registerIcon("techreborn:" + "machine/lesu_block");
             }
             return;

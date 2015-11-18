@@ -71,9 +71,9 @@ public class BlockMachineCasing extends BlockMultiblockBase {
         this.icons = new IIcon[types.length][16];
         if (!ConfigTechReborn.useConnectedTextures) {
             for (int i = 0; i < types.length; i++) {
-                for (int j = 0; j < 15; j++) {
+                for (int j = 0; j < 16; j++) {
                     icons[i][j] = iconRegister.registerIcon("techreborn:" + "machine/casing"
-                            + types[i]);
+                            + types[i] + "_full");
                 }
             }
             return;
