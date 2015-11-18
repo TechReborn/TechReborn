@@ -19,6 +19,7 @@ import java.util.List;
 @ZenClass("mods.techreborn.fusionReactor")
 public class MTFusionReactor {
 
+    @ZenMethod
     public static void addRecipe(IIngredient topInput, IIngredient bottomInput, IItemStack output, int startEU, int euTick, int tickTime){
         FusionReactorRecipe reactorRecipe = new FusionReactorRecipe((ItemStack) MinetweakerCompat.toObject(topInput), (ItemStack) MinetweakerCompat.toObject(bottomInput), MinetweakerCompat.toStack(output), startEU, euTick, tickTime);
         MineTweakerAPI.apply(new Add(reactorRecipe));
