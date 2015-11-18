@@ -79,7 +79,7 @@ public class ContainerRollingMachine extends RebornContainer {
             if (this.currentItemBurnTime != tile.runTime) {
                 crafting.sendProgressBarUpdate(this, 0, tile.runTime);
             }
-            if (this.burnTime != tile.tickTime) {
+            if (this.burnTime != tile.tickTime || tile.tickTime == -1) {
                 crafting.sendProgressBarUpdate(this, 1, tile.tickTime);
             }
             if (this.energy != (int) tile.getEnergy()) {
@@ -100,6 +100,9 @@ public class ContainerRollingMachine extends RebornContainer {
             this.energy = value;
         }
         this.tile.runTime = this.currentItemBurnTime;
+        if(this.burnTime == -1){
+            this.burnTime = 0;
+        }
         this.tile.tickTime = this.burnTime;
         this.tile.setEnergy(this.energy);
     }
