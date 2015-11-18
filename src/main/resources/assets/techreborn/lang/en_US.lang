@@ -50,6 +50,9 @@ tile.techreborn.machineFrame.steel.name=Steel Machine Hull
 tile.techreborn.machineFrame.titanium.name=Titanium Machine Hull
 tile.techreborn.industrialsawmill.name=Saw Mill
 tile.techreborn.chargebench.name=Charge Bench
+tile.techreborn.playerDetector.all.name=Player Detector (All)
+tile.techreborn.playerDetector.others.name=Player Detector (Others)
+tile.techreborn.playerDetector.you.name=Player Detector (You)
 
 #Ores
 tile.techreborn.ore.Galena.name=Galena Ore

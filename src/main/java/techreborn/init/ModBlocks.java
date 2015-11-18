@@ -63,6 +63,7 @@ public class ModBlocks {
     public static Block heatGenerator;
     public static Block industrialSawmill;
     public static Block chargeBench;
+    public static Block playerDetector;
 
     public static Block ore;
     public static Block storage;
@@ -121,6 +122,9 @@ public class ModBlocks {
         chargeBench = new BlockChargeBench(Material.rock);
         GameRegistry.registerBlock(chargeBench, "chargebench");
         GameRegistry.registerTileEntity(TileChargeBench.class, "TileChargeBench");
+
+        playerDetector = new BlockPlayerDetector();
+        GameRegistry.registerBlock(playerDetector, ItemBlockPlayerDetector.class, "playerDetector");
 
         MachineCasing = new BlockMachineCasing(Material.rock);
         GameRegistry.registerBlock(MachineCasing, ItemBlockMachineCasing.class, "machinecasing");
