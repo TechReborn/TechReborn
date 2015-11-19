@@ -10,12 +10,4 @@ The current main maintainers are @modmuss50 and @gigabit101 if you need any help
 
 [![Build Status](http://modmuss50.me:8080/buildStatus/icon?job=TechReborn)](http://modmuss50.me:8080/job/TechReborn/)
 
-## Debugging the coremod
-
-If you need to debug the coremod method striping code you must use a custom launch argument to tell forge about the Loading plugin, this is not needed when not running in a none developer environment.
-
-`-Dfml.coreMods.load=techreborn.asm.LoadingPlugin`
-
-Add that to your JVM arguments in the run configurations in your chosen IDE. This is not mandatory but it is only needed if you want to debug the asm core mod code.
-
 REMOVED ALL THE JUNK FROM OTHER VERSION 2.78 ONLY 
