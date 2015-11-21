@@ -1,5 +1,6 @@
 package techreborn.compat.minetweaker;
 
+import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
 import minetweaker.api.liquid.ILiquidStack;
@@ -12,6 +13,8 @@ import techreborn.lib.Reference;
 
 @ZenClass("mods.techreborn.grinder")
 public class MTGrinder extends MTGeneric {
+
+
     @ZenMethod
     public static void addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient input1, IIngredient input2, int ticktime, int euTick) {
         addRecipe(output1, output2, output3, output4, input1, input2, null, ticktime, euTick);
@@ -33,8 +36,17 @@ public class MTGrinder extends MTGeneric {
         addRecipe(r);
     }
 
-    @Override
-    public String getMachineName() {
+    @ZenMethod
+    public static void removeInputRecipe(IIngredient iIngredient) {
+        MineTweakerAPI.apply(new RemoveInput(iIngredient, getMachineName()));
+    }
+
+    @ZenMethod
+    public static void removeRecipe(IItemStack output) {
+        MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(output), getMachineName()));
+    }
+
+    public static String getMachineName() {
         return Reference.grinderRecipe;
     }
 }

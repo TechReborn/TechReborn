@@ -1,5 +1,6 @@
 package techreborn.compat.minetweaker;
 
+import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
 import minetweaker.api.liquid.ILiquidStack;
@@ -12,6 +13,7 @@ import techreborn.lib.Reference;
 
 @ZenClass("mods.techreborn.industrialSawmill")
 public class MTIndustrialSawmill extends MTGeneric {
+
 
     @ZenMethod
     public static void addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IIngredient input1, IIngredient input2, ILiquidStack fluid, int ticktime, int euTick) {
@@ -44,8 +46,17 @@ public class MTIndustrialSawmill extends MTGeneric {
         addRecipe(r);
     }
 
-    @Override
-    public String getMachineName() {
+    @ZenMethod
+    public static void removeInputRecipe(IIngredient iIngredient) {
+        MineTweakerAPI.apply(new RemoveInput(iIngredient, getMachineName()));
+    }
+
+    @ZenMethod
+    public static void removeRecipe(IItemStack output) {
+        MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(output), getMachineName()));
+    }
+
+    public static String getMachineName() {
         return Reference.industrialSawmillRecipe;
     }
 }

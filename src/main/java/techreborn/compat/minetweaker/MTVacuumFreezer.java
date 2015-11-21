@@ -1,5 +1,6 @@
 package techreborn.compat.minetweaker;
 
+import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
 import net.minecraft.item.ItemStack;
@@ -19,8 +20,17 @@ public class MTVacuumFreezer extends MTGeneric {
         addRecipe(r);
     }
 
-    @Override
-    public  String getMachineName() {
+    @ZenMethod
+    public static void removeInputRecipe(IIngredient iIngredient) {
+        MineTweakerAPI.apply(new RemoveInput(iIngredient, getMachineName()));
+    }
+
+    @ZenMethod
+    public static void removeRecipe(IItemStack output) {
+        MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(output), getMachineName()));
+    }
+
+    public static String getMachineName() {
         return Reference.vacuumFreezerRecipe;
     }
 }

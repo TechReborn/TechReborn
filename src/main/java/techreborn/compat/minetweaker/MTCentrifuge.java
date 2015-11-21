@@ -1,5 +1,6 @@
 package techreborn.compat.minetweaker;
 
+import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
 import net.minecraft.item.ItemStack;
@@ -9,7 +10,8 @@ import techreborn.api.recipe.machines.CentrifugeRecipe;
 import techreborn.lib.Reference;
 
 @ZenClass("mods.techreborn.centrifuge")
-public class MTCentrifuge extends MTGeneric{
+public class MTCentrifuge extends MTGeneric {
+
     @ZenMethod
     public static void addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient input1, IIngredient input2, int ticktime, int euTick) {
         ItemStack oInput1 = (ItemStack) MinetweakerCompat.toObject(input1);
@@ -20,8 +22,17 @@ public class MTCentrifuge extends MTGeneric{
         addRecipe(r);
     }
 
-    @Override
-    public String getMachineName() {
+    @ZenMethod
+    public static void removeInputRecipe(IIngredient iIngredient) {
+        MineTweakerAPI.apply(new RemoveInput(iIngredient, getMachineName()));
+    }
+
+    @ZenMethod
+    public static void removeRecipe(IItemStack output) {
+        MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(output), getMachineName()));
+    }
+
+    public static String getMachineName() {
         return Reference.centrifugeRecipe;
     }
 }

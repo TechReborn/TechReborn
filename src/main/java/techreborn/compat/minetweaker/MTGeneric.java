@@ -3,11 +3,9 @@ package techreborn.compat.minetweaker;
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
-import minetweaker.api.item.IItemStack;
 import minetweaker.api.minecraft.MineTweakerMC;
 import net.minecraft.item.ItemStack;
 import reborncore.common.util.ItemUtils;
-import stanhebben.zenscript.annotations.ZenMethod;
 import techreborn.api.recipe.BaseRecipe;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.api.recipe.RecipeHandler;
@@ -16,24 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MTGeneric {
-
-    static MTGeneric instance;
-
-    public String getMachineName(){
+    public static String getMachineName() {
         return null;
     }
 
-    public MTGeneric() {
-        instance = new MTGeneric();
-    }
-
-    public static void addRecipe(BaseRecipe recipe){
+    public static void addRecipe(BaseRecipe recipe) {
         MineTweakerAPI.apply(new Add(recipe));
-    }
-
-    @ZenMethod
-    public static void removeInputRecipe(IIngredient iIngredient) {
-        MineTweakerAPI.apply(new RemoveInput(iIngredient, instance.getMachineName()));
     }
 
     private static class Add implements IUndoableAction {
@@ -74,12 +60,7 @@ public class MTGeneric {
         }
     }
 
-    @ZenMethod
-    public static void removeRecipe(IItemStack output) {
-        MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(output), instance.getMachineName()));
-    }
-
-    private static class Remove implements IUndoableAction {
+    public static class Remove implements IUndoableAction {
         private final ItemStack output;
         List<BaseRecipe> removedRecipes = new ArrayList<BaseRecipe>();
         private final String name;
@@ -121,7 +102,7 @@ public class MTGeneric {
 
         @Override
         public String describeUndo() {
-            return "Re-Adding " + name +" recipe for " + output.getDisplayName();
+            return "Re-Adding " + name + " recipe for " + output.getDisplayName();
         }
 
         @Override
@@ -136,7 +117,7 @@ public class MTGeneric {
     }
 
 
-    private static class RemoveInput implements IUndoableAction {
+    public static class RemoveInput implements IUndoableAction {
         private final IIngredient output;
         List<BaseRecipe> removedRecipes = new ArrayList<BaseRecipe>();
         private final String name;
@@ -178,7 +159,7 @@ public class MTGeneric {
 
         @Override
         public String describeUndo() {
-            return "Re-Adding " + name +" recipe";
+            return "Re-Adding " + name + " recipe";
         }
 
         @Override
