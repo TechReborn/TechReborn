@@ -1218,7 +1218,7 @@ public class RecipesIC2 implements ICompatModule {
             }
         }
 
-        if(!Loader.isModLoaded("gregtech")){
+        if(CompatManager.isGregTechLoaded){
             if (!IC2Classic.isIc2ClassicLoaded()  && OreUtil.doesOreExistAndValid("oreRedstone")) {
                 Recipes.macerator.addRecipe(new RecipeInputOreDict("oreRedstone"), null, new ItemStack(Items.redstone, 9));
             }
