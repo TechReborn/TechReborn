@@ -18,7 +18,7 @@ public class CompatManager {
     public static boolean isIC2Loaded = false;
     public static boolean isIC2ClassicLoaded = false;
     public static boolean isClassicEnet = false;
-    public static boolean isGrecgTechLoaded = false;
+    public static boolean isGregTechLoaded  = false;
 
     public CompatManager() {
         isIC2Loaded = Loader.isModLoaded("IC2");
@@ -30,7 +30,7 @@ public class CompatManager {
             isClassicEnet = true;
         }
         if(Loader.isModLoaded("gregtech")){
-            isGrecgTechLoaded = true;
+            isGregTechLoaded = true;
         }
 
         registerCompact(CompatModuleWaila.class, "Waila");

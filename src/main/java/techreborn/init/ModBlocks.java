@@ -125,6 +125,7 @@ public class ModBlocks {
 
         playerDetector = new BlockPlayerDetector();
         GameRegistry.registerBlock(playerDetector, ItemBlockPlayerDetector.class, "playerDetector");
+        GameRegistry.registerTileEntity(TilePlayerDectector.class, "TilePlayerDectectorTR");
 
         MachineCasing = new BlockMachineCasing(Material.rock);
         GameRegistry.registerBlock(MachineCasing, ItemBlockMachineCasing.class, "machinecasing");
