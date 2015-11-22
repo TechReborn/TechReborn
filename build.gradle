@@ -97,27 +97,29 @@ dependencies {
     if (!f.exists()) {
         f.mkdir()
     }
-    compile 'net.industrial-craft:industrialcraft-2:2.2.782-experimental:dev'
-    shade 'net.industrial-craft:industrialcraft-2:2.2.782-experimental:api'
-    compile "codechicken:CodeChickenLib:1.7.10-1.1.3.136:dev"
-    compile "codechicken:CodeChickenCore:1.7.10-1.0.6.+:dev"
-    compile "codechicken:NotEnoughItems:1.7.10-1.0.4.+:dev"
+    compile 'net.industrial-craft:industrialcraft-2:2.2.796-experimental:dev'
+    shade 'net.industrial-craft:industrialcraft-2:2.2.796-experimental:api'
+    compile "codechicken:CodeChickenLib:1.7.10-1.1.3.140:dev"
+    compile "codechicken:CodeChickenCore:1.7.10-1.0.7.+:dev"
+    compile "codechicken:NotEnoughItems:1.7.10-1.0.5.+:dev"
     compile "codechicken:ForgeMultipart:1.7.10-1.2.0.345:dev"
-    compile "mcp.mobius.waila:Waila:1.5.10_1.7.10:dev"
-    compile name: 'buildcraft', version: '7.0.25', classifier: "dev", ext: 'jar'
+    compile ("mcp.mobius.waila:Waila:1.5.10_1.7.10:dev") {
+        exclude group: 'mcp.mobius.waila'
+    }
+    compile name: 'buildcraft', version: '7.1.13', classifier: "dev", ext: 'jar'
     compile "qmunity:QmunityLib:0.2.+:deobf"
     compile "com.pahimar.ee3:EquivalentExchange3:1.7.10-0.3.507:dev"
-    compile "net.sengir.forestry:forestry_1.7.10:4.0.5.33:dev"
-    shade "net.sengir.forestry:forestry_1.7.10:4.0.5.33:api"
-    compile "tconstruct:TConstruct:1.7.10-1.8.5.build958:deobf"
-    compile "mods.natura:natura:1.7.10-98.6a6cca1:deobf"
-    compile "mantle:Mantle:1.7.10-0.3.2.jenkins187:deobf"
-    compile "com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.7.10-2.1.0.1396:deobf"
+    compile "net.sengir.forestry:forestry_1.7.10:4.2.0.47:dev"
+    shade "net.sengir.forestry:forestry_1.7.10:4.2.0.47:api"
+    compile "tconstruct:TConstruct:1.7.10-1.8.8.build988:deobf"
+    compile "mods.natura:natura:1.7.10-107.779621d:deobf"
+    compile "mantle:Mantle:1.7.10-0.3.2.jenkins192:deobf"
+    compile "com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.7.10-2.1.0.1465:deobf"
     compile 'Azanor:Thaumcraft:4.2.3.5:deobf@jar'
     compile "com.github.azanor:baubles:1.0.1.10:deobf@jar"
     compile name: "MineTweaker3", version: "1.7.10-3.0.9C", classifier: "Dev"
     shade 'IC2-Classic-API-STANDALONE:IC2-Classic-API-STANDALONE:1.1.0.19-5:api'
-    compile 'RebornCore:RebornCore:0.0.0.+:dev'
+    compile 'RebornCore:RebornCore:1.0.0.+:dev'
 
 	testCompile 'junit:junit:4.12'
 }
@@ -171,13 +173,27 @@ task apiJar(type: Jar) {
     classifier = "api"
 }
 
+javadoc {
+    source += sourceSets.api.allSource
+    include 'techreborn/api/**/*'
+}
+
+// add a javadoc jar
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from 'build/docs/javadoc'
+}
+
 apiJar.mustRunAfter deobfJar
 
 artifacts {
     archives sourceJar
     archives deobfJar
     archives apiJar
+    archives javadocJar
 }
+
+build.dependsOn sourceJar, javadocJar, deobfJar, apiJar
 
 uploadArchives {
     repositories {

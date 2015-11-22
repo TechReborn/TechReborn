@@ -41,6 +41,7 @@ public interface IEnergyInterfaceTile {
      * Will try add add the full amount of energy, if simulate is true it wont add the energy
      *
      * @param energy amount to add
+     * @param simulate set to true to simulate not perform the action.
      * @return The amount of energy that was added.
      */
     public double addEnergy(double energy, boolean simulate);
@@ -66,6 +67,7 @@ public interface IEnergyInterfaceTile {
      * Will try and use the full amount of energy, if simulate is true it wont add the energy
      *
      * @param energy energy to use
+     * @param simulate set to true to simulate not perform the action.
      * @return the amount of energy used
      */
     public double useEnergy(double energy, boolean simulate);
@@ -78,7 +80,7 @@ public interface IEnergyInterfaceTile {
 
     /**
      * @param direction The direction to provide energy from
-     * @return
+     * @return true if the tile can provide energy to that direction
      */
     public boolean canProvideEnergy(ForgeDirection direction);
 

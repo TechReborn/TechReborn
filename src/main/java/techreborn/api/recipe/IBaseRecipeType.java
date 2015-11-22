@@ -19,7 +19,7 @@ public interface IBaseRecipeType {
 
     /**
      * This gets the output form the array list
-     *
+     * @param i get output form position in arraylist
      * @return the output
      */
     public ItemStack getOutput(int i);
@@ -45,7 +45,7 @@ public interface IBaseRecipeType {
     /**
      * This should be a user friendly name
      *
-     * @return
+     * @return The user friendly name of the recipe.
      */
     public String getUserFreindlyName();
 

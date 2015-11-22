@@ -57,13 +57,13 @@ public class RecipeCrafter {
     /**
      * This is the constructor, not a lot to say here :P
      *
-     * @param recipeName
-     * @param parentTile
-     * @param inputs
-     * @param outputs
-     * @param inventory
-     * @param inputSlots
-     * @param outputSlots
+     * @param recipeName The recipe name that should be crafted
+     * @param parentTile The tile that wil be using this recipe crafter
+     * @param inputs The amount of input slots
+     * @param outputs The amount of output slots
+     * @param inventory The inventory of the machine
+     * @param inputSlots A list of the input slot ids
+     * @param outputSlots A list of output slot ids
      */
     public RecipeCrafter(String recipeName, TileMachineBase parentTile, int inputs, int outputs, Inventory inventory, int[] inputSlots, int[] outputSlots) {
         this.recipeName = recipeName;
