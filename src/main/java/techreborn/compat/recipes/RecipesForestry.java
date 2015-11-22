@@ -43,7 +43,6 @@ public class RecipesForestry implements ICompatModule {
                 log.stackSize = 1;
                 ItemStack plank = TreeManager.woodItemAccess.getPlanks(woodType, true);
                 plank.stackSize = 6;
-                System.out.println(log.getDisplayName() + ":" + plank.getDisplayName());
                 RecipeHandler.addRecipe(new IndustrialSawmillRecipe(log, null, new FluidStack(FluidRegistry.WATER, 1000), plank, pulpStack, null, 200, 30, false));
                 RecipeHandler.addRecipe(new IndustrialSawmillRecipe(log, IC2Items.getItem("waterCell"), null, plank, pulpStack, IC2Items.getItem("cell"), 200, 30, false));
                 RecipeHandler.addRecipe(new IndustrialSawmillRecipe(log, new ItemStack(Items.water_bucket), null, plank, pulpStack, new ItemStack(Items.bucket), 200, 30, false));
@@ -52,7 +51,6 @@ public class RecipesForestry implements ICompatModule {
                 log.stackSize = 1;
                 plank = TreeManager.woodItemAccess.getPlanks(woodType, false);
                 plank.stackSize = 6;
-                System.out.println(log.getDisplayName() + ":" + plank.getDisplayName());
                 RecipeHandler.addRecipe(new IndustrialSawmillRecipe(log, null, new FluidStack(FluidRegistry.WATER, 1000), plank, pulpStack, null, 200, 30, false));
                 RecipeHandler.addRecipe(new IndustrialSawmillRecipe(log, IC2Items.getItem("waterCell"), null, plank, pulpStack, IC2Items.getItem("cell"), 200, 30, false));
                 RecipeHandler.addRecipe(new IndustrialSawmillRecipe(log, new ItemStack(Items.water_bucket), null, plank, pulpStack, new ItemStack(Items.bucket), 200, 30, false));

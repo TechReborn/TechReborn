@@ -150,7 +150,6 @@ public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchabl
                 if (getFreeSpace() >= powerIn) {
                     addEnergy(powerIn, false);
                     tank.drain(1, true);
-                    System.out.println(getEnergy() + ":" + tank.getFluidAmount());
                 }
             }
         }

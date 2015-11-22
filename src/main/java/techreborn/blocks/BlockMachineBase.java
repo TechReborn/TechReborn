@@ -179,7 +179,6 @@ public class BlockMachineBase extends BlockContainer {
         } else {
             items.add(isAdvanced() ? new ItemStack(Item.getItemFromBlock(ModBlocks.MachineCasing), 1, 2) : new ItemStack(Item.getItemFromBlock(ModBlocks.MachineCasing), 1, 0));
         }
-        System.out.println(items.toString());
         return items;
     }
 

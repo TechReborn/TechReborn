@@ -66,4 +66,8 @@ public class BlockPlayerDetector extends BlockMachineBase {
         return textures[MathHelper.clamp_int(metaData, 0, types.length - 1)];
     }
 
+    @Override
+    public void onBlockAdded(World world, int x, int y, int z) {
+
+    }
 }

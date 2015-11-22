@@ -43,7 +43,6 @@ public class TileChemicalReactor extends TilePowerAcceptor implements IWrenchabl
     {
     	if(getStackInSlot(slot) != null)
     	{
-    		System.out.println("hi");
 	    	if(getStackInSlot(slot).getItem() instanceof IElectricItem)
 	    	{
 	    		if(getEnergy() != getMaxPower())
