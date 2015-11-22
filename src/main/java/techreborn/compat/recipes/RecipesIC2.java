@@ -27,6 +27,7 @@ import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.*;
+import techreborn.compat.CompatManager;
 import techreborn.compat.ICompatModule;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
@@ -1217,12 +1218,15 @@ public class RecipesIC2 implements ICompatModule {
             }
         }
 
-        if (!IC2Classic.isIc2ClassicLoaded() && OreUtil.doesOreExistAndValid("oreRedstone")) {
-            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreRedstone"), null, new ItemStack(Items.redstone, 10));
+        if(!Loader.isModLoaded("gregtech")){
+            if (!IC2Classic.isIc2ClassicLoaded()  && OreUtil.doesOreExistAndValid("oreRedstone")) {
+                Recipes.macerator.addRecipe(new RecipeInputOreDict("oreRedstone"), null, new ItemStack(Items.redstone, 9));
+            }
+            if (OreUtil.doesOreExistAndValid("oreLapis")) {
+                Recipes.macerator.addRecipe(new RecipeInputOreDict("oreLapis"), null, ItemDusts.getDustByName("lapis", 9));
+            }
         }
-        if (OreUtil.doesOreExistAndValid("oreLapis")) {
-            Recipes.macerator.addRecipe(new RecipeInputOreDict("oreLapis"), null, ItemDusts.getDustByName("lapis", 12));
-        }
+
         if (OreUtil.doesOreExistAndValid("oreTeslatite")) {
             ItemStack teslatiteStack = OreDictionary.getOres("dustTeslatite").get(0);
             teslatiteStack.stackSize = 10;
