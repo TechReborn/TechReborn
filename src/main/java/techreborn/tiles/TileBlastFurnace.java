@@ -218,14 +218,14 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
     }
 
     @Override
-    public boolean canInsertItem(int slotIndex, ItemStack itemStack, int side) {
+    public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
         if (slotIndex >= 1)
             return false;
         return isItemValidForSlot(slotIndex, itemStack);
     }
 
     @Override
-    public boolean canExtractItem(int slotIndex, ItemStack itemStack, int side) {
+    public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
         return slotIndex == 2 || slotIndex == 3;
     }
 

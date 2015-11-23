@@ -297,6 +297,28 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
 //    }
 
 
+    public void charge(int slot)
+    {
+        //TODO rewrite to use built in power system
+//        if(getStackInSlot(slot) != null)
+//        {
+//            if(getStackInSlot(slot).getItem() instanceof IElectricItem)
+//            {
+//                if(getEnergy() != getMaxPower())
+//                {
+//                    ItemStack stack = inventory.getStackInSlot(slot);
+//                    double MaxCharge = ((IElectricItem) stack.getItem()).getMaxCharge(stack);
+//                    double CurrentCharge = ElectricItem.manager.getCharge(stack);
+//                    if (CurrentCharge != 0)
+//                    {
+//                        ElectricItem.manager.discharge(stack, 5, 4, false, false, false);
+//                        addEnergy(5);
+//                    }
+//                }
+//            }
+//        }
+    }
+
     public int getEnergyScaled(int scale) {
         return (int) ((energy * scale / getMaxPower()));
     }

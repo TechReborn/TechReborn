@@ -1,7 +1,5 @@
 package techreborn.tiles;
 
-import ic2.api.item.ElectricItem;
-import ic2.api.item.IElectricItem;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -10,6 +8,7 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.IChatComponent;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.api.RollingMachineRecipe;
@@ -19,7 +18,7 @@ import techreborn.powerSystem.TilePowerAcceptor;
 //TODO add tick and power bars.
 public class TileRollingMachine extends TilePowerAcceptor implements IWrenchable, IInventory {
 
-    public Inventory inventory = new Inventory(3, "TileRollingMachine", 64);
+    public Inventory inventory = new Inventory(3, "TileRollingMachine", 64, this);
     public final InventoryCrafting craftMatrix = new InventoryCrafting(
             new RollingTileContainer(), 3, 3);
 
@@ -35,21 +34,6 @@ public class TileRollingMachine extends TilePowerAcceptor implements IWrenchable
         return 100000;
     }
 
-    public void charge(int slot) {
-        if (getStackInSlot(slot) != null) {
-            if (getStackInSlot(slot).getItem() instanceof IElectricItem) {
-                if (getEnergy() != getMaxPower()) {
-                    ItemStack stack = inventory.getStackInSlot(slot);
-                    double MaxCharge = ((IElectricItem) stack.getItem()).getMaxCharge(stack);
-                    double CurrentCharge = ElectricItem.manager.getCharge(stack);
-                    if (CurrentCharge != 0) {
-                        ElectricItem.manager.discharge(stack, 5, 4, false, false, false);
-                        addEnergy(5);
-                    }
-                }
-            }
-        }
-    }
 
     @Override
     public boolean canAcceptEnergy(EnumFacing direction) {
@@ -240,13 +224,49 @@ public class TileRollingMachine extends TilePowerAcceptor implements IWrenchable
     }
 
     @Override
-    public String getInventoryName() {
-        return inventory.getInventoryName();
+    public void openInventory(EntityPlayer player) {
+        inventory.openInventory(player);
     }
 
     @Override
-    public boolean hasCustomInventoryName() {
-        return inventory.hasCustomInventoryName();
+    public void closeInventory(EntityPlayer player) {
+        inventory.closeInventory(player);
+    }
+
+
+    @Override
+    public int getField(int id) {
+        return inventory.getField(id);
+    }
+
+    @Override
+    public void setField(int id, int value) {
+        inventory.setField(id, value);
+    }
+
+    @Override
+    public int getFieldCount() {
+        return inventory.getFieldCount();
+    }
+
+    @Override
+    public void clear() {
+        inventory.clear();
+    }
+
+    @Override
+    public String getCommandSenderName() {
+        return inventory.getCommandSenderName();
+    }
+
+    @Override
+    public boolean hasCustomName() {
+        return inventory.hasCustomName();
+    }
+
+    @Override
+    public IChatComponent getDisplayName() {
+        return inventory.getDisplayName();
     }
 
     @Override
@@ -257,16 +277,6 @@ public class TileRollingMachine extends TilePowerAcceptor implements IWrenchable
     @Override
     public boolean isUseableByPlayer(EntityPlayer player) {
         return inventory.isUseableByPlayer(player);
-    }
-
-    @Override
-    public void openInventory() {
-        inventory.openInventory();
-    }
-
-    @Override
-    public void closeInventory() {
-        inventory.closeInventory();
     }
 
     @Override

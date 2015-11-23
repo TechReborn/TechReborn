@@ -9,7 +9,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.IChatComponent;
 import net.minecraftforge.fluids.*;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
@@ -23,7 +25,7 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
 
     public Tank tank = new Tank("TileThermalGenerator",
             FluidContainerRegistry.BUCKET_VOLUME * 10, this);
-    public Inventory inventory = new Inventory(3, "TileThermalGenerator", 64);
+    public Inventory inventory = new Inventory(3, "TileThermalGenerator", 64, this);
     public static final int euTick = ConfigTechReborn.ThermalGenertaorOutput;
 
     public TileThermalGenerator() {
@@ -121,8 +123,7 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
     public Packet getDescriptionPacket() {
         NBTTagCompound nbtTag = new NBTTagCompound();
         writeToNBT(nbtTag);
-        return new S35PacketUpdateTileEntity(this.getPos().getX(), this.getPos().getY(),
-                this.getPos().getZ(), 1, nbtTag);
+        return new S35PacketUpdateTileEntity(this.getPos(), 1, nbtTag);
     }
 
     @Override
@@ -130,7 +131,7 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
                              S35PacketUpdateTileEntity packet) {
         worldObj.markBlockRangeForRenderUpdate(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX(),
                 getPos().getY(), getPos().getZ());
-        readFromNBT(packet.func_148857_g());
+        readFromNBT(packet.getNbtCompound());
     }
 
     @Override
@@ -138,8 +139,8 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
         super.updateEntity();
         if (!worldObj.isRemote) {
             FluidUtils.drainContainers(this, inventory, 0, 1);
-            for (EnumFacing direction : EnumFacing.VALID_DIRECTIONS) {
-                if (worldObj.getBlock(getPos().getX() + direction.offsetX, getPos().getY() + direction.offsetY, getPos().getZ() + direction.offsetZ) == Blocks.lava) {
+            for (EnumFacing direction : EnumFacing.values()) {
+                if (worldObj.getBlockState(new BlockPos(getPos().getX() + direction.getFrontOffsetX(), getPos().getY() + direction.getFrontOffsetY(), getPos().getZ() + direction.getFrontOffsetZ())).getBlock() == Blocks.lava) {
                     addEnergy(1);
                 }
             }
@@ -182,15 +183,50 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
     public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) {
         inventory.setInventorySlotContents(p_70299_1_, p_70299_2_);
     }
-
     @Override
-    public String getInventoryName() {
-        return inventory.getInventoryName();
+    public void openInventory(EntityPlayer player) {
+        inventory.openInventory(player);
     }
 
     @Override
-    public boolean hasCustomInventoryName() {
-        return inventory.hasCustomInventoryName();
+    public void closeInventory(EntityPlayer player) {
+        inventory.closeInventory(player);
+    }
+
+
+    @Override
+    public int getField(int id) {
+        return inventory.getField(id);
+    }
+
+    @Override
+    public void setField(int id, int value) {
+        inventory.setField(id, value);
+    }
+
+    @Override
+    public int getFieldCount() {
+        return inventory.getFieldCount();
+    }
+
+    @Override
+    public void clear() {
+        inventory.clear();
+    }
+
+    @Override
+    public String getCommandSenderName() {
+        return inventory.getCommandSenderName();
+    }
+
+    @Override
+    public boolean hasCustomName() {
+        return inventory.hasCustomName();
+    }
+
+    @Override
+    public IChatComponent getDisplayName() {
+        return inventory.getDisplayName();
     }
 
     @Override
@@ -201,16 +237,6 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
     @Override
     public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
         return inventory.isUseableByPlayer(p_70300_1_);
-    }
-
-    @Override
-    public void openInventory() {
-        inventory.openInventory();
-    }
-
-    @Override
-    public void closeInventory() {
-        inventory.closeInventory();
     }
 
     @Override

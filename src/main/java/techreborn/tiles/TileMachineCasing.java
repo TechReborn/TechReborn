@@ -7,10 +7,6 @@ import techreborn.multiblocks.MultiBlockCasing;
 
 public class TileMachineCasing extends RectangularMultiblockTileEntityBase {
 
-    @Override
-    public boolean canUpdate() {
-        return false;
-    }
 
     @Override
     public void onMachineActivated() {
@@ -61,4 +57,8 @@ public class TileMachineCasing extends RectangularMultiblockTileEntityBase {
         return (MultiBlockCasing) super.getMultiblockController();
     }
 
+    @Override
+    public void tick() {
+
+    }
 }

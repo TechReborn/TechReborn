@@ -7,7 +7,9 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.IChatComponent;
 import reborncore.common.misc.Location;
 import reborncore.common.util.Inventory;
 import techreborn.api.recipe.RecipeCrafter;
@@ -19,7 +21,7 @@ import techreborn.powerSystem.TilePowerAcceptor;
 public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory {
 
     public int tickTime;
-    public Inventory inventory = new Inventory(4, "TileImplosionCompressor", 64);
+    public Inventory inventory = new Inventory(4, "TileImplosionCompressor", 64,this);
     public RecipeCrafter crafter;
 
     public TileImplosionCompressor() {
@@ -67,15 +69,15 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
     }
 
     public boolean getMutliBlock() {
-        for (EnumFacing direction : EnumFacing.VALID_DIRECTIONS) {
-            TileEntity tileEntity = worldObj.getTileEntity(getPos().getX() + direction.offsetX, getPos().getY() + direction.offsetY, getPos().getZ() + direction.offsetZ);
+        for (EnumFacing direction : EnumFacing.values()) {
+            TileEntity tileEntity = worldObj.getTileEntity(new BlockPos(getPos().getX() + direction.getFrontOffsetX(), getPos().getY() + direction.getFrontOffsetY(), getPos().getZ() + direction.getFrontOffsetZ()));
             if (tileEntity instanceof TileMachineCasing) {
                 if ((tileEntity.getBlockType() instanceof BlockMachineCasing)) {
                     int heat;
                     heat = BlockMachineCasing.getHeatFromMeta(tileEntity.getBlockMetadata());
                     Location location = new Location(getPos().getX(), getPos().getY(), getPos().getZ(), direction);
                     location.modifyPositionFromSide(direction, 1);
-                    if (worldObj.getBlock(location.getX(), location.getY(), location.getZ()).getUnlocalizedName().equals("tile.lava")) {
+                    if (worldObj.getBlockState(new BlockPos(location.getX(), location.getY(), location.getZ())).getBlock().getUnlocalizedName().equals("tile.lava")) {
                         heat += 500;
                     }
                     return true;
@@ -144,15 +146,50 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
     }
 
     @Override
-    public String getInventoryName() {
-        return inventory.getInventoryName();
+    public void openInventory(EntityPlayer player) {
+        inventory.openInventory(player);
     }
 
     @Override
-    public boolean hasCustomInventoryName() {
-        return inventory.hasCustomInventoryName();
+    public void closeInventory(EntityPlayer player) {
+        inventory.closeInventory(player);
     }
 
+
+    @Override
+    public int getField(int id) {
+        return inventory.getField(id);
+    }
+
+    @Override
+    public void setField(int id, int value) {
+        inventory.setField(id, value);
+    }
+
+    @Override
+    public int getFieldCount() {
+        return inventory.getFieldCount();
+    }
+
+    @Override
+    public void clear() {
+        inventory.clear();
+    }
+
+    @Override
+    public String getCommandSenderName() {
+        return inventory.getCommandSenderName();
+    }
+
+    @Override
+    public boolean hasCustomName() {
+        return inventory.hasCustomName();
+    }
+
+    @Override
+    public IChatComponent getDisplayName() {
+        return inventory.getDisplayName();
+    }
     @Override
     public int getInventoryStackLimit() {
         return inventory.getInventoryStackLimit();
@@ -161,16 +198,6 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
     @Override
     public boolean isUseableByPlayer(EntityPlayer player) {
         return inventory.isUseableByPlayer(player);
-    }
-
-    @Override
-    public void openInventory() {
-        inventory.openInventory();
-    }
-
-    @Override
-    public void closeInventory() {
-        inventory.closeInventory();
     }
 
     @Override
@@ -185,14 +212,14 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
     }
 
     @Override
-    public boolean canInsertItem(int slotIndex, ItemStack itemStack, int side) {
+    public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
         if (slotIndex >= 2)
             return false;
         return isItemValidForSlot(slotIndex, itemStack);
     }
 
     @Override
-    public boolean canExtractItem(int slotIndex, ItemStack itemStack, int side) {
+    public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
         return slotIndex == 2 || slotIndex == 3;
     }
 

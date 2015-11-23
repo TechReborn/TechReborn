@@ -8,6 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.util.IChatComponent;
 import reborncore.api.IListInfoProvider;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
@@ -25,7 +26,7 @@ public class TileDigitalChest extends TileMachineBase implements IInventory,
     //TODO use long so we can have 9,223,372,036,854,775,807 items instead of 2,147,483,647
     int storage = 32767;
 
-    public Inventory inventory = new Inventory(3, "TileDigitalChest", storage);
+    public Inventory inventory = new Inventory(3, "TileDigitalChest", storage, this);
 
     public ItemStack storedItem;
 
@@ -95,8 +96,7 @@ public class TileDigitalChest extends TileMachineBase implements IInventory,
     public Packet getDescriptionPacket() {
         NBTTagCompound nbtTag = new NBTTagCompound();
         writeToNBT(nbtTag);
-        return new S35PacketUpdateTileEntity(this.getPos().getX(), this.getPos().getY(),
-                this.getPos().getZ(), 1, nbtTag);
+        return new S35PacketUpdateTileEntity(this.getPos(), 1, nbtTag);
     }
 
     @Override
@@ -104,7 +104,7 @@ public class TileDigitalChest extends TileMachineBase implements IInventory,
                              S35PacketUpdateTileEntity packet) {
         worldObj.markBlockRangeForRenderUpdate(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX(),
                 getPos().getY(), getPos().getZ());
-        readFromNBT(packet.func_148857_g());
+        readFromNBT(packet.getNbtCompound());
     }
 
     @Override
@@ -171,16 +171,6 @@ public class TileDigitalChest extends TileMachineBase implements IInventory,
     }
 
     @Override
-    public String getInventoryName() {
-        return inventory.getInventoryName();
-    }
-
-    @Override
-    public boolean hasCustomInventoryName() {
-        return inventory.hasCustomInventoryName();
-    }
-
-    @Override
     public int getInventoryStackLimit() {
         return inventory.getInventoryStackLimit();
     }
@@ -190,15 +180,6 @@ public class TileDigitalChest extends TileMachineBase implements IInventory,
         return inventory.isUseableByPlayer(player);
     }
 
-    @Override
-    public void openInventory() {
-        inventory.openInventory();
-    }
-
-    @Override
-    public void closeInventory() {
-        inventory.closeInventory();
-    }
 
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack stack) {
@@ -242,7 +223,7 @@ public class TileDigitalChest extends TileMachineBase implements IInventory,
         ItemStack dropStack = new ItemStack(ModBlocks.digitalChest, 1);
         writeToNBTWithoutCoords(tileEntity);
         dropStack.setTagCompound(new NBTTagCompound());
-        dropStack.stackTagCompound.setTag("tileEntity", tileEntity);
+        dropStack.getTagCompound().setTag("tileEntity", tileEntity);
         return dropStack;
     }
 
@@ -260,6 +241,52 @@ public class TileDigitalChest extends TileMachineBase implements IInventory,
         }
         info.add(size + " " + name);
 
+    }
+
+    @Override
+    public void openInventory(EntityPlayer player) {
+        inventory.openInventory(player);
+    }
+
+    @Override
+    public void closeInventory(EntityPlayer player) {
+        inventory.closeInventory(player);
+    }
+
+
+    @Override
+    public int getField(int id) {
+        return inventory.getField(id);
+    }
+
+    @Override
+    public void setField(int id, int value) {
+        inventory.setField(id, value);
+    }
+
+    @Override
+    public int getFieldCount() {
+        return inventory.getFieldCount();
+    }
+
+    @Override
+    public void clear() {
+        inventory.clear();
+    }
+
+    @Override
+    public String getCommandSenderName() {
+        return inventory.getCommandSenderName();
+    }
+
+    @Override
+    public boolean hasCustomName() {
+        return inventory.hasCustomName();
+    }
+
+    @Override
+    public IChatComponent getDisplayName() {
+        return inventory.getDisplayName();
     }
 
 }

@@ -5,7 +5,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.IChatComponent;
 import reborncore.common.util.Inventory;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.init.ModBlocks;
@@ -15,7 +17,7 @@ import techreborn.powerSystem.TilePowerAcceptor;
 public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable, IInventory {
 
     public int tickTime;
-    public Inventory inventory = new Inventory(3, "TileVacuumFreezer", 64);
+    public Inventory inventory = new Inventory(3, "TileVacuumFreezer", 64, this);
     public RecipeCrafter crafter;
     public int multiBlockStatus = 0;
 
@@ -141,13 +143,49 @@ public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,
     }
 
     @Override
-    public String getInventoryName() {
-        return inventory.getInventoryName();
+    public void openInventory(EntityPlayer player) {
+        inventory.openInventory(player);
     }
 
     @Override
-    public boolean hasCustomInventoryName() {
-        return inventory.hasCustomInventoryName();
+    public void closeInventory(EntityPlayer player) {
+        inventory.closeInventory(player);
+    }
+
+
+    @Override
+    public int getField(int id) {
+        return inventory.getField(id);
+    }
+
+    @Override
+    public void setField(int id, int value) {
+        inventory.setField(id, value);
+    }
+
+    @Override
+    public int getFieldCount() {
+        return inventory.getFieldCount();
+    }
+
+    @Override
+    public void clear() {
+        inventory.clear();
+    }
+
+    @Override
+    public String getCommandSenderName() {
+        return inventory.getCommandSenderName();
+    }
+
+    @Override
+    public boolean hasCustomName() {
+        return inventory.hasCustomName();
+    }
+
+    @Override
+    public IChatComponent getDisplayName() {
+        return inventory.getDisplayName();
     }
 
     @Override
@@ -160,15 +198,6 @@ public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,
         return inventory.isUseableByPlayer(player);
     }
 
-    @Override
-    public void openInventory() {
-        inventory.openInventory();
-    }
-
-    @Override
-    public void closeInventory() {
-        inventory.closeInventory();
-    }
 
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack stack) {
@@ -183,20 +212,20 @@ public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,
     }
 
     public boolean checkMachine() {
-        int xDir = EnumFacing.UP.offsetX * 2;
-        int yDir = EnumFacing.UP.offsetY * 2;
-        int zDir = EnumFacing.UP.offsetZ * 2;
+        int xDir = EnumFacing.UP.getFrontOffsetX() * 2;
+        int yDir = EnumFacing.UP.getFrontOffsetY() * 2;
+        int zDir = EnumFacing.UP.getFrontOffsetZ() * 2;
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
                 for (int k = -1; k < 2; k++) {
                     if ((i != 0) || (j != 0) || (k != 0)) {
-                        if (worldObj.getBlock(getPos().getX() - xDir + i, getPos().getY() - yDir + j, getPos().getZ() - zDir + k) != ModBlocks.MachineCasing) {
+                        if (worldObj.getBlockState(new BlockPos(getPos().getX() - xDir + i, getPos().getY() - yDir + j, getPos().getZ() - zDir + k)).getBlock() != ModBlocks.MachineCasing) {
                             return false;
                         }
-                        if (worldObj.getBlockMetadata(getPos().getX() - xDir + i, getPos().getY() - yDir + j, getPos().getZ() - zDir + k) != (((i == 0) && (j == 0) && (k != 0)) || ((i == 0) && (j != 0) && (k == 0)) || ((i != 0) && (j == 0) && (k == 0)) ? 2 : 1)) {
-                            return false;
-                        }
-                    } else if (!worldObj.isAirBlock(getPos().getX() - xDir + i, getPos().getY() - yDir + j, getPos().getZ() - zDir + k)) {
+//                        if (worldObj.getBlockMetadata(getPos().getX() - xDir + i, getPos().getY() - yDir + j, getPos().getZ() - zDir + k) != (((i == 0) && (j == 0) && (k != 0)) || ((i == 0) && (j != 0) && (k == 0)) || ((i != 0) && (j == 0) && (k == 0)) ? 2 : 1)) {
+//                            return false;
+//                        }//TODO meta fix
+                    } else if (!worldObj.isAirBlock(new BlockPos(getPos().getX() - xDir + i, getPos().getY() - yDir + j, getPos().getZ() - zDir + k))) {
                         return false;
                     }
                 }

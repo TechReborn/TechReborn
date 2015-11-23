@@ -5,13 +5,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.IChatComponent;
 import reborncore.common.util.Inventory;
 import techreborn.init.ModBlocks;
 import techreborn.powerSystem.TilePowerAcceptor;
 
 public class TileChunkLoader extends TilePowerAcceptor implements IWrenchable, IInventory {
 
-    public Inventory inventory = new Inventory(1, "TileChunkLoader", 64);
+    public Inventory inventory = new Inventory(1, "TileChunkLoader", 64, this);
 
     public boolean isRunning;
     public int tickTime;
@@ -84,16 +85,6 @@ public class TileChunkLoader extends TilePowerAcceptor implements IWrenchable, I
     }
 
     @Override
-    public String getInventoryName() {
-        return inventory.getInventoryName();
-    }
-
-    @Override
-    public boolean hasCustomInventoryName() {
-        return inventory.hasCustomInventoryName();
-    }
-
-    @Override
     public int getInventoryStackLimit() {
         return inventory.getInventoryStackLimit();
     }
@@ -103,15 +94,6 @@ public class TileChunkLoader extends TilePowerAcceptor implements IWrenchable, I
         return inventory.isUseableByPlayer(player);
     }
 
-    @Override
-    public void openInventory() {
-        inventory.openInventory();
-    }
-
-    @Override
-    public void closeInventory() {
-        inventory.closeInventory();
-    }
 
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack stack) {
@@ -141,5 +123,51 @@ public class TileChunkLoader extends TilePowerAcceptor implements IWrenchable, I
     @Override
     public double getMaxInput() {
         return 32;
+    }
+
+    @Override
+    public void openInventory(EntityPlayer player) {
+        inventory.openInventory(player);
+    }
+
+    @Override
+    public void closeInventory(EntityPlayer player) {
+        inventory.closeInventory(player);
+    }
+
+
+    @Override
+    public int getField(int id) {
+        return inventory.getField(id);
+    }
+
+    @Override
+    public void setField(int id, int value) {
+        inventory.setField(id, value);
+    }
+
+    @Override
+    public int getFieldCount() {
+        return inventory.getFieldCount();
+    }
+
+    @Override
+    public void clear() {
+        inventory.clear();
+    }
+
+    @Override
+    public String getCommandSenderName() {
+        return inventory.getCommandSenderName();
+    }
+
+    @Override
+    public boolean hasCustomName() {
+        return inventory.hasCustomName();
+    }
+
+    @Override
+    public IChatComponent getDisplayName() {
+        return inventory.getDisplayName();
     }
 }

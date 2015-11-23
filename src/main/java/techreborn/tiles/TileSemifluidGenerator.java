@@ -9,6 +9,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.IChatComponent;
 import net.minecraftforge.fluids.*;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
@@ -25,7 +26,7 @@ public class TileSemifluidGenerator extends TilePowerAcceptor implements IWrench
 
     public Tank tank = new Tank("TileSemifluidGenerator",
             FluidContainerRegistry.BUCKET_VOLUME * 10, this);
-    public Inventory inventory = new Inventory(3, "TileSemifluidGenerator", 64);
+    public Inventory inventory = new Inventory(3, "TileSemifluidGenerator", 64, this);
 
     //TODO: run this off config
     public static final int euTick = 8;
@@ -138,8 +139,7 @@ public class TileSemifluidGenerator extends TilePowerAcceptor implements IWrench
     public Packet getDescriptionPacket() {
         NBTTagCompound nbtTag = new NBTTagCompound();
         writeToNBT(nbtTag);
-        return new S35PacketUpdateTileEntity(this.getPos().getX(), this.getPos().getY(),
-                this.getPos().getZ(), 1, nbtTag);
+        return new S35PacketUpdateTileEntity(this.getPos(), 1, nbtTag);
     }
 
     @Override
@@ -147,7 +147,7 @@ public class TileSemifluidGenerator extends TilePowerAcceptor implements IWrench
                              S35PacketUpdateTileEntity packet) {
         worldObj.markBlockRangeForRenderUpdate(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX(),
                 getPos().getY(), getPos().getZ());
-        readFromNBT(packet.func_148857_g());
+        readFromNBT(packet.getNbtCompound());
     }
 
     @Override
@@ -204,13 +204,49 @@ public class TileSemifluidGenerator extends TilePowerAcceptor implements IWrench
     }
 
     @Override
-    public String getInventoryName() {
-        return inventory.getInventoryName();
+    public void openInventory(EntityPlayer player) {
+        inventory.openInventory(player);
     }
 
     @Override
-    public boolean hasCustomInventoryName() {
-        return inventory.hasCustomInventoryName();
+    public void closeInventory(EntityPlayer player) {
+        inventory.closeInventory(player);
+    }
+
+
+    @Override
+    public int getField(int id) {
+        return inventory.getField(id);
+    }
+
+    @Override
+    public void setField(int id, int value) {
+        inventory.setField(id, value);
+    }
+
+    @Override
+    public int getFieldCount() {
+        return inventory.getFieldCount();
+    }
+
+    @Override
+    public void clear() {
+        inventory.clear();
+    }
+
+    @Override
+    public String getCommandSenderName() {
+        return inventory.getCommandSenderName();
+    }
+
+    @Override
+    public boolean hasCustomName() {
+        return inventory.hasCustomName();
+    }
+
+    @Override
+    public IChatComponent getDisplayName() {
+        return inventory.getDisplayName();
     }
 
     @Override
@@ -223,15 +259,6 @@ public class TileSemifluidGenerator extends TilePowerAcceptor implements IWrench
         return inventory.isUseableByPlayer(p_70300_1_);
     }
 
-    @Override
-    public void openInventory() {
-        inventory.openInventory();
-    }
-
-    @Override
-    public void closeInventory() {
-        inventory.closeInventory();
-    }
 
     @Override
     public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {

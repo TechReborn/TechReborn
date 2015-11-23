@@ -7,7 +7,9 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.IChatComponent;
 import net.minecraftforge.fluids.*;
 import reborncore.api.IListInfoProvider;
 import reborncore.common.misc.Location;
@@ -24,7 +26,7 @@ import techreborn.powerSystem.TilePowerAcceptor;
 public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrenchable, IFluidHandler, IInventory, ISidedInventory, IListInfoProvider {
 
     public int tickTime;
-    public Inventory inventory = new Inventory(5, "TileIndustrialSawmill", 64);
+    public Inventory inventory = new Inventory(5, "TileIndustrialSawmill", 64, this);
     public Tank tank = new Tank("TileSawmill", 16000, this);
     public RecipeCrafter crafter;
 
@@ -53,15 +55,15 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
     }
 
     public boolean getMutliBlock() {
-        for (EnumFacing direction : EnumFacing.VALID_DIRECTIONS) {
-            TileEntity tileEntity = worldObj.getTileEntity(getPos().getX() + direction.offsetX, getPos().getY() + direction.offsetY, getPos().getZ() + direction.offsetZ);
+        for (EnumFacing direction : EnumFacing.values()) {
+            TileEntity tileEntity = worldObj.getTileEntity(new BlockPos(getPos().getX() + direction.getFrontOffsetX(), getPos().getY() + direction.getFrontOffsetY(), getPos().getZ() + direction.getFrontOffsetZ()));
             if (tileEntity instanceof TileMachineCasing) {
                 if ((tileEntity.getBlockType() instanceof BlockMachineCasing)) {
                     int heat;
                     heat = BlockMachineCasing.getHeatFromMeta(tileEntity.getBlockMetadata());
                     Location location = new Location(getPos().getX(), getPos().getY(), getPos().getZ(), direction);
                     location.modifyPositionFromSide(direction, 1);
-                    if (worldObj.getBlock(location.getX(), location.getY(), location.getZ()).getUnlocalizedName().equals("tile.lava")) {
+                    if (worldObj.getBlockState(location.getBlockPos()).getBlock().getUnlocalizedName().equals("tile.lava")) {
                         heat += 500;
                     }
                     return true;
@@ -196,13 +198,49 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
     }
 
     @Override
-    public String getInventoryName() {
-        return inventory.getInventoryName();
+    public void openInventory(EntityPlayer player) {
+        inventory.openInventory(player);
     }
 
     @Override
-    public boolean hasCustomInventoryName() {
-        return inventory.hasCustomInventoryName();
+    public void closeInventory(EntityPlayer player) {
+        inventory.closeInventory(player);
+    }
+
+
+    @Override
+    public int getField(int id) {
+        return inventory.getField(id);
+    }
+
+    @Override
+    public void setField(int id, int value) {
+        inventory.setField(id, value);
+    }
+
+    @Override
+    public int getFieldCount() {
+        return inventory.getFieldCount();
+    }
+
+    @Override
+    public void clear() {
+        inventory.clear();
+    }
+
+    @Override
+    public String getCommandSenderName() {
+        return inventory.getCommandSenderName();
+    }
+
+    @Override
+    public boolean hasCustomName() {
+        return inventory.hasCustomName();
+    }
+
+    @Override
+    public IChatComponent getDisplayName() {
+        return inventory.getDisplayName();
     }
 
     @Override
@@ -213,16 +251,6 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
     @Override
     public boolean isUseableByPlayer(EntityPlayer player) {
         return inventory.isUseableByPlayer(player);
-    }
-
-    @Override
-    public void openInventory() {
-        inventory.openInventory();
-    }
-
-    @Override
-    public void closeInventory() {
-        inventory.closeInventory();
     }
 
     @Override
@@ -237,14 +265,14 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
     }
 
     @Override
-    public boolean canInsertItem(int slotIndex, ItemStack itemStack, int side) {
+    public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
         if (slotIndex >= 2)
             return false;
         return isItemValidForSlot(slotIndex, itemStack);
     }
 
     @Override
-    public boolean canExtractItem(int slotIndex, ItemStack itemStack, int side) {
+    public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
         return slotIndex == 2 || slotIndex == 3 || slotIndex == 4;
     }
 

@@ -9,6 +9,7 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.IChatComponent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
@@ -20,7 +21,7 @@ import techreborn.lib.Reference;
 public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, IInventory {
 
     public int tickTime;
-    public Inventory inventory = new Inventory(4, "TileAlloyFurnace", 64);
+    public Inventory inventory = new Inventory(4, "TileAlloyFurnace", 64, this);
 
     int input1 = 0;
     int input2 = 1;
@@ -214,7 +215,7 @@ public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, II
 
             if (item instanceof ItemTool && ((ItemTool) item).getToolMaterialName().equals("WOOD")) return 200;
             if (item instanceof ItemSword && ((ItemSword) item).getToolMaterialName().equals("WOOD")) return 200;
-            if (item instanceof ItemHoe && ((ItemHoe) item).getToolMaterialName().equals("WOOD")) return 200;
+            //if (item instanceof ItemHoe && ((ItemHoe) item).getToolMaterialName().equals("WOOD")) return 200;
             if (item == Items.stick) return 100;
             if (item == Items.coal) return 1600;
             if (item == Items.lava_bucket) return 20000;
@@ -299,15 +300,6 @@ public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, II
         inventory.setInventorySlotContents(slot, stack);
     }
 
-    @Override
-    public String getInventoryName() {
-        return inventory.getInventoryName();
-    }
-
-    @Override
-    public boolean hasCustomInventoryName() {
-        return inventory.hasCustomInventoryName();
-    }
 
     @Override
     public int getInventoryStackLimit() {
@@ -320,17 +312,55 @@ public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, II
     }
 
     @Override
-    public void openInventory() {
-        inventory.openInventory();
-    }
-
-    @Override
-    public void closeInventory() {
-        inventory.closeInventory();
-    }
-
-    @Override
     public boolean isItemValidForSlot(int slot, ItemStack stack) {
         return inventory.isItemValidForSlot(slot, stack);
+    }
+
+
+
+    @Override
+    public void openInventory(EntityPlayer player) {
+        inventory.openInventory(player);
+    }
+
+    @Override
+    public void closeInventory(EntityPlayer player) {
+        inventory.closeInventory(player);
+    }
+
+
+    @Override
+    public int getField(int id) {
+        return inventory.getField(id);
+    }
+
+    @Override
+    public void setField(int id, int value) {
+        inventory.setField(id, value);
+    }
+
+    @Override
+    public int getFieldCount() {
+        return inventory.getFieldCount();
+    }
+
+    @Override
+    public void clear() {
+        inventory.clear();
+    }
+
+    @Override
+    public String getCommandSenderName() {
+        return inventory.getCommandSenderName();
+    }
+
+    @Override
+    public boolean hasCustomName() {
+        return inventory.hasCustomName();
+    }
+
+    @Override
+    public IChatComponent getDisplayName() {
+        return inventory.getDisplayName();
     }
 }

@@ -1,7 +1,5 @@
 package techreborn.tiles;
 
-import ic2.api.item.ElectricItem;
-import ic2.api.item.IElectricItem;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -9,6 +7,7 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.IChatComponent;
 import reborncore.common.util.Inventory;
 import techreborn.api.power.IEnergyInterfaceItem;
 import techreborn.init.ModBlocks;
@@ -16,7 +15,7 @@ import techreborn.powerSystem.TilePowerAcceptor;
 
 public class TileChargeBench extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory {
 
-    public Inventory inventory = new Inventory(6, "TileChargeBench", 64);
+    public Inventory inventory = new Inventory(6, "TileChargeBench", 64, this);
     public int capacity = 100000;
 
     public TileChargeBench() {
@@ -36,8 +35,6 @@ public class TileChargeBench extends TilePowerAcceptor implements IWrenchable, I
                         double trans = Math.min(interfaceItem.getMaxPower(stack) - interfaceItem.getEnergy(stack), Math.min(interfaceItem.getMaxTransfer(stack), getEnergy()));
                         interfaceItem.setEnergy(trans + interfaceItem.getEnergy(stack), stack);
                         useEnergy(trans);
-                    } else if (stack.getItem() instanceof IElectricItem) {
-                        useEnergy(ElectricItem.manager.charge(stack, getEnergy(), 4, false, false));
                     }
                 }
             }
@@ -119,16 +116,6 @@ public class TileChargeBench extends TilePowerAcceptor implements IWrenchable, I
     }
 
     @Override
-    public String getInventoryName() {
-        return inventory.getInventoryName();
-    }
-
-    @Override
-    public boolean hasCustomInventoryName() {
-        return inventory.hasCustomInventoryName();
-    }
-
-    @Override
     public int getInventoryStackLimit() {
         return inventory.getInventoryStackLimit();
     }
@@ -138,15 +125,6 @@ public class TileChargeBench extends TilePowerAcceptor implements IWrenchable, I
         return inventory.isUseableByPlayer(player);
     }
 
-    @Override
-    public void openInventory() {
-        inventory.openInventory();
-    }
-
-    @Override
-    public void closeInventory() {
-        inventory.closeInventory();
-    }
 
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack stack) {
@@ -160,18 +138,18 @@ public class TileChargeBench extends TilePowerAcceptor implements IWrenchable, I
     }
 
     @Override
-    public boolean canInsertItem(int slotIndex, ItemStack itemStack, int side) {
+    public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
         return isItemValidForSlot(slotIndex, itemStack);
     }
 
     @Override
-    public boolean canExtractItem(int slotIndex, ItemStack itemStack, int side) {
-        if (itemStack.getItem() instanceof IElectricItem) {
-            double CurrentCharge = ElectricItem.manager.getCharge(itemStack);
-            double MaxCharge = ((IElectricItem) itemStack.getItem()).getMaxCharge(itemStack);
-            if (CurrentCharge == MaxCharge)
-                return true;
-        }
+    public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
+//        if (itemStack.getItem() instanceof IElectricItem) {
+//            double CurrentCharge = ElectricItem.manager.getCharge(itemStack);
+//            double MaxCharge = ((IElectricItem) itemStack.getItem()).getMaxCharge(itemStack);
+//            if (CurrentCharge == MaxCharge)
+//                return true;
+//        }
         return false;
     }
 
@@ -198,5 +176,51 @@ public class TileChargeBench extends TilePowerAcceptor implements IWrenchable, I
     @Override
     public double getMaxInput() {
         return 512;
+    }
+
+    @Override
+    public void openInventory(EntityPlayer player) {
+        inventory.openInventory(player);
+    }
+
+    @Override
+    public void closeInventory(EntityPlayer player) {
+        inventory.closeInventory(player);
+    }
+
+
+    @Override
+    public int getField(int id) {
+        return inventory.getField(id);
+    }
+
+    @Override
+    public void setField(int id, int value) {
+        inventory.setField(id, value);
+    }
+
+    @Override
+    public int getFieldCount() {
+        return inventory.getFieldCount();
+    }
+
+    @Override
+    public void clear() {
+        inventory.clear();
+    }
+
+    @Override
+    public String getCommandSenderName() {
+        return inventory.getCommandSenderName();
+    }
+
+    @Override
+    public boolean hasCustomName() {
+        return inventory.hasCustomName();
+    }
+
+    @Override
+    public IChatComponent getDisplayName() {
+        return inventory.getDisplayName();
     }
 }
