@@ -1,6 +1,6 @@
 package techreborn.compat;
 
-import cpw.mods.fml.common.Loader;
+import net.minecraftforge.fml.common.Loader;
 import ic2.api.info.IC2Classic;
 import techreborn.compat.ee3.EmcValues;
 import techreborn.compat.minetweaker.MinetweakerCompat;

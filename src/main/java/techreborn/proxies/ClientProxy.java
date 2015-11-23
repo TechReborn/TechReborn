@@ -1,6 +1,6 @@
 package techreborn.proxies;
 
-import cpw.mods.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import techreborn.client.ClientMultiBlocks;

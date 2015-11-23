@@ -1,6 +1,6 @@
 package techreborn.init;
 
-import cpw.mods.fml.common.Loader;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraft.item.ItemStack;
 import techreborn.partSystem.IPartProvider;
 import techreborn.partSystem.ModPartRegistry;

@@ -1,6 +1,6 @@
 package techreborn.config;
 
-import cpw.mods.fml.common.Loader;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.config.Configuration;
 

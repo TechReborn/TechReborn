@@ -1,6 +1,6 @@
 package techreborn.utils;
 
-import cpw.mods.fml.common.Loader;
+import net.minecraftforge.fml.common.Loader;
 import ic2.api.item.IC2Items;
 import net.minecraft.item.ItemStack;
 import techreborn.items.ItemCells;

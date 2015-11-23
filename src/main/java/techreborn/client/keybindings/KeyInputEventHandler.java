@@ -1,7 +1,7 @@
 package techreborn.client.keybindings;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.InputEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.InputEvent;
 import techreborn.Core;
 import techreborn.lib.Key;
 

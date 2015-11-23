@@ -4,8 +4,8 @@
 
 package techreborn.partSystem;
 
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import ic2.api.item.IC2Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

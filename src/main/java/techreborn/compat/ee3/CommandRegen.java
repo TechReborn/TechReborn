@@ -4,7 +4,7 @@ import com.pahimar.ee3.command.CommandSyncEnergyValues;
 import com.pahimar.ee3.exchange.DynamicEnergyValueInitThread;
 import com.pahimar.ee3.exchange.EnergyValueRegistry;
 import com.pahimar.ee3.reference.Reference;
-import cpw.mods.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;

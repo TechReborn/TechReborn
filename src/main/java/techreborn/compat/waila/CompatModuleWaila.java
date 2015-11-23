@@ -1,6 +1,6 @@
 package techreborn.compat.waila;
 
-import cpw.mods.fml.common.event.*;
+import net.minecraftforge.fml.common.event.*;
 import mcp.mobius.waila.api.IWailaRegistrar;
 import techreborn.compat.ICompatModule;
 import techreborn.tiles.TileMachineBase;
