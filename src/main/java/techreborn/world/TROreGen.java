@@ -68,6 +68,9 @@ public class TROreGen implements IWorldGenerator {
     @Override
     public void generate(Random random, int xChunk, int zChunk, World world,
                          IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
+        if(true == true){
+            return; //TODO meta fix
+        }
         if (world.provider.isSurfaceWorld()) {
             generateUndergroundOres(random, xChunk * 16, zChunk * 16, world);
         } else if (world.provider.getDimensionId() == 0) {
