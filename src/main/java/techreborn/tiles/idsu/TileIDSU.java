@@ -141,7 +141,7 @@ public class TileIDSU extends TilePowerAcceptor {
         ItemStack dropStack = new ItemStack(ModBlocks.Idsu, 1);
         writeToNBT(tileEntity);
         dropStack.setTagCompound(new NBTTagCompound());
-        dropStack.stackTagCompound.setTag("tileEntity", tileEntity);
+        dropStack.getTagCompound().setTag("tileEntity", tileEntity);
         return dropStack;
     }
 

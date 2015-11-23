@@ -53,8 +53,8 @@ public class ContainerAlloyFurnace extends RebornContainer {
     int cookTime;
 
     @Override
-    public void addCraftingToCrafters(ICrafting crafting) {
-        super.addCraftingToCrafters(crafting);
+    public void onCraftGuiOpened(ICrafting crafting) {
+        super.onCraftGuiOpened(crafting);
         crafting.sendProgressBarUpdate(this, 0, tile.currentItemBurnTime);
         crafting.sendProgressBarUpdate(this, 1, tile.burnTime);
         crafting.sendProgressBarUpdate(this, 2, tile.cookTime);

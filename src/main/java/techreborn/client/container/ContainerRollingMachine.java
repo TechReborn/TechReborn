@@ -65,8 +65,8 @@ public class ContainerRollingMachine extends RebornContainer {
     int energy;
 
     @Override
-    public void addCraftingToCrafters(ICrafting crafting) {
-        super.addCraftingToCrafters(crafting);
+    public void onCraftGuiOpened(ICrafting crafting) {
+        super.onCraftGuiOpened(crafting);
         crafting.sendProgressBarUpdate(this, 0, tile.runTime);
         crafting.sendProgressBarUpdate(this, 1, tile.tickTime);
         crafting.sendProgressBarUpdate(this, 2, (int) tile.getEnergy());

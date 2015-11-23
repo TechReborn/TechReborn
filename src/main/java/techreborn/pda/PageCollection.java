@@ -6,6 +6,7 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import techreborn.pda.pages.BasePage;
 
+import java.io.IOException;
 import java.util.List;
 
 public class PageCollection extends Gui {
@@ -71,12 +72,12 @@ public class PageCollection extends Gui {
         getActivePage().actionPerformed(button);
     }
 
-    protected void mouseMovedOrUp(int par1, int par2, int par3) {
-        if (getActivePage() == null) return;
-        getActivePage().mouseMovedOrUp(par1, par2, par3);
-    }
+//    protected void mouseMovedOrUp(int par1, int par2, int par3) {
+//        if (getActivePage() == null) return;
+//        getActivePage().mo(par1, par2, par3);
+//    }
 
-    protected void mouseClicked(int par1, int par2, int par3) {
+    protected void mouseClicked(int par1, int par2, int par3) throws IOException {
         if (getActivePage() == null) return;
         getActivePage().mouseClicked(par1, par2, par3);
     }

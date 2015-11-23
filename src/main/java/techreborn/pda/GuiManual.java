@@ -150,13 +150,9 @@ public class GuiManual extends GuiScreen {
         root.actionPerformed(button);
     }
 
-    @Override
-    protected void mouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick) {
-        root.mouseMovedOrUp(mouseX, mouseY, clickedMouseButton);
-    }
 
     @Override
-    public void mouseClicked(int par1, int par2, int par3) {
+    public void mouseClicked(int par1, int par2, int par3) throws IOException {
         root.mouseClicked(par1, par2, par3);
     }
 

@@ -4,17 +4,19 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.util.EnumFacing;
 import reborncore.client.gui.GuiUtil;
 import reborncore.client.multiblock.MultiblockSet;
 import reborncore.common.misc.Location;
+import reborncore.common.multiblock.CoordTriplet;
 import techreborn.client.ClientMultiBlocks;
 import techreborn.client.container.ContainerVacuumFreezer;
 import techreborn.proxies.ClientProxy;
 import techreborn.tiles.TileVacuumFreezer;
+
+import java.io.IOException;
 
 public class GuiVacuumFreezer extends GuiContainer {
 
@@ -38,7 +40,7 @@ public class GuiVacuumFreezer extends GuiContainer {
         GuiButton button = new GuiButton(212, k + this.xSize - 24, l + 4, 20, 20, "");
         buttonList.add(button);
         super.initGui();
-        ChunkCoordinates coordinates = new ChunkCoordinates(crafter.getPos().getX(), crafter.getPos().getY() - 5, crafter.getPos().getZ());
+        CoordTriplet coordinates = new CoordTriplet(crafter.getPos().getX(), crafter.getPos().getY() - 5, crafter.getPos().getZ());
         if(coordinates.equals(ClientProxy.multiblockRenderEvent.anchor)){
             ClientProxy.multiblockRenderEvent.setMultiblock(null);
             button.displayString = "B";
@@ -79,7 +81,7 @@ public class GuiVacuumFreezer extends GuiContainer {
     }
 
     @Override
-    public void actionPerformed(GuiButton button) {
+    public void actionPerformed(GuiButton button) throws IOException {
         super.actionPerformed(button);
         if(button.id == 212){
             if(ClientProxy.multiblockRenderEvent.currentMultiblock == null){
@@ -87,7 +89,7 @@ public class GuiVacuumFreezer extends GuiContainer {
                     MultiblockSet set = new MultiblockSet(ClientMultiBlocks.frezzer);
                     ClientProxy.multiblockRenderEvent.setMultiblock(set);
                     ClientProxy.multiblockRenderEvent.partent = new Location(crafter.getPos().getX(), crafter.getPos().getY(), crafter.getPos().getZ(), crafter.getWorld());
-                    ClientProxy.multiblockRenderEvent.anchor = new ChunkCoordinates(crafter.getPos().getX() , crafter.getPos().getY() -5 , crafter.getPos().getZ());
+                    ClientProxy.multiblockRenderEvent.anchor = new CoordTriplet(crafter.getPos().getX() , crafter.getPos().getY() -5 , crafter.getPos().getZ());
                 }
                 button.displayString = "A";
             } else {

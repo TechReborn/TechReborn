@@ -4,7 +4,6 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.util.EnumFacing;
@@ -12,10 +11,13 @@ import reborncore.client.gui.GuiUtil;
 import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockSet;
 import reborncore.common.misc.Location;
+import reborncore.common.multiblock.CoordTriplet;
 import techreborn.client.container.ContainerBlastFurnace;
 import techreborn.init.ModBlocks;
 import techreborn.proxies.ClientProxy;
 import techreborn.tiles.TileBlastFurnace;
+
+import java.io.IOException;
 
 
 public class GuiBlastFurnace extends GuiContainer {
@@ -41,7 +43,7 @@ public class GuiBlastFurnace extends GuiContainer {
         GuiButton button = new GuiButton(212, k + 4, l + 6, 20, 20, "");
         buttonList.add(button);
         super.initGui();
-		ChunkCoordinates coordinates = new ChunkCoordinates(blastfurnace.getPos().getX() - (EnumFacing.getOrientation(blastfurnace.getRotation()).offsetX * 2), blastfurnace.getPos().getY() - 1, blastfurnace.getPos().getZ() - (EnumFacing.getOrientation(blastfurnace.getRotation()).offsetZ * 2));
+		CoordTriplet coordinates = new CoordTriplet(blastfurnace.getPos().getX() - (EnumFacing.getFront(blastfurnace.getRotation()).getFrontOffsetX() * 2), blastfurnace.getPos().getY() - 1, blastfurnace.getPos().getZ() - (EnumFacing.getFront(blastfurnace.getRotation()).getFrontOffsetZ() * 2));
 		if(coordinates.equals(ClientProxy.multiblockRenderEvent.anchor) && blastfurnace.getHeat() != 0){
 			ClientProxy.multiblockRenderEvent.setMultiblock(null);
 			button.displayString = "B";
@@ -87,7 +89,7 @@ public class GuiBlastFurnace extends GuiContainer {
     }
 
 	@Override
-	public void actionPerformed(GuiButton button) {
+	public void actionPerformed(GuiButton button) throws IOException {
 		super.actionPerformed(button);
 		if(button.id == 212){
 			if(ClientProxy.multiblockRenderEvent.currentMultiblock == null){
@@ -134,7 +136,7 @@ public class GuiBlastFurnace extends GuiContainer {
 					MultiblockSet set = new MultiblockSet(multiblock);
 					ClientProxy.multiblockRenderEvent.setMultiblock(set);
 					ClientProxy.multiblockRenderEvent.partent = new Location(blastfurnace.getPos().getX(), blastfurnace.getPos().getY(), blastfurnace.getPos().getZ(), blastfurnace.getWorld());
-					ClientProxy.multiblockRenderEvent.anchor = new ChunkCoordinates(blastfurnace.getPos().getX() - (EnumFacing.getOrientation(blastfurnace.getRotation()).offsetX * 2), blastfurnace.getPos().getY() - 1, blastfurnace.getPos().getZ() - (EnumFacing.getOrientation(blastfurnace.getRotation()).offsetZ * 2));
+					ClientProxy.multiblockRenderEvent.anchor = new CoordTriplet(blastfurnace.getPos().getX() - (EnumFacing.getFront(blastfurnace.getRotation()).getFrontOffsetX() * 2), blastfurnace.getPos().getY() - 1, blastfurnace.getPos().getZ() - (EnumFacing.getFront(blastfurnace.getRotation()).getFrontOffsetZ() * 2));
 				}
 				button.displayString = "A";
 			} else {

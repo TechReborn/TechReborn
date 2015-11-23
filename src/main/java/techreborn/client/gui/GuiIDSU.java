@@ -11,6 +11,7 @@ import techreborn.packets.PacketIdsu;
 import techreborn.tiles.idsu.TileIDSU;
 
 import java.awt.*;
+import java.io.IOException;
 
 public class GuiIDSU extends GuiContainer {
 
@@ -62,7 +63,7 @@ public class GuiIDSU extends GuiContainer {
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(GuiButton button) throws IOException {
         super.actionPerformed(button);
         PacketHandler.sendPacketToServer(new PacketIdsu(button.id, idsu));
 

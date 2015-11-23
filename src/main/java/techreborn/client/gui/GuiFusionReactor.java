@@ -4,18 +4,20 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.util.EnumFacing;
 import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockSet;
 import reborncore.common.misc.Location;
+import reborncore.common.multiblock.CoordTriplet;
 import techreborn.client.ClientMultiBlocks;
 import techreborn.client.container.ContainerFusionReactor;
 import techreborn.init.ModBlocks;
 import techreborn.proxies.ClientProxy;
 import techreborn.tiles.fusionReactor.TileEntityFusionController;
+
+import java.io.IOException;
 
 
 public class GuiFusionReactor extends GuiContainer {
@@ -51,7 +53,7 @@ public class GuiFusionReactor extends GuiContainer {
         GuiButton button = new GuiButton(212, k + this.xSize - 24, l + 4, 20, 20, "");
         buttonList.add(button);
         super.initGui();
-        ChunkCoordinates coordinates = new ChunkCoordinates(fusionController.getPos().getX() - (EnumFacing.getOrientation(fusionController.getRotation()).offsetX * 2), fusionController.getPos().getY() - 1, fusionController.getPos().getZ() - (EnumFacing.getOrientation(fusionController.getRotation()).offsetZ * 2));
+        CoordTriplet coordinates = new CoordTriplet(fusionController.getPos().getX() - (EnumFacing.getFront(fusionController.getRotation()).getFrontOffsetX() * 2), fusionController.getPos().getY() - 1, fusionController.getPos().getZ() - (EnumFacing.getFront(fusionController.getRotation()).getFrontOffsetZ() * 2));
         if(coordinates.equals(ClientProxy.multiblockRenderEvent.anchor)){
             ClientProxy.multiblockRenderEvent.setMultiblock(null);
             button.displayString = "B";
@@ -81,7 +83,7 @@ public class GuiFusionReactor extends GuiContainer {
     }
 
     @Override
-    public void actionPerformed(GuiButton button) {
+    public void actionPerformed(GuiButton button) throws IOException {
         super.actionPerformed(button);
         if(button.id == 212){
             if(ClientProxy.multiblockRenderEvent.currentMultiblock == null){
@@ -89,7 +91,7 @@ public class GuiFusionReactor extends GuiContainer {
                     MultiblockSet set = new MultiblockSet(ClientMultiBlocks.reactor);
                     ClientProxy.multiblockRenderEvent.setMultiblock(set);
                     ClientProxy.multiblockRenderEvent.partent = new Location(fusionController.getPos().getX(), fusionController.getPos().getY(), fusionController.getPos().getZ(), fusionController.getWorld());
-                    ClientProxy.multiblockRenderEvent.anchor = new ChunkCoordinates(fusionController.getPos().getX() , fusionController.getPos().getY() -1 , fusionController.getPos().getZ());
+                    ClientProxy.multiblockRenderEvent.anchor = new CoordTriplet(fusionController.getPos().getX() , fusionController.getPos().getY() -1 , fusionController.getPos().getZ());
                 }
                 button.displayString = "A";
             } else {

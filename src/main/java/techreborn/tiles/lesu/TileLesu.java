@@ -1,6 +1,7 @@
 package techreborn.tiles.lesu;
 
 
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import reborncore.common.misc.Functions;
 import reborncore.common.util.Inventory;
@@ -20,7 +21,7 @@ public class TileLesu extends TilePowerAcceptor {//TODO wrench
     private int output;
     private int maxStorage;
 
-    public Inventory inventory = new Inventory(2, "TileAesu", 64);
+    public Inventory inventory = new Inventory(2, "TileAesu", 64, this);
 
     public TileLesu() {
         super(5);
@@ -34,10 +35,10 @@ public class TileLesu extends TilePowerAcceptor {//TODO wrench
         }
         countedNetworks.clear();
         connectedBlocks = 0;
-        for (EnumFacing dir : EnumFacing.VALID_DIRECTIONS) {
-            if (worldObj.getTileEntity(getPos().getX() + dir.offsetX, getPos().getY() + dir.offsetY, getPos().getZ() + dir.offsetZ) instanceof TileLesuStorage) {
-                if (((TileLesuStorage) worldObj.getTileEntity(getPos().getX() + dir.offsetX, getPos().getY() + dir.offsetY, getPos().getZ() + dir.offsetZ)).network != null) {
-                    LesuNetwork network = ((TileLesuStorage) worldObj.getTileEntity(getPos().getX() + dir.offsetX, getPos().getY() + dir.offsetY, getPos().getZ() + dir.offsetZ)).network;
+        for (EnumFacing dir : EnumFacing.values()) {
+            if (worldObj.getTileEntity(new BlockPos(getPos().getX() + dir.getFrontOffsetX(), getPos().getY() + dir.getFrontOffsetY(), getPos().getZ() + dir.getFrontOffsetZ())) instanceof TileLesuStorage) {
+                if (((TileLesuStorage) worldObj.getTileEntity(new BlockPos(getPos().getX() + dir.getFrontOffsetX(), getPos().getY() + dir.getFrontOffsetY(), getPos().getZ() + dir.getFrontOffsetZ()))).network != null) {
+                    LesuNetwork network = ((TileLesuStorage) worldObj.getTileEntity(new BlockPos(getPos().getX() + dir.getFrontOffsetX(), getPos().getY() + dir.getFrontOffsetY(), getPos().getZ() + dir.getFrontOffsetZ()))).network;
                     if (!countedNetworks.contains(network)) {
                         if (network.master == null || network.master == this) {
                             connectedBlocks += network.storages.size();

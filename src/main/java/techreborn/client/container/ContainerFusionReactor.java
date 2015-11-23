@@ -74,8 +74,8 @@ public class ContainerFusionReactor extends RebornContainer {
     }
 
     @Override
-    public void addCraftingToCrafters(ICrafting crafting) {
-        super.addCraftingToCrafters(crafting);
+    public void onCraftGuiOpened(ICrafting crafting) {
+        super.onCraftGuiOpened(crafting);
         crafting.sendProgressBarUpdate(this, 0, fusionController.coilStatus);
         crafting.sendProgressBarUpdate(this, 1, (int) fusionController.getEnergy());
         crafting.sendProgressBarUpdate(this, 2, fusionController.crafingTickTime);

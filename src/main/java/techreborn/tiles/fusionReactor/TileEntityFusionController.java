@@ -4,7 +4,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.IChatComponent;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.api.reactor.FusionReactorRecipe;
@@ -15,7 +17,7 @@ import techreborn.powerSystem.TilePowerAcceptor;
 
 public class TileEntityFusionController extends TilePowerAcceptor implements IInventory {
 
-    public Inventory inventory = new Inventory(3, "TileEntityFusionController", 64);
+    public Inventory inventory = new Inventory(3, "TileEntityFusionController", 64, this);
 
     //0= no coils, 1 = coils
     public int coilStatus = 0;
@@ -127,15 +129,6 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
         inventory.setInventorySlotContents(slot, stack);
     }
 
-    @Override
-    public String getInventoryName() {
-        return inventory.getInventoryName();
-    }
-
-    @Override
-    public boolean hasCustomInventoryName() {
-        return inventory.hasCustomInventoryName();
-    }
 
     @Override
     public int getInventoryStackLimit() {
@@ -148,18 +141,38 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
     }
 
     @Override
-    public void openInventory() {
-        inventory.openInventory();
+    public void openInventory(EntityPlayer player) {
+        inventory.openInventory(player);
     }
 
     @Override
-    public void closeInventory() {
-        inventory.closeInventory();
+    public void closeInventory(EntityPlayer player) {
+        inventory.closeInventory(player);
     }
 
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack stack) {
         return inventory.isItemValidForSlot(slot, stack);
+    }
+
+    @Override
+    public int getField(int id) {
+        return inventory.getField(id);
+    }
+
+    @Override
+    public void setField(int id, int value) {
+        inventory.setField(id, value);
+    }
+
+    @Override
+    public int getFieldCount() {
+        return inventory.getFieldCount();
+    }
+
+    @Override
+    public void clear() {
+        inventory.clear();
     }
 
 
@@ -196,7 +209,7 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
     }
 
     private boolean isCoil(int x, int y, int z) {
-        return worldObj.getBlock(x, y, z) == ModBlocks.FusionCoil;
+        return worldObj.getBlockState(new BlockPos(x, y, z)).getBlock() == ModBlocks.FusionCoil;
     }
 
     @Override
@@ -324,8 +337,17 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
     }
 
     @Override
-    public void onLoaded() {
-        super.onLoaded();
-        checkCoils();
+    public String getCommandSenderName() {
+        return null;
+    }
+
+    @Override
+    public boolean hasCustomName() {
+        return false;
+    }
+
+    @Override
+    public IChatComponent getDisplayName() {
+        return null;
     }
 }

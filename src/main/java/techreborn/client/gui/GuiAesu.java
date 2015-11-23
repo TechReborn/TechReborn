@@ -11,6 +11,7 @@ import techreborn.packets.PacketAesu;
 import techreborn.tiles.TileAesu;
 
 import java.awt.*;
+import java.io.IOException;
 
 public class GuiAesu extends GuiContainer {
 
@@ -60,7 +61,7 @@ public class GuiAesu extends GuiContainer {
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(GuiButton button) throws IOException {
         super.actionPerformed(button);
         PacketHandler.sendPacketToServer(new PacketAesu(button.id, aesu));
     }

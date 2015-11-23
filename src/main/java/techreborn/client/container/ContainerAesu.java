@@ -65,8 +65,8 @@ public class ContainerAesu extends RebornContainer {
     }
 
     @Override
-    public void addCraftingToCrafters(ICrafting crafting) {
-        super.addCraftingToCrafters(crafting);
+    public void onCraftGuiOpened(ICrafting crafting) {
+        super.onCraftGuiOpened(crafting);
         crafting.sendProgressBarUpdate(this, 0, (int) tile.getMaxOutput());
         crafting.sendProgressBarUpdate(this, 1, (int) tile.getEnergy());
         crafting.sendProgressBarUpdate(this, 2, (int) tile.getEuChange());

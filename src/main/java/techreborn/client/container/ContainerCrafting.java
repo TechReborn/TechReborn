@@ -36,8 +36,8 @@ public abstract class ContainerCrafting extends RebornContainer {
     }
 
     @Override
-    public void addCraftingToCrafters(ICrafting crafting) {
-        super.addCraftingToCrafters(crafting);
+    public void onCraftGuiOpened(ICrafting crafting) {
+        super.onCraftGuiOpened(crafting);
         crafting.sendProgressBarUpdate(this, 0, crafter.currentTickTime);
         crafting.sendProgressBarUpdate(this, 1, crafter.currentNeededTicks);
         crafting.sendProgressBarUpdate(this, 2, (int) crafter.energy.getEnergy());

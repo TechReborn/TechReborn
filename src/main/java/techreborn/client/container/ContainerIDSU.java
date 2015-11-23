@@ -63,8 +63,8 @@ public class ContainerIDSU extends RebornContainer {
     }
 
     @Override
-    public void addCraftingToCrafters(ICrafting crafting) {
-        super.addCraftingToCrafters(crafting);
+    public void onCraftGuiOpened(ICrafting crafting) {
+        super.onCraftGuiOpened(crafting);
         crafting.sendProgressBarUpdate(this, 0, tile.output);
         crafting.sendProgressBarUpdate(this, 1, (int) tile.getEnergy());
         crafting.sendProgressBarUpdate(this, 2, (int) tile.getEuChange());

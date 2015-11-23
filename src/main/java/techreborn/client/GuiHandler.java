@@ -1,5 +1,6 @@
 package techreborn.client;
 
+import net.minecraft.util.BlockPos;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
@@ -47,81 +48,81 @@ public class GuiHandler implements IGuiHandler {
                                       int x, int y, int z) {
         if (ID == thermalGeneratorID) {
             return new ContainerThermalGenerator(
-                    (TileThermalGenerator) world.getTileEntity(x, y, z), player);
+                    (TileThermalGenerator) world.getTileEntity(new BlockPos(x, y, z)), player);
         } else if (ID == semifluidGeneratorID) {
             return new ContainerSemifluidGenerator(
-                    (TileSemifluidGenerator) world.getTileEntity(x, y, z), player);
+                    (TileSemifluidGenerator) world.getTileEntity(new BlockPos(x, y, z)), player);
         } else if (ID == gasTurbineID) {
             return new ContainerGasTurbine(
-                    (TileGasTurbine) world.getTileEntity(x, y, z), player);
+                    (TileGasTurbine) world.getTileEntity(new BlockPos(x, y, z)), player);
         } else if (ID == quantumTankID) {
             return new ContainerQuantumTank(
-                    (TileQuantumTank) world.getTileEntity(x, y, z), player);
+                    (TileQuantumTank) world.getTileEntity(new BlockPos(x, y, z)), player);
         } else if (ID == digitalChestID) {
             return new ContainerDigitalChest(
-                    (TileDigitalChest) world.getTileEntity(x, y, z), player);
+                    (TileDigitalChest) world.getTileEntity(new BlockPos(x, y, z)), player);
         } else if (ID == quantumChestID) {
             return new ContainerQuantumChest(
-                    (TileQuantumChest) world.getTileEntity(x, y, z), player);
+                    (TileQuantumChest) world.getTileEntity(new BlockPos(x, y, z)), player);
         } else if (ID == centrifugeID) {
             return new ContainerCentrifuge(
-                    (TileCentrifuge) world.getTileEntity(x, y, z), player);
+                    (TileCentrifuge) world.getTileEntity(new BlockPos(x, y, z)), player);
         } else if (ID == rollingMachineID) {
             return new ContainerRollingMachine(
-                    (TileRollingMachine) world.getTileEntity(x, y, z), player);
+                    (TileRollingMachine) world.getTileEntity(new BlockPos(x, y, z)), player);
         } else if (ID == blastFurnaceID) {
             return new ContainerBlastFurnace(
-                    (TileBlastFurnace) world.getTileEntity(x, y, z), player);
+                    (TileBlastFurnace) world.getTileEntity(new BlockPos(x, y, z)), player);
         } else if (ID == alloySmelterID) {
             return new ContainerAlloySmelter(
-                    (TileAlloySmelter) world.getTileEntity(x, y, z), player);
+                    (TileAlloySmelter) world.getTileEntity(new BlockPos(x, y, z)), player);
         } else if (ID == grinderID) {
             return new ContainerGrinder(
-                    (TileGrinder) world.getTileEntity(x, y, z), player);
+                    (TileGrinder) world.getTileEntity(new BlockPos(x, y, z)), player);
         } else if (ID == compresserID) {
             return new ContainerImplosionCompressor(
-                    (TileImplosionCompressor) world.getTileEntity(x, y, z), player);
+                    (TileImplosionCompressor) world.getTileEntity(new BlockPos(x, y, z)), player);
         } else if (ID == matterfabID) {
             return new ContainerMatterFabricator(
-                    (TileMatterFabricator) world.getTileEntity(x, y, z), player);
+                    (TileMatterFabricator) world.getTileEntity(new BlockPos(x, y, z)), player);
         } else if (ID == chunkloaderID) {
             return new ContainerChunkloader(
-                    (TileChunkLoader) world.getTileEntity(x, y, z), player);
+                    (TileChunkLoader) world.getTileEntity(new BlockPos(x, y, z)), player);
         } else if (ID == assemblingmachineID) {
             return new ContainerAssemblingMachine(
-                    (TileAssemblingMachine) world.getTileEntity(x, y, z), player);
+                    (TileAssemblingMachine) world.getTileEntity(new BlockPos(x, y, z)), player);
         } else if (ID == dieselGeneratorID) {
             return new ContainerDieselGenerator(
-                    (TileDieselGenerator) world.getTileEntity(x, y, z), player);
+                    (TileDieselGenerator) world.getTileEntity(new BlockPos(x, y, z)), player);
         } else if (ID == industrialElectrolyzerID) {
             return new ContainerIndustrialElectrolyzer(
-                    (TileIndustrialElectrolyzer) world.getTileEntity(x, y, z), player);
+                    (TileIndustrialElectrolyzer) world.getTileEntity(new BlockPos(x, y, z)), player);
         } else if (ID == aesuID) {
             return new ContainerAesu(
-                    (TileAesu) world.getTileEntity(x, y, z), player);
+                    (TileAesu) world.getTileEntity(new BlockPos(x, y, z)), player);
         } else if (ID == alloyFurnaceID) {
             return new ContainerAlloyFurnace(
-                    (TileAlloyFurnace) world.getTileEntity(x, y, z), player);
+                    (TileAlloyFurnace) world.getTileEntity(new BlockPos(x, y, z)), player);
         } else if (ID == sawMillID) {
             return new ContainerIndustrialSawmill(
-                    (TileIndustrialSawmill) world.getTileEntity(x, y, z), player);
+                    (TileIndustrialSawmill) world.getTileEntity(new BlockPos(x, y, z)), player);
         } else if (ID == chemicalReactorID) {
             return new ContainerChemicalReactor(
-                    (TileChemicalReactor) world.getTileEntity(x, y, z), player);
+                    (TileChemicalReactor) world.getTileEntity(new BlockPos(x, y, z)), player);
         } else if (ID == pdaID) {
             return null;
         } else if (ID == destructoPackID) {
             return new ContainerDestructoPack(player);
         } else if (ID == lesuID) {
-            return new ContainerLesu((TileLesu) world.getTileEntity(x, y, z), player);
+            return new ContainerLesu((TileLesu) world.getTileEntity(new BlockPos(x, y, z)), player);
         } else if (ID == idsuID) {
-            return new ContainerIDSU((TileIDSU) world.getTileEntity(x, y, z), player);
+            return new ContainerIDSU((TileIDSU) world.getTileEntity(new BlockPos(x, y, z)), player);
         } else if (ID == chargeBench) {
-            return new ContainerChargeBench((TileChargeBench) world.getTileEntity(x, y, z), player);
+            return new ContainerChargeBench((TileChargeBench) world.getTileEntity(new BlockPos(x, y, z)), player);
         } else if (ID == fusionID) {
-            return new ContainerFusionReactor((TileEntityFusionController) world.getTileEntity(x, y, z), player);
+            return new ContainerFusionReactor((TileEntityFusionController) world.getTileEntity(new BlockPos(x, y, z)), player);
         }else if (ID == vacuumFreezerID) {
-            return new ContainerVacuumFreezer((TileVacuumFreezer) world.getTileEntity(x, y, z), player);
+            return new ContainerVacuumFreezer((TileVacuumFreezer) world.getTileEntity(new BlockPos(x, y, z)), player);
         }
 
 
@@ -133,81 +134,81 @@ public class GuiHandler implements IGuiHandler {
                                       int x, int y, int z) {
         if (ID == thermalGeneratorID) {
             return new GuiThermalGenerator(player,
-                    (TileThermalGenerator) world.getTileEntity(x, y, z));
+                    (TileThermalGenerator) world.getTileEntity(new BlockPos(x, y, z)));
         } else if (ID == semifluidGeneratorID) {
             return new GuiSemifluidGenerator(player,
-                    (TileSemifluidGenerator) world.getTileEntity(x, y, z));
+                    (TileSemifluidGenerator) world.getTileEntity(new BlockPos(x, y, z)));
         } else if (ID == gasTurbineID) {
             return new GuiGasTurbine(player,
-                    (TileGasTurbine) world.getTileEntity(x, y, z));
+                    (TileGasTurbine) world.getTileEntity(new BlockPos(x, y, z)));
         } else if (ID == quantumTankID) {
             return new GuiQuantumTank(player,
-                    (TileQuantumTank) world.getTileEntity(x, y, z));
+                    (TileQuantumTank) world.getTileEntity(new BlockPos(x, y, z)));
         } else if (ID == digitalChestID) {
             return new GuiDigitalChest(player,
-                    (TileDigitalChest) world.getTileEntity(x, y, z));
+                    (TileDigitalChest) world.getTileEntity(new BlockPos(x, y, z)));
         } else if (ID == quantumChestID) {
             return new GuiQuantumChest(player,
-                    (TileQuantumChest) world.getTileEntity(x, y, z));
+                    (TileQuantumChest) world.getTileEntity(new BlockPos(x, y, z)));
         } else if (ID == centrifugeID) {
             return new GuiCentrifuge(player,
-                    (TileCentrifuge) world.getTileEntity(x, y, z));
+                    (TileCentrifuge) world.getTileEntity(new BlockPos(x, y, z)));
         } else if (ID == rollingMachineID) {
             return new GuiRollingMachine(player,
-                    (TileRollingMachine) world.getTileEntity(x, y, z));
+                    (TileRollingMachine) world.getTileEntity(new BlockPos(x, y, z)));
         } else if (ID == blastFurnaceID) {
             return new GuiBlastFurnace(player,
-                    (TileBlastFurnace) world.getTileEntity(x, y, z));
+                    (TileBlastFurnace) world.getTileEntity(new BlockPos(x, y, z)));
         } else if (ID == alloySmelterID) {
             return new GuiAlloySmelter(player,
-                    (TileAlloySmelter) world.getTileEntity(x, y, z));
+                    (TileAlloySmelter) world.getTileEntity(new BlockPos(x, y, z)));
         } else if (ID == grinderID) {
             return new GuiGrinder(player,
-                    (TileGrinder) world.getTileEntity(x, y, z));
+                    (TileGrinder) world.getTileEntity(new BlockPos(x, y, z)));
         } else if (ID == compresserID) {
             return new GuiImplosionCompressor(player,
-                    (TileImplosionCompressor) world.getTileEntity(x, y, z));
+                    (TileImplosionCompressor) world.getTileEntity(new BlockPos(x, y, z)));
         } else if (ID == matterfabID) {
             return new GuiMatterFabricator(player,
-                    (TileMatterFabricator) world.getTileEntity(x, y, z));
+                    (TileMatterFabricator) world.getTileEntity(new BlockPos(x, y, z)));
         } else if (ID == chunkloaderID) {
             return new GuiChunkLoader(player,
-                    (TileChunkLoader) world.getTileEntity(x, y, z));
+                    (TileChunkLoader) world.getTileEntity(new BlockPos(x, y, z)));
         } else if (ID == assemblingmachineID) {
             return new GuiAssemblingMachine(player,
-                    (TileAssemblingMachine) world.getTileEntity(x, y, z));
+                    (TileAssemblingMachine) world.getTileEntity(new BlockPos(x, y, z)));
         } else if (ID == dieselGeneratorID) {
             return new GuiDieselGenerator(player,
-                    (TileDieselGenerator) world.getTileEntity(x, y, z));
+                    (TileDieselGenerator) world.getTileEntity(new BlockPos(x, y, z)));
         } else if (ID == industrialElectrolyzerID) {
             return new GuiIndustrialElectrolyzer(player,
-                    (TileIndustrialElectrolyzer) world.getTileEntity(x, y, z));
+                    (TileIndustrialElectrolyzer) world.getTileEntity(new BlockPos(x, y, z)));
         } else if (ID == aesuID) {
             return new GuiAesu(player,
-                    (TileAesu) world.getTileEntity(x, y, z));
+                    (TileAesu) world.getTileEntity(new BlockPos(x, y, z)));
         } else if (ID == alloyFurnaceID) {
             return new GuiAlloyFurnace(player,
-                    (TileAlloyFurnace) world.getTileEntity(x, y, z));
+                    (TileAlloyFurnace) world.getTileEntity(new BlockPos(x, y, z)));
         } else if (ID == sawMillID) {
             return new GuiIndustrialSawmill(player,
-                    (TileIndustrialSawmill) world.getTileEntity(x, y, z));
+                    (TileIndustrialSawmill) world.getTileEntity(new BlockPos(x, y, z)));
         } else if (ID == chemicalReactorID) {
             return new GuiChemicalReactor(player,
-                    (TileChemicalReactor) world.getTileEntity(x, y, z));
+                    (TileChemicalReactor) world.getTileEntity(new BlockPos(x, y, z)));
         } else if (ID == pdaID) {
             return new GuiManual();
         } else if (ID == destructoPackID) {
             return new GuiDestructoPack(new ContainerDestructoPack(player));
         } else if (ID == lesuID) {
-            return new GuiLesu(player, (TileLesu) world.getTileEntity(x, y, z));
+            return new GuiLesu(player, (TileLesu) world.getTileEntity(new BlockPos(x, y, z)));
         } else if (ID == idsuID) {
-            return new GuiIDSU(player, (TileIDSU) world.getTileEntity(x, y, z));
+            return new GuiIDSU(player, (TileIDSU) world.getTileEntity(new BlockPos(x, y, z)));
         } else if (ID == chargeBench) {
-            return new GuiChargeBench(player, (TileChargeBench) world.getTileEntity(x, y, z));
+            return new GuiChargeBench(player, (TileChargeBench) world.getTileEntity(new BlockPos(x, y, z)));
         }else if (ID == fusionID) {
-            return new GuiFusionReactor(player, (TileEntityFusionController) world.getTileEntity(x, y, z));
+            return new GuiFusionReactor(player, (TileEntityFusionController) world.getTileEntity(new BlockPos(x, y, z)));
         }else if (ID == vacuumFreezerID) {
-            return new GuiVacuumFreezer(player, (TileVacuumFreezer) world.getTileEntity(x, y, z));
+            return new GuiVacuumFreezer(player, (TileVacuumFreezer) world.getTileEntity(new BlockPos(x, y, z)));
         }
         return null;
     }

@@ -53,9 +53,9 @@ public class ClientMultiBlocks {
     }
 
     public static void checkMachine() {
-        int xDir = EnumFacing.UP.offsetX * 2;
-        int yDir = EnumFacing.UP.offsetY * 2;
-        int zDir = EnumFacing.UP.offsetZ * 2;
+        int xDir = EnumFacing.UP.getFrontOffsetX() * 2;
+        int yDir = EnumFacing.UP.getFrontOffsetY() * 2;
+        int zDir = EnumFacing.UP.getFrontOffsetZ() * 2;
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
                 for (int k = -1; k < 2; k++) {

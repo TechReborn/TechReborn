@@ -1,5 +1,6 @@
 package techreborn.tiles.lesu;
 
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.util.EnumFacing;
 import techreborn.tiles.TileMachineBase;
@@ -14,7 +15,7 @@ public class TileLesuStorage extends TileMachineBase {
         if (network == null) {
             findAndJoinNetwork(worldObj, getPos().getX(), getPos().getY(), getPos().getZ());
         } else {
-            if (network.master != null && network.master.getWorld().getTileEntity(network.master.getPos().getX(), network.master.getPos().getY(), network.master.getPos().getZ()) != network.master) {
+            if (network.master != null && network.master.getWorld().getTileEntity(new BlockPos(network.master.getPos().getX(), network.master.getPos().getY(), network.master.getPos().getZ())) != network.master) {
                 network.master = null;
             }
         }
@@ -23,9 +24,9 @@ public class TileLesuStorage extends TileMachineBase {
     public final void findAndJoinNetwork(World world, int x, int y, int z) {
         network = new LesuNetwork();
         network.addElement(this);
-        for (EnumFacing direction : EnumFacing.VALID_DIRECTIONS) {
-            if (world.getTileEntity(x + direction.offsetX, y + direction.offsetY, z + direction.offsetZ) instanceof TileLesuStorage) {
-                TileLesuStorage lesu = (TileLesuStorage) world.getTileEntity(x + direction.offsetX, y + direction.offsetY, z + direction.offsetZ);
+        for (EnumFacing direction : EnumFacing.values()) {
+            if (world.getTileEntity(new BlockPos(x + direction.getFrontOffsetX(), y + direction.getFrontOffsetY(), z + direction.getFrontOffsetZ())) instanceof TileLesuStorage) {
+                TileLesuStorage lesu = (TileLesuStorage) world.getTileEntity(new BlockPos(x + direction.getFrontOffsetX(), y + direction.getFrontOffsetY(), z + direction.getFrontOffsetZ()));
                 if (lesu.network != null) {
                     lesu.network.merge(network);
                 }
