@@ -125,24 +125,14 @@ public class TileChemicalReactor extends TilePowerAcceptor implements IWrenchabl
     }
 
     @Override
-    public void openInventory() {
-        inventory.openInventory();
-    }
-
-    @Override
-    public void closeInventory() {
-        inventory.closeInventory();
-    }
-
-    @Override
     public boolean isItemValidForSlot(int slot, ItemStack stack) {
         return inventory.isItemValidForSlot(slot, stack);
     }
 
     // ISidedInventory
     @Override
-    public int[] getAccessibleSlotsFromSide(int side) {
-        return side == EnumFacing.DOWN.ordinal() ? new int[]{0, 1, 2} : new int[]{0, 1, 2};
+    public int[] getSlotsForFace(EnumFacing side) {
+        return side == EnumFacing.DOWN ? new int[]{0, 1, 2} : new int[]{0, 1, 2};
     }
 
     @Override

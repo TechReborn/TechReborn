@@ -12,6 +12,7 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.IChatComponent;
 import reborncore.common.misc.Location;
 import reborncore.common.multiblock.IMultiblockPart;
 import reborncore.common.util.Inventory;
@@ -95,7 +96,8 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
                     }
 
                     for (IMultiblockPart part : casing.connectedParts) {
-                        heat += BlockMachineCasing.getHeatFromMeta(part.getWorld().getBlockMetadata(part.getWorldLocation().x, part.getWorldLocation().y, part.getWorldLocation().z));
+//                        heat += BlockMachineCasing.getHeatFromMeta(part.getWorld().getBlockMetadata(part.getWorldLocation().x, part.getWorldLocation().y, part.getWorldLocation().z));
+                        //TODO meta fix
                     }
 
                     if (worldObj.getBlockState(new BlockPos(location.getX(), location.getY(), location.getZ())).getBlock().getUnlocalizedName().equals("tile.lava") && worldObj.getBlockState(new BlockPos(location.getX(), location.getY() + 1, location.getZ())).getBlock().getUnlocalizedName().equals("tile.lava")) {
@@ -213,8 +215,8 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 
     // ISidedInventory
     @Override
-    public int[] getAccessibleSlotsFromSide(int side) {
-        return side == EnumFacing.DOWN.ordinal() ? new int[]{0, 1, 2, 3} : new int[]{0, 1, 2, 3};
+    public int[] getSlotsForFace(EnumFacing side) {
+        return side == EnumFacing.DOWN ? new int[]{0, 1, 2, 3} : new int[]{0, 1, 2, 3};
     }
 
     @Override
@@ -259,5 +261,20 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
     @Override
     public double getMaxInput() {
         return 128;
+    }
+
+    @Override
+    public String getCommandSenderName() {
+        return inventory.getCommandSenderName();
+    }
+
+    @Override
+    public boolean hasCustomName() {
+        return inventory.hasCustomName();
+    }
+
+    @Override
+    public IChatComponent getDisplayName() {
+        return inventory.getDisplayName();
     }
 }

@@ -1,7 +1,6 @@
 package techreborn.tiles;
 
-import ic2.api.recipe.RecipeOutput;
-import ic2.api.recipe.Recipes;
+
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -165,8 +164,8 @@ public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchab
 
     // ISidedInventory
     @Override
-    public int[] getAccessibleSlotsFromSide(int side) {
-        return side == EnumFacing.DOWN.ordinal() ? new int[]{0, 1, 2, 3, 4, 5, 6} : new int[]{0, 1, 2, 3, 4, 5, 6};
+    public int[] getSlotsForFace(EnumFacing side) {
+        return side == EnumFacing.DOWN ? new int[]{0, 1, 2, 3, 4, 5, 6} : new int[]{0, 1, 2, 3, 4, 5, 6};
     }
 
     @Override
@@ -252,17 +251,18 @@ public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchab
         }
     }
 
+    //TODO ic2
     public int getValue(ItemStack itemStack) {
-        int value = getValue(Recipes.matterAmplifier.getOutputFor(itemStack, false));
-        return value;
-    }
-
-    private static Integer getValue(RecipeOutput output) {
-        if (output != null && output.metadata != null) {
-            return output.metadata.getInteger("amplification");
-        }
+      //  int value = getValue(Recipes.matterAmplifier.getOutputFor(itemStack, false));
         return 0;
     }
+
+   // private static Integer getValue(RecipeOutput output) {
+//        if (output != null && output.metadata != null) {
+//            return output.metadata.getInteger("amplification");
+//        }
+     //   return 0;
+  //  }
 
     @Override
     public double getMaxPower() {

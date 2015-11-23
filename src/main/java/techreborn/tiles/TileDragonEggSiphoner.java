@@ -6,6 +6,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
 import reborncore.common.util.Inventory;
@@ -15,7 +16,7 @@ import techreborn.powerSystem.TilePowerAcceptor;
 
 public class TileDragonEggSiphoner extends TilePowerAcceptor implements IWrenchable, IInventory {
 
-    public Inventory inventory = new Inventory(3, "TileAlloySmelter", 64);
+    public Inventory inventory = new Inventory(3, "TileAlloySmelter", 64, this);
     public static final int euTick = ConfigTechReborn.DragoneggsiphonerOutput;
 
     public TileDragonEggSiphoner() {
@@ -27,7 +28,7 @@ public class TileDragonEggSiphoner extends TilePowerAcceptor implements IWrencha
         super.updateEntity();
 
         if (!worldObj.isRemote) {
-            if (worldObj.getBlock(getPos().getX(), getPos().getY() + 1, getPos().getZ()) == Blocks.dragon_egg) {
+            if (worldObj.getBlockState(new BlockPos(getPos().getX(), getPos().getY() + 1, getPos().getZ())).getBlock() == Blocks.dragon_egg) {
                 addEnergy(euTick);
             }
         }

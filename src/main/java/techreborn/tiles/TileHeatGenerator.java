@@ -4,6 +4,7 @@ import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
@@ -22,15 +23,15 @@ public class TileHeatGenerator extends TilePowerAcceptor implements IWrenchable 
         super.updateEntity();
 
         if (!worldObj.isRemote) {
-            if (worldObj.getBlock(getPos().getX() + 1, getPos().getY(), getPos().getZ()) == Blocks.lava) {
+            if (worldObj.getBlockState(new BlockPos(getPos().getX() + 1, getPos().getY(), getPos().getZ())).getBlock() == Blocks.lava) {
                 addEnergy(euTick);
-            } else if (worldObj.getBlock(getPos().getX(), getPos().getY(), getPos().getZ() + 1) == Blocks.lava) {
+            } else if (worldObj.getBlockState(new BlockPos(getPos().getX(), getPos().getY(), getPos().getZ() + 1)).getBlock() == Blocks.lava) {
                 addEnergy(euTick);
-            } else if (worldObj.getBlock(getPos().getX(), getPos().getY(), getPos().getZ() - 1) == Blocks.lava) {
+            } else if (worldObj.getBlockState(new BlockPos(getPos().getX(), getPos().getY(), getPos().getZ() - 1)).getBlock() == Blocks.lava) {
                 addEnergy(euTick);
-            } else if (worldObj.getBlock(getPos().getX() - 1, getPos().getY(), getPos().getZ()) == Blocks.lava) {
+            } else if (worldObj.getBlockState(new BlockPos(getPos().getX() - 1, getPos().getY(), getPos().getZ())).getBlock() == Blocks.lava) {
                 addEnergy(euTick);
-            } else if (worldObj.getBlock(getPos().getX(), getPos().getY() - 1, getPos().getZ()) == Blocks.lava) {
+            } else if (worldObj.getBlockState(new BlockPos(getPos().getX(), getPos().getY() - 1, getPos().getZ())).getBlock() == Blocks.lava) {
                 addEnergy(euTick);
             }
 

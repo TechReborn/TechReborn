@@ -260,8 +260,8 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
 
     // ISidedInventory
     @Override
-    public int[] getAccessibleSlotsFromSide(int side) {
-        return side == EnumFacing.DOWN.ordinal() ? new int[]{0, 1, 2, 3, 4} : new int[]{0, 1, 2, 3, 4};
+    public int[] getSlotsForFace(EnumFacing side) {
+        return side == EnumFacing.DOWN ? new int[]{0, 1, 2, 3, 4} : new int[]{0, 1, 2, 3, 4};
     }
 
     @Override

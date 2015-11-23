@@ -207,8 +207,8 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
 
     // ISidedInventory
     @Override
-    public int[] getAccessibleSlotsFromSide(int side) {
-        return side == EnumFacing.DOWN.ordinal() ? new int[]{0, 1, 2, 3} : new int[]{0, 1, 2, 3};
+    public int[] getSlotsForFace(EnumFacing side) {
+        return side == EnumFacing.DOWN ? new int[]{0, 1, 2, 3} : new int[]{0, 1, 2, 3};
     }
 
     @Override

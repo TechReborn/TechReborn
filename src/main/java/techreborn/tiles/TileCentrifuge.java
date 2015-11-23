@@ -141,24 +141,14 @@ public class TileCentrifuge extends TilePowerAcceptor implements IWrenchable, II
     }
 
     @Override
-    public void openInventory() {
-        inventory.openInventory();
-    }
-
-    @Override
-    public void closeInventory() {
-        inventory.closeInventory();
-    }
-
-    @Override
     public boolean isItemValidForSlot(int slot, ItemStack stack) {
         return inventory.isItemValidForSlot(slot, stack);
     }
 
     // ISidedInventory
     @Override
-    public int[] getAccessibleSlotsFromSide(EnumFacing side) {
-        return side == EnumFacing.DOWN.ordinal() ? new int[]{0, 1, 2, 3, 4, 5} : new int[]{0, 1, 2, 3, 4, 5};
+    public int[] getSlotsForFace(EnumFacing side) {
+        return side == EnumFacing.DOWN ? new int[]{0, 1, 2, 3, 4, 5} : new int[]{0, 1, 2, 3, 4, 5};
     }
 
     @Override
