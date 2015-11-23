@@ -121,8 +121,8 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
     public Packet getDescriptionPacket() {
         NBTTagCompound nbtTag = new NBTTagCompound();
         writeToNBT(nbtTag);
-        return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord,
-                this.zCoord, 1, nbtTag);
+        return new S35PacketUpdateTileEntity(this.getPos().getX(), this.getPos().getY(),
+                this.getPos().getZ(), 1, nbtTag);
     }
 
     @Override

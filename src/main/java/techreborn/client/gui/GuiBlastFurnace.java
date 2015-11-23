@@ -41,7 +41,7 @@ public class GuiBlastFurnace extends GuiContainer {
         GuiButton button = new GuiButton(212, k + 4, l + 6, 20, 20, "");
         buttonList.add(button);
         super.initGui();
-		ChunkCoordinates coordinates = new ChunkCoordinates(blastfurnace.xCoord - (EnumFacing.getOrientation(blastfurnace.getRotation()).offsetX * 2), blastfurnace.yCoord - 1, blastfurnace.zCoord - (EnumFacing.getOrientation(blastfurnace.getRotation()).offsetZ * 2));
+		ChunkCoordinates coordinates = new ChunkCoordinates(blastfurnace.getPos().getX() - (EnumFacing.getOrientation(blastfurnace.getRotation()).offsetX * 2), blastfurnace.getPos().getY() - 1, blastfurnace.getPos().getZ() - (EnumFacing.getOrientation(blastfurnace.getRotation()).offsetZ * 2));
 		if(coordinates.equals(ClientProxy.multiblockRenderEvent.anchor) && blastfurnace.getHeat() != 0){
 			ClientProxy.multiblockRenderEvent.setMultiblock(null);
 			button.displayString = "B";
@@ -133,8 +133,8 @@ public class GuiBlastFurnace extends GuiContainer {
 					
 					MultiblockSet set = new MultiblockSet(multiblock);
 					ClientProxy.multiblockRenderEvent.setMultiblock(set);
-					ClientProxy.multiblockRenderEvent.partent = new Location(blastfurnace.xCoord, blastfurnace.yCoord, blastfurnace.zCoord, blastfurnace.getWorldObj());
-					ClientProxy.multiblockRenderEvent.anchor = new ChunkCoordinates(blastfurnace.xCoord - (EnumFacing.getOrientation(blastfurnace.getRotation()).offsetX * 2), blastfurnace.yCoord - 1, blastfurnace.zCoord - (EnumFacing.getOrientation(blastfurnace.getRotation()).offsetZ * 2));
+					ClientProxy.multiblockRenderEvent.partent = new Location(blastfurnace.getPos().getX(), blastfurnace.getPos().getY(), blastfurnace.getPos().getZ(), blastfurnace.getWorldObj());
+					ClientProxy.multiblockRenderEvent.anchor = new ChunkCoordinates(blastfurnace.getPos().getX() - (EnumFacing.getOrientation(blastfurnace.getRotation()).offsetX * 2), blastfurnace.getPos().getY() - 1, blastfurnace.getPos().getZ() - (EnumFacing.getOrientation(blastfurnace.getRotation()).offsetZ * 2));
 				}
 				button.displayString = "A";
 			} else {

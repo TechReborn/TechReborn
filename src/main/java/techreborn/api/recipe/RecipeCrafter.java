@@ -109,7 +109,7 @@ public class RecipeCrafter {
      * Call this on the tile tick
      */
     public void updateEntity() {
-        if (parentTile.getWorldObj().isRemote) {
+        if (parentTile.getWorld().isRemote) {
             return;
         }
         ticksSinceLastChange++;
@@ -262,9 +262,9 @@ public class RecipeCrafter {
         if (data.hasKey("currentTickTime"))
             currentTickTime = data.getInteger("currentTickTime");
 
-        if (parentTile != null && parentTile.getWorldObj() != null && parentTile.getWorldObj().isRemote) {
-            parentTile.getWorldObj().markBlockForUpdate(parentTile.xCoord, parentTile.yCoord, parentTile.zCoord);
-            parentTile.getWorldObj().markBlockRangeForRenderUpdate(parentTile.xCoord, parentTile.yCoord, parentTile.zCoord, parentTile.xCoord, parentTile.yCoord, parentTile.zCoord);
+        if (parentTile != null && parentTile.getWorld() != null && parentTile.getWorld().isRemote) {
+            parentTile.getWorld().markBlockForUpdate(parentTile.getPos());
+            parentTile.getWorld().markBlockRangeForRenderUpdate(parentTile.getPos().getX(), parentTile.getPos().getY(), parentTile.getPos().getZ(), parentTile.getPos().getX(), parentTile.getPos().getY(), parentTile.getPos().getZ());
         }
     }
 
@@ -317,11 +317,11 @@ public class RecipeCrafter {
 
     public void setIsActive() {
         if (isActive()) {
-            parentTile.getWorldObj().setBlockMetadataWithNotify(parentTile.xCoord, parentTile.yCoord, parentTile.zCoord, 1, 2);
+            parentTile.getWorldObj().setBlockMetadataWithNotify(parentTile.getPos().getX(), parentTile.getPos().getY(), parentTile.getPos().getZ(), 1, 2);
         } else {
-            parentTile.getWorldObj().setBlockMetadataWithNotify(parentTile.xCoord, parentTile.yCoord, parentTile.zCoord, 0, 2);
+            parentTile.getWorldObj().setBlockMetadataWithNotify(parentTile.getPos().getX(), parentTile.getPos().getY(), parentTile.getPos().getZ(), 0, 2);
         }
-        parentTile.getWorldObj().markBlockForUpdate(parentTile.xCoord, parentTile.yCoord, parentTile.zCoord);
+        parentTile.getWorldObj().markBlockForUpdate(parentTile.getPos().getX(), parentTile.getPos().getY(), parentTile.getPos().getZ());
     }
 
     public void setCurrentRecipe(IBaseRecipeType recipe) {

@@ -164,30 +164,30 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 
 
     public boolean checkCoils() {
-        if ((isCoil(this.xCoord + 3, this.yCoord, this.zCoord + 1)) &&
-                (isCoil(this.xCoord + 3, this.yCoord, this.zCoord)) &&
-                (isCoil(this.xCoord + 3, this.yCoord, this.zCoord - 1)) &&
-                (isCoil(this.xCoord - 3, this.yCoord, this.zCoord + 1)) &&
-                (isCoil(this.xCoord - 3, this.yCoord, this.zCoord)) &&
-                (isCoil(this.xCoord - 3, this.yCoord, this.zCoord - 1)) &&
-                (isCoil(this.xCoord + 2, this.yCoord, this.zCoord + 2)) &&
-                (isCoil(this.xCoord + 2, this.yCoord, this.zCoord + 1)) &&
-                (isCoil(this.xCoord + 2, this.yCoord, this.zCoord - 1)) &&
-                (isCoil(this.xCoord + 2, this.yCoord, this.zCoord - 2)) &&
-                (isCoil(this.xCoord - 2, this.yCoord, this.zCoord + 2)) &&
-                (isCoil(this.xCoord - 2, this.yCoord, this.zCoord + 1)) &&
-                (isCoil(this.xCoord - 2, this.yCoord, this.zCoord - 1)) &&
-                (isCoil(this.xCoord - 2, this.yCoord, this.zCoord - 2)) &&
-                (isCoil(this.xCoord + 1, this.yCoord, this.zCoord + 3)) &&
-                (isCoil(this.xCoord + 1, this.yCoord, this.zCoord + 2)) &&
-                (isCoil(this.xCoord + 1, this.yCoord, this.zCoord - 2)) &&
-                (isCoil(this.xCoord + 1, this.yCoord, this.zCoord - 3)) &&
-                (isCoil(this.xCoord - 1, this.yCoord, this.zCoord + 3)) &&
-                (isCoil(this.xCoord - 1, this.yCoord, this.zCoord + 2)) &&
-                (isCoil(this.xCoord - 1, this.yCoord, this.zCoord - 2)) &&
-                (isCoil(this.xCoord - 1, this.yCoord, this.zCoord - 3)) &&
-                (isCoil(this.xCoord, this.yCoord, this.zCoord + 3)) &&
-                (isCoil(this.xCoord, this.yCoord, this.zCoord - 3))) {
+        if ((isCoil(this.getPos().getX() + 3, this.getPos().getY(), this.getPos().getZ() + 1)) &&
+                (isCoil(this.getPos().getX() + 3, this.getPos().getY(), this.getPos().getZ())) &&
+                (isCoil(this.getPos().getX() + 3, this.getPos().getY(), this.getPos().getZ() - 1)) &&
+                (isCoil(this.getPos().getX() - 3, this.getPos().getY(), this.getPos().getZ() + 1)) &&
+                (isCoil(this.getPos().getX() - 3, this.getPos().getY(), this.getPos().getZ())) &&
+                (isCoil(this.getPos().getX() - 3, this.getPos().getY(), this.getPos().getZ() - 1)) &&
+                (isCoil(this.getPos().getX() + 2, this.getPos().getY(), this.getPos().getZ() + 2)) &&
+                (isCoil(this.getPos().getX() + 2, this.getPos().getY(), this.getPos().getZ() + 1)) &&
+                (isCoil(this.getPos().getX() + 2, this.getPos().getY(), this.getPos().getZ() - 1)) &&
+                (isCoil(this.getPos().getX() + 2, this.getPos().getY(), this.getPos().getZ() - 2)) &&
+                (isCoil(this.getPos().getX() - 2, this.getPos().getY(), this.getPos().getZ() + 2)) &&
+                (isCoil(this.getPos().getX() - 2, this.getPos().getY(), this.getPos().getZ() + 1)) &&
+                (isCoil(this.getPos().getX() - 2, this.getPos().getY(), this.getPos().getZ() - 1)) &&
+                (isCoil(this.getPos().getX() - 2, this.getPos().getY(), this.getPos().getZ() - 2)) &&
+                (isCoil(this.getPos().getX() + 1, this.getPos().getY(), this.getPos().getZ() + 3)) &&
+                (isCoil(this.getPos().getX() + 1, this.getPos().getY(), this.getPos().getZ() + 2)) &&
+                (isCoil(this.getPos().getX() + 1, this.getPos().getY(), this.getPos().getZ() - 2)) &&
+                (isCoil(this.getPos().getX() + 1, this.getPos().getY(), this.getPos().getZ() - 3)) &&
+                (isCoil(this.getPos().getX() - 1, this.getPos().getY(), this.getPos().getZ() + 3)) &&
+                (isCoil(this.getPos().getX() - 1, this.getPos().getY(), this.getPos().getZ() + 2)) &&
+                (isCoil(this.getPos().getX() - 1, this.getPos().getY(), this.getPos().getZ() - 2)) &&
+                (isCoil(this.getPos().getX() - 1, this.getPos().getY(), this.getPos().getZ() - 3)) &&
+                (isCoil(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ() + 3)) &&
+                (isCoil(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ() - 3))) {
             coilStatus = 1;
             return true;
         }

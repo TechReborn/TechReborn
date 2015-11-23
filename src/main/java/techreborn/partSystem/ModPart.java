@@ -76,9 +76,9 @@ public abstract class ModPart extends TileEntity implements IModPart {
      */
     public void setLocation(Location location) {
         this.location = location;
-        this.xCoord = location.getX();
-        this.yCoord = location.getY();
-        this.zCoord = location.getZ();
+        this.getPos().getX() = location.getX();
+        this.getPos().getY() = location.getY();
+        this.getPos().getZ() = location.getZ();
     }
 
     @Override

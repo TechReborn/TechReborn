@@ -52,7 +52,7 @@ public class TilePlayerDectector extends TilePowerAcceptor {
                 Iterator tIterator = super.worldObj.playerEntities.iterator();
                 while (tIterator.hasNext()) {
                     EntityPlayer player = (EntityPlayer) tIterator.next();
-                    if (player.getDistanceSq((double) super.xCoord + 0.5D, (double) super.yCoord + 0.5D, (double) super.zCoord + 0.5D) <= 256.0D) {
+                    if (player.getDistanceSq((double) super.getPos().getX() + 0.5D, (double) super.getPos().getY() + 0.5D, (double) super.getPos().getZ() + 0.5D) <= 256.0D) {
                         if(worldObj.getBlockMetadata(xCoord, yCoord, zCoord) == 0){//ALL
                             redstone = true;
                         } else if (blockMetadata == 1){//Others

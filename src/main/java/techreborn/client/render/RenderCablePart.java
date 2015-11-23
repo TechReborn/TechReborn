@@ -40,9 +40,9 @@ public class RenderCablePart {
         Tessellator tessellator = Tessellator.instance;
         IIcon texture = getIconFromType(part.type);
         RenderBlocks renderblocks = RenderBlocks.getInstance();
-        double xD = part.xCoord;
-        double yD = part.yCoord;
-        double zD = part.zCoord;
+        double xD = part.getPos().getX();
+        double yD = part.getPos().getY();
+        double zD = part.getPos().getZ();
         Block block = part.getBlockType();
         tessellator.setBrightness(block.getMixedBrightnessForBlock(part.getWorld(), part.getX(), part.getY(), part.getZ()));
         renderBox(part.boundingBoxes[6], block, tessellator, renderblocks, texture, xD, yD, zD, 0F);

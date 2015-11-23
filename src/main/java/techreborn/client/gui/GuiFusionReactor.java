@@ -51,7 +51,7 @@ public class GuiFusionReactor extends GuiContainer {
         GuiButton button = new GuiButton(212, k + this.xSize - 24, l + 4, 20, 20, "");
         buttonList.add(button);
         super.initGui();
-        ChunkCoordinates coordinates = new ChunkCoordinates(fusionController.xCoord - (EnumFacing.getOrientation(fusionController.getRotation()).offsetX * 2), fusionController.yCoord - 1, fusionController.zCoord - (EnumFacing.getOrientation(fusionController.getRotation()).offsetZ * 2));
+        ChunkCoordinates coordinates = new ChunkCoordinates(fusionController.getPos().getX() - (EnumFacing.getOrientation(fusionController.getRotation()).offsetX * 2), fusionController.getPos().getY() - 1, fusionController.getPos().getZ() - (EnumFacing.getOrientation(fusionController.getRotation()).offsetZ * 2));
         if(coordinates.equals(ClientProxy.multiblockRenderEvent.anchor)){
             ClientProxy.multiblockRenderEvent.setMultiblock(null);
             button.displayString = "B";
@@ -88,8 +88,8 @@ public class GuiFusionReactor extends GuiContainer {
                 {//This code here makes a basic multiblock and then sets to the selected one.
                     MultiblockSet set = new MultiblockSet(ClientMultiBlocks.reactor);
                     ClientProxy.multiblockRenderEvent.setMultiblock(set);
-                    ClientProxy.multiblockRenderEvent.partent = new Location(fusionController.xCoord, fusionController.yCoord, fusionController.zCoord, fusionController.getWorldObj());
-                    ClientProxy.multiblockRenderEvent.anchor = new ChunkCoordinates(fusionController.xCoord , fusionController.yCoord -1 , fusionController.zCoord);
+                    ClientProxy.multiblockRenderEvent.partent = new Location(fusionController.getPos().getX(), fusionController.getPos().getY(), fusionController.getPos().getZ(), fusionController.getWorldObj());
+                    ClientProxy.multiblockRenderEvent.anchor = new ChunkCoordinates(fusionController.getPos().getX() , fusionController.getPos().getY() -1 , fusionController.getPos().getZ());
                 }
                 button.displayString = "A";
             } else {

@@ -77,11 +77,11 @@ public class PartPlacementRenderer {
                 GL11.glPushMatrix();
                 {
                     Vec3 playerPos = player.getPosition(event.partialTicks);
-                    double x = location.getX() - playerPos.xCoord
+                    double x = location.getX() - playerPos.getPos().getX()
                             + faceHit.offsetX;
-                    double y = location.getY() - playerPos.yCoord
+                    double y = location.getY() - playerPos.getPos().getY()
                             + faceHit.offsetY;
-                    double z = location.getZ() - playerPos.zCoord
+                    double z = location.getZ() - playerPos.getPos().getZ()
                             + faceHit.offsetZ;
                     GL11.glRotated(player.rotationPitch, 1, 0, 0);
                     GL11.glRotated(player.rotationYaw - 180, 0, 1, 0);

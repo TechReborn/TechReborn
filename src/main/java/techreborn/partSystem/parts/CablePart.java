@@ -409,15 +409,15 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
         } else if (entity instanceof IEnergyTile) {
             return true;
         } else {
-            if (ModPartUtils.hasPart(entity.getWorldObj(), entity.xCoord, entity.yCoord, entity.zCoord, this.getName())) {
-                CablePart otherCable = (CablePart) ModPartUtils.getPartFromWorld(entity.getWorldObj(), new Location(entity.xCoord, entity.yCoord, entity.zCoord), this.getName());
+            if (ModPartUtils.hasPart(entity.getWorldObj(), entity.getPos().getX(), entity.getPos().getY(), entity.getPos().getZ(), this.getName())) {
+                CablePart otherCable = (CablePart) ModPartUtils.getPartFromWorld(entity.getWorldObj(), new Location(entity.getPos().getX(), entity.getPos().getY(), entity.getPos().getZ()), this.getName());
                 int thisDir = Functions.getIntDirFromDirection(dir);
                 int thereDir = Functions.getIntDirFromDirection(dir.getOpposite());
                 boolean hasconnection = otherCable.connections[thereDir];
 
                 otherCable.connections[thereDir] = false;
 
-                if (ModPartUtils.checkOcclusion(entity.getWorldObj(), entity.xCoord, entity.yCoord, entity.zCoord, boundingBoxes[thereDir])) {
+                if (ModPartUtils.checkOcclusion(entity.getWorldObj(), entity.getPos().getX(), entity.getPos().getY(), entity.getPos().getZ(), boundingBoxes[thereDir])) {
                     otherCable.connections[thereDir] = true;
                     return true;
                 }
@@ -444,7 +444,7 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
                 }
             }
             if (te != null) {
-                te.getWorldObj().markBlockForUpdate(te.xCoord, te.yCoord, te.zCoord);
+                te.getWorldObj().markBlockForUpdate(te.getPos().getX(), te.getPos().getY(), te.getPos().getZ());
             }
         }
         checkConnections(world, getX(), getY(), getZ());
@@ -538,10 +538,10 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
     public void onNetworkEvent(int i) {
         switch (i) {
             case 0:
-                this.worldObj.playSoundEffect((double) ((float) this.xCoord + 0.5F), (double) ((float) this.yCoord + 0.5F), (double) ((float) this.zCoord + 0.5F), "random.fizz", 0.5F, 2.6F + (this.worldObj.rand.nextFloat() - this.worldObj.rand.nextFloat()) * 0.8F);
+                this.worldObj.playSoundEffect((double) ((float) this.getPos().getX() + 0.5F), (double) ((float) this.getPos().getY() + 0.5F), (double) ((float) this.getPos().getZ() + 0.5F), "random.fizz", 0.5F, 2.6F + (this.worldObj.rand.nextFloat() - this.worldObj.rand.nextFloat()) * 0.8F);
 
                 for (int l = 0; l < 8; ++l) {
-                    this.worldObj.spawnParticle("largesmoke", (double) this.xCoord + Math.random(), (double) this.yCoord + 1.2D, (double) this.zCoord + Math.random(), 0.0D, 0.0D, 0.0D);
+                    this.worldObj.spawnParticle("largesmoke", (double) this.getPos().getX() + Math.random(), (double) this.getPos().getY() + 1.2D, (double) this.getPos().getZ() + Math.random(), 0.0D, 0.0D, 0.0D);
                 }
 
                 return;

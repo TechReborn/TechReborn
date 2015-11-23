@@ -14,7 +14,7 @@ public class TileLesuStorage extends TileMachineBase {
         if (network == null) {
             findAndJoinNetwork(worldObj, xCoord, yCoord, zCoord);
         } else {
-            if (network.master != null && network.master.getWorldObj().getTileEntity(network.master.xCoord, network.master.yCoord, network.master.zCoord) != network.master) {
+            if (network.master != null && network.master.getWorldObj().getTileEntity(network.master.getPos().getX(), network.master.getPos().getY(), network.master.getPos().getZ()) != network.master) {
                 network.master = null;
             }
         }
