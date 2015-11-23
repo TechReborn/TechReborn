@@ -1,6 +1,5 @@
 package techreborn.items.tools;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -84,17 +83,6 @@ public class ItemCloakingDevice extends Item implements IEnergyItemInfo {
         return itemStack;
     }
 
-    @Override
-    public int getDisplayDamage(ItemStack stack) {
-        return 0;
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void registerIcons(IIconRegister iconRegister) {
-        this.itemIcon = iconRegister.registerIcon("techreborn:"
-                + "techreborn.cloakingdevice");
-    }
 
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {

@@ -1,6 +1,6 @@
 package techreborn.items.armor;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
@@ -28,11 +28,6 @@ public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo {
         setMaxStackSize(1);
     }
 
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void registerIcons(IIconRegister iconRegister) {
-        this.itemIcon = iconRegister.registerIcon("techreborn:" + "tool/lapotronicEnergyOrb");
-    }
 
     @Override
     @SideOnly(Side.CLIENT)

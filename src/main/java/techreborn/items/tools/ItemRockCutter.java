@@ -1,7 +1,6 @@
 package techreborn.items.tools;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,12 +31,6 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
         setCreativeTab(TechRebornCreativeTab.instance);
         setMaxStackSize(1);
         efficiencyOnProperMaterial = 16F;
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void registerIcons(IIconRegister iconRegister) {
-        this.itemIcon = iconRegister.registerIcon("techreborn:" + "tool/rockcutter");
     }
 
     @Override
@@ -73,11 +66,11 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
     }
 
     @Override
-    public float func_150893_a(ItemStack stack, Block block) {
+    public float getStrVsBlock(ItemStack stack, Block block) {
         if (!stack.isItemEnchanted()) {
             stack.addEnchantment(Enchantment.silkTouch, 1);
         }
-        return super.func_150893_a(stack, block);
+        return super.getStrVsBlock(stack, block);
     }
 
     @Override

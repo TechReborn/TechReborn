@@ -1,6 +1,5 @@
 package techreborn.items.tools;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -17,10 +16,6 @@ public class ItemTechPda extends Item {
         setMaxStackSize(1);
     }
 
-    @Override
-    public void registerIcons(IIconRegister iconRegister) {
-        itemIcon = iconRegister.registerIcon("techreborn:" + "tool/pda");
-    }
 
     @Override
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {

@@ -1,7 +1,7 @@
 package techreborn.items.tools;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,7 +9,9 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -37,17 +39,9 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
         setUnlocalizedName("techreborn.omniTool");
     }
 
-    @SideOnly(Side.CLIENT)
     @Override
-    public void registerIcons(IIconRegister iconRegister) {
-        this.itemIcon = iconRegister.registerIcon("techreborn:" + "tool/omnitool");
-    }
-
-    @Override
-    public boolean onBlockDestroyed(ItemStack stack, World world, Block block,
-                                    int par4, int par5, int par6, EntityLivingBase entityLiving) {
+    public boolean onBlockDestroyed(ItemStack stack, World worldIn, Block blockIn, BlockPos pos, EntityLivingBase playerIn) {
         PoweredItem.useEnergy(cost, stack);
-
         return true;
     }
 
@@ -61,20 +55,20 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
     }
 
     @Override
-    public float getDigSpeed(ItemStack stack, Block block, int meta) {
+    public float getDigSpeed(ItemStack stack, IBlockState state) {
         if (PoweredItem.canUseEnergy(cost, stack)) {
             PoweredItem.useEnergy(cost, stack);
             return 5.0F;
         }
 
-        if (Items.wooden_axe.getDigSpeed(stack, block, meta) > 1.0F
-                || Items.wooden_sword.getDigSpeed(stack, block, meta) > 1.0F
-                || Items.wooden_pickaxe.getDigSpeed(stack, block, meta) > 1.0F
-                || Items.wooden_shovel.getDigSpeed(stack, block, meta) > 1.0F
-                || Items.shears.getDigSpeed(stack, block, meta) > 1.0F) {
+        if (Items.wooden_axe.getDigSpeed(stack, state) > 1.0F
+                || Items.wooden_sword.getDigSpeed(stack, state) > 1.0F
+                || Items.wooden_pickaxe.getDigSpeed(stack, state) > 1.0F
+                || Items.wooden_shovel.getDigSpeed(stack, state) > 1.0F
+                || Items.shears.getDigSpeed(stack, state) > 1.0F) {
             return efficiencyOnProperMaterial;
         } else {
-            return super.getDigSpeed(stack, block, meta);
+            return super.getDigSpeed(stack, state);
         }
     }
 
@@ -88,9 +82,8 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
     }
 
     @Override
-    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world,
-                             int x, int y, int z, int side, float xOffset, float yOffset, float zOffset) {
-        return TorchHelper.placeTorch(stack, player, world, x, y, z, side, xOffset, yOffset, zOffset);
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+        return TorchHelper.placeTorch(stack, playerIn, worldIn, pos.getX(), pos.getY(), pos.getZ(), side.getIndex(), hitX, hitY, hitZ);
     }
 
     @Override

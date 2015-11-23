@@ -39,7 +39,6 @@ public class ItemParts extends Item {
                     "quadPlutoniumCell", "destructoPack", "iridiumNeutronReflector", "massHoleDevice", "computerMonitor"
                     , "machineParts", "thickNeutronReflector", "neutronReflector"};
 
-    private IIcon[] textures;
 
     public ItemParts() {
         setCreativeTab(TechRebornCreativeTab.instance);
@@ -47,26 +46,7 @@ public class ItemParts extends Item {
         setUnlocalizedName("techreborn.part");
     }
 
-    @Override
-    // Registers Textures For All Dusts
-    public void registerIcons(IIconRegister iconRegister) {
-        textures = new IIcon[types.length];
 
-        for (int i = 0; i < types.length; ++i) {
-            textures[i] = iconRegister.registerIcon("techreborn:" + "component/"
-                    + types[i]);
-        }
-    }
-
-    @Override
-    // Adds Texture what match's meta data
-    public IIcon getIconFromDamage(int meta) {
-        if (meta < 0 || meta >= textures.length) {
-            meta = 0;
-        }
-
-        return textures[meta];
-    }
 
     @Override
     // gets Unlocalized Name depending on meta data

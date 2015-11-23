@@ -1,10 +1,7 @@
 package techreborn.items.tools;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import techreborn.items.ItemTR;
 
 public class ItemHammer extends ItemTR {
@@ -22,20 +19,16 @@ public class ItemHammer extends ItemTR {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister par1IconRegister) {
-        this.itemIcon = par1IconRegister.registerIcon("techreborn:hammer/" + iconName);
-    }
-
-    @Override
     public boolean getShareTag() {
         return true;
     }
 
-    @Override
-    public boolean doesContainerItemLeaveCraftingGrid(ItemStack itemStack) {
-        return false;
-    }
+//    @Override //TODO
+//    public boolean doesContainerItemLeaveCraftingGrid(ItemStack itemStack) {
+//        return false;
+//    }
+
+
 
     @Override
     public ItemStack getContainerItem(ItemStack itemStack) {

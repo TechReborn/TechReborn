@@ -1,10 +1,8 @@
 package techreborn.items;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
 
@@ -32,7 +30,6 @@ public class ItemIngots extends Item {
                     "osmium", "platinum", "silver", "steel", "tellurium", "tin", "titanium",
                     "tungsten", "hotTungstensteel", "tungstensteel", "zinc"};
 
-    private IIcon[] textures;
 
     public ItemIngots() {
         setCreativeTab(TechRebornCreativeTabMisc.instance);
@@ -40,26 +37,6 @@ public class ItemIngots extends Item {
         setUnlocalizedName("techreborn.ingot");
     }
 
-    @Override
-    // Registers Textures For All Dusts
-    public void registerIcons(IIconRegister iconRegister) {
-        textures = new IIcon[types.length];
-
-        for (int i = 0; i < types.length; ++i) {
-            textures[i] = iconRegister.registerIcon("techreborn:" + "ingot/"
-                    + types[i] + "Ingot");
-        }
-    }
-
-    @Override
-    // Adds Texture what match's meta data
-    public IIcon getIconFromDamage(int meta) {
-        if (meta < 0 || meta >= textures.length) {
-            meta = 0;
-        }
-
-        return textures[meta];
-    }
 
     @Override
     // gets Unlocalized Name depending on meta data

@@ -1,6 +1,5 @@
 package techreborn.items.armor;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
@@ -28,11 +27,7 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo {
         setCreativeTab(TechRebornCreativeTab.instance);
     }
 
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void registerIcons(IIconRegister iconRegister) {
-        this.itemIcon = iconRegister.registerIcon("techreborn:" + "tool/lithiumBatpack");
-    }
+
 
     @Override
     @SideOnly(Side.CLIENT)
