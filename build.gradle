@@ -11,11 +11,11 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
     }
 }
 
-apply plugin: 'forge'
+apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 
@@ -66,13 +66,14 @@ configurations {
 
 def ENV = System.getenv()
 if (ENV.BUILD_NUMBER) {
-    version = "0.7.0." + "${System.getenv().BUILD_NUMBER}"
+    version = "1.8.8-0.7.0." + "${System.getenv().BUILD_NUMBER}"
 } else {
-    version = "0.7.0.BUILD"
+    version = "1.8.8-0.7.0.BUILD"
 }
 
 minecraft {
-    version = "1.7.10-10.13.4.1448-1.7.10"
+    version = "1.8.8-11.14.4.1576-1.8.8"
+    mappings = 'snapshot_20151122'
     replace "@MODVERSION@", project.version
 }
 
@@ -97,28 +98,28 @@ dependencies {
     if (!f.exists()) {
         f.mkdir()
     }
-    compile 'net.industrial-craft:industrialcraft-2:2.2.796-experimental:dev'
-    shade 'net.industrial-craft:industrialcraft-2:2.2.796-experimental:api'
-    compile "codechicken:CodeChickenLib:1.7.10-1.1.3.140:dev"
-    compile "codechicken:CodeChickenCore:1.7.10-1.0.7.+:dev"
-    compile "codechicken:NotEnoughItems:1.7.10-1.0.5.+:dev"
-    compile "codechicken:ForgeMultipart:1.7.10-1.2.0.345:dev"
-    compile ("mcp.mobius.waila:Waila:1.5.10_1.7.10:dev") {
-        exclude group: 'mcp.mobius.waila'
-    }
-    compile name: 'buildcraft', version: '7.1.13', classifier: "dev", ext: 'jar'
-    compile "qmunity:QmunityLib:0.2.+:deobf"
-    compile "com.pahimar.ee3:EquivalentExchange3:1.7.10-0.3.507:dev"
-    compile "net.sengir.forestry:forestry_1.7.10:4.2.0.47:dev"
-    shade "net.sengir.forestry:forestry_1.7.10:4.2.0.47:api"
-    compile "tconstruct:TConstruct:1.7.10-1.8.8.build988:deobf"
-    compile "mods.natura:natura:1.7.10-107.779621d:deobf"
-    compile "mantle:Mantle:1.7.10-0.3.2.jenkins192:deobf"
-    compile "com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.7.10-2.1.0.1465:deobf"
-    compile 'Azanor:Thaumcraft:4.2.3.5:deobf@jar'
-    compile "com.github.azanor:baubles:1.0.1.10:deobf@jar"
-    compile name: "MineTweaker3", version: "1.7.10-3.0.9C", classifier: "Dev"
-    shade 'IC2-Classic-API-STANDALONE:IC2-Classic-API-STANDALONE:1.1.0.19-5:api'
+  //  compile 'net.industrial-craft:industrialcraft-2:2.2.796-experimental:dev'
+  //  shade 'net.industrial-craft:industrialcraft-2:2.2.796-experimental:api'
+  //  compile "codechicken:CodeChickenLib:1.7.10-1.1.3.140:dev"
+ //   compile "codechicken:CodeChickenCore:1.7.10-1.0.7.+:dev"
+   // compile "codechicken:NotEnoughItems:1.7.10-1.0.5.+:dev"
+  //  compile "codechicken:ForgeMultipart:1.7.10-1.2.0.345:dev"
+ //   compile ("mcp.mobius.waila:Waila:1.5.10_1.7.10:dev") {
+ //       exclude group: 'mcp.mobius.waila'
+  //  }
+ //   compile name: 'buildcraft', version: '7.1.13', classifier: "dev", ext: 'jar'
+  //  compile "qmunity:QmunityLib:0.2.+:deobf"
+  //  compile "com.pahimar.ee3:EquivalentExchange3:1.7.10-0.3.507:dev"
+  //  compile "net.sengir.forestry:forestry_1.7.10:4.2.0.47:dev"
+  //  shade "net.sengir.forestry:forestry_1.7.10:4.2.0.47:api"
+ //   compile "tconstruct:TConstruct:1.7.10-1.8.8.build988:deobf"
+ //   compile "mods.natura:natura:1.7.10-107.779621d:deobf"
+ //   compile "mantle:Mantle:1.7.10-0.3.2.jenkins192:deobf"
+ //   compile "com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.7.10-2.1.0.1465:deobf"
+ //   compile 'Azanor:Thaumcraft:4.2.3.5:deobf@jar'
+ //   compile "com.github.azanor:baubles:1.0.1.10:deobf@jar"
+ //   compile name: "MineTweaker3", version: "1.7.10-3.0.9C", classifier: "Dev"
+  //  shade 'IC2-Classic-API-STANDALONE:IC2-Classic-API-STANDALONE:1.1.0.19-5:api'
     compile 'RebornCore:RebornCore:1.0.0.+:dev'
 
 	testCompile 'junit:junit:4.12'
