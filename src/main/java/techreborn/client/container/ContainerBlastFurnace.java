@@ -61,8 +61,8 @@ public class ContainerBlastFurnace extends ContainerCrafting {
     }
 
     @Override
-    public void addCraftingToCrafters(ICrafting crafting) {
-        super.addCraftingToCrafters(crafting);
+    public void onCraftGuiOpened(ICrafting crafting) {
+        super.onCraftGuiOpened(crafting);
         crafting.sendProgressBarUpdate(this, 10, tile.getHeat());
     }
 

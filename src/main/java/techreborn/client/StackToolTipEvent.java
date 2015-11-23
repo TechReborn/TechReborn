@@ -1,12 +1,12 @@
 package techreborn.client;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.input.Keyboard;
 import reborncore.api.IListInfoProvider;
 import reborncore.common.util.Color;

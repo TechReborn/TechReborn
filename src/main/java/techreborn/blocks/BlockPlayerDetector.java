@@ -1,10 +1,7 @@
 package techreborn.blocks;
 
 
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,10 +10,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TilePlayerDectector;
 
@@ -27,7 +24,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
 
     public BlockPlayerDetector() {
         super(Material.rock);
-        setBlockName("techreborn.playerDetector");
+        setUnlocalizedName("techreborn.playerDetector");
         setCreativeTab(TechRebornCreativeTab.instance);
         setHardness(2f);
     }
@@ -35,7 +32,6 @@ public class BlockPlayerDetector extends BlockMachineBase {
     public static final String[] types = new String[]
             {"all", "others", "you"};
 
-    private IIcon[] textures;
 
     @Override
     public Item getItemDropped(int par1, Random random, int par2) {
@@ -55,22 +51,6 @@ public class BlockPlayerDetector extends BlockMachineBase {
         return metaData;
     }
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister iconRegister) {
-        this.textures = new IIcon[types.length];
-
-        for (int i = 0; i < types.length; i++) {
-            textures[i] = iconRegister.registerIcon("techreborn:"
-                    + "machine/player_detector_" + types[i]);
-        }
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int side, int metaData) {
-        return textures[MathHelper.clamp_int(metaData, 0, types.length - 1)];
-    }
 
     @Override
     public void onBlockAdded(World world, int x, int y, int z) {

@@ -1,16 +1,12 @@
 package techreborn.blocks;
 
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.EnumFacing;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModBlocks;
 
@@ -37,11 +33,10 @@ public class BlockStorage extends Block {
                     "electrum", "zinc", "platinum", "tungsten", "nickel", "invar", "osmium",
                     "iridium"};
 
-    private IIcon[] textures;
 
     public BlockStorage(Material material) {
         super(material);
-        setBlockName("techreborn.storage");
+        setUnlocalizedName("techreborn.storage");
         setCreativeTab(TechRebornCreativeTabMisc.instance);
         setHardness(2f);
     }
@@ -64,28 +59,6 @@ public class BlockStorage extends Block {
         return metaData;
     }
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister iconRegister) {
-        this.textures = new IIcon[types.length];
 
-        for (int i = 0; i < types.length; i++) {
-            textures[i] = iconRegister.registerIcon("techreborn:"
-                    + "storage/" + types[i] + "_block");
-        }
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int side, int metaData) {
-        metaData = MathHelper.clamp_int(metaData, 0, types.length - 1);
-
-        if (EnumFacing.getOrientation(side) == EnumFacing.UP
-                || EnumFacing.getOrientation(side) == EnumFacing.DOWN) {
-            return textures[metaData];
-        } else {
-            return textures[metaData];
-        }
-    }
 
 }

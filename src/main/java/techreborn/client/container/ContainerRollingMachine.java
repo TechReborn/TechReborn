@@ -5,7 +5,6 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import reborncore.client.gui.SlotFake;
 import reborncore.client.gui.SlotOutput;
 import reborncore.common.container.RebornContainer;
 import techreborn.api.RollingMachineRecipe;

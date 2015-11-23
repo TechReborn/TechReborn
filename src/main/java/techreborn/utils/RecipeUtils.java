@@ -1,6 +1,5 @@
 package techreborn.utils;
 
-import net.minecraftforge.fml.common.Loader;
 import net.minecraft.item.ItemStack;
 import techreborn.items.ItemCells;
 

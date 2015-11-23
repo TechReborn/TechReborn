@@ -1,9 +1,5 @@
 package techreborn.client;
 
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraftforge.client.event.TextureStitchEvent;
-
 //TODO recode for 1.8
 public class IconSupplier {
 //    public static IIcon insulatedCopperCable;

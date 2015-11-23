@@ -1,14 +1,14 @@
 package techreborn.config;
 
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.util.StatCollector;
+import net.minecraftforge.common.config.ConfigElement;
+import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.config.DummyConfigElement;
 import net.minecraftforge.fml.client.config.GuiConfig;
 import net.minecraftforge.fml.client.config.GuiConfigEntries;
 import net.minecraftforge.fml.client.config.GuiConfigEntries.CategoryEntry;
 import net.minecraftforge.fml.client.config.IConfigElement;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.util.StatCollector;
-import net.minecraftforge.common.config.ConfigElement;
-import net.minecraftforge.common.config.Configuration;
 
 import java.util.ArrayList;
 import java.util.List;

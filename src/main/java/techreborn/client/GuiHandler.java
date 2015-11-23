@@ -1,9 +1,9 @@
 package techreborn.client;
 
-import net.minecraft.util.BlockPos;
-import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.IGuiHandler;
 import techreborn.client.container.*;
 import techreborn.client.gui.*;
 import techreborn.pda.GuiManual;

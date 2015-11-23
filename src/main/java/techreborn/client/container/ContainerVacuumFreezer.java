@@ -1,10 +1,10 @@
 package techreborn.client.container;
 
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.client.gui.SlotOutput;
 import techreborn.tiles.TileVacuumFreezer;
 
@@ -60,8 +60,8 @@ public class ContainerVacuumFreezer extends ContainerCrafting {
     }
 
     @Override
-    public void addCraftingToCrafters(ICrafting crafting) {
-        super.addCraftingToCrafters(crafting);
+    public void onCraftGuiOpened(ICrafting crafting) {
+        super.onCraftGuiOpened(crafting);
         crafting.sendProgressBarUpdate(this, 3, tile.multiBlockStatus);
     }
 

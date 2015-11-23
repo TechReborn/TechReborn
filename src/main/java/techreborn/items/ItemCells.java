@@ -1,22 +1,20 @@
 package techreborn.items;
 
-import ic2.api.item.IC2Items;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.IStringSerializable;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.IFluidContainerItem;
-import techreborn.Core;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModItems;
 
 import java.util.List;
 
 public class ItemCells extends ItemTR {
+
+    public static final PropertyEnum<EnumCells> VARIANT_PROP = PropertyEnum.create("variant", EnumCells.class);
 
     public static ItemStack getCellByName(String name, int count) {
         return getCellByName(name, count, true);
@@ -25,19 +23,19 @@ public class ItemCells extends ItemTR {
 
     public static ItemStack getCellByName(String name, int count, boolean lookForIC2) {
         Fluid fluid = FluidRegistry.getFluid("fluid" + name.toLowerCase());
-        if (lookForIC2 && IC2Items.getItem("FluidCell") != null) {
-            if (fluid != null) {
-                ItemStack stack = IC2Items.getItem("FluidCell").copy();
-                if (stack != null && stack.getItem() instanceof IFluidContainerItem) {
-                    IFluidContainerItem containerItem = (IFluidContainerItem) stack.getItem();
-                    containerItem.fill(stack, new FluidStack(fluid.getID(), 2147483647), true);
-                    stack.stackSize = count;
-                    return stack;
-                }
-            } else {
-                Core.logHelper.debug("Could not find " + "fluid" + name + " in the fluid registry!");
-            }
-        }
+//        if (lookForIC2 && IC2Items.getItem("FluidCell") != null) {
+//            if (fluid != null) {
+//                ItemStack stack = IC2Items.getItem("FluidCell").copy();
+//                if (stack != null && stack.getItem() instanceof IFluidContainerItem) {
+//                    IFluidContainerItem containerItem = (IFluidContainerItem) stack.getItem();
+//                    containerItem.fill(stack, new FluidStack(fluid.getID(), 2147483647), true);
+//                    stack.stackSize = count;
+//                    return stack;
+//                }
+//            } else {
+//                Core.logHelper.debug("Could not find " + "fluid" + name + " in the fluid registry!");
+//            }
+//        } //TODO ic2
         int index = -1;
         for (int i = 0; i < types.length; i++) {
             if (types[i].equals(name)) {
@@ -61,7 +59,70 @@ public class ItemCells extends ItemTR {
                     "seedOil", "silicon", "sodium", "sodiumPersulfate",
                     "sodiumSulfide", "sulfur", "sulfuricAcid", "tritium", "wolframium", "empty"};
 
-    private IIcon[] textures;
+
+    public enum EnumCells implements IStringSerializable{
+        Berylium(0, "Berylium"),
+        biomass(1, "biomass"),
+        calciumCarbonate(2, "calciumCarbonate"),
+        calcium(3, "calcium"),
+        carbon(4, "carbon"),
+        chlorine(0, "chlorine"),
+        deuterium(0, "deuterium"),
+        diesel(0, "diesel"),
+        ethanol(0, "ethanol"),
+        glyceryl(0, "glyceryl"),
+        helium3(0, "helium3"),
+        helium(0, "helium"),
+        heliumPlasma(0, "heliumPlasma"),
+        hydrogen(0, "hydrogen"),
+        ice(0, "ice"),
+        lithium(0, "lithium"),
+        mercury(0, "mercury"),
+        methane(0, "methane"),
+        nitrocarbon(0, "nitrocarbon"),
+        nitroCoalfuel(0, "nitroCoalfuel"),
+        nitroDiesel(0, "nitroDiesel"),
+        nitrogen(0, "nitrogen"),
+        nitrogenDioxide(0, "nitrogenDioxide"),
+        oil(0, "oil"),
+        potassium(0, "potassium"),
+        seedOil(0, "seedOil"),
+        silicon(0, "silicon"),
+        sodium(0, "sodium"),
+        sodiumPersulfate(0, "sodiumPersulfate"),
+        sodiumSulfide(0, "sodiumSulfide"),
+        sulfur(0, "sulfur"),
+        tritium(0, "tritium"),
+        wolframium(0, "wolframium"),
+        empty(0, "empty");
+
+        private static final EnumCells[] META_LOOKUP = new EnumCells[values().length];
+        private final int meta;
+        private final String name;
+
+        private EnumCells(int meta, String name)
+        {
+            this.meta = meta;
+            this.name = name;
+        }
+
+        @Override
+        public String getName() {
+            return this.name;
+        }
+
+        public int getMeta() {
+            return meta;
+        }
+
+        static
+        {
+            for (EnumCells cells : values())
+            {
+                META_LOOKUP[cells.getMeta()] = cells;
+            }
+        }
+    }
 
     public ItemCells() {
         setUnlocalizedName("techreborn.cell");
@@ -69,26 +130,6 @@ public class ItemCells extends ItemTR {
         setCreativeTab(TechRebornCreativeTab.instance);
     }
 
-    @Override
-    // Registers Textures For All Dusts
-    public void registerIcons(IIconRegister iconRegister) {
-        textures = new IIcon[types.length];
-
-        for (int i = 0; i < types.length; ++i) {
-            textures[i] = iconRegister.registerIcon("techreborn:" + "cells/"
-                    + types[i] + "Cell");
-        }
-    }
-
-    @Override
-    // Adds Texture what match's meta data
-    public IIcon getIconFromDamage(int meta) {
-        if (meta < 0 || meta >= textures.length) {
-            meta = 0;
-        }
-
-        return textures[meta];
-    }
 
     @Override
     // gets Unlocalized Name depending on meta data

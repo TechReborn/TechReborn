@@ -1,8 +1,8 @@
 package techreborn.tiles.lesu;
 
 import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.world.World;
 import techreborn.tiles.TileMachineBase;
 
 public class TileLesuStorage extends TileMachineBase {

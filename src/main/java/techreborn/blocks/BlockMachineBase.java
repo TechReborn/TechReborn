@@ -1,6 +1,5 @@
 package techreborn.blocks;
 
-import net.minecraftforge.fml.common.Loader;
 import ic2.api.item.IC2Items;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -17,11 +16,12 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fluids.*;
+import net.minecraftforge.fml.common.Loader;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
 import techreborn.tiles.TileMachineBase;

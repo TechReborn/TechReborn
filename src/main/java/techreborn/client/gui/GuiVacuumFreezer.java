@@ -6,7 +6,6 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import net.minecraft.util.EnumFacing;
 import reborncore.client.gui.GuiUtil;
 import reborncore.client.multiblock.MultiblockSet;
 import reborncore.common.misc.Location;

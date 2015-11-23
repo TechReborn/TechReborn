@@ -1,8 +1,8 @@
 package techreborn.client.container;
 
+import net.minecraft.inventory.ICrafting;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.inventory.ICrafting;
 import reborncore.common.container.RebornContainer;
 import techreborn.api.recipe.RecipeCrafter;
 

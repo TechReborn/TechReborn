@@ -1,6 +1,5 @@
 package techreborn.tiles;
 
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -10,6 +9,7 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.api.recipe.IBaseRecipeType;

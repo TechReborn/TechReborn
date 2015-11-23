@@ -1,7 +1,5 @@
 package techreborn.blocks.storage;
 
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
@@ -11,6 +9,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
 import techreborn.client.GuiHandler;
@@ -29,7 +29,7 @@ public class BlockIDSU extends BlockMachineBase {
 
     public BlockIDSU(Material material) {
         super(material);
-        setBlockName("techreborn.idsu");
+        setUnlocalizedName("techreborn.idsu");
     }
 
     @Override

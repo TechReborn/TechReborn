@@ -1,14 +1,12 @@
 package techreborn.world;
 
 import net.minecraft.util.BlockPos;
-import net.minecraftforge.fml.common.IWorldGenerator;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
+import net.minecraftforge.fml.common.IWorldGenerator;
 import techreborn.Core;
 import techreborn.config.ConfigTechReborn;
-import techreborn.init.ModBlocks;
 
 import java.util.Random;
 

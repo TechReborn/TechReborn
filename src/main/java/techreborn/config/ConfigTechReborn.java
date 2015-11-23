@@ -1,8 +1,8 @@
 package techreborn.config;
 
-import net.minecraftforge.fml.common.Loader;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.common.Loader;
 
 import java.io.File;
 

@@ -1,8 +1,6 @@
 package techreborn.init;
 
-import net.minecraftforge.fml.common.Loader;
 import net.minecraft.item.ItemStack;
-
 
 import java.util.HashMap;
 

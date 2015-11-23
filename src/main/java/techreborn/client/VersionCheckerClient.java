@@ -1,9 +1,9 @@
 package techreborn.client;
 
-import net.minecraftforge.fml.client.GuiModList;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.GuiScreenEvent;
+import net.minecraftforge.fml.client.GuiModList;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import reborncore.client.gui.GuiUtil;
 import techreborn.Core;
 

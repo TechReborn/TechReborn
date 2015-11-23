@@ -4,16 +4,14 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import net.minecraft.util.EnumFacing;
-import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockSet;
 import reborncore.common.misc.Location;
 import reborncore.common.multiblock.CoordTriplet;
 import techreborn.client.ClientMultiBlocks;
 import techreborn.client.container.ContainerFusionReactor;
-import techreborn.init.ModBlocks;
 import techreborn.proxies.ClientProxy;
 import techreborn.tiles.fusionReactor.TileEntityFusionController;
 

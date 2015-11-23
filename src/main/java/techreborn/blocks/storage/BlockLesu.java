@@ -1,13 +1,8 @@
 package techreborn.blocks.storage;
 
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
@@ -16,41 +11,12 @@ import techreborn.tiles.lesu.TileLesu;
 
 public class BlockLesu extends BlockMachineBase {
 
-    @SideOnly(Side.CLIENT)
-    private IIcon iconFront;
-
-    @SideOnly(Side.CLIENT)
-    private IIcon iconTop;
-
-    @SideOnly(Side.CLIENT)
-    private IIcon iconBottom;
 
     public BlockLesu(Material material) {
         super(material);
-        setBlockName("techreborn.lesu");
+        setUnlocalizedName("techreborn.lesu");
     }
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister icon) {
-        this.blockIcon = icon.registerIcon("techreborn:machine/lesu_side");
-        this.iconFront = icon.registerIcon("techreborn:machine/lesu_front");
-        this.iconTop = icon.registerIcon("techreborn:machine/lesu_side");
-        this.iconBottom = icon.registerIcon("techreborn:machine/lesu_side");
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int side) {
-        int metadata = getTileRotation(blockAccess, x, y, z);
-        if (side == metadata && blockAccess.getBlockMetadata(x, y, z) == 1) {
-            return this.iconFront;
-        }
-        return metadata == 0 && side == 3 ? this.iconFront
-                : side == 1 ? this.iconTop :
-                side == 0 ? this.iconBottom : (side == 0 ? this.iconTop
-                        : (side == metadata ? this.iconFront : this.blockIcon));
-    }
 
     @Override
     public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
