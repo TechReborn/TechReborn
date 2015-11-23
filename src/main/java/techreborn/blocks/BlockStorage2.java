@@ -2,6 +2,7 @@ package techreborn.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -36,8 +37,9 @@ public class BlockStorage2 extends Block {
         setHardness(2f);
     }
 
+
     @Override
-    public Item getItemDropped(int par1, Random random, int par2) {
+    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Item.getItemFromBlock(this);
     }
 
@@ -50,10 +52,7 @@ public class BlockStorage2 extends Block {
     }
 
     @Override
-    public int damageDropped(int metaData) {
-        return metaData;
+    public int damageDropped(IBlockState state) {
+        return super.damageDropped(state); //TODO fix for 1.8
     }
-
-
-
 }

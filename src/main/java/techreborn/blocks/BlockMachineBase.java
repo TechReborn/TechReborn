@@ -1,11 +1,11 @@
 package techreborn.blocks;
 
-import ic2.api.item.IC2Items;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockDynamicLiquid;
 import net.minecraft.block.BlockStaticLiquid;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.item.EntityItem;
@@ -16,6 +16,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
@@ -27,6 +28,7 @@ import techreborn.init.ModBlocks;
 import techreborn.tiles.TileMachineBase;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class BlockMachineBase extends BlockContainer {
@@ -43,62 +45,75 @@ public class BlockMachineBase extends BlockContainer {
         return new TileMachineBase();
     }
 
+    @Deprecated
     public void onBlockAdded(World world, int x, int y, int z) {
-
-        super.onBlockAdded(world, x, y, z);
-        this.setDefaultDirection(world, x, y, z);
-
     }
 
-    private void setDefaultDirection(World world, int x, int y, int z) {
+    @Override
+    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
+        super.onBlockAdded(worldIn, pos, state);
+        onBlockAdded(worldIn, pos.getX(), pos.getY(), pos.getZ());
+        this.setDefaultDirection(worldIn, pos);
+    }
+
+    private void setDefaultDirection(World world, BlockPos pos) {
 
         if (!world.isRemote) {
-            Block block1 = world.getBlock(x, y, z - 1);
-            Block block2 = world.getBlock(x, y, z + 1);
-            Block block3 = world.getBlock(x - 1, y, z);
-            Block block4 = world.getBlock(x + 1, y, z);
+            Block block1 = world.getBlockState(new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1)).getBlock();
+            Block block2 = world.getBlockState(new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1)).getBlock();
+            Block block3 = world.getBlockState(new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ())).getBlock();
+            Block block4 = world.getBlockState(new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ())).getBlock();
 
             byte b = 3;
 
-            if (block1.func_149730_j() && !block2.func_149730_j()) {
+            if (block1.isOpaqueCube() && !block2.isOpaqueCube()) {
                 b = 3;
             }
-            if (block2.func_149730_j() && !block1.func_149730_j()) {
+            if (block2.isOpaqueCube() && !block1.isOpaqueCube()) {
                 b = 2;
             }
-            if (block3.func_149730_j() && !block4.func_149730_j()) {
+            if (block3.isOpaqueCube() && !block4.isOpaqueCube()) {
                 b = 5;
             }
-            if (block4.func_149730_j() && !block3.func_149730_j()) {
+            if (block4.isOpaqueCube() && !block3.isOpaqueCube()) {
                 b = 4;
             }
 
-            world.setBlockMetadataWithNotify(x, y, z, b, 2);
-            setTileRotation(world, x, y, z, b);
+            //TODO 1.8 meta
+          //  world.setBlockMetadataWithNotify(x, y, z, b, 2);
+            setTileRotation(world, pos, b);
 
         }
 
     }
 
+    @Deprecated
     public void onBlockPlacedBy(World world, int x, int y, int z,
                                 EntityLivingBase player, ItemStack itemstack) {
 
+
+    }
+
+    @Override
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+        onBlockPlacedBy(worldIn, pos.getX(), pos.getY(), pos.getZ(), placer, stack);
+
         int l = MathHelper
-                .floor_double((double) (player.rotationYaw * 4.0F / 360F) + 0.5D) & 3;
+                .floor_double((double) (placer.rotationYaw * 4.0F / 360F) + 0.5D) & 3;
 
         if (l == 0) {
-            setTileRotation(world, x, y, z, 2);
+            setTileRotation(worldIn, pos,  2);
         }
         if (l == 1) {
-            setTileRotation(world, x, y, z, 5);
+            setTileRotation(worldIn, pos, 5);
         }
         if (l == 2) {
-            setTileRotation(world, x, y, z, 3);
+            setTileRotation(worldIn, pos, 3);
         }
         if (l == 3) {
-            setTileRotation(world, x, y, z, 4);
+            setTileRotation(worldIn, pos, 4);
         }
-        super.onBlockPlacedBy(world, x, y, z, player, itemstack);
     }
 
     public boolean canCreatureSpawn(EnumCreatureType type, World world, int x,
@@ -106,14 +121,20 @@ public class BlockMachineBase extends BlockContainer {
         return false;
     }
 
-    @Override
+    @Deprecated
     public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
-        dropInventory(world, x, y, z);
-        super.breakBlock(world, x, y, z, block, meta);
+
     }
 
-    protected void dropInventory(World world, int x, int y, int z) {
-        TileEntity tileEntity = world.getTileEntity(x, y, z);
+    @Override
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        super.breakBlock(worldIn, pos, state);
+        breakBlock(worldIn, pos.getX(), pos.getY(), pos.getZ(), state.getBlock(), 0);
+        dropInventory(worldIn, pos);
+    }
+
+    protected void dropInventory(World world, BlockPos pos) {
+        TileEntity tileEntity = world.getTileEntity(pos);
 
         if (!(tileEntity instanceof IInventory)) {
             return;
@@ -126,7 +147,7 @@ public class BlockMachineBase extends BlockContainer {
 
             if (itemStack != null && itemStack.stackSize > 0) {
                 if (itemStack.getItem() instanceof ItemBlock) {
-                    if (((ItemBlock) itemStack.getItem()).field_150939_a instanceof BlockFluidBase || ((ItemBlock) itemStack.getItem()).field_150939_a instanceof BlockStaticLiquid || ((ItemBlock) itemStack.getItem()).field_150939_a instanceof BlockDynamicLiquid) {
+                    if (((ItemBlock) itemStack.getItem()).block instanceof BlockFluidBase || ((ItemBlock) itemStack.getItem()).block instanceof BlockStaticLiquid || ((ItemBlock) itemStack.getItem()).block instanceof BlockDynamicLiquid) {
                         return;
                     }
                 }
@@ -136,7 +157,7 @@ public class BlockMachineBase extends BlockContainer {
                 float dY = rand.nextFloat() * 0.8F + 0.1F;
                 float dZ = rand.nextFloat() * 0.8F + 0.1F;
 
-                EntityItem entityItem = new EntityItem(world, x + dX, y + dY, z + dZ, itemStack.copy());
+                EntityItem entityItem = new EntityItem(world, pos.getX() + dX, pos.getY() + dY, pos.getZ() + dZ, itemStack.copy());
 
                 if (itemStack.hasTagCompound()) {
                     entityItem.getEntityItem().setTagCompound((NBTTagCompound) itemStack.getTagCompound().copy());
@@ -152,33 +173,32 @@ public class BlockMachineBase extends BlockContainer {
         }
     }
 
-    public void setTileRotation(World world, int x, int y, int z, int meta) {
-        if (world.getTileEntity(x, y, z) != null && world.getTileEntity(x, y, z) instanceof TileMachineBase) {
-            ((TileMachineBase) world.getTileEntity(x, y, z)).setRotation(meta);
+    public void setTileRotation(World world, BlockPos pos, int meta) {
+        if (world.getTileEntity(pos) != null && world.getTileEntity(pos) instanceof TileMachineBase) {
+            ((TileMachineBase) world.getTileEntity(pos)).setRotation(meta);
         }
     }
 
-    public int getTileRotation(World world, int x, int y, int z) {
-        if (world.getTileEntity(x, y, z) != null && world.getTileEntity(x, y, z) instanceof TileMachineBase) {
-            return ((TileMachineBase) world.getTileEntity(x, y, z)).getRotation();
+    public int getTileRotation(World world, BlockPos pos) {
+        if (world.getTileEntity(pos) != null && world.getTileEntity(pos) instanceof TileMachineBase) {
+            return ((TileMachineBase) world.getTileEntity(pos)).getRotation();
         }
         return 0;
     }
 
-    public int getTileRotation(IBlockAccess blockAccess, int x, int y, int z) {
-        return blockAccess.getTileEntity(x, y, z) != null ? getTileRotation(blockAccess.getTileEntity(x, y, z).getWorld(), x, y, z) : 0;
+    public int getTileRotation(IBlockAccess blockAccess, BlockPos pos) {
+        return blockAccess.getTileEntity(pos) != null ? getTileRotation(blockAccess.getTileEntity(pos).getWorld(), pos) : 0;
     }
 
     @Override
-    public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
+    public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
         ArrayList<ItemStack> items = new ArrayList<ItemStack>();
-        if (Loader.isModLoaded("IC2")) {
-            ItemStack stack = IC2Items.getItem(isAdvanced() ? "advancedMachine" : "machine").copy();
-            stack.stackSize = 1;
-            items.add(stack);
-        } else {
-            items.add(isAdvanced() ? new ItemStack(Item.getItemFromBlock(ModBlocks.MachineCasing), 1, 2) : new ItemStack(Item.getItemFromBlock(ModBlocks.MachineCasing), 1, 0));
-        }
+//        if (Loader.isModLoaded("IC2")) {
+//            ItemStack stack = IC2Items.getItem(isAdvanced() ? "advancedMachine" : "machine").copy();
+//            stack.stackSize = 1;
+//            items.add(stack);
+//        } //TODO ic2
+        items.add(isAdvanced() ? new ItemStack(Item.getItemFromBlock(ModBlocks.MachineCasing), 1, 2) : new ItemStack(Item.getItemFromBlock(ModBlocks.MachineCasing), 1, 0));
         return items;
     }
 
@@ -187,33 +207,42 @@ public class BlockMachineBase extends BlockContainer {
     }
 
     @Override
-    public boolean rotateBlock(World worldObj, int x, int y, int z, EnumFacing axis) {
+    public boolean rotateBlock(World world, BlockPos pos, EnumFacing axis) {
         if (axis == null) {
             return false;
         } else {
-            TileEntity tile = worldObj.getTileEntity(x, y, z);
+            TileEntity tile = world.getTileEntity(pos);
             if (tile != null && tile instanceof TileMachineBase) {
                 TileMachineBase machineBase = (TileMachineBase) tile;
-                machineBase.setRotation(EnumFacing.getOrientation(machineBase.getRotation()).getRotation(axis).ordinal());
+                machineBase.setRotation(EnumFacing.getFront(machineBase.getRotation()).getOpposite().ordinal());
                 return true;
             }
             return false;
         }
     }
 
+
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, int side, float hitX, float hitY, float hitZ) {
-        if(fillBlockWithFluid(world, x, y, z, entityplayer, side, hitX, hitY, hitZ)){
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
+        if(fillBlockWithFluid(worldIn, pos, playerIn)){
             return true;
         }
-        return super.onBlockActivated(world, x, y, z, entityplayer, side, hitX, hitY, hitZ);
+        if(onBlockActivated(worldIn, pos.getX(), pos.getY(), pos.getZ(), playerIn, side.getIndex(), hitX, hitY, hitZ)){
+            return true;
+        }
+        return super.onBlockActivated(worldIn, pos, state, playerIn, side, hitX, hitY, hitZ);
     }
 
-    public boolean fillBlockWithFluid(World world, int x, int y, int z, EntityPlayer entityplayer, int side, float hitX, float hitY, float hitZ) {
+    @Deprecated
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, int side, float hitX, float hitY, float hitZ) {
+        return false;
+    }
+
+    public boolean fillBlockWithFluid(World world, BlockPos pos, EntityPlayer entityplayer) {
         ItemStack current = entityplayer.inventory.getCurrentItem();
 
         if (current != null) {
-            TileEntity tile = world.getTileEntity(x, y, z);
+            TileEntity tile = world.getTileEntity(pos);
 
             if (tile instanceof IFluidHandler) {
                 IFluidHandler tank = (IFluidHandler) tile;

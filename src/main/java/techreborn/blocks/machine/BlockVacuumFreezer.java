@@ -3,6 +3,7 @@ package techreborn.blocks.machine;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
@@ -27,7 +28,7 @@ public class BlockVacuumFreezer extends BlockMachineBase {
     public boolean onBlockActivated(World world, int x, int y, int z,
                                     EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
 
-        TileVacuumFreezer tileVacuumFreezer = (TileVacuumFreezer) world.getTileEntity(x, y, z);
+        TileVacuumFreezer tileVacuumFreezer = (TileVacuumFreezer) world.getTileEntity(new BlockPos(x, y, z));
         tileVacuumFreezer.multiBlockStatus = tileVacuumFreezer.checkMachine() ? 1 : 0;
 
         if (!player.isSneaking())

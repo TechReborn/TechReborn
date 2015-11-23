@@ -3,10 +3,13 @@ package techreborn.blocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import techreborn.Core;
@@ -29,70 +32,70 @@ public class BlockQuantumChest extends BlockContainer {
     }
 
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z,
-                                    EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-        if (!player.isSneaking())
-            player.openGui(Core.INSTANCE, GuiHandler.quantumChestID, world, x,
-                    y, z);
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
+        if (!playerIn.isSneaking())
+            playerIn.openGui(Core.INSTANCE, GuiHandler.quantumChestID, worldIn, pos.getX(),
+                    pos.getY(), pos.getZ());
         return true;
     }
 
-
-
-    public void onBlockAdded(World world, int x, int y, int z) {
-
-        super.onBlockAdded(world, x, y, z);
-        this.setDefaultDirection(world, x, y, z);
-
+    @Override
+    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
+        super.onBlockAdded(worldIn, pos, state);
+        this.setDefaultDirection(worldIn, pos);
     }
 
-    private void setDefaultDirection(World world, int x, int y, int z) {
+    private void setDefaultDirection(World world, BlockPos pos) {
 
         if (!world.isRemote) {
-            Block block1 = world.getBlock(x, y, z - 1);
-            Block block2 = world.getBlock(x, y, z + 1);
-            Block block3 = world.getBlock(x - 1, y, z);
-            Block block4 = world.getBlock(x + 1, y, z);
+            Block block1 = world.getBlockState(new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1)).getBlock();
+            Block block2 = world.getBlockState(new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1)).getBlock();
+            Block block3 = world.getBlockState(new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ())).getBlock();
+            Block block4 = world.getBlockState(new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ())).getBlock();
 
             byte b = 3;
 
-            if (block1.func_149730_j() && !block2.func_149730_j()) {
+            if (block1.isOpaqueCube() && !block2.isOpaqueCube()) {
                 b = 3;
             }
-            if (block2.func_149730_j() && !block1.func_149730_j()) {
+            if (block2.isOpaqueCube() && !block1.isOpaqueCube()) {
                 b = 2;
             }
-            if (block3.func_149730_j() && !block4.func_149730_j()) {
+            if (block3.isOpaqueCube() && !block4.isOpaqueCube()) {
                 b = 5;
             }
-            if (block4.func_149730_j() && !block3.func_149730_j()) {
+            if (block4.isOpaqueCube() && !block3.isOpaqueCube()) {
                 b = 4;
             }
 
-            world.setBlockMetadataWithNotify(x, y, z, b, 2);
+            //TODO 1.8 meta
+            //  world.setBlockMetadataWithNotify(x, y, z, b, 2);
+           // setTileRotation(world, pos, b);
 
         }
 
     }
 
-    public void onBlockPlacedBy(World world, int x, int y, int z,
-                                EntityLivingBase player, ItemStack itemstack) {
+    @Override
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
 
-        int l = MathHelper
-                .floor_double((double) (player.rotationYaw * 4.0F / 360F) + 0.5D) & 3;
+        //TODO fix rotaion
 
-        if (l == 0) {
-            world.setBlockMetadataWithNotify(x, y, z, 2, 2);
-        }
-        if (l == 1) {
-            world.setBlockMetadataWithNotify(x, y, z, 5, 2);
-        }
-        if (l == 2) {
-            world.setBlockMetadataWithNotify(x, y, z, 3, 2);
-        }
-        if (l == 3) {
-            world.setBlockMetadataWithNotify(x, y, z, 4, 2);
-        }
-        super.onBlockPlacedBy(world, x, y, z, player, itemstack);
+//        int l = MathHelper
+//                .floor_double((double) (placer.rotationYaw * 4.0F / 360F) + 0.5D) & 3;
+//
+//        if (l == 0) {
+//            setTileRotation(worldIn, pos, 2);
+//        }
+//        if (l == 1) {
+//            setTileRotation(worldIn, pos, 5);
+//        }
+//        if (l == 2) {
+//            setTileRotation(worldIn, pos, 3);
+//        }
+//        if (l == 3) {
+//            setTileRotation(worldIn, pos, 4);
+//        }
     }
 }
