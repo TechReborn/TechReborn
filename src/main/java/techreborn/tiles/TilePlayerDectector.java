@@ -53,24 +53,25 @@ public class TilePlayerDectector extends TilePowerAcceptor {
                 while (tIterator.hasNext()) {
                     EntityPlayer player = (EntityPlayer) tIterator.next();
                     if (player.getDistanceSq((double) super.getPos().getX() + 0.5D, (double) super.getPos().getY() + 0.5D, (double) super.getPos().getZ() + 0.5D) <= 256.0D) {
-                        if(worldObj.getBlockMetadata(getPos().getX(), getPos().getY(), getPos().getZ()) == 0){//ALL
-                            redstone = true;
-                        } else if (blockMetadata == 1){//Others
-                            if(!owenerUdid.isEmpty() && !owenerUdid.equals(player.getUniqueID().toString())){
-                                redstone = true;
-                            }
-                        } else {//You
-                            if(!owenerUdid.isEmpty() &&owenerUdid.equals(player.getUniqueID().toString())){
-                                redstone = true;
-                            }
-                        }
+//                        if(worldObj.getBlockMetadata(getPos().getX(), getPos().getY(), getPos().getZ()) == 0){//ALL
+//                            redstone = true;
+//                        } else if (blockMetadata == 1){//Others
+//                            if(!owenerUdid.isEmpty() && !owenerUdid.equals(player.getUniqueID().toString())){
+//                                redstone = true;
+//                            }
+//                        } else {//You
+//                            if(!owenerUdid.isEmpty() &&owenerUdid.equals(player.getUniqueID().toString())){
+//                                redstone = true;
+//                            }
+//                        }//TODO meta fix
+                        redstone = true;
                     }
                 }
                 useEnergy(50);
             }
             if(lastRedstone != redstone){
-                worldObj.markBlockForUpdate(getPos().getX(), getPos().getY(), getPos().getZ());
-                worldObj.notifyBlocksOfNeighborChange(getPos().getX(), getPos().getY(), getPos().getZ(), worldObj.getBlock(getPos().getX(), getPos().getY(), getPos().getZ()));
+                worldObj.markBlockForUpdate(getPos());
+                worldObj.notifyNeighborsOfStateChange(getPos(), worldObj.getBlockState(getPos()).getBlock());
             }
         }
     }

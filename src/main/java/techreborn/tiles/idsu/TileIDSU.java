@@ -45,14 +45,18 @@ public class TileIDSU extends TilePowerAcceptor {
         return 1000000000;
     }
 
+
+    //TODO meta fix
     @Override
     public boolean canAcceptEnergy(EnumFacing direction) {
-        return worldObj.getBlockMetadata(getPos().getX(), getPos().getY(), getPos().getZ()) != Functions.getIntDirFromDirection(direction);
+        //return worldObj.getBlockMetadata(getPos().getX(), getPos().getY(), getPos().getZ()) != Functions.getIntDirFromDirection(direction);
+        return true;
     }
 
     @Override
     public boolean canProvideEnergy(EnumFacing direction) {
-        return worldObj.getBlockMetadata(getPos().getX(), getPos().getY(), getPos().getZ()) == Functions.getIntDirFromDirection(direction);
+        //return worldObj.getBlockMetadata(getPos().getX(), getPos().getY(), getPos().getZ()) == Functions.getIntDirFromDirection(direction);
+        return true;
     }
 
     @Override

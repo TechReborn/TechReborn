@@ -1,12 +1,11 @@
 package techreborn.blocks.storage;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -18,40 +17,10 @@ import techreborn.tiles.idsu.TileIDSU;
 
 public class BlockIDSU extends BlockMachineBase {
 
-    @SideOnly(Side.CLIENT)
-    private IIcon iconFront;
-
-    @SideOnly(Side.CLIENT)
-    private IIcon iconTop;
-
-    @SideOnly(Side.CLIENT)
-    private IIcon iconBottom;
 
     public BlockIDSU(Material material) {
         super(material);
         setUnlocalizedName("techreborn.idsu");
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister icon) {
-        this.blockIcon = icon.registerIcon("techreborn:machine/idsu_side");
-        this.iconFront = icon.registerIcon("techreborn:machine/idsu_front");
-        this.iconTop = icon.registerIcon("techreborn:machine/idsu_side");
-        this.iconBottom = icon.registerIcon("techreborn:machine/idsu_side");
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int side) {
-        int metadata = getTileRotation(blockAccess, x, y, z);
-        if (side == metadata && blockAccess.getBlockMetadata(x, y, z) == 1) {
-            return this.iconFront;
-        }
-        return metadata == 0 && side == 3 ? this.iconFront
-                : side == 1 ? this.iconTop :
-                side == 0 ? this.iconBottom : (side == 0 ? this.iconTop
-                        : (side == metadata ? this.iconFront : this.blockIcon));
     }
 
     @Override
@@ -72,7 +41,7 @@ public class BlockIDSU extends BlockMachineBase {
     @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemstack) {
         super.onBlockPlacedBy(world, x, y, z, player, itemstack);
-        TileEntity tile = world.getTileEntity(x, y, z);
+        TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
         if (tile instanceof TileIDSU) {
             ((TileIDSU) tile).ownerUdid = player.getUniqueID().toString();
         }

@@ -2,10 +2,13 @@ package techreborn.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -42,7 +45,7 @@ public class BlockMachineCasing extends BlockMultiblockBase {
     }
 
     @Override
-    public Item getItemDropped(int meta, Random random, int fortune) {
+    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Item.getItemFromBlock(this);
     }
 
@@ -55,8 +58,8 @@ public class BlockMachineCasing extends BlockMultiblockBase {
     }
 
     @Override
-    public int damageDropped(int metaData) {
-        return metaData;
+    public int damageDropped(IBlockState state) {
+        return super.damageDropped(state);
     }
 
     @Override
@@ -64,11 +67,10 @@ public class BlockMachineCasing extends BlockMultiblockBase {
         return new TileMachineCasing();
     }
 
-
     @Override
-    public boolean shouldSideBeRendered(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5) {
-        Block b = par1IBlockAccess.getBlock(par2, par3, par4);
-        return b == (Block) this ? false : super.shouldSideBeRendered(par1IBlockAccess, par2, par3, par4, par5);
+    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
+        Block b = worldIn.getBlockState(pos).getBlock();
+        return  b == (Block) this ? false : super.shouldSideBeRendered(worldIn, pos, side);
     }
 
     public boolean shouldConnectToBlock(IBlockAccess blockAccess, int x, int y, int z, Block block, int meta) {

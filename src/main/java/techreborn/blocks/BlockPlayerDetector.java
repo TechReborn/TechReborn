@@ -2,14 +2,17 @@ package techreborn.blocks;
 
 
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -34,7 +37,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
 
 
     @Override
-    public Item getItemDropped(int par1, Random random, int par2) {
+    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Item.getItemFromBlock(this);
     }
 
@@ -46,10 +49,6 @@ public class BlockPlayerDetector extends BlockMachineBase {
         }
     }
 
-    @Override
-    public int damageDropped(int metaData) {
-        return metaData;
-    }
 
 
     @Override
@@ -63,7 +62,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
     }
 
     @Override
-    public boolean canConnectRedstone(IBlockAccess world, int x, int y, int z, int side) {
+    public boolean canConnectRedstone(IBlockAccess world, BlockPos pos, EnumFacing side) {
         return true;
     }
 
@@ -73,8 +72,8 @@ public class BlockPlayerDetector extends BlockMachineBase {
     }
 
     @Override
-    public int isProvidingStrongPower(IBlockAccess blockAccess, int x, int y, int z, int side) {
-        TileEntity entity = blockAccess.getTileEntity(x, y, z);
+    public int isProvidingWeakPower(IBlockAccess blockAccess, BlockPos pos, IBlockState state, EnumFacing side) {
+        TileEntity entity = blockAccess.getTileEntity(pos);
         if (entity instanceof TilePlayerDectector) {
             return ((TilePlayerDectector) entity).isProvidingPower() ? 15 : 0;
         }
@@ -82,8 +81,8 @@ public class BlockPlayerDetector extends BlockMachineBase {
     }
 
     @Override
-    public int isProvidingWeakPower(IBlockAccess blockAccess, int x, int y, int z, int side) {
-        TileEntity entity = blockAccess.getTileEntity(x, y, z);
+    public int isProvidingStrongPower(IBlockAccess blockAccess, BlockPos pos, IBlockState state, EnumFacing side) {
+        TileEntity entity = blockAccess.getTileEntity(pos);
         if (entity instanceof TilePlayerDectector) {
             return ((TilePlayerDectector) entity).isProvidingPower() ? 15 : 0;
         }
@@ -93,7 +92,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
     @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemstack) {
         super.onBlockPlacedBy(world, x, y, z, player, itemstack);
-        TileEntity tile = world.getTileEntity(x, y, z);
+        TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
         if (tile instanceof TilePlayerDectector) {
             ((TilePlayerDectector) tile).owenerUdid = player.getUniqueID().toString();
         }
@@ -104,7 +103,8 @@ public class BlockPlayerDetector extends BlockMachineBase {
         if (super.onBlockActivated(world, x, y, z, entityplayer, side, hitX, hitY, hitZ)) {
             return true;
         }
-        int newMeta = (world.getBlockMetadata(x, y, z) + 1) % 3;
+       // int newMeta = (world.getBlockMetadata(x, y, z) + 1) % 3;
+        int newMeta = 0; //TODO meta fix
         String message = "";
         switch (newMeta) {
             case 0:
@@ -118,7 +118,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
         }
         if(!world.isRemote){
             entityplayer.addChatComponentMessage(new ChatComponentText(message));
-            world.setBlockMetadataWithNotify(x, y, z, newMeta, 2);
+            //world.setBlockMetadataWithNotify(x, y, z, newMeta, 2);
         }
         return true;
     }

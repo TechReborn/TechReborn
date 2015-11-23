@@ -2,6 +2,7 @@ package techreborn.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -43,9 +44,9 @@ public class BlockMachineFrame extends Block {
         }
     }
 
-    @Override
-    public int damageDropped(int metaData) {
-        return metaData;
-    }
 
+    @Override
+    public int damageDropped(IBlockState state) {
+        return super.damageDropped(state);
+    }
 }
