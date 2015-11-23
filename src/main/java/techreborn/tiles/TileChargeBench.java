@@ -8,7 +8,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import reborncore.common.util.Inventory;
 import techreborn.api.power.IEnergyInterfaceItem;
 import techreborn.init.ModBlocks;
@@ -156,7 +156,7 @@ public class TileChargeBench extends TilePowerAcceptor implements IWrenchable, I
     // ISidedInventory
     @Override
     public int[] getAccessibleSlotsFromSide(int side) {
-        return side == ForgeDirection.DOWN.ordinal() ? new int[]{0, 1, 2, 3, 4, 5} : new int[]{0, 1, 2, 3, 4, 5};
+        return side == EnumFacing.DOWN.ordinal() ? new int[]{0, 1, 2, 3, 4, 5} : new int[]{0, 1, 2, 3, 4, 5};
     }
 
     @Override
@@ -181,12 +181,12 @@ public class TileChargeBench extends TilePowerAcceptor implements IWrenchable, I
     }
 
     @Override
-    public boolean canAcceptEnergy(ForgeDirection direction) {
+    public boolean canAcceptEnergy(EnumFacing direction) {
         return true;
     }
 
     @Override
-    public boolean canProvideEnergy(ForgeDirection direction) {
+    public boolean canProvideEnergy(EnumFacing direction) {
         return false;
     }
 

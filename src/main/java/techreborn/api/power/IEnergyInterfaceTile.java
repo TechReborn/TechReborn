@@ -1,6 +1,6 @@
 package techreborn.api.power;
 
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 
 public interface IEnergyInterfaceTile {
 
@@ -76,13 +76,13 @@ public interface IEnergyInterfaceTile {
      * @param direction The direction to insert energy into
      * @return if the tile can accept energy from the direction
      */
-    public boolean canAcceptEnergy(ForgeDirection direction);
+    public boolean canAcceptEnergy(EnumFacing direction);
 
     /**
      * @param direction The direction to provide energy from
      * @return true if the tile can provide energy to that direction
      */
-    public boolean canProvideEnergy(ForgeDirection direction);
+    public boolean canProvideEnergy(EnumFacing direction);
 
     /**
      * Gets the max output, set to -1 if you don't want the tile to provide energy

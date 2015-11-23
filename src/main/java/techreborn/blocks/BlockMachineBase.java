@@ -20,7 +20,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fluids.*;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
@@ -187,14 +187,14 @@ public class BlockMachineBase extends BlockContainer {
     }
 
     @Override
-    public boolean rotateBlock(World worldObj, int x, int y, int z, ForgeDirection axis) {
-        if (axis == ForgeDirection.UNKNOWN) {
+    public boolean rotateBlock(World worldObj, int x, int y, int z, EnumFacing axis) {
+        if (axis == EnumFacing.UNKNOWN) {
             return false;
         } else {
             TileEntity tile = worldObj.getTileEntity(x, y, z);
             if (tile != null && tile instanceof TileMachineBase) {
                 TileMachineBase machineBase = (TileMachineBase) tile;
-                machineBase.setRotation(ForgeDirection.getOrientation(machineBase.getRotation()).getRotation(axis).ordinal());
+                machineBase.setRotation(EnumFacing.getOrientation(machineBase.getRotation()).getRotation(axis).ordinal());
                 return true;
             }
             return false;
@@ -222,7 +222,7 @@ public class BlockMachineBase extends BlockContainer {
                     FluidStack liquid = FluidContainerRegistry.getFluidForFilledItem(current);
                     // Handle filled containers
                     if (liquid != null) {
-                        int qty = tank.fill(ForgeDirection.UNKNOWN, liquid, true);
+                        int qty = tank.fill(EnumFacing.UNKNOWN, liquid, true);
 
                         if (qty != 0 && !entityplayer.capabilities.isCreativeMode) {
                             if (current.stackSize > 1) {
@@ -240,7 +240,7 @@ public class BlockMachineBase extends BlockContainer {
 
                         // Handle empty containers
                     } else {
-                        FluidStack available = tank.getTankInfo(ForgeDirection.UNKNOWN)[0].fluid;
+                        FluidStack available = tank.getTankInfo(EnumFacing.UNKNOWN)[0].fluid;
 
                         if (available != null) {
                             ItemStack filled = FluidContainerRegistry.fillFluidContainer(available, current);
@@ -261,7 +261,7 @@ public class BlockMachineBase extends BlockContainer {
                                     }
                                 }
 
-                                tank.drain(ForgeDirection.UNKNOWN, liquid.amount, true);
+                                tank.drain(EnumFacing.UNKNOWN, liquid.amount, true);
 
                                 return true;
                             }
@@ -275,19 +275,19 @@ public class BlockMachineBase extends BlockContainer {
                     if (!world.isRemote) {
                         IFluidContainerItem container = (IFluidContainerItem) current.getItem();
                         FluidStack liquid = container.getFluid(current);
-                        FluidStack tankLiquid = tank.getTankInfo(ForgeDirection.UNKNOWN)[0].fluid;
+                        FluidStack tankLiquid = tank.getTankInfo(EnumFacing.UNKNOWN)[0].fluid;
                         boolean mustDrain = liquid == null || liquid.amount == 0;
                         boolean mustFill = tankLiquid == null || tankLiquid.amount == 0;
                         if (mustDrain && mustFill) {
                             // Both are empty, do nothing
                         } else if (mustDrain || !entityplayer.isSneaking()) {
-                            liquid = tank.drain(ForgeDirection.UNKNOWN, 1000, false);
+                            liquid = tank.drain(EnumFacing.UNKNOWN, 1000, false);
                             int qtyToFill = container.fill(current, liquid, true);
-                            tank.drain(ForgeDirection.UNKNOWN, qtyToFill, true);
+                            tank.drain(EnumFacing.UNKNOWN, qtyToFill, true);
                         } else if (mustFill || entityplayer.isSneaking()) {
                             if (liquid.amount > 0) {
-                                int qty = tank.fill(ForgeDirection.UNKNOWN, liquid, false);
-                                tank.fill(ForgeDirection.UNKNOWN, container.drain(current, qty, true), true);
+                                int qty = tank.fill(EnumFacing.UNKNOWN, liquid, false);
+                                tank.fill(EnumFacing.UNKNOWN, container.drain(current, qty, true), true);
                             }
                         }
                     }

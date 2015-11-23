@@ -4,7 +4,7 @@ import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import reborncore.common.util.Inventory;
 import techreborn.init.ModBlocks;
 import techreborn.powerSystem.TilePowerAcceptor;
@@ -124,12 +124,12 @@ public class TileChunkLoader extends TilePowerAcceptor implements IWrenchable, I
     }
 
     @Override
-    public boolean canAcceptEnergy(ForgeDirection direction) {
+    public boolean canAcceptEnergy(EnumFacing direction) {
         return true;
     }
 
     @Override
-    public boolean canProvideEnergy(ForgeDirection direction) {
+    public boolean canProvideEnergy(EnumFacing direction) {
         return false;
     }
 

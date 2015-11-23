@@ -8,7 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fluids.*;
 import reborncore.api.fuel.FluidPowerManager;
 import reborncore.common.util.FluidUtils;
@@ -63,14 +63,14 @@ public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchabl
     }
 
     @Override
-    public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
+    public int fill(EnumFacing from, FluidStack resource, boolean doFill) {
         int filled = tank.fill(resource, doFill);
         tank.compareAndUpdate();
         return filled;
     }
 
     @Override
-    public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
+    public FluidStack drain(EnumFacing from, FluidStack resource, boolean doDrain) {
         if (resource == null || !resource.isFluidEqual(tank.getFluid())) {
             return null;
         }
@@ -80,24 +80,24 @@ public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchabl
     }
 
     @Override
-    public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
+    public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain) {
         FluidStack drained = tank.drain(maxDrain, doDrain);
         tank.compareAndUpdate();
         return drained;
     }
 
     @Override
-    public boolean canFill(ForgeDirection from, Fluid fluid) {
+    public boolean canFill(EnumFacing from, Fluid fluid) {
         return FluidPowerManager.fluidPowerValues.containsKey(fluid);
     }
 
     @Override
-    public boolean canDrain(ForgeDirection from, Fluid fluid) {
+    public boolean canDrain(EnumFacing from, Fluid fluid) {
         return tank.getFluid() == null || tank.getFluid().getFluid() == fluid;
     }
 
     @Override
-    public FluidTankInfo[] getTankInfo(ForgeDirection from) {
+    public FluidTankInfo[] getTankInfo(EnumFacing from) {
         return new FluidTankInfo[]{tank.getInfo()};
     }
 
@@ -222,12 +222,12 @@ public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchabl
     }
 
     @Override
-    public boolean canAcceptEnergy(ForgeDirection direction) {
+    public boolean canAcceptEnergy(EnumFacing direction) {
         return false;
     }
 
     @Override
-    public boolean canProvideEnergy(ForgeDirection direction) {
+    public boolean canProvideEnergy(EnumFacing direction) {
         return true;
     }
 

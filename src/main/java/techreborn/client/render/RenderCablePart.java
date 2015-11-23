@@ -8,7 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import reborncore.common.misc.Functions;
 import reborncore.common.misc.vecmath.Vecs3d;
 import reborncore.common.misc.vecmath.Vecs3dCube;
@@ -46,7 +46,7 @@ public class RenderCablePart {
         Block block = part.getBlockType();
         tessellator.setBrightness(block.getMixedBrightnessForBlock(part.getWorld(), part.getX(), part.getY(), part.getZ()));
         renderBox(part.boundingBoxes[6], block, tessellator, renderblocks, texture, xD, yD, zD, 0F);
-        for (ForgeDirection direction : ForgeDirection.values()) {
+        for (EnumFacing direction : EnumFacing.values()) {
             if (part.connectedSides.get(direction) != null) {
                 renderBox(part.boundingBoxes[Functions.getIntDirFromDirection(direction)], block, tessellator, renderblocks, texture, xD, yD, zD, 0f);
             }

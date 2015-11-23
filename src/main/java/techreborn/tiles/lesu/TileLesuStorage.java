@@ -1,7 +1,7 @@
 package techreborn.tiles.lesu;
 
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import techreborn.tiles.TileMachineBase;
 
 public class TileLesuStorage extends TileMachineBase {
@@ -23,7 +23,7 @@ public class TileLesuStorage extends TileMachineBase {
     public final void findAndJoinNetwork(World world, int x, int y, int z) {
         network = new LesuNetwork();
         network.addElement(this);
-        for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
+        for (EnumFacing direction : EnumFacing.VALID_DIRECTIONS) {
             if (world.getTileEntity(x + direction.offsetX, y + direction.offsetY, z + direction.offsetZ) instanceof TileLesuStorage) {
                 TileLesuStorage lesu = (TileLesuStorage) world.getTileEntity(x + direction.offsetX, y + direction.offsetY, z + direction.offsetZ);
                 if (lesu.network != null) {

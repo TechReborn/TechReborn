@@ -8,7 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import uk.co.qmunity.lib.ref.Names;
 
 public class ModPartItem extends Item {
@@ -23,7 +23,7 @@ public class ModPartItem extends Item {
     @Override
     public boolean onItemUse(ItemStack item, EntityPlayer player, World world,
                              int x, int y, int z, int face, float x_, float y_, float z_) {
-        ForgeDirection dir = ForgeDirection.getOrientation(face);
+        EnumFacing dir = EnumFacing.getOrientation(face);
         if (ModPartUtils.hasPart(world, x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ, modPart.getName())) {
             x = x + dir.offsetX;
             y = y + dir.offsetY;

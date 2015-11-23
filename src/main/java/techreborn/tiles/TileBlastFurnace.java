@@ -10,7 +10,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import reborncore.common.misc.Location;
 import reborncore.common.multiblock.IMultiblockPart;
 import reborncore.common.util.Inventory;
@@ -81,7 +81,7 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
     }
 
     public int getHeat() {
-        for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
+        for (EnumFacing direction : EnumFacing.VALID_DIRECTIONS) {
             TileEntity tileEntity = worldObj.getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
             if (tileEntity instanceof TileMachineCasing) {
                 if (((TileMachineCasing) tileEntity).isConnected() && ((TileMachineCasing) tileEntity).getMultiblockController().isAssembled()) {
@@ -203,7 +203,7 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
     // ISidedInventory
     @Override
     public int[] getAccessibleSlotsFromSide(int side) {
-        return side == ForgeDirection.DOWN.ordinal() ? new int[]{0, 1, 2, 3} : new int[]{0, 1, 2, 3};
+        return side == EnumFacing.DOWN.ordinal() ? new int[]{0, 1, 2, 3} : new int[]{0, 1, 2, 3};
     }
 
     @Override
@@ -231,12 +231,12 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
     }
 
     @Override
-    public boolean canAcceptEnergy(ForgeDirection direction) {
+    public boolean canAcceptEnergy(EnumFacing direction) {
         return true;
     }
 
     @Override
-    public boolean canProvideEnergy(ForgeDirection direction) {
+    public boolean canProvideEnergy(EnumFacing direction) {
         return false;
     }
 

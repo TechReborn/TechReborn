@@ -7,7 +7,7 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fluids.*;
 import reborncore.api.IListInfoProvider;
 import reborncore.common.misc.Location;
@@ -53,7 +53,7 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
     }
 
     public boolean getMutliBlock() {
-        for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
+        for (EnumFacing direction : EnumFacing.VALID_DIRECTIONS) {
             TileEntity tileEntity = worldObj.getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
             if (tileEntity instanceof TileMachineCasing) {
                 if ((tileEntity.getBlockType() instanceof BlockMachineCasing)) {
@@ -126,7 +126,7 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
 
     /* IFluidHandler */
     @Override
-    public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
+    public int fill(EnumFacing from, FluidStack resource, boolean doFill) {
         if (resource.getFluid() == FluidRegistry.WATER || resource.getFluid() == ModFluids.fluidMercury || resource.getFluid() == ModFluids.fluidSodiumpersulfate) {
             int filled = tank.fill(resource, doFill);
             tank.compareAndUpdate();
@@ -136,7 +136,7 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
     }
 
     @Override
-    public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
+    public FluidStack drain(EnumFacing from, FluidStack resource, boolean doDrain) {
         if (resource == null || !resource.isFluidEqual(tank.getFluid())) {
             return null;
         }
@@ -146,14 +146,14 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
     }
 
     @Override
-    public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
+    public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain) {
         FluidStack drained = tank.drain(maxDrain, doDrain);
         tank.compareAndUpdate();
         return drained;
     }
 
     @Override
-    public boolean canFill(ForgeDirection from, Fluid fluid) {
+    public boolean canFill(EnumFacing from, Fluid fluid) {
         if (fluid == FluidRegistry.WATER) {
             return true;
         }
@@ -161,12 +161,12 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
     }
 
     @Override
-    public boolean canDrain(ForgeDirection from, Fluid fluid) {
+    public boolean canDrain(EnumFacing from, Fluid fluid) {
         return false;
     }
 
     @Override
-    public FluidTankInfo[] getTankInfo(ForgeDirection from) {
+    public FluidTankInfo[] getTankInfo(EnumFacing from) {
         return new FluidTankInfo[]{tank.getInfo()};
     }
 
@@ -233,7 +233,7 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
     // ISidedInventory
     @Override
     public int[] getAccessibleSlotsFromSide(int side) {
-        return side == ForgeDirection.DOWN.ordinal() ? new int[]{0, 1, 2, 3, 4} : new int[]{0, 1, 2, 3, 4};
+        return side == EnumFacing.DOWN.ordinal() ? new int[]{0, 1, 2, 3, 4} : new int[]{0, 1, 2, 3, 4};
     }
 
     @Override
@@ -261,12 +261,12 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
     }
 
     @Override
-    public boolean canAcceptEnergy(ForgeDirection direction) {
+    public boolean canAcceptEnergy(EnumFacing direction) {
         return true;
     }
 
     @Override
-    public boolean canProvideEnergy(ForgeDirection direction) {
+    public boolean canProvideEnergy(EnumFacing direction) {
         return false;
     }
 

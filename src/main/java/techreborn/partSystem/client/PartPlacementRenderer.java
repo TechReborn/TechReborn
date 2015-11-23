@@ -12,7 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import org.lwjgl.opengl.GL11;
 import reborncore.common.misc.Location;
 import reborncore.common.misc.vecmath.Vecs3d;
@@ -51,7 +51,7 @@ public class PartPlacementRenderer {
         IModPart part = ((ModPartItem) item.getItem()).getModPart();
         if (part == null)
             return;
-        ForgeDirection faceHit = ForgeDirection.getOrientation(mop.sideHit);
+        EnumFacing faceHit = EnumFacing.getOrientation(mop.sideHit);
         Location location = new Location(mop.blockX, mop.blockY, mop.blockZ);
         if (fb == null || width != Minecraft.getMinecraft().displayWidth
                 || height != Minecraft.getMinecraft().displayHeight) {

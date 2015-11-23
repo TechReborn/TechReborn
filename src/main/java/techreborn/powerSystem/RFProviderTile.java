@@ -5,7 +5,7 @@ import cofh.api.energy.IEnergyHandler;
 import cofh.api.energy.IEnergyProvider;
 import cofh.api.energy.IEnergyReceiver;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import techreborn.api.power.IEnergyInterfaceTile;
 import techreborn.tiles.TileMachineBase;
 
@@ -32,7 +32,7 @@ public abstract class RFProviderTile extends TileMachineBase implements IEnergyR
         if (!PowerSystem.RFPOWENET) {
             return;
         }
-        for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
+        for (EnumFacing direction : EnumFacing.VALID_DIRECTIONS) {
             int extracted = getEnergyStored(direction);
 
             TileEntity tile = worldObj.getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
@@ -59,7 +59,7 @@ public abstract class RFProviderTile extends TileMachineBase implements IEnergyR
         }
     }
 
-    public boolean isPoweredTile(TileEntity tile, ForgeDirection side) {
+    public boolean isPoweredTile(TileEntity tile, EnumFacing side) {
         if (tile == null) {
             return false;
         } else if (tile instanceof IEnergyHandler || tile instanceof IEnergyReceiver) {

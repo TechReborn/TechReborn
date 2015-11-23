@@ -4,7 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.api.reactor.FusionReactorRecipe;
@@ -41,16 +41,16 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
     }
 
     @Override
-    public boolean canAcceptEnergy(ForgeDirection direction) {
-        if(direction == ForgeDirection.DOWN || direction == ForgeDirection.UP){
+    public boolean canAcceptEnergy(EnumFacing direction) {
+        if(direction == EnumFacing.DOWN || direction == EnumFacing.UP){
             return false;
         }
         return true;
     }
 
     @Override
-    public boolean canProvideEnergy(ForgeDirection direction) {
-        if(direction == ForgeDirection.DOWN || direction == ForgeDirection.UP){
+    public boolean canProvideEnergy(EnumFacing direction) {
+        if(direction == EnumFacing.DOWN || direction == EnumFacing.UP){
             return true;
         }
         return false;

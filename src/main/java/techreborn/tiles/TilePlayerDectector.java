@@ -2,7 +2,7 @@ package techreborn.tiles;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import techreborn.powerSystem.TilePowerAcceptor;
 
 import java.util.Iterator;
@@ -23,12 +23,12 @@ public class TilePlayerDectector extends TilePowerAcceptor {
     }
 
     @Override
-    public boolean canAcceptEnergy(ForgeDirection direction) {
+    public boolean canAcceptEnergy(EnumFacing direction) {
         return true;
     }
 
     @Override
-    public boolean canProvideEnergy(ForgeDirection direction) {
+    public boolean canProvideEnergy(EnumFacing direction) {
         return false;
     }
 

@@ -16,7 +16,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import reborncore.common.misc.Functions;
 import reborncore.common.misc.Location;
 import reborncore.common.misc.vecmath.Vecs3d;
@@ -36,17 +36,17 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
     public Vecs3dCube[] boundingBoxes = new Vecs3dCube[14];
     public float center = 0.6F;
     public float offset = 0.10F;
-    public Map<ForgeDirection, TileEntity> connectedSides;
+    public Map<EnumFacing, TileEntity> connectedSides;
     public int ticks = 0;
     public boolean addedToEnergyNet = false;
     public ItemStack stack;
     public int type = 0;
-    protected ForgeDirection[] dirs = ForgeDirection.values();
+    protected EnumFacing[] dirs = EnumFacing.values();
     private boolean[] connections = new boolean[6];
     private boolean hasCheckedSinceStartup;
 
     public CablePart() {
-        connectedSides = new HashMap<ForgeDirection, TileEntity>();
+        connectedSides = new HashMap<EnumFacing, TileEntity>();
     }
 
     public static int getMaxCapacity(int type) {
@@ -259,7 +259,7 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
                 + w);
 
         int i = 0;
-        for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+        for (EnumFacing dir : EnumFacing.VALID_DIRECTIONS) {
             double xMin1 = (dir.offsetX < 0 ? 0.0
                     : (dir.offsetX == 0 ? centerFirst - w : centerFirst + w));
             double xMax1 = (dir.offsetX > 0 ? 1.0
@@ -283,7 +283,7 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
 
     @Override
     public void addCollisionBoxesToList(List<Vecs3dCube> boxes, Entity entity) {
-        for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+        for (EnumFacing dir : EnumFacing.VALID_DIRECTIONS) {
             if (connectedSides.containsKey(dir))
                 boxes.add(boundingBoxes[Functions.getIntDirFromDirection(dir)]);
         }
@@ -293,7 +293,7 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
     @Override
     public List<Vecs3dCube> getSelectionBoxes() {
         List<Vecs3dCube> vec3dCubeList = new ArrayList<Vecs3dCube>();
-        for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+        for (EnumFacing dir : EnumFacing.VALID_DIRECTIONS) {
             if (connectedSides.containsKey(dir))
                 vec3dCubeList.add(boundingBoxes[Functions
                         .getIntDirFromDirection(dir)]);
@@ -362,7 +362,7 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
     @Override
     public void nearByChange() {
         checkConnectedSides();
-        for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
+        for (EnumFacing direction : EnumFacing.VALID_DIRECTIONS) {
             worldObj.markBlockForUpdate(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
             IModPart part = ModPartUtils.getPartFromWorld(world, new Location(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ), this.getName());
             if (part != null) {
@@ -403,7 +403,7 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
         return new ItemStack(IC2Items.getItem("copperCableItem").getItem(), 1, type);
     }
 
-    public boolean shouldConnectTo(TileEntity entity, ForgeDirection dir) {
+    public boolean shouldConnectTo(TileEntity entity, EnumFacing dir) {
         if (entity == null) {
             return false;
         } else if (entity instanceof IEnergyTile) {
@@ -429,8 +429,8 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
 
     public void checkConnectedSides() {
         refreshBounding();
-        connectedSides = new HashMap<ForgeDirection, TileEntity>();
-        for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+        connectedSides = new HashMap<EnumFacing, TileEntity>();
+        for (EnumFacing dir : EnumFacing.VALID_DIRECTIONS) {
             int d = Functions.getIntDirFromDirection(dir);
             if (world == null) {
                 return;
@@ -453,7 +453,7 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
 
     public void checkConnections(World world, int x, int y, int z) {
         for (int i = 0; i < 6; i++) {
-            ForgeDirection dir = dirs[i];
+            EnumFacing dir = dirs[i];
             int dx = x + dir.offsetX;
             int dy = y + dir.offsetY;
             int dz = z + dir.offsetZ;
@@ -524,13 +524,13 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
 
     @Override
     public boolean acceptsEnergyFrom(TileEntity tileEntity,
-                                     ForgeDirection forgeDirection) {
+                                     EnumFacing forgeDirection) {
         return connectedSides.containsKey(forgeDirection);
     }
 
     @Override
     public boolean emitsEnergyTo(TileEntity tileEntity,
-                                 ForgeDirection forgeDirection) {
+                                 EnumFacing forgeDirection) {
         return connectedSides.containsKey(forgeDirection);
     }
 
@@ -554,7 +554,7 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
 
         NBTTagCompound ourCompound = tagCompound.getCompoundTag("connectedSides");
 
-        for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+        for (EnumFacing dir : EnumFacing.VALID_DIRECTIONS) {
             connections[dir.ordinal()] = ourCompound.getBoolean(dir.ordinal() + "");
         }
         checkConnectedSides();

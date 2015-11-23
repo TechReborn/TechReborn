@@ -7,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockSet;
 import reborncore.common.misc.Location;
@@ -51,7 +51,7 @@ public class GuiFusionReactor extends GuiContainer {
         GuiButton button = new GuiButton(212, k + this.xSize - 24, l + 4, 20, 20, "");
         buttonList.add(button);
         super.initGui();
-        ChunkCoordinates coordinates = new ChunkCoordinates(fusionController.xCoord - (ForgeDirection.getOrientation(fusionController.getRotation()).offsetX * 2), fusionController.yCoord - 1, fusionController.zCoord - (ForgeDirection.getOrientation(fusionController.getRotation()).offsetZ * 2));
+        ChunkCoordinates coordinates = new ChunkCoordinates(fusionController.xCoord - (EnumFacing.getOrientation(fusionController.getRotation()).offsetX * 2), fusionController.yCoord - 1, fusionController.zCoord - (EnumFacing.getOrientation(fusionController.getRotation()).offsetZ * 2));
         if(coordinates.equals(ClientProxy.multiblockRenderEvent.anchor)){
             ClientProxy.multiblockRenderEvent.setMultiblock(null);
             button.displayString = "B";

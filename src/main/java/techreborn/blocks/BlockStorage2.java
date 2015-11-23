@@ -10,7 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModBlocks;
 
@@ -77,8 +77,8 @@ public class BlockStorage2 extends Block {
     public IIcon getIcon(int side, int metaData) {
         metaData = MathHelper.clamp_int(metaData, 0, types.length - 1);
 
-        if (ForgeDirection.getOrientation(side) == ForgeDirection.UP
-                || ForgeDirection.getOrientation(side) == ForgeDirection.DOWN) {
+        if (EnumFacing.getOrientation(side) == EnumFacing.UP
+                || EnumFacing.getOrientation(side) == EnumFacing.DOWN) {
             return textures[metaData];
         } else {
             return textures[metaData];

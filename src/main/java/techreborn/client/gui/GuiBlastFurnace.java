@@ -7,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import reborncore.client.gui.GuiUtil;
 import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockSet;
@@ -41,7 +41,7 @@ public class GuiBlastFurnace extends GuiContainer {
         GuiButton button = new GuiButton(212, k + 4, l + 6, 20, 20, "");
         buttonList.add(button);
         super.initGui();
-		ChunkCoordinates coordinates = new ChunkCoordinates(blastfurnace.xCoord - (ForgeDirection.getOrientation(blastfurnace.getRotation()).offsetX * 2), blastfurnace.yCoord - 1, blastfurnace.zCoord - (ForgeDirection.getOrientation(blastfurnace.getRotation()).offsetZ * 2));
+		ChunkCoordinates coordinates = new ChunkCoordinates(blastfurnace.xCoord - (EnumFacing.getOrientation(blastfurnace.getRotation()).offsetX * 2), blastfurnace.yCoord - 1, blastfurnace.zCoord - (EnumFacing.getOrientation(blastfurnace.getRotation()).offsetZ * 2));
 		if(coordinates.equals(ClientProxy.multiblockRenderEvent.anchor) && blastfurnace.getHeat() != 0){
 			ClientProxy.multiblockRenderEvent.setMultiblock(null);
 			button.displayString = "B";
@@ -134,7 +134,7 @@ public class GuiBlastFurnace extends GuiContainer {
 					MultiblockSet set = new MultiblockSet(multiblock);
 					ClientProxy.multiblockRenderEvent.setMultiblock(set);
 					ClientProxy.multiblockRenderEvent.partent = new Location(blastfurnace.xCoord, blastfurnace.yCoord, blastfurnace.zCoord, blastfurnace.getWorldObj());
-					ClientProxy.multiblockRenderEvent.anchor = new ChunkCoordinates(blastfurnace.xCoord - (ForgeDirection.getOrientation(blastfurnace.getRotation()).offsetX * 2), blastfurnace.yCoord - 1, blastfurnace.zCoord - (ForgeDirection.getOrientation(blastfurnace.getRotation()).offsetZ * 2));
+					ClientProxy.multiblockRenderEvent.anchor = new ChunkCoordinates(blastfurnace.xCoord - (EnumFacing.getOrientation(blastfurnace.getRotation()).offsetX * 2), blastfurnace.yCoord - 1, blastfurnace.zCoord - (EnumFacing.getOrientation(blastfurnace.getRotation()).offsetZ * 2));
 				}
 				button.displayString = "A";
 			} else {

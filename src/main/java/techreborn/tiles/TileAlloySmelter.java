@@ -8,7 +8,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import reborncore.common.util.Inventory;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.api.upgrade.UpgradeHandler;
@@ -187,7 +187,7 @@ public class TileAlloySmelter extends TilePowerAcceptor implements IWrenchable, 
     // ISidedInventory
     @Override
     public int[] getAccessibleSlotsFromSide(int side) {
-        return side == ForgeDirection.DOWN.ordinal() ? new int[]{0, 1, 2} : new int[]{0, 1, 2};
+        return side == EnumFacing.DOWN.ordinal() ? new int[]{0, 1, 2} : new int[]{0, 1, 2};
     }
 
     @Override
@@ -215,12 +215,12 @@ public class TileAlloySmelter extends TilePowerAcceptor implements IWrenchable, 
     }
 
     @Override
-    public boolean canAcceptEnergy(ForgeDirection direction) {
+    public boolean canAcceptEnergy(EnumFacing direction) {
         return true;
     }
 
     @Override
-    public boolean canProvideEnergy(ForgeDirection direction) {
+    public boolean canProvideEnergy(EnumFacing direction) {
         return false;
     }
 

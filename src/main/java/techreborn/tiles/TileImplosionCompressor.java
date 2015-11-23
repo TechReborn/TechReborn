@@ -7,7 +7,7 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import reborncore.common.misc.Location;
 import reborncore.common.util.Inventory;
 import techreborn.api.recipe.RecipeCrafter;
@@ -67,7 +67,7 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
     }
 
     public boolean getMutliBlock() {
-        for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
+        for (EnumFacing direction : EnumFacing.VALID_DIRECTIONS) {
             TileEntity tileEntity = worldObj.getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
             if (tileEntity instanceof TileMachineCasing) {
                 if ((tileEntity.getBlockType() instanceof BlockMachineCasing)) {
@@ -181,7 +181,7 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
     // ISidedInventory
     @Override
     public int[] getAccessibleSlotsFromSide(int side) {
-        return side == ForgeDirection.DOWN.ordinal() ? new int[]{0, 1, 2, 3} : new int[]{0, 1, 2, 3};
+        return side == EnumFacing.DOWN.ordinal() ? new int[]{0, 1, 2, 3} : new int[]{0, 1, 2, 3};
     }
 
     @Override
@@ -209,12 +209,12 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
     }
 
     @Override
-    public boolean canAcceptEnergy(ForgeDirection direction) {
+    public boolean canAcceptEnergy(EnumFacing direction) {
         return true;
     }
 
     @Override
-    public boolean canProvideEnergy(ForgeDirection direction) {
+    public boolean canProvideEnergy(EnumFacing direction) {
         return false;
     }
 

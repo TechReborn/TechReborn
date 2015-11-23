@@ -3,7 +3,7 @@ package techreborn.tiles.idsu;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import org.apache.commons.lang3.StringUtils;
 import reborncore.common.misc.Functions;
 import techreborn.config.ConfigTechReborn;
@@ -46,12 +46,12 @@ public class TileIDSU extends TilePowerAcceptor {
     }
 
     @Override
-    public boolean canAcceptEnergy(ForgeDirection direction) {
+    public boolean canAcceptEnergy(EnumFacing direction) {
         return worldObj.getBlockMetadata(xCoord, yCoord, zCoord) != Functions.getIntDirFromDirection(direction);
     }
 
     @Override
-    public boolean canProvideEnergy(ForgeDirection direction) {
+    public boolean canProvideEnergy(EnumFacing direction) {
         return worldObj.getBlockMetadata(xCoord, yCoord, zCoord) == Functions.getIntDirFromDirection(direction);
     }
 

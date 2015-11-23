@@ -10,7 +10,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import reborncore.common.misc.Location;
 import reborncore.common.misc.vecmath.Vecs3dCube;
 import techreborn.partSystem.IModPart;
@@ -51,7 +51,7 @@ public class QModPartFactory implements IPartFactory, IPartProvider {
         if (part == null)
             return false;
 
-        ForgeDirection dir = ForgeDirection.getOrientation(face);
+        EnumFacing dir = EnumFacing.getOrientation(face);
         return MultipartCompatibility.placePartInWorld(part, world, new Vec3i(
                 x, y, z), dir, player, item);
     }

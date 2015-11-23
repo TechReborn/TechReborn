@@ -5,7 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import reborncore.common.util.Inventory;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.init.ModBlocks;
@@ -45,12 +45,12 @@ public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,
     }
 
     @Override
-    public boolean canAcceptEnergy(ForgeDirection direction) {
+    public boolean canAcceptEnergy(EnumFacing direction) {
         return true;
     }
 
     @Override
-    public boolean canProvideEnergy(ForgeDirection direction) {
+    public boolean canProvideEnergy(EnumFacing direction) {
         return false;
     }
 
@@ -183,9 +183,9 @@ public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,
     }
 
     public boolean checkMachine() {
-        int xDir = ForgeDirection.UP.offsetX * 2;
-        int yDir = ForgeDirection.UP.offsetY * 2;
-        int zDir = ForgeDirection.UP.offsetZ * 2;
+        int xDir = EnumFacing.UP.offsetX * 2;
+        int yDir = EnumFacing.UP.offsetY * 2;
+        int zDir = EnumFacing.UP.offsetZ * 2;
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
                 for (int k = -1; k < 2; k++) {

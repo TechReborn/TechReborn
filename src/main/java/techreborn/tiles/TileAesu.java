@@ -4,7 +4,7 @@ import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import reborncore.common.misc.Functions;
 import reborncore.common.util.Inventory;
 import techreborn.config.ConfigTechReborn;
@@ -143,12 +143,12 @@ public class TileAesu extends TilePowerAcceptor implements IWrenchable {
     }
 
     @Override
-    public boolean canAcceptEnergy(ForgeDirection direction) {
+    public boolean canAcceptEnergy(EnumFacing direction) {
         return getRotation() != Functions.getIntDirFromDirection(direction);
     }
 
     @Override
-    public boolean canProvideEnergy(ForgeDirection direction) {
+    public boolean canProvideEnergy(EnumFacing direction) {
         return getRotation() == Functions.getIntDirFromDirection(direction);
     }
 

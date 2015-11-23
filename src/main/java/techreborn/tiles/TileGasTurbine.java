@@ -8,7 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fluids.*;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
@@ -76,14 +76,14 @@ public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable,
     }
 
     @Override
-    public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
+    public int fill(EnumFacing from, FluidStack resource, boolean doFill) {
         int fill = tank.fill(resource, doFill);
         tank.compareAndUpdate();
         return fill;
     }
 
     @Override
-    public FluidStack drain(ForgeDirection from, FluidStack resource,
+    public FluidStack drain(EnumFacing from, FluidStack resource,
                             boolean doDrain) {
         FluidStack drain = tank.drain(resource.amount, doDrain);
         tank.compareAndUpdate();
@@ -91,14 +91,14 @@ public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable,
     }
 
     @Override
-    public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
+    public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain) {
         FluidStack drain = tank.drain(maxDrain, doDrain);
         tank.compareAndUpdate();
         return drain;
     }
 
     @Override
-    public boolean canFill(ForgeDirection from, Fluid fluid) {
+    public boolean canFill(EnumFacing from, Fluid fluid) {
         if (fluid != null) {
             return fluids.containsKey(FluidRegistry.getFluidName(fluid));
         }
@@ -106,12 +106,12 @@ public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable,
     }
 
     @Override
-    public boolean canDrain(ForgeDirection from, Fluid fluid) {
+    public boolean canDrain(EnumFacing from, Fluid fluid) {
         return tank.getFluid() == null || tank.getFluid().getFluid() == fluid;
     }
 
     @Override
-    public FluidTankInfo[] getTankInfo(ForgeDirection from) {
+    public FluidTankInfo[] getTankInfo(EnumFacing from) {
         return new FluidTankInfo[]{tank.getInfo()};
     }
 
@@ -241,12 +241,12 @@ public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable,
     }
 
     @Override
-    public boolean canAcceptEnergy(ForgeDirection direction) {
+    public boolean canAcceptEnergy(EnumFacing direction) {
         return false;
     }
 
     @Override
-    public boolean canProvideEnergy(ForgeDirection direction) {
+    public boolean canProvideEnergy(EnumFacing direction) {
         return true;
     }
 

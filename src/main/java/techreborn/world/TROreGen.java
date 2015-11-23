@@ -1,5 +1,6 @@
 package techreborn.world;
 
+import net.minecraft.util.BlockPos;
 import net.minecraftforge.fml.common.IWorldGenerator;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -70,9 +71,9 @@ public class TROreGen implements IWorldGenerator {
                          IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
         if (world.provider.isSurfaceWorld()) {
             generateUndergroundOres(random, xChunk * 16, zChunk * 16, world);
-        } else if (world.provider.isHellWorld) {
+        } else if (world.provider.getDimensionId() == 0) {
             generateHellOres(random, xChunk * 16, zChunk * 16, world);
-        } else if (world.provider.dimensionId == 1) {
+        } else if (world.provider.getDimensionId() == 1) {
             generateEndOres(random, xChunk * 16, zChunk * 16, world);
         }
 
@@ -85,7 +86,8 @@ public class TROreGen implements IWorldGenerator {
                 xPos = xChunk + random.nextInt(16);
                 yPos = 10 + random.nextInt(60 - 10);
                 zPos = zChunk + random.nextInt(16);
-                oreGalena.generate(world, random, xPos, yPos, zPos);
+                BlockPos pos = new BlockPos(xPos, yPos, zPos);
+                oreGalena.generate(world, random, pos);
             }
         }
         if (config.IridiumOreTrue) {
@@ -93,7 +95,8 @@ public class TROreGen implements IWorldGenerator {
                 xPos = xChunk + random.nextInt(16);
                 yPos = 10 + random.nextInt(60 - 10);
                 zPos = zChunk + random.nextInt(1);
-                oreIridium.generate(world, random, xPos, yPos, zPos);
+                BlockPos pos = new BlockPos(xPos, yPos, zPos);
+                oreIridium.generate(world, random, pos);
             }
         }
         if (config.RubyOreTrue) {
@@ -101,7 +104,8 @@ public class TROreGen implements IWorldGenerator {
                 xPos = xChunk + random.nextInt(16);
                 yPos = 10 + random.nextInt(60 - 10);
                 zPos = zChunk + random.nextInt(16);
-                oreRuby.generate(world, random, xPos, yPos, zPos);
+                BlockPos pos = new BlockPos(xPos, yPos, zPos);
+                oreRuby.generate(world, random, pos);
             }
         }
         if (config.SapphireOreTrue) {
@@ -109,7 +113,8 @@ public class TROreGen implements IWorldGenerator {
                 xPos = xChunk + random.nextInt(16);
                 yPos = 10 + random.nextInt(60 - 10);
                 zPos = zChunk + random.nextInt(16);
-                oreSapphire.generate(world, random, xPos, yPos, zPos);
+                BlockPos pos = new BlockPos(xPos, yPos, zPos);
+                oreSapphire.generate(world, random, pos);
             }
         }
         if (config.BauxiteOreTrue) {
@@ -117,7 +122,8 @@ public class TROreGen implements IWorldGenerator {
                 xPos = xChunk + random.nextInt(16);
                 yPos = 10 + random.nextInt(60 - 10);
                 zPos = zChunk + random.nextInt(16);
-                oreBauxite.generate(world, random, xPos, yPos, zPos);
+                BlockPos pos = new BlockPos(xPos, yPos, zPos);
+                oreBauxite.generate(world, random, pos);
             }
         }
         if (config.TetrahedriteOreTrue) {
@@ -125,7 +131,8 @@ public class TROreGen implements IWorldGenerator {
                 xPos = xChunk + random.nextInt(16);
                 yPos = 10 + random.nextInt(60 - 10);
                 zPos = zChunk + random.nextInt(16);
-                oreTetrahedrite.generate(world, random, xPos, yPos, zPos);
+                BlockPos pos = new BlockPos(xPos, yPos, zPos);
+                oreTetrahedrite.generate(world, random, pos);
             }
         }
         if (config.CassiteriteOreTrue) {
@@ -133,7 +140,8 @@ public class TROreGen implements IWorldGenerator {
                 xPos = xChunk + random.nextInt(16);
                 yPos = 10 + random.nextInt(60 - 20);
                 zPos = zChunk + random.nextInt(16);
-                oreCassiterite.generate(world, random, xPos, yPos, zPos);
+                BlockPos pos = new BlockPos(xPos, yPos, zPos);
+                oreCassiterite.generate(world, random, pos);
             }
         }
         if (config.LeadOreTrue) {
@@ -141,7 +149,8 @@ public class TROreGen implements IWorldGenerator {
                 xPos = xChunk + random.nextInt(16);
                 yPos = 10 + random.nextInt(60 - 20);
                 zPos = zChunk + random.nextInt(16);
-                oreLead.generate(world, random, xPos, yPos, zPos);
+                BlockPos pos = new BlockPos(xPos, yPos, zPos);
+                oreLead.generate(world, random, pos);
             }
         }
         if (config.SilverOreTrue) {
@@ -149,7 +158,8 @@ public class TROreGen implements IWorldGenerator {
                 xPos = xChunk + random.nextInt(16);
                 yPos = 10 + random.nextInt(60 - 20);
                 zPos = zChunk + random.nextInt(16);
-                oreSilver.generate(world, random, xPos, yPos, zPos);
+                BlockPos pos = new BlockPos(xPos, yPos, zPos);
+                oreSilver.generate(world, random, pos);
             }
         }
     }
@@ -161,7 +171,8 @@ public class TROreGen implements IWorldGenerator {
                 xPos = xChunk + random.nextInt(16);
                 yPos = 10 + random.nextInt(60 - 10);
                 zPos = zChunk + random.nextInt(16);
-                orePyrite.generate(world, random, xPos, yPos, zPos);
+                BlockPos pos = new BlockPos(xPos, yPos, zPos);
+                orePyrite.generate(world, random, pos);
             }
         }
         if (config.CinnabarOreTrue) {
@@ -169,7 +180,8 @@ public class TROreGen implements IWorldGenerator {
                 xPos = xChunk + random.nextInt(16);
                 yPos = 10 + random.nextInt(60 - 10);
                 zPos = zChunk + random.nextInt(16);
-                oreCinnabar.generate(world, random, xPos, yPos, zPos);
+                BlockPos pos = new BlockPos(xPos, yPos, zPos);
+                oreCinnabar.generate(world, random, pos);
             }
         }
         if (config.SphaleriteOreTrue) {
@@ -177,7 +189,8 @@ public class TROreGen implements IWorldGenerator {
                 xPos = xChunk + random.nextInt(16);
                 yPos = 10 + random.nextInt(60 - 10);
                 zPos = zChunk + random.nextInt(16);
-                oreSphalerite.generate(world, random, xPos, yPos, zPos);
+                BlockPos pos = new BlockPos(xPos, yPos, zPos);
+                oreSphalerite.generate(world, random, pos);
             }
         }
     }
@@ -189,7 +202,8 @@ public class TROreGen implements IWorldGenerator {
                 xPos = xChunk + random.nextInt(16);
                 yPos = 10 + random.nextInt(60 - 10);
                 zPos = zChunk + random.nextInt(16);
-                oreTungston.generate(world, random, xPos, yPos, zPos);
+                BlockPos pos = new BlockPos(xPos, yPos, zPos);
+                oreTungston.generate(world, random, pos);
             }
         }
         if (config.SheldoniteOreTrue) {
@@ -197,7 +211,8 @@ public class TROreGen implements IWorldGenerator {
                 xPos = xChunk + random.nextInt(16);
                 yPos = 10 + random.nextInt(60 - 10);
                 zPos = zChunk + random.nextInt(16);
-                oreSheldonite.generate(world, random, xPos, yPos, zPos);
+                BlockPos pos = new BlockPos(xPos, yPos, zPos);
+                oreSheldonite.generate(world, random, pos);
             }
         }
         if (config.PeridotOreTrue) {
@@ -205,7 +220,8 @@ public class TROreGen implements IWorldGenerator {
                 xPos = xChunk + random.nextInt(16);
                 yPos = 10 + random.nextInt(60 - 10);
                 zPos = zChunk + random.nextInt(16);
-                orePeridot.generate(world, random, xPos, yPos, zPos);
+                BlockPos pos = new BlockPos(xPos, yPos, zPos);
+                orePeridot.generate(world, random, pos);
             }
         }
         if (config.SodaliteOreTrue) {
@@ -213,7 +229,8 @@ public class TROreGen implements IWorldGenerator {
                 xPos = xChunk + random.nextInt(16);
                 yPos = 10 + random.nextInt(60 - 10);
                 zPos = zChunk + random.nextInt(16);
-                oreSodalite.generate(world, random, xPos, yPos, zPos);
+                BlockPos pos = new BlockPos(xPos, yPos, zPos);
+                oreSodalite.generate(world, random, pos);
             }
         }
     }

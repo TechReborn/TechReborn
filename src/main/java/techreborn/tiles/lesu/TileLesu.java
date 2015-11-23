@@ -1,7 +1,7 @@
 package techreborn.tiles.lesu;
 
 
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import reborncore.common.misc.Functions;
 import reborncore.common.util.Inventory;
 import techreborn.config.ConfigTechReborn;
@@ -34,7 +34,7 @@ public class TileLesu extends TilePowerAcceptor {//TODO wrench
         }
         countedNetworks.clear();
         connectedBlocks = 0;
-        for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+        for (EnumFacing dir : EnumFacing.VALID_DIRECTIONS) {
             if (worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ) instanceof TileLesuStorage) {
                 if (((TileLesuStorage) worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ)).network != null) {
                     LesuNetwork network = ((TileLesuStorage) worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ)).network;
@@ -83,12 +83,12 @@ public class TileLesu extends TilePowerAcceptor {//TODO wrench
     }
 
     @Override
-    public boolean canAcceptEnergy(ForgeDirection direction) {
+    public boolean canAcceptEnergy(EnumFacing direction) {
         return Functions.getIntDirFromDirection(direction) != getRotation();
     }
 
     @Override
-    public boolean canProvideEnergy(ForgeDirection direction) {
+    public boolean canProvideEnergy(EnumFacing direction) {
         return Functions.getIntDirFromDirection(direction) == getRotation();
     }
 

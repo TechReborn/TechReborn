@@ -1,7 +1,7 @@
 package techreborn.client;
 
 
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import reborncore.client.multiblock.Multiblock;
 import techreborn.init.ModBlocks;
 
@@ -53,9 +53,9 @@ public class ClientMultiBlocks {
     }
 
     public static void checkMachine() {
-        int xDir = ForgeDirection.UP.offsetX * 2;
-        int yDir = ForgeDirection.UP.offsetY * 2;
-        int zDir = ForgeDirection.UP.offsetZ * 2;
+        int xDir = EnumFacing.UP.offsetX * 2;
+        int yDir = EnumFacing.UP.offsetY * 2;
+        int zDir = EnumFacing.UP.offsetZ * 2;
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
                 for (int k = -1; k < 2; k++) {
