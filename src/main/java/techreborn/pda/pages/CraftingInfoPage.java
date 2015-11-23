@@ -8,6 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.*;
 import net.minecraft.util.EnumChatFormatting;
@@ -25,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 public class CraftingInfoPage extends TitledPage {
-    protected static RenderItem itemRenderer = new RenderItem();
+    protected static RenderItem itemRenderer = new RenderItem(Minecraft.getMinecraft().getTextureManager(), new ModelManager(Minecraft.getMinecraft().getTextureMapBlocks()));
     public ItemStack result;
     private boolean isSmelting = false;
     private ItemStack[] recipe = new ItemStack[9];
@@ -160,7 +161,7 @@ public class CraftingInfoPage extends TitledPage {
 
     protected void drawItemStackTooltip(ItemStack stack, int x, int y) {
         final Minecraft mc = Minecraft.getMinecraft();
-        FontRenderer font = Objects.firstNonNull(stack.getItem().getFontRenderer(stack), mc.fontRenderer);
+        FontRenderer font = Objects.firstNonNull(stack.getItem().getFontRenderer(stack), mc.fontRendererObj);
 
         @SuppressWarnings("unchecked")
         List<String> list = stack.getTooltip(mc.thePlayer, mc.gameSettings.advancedItemTooltips);
@@ -183,9 +184,9 @@ public class CraftingInfoPage extends TitledPage {
         GL11.glEnable(GL11.GL_NORMALIZE);
         FontRenderer font = null;
         if (par1ItemStack != null) font = par1ItemStack.getItem().getFontRenderer(par1ItemStack);
-        if (font == null) font = Minecraft.getMinecraft().fontRenderer;
-        itemRenderer.renderItemAndEffectIntoGUI(font, Minecraft.getMinecraft().getTextureManager(), par1ItemStack, par2, par3);
-        itemRenderer.renderItemOverlayIntoGUI(font, Minecraft.getMinecraft().getTextureManager(), par1ItemStack, par2, par3, par4Str);
+        if (font == null) font = Minecraft.getMinecraft().fontRendererObj;
+        itemRenderer.renderItemAndEffectIntoGUI(par1ItemStack, par2, par3);
+        itemRenderer.renderItemOverlayIntoGUI(font, par1ItemStack, par2, par3, par4Str);
         this.zLevel = 0.0F;
         itemRenderer.zLevel = 0.0F;
     }
@@ -208,7 +209,7 @@ public class CraftingInfoPage extends TitledPage {
 
         }
 
-        Iterator iterator = FurnaceRecipes.smelting().getSmeltingList().entrySet().iterator();
+        Iterator iterator = FurnaceRecipes.instance().getSmeltingList().entrySet().iterator();
         Map.Entry entry;
 
         while (iterator.hasNext()) {

@@ -166,7 +166,7 @@ public class BlockMachineBase extends BlockContainer {
     }
 
     public int getTileRotation(IBlockAccess blockAccess, int x, int y, int z) {
-        return blockAccess.getTileEntity(x, y, z) != null ? getTileRotation(blockAccess.getTileEntity(x, y, z).getWorldObj(), x, y, z) : 0;
+        return blockAccess.getTileEntity(x, y, z) != null ? getTileRotation(blockAccess.getTileEntity(x, y, z).getWorld(), x, y, z) : 0;
     }
 
     @Override
@@ -188,7 +188,7 @@ public class BlockMachineBase extends BlockContainer {
 
     @Override
     public boolean rotateBlock(World worldObj, int x, int y, int z, EnumFacing axis) {
-        if (axis == EnumFacing.UNKNOWN) {
+        if (axis == null) {
             return false;
         } else {
             TileEntity tile = worldObj.getTileEntity(x, y, z);
@@ -222,7 +222,7 @@ public class BlockMachineBase extends BlockContainer {
                     FluidStack liquid = FluidContainerRegistry.getFluidForFilledItem(current);
                     // Handle filled containers
                     if (liquid != null) {
-                        int qty = tank.fill(EnumFacing.UNKNOWN, liquid, true);
+                        int qty = tank.fill(null, liquid, true);
 
                         if (qty != 0 && !entityplayer.capabilities.isCreativeMode) {
                             if (current.stackSize > 1) {
@@ -240,7 +240,7 @@ public class BlockMachineBase extends BlockContainer {
 
                         // Handle empty containers
                     } else {
-                        FluidStack available = tank.getTankInfo(EnumFacing.UNKNOWN)[0].fluid;
+                        FluidStack available = tank.getTankInfo(null)[0].fluid;
 
                         if (available != null) {
                             ItemStack filled = FluidContainerRegistry.fillFluidContainer(available, current);
@@ -261,7 +261,7 @@ public class BlockMachineBase extends BlockContainer {
                                     }
                                 }
 
-                                tank.drain(EnumFacing.UNKNOWN, liquid.amount, true);
+                                tank.drain(null, liquid.amount, true);
 
                                 return true;
                             }
@@ -275,19 +275,19 @@ public class BlockMachineBase extends BlockContainer {
                     if (!world.isRemote) {
                         IFluidContainerItem container = (IFluidContainerItem) current.getItem();
                         FluidStack liquid = container.getFluid(current);
-                        FluidStack tankLiquid = tank.getTankInfo(EnumFacing.UNKNOWN)[0].fluid;
+                        FluidStack tankLiquid = tank.getTankInfo(null)[0].fluid;
                         boolean mustDrain = liquid == null || liquid.amount == 0;
                         boolean mustFill = tankLiquid == null || tankLiquid.amount == 0;
                         if (mustDrain && mustFill) {
                             // Both are empty, do nothing
                         } else if (mustDrain || !entityplayer.isSneaking()) {
-                            liquid = tank.drain(EnumFacing.UNKNOWN, 1000, false);
+                            liquid = tank.drain(null, 1000, false);
                             int qtyToFill = container.fill(current, liquid, true);
-                            tank.drain(EnumFacing.UNKNOWN, qtyToFill, true);
+                            tank.drain(null, qtyToFill, true);
                         } else if (mustFill || entityplayer.isSneaking()) {
                             if (liquid.amount > 0) {
-                                int qty = tank.fill(EnumFacing.UNKNOWN, liquid, false);
-                                tank.fill(EnumFacing.UNKNOWN, container.drain(current, qty, true), true);
+                                int qty = tank.fill(null, liquid, false);
+                                tank.fill(null, container.drain(current, qty, true), true);
                             }
                         }
                     }

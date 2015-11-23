@@ -35,7 +35,7 @@ public class PacketAesu extends SimplePacket {
 
     @Override
     public void execute() {
-        if (!aesu.getWorldObj().isRemote) {
+        if (!aesu.getWorld().isRemote) {
             aesu.handleGuiInputFromClient(buttonID);
         }
     }

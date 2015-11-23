@@ -14,6 +14,8 @@ import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
 import techreborn.pda.pages.*;
 
+import java.io.IOException;
+
 @SideOnly(Side.CLIENT)
 public class GuiManual extends GuiScreen {
 
@@ -149,8 +151,8 @@ public class GuiManual extends GuiScreen {
     }
 
     @Override
-    public void mouseMovedOrUp(int par1, int par2, int par3) {
-        root.mouseMovedOrUp(par1, par2, par3);
+    protected void mouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick) {
+        root.mouseMovedOrUp(mouseX, mouseY, clickedMouseButton);
     }
 
     @Override
@@ -159,7 +161,7 @@ public class GuiManual extends GuiScreen {
     }
 
     @Override
-    public void handleInput() {
+    public void handleInput() throws IOException {
         super.handleInput();
     }
 

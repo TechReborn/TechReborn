@@ -88,7 +88,7 @@ public class GuiFusionReactor extends GuiContainer {
                 {//This code here makes a basic multiblock and then sets to the selected one.
                     MultiblockSet set = new MultiblockSet(ClientMultiBlocks.reactor);
                     ClientProxy.multiblockRenderEvent.setMultiblock(set);
-                    ClientProxy.multiblockRenderEvent.partent = new Location(fusionController.getPos().getX(), fusionController.getPos().getY(), fusionController.getPos().getZ(), fusionController.getWorldObj());
+                    ClientProxy.multiblockRenderEvent.partent = new Location(fusionController.getPos().getX(), fusionController.getPos().getY(), fusionController.getPos().getZ(), fusionController.getWorld());
                     ClientProxy.multiblockRenderEvent.anchor = new ChunkCoordinates(fusionController.getPos().getX() , fusionController.getPos().getY() -1 , fusionController.getPos().getZ());
                 }
                 button.displayString = "A";

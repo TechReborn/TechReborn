@@ -54,12 +54,12 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
 
     public boolean getMutliBlock() {
         for (EnumFacing direction : EnumFacing.VALID_DIRECTIONS) {
-            TileEntity tileEntity = worldObj.getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
+            TileEntity tileEntity = worldObj.getTileEntity(getPos().getX() + direction.offsetX, getPos().getY() + direction.offsetY, getPos().getZ() + direction.offsetZ);
             if (tileEntity instanceof TileMachineCasing) {
                 if ((tileEntity.getBlockType() instanceof BlockMachineCasing)) {
                     int heat;
                     heat = BlockMachineCasing.getHeatFromMeta(tileEntity.getBlockMetadata());
-                    Location location = new Location(xCoord, yCoord, zCoord, direction);
+                    Location location = new Location(getPos().getX(), getPos().getY(), getPos().getZ(), direction);
                     location.modifyPositionFromSide(direction, 1);
                     if (worldObj.getBlock(location.getX(), location.getY(), location.getZ()).getUnlocalizedName().equals("tile.lava")) {
                         heat += 500;

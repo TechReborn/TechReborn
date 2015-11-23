@@ -10,6 +10,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import reborncore.common.misc.Location;
 import reborncore.common.multiblock.IMultiblockPart;
@@ -25,7 +26,7 @@ import techreborn.powerSystem.TilePowerAcceptor;
 public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory {
 
     public int tickTime;
-    public Inventory inventory = new Inventory(4, "TileBlastFurnace", 64);
+    public Inventory inventory = new Inventory(4, "TileBlastFurnace", 64, this);
     public RecipeCrafter crafter;
     public int capacity = 1000;
     public static int euTick = 5;
@@ -81,23 +82,23 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
     }
 
     public int getHeat() {
-        for (EnumFacing direction : EnumFacing.VALID_DIRECTIONS) {
-            TileEntity tileEntity = worldObj.getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
+        for (EnumFacing direction : EnumFacing.values()) {
+            TileEntity tileEntity = worldObj.getTileEntity(new BlockPos(getPos().getX() + direction.getFrontOffsetX(), getPos().getY() + direction.getFrontOffsetY(), getPos().getZ() + direction.getFrontOffsetZ()));
             if (tileEntity instanceof TileMachineCasing) {
                 if (((TileMachineCasing) tileEntity).isConnected() && ((TileMachineCasing) tileEntity).getMultiblockController().isAssembled()) {
                     MultiBlockCasing casing = ((TileMachineCasing) tileEntity).getMultiblockController();
-                    Location location = new Location(xCoord, yCoord, zCoord, direction);
+                    Location location = new Location(getPos().getX(), getPos().getY(), getPos().getZ(), direction);
                     location.modifyPositionFromSide(direction, 1);
                     int heat = 0;
-                    if (worldObj.getBlock(location.getX(), location.getY() - 1, location.getZ()) == tileEntity.getBlockType()) {
+                    if (worldObj.getBlockState(new BlockPos(location.getX(), location.getY() - 1, location.getZ())).getBlock() == tileEntity.getBlockType()) {
                         return 0;
                     }
 
                     for (IMultiblockPart part : casing.connectedParts) {
-                        heat += BlockMachineCasing.getHeatFromMeta(part.getWorldObj().getBlockMetadata(part.getWorldLocation().x, part.getWorldLocation().y, part.getWorldLocation().z));
+                        heat += BlockMachineCasing.getHeatFromMeta(part.getWorld().getBlockMetadata(part.getWorldLocation().x, part.getWorldLocation().y, part.getWorldLocation().z));
                     }
 
-                    if (worldObj.getBlock(location.getX(), location.getY(), location.getZ()).getUnlocalizedName().equals("tile.lava") && worldObj.getBlock(location.getX(), location.getY() + 1, location.getZ()).getUnlocalizedName().equals("tile.lava")) {
+                    if (worldObj.getBlockState(new BlockPos(location.getX(), location.getY(), location.getZ())).getBlock().getUnlocalizedName().equals("tile.lava") && worldObj.getBlockState(new BlockPos(location.getX(), location.getY() + 1, location.getZ())).getBlock().getUnlocalizedName().equals("tile.lava")) {
                         heat += 500;
                     }
                     return heat;
@@ -132,15 +133,6 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
         inventory.setInventorySlotContents(p_70299_1_, p_70299_2_);
     }
 
-    @Override
-    public String getInventoryName() {
-        return inventory.getInventoryName();
-    }
-
-    @Override
-    public boolean hasCustomInventoryName() {
-        return inventory.hasCustomInventoryName();
-    }
 
     @Override
     public int getInventoryStackLimit() {
@@ -153,13 +145,13 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
     }
 
     @Override
-    public void openInventory() {
-        inventory.openInventory();
+    public void openInventory(EntityPlayer player) {
+        inventory.openInventory(player);
     }
 
     @Override
-    public void closeInventory() {
-        inventory.closeInventory();
+    public void closeInventory(EntityPlayer player) {
+        inventory.closeInventory(player);
     }
 
     @Override
@@ -167,19 +159,38 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
         return inventory.isItemValidForSlot(p_94041_1_, p_94041_2_);
     }
 
+    @Override
+    public int getField(int id) {
+        return inventory.getField(id);
+    }
+
+    @Override
+    public void setField(int id, int value) {
+        inventory.setField(id, value);
+    }
+
+    @Override
+    public int getFieldCount() {
+        return inventory.getFieldCount();
+    }
+
+    @Override
+    public void clear() {
+        inventory.clear();
+    }
+
     public Packet getDescriptionPacket() {
         NBTTagCompound nbtTag = new NBTTagCompound();
         writeToNBT(nbtTag);
-        return new S35PacketUpdateTileEntity(this.getPos().getX(), this.getPos().getY(),
-                this.getPos().getZ(), 1, nbtTag);
+        return new S35PacketUpdateTileEntity(this.getPos(), 1, nbtTag);
     }
 
     @Override
     public void onDataPacket(NetworkManager net,
                              S35PacketUpdateTileEntity packet) {
-        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord,
-                yCoord, zCoord);
-        readFromNBT(packet.func_148857_g());
+        worldObj.markBlockRangeForRenderUpdate(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX(),
+                getPos().getY(), getPos().getZ());
+        readFromNBT(packet.getNbtCompound());
     }
 
     @Override

@@ -46,13 +46,13 @@ public class GuiButtonCustomTexture extends GuiButtonExt {
             GL11.glEnable(32826);
             RenderHelper.enableStandardItemLighting();
             RenderHelper.enableGUIStandardItemLighting();
-            RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, itemstack, this.xPosition, this.yPosition);
-            this.drawString(mc.fontRenderer, this.NAME, this.xPosition + 20, this.yPosition + 3, Color.white.getRGB());
+            //RenderItem.getInstance().renderItemIntoGUI(mc.fontRendererObj, mc.renderEngine, itemstack, this.xPosition, this.yPosition); //TODO 1.8
+            this.drawString(mc.fontRendererObj, this.NAME, this.xPosition + 20, this.yPosition + 3, Color.white.getRGB());
         }
     }
 
     public boolean getIsHovering() {
-        return field_146123_n;
+        return hovered;
     }
 
 }

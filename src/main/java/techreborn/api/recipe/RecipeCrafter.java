@@ -316,12 +316,12 @@ public class RecipeCrafter {
 
 
     public void setIsActive() {
-        if (isActive()) {
-            parentTile.getWorldObj().setBlockMetadataWithNotify(parentTile.getPos().getX(), parentTile.getPos().getY(), parentTile.getPos().getZ(), 1, 2);
-        } else {
-            parentTile.getWorldObj().setBlockMetadataWithNotify(parentTile.getPos().getX(), parentTile.getPos().getY(), parentTile.getPos().getZ(), 0, 2);
-        }
-        parentTile.getWorldObj().markBlockForUpdate(parentTile.getPos().getX(), parentTile.getPos().getY(), parentTile.getPos().getZ());
+//        if (isActive()) { //TODO 1.8 update
+//            parentTile.getWorld().setBlockMetadataWithNotify(parentTile.getPos().getX(), parentTile.getPos().getY(), parentTile.getPos().getZ(), 1, 2);
+//        } else {
+//            parentTile.getWorld().setBlockMetadataWithNotify(parentTile.getPos().getX(), parentTile.getPos().getY(), parentTile.getPos().getZ(), 0, 2);
+//        }
+        parentTile.getWorld().markBlockForUpdate(parentTile.getPos());
     }
 
     public void setCurrentRecipe(IBaseRecipeType recipe) {

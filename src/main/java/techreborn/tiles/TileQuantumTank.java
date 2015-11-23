@@ -59,8 +59,8 @@ public class TileQuantumTank extends TileMachineBase implements IFluidHandler,
     @Override
     public void onDataPacket(NetworkManager net,
                              S35PacketUpdateTileEntity packet) {
-        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord,
-                yCoord, zCoord);
+        worldObj.markBlockRangeForRenderUpdate(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX(),
+                getPos().getY(), getPos().getZ());
         readFromNBT(packet.func_148857_g());
     }
 

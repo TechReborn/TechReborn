@@ -7,6 +7,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import techreborn.pda.PageCollection;
 
+import java.io.IOException;
+
 public class BasePage extends GuiScreen {
 
     //Name used to reference the page
@@ -90,12 +92,7 @@ public class BasePage extends GuiScreen {
     }
 
     @Override
-    public void mouseMovedOrUp(int par1, int par2, int par3) {
-        super.mouseMovedOrUp(par1, par2, par3);
-    }
-
-    @Override
-    public void mouseClicked(int par1, int par2, int par3) {
+    public void mouseClicked(int par1, int par2, int par3) throws IOException {
         super.mouseClicked(par1, par2, par3);
     }
 

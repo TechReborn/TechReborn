@@ -7,8 +7,6 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.fluids.Fluid;
 import reborncore.api.fuel.FluidPowerManager;
 import techreborn.api.recipe.RecipeHandler;
-import techreborn.partSystem.IModPart;
-import techreborn.partSystem.ModPartRegistry;
 
 public class TechRebornDevCommand extends CommandBase {
 
@@ -45,10 +43,11 @@ public class TechRebornDevCommand extends CommandBase {
                     sender.addChatMessage(new ChatComponentText("Found invalid fluid entry"));
                 }
             }
-        } else if ("parts".equals(args[0])) {
-            for (IModPart part : ModPartRegistry.parts) {
-                sender.addChatMessage(new ChatComponentText(part.getName()));
-            }
+//        } else if ("parts".equals(args[0])) { //TODO 1.8
+//            for (IModPart part : ModPartRegistry.parts) {
+//                sender.addChatMessage(new ChatComponentText(part.getName()));
+//            }
+//        }
         }
     }
 }

@@ -23,7 +23,7 @@ public class UpgradeHandler {
     }
 
     public void tick() {
-        if (crafter.parentTile.getWorldObj().isRemote)
+        if (crafter.parentTile.getWorld().isRemote)
             return;
         crafter.resetPowerMulti();
         crafter.resetSpeedMulti();

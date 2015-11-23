@@ -1,9 +1,12 @@
 package techreborn.itemblocks;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import techreborn.init.ModBlocks;
 import techreborn.tiles.TileQuantumTank;
@@ -15,19 +18,17 @@ public class ItemBlockQuantumTank extends ItemBlock {
     }
 
     @Override
-    public boolean placeBlockAt(ItemStack stack, EntityPlayer player,
-                                World world, int x, int y, int z, int side, float hitX, float hitY,
-                                float hitZ, int metadata) {
-        if (!world.setBlock(x, y, z, ModBlocks.quantumTank, metadata, 3)) {
+    public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, IBlockState newState) {
+        if (!world.setBlockState(pos, newState)) {
             return false;
         }
-        if (world.getBlock(x, y, z) == ModBlocks.quantumTank) {
-            world.getBlock(x, y, z).onBlockPlacedBy(world, x, y, z, player,
+        if (world.getBlockState(pos).getBlock() == block) {
+            world.getBlockState(pos).getBlock().onBlockPlacedBy(world, pos, newState, player,
                     stack);
-            world.getBlock(x, y, z).onPostBlockPlaced(world, x, y, z, metadata);
+//            world.getBlockState(pos).getBlock().onPostBlockPlaced(world, x, y, z, metadata);
         }
         if (stack != null && stack.hasTagCompound()) {
-            ((TileQuantumTank) world.getTileEntity(x, y, z))
+            ((TileQuantumTank) world.getTileEntity(pos))
                     .readFromNBTWithoutCoords(stack.getTagCompound()
                             .getCompoundTag("tileEntity"));
         }

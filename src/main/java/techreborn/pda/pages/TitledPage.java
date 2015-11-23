@@ -17,6 +17,6 @@ public class TitledPage extends BasePage {
     @Override
     public void renderOverlayComponents(Minecraft minecraft, int offsetX, int offsetY, int mouseX, int mouseY) {
         if (title == null) title = INDEX_NAME;
-        if (drawTitle) drawCenteredString(minecraft.fontRenderer, ttl(title), offsetX + 128, offsetY + 5, colour);
+        if (drawTitle) drawCenteredString(minecraft.fontRendererObj, ttl(title), offsetX + 128, offsetY + 5, colour);
     }
 }

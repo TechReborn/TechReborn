@@ -133,7 +133,7 @@ public class GuiBlastFurnace extends GuiContainer {
 					
 					MultiblockSet set = new MultiblockSet(multiblock);
 					ClientProxy.multiblockRenderEvent.setMultiblock(set);
-					ClientProxy.multiblockRenderEvent.partent = new Location(blastfurnace.getPos().getX(), blastfurnace.getPos().getY(), blastfurnace.getPos().getZ(), blastfurnace.getWorldObj());
+					ClientProxy.multiblockRenderEvent.partent = new Location(blastfurnace.getPos().getX(), blastfurnace.getPos().getY(), blastfurnace.getPos().getZ(), blastfurnace.getWorld());
 					ClientProxy.multiblockRenderEvent.anchor = new ChunkCoordinates(blastfurnace.getPos().getX() - (EnumFacing.getOrientation(blastfurnace.getRotation()).offsetX * 2), blastfurnace.getPos().getY() - 1, blastfurnace.getPos().getZ() - (EnumFacing.getOrientation(blastfurnace.getRotation()).offsetZ * 2));
 				}
 				button.displayString = "A";

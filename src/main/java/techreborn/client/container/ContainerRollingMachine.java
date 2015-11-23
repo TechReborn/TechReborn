@@ -56,7 +56,7 @@ public class ContainerRollingMachine extends RebornContainer {
     @Override
     public final void onCraftMatrixChanged(IInventory inv) {
         ItemStack output = RollingMachineRecipe.instance.findMatchingRecipe(
-                tile.craftMatrix, tile.getWorldObj());
+                tile.craftMatrix, tile.getWorld());
         tile.inventory.setInventorySlotContents(1, output);
     }
 

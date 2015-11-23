@@ -35,14 +35,14 @@ public class VersionPage extends TitledPage {
 
     public void addDescription(Minecraft minecraft, int offsetX, int offsetY) {
         GL11.glPushMatrix();
-        this.drawCenteredString(minecraft.fontRenderer, "INSTALLED VERSION  " + ModInfo.MOD_VERSION, offsetX + 120, offsetY + 20, 7777777);
-        this.drawCenteredString(minecraft.fontRenderer, "LATEST VERSION      " + "TODO", offsetX + 120, offsetY + 40, 7777777);
+        this.drawCenteredString(minecraft.fontRendererObj, "INSTALLED VERSION  " + ModInfo.MOD_VERSION, offsetX + 120, offsetY + 20, 7777777);
+        this.drawCenteredString(minecraft.fontRendererObj, "LATEST VERSION      " + "TODO", offsetX + 120, offsetY + 40, 7777777);
         GL11.glPopMatrix();
     }
 
     public void addChangelog(Minecraft minecraft, int offsetX, int offsetY) {
         GL11.glPushMatrix();
-        this.drawCenteredString(minecraft.fontRenderer, "CHANGELOG", offsetX + 120, getYMin() + 50, 7777777);
+        this.drawCenteredString(minecraft.fontRendererObj, "CHANGELOG", offsetX + 120, getYMin() + 50, 7777777);
         GL11.glPopMatrix();
     }
 
@@ -54,7 +54,7 @@ public class VersionPage extends TitledPage {
 
         int y = offsetY + 105;
         for (String change : changeLog) {
-            drawCenteredString(minecraft.fontRenderer, change, offsetX + 230, y, Color.white.getRGB());
+            drawCenteredString(minecraft.fontRendererObj, change, offsetX + 230, y, Color.white.getRGB());
             y += 10;
         }
         GL11.glPopMatrix();

@@ -86,7 +86,7 @@ public class GuiVacuumFreezer extends GuiContainer {
                 {//This code here makes a basic multiblock and then sets to the selected one.
                     MultiblockSet set = new MultiblockSet(ClientMultiBlocks.frezzer);
                     ClientProxy.multiblockRenderEvent.setMultiblock(set);
-                    ClientProxy.multiblockRenderEvent.partent = new Location(crafter.getPos().getX(), crafter.getPos().getY(), crafter.getPos().getZ(), crafter.getWorldObj());
+                    ClientProxy.multiblockRenderEvent.partent = new Location(crafter.getPos().getX(), crafter.getPos().getY(), crafter.getPos().getZ(), crafter.getWorld());
                     ClientProxy.multiblockRenderEvent.anchor = new ChunkCoordinates(crafter.getPos().getX() , crafter.getPos().getY() -5 , crafter.getPos().getZ());
                 }
                 button.displayString = "A";

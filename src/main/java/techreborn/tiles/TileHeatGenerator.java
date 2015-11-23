@@ -22,15 +22,15 @@ public class TileHeatGenerator extends TilePowerAcceptor implements IWrenchable 
         super.updateEntity();
 
         if (!worldObj.isRemote) {
-            if (worldObj.getBlock(xCoord + 1, yCoord, zCoord) == Blocks.lava) {
+            if (worldObj.getBlock(getPos().getX() + 1, getPos().getY(), getPos().getZ()) == Blocks.lava) {
                 addEnergy(euTick);
-            } else if (worldObj.getBlock(xCoord, yCoord, zCoord + 1) == Blocks.lava) {
+            } else if (worldObj.getBlock(getPos().getX(), getPos().getY(), getPos().getZ() + 1) == Blocks.lava) {
                 addEnergy(euTick);
-            } else if (worldObj.getBlock(xCoord, yCoord, zCoord - 1) == Blocks.lava) {
+            } else if (worldObj.getBlock(getPos().getX(), getPos().getY(), getPos().getZ() - 1) == Blocks.lava) {
                 addEnergy(euTick);
-            } else if (worldObj.getBlock(xCoord - 1, yCoord, zCoord) == Blocks.lava) {
+            } else if (worldObj.getBlock(getPos().getX() - 1, getPos().getY(), getPos().getZ()) == Blocks.lava) {
                 addEnergy(euTick);
-            } else if (worldObj.getBlock(xCoord, yCoord - 1, zCoord) == Blocks.lava) {
+            } else if (worldObj.getBlock(getPos().getX(), getPos().getY() - 1, getPos().getZ()) == Blocks.lava) {
                 addEnergy(euTick);
             }
 

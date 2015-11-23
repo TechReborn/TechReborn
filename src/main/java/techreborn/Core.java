@@ -23,8 +23,6 @@ import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.recipeConfig.RecipeConfigManager;
 import techreborn.client.GuiHandler;
 import techreborn.command.TechRebornDevCommand;
-import techreborn.compat.CompatManager;
-import techreborn.compat.ICompatModule;
 import techreborn.config.ConfigTechReborn;
 import techreborn.events.OreUnifier;
 import techreborn.events.TRTickHandler;
@@ -63,10 +61,10 @@ public class Core {
                 .replace(ModInfo.MOD_ID, "TechReborn");
 
         config = ConfigTechReborn.initialize(new File(path));
-
-        for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
-            compatModule.preInit(event);
-        }
+//
+//        for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
+//            compatModule.preInit(event);
+//        }
 
         RecipeConfigManager.load(event.getModConfigurationDirectory());
         versionChecker = new VersionChecker("TechReborn", new ModInfo());
@@ -93,9 +91,9 @@ public class Core {
         //Client only init, needs to be done before parts system
         proxy.init();
         // Compat
-        for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
-            compatModule.init(event);
-        }
+//        for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
+//            compatModule.init(event);
+//        }
         // WorldGen
         GameRegistry.registerWorldGenerator(new TROreGen(), 0);
 //		DungeonLoot.init();
@@ -118,9 +116,9 @@ public class Core {
     @Mod.EventHandler
     public void postinit(FMLPostInitializationEvent event) throws Exception {
         // Has to be done here as Buildcraft registers their recipes late
-        for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
-            compatModule.postInit(event);
-        }
+//        for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
+//            compatModule.postInit(event);
+//        }
         logHelper.info(RecipeHandler.recipeList.size() + " recipes loaded");
 
 //        RecipeHandler.scanForDupeRecipes();
@@ -131,9 +129,9 @@ public class Core {
     @Mod.EventHandler
     public void serverStarting(FMLServerStartingEvent event) {
         event.registerServerCommand(new TechRebornDevCommand());
-        for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
-            compatModule.serverStarting(event);
-        }
+//        for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
+//            compatModule.serverStarting(event);
+//        }
     }
 
     @SubscribeEvent

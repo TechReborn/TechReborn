@@ -22,7 +22,7 @@ public class LesuNetwork {
     private void rebuild() {
         master = null;
         for (TileLesuStorage lesuStorage : storages) {
-            lesuStorage.findAndJoinNetwork(lesuStorage.getWorldObj(), lesuStorage.getPos().getX(), lesuStorage.getPos().getY(), lesuStorage.getPos().getZ());
+            lesuStorage.findAndJoinNetwork(lesuStorage.getWorld(), lesuStorage.getPos().getX(), lesuStorage.getPos().getY(), lesuStorage.getPos().getZ());
         }
     }
 

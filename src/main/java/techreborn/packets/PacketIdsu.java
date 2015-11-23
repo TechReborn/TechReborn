@@ -35,7 +35,7 @@ public class PacketIdsu extends SimplePacket {
 
     @Override
     public void execute() {
-        if (!idsu.getWorldObj().isRemote) {
+        if (!idsu.getWorld().isRemote) {
             idsu.handleGuiInputFromClient(buttonID);
         }
     }

@@ -12,9 +12,9 @@ public class TileLesuStorage extends TileMachineBase {
     public void updateEntity() {
         super.updateEntity();
         if (network == null) {
-            findAndJoinNetwork(worldObj, xCoord, yCoord, zCoord);
+            findAndJoinNetwork(worldObj, getPos().getX(), getPos().getY(), getPos().getZ());
         } else {
-            if (network.master != null && network.master.getWorldObj().getTileEntity(network.master.getPos().getX(), network.master.getPos().getY(), network.master.getPos().getZ()) != network.master) {
+            if (network.master != null && network.master.getWorld().getTileEntity(network.master.getPos().getX(), network.master.getPos().getY(), network.master.getPos().getZ()) != network.master) {
                 network.master = null;
             }
         }
@@ -54,6 +54,6 @@ public class TileLesuStorage extends TileMachineBase {
     public final void rebuildNetwork() {
         this.removeFromNetwork();
         this.resetNetwork();
-        this.findAndJoinNetwork(worldObj, xCoord, yCoord, zCoord);
+        this.findAndJoinNetwork(worldObj, getPos().getX(), getPos().getY(), getPos().getZ());
     }
 }

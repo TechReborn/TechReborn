@@ -128,8 +128,8 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
     @Override
     public void onDataPacket(NetworkManager net,
                              S35PacketUpdateTileEntity packet) {
-        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord,
-                yCoord, zCoord);
+        worldObj.markBlockRangeForRenderUpdate(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX(),
+                getPos().getY(), getPos().getZ());
         readFromNBT(packet.func_148857_g());
     }
 
@@ -139,7 +139,7 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
         if (!worldObj.isRemote) {
             FluidUtils.drainContainers(this, inventory, 0, 1);
             for (EnumFacing direction : EnumFacing.VALID_DIRECTIONS) {
-                if (worldObj.getBlock(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ) == Blocks.lava) {
+                if (worldObj.getBlock(getPos().getX() + direction.offsetX, getPos().getY() + direction.offsetY, getPos().getZ() + direction.offsetZ) == Blocks.lava) {
                     addEnergy(1);
                 }
             }

@@ -190,13 +190,13 @@ public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,
             for (int j = -1; j < 2; j++) {
                 for (int k = -1; k < 2; k++) {
                     if ((i != 0) || (j != 0) || (k != 0)) {
-                        if (worldObj.getBlock(xCoord - xDir + i, yCoord - yDir + j, zCoord - zDir + k) != ModBlocks.MachineCasing) {
+                        if (worldObj.getBlock(getPos().getX() - xDir + i, getPos().getY() - yDir + j, getPos().getZ() - zDir + k) != ModBlocks.MachineCasing) {
                             return false;
                         }
-                        if (worldObj.getBlockMetadata(xCoord - xDir + i, yCoord - yDir + j, zCoord - zDir + k) != (((i == 0) && (j == 0) && (k != 0)) || ((i == 0) && (j != 0) && (k == 0)) || ((i != 0) && (j == 0) && (k == 0)) ? 2 : 1)) {
+                        if (worldObj.getBlockMetadata(getPos().getX() - xDir + i, getPos().getY() - yDir + j, getPos().getZ() - zDir + k) != (((i == 0) && (j == 0) && (k != 0)) || ((i == 0) && (j != 0) && (k == 0)) || ((i != 0) && (j == 0) && (k == 0)) ? 2 : 1)) {
                             return false;
                         }
-                    } else if (!worldObj.isAirBlock(xCoord - xDir + i, yCoord - yDir + j, zCoord - zDir + k)) {
+                    } else if (!worldObj.isAirBlock(getPos().getX() - xDir + i, getPos().getY() - yDir + j, getPos().getZ() - zDir + k)) {
                         return false;
                     }
                 }

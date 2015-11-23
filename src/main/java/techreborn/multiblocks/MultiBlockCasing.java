@@ -3,6 +3,7 @@ package techreborn.multiblocks;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import reborncore.common.multiblock.CoordTriplet;
 import reborncore.common.multiblock.IMultiblockPart;
@@ -110,7 +111,7 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
                 for (int z = minimumCoord.z; z <= maximumCoord.z; z++) {
                     // Okay, figure out what sort of block this should be.
 
-                    te = this.worldObj.getTileEntity(x, y, z);
+                    te = this.worldObj.getTileEntity(new BlockPos(x, y, z));
                     if (te instanceof RectangularMultiblockTileEntityBase) {
                         part = (RectangularMultiblockTileEntityBase) te;
 
@@ -304,7 +305,7 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
     @Override
     protected void isBlockGoodForInterior(World world, int x, int y, int z)
             throws MultiblockValidationException {
-        Block block = world.getBlock(x, y, z);
+        Block block = world.getBlockState(new BlockPos(x, y, z)).getBlock();
 
 
         if (block.getUnlocalizedName().equals("tile.air")) {

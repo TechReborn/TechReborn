@@ -22,10 +22,10 @@ public class GuiButtonTextOnly extends GuiButton {
     @Override
     public void drawButton(Minecraft minecraft, int mouseX, int mouseY) {
         if (this.visible) {
-            FontRenderer fontrenderer = minecraft.fontRenderer;
+            FontRenderer fontrenderer = minecraft.fontRendererObj;
             minecraft.getTextureManager().bindTexture(buttonTextures);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            this.field_146123_n = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
+            this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
             GL11.glEnable(GL11.GL_BLEND);
             OpenGlHelper.glBlendFunc(770, 771, 1, 0);
             GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -33,7 +33,7 @@ public class GuiButtonTextOnly extends GuiButton {
             this.mouseDragged(minecraft, mouseX, mouseY);
 
             String trimmedDisplayString = displayString;
-            if (fontrenderer.getStringWidth(displayString) > width + 30 && !this.field_146123_n) {
+            if (fontrenderer.getStringWidth(displayString) > width + 30 && !this.hovered) {
                 int energencyBreak = 0;
                 while (fontrenderer.getStringWidth(trimmedDisplayString) * 0.7 > width - 5) {
                     trimmedDisplayString = trimmedDisplayString.substring(0, trimmedDisplayString.length() - 1);
@@ -43,7 +43,7 @@ public class GuiButtonTextOnly extends GuiButton {
                 trimmedDisplayString += "...";
             }
 
-            if (this.field_146123_n) {
+            if (this.hovered) {
                 trimmedDisplayString = EnumChatFormatting.BOLD + "" + EnumChatFormatting.ITALIC + trimmedDisplayString;
                 GL11.glPushMatrix();
                 GL11.glColor4f(0f, 0f, 0f, 1f);
@@ -58,6 +58,6 @@ public class GuiButtonTextOnly extends GuiButton {
     }
 
     public boolean getIsHovering() {
-        return field_146123_n;
+        return hovered;
     }
 }
