@@ -82,25 +82,7 @@ minecraft {
 
 group = 'TechReborn'
 
-task deleteOldArtifacts(type: Delete) {
-    delete 'build/libs'
-}
-
-classes.dependsOn deleteOldArtifacts
-
-def grabDep(name, url) {
-    ant.get(src: url, dest: 'dep')
-    file("dep/" + url.substring(url.lastIndexOf("/"))).renameTo(file("dep/" + name + ".jar"))
-}
-
 dependencies {
-    def f = new File('dep/')
-    if (!f.exists()) {
-        f.mkdirs()
-    }
-    if (!f.exists()) {
-        f.mkdir()
-    }
   //  compile 'net.industrial-craft:industrialcraft-2:2.2.796-experimental:dev'
   //  shade 'net.industrial-craft:industrialcraft-2:2.2.796-experimental:api'
   //  compile "codechicken:CodeChickenLib:1.7.10-1.1.3.140:dev"
@@ -155,13 +137,13 @@ task deobfJar(type: Jar) {
 jar {
     exclude "**/*.psd"
     classifier = 'universal'
-    configurations.shade.each { dep ->
-        from(project.zipTree(dep)){
-            include 'ic2/api/'
-            include 'forestry/api/fuels/'
-            exclude 'META-INF', 'META-INF/**', '**/*.java'
-        }
-    }
+//    configurations.shade.each { dep ->
+//        from(project.zipTree(dep)){
+//            include 'ic2/api/'
+//            include 'forestry/api/fuels/'
+//            exclude 'META-INF', 'META-INF/**', '**/*.java'
+//        }
+//    }
 }
 
 task apiJar(type: Jar) {
