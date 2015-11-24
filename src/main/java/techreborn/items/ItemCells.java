@@ -7,14 +7,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
+import reborncore.api.TextureRegistry;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModItems;
+import techreborn.lib.ModInfo;
 
 import java.util.List;
 
-public class ItemCells extends ItemTR {
+public class ItemCells extends ItemMetaBase {
 
-    public static final PropertyEnum<EnumCells> VARIANT_PROP = PropertyEnum.create("variant", EnumCells.class);
 
     public static ItemStack getCellByName(String name, int count) {
         return getCellByName(name, count, true);
@@ -60,70 +61,6 @@ public class ItemCells extends ItemTR {
                     "sodiumSulfide", "sulfur", "sulfuricAcid", "tritium", "wolframium", "empty"};
 
 
-    public enum EnumCells implements IStringSerializable{
-        Berylium(0, "Berylium"),
-        biomass(1, "biomass"),
-        calciumCarbonate(2, "calciumCarbonate"),
-        calcium(3, "calcium"),
-        carbon(4, "carbon"),
-        chlorine(0, "chlorine"),
-        deuterium(0, "deuterium"),
-        diesel(0, "diesel"),
-        ethanol(0, "ethanol"),
-        glyceryl(0, "glyceryl"),
-        helium3(0, "helium3"),
-        helium(0, "helium"),
-        heliumPlasma(0, "heliumPlasma"),
-        hydrogen(0, "hydrogen"),
-        ice(0, "ice"),
-        lithium(0, "lithium"),
-        mercury(0, "mercury"),
-        methane(0, "methane"),
-        nitrocarbon(0, "nitrocarbon"),
-        nitroCoalfuel(0, "nitroCoalfuel"),
-        nitroDiesel(0, "nitroDiesel"),
-        nitrogen(0, "nitrogen"),
-        nitrogenDioxide(0, "nitrogenDioxide"),
-        oil(0, "oil"),
-        potassium(0, "potassium"),
-        seedOil(0, "seedOil"),
-        silicon(0, "silicon"),
-        sodium(0, "sodium"),
-        sodiumPersulfate(0, "sodiumPersulfate"),
-        sodiumSulfide(0, "sodiumSulfide"),
-        sulfur(0, "sulfur"),
-        tritium(0, "tritium"),
-        wolframium(0, "wolframium"),
-        empty(0, "empty");
-
-        private static final EnumCells[] META_LOOKUP = new EnumCells[values().length];
-        private final int meta;
-        private final String name;
-
-        private EnumCells(int meta, String name)
-        {
-            this.meta = meta;
-            this.name = name;
-        }
-
-        @Override
-        public String getName() {
-            return this.name;
-        }
-
-        public int getMeta() {
-            return meta;
-        }
-
-        static
-        {
-            for (EnumCells cells : values())
-            {
-                META_LOOKUP[cells.getMeta()] = cells;
-            }
-        }
-    }
-
     public ItemCells() {
         setUnlocalizedName("techreborn.cell");
         setHasSubtypes(true);
@@ -149,4 +86,13 @@ public class ItemCells extends ItemTR {
         }
     }
 
+    @Override
+    public String getTextureName(int damage) {
+        return ModInfo.MOD_ID + ":items/cells/" + types[damage] + "Cell";
+    }
+
+    @Override
+    public int getMaxMeta() {
+        return types.length;
+    }
 }
