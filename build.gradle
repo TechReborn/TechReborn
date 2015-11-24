@@ -19,6 +19,9 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
 
 repositories {
     maven {
@@ -66,9 +69,9 @@ configurations {
 
 def ENV = System.getenv()
 if (ENV.BUILD_NUMBER) {
-    version = "1.8.8-0.7.0." + "${System.getenv().BUILD_NUMBER}"
+    version = "0.7.0." + "${System.getenv().BUILD_NUMBER}"
 } else {
-    version = "1.8.8-0.7.0.BUILD"
+    version = "0.7.0.BUILD"
 }
 
 minecraft {
@@ -120,7 +123,7 @@ dependencies {
  //   compile "com.github.azanor:baubles:1.0.1.10:deobf@jar"
  //   compile name: "MineTweaker3", version: "1.7.10-3.0.9C", classifier: "Dev"
   //  shade 'IC2-Classic-API-STANDALONE:IC2-Classic-API-STANDALONE:1.1.0.19-5:api'
-    compile 'RebornCore:RebornCore:1.0.0.+:dev'
+    compile 'RebornCore:RebornCore-1.8.8:1.0.0.+:dev'
 
 	testCompile 'junit:junit:4.12'
 }
@@ -142,11 +145,6 @@ processResources
                 exclude 'mcmod.info'
             }
         }
-
-task sourceJar(type: Jar) {
-    from sourceSets.main.allSource
-    classifier = 'src'
-}
 
 task deobfJar(type: Jar) {
     from sourceSets.main.output
@@ -188,13 +186,12 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 apiJar.mustRunAfter deobfJar
 
 artifacts {
-    archives sourceJar
     archives deobfJar
     archives apiJar
     archives javadocJar
 }
 
-build.dependsOn sourceJar, javadocJar, deobfJar, apiJar
+build.dependsOn javadocJar, deobfJar, apiJar
 
 uploadArchives {
     repositories {
