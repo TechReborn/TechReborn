@@ -9,11 +9,12 @@ import techreborn.Core;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModItems;
+import techreborn.lib.ModInfo;
 
 import java.security.InvalidParameterException;
 import java.util.List;
 
-public class ItemParts extends Item {
+public class ItemParts extends ItemMetaBase {
     public static ItemStack getPartByName(String name, int count) {
         for (int i = 0; i < types.length; i++) {
             if (types[i].equalsIgnoreCase(name)) {
@@ -75,5 +76,13 @@ public class ItemParts extends Item {
         }
         return itemStack;
     }
+    @Override
+    public String getTextureName(int damage) {
+        return ModInfo.MOD_ID + ":items/part/" + types[damage];
+    }
 
+    @Override
+    public int getMaxMeta() {
+        return types.length;
+    }
 }

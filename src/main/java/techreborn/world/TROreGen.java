@@ -7,6 +7,7 @@ import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraftforge.fml.common.IWorldGenerator;
 import techreborn.Core;
 import techreborn.config.ConfigTechReborn;
+import techreborn.init.ModBlocks;
 
 import java.util.Random;
 
@@ -32,27 +33,27 @@ public class TROreGen implements IWorldGenerator {
 
     public TROreGen() {
         //TODO meta fix
-//        // World
-//        oreGalena = new WorldGenMinable(ModBlocks.ore, 0, ConfigTechReborn.GalenaOreRare, Blocks.stone);
-//        oreIridium = new WorldGenMinable(ModBlocks.ore, 1, ConfigTechReborn.IridiumOreRare, Blocks.stone);
-//        oreRuby = new WorldGenMinable(ModBlocks.ore, 2, ConfigTechReborn.RubyOreRare, Blocks.stone);
-//        oreSapphire = new WorldGenMinable(ModBlocks.ore, 3, ConfigTechReborn.SapphireOreRare, Blocks.stone);
-//        oreBauxite = new WorldGenMinable(ModBlocks.ore, 4, ConfigTechReborn.BauxiteOreRare, Blocks.stone);
-//        oreTetrahedrite = new WorldGenMinable(ModBlocks.ore, 12, ConfigTechReborn.TetrahedriteOreRare, Blocks.stone);
-//        oreCassiterite = new WorldGenMinable(ModBlocks.ore, 13, ConfigTechReborn.CassiteriteOreRare, Blocks.stone);
-//        oreLead = new WorldGenMinable(ModBlocks.ore, 14, ConfigTechReborn.LeadOreRare, Blocks.stone);
-//        oreSilver = new WorldGenMinable(ModBlocks.ore, 15, ConfigTechReborn.SilverOreRare, Blocks.stone);
-//
-//        // Nether
-//        orePyrite = new WorldGenMinable(ModBlocks.ore, 5, ConfigTechReborn.PyriteOreRare, Blocks.netherrack);
-//        oreCinnabar = new WorldGenMinable(ModBlocks.ore, 6, ConfigTechReborn.CinnabarOreRare, Blocks.netherrack);
-//        oreSphalerite = new WorldGenMinable(ModBlocks.ore, 7, ConfigTechReborn.SphaleriteOreRare, Blocks.netherrack);
-//
-//        // End
-//        oreTungston = new WorldGenMinable(ModBlocks.ore, 8, ConfigTechReborn.TungstenOreRare, Blocks.end_stone);
-//        oreSheldonite = new WorldGenMinable(ModBlocks.ore, 9, ConfigTechReborn.SheldoniteOreRare, Blocks.end_stone);
-//        orePeridot = new WorldGenMinable(ModBlocks.ore, 10, ConfigTechReborn.PeridotOreRare, Blocks.end_stone);
-//        oreSodalite = new WorldGenMinable(ModBlocks.ore, 11, ConfigTechReborn.SodaliteOreRare, Blocks.end_stone);
+        // World
+        oreGalena = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(0), ConfigTechReborn.GalenaOreRare);
+        oreIridium = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(1), ConfigTechReborn.IridiumOreRare);
+        oreRuby = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(2), ConfigTechReborn.RubyOreRare);
+        oreSapphire = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(3), ConfigTechReborn.SapphireOreRare);
+        oreBauxite = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(4), ConfigTechReborn.BauxiteOreRare);
+        oreTetrahedrite = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(12), ConfigTechReborn.TetrahedriteOreRare);
+        oreCassiterite = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(13), ConfigTechReborn.CassiteriteOreRare);
+        oreLead = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(14), ConfigTechReborn.LeadOreRare);
+        oreSilver = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(15), ConfigTechReborn.SilverOreRare);
+
+        // Nether
+        orePyrite = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(5), ConfigTechReborn.PyriteOreRare);
+        oreCinnabar = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(6), ConfigTechReborn.CinnabarOreRare);
+        oreSphalerite = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(7), ConfigTechReborn.SphaleriteOreRare);
+
+        // End
+        oreTungston = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(8), ConfigTechReborn.TungstenOreRare);
+        oreSheldonite = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(9), ConfigTechReborn.SheldoniteOreRare);
+        orePeridot = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(10), ConfigTechReborn.PeridotOreRare);
+        oreSodalite = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(11), ConfigTechReborn.SodaliteOreRare);
 
         Core.logHelper.info("WorldGen Loaded");
     }
@@ -68,9 +69,7 @@ public class TROreGen implements IWorldGenerator {
     @Override
     public void generate(Random random, int xChunk, int zChunk, World world,
                          IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
-        if(true == true){
-            return; //TODO meta fix
-        }
+
         if (world.provider.isSurfaceWorld()) {
             generateUndergroundOres(random, xChunk * 16, zChunk * 16, world);
         } else if (world.provider.getDimensionId() == 0) {

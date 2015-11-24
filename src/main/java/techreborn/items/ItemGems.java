@@ -5,11 +5,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
+import techreborn.lib.ModInfo;
 
 import java.security.InvalidParameterException;
 import java.util.List;
 
-public class ItemGems extends Item {
+public class ItemGems extends ItemMetaBase {
 
     public static ItemStack getGemByName(String name, int count) {
         for (int i = 0; i < types.length; i++) {
@@ -53,6 +54,16 @@ public class ItemGems extends Item {
         for (int meta = 0; meta < types.length; ++meta) {
             list.add(new ItemStack(item, 1, meta));
         }
+    }
+
+    @Override
+    public String getTextureName(int damage) {
+        return ModInfo.MOD_ID + ":items/gem/" + types[damage];
+    }
+
+    @Override
+    public int getMaxMeta() {
+        return types.length;
     }
 
 }

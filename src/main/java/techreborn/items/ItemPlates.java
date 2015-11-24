@@ -5,11 +5,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
+import techreborn.lib.ModInfo;
 
 import java.security.InvalidParameterException;
 import java.util.List;
 
-public class ItemPlates extends ItemTR {
+public class ItemPlates extends ItemMetaBase {
 
     public static ItemStack getPlateByName(String name, int count) {
         for (int i = 0; i < types.length; i++) {
@@ -59,6 +60,16 @@ public class ItemPlates extends ItemTR {
         for (int meta = 0; meta < types.length; ++meta) {
             list.add(new ItemStack(item, 1, meta));
         }
+    }
+
+    @Override
+    public String getTextureName(int damage) {
+        return ModInfo.MOD_ID + ":items/plate/" + types[damage] + "Plate";
+    }
+
+    @Override
+    public int getMaxMeta() {
+        return types.length;
     }
 
 }

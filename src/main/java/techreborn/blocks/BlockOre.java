@@ -2,6 +2,8 @@ package techreborn.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyInteger;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,11 +11,14 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import reborncore.api.IBlockTextureProvider;
+import reborncore.common.BaseBlock;
 import reborncore.common.util.OreDrop;
 import reborncore.common.util.OreDropSet;
 import techreborn.client.TechRebornCreativeTabMisc;
@@ -26,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class BlockOre extends Block {
+public class BlockOre extends BaseBlock implements IBlockTextureProvider {
 
     public static ItemStack getOreByName(String name, int count) {
         int index = -1;
@@ -48,12 +53,14 @@ public class BlockOre extends Block {
                     "Sphalerite", "Tungston", "Sheldonite", "Peridot", "Sodalite",
                     "Tetrahedrite", "Cassiterite", "Lead", "Silver"};
 
+    public PropertyInteger METADATA;
 
     public BlockOre(Material material) {
         super(material);
         setUnlocalizedName("techreborn.ore");
         setCreativeTab(TechRebornCreativeTabMisc.instance);
         setHardness(2.0f);
+        this.setDefaultState(this.blockState.getBaseState().withProperty(METADATA, 0));
     }
 
    
@@ -127,22 +134,46 @@ public class BlockOre extends Block {
         }
     }
 
-
-//    @Override
-//    public int damageDropped(int metaData) {
-//        if (metaData == 2) {
-//            return 0;
-//        } else if (metaData == 3) {
-//            return 1;
-//        } else if (metaData == 5) {
-//            return 60;
-//        }
-//        return metaData;
-//    }
-    
-
     @Override
     public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player) {
         return super.getPickBlock(target, world, pos, player);
+    }
+
+    @Override
+    public int damageDropped(IBlockState state) {
+        int meta = getMetaFromState(state);
+        if (meta == 2) {
+            return 0;
+        } else if (meta == 3) {
+            return 1;
+        } else if (meta == 5) {
+            return 60;
+        }
+        return meta;
+    }
+    @Override
+    public String getTextureName(IBlockState blockState, EnumFacing facing) {
+        return "techreborn:blocks/ore/ore" + types[getMetaFromState(blockState)];
+    }
+
+    @Override
+    public int amoutOfVariants() {
+        return types.length;
+    }
+
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        return this.getDefaultState().withProperty(METADATA, meta);
+    }
+
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return (Integer) state.getValue(METADATA);
+    }
+
+    protected BlockState createBlockState() {
+
+        METADATA = PropertyInteger.create("Type", 0, types.length);
+        return new BlockState(this, METADATA);
     }
 }

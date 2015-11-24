@@ -6,11 +6,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
+import techreborn.lib.ModInfo;
 
 import java.security.InvalidParameterException;
 import java.util.List;
 
-public class ItemDusts extends ItemTR {
+public class ItemDusts extends ItemMetaBase {
     public static ItemStack getDustByName(String name, int count) {
         for (int i = 0; i < types.length; i++) {
             if (types[i].equalsIgnoreCase(name)) {
@@ -76,6 +77,16 @@ public class ItemDusts extends ItemTR {
         for (int meta = 0; meta < types.length; ++meta) {
             list.add(new ItemStack(item, 1, meta));
         }
+    }
+
+    @Override
+    public String getTextureName(int damage) {
+        return ModInfo.MOD_ID + ":items/dust/" + types[damage] + "Dust";
+    }
+
+    @Override
+    public int getMaxMeta() {
+        return types.length;
     }
 
 }
