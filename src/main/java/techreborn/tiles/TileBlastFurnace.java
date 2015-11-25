@@ -1,6 +1,7 @@
 package techreborn.tiles;
 
 import ic2.api.tile.IWrenchable;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -13,10 +14,12 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
+import reborncore.common.BaseTileBlock;
 import reborncore.common.misc.Location;
 import reborncore.common.multiblock.IMultiblockPart;
 import reborncore.common.util.Inventory;
 import techreborn.api.recipe.RecipeCrafter;
+import techreborn.blocks.BlockMachineBase;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
@@ -57,6 +60,10 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 
     @Override
     public short getFacing() {
+        Block block = worldObj.getBlockState(pos).getBlock();
+        if(block instanceof BlockMachineBase){
+            return (short) ((BlockMachineBase) block).getFacing(worldObj.getBlockState(pos)).getIndex();
+        }
         return 0;
     }
 

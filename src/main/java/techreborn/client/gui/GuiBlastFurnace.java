@@ -43,7 +43,7 @@ public class GuiBlastFurnace extends GuiContainer {
         GuiButton button = new GuiButton(212, k + 4, l + 6, 20, 20, "");
         buttonList.add(button);
         super.initGui();
-		CoordTriplet coordinates = new CoordTriplet(blastfurnace.getPos().getX() - (EnumFacing.getFront(blastfurnace.getRotation()).getFrontOffsetX() * 2), blastfurnace.getPos().getY() - 1, blastfurnace.getPos().getZ() - (EnumFacing.getFront(blastfurnace.getRotation()).getFrontOffsetZ() * 2));
+		CoordTriplet coordinates = new CoordTriplet(blastfurnace.getPos().getX() - (EnumFacing.getFront(blastfurnace.getFacing()).getFrontOffsetX() * 2), blastfurnace.getPos().getY() - 1, blastfurnace.getPos().getZ() - (EnumFacing.getFront(blastfurnace.getFacing()).getFrontOffsetZ() * 2));
 		if(coordinates.equals(ClientProxy.multiblockRenderEvent.anchor) && blastfurnace.getHeat() != 0){
 			ClientProxy.multiblockRenderEvent.setMultiblock(null);
 			button.displayString = "B";
@@ -136,7 +136,7 @@ public class GuiBlastFurnace extends GuiContainer {
 					MultiblockSet set = new MultiblockSet(multiblock);
 					ClientProxy.multiblockRenderEvent.setMultiblock(set);
 					ClientProxy.multiblockRenderEvent.partent = new Location(blastfurnace.getPos().getX(), blastfurnace.getPos().getY(), blastfurnace.getPos().getZ(), blastfurnace.getWorld());
-					ClientProxy.multiblockRenderEvent.anchor = new CoordTriplet(blastfurnace.getPos().getX() - (EnumFacing.getFront(blastfurnace.getRotation()).getFrontOffsetX() * 2), blastfurnace.getPos().getY() - 1, blastfurnace.getPos().getZ() - (EnumFacing.getFront(blastfurnace.getRotation()).getFrontOffsetZ() * 2));
+					ClientProxy.multiblockRenderEvent.anchor = new CoordTriplet(blastfurnace.getPos().getX() - (EnumFacing.getFront(blastfurnace.getFacing()).getFrontOffsetX() * 2), blastfurnace.getPos().getY() - 1, blastfurnace.getPos().getZ() - (EnumFacing.getFront(blastfurnace.getFacing()).getFrontOffsetZ() * 2));
 				}
 				button.displayString = "A";
 			} else {

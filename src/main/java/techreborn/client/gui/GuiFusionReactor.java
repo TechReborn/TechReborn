@@ -51,7 +51,7 @@ public class GuiFusionReactor extends GuiContainer {
         GuiButton button = new GuiButton(212, k + this.xSize - 24, l + 4, 20, 20, "");
         buttonList.add(button);
         super.initGui();
-        CoordTriplet coordinates = new CoordTriplet(fusionController.getPos().getX() - (EnumFacing.getFront(fusionController.getRotation()).getFrontOffsetX() * 2), fusionController.getPos().getY() - 1, fusionController.getPos().getZ() - (EnumFacing.getFront(fusionController.getRotation()).getFrontOffsetZ() * 2));
+        CoordTriplet coordinates = new CoordTriplet(fusionController.getPos().getX() - (EnumFacing.getFront(fusionController.getFacingInt()).getFrontOffsetX() * 2), fusionController.getPos().getY() - 1, fusionController.getPos().getZ() - (EnumFacing.getFront(fusionController.getFacingInt()).getFrontOffsetZ() * 2));
         if(coordinates.equals(ClientProxy.multiblockRenderEvent.anchor)){
             ClientProxy.multiblockRenderEvent.setMultiblock(null);
             button.displayString = "B";

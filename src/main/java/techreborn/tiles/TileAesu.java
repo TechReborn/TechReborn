@@ -53,12 +53,12 @@ public class TileAesu extends TilePowerAcceptor implements IWrenchable {
 
     @Override
     public short getFacing() {
-        return (short) getRotation();
+        return (short) getFacingInt();
     }
 
     @Override
     public void setFacing(short facing) {
-        setRotation(facing);
+        setFacing(facing);
     }
 
     @Override
@@ -144,12 +144,12 @@ public class TileAesu extends TilePowerAcceptor implements IWrenchable {
 
     @Override
     public boolean canAcceptEnergy(EnumFacing direction) {
-        return getRotation() != Functions.getIntDirFromDirection(direction);
+        return getFacing() != Functions.getIntDirFromDirection(direction);
     }
 
     @Override
     public boolean canProvideEnergy(EnumFacing direction) {
-        return getRotation() == Functions.getIntDirFromDirection(direction);
+        return getFacing() == Functions.getIntDirFromDirection(direction);
     }
 
     @Override

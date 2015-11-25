@@ -1,10 +1,12 @@
 package techreborn.blocks;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockDynamicLiquid;
 import net.minecraft.block.BlockStaticLiquid;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
@@ -22,21 +24,36 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
+import reborncore.api.IBlockTextureProvider;
+import reborncore.common.BaseBlock;
+import reborncore.common.BaseTileBlock;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
 import techreborn.tiles.TileMachineBase;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-public class BlockMachineBase extends BlockContainer {
+public abstract class BlockMachineBase extends BaseTileBlock implements IBlockTextureProvider {
+
+    public static PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
+    public static PropertyBool ACTIVE = PropertyBool.create("active");
 
     public BlockMachineBase(Material material) {
         super(Material.rock);
         setCreativeTab(TechRebornCreativeTab.instance);
         setHardness(2f);
         setStepSound(soundTypeMetal);
+        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(ACTIVE, false));
+    }
+
+    protected BlockState createBlockState() {
+
+        FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
+        ACTIVE = PropertyBool.create("active");
+        return new BlockState(this, FACING, ACTIVE);
     }
 
     @Override
@@ -52,38 +69,38 @@ public class BlockMachineBase extends BlockContainer {
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         super.onBlockAdded(worldIn, pos, state);
         onBlockAdded(worldIn, pos.getX(), pos.getY(), pos.getZ());
-        this.setDefaultDirection(worldIn, pos);
+        this.setDefaultFacing(worldIn, pos, state);
     }
 
-    private void setDefaultDirection(World world, BlockPos pos) {
+    private void setDefaultFacing(World worldIn, BlockPos pos, IBlockState state)
+    {
+        if (!worldIn.isRemote)
+        {
+            Block block = worldIn.getBlockState(pos.north()).getBlock();
+            Block block1 = worldIn.getBlockState(pos.south()).getBlock();
+            Block block2 = worldIn.getBlockState(pos.west()).getBlock();
+            Block block3 = worldIn.getBlockState(pos.east()).getBlock();
+            EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
 
-        if (!world.isRemote) {
-            Block block1 = world.getBlockState(new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1)).getBlock();
-            Block block2 = world.getBlockState(new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1)).getBlock();
-            Block block3 = world.getBlockState(new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ())).getBlock();
-            Block block4 = world.getBlockState(new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ())).getBlock();
-
-            byte b = 3;
-
-            if (block1.isOpaqueCube() && !block2.isOpaqueCube()) {
-                b = 3;
+            if (enumfacing == EnumFacing.NORTH && block.isFullBlock() && !block1.isFullBlock())
+            {
+                enumfacing = EnumFacing.SOUTH;
             }
-            if (block2.isOpaqueCube() && !block1.isOpaqueCube()) {
-                b = 2;
+            else if (enumfacing == EnumFacing.SOUTH && block1.isFullBlock() && !block.isFullBlock())
+            {
+                enumfacing = EnumFacing.NORTH;
             }
-            if (block3.isOpaqueCube() && !block4.isOpaqueCube()) {
-                b = 5;
+            else if (enumfacing == EnumFacing.WEST && block2.isFullBlock() && !block3.isFullBlock())
+            {
+                enumfacing = EnumFacing.EAST;
             }
-            if (block4.isOpaqueCube() && !block3.isOpaqueCube()) {
-                b = 4;
+            else if (enumfacing == EnumFacing.EAST && block3.isFullBlock() && !block2.isFullBlock())
+            {
+                enumfacing = EnumFacing.WEST;
             }
 
-            //TODO 1.8 meta
-          //  world.setBlockMetadataWithNotify(x, y, z, b, 2);
-            setTileRotation(world, pos, b);
-
+            worldIn.setBlockState(pos, state.withProperty(FACING, enumfacing), 2);
         }
-
     }
 
     @Deprecated
@@ -97,22 +114,7 @@ public class BlockMachineBase extends BlockContainer {
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
         onBlockPlacedBy(worldIn, pos.getX(), pos.getY(), pos.getZ(), placer, stack);
-
-        int l = MathHelper
-                .floor_double((double) (placer.rotationYaw * 4.0F / 360F) + 0.5D) & 3;
-
-        if (l == 0) {
-            setTileRotation(worldIn, pos,  2);
-        }
-        if (l == 1) {
-            setTileRotation(worldIn, pos, 5);
-        }
-        if (l == 2) {
-            setTileRotation(worldIn, pos, 3);
-        }
-        if (l == 3) {
-            setTileRotation(worldIn, pos, 4);
-        }
+        setFacing(placer.getHorizontalFacing().getOpposite(), worldIn, pos);
     }
 
     public boolean canCreatureSpawn(EnumCreatureType type, World world, int x,
@@ -172,23 +174,6 @@ public class BlockMachineBase extends BlockContainer {
         }
     }
 
-    public void setTileRotation(World world, BlockPos pos, int meta) {
-        if (world.getTileEntity(pos) != null && world.getTileEntity(pos) instanceof TileMachineBase) {
-            ((TileMachineBase) world.getTileEntity(pos)).setRotation(meta);
-        }
-    }
-
-    public int getTileRotation(World world, BlockPos pos) {
-        if (world.getTileEntity(pos) != null && world.getTileEntity(pos) instanceof TileMachineBase) {
-            return ((TileMachineBase) world.getTileEntity(pos)).getRotation();
-        }
-        return 0;
-    }
-
-    public int getTileRotation(IBlockAccess blockAccess, BlockPos pos) {
-        return blockAccess.getTileEntity(pos) != null ? getTileRotation(blockAccess.getTileEntity(pos).getWorld(), pos) : 0;
-    }
-
     @Override
     public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
         ArrayList<ItemStack> items = new ArrayList<ItemStack>();
@@ -213,7 +198,8 @@ public class BlockMachineBase extends BlockContainer {
             TileEntity tile = world.getTileEntity(pos);
             if (tile != null && tile instanceof TileMachineBase) {
                 TileMachineBase machineBase = (TileMachineBase) tile;
-                machineBase.setRotation(EnumFacing.getFront(machineBase.getRotation()).getOpposite().ordinal());
+                //TODO fix
+             //   world.setBlockState(pos, world.getBlockState(pos).withProperty(FACING, EnumFacing.getFront(world.getBlockState(pos).getValue(FACING)).getOpposite()));
                 return true;
             }
             return false;
@@ -341,4 +327,64 @@ public class BlockMachineBase extends BlockContainer {
         }
     }
 
+    @Override
+    public String getTextureName(IBlockState blockState, EnumFacing facing) {
+        if(this instanceof IRotationTexture){
+            IRotationTexture rotationTexture = (IRotationTexture) this;
+            if(getFacing(blockState) == facing){
+                return isActive(blockState) ? rotationTexture.getFrontOn() : rotationTexture.getFrontOff();
+            }
+            if(facing == EnumFacing.UP){
+                return rotationTexture.getTop();
+            }
+            if(facing == EnumFacing.DOWN){
+                return rotationTexture.getBottom();
+            }
+            return rotationTexture.getSide();
+        }
+        return "techreborn:blocks/machine/machine_side";
+    }
+
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        boolean active = false;
+        if(meta > 6){
+            active = true;
+            meta =- 6;
+        }
+        int facingInt = meta;
+        EnumFacing facing = EnumFacing.getFront(facingInt);
+        if(facing == EnumFacing.DOWN || facing == EnumFacing.UP){
+            facing = EnumFacing.NORTH;
+        }
+        return this.getDefaultState().withProperty(FACING, facing).withProperty(ACTIVE, active);
+    }
+
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        int facingInt = state.getValue(FACING).getIndex();
+        int activeInt = state.getValue(ACTIVE) ? 0 : 6;
+        return facingInt + activeInt;
+    }
+
+    public boolean isActive(IBlockState state){
+        return state.getValue(ACTIVE);
+    }
+
+    public EnumFacing getFacing(IBlockState state){
+        return state.getValue(FACING);
+    }
+
+    public void setFacing(EnumFacing facing, World world, BlockPos pos){
+        world.setBlockState(pos, world.getBlockState(pos).withProperty(FACING, facing));
+    }
+
+
+    public void setActive(Boolean active, World world, BlockPos pos){
+        world.setBlockState(pos, world.getBlockState(pos).withProperty(ACTIVE, active));
+    }
+    @Override
+    public int amoutOfVariants() {
+        return 12; //six for Facing, and then 2 for eatch of them for if active
+    }
 }

@@ -84,7 +84,7 @@ public class BlockStorage extends BaseBlock implements IBlockTextureProvider {
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return (Integer) state.getValue(METADATA);
+        return state.getValue(METADATA);
     }
 
     protected BlockState createBlockState() {

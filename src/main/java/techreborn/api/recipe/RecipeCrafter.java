@@ -5,6 +5,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.api.power.IEnergyInterfaceTile;
+import techreborn.blocks.BlockMachineBase;
 import techreborn.tiles.TileMachineBase;
 
 import java.util.ArrayList;
@@ -316,11 +317,10 @@ public class RecipeCrafter {
 
 
     public void setIsActive() {
-//        if (isActive()) { //TODO 1.8 update
-//            parentTile.getWorld().setBlockMetadataWithNotify(parentTile.getPos().getX(), parentTile.getPos().getY(), parentTile.getPos().getZ(), 1, 2);
-//        } else {
-//            parentTile.getWorld().setBlockMetadataWithNotify(parentTile.getPos().getX(), parentTile.getPos().getY(), parentTile.getPos().getZ(), 0, 2);
-//        }
+        if(parentTile.getWorld().getBlockState(parentTile.getPos()).getBlock() instanceof BlockMachineBase){
+            BlockMachineBase blockMachineBase = (BlockMachineBase) parentTile.getWorld().getBlockState(parentTile.getPos()).getBlock();
+            blockMachineBase.setActive(isActive(), parentTile.getWorld(), parentTile.getPos());
+        }
         parentTile.getWorld().markBlockForUpdate(parentTile.getPos());
     }
 

@@ -6,10 +6,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
+import techreborn.blocks.IRotationTexture;
 import techreborn.client.GuiHandler;
 import techreborn.tiles.TileAesu;
 
-public class BlockAesu extends BlockMachineBase {
+public class BlockAesu extends BlockMachineBase implements IRotationTexture {
 
 
 
@@ -54,5 +55,32 @@ public class BlockAesu extends BlockMachineBase {
 //                side == 0 ? this.iconBottom : (side == 0 ? this.iconTop
 //                        : (side == metadata ? this.iconFront : this.blockIcon));
 //    }
+
+    private final String prefix = "techreborn:/blocks/machine/";
+
+    @Override
+    public String getFrontOff() {
+        return prefix + "aesu_front";
+    }
+
+    @Override
+    public String getFrontOn() {
+        return prefix + "aesu_front";
+    }
+
+    @Override
+    public String getSide() {
+        return prefix + "aesu_side";
+    }
+
+    @Override
+    public String getTop() {
+        return prefix + "aesu_side";
+    }
+
+    @Override
+    public String getBottom() {
+        return prefix + "aesu_side";
+    }
 
 }

@@ -1,16 +1,17 @@
 package techreborn.tiles;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import reborncore.common.packets.PacketHandler;
+import techreborn.blocks.BlockMachineBase;
 
 public class TileMachineBase extends TileEntity implements ITickable {
-
-    int rotation;
 
     public void syncWithAll() {
         if (!worldObj.isRemote) {
@@ -32,34 +33,6 @@ public class TileMachineBase extends TileEntity implements ITickable {
         readFromNBT(packet.getNbtCompound());
     }
 
-    public int getRotation() {
-        return rotation;
-    }
-
-    public void setRotation(int rotation) {
-        this.rotation = rotation;
-        syncWithAll();
-        worldObj.notifyBlockOfStateChange(getPos(), blockType);
-        worldObj.markBlockForUpdate(getPos());
-        worldObj.markBlockRangeForRenderUpdate(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX(), getPos().getY(), getPos().getZ());
-    }
-
-    @Override
-    public void readFromNBT(NBTTagCompound tagCompound) {
-        super.readFromNBT(tagCompound);
-        if (tagCompound.hasKey("meta") && !tagCompound.hasKey("rotation")) {
-            rotation = tagCompound.getInteger("meta");
-        } else {
-            rotation = tagCompound.getInteger("rotation");
-        }
-    }
-
-    @Override
-    public void writeToNBT(NBTTagCompound tagCompound) {
-        super.writeToNBT(tagCompound);
-        tagCompound.setInteger("rotation", rotation);
-    }
-
     @Override
     public void tick() {
         updateEntity();
@@ -69,5 +42,28 @@ public class TileMachineBase extends TileEntity implements ITickable {
 
     }
 
+    public int getFacingInt() {
+        Block block = worldObj.getBlockState(pos).getBlock();
+        if(block instanceof BlockMachineBase){
+            return ((BlockMachineBase) block).getFacing(worldObj.getBlockState(pos)).getIndex();
+        }
+        return 0;
+    }
+
+    public EnumFacing getFacingEnum() {
+        Block block = worldObj.getBlockState(pos).getBlock();
+        if(block instanceof BlockMachineBase){
+            return ((BlockMachineBase) block).getFacing(worldObj.getBlockState(pos));
+        }
+        return null;
+    }
+
+
+    public void setFacing(EnumFacing enumFacing) {
+        Block block = worldObj.getBlockState(pos).getBlock();
+        if(block instanceof BlockMachineBase){
+            ((BlockMachineBase) block).setFacing(enumFacing, worldObj, pos);
+        }
+    }
 
 }
