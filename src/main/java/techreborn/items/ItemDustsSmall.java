@@ -10,7 +10,7 @@ import techreborn.lib.ModInfo;
 import java.security.InvalidParameterException;
 import java.util.List;
 
-public class ItemDustsSmall extends ItemMetaBase {
+public class ItemDustsSmall extends ItemTextureBase {
 
     public static ItemStack getSmallDustByName(String name, int count) {
         for (int i = 0; i < types.length; i++) {

@@ -1,20 +1,17 @@
 package techreborn.items;
 
-import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IStringSerializable;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
-import reborncore.api.TextureRegistry;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
 
 import java.util.List;
 
-public class ItemCells extends ItemMetaBase {
+public class ItemCells extends ItemTextureBase {
 
 
     public static ItemStack getCellByName(String name, int count) {

@@ -12,11 +12,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import techreborn.api.power.IEnergyItemInfo;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
+import techreborn.items.ItemTextureBase;
 import techreborn.powerSystem.PoweredItem;
 
 import java.util.List;
 
-public class ItemCloakingDevice extends Item implements IEnergyItemInfo {
+public class ItemCloakingDevice extends ItemTextureBase implements IEnergyItemInfo {
     public static int Teir = ConfigTechReborn.CloakingDeviceTier;
     public static int MaxCharge = ConfigTechReborn.CloakingDeviceCharge;
     public static int Limit = 100;
@@ -105,4 +106,13 @@ public class ItemCloakingDevice extends Item implements IEnergyItemInfo {
         return true;
     }
 
+    @Override
+    public String getTextureName(int damage) {
+        return "techreborn:items/techreborn.cloakingdevice";
+    }
+
+    @Override
+    public int getMaxMeta() {
+        return 1;
+    }
 }

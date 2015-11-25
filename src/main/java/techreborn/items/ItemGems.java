@@ -10,7 +10,7 @@ import techreborn.lib.ModInfo;
 import java.security.InvalidParameterException;
 import java.util.List;
 
-public class ItemGems extends ItemMetaBase {
+public class ItemGems extends ItemTextureBase {
 
     public static ItemStack getGemByName(String name, int count) {
         for (int i = 0; i < types.length; i++) {

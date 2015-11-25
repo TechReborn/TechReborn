@@ -3,6 +3,7 @@ package techreborn.client.hud;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -58,9 +59,7 @@ public class ChargeHud {
             RenderHelper.enableStandardItemLighting();
             RenderHelper.enableGUIStandardItemLighting();
             //Render the stack
-           // RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, armorstack, 0, y - 5);
-            //Render Overlay            //TODO 1.8 rendering
-          //  RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, armorstack, 0, y - 5);
+            renderItemStack(armorstack, 0, y - 5);
             //Get the color depending on current charge
             if (CurrentCharge <= half) {
                 color = Color.YELLOW;
@@ -83,9 +82,7 @@ public class ChargeHud {
                 GL11.glEnable(32826);
                 RenderHelper.enableStandardItemLighting();
                 RenderHelper.enableGUIStandardItemLighting();
-                //TODO 1.8 nope
-                //RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack, 0, y - 5);
-              //  RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, stack, 0, y - 5);
+                renderItemStack(stack, 0, y - 5);
                 if (CurrentCharge <= half) {
                     color = Color.YELLOW;
                 }
@@ -96,6 +93,21 @@ public class ChargeHud {
             }
         }
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+    }
+
+    public void renderItemStack(ItemStack stack, int x, int y)
+    {
+        if (stack != null)
+        {
+            GL11.glEnable(GL11.GL_BLEND);
+            GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+            RenderHelper.enableGUIStandardItemLighting();
+
+            RenderItem itemRenderer = Minecraft.getMinecraft().getRenderItem();
+            itemRenderer.renderItemAndEffectIntoGUI(stack, x, y);
+
+            GL11.glDisable(GL11.GL_LIGHTING);
+        }
     }
 
     private String GetEUString(double euValue) {

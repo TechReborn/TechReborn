@@ -10,7 +10,7 @@ import techreborn.lib.ModInfo;
 import java.security.InvalidParameterException;
 import java.util.List;
 
-public class ItemCrushedOre extends ItemMetaBase {
+public class ItemCrushedOre extends ItemTextureBase {
     public static ItemStack getCrushedOreByName(String name, int count) {
         for (int i = 0; i < types.length; i++) {
             if (types[i].equalsIgnoreCase(name)) {

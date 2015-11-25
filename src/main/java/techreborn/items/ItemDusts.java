@@ -11,7 +11,7 @@ import techreborn.lib.ModInfo;
 import java.security.InvalidParameterException;
 import java.util.List;
 
-public class ItemDusts extends ItemMetaBase {
+public class ItemDusts extends ItemTextureBase {
     public static ItemStack getDustByName(String name, int count) {
         for (int i = 0; i < types.length; i++) {
             if (types[i].equalsIgnoreCase(name)) {
