@@ -59,7 +59,7 @@ public class IndustrialSawmillRecipe extends BaseRecipe {
             if (sawmill.tank.getFluid() == null) {
                 return false;
             }
-            if (sawmill.tank.getFluid().getFluidID() == fluidStack.getFluidID()) {
+            if (sawmill.tank.getFluid()== fluidStack) {
                 if (sawmill.tank.getFluidAmount() >= fluidStack.amount) {
                     return true;
                 }
@@ -78,7 +78,7 @@ public class IndustrialSawmillRecipe extends BaseRecipe {
             if (sawmill.tank.getFluid() == null) {
                 return false;
             }
-            if (sawmill.tank.getFluid().getFluidID() == fluidStack.getFluidID()) {
+            if (sawmill.tank.getFluid() == fluidStack) {
                 if (sawmill.tank.getFluidAmount() >= fluidStack.amount) {
                     if (sawmill.tank.getFluidAmount() > 0) {
                         sawmill.tank.setFluid(new FluidStack(fluidStack.getFluid(), sawmill.tank.getFluidAmount() - fluidStack.amount));
