@@ -342,6 +342,19 @@ public abstract class BlockMachineBase extends BaseTileBlock implements IBlockTe
             }
             return rotationTexture.getSide();
         }
+        if(this instanceof IAdvancedRotationTexture){
+            IAdvancedRotationTexture advancedRotationTexture = (IAdvancedRotationTexture) this;
+            if(getFacing(blockState) == facing){
+                return advancedRotationTexture.getFront(isActive(blockState));
+            }
+            if(facing == EnumFacing.UP){
+                return advancedRotationTexture.getTop(isActive(blockState));
+            }
+            if(facing == EnumFacing.DOWN){
+                return advancedRotationTexture.getBottom(isActive(blockState));
+            }
+            return advancedRotationTexture.getSide(isActive(blockState));
+        }
         return "techreborn:blocks/machine/machine_side";
     }
 

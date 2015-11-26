@@ -6,10 +6,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
+import techreborn.blocks.IAdvancedRotationTexture;
 import techreborn.client.GuiHandler;
 import techreborn.tiles.TileRollingMachine;
 
-public class BlockRollingMachine extends BlockMachineBase {
+public class BlockRollingMachine extends BlockMachineBase implements IAdvancedRotationTexture {
 
 
 
@@ -32,5 +33,25 @@ public class BlockRollingMachine extends BlockMachineBase {
         return true;
     }
 
+    private final String prefix = "techreborn:/blocks/machine/";
 
+    @Override
+    public String getFront(boolean isActive) {
+        return isActive ? prefix + "rolling_machine_side_on" : prefix + "rolling_machine_side_off";
+    }
+
+    @Override
+    public String getSide(boolean isActive) {
+        return prefix + "machine_side";
+    }
+
+    @Override
+    public String getTop(boolean isActive) {
+        return prefix + "machine_top";
+    }
+
+    @Override
+    public String getBottom(boolean isActive) {
+        return prefix + "machine_bottom";
+    }
 }

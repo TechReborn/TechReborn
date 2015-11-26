@@ -41,7 +41,7 @@ public class BlockIndustrialElectrolyzer extends BlockMachineBase implements IRo
 
     @Override
     public String getFrontOn() {
-        return prefix + "techreborn:machine/industrial_electrolyzer_front_on";
+        return prefix + "industrial_electrolyzer_front_on";
     }
 
     @Override

@@ -7,10 +7,11 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
+import techreborn.blocks.IRotationTexture;
 import techreborn.client.GuiHandler;
 import techreborn.tiles.TileIndustrialSawmill;
 
-public class BlockIndustrialSawmill extends BlockMachineBase {
+public class BlockIndustrialSawmill extends BlockMachineBase implements IRotationTexture {
 
     public BlockIndustrialSawmill(Material material) {
         super(material);
@@ -32,6 +33,33 @@ public class BlockIndustrialSawmill extends BlockMachineBase {
             player.openGui(Core.INSTANCE, GuiHandler.sawMillID, world, x, y,
                     z);
         return true;
+    }
+
+    private final String prefix = "techreborn:/blocks/machine/";
+
+    @Override
+    public String getFrontOff() {
+        return prefix + "industrial_sawmill_front_off";
+    }
+
+    @Override
+    public String getFrontOn() {
+        return prefix + "industrial_sawmill_front_on";
+    }
+
+    @Override
+    public String getSide() {
+        return prefix + "advanced_machine_side";
+    }
+
+    @Override
+    public String getTop() {
+        return prefix + "advanced_machine_side";
+    }
+
+    @Override
+    public String getBottom() {
+        return prefix + "advanced_machine_side";
     }
 
 

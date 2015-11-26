@@ -6,10 +6,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
+import techreborn.blocks.IAdvancedRotationTexture;
 import techreborn.client.GuiHandler;
 import techreborn.tiles.TileMatterFabricator;
 
-public class BlockMatterFabricator extends BlockMachineBase {
+public class BlockMatterFabricator extends BlockMachineBase implements IAdvancedRotationTexture {
 
 
     public BlockMatterFabricator(Material material) {
@@ -31,10 +32,30 @@ public class BlockMatterFabricator extends BlockMachineBase {
         return true;
     }
 
+    private final String prefix = "techreborn:/blocks/machine/";
 
     @Override
     public boolean isAdvanced() {
         return true;
     }
 
+    @Override
+    public String getFront(boolean isActive) {
+        return isActive ? prefix + "matter_fabricator_on" : prefix + "matter_fabricator_off";
+    }
+
+    @Override
+    public String getSide(boolean isActive) {
+        return isActive ? prefix + "matter_fabricator_on" : prefix + "matter_fabricator_off";
+    }
+
+    @Override
+    public String getTop(boolean isActive) {
+        return isActive ? prefix + "matter_fabricator_on" : prefix + "matter_fabricator_off";
+    }
+
+    @Override
+    public String getBottom(boolean isActive) {
+        return isActive ? prefix + "matter_fabricator_on" : prefix + "matter_fabricator_off";
+    }
 }
