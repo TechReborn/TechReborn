@@ -32,7 +32,6 @@ public class TROreGen implements IWorldGenerator {
     WorldGenMinable oreSilver;
 
     public TROreGen() {
-        //TODO meta fix
         // World
         oreGalena = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(0), ConfigTechReborn.GalenaOreRare);
         oreIridium = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(1), ConfigTechReborn.IridiumOreRare);

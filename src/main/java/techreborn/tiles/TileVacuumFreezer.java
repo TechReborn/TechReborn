@@ -1,6 +1,7 @@
 package techreborn.tiles;
 
 import ic2.api.tile.IWrenchable;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -10,6 +11,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
 import reborncore.common.util.Inventory;
 import techreborn.api.recipe.RecipeCrafter;
+import techreborn.blocks.BlockMachineCasing;
 import techreborn.init.ModBlocks;
 import techreborn.lib.Reference;
 import techreborn.powerSystem.TilePowerAcceptor;
@@ -222,9 +224,11 @@ public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,
                         if (worldObj.getBlockState(new BlockPos(getPos().getX() - xDir + i, getPos().getY() - yDir + j, getPos().getZ() - zDir + k)).getBlock() != ModBlocks.MachineCasing) {
                             return false;
                         }
-//                        if (worldObj.getBlockMetadata(getPos().getX() - xDir + i, getPos().getY() - yDir + j, getPos().getZ() - zDir + k) != (((i == 0) && (j == 0) && (k != 0)) || ((i == 0) && (j != 0) && (k == 0)) || ((i != 0) && (j == 0) && (k == 0)) ? 2 : 1)) {
-//                            return false;
-//                        }//TODO meta fix
+                        IBlockState blockState = worldObj.getBlockState(new BlockPos(getPos().getX() - xDir + i, getPos().getY() - yDir + j, getPos().getZ() - zDir + k));
+                        BlockMachineCasing blockMachineCasing = (BlockMachineCasing) blockState.getBlock();
+                        if (blockMachineCasing.getMetaFromState(blockState) != (((i == 0) && (j == 0) && (k != 0)) || ((i == 0) && (j != 0) && (k == 0)) || ((i != 0) && (j == 0) && (k == 0)) ? 2 : 1)) {
+                            return false;
+                        }
                     } else if (!worldObj.isAirBlock(new BlockPos(getPos().getX() - xDir + i, getPos().getY() - yDir + j, getPos().getZ() - zDir + k))) {
                         return false;
                     }

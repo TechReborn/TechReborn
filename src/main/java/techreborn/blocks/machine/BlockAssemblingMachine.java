@@ -6,10 +6,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
+import techreborn.blocks.IRotationTexture;
 import techreborn.client.GuiHandler;
 import techreborn.tiles.TileAssemblingMachine;
 
-public class BlockAssemblingMachine extends BlockMachineBase {
+public class BlockAssemblingMachine extends BlockMachineBase implements IRotationTexture {
 
 
     public BlockAssemblingMachine(Material material) {
@@ -30,6 +31,33 @@ public class BlockAssemblingMachine extends BlockMachineBase {
             player.openGui(Core.INSTANCE, GuiHandler.assemblingmachineID, world, x, y,
                     z);
         return true;
+    }
+
+    private final String prefix = "techreborn:/blocks/machine/";
+
+    @Override
+    public String getFrontOff() {
+        return prefix + "assembling_machine_front_off";
+    }
+
+    @Override
+    public String getFrontOn() {
+        return prefix + "assembling_machine_front_on";
+    }
+
+    @Override
+    public String getSide() {
+        return prefix + "machine_side";
+    }
+
+    @Override
+    public String getTop() {
+        return prefix + "machine_top";
+    }
+
+    @Override
+    public String getBottom() {
+        return prefix + "assembling_machine_top";
     }
 
 }

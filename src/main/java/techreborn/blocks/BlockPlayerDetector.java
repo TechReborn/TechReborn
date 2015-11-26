@@ -98,13 +98,11 @@ public class BlockPlayerDetector extends BlockMachineBase {
         }
     }
 
+
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, int side, float hitX, float hitY, float hitZ) {
-        if (super.onBlockActivated(world, x, y, z, entityplayer, side, hitX, hitY, hitZ)) {
-            return true;
-        }
-       // int newMeta = (world.getBlockMetadata(x, y, z) + 1) % 3;
-        int newMeta = 0; //TODO meta fix
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer entityplayer, EnumFacing side, float hitX, float hitY, float hitZ) {
+        // int newMeta = (world.getBlockMetadata(x, y, z) + 1) % 3;
+        int newMeta = getMetaFromState(state);
         String message = "";
         switch (newMeta) {
             case 0:

@@ -103,7 +103,8 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
                     }
 
                     for (IMultiblockPart part : casing.connectedParts) {
-//                        heat += BlockMachineCasing.getHeatFromMeta(part.getWorld().getBlockMetadata(part.getWorldLocation().x, part.getWorldLocation().y, part.getWorldLocation().z));
+                        BlockMachineCasing casing1 = (BlockMachineCasing) worldObj.getBlockState(part.getPos()).getBlock();
+                        heat += casing1.getHeatFromState(part.getWorld().getBlockState(part.getWorldLocation().toBlockPos()));
                         //TODO meta fix
                     }
 

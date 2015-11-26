@@ -2,6 +2,8 @@ package techreborn.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyInteger;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -13,6 +15,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import reborncore.api.IBlockTextureProvider;
 import reborncore.common.multiblock.BlockMultiblockBase;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileMachineCasing;
@@ -20,7 +23,7 @@ import techreborn.tiles.TileMachineCasing;
 import java.util.List;
 import java.util.Random;
 
-public class BlockMachineCasing extends BlockMultiblockBase {
+public class BlockMachineCasing extends BlockMultiblockBase implements IBlockTextureProvider{
 
     public static final String[] types = new String[]
             {"standard", "reinforced", "advanced"};
@@ -30,10 +33,29 @@ public class BlockMachineCasing extends BlockMultiblockBase {
         setCreativeTab(TechRebornCreativeTab.instance);
         setUnlocalizedName("techreborn.machineCasing");
         setHardness(2F);
+        this.setDefaultState(this.blockState.getBaseState().withProperty(METADATA, 0));
     }
 
-    public static int getHeatFromMeta(int meta) {
-        switch (meta) {
+    public PropertyInteger METADATA;
+
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        return this.getDefaultState().withProperty(METADATA, meta);
+    }
+
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return (Integer) state.getValue(METADATA);
+    }
+
+    protected BlockState createBlockState() {
+
+        METADATA = PropertyInteger.create("Type", 0, types.length);
+        return new BlockState(this, METADATA);
+    }
+
+    public int getHeatFromState(IBlockState state) {
+        switch (getMetaFromState(state)) {
             case 0:
                 return 1020 / 25;
             case 1:
@@ -75,5 +97,15 @@ public class BlockMachineCasing extends BlockMultiblockBase {
 
     public boolean shouldConnectToBlock(IBlockAccess blockAccess, int x, int y, int z, Block block, int meta) {
         return block == (Block) this;
+    }
+
+    @Override
+    public String getTextureName(IBlockState blockState, EnumFacing facing) {
+        return "techreborn:blocks/machine/casing" + types[getMetaFromState(blockState)] + "_full";
+    }
+
+    @Override
+    public int amoutOfVariants() {
+        return types.length;
     }
 }

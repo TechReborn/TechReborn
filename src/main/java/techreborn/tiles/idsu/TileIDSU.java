@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import org.apache.commons.lang3.StringUtils;
+import reborncore.common.misc.Functions;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.powerSystem.TilePowerAcceptor;
@@ -45,18 +46,16 @@ public class TileIDSU extends TilePowerAcceptor {
     }
 
 
-    //TODO meta fix
     @Override
     public boolean canAcceptEnergy(EnumFacing direction) {
-        //return worldObj.getBlockMetadata(getPos().getX(), getPos().getY(), getPos().getZ()) != Functions.getIntDirFromDirection(direction);
-        return true;
+        return getFacingEnum() != direction;
     }
 
     @Override
     public boolean canProvideEnergy(EnumFacing direction) {
-        //return worldObj.getBlockMetadata(getPos().getX(), getPos().getY(), getPos().getZ()) == Functions.getIntDirFromDirection(direction);
-        return true;
+        return getFacingEnum() == direction;
     }
+
 
     @Override
     public double getMaxOutput() {

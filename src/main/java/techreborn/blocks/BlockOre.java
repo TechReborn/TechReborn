@@ -67,7 +67,7 @@ public class BlockOre extends BaseBlock implements IBlockTextureProvider {
 
     @Deprecated
     public ArrayList<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-        int metadata = 0; //TODO meta fix
+        int metadata = getMetaFromState(state);
         Random random = new Random();
         //Ruby
         if (metadata == 2) {
@@ -151,6 +151,7 @@ public class BlockOre extends BaseBlock implements IBlockTextureProvider {
         }
         return meta;
     }
+
     @Override
     public String getTextureName(IBlockState blockState, EnumFacing facing) {
         return "techreborn:blocks/ore/ore" + types[getMetaFromState(blockState)];

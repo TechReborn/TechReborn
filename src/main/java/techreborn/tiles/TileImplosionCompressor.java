@@ -74,7 +74,8 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
             if (tileEntity instanceof TileMachineCasing) {
                 if ((tileEntity.getBlockType() instanceof BlockMachineCasing)) {
                     int heat;
-                    heat = BlockMachineCasing.getHeatFromMeta(tileEntity.getBlockMetadata());
+                    BlockMachineCasing machineCasing = (BlockMachineCasing) tileEntity.getBlockType();
+                    heat = machineCasing.getHeatFromState(tileEntity.getWorld().getBlockState(tileEntity.getPos()));
                     Location location = new Location(getPos().getX(), getPos().getY(), getPos().getZ(), direction);
                     location.modifyPositionFromSide(direction, 1);
                     if (worldObj.getBlockState(new BlockPos(location.getX(), location.getY(), location.getZ())).getBlock().getUnlocalizedName().equals("tile.lava")) {

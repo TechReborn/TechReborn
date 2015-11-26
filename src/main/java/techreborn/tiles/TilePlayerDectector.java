@@ -3,6 +3,7 @@ package techreborn.tiles;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import techreborn.blocks.BlockMachineBase;
 import techreborn.powerSystem.TilePowerAcceptor;
 
 import java.util.Iterator;
@@ -53,17 +54,19 @@ public class TilePlayerDectector extends TilePowerAcceptor {
                 while (tIterator.hasNext()) {
                     EntityPlayer player = (EntityPlayer) tIterator.next();
                     if (player.getDistanceSq((double) super.getPos().getX() + 0.5D, (double) super.getPos().getY() + 0.5D, (double) super.getPos().getZ() + 0.5D) <= 256.0D) {
-//                        if(worldObj.getBlockMetadata(getPos().getX(), getPos().getY(), getPos().getZ()) == 0){//ALL
-//                            redstone = true;
-//                        } else if (blockMetadata == 1){//Others
-//                            if(!owenerUdid.isEmpty() && !owenerUdid.equals(player.getUniqueID().toString())){
-//                                redstone = true;
-//                            }
-//                        } else {//You
-//                            if(!owenerUdid.isEmpty() &&owenerUdid.equals(player.getUniqueID().toString())){
-//                                redstone = true;
-//                            }
-//                        }//TODO meta fix
+                        BlockMachineBase blockMachineBase = (BlockMachineBase) worldObj.getBlockState(pos).getBlock();
+                        int meta = blockMachineBase.getMetaFromState(worldObj.getBlockState(pos));
+                        if(meta == 0){//ALL
+                            redstone = true;
+                        } else if (meta == 1){//Others
+                            if(!owenerUdid.isEmpty() && !owenerUdid.equals(player.getUniqueID().toString())){
+                                redstone = true;
+                            }
+                        } else {//You
+                            if(!owenerUdid.isEmpty() &&owenerUdid.equals(player.getUniqueID().toString())){
+                                redstone = true;
+                            }
+                        }
                         redstone = true;
                     }
                 }

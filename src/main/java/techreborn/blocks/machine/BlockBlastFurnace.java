@@ -6,10 +6,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
+import techreborn.blocks.IRotationTexture;
 import techreborn.client.GuiHandler;
 import techreborn.tiles.TileBlastFurnace;
 
-public class BlockBlastFurnace extends BlockMachineBase {
+public class BlockBlastFurnace extends BlockMachineBase implements IRotationTexture {
 
 
     public BlockBlastFurnace(Material material) {
@@ -38,5 +39,31 @@ public class BlockBlastFurnace extends BlockMachineBase {
         return true;
     }
 
+    private final String prefix = "techreborn:/blocks/machine/";
+
+    @Override
+    public String getFrontOff() {
+        return prefix + "industrial_blast_furnace_front_off";
+    }
+
+    @Override
+    public String getFrontOn() {
+        return prefix + "industrial_blast_furnace_front_on";
+    }
+
+    @Override
+    public String getSide() {
+        return prefix + "advanced_machine_side";
+    }
+
+    @Override
+    public String getTop() {
+        return prefix + "advanced_machine_side";
+    }
+
+    @Override
+    public String getBottom() {
+        return prefix + "assembling_machine_top";
+    }
 
 }
