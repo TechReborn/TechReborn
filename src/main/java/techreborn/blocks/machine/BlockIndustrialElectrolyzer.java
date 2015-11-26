@@ -6,10 +6,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
+import techreborn.blocks.IRotationTexture;
 import techreborn.client.GuiHandler;
 import techreborn.tiles.TileIndustrialElectrolyzer;
 
-public class BlockIndustrialElectrolyzer extends BlockMachineBase {
+public class BlockIndustrialElectrolyzer extends BlockMachineBase implements IRotationTexture {
 
 
     public BlockIndustrialElectrolyzer(Material material) {
@@ -29,6 +30,33 @@ public class BlockIndustrialElectrolyzer extends BlockMachineBase {
             player.openGui(Core.INSTANCE, GuiHandler.industrialElectrolyzerID, world, x, y,
                     z);
         return true;
+    }
+
+    private final String prefix = "techreborn:/blocks/machine/";
+
+    @Override
+    public String getFrontOff() {
+        return prefix + "industrial_electrolyzer_front_off";
+    }
+
+    @Override
+    public String getFrontOn() {
+        return prefix + "techreborn:machine/industrial_electrolyzer_front_on";
+    }
+
+    @Override
+    public String getSide() {
+        return prefix + "industrial_electrolyzer_front_off";
+    }
+
+    @Override
+    public String getTop() {
+        return prefix + "machine_top";
+    }
+
+    @Override
+    public String getBottom() {
+        return prefix + "machine_bottom";
     }
 
 }

@@ -6,10 +6,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
+import techreborn.blocks.IRotationTexture;
 import techreborn.client.GuiHandler;
 import techreborn.tiles.TileImplosionCompressor;
 
-public class BlockImplosionCompressor extends BlockMachineBase {
+public class BlockImplosionCompressor extends BlockMachineBase implements IRotationTexture {
 
 
     public BlockImplosionCompressor(Material material) {
@@ -31,5 +32,31 @@ public class BlockImplosionCompressor extends BlockMachineBase {
         return true;
     }
 
+    private final String prefix = "techreborn:/blocks/machine/";
+
+    @Override
+    public String getFrontOff() {
+        return prefix + "implosion_compressor_front_off";
+    }
+
+    @Override
+    public String getFrontOn() {
+        return prefix + "implosion_compressor_front_on";
+    }
+
+    @Override
+    public String getSide() {
+        return prefix + "advanced_machine_side";
+    }
+
+    @Override
+    public String getTop() {
+        return prefix + "industrial_centrifuge_top_off";
+    }
+
+    @Override
+    public String getBottom() {
+        return prefix + "implosion_compressor_bottom";
+    }
 
 }

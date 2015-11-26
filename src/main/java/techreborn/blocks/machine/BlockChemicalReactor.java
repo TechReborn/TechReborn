@@ -6,10 +6,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
+import techreborn.blocks.IRotationTexture;
 import techreborn.client.GuiHandler;
 import techreborn.tiles.TileChemicalReactor;
 
-public class BlockChemicalReactor extends BlockMachineBase {
+public class BlockChemicalReactor extends BlockMachineBase implements IRotationTexture {
 
 
 
@@ -30,6 +31,33 @@ public class BlockChemicalReactor extends BlockMachineBase {
             player.openGui(Core.INSTANCE, GuiHandler.chemicalReactorID, world, x, y,
                     z);
         return true;
+    }
+
+    private final String prefix = "techreborn:/blocks/machine/";
+
+    @Override
+    public String getFrontOff() {
+        return prefix + "chemical_reactor_side_off";
+    }
+
+    @Override
+    public String getFrontOn() {
+        return prefix + "chemical_reactor_side_on";
+    }
+
+    @Override
+    public String getSide() {
+        return prefix + "machine_side";
+    }
+
+    @Override
+    public String getTop() {
+        return prefix + "industrial_centrifuge_top_off";
+    }
+
+    @Override
+    public String getBottom() {
+        return prefix + "industrial_centrifuge_bottom";
     }
 
 }

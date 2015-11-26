@@ -6,10 +6,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
+import techreborn.blocks.IRotationTexture;
 import techreborn.client.GuiHandler;
 import techreborn.tiles.TileChargeBench;
 
-public class BlockChargeBench extends BlockMachineBase {
+public class BlockChargeBench extends BlockMachineBase implements IRotationTexture {
 
 
     public BlockChargeBench(Material material) {
@@ -30,6 +31,31 @@ public class BlockChargeBench extends BlockMachineBase {
         return true;
     }
 
+    private final String prefix = "techreborn:/blocks/machine/";
 
+    @Override
+    public String getFrontOff() {
+        return prefix + "chargeBench_side";
+    }
+
+    @Override
+    public String getFrontOn() {
+        return prefix + "chargeBench_side";
+    }
+
+    @Override
+    public String getSide() {
+        return prefix + "chargeBench_side";
+    }
+
+    @Override
+    public String getTop() {
+        return prefix + "chargeBench_side";
+    }
+
+    @Override
+    public String getBottom() {
+        return prefix + "chargeBench_side";
+    }
 
 }

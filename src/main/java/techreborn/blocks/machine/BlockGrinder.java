@@ -7,10 +7,11 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
+import techreborn.blocks.IRotationTexture;
 import techreborn.client.GuiHandler;
 import techreborn.tiles.TileGrinder;
 
-public class BlockGrinder extends BlockMachineBase {
+public class BlockGrinder extends BlockMachineBase implements IRotationTexture {
 
 
     public BlockGrinder(Material material) {
@@ -35,5 +36,31 @@ public class BlockGrinder extends BlockMachineBase {
         return true;
     }
 
+    private final String prefix = "techreborn:/blocks/machine/";
+
+    @Override
+    public String getFrontOff() {
+        return prefix + "industrial_grinder_front_off";
+    }
+
+    @Override
+    public String getFrontOn() {
+        return prefix + "industrial_grinder_front_on";
+    }
+
+    @Override
+    public String getSide() {
+        return prefix + "machine_side";
+    }
+
+    @Override
+    public String getTop() {
+        return prefix + "industrial_grinder_top_off";
+    }
+
+    @Override
+    public String getBottom() {
+        return prefix + "industrial_centrifuge_bottom";
+    }
 
 }
