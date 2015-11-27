@@ -7,7 +7,7 @@ import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
 
 
-public class ItemLapotronicOrb extends Item implements IEnergyItemInfo{
+public class ItemLapotronicOrb extends ItemTextureBase implements IEnergyItemInfo{
 
     public static final int maxCharge = ConfigTechReborn.LapotronicOrbMaxCharge;
     public static final int tier = ConfigTechReborn.LithiumBatpackTier;
@@ -47,5 +47,15 @@ public class ItemLapotronicOrb extends Item implements IEnergyItemInfo{
     @Override
     public int getStackTeir(ItemStack stack) {
         return tier;
+    }
+
+    @Override
+    public String getTextureName(int damage) {
+        return "techreborn:items/lapotronicEnergyOrb";
+    }
+
+    @Override
+    public int getMaxMeta() {
+        return 1;
     }
 }

@@ -112,8 +112,8 @@ public class ModItems {
         uuMatter = new ItemUUmatter();
         GameRegistry.registerItem(uuMatter, "uumatter");
 
-        upgrades = new ItemUpgrade();
-        GameRegistry.registerItem(upgrades, "upgrades");
+//        upgrades = new ItemUpgrade();
+//        GameRegistry.registerItem(upgrades, "upgrades");
 
         cloakingDevice = PoweredItem.createItem(ItemCloakingDevice.class);
         GameRegistry.registerItem(cloakingDevice, "cloakingdevice");

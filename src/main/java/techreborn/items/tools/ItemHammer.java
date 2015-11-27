@@ -2,9 +2,11 @@ package techreborn.items.tools;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import reborncore.api.IItemTexture;
 import techreborn.items.ItemTR;
+import techreborn.lib.ModInfo;
 
-public class ItemHammer extends ItemTR {
+public class ItemHammer extends ItemTR implements IItemTexture {
     private String iconName;
 
     public ItemHammer(int MaxDamage) {
@@ -38,6 +40,21 @@ public class ItemHammer extends ItemTR {
         copiedStack.stackSize = 1;
 
         return copiedStack;
+    }
+
+    @Override
+    public String getTextureName(int damage) {
+        return "techreborn:items/tool/techreborn.hammer";
+    }
+
+    @Override
+    public int getMaxMeta() {
+        return 1;
+    }
+
+    @Override
+    public String getModID() {
+        return ModInfo.MOD_ID;
     }
 
 }

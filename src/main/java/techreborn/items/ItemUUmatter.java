@@ -3,7 +3,7 @@ package techreborn.items;
 import net.minecraft.item.Item;
 import techreborn.client.TechRebornCreativeTabMisc;
 
-public class ItemUUmatter extends Item {
+public class ItemUUmatter extends ItemTextureBase {
 
     public ItemUUmatter() {
         setCreativeTab(TechRebornCreativeTabMisc.instance);
@@ -11,4 +11,13 @@ public class ItemUUmatter extends Item {
     }
 
 
+    @Override
+    public String getTextureName(int damage) {
+        return "techreborn:items/misc/itemMatter";
+    }
+
+    @Override
+    public int getMaxMeta() {
+        return 1;
+    }
 }

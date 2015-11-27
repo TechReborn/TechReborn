@@ -7,14 +7,17 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import reborncore.api.IItemTexture;
+import reborncore.api.TextureRegistry;
 import techreborn.api.power.IEnergyItemInfo;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
+import techreborn.lib.ModInfo;
 import techreborn.powerSystem.PoweredItem;
 
 import java.util.List;
 
-public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo {
+public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo, IItemTexture {
 
     public static final int maxCharge = ConfigTechReborn.LithiumBatpackCharge;
     public static final int tier = ConfigTechReborn.LithiumBatpackTier;
@@ -25,6 +28,7 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo {
         setMaxStackSize(1);
         setUnlocalizedName("techreborn.lithiumbatpack");
         setCreativeTab(TechRebornCreativeTab.instance);
+        TextureRegistry.registerItem(this);
     }
 
 
@@ -82,5 +86,20 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo {
     @Override
     public boolean showDurabilityBar(ItemStack stack) {
         return true;
+    }
+
+    @Override
+    public String getTextureName(int damage) {
+        return "techreborn:items/tool/lithiumBatpack";
+    }
+
+    @Override
+    public int getMaxMeta() {
+        return 1;
+    }
+
+    @Override
+    public String getModID() {
+        return ModInfo.MOD_ID;
     }
 }
