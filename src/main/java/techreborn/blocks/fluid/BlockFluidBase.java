@@ -6,6 +6,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
+import reborncore.api.TextureRegistry;
 import techreborn.client.TechRebornCreativeTabMisc;
 
 public class BlockFluidBase extends BlockFluidClassic {
@@ -13,6 +14,7 @@ public class BlockFluidBase extends BlockFluidClassic {
     public BlockFluidBase(Fluid fluid, Material material) {
         super(fluid, material);
         setCreativeTab(TechRebornCreativeTabMisc.instance);
+        TextureRegistry.registerFluid(this);
     }
 
 
