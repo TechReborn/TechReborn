@@ -1,6 +1,7 @@
 /bin
 /out
 /run
+/build
 /.gradle
 *.iml
 /.metadata
