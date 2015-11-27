@@ -596,19 +596,20 @@ public class
                     " U ",
                     'U', ModItems.uuMatter);
 
-        if (ConfigTechReborn.UUrecipesWater)
-            CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.water, 1),
-                    "   ",
-                    " U ",
-                    " U ",
-                    'U', ModItems.uuMatter);
-
-        if (ConfigTechReborn.UUrecipesLava)
-            CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.lava, 1),
-                    " U ",
-                    " U ",
-                    " U ",
-                    'U', ModItems.uuMatter);
+        //TODO fix null stacks
+//        if (ConfigTechReborn.UUrecipesWater)
+//            CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.water, 1),
+//                    "   ",
+//                    " U ",
+//                    " U ",
+//                    'U', ModItems.uuMatter);
+//
+//        if (ConfigTechReborn.UUrecipesLava)
+//            CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.lava, 1),
+//                    " U ",
+//                    " U ",
+//                    " U ",
+//                    'U', ModItems.uuMatter);
 
         if (ConfigTechReborn.UUrecipesCocoa)
             CraftingHelper.addShapedOreRecipe(new ItemStack(Items.dye, 32, 3),
