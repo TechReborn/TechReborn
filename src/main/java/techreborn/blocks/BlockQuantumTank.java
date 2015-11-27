@@ -9,7 +9,7 @@ import techreborn.Core;
 import techreborn.client.GuiHandler;
 import techreborn.tiles.TileQuantumTank;
 
-public class BlockQuantumTank extends BlockMachineBase {
+public class BlockQuantumTank extends BlockMachineBase implements IAdvancedRotationTexture {
 
 
     public BlockQuantumTank() {
@@ -31,6 +31,28 @@ public class BlockQuantumTank extends BlockMachineBase {
         if (!player.isSneaking())
             player.openGui(Core.INSTANCE, GuiHandler.quantumTankID, world, x, y, z);
         return true;
+    }
+
+    private final String prefix = "techreborn:/blocks/machine/";
+
+    @Override
+    public String getFront(boolean isActive) {
+        return  prefix + "ThermalGenerator_other";
+    }
+
+    @Override
+    public String getSide(boolean isActive) {
+        return prefix + "ThermalGenerator_other";
+    }
+
+    @Override
+    public String getTop(boolean isActive) {
+        return prefix + "quantum_top";
+    }
+
+    @Override
+    public String getBottom(boolean isActive) {
+        return prefix + "ThermalGenerator_other";
     }
 
 }

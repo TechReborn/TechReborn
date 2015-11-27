@@ -8,7 +8,7 @@ import techreborn.Core;
 import techreborn.client.GuiHandler;
 import techreborn.tiles.TileChunkLoader;
 
-public class BlockChunkLoader extends BlockMachineBase {
+public class BlockChunkLoader extends BlockMachineBase implements IAdvancedRotationTexture {
 
 
     public BlockChunkLoader(Material material) {
@@ -28,5 +28,27 @@ public class BlockChunkLoader extends BlockMachineBase {
             player.openGui(Core.INSTANCE, GuiHandler.chunkloaderID, world, x, y,
                     z);
         return true;
+    }
+
+    private final String prefix = "techreborn:/blocks/machine/";
+
+    @Override
+    public String getFront(boolean isActive) {
+        return prefix + "industrial_chunk_loader_side";
+    }
+
+    @Override
+    public String getSide(boolean isActive) {
+        return prefix + "industrial_chunk_loader_side" ;
+    }
+
+    @Override
+    public String getTop(boolean isActive) {
+        return prefix + "machine_top";
+    }
+
+    @Override
+    public String getBottom(boolean isActive) {
+        return prefix + "machine_bottom";
     }
 }

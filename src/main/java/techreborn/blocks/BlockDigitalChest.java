@@ -8,7 +8,7 @@ import techreborn.Core;
 import techreborn.client.GuiHandler;
 import techreborn.tiles.TileDigitalChest;
 
-public class BlockDigitalChest extends BlockMachineBase {
+public class BlockDigitalChest extends BlockMachineBase implements IAdvancedRotationTexture {
 
     public BlockDigitalChest() {
         super(Material.rock);
@@ -27,6 +27,28 @@ public class BlockDigitalChest extends BlockMachineBase {
             player.openGui(Core.INSTANCE, GuiHandler.digitalChestID, world, x,
                     y, z);
         return true;
+    }
+
+    private final String prefix = "techreborn:/blocks/machine/";
+
+    @Override
+    public String getFront(boolean isActive) {
+        return prefix + "quantum_chest";
+    }
+
+    @Override
+    public String getSide(boolean isActive) {
+        return prefix + "qchest_side" ;
+    }
+
+    @Override
+    public String getTop(boolean isActive) {
+        return prefix + "quantum_top";
+    }
+
+    @Override
+    public String getBottom(boolean isActive) {
+        return prefix + "machine_bottom";
     }
 
 }

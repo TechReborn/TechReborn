@@ -9,7 +9,7 @@ import techreborn.Core;
 import techreborn.client.GuiHandler;
 import techreborn.tiles.fusionReactor.TileEntityFusionController;
 
-public class BlockFusionControlComputer extends BlockMachineBase {
+public class BlockFusionControlComputer extends BlockMachineBase implements IAdvancedRotationTexture {
 
 
 
@@ -33,5 +33,27 @@ public class BlockFusionControlComputer extends BlockMachineBase {
     @Override
     public TileEntity createNewTileEntity(World world, int meta) {
         return new TileEntityFusionController();
+    }
+
+    private final String prefix = "techreborn:/blocks/machine/";
+
+    @Override
+    public String getFront(boolean isActive) {
+        return prefix + "fusion_control_computer_front";
+    }
+
+    @Override
+    public String getSide(boolean isActive) {
+        return prefix + "plasma_generator_side_off" ;
+    }
+
+    @Override
+    public String getTop(boolean isActive) {
+        return prefix + "plasma_generator_side_off";
+    }
+
+    @Override
+    public String getBottom(boolean isActive) {
+        return prefix + "plasma_generator_side_off";
     }
 }

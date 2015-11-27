@@ -6,7 +6,7 @@ import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.client.GuiHandler;
 
-public class BlockComputerCube extends BlockMachineBase {
+public class BlockComputerCube extends BlockMachineBase implements IAdvancedRotationTexture {
 
 
     public BlockComputerCube(Material material) {
@@ -21,6 +21,28 @@ public class BlockComputerCube extends BlockMachineBase {
             player.openGui(Core.INSTANCE, GuiHandler.pdaID, world, x,
                     y, z);
         return true;
+    }
+
+    private final String prefix = "techreborn:/blocks/machine/";
+
+    @Override
+    public String getFront(boolean isActive) {
+        return prefix + "computer_cube";
+    }
+
+    @Override
+    public String getSide(boolean isActive) {
+        return prefix + "computer_cube" ;
+    }
+
+    @Override
+    public String getTop(boolean isActive) {
+        return prefix + "computer_cube";
+    }
+
+    @Override
+    public String getBottom(boolean isActive) {
+        return prefix + "computer_cube";
     }
 
 }

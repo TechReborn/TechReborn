@@ -2,6 +2,8 @@ package techreborn.blocks;
 
 
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyInteger;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -17,19 +19,24 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import reborncore.api.IBlockTextureProvider;
+import reborncore.common.BaseTileBlock;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TilePlayerDectector;
 
 import java.util.List;
 import java.util.Random;
 
-public class BlockPlayerDetector extends BlockMachineBase {
+public class BlockPlayerDetector extends BaseTileBlock implements IBlockTextureProvider {
+
+    public PropertyInteger METADATA;
 
     public BlockPlayerDetector() {
         super(Material.rock);
         setUnlocalizedName("techreborn.playerDetector");
         setCreativeTab(TechRebornCreativeTab.instance);
         setHardness(2f);
+        this.setDefaultState(this.blockState.getBaseState().withProperty(METADATA, 0));
     }
 
     public static final String[] types = new String[]
@@ -49,12 +56,6 @@ public class BlockPlayerDetector extends BlockMachineBase {
         }
     }
 
-
-
-    @Override
-    public void onBlockAdded(World world, int x, int y, int z) {
-
-    }
 
     @Override
     public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
@@ -89,15 +90,15 @@ public class BlockPlayerDetector extends BlockMachineBase {
         return 0;
     }
 
+
     @Override
-    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemstack) {
-        super.onBlockPlacedBy(world, x, y, z, player, itemstack);
-        TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+        TileEntity tile = worldIn.getTileEntity(pos);
         if (tile instanceof TilePlayerDectector) {
-            ((TilePlayerDectector) tile).owenerUdid = player.getUniqueID().toString();
+            ((TilePlayerDectector) tile).owenerUdid = placer.getUniqueID().toString();
         }
     }
-
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer entityplayer, EnumFacing side, float hitX, float hitY, float hitZ) {
@@ -119,5 +120,31 @@ public class BlockPlayerDetector extends BlockMachineBase {
             //world.setBlockMetadataWithNotify(x, y, z, newMeta, 2);
         }
         return true;
+    }
+
+    @Override
+    public String getTextureName(IBlockState blockState, EnumFacing facing) {
+        return "techreborn:blocks/machine/player_detector_" + types[getMetaFromState(blockState)];
+    }
+
+    @Override
+    public int amoutOfVariants() {
+        return types.length;
+    }
+
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        return this.getDefaultState().withProperty(METADATA, meta);
+    }
+
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return (Integer) state.getValue(METADATA);
+    }
+
+    protected BlockState createBlockState() {
+
+        METADATA = PropertyInteger.create("Type", 0, types.length);
+        return new BlockState(this, METADATA);
     }
 }

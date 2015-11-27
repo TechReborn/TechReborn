@@ -7,10 +7,11 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
+import techreborn.blocks.IAdvancedRotationTexture;
 import techreborn.client.GuiHandler;
 import techreborn.tiles.TileDieselGenerator;
 
-public class BlockDieselGenerator extends BlockMachineBase {
+public class BlockDieselGenerator extends BlockMachineBase implements IAdvancedRotationTexture {
 
 
     public BlockDieselGenerator(Material material) {
@@ -34,6 +35,28 @@ public class BlockDieselGenerator extends BlockMachineBase {
             player.openGui(Core.INSTANCE, GuiHandler.dieselGeneratorID, world, x, y,
                     z);
         return true;
+    }
+
+    private final String prefix = "techreborn:/blocks/machine/";
+
+    @Override
+    public String getFront(boolean isActive) {
+        return prefix + "machine_side";
+    }
+
+    @Override
+    public String getSide(boolean isActive) {
+        return prefix + "machine_side" ;
+    }
+
+    @Override
+    public String getTop(boolean isActive) {
+        return prefix + "diesel_generator_top_off";
+    }
+
+    @Override
+    public String getBottom(boolean isActive) {
+        return prefix + "machine_bottom";
     }
 
 

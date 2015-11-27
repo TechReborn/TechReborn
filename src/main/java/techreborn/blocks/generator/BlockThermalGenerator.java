@@ -7,10 +7,11 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
+import techreborn.blocks.IAdvancedRotationTexture;
 import techreborn.client.GuiHandler;
 import techreborn.tiles.TileThermalGenerator;
 
-public class BlockThermalGenerator extends BlockMachineBase {
+public class BlockThermalGenerator extends BlockMachineBase implements IAdvancedRotationTexture {
 
 
 
@@ -36,4 +37,26 @@ public class BlockThermalGenerator extends BlockMachineBase {
         return true;
     }
 
+    private final String prefix = "techreborn:/blocks/machine/";
+
+
+    @Override
+    public String getFront(boolean isActive) {
+        return isActive ? prefix + "thermal_generator_side_on" : prefix + "matter_fabricator_off";
+    }
+
+    @Override
+    public String getSide(boolean isActive) {
+        return isActive ? prefix + "thermal_generator_side_on" : prefix + "matter_fabricator_off";
+    }
+
+    @Override
+    public String getTop(boolean isActive) {
+        return isActive ? prefix + "thermal_generator_top_on" : prefix + "matter_fabricator_off";
+    }
+
+    @Override
+    public String getBottom(boolean isActive) {
+        return prefix + "machine_bottom";
+    }
 }

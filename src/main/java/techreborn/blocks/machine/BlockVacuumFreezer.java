@@ -7,10 +7,11 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
+import techreborn.blocks.IAdvancedRotationTexture;
 import techreborn.client.GuiHandler;
 import techreborn.tiles.TileVacuumFreezer;
 
-public class BlockVacuumFreezer extends BlockMachineBase {
+public class BlockVacuumFreezer extends BlockMachineBase implements IAdvancedRotationTexture{
 
 
     public BlockVacuumFreezer(Material material) {
@@ -35,5 +36,27 @@ public class BlockVacuumFreezer extends BlockMachineBase {
             player.openGui(Core.INSTANCE, GuiHandler.vacuumFreezerID, world, x, y,
                     z);
         return true;
+    }
+
+    private final String prefix = "techreborn:/blocks/machine/";
+
+    @Override
+    public String getFront(boolean isActive) {
+        return prefix + "vacuum_freezer_front";
+    }
+
+    @Override
+    public String getSide(boolean isActive) {
+        return prefix + "machine_side" ;
+    }
+
+    @Override
+    public String getTop(boolean isActive) {
+        return prefix + "vacuum_freezer_top";
+    }
+
+    @Override
+    public String getBottom(boolean isActive) {
+        return prefix + "machine_bottom";
     }
 }

@@ -16,7 +16,7 @@ import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileQuantumChest;
 
-public class BlockQuantumChest extends BlockMachineBase {
+public class BlockQuantumChest extends BlockMachineBase implements IAdvancedRotationTexture {
 
     public BlockQuantumChest() {
         super(Material.rock);
@@ -38,4 +38,26 @@ public class BlockQuantumChest extends BlockMachineBase {
         return true;
     }
 
+
+    private final String prefix = "techreborn:/blocks/machine/";
+
+    @Override
+    public String getFront(boolean isActive) {
+        return  prefix + "quantum_chest";
+    }
+
+    @Override
+    public String getSide(boolean isActive) {
+        return prefix + "qchest_side";
+    }
+
+    @Override
+    public String getTop(boolean isActive) {
+        return prefix + "quantum_top";
+    }
+
+    @Override
+    public String getBottom(boolean isActive) {
+        return prefix + "machine_bottom";
+    }
 }

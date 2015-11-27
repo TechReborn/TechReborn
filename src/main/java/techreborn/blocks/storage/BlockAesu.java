@@ -33,29 +33,6 @@ public class BlockAesu extends BlockMachineBase implements IRotationTexture {
         return true;
     }
 
-//
-//    @Override
-//    @SideOnly(Side.CLIENT)
-//    public void registerBlockIcons(IIconRegister icon) {
-//        this.blockIcon = icon.registerIcon("techreborn:machine/aesu_side");
-//        this.iconFront = icon.registerIcon("techreborn:machine/aesu_front");
-//        this.iconTop = icon.registerIcon("techreborn:machine/aesu_side");
-//        this.iconBottom = icon.registerIcon("techreborn:machine/aesu_side");
-//    }
-//
-//    @Override
-//    @SideOnly(Side.CLIENT)
-//    public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int side) {
-//        int metadata = getTileRotation(blockAccess, x, y, z);
-//        if (side == metadata && blockAccess.getBlockMetadata(x, y, z) == 1) {
-//            return this.iconFront;
-//        }
-//        return metadata == 0 && side == 3 ? this.iconFront
-//                : side == 1 ? this.iconTop :
-//                side == 0 ? this.iconBottom : (side == 0 ? this.iconTop
-//                        : (side == metadata ? this.iconFront : this.blockIcon));
-//    }
-
     private final String prefix = "techreborn:/blocks/machine/";
 
     @Override

@@ -9,9 +9,10 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import techreborn.blocks.BlockMachineBase;
+import techreborn.blocks.IAdvancedRotationTexture;
 import techreborn.tiles.lesu.TileLesuStorage;
 
-public class BlockLesuStorage extends BlockMachineBase {
+public class BlockLesuStorage extends BlockMachineBase implements IAdvancedRotationTexture {
 
     public BlockLesuStorage(Material material) {
         super(material);
@@ -43,5 +44,27 @@ public class BlockLesuStorage extends BlockMachineBase {
 
     public boolean shouldConnectToBlock(IBlockAccess blockAccess, int x, int y, int z, Block block, int meta) {
         return block == (Block) this;
+    }
+
+    private final String prefix = "techreborn:/blocks/machine/";
+
+    @Override
+    public String getFront(boolean isActive) {
+        return prefix + "lesu_block";
+    }
+
+    @Override
+    public String getSide(boolean isActive) {
+        return prefix + "lesu_block" ;
+    }
+
+    @Override
+    public String getTop(boolean isActive) {
+        return prefix + "lesu_block";
+    }
+
+    @Override
+    public String getBottom(boolean isActive) {
+        return prefix + "lesu_block";
     }
 }

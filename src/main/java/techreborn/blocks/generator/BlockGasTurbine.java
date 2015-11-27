@@ -7,10 +7,11 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
+import techreborn.blocks.IAdvancedRotationTexture;
 import techreborn.client.GuiHandler;
 import techreborn.tiles.TileGasTurbine;
 
-public class BlockGasTurbine extends BlockMachineBase {
+public class BlockGasTurbine extends BlockMachineBase implements IAdvancedRotationTexture {
 
 
     public BlockGasTurbine(Material material) {
@@ -35,6 +36,26 @@ public class BlockGasTurbine extends BlockMachineBase {
         return true;
     }
 
+    private final String prefix = "techreborn:/blocks/machine/";
 
+    @Override
+    public String getFront(boolean isActive) {
+        return prefix + "machine_side";
+    }
+
+    @Override
+    public String getSide(boolean isActive) {
+        return prefix + "machine_side" ;
+    }
+
+    @Override
+    public String getTop(boolean isActive) {
+        return prefix + "gas_generator_top";
+    }
+
+    @Override
+    public String getBottom(boolean isActive) {
+        return prefix + "gas_generator_bottom";
+    }
 
 }
