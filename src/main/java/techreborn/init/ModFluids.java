@@ -6,7 +6,6 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import reborncore.api.fuel.FluidPowerManager;
-import reborncore.jsonDestroyers.fluid.FluidModelGenerator;
 import techreborn.blocks.fluid.BlockFluidTechReborn;
 import techreborn.blocks.fluid.TechRebornFluid;
 import techreborn.lib.ModInfo;
@@ -199,7 +198,5 @@ public class ModFluids {
         GameRegistry.registerBlock(BlockFluidWolframium, ModInfo.MOD_ID + "_" + BlockFluidWolframium.getUnlocalizedName().substring(5));
         fluidWolframium.setUnlocalizedName(fluidWolframium.getUnlocalizedName());
 
-
-        FluidModelGenerator.postInit();
     }
 }
