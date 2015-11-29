@@ -1,11 +1,7 @@
 package techreborn.compat;
 
 import net.minecraftforge.fml.common.Loader;
-import ic2.api.info.IC2Classic;
-import techreborn.compat.ee3.EmcValues;
-import techreborn.compat.minetweaker.MinetweakerCompat;
-import techreborn.compat.recipes.*;
-import techreborn.compat.waila.CompatModuleWaila;
+import techreborn.compat.jei.JEIPlugin;
 
 import java.util.ArrayList;
 
@@ -22,7 +18,7 @@ public class CompatManager {
 
     public CompatManager() {
         isIC2Loaded = Loader.isModLoaded("IC2");
-        isIC2ClassicLoaded = IC2Classic.isIc2ClassicLoaded();
+        isIC2ClassicLoaded = false;
         if(isIC2ClassicLoaded){
             isClassicEnet = true;
         }
@@ -32,17 +28,8 @@ public class CompatManager {
         if(Loader.isModLoaded("gregtech")){
             isGregTechLoaded = true;
         }
+        registerCompact(JEIPlugin.class, "JEI");
 
-        registerCompact(CompatModuleWaila.class, "Waila");
-        registerCompact(RecipesIC2.class, "IC2");
-        registerCompact(RecipesBuildcraft.class, "BuildCraft|Core", "IC2");
-        registerCompact(RecipesThermalExpansion.class, "ThermalExpansion");
-        registerCompact(EmcValues.class, "EE3");
-        registerCompact(RecipesNatura.class, "Natura");
-        registerCompact(RecipesBiomesOPlenty.class, "BiomesOPlenty");
-        registerCompact(RecipesThaumcraft.class, "Thaumcraft");
-        registerCompact(RecipesForestry.class, "Forestry", isForestry4());
-        registerCompact(MinetweakerCompat.class, "MineTweaker3");
     }
 
     public void registerCompact(Class<?> moduleClass, Object... objs) {

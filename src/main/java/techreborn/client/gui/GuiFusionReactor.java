@@ -20,7 +20,7 @@ import java.io.IOException;
 
 public class GuiFusionReactor extends GuiContainer {
 
-    private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/fusion_reactor.png");
+    public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/fusion_reactor.png");
 
     ContainerFusionReactor containerFusionReactor;
     TileEntityFusionController fusionController;
