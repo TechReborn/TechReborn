@@ -134,8 +134,8 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
     }
 
     @Override
-    public ItemStack getStackInSlotOnClosing(int p_70304_1_) {
-        return inventory.getStackInSlotOnClosing(p_70304_1_);
+    public ItemStack removeStackFromSlot(int p_70304_1_) {
+        return inventory.removeStackFromSlot(p_70304_1_);
     }
 
     @Override
@@ -272,8 +272,8 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
     }
 
     @Override
-    public String getCommandSenderName() {
-        return inventory.getCommandSenderName();
+    public String getName() {
+        return inventory.getName();
     }
 
     @Override

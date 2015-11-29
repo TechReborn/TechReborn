@@ -73,7 +73,7 @@ public class BlockPlayerDetector extends BaseTileBlock implements IBlockTextureP
     }
 
     @Override
-    public int isProvidingWeakPower(IBlockAccess blockAccess, BlockPos pos, IBlockState state, EnumFacing side) {
+    public int getWeakPower(IBlockAccess blockAccess, BlockPos pos, IBlockState state, EnumFacing side) {
         TileEntity entity = blockAccess.getTileEntity(pos);
         if (entity instanceof TilePlayerDectector) {
             return ((TilePlayerDectector) entity).isProvidingPower() ? 15 : 0;
@@ -82,7 +82,7 @@ public class BlockPlayerDetector extends BaseTileBlock implements IBlockTextureP
     }
 
     @Override
-    public int isProvidingStrongPower(IBlockAccess blockAccess, BlockPos pos, IBlockState state, EnumFacing side) {
+    public int getStrongPower(IBlockAccess blockAccess, BlockPos pos, IBlockState state, EnumFacing side) {
         TileEntity entity = blockAccess.getTileEntity(pos);
         if (entity instanceof TilePlayerDectector) {
             return ((TilePlayerDectector) entity).isProvidingPower() ? 15 : 0;

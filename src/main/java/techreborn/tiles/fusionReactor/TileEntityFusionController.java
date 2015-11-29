@@ -120,8 +120,8 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
     }
 
     @Override
-    public ItemStack getStackInSlotOnClosing(int slot) {
-        return inventory.getStackInSlotOnClosing(slot);
+    public ItemStack removeStackFromSlot(int slot) {
+        return inventory.removeStackFromSlot(slot);
     }
 
     @Override
@@ -337,7 +337,7 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
     }
 
     @Override
-    public String getCommandSenderName() {
+    public String getName() {
         return null;
     }
 

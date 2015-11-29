@@ -106,8 +106,8 @@ public class TileChargeBench extends TilePowerAcceptor implements IWrenchable, I
     }
 
     @Override
-    public ItemStack getStackInSlotOnClosing(int slot) {
-        return inventory.getStackInSlotOnClosing(slot);
+    public ItemStack removeStackFromSlot(int slot) {
+        return inventory.removeStackFromSlot(slot);
     }
 
     @Override
@@ -210,8 +210,8 @@ public class TileChargeBench extends TilePowerAcceptor implements IWrenchable, I
     }
 
     @Override
-    public String getCommandSenderName() {
-        return inventory.getCommandSenderName();
+    public String getName() {
+        return inventory.getName();
     }
 
     @Override
