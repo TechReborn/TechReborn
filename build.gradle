@@ -175,11 +175,7 @@ artifacts {
     archives apiJar
 }
 
-<<<<<<< HEAD
-build.dependsOn javadocJar, deobfJar, apiJar
-=======
 build.dependsOn sourceJar, deobfJar, apiJar
->>>>>>> master
 
 uploadArchives {
     repositories {
