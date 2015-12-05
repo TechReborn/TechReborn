@@ -1,13 +1,13 @@
 package techreborn.tiles;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import reborncore.common.packets.PacketHandler;
 import techreborn.blocks.BlockMachineBase;
 
@@ -34,10 +34,11 @@ public class TileMachineBase extends TileEntity implements ITickable {
     }
 
     @Override
-    public void tick() {
+    public void update() {
         updateEntity();
     }
 
+    @Deprecated
     public void updateEntity() {
 
     }
