@@ -167,21 +167,19 @@ javadoc {
     include 'techreborn/api/**/*'
 }
 
-// add a javadoc jar
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from 'build/docs/javadoc'
-}
 
 apiJar.mustRunAfter deobfJar
 
 artifacts {
     archives deobfJar
     archives apiJar
-    archives javadocJar
 }
 
+<<<<<<< HEAD
 build.dependsOn javadocJar, deobfJar, apiJar
+=======
+build.dependsOn sourceJar, deobfJar, apiJar
+>>>>>>> master
 
 uploadArchives {
     repositories {

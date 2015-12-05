@@ -72,6 +72,9 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
         for (EnumFacing direction : EnumFacing.values()) {
             TileEntity tileEntity = worldObj.getTileEntity(new BlockPos(getPos().getX() + direction.getFrontOffsetX(), getPos().getY() + direction.getFrontOffsetY(), getPos().getZ() + direction.getFrontOffsetZ()));
             if (tileEntity instanceof TileMachineCasing) {
+                if(!((TileMachineCasing) tileEntity).isConnected()){
+                    return false;
+                }
                 if ((tileEntity.getBlockType() instanceof BlockMachineCasing)) {
                     int heat;
                     BlockMachineCasing machineCasing = (BlockMachineCasing) tileEntity.getBlockType();
