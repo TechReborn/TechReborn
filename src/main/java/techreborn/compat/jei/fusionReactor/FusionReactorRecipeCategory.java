@@ -2,15 +2,14 @@ package techreborn.compat.jei.fusionReactor;
 
 import mezz.jei.api.JEIManager;
 import mezz.jei.api.gui.IDrawable;
-import mezz.jei.api.gui.IGuiFluidTanks;
-import mezz.jei.api.gui.IGuiItemStacks;
+import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
+import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import techreborn.client.gui.GuiFusionReactor;
 
 import javax.annotation.Nonnull;
-import java.util.Collection;
 
 public class FusionReactorRecipeCategory implements IRecipeCategory {
 
@@ -22,13 +21,19 @@ public class FusionReactorRecipeCategory implements IRecipeCategory {
     private final IDrawable background;
 
     public FusionReactorRecipeCategory() {
-        background = JEIManager.guiHelper.createDrawable(GuiFusionReactor.texture, 55, 16, 82, 54);
+        background = JEIManager.guiHelper.createDrawable(GuiFusionReactor.texture, 86, 16, 85, 64, 0, 40, 20, 20);
+    }
+
+    @Nonnull
+    @Override
+    public String getUid() {
+        return "FusionReactor";
     }
 
     @Nonnull
     @Override
     public String getTitle() {
-        return "Fustion Reactor";
+        return "Fusion Reactor";
     }
 
     @Nonnull
@@ -38,18 +43,23 @@ public class FusionReactorRecipeCategory implements IRecipeCategory {
     }
 
     @Override
-    public void init(@Nonnull IGuiItemStacks guiItemStacks, @Nonnull IGuiFluidTanks guiFluidTanks) {
-        guiItemStacks.init(inputSlot1, 0, 0);
-        guiItemStacks.init(inputSlot2, 0, 25);
-        guiItemStacks.init(outputSlot, 60, 18);
+    public void drawExtras(Minecraft minecraft) {
+
     }
 
     @Override
-    public void setRecipe(@Nonnull IGuiItemStacks guiItemStacks, @Nonnull IGuiFluidTanks guiFluidTanks, @Nonnull IRecipeWrapper recipeWrapper) {
-        if(recipeWrapper instanceof FusionReactorRecipeWrapper){
-            guiItemStacks.set(inputSlot1, (ItemStack) recipeWrapper.getInputs().get(0));
-            guiItemStacks.set(inputSlot2, (ItemStack) recipeWrapper.getInputs().get(1));
-            guiItemStacks.set(outputSlot, recipeWrapper.getOutputs());
+    public void init(@Nonnull IRecipeLayout recipeLayout) {
+        recipeLayout.getItemStacks().init(inputSlot1, true, 21, 0);
+        recipeLayout.getItemStacks().init(inputSlot2, true, 21, 36);
+        recipeLayout.getItemStacks().init(outputSlot, false, 80, 18);
+    }
+
+    @Override
+    public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
+        if (recipeWrapper instanceof FusionReactorRecipeWrapper) {
+            recipeLayout.getItemStacks().set(inputSlot1, (ItemStack) recipeWrapper.getInputs().get(0));
+            recipeLayout.getItemStacks().set(inputSlot2, (ItemStack) recipeWrapper.getInputs().get(1));
+            recipeLayout.getItemStacks().set(outputSlot, recipeWrapper.getOutputs());
         }
     }
 

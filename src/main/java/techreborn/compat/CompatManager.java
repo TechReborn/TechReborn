@@ -14,18 +14,18 @@ public class CompatManager {
     public static boolean isIC2Loaded = false;
     public static boolean isIC2ClassicLoaded = false;
     public static boolean isClassicEnet = false;
-    public static boolean isGregTechLoaded  = false;
+    public static boolean isGregTechLoaded = false;
 
     public CompatManager() {
         isIC2Loaded = Loader.isModLoaded("IC2");
         isIC2ClassicLoaded = false;
-        if(isIC2ClassicLoaded){
+        if (isIC2ClassicLoaded) {
             isClassicEnet = true;
         }
-        if(Loader.isModLoaded("Uncomplication")){
+        if (Loader.isModLoaded("Uncomplication")) {
             isClassicEnet = true;
         }
-        if(Loader.isModLoaded("gregtech")){
+        if (Loader.isModLoaded("gregtech")) {
             isGregTechLoaded = true;
         }
         registerCompact(JEIPlugin.class, "JEI");

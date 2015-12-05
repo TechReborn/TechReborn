@@ -1,6 +1,5 @@
 package techreborn.compat.jei.fusionReactor;
 
-import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import techreborn.api.reactor.FusionReactorRecipe;
@@ -18,8 +17,8 @@ public class FusionReactorRecipeHandler implements IRecipeHandler<FusionReactorR
 
     @Nonnull
     @Override
-    public Class<? extends IRecipeCategory> getRecipeCategoryClass() {
-        return FusionReactorRecipeCategory.class;
+    public String getRecipeCategoryUid() {
+        return "FusionReactor";
     }
 
     @Nonnull

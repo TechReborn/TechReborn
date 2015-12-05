@@ -109,7 +109,7 @@ dependencies {
   //  deobfCompile name: "MineTweaker3", version: "1.8-3.0.10B", classifier: "Dev"
   //  shade 'IC2-Classic-API-STANDALONE:IC2-Classic-API-STANDALONE:1.1.0.19-5:api'
     compile 'RebornCore:RebornCore-1.8.8:1.1.0.+:dev'
-    deobfCompile "mezz.jei:jei_1.8.8:2.0.5.6"
+    deobfCompile "mezz.jei:jei_1.8.8:2.3.0.18"
 
 	testCompile 'junit:junit:4.12'
 }
