@@ -105,7 +105,7 @@ public class BlockMachineCasing extends BlockMultiblockBase implements IBlockTex
     }
 
     @Override
-    public int amoutOfVariants() {
+    public int amountOfVariants() {
         return types.length;
     }
 }

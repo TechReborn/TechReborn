@@ -128,7 +128,7 @@ public class BlockPlayerDetector extends BaseTileBlock implements IBlockTextureP
     }
 
     @Override
-    public int amoutOfVariants() {
+    public int amountOfVariants() {
         return types.length;
     }
 
@@ -144,7 +144,7 @@ public class BlockPlayerDetector extends BaseTileBlock implements IBlockTextureP
 
     protected BlockState createBlockState() {
 
-        METADATA = PropertyInteger.create("Type", 0, types.length);
+        METADATA = PropertyInteger.create("Type", 0, types.length  -1);
         return new BlockState(this, METADATA);
     }
 }

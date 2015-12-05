@@ -73,7 +73,7 @@ public class BlockStorage extends BaseBlock implements IBlockTextureProvider {
     }
 
     @Override
-    public int amoutOfVariants() {
+    public int amountOfVariants() {
         return types.length;
     }
 
@@ -89,7 +89,7 @@ public class BlockStorage extends BaseBlock implements IBlockTextureProvider {
 
     protected BlockState createBlockState() {
 
-        METADATA = PropertyInteger.create("Type", 0, types.length);
+        METADATA = PropertyInteger.create("Type", 0, types.length  -1);
         return new BlockState(this, METADATA);
     }
 }

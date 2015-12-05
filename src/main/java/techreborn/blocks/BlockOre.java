@@ -158,7 +158,7 @@ public class BlockOre extends BaseBlock implements IBlockTextureProvider {
     }
 
     @Override
-    public int amoutOfVariants() {
+    public int amountOfVariants() {
         return types.length;
     }
 

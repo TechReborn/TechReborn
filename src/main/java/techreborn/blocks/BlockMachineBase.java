@@ -361,22 +361,19 @@ public abstract class BlockMachineBase extends BaseTileBlock implements IBlockTe
     @Override
     public IBlockState getStateFromMeta(int meta) {
         boolean active = false;
-        if(meta > 6){
-            active = true;
-            meta =- 6;
-        }
         int facingInt = meta;
-        EnumFacing facing = EnumFacing.getFront(facingInt);
-        if(facing == EnumFacing.DOWN || facing == EnumFacing.UP){
-            facing = EnumFacing.NORTH;
+        if(facingInt > 3){
+            active = true;
+            facingInt = facingInt - 3;
         }
+        EnumFacing facing = getSideFromint(facingInt);
         return this.getDefaultState().withProperty(FACING, facing).withProperty(ACTIVE, active);
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        int facingInt = state.getValue(FACING).getIndex();
-        int activeInt = state.getValue(ACTIVE) ? 0 : 6;
+        int facingInt = getSideFromEnum(state.getValue(FACING));
+        int activeInt = state.getValue(ACTIVE) ? 0 : 3;
         return facingInt + activeInt;
     }
 
@@ -396,8 +393,35 @@ public abstract class BlockMachineBase extends BaseTileBlock implements IBlockTe
     public void setActive(Boolean active, World world, BlockPos pos){
         world.setBlockState(pos, world.getBlockState(pos).withProperty(ACTIVE, active));
     }
+
     @Override
-    public int amoutOfVariants() {
-        return 12; //six for Facing, and then 2 for eatch of them for if active
+    public int amountOfVariants() {
+        return 8; //0-3 off nsew, 4-8 on nsew
+    }
+
+    public EnumFacing getSideFromint(int i){
+        if(i == 0){
+            return EnumFacing.NORTH;
+        } else if(i == 1){
+            return EnumFacing.SOUTH;
+        }else if(i == 2){
+            return EnumFacing.EAST;
+        }else if(i == 3){
+            return EnumFacing.WEST;
+        }
+        return EnumFacing.NORTH;
+    }
+
+    public int getSideFromEnum(EnumFacing facing){
+        if(facing == EnumFacing.NORTH){
+            return 0;
+        } else if(facing == EnumFacing.SOUTH){
+            return 1;
+        }else if(facing == EnumFacing.EAST){
+            return 2;
+        }else if(facing == EnumFacing.WEST){
+            return 3;
+        }
+        return 0;
     }
 }
