@@ -19,6 +19,8 @@ apply plugin: 'forge'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 
+sourceCompatibility = 1.7
+
 
 repositories {
     maven {
@@ -178,11 +180,6 @@ javadoc {
     include 'techreborn/api/**/*'
 }
 
-// add a javadoc jar
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from 'build/docs/javadoc'
-}
 
 apiJar.mustRunAfter deobfJar
 
@@ -190,10 +187,9 @@ artifacts {
     archives sourceJar
     archives deobfJar
     archives apiJar
-    archives javadocJar
 }
 
-build.dependsOn sourceJar, javadocJar, deobfJar, apiJar
+build.dependsOn sourceJar, deobfJar, apiJar
 
 uploadArchives {
     repositories {

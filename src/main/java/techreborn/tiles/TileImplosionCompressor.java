@@ -70,6 +70,9 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
         for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
             TileEntity tileEntity = worldObj.getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
             if (tileEntity instanceof TileMachineCasing) {
+                if(!((TileMachineCasing) tileEntity).isConnected()){
+                    return false;
+                }
                 if ((tileEntity.getBlockType() instanceof BlockMachineCasing)) {
                     int heat;
                     heat = BlockMachineCasing.getHeatFromMeta(tileEntity.getBlockMetadata());
