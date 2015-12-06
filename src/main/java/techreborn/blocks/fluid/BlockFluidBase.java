@@ -13,7 +13,6 @@ public class BlockFluidBase extends BlockFluidClassic {
 
     public BlockFluidBase(Fluid fluid, Material material) {
         super(fluid, material);
-        setCreativeTab(TechRebornCreativeTabMisc.instance);
         TextureRegistry.registerFluid(this);
     }
 
