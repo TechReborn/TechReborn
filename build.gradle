@@ -162,12 +162,6 @@ task apiJar(type: Jar) {
     classifier = "api"
 }
 
-javadoc {
-    source += sourceSets.api.allSource
-    include 'techreborn/api/**/*'
-}
-
-
 apiJar.mustRunAfter deobfJar
 
 artifacts {
@@ -175,7 +169,7 @@ artifacts {
     archives apiJar
 }
 
-build.dependsOn sourceJar, deobfJar, apiJar
+build.dependsOn deobfJar, apiJar
 
 uploadArchives {
     repositories {
