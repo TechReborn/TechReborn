@@ -48,14 +48,11 @@ public class FusionReactorRecipeCategory implements IRecipeCategory {
     }
 
     @Override
-    public void init(@Nonnull IRecipeLayout recipeLayout) {
+    public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
         recipeLayout.getItemStacks().init(inputSlot1, true, 21, 0);
         recipeLayout.getItemStacks().init(inputSlot2, true, 21, 36);
         recipeLayout.getItemStacks().init(outputSlot, false, 80, 18);
-    }
 
-    @Override
-    public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
         if (recipeWrapper instanceof FusionReactorRecipeWrapper) {
             recipeLayout.getItemStacks().set(inputSlot1, (ItemStack) recipeWrapper.getInputs().get(0));
             recipeLayout.getItemStacks().set(inputSlot2, (ItemStack) recipeWrapper.getInputs().get(1));
