@@ -191,7 +191,7 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor implements IWr
 
     @Override
     public boolean canInsertItem(int slotIndex, ItemStack itemStack, int side) {
-        if (slotIndex >= 1)
+        if (slotIndex > 1)
             return false;
         return isItemValidForSlot(slotIndex, itemStack);
     }
