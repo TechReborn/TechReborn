@@ -53,7 +53,7 @@ public class IronAlloySmelterRecipeHandler extends GenericRecipeHander implement
 
     @Override
     public String getRecipeName() {
-        return Reference.ironalloySmelteRecipe;
+        return Reference.alloySmelteRecipe;
     }
 
     @Override
