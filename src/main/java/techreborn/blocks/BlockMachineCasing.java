@@ -39,7 +39,7 @@ public class BlockMachineCasing extends BlockMultiblockBase implements IBlockTex
     public PropertyInteger METADATA;
 
     @Override
-    public IBlockState getStateFromMeta(int meta) {
+    public IBlockState getStateFromMetaValue(int meta) {
         return this.getDefaultState().withProperty(METADATA, meta);
     }
 
@@ -107,5 +107,10 @@ public class BlockMachineCasing extends BlockMultiblockBase implements IBlockTex
     @Override
     public int amountOfVariants() {
         return types.length;
+    }
+
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        return getStateFromMetaValue(meta);
     }
 }

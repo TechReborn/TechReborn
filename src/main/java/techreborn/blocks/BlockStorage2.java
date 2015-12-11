@@ -76,7 +76,7 @@ public class BlockStorage2 extends BaseBlock  implements IBlockTextureProvider {
     }
 
     @Override
-    public IBlockState getStateFromMeta(int meta) {
+    public IBlockState getStateFromMetaValue(int meta) {
         return this.getDefaultState().withProperty(METADATA, meta);
     }
 
@@ -89,5 +89,10 @@ public class BlockStorage2 extends BaseBlock  implements IBlockTextureProvider {
 
         METADATA = PropertyInteger.create("Type", 0, types.length  -1);
         return new BlockState(this, METADATA);
+    }
+
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        return getStateFromMetaValue(meta);
     }
 }
