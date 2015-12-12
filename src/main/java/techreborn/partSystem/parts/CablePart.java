@@ -411,6 +411,9 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
         } else {
             if (ModPartUtils.hasPart(entity.getWorldObj(), entity.xCoord, entity.yCoord, entity.zCoord, this.getName())) {
                 CablePart otherCable = (CablePart) ModPartUtils.getPartFromWorld(entity.getWorldObj(), new Location(entity.xCoord, entity.yCoord, entity.zCoord), this.getName());
+                if(otherCable == null || dir == null){
+                    return false;
+                }
                 int thisDir = Functions.getIntDirFromDirection(dir);
                 int thereDir = Functions.getIntDirFromDirection(dir.getOpposite());
                 boolean hasconnection = otherCable.connections[thereDir];
