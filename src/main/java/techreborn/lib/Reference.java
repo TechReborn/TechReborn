@@ -4,7 +4,6 @@ import net.minecraft.util.StatCollector;
 
 public class Reference {
     public static String alloySmelteRecipe = StatCollector.translateToLocal("techreborn.recipe.alloysmelter");
-    public static String ironalloySmelteRecipe = StatCollector.translateToLocal("techreborn.recipe.ironalloysmelter");
     public static String assemblingMachineRecipe = StatCollector.translateToLocal("techreborn.recipe.assemblingmachine");
     public static String blastFurnaceRecipe = StatCollector.translateToLocal("techreborn.recipe.blastfurnace");
     public static String centrifugeRecipe = StatCollector.translateToLocal("techreborn.recipe.centrifuge");

@@ -43,31 +43,24 @@ public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, II
     @Override
     public void updateEntity() {
         super.updateEntity();
-
         boolean flag = this.burnTime > 0;
         boolean flag1 = false;
-
         if (this.burnTime > 0) {
             --this.burnTime;
         }
-
         if (!this.worldObj.isRemote) {
             if (this.burnTime != 0 || getStackInSlot(input1) != null && getStackInSlot(fuel) != null) {
                 if (this.burnTime == 0 && this.canSmelt()) {
                     this.currentItemBurnTime = this.burnTime = getItemBurnTime(getStackInSlot(fuel));
-
                     if (this.burnTime > 0) {
                         flag1 = true;
-
                         if (this.getStackInSlot(fuel) != null) {
                             decrStackSize(fuel, 1);
                         }
                     }
                 }
-
                 if (this.isBurning() && this.canSmelt()) {
                     ++this.cookTime;
-
                     if (this.cookTime == 200) {
                         this.cookTime = 0;
                         this.smeltItem();
@@ -77,17 +70,14 @@ public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, II
                     this.cookTime = 0;
                 }
             }
-
             if (flag != this.burnTime > 0) {
                 flag1 = true;
                 //TODO sync on/off
             }
         }
-
         if (flag1) {
             this.markDirty();
         }
-
     }
 
     public boolean hasAllInputs(IBaseRecipeType recipeType) {
@@ -152,17 +142,25 @@ public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, II
             }
 
             for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelteRecipe)) {
+                boolean hasAllRecipes = true;
                 for (ItemStack input : recipeType.getInputs()) {
-                    if (ItemUtils.isItemEqual(input, getStackInSlot(input1), true, true, true)) {
-                        this.decrStackSize(input1, input.stackSize);
-                    } else if (ItemUtils.isItemEqual(input, getStackInSlot(input2), true, true, true)) {
-                        this.decrStackSize(input2, input.stackSize);
+                    if (ItemUtils.isItemEqual(input, getStackInSlot(input1), true, true, true) || ItemUtils.isItemEqual(input, getStackInSlot(input2), true, true, true)) {
+
+                    } else {
+                        hasAllRecipes = false;
+                    }
+                }
+                if(hasAllRecipes){
+                    for (ItemStack input : recipeType.getInputs()) {
+                        for (int inputSlot = 0; inputSlot < 2; inputSlot++) {
+                            if (ItemUtils.isItemEqual(input, inventory.getStackInSlot(inputSlot), true, true, recipeType.useOreDic())) {
+                                inventory.decrStackSize(inputSlot, input.stackSize);
+                                break;
+                            }
+                        }
                     }
                 }
             }
-
-            this.decrStackSize(input1, 1);
-
 
         }
     }
