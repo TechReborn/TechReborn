@@ -409,8 +409,16 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
         } else if (entity instanceof IEnergyTile) {
             return true;
         } else {
+<<<<<<< HEAD:ToAddBack/partSystem/parts/CablePart.java
             if (ModPartUtils.hasPart(entity.getWorldObj(), entity.getPos().getX(), entity.getPos().getY(), entity.getPos().getZ(), this.getName())) {
                 CablePart otherCable = (CablePart) ModPartUtils.getPartFromWorld(entity.getWorldObj(), new Location(entity.getPos().getX(), entity.getPos().getY(), entity.getPos().getZ()), this.getName());
+=======
+            if (ModPartUtils.hasPart(entity.getWorldObj(), entity.xCoord, entity.yCoord, entity.zCoord, this.getName())) {
+                CablePart otherCable = (CablePart) ModPartUtils.getPartFromWorld(entity.getWorldObj(), new Location(entity.xCoord, entity.yCoord, entity.zCoord), this.getName());
+                if(otherCable == null || dir == null){
+                    return false;
+                }
+>>>>>>> master:src/main/java/techreborn/partSystem/parts/CablePart.java
                 int thisDir = Functions.getIntDirFromDirection(dir);
                 int thereDir = Functions.getIntDirFromDirection(dir.getOpposite());
                 boolean hasconnection = otherCable.connections[thereDir];
