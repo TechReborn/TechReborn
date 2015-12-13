@@ -63,4 +63,9 @@ public class FusionReactorRecipeWrapper implements IRecipeWrapper {
         fontRendererObj.drawStringWithShadow("Ticks to process: " + baseRecipe.getTickTime(), 0, 90, -1);
         fontRendererObj.drawStringWithShadow("Time to process: " + baseRecipe.getTickTime() / 20 + " seconds", 0, 100, -1);
     }
+
+    @Override
+    public void drawAnimations(Minecraft minecraft, int recipeWidth, int recipeHeight) {
+        
+    }
 }

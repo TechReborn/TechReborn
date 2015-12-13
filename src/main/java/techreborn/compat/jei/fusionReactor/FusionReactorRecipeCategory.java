@@ -48,6 +48,11 @@ public class FusionReactorRecipeCategory implements IRecipeCategory {
     }
 
     @Override
+    public void drawAnimations(Minecraft minecraft) {
+
+    }
+
+    @Override
     public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
         recipeLayout.getItemStacks().init(inputSlot1, true, 21, 0);
         recipeLayout.getItemStacks().init(inputSlot2, true, 21, 36);
