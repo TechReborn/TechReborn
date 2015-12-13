@@ -2,6 +2,7 @@ package techreborn.compat;
 
 import net.minecraftforge.fml.common.Loader;
 import techreborn.compat.jei.JEIPlugin;
+import techreborn.compat.waila.CompatModuleWaila;
 
 import java.util.ArrayList;
 
@@ -29,7 +30,7 @@ public class CompatManager {
             isGregTechLoaded = true;
         }
         registerCompact(JEIPlugin.class, "JEI");
-
+        registerCompact(CompatModuleWaila.class, "Waila");
     }
 
     public void registerCompact(Class<?> moduleClass, Object... objs) {

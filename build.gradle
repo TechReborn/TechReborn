@@ -92,9 +92,9 @@ dependencies {
  //   compile "codechicken:CodeChickenCore:1.7.10-1.0.7.+:dev"
    // compile "codechicken:NotEnoughItems:1.7.10-1.0.5.+:dev"
   //  compile "codechicken:ForgeMultipart:1.7.10-1.2.0.345:dev"
-//    deobfCompile ("mcp.mobius.waila:Waila:1.6.0_B1_1.8.1") {
-//        exclude group: 'mcp.mobius.waila'
-//    }
+    compile ("mcp.mobius.waila:Waila:1.6.0-B2_1.8.8:dev") {
+        exclude group: 'mcp.mobius.waila'
+    }
  //   compile name: 'buildcraft', version: '7.1.13', classifier: "dev", ext: 'jar'
   //  compile "qmunity:QmunityLib:0.2.+:deobf"
   //  compile "com.pahimar.ee3:EquivalentExchange3:1.7.10-0.3.507:dev"

@@ -7,6 +7,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import reborncore.api.IListInfoProvider;
 import techreborn.tiles.TileMachineBase;
@@ -53,7 +54,7 @@ public class WailaProviderMachines implements IWailaDataProvider {
 
     @Override
     public NBTTagCompound getNBTData(EntityPlayerMP player, TileEntity te,
-                                     NBTTagCompound tag, World w, int x, int y, int z) {
+                                     NBTTagCompound tag, World w, BlockPos pos) {
 
         return tag;
     }
