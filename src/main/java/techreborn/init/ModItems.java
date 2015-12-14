@@ -362,6 +362,7 @@ public class ModItems {
         OreUnifier.registerOre("dustVoidstone", ItemDusts.getDustByName("voidstone"));
         OreUnifier.registerOre("dustYellowGarnet", ItemDusts.getDustByName("yellowGarnet"));
         OreUnifier.registerOre("dustZinc", ItemDusts.getDustByName("zinc"));
+        OreUnifier.registerOre("dustOlivine", ItemDusts.getDustByName("olivine"));
         OreUnifier.registerOre("pulpWood", ItemDusts.getDustByName("sawDust"));
 
 
@@ -456,6 +457,7 @@ public class ModItems {
         OreUnifier.registerOre("dustSmallVinteum", ItemDustsSmall.getSmallDustByName("Vinteum"));
         OreUnifier.registerOre("dustSmallVoidstone", ItemDustsSmall.getSmallDustByName("Voidstone"));
         OreUnifier.registerOre("dustSmallYellowGarnet", ItemDustsSmall.getSmallDustByName("YellowGarnet"));
+        OreUnifier.registerOre("dustSmallOlivine", ItemDustsSmall.getSmallDustByName("Olivine"));
         OreUnifier.registerOre("dustSmallZinc", ItemDustsSmall.getSmallDustByName("Zinc"));
 
         // Ingots
