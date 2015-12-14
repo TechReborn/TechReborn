@@ -145,7 +145,7 @@ public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchabl
                 syncWithAll();
             }
 
-            if (!tank.isEmpty()) {
+            if (!tank.isEmpty() && tank.getFluidType() != null && FluidPowerManager.fluidPowerValues.containsKey(tank.getFluidType())) {
                 double powerIn = FluidPowerManager.fluidPowerValues.get(tank.getFluidType());
                 if (getFreeSpace() >= powerIn) {
                     addEnergy(powerIn, false);
