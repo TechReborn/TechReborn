@@ -37,7 +37,7 @@ public class BlockSemiFluidGenerator extends BlockMachineBase implements IAdvanc
         return true;
     }
 
-    private final String prefix = "techreborn:/blocks/machine/";
+    private final String prefix = "techreborn:blocks/machine/";
 
     @Override
     public String getFront(boolean isActive) {

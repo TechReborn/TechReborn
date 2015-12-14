@@ -12,7 +12,7 @@ public class BlockLightningRod extends BlockMachineBase implements IAdvancedRota
         setUnlocalizedName("techreborn.lightningrod");
     }
 
-    private final String prefix = "techreborn:/blocks/machine/";
+    private final String prefix = "techreborn:blocks/machine/";
 
     @Override
     public String getFront(boolean isActive) {

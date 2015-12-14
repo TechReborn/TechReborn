@@ -46,7 +46,7 @@ public class BlockLesuStorage extends BlockMachineBase implements IAdvancedRotat
         return block == (Block) this;
     }
 
-    private final String prefix = "techreborn:/blocks/machine/";
+    private final String prefix = "techreborn:blocks/machine/";
 
     @Override
     public String getFront(boolean isActive) {

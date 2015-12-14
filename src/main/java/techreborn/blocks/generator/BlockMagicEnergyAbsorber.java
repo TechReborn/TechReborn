@@ -12,7 +12,7 @@ public class BlockMagicEnergyAbsorber extends BlockMachineBase implements IAdvan
     }
 
 
-    private final String prefix = "techreborn:/blocks/machine/";
+    private final String prefix = "techreborn:blocks/machine/";
 
     @Override
     public String getFront(boolean isActive) {

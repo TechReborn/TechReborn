@@ -12,7 +12,7 @@ public class BlockMagicEnergyConverter extends BlockMachineBase implements IAdva
     }
 
 
-    private final String prefix = "techreborn:/blocks/machine/";
+    private final String prefix = "techreborn:blocks/machine/";
 
     @Override
     public String getFront(boolean isActive) {

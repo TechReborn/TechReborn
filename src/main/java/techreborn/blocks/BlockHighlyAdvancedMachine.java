@@ -11,7 +11,7 @@ public class BlockHighlyAdvancedMachine extends BlockMachineBase {
         setUnlocalizedName("techreborn.highlyAdvancedMachine");
     }
 
-    private final String prefix = "techreborn:/blocks/machine/";
+    private final String prefix = "techreborn:blocks/machine/";
 
 
     @Override

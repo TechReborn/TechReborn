@@ -11,7 +11,7 @@ public class BlockDistillationTower extends BlockMachineBase implements IRotatio
         setUnlocalizedName("techreborn.distillationtower");
     }
 
-    private final String prefix = "techreborn:/blocks/machine/";
+    private final String prefix = "techreborn:blocks/machine/";
 
     @Override
     public String getFrontOff() {

@@ -32,7 +32,7 @@ public class BlockImplosionCompressor extends BlockMachineBase implements IRotat
         return true;
     }
 
-    private final String prefix = "techreborn:/blocks/machine/";
+    private final String prefix = "techreborn:blocks/machine/";
 
     @Override
     public String getFrontOff() {

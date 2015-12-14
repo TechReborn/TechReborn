@@ -11,7 +11,7 @@ public class BlockElectricCraftingTable extends BlockMachineBase implements IAdv
         setUnlocalizedName("techreborn.electriccraftingtable");
     }
 
-    private final String prefix = "techreborn:/blocks/machine/";
+    private final String prefix = "techreborn:blocks/machine/";
 
     @Override
     public String getFront(boolean isActive) {

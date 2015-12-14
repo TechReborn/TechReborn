@@ -33,7 +33,7 @@ public class BlockRollingMachine extends BlockMachineBase implements IAdvancedRo
         return true;
     }
 
-    private final String prefix = "techreborn:/blocks/machine/";
+    private final String prefix = "techreborn:blocks/machine/";
 
     @Override
     public String getFront(boolean isActive) {
