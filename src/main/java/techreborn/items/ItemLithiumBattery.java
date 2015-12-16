@@ -1,13 +1,10 @@
 package techreborn.items;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;
 import techreborn.api.power.IEnergyItemInfo;
 import techreborn.client.TechRebornCreativeTab;
 
-public class ItemLithiumBattery extends ItemTR implements IEnergyItemInfo {
+public class ItemLithiumBattery extends ItemTextureBase implements IEnergyItemInfo {
 
     public ItemLithiumBattery() {
         super();
@@ -15,12 +12,6 @@ public class ItemLithiumBattery extends ItemTR implements IEnergyItemInfo {
         setMaxDamage(1);
         setUnlocalizedName("techreborn.lithiumBattery");
         setCreativeTab(TechRebornCreativeTab.instance);
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void registerIcons(IIconRegister iconRegister) {
-        this.itemIcon = iconRegister.registerIcon("techreborn:" + "lithiumBattery");
     }
 
     @Override
@@ -45,6 +36,16 @@ public class ItemLithiumBattery extends ItemTR implements IEnergyItemInfo {
 
     @Override
     public int getStackTeir(ItemStack stack) {
+        return 1;
+    }
+
+    @Override
+    public String getTextureName(int damage) {
+        return "techreborn:items/lithiumBattery";
+    }
+
+    @Override
+    public int getMaxMeta() {
         return 1;
     }
 }
