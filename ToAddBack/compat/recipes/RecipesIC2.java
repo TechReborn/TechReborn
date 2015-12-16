@@ -1190,6 +1190,29 @@ public class RecipesIC2 implements ICompatModule {
                 'D', ItemDusts.getDustByName("diamond"),
                 'A', IC2Items.getItem("advancedAlloy"));
 
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.lithiumBatpack, 1, OreDictionary.WILDCARD_VALUE),
+                "BCB", "BPB", "B B",
+                'B', new ItemStack(ModItems.lithiumBattery),
+                'P', "plateAluminum",
+                'C', IC2Items.getItem("advancedCircuit"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.lithiumBattery, 1, OreDictionary.WILDCARD_VALUE),
+                " C ", "PFP", "PFP",
+                'F', ItemCells.getCellByName("lithium"),
+                'P', "plateAluminum",
+                'C', IC2Items.getItem("insulatedGoldCableItem"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.lapotronpack, 1, OreDictionary.WILDCARD_VALUE),
+                "FOF", "SPS", "FIF",
+                'F', ItemParts.getPartByName("energyFlowCircuit"),
+                'O', new ItemStack(ModItems.lapotronicOrb),
+                'S', ItemParts.getPartByName("superConductor"),
+                'I', "ingotIridium",
+                'P', new ItemStack(ModItems.lapotronpack));
+
+
+        Recipes.compressor.addRecipe(new RecipeInputOreDict("dustLazurite"), null, ItemParts.getPartByName("lazuriteChunk"));
+
         Core.logHelper.info("Added Expensive IC2 Recipes");
     }
 
