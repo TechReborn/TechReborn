@@ -16,11 +16,23 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 
     public boolean hasLava;
     public boolean isStar = false;
+    public int height = 0;
 
     public MultiBlockCasing(World world) {
         super(world);
     }
 
+
+    public String getInfo(){
+        String value = "Intact";
+        try {
+            isMachineWhole();
+        } catch (MultiblockValidationException e) {
+            e.printStackTrace();
+            value = e.getLocalizedMessage();
+        }
+        return value;
+    }
 
     /**
      * @return True if the machine is "whole" and should be assembled. False
@@ -83,7 +95,7 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
                             "Machine is too small, it must be at least %d blocks in the Z dimension",
                             minZ));
         }
-
+        height = deltaY;
 
 //		if(checkIfStarShape(minimumCoord.x, minimumCoord.y, minimumCoord.z)){
 //			isStar = true;
@@ -92,7 +104,7 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 //			isStar = false;
 //		}
 
-        if (deltaY < 4) {
+        if (deltaY < minY) {
             throw new MultiblockValidationException(
                     String.format(
                             "Machine is too small, it must be at least %d blocks in the Y dimension",

@@ -29,6 +29,7 @@ public class TileGrinder extends TilePowerAcceptor implements IWrenchable, IFlui
     public Inventory inventory = new Inventory(6, "TileGrinder", 64, this);
     public Tank tank = new Tank("TileGrinder", 16000, this);
     public RecipeCrafter crafter;
+    public int connectionStatus;
 
     public TileGrinder() {
         super(ConfigTechReborn.CentrifugeTier);
@@ -85,21 +86,13 @@ public class TileGrinder extends TilePowerAcceptor implements IWrenchable, IFlui
         for (EnumFacing direction : EnumFacing.values()) {
             TileEntity tileEntity = worldObj.getTileEntity(new BlockPos(getPos().getX() + direction.getFrontOffsetX(), getPos().getY() + direction.getFrontOffsetY(), getPos().getZ() + direction.getFrontOffsetZ()));
             if (tileEntity instanceof TileMachineCasing) {
-                if(!((TileMachineCasing) tileEntity).isConnected()){
-                    return false;
-                }
-                if ((tileEntity.getBlockType() instanceof BlockMachineCasing)) {
-                    BlockMachineCasing machineCasing = (BlockMachineCasing) tileEntity.getBlockType();
-                    int heat = machineCasing.getHeatFromState(tileEntity.getWorld().getBlockState(tileEntity.getPos()));
-                    Location location = new Location(getPos().getX(), getPos().getY(), getPos().getZ(), direction);
-                    location.modifyPositionFromSide(direction, 1);
-                    if (worldObj.getBlockState(new BlockPos(location.getX(), location.getY(), location.getZ())).getBlock().getUnlocalizedName().equals("tile.lava")) {
-                        heat += 500;
-                    }
+                if(((TileMachineCasing) tileEntity).isConnected()  && ((TileMachineCasing) tileEntity).getMultiblockController().isAssembled() && ((TileMachineCasing) tileEntity).getMultiblockController().height == 3){
+                    connectionStatus = 1;
                     return true;
                 }
             }
         }
+        connectionStatus = 0;
         return false;
     }
 
@@ -219,7 +212,6 @@ public class TileGrinder extends TilePowerAcceptor implements IWrenchable, IFlui
     public void closeInventory(EntityPlayer player) {
         inventory.closeInventory(player);
     }
-
 
     @Override
     public int getField(int id) {
