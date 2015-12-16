@@ -120,16 +120,16 @@ public class TileAesu extends TilePowerAcceptor implements IWrenchable {
         return dropStack;
     }
 
-    public void writeToNBTWithoutCoords(NBTTagCompound tagCompound) {
-        super.writeToNBTWithoutCoords(tagCompound);
+    public void writeToNBT(NBTTagCompound tagCompound) {
+        super.writeToNBT(tagCompound);
         tagCompound.setDouble("euChange", euChange);
         tagCompound.setDouble("euLastTick", euLastTick);
         tagCompound.setInteger("output", OUTPUT);
         inventory.writeToNBT(tagCompound);
     }
 
-    public void readFromNBTWithoutCoords(NBTTagCompound nbttagcompound) {
-        super.readFromNBTWithoutCoords(nbttagcompound);
+    public void readFromNBT(NBTTagCompound nbttagcompound) {
+        super.readFromNBT(nbttagcompound);
         this.euChange = nbttagcompound.getDouble("euChange");
         this.euLastTick = nbttagcompound.getDouble("euLastTick");
         this.OUTPUT = nbttagcompound.getInteger("output");
