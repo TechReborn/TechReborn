@@ -17,12 +17,14 @@ public class GuiGrinder extends GuiContainer {
     private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/industrial_grinder.png");
 
     TileGrinder grinder;
+    ContainerGrinder containerGrinder;
 
     public GuiGrinder(EntityPlayer player, TileGrinder tilegrinder) {
         super(new ContainerGrinder(tilegrinder, player));
         this.xSize = 176;
         this.ySize = 167;
         grinder = tilegrinder;
+        containerGrinder = (ContainerGrinder) this.inventorySlots;
     }
 
     @Override
@@ -44,7 +46,7 @@ public class GuiGrinder extends GuiContainer {
             this.drawTexturedModalRect(k + 132, l + 63 + 12 - j, 176, 12 - j, 14, j + 2);
         }
 
-        if (grinder.getMutliBlock() != true) {
+        if (containerGrinder.connectionStatus != 1) {
             GuiDraw.drawTooltipBox(k + 30, l + 50 + 12 - j, 114, 10);
             this.fontRendererObj.drawString(StatCollector.translateToLocal("techreborn.message.missingmultiblock"), k + 38, l + 52 + 12 - j, -1);
         }

@@ -1,6 +1,9 @@
 package techreborn.client.container;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import reborncore.client.gui.SlotOutput;
 import techreborn.tiles.TileGrinder;
@@ -11,7 +14,7 @@ public class ContainerGrinder extends ContainerCrafting {
 
     TileGrinder tile;
 
-    public int tickTime;
+    public int connectionStatus;
 
     public ContainerGrinder(TileGrinder tileGrinder,
                             EntityPlayer player) {
@@ -48,6 +51,31 @@ public class ContainerGrinder extends ContainerCrafting {
     @Override
     public boolean canInteractWith(EntityPlayer p_75145_1_) {
         return true;
+    }
+
+    @Override
+    public void detectAndSendChanges() {
+        super.detectAndSendChanges();
+        for (int i = 0; i < this.crafters.size(); i++) {
+            ICrafting icrafting = (ICrafting) this.crafters.get(i);
+            if (this.connectionStatus != tile.connectionStatus) {
+                icrafting.sendProgressBarUpdate(this, 10, tile.connectionStatus);
+            }
+        }
+    }
+
+    @Override
+    public void addCraftingToCrafters(ICrafting crafting) {
+        super.addCraftingToCrafters(crafting);
+        crafting.sendProgressBarUpdate(this, 10, tile.connectionStatus);
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void updateProgressBar(int id, int value) {
+        if (id == 10) {
+            this.connectionStatus = value;
+        }
     }
 
 }
