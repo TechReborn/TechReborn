@@ -37,6 +37,7 @@ public class ModItems {
     public static Item rockCutter;
     public static Item lithiumBatpack;
     public static Item lapotronpack;
+    public static Item lithiumBattery;
     public static Item omniTool;
     public static Item advancedDrill;
     public static Item lapotronicOrb;
@@ -101,6 +102,8 @@ public class ModItems {
         GameRegistry.registerItem(lithiumBatpack, "lithiumBatpack");
         lapotronpack = PoweredItem.createItem(ItemLapotronPack.class);
         GameRegistry.registerItem(lapotronpack, "lapotronPack");
+        lithiumBattery = PoweredItem.createItem(ItemLithiumBattery.class);
+        GameRegistry.registerItem(lithiumBattery, "lithiumBattery");
         lapotronicOrb = PoweredItem.createItem(ItemLapotronicOrb.class);
         GameRegistry.registerItem(lapotronicOrb, "lapotronicOrb");
         omniTool = PoweredItem.createItem(ItemOmniTool.class);
