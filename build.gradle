@@ -75,7 +75,7 @@ if (ENV.BUILD_NUMBER) {
 }
 
 minecraft {
-    version = "1.8.8-11.15.0.1625-1.8.8"
+    version = "1.8.8-11.15.0.1635-1.8.8"
     mappings = 'snapshot_20151205'
     replace "@MODVERSION@", project.version
     makeObfSourceJar = false
@@ -109,7 +109,7 @@ dependencies {
   //  deobfCompile name: "MineTweaker3", version: "1.8-3.0.10B", classifier: "Dev"
   //  shade 'IC2-Classic-API-STANDALONE:IC2-Classic-API-STANDALONE:1.1.0.19-5:api'
     compile 'RebornCore:RebornCore-1.8.8:1.2.1.+:dev'
-    deobfCompile "mezz.jei:jei_1.8.8:2.8.2.37"
+    deobfCompile "mezz.jei:jei_1.8.8:2.9.0.42"
 
 	testCompile 'junit:junit:4.12'
 }
