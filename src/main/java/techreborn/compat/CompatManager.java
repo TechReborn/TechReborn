@@ -4,6 +4,7 @@ import net.minecraftforge.fml.common.Loader;
 import techreborn.compat.jei.JEIPlugin;
 import techreborn.compat.recipes.RecipesStandalone;
 import techreborn.compat.waila.CompatModuleWaila;
+import techreborn.config.ConfigTechReborn;
 
 import java.util.ArrayList;
 
@@ -36,6 +37,12 @@ public class CompatManager {
     }
 
     public void registerCompact(Class<?> moduleClass, Object... objs) {
+        boolean shouldLoad = ConfigTechReborn.config.get(ConfigTechReborn.CATEGORY_INTEGRATION, "Compat:" + moduleClass.getSimpleName(), true, "Should the " + moduleClass.getSimpleName() + " be loaded?").getBoolean(true);
+        if (ConfigTechReborn.config.hasChanged())
+            ConfigTechReborn.config.save();
+        if(!shouldLoad){
+            return;
+        }
         for (Object obj : objs) {
             if (obj instanceof String) {
                 String modid = (String) obj;
