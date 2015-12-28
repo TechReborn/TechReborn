@@ -44,22 +44,23 @@ repositories {
         name = "Qmunity"
         url = "http://maven.bluepowermod.com/"
     }
-    ivy {
-        name "BuildCraft"
-        artifactPattern "http://www.mod-buildcraft.com/releases/BuildCraft/[revision]/[module]-[revision]-[classifier].[ext]"
-    }
     maven {
         name "TiC"
         url "http://dvs1.progwml6.com/files/maven"
     }
     ivy {
         name = 'ThaumCraft 4 API'
-        artifactPattern 'https://dl.dropboxusercontent.com/u/47135879/[module](-[classifier])-1.7.10-[revision](.[ext])'
+        artifactPattern 'https://dl.dropboxusercontent.com/u/47135879/[module]-1.8.8-[revision]-[classifier].[ext]'
     }
     ivy {
         name "MineTweaker3"
-        artifactPattern "http://minetweaker3.powerofbytes.com/download/[module]-[classifier]-[revision].[ext]"
+      //  artifactPattern "http://minetweaker3.powerofbytes.com/download/[module]-[classifier]-[revision].[ext]" //This is the offical MT download url
+        artifactPattern "http://www.blamejared.com/content/[module]-[classifier]-Full-[revision].[ext]" //This is a forked version of it to allow 1.8.8 support.
     }
+    ivy {
+    name "BuildCraft"
+    artifactPattern "https://github.com/AlexIIL/BuildCraft/releases/download/[revision]/[module]-[classifier].[ext]"
+}
 }
 
 configurations {
@@ -92,21 +93,21 @@ dependencies {
  //   compile "codechicken:CodeChickenCore:1.7.10-1.0.7.+:dev"
    // compile "codechicken:NotEnoughItems:1.7.10-1.0.5.+:dev"
   //  compile "codechicken:ForgeMultipart:1.7.10-1.2.0.345:dev"
-    compile ("mcp.mobius.waila:Waila:1.6.0-B2_1.8.8:dev") {
+    compile ("mcp.mobius.waila:Waila:1.6.0-B3_1.8.8:dev") {
         exclude group: 'mcp.mobius.waila'
     }
- //   compile name: 'buildcraft', version: '7.1.13', classifier: "dev", ext: 'jar'
+ compile name: 'buildcraft', version: 'mc1.8.8-alpha-11', classifier: "-0.11-alpha-dev", ext: 'jar'
   //  compile "qmunity:QmunityLib:0.2.+:deobf"
   //  compile "com.pahimar.ee3:EquivalentExchange3:1.7.10-0.3.507:dev"
   //  compile "net.sengir.forestry:forestry_1.7.10:4.2.0.47:dev"
   //  shade "net.sengir.forestry:forestry_1.7.10:4.2.0.47:api"
- //   compile "tconstruct:TConstruct:1.7.10-1.8.8.build9S88:deobf"
- //   compile "mods.natura:natura:1.7.10-107.779621d:deobf"
- //   compile "mantle:Mantle:1.7.10-0.3.2.jenkins192:deobf"
- //   compile "com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.7.10-2.1.0.1465:deobf"
- //   compile 'Azanor:Thaumcraft:4.2.3.5:deobf@jar'
- //   compile "com.github.azanor:baubles:1.0.1.10:deobf@jar"
-  //  deobfCompile name: "MineTweaker3", version: "1.8-3.0.10B", classifier: "Dev"
+    compile "slimeknights:TConstruct:1.8.8-2.0.1.jenkins11:deobf"
+  //  compile "mods.natura:natura:1.7.10-107.779621d:deobf"
+    compile "slimeknights.mantle:Mantle:1.8.8-0.6.jenkins60:deobf"
+    compile "com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.8.8-3.0.0.1532:deobf"
+    //compile 'Azanor:Thaumcraft:5.0.3:deobf@jar'
+    compile "com.github.azanor:baubles:1.1.2.0:deobf@jar" //https://dl.dropboxusercontent.com/u/47135879/Baubles-1.8.8-1.1.2.0-deobf.jar https://dl.dropboxusercontent.com/u/47135879/Baubles-deobf-1.7.10-1.0.1.10.jar
+    deobfCompile name: "CraftTweaker", version: "1.8.8-3.0.0", classifier: "Dev"
   //  shade 'IC2-Classic-API-STANDALONE:IC2-Classic-API-STANDALONE:1.1.0.19-5:api'
     compile 'RebornCore:RebornCore-1.8.8:1.2.1.+:dev'
     deobfCompile "mezz.jei:jei_1.8.8:2.9.0.42"
