@@ -68,11 +68,11 @@ configurations {
     compile.extendsFrom shade
 }
 
+version = "0.7.5"
+
 def ENV = System.getenv()
 if (ENV.BUILD_NUMBER) {
-    version = "0.7.4." + "${System.getenv().BUILD_NUMBER}"
-} else {
-    version = "0.7.4.BUILD"
+    version = version + "." + "${System.getenv().BUILD_NUMBER}"
 }
 
 minecraft {
