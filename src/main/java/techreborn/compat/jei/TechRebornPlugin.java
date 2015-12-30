@@ -1,5 +1,6 @@
 package techreborn.compat.jei;
 
+import mezz.jei.api.*;
 import net.minecraftforge.fml.common.Loader;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.compat.jei.fusionReactor.FusionReactorRecipeCategory;
