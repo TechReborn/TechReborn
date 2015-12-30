@@ -133,11 +133,6 @@ public class BlockPlayerDetector extends BaseTileBlock implements IBlockTextureP
     }
 
     @Override
-    public IBlockState getStateFromMetaValue(int meta) {
-        return this.getDefaultState().withProperty(METADATA, meta);
-    }
-
-    @Override
     public int getMetaFromState(IBlockState state) {
         return (Integer) state.getValue(METADATA);
     }
@@ -150,6 +145,6 @@ public class BlockPlayerDetector extends BaseTileBlock implements IBlockTextureP
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return getStateFromMetaValue(meta);
+        return this.getDefaultState().withProperty(METADATA, meta);
     }
 }
