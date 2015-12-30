@@ -1,7 +1,6 @@
 package techreborn.compat.jei;
 
-import mezz.jei.api.IModPlugin;
-import mezz.jei.api.IModRegistry;
+import mezz.jei.api.*;
 import net.minecraftforge.fml.common.Loader;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.compat.jei.fusionReactor.FusionReactorRecipeCategory;
@@ -20,6 +19,16 @@ public class TechRebornPlugin implements IModPlugin {
     }
 
     @Override
+    public void onJeiHelpersAvailable(IJeiHelpers jeiHelpers) {
+
+    }
+
+    @Override
+    public void onItemRegistryAvailable(IItemRegistry itemRegistry) {
+
+    }
+
+    @Override
     public void register(IModRegistry registry) {
         registry.addRecipeCategories(
                 new FusionReactorRecipeCategory()
@@ -30,5 +39,10 @@ public class TechRebornPlugin implements IModPlugin {
         List<Object> recipes = new ArrayList<>();
         recipes.addAll(FusionReactorRecipeHelper.reactorRecipes);
         registry.addRecipes(recipes);
+    }
+
+    @Override
+    public void onRecipeRegistryAvailable(IRecipeRegistry recipeRegistry) {
+
     }
 }

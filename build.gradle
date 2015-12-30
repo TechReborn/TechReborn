@@ -76,8 +76,8 @@ if (ENV.BUILD_NUMBER) {
 }
 
 minecraft {
-    version = "1.8.8-11.15.0.1635-1.8.8"
-    mappings = 'snapshot_20151205'
+    version = "1.8.9-11.15.0.1658"
+    mappings = 'snapshot_20151230'
     replace "@MODVERSION@", project.version
     makeObfSourceJar = false
     useDepAts = true
@@ -109,8 +109,8 @@ dependencies {
     compile "com.github.azanor:baubles:1.1.2.0:deobf@jar"
     deobfCompile name: "CraftTweaker", version: "1.8.8-3.0.0", classifier: "Dev"
   //  shade 'IC2-Classic-API-STANDALONE:IC2-Classic-API-STANDALONE:1.1.0.19-5:api'
-    compile 'RebornCore:RebornCore-1.8.8:1.2.1.+:dev'
-    deobfCompile "mezz.jei:jei_1.8.8:2.9.0.42"
+    compile 'RebornCore:RebornCore-1.8.9:1.2.2.+:dev'
+    deobfCompile "mezz.jei:jei_1.8.9:2.13.0.52"
 
 	testCompile 'junit:junit:4.12'
 }
