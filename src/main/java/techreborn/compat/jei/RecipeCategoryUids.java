@@ -11,4 +11,5 @@ public class RecipeCategoryUids {
 	public static final String CHEMICAL_REACTOR = "TechReborn.ChemicalReactor";
 	public static final String FUSION_REACTOR = "TechReborn.FusionReactor";
 	public static final String GRINDER = "TechReborn.Grinder";
+	public static final String IMPLOSION_COMPRESSOR = "TechReborn.ImplosionCompressor";
 }

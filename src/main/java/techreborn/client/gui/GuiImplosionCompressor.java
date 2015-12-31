@@ -10,7 +10,7 @@ import techreborn.tiles.TileImplosionCompressor;
 
 public class GuiImplosionCompressor extends GuiContainer {
 
-    private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/implosion_compressor.png");
+    public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/implosion_compressor.png");
 
     TileImplosionCompressor compresser;
     ContainerImplosionCompressor containerImplosionCompressor;

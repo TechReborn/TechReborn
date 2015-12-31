@@ -17,6 +17,7 @@ import mezz.jei.api.recipe.transfer.IRecipeTransferRegistry;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.AssemblingMachineRecipe;
+import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
 import techreborn.client.container.ContainerAlloyFurnace;
 import techreborn.client.container.ContainerAlloySmelter;
 import techreborn.client.container.ContainerAssemblingMachine;
@@ -25,6 +26,7 @@ import techreborn.client.container.ContainerCentrifuge;
 import techreborn.client.container.ContainerChemicalReactor;
 import techreborn.client.container.ContainerFusionReactor;
 import techreborn.client.container.ContainerGrinder;
+import techreborn.client.container.ContainerImplosionCompressor;
 import techreborn.compat.jei.alloySmelter.AlloySmelterRecipeCategory;
 import techreborn.compat.jei.alloySmelter.AlloySmelterRecipeHandler;
 import techreborn.compat.jei.assemblingMachine.AssemblingMachineRecipeCategory;
@@ -39,6 +41,8 @@ import techreborn.compat.jei.fusionReactor.FusionReactorRecipeCategory;
 import techreborn.compat.jei.fusionReactor.FusionReactorRecipeHandler;
 import techreborn.compat.jei.grinder.GrinderRecipeCategory;
 import techreborn.compat.jei.grinder.GrinderRecipeHandler;
+import techreborn.compat.jei.implosionCompressor.ImplosionCompressorRecipeCategory;
+import techreborn.compat.jei.implosionCompressor.ImplosionCompressorRecipeHandler;
 
 @mezz.jei.api.JEIPlugin
 public class TechRebornJeiPlugin implements IModPlugin {
@@ -70,7 +74,8 @@ public class TechRebornJeiPlugin implements IModPlugin {
                 new CentrifugeRecipeCategory(guiHelper),
                 new ChemicalReactorRecipeCategory(guiHelper),
                 new FusionReactorRecipeCategory(guiHelper),
-                new GrinderRecipeCategory(guiHelper)
+                new GrinderRecipeCategory(guiHelper),
+                new ImplosionCompressorRecipeCategory(guiHelper)
         );
 
         registry.addRecipeHandlers(
@@ -80,7 +85,8 @@ public class TechRebornJeiPlugin implements IModPlugin {
                 new CentrifugeRecipeHandler(),
                 new ChemicalReactorRecipeHandler(),
                 new FusionReactorRecipeHandler(),
-                new GrinderRecipeHandler()
+                new GrinderRecipeHandler(),
+                new ImplosionCompressorRecipeHandler()
         );
 
         registry.addRecipes(RecipeHandler.recipeList);
@@ -100,6 +106,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
         recipeTransferRegistry.addRecipeTransferHandler(ContainerChemicalReactor.class, RecipeCategoryUids.CHEMICAL_REACTOR, 0, 2, 8, 36);
         recipeTransferRegistry.addRecipeTransferHandler(ContainerFusionReactor.class, RecipeCategoryUids.FUSION_REACTOR, 0, 2, 3, 36);
         recipeTransferRegistry.addRecipeTransferHandler(ContainerGrinder.class, RecipeCategoryUids.GRINDER, 0, 2, 6, 36);
+        recipeTransferRegistry.addRecipeTransferHandler(ContainerImplosionCompressor.class, RecipeCategoryUids.IMPLOSION_COMPRESSOR, 0, 2, 4, 36);
     }
 
     @Override
@@ -115,6 +122,11 @@ public class TechRebornJeiPlugin implements IModPlugin {
             int time = (int) Math.round(200 + Math.random() * 100);
             AssemblingMachineRecipe assemblingMachineRecipe = new AssemblingMachineRecipe(diamondBlock, diamondBlock, dirtBlock, time, 120);
             debugRecipes.add(assemblingMachineRecipe);
+        }
+        for (int i = 0; i < 10; i++) {
+            int time = (int) Math.round(200 + Math.random() * 100);
+            ImplosionCompressorRecipe recipe = new ImplosionCompressorRecipe(diamondBlock, diamondBlock, dirtBlock, dirtBlock, time, 120);
+            debugRecipes.add(recipe);
         }
         registry.addRecipes(debugRecipes);
     }
