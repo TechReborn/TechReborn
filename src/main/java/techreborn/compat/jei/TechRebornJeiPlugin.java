@@ -6,7 +6,9 @@ import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.IRecipeRegistry;
+import mezz.jei.api.recipe.transfer.IRecipeTransferRegistry;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
+import techreborn.client.container.ContainerFusionReactor;
 import techreborn.compat.jei.fusionReactor.FusionReactorRecipeCategory;
 import techreborn.compat.jei.fusionReactor.FusionReactorRecipeHandler;
 
@@ -42,6 +44,9 @@ public class TechRebornJeiPlugin implements IModPlugin {
         );
 
         registry.addRecipes(FusionReactorRecipeHelper.reactorRecipes);
+
+        IRecipeTransferRegistry recipeTransferRegistry = registry.getRecipeTransferRegistry();
+        recipeTransferRegistry.addRecipeTransferHandler(ContainerFusionReactor.class, TechRebornCategoryUids.FUSION_REACTOR, 0, 2, 3, 36);
     }
 
     @Override
