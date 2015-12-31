@@ -14,6 +14,7 @@ import mezz.jei.api.IModRegistry;
 import mezz.jei.api.IRecipeRegistry;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 import mezz.jei.api.recipe.transfer.IRecipeTransferRegistry;
+import techreborn.Core;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.AssemblingMachineRecipe;
@@ -29,6 +30,7 @@ import techreborn.client.container.ContainerGrinder;
 import techreborn.client.container.ContainerImplosionCompressor;
 import techreborn.client.container.ContainerIndustrialElectrolyzer;
 import techreborn.client.container.ContainerIndustrialSawmill;
+import techreborn.client.container.ContainerRollingMachine;
 import techreborn.client.container.ContainerVacuumFreezer;
 import techreborn.compat.jei.alloySmelter.AlloySmelterRecipeCategory;
 import techreborn.compat.jei.alloySmelter.AlloySmelterRecipeHandler;
@@ -50,6 +52,9 @@ import techreborn.compat.jei.industrialElectrolyzer.IndustrialElectrolyzerRecipe
 import techreborn.compat.jei.industrialElectrolyzer.IndustrialElectrolyzerRecipeHandler;
 import techreborn.compat.jei.industrialSawmill.IndustrialSawmillRecipeCategory;
 import techreborn.compat.jei.industrialSawmill.IndustrialSawmillRecipeHandler;
+import techreborn.compat.jei.rollingMachine.RollingMachineRecipeCategory;
+import techreborn.compat.jei.rollingMachine.RollingMachineRecipeHandler;
+import techreborn.compat.jei.rollingMachine.RollingMachineRecipeMaker;
 import techreborn.compat.jei.vacuumFreezer.VacuumFreezerRecipeCategory;
 import techreborn.compat.jei.vacuumFreezer.VacuumFreezerRecipeHandler;
 
@@ -87,6 +92,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
                 new ImplosionCompressorRecipeCategory(guiHelper),
                 new IndustrialElectrolyzerRecipeCategory(guiHelper),
                 new IndustrialSawmillRecipeCategory(guiHelper),
+                new RollingMachineRecipeCategory(guiHelper),
                 new VacuumFreezerRecipeCategory(guiHelper)
         );
 
@@ -101,11 +107,19 @@ public class TechRebornJeiPlugin implements IModPlugin {
                 new ImplosionCompressorRecipeHandler(),
                 new IndustrialElectrolyzerRecipeHandler(),
                 new IndustrialSawmillRecipeHandler(),
+                new RollingMachineRecipeHandler(),
                 new VacuumFreezerRecipeHandler()
         );
 
         registry.addRecipes(RecipeHandler.recipeList);
         registry.addRecipes(FusionReactorRecipeHelper.reactorRecipes);
+
+        try {
+            registry.addRecipes(RollingMachineRecipeMaker.getRecipes());
+        } catch (RuntimeException e) {
+            Core.logHelper.error("Could not register rolling machine recipes. JEI may have changed its internal recipe wrapper locations.");
+            e.printStackTrace();
+        }
 
         if (mezz.jei.config.Config.isDebugModeEnabled()) {
             addDebugRecipes(registry);
