@@ -29,6 +29,7 @@ import techreborn.client.container.ContainerGrinder;
 import techreborn.client.container.ContainerImplosionCompressor;
 import techreborn.client.container.ContainerIndustrialElectrolyzer;
 import techreborn.client.container.ContainerIndustrialSawmill;
+import techreborn.client.container.ContainerVacuumFreezer;
 import techreborn.compat.jei.alloySmelter.AlloySmelterRecipeCategory;
 import techreborn.compat.jei.alloySmelter.AlloySmelterRecipeHandler;
 import techreborn.compat.jei.assemblingMachine.AssemblingMachineRecipeCategory;
@@ -49,6 +50,8 @@ import techreborn.compat.jei.industrialElectrolyzer.IndustrialElectrolyzerRecipe
 import techreborn.compat.jei.industrialElectrolyzer.IndustrialElectrolyzerRecipeHandler;
 import techreborn.compat.jei.industrialSawmill.IndustrialSawmillRecipeCategory;
 import techreborn.compat.jei.industrialSawmill.IndustrialSawmillRecipeHandler;
+import techreborn.compat.jei.vacuumFreezer.VacuumFreezerRecipeCategory;
+import techreborn.compat.jei.vacuumFreezer.VacuumFreezerRecipeHandler;
 
 @mezz.jei.api.JEIPlugin
 public class TechRebornJeiPlugin implements IModPlugin {
@@ -83,7 +86,8 @@ public class TechRebornJeiPlugin implements IModPlugin {
                 new GrinderRecipeCategory(guiHelper),
                 new ImplosionCompressorRecipeCategory(guiHelper),
                 new IndustrialElectrolyzerRecipeCategory(guiHelper),
-                new IndustrialSawmillRecipeCategory(guiHelper)
+                new IndustrialSawmillRecipeCategory(guiHelper),
+                new VacuumFreezerRecipeCategory(guiHelper)
         );
 
         registry.addRecipeHandlers(
@@ -96,7 +100,8 @@ public class TechRebornJeiPlugin implements IModPlugin {
                 new GrinderRecipeHandler(),
                 new ImplosionCompressorRecipeHandler(),
                 new IndustrialElectrolyzerRecipeHandler(),
-                new IndustrialSawmillRecipeHandler()
+                new IndustrialSawmillRecipeHandler(),
+                new VacuumFreezerRecipeHandler()
         );
 
         registry.addRecipes(RecipeHandler.recipeList);
@@ -119,6 +124,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
         recipeTransferRegistry.addRecipeTransferHandler(ContainerImplosionCompressor.class, RecipeCategoryUids.IMPLOSION_COMPRESSOR, 0, 2, 4, 36);
         recipeTransferRegistry.addRecipeTransferHandler(ContainerIndustrialElectrolyzer.class, RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER, 0, 2, 7, 36);
         recipeTransferRegistry.addRecipeTransferHandler(ContainerIndustrialSawmill.class, RecipeCategoryUids.INDUSTRIAL_SAWMILL, 0, 2, 5, 36);
+        recipeTransferRegistry.addRecipeTransferHandler(ContainerVacuumFreezer.class, RecipeCategoryUids.VACUUM_FREEZER, 0, 1, 2, 36);
     }
 
     @Override
