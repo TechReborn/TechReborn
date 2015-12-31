@@ -10,7 +10,7 @@ import techreborn.tiles.TileIndustrialElectrolyzer;
 
 public class GuiIndustrialElectrolyzer extends GuiContainer {
 
-    private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/industrial_electrolyzer.png");
+    public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/industrial_electrolyzer.png");
 
     TileIndustrialElectrolyzer eletrolyzer;
 
