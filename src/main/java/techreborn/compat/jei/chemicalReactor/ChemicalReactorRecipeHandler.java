@@ -1,0 +1,34 @@
+package techreborn.compat.jei.chemicalReactor;
+
+import javax.annotation.Nonnull;
+
+import mezz.jei.api.recipe.IRecipeHandler;
+import mezz.jei.api.recipe.IRecipeWrapper;
+import techreborn.api.recipe.machines.CentrifugeRecipe;
+import techreborn.api.recipe.machines.ChemicalReactorRecipe;
+import techreborn.compat.jei.RecipeCategoryUids;
+
+public class ChemicalReactorRecipeHandler implements IRecipeHandler<ChemicalReactorRecipe> {
+	@Nonnull
+	@Override
+	public Class<ChemicalReactorRecipe> getRecipeClass() {
+		return ChemicalReactorRecipe.class;
+	}
+
+	@Nonnull
+	@Override
+	public String getRecipeCategoryUid() {
+		return RecipeCategoryUids.CHEMICAL_REACTOR;
+	}
+
+	@Nonnull
+	@Override
+	public IRecipeWrapper getRecipeWrapper(@Nonnull ChemicalReactorRecipe recipe) {
+		return new ChemicalReactorRecipeWrapper(recipe);
+	}
+
+	@Override
+	public boolean isRecipeValid(@Nonnull ChemicalReactorRecipe recipe) {
+		return true;
+	}
+}
