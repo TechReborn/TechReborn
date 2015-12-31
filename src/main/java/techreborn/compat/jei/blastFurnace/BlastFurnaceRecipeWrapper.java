@@ -12,7 +12,7 @@ import techreborn.client.gui.GuiBlastFurnace;
 import techreborn.compat.jei.BaseRecipeWrapper;
 import techreborn.compat.jei.TechRebornJeiPlugin;
 
-public class BlastFurnaceRecipeWrapper extends BaseRecipeWrapper {
+public class BlastFurnaceRecipeWrapper extends BaseRecipeWrapper<BlastFurnaceRecipe> {
 	private final IDrawableAnimated progress;
 
 	public BlastFurnaceRecipeWrapper(BlastFurnaceRecipe baseRecipe) {

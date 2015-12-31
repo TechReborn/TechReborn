@@ -12,7 +12,7 @@ import techreborn.client.gui.GuiAlloySmelter;
 import techreborn.compat.jei.BaseRecipeWrapper;
 import techreborn.compat.jei.TechRebornJeiPlugin;
 
-public class AlloySmelterRecipeWrapper extends BaseRecipeWrapper {
+public class AlloySmelterRecipeWrapper extends BaseRecipeWrapper<AlloySmelterRecipe> {
 	private final IDrawableAnimated arrow;
 
 	public AlloySmelterRecipeWrapper(AlloySmelterRecipe baseRecipe) {

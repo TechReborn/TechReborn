@@ -24,10 +24,11 @@ import techreborn.lib.Reference;
 import techreborn.powerSystem.TilePowerAcceptor;
 
 public class TileGrinder extends TilePowerAcceptor implements IWrenchable, IFluidHandler, IInventory, ISidedInventory {
+    public static final int TANK_CAPACITY = 16000;
 
     public int tickTime;
     public Inventory inventory = new Inventory(6, "TileGrinder", 64, this);
-    public Tank tank = new Tank("TileGrinder", 16000, this);
+    public Tank tank = new Tank("TileGrinder", TANK_CAPACITY, this);
     public RecipeCrafter crafter;
     public int connectionStatus;
 

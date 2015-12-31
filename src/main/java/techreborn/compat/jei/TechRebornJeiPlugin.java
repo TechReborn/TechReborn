@@ -24,6 +24,7 @@ import techreborn.client.container.ContainerBlastFurnace;
 import techreborn.client.container.ContainerCentrifuge;
 import techreborn.client.container.ContainerChemicalReactor;
 import techreborn.client.container.ContainerFusionReactor;
+import techreborn.client.container.ContainerGrinder;
 import techreborn.compat.jei.alloySmelter.AlloySmelterRecipeCategory;
 import techreborn.compat.jei.alloySmelter.AlloySmelterRecipeHandler;
 import techreborn.compat.jei.assemblingMachine.AssemblingMachineRecipeCategory;
@@ -36,6 +37,8 @@ import techreborn.compat.jei.chemicalReactor.ChemicalReactorRecipeCategory;
 import techreborn.compat.jei.chemicalReactor.ChemicalReactorRecipeHandler;
 import techreborn.compat.jei.fusionReactor.FusionReactorRecipeCategory;
 import techreborn.compat.jei.fusionReactor.FusionReactorRecipeHandler;
+import techreborn.compat.jei.grinder.GrinderRecipeCategory;
+import techreborn.compat.jei.grinder.GrinderRecipeHandler;
 
 @mezz.jei.api.JEIPlugin
 public class TechRebornJeiPlugin implements IModPlugin {
@@ -66,7 +69,8 @@ public class TechRebornJeiPlugin implements IModPlugin {
                 new BlastFurnaceRecipeCategory(guiHelper),
                 new CentrifugeRecipeCategory(guiHelper),
                 new ChemicalReactorRecipeCategory(guiHelper),
-                new FusionReactorRecipeCategory(guiHelper)
+                new FusionReactorRecipeCategory(guiHelper),
+                new GrinderRecipeCategory(guiHelper)
         );
 
         registry.addRecipeHandlers(
@@ -75,7 +79,8 @@ public class TechRebornJeiPlugin implements IModPlugin {
                 new BlastFurnaceRecipeHandler(),
                 new CentrifugeRecipeHandler(),
                 new ChemicalReactorRecipeHandler(),
-                new FusionReactorRecipeHandler()
+                new FusionReactorRecipeHandler(),
+                new GrinderRecipeHandler()
         );
 
         registry.addRecipes(RecipeHandler.recipeList);
@@ -94,6 +99,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
         recipeTransferRegistry.addRecipeTransferHandler(ContainerCentrifuge.class, RecipeCategoryUids.CENTRIFUGE, 0, 2, 11, 36);
         recipeTransferRegistry.addRecipeTransferHandler(ContainerChemicalReactor.class, RecipeCategoryUids.CHEMICAL_REACTOR, 0, 2, 8, 36);
         recipeTransferRegistry.addRecipeTransferHandler(ContainerFusionReactor.class, RecipeCategoryUids.FUSION_REACTOR, 0, 2, 3, 36);
+        recipeTransferRegistry.addRecipeTransferHandler(ContainerGrinder.class, RecipeCategoryUids.GRINDER, 0, 2, 6, 36);
     }
 
     @Override

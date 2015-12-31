@@ -12,7 +12,7 @@ import techreborn.client.gui.GuiChemicalReactor;
 import techreborn.compat.jei.BaseRecipeWrapper;
 import techreborn.compat.jei.TechRebornJeiPlugin;
 
-public class ChemicalReactorRecipeWrapper extends BaseRecipeWrapper {
+public class ChemicalReactorRecipeWrapper extends BaseRecipeWrapper<ChemicalReactorRecipe> {
 	private final IDrawableAnimated progress;
 
 	public ChemicalReactorRecipeWrapper(ChemicalReactorRecipe baseRecipe) {

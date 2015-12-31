@@ -10,7 +10,7 @@ import techreborn.tiles.TileGrinder;
 
 public class GuiGrinder extends GuiContainer {
 
-    private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/industrial_grinder.png");
+    public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/industrial_grinder.png");
 
     TileGrinder grinder;
     ContainerGrinder containerGrinder;

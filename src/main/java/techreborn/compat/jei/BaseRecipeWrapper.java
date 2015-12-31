@@ -9,10 +9,10 @@ import net.minecraft.item.ItemStack;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
 import techreborn.api.recipe.BaseRecipe;
 
-public abstract class BaseRecipeWrapper extends BlankRecipeWrapper {
-	protected final BaseRecipe baseRecipe;
+public abstract class BaseRecipeWrapper<T extends BaseRecipe> extends BlankRecipeWrapper {
+	protected final T baseRecipe;
 
-	public BaseRecipeWrapper(BaseRecipe baseRecipe) {
+	public BaseRecipeWrapper(T baseRecipe) {
 		this.baseRecipe = baseRecipe;
 	}
 

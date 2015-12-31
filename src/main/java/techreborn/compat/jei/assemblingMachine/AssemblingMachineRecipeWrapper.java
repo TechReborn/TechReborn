@@ -12,7 +12,7 @@ import techreborn.client.gui.GuiAssemblingMachine;
 import techreborn.compat.jei.BaseRecipeWrapper;
 import techreborn.compat.jei.TechRebornJeiPlugin;
 
-public class AssemblingMachineRecipeWrapper extends BaseRecipeWrapper {
+public class AssemblingMachineRecipeWrapper extends BaseRecipeWrapper<AssemblingMachineRecipe> {
 	private final IDrawableAnimated progress;
 
 	public AssemblingMachineRecipeWrapper(AssemblingMachineRecipe baseRecipe) {

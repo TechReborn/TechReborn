@@ -12,7 +12,7 @@ import techreborn.client.gui.GuiCentrifuge;
 import techreborn.compat.jei.BaseRecipeWrapper;
 import techreborn.compat.jei.TechRebornJeiPlugin;
 
-public class CentrifugeRecipeWrapper extends BaseRecipeWrapper {
+public class CentrifugeRecipeWrapper extends BaseRecipeWrapper<CentrifugeRecipe> {
 	private final IDrawableAnimated progressUp;
 	private final IDrawableAnimated progressLeft;
 	private final IDrawableAnimated progressDown;
