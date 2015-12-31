@@ -5,7 +5,7 @@ import javax.annotation.Nonnull;
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import techreborn.api.reactor.FusionReactorRecipe;
-import techreborn.compat.jei.TechRebornCategoryUids;
+import techreborn.compat.jei.RecipeCategoryUids;
 
 public class FusionReactorRecipeHandler implements IRecipeHandler<FusionReactorRecipe> {
 
@@ -18,7 +18,7 @@ public class FusionReactorRecipeHandler implements IRecipeHandler<FusionReactorR
     @Nonnull
     @Override
     public String getRecipeCategoryUid() {
-        return TechRebornCategoryUids.FUSION_REACTOR;
+        return RecipeCategoryUids.FUSION_REACTOR;
     }
 
     @Nonnull

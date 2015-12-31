@@ -907,3 +907,5 @@ techreborn.jei.recipe.start.cost=Start: %sEU
 techreborn.jei.recipe.running.cost=EU/t: %s
 techreborn.jei.recipe.processing.time.1=Time: %s ticks
 techreborn.jei.recipe.processing.time.2=(%s seconds)
+
+techreborn.jei.category.alloy.furnace=Alloy Furnace

@@ -12,7 +12,7 @@ import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import techreborn.client.gui.GuiFusionReactor;
-import techreborn.compat.jei.TechRebornCategoryUids;
+import techreborn.compat.jei.RecipeCategoryUids;
 
 public class FusionReactorRecipeCategory implements IRecipeCategory {
 
@@ -33,7 +33,7 @@ public class FusionReactorRecipeCategory implements IRecipeCategory {
     @Nonnull
     @Override
     public String getUid() {
-        return TechRebornCategoryUids.FUSION_REACTOR;
+        return RecipeCategoryUids.FUSION_REACTOR;
     }
 
     @Nonnull
