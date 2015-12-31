@@ -82,11 +82,10 @@ public class GrinderRecipeCategory implements IRecipeCategory {
 		if (recipeWrapper instanceof GrinderRecipeWrapper) {
 			GrinderRecipeWrapper recipe = (GrinderRecipeWrapper) recipeWrapper;
 
-			List<ItemStack> inputs = recipe.getInputs();
+			List<List<ItemStack>> inputs = recipe.getInputs();
 			for (int i = 0; i < inputs.size() && i < INPUT_SLOTS.length; i++) {
 				int inputSlot = INPUT_SLOTS[i];
-				ItemStack input = inputs.get(i);
-				guiItemStacks.set(inputSlot, input);
+				guiItemStacks.set(inputSlot, inputs.get(i));
 			}
 
 			List<ItemStack> outputs = recipe.getOutputs();

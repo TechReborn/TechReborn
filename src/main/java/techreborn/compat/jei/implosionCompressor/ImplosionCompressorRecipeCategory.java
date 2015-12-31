@@ -74,7 +74,7 @@ public class ImplosionCompressorRecipeCategory implements IRecipeCategory {
 		if (recipeWrapper instanceof ImplosionCompressorRecipeWrapper) {
 			ImplosionCompressorRecipeWrapper recipe = (ImplosionCompressorRecipeWrapper) recipeWrapper;
 
-			List<ItemStack> inputs = recipe.getInputs();
+			List<List<ItemStack>> inputs = recipe.getInputs();
 			guiItemStacks.set(INPUT_SLOT_0, inputs.get(0));
 			if (inputs.size() > 1) {
 				guiItemStacks.set(INPUT_SLOT_1, inputs.get(1));

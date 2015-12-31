@@ -71,7 +71,7 @@ public class CentrifugeRecipeCategory implements IRecipeCategory {
 		if (recipeWrapper instanceof CentrifugeRecipeWrapper) {
 			CentrifugeRecipeWrapper recipe = (CentrifugeRecipeWrapper) recipeWrapper;
 
-			List<ItemStack> inputs = recipe.getInputs();
+			List<List<ItemStack>> inputs = recipe.getInputs();
 			guiItemStacks.set(INPUT_SLOT, inputs.get(0));
 			if (inputs.size() > 1) {
 				guiItemStacks.set(EMPTY_CELL_SLOT, inputs.get(1));
