@@ -25,13 +25,10 @@ public class BlastFurnaceRecipeCategory implements IRecipeCategory {
 	private static final int OUTPUT_SLOT_1 = 3;
 
 	private final IDrawable background;
-	private final IDrawable electricity;
 	private final String title;
 
 	public BlastFurnaceRecipeCategory(IGuiHelper guiHelper) {
-		background = guiHelper.createDrawable(GuiBlastFurnace.texture, 10, 24, 129, 36);
-		IDrawableStatic electricityDrawable = guiHelper.createDrawable(GuiBlastFurnace.texture, 176, 0, 14, 14);
-		electricity = guiHelper.createAnimatedDrawable(electricityDrawable, 300, IDrawableAnimated.StartDirection.TOP, true);
+		background = guiHelper.createDrawable(GuiBlastFurnace.texture, 39, 24, 100, 36);
 		title = StatCollector.translateToLocal("tile.techreborn.blastfurnace.name");
 	}
 
@@ -60,16 +57,16 @@ public class BlastFurnaceRecipeCategory implements IRecipeCategory {
 
 	@Override
 	public void drawAnimations(Minecraft minecraft) {
-		electricity.draw(minecraft, 0, 12);
+
 	}
 
 	@Override
 	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
-		guiItemStacks.init(INPUT_SLOT_0, true, 29, 0);
-		guiItemStacks.init(INPUT_SLOT_1, true, 29, 18);
-		guiItemStacks.init(OUTPUT_SLOT_0, false, 89, 10);
-		guiItemStacks.init(OUTPUT_SLOT_1, false, 107, 10);
+		guiItemStacks.init(INPUT_SLOT_0, true, 0, 0);
+		guiItemStacks.init(INPUT_SLOT_1, true, 0, 18);
+		guiItemStacks.init(OUTPUT_SLOT_0, false, 60, 10);
+		guiItemStacks.init(OUTPUT_SLOT_1, false, 78, 10);
 
 		if (recipeWrapper instanceof BlastFurnaceRecipeWrapper) {
 			BlastFurnaceRecipeWrapper recipe = (BlastFurnaceRecipeWrapper) recipeWrapper;

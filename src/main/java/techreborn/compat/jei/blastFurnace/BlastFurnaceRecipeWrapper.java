@@ -25,6 +25,6 @@ public class BlastFurnaceRecipeWrapper extends BaseRecipeWrapper<BlastFurnaceRec
 	@Override
 	public void drawAnimations(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight) {
 		super.drawAnimations(minecraft, recipeWidth, recipeHeight);
-		progress.draw(minecraft, 54, 13);
+		progress.draw(minecraft, 54-29, 13);
 	}
 }
