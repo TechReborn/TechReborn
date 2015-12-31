@@ -24,10 +24,11 @@ import techreborn.lib.Reference;
 import techreborn.powerSystem.TilePowerAcceptor;
 
 public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrenchable, IFluidHandler, IInventory, ISidedInventory, IListInfoProvider {
+    public static final int TANK_CAPACITY = 16000;
 
     public int tickTime;
     public Inventory inventory = new Inventory(5, "TileIndustrialSawmill", 64, this);
-    public Tank tank = new Tank("TileSawmill", 16000, this);
+    public Tank tank = new Tank("TileSawmill", TANK_CAPACITY, this);
     public RecipeCrafter crafter;
 
     public TileIndustrialSawmill() {
