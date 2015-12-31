@@ -22,7 +22,7 @@ import java.io.IOException;
 
 public class GuiBlastFurnace extends GuiContainer {
 
-    private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/industrial_blast_furnace.png");
+    public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/industrial_blast_furnace.png");
 
     TileBlastFurnace blastfurnace;
 

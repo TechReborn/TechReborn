@@ -20,11 +20,14 @@ import techreborn.api.recipe.machines.AssemblingMachineRecipe;
 import techreborn.client.container.ContainerAlloyFurnace;
 import techreborn.client.container.ContainerAlloySmelter;
 import techreborn.client.container.ContainerAssemblingMachine;
+import techreborn.client.container.ContainerBlastFurnace;
 import techreborn.client.container.ContainerFusionReactor;
 import techreborn.compat.jei.alloySmelter.AlloySmelterRecipeCategory;
 import techreborn.compat.jei.alloySmelter.AlloySmelterRecipeHandler;
 import techreborn.compat.jei.assemblingMachine.AssemblingMachineRecipeCategory;
 import techreborn.compat.jei.assemblingMachine.AssemblingMachineRecipeHandler;
+import techreborn.compat.jei.blastFurnace.BlastFurnaceRecipeCategory;
+import techreborn.compat.jei.blastFurnace.BlastFurnaceRecipeHandler;
 import techreborn.compat.jei.fusionReactor.FusionReactorRecipeCategory;
 import techreborn.compat.jei.fusionReactor.FusionReactorRecipeHandler;
 
@@ -54,12 +57,14 @@ public class TechRebornJeiPlugin implements IModPlugin {
         registry.addRecipeCategories(
                 new AlloySmelterRecipeCategory(guiHelper),
                 new AssemblingMachineRecipeCategory(guiHelper),
+                new BlastFurnaceRecipeCategory(guiHelper),
                 new FusionReactorRecipeCategory(guiHelper)
         );
 
         registry.addRecipeHandlers(
                 new AlloySmelterRecipeHandler(),
                 new AssemblingMachineRecipeHandler(),
+                new BlastFurnaceRecipeHandler(),
                 new FusionReactorRecipeHandler()
         );
 
@@ -75,6 +80,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
         recipeTransferRegistry.addRecipeTransferHandler(ContainerAlloySmelter.class, RecipeCategoryUids.ALLOY_SMELTER, 0, 2, 8, 36);
         recipeTransferRegistry.addRecipeTransferHandler(ContainerAlloyFurnace.class, VanillaRecipeCategoryUid.FUEL, 3, 1, 4, 36);
         recipeTransferRegistry.addRecipeTransferHandler(ContainerAssemblingMachine.class, RecipeCategoryUids.ASSEMBLING_MACHINE, 0, 2, 8, 36);
+        recipeTransferRegistry.addRecipeTransferHandler(ContainerBlastFurnace.class, RecipeCategoryUids.BLAST_FURNACE, 0, 2, 4, 36);
         recipeTransferRegistry.addRecipeTransferHandler(ContainerFusionReactor.class, RecipeCategoryUids.FUSION_REACTOR, 0, 2, 3, 36);
     }
 
