@@ -10,7 +10,7 @@ import techreborn.tiles.TileAssemblingMachine;
 
 public class GuiAssemblingMachine extends GuiContainer {
 
-    private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/assembling_machine.png");
+    public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/assembling_machine.png");
 
     TileAssemblingMachine assemblingmachine;
     ContainerAssemblingMachine containerAssemblingMachine;
