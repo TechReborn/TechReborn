@@ -1,11 +1,11 @@
 package techreborn.compat.jei.fusionReactor;
 
+import javax.annotation.Nonnull;
+
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import techreborn.api.reactor.FusionReactorRecipe;
-
-import javax.annotation.Nonnull;
-
+import techreborn.compat.jei.TechRebornCategoryUids;
 
 public class FusionReactorRecipeHandler implements IRecipeHandler<FusionReactorRecipe> {
 
@@ -18,7 +18,7 @@ public class FusionReactorRecipeHandler implements IRecipeHandler<FusionReactorR
     @Nonnull
     @Override
     public String getRecipeCategoryUid() {
-        return "FusionReactor";
+        return TechRebornCategoryUids.FUSION_REACTOR;
     }
 
     @Nonnull

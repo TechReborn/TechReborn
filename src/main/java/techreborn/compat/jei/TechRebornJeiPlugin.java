@@ -1,26 +1,27 @@
 package techreborn.compat.jei;
 
-import mezz.jei.api.*;
-import net.minecraftforge.fml.common.Loader;
+import mezz.jei.api.IGuiHelper;
+import mezz.jei.api.IItemRegistry;
+import mezz.jei.api.IJeiHelpers;
+import mezz.jei.api.IModPlugin;
+import mezz.jei.api.IModRegistry;
+import mezz.jei.api.IRecipeRegistry;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.compat.jei.fusionReactor.FusionReactorRecipeCategory;
 import techreborn.compat.jei.fusionReactor.FusionReactorRecipeHandler;
-import techreborn.lib.ModInfo;
-
-import java.util.ArrayList;
-import java.util.List;
-
 
 @mezz.jei.api.JEIPlugin
-public class TechRebornPlugin implements IModPlugin {
+public class TechRebornJeiPlugin implements IModPlugin {
+    private IJeiHelpers jeiHelpers;
+
     @Override
     public boolean isModLoaded() {
-        return Loader.isModLoaded(ModInfo.MOD_ID);
+        return true;
     }
 
     @Override
     public void onJeiHelpersAvailable(IJeiHelpers jeiHelpers) {
-
+        this.jeiHelpers = jeiHelpers;
     }
 
     @Override
@@ -30,15 +31,17 @@ public class TechRebornPlugin implements IModPlugin {
 
     @Override
     public void register(IModRegistry registry) {
+        IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
+
         registry.addRecipeCategories(
-                new FusionReactorRecipeCategory()
+                new FusionReactorRecipeCategory(guiHelper)
         );
+
         registry.addRecipeHandlers(
                 new FusionReactorRecipeHandler()
         );
-        List<Object> recipes = new ArrayList<>();
-        recipes.addAll(FusionReactorRecipeHelper.reactorRecipes);
-        registry.addRecipes(recipes);
+
+        registry.addRecipes(FusionReactorRecipeHelper.reactorRecipes);
     }
 
     @Override
