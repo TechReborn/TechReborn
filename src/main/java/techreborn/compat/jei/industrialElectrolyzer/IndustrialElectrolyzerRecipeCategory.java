@@ -1,10 +1,8 @@
 package techreborn.compat.jei.industrialElectrolyzer;
 
 import javax.annotation.Nonnull;
-import java.util.List;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
 import mezz.jei.api.IGuiHelper;
@@ -15,6 +13,7 @@ import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import techreborn.client.gui.GuiIndustrialElectrolyzer;
 import techreborn.compat.jei.RecipeCategoryUids;
+import techreborn.compat.jei.RecipeUtil;
 
 public class IndustrialElectrolyzerRecipeCategory implements IRecipeCategory {
 	private static final int[] INPUT_SLOTS = {0, 1};
@@ -68,19 +67,7 @@ public class IndustrialElectrolyzerRecipeCategory implements IRecipeCategory {
 
 		if (recipeWrapper instanceof IndustrialElectrolyzerRecipeWrapper) {
 			IndustrialElectrolyzerRecipeWrapper recipe = (IndustrialElectrolyzerRecipeWrapper) recipeWrapper;
-
-			List<List<ItemStack>> inputs = recipe.getInputs();
-			for (int i = 0; i < inputs.size() && i < INPUT_SLOTS.length; i++) {
-				int inputSlot = INPUT_SLOTS[i];
-				guiItemStacks.set(inputSlot, inputs.get(i));
-			}
-
-			List<ItemStack> outputs = recipe.getOutputs();
-			for (int i = 0; i < outputs.size() && i < OUTPUT_SLOTS.length; i++) {
-				int outputSlot = OUTPUT_SLOTS[i];
-				ItemStack output = outputs.get(i);
-				guiItemStacks.set(outputSlot, output);
-			}
+			RecipeUtil.setRecipeItems(recipeLayout, recipe, INPUT_SLOTS, OUTPUT_SLOTS, null, null);
 		}
 	}
 }

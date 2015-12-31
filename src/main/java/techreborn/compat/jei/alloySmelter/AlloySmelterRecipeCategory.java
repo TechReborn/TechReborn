@@ -15,11 +15,11 @@ import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import techreborn.client.gui.GuiAlloySmelter;
 import techreborn.compat.jei.RecipeCategoryUids;
+import techreborn.compat.jei.RecipeUtil;
 
 public class AlloySmelterRecipeCategory implements IRecipeCategory {
-	private static final int INPUT_SLOT_0 = 0;
-	private static final int INPUT_SLOT_1 = 1;
-	private static final int OUTPUT_SLOT = 2;
+	private static final int[] INPUT_SLOTS = {0, 1};
+	private static final int[] OUTPUT_SLOTS = {2};
 
 	private final IDrawable background;
 	private final IDrawableAnimated electricity;
@@ -63,15 +63,13 @@ public class AlloySmelterRecipeCategory implements IRecipeCategory {
 	@Override
 	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
-		guiItemStacks.init(INPUT_SLOT_0, true, 0, 0);
-		guiItemStacks.init(INPUT_SLOT_1, true, 18, 0);
-		guiItemStacks.init(OUTPUT_SLOT, false, 69, 18);
+		guiItemStacks.init(INPUT_SLOTS[0], true, 0, 0);
+		guiItemStacks.init(INPUT_SLOTS[1], true, 18, 0);
+		guiItemStacks.init(OUTPUT_SLOTS[0], false, 69, 18);
 
 		if (recipeWrapper instanceof AlloySmelterRecipeWrapper) {
-			AlloySmelterRecipeWrapper alloySmelterRecipe = (AlloySmelterRecipeWrapper) recipeWrapper;
-			guiItemStacks.set(INPUT_SLOT_0, alloySmelterRecipe.getInputs().get(0));
-			guiItemStacks.set(INPUT_SLOT_1, alloySmelterRecipe.getInputs().get(1));
-			guiItemStacks.set(OUTPUT_SLOT, alloySmelterRecipe.getOutputs());
+			AlloySmelterRecipeWrapper recipe = (AlloySmelterRecipeWrapper) recipeWrapper;
+			RecipeUtil.setRecipeItems(recipeLayout, recipe, INPUT_SLOTS, OUTPUT_SLOTS, null, null);
 		}
 	}
 }

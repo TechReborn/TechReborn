@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 
 import mezz.jei.api.recipe.BlankRecipeWrapper;
 import techreborn.api.reactor.FusionReactorRecipe;
-import techreborn.compat.jei.RecipeInfoUtil;
+import techreborn.compat.jei.RecipeUtil;
 
 public class FusionReactorRecipeWrapper extends BlankRecipeWrapper {
     private FusionReactorRecipe baseRecipe;
@@ -39,6 +39,6 @@ public class FusionReactorRecipeWrapper extends BlankRecipeWrapper {
 
     @Override
     public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight) {
-        RecipeInfoUtil.drawInfo(minecraft, 0, 67, baseRecipe.getStartEU(), baseRecipe.getEuTick(), baseRecipe.getTickTime());
+        RecipeUtil.drawInfo(minecraft, 0, 67, baseRecipe.getStartEU(), baseRecipe.getEuTick(), baseRecipe.getTickTime());
     }
 }

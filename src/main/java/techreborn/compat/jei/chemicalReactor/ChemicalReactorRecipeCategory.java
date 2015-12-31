@@ -1,10 +1,8 @@
 package techreborn.compat.jei.chemicalReactor;
 
 import javax.annotation.Nonnull;
-import java.util.List;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
 import mezz.jei.api.IGuiHelper;
@@ -15,11 +13,11 @@ import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import techreborn.client.gui.GuiChemicalReactor;
 import techreborn.compat.jei.RecipeCategoryUids;
+import techreborn.compat.jei.RecipeUtil;
 
 public class ChemicalReactorRecipeCategory implements IRecipeCategory {
-	private static final int INPUT_SLOT_0 = 0;
-	private static final int INPUT_SLOT_1 = 1;
-	private static final int OUTPUT_SLOT = 2;
+	private static final int[] INPUT_SLOTS = {0, 1};
+	private static final int[] OUTPUT_SLOTS = {2};
 
 	private final IDrawable background;
 	private final String title;
@@ -60,21 +58,14 @@ public class ChemicalReactorRecipeCategory implements IRecipeCategory {
 	@Override
 	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
-		guiItemStacks.init(INPUT_SLOT_0, true, 0, 0);
-		guiItemStacks.init(INPUT_SLOT_1, true, 20, 0);
+		guiItemStacks.init(INPUT_SLOTS[0], true, 0, 0);
+		guiItemStacks.init(INPUT_SLOTS[1], true, 20, 0);
 
-		guiItemStacks.init(OUTPUT_SLOT, false, 10, 30);
+		guiItemStacks.init(OUTPUT_SLOTS[0], false, 10, 30);
 
 		if (recipeWrapper instanceof ChemicalReactorRecipeWrapper) {
 			ChemicalReactorRecipeWrapper recipe = (ChemicalReactorRecipeWrapper) recipeWrapper;
-
-			List<List<ItemStack>> inputs = recipe.getInputs();
-			guiItemStacks.set(INPUT_SLOT_0, inputs.get(0));
-			if (inputs.size() > 1) {
-				guiItemStacks.set(INPUT_SLOT_1, inputs.get(1));
-			}
-
-			guiItemStacks.set(OUTPUT_SLOT, recipe.getOutputs());
+			RecipeUtil.setRecipeItems(recipeLayout, recipe, INPUT_SLOTS, OUTPUT_SLOTS, null, null);
 		}
 	}
 }

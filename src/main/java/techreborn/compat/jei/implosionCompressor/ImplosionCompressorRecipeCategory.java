@@ -1,10 +1,8 @@
 package techreborn.compat.jei.implosionCompressor;
 
 import javax.annotation.Nonnull;
-import java.util.List;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
 import mezz.jei.api.IGuiHelper;
@@ -17,12 +15,11 @@ import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import techreborn.client.gui.GuiImplosionCompressor;
 import techreborn.compat.jei.RecipeCategoryUids;
+import techreborn.compat.jei.RecipeUtil;
 
 public class ImplosionCompressorRecipeCategory implements IRecipeCategory {
-	private static final int INPUT_SLOT_0 = 0;
-	private static final int INPUT_SLOT_1 = 1;
-	private static final int OUTPUT_SLOT_0 = 2;
-	private static final int OUTPUT_SLOT_1 = 3;
+	private static final int[] INPUT_SLOTS = {0, 1};
+	private static final int[] OUTPUT_SLOTS = {2, 3};
 
 	private final IDrawable background;
 	private final IDrawable electricity;
@@ -66,25 +63,15 @@ public class ImplosionCompressorRecipeCategory implements IRecipeCategory {
 	@Override
 	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
-		guiItemStacks.init(INPUT_SLOT_0, true, 20, 0);
-		guiItemStacks.init(INPUT_SLOT_1, true, 20, 18);
-		guiItemStacks.init(OUTPUT_SLOT_0, false, 76, 9);
-		guiItemStacks.init(OUTPUT_SLOT_1, false, 94, 9);
+		guiItemStacks.init(INPUT_SLOTS[0], true, 20, 0);
+		guiItemStacks.init(INPUT_SLOTS[1], true, 20, 18);
+
+		guiItemStacks.init(OUTPUT_SLOTS[0], false, 76, 9);
+		guiItemStacks.init(OUTPUT_SLOTS[1], false, 94, 9);
 
 		if (recipeWrapper instanceof ImplosionCompressorRecipeWrapper) {
 			ImplosionCompressorRecipeWrapper recipe = (ImplosionCompressorRecipeWrapper) recipeWrapper;
-
-			List<List<ItemStack>> inputs = recipe.getInputs();
-			guiItemStacks.set(INPUT_SLOT_0, inputs.get(0));
-			if (inputs.size() > 1) {
-				guiItemStacks.set(INPUT_SLOT_1, inputs.get(1));
-			}
-
-			List<ItemStack> outputs = recipe.getOutputs();
-			guiItemStacks.set(OUTPUT_SLOT_0, outputs.get(0));
-			if (outputs.size() > 1) {
-				guiItemStacks.set(OUTPUT_SLOT_1, outputs.get(1));
-			}
+			RecipeUtil.setRecipeItems(recipeLayout, recipe, INPUT_SLOTS, OUTPUT_SLOTS, null, null);
 		}
 	}
 }

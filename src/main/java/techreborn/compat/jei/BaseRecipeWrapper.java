@@ -56,6 +56,6 @@ public abstract class BaseRecipeWrapper<T extends BaseRecipe> extends BlankRecip
 	@Override
 	public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight) {
 		// TODO: make right location for each recipe
-		//		RecipeInfoUtil.drawInfo(minecraft, 0, 0, baseRecipe.euPerTick(), baseRecipe.tickTime());
+		//		RecipeUtil.drawInfo(minecraft, 0, 0, baseRecipe.euPerTick(), baseRecipe.tickTime());
 	}
 }

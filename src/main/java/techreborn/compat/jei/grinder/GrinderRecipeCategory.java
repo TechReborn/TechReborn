@@ -1,13 +1,9 @@
 package techreborn.compat.jei.grinder;
 
 import javax.annotation.Nonnull;
-import java.util.List;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
-
-import net.minecraftforge.fluids.FluidStack;
 
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
@@ -18,12 +14,13 @@ import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import techreborn.client.gui.GuiGrinder;
 import techreborn.compat.jei.RecipeCategoryUids;
+import techreborn.compat.jei.RecipeUtil;
 import techreborn.tiles.TileGrinder;
 
 public class GrinderRecipeCategory implements IRecipeCategory {
 	private static final int[] INPUT_SLOTS = {0, 1};
 	private static final int[] OUTPUT_SLOTS = {2, 3, 4, 5};
-	private static final int INPUT_TANK = 0;
+	private static final int[] INPUT_TANKS = {0};
 
 	private final IDrawable background;
 	private final IDrawable blankArea; // for covering the lightning power symbol
@@ -77,28 +74,11 @@ public class GrinderRecipeCategory implements IRecipeCategory {
 		guiItemStacks.init(OUTPUT_SLOTS[3], false, 123, 19);
 
 		IGuiFluidStackGroup guiFluidStacks = recipeLayout.getFluidStacks();
-		guiFluidStacks.init(INPUT_TANK, true, 4, 4, 12, 47, TileGrinder.TANK_CAPACITY, tankOverlay);
+		guiFluidStacks.init(INPUT_TANKS[0], true, 4, 4, 12, 47, TileGrinder.TANK_CAPACITY, tankOverlay);
 
 		if (recipeWrapper instanceof GrinderRecipeWrapper) {
 			GrinderRecipeWrapper recipe = (GrinderRecipeWrapper) recipeWrapper;
-
-			List<List<ItemStack>> inputs = recipe.getInputs();
-			for (int i = 0; i < inputs.size() && i < INPUT_SLOTS.length; i++) {
-				int inputSlot = INPUT_SLOTS[i];
-				guiItemStacks.set(inputSlot, inputs.get(i));
-			}
-
-			List<ItemStack> outputs = recipe.getOutputs();
-			for (int i = 0; i < outputs.size() && i < OUTPUT_SLOTS.length; i++) {
-				int outputSlot = OUTPUT_SLOTS[i];
-				ItemStack output = outputs.get(i);
-				guiItemStacks.set(outputSlot, output);
-			}
-
-			List<FluidStack> fluidInputs = recipe.getFluidInputs();
-			if (fluidInputs.size() > 0) {
-				guiFluidStacks.set(INPUT_TANK, fluidInputs.get(0));
-			}
+			RecipeUtil.setRecipeItems(recipeLayout, recipe, INPUT_SLOTS, OUTPUT_SLOTS, INPUT_TANKS, null);
 		}
 	}
 }
