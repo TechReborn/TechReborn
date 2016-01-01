@@ -48,6 +48,17 @@ public class BlockOre extends BaseBlock implements IBlockTextureProvider {
         return getOreByName(name, 1);
     }
 
+    public IBlockState getBlockStateFromName(String name){
+        int index = -1;
+        for (int i = 0; i < types.length; i++) {
+            if (types[i].equals(name)) {
+                index = i;
+                break;
+            }
+        }
+        return getStateFromMeta(index);
+    }
+
     public static final String[] types = new String[]
             {"Galena", "Iridium", "Ruby", "Sapphire", "Bauxite", "Pyrite", "Cinnabar",
                     "Sphalerite", "Tungston", "Sheldonite", "Peridot", "Sodalite",

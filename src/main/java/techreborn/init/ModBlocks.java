@@ -65,7 +65,7 @@ public class ModBlocks {
     public static Block chargeBench;
     public static Block playerDetector;
 
-    public static Block ore;
+    public static BlockOre ore;
     public static Block storage;
     public static Block storage2;
     public static Block machineframe;

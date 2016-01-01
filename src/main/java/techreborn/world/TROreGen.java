@@ -33,26 +33,26 @@ public class TROreGen implements IWorldGenerator {
 
     public TROreGen() {
         // World
-        oreGalena = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(0), ConfigTechReborn.GalenaOreRare);
-        oreIridium = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(1), ConfigTechReborn.IridiumOreRare);
-        oreRuby = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(2), ConfigTechReborn.RubyOreRare);
-        oreSapphire = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(3), ConfigTechReborn.SapphireOreRare);
-        oreBauxite = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(4), ConfigTechReborn.BauxiteOreRare);
-        oreTetrahedrite = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(12), ConfigTechReborn.TetrahedriteOreRare);
-        oreCassiterite = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(13), ConfigTechReborn.CassiteriteOreRare);
-        oreLead = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(14), ConfigTechReborn.LeadOreRare);
-        oreSilver = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(15), ConfigTechReborn.SilverOreRare);
+        oreGalena = new WorldGenMinable(ModBlocks.ore.getBlockStateFromName("Galena"), ConfigTechReborn.GalenaOreRare);
+        oreIridium = new WorldGenMinable(ModBlocks.ore.getBlockStateFromName("Iridium"), ConfigTechReborn.IridiumOreRare);
+        oreRuby = new WorldGenMinable(ModBlocks.ore.getBlockStateFromName("Ruby"), ConfigTechReborn.RubyOreRare);
+        oreSapphire = new WorldGenMinable(ModBlocks.ore.getBlockStateFromName("Sapphire"), ConfigTechReborn.SapphireOreRare);
+        oreBauxite = new WorldGenMinable(ModBlocks.ore.getBlockStateFromName("Bauxite"), ConfigTechReborn.BauxiteOreRare);
+        oreTetrahedrite = new WorldGenMinable(ModBlocks.ore.getBlockStateFromName("Tetrahedrite"), ConfigTechReborn.TetrahedriteOreRare);
+        oreCassiterite = new WorldGenMinable(ModBlocks.ore.getBlockStateFromName("Cassiterite"), ConfigTechReborn.CassiteriteOreRare);
+        oreLead = new WorldGenMinable(ModBlocks.ore.getBlockStateFromName("Lead"), ConfigTechReborn.LeadOreRare);
+        oreSilver = new WorldGenMinable(ModBlocks.ore.getBlockStateFromName("Silver"), ConfigTechReborn.SilverOreRare);
 
         // Nether
-        orePyrite = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(5), ConfigTechReborn.PyriteOreRare);
-        oreCinnabar = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(6), ConfigTechReborn.CinnabarOreRare);
-        oreSphalerite = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(7), ConfigTechReborn.SphaleriteOreRare);
+        orePyrite = new WorldGenMinable(ModBlocks.ore.getBlockStateFromName("Pyrite"), ConfigTechReborn.PyriteOreRare);
+        oreCinnabar = new WorldGenMinable(ModBlocks.ore.getBlockStateFromName("Cinnabar"), ConfigTechReborn.CinnabarOreRare);
+        oreSphalerite = new WorldGenMinable(ModBlocks.ore.getBlockStateFromName("Sphalerite"), ConfigTechReborn.SphaleriteOreRare);
 
         // End
-        oreTungston = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(8), ConfigTechReborn.TungstenOreRare);
-        oreSheldonite = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(9), ConfigTechReborn.SheldoniteOreRare);
-        orePeridot = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(10), ConfigTechReborn.PeridotOreRare);
-        oreSodalite = new WorldGenMinable(ModBlocks.ore.getStateFromMeta(11), ConfigTechReborn.SodaliteOreRare);
+        oreTungston = new WorldGenMinable(ModBlocks.ore.getBlockStateFromName("Tungston"), ConfigTechReborn.TungstenOreRare);
+        oreSheldonite = new WorldGenMinable(ModBlocks.ore.getBlockStateFromName("Sheldonite"), ConfigTechReborn.SheldoniteOreRare);
+        orePeridot = new WorldGenMinable(ModBlocks.ore.getBlockStateFromName("Peridot"), ConfigTechReborn.PeridotOreRare);
+        oreSodalite = new WorldGenMinable(ModBlocks.ore.getBlockStateFromName("Sodalite"), ConfigTechReborn.SodaliteOreRare);
 
         Core.logHelper.info("WorldGen Loaded");
     }
