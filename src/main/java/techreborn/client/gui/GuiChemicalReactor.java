@@ -10,7 +10,7 @@ import techreborn.tiles.TileChemicalReactor;
 
 public class GuiChemicalReactor extends GuiContainer {
 
-    private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/chemical_reactor.png");
+    public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/chemical_reactor.png");
 
     TileChemicalReactor chemicalReactor;
     ContainerChemicalReactor containerChemicalReactor;

@@ -901,3 +901,11 @@ achievement.TechReborn:ore_Pickup=New ore!
 achievement.TechReborn:ore_Pickup.desc=Mine a techreborn ore
 achievement.TechReborn:centrifuge_Craft=Time to spin
 achievement.TechReborn:thermalgen_Craft=Time to heat
+
+# JEI Integration
+techreborn.jei.recipe.start.cost=Start: %sEU
+techreborn.jei.recipe.running.cost=EU/t: %s
+techreborn.jei.recipe.processing.time.1=Time: %s ticks
+techreborn.jei.recipe.processing.time.2=(%s seconds)
+
+techreborn.jei.category.alloy.furnace=Alloy Furnace

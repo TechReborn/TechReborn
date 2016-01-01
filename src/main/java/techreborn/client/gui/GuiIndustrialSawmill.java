@@ -11,7 +11,7 @@ import techreborn.tiles.TileIndustrialSawmill;
 
 public class GuiIndustrialSawmill extends GuiContainer {
 
-    private static final ResourceLocation texture = new ResourceLocation(
+    public static final ResourceLocation texture = new ResourceLocation(
             "techreborn", "textures/gui/industrial_sawmill.png");
 
     TileIndustrialSawmill sawmill;

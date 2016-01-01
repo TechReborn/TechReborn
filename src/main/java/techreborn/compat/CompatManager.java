@@ -1,8 +1,8 @@
 package techreborn.compat;
 
 import net.minecraftforge.fml.common.Loader;
-import techreborn.compat.jei.JEIPlugin;
 import techreborn.compat.minetweaker.MinetweakerCompat;
+import techreborn.compat.recipes.RecipesBiomesOPlenty;
 import techreborn.compat.recipes.RecipesStandalone;
 import techreborn.compat.waila.CompatModuleWaila;
 import techreborn.config.ConfigTechReborn;
@@ -32,11 +32,10 @@ public class CompatManager {
         if (Loader.isModLoaded("gregtech")) {
             isGregTechLoaded = true;
         }
-        registerCompact(JEIPlugin.class, "JEI");
         registerCompact(CompatModuleWaila.class, "Waila");
         registerCompact(RecipesStandalone.class);
         registerCompact(MinetweakerCompat.class, "MineTweaker3");
-     //   registerCompact(RecipesBiomesOPlenty.class, "BiomesOPlenty");
+        registerCompact(RecipesBiomesOPlenty.class, "BiomesOPlenty");
     }
 
     public void registerCompact(Class<?> moduleClass, Object... objs) {

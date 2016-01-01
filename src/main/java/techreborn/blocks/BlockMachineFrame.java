@@ -68,13 +68,8 @@ public class BlockMachineFrame extends BaseBlock implements IBlockTextureProvide
     }
 
     @Override
-    public IBlockState getStateFromMetaValue(int meta) {
-        return this.getDefaultState().withProperty(METADATA, meta);
-    }
-
-    @Override
     public int getMetaFromState(IBlockState state) {
-        return (Integer) state.getValue(METADATA);
+        return state.getValue(METADATA);
     }
 
     protected BlockState createBlockState() {
@@ -85,6 +80,6 @@ public class BlockMachineFrame extends BaseBlock implements IBlockTextureProvide
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return getStateFromMetaValue(meta);
+        return this.getDefaultState().withProperty(METADATA, meta);
     }
 }

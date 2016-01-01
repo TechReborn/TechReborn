@@ -359,18 +359,6 @@ public abstract class BlockMachineBase extends BaseTileBlock implements IBlockTe
     }
 
     @Override
-    public IBlockState getStateFromMetaValue(int meta) {
-        boolean active = false;
-        int facingInt = meta;
-        if(facingInt > 3){
-            active = true;
-            facingInt = facingInt - 3;
-        }
-        EnumFacing facing = getSideFromint(facingInt);
-        return this.getDefaultState().withProperty(FACING, facing).withProperty(ACTIVE, active);
-    }
-
-    @Override
     public int getMetaFromState(IBlockState state) {
         int facingInt = getSideFromEnum(state.getValue(FACING));
         int activeInt = state.getValue(ACTIVE) ? 0 : 3;
@@ -379,7 +367,14 @@ public abstract class BlockMachineBase extends BaseTileBlock implements IBlockTe
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return getStateFromMetaValue(meta);
+        boolean active = false;
+        int facingInt = meta;
+        if(facingInt > 3){
+            active = true;
+            facingInt = facingInt - 3;
+        }
+        EnumFacing facing = getSideFromint(facingInt);
+        return this.getDefaultState().withProperty(FACING, facing).withProperty(ACTIVE, active);
     }
 
     public boolean isActive(IBlockState state){

@@ -10,7 +10,7 @@ import techreborn.tiles.TileCentrifuge;
 
 public class GuiCentrifuge extends GuiContainer {
 
-    private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/industrial_centrifuge.png");
+    public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/industrial_centrifuge.png");
 
     TileCentrifuge centrifuge;
 

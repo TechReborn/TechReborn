@@ -19,7 +19,7 @@ import java.io.IOException;
 
 public class GuiVacuumFreezer extends GuiContainer {
 
-    private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/vacuum_freezer.png");
+    public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/vacuum_freezer.png");
 
     TileVacuumFreezer crafter;
     ContainerVacuumFreezer containerVacuumFreezer;
