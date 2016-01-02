@@ -36,6 +36,7 @@ public class BlockMachineBase extends BlockContainer {
         setCreativeTab(TechRebornCreativeTab.instance);
         setHardness(2f);
         setStepSound(soundTypeMetal);
+       // ModBlocks.blocksToCut.add(this);
     }
 
     @Override

@@ -44,6 +44,7 @@ public class BlockStorage extends Block {
         setBlockName("techreborn.storage");
         setCreativeTab(TechRebornCreativeTabMisc.instance);
         setHardness(2f);
+        ModBlocks.blocksToCut.add(this);
     }
 
     @Override

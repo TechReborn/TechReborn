@@ -21,7 +21,11 @@ import techreborn.tiles.idsu.TileIDSU;
 import techreborn.tiles.lesu.TileLesu;
 import techreborn.tiles.lesu.TileLesuStorage;
 
+import java.util.ArrayList;
+
 public class ModBlocks {
+
+    public static ArrayList<Block> blocksToCut = new ArrayList<Block>();
 
     public static Block thermalGenerator;
     public static Block quantumTank;

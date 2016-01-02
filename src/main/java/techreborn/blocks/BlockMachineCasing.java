@@ -17,6 +17,7 @@ import reborncore.common.multiblock.BlockMultiblockBase;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.client.texture.CasingConnectedTextureGenerator;
 import techreborn.config.ConfigTechReborn;
+import techreborn.init.ModBlocks;
 import techreborn.tiles.TileMachineCasing;
 
 import java.util.List;
@@ -33,6 +34,7 @@ public class BlockMachineCasing extends BlockMultiblockBase {
         setCreativeTab(TechRebornCreativeTab.instance);
         setBlockName("techreborn.machineCasing");
         setHardness(2F);
+        ModBlocks.blocksToCut.add(this);
     }
 
     public static int getHeatFromMeta(int meta) {

@@ -3,6 +3,7 @@ package techreborn.compat;
 import cpw.mods.fml.common.Loader;
 import ic2.api.info.IC2Classic;
 import techreborn.compat.ee3.EmcValues;
+import techreborn.compat.fmp.ForgeMultipartCompat;
 import techreborn.compat.minetweaker.MinetweakerCompat;
 import techreborn.compat.recipes.*;
 import techreborn.compat.waila.CompatModuleWaila;
@@ -45,6 +46,7 @@ public class CompatManager {
         registerCompact(RecipesThaumcraft.class, "Thaumcraft");
         registerCompact(RecipesForestry.class, "Forestry", isForestry4());
         registerCompact(MinetweakerCompat.class, "MineTweaker3");
+        registerCompact(ForgeMultipartCompat.class, "ForgeMultipart");
     }
 
     public void registerCompact(Class<?> moduleClass, Object... objs) {

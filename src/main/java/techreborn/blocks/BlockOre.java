@@ -55,6 +55,7 @@ public class BlockOre extends Block {
         setBlockName("techreborn.ore");
         setCreativeTab(TechRebornCreativeTabMisc.instance);
         setHardness(2.0f);
+        ModBlocks.blocksToCut.add(this);
     }
 
     @Override

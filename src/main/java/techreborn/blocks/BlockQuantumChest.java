@@ -16,6 +16,7 @@ import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.init.ModBlocks;
 import techreborn.tiles.TileQuantumChest;
 
 public class BlockQuantumChest extends BlockContainer {
@@ -34,6 +35,7 @@ public class BlockQuantumChest extends BlockContainer {
         setBlockName("techreborn.quantumChest");
         setCreativeTab(TechRebornCreativeTab.instance);
         setHardness(2.0F);
+        ModBlocks.blocksToCut.add(this);
     }
 
     @Override

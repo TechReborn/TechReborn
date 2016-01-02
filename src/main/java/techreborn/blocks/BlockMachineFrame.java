@@ -38,6 +38,7 @@ public class BlockMachineFrame extends Block {
         setBlockName("techreborn.machineFrame");
         setCreativeTab(TechRebornCreativeTab.instance);
         setHardness(1f);
+        ModBlocks.blocksToCut.add(this);
     }
 
     @Override

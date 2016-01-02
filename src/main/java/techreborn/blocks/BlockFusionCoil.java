@@ -6,6 +6,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
+import techreborn.init.ModBlocks;
 
 public class BlockFusionCoil extends BlockMachineBase {
 
@@ -21,6 +22,7 @@ public class BlockFusionCoil extends BlockMachineBase {
     public BlockFusionCoil(Material material) {
         super(material);
         setBlockName("techreborn.fusioncoil");
+        ModBlocks.blocksToCut.add(this);
     }
 
     @Override
