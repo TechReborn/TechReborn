@@ -60,6 +60,10 @@ repositories {
         name "MineTweaker3"
         artifactPattern "http://minetweaker3.powerofbytes.com/download/[module]-[classifier]-[revision].[ext]"
     }
+    ivy {
+        name "OpenComputers"
+        artifactPattern "http://maven.cil.li/li/cil/oc/[module]/[revision]/[module]-[revision]-[classifier].[ext]"
+    }
 }
 
 configurations {
@@ -122,7 +126,9 @@ dependencies {
     compile "com.github.azanor:baubles:1.0.1.10:deobf@jar"
     compile name: "MineTweaker3", version: "1.7.10-3.0.9C", classifier: "Dev"
     shade 'IC2-Classic-API-STANDALONE:IC2-Classic-API-STANDALONE:1.1.0.19-5:api'
+    compile 'li.cil.oc:OpenComputers:MC1.7.10-1.6.0.840-dev:dev'
     compile 'RebornCore:RebornCore:1.1.0.+:dev'
+    compile name: "OpenComputers", version: "MC1.7.10-1.6.0.840-dev", classifier: "dev"
 
 	testCompile 'junit:junit:4.12'
 }
