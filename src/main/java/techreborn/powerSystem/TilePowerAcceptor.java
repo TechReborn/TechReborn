@@ -162,7 +162,7 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
     public int extractEnergy(EnumFacing from, int maxExtract, boolean simulate) {
         if (!PowerSystem.RFPOWENET)
             return 0;
-        if (!canAcceptEnergy(from)) {
+        if (!canProvideEnergy(from)) {
             return 0;
         }
         maxExtract *= ConfigTechReborn.euPerRF;
