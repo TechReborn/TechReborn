@@ -25,22 +25,27 @@ public abstract class BaseRecipeWrapper<T extends BaseRecipe> extends BlankRecip
 		inputs = new ArrayList<>();
 		for (ItemStack input : baseRecipe.getInputs()) {
 			if (baseRecipe.useOreDic()) {
-				int[] oreIds = OreDictionary.getOreIDs(input);
-				if (oreIds.length > 0) {
-					Set<ItemStack> itemStackSet = new HashSet<>();
-					for (int oreId : oreIds) {
-						String oreName = OreDictionary.getOreName(oreId);
-						List<ItemStack> ores = OreDictionary.getOres(oreName);
-						itemStackSet.addAll(ores);
-					}
-					inputs.add(new ArrayList<>(itemStackSet));
-				} else {
-					inputs.add(Collections.singletonList(input));
-				}
+				List<ItemStack> oreDictInputs = expandOreDict(input);
+				inputs.add(oreDictInputs);
 			} else {
 				inputs.add(Collections.singletonList(input));
 			}
 		}
+	}
+
+	private static List<ItemStack> expandOreDict(ItemStack itemStack) {
+		int[] oreIds = OreDictionary.getOreIDs(itemStack);
+		if (oreIds.length == 0) {
+			return Collections.singletonList(itemStack);
+		}
+
+		Set<ItemStack> itemStackSet = new HashSet<>();
+		for (int oreId : oreIds) {
+			String oreName = OreDictionary.getOreName(oreId);
+			List<ItemStack> ores = OreDictionary.getOres(oreName);
+			itemStackSet.addAll(ores);
+		}
+		return new ArrayList<>(itemStackSet);
 	}
 
 	@Override
@@ -55,7 +60,6 @@ public abstract class BaseRecipeWrapper<T extends BaseRecipe> extends BlankRecip
 
 	@Override
 	public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight) {
-		// TODO: make right location for each recipe
-		//		RecipeUtil.drawInfo(minecraft, 0, 0, baseRecipe.euPerTick(), baseRecipe.tickTime());
+
 	}
 }

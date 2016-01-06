@@ -73,7 +73,7 @@ public class IndustrialSawmillRecipeCategory implements IRecipeCategory {
 		guiItemStacks.init(OUTPUT_SLOTS[2], false, 112, 19);
 
 		IGuiFluidStackGroup guiFluidStacks = recipeLayout.getFluidStacks();
-		guiFluidStacks.init(INPUT_TANKS[0], true, 4, 4, 12, 47, TileIndustrialSawmill.TANK_CAPACITY, tankOverlay);
+		guiFluidStacks.init(INPUT_TANKS[0], true, 4, 4, 12, 47, TileIndustrialSawmill.TANK_CAPACITY, true, tankOverlay);
 
 		if (recipeWrapper instanceof IndustrialSawmillRecipeWrapper) {
 			IndustrialSawmillRecipeWrapper recipe = (IndustrialSawmillRecipeWrapper) recipeWrapper;
