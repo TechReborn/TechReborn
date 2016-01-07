@@ -74,7 +74,7 @@ public class GrinderRecipeCategory implements IRecipeCategory {
 		guiItemStacks.init(OUTPUT_SLOTS[3], false, 123, 19);
 
 		IGuiFluidStackGroup guiFluidStacks = recipeLayout.getFluidStacks();
-		guiFluidStacks.init(INPUT_TANKS[0], true, 4, 4, 12, 47, TileGrinder.TANK_CAPACITY, tankOverlay);
+		guiFluidStacks.init(INPUT_TANKS[0], true, 4, 4, 12, 47, TileGrinder.TANK_CAPACITY, true, tankOverlay);
 
 		if (recipeWrapper instanceof GrinderRecipeWrapper) {
 			GrinderRecipeWrapper recipe = (GrinderRecipeWrapper) recipeWrapper;

@@ -30,7 +30,6 @@ import techreborn.client.container.ContainerGrinder;
 import techreborn.client.container.ContainerImplosionCompressor;
 import techreborn.client.container.ContainerIndustrialElectrolyzer;
 import techreborn.client.container.ContainerIndustrialSawmill;
-import techreborn.client.container.ContainerRollingMachine;
 import techreborn.client.container.ContainerVacuumFreezer;
 import techreborn.compat.jei.alloySmelter.AlloySmelterRecipeCategory;
 import techreborn.compat.jei.alloySmelter.AlloySmelterRecipeHandler;
@@ -61,11 +60,6 @@ import techreborn.compat.jei.vacuumFreezer.VacuumFreezerRecipeHandler;
 @mezz.jei.api.JEIPlugin
 public class TechRebornJeiPlugin implements IModPlugin {
     public static IJeiHelpers jeiHelpers;
-
-    @Override
-    public boolean isModLoaded() {
-        return true;
-    }
 
     @Override
     public void onJeiHelpersAvailable(IJeiHelpers jeiHelpers) {
