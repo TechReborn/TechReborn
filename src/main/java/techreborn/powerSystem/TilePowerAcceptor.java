@@ -3,8 +3,16 @@ package techreborn.powerSystem;
 import cofh.api.energy.IEnergyProvider;
 import cofh.api.energy.IEnergyReceiver;
 import com.mojang.realmsclient.gui.ChatFormatting;
+import ic2.api.energy.event.EnergyTileUnloadEvent;
+import ic2.api.energy.tile.IEnergySink;
+import ic2.api.energy.tile.IEnergySource;
+import ic2.api.energy.tile.IEnergySourceInfo;
+import ic2.api.energy.tile.IEnergyTile;
+import ic2.api.info.Info;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Optional;
 import reborncore.api.IListInfoProvider;
 import techreborn.api.power.IEnergyInterfaceTile;
@@ -20,9 +28,9 @@ import java.util.List;
 })
 public abstract class TilePowerAcceptor extends RFProviderTile implements
         IEnergyReceiver, IEnergyProvider,           //Cofh
-        IEnergyInterfaceTile, IListInfoProvider     //TechReborn
-        //IEnergyTile, IEnergySink, IEnergySource,    //Ic2
-      //  IEnergySourceInfo                           //IC2 Classic //TODO ic2
+        IEnergyInterfaceTile, IListInfoProvider,     //TechReborn
+        IEnergyTile, IEnergySink, IEnergySource,    //Ic2
+        IEnergySourceInfo                           //IC2 Classic //TODO ic2
 {
     public int tier;
     private double energy;
@@ -57,67 +65,67 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
         onChunkUnload();
     }
 
-//    @Override
-//    public void onChunkUnload() {
-//        super.onChunkUnload();
-//        if (PowerSystem.EUPOWENET) {
-//            if (addedToEnet &&
-//                    Info.isIc2Available()) {
-//                MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
-//
-//                addedToEnet = false;
-//            }
-//        }
-//    }
-//
-//    @Override
-//    public double getDemandedEnergy() {
-//        if (!PowerSystem.EUPOWENET)
-//            return 0;
-//        return Math.min(getMaxPower() - getEnergy(), getMaxInput());
-//    }
-//
-//    @Override
-//    public int getSinkTier() {
-//        return tier;
-//    }
-//
-//    @Override
-//    public double injectEnergy(EnumFacing directionFrom, double amount, double voltage) {
-//        setEnergy(getEnergy() + amount);
-//        return 0;
-//    }
-//
-//    @Override
-//    public boolean acceptsEnergyFrom(TileEntity emitter, EnumFacing direction) {
-//        if (!PowerSystem.EUPOWENET)
-//            return false;
-//        return canAcceptEnergy(direction);
-//    }
-//
-//    @Override
-//    public boolean emitsEnergyTo(TileEntity receiver, EnumFacing direction) {
-//        if (!PowerSystem.EUPOWENET)
-//            return false;
-//        return canProvideEnergy(direction);
-//    }
-//
-//    @Override
-//    public double getOfferedEnergy() {
-//        if (!PowerSystem.EUPOWENET)
-//            return 0;
-//        return Math.min(getEnergy(), getMaxOutput());
-//    }
-//
-//    @Override
-//    public void drawEnergy(double amount) {
-//        useEnergy((int) amount);
-//    }
-//
-//    @Override
-//    public int getSourceTier() {
-//        return tier;
-//    }
+    @Override
+    public void onChunkUnload() {
+        super.onChunkUnload();
+        if (PowerSystem.EUPOWENET) {
+            if (addedToEnet &&
+                    Info.isIc2Available()) {
+                MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
+
+                addedToEnet = false;
+            }
+        }
+    }
+
+    @Override
+    public double getDemandedEnergy() {
+        if (!PowerSystem.EUPOWENET)
+            return 0;
+        return Math.min(getMaxPower() - getEnergy(), getMaxInput());
+    }
+
+    @Override
+    public int getSinkTier() {
+        return tier;
+    }
+
+    @Override
+    public double injectEnergy(EnumFacing directionFrom, double amount, double voltage) {
+        setEnergy(getEnergy() + amount);
+        return 0;
+    }
+
+    @Override
+    public boolean acceptsEnergyFrom(TileEntity emitter, EnumFacing direction) {
+        if (!PowerSystem.EUPOWENET)
+            return false;
+        return canAcceptEnergy(direction);
+    }
+
+    @Override
+    public boolean emitsEnergyTo(TileEntity receiver, EnumFacing direction) {
+        if (!PowerSystem.EUPOWENET)
+            return false;
+        return canProvideEnergy(direction);
+    }
+
+    @Override
+    public double getOfferedEnergy() {
+        if (!PowerSystem.EUPOWENET)
+            return 0;
+        return Math.min(getEnergy(), getMaxOutput());
+    }
+
+    @Override
+    public void drawEnergy(double amount) {
+        useEnergy((int) amount);
+    }
+
+    @Override
+    public int getSourceTier() {
+        return tier;
+    }
     //END IC2
 
     //COFH
@@ -289,12 +297,12 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
     }
 
     //IC2 Classic
-//
-//
-//    @Override
-//    public int getMaxEnergyAmount() {
-//        return (int) getMaxOutput();
-//    }
+
+
+    @Override
+    public int getMaxEnergyAmount() {
+        return (int) getMaxOutput();
+    }
 
 
     public void charge(int slot)

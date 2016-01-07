@@ -9,6 +9,7 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import reborncore.common.util.Inventory;
@@ -224,17 +225,13 @@ public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, II
     }
 
     @Override
-    public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
+    public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
         return false;
     }
 
     @Override
-    public short getFacing() {
-        return 0;
-    }
-
-    @Override
-    public void setFacing(short facing) {
+    public EnumFacing getFacing() {
+        return getFacingEnum();
     }
 
     @Override

@@ -54,21 +54,13 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
     }
 
     @Override
-    public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
+    public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
         return false;
     }
 
     @Override
-    public short getFacing() {
-        Block block = worldObj.getBlockState(pos).getBlock();
-        if(block instanceof BlockMachineBase){
-            return (short) ((BlockMachineBase) block).getFacing(worldObj.getBlockState(pos)).getIndex();
-        }
-        return 0;
-    }
-
-    @Override
-    public void setFacing(short facing) {
+    public EnumFacing getFacing() {
+        return getFacingEnum();
     }
 
     @Override

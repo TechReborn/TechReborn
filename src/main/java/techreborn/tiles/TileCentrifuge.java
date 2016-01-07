@@ -50,17 +50,13 @@ public class TileCentrifuge extends TilePowerAcceptor implements IWrenchable, II
 
 
     @Override
-    public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
+    public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
         return false;
     }
 
     @Override
-    public short getFacing() {
-        return 0;
-    }
-
-    @Override
-    public void setFacing(short facing) {
+    public EnumFacing getFacing() {
+        return getFacingEnum();
     }
 
     @Override

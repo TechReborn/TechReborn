@@ -44,23 +44,14 @@ public class TileAesu extends TilePowerAcceptor implements IWrenchable {
     }
 
     @Override
-    public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
-        if (!entityPlayer.isSneaking()) {
-            return true;
-        }
+    public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
         return false;
     }
 
     @Override
-    public short getFacing() {
-        return (short) getFacingInt();
+    public EnumFacing getFacing() {
+        return getFacingEnum();
     }
-
-    @Override
-    public void setFacing(short facing) {
-        setFacing(facing);
-    }
-
     @Override
     public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
         if (entityPlayer.isSneaking()) {
@@ -144,12 +135,12 @@ public class TileAesu extends TilePowerAcceptor implements IWrenchable {
 
     @Override
     public boolean canAcceptEnergy(EnumFacing direction) {
-        return getFacing() != Functions.getIntDirFromDirection(direction);
+        return getFacingEnum() != direction;
     }
 
     @Override
     public boolean canProvideEnergy(EnumFacing direction) {
-        return getFacing() == Functions.getIntDirFromDirection(direction);
+        return getFacingEnum() == direction;
     }
 
     @Override

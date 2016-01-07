@@ -8,6 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
 import reborncore.api.IListInfoProvider;
 import reborncore.common.util.Inventory;
@@ -187,17 +188,13 @@ public class TileDigitalChest extends TileMachineBase implements IInventory,
     }
 
     @Override
-    public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
+    public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
         return false;
     }
 
     @Override
-    public short getFacing() {
-        return 0;
-    }
-
-    @Override
-    public void setFacing(short facing) {
+    public EnumFacing getFacing() {
+        return getFacingEnum();
     }
 
     @Override
