@@ -27,6 +27,7 @@ import techreborn.init.ModBlocks;
 import techreborn.items.ItemDusts;
 import techreborn.items.ItemGems;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -34,14 +35,12 @@ import java.util.Random;
 public class BlockOre extends BaseBlock implements IBlockTextureProvider {
 
     public static ItemStack getOreByName(String name, int count) {
-        int index = -1;
         for (int i = 0; i < types.length; i++) {
             if (types[i].equals(name)) {
-                index = i;
-                break;
+                return new ItemStack(ModBlocks.ore, count, i);
             }
         }
-        return new ItemStack(ModBlocks.ore, count, index);
+        throw new InvalidParameterException("The storage block " + name + " could not be found.");
     }
 
     public static ItemStack getOreByName(String name) {
@@ -180,12 +179,12 @@ public class BlockOre extends BaseBlock implements IBlockTextureProvider {
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return (Integer) state.getValue(METADATA);
+        return state.getValue(METADATA);
     }
 
     protected BlockState createBlockState() {
 
-        METADATA = PropertyInteger.create("Type", 0, types.length);
+        METADATA = PropertyInteger.create("Type", 0, types.length -1);
         return new BlockState(this, METADATA);
     }
 
