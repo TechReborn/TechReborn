@@ -319,7 +319,7 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
         Block block = world.getBlock(x, y, z);
 
 
-        if (block.getUnlocalizedName().equals("tile.air")) {
+        if (block.isAir(world, x, y, z)) {
 
         } else if (block.getUnlocalizedName().equals("tile.lava")) {
             hasLava = true;
