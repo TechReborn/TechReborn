@@ -19,7 +19,6 @@ import reborncore.common.misc.Location;
 import reborncore.common.multiblock.IMultiblockPart;
 import reborncore.common.util.Inventory;
 import techreborn.api.recipe.RecipeCrafter;
-import techreborn.blocks.BlockMachineBase;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
@@ -220,8 +219,8 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
     }
 
     @Override
-    public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
-        if (slotIndex >= 1)
+    public boolean canInsertItem(int slotIndex, ItemStack itemStack, int side) {
+        if (slotIndex >= 2)
             return false;
         return isItemValidForSlot(slotIndex, itemStack);
     }
