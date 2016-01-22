@@ -1,12 +1,11 @@
 package techreborn.items.tools;
 
+import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import reborncore.api.IItemTexture;
 import techreborn.items.ItemTR;
-import techreborn.lib.ModInfo;
 
-public class ItemHammer extends ItemTR implements IItemTexture {
+public class ItemHammer extends ItemTR implements ITexturedItem {
     private String iconName;
 
     public ItemHammer(int MaxDamage) {
@@ -30,8 +29,6 @@ public class ItemHammer extends ItemTR implements IItemTexture {
 //        return false;
 //    }
 
-
-
     @Override
     public ItemStack getContainerItem(ItemStack itemStack) {
         ItemStack copiedStack = itemStack.copy();
@@ -52,9 +49,5 @@ public class ItemHammer extends ItemTR implements IItemTexture {
         return 1;
     }
 
-    @Override
-    public String getModID() {
-        return ModInfo.MOD_ID;
-    }
 
 }

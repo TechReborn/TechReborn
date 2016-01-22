@@ -1,10 +1,10 @@
 package techreborn.blocks.fluid;
 
+import me.modmuss50.jsonDestroyer.api.ITexturedFluid;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.fluids.Fluid;
-import reborncore.api.IFluidTextureProvider;
 
-public class BlockFluidTechReborn extends BlockFluidBase implements IFluidTextureProvider {
+public class BlockFluidTechReborn extends BlockFluidBase implements ITexturedFluid {
 
     String name;
 

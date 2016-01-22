@@ -1,20 +1,16 @@
 package techreborn.items;
 
 
+import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import reborncore.api.IItemTexture;
 import techreborn.lib.ModInfo;
 
-public abstract class ItemTextureBase extends ItemTR implements IItemTexture {
-    @Override
-    public String getModID() {
-        return ModInfo.MOD_ID;
-    }
+public abstract class ItemTextureBase extends ItemTR implements ITexturedItem {
 
     @Override
     public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
-        return new ModelResourceLocation(ModInfo.MOD_ID + ":" + stack.getItem().getUnlocalizedName(stack).substring(5), "inventory");
+        return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
     }
 }

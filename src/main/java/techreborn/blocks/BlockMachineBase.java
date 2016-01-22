@@ -1,5 +1,6 @@
 package techreborn.blocks;
 
+import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDynamicLiquid;
 import net.minecraft.block.BlockStaticLiquid;
@@ -20,23 +21,17 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
-import reborncore.api.IBlockTextureProvider;
-import reborncore.common.BaseBlock;
 import reborncore.common.BaseTileBlock;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
 import techreborn.tiles.TileMachineBase;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
-public abstract class BlockMachineBase extends BaseTileBlock implements IBlockTextureProvider {
+public abstract class BlockMachineBase extends BaseTileBlock implements ITexturedBlock {
 
     public static PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
     public static PropertyBool ACTIVE = PropertyBool.create("active");
@@ -328,7 +323,7 @@ public abstract class BlockMachineBase extends BaseTileBlock implements IBlockTe
     }
 
     @Override
-    public String getTextureName(IBlockState blockState, EnumFacing facing) {
+    public String getTextureNameFromState(IBlockState blockState, EnumFacing facing) {
         if(this instanceof IRotationTexture){
             IRotationTexture rotationTexture = (IRotationTexture) this;
             if(getFacing(blockState) == facing){
@@ -395,7 +390,7 @@ public abstract class BlockMachineBase extends BaseTileBlock implements IBlockTe
     }
 
     @Override
-    public int amountOfVariants() {
+    public int amountOfSates() {
         return 8; //0-3 off nsew, 4-8 on nsew
     }
 

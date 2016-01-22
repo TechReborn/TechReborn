@@ -1,5 +1,6 @@
 package techreborn.items.tools;
 
+import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
@@ -11,18 +12,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import reborncore.api.IItemTexture;
-import reborncore.api.TextureRegistry;
+import reborncore.RebornCore;
 import reborncore.common.util.Color;
 import techreborn.api.power.IEnergyItemInfo;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
-import techreborn.lib.ModInfo;
 import techreborn.powerSystem.PoweredItem;
 
 import java.util.List;
 
-public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo, IItemTexture {
+public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo, ITexturedItem {
 
     public static final int maxCharge = ConfigTechReborn.RockCutterCharge;
     public int cost = 500;
@@ -34,7 +33,7 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo, IIte
         setCreativeTab(TechRebornCreativeTab.instance);
         setMaxStackSize(1);
         efficiencyOnProperMaterial = 16F;
-        TextureRegistry.registerItem(this);
+        RebornCore.jsonDestroyer.registerObject(this);
     }
 
     @Override
@@ -146,8 +145,4 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo, IIte
         return 1;
     }
 
-    @Override
-    public String getModID() {
-        return ModInfo.MOD_ID;
-    }
 }

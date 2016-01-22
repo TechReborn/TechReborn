@@ -1,6 +1,6 @@
 package techreborn.blocks;
 
-import net.minecraft.block.Block;
+import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
@@ -17,7 +17,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import reborncore.api.IBlockTextureProvider;
 import reborncore.common.BaseBlock;
 import reborncore.common.util.OreDrop;
 import reborncore.common.util.OreDropSet;
@@ -32,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class BlockOre extends BaseBlock implements IBlockTextureProvider {
+public class BlockOre extends BaseBlock implements ITexturedBlock {
 
     public static ItemStack getOreByName(String name, int count) {
         for (int i = 0; i < types.length; i++) {
@@ -163,12 +162,12 @@ public class BlockOre extends BaseBlock implements IBlockTextureProvider {
     }
 
     @Override
-    public String getTextureName(IBlockState blockState, EnumFacing facing) {
+    public String getTextureNameFromState(IBlockState blockState, EnumFacing facing) {
         return "techreborn:blocks/ore/ore" + types[getMetaFromState(blockState)];
     }
 
     @Override
-    public int amountOfVariants() {
+    public int amountOfSates() {
         return types.length;
     }
 

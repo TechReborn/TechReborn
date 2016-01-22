@@ -1,5 +1,6 @@
 package techreborn.blocks;
 
+import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
@@ -15,7 +16,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import reborncore.api.IBlockTextureProvider;
 import reborncore.common.multiblock.BlockMultiblockBase;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileMachineCasing;
@@ -23,7 +23,7 @@ import techreborn.tiles.TileMachineCasing;
 import java.util.List;
 import java.util.Random;
 
-public class BlockMachineCasing extends BlockMultiblockBase implements IBlockTextureProvider{
+public class BlockMachineCasing extends BlockMultiblockBase implements ITexturedBlock {
 
     public static final String[] types = new String[]
             {"standard", "reinforced", "advanced"};
@@ -100,12 +100,12 @@ public class BlockMachineCasing extends BlockMultiblockBase implements IBlockTex
     }
 
     @Override
-    public String getTextureName(IBlockState blockState, EnumFacing facing) {
+    public String getTextureNameFromState(IBlockState blockState, EnumFacing facing) {
         return "techreborn:blocks/machine/casing" + types[getMetaFromState(blockState)] + "_full";
     }
 
     @Override
-    public int amountOfVariants() {
+    public int amountOfSates() {
         return types.length;
     }
 

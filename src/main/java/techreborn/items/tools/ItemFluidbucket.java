@@ -1,17 +1,15 @@
 package techreborn.items.tools;
 
+import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBucket;
-import net.minecraftforge.fluids.FluidContainerRegistry;
-import reborncore.api.IItemTexture;
-import reborncore.api.TextureRegistry;
-import reborncore.common.util.BucketHandler;
+import reborncore.RebornCore;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.lib.ModInfo;
 
-public class ItemFluidbucket extends ItemBucket implements IItemTexture {
+public class ItemFluidbucket extends ItemBucket implements ITexturedItem {
     private String iconName;
 
     public ItemFluidbucket(Block block) {
@@ -19,7 +17,7 @@ public class ItemFluidbucket extends ItemBucket implements IItemTexture {
         setContainerItem(Items.bucket);
         setCreativeTab(TechRebornCreativeTabMisc.instance);
         setUnlocalizedName("techreborn.fluidbucket");
-        TextureRegistry.registerItem(this);
+        RebornCore.jsonDestroyer.registerObject(this);
     }
 
     @Override
@@ -37,10 +35,4 @@ public class ItemFluidbucket extends ItemBucket implements IItemTexture {
     public int getMaxMeta() {
         return 1;
     }
-
-    @Override
-    public String getModID() {
-        return ModInfo.MOD_ID;
-    }
-
 }

@@ -1,6 +1,6 @@
 package techreborn.blocks;
 
-import net.minecraft.block.Block;
+import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
@@ -11,7 +11,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import reborncore.api.IBlockTextureProvider;
 import reborncore.common.BaseBlock;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
@@ -19,7 +18,7 @@ import techreborn.init.ModBlocks;
 import java.security.InvalidParameterException;
 import java.util.List;
 
-public class BlockMachineFrame extends BaseBlock implements IBlockTextureProvider {
+public class BlockMachineFrame extends BaseBlock implements ITexturedBlock {
     public PropertyInteger METADATA;
 
     public static ItemStack getFrameByName(String name, int count) {
@@ -58,12 +57,12 @@ public class BlockMachineFrame extends BaseBlock implements IBlockTextureProvide
     }
 
     @Override
-    public String getTextureName(IBlockState blockState, EnumFacing facing) {
+    public String getTextureNameFromState(IBlockState blockState, EnumFacing facing) {
         return "techreborn:blocks/machine/" + types[getMetaFromState(blockState)] + "_machine_block";
     }
 
     @Override
-    public int amountOfVariants() {
+    public int amountOfSates() {
         return types.length;
     }
 

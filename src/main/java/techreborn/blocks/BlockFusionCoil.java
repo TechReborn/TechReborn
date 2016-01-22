@@ -16,7 +16,7 @@ public class BlockFusionCoil extends BlockMachineBase {
     private final String prefix = "techreborn:blocks/machine/";
 
     @Override
-    public String getTextureName(IBlockState blockState, EnumFacing facing) {
+    public String getTextureNameFromState(IBlockState blockState, EnumFacing facing) {
         return prefix + "fusion_coil";
     }
 }

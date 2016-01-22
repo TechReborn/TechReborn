@@ -1,5 +1,6 @@
 package techreborn.items.tools;
 
+import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -14,18 +15,16 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import reborncore.api.IItemTexture;
-import reborncore.api.TextureRegistry;
+import reborncore.RebornCore;
 import reborncore.common.util.TorchHelper;
 import techreborn.api.power.IEnergyItemInfo;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
-import techreborn.lib.ModInfo;
 import techreborn.powerSystem.PoweredItem;
 
 import java.util.List;
 
-public class ItemAdvancedDrill extends ItemPickaxe implements IEnergyItemInfo, IItemTexture {
+public class ItemAdvancedDrill extends ItemPickaxe implements IEnergyItemInfo, ITexturedItem {
 
     public static final int maxCharge = ConfigTechReborn.AdvancedDrillCharge;
     public int cost = 250;
@@ -39,7 +38,7 @@ public class ItemAdvancedDrill extends ItemPickaxe implements IEnergyItemInfo, I
         setMaxStackSize(1);
         setMaxDamage(240);
         setUnlocalizedName("techreborn.advancedDrill");
-        TextureRegistry.registerItem(this);
+        RebornCore.jsonDestroyer.registerObject(this);
     }
 
     @Override
@@ -140,10 +139,5 @@ public class ItemAdvancedDrill extends ItemPickaxe implements IEnergyItemInfo, I
     @Override
     public int getMaxMeta() {
         return 1;
-    }
-
-    @Override
-    public String getModID() {
-        return ModInfo.MOD_ID;
     }
 }

@@ -1,5 +1,6 @@
 package techreborn.items.armor;
 
+import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
@@ -7,17 +8,15 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import reborncore.api.IItemTexture;
-import reborncore.api.TextureRegistry;
+import reborncore.RebornCore;
 import techreborn.api.power.IEnergyItemInfo;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
-import techreborn.lib.ModInfo;
 import techreborn.powerSystem.PoweredItem;
 
 import java.util.List;
 
-public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo, IItemTexture {
+public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo, ITexturedItem {
 
     public static final int maxCharge = ConfigTechReborn.LithiumBatpackCharge;
     public static final int tier = ConfigTechReborn.LithiumBatpackTier;
@@ -28,7 +27,7 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo, II
         setMaxStackSize(1);
         setUnlocalizedName("techreborn.lithiumbatpack");
         setCreativeTab(TechRebornCreativeTab.instance);
-        TextureRegistry.registerItem(this);
+        RebornCore.jsonDestroyer.registerObject(this);
     }
 
 
@@ -98,8 +97,4 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo, II
         return 1;
     }
 
-    @Override
-    public String getModID() {
-        return ModInfo.MOD_ID;
-    }
 }

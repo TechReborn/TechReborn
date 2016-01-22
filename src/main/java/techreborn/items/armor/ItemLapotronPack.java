@@ -1,6 +1,7 @@
 package techreborn.items.armor;
 
 
+import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
@@ -8,17 +9,15 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import reborncore.api.IItemTexture;
-import reborncore.api.TextureRegistry;
+import reborncore.RebornCore;
 import techreborn.api.power.IEnergyItemInfo;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
-import techreborn.lib.ModInfo;
 import techreborn.powerSystem.PoweredItem;
 
 import java.util.List;
 
-public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo, IItemTexture {
+public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo, ITexturedItem {
 
     public static final int maxCharge = ConfigTechReborn.LapotronPackCharge;
     public static final int tier = ConfigTechReborn.LapotronPackTier;
@@ -29,7 +28,7 @@ public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo, IIte
         setCreativeTab(TechRebornCreativeTab.instance);
         setUnlocalizedName("techreborn.lapotronpack");
         setMaxStackSize(1);
-        TextureRegistry.registerItem(this);
+        RebornCore.jsonDestroyer.registerObject(this);
     }
 
 
@@ -99,8 +98,4 @@ public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo, IIte
         return 1;
     }
 
-    @Override
-    public String getModID() {
-        return ModInfo.MOD_ID;
-    }
 }
