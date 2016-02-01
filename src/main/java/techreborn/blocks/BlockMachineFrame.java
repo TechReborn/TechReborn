@@ -62,7 +62,7 @@ public class BlockMachineFrame extends BaseBlock implements ITexturedBlock {
     }
 
     @Override
-    public int amountOfSates() {
+    public int amountOfStates() {
         return types.length;
     }
 

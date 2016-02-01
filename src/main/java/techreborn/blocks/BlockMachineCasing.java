@@ -105,7 +105,7 @@ public class BlockMachineCasing extends BlockMultiblockBase implements ITextured
     }
 
     @Override
-    public int amountOfSates() {
+    public int amountOfStates() {
         return types.length;
     }
 

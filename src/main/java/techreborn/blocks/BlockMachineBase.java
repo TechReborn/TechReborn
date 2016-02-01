@@ -390,7 +390,7 @@ public abstract class BlockMachineBase extends BaseTileBlock implements ITexture
     }
 
     @Override
-    public int amountOfSates() {
+    public int amountOfStates() {
         return 8; //0-3 off nsew, 4-8 on nsew
     }
 

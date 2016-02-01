@@ -70,7 +70,7 @@ public class BlockStorage2 extends BaseBlock  implements ITexturedBlock {
     }
 
     @Override
-    public int amountOfSates() {
+    public int amountOfStates() {
         return types.length;
     }
 
