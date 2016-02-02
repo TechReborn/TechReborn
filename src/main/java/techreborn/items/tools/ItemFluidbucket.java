@@ -1,23 +1,26 @@
 package techreborn.items.tools;
 
-import me.modmuss50.jsonDestroyer.api.ITexturedItem;
-import net.minecraft.block.Block;
+import me.modmuss50.jsonDestroyer.api.ITexturedBucket;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBucket;
+import net.minecraftforge.fluids.Fluid;
 import reborncore.RebornCore;
+import techreborn.blocks.fluid.BlockFluidBase;
 import techreborn.client.TechRebornCreativeTabMisc;
-import techreborn.lib.ModInfo;
 
-public class ItemFluidbucket extends ItemBucket implements ITexturedItem {
+public class ItemFluidbucket extends ItemBucket implements ITexturedBucket {
     private String iconName;
 
-    public ItemFluidbucket(Block block) {
+    Fluid containedFluid;
+
+    public ItemFluidbucket(BlockFluidBase block) {
         super(block);
         setContainerItem(Items.bucket);
         setCreativeTab(TechRebornCreativeTabMisc.instance);
         setUnlocalizedName("techreborn.fluidbucket");
         RebornCore.jsonDestroyer.registerObject(this);
+        containedFluid = block.getFluid();
     }
 
     @Override
@@ -26,9 +29,15 @@ public class ItemFluidbucket extends ItemBucket implements ITexturedItem {
         return super.setUnlocalizedName(par1Str);
     }
 
+
     @Override
-    public String getTextureName(int damage) {
-        return  ModInfo.MOD_ID + ":items/bucket/" + iconName;
+    public boolean isGas(int damage) {
+        return false;
+    }
+
+    @Override
+    public Fluid getFluid(int damage) {
+        return containedFluid;
     }
 
     @Override

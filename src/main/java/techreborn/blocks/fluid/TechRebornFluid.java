@@ -5,6 +5,6 @@ import net.minecraftforge.fluids.Fluid;
 
 public class TechRebornFluid extends Fluid {
     public TechRebornFluid(String fluidName) {
-        super(fluidName,  new ResourceLocation("techreborn:textures/block/" + fluidName + "_flowing"), new ResourceLocation("techreborn:textures/block/" + fluidName + "_flowing"));
+        super(fluidName,  new ResourceLocation("techreborn:blocks/fluids/" + fluidName.replaceFirst("fluid", "") + "_flowing"), new ResourceLocation("techreborn:blocks/fluids/" + fluidName.replaceFirst("fluid", "") + "_flowing"));
     }
 }
