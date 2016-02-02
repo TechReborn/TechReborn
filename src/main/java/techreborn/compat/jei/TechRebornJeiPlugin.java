@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IItemRegistry;
 import mezz.jei.api.IJeiHelpers;
+import mezz.jei.api.IJeiRuntime;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.IRecipeRegistry;
@@ -30,7 +31,21 @@ import techreborn.client.container.ContainerGrinder;
 import techreborn.client.container.ContainerImplosionCompressor;
 import techreborn.client.container.ContainerIndustrialElectrolyzer;
 import techreborn.client.container.ContainerIndustrialSawmill;
+import techreborn.client.container.ContainerRollingMachine;
 import techreborn.client.container.ContainerVacuumFreezer;
+import techreborn.client.gui.GuiAlloyFurnace;
+import techreborn.client.gui.GuiAlloySmelter;
+import techreborn.client.gui.GuiAssemblingMachine;
+import techreborn.client.gui.GuiBlastFurnace;
+import techreborn.client.gui.GuiCentrifuge;
+import techreborn.client.gui.GuiChemicalReactor;
+import techreborn.client.gui.GuiFusionReactor;
+import techreborn.client.gui.GuiGrinder;
+import techreborn.client.gui.GuiImplosionCompressor;
+import techreborn.client.gui.GuiIndustrialElectrolyzer;
+import techreborn.client.gui.GuiIndustrialSawmill;
+import techreborn.client.gui.GuiRollingMachine;
+import techreborn.client.gui.GuiVacuumFreezer;
 import techreborn.compat.jei.alloySmelter.AlloySmelterRecipeCategory;
 import techreborn.compat.jei.alloySmelter.AlloySmelterRecipeHandler;
 import techreborn.compat.jei.assemblingMachine.AssemblingMachineRecipeCategory;
@@ -119,6 +134,20 @@ public class TechRebornJeiPlugin implements IModPlugin {
             addDebugRecipes(registry);
         }
 
+        registry.addRecipeClickArea(GuiAlloyFurnace.class, 80, 35, 26, 20, RecipeCategoryUids.ALLOY_SMELTER, VanillaRecipeCategoryUid.FUEL);
+        registry.addRecipeClickArea(GuiAlloySmelter.class, 80, 35, 26, 20, RecipeCategoryUids.ALLOY_SMELTER);
+        registry.addRecipeClickArea(GuiAssemblingMachine.class, 85, 34, 24, 20, RecipeCategoryUids.ASSEMBLING_MACHINE);
+        registry.addRecipeClickArea(GuiBlastFurnace.class, 63, 36, 24, 15, RecipeCategoryUids.BLAST_FURNACE);
+        registry.addRecipeClickArea(GuiCentrifuge.class, 98, 37, 12, 15, RecipeCategoryUids.CENTRIFUGE);
+        registry.addRecipeClickArea(GuiChemicalReactor.class, 73, 39, 32, 12, RecipeCategoryUids.CHEMICAL_REACTOR);
+        registry.addRecipeClickArea(GuiFusionReactor.class, 111, 34, 27, 19, RecipeCategoryUids.FUSION_REACTOR);
+        registry.addRecipeClickArea(GuiGrinder.class, 50, 35, 25, 16, RecipeCategoryUids.GRINDER);
+        registry.addRecipeClickArea(GuiImplosionCompressor.class, 60, 37, 24, 15, RecipeCategoryUids.IMPLOSION_COMPRESSOR);
+        registry.addRecipeClickArea(GuiIndustrialElectrolyzer.class, 72, 37, 33, 14, RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER);
+        registry.addRecipeClickArea(GuiIndustrialSawmill.class, 55, 36, 24, 16, RecipeCategoryUids.INDUSTRIAL_SAWMILL);
+        registry.addRecipeClickArea(GuiRollingMachine.class, 89, 32, 26, 25, RecipeCategoryUids.ROLLING_MACHINE);
+        registry.addRecipeClickArea(GuiVacuumFreezer.class, 78, 36, 24, 16, RecipeCategoryUids.VACUUM_FREEZER);
+
         IRecipeTransferRegistry recipeTransferRegistry = registry.getRecipeTransferRegistry();
         recipeTransferRegistry.addRecipeTransferHandler(ContainerAlloyFurnace.class, RecipeCategoryUids.ALLOY_SMELTER, 0, 2, 4, 36);
         recipeTransferRegistry.addRecipeTransferHandler(ContainerAlloySmelter.class, RecipeCategoryUids.ALLOY_SMELTER, 0, 2, 8, 36);
@@ -132,11 +161,17 @@ public class TechRebornJeiPlugin implements IModPlugin {
         recipeTransferRegistry.addRecipeTransferHandler(ContainerImplosionCompressor.class, RecipeCategoryUids.IMPLOSION_COMPRESSOR, 0, 2, 4, 36);
         recipeTransferRegistry.addRecipeTransferHandler(ContainerIndustrialElectrolyzer.class, RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER, 0, 2, 7, 36);
         recipeTransferRegistry.addRecipeTransferHandler(ContainerIndustrialSawmill.class, RecipeCategoryUids.INDUSTRIAL_SAWMILL, 0, 2, 5, 36);
+        recipeTransferRegistry.addRecipeTransferHandler(ContainerRollingMachine.class, RecipeCategoryUids.ROLLING_MACHINE, 0, 9, 11, 36);
         recipeTransferRegistry.addRecipeTransferHandler(ContainerVacuumFreezer.class, RecipeCategoryUids.VACUUM_FREEZER, 0, 1, 2, 36);
     }
 
     @Override
     public void onRecipeRegistryAvailable(IRecipeRegistry recipeRegistry) {
+
+    }
+
+    @Override
+    public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
 
     }
 
