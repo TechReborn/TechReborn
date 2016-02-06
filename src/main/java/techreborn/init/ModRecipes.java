@@ -230,7 +230,7 @@ public class
         CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.FusionCoil),
                 "CSC", "NAN", "CRC",
                 'A', new ItemStack(ModBlocks.MachineCasing, 1, 2),
-                'N', new ItemStack(ModBlocks.FusionCoil),
+                'N', ItemParts.getPartByName("nichromeHeatingCoil"),
                 'C', ItemParts.getPartByName("energyFlowCircuit"),
                 'S', ItemParts.getPartByName("superConductor"),
                 'R', ItemParts.getPartByName("iridiumNeutronReflector")
