@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Map;
 
 public class CraftingInfoPage extends TitledPage {
-    protected static RenderItem itemRenderer = new RenderItem(Minecraft.getMinecraft().getTextureManager(), new ModelManager(Minecraft.getMinecraft().getTextureMapBlocks()));
     public ItemStack result;
     private boolean isSmelting = false;
     private ItemStack[] recipe = new ItemStack[9];
@@ -178,17 +177,29 @@ public class CraftingInfoPage extends TitledPage {
     private void drawItemStack(ItemStack par1ItemStack, int par2, int par3, String par4Str) {
         GL11.glTranslatef(0.0F, 0.0F, 32.0F);
         this.zLevel = 200.0F;
-        itemRenderer.zLevel = 200.0F;
         RenderHelper.enableGUIStandardItemLighting();
         GL11.glColor3f(1f, 1f, 1f);
         GL11.glEnable(GL11.GL_NORMALIZE);
         FontRenderer font = null;
         if (par1ItemStack != null) font = par1ItemStack.getItem().getFontRenderer(par1ItemStack);
         if (font == null) font = Minecraft.getMinecraft().fontRendererObj;
-        itemRenderer.renderItemAndEffectIntoGUI(par1ItemStack, par2, par3);
-        itemRenderer.renderItemOverlayIntoGUI(font, par1ItemStack, par2, par3, par4Str);
+        renderItemStack(par1ItemStack, par2, par3);
         this.zLevel = 0.0F;
-        itemRenderer.zLevel = 0.0F;
+    }
+
+    public void renderItemStack(ItemStack stack, int x, int y)
+    {
+        if (stack != null)
+        {
+            GL11.glEnable(GL11.GL_BLEND);
+            GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+            RenderHelper.enableGUIStandardItemLighting();
+
+            RenderItem itemRenderer = Minecraft.getMinecraft().getRenderItem();
+            itemRenderer.renderItemAndEffectIntoGUI(stack, x, y);
+
+            GL11.glDisable(GL11.GL_LIGHTING);
+        }
     }
 
     @SuppressWarnings("unchecked")
