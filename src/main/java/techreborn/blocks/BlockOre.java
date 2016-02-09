@@ -69,6 +69,7 @@ public class BlockOre extends BaseBlock implements ITexturedBlock {
         setUnlocalizedName("techreborn.ore");
         setCreativeTab(TechRebornCreativeTabMisc.instance);
         setHardness(2.0f);
+        setHarvestLevel("pickaxe", 2);
         this.setDefaultState(this.blockState.getBaseState().withProperty(METADATA, 0));
     }
 
