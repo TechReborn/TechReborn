@@ -39,14 +39,7 @@ public abstract class RFProviderTile extends TileMachineBase implements IEnergyR
             TileEntity tile = worldObj.getTileEntity(new BlockPos(getPos().getX() + direction.getFrontOffsetX(), getPos().getY() + direction.getFrontOffsetY(), getPos().getZ() + direction.getFrontOffsetZ()));
             if (isPoweredTile(tile, direction)) {
                 if (canProvideEnergy(direction)) {
-                    if (tile instanceof IEnergyHandler) {
-                        IEnergyHandler handler = (IEnergyHandler) tile;
-                        int neededRF = handler.receiveEnergy(
-                                direction.getOpposite(),
-                                extracted, false);
-
-                        extractEnergy(direction.getOpposite(), neededRF, false);
-                    } else if (tile instanceof IEnergyReceiver) {
+                    if (tile instanceof IEnergyReceiver) {
                         IEnergyReceiver handler = (IEnergyReceiver) tile;
                         int neededRF = handler.receiveEnergy(
                                 direction.getOpposite(),
