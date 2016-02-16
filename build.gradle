@@ -109,7 +109,7 @@ dependencies {
     compile "com.github.azanor:baubles:1.1.2.0:deobf@jar"
     compile name: "CraftTweaker", version: "1.8.8-3.0.0", classifier: "Dev"
   //  shade 'IC2-Classic-API-STANDALONE:IC2-Classic-API-STANDALONE:1.1.0.19-5:api'
-    deobfCompile 'RebornCore:RebornCore-1.8.9:1.4.2.+:universal'
+    deobfCompile 'RebornCore:RebornCore-1.8.9:1.4.3.+:universal'
     deobfCompile "mezz.jei:jei_1.8.9:2.24.+"
 
 	testCompile 'junit:junit:4.12'
