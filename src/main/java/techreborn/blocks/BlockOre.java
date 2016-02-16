@@ -73,7 +73,7 @@ public class BlockOre extends BaseBlock implements ITexturedBlock {
         this.setDefaultState(this.blockState.getBaseState().withProperty(METADATA, 0));
     }
 
-   
+
 
     @Deprecated
     public ArrayList<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {

@@ -96,6 +96,11 @@ public class ModItems {
         GameRegistry.registerItem(parts, "part");
         cells = new ItemCells();
         GameRegistry.registerItem(cells, "cell");
+        for (int i = 0; i < ItemCells.types.length; i++) {
+            if(FluidRegistry.getFluid("fluid" + ItemCells.types[i].toLowerCase()) != null){
+                FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluid("fluid" + ItemCells.types[i].toLowerCase()), ItemCells.getCellByName(ItemCells.types[i]));
+            }
+        }
         rockCutter = PoweredItem.createItem(ItemRockCutter.class);
         GameRegistry.registerItem(rockCutter, "rockCutter");
         lithiumBatpack = PoweredItem.createItem(ItemLithiumBatpack.class);

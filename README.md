@@ -10,6 +10,12 @@ The current main maintainer is @gigabit101 if you need any help please contact u
 
 @modmuss50 is a past maintainer of the mod(see http://techreborn.ninja/?p=20).
 
-[![Build Status](http://modmuss50.me:8080/buildStatus/icon?job=TechReborn)](http://modmuss50.me:8080/job/TechReborn/)
+1.7.10:
+
+[![Build Status](http://modmuss50.me:8080/job/TechReborn-1.7.10/badge/icon)](http://modmuss50.me:8080/job/TechReborn-1.7.10/)
+
+1.8.9:
+
+[![Build Status](http://modmuss50.me:8080/job/TechReborn-1.8.9/badge/icon)](http://modmuss50.me:8080/job/TechReborn-1.8.9/)
 
 REMOVED ALL THE JUNK FROM OTHER VERSION 2.78 ONLY 

@@ -3,16 +3,20 @@ package techreborn.items;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidContainerItem;
+import reborncore.api.IListInfoProvider;
+import techreborn.Core;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
 
 import java.util.List;
 
-public class ItemCells extends ItemTextureBase {
-
+public class ItemCells extends ItemTextureBase implements IFluidContainerItem {
 
     public static ItemStack getCellByName(String name, int count) {
         return getCellByName(name, count, true);
@@ -79,8 +83,66 @@ public class ItemCells extends ItemTextureBase {
     // Adds Dusts SubItems To Creative Tab
     public void getSubItems(Item item, CreativeTabs creativeTabs, List list) {
         for (int meta = 0; meta < types.length; ++meta) {
-            list.add(new ItemStack(item, 1, meta));
+            ItemStack stack = new ItemStack(item, 1, meta);
+            if(FluidRegistry.getFluid("fluid" +types[meta].toLowerCase()) != null){
+                this.fill(stack, new FluidStack(FluidRegistry.getFluid("fluid" +types[meta].toLowerCase()), getCapacity(stack)), true);
+            }
+            list.add(stack);
         }
+    }
+
+    @Override
+    public FluidStack getFluid(ItemStack container) {
+        return FluidStack.loadFluidStackFromNBT(container.getTagCompound());
+    }
+
+    @Override
+    public int getCapacity(ItemStack container) {
+        return 1000;
+    }
+
+    @Override
+    public int fill(ItemStack container, FluidStack resource, boolean doFill) {
+        if (container.stackSize != 1) {
+            return 0;
+        }
+        if (resource == null || resource.amount != getCapacity(container)) {
+            return 0;
+        }
+        if(FluidRegistry.getFluid("fluid" +types[container.getItemDamage()].toLowerCase()) == null){
+            return 0;
+        }
+        if (doFill)
+        {
+            NBTTagCompound tag = container.getTagCompound();
+            if (tag == null)
+            {
+                tag = new NBTTagCompound();
+            }
+            resource.writeToNBT(tag);
+            container.setTagCompound(tag);
+        }
+        return getCapacity(container);
+    }
+
+    @Override
+    public FluidStack drain(ItemStack container, int maxDrain, boolean doDrain) {
+        if (maxDrain < getCapacity(container)) {
+            return null;
+        }
+        FluidStack fluidStack = getFluid(container);
+        if (doDrain && fluidStack != null) {
+            ItemStack empty = ItemCells.getCellByName("empty");
+            if(empty != null) {
+                container.setItemDamage(empty.getItemDamage());
+                container.setTagCompound(empty.getTagCompound());
+            }
+            else {
+                container.stackSize = 0;
+            }
+        }
+
+        return fluidStack;
     }
 
     @Override

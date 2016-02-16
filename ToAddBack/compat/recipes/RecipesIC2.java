@@ -862,8 +862,8 @@ public class RecipesIC2 implements ICompatModule {
 
 
         //Chemical Reactor
-        RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemDusts.getDustByName("calcite", 1), ItemDusts.getDustByName("phosphorous", 1), new ItemStack(IC2Items.getItem("fertilizer").getItem(), 3), 100, 30));
         RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemDusts.getDustByName("calcite", 1), null, new ItemStack(IC2Items.getItem("fertilizer").getItem(), 1), 100, 30));
+        RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemDusts.getDustByName("calcite", 1), ItemDusts.getDustByName("phosphorous", 1), new ItemStack(IC2Items.getItem("fertilizer").getItem(), 3), 100, 30));
         RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemCells.getCellByName("sodiumSulfide", 1), IC2Items.getItem("airCell"), ItemCells.getCellByName("sodiumPersulfate", 2), 2000, 30));
         RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemCells.getCellByName("nitrocarbon", 1), IC2Items.getItem("waterCell"), ItemCells.getCellByName("glyceryl", 2), 580, 30));
         RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemDusts.getDustByName("calcite", 1), ItemDusts.getDustByName("sulfur", 1), new ItemStack(IC2Items.getItem("fertilizer").getItem(), 2), 100, 30));
