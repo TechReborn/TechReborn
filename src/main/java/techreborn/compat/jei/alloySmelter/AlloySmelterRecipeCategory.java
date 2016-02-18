@@ -1,23 +1,22 @@
 package techreborn.compat.jei.alloySmelter;
 
-import javax.annotation.Nonnull;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.StatCollector;
-
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
-import mezz.jei.api.recipe.IRecipeCategory;
+import mezz.jei.api.recipe.BlankRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.StatCollector;
 import techreborn.client.gui.GuiAlloySmelter;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
 
-public class AlloySmelterRecipeCategory implements IRecipeCategory {
+import javax.annotation.Nonnull;
+
+public class AlloySmelterRecipeCategory extends BlankRecipeCategory {
 	private static final int[] INPUT_SLOTS = {0, 1};
 	private static final int[] OUTPUT_SLOTS = {2};
 
@@ -51,12 +50,7 @@ public class AlloySmelterRecipeCategory implements IRecipeCategory {
 	}
 
 	@Override
-	public void drawExtras(Minecraft minecraft) {
-
-	}
-
-	@Override
-	public void drawAnimations(Minecraft minecraft) {
+	public void drawAnimations(@Nonnull Minecraft minecraft) {
 		electricity.draw(minecraft, 10, 20);
 	}
 

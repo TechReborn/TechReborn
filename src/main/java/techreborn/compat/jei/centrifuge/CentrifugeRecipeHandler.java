@@ -1,13 +1,21 @@
 package techreborn.compat.jei.centrifuge;
 
-import javax.annotation.Nonnull;
-
+import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import techreborn.api.recipe.machines.CentrifugeRecipe;
 import techreborn.compat.jei.RecipeCategoryUids;
 
+import javax.annotation.Nonnull;
+
 public class CentrifugeRecipeHandler implements IRecipeHandler<CentrifugeRecipe> {
+	@Nonnull
+	private final IJeiHelpers jeiHelpers;
+
+	public CentrifugeRecipeHandler(@Nonnull IJeiHelpers jeiHelpers) {
+		this.jeiHelpers = jeiHelpers;
+	}
+
 	@Nonnull
 	@Override
 	public Class<CentrifugeRecipe> getRecipeClass() {
@@ -23,7 +31,7 @@ public class CentrifugeRecipeHandler implements IRecipeHandler<CentrifugeRecipe>
 	@Nonnull
 	@Override
 	public IRecipeWrapper getRecipeWrapper(@Nonnull CentrifugeRecipe recipe) {
-		return new CentrifugeRecipeWrapper(recipe);
+		return new CentrifugeRecipeWrapper(jeiHelpers, recipe);
 	}
 
 	@Override

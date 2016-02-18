@@ -1,20 +1,13 @@
 package techreborn.compat.jei;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
-
+import mezz.jei.api.BlankModPlugin;
 import mezz.jei.api.IGuiHelper;
-import mezz.jei.api.IItemRegistry;
 import mezz.jei.api.IJeiHelpers;
-import mezz.jei.api.IJeiRuntime;
-import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
-import mezz.jei.api.IRecipeRegistry;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 import mezz.jei.api.recipe.transfer.IRecipeTransferRegistry;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import techreborn.Core;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.api.recipe.RecipeHandler;
@@ -72,22 +65,15 @@ import techreborn.compat.jei.rollingMachine.RollingMachineRecipeMaker;
 import techreborn.compat.jei.vacuumFreezer.VacuumFreezerRecipeCategory;
 import techreborn.compat.jei.vacuumFreezer.VacuumFreezerRecipeHandler;
 
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
+
 @mezz.jei.api.JEIPlugin
-public class TechRebornJeiPlugin implements IModPlugin {
-    public static IJeiHelpers jeiHelpers;
-
+public class TechRebornJeiPlugin extends BlankModPlugin {
     @Override
-    public void onJeiHelpersAvailable(IJeiHelpers jeiHelpers) {
-        TechRebornJeiPlugin.jeiHelpers = jeiHelpers;
-    }
-
-    @Override
-    public void onItemRegistryAvailable(IItemRegistry itemRegistry) {
-
-    }
-
-    @Override
-    public void register(IModRegistry registry) {
+    public void register(@Nonnull IModRegistry registry) {
+        IJeiHelpers jeiHelpers = registry.getJeiHelpers();
         IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 
         registry.addRecipeCategories(
@@ -106,18 +92,18 @@ public class TechRebornJeiPlugin implements IModPlugin {
         );
 
         registry.addRecipeHandlers(
-                new AlloySmelterRecipeHandler(),
-                new AssemblingMachineRecipeHandler(),
-                new BlastFurnaceRecipeHandler(),
-                new CentrifugeRecipeHandler(),
-                new ChemicalReactorRecipeHandler(),
+                new AlloySmelterRecipeHandler(jeiHelpers),
+                new AssemblingMachineRecipeHandler(jeiHelpers),
+                new BlastFurnaceRecipeHandler(jeiHelpers),
+                new CentrifugeRecipeHandler(jeiHelpers),
+                new ChemicalReactorRecipeHandler(jeiHelpers),
                 new FusionReactorRecipeHandler(),
-                new GrinderRecipeHandler(),
-                new ImplosionCompressorRecipeHandler(),
-                new IndustrialElectrolyzerRecipeHandler(),
-                new IndustrialSawmillRecipeHandler(),
+                new GrinderRecipeHandler(jeiHelpers),
+                new ImplosionCompressorRecipeHandler(jeiHelpers),
+                new IndustrialElectrolyzerRecipeHandler(jeiHelpers),
+                new IndustrialSawmillRecipeHandler(jeiHelpers),
                 new RollingMachineRecipeHandler(),
-                new VacuumFreezerRecipeHandler()
+                new VacuumFreezerRecipeHandler(jeiHelpers)
         );
 
         registry.addRecipes(RecipeHandler.recipeList);
@@ -138,7 +124,10 @@ public class TechRebornJeiPlugin implements IModPlugin {
         registry.addRecipeClickArea(GuiAlloySmelter.class, 80, 35, 26, 20, RecipeCategoryUids.ALLOY_SMELTER);
         registry.addRecipeClickArea(GuiAssemblingMachine.class, 85, 34, 24, 20, RecipeCategoryUids.ASSEMBLING_MACHINE);
         registry.addRecipeClickArea(GuiBlastFurnace.class, 63, 36, 24, 15, RecipeCategoryUids.BLAST_FURNACE);
-        registry.addRecipeClickArea(GuiCentrifuge.class, 98, 37, 12, 15, RecipeCategoryUids.CENTRIFUGE);
+        registry.addRecipeClickArea(GuiCentrifuge.class, 98, 37, 9, 12, RecipeCategoryUids.CENTRIFUGE);
+        registry.addRecipeClickArea(GuiCentrifuge.class, 68, 37, 9, 12, RecipeCategoryUids.CENTRIFUGE);
+        registry.addRecipeClickArea(GuiCentrifuge.class, 83, 23, 12, 9, RecipeCategoryUids.CENTRIFUGE);
+        registry.addRecipeClickArea(GuiCentrifuge.class, 83, 53, 12, 9, RecipeCategoryUids.CENTRIFUGE);
         registry.addRecipeClickArea(GuiChemicalReactor.class, 73, 39, 32, 12, RecipeCategoryUids.CHEMICAL_REACTOR);
         registry.addRecipeClickArea(GuiFusionReactor.class, 111, 34, 27, 19, RecipeCategoryUids.FUSION_REACTOR);
         registry.addRecipeClickArea(GuiGrinder.class, 50, 35, 25, 16, RecipeCategoryUids.GRINDER);
@@ -163,16 +152,6 @@ public class TechRebornJeiPlugin implements IModPlugin {
         recipeTransferRegistry.addRecipeTransferHandler(ContainerIndustrialSawmill.class, RecipeCategoryUids.INDUSTRIAL_SAWMILL, 0, 2, 5, 36);
         recipeTransferRegistry.addRecipeTransferHandler(ContainerRollingMachine.class, RecipeCategoryUids.ROLLING_MACHINE, 0, 9, 11, 36);
         recipeTransferRegistry.addRecipeTransferHandler(ContainerVacuumFreezer.class, RecipeCategoryUids.VACUUM_FREEZER, 0, 1, 2, 36);
-    }
-
-    @Override
-    public void onRecipeRegistryAvailable(IRecipeRegistry recipeRegistry) {
-
-    }
-
-    @Override
-    public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
-
     }
 
     private static void addDebugRecipes(IModRegistry registry) {

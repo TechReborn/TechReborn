@@ -1,16 +1,15 @@
 package techreborn.compat.jei.centrifuge;
 
-import javax.annotation.Nonnull;
-
-import net.minecraft.client.Minecraft;
-
 import mezz.jei.api.IGuiHelper;
+import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
+import net.minecraft.client.Minecraft;
 import techreborn.api.recipe.machines.CentrifugeRecipe;
 import techreborn.client.gui.GuiCentrifuge;
 import techreborn.compat.jei.BaseRecipeWrapper;
-import techreborn.compat.jei.TechRebornJeiPlugin;
+
+import javax.annotation.Nonnull;
 
 public class CentrifugeRecipeWrapper extends BaseRecipeWrapper<CentrifugeRecipe> {
 	private final IDrawableAnimated progressUp;
@@ -18,9 +17,9 @@ public class CentrifugeRecipeWrapper extends BaseRecipeWrapper<CentrifugeRecipe>
 	private final IDrawableAnimated progressDown;
 	private final IDrawableAnimated progressRight;
 
-	public CentrifugeRecipeWrapper(CentrifugeRecipe baseRecipe) {
+	public CentrifugeRecipeWrapper(@Nonnull IJeiHelpers jeiHelpers, @Nonnull CentrifugeRecipe baseRecipe) {
 		super(baseRecipe);
-		IGuiHelper guiHelper = TechRebornJeiPlugin.jeiHelpers.getGuiHelper();
+		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 		IDrawableStatic progressUpStatic = guiHelper.createDrawable(GuiCentrifuge.texture, 176, 14, 12, 12);
 		IDrawableStatic progressLeftStatic = guiHelper.createDrawable(GuiCentrifuge.texture, 176, 26, 12, 12);
 		IDrawableStatic progressDownStatic = guiHelper.createDrawable(GuiCentrifuge.texture, 176, 38, 12, 12);
