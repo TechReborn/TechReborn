@@ -36,6 +36,7 @@ import techreborn.packets.PacketIdsu;
 import techreborn.proxies.CommonProxy;
 import techreborn.tiles.idsu.IDSUManager;
 import techreborn.world.TROreGen;
+import techreborn.world.TreeGenerator;
 
 import java.io.File;
 
@@ -106,6 +107,7 @@ public class Core {
         }
         // WorldGen
         GameRegistry.registerWorldGenerator(new TROreGen(), 0);
+        GameRegistry.registerWorldGenerator(new TreeGenerator(), 1);
 //		DungeonLoot.init();
         // Register Gui Handler
         NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
