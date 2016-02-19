@@ -1,27 +1,25 @@
 package techreborn.compat.jei.industrialSawmill;
 
+import mezz.jei.api.IGuiHelper;
+import mezz.jei.api.IJeiHelpers;
+import mezz.jei.api.gui.IDrawableAnimated;
+import mezz.jei.api.gui.IDrawableStatic;
+import net.minecraft.client.Minecraft;
+import net.minecraftforge.fluids.FluidStack;
+import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
+import techreborn.client.gui.GuiIndustrialSawmill;
+import techreborn.compat.jei.BaseRecipeWrapper;
+
 import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
 
-import net.minecraft.client.Minecraft;
-
-import net.minecraftforge.fluids.FluidStack;
-
-import mezz.jei.api.IGuiHelper;
-import mezz.jei.api.gui.IDrawableAnimated;
-import mezz.jei.api.gui.IDrawableStatic;
-import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
-import techreborn.client.gui.GuiIndustrialSawmill;
-import techreborn.compat.jei.BaseRecipeWrapper;
-import techreborn.compat.jei.TechRebornJeiPlugin;
-
 public class IndustrialSawmillRecipeWrapper extends BaseRecipeWrapper<IndustrialSawmillRecipe> {
 	private final IDrawableAnimated progress;
 
-	public IndustrialSawmillRecipeWrapper(IndustrialSawmillRecipe baseRecipe) {
+	public IndustrialSawmillRecipeWrapper(@Nonnull IJeiHelpers jeiHelpers, @Nonnull IndustrialSawmillRecipe baseRecipe) {
 		super(baseRecipe);
-		IGuiHelper guiHelper = TechRebornJeiPlugin.jeiHelpers.getGuiHelper();
+		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 		IDrawableStatic progressStatic = guiHelper.createDrawable(GuiIndustrialSawmill.texture, 176, 14, 20, 12);
 
 		int ticksPerCycle = baseRecipe.tickTime();
@@ -29,6 +27,7 @@ public class IndustrialSawmillRecipeWrapper extends BaseRecipeWrapper<Industrial
 	}
 
 	@Override
+	@Nonnull
 	public List<FluidStack> getFluidInputs() {
 		if (baseRecipe.fluidStack != null) {
 			return Collections.singletonList(baseRecipe.fluidStack);

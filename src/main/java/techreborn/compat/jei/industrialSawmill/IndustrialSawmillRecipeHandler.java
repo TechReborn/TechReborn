@@ -1,13 +1,21 @@
 package techreborn.compat.jei.industrialSawmill;
 
-import javax.annotation.Nonnull;
-
+import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
 import techreborn.compat.jei.RecipeCategoryUids;
 
+import javax.annotation.Nonnull;
+
 public class IndustrialSawmillRecipeHandler implements IRecipeHandler<IndustrialSawmillRecipe> {
+	@Nonnull
+	private final IJeiHelpers jeiHelpers;
+
+	public IndustrialSawmillRecipeHandler(@Nonnull IJeiHelpers jeiHelpers) {
+		this.jeiHelpers = jeiHelpers;
+	}
+
 	@Nonnull
 	@Override
 	public Class<IndustrialSawmillRecipe> getRecipeClass() {
@@ -23,7 +31,7 @@ public class IndustrialSawmillRecipeHandler implements IRecipeHandler<Industrial
 	@Nonnull
 	@Override
 	public IRecipeWrapper getRecipeWrapper(@Nonnull IndustrialSawmillRecipe recipe) {
-		return new IndustrialSawmillRecipeWrapper(recipe);
+		return new IndustrialSawmillRecipeWrapper(jeiHelpers, recipe);
 	}
 
 	@Override

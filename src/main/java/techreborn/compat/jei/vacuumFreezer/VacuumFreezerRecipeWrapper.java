@@ -1,23 +1,22 @@
 package techreborn.compat.jei.vacuumFreezer;
 
-import javax.annotation.Nonnull;
-
-import net.minecraft.client.Minecraft;
-
 import mezz.jei.api.IGuiHelper;
+import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
+import net.minecraft.client.Minecraft;
 import techreborn.api.recipe.machines.VacuumFreezerRecipe;
 import techreborn.client.gui.GuiVacuumFreezer;
 import techreborn.compat.jei.BaseRecipeWrapper;
-import techreborn.compat.jei.TechRebornJeiPlugin;
+
+import javax.annotation.Nonnull;
 
 public class VacuumFreezerRecipeWrapper extends BaseRecipeWrapper<VacuumFreezerRecipe> {
 	private final IDrawableAnimated progress;
 
-	public VacuumFreezerRecipeWrapper(VacuumFreezerRecipe baseRecipe) {
+	public VacuumFreezerRecipeWrapper(@Nonnull IJeiHelpers jeiHelpers, @Nonnull VacuumFreezerRecipe baseRecipe) {
 		super(baseRecipe);
-		IGuiHelper guiHelper = TechRebornJeiPlugin.jeiHelpers.getGuiHelper();
+		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 		IDrawableStatic progressStatic = guiHelper.createDrawable(GuiVacuumFreezer.texture, 176, 14, 20, 11);
 
 		int ticksPerCycle = baseRecipe.tickTime();

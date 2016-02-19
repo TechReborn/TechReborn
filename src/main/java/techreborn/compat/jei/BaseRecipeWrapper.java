@@ -1,5 +1,10 @@
 package techreborn.compat.jei;
 
+import mezz.jei.api.recipe.BlankRecipeWrapper;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
+import techreborn.api.recipe.BaseRecipe;
+
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,16 +12,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
-
-import net.minecraftforge.oredict.OreDictionary;
-
-import mezz.jei.api.recipe.BlankRecipeWrapper;
-import techreborn.api.recipe.BaseRecipe;
-
 public abstract class BaseRecipeWrapper<T extends BaseRecipe> extends BlankRecipeWrapper {
 	protected final T baseRecipe;
+	@Nonnull
 	private final List<List<ItemStack>> inputs;
 
 	public BaseRecipeWrapper(T baseRecipe) {
@@ -48,18 +46,15 @@ public abstract class BaseRecipeWrapper<T extends BaseRecipe> extends BlankRecip
 		return new ArrayList<>(itemStackSet);
 	}
 
+	@Nonnull
 	@Override
 	public List<List<ItemStack>> getInputs() {
 		return inputs;
 	}
 
+	@Nonnull
 	@Override
 	public List<ItemStack> getOutputs() {
 		return baseRecipe.getOutputs();
-	}
-
-	@Override
-	public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight) {
-
 	}
 }

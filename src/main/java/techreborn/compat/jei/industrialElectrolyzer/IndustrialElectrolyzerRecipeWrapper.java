@@ -1,23 +1,22 @@
 package techreborn.compat.jei.industrialElectrolyzer;
 
-import javax.annotation.Nonnull;
-
-import net.minecraft.client.Minecraft;
-
 import mezz.jei.api.IGuiHelper;
+import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
+import net.minecraft.client.Minecraft;
 import techreborn.api.recipe.machines.IndustrialElectrolyzerRecipe;
 import techreborn.client.gui.GuiIndustrialElectrolyzer;
 import techreborn.compat.jei.BaseRecipeWrapper;
-import techreborn.compat.jei.TechRebornJeiPlugin;
+
+import javax.annotation.Nonnull;
 
 public class IndustrialElectrolyzerRecipeWrapper extends BaseRecipeWrapper<IndustrialElectrolyzerRecipe> {
 	private final IDrawableAnimated progress;
 
-	public IndustrialElectrolyzerRecipeWrapper(IndustrialElectrolyzerRecipe baseRecipe) {
+	public IndustrialElectrolyzerRecipeWrapper(@Nonnull IJeiHelpers jeiHelpers, @Nonnull IndustrialElectrolyzerRecipe baseRecipe) {
 		super(baseRecipe);
-		IGuiHelper guiHelper = TechRebornJeiPlugin.jeiHelpers.getGuiHelper();
+		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 		IDrawableStatic progressStatic = guiHelper.createDrawable(GuiIndustrialElectrolyzer.texture, 176, 14, 30, 10);
 		this.progress = guiHelper.createAnimatedDrawable(progressStatic, baseRecipe.tickTime(), IDrawableAnimated.StartDirection.BOTTOM, false);
 	}

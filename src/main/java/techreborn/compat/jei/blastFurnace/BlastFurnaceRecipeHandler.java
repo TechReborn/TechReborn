@@ -1,13 +1,21 @@
 package techreborn.compat.jei.blastFurnace;
 
-import javax.annotation.Nonnull;
-
+import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import techreborn.api.recipe.machines.BlastFurnaceRecipe;
 import techreborn.compat.jei.RecipeCategoryUids;
 
+import javax.annotation.Nonnull;
+
 public class BlastFurnaceRecipeHandler implements IRecipeHandler<BlastFurnaceRecipe> {
+	@Nonnull
+	private final IJeiHelpers jeiHelpers;
+
+	public BlastFurnaceRecipeHandler(@Nonnull IJeiHelpers jeiHelpers) {
+		this.jeiHelpers = jeiHelpers;
+	}
+
 	@Nonnull
 	@Override
 	public Class<BlastFurnaceRecipe> getRecipeClass() {
@@ -23,7 +31,7 @@ public class BlastFurnaceRecipeHandler implements IRecipeHandler<BlastFurnaceRec
 	@Nonnull
 	@Override
 	public IRecipeWrapper getRecipeWrapper(@Nonnull BlastFurnaceRecipe recipe) {
-		return new BlastFurnaceRecipeWrapper(recipe);
+		return new BlastFurnaceRecipeWrapper(jeiHelpers, recipe);
 	}
 
 	@Override

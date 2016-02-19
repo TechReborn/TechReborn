@@ -1,14 +1,21 @@
 package techreborn.compat.jei.grinder;
 
-import javax.annotation.Nonnull;
-
+import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
-import techreborn.api.recipe.machines.ChemicalReactorRecipe;
 import techreborn.api.recipe.machines.GrinderRecipe;
 import techreborn.compat.jei.RecipeCategoryUids;
 
+import javax.annotation.Nonnull;
+
 public class GrinderRecipeHandler implements IRecipeHandler<GrinderRecipe> {
+	@Nonnull
+	private final IJeiHelpers jeiHelpers;
+
+	public GrinderRecipeHandler(@Nonnull IJeiHelpers jeiHelpers) {
+		this.jeiHelpers = jeiHelpers;
+	}
+
 	@Nonnull
 	@Override
 	public Class<GrinderRecipe> getRecipeClass() {
@@ -24,7 +31,7 @@ public class GrinderRecipeHandler implements IRecipeHandler<GrinderRecipe> {
 	@Nonnull
 	@Override
 	public IRecipeWrapper getRecipeWrapper(@Nonnull GrinderRecipe recipe) {
-		return new GrinderRecipeWrapper(recipe);
+		return new GrinderRecipeWrapper(jeiHelpers, recipe);
 	}
 
 	@Override

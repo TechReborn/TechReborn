@@ -1,23 +1,22 @@
 package techreborn.compat.jei.grinder;
 
-import javax.annotation.Nonnull;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.StatCollector;
-
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiFluidStackGroup;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
-import mezz.jei.api.recipe.IRecipeCategory;
+import mezz.jei.api.recipe.BlankRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.StatCollector;
 import techreborn.client.gui.GuiGrinder;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
 import techreborn.tiles.TileGrinder;
 
-public class GrinderRecipeCategory implements IRecipeCategory {
+import javax.annotation.Nonnull;
+
+public class GrinderRecipeCategory extends BlankRecipeCategory {
 	private static final int[] INPUT_SLOTS = {0, 1};
 	private static final int[] OUTPUT_SLOTS = {2, 3, 4, 5};
 	private static final int[] INPUT_TANKS = {0};
@@ -53,13 +52,8 @@ public class GrinderRecipeCategory implements IRecipeCategory {
 	}
 
 	@Override
-	public void drawExtras(Minecraft minecraft) {
+	public void drawExtras(@Nonnull Minecraft minecraft) {
 		blankArea.draw(minecraft, 129, 49);
-	}
-
-	@Override
-	public void drawAnimations(Minecraft minecraft) {
-
 	}
 
 	@Override

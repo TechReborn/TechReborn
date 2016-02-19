@@ -1,21 +1,19 @@
 package techreborn.compat.jei.industrialElectrolyzer;
 
-import javax.annotation.Nonnull;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.StatCollector;
-
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
-import mezz.jei.api.recipe.IRecipeCategory;
+import mezz.jei.api.recipe.BlankRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
+import net.minecraft.util.StatCollector;
 import techreborn.client.gui.GuiIndustrialElectrolyzer;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
 
-public class IndustrialElectrolyzerRecipeCategory implements IRecipeCategory {
+import javax.annotation.Nonnull;
+
+public class IndustrialElectrolyzerRecipeCategory extends BlankRecipeCategory {
 	private static final int[] INPUT_SLOTS = {0, 1};
 	private static final int[] OUTPUT_SLOTS = {2, 3, 4, 5};
 
@@ -43,16 +41,6 @@ public class IndustrialElectrolyzerRecipeCategory implements IRecipeCategory {
 	@Override
 	public IDrawable getBackground() {
 		return background;
-	}
-
-	@Override
-	public void drawExtras(Minecraft minecraft) {
-
-	}
-
-	@Override
-	public void drawAnimations(Minecraft minecraft) {
-
 	}
 
 	@Override

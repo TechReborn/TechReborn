@@ -1,13 +1,21 @@
 package techreborn.compat.jei.implosionCompressor;
 
-import javax.annotation.Nonnull;
-
+import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
 import techreborn.compat.jei.RecipeCategoryUids;
 
+import javax.annotation.Nonnull;
+
 public class ImplosionCompressorRecipeHandler implements IRecipeHandler<ImplosionCompressorRecipe> {
+	@Nonnull
+	private final IJeiHelpers jeiHelpers;
+
+	public ImplosionCompressorRecipeHandler(@Nonnull IJeiHelpers jeiHelpers) {
+		this.jeiHelpers = jeiHelpers;
+	}
+
 	@Nonnull
 	@Override
 	public Class<ImplosionCompressorRecipe> getRecipeClass() {
@@ -23,7 +31,7 @@ public class ImplosionCompressorRecipeHandler implements IRecipeHandler<Implosio
 	@Nonnull
 	@Override
 	public IRecipeWrapper getRecipeWrapper(@Nonnull ImplosionCompressorRecipe recipe) {
-		return new ImplosionCompressorRecipeWrapper(recipe);
+		return new ImplosionCompressorRecipeWrapper(jeiHelpers, recipe);
 	}
 
 	@Override
