@@ -1,8 +1,11 @@
 package techreborn.api;
 
 import net.minecraft.item.ItemStack;
+import techreborn.api.recipe.IRecipeCompact;
 
 public final class TechRebornAPI {
+
+    public static IRecipeCompact recipeCompact;
 
     public static void addRollingOreMachinceRecipe(ItemStack output,
                                                 Object... components) {

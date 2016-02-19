@@ -62,9 +62,9 @@ public class RecipeHandler {
         if (recipeList.contains(recipe)) {
             return;
         }
-        if (!RecipeConfigManager.canLoadRecipe(recipe)) {
-            return;
-        }
+//        if (!RecipeConfigManager.canLoadRecipe(recipe)) {
+//            return;
+//        }
         if (!machineNames.contains(recipe.getRecipeName())) {
             machineNames.add(recipe.getRecipeName());
         }

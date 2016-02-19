@@ -19,6 +19,7 @@ import reborncore.common.packets.AddDiscriminatorEvent;
 import reborncore.common.util.LogHelper;
 import reborncore.common.util.VersionChecker;
 import techreborn.achievement.TRAchievements;
+import techreborn.api.TechRebornAPI;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.recipeConfig.RecipeConfigManager;
 import techreborn.client.GuiHandler;
@@ -52,6 +53,9 @@ public class Core {
 
     public static LogHelper logHelper = new LogHelper(new ModInfo());
 
+    private static RecipeCompact recipeCompact;
+    private static File configDir;
+
     @Mod.EventHandler
     public void preinit(FMLPreInitializationEvent event) {
         event.getModMetadata().version = ModInfo.MOD_VERSION;
@@ -63,6 +67,10 @@ public class Core {
                 .replace(ModInfo.MOD_ID, "TechReborn");
 
         config = ConfigTechReborn.initialize(new File(path));
+        configDir = event.getModConfigurationDirectory();
+
+        recipeCompact = new RecipeCompact();
+        TechRebornAPI.recipeCompact = recipeCompact;
 
         for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
             compatModule.preInit(event);
@@ -126,6 +134,7 @@ public class Core {
 //        RecipeHandler.scanForDupeRecipes();
 
         //RecipeConfigManager.save();
+        recipeCompact.saveMissingItems(configDir);
     }
 
     @Mod.EventHandler

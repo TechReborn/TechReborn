@@ -2,6 +2,7 @@ package techreborn.init;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -48,6 +49,7 @@ public class
         addIndustrialGrinderRecipes();
         addImplosionCompressorRecipes();
         addReactorRecipes();
+        addIc2Recipes();
     }
 
     static void addReactorRecipes(){
@@ -1181,6 +1183,1121 @@ public class
         ));
 
 
+    }
+    
+    static void addIc2Recipes(){
+        CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.manuel), TechRebornAPI.recipeCompact.getItem("plateiron"), Items.book);
+
+        CraftingHelper.addShapedOreRecipe(
+                ItemParts.getPartByName("machineParts", 16),
+                "CSC", "SCS", "CSC",
+                'S', "ingotSteel",
+                'C', TechRebornAPI.recipeCompact.getItem("electronicCircuit"));
+
+        CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("energyFlowCircuit", 4),
+                "ATA", "LIL", "ATA",
+                'T', "plateTungsten",
+                'I', "plateIridium",
+                'A', TechRebornAPI.recipeCompact.getItem("advancedCircuit"),
+                'L', TechRebornAPI.recipeCompact.getItem("lapotronCrystal"));
+
+        CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("superconductor", 4),
+                "CCC", "TIT", "EEE",
+                'E', ItemParts.getPartByName("energyFlowCircuit"),
+                'C', ItemParts.getPartByName("heliumCoolantSimple"),
+                'T', "ingotTungsten",
+                'I', TechRebornAPI.recipeCompact.getItem("iridiumPlate"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.lapotronicOrb),
+                "LLL", "LPL", "LLL",
+                'L', new ItemStack(TechRebornAPI.recipeCompact.getItem("lapotronCrystal").getItem(), 1, OreDictionary.WILDCARD_VALUE),
+                'P', TechRebornAPI.recipeCompact.getItem("iridiumPlate"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.industrialSawmill),
+                "PAP",
+                "SSS",
+                "ACA",
+                'P', TechRebornAPI.recipeCompact.getItem("pump"),
+                'A', TechRebornAPI.recipeCompact.getItem("advancedCircuit"),
+                'S', ItemParts.getPartByName("diamondSawBlade"),
+                'C', TechRebornAPI.recipeCompact.getItem("advancedMachine"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ComputerCube),
+                "DME", "MAM", "EMD",
+                'E', ItemParts.getPartByName("energyFlowCircuit"),
+                'D', ItemParts.getPartByName("dataOrb"),
+                'M', ItemParts.getPartByName("computerMonitor"),
+                'A', TechRebornAPI.recipeCompact.getItem("advancedMachine"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.MatterFabricator),
+                "ETE", "AOA", "ETE",
+                'E', ItemParts.getPartByName("energyFlowCircuit"),
+                'T', TechRebornAPI.recipeCompact.getItem("teleporter"),
+                'A', ModBlocks.HighAdvancedMachineBlock,
+                'O', ModItems.lapotronicOrb);
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.thermalGenerator),
+                "III", "IHI", "CGC",
+                'I', "plateInvar",
+                'H', TechRebornAPI.recipeCompact.getItem("reinforcedGlass"),
+                'C', "circuitBasic",
+                'G', new ItemStack(ModBlocks.heatGenerator));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.thermalGenerator),
+                "AAA", "AHA", "CGC",
+                'A', "plateAluminum",
+                'H', TechRebornAPI.recipeCompact.getItem("reinforcedGlass"),
+                'C', "circuitBasic",
+                'G', new ItemStack(ModBlocks.heatGenerator));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.heatGenerator),
+                "III", "IHI", "CGC",
+                'I', "plateIron",
+                'H', new ItemStack(Blocks.iron_bars),
+                'C', "circuitBasic",
+                'G', TechRebornAPI.recipeCompact.getItem("geothermalGenerator"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Gasturbine),
+                "IAI", "WGW", "IAI",
+                'I', "plateInvar",
+                'A', TechRebornAPI.recipeCompact.getItem("advancedCircuit"),
+                'W', TechRebornAPI.recipeCompact.getItem("windMill"),
+                'G', TechRebornAPI.recipeCompact.getItem("reinforcedGlass"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Gasturbine),
+                "IAI", "WGW", "IAI",
+                'I', "plateAluminum",
+                'A', TechRebornAPI.recipeCompact.getItem("advancedCircuit"),
+                'W', TechRebornAPI.recipeCompact.getItem("windMill"),
+                'G', TechRebornAPI.recipeCompact.getItem("reinforcedGlass"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Semifluidgenerator),
+                "III", "IHI", "CGC",
+                'I', "plateIron",
+                'H', TechRebornAPI.recipeCompact.getItem("reinforcedGlass"),
+                'C', "circuitBasic",
+                'G', TechRebornAPI.recipeCompact.getItem("generator"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Semifluidgenerator),
+                "AAA", "AHA", "CGC",
+                'A', "plateAluminum",
+                'H', TechRebornAPI.recipeCompact.getItem("reinforcedGlass"),
+                'C', "circuitBasic",
+                'G', TechRebornAPI.recipeCompact.getItem("generator"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.DieselGenerator),
+                "III", "I I", "CGC",
+                'I', "plateIron",
+                'C', "circuitBasic",
+                'G', TechRebornAPI.recipeCompact.getItem("generator"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.DieselGenerator),
+                "AAA", "A A", "CGC",
+                'A', "plateAluminum",
+                'C', "circuitBasic",
+                'G', TechRebornAPI.recipeCompact.getItem("generator"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.MagicalAbsorber),
+                "CSC", "IBI", "CAC",
+                'C', "circuitMaster",
+                'S', "craftingSuperconductor",
+                'B', Blocks.beacon,
+                'A', ModBlocks.Magicenergeyconverter,
+                'I', TechRebornAPI.recipeCompact.getItem("iridiumPlate"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Magicenergeyconverter),
+                "CTC", "PBP", "CLC",
+                'C', "circuitAdvanced",
+                'P', "platePlatinum",
+                'B', Blocks.beacon,
+                'L', TechRebornAPI.recipeCompact.getItem("lapotronCrystal"),
+                'T', TechRebornAPI.recipeCompact.getItem("teleporter"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Dragoneggenergysiphoner),
+                "CTC", "ISI", "CBC",
+                'I', TechRebornAPI.recipeCompact.getItem("iridiumPlate"),
+                'C', "circuitMaster",
+                'B', "batteryUltimate",
+                'S', ModBlocks.Supercondensator,
+                'T', TechRebornAPI.recipeCompact.getItem("teleporter"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.centrifuge),
+                "SCS", "BEB", "SCS",
+                'S', "plateSteel",
+                'C', "circuitAdvanced",
+                'B', TechRebornAPI.recipeCompact.getItem("advancedMachine"),
+                'E', TechRebornAPI.recipeCompact.getItem("extractor"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.IndustrialElectrolyzer),
+                "SXS", "CEC", "SMS",
+                'S', "plateSteel",
+                'C', "circuitAdvanced",
+                'X', TechRebornAPI.recipeCompact.getItem("extractor"),
+                'E', TechRebornAPI.recipeCompact.getItem("electrolyzer"),
+                'M', TechRebornAPI.recipeCompact.getItem("magnetizer"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.BlastFurnace),
+                "CHC", "HBH", "FHF",
+                'H', new ItemStack(ModItems.parts, 1, 17),
+                'C', "circuitAdvanced",
+                'B', TechRebornAPI.recipeCompact.getItem("advancedMachine"),
+                'F', TechRebornAPI.recipeCompact.getItem("inductionFurnace"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Grinder),
+                "ECP", "GGG", "CBC",
+                'E', ModBlocks.IndustrialElectrolyzer,
+                'P', TechRebornAPI.recipeCompact.getItem("pump"),
+                'C', "circuitAdvanced",
+                'B', TechRebornAPI.recipeCompact.getItem("advancedMachine"),
+                'G', "craftingGrinder");
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ImplosionCompressor),
+                "ABA", "CPC", "ABA",
+                'A', TechRebornAPI.recipeCompact.getItem("advancedAlloy"),
+                'C', "circuitAdvanced",
+                'B', TechRebornAPI.recipeCompact.getItem("advancedMachine"),
+                'P', TechRebornAPI.recipeCompact.getItem("compressor"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.VacuumFreezer),
+                "SPS", "CGC", "SPS",
+                'S', "plateSteel",
+                'C', "circuitAdvanced",
+                'G', TechRebornAPI.recipeCompact.getItem("reinforcedGlass"),
+                'P', TechRebornAPI.recipeCompact.getItem("pump"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Distillationtower),
+                "CMC", "PBP", "EME",
+                'E', ModBlocks.IndustrialElectrolyzer,
+                'M', "circuitMaster",
+                'B', TechRebornAPI.recipeCompact.getItem("advancedMachine"),
+                'C', ModBlocks.centrifuge,
+                'P', TechRebornAPI.recipeCompact.getItem("pump"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.AlloyFurnace),
+                "III", "F F", "III",
+                'I', "plateIron",
+                'F', TechRebornAPI.recipeCompact.getItem("ironFurnace"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ChemicalReactor),
+                "IMI", "CPC", "IEI",
+                'I', "plateInvar",
+                'C', "circuitAdvanced",
+                'M', TechRebornAPI.recipeCompact.getItem("magnetizer"),
+                'P', TechRebornAPI.recipeCompact.getItem("compressor"),
+                'E', TechRebornAPI.recipeCompact.getItem("extractor"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ChemicalReactor),
+                "AMA", "CPC", "AEA",
+                'A', "plateAluminum",
+                'C', "circuitAdvanced",
+                'M', TechRebornAPI.recipeCompact.getItem("magnetizer"),
+                'P', TechRebornAPI.recipeCompact.getItem("compressor"),
+                'E', TechRebornAPI.recipeCompact.getItem("extractor"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.RollingMachine),
+                "PCP", "MBM", "PCP",
+                'P', "craftingPiston",
+                'C', "circuitAdvanced",
+                'M', TechRebornAPI.recipeCompact.getItem("compressor"),
+                'B', TechRebornAPI.recipeCompact.getItem("machine"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ElectricCraftingTable),
+                "ITI", "IBI", "ICI",
+                'I', "plateIron",
+                'C', "circuitAdvanced",
+                'T', "crafterWood",
+                'B', TechRebornAPI.recipeCompact.getItem("machine"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ElectricCraftingTable),
+                "ATA", "ABA", "ACA",
+                'A', "plateAluminum",
+                'C', "circuitAdvanced",
+                'T', "crafterWood",
+                'B', TechRebornAPI.recipeCompact.getItem("machine"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ChunkLoader),
+                "SCS", "CMC", "SCS",
+                'S', "plateSteel",
+                'C', "circuitMaster",
+                'M', new ItemStack(ModItems.parts, 1, 39));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Lesu),
+                " L ", "CBC", " M ",
+                'L', TechRebornAPI.recipeCompact.getItem("lvTransformer"),
+                'C', "circuitAdvanced",
+                'M', TechRebornAPI.recipeCompact.getItem("mvTransformer"),
+                'B', ModBlocks.LesuStorage);
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.HighAdvancedMachineBlock),
+                "CTC", "TBT", "CTC",
+                'C', "plateChrome",
+                'T', "plateTitanium",
+                'B', TechRebornAPI.recipeCompact.getItem("advancedMachine"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.MachineCasing, 4, 0),
+                "III", "CBC", "III",
+                'I', "plateIron",
+                'C', "circuitBasic",
+                'B', TechRebornAPI.recipeCompact.getItem("machine"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.MachineCasing, 4, 1),
+                "SSS", "CBC", "SSS",
+                'S', "plateSteel",
+                'C', "circuitAdvanced",
+                'B', TechRebornAPI.recipeCompact.getItem("advancedMachine"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.MachineCasing, 4, 2),
+                "HHH", "CBC", "HHH",
+                'H', "plateChrome",
+                'C', "circuitElite",
+                'B', ModBlocks.HighAdvancedMachineBlock);
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.quantumChest),
+                "DCD", "ATA", "DQD",
+                'D', ItemParts.getPartByName("dataOrb"),
+                'C', ItemParts.getPartByName("computerMonitor"),
+                'A', ModBlocks.HighAdvancedMachineBlock,
+                'Q', ModBlocks.digitalChest,
+                'T', TechRebornAPI.recipeCompact.getItem("teleporter"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.PlasmaGenerator),
+                "PPP", "PTP", "CGC",
+                'P', ItemPlates.getPlateByName("tungstensteel"),
+                'T', TechRebornAPI.recipeCompact.getItem("hvTransformer"),
+                'G', TechRebornAPI.recipeCompact.getItem("generator"),
+                'C', ItemParts.getPartByName("energyFlowCircuit")
+        );
+
+
+        //Smetling
+        GameRegistry.addSmelting(ItemDusts.getDustByName("copper", 1), TechRebornAPI.recipeCompact.getItem("copperIngot"), 1F);
+        GameRegistry.addSmelting(ItemDusts.getDustByName("tin", 1), TechRebornAPI.recipeCompact.getItem("tinIngot"), 1F);
+        GameRegistry.addSmelting(ItemDusts.getDustByName("bronze", 1), TechRebornAPI.recipeCompact.getItem("bronzeIngot"), 1F);
+        GameRegistry.addSmelting(ItemDusts.getDustByName("lead", 1), TechRebornAPI.recipeCompact.getItem("leadIngot"), 1F);
+        GameRegistry.addSmelting(ItemDusts.getDustByName("silver", 1), TechRebornAPI.recipeCompact.getItem("silverIngot"), 1F);
+
+        //Saw mill
+        ItemStack pulpStack = OreDictionary.getOres("pulpWood").get(0);
+        RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log, 1, 0), TechRebornAPI.recipeCompact.getItem("waterCell"), null, new ItemStack(Blocks.planks, 6, 0), pulpStack, TechRebornAPI.recipeCompact.getItem("cell"), 200, 30, false));
+        RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log, 1, 0), TechRebornAPI.recipeCompact.getItem("waterCell"), null, new ItemStack(Blocks.planks, 6, 0), pulpStack, TechRebornAPI.recipeCompact.getItem("cell"), 200, 30, false));
+        RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log, 1, 2), TechRebornAPI.recipeCompact.getItem("waterCell"), null, new ItemStack(Blocks.planks, 6, 2), pulpStack, TechRebornAPI.recipeCompact.getItem("cell"), 200, 30, false));
+        RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log, 1, 3), TechRebornAPI.recipeCompact.getItem("waterCell"), null, new ItemStack(Blocks.planks, 6, 3), pulpStack, TechRebornAPI.recipeCompact.getItem("cell"), 200, 30, false));
+        RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log2, 1, 0), TechRebornAPI.recipeCompact.getItem("waterCell"), null, new ItemStack(Blocks.planks, 6, 4), pulpStack, TechRebornAPI.recipeCompact.getItem("cell"), 200, 30, false));
+        RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log2, 1, 1), TechRebornAPI.recipeCompact.getItem("waterCell"), null, new ItemStack(Blocks.planks, 6, 5), pulpStack, TechRebornAPI.recipeCompact.getItem("cell"), 200, 30, false));
+
+        //UU
+        if (ConfigTechReborn.UUrecipesIridiamOre)
+            CraftingHelper.addShapedOreRecipe((TechRebornAPI.recipeCompact.getItem("iridiumOre")),
+                    "UUU",
+                    " U ",
+                    "UUU",
+                    'U', ModItems.uuMatter);
+
+
+        //Blast Furnace
+        RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemCells.getCellByName("silicon", 2), null, ItemPlates.getPlateByName("silicon"), new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 2), 1000, 120, 1500));
+
+        //CentrifugeRecipes
+
+        //Plantball/Bio Chaff
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Blocks.grass, 16), null, new ItemStack(TechRebornAPI.recipeCompact.getItem("biochaff").getItem(), 8), new ItemStack(TechRebornAPI.recipeCompact.getItem("plantBall").getItem(), 8), new ItemStack(Items.clay_ball), new ItemStack(Blocks.sand, 8), 2500, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Blocks.dirt, 16), null, new ItemStack(TechRebornAPI.recipeCompact.getItem("biochaff").getItem(), 4), new ItemStack(TechRebornAPI.recipeCompact.getItem("plantBall").getItem(), 4), new ItemStack(Items.clay_ball), new ItemStack(Blocks.sand, 8), 2500, 5));
+
+
+        //Methane
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.mushroom_stew, 16), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.apple, 32), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.porkchop, 12), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.cooked_porkchop, 16), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.bread, 64), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.fish, 12), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.cooked_fish, 16), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.beef, 12), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.cooked_beef, 16), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Blocks.pumpkin, 16), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.speckled_melon, 1), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), new ItemStack(Items.gold_nugget, 6), null, null, 5000, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.spider_eye, 32), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.chicken, 12), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.cooked_chicken, 16), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.rotten_flesh, 16), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.melon, 64), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.cookie, 64), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.cake, 8), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.golden_carrot, 1), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), new ItemStack(Items.gold_nugget, 6), null, null, 5000, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.carrot, 16), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.baked_potato, 24), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.potato, 16), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.poisonous_potato, 12), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.nether_wart, 1), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(TechRebornAPI.recipeCompact.getItem("terraWart").getItem(), 16), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Blocks.brown_mushroom, 1), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Blocks.red_mushroom, 1), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
+
+        //Rubber Wood Yields
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(TechRebornAPI.recipeCompact.getItem("rubberWood").getItem(), 15), new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 5), new ItemStack(TechRebornAPI.recipeCompact.getItem("resin").getItem(), 8), new ItemStack(TechRebornAPI.recipeCompact.getItem("plantBall").getItem(), 6), ItemCells.getCellByName("methane", 1), ItemCells.getCellByName("carbon", 4), 5000, 5));
+
+        //Soul Sand Byproducts
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Blocks.soul_sand, 16), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("oil", 1), ItemDusts.getDustByName("saltpeter", 4), ItemDusts.getDustByName("coal", 1), new ItemStack(Blocks.sand, 10), 2500, 5));
+
+        //Ice
+        RecipeHandler.addRecipe(new CentrifugeRecipe(ItemCells.getCellByName("ice", 1), null, new ItemStack(Blocks.ice, 1), TechRebornAPI.recipeCompact.getItem("cell"), null, null, 40, 5));
+
+
+        //Dust Byproducts
+
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.glowstone_dust, 16), TechRebornAPI.recipeCompact.getItem("cell"), new ItemStack(Items.redstone, 8), ItemDusts.getDustByName("gold", 8), ItemCells.getCellByName("helium", 1), null, 25000, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("phosphorous", 5), new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 3), ItemCells.getCellByName("calcium", 3), null, null, null, 1280, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("ashes", 1), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("carbon"), null, null, null, 80, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.redstone, 10), new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 4), ItemCells.getCellByName("silicon", 1), ItemDusts.getDustByName("pyrite", 3), ItemDusts.getDustByName("ruby", 1), ItemCells.getCellByName("mercury", 3), 6800, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("endstone", 16), new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 2), ItemCells.getCellByName("helium3", 1), ItemCells.getCellByName("helium"), ItemDustsSmall.getSmallDustByName("Tungsten", 1), new ItemStack(Blocks.sand, 12), 4800, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("cinnabar", 2), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("mercury", 1), ItemDusts.getDustByName("sulfur", 1), null, null, 80, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("flint", 1), null, TechRebornAPI.recipeCompact.getItem("silicondioxideDust"), null, null, null, 160, 5));
+
+
+        //Deuterium/Tritium
+        RecipeHandler.addRecipe(new CentrifugeRecipe(ItemCells.getCellByName("helium", 16), null, ItemCells.getCellByName("deuterium", 1), new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 15), null, null, 10000, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(ItemCells.getCellByName("deuterium", 4), null, ItemCells.getCellByName("tritium", 1), new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 3), null, null, 3000, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(ItemCells.getCellByName("hydrogen", 4), null, ItemCells.getCellByName("deuterium", 1), new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 3), null, null, 3000, 5));
+
+        //Lava Cell Byproducts
+        ItemStack lavaCells = TechRebornAPI.recipeCompact.getItem("lavaCell");
+        lavaCells.stackSize = 8;
+        RecipeHandler.addRecipe(new CentrifugeRecipe(lavaCells, null, ItemNuggets.getNuggetByName("electrum", 4), ItemIngots.getIngotByName("copper", 2), ItemDustsSmall.getSmallDustByName("Tungsten", 1), ItemIngots.getIngotByName("tin", 2), 6000, 5));
+
+        //IndustrialGrinderRecipes
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(Blocks.coal_ore, 1), TechRebornAPI.recipeCompact.getItem("waterCell"), null, new ItemStack(Items.coal, 1), ItemDustsSmall.getSmallDustByName("Coal", 6), ItemDustsSmall.getSmallDustByName("Coal", 2), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(Blocks.iron_ore, 1), TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("iron", 2), ItemDustsSmall.getSmallDustByName("Nickel", 1), ItemDustsSmall.getSmallDustByName("Tin", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(Blocks.gold_ore, 1), TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("gold", 2), ItemDustsSmall.getSmallDustByName("Copper", 1), ItemDustsSmall.getSmallDustByName("Nickel", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(Blocks.iron_ore, 1), ItemCells.getCellByName("sodiumPersulfate", 1), null, ItemDusts.getDustByName("iron", 2), ItemDusts.getDustByName("nickel", 1), ItemDustsSmall.getSmallDustByName("Tin", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(Blocks.gold_ore, 1), ItemCells.getCellByName("sodiumPersulfate", 1), null, ItemDusts.getDustByName("gold", 2), ItemDusts.getDustByName("copper", 1), ItemDustsSmall.getSmallDustByName("Nickel", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(Blocks.gold_ore, 1), ItemCells.getCellByName("mercury", 1), null, ItemDusts.getDustByName("gold", 3), ItemDustsSmall.getSmallDustByName("Copper", 1), ItemDustsSmall.getSmallDustByName("Nickel", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(Blocks.diamond_ore, 1), TechRebornAPI.recipeCompact.getItem("waterCell"), null, new ItemStack(Items.diamond, 1), ItemDustsSmall.getSmallDustByName("Diamond", 6), ItemDustsSmall.getSmallDustByName("Coal", 2), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(Blocks.emerald_ore, 1), TechRebornAPI.recipeCompact.getItem("waterCell"), null, new ItemStack(Items.emerald, 1), ItemDustsSmall.getSmallDustByName("Emerald", 6), ItemDustsSmall.getSmallDustByName("Aluminum", 2), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(Blocks.redstone_ore, 1), TechRebornAPI.recipeCompact.getItem("waterCell"), null, new ItemStack(Items.redstone, 10), ItemDustsSmall.getSmallDustByName("Cinnabar", 1), ItemDustsSmall.getSmallDustByName("Glowstone", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(Blocks.lapis_ore, 1), TechRebornAPI.recipeCompact.getItem("waterCell"), null, new ItemStack(Items.dye, 6, 4), ItemDustsSmall.getSmallDustByName("Lapis", 36), ItemDustsSmall.getSmallDustByName("Lazurite", 8), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+
+
+        //Copper Ore
+        if (OreUtil.doesOreExistAndValid("oreCopper")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreCopper").get(0);
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("copper", 2), ItemDustsSmall.getSmallDustByName("Gold", 1), ItemDustsSmall.getSmallDustByName("Nickel", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, ItemCells.getCellByName("sodiumPersulfate", 1), null, ItemDusts.getDustByName("copper", 2), ItemDusts.getDustByName("gold", 1), ItemDustsSmall.getSmallDustByName("Nickel", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, ItemCells.getCellByName("mercury", 1), null, ItemDusts.getDustByName("copper", 2), ItemDustsSmall.getSmallDustByName("Gold", 1), ItemDusts.getDustByName("nickel", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+            } catch (Exception e) {
+                Core.logHelper.info("Failed to Load Grinder Recipe for Copper Ore");
+            }
+        }
+
+        //Tin Ore
+        if (OreUtil.doesOreExistAndValid("oreTin")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreTin").get(0);
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("tin", 2), ItemDustsSmall.getSmallDustByName("Iron", 1), ItemDustsSmall.getSmallDustByName("Zinc", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, ItemCells.getCellByName("sodiumPersulfate", 1), null, ItemDusts.getDustByName("tin", 2), ItemDustsSmall.getSmallDustByName("Iron", 1), ItemDusts.getDustByName("zinc", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+            } catch (Exception e) {
+                Core.logHelper.info("Failed to Load Grinder Recipe for Tin Ore");
+            }
+        }
+
+        //Nickel Ore
+        if (OreUtil.doesOreExistAndValid("oreNickel")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreNickel").get(0);
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("nickel", 2), ItemDustsSmall.getSmallDustByName("Iron", 1), ItemDustsSmall.getSmallDustByName("Platinum", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, ItemCells.getCellByName("sodiumPersulfate", 1), null, ItemDusts.getDustByName("nickel", 3), ItemDustsSmall.getSmallDustByName("Iron", 1), ItemDustsSmall.getSmallDustByName("Platinum", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, ItemCells.getCellByName("mercury", 1), null, ItemDusts.getDustByName("nickel", 2), ItemDustsSmall.getSmallDustByName("Iron", 1), ItemDusts.getDustByName("platinum", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+            } catch (Exception e) {
+                Core.logHelper.info("Failed to Load Grinder Recipe for Nickel Ore");
+            }
+        }
+
+        //Zinc Ore
+        if (OreUtil.doesOreExistAndValid("oreZinc")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreZinc").get(0);
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("zinc", 2), ItemDustsSmall.getSmallDustByName("Iron", 1), ItemDustsSmall.getSmallDustByName("Tin", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, ItemCells.getCellByName("sodiumPersulfate", 1), null, ItemDusts.getDustByName("zinc", 2), ItemDustsSmall.getSmallDustByName("Iron", 1), ItemDusts.getDustByName("iron", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+            } catch (Exception e) {
+                Core.logHelper.info("Failed to Load Grinder Recipe for Zinc Ore");
+            }
+        }
+
+        //Silver Ore
+        if (OreUtil.doesOreExistAndValid("oreSilver")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreSilver").get(0);
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("silver", 2), ItemDustsSmall.getSmallDustByName("Lead", 1), ItemDustsSmall.getSmallDustByName("Sulfur", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, ItemCells.getCellByName("mercury", 1), null, ItemDusts.getDustByName("silver", 3), ItemDustsSmall.getSmallDustByName("Lead", 1), ItemDustsSmall.getSmallDustByName("Sulfur", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+            } catch (Exception e) {
+                Core.logHelper.info("Failed to Load Grinder Recipe for Silver Ore");
+            }
+        }
+
+        //Lead Ore
+        if (OreUtil.doesOreExistAndValid("oreLead")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreLead").get(0);
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("lead", 2), ItemDustsSmall.getSmallDustByName("Silver", 1), ItemDustsSmall.getSmallDustByName("Sulfur", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, ItemCells.getCellByName("mercury", 1), null, ItemDusts.getDustByName("lead", 2), ItemDusts.getDustByName("silver", 1), ItemDustsSmall.getSmallDustByName("Sulfur", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+            } catch (Exception e) {
+                Core.logHelper.info("Failed to Load Grinder Recipe for Lead Ore");
+            }
+        }
+
+        //Uranium Ore
+        if (OreUtil.doesOreExistAndValid("oreUranium")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreUranium").get(0);
+                ItemStack uranium238Stack = TechRebornAPI.recipeCompact.getItem("Uran238");
+                uranium238Stack.stackSize = 8;
+                ItemStack uranium235Stack = TechRebornAPI.recipeCompact.getItem("smallUran235");
+                uranium235Stack.stackSize = 2;
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), uranium238Stack, uranium235Stack, null, null, 100, 120));
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null, uranium238Stack, uranium235Stack, null, TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, uranium238Stack, uranium235Stack, null, new ItemStack(Items.bucket), 100, 120));
+            } catch (Exception e) {
+                Core.logHelper.info("Failed to Load Grinder Recipe for Uranium Ore");
+            }
+        }
+
+        //Pitchblende Ore
+        if (OreUtil.doesOreExistAndValid("orePitchblende")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("orePitchblende").get(0);
+                ItemStack uranium238Stack = TechRebornAPI.recipeCompact.getItem("Uran238");
+                uranium238Stack.stackSize = 8;
+                ItemStack uranium235Stack = TechRebornAPI.recipeCompact.getItem("smallUran235");
+                uranium235Stack.stackSize = 2;
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000), uranium238Stack, uranium235Stack, null, null, 100, 120));
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null, uranium238Stack, uranium235Stack, null, TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null, uranium238Stack, uranium235Stack, null, new ItemStack(Items.bucket), 100, 120));
+            } catch (Exception e) {
+                Core.logHelper.info("Failed to Load Grinder Recipe for Uranium Ore");
+            }
+        }
+
+        //Aluminum Ore
+        if (OreUtil.doesOreExistAndValid("oreAluminum")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreAluminum").get(0);
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("aluminum", 2), ItemDustsSmall.getSmallDustByName("Bauxite", 1), ItemDustsSmall.getSmallDustByName("Bauxite", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+            } catch (Exception e) {
+                Core.logHelper.info("Failed to Load Grinder Recipe for Lead Ore");
+            }
+        }
+
+        //Ardite Ore
+        if (OreUtil.doesOreExistAndValid("oreArdite")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreArdite").get(0);
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("ardite", 2), ItemDustsSmall.getSmallDustByName("Ardite", 1), ItemDustsSmall.getSmallDustByName("Ardite", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+            } catch (Exception e) {
+                Core.logHelper.info("Failed to Load Grinder Recipe for Ardite Ore");
+            }
+        }
+
+        //Cobalt Ore
+        if (OreUtil.doesOreExistAndValid("oreCobalt")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreCobalt").get(0);
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("cobalt", 2), ItemDustsSmall.getSmallDustByName("Cobalt", 1), ItemDustsSmall.getSmallDustByName("Cobalt", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+            } catch (Exception e) {
+                Core.logHelper.info("Failed to Load Grinder Recipe for Cobalt Ore");
+            }
+        }
+
+        //Dark Iron Ore
+        if (OreUtil.doesOreExistAndValid("oreDarkIron")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreDarkIron").get(0);
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("darkIron", 2), ItemDustsSmall.getSmallDustByName("DarkIron", 1), ItemDustsSmall.getSmallDustByName("Iron", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+            } catch (Exception e) {
+                Core.logHelper.info("Failed to Load Grinder Recipe for Dark Iron Ore");
+            }
+        }
+
+        //Cadmium Ore
+        if (OreUtil.doesOreExistAndValid("oreCadmium")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreCadmium").get(0);
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("cadmium", 2), ItemDustsSmall.getSmallDustByName("Cadmium", 1), ItemDustsSmall.getSmallDustByName("Cadmium", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+            } catch (Exception e) {
+                Core.logHelper.info("Failed to Load Grinder Recipe for Cadmium Ore");
+            }
+        }
+
+        //Indium Ore
+        if (OreUtil.doesOreExistAndValid("oreIndium")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreIndium").get(0);
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("indium", 2), ItemDustsSmall.getSmallDustByName("Indium", 1), ItemDustsSmall.getSmallDustByName("Indium", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+            } catch (Exception e) {
+                Core.logHelper.info("Failed to Load Grinder Recipe for Indium Ore");
+            }
+        }
+
+        //Calcite Ore
+        if (OreUtil.doesOreExistAndValid("oreCalcite") && OreUtil.doesOreExistAndValid("gemCalcite")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreCalcite").get(0);
+                ItemStack gemStack = OreDictionary.getOres("gemCalcite").get(0);
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null, gemStack, ItemDustsSmall.getSmallDustByName("Calcite", 6), null, TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+            } catch (Exception e) {
+                Core.logHelper.info("Failed to Load Grinder Recipe for Calcite Ore");
+            }
+        }
+
+        //Magnetite Ore
+        if (OreUtil.doesOreExistAndValid("oreMagnetite") && OreUtil.doesOreExistAndValid("chunkMagnetite")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreMagnetite").get(0);
+                ItemStack chunkStack = OreDictionary.getOres("chunkMagnetite").get(0);
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null, chunkStack, ItemDustsSmall.getSmallDustByName("Magnetite", 6), null, TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+            } catch (Exception e) {
+                Core.logHelper.info("Failed to Load Grinder Recipe for Magnetite Ore");
+            }
+        }
+
+        //Graphite Ore
+        if (OreUtil.doesOreExistAndValid("oreGraphite") && OreUtil.doesOreExistAndValid("chunkGraphite")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreGraphite").get(0);
+                ItemStack chunkStack = OreDictionary.getOres("chunkGraphite").get(0);
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null, chunkStack, ItemDustsSmall.getSmallDustByName("Graphite", 6), null, TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+            } catch (Exception e) {
+                Core.logHelper.info("Failed to Load Grinder Recipe for Graphite Ore");
+            }
+        }
+
+        //Osmium Ore
+        if (OreUtil.doesOreExistAndValid("oreOsmium")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreOsmium").get(0);
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("osmium", 2), ItemDustsSmall.getSmallDustByName("Osmium", 1), ItemDustsSmall.getSmallDustByName("Osmium", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+            } catch (Exception e) {
+                Core.logHelper.info("Failed to Load Grinder Recipe for Osmium Ore");
+            }
+        }
+
+        //Teslatite Ore
+        if (OreUtil.doesOreExistAndValid("oreTeslatite") && OreUtil.doesOreExistAndValid("dustTeslatite")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreTeslatite").get(0);
+                ItemStack dustStack = OreDictionary.getOres("dustTeslatite").get(0);
+                dustStack.stackSize = 10;
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null, dustStack, ItemDustsSmall.getSmallDustByName("Sodalite", 1), ItemDustsSmall.getSmallDustByName("Glowstone", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+            } catch (Exception e) {
+                Core.logHelper.info("Failed to Load Grinder Recipe for Teslatite Ore");
+            }
+        }
+
+        //Sulfur Ore
+        if (OreUtil.doesOreExistAndValid("oreSulfur")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreSulfur").get(0);
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("sulfur", 2), ItemDustsSmall.getSmallDustByName("Sulfur", 1), ItemDustsSmall.getSmallDustByName("Sulfur", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+            } catch (Exception e) {
+                Core.logHelper.info("Failed to Load Grinder Recipe for Sulfur Ore");
+            }
+        }
+
+        //Saltpeter Ore
+        if (OreUtil.doesOreExistAndValid("oreSaltpeter")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreSaltpeter").get(0);
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("saltpeter", 2), ItemDustsSmall.getSmallDustByName("Saltpeter", 1), ItemDustsSmall.getSmallDustByName("Saltpeter", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+            } catch (Exception e) {
+                Core.logHelper.info("Failed to Load Grinder Recipe for Saltpeter Ore");
+            }
+        }
+
+        //Apatite Ore
+        if (OreUtil.doesOreExistAndValid("oreApatite") & OreUtil.doesOreExistAndValid("gemApatite")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreApatite").get(0);
+                ItemStack gemStack = OreDictionary.getOres("gemApatite").get(0);
+                gemStack.stackSize = 6;
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null, gemStack, gemStack, ItemDustsSmall.getSmallDustByName("Phosphorous", 4), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+            } catch (Exception e) {
+                Core.logHelper.info("Failed to Load Grinder Recipe for Apatite Ore");
+            }
+        }
+
+        //Nether Quartz Ore
+        if (OreUtil.doesOreExistAndValid("dustNetherQuartz")) {
+            try {
+                ItemStack dustStack = OreDictionary.getOres("dustNetherQuartz").get(0);
+                dustStack.stackSize = 4;
+                RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(Blocks.quartz_ore, 1), TechRebornAPI.recipeCompact.getItem("waterCell"), null, new ItemStack(Items.quartz, 2), dustStack, ItemDustsSmall.getSmallDustByName("Netherrack", 2), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+            } catch (Exception e) {
+                Core.logHelper.info("Failed to Load Grinder Recipe for Nether Quartz Ore");
+            }
+        }
+
+        //Certus Quartz Ore
+        if (OreUtil.doesOreExistAndValid("oreCertusQuartz")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreCertusQuartz").get(0);
+                ItemStack gemStack = OreDictionary.getOres("crystalCertusQuartz").get(0);
+                ItemStack dustStack = OreDictionary.getOres("dustCertusQuartz").get(0);
+                dustStack.stackSize = 2;
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null, gemStack, dustStack, null, TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+            } catch (Exception e) {
+                Core.logHelper.info("Failed to Load Grinder Recipe for Certus Quartz Ore");
+            }
+        }
+
+        //Charged Certus Quartz Ore
+        if (OreUtil.doesOreExistAndValid("oreChargedCertusQuartz")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreChargedCertusQuartz").get(0);
+                ItemStack gemStack = OreDictionary.getOres("crystalChargedCertusQuartz").get(0);
+                ItemStack dustStack = OreDictionary.getOres("dustCertusQuartz").get(0);
+                dustStack.stackSize = 2;
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null, gemStack, dustStack, null, TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+            } catch (Exception e) {
+                Core.logHelper.info("Failed to Load Grinder Recipe for Charged Certus Quartz Ore");
+            }
+        }
+
+        //Amethyst Ore
+        if (OreUtil.doesOreExistAndValid("oreAmethyst") && OreUtil.doesOreExistAndValid("gemAmethyst")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreAmethyst").get(0);
+                ItemStack gemStack = OreDictionary.getOres("gemAmethyst").get(0);
+                gemStack.stackSize = 2;
+                ItemStack dustStack = OreDictionary.getOres("gemAmethyst").get(0);
+                dustStack.stackSize = 1;
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null, gemStack, dustStack, null, TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+            } catch (Exception e) {
+                Core.logHelper.info("Failed to Load Grinder Recipe for Certus Quartz Ore");
+            }
+        }
+
+        //Topaz Ore
+        if (OreUtil.doesOreExistAndValid("oreTopaz") && OreUtil.doesOreExistAndValid("gemTopaz")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreTopaz").get(0);
+                ItemStack gemStack = OreDictionary.getOres("gemTopaz").get(0);
+                gemStack.stackSize = 2;
+                ItemStack dustStack = OreDictionary.getOres("gemTopaz").get(0);
+                dustStack.stackSize = 1;
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null, gemStack, dustStack, null, TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+            } catch (Exception e) {
+                Core.logHelper.info("Failed to Load Grinder Recipe for Topaz Ore");
+            }
+        }
+
+        //Tanzanite Ore
+        if (OreUtil.doesOreExistAndValid("oreTanzanite") && OreUtil.doesOreExistAndValid("gemTanzanite")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreTanzanite").get(0);
+                ItemStack gemStack = OreDictionary.getOres("gemTanzanite").get(0);
+                gemStack.stackSize = 2;
+                ItemStack dustStack = OreDictionary.getOres("gemTanzanite").get(0);
+                dustStack.stackSize = 1;
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null, gemStack, dustStack, null, TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+            } catch (Exception e) {
+                Core.logHelper.info("Failed to Load Grinder Recipe for Tanzanite Ore");
+            }
+        }
+
+        //Malachite Ore
+        if (OreUtil.doesOreExistAndValid("oreMalachite") && OreUtil.doesOreExistAndValid("gemMalachite")) {
+            try {
+                ItemStack oreStack = OreDictionary.getOres("oreMalachite").get(0);
+                ItemStack gemStack = OreDictionary.getOres("gemMalachite").get(0);
+                gemStack.stackSize = 2;
+                ItemStack dustStack = OreDictionary.getOres("gemMalachite").get(0);
+                dustStack.stackSize = 1;
+                RecipeHandler.addRecipe(new GrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null, gemStack, dustStack, null, TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+            } catch (Exception e) {
+                Core.logHelper.info("Failed to Load Grinder Recipe for Malachite Ore");
+            }
+        }
+
+
+        //Implosion Compressor
+
+        RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemParts.getPartByName("iridiumAlloyIngot"), new ItemStack(TechRebornAPI.recipeCompact.getItem("industrialTnt").getItem(), 8), TechRebornAPI.recipeCompact.getItem("iridiumPlate"), ItemDusts.getDustByName("darkAshes", 4), 20, 30));
+        RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("diamond", 4), new ItemStack(TechRebornAPI.recipeCompact.getItem("industrialTnt").getItem(), 32), new ItemStack(TechRebornAPI.recipeCompact.getItem("industrialDiamond").getItem(), 3), ItemDusts.getDustByName("darkAshes", 16), 20, 30));
+        RecipeHandler.addRecipe(new ImplosionCompressorRecipe(TechRebornAPI.recipeCompact.getItem("coalChunk"), new ItemStack(TechRebornAPI.recipeCompact.getItem("industrialTnt").getItem(), 8), TechRebornAPI.recipeCompact.getItem("industrialDiamond"), ItemDusts.getDustByName("darkAshes", 4), 20, 30));
+        RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("emerald", 4), new ItemStack(TechRebornAPI.recipeCompact.getItem("industrialTnt").getItem(), 24), new ItemStack(Items.emerald, 3), ItemDusts.getDustByName("darkAshes", 12), 20, 30));
+        RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("sapphire", 4), new ItemStack(TechRebornAPI.recipeCompact.getItem("industrialTnt").getItem(), 24), ItemGems.getGemByName("sapphire", 3), ItemDusts.getDustByName("darkAshes", 12), 20, 30));
+        RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("ruby", 4), new ItemStack(TechRebornAPI.recipeCompact.getItem("industrialTnt").getItem(), 24), ItemGems.getGemByName("ruby", 3), ItemDusts.getDustByName("darkAshes", 12), 20, 30));
+        RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("yellowGarnet", 4), new ItemStack(TechRebornAPI.recipeCompact.getItem("industrialTnt").getItem(), 24), ItemGems.getGemByName("yellowGarnet", 3), ItemDusts.getDustByName("darkAshes", 12), 20, 30));
+        RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("redGarnet", 4), new ItemStack(TechRebornAPI.recipeCompact.getItem("industrialTnt").getItem(), 24), ItemGems.getGemByName("redGarnet", 3), ItemDusts.getDustByName("darkAshes", 12), 20, 30));
+        RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("peridot", 4), new ItemStack(TechRebornAPI.recipeCompact.getItem("industrialTnt").getItem(), 24), ItemGems.getGemByName("peridot", 3), ItemDusts.getDustByName("darkAshes", 12), 20, 30));
+
+
+        //Grinder
+
+
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 0), TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("galena", 2), ItemDustsSmall.getSmallDustByName("Sulfur", 1), ItemDustsSmall.getSmallDustByName("Silver", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 0), ItemCells.getCellByName("mercury", 1), null, ItemDusts.getDustByName("galena", 2), ItemDustsSmall.getSmallDustByName("Sulfur", 1), ItemDusts.getDustByName("silver", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+
+        //Iridium Ore
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 1), null, new FluidStack(FluidRegistry.WATER, 1000), TechRebornAPI.recipeCompact.getItem("iridiumOre"), ItemDustsSmall.getSmallDustByName("Iridium", 6), ItemDustsSmall.getSmallDustByName("Platinum", 2), null, 100, 120));
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 1), TechRebornAPI.recipeCompact.getItem("waterCell"), null, TechRebornAPI.recipeCompact.getItem("iridiumOre"), ItemDustsSmall.getSmallDustByName("Iridium", 6), ItemDustsSmall.getSmallDustByName("Platinum", 2), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 1), new ItemStack(Items.water_bucket), null, TechRebornAPI.recipeCompact.getItem("iridiumOre"), ItemDustsSmall.getSmallDustByName("Iridium", 6), ItemDustsSmall.getSmallDustByName("Platinum", 2), new ItemStack(Items.bucket), 100, 120));
+
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 1), null, new FluidStack(ModFluids.fluidMercury, 1000), TechRebornAPI.recipeCompact.getItem("iridiumOre"), ItemDustsSmall.getSmallDustByName("Iridium", 6), ItemDusts.getDustByName("platinum", 2), null, 100, 120));
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 1), ItemCells.getCellByName("mercury", 1), null, TechRebornAPI.recipeCompact.getItem("iridiumOre"), ItemDustsSmall.getSmallDustByName("Iridium", 6), ItemDusts.getDustByName("platinum", 2), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 1), new ItemStack(ModItems.bucketMercury), null, TechRebornAPI.recipeCompact.getItem("iridiumOre"), ItemDustsSmall.getSmallDustByName("Iridium", 6), ItemDusts.getDustByName("platinum", 2), new ItemStack(Items.bucket), 100, 120));
+
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 2), TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemGems.getGemByName("ruby", 1), ItemDustsSmall.getSmallDustByName("Ruby", 6), ItemDustsSmall.getSmallDustByName("Chrome", 2), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 3), TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemGems.getGemByName("sapphire", 1), ItemDustsSmall.getSmallDustByName("Sapphire", 6), ItemDustsSmall.getSmallDustByName("Aluminum", 2), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 4), TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("bauxite", 2), ItemDustsSmall.getSmallDustByName("Grossular", 4), ItemDustsSmall.getSmallDustByName("Titanium", 4), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 5), TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("pyrite", 2), ItemDustsSmall.getSmallDustByName("Sulfur", 1), ItemDustsSmall.getSmallDustByName("Phosphorous", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 6), TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("cinnabar", 2), ItemDustsSmall.getSmallDustByName("Redstone", 1), ItemDustsSmall.getSmallDustByName("Glowstone", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 7), TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("sphalerite", 2), ItemDustsSmall.getSmallDustByName("Zinc", 1), ItemDustsSmall.getSmallDustByName("YellowGarnet", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 7), ItemCells.getCellByName("sodiumPersulfate", 1), null, ItemDusts.getDustByName("sphalerite", 2), ItemDusts.getDustByName("zinc", 1), ItemDustsSmall.getSmallDustByName("YellowGarnet", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 8), TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("tungsten", 2), ItemDustsSmall.getSmallDustByName("Manganese", 1), ItemDustsSmall.getSmallDustByName("Silver", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 8), ItemCells.getCellByName("mercury", 1), null, ItemDusts.getDustByName("tungsten", 2), ItemDustsSmall.getSmallDustByName("Manganese", 1), ItemDusts.getDustByName("silver", 2), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 9), TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("platinum", 2), ItemDustsSmall.getSmallDustByName("Iridium", 1), ItemDustsSmall.getSmallDustByName("Iridium", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 9), ItemCells.getCellByName("mercury", 1), null, ItemDusts.getDustByName("platinum", 3), ItemDustsSmall.getSmallDustByName("Iridium", 1), ItemDustsSmall.getSmallDustByName("Iridium", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 10), TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemGems.getGemByName("peridot", 1), ItemDustsSmall.getSmallDustByName("Peridot", 6), ItemDustsSmall.getSmallDustByName("Pyrope", 2), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 11), TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("sodalite", 12), ItemDustsSmall.getSmallDustByName("Lazurite", 4), ItemDustsSmall.getSmallDustByName("Lapis", 4), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 12), TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("tetrahedrite", 2), ItemDustsSmall.getSmallDustByName("Antimony", 1), ItemDustsSmall.getSmallDustByName("Zinc", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(ModBlocks.ore, 1, 12), ItemCells.getCellByName("sodiumPersulfate", 1), null, ItemDusts.getDustByName("tetrahedrite", 3), ItemDustsSmall.getSmallDustByName("Antimony", 1), ItemDustsSmall.getSmallDustByName("Zinc", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
+
+
+        //Chemical Reactor
+        RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemDusts.getDustByName("calcite", 1), null, new ItemStack(TechRebornAPI.recipeCompact.getItem("fertilizer").getItem(), 1), 100, 30));
+        RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemDusts.getDustByName("calcite", 1), ItemDusts.getDustByName("phosphorous", 1), new ItemStack(TechRebornAPI.recipeCompact.getItem("fertilizer").getItem(), 3), 100, 30));
+        RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemCells.getCellByName("sodiumSulfide", 1), TechRebornAPI.recipeCompact.getItem("airCell"), ItemCells.getCellByName("sodiumPersulfate", 2), 2000, 30));
+        RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemCells.getCellByName("nitrocarbon", 1), TechRebornAPI.recipeCompact.getItem("waterCell"), ItemCells.getCellByName("glyceryl", 2), 580, 30));
+        RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemDusts.getDustByName("calcite", 1), ItemDusts.getDustByName("sulfur", 1), new ItemStack(TechRebornAPI.recipeCompact.getItem("fertilizer").getItem(), 2), 100, 30));
+        ItemStack waterCells = TechRebornAPI.recipeCompact.getItem("waterCell").copy();
+        waterCells.stackSize = 2;
+        RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemCells.getCellByName("sulfur", 1), waterCells, ItemCells.getCellByName("sulfuricAcid", 3), 1140, 30));
+        ItemStack waterCells2 = TechRebornAPI.recipeCompact.getItem("waterCell").copy();
+        waterCells2.stackSize = 5;
+        RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemCells.getCellByName("hydrogen", 4), TechRebornAPI.recipeCompact.getItem("airCell"), waterCells2, 10, 30));
+        RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemCells.getCellByName("nitrogen", 1), TechRebornAPI.recipeCompact.getItem("airCell"), ItemCells.getCellByName("nitrogenDioxide", 2), 1240, 30));
+
+
+//IndustrialElectrolyzer
+
+        RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+                ItemCells.getCellByName("sulfuricAcid", 7),
+                null,
+                ItemCells.getCellByName("hydrogen", 2),
+                ItemDusts.getDustByName("sulfur"),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 2, 5),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 3, 0),
+                400, 90
+        ));
+
+
+        RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+                ItemDusts.getDustByName("ruby", 6),
+                TechRebornAPI.recipeCompact.getItem("cell"),
+                ItemDusts.getDustByName("aluminum", 2),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 1, 5),
+                ItemDusts.getDustByName("chrome", 1),
+                null,
+                140, 90
+        ));
+
+        RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+                ItemDusts.getDustByName("sapphire", 5),
+                TechRebornAPI.recipeCompact.getItem("cell"),
+                ItemDusts.getDustByName("aluminum", 2),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 1, 5),
+                null,
+                null,
+                100, 60
+        ));
+
+        RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+                ItemCells.getCellByName("nitrogenDioxide", 3),
+                null,
+                ItemCells.getCellByName("nitrogen", 1),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 1, 5),
+                null,
+                TechRebornAPI.recipeCompact.getItem("cell"),
+                160, 60
+        ));
+
+        RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+                ItemCells.getCellByName("sodiumSulfide", 2),
+                null,
+                ItemCells.getCellByName("sodium", 1),
+                ItemDusts.getDustByName("sulfur", 1),
+                null,
+                TechRebornAPI.recipeCompact.getItem("cell"),
+                200, 60
+        ));
+
+        RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+                ItemDusts.getDustByName("greenSapphire", 5),
+                TechRebornAPI.recipeCompact.getItem("cell"),
+                ItemDusts.getDustByName("aluminum", 2),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 1, 5),
+                null,
+                null,
+                100, 60
+        ));
+
+        RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+                ItemDusts.getDustByName("emerald", 29),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 18, 0),
+                ItemCells.getCellByName("berylium", 3),
+                ItemDusts.getDustByName("aluminum", 2),
+                ItemCells.getCellByName("silicon", 6),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 9, 5),
+                520, 120
+        ));
+
+        RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("silicondioxideDust").getItem(), 3, 0),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 2, 0),
+                ItemCells.getCellByName("silicon", 1),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 1, 5),
+                null,
+                null,
+                60, 60
+        ));
+
+        RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(new ItemStack(Items.dye, 3, 15),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 1, 0),
+                null,
+                ItemCells.getCellByName("calcium", 1),
+                null,
+                null,
+                20, 106
+        ));
+
+        RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+                ItemCells.getCellByName("glyceryl", 20),
+                null,
+                ItemCells.getCellByName("carbon", 3),
+                ItemCells.getCellByName("hydrogen", 5),
+                ItemCells.getCellByName("nitrogen", 3),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 9, 0),
+                800, 90
+        ));
+
+        RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+                ItemDusts.getDustByName("peridot", 9),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 4, 0),
+                ItemDusts.getDustByName("magnesium", 2),
+                ItemDusts.getDustByName("iron"),
+                ItemCells.getCellByName("silicon", 2),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 2, 5),
+                200, 120
+        ));
+
+        RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+                ItemCells.getCellByName("calciumCarbonate", 5),
+                null,
+                ItemCells.getCellByName("carbon"),
+                ItemCells.getCellByName("calcium"),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 1, 5),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 2, 0),
+                400, 90
+        ));
+
+        RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+                ItemCells.getCellByName("sodiumPersulfate", 6),
+                null,
+                ItemCells.getCellByName("sodium"),
+                ItemDusts.getDustByName("sulfur"),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 2, 5),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 3, 0),
+                420, 90
+        ));
+
+        RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+                ItemDusts.getDustByName("pyrope", 20),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 9, 0),
+                ItemDusts.getDustByName("aluminum", 2),
+                ItemDusts.getDustByName("magnesium", 3),
+                ItemCells.getCellByName("silicon", 3),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 6, 5),
+                400, 120
+        ));
+
+        ItemStack sand = new ItemStack(Blocks.sand);
+        sand.stackSize = 16;
+
+        RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+                sand,
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 2, 0),
+                ItemCells.getCellByName("silicon", 1),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 1, 5),
+                null,
+                null,
+                1000, 25
+        ));
+
+        RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+                ItemDusts.getDustByName("almandine", 20),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 9, 0),
+                ItemDusts.getDustByName("aluminum", 2),
+                ItemDusts.getDustByName("iron", 3),
+                ItemCells.getCellByName("silicon", 3),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 6, 5),
+                480, 120
+        ));
+
+        RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+                ItemDusts.getDustByName("spessartine", 20),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 9, 0),
+                ItemDusts.getDustByName("aluminum", 2),
+                ItemDusts.getDustByName("manganese", 3),
+                ItemCells.getCellByName("silicon", 3),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 6, 5),
+                480, 120
+        ));
+
+        RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+                ItemDusts.getDustByName("andradite", 20),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 12, 0),
+                ItemCells.getCellByName("calcium", 3),
+                ItemDusts.getDustByName("iron", 2),
+                ItemCells.getCellByName("silicon", 3),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 6, 5),
+                480, 120
+        ));
+
+        RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+                ItemDusts.getDustByName("grossular", 20),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 12, 0),
+                ItemCells.getCellByName("calcium", 3),
+                ItemDusts.getDustByName("aluminum", 2),
+                ItemCells.getCellByName("silicon", 3),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 6, 5),
+                440, 120
+        ));
+
+        RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+                ItemDusts.getDustByName("Uvarovite", 20),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 12, 0),
+                ItemCells.getCellByName("calcium", 3),
+                ItemDusts.getDustByName("chrome", 2),
+                ItemCells.getCellByName("silicon", 3),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 6, 5),
+                480, 120
+        ));
+
+        RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 6, 10),
+                null,
+                ItemCells.getCellByName("hydrogen", 4),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 1, 5),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 1, 0),
+                null,
+                100, 30
+        ));
+
+        RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+                ItemDusts.getDustByName("darkAshes"),
+                new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 2, 0),
+                ItemCells.getCellByName("carbon", 2),
+                null,
+                null,
+                null,
+                20, 30
+        ));
+
+        if (OreUtil.doesOreExistAndValid("dustSalt")) {
+            ItemStack salt = OreDictionary.getOres("dustSalt").get(0);
+            salt.stackSize = 2;
+            RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
+                    salt,
+                    new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 2, 0),
+                    ItemCells.getCellByName("sodium"),
+                    ItemCells.getCellByName("chlorine"),
+                    null,
+                    null,
+                    40, 60
+            ));
+        }
+
+        CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("NaKCoolantSimple"),
+                "TST", "PCP", "TST",
+                'T', "ingotTin",
+                'S', ItemCells.getCellByName("sodium"),
+                'P', ItemCells.getCellByName("potassium"),
+                'C', TechRebornAPI.recipeCompact.getItem("reactorCoolantSimple")
+        );
+
+        Item drill = TechRebornAPI.recipeCompact.getItem("miningDrill").getItem();
+        ItemStack drillStack = new ItemStack(drill, 1, OreDictionary.WILDCARD_VALUE);
+
+        if (ConfigTechReborn.ExpensiveMacerator)
+            CraftingHelper.addShapedOreRecipe(TechRebornAPI.recipeCompact.getItem("macerator"),
+                    "FDF", "DMD", "FCF",
+                    'F', Items.flint,
+                    'D', Items.diamond,
+                    'M', TechRebornAPI.recipeCompact.getItem("machine"),
+                    'C', TechRebornAPI.recipeCompact.getItem("electronicCircuit"));
+
+        if (ConfigTechReborn.ExpensiveDrill)
+            CraftingHelper.addShapedOreRecipe(TechRebornAPI.recipeCompact.getItem("miningDrill"),
+                    " S ", "SCS", "SBS",
+                    'S', "ingotSteel",
+                    'B', TechRebornAPI.recipeCompact.getItem("reBattery"),
+                    'C', TechRebornAPI.recipeCompact.getItem("electronicCircuit"));
+
+        if (ConfigTechReborn.ExpensiveDiamondDrill)
+            CraftingHelper.addShapedOreRecipe(TechRebornAPI.recipeCompact.getItem("diamondDrill"),
+                    " D ", "DBD", "TCT",
+                    'D', "gemDiamond",
+                    'T', "ingotTitanium",
+                    'B', drillStack,
+                    'C', TechRebornAPI.recipeCompact.getItem("advancedCircuit"));
+
+        if (ConfigTechReborn.ExpensiveSolar)
+            CraftingHelper.addShapedOreRecipe(TechRebornAPI.recipeCompact.getItem("solarPanel"),
+                    "PPP", "SZS", "CGC",
+                    'P', "paneGlass",
+                    'S', new ItemStack(ModItems.parts, 1, 1),
+                    'Z', TechRebornAPI.recipeCompact.getItem("carbonPlate"),
+                    'G', TechRebornAPI.recipeCompact.getItem("generator"),
+                    'C', TechRebornAPI.recipeCompact.getItem("electronicCircuit"));
+
+
+        CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("iridiumAlloyIngot"),
+                "IAI", "ADA", "IAI",
+                'I', ItemIngots.getIngotByName("iridium"),
+                'D', ItemDusts.getDustByName("diamond"),
+                'A', TechRebornAPI.recipeCompact.getItem("advancedAlloy"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.lithiumBatpack, 1, OreDictionary.WILDCARD_VALUE),
+                "BCB", "BPB", "B B",
+                'B', new ItemStack(ModItems.lithiumBattery),
+                'P', "plateAluminum",
+                'C', TechRebornAPI.recipeCompact.getItem("advancedCircuit"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.lithiumBattery, 1, OreDictionary.WILDCARD_VALUE),
+                " C ", "PFP", "PFP",
+                'F', ItemCells.getCellByName("lithium"),
+                'P', "plateAluminum",
+                'C', TechRebornAPI.recipeCompact.getItem("insulatedGoldCableItem"));
+
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.lapotronpack, 1, OreDictionary.WILDCARD_VALUE),
+                "FOF", "SPS", "FIF",
+                'F', ItemParts.getPartByName("energyFlowCircuit"),
+                'O', new ItemStack(ModItems.lapotronicOrb),
+                'S', ItemParts.getPartByName("superConductor"),
+                'I', "ingotIridium",
+                'P', new ItemStack(ModItems.lapotronpack));
     }
 
 }

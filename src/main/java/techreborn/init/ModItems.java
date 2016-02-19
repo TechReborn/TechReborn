@@ -74,6 +74,8 @@ public class ModItems {
 
     public static Item upgrades;
 
+    public static Item missingRecipe;
+
 
     public static void init() throws InstantiationException, IllegalAccessException {
         gems = new ItemGems();
@@ -264,6 +266,9 @@ public class ModItems {
         GameRegistry.registerItem(bucketWolframium, "bucketwolframium");
         FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack("fluidwolframium", FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(bucketWolframium), new ItemStack(Items.bucket));
         BucketHandler.INSTANCE.buckets.put(ModFluids.BlockFluidWolframium.getDefaultState(), bucketWolframium);
+
+        missingRecipe = new ItemMissingRecipe().setUnlocalizedName("missingRecipe");
+        GameRegistry.registerItem(missingRecipe, "mssingRecipe");
 
         MinecraftForge.EVENT_BUS.register(BucketHandler.INSTANCE);
 
