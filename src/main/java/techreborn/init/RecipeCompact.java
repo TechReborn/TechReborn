@@ -40,6 +40,7 @@ public class RecipeCompact implements IRecipeCompact {
         recipes.put("rubberWood", new ItemStack(ModBlocks.rubberLog));
         recipes.put("resin", ItemParts.getPartByName("rubberSap"));
         recipes.put("carbonPlate", ItemPlates.getPlateByName("carbon"));
+        recipes.put("reBattery", new ItemStack(ModItems.reBattery));
     }
 
     @Override

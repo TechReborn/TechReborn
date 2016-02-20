@@ -378,6 +378,7 @@ item.techreborn.cell.sulfuricAcid.name=Sulfuric Acid Cell
 item.techreborn.cell.tritium.name=Tritium Cell
 item.techreborn.cell.wolframium.name=Wolframium Cell
 item.techreborn.cell.empty.name=Empty Cell
+item.techreborn.rebattery.name=Battery
 
 #Gems
 item.techreborn.gem.ruby.name=Ruby

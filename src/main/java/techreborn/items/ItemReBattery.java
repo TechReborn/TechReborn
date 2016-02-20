@@ -11,21 +11,14 @@ import techreborn.api.power.IEnergyItemInfo;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.powerSystem.PoweredItem;
 
-public class ItemLithiumBattery extends ItemTextureBase implements IEnergyItemInfo {
+public class ItemReBattery extends ItemTextureBase implements IEnergyItemInfo {
 
-    public ItemLithiumBattery() {
+    public ItemReBattery() {
         super();
         setMaxStackSize(1);
         setMaxDamage(1);
-        setUnlocalizedName("techreborn.lithiumBattery");
+        setUnlocalizedName("techreborn.rebattery");
         setCreativeTab(TechRebornCreativeTab.instance);
-    }
-    
-    @Override
-    public double getDurabilityForDisplay(ItemStack stack) {
-        double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
-        return 1 - charge;
-
     }
     
     @SuppressWarnings(
@@ -39,6 +32,13 @@ public class ItemLithiumBattery extends ItemTextureBase implements IEnergyItemIn
         PoweredItem.setEnergy(getMaxPower(charged), charged);
         itemList.add(charged);
     }
+    
+    @Override
+    public double getDurabilityForDisplay(ItemStack stack) {
+        double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
+        return 1 - charge;
+
+    }
 
     @Override
     public boolean showDurabilityBar(ItemStack stack) {
@@ -47,7 +47,7 @@ public class ItemLithiumBattery extends ItemTextureBase implements IEnergyItemIn
 
     @Override
     public double getMaxPower(ItemStack stack) {
-        return 100000;
+        return 10000;
     }
 
     @Override
@@ -72,7 +72,7 @@ public class ItemLithiumBattery extends ItemTextureBase implements IEnergyItemIn
 
     @Override
     public String getTextureName(int damage) {
-        return "techreborn:items/lithiumBattery";
+        return "techreborn:items/tool/rebattery";
     }
 
     @Override

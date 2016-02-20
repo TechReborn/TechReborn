@@ -13,11 +13,11 @@ import techreborn.tiles.TileIndustrialGrinder;
 import techreborn.tiles.teir1.TileCompressor;
 import techreborn.tiles.teir1.TileGrinder;
 
-public class BlockCompresser extends BlockMachineBase implements IRotationTexture{
+public class BlockCompressor extends BlockMachineBase implements IRotationTexture{
 
-	public BlockCompresser(Material material) {
+	public BlockCompressor(Material material) {
         super(material);
-        setUnlocalizedName("techreborn.compresser");
+        setUnlocalizedName("techreborn.compressor");
 	}
 	
     @Override

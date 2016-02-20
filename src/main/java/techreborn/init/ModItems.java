@@ -71,6 +71,7 @@ public class ModItems {
     public static Item bucketSodiumpersulfate;
     public static Item bucketTritium;
     public static Item bucketWolframium;
+    public static Item reBattery;
 
     public static Item upgrades;
 
@@ -121,6 +122,8 @@ public class ModItems {
         GameRegistry.registerItem(manuel, "techmanuel");
         uuMatter = new ItemUUmatter();
         GameRegistry.registerItem(uuMatter, "uumatter");
+        reBattery = PoweredItem.createItem(ItemReBattery.class);
+        GameRegistry.registerItem(reBattery, "rebattery"); 
 
 //        upgrades = new ItemUpgrade();
 //        GameRegistry.registerItem(upgrades, "upgrades");

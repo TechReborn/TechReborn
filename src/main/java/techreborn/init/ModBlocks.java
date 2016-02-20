@@ -14,7 +14,7 @@ import techreborn.blocks.storage.BlockAesu;
 import techreborn.blocks.storage.BlockIDSU;
 import techreborn.blocks.storage.BlockLesu;
 import techreborn.blocks.storage.BlockLesuStorage;
-import techreborn.blocks.teir1.BlockCompresser;
+import techreborn.blocks.teir1.BlockCompressor;
 import techreborn.blocks.teir1.BlockElectricFurnace;
 import techreborn.blocks.teir1.BlockExtractor;
 import techreborn.blocks.teir1.BlockGrinder;
@@ -270,7 +270,7 @@ public class ModBlocks {
         GameRegistry.registerBlock(Extractor, "techreborn.extractor");
         GameRegistry.registerTileEntity(TileExtractor.class, "TileExtractorTR");
         
-        Compressor = new BlockCompresser(Material.iron);
+        Compressor = new BlockCompressor(Material.iron);
         GameRegistry.registerBlock(Compressor, "techreborn.compressor");
         GameRegistry.registerTileEntity(TileCompressor.class, "TileCompressorTR");
         
