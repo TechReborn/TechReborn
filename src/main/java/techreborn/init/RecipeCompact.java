@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import techreborn.api.recipe.IRecipeCompact;
 import techreborn.items.ItemCells;
 import techreborn.items.ItemIngots;
+import techreborn.items.ItemParts;
 import techreborn.items.ItemPlates;
 
 import java.io.BufferedWriter;
@@ -34,6 +35,8 @@ public class RecipeCompact implements IRecipeCompact {
         recipes.put("iridiumPlate", ItemPlates.getPlateByName("iridium"));
         recipes.put("cell", ItemCells.getCellByName("empty"));
         recipes.put("airCell", ItemCells.getCellByName("empty"));
+        recipes.put("electronicCircuit", ItemParts.getPartByName("electronicCircuit"));
+        recipes.put("advancedCircuit", ItemParts.getPartByName("advancedCircuit"));
     }
 
     @Override
