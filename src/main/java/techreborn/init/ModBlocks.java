@@ -1,6 +1,7 @@
 package techreborn.init;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockSapling;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -91,6 +92,7 @@ public class ModBlocks {
     public static Block machineframe;
     public static Block rubberLog;
     public static Block rubberLeaves;
+    public static Block rubberSapling;
 
     public static void init() {
         thermalGenerator = new BlockThermalGenerator();
@@ -286,6 +288,8 @@ public class ModBlocks {
         GameRegistry.registerBlock(rubberLog, "rubberLog");
         rubberLeaves = new BlockRubberLeaves();
         GameRegistry.registerBlock(rubberLeaves, "rubberLeaves");
+        rubberSapling = new BlockRubberSapling();
+        GameRegistry.registerBlock(rubberSapling, "rubberSapling");
 
         registerOreDict();
         Core.logHelper.info("TechReborns Blocks Loaded");

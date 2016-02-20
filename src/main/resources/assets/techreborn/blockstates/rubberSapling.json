@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "stage=0": {
+      "model": "techreborn:rubberSapling"
+    },
+    "stage=1": {
+      "model": "techreborn:rubberSapling"
+    }
+  }
+}

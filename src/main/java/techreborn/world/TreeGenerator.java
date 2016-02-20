@@ -17,7 +17,7 @@ import java.util.Random;
  */
 public class TreeGenerator implements IWorldGenerator {
 
-    RubberTreeGenerator treeGenerator = new RubberTreeGenerator(false, 10, ModBlocks.rubberLog.getDefaultState(), ModBlocks.rubberLeaves.getDefaultState(), false);
+    public static RubberTreeGenerator treeGenerator = new RubberTreeGenerator(false, 8, ModBlocks.rubberLog.getDefaultState(), ModBlocks.rubberLeaves.getDefaultState(), false);
 
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
