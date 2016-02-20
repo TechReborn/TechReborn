@@ -24,14 +24,14 @@ import reborncore.common.powerSystem.PoweredItem;
 
 import java.util.List;
 
-public class ItemAdvancedDrill extends ItemPickaxe implements IEnergyItemInfo, ITexturedItem {
+public class ItemDiamondDrill extends ItemPickaxe implements IEnergyItemInfo, ITexturedItem {
 
-    public int maxCharge = 1000000;
+    public int maxCharge = 100000;
     public int cost = 250;
     public static final int tier = ConfigTechReborn.AdvancedDrillTier;
     public double transferLimit = 100;
 
-    public ItemAdvancedDrill() {
+    public ItemDiamondDrill() {
     	super(ToolMaterial.EMERALD);
         efficiencyOnProperMaterial = 20F;
         setCreativeTab(TechRebornCreativeTab.instance);

@@ -40,7 +40,6 @@ public class ModItems {
     public static Item lapotronpack;
     public static Item lithiumBattery;
     public static Item omniTool;
-    public static Item advancedDrill;
     public static Item lapotronicOrb;
     public static Item manuel;
     public static Item uuMatter;
@@ -74,6 +73,9 @@ public class ModItems {
     public static Item bucketWolframium;
     public static Item reBattery;
     public static Item treeTap;
+    public static Item ironDrill;
+    public static Item diamondDrill;
+    public static Item advancedDrill;
 
     public static Item upgrades;
 
@@ -118,8 +120,7 @@ public class ModItems {
         GameRegistry.registerItem(lapotronicOrb, "lapotronicOrb");
         omniTool = PoweredItem.createItem(ItemOmniTool.class);
         GameRegistry.registerItem(omniTool, "omniTool");
-        advancedDrill = PoweredItem.createItem(ItemAdvancedDrill.class);
-        GameRegistry.registerItem(advancedDrill, "advancedDrill");
+
         manuel = new ItemTechPda();
         GameRegistry.registerItem(manuel, "techmanuel");
         uuMatter = new ItemUUmatter();
@@ -128,6 +129,13 @@ public class ModItems {
         GameRegistry.registerItem(reBattery, "rebattery"); 
         treeTap = new ItemTreeTap();
         GameRegistry.registerItem(treeTap, "treetap");
+       
+        ironDrill = PoweredItem.createItem(ItemDrill.class);
+        GameRegistry.registerItem(ironDrill, "irondrill");
+        diamondDrill = PoweredItem.createItem(ItemDiamondDrill.class);
+        GameRegistry.registerItem(diamondDrill, "diamonddrill");
+        advancedDrill = PoweredItem.createItem(ItemAdvancedDrill.class);
+        GameRegistry.registerItem(advancedDrill, "advanceddrill");
 
 //        upgrades = new ItemUpgrade();
 //        GameRegistry.registerItem(upgrades, "upgrades");
