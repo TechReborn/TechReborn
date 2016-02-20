@@ -1,5 +1,6 @@
 package techreborn.blocks;
 
+import me.modmuss50.jsonDestroyer.api.IOpaqueBlock;
 import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockPlanks;
@@ -25,7 +26,7 @@ import java.util.Random;
 /**
  * Created by mark on 20/02/2016.
  */
-public class BlockRubberLeaves extends BlockLeaves implements ITexturedBlock {
+public class BlockRubberLeaves extends BlockLeaves implements ITexturedBlock, IOpaqueBlock {
 
 	public BlockRubberLeaves() {
 		super();
