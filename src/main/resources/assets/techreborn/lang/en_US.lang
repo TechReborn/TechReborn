@@ -56,6 +56,8 @@ tile.techreborn.playerDetector.you.name=Player Detector (You)
 tile.techreborn.extractor.name=Extractor
 tile.techreborn.compressor.name=Compressor
 tile.techreborn.electricfurnace.name=Electric Furnace
+tile.techreborn.machineFrame.advancedMachine.name=Advanced Machine Hull
+tile.techreborn.machineFrame.machine.name=Machine Block
 
 #Ores
 tile.techreborn.ore.Galena.name=Galena Ore

@@ -31,7 +31,7 @@ public class BlockMachineFrame extends BaseBlock implements ITexturedBlock {
     }
 
     public static final String[] types = new String[]
-            {"aluminum", "iron", "bronze", "brass", "steel", "titanium"};
+            {"aluminum", "iron", "bronze", "brass", "steel", "titanium", "machine", "advancedMachine"};
 
 
     public BlockMachineFrame(Material material) {

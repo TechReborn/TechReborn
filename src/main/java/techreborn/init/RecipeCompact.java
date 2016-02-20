@@ -4,6 +4,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import techreborn.api.recipe.IRecipeCompact;
+import techreborn.blocks.BlockMachineFrame;
 import techreborn.items.ItemCells;
 import techreborn.items.ItemIngots;
 import techreborn.items.ItemParts;
@@ -41,6 +42,8 @@ public class RecipeCompact implements IRecipeCompact {
         recipes.put("resin", ItemParts.getPartByName("rubberSap"));
         recipes.put("carbonPlate", ItemPlates.getPlateByName("carbon"));
         recipes.put("reBattery", new ItemStack(ModItems.reBattery));
+        recipes.put("machine", BlockMachineFrame.getFrameByName("machine", 1));
+        recipes.put("advancedMachine", BlockMachineFrame.getFrameByName("advancedMachine", 1));
     }
 
     @Override
