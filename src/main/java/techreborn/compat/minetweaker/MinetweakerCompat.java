@@ -37,7 +37,7 @@ public class MinetweakerCompat implements ICompatModule {
         MineTweakerAPI.registerClass(MTBlastFurnace.class);
         MineTweakerAPI.registerClass(MTCentrifuge.class);
         MineTweakerAPI.registerClass(MTChemicalReactor.class);
-        MineTweakerAPI.registerClass(MTGrinder.class);
+        MineTweakerAPI.registerClass(MTIndustrialGrinder.class);
         MineTweakerAPI.registerClass(MTImplosionCompressor.class);
         MineTweakerAPI.registerClass(MTIndustrialElectrolyzer.class);
         MineTweakerAPI.registerClass(MTIndustrialSawmill.class);

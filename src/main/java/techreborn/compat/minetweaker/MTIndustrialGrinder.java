@@ -8,11 +8,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import techreborn.api.recipe.machines.GrinderRecipe;
+import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
 import techreborn.lib.Reference;
 
 @ZenClass("mods.techreborn.grinder")
-public class MTGrinder extends MTGeneric {
+public class MTIndustrialGrinder extends MTGeneric {
 
 
     @ZenMethod
@@ -31,7 +31,7 @@ public class MTGrinder extends MTGeneric {
             fluidStack = MinetweakerCompat.toFluidStack(fluid);
         }
 
-        GrinderRecipe r = new GrinderRecipe(oInput1, oInput2, fluidStack, MinetweakerCompat.toStack(output1), MinetweakerCompat.toStack(output2), MinetweakerCompat.toStack(output3), MinetweakerCompat.toStack(output4), ticktime, euTick);
+        IndustrialGrinderRecipe r = new IndustrialGrinderRecipe(oInput1, oInput2, fluidStack, MinetweakerCompat.toStack(output1), MinetweakerCompat.toStack(output2), MinetweakerCompat.toStack(output3), MinetweakerCompat.toStack(output4), ticktime, euTick);
 
         addRecipe(r);
     }
@@ -47,6 +47,6 @@ public class MTGrinder extends MTGeneric {
     }
 
     public static String getMachineName() {
-        return Reference.grinderRecipe;
+        return Reference.industrialGrinderRecipe;
     }
 }

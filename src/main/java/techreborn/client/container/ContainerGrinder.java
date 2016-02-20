@@ -6,7 +6,8 @@ import net.minecraft.inventory.Slot;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.client.gui.SlotOutput;
-import techreborn.tiles.TileGrinder;
+import techreborn.tiles.TileIndustrialGrinder;
+import techreborn.tiles.teir1.TileGrinder;
 
 public class ContainerGrinder extends ContainerCrafting {
 
@@ -16,22 +17,21 @@ public class ContainerGrinder extends ContainerCrafting {
 
     public int connectionStatus;
 
-    public ContainerGrinder(TileGrinder tileGrinder,
-                            EntityPlayer player) {
+    public ContainerGrinder(TileGrinder tileGrinder, EntityPlayer player) {
         super(tileGrinder.crafter);
         tile = tileGrinder;
         this.player = player;
 
         // input
-        this.addSlotToContainer(new Slot(tileGrinder.inventory, 0, 32, 26));
-        this.addSlotToContainer(new Slot(tileGrinder.inventory, 1, 32, 44));
+        this.addSlotToContainer(new Slot(tileGrinder.inventory, 0, 56, 34));
+        this.addSlotToContainer(new SlotOutput(tileGrinder.inventory, 1, 116, 34));
 
 
-        // outputs
-        this.addSlotToContainer(new SlotOutput(tileGrinder.inventory, 2, 77, 35));
-        this.addSlotToContainer(new SlotOutput(tileGrinder.inventory, 3, 95, 35));
-        this.addSlotToContainer(new SlotOutput(tileGrinder.inventory, 4, 113, 35));
-        this.addSlotToContainer(new SlotOutput(tileGrinder.inventory, 5, 131, 35));
+        // upgrades
+        this.addSlotToContainer(new Slot(tileGrinder.inventory, 2, 152, 8));
+        this.addSlotToContainer(new Slot(tileGrinder.inventory, 3, 152, 26));
+        this.addSlotToContainer(new Slot(tileGrinder.inventory, 4, 152, 44));
+        this.addSlotToContainer(new Slot(tileGrinder.inventory, 5, 152, 62));
 
         int i;
 
@@ -51,23 +51,6 @@ public class ContainerGrinder extends ContainerCrafting {
     @Override
     public boolean canInteractWith(EntityPlayer p_75145_1_) {
         return true;
-    }
-
-    @Override
-    public void detectAndSendChanges() {
-        super.detectAndSendChanges();
-        for (int i = 0; i < this.crafters.size(); i++) {
-            ICrafting icrafting = (ICrafting) this.crafters.get(i);
-            if (this.connectionStatus != tile.connectionStatus) {
-                icrafting.sendProgressBarUpdate(this, 10, tile.connectionStatus);
-            }
-        }
-    }
-
-    @Override
-    public void onCraftGuiOpened(ICrafting crafting) {
-        super.onCraftGuiOpened(crafting);
-        crafting.sendProgressBarUpdate(this, 10, tile.connectionStatus);
     }
 
     @SideOnly(Side.CLIENT)

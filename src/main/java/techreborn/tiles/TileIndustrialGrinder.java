@@ -23,7 +23,7 @@ import techreborn.init.ModFluids;
 import techreborn.lib.Reference;
 import techreborn.powerSystem.TilePowerAcceptor;
 
-public class TileGrinder extends TilePowerAcceptor implements IWrenchable, IFluidHandler, IInventory, ISidedInventory {
+public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrenchable, IFluidHandler, IInventory, ISidedInventory {
     public static final int TANK_CAPACITY = 16000;
 
     public int tickTime;
@@ -32,7 +32,7 @@ public class TileGrinder extends TilePowerAcceptor implements IWrenchable, IFlui
     public RecipeCrafter crafter;
     public int connectionStatus;
 
-    public TileGrinder() {
+    public TileIndustrialGrinder() {
         super(ConfigTechReborn.CentrifugeTier);
         //TODO configs
 
@@ -44,7 +44,7 @@ public class TileGrinder extends TilePowerAcceptor implements IWrenchable, IFlui
         outputs[1] = 3;
         outputs[2] = 4;
         outputs[3] = 5;
-        crafter = new RecipeCrafter(Reference.grinderRecipe, this, 1, 4, inventory, inputs, outputs);
+        crafter = new RecipeCrafter(Reference.industrialGrinderRecipe, this, 1, 4, inventory, inputs, outputs);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class TileGrinder extends TilePowerAcceptor implements IWrenchable, IFlui
 
     @Override
     public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-        return new ItemStack(ModBlocks.Grinder, 1);
+        return new ItemStack(ModBlocks.IndustrialGrinder, 1);
     }
 
     public boolean isComplete() {

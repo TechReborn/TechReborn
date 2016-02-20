@@ -9,30 +9,28 @@ import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
 import techreborn.blocks.IRotationTexture;
 import techreborn.client.GuiHandler;
-import techreborn.tiles.TileGrinder;
+import techreborn.tiles.TileIndustrialGrinder;
 
-public class BlockGrinder extends BlockMachineBase implements IRotationTexture {
+public class BlockIndustrialGrinder extends BlockMachineBase implements IRotationTexture {
 
 
-    public BlockGrinder(Material material) {
+    public BlockIndustrialGrinder(Material material) {
         super(material);
-        setUnlocalizedName("techreborn.grinder");
+        setUnlocalizedName("techreborn.industrialgrinder");
     }
 
     @Override
     public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
-        return new TileGrinder();
+        return new TileIndustrialGrinder();
     }
 
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z,
-                                    EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
         if(fillBlockWithFluid(world, new BlockPos(x, y, z), player)){
             return true;
         }
         if (!player.isSneaking())
-            player.openGui(Core.INSTANCE, GuiHandler.grinderID, world, x, y,
-                    z);
+            player.openGui(Core.INSTANCE, GuiHandler.industrialGrinderID, world, x, y, z);
         return true;
     }
 

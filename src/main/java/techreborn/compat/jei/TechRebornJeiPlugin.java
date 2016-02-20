@@ -20,7 +20,7 @@ import techreborn.client.container.ContainerBlastFurnace;
 import techreborn.client.container.ContainerCentrifuge;
 import techreborn.client.container.ContainerChemicalReactor;
 import techreborn.client.container.ContainerFusionReactor;
-import techreborn.client.container.ContainerGrinder;
+import techreborn.client.container.ContainerIndustrialGrinder;
 import techreborn.client.container.ContainerImplosionCompressor;
 import techreborn.client.container.ContainerIndustrialElectrolyzer;
 import techreborn.client.container.ContainerIndustrialSawmill;
@@ -33,7 +33,7 @@ import techreborn.client.gui.GuiBlastFurnace;
 import techreborn.client.gui.GuiCentrifuge;
 import techreborn.client.gui.GuiChemicalReactor;
 import techreborn.client.gui.GuiFusionReactor;
-import techreborn.client.gui.GuiGrinder;
+import techreborn.client.gui.GuiIndustrialGrinder;
 import techreborn.client.gui.GuiImplosionCompressor;
 import techreborn.client.gui.GuiIndustrialElectrolyzer;
 import techreborn.client.gui.GuiIndustrialSawmill;
@@ -51,12 +51,12 @@ import techreborn.compat.jei.chemicalReactor.ChemicalReactorRecipeCategory;
 import techreborn.compat.jei.chemicalReactor.ChemicalReactorRecipeHandler;
 import techreborn.compat.jei.fusionReactor.FusionReactorRecipeCategory;
 import techreborn.compat.jei.fusionReactor.FusionReactorRecipeHandler;
-import techreborn.compat.jei.grinder.GrinderRecipeCategory;
-import techreborn.compat.jei.grinder.GrinderRecipeHandler;
 import techreborn.compat.jei.implosionCompressor.ImplosionCompressorRecipeCategory;
 import techreborn.compat.jei.implosionCompressor.ImplosionCompressorRecipeHandler;
 import techreborn.compat.jei.industrialElectrolyzer.IndustrialElectrolyzerRecipeCategory;
 import techreborn.compat.jei.industrialElectrolyzer.IndustrialElectrolyzerRecipeHandler;
+import techreborn.compat.jei.industrialGrinder.IndustrialGrinderRecipeCategory;
+import techreborn.compat.jei.industrialGrinder.IndustrialGrinderRecipeHandler;
 import techreborn.compat.jei.industrialSawmill.IndustrialSawmillRecipeCategory;
 import techreborn.compat.jei.industrialSawmill.IndustrialSawmillRecipeHandler;
 import techreborn.compat.jei.rollingMachine.RollingMachineRecipeCategory;
@@ -83,7 +83,7 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
                 new CentrifugeRecipeCategory(guiHelper),
                 new ChemicalReactorRecipeCategory(guiHelper),
                 new FusionReactorRecipeCategory(guiHelper),
-                new GrinderRecipeCategory(guiHelper),
+                new IndustrialGrinderRecipeCategory(guiHelper),
                 new ImplosionCompressorRecipeCategory(guiHelper),
                 new IndustrialElectrolyzerRecipeCategory(guiHelper),
                 new IndustrialSawmillRecipeCategory(guiHelper),
@@ -98,7 +98,7 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
                 new CentrifugeRecipeHandler(jeiHelpers),
                 new ChemicalReactorRecipeHandler(jeiHelpers),
                 new FusionReactorRecipeHandler(),
-                new GrinderRecipeHandler(jeiHelpers),
+                new IndustrialGrinderRecipeHandler(jeiHelpers),
                 new ImplosionCompressorRecipeHandler(jeiHelpers),
                 new IndustrialElectrolyzerRecipeHandler(jeiHelpers),
                 new IndustrialSawmillRecipeHandler(jeiHelpers),
@@ -130,7 +130,7 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
         registry.addRecipeClickArea(GuiCentrifuge.class, 83, 53, 12, 9, RecipeCategoryUids.CENTRIFUGE);
         registry.addRecipeClickArea(GuiChemicalReactor.class, 73, 39, 32, 12, RecipeCategoryUids.CHEMICAL_REACTOR);
         registry.addRecipeClickArea(GuiFusionReactor.class, 111, 34, 27, 19, RecipeCategoryUids.FUSION_REACTOR);
-        registry.addRecipeClickArea(GuiGrinder.class, 50, 35, 25, 16, RecipeCategoryUids.GRINDER);
+        registry.addRecipeClickArea(GuiIndustrialGrinder.class, 50, 35, 25, 16, RecipeCategoryUids.GRINDER);
         registry.addRecipeClickArea(GuiImplosionCompressor.class, 60, 37, 24, 15, RecipeCategoryUids.IMPLOSION_COMPRESSOR);
         registry.addRecipeClickArea(GuiIndustrialElectrolyzer.class, 72, 37, 33, 14, RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER);
         registry.addRecipeClickArea(GuiIndustrialSawmill.class, 55, 36, 24, 16, RecipeCategoryUids.INDUSTRIAL_SAWMILL);
@@ -146,7 +146,7 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
         recipeTransferRegistry.addRecipeTransferHandler(ContainerCentrifuge.class, RecipeCategoryUids.CENTRIFUGE, 0, 2, 11, 36);
         recipeTransferRegistry.addRecipeTransferHandler(ContainerChemicalReactor.class, RecipeCategoryUids.CHEMICAL_REACTOR, 0, 2, 8, 36);
         recipeTransferRegistry.addRecipeTransferHandler(ContainerFusionReactor.class, RecipeCategoryUids.FUSION_REACTOR, 0, 2, 3, 36);
-        recipeTransferRegistry.addRecipeTransferHandler(ContainerGrinder.class, RecipeCategoryUids.GRINDER, 0, 2, 6, 36);
+        recipeTransferRegistry.addRecipeTransferHandler(ContainerIndustrialGrinder.class, RecipeCategoryUids.GRINDER, 0, 2, 6, 36);
         recipeTransferRegistry.addRecipeTransferHandler(ContainerImplosionCompressor.class, RecipeCategoryUids.IMPLOSION_COMPRESSOR, 0, 2, 4, 36);
         recipeTransferRegistry.addRecipeTransferHandler(ContainerIndustrialElectrolyzer.class, RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER, 0, 2, 7, 36);
         recipeTransferRegistry.addRecipeTransferHandler(ContainerIndustrialSawmill.class, RecipeCategoryUids.INDUSTRIAL_SAWMILL, 0, 2, 5, 36);

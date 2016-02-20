@@ -6,11 +6,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import techreborn.client.container.ContainerGrinder;
-import techreborn.tiles.TileGrinder;
+import techreborn.client.container.ContainerIndustrialGrinder;
+import techreborn.tiles.TileIndustrialGrinder;
+import techreborn.tiles.teir1.TileGrinder;
 
 public class GuiGrinder extends GuiContainer {
 
-    public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/industrial_grinder.png");
+    public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/grinder.png");
 
     TileGrinder grinder;
     ContainerGrinder containerGrinder;
@@ -39,33 +41,8 @@ public class GuiGrinder extends GuiContainer {
 
         j = grinder.getEnergyScaled(12);
         if (j > 0) {
-            this.drawTexturedModalRect(k + 132, l + 63 + 12 - j, 176, 12 - j, 14, j + 2);
+            this.drawTexturedModalRect(k + 24, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);
         }
-
-        if (containerGrinder.connectionStatus != 1) {
-           // GuiDraw.drawTooltipBox(k + 30, l + 50 + 12 - j, 114, 10);
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("techreborn.message.missingmultiblock"), k + 38, l + 52 + 12 - j, -1);
-        }
-
-        //TODO 1.8 nope
-//        if (grinder.tank.getFluidAmount() != 0) {
-//            IIcon fluidIcon = grinder.tank.getFluid().getFluid().getIcon();
-//            if (fluidIcon != null) {
-//                this.mc.renderEngine.bindTexture(texture);
-//                drawTexturedModalRect(k + 7, l + 15, 176, 31, 20, 55);
-//
-//                this.mc.renderEngine
-//                        .bindTexture(TextureMap.locationBlocksTexture);
-//                int liquidHeight = grinder.tank.getFluidAmount() * 47
-//                        / grinder.tank.getCapacity();
-//                GuiUtil.drawRepeated(fluidIcon, k + 11, l + 19 + 47
-//                        - liquidHeight, 12.0D, liquidHeight, this.zLevel);
-//
-//                this.mc.renderEngine.bindTexture(texture);
-//
-//                drawTexturedModalRect(k + 11, l + 19, 176, 86, 12, 47);
-//            }
-//        }
     }
 
     protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {

@@ -14,12 +14,14 @@ import techreborn.blocks.storage.BlockAesu;
 import techreborn.blocks.storage.BlockIDSU;
 import techreborn.blocks.storage.BlockLesu;
 import techreborn.blocks.storage.BlockLesuStorage;
+import techreborn.blocks.teir1.BlockGrinder;
 import techreborn.itemblocks.*;
 import techreborn.tiles.*;
 import techreborn.tiles.fusionReactor.TileEntityFusionController;
 import techreborn.tiles.idsu.TileIDSU;
 import techreborn.tiles.lesu.TileLesu;
 import techreborn.tiles.lesu.TileLesuStorage;
+import techreborn.tiles.teir1.TileGrinder;
 
 public class ModBlocks {
 
@@ -32,7 +34,7 @@ public class ModBlocks {
     public static Block MachineCasing;
     public static Block BlastFurnace;
     public static Block AlloySmelter;
-    public static Block Grinder;
+    public static Block IndustrialGrinder;
     public static Block ImplosionCompressor;
     public static Block MatterFabricator;
     public static Block ChunkLoader;
@@ -64,6 +66,7 @@ public class ModBlocks {
     public static Block industrialSawmill;
     public static Block chargeBench;
     public static Block playerDetector;
+    public static Block Grinder;
 
     public static BlockOre ore;
     public static Block storage;
@@ -103,9 +106,9 @@ public class ModBlocks {
         GameRegistry.registerBlock(AlloySmelter, "alloySmelter");
         GameRegistry.registerTileEntity(TileAlloySmelter.class, "TileAlloySmalterTR");
 
-        Grinder = new BlockGrinder(Material.rock);
-        GameRegistry.registerBlock(Grinder, "grinder");
-        GameRegistry.registerTileEntity(TileGrinder.class, "TileGrinderTR");
+        IndustrialGrinder = new BlockIndustrialGrinder(Material.rock);
+        GameRegistry.registerBlock(IndustrialGrinder, "grinder");
+        GameRegistry.registerTileEntity(TileIndustrialGrinder.class, "TileIndustrialGrinderTR");
 
         ImplosionCompressor = new BlockImplosionCompressor(Material.rock);
         GameRegistry.registerBlock(ImplosionCompressor, "implosioncompressor");
@@ -236,6 +239,10 @@ public class ModBlocks {
 
         machineframe = new BlockMachineFrame(Material.iron);
         GameRegistry.registerBlock(machineframe, ItemBlockMachineFrame.class, "techreborn.machineFrame");
+        
+        Grinder = new BlockGrinder(Material.iron);
+        GameRegistry.registerBlock(Grinder, "techreborn.grinder");
+        GameRegistry.registerTileEntity(TileGrinder.class, "TileGrinderTR");
 
 
         GameRegistry.registerTileEntity(TileMachineBase.class, "TileMachineBaseTR");

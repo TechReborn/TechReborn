@@ -11,6 +11,7 @@ import techreborn.tiles.*;
 import techreborn.tiles.fusionReactor.TileEntityFusionController;
 import techreborn.tiles.idsu.TileIDSU;
 import techreborn.tiles.lesu.TileLesu;
+import techreborn.tiles.teir1.TileGrinder;
 
 public class GuiHandler implements IGuiHandler {
 
@@ -21,7 +22,7 @@ public class GuiHandler implements IGuiHandler {
     public static final int rollingMachineID = 4;
     public static final int blastFurnaceID = 5;
     public static final int alloySmelterID = 6;
-    public static final int grinderID = 7;
+    public static final int industrialGrinderID = 7;
     public static final int compresserID = 8;
     public static final int matterfabID = 9;
     public static final int pdaID = 10;
@@ -42,10 +43,10 @@ public class GuiHandler implements IGuiHandler {
     public static final int chargeBench = 28;
     public static final int fusionID = 29;
     public static final int vacuumFreezerID = 30;
+    public static final int grinderID = 31;
 
     @Override
-    public Object getServerGuiElement(int ID, EntityPlayer player, World world,
-                                      int x, int y, int z) {
+    public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if (ID == thermalGeneratorID) {
             return new ContainerThermalGenerator(
                     (TileThermalGenerator) world.getTileEntity(new BlockPos(x, y, z)), player);
@@ -76,9 +77,9 @@ public class GuiHandler implements IGuiHandler {
         } else if (ID == alloySmelterID) {
             return new ContainerAlloySmelter(
                     (TileAlloySmelter) world.getTileEntity(new BlockPos(x, y, z)), player);
-        } else if (ID == grinderID) {
-            return new ContainerGrinder(
-                    (TileGrinder) world.getTileEntity(new BlockPos(x, y, z)), player);
+        } else if (ID == industrialGrinderID) {
+            return new ContainerIndustrialGrinder(
+                    (TileIndustrialGrinder) world.getTileEntity(new BlockPos(x, y, z)), player);
         } else if (ID == compresserID) {
             return new ContainerImplosionCompressor(
                     (TileImplosionCompressor) world.getTileEntity(new BlockPos(x, y, z)), player);
@@ -123,7 +124,9 @@ public class GuiHandler implements IGuiHandler {
             return new ContainerFusionReactor((TileEntityFusionController) world.getTileEntity(new BlockPos(x, y, z)), player);
         }else if (ID == vacuumFreezerID) {
             return new ContainerVacuumFreezer((TileVacuumFreezer) world.getTileEntity(new BlockPos(x, y, z)), player);
-        }
+	    }else if (ID == grinderID) {
+	        return new ContainerGrinder((TileGrinder) world.getTileEntity(new BlockPos(x, y, z)), player);
+	    }
 
 
         return null;
@@ -162,9 +165,9 @@ public class GuiHandler implements IGuiHandler {
         } else if (ID == alloySmelterID) {
             return new GuiAlloySmelter(player,
                     (TileAlloySmelter) world.getTileEntity(new BlockPos(x, y, z)));
-        } else if (ID == grinderID) {
-            return new GuiGrinder(player,
-                    (TileGrinder) world.getTileEntity(new BlockPos(x, y, z)));
+        } else if (ID == industrialGrinderID) {
+            return new GuiIndustrialGrinder(player,
+                    (TileIndustrialGrinder) world.getTileEntity(new BlockPos(x, y, z)));
         } else if (ID == compresserID) {
             return new GuiImplosionCompressor(player,
                     (TileImplosionCompressor) world.getTileEntity(new BlockPos(x, y, z)));
@@ -209,6 +212,8 @@ public class GuiHandler implements IGuiHandler {
             return new GuiFusionReactor(player, (TileEntityFusionController) world.getTileEntity(new BlockPos(x, y, z)));
         }else if (ID == vacuumFreezerID) {
             return new GuiVacuumFreezer(player, (TileVacuumFreezer) world.getTileEntity(new BlockPos(x, y, z)));
+        }else if (ID == grinderID) {
+            return new GuiGrinder(player, (TileGrinder) world.getTileEntity(new BlockPos(x, y, z)));
         }
         return null;
     }
