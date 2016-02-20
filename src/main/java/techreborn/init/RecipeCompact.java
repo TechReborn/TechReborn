@@ -23,7 +23,9 @@ public class RecipeCompact implements IRecipeCompact {
 
     ArrayList<String> missingItems = new ArrayList<>();
 
-    public RecipeCompact() {
+    boolean inited = false;
+
+    public void init(){
         recipes.put("industrialDiamond", new ItemStack(Items.diamond));
         recipes.put("industrialTnt", new ItemStack(Blocks.tnt));
         recipes.put("copperIngot", ItemIngots.getIngotByName("copper"));
@@ -44,10 +46,15 @@ public class RecipeCompact implements IRecipeCompact {
         recipes.put("reBattery", new ItemStack(ModItems.reBattery));
         recipes.put("machine", BlockMachineFrame.getFrameByName("machine", 1));
         recipes.put("advancedMachine", BlockMachineFrame.getFrameByName("advancedMachine", 1));
+        inited = false;
     }
+
 
     @Override
     public ItemStack getItem(String name) {
+        if(!inited){
+            init();
+        }
         if(!recipes.containsKey(name)){
             if(!missingItems.contains(name)){
                 missingItems.add(name);

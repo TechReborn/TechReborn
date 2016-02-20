@@ -1,5 +1,7 @@
 package techreborn.proxies;
 
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import reborncore.client.multiblock.MultiblockRenderEvent;

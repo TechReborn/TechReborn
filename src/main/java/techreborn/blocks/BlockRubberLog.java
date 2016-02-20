@@ -156,10 +156,4 @@ public class BlockRubberLog extends Block implements ITexturedBlock {
 		}
 		return false;
 	}
-
-	@Override
-	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
-		super.getSubBlocks(itemIn, tab, list);
-		list.add(new ItemStack(itemIn, 1, 5));
-	}
 }
