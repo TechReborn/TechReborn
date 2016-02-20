@@ -17,6 +17,7 @@ import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.*;
+import techreborn.blocks.BlockMachineFrame;
 import techreborn.blocks.BlockOre;
 import techreborn.blocks.BlockStorage;
 import techreborn.blocks.BlockStorage2;
@@ -70,6 +71,10 @@ public class
                     "AAA", "AAA", "AAA",
                     'A', "ingot" + name.substring(0, 1).toUpperCase() + name.substring(1));
         }
+        
+        CraftingHelper.addShapedOreRecipe(BlockMachineFrame.getFrameByName("machine", 1),
+                "AAA", "AXA", "AAA",
+                'A', ItemPlates.getPlateByName("steel"));
 
         CraftingHelper.addShapedOreRecipe(BlockStorage.getStorageBlockByName("sapphire"),
                 "AAA", "AAA", "AAA",
