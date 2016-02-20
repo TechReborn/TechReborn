@@ -7,6 +7,7 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -16,8 +17,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.RebornCore;
 import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.init.ModBlocks;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by mark on 20/02/2016.
@@ -56,6 +59,13 @@ public class BlockRubberLeaves extends BlockLeaves implements ITexturedBlock {
 	{
 		return Blocks.leaves.isOpaqueCube();
 	}
+
+	public boolean isFullCube()
+	{
+		return false;
+	}
+
+
 
 	@Override
 	protected ItemStack createStackedBlock(IBlockState state)
@@ -117,5 +127,10 @@ public class BlockRubberLeaves extends BlockLeaves implements ITexturedBlock {
 	public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass)
 	{
 		return 16777215;
+	}
+
+	@Override
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+		return Item.getItemFromBlock(ModBlocks.rubberSapling);
 	}
 }

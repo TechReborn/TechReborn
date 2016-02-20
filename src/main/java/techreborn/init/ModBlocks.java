@@ -90,9 +90,11 @@ public class ModBlocks {
     public static Block storage;
     public static Block storage2;
     public static Block machineframe;
+
     public static Block rubberLog;
     public static Block rubberLeaves;
     public static Block rubberSapling;
+    public static Block rubberPlanks;
 
     public static void init() {
         thermalGenerator = new BlockThermalGenerator();
@@ -286,10 +288,16 @@ public class ModBlocks {
 
         rubberLog = new BlockRubberLog();
         GameRegistry.registerBlock(rubberLog, "rubberLog");
+
+        rubberPlanks = new BlockRubberPlank();
+        GameRegistry.registerBlock(rubberPlanks, "rubberPlanks");
+
         rubberLeaves = new BlockRubberLeaves();
         GameRegistry.registerBlock(rubberLeaves, "rubberLeaves");
+
         rubberSapling = new BlockRubberSapling();
-        GameRegistry.registerBlock(rubberSapling, "rubberSapling");
+        GameRegistry.registerBlock(rubberSapling, ItemBlockRubberSapling.class, "rubberSapling");
+
 
         registerOreDict();
         Core.logHelper.info("TechReborns Blocks Loaded");

@@ -62,6 +62,7 @@ tile.techreborn.machineFrame.machine.name=Machine Block
 #Blocks
 tile.techreborn.rubberlog.name=Rubber log
 tile.techreborn.rubberleaves.name=Rubber Leaves
+tile.techreborn.rubbersapling.name=Rubber Sapling
 
 #Ores
 tile.techreborn.ore.Galena.name=Galena Ore

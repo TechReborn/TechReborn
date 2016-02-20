@@ -1,9 +1,9 @@
 {
   "variants": {
-    "stage=0": {
+    "stage=0,type=oak": {
       "model": "techreborn:rubberSapling"
     },
-    "stage=1": {
+    "stage=1,type=oak": {
       "model": "techreborn:rubberSapling"
     }
   }
