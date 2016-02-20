@@ -59,6 +59,10 @@ tile.techreborn.electricfurnace.name=Electric Furnace
 tile.techreborn.machineFrame.advancedMachine.name=Advanced Machine Block
 tile.techreborn.machineFrame.machine.name=Machine Block
 
+#Blocks
+tile.techreborn.rubberlog.name=Rubber log
+tile.techreborn.rubberleaves.name=Rubber Leaves
+
 #Ores
 tile.techreborn.ore.Galena.name=Galena Ore
 tile.techreborn.ore.Iridium.name=Iridium Ore
@@ -564,6 +568,8 @@ item.techreborn.part.computerMonitor.name=Computer Monitor
 item.techreborn.part.machineParts.name=Machine Parts
 item.techreborn.part.neutronReflector.name=Neutron Reflector
 item.techreborn.part.thickNeutronReflector.name=Thick Neutron Reflector
+item.techreborn.part.rubberSap.name=Sap
+item.techreborn.part.rubber.name=Rubber
 
 #Tools
 item.techreborn.rockcutter.name=Rockcutter

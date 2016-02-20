@@ -21,16 +21,16 @@ public class TreeGenerator implements IWorldGenerator {
 
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
-        int chance = 0;
+        int chance = 1;
         BiomeGenBase biomeGenBase = world.getBiomeGenForCoords( new BlockPos(chunkX * 16 + 16, 72, chunkZ * 16 + 16));
         if(BiomeDictionary.isBiomeOfType(biomeGenBase, BiomeDictionary.Type.SWAMP)){
-            chance += random.nextInt(10) + 5;
+            chance += random.nextInt(15) + 5;
         }
         if(BiomeDictionary.isBiomeOfType(biomeGenBase, BiomeDictionary.Type.FOREST) || BiomeDictionary.isBiomeOfType(biomeGenBase, BiomeDictionary.Type.JUNGLE)){
             chance += random.nextInt(5) + 1;
         }
         if(world.provider.isSurfaceWorld()){
-            if(random.nextInt(100) + 1 <= chance * 2){
+            if(random.nextInt(chance) == 0){
                 treeGenerator.generate(world, random, new BlockPos(chunkX * 16 + random.nextInt(16), 72, chunkZ * 16 + random.nextInt(16)));
             }
 

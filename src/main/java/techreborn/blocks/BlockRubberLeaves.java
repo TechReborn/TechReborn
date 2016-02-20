@@ -1,6 +1,5 @@
 package techreborn.blocks;
 
-import biomesoplenty.common.enums.BOPTrees;
 import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockPlanks;
@@ -100,5 +99,23 @@ public class BlockRubberLeaves extends BlockLeaves implements ITexturedBlock {
 			meta |= 2;
 		}
 		return meta;
+	}
+
+	@SideOnly(Side.CLIENT)
+	public int getBlockColor()
+	{
+		return 16777215;
+	}
+
+	@SideOnly(Side.CLIENT)
+	public int getRenderColor(IBlockState state)
+	{
+		return 16777215;
+	}
+
+	@SideOnly(Side.CLIENT)
+	public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass)
+	{
+		return 16777215;
 	}
 }
