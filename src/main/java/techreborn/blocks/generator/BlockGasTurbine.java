@@ -9,7 +9,7 @@ import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
 import techreborn.blocks.IAdvancedRotationTexture;
 import techreborn.client.GuiHandler;
-import techreborn.tiles.TileGasTurbine;
+import techreborn.tiles.generator.TileGasTurbine;
 
 public class BlockGasTurbine extends BlockMachineBase implements IAdvancedRotationTexture {
 

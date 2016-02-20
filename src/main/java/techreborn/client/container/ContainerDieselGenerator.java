@@ -8,7 +8,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.client.gui.SlotFake;
 import reborncore.client.gui.SlotOutput;
 import reborncore.common.container.RebornContainer;
-import techreborn.tiles.TileDieselGenerator;
+import techreborn.tiles.generator.TileDieselGenerator;
 
 public class ContainerDieselGenerator extends RebornContainer {
     public TileDieselGenerator tiledieselGenerator;

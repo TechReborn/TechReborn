@@ -5,7 +5,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import techreborn.blocks.BlockMachineBase;
 import techreborn.blocks.IAdvancedRotationTexture;
-import techreborn.tiles.TileHeatGenerator;
+import techreborn.tiles.generator.TileHeatGenerator;
 
 public class BlockHeatGenerator extends BlockMachineBase implements IAdvancedRotationTexture {
 

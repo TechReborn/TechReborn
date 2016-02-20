@@ -18,6 +18,12 @@ import techreborn.blocks.teir1.BlockGrinder;
 import techreborn.itemblocks.*;
 import techreborn.tiles.*;
 import techreborn.tiles.fusionReactor.TileEntityFusionController;
+import techreborn.tiles.generator.TileDieselGenerator;
+import techreborn.tiles.generator.TileDragonEggSiphoner;
+import techreborn.tiles.generator.TileGasTurbine;
+import techreborn.tiles.generator.TileGenerator;
+import techreborn.tiles.generator.TileHeatGenerator;
+import techreborn.tiles.generator.TileSemifluidGenerator;
 import techreborn.tiles.idsu.TileIDSU;
 import techreborn.tiles.lesu.TileLesu;
 import techreborn.tiles.lesu.TileLesuStorage;
@@ -67,6 +73,7 @@ public class ModBlocks {
     public static Block chargeBench;
     public static Block playerDetector;
     public static Block Grinder;
+    public static Block Generator;
 
     public static BlockOre ore;
     public static Block storage;
@@ -245,6 +252,10 @@ public class ModBlocks {
         Grinder = new BlockGrinder(Material.iron);
         GameRegistry.registerBlock(Grinder, "techreborn.grinder");
         GameRegistry.registerTileEntity(TileGrinder.class, "TileGrinderTR");
+        
+        Generator = new BlockGenerator();
+        GameRegistry.registerBlock(Generator, "techreborn.generator");
+        GameRegistry.registerTileEntity(TileGenerator.class, "TileGeneratorTR");
 
 
         GameRegistry.registerTileEntity(TileMachineBase.class, "TileMachineBaseTR");

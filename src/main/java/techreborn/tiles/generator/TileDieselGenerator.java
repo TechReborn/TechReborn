@@ -1,4 +1,4 @@
-package techreborn.tiles;
+package techreborn.tiles.generator;
 
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,6 +11,7 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
 import net.minecraftforge.fluids.*;
+import reborncore.api.fuel.FluidPowerManager;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
@@ -18,36 +19,16 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.powerSystem.TilePowerAcceptor;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class TileSemifluidGenerator extends TilePowerAcceptor implements IWrenchable,
+public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchable,
         IFluidHandler, IInventory {
 
-    public Tank tank = new Tank("TileSemifluidGenerator",
+    public Tank tank = new Tank("TileDieselGenerator",
             FluidContainerRegistry.BUCKET_VOLUME * 10, this);
-    public Inventory inventory = new Inventory(3, "TileSemifluidGenerator", 64, this);
+    public Inventory inventory = new Inventory(3, "TileDieselGenerator", 64, this);
+    public static final int euTick = ConfigTechReborn.ThermalGenertaorOutput;
 
-    //TODO: run this off config
-    public static final int euTick = 8;
-
-    Map<String, Integer> fluids = new HashMap<String, Integer>();
-
-    //We use this to keep track of fractional millibuckets, allowing us to hit our eu/bucket targets while still only ever removing integer millibucket amounts.
-    double pendingWithdraw = 0.0;
-
-    public TileSemifluidGenerator() {
+    public TileDieselGenerator() {
         super(ConfigTechReborn.ThermalGeneratorTier);
-        //TODO: fix this to have SemiFluid generator values
-
-        fluids.put("creosote", 3000);
-        fluids.put("biomass", 8000);
-        fluids.put("oil", 64000);
-        fluids.put("fluidsodium", 30000);
-        fluids.put("fluidlithium", 60000);
-        fluids.put("biofuel", 32000);
-        fluids.put("bioethanol", 32000);
-        fluids.put("fuel", 128000);
     }
 
     @Override
@@ -75,37 +56,36 @@ public class TileSemifluidGenerator extends TilePowerAcceptor implements IWrench
 
     @Override
     public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-        return new ItemStack(ModBlocks.Semifluidgenerator, 1);
+        return new ItemStack(ModBlocks.DieselGenerator, 1);
     }
 
     @Override
     public int fill(EnumFacing from, FluidStack resource, boolean doFill) {
-        int fill = tank.fill(resource, doFill);
+        int filled = tank.fill(resource, doFill);
         tank.compareAndUpdate();
-        return fill;
+        return filled;
     }
 
     @Override
-    public FluidStack drain(EnumFacing from, FluidStack resource,
-                            boolean doDrain) {
-        FluidStack drain = tank.drain(resource.amount, doDrain);
+    public FluidStack drain(EnumFacing from, FluidStack resource, boolean doDrain) {
+        if (resource == null || !resource.isFluidEqual(tank.getFluid())) {
+            return null;
+        }
+        FluidStack fluidStack = tank.drain(resource.amount, doDrain);
         tank.compareAndUpdate();
-        return drain;
+        return fluidStack;
     }
 
     @Override
     public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain) {
-        FluidStack drain = tank.drain(maxDrain, doDrain);
+        FluidStack drained = tank.drain(maxDrain, doDrain);
         tank.compareAndUpdate();
-        return drain;
+        return drained;
     }
 
     @Override
     public boolean canFill(EnumFacing from, Fluid fluid) {
-        if (fluid != null) {
-            return fluids.containsKey(FluidRegistry.getFluidName(fluid));
-        }
-        return false;
+        return FluidPowerManager.fluidPowerValues.containsKey(fluid);
     }
 
     @Override
@@ -149,29 +129,27 @@ public class TileSemifluidGenerator extends TilePowerAcceptor implements IWrench
     @Override
     public void updateEntity() {
         super.updateEntity();
-        if (!worldObj.isRemote)
+        if (!worldObj.isRemote) {
             FluidUtils.drainContainers(this, inventory, 0, 1);
+            FluidUtils.fillContainers(this, inventory, 0, 1, tank.getFluidType());
+            if (tank.getFluidType() != null && getStackInSlot(2) == null) {
+                inventory.setInventorySlotContents(2, new ItemStack(tank
+                        .getFluidType().getBlock()));
+                syncWithAll();
+            } else if (tank.getFluidType() == null && getStackInSlot(2) != null) {
+                setInventorySlotContents(2, null);
+                syncWithAll();
+            }
 
-        if (tank.getFluidAmount() > 0
-                && getMaxPower() - getEnergy() >= euTick) {
-            Integer euPerBucket = fluids.get(tank.getFluidType().getName());
-            //float totalTicks = (float)euPerBucket / 8f; //x eu per bucket / 8 eu per tick
-            //float millibucketsPerTick = 1000f / totalTicks;
-            float millibucketsPerTick = 8000f / (float) euPerBucket;
-            pendingWithdraw += millibucketsPerTick;
-
-            int currentWithdraw = (int) pendingWithdraw; //float --> int conversion floors the float
-            pendingWithdraw -= currentWithdraw;
-
-            tank.drain(currentWithdraw, true);
-            addEnergy(euTick);
+            if (!tank.isEmpty() && tank.getFluidType() != null && FluidPowerManager.fluidPowerValues.containsKey(tank.getFluidType())) {
+                double powerIn = FluidPowerManager.fluidPowerValues.get(tank.getFluidType());
+                if (getFreeSpace() >= powerIn) {
+                    addEnergy(powerIn, false);
+                    tank.drain(1, true);
+                }
+            }
         }
-        if (tank.getFluidType() != null && getStackInSlot(2) == null) {
-            inventory.setInventorySlotContents(2, new ItemStack(tank
-                    .getFluidType().getBlock()));
-        } else if (tank.getFluidType() == null && getStackInSlot(2) != null) {
-            setInventorySlotContents(2, null);
-        }
+
     }
 
     @Override
@@ -197,6 +175,47 @@ public class TileSemifluidGenerator extends TilePowerAcceptor implements IWrench
     @Override
     public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) {
         inventory.setInventorySlotContents(p_70299_1_, p_70299_2_);
+    }
+
+    @Override
+    public int getInventoryStackLimit() {
+        return inventory.getInventoryStackLimit();
+    }
+
+    @Override
+    public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
+        return inventory.isUseableByPlayer(p_70300_1_);
+    }
+
+
+    @Override
+    public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
+        return inventory.isItemValidForSlot(p_94041_1_, p_94041_2_);
+    }
+
+    @Override
+    public double getMaxPower() {
+        return ConfigTechReborn.ThermalGeneratorCharge;
+    }
+
+    @Override
+    public boolean canAcceptEnergy(EnumFacing direction) {
+        return false;
+    }
+
+    @Override
+    public boolean canProvideEnergy(EnumFacing direction) {
+        return true;
+    }
+
+    @Override
+    public double getMaxOutput() {
+        return 64;
+    }
+
+    @Override
+    public double getMaxInput() {
+        return 0;
     }
 
     @Override
@@ -243,46 +262,5 @@ public class TileSemifluidGenerator extends TilePowerAcceptor implements IWrench
     @Override
     public IChatComponent getDisplayName() {
         return inventory.getDisplayName();
-    }
-
-    @Override
-    public int getInventoryStackLimit() {
-        return inventory.getInventoryStackLimit();
-    }
-
-    @Override
-    public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
-        return inventory.isUseableByPlayer(p_70300_1_);
-    }
-
-
-    @Override
-    public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
-        return inventory.isItemValidForSlot(p_94041_1_, p_94041_2_);
-    }
-
-    @Override
-    public double getMaxPower() {
-        return ConfigTechReborn.ThermalGeneratorCharge;
-    }
-
-    @Override
-    public boolean canAcceptEnergy(EnumFacing direction) {
-        return false;
-    }
-
-    @Override
-    public boolean canProvideEnergy(EnumFacing direction) {
-        return true;
-    }
-
-    @Override
-    public double getMaxOutput() {
-        return euTick;
-    }
-
-    @Override
-    public double getMaxInput() {
-        return 0;
     }
 }

@@ -5,7 +5,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import techreborn.blocks.BlockMachineBase;
 import techreborn.blocks.IAdvancedRotationTexture;
-import techreborn.tiles.TileDragonEggSiphoner;
+import techreborn.tiles.generator.TileDragonEggSiphoner;
 
 public class BlockDragonEggSiphoner extends BlockMachineBase implements IAdvancedRotationTexture {
 

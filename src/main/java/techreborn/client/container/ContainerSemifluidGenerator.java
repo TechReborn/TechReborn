@@ -5,7 +5,7 @@ import net.minecraft.inventory.Slot;
 import reborncore.client.gui.SlotFake;
 import reborncore.client.gui.SlotOutput;
 import reborncore.common.container.RebornContainer;
-import techreborn.tiles.TileSemifluidGenerator;
+import techreborn.tiles.generator.TileSemifluidGenerator;
 
 public class ContainerSemifluidGenerator extends RebornContainer {
     public TileSemifluidGenerator tileSemifluidGenerator;

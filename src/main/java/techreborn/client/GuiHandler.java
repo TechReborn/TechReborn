@@ -9,6 +9,10 @@ import techreborn.client.gui.*;
 import techreborn.pda.GuiManual;
 import techreborn.tiles.*;
 import techreborn.tiles.fusionReactor.TileEntityFusionController;
+import techreborn.tiles.generator.TileDieselGenerator;
+import techreborn.tiles.generator.TileGasTurbine;
+import techreborn.tiles.generator.TileGenerator;
+import techreborn.tiles.generator.TileSemifluidGenerator;
 import techreborn.tiles.idsu.TileIDSU;
 import techreborn.tiles.lesu.TileLesu;
 import techreborn.tiles.teir1.TileGrinder;
@@ -44,6 +48,7 @@ public class GuiHandler implements IGuiHandler {
     public static final int fusionID = 29;
     public static final int vacuumFreezerID = 30;
     public static final int grinderID = 31;
+    public static final int generatorID = 32;
 
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
@@ -126,6 +131,8 @@ public class GuiHandler implements IGuiHandler {
             return new ContainerVacuumFreezer((TileVacuumFreezer) world.getTileEntity(new BlockPos(x, y, z)), player);
 	    }else if (ID == grinderID) {
 	        return new ContainerGrinder((TileGrinder) world.getTileEntity(new BlockPos(x, y, z)), player);
+	    }else if (ID == generatorID) {
+	        return new ContainerGenerator((TileGenerator) world.getTileEntity(new BlockPos(x, y, z)), player);
 	    }
 
 
@@ -214,6 +221,8 @@ public class GuiHandler implements IGuiHandler {
             return new GuiVacuumFreezer(player, (TileVacuumFreezer) world.getTileEntity(new BlockPos(x, y, z)));
         }else if (ID == grinderID) {
             return new GuiGrinder(player, (TileGrinder) world.getTileEntity(new BlockPos(x, y, z)));
+        }else if (ID == generatorID) {
+            return new GuiGenerator(player, (TileGenerator) world.getTileEntity(new BlockPos(x, y, z)));
         }
         return null;
     }

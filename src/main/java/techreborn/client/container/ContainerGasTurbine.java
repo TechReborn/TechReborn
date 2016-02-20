@@ -5,7 +5,7 @@ import net.minecraft.inventory.Slot;
 import reborncore.client.gui.SlotFake;
 import reborncore.client.gui.SlotOutput;
 import reborncore.common.container.RebornContainer;
-import techreborn.tiles.TileGasTurbine;
+import techreborn.tiles.generator.TileGasTurbine;
 
 public class ContainerGasTurbine extends RebornContainer {
     public TileGasTurbine tileGasTurbine;
