@@ -32,7 +32,7 @@ public abstract class BaseRecipeWrapper<T extends BaseRecipe> extends BlankRecip
 	}
 
 	private static List<ItemStack> expandOreDict(ItemStack itemStack) {
-		if(itemStack == null){
+		if(itemStack == null || itemStack.getItem() == null){
 			return new ArrayList<ItemStack>();
 		}
 		int[] oreIds = OreDictionary.getOreIDs(itemStack);
