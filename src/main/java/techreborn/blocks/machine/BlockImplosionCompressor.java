@@ -27,7 +27,7 @@ public class BlockImplosionCompressor extends BlockMachineBase implements IRotat
     public boolean onBlockActivated(World world, int x, int y, int z,
                                     EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
         if (!player.isSneaking())
-            player.openGui(Core.INSTANCE, GuiHandler.compresserID, world, x, y,
+            player.openGui(Core.INSTANCE, GuiHandler.implosionCompresserID, world, x, y,
                     z);
         return true;
     }

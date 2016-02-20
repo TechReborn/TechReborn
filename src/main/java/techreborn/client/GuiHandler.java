@@ -15,6 +15,9 @@ import techreborn.tiles.generator.TileGenerator;
 import techreborn.tiles.generator.TileSemifluidGenerator;
 import techreborn.tiles.idsu.TileIDSU;
 import techreborn.tiles.lesu.TileLesu;
+import techreborn.tiles.teir1.TileCompressor;
+import techreborn.tiles.teir1.TileElectricFurnace;
+import techreborn.tiles.teir1.TileExtractor;
 import techreborn.tiles.teir1.TileGrinder;
 
 public class GuiHandler implements IGuiHandler {
@@ -27,7 +30,7 @@ public class GuiHandler implements IGuiHandler {
     public static final int blastFurnaceID = 5;
     public static final int alloySmelterID = 6;
     public static final int industrialGrinderID = 7;
-    public static final int compresserID = 8;
+    public static final int implosionCompresserID = 8;
     public static final int matterfabID = 9;
     public static final int pdaID = 10;
     public static final int chunkloaderID = 11;
@@ -49,6 +52,9 @@ public class GuiHandler implements IGuiHandler {
     public static final int vacuumFreezerID = 30;
     public static final int grinderID = 31;
     public static final int generatorID = 32;
+    public static final int extractorID = 33;
+    public static final int compressorID = 34;
+    public static final int electricFurnaceID = 35;
 
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
@@ -85,7 +91,7 @@ public class GuiHandler implements IGuiHandler {
         } else if (ID == industrialGrinderID) {
             return new ContainerIndustrialGrinder(
                     (TileIndustrialGrinder) world.getTileEntity(new BlockPos(x, y, z)), player);
-        } else if (ID == compresserID) {
+        } else if (ID == implosionCompresserID) {
             return new ContainerImplosionCompressor(
                     (TileImplosionCompressor) world.getTileEntity(new BlockPos(x, y, z)), player);
         } else if (ID == matterfabID) {
@@ -133,6 +139,12 @@ public class GuiHandler implements IGuiHandler {
 	        return new ContainerGrinder((TileGrinder) world.getTileEntity(new BlockPos(x, y, z)), player);
 	    }else if (ID == generatorID) {
 	        return new ContainerGenerator((TileGenerator) world.getTileEntity(new BlockPos(x, y, z)), player);
+	    }else if (ID == extractorID) {
+	        return new ContainerExtractor((TileExtractor) world.getTileEntity(new BlockPos(x, y, z)), player);
+	    }else if (ID == compressorID) {
+	        return new ContainerCompressor((TileCompressor) world.getTileEntity(new BlockPos(x, y, z)), player);
+	    }else if (ID == electricFurnaceID) {
+	        return new ContainerElectricFurnace((TileElectricFurnace) world.getTileEntity(new BlockPos(x, y, z)), player);
 	    }
 
 
@@ -175,7 +187,7 @@ public class GuiHandler implements IGuiHandler {
         } else if (ID == industrialGrinderID) {
             return new GuiIndustrialGrinder(player,
                     (TileIndustrialGrinder) world.getTileEntity(new BlockPos(x, y, z)));
-        } else if (ID == compresserID) {
+        } else if (ID == implosionCompresserID) {
             return new GuiImplosionCompressor(player,
                     (TileImplosionCompressor) world.getTileEntity(new BlockPos(x, y, z)));
         } else if (ID == matterfabID) {
@@ -223,6 +235,12 @@ public class GuiHandler implements IGuiHandler {
             return new GuiGrinder(player, (TileGrinder) world.getTileEntity(new BlockPos(x, y, z)));
         }else if (ID == generatorID) {
             return new GuiGenerator(player, (TileGenerator) world.getTileEntity(new BlockPos(x, y, z)));
+        }else if (ID == extractorID) {
+            return new GuiExtractor(player, (TileExtractor) world.getTileEntity(new BlockPos(x, y, z)));
+        }else if (ID == compressorID) {
+            return new GuiCompressor(player, (TileCompressor) world.getTileEntity(new BlockPos(x, y, z)));
+        }else if (ID == electricFurnaceID) {
+            return new GuiElectricFurnace(player, (TileElectricFurnace) world.getTileEntity(new BlockPos(x, y, z)));
         }
         return null;
     }

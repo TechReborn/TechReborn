@@ -14,6 +14,9 @@ import techreborn.blocks.storage.BlockAesu;
 import techreborn.blocks.storage.BlockIDSU;
 import techreborn.blocks.storage.BlockLesu;
 import techreborn.blocks.storage.BlockLesuStorage;
+import techreborn.blocks.teir1.BlockCompresser;
+import techreborn.blocks.teir1.BlockElectricFurnace;
+import techreborn.blocks.teir1.BlockExtractor;
 import techreborn.blocks.teir1.BlockGrinder;
 import techreborn.itemblocks.*;
 import techreborn.tiles.*;
@@ -27,6 +30,9 @@ import techreborn.tiles.generator.TileSemifluidGenerator;
 import techreborn.tiles.idsu.TileIDSU;
 import techreborn.tiles.lesu.TileLesu;
 import techreborn.tiles.lesu.TileLesuStorage;
+import techreborn.tiles.teir1.TileCompressor;
+import techreborn.tiles.teir1.TileElectricFurnace;
+import techreborn.tiles.teir1.TileExtractor;
 import techreborn.tiles.teir1.TileGrinder;
 
 public class ModBlocks {
@@ -74,6 +80,9 @@ public class ModBlocks {
     public static Block playerDetector;
     public static Block Grinder;
     public static Block Generator;
+    public static Block Compressor;
+    public static Block Extractor;
+    public static Block ElectricFurnace;
 
     public static BlockOre ore;
     public static Block storage;
@@ -256,6 +265,18 @@ public class ModBlocks {
         Generator = new BlockGenerator();
         GameRegistry.registerBlock(Generator, "techreborn.generator");
         GameRegistry.registerTileEntity(TileGenerator.class, "TileGeneratorTR");
+        
+        Extractor = new BlockExtractor(Material.iron);
+        GameRegistry.registerBlock(Extractor, "techreborn.extractor");
+        GameRegistry.registerTileEntity(TileExtractor.class, "TileExtractorTR");
+        
+        Compressor = new BlockCompresser(Material.iron);
+        GameRegistry.registerBlock(Compressor, "techreborn.compressor");
+        GameRegistry.registerTileEntity(TileCompressor.class, "TileCompressorTR");
+        
+        ElectricFurnace = new BlockElectricFurnace(Material.iron);
+        GameRegistry.registerBlock(ElectricFurnace, "techreborn.electricfurnace");
+        GameRegistry.registerTileEntity(TileElectricFurnace.class, "TileElectricFurnaceTR");
 
 
         GameRegistry.registerTileEntity(TileMachineBase.class, "TileMachineBaseTR");

@@ -53,6 +53,9 @@ tile.techreborn.chargebench.name=Charge Bench
 tile.techreborn.playerDetector.all.name=Player Detector (All)
 tile.techreborn.playerDetector.others.name=Player Detector (Others)
 tile.techreborn.playerDetector.you.name=Player Detector (You)
+tile.techreborn.extractor.name=Extractor
+tile.techreborn.compressor.name=Compressor
+tile.techreborn.electricfurnace.name=Electric Furnace
 
 #Ores
 tile.techreborn.ore.Galena.name=Galena Ore

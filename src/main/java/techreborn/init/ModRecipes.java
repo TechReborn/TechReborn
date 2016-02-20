@@ -50,11 +50,13 @@ public class
         addImplosionCompressorRecipes();
         addReactorRecipes();
         addIc2Recipes();
+        // DEBUG
         RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(Items.diamond), new ItemStack(Blocks.dirt), 5, 20));
+        RecipeHandler.addRecipe(new ExtractorRecipe(new ItemStack(Items.diamond), new ItemStack(Blocks.dirt), 5, 20));
+        RecipeHandler.addRecipe(new CompressorRecipe(new ItemStack(Items.diamond), new ItemStack(Blocks.dirt), 5, 20));
     }
 
     static void addReactorRecipes(){
-
         FusionReactorRecipeHelper.registerRecipe(new FusionReactorRecipe(ItemCells.getCellByName("tritium"), ItemCells.getCellByName("deuterium"), ItemCells.getCellByName("helium"), 40000000, 32768, 1024));
         FusionReactorRecipeHelper.registerRecipe(new FusionReactorRecipe(ItemCells.getCellByName("tritium"), ItemCells.getCellByName("deuterium"), ItemCells.getCellByName("helium3"), 60000000, 32768, 2048));
         FusionReactorRecipeHelper.registerRecipe(new FusionReactorRecipe(ItemCells.getCellByName("wolframium"), ItemCells.getCellByName("Berylium"), ItemDusts.getDustByName("platinum"), 80000000, -2048, 1024));
