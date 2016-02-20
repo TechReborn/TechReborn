@@ -37,6 +37,9 @@ public class RecipeCompact implements IRecipeCompact {
         recipes.put("airCell", ItemCells.getCellByName("empty"));
         recipes.put("electronicCircuit", ItemParts.getPartByName("electronicCircuit"));
         recipes.put("advancedCircuit", ItemParts.getPartByName("advancedCircuit"));
+        recipes.put("rubberWood", new ItemStack(ModBlocks.rubberLog));
+        recipes.put("resin", ItemParts.getPartByName("rubberSap"));
+        recipes.put("carbonPlate", ItemPlates.getPlateByName("carbon"));
     }
 
     @Override
