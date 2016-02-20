@@ -7,11 +7,12 @@ import net.minecraft.world.World;
 import techreborn.Core;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.blocks.IAdvancedRotationTexture;
+import reborncore.common.blocks.IRotationTexture;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.generator.TileGenerator;
 
-public class BlockGenerator extends BlockMachineBase implements IAdvancedRotationTexture {
+public class BlockGenerator extends BlockMachineBase implements IRotationTexture {
 
 	public BlockGenerator() {
 		super();
@@ -35,22 +36,27 @@ public class BlockGenerator extends BlockMachineBase implements IAdvancedRotatio
     private final String prefix = "techreborn:blocks/machine/";
 
     @Override
-    public String getFront(boolean isActive) {
-        return prefix + "machine_side";
+    public String getFrontOff() {
+        return prefix + "industrial_blast_furnace_front_off";
     }
 
     @Override
-    public String getSide(boolean isActive) {
+    public String getFrontOn() {
+        return prefix + "industrial_blast_furnace_front_on";
+    }
+
+    @Override
+    public String getSide() {
         return prefix + "machine_side" ;
     }
 
     @Override
-    public String getTop(boolean isActive) {
+    public String getTop() {
         return prefix + "diesel_generator_top_off";
     }
 
     @Override
-    public String getBottom(boolean isActive) {
+    public String getBottom() {
         return prefix + "machine_bottom";
     }
 }

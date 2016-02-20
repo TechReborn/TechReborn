@@ -73,6 +73,7 @@ public class ModItems {
     public static Item bucketTritium;
     public static Item bucketWolframium;
     public static Item reBattery;
+    public static Item treeTap;
 
     public static Item upgrades;
 
@@ -125,6 +126,8 @@ public class ModItems {
         GameRegistry.registerItem(uuMatter, "uumatter");
         reBattery = PoweredItem.createItem(ItemReBattery.class);
         GameRegistry.registerItem(reBattery, "rebattery"); 
+        treeTap = new ItemTreeTap();
+        GameRegistry.registerItem(treeTap, "treetap");
 
 //        upgrades = new ItemUpgrade();
 //        GameRegistry.registerItem(upgrades, "upgrades");

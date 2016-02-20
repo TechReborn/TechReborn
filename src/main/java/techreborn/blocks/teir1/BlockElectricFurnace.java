@@ -36,26 +36,26 @@ public class BlockElectricFurnace extends BlockMachineBase implements IRotationT
 
     @Override
     public String getFrontOff() {
-        return prefix + "machine_side";
+        return prefix + "industrial_blast_furnace_front_off";
     }
 
     @Override
     public String getFrontOn() {
-        return prefix + "machine_side";
+        return prefix + "industrial_blast_furnace_front_on";
     }
 
     @Override
     public String getSide() {
-        return prefix + "machine_side";
+        return prefix + "machine_side" ;
     }
 
     @Override
     public String getTop() {
-        return prefix + "machine_side";
+        return prefix + "machine_top";
     }
 
     @Override
     public String getBottom() {
-        return prefix + "machine_side";
+        return prefix + "machine_bottom";
     }
 }

@@ -19,6 +19,7 @@ import reborncore.RebornCore;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModParts;
 import techreborn.items.ItemParts;
+import techreborn.items.tools.ItemTreeTap;
 
 import java.util.List;
 import java.util.Random;
@@ -138,22 +139,24 @@ public class BlockRubberLog extends Block implements ITexturedBlock {
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
 		super.onBlockActivated(worldIn, pos, state, playerIn, side, hitX, hitY, hitZ);
-		if(state.getValue(HAS_SAP)){
-			if(state.getValue(SAP_SIDE) == side){
-				worldIn.setBlockState(pos, state.withProperty(HAS_SAP, false).withProperty(SAP_SIDE, EnumFacing.getHorizontal(0)));
-				if(!worldIn.isRemote){
-					Random rand = new Random();
-					BlockPos itemPos = pos.offset(side);
-					EntityItem item = new EntityItem(worldIn, itemPos.getX(), itemPos.getY(), itemPos.getZ(), ItemParts.getPartByName("rubberSap").copy());
-					float factor = 0.05F;
-					item.motionX = rand.nextGaussian() * factor;
-					item.motionY = rand.nextGaussian() * factor + 0.2F;
-					item.motionZ = rand.nextGaussian() * factor;
-					worldIn.spawnEntityInWorld(item);
+		if(playerIn.getCurrentEquippedItem() != null && playerIn.getCurrentEquippedItem().getItem() instanceof ItemTreeTap)
+			if(state.getValue(HAS_SAP)){
+				if(state.getValue(SAP_SIDE) == side){
+					worldIn.setBlockState(pos, state.withProperty(HAS_SAP, false).withProperty(SAP_SIDE, EnumFacing.getHorizontal(0)));
+					if(!worldIn.isRemote){
+						Random rand = new Random();
+						BlockPos itemPos = pos.offset(side);
+						EntityItem item = new EntityItem(worldIn, itemPos.getX(), itemPos.getY(), itemPos.getZ(), ItemParts.getPartByName("rubberSap").copy());
+						float factor = 0.05F;
+						playerIn.getCurrentEquippedItem().damageItem(1, playerIn);
+						item.motionX = rand.nextGaussian() * factor;
+						item.motionY = rand.nextGaussian() * factor + 0.2F;
+						item.motionZ = rand.nextGaussian() * factor;
+						worldIn.spawnEntityInWorld(item);
+					}
+					return true;
 				}
-				return true;
 			}
-		}
 		return false;
 	}
 }

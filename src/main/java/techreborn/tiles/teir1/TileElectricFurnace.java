@@ -5,6 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
@@ -15,24 +16,20 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 public class TileElectricFurnace extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory{
 
     public Inventory inventory = new Inventory(6, "TileElectricFurnace", 64, this);
-//    public RecipeCrafter crafter;
     public int capacity = 1000;
 
 	public TileElectricFurnace() {
 		super(1);
-        int[] inputs = new int[1];
-        inputs[0] = 0;
-        int[] outputs = new int[1];
-        outputs[0] = 1;
-//        crafter = new RecipeCrafter(Reference.grinderRecipe, this, 2, 1, inventory, inputs, outputs);
 	}
 	
     @Override
-    public void updateEntity() {
+    public void updateEntity() 
+    {
         super.updateEntity();
-//        crafter.updateEntity();
-//        upgrades.tick();
-        charge(3);
+        if(!worldObj.isRemote)
+        {
+        
+        }
     }
     
     @Override
