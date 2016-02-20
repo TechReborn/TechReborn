@@ -32,6 +32,9 @@ public abstract class BaseRecipeWrapper<T extends BaseRecipe> extends BlankRecip
 	}
 
 	private static List<ItemStack> expandOreDict(ItemStack itemStack) {
+		if(itemStack == null){
+			return new ArrayList<ItemStack>();
+		}
 		int[] oreIds = OreDictionary.getOreIDs(itemStack);
 		if (oreIds.length == 0) {
 			return Collections.singletonList(itemStack);
