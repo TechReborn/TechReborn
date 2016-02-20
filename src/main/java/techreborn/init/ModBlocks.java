@@ -353,6 +353,10 @@ public class ModBlocks {
         OreDictionary.registerOre("crafterWood", Blocks.crafting_table);
         OreDictionary.registerOre("machineBasic", new ItemStack(machineframe, 1));
 
+        OreDictionary.registerOre("treeSapling", rubberSapling);
+        OreDictionary.registerOre("logWood", new ItemStack(rubberLog, 1 , OreDictionary.WILDCARD_VALUE));
+        OreDictionary.registerOre("plankWood", new ItemStack(rubberPlanks, 1 , OreDictionary.WILDCARD_VALUE));
+        OreDictionary.registerOre("treeLeaves", new ItemStack(rubberLeaves, 1 , OreDictionary.WILDCARD_VALUE));
     }
 
 }
