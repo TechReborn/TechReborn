@@ -37,7 +37,7 @@ public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo, ITextured
         setCreativeTab(TechRebornCreativeTab.instance);
         setMaxStackSize(1);
         setMaxDamage(240);
-        setUnlocalizedName("techreborn.advancedDrill");
+        setUnlocalizedName("techreborn.ironDrill");
         RebornCore.jsonDestroyer.registerObject(this);
     }
 
@@ -49,13 +49,13 @@ public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo, ITextured
 
     @Override
     public boolean canHarvestBlock(Block block, ItemStack stack) {
-        return Items.diamond_pickaxe.canHarvestBlock(block, stack) || Items.diamond_shovel.canHarvestBlock(block, stack);
+        return Items.iron_pickaxe.canHarvestBlock(block, stack) || Items.iron_pickaxe.canHarvestBlock(block, stack);
     }
 
     @Override
     public float getDigSpeed(ItemStack stack, IBlockState state) {
         if(!PoweredItem.canUseEnergy(cost, stack)){
-            return 4.0F;
+            return 2.0F;
         }
         if (Items.wooden_pickaxe.getDigSpeed(stack, state) > 1.0F || Items.wooden_shovel.getDigSpeed(stack, state) > 1.0F) {
             return efficiencyOnProperMaterial;
