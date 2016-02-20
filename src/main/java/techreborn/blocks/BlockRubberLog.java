@@ -143,6 +143,7 @@ public class BlockRubberLog extends Block implements ITexturedBlock {
 			if(state.getValue(HAS_SAP)){
 				if(state.getValue(SAP_SIDE) == side){
 					worldIn.setBlockState(pos, state.withProperty(HAS_SAP, false).withProperty(SAP_SIDE, EnumFacing.getHorizontal(0)));
+					worldIn.playSoundAtEntity(playerIn, "techreborn:sap_extract", 0.8F, 1F);
 					if(!worldIn.isRemote){
 						Random rand = new Random();
 						BlockPos itemPos = pos.offset(side);

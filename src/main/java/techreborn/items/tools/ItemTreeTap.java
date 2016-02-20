@@ -13,6 +13,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.RebornCore;
 import reborncore.common.powerSystem.PoweredItem;
+import techreborn.client.TechRebornCreativeTab;
 
 public class ItemTreeTap extends Item implements ITexturedItem {
 
@@ -21,6 +22,7 @@ public class ItemTreeTap extends Item implements ITexturedItem {
 		setMaxDamage(20);
 		setUnlocalizedName("techreborn.treetap");
 		RebornCore.jsonDestroyer.registerObject(this);
+		setCreativeTab(TechRebornCreativeTab.instance);
 	}
 	
 	@Override
