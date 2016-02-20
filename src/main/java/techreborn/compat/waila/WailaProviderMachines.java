@@ -10,7 +10,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import reborncore.api.IListInfoProvider;
-import techreborn.tiles.TileMachineBase;
 
 import java.util.ArrayList;
 import java.util.List;

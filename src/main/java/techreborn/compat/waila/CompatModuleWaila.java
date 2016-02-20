@@ -3,7 +3,7 @@ package techreborn.compat.waila;
 import net.minecraftforge.fml.common.event.*;
 import mcp.mobius.waila.api.IWailaRegistrar;
 import techreborn.compat.ICompatModule;
-import techreborn.tiles.TileMachineBase;
+import reborncore.common.tile.TileMachineBase;
 
 public class CompatModuleWaila implements ICompatModule {
 

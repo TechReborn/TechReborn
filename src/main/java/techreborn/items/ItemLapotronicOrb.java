@@ -1,8 +1,7 @@
 package techreborn.items;
 
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import techreborn.api.power.IEnergyItemInfo;
+import reborncore.api.power.IEnergyItemInfo;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
 

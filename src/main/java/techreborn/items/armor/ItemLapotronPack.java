@@ -10,10 +10,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.RebornCore;
-import techreborn.api.power.IEnergyItemInfo;
+import reborncore.api.power.IEnergyItemInfo;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
-import techreborn.powerSystem.PoweredItem;
+import reborncore.common.powerSystem.PoweredItem;
 
 import java.util.List;
 

@@ -14,7 +14,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 import reborncore.common.util.Color;
-import techreborn.api.power.IEnergyInterfaceItem;
+import reborncore.api.power.IEnergyInterfaceItem;
 import techreborn.client.keybindings.KeyBindings;
 import techreborn.config.ConfigTechReborn;
 

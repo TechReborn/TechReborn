@@ -16,7 +16,7 @@ import techreborn.api.recipe.RecipeCrafter;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.init.ModBlocks;
 import techreborn.lib.Reference;
-import techreborn.powerSystem.TilePowerAcceptor;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 
 public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory {
 

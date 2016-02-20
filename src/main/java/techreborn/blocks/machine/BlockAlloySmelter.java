@@ -5,17 +5,19 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import techreborn.Core;
-import techreborn.blocks.BlockMachineBase;
-import techreborn.blocks.IRotationTexture;
+import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.IRotationTexture;
 import techreborn.client.GuiHandler;
+import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileAlloySmelter;
 
 public class BlockAlloySmelter extends BlockMachineBase implements IRotationTexture {
 
 
     public BlockAlloySmelter(Material material) {
-        super(material);
+        super();
         setUnlocalizedName("techreborn.alloysmelter");
+        setCreativeTab(TechRebornCreativeTab.instance);
     }
 
     @Override

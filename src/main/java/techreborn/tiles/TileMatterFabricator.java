@@ -13,7 +13,7 @@ import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
-import techreborn.powerSystem.TilePowerAcceptor;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 
 public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory {
 

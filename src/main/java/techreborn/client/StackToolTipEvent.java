@@ -11,7 +11,7 @@ import org.lwjgl.input.Keyboard;
 import reborncore.api.IListInfoProvider;
 import reborncore.common.util.Color;
 import techreborn.Core;
-import techreborn.api.power.IEnergyInterfaceItem;
+import reborncore.api.power.IEnergyInterfaceItem;
 
 public class StackToolTipEvent {
 

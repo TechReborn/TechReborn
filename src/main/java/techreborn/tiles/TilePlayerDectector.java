@@ -3,8 +3,8 @@ package techreborn.tiles;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import techreborn.blocks.BlockMachineBase;
-import techreborn.powerSystem.TilePowerAcceptor;
+import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 
 import java.util.Iterator;
 

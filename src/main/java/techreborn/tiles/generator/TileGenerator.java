@@ -7,7 +7,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -15,12 +14,11 @@ import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
-import net.minecraftforge.fml.common.IFuelHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import reborncore.common.util.Inventory;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
-import techreborn.powerSystem.TilePowerAcceptor;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 
 public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IInventory
 {

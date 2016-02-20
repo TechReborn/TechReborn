@@ -3,10 +3,9 @@ package techreborn.tiles.lesu;
 
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import reborncore.common.misc.Functions;
 import reborncore.common.util.Inventory;
 import techreborn.config.ConfigTechReborn;
-import techreborn.powerSystem.TilePowerAcceptor;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 
 import java.util.ArrayList;
 

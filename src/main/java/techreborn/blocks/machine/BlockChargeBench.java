@@ -5,17 +5,19 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import techreborn.Core;
-import techreborn.blocks.BlockMachineBase;
-import techreborn.blocks.IRotationTexture;
+import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.IRotationTexture;
 import techreborn.client.GuiHandler;
+import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileChargeBench;
 
 public class BlockChargeBench extends BlockMachineBase implements IRotationTexture {
 
 
     public BlockChargeBench(Material material) {
-        super(material);
+        super();
         setUnlocalizedName("techreborn.chargebench");
+        setCreativeTab(TechRebornCreativeTab.instance);
     }
 
     @Override

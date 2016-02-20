@@ -5,8 +5,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.IAdvancedRotationTexture;
 import techreborn.Core;
 import techreborn.client.GuiHandler;
+import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.fusionReactor.TileEntityFusionController;
 
 public class BlockFusionControlComputer extends BlockMachineBase implements IAdvancedRotationTexture {
@@ -14,8 +17,9 @@ public class BlockFusionControlComputer extends BlockMachineBase implements IAdv
 
 
     public BlockFusionControlComputer(Material material) {
-        super(material);
+        super();
         setUnlocalizedName("techreborn.fusioncontrolcomputer");
+        setCreativeTab(TechRebornCreativeTab.instance);
     }
 
     @Override

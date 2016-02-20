@@ -4,16 +4,20 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.IAdvancedRotationTexture;
 import techreborn.Core;
 import techreborn.client.GuiHandler;
+import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileChunkLoader;
 
 public class BlockChunkLoader extends BlockMachineBase implements IAdvancedRotationTexture {
 
 
     public BlockChunkLoader(Material material) {
-        super(material);
+        super();
         setUnlocalizedName("techreborn.chunkloader");
+        setCreativeTab(TechRebornCreativeTab.instance);
     }
 
     @Override

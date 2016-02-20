@@ -6,17 +6,19 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import techreborn.Core;
-import techreborn.blocks.BlockMachineBase;
-import techreborn.blocks.IRotationTexture;
+import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.IRotationTexture;
 import techreborn.client.GuiHandler;
+import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileIndustrialGrinder;
 
 public class BlockIndustrialGrinder extends BlockMachineBase implements IRotationTexture {
 
 
     public BlockIndustrialGrinder(Material material) {
-        super(material);
+        super();
         setUnlocalizedName("techreborn.industrialgrinder");
+        setCreativeTab(TechRebornCreativeTab.instance);
     }
 
     @Override

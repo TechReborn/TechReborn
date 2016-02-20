@@ -126,7 +126,7 @@ public class BlockRubberLog extends Block implements ITexturedBlock {
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 		super.updateTick(worldIn, pos, state, rand);
 		if(!state.getValue(HAS_SAP)){
-			if(rand.nextInt(100) == 0){
+			if(rand.nextInt(50) == 0){
 				EnumFacing facing = EnumFacing.getHorizontal(rand.nextInt(3));
 				if(worldIn.getBlockState(pos.down()).getBlock() == this && worldIn.getBlockState(pos.up()).getBlock() == this && worldIn.isAirBlock(pos.offset(facing))){
 					worldIn.setBlockState(pos, state.withProperty(HAS_SAP, true).withProperty(SAP_SIDE, facing));

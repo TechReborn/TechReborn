@@ -5,9 +5,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import techreborn.Core;
-import techreborn.blocks.BlockMachineBase;
-import techreborn.blocks.IRotationTexture;
+import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.IRotationTexture;
 import techreborn.client.GuiHandler;
+import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileChemicalReactor;
 
 public class BlockChemicalReactor extends BlockMachineBase implements IRotationTexture {
@@ -15,8 +16,9 @@ public class BlockChemicalReactor extends BlockMachineBase implements IRotationT
 
 
     public BlockChemicalReactor(Material material) {
-        super(material);
+        super();
         setUnlocalizedName("techreborn.chemicalreactor");
+        setCreativeTab(TechRebornCreativeTab.instance);
     }
 
     @Override

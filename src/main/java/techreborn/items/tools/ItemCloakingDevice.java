@@ -9,11 +9,11 @@ import net.minecraft.potion.Potion;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import techreborn.api.power.IEnergyItemInfo;
+import reborncore.api.power.IEnergyItemInfo;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
 import techreborn.items.ItemTextureBase;
-import techreborn.powerSystem.PoweredItem;
+import reborncore.common.powerSystem.PoweredItem;
 
 import java.util.List;
 

@@ -107,7 +107,7 @@ public class Core {
         }
         // WorldGen
         GameRegistry.registerWorldGenerator(new TROreGen(), 0);
-        GameRegistry.registerWorldGenerator(new TreeGenerator(), 1);
+        GameRegistry.registerWorldGenerator(new TreeGenerator(), 2);
 //		DungeonLoot.init();
         // Register Gui Handler
         NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());

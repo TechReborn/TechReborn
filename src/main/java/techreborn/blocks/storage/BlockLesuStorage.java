@@ -8,15 +8,17 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import techreborn.blocks.BlockMachineBase;
-import techreborn.blocks.IAdvancedRotationTexture;
+import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.IAdvancedRotationTexture;
+import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.lesu.TileLesuStorage;
 
 public class BlockLesuStorage extends BlockMachineBase implements IAdvancedRotationTexture {
 
     public BlockLesuStorage(Material material) {
-        super(material);
+        super();
         setUnlocalizedName("techreborn.lesustorage");
+        setCreativeTab(TechRebornCreativeTab.instance);
     }
 
 

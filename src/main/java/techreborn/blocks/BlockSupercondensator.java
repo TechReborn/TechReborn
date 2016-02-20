@@ -1,13 +1,17 @@
 package techreborn.blocks;
 
 import net.minecraft.block.material.Material;
+import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.IAdvancedRotationTexture;
+import techreborn.client.TechRebornCreativeTab;
 
 public class BlockSupercondensator extends BlockMachineBase implements IAdvancedRotationTexture {
 
 
     public BlockSupercondensator(Material material) {
-        super(material);
+        super();
         setUnlocalizedName("techreborn.supercondensator");
+        setCreativeTab(TechRebornCreativeTab.instance);
     }
 
     private final String prefix = "techreborn:blocks/machine/";

@@ -21,7 +21,7 @@ import techreborn.blocks.BlockMachineCasing;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModFluids;
 import techreborn.lib.Reference;
-import techreborn.powerSystem.TilePowerAcceptor;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 
 public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrenchable, IFluidHandler, IInventory, ISidedInventory, IListInfoProvider {
     public static final int TANK_CAPACITY = 16000;

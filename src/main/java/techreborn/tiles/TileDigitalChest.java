@@ -11,6 +11,7 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
 import reborncore.api.IListInfoProvider;
+import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.init.ModBlocks;

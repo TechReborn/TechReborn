@@ -3,20 +3,20 @@ package techreborn.blocks.generator;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import techreborn.Core;
-import techreborn.blocks.BlockMachineBase;
-import techreborn.blocks.IAdvancedRotationTexture;
+import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.IAdvancedRotationTexture;
 import techreborn.client.GuiHandler;
-import techreborn.tiles.generator.TileDieselGenerator;
+import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.generator.TileGenerator;
 
 public class BlockGenerator extends BlockMachineBase implements IAdvancedRotationTexture {
 
 	public BlockGenerator() {
-		super(Material.iron);
+		super();
 		setUnlocalizedName("techreborn.generator");
+        setCreativeTab(TechRebornCreativeTab.instance);
 	}
 	
     @Override

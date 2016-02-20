@@ -7,6 +7,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.BucketHandler;
 import techreborn.Core;
 import techreborn.events.OreUnifier;
@@ -14,7 +15,7 @@ import techreborn.items.*;
 import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
 import techreborn.items.tools.*;
-import techreborn.powerSystem.PoweredItem;
+import reborncore.common.powerSystem.PoweredItem;
 
 public class ModItems {
 
@@ -279,6 +280,9 @@ public class ModItems {
         Core.logHelper.info("TechReborns Items Loaded");
 
         registerOreDict();
+
+        BlockMachineBase.advancedMachineStack = new ItemStack(Item.getItemFromBlock(ModBlocks.MachineCasing), 1, 2);
+        BlockMachineBase.machineStack = new ItemStack(Item.getItemFromBlock(ModBlocks.MachineCasing), 1, 0);
     }
 
     public static void registerOreDict() {

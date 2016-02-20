@@ -12,7 +12,7 @@ import net.minecraft.util.IChatComponent;
 import reborncore.common.util.Inventory;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
-import techreborn.powerSystem.TilePowerAcceptor;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 
 public class TileDragonEggSiphoner extends TilePowerAcceptor implements IWrenchable, IInventory {
 

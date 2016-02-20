@@ -6,16 +6,18 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import techreborn.Core;
-import techreborn.blocks.BlockMachineBase;
-import techreborn.blocks.IRotationTexture;
+import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.IRotationTexture;
 import techreborn.client.GuiHandler;
+import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileIndustrialSawmill;
 
 public class BlockIndustrialSawmill extends BlockMachineBase implements IRotationTexture {
 
     public BlockIndustrialSawmill(Material material) {
-        super(material);
+        super();
         setUnlocalizedName("techreborn.industrialsawmill");
+        setCreativeTab(TechRebornCreativeTab.instance);
     }
 
     @Override

@@ -1,14 +1,16 @@
 package techreborn.blocks.generator;
 
 import net.minecraft.block.material.Material;
-import techreborn.blocks.BlockMachineBase;
-import techreborn.blocks.IAdvancedRotationTexture;
+import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.IAdvancedRotationTexture;
+import techreborn.client.TechRebornCreativeTab;
 
 public class BlockMagicEnergyConverter extends BlockMachineBase implements IAdvancedRotationTexture {
 
     public BlockMagicEnergyConverter(Material material) {
-        super(material);
+        super();
         setUnlocalizedName("techreborn.magicenergyconverter");
+        setCreativeTab(TechRebornCreativeTab.instance);
     }
 
 

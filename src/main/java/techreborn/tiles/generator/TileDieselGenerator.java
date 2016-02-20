@@ -17,7 +17,7 @@ import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
-import techreborn.powerSystem.TilePowerAcceptor;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 
 public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchable,
         IFluidHandler, IInventory {

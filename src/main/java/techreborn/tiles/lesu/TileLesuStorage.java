@@ -3,7 +3,7 @@ package techreborn.tiles.lesu;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-import techreborn.tiles.TileMachineBase;
+import reborncore.common.tile.TileMachineBase;
 
 public class TileLesuStorage extends TileMachineBase {
 

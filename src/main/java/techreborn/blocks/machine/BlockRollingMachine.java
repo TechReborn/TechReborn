@@ -5,9 +5,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import techreborn.Core;
-import techreborn.blocks.BlockMachineBase;
-import techreborn.blocks.IAdvancedRotationTexture;
+import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.IAdvancedRotationTexture;
 import techreborn.client.GuiHandler;
+import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileRollingMachine;
 
 public class BlockRollingMachine extends BlockMachineBase implements IAdvancedRotationTexture {
@@ -15,8 +16,9 @@ public class BlockRollingMachine extends BlockMachineBase implements IAdvancedRo
 
 
     public BlockRollingMachine(Material material) {
-        super(material.rock);
+        super();
         setUnlocalizedName("techreborn.rollingmachine");
+        setCreativeTab(TechRebornCreativeTab.instance);
     }
 
     @Override

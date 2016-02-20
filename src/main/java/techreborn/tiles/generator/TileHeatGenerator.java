@@ -8,7 +8,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
-import techreborn.powerSystem.TilePowerAcceptor;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 
 public class TileHeatGenerator extends TilePowerAcceptor implements IWrenchable {
 

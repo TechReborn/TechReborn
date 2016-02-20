@@ -5,17 +5,21 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.IAdvancedRotationTexture;
 import techreborn.Core;
 import techreborn.client.GuiHandler;
+import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileQuantumTank;
 
 public class BlockQuantumTank extends BlockMachineBase implements IAdvancedRotationTexture {
 
 
     public BlockQuantumTank() {
-        super(Material.rock);
+        super();
         setUnlocalizedName("techreborn.quantumTank");
         setHardness(2.0F);
+        setCreativeTab(TechRebornCreativeTab.instance);
     }
 
     @Override

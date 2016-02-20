@@ -14,7 +14,7 @@ import techreborn.api.recipe.RecipeCrafter;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.lib.Reference;
-import techreborn.powerSystem.TilePowerAcceptor;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 
 import java.util.List;
 

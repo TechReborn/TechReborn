@@ -11,17 +11,15 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
 import net.minecraftforge.fluids.*;
-import reborncore.common.misc.Location;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
 import techreborn.api.recipe.RecipeCrafter;
-import techreborn.blocks.BlockMachineCasing;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModFluids;
 import techreborn.lib.Reference;
-import techreborn.powerSystem.TilePowerAcceptor;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 
 public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrenchable, IFluidHandler, IInventory, ISidedInventory {
     public static final int TANK_CAPACITY = 16000;

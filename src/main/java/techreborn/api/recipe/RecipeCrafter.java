@@ -4,9 +4,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
-import techreborn.api.power.IEnergyInterfaceTile;
-import techreborn.blocks.BlockMachineBase;
-import techreborn.tiles.TileMachineBase;
+import reborncore.api.power.IEnergyInterfaceTile;
+import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.tile.TileMachineBase;
 
 import java.util.ArrayList;
 

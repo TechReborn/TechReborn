@@ -6,17 +6,19 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import techreborn.Core;
-import techreborn.blocks.BlockMachineBase;
-import techreborn.blocks.IAdvancedRotationTexture;
+import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.IAdvancedRotationTexture;
 import techreborn.client.GuiHandler;
+import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.generator.TileGasTurbine;
 
 public class BlockGasTurbine extends BlockMachineBase implements IAdvancedRotationTexture {
 
 
     public BlockGasTurbine(Material material) {
-        super(material);
+        super();
         setUnlocalizedName("techreborn.gasTurbine");
+        setCreativeTab(TechRebornCreativeTab.instance);
     }
 
     @Override

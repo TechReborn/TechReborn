@@ -1,14 +1,16 @@
 package techreborn.blocks.machine;
 
 import net.minecraft.block.material.Material;
-import techreborn.blocks.BlockMachineBase;
-import techreborn.blocks.IRotationTexture;
+import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.IRotationTexture;
+import techreborn.client.TechRebornCreativeTab;
 
 public class BlockDistillationTower extends BlockMachineBase implements IRotationTexture {
 
     public BlockDistillationTower(Material material) {
-        super(material);
+        super();
         setUnlocalizedName("techreborn.distillationtower");
+        setCreativeTab(TechRebornCreativeTab.instance);
     }
 
     private final String prefix = "techreborn:blocks/machine/";

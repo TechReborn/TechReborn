@@ -5,17 +5,19 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import techreborn.Core;
-import techreborn.blocks.BlockMachineBase;
-import techreborn.blocks.IAdvancedRotationTexture;
+import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.IAdvancedRotationTexture;
 import techreborn.client.GuiHandler;
+import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.lesu.TileLesu;
 
 public class BlockLesu extends BlockMachineBase implements IAdvancedRotationTexture {
 
 
     public BlockLesu(Material material) {
-        super(material);
+        super();
         setUnlocalizedName("techreborn.lesu");
+        setCreativeTab(TechRebornCreativeTab.instance);
     }
 
 

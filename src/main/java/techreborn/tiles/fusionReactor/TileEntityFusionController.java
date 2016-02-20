@@ -12,7 +12,7 @@ import reborncore.common.util.ItemUtils;
 import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.init.ModBlocks;
-import techreborn.powerSystem.TilePowerAcceptor;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 
 
 public class TileEntityFusionController extends TilePowerAcceptor implements IInventory {

@@ -12,6 +12,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
 import powercrystals.minefactoryreloaded.api.IDeepStorageUnit;
 import reborncore.api.IListInfoProvider;
+import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.init.ModBlocks;

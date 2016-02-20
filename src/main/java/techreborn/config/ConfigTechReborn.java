@@ -75,12 +75,9 @@ public class ConfigTechReborn {
 	public static int extraOutputPerLesuBlock;
 	public static int baseLesuOutput;
 	public static int lesuStoragePerBlock;
-	public static int euPerRF;
 	public static int farmEu;
 	public static int aesuMaxOutput;
 	public static int aesuMaxStorage;
-	public static boolean enableRF;
-	public static boolean enableEU;
 	// Charge
 	public static int AdvancedDrillCharge;
 	public static int LapotronPackCharge;
@@ -329,13 +326,6 @@ public class ConfigTechReborn {
 		aesuMaxStorage = config.get(CATEGORY_POWER, "AESU Max Storage", 30, "Set the max Storage for the AESU")
 				.getInt();
 
-		enableRF = config
-				.get(CATEGORY_POWER, "Allow RF", !Loader.isModLoaded("IC2"), "Allow machines to be powered with RF")
-				.getBoolean();
-
-		enableEU = config
-				.get(CATEGORY_POWER, "Allow EU", Loader.isModLoaded("IC2"), "Allow machines to be powered with EU")
-				.getBoolean();
 
 		// Charge
 		AdvancedDrillCharge = config
@@ -380,8 +370,6 @@ public class ConfigTechReborn {
 				.getInt();
 
 		extraOutputPerLesuBlock = config.get(CATEGORY_POWER, "Extra output on Storage Blocks", 8, "").getInt();
-
-		euPerRF = config.get(CATEGORY_POWER, "EU - RF ratio", 4, "The Amount of RF to output from EU").getInt();
 
 		farmEu = config.get(CATEGORY_POWER, "farmeu", 32, "").getInt();
 

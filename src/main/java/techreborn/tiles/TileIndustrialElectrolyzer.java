@@ -12,7 +12,7 @@ import reborncore.common.util.Inventory;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.init.ModBlocks;
 import techreborn.lib.Reference;
-import techreborn.powerSystem.TilePowerAcceptor;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 
 public class TileIndustrialElectrolyzer extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory {
 

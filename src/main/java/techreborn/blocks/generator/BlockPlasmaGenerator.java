@@ -1,16 +1,18 @@
 package techreborn.blocks.generator;
 
 import net.minecraft.block.material.Material;
-import techreborn.blocks.BlockMachineBase;
-import techreborn.blocks.IAdvancedRotationTexture;
+import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.IAdvancedRotationTexture;
+import techreborn.client.TechRebornCreativeTab;
 
 public class BlockPlasmaGenerator extends BlockMachineBase implements IAdvancedRotationTexture {
 
 
 
     public BlockPlasmaGenerator(Material material) {
-        super(material);
+        super();
         setUnlocalizedName("techreborn.plasmagenerator");
+        setCreativeTab(TechRebornCreativeTab.instance);
     }
 
     private final String prefix = "techreborn:blocks/machine/";

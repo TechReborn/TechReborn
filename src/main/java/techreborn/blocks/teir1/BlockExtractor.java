@@ -3,21 +3,20 @@ package techreborn.blocks.teir1;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import techreborn.Core;
-import techreborn.blocks.BlockMachineBase;
-import techreborn.blocks.IRotationTexture;
+import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.IRotationTexture;
 import techreborn.client.GuiHandler;
-import techreborn.tiles.TileIndustrialGrinder;
+import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.teir1.TileExtractor;
-import techreborn.tiles.teir1.TileGrinder;
 
 public class BlockExtractor extends BlockMachineBase implements IRotationTexture{
 
 	public BlockExtractor(Material material) {
-        super(material);
+        super();
         setUnlocalizedName("techreborn.extractor");
+        setCreativeTab(TechRebornCreativeTab.instance);
 	}
 	
     @Override

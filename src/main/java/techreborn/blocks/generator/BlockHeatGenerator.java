@@ -3,16 +3,18 @@ package techreborn.blocks.generator;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import techreborn.blocks.BlockMachineBase;
-import techreborn.blocks.IAdvancedRotationTexture;
+import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.IAdvancedRotationTexture;
+import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.generator.TileHeatGenerator;
 
 public class BlockHeatGenerator extends BlockMachineBase implements IAdvancedRotationTexture {
 
 
     public BlockHeatGenerator(Material material) {
-        super(material);
+        super();
         setUnlocalizedName("techreborn.heatgenerator");
+        setCreativeTab(TechRebornCreativeTab.instance);
     }
 
 

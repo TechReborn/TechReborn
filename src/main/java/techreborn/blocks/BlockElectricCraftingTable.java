@@ -1,14 +1,18 @@
 package techreborn.blocks;
 
 import net.minecraft.block.material.Material;
+import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.IAdvancedRotationTexture;
+import techreborn.client.TechRebornCreativeTab;
 
 
 public class BlockElectricCraftingTable extends BlockMachineBase implements IAdvancedRotationTexture {
 
 
     public BlockElectricCraftingTable(Material material) {
-        super(material);
+        super();
         setUnlocalizedName("techreborn.electriccraftingtable");
+        setCreativeTab(TechRebornCreativeTab.instance);
     }
 
     private final String prefix = "techreborn:blocks/machine/";

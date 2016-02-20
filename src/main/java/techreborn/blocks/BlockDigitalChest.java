@@ -4,15 +4,19 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.IAdvancedRotationTexture;
 import techreborn.Core;
 import techreborn.client.GuiHandler;
+import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileDigitalChest;
 
 public class BlockDigitalChest extends BlockMachineBase implements IAdvancedRotationTexture {
 
     public BlockDigitalChest() {
-        super(Material.rock);
+        super();
         setUnlocalizedName("techreborn.digitalChest");
+        setCreativeTab(TechRebornCreativeTab.instance);
     }
 
     @Override
