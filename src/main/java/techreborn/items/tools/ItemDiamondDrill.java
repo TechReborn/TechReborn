@@ -133,7 +133,7 @@ public class ItemDiamondDrill extends ItemPickaxe implements IEnergyItemInfo, IT
 
     @Override
     public String getTextureName(int damage) {
-        return "techreborn:items/tool/" + getUnlocalizedName().substring(5);
+        return "techreborn:items/tool/diamondDrill";
     }
 
     @Override
