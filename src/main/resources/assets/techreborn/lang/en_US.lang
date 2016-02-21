@@ -573,6 +573,8 @@ item.techreborn.part.thickNeutronReflector.name=Thick Neutron Reflector
 item.techreborn.part.rubberSap.name=Sap
 item.techreborn.part.rubber.name=Rubber
 item.techreborn.part.scrap.name=Scrap
+item.techreborn.part.electronicCircuit.name=Electronic Circuit
+item.techreborn.part.advancedCircuit.name=Advanced Electronic Circuit
 
 #Tools
 item.techreborn.rockcutter.name=Rockcutter
