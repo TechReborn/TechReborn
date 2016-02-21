@@ -14,6 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import reborncore.RebornCore;
 import techreborn.client.TechRebornCreativeTabMisc;
@@ -21,6 +22,7 @@ import techreborn.init.ModParts;
 import techreborn.items.ItemParts;
 import techreborn.items.tools.ItemTreeTap;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -159,5 +161,22 @@ public class BlockRubberLog extends Block implements ITexturedBlock {
 				}
 			}
 		return false;
+	}
+
+	@Override
+	public int damageDropped(IBlockState state) {
+		return 0;
+	}
+
+	@Override
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+		List<ItemStack> drops = new ArrayList<ItemStack>();
+		drops.add(new ItemStack(this));
+		if(state.getValue(HAS_SAP)){
+			if(new Random().nextInt(4) == 0){
+				drops.add(ItemParts.getPartByName("rubberSap"));
+			}
+		}
+		return drops;
 	}
 }
