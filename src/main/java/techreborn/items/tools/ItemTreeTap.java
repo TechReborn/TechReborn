@@ -32,12 +32,15 @@ public class ItemTreeTap extends Item implements ITexturedItem {
 	
 	@Override
 	public boolean showDurabilityBar(ItemStack stack) {
-		return true;
+		if(stack.getMetadata()!=0){
+			return true;
+		}
+		return false;
 	}
 
     @Override
     public String getTextureName(int damage) {
-        return "techreborn:items/tool/rockcutter";
+        return "techreborn:items/tool/treetap";
     }
 
     @Override
