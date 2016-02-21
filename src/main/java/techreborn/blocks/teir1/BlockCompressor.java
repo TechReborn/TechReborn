@@ -36,12 +36,12 @@ public class BlockCompressor extends BlockMachineBase implements IRotationTextur
 
     @Override
     public String getFrontOff() {
-        return prefix + "implosion_compressor_front_off";
+        return prefix + "compressor_front_off";
     }
 
     @Override
     public String getFrontOn() {
-        return prefix + "implosion_compressor_front_on";
+        return prefix + "compressor_front_on";
     }
 
     @Override

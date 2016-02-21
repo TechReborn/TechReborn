@@ -37,12 +37,12 @@ public class BlockGenerator extends BlockMachineBase implements IRotationTexture
 
     @Override
     public String getFrontOff() {
-        return prefix + "industrial_blast_furnace_front_off";
+        return prefix + "generator_front_off";
     }
 
     @Override
     public String getFrontOn() {
-        return prefix + "industrial_blast_furnace_front_on";
+        return prefix + "generator_front_on";
     }
 
     @Override
