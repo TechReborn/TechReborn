@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.world.RubberTreeGenerator;
 import techreborn.world.TreeGenerator;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class BlockRubberSapling extends BlockSapling {
             return;
         }
         worldIn.setBlockToAir(pos);
-        TreeGenerator.treeGenerator.generate(worldIn, rand, pos);
+        new RubberTreeGenerator(false).generate(worldIn, rand, pos);
     }
 
     @Override
