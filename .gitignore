@@ -14,4 +14,7 @@ TechReborn.ipr
 Thumbs.db
 changelog.txt
 *.log
+*.launch
+*.project
+*.classpath
 .idea/*
