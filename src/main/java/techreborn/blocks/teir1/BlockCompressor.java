@@ -51,11 +51,11 @@ public class BlockCompressor extends BlockMachineBase implements IRotationTextur
 
     @Override
     public String getTop() {
-        return prefix + "machine_side";
+        return prefix + "machine_top";
     }
 
     @Override
     public String getBottom() {
-        return prefix + "machine_side";
+        return prefix + "machine_bottom";
     }
 }
