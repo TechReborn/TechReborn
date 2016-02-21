@@ -2,6 +2,7 @@
 /out
 /run
 /build
+/eclipse
 /.gradle
 *.iml
 /.metadata
