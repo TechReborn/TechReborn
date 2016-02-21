@@ -87,14 +87,14 @@ public class BlockRubberLog extends Block implements ITexturedBlock {
 	@Override
 	public String getTextureNameFromState(IBlockState iBlockState, EnumFacing enumFacing) {
 		if(enumFacing == EnumFacing.DOWN || enumFacing == EnumFacing.UP){
-			return  "techreborn:blocks/rubber_log_side";
+			return  "techreborn:blocks/rubber_log_top";
 		}
 		if(iBlockState.getValue(HAS_SAP)){
 			if(iBlockState.getValue(SAP_SIDE) == enumFacing){
 				return "techreborn:blocks/rubber_log_sap";
 			}
 		}
-		return "techreborn:blocks/rubber_log";
+		return "techreborn:blocks/rubber_log_side";
 	}
 
 	@Override
