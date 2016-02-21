@@ -41,7 +41,7 @@ public class ItemHammer extends ItemTR implements ITexturedItem {
 
     @Override
     public String getTextureName(int damage) {
-        return "techreborn:items/tool/techreborn.hammer";
+        return "techreborn:items/tool/hammer";
     }
 
     @Override
