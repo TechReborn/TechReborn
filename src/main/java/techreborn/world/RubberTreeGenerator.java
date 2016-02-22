@@ -22,7 +22,7 @@ public class RubberTreeGenerator extends WorldGenerator {
     }
 
     public RubberTreeGenerator(boolean isWorldGen) {
-        super();
+        super(!isWorldGen);
         this.isWorldGen = isWorldGen;
     }
 
@@ -62,6 +62,7 @@ public class RubberTreeGenerator extends WorldGenerator {
             int yOffset;
             int zOffset;
             Block baseBlock = world.getBlockState(new BlockPos(x, y - 1, z)).getBlock();
+            boolean hasPlacedBlock = false;
             if (baseBlock != null && baseBlock.canSustainPlant(world, new BlockPos(x, y - 1, z), EnumFacing.UP, (IPlantable) ModBlocks.rubberSapling) && y < worldHeight - treeHeight - 1) {
                 for (yOffset = y; yOffset <= y + 1 + treeHeight; ++yOffset) {
                     byte radius = 1;
@@ -103,6 +104,7 @@ public class RubberTreeGenerator extends WorldGenerator {
                             Block block = world.getBlockState(new BlockPos(xOffset, yOffset, zOffset)).getBlock();
                             if (((xPos != center | zPos != center) || rand.nextInt(2) != 0 && var12 != 0) && (block == null || block.isLeaves(world, new BlockPos(xOffset, yOffset, zOffset)) || block.isAir(world, new BlockPos(xOffset, yOffset, zOffset)) || block.canBeReplacedByLeaves(world, new BlockPos(xOffset, yOffset, zOffset)))) {
                                 this.setBlockAndNotifyAdequately(world, new BlockPos(xOffset, yOffset, zOffset), ModBlocks.rubberLeaves.getDefaultState());
+                                hasPlacedBlock = true;
                             }
                         }
                     }
@@ -116,7 +118,7 @@ public class RubberTreeGenerator extends WorldGenerator {
                         IBlockState newState = ModBlocks.rubberLog.getDefaultState();
                         boolean isAddingSap = false;
                         if(rand.nextInt(10) == 0){
-                            newState = newState.withProperty(BlockRubberLog.HAS_SAP, true).withProperty(BlockRubberLog.SAP_SIDE, EnumFacing.getHorizontal(rand.nextInt(3)));
+                            newState = newState.withProperty(BlockRubberLog.HAS_SAP, true).withProperty(BlockRubberLog.SAP_SIDE, EnumFacing.getHorizontal(rand.nextInt(4)));
                             isAddingSap = true;
                         }
                         if(isAddingSap){
@@ -124,6 +126,7 @@ public class RubberTreeGenerator extends WorldGenerator {
                         } else {
                             this.setBlockAndNotifyAdequately(world, blockpos, newState);
                         }
+                        hasPlacedBlock = true;
                         topLogPos = blockpos;
                     }
                 }
@@ -134,7 +137,7 @@ public class RubberTreeGenerator extends WorldGenerator {
                     }
                 }
             }
-            return true;
+            return hasPlacedBlock;
         }
         return false;
     }
