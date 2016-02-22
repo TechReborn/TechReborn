@@ -14,13 +14,13 @@ public class ItemBlockRubberSapling extends ItemBlock implements ITexturedItem {
     public ItemBlockRubberSapling(Block block) {
         super(block);
         setCreativeTab(TechRebornCreativeTabMisc.instance);
-        setUnlocalizedName("techreborn.uuMatter");
+        setUnlocalizedName("techreborn.rubberSapling");
         RebornCore.jsonDestroyer.registerObject(this);
     }
 
     @Override
     public String getTextureName(int damage) {
-        return "techreborn:blocks/rubber_sapling";
+        return "techreborn:items/rubber_sapling";
     }
 
     @Override
