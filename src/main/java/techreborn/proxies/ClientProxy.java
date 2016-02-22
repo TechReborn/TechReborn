@@ -1,12 +1,11 @@
 package techreborn.proxies;
 
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import techreborn.client.ClientMultiBlocks;
 import techreborn.client.IconSupplier;
+import techreborn.client.RegisterItemJsons;
 import techreborn.client.StackToolTipEvent;
 import techreborn.client.VersionCheckerClient;
 import techreborn.client.hud.ChargeHud;
@@ -19,6 +18,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void init() {
         super.init();
+        RegisterItemJsons.registerModels();
         MinecraftForge.EVENT_BUS.register(new IconSupplier());
         MinecraftForge.EVENT_BUS.register(new ChargeHud());
         MinecraftForge.EVENT_BUS.register(new VersionCheckerClient());

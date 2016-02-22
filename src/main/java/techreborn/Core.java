@@ -23,6 +23,7 @@ import techreborn.api.TechRebornAPI;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.recipeConfig.RecipeConfigManager;
 import techreborn.client.GuiHandler;
+import techreborn.client.RegisterItemJsons;
 import techreborn.command.TechRebornDevCommand;
 import techreborn.compat.CompatManager;
 import techreborn.compat.ICompatModule;
