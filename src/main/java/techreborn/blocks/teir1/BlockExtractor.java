@@ -36,12 +36,12 @@ public class BlockExtractor extends BlockMachineBase implements IRotationTexture
 
     @Override
     public String getFrontOff() {
-        return prefix + "machine_side";
+        return prefix + "extractor_front_off";
     }
 
     @Override
     public String getFrontOn() {
-        return prefix + "machine_side";
+        return prefix + "extractor_front_on";
     }
 
     @Override
@@ -51,11 +51,11 @@ public class BlockExtractor extends BlockMachineBase implements IRotationTexture
 
     @Override
     public String getTop() {
-        return prefix + "machine_side";
+        return prefix + "machine_top";
     }
 
     @Override
     public String getBottom() {
-        return prefix + "machine_side";
+        return prefix + "machine_bottom";
     }
 }

@@ -49,7 +49,7 @@ public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo, ITextured
 
     @Override
     public boolean canHarvestBlock(Block block, ItemStack stack) {
-        return Items.iron_pickaxe.canHarvestBlock(block, stack) || Items.iron_pickaxe.canHarvestBlock(block, stack);
+        return Items.iron_pickaxe.canHarvestBlock(block, stack) || Items.iron_shovel.canHarvestBlock(block, stack);
     }
 
     @Override

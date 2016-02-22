@@ -52,7 +52,7 @@ public class BlockGenerator extends BlockMachineBase implements IRotationTexture
 
     @Override
     public String getTop() {
-        return prefix + "diesel_generator_top_off";
+        return prefix + "machine_top";
     }
 
     @Override

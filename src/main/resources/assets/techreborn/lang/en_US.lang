@@ -53,14 +53,17 @@ tile.techreborn.chargebench.name=Charge Bench
 tile.techreborn.playerDetector.all.name=Player Detector (All)
 tile.techreborn.playerDetector.others.name=Player Detector (Others)
 tile.techreborn.playerDetector.you.name=Player Detector (You)
+tile.techreborn.generator.name=Generator
 tile.techreborn.extractor.name=Extractor
+tile.techreborn.grinder.name=Grinder
 tile.techreborn.compressor.name=Compressor
 tile.techreborn.electricfurnace.name=Electric Furnace
 tile.techreborn.machineFrame.advancedMachine.name=Advanced Machine Block
 tile.techreborn.machineFrame.machine.name=Machine Block
 
 #Blocks
-tile.techreborn.rubberlog.name=Rubber log
+tile.techreborn.rubberlog.name=Rubber Wood
+tile.techreborn.rubberplank.name=Rubber Wood Planks
 tile.techreborn.rubberleaves.name=Rubber Leaves
 tile.techreborn.rubbersapling.name=Rubber Sapling
 
