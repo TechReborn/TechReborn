@@ -41,7 +41,7 @@ public class BlockExtractor extends BlockMachineBase implements IRotationTexture
 
     @Override
     public String getFrontOn() {
-        return prefix + "extractor_front_off";
+        return prefix + "extractor_front_on";
     }
 
     @Override
