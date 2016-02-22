@@ -67,6 +67,9 @@ tile.techreborn.rubberplank.name=Rubber Wood Planks
 tile.techreborn.rubberleaves.name=Rubber Leaves
 tile.techreborn.rubbersapling.name=Rubber Sapling
 
+tile.techreborn.ironfence.name=Iron Fence
+tile.techreborn.ironfencegate.name=Iron Fence Gate
+
 #Ores
 tile.techreborn.ore.Galena.name=Galena Ore
 tile.techreborn.ore.Iridium.name=Iridium Ore
