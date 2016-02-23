@@ -46,6 +46,11 @@ public class RecipeCompact implements IRecipeCompact {
         recipes.put("reBattery", new ItemStack(ModItems.reBattery));
         recipes.put("machine", BlockMachineFrame.getFrameByName("machine", 1));
         recipes.put("advancedMachine", BlockMachineFrame.getFrameByName("advancedMachine", 1));
+        recipes.put("extractor", new ItemStack(ModBlocks.Extractor));
+        recipes.put("generator", new ItemStack(ModBlocks.Generator));
+        recipes.put("macerator", new ItemStack(ModBlocks.Grinder));
+        recipes.put("diamondDrill", new ItemStack(ModItems.diamondDrill));
+        recipes.put("miningDrill", new ItemStack(ModItems.ironDrill));
         inited = false;
     }
 
