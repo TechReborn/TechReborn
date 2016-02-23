@@ -175,7 +175,20 @@ build.dependsOn deobfJar, apiJar
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: "file:///var/www/maven/")
+            //This is used when the build is done on a slave node
+		if (project.hasProperty('mavenPass'))
+        {
+			println 'Uploading to remote Maven Repo'
+            repository(url: "http://mavenupload.modmuss50.me/") {
+                authentication(userName: "buildslave", password: project.getProperty('mavenPass'))
+            }
+        }
+        else
+        { 
+			//this is when the build is executed on the master node
+			println 'Uploading to local Maven Repo'
+           repository(url: "file:///var/www/maven/")
+        }
             pom {
                 groupId = "TechReborn"
                 version = project.version
