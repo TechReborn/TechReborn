@@ -3,14 +3,18 @@ package techreborn.tiles.generator;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.*;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
+import net.minecraftforge.fml.common.network.PacketLoggingHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.config.ConfigTechReborn;
@@ -21,50 +25,61 @@ public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IIn
     public Inventory inventory = new Inventory(2, "TileGenerator", 64, this);
     
     public int fuelSlot = 0;
-    public static int burnTime;
-    public int currentItemBurnTime;
-    public static int outputAmount = 40; 
+    public int burnTime;
+    public int totalBurnTime = 0;
+    public static int outputAmount = 40; //This is in line with BC engines rf, sould properly use the conversion ratio here.
+    public boolean isBurning;
+    public boolean lastTickBurning;
+    ItemStack burnItem;
 
 	public TileGenerator(){
 		super(1);
 	}
-	
-    public static int getItemBurnTime(ItemStack stack) {
-        if (stack == null) {
-            return 0;
+
+    @Override
+    public void updateEntity() {
+        super.updateEntity();
+        if(worldObj.isRemote){
+            return;
+        }
+        if (burnTime > 0) {
+            burnTime--;
+            addEnergy(outputAmount);
+            isBurning = true;
         } else {
-            Item item = stack.getItem();
+            isBurning = false;
+        }
 
-            if (item instanceof ItemBlock && Block.getBlockFromItem(item) != Blocks.air) {
-                Block block = Block.getBlockFromItem(item);
-
-                if (block == Blocks.wooden_slab) {
-                    return 150;
-                }
-
-                if (block.getMaterial() == Material.wood) {
-                    return 300;
-                }
-
-                if (block == Blocks.coal_block) {
-                    return 16000;
+        if (burnTime == 0) {
+            updateState();
+            burnTime = totalBurnTime = getItemBurnTime(getStackInSlot(fuelSlot));
+            if (burnTime > 0) {
+                updateState();
+                burnItem = getStackInSlot(fuelSlot);
+                if(getStackInSlot(fuelSlot).stackSize == 1){
+                    setInventorySlotContents(fuelSlot, null);
+                } else {
+                    decrStackSize(fuelSlot, 1);
                 }
             }
+        }
 
-            if (item instanceof ItemTool && ((ItemTool) item).getToolMaterialName().equals("WOOD")) return 200;
-            if (item instanceof ItemSword && ((ItemSword) item).getToolMaterialName().equals("WOOD")) return 200;
-            //if (item instanceof ItemHoe && ((ItemHoe) item).getToolMaterialName().equals("WOOD")) return 200;
-            if (item == Items.stick) return 100;
-            if (item == Items.coal) return 1600;
-            if (item == Items.lava_bucket) return 20000;
-            if (item == Item.getItemFromBlock(Blocks.sapling)) return 100;
-            if (item == Items.blaze_rod) return 2400;
-            return GameRegistry.getFuelValue(stack);
+        lastTickBurning = isBurning;
+    }
+
+    public void updateState(){
+        IBlockState blockState = worldObj.getBlockState(pos);
+        if(blockState.getBlock() instanceof BlockMachineBase){
+            BlockMachineBase blockMachineBase = (BlockMachineBase) blockState.getBlock();
+            if(blockState.getValue(BlockMachineBase.ACTIVE) != burnTime > 0)
+                blockMachineBase.setActive(burnTime > 0, worldObj, pos);
         }
     }
 
+    public static int getItemBurnTime(ItemStack stack) {
+        return TileEntityFurnace.getItemBurnTime(stack);
+    }
 
-	
     @Override
     public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
         return false;

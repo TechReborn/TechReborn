@@ -160,7 +160,7 @@ public class TileAlloySmelter extends TilePowerAcceptor implements IWrenchable, 
     }
 
     public int getProgressScaled(int scale) {
-        if (crafter.currentTickTime != 0) {
+        if (crafter.currentTickTime != 0 && crafter.currentNeededTicks != 0) {
             return crafter.currentTickTime * scale / crafter.currentNeededTicks;
         }
         return 0;
