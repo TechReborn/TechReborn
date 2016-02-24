@@ -8,11 +8,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.init.ModBlocks;
 import techreborn.lib.Reference;
-import reborncore.common.powerSystem.TilePowerAcceptor;
 
 public class TileIndustrialElectrolyzer extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory {
 

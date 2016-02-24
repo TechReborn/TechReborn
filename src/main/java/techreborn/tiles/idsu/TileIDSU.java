@@ -5,9 +5,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import org.apache.commons.lang3.StringUtils;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
-import reborncore.common.powerSystem.TilePowerAcceptor;
 
 public class TileIDSU extends TilePowerAcceptor {
 

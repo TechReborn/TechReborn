@@ -9,10 +9,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
-import reborncore.common.powerSystem.TilePowerAcceptor;
 
 public class TileDragonEggSiphoner extends TilePowerAcceptor implements IWrenchable, IInventory {
 

@@ -9,11 +9,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
-import reborncore.common.powerSystem.TilePowerAcceptor;
 
 public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory {
 

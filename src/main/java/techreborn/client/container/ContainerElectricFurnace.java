@@ -1,15 +1,12 @@
 package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.client.gui.SlotOutput;
 import reborncore.common.container.RebornContainer;
-import techreborn.tiles.TileIndustrialGrinder;
 import techreborn.tiles.teir1.TileElectricFurnace;
-import techreborn.tiles.teir1.TileGrinder;
 
 public class ContainerElectricFurnace extends RebornContainer {
 

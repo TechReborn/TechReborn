@@ -15,13 +15,11 @@ import java.util.Random;
  */
 public class TreeGenerator implements IWorldGenerator {
 
-	public static ConfigTechReborn config;
-
 	public static RubberTreeGenerator treeGenerator = new RubberTreeGenerator();
 
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
-		if (config.RubberTreeGen) {
+		if (ConfigTechReborn.RubberTreeGen) {
 			int chance = 75;
 			boolean isValidSpawn = false;
 			BiomeGenBase biomeGenBase = world.getBiomeGenForCoords(new BlockPos(chunkX * 16, 72, chunkZ * 16));

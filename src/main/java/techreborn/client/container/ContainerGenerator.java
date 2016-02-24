@@ -1,12 +1,9 @@
 package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotFurnaceFuel;
-import reborncore.client.gui.SlotOutput;
 import reborncore.common.container.RebornContainer;
-import techreborn.tiles.TileAlloySmelter;
 import techreborn.tiles.generator.TileGenerator;
 
 public class ContainerGenerator extends RebornContainer {

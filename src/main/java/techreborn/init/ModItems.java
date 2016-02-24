@@ -8,6 +8,7 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.util.BucketHandler;
 import techreborn.Core;
 import techreborn.events.OreUnifier;
@@ -15,7 +16,6 @@ import techreborn.items.*;
 import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
 import techreborn.items.tools.*;
-import reborncore.common.powerSystem.PoweredItem;
 
 public class ModItems {
 

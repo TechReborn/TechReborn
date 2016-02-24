@@ -7,11 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import techreborn.client.container.ContainerExtractor;
-import techreborn.client.container.ContainerGrinder;
-import techreborn.client.container.ContainerIndustrialGrinder;
-import techreborn.tiles.TileIndustrialGrinder;
 import techreborn.tiles.teir1.TileExtractor;
-import techreborn.tiles.teir1.TileGrinder;
 
 public class GuiExtractor extends GuiContainer {
 

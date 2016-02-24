@@ -6,11 +6,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import techreborn.api.recipe.BaseRecipe;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public abstract class BaseRecipeWrapper<T extends BaseRecipe> extends BlankRecipeWrapper {
 	protected final T baseRecipe;

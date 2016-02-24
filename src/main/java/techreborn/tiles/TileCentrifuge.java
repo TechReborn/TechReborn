@@ -9,12 +9,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
 import reborncore.api.IListInfoProvider;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.lib.Reference;
-import reborncore.common.powerSystem.TilePowerAcceptor;
 
 import java.util.List;
 

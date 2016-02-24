@@ -1,13 +1,11 @@
 package techreborn.blocks.generator;
 
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import techreborn.Core;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.blocks.IAdvancedRotationTexture;
 import reborncore.common.blocks.IRotationTexture;
+import techreborn.Core;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.generator.TileGenerator;

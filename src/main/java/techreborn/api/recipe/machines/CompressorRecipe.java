@@ -2,11 +2,8 @@ package techreborn.api.recipe.machines;
 
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.fluids.FluidStack;
 import techreborn.api.recipe.BaseRecipe;
 import techreborn.lib.Reference;
-import techreborn.tiles.TileIndustrialGrinder;
 
 public class CompressorRecipe extends BaseRecipe {
 

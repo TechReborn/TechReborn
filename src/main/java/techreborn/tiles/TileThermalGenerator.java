@@ -13,12 +13,12 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
 import net.minecraftforge.fluids.*;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
-import reborncore.common.powerSystem.TilePowerAcceptor;
 
 public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchable,
         IFluidHandler, IInventory {

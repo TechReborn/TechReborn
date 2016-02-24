@@ -1,14 +1,9 @@
 package techreborn.client;
 
-import jline.internal.Log;
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
-import net.minecraftforge.oredict.OreDictionary;
-import reborncore.common.util.LogHelper;
 import techreborn.init.ModBlocks;
-import techreborn.init.ModItems;
 
 public class RegisterItemJsons {
 	public static void registerModels() {

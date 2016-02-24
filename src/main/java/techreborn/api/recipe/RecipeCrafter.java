@@ -2,11 +2,11 @@ package techreborn.api.recipe;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import reborncore.common.util.Inventory;
-import reborncore.common.util.ItemUtils;
 import reborncore.api.power.IEnergyInterfaceTile;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.tile.TileMachineBase;
+import reborncore.common.util.Inventory;
+import reborncore.common.util.ItemUtils;
 
 import java.util.ArrayList;
 

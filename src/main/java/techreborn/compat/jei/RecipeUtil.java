@@ -1,21 +1,19 @@
 package techreborn.compat.jei;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.awt.Color;
-import java.text.NumberFormat;
-import java.util.List;
-
+import mezz.jei.api.gui.IGuiFluidStackGroup;
+import mezz.jei.api.gui.IGuiItemStackGroup;
+import mezz.jei.api.gui.IRecipeLayout;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
-
 import net.minecraftforge.fluids.FluidStack;
 
-import mezz.jei.api.gui.IGuiFluidStackGroup;
-import mezz.jei.api.gui.IGuiItemStackGroup;
-import mezz.jei.api.gui.IRecipeLayout;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.awt.*;
+import java.text.NumberFormat;
+import java.util.List;
 
 public class RecipeUtil {
 	private static final int color = Color.darkGray.getRGB();

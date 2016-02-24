@@ -13,6 +13,7 @@ import net.minecraft.util.IChatComponent;
 import net.minecraftforge.fluids.*;
 import reborncore.api.IListInfoProvider;
 import reborncore.common.misc.Location;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
@@ -21,7 +22,6 @@ import techreborn.blocks.BlockMachineCasing;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModFluids;
 import techreborn.lib.Reference;
-import reborncore.common.powerSystem.TilePowerAcceptor;
 
 public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrenchable, IFluidHandler, IInventory, ISidedInventory, IListInfoProvider {
     public static final int TANK_CAPACITY = 16000;

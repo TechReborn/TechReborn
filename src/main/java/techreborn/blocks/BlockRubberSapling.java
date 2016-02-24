@@ -9,7 +9,6 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.world.RubberTreeGenerator;
-import techreborn.world.TreeGenerator;
 
 import java.util.List;
 import java.util.Random;

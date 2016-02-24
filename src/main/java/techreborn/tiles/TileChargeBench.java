@@ -8,10 +8,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
-import reborncore.common.util.Inventory;
 import reborncore.api.power.IEnergyInterfaceItem;
-import techreborn.init.ModBlocks;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.util.Inventory;
+import techreborn.init.ModBlocks;
 
 public class TileChargeBench extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory {
 

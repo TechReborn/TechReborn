@@ -1,14 +1,11 @@
 package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.client.gui.SlotOutput;
-import techreborn.tiles.TileIndustrialGrinder;
 import techreborn.tiles.teir1.TileCompressor;
-import techreborn.tiles.teir1.TileGrinder;
 
 public class ContainerCompressor extends ContainerCrafting {
 

@@ -5,9 +5,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import techreborn.client.container.ContainerAlloySmelter;
 import techreborn.client.container.ContainerGenerator;
-import techreborn.tiles.TileAlloySmelter;
 import techreborn.tiles.generator.TileGenerator;
 
 public class GuiGenerator extends GuiContainer {

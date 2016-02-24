@@ -15,6 +15,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
 import reborncore.common.misc.Location;
 import reborncore.common.multiblock.IMultiblockPart;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.blocks.BlockMachineCasing;
@@ -22,7 +23,6 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.lib.Reference;
 import techreborn.multiblocks.MultiBlockCasing;
-import reborncore.common.powerSystem.TilePowerAcceptor;
 
 public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory {
 

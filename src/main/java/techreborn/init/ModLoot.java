@@ -1,16 +1,14 @@
 package techreborn.init;
 
-import java.util.Arrays;
-
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
 import techreborn.config.ConfigTechReborn;
 import techreborn.items.ItemIngots;
 
+import java.util.Arrays;
+
 public class ModLoot {
-    public static ConfigTechReborn config;
     
 	public static WeightedRandomChestContent rubberSaplingLoot = new WeightedRandomChestContent(new ItemStack(ModBlocks.rubberSapling), 1, 3, 25);
 	public static WeightedRandomChestContent copperIngotLoot = new WeightedRandomChestContent(ItemIngots.getIngotByName("copper"), 1, 4, 20);
@@ -18,16 +16,16 @@ public class ModLoot {
 	public static WeightedRandomChestContent steelIngotLoot = new WeightedRandomChestContent(ItemIngots.getIngotByName("steel"), 1, 3, 5);
 	
 	public static void init(){
-		if(config.RubberSaplingLoot){
+		if(ConfigTechReborn.RubberSaplingLoot){
 			generate(rubberSaplingLoot);
 		}
-		if(config.CopperIngotsLoot){
+		if(ConfigTechReborn.CopperIngotsLoot){
 			generate(copperIngotLoot);
 		}
-		if(config.TinIngotsLoot){
+		if(ConfigTechReborn.TinIngotsLoot){
 			generate(tinIngotLoot);
 		}
-		if(config.SteelIngotsLoot){
+		if(ConfigTechReborn.SteelIngotsLoot){
 			generate(steelIngotLoot);
 		}
 	}

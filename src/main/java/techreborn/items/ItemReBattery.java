@@ -1,15 +1,15 @@
 package techreborn.items;
 
-import java.util.List;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
-import techreborn.client.TechRebornCreativeTab;
 import reborncore.common.powerSystem.PoweredItem;
+import techreborn.client.TechRebornCreativeTab;
+
+import java.util.List;
 
 public class ItemReBattery extends ItemTextureBase implements IEnergyItemInfo {
 
