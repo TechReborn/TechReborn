@@ -66,6 +66,16 @@ public class ConfigTechReborn {
 
 	public static double FortuneSecondaryOreMultiplierPerLevel;
 
+	public static boolean RubberTreeGen;
+	
+	public static boolean RubberSaplingLoot;
+	
+	public static boolean TinIngotsLoot;
+	
+	public static boolean CopperIngotsLoot;
+	
+	public static boolean SteelIngotsLoot;
+
 	// Power
 	public static int ThermalGenertaorOutput;
 	public static int CentrifugeInputTick;
@@ -246,7 +256,27 @@ public class ConfigTechReborn {
 				.getBoolean(true);
 
 		SodaliteOreTrue = config
-				.get(CATEGORY_WORLD, "Sodalite Peridot Ore", true, "Allow Sodalite Ore to generate in world")
+				.get(CATEGORY_WORLD, "Generate Sodalite Ore", true, "Allow Sodalite Ore to generate in world")
+				.getBoolean(true);
+
+		RubberTreeGen = config
+				.get(CATEGORY_WORLD, "Rubber Tree Generation", true, "Allow Rubber Trees to generate in world")
+				.getBoolean(true);
+
+		RubberSaplingLoot = config
+				.get(CATEGORY_WORLD, "Rubber Sapling Loot", true, "Allow Rubber Saplings to generate in loot chests")
+				.getBoolean(true);
+
+		CopperIngotsLoot = config
+				.get(CATEGORY_WORLD, "Copper Ingots Loot", true, "Allow Copper Ingots to generate in loot chests")
+				.getBoolean(true);
+
+		TinIngotsLoot = config
+				.get(CATEGORY_WORLD, "Tin Ingots Loot", true, "Allow Tin Ingots to generate in loot chests")
+				.getBoolean(true);
+
+		SteelIngotsLoot = config
+				.get(CATEGORY_WORLD, "Steel Ingots Loot", true, "Allow Steel Ingots to generate in loot chests")
 				.getBoolean(true);
 
 		GalenaOreRare = config.get(CATEGORY_WORLD, "Galena Ore vein size", 8, "Set the max vein size for Galena Ore")
