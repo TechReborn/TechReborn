@@ -11,6 +11,7 @@ import net.minecraft.util.StatCollector;
 import reborncore.client.multiblock.MultiblockSet;
 import reborncore.common.misc.Location;
 import reborncore.common.multiblock.CoordTriplet;
+import reborncore.common.powerSystem.PowerSystem;
 import techreborn.client.ClientMultiBlocks;
 import techreborn.client.container.ContainerFusionReactor;
 import techreborn.proxies.ClientProxy;
@@ -38,10 +39,10 @@ public class GuiFusionReactor extends GuiContainer {
         this.fontRendererObj.drawString(name, 87, 6, 4210752);
         this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
 
-        this.fontRendererObj.drawString("EU: " + containerFusionReactor.energy, 11, 8, 16448255);
+        this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerFusionReactor.energy), 11, 8, 16448255);
         this.fontRendererObj.drawString("Coils: " + (containerFusionReactor.coilStatus == 1 ? "Yes" : "No"), 11, 16, 16448255);
         if(containerFusionReactor.neededEU > 1 && containerFusionReactor.tickTime < 1)
-            this.fontRendererObj.drawString("Start EU: " + percentage(containerFusionReactor.neededEU, containerFusionReactor.energy) + "%", 11, 24, 16448255);
+            this.fontRendererObj.drawString("Start: " + percentage(containerFusionReactor.neededEU, containerFusionReactor.energy) + "%", 11, 24, 16448255);
 
     }
 

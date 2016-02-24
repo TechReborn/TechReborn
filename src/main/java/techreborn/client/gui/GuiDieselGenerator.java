@@ -6,6 +6,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import reborncore.common.powerSystem.PowerSystem;
 import techreborn.client.container.ContainerDieselGenerator;
 import techreborn.tiles.generator.TileDieselGenerator;
 
@@ -47,8 +48,8 @@ public class GuiDieselGenerator extends GuiContainer {
         this.fontRendererObj.drawString(containerDieselGenerator.fluid + "", 10,
                 30, 16448255);
 
-        this.fontRendererObj.drawString("EU Amount", 10, 40, 16448255);
-        this.fontRendererObj.drawString(containerDieselGenerator.energy + "", 10,
+        this.fontRendererObj.drawString("Power Amount", 10, 40, 16448255);
+        this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerDieselGenerator.energy) + "", 10,
                 50, 16448255);
     }
 }

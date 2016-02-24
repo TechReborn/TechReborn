@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.input.Keyboard;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.power.IEnergyInterfaceItem;
+import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.Color;
 import techreborn.Core;
 
@@ -30,10 +31,10 @@ public class StackToolTipEvent {
                 } else {
                     color = ChatFormatting.YELLOW;
                 }
-                event.toolTip.add(color + "" + (int) ((IEnergyInterfaceItem) event.itemStack.getItem()).getEnergy(event.itemStack) + ChatFormatting.LIGHT_PURPLE + " stored eu");
-                event.toolTip.add(Color.GREEN + "" + (int) ((IEnergyInterfaceItem) event.itemStack.getItem()).getMaxPower(event.itemStack) + ChatFormatting.LIGHT_PURPLE + " max eu");
+                event.toolTip.add(color + "" + PowerSystem.getLocaliszedPower((int) ((IEnergyInterfaceItem) event.itemStack.getItem()).getEnergy(event.itemStack)) + ChatFormatting.LIGHT_PURPLE + " stored");
+                event.toolTip.add(Color.GREEN + "" + PowerSystem.getLocaliszedPower((int) ((IEnergyInterfaceItem) event.itemStack.getItem()).getMaxPower(event.itemStack)) + ChatFormatting.LIGHT_PURPLE + " max");
                 event.toolTip.add(ChatFormatting.GREEN + "" + percentage + "%" + ChatFormatting.LIGHT_PURPLE + " charged");
-                event.toolTip.add(Color.GREEN + "" + (int) ((IEnergyInterfaceItem) event.itemStack.getItem()).getMaxTransfer(event.itemStack) + ChatFormatting.LIGHT_PURPLE + " eu/tick in/out");
+                event.toolTip.add(Color.GREEN + "" + PowerSystem.getLocaliszedPower((int) ((IEnergyInterfaceItem) event.itemStack.getItem()).getMaxTransfer(event.itemStack)) + ChatFormatting.LIGHT_PURPLE + " /tick in/out");
             }
         } else {
             try{

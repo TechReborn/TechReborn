@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import reborncore.common.powerSystem.PowerSystem;
 import techreborn.client.container.ContainerGenerator;
 import techreborn.tiles.generator.TileGenerator;
 
@@ -58,6 +59,6 @@ public class GuiGenerator extends GuiContainer {
         this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
         this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
 
-        this.fontRendererObj.drawString(containerGenerator.energy + "eu", 25, this.ySize- 150, 4210752);
+        this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerGenerator.energy), 25, this.ySize- 150, 4210752);
     }
 }

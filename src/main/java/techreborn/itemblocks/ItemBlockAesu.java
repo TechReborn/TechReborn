@@ -13,6 +13,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import reborncore.common.powerSystem.PowerSystem;
 import techreborn.init.ModBlocks;
 import techreborn.tiles.TileAesu;
 
@@ -32,9 +33,8 @@ public class ItemBlockAesu extends ItemBlock {
                                boolean par4) {
         if (stack != null && stack.hasTagCompound()) {
             if (stack.getTagCompound().getCompoundTag("tileEntity") != null)
-                list.add(stack.getTagCompound().getCompoundTag("tileEntity")
-                        .getInteger("energy")
-                        + " eu");
+                list.add(PowerSystem.getLocaliszedPower(stack.getTagCompound().getCompoundTag("tileEntity")
+                        .getInteger("energy")));
         }
     }
 

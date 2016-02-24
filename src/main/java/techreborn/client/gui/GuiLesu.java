@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import reborncore.common.powerSystem.PowerSystem;
 import techreborn.client.container.ContainerLesu;
 import techreborn.tiles.lesu.TileLesu;
 
@@ -41,22 +42,11 @@ public class GuiLesu extends GuiContainer {
     protected void drawGuiContainerForegroundLayer(int p_146979_1_,
                                                    int p_146979_2_) {
         this.fontRendererObj.drawString(StatCollector.translateToLocal("tile.techreborn.lesu.name"), 40, 10, Color.WHITE.getRGB());
-        this.fontRendererObj.drawString(GetEUString(containerLesu.euOut) + "/t", 10, 20, Color.WHITE.getRGB());
-        this.fontRendererObj.drawString(GetEUString(containerLesu.storedEu), 10, 30, Color.WHITE.getRGB());
-        this.fontRendererObj.drawString(GetEUString(containerLesu.euChange) + " change", 10, 40, Color.WHITE.getRGB());
+        this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerLesu.euOut) + "/t", 10, 20, Color.WHITE.getRGB());
+        this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerLesu.storedEu), 10, 30, Color.WHITE.getRGB());
+        this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerLesu.euChange) + " change", 10, 40, Color.WHITE.getRGB());
         this.fontRendererObj.drawString(containerLesu.connectedBlocks + " blocks", 10, 50, Color.WHITE.getRGB());
-        this.fontRendererObj.drawString(GetEUString(containerLesu.euStorage) + " max", 10, 60, Color.WHITE.getRGB());
+        this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerLesu.euStorage) + " max", 10, 60, Color.WHITE.getRGB());
     }
 
-    private String GetEUString(double euValue) {
-        if (euValue >= 1000000) {
-            double tenX = Math.round(euValue / 100000);
-            return Double.toString(tenX / 10.0).concat(" m EU");
-        } else if (euValue >= 1000) {
-            double tenX = Math.round(euValue / 100);
-            return Double.toString(tenX / 10.0).concat(" k EU");
-        } else {
-            return Double.toString(Math.floor(euValue)).concat(" EU");
-        }
-    }
 }
