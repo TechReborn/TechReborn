@@ -92,6 +92,8 @@ public class Core {
         ModFluids.init();
         // Register ModItems
         ModItems.init();
+        // Registers Chest Loot
+        ModLoot.init();
         //Multiparts
         ModParts.init();
         // Recipes
