@@ -36,7 +36,7 @@ public class BlockOre2 extends BaseBlock implements ITexturedBlock {
     public static ItemStack getOreByName(String name, int count) {
         for (int i = 0; i < types.length; i++) {
             if (types[i].equals(name)) {
-                return new ItemStack(ModBlocks.ore, count, i);
+                return new ItemStack(ModBlocks.ore2, count, i);
             }
         }
         throw new InvalidParameterException("The storage block " + name + " could not be found.");

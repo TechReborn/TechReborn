@@ -62,6 +62,8 @@ tile.techreborn.machineFrame.advancedMachine.name=Advanced Machine Block
 tile.techreborn.machineFrame.machine.name=Machine Block
 tile.techreborn.ore2.copper.name=Copper Ore
 tile.techreborn.ore2.tin.name=Tin Ore
+tile.techreborn.storage2.copper.name=Copper Block
+tile.techreborn.storage2.tin.name=Tin Block
 
 #Blocks
 tile.techreborn.rubberlog.name=Rubber Wood

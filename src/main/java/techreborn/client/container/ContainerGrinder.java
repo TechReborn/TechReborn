@@ -58,5 +58,4 @@ public class ContainerGrinder extends ContainerCrafting {
             this.connectionStatus = value;
         }
     }
-
 }

@@ -32,7 +32,7 @@ public class BlockStorage2 extends BaseBlock  implements ITexturedBlock {
 
     public static final String[] types = new String[]
             {"tungstensteel", "lodestone", "tellurium", "iridium_reinforced_tungstensteel",
-                    "iridium_reinforced_stone", "ruby", "sapphire", "peridot", "yellowGarnet", "redGarnet"};
+                    "iridium_reinforced_stone", "ruby", "sapphire", "peridot", "yellowGarnet", "redGarnet", "copper", "tin"};
 
     public BlockStorage2(Material material) {
         super(material);

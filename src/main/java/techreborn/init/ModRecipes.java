@@ -19,6 +19,7 @@ import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.*;
 import techreborn.blocks.BlockMachineFrame;
 import techreborn.blocks.BlockOre;
+import techreborn.blocks.BlockOre2;
 import techreborn.blocks.BlockStorage;
 import techreborn.blocks.BlockStorage2;
 import techreborn.config.ConfigTechReborn;
@@ -58,8 +59,20 @@ public class
     }
     
     static void addGrinderRecipes(){
+    	//Vanilla
         RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(Blocks.iron_ore), ItemDusts.getDustByName("iron", 2), 100, 20));
         RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(Blocks.gold_ore), ItemDusts.getDustByName("gold", 2), 100, 20));
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(Items.coal), ItemDusts.getDustByName("coal", 2), 100, 20));
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(Blocks.coal_ore), new ItemStack(Items.coal, 2), 100, 20));
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(Items.bone), new ItemStack(Items.dye, 6, 15), 100, 20));
+
+
+        //TechReborn
+        RecipeHandler.addRecipe(new GrinderRecipe(BlockOre2.getOreByName("copper"), ItemDusts.getDustByName("copper", 2), 100, 20));
+        RecipeHandler.addRecipe(new GrinderRecipe(BlockOre2.getOreByName("tin"), ItemDusts.getDustByName("tin", 2), 100, 20));
+        RecipeHandler.addRecipe(new GrinderRecipe(BlockOre.getOreByName("Lead"), ItemDusts.getDustByName("lead", 2), 100, 20));
+        RecipeHandler.addRecipe(new GrinderRecipe(BlockOre.getOreByName("Silver"), ItemDusts.getDustByName("silver", 2), 100, 20));
+
     }
 
     static void addReactorRecipes(){
