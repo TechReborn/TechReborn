@@ -1,0 +1,27 @@
+Version 0.7.12 Update Changelog:
+Added:
+-New recipe manager to list out missing items needed for recipes
+-Rubber trees
+-Sap
+-Rubber
+-Added tier 1 machines
+-Added circuits
+-Machine blocks
+-Iron drill
+-Diamond drill
+-Scrap
+-Iron fences
+-Iron fence gates
+-RF power tooltips
+
+Changes:
+-Updated JEI compatibility
+-Power system moved to RebornCore
+-A few new ingot textures
+-Rubber saplings now spawn in loot chests
+-Copper ingots now spawn in loot chests
+-Tin ingots now spawn in loot chests
+-Optimized imports
+
+Fixes:
+-Fixed Config localization issues
