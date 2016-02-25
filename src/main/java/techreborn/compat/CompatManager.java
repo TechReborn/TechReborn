@@ -31,7 +31,7 @@ public class CompatManager {
         if (Loader.isModLoaded("gregtech")) {
             isGregTechLoaded = true;
         }
-        registerCompact(CompatModuleWaila.class, "Waila");
+//        registerCompact(CompatModuleWaila.class, "Waila");
         registerCompact(MinetweakerCompat.class, "MineTweaker3");
         registerCompact(RecipesBiomesOPlenty.class, "BiomesOPlenty");
     }
