@@ -54,9 +54,6 @@ public class
         addIc2Recipes();
         addGrinderRecipes();
         addHammerRecipes();
-        // DEBUG
-        RecipeHandler.addRecipe(new ExtractorRecipe(new ItemStack(Items.diamond), new ItemStack(Blocks.dirt), 5, 20));
-        RecipeHandler.addRecipe(new CompressorRecipe(new ItemStack(Items.diamond), new ItemStack(Blocks.dirt), 5, 20));
     }
     
     static void addGrinderRecipes(){
