@@ -1551,8 +1551,9 @@ public class
         //CentrifugeRecipes
 
         //Plantball/Bio Chaff
-        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Blocks.grass, 16), null, new ItemStack(TechRebornAPI.recipeCompact.getItem("biochaff").getItem(), 8), new ItemStack(TechRebornAPI.recipeCompact.getItem("plantBall").getItem(), 8), new ItemStack(Items.clay_ball), new ItemStack(Blocks.sand, 8), 2500, 5));
-        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Blocks.dirt, 16), null, new ItemStack(TechRebornAPI.recipeCompact.getItem("biochaff").getItem(), 4), new ItemStack(TechRebornAPI.recipeCompact.getItem("plantBall").getItem(), 4), new ItemStack(Items.clay_ball), new ItemStack(Blocks.sand, 8), 2500, 5));
+        //FIX with ic2
+//        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Blocks.grass, 16), null, new ItemStack(TechRebornAPI.recipeCompact.getItem("biochaff").getItem(), 8), new ItemStack(TechRebornAPI.recipeCompact.getItem("plantBall").getItem(), 8), new ItemStack(Items.clay_ball), new ItemStack(Blocks.sand, 8), 2500, 5));
+//        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Blocks.dirt, 16), null, new ItemStack(TechRebornAPI.recipeCompact.getItem("biochaff").getItem(), 4), new ItemStack(TechRebornAPI.recipeCompact.getItem("plantBall").getItem(), 4), new ItemStack(Items.clay_ball), new ItemStack(Blocks.sand, 8), 2500, 5));
 
 
         //Methane
@@ -1580,7 +1581,8 @@ public class
         RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.potato, 16), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
         RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.poisonous_potato, 12), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
         RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.nether_wart, 1), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
-        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(TechRebornAPI.recipeCompact.getItem("terraWart").getItem(), 16), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
+        //Fix with ic2
+        //RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(TechRebornAPI.recipeCompact.getItem("terraWart").getItem(), 16), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
         RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Blocks.brown_mushroom, 1), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
         RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Blocks.red_mushroom, 1), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
 

@@ -57,7 +57,7 @@ public class ItemCells extends ItemTextureBase implements IFluidContainerItem {
                     "mercury", "methane", "nitrocarbon", "nitroCoalfuel",
                     "nitroDiesel", "nitrogen", "nitrogenDioxide", "oil", "potassium",
                     "seedOil", "silicon", "sodium", "sodiumPersulfate",
-                    "sodiumSulfide", "sulfur", "sulfuricAcid", "tritium", "wolframium", "empty"};
+                    "sodiumSulfide", "sulfur", "sulfuricAcid", "tritium", "wolframium", "empty", "lava", "water"};
 
 
     public ItemCells() {
@@ -82,7 +82,9 @@ public class ItemCells extends ItemTextureBase implements IFluidContainerItem {
     public void getSubItems(Item item, CreativeTabs creativeTabs, List list) {
         for (int meta = 0; meta < types.length; ++meta) {
             ItemStack stack = new ItemStack(item, 1, meta);
-            if(FluidRegistry.getFluid("fluid" +types[meta].toLowerCase()) != null){
+            if(types[meta].toLowerCase().equals("water") || types[meta].toLowerCase().equals("lava")){
+                this.fill(stack, new FluidStack(FluidRegistry.getFluid(types[meta].toLowerCase()), getCapacity(stack)), true);
+            } else if(FluidRegistry.getFluid("fluid" +types[meta].toLowerCase()) != null){
                 this.fill(stack, new FluidStack(FluidRegistry.getFluid("fluid" +types[meta].toLowerCase()), getCapacity(stack)), true);
             }
             list.add(stack);
@@ -107,9 +109,13 @@ public class ItemCells extends ItemTextureBase implements IFluidContainerItem {
         if (resource == null || resource.amount != getCapacity(container)) {
             return 0;
         }
+        if(types[container.getItemDamage()].toLowerCase().equals("water") || types[container.getItemDamage()].toLowerCase().equals("lava")){
+
+        }   else
         if(FluidRegistry.getFluid("fluid" +types[container.getItemDamage()].toLowerCase()) == null){
             return 0;
         }
+
         if (doFill)
         {
             NBTTagCompound tag = container.getTagCompound();
