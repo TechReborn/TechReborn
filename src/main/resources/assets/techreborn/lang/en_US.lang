@@ -64,6 +64,7 @@ tile.techreborn.ore2.copper.name=Copper Ore
 tile.techreborn.ore2.tin.name=Tin Ore
 tile.techreborn.storage2.copper.name=Copper Block
 tile.techreborn.storage2.tin.name=Tin Block
+tile.techreborn.solarpanel.name=Solar panel
 
 #Blocks
 tile.techreborn.rubberlog.name=Rubber Wood

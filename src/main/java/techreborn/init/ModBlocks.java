@@ -79,6 +79,7 @@ public class ModBlocks {
     public static Block Compressor;
     public static Block Extractor;
     public static Block ElectricFurnace;
+    public static Block solarPanel;
 
     public static BlockOre ore;
     public static BlockOre2 ore2;
@@ -284,6 +285,9 @@ public class ModBlocks {
         GameRegistry.registerBlock(ElectricFurnace, "techreborn.electricfurnace");
         GameRegistry.registerTileEntity(TileElectricFurnace.class, "TileElectricFurnaceTR");
 
+        solarPanel = new BlockSolarPanel();
+        GameRegistry.registerBlock(solarPanel, "techreborn.solarpanel");
+        GameRegistry.registerTileEntity(TileSolarPanel.class, "TileSolarPanel");
 
         GameRegistry.registerTileEntity(TileMachineBase.class, "TileMachineBaseTR");
 
