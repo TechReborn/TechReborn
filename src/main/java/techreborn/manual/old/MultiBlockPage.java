@@ -1,4 +1,4 @@
-package techreborn.pda.pages;
+package techreborn.manual.old;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -6,7 +6,8 @@ import net.minecraft.util.ResourceLocation;
 import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockSet;
 import techreborn.init.ModBlocks;
-import techreborn.pda.PageCollection;
+import techreborn.manual.PageCollection;
+import techreborn.manual.pages.TitledPage;
 import techreborn.proxies.ClientProxy;
 
 import java.awt.*;

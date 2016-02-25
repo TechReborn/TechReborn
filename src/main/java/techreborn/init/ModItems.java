@@ -41,7 +41,7 @@ public class ModItems {
     public static Item lithiumBattery;
     public static Item omniTool;
     public static Item lapotronicOrb;
-    public static Item manuel;
+    public static Item manual;
     public static Item uuMatter;
     public static Item plate;
     public static Item crushedOre;
@@ -122,8 +122,8 @@ public class ModItems {
         omniTool = PoweredItem.createItem(ItemOmniTool.class);
         GameRegistry.registerItem(omniTool, "omniTool");
 
-        manuel = new ItemTechPda();
-        GameRegistry.registerItem(manuel, "techmanuel");
+        manual = new ItemTechManual();
+        GameRegistry.registerItem(manual, "techmanuel");
         uuMatter = new ItemUUmatter();
         GameRegistry.registerItem(uuMatter, "uumatter");
         reBattery = PoweredItem.createItem(ItemReBattery.class);

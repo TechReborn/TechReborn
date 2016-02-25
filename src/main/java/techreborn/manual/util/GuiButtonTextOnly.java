@@ -1,4 +1,4 @@
-package techreborn.pda.util;
+package techreborn.manual.util;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;

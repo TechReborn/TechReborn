@@ -6,7 +6,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import techreborn.client.container.*;
 import techreborn.client.gui.*;
-import techreborn.pda.GuiManual;
+import techreborn.manual.GuiManual;
 import techreborn.tiles.*;
 import techreborn.tiles.fusionReactor.TileEntityFusionController;
 import techreborn.tiles.generator.TileDieselGenerator;
@@ -32,7 +32,7 @@ public class GuiHandler implements IGuiHandler {
     public static final int industrialGrinderID = 7;
     public static final int implosionCompresserID = 8;
     public static final int matterfabID = 9;
-    public static final int pdaID = 10;
+    public static final int manuelID = 10;
     public static final int chunkloaderID = 11;
     public static final int assemblingmachineID = 12;
     public static final int dieselGeneratorID = 15;
@@ -121,7 +121,7 @@ public class GuiHandler implements IGuiHandler {
         } else if (ID == chemicalReactorID) {
             return new ContainerChemicalReactor(
                     (TileChemicalReactor) world.getTileEntity(new BlockPos(x, y, z)), player);
-        } else if (ID == pdaID) {
+        } else if (ID == manuelID) {
             return null;
         } else if (ID == destructoPackID) {
             return new ContainerDestructoPack(player);
@@ -217,7 +217,7 @@ public class GuiHandler implements IGuiHandler {
         } else if (ID == chemicalReactorID) {
             return new GuiChemicalReactor(player,
                     (TileChemicalReactor) world.getTileEntity(new BlockPos(x, y, z)));
-        } else if (ID == pdaID) {
+        } else if (ID == manuelID) {
             return new GuiManual();
         } else if (ID == destructoPackID) {
             return new GuiDestructoPack(new ContainerDestructoPack(player));

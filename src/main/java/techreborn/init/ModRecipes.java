@@ -1237,7 +1237,7 @@ public class
     }
     
     static void addIc2Recipes(){
-        CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.manuel), TechRebornAPI.recipeCompact.getItem("plateiron"), Items.book);
+        CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.manual), TechRebornAPI.recipeCompact.getItem("plateiron"), Items.book);
 
         CraftingHelper.addShapedOreRecipe(
                 ItemParts.getPartByName("machineParts", 16),

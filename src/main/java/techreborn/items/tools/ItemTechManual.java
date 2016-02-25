@@ -8,18 +8,18 @@ import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.items.ItemTextureBase;
 
-public class ItemTechPda extends ItemTextureBase {
+public class ItemTechManual extends ItemTextureBase {
 
-    public ItemTechPda() {
+    public ItemTechManual() {
         setCreativeTab(TechRebornCreativeTab.instance);
-        setUnlocalizedName("techreborn.pda");
+        setUnlocalizedName("techreborn.manual");
         setMaxStackSize(1);
     }
 
 
     @Override
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
-        player.openGui(Core.INSTANCE, GuiHandler.pdaID, world,
+        player.openGui(Core.INSTANCE, GuiHandler.manuelID, world,
                 (int) player.posX, (int) player.posY, (int) player.posY);
         return itemStack;
     }
@@ -31,7 +31,7 @@ public class ItemTechPda extends ItemTextureBase {
 
     @Override
     public String getTextureName(int damage) {
-        return "techreborn:items/tool/pda";
+        return "mineacraft:book";
     }
 
 }

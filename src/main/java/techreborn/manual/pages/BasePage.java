@@ -1,11 +1,11 @@
-package techreborn.pda.pages;
+package techreborn.manual.pages;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import techreborn.pda.PageCollection;
+import techreborn.manual.PageCollection;
 
 import java.io.IOException;
 
@@ -16,9 +16,9 @@ public class BasePage extends GuiScreen {
     //Name Displayed in the index page
     public String INDEX_NAME;
     public boolean hasIndexButton = false;
-    public static final ResourceLocation PAGE_TEXTURE = new ResourceLocation("techreborn:textures/pda/gui/pda.png");
-    private final int xSize = 256;
-    private final int ySize = 202;
+    public static final ResourceLocation PAGE_TEXTURE = new ResourceLocation("techreborn:textures/manual/gui/manual.png");
+    private final int xSize = 146;
+    private final int ySize = 180;
     protected PageCollection collection;
 
     public BasePage() {
@@ -62,7 +62,7 @@ public class BasePage extends GuiScreen {
     @Override
     public void initGui() {
         buttonList.clear();
-        buttonList.add(new GuiButton(0, getXMin() + 88, getYMin() + 181, 80, 16, ttl("techreborn.pda.backbutton")));
+        buttonList.add(new GuiButton(0, getXMin() + 30, getYMin() + 150, 80, 16, ttl("techreborn.manual.backbutton")));
     }
 
     public void setReferenceName(String name) {

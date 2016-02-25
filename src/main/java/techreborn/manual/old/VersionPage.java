@@ -1,10 +1,11 @@
-package techreborn.pda.pages;
+package techreborn.manual.old;
 
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 import techreborn.Core;
 import techreborn.lib.ModInfo;
-import techreborn.pda.PageCollection;
+import techreborn.manual.PageCollection;
+import techreborn.manual.pages.TitledPage;
 
 import java.awt.*;
 import java.util.ArrayList;

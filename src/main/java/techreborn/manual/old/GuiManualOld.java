@@ -1,23 +1,24 @@
-package techreborn.pda;
+package techreborn.manual.old;
+
+import java.io.IOException;
+
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
-import techreborn.pda.pages.*;
-
-import java.io.IOException;
+import techreborn.manual.PageCollection;
+import techreborn.manual.pages.ContentsPage;
 
 @SideOnly(Side.CLIENT)
-public class GuiManual extends GuiScreen {
+public class GuiManualOld extends GuiScreen {
 
     protected final PageCollection root;
     protected int pageIndex = 0;
@@ -27,7 +28,7 @@ public class GuiManual extends GuiScreen {
     protected int guiLeft;
     protected int guiTop;
 
-    public GuiManual() {
+    public GuiManualOld() {
         this.xSize = 256;
         this.ySize = 202;
         root = createRoot();
@@ -145,16 +146,16 @@ public class GuiManual extends GuiScreen {
         root.setWorldAndResolution(minecraft, x, y);
     }
 
-    @Override
-    public void actionPerformed(GuiButton button) {
-        root.actionPerformed(button);
-    }
-
-
-    @Override
-    public void mouseClicked(int par1, int par2, int par3) throws IOException {
-        root.mouseClicked(par1, par2, par3);
-    }
+//    @Override
+//    public void actionPerformed(GuiButton button) {
+//        root.actionPerformed(button);
+//    }
+//
+//
+//    @Override
+//    public void mouseClicked(int par1, int par2, int par3) throws IOException {
+//        root.mouseClicked(par1, par2, par3);
+//    }
 
     @Override
     public void handleInput() throws IOException {
