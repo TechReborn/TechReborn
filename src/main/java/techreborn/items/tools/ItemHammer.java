@@ -24,11 +24,6 @@ public class ItemHammer extends ItemTR implements ITexturedItem {
         return true;
     }
 
-//    @Override //TODO
-//    public boolean doesContainerItemLeaveCraftingGrid(ItemStack itemStack) {
-//        return false;
-//    }
-
     @Override
     public ItemStack getContainerItem(ItemStack itemStack) {
         ItemStack copiedStack = itemStack.copy();

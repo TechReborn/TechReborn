@@ -53,6 +53,7 @@ public class
         addReactorRecipes();
         addIc2Recipes();
         addGrinderRecipes();
+        addHammerRecipes();
         // DEBUG
         RecipeHandler.addRecipe(new ExtractorRecipe(new ItemStack(Items.diamond), new ItemStack(Blocks.dirt), 5, 20));
         RecipeHandler.addRecipe(new CompressorRecipe(new ItemStack(Items.diamond), new ItemStack(Blocks.dirt), 5, 20));
@@ -74,6 +75,27 @@ public class
         RecipeHandler.addRecipe(new GrinderRecipe(BlockOre.getOreByName("Silver"), ItemDusts.getDustByName("silver", 2), 100, 20));
 
     }
+	public static ItemStack hammerStack = new ItemStack(ModItems.hammer, 1, OreDictionary.WILDCARD_VALUE);
+	public static Item hammer = ModItems.hammer;
+	
+    static void addHammerRecipes(){
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.hammer),
+                "III",
+                " S ",
+                " S ",
+                'S', Items.stick,
+                'I', "ingotIron");
+
+    	CraftingHelper.addShapelessOreRecipe(ItemPlates.getPlateByName("iron", 1), hammerStack, "ingotIron");
+    	CraftingHelper.addShapelessOreRecipe(ItemPlates.getPlateByName("copper", 1), hammerStack, "ingotCopper");
+    	CraftingHelper.addShapelessOreRecipe(ItemPlates.getPlateByName("tin", 1), hammerStack, "ingotTin");
+    	CraftingHelper.addShapelessOreRecipe(ItemPlates.getPlateByName("bronze", 1), hammerStack, "ingotBronze");
+    	CraftingHelper.addShapelessOreRecipe(ItemPlates.getPlateByName("brass", 1), hammerStack, "ingotBrass");
+    	CraftingHelper.addShapelessOreRecipe(ItemPlates.getPlateByName("steel", 1), hammerStack, "ingotSteel");
+
+    	
+    	hammer.setContainerItem(hammer);   
+    }
 
     static void addReactorRecipes(){
         FusionReactorRecipeHelper.registerRecipe(new FusionReactorRecipe(ItemCells.getCellByName("tritium"), ItemCells.getCellByName("deuterium"), ItemCells.getCellByName("helium"), 40000000, 32768, 1024));
@@ -92,7 +114,7 @@ public class
         
         CraftingHelper.addShapedOreRecipe(BlockMachineFrame.getFrameByName("machine", 1),
                 "AAA", "AXA", "AAA",
-                'A', ItemPlates.getPlateByName("steel"));
+                'A', ItemPlates.getPlateByName("iron"));
 
         CraftingHelper.addShapedOreRecipe(BlockStorage.getStorageBlockByName("sapphire"),
                 "AAA", "AAA", "AAA",

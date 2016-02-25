@@ -76,6 +76,7 @@ public class ModItems {
     public static Item ironDrill;
     public static Item diamondDrill;
     public static Item advancedDrill;
+    public static Item hammer;
 
     public static Item upgrades;
 
@@ -136,6 +137,8 @@ public class ModItems {
         GameRegistry.registerItem(diamondDrill, "diamonddrill");
         advancedDrill = PoweredItem.createItem(ItemAdvancedDrill.class);
         GameRegistry.registerItem(advancedDrill, "advanceddrill");
+        hammer = new ItemHammer(100);
+        GameRegistry.registerItem(hammer, "hammer"); 
 
 //        upgrades = new ItemUpgrade();
 //        GameRegistry.registerItem(upgrades, "upgrades");
