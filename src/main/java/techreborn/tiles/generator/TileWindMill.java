@@ -12,7 +12,7 @@ public class TileWindMill extends TilePowerAcceptor {
         super(2);
     }
 
-    int basePower = 480;
+    int basePower = 10;
 
     @Override
     public void updateEntity() {
