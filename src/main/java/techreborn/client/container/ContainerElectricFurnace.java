@@ -6,6 +6,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.client.gui.SlotOutput;
 import reborncore.common.container.RebornContainer;
+import techreborn.api.SlotUpgrade;
 import techreborn.tiles.teir1.TileElectricFurnace;
 
 public class ContainerElectricFurnace extends RebornContainer {
@@ -27,10 +28,10 @@ public class ContainerElectricFurnace extends RebornContainer {
 
 
         // upgrades
-        this.addSlotToContainer(new Slot(tileGrinder.inventory, 2, 152, 8));
-        this.addSlotToContainer(new Slot(tileGrinder.inventory, 3, 152, 26));
-        this.addSlotToContainer(new Slot(tileGrinder.inventory, 4, 152, 44));
-        this.addSlotToContainer(new Slot(tileGrinder.inventory, 5, 152, 62));
+        this.addSlotToContainer(new SlotUpgrade(tileGrinder.inventory, 2, 152, 8));
+        this.addSlotToContainer(new SlotUpgrade(tileGrinder.inventory, 3, 152, 26));
+        this.addSlotToContainer(new SlotUpgrade(tileGrinder.inventory, 4, 152, 44));
+        this.addSlotToContainer(new SlotUpgrade(tileGrinder.inventory, 5, 152, 62));
 
         int i;
 

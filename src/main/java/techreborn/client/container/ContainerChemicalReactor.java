@@ -3,6 +3,7 @@ package techreborn.client.container;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import reborncore.client.gui.SlotOutput;
+import techreborn.api.SlotUpgrade;
 import techreborn.tiles.TileChemicalReactor;
 
 public class ContainerChemicalReactor extends ContainerCrafting {
@@ -32,10 +33,10 @@ public class ContainerChemicalReactor extends ContainerCrafting {
         // battery
         this.addSlotToContainer(new Slot(tilechemicalReactor.inventory, 3, 8, 51));
         // upgrades
-        this.addSlotToContainer(new Slot(tilechemicalReactor.inventory, 4, 152, 8));
-        this.addSlotToContainer(new Slot(tilechemicalReactor.inventory, 5, 152, 26));
-        this.addSlotToContainer(new Slot(tilechemicalReactor.inventory, 6, 152, 44));
-        this.addSlotToContainer(new Slot(tilechemicalReactor.inventory, 7, 152, 62));
+        this.addSlotToContainer(new SlotUpgrade(tilechemicalReactor.inventory, 4, 152, 8));
+        this.addSlotToContainer(new SlotUpgrade(tilechemicalReactor.inventory, 5, 152, 26));
+        this.addSlotToContainer(new SlotUpgrade(tilechemicalReactor.inventory, 6, 152, 44));
+        this.addSlotToContainer(new SlotUpgrade(tilechemicalReactor.inventory, 7, 152, 62));
 
         int i;
 

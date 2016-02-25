@@ -3,6 +3,7 @@ package techreborn.client.container;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import reborncore.client.gui.SlotOutput;
+import techreborn.api.SlotUpgrade;
 import techreborn.tiles.TileAssemblingMachine;
 
 public class ContainerAssemblingMachine extends ContainerCrafting {
@@ -32,10 +33,10 @@ public class ContainerAssemblingMachine extends ContainerCrafting {
         // power
         this.addSlotToContainer(new Slot(tileAssemblingMachine.inventory, 3, 56, 53));
         // upgrades
-        this.addSlotToContainer(new Slot(tileAssemblingMachine.inventory, 4, 152, 8));
-        this.addSlotToContainer(new Slot(tileAssemblingMachine.inventory, 5, 152, 26));
-        this.addSlotToContainer(new Slot(tileAssemblingMachine.inventory, 6, 152, 44));
-        this.addSlotToContainer(new Slot(tileAssemblingMachine.inventory, 7, 152, 62));
+        this.addSlotToContainer(new SlotUpgrade(tileAssemblingMachine.inventory, 4, 152, 8));
+        this.addSlotToContainer(new SlotUpgrade(tileAssemblingMachine.inventory, 5, 152, 26));
+        this.addSlotToContainer(new SlotUpgrade(tileAssemblingMachine.inventory, 6, 152, 44));
+        this.addSlotToContainer(new SlotUpgrade(tileAssemblingMachine.inventory, 7, 152, 62));
 
         int i;
 
