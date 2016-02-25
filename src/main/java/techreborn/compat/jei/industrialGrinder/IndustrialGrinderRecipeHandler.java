@@ -25,7 +25,7 @@ public class IndustrialGrinderRecipeHandler implements IRecipeHandler<Industrial
 	@Nonnull
 	@Override
 	public String getRecipeCategoryUid() {
-		return RecipeCategoryUids.GRINDER;
+		return RecipeCategoryUids.INDUSTRIAL_GRINDER;
 	}
 
 	@Nonnull

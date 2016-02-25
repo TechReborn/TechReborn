@@ -36,7 +36,7 @@ public class IndustrialGrinderRecipeCategory extends BlankRecipeCategory {
 	@Nonnull
 	@Override
 	public String getUid() {
-		return RecipeCategoryUids.GRINDER;
+		return RecipeCategoryUids.INDUSTRIAL_GRINDER;
 	}
 
 	@Nonnull
