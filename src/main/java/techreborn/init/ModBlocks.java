@@ -95,7 +95,6 @@ public class ModBlocks {
     public static Block rubberPlanks;
 
     public static Block ironFence;
-    public static Block ironFenceGate;
 
     public static void init() {
         thermalGenerator = new BlockThermalGenerator();
@@ -315,9 +314,6 @@ public class ModBlocks {
 
         ironFence = new BlockIronFence();
         GameRegistry.registerBlock(ironFence, "ironFence");
-        
-        ironFenceGate = new BlockIronFenceGate();
-        GameRegistry.registerBlock(ironFenceGate, "ironFenceGate");
 
         registerOreDict();
         Core.logHelper.info("TechReborns Blocks Loaded");
