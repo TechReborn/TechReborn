@@ -54,6 +54,28 @@ public class
         addIc2Recipes();
         addGrinderRecipes();
         addHammerRecipes();
+        addIc2ReplacementReicpes();
+    }
+
+    static void addIc2ReplacementReicpes(){
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Grinder),
+                "FFF",
+                "SMS",
+                " C ",
+                'F', Items.flint,
+                'S', Blocks.cobblestone,
+                'M', ModBlocks.MachineCasing,
+                'C', ItemParts.getPartByName("electronicCircuit"));
+
+        CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("pump"),
+                "CEC",
+                "CMC",
+                "PTP",
+                'C', ItemCells.getCellByName("empty"),
+                'T', new ItemStack(ModItems.treeTap),
+                'M', new ItemStack(ModBlocks.MachineCasing),
+                'P', new ItemStack(Blocks.iron_bars),
+                'E', ItemParts.getPartByName("electronicCircuit"));
     }
     
     static void addGrinderRecipes(){
