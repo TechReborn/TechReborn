@@ -60,6 +60,7 @@ public class RecipeCompact implements IRecipeCompact {
         recipes.put("lvTransformer", ItemParts.getPartByName("lvTransformer"));
         recipes.put("mvTransformer", ItemParts.getPartByName("mvTransformer"));
         recipes.put("hvTransformer", ItemParts.getPartByName("hvTransformer"));
+        recipes.put("windMill", new ItemStack(ModBlocks.windMill));
         inited = false;
     }
 

@@ -80,6 +80,8 @@ public class ModBlocks {
     public static Block Extractor;
     public static Block ElectricFurnace;
     public static Block solarPanel;
+    public static Block waterMill;
+    public static Block windMill;
 
     public static BlockOre ore;
     public static BlockOre2 ore2;
@@ -288,6 +290,14 @@ public class ModBlocks {
         solarPanel = new BlockSolarPanel();
         GameRegistry.registerBlock(solarPanel, "techreborn.solarpanel");
         GameRegistry.registerTileEntity(TileSolarPanel.class, "TileSolarPanel");
+
+        waterMill = new BlockWaterMill();
+        GameRegistry.registerBlock(waterMill, "techreborn.watermill");
+        GameRegistry.registerTileEntity(TileWaterMill.class, "TileWaterMill");
+
+        windMill = new BlockWindMill();
+        GameRegistry.registerBlock(windMill, "techreborn.windmill");
+        GameRegistry.registerTileEntity(TileWindMill.class, "TileWindMill");
 
         GameRegistry.registerTileEntity(TileMachineBase.class, "TileMachineBaseTR");
 
