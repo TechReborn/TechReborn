@@ -16,6 +16,5 @@ public class RegisterItemJsons {
 
 	private static void registerBlocks() {	
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(ModBlocks.ironFence), 0, new ModelResourceLocation("techreborn:ironFence", "inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(ModBlocks.ironFenceGate), 0, new ModelResourceLocation("techreborn:ironFenceGate", "inventory"));
 	}
 }
