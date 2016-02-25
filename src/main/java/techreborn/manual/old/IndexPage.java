@@ -1,9 +1,11 @@
-package techreborn.pda.pages;
+package techreborn.manual.old;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
-import techreborn.pda.PageCollection;
-import techreborn.pda.util.GuiButtonTextOnly;
+import techreborn.manual.PageCollection;
+import techreborn.manual.pages.BasePage;
+import techreborn.manual.pages.TitledPage;
+import techreborn.manual.util.GuiButtonTextOnly;
 
 public class IndexPage extends TitledPage {
 

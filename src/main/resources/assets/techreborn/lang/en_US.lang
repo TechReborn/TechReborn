@@ -625,7 +625,7 @@ item.bucketwolframium.name=Wolframium Bucket
 
 #Items
 item.techreborn.uuMatter.name=UU-Matter
-item.techreborn.pda.name=PDA
+item.techreborn.manual.name=Tech manual
 
 #Configs
 config.techreborn.allow.galenaOre=Allow Galena Ore
@@ -911,12 +911,11 @@ Cable.trippleInsulatedIronCable.name=Triple Insulated Copper Cable
 Cable.glassFiberCable.name=Glass Fiber Cable
 Cable.tinCable.name=Tin Cable
 
-#PDA
-techreborn.pda.contents=Contents Page
-techreborn.pda.itemspage=Items
-techreborn.pda.blockspage=Blocks
-techreborn.pda.index=Index
-techreborn.pda.backbutton=BACK
+#Manual
+techreborn.manual.contents=Contents Page
+techreborn.manual.gettingstarted=Getting Started
+techreborn.manual.gettingrubber=Collecting Rubber
+techreborn.manual.backbutton=Back
 
 item.techreborn.advancedDrill.description=This Tool is a advanced version of the mining drill, when this item is activated it will dig out a 3x3.
 tile.techreborn.alloyfurnace.description=This Machine is your first step into TechReborn with this you can fuse metals into other metals. These other metals can be used to craft the higher tier machines.

@@ -1,7 +1,8 @@
-package techreborn.pda.util;
+package techreborn.manual.util;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import org.lwjgl.opengl.GL11;
@@ -45,7 +46,8 @@ public class GuiButtonCustomTexture extends GuiButtonExt {
             GL11.glEnable(32826);
             RenderHelper.enableStandardItemLighting();
             RenderHelper.enableGUIStandardItemLighting();
-            //RenderItem.getInstance().renderItemIntoGUI(mc.fontRendererObj, mc.renderEngine, itemstack, this.xPosition, this.yPosition); //TODO 1.8
+			RenderItem itemRenderer = Minecraft.getMinecraft().getRenderItem();
+			itemRenderer.renderItemIntoGUI(itemstack, this.xPosition, this.yPosition);
             this.drawString(mc.fontRendererObj, this.NAME, this.xPosition + 20, this.yPosition + 3, Color.white.getRGB());
         }
     }

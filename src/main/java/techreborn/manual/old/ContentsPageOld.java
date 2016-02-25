@@ -1,4 +1,6 @@
-package techreborn.pda.pages;
+package techreborn.manual.old;
+
+import java.awt.Color;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -6,14 +8,13 @@ import net.minecraft.item.ItemStack;
 import techreborn.config.TechRebornConfigGui;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
-import techreborn.pda.PageCollection;
-import techreborn.pda.util.GuiButtonCustomTexture;
+import techreborn.manual.PageCollection;
+import techreborn.manual.pages.TitledPage;
+import techreborn.manual.util.GuiButtonCustomTexture;
 
-import java.awt.*;
+public class ContentsPageOld extends TitledPage {
 
-public class ContentsPage extends TitledPage {
-
-    public ContentsPage(String name, PageCollection collection) {
+    public ContentsPageOld(String name, PageCollection collection) {
         super(name, false, collection, "techreborn.pda.contents", Color.white.getRGB());
     }
 

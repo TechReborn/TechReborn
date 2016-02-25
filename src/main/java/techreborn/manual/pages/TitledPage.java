@@ -1,7 +1,7 @@
-package techreborn.pda.pages;
+package techreborn.manual.pages;
 
 import net.minecraft.client.Minecraft;
-import techreborn.pda.PageCollection;
+import techreborn.manual.PageCollection;
 
 public class TitledPage extends BasePage {
     private String title;
@@ -17,6 +17,6 @@ public class TitledPage extends BasePage {
     @Override
     public void renderOverlayComponents(Minecraft minecraft, int offsetX, int offsetY, int mouseX, int mouseY) {
         if (title == null) title = INDEX_NAME;
-        if (drawTitle) drawCenteredString(minecraft.fontRendererObj, ttl(title), offsetX + 128, offsetY + 5, colour);
+        if (drawTitle) drawCenteredString(minecraft.fontRendererObj, ttl(title), offsetX + 70, offsetY + 10, colour);
     }
 }

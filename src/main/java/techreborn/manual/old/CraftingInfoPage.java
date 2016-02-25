@@ -1,4 +1,4 @@
-package techreborn.pda.pages;
+package techreborn.manual.old;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
@@ -14,8 +14,10 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+import techreborn.manual.PageCollection;
+import techreborn.manual.pages.TitledPage;
+
 import org.lwjgl.opengl.GL11;
-import techreborn.pda.PageCollection;
 
 import java.awt.*;
 import java.lang.reflect.Field;
