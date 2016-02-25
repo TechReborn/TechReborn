@@ -51,10 +51,15 @@ public class
         addImplosionCompressorRecipes();
         addReactorRecipes();
         addIc2Recipes();
+        addGrinderRecipes();
         // DEBUG
-        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(Items.diamond), new ItemStack(Blocks.dirt), 5, 20));
         RecipeHandler.addRecipe(new ExtractorRecipe(new ItemStack(Items.diamond), new ItemStack(Blocks.dirt), 5, 20));
         RecipeHandler.addRecipe(new CompressorRecipe(new ItemStack(Items.diamond), new ItemStack(Blocks.dirt), 5, 20));
+    }
+    
+    static void addGrinderRecipes(){
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(Blocks.iron_ore), ItemDusts.getDustByName("iron", 2), 100, 20));
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(Blocks.gold_ore), ItemDusts.getDustByName("gold", 2), 100, 20));
     }
 
     static void addReactorRecipes(){

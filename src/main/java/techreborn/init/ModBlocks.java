@@ -81,6 +81,7 @@ public class ModBlocks {
     public static Block ElectricFurnace;
 
     public static BlockOre ore;
+    public static BlockOre2 ore2;
     public static Block storage;
     public static Block storage2;
     public static Block machineframe;
@@ -156,6 +157,9 @@ public class ModBlocks {
 
         ore = new BlockOre(Material.rock);
         GameRegistry.registerBlock(ore, ItemBlockOre.class, "techreborn.ore");
+        
+        ore2 = new BlockOre2(Material.rock);
+        GameRegistry.registerBlock(ore2, ItemBlockOre2.class, "techreborn.ore2");
 
         storage = new BlockStorage(Material.iron);
         GameRegistry.registerBlock(storage, ItemBlockStorage.class, "techreborn.storage");
