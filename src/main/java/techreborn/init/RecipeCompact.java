@@ -51,6 +51,7 @@ public class RecipeCompact implements IRecipeCompact {
         recipes.put("macerator", new ItemStack(ModBlocks.Grinder));
         recipes.put("diamondDrill", new ItemStack(ModItems.diamondDrill));
         recipes.put("miningDrill", new ItemStack(ModItems.ironDrill));
+        recipes.put("solarPanel", new ItemStack(ModBlocks.solarPanel));
         inited = false;
     }
 
