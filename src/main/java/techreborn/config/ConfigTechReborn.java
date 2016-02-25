@@ -40,6 +40,12 @@ public class ConfigTechReborn {
 
 	public static boolean SilverOreTrue;
 	public static int SilverOreRare;
+	
+	public static boolean CopperOreTrue;
+	public static int CopperOreRare;
+	
+	public static boolean TinOreTrue;
+	public static int TinOreRare;
 
 	public static boolean PyriteOreTrue;
 	public static int PyriteOreRare;
@@ -229,6 +235,12 @@ public class ConfigTechReborn {
 
 		SilverOreTrue = config.get(CATEGORY_WORLD, "Generate Silver Ore", true, "Allow Silver Ore to generate in world")
 				.getBoolean(true);
+		
+		CopperOreTrue = config.get(CATEGORY_WORLD, "Generate Copper Ore", true, "Allow Copper Ore to generate in world")
+				.getBoolean(true);
+		
+		TinOreTrue = config.get(CATEGORY_WORLD, "Generate Tin Ore", true, "Allow Tin Ore to generate in world")
+				.getBoolean(true);
 
 		PyriteOreTrue = config.get(CATEGORY_WORLD, "Generate Pyrite Ore", true, "Allow Pyrite Ore to generate in world")
 				.getBoolean(true);
@@ -278,6 +290,12 @@ public class ConfigTechReborn {
 				.getBoolean(true);
 
 		GalenaOreRare = config.get(CATEGORY_WORLD, "Galena Ore vein size", 8, "Set the max vein size for Galena Ore")
+				.getInt();
+		
+		CopperOreRare = config.get(CATEGORY_WORLD, "Copper Ore vein size", 8, "Set the max vein size for Copper Ore")
+				.getInt();
+		
+		TinOreRare = config.get(CATEGORY_WORLD, "Tin Ore vein size", 8, "Set the max vein size for Tin Ore")
 				.getInt();
 
 		IridiumOreRare = config.get(CATEGORY_WORLD, "Iridium Ore vein size", 1, "Set the max vein size for Iridium Ore")

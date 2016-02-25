@@ -30,6 +30,8 @@ public class TROreGen implements IWorldGenerator {
     WorldGenMinable oreCassiterite;
     WorldGenMinable oreLead;
     WorldGenMinable oreSilver;
+    WorldGenMinable oreCopper;
+    WorldGenMinable oreTin;
 
     public TROreGen() {
         // World
@@ -42,6 +44,8 @@ public class TROreGen implements IWorldGenerator {
         oreCassiterite = new WorldGenMinable(ModBlocks.ore.getBlockStateFromName("Cassiterite"), ConfigTechReborn.CassiteriteOreRare);
         oreLead = new WorldGenMinable(ModBlocks.ore.getBlockStateFromName("Lead"), ConfigTechReborn.LeadOreRare);
         oreSilver = new WorldGenMinable(ModBlocks.ore.getBlockStateFromName("Silver"), ConfigTechReborn.SilverOreRare);
+        oreCopper = new WorldGenMinable(ModBlocks.ore2.getBlockStateFromName("copper"), ConfigTechReborn.CopperOreRare);
+        oreTin = new WorldGenMinable(ModBlocks.ore2.getBlockStateFromName("tin"), ConfigTechReborn.TinOreRare);
 
         // Nether
         orePyrite = new WorldGenMinable(ModBlocks.ore.getBlockStateFromName("Pyrite"), ConfigTechReborn.PyriteOreRare);
@@ -160,6 +164,24 @@ public class TROreGen implements IWorldGenerator {
                 zPos = zChunk + random.nextInt(16);
                 BlockPos pos = new BlockPos(xPos, yPos, zPos);
                 oreSilver.generate(world, random, pos);
+            }
+        }
+        if (config.CopperOreTrue) {
+            for (int i = 0; i <= 16; i++) {
+                xPos = xChunk + random.nextInt(16);
+                yPos = 10 + random.nextInt(60 - 20);
+                zPos = zChunk + random.nextInt(16);
+                BlockPos pos = new BlockPos(xPos, yPos, zPos);
+                oreCopper.generate(world, random, pos);
+            }
+        }
+        if (config.TinOreTrue) {
+            for (int i = 0; i <= 16; i++) {
+                xPos = xChunk + random.nextInt(16);
+                yPos = 10 + random.nextInt(60 - 20);
+                zPos = zChunk + random.nextInt(16);
+                BlockPos pos = new BlockPos(xPos, yPos, zPos);
+                oreTin.generate(world, random, pos);
             }
         }
     }
