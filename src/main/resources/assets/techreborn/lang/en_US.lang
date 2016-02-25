@@ -396,6 +396,8 @@ item.techreborn.cell.sulfuricAcid.name=Sulfuric Acid Cell
 item.techreborn.cell.tritium.name=Tritium Cell
 item.techreborn.cell.wolframium.name=Wolframium Cell
 item.techreborn.cell.empty.name=Empty Cell
+item.techreborn.cell.water.name=Water Cell
+item.techreborn.cell.lava.name=Lava Cell
 item.techreborn.rebattery.name=Battery
 item.techreborn.treetap.name=Tree Tap
 
@@ -586,6 +588,12 @@ item.techreborn.part.rubber.name=Rubber
 item.techreborn.part.scrap.name=Scrap
 item.techreborn.part.electronicCircuit.name=Electronic Circuit
 item.techreborn.part.advancedCircuit.name=Advanced Electronic Circuit
+item.techreborn.part.pump.name=Pump
+item.techreborn.part.teleporter.name=Teleporter
+item.techreborn.part.advancedAlloy.name=Advanced Alloy
+item.techreborn.part.lvTransformer.name=LV Transformer
+item.techreborn.part.mvTransformer.name=MV Transformer
+item.techreborn.part.hvTransformer.name=HV Transformer
 
 #Tools
 item.techreborn.rockcutter.name=Rockcutter

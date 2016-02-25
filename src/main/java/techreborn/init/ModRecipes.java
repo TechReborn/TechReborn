@@ -1587,7 +1587,7 @@ public class
         RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Blocks.red_mushroom, 1), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
 
         //Rubber Wood Yields
-        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(TechRebornAPI.recipeCompact.getItem("rubberWood").getItem(), 15), new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 5), new ItemStack(TechRebornAPI.recipeCompact.getItem("resin").getItem(), 8), new ItemStack(TechRebornAPI.recipeCompact.getItem("plantBall").getItem(), 6), ItemCells.getCellByName("methane", 1), ItemCells.getCellByName("carbon", 4), 5000, 5));
+        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(TechRebornAPI.recipeCompact.getItem("rubberWood").getItem(), 15), new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 5), new ItemStack(TechRebornAPI.recipeCompact.getItem("resin").getItem(), 8), new ItemStack(Blocks.sapling, 6), ItemCells.getCellByName("methane", 1), ItemCells.getCellByName("carbon", 4), 5000, 5));
 
         //Soul Sand Byproducts
         RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Blocks.soul_sand, 16), TechRebornAPI.recipeCompact.getItem("cell"), ItemCells.getCellByName("oil", 1), ItemDusts.getDustByName("saltpeter", 4), ItemDusts.getDustByName("coal", 1), new ItemStack(Blocks.sand, 10), 2500, 5));
