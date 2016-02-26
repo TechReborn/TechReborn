@@ -4,6 +4,7 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.util.EnumFacing;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import techreborn.blocks.generator.BlockSolarPanel;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
 public class TileSolarPanel extends TilePowerAcceptor {
 
     boolean shouldMakePower = false;
+    boolean lastTickSate = false;
 
     int powerToAdd;
 
@@ -28,6 +30,11 @@ public class TileSolarPanel extends TilePowerAcceptor {
         } else {
             powerToAdd = 0;
         }
+        if(shouldMakePower != lastTickSate){
+            if(worldObj != null)
+                worldObj.setBlockState(pos, worldObj.getBlockState(pos).withProperty(BlockSolarPanel.ACTIVE, shouldMakePower));
+        }
+        lastTickSate = shouldMakePower;
     }
 
     @Override
