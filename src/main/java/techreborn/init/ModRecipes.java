@@ -100,7 +100,7 @@ public class
     static void addHammerRecipes(){
         CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.hammer),
                 "III",
-                " S ",
+                "ISI",
                 " S ",
                 'S', Items.stick,
                 'I', "ingotIron");
