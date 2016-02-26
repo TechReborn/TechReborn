@@ -638,7 +638,7 @@ item.bucketwolframium.name=Wolframium Bucket
 
 #Items
 item.techreborn.uuMatter.name=UU-Matter
-item.techreborn.manual.name=Tech manual
+item.techreborn.manual.name=Tech Manual
 
 #Configs
 config.techreborn.allow.galenaOre=Allow Galena Ore

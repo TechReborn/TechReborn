@@ -1,14 +1,16 @@
 package techreborn.items.tools;
 
+import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.items.ItemTR;
 import techreborn.items.ItemTextureBase;
 
-public class ItemTechManual extends ItemTextureBase {
+public class ItemTechManual extends ItemTR implements ITexturedItem {
 
     public ItemTechManual() {
         setCreativeTab(TechRebornCreativeTab.instance);
@@ -31,7 +33,7 @@ public class ItemTechManual extends ItemTextureBase {
 
     @Override
     public String getTextureName(int damage) {
-        return "mineacraft:book";
+        return "techreborn:items/tool/manual";
     }
 
 }
