@@ -26,7 +26,7 @@ import java.util.List;
 
 public class ItemAdvancedDrill extends ItemPickaxe implements IEnergyItemInfo, ITexturedItem {
 
-    public int maxCharge = 1000000;
+    public int maxCharge = ConfigTechReborn.AdvancedDrillCharge;
     public int cost = 250;
     public static final int tier = ConfigTechReborn.AdvancedDrillTier;
     public double transferLimit = 100;

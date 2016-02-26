@@ -93,7 +93,12 @@ public class ConfigTechReborn {
 	public static int aesuMaxOutput;
 	public static int aesuMaxStorage;
 	// Charge
+	public static int IronDrillCharge;
+	public static int DiamondDrillCharge;
 	public static int AdvancedDrillCharge;
+	public static int IronChainsawCharge;
+	public static int DiamondChainsawCharge;
+	public static int AdvancedChainsawCharge;
 	public static int LapotronPackCharge;
 	public static int LithiumBatpackCharge;
 	public static int LapotronicOrbMaxCharge;
@@ -103,7 +108,12 @@ public class ConfigTechReborn {
 	public static int CentrifugeCharge;
 	public static int ThermalGeneratorCharge;
 	// Tier
+	public static int IronDrillTier;
+	public static int DiamondDrillTier;
 	public static int AdvancedDrillTier;
+	public static int IronChainsawTier;
+	public static int DiamondChainsawTier;
+	public static int AdvancedChainsawTier;
 	public static int LapotronPackTier;
 	public static int LapotronicOrbTier;
 	public static int LithiumBatpackTier;
@@ -374,8 +384,28 @@ public class ConfigTechReborn {
 
 
 		// Charge
+		IronDrillCharge = config
+				.get(CATEGORY_POWER, "IronDrill MaxCharge", 10000, "Set the max charge for the iron drill")
+				.getInt();
+		
+		DiamondDrillCharge = config
+				.get(CATEGORY_POWER, "DiamondDrill MaxCharge", 100000, "Set the max charge for the diamond drill")
+				.getInt();
+		
 		AdvancedDrillCharge = config
-				.get(CATEGORY_POWER, "AdvancedDrill MaxCharge", 60000, "Set the max charge for the advanced drill")
+				.get(CATEGORY_POWER, "AdvancedDrill MaxCharge", 1000000, "Set the max charge for the advanced drill")
+				.getInt();
+
+		IronChainsawCharge = config
+				.get(CATEGORY_POWER, "IronChainsaw MaxCharge", 10000, "Set the max charge for the iron chainsaw")
+				.getInt();
+		
+		DiamondChainsawCharge = config
+				.get(CATEGORY_POWER, "DiamondChainsaw MaxCharge", 100000, "Set the max charge for the diamond chainsaw")
+				.getInt();
+		
+		AdvancedChainsawCharge = config
+				.get(CATEGORY_POWER, "AdvancedChainsaw MaxCharge", 1000000, "Set the max charge for the advanced chainsaw")
 				.getInt();
 
 		LapotronPackCharge = config
@@ -419,8 +449,23 @@ public class ConfigTechReborn {
 
 		farmEu = config.get(CATEGORY_POWER, "farmeu", 32, "").getInt();
 
-		// Teir
+		// Tier
+		IronDrillTier = config.get(CATEGORY_POWER, "IronDrill Tier", 2, "Set the Tier of the iron drill")
+				.getInt();
+		
+		DiamondDrillTier = config.get(CATEGORY_POWER, "DiamondDrill Tier", 2, "Set the Tier of the diamond drill")
+				.getInt();
+		
 		AdvancedDrillTier = config.get(CATEGORY_POWER, "AdvancedDrill Tier", 2, "Set the Tier of the advanced drill")
+				.getInt();
+
+		IronChainsawTier = config.get(CATEGORY_POWER, "IronChainsaw Tier", 2, "Set the Tier of the iron chainsaw")
+				.getInt();
+		
+		DiamondChainsawTier = config.get(CATEGORY_POWER, "DiamondChainsaw Tier", 2, "Set the Tier of the diamond chainsaw")
+				.getInt();
+		
+		AdvancedChainsawTier = config.get(CATEGORY_POWER, "AdvancedChainsaw Tier", 2, "Set the Tier of the advanced chainsaw")
 				.getInt();
 
 		LapotronPackTier = config.get(CATEGORY_POWER, "LapotronPack Tier", 2, "Set the Tier of the LapotronPack")
