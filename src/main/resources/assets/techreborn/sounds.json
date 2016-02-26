@@ -1,3 +1,4 @@
 {
-	"sap_extract": { "category": "block", "sounds":["sap_extract"] }
+	"sap_extract": { "category": "block", "sounds":["sap_extract"] },
+	"block_dismantle": { "category": "block", "sounds":["block_dismantle"] }
 }

@@ -80,6 +80,7 @@ public class ModItems {
     public static Item diamondChainsaw;
     public static Item advancedChainsaw;
     public static Item hammer;
+    public static Item wrench;
 
     public static Item upgrades;
 
@@ -149,7 +150,10 @@ public class ModItems {
         GameRegistry.registerItem(advancedChainsaw, "advancedchainsaw");
         
         hammer = new ItemHammer(100);
-        GameRegistry.registerItem(hammer, "hammer"); 
+        GameRegistry.registerItem(hammer, "hammer");
+
+        wrench = new ItemWrench();
+        GameRegistry.registerItem(wrench, "wrench");
 
 //        upgrades = new ItemUpgrade();
 //        GameRegistry.registerItem(upgrades, "upgrades");
