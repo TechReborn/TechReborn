@@ -29,19 +29,7 @@ import techreborn.items.ItemReBattery;
 import techreborn.items.ItemUUmatter;
 import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
-import techreborn.items.tools.ItemAdvancedChainsaw;
-import techreborn.items.tools.ItemAdvancedDrill;
-import techreborn.items.tools.ItemChainsaw;
-import techreborn.items.tools.ItemCloakingDevice;
-import techreborn.items.tools.ItemDiamondChainsaw;
-import techreborn.items.tools.ItemDiamondDrill;
-import techreborn.items.tools.ItemDrill;
-import techreborn.items.tools.ItemFluidbucket;
-import techreborn.items.tools.ItemHammer;
-import techreborn.items.tools.ItemOmniTool;
-import techreborn.items.tools.ItemRockCutter;
-import techreborn.items.tools.ItemTechManual;
-import techreborn.items.tools.ItemTreeTap;
+import techreborn.items.tools.*;
 
 public class ModItems {
 
