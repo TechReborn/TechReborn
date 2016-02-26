@@ -10,10 +10,17 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.inventory.Container;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import techreborn.init.ModBlocks;
+import techreborn.items.ItemParts;
+import techreborn.items.ItemPlates;
+import techreborn.manual.pages.BasicMachinesPage;
 import techreborn.manual.pages.ContentsPage;
+import techreborn.manual.pages.CraftingInfoPage;
 import techreborn.manual.pages.DescriptionPage;
+import techreborn.manual.pages.GeneratingPowerPage;
 import techreborn.manual.pages.GettingStartedPage;
 
 @SideOnly(Side.CLIENT)
@@ -38,12 +45,33 @@ public class GuiManual extends GuiScreen
     {
         pageIndex = 0;
         final PageCollection pageCollection = new PageCollection();
-        pageCollection.addPage(new ContentsPage("CONTENTS", pageCollection));
+        pageCollection.addPage(new ContentsPage(Reference.pageNames.CONTENTS_PAGE, pageCollection));
+        
+        //GETTING STARTED
         pageCollection.addPage(new GettingStartedPage(Reference.pageNames.GETTINGSTARTED_PAGE, pageCollection));
-        pageCollection.addPage(new DescriptionPage(Reference.pageNames.GETTINGRUBBER_PAGE, pageCollection, true));
-        
-        
 
+        pageCollection.addPage(new DescriptionPage(Reference.pageNames.GETTINGRUBBER_PAGE, pageCollection, true, Reference.pageNames.GETTINGRUBBER2_PAGE));
+        pageCollection.addPage(new CraftingInfoPage(Reference.pageNames.GETTINGRUBBER2_PAGE, pageCollection, ItemParts.getPartByName("rubber"), "", Reference.pageNames.GETTINGRUBBER_PAGE));
+        pageCollection.addPage(new CraftingInfoPage(Reference.pageNames.CRAFTINGPLATES_PAGE, pageCollection, ItemPlates.getPlateByName("iron"), "", Reference.pageNames.GETTINGSTARTED_PAGE));
+        
+        //POWER GENERATION
+        pageCollection.addPage(new GeneratingPowerPage(Reference.pageNames.GENERATINGPOWER_PAGE, pageCollection));
+
+        pageCollection.addPage(new CraftingInfoPage(ModBlocks.Generator.getLocalizedName(), pageCollection, new ItemStack(ModBlocks.Generator), "", Reference.pageNames.GENERATINGPOWER_PAGE));
+        pageCollection.addPage(new CraftingInfoPage(ModBlocks.thermalGenerator.getLocalizedName(), pageCollection, new ItemStack(ModBlocks.thermalGenerator), "", Reference.pageNames.GENERATINGPOWER_PAGE));
+        pageCollection.addPage(new CraftingInfoPage(ModBlocks.solarPanel.getLocalizedName(), pageCollection, new ItemStack(ModBlocks.solarPanel), "", Reference.pageNames.GENERATINGPOWER_PAGE));
+        pageCollection.addPage(new CraftingInfoPage(ModBlocks.heatGenerator.getLocalizedName(), pageCollection, new ItemStack(ModBlocks.heatGenerator), "", Reference.pageNames.GENERATINGPOWER_PAGE));
+        pageCollection.addPage(new CraftingInfoPage(ModBlocks.LightningRod.getLocalizedName(), pageCollection, new ItemStack(ModBlocks.LightningRod), "", Reference.pageNames.GENERATINGPOWER_PAGE));
+        
+        //BASIC MACHINES
+        pageCollection.addPage(new BasicMachinesPage(Reference.pageNames.BASICMACHINES_PAGE, pageCollection));
+        pageCollection.addPage(new CraftingInfoPage(ModBlocks.Grinder.getLocalizedName(), pageCollection, new ItemStack(ModBlocks.Grinder), "", Reference.pageNames.BASICMACHINES_PAGE));
+        pageCollection.addPage(new CraftingInfoPage(ModBlocks.ElectricFurnace.getLocalizedName(), pageCollection, new ItemStack(ModBlocks.ElectricFurnace), "", Reference.pageNames.BASICMACHINES_PAGE));
+        pageCollection.addPage(new CraftingInfoPage(ModBlocks.AlloySmelter.getLocalizedName(), pageCollection, new ItemStack(ModBlocks.AlloySmelter), "", Reference.pageNames.BASICMACHINES_PAGE));
+        pageCollection.addPage(new CraftingInfoPage(ModBlocks.Extractor.getLocalizedName(), pageCollection, new ItemStack(ModBlocks.Extractor), "", Reference.pageNames.BASICMACHINES_PAGE));
+        pageCollection.addPage(new CraftingInfoPage(ModBlocks.Compressor.getLocalizedName(), pageCollection, new ItemStack(ModBlocks.Compressor), "", Reference.pageNames.BASICMACHINES_PAGE));
+        
+        
         return pageCollection;
     }
 

@@ -13,7 +13,7 @@ import techreborn.manual.pages.BasePage;
 public class PageCollection extends Gui {
 
     public final List<BasePage> pages = Lists.newArrayList();
-    private String ACTIVE_PAGE = "CONTENTS";
+    private String ACTIVE_PAGE = Reference.pageNames.CONTENTS_PAGE;
     protected int x;
     protected int y;
 

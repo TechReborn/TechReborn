@@ -927,8 +927,14 @@ Cable.tinCable.name=Tin Cable
 #Manual
 techreborn.manual.contents=Contents Page
 techreborn.manual.gettingstarted=Getting Started
+techreborn.manual.generatingpower=Generating Power
+techreborn.manual.basicmachines=Basic Machines
+
+
 techreborn.manual.gettingrubber=Collecting Rubber
 techreborn.manual.backbutton=Back
+techreborn.manual.gettingplates=Crafting Plates
+
 
 item.techreborn.advancedDrill.description=This Tool is a advanced version of the mining drill, when this item is activated it will dig out a 3x3.
 tile.techreborn.alloyfurnace.description=This Machine is your first step into TechReborn with this you can fuse metals into other metals. These other metals can be used to craft the higher tier machines.
