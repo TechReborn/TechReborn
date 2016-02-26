@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.item.ItemStack;
 import techreborn.init.ModBlocks;
+import techreborn.init.ModItems;
 import techreborn.items.ItemPlates;
 import techreborn.manual.PageCollection;
 import techreborn.manual.Reference;
@@ -29,6 +30,10 @@ public class ContentsPage extends TitledPage
         		Reference.pageNames.GENERATINGPOWER_PAGE, ttl(Reference.GENERATINGPOWER_KEY)));
         buttonList.add(new GuiButtonItemTexture(2, getXMin() + 20, getYMin() + 60, 0, 46, 100, 20, new ItemStack(ModBlocks.ElectricFurnace),
         		Reference.pageNames.BASICMACHINES_PAGE, ttl(Reference.BASICMACHINES_KEY)));
+        buttonList.add(new GuiButtonItemTexture(3, getXMin() + 20, getYMin() + 80, 0, 46, 100, 20, new ItemStack(ModBlocks.BlastFurnace),
+        		Reference.pageNames.ADVANCEDMACHINES_PAGE, ttl(Reference.ADVANCEDMACHINES_KEY)));
+        buttonList.add(new GuiButtonItemTexture(4, getXMin() + 20, getYMin() + 100, 0, 46, 100, 20, new ItemStack(ModItems.ironDrill),
+        		Reference.pageNames.TOOLS_PAGE, ttl(Reference.TOOLS_KEY)));
     }
 
     @Override
@@ -43,5 +48,7 @@ public class ContentsPage extends TitledPage
         if (button.id == 0) collection.changeActivePage(Reference.pageNames.GETTINGSTARTED_PAGE);
         if (button.id == 1) collection.changeActivePage(Reference.pageNames.GENERATINGPOWER_PAGE);
         if (button.id == 2) collection.changeActivePage(Reference.pageNames.BASICMACHINES_PAGE);
+        if (button.id == 3) collection.changeActivePage(Reference.pageNames.ADVANCEDMACHINES_PAGE);
+        if (button.id == 4) collection.changeActivePage(Reference.pageNames.TOOLS_PAGE);
     }
 }
