@@ -24,7 +24,7 @@ import techreborn.config.ConfigTechReborn;
 
 import java.util.List;
 
-public class ItemAdvancedChainsaw extends ItemPickaxe implements IEnergyItemInfo, ITexturedItem {
+public class ItemAdvancedChainsaw extends ItemAxe implements IEnergyItemInfo, ITexturedItem {
 
     public int maxCharge = ConfigTechReborn.AdvancedChainsawCharge;
     public int cost = 250;

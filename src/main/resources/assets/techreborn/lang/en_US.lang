@@ -75,7 +75,6 @@ tile.techreborn.rubberleaves.name=Rubber Leaves
 tile.techreborn.rubbersapling.name=Rubber Sapling
 
 tile.techreborn.ironfence.name=Iron Fence
-tile.techreborn.ironfencegate.name=Iron Fence Gate
 
 #Ores
 tile.techreborn.ore.Galena.name=Galena Ore
@@ -601,10 +600,13 @@ item.techreborn.part.hvTransformer.name=HV Transformer
 item.techreborn.rockcutter.name=Rockcutter
 item.techreborn.lithiumbatpack.name=Lithium Batpack
 item.techreborn.lapotronpack.name=Lapotron Pack
-item.techreborn.omniTool.name=Omni tool
+item.techreborn.omniTool.name=Omni-Tool
 item.techreborn.ironDrill.name=Iron Drill
 item.techreborn.diamondDrill.name=Diamond Drill
 item.techreborn.advancedDrill.name=Advanced Drill
+item.techreborn.ironChainsaw.name=Iron Chainsaw
+item.techreborn.diamondChainsaw.name=Diamond Chainsaw
+item.techreborn.advancedChainsaw.name=Advanced Chainsaw
 item.techreborn.lapotronicorb.name=Lapotronic Energy Orb
 item.techreborn.cloakingdevice.name=Cloaking Device
 item.techreborn.hammer.name=Iron Hammer
