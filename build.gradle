@@ -111,8 +111,6 @@ dependencies {
   //  shade 'IC2-Classic-API-STANDALONE:IC2-Classic-API-STANDALONE:1.1.0.19-5:api'
     deobfCompile 'RebornCore:RebornCore-1.8.9:1.4.4.+:universal'
     deobfCompile "mezz.jei:jei_1.8.9:2.27.+"
-
-	testCompile 'junit:junit:4.12'
 }
 
 
