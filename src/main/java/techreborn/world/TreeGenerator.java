@@ -1,5 +1,7 @@
 package techreborn.world;
 
+import java.util.Random;
+
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -7,8 +9,6 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.common.IWorldGenerator;
 import techreborn.config.ConfigTechReborn;
-
-import java.util.Random;
 
 /**
  * Created by Mark on 19/02/2016.

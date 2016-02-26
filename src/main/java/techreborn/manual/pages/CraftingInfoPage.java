@@ -1,32 +1,41 @@
-package techreborn.manual.old;
+package techreborn.manual.pages;
 
-import com.google.common.base.Objects;
-import com.google.common.base.Strings;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.*;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
-import techreborn.manual.PageCollection;
-import techreborn.manual.pages.TitledPage;
-
-import org.lwjgl.opengl.GL11;
-
-import java.awt.*;
+import java.awt.Color;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class CraftingInfoPage extends TitledPage {
+import org.lwjgl.opengl.GL11;
+
+import com.google.common.base.Objects;
+import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.ShapedRecipes;
+import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
+import techreborn.manual.PageCollection;
+import techreborn.manual.util.ButtonUtil;
+
+public class CraftingInfoPage extends TitledPage 
+{
     public ItemStack result;
     private boolean isSmelting = false;
     private ItemStack[] recipe = new ItemStack[9];
@@ -34,51 +43,70 @@ public class CraftingInfoPage extends TitledPage {
     private String rawDescription;
     private List<String> formattedDescription;
     private float descriptionScale = 0.66f;
+	public String imageprefix = "techreborn:textures/manual/elements/";
+	public String backpage;
 
-    public CraftingInfoPage(String name, PageCollection collection, ItemStack itemStack, String unlocalizedDescription) {
+
+    public CraftingInfoPage(String name, PageCollection collection, ItemStack itemStack, String unlocalizedDescription, String backPage) 
+    {
         super(name, true, collection, itemStack.getUnlocalizedName() + ".name", Color.white.getRGB());
         this.result = itemStack;
         this.recipe = getFirstRecipeForItem(itemStack);
+        this.backpage = backPage;
         for (ItemStack stack : recipe) if (stack != null) hasRecipe = true;
         if (unlocalizedDescription == "") rawDescription = ttl(itemStack.getUnlocalizedName() + ".description");
         else rawDescription = ttl(unlocalizedDescription);
     }
 
     @Override
+    public void initGui() 
+    {
+    	buttonList.clear();
+    	ButtonUtil.addBackButton(0, width / 2 - 60, height / 2 + 64, buttonList);
+    }
+    
+    @Override
     public void renderBackgroundLayer(Minecraft minecraft, int offsetX, int offsetY, int mouseX, int mouseY) {
         super.renderBackgroundLayer(minecraft, offsetX, offsetY, mouseX, mouseY);
         GL11.glPushMatrix();
-        if (isSmelting) {
-            drawTexturedModalRect(offsetX + 87, offsetY + 15, 116, 202, 82, 54);
-        } else {
-            if (hasRecipe) {
-                drawTexturedModalRect(offsetX + 70, offsetY + 15, 0, 202, 116, 54);
-            } else {
-                drawTexturedModalRect(offsetX + 119, offsetY + 17, 0, 202, 18, 18);
-                drawString(fontRendererObj, "No Crafting Recipe", offsetX + 145, offsetY + 17, Color.white.getRGB());
+        if (isSmelting) 
+        {
+        	renderImage(offsetX + 15, offsetY + 10, "furnacerecipe");
+        } 
+        else 
+        {
+            if (hasRecipe) 
+            {
+            	renderImage(offsetX, offsetY + 10, "craftingtable");
+            } 
+            else 
+            {
+                drawString(fontRendererObj, "No Crafting Recipe", offsetX + 40, offsetY + 22, Color.black.getRGB());
             }
         }
         GL11.glPopMatrix();
 
     }
 
-    public void drawScreen(Minecraft minecraft, int offsetX, int offsetY, int mouseX, int mouseY) {
+    public void drawScreen(Minecraft minecraft, int offsetX, int offsetY, int mouseX, int mouseY) 
+    {
         super.drawScreen(minecraft, offsetX, offsetY, mouseX, mouseY);
         int relativeMouseX = mouseX + offsetX;
         int relativeMouseY = mouseY + offsetY;
-        int gridOffsetX = isSmelting ? 88 : 71;
-        int gridOffsetY = 16;
+        int gridOffsetX = isSmelting ? 85 : 71;
+        int gridOffsetY = 18;
         int itemBoxSize = 18;
-        addDescription(minecraft, offsetX, offsetY);
+        addDescription(minecraft, offsetX + 8, offsetY);
 
         ItemStack tooltip = null;
         int i = 0;
-        for (ItemStack input : recipe) {
+        for (ItemStack input : recipe) 
+        {
             if (input != null) {
                 int row = (i % 3);
                 int column = i / 3;
-                int itemX = offsetX + gridOffsetX + (row * itemBoxSize);
-                int itemY = offsetY + gridOffsetY + (column * itemBoxSize);
+                int itemX = offsetX + gridOffsetX + (row * itemBoxSize) - 54;
+                int itemY = offsetY + gridOffsetY + (column * itemBoxSize) + 2;
                 drawItemStack(input, itemX, itemY, "");
                 if (relativeMouseX > itemX - 2 && relativeMouseX < itemX - 2 + itemBoxSize &&
                         relativeMouseY > itemY - 2 && relativeMouseY < itemY - 2 + itemBoxSize) {
@@ -87,10 +115,10 @@ public class CraftingInfoPage extends TitledPage {
             }
             i++;
         }
-        int itemX = offsetX + (isSmelting ? 148 : 165);
-        int itemY = offsetY + 34;
+        int itemX = offsetX + (isSmelting ? 92 : 112);
+        int itemY = offsetY + (isSmelting ? 40 : 38);
         if (!hasRecipe) {
-            itemX = offsetX + 120;
+            itemX = offsetX + 20;
             itemY = offsetY + 18;
         }
 
@@ -103,8 +131,21 @@ public class CraftingInfoPage extends TitledPage {
             drawItemStackTooltip(tooltip, relativeMouseX, relativeMouseY);
         }
     }
+    
+    public void renderImage(int offsetX, int offsetY, String imagename)
+    {
+		TextureManager render = Minecraft.getMinecraft().renderEngine;
+		render.bindTexture(new ResourceLocation(imageprefix + imagename + ".png"));
 
-    public void addDescription(Minecraft minecraft, int offsetX, int offsetY) {
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GL11.glColor4f(1F, 1F, 1F, 1F);
+		drawTexturedModalRect(offsetX, offsetY - 14, 0, 0, 140, this.height);
+		GL11.glDisable(GL11.GL_BLEND);
+    }
+
+    public void addDescription(Minecraft minecraft, int offsetX, int offsetY) 
+    {
         GL11.glPushMatrix();
         if (hasRecipe) GL11.glTranslated(offsetX + 5, offsetY + 75, 1);
         else GL11.glTranslated(offsetX + 5, offsetY + 40, 1);
@@ -116,7 +157,7 @@ public class CraftingInfoPage extends TitledPage {
                 s = s.substring(2);
                 offset += fontRendererObj.FONT_HEIGHT / 2;
             }
-            fontRendererObj.drawString(s, 0, offset, Color.white.getRGB());
+            fontRendererObj.drawString(s, 0, offset, Color.black.getRGB());
             offset += fontRendererObj.FONT_HEIGHT;
         }
         GL11.glPopMatrix();
@@ -124,7 +165,8 @@ public class CraftingInfoPage extends TitledPage {
 
 
     @SuppressWarnings("unchecked")
-    public List<String> getFormattedText(FontRenderer fr) {
+    public List<String> getFormattedText(FontRenderer fr) 
+    {
         if (formattedDescription == null) {
             formattedDescription = new ArrayList<String>();
 
@@ -137,7 +179,7 @@ public class CraftingInfoPage extends TitledPage {
                 return formattedDescription;
             }
 
-            List<String> segments = new ArrayList(); //Each separate string that is separated by a \n
+            List<String> segments = new ArrayList();
             String raw = rawDescription;
 
 
@@ -159,7 +201,8 @@ public class CraftingInfoPage extends TitledPage {
         return formattedDescription;
     }
 
-    protected void drawItemStackTooltip(ItemStack stack, int x, int y) {
+    protected void drawItemStackTooltip(ItemStack stack, int x, int y) 
+    {
         final Minecraft mc = Minecraft.getMinecraft();
         FontRenderer font = Objects.firstNonNull(stack.getItem().getFontRenderer(stack), mc.fontRendererObj);
 
@@ -175,7 +218,8 @@ public class CraftingInfoPage extends TitledPage {
         drawHoveringText(colored, x, y, font);
     }
 
-    private void drawItemStack(ItemStack par1ItemStack, int par2, int par3, String par4Str) {
+    private void drawItemStack(ItemStack par1ItemStack, int par2, int par3, String par4Str) 
+    {
         GL11.glTranslatef(0.0F, 0.0F, 32.0F);
         this.zLevel = 200.0F;
         RenderHelper.enableGUIStandardItemLighting();
@@ -204,9 +248,11 @@ public class CraftingInfoPage extends TitledPage {
     }
 
     @SuppressWarnings("unchecked")
-    private ItemStack[] getFirstRecipeForItem(ItemStack resultingItem) {
+    private ItemStack[] getFirstRecipeForItem(ItemStack resultingItem) 
+    {
         ItemStack[] recipeItems = new ItemStack[9];
-        for (IRecipe recipe : (List<IRecipe>) CraftingManager.getInstance().getRecipeList()) {
+        for (IRecipe recipe : (List<IRecipe>) CraftingManager.getInstance().getRecipeList()) 
+        {
             if (recipe == null) continue;
 
             ItemStack result = recipe.getRecipeOutput();
@@ -224,9 +270,11 @@ public class CraftingInfoPage extends TitledPage {
         Iterator iterator = FurnaceRecipes.instance().getSmeltingList().entrySet().iterator();
         Map.Entry entry;
 
-        while (iterator.hasNext()) {
+        while (iterator.hasNext()) 
+        {
             entry = (Map.Entry) iterator.next();
-            if (entry.getKey() instanceof ItemStack && ((ItemStack) entry.getValue()).isItemEqual(result)) {
+            if (entry.getKey() instanceof ItemStack && ((ItemStack) entry.getValue()).isItemEqual(result)) 
+            {
                 isSmelting = true;
                 recipeItems[0] = (ItemStack) entry.getKey();
             }
@@ -235,7 +283,8 @@ public class CraftingInfoPage extends TitledPage {
         return recipeItems;
     }
 
-    protected ItemStack convertToStack(Object obj) {
+    protected ItemStack convertToStack(Object obj) 
+    {
         ItemStack entry = null;
         if (obj instanceof ItemStack) {
             entry = (ItemStack) obj;
@@ -252,7 +301,8 @@ public class CraftingInfoPage extends TitledPage {
     }
 
     @SuppressWarnings("unchecked")
-    private Object[] getRecipeInput(IRecipe recipe) {
+    private Object[] getRecipeInput(IRecipe recipe) 
+    {
         if (recipe instanceof ShapelessOreRecipe) return ((ShapelessOreRecipe) recipe).getInput().toArray();
         else if (recipe instanceof ShapedOreRecipe) return getShapedOreRecipe((ShapedOreRecipe) recipe);
         else if (recipe instanceof ShapedRecipes) return ((ShapedRecipes) recipe).recipeItems;
@@ -261,30 +311,41 @@ public class CraftingInfoPage extends TitledPage {
         return null;
     }
 
-    private Object[] getShapedOreRecipe(ShapedOreRecipe recipe) {
-        try {
+    private Object[] getShapedOreRecipe(ShapedOreRecipe recipe) 
+    {
+        try 
+        {
             Field field = ShapedOreRecipe.class.getDeclaredField("width");
             if (field != null) {
                 field.setAccessible(true);
                 int width = field.getInt(recipe);
                 Object[] input = recipe.getInput();
                 Object[] grid = new Object[9];
-                for (int i = 0, offset = 0, y = 0; y < 3; y++) {
+                for (int i = 0, offset = 0, y = 0; y < 3; y++) 
+                {
                     for (int x = 0; x < 3; x++, i++) {
-                        if (x < width && offset < input.length) {
+                        if (x < width && offset < input.length) 
+                        {
                             grid[i] = input[offset];
                             offset++;
-                        } else {
+                        } else 
+                        {
                             grid[i] = null;
                         }
                     }
                 }
                 return grid;
             }
-        } catch (Exception e) {
+        } catch (Exception e) 
+        {
             e.printStackTrace();
         }
         return null;
     }
-
+    
+    @Override
+    public void actionPerformed(GuiButton button) 
+    {
+        if (button.id == 0) collection.changeActivePage(backpage);
+    }
 }

@@ -1,14 +1,14 @@
 package techreborn.items;
 
+import java.security.InvalidParameterException;
+import java.util.List;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
-
-import java.security.InvalidParameterException;
-import java.util.List;
 
 public class ItemNuggets extends ItemTextureBase {
 

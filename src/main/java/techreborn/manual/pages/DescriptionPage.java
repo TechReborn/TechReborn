@@ -11,26 +11,29 @@ import com.google.common.collect.ImmutableList;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.ResourceLocation;
 import techreborn.manual.PageCollection;
 import techreborn.manual.Reference;
+import techreborn.manual.util.ButtonUtil;
 
 public class DescriptionPage extends TitledPage
 {
 	public boolean hasImage;
+	public String secondpage;
     private String rawDescription;
     private List<String> formattedDescription;
     private float descriptionScale = 0.88f;
 	
 	public String imageprefix = "techreborn:textures/manual/screenshots/";
 	
-    public DescriptionPage(String name, PageCollection collection, boolean hasImage) 
+    public DescriptionPage(String name, PageCollection collection, boolean hasImage, String secondPage) 
     {
         super(name, false, collection, Reference.GETTINGSTARTED_KEY, Color.white.getRGB());
         this.hasImage = hasImage;
         this.rawDescription = "techreborn.manual." + this.getReferenceName() + ".description";
+        this.secondpage = secondPage;
     }
     
     @Override
@@ -39,10 +42,21 @@ public class DescriptionPage extends TitledPage
     	if(hasImage)
     	{
     		renderImage(offsetX, offsetY);
-    		addDescription(mc, offsetX, offsetY + 50);
+    		addDescription(mc, offsetX, offsetY + 60);
     	}
     	else
     		addDescription(mc, offsetX, offsetY);
+    }
+    
+    @Override
+    public void initGui() 
+    {
+    	buttonList.clear();
+    	ButtonUtil.addBackButton(0, width / 2 - 60, height / 2 + 64, buttonList);
+    	if(secondpage != null)
+    	{
+    		ButtonUtil.addNextButton(1, width / 2 + 40, height / 2 + 64, buttonList);
+    	}
     }
     
     public void renderImage(int offsetX, int offsetY)
@@ -53,7 +67,7 @@ public class DescriptionPage extends TitledPage
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
-		drawTexturedModalRect(offsetX, offsetY - 16, 0, 0, 120, this.height);
+		drawTexturedModalRect(offsetX, offsetY - 14, 0, 0, 120, this.height);
 		GL11.glDisable(GL11.GL_BLEND);
     }
     
@@ -102,5 +116,16 @@ public class DescriptionPage extends TitledPage
                 formattedDescription.addAll(ImmutableList.copyOf(fr.listFormattedStringToWidth(s, 370)));
         }
         return formattedDescription;
+    }
+    
+    @Override
+    public void actionPerformed(GuiButton button)
+    {
+        if (button.id == 0) collection.changeActivePage(Reference.pageNames.GETTINGSTARTED_PAGE);
+
+        if(secondpage != null)
+        {
+        	if (button.id == 1) collection.changeActivePage(secondpage);
+        }
     }
 }

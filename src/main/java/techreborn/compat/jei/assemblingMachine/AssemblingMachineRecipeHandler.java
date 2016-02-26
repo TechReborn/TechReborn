@@ -1,12 +1,12 @@
 package techreborn.compat.jei.assemblingMachine;
 
+import javax.annotation.Nonnull;
+
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import techreborn.api.recipe.machines.AssemblingMachineRecipe;
 import techreborn.compat.jei.RecipeCategoryUids;
-
-import javax.annotation.Nonnull;
 
 public class AssemblingMachineRecipeHandler implements IRecipeHandler<AssemblingMachineRecipe> {
 	@Nonnull

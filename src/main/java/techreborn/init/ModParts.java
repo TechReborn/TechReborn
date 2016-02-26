@@ -1,8 +1,8 @@
 package techreborn.init;
 
-import net.minecraft.item.ItemStack;
-
 import java.util.HashMap;
+
+import net.minecraft.item.ItemStack;
 
 public class ModParts {
 

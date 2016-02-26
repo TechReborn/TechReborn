@@ -1,5 +1,10 @@
 package techreborn.client.texture;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.IResource;
@@ -8,10 +13,6 @@ import net.minecraft.client.resources.data.AnimationMetadataSection;
 import net.minecraft.util.ResourceLocation;
 import reborncore.client.texture.ConnectedTexture;
 import techreborn.lib.ModInfo;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 //1.8 Nope
 public class CasingConnectedTextureGenerator extends TextureAtlasSprite {

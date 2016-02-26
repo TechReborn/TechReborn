@@ -1,13 +1,14 @@
 package techreborn.manual.pages;
 
+import java.io.IOException;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import techreborn.manual.PageCollection;
-
-import java.io.IOException;
+import techreborn.manual.Reference;
 
 public class BasePage extends GuiScreen {
 
@@ -58,13 +59,6 @@ public class BasePage extends GuiScreen {
         return this;
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public void initGui() {
-        buttonList.clear();
-        buttonList.add(new GuiButton(0, getXMin() + 30, getYMin() + 150, 80, 16, ttl("techreborn.manual.backbutton")));
-    }
-
     public void setReferenceName(String name) {
         REFERENCE_NAME = name;
     }
@@ -88,7 +82,7 @@ public class BasePage extends GuiScreen {
 
     @Override
     public void actionPerformed(GuiButton button) {
-        if (button.id == 0) collection.changeActivePage("CONTENTS");
+        if (button.id == 0) collection.changeActivePage(Reference.pageNames.CONTENTS_PAGE);
     }
 
     @Override

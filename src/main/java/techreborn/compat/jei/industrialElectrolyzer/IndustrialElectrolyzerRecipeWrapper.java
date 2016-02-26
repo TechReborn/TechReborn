@@ -1,5 +1,7 @@
 package techreborn.compat.jei.industrialElectrolyzer;
 
+import javax.annotation.Nonnull;
+
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
@@ -8,8 +10,6 @@ import net.minecraft.client.Minecraft;
 import techreborn.api.recipe.machines.IndustrialElectrolyzerRecipe;
 import techreborn.client.gui.GuiIndustrialElectrolyzer;
 import techreborn.compat.jei.BaseRecipeWrapper;
-
-import javax.annotation.Nonnull;
 
 public class IndustrialElectrolyzerRecipeWrapper extends BaseRecipeWrapper<IndustrialElectrolyzerRecipe> {
 	private final IDrawableAnimated progress;

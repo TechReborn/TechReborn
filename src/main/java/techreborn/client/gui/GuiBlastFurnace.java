@@ -1,5 +1,7 @@
 package techreborn.client.gui;
 
+import java.io.IOException;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -17,8 +19,6 @@ import techreborn.client.container.ContainerBlastFurnace;
 import techreborn.init.ModBlocks;
 import techreborn.proxies.ClientProxy;
 import techreborn.tiles.TileBlastFurnace;
-
-import java.io.IOException;
 
 
 public class GuiBlastFurnace extends GuiContainer {

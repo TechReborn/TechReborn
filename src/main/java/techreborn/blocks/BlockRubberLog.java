@@ -1,5 +1,9 @@
 package techreborn.blocks;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -18,10 +22,6 @@ import reborncore.RebornCore;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.items.ItemParts;
 import techreborn.items.tools.ItemTreeTap;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 /**
  * Created by mark on 19/02/2016.

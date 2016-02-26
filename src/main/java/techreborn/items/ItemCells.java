@@ -1,5 +1,7 @@
 package techreborn.items;
 
+import java.util.List;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -11,8 +13,6 @@ import net.minecraftforge.fluids.IFluidContainerItem;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
-
-import java.util.List;
 
 public class ItemCells extends ItemTextureBase implements IFluidContainerItem {
 

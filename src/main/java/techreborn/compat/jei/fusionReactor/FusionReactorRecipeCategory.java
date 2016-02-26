@@ -1,5 +1,7 @@
 package techreborn.compat.jei.fusionReactor;
 
+import javax.annotation.Nonnull;
+
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiItemStackGroup;
@@ -9,8 +11,6 @@ import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.util.StatCollector;
 import techreborn.client.gui.GuiFusionReactor;
 import techreborn.compat.jei.RecipeCategoryUids;
-
-import javax.annotation.Nonnull;
 
 public class FusionReactorRecipeCategory extends BlankRecipeCategory {
 

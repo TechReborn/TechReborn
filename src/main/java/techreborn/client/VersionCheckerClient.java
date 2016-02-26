@@ -1,14 +1,14 @@
 package techreborn.client;
 
+import java.awt.Color;
+import java.util.ArrayList;
+
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.client.GuiModList;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import reborncore.client.gui.GuiUtil;
 import techreborn.Core;
-
-import java.awt.*;
-import java.util.ArrayList;
 
 public class VersionCheckerClient {
     ResourceLocation texture;

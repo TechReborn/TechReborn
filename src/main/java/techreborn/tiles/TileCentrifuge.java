@@ -1,5 +1,7 @@
 package techreborn.tiles;
 
+import java.util.List;
+
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -15,8 +17,6 @@ import techreborn.api.recipe.RecipeCrafter;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.lib.Reference;
-
-import java.util.List;
 
 public class TileCentrifuge extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory, IListInfoProvider {
 

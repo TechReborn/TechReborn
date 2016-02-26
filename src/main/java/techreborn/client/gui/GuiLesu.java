@@ -1,5 +1,7 @@
 package techreborn.client.gui;
 
+import java.awt.Color;
+
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
@@ -8,8 +10,6 @@ import net.minecraft.util.StatCollector;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.client.container.ContainerLesu;
 import techreborn.tiles.lesu.TileLesu;
-
-import java.awt.*;
 
 public class GuiLesu extends GuiContainer {
 

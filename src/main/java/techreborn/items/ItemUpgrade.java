@@ -1,5 +1,8 @@
 package techreborn.items;
 
+import java.security.InvalidParameterException;
+import java.util.List;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -7,9 +10,6 @@ import techreborn.api.recipe.RecipeCrafter;
 import techreborn.api.upgrade.IMachineUpgrade;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
-
-import java.security.InvalidParameterException;
-import java.util.List;
 
 public class ItemUpgrade extends ItemTR implements IMachineUpgrade {
 

@@ -1,5 +1,7 @@
 package techreborn.compat.jei.industrialGrinder;
 
+import javax.annotation.Nonnull;
+
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiFluidStackGroup;
@@ -13,8 +15,6 @@ import techreborn.client.gui.GuiIndustrialGrinder;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
 import techreborn.tiles.TileIndustrialGrinder;
-
-import javax.annotation.Nonnull;
 
 public class IndustrialGrinderRecipeCategory extends BlankRecipeCategory {
 	private static final int[] INPUT_SLOTS = {0, 1};

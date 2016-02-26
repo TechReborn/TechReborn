@@ -3,7 +3,11 @@ package techreborn.proxies;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import reborncore.client.multiblock.MultiblockRenderEvent;
-import techreborn.client.*;
+import techreborn.client.ClientMultiBlocks;
+import techreborn.client.IconSupplier;
+import techreborn.client.RegisterItemJsons;
+import techreborn.client.StackToolTipEvent;
+import techreborn.client.VersionCheckerClient;
 import techreborn.client.hud.ChargeHud;
 import techreborn.client.keybindings.KeyBindings;
 
