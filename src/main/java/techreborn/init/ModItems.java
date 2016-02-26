@@ -12,10 +12,36 @@ import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.util.BucketHandler;
 import techreborn.Core;
 import techreborn.events.OreUnifier;
-import techreborn.items.*;
+import techreborn.items.ItemCells;
+import techreborn.items.ItemCrushedOre;
+import techreborn.items.ItemDusts;
+import techreborn.items.ItemDustsSmall;
+import techreborn.items.ItemGems;
+import techreborn.items.ItemIngots;
+import techreborn.items.ItemLapotronicOrb;
+import techreborn.items.ItemLithiumBattery;
+import techreborn.items.ItemMissingRecipe;
+import techreborn.items.ItemNuggets;
+import techreborn.items.ItemParts;
+import techreborn.items.ItemPlates;
+import techreborn.items.ItemPurifiedCrushedOre;
+import techreborn.items.ItemReBattery;
+import techreborn.items.ItemUUmatter;
 import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
-import techreborn.items.tools.*;
+import techreborn.items.tools.ItemAdvancedChainsaw;
+import techreborn.items.tools.ItemAdvancedDrill;
+import techreborn.items.tools.ItemChainsaw;
+import techreborn.items.tools.ItemCloakingDevice;
+import techreborn.items.tools.ItemDiamondChainsaw;
+import techreborn.items.tools.ItemDiamondDrill;
+import techreborn.items.tools.ItemDrill;
+import techreborn.items.tools.ItemFluidbucket;
+import techreborn.items.tools.ItemHammer;
+import techreborn.items.tools.ItemOmniTool;
+import techreborn.items.tools.ItemRockCutter;
+import techreborn.items.tools.ItemTechManual;
+import techreborn.items.tools.ItemTreeTap;
 
 public class ModItems {
 

@@ -1,10 +1,10 @@
 package techreborn.api.upgrade;
 
+import java.util.ArrayList;
+
 import net.minecraft.item.ItemStack;
 import reborncore.common.util.Inventory;
 import techreborn.api.recipe.RecipeCrafter;
-
-import java.util.ArrayList;
 
 public class UpgradeHandler {
 

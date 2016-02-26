@@ -1,5 +1,8 @@
 package techreborn.client.gui;
 
+import java.awt.Color;
+import java.io.IOException;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -11,9 +14,6 @@ import reborncore.common.powerSystem.PowerSystem;
 import techreborn.client.container.ContainerAesu;
 import techreborn.packets.PacketAesu;
 import techreborn.tiles.TileAesu;
-
-import java.awt.*;
-import java.io.IOException;
 
 public class GuiAesu extends GuiContainer {
 

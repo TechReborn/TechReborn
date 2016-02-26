@@ -12,13 +12,11 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.ResourceLocation;
 import techreborn.manual.PageCollection;
 import techreborn.manual.Reference;
 import techreborn.manual.util.ButtonUtil;
-import techreborn.manual.util.GuiButtonCustomTexture;
 
 public class DescriptionPage extends TitledPage
 {

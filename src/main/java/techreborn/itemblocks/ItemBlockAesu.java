@@ -1,5 +1,7 @@
 package techreborn.itemblocks;
 
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -16,8 +18,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.init.ModBlocks;
 import techreborn.tiles.TileAesu;
-
-import java.util.List;
 
 public class ItemBlockAesu extends ItemBlock {
 

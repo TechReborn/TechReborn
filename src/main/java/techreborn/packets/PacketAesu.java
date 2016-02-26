@@ -1,10 +1,10 @@
 package techreborn.packets;
 
+import java.io.IOException;
+
 import io.netty.buffer.ByteBuf;
 import reborncore.common.packets.SimplePacket;
 import techreborn.tiles.TileAesu;
-
-import java.io.IOException;
 
 public class PacketAesu extends SimplePacket {
 

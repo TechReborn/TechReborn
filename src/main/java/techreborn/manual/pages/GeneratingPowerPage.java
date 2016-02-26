@@ -5,8 +5,6 @@ import java.awt.Color;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.item.ItemStack;
 import techreborn.init.ModBlocks;
-import techreborn.items.ItemParts;
-import techreborn.items.ItemPlates;
 import techreborn.manual.PageCollection;
 import techreborn.manual.Reference;
 import techreborn.manual.util.ButtonUtil;

@@ -32,7 +32,6 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import techreborn.manual.PageCollection;
-import techreborn.manual.Reference;
 import techreborn.manual.util.ButtonUtil;
 
 public class CraftingInfoPage extends TitledPage 

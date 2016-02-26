@@ -1,5 +1,7 @@
 package techreborn.items.tools;
 
+import java.util.List;
+
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
@@ -18,8 +20,6 @@ import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.util.Color;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
-
-import java.util.List;
 
 public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo, ITexturedItem {
 

@@ -1,5 +1,8 @@
 package techreborn.blocks;
 
+import java.security.InvalidParameterException;
+import java.util.List;
+
 import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
@@ -7,29 +10,17 @@ import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.BaseBlock;
-import reborncore.common.util.OreDrop;
-import reborncore.common.util.OreDropSet;
 import techreborn.client.TechRebornCreativeTabMisc;
-import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
-import techreborn.items.ItemDusts;
-import techreborn.items.ItemGems;
-
-import java.security.InvalidParameterException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class BlockOre2 extends BaseBlock implements ITexturedBlock {
 

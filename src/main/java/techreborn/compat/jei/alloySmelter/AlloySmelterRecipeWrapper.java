@@ -1,5 +1,7 @@
 package techreborn.compat.jei.alloySmelter;
 
+import javax.annotation.Nonnull;
+
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
@@ -8,8 +10,6 @@ import net.minecraft.client.Minecraft;
 import techreborn.api.recipe.machines.AlloySmelterRecipe;
 import techreborn.client.gui.GuiAlloySmelter;
 import techreborn.compat.jei.BaseRecipeWrapper;
-
-import javax.annotation.Nonnull;
 
 public class AlloySmelterRecipeWrapper extends BaseRecipeWrapper<AlloySmelterRecipe> {
 	private final IDrawableAnimated arrow;

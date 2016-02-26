@@ -1,12 +1,10 @@
 package techreborn.tiles.generator;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
+import java.util.List;
+
 import net.minecraft.util.EnumFacing;
-import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.blocks.generator.BlockSolarPanel;
-
-import java.util.List;
 
 /**
  * Created by mark on 25/02/2016.

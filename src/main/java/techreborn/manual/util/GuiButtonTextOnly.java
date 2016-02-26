@@ -1,13 +1,14 @@
 package techreborn.manual.util;
 
+import java.awt.Color;
+
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.util.EnumChatFormatting;
-import org.lwjgl.opengl.GL11;
-
-import java.awt.*;
 
 public class GuiButtonTextOnly extends GuiButton {
     public String LINKED_PAGE;

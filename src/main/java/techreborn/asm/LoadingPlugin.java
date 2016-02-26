@@ -1,12 +1,12 @@
 package techreborn.asm;
 
+import java.util.Map;
+
 import net.minecraftforge.fml.common.DummyModContainer;
 import net.minecraftforge.fml.common.ModMetadata;
 import net.minecraftforge.fml.relauncher.IFMLCallHook;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import techreborn.lib.ModInfo;
-
-import java.util.Map;
 
 @IFMLLoadingPlugin.MCVersion("1.7.10")
 public class LoadingPlugin implements IFMLLoadingPlugin {

@@ -1,15 +1,16 @@
 package techreborn.compat.jei.fusionReactor;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import mezz.jei.api.recipe.BlankRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.compat.jei.RecipeUtil;
-
-import javax.annotation.Nonnull;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 public class FusionReactorRecipeWrapper extends BlankRecipeWrapper {
     private final FusionReactorRecipe baseRecipe;

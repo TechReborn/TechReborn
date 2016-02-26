@@ -1,5 +1,8 @@
 package techreborn.blocks;
 
+import java.util.List;
+import java.util.Random;
+
 import me.modmuss50.jsonDestroyer.api.IOpaqueBlock;
 import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.BlockLeaves;
@@ -19,9 +22,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.RebornCore;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModBlocks;
-
-import java.util.List;
-import java.util.Random;
 
 /**
  * Created by mark on 20/02/2016.

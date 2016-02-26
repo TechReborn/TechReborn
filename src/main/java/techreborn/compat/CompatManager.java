@@ -1,12 +1,12 @@
 package techreborn.compat;
 
+import java.util.ArrayList;
+
 import net.minecraftforge.fml.common.Loader;
 import techreborn.compat.minetweaker.MinetweakerCompat;
 import techreborn.compat.recipes.RecipesBiomesOPlenty;
 import techreborn.compat.waila.CompatModuleWaila;
 import techreborn.config.ConfigTechReborn;
-
-import java.util.ArrayList;
 
 public class CompatManager {
 
