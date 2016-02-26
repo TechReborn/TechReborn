@@ -39,7 +39,7 @@ public class DescriptionPage extends TitledPage
     	if(hasImage)
     	{
     		renderImage(offsetX, offsetY);
-    		addDescription(mc, offsetX, offsetY + 50);
+    		addDescription(mc, offsetX, offsetY + 60);
     	}
     	else
     		addDescription(mc, offsetX, offsetY);
@@ -53,7 +53,7 @@ public class DescriptionPage extends TitledPage
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
-		drawTexturedModalRect(offsetX, offsetY - 16, 0, 0, 120, this.height);
+		drawTexturedModalRect(offsetX, offsetY - 14, 0, 0, 120, this.height);
 		GL11.glDisable(GL11.GL_BLEND);
     }
     
