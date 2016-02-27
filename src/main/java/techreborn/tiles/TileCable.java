@@ -20,6 +20,11 @@ public class TileCable extends TileEntity implements IPowerCableContainer, ITick
     }
 
     @Override
+    public PowerCable getPowerCable() {
+        return cable;
+    }
+
+    @Override
     public void update() {
         if(cable == null){
             cable = new PowerCable(this);
