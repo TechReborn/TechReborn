@@ -12,7 +12,7 @@ public class TileWindMill extends TilePowerAcceptor {
         super(2);
     }
 
-    int basePower = 10;
+    int basePower = 4;
 
     @Override
     public void updateEntity() {
@@ -22,7 +22,7 @@ public class TileWindMill extends TilePowerAcceptor {
             if(worldObj.isThundering()){
                 actualPower *= 1.25;
             }
-            addEnergy(actualPower * (pos.getY() - 64)); //Value taken from http://wiki.industrial-craft.net/?title=Wind_Mill Not worth making more complicated
+            addEnergy(actualPower); //Value taken from http://wiki.industrial-craft.net/?title=Wind_Mill Not worth making more complicated
         }
     }
 

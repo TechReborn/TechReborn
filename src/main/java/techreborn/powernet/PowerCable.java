@@ -36,7 +36,7 @@ public class PowerCable {
                 if(network != null){
                     if(tileEntity instanceof IPowerCableContainer){
                         IPowerCableContainer powerCableContainer = (IPowerCableContainer) tileEntity;
-                        if(powerCableContainer.getPowerCable().network != network){
+                        if(powerCableContainer.getPowerCable() != null && powerCableContainer.getPowerCable().network != network){
                             network.merge(powerCableContainer.getPowerCable().network);
                         }
                     }

@@ -12,21 +12,7 @@ import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.util.BucketHandler;
 import techreborn.Core;
 import techreborn.events.OreUnifier;
-import techreborn.items.ItemCells;
-import techreborn.items.ItemCrushedOre;
-import techreborn.items.ItemDusts;
-import techreborn.items.ItemDustsSmall;
-import techreborn.items.ItemGems;
-import techreborn.items.ItemIngots;
-import techreborn.items.ItemLapotronicOrb;
-import techreborn.items.ItemLithiumBattery;
-import techreborn.items.ItemMissingRecipe;
-import techreborn.items.ItemNuggets;
-import techreborn.items.ItemParts;
-import techreborn.items.ItemPlates;
-import techreborn.items.ItemPurifiedCrushedOre;
-import techreborn.items.ItemReBattery;
-import techreborn.items.ItemUUmatter;
+import techreborn.items.*;
 import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
 import techreborn.items.tools.*;
@@ -95,6 +81,7 @@ public class ModItems {
     public static Item advancedChainsaw;
     public static Item hammer;
     public static Item wrench;
+    public static Item cables;
 
     public static Item upgrades;
 
@@ -316,6 +303,9 @@ public class ModItems {
 
         missingRecipe = new ItemMissingRecipe().setUnlocalizedName("missingRecipe");
         GameRegistry.registerItem(missingRecipe, "mssingRecipe");
+
+        cables = new ItemCables();
+        GameRegistry.registerItem(cables, "cables");
 
         MinecraftForge.EVENT_BUS.register(BucketHandler.INSTANCE);
 

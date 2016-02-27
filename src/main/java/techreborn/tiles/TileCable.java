@@ -27,7 +27,7 @@ public class TileCable extends TileEntity implements IPowerCableContainer, ITick
     @Override
     public void update() {
         if(cable == null){
-            cable = new PowerCable(this);
+            createCable();
         } else {
             cable.checkNodes();
         }
@@ -43,5 +43,6 @@ public class TileCable extends TileEntity implements IPowerCableContainer, ITick
         cable = new PowerCable(this);
         cable.setNetwork(network);
         network.addCable(cable);
+        cable.checkNodes();
     }
 }
