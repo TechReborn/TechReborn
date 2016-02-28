@@ -53,6 +53,8 @@ public class BlockSolarPanel extends BaseTileBlock implements ITexturedBlock {
         boolean isActive = state.getValue(ACTIVE);
         if(side == EnumFacing.UP){
             return prefix + "solar_panel_top_" + (isActive ? "on" : "off");
+        } else if(side==EnumFacing.DOWN){
+        	return prefix + "machine_bottom";
         }
         return prefix + "solar_panel_side_" + (isActive ? "on" : "off");
     }

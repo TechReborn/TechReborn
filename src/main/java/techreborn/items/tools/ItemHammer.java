@@ -22,7 +22,7 @@ public class ItemHammer extends ItemTR implements ITexturedItem {
 
     @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
-        world.playSoundAtEntity(player, "minecraft:random.anvil_land", 1F, 1F);
+        world.playSoundAtEntity(player, "techreborn:block_dismantle", 0.8F, 0.4F);
         return true;
     }
     

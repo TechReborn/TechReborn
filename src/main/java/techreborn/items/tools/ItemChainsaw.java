@@ -1,15 +1,19 @@
 package techreborn.items.tools;
 
 import java.util.List;
+import java.util.Random;
 
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
@@ -22,40 +26,45 @@ import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.util.TorchHelper;
 import techreborn.client.TechRebornCreativeTab;
-import techreborn.config.ConfigTechReborn;
+import techreborn.utils.OreDictUtils;
 
 public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, ITexturedItem {
 
-    public int maxCharge = ConfigTechReborn.IronChainsawCharge;
+    public int maxCharge = 1;
     public int cost = 250;
-    public static final int tier = ConfigTechReborn.IronChainsawTier;
+    public float unpoweredSpeed = 2.0F;
+    public static int tier = 1;
     public double transferLimit = 100;
 
-    public ItemChainsaw() {
-    	super(ToolMaterial.IRON);
+    public ItemChainsaw(ToolMaterial material, String unlocalizedName, int energyCapacity, int tier, float unpoweredSpeed) {
+    	super(material);
         efficiencyOnProperMaterial = 20F;
         setCreativeTab(TechRebornCreativeTab.instance);
         setMaxStackSize(1);
         setMaxDamage(240);
-        setUnlocalizedName("techreborn.ironChainsaw");
+        setUnlocalizedName(unlocalizedName);
         RebornCore.jsonDestroyer.registerObject(this);
+        this.maxCharge=energyCapacity;
+        this.tier=tier;
+        this.unpoweredSpeed=unpoweredSpeed;
     }
 
-    @Override
-    public boolean onBlockDestroyed(ItemStack stack, World worldIn, Block blockIn, BlockPos pos, EntityLivingBase playerIn) {
-        PoweredItem.useEnergy(cost, stack);
-        return true;
-    }
-
-    @Override
-    public boolean canHarvestBlock(Block block, ItemStack stack) {
-        return Items.iron_axe.canHarvestBlock(block, stack);
-    }
+	@Override
+	public boolean onBlockDestroyed(ItemStack stack, World worldIn, Block blockIn, BlockPos pos, EntityLivingBase playerIn) {
+		Random rand = new Random();
+		if (rand.nextInt(EnchantmentHelper.getEnchantmentLevel(Enchantment.unbreaking.effectId, stack)+1) == 0) {
+			PoweredItem.useEnergy(cost, stack);
+		}
+		return true;
+	}
 
     @Override
     public float getDigSpeed(ItemStack stack, IBlockState state) {
+    	if(OreDictUtils.isOre(state, "treeLeaves")&&PoweredItem.canUseEnergy(cost, stack)){
+    		return 40F;
+    	}
         if(!PoweredItem.canUseEnergy(cost, stack)){
-            return 2.0F;
+            return unpoweredSpeed;
         }
         if (Items.wooden_axe.getDigSpeed(stack, state) > 1.0F) {
             return efficiencyOnProperMaterial;
@@ -64,10 +73,9 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, ITexturedI
         }
     }
 
-
     @Override
     public boolean hitEntity(ItemStack itemstack, EntityLivingBase entityliving, EntityLivingBase entityliving1) {
-        return true;
+    	return true;
     }
 
 
@@ -133,7 +141,7 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, ITexturedI
 
     @Override
     public String getTextureName(int damage) {
-        return "techreborn:items/tool/ironChainsaw";
+        return "techreborn:items/tool/nullChainsaw";
     }
 
     @Override

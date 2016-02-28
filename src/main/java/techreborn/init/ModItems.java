@@ -136,14 +136,14 @@ public class ModItems {
         treeTap = new ItemTreeTap();
         GameRegistry.registerItem(treeTap, "treetap");
        
-        ironDrill = PoweredItem.createItem(ItemDrill.class);
+        ironDrill = PoweredItem.createItem(ItemIronDrill.class);
         GameRegistry.registerItem(ironDrill, "irondrill");
         diamondDrill = PoweredItem.createItem(ItemDiamondDrill.class);
         GameRegistry.registerItem(diamondDrill, "diamonddrill");
         advancedDrill = PoweredItem.createItem(ItemAdvancedDrill.class);
         GameRegistry.registerItem(advancedDrill, "advanceddrill");
        
-        ironChainsaw = PoweredItem.createItem(ItemChainsaw.class);
+        ironChainsaw = PoweredItem.createItem(ItemIronChainsaw.class);
         GameRegistry.registerItem(ironChainsaw, "ironchainsaw");
         diamondChainsaw = PoweredItem.createItem(ItemDiamondChainsaw.class);
         GameRegistry.registerItem(diamondChainsaw, "diamondchainsaw");
