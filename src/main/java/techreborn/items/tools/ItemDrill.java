@@ -1,11 +1,14 @@
 package techreborn.items.tools;
 
 import java.util.List;
+import java.util.Random;
 
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -22,120 +25,119 @@ import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.util.TorchHelper;
 import techreborn.client.TechRebornCreativeTab;
-import techreborn.config.ConfigTechReborn;
 
 public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo, ITexturedItem {
 
-    public int maxCharge = 1;
-    public int cost = 250;
-    public float unpoweredSpeed = 2.0F;
-    public static int tier = 1;
-    public double transferLimit = 100;
+	public int maxCharge = 1;
+	public int cost = 250;
+	public float unpoweredSpeed = 2.0F;
+	public static int tier = 1;
+	public double transferLimit = 100;
 
-    public ItemDrill(ToolMaterial material, String unlocalizedName, int energyCapacity, int tier, float unpoweredSpeed) {
-    	super(material);
-        efficiencyOnProperMaterial = 20F;
-        setCreativeTab(TechRebornCreativeTab.instance);
-        setMaxStackSize(1);
-        setMaxDamage(240);
-        setUnlocalizedName(unlocalizedName);
-        RebornCore.jsonDestroyer.registerObject(this);
-        this.maxCharge=energyCapacity;
-        this.tier=tier;
-        this.unpoweredSpeed=unpoweredSpeed;
-    }
+	public ItemDrill(ToolMaterial material, String unlocalizedName, int energyCapacity, int tier, float unpoweredSpeed) {
+		super(material);
+		efficiencyOnProperMaterial = 20F;
+		setCreativeTab(TechRebornCreativeTab.instance);
+		setMaxStackSize(1);
+		setMaxDamage(240);
+		setUnlocalizedName(unlocalizedName);
+		RebornCore.jsonDestroyer.registerObject(this);
+		this.maxCharge = energyCapacity;
+		this.tier = tier;
+		this.unpoweredSpeed = unpoweredSpeed;
+	}
 
-    @Override
-    public boolean onBlockDestroyed(ItemStack stack, World worldIn, Block blockIn, BlockPos pos, EntityLivingBase playerIn) {
-        PoweredItem.useEnergy(cost, stack);
-        return true;
-    }
+	@Override
+	public boolean onBlockDestroyed(ItemStack stack, World worldIn, Block blockIn, BlockPos pos, EntityLivingBase playerIn) {
+		Random rand = new Random();
+		if (rand.nextInt(EnchantmentHelper.getEnchantmentLevel(Enchantment.unbreaking.effectId, stack)+1) == 0) {
+			PoweredItem.useEnergy(cost, stack);
+		}
+		return true;
+	}
 
-    @Override
-    public float getDigSpeed(ItemStack stack, IBlockState state) {
-        if(!PoweredItem.canUseEnergy(cost, stack)){
-            return unpoweredSpeed;
-        }
-        if (Items.wooden_pickaxe.getDigSpeed(stack, state) > 1.0F || Items.wooden_shovel.getDigSpeed(stack, state) > 1.0F) {
-            return efficiencyOnProperMaterial;
-        } else {
-            return super.getDigSpeed(stack, state);
-        }
-    }
+	@Override
+	public float getDigSpeed(ItemStack stack, IBlockState state) {
+		if (!PoweredItem.canUseEnergy(cost, stack)) {
+			return unpoweredSpeed;
+		}
+		if (Items.wooden_pickaxe.getDigSpeed(stack, state) > 1.0F || Items.wooden_shovel.getDigSpeed(stack, state) > 1.0F) {
+			return efficiencyOnProperMaterial;
+		} else {
+			return super.getDigSpeed(stack, state);
+		}
+	}
 
-    @Override
-    public boolean hitEntity(ItemStack itemstack, EntityLivingBase entityliving, EntityLivingBase entityliving1) {
-    	return true;
-    }
+	@Override
+	public boolean hitEntity(ItemStack itemstack, EntityLivingBase entityliving, EntityLivingBase entityliving1) {
+		return true;
+	}
 
+	@Override
+	public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+		return TorchHelper.placeTorch(stack, playerIn, worldIn, pos.getX(), pos.getY(), pos.getZ(), side.getIndex(), hitX, hitY, hitZ);
+	}
 
-    @Override
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
-        return TorchHelper.placeTorch(stack, playerIn, worldIn, pos.getX(), pos.getY(), pos.getZ(), side.getIndex(), hitX, hitY, hitZ);
-    }
+	@Override
+	public boolean isRepairable() {
+		return false;
+	}
 
-    @Override
-    public boolean isRepairable() {
-        return false;
-    }
+	@Override
+	public double getMaxPower(ItemStack stack) {
+		return maxCharge;
+	}
 
+	@Override
+	public boolean canAcceptEnergy(ItemStack stack) {
+		return true;
+	}
 
-    @Override
-    public double getMaxPower(ItemStack stack) {
-        return maxCharge;
-    }
+	@Override
+	public boolean canProvideEnergy(ItemStack stack) {
+		return false;
+	}
 
-    @Override
-    public boolean canAcceptEnergy(ItemStack stack) {
-        return true;
-    }
+	@Override
+	public double getMaxTransfer(ItemStack stack) {
+		return transferLimit;
+	}
 
-    @Override
-    public boolean canProvideEnergy(ItemStack stack) {
-        return false;
-    }
+	@Override
+	public int getStackTeir(ItemStack stack) {
+		return tier;
+	}
 
-    @Override
-    public double getMaxTransfer(ItemStack stack) {
-        return transferLimit;
-    }
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SideOnly(Side.CLIENT)
+	public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
+		ItemStack itemStack = new ItemStack(this, 1);
+		itemList.add(itemStack);
 
-    @Override
-    public int getStackTeir(ItemStack stack) {
-        return tier;
-    }
+		ItemStack charged = new ItemStack(this, 1);
+		PoweredItem.setEnergy(getMaxPower(charged), charged);
+		itemList.add(charged);
+	}
 
-    @SuppressWarnings(
-            {"rawtypes", "unchecked"})
-    @SideOnly(Side.CLIENT)
-    public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
-        ItemStack itemStack = new ItemStack(this, 1);
-        itemList.add(itemStack);
+	@Override
+	public double getDurabilityForDisplay(ItemStack stack) {
+		double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
+		return 1 - charge;
 
-        ItemStack charged = new ItemStack(this, 1);
-        PoweredItem.setEnergy(getMaxPower(charged), charged);
-        itemList.add(charged);
-    }
+	}
 
-    @Override
-    public double getDurabilityForDisplay(ItemStack stack) {
-        double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
-        return 1 - charge;
+	@Override
+	public boolean showDurabilityBar(ItemStack stack) {
+		return true;
+	}
 
-    }
+	@Override
+	public String getTextureName(int damage) {
+		return "techreborn:items/tool/nullDrill";
+	}
 
-    @Override
-    public boolean showDurabilityBar(ItemStack stack) {
-        return true;
-    }
-
-    @Override
-    public String getTextureName(int damage) {
-        return "techreborn:items/tool/nullDrill";
-    }
-
-    @Override
-    public int getMaxMeta() {
-        return 1;
-    }
+	@Override
+	public int getMaxMeta() {
+		return 1;
+	}
 }

@@ -1,11 +1,14 @@
 package techreborn.items.tools;
 
 import java.util.List;
+import java.util.Random;
 
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -23,6 +26,7 @@ import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.util.TorchHelper;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.utils.OreDictUtils;
 
 public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, ITexturedItem {
 
@@ -45,14 +49,20 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, ITexturedI
         this.unpoweredSpeed=unpoweredSpeed;
     }
 
-    @Override
-    public boolean onBlockDestroyed(ItemStack stack, World worldIn, Block blockIn, BlockPos pos, EntityLivingBase playerIn) {
-        PoweredItem.useEnergy(cost, stack);
-        return true;
-    }
+	@Override
+	public boolean onBlockDestroyed(ItemStack stack, World worldIn, Block blockIn, BlockPos pos, EntityLivingBase playerIn) {
+		Random rand = new Random();
+		if (rand.nextInt(EnchantmentHelper.getEnchantmentLevel(Enchantment.unbreaking.effectId, stack)+1) == 0) {
+			PoweredItem.useEnergy(cost, stack);
+		}
+		return true;
+	}
 
     @Override
     public float getDigSpeed(ItemStack stack, IBlockState state) {
+    	if(OreDictUtils.isOre(state, "treeLeaves")&&PoweredItem.canUseEnergy(cost, stack)){
+    		return 40F;
+    	}
         if(!PoweredItem.canUseEnergy(cost, stack)){
             return unpoweredSpeed;
         }
