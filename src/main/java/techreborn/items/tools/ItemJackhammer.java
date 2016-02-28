@@ -11,10 +11,10 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.Item.ToolMaterial;
-import net.minecraft.item.ItemAxe;
+import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -28,15 +28,14 @@ import reborncore.common.util.TorchHelper;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.utils.OreDictUtils;
 
-public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, ITexturedItem {
+public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo, ITexturedItem {
 
 	public int maxCharge = 1;
 	public int cost = 250;
-	public float unpoweredSpeed = 2.0F;
 	public static int tier = 1;
 	public double transferLimit = 100;
 
-	public ItemChainsaw(ToolMaterial material, String unlocalizedName, int energyCapacity, int tier, float unpoweredSpeed) {
+	public ItemJackhammer(ToolMaterial material, String unlocalizedName, int energyCapacity, int tier) {
 		super(material);
 		efficiencyOnProperMaterial = 20F;
 		setCreativeTab(TechRebornCreativeTab.instance);
@@ -46,7 +45,6 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, ITexturedI
 		RebornCore.jsonDestroyer.registerObject(this);
 		this.maxCharge = energyCapacity;
 		this.tier = tier;
-		this.unpoweredSpeed = unpoweredSpeed;
 	}
 
 	@Override
@@ -59,19 +57,19 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, ITexturedI
 	}
 
 	@Override
+	public boolean canHarvestBlock(Block block, ItemStack stack) {
+		if (OreDictUtils.isOre(block, "stone") && PoweredItem.canUseEnergy(cost, stack)) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
 	public float getDigSpeed(ItemStack stack, IBlockState state) {
-		if (!PoweredItem.canUseEnergy(cost, stack)) {
-			return unpoweredSpeed;
-		}
-
-		if (OreDictUtils.isOre(state, "treeLeaves") && PoweredItem.canUseEnergy(cost, stack)) {
-			return 40F;
-		}
-
-		if (Items.wooden_axe.getDigSpeed(stack, state) > 1.0F) {
+		if (OreDictUtils.isOre(state, "stone") && PoweredItem.canUseEnergy(cost, stack)) {
 			return efficiencyOnProperMaterial;
 		} else {
-			return super.getDigSpeed(stack, state);
+			return 0.5F;
 		}
 	}
 
@@ -128,6 +126,9 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, ITexturedI
 
 	@Override
 	public double getDurabilityForDisplay(ItemStack stack) {
+		if (PoweredItem.getEnergy(stack) > getMaxPower(stack)) {
+			return 0;
+		}
 		double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
 		return 1 - charge;
 
@@ -140,7 +141,7 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, ITexturedI
 
 	@Override
 	public String getTextureName(int damage) {
-		return "techreborn:items/tool/nullChainsaw";
+		return "techreborn:items/tool/nullJackhammer";
 	}
 
 	@Override

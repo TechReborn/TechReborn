@@ -10,9 +10,9 @@ The current main maintainer is [@gigabit101](https://github.com/gigabit101/) if 
 
 [@modmuss50](https://github.com/modmuss50/) is a past maintainer of the mod (see [here](http://techreborn.ninja/?p=20)).
 
-# Reccommended Builds:
+# Recommended Builds:
 
-See [this list](http://minecraft.curseforge.com/projects/techreborn/files?sort=releasetype). The top one should always be the latest, reccommended build of TechReborn. Currently TechReborn does not have a reccommended 1.8.9 build.
+See [this list](http://minecraft.curseforge.com/projects/techreborn/files?sort=releasetype). The top one should always be the latest, recommended build of TechReborn. Currently TechReborn does not have a recommended 1.8.9 build.
 
 # Jenkins Builds:
 
@@ -21,7 +21,7 @@ Jenkins builds of TechReborn are compiled directly from this repository. Please 
 1.8.9:
 ---
 
-*This version is constantly recieving updates, and does not have a stable, reccommended, release. Once again, remember to backup your worlds before using jenkins builds.*
+*This version is constantly recieving updates, and does not have a stable, recommended, release. Once again, remember to backup your worlds before using jenkins builds.*
 
 [![Build Status](http://modmuss50.me:8080/job/TechReborn-1.8.9/badge/icon)](http://modmuss50.me:8080/job/TechReborn-1.8.9/)
 

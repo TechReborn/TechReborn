@@ -23,9 +23,8 @@ public class OreDictUtils {
 	}
 
 	public static boolean isOre(ItemStack stack, String oreName) {
-		int id = OreDictionary.getOreID(oreName);
-
-		if (stack != null || stack.getItem() != null) {
+		if (stack != null && stack.getItem() != null && oreName != null) {
+			int id = OreDictionary.getOreID(oreName);
 			int[] ids = OreDictionary.getOreIDs(stack);
 
 			for (int i : ids) {

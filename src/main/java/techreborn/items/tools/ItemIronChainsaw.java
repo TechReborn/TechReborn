@@ -9,7 +9,8 @@ public class ItemIronChainsaw extends ItemChainsaw {
 
     public ItemIronChainsaw() {
     	super(ToolMaterial.IRON, "techreborn.ironChainsaw", ConfigTechReborn.IronChainsawCharge, ConfigTechReborn.IronChainsawTier, 2.0F);
-    }
+    	this.cost = 50;
+        }
 
     @Override
     public boolean canHarvestBlock(Block block, ItemStack stack) {

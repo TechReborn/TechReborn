@@ -9,6 +9,7 @@ public class ItemDiamondDrill extends ItemDrill {
 
     public ItemDiamondDrill() {
     	super(ToolMaterial.EMERALD, "techreborn.diamondDrill", ConfigTechReborn.DiamondDrillCharge, ConfigTechReborn.DiamondDrillTier, 2.5F);
+    	this.cost = 250;
     }
 
     @Override
