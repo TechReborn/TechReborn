@@ -11,8 +11,20 @@ Added:
 -Diamond drill
 -Scrap
 -Iron fences
--Iron fence gates
 -RF power tooltips
+-Copper and Tin Worldgen
+-Iron Hammer
+-Basic plate recipes
+-Solar panel
+-Lava and water cells
+-Tech Manual
+-Wind and Water mills
+-Iron chainsaw
+-Diamond chainsaw
+-Advanced chainsaw
+-Wrench (do you even wrench bro?)
+-New Power network
+-Cables
 
 Changes:
 -Updated JEI compatibility
@@ -21,7 +33,8 @@ Changes:
 -Rubber saplings now spawn in loot chests
 -Copper ingots now spawn in loot chests
 -Tin ingots now spawn in loot chests
--Optimized imports
 
 Fixes:
 -Fixed Config localization issues
+-Drill tier and charge configs actually work
+-JEI alloy smelter plugin not showing stack amount
