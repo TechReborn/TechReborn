@@ -26,19 +26,23 @@ import techreborn.config.ConfigTechReborn;
 
 public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo, ITexturedItem {
 
-    public int maxCharge = ConfigTechReborn.IronDrillCharge;
+    public int maxCharge = 1;
     public int cost = 250;
-    public static final int tier = ConfigTechReborn.IronDrillTier;
+    public float unpoweredSpeed = 2.0F;
+    public static int tier = 1;
     public double transferLimit = 100;
 
-    public ItemDrill() {
-    	super(ToolMaterial.IRON);
+    public ItemDrill(ToolMaterial material, String unlocalizedName, int energyCapacity, int tier, float unpoweredSpeed) {
+    	super(material);
         efficiencyOnProperMaterial = 20F;
         setCreativeTab(TechRebornCreativeTab.instance);
         setMaxStackSize(1);
         setMaxDamage(240);
-        setUnlocalizedName("techreborn.ironDrill");
+        setUnlocalizedName(unlocalizedName);
         RebornCore.jsonDestroyer.registerObject(this);
+        this.maxCharge=energyCapacity;
+        this.tier=tier;
+        this.unpoweredSpeed=unpoweredSpeed;
     }
 
     @Override
@@ -48,14 +52,9 @@ public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo, ITextured
     }
 
     @Override
-    public boolean canHarvestBlock(Block block, ItemStack stack) {
-        return Items.iron_pickaxe.canHarvestBlock(block, stack) || Items.iron_shovel.canHarvestBlock(block, stack);
-    }
-
-    @Override
     public float getDigSpeed(ItemStack stack, IBlockState state) {
         if(!PoweredItem.canUseEnergy(cost, stack)){
-            return 2.0F;
+            return unpoweredSpeed;
         }
         if (Items.wooden_pickaxe.getDigSpeed(stack, state) > 1.0F || Items.wooden_shovel.getDigSpeed(stack, state) > 1.0F) {
             return efficiencyOnProperMaterial;
@@ -64,10 +63,9 @@ public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo, ITextured
         }
     }
 
-
     @Override
     public boolean hitEntity(ItemStack itemstack, EntityLivingBase entityliving, EntityLivingBase entityliving1) {
-        return true;
+    	return true;
     }
 
 
@@ -133,7 +131,7 @@ public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo, ITextured
 
     @Override
     public String getTextureName(int damage) {
-        return "techreborn:items/tool/ironDrill";
+        return "techreborn:items/tool/nullDrill";
     }
 
     @Override

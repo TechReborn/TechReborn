@@ -5,20 +5,20 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import techreborn.config.ConfigTechReborn;
 
-public class ItemDiamondChainsaw extends ItemChainsaw {
+public class ItemIronChainsaw extends ItemChainsaw {
 
-    public ItemDiamondChainsaw() {
-    	super(ToolMaterial.EMERALD, "techreborn.diamondChainsaw", ConfigTechReborn.DiamondChainsawCharge, ConfigTechReborn.DiamondChainsawTier, 2.5F);
+    public ItemIronChainsaw() {
+    	super(ToolMaterial.IRON, "techreborn.ironChainsaw", ConfigTechReborn.IronChainsawCharge, ConfigTechReborn.IronChainsawTier, 2.0F);
     }
 
     @Override
     public boolean canHarvestBlock(Block block, ItemStack stack) {
-        return Items.diamond_axe.canHarvestBlock(block, stack);
+        return Items.iron_axe.canHarvestBlock(block, stack);
     }
 
     @Override
     public String getTextureName(int damage) {
-        return "techreborn:items/tool/diamondChainsaw";
+        return "techreborn:items/tool/ironChainsaw";
     }
 
     @Override
