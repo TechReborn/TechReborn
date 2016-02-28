@@ -1,3 +1,5 @@
+NOTE: Starting in this version, Java 8 is REQUIRED to run TechReborn.
+
 Version 0.7.12 Update Changelog:
 Added:
 -New recipe manager to list out missing items needed for recipes
@@ -25,6 +27,9 @@ Added:
 -Wrench (do you even wrench bro?)
 -New Power network
 -Cables
+-Iron jackhammer
+-Steel jackhammer
+-Diamond jackhammer
 
 Changes:
 -Updated JEI compatibility
