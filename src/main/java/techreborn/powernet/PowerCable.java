@@ -64,4 +64,9 @@ public class PowerCable {
     public void setNetwork(PowerNetwork network) {
         this.network = network;
     }
+
+    public void removeCable(){
+        network.removeCable(this);
+        this.network = null;
+    }
 }

@@ -45,4 +45,16 @@ public class TileCable extends TileEntity implements IPowerCableContainer, ITick
         network.addCable(cable);
         cable.checkNodes();
     }
+
+    public void onRemoved(){
+        if(cable != null){
+            cable.removeCable();
+        }
+    }
+
+    @Override
+    public void onChunkUnload() {
+        super.onChunkUnload();
+        onRemoved();
+    }
 }

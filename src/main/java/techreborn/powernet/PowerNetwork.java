@@ -12,7 +12,7 @@ import java.util.List;
 
 public class PowerNetwork {
 
-    List<PowerCable> cables = new ArrayList<PowerCable>();
+    List<PowerCable> cables = new ArrayList<>();
 
     int networkPower;
 
@@ -27,7 +27,13 @@ public class PowerNetwork {
         for(PowerCable cable : network.cables){
             cable.setNetwork(this);
         }
+        network.destoryNetwork();
         return this;
+    }
+
+    public void destoryNetwork(){
+        cables.clear();
+        MinecraftForge.EVENT_BUS.unregister(this);
     }
 
 
@@ -44,6 +50,10 @@ public class PowerNetwork {
     @SubscribeEvent
     public void tick(PowerEvent event){
         World world = event.world;
+        if(cables.size() == 0){
+            destoryNetwork();
+            return;
+        }
         for(PowerCable cable : cables){
             if(cable.container.getWorld() == world){
                 for(PowerNode node : cable.nodes){
@@ -55,21 +65,21 @@ public class PowerNetwork {
                     switch (node.type){
                         case COLLECTOR:
                             if(iEnergyInterfaceTile.canProvideEnergy(node.facingFromCable)){
-                                double transfur = Math.min(maxTransfer, Math.min(iEnergyInterfaceTile.getMaxOutput(), iEnergyInterfaceTile.getEnergy()));
-                                networkPower += iEnergyInterfaceTile.useEnergy(transfur);
+                                double transfer = Math.min(maxTransfer, Math.min(iEnergyInterfaceTile.getMaxOutput(), iEnergyInterfaceTile.getEnergy()));
+                                networkPower += iEnergyInterfaceTile.useEnergy(transfer);
                             }
                             break;
                         case RECEIVER:
                             if(iEnergyInterfaceTile.canAcceptEnergy(node.facingFromCable)){
-                                double transfur = Math.min(maxTransfer, Math.min(iEnergyInterfaceTile.getMaxOutput(), iEnergyInterfaceTile.getEnergy()));
-                                networkPower -= iEnergyInterfaceTile.addEnergy(transfur);
+                                double transfer = Math.min(maxTransfer, Math.min(iEnergyInterfaceTile.getMaxOutput(), iEnergyInterfaceTile.getEnergy()));
+                                networkPower -= iEnergyInterfaceTile.addEnergy(transfer);
                             }
                             break;
                     }
                 }
             }
         }
-        System.out.println(networkPower);
+        System.out.println(networkPower + "cables:" + cables.size() + ":" + this);
     }
 
 }
