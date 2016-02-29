@@ -610,6 +610,9 @@ item.techreborn.advancedChainsaw.name=Advanced Chainsaw
 item.techreborn.lapotronicorb.name=Lapotronic Energy Orb
 item.techreborn.cloakingdevice.name=Cloaking Device
 item.techreborn.hammer.name=Iron Hammer
+item.techreborn.ironJackhammer.name=Iron Jackhammer
+item.techreborn.steelJackhammer.name=Steel Jackhammer
+item.techreborn.diamondJackhammer.name=Diamond Jackhammer
 
 #Buckets
 item.bucketberylium.name=Berylium Bucket

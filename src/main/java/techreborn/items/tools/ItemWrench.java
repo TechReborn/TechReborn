@@ -3,6 +3,7 @@ package techreborn.items.tools;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.block.BlockDynamicLiquid;
 import net.minecraft.block.BlockStaticLiquid;
+import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -16,6 +17,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidBase;
 import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.items.ItemTR;
 import techreborn.items.ItemTextureBase;
 
 import java.util.ArrayList;
@@ -25,11 +27,12 @@ import java.util.Random;
 /**
  * Created by mark on 26/02/2016.
  */
-public class ItemWrench extends ItemTextureBase {
+public class ItemWrench extends ItemTR implements ITexturedItem {
 
     public ItemWrench() {
         setCreativeTab(TechRebornCreativeTabMisc.instance);
         setUnlocalizedName("techreborn.wrench");
+        
     }
 
 

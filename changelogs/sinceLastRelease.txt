@@ -1,3 +1,5 @@
+NOTE: Starting in this version, Java 8 is REQUIRED to run TechReborn.
+
 Version 0.7.12 Update Changelog:
 Added:
 -New recipe manager to list out missing items needed for recipes
@@ -11,8 +13,23 @@ Added:
 -Diamond drill
 -Scrap
 -Iron fences
--Iron fence gates
 -RF power tooltips
+-Copper and Tin Worldgen
+-Iron Hammer
+-Basic plate recipes
+-Solar panel
+-Lava and water cells
+-Tech Manual
+-Wind and Water mills
+-Iron chainsaw
+-Diamond chainsaw
+-Advanced chainsaw
+-Wrench (do you even wrench bro?)
+-New Power network
+-Cables
+-Iron jackhammer
+-Steel jackhammer
+-Diamond jackhammer
 
 Changes:
 -Updated JEI compatibility
@@ -21,7 +38,8 @@ Changes:
 -Rubber saplings now spawn in loot chests
 -Copper ingots now spawn in loot chests
 -Tin ingots now spawn in loot chests
--Optimized imports
 
 Fixes:
 -Fixed Config localization issues
+-Drill tier and charge configs actually work
+-JEI alloy smelter plugin not showing stack amount

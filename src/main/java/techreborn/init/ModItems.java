@@ -12,21 +12,7 @@ import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.util.BucketHandler;
 import techreborn.Core;
 import techreborn.events.OreUnifier;
-import techreborn.items.ItemCells;
-import techreborn.items.ItemCrushedOre;
-import techreborn.items.ItemDusts;
-import techreborn.items.ItemDustsSmall;
-import techreborn.items.ItemGems;
-import techreborn.items.ItemIngots;
-import techreborn.items.ItemLapotronicOrb;
-import techreborn.items.ItemLithiumBattery;
-import techreborn.items.ItemMissingRecipe;
-import techreborn.items.ItemNuggets;
-import techreborn.items.ItemParts;
-import techreborn.items.ItemPlates;
-import techreborn.items.ItemPurifiedCrushedOre;
-import techreborn.items.ItemReBattery;
-import techreborn.items.ItemUUmatter;
+import techreborn.items.*;
 import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
 import techreborn.items.tools.*;
@@ -93,8 +79,12 @@ public class ModItems {
     public static Item ironChainsaw;
     public static Item diamondChainsaw;
     public static Item advancedChainsaw;
+    public static Item ironJackhammer;
+    public static Item steelJackhammer;
+    public static Item diamondJackhammer;
     public static Item hammer;
     public static Item wrench;
+    public static Item cables;
 
     public static Item upgrades;
 
@@ -149,19 +139,26 @@ public class ModItems {
         treeTap = new ItemTreeTap();
         GameRegistry.registerItem(treeTap, "treetap");
        
-        ironDrill = PoweredItem.createItem(ItemDrill.class);
+        ironDrill = PoweredItem.createItem(ItemIronDrill.class);
         GameRegistry.registerItem(ironDrill, "irondrill");
         diamondDrill = PoweredItem.createItem(ItemDiamondDrill.class);
         GameRegistry.registerItem(diamondDrill, "diamonddrill");
         advancedDrill = PoweredItem.createItem(ItemAdvancedDrill.class);
         GameRegistry.registerItem(advancedDrill, "advanceddrill");
        
-        ironChainsaw = PoweredItem.createItem(ItemChainsaw.class);
+        ironChainsaw = PoweredItem.createItem(ItemIronChainsaw.class);
         GameRegistry.registerItem(ironChainsaw, "ironchainsaw");
         diamondChainsaw = PoweredItem.createItem(ItemDiamondChainsaw.class);
         GameRegistry.registerItem(diamondChainsaw, "diamondchainsaw");
         advancedChainsaw = PoweredItem.createItem(ItemAdvancedChainsaw.class);
         GameRegistry.registerItem(advancedChainsaw, "advancedchainsaw");
+       
+        ironJackhammer = PoweredItem.createItem(ItemIronJackhammer.class);
+        GameRegistry.registerItem(ironJackhammer, "ironjackhammer");
+        steelJackhammer = PoweredItem.createItem(ItemSteelJackhammer.class);
+        GameRegistry.registerItem(steelJackhammer, "steeljackhammer");
+        diamondJackhammer = PoweredItem.createItem(ItemDiamondJackhammer.class);
+        GameRegistry.registerItem(diamondJackhammer, "diamondjackhammer");
         
         hammer = new ItemHammer(100);
         GameRegistry.registerItem(hammer, "hammer");
@@ -316,6 +313,9 @@ public class ModItems {
 
         missingRecipe = new ItemMissingRecipe().setUnlocalizedName("missingRecipe");
         GameRegistry.registerItem(missingRecipe, "mssingRecipe");
+
+        cables = new ItemCables();
+        GameRegistry.registerItem(cables, "cables");
 
         MinecraftForge.EVENT_BUS.register(BucketHandler.INSTANCE);
 

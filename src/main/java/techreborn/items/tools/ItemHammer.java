@@ -1,8 +1,15 @@
 package techreborn.items.tools;
 
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.world.World;
+import techreborn.items.ItemPlates;
 import techreborn.items.ItemTR;
 
 public class ItemHammer extends ItemTR implements ITexturedItem {
@@ -13,6 +20,12 @@ public class ItemHammer extends ItemTR implements ITexturedItem {
         setMaxDamage(MaxDamage);
     }
 
+    @Override
+    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+        world.playSoundAtEntity(player, "techreborn:block_dismantle", 0.8F, 0.4F);
+        return true;
+    }
+    
     @Override
     public Item setUnlocalizedName(String par1Str) {
         iconName = par1Str;
@@ -30,7 +43,7 @@ public class ItemHammer extends ItemTR implements ITexturedItem {
 
         copiedStack.setItemDamage(copiedStack.getItemDamage() + 1);
         copiedStack.stackSize = 1;
-
+        
         return copiedStack;
     }
 

@@ -8,28 +8,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.common.tile.TileMachineBase;
 import techreborn.Core;
-import techreborn.blocks.BlockChunkLoader;
-import techreborn.blocks.BlockComputerCube;
-import techreborn.blocks.BlockDigitalChest;
-import techreborn.blocks.BlockElectricCraftingTable;
-import techreborn.blocks.BlockFusionCoil;
-import techreborn.blocks.BlockFusionControlComputer;
-import techreborn.blocks.BlockHighlyAdvancedMachine;
-import techreborn.blocks.BlockIronFence;
-import techreborn.blocks.BlockMachineCasing;
-import techreborn.blocks.BlockMachineFrame;
-import techreborn.blocks.BlockOre;
-import techreborn.blocks.BlockOre2;
-import techreborn.blocks.BlockPlayerDetector;
-import techreborn.blocks.BlockQuantumChest;
-import techreborn.blocks.BlockQuantumTank;
-import techreborn.blocks.BlockRubberLeaves;
-import techreborn.blocks.BlockRubberLog;
-import techreborn.blocks.BlockRubberPlank;
-import techreborn.blocks.BlockRubberSapling;
-import techreborn.blocks.BlockStorage;
-import techreborn.blocks.BlockStorage2;
-import techreborn.blocks.BlockSupercondensator;
+import techreborn.blocks.*;
 import techreborn.blocks.generator.BlockDieselGenerator;
 import techreborn.blocks.generator.BlockDragonEggSiphoner;
 import techreborn.blocks.generator.BlockGasTurbine;
@@ -79,28 +58,7 @@ import techreborn.itemblocks.ItemBlockQuantumTank;
 import techreborn.itemblocks.ItemBlockRubberSapling;
 import techreborn.itemblocks.ItemBlockStorage;
 import techreborn.itemblocks.ItemBlockStorage2;
-import techreborn.tiles.TileAesu;
-import techreborn.tiles.TileAlloyFurnace;
-import techreborn.tiles.TileAlloySmelter;
-import techreborn.tiles.TileAssemblingMachine;
-import techreborn.tiles.TileBlastFurnace;
-import techreborn.tiles.TileCentrifuge;
-import techreborn.tiles.TileChargeBench;
-import techreborn.tiles.TileChemicalReactor;
-import techreborn.tiles.TileChunkLoader;
-import techreborn.tiles.TileDigitalChest;
-import techreborn.tiles.TileImplosionCompressor;
-import techreborn.tiles.TileIndustrialElectrolyzer;
-import techreborn.tiles.TileIndustrialGrinder;
-import techreborn.tiles.TileIndustrialSawmill;
-import techreborn.tiles.TileMachineCasing;
-import techreborn.tiles.TileMatterFabricator;
-import techreborn.tiles.TilePlayerDectector;
-import techreborn.tiles.TileQuantumChest;
-import techreborn.tiles.TileQuantumTank;
-import techreborn.tiles.TileRollingMachine;
-import techreborn.tiles.TileThermalGenerator;
-import techreborn.tiles.TileVacuumFreezer;
+import techreborn.tiles.*;
 import techreborn.tiles.fusionReactor.TileEntityFusionController;
 import techreborn.tiles.generator.TileDieselGenerator;
 import techreborn.tiles.generator.TileDragonEggSiphoner;
@@ -183,6 +141,7 @@ public class ModBlocks {
     public static Block rubberPlanks;
 
     public static Block ironFence;
+    public static Block cable;
 
     public static void init() {
         thermalGenerator = new BlockThermalGenerator();
@@ -402,6 +361,10 @@ public class ModBlocks {
 
         ironFence = new BlockIronFence();
         GameRegistry.registerBlock(ironFence, "ironFence");
+
+        cable = new BlockCable();
+        GameRegistry.registerBlock(cable, "cable");
+        GameRegistry.registerTileEntity(TileCable.class, "tilecable");
 
         registerOreDict();
         Core.logHelper.info("TechReborns Blocks Loaded");
