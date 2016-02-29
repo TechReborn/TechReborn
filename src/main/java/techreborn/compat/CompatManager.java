@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import net.minecraftforge.fml.common.Loader;
 import techreborn.compat.minetweaker.MinetweakerCompat;
 import techreborn.compat.recipes.RecipesBiomesOPlenty;
+import techreborn.compat.recipes.RecipesBuildcraft;
+import techreborn.compat.recipes.RecipesThaumcraft;
 import techreborn.compat.waila.CompatModuleWaila;
 import techreborn.config.ConfigTechReborn;
 
@@ -34,6 +36,8 @@ public class CompatManager {
         registerCompact(CompatModuleWaila.class, "Waila");
         registerCompact(MinetweakerCompat.class, "MineTweaker3");
         registerCompact(RecipesBiomesOPlenty.class, "BiomesOPlenty");
+        registerCompact(RecipesBuildcraft.class, "BuildCraft|Builders");
+        registerCompact(RecipesThaumcraft.class, "Thaumcraft");
     }
 
     public void registerCompact(Class<?> moduleClass, Object... objs) {
