@@ -29,7 +29,8 @@ public class ItemCables extends ItemTextureBase {
     }
 
     public static final String[] types = new String[]
-            {"copper", "gold"};
+            {"copper", "tin", "gold", "hv", "glassfiber", "insulatedcopper", "insulatedgold", "insulatedhv"};
+    //NOTE FOR MODMUSS copper tin and gold cables that are not insulated should hurt the player if they tuch them 
 
 
     public ItemCables() {

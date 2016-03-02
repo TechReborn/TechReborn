@@ -86,7 +86,7 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo, ITextu
 
     @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
-        return TorchHelper.placeTorch(stack, playerIn, worldIn, pos.getX(), pos.getY(), pos.getZ(), side.getIndex(), hitX, hitY, hitZ);
+		return TorchHelper.placeTorch(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ);
     }
 
     @Override
