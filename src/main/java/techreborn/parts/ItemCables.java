@@ -1,10 +1,21 @@
-package techreborn.items;
+package techreborn.parts;
 
+import mcmultipart.item.ItemMultiPart;
+import mcmultipart.multipart.IMultipart;
+import me.modmuss50.jsonDestroyer.api.ITexturedItem;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Vec3;
+import net.minecraft.world.World;
+import reborncore.RebornCore;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModItems;
+import techreborn.items.ItemTextureBase;
 import techreborn.lib.ModInfo;
 
 import java.security.InvalidParameterException;
@@ -13,12 +24,12 @@ import java.util.List;
 /**
  * Created by Mark on 27/02/2016.
  */
-public class ItemCables extends ItemTextureBase {
+public class ItemCables extends ItemMultiPart implements ITexturedItem {
     
     public static ItemStack getCableByName(String name, int count) {
         for (int i = 0; i < types.length; i++) {
             if (types[i].equalsIgnoreCase(name)) {
-                return new ItemStack(ModItems.cables, count, i);
+                return new ItemStack(TechRebornParts.cables, count, i);
             }
         }
         throw new InvalidParameterException("The cabel " + name + " could not be found.");
@@ -37,6 +48,13 @@ public class ItemCables extends ItemTextureBase {
         setCreativeTab(TechRebornCreativeTab.instance);
         setHasSubtypes(true);
         setUnlocalizedName("techreborn.cable");
+        setNoRepair();
+        RebornCore.jsonDestroyer.registerObject(this);
+    }
+
+    @Override
+    public IMultipart createPart(World world, BlockPos pos, EnumFacing side, Vec3 hit, ItemStack stack, EntityPlayer player) {
+        return new CableMultipart();
     }
 
 
@@ -66,5 +84,10 @@ public class ItemCables extends ItemTextureBase {
     @Override
     public int getMaxMeta() {
         return types.length;
+    }
+
+    @Override
+    public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
+        return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
     }
 }

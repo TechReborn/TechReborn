@@ -16,6 +16,7 @@ import techreborn.items.*;
 import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
 import techreborn.items.tools.*;
+import techreborn.parts.ItemCables;
 
 public class ModItems {
 
@@ -84,7 +85,6 @@ public class ModItems {
     public static Item diamondJackhammer;
     public static Item hammer;
     public static Item wrench;
-    public static Item cables;
 
     public static Item upgrades;
 
@@ -313,9 +313,6 @@ public class ModItems {
 
         missingRecipe = new ItemMissingRecipe().setUnlocalizedName("missingRecipe");
         GameRegistry.registerItem(missingRecipe, "mssingRecipe");
-
-        cables = new ItemCables();
-        GameRegistry.registerItem(cables, "cables");
 
         MinecraftForge.EVENT_BUS.register(BucketHandler.INSTANCE);
 

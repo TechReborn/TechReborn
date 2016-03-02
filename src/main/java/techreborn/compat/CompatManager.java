@@ -9,6 +9,7 @@ import techreborn.compat.recipes.RecipesBuildcraft;
 import techreborn.compat.recipes.RecipesThaumcraft;
 import techreborn.compat.waila.CompatModuleWaila;
 import techreborn.config.ConfigTechReborn;
+import techreborn.parts.TechRebornParts;
 
 public class CompatManager {
 
@@ -38,6 +39,7 @@ public class CompatManager {
         registerCompact(RecipesBiomesOPlenty.class, "BiomesOPlenty");
         registerCompact(RecipesBuildcraft.class, "BuildCraft|Builders");
         registerCompact(RecipesThaumcraft.class, "Thaumcraft");
+        registerCompact(TechRebornParts.class, "mcmultipart");
     }
 
     public void registerCompact(Class<?> moduleClass, Object... objs) {
