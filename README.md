@@ -6,9 +6,6 @@ TechReborn is currently in a beta state. Crashes or bugs may happen at any time,
 
 We have permission to use Greg's textures (see [here](https://i.imgur.com/YQEMrq5.png?1)).
 
-The current main maintainer is [@gigabit101](https://github.com/gigabit101/) if you need any help please contact us (see 'Contact' section below).
-
-[@modmuss50](https://github.com/modmuss50/) is a past maintainer of the mod (see [here](http://techreborn.ninja/?p=20)).
 
 # Recommended Builds:
 
@@ -32,4 +29,20 @@ Jenkins builds of TechReborn are compiled directly from this repository. Please 
 
 [![Build Status](http://modmuss50.me:8080/job/TechReborn-1.7.10/badge/icon)](http://modmuss50.me:8080/job/TechReborn-1.7.10/)
 
-REMOVED ALL THE JUNK FROM OTHER VERSION 2.78 ONLY 
+# Contributators:
+
+Active:
+-------
+
+ - Modmuss50 (Code)
+ - Gigabit101 (Code)
+ - ProfessorProspector(Code & Textures)
+ - mezz (JEI addon)
+
+Inactive
+-------
+
+ - Tntrololol (Recipes & Textures)
+ - joflashstudios (Recipes)
+
+ And everyone else who has helped with languages and code.
