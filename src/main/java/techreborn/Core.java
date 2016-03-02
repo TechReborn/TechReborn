@@ -42,7 +42,6 @@ import techreborn.init.RecipeCompact;
 import techreborn.lib.ModInfo;
 import techreborn.packets.PacketAesu;
 import techreborn.packets.PacketIdsu;
-import techreborn.powernet.PowerEvent;
 import techreborn.proxies.CommonProxy;
 import techreborn.tiles.idsu.IDSUManager;
 import techreborn.world.TROreGen;
@@ -132,7 +131,6 @@ public class Core {
         MinecraftForge.EVENT_BUS.register(new MultiblockServerTickHandler());
         MinecraftForge.EVENT_BUS.register(new TRTickHandler());
         MinecraftForge.EVENT_BUS.register(new OreUnifier());
-        MinecraftForge.EVENT_BUS.register(new PowerEvent());
         logHelper.info("Initialization Complete");
     }
 
