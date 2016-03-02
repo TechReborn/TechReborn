@@ -475,4 +475,9 @@ public class CableMultipart extends Multipart implements IOccludingPart, ISlotte
                 EAST);
     }
 
+
+    @Override
+    public String getModelPath() {
+        return "techreborn:cable";
+    }
 }
