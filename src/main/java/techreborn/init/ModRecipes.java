@@ -218,6 +218,13 @@ public class
                 'O', new ItemStack(ModItems.lapotronicOrb)
         );
 
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.treeTap),
+                " S ",
+                "PPP",
+                "P  ",
+                'S', "stickWood",
+                'P', "plankWood");
+
         CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.rockCutter),
                 "DT ", "DT ", "DCB",
                 'D', ItemParts.getPartByName("rockCutterBlade"),
