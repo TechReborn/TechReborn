@@ -1,11 +1,9 @@
-package techreborn.client.render;
+package techreborn.client.render.parts;
 
 import mcmultipart.client.multipart.ISmartMultipartModel;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.block.model.BlockPartFace;
-import net.minecraft.client.renderer.block.model.FaceBakery;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.client.resources.model.ModelRotation;
@@ -14,15 +12,22 @@ import org.lwjgl.util.vector.Vector3f;
 import reborncore.common.misc.vecmath.Vecs3dCube;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class RenderCablePart implements ISmartMultipartModel {
 
     private FaceBakery faceBakery = new FaceBakery();
 
+    private TextureAtlasSprite texture;
+
+    public RenderCablePart() {
+        texture = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("minecraft:blocks/iron_block");
+    }
+
     @Override
     public IBakedModel handlePartState(IBlockState state) {
-        return null;
+        return new RenderCablePart();
     }
 
     public void addCubeToList(Vecs3dCube cube, ArrayList<BakedQuad> list, BlockPartFace face, ModelRotation modelRotation, TextureAtlasSprite cubeTexture) {
@@ -36,12 +41,18 @@ public class RenderCablePart implements ISmartMultipartModel {
 
     @Override
     public List<BakedQuad> getFaceQuads(EnumFacing p_177551_1_) {
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
     public List<BakedQuad> getGeneralQuads() {
-        return null;
+        ArrayList<BakedQuad> list = new ArrayList<BakedQuad>();
+        BlockFaceUV uv = new BlockFaceUV(new float[]{0.0F, 0.0F, 16.0F, 16.0F}, 0);
+        BlockPartFace face = new BlockPartFace(null, 0, "", uv);
+        int thickness = 4;
+        int lastThickness = 16 - thickness;
+        addCubeToList(new Vecs3dCube(thickness, thickness, thickness, lastThickness, lastThickness, lastThickness), list, face, ModelRotation.X0_Y0, texture);
+        return list;
     }
 
     @Override
@@ -51,7 +62,7 @@ public class RenderCablePart implements ISmartMultipartModel {
 
     @Override
     public boolean isGui3d() {
-        return false;
+        return true;
     }
 
     @Override
@@ -66,6 +77,6 @@ public class RenderCablePart implements ISmartMultipartModel {
 
     @Override
     public ItemCameraTransforms getItemCameraTransforms() {
-        return null;
+        return ItemCameraTransforms.DEFAULT;
     }
 }

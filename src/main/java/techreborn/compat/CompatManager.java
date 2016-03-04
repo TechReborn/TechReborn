@@ -2,7 +2,10 @@ package techreborn.compat;
 
 import java.util.ArrayList;
 
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.relauncher.Side;
+import techreborn.client.render.parts.ClientPartModelBakery;
 import techreborn.compat.minetweaker.MinetweakerCompat;
 import techreborn.compat.recipes.RecipesBiomesOPlenty;
 import techreborn.compat.recipes.RecipesBuildcraft;
@@ -40,6 +43,7 @@ public class CompatManager {
         registerCompact(RecipesBuildcraft.class, "BuildCraft|Builders");
         registerCompact(RecipesThaumcraft.class, "Thaumcraft");
         registerCompact(TechRebornParts.class, "mcmultipart");
+        registerCompact(ClientPartModelBakery.class, "mcmultipart", "@client");
     }
 
     public void registerCompact(Class<?> moduleClass, Object... objs) {
@@ -52,7 +56,13 @@ public class CompatManager {
         for (Object obj : objs) {
             if (obj instanceof String) {
                 String modid = (String) obj;
-                if (modid.startsWith("!")) {
+                if(modid.startsWith("@")){
+                    if(modid.equals("@client")){
+                        if(FMLCommonHandler.instance().getSide() != Side.CLIENT){
+                            return;
+                        }
+                    }
+                } else if (modid.startsWith("!")) {
                     if (Loader.isModLoaded(modid.replaceAll("!", ""))) {
                         return;
                     }

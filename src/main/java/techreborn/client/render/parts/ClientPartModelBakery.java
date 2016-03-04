@@ -1,24 +1,24 @@
-package techreborn.parts;
+package techreborn.client.render.parts;
 
-import mcmultipart.multipart.MultipartRegistry;
-import net.minecraft.item.Item;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import techreborn.compat.ICompatModule;
 
-import javax.annotation.Nullable;
-
-
 /**
- * Created by mark on 02/03/2016.
+ * Created by Mark on 04/03/2016.
  */
-public class TechRebornParts implements ICompatModule {
+public class ClientPartModelBakery implements ICompatModule {
 
-    @Nullable
-    public static Item cables;
+    @SubscribeEvent
+    public void onModelBake(ModelBakeEvent event){
+        event.modelRegistry.putObject(new ModelResourceLocation("techreborn:cable"), new RenderCablePart());
+    }
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
@@ -27,9 +27,7 @@ public class TechRebornParts implements ICompatModule {
 
     @Override
     public void init(FMLInitializationEvent event) {
-        MultipartRegistry.registerPart(CableMultipart.class, "techreborn:cablepart");
-        cables = new ItemCables();
-        GameRegistry.registerItem(cables, "cables");
+        MinecraftForge.EVENT_BUS.register(this);
     }
 
     @Override

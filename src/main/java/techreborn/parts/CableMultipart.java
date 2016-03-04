@@ -4,6 +4,7 @@ import mcmultipart.MCMultiPartMod;
 import mcmultipart.microblock.IMicroblock;
 import mcmultipart.multipart.*;
 import net.minecraft.block.Block;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -15,6 +16,10 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
+import net.minecraftforge.common.property.ExtendedBlockState;
+import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.common.property.IUnlistedProperty;
+import net.minecraftforge.common.property.Properties;
 import reborncore.api.power.IEnergyInterfaceTile;
 import reborncore.common.misc.Functions;
 import reborncore.common.misc.vecmath.Vecs3dCube;
@@ -37,12 +42,12 @@ public class CableMultipart extends Multipart implements IOccludingPart, ISlotte
     public ItemStack stack;
     public int type = 0;
 
-    public static final PropertyBool UP = PropertyBool.create("up");
-    public static final PropertyBool DOWN = PropertyBool.create("down");
-    public static final PropertyBool NORTH = PropertyBool.create("north");
-    public static final PropertyBool EAST = PropertyBool.create("east");
-    public static final PropertyBool SOUTH = PropertyBool.create("south");
-    public static final PropertyBool WEST = PropertyBool.create("west");
+    public static final IUnlistedProperty UP = Properties.toUnlisted(PropertyBool.create("up"));
+    public static final IUnlistedProperty DOWN = Properties.toUnlisted(PropertyBool.create("down"));
+    public static final IUnlistedProperty NORTH = Properties.toUnlisted(PropertyBool.create("north"));
+    public static final IUnlistedProperty EAST = Properties.toUnlisted(PropertyBool.create("east"));
+    public static final IUnlistedProperty SOUTH = Properties.toUnlisted(PropertyBool.create("south"));
+    public static final IUnlistedProperty WEST = Properties.toUnlisted(PropertyBool.create("west"));
 
     public CableMultipart() {
         connectedSides = new HashMap<>();
@@ -340,6 +345,9 @@ public class CableMultipart extends Multipart implements IOccludingPart, ISlotte
             }
         }
 
+        if(container == null){
+            return null;
+        }
         ISlottedPart part = container.getPartInSlot(PartSlot.CENTER);
         if (part instanceof CableMultipart) {
             return (CableMultipart) part;
@@ -455,7 +463,8 @@ public class CableMultipart extends Multipart implements IOccludingPart, ISlotte
 
     @Override
     public IBlockState getExtendedState(IBlockState state) {
-        return state
+        IExtendedBlockState extendedBlockState = (IExtendedBlockState) state;
+        return extendedBlockState
                 .withProperty(DOWN, shouldConnectTo(EnumFacing.DOWN))
                 .withProperty(UP, shouldConnectTo(EnumFacing.UP))
                 .withProperty(NORTH, shouldConnectTo(EnumFacing.NORTH))
@@ -466,13 +475,15 @@ public class CableMultipart extends Multipart implements IOccludingPart, ISlotte
 
     @Override
     public BlockState createBlockState() {
-        return new BlockState(MCMultiPartMod.multipart,
-                DOWN,
+        return new ExtendedBlockState(MCMultiPartMod.multipart,
+                new IProperty[0],
+                new IUnlistedProperty[]{
+                        DOWN,
                 UP,
                 NORTH,
                 SOUTH,
                 WEST,
-                EAST);
+                EAST});
     }
 
 
