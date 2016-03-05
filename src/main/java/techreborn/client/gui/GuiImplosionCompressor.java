@@ -39,7 +39,7 @@ public class GuiImplosionCompressor extends GuiContainer {
         int l = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
 
-        if (compresser.getMutliBlock() != true) {
+        if (containerImplosionCompressor.multiblockstate == 0) {
           //  GuiDraw.drawTooltipBox(k + 30, l + 50 + 12 - 0, 114, 10);
             this.fontRendererObj.drawString(StatCollector.translateToLocal("techreborn.message.missingmultiblock"), k + 38, l + 52 + 12 - 0, -1);
         }

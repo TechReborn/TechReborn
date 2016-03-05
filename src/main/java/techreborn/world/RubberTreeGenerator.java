@@ -9,6 +9,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.IPlantable;
+import techreborn.blocks.BlockRubberLeaves;
 import techreborn.blocks.BlockRubberLog;
 import techreborn.init.ModBlocks;
 
@@ -132,7 +133,7 @@ public class RubberTreeGenerator extends WorldGenerator {
                 if(topLogPos != null){
                     for (int i = 0; i < 4; i++) {
                         BlockPos spikePos = topLogPos.up(i);
-                        this.setBlockAndNotifyAdequately(world, spikePos, ModBlocks.rubberLeaves.getDefaultState());
+                        this.setBlockAndNotifyAdequately(world, spikePos, ModBlocks.rubberLeaves.getDefaultState().withProperty(BlockRubberLeaves.DECAYABLE, true));
                     }
                 }
             }

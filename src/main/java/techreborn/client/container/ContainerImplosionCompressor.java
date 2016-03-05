@@ -1,7 +1,10 @@
 package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.client.gui.SlotOutput;
 import techreborn.tiles.TileImplosionCompressor;
 
@@ -11,8 +14,8 @@ public class ContainerImplosionCompressor extends ContainerCrafting {
 
     TileImplosionCompressor tile;
 
-
     public int tickTime;
+    public int multiblockstate = 0;
 
     public ContainerImplosionCompressor(TileImplosionCompressor tilecompressor,
                                         EntityPlayer player) {
@@ -47,5 +50,35 @@ public class ContainerImplosionCompressor extends ContainerCrafting {
     public boolean canInteractWith(EntityPlayer p_75145_1_) {
         return true;
     }
+
+    @Override
+    public void detectAndSendChanges() {
+        super.detectAndSendChanges();
+        for (int i = 0; i < this.crafters.size(); i++) {
+            ICrafting icrafting = (ICrafting) this.crafters.get(i);
+            if (this.multiblockstate != getMultiblockstateint()) {
+                icrafting.sendProgressBarUpdate(this, 3, getMultiblockstateint());
+            }
+        }
+    }
+
+    @Override
+    public void onCraftGuiOpened(ICrafting crafting) {
+        super.onCraftGuiOpened(crafting);
+        crafting.sendProgressBarUpdate(this, 3, getMultiblockstateint());
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void updateProgressBar(int id, int value) {
+        if (id == 3) {
+            this.multiblockstate = value;
+        }
+    }
+
+    public int getMultiblockstateint(){
+        return tile.getMutliBlock() ? 1 : 0;
+    }
+
 
 }
