@@ -4,7 +4,6 @@ import java.security.InvalidParameterException;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -45,9 +44,6 @@ import techreborn.items.ItemIngots;
 import techreborn.items.ItemNuggets;
 import techreborn.items.ItemParts;
 import techreborn.items.ItemPlates;
-import techreborn.parts.EnumCableType;
-import techreborn.parts.ItemCables;
-import techreborn.parts.TechRebornParts;
 import techreborn.utils.RecipeUtils;
 
 public class
@@ -165,8 +161,19 @@ public class
 	      "RGR", "LCL", "RGR",
 	      'R', Items.redstone,
 	      'G', Items.glowstone_dust,
-	      'L', Items.dye, 4,
+	      'L', "dyeBlue",
 	      'C', ItemParts.getPartByName("electronicCircuit"));
+        
+      CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.energyCrystal),
+	      "RRR", "RDR", "RRR",
+	      'R', Items.redstone,
+	      'D', Items.diamond);
+      
+      CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.lapatronCrystal),
+    	      "LCL", "LEL", "LCL",
+    	      'L', "dyeBlue",
+    	      'E', new ItemStack(ModItems.energyCrystal),
+    	      'C', ItemParts.getPartByName("electronicCircuit"));
         
         CraftingHelper.addShapelessOreRecipe(new ItemStack(ModBlocks.Generator), batteryStack, BlockMachineFrame.getFrameByName("machine", 1), Blocks.furnace);
         
@@ -182,15 +189,6 @@ public class
                 "AAA", "AAA", "AAA",
                 'A', "gemRuby");
 
-
-        CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.parts, 1, 40),
-                "PLP", "RGB", "PYP",
-                'P', "plateAluminum",
-                'L', "dyeLime",
-                'R', "dyeRed",
-                'G', "paneGlass",
-                'B', "dyeBlue",
-                'Y', Items.glowstone_dust);
 
         CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("dataStorageCircuit"),
                 "EEE", "ECE", "EEE",
