@@ -1,6 +1,7 @@
 package techreborn.blocks;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
@@ -11,10 +12,9 @@ import techreborn.Core;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.fusionReactor.TileEntityFusionController;
+import techreborn.utils.damageSources.FusionDamageSource;
 
 public class BlockFusionControlComputer extends BlockMachineBase implements IAdvancedRotationTexture {
-
-
 
     public BlockFusionControlComputer(Material material) {
         super();
@@ -33,6 +33,15 @@ public class BlockFusionControlComputer extends BlockMachineBase implements IAdv
         return true;
     }
 
+    @Override
+    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, Entity entityIn) {
+        super.onEntityCollidedWithBlock(worldIn, pos, entityIn);
+        if(worldIn.getTileEntity(pos) instanceof TileEntityFusionController){
+            if(((TileEntityFusionController) worldIn.getTileEntity(pos)).crafingTickTime != 0 && ((TileEntityFusionController) worldIn.getTileEntity(pos)).checkCoils()){
+                entityIn.attackEntityFrom(new FusionDamageSource(), 200F);
+            }
+        }
+    }
 
     @Override
     public TileEntity createNewTileEntity(World world, int meta) {
