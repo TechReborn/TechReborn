@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
+import techreborn.client.render.parts.ClientPartLoader;
 import techreborn.client.render.parts.ClientPartModelBakery;
 import techreborn.compat.minetweaker.MinetweakerCompat;
 import techreborn.compat.recipes.RecipesBiomesOPlenty;
@@ -43,10 +44,10 @@ public class CompatManager {
         registerCompact(RecipesBuildcraft.class, "BuildCraft|Builders");
         registerCompact(RecipesThaumcraft.class, "Thaumcraft");
         registerCompact(TechRebornParts.class, "mcmultipart");
-        registerCompact(ClientPartModelBakery.class, "mcmultipart", "@client");
+        registerCompact(ClientPartLoader.class, "mcmultipart", "@client");
     }
 
-    public void registerCompact(Class<?> moduleClass, Object... objs) {
+    public void registerCompact(Class<? extends ICompatModule> moduleClass, Object... objs) {
         boolean shouldLoad = ConfigTechReborn.config.get(ConfigTechReborn.CATEGORY_INTEGRATION, "Compat:" + moduleClass.getSimpleName(), true, "Should the " + moduleClass.getSimpleName() + " be loaded?").getBoolean(true);
         if (ConfigTechReborn.config.hasChanged())
             ConfigTechReborn.config.save();

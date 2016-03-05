@@ -6,6 +6,7 @@ import mcmultipart.multipart.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -48,6 +49,7 @@ public class CableMultipart extends Multipart implements IOccludingPart, ISlotte
     public static final IUnlistedProperty EAST = Properties.toUnlisted(PropertyBool.create("east"));
     public static final IUnlistedProperty SOUTH = Properties.toUnlisted(PropertyBool.create("south"));
     public static final IUnlistedProperty WEST = Properties.toUnlisted(PropertyBool.create("west"));
+    public static final IProperty TYPE = PropertyEnum.create("type", CableTypes.class);
 
     public CableMultipart() {
         connectedSides = new HashMap<>();
@@ -470,13 +472,16 @@ public class CableMultipart extends Multipart implements IOccludingPart, ISlotte
                 .withProperty(NORTH, shouldConnectTo(EnumFacing.NORTH))
                 .withProperty(SOUTH, shouldConnectTo(EnumFacing.SOUTH))
                 .withProperty(WEST, shouldConnectTo(EnumFacing.WEST))
-                .withProperty(EAST, shouldConnectTo(EnumFacing.EAST));
+                .withProperty(EAST, shouldConnectTo(EnumFacing.EAST))
+                .withProperty(TYPE, CableTypes.COPPER);
     }
 
     @Override
     public BlockState createBlockState() {
         return new ExtendedBlockState(MCMultiPartMod.multipart,
-                new IProperty[0],
+                new IProperty[]{
+                        TYPE
+                },
                 new IUnlistedProperty[]{
                         DOWN,
                 UP,

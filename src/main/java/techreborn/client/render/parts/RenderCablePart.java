@@ -22,7 +22,7 @@ public class RenderCablePart implements ISmartMultipartModel {
     private TextureAtlasSprite texture;
 
     public RenderCablePart() {
-        texture = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("minecraft:blocks/iron_block");
+        texture = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("fluxedredstone:blocks/cable_redstone");
     }
 
     @Override
@@ -72,7 +72,7 @@ public class RenderCablePart implements ISmartMultipartModel {
 
     @Override
     public TextureAtlasSprite getParticleTexture() {
-        return null;
+        return texture;
     }
 
     @Override
