@@ -4,6 +4,7 @@ import java.security.InvalidParameterException;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -44,7 +45,9 @@ import techreborn.items.ItemIngots;
 import techreborn.items.ItemNuggets;
 import techreborn.items.ItemParts;
 import techreborn.items.ItemPlates;
+import techreborn.parts.EnumCableType;
 import techreborn.parts.ItemCables;
+import techreborn.parts.TechRebornParts;
 import techreborn.utils.RecipeUtils;
 
 public class
@@ -114,6 +117,8 @@ public class
 
     }
 	public static ItemStack hammerStack = new ItemStack(ModItems.hammer, 1, OreDictionary.WILDCARD_VALUE);
+	public static ItemStack batteryStack = new ItemStack(ModItems.reBattery, 1, OreDictionary.WILDCARD_VALUE);
+
 	public static Item hammer = ModItems.hammer;
 	
     static void addHammerRecipes(){
@@ -154,11 +159,20 @@ public class
 //                "WWW", "SRS", "WWW",
 //                'R', ItemIngots.getIngotByName("refinediron"),
 //                'S', Items.redstone,
-//                'W', ItemCables.getCableByName("insulatedcopper"));
+//                'W', ItemCables.getCableByName("copper"));
+        
+      CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("advancedCircuit"),
+	      "RGR", "LCL", "RGR",
+	      'R', Items.redstone,
+	      'G', Items.glowstone_dust,
+	      'L', Items.dye, 4,
+	      'C', ItemParts.getPartByName("electronicCircuit"));
+        
+        CraftingHelper.addShapelessOreRecipe(new ItemStack(ModBlocks.Generator), batteryStack, BlockMachineFrame.getFrameByName("machine", 1), Blocks.furnace);
         
         CraftingHelper.addShapedOreRecipe(BlockMachineFrame.getFrameByName("machine", 1),
                 "AAA", "AXA", "AAA",
-                'A', ItemPlates.getPlateByName("iron"));
+                'A', ItemIngots.getIngotByName("refinediron"));
 
         CraftingHelper.addShapedOreRecipe(BlockStorage.getStorageBlockByName("sapphire"),
                 "AAA", "AAA", "AAA",
@@ -1298,7 +1312,7 @@ public class
 
         CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("energyFlowCircuit", 4),
                 "ATA", "LIL", "ATA",
-                'T', "plateTungsten",
+                'T', "ingotTungsten",
                 'I', "plateIridium",
                 'A', TechRebornAPI.recipeCompact.getItem("advancedCircuit"),
                 'L', TechRebornAPI.recipeCompact.getItem("lapotronCrystal"));
@@ -2371,7 +2385,7 @@ public class
             CraftingHelper.addShapedOreRecipe(TechRebornAPI.recipeCompact.getItem("solarPanel"),
                     "PPP", "SZS", "CGC",
                     'P', "paneGlass",
-                    'S', new ItemStack(ModItems.parts, 1, 1),
+                    'S', ItemPlates.getPlateByName("silicon"),
                     'Z', TechRebornAPI.recipeCompact.getItem("carbonPlate"),
                     'G', TechRebornAPI.recipeCompact.getItem("generator"),
                     'C', TechRebornAPI.recipeCompact.getItem("electronicCircuit"));
