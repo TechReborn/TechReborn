@@ -85,6 +85,8 @@ public class ModItems {
     public static Item diamondJackhammer;
     public static Item hammer;
     public static Item wrench;
+    public static Item lapatronCrystal;
+    public static Item energyCrystal;
 
     public static Item upgrades;
 
@@ -129,6 +131,11 @@ public class ModItems {
         GameRegistry.registerItem(lapotronicOrb, "lapotronicOrb");
         omniTool = PoweredItem.createItem(ItemOmniTool.class);
         GameRegistry.registerItem(omniTool, "omniTool");
+        energyCrystal = PoweredItem.createItem(ItemEnergyCrystal.class);
+        GameRegistry.registerItem(energyCrystal, "energycrystal");
+        lapatronCrystal = PoweredItem.createItem(ItemLapotronCrystal.class);
+        GameRegistry.registerItem(lapatronCrystal, "lapatroncrystal");
+        
 
         manual = new ItemTechManual();
         GameRegistry.registerItem(manual, "techmanuel");
