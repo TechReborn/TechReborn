@@ -41,222 +41,30 @@ public class CableMultipart extends Multipart implements IOccludingPart, ISlotte
     public Map<EnumFacing, BlockPos> connectedSides;
     public int ticks = 0;
     public ItemStack stack;
-    public int type = 0;
 
-    public static final IUnlistedProperty UP = Properties.toUnlisted(PropertyBool.create("up"));
-    public static final IUnlistedProperty DOWN = Properties.toUnlisted(PropertyBool.create("down"));
-    public static final IUnlistedProperty NORTH = Properties.toUnlisted(PropertyBool.create("north"));
-    public static final IUnlistedProperty EAST = Properties.toUnlisted(PropertyBool.create("east"));
-    public static final IUnlistedProperty SOUTH = Properties.toUnlisted(PropertyBool.create("south"));
-    public static final IUnlistedProperty WEST = Properties.toUnlisted(PropertyBool.create("west"));
-    public static final IProperty TYPE = PropertyEnum.create("type", CableTypes.class);
+    public static final IUnlistedProperty<Boolean> UP = Properties.toUnlisted(PropertyBool.create("up"));
+    public static final IUnlistedProperty<Boolean> DOWN = Properties.toUnlisted(PropertyBool.create("down"));
+    public static final IUnlistedProperty<Boolean> NORTH = Properties.toUnlisted(PropertyBool.create("north"));
+    public static final IUnlistedProperty<Boolean> EAST = Properties.toUnlisted(PropertyBool.create("east"));
+    public static final IUnlistedProperty<Boolean> SOUTH = Properties.toUnlisted(PropertyBool.create("south"));
+    public static final IUnlistedProperty<Boolean> WEST = Properties.toUnlisted(PropertyBool.create("west"));
+    public static final IProperty TYPE = PropertyEnum.create("type", EnumCableType.class);
 
-    public CableMultipart() {
+    EnumCableType type;
+
+    public CableMultipart(EnumCableType type) {
+        this.type = type;
         connectedSides = new HashMap<>();
         refreshBounding();
     }
 
-    public static int getMaxCapacity(int type) {
-        switch (type) {
-            case 0:
-                return 128;
-            case 1:
-                return 128;
-            case 2:
-                return 512;
-            case 3:
-                return 512;
-            case 4:
-                return 512;
-            case 5:
-                return 2048;
-            case 6:
-                return 2048;
-            case 7:
-                return 2048;
-            case 8:
-                return 2048;
-            case 9:
-                return 8192;
-            case 10:
-                return 32;
-            case 11:
-                return 8192;
-            case 12:
-                return 8192;
-            case 13:
-                return 32;
-            case 14:
-                return 32;
-            default:
-                return 0;
-        }
-    }
-
-    public static float getCableThickness(int cableType) {
-        float p = 1.0F;
-        switch (cableType) {
-            case 0:
-                p = 6.0F;
-                break;
-            case 1:
-                p = 4.0F;
-                break;
-            case 2:
-                p = 3.0F;
-                break;
-            case 3:
-                p = 6.0F;
-                break;
-            case 4:
-                p = 6.0F;
-                break;
-            case 5:
-                p = 6.0F;
-                break;
-            case 6:
-                p = 10.0F;
-                break;
-            case 7:
-                p = 10.0F;
-                break;
-            case 8:
-                p = 12.0F;
-                break;
-            case 9:
-                p = 4.0F;
-                break;
-            case 10:
-                p = 4.0F;
-                break;
-            case 11:
-                p = 8.0F;
-                break;
-            case 12:
-                p = 8.0F;
-                break;
-            case 13:
-                p = 16.0F;
-                break;
-            case 14:
-                p = 6.0F;
-        }
-
-        return p / 16.0F;
-    }
-
-    public static String getNameFromType(int cableType) {
-        String p = null;
-        switch (cableType) {
-            case 0:
-                p = "insulatedCopperCable";
-                break;
-            case 1:
-                p = "copperCable";
-                break;
-            case 2:
-                p = "goldCable";
-                break;
-            case 3:
-                p = "insulatedGoldCable";
-                break;
-            case 4:
-                p = "doubleInsulatedGoldCable";
-                break;
-            case 5:
-                p = "ironCable";
-                break;
-            case 6:
-                p = "insulatedIronCable";
-                break;
-            case 7:
-                p = "doubleInsulatedIronCable";
-                break;
-            case 8:
-                p = "trippleInsulatedIronCable";
-                break;
-            case 9:
-                p = "glassFiberCable";
-                break;
-            case 10:
-                p = "tinCable";
-                break;
-            case 11:
-                p = "detectorCableBlock";//Detector
-                break;
-            case 12:
-                p = "splitterCableBlock";// Splitter
-                break;
-            case 13:
-                p = "insulatedtinCable";
-                break;
-            case 14:
-                p = "unused"; // unused?
-        }
-
-        return p;
-    }
-
-    public static String getTextureNameFromType(int cableType) {
-        String p = null;
-        switch (cableType) {
-            case 0:
-                p = "insulatedCopperCableItem";
-                break;
-            case 1:
-                p = "copperCableItem";
-                break;
-            case 2:
-                p = "goldCableItem";
-                break;
-            case 3:
-                p = "insulatedGoldCableItem";
-                break;
-            case 4:
-                p = "doubleInsulatedGoldCableItem";
-                break;
-            case 5:
-                p = "ironCableItem";
-                break;
-            case 6:
-                p = "insulatedIronCableItem";
-                break;
-            case 7:
-                p = "doubleInsulatedIronCableItem";
-                break;
-            case 8:
-                p = "trippleInsulatedIronCableItem";
-                break;
-            case 9:
-                p = "glassFiberCableItem";
-                break;
-            case 10:
-                p = "tinCableItem";
-                break;
-            case 11:
-                p = "detectorCableItem";//Detector
-                break;
-            case 12:
-                p = "splitterCableItem";// Splitter
-                break;
-            case 13:
-                p = "insulatedTinCableItem";
-                break;
-            case 14:
-                p = "unused"; // unused?
-        }
-
-        return p;
-    }
-
-    public void setType(int newType) {
-        this.type = newType;
-        refreshBounding();
+    public CableMultipart(){
+        this(EnumCableType.COPPER);
     }
 
     public void refreshBounding() {
         float centerFirst = center - offset;
-        double w = getCableThickness(type) / 2;
+        double w = (type.cableThickness / 16) - 0.5;
         boundingBoxes[6] = new Vecs3dCube(centerFirst - w - 0.03, centerFirst
                 - w - 0.08, centerFirst - w - 0.03, centerFirst + w + 0.08,
                 centerFirst + w + 0.04, centerFirst + w + 0.08);
@@ -417,42 +225,6 @@ public class CableMultipart extends Multipart implements IOccludingPart, ISlotte
         }
     }
 
-    public double getConductionLoss() {
-        switch (this.type) {
-            case 0:
-                return 0.2D;
-            case 1:
-                return 0.3D;
-            case 2:
-                return 0.5D;
-            case 3:
-                return 0.45D;
-            case 4:
-                return 0.4D;
-            case 5:
-                return 1.0D;
-            case 6:
-                return 0.95D;
-            case 7:
-                return 0.9D;
-            case 8:
-                return 0.8D;
-            case 9:
-                return 0.025D;
-            case 10:
-                return 0.025D;
-            case 11:
-                return 0.5D;
-            case 12:
-                return 0.5D;
-            case 13:
-            default:
-                return 0.025D;
-            case 14:
-                return 0.2D;
-        }
-    }
-
     @Override
     public EnumSet<PartSlot> getSlotMask() {
         return EnumSet.of(PartSlot.CENTER);
@@ -473,7 +245,7 @@ public class CableMultipart extends Multipart implements IOccludingPart, ISlotte
                 .withProperty(SOUTH, shouldConnectTo(EnumFacing.SOUTH))
                 .withProperty(WEST, shouldConnectTo(EnumFacing.WEST))
                 .withProperty(EAST, shouldConnectTo(EnumFacing.EAST))
-                .withProperty(TYPE, CableTypes.COPPER);
+                .withProperty(TYPE, type);
     }
 
     @Override

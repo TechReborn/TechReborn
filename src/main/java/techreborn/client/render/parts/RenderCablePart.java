@@ -1,5 +1,6 @@
 package techreborn.client.render.parts;
 
+import buildcraft.robotics.render.RobotItemModel;
 import mcmultipart.client.multipart.ISmartMultipartModel;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -8,8 +9,11 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.client.resources.model.ModelRotation;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.common.property.IExtendedBlockState;
 import org.lwjgl.util.vector.Vector3f;
 import reborncore.common.misc.vecmath.Vecs3dCube;
+import techreborn.parts.CableMultipart;
+import techreborn.parts.EnumCableType;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,13 +25,23 @@ public class RenderCablePart implements ISmartMultipartModel {
 
     private TextureAtlasSprite texture;
 
-    public RenderCablePart() {
+    EnumCableType type;
+
+    IExtendedBlockState state;
+
+    public RenderCablePart(IExtendedBlockState state, EnumCableType type) {
+        this(type);
+        this.state = state;
+    }
+
+    public RenderCablePart(EnumCableType type) {
         texture = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("fluxedredstone:blocks/cable_redstone");
+        this.type = type;
     }
 
     @Override
     public IBakedModel handlePartState(IBlockState state) {
-        return new RenderCablePart();
+        return new RenderCablePart((IExtendedBlockState) state, type);
     }
 
     public void addCubeToList(Vecs3dCube cube, ArrayList<BakedQuad> list, BlockPartFace face, ModelRotation modelRotation, TextureAtlasSprite cubeTexture) {
@@ -52,6 +66,26 @@ public class RenderCablePart implements ISmartMultipartModel {
         int thickness = 4;
         int lastThickness = 16 - thickness;
         addCubeToList(new Vecs3dCube(thickness, thickness, thickness, lastThickness, lastThickness, lastThickness), list, face, ModelRotation.X0_Y0, texture);
+        if (state != null) {
+            if (state.getValue(CableMultipart.UP)) {
+                addCubeToList(new Vecs3dCube(thickness, lastThickness, thickness, lastThickness, 16.0, lastThickness), list, face, ModelRotation.X0_Y0, texture);
+            }
+            if (state.getValue(CableMultipart.DOWN)) {
+                addCubeToList(new Vecs3dCube(thickness, 0.0, thickness, lastThickness, thickness, lastThickness), list, face, ModelRotation.X0_Y0, texture);
+            }
+            if (state.getValue(CableMultipart.NORTH)) {
+                addCubeToList(new Vecs3dCube(thickness, thickness, 0.0, lastThickness, lastThickness, lastThickness), list, face, ModelRotation.X0_Y0, texture);
+            }
+            if (state.getValue(CableMultipart.SOUTH)) {
+                addCubeToList(new Vecs3dCube(thickness, thickness, thickness, lastThickness, lastThickness, 16.0), list, face, ModelRotation.X0_Y0, texture);
+            }
+            if (state.getValue(CableMultipart.EAST)) {
+                addCubeToList(new Vecs3dCube(thickness, thickness, thickness, 16.0, lastThickness, lastThickness), list, face, ModelRotation.X0_Y0, texture);
+            }
+            if (state.getValue(CableMultipart.WEST)) {
+                addCubeToList(new Vecs3dCube(0.0, thickness, thickness, lastThickness, lastThickness, lastThickness), list, face, ModelRotation.X0_Y0, texture);
+            }
+        }
         return list;
     }
 

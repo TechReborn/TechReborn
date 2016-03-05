@@ -7,6 +7,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techreborn.parts.CableMultipart;
+import techreborn.parts.EnumCableType;
 
 /**
  * Created by Mark on 04/03/2016.
@@ -16,7 +17,10 @@ public class ClientPartModelBakery {
     @SideOnly(Side.CLIENT)
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onModelBake(ModelBakeEvent event){
-        event.modelRegistry.putObject(new ModelResourceLocation("techreborn:cable#type=COPPER"), new RenderCablePart());
+        for(EnumCableType type : EnumCableType.values()){
+            event.modelRegistry.putObject(new ModelResourceLocation("techreborn:cable#type=" + type.name()), new RenderCablePart(type));
+        }
+
     }
 
 }

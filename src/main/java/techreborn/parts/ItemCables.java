@@ -27,8 +27,8 @@ import java.util.List;
 public class ItemCables extends ItemMultiPart implements ITexturedItem {
     
     public static ItemStack getCableByName(String name, int count) {
-        for (int i = 0; i < types.length; i++) {
-            if (types[i].equalsIgnoreCase(name)) {
+        for (int i = 0; i < EnumCableType.values().length; i++) {
+            if (EnumCableType.values()[i].name().equalsIgnoreCase(name)) {
                 return new ItemStack(TechRebornParts.cables, count, i);
             }
         }
@@ -38,11 +38,6 @@ public class ItemCables extends ItemMultiPart implements ITexturedItem {
     public static ItemStack getCableByName(String name) {
         return getCableByName(name, 1);
     }
-
-    public static final String[] types = new String[]
-            {"copper", "tin", "gold", "hv", "glassfiber", "insulatedcopper", "insulatedgold", "insulatedhv"};
-    //NOTE FOR MODMUSS copper tin and gold cables that are not insulated should hurt the player if they tuch them 
-
 
     public ItemCables() {
         setCreativeTab(TechRebornCreativeTab.instance);
@@ -54,7 +49,7 @@ public class ItemCables extends ItemMultiPart implements ITexturedItem {
 
     @Override
     public IMultipart createPart(World world, BlockPos pos, EnumFacing side, Vec3 hit, ItemStack stack, EntityPlayer player) {
-        return new CableMultipart();
+        return new CableMultipart(EnumCableType.values()[stack.getItemDamage()]);
     }
 
 
@@ -62,28 +57,28 @@ public class ItemCables extends ItemMultiPart implements ITexturedItem {
     // gets Unlocalized Name depending on meta data
     public String getUnlocalizedName(ItemStack itemStack) {
         int meta = itemStack.getItemDamage();
-        if (meta < 0 || meta >= types.length) {
+        if (meta < 0 || meta >= EnumCableType.values().length) {
             meta = 0;
         }
 
-        return super.getUnlocalizedName() + "." + types[meta];
+        return super.getUnlocalizedName() + "." + EnumCableType.values()[meta];
     }
 
     // Adds Dusts SubItems To Creative Tab
     public void getSubItems(Item item, CreativeTabs creativeTabs, List list) {
-        for (int meta = 0; meta < types.length; ++meta) {
+        for (int meta = 0; meta < EnumCableType.values().length; ++meta) {
             list.add(new ItemStack(item, 1, meta));
         }
     }
 
     @Override
     public String getTextureName(int damage) {
-        return ModInfo.MOD_ID + ":items/cables/" + types[damage];
+        return ModInfo.MOD_ID + ":items/cables/" + EnumCableType.values()[damage];
     }
 
     @Override
     public int getMaxMeta() {
-        return types.length;
+        return EnumCableType.values().length;
     }
 
     @Override
