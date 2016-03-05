@@ -1,11 +1,11 @@
 package techreborn.client.gui;
 
-import codechicken.lib.gui.GuiDraw;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import reborncore.client.gui.GuiUtil;
 import techreborn.client.container.ContainerImplosionCompressor;
 import techreborn.tiles.TileImplosionCompressor;
 
@@ -38,8 +38,8 @@ public class GuiImplosionCompressor extends GuiContainer {
         int l = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
 
-        if (compresser.getMutliBlock() != true) {
-            GuiDraw.drawTooltipBox(k + 30, l + 50 + 12 - 0, 114, 10);
+        if (containerImplosionCompressor.multiblockmeta == 0) {
+            GuiUtil.drawTooltipBox(k + 30, l + 50 + 12 - 0, 114, 10);
             this.fontRendererObj.drawString(StatCollector.translateToLocal("techreborn.message.missingmultiblock"), k + 38, l + 52 + 12 - 0, -1);
         }
         
