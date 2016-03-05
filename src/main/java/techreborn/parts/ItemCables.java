@@ -32,7 +32,7 @@ public class ItemCables extends ItemMultiPart implements ITexturedItem {
                 return new ItemStack(TechRebornParts.cables, count, i);
             }
         }
-        throw new InvalidParameterException("The cabel " + name + " could not be found.");
+        throw new InvalidParameterException("The cable " + name + " could not be found.");
     }
 
     public static ItemStack getCableByName(String name) {
@@ -49,7 +49,12 @@ public class ItemCables extends ItemMultiPart implements ITexturedItem {
 
     @Override
     public IMultipart createPart(World world, BlockPos pos, EnumFacing side, Vec3 hit, ItemStack stack, EntityPlayer player) {
-        return new CableMultipart(EnumCableType.values()[stack.getItemDamage()]);
+        try {
+            return TechRebornParts.multipartHashMap.get(EnumCableType.values()[stack.getItemDamage()]).newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 

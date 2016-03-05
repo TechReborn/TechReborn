@@ -35,7 +35,7 @@ public class RenderCablePart implements ISmartMultipartModel {
     }
 
     public RenderCablePart(EnumCableType type) {
-        texture = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("fluxedredstone:blocks/cable_redstone");
+        texture = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(type.textureName);
         this.type = type;
     }
 
@@ -63,7 +63,7 @@ public class RenderCablePart implements ISmartMultipartModel {
         ArrayList<BakedQuad> list = new ArrayList<BakedQuad>();
         BlockFaceUV uv = new BlockFaceUV(new float[]{0.0F, 0.0F, 16.0F, 16.0F}, 0);
         BlockPartFace face = new BlockPartFace(null, 0, "", uv);
-        int thickness = 4;
+        int thickness = 16 - (int) type.cableThickness * 2;
         int lastThickness = 16 - thickness;
         addCubeToList(new Vecs3dCube(thickness, thickness, thickness, lastThickness, lastThickness, lastThickness), list, face, ModelRotation.X0_Y0, texture);
         if (state != null) {

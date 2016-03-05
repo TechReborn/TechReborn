@@ -33,7 +33,7 @@ import java.util.Map;
 /**
  * Created by mark on 02/03/2016.
  */
-public class CableMultipart extends Multipart implements IOccludingPart, ISlottedPart, ITickable {
+public abstract class CableMultipart extends Multipart implements IOccludingPart, ISlottedPart, ITickable, ICableType {
 
     public Vecs3dCube[] boundingBoxes = new Vecs3dCube[14];
     public float center = 0.6F;
@@ -48,23 +48,16 @@ public class CableMultipart extends Multipart implements IOccludingPart, ISlotte
     public static final IUnlistedProperty<Boolean> EAST = Properties.toUnlisted(PropertyBool.create("east"));
     public static final IUnlistedProperty<Boolean> SOUTH = Properties.toUnlisted(PropertyBool.create("south"));
     public static final IUnlistedProperty<Boolean> WEST = Properties.toUnlisted(PropertyBool.create("west"));
-    public static final IProperty TYPE = PropertyEnum.create("type", EnumCableType.class);
+    public static final IProperty<EnumCableType> TYPE = PropertyEnum.create("type", EnumCableType.class);
 
-    EnumCableType type;
-
-    public CableMultipart(EnumCableType type) {
-        this.type = type;
+    public CableMultipart() {
         connectedSides = new HashMap<>();
         refreshBounding();
     }
 
-    public CableMultipart(){
-        this(EnumCableType.COPPER);
-    }
-
     public void refreshBounding() {
         float centerFirst = center - offset;
-        double w = (type.cableThickness / 16) - 0.5;
+        double w = getCableType().cableThickness / 16;
         boundingBoxes[6] = new Vecs3dCube(centerFirst - w - 0.03, centerFirst
                 - w - 0.08, centerFirst - w - 0.03, centerFirst + w + 0.08,
                 centerFirst + w + 0.04, centerFirst + w + 0.08);
@@ -245,7 +238,7 @@ public class CableMultipart extends Multipart implements IOccludingPart, ISlotte
                 .withProperty(SOUTH, shouldConnectTo(EnumFacing.SOUTH))
                 .withProperty(WEST, shouldConnectTo(EnumFacing.WEST))
                 .withProperty(EAST, shouldConnectTo(EnumFacing.EAST))
-                .withProperty(TYPE, type);
+                .withProperty(TYPE, getCableType());
     }
 
     @Override
@@ -268,4 +261,6 @@ public class CableMultipart extends Multipart implements IOccludingPart, ISlotte
     public String getModelPath() {
         return "techreborn:cable";
     }
+
+
 }

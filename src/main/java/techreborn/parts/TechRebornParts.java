@@ -10,6 +10,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import techreborn.compat.ICompatModule;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -20,6 +22,8 @@ public class TechRebornParts implements ICompatModule {
     @Nullable
     public static Item cables;
 
+    public static HashMap<EnumCableType, Class<? extends CableMultipart>> multipartHashMap = new HashMap<>();
+
     @Override
     public void preInit(FMLPreInitializationEvent event) {
 
@@ -27,7 +31,10 @@ public class TechRebornParts implements ICompatModule {
 
     @Override
     public void init(FMLInitializationEvent event) {
-        MultipartRegistry.registerPart(CableMultipart.class, "techreborn:cable");
+        for(EnumCableType cableType : EnumCableType.values()){
+            multipartHashMap.put(cableType, cableType.cableClass);
+            MultipartRegistry.registerPart(cableType.cableClass, "techreborn:cable." + cableType.name());
+        }
         cables = new ItemCables();
         GameRegistry.registerItem(cables, "cables");
     }

@@ -18,7 +18,7 @@ public class ClientPartModelBakery {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onModelBake(ModelBakeEvent event){
         for(EnumCableType type : EnumCableType.values()){
-            event.modelRegistry.putObject(new ModelResourceLocation("techreborn:cable#type=" + type.name()), new RenderCablePart(type));
+            event.modelRegistry.putObject(new ModelResourceLocation("techreborn:cable#type=" + type.getName().toLowerCase()), new RenderCablePart(type));
         }
 
     }
