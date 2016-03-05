@@ -157,6 +157,10 @@ public class
 //                'S', Items.redstone,
 //                'W', ItemCables.getCableByName("copper"));
         
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.wrench),
+                "BAB", "BBB", "ABA",
+                'B', "ingotBronze");
+        
       CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("advancedCircuit"),
 	      "RGR", "LCL", "RGR",
 	      'R', Items.redstone,
