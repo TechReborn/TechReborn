@@ -44,6 +44,7 @@ import techreborn.items.ItemIngots;
 import techreborn.items.ItemNuggets;
 import techreborn.items.ItemParts;
 import techreborn.items.ItemPlates;
+import techreborn.parts.ItemCables;
 import techreborn.utils.RecipeUtils;
 
 public class
@@ -148,6 +149,12 @@ public class
                     "AAA", "AAA", "AAA",
                     'A', "ingot" + name.substring(0, 1).toUpperCase() + name.substring(1));
         }
+        
+        CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("electronicCircuit"),
+                "WWW", "SRS", "WWW",
+                'R', ItemIngots.getIngotByName("refinediron"),
+                'S', Items.redstone,
+                'W', ItemCables.getCableByName("insulatedcopper"));
         
         CraftingHelper.addShapedOreRecipe(BlockMachineFrame.getFrameByName("machine", 1),
                 "AAA", "AXA", "AAA",
