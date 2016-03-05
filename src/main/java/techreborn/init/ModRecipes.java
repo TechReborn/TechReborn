@@ -150,11 +150,11 @@ public class
                     'A', "ingot" + name.substring(0, 1).toUpperCase() + name.substring(1));
         }
         
-        CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("electronicCircuit"),
-                "WWW", "SRS", "WWW",
-                'R', ItemIngots.getIngotByName("refinediron"),
-                'S', Items.redstone,
-                'W', ItemCables.getCableByName("insulatedcopper"));
+//        CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("electronicCircuit"),
+//                "WWW", "SRS", "WWW",
+//                'R', ItemIngots.getIngotByName("refinediron"),
+//                'S', Items.redstone,
+//                'W', ItemCables.getCableByName("insulatedcopper"));
         
         CraftingHelper.addShapedOreRecipe(BlockMachineFrame.getFrameByName("machine", 1),
                 "AAA", "AXA", "AAA",
