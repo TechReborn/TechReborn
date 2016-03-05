@@ -39,7 +39,6 @@ public class TileMachineBase extends TileEntity {
     public void setRotation(int rotation) {
         this.rotation = rotation;
         syncWithAll();
-        worldObj.notifyBlockChange(xCoord, yCoord, zCoord, blockType);
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
     }
