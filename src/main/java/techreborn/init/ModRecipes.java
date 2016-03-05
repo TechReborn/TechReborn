@@ -150,16 +150,29 @@ public class
                     "AAA", "AAA", "AAA",
                     'A', "ingot" + name.substring(0, 1).toUpperCase() + name.substring(1));
         }
-        
+        //TODO can't use cables in recipes
 //        CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("electronicCircuit"),
 //                "WWW", "SRS", "WWW",
 //                'R', ItemIngots.getIngotByName("refinediron"),
 //                'S', Items.redstone,
 //                'W', ItemCables.getCableByName("copper"));
         
-        CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.wrench),
-                "BAB", "BBB", "ABA",
-                'B', "ingotBronze");
+	  CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.wrench),
+			  "BAB", "BBB", "ABA", 
+		      'B', "ingotBronze");
+		
+      CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Extractor),
+    	      "TMT", "TCT", "XXX",
+    	      'T', ModItems.treeTap,
+    	      'M', BlockMachineFrame.getFrameByName("machine", 1),
+    	      'C', ItemParts.getPartByName("electronicCircuit"));
+      
+      CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.centrifuge),
+    	      "RCR", "AEA", "RCR",
+    	      'R', ItemIngots.getIngotByName("refinediron"),
+    	      'E', new ItemStack(ModBlocks.Extractor),
+    	      'A', BlockMachineFrame.getFrameByName("advancedMachine", 1),
+    	      'C', ItemParts.getPartByName("electronicCircuit"));
         
       CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("advancedCircuit"),
 	      "RGR", "LCL", "RGR",
