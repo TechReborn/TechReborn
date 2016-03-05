@@ -40,6 +40,7 @@ import java.util.List;
 
 public class RecipesIC2 implements ICompatModule {
 
+	
     @Override
     public void preInit(FMLPreInitializationEvent event) {
 
@@ -70,6 +71,8 @@ public class RecipesIC2 implements ICompatModule {
     }
 
     public void addTRRecipes() {
+    	ItemStack lapotron = new ItemStack(IC2Items.getItem("lapotronCrystal").getItem(), 1, OreDictionary.WILDCARD_VALUE);
+
         //General
         CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.manuel), IC2Items.getItem("plateiron"), Items.book);
 
@@ -84,7 +87,7 @@ public class RecipesIC2 implements ICompatModule {
                 'T', "plateTungsten",
                 'I', "plateIridium",
                 'A', IC2Items.getItem("advancedCircuit"),
-                'L', IC2Items.getItem("lapotronCrystal"));
+                'L', lapotron);
 
         CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("superconductor", 4),
                 "CCC", "TIT", "EEE",
