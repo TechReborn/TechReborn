@@ -57,7 +57,7 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
 
     public void refreshBounding() {
         float centerFirst = center - offset;
-        double w = getCableType().cableThickness / 16;
+        double w = (getCableType().cableThickness / 16) - 0.5;
         boundingBoxes[6] = new Vecs3dCube(centerFirst - w - 0.03, centerFirst
                 - w - 0.08, centerFirst - w - 0.03, centerFirst + w + 0.08,
                 centerFirst + w + 0.04, centerFirst + w + 0.08);
