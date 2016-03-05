@@ -134,6 +134,7 @@ public class ModBlocks {
     public static Block storage;
     public static Block storage2;
     public static Block machineframe;
+    public static Block reinforcedglass;
 
     public static Block rubberLog;
     public static Block rubberLeaves;
@@ -360,6 +361,9 @@ public class ModBlocks {
 
         ironFence = new BlockIronFence();
         GameRegistry.registerBlock(ironFence, "ironFence");
+        
+        reinforcedglass = new BlockReinforcedGlass(Material.glass);
+        GameRegistry.registerBlock(reinforcedglass, "reinforcedglass");
 
         registerOreDict();
         Core.logHelper.info("TechReborns Blocks Loaded");
