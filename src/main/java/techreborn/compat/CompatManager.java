@@ -48,7 +48,6 @@ public class CompatManager {
         registerCompact(RecipesForestry.class, "Forestry", isForestry4());
         registerCompact(MinetweakerCompat.class, "MineTweaker3");
         registerCompact(ForgeMultipartCompat.class, "ForgeMultipart");
-        registerCompact(RecipesBuildcraftOpenComputers.class, "BuildCraft|Core", "OpenComputers", "!IC2");
     }
 
     public void registerCompact(Class<?> moduleClass, Object... objs) {
