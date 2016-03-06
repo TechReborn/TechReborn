@@ -1,48 +1,46 @@
 package techreborn.parts;
 
-import mcmultipart.item.ItemMultiPart;
-import mcmultipart.multipart.IMultipart;
-import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.Vec3;
-import net.minecraft.world.World;
 import reborncore.RebornCore;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.items.ItemTR;
+import techreborn.items.ItemTextureBase;
 import techreborn.lib.ModInfo;
 
 import java.security.InvalidParameterException;
 import java.util.List;
 
 /**
- * Created by Mark on 27/02/2016.
+ * Created by Mark on 06/03/2016.
  */
-public class ItemCables extends ItemMultiPart implements ITexturedItem {
+public class ItemStandaloneCables extends ItemTextureBase {
 
-    public ItemCables() {
+    public static Item mcPartCable;
+
+    public static ItemStack getCableByName(String name, int count) {
+        for (int i = 0; i < EnumCableType.values().length; i++) {
+            if (EnumCableType.values()[i].getName().equalsIgnoreCase(name)) {
+                return new ItemStack(mcPartCable != null? mcPartCable : StandalonePartCompact.itemStandaloneCable, count, i);
+            }
+        }
+        throw new InvalidParameterException("The cable " + name + " could not be found.");
+    }
+
+    public static ItemStack getCableByName(String name) {
+        return getCableByName(name, 1);
+    }
+
+    public ItemStandaloneCables() {
         setCreativeTab(TechRebornCreativeTab.instance);
         setHasSubtypes(true);
         setUnlocalizedName("techreborn.cable");
         setNoRepair();
         RebornCore.jsonDestroyer.registerObject(this);
-        ItemStandaloneCables.mcPartCable = this;
     }
-
-    @Override
-    public IMultipart createPart(World world, BlockPos pos, EnumFacing side, Vec3 hit, ItemStack stack, EntityPlayer player) {
-        try {
-            return TechRebornParts.multipartHashMap.get(EnumCableType.values()[stack.getItemDamage()]).newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
 
     @Override
     // gets Unlocalized Name depending on meta data

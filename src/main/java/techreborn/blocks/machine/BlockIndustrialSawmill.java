@@ -26,14 +26,12 @@ public class BlockIndustrialSawmill extends BlockMachineBase implements IRotatio
     }
 
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z,
-                                    EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
         if(fillBlockWithFluid(world, new BlockPos(x, y, z), player)){
             return true;
         }
         if (!player.isSneaking())
-            player.openGui(Core.INSTANCE, GuiHandler.sawMillID, world, x, y,
-                    z);
+            player.openGui(Core.INSTANCE, GuiHandler.sawMillID, world, x, y, z);
         return true;
     }
 
@@ -63,6 +61,4 @@ public class BlockIndustrialSawmill extends BlockMachineBase implements IRotatio
     public String getBottom() {
         return prefix + "advanced_machine_side";
     }
-
-
 }

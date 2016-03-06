@@ -62,7 +62,7 @@ public class TileExtractor extends TilePowerAcceptor implements IWrenchable, IIn
 
     @Override
     public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-        return new ItemStack(ModBlocks.AlloySmelter, 1);
+        return new ItemStack(ModBlocks.Extractor, 1);
     }
 
     public boolean isComplete() {
@@ -82,15 +82,6 @@ public class TileExtractor extends TilePowerAcceptor implements IWrenchable, IIn
         inventory.writeToNBT(tagCompound);
         crafter.writeToNBT(tagCompound);
     }
-
-//	@Override
-//	public void addWailaInfo(List<String> info){
-//		super.addWailaInfo(info);
-//		info.add("Power Stored " + energy.getEnergyStored() + "/" + energy.getCapacity() +" EU");
-//		if(crafter.currentRecipe !=null){
-//		info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
-//		}
-//	}
 
     @Override
     public int getSizeInventory() {

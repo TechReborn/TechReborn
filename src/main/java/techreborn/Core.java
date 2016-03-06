@@ -102,6 +102,10 @@ public class Core {
         ModLoot.init();
         //Multiparts
         ModParts.init();
+        // Compat
+        for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
+            compatModule.init(event);
+        }
         // Recipes
         StopWatch watch = new StopWatch();
         watch.start();
@@ -110,10 +114,6 @@ public class Core {
         watch.stop();
         //Client only init, needs to be done before parts system
         proxy.init();
-        // Compat
-        for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
-            compatModule.init(event);
-        }
         // WorldGen
         GameRegistry.registerWorldGenerator(new TROreGen(), 0);
         GameRegistry.registerWorldGenerator(new TreeGenerator(), 0);

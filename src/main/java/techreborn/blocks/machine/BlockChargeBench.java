@@ -13,7 +13,6 @@ import techreborn.tiles.TileChargeBench;
 
 public class BlockChargeBench extends BlockMachineBase implements IRotationTexture {
 
-
     public BlockChargeBench(Material material) {
         super();
         setUnlocalizedName("techreborn.chargebench");
@@ -28,8 +27,7 @@ public class BlockChargeBench extends BlockMachineBase implements IRotationTextu
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
         if (!player.isSneaking())
-            player.openGui(Core.INSTANCE, GuiHandler.chargeBench, world, x, y,
-                    z);
+            player.openGui(Core.INSTANCE, GuiHandler.chargeBench, world, x, y, z);
         return true;
     }
 
@@ -59,5 +57,4 @@ public class BlockChargeBench extends BlockMachineBase implements IRotationTextu
     public String getBottom() {
         return prefix + "chargeBench_side";
     }
-
 }

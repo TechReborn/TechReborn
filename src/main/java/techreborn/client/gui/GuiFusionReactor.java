@@ -50,16 +50,16 @@ public class GuiFusionReactor extends GuiContainer {
     public void initGui() {
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
-        GuiButton button = new GuiButton(212, k + this.xSize - 24, l + 4, 20, 20, "");
-        buttonList.add(button);
+        //GuiButton button = new GuiButton(212, k + this.xSize - 24, l + 4, 20, 20, "");
+        //buttonList.add(button);
         super.initGui();
-        CoordTriplet coordinates = new CoordTriplet(fusionController.getPos().getX() - (EnumFacing.getFront(fusionController.getFacingInt()).getFrontOffsetX() * 2), fusionController.getPos().getY() - 1, fusionController.getPos().getZ() - (EnumFacing.getFront(fusionController.getFacingInt()).getFrontOffsetZ() * 2));
-        if(coordinates.equals(ClientProxy.multiblockRenderEvent.anchor)){
-            ClientProxy.multiblockRenderEvent.setMultiblock(null);
-            button.displayString = "B";
-        } else {
-            button.displayString = "A";
-        }
+       // CoordTriplet coordinates = new CoordTriplet(fusionController.getPos().getX() - (EnumFacing.getFront(fusionController.getFacingInt()).getFrontOffsetX() * 2), fusionController.getPos().getY() - 1, fusionController.getPos().getZ() - (EnumFacing.getFront(fusionController.getFacingInt()).getFrontOffsetZ() * 2));
+//        if(coordinates.equals(ClientProxy.multiblockRenderEvent.anchor)){
+//            ClientProxy.multiblockRenderEvent.setMultiblock(null);
+//            button.displayString = "B";
+//        } else {
+//            button.displayString = "A";
+//        }
     }
 
     @Override
@@ -86,19 +86,19 @@ public class GuiFusionReactor extends GuiContainer {
     @Override
     public void actionPerformed(GuiButton button) throws IOException {
         super.actionPerformed(button);
-        if(button.id == 212){
-            if(ClientProxy.multiblockRenderEvent.currentMultiblock == null){
-                {//This code here makes a basic multiblock and then sets to the selected one.
-                    MultiblockSet set = new MultiblockSet(ClientMultiBlocks.reactor);
-                    ClientProxy.multiblockRenderEvent.setMultiblock(set);
-                    ClientProxy.multiblockRenderEvent.partent = new Location(fusionController.getPos().getX(), fusionController.getPos().getY(), fusionController.getPos().getZ(), fusionController.getWorld());
-                    ClientProxy.multiblockRenderEvent.anchor = new CoordTriplet(fusionController.getPos().getX() , fusionController.getPos().getY() -1 , fusionController.getPos().getZ());
-                }
-                button.displayString = "A";
-            } else {
-                ClientProxy.multiblockRenderEvent.setMultiblock(null);
-                button.displayString = "B";
-            }
-        }
+//        if(button.id == 212){
+//            if(ClientProxy.multiblockRenderEvent.currentMultiblock == null){
+//                {//This code here makes a basic multiblock and then sets to the selected one.
+//                    MultiblockSet set = new MultiblockSet(ClientMultiBlocks.reactor);
+//                    ClientProxy.multiblockRenderEvent.setMultiblock(set);
+//                    ClientProxy.multiblockRenderEvent.partent = new Location(fusionController.getPos().getX(), fusionController.getPos().getY(), fusionController.getPos().getZ(), fusionController.getWorld());
+//                    ClientProxy.multiblockRenderEvent.anchor = new CoordTriplet(fusionController.getPos().getX() , fusionController.getPos().getY() -1 , fusionController.getPos().getZ());
+//                }
+//                button.displayString = "A";
+//            } else {
+//                ClientProxy.multiblockRenderEvent.setMultiblock(null);
+//                button.displayString = "B";
+//            }
+//        }
     }
 }

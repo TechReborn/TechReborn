@@ -13,7 +13,6 @@ import techreborn.tiles.TileIndustrialElectrolyzer;
 
 public class BlockIndustrialElectrolyzer extends BlockMachineBase implements IRotationTexture {
 
-
     public BlockIndustrialElectrolyzer(Material material) {
         super();
         setUnlocalizedName("techreborn.industrialelectrolyzer");
@@ -26,11 +25,9 @@ public class BlockIndustrialElectrolyzer extends BlockMachineBase implements IRo
     }
 
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z,
-                                    EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
         if (!player.isSneaking())
-            player.openGui(Core.INSTANCE, GuiHandler.industrialElectrolyzerID, world, x, y,
-                    z);
+            player.openGui(Core.INSTANCE, GuiHandler.industrialElectrolyzerID, world, x, y, z);
         return true;
     }
 
@@ -60,5 +57,4 @@ public class BlockIndustrialElectrolyzer extends BlockMachineBase implements IRo
     public String getBottom() {
         return prefix + "machine_bottom";
     }
-
 }

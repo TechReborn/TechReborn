@@ -1,9 +1,8 @@
-package techreborn.blocks.machine;
+package techreborn.blocks;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -16,25 +15,27 @@ import reborncore.common.blocks.IRotationTexture;
 import techreborn.Core;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.init.ModBlocks;
 import techreborn.tiles.TileAlloyFurnace;
+import techreborn.tiles.TileIronFurnace;
 
-public class BlockAlloyFurnace extends BlockMachineBase implements IRotationTexture {
+public class BlockIronFurnace extends BlockMachineBase implements IRotationTexture {
 
-    public BlockAlloyFurnace(Material material) {
-        super();
-        setUnlocalizedName("techreborn.alloyfurnace");
+	public BlockIronFurnace() {
+		super();
+		setUnlocalizedName("techreborn.ironfurnace");
         setCreativeTab(TechRebornCreativeTab.instance);
-    }
-
+	}
+	
     @Override
     public TileEntity createNewTileEntity(World world, int p_149915_2_) {
-        return new TileAlloyFurnace();
+        return new TileIronFurnace();
     }
-
+	
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
         if (!player.isSneaking())
-            player.openGui(Core.INSTANCE, GuiHandler.alloyFurnaceID, world, x, y, z);
+            player.openGui(Core.INSTANCE, GuiHandler.ironFurnace, world, x, y, z);
         return true;
     }
     

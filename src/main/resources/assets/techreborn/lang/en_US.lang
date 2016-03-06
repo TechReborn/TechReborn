@@ -67,6 +67,7 @@ tile.techreborn.storage2.tin.name=Tin Block
 tile.techreborn.solarpanel.name=Solar panel
 tile.techreborn.watermill.name=Water Mill
 tile.techreborn.windmill.name=Wind Mill
+tile.techreborn.ironfurnace.name=Iron Furnace
 
 #Blocks
 tile.techreborn.rubberlog.name=Rubber Wood
@@ -268,6 +269,18 @@ item.techreborn.dust.zinc.name=Zinc Dust
 item.techreborn.dust.galena.name=Galena Dust
 item.techreborn.dust.greenSapphire.name=Green Sapphire Dust
 item.techreborn.dust.sawDust.name=Saw Dust
+item.techreborn.lapotroncrystal.name=Lapotron Crystal
+item.techreborn.energycrystal.name=Energy Crystal
+item.techreborn.ingot.refinediron.name=Refined Iron
+item.techreborn.wrench.name=Wrench
+item.techreborn.cable.COPPER.name=Copper Cable
+item.techreborn.cable.TIN.name=Tin Cable
+item.techreborn.cable.GOLD.name=Gold Cable
+item.techreborn.cable.HV.name=HV Cable
+item.techreborn.cable.GLASSFIBER.name=Glass Fiber Cable
+item.techreborn.cable.ICOPPER.name=Insulated Copper Cable
+item.techreborn.cable.IGOLD.name=Insulated Gold Cable
+item.techreborn.cable.IHV.name=Insulated HV Cable
 
 
 #Small Dusts

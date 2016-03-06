@@ -34,10 +34,10 @@ public class GuiElectricFurnace extends GuiContainer {
 
         int j = 0;
 
-//        j = furnace.getProgressScaled(24);
-//        if (j > 0) {
-//            this.drawTexturedModalRect(k + 50, l + 36, 176, 14, j + 1, 16);
-//        }
+        j = furnace.gaugeProgressScaled(24);
+        if (j > 0) {
+            this.drawTexturedModalRect(k + 78, l + 34, 176, 14, j + 1, 16);
+        }
 
         j = furnace.getEnergyScaled(12);
         if (j > 0) {

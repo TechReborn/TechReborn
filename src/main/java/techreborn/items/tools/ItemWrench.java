@@ -32,9 +32,8 @@ public class ItemWrench extends ItemTR implements ITexturedItem {
     public ItemWrench() {
         setCreativeTab(TechRebornCreativeTabMisc.instance);
         setUnlocalizedName("techreborn.wrench");
-        
+        setMaxStackSize(1);        
     }
-
 
     @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
@@ -43,6 +42,9 @@ public class ItemWrench extends ItemTR implements ITexturedItem {
         }
         TileEntity tile = world.getTileEntity(pos);
         if(tile == null){
+            return false;
+        }
+        if(!(tile instanceof IInventory)){
             return false;
         }
 

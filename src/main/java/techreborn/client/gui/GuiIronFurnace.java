@@ -1,29 +1,29 @@
 package techreborn.client.gui;
 
-import org.lwjgl.util.Color;
-
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import techreborn.client.container.ContainerCompressor;
-import techreborn.tiles.teir1.TileCompressor;
+import techreborn.client.container.ContainerElectricFurnace;
+import techreborn.client.container.ContainerIronFurnace;
+import techreborn.tiles.TileIronFurnace;
+import techreborn.tiles.teir1.TileElectricFurnace;
 
-public class GuiCompressor extends GuiContainer {
+public class GuiIronFurnace extends GuiContainer {
 
-    public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/compressor.png");
+    public static final ResourceLocation texture = new ResourceLocation("minecraft", "textures/gui/container/furnace.png");
 
-    TileCompressor compressor;
-    ContainerCompressor containerGrinder;
+    TileIronFurnace furnace;
+    ContainerIronFurnace containerGrinder;
 
-    public GuiCompressor(EntityPlayer player, TileCompressor tilegrinder) {
-        super(new ContainerCompressor(tilegrinder, player));
+    public GuiIronFurnace(EntityPlayer player, TileIronFurnace tilegrinder) {
+        super(new ContainerIronFurnace(tilegrinder, player));
         this.xSize = 176;
         this.ySize = 167;
-        compressor = tilegrinder;
-        containerGrinder = (ContainerCompressor) this.inventorySlots;
+        furnace = tilegrinder;
+        containerGrinder = (ContainerIronFurnace) this.inventorySlots;
     }
 
     @Override
@@ -36,20 +36,19 @@ public class GuiCompressor extends GuiContainer {
 
         int j = 0;
 
-        j = compressor.getProgressScaled(24);
-//        System.out.println("" + j);
+        j = furnace.gaugeProgressScaled(24);
         if (j > 0) {
-            this.drawTexturedModalRect(k + 80, l + 35, 176, 14, j + 2, 16);
+            this.drawTexturedModalRect(k + 78, l + 35, 176, 14, j + 1, 16);
         }
 
-        j = compressor.getEnergyScaled(12);
+        j = furnace.gaugeFuelScaled(12);
         if (j > 0) {
-            this.drawTexturedModalRect(k + 24, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);
+            this.drawTexturedModalRect(k + 57, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);
         }
     }
 
     protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
-        String name = StatCollector.translateToLocal("tile.techreborn.compressor.name");
+        String name = StatCollector.translateToLocal("tile.techreborn.ironfurnace.name");
         this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
         this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
     }

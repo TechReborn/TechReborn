@@ -24,6 +24,8 @@ import techreborn.client.container.ContainerAssemblingMachine;
 import techreborn.client.container.ContainerBlastFurnace;
 import techreborn.client.container.ContainerCentrifuge;
 import techreborn.client.container.ContainerChemicalReactor;
+import techreborn.client.container.ContainerCompressor;
+import techreborn.client.container.ContainerExtractor;
 import techreborn.client.container.ContainerFusionReactor;
 import techreborn.client.container.ContainerGrinder;
 import techreborn.client.container.ContainerImplosionCompressor;
@@ -38,12 +40,15 @@ import techreborn.client.gui.GuiAssemblingMachine;
 import techreborn.client.gui.GuiBlastFurnace;
 import techreborn.client.gui.GuiCentrifuge;
 import techreborn.client.gui.GuiChemicalReactor;
+import techreborn.client.gui.GuiCompressor;
+import techreborn.client.gui.GuiExtractor;
 import techreborn.client.gui.GuiFusionReactor;
 import techreborn.client.gui.GuiGrinder;
 import techreborn.client.gui.GuiImplosionCompressor;
 import techreborn.client.gui.GuiIndustrialElectrolyzer;
 import techreborn.client.gui.GuiIndustrialGrinder;
 import techreborn.client.gui.GuiIndustrialSawmill;
+import techreborn.client.gui.GuiIronFurnace;
 import techreborn.client.gui.GuiRollingMachine;
 import techreborn.client.gui.GuiVacuumFreezer;
 import techreborn.compat.jei.alloySmelter.AlloySmelterRecipeCategory;
@@ -56,6 +61,10 @@ import techreborn.compat.jei.centrifuge.CentrifugeRecipeCategory;
 import techreborn.compat.jei.centrifuge.CentrifugeRecipeHandler;
 import techreborn.compat.jei.chemicalReactor.ChemicalReactorRecipeCategory;
 import techreborn.compat.jei.chemicalReactor.ChemicalReactorRecipeHandler;
+import techreborn.compat.jei.compressor.CompressorRecipeCategory;
+import techreborn.compat.jei.compressor.CompressorRecipeHandler;
+import techreborn.compat.jei.extractor.ExtractorRecipeCategory;
+import techreborn.compat.jei.extractor.ExtractorRecipeHandler;
 import techreborn.compat.jei.fusionReactor.FusionReactorRecipeCategory;
 import techreborn.compat.jei.fusionReactor.FusionReactorRecipeHandler;
 import techreborn.compat.jei.grinder.GrinderRecipeCategory;
@@ -94,7 +103,9 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
                 new IndustrialSawmillRecipeCategory(guiHelper),
                 new RollingMachineRecipeCategory(guiHelper),
                 new VacuumFreezerRecipeCategory(guiHelper),
-                new GrinderRecipeCategory(guiHelper)
+                new GrinderRecipeCategory(guiHelper),
+                new ExtractorRecipeCategory(guiHelper),
+                new CompressorRecipeCategory(guiHelper)
         );
 
         registry.addRecipeHandlers(
@@ -110,7 +121,9 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
                 new IndustrialSawmillRecipeHandler(jeiHelpers),
                 new RollingMachineRecipeHandler(),
                 new VacuumFreezerRecipeHandler(jeiHelpers),
-                new GrinderRecipeHandler(jeiHelpers)
+                new GrinderRecipeHandler(jeiHelpers),
+                new ExtractorRecipeHandler(jeiHelpers),
+                new CompressorRecipeHandler(jeiHelpers)
         );
 
         registry.addRecipes(RecipeHandler.recipeList);
@@ -144,6 +157,9 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
         registry.addRecipeClickArea(GuiRollingMachine.class, 89, 32, 26, 25, RecipeCategoryUids.ROLLING_MACHINE);
         registry.addRecipeClickArea(GuiVacuumFreezer.class, 78, 36, 24, 16, RecipeCategoryUids.VACUUM_FREEZER);
         registry.addRecipeClickArea(GuiGrinder.class, 78, 36, 24, 16, RecipeCategoryUids.GRINDER);
+        registry.addRecipeClickArea(GuiExtractor.class, 78, 36, 24, 16, RecipeCategoryUids.EXTRACTOR);
+        registry.addRecipeClickArea(GuiCompressor.class, 78, 36, 24, 16, RecipeCategoryUids.COMPRESSOR);
+        registry.addRecipeClickArea(GuiIronFurnace.class, 78, 36, 24, 16, VanillaRecipeCategoryUid.SMELTING, VanillaRecipeCategoryUid.FUEL);
 
 
         IRecipeTransferRegistry recipeTransferRegistry = registry.getRecipeTransferRegistry();
@@ -162,6 +178,8 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
         recipeTransferRegistry.addRecipeTransferHandler(ContainerRollingMachine.class, RecipeCategoryUids.ROLLING_MACHINE, 0, 9, 11, 36);
         recipeTransferRegistry.addRecipeTransferHandler(ContainerVacuumFreezer.class, RecipeCategoryUids.VACUUM_FREEZER, 0, 1, 2, 36);
         recipeTransferRegistry.addRecipeTransferHandler(ContainerGrinder.class, RecipeCategoryUids.GRINDER, 0, 1, 2, 36);
+        recipeTransferRegistry.addRecipeTransferHandler(ContainerExtractor.class, RecipeCategoryUids.EXTRACTOR, 0, 1, 2, 36);
+        recipeTransferRegistry.addRecipeTransferHandler(ContainerCompressor.class, RecipeCategoryUids.COMPRESSOR, 0, 1, 2, 36);
 
     }
 
