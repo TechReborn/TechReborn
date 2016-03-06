@@ -171,6 +171,8 @@ public class
                 'S', Items.redstone,
                 'W', ItemCables.getCableByName("insulatedcopper"));
         
+      CraftingHelper.addShapelessOreRecipe(ItemCables.getCableByName("insulatedcopper"), ItemParts.getPartByName("rubber"));
+        
 	  CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.wrench),
 			  "BAB", "BBB", "ABA", 
 		      'B', "ingotBronze");
