@@ -1569,8 +1569,8 @@ public class ModRecipes {
 
         CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.AlloyFurnace),
                 "III", "F F", "III",
-                'I', "plateIron",
-                'F', TechRebornAPI.recipeCompact.getItem("ironFurnace"));
+                'I', ItemIngots.getIngotByName("refinediron"),
+                'F', new ItemStack(ModBlocks.ironFurnace));
 
         CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ChemicalReactor),
                 "IMI", "CPC", "IEI",
