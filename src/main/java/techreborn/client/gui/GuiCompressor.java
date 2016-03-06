@@ -1,5 +1,7 @@
 package techreborn.client.gui;
 
+import org.lwjgl.util.Color;
+
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
@@ -35,8 +37,9 @@ public class GuiCompressor extends GuiContainer {
         int j = 0;
 
         j = compressor.getProgressScaled(24);
+//        System.out.println("" + j);
         if (j > 0) {
-            this.drawTexturedModalRect(k + 50, l + 36, 176, 14, j + 1, 16);
+            this.drawTexturedModalRect(k + 80, l + 35, 176, 14, j + 2, 16);
         }
 
         j = compressor.getEnergyScaled(12);
