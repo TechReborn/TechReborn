@@ -44,6 +44,9 @@ public class ItemWrench extends ItemTR implements ITexturedItem {
         if(tile == null){
             return false;
         }
+        if(!(tile instanceof IInventory)){
+            return false;
+        }
 
         List<ItemStack> items = new ArrayList<ItemStack>();
         IInventory inventory = (IInventory) tile;
