@@ -49,8 +49,7 @@ import techreborn.items.ItemPlates;
 import techreborn.parts.ItemCables;
 import techreborn.utils.RecipeUtils;
 
-public class
-        ModRecipes {
+public class ModRecipes {
     public static ConfigTechReborn config;
 
     public static void init() {
@@ -78,9 +77,43 @@ public class
         addIc2ReplacementReicpes();
         addExtractorRecipes();
         addCompressorRecipes();
+        addWireRecipes();
     }
 
-    private static void addCompressorRecipes() {
+    static void addWireRecipes() {
+        CraftingHelper.addShapedOreRecipe(ItemCables.getCableByName("copper", 6),
+                "XXX","CCC", "XXX",
+                'C', "ingotCopper");
+        CraftingHelper.addShapedOreRecipe(ItemCables.getCableByName("tin", 9),
+                "XXX","CCC", "XXX",
+                'C', "ingotTin");
+        CraftingHelper.addShapedOreRecipe(ItemCables.getCableByName("gold", 12),
+                "XXX","CCC", "XXX",
+                'C', "ingotGold");
+        CraftingHelper.addShapedOreRecipe(ItemCables.getCableByName("hv", 8),
+                "XXX","CCC", "XXX",
+                'C', ItemIngots.getIngotByName("refinediron"));       
+        CraftingHelper.addShapedOreRecipe(ItemCables.getCableByName("glassfiber", 6),
+                "GGG",
+                "SDS",
+                "GGG",
+                'G', "blockGlass",
+                'S', "ingotSilver",
+                'D', Items.diamond);
+        CraftingHelper.addShapedOreRecipe(ItemCables.getCableByName("glassfiber", 4),
+                "GGG",
+                "RDR",
+                "GGG",
+                'G', "blockGlass",
+                'R', Items.redstone,
+                'D', Items.diamond);
+             
+        CraftingHelper.addShapelessOreRecipe(ItemCables.getCableByName("insulatedcopper"), ItemParts.getPartByName("rubber"), ItemCables.getCableByName("copper"));
+        CraftingHelper.addShapelessOreRecipe(ItemCables.getCableByName("insulatedgold"), ItemParts.getPartByName("rubber"), ItemCables.getCableByName("gold"));
+        CraftingHelper.addShapelessOreRecipe(ItemCables.getCableByName("insulatedhv"), ItemParts.getPartByName("rubber"), ItemCables.getCableByName("hv"));
+	}
+
+	private static void addCompressorRecipes() {
     	RecipeHandler.addRecipe(new CompressorRecipe(new ItemStack(Items.diamond), new ItemStack(Items.coal), 400, 20));
 	}
 
@@ -170,9 +203,7 @@ public class
                 'R', ItemIngots.getIngotByName("refinediron"),
                 'S', Items.redstone,
                 'W', ItemCables.getCableByName("insulatedcopper"));
-        
-      CraftingHelper.addShapelessOreRecipe(ItemCables.getCableByName("insulatedcopper"), ItemParts.getPartByName("rubber"));
-        
+                
 	  CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.wrench),
 			  "BAB", "BBB", "ABA", 
 		      'B', "ingotBronze");
