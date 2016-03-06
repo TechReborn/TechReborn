@@ -127,7 +127,7 @@ dependencies {
   //  shade 'IC2-Classic-API-STANDALONE:IC2-Classic-API-STANDALONE:1.1.0.19-5:api'
     deobfCompile 'RebornCore:RebornCore-1.8.9:1.4.4.+:universal'
     deobfCompile "mezz.jei:jei_1.8.9:2.27.+"
-    deobfCompile 'MCMultiPart:MCMultiPart:1.0.6:universal'
+    deobfCompile 'MCMultiPart:MCMultiPart:1.0.8:universal'
 
     println("Downloading dependencies that have no maven :/")
     //This is done becuase
