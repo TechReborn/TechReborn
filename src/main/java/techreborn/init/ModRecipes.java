@@ -198,6 +198,15 @@ public class ModRecipes {
                     'A', "ingot" + name.substring(0, 1).toUpperCase() + name.substring(1));
         }
         
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ironFurnace),
+                "III", "IXI", "III",
+                'I', "ingotIron");
+        
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ironFurnace),
+                "XIX", "IXI", "IFI",
+                'I', "ingotIron",
+                'F', Blocks.furnace);
+        
         CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("electronicCircuit"),
                 "WWW", "SRS", "WWW",
                 'R', ItemIngots.getIngotByName("refinediron"),

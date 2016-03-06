@@ -9,6 +9,7 @@ import techreborn.Core;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileAlloyFurnace;
+import techreborn.tiles.TileIronFurnace;
 
 public class BlockIronFurnace extends BlockMachineBase implements IRotationTexture {
 
@@ -20,13 +21,13 @@ public class BlockIronFurnace extends BlockMachineBase implements IRotationTextu
 	
     @Override
     public TileEntity createNewTileEntity(World world, int p_149915_2_) {
-        return null;
+        return new TileIronFurnace();
     }
 	
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-//        if (!player.isSneaking())
-//            player.openGui(Core.INSTANCE, GuiHandler.alloyFurnaceID, world, x, y, z);
+        if (!player.isSneaking())
+            player.openGui(Core.INSTANCE, GuiHandler.ironFurnace, world, x, y, z);
         return true;
     }
 

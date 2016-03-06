@@ -28,6 +28,7 @@ import techreborn.client.container.ContainerImplosionCompressor;
 import techreborn.client.container.ContainerIndustrialElectrolyzer;
 import techreborn.client.container.ContainerIndustrialGrinder;
 import techreborn.client.container.ContainerIndustrialSawmill;
+import techreborn.client.container.ContainerIronFurnace;
 import techreborn.client.container.ContainerLesu;
 import techreborn.client.container.ContainerMatterFabricator;
 import techreborn.client.container.ContainerQuantumChest;
@@ -60,6 +61,7 @@ import techreborn.client.gui.GuiImplosionCompressor;
 import techreborn.client.gui.GuiIndustrialElectrolyzer;
 import techreborn.client.gui.GuiIndustrialGrinder;
 import techreborn.client.gui.GuiIndustrialSawmill;
+import techreborn.client.gui.GuiIronFurnace;
 import techreborn.client.gui.GuiLesu;
 import techreborn.client.gui.GuiMatterFabricator;
 import techreborn.client.gui.GuiQuantumChest;
@@ -83,6 +85,7 @@ import techreborn.tiles.TileImplosionCompressor;
 import techreborn.tiles.TileIndustrialElectrolyzer;
 import techreborn.tiles.TileIndustrialGrinder;
 import techreborn.tiles.TileIndustrialSawmill;
+import techreborn.tiles.TileIronFurnace;
 import techreborn.tiles.TileMatterFabricator;
 import techreborn.tiles.TileQuantumChest;
 import techreborn.tiles.TileQuantumTank;
@@ -136,6 +139,7 @@ public class GuiHandler implements IGuiHandler {
     public static final int extractorID = 33;
     public static final int compressorID = 34;
     public static final int electricFurnaceID = 35;
+    public static final int ironFurnace = 36;
 
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
@@ -226,9 +230,9 @@ public class GuiHandler implements IGuiHandler {
 	        return new ContainerCompressor((TileCompressor) world.getTileEntity(new BlockPos(x, y, z)), player);
 	    }else if (ID == electricFurnaceID) {
 	        return new ContainerElectricFurnace((TileElectricFurnace) world.getTileEntity(new BlockPos(x, y, z)), player);
+	    }else if (ID == ironFurnace) {
+	        return new ContainerIronFurnace((TileIronFurnace) world.getTileEntity(new BlockPos(x, y, z)), player);
 	    }
-
-
         return null;
     }
 
@@ -322,7 +326,10 @@ public class GuiHandler implements IGuiHandler {
             return new GuiCompressor(player, (TileCompressor) world.getTileEntity(new BlockPos(x, y, z)));
         }else if (ID == electricFurnaceID) {
             return new GuiElectricFurnace(player, (TileElectricFurnace) world.getTileEntity(new BlockPos(x, y, z)));
+        }else if (ID == ironFurnace) {
+            return new GuiIronFurnace(player, (TileIronFurnace) world.getTileEntity(new BlockPos(x, y, z)));
         }
+        
         return null;
     }
 }

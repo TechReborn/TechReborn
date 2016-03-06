@@ -368,7 +368,7 @@ public class ModBlocks {
         
         ironFurnace = new BlockIronFurnace();
         GameRegistry.registerBlock(ironFurnace, "ironfurnace");
-
+        GameRegistry.registerTileEntity(TileIronFurnace.class, "TileIronFurnaceTR");
         registerOreDict();
         Core.logHelper.info("TechReborns Blocks Loaded");
     }
