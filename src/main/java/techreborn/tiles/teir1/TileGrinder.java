@@ -33,7 +33,6 @@ public class TileGrinder extends TilePowerAcceptor implements IWrenchable, IInve
     public void updateEntity() {
         super.updateEntity();
         crafter.updateEntity();
-//        upgrades.tick();
         charge(3);
     }
     
@@ -82,15 +81,6 @@ public class TileGrinder extends TilePowerAcceptor implements IWrenchable, IInve
         inventory.writeToNBT(tagCompound);
         crafter.writeToNBT(tagCompound);
     }
-
-//	@Override
-//	public void addWailaInfo(List<String> info){
-//		super.addWailaInfo(info);
-//		info.add("Power Stored " + energy.getEnergyStored() + "/" + energy.getCapacity() +" EU");
-//		if(crafter.currentRecipe !=null){
-//		info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
-//		}
-//	}
 
     @Override
     public int getSizeInventory() {
