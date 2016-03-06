@@ -3,6 +3,7 @@ package techreborn.parts;
 import mcmultipart.MCMultiPartMod;
 import mcmultipart.microblock.IMicroblock;
 import mcmultipart.multipart.*;
+import mcmultipart.raytrace.PartMOP;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -25,10 +26,7 @@ import reborncore.api.power.IEnergyInterfaceTile;
 import reborncore.common.misc.Functions;
 import reborncore.common.misc.vecmath.Vecs3dCube;
 
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by mark on 02/03/2016.
@@ -225,7 +223,11 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
 
     @Override
     public void update() {
-
+        if(getWorld() != null){
+            if(getWorld().getTotalWorldTime() % 80 == 0){
+                checkConnectedSides();
+            }
+        }
     }
 
     @Override
@@ -260,6 +262,18 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
     @Override
     public String getModelPath() {
         return "techreborn:cable";
+    }
+
+    @Override
+    public float getHardness(PartMOP hit) {
+        return 1F;
+    }
+
+    @Override
+    public List<ItemStack> getDrops() {
+        List<ItemStack> list = new ArrayList<>();
+        list.add(new ItemStack(TechRebornParts.cables, 1, getCableType().ordinal()));
+        return list;
     }
 
 
