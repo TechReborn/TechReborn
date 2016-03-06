@@ -23,6 +23,7 @@ import techreborn.api.recipe.machines.AlloySmelterRecipe;
 import techreborn.api.recipe.machines.BlastFurnaceRecipe;
 import techreborn.api.recipe.machines.CentrifugeRecipe;
 import techreborn.api.recipe.machines.ChemicalReactorRecipe;
+import techreborn.api.recipe.machines.CompressorRecipe;
 import techreborn.api.recipe.machines.ExtractorRecipe;
 import techreborn.api.recipe.machines.GrinderRecipe;
 import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
@@ -76,9 +77,14 @@ public class
         addHammerRecipes();
         addIc2ReplacementReicpes();
         addExtractorRecipes();
+        addCompressorRecipes();
     }
 
-    static void addExtractorRecipes() {
+    private static void addCompressorRecipes() {
+    	RecipeHandler.addRecipe(new CompressorRecipe(new ItemStack(Items.diamond), new ItemStack(Items.coal), 400, 20));
+	}
+
+	static void addExtractorRecipes() {
         RecipeHandler.addRecipe(new ExtractorRecipe(ItemParts.getPartByName("rubberSap"), ItemParts.getPartByName("rubber", 3), 400, 20));
         RecipeHandler.addRecipe(new ExtractorRecipe(new ItemStack(ModBlocks.rubberLog), ItemParts.getPartByName("rubber"), 400, 20));	
 	}
