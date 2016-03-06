@@ -485,6 +485,7 @@ public class
         GameRegistry.addSmelting(ItemDusts.getDustByName("iron", 1), new ItemStack(Items.iron_ingot), 1F);
         GameRegistry.addSmelting(ItemDusts.getDustByName("gold", 1), new ItemStack(Items.gold_ingot), 1F);
         GameRegistry.addSmelting(ItemParts.getPartByName("rubberSap"), ItemParts.getPartByName("rubber"), 1F);
+        GameRegistry.addSmelting(new ItemStack(Items.iron_ingot), ItemIngots.getIngotByName("refinediron"), 1F);
 
         Core.logHelper.info("Smelting Recipes Added");
     }
