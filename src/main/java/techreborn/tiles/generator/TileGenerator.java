@@ -5,6 +5,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
@@ -213,5 +214,16 @@ public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IIn
 	public ItemStack getWrenchDrop(EntityPlayer p0) {
 		return new ItemStack(ModBlocks.Generator);
 	}
+	
+    @Override
+    public void readFromNBT(NBTTagCompound tagCompound) {
+        super.readFromNBT(tagCompound);
+        inventory.readFromNBT(tagCompound);
+    }
 
+    @Override
+    public void writeToNBT(NBTTagCompound tagCompound) {
+        super.writeToNBT(tagCompound);
+        inventory.writeToNBT(tagCompound);
+    }
 }
