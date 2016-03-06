@@ -46,7 +46,7 @@ import techreborn.items.ItemIngots;
 import techreborn.items.ItemNuggets;
 import techreborn.items.ItemParts;
 import techreborn.items.ItemPlates;
-import techreborn.parts.ItemCables;
+import techreborn.parts.ItemStandaloneCables;
 import techreborn.utils.RecipeUtils;
 
 public class ModRecipes {
@@ -81,26 +81,26 @@ public class ModRecipes {
     }
 
     static void addWireRecipes() {
-        CraftingHelper.addShapedOreRecipe(ItemCables.getCableByName("copper", 6),
+        CraftingHelper.addShapedOreRecipe(ItemStandaloneCables.getCableByName("copper", 6),
                 "XXX","CCC", "XXX",
                 'C', "ingotCopper");
-        CraftingHelper.addShapedOreRecipe(ItemCables.getCableByName("tin", 9),
+        CraftingHelper.addShapedOreRecipe(ItemStandaloneCables.getCableByName("tin", 9),
                 "XXX","CCC", "XXX",
                 'C', "ingotTin");
-        CraftingHelper.addShapedOreRecipe(ItemCables.getCableByName("gold", 12),
+        CraftingHelper.addShapedOreRecipe(ItemStandaloneCables.getCableByName("gold", 12),
                 "XXX","CCC", "XXX",
                 'C', "ingotGold");
-        CraftingHelper.addShapedOreRecipe(ItemCables.getCableByName("hv", 8),
+        CraftingHelper.addShapedOreRecipe(ItemStandaloneCables.getCableByName("hv", 8),
                 "XXX","CCC", "XXX",
                 'C', ItemIngots.getIngotByName("refinediron"));       
-        CraftingHelper.addShapedOreRecipe(ItemCables.getCableByName("glassfiber", 6),
+        CraftingHelper.addShapedOreRecipe(ItemStandaloneCables.getCableByName("glassfiber", 6),
                 "GGG",
                 "SDS",
                 "GGG",
                 'G', "blockGlass",
                 'S', "ingotSilver",
                 'D', Items.diamond);
-        CraftingHelper.addShapedOreRecipe(ItemCables.getCableByName("glassfiber", 4),
+        CraftingHelper.addShapedOreRecipe(ItemStandaloneCables.getCableByName("glassfiber", 4),
                 "GGG",
                 "RDR",
                 "GGG",
@@ -108,9 +108,9 @@ public class ModRecipes {
                 'R', Items.redstone,
                 'D', Items.diamond);
              
-        CraftingHelper.addShapelessOreRecipe(ItemCables.getCableByName("insulatedcopper"), ItemParts.getPartByName("rubber"), ItemCables.getCableByName("copper"));
-        CraftingHelper.addShapelessOreRecipe(ItemCables.getCableByName("insulatedgold"), ItemParts.getPartByName("rubber"), ItemCables.getCableByName("gold"));
-        CraftingHelper.addShapelessOreRecipe(ItemCables.getCableByName("insulatedhv"), ItemParts.getPartByName("rubber"), ItemCables.getCableByName("hv"));
+        CraftingHelper.addShapelessOreRecipe(ItemStandaloneCables.getCableByName("insulatedcopper"), ItemParts.getPartByName("rubber"), ItemStandaloneCables.getCableByName("copper"));
+        CraftingHelper.addShapelessOreRecipe(ItemStandaloneCables.getCableByName("insulatedgold"), ItemParts.getPartByName("rubber"), ItemStandaloneCables.getCableByName("gold"));
+        CraftingHelper.addShapelessOreRecipe(ItemStandaloneCables.getCableByName("insulatedhv"), ItemParts.getPartByName("rubber"), ItemStandaloneCables.getCableByName("hv"));
 	}
 
 	private static void addCompressorRecipes() {
@@ -202,7 +202,7 @@ public class ModRecipes {
                 "WWW", "SRS", "WWW",
                 'R', ItemIngots.getIngotByName("refinediron"),
                 'S', Items.redstone,
-                'W', ItemCables.getCableByName("insulatedcopper"));
+                'W', ItemStandaloneCables.getCableByName("insulatedcopper"));
                 
 	  CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.wrench),
 			  "BAB", "BBB", "ABA", 

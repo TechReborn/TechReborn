@@ -13,6 +13,7 @@ import techreborn.compat.recipes.RecipesBuildcraft;
 import techreborn.compat.recipes.RecipesThaumcraft;
 import techreborn.compat.waila.CompatModuleWaila;
 import techreborn.config.ConfigTechReborn;
+import techreborn.parts.StandalonePartCompact;
 import techreborn.parts.TechRebornParts;
 
 public class CompatManager {
@@ -45,6 +46,7 @@ public class CompatManager {
         registerCompact(RecipesThaumcraft.class, "Thaumcraft");
         registerCompact(TechRebornParts.class, "mcmultipart");
         registerCompact(ClientPartLoader.class, "mcmultipart", "@client");
+        registerCompact(StandalonePartCompact.class, "!mcmultipart");
     }
 
     public void registerCompact(Class<? extends ICompatModule> moduleClass, Object... objs) {
