@@ -13,8 +13,6 @@ import techreborn.tiles.TileChemicalReactor;
 
 public class BlockChemicalReactor extends BlockMachineBase implements IRotationTexture {
 
-
-
     public BlockChemicalReactor(Material material) {
         super();
         setUnlocalizedName("techreborn.chemicalreactor");
@@ -30,8 +28,7 @@ public class BlockChemicalReactor extends BlockMachineBase implements IRotationT
     public boolean onBlockActivated(World world, int x, int y, int z,
                                     EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
         if (!player.isSneaking())
-            player.openGui(Core.INSTANCE, GuiHandler.chemicalReactorID, world, x, y,
-                    z);
+            player.openGui(Core.INSTANCE, GuiHandler.chemicalReactorID, world, x, y, z);
         return true;
     }
 
@@ -61,5 +58,4 @@ public class BlockChemicalReactor extends BlockMachineBase implements IRotationT
     public String getBottom() {
         return prefix + "industrial_centrifuge_bottom";
     }
-
 }

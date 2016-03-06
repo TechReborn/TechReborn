@@ -14,13 +14,11 @@ import techreborn.tiles.TileVacuumFreezer;
 
 public class BlockVacuumFreezer extends BlockMachineBase implements IAdvancedRotationTexture{
 
-
     public BlockVacuumFreezer(Material material) {
         super();
         setUnlocalizedName("techreborn.vacuumfreezer");
         setCreativeTab(TechRebornCreativeTab.instance);
     }
-
 
     @Override
     public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
@@ -28,15 +26,11 @@ public class BlockVacuumFreezer extends BlockMachineBase implements IAdvancedRot
     }
 
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z,
-                                    EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
         TileVacuumFreezer tileVacuumFreezer = (TileVacuumFreezer) world.getTileEntity(new BlockPos(x, y, z));
         tileVacuumFreezer.multiBlockStatus = tileVacuumFreezer.checkMachine() ? 1 : 0;
-
         if (!player.isSneaking())
-            player.openGui(Core.INSTANCE, GuiHandler.vacuumFreezerID, world, x, y,
-                    z);
+            player.openGui(Core.INSTANCE, GuiHandler.vacuumFreezerID, world, x, y, z);
         return true;
     }
 

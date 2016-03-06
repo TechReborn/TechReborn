@@ -20,7 +20,6 @@ import techreborn.tiles.TileAlloyFurnace;
 
 public class BlockAlloyFurnace extends BlockMachineBase implements IRotationTexture {
 
-
     public BlockAlloyFurnace(Material material) {
         super();
         setUnlocalizedName("techreborn.alloyfurnace");

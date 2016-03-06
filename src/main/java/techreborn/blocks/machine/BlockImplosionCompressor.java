@@ -13,7 +13,6 @@ import techreborn.tiles.TileImplosionCompressor;
 
 public class BlockImplosionCompressor extends BlockMachineBase implements IRotationTexture {
 
-
     public BlockImplosionCompressor(Material material) {
         super();
         setUnlocalizedName("techreborn.implosioncompressor");
@@ -26,11 +25,9 @@ public class BlockImplosionCompressor extends BlockMachineBase implements IRotat
     }
 
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z,
-                                    EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
         if (!player.isSneaking())
-            player.openGui(Core.INSTANCE, GuiHandler.implosionCompresserID, world, x, y,
-                    z);
+            player.openGui(Core.INSTANCE, GuiHandler.implosionCompresserID, world, x, y, z);
         return true;
     }
 
@@ -60,5 +57,4 @@ public class BlockImplosionCompressor extends BlockMachineBase implements IRotat
     public String getBottom() {
         return prefix + "implosion_compressor_bottom";
     }
-
 }

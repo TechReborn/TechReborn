@@ -14,7 +14,6 @@ import techreborn.tiles.TileIndustrialGrinder;
 
 public class BlockIndustrialGrinder extends BlockMachineBase implements IRotationTexture {
 
-
     public BlockIndustrialGrinder(Material material) {
         super();
         setUnlocalizedName("techreborn.industrialgrinder");
@@ -62,5 +61,4 @@ public class BlockIndustrialGrinder extends BlockMachineBase implements IRotatio
     public String getBottom() {
         return prefix + "industrial_centrifuge_bottom";
     }
-
 }

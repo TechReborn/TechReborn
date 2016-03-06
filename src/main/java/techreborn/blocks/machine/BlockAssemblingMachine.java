@@ -13,7 +13,6 @@ import techreborn.tiles.TileAssemblingMachine;
 
 public class BlockAssemblingMachine extends BlockMachineBase implements IRotationTexture {
 
-
     public BlockAssemblingMachine(Material material) {
         super();
         setUnlocalizedName("techreborn.assemblingmachine");
@@ -27,11 +26,9 @@ public class BlockAssemblingMachine extends BlockMachineBase implements IRotatio
     }
 
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z,
-                                    EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
         if (!player.isSneaking())
-            player.openGui(Core.INSTANCE, GuiHandler.assemblingmachineID, world, x, y,
-                    z);
+            player.openGui(Core.INSTANCE, GuiHandler.assemblingmachineID, world, x, y, z);
         return true;
     }
 
@@ -61,5 +58,4 @@ public class BlockAssemblingMachine extends BlockMachineBase implements IRotatio
     public String getBottom() {
         return prefix + "assembling_machine_top";
     }
-
 }

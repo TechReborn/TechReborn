@@ -57,5 +57,4 @@ public class BlockCentrifuge extends BlockMachineBase implements IRotationTextur
     public String getBottom() {
         return prefix + "industrial_centrifuge_bottom";
     }
-
 }

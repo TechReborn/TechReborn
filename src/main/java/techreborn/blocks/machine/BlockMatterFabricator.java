@@ -13,7 +13,6 @@ import techreborn.tiles.TileMatterFabricator;
 
 public class BlockMatterFabricator extends BlockMachineBase implements IAdvancedRotationTexture {
 
-
     public BlockMatterFabricator(Material material) {
         super();
         setUnlocalizedName("techreborn.matterfabricator");
@@ -26,11 +25,9 @@ public class BlockMatterFabricator extends BlockMachineBase implements IAdvanced
     }
 
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z,
-                                    EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
         if (!player.isSneaking())
-            player.openGui(Core.INSTANCE, GuiHandler.matterfabID, world, x, y,
-                    z);
+            player.openGui(Core.INSTANCE, GuiHandler.matterfabID, world, x, y, z);
         return true;
     }
 

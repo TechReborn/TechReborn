@@ -46,10 +46,6 @@ public class TileIronFurnace extends TileMachineBase implements IInventory {
     public int fuelGague;
     public int progress;
     public int fuelScale = 200;
-    byte direction;
-    private static final int[] slots_top = new int[] { 0 };
-    private static final int[] slots_bottom = new int[] { 2, 1 };
-    private static final int[] slots_sides = new int[] { 1 };
 
     public int gaugeProgressScaled (int scale)
     {
