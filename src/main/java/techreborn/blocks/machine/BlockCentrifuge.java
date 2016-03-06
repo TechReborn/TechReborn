@@ -12,8 +12,6 @@ import techreborn.tiles.TileCentrifuge;
 
 public class BlockCentrifuge extends BlockMachineBase implements IRotationTexture {
 
-
-
     public BlockCentrifuge() {
         super();
         setUnlocalizedName("techreborn.centrifuge");
@@ -26,11 +24,10 @@ public class BlockCentrifuge extends BlockMachineBase implements IRotationTextur
     }
 
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z,
-                                    EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-        if (!player.isSneaking())
-            player.openGui(Core.INSTANCE, GuiHandler.centrifugeID, world, x, y,
-                    z);
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+        if (!player.isSneaking()) {
+            player.openGui(Core.INSTANCE, GuiHandler.centrifugeID, world, x, y, z);
+        }
         return true;
     }
 
@@ -44,11 +41,11 @@ public class BlockCentrifuge extends BlockMachineBase implements IRotationTextur
     @Override
     public String getFrontOn() {
         return prefix + "industrial_centrifuge_side_on";
-    }
+    }  
 
     @Override
     public String getSide() {
-        return prefix + "advanced_machine_side";
+        return getFrontOff();
     }
 
     @Override
