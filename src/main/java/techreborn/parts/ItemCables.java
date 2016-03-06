@@ -28,7 +28,7 @@ public class ItemCables extends ItemMultiPart implements ITexturedItem {
     
     public static ItemStack getCableByName(String name, int count) {
         for (int i = 0; i < EnumCableType.values().length; i++) {
-            if (EnumCableType.values()[i].name().equalsIgnoreCase(name)) {
+            if (EnumCableType.values()[i].getName().equalsIgnoreCase(name)) {
                 return new ItemStack(TechRebornParts.cables, count, i);
             }
         }
