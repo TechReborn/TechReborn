@@ -87,6 +87,7 @@ public class ModItems {
     public static Item wrench;
     public static Item lapatronCrystal;
     public static Item energyCrystal;
+    public static Item scrapBox;
 
     public static Item upgrades;
 
@@ -172,6 +173,9 @@ public class ModItems {
 
         wrench = new ItemWrench();
         GameRegistry.registerItem(wrench, "wrench");
+        
+        scrapBox = new ItemScrapBox();
+        GameRegistry.registerItem(scrapBox, "scrapbox");
 
 //        upgrades = new ItemUpgrade();
 //        GameRegistry.registerItem(upgrades, "upgrades");
