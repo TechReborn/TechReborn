@@ -141,7 +141,7 @@ public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IIn
 
     @Override
     public double getMaxPower() {
-        return ConfigTechReborn.ThermalGeneratorCharge;
+        return 10000;
     }
 
     @Override
