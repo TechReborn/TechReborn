@@ -198,6 +198,12 @@ public class ModRecipes {
                     'A', "ingot" + name.substring(0, 1).toUpperCase() + name.substring(1));
         }
         
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ElectricFurnace),
+                "XCX", "RFR", "XXX",
+                'C', ItemParts.getPartByName("electronicCircuit"),
+                'F', new ItemStack(ModBlocks.ironFurnace),
+                'R', Items.redstone);
+        
         CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ironFurnace),
                 "III", "IXI", "III",
                 'I', "ingotIron");
@@ -457,7 +463,6 @@ public class ModRecipes {
     }
 
     static void addShapelessRecipes() {
-
         for (String name : ArrayUtils.addAll(BlockStorage.types, BlockStorage2.types)) {
             ItemStack item = null;
             try {
@@ -476,7 +481,6 @@ public class ModRecipes {
 
             GameRegistry.addShapelessRecipe(BlockStorage.getStorageBlockByName(name), item, item, item, item, item, item, item, item, item);
             GameRegistry.addShapelessRecipe(item, BlockStorage.getStorageBlockByName(name, 9));
-
         }
 
         GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.rubberPlanks, 4), ModBlocks.rubberLog);
@@ -493,7 +497,7 @@ public class ModRecipes {
         CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.quantumTank),
                 "EPE", "PCP", "EPE",
                 'P', "platePlatinum",
-                'E', "circuitMaster",
+                'E', ItemParts.getPartByName("advancedCircuit"),
                 'C', ModBlocks.quantumChest);
 
         CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.digitalChest),
@@ -509,16 +513,15 @@ public class ModRecipes {
                 'C', ItemParts.getPartByName("computerMonitor"));
 
         CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.AlloySmelter),
-                "IHI", "CFC", "IHI",
-                'I', "plateInvar",
-                'C', "circuitBasic",
-                'H', new ItemStack(ModItems.parts, 1, 17),
-                'F', ModBlocks.AlloyFurnace);
+                "XCX", "FMF", "XXX",
+                'C', ItemParts.getPartByName("electronicCircuit"),
+                'F', new ItemStack(ModBlocks.ElectricFurnace),
+                'M', BlockMachineFrame.getFrameByName("machine", 1));
 
         CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.LesuStorage),
                 "LLL", "LCL", "LLL",
                 'L', "blockLapis",
-                'C', "circuitBasic");
+                'C', ItemParts.getPartByName("electronicCircuit"));
 
         TechRebornAPI.addRollingOreMachinceRecipe(ItemParts.getPartByName("cupronickelHeatingCoil"),
                 "NCN", "C C", "NCN",
