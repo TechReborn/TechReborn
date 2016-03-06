@@ -18,4 +18,5 @@ public class RecipeCategoryUids {
 	public static final String VACUUM_FREEZER = "TechReborn.VacuumFreezer";
 	public static final String GRINDER = "TechReborn.Grinder";
 	public static final String EXTRACTOR = "TechReborn.Extractor";
+	public static final String COMPRESSOR = "TechReborn.Compressor";
 }
