@@ -23,6 +23,7 @@ import techreborn.api.recipe.machines.AlloySmelterRecipe;
 import techreborn.api.recipe.machines.BlastFurnaceRecipe;
 import techreborn.api.recipe.machines.CentrifugeRecipe;
 import techreborn.api.recipe.machines.ChemicalReactorRecipe;
+import techreborn.api.recipe.machines.ExtractorRecipe;
 import techreborn.api.recipe.machines.GrinderRecipe;
 import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
 import techreborn.api.recipe.machines.IndustrialElectrolyzerRecipe;
@@ -73,9 +74,15 @@ public class
         addGrinderRecipes();
         addHammerRecipes();
         addIc2ReplacementReicpes();
+        addExtractorRecipes();
     }
 
-    static void addIc2ReplacementReicpes(){
+    static void addExtractorRecipes() {
+        RecipeHandler.addRecipe(new ExtractorRecipe(ItemParts.getPartByName("rubberSap"), ItemParts.getPartByName("rubber", 3), 400, 20));
+        RecipeHandler.addRecipe(new ExtractorRecipe(new ItemStack(ModBlocks.rubberLog), ItemParts.getPartByName("rubber"), 400, 20));	
+	}
+
+	static void addIc2ReplacementReicpes(){
         CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Grinder),
                 "FFF",
                 "SMS",
