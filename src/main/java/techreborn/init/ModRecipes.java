@@ -203,6 +203,12 @@ public class ModRecipes {
                 'R', ItemIngots.getIngotByName("refinediron"),
                 'S', Items.redstone,
                 'W', ItemStandaloneCables.getCableByName("insulatedcopper"));
+        
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.reBattery),
+                "XWX", "TRT", "TRT",
+                'T', "ingotTin",
+                'R', Items.redstone,
+                'W', ItemStandaloneCables.getCableByName("insulatedcopper"));
                 
 	  CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.wrench),
 			  "BAB", "BBB", "ABA", 
