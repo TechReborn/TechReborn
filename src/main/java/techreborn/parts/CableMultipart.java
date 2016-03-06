@@ -11,12 +11,10 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
@@ -25,13 +23,14 @@ import net.minecraftforge.common.property.Properties;
 import reborncore.api.power.IEnergyInterfaceTile;
 import reborncore.common.misc.Functions;
 import reborncore.common.misc.vecmath.Vecs3dCube;
+import techreborn.utils.damageSources.ElectrialShockSource;
 
 import java.util.*;
 
 /**
  * Created by mark on 02/03/2016.
  */
-public abstract class CableMultipart extends Multipart implements IOccludingPart, ISlottedPart, ITickable, ICableType {
+public abstract class CableMultipart extends Multipart implements IOccludingPart, ISlottedPart, ITickable, ICableType, ICollidableMultipart {
 
     public Vecs3dCube[] boundingBoxes = new Vecs3dCube[14];
     public float center = 0.6F;
@@ -277,4 +276,17 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
     }
 
 
+    @Override
+    public void onEntityCollided(Entity entity) {
+        if(getCableType().canKill && entity instanceof EntityLivingBase){
+            entity.attackEntityFrom(new ElectrialShockSource(), 1F);
+            getWorld().playSoundAtEntity(entity, "techreborn:cable_shock", 0.6F, 1F);
+            getWorld().spawnParticle(EnumParticleTypes.CRIT, entity.posX, entity.posY, entity.posZ, 0, 0,0);
+        }
+    }
+
+    @Override
+    public void onEntityStanding(Entity entity) {
+
+    }
 }
