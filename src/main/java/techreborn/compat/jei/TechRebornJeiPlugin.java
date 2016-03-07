@@ -41,6 +41,7 @@ import techreborn.client.gui.GuiBlastFurnace;
 import techreborn.client.gui.GuiCentrifuge;
 import techreborn.client.gui.GuiChemicalReactor;
 import techreborn.client.gui.GuiCompressor;
+import techreborn.client.gui.GuiElectricFurnace;
 import techreborn.client.gui.GuiExtractor;
 import techreborn.client.gui.GuiFusionReactor;
 import techreborn.client.gui.GuiGrinder;
@@ -160,6 +161,8 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
         registry.addRecipeClickArea(GuiExtractor.class, 78, 36, 24, 16, RecipeCategoryUids.EXTRACTOR);
         registry.addRecipeClickArea(GuiCompressor.class, 78, 36, 24, 16, RecipeCategoryUids.COMPRESSOR);
         registry.addRecipeClickArea(GuiIronFurnace.class, 78, 36, 24, 16, VanillaRecipeCategoryUid.SMELTING, VanillaRecipeCategoryUid.FUEL);
+        registry.addRecipeClickArea(GuiElectricFurnace.class, 78, 36, 24, 16, VanillaRecipeCategoryUid.SMELTING, VanillaRecipeCategoryUid.FUEL);
+
 
 
         IRecipeTransferRegistry recipeTransferRegistry = registry.getRecipeTransferRegistry();

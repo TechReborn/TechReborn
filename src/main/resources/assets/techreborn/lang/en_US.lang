@@ -68,6 +68,7 @@ tile.techreborn.solarpanel.name=Solar Panel
 tile.techreborn.watermill.name=Water Mill
 tile.techreborn.windmill.name=Wind Mill
 tile.techreborn.ironfurnace.name=Iron Furnace
+tile.techreborn.recycler.name=Recycler
 
 #Blocks
 tile.techreborn.rubberlog.name=Rubber Wood
@@ -281,6 +282,7 @@ item.techreborn.cable.GLASSFIBER.name=Glass Fiber Cable
 item.techreborn.cable.ICOPPER.name=Insulated Copper Cable
 item.techreborn.cable.IGOLD.name=Insulated Gold Cable
 item.techreborn.cable.IHV.name=Insulated HV Cable
+item.techreborn.scrapbox.name=Scrap Box
 
 
 #Small Dusts

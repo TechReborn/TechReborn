@@ -4,6 +4,8 @@ import java.io.File;
 
 import org.apache.commons.lang3.time.StopWatch;
 
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -22,6 +24,7 @@ import reborncore.common.packets.AddDiscriminatorEvent;
 import reborncore.common.util.LogHelper;
 import reborncore.common.util.VersionChecker;
 import techreborn.achievement.TRAchievements;
+import techreborn.api.ScrapboxList;
 import techreborn.api.TechRebornAPI;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.recipeConfig.RecipeConfigManager;
@@ -87,6 +90,7 @@ public class Core {
         RecipeConfigManager.load(event.getModConfigurationDirectory());
         versionChecker = new VersionChecker("TechReborn", new ModInfo());
         versionChecker.checkVersionThreaded();
+
         logHelper.info("PreInitialization Complete");
     }
 

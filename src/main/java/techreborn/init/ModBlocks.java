@@ -46,6 +46,7 @@ import techreborn.blocks.teir1.BlockCompressor;
 import techreborn.blocks.teir1.BlockElectricFurnace;
 import techreborn.blocks.teir1.BlockExtractor;
 import techreborn.blocks.teir1.BlockGrinder;
+import techreborn.blocks.teir1.BlockRecycler;
 import techreborn.itemblocks.ItemBlockAesu;
 import techreborn.itemblocks.ItemBlockDigitalChest;
 import techreborn.itemblocks.ItemBlockMachineCasing;
@@ -76,6 +77,7 @@ import techreborn.tiles.teir1.TileCompressor;
 import techreborn.tiles.teir1.TileElectricFurnace;
 import techreborn.tiles.teir1.TileExtractor;
 import techreborn.tiles.teir1.TileGrinder;
+import techreborn.tiles.teir1.TileRecycler;
 
 public class ModBlocks {
 
@@ -128,6 +130,7 @@ public class ModBlocks {
     public static Block solarPanel;
     public static Block waterMill;
     public static Block windMill;
+    public static Block recycler;
 
     public static BlockOre ore;
     public static BlockOre2 ore2;
@@ -365,6 +368,10 @@ public class ModBlocks {
         
         reinforcedglass = new BlockReinforcedGlass(Material.glass);
         GameRegistry.registerBlock(reinforcedglass, "reinforcedglass");
+        
+        recycler = new BlockRecycler(Material.iron);
+        GameRegistry.registerBlock(recycler, "recycler");
+        GameRegistry.registerTileEntity(TileRecycler.class, "TileRecyclerTR");
         
         ironFurnace = new BlockIronFurnace();
         GameRegistry.registerBlock(ironFurnace, "ironfurnace");

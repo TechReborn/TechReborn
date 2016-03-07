@@ -4,6 +4,7 @@ import java.security.InvalidParameterException;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -15,6 +16,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import reborncore.common.util.CraftingHelper;
 import reborncore.common.util.OreUtil;
 import techreborn.Core;
+import techreborn.api.ScrapboxList;
 import techreborn.api.TechRebornAPI;
 import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
@@ -78,9 +80,51 @@ public class ModRecipes {
         addExtractorRecipes();
         addCompressorRecipes();
         addWireRecipes();
+        addScrapBoxloot();
     }
 
-    static void addWireRecipes() {
+    static void addScrapBoxloot() {
+        ScrapboxList.addItemStackToList(new ItemStack(Items.diamond));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.coal));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.apple));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.baked_potato));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.blaze_powder));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.carrot));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.boat));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.blaze_rod));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.compass));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.map));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.leather_leggings));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.bow));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.cooked_chicken));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.paper));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.book));
+        
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.acacia_door));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.bed));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.brick_block));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.cake));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.carpet));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.crafting_table));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.dirt));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.dark_oak_door));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.glass));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.glass_pane));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.glowstone));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.wooden_slab));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.skull));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.leaves));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.gravel));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.hardened_clay));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.cactus));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.cocoa));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.tallgrass));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.chest));
+        ScrapboxList.addItemStackToList(ItemGems.getGemByName("ruby"));
+
+	}
+
+	static void addWireRecipes() {
         CraftingHelper.addShapedOreRecipe(ItemStandaloneCables.getCableByName("copper", 6),
                 "XXX","CCC", "XXX",
                 'C', "ingotCopper");
