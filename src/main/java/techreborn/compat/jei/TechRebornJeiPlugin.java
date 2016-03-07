@@ -46,6 +46,8 @@ import techreborn.compat.jei.industrialGrinder.IndustrialGrinderRecipeCategory;
 import techreborn.compat.jei.industrialGrinder.IndustrialGrinderRecipeHandler;
 import techreborn.compat.jei.industrialSawmill.IndustrialSawmillRecipeCategory;
 import techreborn.compat.jei.industrialSawmill.IndustrialSawmillRecipeHandler;
+import techreborn.compat.jei.recycler.RecyclerRecipeCategory;
+import techreborn.compat.jei.recycler.RecyclerRecipeHandler;
 import techreborn.compat.jei.rollingMachine.RollingMachineRecipeCategory;
 import techreborn.compat.jei.rollingMachine.RollingMachineRecipeHandler;
 import techreborn.compat.jei.rollingMachine.RollingMachineRecipeMaker;
@@ -77,7 +79,8 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
                 new GrinderRecipeCategory(guiHelper),
                 new ExtractorRecipeCategory(guiHelper),
                 new CompressorRecipeCategory(guiHelper),
-                new ScrapboxRecipeCategory(guiHelper)
+                new ScrapboxRecipeCategory(guiHelper),
+                new RecyclerRecipeCategory(guiHelper)
         );
 
         registry.addRecipeHandlers(
@@ -96,7 +99,8 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
                 new GrinderRecipeHandler(jeiHelpers),
                 new ExtractorRecipeHandler(jeiHelpers),
                 new CompressorRecipeHandler(jeiHelpers),
-                new ScrapboxRecipeHandler(jeiHelpers)
+                new ScrapboxRecipeHandler(jeiHelpers),
+                new RecyclerRecipeHandler(jeiHelpers)
         );
 
         registry.addRecipes(RecipeHandler.recipeList);
@@ -134,7 +138,7 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
         registry.addRecipeClickArea(GuiCompressor.class, 78, 36, 24, 16, RecipeCategoryUids.COMPRESSOR);
         registry.addRecipeClickArea(GuiIronFurnace.class, 78, 36, 24, 16, VanillaRecipeCategoryUid.SMELTING, VanillaRecipeCategoryUid.FUEL);
         registry.addRecipeClickArea(GuiElectricFurnace.class, 78, 36, 24, 16, VanillaRecipeCategoryUid.SMELTING, VanillaRecipeCategoryUid.FUEL);
-
+        registry.addRecipeClickArea(GuiRecycler.class, 78, 36, 24, 16, RecipeCategoryUids.RECYCLER);
 
 
         IRecipeTransferRegistry recipeTransferRegistry = registry.getRecipeTransferRegistry();

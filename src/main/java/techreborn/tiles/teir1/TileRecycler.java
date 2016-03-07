@@ -8,6 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
@@ -26,9 +27,11 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInv
     public int capacity = 1000;
     public int cost = 20;
     public int progress;
-    public int time = 800;
+    public int time = 200;
     public int chance = 4;
     public int random;
+    public int input1 = 0;
+    public int output = 1;
 
 	public TileRecycler() {
 		super(1);
@@ -38,59 +41,96 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInv
     {
         return (progress * scale) / time;
     }
-	
+    
     @Override
-    public void updateEntity() 
+    public void updateEntity ()
     {
+        boolean burning = isBurning();
         boolean updateInventory = false;
-        if(getEnergy() > cost)
+        if (getEnergy() <= cost && canRecycle())
         {
-        	if(getStackInSlot(0) != null)
-        	{
-        		if(progress == 0)
-        		{
-                	int randchance = worldObj.rand.nextInt(chance);
-                	random = randchance;
+            if (getEnergy() > cost)
+            {
+                updateInventory = true;
+            }
+        }
+        if (isBurning() && canRecycle())
+        {
+        	updateState();
 
-	        		if(getStackInSlot(0).stackSize > 1)
-	        		{
-	        			decrStackSize(0, 1);
-	        		}
-	        		if(getStackInSlot(0).stackSize == 1)
-	        		{
-	        			setInventorySlotContents(0, null);
-	        		}
-	        		updateInventory = true;
-        		}
-        		progress++;
-
-        		if(progress >= time)
-        		{
-        			if(random == 1)
-        			{
-		        		if(getStackInSlot(1) == null)
-		        		{
-		        			setInventorySlotContents(1, ItemParts.getPartByName("scrap"));
-		        			progress = 0;
-		        			updateInventory = true;
-		        		}
-		        		else if(getStackInSlot(1).stackSize >= 1)
-		        		{
-		        			getStackInSlot(1).stackSize++;
-		        			progress = 0;
-		        			updateInventory = true;
-		        		}
-        			}
-        			if(random != 1)
-        			{
-        				progress = 0;
-        				updateInventory = true;
-        			}
-        		}
-        	}
+            progress++;
+            if (progress >= time)
+            {
+                progress = 0;
+                recycleItems();
+                updateInventory = true;
+            }
+        }
+        else
+        {
+            progress = 0;
+            updateState();
+        }
+        if (burning != isBurning())
+        {
+            updateInventory = true;
+        }
+        if (updateInventory)
+        {
+            markDirty();
         }
     }
-    
+
+    public void recycleItems ()
+    {
+        if (this.canRecycle())
+        {
+            ItemStack itemstack = ItemParts.getPartByName("scrap");
+            int randomchance = worldObj.rand.nextInt(chance);
+
+            if (getStackInSlot(output) == null)
+            {
+            	useEnergy(cost);
+            	if(randomchance == 1)
+            	{
+            		setInventorySlotContents(output, itemstack.copy());
+            	}
+            }
+            else if (getStackInSlot(output).isItemEqual(itemstack))
+            {
+            	useEnergy(cost);
+            	if(randomchance == 1)
+            	{
+            		getStackInSlot(output).stackSize += itemstack.stackSize;
+            	}
+            }
+            if(getStackInSlot(input1).stackSize > 1)
+            {
+            	useEnergy(cost);
+            	this.decrStackSize(input1, 1);
+            }
+            else 
+            {
+            	useEnergy(cost);
+            	setInventorySlotContents(input1, null);
+            }
+        }
+    }
+
+    public boolean canRecycle ()
+    {
+        if (getStackInSlot(input1) != null)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isBurning ()
+    {
+        return getEnergy() > cost;
+    }
+
     public void updateState(){
         IBlockState blockState = worldObj.getBlockState(pos);
         if(blockState.getBlock() instanceof BlockMachineBase){

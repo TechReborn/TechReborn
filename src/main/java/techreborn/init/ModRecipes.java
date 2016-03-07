@@ -21,11 +21,35 @@ import techreborn.api.TechRebornAPI;
 import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.api.recipe.RecipeHandler;
+import techreborn.api.recipe.RecyclerRecipe;
 import techreborn.api.recipe.ScrapboxRecipe;
-import techreborn.api.recipe.machines.*;
-import techreborn.blocks.*;
+import techreborn.api.recipe.machines.AlloySmelterRecipe;
+import techreborn.api.recipe.machines.BlastFurnaceRecipe;
+import techreborn.api.recipe.machines.CentrifugeRecipe;
+import techreborn.api.recipe.machines.ChemicalReactorRecipe;
+import techreborn.api.recipe.machines.CompressorRecipe;
+import techreborn.api.recipe.machines.ExtractorRecipe;
+import techreborn.api.recipe.machines.GrinderRecipe;
+import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
+import techreborn.api.recipe.machines.IndustrialElectrolyzerRecipe;
+import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
+import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
+import techreborn.api.recipe.machines.PlateCuttingMachineRecipe;
+import techreborn.api.recipe.machines.VacuumFreezerRecipe;
+import techreborn.blocks.BlockMachineFrame;
+import techreborn.blocks.BlockOre;
+import techreborn.blocks.BlockOre2;
+import techreborn.blocks.BlockStorage;
+import techreborn.blocks.BlockStorage2;
 import techreborn.config.ConfigTechReborn;
-import techreborn.items.*;
+import techreborn.items.ItemCells;
+import techreborn.items.ItemDusts;
+import techreborn.items.ItemDustsSmall;
+import techreborn.items.ItemGems;
+import techreborn.items.ItemIngots;
+import techreborn.items.ItemNuggets;
+import techreborn.items.ItemParts;
+import techreborn.items.ItemPlates;
 import techreborn.parts.ItemStandaloneCables;
 import techreborn.utils.RecipeUtils;
 
@@ -199,6 +223,12 @@ public class ModRecipes {
 
         for (int i = 0; i < ScrapboxList.stacks.size(); i++) {
 			RecipeHandler.addRecipe(new ScrapboxRecipe(ScrapboxList.stacks.get(i)));
+		}
+        
+		//just for jei
+        //TODO find a way to get all ItemStacks in mc 
+        for (int i = 0; i < ScrapboxList.stacks.size() ; i++) {
+			RecipeHandler.addRecipe(new RecyclerRecipe(ScrapboxList.stacks.get(i)));
 		}
 	}
     
