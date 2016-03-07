@@ -13,6 +13,7 @@ import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
@@ -293,5 +294,10 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
     @Override
     public void onEntityStanding(Entity entity) {
 
+    }
+
+    @Override
+    public ItemStack getPickBlock(EntityPlayer player, PartMOP hit) {
+        return new ItemStack(TechRebornParts.cables, 1, getCableType().ordinal());
     }
 }
