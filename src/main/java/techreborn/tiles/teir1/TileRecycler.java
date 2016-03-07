@@ -1,6 +1,7 @@
 package techreborn.tiles.teir1;
 
 import ic2.api.tile.IWrenchable;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -8,25 +9,79 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
+import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.init.ModBlocks;
+import techreborn.init.ModItems;
+import techreborn.items.ItemParts;
 import techreborn.lib.Reference;
 
 public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory{
 
     public Inventory inventory = new Inventory(6, "TileRecycler", 64, this);
     public int capacity = 1000;
+    public int cost = 20;
+    public int progress;
+    public int time = 100;
 
 	public TileRecycler() {
 		super(1);
 	}
 	
+    public int gaugeProgressScaled (int scale)
+    {
+        return (progress * scale) / time;
+    }
+	
     @Override
-    public void updateEntity() {
-        super.updateEntity();
-        charge(3);
+    public void updateEntity() 
+    {
+        if(!worldObj.isRemote)
+        {
+	        if(getEnergy() > cost)
+	        {
+	        	if(getStackInSlot(0) != null)
+	        	{
+	        		if(progress == 0)
+	        		{
+		        		if(getStackInSlot(0).stackSize > 1)
+		        		{
+		        			decrStackSize(0, 1);
+		        		}
+		        		if(getStackInSlot(0).stackSize == 1)
+		        		{
+		        			setInventorySlotContents(0, null);
+		        		}
+	        		}
+	        		progress++;
+
+	        		if(progress >= cost)
+	        		{
+		        		if(getStackInSlot(1) == null)
+		        		{
+		        			setInventorySlotContents(1, ItemParts.getPartByName("scrap"));
+		        			progress = 0;
+		        		}
+		        		if(getStackInSlot(1).stackSize >= 1)
+		        		{
+		        			getStackInSlot(1).stackSize++;
+		        			progress = 0;
+		        		}
+	        		}
+	        	}
+	        }
+        }
+    }
+    
+    public void updateState(){
+        IBlockState blockState = worldObj.getBlockState(pos);
+        if(blockState.getBlock() instanceof BlockMachineBase){
+            BlockMachineBase blockMachineBase = (BlockMachineBase) blockState.getBlock();
+            if(blockState.getValue(BlockMachineBase.ACTIVE) != progress > 0)
+                blockMachineBase.setActive(progress > 0, worldObj, pos);
+        }
     }
     
     @Override

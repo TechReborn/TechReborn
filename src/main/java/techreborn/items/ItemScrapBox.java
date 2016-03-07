@@ -3,6 +3,7 @@ package techreborn.items;
 import java.util.List;
 import java.util.Random;
 
+import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -10,14 +11,16 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
+import reborncore.RebornCore;
 import techreborn.api.ScrapboxList;
 import techreborn.client.TechRebornCreativeTabMisc;
 
-public class ItemScrapBox extends ItemTR {
+public class ItemScrapBox extends ItemTR implements ITexturedItem{
 	
 	public ItemScrapBox() {
 		setUnlocalizedName("techreborn.scrapbox");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		RebornCore.jsonDestroyer.registerObject(this);
 	}
 	
 	@Override
@@ -25,7 +28,6 @@ public class ItemScrapBox extends ItemTR {
 		if(!world.isRemote) {
 			int random = world.rand.nextInt(ScrapboxList.stacks.size());
 			ItemStack out = ScrapboxList.stacks.get(random).copy();
-			player.addChatComponentMessage(new ChatComponentText("int " + random + " stack " + out.getDisplayName()));
 			float xOffset = world.rand.nextFloat() * 0.8F + 0.1F;
 			float yOffset = world.rand.nextFloat() * 0.8F + 0.1F;
 			float zOffset = world.rand.nextFloat() * 0.8F + 0.1F;
@@ -37,5 +39,15 @@ public class ItemScrapBox extends ItemTR {
 			itemStack.stackSize--;
 		}
 		return itemStack;
+	}
+
+	@Override
+	public int getMaxMeta() {
+		return 1;
+	}
+
+	@Override
+	public String getTextureName(int arg0) {
+        return "techreborn:items/misc/scrapBox";
 	}
 }

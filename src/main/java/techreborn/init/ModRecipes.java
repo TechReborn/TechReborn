@@ -120,6 +120,8 @@ public class ModRecipes {
         ScrapboxList.addItemStackToList(new ItemStack(Blocks.cocoa));
         ScrapboxList.addItemStackToList(new ItemStack(Blocks.tallgrass));
         ScrapboxList.addItemStackToList(new ItemStack(Blocks.chest));
+        ScrapboxList.addItemStackToList(ItemGems.getGemByName("ruby"));
+
 	}
 
 	static void addWireRecipes() {
