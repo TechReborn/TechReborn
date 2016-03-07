@@ -113,17 +113,34 @@ public class ModRecipes {
         ScrapboxList.addItemStackToList(new ItemStack(Items.reeds));
         ScrapboxList.addItemStackToList(new ItemStack(Items.spider_eye));
         ScrapboxList.addItemStackToList(new ItemStack(Items.slime_ball));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.rotten_flesh));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.sign));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.writable_book));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.cooked_beef));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.name_tag));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.saddle));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.redstone));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.gunpowder));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.rabbit_hide));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.rabbit_foot));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.apple));
 
         ScrapboxList.addItemStackToList(ItemGems.getGemByName("ruby"));
-        ScrapboxList.addItemStackToList(ItemDusts.getDustByName("iron"));
-        ScrapboxList.addItemStackToList(ItemDusts.getDustByName("gold"));
-        ScrapboxList.addItemStackToList(ItemDusts.getDustByName("copper"));
-        ScrapboxList.addItemStackToList(ItemDusts.getDustByName("tin"));
+        ScrapboxList.addItemStackToList(ItemGems.getGemByName("sapphire"));
+        ScrapboxList.addItemStackToList(ItemGems.getGemByName("peridot"));
+        ScrapboxList.addItemStackToList(ItemGems.getGemByName("redGarnet"));
+        ScrapboxList.addItemStackToList(ItemGems.getGemByName("yellowGarnet"));
+        ScrapboxList.addItemStackToList(ItemCells.getCellByName("empty"));
+        ScrapboxList.addItemStackToList(ItemCells.getCellByName("water"));
         ScrapboxList.addItemStackToList(ItemParts.getPartByName("scrap"));
+        ScrapboxList.addItemStackToList(ItemParts.getPartByName("rubber"));
 
         ScrapboxList.addItemStackToList(new ItemStack(Blocks.trapdoor));
         ScrapboxList.addItemStackToList(new ItemStack(Blocks.brick_block));
         ScrapboxList.addItemStackToList(new ItemStack(Blocks.crafting_table));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.pumpkin));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.netherrack));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.grass));
         ScrapboxList.addItemStackToList(new ItemStack(Blocks.dirt, 1, 0));
         ScrapboxList.addItemStackToList(new ItemStack(Blocks.dirt, 1, 1));
         ScrapboxList.addItemStackToList(new ItemStack(Blocks.sand, 1, 0));
@@ -172,6 +189,10 @@ public class ModRecipes {
         
         ScrapboxList.addItemStackToList(new ItemStack(ModBlocks.rubberSapling));
 
+        for(String i : ItemDusts.types){
+            ScrapboxList.addItemStackToList(ItemDusts.getDustByName(i));
+        }
+        
         registerDyable(Blocks.carpet);
         registerDyable(Blocks.stained_glass);
         registerDyable(Blocks.stained_glass_pane);
