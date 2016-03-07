@@ -7,7 +7,7 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.blocks.generator.BlockSolarPanel;
 
 /**
- * Created by mark on 25/02/2016.
+ * Created by modmuss50 on 25/02/2016.
  */
 public class TileSolarPanel extends TilePowerAcceptor {
 

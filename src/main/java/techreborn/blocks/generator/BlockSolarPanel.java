@@ -13,7 +13,7 @@ import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.generator.TileSolarPanel;
 
 /**
- * Created by mark on 25/02/2016.
+ * Created by modmuss50 on 25/02/2016.
  */
 public class BlockSolarPanel extends BaseTileBlock implements ITexturedBlock {
 

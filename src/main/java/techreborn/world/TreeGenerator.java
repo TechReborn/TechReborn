@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 import techreborn.config.ConfigTechReborn;
 
 /**
- * Created by Mark on 19/02/2016.
+ * Created by modmuss50 on 19/02/2016.
  */
 public class TreeGenerator implements IWorldGenerator {
 

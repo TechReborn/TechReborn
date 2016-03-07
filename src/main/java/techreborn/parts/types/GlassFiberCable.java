@@ -4,7 +4,7 @@ import techreborn.parts.CableMultipart;
 import techreborn.parts.EnumCableType;
 
 /**
- * Created by Mark on 05/03/2016.
+ * Created by modmuss50 on 05/03/2016.
  */
 public class GlassFiberCable extends CableMultipart {
     @Override

@@ -14,7 +14,7 @@ import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.world.RubberTreeGenerator;
 
 /**
- * Created by Mark on 20/02/2016.
+ * Created by modmuss50 on 20/02/2016.
  */
 public class BlockRubberSapling extends BlockSapling {
 

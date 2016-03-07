@@ -24,7 +24,7 @@ import techreborn.items.ItemParts;
 import techreborn.items.tools.ItemTreeTap;
 
 /**
- * Created by mark on 19/02/2016.
+ * Created by modmuss50 on 19/02/2016.
  */
 public class BlockRubberLog extends Block implements ITexturedBlock {
 

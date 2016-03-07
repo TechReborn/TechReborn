@@ -5,7 +5,7 @@ import net.minecraft.util.EnumFacing;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 
 /**
- * Created by mark on 25/02/2016.
+ * Created by modmuss50 on 25/02/2016.
  */
 public class TileWaterMill extends TilePowerAcceptor {
 

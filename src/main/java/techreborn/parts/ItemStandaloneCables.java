@@ -5,9 +5,9 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 import reborncore.RebornCore;
 import techreborn.client.TechRebornCreativeTab;
-import techreborn.items.ItemTR;
 import techreborn.items.ItemTextureBase;
 import techreborn.lib.ModInfo;
 
@@ -15,7 +15,7 @@ import java.security.InvalidParameterException;
 import java.util.List;
 
 /**
- * Created by Mark on 06/03/2016.
+ * Created by modmuss50 on 06/03/2016.
  */
 public class ItemStandaloneCables extends ItemTextureBase {
 
@@ -24,7 +24,7 @@ public class ItemStandaloneCables extends ItemTextureBase {
     public static ItemStack getCableByName(String name, int count) {
         for (int i = 0; i < EnumCableType.values().length; i++) {
             if (EnumCableType.values()[i].getName().equalsIgnoreCase(name)) {
-                return new ItemStack(mcPartCable != null? mcPartCable : StandalonePartCompact.itemStandaloneCable, count, i);
+                return new ItemStack(mcPartCable != null ? mcPartCable : StandalonePartCompact.itemStandaloneCable, count, i);
             }
         }
         throw new InvalidParameterException("The cable " + name + " could not be found.");
@@ -73,5 +73,14 @@ public class ItemStandaloneCables extends ItemTextureBase {
     @Override
     public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
         return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+        EnumCableType type = EnumCableType.values()[stack.getItemDamage()];
+        tooltip.add(EnumChatFormatting.GREEN + "EU Transfer: " + EnumChatFormatting.LIGHT_PURPLE + type.transferRate);
+        if (type.canKill) {
+            tooltip.add(EnumChatFormatting.RED + "Damages entity's!");
+        }
     }
 }

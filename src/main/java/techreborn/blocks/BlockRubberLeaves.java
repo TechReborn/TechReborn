@@ -24,7 +24,7 @@ import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModBlocks;
 
 /**
- * Created by mark on 20/02/2016.
+ * Created by modmuss50 on 20/02/2016.
  */
 public class BlockRubberLeaves extends BlockLeaves implements ITexturedBlock, IOpaqueBlock {
 

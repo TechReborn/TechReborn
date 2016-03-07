@@ -15,7 +15,7 @@ public enum EnumCableType implements IStringSerializable {
 
     private String friendlyName;
     public String textureName = "minecraft:blocks/iron_block";
-    public int transferRate= 128;
+    public int transferRate = 128;
     public double cableThickness = 3.0;
     public boolean canKill = false;
     public Class<? extends CableMultipart> cableClass;
@@ -24,7 +24,7 @@ public enum EnumCableType implements IStringSerializable {
         this.friendlyName = friendlyName;
         this.textureName = textureName;
         this.transferRate = transferRate;
-        this.cableThickness = cableThickness /2;
+        this.cableThickness = cableThickness / 2;
         this.canKill = canKill;
         this.cableClass = cableClass;
     }

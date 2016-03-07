@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import techreborn.compat.ICompatModule;
 
 /**
- * Created by Mark on 06/03/2016.
+ * Created by modmuss50 on 06/03/2016.
  */
 public class StandalonePartCompact implements ICompatModule {
 

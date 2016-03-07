@@ -25,15 +25,16 @@ import net.minecraftforge.common.property.Properties;
 import reborncore.api.power.IEnergyInterfaceTile;
 import reborncore.common.misc.Functions;
 import reborncore.common.misc.vecmath.Vecs3dCube;
+import techreborn.parts.walia.IPartWaliaProvider;
 import techreborn.power.TRPowerNet;
 import techreborn.utils.damageSources.ElectrialShockSource;
 
 import java.util.*;
 
 /**
- * Created by mark on 02/03/2016.
+ * Created by modmuss50 on 02/03/2016.
  */
-public abstract class CableMultipart extends Multipart implements IOccludingPart, ISlottedPart, ITickable, ICableType, ICollidableMultipart {
+public abstract class CableMultipart extends Multipart implements IOccludingPart, ISlottedPart, ITickable, ICableType, ICollidableMultipart, IPartWaliaProvider {
 
     public Vecs3dCube[] boundingBoxes = new Vecs3dCube[14];
     public float center = 0.6F;
@@ -148,7 +149,7 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
             }
         }
 
-        if(container == null){
+        if (container == null) {
             return null;
         }
         ISlottedPart part = container.getPartInSlot(PartSlot.CENTER);
@@ -227,8 +228,8 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
 
     @Override
     public void update() {
-        if(getWorld() != null){
-            if(getWorld().getTotalWorldTime() % 80 == 0){
+        if (getWorld() != null) {
+            if (getWorld().getTotalWorldTime() % 80 == 0) {
                 checkConnectedSides();
             }
         }
@@ -258,11 +259,11 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
                 },
                 new IUnlistedProperty[]{
                         DOWN,
-                UP,
-                NORTH,
-                SOUTH,
-                WEST,
-                EAST});
+                        UP,
+                        NORTH,
+                        SOUTH,
+                        WEST,
+                        EAST});
     }
 
 
@@ -290,10 +291,10 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
 
     @Override
     public void onEntityCollided(Entity entity) {
-        if(getCableType().canKill && entity instanceof EntityLivingBase){
+        if (getCableType().canKill && entity instanceof EntityLivingBase) {
             entity.attackEntityFrom(new ElectrialShockSource(), 1F);
             getWorld().playSoundAtEntity(entity, "techreborn:cable_shock", 0.6F, 1F);
-            getWorld().spawnParticle(EnumParticleTypes.CRIT, entity.posX, entity.posY, entity.posZ, 0, 0,0);
+            getWorld().spawnParticle(EnumParticleTypes.CRIT, entity.posX, entity.posY, entity.posZ, 0, 0, 0);
         }
     }
 
@@ -313,17 +314,17 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
         network = new TRPowerNet();
         network.setIOLimit(this.getCableType().transferRate);
         network.addElement(this);
-        for(EnumFacing dir : EnumFacing.VALUES){
+        for (EnumFacing dir : EnumFacing.VALUES) {
             CableMultipart cableMultipart = getPartFromWorld(getWorld(), getPos().offset(dir), dir);
-            if(cableMultipart != null && cableMultipart.getCableType() == getCableType()){
+            if (cableMultipart != null && cableMultipart.getCableType() == getCableType()) {
                 TRPowerNet net = cableMultipart.getNetwork();
-                if(net != null){
+                if (net != null) {
                     net.merge(network);
                 }
             }
             TileEntity te = getNeighbourTile(dir);
-            if(te != null && te instanceof IEnergyInterfaceTile){
-                if(((IEnergyInterfaceTile) te).canAcceptEnergy(dir) || ((IEnergyInterfaceTile) te).canProvideEnergy(dir)){
+            if (te != null && te instanceof IEnergyInterfaceTile) {
+                if (((IEnergyInterfaceTile) te).canAcceptEnergy(dir) || ((IEnergyInterfaceTile) te).canProvideEnergy(dir)) {
                     network.addConnection((IEnergyInterfaceTile) te, dir.getOpposite());
                 }
             }
@@ -358,4 +359,11 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
         network = null;
     }
 
+    @Override
+    public void addInfo(List<String> info) {
+        info.add(EnumChatFormatting.GREEN + "EU Transfer: " + EnumChatFormatting.LIGHT_PURPLE + getCableType().transferRate);
+        if (getCableType().canKill) {
+            info.add(EnumChatFormatting.RED + "Damages entity's!");
+        }
+    }
 }

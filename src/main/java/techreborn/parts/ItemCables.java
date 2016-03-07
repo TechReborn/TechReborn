@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
@@ -16,11 +17,10 @@ import reborncore.RebornCore;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 
-import java.security.InvalidParameterException;
 import java.util.List;
 
 /**
- * Created by Mark on 27/02/2016.
+ * Created by modmuss50 on 27/02/2016.
  */
 public class ItemCables extends ItemMultiPart implements ITexturedItem {
 
@@ -75,5 +75,14 @@ public class ItemCables extends ItemMultiPart implements ITexturedItem {
     @Override
     public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
         return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+        EnumCableType type = EnumCableType.values()[stack.getItemDamage()];
+        tooltip.add(EnumChatFormatting.GREEN + "EU Transfer: " + EnumChatFormatting.LIGHT_PURPLE + type.transferRate);
+        if (type.canKill) {
+            tooltip.add(EnumChatFormatting.RED + "Damages entity's!");
+        }
     }
 }

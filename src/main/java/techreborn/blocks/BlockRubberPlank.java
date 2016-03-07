@@ -9,7 +9,7 @@ import reborncore.RebornCore;
 import techreborn.client.TechRebornCreativeTabMisc;
 
 /**
- * Created by Mark on 20/02/2016.
+ * Created by modmuss50 on 20/02/2016.
  */
 public class BlockRubberPlank extends Block implements ITexturedBlock {
 

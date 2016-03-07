@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import techreborn.compat.ICompatModule;
 
 /**
- * Created by Mark on 05/03/2016.
+ * Created by modmuss50 on 05/03/2016.
  */
 public class ClientPartLoader implements ICompatModule {
 
