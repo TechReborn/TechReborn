@@ -165,7 +165,7 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInv
 
     @Override
     public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-        return new ItemStack(ModBlocks.Compressor, 1);
+        return new ItemStack(ModBlocks.recycler, 1);
     }
 
     public boolean isComplete() {
