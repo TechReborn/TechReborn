@@ -18,8 +18,6 @@ public class TRTickHandler {
 
     public Item previouslyWearing;
 
-    public static List<TRPowerNet> oldNets = new ArrayList<>();
-
     @SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
     public void onPlayerTick(TickEvent.PlayerTickEvent e) {
         EntityPlayer player = e.player;
@@ -34,12 +32,6 @@ public class TRTickHandler {
 
     @SubscribeEvent
     public void worldTick(TickEvent.WorldTickEvent e) {
-        if(!oldNets.isEmpty()){
-            for(TRPowerNet powerNet : oldNets){
-                MinecraftForge.EVENT_BUS.unregister(powerNet);
-            }
-            oldNets.clear();
-        }
         if(!e.world.isRemote)
             MinecraftForge.EVENT_BUS.post(new PowerTickEvent());
     }

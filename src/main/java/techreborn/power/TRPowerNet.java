@@ -4,54 +4,52 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import reborncore.api.power.IEnergyInterfaceTile;
+import techreborn.events.TRTickHandler;
 import techreborn.parts.CableMultipart;
+import techreborn.parts.EnumCableType;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TRPowerNet {
-	int i = 0;
+	int tick = 0;
 	private ArrayList<CableMultipart> cables = new ArrayList();
-	private ArrayList<EnergyHandler> endpoints = new ArrayList();
+	public ArrayList<EnergyHandler> endpoints = new ArrayList();
 	private int energy = 0;
-	private int networkLimit = 1000;
+	EnumCableType cableType;
 
-	public TRPowerNet() {
+	public TRPowerNet(EnumCableType cableType) {
+		this.cableType = cableType;
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	public int getIOLimit() {
-		return networkLimit;
-	}
-
-	public void setIOLimit(int limit) {
-		if (networkLimit != limit) {
-			networkLimit = limit;
-			for (int i = 0; i < cables.size(); i++) {
-				CableMultipart cable = cables.get(i);
-				if (cable.getCableType().transferRate!= networkLimit) {
-					networkLimit = cable.getCableType().transferRate;
-				}
-			}
-		}
+		return cableType.transferRate;
 	}
 
 	@SubscribeEvent
 	public void tick(PowerTickEvent evt) {
-//		if (i > 10) {
-//			for (CableMultipart modCablePart : ModCablePart.partsInWorld) {
-//				if (!ModPartUtils.hasCable(modCablePart.world, modCablePart.location)) {
-//					ModCablePart.partsInWorld.remove(modCablePart);
-//				}
-//			}
-//		}
-
+		if(tick < 20){
+			return;
+		}
+		if(tick % 80 == 0){
+			List<CableMultipart> oldCables = new ArrayList<>();
+			for(CableMultipart cableMultipart : cables){
+				if(cableMultipart.getWorld() == null || cableMultipart.getPos() == null){
+					oldCables.add(cableMultipart);
+				}
+				CableMultipart mp = cableMultipart.getPartFromWorld(cableMultipart.getWorld(), cableMultipart.getPos(), null);
+				if(mp == null){
+					oldCables.add(cableMultipart);
+				}
+			}
+			cables.removeAll(oldCables);
+		}
 		if (!cables.isEmpty()) {
 			ArrayList<EnergyHandler> collectibles = new ArrayList();
 			ArrayList<EnergyHandler> insertibles = new ArrayList();
-			int maxCanPush = energy;
 			for (int i = 0; i < endpoints.size(); i++) {
 				EnergyHandler ei = endpoints.get(i);
-				maxCanPush += ei.getTotalInsertible();
 				if (ei.isCollectible()) {
 					collectibles.add(ei);
 				}
@@ -60,27 +58,22 @@ public class TRPowerNet {
 				}
 			}
 
-			maxCanPush = Math.min(this.getIOLimit(), maxCanPush);
-
 			for(EnergyHandler handler : collectibles){
-				int space = maxCanPush - energy;
-				energy += handler.collectEnergy(space);
+				energy += handler.collectEnergy(cableType.transferRate);
 			}
 
 			for(EnergyHandler handler : insertibles){
-				int add = Math.min(energy, 1 + energy / insertibles.size());
-				energy -= handler.addEnergy(add);
+				energy -= handler.addEnergy(Math.min(energy, cableType.transferRate));
 			}
-			System.out.println(energy);
+		} else {
+			MinecraftForge.EVENT_BUS.unregister(this);
 		}
+		tick ++;
 	}
 
 	public void addElement(CableMultipart te) {
 		if (!cables.contains(te)) {
 			cables.add(te);
-			if (te.getCableType().transferRate > 0 && te.getCableType().transferRate != networkLimit) {
-				this.setIOLimit(Math.min(te.getCableType().transferRate, this.getIOLimit()));
-			}
 		}
 	}
 
@@ -90,12 +83,13 @@ public class TRPowerNet {
 	}
 
 	private void rebuild() {
-		System.out.println("Remapping RF network " + this);
 		for (int i = 0; i < cables.size(); i++) {
 			CableMultipart te = cables.get(i);
+			te.setNetwork(null);
 			te.findAndJoinNetwork(te.getWorld(), te.getPos());
 		}
 		this.clear(true);
+		MinecraftForge.EVENT_BUS.unregister(this);
 	}
 
 	public void addConnection(IEnergyInterfaceTile ih, EnumFacing dir) {
@@ -103,9 +97,9 @@ public class TRPowerNet {
 			return;
 		EnergyHandler has = this.getHandleFrom(ih);
 		if (has == null) {
-			endpoints.add(new EnergyHandler(ih, dir));
+			endpoints.add(new EnergyHandler(ih, cableType, dir));
 		} else {
-			has.addSide(dir);
+			has.side = dir;
 		}
 	}
 
@@ -121,8 +115,6 @@ public class TRPowerNet {
 				EnergyHandler has = this.getHandleFrom(ei.tile);
 				if (has == null) {
 					endpoints.add(ei);
-				} else {
-					has.merge(ei);
 				}
 			}
 			n.clear(false);
@@ -130,8 +122,7 @@ public class TRPowerNet {
 				CableMultipart wire = li.get(i);
 				wire.setNetwork(this);
 			}
-			if (n.getIOLimit() != 0 && n.networkLimit != networkLimit)
-				this.setIOLimit(Math.min(n.getIOLimit(), this.getIOLimit()));
+			MinecraftForge.EVENT_BUS.unregister(n);
 		}
 	}
 
@@ -155,11 +146,7 @@ public class TRPowerNet {
 		endpoints.clear();
 		energy = 0;
 
-		try {
-			MinecraftForge.EVENT_BUS.unregister(this);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		MinecraftForge.EVENT_BUS.unregister(this);
 	}
 
 	@Override
@@ -186,13 +173,13 @@ public class TRPowerNet {
 
 	private static class EnergyHandler {
 		private final IEnergyInterfaceTile tile;
-		private final ArrayList<EnumFacing> sides = new ArrayList();
+		private EnumFacing side ;
+		private final EnumCableType type;
 
-		private EnergyHandler(IEnergyInterfaceTile ih, EnumFacing... dirs) {
+		private EnergyHandler(IEnergyInterfaceTile ih, EnumCableType type, EnumFacing dir) {
 			tile = ih;
-			for (int i = 0; i < dirs.length; i++) {
-				this.addSide(dirs[i]);
-			}
+			this.type = type;
+			this.side = dir;
 		}
 
 		public boolean isInsertible() {
@@ -207,66 +194,45 @@ public class TRPowerNet {
 			return tile == this.tile;
 		}
 
-		public void addSide(EnumFacing dir) {
-			if (!sides.contains(dir))
-				sides.add(dir);
-		}
-
-		public void merge(EnergyHandler ei) {
-			for (int i = 0; i < ei.sides.size(); i++) {
-				this.addSide(ei.sides.get(i));
-			}
-		}
-
 		public int collectEnergy(int max) {
 			int total = 0;
-			for (int i = 0; i < sides.size(); i++) {
-				EnumFacing dir = sides.get(i);
-				if (tile.canProvideEnergy(dir)) {
-					int collect = max - total;
-					total += tile.useEnergy(collect, false);
-				}
+			if (tile.canProvideEnergy(EnumFacing.NORTH)) {
+				int collect = (int) Math.min(max, tile.getMaxOutput());
+				total = (int) tile.useEnergy(collect, false);
 			}
 			return total;
 		}
 
 		public int addEnergy(int max) {
 			int total = 0;
-			for (int i = 0; i < sides.size(); i++) {
-				EnumFacing dir = sides.get(i);
-				if (tile.canAcceptEnergy(dir)) {
+			if (tile.canAcceptEnergy(EnumFacing.NORTH)) {
 					int add = max - total;
 					total += tile.addEnergy(add, false);
-				}
 			}
+
+			System.out.println("Provided " + total);
 			return total;
 		}
 
 		public int getTotalCollectible() {
-			int total = 0;
-			for (int i = 0; i < sides.size(); i++) {
-				EnumFacing dir = sides.get(i);
-				if (tile.canProvideEnergy(dir)) {
-					total += tile.useEnergy(Integer.MAX_VALUE, true);
-				}
+			if (tile.canProvideEnergy(EnumFacing.NORTH)) {
+				return (int) Math.min(tile.getMaxOutput(), tile.getEnergy());
 			}
-			return total;
+			return 0;
 		}
 
 		public int getTotalInsertible() {
 			int total = 0;
-			for (int i = 0; i < sides.size(); i++) {
-				EnumFacing dir = sides.get(i);
-				if (tile.canAcceptEnergy(dir)) {
-					total += tile.addEnergy(Integer.MAX_VALUE, true);
-				}
+			if (tile.canAcceptEnergy(EnumFacing.NORTH)) {
+				total += tile.addEnergy(type.transferRate, true);
 			}
+
 			return total;
 		}
 
 		@Override
 		public String toString() {
-			return tile + " @ " + sides;
+			return tile + " @ " + side;
 		}
 	}
 }

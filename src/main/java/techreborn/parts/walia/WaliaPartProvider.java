@@ -72,7 +72,6 @@ public class WaliaPartProvider implements IWailaDataProvider {
 
     //Stolen from https://github.com/amadornes/MCMultiPart/blob/master/src/main/java/mcmultipart/block/BlockMultipart.java
     private TileMultipart getMultipartTile(IBlockAccess world, BlockPos pos) {
-
         TileEntity tile = world.getTileEntity(pos);
         return tile instanceof TileMultipart ? (TileMultipart) tile : null;
     }

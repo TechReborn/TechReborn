@@ -112,6 +112,17 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
         list.add(boundingBoxes[6].toAABB());
     }
 
+    @Override
+    public void onRemoved() {
+        super.onRemoved();
+        removeFromNetwork();
+    }
+
+    @Override
+    public void onUnloaded() {
+        super.onUnloaded();
+        removeFromNetwork();
+    }
 
     @Override
     public void addOcclusionBoxes(List<AxisAlignedBB> list) {
@@ -126,6 +137,7 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
     public void onNeighborBlockChange(Block block) {
         super.onNeighborBlockChange(block);
         nearByChange();
+        findAndJoinNetwork(getWorld(), getPos());
     }
 
     public void nearByChange() {
@@ -141,6 +153,9 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
     }
 
     public CableMultipart getPartFromWorld(World world, BlockPos pos, EnumFacing side) {
+        if(world == null || pos == null){
+            return null;
+        }
         IMultipartContainer container = MultipartHelper.getPartContainer(world, pos);
         if (side != null && container != null) {
             ISlottedPart slottedPart = container.getPartInSlot(PartSlot.getFaceSlot(side));
@@ -311,22 +326,26 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
     private TRPowerNet network;
 
     public final void findAndJoinNetwork(World world, BlockPos pos) {
-        network = new TRPowerNet();
-        network.setIOLimit(this.getCableType().transferRate);
-        network.addElement(this);
         for (EnumFacing dir : EnumFacing.VALUES) {
             CableMultipart cableMultipart = getPartFromWorld(getWorld(), getPos().offset(dir), dir);
             if (cableMultipart != null && cableMultipart.getCableType() == getCableType()) {
                 TRPowerNet net = cableMultipart.getNetwork();
                 if (net != null) {
-                    net.merge(network);
+                    network = net;
+                    network.addElement(this);
+                    break;
                 }
             }
+        }
+        if(network == null){
+            network = new TRPowerNet(getCableType());
+            network.addElement(this);
+        }
+        network.endpoints.clear();
+        for (EnumFacing dir : EnumFacing.VALUES) {
             TileEntity te = getNeighbourTile(dir);
             if (te != null && te instanceof IEnergyInterfaceTile) {
-                if (((IEnergyInterfaceTile) te).canAcceptEnergy(dir) || ((IEnergyInterfaceTile) te).canProvideEnergy(dir)) {
-                    network.addConnection((IEnergyInterfaceTile) te, dir.getOpposite());
-                }
+                network.addConnection((IEnergyInterfaceTile) te, dir.getOpposite());
             }
         }
     }
@@ -356,6 +375,7 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
     }
 
     public final void resetNetwork() {
+        network.removeElement(this);
         network = null;
     }
 
