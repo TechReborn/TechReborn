@@ -271,7 +271,7 @@ item.techreborn.dust.greenSapphire.name=Green Sapphire Dust
 item.techreborn.dust.sawDust.name=Saw Dust
 item.techreborn.lapotroncrystal.name=Lapotron Crystal
 item.techreborn.energycrystal.name=Energy Crystal
-item.techreborn.ingot.refinediron.name=Refined Iron
+item.techreborn.ingot.refinediron.name=Refined Iron Ingot
 item.techreborn.wrench.name=Wrench
 item.techreborn.cable.COPPER.name=Copper Cable
 item.techreborn.cable.TIN.name=Tin Cable
@@ -962,10 +962,10 @@ tile.techreborn.blastfurnace.description=This Machine needs a 3x4x3 of machine c
 keys.techreborn.category=TechReborn Category
 keys.techreborn.config=Config
 
-achievement.TechReborn:ore_Pickup=New ore!
-achievement.TechReborn:ore_Pickup.desc=Mine a techreborn ore
-achievement.TechReborn:centrifuge_Craft=Time to spin
-achievement.TechReborn:thermalgen_Craft=Time to heat
+achievement.TechReborn:ore_PickUp=New Ore!
+achievement.TechReborn:ore_PickUp.desc=Mine a TechReborn ore
+achievement.TechReborn:centrifuge_Craft=Time to Spin
+achievement.TechReborn:thermalgen_Craft=Time to Heat
 
 # JEI Integration
 techreborn.jei.recipe.start.cost=Start: %sEU
@@ -974,3 +974,6 @@ techreborn.jei.recipe.processing.time.1=Time: %s ticks
 techreborn.jei.recipe.processing.time.2=(%s seconds)
 
 techreborn.jei.category.alloy.furnace=Alloy Furnace
+
+#Death Messages
+death.attack.shock=%s was electrocuted

@@ -1,8 +1,9 @@
 package techreborn.items;
 
+import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import techreborn.client.TechRebornCreativeTabMisc;
 
-public class ItemUUmatter extends ItemTextureBase {
+public class ItemUUmatter extends ItemTR implements ITexturedItem {
 
     public ItemUUmatter() {
         setCreativeTab(TechRebornCreativeTabMisc.instance);

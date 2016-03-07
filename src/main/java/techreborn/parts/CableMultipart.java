@@ -5,6 +5,7 @@ import mcmultipart.microblock.IMicroblock;
 import mcmultipart.multipart.*;
 import mcmultipart.raytrace.PartMOP;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
@@ -265,7 +266,11 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
 
     @Override
     public float getHardness(PartMOP hit) {
-        return 1F;
+        return 0.5F;
+    }
+
+    public Material getMaterial() {
+        return Material.cloth;
     }
 
     @Override
