@@ -21,33 +21,11 @@ import techreborn.api.TechRebornAPI;
 import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.api.recipe.RecipeHandler;
-import techreborn.api.recipe.machines.AlloySmelterRecipe;
-import techreborn.api.recipe.machines.BlastFurnaceRecipe;
-import techreborn.api.recipe.machines.CentrifugeRecipe;
-import techreborn.api.recipe.machines.ChemicalReactorRecipe;
-import techreborn.api.recipe.machines.CompressorRecipe;
-import techreborn.api.recipe.machines.ExtractorRecipe;
-import techreborn.api.recipe.machines.GrinderRecipe;
-import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
-import techreborn.api.recipe.machines.IndustrialElectrolyzerRecipe;
-import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
-import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
-import techreborn.api.recipe.machines.PlateCuttingMachineRecipe;
-import techreborn.api.recipe.machines.VacuumFreezerRecipe;
-import techreborn.blocks.BlockMachineFrame;
-import techreborn.blocks.BlockOre;
-import techreborn.blocks.BlockOre2;
-import techreborn.blocks.BlockStorage;
-import techreborn.blocks.BlockStorage2;
+import techreborn.api.recipe.ScrapboxRecipe;
+import techreborn.api.recipe.machines.*;
+import techreborn.blocks.*;
 import techreborn.config.ConfigTechReborn;
-import techreborn.items.ItemCells;
-import techreborn.items.ItemDusts;
-import techreborn.items.ItemDustsSmall;
-import techreborn.items.ItemGems;
-import techreborn.items.ItemIngots;
-import techreborn.items.ItemNuggets;
-import techreborn.items.ItemParts;
-import techreborn.items.ItemPlates;
+import techreborn.items.*;
 import techreborn.parts.ItemStandaloneCables;
 import techreborn.utils.RecipeUtils;
 
@@ -85,10 +63,12 @@ public class ModRecipes {
 
     static void addScrapBoxloot() {
         ScrapboxList.addItemStackToList(new ItemStack(Items.diamond));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.stick));
         ScrapboxList.addItemStackToList(new ItemStack(Items.coal));
         ScrapboxList.addItemStackToList(new ItemStack(Items.apple));
         ScrapboxList.addItemStackToList(new ItemStack(Items.baked_potato));
         ScrapboxList.addItemStackToList(new ItemStack(Items.blaze_powder));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.wheat));
         ScrapboxList.addItemStackToList(new ItemStack(Items.carrot));
         ScrapboxList.addItemStackToList(new ItemStack(Items.boat));
         ScrapboxList.addItemStackToList(new ItemStack(Items.blaze_rod));
@@ -99,30 +79,113 @@ public class ModRecipes {
         ScrapboxList.addItemStackToList(new ItemStack(Items.cooked_chicken));
         ScrapboxList.addItemStackToList(new ItemStack(Items.paper));
         ScrapboxList.addItemStackToList(new ItemStack(Items.book));
-        
-        ScrapboxList.addItemStackToList(new ItemStack(Blocks.acacia_door));
-        ScrapboxList.addItemStackToList(new ItemStack(Blocks.bed));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.cake));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.acacia_door));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.dark_oak_door));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.birch_door));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.jungle_door));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.oak_door));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.spruce_door));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.wooden_axe));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.wooden_hoe));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.wooden_pickaxe));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.wooden_shovel));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.wooden_sword));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.bed));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.skull, 1, 0));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.skull, 1, 2));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.skull, 1, 4));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.dye, 1, 3));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.glowstone_dust));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.string));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.minecart));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.chest_minecart));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.hopper_minecart));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.prismarine_shard));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.shears));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.experience_bottle));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.bone));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.bowl));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.brick));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.fishing_rod));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.paper));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.sugar));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.reeds));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.spider_eye));
+        ScrapboxList.addItemStackToList(new ItemStack(Items.slime_ball));
+
+        ScrapboxList.addItemStackToList(ItemGems.getGemByName("ruby"));
+        ScrapboxList.addItemStackToList(ItemDusts.getDustByName("iron"));
+        ScrapboxList.addItemStackToList(ItemDusts.getDustByName("gold"));
+        ScrapboxList.addItemStackToList(ItemDusts.getDustByName("copper"));
+        ScrapboxList.addItemStackToList(ItemDusts.getDustByName("tin"));
+        ScrapboxList.addItemStackToList(ItemParts.getPartByName("scrap"));
+
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.trapdoor));
         ScrapboxList.addItemStackToList(new ItemStack(Blocks.brick_block));
-        ScrapboxList.addItemStackToList(new ItemStack(Blocks.cake));
-        ScrapboxList.addItemStackToList(new ItemStack(Blocks.carpet));
         ScrapboxList.addItemStackToList(new ItemStack(Blocks.crafting_table));
-        ScrapboxList.addItemStackToList(new ItemStack(Blocks.dirt));
-        ScrapboxList.addItemStackToList(new ItemStack(Blocks.dark_oak_door));
-        ScrapboxList.addItemStackToList(new ItemStack(Blocks.glass));
-        ScrapboxList.addItemStackToList(new ItemStack(Blocks.glass_pane));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.dirt, 1, 0));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.dirt, 1, 1));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.sand, 1, 0));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.sand, 1, 1));
         ScrapboxList.addItemStackToList(new ItemStack(Blocks.glowstone));
-        ScrapboxList.addItemStackToList(new ItemStack(Blocks.wooden_slab));
-        ScrapboxList.addItemStackToList(new ItemStack(Blocks.skull));
-        ScrapboxList.addItemStackToList(new ItemStack(Blocks.leaves));
         ScrapboxList.addItemStackToList(new ItemStack(Blocks.gravel));
         ScrapboxList.addItemStackToList(new ItemStack(Blocks.hardened_clay));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.glass));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.glass_pane));
         ScrapboxList.addItemStackToList(new ItemStack(Blocks.cactus));
-        ScrapboxList.addItemStackToList(new ItemStack(Blocks.cocoa));
-        ScrapboxList.addItemStackToList(new ItemStack(Blocks.tallgrass));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.tallgrass, 1, 0));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.tallgrass, 1, 1));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.deadbush));
         ScrapboxList.addItemStackToList(new ItemStack(Blocks.chest));
-        ScrapboxList.addItemStackToList(ItemGems.getGemByName("ruby"));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.tnt));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.rail));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.detector_rail));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.golden_rail));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.activator_rail));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.yellow_flower));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.red_flower, 1, 0));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.red_flower, 1, 1));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.red_flower, 1, 2));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.red_flower, 1, 3));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.red_flower, 1, 4));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.red_flower, 1, 5));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.red_flower, 1, 6));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.red_flower, 1, 7));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.red_flower, 1, 8));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.brown_mushroom));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.red_mushroom));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.brown_mushroom_block));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.red_mushroom_block));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.sapling, 1, 0));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.sapling, 1, 1));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.sapling, 1, 2));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.sapling, 1, 3));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.sapling, 1, 4));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.sapling, 1, 5));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.leaves, 1, 0));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.leaves, 1, 1));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.leaves, 1, 2));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.leaves, 1, 3));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.leaves2, 1, 0));
+        ScrapboxList.addItemStackToList(new ItemStack(Blocks.leaves2, 1, 1));
+        
+        ScrapboxList.addItemStackToList(new ItemStack(ModBlocks.rubberSapling));
 
+        registerDyable(Blocks.carpet);
+        registerDyable(Blocks.stained_glass);
+        registerDyable(Blocks.stained_glass_pane);
+        registerDyable(Blocks.stained_hardened_clay);
+
+        for (int i = 0; i < ScrapboxList.stacks.size(); i++) {
+			RecipeHandler.addRecipe(new ScrapboxRecipe(ScrapboxList.stacks.get(i)));
+		}
 	}
+    
+    static void registerDyable(Block block){
+    	for(int i = 0; i < 16; i++)
+    	ScrapboxList.addItemStackToList(new ItemStack(block, 1 , i));
+    }
 
 	static void addWireRecipes() {
         CraftingHelper.addShapedOreRecipe(ItemStandaloneCables.getCableByName("copper", 6),
