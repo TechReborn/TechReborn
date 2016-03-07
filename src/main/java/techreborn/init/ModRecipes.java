@@ -270,6 +270,7 @@ public class ModRecipes {
         CraftingHelper.addShapelessOreRecipe(ItemStandaloneCables.getCableByName("insulatedhv"), ItemParts.getPartByName("rubber"), ItemStandaloneCables.getCableByName("hv"));
 	}
 
+
 	private static void addCompressorRecipes() {
     	RecipeHandler.addRecipe(new CompressorRecipe(new ItemStack(Items.diamond), new ItemStack(Items.coal), 400, 20));
 	}
@@ -278,7 +279,6 @@ public class ModRecipes {
         RecipeHandler.addRecipe(new ExtractorRecipe(ItemParts.getPartByName("rubberSap"), ItemParts.getPartByName("rubber", 3), 400, 20));
         RecipeHandler.addRecipe(new ExtractorRecipe(new ItemStack(ModBlocks.rubberLog), ItemParts.getPartByName("rubber"), 400, 20));	
 	}
-
 	static void addIc2ReplacementReicpes(){
         CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Grinder),
                 "FFF",
