@@ -361,7 +361,7 @@ public class ModRecipes {
 	      'R', Items.redstone,
 	      'D', Items.diamond);
       
-      CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.lapatronCrystal),
+      CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.lapotronCrystal),
     	      "LCL", "LEL", "LCL",
     	      'L', "dyeBlue",
     	      'E', new ItemStack(ModItems.energyCrystal),

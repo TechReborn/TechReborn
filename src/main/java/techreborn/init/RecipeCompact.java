@@ -62,7 +62,7 @@ public class RecipeCompact implements IRecipeCompact {
         recipes.put("hvTransformer", ItemParts.getPartByName("hvTransformer"));
         recipes.put("windMill", new ItemStack(ModBlocks.windMill));
         recipes.put("energyCrystal", new ItemStack(ModItems.energyCrystal));
-        recipes.put("lapotronCrystal", new ItemStack(ModItems.lapatronCrystal));
+        recipes.put("lapotronCrystal", new ItemStack(ModItems.lapotronCrystal));
         inited = false;
     }
 

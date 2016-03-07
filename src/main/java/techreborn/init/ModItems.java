@@ -83,9 +83,10 @@ public class ModItems {
     public static Item ironJackhammer;
     public static Item steelJackhammer;
     public static Item diamondJackhammer;
+    public static Item nanosaber;
     public static Item hammer;
     public static Item wrench;
-    public static Item lapatronCrystal;
+    public static Item lapotronCrystal;
     public static Item energyCrystal;
     public static Item scrapBox;
 
@@ -134,8 +135,8 @@ public class ModItems {
         GameRegistry.registerItem(omniTool, "omniTool");
         energyCrystal = PoweredItem.createItem(ItemEnergyCrystal.class);
         GameRegistry.registerItem(energyCrystal, "energycrystal");
-        lapatronCrystal = PoweredItem.createItem(ItemLapotronCrystal.class);
-        GameRegistry.registerItem(lapatronCrystal, "lapatroncrystal");
+        lapotronCrystal = PoweredItem.createItem(ItemLapotronCrystal.class);
+        GameRegistry.registerItem(lapotronCrystal, "lapotroncrystal");
         
 
         manual = new ItemTechManual();
@@ -173,6 +174,9 @@ public class ModItems {
 
         wrench = new ItemWrench();
         GameRegistry.registerItem(wrench, "wrench");
+
+        nanosaber = new ItemNanosaber();
+        GameRegistry.registerItem(nanosaber, "nanosaber");
         
         scrapBox = new ItemScrapBox();
         GameRegistry.registerItem(scrapBox, "scrapbox");
