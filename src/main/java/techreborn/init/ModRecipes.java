@@ -124,12 +124,7 @@ public class ModRecipes {
         ScrapboxList.addItemStackToList(new ItemStack(Items.rabbit_hide));
         ScrapboxList.addItemStackToList(new ItemStack(Items.rabbit_foot));
         ScrapboxList.addItemStackToList(new ItemStack(Items.apple));
-
-        ScrapboxList.addItemStackToList(ItemGems.getGemByName("ruby"));
-        ScrapboxList.addItemStackToList(ItemGems.getGemByName("sapphire"));
-        ScrapboxList.addItemStackToList(ItemGems.getGemByName("peridot"));
-        ScrapboxList.addItemStackToList(ItemGems.getGemByName("redGarnet"));
-        ScrapboxList.addItemStackToList(ItemGems.getGemByName("yellowGarnet"));
+        
         ScrapboxList.addItemStackToList(ItemCells.getCellByName("empty"));
         ScrapboxList.addItemStackToList(ItemCells.getCellByName("water"));
         ScrapboxList.addItemStackToList(ItemParts.getPartByName("scrap"));
@@ -191,6 +186,10 @@ public class ModRecipes {
 
         for(String i : ItemDusts.types){
             ScrapboxList.addItemStackToList(ItemDusts.getDustByName(i));
+        }
+
+        for(String i : ItemGems.types){
+            ScrapboxList.addItemStackToList(ItemGems.getGemByName(i));
         }
         
         registerDyable(Blocks.carpet);
