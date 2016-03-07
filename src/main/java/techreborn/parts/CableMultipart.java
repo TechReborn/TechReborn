@@ -25,6 +25,7 @@ import net.minecraftforge.common.property.Properties;
 import reborncore.api.power.IEnergyInterfaceTile;
 import reborncore.common.misc.Functions;
 import reborncore.common.misc.vecmath.Vecs3dCube;
+import techreborn.power.TRPowerNet;
 import techreborn.utils.damageSources.ElectrialShockSource;
 
 import java.util.*;
@@ -169,6 +170,12 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
                 if (cableMultipart != null && cableMultipart.internalShouldConnectTo(dir.getOpposite())) {
                     return true;
                 }
+            } else {
+                TileEntity tile = getNeighbourTile(dir);
+
+                if (tile instanceof IEnergyInterfaceTile) {
+                    return true;
+                }
             }
         }
         return false;
@@ -186,13 +193,9 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
             return false;
         }
 
-        if (getPartFromWorld(getWorld(), getPos().offset(dir), dir.getOpposite()) != null) {
-            return true;
-        }
+        CableMultipart cableMultipart = getPartFromWorld(getWorld(), getPos().offset(dir), dir.getOpposite());
 
-        TileEntity tile = getNeighbourTile(dir);
-
-        if (tile instanceof IEnergyInterfaceTile) {
+        if (cableMultipart != null && cableMultipart.getCableType() == getCableType()) {
             return true;
         }
         return false;
@@ -228,6 +231,9 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
             if(getWorld().getTotalWorldTime() % 80 == 0){
                 checkConnectedSides();
             }
+        }
+        if (network == null) {
+            this.findAndJoinNetwork(getWorld(), getPos());
         }
     }
 
@@ -300,4 +306,56 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
     public ItemStack getPickBlock(EntityPlayer player, PartMOP hit) {
         return new ItemStack(TechRebornParts.cables, 1, getCableType().ordinal());
     }
+
+    private TRPowerNet network;
+
+    public final void findAndJoinNetwork(World world, BlockPos pos) {
+        network = new TRPowerNet();
+        network.setIOLimit(this.getCableType().transferRate);
+        network.addElement(this);
+        for(EnumFacing dir : EnumFacing.VALUES){
+            CableMultipart cableMultipart = getPartFromWorld(getWorld(), getPos().offset(dir), dir);
+            if(cableMultipart != null && cableMultipart.getCableType() == getCableType()){
+                TRPowerNet net = cableMultipart.getNetwork();
+                if(net != null){
+                    net.merge(network);
+                }
+            }
+            TileEntity te = getNeighbourTile(dir);
+            if(te != null && te instanceof IEnergyInterfaceTile){
+                if(((IEnergyInterfaceTile) te).canAcceptEnergy(dir) || ((IEnergyInterfaceTile) te).canProvideEnergy(dir)){
+                    network.addConnection((IEnergyInterfaceTile) te, dir.getOpposite());
+                }
+            }
+        }
+    }
+
+    public final TRPowerNet getNetwork() {
+        return network;
+    }
+
+    public final void setNetwork(TRPowerNet n) {
+        if (n == null) {
+        } else {
+            network = n;
+            network.addElement(this);
+        }
+    }
+
+    public final void removeFromNetwork() {
+        if (network == null) {
+        } else
+            network.removeElement(this);
+    }
+
+    public final void rebuildNetwork() {
+        this.removeFromNetwork();
+        this.resetNetwork();
+        this.findAndJoinNetwork(getWorld(), getPos());
+    }
+
+    public final void resetNetwork() {
+        network = null;
+    }
+
 }
