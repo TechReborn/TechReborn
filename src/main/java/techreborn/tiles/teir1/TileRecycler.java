@@ -1,5 +1,7 @@
 package techreborn.tiles.teir1;
 
+import java.util.Random;
+
 import ic2.api.tile.IWrenchable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,13 +20,15 @@ import techreborn.init.ModItems;
 import techreborn.items.ItemParts;
 import techreborn.lib.Reference;
 
-public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory{
+public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory {
 
     public Inventory inventory = new Inventory(6, "TileRecycler", 64, this);
     public int capacity = 1000;
     public int cost = 20;
     public int progress;
-    public int time = 100;
+    public int time = 800;
+    public int chance = 4;
+    public int random;
 
 	public TileRecycler() {
 		super(1);
@@ -38,40 +42,52 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInv
     @Override
     public void updateEntity() 
     {
-        if(!worldObj.isRemote)
+        boolean updateInventory = false;
+        if(getEnergy() > cost)
         {
-	        if(getEnergy() > cost)
-	        {
-	        	if(getStackInSlot(0) != null)
-	        	{
-	        		if(progress == 0)
-	        		{
-		        		if(getStackInSlot(0).stackSize > 1)
-		        		{
-		        			decrStackSize(0, 1);
-		        		}
-		        		if(getStackInSlot(0).stackSize == 1)
-		        		{
-		        			setInventorySlotContents(0, null);
-		        		}
-	        		}
-	        		progress++;
+        	if(getStackInSlot(0) != null)
+        	{
+        		if(progress == 0)
+        		{
+                	int randchance = worldObj.rand.nextInt(chance);
+                	random = randchance;
 
-	        		if(progress >= cost)
+	        		if(getStackInSlot(0).stackSize > 1)
 	        		{
+	        			decrStackSize(0, 1);
+	        		}
+	        		if(getStackInSlot(0).stackSize == 1)
+	        		{
+	        			setInventorySlotContents(0, null);
+	        		}
+	        		updateInventory = true;
+        		}
+        		progress++;
+
+        		if(progress >= time)
+        		{
+        			if(random == 1)
+        			{
 		        		if(getStackInSlot(1) == null)
 		        		{
 		        			setInventorySlotContents(1, ItemParts.getPartByName("scrap"));
 		        			progress = 0;
+		        			updateInventory = true;
 		        		}
-		        		if(getStackInSlot(1).stackSize >= 1)
+		        		else if(getStackInSlot(1).stackSize >= 1)
 		        		{
 		        			getStackInSlot(1).stackSize++;
 		        			progress = 0;
+		        			updateInventory = true;
 		        		}
-	        		}
-	        	}
-	        }
+        			}
+        			if(random != 1)
+        			{
+        				progress = 0;
+        				updateInventory = true;
+        			}
+        		}
+        	}
         }
     }
     

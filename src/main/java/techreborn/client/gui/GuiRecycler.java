@@ -38,7 +38,7 @@ public class GuiRecycler extends GuiContainer {
 
         int j = 0;
         
-        j = compressor.gaugeProgressScaled(1);
+        j = compressor.gaugeProgressScaled(24);
         if (j > 0) {
             this.drawTexturedModalRect(k + 78, l + 35, 176, 14, j + 1, 16);
         }
@@ -54,5 +54,4 @@ public class GuiRecycler extends GuiContainer {
         this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
         this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
     }
-
 }
