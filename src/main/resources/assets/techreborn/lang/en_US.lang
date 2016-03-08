@@ -975,6 +975,7 @@ techreborn.jei.recipe.running.cost=EU/t: %s
 techreborn.jei.recipe.processing.time.1=Time: %s ticks
 techreborn.jei.recipe.processing.time.2=(%s seconds)
 jei.techreborn.scrapbox.name=Opening Scrapboxes
+techreborn.desc.rubberSap=In order to get sap, you need to find a rubber tree or obtain a rubber tree sapling and proceed to grow it. Once you have obtained a rubber tree, search around for little yellowish spots on the tree. If you don't see any, just wait a bit and eventually these yellow "sap" spots. To harvest the sap, use a treetap and use it on the log.
 
 techreborn.jei.category.alloy.furnace=Alloy Furnace
 

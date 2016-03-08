@@ -8,7 +8,7 @@ import techreborn.lib.Reference;
 public class ScrapboxRecipe extends BaseRecipe {
 
 	public ScrapboxRecipe(ItemStack output) {
-		super(Reference.compressorRecipe, 0, 0);
+		super(Reference.scrapboxRecipe, 0, 0);
 		inputs.add(new ItemStack(ModItems.scrapBox));
 		addOutput(output);
 	}

@@ -13,6 +13,7 @@ import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 import mezz.jei.api.recipe.transfer.IRecipeTransferRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import techreborn.Core;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.api.recipe.RecipeHandler;
@@ -55,6 +56,7 @@ import techreborn.compat.jei.scrapbox.ScrapboxRecipeCategory;
 import techreborn.compat.jei.scrapbox.ScrapboxRecipeHandler;
 import techreborn.compat.jei.vacuumFreezer.VacuumFreezerRecipeCategory;
 import techreborn.compat.jei.vacuumFreezer.VacuumFreezerRecipeHandler;
+import techreborn.items.ItemParts;
 
 @mezz.jei.api.JEIPlugin
 public class TechRebornJeiPlugin extends BlankModPlugin {
@@ -117,6 +119,8 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
             addDebugRecipes(registry);
         }
 
+        registry.addDescription(ItemParts.getPartByName("rubberSap"), StatCollector.translateToLocal("techreborn.desc.rubberSap"));
+        
         registry.addRecipeClickArea(GuiAlloyFurnace.class, 80, 35, 26, 20, RecipeCategoryUids.ALLOY_SMELTER, VanillaRecipeCategoryUid.FUEL);
         registry.addRecipeClickArea(GuiAlloySmelter.class, 80, 35, 26, 20, RecipeCategoryUids.ALLOY_SMELTER);
         registry.addRecipeClickArea(GuiAssemblingMachine.class, 85, 34, 24, 20, RecipeCategoryUids.ASSEMBLING_MACHINE);

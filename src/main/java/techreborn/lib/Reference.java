@@ -19,4 +19,5 @@ public class Reference {
     public static String extractorRecipe = StatCollector.translateToLocal("tile.techreborn.extractor.name");
     public static String compressorRecipe = StatCollector.translateToLocal("tile.techreborn.compressor.name");
     public static String recyclerRecipe = StatCollector.translateToLocal("tile.techreborn.recycler.name");
+    public static String scrapboxRecipe = StatCollector.translateToLocal("techreborn.recipe.scrapbox");
 }
