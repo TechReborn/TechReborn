@@ -11,6 +11,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
 import reborncore.api.IListInfoProvider;
+import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.api.recipe.RecipeCrafter;
@@ -189,6 +190,11 @@ public class TileCentrifuge extends TilePowerAcceptor implements IWrenchable, II
     @Override
     public double getMaxInput() {
         return 32;
+    }
+
+    @Override
+    public EnumPowerTier getTier() {
+        return EnumPowerTier.LOW;
     }
 
     @Override

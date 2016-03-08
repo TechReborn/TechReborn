@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
+import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
@@ -283,5 +284,10 @@ public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchab
     @Override
     public double getMaxInput() {
         return 4096;
+    }
+
+    @Override
+    public EnumPowerTier getTier() {
+        return EnumPowerTier.EXTREME;
     }
 }

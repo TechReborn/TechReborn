@@ -10,6 +10,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
+import reborncore.api.power.EnumPowerTier;
 import reborncore.common.misc.Location;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
@@ -253,5 +254,10 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
     @Override
     public double getMaxInput() {
         return 64;
+    }
+
+    @Override
+    public EnumPowerTier getTier() {
+        return EnumPowerTier.LOW;
     }
 }

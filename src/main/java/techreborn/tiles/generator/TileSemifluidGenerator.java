@@ -19,6 +19,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
+import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
@@ -289,5 +290,10 @@ public class TileSemifluidGenerator extends TilePowerAcceptor implements IWrench
     @Override
     public double getMaxInput() {
         return 0;
+    }
+
+    @Override
+    public EnumPowerTier getTier() {
+        return EnumPowerTier.LOW;
     }
 }

@@ -7,6 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
+import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
@@ -72,6 +73,11 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
             return 0;
         }
         return 8192;
+    }
+
+    @Override
+    public EnumPowerTier getTier() {
+        return EnumPowerTier.EXTREME;
     }
 
     @Override

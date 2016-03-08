@@ -3,6 +3,7 @@ package techreborn.tiles.generator;
 import java.util.List;
 
 import net.minecraft.util.EnumFacing;
+import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.blocks.generator.BlockSolarPanel;
 
@@ -75,5 +76,10 @@ public class TileSolarPanel extends TilePowerAcceptor {
     @Override
     public double getMaxInput() {
         return 0;
+    }
+
+    @Override
+    public EnumPowerTier getTier() {
+        return EnumPowerTier.LOW;
     }
 }

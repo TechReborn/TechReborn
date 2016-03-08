@@ -2,6 +2,7 @@ package techreborn.tiles.generator;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
+import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 
 /**
@@ -59,5 +60,10 @@ public class TileWaterMill extends TilePowerAcceptor {
     @Override
     public double getMaxInput() {
         return 0;
+    }
+
+    @Override
+    public EnumPowerTier getTier() {
+        return EnumPowerTier.LOW;
     }
 }

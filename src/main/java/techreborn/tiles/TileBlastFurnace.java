@@ -13,6 +13,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
+import reborncore.api.power.EnumPowerTier;
 import reborncore.common.misc.Location;
 import reborncore.common.multiblock.IMultiblockPart;
 import reborncore.common.powerSystem.TilePowerAcceptor;
@@ -258,6 +259,11 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
     @Override
     public double getMaxInput() {
         return 128;
+    }
+
+    @Override
+    public EnumPowerTier getTier() {
+        return EnumPowerTier.HIGH;
     }
 
     @Override

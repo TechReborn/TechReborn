@@ -84,5 +84,6 @@ public class ItemCables extends ItemMultiPart implements ITexturedItem {
         if (type.canKill) {
             tooltip.add(EnumChatFormatting.RED + "Damages entity's!");
         }
+        tooltip.add(EnumChatFormatting.GREEN + "Tier: " + EnumChatFormatting.LIGHT_PURPLE + type.tier);
     }
 }

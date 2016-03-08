@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
@@ -65,6 +66,11 @@ public class TileIDSU extends TilePowerAcceptor {
     @Override
     public double getMaxInput() {
         return maxStorage;
+    }
+
+    @Override
+    public EnumPowerTier getTier() {
+        return EnumPowerTier.EXTREME;
     }
 
     public int tier;

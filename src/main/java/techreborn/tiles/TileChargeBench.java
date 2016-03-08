@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
+import reborncore.api.power.EnumPowerTier;
 import reborncore.api.power.IEnergyInterfaceItem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
@@ -172,6 +173,11 @@ public class TileChargeBench extends TilePowerAcceptor implements IWrenchable, I
     @Override
     public double getMaxInput() {
         return 512;
+    }
+
+    @Override
+    public EnumPowerTier getTier() {
+        return EnumPowerTier.MEDIUM;
     }
 
     @Override

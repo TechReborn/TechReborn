@@ -5,6 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.config.ConfigTechReborn;
@@ -150,5 +151,10 @@ public class TileAesu extends TilePowerAcceptor implements IWrenchable {
     @Override
     public double getMaxInput() {
         return 4096 * 2;
+    }
+
+    @Override
+    public EnumPowerTier getTier() {
+        return EnumPowerTier.EXTREME;
     }
 }

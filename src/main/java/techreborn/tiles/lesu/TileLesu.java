@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.config.ConfigTechReborn;
@@ -100,5 +101,10 @@ public class TileLesu extends TilePowerAcceptor {//TODO wrench
     @Override
     public double getMaxInput() {
         return 8192;
+    }
+
+    @Override
+    public EnumPowerTier getTier() {
+        return EnumPowerTier.EXTREME;
     }
 }

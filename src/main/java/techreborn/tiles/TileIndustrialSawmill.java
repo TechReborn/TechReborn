@@ -16,6 +16,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import reborncore.api.IListInfoProvider;
+import reborncore.api.power.EnumPowerTier;
 import reborncore.common.misc.Location;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.FluidUtils;
@@ -308,5 +309,10 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
     @Override
     public double getMaxInput() {
         return 64;
+    }
+
+    @Override
+    public EnumPowerTier getTier() {
+        return EnumPowerTier.LOW;
     }
 }

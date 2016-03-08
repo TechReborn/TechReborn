@@ -5,6 +5,7 @@ import java.util.Iterator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import reborncore.api.power.EnumPowerTier;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 
@@ -41,6 +42,11 @@ public class TilePlayerDectector extends TilePowerAcceptor {
     @Override
     public double getMaxInput() {
         return 32;
+    }
+
+    @Override
+    public EnumPowerTier getTier() {
+        return EnumPowerTier.LOW;
     }
 
     @Override
