@@ -382,7 +382,10 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
     }
 
     public final void resetNetwork() {
-        network.removeElement(this);
+        if(network != null){
+            network.removeElement(this);
+        }
+
         network = null;
     }
 

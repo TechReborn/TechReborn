@@ -4,6 +4,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import reborncore.api.power.IEnergyInterfaceTile;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.events.TRTickHandler;
 import techreborn.parts.CableMultipart;
 import techreborn.parts.EnumCableType;
@@ -30,6 +31,7 @@ public class TRPowerNet {
 	@SubscribeEvent
 	public void tick(PowerTickEvent evt) {
 		if(tick < 20){
+			tick ++;
 			return;
 		}
 		if(tick % 80 == 0){
@@ -154,14 +156,6 @@ public class TRPowerNet {
 		return cables.size() + ": " + endpoints.toString();
 	}
 
-	public int drainEnergy(int maxReceive, boolean simulate) {
-		maxReceive = Math.min(maxReceive, this.getIOLimit());
-		int drain = Math.min(maxReceive, energy);
-		if (!simulate)
-			energy -= drain;
-		return drain;
-	}
-
 	public int addEnergy(int maxAdd, boolean simulate) {
 		if (energy >= this.getIOLimit())
 			return 0;
@@ -206,6 +200,12 @@ public class TRPowerNet {
 		public int addEnergy(int max) {
 			int total = 0;
 			if (tile.canAcceptEnergy(EnumFacing.NORTH)) {
+				if(type.transferRate > tile.getMaxInput()){
+					if(tile instanceof TilePowerAcceptor){
+						((TilePowerAcceptor) tile).getWorld().createExplosion(null, ((TilePowerAcceptor) tile).getPos().getX(), ((TilePowerAcceptor) tile).getPos().getY(), ((TilePowerAcceptor) tile).getPos().getZ(), 5F, true);
+					}
+					return 0;
+				}
 					int add = max - total;
 					total += tile.addEnergy(add, false);
 			}
