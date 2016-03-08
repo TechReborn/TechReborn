@@ -84,6 +84,8 @@ public class ConfigTechReborn {
 	public static boolean UninsulatedElectocutionParticle;
 	public static boolean UninsulatedElectocutionDamage;
 
+	public static boolean scrapboxDispenser;
+
 	// Power
 	public static int ThermalGenertaorOutput;
 	public static int CentrifugeInputTick;
@@ -690,6 +692,10 @@ public class ConfigTechReborn {
 				.getBoolean(true);
 		UninsulatedElectocutionParticle = config
 				.get(CATEGORY_WORLD, "Uninsulated Electocution Particle", true, "Spawn particles on contact with uninsulated cables")
+				.getBoolean(true);
+
+		scrapboxDispenser = config
+				.get(CATEGORY_WORLD, "Scrapboxes in Dispenser", true, "Allow scrapbox to be opened via dispenser")
 				.getBoolean(true);
 
 		ExpensiveWatermill = config

@@ -56,6 +56,8 @@ import techreborn.compat.jei.scrapbox.ScrapboxRecipeCategory;
 import techreborn.compat.jei.scrapbox.ScrapboxRecipeHandler;
 import techreborn.compat.jei.vacuumFreezer.VacuumFreezerRecipeCategory;
 import techreborn.compat.jei.vacuumFreezer.VacuumFreezerRecipeHandler;
+import techreborn.config.ConfigTechReborn;
+import techreborn.init.ModItems;
 import techreborn.items.ItemParts;
 
 @mezz.jei.api.JEIPlugin
@@ -120,6 +122,11 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
         }
 
         registry.addDescription(ItemParts.getPartByName("rubberSap"), StatCollector.translateToLocal("techreborn.desc.rubberSap"));
+        if(!ConfigTechReborn.scrapboxDispenser){
+            registry.addDescription(new ItemStack(ModItems.scrapBox), StatCollector.translateToLocal("techreborn.desc.scrapBoxNoDispenser"));
+        } else {
+            registry.addDescription(new ItemStack(ModItems.scrapBox), StatCollector.translateToLocal("techreborn.desc.scrapBox"));
+        }
         
         registry.addRecipeClickArea(GuiAlloyFurnace.class, 80, 35, 26, 20, RecipeCategoryUids.ALLOY_SMELTER, VanillaRecipeCategoryUid.FUEL);
         registry.addRecipeClickArea(GuiAlloySmelter.class, 80, 35, 26, 20, RecipeCategoryUids.ALLOY_SMELTER);

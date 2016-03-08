@@ -4,8 +4,7 @@ import java.io.File;
 
 import org.apache.commons.lang3.time.StopWatch;
 
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
+import net.minecraft.block.BlockDispenser;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -24,7 +23,6 @@ import reborncore.common.packets.AddDiscriminatorEvent;
 import reborncore.common.util.LogHelper;
 import reborncore.common.util.VersionChecker;
 import techreborn.achievement.TRAchievements;
-import techreborn.api.ScrapboxList;
 import techreborn.api.TechRebornAPI;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.recipeConfig.RecipeConfigManager;
@@ -33,19 +31,13 @@ import techreborn.command.TechRebornDevCommand;
 import techreborn.compat.CompatManager;
 import techreborn.compat.ICompatModule;
 import techreborn.config.ConfigTechReborn;
+import techreborn.dispenser.BehaviorDispenseScrapbox;
 import techreborn.events.OreUnifier;
 import techreborn.events.TRTickHandler;
-import techreborn.init.ModBlocks;
-import techreborn.init.ModFluids;
-import techreborn.init.ModItems;
-import techreborn.init.ModLoot;
-import techreborn.init.ModParts;
-import techreborn.init.ModRecipes;
-import techreborn.init.RecipeCompact;
+import techreborn.init.*;
 import techreborn.lib.ModInfo;
 import techreborn.packets.PacketAesu;
 import techreborn.packets.PacketIdsu;
-import techreborn.power.PowerTickEvent;
 import techreborn.proxies.CommonProxy;
 import techreborn.tiles.idsu.IDSUManager;
 import techreborn.world.TROreGen;
@@ -53,125 +45,126 @@ import techreborn.world.TreeGenerator;
 
 @Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = ModInfo.MOD_DEPENDENCUIES, guiFactory = ModInfo.GUI_FACTORY_CLASS, acceptedMinecraftVersions = "[1.8.8,1.8.9]")
 public class Core {
-    public static ConfigTechReborn config;
+	public static ConfigTechReborn config;
 
-    @SidedProxy(clientSide = ModInfo.CLIENT_PROXY_CLASS, serverSide = ModInfo.SERVER_PROXY_CLASS)
-    public static CommonProxy proxy;
+	@SidedProxy(clientSide = ModInfo.CLIENT_PROXY_CLASS, serverSide = ModInfo.SERVER_PROXY_CLASS)
+	public static CommonProxy proxy;
 
-    @Mod.Instance
-    public static Core INSTANCE;
+	@Mod.Instance
+	public static Core INSTANCE;
 
-    public VersionChecker versionChecker;
+	public VersionChecker versionChecker;
 
-    public static LogHelper logHelper = new LogHelper(new ModInfo());
+	public static LogHelper logHelper = new LogHelper(new ModInfo());
 
-    private static RecipeCompact recipeCompact;
-    private static File configDir;
+	private static RecipeCompact recipeCompact;
+	private static File configDir;
 
-    @Mod.EventHandler
-    public void preinit(FMLPreInitializationEvent event) {
-        event.getModMetadata().version = ModInfo.MOD_VERSION;
-        INSTANCE = this;
-        FMLCommonHandler.instance().bus().register(this);
-        MinecraftForge.EVENT_BUS.register(this);
+	@Mod.EventHandler
+	public void preinit(FMLPreInitializationEvent event) {
+		event.getModMetadata().version = ModInfo.MOD_VERSION;
+		INSTANCE = this;
+		FMLCommonHandler.instance().bus().register(this);
+		MinecraftForge.EVENT_BUS.register(this);
 
-        String path = event.getSuggestedConfigurationFile().getAbsolutePath()
-                .replace(ModInfo.MOD_ID, "TechReborn");
+		String path = event.getSuggestedConfigurationFile().getAbsolutePath().replace(ModInfo.MOD_ID, "TechReborn");
 
-        config = ConfigTechReborn.initialize(new File(path));
-        configDir = event.getModConfigurationDirectory();
+		config = ConfigTechReborn.initialize(new File(path));
+		configDir = event.getModConfigurationDirectory();
 
-        recipeCompact = new RecipeCompact();
-        TechRebornAPI.recipeCompact = recipeCompact;
+		recipeCompact = new RecipeCompact();
+		TechRebornAPI.recipeCompact = recipeCompact;
 
-        for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
-            compatModule.preInit(event);
-        }
+		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
+			compatModule.preInit(event);
+		}
 
-        RecipeConfigManager.load(event.getModConfigurationDirectory());
-        versionChecker = new VersionChecker("TechReborn", new ModInfo());
-        versionChecker.checkVersionThreaded();
+		RecipeConfigManager.load(event.getModConfigurationDirectory());
+		versionChecker = new VersionChecker("TechReborn", new ModInfo());
+		versionChecker.checkVersionThreaded();
 
-        logHelper.info("PreInitialization Complete");
-    }
+		logHelper.info("PreInitialization Complete");
+	}
 
-    @Mod.EventHandler
-    public void init(FMLInitializationEvent event) throws IllegalAccessException, InstantiationException {
-        // Register ModBlocks
-        ModBlocks.init();
-        // Register Fluids
-        ModFluids.init();
-        // Register ModItems
-        ModItems.init();
-        // Registers Chest Loot
-        ModLoot.init();
-        //Multiparts
-        ModParts.init();
-        // Compat
-        for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
-            compatModule.init(event);
-        }
-        // Recipes
-        StopWatch watch = new StopWatch();
-        watch.start();
-        ModRecipes.init();
-        logHelper.all(watch + " : main recipes");
-        watch.stop();
-        //Client only init, needs to be done before parts system
-        proxy.init();
-        // WorldGen
-        GameRegistry.registerWorldGenerator(new TROreGen(), 0);
-        GameRegistry.registerWorldGenerator(new TreeGenerator(), 0);
-//		DungeonLoot.init();
-        // Register Gui Handler
-        NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
+	@Mod.EventHandler
+	public void init(FMLInitializationEvent event) throws IllegalAccessException, InstantiationException {
+		// Register ModBlocks
+		ModBlocks.init();
+		// Register Fluids
+		ModFluids.init();
+		// Register ModItems
+		ModItems.init();
+		// Registers Chest Loot
+		ModLoot.init();
+		// Multiparts
+		ModParts.init();
+		// Compat
+		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
+			compatModule.init(event);
+		}
+		// Recipes
+		StopWatch watch = new StopWatch();
+		watch.start();
+		ModRecipes.init();
+		logHelper.all(watch + " : main recipes");
+		watch.stop();
+		// Client only init, needs to be done before parts system
+		proxy.init();
+		// WorldGen
+		GameRegistry.registerWorldGenerator(new TROreGen(), 0);
+		GameRegistry.registerWorldGenerator(new TreeGenerator(), 0);
+		// DungeonLoot.init();
+		// Register Gui Handler
+		NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
 
-        // Achievements
-        TRAchievements.init();
-        // Multiblock events
-        MinecraftForge.EVENT_BUS.register(new MultiblockEventHandler());
-        // IDSU manager
-        IDSUManager.INSTANCE = new IDSUManager();
-        MinecraftForge.EVENT_BUS.register(IDSUManager.INSTANCE);
-        MinecraftForge.EVENT_BUS.register(new MultiblockServerTickHandler());
-        MinecraftForge.EVENT_BUS.register(new TRTickHandler());
-        MinecraftForge.EVENT_BUS.register(new OreUnifier());
-        logHelper.info("Initialization Complete");
-    }
+		// Achievements
+		TRAchievements.init();
+		// Multiblock events
+		MinecraftForge.EVENT_BUS.register(new MultiblockEventHandler());
+		// IDSU manager
+		IDSUManager.INSTANCE = new IDSUManager();
+		MinecraftForge.EVENT_BUS.register(IDSUManager.INSTANCE);
+		MinecraftForge.EVENT_BUS.register(new MultiblockServerTickHandler());
+		MinecraftForge.EVENT_BUS.register(new TRTickHandler());
+		MinecraftForge.EVENT_BUS.register(new OreUnifier());
+		if (config.scrapboxDispenser) {
+			BlockDispenser.dispenseBehaviorRegistry.putObject(ModItems.scrapBox, new BehaviorDispenseScrapbox());
+		}
+		logHelper.info("Initialization Complete");
+	}
 
-    @Mod.EventHandler
-    public void postinit(FMLPostInitializationEvent event) throws Exception {
-        // Has to be done here as Buildcraft registers their recipes late
-        for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
-            compatModule.postInit(event);
-        }
-        logHelper.info(RecipeHandler.recipeList.size() + " recipes loaded");
+	@Mod.EventHandler
+	public void postinit(FMLPostInitializationEvent event) throws Exception {
+		// Has to be done here as Buildcraft registers their recipes late
+		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
+			compatModule.postInit(event);
+		}
+		logHelper.info(RecipeHandler.recipeList.size() + " recipes loaded");
 
-//        RecipeHandler.scanForDupeRecipes();
+		// RecipeHandler.scanForDupeRecipes();
 
-        //RecipeConfigManager.save();
-        recipeCompact.saveMissingItems(configDir);
-    }
+		// RecipeConfigManager.save();
+		recipeCompact.saveMissingItems(configDir);
+	}
 
-    @Mod.EventHandler
-    public void serverStarting(FMLServerStartingEvent event) {
-        event.registerServerCommand(new TechRebornDevCommand());
-        for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
-            compatModule.serverStarting(event);
-        }
-    }
+	@Mod.EventHandler
+	public void serverStarting(FMLServerStartingEvent event) {
+		event.registerServerCommand(new TechRebornDevCommand());
+		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
+			compatModule.serverStarting(event);
+		}
+	}
 
-    @SubscribeEvent
-    public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent cfgChange) {
-        if (cfgChange.modID.equals("TechReborn")) {
-            ConfigTechReborn.Configs();
-        }
-    }
+	@SubscribeEvent
+	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent cfgChange) {
+		if (cfgChange.modID.equals("TechReborn")) {
+			ConfigTechReborn.Configs();
+		}
+	}
 
-
-    @SubscribeEvent
-    public void addDiscriminator(AddDiscriminatorEvent event) {
-        event.getPacketHandler().addDiscriminator(event.getPacketHandler().nextDiscriminator, PacketAesu.class);
-        event.getPacketHandler().addDiscriminator(event.getPacketHandler().nextDiscriminator, PacketIdsu.class);
-    }
+	@SubscribeEvent
+	public void addDiscriminator(AddDiscriminatorEvent event) {
+		event.getPacketHandler().addDiscriminator(event.getPacketHandler().nextDiscriminator, PacketAesu.class);
+		event.getPacketHandler().addDiscriminator(event.getPacketHandler().nextDiscriminator, PacketIdsu.class);
+	}
 }
