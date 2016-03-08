@@ -54,13 +54,14 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo, ITextur
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		if(stack.getItemDamage()==0){
-			stack.setItemDamage(1);
+		ItemStack newStack = stack.copy();
+		if(newStack.getItemDamage()==0){
+			newStack.setItemDamage(1);
 		}
-		if(stack.getItemDamage()==1){
-			stack.setItemDamage(0);
+		if(newStack.getItemDamage()==1){
+			newStack.setItemDamage(0);
 		}
-		return stack;
+		return newStack;
 	}
 
 	@Override

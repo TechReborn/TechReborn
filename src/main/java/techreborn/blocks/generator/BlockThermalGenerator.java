@@ -43,17 +43,17 @@ public class BlockThermalGenerator extends BlockMachineBase implements IAdvanced
 
     @Override
     public String getFront(boolean isActive) {
-        return isActive ? prefix + "thermal_generator_side_on" : prefix + "matter_fabricator_off";
+        return isActive ? prefix + "thermal_generator_side_on" : prefix + "thermal_generator_side_off";
     }
 
     @Override
     public String getSide(boolean isActive) {
-        return isActive ? prefix + "thermal_generator_side_on" : prefix + "matter_fabricator_off";
+        return isActive ? prefix + "thermal_generator_side_on" : prefix + "thermal_generator_side_off";
     }
 
     @Override
     public String getTop(boolean isActive) {
-        return isActive ? prefix + "thermal_generator_top_on" : prefix + "matter_fabricator_off";
+        return isActive ? prefix + "thermal_generator_top_on" : prefix + "thermal_generator_top_off";
     }
 
     @Override
