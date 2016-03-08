@@ -7,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import techreborn.client.container.ContainerThermalGenerator;
-import techreborn.tiles.TileThermalGenerator;
+import techreborn.tiles.generator.TileThermalGenerator;
 
 public class GuiThermalGenerator extends GuiContainer {
 

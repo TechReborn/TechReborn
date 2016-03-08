@@ -1,4 +1,4 @@
-package techreborn.tiles;
+package techreborn.tiles.generator;
 
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;

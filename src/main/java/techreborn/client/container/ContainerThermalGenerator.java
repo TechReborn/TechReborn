@@ -6,7 +6,7 @@ import reborncore.client.gui.SlotFake;
 import reborncore.client.gui.SlotFluid;
 import reborncore.client.gui.SlotOutput;
 import reborncore.common.container.RebornContainer;
-import techreborn.tiles.TileThermalGenerator;
+import techreborn.tiles.generator.TileThermalGenerator;
 
 public class ContainerThermalGenerator extends RebornContainer {
     public TileThermalGenerator tileThermalGenerator;
