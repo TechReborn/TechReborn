@@ -32,8 +32,10 @@ public class TRTickHandler {
 
     @SubscribeEvent
     public void worldTick(TickEvent.WorldTickEvent e) {
-        if(!e.world.isRemote)
-            MinecraftForge.EVENT_BUS.post(new PowerTickEvent());
+        if(e.world.isRemote){
+            return;
+        }
+        MinecraftForge.EVENT_BUS.post(new PowerTickEvent());
     }
 
 }

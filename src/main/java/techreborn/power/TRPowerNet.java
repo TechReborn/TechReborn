@@ -199,7 +199,7 @@ public class TRPowerNet {
 
         public int addEnergy(int max) {
             int total = 0;
-            if (tile.canAcceptEnergy(EnumFacing.NORTH)) {
+            if (tile.canAcceptEnergy(EnumFacing.NORTH) && max > 0) {
                 if (type.tier.ordinal() > tile.getTier().ordinal()) {
                     if (tile instanceof TileEntity) {
                         ((TileEntity) tile).getWorld().createExplosion(new EntityTNTPrimed(((TileEntity) tile).getWorld()), ((TileEntity) tile).getPos().getX(), ((TileEntity) tile).getPos().getY(), ((TileEntity) tile).getPos().getZ(), 2.5F, true);
