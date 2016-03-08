@@ -77,8 +77,12 @@ public class ConfigTechReborn {
 	public static boolean TinIngotsLoot;
 	
 	public static boolean CopperIngotsLoot;
-	
+
 	public static boolean SteelIngotsLoot;
+
+	public static boolean UninsulatedElectocutionSound;
+	public static boolean UninsulatedElectocutionParticle;
+	public static boolean UninsulatedElectocutionDamage;
 
 	// Power
 	public static int ThermalGenertaorOutput;
@@ -676,6 +680,22 @@ public class ConfigTechReborn {
 
 		oreUnifer = config.get(CATEGORY_INTEGRATION, "OreUnifer", false, "change all ores int TechReborn Ores")
 				.getBoolean(false);
+
+
+		UninsulatedElectocutionDamage = config
+				.get(CATEGORY_WORLD, "Uninsulated Electocution Damage", true, "Damage entities on contact with uninsulated cables")
+				.getBoolean(true);
+		UninsulatedElectocutionSound = config
+				.get(CATEGORY_WORLD, "Uninsulated Electocution Sound", true, "Play sound on contact with uninsulated cables")
+				.getBoolean(true);
+		UninsulatedElectocutionParticle = config
+				.get(CATEGORY_WORLD, "Uninsulated Electocution Particle", true, "Spawn particles on contact with uninsulated cables")
+				.getBoolean(true);
+
+		ExpensiveWatermill = config
+				.get(CATEGORY_CRAFTING, "Expensive Watermill", true, "Allow TechReborn to change the Watermill recipe")
+				.getBoolean(true);
+
 
 		// Integration
 		AllowBOPRecipes = config.get(CATEGORY_INTEGRATION, "Allow Bop Recipes", true, "Add BOP suport")

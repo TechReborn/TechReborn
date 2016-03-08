@@ -25,6 +25,7 @@ import net.minecraftforge.common.property.Properties;
 import reborncore.api.power.IEnergyInterfaceTile;
 import reborncore.common.misc.Functions;
 import reborncore.common.misc.vecmath.Vecs3dCube;
+import techreborn.config.ConfigTechReborn;
 import techreborn.parts.walia.IPartWaliaProvider;
 import techreborn.power.TRPowerNet;
 import techreborn.utils.damageSources.ElectrialShockSource;
@@ -307,9 +308,15 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
     @Override
     public void onEntityCollided(Entity entity) {
         if (getCableType().canKill && entity instanceof EntityLivingBase) {
-            entity.attackEntityFrom(new ElectrialShockSource(), 1F);
-            getWorld().playSoundAtEntity(entity, "techreborn:cable_shock", 0.6F, 1F);
-            getWorld().spawnParticle(EnumParticleTypes.CRIT, entity.posX, entity.posY, entity.posZ, 0, 0, 0);
+        	if(ConfigTechReborn.UninsulatedElectocutionDamage){
+                entity.attackEntityFrom(new ElectrialShockSource(), 1F);
+        	}
+        	if(ConfigTechReborn.UninsulatedElectocutionSound){
+                getWorld().playSoundAtEntity(entity, "techreborn:cable_shock", 0.6F, 1F);
+        	}
+        	if(ConfigTechReborn.UninsulatedElectocutionParticle){
+                getWorld().spawnParticle(EnumParticleTypes.CRIT, entity.posX, entity.posY, entity.posZ, 0, 0, 0);
+        	}
         }
     }
 
