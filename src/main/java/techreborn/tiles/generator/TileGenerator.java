@@ -38,10 +38,12 @@ public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IIn
         if(worldObj.isRemote){
             return;
         }
-        if (burnTime > 0) {
-            burnTime--;
-            addEnergy(outputAmount);
-            isBurning = true;
+        if(getEnergy() < getMaxPower()) {
+	        if (burnTime > 0){
+	            burnTime--;
+	            addEnergy(outputAmount);
+	            isBurning = true;
+	        }
         } else {
             isBurning = false;
         }
