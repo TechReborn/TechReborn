@@ -24,6 +24,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.RebornCore;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PoweredItem;
+import reborncore.common.util.ItemNBTHelper;
 import reborncore.common.util.TorchHelper;
 import techreborn.client.TechRebornCreativeTab;
 
@@ -54,15 +55,49 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo, ITextur
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		ItemStack newStack = stack.copy();
-		if(newStack.getItemDamage()==0){
-			newStack.setItemDamage(1);
+		if(player.isSneaking())
+		{
+			changeMode(stack);
 		}
-		if(newStack.getItemDamage()==1){
-			newStack.setItemDamage(0);
-		}
-		return newStack;
+		return stack;
 	}
+	
+	public void changeMode(ItemStack stack) 
+	{
+		if (!ItemNBTHelper.verifyExistance(stack, "isActive"))
+		{
+			ItemNBTHelper.setBoolean(stack, "isActive", true);
+		}
+		else if(ItemNBTHelper.verifyExistance(stack, "isActive"))
+		{
+			stack.getTagCompound().removeTag("isActive");
+		}
+	}
+	
+	public boolean isItemActive(ItemStack stack)
+	{
+		if (!ItemNBTHelper.verifyExistance(stack, "isActive"))
+		{
+			return true;
+		}
+		else
+			return false;
+	}
+	
+	@SideOnly(Side.CLIENT)
+    @Override
+    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) 
+    {
+		if(ItemNBTHelper.verifyExistance(stack, "isActive"))
+		{
+			list.add("Active");
+		}
+		else if(!ItemNBTHelper.verifyExistance(stack, "isActive"))
+		{
+			list.add("Not Active");
+		}
+    	super.addInformation(stack, player, list, par4);
+    }
 
 	@Override
 	public boolean isRepairable() {
