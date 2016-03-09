@@ -41,7 +41,8 @@ public class GuiThermalGenerator extends GuiContainer {
                 I18n.format("container.inventory", new Object[0]), 8,
                 this.ySize - 96 + 2, 4210752);
         this.fontRendererObj.drawString("Liquid Amount", 10, 20, 16448255);
-        this.fontRendererObj.drawString(tile.tank.getFluidAmount() + "", 10,
-                30, 16448255);
+        this.fontRendererObj.drawString(tile.tank.getFluidAmount() + "", 10, 30, 16448255);
+        this.fontRendererObj.drawString(tile.getEnergy() + "", 10, 40, 16448255);
+
     }
 }
