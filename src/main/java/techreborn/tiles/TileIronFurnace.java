@@ -70,6 +70,11 @@ public class TileIronFurnace extends TileMachineBase implements IInventory {
     {
         boolean burning = isBurning();
         boolean updateInventory = false;
+        if (fuel > 0)
+        {
+            fuel--;
+            updateState();
+        }
         if (fuel <= 0 && canSmelt())
         {
             fuel = fuelGague = (int) (getItemBurnTime(getStackInSlot(fuelslot)));
@@ -92,8 +97,6 @@ public class TileIronFurnace extends TileMachineBase implements IInventory {
         }
         if (isBurning() && canSmelt())
         {
-        	updateState();
-
             progress++;
             if (progress >= fuelScale)
             {
@@ -105,15 +108,9 @@ public class TileIronFurnace extends TileMachineBase implements IInventory {
         else
         {
             progress = 0;
-            updateState();
-        }
-        if (fuel > 0)
-        {
-            fuel--;
         }
         if (burning != isBurning())
         {
-        	this.active = true;
             updateInventory = true;
         }
         if (updateInventory)
@@ -241,8 +238,8 @@ public class TileIronFurnace extends TileMachineBase implements IInventory {
         IBlockState blockState = worldObj.getBlockState(pos);
         if(blockState.getBlock() instanceof BlockMachineBase){
             BlockMachineBase blockMachineBase = (BlockMachineBase) blockState.getBlock();
-            if(blockState.getValue(BlockMachineBase.ACTIVE) != progress > 0)
-                blockMachineBase.setActive(progress > 0, worldObj, pos);
+            if(blockState.getValue(BlockMachineBase.ACTIVE) != fuel > 0)
+                blockMachineBase.setActive(fuel > 0, worldObj, pos);
         }
     }
 
