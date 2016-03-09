@@ -19,6 +19,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import reborncore.api.power.EnumPowerTier;
+import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
@@ -137,17 +138,28 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
     }
 
     @Override
+    //TODO optimise this code
     public void updateEntity() {
         super.updateEntity();
+        FluidUtils.drainContainers(this, inventory, 0, 1);
         if (!worldObj.isRemote) {
-            FluidUtils.drainContainers(this, inventory, 0, 1);
             for (EnumFacing direction : EnumFacing.values()) {
                 if (worldObj.getBlockState(new BlockPos(getPos().getX() + direction.getFrontOffsetX(), getPos().getY() + direction.getFrontOffsetY(), getPos().getZ() + direction.getFrontOffsetZ())).getBlock() == Blocks.lava) {
                     addEnergy(1);
                 }
             }
-        }
 
+            if(worldObj.getTotalWorldTime() % 40 == 0){
+                BlockMachineBase bmb = (BlockMachineBase) worldObj.getBlockState(pos).getBlock();
+                boolean didFindLava = false;
+                for (EnumFacing direction : EnumFacing.values()) {
+                    if (worldObj.getBlockState(new BlockPos(getPos().getX() + direction.getFrontOffsetX(), getPos().getY() + direction.getFrontOffsetY(), getPos().getZ() + direction.getFrontOffsetZ())).getBlock() == Blocks.lava) {
+                        didFindLava = true;
+                    }
+                }
+                bmb.setActive(didFindLava, worldObj, pos);
+            }
+        }
         if (tank.getFluidAmount() > 0
                 && getMaxPower() - getEnergy() >= euTick) {
             tank.drain(1, true);
@@ -185,6 +197,7 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
     public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) {
         inventory.setInventorySlotContents(p_70299_1_, p_70299_2_);
     }
+
     @Override
     public void openInventory(EntityPlayer player) {
         inventory.openInventory(player);
