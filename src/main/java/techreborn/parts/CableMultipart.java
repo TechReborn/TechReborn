@@ -396,4 +396,9 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
             info.add(EnumChatFormatting.RED + "Damages entity's!");
         }
     }
+
+    @Override
+    public boolean canRenderInLayer(EnumWorldBlockLayer layer) {
+        return layer == EnumWorldBlockLayer.CUTOUT;
+    }
 }
