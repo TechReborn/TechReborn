@@ -40,9 +40,7 @@ import techreborn.packets.PacketAesu;
 import techreborn.packets.PacketIdsu;
 import techreborn.proxies.CommonProxy;
 import techreborn.tiles.idsu.IDSUManager;
-import techreborn.world.TROreGen;
 import techreborn.world.TechRebornWorldGen;
-import techreborn.world.TreeGenerator;
 
 @Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = ModInfo.MOD_DEPENDENCUIES, guiFactory = ModInfo.GUI_FACTORY_CLASS, acceptedMinecraftVersions = "[1.8.8,1.8.9]")
 public class Core {
@@ -118,8 +116,7 @@ public class Core {
 		proxy.init();
 		// WorldGen
 		worldGen.load();
-		GameRegistry.registerWorldGenerator(new TROreGen(), 0);
-		GameRegistry.registerWorldGenerator(new TreeGenerator(), 0);
+		GameRegistry.registerWorldGenerator(worldGen, 0);
 		// DungeonLoot.init();
 		// Register Gui Handler
 		NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());

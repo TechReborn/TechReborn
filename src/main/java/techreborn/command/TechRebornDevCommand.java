@@ -1,6 +1,7 @@
 package techreborn.command;
 
 
+import net.minecraft.block.Block;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -10,6 +11,9 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.fluids.Fluid;
 import reborncore.api.fuel.FluidPowerManager;
 import techreborn.api.recipe.RecipeHandler;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TechRebornDevCommand extends CommandBase {
 
@@ -48,11 +52,15 @@ public class TechRebornDevCommand extends CommandBase {
             }
         } else if ("clear".equals(args[0])) {
             EntityPlayerMP playerMP = (EntityPlayerMP) sender;
+            List<Block> blocksToRemove = new ArrayList<>();
+            blocksToRemove.add(Blocks.grass);
+            blocksToRemove.add(Blocks.dirt);
+            blocksToRemove.add(Blocks.stone);
             for (int x = 0; x < 25; x++) {
                 for (int z = 0; z < 25; z++) {
                     for (int y = 0; y < playerMP.posY; y++) {
                         BlockPos pos = new BlockPos(playerMP.posX + x, y, playerMP.posZ + z);
-                        if (playerMP.worldObj.getBlockState(pos).getBlock() == Blocks.stone || playerMP.worldObj.getBlockState(pos).getBlock() == Blocks.dirt) {
+                        if (blocksToRemove.contains(playerMP.worldObj.getBlockState(pos).getBlock())) {
                             playerMP.worldObj.setBlockState(pos, Blocks.air.getDefaultState(), 2);
                         }
                     }

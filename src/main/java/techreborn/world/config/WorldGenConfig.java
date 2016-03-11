@@ -1,4 +1,4 @@
-package techreborn.world;
+package techreborn.world.config;
 
 import java.util.List;
 
@@ -7,9 +7,15 @@ import java.util.List;
  */
 public class WorldGenConfig {
 
+    public boolean generateTechRebornFeatures = true;
+
+    public boolean generateOres = true;
+
     public List<OreConfig> overworldOres;
 
     public List<OreConfig> neatherOres;
 
     public List<OreConfig> endOres;
+
+    public RubberTreeConfig rubberTreeConfig = new RubberTreeConfig();
 }
