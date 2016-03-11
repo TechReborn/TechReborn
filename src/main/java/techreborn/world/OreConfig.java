@@ -9,13 +9,7 @@ public class OreConfig {
 
     public String blockName;
 
-    public String unloclisedName;
-
-    public String blockSate;
-
     public int meta;
-
-    public String c = "↓↓↓↓CHANGE ME↓↓↓↓";
 
     public int veinSize;
 
@@ -27,10 +21,8 @@ public class OreConfig {
 
 
     public OreConfig(IBlockState blockSate, int veinSize, int veinsPerChunk, int minYHeight, int maxYHeight) {
-        this.blockName = blockSate.getBlock().getLocalizedName();
         this.meta = blockSate.getBlock().getMetaFromState(blockSate);
-        this.unloclisedName = blockSate.getBlock().getUnlocalizedName();
-        this.blockSate = blockSate.toString();
+        this.blockName = blockSate.getBlock().getLocalizedName();
         this.veinSize = veinSize;
         this.veinsPerChunk = veinsPerChunk;
         this.minYHeight = minYHeight;
