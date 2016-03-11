@@ -41,6 +41,7 @@ import techreborn.packets.PacketIdsu;
 import techreborn.proxies.CommonProxy;
 import techreborn.tiles.idsu.IDSUManager;
 import techreborn.world.TROreGen;
+import techreborn.world.TechRebornWorldGen;
 import techreborn.world.TreeGenerator;
 
 @Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = ModInfo.MOD_DEPENDENCUIES, guiFactory = ModInfo.GUI_FACTORY_CLASS, acceptedMinecraftVersions = "[1.8.8,1.8.9]")
@@ -60,6 +61,8 @@ public class Core {
 	private static RecipeCompact recipeCompact;
 	private static File configDir;
 
+	public static TechRebornWorldGen worldGen;
+
 	@Mod.EventHandler
 	public void preinit(FMLPreInitializationEvent event) {
 		event.getModMetadata().version = ModInfo.MOD_VERSION;
@@ -71,6 +74,8 @@ public class Core {
 
 		config = ConfigTechReborn.initialize(new File(path));
 		configDir = event.getModConfigurationDirectory();
+		worldGen = new TechRebornWorldGen();
+		worldGen.configFile = (new File(event.getModConfigurationDirectory(), "techrebornOres.json"));
 
 		recipeCompact = new RecipeCompact();
 		TechRebornAPI.recipeCompact = recipeCompact;
@@ -111,6 +116,7 @@ public class Core {
 		// Client only init, needs to be done before parts system
 		proxy.init();
 		// WorldGen
+		worldGen.load();
 		GameRegistry.registerWorldGenerator(new TROreGen(), 0);
 		GameRegistry.registerWorldGenerator(new TreeGenerator(), 0);
 		// DungeonLoot.init();
