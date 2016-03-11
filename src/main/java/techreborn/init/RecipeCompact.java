@@ -83,7 +83,7 @@ public class RecipeCompact implements IRecipeCompact {
     }
 
     public void saveMissingItems(File mcDir) throws IOException {
-        File missingItemsFile = new File(mcDir, "TechRebornMissingItems.txt");
+        File missingItemsFile = new File(mcDir, "missingItems.txt");
         if(missingItemsFile.exists()){
             missingItemsFile.delete();
         }
