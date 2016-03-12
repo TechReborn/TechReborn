@@ -10,6 +10,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.fluids.Fluid;
 import reborncore.api.fuel.FluidPowerManager;
+import reborncore.common.explosion.RebornExplosion;
 import techreborn.api.recipe.RecipeHandler;
 
 import java.util.ArrayList;
@@ -66,6 +67,10 @@ public class TechRebornDevCommand extends CommandBase {
                     }
                 }
             }
+        }else if ("explode".equals(args[0])) {
+            EntityPlayerMP playerMP = (EntityPlayerMP) sender;
+            RebornExplosion explosion = new RebornExplosion(playerMP.getPosition(), playerMP.worldObj, 40);
+            explosion.explode();
         }
     }
 }
