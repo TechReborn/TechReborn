@@ -11,6 +11,8 @@ public class WorldGenConfig {
 
     public boolean generateOres = true;
 
+    public boolean retroGenOres = false;
+
     public List<OreConfig> overworldOres;
 
     public List<OreConfig> neatherOres;

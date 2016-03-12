@@ -6,10 +6,12 @@ import com.google.gson.reflect.TypeToken;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.common.IWorldGenerator;
+import reborncore.common.misc.ChunkCoord;
 import techreborn.Core;
 import techreborn.init.ModBlocks;
 import techreborn.world.config.OreConfig;
@@ -60,6 +62,7 @@ public class TechRebornWorldGen implements IWorldGenerator {
     public File configFile;
     public static RubberTreeGenerator treeGenerator = new RubberTreeGenerator();
     public boolean jsonInvalid = false;
+    public final TechRebornRetroGen retroGen = new TechRebornRetroGen();
 
     public void load() {
         init();
@@ -192,6 +195,7 @@ public class TechRebornWorldGen implements IWorldGenerator {
                 }
 
             }
+            retroGen.markChunk(ChunkCoord.of(chunkX, chunkZ));
         }
     }
 }

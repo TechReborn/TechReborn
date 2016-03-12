@@ -40,6 +40,7 @@ import techreborn.packets.PacketAesu;
 import techreborn.packets.PacketIdsu;
 import techreborn.proxies.CommonProxy;
 import techreborn.tiles.idsu.IDSUManager;
+import techreborn.world.TechRebornRetroGen;
 import techreborn.world.TechRebornWorldGen;
 
 @Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = ModInfo.MOD_DEPENDENCUIES, guiFactory = ModInfo.GUI_FACTORY_CLASS, acceptedMinecraftVersions = "[1.8.8,1.8.9]")
@@ -131,6 +132,7 @@ public class Core {
 		MinecraftForge.EVENT_BUS.register(new MultiblockServerTickHandler());
 		MinecraftForge.EVENT_BUS.register(new TRTickHandler());
 		MinecraftForge.EVENT_BUS.register(new OreUnifier());
+		MinecraftForge.EVENT_BUS.register(worldGen.retroGen);
 		if (config.scrapboxDispenser) {
 			BlockDispenser.dispenseBehaviorRegistry.putObject(ModItems.scrapBox, new BehaviorDispenseScrapbox());
 		}
