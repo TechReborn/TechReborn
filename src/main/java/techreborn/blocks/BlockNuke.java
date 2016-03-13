@@ -5,7 +5,9 @@ import net.minecraft.block.BlockTNT;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
@@ -45,12 +47,12 @@ public class BlockNuke extends BlockTNT implements ITexturedBlock {
     }
 
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
-        return false; //No flint and steel
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+        return false
     }
 
     @Override
-    public String getTextureNameFromState(IBlockState iBlockState, EnumFacing enumFacing) {
+    public String getTextureNameFromState(IBlockState IBlockState, EnumFacing enumFacing) {
         return "techreborn:blocks/machine/machine_bottom";
     }
 

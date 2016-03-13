@@ -5,12 +5,12 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -38,12 +38,12 @@ public class BlockRubberLog extends Block implements ITexturedBlock {
 		this.setHardness(2.0F);
 		this.setStepSound(soundTypeWood);
 		RebornCore.jsonDestroyer.registerObject(this);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(SAP_SIDE, EnumFacing.NORTH).withProperty(HAS_SAP, false));
+		this.setDefaultState(this.getDefaultState().withProperty(SAP_SIDE, EnumFacing.NORTH).withProperty(HAS_SAP, false));
 		this.setTickRandomly(true);
 	}
 
-	protected BlockState createBlockState() {
-		return new BlockState(this, SAP_SIDE, HAS_SAP);
+	protected BlockStateContainer createBlockStateContainer() {
+		return new BlockStateContainer(this, SAP_SIDE, HAS_SAP);
 	}
 
 	@Override
@@ -82,12 +82,12 @@ public class BlockRubberLog extends Block implements ITexturedBlock {
 	}
 
 	@Override
-	public String getTextureNameFromState(IBlockState iBlockState, EnumFacing enumFacing) {
+	public String getTextureNameFromState(IBlockState IBlockState, EnumFacing enumFacing) {
 		if(enumFacing == EnumFacing.DOWN || enumFacing == EnumFacing.UP){
 			return  "techreborn:blocks/rubber_log_top";
 		}
-		if(iBlockState.getValue(HAS_SAP)){
-			if(iBlockState.getValue(SAP_SIDE) == enumFacing){
+		if(IBlockState.getValue(HAS_SAP)){
+			if(IBlockState.getValue(SAP_SIDE) == enumFacing){
 				return "techreborn:blocks/rubber_log_sap";
 			}
 		}
@@ -114,9 +114,9 @@ public class BlockRubberLog extends Block implements ITexturedBlock {
 		int j = i + 1;
 		if (worldIn.isAreaLoaded(pos.add(-j, -j, -j), pos.add(j, j, j))) {
 			for (BlockPos blockpos : BlockPos.getAllInBox(pos.add(-i, -i, -i), pos.add(i, i, i))) {
-				IBlockState iblockstate = worldIn.getBlockState(blockpos);
-				if (iblockstate.getBlock().isLeaves(worldIn, blockpos)) {
-					iblockstate.getBlock().beginLeavesDecay(worldIn, blockpos);
+				IBlockState IBlockState = worldIn.getBlockState(blockpos);
+				if (IBlockState.getBlock().isLeaves(worldIn, blockpos)) {
+					IBlockState.getBlock().beginLeavesDecay(worldIn, blockpos);
 				}
 			}
 		}

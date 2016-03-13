@@ -2,10 +2,10 @@ package techreborn.client.gui;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.resources.I18n;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import techreborn.client.container.ContainerIndustrialGrinder;
 import techreborn.tiles.TileIndustrialGrinder;
 
@@ -46,7 +46,7 @@ public class GuiIndustrialGrinder extends GuiContainer {
 
         if (containerGrinder.connectionStatus != 1) {
            // GuiDraw.drawTooltipBox(k + 30, l + 50 + 12 - j, 114, 10);
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("techreborn.message.missingmultiblock"), k + 38, l + 52 + 12 - j, -1);
+            this.fontRendererObj.drawString(I18n.translateToLocal("techreborn.message.missingmultiblock"), k + 38, l + 52 + 12 - j, -1);
         }
 
         //TODO 1.8 nope
@@ -71,9 +71,9 @@ public class GuiIndustrialGrinder extends GuiContainer {
     }
 
     protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
-        String name = StatCollector.translateToLocal("tile.techreborn.industrialgrinder.name");
+        String name = I18n.translateToLocal("tile.techreborn.industrialgrinder.name");
         this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
-        this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
+        this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
     }
 
 }

@@ -6,9 +6,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.text.ITextComponent;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
@@ -188,7 +188,7 @@ public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,
     }
 
     @Override
-    public IChatComponent getDisplayName() {
+    public ITextComponent getDisplayName() {
         return inventory.getDisplayName();
     }
 
@@ -226,9 +226,9 @@ public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,
                         if (worldObj.getBlockState(new BlockPos(getPos().getX() - xDir + i, getPos().getY() - yDir + j, getPos().getZ() - zDir + k)).getBlock() != ModBlocks.MachineCasing) {
                             return false;
                         }
-                        IBlockState blockState = worldObj.getBlockState(new BlockPos(getPos().getX() - xDir + i, getPos().getY() - yDir + j, getPos().getZ() - zDir + k));
-                        BlockMachineCasing blockMachineCasing = (BlockMachineCasing) blockState.getBlock();
-                        if (blockMachineCasing.getMetaFromState(blockState) != (((i == 0) && (j == 0) && (k != 0)) || ((i == 0) && (j != 0) && (k == 0)) || ((i != 0) && (j == 0) && (k == 0)) ? 2 : 1)) {
+                        IBlockState BlockStateContainer = worldObj.getBlockState(new BlockPos(getPos().getX() - xDir + i, getPos().getY() - yDir + j, getPos().getZ() - zDir + k));
+                        BlockMachineCasing blockMachineCasing = (BlockMachineCasing) BlockStateContainer.getBlock();
+                        if (blockMachineCasing.getMetaFromState(BlockStateContainer) != (((i == 0) && (j == 0) && (k != 0)) || ((i == 0) && (j != 0) && (k == 0)) || ((i != 0) && (j == 0) && (k == 0)) ? 2 : 1)) {
                             return false;
                         }
                     } else if (!worldObj.isAirBlock(new BlockPos(getPos().getX() - xDir + i, getPos().getY() - yDir + j, getPos().getZ() - zDir + k))) {

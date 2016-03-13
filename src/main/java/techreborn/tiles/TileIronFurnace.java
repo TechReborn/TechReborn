@@ -15,7 +15,7 @@ import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.tile.TileMachineBase;
@@ -192,7 +192,7 @@ public class TileIronFurnace extends TileMachineBase implements IInventory {
                     return 1200;
                 }
 
-                if (block.getMaterial() == Material.wood)
+                if (block.getMaterial(block.getDefaultState()) == Material.wood)
                 {
                     return 300;
                 }
@@ -224,10 +224,10 @@ public class TileIronFurnace extends TileMachineBase implements IInventory {
     }
     
     public void updateState(){
-        IBlockState blockState = worldObj.getBlockState(pos);
-        if(blockState.getBlock() instanceof BlockMachineBase){
-            BlockMachineBase blockMachineBase = (BlockMachineBase) blockState.getBlock();
-            if(blockState.getValue(BlockMachineBase.ACTIVE) != fuel > 0)
+        IBlockState BlockStateContainer = worldObj.getBlockState(pos);
+        if(BlockStateContainer.getBlock() instanceof BlockMachineBase){
+            BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
+            if(BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != fuel > 0)
                 blockMachineBase.setActive(fuel > 0, worldObj, pos);
         }
     }
@@ -329,7 +329,7 @@ public class TileIronFurnace extends TileMachineBase implements IInventory {
     }
 
     @Override
-    public IChatComponent getDisplayName() {
+    public ITextComponent getDisplayName() {
         return inventory.getDisplayName();
     }
 }

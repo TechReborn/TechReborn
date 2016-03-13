@@ -3,11 +3,13 @@ package techreborn.command;
 
 import net.minecraft.block.Block;
 import net.minecraft.command.CommandBase;
+import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentText;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fluids.Fluid;
 import reborncore.api.fuel.FluidPowerManager;
 import reborncore.common.explosion.RebornExplosion;
@@ -34,21 +36,21 @@ public class TechRebornDevCommand extends CommandBase {
     }
 
     @Override
-    public void processCommand(ICommandSender sender, String[] args) {
+    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException  {
         if (args.length == 0) {
-            sender.addChatMessage(new ChatComponentText("You need to use arguments, see /trdev help"));
+            sender.addChatMessage(new TextComponentString("You need to use arguments, see /trdev help"));
         } else if ("help".equals(args[0])) {
-            sender.addChatMessage(new ChatComponentText("recipes 	- Shows size of the recipe array"));
-            sender.addChatMessage(new ChatComponentText("fluid     	- Lists the fluid power values"));
+            sender.addChatMessage(new TextComponentString("recipes 	- Shows size of the recipe array"));
+            sender.addChatMessage(new TextComponentString("fluid     	- Lists the fluid power values"));
         } else if ("recipes".equals(args[0])) {
-            sender.addChatMessage(new ChatComponentText(RecipeHandler.recipeList.size() + " recipes loaded"));
+            sender.addChatMessage(new TextComponentString(RecipeHandler.recipeList.size() + " recipes loaded"));
         } else if ("fluid".equals(args[0])) {
             for (Object object : FluidPowerManager.fluidPowerValues.keySet().toArray()) {
                 if (object instanceof Fluid) {
                     Fluid fluid = (Fluid) object;
-                    sender.addChatMessage(new ChatComponentText(fluid.getUnlocalizedName() + " : " + FluidPowerManager.fluidPowerValues.get(fluid)));
+                    sender.addChatMessage(new TextComponentString(fluid.getUnlocalizedName() + " : " + FluidPowerManager.fluidPowerValues.get(fluid)));
                 } else {
-                    sender.addChatMessage(new ChatComponentText("Found invalid fluid entry"));
+                    sender.addChatMessage(new TextComponentString("Found invalid fluid entry"));
                 }
             }
         } else if ("clear".equals(args[0])) {

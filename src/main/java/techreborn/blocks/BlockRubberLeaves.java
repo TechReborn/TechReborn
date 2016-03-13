@@ -5,12 +5,12 @@ import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.world.IBlockAccess;
@@ -33,7 +33,7 @@ public class BlockRubberLeaves extends BlockLeaves implements ITexturedBlock, IO
 		setUnlocalizedName("techreborn.rubberleaves");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		RebornCore.jsonDestroyer.registerObject(this);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(CHECK_DECAY, Boolean.valueOf(true)).withProperty(DECAYABLE, Boolean.valueOf(true)));
+		this.setDefaultState(this.getDefaultState().withProperty(CHECK_DECAY, Boolean.valueOf(true)).withProperty(DECAYABLE, Boolean.valueOf(true)));
 	}
 
 	@Override
@@ -77,7 +77,7 @@ public class BlockRubberLeaves extends BlockLeaves implements ITexturedBlock, IO
 	}
 
 	@Override
-	public String getTextureNameFromState(IBlockState iBlockState, EnumFacing enumFacing) {
+	public String getTextureNameFromState(IBlockState IBlockState, EnumFacing enumFacing) {
 		return "techreborn:blocks/rubber_leaves";
 	}
 
@@ -87,9 +87,9 @@ public class BlockRubberLeaves extends BlockLeaves implements ITexturedBlock, IO
 	}
 
 	@Override
-	protected BlockState createBlockState()
+	protected BlockStateContainer createBlockStateContainer()
 	{
-		return new BlockState(this, new IProperty[] { CHECK_DECAY, DECAYABLE});
+		return new BlockStateContainer(this, new IProperty[] { CHECK_DECAY, DECAYABLE});
 	}
 
 	@Override

@@ -2,7 +2,7 @@ package techreborn.entitys;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityTNTPrimed;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
 import reborncore.common.explosion.RebornExplosion;
@@ -12,16 +12,14 @@ import reborncore.common.explosion.RebornExplosion;
  */
 public class EntityNukePrimed extends EntityTNTPrimed {
 
-    int nukeFuseTime = 400;
+    public int fuse = 400;
 
     public EntityNukePrimed(World world) {
         super(world);
-        this.fuse = nukeFuseTime;
     }
 
     public EntityNukePrimed(World world, double x, double y, double z, EntityLivingBase tntPlacedBy) {
         super(world, x, y, z, tntPlacedBy);
-        this.fuse = nukeFuseTime;
     }
 
     @Override

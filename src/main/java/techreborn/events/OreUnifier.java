@@ -3,6 +3,7 @@ package techreborn.events;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumHand;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.oredict.OreDictionary;
@@ -18,15 +19,15 @@ public class OreUnifier {
     @SubscribeEvent
     public void itemTick(TickEvent.PlayerTickEvent event) {
         if(ConfigTechReborn.oreUnifer && !event.player.worldObj.isRemote && event.player.worldObj.getTotalWorldTime() % 10 == 0){
-            if(event.player.getHeldItem() != null){
-                int[] oreIds = OreDictionary.getOreIDs(event.player.getHeldItem());
+            if(event.player.getHeldItem(EnumHand.MAIN_HAND) != null){
+                int[] oreIds = OreDictionary.getOreIDs(event.player.getHeldItem(EnumHand.MAIN_HAND));
                 for(int id : oreIds){
                     String oreName = OreDictionary.getOreName(id);
                     if(oreHash.containsKey(oreName)){
-                        if(ItemUtils.isItemEqual(event.player.getHeldItem(), oreHash.get(oreName), true, true, true) && !ItemUtils.isItemEqual(event.player.getHeldItem(), oreHash.get(oreName), true, true, false)){
+                        if(ItemUtils.isItemEqual(event.player.getHeldItem(EnumHand.MAIN_HAND), oreHash.get(oreName), true, true, true) && !ItemUtils.isItemEqual(event.player.getHeldItem(EnumHand.MAIN_HAND), oreHash.get(oreName), true, true, false)){
                             ItemStack stack = oreHash.get(oreName).copy();
-                            stack.stackSize = event.player.getHeldItem().stackSize;
-                            stack.setTagCompound(event.player.getHeldItem().getTagCompound());
+                            stack.stackSize = event.player.getHeldItem(EnumHand.MAIN_HAND).stackSize;
+                            stack.setTagCompound(event.player.getHeldItem(EnumHand.MAIN_HAND).getTagCompound());
                             event.player.inventory.setInventorySlotContents(event.player.inventory.currentItem, stack);
                         }
                     }

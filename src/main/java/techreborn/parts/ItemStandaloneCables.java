@@ -1,11 +1,11 @@
 package techreborn.parts;
 
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 import reborncore.RebornCore;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.items.ItemTextureBase;
@@ -70,17 +70,17 @@ public class ItemStandaloneCables extends ItemTextureBase {
         return EnumCableType.values().length;
     }
 
-    @Override
-    public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
-        return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
-    }
+//    @Override
+//    public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
+//        return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
+//    }
 
     @Override
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
         EnumCableType type = EnumCableType.values()[stack.getItemDamage()];
-        tooltip.add(EnumChatFormatting.GREEN + "EU Transfer: " + EnumChatFormatting.LIGHT_PURPLE + type.transferRate);
+        tooltip.add(TextFormatting.GREEN + "EU Transfer: " + TextFormatting.LIGHT_PURPLE + type.transferRate);
         if (type.canKill) {
-            tooltip.add(EnumChatFormatting.RED + "Damages entity's!");
+            tooltip.add(TextFormatting.RED + "Damages entity's!");
         }
     }
 }

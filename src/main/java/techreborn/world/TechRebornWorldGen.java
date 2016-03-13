@@ -3,9 +3,10 @@ package techreborn.world;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraftforge.common.BiomeDictionary;
@@ -139,7 +140,7 @@ public class TechRebornWorldGen implements IWorldGenerator {
     }
 
     @Override
-    public void generate(Random random, int chunkX, int chunkZ, World world, @Nullable IChunkProvider chunkGenerator, @Nullable IChunkProvider chunkProvider) {
+    public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
         //TODO this could be optimised to not run every chunk gen
         if(!config.generateTechRebornFeatures){
             return;
@@ -149,9 +150,9 @@ public class TechRebornWorldGen implements IWorldGenerator {
         if (world.provider.isSurfaceWorld()) {
             list.addAll(getAllGenOresFromList(config.overworldOres));
             genTree = true;
-        } else if (world.provider.getDimensionId() == 0) {
+        } else if (world.provider.getDimension() == 0) {
             list.addAll(getAllGenOresFromList(config.neatherOres));
-        } else if (world.provider.getDimensionId() == 1) {
+        } else if (world.provider.getDimension() == 1) {
             list.addAll(getAllGenOresFromList(config.endOres));
         }
 

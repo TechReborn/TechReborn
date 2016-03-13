@@ -14,7 +14,7 @@ public class ClientPartLoader implements ICompatModule {
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
-        MinecraftForge.EVENT_BUS.register(new ClientPartModelBakery());
+       // MinecraftForge.EVENT_BUS.register(new ClientPartModelBakery());
     }
 
     @Override

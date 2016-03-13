@@ -2,10 +2,10 @@ package techreborn.client.gui;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.resources.I18n;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import techreborn.client.container.ContainerImplosionCompressor;
 import techreborn.tiles.TileImplosionCompressor;
 
@@ -39,9 +39,9 @@ public class GuiImplosionCompressor extends GuiContainer {
         int l = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
 
-        if (containerImplosionCompressor.multiblockstate == 0) {
+        if (containerImplosionCompressor.multIBlockState == 0) {
           //  GuiDraw.drawTooltipBox(k + 30, l + 50 + 12 - 0, 114, 10);
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("techreborn.message.missingmultiblock"), k + 38, l + 52 + 12 - 0, -1);
+            this.fontRendererObj.drawString(I18n.translateToLocal("techreborn.message.missingmultiblock"), k + 38, l + 52 + 12 - 0, -1);
         }
         
         int j = 0;
@@ -58,9 +58,9 @@ public class GuiImplosionCompressor extends GuiContainer {
     }
 
     protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
-        String name = StatCollector.translateToLocal("tile.techreborn.implosioncompressor.name");
+        String name = I18n.translateToLocal("tile.techreborn.implosioncompressor.name");
         this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
-        this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
+        this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
     }
 
 }

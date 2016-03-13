@@ -1,6 +1,7 @@
 package techreborn.events;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Potion;
 import net.minecraftforge.common.MinecraftForge;
@@ -17,7 +18,7 @@ public class TRTickHandler {
     @SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
     public void onPlayerTick(TickEvent.PlayerTickEvent e) {
         EntityPlayer player = e.player;
-        Item chestslot = player.getEquipmentInSlot(3) != null ? player.getEquipmentInSlot(3).getItem() : null;
+        Item chestslot = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null ? player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() : null;
 
         if (previouslyWearing != chestslot && previouslyWearing == ModItems.cloakingDevice && player.isInvisible() && !player.isPotionActive(Potion.invisibility)) {
             player.setInvisible(false);

@@ -3,11 +3,10 @@ package techreborn.client.gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import reborncore.client.gui.GuiUtil;
 import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockSet;
@@ -63,7 +62,7 @@ public class GuiBlastFurnace extends GuiContainer {
 
         if (containerBlastFurnace.heat == 0) {
             GuiUtil.drawTooltipBox(k + 30, l + 50 + 12 - 0, 114, 10);
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("techreborn.message.missingmultiblock"), k + 38, l + 52 + 12 - 0, -1);
+            this.fontRendererObj.drawString(I18n.translateToLocal("techreborn.message.missingmultiblock"), k + 38, l + 52 + 12 - 0, -1);
         }
 
         int j = 0;
@@ -82,12 +81,12 @@ public class GuiBlastFurnace extends GuiContainer {
 
     protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
         super.drawGuiContainerForegroundLayer(p_146979_1_, p_146979_2_);
-        String name = StatCollector.translateToLocal("tile.techreborn.blastfurnace.name");
+        String name = I18n.translateToLocal("tile.techreborn.blastfurnace.name");
         this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
         if (containerBlastFurnace.heat != 0) {
             this.fontRendererObj.drawString("Current Heat: " + containerBlastFurnace.heat, 40, 60, 4210752);
         }
-        this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
+        this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
     }
 
 	@Override

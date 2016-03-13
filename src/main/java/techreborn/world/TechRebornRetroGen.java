@@ -24,7 +24,7 @@ public class TechRebornRetroGen {
     private final Deque<ChunkCoord> chunksToRetroGen = new ArrayDeque<ChunkCoord>(64);
 
     private boolean isChunkEligibleForRetroGen(ChunkDataEvent.Load event) {
-        return Core.worldGen.config.retroGenOres && event.world.provider.getDimensionId() == 0
+        return Core.worldGen.config.retroGenOres && event.world.provider.getDimension() == 0
                 && event.getData().getString(RETROGEN_TAG).isEmpty();
     }
 
@@ -44,7 +44,7 @@ public class TechRebornRetroGen {
                 final ChunkCoord coord = chunksToRetroGen.pollFirst();
                 Core.logHelper.info("Regenerating ore in " + coord + '.');
                 final World world = event.world;
-                if (world.getChunkProvider().chunkExists(coord.getX(), coord.getZ())) {
+                if (world.getChunkProvider().getLoadedChunk(coord.getX(), coord.getZ()) != null) {
                     final long seed = world.getSeed();
                     final Random rng = new Random(seed);
                     final long xSeed = rng.nextLong() >> 2 + 1L;

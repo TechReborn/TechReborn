@@ -14,7 +14,7 @@ import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.Inventory;
@@ -208,7 +208,7 @@ public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, II
                     return 150;
                 }
 
-                if (block.getMaterial() == Material.wood) {
+                if (block.getMaterial(block.getDefaultState()) == Material.wood) {
                     return 300;
                 }
 
@@ -360,7 +360,7 @@ public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, II
     }
 
     @Override
-    public IChatComponent getDisplayName() {
+    public ITextComponent getDisplayName() {
         return inventory.getDisplayName();
     }
 }

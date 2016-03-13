@@ -16,7 +16,7 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
@@ -210,7 +210,7 @@ public class CraftingInfoPage extends TitledPage
         List<String> colored = Lists.newArrayListWithCapacity(list.size());
         colored.add(stack.getRarity().rarityColor + list.get(0));
         for (String line : list)
-            colored.add(EnumChatFormatting.GRAY + line);
+            colored.add(TextFormatting.GRAY + line);
 
         if (colored.size() >= 2) colored.remove(1);
         drawHoveringText(colored, x, y, font);

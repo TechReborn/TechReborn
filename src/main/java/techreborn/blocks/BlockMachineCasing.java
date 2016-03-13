@@ -4,13 +4,13 @@ import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -33,7 +33,7 @@ public class BlockMachineCasing extends BlockMultiblockBase implements ITextured
         setCreativeTab(TechRebornCreativeTab.instance);
         setUnlocalizedName("techreborn.machineCasing");
         setHardness(2F);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(METADATA, 0));
+        this.setDefaultState(this.getDefaultState().withProperty(METADATA, 0));
     }
 
     public PropertyInteger METADATA;
@@ -48,10 +48,10 @@ public class BlockMachineCasing extends BlockMultiblockBase implements ITextured
         return (Integer) state.getValue(METADATA);
     }
 
-    protected BlockState createBlockState() {
+    protected BlockStateContainer createBlockStateContainer() {
 
         METADATA = PropertyInteger.create("Type", 0, types.length);
-        return new BlockState(this, METADATA);
+        return new BlockStateContainer(this, METADATA);
     }
 
     public int getHeatFromState(IBlockState state) {
@@ -90,9 +90,9 @@ public class BlockMachineCasing extends BlockMultiblockBase implements ITextured
     }
 
     @Override
-    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
+    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
         Block b = worldIn.getBlockState(pos).getBlock();
-        return  b == (Block) this ? false : super.shouldSideBeRendered(worldIn, pos, side);
+        return  b == (Block) this ? false : super.shouldSideBeRendered(blockState, worldIn, pos, side);
     }
 
     public boolean shouldConnectToBlock(IBlockAccess blockAccess, int x, int y, int z, Block block, int meta) {
@@ -100,8 +100,8 @@ public class BlockMachineCasing extends BlockMultiblockBase implements ITextured
     }
 
     @Override
-    public String getTextureNameFromState(IBlockState blockState, EnumFacing facing) {
-        return "techreborn:blocks/machine/casing" + types[getMetaFromState(blockState)] + "_full";
+    public String getTextureNameFromState(IBlockState BlockStateContainer, EnumFacing facing) {
+        return "techreborn:blocks/machine/casing" + types[getMetaFromState(BlockStateContainer)] + "_full";
     }
 
     @Override

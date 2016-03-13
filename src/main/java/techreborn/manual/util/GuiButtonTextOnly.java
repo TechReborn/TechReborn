@@ -4,7 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -44,7 +44,7 @@ public class GuiButtonTextOnly extends GuiButton {
             }
 
             if (this.hovered) {
-                trimmedDisplayString = EnumChatFormatting.BOLD + "" + EnumChatFormatting.ITALIC + trimmedDisplayString;
+                trimmedDisplayString = TextFormatting.BOLD + "" + TextFormatting.ITALIC + trimmedDisplayString;
                 GL11.glPushMatrix();
                 GL11.glColor4f(0f, 0f, 0f, 1f);
                 drawTexturedModalRect(xPosition + (int) (xPosition * 0.01), yPosition + (int) (yPosition * 0.01), 0, 46, (int) (fontrenderer.getStringWidth(trimmedDisplayString) * 0.72) + 2, 8);

@@ -3,7 +3,7 @@ package techreborn.blocks;
 import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -39,7 +39,7 @@ public class BlockStorage2 extends BaseBlock  implements ITexturedBlock {
         setUnlocalizedName("techreborn.storage2");
         setCreativeTab(TechRebornCreativeTabMisc.instance);
         setHardness(2f);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(METADATA, 0));
+        this.setDefaultState(this.getDefaultState().withProperty(METADATA, 0));
     }
 
     public PropertyInteger METADATA;
@@ -65,8 +65,8 @@ public class BlockStorage2 extends BaseBlock  implements ITexturedBlock {
     }
 
     @Override
-    public String getTextureNameFromState(IBlockState blockState, EnumFacing facing) {
-        return "techreborn:blocks/storage/" + types[getMetaFromState(blockState)] + "_block";
+    public String getTextureNameFromState(IBlockState BlockStateContainer, EnumFacing facing) {
+        return "techreborn:blocks/storage/" + types[getMetaFromState(BlockStateContainer)] + "_block";
     }
 
     @Override
@@ -84,10 +84,10 @@ public class BlockStorage2 extends BaseBlock  implements ITexturedBlock {
         return (Integer) state.getValue(METADATA);
     }
 
-    protected BlockState createBlockState() {
+    protected BlockStateContainer createBlockStateContainer() {
 
         METADATA = PropertyInteger.create("Type", 0, types.length  -1);
-        return new BlockState(this, METADATA);
+        return new BlockStateContainer(this, METADATA);
     }
 
 }

@@ -5,7 +5,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.world.RubberTreeGenerator;
@@ -22,7 +22,7 @@ public class BlockRubberSapling extends BlockSapling {
         setUnlocalizedName("techreborn.rubbersapling");
         setCreativeTab(TechRebornCreativeTabMisc.instance);
         setStepSound(soundTypeGrass);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(STAGE, Integer.valueOf(0)));
+        this.setDefaultState(this.getDefaultState().withProperty(STAGE, Integer.valueOf(0)));
     }
 
     @Override

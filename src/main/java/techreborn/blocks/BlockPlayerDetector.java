@@ -4,7 +4,8 @@ package techreborn.blocks;
 import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
-import net.minecraft.block.state.BlockState;
+
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -12,9 +13,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -36,7 +38,7 @@ public class BlockPlayerDetector extends BaseTileBlock implements ITexturedBlock
         setUnlocalizedName("techreborn.playerDetector");
         setCreativeTab(TechRebornCreativeTab.instance);
         setHardness(2f);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(METADATA, 0));
+        this.setDefaultState(this.getDefaultState().withProperty(METADATA, 0));
     }
 
     public static final String[] types = new String[]
@@ -107,24 +109,24 @@ public class BlockPlayerDetector extends BaseTileBlock implements ITexturedBlock
         String message = "";
         switch (newMeta) {
             case 0:
-                message = EnumChatFormatting.GREEN + "Detects all Players";
+                message = TextFormatting.GREEN + "Detects all Players";
                 break;
             case 1:
-                message = EnumChatFormatting.RED + "Detects only other Players";
+                message = TextFormatting.RED + "Detects only other Players";
                 break;
             case 2:
-                message = EnumChatFormatting.BLUE + "Detects only you";
+                message = TextFormatting.BLUE + "Detects only you";
         }
         if(!world.isRemote){
-            entityplayer.addChatComponentMessage(new ChatComponentText(message));
+            entityplayer.addChatComponentMessage(new TextComponentString(message));
             //world.setBlockMetadataWithNotify(x, y, z, newMeta, 2);
         }
         return true;
     }
 
     @Override
-    public String getTextureNameFromState(IBlockState blockState, EnumFacing facing) {
-        return "techreborn:blocks/machine/player_detector_" + types[getMetaFromState(blockState)];
+    public String getTextureNameFromState(IBlockState BlockStateContainer, EnumFacing facing) {
+        return "techreborn:blocks/machine/player_detector_" + types[getMetaFromState(BlockStateContainer)];
     }
 
     @Override
@@ -137,10 +139,10 @@ public class BlockPlayerDetector extends BaseTileBlock implements ITexturedBlock
         return (Integer) state.getValue(METADATA);
     }
 
-    protected BlockState createBlockState() {
+    protected BlockStateContainer createBlockStateContainer() {
 
         METADATA = PropertyInteger.create("Type", 0, types.length  -1);
-        return new BlockState(this, METADATA);
+        return new BlockStateContainer(this, METADATA);
     }
 
     @Override

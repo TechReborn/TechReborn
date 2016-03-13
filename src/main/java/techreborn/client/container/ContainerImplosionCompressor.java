@@ -15,7 +15,7 @@ public class ContainerImplosionCompressor extends ContainerCrafting {
     TileImplosionCompressor tile;
 
     public int tickTime;
-    public int multiblockstate = 0;
+    public int multIBlockState = 0;
 
     public ContainerImplosionCompressor(TileImplosionCompressor tilecompressor,
                                         EntityPlayer player) {
@@ -56,8 +56,8 @@ public class ContainerImplosionCompressor extends ContainerCrafting {
         super.detectAndSendChanges();
         for (int i = 0; i < this.crafters.size(); i++) {
             ICrafting icrafting = (ICrafting) this.crafters.get(i);
-            if (this.multiblockstate != getMultiblockstateint()) {
-                icrafting.sendProgressBarUpdate(this, 3, getMultiblockstateint());
+            if (this.multIBlockState != getMultIBlockStateint()) {
+                icrafting.sendProgressBarUpdate(this, 3, getMultIBlockStateint());
             }
         }
     }
@@ -65,18 +65,18 @@ public class ContainerImplosionCompressor extends ContainerCrafting {
     @Override
     public void onCraftGuiOpened(ICrafting crafting) {
         super.onCraftGuiOpened(crafting);
-        crafting.sendProgressBarUpdate(this, 3, getMultiblockstateint());
+        crafting.sendProgressBarUpdate(this, 3, getMultIBlockStateint());
     }
 
     @SideOnly(Side.CLIENT)
     @Override
     public void updateProgressBar(int id, int value) {
         if (id == 3) {
-            this.multiblockstate = value;
+            this.multIBlockState = value;
         }
     }
 
-    public int getMultiblockstateint(){
+    public int getMultIBlockStateint(){
         return tile.getMutliBlock() ? 1 : 0;
     }
 

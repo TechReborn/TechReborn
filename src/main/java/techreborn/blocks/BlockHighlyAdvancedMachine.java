@@ -18,7 +18,7 @@ public class BlockHighlyAdvancedMachine extends BlockMachineBase {
 
 
     @Override
-    public String getTextureNameFromState(IBlockState blockState, EnumFacing facing) {
+    public String getTextureNameFromState(IBlockState BlockStateContainer, EnumFacing facing) {
         return prefix + "highlyadvancedmachine";
     }
 

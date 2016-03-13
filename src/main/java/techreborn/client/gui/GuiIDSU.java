@@ -5,7 +5,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import reborncore.common.packets.PacketHandler;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.client.container.ContainerIDSU;
@@ -59,7 +59,7 @@ public class GuiIDSU extends GuiContainer {
 
     protected void drawGuiContainerForegroundLayer(int p_146979_1_,
                                                    int p_146979_2_) {
-        this.fontRendererObj.drawString(StatCollector.translateToLocal("tile.techreborn.idsu.name"), 40, 10, Color.WHITE.getRGB());
+        this.fontRendererObj.drawString(I18n.translateToLocal("tile.techreborn.idsu.name"), 40, 10, Color.WHITE.getRGB());
         this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerIDSU.euOut) + "/tick", 10, 20, Color.WHITE.getRGB());
         this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerIDSU.storedEu), 10, 30, Color.WHITE.getRGB());
         this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerIDSU.euChange) + "  change", 10, 40, Color.WHITE.getRGB());

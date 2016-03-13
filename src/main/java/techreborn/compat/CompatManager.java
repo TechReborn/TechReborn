@@ -4,15 +4,8 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import techreborn.client.render.parts.ClientPartLoader;
-import techreborn.compat.minetweaker.MinetweakerCompat;
-import techreborn.compat.recipes.RecipesBiomesOPlenty;
-import techreborn.compat.recipes.RecipesBuildcraft;
-import techreborn.compat.recipes.RecipesThaumcraft;
-import techreborn.compat.waila.CompatModuleWaila;
 import techreborn.config.ConfigTechReborn;
 import techreborn.parts.StandalonePartCompact;
-import techreborn.parts.TechRebornParts;
-import techreborn.parts.walia.WailaMcMultiPartCompact;
 
 import java.util.ArrayList;
 
@@ -39,15 +32,15 @@ public class CompatManager {
         if (Loader.isModLoaded("gregtech")) {
             isGregTechLoaded = true;
         }
-        registerCompact(CompatModuleWaila.class, "Waila");
-        registerCompact(MinetweakerCompat.class, "MineTweaker3");
-        registerCompact(RecipesBiomesOPlenty.class, "BiomesOPlenty");
-        registerCompact(RecipesBuildcraft.class, "BuildCraft|Builders");
-        registerCompact(RecipesThaumcraft.class, "Thaumcraft");
-        registerCompact(TechRebornParts.class, "mcmultipart");
+//        registerCompact(CompatModuleWaila.class, "Waila");
+//        registerCompact(MinetweakerCompat.class, "MineTweaker3");
+//        registerCompact(RecipesBiomesOPlenty.class, "BiomesOPlenty");
+//        registerCompact(RecipesBuildcraft.class, "BuildCraft|Builders");
+//        registerCompact(RecipesThaumcraft.class, "Thaumcraft");
+       // registerCompact(TechRebornParts.class, "mcmultipart");
         registerCompact(ClientPartLoader.class, "mcmultipart", "@client");
         registerCompact(StandalonePartCompact.class, "!mcmultipart");
-        registerCompact(WailaMcMultiPartCompact.class, "mcmultipart", "Waila");
+        //registerCompact(WailaMcMultiPartCompact.class, "mcmultipart", "Waila");
     }
 
     public void registerCompact(Class<? extends ICompatModule> moduleClass, Object... objs) {

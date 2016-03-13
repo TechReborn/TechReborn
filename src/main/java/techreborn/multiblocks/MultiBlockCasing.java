@@ -3,7 +3,7 @@ package techreborn.multiblocks;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.common.multiblock.CoordTriplet;
 import reborncore.common.multiblock.IMultiblockPart;
@@ -320,7 +320,7 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
         Block block = world.getBlockState(new BlockPos(x, y, z)).getBlock();
 
 
-        if (block.isAir(world, new BlockPos(x, y, z))) {
+        if (block.isAir(world.getBlockState(new BlockPos(x, y, z)), world, new BlockPos(x, y, z))) {
 
         } else if (block.getUnlocalizedName().equals("tile.lava")) {
             hasLava = true;

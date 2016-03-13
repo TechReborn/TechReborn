@@ -3,10 +3,10 @@ package techreborn.client.gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.resources.I18n;
+
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 
 public class GuiDestructoPack extends GuiContainer {
 
@@ -28,9 +28,9 @@ public class GuiDestructoPack extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int arg0, int arg1) {
-        String name = StatCollector.translateToLocal("item.techreborn.part.destructoPack.name");
+        String name = I18n.translateToLocal("item.techreborn.part.destructoPack.name");
         fontRendererObj.drawString(name, xSize / 2 - fontRendererObj.getStringWidth(name) / 2, 5, 4210752);
-        this.fontRendererObj.drawString(I18n.format("container.inventory"), 8,
+        this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory"), 8,
                 this.ySize - 96 + 2, 4210752);
         super.drawGuiContainerForegroundLayer(arg0, arg1);
     }

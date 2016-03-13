@@ -3,7 +3,7 @@ package techreborn.blocks.generator;
 import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -23,12 +23,12 @@ public class BlockSolarPanel extends BaseTileBlock implements ITexturedBlock {
         super(Material.iron);
         setUnlocalizedName("techreborn.solarpanel");
         setCreativeTab(TechRebornCreativeTab.instance);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(ACTIVE, false));
+        this.setDefaultState(this.getDefaultState().withProperty(ACTIVE, false));
     }
 
-    protected BlockState createBlockState() {
+    protected BlockStateContainer createBlockStateContainer() {
         ACTIVE = PropertyBool.create("active");
-        return new BlockState(this, ACTIVE);
+        return new BlockStateContainer(this, ACTIVE);
     }
 
     @Override

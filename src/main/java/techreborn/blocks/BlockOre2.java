@@ -3,15 +3,15 @@ package techreborn.blocks;
 import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -63,7 +63,7 @@ public class BlockOre2 extends BaseBlock implements ITexturedBlock, IOreNameProv
         setCreativeTab(TechRebornCreativeTabMisc.instance);
         setHardness(2.0f);
         setHarvestLevel("pickaxe", 2);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(METADATA, 0));
+        this.setDefaultState(this.getDefaultState().withProperty(METADATA, 0));
     }
 
     @Override
@@ -80,8 +80,8 @@ public class BlockOre2 extends BaseBlock implements ITexturedBlock, IOreNameProv
     }
 
     @Override
-    public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player) {
-        return super.getPickBlock(target, world, pos, player);
+    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+        return super.getPickBlock(state, target, world, pos, player);
     }
 
     @Override
@@ -91,8 +91,8 @@ public class BlockOre2 extends BaseBlock implements ITexturedBlock, IOreNameProv
     }
 
     @Override
-    public String getTextureNameFromState(IBlockState blockState, EnumFacing facing) {
-        return "techreborn:blocks/ore/ore" + types[getMetaFromState(blockState)];
+    public String getTextureNameFromState(IBlockState BlockStateContainer, EnumFacing facing) {
+        return "techreborn:blocks/ore/ore" + types[getMetaFromState(BlockStateContainer)];
     }
 
     @Override
@@ -110,10 +110,10 @@ public class BlockOre2 extends BaseBlock implements ITexturedBlock, IOreNameProv
         return state.getValue(METADATA);
     }
 
-    protected BlockState createBlockState() {
+    protected BlockStateContainer createBlockStateContainer() {
 
         METADATA = PropertyInteger.create("Type", 0, types.length -1);
-        return new BlockState(this, METADATA);
+        return new BlockStateContainer(this, METADATA);
     }
 
     @Override

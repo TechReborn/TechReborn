@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.text.ITextComponent;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
@@ -65,10 +65,10 @@ public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IIn
     }
 
     public void updateState(){
-        IBlockState blockState = worldObj.getBlockState(pos);
-        if(blockState.getBlock() instanceof BlockMachineBase){
-            BlockMachineBase blockMachineBase = (BlockMachineBase) blockState.getBlock();
-            if(blockState.getValue(BlockMachineBase.ACTIVE) != burnTime > 0)
+        IBlockState BlockStateContainer = worldObj.getBlockState(pos);
+        if(BlockStateContainer.getBlock() instanceof BlockMachineBase){
+            BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
+            if(BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != burnTime > 0)
                 blockMachineBase.setActive(burnTime > 0, worldObj, pos);
         }
     }
@@ -213,7 +213,7 @@ public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IIn
     }
 
     @Override
-    public IChatComponent getDisplayName() {
+    public ITextComponent getDisplayName() {
         return inventory.getDisplayName();
     }
 

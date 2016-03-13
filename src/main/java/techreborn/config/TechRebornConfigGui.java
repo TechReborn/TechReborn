@@ -1,7 +1,7 @@
 package techreborn.config;
 
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.config.ConfigElement;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.config.DummyConfigElement;
@@ -21,25 +21,25 @@ public class TechRebornConfigGui extends GuiConfig {
 
     private static List<IConfigElement> getConfigCategories() {
         List<IConfigElement> list = new ArrayList<IConfigElement>();
-        list.add(new DummyConfigElement.DummyCategoryElement(StatCollector
+        list.add(new DummyConfigElement.DummyCategoryElement(I18n
                 .translateToLocal("config.techreborn.category.general"),
                 "tr.configgui.category.trGeneral", TRGeneral.class));
-        list.add(new DummyConfigElement.DummyCategoryElement(StatCollector
+        list.add(new DummyConfigElement.DummyCategoryElement(I18n
                 .translateToLocal("config.techreborn.category.world"),
                 "tr.configgui.category.trWorld", TRWORLD.class));
-        list.add(new DummyConfigElement.DummyCategoryElement(StatCollector
+        list.add(new DummyConfigElement.DummyCategoryElement(I18n
                 .translateToLocal("config.techreborn.category.power"),
                 "tr.configgui.category.trPower", TRPOWER.class));
-        list.add(new DummyConfigElement.DummyCategoryElement(StatCollector
+        list.add(new DummyConfigElement.DummyCategoryElement(I18n
                 .translateToLocal("config.techreborn.category.crafting"),
                 "tr.configgui.category.trCrafting", TRCRAFTING.class));
-        list.add(new DummyConfigElement.DummyCategoryElement(StatCollector
+        list.add(new DummyConfigElement.DummyCategoryElement(I18n
                 .translateToLocal("config.techreborn.category.uu"),
                 "tr.configgui.category.truu", TRUU.class));
-        list.add(new DummyConfigElement.DummyCategoryElement(StatCollector
+        list.add(new DummyConfigElement.DummyCategoryElement(I18n
                 .translateToLocal("config.techreborn.category.emc"),
                 "tr.configgui.category.tremc", TREMC.class));
-        list.add(new DummyConfigElement.DummyCategoryElement(StatCollector
+        list.add(new DummyConfigElement.DummyCategoryElement(I18n
                 .translateToLocal("config.techreborn.category.integration"),
                 "tr.configgui.category.treinter", TRINT.class));
 
