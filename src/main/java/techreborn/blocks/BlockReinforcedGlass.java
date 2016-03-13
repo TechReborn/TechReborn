@@ -1,8 +1,6 @@
 package techreborn.blocks;
 
-import me.modmuss50.jsonDestroyer.api.IOpaqueBlock;
 import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
@@ -10,7 +8,6 @@ import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.BaseBlock;
-import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.TechRebornCreativeTabMisc;
 
 public class BlockReinforcedGlass extends BaseBlock implements ITexturedBlock {
