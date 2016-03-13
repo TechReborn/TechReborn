@@ -21,7 +21,7 @@ public class BlockReinforcedGlass extends BaseBlock implements ITexturedBlock {
 	
 	@Override
 	public boolean isOpaqueCube() {
-		return true;
+		return false;
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -35,7 +35,7 @@ public class BlockReinforcedGlass extends BaseBlock implements ITexturedBlock {
 		return false;
 	}
 	
-    private final String prefix = "techreborn:blocks/machine/";
+    private final String prefix = "techreborn:blocks/";
 
 	@Override
 	public int amountOfStates() {
