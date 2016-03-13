@@ -264,7 +264,7 @@ public class RecipeCrafter {
             currentTickTime = data.getInteger("currentTickTime");
 
         if (parentTile != null && parentTile.getWorld() != null && parentTile.getWorld().isRemote) {
-            parentTile.getWorld().markBlockForUpdate(parentTile.getPos());
+            parentTile.getWorld().notifyBlockUpdate(parentTile.getPos(), parentTile.getWorld().getBlockState(parentTile.getPos()), parentTile.getWorld().getBlockState(parentTile.getPos()), 3);
             parentTile.getWorld().markBlockRangeForRenderUpdate(parentTile.getPos().getX(), parentTile.getPos().getY(), parentTile.getPos().getZ(), parentTile.getPos().getX(), parentTile.getPos().getY(), parentTile.getPos().getZ());
         }
     }
@@ -321,7 +321,7 @@ public class RecipeCrafter {
             BlockMachineBase blockMachineBase = (BlockMachineBase) parentTile.getWorld().getBlockState(parentTile.getPos()).getBlock();
             blockMachineBase.setActive(isActive(), parentTile.getWorld(), parentTile.getPos());
         }
-        parentTile.getWorld().markBlockForUpdate(parentTile.getPos());
+        parentTile.getWorld().notifyBlockUpdate(parentTile.getPos(), parentTile.getWorld().getBlockState(parentTile.getPos()), parentTile.getWorld().getBlockState(parentTile.getPos()), 3);
     }
 
     public void setCurrentRecipe(IBaseRecipeType recipe) {
