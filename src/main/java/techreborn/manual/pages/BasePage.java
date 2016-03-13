@@ -4,7 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import techreborn.manual.PageCollection;
 import techreborn.manual.Reference;
 
@@ -92,6 +92,6 @@ public class BasePage extends GuiScreen {
 
     //Translate To Local
     public String ttl(String unlocalizedName) {
-        return StatCollector.translateToLocal(unlocalizedName);
+        return I18n.translateToLocal(unlocalizedName);
     }
 }

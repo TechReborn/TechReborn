@@ -28,7 +28,7 @@ public class ModInfo implements IModInfo {
     }
 
     @Override
-    public String MOD_DEPENDENCUIES() {
+    public String MOD_DEPENDENCIES() {
         return MOD_DEPENDENCUIES;
     }
 

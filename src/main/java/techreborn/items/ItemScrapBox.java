@@ -4,6 +4,9 @@ import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import reborncore.RebornCore;
 import techreborn.api.ScrapboxList;
@@ -16,9 +19,9 @@ public class ItemScrapBox extends ItemTR implements ITexturedItem{
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		RebornCore.jsonDestroyer.registerObject(this);
 	}
-	
+
 	@Override
-	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
+	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStack, World world, EntityPlayer player, EnumHand hand) {
 		if(!world.isRemote) {
 			int random = world.rand.nextInt(ScrapboxList.stacks.size());
 			ItemStack out = ScrapboxList.stacks.get(random).copy();
@@ -29,11 +32,12 @@ public class ItemScrapBox extends ItemTR implements ITexturedItem{
 
 			entityitem.setPickupDelay(20);
 			world.spawnEntityInWorld(entityitem);
-			
+
 			itemStack.stackSize--;
 		}
-		return itemStack;
+		return new ActionResult<>(EnumActionResult.SUCCESS, itemStack);
 	}
+
 
 	@Override
 	public int getMaxMeta() {

@@ -62,9 +62,10 @@ public class RubberTreeGenerator extends WorldGenerator {
             int xOffset;
             int yOffset;
             int zOffset;
-            Block baseBlock = world.getBlockState(new BlockPos(x, y - 1, z)).getBlock();
+            IBlockState baseSate = world.getBlockState(new BlockPos(x, y - 1, z));
+            Block baseBlock = baseSate.getBlock();
             boolean hasPlacedBlock = false;
-            if (baseBlock != null && baseBlock.canSustainPlant(world, new BlockPos(x, y - 1, z), EnumFacing.UP, (IPlantable) ModBlocks.rubberSapling) && y < worldHeight - treeHeight - 1) {
+            if (baseBlock != null && baseBlock.canSustainPlant(baseSate, world, new BlockPos(x, y - 1, z), EnumFacing.UP, (IPlantable) ModBlocks.rubberSapling) && y < worldHeight - treeHeight - 1) {
                 for (yOffset = y; yOffset <= y + 1 + treeHeight; ++yOffset) {
                     byte radius = 1;
                     if (yOffset == y) {
@@ -76,11 +77,12 @@ public class RubberTreeGenerator extends WorldGenerator {
                     if (yOffset >= 0 & yOffset < worldHeight) {
                         for (xOffset = x - radius; xOffset <= x + radius; ++xOffset) {
                             for (zOffset = z - radius; zOffset <= z + radius; ++zOffset) {
-                                Block block = world.getBlockState(new BlockPos(xOffset, yOffset, zOffset)).getBlock();
+                                IBlockState state = world.getBlockState(new BlockPos(xOffset, yOffset, zOffset));
+                                Block block = state.getBlock();
 
-                                if (block != null && !(block.isLeaves(world, new BlockPos(xOffset, yOffset, zOffset)) ||
-                                        block.isAir(world, new BlockPos(xOffset, yOffset, zOffset)) ||
-                                        block.canBeReplacedByLeaves(world, new BlockPos(xOffset, yOffset, zOffset)))) {
+                                if (block != null && !(block.isLeaves(state, world, new BlockPos(xOffset, yOffset, zOffset)) ||
+                                        block.isAir(state,  world, new BlockPos(xOffset, yOffset, zOffset)) ||
+                                        block.canBeReplacedByLeaves(state, world, new BlockPos(xOffset, yOffset, zOffset)))) {
                                     return false;
                                 }
                             }
@@ -92,7 +94,8 @@ public class RubberTreeGenerator extends WorldGenerator {
 
                 BlockPos treeBase = new BlockPos(x, y, z);
                 BlockPos treeRoot = treeBase.down();
-                world.getBlockState(treeRoot).getBlock().onPlantGrow(world, treeRoot, treeBase);
+                IBlockState state = world.getBlockState(treeRoot);
+                state.getBlock().onPlantGrow(state, world, treeRoot, treeBase);
                 for (yOffset = y - 3 + treeHeight; yOffset <= y + treeHeight; ++yOffset) {
                     int var12 = yOffset - (y + treeHeight),
                             center = 1 - var12 / 2;
@@ -102,8 +105,9 @@ public class RubberTreeGenerator extends WorldGenerator {
                         for (zOffset = z - center; zOffset <= z + center; ++zOffset) {
                             int zPos = zOffset - z;
                             zPos = (zPos + (t = zPos >> 31)) ^ t;
-                            Block block = world.getBlockState(new BlockPos(xOffset, yOffset, zOffset)).getBlock();
-                            if (((xPos != center | zPos != center) || rand.nextInt(2) != 0 && var12 != 0) && (block == null || block.isLeaves(world, new BlockPos(xOffset, yOffset, zOffset)) || block.isAir(world, new BlockPos(xOffset, yOffset, zOffset)) || block.canBeReplacedByLeaves(world, new BlockPos(xOffset, yOffset, zOffset)))) {
+                            IBlockState state1 = world.getBlockState(new BlockPos(xOffset, yOffset, zOffset));
+                            Block block = state1.getBlock();
+                            if (((xPos != center | zPos != center) || rand.nextInt(2) != 0 && var12 != 0) && (block == null || block.isLeaves(state1, world, new BlockPos(xOffset, yOffset, zOffset)) || block.isAir(state1, world, new BlockPos(xOffset, yOffset, zOffset)) || block.canBeReplacedByLeaves(state1, world, new BlockPos(xOffset, yOffset, zOffset)))) {
                                 this.setBlockAndNotifyAdequately(world, new BlockPos(xOffset, yOffset, zOffset), ModBlocks.rubberLeaves.getDefaultState());
                                 hasPlacedBlock = true;
                             }
@@ -114,8 +118,9 @@ public class RubberTreeGenerator extends WorldGenerator {
                 BlockPos topLogPos = null;
                 for (yOffset = 0; yOffset < treeHeight; ++yOffset) {
                     BlockPos blockpos = new BlockPos(x, y + yOffset, z);
-                    Block block = world.getBlockState(blockpos).getBlock();
-                    if (block == null || block.isAir(world, blockpos) || block.isLeaves(world, blockpos) || block.isReplaceable(world, blockpos)) {
+                    IBlockState state1 = world.getBlockState(blockpos);
+                    Block block = state1.getBlock();
+                    if (block == null || block.isAir(state1, world, blockpos) || block.isLeaves(state1,world, blockpos) || block.isReplaceable(world, blockpos)) {
                         IBlockState newState = ModBlocks.rubberLog.getDefaultState();
                         boolean isAddingSap = false;
                         if (rand.nextInt(Core.worldGen.config.rubberTreeConfig.sapRarity) == 0) {

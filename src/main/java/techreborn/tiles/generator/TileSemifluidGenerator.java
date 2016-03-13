@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.fluids.Fluid;
@@ -141,12 +141,12 @@ public class TileSemifluidGenerator extends TilePowerAcceptor implements IWrench
     public Packet getDescriptionPacket() {
         NBTTagCompound nbtTag = new NBTTagCompound();
         writeToNBT(nbtTag);
-        return new S35PacketUpdateTileEntity(this.getPos(), 1, nbtTag);
+        return new SPacketUpdateTileEntity(this.getPos(), 1, nbtTag);
     }
 
     @Override
     public void onDataPacket(NetworkManager net,
-                             S35PacketUpdateTileEntity packet) {
+                             SPacketUpdateTileEntity packet) {
         worldObj.markBlockRangeForRenderUpdate(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX(),
                 getPos().getY(), getPos().getZ());
         readFromNBT(packet.getNbtCompound());
