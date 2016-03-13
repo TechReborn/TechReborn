@@ -1,7 +1,5 @@
 package techreborn.client.gui;
 
-import java.io.IOException;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -17,6 +15,8 @@ import techreborn.client.ClientMultiBlocks;
 import techreborn.client.container.ContainerVacuumFreezer;
 import techreborn.proxies.ClientProxy;
 import techreborn.tiles.TileVacuumFreezer;
+
+import java.io.IOException;
 
 public class GuiVacuumFreezer extends GuiContainer {
 

@@ -1,23 +1,12 @@
 package techreborn.items.tools;
 
-import java.util.List;
-import java.util.Random;
-
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -25,8 +14,9 @@ import reborncore.RebornCore;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.util.ItemNBTHelper;
-import reborncore.common.util.TorchHelper;
 import techreborn.client.TechRebornCreativeTab;
+
+import java.util.List;
 
 public class ItemNanosaber extends ItemSword implements IEnergyItemInfo, ITexturedItem {
 

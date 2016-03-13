@@ -1,14 +1,12 @@
 package techreborn.compat.jei.recycler;
 
-import javax.annotation.Nonnull;
-
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import techreborn.api.recipe.RecyclerRecipe;
-import techreborn.api.recipe.machines.CompressorRecipe;
-import techreborn.api.recipe.machines.GrinderRecipe;
 import techreborn.compat.jei.RecipeCategoryUids;
+
+import javax.annotation.Nonnull;
 
 public class RecyclerRecipeHandler implements IRecipeHandler<RecyclerRecipe> {
 	@Nonnull

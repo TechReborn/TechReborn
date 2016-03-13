@@ -1,7 +1,5 @@
 package techreborn.compat.jei.chemicalReactor;
 
-import javax.annotation.Nonnull;
-
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiItemStackGroup;
@@ -12,6 +10,8 @@ import net.minecraft.util.StatCollector;
 import techreborn.client.gui.GuiChemicalReactor;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
+
+import javax.annotation.Nonnull;
 
 public class ChemicalReactorRecipeCategory extends BlankRecipeCategory {
 	private static final int[] INPUT_SLOTS = {0, 1};

@@ -1,8 +1,5 @@
 package techreborn.compat.minetweaker;
 
-import static minetweaker.api.minecraft.MineTweakerMC.getItemStack;
-import static minetweaker.api.minecraft.MineTweakerMC.getLiquidStack;
-
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
@@ -17,6 +14,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import techreborn.compat.ICompatModule;
+
+import static minetweaker.api.minecraft.MineTweakerMC.getItemStack;
+import static minetweaker.api.minecraft.MineTweakerMC.getLiquidStack;
 
 
 public class MinetweakerCompat implements ICompatModule {

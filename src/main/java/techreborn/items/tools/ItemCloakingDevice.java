@@ -1,7 +1,5 @@
 package techreborn.items.tools;
 
-import java.util.List;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,6 +14,8 @@ import reborncore.common.powerSystem.PoweredItem;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
 import techreborn.items.ItemTextureBase;
+
+import java.util.List;
 
 public class ItemCloakingDevice extends ItemTextureBase implements IEnergyItemInfo {
     public static int Teir = ConfigTechReborn.CloakingDeviceTier;

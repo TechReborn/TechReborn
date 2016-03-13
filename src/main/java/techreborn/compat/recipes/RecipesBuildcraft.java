@@ -2,13 +2,13 @@ package techreborn.compat.recipes;
 
 import buildcraft.BuildCraftBuilders;
 import buildcraft.api.fuels.IFuel;
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.api.fuel.FluidPowerManager;
 import reborncore.common.powerSystem.PowerSystem;

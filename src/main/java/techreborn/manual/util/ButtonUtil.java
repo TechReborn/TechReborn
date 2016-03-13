@@ -1,9 +1,9 @@
 package techreborn.manual.util;
 
-import java.util.List;
-
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 @SideOnly(Side.CLIENT)
 public class ButtonUtil 

@@ -1,8 +1,6 @@
 package techreborn.items.armor;
 
 
-import java.util.List;
-
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -16,6 +14,8 @@ import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PoweredItem;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
+
+import java.util.List;
 
 public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo, ITexturedItem {
 

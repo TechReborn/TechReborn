@@ -1,7 +1,5 @@
 package techreborn.manual.pages;
 
-import java.awt.Color;
-
 import net.minecraft.client.gui.GuiButton;
 import techreborn.items.ItemParts;
 import techreborn.items.ItemPlates;
@@ -9,6 +7,8 @@ import techreborn.manual.PageCollection;
 import techreborn.manual.Reference;
 import techreborn.manual.util.ButtonUtil;
 import techreborn.manual.util.GuiButtonItemTexture;
+
+import java.awt.*;
 
 public class GettingStartedPage extends TitledPage
 {

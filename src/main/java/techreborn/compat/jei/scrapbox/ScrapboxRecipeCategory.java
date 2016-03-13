@@ -1,7 +1,5 @@
 package techreborn.compat.jei.scrapbox;
 
-import javax.annotation.Nonnull;
-
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiItemStackGroup;
@@ -10,9 +8,10 @@ import mezz.jei.api.recipe.BlankRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.util.StatCollector;
 import techreborn.client.gui.GuiCompressor;
-import techreborn.client.gui.GuiGrinder;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
+
+import javax.annotation.Nonnull;
 
 public class ScrapboxRecipeCategory extends BlankRecipeCategory {
 	private static final int[] INPUT_SLOTS = {0};

@@ -1,10 +1,5 @@
 package techreborn.compat.jei.industrialSawmill;
 
-import java.util.Collections;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
@@ -14,6 +9,10 @@ import net.minecraftforge.fluids.FluidStack;
 import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
 import techreborn.client.gui.GuiIndustrialSawmill;
 import techreborn.compat.jei.BaseRecipeWrapper;
+
+import javax.annotation.Nonnull;
+import java.util.Collections;
+import java.util.List;
 
 public class IndustrialSawmillRecipeWrapper extends BaseRecipeWrapper<IndustrialSawmillRecipe> {
 	private final IDrawableAnimated progress;

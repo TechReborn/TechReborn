@@ -1,8 +1,5 @@
 package techreborn.blocks;
 
-import java.security.InvalidParameterException;
-import java.util.List;
-
 import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
@@ -17,6 +14,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.BaseBlock;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
+
+import java.security.InvalidParameterException;
+import java.util.List;
 
 public class BlockMachineFrame extends BaseBlock implements ITexturedBlock {
     public PropertyInteger METADATA;

@@ -4,11 +4,9 @@ import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.dispenser.IPosition;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import techreborn.api.ScrapboxList;
-import techreborn.init.ModItems;
 
 public class BehaviorDispenseScrapbox extends BehaviorDefaultDispenseItem {
 

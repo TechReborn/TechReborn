@@ -1,9 +1,6 @@
 package techreborn.blocks;
 
 
-import java.util.List;
-import java.util.Random;
-
 import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
@@ -26,6 +23,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.BaseTileBlock;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TilePlayerDectector;
+
+import java.util.List;
+import java.util.Random;
 
 public class BlockPlayerDetector extends BaseTileBlock implements ITexturedBlock {
 

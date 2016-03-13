@@ -1,8 +1,5 @@
 package techreborn.items.tools;
 
-import java.util.List;
-import java.util.Random;
-
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -13,7 +10,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
@@ -27,6 +23,9 @@ import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.util.TorchHelper;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.utils.OreDictUtils;
+
+import java.util.List;
+import java.util.Random;
 
 public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, ITexturedItem {
 

@@ -1,9 +1,9 @@
 package techreborn.items.tools;
 
 import ic2.api.tile.IWrenchable;
+import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.block.BlockDynamicLiquid;
 import net.minecraft.block.BlockStaticLiquid;
-import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -18,7 +18,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidBase;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.items.ItemTR;
-import techreborn.items.ItemTextureBase;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,7 +2,11 @@ package techreborn.parts.walia;
 
 import mcmultipart.block.TileMultipart;
 import mcp.mobius.waila.api.IWailaRegistrar;
-import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLInterModComms;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import techreborn.compat.ICompatModule;
 
 /**

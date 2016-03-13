@@ -1,10 +1,5 @@
 package techreborn.blocks;
 
-import java.security.InvalidParameterException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
@@ -31,6 +26,11 @@ import techreborn.init.ModBlocks;
 import techreborn.items.ItemDusts;
 import techreborn.items.ItemGems;
 import techreborn.world.config.IOreNameProvider;
+
+import java.security.InvalidParameterException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class BlockOre extends BaseBlock implements ITexturedBlock, IOreNameProvider {
 

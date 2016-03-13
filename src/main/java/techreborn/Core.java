@@ -1,10 +1,5 @@
 package techreborn;
 
-import java.io.File;
-
-import net.minecraftforge.fml.common.registry.EntityRegistry;
-import org.apache.commons.lang3.time.StopWatch;
-
 import net.minecraft.block.BlockDispenser;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
@@ -17,7 +12,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import org.apache.commons.lang3.time.StopWatch;
 import reborncore.common.multiblock.MultiblockEventHandler;
 import reborncore.common.multiblock.MultiblockServerTickHandler;
 import reborncore.common.packets.AddDiscriminatorEvent;
@@ -36,14 +33,21 @@ import techreborn.dispenser.BehaviorDispenseScrapbox;
 import techreborn.entitys.EntityNukePrimed;
 import techreborn.events.OreUnifier;
 import techreborn.events.TRTickHandler;
-import techreborn.init.*;
+import techreborn.init.ModBlocks;
+import techreborn.init.ModFluids;
+import techreborn.init.ModItems;
+import techreborn.init.ModLoot;
+import techreborn.init.ModParts;
+import techreborn.init.ModRecipes;
+import techreborn.init.RecipeCompact;
 import techreborn.lib.ModInfo;
 import techreborn.packets.PacketAesu;
 import techreborn.packets.PacketIdsu;
 import techreborn.proxies.CommonProxy;
 import techreborn.tiles.idsu.IDSUManager;
-import techreborn.world.TechRebornRetroGen;
 import techreborn.world.TechRebornWorldGen;
+
+import java.io.File;
 
 @Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = ModInfo.MOD_DEPENDENCUIES, guiFactory = ModInfo.GUI_FACTORY_CLASS, acceptedMinecraftVersions = "[1.8.8,1.8.9]")
 public class Core {

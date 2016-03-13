@@ -1,7 +1,5 @@
 package techreborn.compat.jei.scrapbox;
 
-import javax.annotation.Nonnull;
-
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
@@ -10,6 +8,8 @@ import net.minecraft.client.Minecraft;
 import techreborn.api.recipe.ScrapboxRecipe;
 import techreborn.client.gui.GuiCompressor;
 import techreborn.compat.jei.BaseRecipeWrapper;
+
+import javax.annotation.Nonnull;
 
 public class ScrapboxRecipeWrapper extends BaseRecipeWrapper<ScrapboxRecipe> {
 	private final IDrawableAnimated progress;

@@ -1,8 +1,5 @@
 package techreborn.blocks.machine;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,6 +14,9 @@ import techreborn.Core;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileAlloyFurnace;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BlockAlloyFurnace extends BlockMachineBase implements IRotationTexture {
 

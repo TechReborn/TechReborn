@@ -1,14 +1,11 @@
 package techreborn.tiles.teir1;
 
-import java.util.Random;
-
 import ic2.api.tile.IWrenchable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
@@ -16,11 +13,8 @@ import reborncore.api.power.EnumPowerTier;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
-import techreborn.api.recipe.RecipeCrafter;
 import techreborn.init.ModBlocks;
-import techreborn.init.ModItems;
 import techreborn.items.ItemParts;
-import techreborn.lib.Reference;
 
 public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory {
 

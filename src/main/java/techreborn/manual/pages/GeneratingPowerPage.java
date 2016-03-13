@@ -1,7 +1,5 @@
 package techreborn.manual.pages;
 
-import java.awt.Color;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.item.ItemStack;
 import techreborn.init.ModBlocks;
@@ -9,6 +7,8 @@ import techreborn.manual.PageCollection;
 import techreborn.manual.Reference;
 import techreborn.manual.util.ButtonUtil;
 import techreborn.manual.util.GuiButtonItemTexture;
+
+import java.awt.*;
 
 public class GeneratingPowerPage extends TitledPage
 {

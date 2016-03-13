@@ -1,7 +1,5 @@
 package techreborn.compat.jei.alloySmelter;
 
-import javax.annotation.Nonnull;
-
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IDrawableAnimated;
@@ -15,6 +13,8 @@ import net.minecraft.util.StatCollector;
 import techreborn.client.gui.GuiAlloySmelter;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
+
+import javax.annotation.Nonnull;
 
 public class AlloySmelterRecipeCategory extends BlankRecipeCategory {
 	private static final int[] INPUT_SLOTS = {0, 1};

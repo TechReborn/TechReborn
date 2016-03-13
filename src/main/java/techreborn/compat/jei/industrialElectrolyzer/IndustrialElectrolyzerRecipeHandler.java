@@ -1,12 +1,12 @@
 package techreborn.compat.jei.industrialElectrolyzer;
 
-import javax.annotation.Nonnull;
-
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import techreborn.api.recipe.machines.IndustrialElectrolyzerRecipe;
 import techreborn.compat.jei.RecipeCategoryUids;
+
+import javax.annotation.Nonnull;
 
 public class IndustrialElectrolyzerRecipeHandler implements IRecipeHandler<IndustrialElectrolyzerRecipe> {
 	@Nonnull

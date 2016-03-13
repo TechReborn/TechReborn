@@ -1,7 +1,5 @@
 package techreborn.manual.pages;
 
-import java.io.IOException;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -9,6 +7,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import techreborn.manual.PageCollection;
 import techreborn.manual.Reference;
+
+import java.io.IOException;
 
 public class BasePage extends GuiScreen {
 
