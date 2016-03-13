@@ -1,8 +1,8 @@
 package techreborn.config;
 
-import java.io.File;
-
 import net.minecraftforge.common.config.Configuration;
+
+import java.io.File;
 
 public class ConfigTechReborn {
 	private static ConfigTechReborn instance = null;
@@ -13,71 +13,11 @@ public class ConfigTechReborn {
 	public static String CATEGORY_EMC = "emc";
 	public static String CATEGORY_INTEGRATION = "Integration";
 
-	// WORLDGEN
-	public static boolean GalenaOreTrue;
-	public static int GalenaOreRare;
-
-	public static boolean IridiumOreTrue;
-	public static int IridiumOreRare;
-
-	public static boolean RubyOreTrue;
-	public static int RubyOreRare;
-
-	public static boolean SapphireOreTrue;
-	public static int SapphireOreRare;
-
-	public static boolean BauxiteOreTrue;
-	public static int BauxiteOreRare;
-
-	public static boolean TetrahedriteOreTrue;
-	public static int TetrahedriteOreRare;
-
-	public static boolean CassiteriteOreTrue;
-	public static int CassiteriteOreRare;
-
-	public static boolean LeadOreTrue;
-	public static int LeadOreRare;
-
-	public static boolean SilverOreTrue;
-	public static int SilverOreRare;
-	
-	public static boolean CopperOreTrue;
-	public static int CopperOreRare;
-	
-	public static boolean TinOreTrue;
-	public static int TinOreRare;
-
-	public static boolean PyriteOreTrue;
-	public static int PyriteOreRare;
-
-	public static boolean CinnabarOreTrue;
-	public static int CinnabarOreRare;
-
-	public static boolean SphaleriteOreTrue;
-	public static int SphaleriteOreRare;
-
-	public static boolean TungstenOreTrue;
-	public static int TungstenOreRare;
-
-	public static boolean SheldoniteOreTrue;
-	public static int SheldoniteOreRare;
-
-	public static boolean PeridotOreTrue;
-	public static int PeridotOreRare;
-
-	public static boolean SodaliteOreTrue;
-	public static int SodaliteOreRare;
-
 	public static double FortuneSecondaryOreMultiplierPerLevel;
 
-	public static boolean RubberTreeGen;
-	
 	public static boolean RubberSaplingLoot;
-	
 	public static boolean TinIngotsLoot;
-	
 	public static boolean CopperIngotsLoot;
-
 	public static boolean SteelIngotsLoot;
 
 	public static boolean UninsulatedElectocutionSound;
@@ -226,75 +166,6 @@ public class ConfigTechReborn {
 	}
 
 	public static void Configs() {
-		GalenaOreTrue = config.get(CATEGORY_WORLD, "Generate Galena Ore", true, "Allow GalenaOre to generate in world")
-				.getBoolean(true);
-
-		IridiumOreTrue = config
-				.get(CATEGORY_WORLD, "Generate Iridium Ore", true, "Allow Iridium Ore to generate in world")
-				.getBoolean(true);
-
-		RubyOreTrue = config.get(CATEGORY_WORLD, "Generate Ruby Ore", true, "Allow Ruby Ore to generate in world")
-				.getBoolean(true);
-
-		SapphireOreTrue = config
-				.get(CATEGORY_WORLD, "Generate Sapphire Ore", true, "Allow Sapphire Ore to generate in world")
-				.getBoolean(true);
-
-		BauxiteOreTrue = config
-				.get(CATEGORY_WORLD, "Generate Bauxite Ore", true, "Allow Bauxite Ore to generate in world")
-				.getBoolean(true);
-
-		TetrahedriteOreTrue = config
-				.get(CATEGORY_WORLD, "Generate Tetrahedrite Ore", true, "Allow Tetrahedrite Ore to generate in world")
-				.getBoolean(true);
-
-		CassiteriteOreTrue = config
-				.get(CATEGORY_WORLD, "Generate Cassiterite Ore", true, "Allow Cassiterite Ore to generate in world")
-				.getBoolean(true);
-
-		LeadOreTrue = config.get(CATEGORY_WORLD, "Generate Lead Ore", true, "Allow Lead Ore to generate in world")
-				.getBoolean(true);
-
-		SilverOreTrue = config.get(CATEGORY_WORLD, "Generate Silver Ore", true, "Allow Silver Ore to generate in world")
-				.getBoolean(true);
-		
-		CopperOreTrue = config.get(CATEGORY_WORLD, "Generate Copper Ore", true, "Allow Copper Ore to generate in world")
-				.getBoolean(true);
-		
-		TinOreTrue = config.get(CATEGORY_WORLD, "Generate Tin Ore", true, "Allow Tin Ore to generate in world")
-				.getBoolean(true);
-
-		PyriteOreTrue = config.get(CATEGORY_WORLD, "Generate Pyrite Ore", true, "Allow Pyrite Ore to generate in world")
-				.getBoolean(true);
-
-		CinnabarOreTrue = config
-				.get(CATEGORY_WORLD, "Generate Cinnabar Ore", true, "Allow Cinnabar Ore to generate in world")
-				.getBoolean(true);
-
-		SphaleriteOreTrue = config
-				.get(CATEGORY_WORLD, "Generate Sphalerite Ore", true, "Allow Sphalerite Ore to generate in world")
-				.getBoolean(true);
-
-		TungstenOreTrue = config
-				.get(CATEGORY_WORLD, "Generate Tungsten Ore", true, "Allow Tungsten Ore to generate in world")
-				.getBoolean(true);
-
-		SheldoniteOreTrue = config
-				.get(CATEGORY_WORLD, "Generate Sheldonite Ore", true, "Allow Sheldonite Ore to generate in world")
-				.getBoolean(true);
-
-		PeridotOreTrue = config
-				.get(CATEGORY_WORLD, "Generate Peridot Ore", true, "Allow Peridot Ore to generate in world")
-				.getBoolean(true);
-
-		SodaliteOreTrue = config
-				.get(CATEGORY_WORLD, "Generate Sodalite Ore", true, "Allow Sodalite Ore to generate in world")
-				.getBoolean(true);
-
-		RubberTreeGen = config
-				.get(CATEGORY_WORLD, "Rubber Tree Generation", true, "Allow Rubber Trees to generate in world")
-				.getBoolean(true);
-
 		RubberSaplingLoot = config
 				.get(CATEGORY_WORLD, "Rubber Sapling Loot", true, "Allow Rubber Saplings to generate in loot chests")
 				.getBoolean(true);
@@ -310,64 +181,6 @@ public class ConfigTechReborn {
 		SteelIngotsLoot = config
 				.get(CATEGORY_WORLD, "Steel Ingots Loot", true, "Allow Steel Ingots to generate in loot chests")
 				.getBoolean(true);
-
-		GalenaOreRare = config.get(CATEGORY_WORLD, "Galena Ore vein size", 8, "Set the max vein size for Galena Ore")
-				.getInt();
-		
-		CopperOreRare = config.get(CATEGORY_WORLD, "Copper Ore vein size", 8, "Set the max vein size for Copper Ore")
-				.getInt();
-		
-		TinOreRare = config.get(CATEGORY_WORLD, "Tin Ore vein size", 8, "Set the max vein size for Tin Ore")
-				.getInt();
-
-		IridiumOreRare = config.get(CATEGORY_WORLD, "Iridium Ore vein size", 1, "Set the max vein size for Iridium Ore")
-				.getInt();
-
-		RubyOreRare = config.get(CATEGORY_WORLD, "Ruby Ore vein size", 6, "Set the max vein size for Ruby Ore")
-				.getInt();
-
-		SapphireOreRare = config
-				.get(CATEGORY_WORLD, "Sapphire Ore vein size", 6, "Set the max vein size for Sapphire Ore").getInt();
-
-		BauxiteOreRare = config.get(CATEGORY_WORLD, "Bauxite Ore vein size", 6, "Set the max vein size for Bauxite Ore")
-				.getInt();
-
-		PyriteOreRare = config.get(CATEGORY_WORLD, "Pyrite Ore vein size", 6, "Set the max vein size for Pyrite Ore")
-				.getInt();
-
-		CinnabarOreRare = config
-				.get(CATEGORY_WORLD, "Cinnabar Ore vein size", 6, "Set the max vein size for Cinnabar Ore").getInt();
-
-		SphaleriteOreRare = config
-				.get(CATEGORY_WORLD, "Sphalerite Ore vein size", 6, "Set the max vein size for Sphalerite Ore")
-				.getInt();
-
-		TungstenOreRare = config
-				.get(CATEGORY_WORLD, "Tungsten Ore vein size", 6, "Set the max vein size for Tungsten Ore").getInt();
-
-		SheldoniteOreRare = config
-				.get(CATEGORY_WORLD, "Sheldonite Ore vein size", 6, "Set the max vein size for Sheldonite Ore")
-				.getInt();
-
-		PeridotOreRare = config.get(CATEGORY_WORLD, "Peridot Ore vein size", 6, "Set the max vein size for Peridot Ore")
-				.getInt();
-
-		SodaliteOreRare = config
-				.get(CATEGORY_WORLD, "Sodalite Ore vein size", 6, "Set the max vein size for Sodalite Ore").getInt();
-
-		TetrahedriteOreRare = config
-				.get(CATEGORY_WORLD, "Tetrahedrite Ore vein size", 6, "Set the max vein size for Tetrahedrite Ore")
-				.getInt();
-
-		CassiteriteOreRare = config
-				.get(CATEGORY_WORLD, "Cassiterite Ore vein size", 6, "Set the max vein size for Cassiterite Ore")
-				.getInt();
-
-		LeadOreRare = config.get(CATEGORY_WORLD, "Lead Ore vein size", 6, "Set the max vein size for Lead Ore")
-				.getInt();
-
-		SilverOreRare = config.get(CATEGORY_WORLD, "Silver Ore vein size", 6, "Set the max vein size for Silver Ore")
-				.getInt();
 
 		FortuneSecondaryOreMultiplierPerLevel = config.get(CATEGORY_WORLD, "FortuneSecondaryOreMultiplierPerLevel", 0.5,
 				"FortuneSecondaryOreMultiplierPerLevel").getDouble();

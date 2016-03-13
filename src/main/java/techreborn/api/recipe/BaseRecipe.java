@@ -1,10 +1,10 @@
 package techreborn.api.recipe;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Extend this to add a recipe

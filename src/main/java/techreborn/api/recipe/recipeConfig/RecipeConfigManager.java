@@ -1,15 +1,14 @@
 package techreborn.api.recipe.recipeConfig;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import net.minecraft.item.ItemStack;
+import techreborn.api.recipe.IBaseRecipeType;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import net.minecraft.item.ItemStack;
-import techreborn.api.recipe.IBaseRecipeType;
 
 public class RecipeConfigManager {
 

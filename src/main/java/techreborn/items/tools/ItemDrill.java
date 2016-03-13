@@ -1,8 +1,5 @@
 package techreborn.items.tools;
 
-import java.util.List;
-import java.util.Random;
-
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -25,6 +22,9 @@ import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.util.TorchHelper;
 import techreborn.client.TechRebornCreativeTab;
+
+import java.util.List;
+import java.util.Random;
 
 public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo, ITexturedItem {
 

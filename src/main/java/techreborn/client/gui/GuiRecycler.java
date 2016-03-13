@@ -1,16 +1,12 @@
 package techreborn.client.gui;
 
-import org.lwjgl.util.Color;
-
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import techreborn.client.container.ContainerCompressor;
 import techreborn.client.container.ContainerRecycler;
-import techreborn.tiles.teir1.TileCompressor;
 import techreborn.tiles.teir1.TileRecycler;
 
 public class GuiRecycler extends GuiContainer {

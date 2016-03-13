@@ -1,10 +1,10 @@
 package techreborn.compat.jei.rollingMachine;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.item.crafting.IRecipe;
 import techreborn.api.RollingMachineRecipe;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RollingMachineRecipeMaker {
 	private RollingMachineRecipeMaker() {

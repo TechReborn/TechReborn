@@ -1,8 +1,5 @@
 package techreborn.compat.waila;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
@@ -13,6 +10,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import reborncore.api.IListInfoProvider;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class WailaProviderMachines implements IWailaDataProvider {
 

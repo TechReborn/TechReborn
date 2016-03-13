@@ -2,7 +2,14 @@ package techreborn.parts;
 
 import net.minecraft.util.IStringSerializable;
 import reborncore.api.power.EnumPowerTier;
-import techreborn.parts.types.*;
+import techreborn.parts.types.CopperCable;
+import techreborn.parts.types.GlassFiberCable;
+import techreborn.parts.types.GoldCable;
+import techreborn.parts.types.HVCable;
+import techreborn.parts.types.InsulatedCopperCable;
+import techreborn.parts.types.InsulatedGoldCable;
+import techreborn.parts.types.InsulatedHVCable;
+import techreborn.parts.types.TinCable;
 
 public enum EnumCableType implements IStringSerializable {
     COPPER("copper", "techreborn:blocks/cables/copper_cable", 128, 12.0, true, CopperCable.class, EnumPowerTier.LOW),

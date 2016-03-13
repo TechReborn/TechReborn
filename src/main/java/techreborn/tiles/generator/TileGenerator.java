@@ -13,7 +13,6 @@ import reborncore.api.power.EnumPowerTier;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
-import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 
 public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IInventory

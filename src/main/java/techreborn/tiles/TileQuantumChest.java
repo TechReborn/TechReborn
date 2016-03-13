@@ -1,7 +1,5 @@
 package techreborn.tiles;
 
-import java.util.List;
-
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -18,6 +16,8 @@ import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.init.ModBlocks;
+
+import java.util.List;
 
 public class TileQuantumChest extends TileMachineBase implements IInventory,
         IWrenchable, IDeepStorageUnit, IListInfoProvider {

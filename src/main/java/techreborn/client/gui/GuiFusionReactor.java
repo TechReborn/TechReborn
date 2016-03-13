@@ -1,23 +1,17 @@
 package techreborn.client.gui;
 
-import java.io.IOException;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import reborncore.client.multiblock.MultiblockSet;
-import reborncore.common.misc.Location;
-import reborncore.common.multiblock.CoordTriplet;
 import reborncore.common.powerSystem.PowerSystem;
-import techreborn.client.ClientMultiBlocks;
 import techreborn.client.container.ContainerFusionReactor;
-import techreborn.proxies.ClientProxy;
 import techreborn.tiles.fusionReactor.TileEntityFusionController;
+
+import java.io.IOException;
 
 
 public class GuiFusionReactor extends GuiContainer {

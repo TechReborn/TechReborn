@@ -1,7 +1,5 @@
 package techreborn.compat.jei.centrifuge;
 
-import javax.annotation.Nonnull;
-
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
@@ -10,6 +8,8 @@ import net.minecraft.client.Minecraft;
 import techreborn.api.recipe.machines.CentrifugeRecipe;
 import techreborn.client.gui.GuiCentrifuge;
 import techreborn.compat.jei.BaseRecipeWrapper;
+
+import javax.annotation.Nonnull;
 
 public class CentrifugeRecipeWrapper extends BaseRecipeWrapper<CentrifugeRecipe> {
 	private final IDrawableAnimated progressUp;

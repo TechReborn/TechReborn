@@ -1,6 +1,5 @@
 package techreborn.compat.minetweaker;
 
-import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;

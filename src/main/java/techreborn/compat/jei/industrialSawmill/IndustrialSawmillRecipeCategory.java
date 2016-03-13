@@ -1,7 +1,5 @@
 package techreborn.compat.jei.industrialSawmill;
 
-import javax.annotation.Nonnull;
-
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiFluidStackGroup;
@@ -15,6 +13,8 @@ import techreborn.client.gui.GuiIndustrialSawmill;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
 import techreborn.tiles.TileIndustrialSawmill;
+
+import javax.annotation.Nonnull;
 
 public class IndustrialSawmillRecipeCategory extends BlankRecipeCategory {
 	private static final int[] INPUT_SLOTS = {0, 1};

@@ -1,8 +1,5 @@
 package techreborn.blocks;
 
-import java.util.List;
-import java.util.Random;
-
 import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -22,6 +19,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.multiblock.BlockMultiblockBase;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileMachineCasing;
+
+import java.util.List;
+import java.util.Random;
 
 public class BlockMachineCasing extends BlockMultiblockBase implements ITexturedBlock {
 

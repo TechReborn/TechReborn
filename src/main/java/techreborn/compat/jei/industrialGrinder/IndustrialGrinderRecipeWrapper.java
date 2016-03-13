@@ -1,10 +1,5 @@
 package techreborn.compat.jei.industrialGrinder;
 
-import java.util.Collections;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
@@ -14,6 +9,10 @@ import net.minecraftforge.fluids.FluidStack;
 import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
 import techreborn.client.gui.GuiIndustrialGrinder;
 import techreborn.compat.jei.BaseRecipeWrapper;
+
+import javax.annotation.Nonnull;
+import java.util.Collections;
+import java.util.List;
 
 public class IndustrialGrinderRecipeWrapper extends BaseRecipeWrapper<IndustrialGrinderRecipe> {
 	private final IDrawableAnimated progress;

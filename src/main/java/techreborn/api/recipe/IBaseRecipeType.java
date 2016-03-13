@@ -1,9 +1,9 @@
 package techreborn.api.recipe;
 
-import java.util.List;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+
+import java.util.List;
 
 /**
  * This is the base recipe class implement this to make a recipe handler

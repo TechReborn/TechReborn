@@ -1,8 +1,5 @@
 package techreborn.compat.minetweaker;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
@@ -12,6 +9,9 @@ import reborncore.common.util.ItemUtils;
 import techreborn.api.recipe.BaseRecipe;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.api.recipe.RecipeHandler;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MTGeneric {
     public static String getMachineName() {

@@ -9,10 +9,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import techreborn.init.ModItems;
 import techreborn.power.PowerTickEvent;
-import techreborn.power.TRPowerNet;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TRTickHandler {
 

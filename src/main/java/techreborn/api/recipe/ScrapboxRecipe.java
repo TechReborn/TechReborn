@@ -1,7 +1,6 @@
 package techreborn.api.recipe;
 
 import net.minecraft.item.ItemStack;
-import techreborn.api.ScrapboxList;
 import techreborn.init.ModItems;
 import techreborn.lib.Reference;
 

@@ -1,8 +1,5 @@
 package techreborn.blocks;
 
-import java.util.List;
-import java.util.Random;
-
 import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
@@ -17,6 +14,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.BaseBlock;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModBlocks;
+
+import java.util.List;
+import java.util.Random;
 
 public class BlockStorage extends BaseBlock implements ITexturedBlock {
 

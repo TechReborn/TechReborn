@@ -1,22 +1,20 @@
 package techreborn.manual.pages;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.lwjgl.opengl.GL11;
-
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 import techreborn.manual.PageCollection;
 import techreborn.manual.Reference;
 import techreborn.manual.util.ButtonUtil;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DescriptionPage extends TitledPage
 {

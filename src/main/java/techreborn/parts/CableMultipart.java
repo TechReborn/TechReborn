@@ -2,7 +2,14 @@ package techreborn.parts;
 
 import mcmultipart.MCMultiPartMod;
 import mcmultipart.microblock.IMicroblock;
-import mcmultipart.multipart.*;
+import mcmultipart.multipart.ICollidableMultipart;
+import mcmultipart.multipart.IMultipartContainer;
+import mcmultipart.multipart.IOccludingPart;
+import mcmultipart.multipart.ISlottedPart;
+import mcmultipart.multipart.Multipart;
+import mcmultipart.multipart.MultipartHelper;
+import mcmultipart.multipart.OcclusionHelper;
+import mcmultipart.multipart.PartSlot;
 import mcmultipart.raytrace.PartMOP;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -16,7 +23,13 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
@@ -30,7 +43,11 @@ import techreborn.parts.walia.IPartWaliaProvider;
 import techreborn.power.TRPowerNet;
 import techreborn.utils.damageSources.ElectrialShockSource;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by modmuss50 on 02/03/2016.

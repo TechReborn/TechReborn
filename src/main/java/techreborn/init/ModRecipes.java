@@ -1,9 +1,5 @@
 package techreborn.init;
 
-import java.security.InvalidParameterException;
-
-import org.apache.commons.lang3.ArrayUtils;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -13,6 +9,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import org.apache.commons.lang3.ArrayUtils;
 import reborncore.common.util.CraftingHelper;
 import reborncore.common.util.OreUtil;
 import techreborn.Core;
@@ -52,6 +49,8 @@ import techreborn.items.ItemParts;
 import techreborn.items.ItemPlates;
 import techreborn.parts.ItemStandaloneCables;
 import techreborn.utils.RecipeUtils;
+
+import java.security.InvalidParameterException;
 
 public class ModRecipes {
     public static ConfigTechReborn config;

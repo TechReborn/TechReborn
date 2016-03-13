@@ -1,8 +1,5 @@
 package techreborn.compat.minetweaker;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
@@ -14,6 +11,9 @@ import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @ZenClass("mods.techreborn.fusionReactor")
 public class MTFusionReactor {

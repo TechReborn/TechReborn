@@ -1,14 +1,13 @@
 package techreborn.manual;
 
-import java.io.IOException;
-import java.util.List;
-
 import com.google.common.collect.Lists;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import techreborn.manual.pages.BasePage;
+
+import java.io.IOException;
+import java.util.List;
 
 public class PageCollection extends Gui {
 

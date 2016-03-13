@@ -3,7 +3,6 @@ package techreborn.items;
 import net.minecraft.item.ItemStack;
 import reborncore.api.power.IEnergyItemInfo;
 import techreborn.client.TechRebornCreativeTab;
-import techreborn.config.ConfigTechReborn;
 
 
 public class ItemLapotronCrystal extends ItemTextureBase implements IEnergyItemInfo {

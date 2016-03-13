@@ -7,7 +7,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.client.gui.SlotOutput;
 import reborncore.common.container.RebornContainer;
 import techreborn.api.SlotUpgrade;
-import techreborn.tiles.teir1.TileCompressor;
 import techreborn.tiles.teir1.TileRecycler;
 
 public class ContainerRecycler extends RebornContainer {

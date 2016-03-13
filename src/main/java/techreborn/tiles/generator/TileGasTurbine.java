@@ -1,8 +1,5 @@
 package techreborn.tiles.generator;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -26,6 +23,9 @@ import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable,
         IFluidHandler, IInventory {

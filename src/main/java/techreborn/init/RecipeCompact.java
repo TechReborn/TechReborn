@@ -1,12 +1,5 @@
 package techreborn.init;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -16,6 +9,13 @@ import techreborn.items.ItemCells;
 import techreborn.items.ItemIngots;
 import techreborn.items.ItemParts;
 import techreborn.items.ItemPlates;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RecipeCompact implements IRecipeCompact {
 
@@ -83,7 +83,7 @@ public class RecipeCompact implements IRecipeCompact {
     }
 
     public void saveMissingItems(File mcDir) throws IOException {
-        File missingItemsFile = new File(mcDir, "TechRebornMissingItems.txt");
+        File missingItemsFile = new File(mcDir, "missingItems.txt");
         if(missingItemsFile.exists()){
             missingItemsFile.delete();
         }

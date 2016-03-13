@@ -1,17 +1,15 @@
 package techreborn.compat.jei.extractor;
 
-import javax.annotation.Nonnull;
-
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
 import net.minecraft.client.Minecraft;
 import techreborn.api.recipe.machines.ExtractorRecipe;
-import techreborn.api.recipe.machines.GrinderRecipe;
 import techreborn.client.gui.GuiExtractor;
-import techreborn.client.gui.GuiGrinder;
 import techreborn.compat.jei.BaseRecipeWrapper;
+
+import javax.annotation.Nonnull;
 
 public class ExtractorRecipeWrapper extends BaseRecipeWrapper<ExtractorRecipe> {
 	private final IDrawableAnimated progress;

@@ -1,7 +1,5 @@
 package techreborn.compat.jei.rollingMachine;
 
-import javax.annotation.Nonnull;
-
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.ICraftingGridHelper;
 import mezz.jei.api.gui.IDrawable;
@@ -15,6 +13,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.StatCollector;
 import techreborn.client.gui.GuiRollingMachine;
 import techreborn.compat.jei.RecipeCategoryUids;
+
+import javax.annotation.Nonnull;
 
 public class RollingMachineRecipeCategory extends BlankRecipeCategory {
 	private static final int[] INPUT_SLOTS = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};

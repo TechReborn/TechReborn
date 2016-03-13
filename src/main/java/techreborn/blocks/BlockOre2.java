@@ -1,8 +1,5 @@
 package techreborn.blocks;
 
-import java.security.InvalidParameterException;
-import java.util.List;
-
 import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
@@ -21,8 +18,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.BaseBlock;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModBlocks;
+import techreborn.world.config.IOreNameProvider;
 
-public class BlockOre2 extends BaseBlock implements ITexturedBlock {
+import java.security.InvalidParameterException;
+import java.util.List;
+
+public class BlockOre2 extends BaseBlock implements ITexturedBlock, IOreNameProvider {
 
     public static ItemStack getOreByName(String name, int count) {
         for (int i = 0; i < types.length; i++) {
@@ -30,7 +31,7 @@ public class BlockOre2 extends BaseBlock implements ITexturedBlock {
                 return new ItemStack(ModBlocks.ore2, count, i);
             }
         }
-        throw new InvalidParameterException("The storage block " + name + " could not be found.");
+        throw new InvalidParameterException("The ore block " + name + " could not be found.");
     }
 
     public static ItemStack getOreByName(String name) {
@@ -44,6 +45,9 @@ public class BlockOre2 extends BaseBlock implements ITexturedBlock {
                 index = i;
                 break;
             }
+        }
+        if(index == -1){
+            throw new InvalidParameterException("The ore block " + name + " could not be found.");
         }
         return getStateFromMeta(index);
     }
@@ -112,4 +116,8 @@ public class BlockOre2 extends BaseBlock implements ITexturedBlock {
         return new BlockState(this, METADATA);
     }
 
+    @Override
+    public String getUserLoclisedName(IBlockState state) {
+        return types[state.getValue(METADATA)];
+    }
 }

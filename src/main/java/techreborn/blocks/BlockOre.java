@@ -1,10 +1,5 @@
 package techreborn.blocks;
 
-import java.security.InvalidParameterException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
@@ -30,8 +25,14 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.items.ItemDusts;
 import techreborn.items.ItemGems;
+import techreborn.world.config.IOreNameProvider;
 
-public class BlockOre extends BaseBlock implements ITexturedBlock {
+import java.security.InvalidParameterException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class BlockOre extends BaseBlock implements ITexturedBlock, IOreNameProvider {
 
     public static ItemStack getOreByName(String name, int count) {
         for (int i = 0; i < types.length; i++) {
@@ -39,7 +40,7 @@ public class BlockOre extends BaseBlock implements ITexturedBlock {
                 return new ItemStack(ModBlocks.ore, count, i);
             }
         }
-        throw new InvalidParameterException("The storage block " + name + " could not be found.");
+        throw new InvalidParameterException("The ore block " + name + " could not be found.");
     }
 
     public static ItemStack getOreByName(String name) {
@@ -49,10 +50,13 @@ public class BlockOre extends BaseBlock implements ITexturedBlock {
     public IBlockState getBlockStateFromName(String name){
         int index = -1;
         for (int i = 0; i < types.length; i++) {
-            if (types[i].equals(name)) {
+            if (types[i].equalsIgnoreCase(name)) {
                 index = i;
                 break;
             }
+        }
+        if(index == -1){
+            return ModBlocks.ore2.getBlockStateFromName(name);
         }
         return getStateFromMeta(index);
     }
@@ -188,4 +192,8 @@ public class BlockOre extends BaseBlock implements ITexturedBlock {
         return new BlockState(this, METADATA);
     }
 
+    @Override
+    public String getUserLoclisedName(IBlockState state) {
+        return types[state.getValue(METADATA)];
+    }
 }
