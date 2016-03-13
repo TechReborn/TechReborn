@@ -2,6 +2,7 @@ package techreborn;
 
 import java.io.File;
 
+import net.minecraftforge.fml.common.registry.EntityRegistry;
 import org.apache.commons.lang3.time.StopWatch;
 
 import net.minecraft.block.BlockDispenser;
@@ -32,6 +33,7 @@ import techreborn.compat.CompatManager;
 import techreborn.compat.ICompatModule;
 import techreborn.config.ConfigTechReborn;
 import techreborn.dispenser.BehaviorDispenseScrapbox;
+import techreborn.entitys.EntityNukePrimed;
 import techreborn.events.OreUnifier;
 import techreborn.events.TRTickHandler;
 import techreborn.init.*;
@@ -83,6 +85,9 @@ public class Core {
 		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
 			compatModule.preInit(event);
 		}
+		//Entitys
+		EntityRegistry.registerModEntity(EntityNukePrimed.class, "nuke", 0, INSTANCE, 160, 5, true);
+		proxy.preInit(event);
 
 		RecipeConfigManager.load(event.getModConfigurationDirectory());
 		versionChecker = new VersionChecker("TechReborn", new ModInfo());
@@ -114,7 +119,7 @@ public class Core {
 		logHelper.all(watch + " : main recipes");
 		watch.stop();
 		// Client only init, needs to be done before parts system
-		proxy.init();
+		proxy.init(event);
 		// WorldGen
 		worldGen.load();
 		GameRegistry.registerWorldGenerator(worldGen, 0);
@@ -128,11 +133,13 @@ public class Core {
 		MinecraftForge.EVENT_BUS.register(new MultiblockEventHandler());
 		// IDSU manager
 		IDSUManager.INSTANCE = new IDSUManager();
+		//Event busses
 		MinecraftForge.EVENT_BUS.register(IDSUManager.INSTANCE);
 		MinecraftForge.EVENT_BUS.register(new MultiblockServerTickHandler());
 		MinecraftForge.EVENT_BUS.register(new TRTickHandler());
 		MinecraftForge.EVENT_BUS.register(new OreUnifier());
 		MinecraftForge.EVENT_BUS.register(worldGen.retroGen);
+		//Scrapbox
 		if (config.scrapboxDispenser) {
 			BlockDispenser.dispenseBehaviorRegistry.putObject(ModItems.scrapBox, new BehaviorDispenseScrapbox());
 		}
@@ -145,6 +152,7 @@ public class Core {
 		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
 			compatModule.postInit(event);
 		}
+		proxy.postInit(event);
 		logHelper.info(RecipeHandler.recipeList.size() + " recipes loaded");
 
 		// RecipeHandler.scanForDupeRecipes();

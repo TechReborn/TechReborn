@@ -131,6 +131,7 @@ public class ModBlocks {
     public static Block machineframe;
     public static Block reinforcedglass;
     public static Block ironFurnace;
+    public static Block nuke;
 
     public static Block rubberLog;
     public static Block rubberLeaves;
@@ -368,6 +369,10 @@ public class ModBlocks {
         ironFurnace = new BlockIronFurnace();
         GameRegistry.registerBlock(ironFurnace, "ironfurnace");
         GameRegistry.registerTileEntity(TileIronFurnace.class, "TileIronFurnaceTR");
+
+        nuke = new BlockNuke();
+        GameRegistry.registerBlock(nuke, "nuke");
+
         registerOreDict();
         Core.logHelper.info("TechReborns Blocks Loaded");
     }
