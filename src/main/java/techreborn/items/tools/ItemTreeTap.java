@@ -19,11 +19,6 @@ public class ItemTreeTap extends Item implements ITexturedItem {
 	}
 	
 	@Override
-	public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
-		return super.onItemRightClick(itemStackIn, worldIn, playerIn);
-	}
-	
-	@Override
 	public boolean showDurabilityBar(ItemStack stack) {
 		if(stack.getMetadata()!=0){
 			return true;

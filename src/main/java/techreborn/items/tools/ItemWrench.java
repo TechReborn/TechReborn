@@ -94,7 +94,8 @@ public class ItemWrench extends ItemTR implements ITexturedItem {
                     world.spawnEntityInWorld(entityItem);
                 }
             }
-            world.playSoundAtEntity(player, "techreborn:block_dismantle", 0.8F, 1F);
+            //TODO 1.9 sounds
+            //world.playSoundAtEntity(player, "techreborn:block_dismantle", 0.8F, 1F);
             if(!world.isRemote){
                 world.setBlockState(pos, Blocks.air.getDefaultState(), 2);
             }

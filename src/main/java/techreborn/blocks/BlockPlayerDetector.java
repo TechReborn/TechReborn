@@ -13,8 +13,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.EnumFacing;
@@ -65,17 +65,17 @@ public class BlockPlayerDetector extends BaseTileBlock implements ITexturedBlock
     }
 
     @Override
-    public boolean canConnectRedstone(IBlockAccess world, BlockPos pos, EnumFacing side) {
+    public boolean canConnectRedstone(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
         return true;
     }
 
     @Override
-    public boolean canProvidePower() {
+    public boolean canProvidePower(IBlockState state) {
         return true;
     }
 
     @Override
-    public int getWeakPower(IBlockAccess blockAccess, BlockPos pos, IBlockState state, EnumFacing side) {
+    public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
         TileEntity entity = blockAccess.getTileEntity(pos);
         if (entity instanceof TilePlayerDectector) {
             return ((TilePlayerDectector) entity).isProvidingPower() ? 15 : 0;
@@ -84,14 +84,13 @@ public class BlockPlayerDetector extends BaseTileBlock implements ITexturedBlock
     }
 
     @Override
-    public int getStrongPower(IBlockAccess blockAccess, BlockPos pos, IBlockState state, EnumFacing side) {
+    public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
         TileEntity entity = blockAccess.getTileEntity(pos);
         if (entity instanceof TilePlayerDectector) {
             return ((TilePlayerDectector) entity).isProvidingPower() ? 15 : 0;
         }
         return 0;
     }
-
 
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
@@ -103,7 +102,7 @@ public class BlockPlayerDetector extends BaseTileBlock implements ITexturedBlock
     }
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer entityplayer, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer entityPlayer, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
         // int newMeta = (world.getBlockMetadata(x, y, z) + 1) % 3;
         int newMeta = getMetaFromState(state);
         String message = "";
@@ -118,7 +117,7 @@ public class BlockPlayerDetector extends BaseTileBlock implements ITexturedBlock
                 message = TextFormatting.BLUE + "Detects only you";
         }
         if(!world.isRemote){
-            entityplayer.addChatComponentMessage(new TextComponentString(message));
+            entityPlayer.addChatComponentMessage(new TextComponentString(message));
             //world.setBlockMetadataWithNotify(x, y, z, newMeta, 2);
         }
         return true;

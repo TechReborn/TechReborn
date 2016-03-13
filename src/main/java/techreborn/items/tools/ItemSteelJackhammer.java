@@ -5,7 +5,7 @@ import techreborn.config.ConfigTechReborn;
 public class ItemSteelJackhammer extends ItemJackhammer {
 
 	public ItemSteelJackhammer() {
-		super(ToolMaterial.EMERALD, "techreborn.steelJackhammer", ConfigTechReborn.SteelJackhammerCharge, ConfigTechReborn.SteelJackhammerTier);
+		super(ToolMaterial.DIAMOND, "techreborn.steelJackhammer", ConfigTechReborn.SteelJackhammerCharge, ConfigTechReborn.SteelJackhammerTier);
 		this.cost = 100;
 		this.efficiencyOnProperMaterial = 16F;
 	}

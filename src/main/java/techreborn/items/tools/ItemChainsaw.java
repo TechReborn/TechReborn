@@ -12,6 +12,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
@@ -80,8 +82,8 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, ITexturedI
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
-		return TorchHelper.placeTorch(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ);
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		return TorchHelper.placeTorch(stack, playerIn, worldIn, pos, facing, hitX, hitY, hitZ, hand);
 	}
 
 	@Override

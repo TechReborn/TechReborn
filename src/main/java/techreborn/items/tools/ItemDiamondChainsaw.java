@@ -1,6 +1,7 @@
 package techreborn.items.tools;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import techreborn.config.ConfigTechReborn;
@@ -8,13 +9,13 @@ import techreborn.config.ConfigTechReborn;
 public class ItemDiamondChainsaw extends ItemChainsaw {
 
     public ItemDiamondChainsaw() {
-    	super(ToolMaterial.EMERALD, "techreborn.diamondChainsaw", ConfigTechReborn.DiamondChainsawCharge, ConfigTechReborn.DiamondChainsawTier, 2.5F);
+    	super(ToolMaterial.DIAMOND, "techreborn.diamondChainsaw", ConfigTechReborn.DiamondChainsawCharge, ConfigTechReborn.DiamondChainsawTier, 2.5F);
     	this.cost = 250;
     }
 
     @Override
-    public boolean canHarvestBlock(Block block, ItemStack stack) {
-        return Items.diamond_axe.canHarvestBlock(block, stack);
+    public boolean canHarvestBlock(IBlockState blockIn) {
+        return Items.diamond_axe.canHarvestBlock(blockIn);
     }
 
     @Override

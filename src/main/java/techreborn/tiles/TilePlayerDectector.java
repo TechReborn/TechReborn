@@ -6,6 +6,7 @@ import net.minecraft.util.EnumFacing;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.util.WorldUtils;
 
 import java.util.Iterator;
 
@@ -79,7 +80,7 @@ public class TilePlayerDectector extends TilePowerAcceptor {
                 useEnergy(50);
             }
             if(lastRedstone != redstone){
-                worldObj.markBlockForUpdate(getPos());
+                WorldUtils.updateBlock(worldObj, getPos());
                 worldObj.notifyNeighborsOfStateChange(getPos(), worldObj.getBlockState(getPos()).getBlock());
             }
         }

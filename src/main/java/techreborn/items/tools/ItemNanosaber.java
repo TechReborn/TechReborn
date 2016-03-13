@@ -7,6 +7,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -27,7 +30,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo, ITextur
 	public double transferLimit = 100;
 
 	public ItemNanosaber() {
-		super(ToolMaterial.EMERALD);
+		super(ToolMaterial.DIAMOND);
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
 		setMaxDamage(240);
@@ -44,15 +47,15 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo, ITextur
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World worldIn, EntityPlayer player, EnumHand hand) {
 		if(player.isSneaking())
 		{
 			changeMode(stack);
 		}
-		return stack;
+		return new ActionResult<>(EnumActionResult.FAIL, stack);
 	}
-	
-	public void changeMode(ItemStack stack) 
+
+	public void changeMode(ItemStack stack)
 	{
 		if (!ItemNBTHelper.verifyExistance(stack, "isActive"))
 		{

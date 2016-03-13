@@ -5,6 +5,7 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
@@ -44,7 +45,7 @@ public class ChargeHud {
 
     public void drawChargeHud(ScaledResolution res) {
         EntityPlayer player = mc.thePlayer;
-        ItemStack armorstack = player.getCurrentArmor(2);
+        ItemStack armorstack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
         ItemStack stack = mc.thePlayer.inventory.getCurrentItem();
 
         int y = 5;

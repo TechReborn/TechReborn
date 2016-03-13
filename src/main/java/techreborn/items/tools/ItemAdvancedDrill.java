@@ -1,6 +1,7 @@
 package techreborn.items.tools;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import techreborn.config.ConfigTechReborn;
@@ -8,13 +9,13 @@ import techreborn.config.ConfigTechReborn;
 public class ItemAdvancedDrill extends ItemDrill {
 
     public ItemAdvancedDrill() {
-    	super(ToolMaterial.EMERALD, "techreborn.advancedDrill", ConfigTechReborn.AdvancedDrillCharge, ConfigTechReborn.AdvancedDrillTier, 4.0F);
+    	super(ToolMaterial.DIAMOND, "techreborn.advancedDrill", ConfigTechReborn.AdvancedDrillCharge, ConfigTechReborn.AdvancedDrillTier, 4.0F);
     	this.cost = 250;
     }
 
     @Override
-    public boolean canHarvestBlock(Block block, ItemStack stack) {
-        return Items.diamond_pickaxe.canHarvestBlock(block, stack) || Items.diamond_shovel.canHarvestBlock(block, stack);
+    public boolean canHarvestBlock(IBlockState blockIn) {
+        return Items.diamond_pickaxe.canHarvestBlock(blockIn) || Items.diamond_shovel.canHarvestBlock(blockIn);
     }
 
     @Override

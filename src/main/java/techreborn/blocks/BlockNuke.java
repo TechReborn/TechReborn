@@ -32,7 +32,8 @@ public class BlockNuke extends BlockTNT implements ITexturedBlock {
             if (state.getValue(EXPLODE).booleanValue()) {
                 EntityNukePrimed entitynukeprimed = new EntityNukePrimed(worldIn, (double) ((float) pos.getX() + 0.5F), (double) pos.getY(), (double) ((float) pos.getZ() + 0.5F), igniter);
                 worldIn.spawnEntityInWorld(entitynukeprimed);
-                worldIn.playSoundAtEntity(entitynukeprimed, "game.tnt.primed", 1.0F, 1.0F);
+                //TODO 1.9 sounds
+                //worldIn.playSoundAtEntity(entitynukeprimed, "game.tnt.primed", 1.0F, 1.0F);
             }
         }
     }
@@ -48,7 +49,7 @@ public class BlockNuke extends BlockTNT implements ITexturedBlock {
 
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-        return false
+        return false;
     }
 
     @Override

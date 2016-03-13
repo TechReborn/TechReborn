@@ -28,7 +28,7 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo, ITex
     public static final int tier = ConfigTechReborn.RockCutterTier;
 
     public ItemRockCutter() {
-        super(Item.ToolMaterial.EMERALD);
+        super(ToolMaterial.DIAMOND);
         setUnlocalizedName("techreborn.rockcutter");
         setCreativeTab(TechRebornCreativeTab.instance);
         setMaxStackSize(1);
