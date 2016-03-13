@@ -40,7 +40,7 @@ public class ItemEnergyCrystal extends ItemTextureBase implements IEnergyItemInf
     }
 
     @Override
-    public int getStackTeir(ItemStack stack) {
+    public int getStackTier(ItemStack stack) {
         return tier;
     }
 

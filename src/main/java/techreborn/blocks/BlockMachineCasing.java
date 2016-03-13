@@ -48,9 +48,9 @@ public class BlockMachineCasing extends BlockMultiblockBase implements ITextured
         return (Integer) state.getValue(METADATA);
     }
 
-    protected BlockStateContainer createBlockStateContainer() {
+    protected BlockStateContainer createBlockState() {
 
-        METADATA = PropertyInteger.create("Type", 0, types.length);
+        METADATA = PropertyInteger.create("type", 0, types.length);
         return new BlockStateContainer(this, METADATA);
     }
 

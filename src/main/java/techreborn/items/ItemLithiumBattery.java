@@ -66,7 +66,7 @@ public class ItemLithiumBattery extends ItemTextureBase implements IEnergyItemIn
     }
 
     @Override
-    public int getStackTeir(ItemStack stack) {
+    public int getStackTier(ItemStack stack) {
         return 1;
     }
 

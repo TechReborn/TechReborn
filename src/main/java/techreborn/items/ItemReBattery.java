@@ -66,7 +66,7 @@ public class ItemReBattery extends ItemTextureBase implements IEnergyItemInfo {
     }
 
     @Override
-    public int getStackTeir(ItemStack stack) {
+    public int getStackTier(ItemStack stack) {
         return 1;
     }
 

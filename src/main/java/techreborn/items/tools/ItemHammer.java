@@ -17,11 +17,11 @@ public class ItemHammer extends ItemTR implements ITexturedItem {
         setMaxDamage(MaxDamage);
     }
 
-    @Override
-    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
-        world.playSoundAtEntity(player, "techreborn:block_dismantle", 0.8F, 0.4F);
-        return true;
-    }
+//    @Override
+//    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+//        world.playSoundAtEntity(player, "techreborn:block_dismantle", 0.8F, 0.4F);
+//        return true;
+//    }
     
     @Override
     public Item setUnlocalizedName(String par1Str) {

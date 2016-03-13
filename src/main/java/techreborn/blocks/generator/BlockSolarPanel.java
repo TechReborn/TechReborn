@@ -26,7 +26,7 @@ public class BlockSolarPanel extends BaseTileBlock implements ITexturedBlock {
         this.setDefaultState(this.getDefaultState().withProperty(ACTIVE, false));
     }
 
-    protected BlockStateContainer createBlockStateContainer() {
+    protected BlockStateContainer createBlockState() {
         ACTIVE = PropertyBool.create("active");
         return new BlockStateContainer(this, ACTIVE);
     }

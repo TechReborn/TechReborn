@@ -84,9 +84,9 @@ public class BlockStorage2 extends BaseBlock  implements ITexturedBlock {
         return (Integer) state.getValue(METADATA);
     }
 
-    protected BlockStateContainer createBlockStateContainer() {
+    protected BlockStateContainer createBlockState() {
 
-        METADATA = PropertyInteger.create("Type", 0, types.length  -1);
+        METADATA = PropertyInteger.create("type", 0, types.length  -1);
         return new BlockStateContainer(this, METADATA);
     }
 

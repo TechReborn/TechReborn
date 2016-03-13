@@ -118,7 +118,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo, ITextur
 	}
 
 	@Override
-	public int getStackTeir(ItemStack stack) {
+	public int getStackTier(ItemStack stack) {
 		return tier;
 	}
 

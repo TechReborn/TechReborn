@@ -12,6 +12,8 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
@@ -34,17 +36,18 @@ public class ItemWrench extends ItemTR implements ITexturedItem {
         setMaxStackSize(1);        
     }
 
+
     @Override
-    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if(world.isAirBlock(pos) || !player.isSneaking()){
-            return false;
+            return EnumActionResult.FAIL;
         }
         TileEntity tile = world.getTileEntity(pos);
         if(tile == null){
-            return false;
+            return EnumActionResult.FAIL;
         }
         if(!(tile instanceof IInventory)){
-            return false;
+            return EnumActionResult.FAIL;
         }
 
         List<ItemStack> items = new ArrayList<ItemStack>();
@@ -69,7 +72,7 @@ public class ItemWrench extends ItemTR implements ITexturedItem {
             if(((IWrenchable) tile).wrenchCanRemove(player)){
                 ItemStack itemStack = ((IWrenchable) tile).getWrenchDrop(player);
                 if(itemStack == null){
-                    return false;
+                    return EnumActionResult.FAIL;
                 }
                 items.add(itemStack);
             }
@@ -99,9 +102,9 @@ public class ItemWrench extends ItemTR implements ITexturedItem {
             if(!world.isRemote){
                 world.setBlockState(pos, Blocks.air.getDefaultState(), 2);
             }
-            return true;
+            return EnumActionResult.SUCCESS;
         }
-        return false;
+        return EnumActionResult.FAIL;
     }
 
     @Override

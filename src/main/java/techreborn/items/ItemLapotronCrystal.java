@@ -40,7 +40,7 @@ public class ItemLapotronCrystal extends ItemTextureBase implements IEnergyItemI
     }
 
     @Override
-    public int getStackTeir(ItemStack stack) {
+    public int getStackTier(ItemStack stack) {
         return tier;
     }
 

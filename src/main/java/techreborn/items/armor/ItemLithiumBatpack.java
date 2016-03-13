@@ -3,6 +3,7 @@ package techreborn.items.armor;
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
@@ -23,7 +24,7 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo, IT
     public double transferLimit = 10000;
 
     public ItemLithiumBatpack() {
-        super(ItemArmor.ArmorMaterial.DIAMOND, 7, 1);
+        super(ItemArmor.ArmorMaterial.DIAMOND, 7, EntityEquipmentSlot.CHEST);
         setMaxStackSize(1);
         setUnlocalizedName("techreborn.lithiumbatpack");
         setCreativeTab(TechRebornCreativeTab.instance);
@@ -34,7 +35,7 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo, IT
 
     @Override
     @SideOnly(Side.CLIENT)
-    public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
+    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
         return "techreborn:" + "textures/models/lithiumbatpack.png";
     }
 
@@ -59,7 +60,7 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo, IT
     }
 
     @Override
-    public int getStackTeir(ItemStack stack) {
+    public int getStackTier(ItemStack stack) {
         return tier;
     }
 

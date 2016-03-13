@@ -4,6 +4,7 @@ package techreborn.items.armor;
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
@@ -24,17 +25,16 @@ public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo, ITex
     public double transferLimit = 100000;
 
     public ItemLapotronPack() {
-        super(ItemArmor.ArmorMaterial.DIAMOND, 7, 1);
+        super(ItemArmor.ArmorMaterial.DIAMOND, 7, EntityEquipmentSlot.CHEST);
         setCreativeTab(TechRebornCreativeTab.instance);
         setUnlocalizedName("techreborn.lapotronpack");
         setMaxStackSize(1);
         RebornCore.jsonDestroyer.registerObject(this);
     }
 
-
     @Override
     @SideOnly(Side.CLIENT)
-    public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
+    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
         return "techreborn:" + "textures/models/lapotronpack.png";
     }
 
@@ -59,7 +59,7 @@ public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo, ITex
     }
 
     @Override
-    public int getStackTeir(ItemStack stack) {
+    public int getStackTier(ItemStack stack) {
         return tier;
     }
 

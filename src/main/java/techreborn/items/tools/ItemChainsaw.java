@@ -50,31 +50,31 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, ITexturedI
 		this.unpoweredSpeed = unpoweredSpeed;
 	}
 
-	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World worldIn, Block blockIn, BlockPos pos, EntityLivingBase playerIn) {
-		Random rand = new Random();
-		if (rand.nextInt(EnchantmentHelper.getEnchantmentLevel(Enchantment.unbreaking.effectId, stack) + 1) == 0) {
-			PoweredItem.useEnergy(cost, stack);
-		}
-		return true;
-	}
+//	@Override
+//	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState blockIn, BlockPos pos, EntityLivingBase entityLiving) {
+//		Random rand = new Random();
+//		if (rand.nextInt(EnchantmentHelper.getEnchantmentLevel(Enchantment.unbreaking.effectId, stack) + 1) == 0) {
+//			PoweredItem.useEnergy(cost, stack);
+//		}
+//		return true;
+//	}
 
-	@Override
-	public float getDigSpeed(ItemStack stack, IBlockState state) {
-		if (!PoweredItem.canUseEnergy(cost, stack)) {
-			return unpoweredSpeed;
-		}
-
-		if (OreDictUtils.isOre(state, "treeLeaves") && PoweredItem.canUseEnergy(cost, stack)) {
-			return 40F;
-		}
-
-		if (Items.wooden_axe.getDigSpeed(stack, state) > 1.0F) {
-			return efficiencyOnProperMaterial;
-		} else {
-			return super.getDigSpeed(stack, state);
-		}
-	}
+//	@Override
+//	public float getDigSpeed(ItemStack stack, IBlockState state) {
+//		if (!PoweredItem.canUseEnergy(cost, stack)) {
+//			return unpoweredSpeed;
+//		}
+//
+//		if (OreDictUtils.isOre(state, "treeLeaves") && PoweredItem.canUseEnergy(cost, stack)) {
+//			return 40F;
+//		}
+//
+//		if (Items.wooden_axe.getDigSpeed(stack, state) > 1.0F) {
+//			return efficiencyOnProperMaterial;
+//		} else {
+//			return super.getDigSpeed(stack, state);
+//		}
+//	}
 
 	@Override
 	public boolean hitEntity(ItemStack itemstack, EntityLivingBase entityliving, EntityLivingBase entityliving1) {
@@ -112,7 +112,7 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, ITexturedI
 	}
 
 	@Override
-	public int getStackTeir(ItemStack stack) {
+	public int getStackTier(ItemStack stack) {
 		return tier;
 	}
 

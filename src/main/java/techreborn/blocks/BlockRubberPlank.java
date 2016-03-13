@@ -19,7 +19,6 @@ public class BlockRubberPlank extends Block implements ITexturedBlock {
         setUnlocalizedName("techreborn.rubberplank");
         setCreativeTab(TechRebornCreativeTabMisc.instance);
         this.setHardness(2.0F);
-        this.setStepSound(soundTypeWood);
     }
 
     @Override

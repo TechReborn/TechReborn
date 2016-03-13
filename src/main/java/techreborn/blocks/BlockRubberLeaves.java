@@ -10,9 +10,9 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -49,16 +49,15 @@ public class BlockRubberLeaves extends BlockLeaves implements ITexturedBlock, IO
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public EnumWorldBlockLayer getBlockLayer()
+	public BlockRenderLayer getBlockLayer()
 	{
-		return Blocks.leaves.getBlockLayer();
+		return this.leavesFancy ? BlockRenderLayer.CUTOUT_MIPPED : BlockRenderLayer.SOLID;
 	}
 
 	@Override
-	public boolean isOpaqueCube()
+	public boolean isOpaqueCube(IBlockState state)
 	{
-		return Blocks.leaves.isOpaqueCube();
+		return Blocks.leaves.isOpaqueCube(state);
 	}
 
 	public boolean isFullCube()
@@ -87,7 +86,7 @@ public class BlockRubberLeaves extends BlockLeaves implements ITexturedBlock, IO
 	}
 
 	@Override
-	protected BlockStateContainer createBlockStateContainer()
+	protected BlockStateContainer createBlockState()
 	{
 		return new BlockStateContainer(this, new IProperty[] { CHECK_DECAY, DECAYABLE});
 	}

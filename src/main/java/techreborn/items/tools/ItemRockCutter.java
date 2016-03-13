@@ -2,6 +2,7 @@ package techreborn.items.tools;
 
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.EntityPlayer;
@@ -50,40 +51,40 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo, ITex
     }
 
     @Override
-    public boolean canHarvestBlock(Block block, ItemStack stack) {
-        if (Items.diamond_pickaxe.canHarvestBlock(block, stack)) {
-            if (PoweredItem.canUseEnergy(cost, stack)) {
-                PoweredItem.useEnergy(cost, stack);
-                return true;
-            }
+    public boolean canHarvestBlock(IBlockState state) {
+        if (Items.diamond_pickaxe.canHarvestBlock(state)) {
+//            if (PoweredItem.canUseEnergy(cost, stack)) {
+//                PoweredItem.useEnergy(cost, stack);
+//                return true;
+//            }
         }
         return false;
     }
 
-    @Override
-    public int getHarvestLevel(ItemStack stack, String toolClass) {
-        if (!stack.isItemEnchanted()) {
-            stack.addEnchantment(Enchantment.silkTouch, 1);
-        }
-        return super.getHarvestLevel(stack, toolClass);
-    }
-
-    @Override
-    public float getStrVsBlock(ItemStack stack, Block block) {
-        if (!stack.isItemEnchanted()) {
-            stack.addEnchantment(Enchantment.silkTouch, 1);
-        }
-        return super.getStrVsBlock(stack, block);
-    }
+//    @Override
+//    public int getHarvestLevel(ItemStack stack, String toolClass) {
+//        if (!stack.isItemEnchanted()) {
+//            stack.addEnchantment(Enchantment.silkTouch, 1);
+//        }
+//        return super.getHarvestLevel(stack, toolClass);
+//    }
+//
+//    @Override
+//    public float getStrVsBlock(ItemStack stack, Block block) {
+//        if (!stack.isItemEnchanted()) {
+//            stack.addEnchantment(Enchantment.silkTouch, 1);
+//        }
+//        return super.getStrVsBlock(stack, block);
+//    }
 
     @Override
     public boolean isRepairable() {
         return false;
     }
 
-    public void onCreated(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-        par1ItemStack.addEnchantment(Enchantment.silkTouch, 1);
-    }
+//    public void onCreated(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+//        par1ItemStack.addEnchantment(Enchantment.silkTouch, 1);
+//    }
 
 
     @Override
@@ -107,7 +108,7 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo, ITex
     }
 
     @Override
-    public int getStackTeir(ItemStack stack) {
+    public int getStackTier(ItemStack stack) {
         return 2;
     }
 

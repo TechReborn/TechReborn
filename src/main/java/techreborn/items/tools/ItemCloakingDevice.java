@@ -3,6 +3,8 @@ package techreborn.items.tools;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -36,16 +38,10 @@ public class ItemCloakingDevice extends ItemTextureBase implements IEnergyItemIn
             PoweredItem.useEnergy(ConfigTechReborn.CloakingDeviceEUTick, itemStack);
             player.setInvisible(true);
         } else {
-            if (!player.isPotionActive(Potion.invisibility)) {
+            if (!player.isPotionActive(MobEffects.invisibility)) {
                 player.setInvisible(false);
             }
         }
-    }
-
-    @Override
-    public boolean isValidArmor(ItemStack stack, int armorType, Entity entity) {
-        return armorType == this.armorType;
-
     }
 
     @Override
@@ -69,15 +65,15 @@ public class ItemCloakingDevice extends ItemTextureBase implements IEnergyItemIn
     }
 
     @Override
-    public int getStackTeir(ItemStack stack) {
+    public int getStackTier(ItemStack stack) {
         return Teir;
     }
 
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
-        ItemStack itemstack1 = player.getCurrentArmor(3);
+        ItemStack itemstack1 = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 
         if (itemstack1 == null) {
-            player.setCurrentItemOrArmor(3, itemStack.copy());
+            player.setItemStackToSlot(EntityEquipmentSlot.CHEST, itemStack.copy());
             itemStack.stackSize = 0;
         }
 

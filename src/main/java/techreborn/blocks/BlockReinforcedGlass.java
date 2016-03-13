@@ -18,9 +18,9 @@ public class BlockReinforcedGlass extends BaseBlock implements ITexturedBlock {
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		setHardness(4.0F);
 	}
-	
+
 	@Override
-	public boolean isOpaqueCube() {
+	public boolean isOpaqueCube(IBlockState state) {
 		return true;
 	}
 

@@ -12,6 +12,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
@@ -47,26 +49,26 @@ public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo, ITextured
 		this.unpoweredSpeed = unpoweredSpeed;
 	}
 
-	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World worldIn, Block blockIn, BlockPos pos, EntityLivingBase playerIn) {
-		Random rand = new Random();
-		if (rand.nextInt(EnchantmentHelper.getEnchantmentLevel(Enchantment.unbreaking.effectId, stack)+1) == 0) {
-			PoweredItem.useEnergy(cost, stack);
-		}
-		return true;
-	}
-
-	@Override
-	public float getDigSpeed(ItemStack stack, IBlockState state) {
-		if (!PoweredItem.canUseEnergy(cost, stack)) {
-			return unpoweredSpeed;
-		}
-		if (Items.wooden_pickaxe.getDigSpeed(stack, state) > 1.0F || Items.wooden_shovel.getDigSpeed(stack, state) > 1.0F) {
-			return efficiencyOnProperMaterial;
-		} else {
-			return super.getDigSpeed(stack, state);
-		}
-	}
+//	@Override
+//	public boolean onBlockDestroyed(ItemStack stack, World worldIn, Block blockIn, BlockPos pos, EntityLivingBase playerIn) {
+//		Random rand = new Random();
+//		if (rand.nextInt(EnchantmentHelper.getEnchantmentLevel(Enchantment.unbreaking.effectId, stack)+1) == 0) {
+//			PoweredItem.useEnergy(cost, stack);
+//		}
+//		return true;
+//	}
+//
+//	@Override
+//	public float getDigSpeed(ItemStack stack, IBlockState state) {
+//		if (!PoweredItem.canUseEnergy(cost, stack)) {
+//			return unpoweredSpeed;
+//		}
+//		if (Items.wooden_pickaxe.getDigSpeed(stack, state) > 1.0F || Items.wooden_shovel.getDigSpeed(stack, state) > 1.0F) {
+//			return efficiencyOnProperMaterial;
+//		} else {
+//			return super.getDigSpeed(stack, state);
+//		}
+//	}
 
 	@Override
 	public boolean hitEntity(ItemStack itemstack, EntityLivingBase entityliving, EntityLivingBase entityliving1) {
@@ -74,8 +76,8 @@ public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo, ITextured
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
-		return TorchHelper.placeTorch(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ);
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		return TorchHelper.placeTorch(stack, playerIn, worldIn, pos, facing, hitX, hitY, hitZ, hand);
 	}
 
 	@Override
@@ -104,7 +106,7 @@ public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo, ITextured
 	}
 
 	@Override
-	public int getStackTeir(ItemStack stack) {
+	public int getStackTier(ItemStack stack) {
 		return tier;
 	}
 
