@@ -1,31 +1,25 @@
 package techreborn.blocks.storage;
 
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.blocks.IRotationTexture;
 import techreborn.client.TechRebornCreativeTab;
-import techreborn.tiles.storage.TileBatBox;
+import techreborn.tiles.storage.TileMFSU;
 
 /**
  * Created by modmuss50 on 14/03/2016.
  */
-public class BlockBatBox  extends BlockMachineBase implements IRotationTexture {
+public class BlockMFSU extends BlockBatBox {
 
-    public BlockBatBox() {
+    public BlockMFSU() {
         super();
-        setUnlocalizedName("techreborn.batBox");
+        setUnlocalizedName("techreborn.mfsu");
         setCreativeTab(TechRebornCreativeTab.instance);
     }
 
     @Override
     public TileEntity createNewTileEntity(World world, int p_149915_2_) {
-        return new TileBatBox();
+        return new TileMFSU();
     }
-
-    protected final String prefix = "techreborn:blocks/machine/storage/";
 
     @Override
     public String getFrontOff() {
@@ -51,5 +45,4 @@ public class BlockBatBox  extends BlockMachineBase implements IRotationTexture {
     public String getBottom() {
         return prefix + "batbox_side";
     }
-
 }

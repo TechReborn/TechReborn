@@ -78,6 +78,8 @@ import techreborn.tiles.idsu.TileIDSU;
 import techreborn.tiles.lesu.TileLesu;
 import techreborn.tiles.lesu.TileLesuStorage;
 import techreborn.tiles.storage.TileBatBox;
+import techreborn.tiles.storage.TileMFE;
+import techreborn.tiles.storage.TileMFSU;
 import techreborn.tiles.teir1.TileCompressor;
 import techreborn.tiles.teir1.TileElectricFurnace;
 import techreborn.tiles.teir1.TileExtractor;
@@ -137,6 +139,8 @@ public class ModBlocks {
     public static Block windMill;
     public static Block recycler;
     public static Block batBox;
+    public static Block mfe;
+    public static Block mfsu;
 
     public static BlockOre ore;
     public static BlockOre2 ore2;
@@ -383,6 +387,14 @@ public class ModBlocks {
         batBox = new BlockBatBox();
         GameRegistry.registerBlock(batBox, "batBox");
         GameRegistry.registerTileEntity(TileBatBox.class, "TileBatBox");
+
+        mfe = new BlockMFE();
+        GameRegistry.registerBlock(mfe, "mfe");
+        GameRegistry.registerTileEntity(TileMFE.class, "TileMFE");
+
+        mfsu = new BlockMFSU();
+        GameRegistry.registerBlock(mfsu, "mfsu");
+        GameRegistry.registerTileEntity(TileMFSU.class, "TileMFSU");
         
         ironFurnace = new BlockIronFurnace();
         GameRegistry.registerBlock(ironFurnace, "ironfurnace");
