@@ -4,6 +4,7 @@ import ic2.api.tile.IWrenchable;
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.block.BlockDynamicLiquid;
 import net.minecraft.block.BlockStaticLiquid;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -18,8 +19,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidBase;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.items.ItemTR;
+import techreborn.lib.ModInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -115,5 +119,11 @@ public class ItemWrench extends ItemTR implements ITexturedItem {
     @Override
     public int getMaxMeta() {
         return 1;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
+        return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
     }
 }

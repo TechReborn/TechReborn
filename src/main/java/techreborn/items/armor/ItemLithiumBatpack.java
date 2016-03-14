@@ -1,8 +1,10 @@
 package techreborn.items.armor;
 
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
@@ -14,6 +16,7 @@ import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PoweredItem;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
+import techreborn.lib.ModInfo;
 
 import java.util.List;
 
@@ -96,6 +99,12 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo, IT
     @Override
     public int getMaxMeta() {
         return 1;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
+        return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
     }
 
 }

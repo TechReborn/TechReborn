@@ -1,6 +1,7 @@
 package techreborn.items.tools;
 
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,6 +19,7 @@ import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.util.ItemNBTHelper;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.lib.ModInfo;
 
 import java.util.List;
 
@@ -156,5 +158,11 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo, ITextur
 	@Override
 	public int getMaxMeta() {
 		return 2;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
+		return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
 	}
 }

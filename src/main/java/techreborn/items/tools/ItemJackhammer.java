@@ -3,6 +3,7 @@ package techreborn.items.tools;
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -23,6 +24,7 @@ import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.util.TorchHelper;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.lib.ModInfo;
 import techreborn.utils.OreDictUtils;
 
 import java.util.List;
@@ -148,5 +150,11 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo, ITex
 	@Override
 	public int getMaxMeta() {
 		return 1;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
+		return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
 	}
 }

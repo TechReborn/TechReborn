@@ -12,7 +12,7 @@ import reborncore.RebornCore;
 import techreborn.api.ScrapboxList;
 import techreborn.client.TechRebornCreativeTabMisc;
 
-public class ItemScrapBox extends ItemTR implements ITexturedItem{
+public class ItemScrapBox extends ItemTextureBase implements ITexturedItem{
 	
 	public ItemScrapBox() {
 		setUnlocalizedName("techreborn.scrapbox");
