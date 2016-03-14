@@ -11,9 +11,9 @@ import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileAesu;
 
-public class Block_AESU extends BlockMachineBase implements IRotationTexture {
+public class BlockAESU extends BlockMachineBase implements IRotationTexture {
 
-    public Block_AESU(Material material) {
+    public BlockAESU(Material material) {
         super();
         setUnlocalizedName("techreborn.aesu");
         setCreativeTab(TechRebornCreativeTab.instance);

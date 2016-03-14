@@ -27,10 +27,10 @@ import techreborn.blocks.generator.BlockWindMill;
 import techreborn.blocks.iron_machines.BlockAlloyFurnace;
 import techreborn.blocks.iron_machines.BlockIronFurnace;
 import techreborn.blocks.machine.*;
-import techreborn.blocks.storage.Block_AESU;
-import techreborn.blocks.storage.Block_IDSU;
-import techreborn.blocks.storage.Block_LESU;
-import techreborn.blocks.storage.Block_LESUStorage;
+import techreborn.blocks.storage.BlockAESU;
+import techreborn.blocks.storage.BlockIDSU;
+import techreborn.blocks.storage.BlockLESU;
+import techreborn.blocks.storage.BlockLESUStorage;
 import techreborn.blocks.tier1.*;
 import techreborn.itemblocks.ItemBlockAesu;
 import techreborn.itemblocks.ItemBlockDigitalChest;
@@ -269,22 +269,22 @@ public class ModBlocks {
         GameRegistry.registerBlock(ChemicalReactor, "chemicalreactor");
         GameRegistry.registerTileEntity(TileChemicalReactor.class, "TileChemicalReactorTR");
 
-        Idsu = new Block_IDSU(Material.rock);
+        Idsu = new BlockIDSU(Material.rock);
         GameRegistry.registerBlock(Idsu, "idsu");
         GameRegistry.registerTileEntity(TileIDSU.class, "TileIDSUTR");
 
-        Aesu = new Block_AESU(Material.rock);
+        Aesu = new BlockAESU(Material.rock);
         GameRegistry.registerBlock(Aesu, ItemBlockAesu.class, "aesu");
         GameRegistry.registerTileEntity(TileAesu.class, "TileAesuTR");
 
-        Lesu = new Block_LESU(Material.rock);
+        Lesu = new BlockLESU(Material.rock);
         GameRegistry.registerBlock(Lesu, "lesu");
         GameRegistry.registerTileEntity(TileLesu.class, "TileLesuTR");
 
         Supercondensator = new BlockSupercondensator(Material.rock);
         GameRegistry.registerBlock(Supercondensator, "supercondensator");
 
-        LesuStorage = new Block_LESUStorage(Material.rock);
+        LesuStorage = new BlockLESUStorage(Material.rock);
         GameRegistry.registerBlock(LesuStorage, "lesustorage");
         GameRegistry.registerTileEntity(TileLesuStorage.class, "TileLesuStorageTR");
 
