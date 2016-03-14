@@ -13,9 +13,9 @@ import reborncore.common.blocks.IAdvancedRotationTexture;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.lesu.TileLesuStorage;
 
-public class BlockLESUStorage extends BlockMachineBase implements IAdvancedRotationTexture {
+public class Block_LESUStorage extends BlockMachineBase implements IAdvancedRotationTexture {
 
-    public BlockLESUStorage(Material material) {
+    public Block_LESUStorage(Material material) {
         super();
         setUnlocalizedName("techreborn.lesustorage");
         setCreativeTab(TechRebornCreativeTab.instance);
