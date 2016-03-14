@@ -27,10 +27,7 @@ import techreborn.blocks.generator.BlockWindMill;
 import techreborn.blocks.iron_machines.BlockAlloyFurnace;
 import techreborn.blocks.iron_machines.BlockIronFurnace;
 import techreborn.blocks.machine.*;
-import techreborn.blocks.storage.BlockAESU;
-import techreborn.blocks.storage.BlockIDSU;
-import techreborn.blocks.storage.BlockLESU;
-import techreborn.blocks.storage.BlockLESUStorage;
+import techreborn.blocks.storage.*;
 import techreborn.blocks.tier1.*;
 import techreborn.itemblocks.ItemBlockAesu;
 import techreborn.itemblocks.ItemBlockDigitalChest;
@@ -80,6 +77,7 @@ import techreborn.tiles.generator.TileWindMill;
 import techreborn.tiles.idsu.TileIDSU;
 import techreborn.tiles.lesu.TileLesu;
 import techreborn.tiles.lesu.TileLesuStorage;
+import techreborn.tiles.storage.TileBatBox;
 import techreborn.tiles.teir1.TileCompressor;
 import techreborn.tiles.teir1.TileElectricFurnace;
 import techreborn.tiles.teir1.TileExtractor;
@@ -138,6 +136,7 @@ public class ModBlocks {
     public static Block waterMill;
     public static Block windMill;
     public static Block recycler;
+    public static Block batBox;
 
     public static BlockOre ore;
     public static BlockOre2 ore2;
@@ -380,6 +379,10 @@ public class ModBlocks {
         recycler = new BlockRecycler(Material.iron);
         GameRegistry.registerBlock(recycler, "recycler");
         GameRegistry.registerTileEntity(TileRecycler.class, "TileRecyclerTR");
+
+        batBox = new BlockBatBox();
+        GameRegistry.registerBlock(batBox, "batBox");
+        GameRegistry.registerTileEntity(TileBatBox.class, "TileBatBox");
         
         ironFurnace = new BlockIronFurnace();
         GameRegistry.registerBlock(ironFurnace, "ironfurnace");
