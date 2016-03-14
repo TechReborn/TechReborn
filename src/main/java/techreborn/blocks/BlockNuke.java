@@ -51,7 +51,7 @@ public class BlockNuke extends BlockTNT implements ITexturedBlock {
 
     @Override
     public String getTextureNameFromState(IBlockState iBlockState, EnumFacing enumFacing) {
-        return "techreborn:blocks/machine/machine_bottom";
+        return "techreborn:blocks/machine/greg_machine/nuke";
     }
 
     @Override

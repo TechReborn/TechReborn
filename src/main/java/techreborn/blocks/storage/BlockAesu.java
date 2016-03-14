@@ -11,11 +11,11 @@ import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileAesu;
 
-public class BlockAesu extends BlockMachineBase implements IRotationTexture {
+public class BlockAESU extends BlockMachineBase implements IRotationTexture {
 
 
 
-    public BlockAesu(Material material) {
+    public BlockAESU(Material material) {
         super();
         setUnlocalizedName("techreborn.aesu");
         setCreativeTab(TechRebornCreativeTab.instance);
@@ -35,7 +35,7 @@ public class BlockAesu extends BlockMachineBase implements IRotationTexture {
         return true;
     }
 
-    private final String prefix = "techreborn:blocks/machine/";
+    private final String prefix = "techreborn:blocks/machine/storage/";
 
     @Override
     public String getFrontOff() {

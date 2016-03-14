@@ -11,10 +11,10 @@ import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.lesu.TileLesu;
 
-public class BlockLesu extends BlockMachineBase implements IAdvancedRotationTexture {
+public class BlockLESU extends BlockMachineBase implements IAdvancedRotationTexture {
 
 
-    public BlockLesu(Material material) {
+    public BlockLESU(Material material) {
         super();
         setUnlocalizedName("techreborn.lesu");
         setCreativeTab(TechRebornCreativeTab.instance);
@@ -35,7 +35,7 @@ public class BlockLesu extends BlockMachineBase implements IAdvancedRotationText
         return true;
     }
 
-    private final String prefix = "techreborn:blocks/machine/";
+    private final String prefix = "techreborn:blocks/machine/storage/";
 
 
     @Override

@@ -32,7 +32,7 @@ public class BlockAssemblingMachine extends BlockMachineBase implements IRotatio
         return true;
     }
 
-    private final String prefix = "techreborn:blocks/machine/";
+    private final String prefix = "techreborn:blocks/machine/greg_machines/";
 
     @Override
     public String getFrontOff() {

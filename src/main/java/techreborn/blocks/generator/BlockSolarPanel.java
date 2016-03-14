@@ -46,7 +46,7 @@ public class BlockSolarPanel extends BaseTileBlock implements ITexturedBlock {
         return new TileSolarPanel();
     }
 
-    private final String prefix = "techreborn:blocks/machine/";
+    private final String prefix = "techreborn:blocks/machine/generators/";
 
     @Override
     public String getTextureNameFromState(IBlockState state, EnumFacing side) {
@@ -54,7 +54,7 @@ public class BlockSolarPanel extends BaseTileBlock implements ITexturedBlock {
         if(side == EnumFacing.UP){
             return prefix + "solar_panel_top_" + (isActive ? "on" : "off");
         } else if(side==EnumFacing.DOWN){
-        	return prefix + "machine_bottom";
+        	return prefix + "generator_machine_bottom";
         }
         return prefix + "solar_panel_side_" + (isActive ? "on" : "off");
     }
