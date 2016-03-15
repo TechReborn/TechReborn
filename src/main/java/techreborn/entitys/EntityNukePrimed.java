@@ -2,8 +2,8 @@ package techreborn.entitys;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityTNTPrimed;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.common.explosion.RebornExplosion;
 

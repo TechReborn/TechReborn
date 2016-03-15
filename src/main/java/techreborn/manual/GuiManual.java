@@ -14,14 +14,7 @@ import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
 import techreborn.items.ItemParts;
 import techreborn.items.ItemPlates;
-import techreborn.manual.pages.AdvancedMachines;
-import techreborn.manual.pages.BasicMachinesPage;
-import techreborn.manual.pages.ContentsPage;
-import techreborn.manual.pages.CraftingInfoPage;
-import techreborn.manual.pages.DescriptionPage;
-import techreborn.manual.pages.GeneratingPowerPage;
-import techreborn.manual.pages.GettingStartedPage;
-import techreborn.manual.pages.ToolsPage;
+import techreborn.manual.pages.*;
 
 import java.io.IOException;
 

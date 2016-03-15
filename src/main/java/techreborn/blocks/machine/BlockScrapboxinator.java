@@ -10,7 +10,6 @@ import techreborn.Core;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileScrapboxinator;
-import techreborn.tiles.teir1.TileRecycler;
 
 public class BlockScrapboxinator extends BlockMachineBase implements IRotationTexture{
 

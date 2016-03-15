@@ -6,7 +6,6 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
-import net.minecraft.util.text.translation.I18n;
 import reborncore.common.packets.PacketHandler;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.client.container.ContainerAesu;

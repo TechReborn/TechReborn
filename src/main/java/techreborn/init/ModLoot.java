@@ -1,11 +1,6 @@
 package techreborn.init;
 
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandomChestContent;
-import techreborn.config.ConfigTechReborn;
-import techreborn.items.ItemIngots;
-
-import java.util.Arrays;
 
 //TODO 1.9 nope
 public class ModLoot {

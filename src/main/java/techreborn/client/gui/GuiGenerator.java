@@ -1,7 +1,6 @@
 package techreborn.client.gui;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;

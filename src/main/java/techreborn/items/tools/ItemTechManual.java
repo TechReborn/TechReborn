@@ -10,7 +10,6 @@ import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
-import techreborn.items.ItemTR;
 import techreborn.items.ItemTextureBase;
 
 public class ItemTechManual extends ItemTextureBase implements ITexturedItem {
