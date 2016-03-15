@@ -14,16 +14,16 @@ public class BlockLightningRod extends BlockMachineBase implements IAdvancedRota
         setCreativeTab(TechRebornCreativeTab.instance);
     }
 
-    private final String prefix = "techreborn:blocks/machine/";
+    private final String prefix = "techreborn:blocks/machine/generators/";
 
     @Override
     public String getFront(boolean isActive) {
-        return prefix + "idsu_front";
+        return prefix + "lightning_rod_side";
     }
 
     @Override
     public String getSide(boolean isActive) {
-        return prefix + "idsu_front" ;
+        return prefix + "lightning_rod_side" ;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class BlockLightningRod extends BlockMachineBase implements IAdvancedRota
 
     @Override
     public String getBottom(boolean isActive) {
-        return prefix + "extreme_voltage_machine_side";
+        return prefix + "lightning_rod_bottom";
     }
 
 }

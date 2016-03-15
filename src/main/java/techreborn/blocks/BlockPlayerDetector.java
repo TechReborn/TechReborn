@@ -124,8 +124,8 @@ public class BlockPlayerDetector extends BaseTileBlock implements ITexturedBlock
     }
 
     @Override
-    public String getTextureNameFromState(IBlockState BlockStateContainer, EnumFacing facing) {
-        return "techreborn:blocks/machine/player_detector_" + types[getMetaFromState(BlockStateContainer)];
+    public String getTextureNameFromState(IBlockState blockState, EnumFacing facing) {
+        return "techreborn:blocks/machine/greg_machines/player_detector_" + types[getMetaFromState(blockState)];
     }
 
     @Override

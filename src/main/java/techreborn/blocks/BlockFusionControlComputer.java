@@ -48,7 +48,7 @@ public class BlockFusionControlComputer extends BlockMachineBase implements IAdv
         return new TileEntityFusionController();
     }
 
-    private final String prefix = "techreborn:blocks/machine/";
+    private final String prefix = "techreborn:blocks/machine/greg_machines/";
 
     @Override
     public String getFront(boolean isActive) {
@@ -57,16 +57,16 @@ public class BlockFusionControlComputer extends BlockMachineBase implements IAdv
 
     @Override
     public String getSide(boolean isActive) {
-        return prefix + "plasma_generator_side_off" ;
+        return prefix + "fusion_control_computer_side" ;
     }
 
     @Override
     public String getTop(boolean isActive) {
-        return prefix + "plasma_generator_side_off";
+        return prefix + "fusion_control_computer_top";
     }
 
     @Override
     public String getBottom(boolean isActive) {
-        return prefix + "plasma_generator_side_off";
+        return prefix + "fusion_control_computer_bottom";
     }
 }

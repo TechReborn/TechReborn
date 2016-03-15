@@ -31,7 +31,7 @@ public class BlockMatterFabricator extends BlockMachineBase implements IAdvanced
         return true;
     }
 
-    private final String prefix = "techreborn:blocks/machine/";
+    private final String prefix = "techreborn:blocks/machine/greg_machines/";
 
     @Override
     public boolean isAdvanced() {

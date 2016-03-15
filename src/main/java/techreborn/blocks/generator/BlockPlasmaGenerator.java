@@ -15,7 +15,7 @@ public class BlockPlasmaGenerator extends BlockMachineBase implements IAdvancedR
         setCreativeTab(TechRebornCreativeTab.instance);
     }
 
-    private final String prefix = "techreborn:blocks/machine/";
+    private final String prefix = "techreborn:blocks/machine/generators/";
 
     @Override
     public String getFront(boolean isActive) {
@@ -29,12 +29,12 @@ public class BlockPlasmaGenerator extends BlockMachineBase implements IAdvancedR
 
     @Override
     public String getTop(boolean isActive) {
-        return prefix + "plasma_generator_side_off";
+        return prefix + "plasma_generator_bottom";
     }
 
     @Override
     public String getBottom(boolean isActive) {
-        return prefix + "plasma_generator_side_off";
+        return prefix + "plasma_generator_bottom";
     }
 
 }

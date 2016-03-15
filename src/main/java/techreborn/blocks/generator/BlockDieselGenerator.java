@@ -39,16 +39,16 @@ public class BlockDieselGenerator extends BlockMachineBase implements IAdvancedR
         return true;
     }
 
-    private final String prefix = "techreborn:blocks/machine/";
+    private final String prefix = "techreborn:blocks/machine/generators/";
 
     @Override
     public String getFront(boolean isActive) {
-        return prefix + "machine_side";
+        return prefix + "generator_machine_side";
     }
 
     @Override
     public String getSide(boolean isActive) {
-        return prefix + "machine_side" ;
+        return prefix + "generator_machine_side" ;
     }
 
     @Override
@@ -58,7 +58,7 @@ public class BlockDieselGenerator extends BlockMachineBase implements IAdvancedR
 
     @Override
     public String getBottom(boolean isActive) {
-        return prefix + "machine_bottom";
+        return prefix + "generator_machine_bottom";
     }
 
 

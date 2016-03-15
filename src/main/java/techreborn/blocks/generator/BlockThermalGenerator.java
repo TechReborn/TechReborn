@@ -38,7 +38,7 @@ public class BlockThermalGenerator extends BlockMachineBase implements IAdvanced
         return true;
     }
 
-    private final String prefix = "techreborn:blocks/machine/";
+    private final String prefix = "techreborn:blocks/machine/generators/";
 
 
     @Override
@@ -58,6 +58,6 @@ public class BlockThermalGenerator extends BlockMachineBase implements IAdvanced
 
     @Override
     public String getBottom(boolean isActive) {
-        return prefix + "machine_bottom";
+        return prefix + "generator_machine_bottom";
     }
 }

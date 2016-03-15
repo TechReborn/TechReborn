@@ -48,7 +48,7 @@ public class BlockIDSU extends BlockMachineBase implements IAdvancedRotationText
     }
 
 
-    private final String prefix = "techreborn:blocks/machine/";
+    private final String prefix = "techreborn:blocks/machine/storage/";
 
 
     @Override
@@ -63,12 +63,12 @@ public class BlockIDSU extends BlockMachineBase implements IAdvancedRotationText
 
     @Override
     public String getTop(boolean isActive) {
-        return prefix + "idsu_side";
+        return prefix + "idsu_top";
     }
 
     @Override
     public String getBottom(boolean isActive) {
-        return prefix + "idsu_side";
+        return prefix + "idsu_bottom";
     }
 
 }

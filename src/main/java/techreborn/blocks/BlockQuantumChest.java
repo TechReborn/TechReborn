@@ -37,7 +37,8 @@ public class BlockQuantumChest extends BlockMachineBase implements IAdvancedRota
         return true;
     }
 
-    private final String prefix = "techreborn:blocks/machine/";
+
+    private final String prefix = "techreborn:blocks/machine/greg_machines/";
 
     @Override
     public String getFront(boolean isActive) {

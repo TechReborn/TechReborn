@@ -100,8 +100,8 @@ public class BlockMachineCasing extends BlockMultiblockBase implements ITextured
     }
 
     @Override
-    public String getTextureNameFromState(IBlockState BlockStateContainer, EnumFacing facing) {
-        return "techreborn:blocks/machine/casing" + types[getMetaFromState(BlockStateContainer)] + "_full";
+    public String getTextureNameFromState(IBlockState blockState, EnumFacing facing) {
+        return "techreborn:blocks/machine/machine_blocks/casing" + types[getMetaFromState(blockState)] + "_full";
     }
 
     @Override

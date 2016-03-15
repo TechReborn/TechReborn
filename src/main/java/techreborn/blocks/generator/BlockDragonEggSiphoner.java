@@ -24,7 +24,7 @@ public class BlockDragonEggSiphoner extends BlockMachineBase implements IAdvance
         return new TileDragonEggSiphoner();
     }
 
-    private final String prefix = "techreborn:blocks/machine/";
+    private final String prefix = "techreborn:blocks/machine/generators/";
 
     @Override
     public String getFront(boolean isActive) {
@@ -43,7 +43,7 @@ public class BlockDragonEggSiphoner extends BlockMachineBase implements IAdvance
 
     @Override
     public String getBottom(boolean isActive) {
-        return prefix + "machine_bottom";
+        return prefix + "generator_machine_bottom";
     }
 
 }

@@ -8,122 +8,25 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.common.tile.TileMachineBase;
 import techreborn.Core;
-import techreborn.blocks.BlockChunkLoader;
-import techreborn.blocks.BlockComputerCube;
-import techreborn.blocks.BlockDigitalChest;
-import techreborn.blocks.BlockElectricCraftingTable;
-import techreborn.blocks.BlockFusionCoil;
-import techreborn.blocks.BlockFusionControlComputer;
-import techreborn.blocks.BlockHighlyAdvancedMachine;
-import techreborn.blocks.BlockIronFence;
-import techreborn.blocks.BlockIronFurnace;
-import techreborn.blocks.BlockMachineCasing;
-import techreborn.blocks.BlockMachineFrame;
-import techreborn.blocks.BlockNuke;
-import techreborn.blocks.BlockOre;
-import techreborn.blocks.BlockOre2;
-import techreborn.blocks.BlockPlayerDetector;
-import techreborn.blocks.BlockQuantumChest;
-import techreborn.blocks.BlockQuantumTank;
-import techreborn.blocks.BlockReinforcedGlass;
-import techreborn.blocks.BlockRubberLeaves;
-import techreborn.blocks.BlockRubberLog;
-import techreborn.blocks.BlockRubberPlank;
-import techreborn.blocks.BlockRubberSapling;
-import techreborn.blocks.BlockStorage;
-import techreborn.blocks.BlockStorage2;
-import techreborn.blocks.BlockSupercondensator;
-import techreborn.blocks.generator.BlockDieselGenerator;
-import techreborn.blocks.generator.BlockDragonEggSiphoner;
-import techreborn.blocks.generator.BlockGasTurbine;
-import techreborn.blocks.generator.BlockGenerator;
-import techreborn.blocks.generator.BlockHeatGenerator;
-import techreborn.blocks.generator.BlockLightningRod;
-import techreborn.blocks.generator.BlockMagicEnergyAbsorber;
-import techreborn.blocks.generator.BlockMagicEnergyConverter;
-import techreborn.blocks.generator.BlockPlasmaGenerator;
-import techreborn.blocks.generator.BlockSemiFluidGenerator;
-import techreborn.blocks.generator.BlockSolarPanel;
-import techreborn.blocks.generator.BlockThermalGenerator;
-import techreborn.blocks.generator.BlockWaterMill;
-import techreborn.blocks.generator.BlockWindMill;
-import techreborn.blocks.machine.BlockAlloyFurnace;
-import techreborn.blocks.machine.BlockAlloySmelter;
-import techreborn.blocks.machine.BlockAssemblingMachine;
-import techreborn.blocks.machine.BlockBlastFurnace;
-import techreborn.blocks.machine.BlockCentrifuge;
-import techreborn.blocks.machine.BlockChargeBench;
-import techreborn.blocks.machine.BlockChemicalReactor;
-import techreborn.blocks.machine.BlockDistillationTower;
-import techreborn.blocks.machine.BlockImplosionCompressor;
-import techreborn.blocks.machine.BlockIndustrialElectrolyzer;
-import techreborn.blocks.machine.BlockIndustrialGrinder;
-import techreborn.blocks.machine.BlockIndustrialSawmill;
-import techreborn.blocks.machine.BlockMatterFabricator;
-import techreborn.blocks.machine.BlockRollingMachine;
-import techreborn.blocks.machine.BlockVacuumFreezer;
-import techreborn.blocks.storage.BlockAesu;
-import techreborn.blocks.storage.BlockIDSU;
-import techreborn.blocks.storage.BlockLesu;
-import techreborn.blocks.storage.BlockLesuStorage;
-import techreborn.blocks.teir1.BlockCompressor;
-import techreborn.blocks.teir1.BlockElectricFurnace;
-import techreborn.blocks.teir1.BlockExtractor;
-import techreborn.blocks.teir1.BlockGrinder;
-import techreborn.blocks.teir1.BlockRecycler;
-import techreborn.itemblocks.ItemBlockAesu;
-import techreborn.itemblocks.ItemBlockDigitalChest;
-import techreborn.itemblocks.ItemBlockMachineCasing;
-import techreborn.itemblocks.ItemBlockMachineFrame;
-import techreborn.itemblocks.ItemBlockOre;
-import techreborn.itemblocks.ItemBlockOre2;
-import techreborn.itemblocks.ItemBlockPlayerDetector;
-import techreborn.itemblocks.ItemBlockQuantumChest;
-import techreborn.itemblocks.ItemBlockQuantumTank;
-import techreborn.itemblocks.ItemBlockRubberSapling;
-import techreborn.itemblocks.ItemBlockStorage;
-import techreborn.itemblocks.ItemBlockStorage2;
-import techreborn.tiles.TileAesu;
-import techreborn.tiles.TileAlloyFurnace;
-import techreborn.tiles.TileAlloySmelter;
-import techreborn.tiles.TileAssemblingMachine;
-import techreborn.tiles.TileBlastFurnace;
-import techreborn.tiles.TileCentrifuge;
-import techreborn.tiles.TileChargeBench;
-import techreborn.tiles.TileChemicalReactor;
-import techreborn.tiles.TileChunkLoader;
-import techreborn.tiles.TileDigitalChest;
-import techreborn.tiles.TileImplosionCompressor;
-import techreborn.tiles.TileIndustrialElectrolyzer;
-import techreborn.tiles.TileIndustrialGrinder;
-import techreborn.tiles.TileIndustrialSawmill;
-import techreborn.tiles.TileIronFurnace;
-import techreborn.tiles.TileMachineCasing;
-import techreborn.tiles.TileMatterFabricator;
-import techreborn.tiles.TilePlayerDectector;
-import techreborn.tiles.TileQuantumChest;
-import techreborn.tiles.TileQuantumTank;
-import techreborn.tiles.TileRollingMachine;
-import techreborn.tiles.TileVacuumFreezer;
+import techreborn.blocks.*;
+import techreborn.blocks.advanced_machine.*;
+import techreborn.blocks.generator.*;
+import techreborn.blocks.iron_machines.BlockAlloyFurnace;
+import techreborn.blocks.iron_machines.BlockIronFurnace;
+import techreborn.blocks.machine.*;
+import techreborn.blocks.storage.*;
+import techreborn.blocks.tier1.*;
+import techreborn.itemblocks.*;
+import techreborn.tiles.*;
 import techreborn.tiles.fusionReactor.TileEntityFusionController;
-import techreborn.tiles.generator.TileDieselGenerator;
-import techreborn.tiles.generator.TileDragonEggSiphoner;
-import techreborn.tiles.generator.TileGasTurbine;
-import techreborn.tiles.generator.TileGenerator;
-import techreborn.tiles.generator.TileHeatGenerator;
-import techreborn.tiles.generator.TileSemifluidGenerator;
-import techreborn.tiles.generator.TileSolarPanel;
-import techreborn.tiles.generator.TileThermalGenerator;
-import techreborn.tiles.generator.TileWaterMill;
-import techreborn.tiles.generator.TileWindMill;
+import techreborn.tiles.generator.*;
 import techreborn.tiles.idsu.TileIDSU;
 import techreborn.tiles.lesu.TileLesu;
 import techreborn.tiles.lesu.TileLesuStorage;
-import techreborn.tiles.teir1.TileCompressor;
-import techreborn.tiles.teir1.TileElectricFurnace;
-import techreborn.tiles.teir1.TileExtractor;
-import techreborn.tiles.teir1.TileGrinder;
-import techreborn.tiles.teir1.TileRecycler;
+import techreborn.tiles.storage.TileBatBox;
+import techreborn.tiles.storage.TileMFE;
+import techreborn.tiles.storage.TileMFSU;
+import techreborn.tiles.teir1.*;
 
 public class ModBlocks {
 
@@ -177,6 +80,10 @@ public class ModBlocks {
     public static Block waterMill;
     public static Block windMill;
     public static Block recycler;
+    public static Block batBox;
+    public static Block mfe;
+    public static Block mfsu;
+    public static Block scrapboxinator;
 
     public static BlockOre ore;
     public static BlockOre2 ore2;
@@ -312,18 +219,18 @@ public class ModBlocks {
         GameRegistry.registerBlock(Idsu, "idsu");
         GameRegistry.registerTileEntity(TileIDSU.class, "TileIDSUTR");
 
-        Aesu = new BlockAesu(Material.rock);
+        Aesu = new BlockAESU(Material.rock);
         GameRegistry.registerBlock(Aesu, ItemBlockAesu.class, "aesu");
         GameRegistry.registerTileEntity(TileAesu.class, "TileAesuTR");
 
-        Lesu = new BlockLesu(Material.rock);
+        Lesu = new BlockLESU(Material.rock);
         GameRegistry.registerBlock(Lesu, "lesu");
         GameRegistry.registerTileEntity(TileLesu.class, "TileLesuTR");
 
         Supercondensator = new BlockSupercondensator(Material.rock);
         GameRegistry.registerBlock(Supercondensator, "supercondensator");
 
-        LesuStorage = new BlockLesuStorage(Material.rock);
+        LesuStorage = new BlockLESUStorage(Material.rock);
         GameRegistry.registerBlock(LesuStorage, "lesustorage");
         GameRegistry.registerTileEntity(TileLesuStorage.class, "TileLesuStorageTR");
 
@@ -419,6 +326,18 @@ public class ModBlocks {
         recycler = new BlockRecycler(Material.iron);
         GameRegistry.registerBlock(recycler, "recycler");
         GameRegistry.registerTileEntity(TileRecycler.class, "TileRecyclerTR");
+
+        batBox = new BlockBatBox();
+        GameRegistry.registerBlock(batBox, "batBox");
+        GameRegistry.registerTileEntity(TileBatBox.class, "TileBatBox");
+
+        mfe = new BlockMFE();
+        GameRegistry.registerBlock(mfe, "mfe");
+        GameRegistry.registerTileEntity(TileMFE.class, "TileMFE");
+
+        mfsu = new BlockMFSU();
+        GameRegistry.registerBlock(mfsu, "mfsu");
+        GameRegistry.registerTileEntity(TileMFSU.class, "TileMFSU");
         
         ironFurnace = new BlockIronFurnace();
         GameRegistry.registerBlock(ironFurnace, "ironfurnace");
@@ -426,6 +345,10 @@ public class ModBlocks {
 
         nuke = new BlockNuke();
         GameRegistry.registerBlock(nuke, "nuke");
+        
+        scrapboxinator = new BlockScrapboxinator(Material.iron);
+        GameRegistry.registerBlock(scrapboxinator, "scrapboxinator");
+        GameRegistry.registerTileEntity(TileScrapboxinator.class, "TileScrapboxinatorTR");
 
         registerOreDict();
         Core.logHelper.info("TechReborns Blocks Loaded");

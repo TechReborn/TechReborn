@@ -62,8 +62,8 @@ public class BlockOre2 extends BaseBlock implements ITexturedBlock, IOreNameProv
         setUnlocalizedName("techreborn.ore2");
         setCreativeTab(TechRebornCreativeTabMisc.instance);
         setHardness(2.0f);
-        setHarvestLevel("pickaxe", 2);
-        this.setDefaultState(this.getDefaultState().withProperty(METADATA, 0));
+        setHarvestLevel("pickaxe", 1);
+        this.setDefaultState(this.blockState.getBaseState().withProperty(METADATA, 0));
     }
 
     @Override
