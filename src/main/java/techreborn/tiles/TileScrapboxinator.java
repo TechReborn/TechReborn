@@ -4,7 +4,6 @@ import java.util.Random;
 
 import ic2.api.tile.IWrenchable;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -19,7 +18,6 @@ import reborncore.common.util.Inventory;
 import techreborn.api.ScrapboxList;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
-import techreborn.items.ItemParts;
 
 public class TileScrapboxinator extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory {
 
