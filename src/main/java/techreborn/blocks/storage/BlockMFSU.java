@@ -23,7 +23,7 @@ public class BlockMFSU extends BlockBatBox {
 
     @Override
     public String getFrontOff() {
-        return prefix + "mfsubatbox_front";
+        return prefix + "mfsu_front";
     }
 
     @Override

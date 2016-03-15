@@ -52,12 +52,12 @@ public class BlockAESU extends BlockMachineBase implements IRotationTexture {
 
     @Override
     public String getTop() {
-        return prefix + "aesu_side";
+        return prefix + "aesu_top";
     }
 
     @Override
     public String getBottom() {
-        return prefix + "aesu_side";
+        return prefix + "aesu_bottom";
     }
 
 }

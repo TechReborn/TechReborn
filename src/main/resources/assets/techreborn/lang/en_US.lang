@@ -1,3 +1,9 @@
+
+item.missingRecipe.name=Missing Recipe Placeholder
+
+
+
+
 itemGroup.techreborn=Tech Reborn
 
 #machines
@@ -69,6 +75,12 @@ tile.techreborn.watermill.name=Water Mill
 tile.techreborn.windmill.name=Wind Mill
 tile.techreborn.ironfurnace.name=Iron Furnace
 tile.techreborn.recycler.name=Recycler
+tile.techreborn.scrapboxinator.name=Scrapbox-inator
+tile.techreborn.batBox.name=Battery Box
+tile.techreborn.mfe.name=MFE
+tile.techreborn.mfsu.name=MFSU
+tile.techreborn.reinforcedglass.name=Reinforced Glass
+tile.techreborn.nuke.name=Nuke
 
 #Blocks
 tile.techreborn.rubberlog.name=Rubber Wood
@@ -270,6 +282,7 @@ item.techreborn.dust.zinc.name=Zinc Dust
 item.techreborn.dust.galena.name=Galena Dust
 item.techreborn.dust.greenSapphire.name=Green Sapphire Dust
 item.techreborn.dust.sawDust.name=Saw Dust
+item.techreborn.dust.olivine.name=Olivine Dust
 item.techreborn.lapotroncrystal.name=Lapotron Crystal
 item.techreborn.energycrystal.name=Energy Crystal
 item.techreborn.ingot.refinediron.name=Refined Iron Ingot
@@ -375,6 +388,7 @@ item.techreborn.dustsmall.Voidstone.name=Small Pile of Voidstone Dust
 item.techreborn.dustsmall.YellowGarnet.name=Small Pile of Yellow Garnet Dust
 item.techreborn.dustsmall.Zinc.name=Small Pile of Zinc Dust
 item.techreborn.dustsmall.Galena.name=Small Pile of Galena Dust
+item.techreborn.dustsmall.Olivine.name=Small Pile of Olivine Dust
 
 #Cells
 item.techreborn.cell.Berylium.name=Berylium Cell
@@ -415,7 +429,9 @@ item.techreborn.cell.empty.name=Empty Cell
 item.techreborn.cell.water.name=Water Cell
 item.techreborn.cell.lava.name=Lava Cell
 item.techreborn.rebattery.name=Battery
-item.techreborn.treetap.name=Tree Tap
+item.techreborn.lithiumBattery.name=Lithium  Battery
+item.techreborn.treetap.name=Treetap
+item.techreborn.nanosaber.name=Nanosaber
 
 #Gems
 item.techreborn.gem.ruby.name=Ruby
@@ -607,9 +623,6 @@ item.techreborn.part.advancedCircuit.name=Advanced Electronic Circuit
 item.techreborn.part.pump.name=Pump
 item.techreborn.part.teleporter.name=Teleporter
 item.techreborn.part.advancedAlloy.name=Advanced Alloy
-item.techreborn.part.lvTransformer.name=LV Transformer
-item.techreborn.part.mvTransformer.name=MV Transformer
-item.techreborn.part.hvTransformer.name=HV Transformer
 
 #Tools
 item.techreborn.rockcutter.name=Rockcutter
