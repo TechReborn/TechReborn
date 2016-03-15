@@ -1,5 +1,5 @@
 {
-    "parent": "block/fence_nse",
+    "parent": "block/fence_side",
     "textures": {
         "texture": "blocks/iron_block"
     }
