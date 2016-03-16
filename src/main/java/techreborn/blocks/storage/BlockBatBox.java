@@ -44,12 +44,12 @@ public class BlockBatBox  extends BlockMachineBase implements IRotationTexture {
 
     @Override
     public String getTop() {
-        return prefix + "batbox_side";
+        return prefix + "batbox_top";
     }
 
     @Override
     public String getBottom() {
-        return prefix + "batbox_side";
+        return prefix + "batbox_bottom";
     }
 
 }

@@ -50,12 +50,12 @@ public class BlockLESU extends BlockMachineBase implements IAdvancedRotationText
 
     @Override
     public String getTop(boolean isActive) {
-        return prefix + "lesu_side";
+        return prefix + "lesu_top";
     }
 
     @Override
     public String getBottom(boolean isActive) {
-        return prefix + "lesu_side";
+        return prefix + "lesu_bottom";
     }
 
 }
