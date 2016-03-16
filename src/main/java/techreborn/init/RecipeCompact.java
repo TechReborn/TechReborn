@@ -57,9 +57,9 @@ public class RecipeCompact implements IRecipeCompact {
         recipes.put("pump", ItemParts.getPartByName("pump"));
         recipes.put("teleporter", ItemParts.getPartByName("teleporter"));
         recipes.put("advancedAlloy", ItemParts.getPartByName("advancedAlloy"));
-        recipes.put("lvTransformer", ItemParts.getPartByName("lvTransformer"));
-        recipes.put("mvTransformer", ItemParts.getPartByName("mvTransformer"));
-        recipes.put("hvTransformer", ItemParts.getPartByName("hvTransformer"));
+        recipes.put("lvTransformer", new ItemStack(ModBlocks.lvt));
+        recipes.put("mvTransformer", new ItemStack(ModBlocks.mvt));
+        recipes.put("hvTransformer", new ItemStack(ModBlocks.hvt));
         recipes.put("windMill", new ItemStack(ModBlocks.windMill));
         recipes.put("energyCrystal", new ItemStack(ModItems.energyCrystal));
 //        recipes.put("lapotronCrystal", new ItemStack(ModItems.lapotronCrystal));
