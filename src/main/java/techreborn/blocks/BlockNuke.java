@@ -66,7 +66,7 @@ public class BlockNuke extends BaseBlock implements ITexturedBlock {
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         super.onBlockAdded(worldIn, pos, state);
         if (worldIn.isBlockPowered(pos)) {
-            this.onBlockDestroyedByPlayer(worldIn, pos, state);
+            this.explode(worldIn, pos, state, null);
             worldIn.setBlockToAir(pos);
         }
     }
@@ -76,14 +76,9 @@ public class BlockNuke extends BaseBlock implements ITexturedBlock {
      */
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         if (worldIn.isBlockPowered(pos)) {
-            this.onBlockDestroyedByPlayer(worldIn, pos, state);
+            this.explode(worldIn, pos, state, null);
             worldIn.setBlockToAir(pos);
         }
-    }
-
-    public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state)
-    {
-        this.explode(worldIn, pos, state, (EntityLivingBase)null);
     }
 
     @Override

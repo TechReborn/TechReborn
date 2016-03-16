@@ -134,6 +134,12 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
     public void onRemoved() {
         super.onRemoved();
         removeFromNetwork();
+        for(EnumFacing dir : EnumFacing.VALUES){
+            CableMultipart multipart = getPartFromWorld(getWorld(), getPos().offset(dir), dir);
+            if(multipart != null){
+                multipart.nearByChange();
+            }
+        }
     }
 
     @Override
