@@ -25,26 +25,26 @@ public class BlockLVTransformer extends BlockBatBox {
 
     @Override
     public String getFrontOff() {
-        return prefix + "lvt_front";
+        return prefix + "lv_transformer_front";
     }
 
     @Override
     public String getFrontOn() {
-        return prefix + "lvt_front";
+        return prefix + "lv_transformer_front";
     }
 
     @Override
     public String getSide() {
-        return prefix + "lvt_side";
+        return prefix + "lv_transformer_side";
     }
 
     @Override
     public String getTop() {
-        return prefix + "lvt_top";
+        return prefix + "lv_transformer_side";
     }
 
     @Override
     public String getBottom() {
-        return prefix + "lvt_bottom";
+        return prefix + "lv_transformer_side";
     }
 }

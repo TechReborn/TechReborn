@@ -25,26 +25,26 @@ public class BlockMVTransformer extends BlockLVTransformer {
 
     @Override
     public String getFrontOff() {
-        return prefix + "mvt_front";
+        return prefix + "mv_transformer_front";
     }
 
     @Override
     public String getFrontOn() {
-        return prefix + "mvt_front";
+        return prefix + "mv_transformer_front";
     }
 
     @Override
     public String getSide() {
-        return prefix + "mvt_side";
+        return prefix + "mv_transformer_side";
     }
 
     @Override
     public String getTop() {
-        return prefix + "mvt_top";
+        return prefix + "mv_transformer_side";
     }
 
     @Override
     public String getBottom() {
-        return prefix + "mvt_bottom";
+        return prefix + "mv_transformer_side";
     }
 }

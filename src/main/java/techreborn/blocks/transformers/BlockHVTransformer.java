@@ -25,27 +25,27 @@ public class BlockHVTransformer extends BlockLVTransformer {
 
     @Override
     public String getFrontOff() {
-        return prefix + "hvt_front";
+        return prefix + "hv_transformer_front";
     }
 
     @Override
     public String getFrontOn() {
-        return prefix + "hvt_front";
+        return prefix + "hv_transformer_front";
     }
 
     @Override
     public String getSide() {
-        return prefix + "hvt_side";
+        return prefix + "hv_transformer_side";
     }
 
     @Override
     public String getTop() {
-        return prefix + "hvt_top";
+        return prefix + "hv_transformer_side";
     }
 
     @Override
     public String getBottom() {
-        return prefix + "hvt_bottom";
+        return prefix + "hv_transformer_bottom";
     }
     
 }
