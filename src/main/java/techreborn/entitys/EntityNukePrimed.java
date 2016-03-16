@@ -51,6 +51,7 @@ public class EntityNukePrimed extends EntityTNTPrimed {
 
     public void explodeNuke() {
         RebornExplosion nukeExplosion = new RebornExplosion(new BlockPos(this.posX, this.posY, this.posZ), worldObj, 40);
+        nukeExplosion.setLivingBase(getTntPlacedBy());
         nukeExplosion.explode();
     }
 
