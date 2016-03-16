@@ -67,7 +67,7 @@ public class BlockNuke extends BaseBlock implements ITexturedBlock {
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         super.onBlockAdded(worldIn, pos, state);
         if (worldIn.isBlockPowered(pos)) {
-            this.explode(worldIn, pos, state, null););
+            this.explode(worldIn, pos, state, null);
             worldIn.setBlockToAir(pos);
         }
     }
