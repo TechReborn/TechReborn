@@ -16,6 +16,9 @@ import techreborn.blocks.iron_machines.BlockIronFurnace;
 import techreborn.blocks.machine.*;
 import techreborn.blocks.storage.*;
 import techreborn.blocks.tier1.*;
+import techreborn.blocks.transformers.BlockHVTransformer;
+import techreborn.blocks.transformers.BlockLVTransformer;
+import techreborn.blocks.transformers.BlockMVTransformer;
 import techreborn.itemblocks.*;
 import techreborn.tiles.*;
 import techreborn.tiles.fusionReactor.TileEntityFusionController;
@@ -27,6 +30,9 @@ import techreborn.tiles.storage.TileBatBox;
 import techreborn.tiles.storage.TileMFE;
 import techreborn.tiles.storage.TileMFSU;
 import techreborn.tiles.teir1.*;
+import techreborn.tiles.transformers.TileHVTransformer;
+import techreborn.tiles.transformers.TileLVTransformer;
+import techreborn.tiles.transformers.TileMVTransformer;
 
 public class ModBlocks {
 
@@ -84,6 +90,9 @@ public class ModBlocks {
     public static Block mfe;
     public static Block mfsu;
     public static Block scrapboxinator;
+    public static Block lvt;
+    public static Block mvt;
+    public static Block hvt;
 
     public static BlockOre ore;
     public static BlockOre2 ore2;
@@ -338,6 +347,18 @@ public class ModBlocks {
         mfsu = new BlockMFSU();
         GameRegistry.registerBlock(mfsu, "mfsu");
         GameRegistry.registerTileEntity(TileMFSU.class, "TileMFSU");
+
+        lvt = new BlockLVTransformer();
+        GameRegistry.registerBlock(lvt, "lvt");
+        GameRegistry.registerTileEntity(TileLVTransformer.class, "TileLVTransformer");
+
+        mvt = new BlockMVTransformer();
+        GameRegistry.registerBlock(mvt, "mvt");
+        GameRegistry.registerTileEntity(TileMVTransformer.class, "TileMVTransformer");
+
+        hvt = new BlockHVTransformer();
+        GameRegistry.registerBlock(hvt, "hvt");
+        GameRegistry.registerTileEntity(TileHVTransformer.class, "TileHVTransformer");
         
         ironFurnace = new BlockIronFurnace();
         GameRegistry.registerBlock(ironFurnace, "ironfurnace");
