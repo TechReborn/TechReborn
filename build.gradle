@@ -129,8 +129,8 @@ dependencies {
   //  compile "com.github.azanor:baubles:1.1.3.0:deobf@jar"
  //   compile name: "CraftTweaker", version: "1.8.8-3.0.0", classifier: "Dev"
   //  shade 'IC2-Classic-API-STANDALONE:IC2-Classic-API-STANDALONE:1.1.0.19-5:api'
-    compile 'RebornCore:RebornCore-1.9:2.0.0:dev'
- //   deobfCompile "mezz.jei:jei_1.8.9:2.27.+"
+    compile 'RebornCore:RebornCore-1.9:2.0.0.+:dev'
+    deobfCompile "mezz.jei:jei_1.9:3.0.+"
  //   deobfCompile 'MCMultiPart:MCMultiPart:1.0.8:universal'
 
  //   println("Downloading dependencies that have no maven :/")
