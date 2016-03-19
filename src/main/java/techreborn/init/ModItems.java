@@ -11,6 +11,7 @@ import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.util.BucketHandler;
 import techreborn.Core;
+import techreborn.blocks.BlockMachineFrame;
 import techreborn.events.OreUnifier;
 import techreborn.items.*;
 import techreborn.items.armor.ItemLapotronPack;
@@ -335,8 +336,8 @@ public class ModItems {
 
         registerOreDict();
 
-        BlockMachineBase.advancedMachineStack = new ItemStack(Item.getItemFromBlock(ModBlocks.MachineCasing), 1, 2);
-        BlockMachineBase.machineStack = new ItemStack(Item.getItemFromBlock(ModBlocks.MachineCasing), 1, 0);
+        BlockMachineBase.advancedMachineStack = BlockMachineFrame.getFrameByName("advancedMachine", 1);
+        BlockMachineBase.machineStack = BlockMachineFrame.getFrameByName("machine", 1);
     }
 
     public static void registerOreDict() {

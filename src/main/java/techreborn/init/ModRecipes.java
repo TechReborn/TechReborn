@@ -248,7 +248,7 @@ public class ModRecipes {
 
 
 	private static void addCompressorRecipes() {
-    	RecipeHandler.addRecipe(new CompressorRecipe(new ItemStack(Items.diamond), new ItemStack(Items.coal), 400, 20));
+//    	RecipeHandler.addRecipe(new CompressorRecipe(new ItemStack(Items.diamond), new ItemStack(Items.coal), 400, 20));
 	}
 
 	static void addExtractorRecipes() {

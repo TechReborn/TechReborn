@@ -22,7 +22,7 @@ public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IIn
     public int fuelSlot = 0;
     public int burnTime;
     public int totalBurnTime = 0;
-    public static int outputAmount = 40; //This is in line with BC engines rf, sould properly use the conversion ratio here.
+    public static int outputAmount = 10; //This is in line with BC engines rf, sould properly use the conversion ratio here.
     public boolean isBurning;
     public boolean lastTickBurning;
     ItemStack burnItem;
@@ -143,7 +143,7 @@ public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IIn
 
     @Override
     public double getMaxPower() {
-        return 10000;
+        return 100;
     }
 
     @Override
