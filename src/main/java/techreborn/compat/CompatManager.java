@@ -6,6 +6,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import techreborn.client.render.parts.ClientPartLoader;
 import techreborn.config.ConfigTechReborn;
 import techreborn.parts.StandalonePartCompact;
+import techreborn.parts.TechRebornParts;
 
 import java.util.ArrayList;
 
@@ -37,7 +38,7 @@ public class CompatManager {
 //        registerCompact(RecipesBiomesOPlenty.class, "BiomesOPlenty");
 //        registerCompact(RecipesBuildcraft.class, "BuildCraft|Builders");
 //        registerCompact(RecipesThaumcraft.class, "Thaumcraft");
-       // registerCompact(TechRebornParts.class, "mcmultipart");
+        registerCompact(TechRebornParts.class, "mcmultipart");
         registerCompact(ClientPartLoader.class, "mcmultipart", "@client");
         registerCompact(StandalonePartCompact.class, "!mcmultipart");
         //registerCompact(WailaMcMultiPartCompact.class, "mcmultipart", "Waila");

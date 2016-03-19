@@ -1,16 +1,16 @@
 package techreborn.client.render.parts;
 
-import mcmultipart.client.multipart.ISmartMultipartModel;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.BlockFaceUV;
 import net.minecraft.client.renderer.block.model.BlockPartFace;
 import net.minecraft.client.renderer.block.model.FaceBakery;
+import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.block.model.ItemOverrideList;
+import net.minecraft.client.renderer.block.model.ModelRotation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.IBakedModel;
-import net.minecraft.client.resources.model.ModelRotation;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import org.lwjgl.util.vector.Vector3f;
@@ -19,10 +19,9 @@ import techreborn.parts.CableMultipart;
 import techreborn.parts.EnumCableType;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-public class RenderCablePart implements ISmartMultipartModel {
+public class RenderCablePart implements IBakedModel {
 
     private FaceBakery faceBakery = new FaceBakery();
 
@@ -30,21 +29,9 @@ public class RenderCablePart implements ISmartMultipartModel {
 
     EnumCableType type;
 
-    IExtendedBlockState state;
-
-    public RenderCablePart(IExtendedBlockState state, EnumCableType type) {
-        this(type);
-        this.state = state;
-    }
-
     public RenderCablePart(EnumCableType type) {
         texture = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(type.textureName);
         this.type = type;
-    }
-
-    @Override
-    public IBakedModel handlePartState(IBlockState state) {
-        return new RenderCablePart((IExtendedBlockState) state, type);
     }
 
     public void addCubeToList(Vecs3dCube cube, ArrayList<BakedQuad> list, BlockPartFace face, ModelRotation modelRotation, TextureAtlasSprite cubeTexture) {
@@ -57,17 +44,13 @@ public class RenderCablePart implements ISmartMultipartModel {
     }
 
     @Override
-    public List<BakedQuad> getFaceQuads(EnumFacing p_177551_1_) {
-        return Collections.emptyList();
-    }
-
-    @Override
-    public List<BakedQuad> getGeneralQuads() {
+    public List<BakedQuad> getQuads(IBlockState blockState, EnumFacing side, long rand) {
         ArrayList<BakedQuad> list = new ArrayList<BakedQuad>();
         BlockFaceUV uv = new BlockFaceUV(new float[]{0.0F, 0.0F, 16.0F, 16.0F}, 0);
         BlockPartFace face = new BlockPartFace(null, 0, "", uv);
         double thickness =  type.cableThickness;
         double lastThickness = 16 - thickness;
+        IExtendedBlockState state = (IExtendedBlockState) blockState;
         addCubeToList(new Vecs3dCube(thickness, thickness, thickness, lastThickness, lastThickness, lastThickness), list, face, ModelRotation.X0_Y0, texture);
         if (state != null) {
             if (state.getValue(CableMultipart.UP)) {
@@ -115,5 +98,10 @@ public class RenderCablePart implements ISmartMultipartModel {
     @Override
     public ItemCameraTransforms getItemCameraTransforms() {
         return ItemCameraTransforms.DEFAULT;
+    }
+
+    @Override
+    public ItemOverrideList getOverrides() {
+        return null;
     }
 }

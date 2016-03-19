@@ -3,16 +3,18 @@ package techreborn.parts;
 import mcmultipart.item.ItemMultiPart;
 import mcmultipart.multipart.IMultipart;
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.RebornCore;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
@@ -34,7 +36,7 @@ public class ItemCables extends ItemMultiPart implements ITexturedItem {
     }
 
     @Override
-    public IMultipart createPart(World world, BlockPos pos, EnumFacing side, Vec3 hit, ItemStack stack, EntityPlayer player) {
+    public IMultipart createPart(World world, BlockPos pos, EnumFacing side, Vec3d hit, ItemStack stack, EntityPlayer player) {
         try {
             return TechRebornParts.multipartHashMap.get(EnumCableType.values()[stack.getItemDamage()]).newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
@@ -73,6 +75,7 @@ public class ItemCables extends ItemMultiPart implements ITexturedItem {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
         return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
     }
@@ -80,10 +83,10 @@ public class ItemCables extends ItemMultiPart implements ITexturedItem {
     @Override
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
         EnumCableType type = EnumCableType.values()[stack.getItemDamage()];
-        tooltip.add(EnumChatFormatting.GREEN + "EU Transfer: " + EnumChatFormatting.LIGHT_PURPLE + type.transferRate);
+        tooltip.add(TextFormatting.GREEN + "EU Transfer: " + TextFormatting.LIGHT_PURPLE + type.transferRate);
         if (type.canKill) {
-            tooltip.add(EnumChatFormatting.RED + "Damages entity's!");
+            tooltip.add(TextFormatting.RED + "Damages entity's!");
         }
-        tooltip.add(EnumChatFormatting.GREEN + "Tier: " + EnumChatFormatting.LIGHT_PURPLE + type.tier);
+        tooltip.add(TextFormatting.GREEN + "Tier: " + TextFormatting.LIGHT_PURPLE + type.tier);
     }
 }

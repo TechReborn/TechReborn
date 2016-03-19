@@ -4,7 +4,7 @@ import mcmultipart.MCMultiPartMod;
 import mcmultipart.microblock.IMicroblock;
 import mcmultipart.multipart.ICollidableMultipart;
 import mcmultipart.multipart.IMultipartContainer;
-import mcmultipart.multipart.IOccludingPart;
+import mcmultipart.multipart.INormallyOccludingPart;
 import mcmultipart.multipart.ISlottedPart;
 import mcmultipart.multipart.Multipart;
 import mcmultipart.multipart.MultipartHelper;
@@ -16,20 +16,20 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
@@ -38,8 +38,8 @@ import net.minecraftforge.common.property.Properties;
 import reborncore.api.power.IEnergyInterfaceTile;
 import reborncore.common.misc.Functions;
 import reborncore.common.misc.vecmath.Vecs3dCube;
+import reborncore.common.util.WorldUtils;
 import techreborn.config.ConfigTechReborn;
-import techreborn.parts.walia.IPartWaliaProvider;
 import techreborn.power.TRPowerNet;
 import techreborn.utils.damageSources.ElectrialShockSource;
 
@@ -52,7 +52,7 @@ import java.util.Map;
 /**
  * Created by modmuss50 on 02/03/2016.
  */
-public abstract class CableMultipart extends Multipart implements IOccludingPart, ISlottedPart, ITickable, ICableType, ICollidableMultipart, IPartWaliaProvider {
+public abstract class CableMultipart extends Multipart implements INormallyOccludingPart, ISlottedPart, ITickable, ICableType, ICollidableMultipart {
 
     public Vecs3dCube[] boundingBoxes = new Vecs3dCube[14];
     public float center = 0.6F;
@@ -110,7 +110,7 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
 
     @Override
     public void addCollisionBoxes(AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity) {
-        super.addCollisionBoxes(mask, list, collidingEntity);
+
         for (EnumFacing dir : EnumFacing.VALUES) {
             if (connectedSides.containsKey(dir) && mask.intersectsWith(boundingBoxes[Functions.getIntDirFromDirection(dir)].toAABB()))
                 list.add(boundingBoxes[Functions.getIntDirFromDirection(dir)].toAABB());
@@ -118,6 +118,7 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
         if (mask.intersectsWith(boundingBoxes[6].toAABB())) {
             list.add(boundingBoxes[6].toAABB());
         }
+        super.addCollisionBoxes(mask, list, collidingEntity);
     }
 
     @Override
@@ -168,7 +169,7 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
         checkConnectedSides();
         for (EnumFacing direction : EnumFacing.VALUES) {
             BlockPos blockPos = getPos().offset(direction);
-            getWorld().markBlockForUpdate(blockPos);
+            WorldUtils.updateBlock(getWorld(), blockPos);
             CableMultipart part = getPartFromWorld(getWorld(), blockPos, direction);
             if (part != null) {
                 part.checkConnectedSides();
@@ -229,9 +230,10 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
             }
         }
 
-        if (!OcclusionHelper.occlusionTest(getContainer().getParts(), this, boundingBoxes[Functions.getIntDirFromDirection(dir)].toAABB())) {
-            return false;
-        }
+        //TODO 1.9 boken
+//        if (!OcclusionHelper.occlusionTest(this, boundingBoxes[Functions.getIntDirFromDirection(dir)].toAABB())) {
+//            return false;
+//        }
 
         CableMultipart cableMultipart = getPartFromWorld(getWorld(), getPos().offset(dir), dir.getOpposite());
 
@@ -291,7 +293,7 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
     }
 
     @Override
-    public BlockState createBlockState() {
+    public BlockStateContainer createBlockState() {
         return new ExtendedBlockState(MCMultiPartMod.multipart,
                 new IProperty[]{
                         TYPE
@@ -306,10 +308,10 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
     }
 
 
-    @Override
-    public String getModelPath() {
-        return "techreborn:cable";
-    }
+//    @Override
+//    public String getModelPath() {
+//        return "techreborn:cable";
+//    }
 
     @Override
     public float getHardness(PartMOP hit) {
@@ -335,7 +337,8 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
                 entity.attackEntityFrom(new ElectrialShockSource(), 1F);
         	}
         	if(ConfigTechReborn.UninsulatedElectocutionSound){
-                getWorld().playSoundAtEntity(entity, "techreborn:cable_shock", 0.6F, 1F);
+                //TODO 1.9 nope
+               // getWorld().playSoundAtEntity(entity, "techreborn:cable_shock", 0.6F, 1F);
         	}
         	if(ConfigTechReborn.UninsulatedElectocutionParticle){
                 getWorld().spawnParticle(EnumParticleTypes.CRIT, entity.posX, entity.posY, entity.posZ, 0, 0, 0);
@@ -412,16 +415,22 @@ public abstract class CableMultipart extends Multipart implements IOccludingPart
         network = null;
     }
 
+//    @Override
+//    public void addInfo(List<String> info) {
+//        info.add(EnumChatFormatting.GREEN + "EU Transfer: " + EnumChatFormatting.LIGHT_PURPLE + getCableType().transferRate);
+//        if (getCableType().canKill) {
+//            info.add(EnumChatFormatting.RED + "Damages entity's!");
+//        }
+//    }
+
+
     @Override
-    public void addInfo(List<String> info) {
-        info.add(EnumChatFormatting.GREEN + "EU Transfer: " + EnumChatFormatting.LIGHT_PURPLE + getCableType().transferRate);
-        if (getCableType().canKill) {
-            info.add(EnumChatFormatting.RED + "Damages entity's!");
-        }
+    public ResourceLocation getModelPath() {
+        return new ResourceLocation("techreborn:cable");
     }
 
     @Override
-    public boolean canRenderInLayer(EnumWorldBlockLayer layer) {
-        return layer == EnumWorldBlockLayer.CUTOUT;
+    public boolean canRenderInLayer(BlockRenderLayer layer) {
+        return layer == BlockRenderLayer.CUTOUT;
     }
 }
