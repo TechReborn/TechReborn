@@ -3,6 +3,7 @@ package techreborn.power;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import reborncore.api.power.IEnergyInterfaceTile;
@@ -47,6 +48,9 @@ public class TRPowerNet {
             }
             cables.removeAll(oldCables);
         }
+        if(tick % 1200 == 0){
+            buildEndpoint();
+        }
         if (!cables.isEmpty()) {
             ArrayList<EnergyHandler> collectibles = new ArrayList();
             ArrayList<EnergyHandler> insertibles = new ArrayList();
@@ -63,6 +67,8 @@ public class TRPowerNet {
             for (EnergyHandler handler : collectibles) {
                 energy += handler.collectEnergy(cableType.transferRate);
             }
+
+            System.out.println("energy + " + energy + this);
 
             for (EnergyHandler handler : insertibles) {
                 energy -= handler.addEnergy(Math.min(energy, cableType.transferRate));
@@ -84,7 +90,26 @@ public class TRPowerNet {
         this.rebuild();
     }
 
-    private void rebuild() {
+    public void buildEndpoint(){
+        for(CableMultipart cable : cables){
+            for(EnumFacing facing : EnumFacing.VALUES){
+                BlockPos pos = cable.getPos().offset(facing);
+                TileEntity tile = cable.getWorld().getTileEntity(pos);
+                if(tile != null && tile instanceof IEnergyInterfaceTile){
+                    IEnergyInterfaceTile eit = (IEnergyInterfaceTile) tile;
+                    addConnection(eit, facing);
+                }
+                CableMultipart cableMultipart = CableMultipart.getPartFromWorld(cable.getWorld(), pos, null);
+                if(cableMultipart != null){
+                    if(cableMultipart.getNetwork() != this){
+                        cableMultipart.findAndJoinNetwork(cableMultipart.getWorld(), cableMultipart.getPos());
+                    }
+                }
+            }
+        }
+    }
+
+    public void rebuild() {
         for (int i = 0; i < cables.size(); i++) {
             CableMultipart te = cables.get(i);
             te.setNetwork(null);
@@ -124,6 +149,7 @@ public class TRPowerNet {
                 CableMultipart wire = li.get(i);
                 wire.setNetwork(this);
             }
+            rebuild();
             MinecraftForge.EVENT_BUS.unregister(n);
         }
     }
@@ -190,7 +216,7 @@ public class TRPowerNet {
 
         public int collectEnergy(int max) {
             int total = 0;
-            if (tile.canProvideEnergy(EnumFacing.NORTH)) {
+            if (tile.canProvideEnergy(side)) {
                 int collect = (int) Math.min(max, tile.getMaxOutput());
                 total = (int) tile.useEnergy(collect, false);
             }
@@ -199,7 +225,7 @@ public class TRPowerNet {
 
         public int addEnergy(int max) {
             int total = 0;
-            if (tile.canAcceptEnergy(EnumFacing.NORTH) && max > 0) {
+            if (tile.canAcceptEnergy(side.getOpposite()) && max > 0) {
                 if (type.tier.ordinal() > tile.getTier().ordinal()) {
                     if (tile instanceof TileEntity) {
                         ((TileEntity) tile).getWorld().createExplosion(new EntityTNTPrimed(((TileEntity) tile).getWorld()), ((TileEntity) tile).getPos().getX(), ((TileEntity) tile).getPos().getY(), ((TileEntity) tile).getPos().getZ(), 2.5F, true);

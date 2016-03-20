@@ -159,6 +159,9 @@ public abstract class CableMultipart extends Multipart implements INormallyOcclu
     public void onNeighborBlockChange(Block block) {
         super.onNeighborBlockChange(block);
         nearByChange();
+        if(network != null){
+            network.buildEndpoint();
+        }
         findAndJoinNetwork(getWorld(), getPos());
     }
 
@@ -174,7 +177,7 @@ public abstract class CableMultipart extends Multipart implements INormallyOcclu
         }
     }
 
-    public CableMultipart getPartFromWorld(World world, BlockPos pos, EnumFacing side) {
+    public static CableMultipart getPartFromWorld(World world, BlockPos pos, EnumFacing side) {
         if(world == null || pos == null){
             return null;
         }
