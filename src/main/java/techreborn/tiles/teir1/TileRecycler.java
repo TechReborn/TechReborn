@@ -114,12 +114,23 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInv
 
     public boolean canRecycle ()
     {
-        if (getStackInSlot(input1) != null && getStackInSlot(output) == null ? true : getStackInSlot(output).stackSize < 64)
+        if (getStackInSlot(input1) != null && hasSlotGotSpace(input1))
         {
             return true;
         }
         return false;
     }
+
+    public boolean hasSlotGotSpace(int slot){
+        if(getStackInSlot(slot) == null){
+            return true;
+        } else if(getStackInSlot(slot).stackSize < getStackInSlot(slot).getMaxStackSize()){
+            return true;
+        }
+        return true;
+    }
+
+
 
     public boolean isBurning ()
     {
