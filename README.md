@@ -10,7 +10,6 @@ We have permission to use Greg's textures (see [here](https://i.imgur.com/YQEMrq
 
 We keep track of new features on youtrack, and issues are posted here on github.
 
-[![YouTrack](https://img.shields.io/badge/TechReborn-Todo%20list-ff68b4.svg)](http://server2.modmuss50.me:8080/)
 [![Issues](https://img.shields.io/badge/TechReborn-Issues-0066ff.svg)](https://github.com/TechReborn/TechReborn/issues)
 
 # Recommended Builds:
@@ -24,14 +23,14 @@ Jenkins builds of TechReborn are compiled directly from this repository. Please 
 1.9:
 ---
 
-*This version is unstable, and is in line with the 1.8 version*
+*This version is constantly recieving updates, and does not have a stable, recommended, release. Once again, remember to backup your worlds before using jenkins builds.*
 
 [![Build Status](http://modmuss50.me:8080/job/TechReborn-1.9/badge/icon)](http://modmuss50.me:8080/job/TechReborn-1.9/)
 
 1.8.9:
 ---
 
-*This version is constantly recieving updates, and does not have a stable, recommended, release. Once again, remember to backup your worlds before using jenkins builds.*
+*This version is no longer supported, update to 1.9*
 
 [![Build Status](http://modmuss50.me:8080/job/TechReborn-1.8.9/badge/icon)](http://modmuss50.me:8080/job/TechReborn-1.8.9/)
 
