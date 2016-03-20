@@ -28,6 +28,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -40,6 +41,7 @@ import reborncore.common.misc.Functions;
 import reborncore.common.misc.vecmath.Vecs3dCube;
 import reborncore.common.util.WorldUtils;
 import techreborn.config.ConfigTechReborn;
+import techreborn.init.ModSounds;
 import techreborn.power.TRPowerNet;
 import techreborn.utils.damageSources.ElectrialShockSource;
 
@@ -339,16 +341,23 @@ public abstract class CableMultipart extends Multipart implements INormallyOcclu
     @Override
     public void onEntityCollided(Entity entity) {
         if (getCableType().canKill && entity instanceof EntityLivingBase) {
-        	if(ConfigTechReborn.UninsulatedElectocutionDamage){
-                entity.attackEntityFrom(new ElectrialShockSource(), 1F);
-        	}
-        	if(ConfigTechReborn.UninsulatedElectocutionSound){
-                //TODO 1.9 nope
-               // getWorld().playSoundAtEntity(entity, "techreborn:cable_shock", 0.6F, 1F);
-        	}
-        	if(ConfigTechReborn.UninsulatedElectocutionParticle){
-                getWorld().spawnParticle(EnumParticleTypes.CRIT, entity.posX, entity.posY, entity.posZ, 0, 0, 0);
-        	}
+            if(network != null){
+                if(network.getEnergy() != 0){
+                    if(ConfigTechReborn.UninsulatedElectocutionDamage){
+                        if(getCableType() == EnumCableType.HV){
+                            entity.setFire(1);
+                        }
+                        network.setEnergy(-1);
+                        entity.attackEntityFrom(new ElectrialShockSource(), 1F);
+                    }
+                    if(ConfigTechReborn.UninsulatedElectocutionSound){
+                        getWorld().playSound(entity.posX, entity.posY, entity.posZ, ModSounds.shock, SoundCategory.BLOCKS, 0.6F, 1F, false);
+                    }
+                    if(ConfigTechReborn.UninsulatedElectocutionParticle){
+                        getWorld().spawnParticle(EnumParticleTypes.CRIT, entity.posX, entity.posY, entity.posZ, 0, 0, 0);
+                    }
+                }
+            }
         }
     }
 

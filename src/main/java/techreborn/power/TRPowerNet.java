@@ -48,6 +48,9 @@ public class TRPowerNet {
             }
             cables.removeAll(oldCables);
         }
+        if(tick % 20 == 0){
+            checkAndRemoveOldEndpoints();
+        }
         if (!cables.isEmpty()) {
             ArrayList<EnergyHandler> collectibles = new ArrayList();
             ArrayList<EnergyHandler> insertibles = new ArrayList();
@@ -108,6 +111,18 @@ public class TRPowerNet {
         for(CableMultipart cableMultipart : partsToMerge){
             cableMultipart.mergeWith = net;
         }
+        net.checkAndRemoveOldEndpoints();
+    }
+
+    public void checkAndRemoveOldEndpoints(){
+        List<EnergyHandler> deadHandlers = new ArrayList<>();
+        for(EnergyHandler energyHandler : endpoints){
+            TileEntity tile = (TileEntity) energyHandler.tile;
+            if(tile.getWorld().getTileEntity(tile.getPos()) == null){
+                deadHandlers.add(energyHandler);
+            }
+        }
+        endpoints.removeAll(deadHandlers);
     }
 
     public void rebuild() {
@@ -118,6 +133,17 @@ public class TRPowerNet {
         }
         this.clear(true);
         MinecraftForge.EVENT_BUS.unregister(this);
+    }
+
+    public int getEnergy() {
+        return energy;
+    }
+
+    public void setEnergy(int energy){
+        energy += energy;
+        if(energy < 0){
+            energy = 0;
+        }
     }
 
     public void addConnection(IEnergyInterfaceTile ih, EnumFacing dir) {

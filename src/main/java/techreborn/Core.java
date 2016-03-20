@@ -106,6 +106,8 @@ public class Core {
 		ModLoot.init();
 		// Multiparts
 		ModParts.init();
+		//Sounds
+		ModSounds.init();
 		// Compat
 		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
 			compatModule.init(event);
