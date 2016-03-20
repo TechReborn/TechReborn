@@ -85,22 +85,28 @@ public class TRPowerNet {
         this.rebuild();
     }
 
-    public void buildEndpoint(){
-        for(CableMultipart cable : cables){
+    public static void buildEndpoint(TRPowerNet net){
+        ArrayList<CableMultipart> parts = new ArrayList<>();
+        ArrayList<CableMultipart> partsToMerge = new ArrayList<>();
+        parts.addAll(net.cables);
+        for(CableMultipart cable : parts){
             for(EnumFacing facing : EnumFacing.VALUES){
                 BlockPos pos = cable.getPos().offset(facing);
                 TileEntity tile = cable.getWorld().getTileEntity(pos);
                 if(tile != null && tile instanceof IEnergyInterfaceTile){
                     IEnergyInterfaceTile eit = (IEnergyInterfaceTile) tile;
-                    addConnection(eit, facing);
+                    net.addConnection(eit, facing);
                 }
                 CableMultipart cableMultipart = CableMultipart.getPartFromWorld(cable.getWorld(), pos, null);
                 if(cableMultipart != null){
-                    if(cableMultipart.getNetwork() != this){
-                        cableMultipart.findAndJoinNetwork(cableMultipart.getWorld(), cableMultipart.getPos());
+                    if(cableMultipart.getNetwork() != net){
+                        partsToMerge.add(cableMultipart);
                     }
                 }
             }
+        }
+        for(CableMultipart cableMultipart : partsToMerge){
+            cableMultipart.mergeWith = net;
         }
     }
 

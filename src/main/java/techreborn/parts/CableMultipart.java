@@ -60,6 +60,7 @@ public abstract class CableMultipart extends Multipart implements INormallyOcclu
     public Map<EnumFacing, BlockPos> connectedSides;
     public int ticks = 0;
     public ItemStack stack;
+    public TRPowerNet mergeWith = null;
 
     public static final IUnlistedProperty<Boolean> UP = Properties.toUnlisted(PropertyBool.create("up"));
     public static final IUnlistedProperty<Boolean> DOWN = Properties.toUnlisted(PropertyBool.create("down"));
@@ -160,7 +161,7 @@ public abstract class CableMultipart extends Multipart implements INormallyOcclu
         super.onNeighborBlockChange(block);
         nearByChange();
         if(network != null){
-            network.buildEndpoint();
+            network.buildEndpoint(network);
         }
         findAndJoinNetwork(getWorld(), getPos());
     }
@@ -276,6 +277,11 @@ public abstract class CableMultipart extends Multipart implements INormallyOcclu
         }
         if (network == null) {
             this.findAndJoinNetwork(getWorld(), getPos());
+        } else {
+            if(mergeWith != null){
+                getNetwork().merge(network);
+                mergeWith = null;
+            }
         }
     }
 
