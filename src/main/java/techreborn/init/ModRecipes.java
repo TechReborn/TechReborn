@@ -309,8 +309,8 @@ public class ModRecipes {
 
 
         //TechReborn
-        RecipeHandler.addRecipe(new GrinderRecipe(BlockOre2.getOreByName("copper"), ItemDusts.getDustByName("copper", 2), 100, 20));
-        RecipeHandler.addRecipe(new GrinderRecipe(BlockOre2.getOreByName("tin"), ItemDusts.getDustByName("tin", 2), 100, 20));
+        RecipeHandler.addRecipe(new GrinderRecipe(BlockOre2.getOreByName("Copper"), ItemDusts.getDustByName("copper", 2), 100, 20));
+        RecipeHandler.addRecipe(new GrinderRecipe(BlockOre2.getOreByName("Tin"), ItemDusts.getDustByName("tin", 2), 100, 20));
         RecipeHandler.addRecipe(new GrinderRecipe(BlockOre.getOreByName("Lead"), ItemDusts.getDustByName("lead", 2), 100, 20));
         RecipeHandler.addRecipe(new GrinderRecipe(BlockOre.getOreByName("Silver"), ItemDusts.getDustByName("silver", 2), 100, 20));
 
@@ -694,8 +694,8 @@ public class ModRecipes {
         GameRegistry.addSmelting(ItemDusts.getDustByName("gold", 1), new ItemStack(Items.gold_ingot), 1F);
         GameRegistry.addSmelting(ItemParts.getPartByName("rubberSap"), ItemParts.getPartByName("rubber"), 1F);
         GameRegistry.addSmelting(new ItemStack(Items.iron_ingot), ItemIngots.getIngotByName("refinediron"), 1F);
-        GameRegistry.addSmelting(BlockOre2.getOreByName("copper"), ItemIngots.getIngotByName("copper"), 1F);
-        GameRegistry.addSmelting(BlockOre2.getOreByName("tin"), ItemIngots.getIngotByName("tin"), 1F);
+        GameRegistry.addSmelting(BlockOre2.getOreByName("Copper"), ItemIngots.getIngotByName("copper"), 1F);
+        GameRegistry.addSmelting(BlockOre2.getOreByName("Tin"), ItemIngots.getIngotByName("tin"), 1F);
 
         Core.logHelper.info("Smelting Recipes Added");
     }
