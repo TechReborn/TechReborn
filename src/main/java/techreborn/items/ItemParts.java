@@ -39,7 +39,7 @@ public class ItemParts extends ItemTextureBase {
                     "thoriumCell", "doubleThoriumCell", "quadThoriumCell", "plutoniumCell", "doublePlutoniumCell",
                     "quadPlutoniumCell", "destructoPack", "iridiumNeutronReflector", "massHoleDevice", "computerMonitor"
                     , "machineParts", "thickNeutronReflector", "neutronReflector", "electronicCircuit", "advancedCircuit"
-                    , "rubberSap", "rubber", "scrap", "pump", "teleporter", "advancedAlloy"};
+                    , "rubberSap", "rubber", "scrap", "pump", "teleporter", "advancedAlloy", "mixedmetalingot", "carbonmesh", "carbonfiber"};
 
 
     public ItemParts() {
