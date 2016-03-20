@@ -19,6 +19,7 @@ import techreborn.parts.CableMultipart;
 import techreborn.parts.EnumCableType;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class RenderCablePart implements IBakedModel {
@@ -35,6 +36,8 @@ public class RenderCablePart implements IBakedModel {
     }
 
     public void addCubeToList(Vecs3dCube cube, ArrayList<BakedQuad> list, BlockPartFace face, ModelRotation modelRotation, TextureAtlasSprite cubeTexture) {
+        BlockFaceUV uv = new BlockFaceUV(new float[]{(float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMaxX(), (float) cube.getMaxY()}, 0);
+        face = new BlockPartFace(null, 0, "", uv);
         list.add(faceBakery.makeBakedQuad(new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMinZ()), new Vector3f((float) cube.getMaxX(), (float) cube.getMinY(), (float) cube.getMaxZ()), face, cubeTexture, EnumFacing.DOWN, modelRotation, null, true, true));//down
         list.add(faceBakery.makeBakedQuad(new Vector3f((float) cube.getMinX(), (float) cube.getMaxY(), (float) cube.getMinZ()), new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture, EnumFacing.UP, modelRotation, null, true, true));//up
         list.add(faceBakery.makeBakedQuad(new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMinZ()), new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture, EnumFacing.NORTH, modelRotation, null, true, true));//north
@@ -51,6 +54,9 @@ public class RenderCablePart implements IBakedModel {
         double thickness =  type.cableThickness;
         double lastThickness = 16 - thickness;
         IExtendedBlockState state = (IExtendedBlockState) blockState;
+        if(side != null){
+            return Collections.emptyList();
+        }
         addCubeToList(new Vecs3dCube(thickness, thickness, thickness, lastThickness, lastThickness, lastThickness), list, face, ModelRotation.X0_Y0, texture);
         if (state != null) {
             if (state.getValue(CableMultipart.UP)) {

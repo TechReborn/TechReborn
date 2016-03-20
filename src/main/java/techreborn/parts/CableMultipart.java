@@ -77,10 +77,6 @@ public abstract class CableMultipart extends Multipart implements INormallyOcclu
     public void refreshBounding() {
         float centerFirst = center - offset;
         double w = (getCableType().cableThickness / 16) - 0.5;
-        boundingBoxes[6] = new Vecs3dCube(centerFirst - w - 0.03, centerFirst
-                - w - 0.08, centerFirst - w - 0.03, centerFirst + w + 0.08,
-                centerFirst + w + 0.04, centerFirst + w + 0.08);
-
         boundingBoxes[6] = new Vecs3dCube(centerFirst - w, centerFirst - w,
                 centerFirst - w, centerFirst + w, centerFirst + w, centerFirst
                 + w);
@@ -123,12 +119,13 @@ public abstract class CableMultipart extends Multipart implements INormallyOcclu
 
     @Override
     public void addSelectionBoxes(List<AxisAlignedBB> list) {
-        super.addSelectionBoxes(list);
+
         for (EnumFacing dir : EnumFacing.VALUES) {
             if (connectedSides.containsKey(dir))
                 list.add(boundingBoxes[Functions.getIntDirFromDirection(dir)].toAABB());
         }
         list.add(boundingBoxes[6].toAABB());
+        super.addSelectionBoxes(list);
     }
 
     @Override
