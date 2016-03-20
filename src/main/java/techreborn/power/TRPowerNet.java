@@ -48,9 +48,6 @@ public class TRPowerNet {
             }
             cables.removeAll(oldCables);
         }
-        if(tick % 1200 == 0){
-            buildEndpoint();
-        }
         if (!cables.isEmpty()) {
             ArrayList<EnergyHandler> collectibles = new ArrayList();
             ArrayList<EnergyHandler> insertibles = new ArrayList();
