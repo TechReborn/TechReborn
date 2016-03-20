@@ -1,6 +1,7 @@
 package techreborn.init;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockFrostedIce;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -248,7 +249,9 @@ public class ModRecipes {
 
 
 	private static void addCompressorRecipes() {
-//    	RecipeHandler.addRecipe(new CompressorRecipe(new ItemStack(Items.diamond), new ItemStack(Items.coal), 400, 20));
+    	RecipeHandler.addRecipe(new CompressorRecipe(ItemParts.getPartByName("mixedmetalingot"), ItemParts.getPartByName("advancedAlloy"), 400, 20));
+    	RecipeHandler.addRecipe(new CompressorRecipe(ItemParts.getPartByName("carbonfiber"), ItemPlates.getPlateByName("carbon"), 400, 20));
+
 	}
 
 	static void addExtractorRecipes() {
@@ -295,6 +298,10 @@ public class ModRecipes {
     }
 	public static ItemStack hammerStack = new ItemStack(ModItems.hammer, 1, OreDictionary.WILDCARD_VALUE);
 	public static ItemStack batteryStack = new ItemStack(ModItems.reBattery, 1, OreDictionary.WILDCARD_VALUE);
+	public static ItemStack crystalStack = new ItemStack(ModItems.energyCrystal, 1, OreDictionary.WILDCARD_VALUE);
+	public static ItemStack lapcrystalStack = new ItemStack(ModItems.lapotronCrystal, 1, OreDictionary.WILDCARD_VALUE);
+
+
 
 	public static Item hammer = ModItems.hammer;
 	
@@ -331,6 +338,45 @@ public class ModRecipes {
                     "AAA", "AAA", "AAA",
                     'A', "ingot" + name.substring(0, 1).toUpperCase() + name.substring(1));
         }
+        
+        CraftingHelper.addShapelessOreRecipe(ItemParts.getPartByName("carbonmesh"),  ItemDusts.getDustByName("coal"), ItemDusts.getDustByName("coal"), ItemDusts.getDustByName("coal"), ItemDusts.getDustByName("coal"));
+        CraftingHelper.addShapelessOreRecipe(ItemParts.getPartByName("carbonfiber"), ItemParts.getPartByName("carbonmesh"), ItemParts.getPartByName("carbonmesh"));
+        
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.batBox),
+                "WCW", "BBB", "WWW",
+                'W', "plankWood",
+      	        'B', batteryStack,
+                'C', ItemStandaloneCables.getCableByName("insulatedcopper"));
+        
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.mfe),
+                "GEG", "EME", "GEG",
+      	        'M', BlockMachineFrame.getFrameByName("machine", 1),
+      	        'E', crystalStack,
+                'G', ItemStandaloneCables.getCableByName("insulatedgold"));
+        
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.mfsu),
+                "LAL", "LML", "LAL",
+      	        'A', ItemParts.getPartByName("advancedCircuit"),
+      	        'L', lapcrystalStack,
+                'M', new ItemStack(ModBlocks.mfe));
+        
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.IndustrialElectrolyzer),
+                "RER", "CEC", "RER",
+      	        'R', ItemIngots.getIngotByName("refinediron"),
+      	        'E', new ItemStack(ModBlocks.Extractor),
+                'C', ItemParts.getPartByName("advancedCircuit"));
+        
+        CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 2),
+                "RRR", "BBB", "TTT",
+                'R', ItemIngots.getIngotByName("refinediron"),
+      	        'B', "ingotBronze",
+                'T', "ingotTin");
+        
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Compressor),
+                "SXS", "SCS", "SMS",
+                'C', ItemParts.getPartByName("electronicCircuit"),
+      	        'M', BlockMachineFrame.getFrameByName("machine", 1),
+                'S', Blocks.stone);
         
         CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ElectricFurnace),
                 "XCX", "RFR", "XXX",
@@ -399,6 +445,12 @@ public class ModRecipes {
         CraftingHelper.addShapedOreRecipe(BlockMachineFrame.getFrameByName("machine", 1),
                 "AAA", "AXA", "AAA",
                 'A', ItemIngots.getIngotByName("refinediron"));
+        
+        CraftingHelper.addShapedOreRecipe(BlockMachineFrame.getFrameByName("advancedMachine", 1),
+                "XCX", "AMA", "XCX",
+                'A', ItemParts.getPartByName("advancedAlloy"),
+                'C', ItemPlates.getPlateByName("carbon"),
+                'M', BlockMachineFrame.getFrameByName("machine", 1));
 
         CraftingHelper.addShapedOreRecipe(BlockStorage.getStorageBlockByName("sapphire"),
                 "AAA", "AAA", "AAA",
