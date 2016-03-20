@@ -283,7 +283,8 @@ public class ModRecipes {
         RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(Items.coal), ItemDusts.getDustByName("coal"), 100, 20));
         RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(Blocks.coal_ore), new ItemStack(Items.coal, 2), 100, 20));
         RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(Items.bone), new ItemStack(Items.dye, 6, 15), 100, 20));
-
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(Blocks.cobblestone), new ItemStack(Blocks.sand), 100, 20));
+        RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(Blocks.gravel), new ItemStack(Items.flint), 100, 20));
 
         //TechReborn
         RecipeHandler.addRecipe(new GrinderRecipe(BlockOre2.getOreByName("copper"), ItemDusts.getDustByName("copper", 2), 100, 20));
