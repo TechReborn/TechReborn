@@ -27,7 +27,7 @@ public class BlockOre2 extends BaseBlock implements ITexturedBlock, IOreNameProv
 
     public static ItemStack getOreByName(String name, int count) {
         for (int i = 0; i < types.length; i++) {
-            if (types[i].equals(name)) {
+            if (types[i].equalsIgnoreCase(name)) {
                 return new ItemStack(ModBlocks.ore2, count, i);
             }
         }
@@ -41,7 +41,7 @@ public class BlockOre2 extends BaseBlock implements ITexturedBlock, IOreNameProv
     public IBlockState getBlockStateFromName(String name){
         int index = -1;
         for (int i = 0; i < types.length; i++) {
-            if (types[i].equals(name)) {
+            if (types[i].equalsIgnoreCase(name)) {
                 index = i;
                 break;
             }
