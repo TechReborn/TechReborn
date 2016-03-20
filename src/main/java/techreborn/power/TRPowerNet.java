@@ -65,8 +65,6 @@ public class TRPowerNet {
                 energy += handler.collectEnergy(cableType.transferRate);
             }
 
-            System.out.println("energy + " + energy + this);
-
             for (EnergyHandler handler : insertibles) {
                 energy -= handler.addEnergy(Math.min(energy, cableType.transferRate));
             }
