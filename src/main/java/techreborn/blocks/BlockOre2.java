@@ -53,7 +53,7 @@ public class BlockOre2 extends BaseBlock implements ITexturedBlock, IOreNameProv
     }
 
     public static final String[] types = new String[]
-            {"copper", "tin"};
+            {"Copper", "Tin"};
 
     public PropertyInteger METADATA;
 
