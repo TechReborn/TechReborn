@@ -93,6 +93,7 @@ public class ModItems {
     public static Item upgrades;
 
     public static Item missingRecipe;
+    public static Item debug;
 
 
     public static void init() throws InstantiationException, IllegalAccessException {
@@ -328,6 +329,9 @@ public class ModItems {
 
         missingRecipe = new ItemMissingRecipe().setUnlocalizedName("missingRecipe");
         GameRegistry.registerItem(missingRecipe, "mssingRecipe");
+
+        debug = new ItemDebugTool();
+        GameRegistry.registerItem(debug, "debug");
 
         MinecraftForge.EVENT_BUS.register(BucketHandler.INSTANCE);
 
