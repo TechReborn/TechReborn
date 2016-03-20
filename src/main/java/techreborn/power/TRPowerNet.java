@@ -213,7 +213,7 @@ public class TRPowerNet {
         }
 
         public int getTotalCollectible() {
-            if (tile.canProvideEnergy(EnumFacing.NORTH)) {
+            if (tile.canProvideEnergy(side)) {
                 return (int) Math.min(tile.getMaxOutput(), tile.getEnergy());
             }
             return 0;
@@ -221,7 +221,7 @@ public class TRPowerNet {
 
         public int getTotalInsertible() {
             int total = 0;
-            if (tile.canAcceptEnergy(EnumFacing.NORTH)) {
+            if (tile.canAcceptEnergy(side)) {
                 total += tile.addEnergy(type.transferRate, true);
             }
 
