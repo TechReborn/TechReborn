@@ -46,7 +46,7 @@ public class ItemEnergyCrystal extends ItemTextureBase implements IEnergyItemInf
 
     @Override
     public String getTextureName(int damage) {
-        return "techreborn:items/energycrystal";
+        return "techreborn:items/energyCrystal";
     }
 
     @Override

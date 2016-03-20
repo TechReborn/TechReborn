@@ -29,7 +29,7 @@ public class ItemIngots extends ItemTextureBase {
                     "bronze", "cadmium", "chrome", "copper", "cupronickel", "electrum", "indium",
                     "invar", "iridium", "kanthal", "lead", "lodestone", "magnalium", "nichrome", "nickel",
                     "osmium", "platinum", "silver", "steel", "tellurium", "tin", "titanium",
-                    "tungsten", "hotTungstensteel", "tungstensteel", "zinc", "refinediron"};
+                    "tungsten", "hotTungstensteel", "tungstensteel", "zinc", "refinedIron"};
 
 
     public ItemIngots() {

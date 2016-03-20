@@ -61,7 +61,7 @@ public class ItemStandaloneCables extends ItemTextureBase {
 
     @Override
     public String getTextureName(int damage) {
-        return ModInfo.MOD_ID + ":items/cables/" + EnumCableType.values()[damage];
+        return ModInfo.MOD_ID + ":items/cables/" + EnumCableType.values()[damage].getName();
     }
 
     @Override

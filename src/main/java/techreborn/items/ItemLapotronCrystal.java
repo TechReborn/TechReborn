@@ -46,7 +46,7 @@ public class ItemLapotronCrystal extends ItemTextureBase implements IEnergyItemI
 
     @Override
     public String getTextureName(int damage) {
-        return "techreborn:items/lapotroncrystal";
+        return "techreborn:items/lapotronCrystal";
     }
 
     @Override
