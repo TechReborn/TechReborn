@@ -639,6 +639,11 @@ public class ModRecipes {
                 'P', "plateCopper"
         );
 
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.scrapBox),
+                "SSS", "SSS", "SSS",
+                'S', ItemParts.getPartByName("scrap")
+        );
+
         Core.logHelper.info("Shapped Recipes Added");
     }
 

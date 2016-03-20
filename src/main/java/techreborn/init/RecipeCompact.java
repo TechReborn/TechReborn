@@ -9,6 +9,7 @@ import techreborn.items.ItemCells;
 import techreborn.items.ItemIngots;
 import techreborn.items.ItemParts;
 import techreborn.items.ItemPlates;
+import techreborn.parts.ItemStandaloneCables;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -62,7 +63,10 @@ public class RecipeCompact implements IRecipeCompact {
         recipes.put("hvTransformer", new ItemStack(ModBlocks.hvt));
         recipes.put("windMill", new ItemStack(ModBlocks.windMill));
         recipes.put("energyCrystal", new ItemStack(ModItems.energyCrystal));
-//        recipes.put("lapotronCrystal", new ItemStack(ModItems.lapotronCrystal));
+        recipes.put("lapotronCrystal", new ItemStack(ModItems.lapotronCrystal));
+        recipes.put("reinforcedGlass", new ItemStack(ModBlocks.reinforcedglass));
+        recipes.put("compressor", new ItemStack(ModBlocks.Compressor));
+        recipes.put("insulatedGoldCableItem", ItemStandaloneCables.getCableByName("insulatedgold"));
         inited = false;
     }
 
