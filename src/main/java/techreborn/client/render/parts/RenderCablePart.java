@@ -50,9 +50,7 @@ public class RenderCablePart implements IBakedModel {
         if(side != null){
             return Collections.emptyList();
         }
-
-         addCubeToList(new Vecs3dCube(thickness, thickness, thickness, lastThickness, lastThickness, lastThickness), list, face, ModelRotation.X0_Y0, texture);
-
+        addCubeToList(new Vecs3dCube(thickness, thickness, thickness, lastThickness, lastThickness, lastThickness), list, face, ModelRotation.X0_Y0, texture);
         if (state != null) {
             if (state.getValue(CableMultipart.UP)) {
                 addCubeToList(new Vecs3dCube(thickness, lastThickness, thickness, lastThickness, 16.0, lastThickness), list, face, ModelRotation.X0_Y0, texture);
