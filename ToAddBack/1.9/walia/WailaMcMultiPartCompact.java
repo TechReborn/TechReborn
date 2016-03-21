@@ -1,6 +1,5 @@
 package techreborn.parts.walia;
 
-import mcmultipart.block.TileMultipart;
 import mcp.mobius.waila.api.IWailaRegistrar;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
@@ -35,7 +34,6 @@ public class WailaMcMultiPartCompact implements ICompatModule {
     }
 
     public static void callbackRegister(IWailaRegistrar registrar) {
-        registrar.registerBodyProvider(new WaliaPartProvider(),
-                TileMultipart.class);
+        registrar.registerBodyProvider(new WaliaPartProvider(), TileMultipart.class);
     }
 }

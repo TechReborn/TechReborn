@@ -1,6 +1,8 @@
 package techreborn.parts.walia;
 
-import mcmultipart.block.TileMultipart;
+import java.util.ArrayList;
+import java.util.List;
+
 import mcmultipart.raytrace.PartMOP;
 import mcmultipart.raytrace.RayTraceUtils;
 import mcp.mobius.waila.api.IWailaConfigHandler;
@@ -11,14 +13,11 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import techreborn.parts.CableMultipart;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by modmuss50 on 07/03/2016.
@@ -64,8 +63,8 @@ public class WaliaPartProvider implements IWailaDataProvider {
 
     //Stolen from https://github.com/amadornes/MCMultiPart/blob/master/src/main/java/mcmultipart/block/BlockMultipart.java
     private PartMOP reTrace(World world, BlockPos pos, EntityPlayer player) {
-        Vec3 start = RayTraceUtils.getStart(player);
-        Vec3 end = RayTraceUtils.getEnd(player);
+        Vec3d start = RayTraceUtils.getStart(player);
+        Vec3d end = RayTraceUtils.getEnd(player);
         RayTraceUtils.RayTraceResultPart result = getMultipartTile(world, pos).getPartContainer().collisionRayTrace(start, end);
         return result == null ? null : result.hit;
     }

@@ -4,6 +4,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import techreborn.client.render.parts.ClientPartLoader;
+import techreborn.compat.waila.CompatModuleWaila;
 import techreborn.config.ConfigTechReborn;
 import techreborn.parts.StandalonePartCompact;
 import techreborn.parts.TechRebornParts;
@@ -33,7 +34,7 @@ public class CompatManager {
         if (Loader.isModLoaded("gregtech")) {
             isGregTechLoaded = true;
         }
-//        registerCompact(CompatModuleWaila.class, "Waila");
+        registerCompact(CompatModuleWaila.class, "Waila");
 //        registerCompact(MinetweakerCompat.class, "MineTweaker3");
 //        registerCompact(RecipesBiomesOPlenty.class, "BiomesOPlenty");
 //        registerCompact(RecipesBuildcraft.class, "BuildCraft|Builders");
