@@ -48,14 +48,10 @@ public class TRPowerNet {
             }
             cables.removeAll(oldCables);
         }
-        if(tick % 20 == 0){
-            checkAndRemoveOldEndpoints();
-        }
         if (!cables.isEmpty()) {
             ArrayList<EnergyHandler> collectibles = new ArrayList();
             ArrayList<EnergyHandler> insertibles = new ArrayList();
-            for (int i = 0; i < endpoints.size(); i++) {
-                EnergyHandler ei = endpoints.get(i);
+            for (EnergyHandler ei : endpoints) {
                 if (ei.isCollectible()) {
                     collectibles.add(ei);
                 }
@@ -64,8 +60,10 @@ public class TRPowerNet {
                 }
             }
 
-            for (EnergyHandler handler : collectibles) {
-                energy += handler.collectEnergy(cableType.transferRate);
+            if(energy < cableType.transferRate * cables.size()){
+                for (EnergyHandler handler : collectibles) {
+                    energy += handler.collectEnergy(cableType.transferRate);
+                }
             }
 
             for (EnergyHandler handler : insertibles) {
@@ -86,6 +84,7 @@ public class TRPowerNet {
     public void removeElement(CableMultipart te) {
         cables.remove(te);
         this.rebuild();
+        this.checkAndRemoveOldEndpoints();
     }
 
     public static void buildEndpoint(TRPowerNet net){
@@ -120,7 +119,20 @@ public class TRPowerNet {
             TileEntity tile = (TileEntity) energyHandler.tile;
             if(tile.getWorld().getTileEntity(tile.getPos()) == null){
                 deadHandlers.add(energyHandler);
+            } else {
+                boolean hasNet = false;
+                for(EnumFacing facing : EnumFacing.VALUES){
+                    BlockPos pos = tile.getPos().offset(facing);
+                    CableMultipart multipart = CableMultipart.getPartFromWorld(tile.getWorld(), pos, facing);
+                    if(multipart != null && multipart.getNetwork() == this){
+                        hasNet = true;
+                    }
+                }
+                if(!hasNet){
+                    deadHandlers.add(energyHandler);
+                }
             }
+
         }
         endpoints.removeAll(deadHandlers);
     }
@@ -164,27 +176,22 @@ public class TRPowerNet {
                 CableMultipart wire = n.cables.get(i);
                 li.add(wire);
             }
-            for (int i = 0; i < n.endpoints.size(); i++) {
-                EnergyHandler ei = n.endpoints.get(i);
-                EnergyHandler has = this.getHandleFrom(ei.tile);
-                if (has == null) {
-                    endpoints.add(ei);
-                }
+            for (EnergyHandler ei : endpoints) {
+                endpoints.add(ei);
             }
             n.clear(false);
             for (int i = 0; i < li.size(); i++) {
                 CableMultipart wire = li.get(i);
                 wire.setNetwork(this);
             }
-            rebuild();
+            checkAndRemoveOldEndpoints();
             MinecraftForge.EVENT_BUS.unregister(n);
         }
     }
 
     private EnergyHandler getHandleFrom(IEnergyInterfaceTile tile) {
-        for (int i = 0; i < endpoints.size(); i++) {
-            EnergyHandler ei = endpoints.get(i);
-            if (ei.contains(tile))
+        for (EnergyHandler ei : endpoints) {
+            if (ei.tile == tile)
                 return ei;
         }
         return null;
@@ -202,11 +209,6 @@ public class TRPowerNet {
         energy = 0;
 
         MinecraftForge.EVENT_BUS.unregister(this);
-    }
-
-    @Override
-    public String toString() {
-        return cables.size() + ": " + endpoints.toString();
     }
 
     public int addEnergy(int maxAdd, boolean simulate) {
@@ -243,7 +245,7 @@ public class TRPowerNet {
 
         public int collectEnergy(int max) {
             int total = 0;
-            if (tile.canProvideEnergy(side)) {
+            if (tile.canProvideEnergy(side.getOpposite())) {
                 int collect = (int) Math.min(max, tile.getMaxOutput());
                 total = (int) tile.useEnergy(collect, false);
             }
@@ -252,7 +254,7 @@ public class TRPowerNet {
 
         public int addEnergy(int max) {
             int total = 0;
-            if (tile.canAcceptEnergy(side.getOpposite()) && max > 0) {
+            if (tile.canAcceptEnergy(side) && max > 0) {
                 if (type.tier.ordinal() > tile.getTier().ordinal()) {
                     if (tile instanceof TileEntity) {
                         ((TileEntity) tile).getWorld().createExplosion(new EntityTNTPrimed(((TileEntity) tile).getWorld()), ((TileEntity) tile).getPos().getX(), ((TileEntity) tile).getPos().getY(), ((TileEntity) tile).getPos().getZ(), 2.5F, true);
@@ -266,7 +268,7 @@ public class TRPowerNet {
         }
 
         public int getTotalCollectible() {
-            if (tile.canProvideEnergy(side)) {
+            if (tile.canProvideEnergy(side.getOpposite())) {
                 return (int) Math.min(tile.getMaxOutput(), tile.getEnergy());
             }
             return 0;
@@ -279,11 +281,6 @@ public class TRPowerNet {
             }
 
             return total;
-        }
-
-        @Override
-        public String toString() {
-            return tile + " @ " + side;
         }
     }
 }

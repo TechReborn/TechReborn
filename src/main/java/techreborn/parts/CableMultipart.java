@@ -161,13 +161,13 @@ public abstract class CableMultipart extends Multipart implements INormallyOcclu
     public void onNeighborBlockChange(Block block) {
         super.onNeighborBlockChange(block);
         nearByChange();
-        if(network != null){
-            network.buildEndpoint(network);
-        }
-        findAndJoinNetwork(getWorld(), getPos());
+
     }
 
     public void nearByChange() {
+        if(network == null){
+            findAndJoinNetwork(getWorld(), getPos());
+        }
         checkConnectedSides();
         for (EnumFacing direction : EnumFacing.VALUES) {
             BlockPos blockPos = getPos().offset(direction);
@@ -177,6 +177,7 @@ public abstract class CableMultipart extends Multipart implements INormallyOcclu
                 part.checkConnectedSides();
             }
         }
+        TRPowerNet.buildEndpoint(network);
     }
 
     public static CableMultipart getPartFromWorld(World world, BlockPos pos, EnumFacing side) {
