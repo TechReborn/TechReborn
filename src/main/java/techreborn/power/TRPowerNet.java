@@ -274,7 +274,7 @@ public class TRPowerNet {
 
         public int getTotalInsertible() {
             int total = 0;
-            if (tile.canAcceptEnergy(side)) {
+            if (tile.canAcceptEnergy(side.getOpposite())) {
                 total += tile.addEnergy(type.transferRate, true);
             }
 

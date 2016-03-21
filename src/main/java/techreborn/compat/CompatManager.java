@@ -8,6 +8,7 @@ import techreborn.compat.waila.CompatModuleWaila;
 import techreborn.config.ConfigTechReborn;
 import techreborn.parts.StandalonePartCompact;
 import techreborn.parts.TechRebornParts;
+import techreborn.parts.walia.WailaMcMultiPartCompact;
 
 import java.util.ArrayList;
 
@@ -42,7 +43,7 @@ public class CompatManager {
         registerCompact(TechRebornParts.class, "mcmultipart");
         registerCompact(ClientPartLoader.class, "mcmultipart", "@client");
         registerCompact(StandalonePartCompact.class, "!mcmultipart");
-        //registerCompact(WailaMcMultiPartCompact.class, "mcmultipart", "Waila");
+        registerCompact(WailaMcMultiPartCompact.class, "mcmultipart", "Waila");
     }
 
     public void registerCompact(Class<? extends ICompatModule> moduleClass, Object... objs) {
