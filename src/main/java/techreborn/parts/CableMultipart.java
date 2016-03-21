@@ -2,7 +2,6 @@ package techreborn.parts;
 
 import mcmultipart.MCMultiPartMod;
 import mcmultipart.microblock.IMicroblock;
-import mcmultipart.multipart.ICollidableMultipart;
 import mcmultipart.multipart.IMultipartContainer;
 import mcmultipart.multipart.INormallyOccludingPart;
 import mcmultipart.multipart.ISlottedPart;
@@ -54,7 +53,7 @@ import java.util.Map;
 /**
  * Created by modmuss50 on 02/03/2016.
  */
-public abstract class CableMultipart extends Multipart implements INormallyOccludingPart, ISlottedPart, ITickable, ICableType, ICollidableMultipart {
+public abstract class CableMultipart extends Multipart implements INormallyOccludingPart, ISlottedPart, ITickable, ICableType {
 
     public Vecs3dCube[] boundingBoxes = new Vecs3dCube[14];
     public float center = 0.6F;

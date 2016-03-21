@@ -12,6 +12,7 @@ import techreborn.tiles.fusionReactor.TileEntityFusionController;
 import techreborn.tiles.generator.*;
 import techreborn.tiles.idsu.TileIDSU;
 import techreborn.tiles.lesu.TileLesu;
+import techreborn.tiles.storage.TileBatBox;
 import techreborn.tiles.teir1.*;
 
 public class GuiHandler implements IGuiHandler {
@@ -52,6 +53,8 @@ public class GuiHandler implements IGuiHandler {
     public static final int ironFurnace = 36;
     public static final int recyclerID = 37;
     public static final int scrapboxinatorID = 38;
+    public static final int batboxID = 39;
+
 
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
@@ -148,6 +151,8 @@ public class GuiHandler implements IGuiHandler {
 	        return new ContainerRecycler((TileRecycler) world.getTileEntity(new BlockPos(x, y, z)), player);
 	    }else if (ID == scrapboxinatorID) {
 	        return new ContainerScrapboxinator((TileScrapboxinator) world.getTileEntity(new BlockPos(x, y, z)), player);
+	    }else if (ID == batboxID) {
+	        return new ContainerBatbox((TileBatBox) world.getTileEntity(new BlockPos(x, y, z)), player);
 	    }
         return null;
     }
@@ -246,8 +251,10 @@ public class GuiHandler implements IGuiHandler {
             return new GuiIronFurnace(player, (TileIronFurnace) world.getTileEntity(new BlockPos(x, y, z)));
         }else if (ID == recyclerID) {
             return new GuiRecycler(player, (TileRecycler) world.getTileEntity(new BlockPos(x, y, z)));
-        }   else if (ID == scrapboxinatorID) {
+        }else if (ID == scrapboxinatorID) {
             return new GuiScrapboxinator(player, (TileScrapboxinator) world.getTileEntity(new BlockPos(x, y, z)));
+        }else if (ID == batboxID) {
+            return new GuiBatbox(player, (TileBatBox) world.getTileEntity(new BlockPos(x, y, z)));
         }      
         return null;
     }
