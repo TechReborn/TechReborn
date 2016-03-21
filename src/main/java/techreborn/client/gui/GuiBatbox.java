@@ -42,10 +42,10 @@ public class GuiBatbox extends GuiContainer {
 
         int j = 0;
 
-//        j = generator.getEnergyScaled(24);
-//        if (j > 0) {
-//            this.drawTexturedModalRect(k + 109, l + 21 + 12, 176, 0, j + 1, 16);
-//        }
+        j = generator.getEnergyScaled(24);
+        if (j > 0) {
+            this.drawTexturedModalRect(k + 109, l + 21 + 12, 176, 0, j + 1, 16);
+        }
 //
 //        if (containerGenerator.burnTime != 0)
 //        {
@@ -57,7 +57,9 @@ public class GuiBatbox extends GuiContainer {
     protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
         String name = I18n.translateToLocal("tile.techreborn.batbox.name");
         this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
+
         this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
-//        this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerGenerator.energy), 25, this.ySize- 150, 4210752);
+        this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(generator.getMaxPower()), 25, this.ySize- 140, 4210752);
+        this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerGenerator.energy), 25, this.ySize- 150, 4210752);
     }
 }

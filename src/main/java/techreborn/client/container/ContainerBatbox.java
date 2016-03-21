@@ -32,11 +32,6 @@ public class ContainerBatbox extends RebornContainer {
         this.tile = tile;
         this.player = player;
 
-        // fuel
-//        this.addSlotToContainer(new Slot(tile.inventory, 0, 80, 53));
-//        // charge
-//        this.addSlotToContainer(new SlotFurnaceFuel(tile.inventory, 1, 80, 17));
-
 
         int i;
 
@@ -53,30 +48,22 @@ public class ContainerBatbox extends RebornContainer {
         }
     }
 
-//    @Override
-//    public void detectAndSendChanges() {
-//        super.detectAndSendChanges();
-//        for (int i = 0; i < this.crafters.size(); i++) {
-//            ICrafting icrafting = (ICrafting) this.crafters.get(i);
-//            if (this.burnTime != tile.burnTime) {
-//                icrafting.sendProgressBarUpdate(this, 0, tile.burnTime);
-//            }
-//            if (this.totalBurnTime != tile.totalBurnTime) {
-//                icrafting.sendProgressBarUpdate(this, 1, tile.totalBurnTime);
-//            }
-//            if (this.energy != (int) tile.getEnergy()) {
-//                icrafting.sendProgressBarUpdate(this, 2, (int) tile.getEnergy());
-//            }
-//        }
-//    }
+    @Override
+    public void detectAndSendChanges() {
+        super.detectAndSendChanges();
+        for (int i = 0; i < this.crafters.size(); i++) {
+            ICrafting icrafting = (ICrafting) this.crafters.get(i);
+            if (this.energy != (int) tile.getEnergy()) {
+                icrafting.sendProgressBarUpdate(this, 2, (int) tile.getEnergy());
+            }
+        }
+    }
 
-//    @Override
-//    public void onCraftGuiOpened(ICrafting crafting) {
-//        super.onCraftGuiOpened(crafting);
-//        crafting.sendProgressBarUpdate(this, 0, tile.burnTime);
-//        crafting.sendProgressBarUpdate(this, 1, tile.totalBurnTime);
-//        crafting.sendProgressBarUpdate(this, 2, (int) tile.getEnergy());
-//    }
+    @Override
+    public void onCraftGuiOpened(ICrafting crafting) {
+        super.onCraftGuiOpened(crafting);
+        crafting.sendProgressBarUpdate(this, 2, (int) tile.getEnergy());
+    }
 
     @SideOnly(Side.CLIENT)
     @Override
@@ -94,5 +81,4 @@ public class ContainerBatbox extends RebornContainer {
     public int getScaledBurnTime(int i) {
         return (int) (((float) burnTime / (float) totalBurnTime) * i);
     }
-
 }
