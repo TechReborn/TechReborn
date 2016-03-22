@@ -10,8 +10,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.util.BucketHandler;
-import reborncore.shields.api.Shield;
-import reborncore.shields.api.ShieldRegistry;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineFrame;
 import techreborn.events.OreUnifier;
@@ -19,7 +17,6 @@ import techreborn.items.*;
 import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
 import techreborn.items.tools.*;
-import techreborn.shields.TechRebornShield;
 
 public class ModItems {
 
@@ -97,8 +94,6 @@ public class ModItems {
 
     public static Item missingRecipe;
     public static Item debug;
-
-    public static Shield trShield;
 
 
     public static void init() throws InstantiationException, IllegalAccessException {
@@ -339,10 +334,6 @@ public class ModItems {
         GameRegistry.registerItem(debug, "debug");
 
         MinecraftForge.EVENT_BUS.register(BucketHandler.INSTANCE);
-
-        trShield = new TechRebornShield("techreborn");
-
-        ShieldRegistry.registerShield(trShield);
 
         Core.logHelper.info("TechReborns Items Loaded");
 
