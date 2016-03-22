@@ -11,7 +11,7 @@ import techreborn.init.ModBlocks;
 /**
  * Created by modmuss50 on 14/03/2016.
  */
-public class TileBatBox  extends TilePowerAcceptor implements IWrenchable {
+public class TileBatBox extends TilePowerAcceptor implements IWrenchable {
 
     public TileBatBox() {
         super(1);
