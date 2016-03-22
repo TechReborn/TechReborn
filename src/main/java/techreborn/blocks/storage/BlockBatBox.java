@@ -1,7 +1,14 @@
 package techreborn.blocks.storage;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.blocks.IRotationTexture;
@@ -32,6 +39,13 @@ public class BlockBatBox  extends BlockMachineBase implements IRotationTexture {
     public TileEntity createNewTileEntity(World world, int p_149915_2_) {
         return new TileBatBox();
     }
+    
+    @Override
+    public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+        List<ItemStack> items = new ArrayList<ItemStack>();
+        items.add(new ItemStack(this));
+        return items;
+    }
 
     protected final String prefix = "techreborn:blocks/machine/storage/";
 
@@ -59,5 +73,4 @@ public class BlockBatBox  extends BlockMachineBase implements IRotationTexture {
     public String getBottom() {
         return prefix + "batbox_bottom";
     }
-
 }
