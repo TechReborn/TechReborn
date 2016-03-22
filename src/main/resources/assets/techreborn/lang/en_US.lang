@@ -66,8 +66,8 @@ tile.techreborn.compressor.name=Compressor
 tile.techreborn.electricfurnace.name=Electric Furnace
 tile.techreborn.machineFrame.advancedMachine.name=Advanced Machine Block
 tile.techreborn.machineFrame.machine.name=Machine Block
-tile.techreborn.ore2.copper.name=Copper Ore
-tile.techreborn.ore2.tin.name=Tin Ore
+tile.techreborn.ore2.Copper.name=Copper Ore
+tile.techreborn.ore2.Tin.name=Tin Ore
 tile.techreborn.storage2.copper.name=Copper Block
 tile.techreborn.storage2.tin.name=Tin Block
 tile.techreborn.solarpanel.name=Solar Panel
@@ -285,7 +285,7 @@ item.techreborn.dust.sawDust.name=Saw Dust
 item.techreborn.dust.olivine.name=Olivine Dust
 item.techreborn.lapotroncrystal.name=Lapotron Crystal
 item.techreborn.energycrystal.name=Energy Crystal
-item.techreborn.ingot.refinediron.name=Refined Iron Ingot
+item.techreborn.ingot.refinedIron.name=Refined Iron Ingot
 item.techreborn.wrench.name=Wrench
 item.techreborn.cable.COPPER.name=Copper Cable
 item.techreborn.cable.TIN.name=Tin Cable
@@ -296,7 +296,8 @@ item.techreborn.cable.ICOPPER.name=Insulated Copper Cable
 item.techreborn.cable.IGOLD.name=Insulated Gold Cable
 item.techreborn.cable.IHV.name=Insulated HV Cable
 item.techreborn.scrapbox.name=Scrap Box
-
+item.techreborn.part.carbonmesh.name=Carbon Mesh
+item.techreborn.part.carbonfibe.name=Carbon Fiber
 
 #Small Dusts
 item.techreborn.dustsmall.Almandine.name=Small Pile of Almandine Dust
