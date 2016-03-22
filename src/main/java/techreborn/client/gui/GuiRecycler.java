@@ -34,7 +34,6 @@ public class GuiRecycler extends GuiContainer {
         int j = 0;
         
         j = compressor.gaugeProgressScaled(24);
-//        System.out.println(compressor.gaugeProgressScaled(10));
         if (j > 0) {
             this.drawTexturedModalRect(k + 78, l + 35, 176, 14, j + 1, 16);
         }

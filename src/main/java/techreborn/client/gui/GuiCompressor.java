@@ -34,9 +34,8 @@ public class GuiCompressor extends GuiContainer {
         int j = 0;
 
         j = compressor.getProgressScaled(24);
-//        System.out.println("" + j);
         if (j > 0) {
-            this.drawTexturedModalRect(k + 80, l + 35, 176, 14, j + 2, 16);
+            this.drawTexturedModalRect(k + 78, l + 35, 176, 14, j + 1, 16);
         }
 
         j = compressor.getEnergyScaled(12);
@@ -50,5 +49,4 @@ public class GuiCompressor extends GuiContainer {
         this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
         this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
     }
-
 }

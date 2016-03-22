@@ -35,7 +35,7 @@ public class GuiExtractor extends GuiContainer {
 
         j = extractor.getProgressScaled(24);
         if (j > 0) {
-            this.drawTexturedModalRect(k + 50, l + 36, 176, 14, j + 1, 16);
+            this.drawTexturedModalRect(k + 78, l + 35, 176, 14, j + 1, 16);
         }
 
         j = extractor.getEnergyScaled(12);
@@ -49,5 +49,4 @@ public class GuiExtractor extends GuiContainer {
         this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
         this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
     }
-
 }

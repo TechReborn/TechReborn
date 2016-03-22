@@ -1,6 +1,7 @@
 package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -13,7 +14,7 @@ public class ContainerExtractor extends ContainerCrafting {
     EntityPlayer player;
 
     TileExtractor tile;
-
+    
     public int connectionStatus;
 
     public ContainerExtractor(TileExtractor tileGrinder, EntityPlayer player) {
@@ -51,13 +52,31 @@ public class ContainerExtractor extends ContainerCrafting {
     public boolean canInteractWith(EntityPlayer p_75145_1_) {
         return true;
     }
+    
+//    @Override
+//    public void onCraftGuiOpened(ICrafting crafting) {
+//        super.onCraftGuiOpened(crafting);
+//        crafting.sendProgressBarUpdate(this, 0, (int) tile.getProgressScaled(0));
+//        crafting.sendProgressBarUpdate(this, 2, (int) tile.getEnergy());
+//    }
+//
+//    @SideOnly(Side.CLIENT)
+//    @Override
+//    public void updateProgressBar(int id, int value) {
+//        if (id == 0) {
+//            this.progress = value;
+//        }
+//    	else if (id == 2) {
+//            this.energy = value;
+//        }
+//        this.tile.setEnergy(energy);
+//    }
 
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void updateProgressBar(int id, int value) {
-        if (id == 10) {
-            this.connectionStatus = value;
-        }
-    }
-
+//    @SideOnly(Side.CLIENT)
+//    @Override
+//    public void updateProgressBar(int id, int value) {
+//        if (id == 10) {
+//            this.connectionStatus = value;
+//        }
+//    }
 }

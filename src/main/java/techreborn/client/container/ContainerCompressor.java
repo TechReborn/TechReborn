@@ -51,13 +51,4 @@ public class ContainerCompressor extends ContainerCrafting {
     public boolean canInteractWith(EntityPlayer p_75145_1_) {
         return true;
     }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void updateProgressBar(int id, int value) {
-        if (id == 10) {
-            this.connectionStatus = value;
-        }
-    }
-
 }
