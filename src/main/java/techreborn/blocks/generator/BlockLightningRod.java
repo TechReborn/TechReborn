@@ -7,7 +7,6 @@ import techreborn.client.TechRebornCreativeTab;
 
 public class BlockLightningRod extends BlockMachineBase implements IAdvancedRotationTexture {
 
-
     public BlockLightningRod(Material material) {
         super();
         setUnlocalizedName("techreborn.lightningrod");
@@ -18,22 +17,21 @@ public class BlockLightningRod extends BlockMachineBase implements IAdvancedRota
 
     @Override
     public String getFront(boolean isActive) {
-        return prefix + "lightning_rod_side";
+        return prefix + "plasma_generator_side_off";
     }
 
     @Override
     public String getSide(boolean isActive) {
-        return prefix + "lightning_rod_side" ;
+        return prefix + "plasma_generator_side_off" ;
     }
 
     @Override
     public String getTop(boolean isActive) {
-        return prefix + "lightning_rod_top";
+        return prefix + "plasma_generator_side_off";
     }
 
     @Override
     public String getBottom(boolean isActive) {
-        return prefix + "lightning_rod_bottom";
+        return prefix + "plasma_generator_side_off";
     }
-
 }

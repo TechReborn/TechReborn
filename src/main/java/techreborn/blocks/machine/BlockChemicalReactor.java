@@ -51,7 +51,7 @@ public class BlockChemicalReactor extends BlockMachineBase implements IRotationT
 
     @Override
     public String getTop() {
-        return prefix + "chemical_reactor_top";
+        return prefix + "machine_top";
     }
 
     @Override

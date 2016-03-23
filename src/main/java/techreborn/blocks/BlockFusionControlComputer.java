@@ -57,16 +57,16 @@ public class BlockFusionControlComputer extends BlockMachineBase implements IAdv
 
     @Override
     public String getSide(boolean isActive) {
-        return prefix + "fusion_control_computer_side" ;
+        return prefix + "machine_side" ;
     }
 
     @Override
     public String getTop(boolean isActive) {
-        return prefix + "fusion_control_computer_top";
+        return prefix + "machine_side";
     }
 
     @Override
     public String getBottom(boolean isActive) {
-        return prefix + "fusion_control_computer_bottom";
+        return prefix + "machine_side";
     }
 }

@@ -13,7 +13,6 @@ import techreborn.tiles.TileQuantumTank;
 
 public class BlockQuantumTank extends BlockMachineBase implements IAdvancedRotationTexture {
 
-
     public BlockQuantumTank() {
         super();
         setUnlocalizedName("techreborn.quantumTank");
@@ -28,11 +27,12 @@ public class BlockQuantumTank extends BlockMachineBase implements IAdvancedRotat
 
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-        if(fillBlockWithFluid(world, new BlockPos(x, y, z), player)){
+        if(fillBlockWithFluid(world, new BlockPos(x, y, z), player)) {
             return true;
         }
-        if (!player.isSneaking())
+        if (!player.isSneaking()) {
             player.openGui(Core.INSTANCE, GuiHandler.quantumTankID, world, x, y, z);
+        }
         return true;
     }
 
@@ -40,12 +40,12 @@ public class BlockQuantumTank extends BlockMachineBase implements IAdvancedRotat
 
     @Override
     public String getFront(boolean isActive) {
-        return  prefix + "ThermalGenerator_other";
+        return "techreborn:blocks/machine/generators/thermal_generator_side_off";
     }
 
     @Override
     public String getSide(boolean isActive) {
-        return prefix + "ThermalGenerator_other";
+        return "techreborn:blocks/machine/generators/thermal_generator_side_off";
     }
 
     @Override
@@ -55,7 +55,6 @@ public class BlockQuantumTank extends BlockMachineBase implements IAdvancedRotat
 
     @Override
     public String getBottom(boolean isActive) {
-        return prefix + "ThermalGenerator_other";
+        return "techreborn:blocks/machine/generators/thermal_generator_bottom";
     }
-
 }

@@ -7,8 +7,6 @@ import techreborn.client.TechRebornCreativeTab;
 
 public class BlockPlasmaGenerator extends BlockMachineBase implements IAdvancedRotationTexture {
 
-
-
     public BlockPlasmaGenerator(Material material) {
         super();
         setUnlocalizedName("techreborn.plasmagenerator");
@@ -29,12 +27,11 @@ public class BlockPlasmaGenerator extends BlockMachineBase implements IAdvancedR
 
     @Override
     public String getTop(boolean isActive) {
-        return prefix + "plasma_generator_bottom";
+        return prefix + "plasma_generator_side_off";
     }
 
     @Override
     public String getBottom(boolean isActive) {
-        return prefix + "plasma_generator_bottom";
+        return prefix + "plasma_generator_side_off";
     }
-
 }
