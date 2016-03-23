@@ -293,6 +293,8 @@ public class ModRecipes {
 	public static ItemStack batteryStack = new ItemStack(ModItems.reBattery, 1, OreDictionary.WILDCARD_VALUE);
 	public static ItemStack crystalStack = new ItemStack(ModItems.energyCrystal, 1, OreDictionary.WILDCARD_VALUE);
 	public static ItemStack lapcrystalStack = new ItemStack(ModItems.lapotronCrystal, 1, OreDictionary.WILDCARD_VALUE);
+	public static ItemStack dyes = new ItemStack(Items.dye, 1, OreDictionary.WILDCARD_VALUE);
+
 
 
 
@@ -335,6 +337,17 @@ public class ModRecipes {
         CraftingHelper.addShapelessOreRecipe(ItemParts.getPartByName("carbonmesh"),  ItemDusts.getDustByName("coal"), ItemDusts.getDustByName("coal"), ItemDusts.getDustByName("coal"), ItemDusts.getDustByName("coal"));
         CraftingHelper.addShapelessOreRecipe(ItemParts.getPartByName("carbonfiber"), ItemParts.getPartByName("carbonmesh"), ItemParts.getPartByName("carbonmesh"));
 
+        CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("computerMonitor"),
+                "ADA", "DGD", "ADA",
+                'D', dyes,
+      	        'A', "ingotAluminum",
+                'G', Blocks.glass_pane);
+        
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.reinforcedglass, 7),
+                "GAG", "GGG", "GAG",
+      	        'A', ItemParts.getPartByName("advancedAlloy"),
+                'G', Blocks.glass);
+        
         CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.windMill, 2),
                 "IXI", "XGX", "IXI",
       	        'I', "ingotIron",
@@ -521,7 +534,7 @@ public class ModRecipes {
         CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("dataStorageCircuit"),
                 "EEE", "ECE", "EEE",
                 'E', new ItemStack(Items.emerald),
-                'C', ItemParts.getPartByName("basicCircuitBoard"));
+                'C', ItemParts.getPartByName("electronicCircuit"));
 
         CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.parts, 4, 8),
                 "DSD", "S S", "DSD",
@@ -1860,7 +1873,7 @@ public class ModRecipes {
                 'C', ItemParts.getPartByName("computerMonitor"),
                 'A', ModBlocks.HighAdvancedMachineBlock,
                 'Q', ModBlocks.digitalChest,
-                'T', TechRebornAPI.recipeCompact.getItem("teleporter"));
+                'T', ModBlocks.Compressor);
 
         CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.PlasmaGenerator),
                 "PPP", "PTP", "CGC",
