@@ -126,4 +126,10 @@ public class ItemWrench extends ItemTR implements ITexturedItem {
     public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
         return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
     }
+    
+    @SideOnly(Side.CLIENT)
+    public boolean isFull3D()
+    {
+        return true;
+    }
 }
