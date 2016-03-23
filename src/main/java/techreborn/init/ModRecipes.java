@@ -335,12 +335,12 @@ public class ModRecipes {
         CraftingHelper.addShapelessOreRecipe(ItemParts.getPartByName("carbonmesh"),  ItemDusts.getDustByName("coal"), ItemDusts.getDustByName("coal"), ItemDusts.getDustByName("coal"), ItemDusts.getDustByName("coal"));
         CraftingHelper.addShapelessOreRecipe(ItemParts.getPartByName("carbonfiber"), ItemParts.getPartByName("carbonmesh"), ItemParts.getPartByName("carbonmesh"));
 
-        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.waterMill, 2),
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.windMill, 2),
                 "IXI", "XGX", "IXI",
       	        'I', "ingotIron",
                 'G', ModBlocks.Generator);
         
-        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.windMill),
+        CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.waterMill),
                 "SWS", "WGW", "SWS",
       	        'S', Items.stick,
       	        'W', "plankWood",
