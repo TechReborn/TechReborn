@@ -69,10 +69,6 @@ public class TechRebornDevCommand extends CommandBase {
                     }
                 }
             }
-        }else if ("explode".equals(args[0])) {
-            EntityPlayerMP playerMP = (EntityPlayerMP) sender;
-            RebornExplosion explosion = new RebornExplosion(playerMP.getPosition(), playerMP.worldObj, 40);
-            explosion.explode();
         }
     }
 }
