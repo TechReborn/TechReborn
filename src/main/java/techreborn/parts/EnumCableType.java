@@ -18,7 +18,7 @@ public enum EnumCableType implements IStringSerializable {
     HV("hv", "techreborn:blocks/cables/hv_cable", 2048, 12.0, true,  EnumPowerTier.HIGH, HVCable.class),
     GLASSFIBER("glassfiber", "techreborn:blocks/cables/glass_fiber_cable", 8192, 12.0, false,  EnumPowerTier.HIGH, GlassFiberCable.class),
     ICOPPER("insulatedcopper", "techreborn:blocks/cables/copper_insulated_cable", 128, 10.0, false,  EnumPowerTier.LOW, InsulatedCopperCable.class),
-    IGOLD("insulatedgold", "techreborn:blocks/cables/gold_insulated_cable", 512, 10.0, false,  EnumPowerTier.HIGH, InsulatedGoldCable.class),
+    IGOLD("insulatedgold", "techreborn:blocks/cables/gold_insulated_cable", 512, 10.0, false,  EnumPowerTier.MEDIUM, InsulatedGoldCable.class),
     IHV("insulatedhv", "techreborn:blocks/cables/hv_insulated_cable", 2048, 10.0, false, EnumPowerTier.HIGH, InsulatedHVCable.class);
 
     private String friendlyName;

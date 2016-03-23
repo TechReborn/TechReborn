@@ -22,18 +22,19 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.BaseTileBlock;
+import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TilePlayerDectector;
 
 import java.util.List;
 import java.util.Random;
 
-public class BlockPlayerDetector extends BaseTileBlock implements ITexturedBlock {
+public class BlockPlayerDetector extends BlockMachineBase implements ITexturedBlock {
 
     public PropertyInteger METADATA;
 
     public BlockPlayerDetector() {
-        super(Material.rock);
+        super();
         setUnlocalizedName("techreborn.playerDetector");
         setCreativeTab(TechRebornCreativeTab.instance);
         setHardness(2f);
