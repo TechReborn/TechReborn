@@ -39,6 +39,7 @@ import techreborn.packets.PacketAesu;
 import techreborn.packets.PacketIdsu;
 import techreborn.proxies.CommonProxy;
 import techreborn.tiles.idsu.IDSUManager;
+import techreborn.utils.StackWIPHandler;
 import techreborn.world.TechRebornWorldGen;
 
 import java.io.File;
@@ -139,6 +140,7 @@ public class Core {
 		MinecraftForge.EVENT_BUS.register(new TRTickHandler());
 		MinecraftForge.EVENT_BUS.register(new OreUnifier());
 		MinecraftForge.EVENT_BUS.register(worldGen.retroGen);
+		MinecraftForge.EVENT_BUS.register(new StackWIPHandler());
 		//Scrapbox
 		if (config.scrapboxDispenser) {
 			BlockDispenser.dispenseBehaviorRegistry.putObject(ModItems.scrapBox, new BehaviorDispenseScrapbox());
