@@ -15,7 +15,7 @@ public class TileAesu extends TilePowerAcceptor implements IWrenchable {
 
     public static final int MAX_OUTPUT = ConfigTechReborn.aesuMaxOutput;
     public static final int MAX_STORAGE = ConfigTechReborn.aesuMaxStorage;
-    public Inventory inventory = new Inventory(2, "TileAesu", 64, this);
+    public Inventory inventory = new Inventory(4, "TileAesu", 64, this);
     private int OUTPUT = 64; //The current output
     private double euLastTick = 0;
     private double euChange;

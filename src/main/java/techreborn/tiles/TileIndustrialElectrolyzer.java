@@ -211,7 +211,7 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor implements IWr
 
     @Override
     public double getMaxPower() {
-        return 10000;
+        return 1000;
     }
 
     @Override

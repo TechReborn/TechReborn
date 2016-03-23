@@ -21,7 +21,7 @@ public class TileLesu extends TilePowerAcceptor {//TODO wrench
     private int output;
     private int maxStorage;
 
-    public Inventory inventory = new Inventory(2, "TileAesu", 64, this);
+    public Inventory inventory = new Inventory(4, "TileAesu", 64, this);
 
     public TileLesu() {
         super(5);

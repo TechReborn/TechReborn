@@ -1,8 +1,10 @@
 package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.container.RebornContainer;
@@ -13,6 +15,9 @@ public class ContainerAesu extends RebornContainer {
     EntityPlayer player;
 
     TileAesu tile;
+    
+    private static final EntityEquipmentSlot[] equipmentSlots = new EntityEquipmentSlot[] {EntityEquipmentSlot.HEAD, EntityEquipmentSlot.CHEST, EntityEquipmentSlot.LEGS, EntityEquipmentSlot.FEET};
+
 
     @Override
     public boolean canInteractWith(EntityPlayer player) {
@@ -23,10 +28,17 @@ public class ContainerAesu extends RebornContainer {
     public int storedEu;
     public int euChange;
 
-    public ContainerAesu(TileAesu tileaesu,
-                         EntityPlayer player) {
+    public ContainerAesu(TileAesu tileaesu, EntityPlayer player) {
         tile = tileaesu;
         this.player = player;
+
+        // charge
+        this.addSlotToContainer(new Slot(tileaesu.inventory, 0, 152, 42));
+        this.addSlotToContainer(new Slot(tileaesu.inventory, 1, 152, 58));
+        this.addSlotToContainer(new Slot(tileaesu.inventory, 2, 152, 78));
+
+        //Battery
+        this.addSlotToContainer(new Slot(tileaesu.inventory, 3, 143, 5));
 
         int i;
 
@@ -41,6 +53,21 @@ public class ContainerAesu extends RebornContainer {
             this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18,
                     173));
         }
+        
+		for (int k = 0; k < 4; k++) 
+		{
+			final EntityEquipmentSlot slot = equipmentSlots[k];
+			addSlotToContainer(new Slot(player.inventory, player.inventory.getSizeInventory() - 2 - k, 134, 42 + k * 18) 
+			{
+				@Override
+				public int getSlotStackLimit() { return 1; }
+				@Override
+				public boolean isItemValid(ItemStack stack) 
+				{
+					return stack != null && stack.getItem().isValidArmor(stack, slot, player);
+				}
+			});
+		}
     }
 
     @Override
@@ -79,5 +106,4 @@ public class ContainerAesu extends RebornContainer {
             this.euChange = value;
         }
     }
-
 }

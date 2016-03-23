@@ -17,15 +17,11 @@ import java.io.IOException;
 
 public class GuiAesu extends GuiContainer {
 
-    private static final ResourceLocation texture = new ResourceLocation(
-            "techreborn", "textures/gui/aesu.png");
-
+    private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/aesu.png");
     TileAesu aesu;
-
     ContainerAesu containerAesu;
 
-    public GuiAesu(EntityPlayer player,
-                   TileAesu tileaesu) {
+    public GuiAesu(EntityPlayer player, TileAesu tileaesu) {
         super(new ContainerAesu(tileaesu, player));
         this.xSize = 176;
         this.ySize = 197;
@@ -39,15 +35,14 @@ public class GuiAesu extends GuiContainer {
         this.buttonList.clear();
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
-        this.buttonList.add(new GuiButton(0, k + 128, l + 5, 15, 15, "++"));
-        this.buttonList.add(new GuiButton(1, k + 128, l + 5 + 20, 15, 15, "+"));
-        this.buttonList.add(new GuiButton(2, k + 128, l + 5 + (20 * 2), 15, 15, "-"));
-        this.buttonList.add(new GuiButton(3, k + 128, l + 5 + (20 * 3), 15, 15, "--"));
+        this.buttonList.add(new GuiButton(0, k + 117, l + 20, 15, 15, "++"));
+        this.buttonList.add(new GuiButton(1, k + 117, l + 20 + 20, 15, 15, "+"));
+        this.buttonList.add(new GuiButton(2, k + 117, l + 20 + (20 * 2), 15, 15, "-"));
+        this.buttonList.add(new GuiButton(3, k + 117, l + 20 + (20 * 3), 15, 15, "--"));
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(float p_146976_1_,
-                                                   int p_146976_2_, int p_146976_3_) {
+    protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_) {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(texture);
         int k = (this.width - this.xSize) / 2;
@@ -55,8 +50,7 @@ public class GuiAesu extends GuiContainer {
         this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
     }
 
-    protected void drawGuiContainerForegroundLayer(int p_146979_1_,
-                                                   int p_146979_2_) {
+    protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
         this.fontRendererObj.drawString(I18n.translateToLocal("tile.techreborn.aesu.name"), 40, 10, Color.WHITE.getRGB());
         this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerAesu.euOut) + " /tick", 10, 20, Color.WHITE.getRGB());
         this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerAesu.storedEu) + " ", 10, 30, Color.WHITE.getRGB());
