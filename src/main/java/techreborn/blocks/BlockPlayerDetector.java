@@ -3,6 +3,8 @@ package techreborn.blocks;
 
 import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -38,7 +40,7 @@ public class BlockPlayerDetector extends BlockMachineBase implements ITexturedBl
         setUnlocalizedName("techreborn.playerDetector");
         setCreativeTab(TechRebornCreativeTab.instance);
         setHardness(2f);
-        this.setDefaultState(this.getDefaultState().withProperty(METADATA, 0));
+        this.setDefaultState(this.getDefaultState().withProperty(METADATA, 0).withProperty(FACING, EnumFacing.NORTH).withProperty(ACTIVE, false));
     }
 
     public static final String[] types = new String[]
@@ -139,9 +141,10 @@ public class BlockPlayerDetector extends BlockMachineBase implements ITexturedBl
     }
 
     protected BlockStateContainer createBlockState() {
-
+        FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
+        ACTIVE = PropertyBool.create("active");
         METADATA = PropertyInteger.create("type", 0, types.length  -1);
-        return new BlockStateContainer(this, METADATA);
+        return new BlockStateContainer(this, METADATA, FACING, ACTIVE);
     }
 
     @Override
