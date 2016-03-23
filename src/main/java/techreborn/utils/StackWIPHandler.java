@@ -1,6 +1,7 @@
 package techreborn.utils;
 
 import net.minecraft.block.Block;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import techreborn.init.ModBlocks;
@@ -19,13 +20,14 @@ public class StackWIPHandler {
         wipBlocks.add(ModBlocks.MagicalAbsorber);
         wipBlocks.add(ModBlocks.ChunkLoader);
         wipBlocks.add(ModBlocks.ElectricCraftingTable);
+        wipBlocks.add(ModBlocks.playerDetector);
     }
 
     @SubscribeEvent
     public void toolTip(ItemTooltipEvent event){
         Block block = Block.getBlockFromItem(event.itemStack.getItem());
         if(block != null && wipBlocks.contains(block)){
-            event.toolTip.add("WIP");
+            event.toolTip.add(TextFormatting.RED + "WIP Coming Soon");
         }
     }
 }
