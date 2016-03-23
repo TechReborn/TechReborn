@@ -1,9 +1,6 @@
 
 item.missingRecipe.name=Missing Recipe Placeholder
 
-
-
-
 itemGroup.techreborn=Tech Reborn
 
 #machines
@@ -297,7 +294,8 @@ item.techreborn.cable.IGOLD.name=Insulated Gold Cable
 item.techreborn.cable.IHV.name=Insulated HV Cable
 item.techreborn.scrapbox.name=Scrap Box
 item.techreborn.part.carbonmesh.name=Carbon Mesh
-item.techreborn.part.carbonfibe.name=Carbon Fiber
+item.techreborn.part.carbonfiber.name=Carbon Fiber
+item.techreborn.part.mixedmetalingot.name=Mixed Metal Ingot
 
 #Small Dusts
 item.techreborn.dustsmall.Almandine.name=Small Pile of Almandine Dust
