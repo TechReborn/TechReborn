@@ -7,53 +7,66 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 /**
  * Created by modmuss50 on 25/02/2016.
  */
-public class TileWindMill extends TilePowerAcceptor {
+public class TileWindMill extends TilePowerAcceptor
+{
 
-    public TileWindMill() {
-        super(2);
-    }
+	public TileWindMill()
+	{
+		super(2);
+	}
 
-    int basePower = 4;
+	int basePower = 4;
 
-    @Override
-    public void updateEntity() {
-        super.updateEntity();
-        if(pos.getY() > 64){
-            int actualPower = basePower;
-            if(worldObj.isThundering()){
-                actualPower *= 1.25;
-            }
-            addEnergy(actualPower); //Value taken from http://wiki.industrial-craft.net/?title=Wind_Mill Not worth making more complicated
-        }
-    }
+	@Override
+	public void updateEntity()
+	{
+		super.updateEntity();
+		if (pos.getY() > 64)
+		{
+			int actualPower = basePower;
+			if (worldObj.isThundering())
+			{
+				actualPower *= 1.25;
+			}
+			addEnergy(actualPower); // Value taken from
+									// http://wiki.industrial-craft.net/?title=Wind_Mill
+									// Not worth making more complicated
+		}
+	}
 
-    @Override
-    public double getMaxPower() {
-        return 10000;
-    }
+	@Override
+	public double getMaxPower()
+	{
+		return 10000;
+	}
 
-    @Override
-    public boolean canAcceptEnergy(EnumFacing direction) {
-        return false;
-    }
+	@Override
+	public boolean canAcceptEnergy(EnumFacing direction)
+	{
+		return false;
+	}
 
-    @Override
-    public boolean canProvideEnergy(EnumFacing direction) {
-        return true;
-    }
+	@Override
+	public boolean canProvideEnergy(EnumFacing direction)
+	{
+		return true;
+	}
 
-    @Override
-    public double getMaxOutput() {
-        return 128;
-    }
+	@Override
+	public double getMaxOutput()
+	{
+		return 128;
+	}
 
-    @Override
-    public double getMaxInput() {
-        return 0;
-    }
+	@Override
+	public double getMaxInput()
+	{
+		return 0;
+	}
 
-    @Override
-    public EnumPowerTier getTier() {
-        return EnumPowerTier.LOW;
-    }
+	@Override
+	public EnumPowerTier getTier()
+	{
+		return EnumPowerTier.LOW;
+	}
 }

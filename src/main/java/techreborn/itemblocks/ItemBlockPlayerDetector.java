@@ -5,8 +5,10 @@ import reborncore.common.itemblock.ItemBlockBase;
 import techreborn.blocks.BlockPlayerDetector;
 import techreborn.init.ModBlocks;
 
-public class ItemBlockPlayerDetector extends ItemBlockBase {
-    public ItemBlockPlayerDetector(Block block) {
-        super(ModBlocks.playerDetector, ModBlocks.playerDetector, BlockPlayerDetector.types);
-    }
+public class ItemBlockPlayerDetector extends ItemBlockBase
+{
+	public ItemBlockPlayerDetector(Block block)
+	{
+		super(ModBlocks.playerDetector, ModBlocks.playerDetector, BlockPlayerDetector.types);
+	}
 }

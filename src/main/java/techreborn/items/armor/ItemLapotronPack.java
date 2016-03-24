@@ -1,5 +1,6 @@
 package techreborn.items.armor;
 
+import java.util.List;
 
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -19,92 +20,102 @@ import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
 import techreborn.lib.ModInfo;
 
-import java.util.List;
+public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo, ITexturedItem
+{
 
-public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo, ITexturedItem {
+	public static final int maxCharge = ConfigTechReborn.LapotronPackCharge;
+	public static final int tier = ConfigTechReborn.LapotronPackTier;
+	public double transferLimit = 100000;
 
-    public static final int maxCharge = ConfigTechReborn.LapotronPackCharge;
-    public static final int tier = ConfigTechReborn.LapotronPackTier;
-    public double transferLimit = 100000;
+	public ItemLapotronPack()
+	{
+		super(ItemArmor.ArmorMaterial.DIAMOND, 7, EntityEquipmentSlot.CHEST);
+		setCreativeTab(TechRebornCreativeTab.instance);
+		setUnlocalizedName("techreborn.lapotronpack");
+		setMaxStackSize(1);
+		RebornCore.jsonDestroyer.registerObject(this);
+	}
 
-    public ItemLapotronPack() {
-        super(ItemArmor.ArmorMaterial.DIAMOND, 7, EntityEquipmentSlot.CHEST);
-        setCreativeTab(TechRebornCreativeTab.instance);
-        setUnlocalizedName("techreborn.lapotronpack");
-        setMaxStackSize(1);
-        RebornCore.jsonDestroyer.registerObject(this);
-    }
+	@Override
+	@SideOnly(Side.CLIENT)
+	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type)
+	{
+		return "techreborn:" + "textures/models/lapotronpack.png";
+	}
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
-        return "techreborn:" + "textures/models/lapotronpack.png";
-    }
+	@Override
+	public double getMaxPower(ItemStack stack)
+	{
+		return maxCharge;
+	}
 
-    @Override
-    public double getMaxPower(ItemStack stack) {
-        return maxCharge;
-    }
+	@Override
+	public boolean canAcceptEnergy(ItemStack stack)
+	{
+		return true;
+	}
 
-    @Override
-    public boolean canAcceptEnergy(ItemStack stack) {
-        return true;
-    }
+	@Override
+	public boolean canProvideEnergy(ItemStack itemStack)
+	{
+		return true;
+	}
 
-    @Override
-    public boolean canProvideEnergy(ItemStack itemStack) {
-        return true;
-    }
+	@Override
+	public double getMaxTransfer(ItemStack stack)
+	{
+		return transferLimit;
+	}
 
-    @Override
-    public double getMaxTransfer(ItemStack stack) {
-        return transferLimit;
-    }
+	@Override
+	public int getStackTier(ItemStack stack)
+	{
+		return tier;
+	}
 
-    @Override
-    public int getStackTier(ItemStack stack) {
-        return tier;
-    }
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SideOnly(Side.CLIENT)
+	public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList)
+	{
+		ItemStack itemStack = new ItemStack(this, 1);
+		itemList.add(itemStack);
 
-    @SuppressWarnings(
-            {"rawtypes", "unchecked"})
-    @SideOnly(Side.CLIENT)
-    public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
-        ItemStack itemStack = new ItemStack(this, 1);
-        itemList.add(itemStack);
+		ItemStack charged = new ItemStack(this, 1);
+		PoweredItem.setEnergy(getMaxPower(charged), charged);
+		itemList.add(charged);
+	}
 
-        ItemStack charged = new ItemStack(this, 1);
-        PoweredItem.setEnergy(getMaxPower(charged), charged);
-        itemList.add(charged);
-    }
+	@Override
+	public double getDurabilityForDisplay(ItemStack stack)
+	{
+		double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
+		return 1 - charge;
 
-    @Override
-    public double getDurabilityForDisplay(ItemStack stack) {
-        double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
-        return 1 - charge;
+	}
 
-    }
+	@Override
+	public boolean showDurabilityBar(ItemStack stack)
+	{
+		return true;
+	}
 
-    @Override
-    public boolean showDurabilityBar(ItemStack stack) {
-        return true;
-    }
+	@Override
+	public String getTextureName(int damage)
+	{
+		return "techreborn:items/tool/lapotronicEnergyOrb";
+	}
 
+	@Override
+	public int getMaxMeta()
+	{
+		return 1;
+	}
 
-    @Override
-    public String getTextureName(int damage) {
-        return "techreborn:items/tool/lapotronicEnergyOrb";
-    }
-
-    @Override
-    public int getMaxMeta() {
-        return 1;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
-        return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
-    }
+	@Override
+	@SideOnly(Side.CLIENT)
+	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining)
+	{
+		return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
+	}
 
 }

@@ -1,5 +1,7 @@
 package techreborn.items;
 
+import java.util.List;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -9,74 +11,83 @@ import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PoweredItem;
 import techreborn.client.TechRebornCreativeTab;
 
-import java.util.List;
+public class ItemLithiumBattery extends ItemTextureBase implements IEnergyItemInfo
+{
 
-public class ItemLithiumBattery extends ItemTextureBase implements IEnergyItemInfo {
+	public ItemLithiumBattery()
+	{
+		super();
+		setMaxStackSize(1);
+		setMaxDamage(1);
+		setUnlocalizedName("techreborn.lithiumBattery");
+		setCreativeTab(TechRebornCreativeTab.instance);
+	}
 
-    public ItemLithiumBattery() {
-        super();
-        setMaxStackSize(1);
-        setMaxDamage(1);
-        setUnlocalizedName("techreborn.lithiumBattery");
-        setCreativeTab(TechRebornCreativeTab.instance);
-    }
-    
-    @Override
-    public double getDurabilityForDisplay(ItemStack stack) {
-        double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
-        return 1 - charge;
+	@Override
+	public double getDurabilityForDisplay(ItemStack stack)
+	{
+		double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
+		return 1 - charge;
 
-    }
-    
-    @SuppressWarnings(
-            {"rawtypes", "unchecked"})
-    @SideOnly(Side.CLIENT)
-    public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
-        ItemStack itemStack = new ItemStack(this, 1);
-        itemList.add(itemStack);
+	}
 
-        ItemStack charged = new ItemStack(this, 1);
-        PoweredItem.setEnergy(getMaxPower(charged), charged);
-        itemList.add(charged);
-    }
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SideOnly(Side.CLIENT)
+	public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList)
+	{
+		ItemStack itemStack = new ItemStack(this, 1);
+		itemList.add(itemStack);
 
-    @Override
-    public boolean showDurabilityBar(ItemStack stack) {
-        return true;
-    }
+		ItemStack charged = new ItemStack(this, 1);
+		PoweredItem.setEnergy(getMaxPower(charged), charged);
+		itemList.add(charged);
+	}
 
-    @Override
-    public double getMaxPower(ItemStack stack) {
-        return 100000;
-    }
+	@Override
+	public boolean showDurabilityBar(ItemStack stack)
+	{
+		return true;
+	}
 
-    @Override
-    public boolean canAcceptEnergy(ItemStack stack) {
-        return true;
-    }
+	@Override
+	public double getMaxPower(ItemStack stack)
+	{
+		return 100000;
+	}
 
-    @Override
-    public boolean canProvideEnergy(ItemStack stack) {
-        return true;
-    }
+	@Override
+	public boolean canAcceptEnergy(ItemStack stack)
+	{
+		return true;
+	}
 
-    @Override
-    public double getMaxTransfer(ItemStack stack) {
-        return 64;
-    }
+	@Override
+	public boolean canProvideEnergy(ItemStack stack)
+	{
+		return true;
+	}
 
-    @Override
-    public int getStackTier(ItemStack stack) {
-        return 1;
-    }
+	@Override
+	public double getMaxTransfer(ItemStack stack)
+	{
+		return 64;
+	}
 
-    @Override
-    public String getTextureName(int damage) {
-        return "techreborn:items/lithiumBattery";
-    }
+	@Override
+	public int getStackTier(ItemStack stack)
+	{
+		return 1;
+	}
 
-    @Override
-    public int getMaxMeta() {
-        return 1;
-    }
+	@Override
+	public String getTextureName(int damage)
+	{
+		return "techreborn:items/lithiumBattery";
+	}
+
+	@Override
+	public int getMaxMeta()
+	{
+		return 1;
+	}
 }

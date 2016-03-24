@@ -11,51 +11,62 @@ import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.teir1.TileCompressor;
 
-public class BlockCompressor extends BlockMachineBase implements IRotationTexture{
+public class BlockCompressor extends BlockMachineBase implements IRotationTexture
+{
 
-	public BlockCompressor(Material material) {
-        super();
-        setUnlocalizedName("techreborn.compressor");
-        setCreativeTab(TechRebornCreativeTab.instance);
+	public BlockCompressor(Material material)
+	{
+		super();
+		setUnlocalizedName("techreborn.compressor");
+		setCreativeTab(TechRebornCreativeTab.instance);
 	}
-	
-    @Override
-    public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
-        return new TileCompressor();
-    }
 
-    @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-        if (!player.isSneaking()){
-            player.openGui(Core.INSTANCE, GuiHandler.compressorID, world, x, y, z);
-        }
-        return true;
-    }
+	@Override
+	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
+	{
+		return new TileCompressor();
+	}
 
-    private final String prefix = "techreborn:blocks/machine/tier1_machines/";
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
+			float hitY, float hitZ)
+	{
+		if (!player.isSneaking())
+		{
+			player.openGui(Core.INSTANCE, GuiHandler.compressorID, world, x, y, z);
+		}
+		return true;
+	}
 
-    @Override
-    public String getFrontOff() {
-        return prefix + "compressor_front_off";
-    }
+	private final String prefix = "techreborn:blocks/machine/tier1_machines/";
 
-    @Override
-    public String getFrontOn() {
-        return prefix + "compressor_front_on";
-    }
+	@Override
+	public String getFrontOff()
+	{
+		return prefix + "compressor_front_off";
+	}
 
-    @Override
-    public String getSide() {
-        return prefix + "tier1_machine_side";
-    }
+	@Override
+	public String getFrontOn()
+	{
+		return prefix + "compressor_front_on";
+	}
 
-    @Override
-    public String getTop() {
-        return prefix + "tier1_machine_top";
-    }
+	@Override
+	public String getSide()
+	{
+		return prefix + "tier1_machine_side";
+	}
 
-    @Override
-    public String getBottom() {
-        return prefix + "tier1_machine_bottom";
-    }
+	@Override
+	public String getTop()
+	{
+		return prefix + "tier1_machine_top";
+	}
+
+	@Override
+	public String getBottom()
+	{
+		return prefix + "tier1_machine_bottom";
+	}
 }

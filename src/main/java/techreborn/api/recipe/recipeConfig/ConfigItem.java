@@ -1,46 +1,53 @@
 package techreborn.api.recipe.recipeConfig;
 
+public class ConfigItem
+{
 
-public class ConfigItem {
+	String localName;
 
-    String localName;
+	String itemName;
 
-    String itemName;
+	int meta;
 
-    int meta;
+	int stackSize;
 
-    int stackSize;
+	public String getItemName()
+	{
+		return itemName;
+	}
 
+	public void setItemName(String itemName)
+	{
+		this.itemName = itemName;
+	}
 
-    public String getItemName() {
-        return itemName;
-    }
+	public int getMeta()
+	{
+		return meta;
+	}
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
-    }
+	public void setMeta(int meta)
+	{
+		this.meta = meta;
+	}
 
-    public int getMeta() {
-        return meta;
-    }
+	public int getStackSize()
+	{
+		return stackSize;
+	}
 
-    public void setMeta(int meta) {
-        this.meta = meta;
-    }
+	public void setStackSize(int stackSize)
+	{
+		this.stackSize = stackSize;
+	}
 
-    public int getStackSize() {
-        return stackSize;
-    }
+	public String getLocalName()
+	{
+		return localName;
+	}
 
-    public void setStackSize(int stackSize) {
-        this.stackSize = stackSize;
-    }
-
-    public String getLocalName() {
-        return localName;
-    }
-
-    public void setLocalName(String localName) {
-        this.localName = localName;
-    }
+	public void setLocalName(String localName)
+	{
+		this.localName = localName;
+	}
 }

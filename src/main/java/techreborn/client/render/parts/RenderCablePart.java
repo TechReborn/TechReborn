@@ -1,106 +1,152 @@
 package techreborn.client.render.parts;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.*;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.common.property.IExtendedBlockState;
-import org.lwjgl.util.vector.Vector3f;
-import reborncore.common.misc.vecmath.Vecs3dCube;
-import techreborn.parts.CableMultipart;
-import techreborn.parts.EnumCableType;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class RenderCablePart implements IBakedModel {
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.util.EnumFacing;
+import net.minecraftforge.common.property.IExtendedBlockState;
 
-    private FaceBakery faceBakery = new FaceBakery();
+import org.lwjgl.util.vector.Vector3f;
 
-    private TextureAtlasSprite texture;
+import reborncore.common.misc.vecmath.Vecs3dCube;
+import techreborn.parts.CableMultipart;
+import techreborn.parts.EnumCableType;
 
-    EnumCableType type;
+public class RenderCablePart implements IBakedModel
+{
 
-    public RenderCablePart(EnumCableType type) {
-        texture = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(type.textureName);
-        this.type = type;
-    }
+	private FaceBakery faceBakery = new FaceBakery();
 
-    public void addCubeToList(Vecs3dCube cube, ArrayList<BakedQuad> list, BlockPartFace face, ModelRotation modelRotation, TextureAtlasSprite cubeTexture) {
-        BlockFaceUV uv = new BlockFaceUV(new float[]{(float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMaxX(), (float) cube.getMaxY()}, 0);
-        face = new BlockPartFace(null, 0, "", uv);
-        list.add(faceBakery.makeBakedQuad(new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMinZ()), new Vector3f((float) cube.getMaxX(), (float) cube.getMinY(), (float) cube.getMaxZ()), face, cubeTexture, EnumFacing.DOWN, modelRotation, null, true, true));//down
-        list.add(faceBakery.makeBakedQuad(new Vector3f((float) cube.getMinX(), (float) cube.getMaxY(), (float) cube.getMinZ()), new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture, EnumFacing.UP, modelRotation, null, true, true));//up
-        list.add(faceBakery.makeBakedQuad(new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMinZ()), new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture, EnumFacing.NORTH, modelRotation, null, true, true));//north
-        list.add(faceBakery.makeBakedQuad(new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMaxZ()), new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture, EnumFacing.SOUTH, modelRotation, null, true, true));//south
-        list.add(faceBakery.makeBakedQuad(new Vector3f((float) cube.getMaxX(), (float) cube.getMinY(), (float) cube.getMinZ()), new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture, EnumFacing.EAST, modelRotation, null, true, true));//east
-        list.add(faceBakery.makeBakedQuad(new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMinZ()), new Vector3f((float) cube.getMinX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture, EnumFacing.WEST, modelRotation, null, true, true));//west
-    }
+	private TextureAtlasSprite texture;
 
-    @Override
-    public List<BakedQuad> getQuads(IBlockState blockState, EnumFacing side, long rand) {
-        ArrayList<BakedQuad> list = new ArrayList<BakedQuad>();
-        BlockFaceUV uv = new BlockFaceUV(new float[]{0.0F, 0.0F, 16.0F, 16.0F}, 0);
-        BlockPartFace face = new BlockPartFace(null, 0, "", uv);
-        double thickness =  type.cableThickness;
-        double lastThickness = 16 - thickness;
-        IExtendedBlockState state = (IExtendedBlockState) blockState;
-        if(side != null){
-            return Collections.emptyList();
-        }
-        addCubeToList(new Vecs3dCube(thickness, thickness, thickness, lastThickness, lastThickness, lastThickness), list, face, ModelRotation.X0_Y0, texture);
-        if (state != null) {
-            if (state.getValue(CableMultipart.UP)) {
-                addCubeToList(new Vecs3dCube(thickness, lastThickness, thickness, lastThickness, 16.0, lastThickness), list, face, ModelRotation.X0_Y0, texture);
-            }
-            if (state.getValue(CableMultipart.DOWN)) {
-                addCubeToList(new Vecs3dCube(thickness, 0.0, thickness, lastThickness, thickness, lastThickness), list, face, ModelRotation.X0_Y0, texture);
-            }
-            if (state.getValue(CableMultipart.NORTH)) {
-                addCubeToList(new Vecs3dCube(thickness, thickness, 0.0, lastThickness, lastThickness, thickness), list, face, ModelRotation.X0_Y0, texture);
-            }
-            if (state.getValue(CableMultipart.SOUTH)) {
-                addCubeToList(new Vecs3dCube(thickness, thickness, lastThickness, lastThickness, lastThickness, 16.0), list, face, ModelRotation.X0_Y0, texture);
-            }
-            if (state.getValue(CableMultipart.EAST)) {
-                addCubeToList(new Vecs3dCube(lastThickness, thickness, thickness, 16.0, lastThickness, lastThickness), list, face, ModelRotation.X0_Y0, texture);
-            }
-            if (state.getValue(CableMultipart.WEST)) {
-                addCubeToList(new Vecs3dCube(0.0, thickness, thickness, thickness, lastThickness, lastThickness), list, face, ModelRotation.X0_Y0, texture);
-            }
-        }
-        return list;
-    }
+	EnumCableType type;
 
-    @Override
-    public boolean isAmbientOcclusion() {
-        return false;
-    }
+	public RenderCablePart(EnumCableType type)
+	{
+		texture = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(type.textureName);
+		this.type = type;
+	}
 
-    @Override
-    public boolean isGui3d() {
-        return true;
-    }
+	public void addCubeToList(Vecs3dCube cube, ArrayList<BakedQuad> list, BlockPartFace face,
+			ModelRotation modelRotation, TextureAtlasSprite cubeTexture)
+	{
+		BlockFaceUV uv = new BlockFaceUV(new float[] { (float) cube.getMinX(), (float) cube.getMinY(),
+				(float) cube.getMaxX(), (float) cube.getMaxY() }, 0);
+		face = new BlockPartFace(null, 0, "", uv);
+		list.add(faceBakery.makeBakedQuad(
+				new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMinZ()),
+				new Vector3f((float) cube.getMaxX(), (float) cube.getMinY(), (float) cube.getMaxZ()), face, cubeTexture,
+				EnumFacing.DOWN, modelRotation, null, true, true));// down
+		list.add(faceBakery.makeBakedQuad(
+				new Vector3f((float) cube.getMinX(), (float) cube.getMaxY(), (float) cube.getMinZ()),
+				new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture,
+				EnumFacing.UP, modelRotation, null, true, true));// up
+		list.add(faceBakery.makeBakedQuad(
+				new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMinZ()),
+				new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture,
+				EnumFacing.NORTH, modelRotation, null, true, true));// north
+		list.add(faceBakery.makeBakedQuad(
+				new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMaxZ()),
+				new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture,
+				EnumFacing.SOUTH, modelRotation, null, true, true));// south
+		list.add(faceBakery.makeBakedQuad(
+				new Vector3f((float) cube.getMaxX(), (float) cube.getMinY(), (float) cube.getMinZ()),
+				new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture,
+				EnumFacing.EAST, modelRotation, null, true, true));// east
+		list.add(faceBakery.makeBakedQuad(
+				new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMinZ()),
+				new Vector3f((float) cube.getMinX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture,
+				EnumFacing.WEST, modelRotation, null, true, true));// west
+	}
 
-    @Override
-    public boolean isBuiltInRenderer() {
-        return false;
-    }
+	@Override
+	public List<BakedQuad> getQuads(IBlockState blockState, EnumFacing side, long rand)
+	{
+		ArrayList<BakedQuad> list = new ArrayList<BakedQuad>();
+		BlockFaceUV uv = new BlockFaceUV(new float[] { 0.0F, 0.0F, 16.0F, 16.0F }, 0);
+		BlockPartFace face = new BlockPartFace(null, 0, "", uv);
+		double thickness = type.cableThickness;
+		double lastThickness = 16 - thickness;
+		IExtendedBlockState state = (IExtendedBlockState) blockState;
+		if (side != null)
+		{
+			return Collections.emptyList();
+		}
+		addCubeToList(new Vecs3dCube(thickness, thickness, thickness, lastThickness, lastThickness, lastThickness),
+				list, face, ModelRotation.X0_Y0, texture);
+		if (state != null)
+		{
+			if (state.getValue(CableMultipart.UP))
+			{
+				addCubeToList(new Vecs3dCube(thickness, lastThickness, thickness, lastThickness, 16.0, lastThickness),
+						list, face, ModelRotation.X0_Y0, texture);
+			}
+			if (state.getValue(CableMultipart.DOWN))
+			{
+				addCubeToList(new Vecs3dCube(thickness, 0.0, thickness, lastThickness, thickness, lastThickness), list,
+						face, ModelRotation.X0_Y0, texture);
+			}
+			if (state.getValue(CableMultipart.NORTH))
+			{
+				addCubeToList(new Vecs3dCube(thickness, thickness, 0.0, lastThickness, lastThickness, thickness), list,
+						face, ModelRotation.X0_Y0, texture);
+			}
+			if (state.getValue(CableMultipart.SOUTH))
+			{
+				addCubeToList(new Vecs3dCube(thickness, thickness, lastThickness, lastThickness, lastThickness, 16.0),
+						list, face, ModelRotation.X0_Y0, texture);
+			}
+			if (state.getValue(CableMultipart.EAST))
+			{
+				addCubeToList(new Vecs3dCube(lastThickness, thickness, thickness, 16.0, lastThickness, lastThickness),
+						list, face, ModelRotation.X0_Y0, texture);
+			}
+			if (state.getValue(CableMultipart.WEST))
+			{
+				addCubeToList(new Vecs3dCube(0.0, thickness, thickness, thickness, lastThickness, lastThickness), list,
+						face, ModelRotation.X0_Y0, texture);
+			}
+		}
+		return list;
+	}
 
-    @Override
-    public TextureAtlasSprite getParticleTexture() {
-        return texture;
-    }
+	@Override
+	public boolean isAmbientOcclusion()
+	{
+		return false;
+	}
 
-    @Override
-    public ItemCameraTransforms getItemCameraTransforms() {
-        return ItemCameraTransforms.DEFAULT;
-    }
+	@Override
+	public boolean isGui3d()
+	{
+		return true;
+	}
 
-    @Override
-    public ItemOverrideList getOverrides() {
-        return null;
-    }
+	@Override
+	public boolean isBuiltInRenderer()
+	{
+		return false;
+	}
+
+	@Override
+	public TextureAtlasSprite getParticleTexture()
+	{
+		return texture;
+	}
+
+	@Override
+	public ItemCameraTransforms getItemCameraTransforms()
+	{
+		return ItemCameraTransforms.DEFAULT;
+	}
+
+	@Override
+	public ItemOverrideList getOverrides()
+	{
+		return null;
+	}
 }

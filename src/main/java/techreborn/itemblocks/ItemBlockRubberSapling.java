@@ -15,28 +15,33 @@ import techreborn.lib.ModInfo;
 /**
  * Created by modmuss50 on 20/02/2016.
  */
-public class ItemBlockRubberSapling extends ItemBlock implements ITexturedItem {
+public class ItemBlockRubberSapling extends ItemBlock implements ITexturedItem
+{
 
-    public ItemBlockRubberSapling(Block block) {
-        super(block);
-        setCreativeTab(TechRebornCreativeTabMisc.instance);
-        setUnlocalizedName("techreborn.rubberSapling");
-        RebornCore.jsonDestroyer.registerObject(this);
-    }
+	public ItemBlockRubberSapling(Block block)
+	{
+		super(block);
+		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setUnlocalizedName("techreborn.rubberSapling");
+		RebornCore.jsonDestroyer.registerObject(this);
+	}
 
-    @Override
-    public String getTextureName(int damage) {
-        return "techreborn:items/rubber_sapling";
-    }
+	@Override
+	public String getTextureName(int damage)
+	{
+		return "techreborn:items/rubber_sapling";
+	}
 
-    @Override
-    public int getMaxMeta() {
-        return 1;
-    }
+	@Override
+	public int getMaxMeta()
+	{
+		return 1;
+	}
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
-        return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
-    }
+	@Override
+	@SideOnly(Side.CLIENT)
+	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining)
+	{
+		return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
+	}
 }

@@ -14,35 +14,43 @@ import techreborn.tiles.generator.TileWaterMill;
 /**
  * Created by modmuss50 on 25/02/2016.
  */
-public class BlockWaterMill extends BaseTileBlock implements ITexturedBlock{
+public class BlockWaterMill extends BaseTileBlock implements ITexturedBlock
+{
 
-    public BlockWaterMill() {
-        super(Material.iron);
-        setUnlocalizedName("techreborn.watermill");
-        setCreativeTab(TechRebornCreativeTab.instance);
-        RebornCore.jsonDestroyer.registerObject(this);
-    }
+	public BlockWaterMill()
+	{
+		super(Material.iron);
+		setUnlocalizedName("techreborn.watermill");
+		setCreativeTab(TechRebornCreativeTab.instance);
+		RebornCore.jsonDestroyer.registerObject(this);
+	}
 
-    @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TileWaterMill();
-    }
-    
-    private final String prefix = "techreborn:blocks/machine/generators/";
+	@Override
+	public TileEntity createNewTileEntity(World worldIn, int meta)
+	{
+		return new TileWaterMill();
+	}
 
-    @Override
-    public String getTextureNameFromState(IBlockState state, EnumFacing side) {
-        boolean isActive = false;
-        if(side == EnumFacing.UP){
-            return prefix + "generator_machine_bottom";// + (isActive ? "on" : "off");
-        } else if(side==EnumFacing.DOWN){
-        	return prefix + "generator_machine_bottom";
-        }
-        return prefix + "solar_panel_side_" + (isActive ? "on" : "off");
-    }
+	private final String prefix = "techreborn:blocks/machine/generators/";
 
-    @Override
-    public int amountOfStates() {
-        return 2;
-    }
+	@Override
+	public String getTextureNameFromState(IBlockState state, EnumFacing side)
+	{
+		boolean isActive = false;
+		if (side == EnumFacing.UP)
+		{
+			return prefix + "generator_machine_bottom";// + (isActive ? "on" :
+														// "off");
+		} else if (side == EnumFacing.DOWN)
+		{
+			return prefix + "generator_machine_bottom";
+		}
+		return prefix + "solar_panel_side_" + (isActive ? "on" : "off");
+	}
+
+	@Override
+	public int amountOfStates()
+	{
+		return 2;
+	}
 }

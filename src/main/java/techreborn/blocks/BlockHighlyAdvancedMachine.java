@@ -6,20 +6,22 @@ import net.minecraft.util.EnumFacing;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.TechRebornCreativeTab;
 
-public class BlockHighlyAdvancedMachine extends BlockMachineBase {
+public class BlockHighlyAdvancedMachine extends BlockMachineBase
+{
 
-    public BlockHighlyAdvancedMachine(Material material) {
-        super();
-        setUnlocalizedName("techreborn.highlyAdvancedMachine");
-        setCreativeTab(TechRebornCreativeTab.instance);
-    }
+	public BlockHighlyAdvancedMachine(Material material)
+	{
+		super();
+		setUnlocalizedName("techreborn.highlyAdvancedMachine");
+		setCreativeTab(TechRebornCreativeTab.instance);
+	}
 
-    private final String prefix = "techreborn:blocks/machine/machine_blocks/";
+	private final String prefix = "techreborn:blocks/machine/machine_blocks/";
 
-
-    @Override
-    public String getTextureNameFromState(IBlockState BlockStateContainer, EnumFacing facing) {
-        return prefix + "highlyadvancedmachine";
-    }
+	@Override
+	public String getTextureNameFromState(IBlockState BlockStateContainer, EnumFacing facing)
+	{
+		return prefix + "highlyadvancedmachine";
+	}
 
 }
