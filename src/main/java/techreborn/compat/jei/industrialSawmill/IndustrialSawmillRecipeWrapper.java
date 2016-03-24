@@ -1,10 +1,5 @@
 package techreborn.compat.jei.industrialSawmill;
 
-import java.util.Collections;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
@@ -15,37 +10,34 @@ import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
 import techreborn.client.gui.GuiIndustrialSawmill;
 import techreborn.compat.jei.BaseRecipeWrapper;
 
-public class IndustrialSawmillRecipeWrapper extends BaseRecipeWrapper<IndustrialSawmillRecipe>
-{
+import javax.annotation.Nonnull;
+import java.util.Collections;
+import java.util.List;
+
+public class IndustrialSawmillRecipeWrapper extends BaseRecipeWrapper<IndustrialSawmillRecipe> {
 	private final IDrawableAnimated progress;
 
-	public IndustrialSawmillRecipeWrapper(@Nonnull IJeiHelpers jeiHelpers, @Nonnull IndustrialSawmillRecipe baseRecipe)
-	{
+	public IndustrialSawmillRecipeWrapper(@Nonnull IJeiHelpers jeiHelpers, @Nonnull IndustrialSawmillRecipe baseRecipe) {
 		super(baseRecipe);
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 		IDrawableStatic progressStatic = guiHelper.createDrawable(GuiIndustrialSawmill.texture, 176, 14, 20, 12);
 
 		int ticksPerCycle = baseRecipe.tickTime();
-		this.progress = guiHelper.createAnimatedDrawable(progressStatic, ticksPerCycle,
-				IDrawableAnimated.StartDirection.LEFT, false);
+		this.progress = guiHelper.createAnimatedDrawable(progressStatic, ticksPerCycle, IDrawableAnimated.StartDirection.LEFT, false);
 	}
 
 	@Override
 	@Nonnull
-	public List<FluidStack> getFluidInputs()
-	{
-		if (baseRecipe.fluidStack != null)
-		{
+	public List<FluidStack> getFluidInputs() {
+		if (baseRecipe.fluidStack != null) {
 			return Collections.singletonList(baseRecipe.fluidStack);
-		} else
-		{
+		} else {
 			return Collections.emptyList();
 		}
 	}
 
 	@Override
-	public void drawAnimations(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight)
-	{
+	public void drawAnimations(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight) {
 		super.drawAnimations(minecraft, recipeWidth, recipeHeight);
 		progress.draw(minecraft, 49, 23);
 	}

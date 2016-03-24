@@ -13,119 +13,103 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
 import org.lwjgl.opengl.GL11;
-
 import reborncore.api.power.IEnergyInterfaceItem;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.Color;
 import techreborn.client.keybindings.KeyBindings;
 import techreborn.config.ConfigTechReborn;
 
-public class ChargeHud
-{
-	public static final ChargeHud instance = new ChargeHud();
-	private static Minecraft mc = Minecraft.getMinecraft();
-	public static KeyBindings key;
-	public static boolean showHud = true;
+public class ChargeHud {
+    public static final ChargeHud instance = new ChargeHud();
+    private static Minecraft mc = Minecraft.getMinecraft();
+    public static KeyBindings key;
+    public static boolean showHud = true;
 
-	@SideOnly(Side.CLIENT)
-	@SubscribeEvent(priority = EventPriority.LOW)
-	public void onRenderExperienceBar(RenderGameOverlayEvent event)
-	{
-		if (key.config.isPressed())
-		{
-			showHud = !showHud;
-		}
 
-		if (event.isCancelable() || event.type != ElementType.ALL)
-			return;
+    @SideOnly(Side.CLIENT)
+    @SubscribeEvent(priority = EventPriority.LOW)
+    public void onRenderExperienceBar(RenderGameOverlayEvent event) {
+        if (key.config.isPressed()) {
+            showHud = !showHud;
+        }
 
-		if (mc.inGameHasFocus || (mc.currentScreen != null && mc.gameSettings.showDebugInfo))
-		{
-			if (ConfigTechReborn.ShowChargeHud)
-				drawChargeHud(event.resolution);
-		}
-	}
+        if (event.isCancelable() || event.type != ElementType.ALL)
+            return;
 
-	public void drawChargeHud(ScaledResolution res)
-	{
-		EntityPlayer player = mc.thePlayer;
-		ItemStack armorstack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
-		ItemStack stack = mc.thePlayer.inventory.getCurrentItem();
+        if (mc.inGameHasFocus || (mc.currentScreen != null && mc.gameSettings.showDebugInfo)) {
+            if (ConfigTechReborn.ShowChargeHud)
+                drawChargeHud(event.resolution);
+        }
+    }
 
-		int y = 5;
+    public void drawChargeHud(ScaledResolution res) {
+        EntityPlayer player = mc.thePlayer;
+        ItemStack armorstack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+        ItemStack stack = mc.thePlayer.inventory.getCurrentItem();
 
-		if (armorstack != null && ConfigTechReborn.ShowChargeHud
-				&& armorstack.getItem() instanceof IEnergyInterfaceItem)
-		{
-			double MaxCharge = ((IEnergyInterfaceItem) armorstack.getItem()).getMaxPower(armorstack);
-			double CurrentCharge = ((IEnergyInterfaceItem) armorstack.getItem()).getEnergy(armorstack);
-			Color color = Color.GREEN;
-			double quarter = MaxCharge / 4;
-			double half = MaxCharge / 2;
-			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			GL11.glEnable(32826);
-			RenderHelper.enableStandardItemLighting();
-			RenderHelper.enableGUIStandardItemLighting();
-			// Render the stack
-			renderItemStack(armorstack, 0, y - 5);
-			// Get the color depending on current charge
-			if (CurrentCharge <= half)
-			{
-				color = Color.YELLOW;
-			}
-			if (CurrentCharge <= quarter)
-			{
-				color = Color.DARK_RED;
-			}
-			mc.fontRendererObj.drawString(color + PowerSystem.getLocaliszedPower(CurrentCharge) + "/"
-					+ PowerSystem.getLocaliszedPower(MaxCharge), 20, y, 0);
-			y += 20;
-		}
+        int y = 5;
 
-		if (showHud)
-		{
-			if (stack != null && stack.getItem() instanceof IEnergyInterfaceItem)
-			{
-				double MaxCharge = ((IEnergyInterfaceItem) stack.getItem()).getMaxPower(stack);
-				double CurrentCharge = ((IEnergyInterfaceItem) stack.getItem()).getEnergy(stack);
-				Color color = Color.GREEN;
-				double quarter = MaxCharge / 4;
-				double half = MaxCharge / 2;
-				GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-				GL11.glEnable(32826);
-				RenderHelper.enableStandardItemLighting();
-				RenderHelper.enableGUIStandardItemLighting();
-				renderItemStack(stack, 0, y - 5);
-				if (CurrentCharge <= half)
-				{
-					color = Color.YELLOW;
-				}
-				if (CurrentCharge <= quarter)
-				{
-					color = Color.DARK_RED;
-				}
-				mc.fontRendererObj.drawString(color + PowerSystem.getLocaliszedPower(CurrentCharge) + "/"
-						+ PowerSystem.getLocaliszedPower(MaxCharge), 20, y, 0);
-			}
-		}
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-	}
+        if (armorstack != null && ConfigTechReborn.ShowChargeHud && armorstack.getItem() instanceof IEnergyInterfaceItem) {
+            double MaxCharge = ((IEnergyInterfaceItem) armorstack.getItem()).getMaxPower(armorstack);
+            double CurrentCharge = ((IEnergyInterfaceItem) armorstack.getItem()).getEnergy(armorstack);
+            Color color = Color.GREEN;
+            double quarter = MaxCharge / 4;
+            double half = MaxCharge / 2;
+            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+            GL11.glEnable(32826);
+            RenderHelper.enableStandardItemLighting();
+            RenderHelper.enableGUIStandardItemLighting();
+            //Render the stack
+            renderItemStack(armorstack, 0, y - 5);
+            //Get the color depending on current charge
+            if (CurrentCharge <= half) {
+                color = Color.YELLOW;
+            }
+            if (CurrentCharge <= quarter) {
+                color = Color.DARK_RED;
+            }
+            mc.fontRendererObj.drawString(color + PowerSystem.getLocaliszedPower(CurrentCharge) + "/" + PowerSystem.getLocaliszedPower(MaxCharge), 20, y, 0);
+            y += 20;
+        }
 
-	public void renderItemStack(ItemStack stack, int x, int y)
-	{
-		if (stack != null)
-		{
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			RenderHelper.enableGUIStandardItemLighting();
+        if (showHud) {
+            if (stack != null && stack.getItem() instanceof IEnergyInterfaceItem) {
+                double MaxCharge = ((IEnergyInterfaceItem) stack.getItem()).getMaxPower(stack);
+                double CurrentCharge = ((IEnergyInterfaceItem) stack.getItem()).getEnergy(stack);
+                Color color = Color.GREEN;
+                double quarter = MaxCharge / 4;
+                double half = MaxCharge / 2;
+                GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+                GL11.glEnable(32826);
+                RenderHelper.enableStandardItemLighting();
+                RenderHelper.enableGUIStandardItemLighting();
+                renderItemStack(stack, 0, y - 5);
+                if (CurrentCharge <= half) {
+                    color = Color.YELLOW;
+                }
+                if (CurrentCharge <= quarter) {
+                    color = Color.DARK_RED;
+                }
+                mc.fontRendererObj.drawString(color + PowerSystem.getLocaliszedPower(CurrentCharge) + "/" + PowerSystem.getLocaliszedPower(MaxCharge), 20, y, 0);
+            }
+        }
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+    }
 
-			RenderItem itemRenderer = Minecraft.getMinecraft().getRenderItem();
-			itemRenderer.renderItemAndEffectIntoGUI(stack, x, y);
+    public void renderItemStack(ItemStack stack, int x, int y)
+    {
+        if (stack != null)
+        {
+            GL11.glEnable(GL11.GL_BLEND);
+            GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+            RenderHelper.enableGUIStandardItemLighting();
 
-			GL11.glDisable(GL11.GL_LIGHTING);
-		}
-	}
+            RenderItem itemRenderer = Minecraft.getMinecraft().getRenderItem();
+            itemRenderer.renderItemAndEffectIntoGUI(stack, x, y);
+
+            GL11.glDisable(GL11.GL_LIGHTING);
+        }
+    }
 
 }

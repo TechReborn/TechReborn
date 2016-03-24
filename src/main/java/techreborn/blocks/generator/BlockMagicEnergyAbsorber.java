@@ -5,40 +5,35 @@ import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.blocks.IAdvancedRotationTexture;
 import techreborn.client.TechRebornCreativeTab;
 
-public class BlockMagicEnergyAbsorber extends BlockMachineBase implements IAdvancedRotationTexture
-{
+public class BlockMagicEnergyAbsorber extends BlockMachineBase implements IAdvancedRotationTexture {
 
-	public BlockMagicEnergyAbsorber(Material material)
-	{
-		super();
-		setUnlocalizedName("techreborn.magicenergyabsorber");
-		setCreativeTab(TechRebornCreativeTab.instance);
-	}
+    public BlockMagicEnergyAbsorber(Material material) {
+        super();
+        setUnlocalizedName("techreborn.magicenergyabsorber");
+        setCreativeTab(TechRebornCreativeTab.instance);
+    }
 
-	private final String prefix = "techreborn:blocks/machine/generators/";
 
-	@Override
-	public String getFront(boolean isActive)
-	{
-		return prefix + "magic_energy_absorber_side";
-	}
+    private final String prefix = "techreborn:blocks/machine/generators/";
 
-	@Override
-	public String getSide(boolean isActive)
-	{
-		return prefix + "magic_energy_absorber_side";
-	}
+    @Override
+    public String getFront(boolean isActive) {
+        return prefix + "magic_energy_absorber_side";
+    }
 
-	@Override
-	public String getTop(boolean isActive)
-	{
-		return prefix + "magic_energy_absorber_top";
-	}
+    @Override
+    public String getSide(boolean isActive) {
+        return prefix + "magic_energy_absorber_side" ;
+    }
 
-	@Override
-	public String getBottom(boolean isActive)
-	{
-		return prefix + "magic_energy_absorber_bottom";
-	}
+    @Override
+    public String getTop(boolean isActive) {
+        return prefix + "magic_energy_absorber_top";
+    }
+
+    @Override
+    public String getBottom(boolean isActive) {
+        return prefix + "magic_energy_absorber_bottom";
+    }
 
 }

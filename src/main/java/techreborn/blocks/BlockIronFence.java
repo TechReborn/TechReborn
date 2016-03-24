@@ -5,16 +5,14 @@ import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.material.Material;
 import techreborn.client.TechRebornCreativeTabMisc;
 
-public class BlockIronFence extends BlockFence
-{
+public class BlockIronFence extends BlockFence {
 
-	public BlockIronFence()
-	{
+	public BlockIronFence() {
 		super(Material.iron, BlockPlanks.EnumType.OAK.getMapColor());
-		setUnlocalizedName("techreborn.ironfence");
-		setCreativeTab(TechRebornCreativeTabMisc.instance);
-		setHardness(2.0F);
-		setHarvestLevel("pickaxe", 2);
+        setUnlocalizedName("techreborn.ironfence");
+        setCreativeTab(TechRebornCreativeTabMisc.instance);
+        setHardness(2.0F);
+        setHarvestLevel("pickaxe", 2);
 	}
 
 }

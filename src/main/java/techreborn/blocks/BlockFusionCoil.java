@@ -6,21 +6,20 @@ import net.minecraft.util.EnumFacing;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.TechRebornCreativeTab;
 
-public class BlockFusionCoil extends BlockMachineBase
-{
+public class BlockFusionCoil extends BlockMachineBase {
 
-	public BlockFusionCoil(Material material)
-	{
-		super();
-		setUnlocalizedName("techreborn.fusioncoil");
-		setCreativeTab(TechRebornCreativeTab.instance);
-	}
 
-	private final String prefix = "techreborn:blocks/machine/greg_machines/";
+    public BlockFusionCoil(Material material) {
+        super();
+        setUnlocalizedName("techreborn.fusioncoil");
+        setCreativeTab(TechRebornCreativeTab.instance);
+    }
 
-	@Override
-	public String getTextureNameFromState(IBlockState BlockStateContainer, EnumFacing facing)
-	{
-		return prefix + "fusion_coil";
-	}
+
+    private final String prefix = "techreborn:blocks/machine/greg_machines/";
+
+    @Override
+    public String getTextureNameFromState(IBlockState BlockStateContainer, EnumFacing facing) {
+        return prefix + "fusion_coil";
+    }
 }

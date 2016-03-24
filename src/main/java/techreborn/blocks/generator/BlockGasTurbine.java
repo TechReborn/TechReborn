@@ -12,59 +12,52 @@ import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.generator.TileGasTurbine;
 
-public class BlockGasTurbine extends BlockMachineBase implements IAdvancedRotationTexture
-{
+public class BlockGasTurbine extends BlockMachineBase implements IAdvancedRotationTexture {
 
-	public BlockGasTurbine(Material material)
-	{
-		super();
-		setUnlocalizedName("techreborn.gasTurbine");
-		setCreativeTab(TechRebornCreativeTab.instance);
-	}
 
-	@Override
-	public TileEntity createNewTileEntity(World world, int p_149915_2_)
-	{
-		return new TileGasTurbine();
-	}
+    public BlockGasTurbine(Material material) {
+        super();
+        setUnlocalizedName("techreborn.gasTurbine");
+        setCreativeTab(TechRebornCreativeTab.instance);
+    }
 
-	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
-			float hitY, float hitZ)
-	{
-		if (fillBlockWithFluid(world, new BlockPos(x, y, z), player))
-		{
-			return true;
-		}
-		if (!player.isSneaking())
-			player.openGui(Core.INSTANCE, GuiHandler.gasTurbineID, world, x, y, z);
-		return true;
-	}
+    @Override
+    public TileEntity createNewTileEntity(World world, int p_149915_2_) {
+        return new TileGasTurbine();
+    }
 
-	private final String prefix = "techreborn:blocks/machine/generators/";
+    @Override
+    public boolean onBlockActivated(World world, int x, int y, int z,
+                                    EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+        if(fillBlockWithFluid(world, new BlockPos(x, y, z), player)){
+            return true;
+        }
+        if (!player.isSneaking())
+            player.openGui(Core.INSTANCE, GuiHandler.gasTurbineID, world, x, y,
+                    z);
+        return true;
+    }
 
-	@Override
-	public String getFront(boolean isActive)
-	{
-		return prefix + "generator_machine_side";
-	}
+    private final String prefix = "techreborn:blocks/machine/generators/";
 
-	@Override
-	public String getSide(boolean isActive)
-	{
-		return prefix + "generator_machine_side";
-	}
+    @Override
+    public String getFront(boolean isActive) {
+        return prefix + "generator_machine_side";
+    }
 
-	@Override
-	public String getTop(boolean isActive)
-	{
-		return prefix + "gas_generator_top";
-	}
+    @Override
+    public String getSide(boolean isActive) {
+        return prefix + "generator_machine_side" ;
+    }
 
-	@Override
-	public String getBottom(boolean isActive)
-	{
-		return prefix + "gas_generator_bottom";
-	}
+    @Override
+    public String getTop(boolean isActive) {
+        return prefix + "gas_generator_top";
+    }
+
+    @Override
+    public String getBottom(boolean isActive) {
+        return prefix + "gas_generator_bottom";
+    }
 
 }

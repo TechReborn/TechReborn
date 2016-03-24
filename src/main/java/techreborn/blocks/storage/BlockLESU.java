@@ -11,55 +11,51 @@ import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.lesu.TileLesu;
 
-public class BlockLESU extends BlockMachineBase implements IAdvancedRotationTexture
-{
+public class BlockLESU extends BlockMachineBase implements IAdvancedRotationTexture {
 
-	public BlockLESU(Material material)
-	{
-		super();
-		setUnlocalizedName("techreborn.lesu");
-		setCreativeTab(TechRebornCreativeTab.instance);
-	}
 
-	@Override
-	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
-	{
-		return new TileLesu();
-	}
+    public BlockLESU(Material material) {
+        super();
+        setUnlocalizedName("techreborn.lesu");
+        setCreativeTab(TechRebornCreativeTab.instance);
+    }
 
-	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
-			float hitY, float hitZ)
-	{
-		if (!player.isSneaking())
-			player.openGui(Core.INSTANCE, GuiHandler.lesuID, world, x, y, z);
-		return true;
-	}
 
-	private final String prefix = "techreborn:blocks/machine/storage/";
+    @Override
+    public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
+        return new TileLesu();
+    }
 
-	@Override
-	public String getFront(boolean isActive)
-	{
-		return prefix + "lesu_front";
-	}
+    @Override
+    public boolean onBlockActivated(World world, int x, int y, int z,
+                                    EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+        if (!player.isSneaking())
+            player.openGui(Core.INSTANCE, GuiHandler.lesuID, world, x, y,
+                    z);
+        return true;
+    }
 
-	@Override
-	public String getSide(boolean isActive)
-	{
-		return prefix + "lesu_side";
-	}
+    private final String prefix = "techreborn:blocks/machine/storage/";
 
-	@Override
-	public String getTop(boolean isActive)
-	{
-		return prefix + "lesu_top";
-	}
 
-	@Override
-	public String getBottom(boolean isActive)
-	{
-		return prefix + "lesu_bottom";
-	}
+    @Override
+    public String getFront(boolean isActive) {
+        return prefix + "lesu_front";
+    }
+
+    @Override
+    public String getSide(boolean isActive) {
+        return prefix + "lesu_side" ;
+    }
+
+    @Override
+    public String getTop(boolean isActive) {
+        return prefix + "lesu_top";
+    }
+
+    @Override
+    public String getBottom(boolean isActive) {
+        return prefix + "lesu_bottom";
+    }
 
 }

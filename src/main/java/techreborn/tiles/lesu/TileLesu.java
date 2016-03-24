@@ -1,6 +1,5 @@
 package techreborn.tiles.lesu;
 
-import java.util.ArrayList;
 
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -9,127 +8,103 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.config.ConfigTechReborn;
 
-public class TileLesu extends TilePowerAcceptor
-{// TODO wrench
+import java.util.ArrayList;
 
-	private ArrayList<LesuNetwork> countedNetworks = new ArrayList<LesuNetwork>();
-	public int connectedBlocks = 0;
+public class TileLesu extends TilePowerAcceptor {//TODO wrench
 
-	private double euLastTick = 0;
-	private double euChange;
-	private int ticks;
-	private int output;
-	private int maxStorage;
+    private ArrayList<LesuNetwork> countedNetworks = new ArrayList<LesuNetwork>();
+    public int connectedBlocks = 0;
 
-	public Inventory inventory = new Inventory(4, "TileAesu", 64, this);
+    private double euLastTick = 0;
+    private double euChange;
+    private int ticks;
+    private int output;
+    private int maxStorage;
 
-	public TileLesu()
-	{
-		super(5);
-	}
+    public Inventory inventory = new Inventory(4, "TileAesu", 64, this);
 
-	@Override
-	public void updateEntity()
-	{
-		super.updateEntity();
-		if (worldObj.isRemote)
-		{
-			return;
-		}
-		countedNetworks.clear();
-		connectedBlocks = 0;
-		for (EnumFacing dir : EnumFacing.values())
-		{
-			if (worldObj.getTileEntity(
-					new BlockPos(getPos().getX() + dir.getFrontOffsetX(), getPos().getY() + dir.getFrontOffsetY(),
-							getPos().getZ() + dir.getFrontOffsetZ())) instanceof TileLesuStorage)
-			{
-				if (((TileLesuStorage) worldObj.getTileEntity(
-						new BlockPos(getPos().getX() + dir.getFrontOffsetX(), getPos().getY() + dir.getFrontOffsetY(),
-								getPos().getZ() + dir.getFrontOffsetZ()))).network != null)
-				{
-					LesuNetwork network = ((TileLesuStorage) worldObj.getTileEntity(new BlockPos(
-							getPos().getX() + dir.getFrontOffsetX(), getPos().getY() + dir.getFrontOffsetY(),
-							getPos().getZ() + dir.getFrontOffsetZ()))).network;
-					if (!countedNetworks.contains(network))
-					{
-						if (network.master == null || network.master == this)
-						{
-							connectedBlocks += network.storages.size();
-							countedNetworks.add(network);
-							network.master = this;
-							break;
-						}
-					}
-				}
-			}
-		}
-		maxStorage = ((connectedBlocks + 1) * ConfigTechReborn.lesuStoragePerBlock);
-		output = (connectedBlocks * ConfigTechReborn.extraOutputPerLesuBlock) + ConfigTechReborn.baseLesuOutput;
+    public TileLesu() {
+        super(5);
+    }
 
-		if (ticks == ConfigTechReborn.aveargeEuOutTickTime)
-		{
-			euChange = -1;
-			ticks = 0;
-		} else
-		{
-			ticks++;
-			if (euChange == -1)
-			{
-				euChange = 0;
-			}
-			euChange += getEnergy() - euLastTick;
-			if (euLastTick == getEnergy())
-			{
-				euChange = 0;
-			}
-		}
+    @Override
+    public void updateEntity() {
+        super.updateEntity();
+        if (worldObj.isRemote) {
+            return;
+        }
+        countedNetworks.clear();
+        connectedBlocks = 0;
+        for (EnumFacing dir : EnumFacing.values()) {
+            if (worldObj.getTileEntity(new BlockPos(getPos().getX() + dir.getFrontOffsetX(), getPos().getY() + dir.getFrontOffsetY(), getPos().getZ() + dir.getFrontOffsetZ())) instanceof TileLesuStorage) {
+                if (((TileLesuStorage) worldObj.getTileEntity(new BlockPos(getPos().getX() + dir.getFrontOffsetX(), getPos().getY() + dir.getFrontOffsetY(), getPos().getZ() + dir.getFrontOffsetZ()))).network != null) {
+                    LesuNetwork network = ((TileLesuStorage) worldObj.getTileEntity(new BlockPos(getPos().getX() + dir.getFrontOffsetX(), getPos().getY() + dir.getFrontOffsetY(), getPos().getZ() + dir.getFrontOffsetZ()))).network;
+                    if (!countedNetworks.contains(network)) {
+                        if (network.master == null || network.master == this) {
+                            connectedBlocks += network.storages.size();
+                            countedNetworks.add(network);
+                            network.master = this;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        maxStorage = ((connectedBlocks + 1) * ConfigTechReborn.lesuStoragePerBlock);
+        output = (connectedBlocks * ConfigTechReborn.extraOutputPerLesuBlock) + ConfigTechReborn.baseLesuOutput;
 
-		euLastTick = getEnergy();
-	}
+        if (ticks == ConfigTechReborn.aveargeEuOutTickTime) {
+            euChange = -1;
+            ticks = 0;
+        } else {
+            ticks++;
+            if (euChange == -1) {
+                euChange = 0;
+            }
+            euChange += getEnergy() - euLastTick;
+            if (euLastTick == getEnergy()) {
+                euChange = 0;
+            }
+        }
 
-	public double getEuChange()
-	{
-		if (euChange == -1)
-		{
-			return 0;
-		}
-		return (euChange / ticks);
-	}
+        euLastTick = getEnergy();
+    }
 
-	@Override
-	public double getMaxPower()
-	{
-		return maxStorage;
-	}
 
-	@Override
-	public boolean canAcceptEnergy(EnumFacing direction)
-	{
-		return direction != getFacingEnum();
-	}
+    public double getEuChange() {
+        if (euChange == -1) {
+            return 0;
+        }
+        return (euChange / ticks);
+    }
 
-	@Override
-	public boolean canProvideEnergy(EnumFacing direction)
-	{
-		return direction == getFacingEnum();
-	}
+    @Override
+    public double getMaxPower() {
+        return maxStorage;
+    }
 
-	@Override
-	public double getMaxOutput()
-	{
-		return output;
-	}
+    @Override
+    public boolean canAcceptEnergy(EnumFacing direction) {
+        return direction != getFacingEnum();
+    }
 
-	@Override
-	public double getMaxInput()
-	{
-		return 8192;
-	}
+    @Override
+    public boolean canProvideEnergy(EnumFacing direction) {
+        return direction == getFacingEnum();
+    }
 
-	@Override
-	public EnumPowerTier getTier()
-	{
-		return EnumPowerTier.EXTREME;
-	}
+    @Override
+    public double getMaxOutput() {
+        return output;
+    }
+
+    @Override
+    public double getMaxInput() {
+        return 8192;
+    }
+
+    @Override
+    public EnumPowerTier getTier() {
+        return EnumPowerTier.EXTREME;
+    }
 }

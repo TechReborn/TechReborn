@@ -1,90 +1,61 @@
 package techreborn.client;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
 import org.lwjgl.input.Keyboard;
-
 import reborncore.api.IListInfoProvider;
 import reborncore.api.power.IEnergyInterfaceItem;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.Color;
 import techreborn.Core;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
+public class StackToolTipEvent {
 
-public class StackToolTipEvent
-{
+    @SubscribeEvent
+    public void handleItemTooltipEvent(ItemTooltipEvent event) {
+        if (event.itemStack.getItem() instanceof IListInfoProvider) {
+            ((IListInfoProvider) event.itemStack.getItem()).addInfo(event.toolTip, false);
+        } else if (event.itemStack.getItem() instanceof IEnergyInterfaceItem) {
+            if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
+                int percentage = percentage((int) ((IEnergyInterfaceItem) event.itemStack.getItem()).getMaxPower(event.itemStack), (int) ((IEnergyInterfaceItem) event.itemStack.getItem()).getEnergy(event.itemStack));
+                ChatFormatting color;
+                if (percentage <= 10) {
+                    color = ChatFormatting.RED;
+                } else if (percentage >= 75) {
+                    color = ChatFormatting.GREEN;
+                } else {
+                    color = ChatFormatting.YELLOW;
+                }
+                event.toolTip.add(color + "" + PowerSystem.getLocaliszedPower((int) ((IEnergyInterfaceItem) event.itemStack.getItem()).getEnergy(event.itemStack)) + ChatFormatting.LIGHT_PURPLE + " stored");
+                event.toolTip.add(Color.GREEN + "" + PowerSystem.getLocaliszedPower((int) ((IEnergyInterfaceItem) event.itemStack.getItem()).getMaxPower(event.itemStack)) + ChatFormatting.LIGHT_PURPLE + " max");
+                event.toolTip.add(ChatFormatting.GREEN + "" + percentage + "%" + ChatFormatting.LIGHT_PURPLE + " charged");
+                event.toolTip.add(Color.GREEN + "" + PowerSystem.getLocaliszedPower((int) ((IEnergyInterfaceItem) event.itemStack.getItem()).getMaxTransfer(event.itemStack)) + ChatFormatting.LIGHT_PURPLE + " /tick in/out");
+            }
+        } else {
+            try{
+                Block block = Block.getBlockFromItem(event.itemStack.getItem());
+                if (block != null && block instanceof BlockContainer && block.getClass().getCanonicalName().startsWith("techreborn.")) {
+                    TileEntity tile = block.createTileEntity(Minecraft.getMinecraft().theWorld, block.getDefaultState());
+                    if (tile instanceof IListInfoProvider) {
+                        ((IListInfoProvider) tile).addInfo(event.toolTip, false);
+                    }
+                }
+            } catch (NullPointerException e){
+                Core.logHelper.debug("Failed to load info for " + event.itemStack.getDisplayName());
+            }
+        }
+    }
 
-	@SubscribeEvent
-	public void handleItemTooltipEvent(ItemTooltipEvent event)
-	{
-		if (event.itemStack.getItem() instanceof IListInfoProvider)
-		{
-			((IListInfoProvider) event.itemStack.getItem()).addInfo(event.toolTip, false);
-		} else if (event.itemStack.getItem() instanceof IEnergyInterfaceItem)
-		{
-			if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT))
-			{
-				int percentage = percentage(
-						(int) ((IEnergyInterfaceItem) event.itemStack.getItem()).getMaxPower(event.itemStack),
-						(int) ((IEnergyInterfaceItem) event.itemStack.getItem()).getEnergy(event.itemStack));
-				ChatFormatting color;
-				if (percentage <= 10)
-				{
-					color = ChatFormatting.RED;
-				} else if (percentage >= 75)
-				{
-					color = ChatFormatting.GREEN;
-				} else
-				{
-					color = ChatFormatting.YELLOW;
-				}
-				event.toolTip.add(color + ""
-						+ PowerSystem.getLocaliszedPower(
-								(int) ((IEnergyInterfaceItem) event.itemStack.getItem()).getEnergy(event.itemStack))
-						+ ChatFormatting.LIGHT_PURPLE + " stored");
-				event.toolTip.add(Color.GREEN + ""
-						+ PowerSystem.getLocaliszedPower(
-								(int) ((IEnergyInterfaceItem) event.itemStack.getItem()).getMaxPower(event.itemStack))
-						+ ChatFormatting.LIGHT_PURPLE + " max");
-				event.toolTip
-						.add(ChatFormatting.GREEN + "" + percentage + "%" + ChatFormatting.LIGHT_PURPLE + " charged");
-				event.toolTip.add(Color.GREEN + "" + PowerSystem.getLocaliszedPower(
-						(int) ((IEnergyInterfaceItem) event.itemStack.getItem()).getMaxTransfer(event.itemStack))
-						+ ChatFormatting.LIGHT_PURPLE + " /tick in/out");
-			}
-		} else
-		{
-			try
-			{
-				Block block = Block.getBlockFromItem(event.itemStack.getItem());
-				if (block != null && block instanceof BlockContainer
-						&& block.getClass().getCanonicalName().startsWith("techreborn."))
-				{
-					TileEntity tile = block.createTileEntity(Minecraft.getMinecraft().theWorld,
-							block.getDefaultState());
-					if (tile instanceof IListInfoProvider)
-					{
-						((IListInfoProvider) tile).addInfo(event.toolTip, false);
-					}
-				}
-			} catch (NullPointerException e)
-			{
-				Core.logHelper.debug("Failed to load info for " + event.itemStack.getDisplayName());
-			}
-		}
-	}
 
-	public int percentage(int MaxValue, int CurrentValue)
-	{
-		if (CurrentValue == 0)
-			return 0;
-		return (int) ((CurrentValue * 100.0f) / MaxValue);
-	}
+    public int percentage(int MaxValue, int CurrentValue) {
+        if (CurrentValue == 0)
+            return 0;
+        return (int) ((CurrentValue * 100.0f) / MaxValue);
+    }
 
 }

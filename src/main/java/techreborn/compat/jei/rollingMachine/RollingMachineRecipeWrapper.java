@@ -1,10 +1,5 @@
 package techreborn.compat.jei.rollingMachine;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mezz.jei.api.recipe.BlankRecipeWrapper;
 import mezz.jei.api.recipe.wrapper.ICraftingRecipeWrapper;
 import mezz.jei.plugins.vanilla.crafting.ShapedOreRecipeWrapper;
@@ -18,50 +13,44 @@ import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
-public class RollingMachineRecipeWrapper extends BlankRecipeWrapper implements ICraftingRecipeWrapper
-{
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.List;
+
+public class RollingMachineRecipeWrapper extends BlankRecipeWrapper implements ICraftingRecipeWrapper {
 	private final ICraftingRecipeWrapper baseRecipe;
 
 	@Nullable
-	public static RollingMachineRecipeWrapper create(IRecipe baseRecipe)
-	{
+	public static RollingMachineRecipeWrapper create(IRecipe baseRecipe) {
 		ICraftingRecipeWrapper recipeWrapper;
-		if (baseRecipe instanceof ShapelessRecipes)
-		{
+		if (baseRecipe instanceof ShapelessRecipes) {
 			recipeWrapper = new ShapelessRecipesWrapper((ShapelessRecipes) baseRecipe);
-		} else if (baseRecipe instanceof ShapedRecipes)
-		{
+		} else if (baseRecipe instanceof ShapedRecipes) {
 			recipeWrapper = new ShapedRecipesWrapper((ShapedRecipes) baseRecipe);
-		} else if (baseRecipe instanceof ShapedOreRecipe)
-		{
+		} else if (baseRecipe instanceof ShapedOreRecipe) {
 			recipeWrapper = new ShapedOreRecipeWrapper((ShapedOreRecipe) baseRecipe);
-		} else if (baseRecipe instanceof ShapelessOreRecipe)
-		{
+		} else if (baseRecipe instanceof ShapelessOreRecipe) {
 			recipeWrapper = new ShapelessOreRecipeWrapper((ShapelessOreRecipe) baseRecipe);
-		} else
-		{
+		} else {
 			return null;
 		}
 
 		return new RollingMachineRecipeWrapper(recipeWrapper);
 	}
 
-	public RollingMachineRecipeWrapper(ICraftingRecipeWrapper baseRecipe)
-	{
+	public RollingMachineRecipeWrapper(ICraftingRecipeWrapper baseRecipe) {
 		this.baseRecipe = baseRecipe;
 	}
 
 	@Override
 	@Nonnull
-	public List getInputs()
-	{
+	public List getInputs() {
 		return baseRecipe.getInputs();
 	}
 
 	@Override
 	@Nonnull
-	public List<ItemStack> getOutputs()
-	{
+	public List<ItemStack> getOutputs() {
 		return baseRecipe.getOutputs();
 	}
 }

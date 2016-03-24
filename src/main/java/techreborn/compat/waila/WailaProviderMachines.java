@@ -14,48 +14,38 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.api.IListInfoProvider;
 
-public class WailaProviderMachines implements IWailaDataProvider
-{
+public class WailaProviderMachines implements IWailaDataProvider {
 
-	private List<String> info = new ArrayList<String>();
+    private List<String> info = new ArrayList<String>();
 
-	@Override
-	public List<String> getWailaBody(ItemStack item, List<String> tip, IWailaDataAccessor accessor,
-			IWailaConfigHandler config)
-	{
-		if (accessor.getTileEntity() instanceof IListInfoProvider)
-		{
-			((IListInfoProvider) accessor.getTileEntity()).addInfo(info, true);
-		}
-		tip.addAll(info);
-		info.clear();
+    @Override
+    public List<String> getWailaBody(ItemStack item, List<String> tip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
+        if (accessor.getTileEntity() instanceof IListInfoProvider) {
+            ((IListInfoProvider) accessor.getTileEntity()).addInfo(info, true);
+        }
+        tip.addAll(info);
+        info.clear();
 
-		return tip;
-	}
+        return tip;
+    }
 
-	@Override
-	public List<String> getWailaHead(ItemStack item, List<String> tip, IWailaDataAccessor accessor,
-			IWailaConfigHandler config)
-	{
-		return tip;
-	}
+    @Override
+    public List<String> getWailaHead(ItemStack item, List<String> tip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
+        return tip;
+    }
 
-	@Override
-	public List<String> getWailaTail(ItemStack item, List<String> tip, IWailaDataAccessor accessor,
-			IWailaConfigHandler config)
-	{
-		return tip;
-	}
+    @Override
+    public List<String> getWailaTail(ItemStack item, List<String> tip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
+        return tip;
+    }
 
-	@Override
-	public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config)
-	{
-		return null;
-	}
+    @Override
+    public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config) {
+        return null;
+    }
 
-	@Override
-	public NBTTagCompound getNBTData(EntityPlayerMP player, TileEntity te, NBTTagCompound tag, World w, BlockPos pos)
-	{
-		return tag;
-	}
+    @Override
+    public NBTTagCompound getNBTData(EntityPlayerMP player, TileEntity te, NBTTagCompound tag, World w, BlockPos pos) {
+        return tag;
+    }
 }

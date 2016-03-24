@@ -1,8 +1,5 @@
 package techreborn.power;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -13,346 +10,277 @@ import reborncore.api.power.IEnergyInterfaceTile;
 import techreborn.parts.CableMultipart;
 import techreborn.parts.EnumCableType;
 
-public class TRPowerNet
-{
-	int tick = 0;
-	private ArrayList<CableMultipart> cables = new ArrayList();
-	public ArrayList<EnergyHandler> endpoints = new ArrayList();
-	private int energy = 0;
-	EnumCableType cableType;
+import java.util.ArrayList;
+import java.util.List;
 
-	public TRPowerNet(EnumCableType cableType)
-	{
-		this.cableType = cableType;
-		MinecraftForge.EVENT_BUS.register(this);
-	}
+public class TRPowerNet {
+    int tick = 0;
+    private ArrayList<CableMultipart> cables = new ArrayList();
+    public ArrayList<EnergyHandler> endpoints = new ArrayList();
+    private int energy = 0;
+    EnumCableType cableType;
 
-	public int getIOLimit()
-	{
-		return cableType.transferRate;
-	}
+    public TRPowerNet(EnumCableType cableType) {
+        this.cableType = cableType;
+        MinecraftForge.EVENT_BUS.register(this);
+    }
 
-	@SubscribeEvent
-	public void tick(PowerTickEvent evt)
-	{
-		if (tick < 20)
-		{
-			tick++;
-			return;
-		}
-		if (tick % 80 == 0)
-		{
-			List<CableMultipart> oldCables = new ArrayList<>();
-			for (CableMultipart cableMultipart : cables)
-			{
-				if (cableMultipart.getWorld() == null || cableMultipart.getPos() == null)
-				{
-					oldCables.add(cableMultipart);
-				}
-				CableMultipart mp = cableMultipart.getPartFromWorld(cableMultipart.getWorld(), cableMultipart.getPos(),
-						null);
-				if (mp == null)
-				{
-					oldCables.add(cableMultipart);
-				}
-			}
-			cables.removeAll(oldCables);
-		}
-		if (!cables.isEmpty())
-		{
-			ArrayList<EnergyHandler> collectibles = new ArrayList();
-			ArrayList<EnergyHandler> insertibles = new ArrayList();
-			for (EnergyHandler ei : endpoints)
-			{
-				if (ei.isCollectible())
-				{
-					collectibles.add(ei);
-				}
-				if (ei.isInsertible())
-				{
-					insertibles.add(ei);
-				}
-			}
+    public int getIOLimit() {
+        return cableType.transferRate;
+    }
 
-			if (energy < cableType.transferRate * cables.size())
-			{
-				for (EnergyHandler handler : collectibles)
-				{
-					energy += handler.collectEnergy(cableType.transferRate);
-				}
-			}
+    @SubscribeEvent
+    public void tick(PowerTickEvent evt) {
+        if (tick < 20) {
+            tick++;
+            return;
+        }
+        if (tick % 80 == 0) {
+            List<CableMultipart> oldCables = new ArrayList<>();
+            for (CableMultipart cableMultipart : cables) {
+                if (cableMultipart.getWorld() == null || cableMultipart.getPos() == null) {
+                    oldCables.add(cableMultipart);
+                }
+                CableMultipart mp = cableMultipart.getPartFromWorld(cableMultipart.getWorld(), cableMultipart.getPos(), null);
+                if (mp == null) {
+                    oldCables.add(cableMultipart);
+                }
+            }
+            cables.removeAll(oldCables);
+        }
+        if (!cables.isEmpty()) {
+            ArrayList<EnergyHandler> collectibles = new ArrayList();
+            ArrayList<EnergyHandler> insertibles = new ArrayList();
+            for (EnergyHandler ei : endpoints) {
+                if (ei.isCollectible()) {
+                    collectibles.add(ei);
+                }
+                if (ei.isInsertible()) {
+                    insertibles.add(ei);
+                }
+            }
 
-			for (EnergyHandler handler : insertibles)
-			{
-				energy -= handler.addEnergy(Math.min(energy, cableType.transferRate));
-			}
-		} else
-		{
-			MinecraftForge.EVENT_BUS.unregister(this);
-		}
-		tick++;
-	}
+            if(energy < cableType.transferRate * cables.size()){
+                for (EnergyHandler handler : collectibles) {
+                    energy += handler.collectEnergy(cableType.transferRate);
+                }
+            }
 
-	public void addElement(CableMultipart te)
-	{
-		if (!cables.contains(te))
-		{
-			cables.add(te);
-		}
-	}
+            for (EnergyHandler handler : insertibles) {
+                energy -= handler.addEnergy(Math.min(energy, cableType.transferRate));
+            }
+        } else {
+            MinecraftForge.EVENT_BUS.unregister(this);
+        }
+        tick++;
+    }
 
-	public void removeElement(CableMultipart te)
-	{
-		cables.remove(te);
-		this.rebuild();
-		this.checkAndRemoveOldEndpoints();
-	}
+    public void addElement(CableMultipart te) {
+        if (!cables.contains(te)) {
+            cables.add(te);
+        }
+    }
 
-	public static void buildEndpoint(TRPowerNet net)
-	{
-		ArrayList<CableMultipart> parts = new ArrayList<>();
-		ArrayList<CableMultipart> partsToMerge = new ArrayList<>();
-		parts.addAll(net.cables);
-		for (CableMultipart cable : parts)
-		{
-			for (EnumFacing facing : EnumFacing.VALUES)
-			{
-				BlockPos pos = cable.getPos().offset(facing);
-				TileEntity tile = cable.getWorld().getTileEntity(pos);
-				if (tile != null && tile instanceof IEnergyInterfaceTile)
-				{
-					IEnergyInterfaceTile eit = (IEnergyInterfaceTile) tile;
-					net.addConnection(eit, facing);
-				}
-				CableMultipart cableMultipart = CableMultipart.getPartFromWorld(cable.getWorld(), pos, null);
-				if (cableMultipart != null)
-				{
-					if (cableMultipart.getNetwork() != net)
-					{
-						partsToMerge.add(cableMultipart);
-					}
-				}
-			}
-		}
-		for (CableMultipart cableMultipart : partsToMerge)
-		{
-			cableMultipart.mergeWith = net;
-		}
-		net.checkAndRemoveOldEndpoints();
-	}
+    public void removeElement(CableMultipart te) {
+        cables.remove(te);
+        this.rebuild();
+        this.checkAndRemoveOldEndpoints();
+    }
 
-	public void checkAndRemoveOldEndpoints()
-	{
-		List<EnergyHandler> deadHandlers = new ArrayList<>();
-		for (EnergyHandler energyHandler : endpoints)
-		{
-			TileEntity tile = (TileEntity) energyHandler.tile;
-			if (tile.getWorld().getTileEntity(tile.getPos()) == null)
-			{
-				deadHandlers.add(energyHandler);
-			} else
-			{
-				boolean hasNet = false;
-				for (EnumFacing facing : EnumFacing.VALUES)
-				{
-					BlockPos pos = tile.getPos().offset(facing);
-					CableMultipart multipart = CableMultipart.getPartFromWorld(tile.getWorld(), pos, facing);
-					if (multipart != null && multipart.getNetwork() == this)
-					{
-						hasNet = true;
-					}
-				}
-				if (!hasNet)
-				{
-					deadHandlers.add(energyHandler);
-				}
-			}
+    public static void buildEndpoint(TRPowerNet net){
+        ArrayList<CableMultipart> parts = new ArrayList<>();
+        ArrayList<CableMultipart> partsToMerge = new ArrayList<>();
+        parts.addAll(net.cables);
+        for(CableMultipart cable : parts){
+            for(EnumFacing facing : EnumFacing.VALUES){
+                BlockPos pos = cable.getPos().offset(facing);
+                TileEntity tile = cable.getWorld().getTileEntity(pos);
+                if(tile != null && tile instanceof IEnergyInterfaceTile){
+                    IEnergyInterfaceTile eit = (IEnergyInterfaceTile) tile;
+                    net.addConnection(eit, facing);
+                }
+                CableMultipart cableMultipart = CableMultipart.getPartFromWorld(cable.getWorld(), pos, null);
+                if(cableMultipart != null){
+                    if(cableMultipart.getNetwork() != net){
+                        partsToMerge.add(cableMultipart);
+                    }
+                }
+            }
+        }
+        for(CableMultipart cableMultipart : partsToMerge){
+            cableMultipart.mergeWith = net;
+        }
+        net.checkAndRemoveOldEndpoints();
+    }
 
-		}
-		endpoints.removeAll(deadHandlers);
-	}
+    public void checkAndRemoveOldEndpoints(){
+        List<EnergyHandler> deadHandlers = new ArrayList<>();
+        for(EnergyHandler energyHandler : endpoints){
+            TileEntity tile = (TileEntity) energyHandler.tile;
+            if(tile.getWorld().getTileEntity(tile.getPos()) == null){
+                deadHandlers.add(energyHandler);
+            } else {
+                boolean hasNet = false;
+                for(EnumFacing facing : EnumFacing.VALUES){
+                    BlockPos pos = tile.getPos().offset(facing);
+                    CableMultipart multipart = CableMultipart.getPartFromWorld(tile.getWorld(), pos, facing);
+                    if(multipart != null && multipart.getNetwork() == this){
+                        hasNet = true;
+                    }
+                }
+                if(!hasNet){
+                    deadHandlers.add(energyHandler);
+                }
+            }
 
-	public void rebuild()
-	{
-		for (int i = 0; i < cables.size(); i++)
-		{
-			CableMultipart te = cables.get(i);
-			te.setNetwork(null);
-			te.findAndJoinNetwork(te.getWorld(), te.getPos());
-		}
-		this.clear(true);
-		MinecraftForge.EVENT_BUS.unregister(this);
-	}
+        }
+        endpoints.removeAll(deadHandlers);
+    }
 
-	public int getEnergy()
-	{
-		return energy;
-	}
+    public void rebuild() {
+        for (int i = 0; i < cables.size(); i++) {
+            CableMultipart te = cables.get(i);
+            te.setNetwork(null);
+            te.findAndJoinNetwork(te.getWorld(), te.getPos());
+        }
+        this.clear(true);
+        MinecraftForge.EVENT_BUS.unregister(this);
+    }
 
-	public void setEnergy(int energy)
-	{
-		energy += energy;
-		if (energy < 0)
-		{
-			energy = 0;
-		}
-	}
+    public int getEnergy() {
+        return energy;
+    }
 
-	public void addConnection(IEnergyInterfaceTile ih, EnumFacing dir)
-	{
-		if (ih instanceof CableMultipart)
-			return;
-		EnergyHandler has = this.getHandleFrom(ih);
-		if (has == null)
-		{
-			endpoints.add(new EnergyHandler(ih, cableType, dir));
-		} else
-		{
-			has.side = dir;
-		}
-	}
+    public void setEnergy(int energy){
+        energy += energy;
+        if(energy < 0){
+            energy = 0;
+        }
+    }
 
-	public void merge(TRPowerNet n)
-	{
-		if (n != this)
-		{
-			ArrayList<CableMultipart> li = new ArrayList();
-			for (int i = 0; i < n.cables.size(); i++)
-			{
-				CableMultipart wire = n.cables.get(i);
-				li.add(wire);
-			}
-			for (EnergyHandler ei : endpoints)
-			{
-				endpoints.add(ei);
-			}
-			n.clear(false);
-			for (int i = 0; i < li.size(); i++)
-			{
-				CableMultipart wire = li.get(i);
-				wire.setNetwork(this);
-			}
-			checkAndRemoveOldEndpoints();
-			MinecraftForge.EVENT_BUS.unregister(n);
-		}
-	}
+    public void addConnection(IEnergyInterfaceTile ih, EnumFacing dir) {
+        if (ih instanceof CableMultipart)
+            return;
+        EnergyHandler has = this.getHandleFrom(ih);
+        if (has == null) {
+            endpoints.add(new EnergyHandler(ih, cableType, dir));
+        } else {
+            has.side = dir;
+        }
+    }
 
-	private EnergyHandler getHandleFrom(IEnergyInterfaceTile tile)
-	{
-		for (EnergyHandler ei : endpoints)
-		{
-			if (ei.tile == tile)
-				return ei;
-		}
-		return null;
-	}
+    public void merge(TRPowerNet n) {
+        if (n != this) {
+            ArrayList<CableMultipart> li = new ArrayList();
+            for (int i = 0; i < n.cables.size(); i++) {
+                CableMultipart wire = n.cables.get(i);
+                li.add(wire);
+            }
+            for (EnergyHandler ei : endpoints) {
+                endpoints.add(ei);
+            }
+            n.clear(false);
+            for (int i = 0; i < li.size(); i++) {
+                CableMultipart wire = li.get(i);
+                wire.setNetwork(this);
+            }
+            checkAndRemoveOldEndpoints();
+            MinecraftForge.EVENT_BUS.unregister(n);
+        }
+    }
 
-	private void clear(boolean clearTiles)
-	{
-		if (clearTiles)
-		{
-			for (int i = 0; i < cables.size(); i++)
-			{
-				cables.get(i).resetNetwork();
-			}
-		}
+    private EnergyHandler getHandleFrom(IEnergyInterfaceTile tile) {
+        for (EnergyHandler ei : endpoints) {
+            if (ei.tile == tile)
+                return ei;
+        }
+        return null;
+    }
 
-		cables.clear();
-		endpoints.clear();
-		energy = 0;
+    private void clear(boolean clearTiles) {
+        if (clearTiles) {
+            for (int i = 0; i < cables.size(); i++) {
+                cables.get(i).resetNetwork();
+            }
+        }
 
-		MinecraftForge.EVENT_BUS.unregister(this);
-	}
+        cables.clear();
+        endpoints.clear();
+        energy = 0;
 
-	public int addEnergy(int maxAdd, boolean simulate)
-	{
-		if (energy >= this.getIOLimit())
-			return 0;
-		maxAdd = Math.min(this.getIOLimit(), maxAdd);
-		if (!simulate)
-			energy += maxAdd;
-		return maxAdd;
-	}
+        MinecraftForge.EVENT_BUS.unregister(this);
+    }
 
-	private static class EnergyHandler
-	{
-		private final IEnergyInterfaceTile tile;
-		private EnumFacing side;
-		private final EnumCableType type;
+    public int addEnergy(int maxAdd, boolean simulate) {
+        if (energy >= this.getIOLimit())
+            return 0;
+        maxAdd = Math.min(this.getIOLimit(), maxAdd);
+        if (!simulate)
+            energy += maxAdd;
+        return maxAdd;
+    }
 
-		private EnergyHandler(IEnergyInterfaceTile ih, EnumCableType type, EnumFacing dir)
-		{
-			tile = ih;
-			this.type = type;
-			this.side = dir;
-		}
+    private static class EnergyHandler {
+        private final IEnergyInterfaceTile tile;
+        private EnumFacing side;
+        private final EnumCableType type;
 
-		public boolean isInsertible()
-		{
-			return this.getTotalInsertible() > 0;
-		}
+        private EnergyHandler(IEnergyInterfaceTile ih, EnumCableType type, EnumFacing dir) {
+            tile = ih;
+            this.type = type;
+            this.side = dir;
+        }
 
-		public boolean isCollectible()
-		{
-			return this.getTotalCollectible() > 0;
-		}
+        public boolean isInsertible() {
+            return this.getTotalInsertible() > 0;
+        }
 
-		public boolean contains(IEnergyInterfaceTile tile)
-		{
-			return tile == this.tile;
-		}
+        public boolean isCollectible() {
+            return this.getTotalCollectible() > 0;
+        }
 
-		public int collectEnergy(int max)
-		{
-			int total = 0;
-			if (tile.canProvideEnergy(side.getOpposite()))
-			{
-				int collect = (int) Math.min(max, Math.min(tile.getMaxOutput(), tile.getEnergy()));
-				total = (int) tile.useEnergy(collect, false);
-			}
-			return total;
-		}
+        public boolean contains(IEnergyInterfaceTile tile) {
+            return tile == this.tile;
+        }
 
-		public int addEnergy(int max)
-		{
-			int total = 0;
-			if (tile.canAcceptEnergy(side) && max > 0)
-			{
-				if (type.tier.ordinal() > tile.getTier().ordinal())
-				{
-					if (tile instanceof TileEntity)
-					{
-						((TileEntity) tile).getWorld().createExplosion(
-								new EntityTNTPrimed(((TileEntity) tile).getWorld()),
-								((TileEntity) tile).getPos().getX(), ((TileEntity) tile).getPos().getY(),
-								((TileEntity) tile).getPos().getZ(), 2.5F, true);
-					}
-					return 0;
-				}
-				int add = max - total;
-				total += tile.addEnergy(add, false);
-			}
-			return total;
-		}
+        public int collectEnergy(int max) {
+            int total = 0;
+            if (tile.canProvideEnergy(side.getOpposite())) {
+                int collect = (int) Math.min(max, Math.min(tile.getMaxOutput(), tile.getEnergy()));
+                total = (int) tile.useEnergy(collect, false);
+            }
+            return total;
+        }
 
-		public int getTotalCollectible()
-		{
-			if (tile.canProvideEnergy(side.getOpposite()) && tile.getEnergy() != 0)
-			{
-				return (int) Math.min(tile.getMaxOutput(), tile.getEnergy());
-			}
-			return 0;
-		}
+        public int addEnergy(int max) {
+            int total = 0;
+            if (tile.canAcceptEnergy(side) && max > 0) {
+                if (type.tier.ordinal() > tile.getTier().ordinal()) {
+                    if (tile instanceof TileEntity) {
+                        ((TileEntity) tile).getWorld().createExplosion(new EntityTNTPrimed(((TileEntity) tile).getWorld()), ((TileEntity) tile).getPos().getX(), ((TileEntity) tile).getPos().getY(), ((TileEntity) tile).getPos().getZ(), 2.5F, true);
+                    }
+                    return 0;
+                }
+                int add = max - total;
+                total += tile.addEnergy(add, false);
+            }
+            return total;
+        }
 
-		public int getTotalInsertible()
-		{
-			int total = 0;
-			if (tile.canAcceptEnergy(side.getOpposite()) && tile.getMaxPower() - tile.getEnergy() != 0)
-			{
-				total += tile.addEnergy(type.transferRate, true);
-			}
+        public int getTotalCollectible() {
+            if (tile.canProvideEnergy(side.getOpposite()) && tile.getEnergy() != 0) {
+                return (int) Math.min(tile.getMaxOutput(), tile.getEnergy());
+            }
+            return 0;
+        }
 
-			return total;
-		}
-	}
+        public int getTotalInsertible() {
+            int total = 0;
+            if (tile.canAcceptEnergy(side.getOpposite()) && tile.getMaxPower() - tile.getEnergy() != 0) {
+                total += tile.addEnergy(type.transferRate, true);
+            }
+
+            return total;
+        }
+    }
 }

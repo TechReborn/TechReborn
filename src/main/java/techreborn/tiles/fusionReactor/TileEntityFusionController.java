@@ -15,428 +15,345 @@ import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.init.ModBlocks;
 
-public class TileEntityFusionController extends TilePowerAcceptor implements IInventory
-{
 
-	public Inventory inventory = new Inventory(3, "TileEntityFusionController", 64, this);
+public class TileEntityFusionController extends TilePowerAcceptor implements IInventory {
 
-	// 0= no coils, 1 = coils
-	public int coilStatus = 0;
+    public Inventory inventory = new Inventory(3, "TileEntityFusionController", 64, this);
 
-	int topStackSlot = 0;
-	int bottomStackSlot = 1;
-	int outputStackSlot = 2;
+    //0= no coils, 1 = coils
+    public int coilStatus = 0;
 
-	public int crafingTickTime = 0;
-	public int finalTickTime = 0;
-	public int neededPower = 0;
+    int topStackSlot = 0;
+    int bottomStackSlot = 1;
+    int outputStackSlot = 2;
 
-	FusionReactorRecipe currentRecipe = null;
-	boolean hasStartedCrafting = false;
+    public int crafingTickTime = 0;
+    public int finalTickTime = 0;
+    public int neededPower = 0;
 
-	public TileEntityFusionController()
-	{
-		super(4);
-	}
+    FusionReactorRecipe currentRecipe = null;
+    boolean hasStartedCrafting = false;
 
-	@Override
-	public double getMaxPower()
-	{
-		return 100000000;
-	}
+    public TileEntityFusionController() {
+        super(4);
+    }
 
-	@Override
-	public boolean canAcceptEnergy(EnumFacing direction)
-	{
-		if (direction == EnumFacing.DOWN || direction == EnumFacing.UP)
-		{
-			return false;
-		}
-		return true;
-	}
+    @Override
+    public double getMaxPower() {
+        return 100000000;
+    }
 
-	@Override
-	public boolean canProvideEnergy(EnumFacing direction)
-	{
-		if (direction == EnumFacing.DOWN || direction == EnumFacing.UP)
-		{
-			return true;
-		}
-		return false;
-	}
+    @Override
+    public boolean canAcceptEnergy(EnumFacing direction) {
+        if(direction == EnumFacing.DOWN || direction == EnumFacing.UP){
+            return false;
+        }
+        return true;
+    }
 
-	@Override
-	public double getMaxOutput()
-	{
-		if (!hasStartedCrafting)
-		{
-			return 0;
-		}
-		return 1000000;
-	}
+    @Override
+    public boolean canProvideEnergy(EnumFacing direction) {
+        if(direction == EnumFacing.DOWN || direction == EnumFacing.UP){
+            return true;
+        }
+        return false;
+    }
 
-	@Override
-	public double getMaxInput()
-	{
-		if (hasStartedCrafting)
-		{
-			return 0;
-		}
-		return 8192;
-	}
+    @Override
+    public double getMaxOutput() {
+        if(!hasStartedCrafting){
+            return 0;
+        }
+        return 1000000;
+    }
 
-	@Override
-	public EnumPowerTier getTier()
-	{
-		return EnumPowerTier.EXTREME;
-	}
+    @Override
+    public double getMaxInput() {
+        if(hasStartedCrafting){
+            return 0;
+        }
+        return 8192;
+    }
 
-	@Override
-	public void readFromNBT(NBTTagCompound tagCompound)
-	{
-		super.readFromNBT(tagCompound);
-		inventory.readFromNBT(tagCompound);
-		crafingTickTime = tagCompound.getInteger("crafingTickTime");
-		finalTickTime = tagCompound.getInteger("finalTickTime");
-		neededPower = tagCompound.getInteger("neededPower");
-		hasStartedCrafting = tagCompound.getBoolean("hasStartedCrafting");
-	}
+    @Override
+    public EnumPowerTier getTier() {
+        return EnumPowerTier.EXTREME;
+    }
 
-	@Override
-	public void writeToNBT(NBTTagCompound tagCompound)
-	{
-		super.writeToNBT(tagCompound);
-		inventory.writeToNBT(tagCompound);
+    @Override
+    public void readFromNBT(NBTTagCompound tagCompound) {
+        super.readFromNBT(tagCompound);
+        inventory.readFromNBT(tagCompound);
+        crafingTickTime = tagCompound.getInteger("crafingTickTime");
+        finalTickTime = tagCompound.getInteger("finalTickTime");
+        neededPower = tagCompound.getInteger("neededPower");
+        hasStartedCrafting = tagCompound.getBoolean("hasStartedCrafting");
+    }
 
-		if (crafingTickTime == -1)
-		{
-			crafingTickTime = 0;
-		}
-		if (finalTickTime == -1)
-		{
-			finalTickTime = 0;
-		}
-		if (neededPower == -1)
-		{
-			neededPower = 0;
-		}
-		tagCompound.setInteger("crafingTickTime", crafingTickTime);
-		tagCompound.setInteger("finalTickTime", finalTickTime);
-		tagCompound.setInteger("neededPower", neededPower);
-		tagCompound.setBoolean("hasStartedCrafting", hasStartedCrafting);
-	}
+    @Override
+    public void writeToNBT(NBTTagCompound tagCompound) {
+        super.writeToNBT(tagCompound);
+        inventory.writeToNBT(tagCompound);
 
-	@Override
-	public int getSizeInventory()
-	{
-		return inventory.getSizeInventory();
-	}
+        if(crafingTickTime == -1){
+            crafingTickTime = 0;
+        }
+        if(finalTickTime == -1){
+            finalTickTime = 0;
+        }
+        if(neededPower == -1){
+            neededPower = 0;
+        }
+        tagCompound.setInteger("crafingTickTime", crafingTickTime);
+        tagCompound.setInteger("finalTickTime", finalTickTime);
+        tagCompound.setInteger("neededPower", neededPower);
+        tagCompound.setBoolean("hasStartedCrafting", hasStartedCrafting);
+    }
 
-	@Override
-	public ItemStack getStackInSlot(int slot)
-	{
-		return inventory.getStackInSlot(slot);
-	}
+    @Override
+    public int getSizeInventory() {
+        return inventory.getSizeInventory();
+    }
 
-	@Override
-	public ItemStack decrStackSize(int slot, int amount)
-	{
-		return inventory.decrStackSize(slot, amount);
-	}
+    @Override
+    public ItemStack getStackInSlot(int slot) {
+        return inventory.getStackInSlot(slot);
+    }
 
-	@Override
-	public ItemStack removeStackFromSlot(int slot)
-	{
-		return inventory.removeStackFromSlot(slot);
-	}
+    @Override
+    public ItemStack decrStackSize(int slot, int amount) {
+        return inventory.decrStackSize(slot, amount);
+    }
 
-	@Override
-	public void setInventorySlotContents(int slot, ItemStack stack)
-	{
-		inventory.setInventorySlotContents(slot, stack);
-	}
+    @Override
+    public ItemStack removeStackFromSlot(int slot) {
+        return inventory.removeStackFromSlot(slot);
+    }
 
-	@Override
-	public int getInventoryStackLimit()
-	{
-		return inventory.getInventoryStackLimit();
-	}
+    @Override
+    public void setInventorySlotContents(int slot, ItemStack stack) {
+        inventory.setInventorySlotContents(slot, stack);
+    }
 
-	@Override
-	public boolean isUseableByPlayer(EntityPlayer player)
-	{
-		return inventory.isUseableByPlayer(player);
-	}
 
-	@Override
-	public void openInventory(EntityPlayer player)
-	{
-		inventory.openInventory(player);
-	}
+    @Override
+    public int getInventoryStackLimit() {
+        return inventory.getInventoryStackLimit();
+    }
 
-	@Override
-	public void closeInventory(EntityPlayer player)
-	{
-		inventory.closeInventory(player);
-	}
+    @Override
+    public boolean isUseableByPlayer(EntityPlayer player) {
+        return inventory.isUseableByPlayer(player);
+    }
 
-	@Override
-	public boolean isItemValidForSlot(int slot, ItemStack stack)
-	{
-		return inventory.isItemValidForSlot(slot, stack);
-	}
+    @Override
+    public void openInventory(EntityPlayer player) {
+        inventory.openInventory(player);
+    }
 
-	@Override
-	public int getField(int id)
-	{
-		return inventory.getField(id);
-	}
+    @Override
+    public void closeInventory(EntityPlayer player) {
+        inventory.closeInventory(player);
+    }
 
-	@Override
-	public void setField(int id, int value)
-	{
-		inventory.setField(id, value);
-	}
+    @Override
+    public boolean isItemValidForSlot(int slot, ItemStack stack) {
+        return inventory.isItemValidForSlot(slot, stack);
+    }
 
-	@Override
-	public int getFieldCount()
-	{
-		return inventory.getFieldCount();
-	}
+    @Override
+    public int getField(int id) {
+        return inventory.getField(id);
+    }
 
-	@Override
-	public void clear()
-	{
-		inventory.clear();
-	}
+    @Override
+    public void setField(int id, int value) {
+        inventory.setField(id, value);
+    }
 
-	public boolean checkCoils()
-	{
-		if ((isCoil(this.getPos().getX() + 3, this.getPos().getY(), this.getPos().getZ() + 1))
-				&& (isCoil(this.getPos().getX() + 3, this.getPos().getY(), this.getPos().getZ()))
-				&& (isCoil(this.getPos().getX() + 3, this.getPos().getY(), this.getPos().getZ() - 1))
-				&& (isCoil(this.getPos().getX() - 3, this.getPos().getY(), this.getPos().getZ() + 1))
-				&& (isCoil(this.getPos().getX() - 3, this.getPos().getY(), this.getPos().getZ()))
-				&& (isCoil(this.getPos().getX() - 3, this.getPos().getY(), this.getPos().getZ() - 1))
-				&& (isCoil(this.getPos().getX() + 2, this.getPos().getY(), this.getPos().getZ() + 2))
-				&& (isCoil(this.getPos().getX() + 2, this.getPos().getY(), this.getPos().getZ() + 1))
-				&& (isCoil(this.getPos().getX() + 2, this.getPos().getY(), this.getPos().getZ() - 1))
-				&& (isCoil(this.getPos().getX() + 2, this.getPos().getY(), this.getPos().getZ() - 2))
-				&& (isCoil(this.getPos().getX() - 2, this.getPos().getY(), this.getPos().getZ() + 2))
-				&& (isCoil(this.getPos().getX() - 2, this.getPos().getY(), this.getPos().getZ() + 1))
-				&& (isCoil(this.getPos().getX() - 2, this.getPos().getY(), this.getPos().getZ() - 1))
-				&& (isCoil(this.getPos().getX() - 2, this.getPos().getY(), this.getPos().getZ() - 2))
-				&& (isCoil(this.getPos().getX() + 1, this.getPos().getY(), this.getPos().getZ() + 3))
-				&& (isCoil(this.getPos().getX() + 1, this.getPos().getY(), this.getPos().getZ() + 2))
-				&& (isCoil(this.getPos().getX() + 1, this.getPos().getY(), this.getPos().getZ() - 2))
-				&& (isCoil(this.getPos().getX() + 1, this.getPos().getY(), this.getPos().getZ() - 3))
-				&& (isCoil(this.getPos().getX() - 1, this.getPos().getY(), this.getPos().getZ() + 3))
-				&& (isCoil(this.getPos().getX() - 1, this.getPos().getY(), this.getPos().getZ() + 2))
-				&& (isCoil(this.getPos().getX() - 1, this.getPos().getY(), this.getPos().getZ() - 2))
-				&& (isCoil(this.getPos().getX() - 1, this.getPos().getY(), this.getPos().getZ() - 3))
-				&& (isCoil(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ() + 3))
-				&& (isCoil(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ() - 3)))
-		{
-			coilStatus = 1;
-			return true;
-		}
-		coilStatus = 0;
-		return false;
-	}
+    @Override
+    public int getFieldCount() {
+        return inventory.getFieldCount();
+    }
 
-	private boolean isCoil(int x, int y, int z)
-	{
-		return worldObj.getBlockState(new BlockPos(x, y, z)).getBlock() == ModBlocks.FusionCoil;
-	}
+    @Override
+    public void clear() {
+        inventory.clear();
+    }
 
-	@Override
-	public void updateEntity()
-	{
-		super.updateEntity();
-		// TODO improve this code a lot
 
-		if (worldObj.getTotalWorldTime() % 20 == 0)
-		{
-			checkCoils();
-		}
+    public boolean checkCoils() {
+        if ((isCoil(this.getPos().getX() + 3, this.getPos().getY(), this.getPos().getZ() + 1)) &&
+                (isCoil(this.getPos().getX() + 3, this.getPos().getY(), this.getPos().getZ())) &&
+                (isCoil(this.getPos().getX() + 3, this.getPos().getY(), this.getPos().getZ() - 1)) &&
+                (isCoil(this.getPos().getX() - 3, this.getPos().getY(), this.getPos().getZ() + 1)) &&
+                (isCoil(this.getPos().getX() - 3, this.getPos().getY(), this.getPos().getZ())) &&
+                (isCoil(this.getPos().getX() - 3, this.getPos().getY(), this.getPos().getZ() - 1)) &&
+                (isCoil(this.getPos().getX() + 2, this.getPos().getY(), this.getPos().getZ() + 2)) &&
+                (isCoil(this.getPos().getX() + 2, this.getPos().getY(), this.getPos().getZ() + 1)) &&
+                (isCoil(this.getPos().getX() + 2, this.getPos().getY(), this.getPos().getZ() - 1)) &&
+                (isCoil(this.getPos().getX() + 2, this.getPos().getY(), this.getPos().getZ() - 2)) &&
+                (isCoil(this.getPos().getX() - 2, this.getPos().getY(), this.getPos().getZ() + 2)) &&
+                (isCoil(this.getPos().getX() - 2, this.getPos().getY(), this.getPos().getZ() + 1)) &&
+                (isCoil(this.getPos().getX() - 2, this.getPos().getY(), this.getPos().getZ() - 1)) &&
+                (isCoil(this.getPos().getX() - 2, this.getPos().getY(), this.getPos().getZ() - 2)) &&
+                (isCoil(this.getPos().getX() + 1, this.getPos().getY(), this.getPos().getZ() + 3)) &&
+                (isCoil(this.getPos().getX() + 1, this.getPos().getY(), this.getPos().getZ() + 2)) &&
+                (isCoil(this.getPos().getX() + 1, this.getPos().getY(), this.getPos().getZ() - 2)) &&
+                (isCoil(this.getPos().getX() + 1, this.getPos().getY(), this.getPos().getZ() - 3)) &&
+                (isCoil(this.getPos().getX() - 1, this.getPos().getY(), this.getPos().getZ() + 3)) &&
+                (isCoil(this.getPos().getX() - 1, this.getPos().getY(), this.getPos().getZ() + 2)) &&
+                (isCoil(this.getPos().getX() - 1, this.getPos().getY(), this.getPos().getZ() - 2)) &&
+                (isCoil(this.getPos().getX() - 1, this.getPos().getY(), this.getPos().getZ() - 3)) &&
+                (isCoil(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ() + 3)) &&
+                (isCoil(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ() - 3))) {
+            coilStatus = 1;
+            return true;
+        }
+        coilStatus = 0;
+        return false;
+    }
 
-		if (!worldObj.isRemote)
-		{
-			if (coilStatus == 1)
-			{
-				if (currentRecipe == null)
-				{
-					if (inventory.hasChanged || crafingTickTime != 0)
-					{
-						for (FusionReactorRecipe reactorRecipe : FusionReactorRecipeHelper.reactorRecipes)
-						{
-							if (ItemUtils.isItemEqual(getStackInSlot(topStackSlot), reactorRecipe.getTopInput(), true,
-									true, true))
-							{
-								if (reactorRecipe.getBottomInput() != null)
-								{
-									if (ItemUtils.isItemEqual(getStackInSlot(bottomStackSlot),
-											reactorRecipe.getBottomInput(), true, true, true) == false)
-									{
-										break;
-									}
-								}
-								if (canFitStack(reactorRecipe.getOutput(), outputStackSlot, true))
-								{
-									currentRecipe = reactorRecipe;
-									if (crafingTickTime != 0)
-									{
-										finalTickTime = currentRecipe.getTickTime();
-										neededPower = (int) currentRecipe.getStartEU();
-									}
-									hasStartedCrafting = false;
-									crafingTickTime = 0;
-									finalTickTime = currentRecipe.getTickTime();
-									neededPower = (int) currentRecipe.getStartEU();
-									break;
-								}
-							}
-						}
-					}
-				} else
-				{
-					if (inventory.hasChanged)
-					{
-						if (!validateRecipe())
-						{
-							resetCrafter();
-							return;
-						}
-					}
-					if (!hasStartedCrafting)
-					{
-						if (canUseEnergy(currentRecipe.getStartEU() + 64))
-						{
-							useEnergy(currentRecipe.getStartEU());
-							hasStartedCrafting = true;
-						}
-					} else
-					{
-						if (crafingTickTime < currentRecipe.getTickTime())
-						{
-							if (currentRecipe.getEuTick() > 0)
-							{ // Power gen
-								addEnergy(currentRecipe.getEuTick()); // Waste
-																		// power
-																		// if it
-																		// has
-																		// no
-																		// where
-																		// to go
-								crafingTickTime++;
-							} else
-							{ // Power user
-								if (canUseEnergy(currentRecipe.getEuTick() * -1))
-								{
-									setEnergy(getEnergy() - (currentRecipe.getEuTick() * -1));
-									crafingTickTime++;
-								}
-							}
-						} else
-						{
-							if (canFitStack(currentRecipe.getOutput(), outputStackSlot, true))
-							{
-								if (getStackInSlot(outputStackSlot) == null)
-								{
-									setInventorySlotContents(outputStackSlot, currentRecipe.getOutput().copy());
-								} else
-								{
-									decrStackSize(outputStackSlot, -currentRecipe.getOutput().stackSize);
-								}
-								decrStackSize(topStackSlot, currentRecipe.getTopInput().stackSize);
-								if (currentRecipe.getBottomInput() != null)
-								{
-									decrStackSize(bottomStackSlot, currentRecipe.getBottomInput().stackSize);
-								}
-								resetCrafter();
-							}
-						}
-					}
-				}
-			} else
-			{
-				if (currentRecipe != null)
-				{
-					resetCrafter();
-				}
-			}
-		}
+    private boolean isCoil(int x, int y, int z) {
+        return worldObj.getBlockState(new BlockPos(x, y, z)).getBlock() == ModBlocks.FusionCoil;
+    }
 
-		if (inventory.hasChanged)
-		{
-			inventory.hasChanged = false;
-		}
-	}
+    @Override
+    public void updateEntity() {
+        super.updateEntity();
+        //TODO improve this code a lot
 
-	private boolean validateRecipe()
-	{
-		if (ItemUtils.isItemEqual(getStackInSlot(topStackSlot), currentRecipe.getTopInput(), true, true, true))
-		{
-			if (currentRecipe.getBottomInput() != null)
-			{
-				if (ItemUtils.isItemEqual(getStackInSlot(bottomStackSlot), currentRecipe.getBottomInput(), true, true,
-						true) == false)
-				{
-					return false;
-				}
-			}
-			if (canFitStack(currentRecipe.getOutput(), outputStackSlot, true))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
+        if (worldObj.getTotalWorldTime() % 20 == 0) {
+            checkCoils();
+        }
 
-	private void resetCrafter()
-	{
-		currentRecipe = null;
-		crafingTickTime = -1;
-		finalTickTime = -1;
-		neededPower = -1;
-		hasStartedCrafting = false;
-	}
+        if (!worldObj.isRemote) {
+            if (coilStatus == 1) {
+                if (currentRecipe == null) {
+                    if (inventory.hasChanged || crafingTickTime != 0) {
+                        for (FusionReactorRecipe reactorRecipe : FusionReactorRecipeHelper.reactorRecipes) {
+                            if (ItemUtils.isItemEqual(getStackInSlot(topStackSlot), reactorRecipe.getTopInput(), true, true, true)) {
+                                if (reactorRecipe.getBottomInput() != null) {
+                                    if (ItemUtils.isItemEqual(getStackInSlot(bottomStackSlot), reactorRecipe.getBottomInput(), true, true, true) == false) {
+                                        break;
+                                    }
+                                }
+                                if (canFitStack(reactorRecipe.getOutput(), outputStackSlot, true)) {
+                                    currentRecipe = reactorRecipe;
+                                    if(crafingTickTime != 0){
+                                        finalTickTime = currentRecipe.getTickTime();
+                                        neededPower = (int) currentRecipe.getStartEU();
+                                    }
+                                    hasStartedCrafting = false;
+                                    crafingTickTime = 0;
+                                    finalTickTime = currentRecipe.getTickTime();
+                                    neededPower = (int) currentRecipe.getStartEU();
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    if (inventory.hasChanged) {
+                        if (!validateRecipe()) {
+                            resetCrafter();
+                            return;
+                        }
+                    }
+                    if (!hasStartedCrafting) {
+                        if (canUseEnergy(currentRecipe.getStartEU() + 64)) {
+                            useEnergy(currentRecipe.getStartEU());
+                            hasStartedCrafting = true;
+                        }
+                    } else {
+                        if (crafingTickTime < currentRecipe.getTickTime()) {
+                            if (currentRecipe.getEuTick() > 0) { //Power gen
+                                addEnergy(currentRecipe.getEuTick()); //Waste power if it has no where to go
+                                crafingTickTime++;
+                            } else { //Power user
+                                if (canUseEnergy(currentRecipe.getEuTick() * -1)) {
+                                    setEnergy(getEnergy() - (currentRecipe.getEuTick() * -1));
+                                    crafingTickTime++;
+                                }
+                            }
+                        } else {
+                            if (canFitStack(currentRecipe.getOutput(), outputStackSlot, true)) {
+                                if (getStackInSlot(outputStackSlot) == null) {
+                                    setInventorySlotContents(outputStackSlot, currentRecipe.getOutput().copy());
+                                } else {
+                                    decrStackSize(outputStackSlot, -currentRecipe.getOutput().stackSize);
+                                }
+                                decrStackSize(topStackSlot, currentRecipe.getTopInput().stackSize);
+                                if (currentRecipe.getBottomInput() != null) {
+                                    decrStackSize(bottomStackSlot, currentRecipe.getBottomInput().stackSize);
+                                }
+                                resetCrafter();
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (currentRecipe != null) {
+                    resetCrafter();
+                }
+            }
+        }
 
-	public boolean canFitStack(ItemStack stack, int slot, boolean oreDic)
-	{// Checks to see if it can fit the stack
-		if (stack == null)
-		{
-			return true;
-		}
-		if (inventory.getStackInSlot(slot) == null)
-		{
-			return true;
-		}
-		if (ItemUtils.isItemEqual(inventory.getStackInSlot(slot), stack, true, true, oreDic))
-		{
-			if (stack.stackSize + inventory.getStackInSlot(slot).stackSize <= stack.getMaxStackSize())
-			{
-				return true;
-			}
-		}
-		return false;
-	}
 
-	@Override
-	public String getName()
-	{
-		return null;
-	}
+        if (inventory.hasChanged) {
+            inventory.hasChanged = false;
+        }
+    }
 
-	@Override
-	public boolean hasCustomName()
-	{
-		return false;
-	}
+    private boolean validateRecipe() {
+        if (ItemUtils.isItemEqual(getStackInSlot(topStackSlot), currentRecipe.getTopInput(), true, true, true)) {
+            if (currentRecipe.getBottomInput() != null) {
+                if (ItemUtils.isItemEqual(getStackInSlot(bottomStackSlot), currentRecipe.getBottomInput(), true, true, true) == false) {
+                    return false;
+                }
+            }
+            if (canFitStack(currentRecipe.getOutput(), outputStackSlot, true)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-	@Override
-	public ITextComponent getDisplayName()
-	{
-		return null;
-	}
+    private void resetCrafter() {
+        currentRecipe = null;
+        crafingTickTime = -1;
+        finalTickTime = -1;
+        neededPower = -1;
+        hasStartedCrafting = false;
+    }
+
+    public boolean canFitStack(ItemStack stack, int slot, boolean oreDic) {//Checks to see if it can fit the stack
+        if (stack == null) {
+            return true;
+        }
+        if (inventory.getStackInSlot(slot) == null) {
+            return true;
+        }
+        if (ItemUtils.isItemEqual(inventory.getStackInSlot(slot), stack, true, true, oreDic)) {
+            if (stack.stackSize + inventory.getStackInSlot(slot).stackSize <= stack.getMaxStackSize()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public String getName() {
+        return null;
+    }
+
+    @Override
+    public boolean hasCustomName() {
+        return false;
+    }
+
+    @Override
+    public ITextComponent getDisplayName() {
+        return null;
+    }
 }

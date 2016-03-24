@@ -4,213 +4,180 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-
 import org.apache.commons.lang3.StringUtils;
-
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 
-public class TileIDSU extends TilePowerAcceptor
-{
+public class TileIDSU extends TilePowerAcceptor {
 
-	public String ownerUdid;
+    public String ownerUdid;
 
-	@Override
-	public double getEnergy()
-	{
-		if (ownerUdid == null && StringUtils.isBlank(ownerUdid) || StringUtils.isEmpty(ownerUdid))
-		{
-			return 0.0;
-		}
-		return IDSUManager.INSTANCE.getSaveDataForWorld(worldObj, ownerUdid).storedPower;
-	}
+    @Override
+    public double getEnergy() {
+        if (ownerUdid == null && StringUtils.isBlank(ownerUdid) || StringUtils.isEmpty(ownerUdid)) {
+            return 0.0;
+        }
+        return IDSUManager.INSTANCE.getSaveDataForWorld(worldObj, ownerUdid).storedPower;
+    }
 
-	@Override
-	public void setEnergy(double energy)
-	{
-		if (ownerUdid == null && StringUtils.isBlank(ownerUdid) || StringUtils.isEmpty(ownerUdid))
-		{
-			return;
-		}
-		IDSUManager.INSTANCE.getSaveDataForWorld(worldObj, ownerUdid).storedPower = energy;
-	}
+    @Override
+    public void setEnergy(double energy) {
+        if (ownerUdid == null && StringUtils.isBlank(ownerUdid) || StringUtils.isEmpty(ownerUdid)) {
+            return;
+        }
+        IDSUManager.INSTANCE.getSaveDataForWorld(worldObj, ownerUdid).storedPower = energy;
+    }
 
-	@Override
-	public void readFromNBTWithoutCoords(NBTTagCompound tag)
-	{
+    @Override
+    public void readFromNBTWithoutCoords(NBTTagCompound tag) {
 
-	}
+    }
 
-	@Override
-	public void writeToNBTWithoutCoords(NBTTagCompound tag)
-	{
+    @Override
+    public void writeToNBTWithoutCoords(NBTTagCompound tag) {
 
-	}
+    }
 
-	@Override
-	public double getMaxPower()
-	{
-		return 1000000000;
-	}
+    @Override
+    public double getMaxPower() {
+        return 1000000000;
+    }
 
-	@Override
-	public boolean canAcceptEnergy(EnumFacing direction)
-	{
-		return getFacingEnum() != direction;
-	}
 
-	@Override
-	public boolean canProvideEnergy(EnumFacing direction)
-	{
-		return getFacingEnum() == direction;
-	}
+    @Override
+    public boolean canAcceptEnergy(EnumFacing direction) {
+        return getFacingEnum() != direction;
+    }
 
-	@Override
-	public double getMaxOutput()
-	{
-		return output;
-	}
+    @Override
+    public boolean canProvideEnergy(EnumFacing direction) {
+        return getFacingEnum() == direction;
+    }
 
-	@Override
-	public double getMaxInput()
-	{
-		return maxStorage;
-	}
 
-	@Override
-	public EnumPowerTier getTier()
-	{
-		return EnumPowerTier.EXTREME;
-	}
+    @Override
+    public double getMaxOutput() {
+        return output;
+    }
 
-	public int tier;
-	public int output;
-	public double maxStorage;
-	private double euLastTick = 0;
-	private double euChange;
-	private int ticks;
+    @Override
+    public double getMaxInput() {
+        return maxStorage;
+    }
 
-	public TileIDSU(int tier1, int output1, int maxStorage1)
-	{
-		super(tier1);
-		this.tier = tier1;
-		this.output = output1;
-		this.maxStorage = maxStorage1;
-	}
+    @Override
+    public EnumPowerTier getTier() {
+        return EnumPowerTier.EXTREME;
+    }
 
-	public TileIDSU()
-	{
-		this(5, 2048, 100000000);
-	}
+    public int tier;
+    public int output;
+    public double maxStorage;
+    private double euLastTick = 0;
+    private double euChange;
+    private int ticks;
 
-	public float getChargeLevel()
-	{
-		float ret = (float) this.getEnergy() / (float) this.maxStorage;
-		if (ret > 1.0F)
-		{
-			ret = 1.0F;
-		}
+    public TileIDSU(int tier1, int output1, int maxStorage1) {
+        super(tier1);
+        this.tier = tier1;
+        this.output = output1;
+        this.maxStorage = maxStorage1;
+    }
 
-		return ret;
-	}
+    public TileIDSU() {
+        this(5, 2048, 100000000);
+    }
 
-	public void readFromNBT(NBTTagCompound nbttagcompound)
-	{
-		super.readFromNBT(nbttagcompound);
-		this.ownerUdid = nbttagcompound.getString("ownerUdid");
-	}
+    public float getChargeLevel() {
+        float ret = (float) this.getEnergy() / (float) this.maxStorage;
+        if (ret > 1.0F) {
+            ret = 1.0F;
+        }
 
-	public void writeToNBT(NBTTagCompound nbttagcompound)
-	{
-		super.writeToNBT(nbttagcompound);
-		if (ownerUdid == null && StringUtils.isBlank(ownerUdid) || StringUtils.isEmpty(ownerUdid))
-		{
-			return;
-		}
-		nbttagcompound.setString("ownerUdid", this.ownerUdid);
-	}
+        return ret;
+    }
 
-	public void updateEntity()
-	{
-		super.updateEntity();
+    public void readFromNBT(NBTTagCompound nbttagcompound) {
+        super.readFromNBT(nbttagcompound);
+        this.ownerUdid = nbttagcompound.getString("ownerUdid");
+    }
 
-		if (ticks == ConfigTechReborn.aveargeEuOutTickTime)
-		{
-			euChange = -1;
-			ticks = 0;
+    public void writeToNBT(NBTTagCompound nbttagcompound) {
+        super.writeToNBT(nbttagcompound);
+        if (ownerUdid == null && StringUtils.isBlank(ownerUdid) || StringUtils.isEmpty(ownerUdid)) {
+            return;
+        }
+        nbttagcompound.setString("ownerUdid", this.ownerUdid);
+    }
 
-		} else
-		{
-			ticks++;
-			euChange += getEnergy() - euLastTick;
-			if (euLastTick == getEnergy())
-			{
-				euChange = 0;
-			}
-		}
+    public void updateEntity() {
+        super.updateEntity();
 
-		euLastTick = getEnergy();
+        if (ticks == ConfigTechReborn.aveargeEuOutTickTime) {
+            euChange = -1;
+            ticks = 0;
 
-		boolean needsInvUpdate = false;
+        } else {
+            ticks++;
+            euChange += getEnergy() - euLastTick;
+            if (euLastTick == getEnergy()) {
+                euChange = 0;
+            }
+        }
 
-		if (needsInvUpdate)
-		{
-			this.markDirty();
-		}
+        euLastTick = getEnergy();
 
-	}
+        boolean needsInvUpdate = false;
 
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side)
-	{
-		return false;
-	}
 
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
-	{
-		NBTTagCompound tileEntity = new NBTTagCompound();
-		ItemStack dropStack = new ItemStack(ModBlocks.Idsu, 1);
-		writeToNBT(tileEntity);
-		dropStack.setTagCompound(new NBTTagCompound());
-		dropStack.getTagCompound().setTag("tileEntity", tileEntity);
-		return dropStack;
-	}
+        if (needsInvUpdate) {
+            this.markDirty();
+        }
 
-	public double getEuChange()
-	{
-		if (euChange == -1)
-		{
-			return -1;
-		}
-		return (euChange / ticks);
-	}
+    }
 
-	public void handleGuiInputFromClient(int id)
-	{
-		if (id == 0)
-		{
-			output += 256;
-		}
-		if (id == 1)
-		{
-			output += 64;
-		}
-		if (id == 2)
-		{
-			output -= 64;
-		}
-		if (id == 3)
-		{
-			output -= 256;
-		}
-		if (output > 4096)
-		{
-			output = 4096;
-		}
-		if (output <= -1)
-		{
-			output = 0;
-		}
-	}
+    public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
+        return false;
+    }
+
+
+    public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+        NBTTagCompound tileEntity = new NBTTagCompound();
+        ItemStack dropStack = new ItemStack(ModBlocks.Idsu, 1);
+        writeToNBT(tileEntity);
+        dropStack.setTagCompound(new NBTTagCompound());
+        dropStack.getTagCompound().setTag("tileEntity", tileEntity);
+        return dropStack;
+    }
+
+
+    public double getEuChange() {
+        if (euChange == -1) {
+            return -1;
+        }
+        return (euChange / ticks);
+    }
+
+    public void handleGuiInputFromClient(int id) {
+        if (id == 0) {
+            output += 256;
+        }
+        if (id == 1) {
+            output += 64;
+        }
+        if (id == 2) {
+            output -= 64;
+        }
+        if (id == 3) {
+            output -= 256;
+        }
+        if (output > 4096) {
+            output = 4096;
+        }
+        if (output <= -1) {
+            output = 0;
+        }
+    }
 }

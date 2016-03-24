@@ -1,39 +1,34 @@
 package techreborn.compat.jei.fusionReactor;
 
-import javax.annotation.Nonnull;
-
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.compat.jei.RecipeCategoryUids;
 
-public class FusionReactorRecipeHandler implements IRecipeHandler<FusionReactorRecipe>
-{
+import javax.annotation.Nonnull;
 
-	@Nonnull
-	@Override
-	public Class<FusionReactorRecipe> getRecipeClass()
-	{
-		return FusionReactorRecipe.class;
-	}
+public class FusionReactorRecipeHandler implements IRecipeHandler<FusionReactorRecipe> {
 
-	@Nonnull
-	@Override
-	public String getRecipeCategoryUid()
-	{
-		return RecipeCategoryUids.FUSION_REACTOR;
-	}
+    @Nonnull
+    @Override
+    public Class<FusionReactorRecipe> getRecipeClass() {
+        return FusionReactorRecipe.class;
+    }
 
-	@Nonnull
-	@Override
-	public IRecipeWrapper getRecipeWrapper(@Nonnull FusionReactorRecipe recipe)
-	{
-		return new FusionReactorRecipeWrapper(recipe);
-	}
+    @Nonnull
+    @Override
+    public String getRecipeCategoryUid() {
+        return RecipeCategoryUids.FUSION_REACTOR;
+    }
 
-	@Override
-	public boolean isRecipeValid(@Nonnull FusionReactorRecipe recipe)
-	{
-		return true;
-	}
+    @Nonnull
+    @Override
+    public IRecipeWrapper getRecipeWrapper(@Nonnull FusionReactorRecipe recipe) {
+        return new FusionReactorRecipeWrapper(recipe);
+    }
+
+    @Override
+    public boolean isRecipeValid(@Nonnull FusionReactorRecipe recipe) {
+        return true;
+    }
 }

@@ -6,47 +6,41 @@ import techreborn.api.recipe.BaseRecipe;
 import techreborn.lib.Reference;
 import techreborn.tiles.TileBlastFurnace;
 
-public class BlastFurnaceRecipe extends BaseRecipe
-{
+public class BlastFurnaceRecipe extends BaseRecipe {
 
-	public int neededHeat;
 
-	public BlastFurnaceRecipe(ItemStack input1, ItemStack input2, ItemStack output1, ItemStack output2, int tickTime,
-			int euPerTick, int neededHeat)
-	{
-		super(Reference.blastFurnaceRecipe, tickTime, euPerTick);
-		if (input1 != null)
-			inputs.add(input1);
-		if (input2 != null)
-			inputs.add(input2);
-		if (output1 != null)
-			addOutput(output1);
-		if (output2 != null)
-			addOutput(output2);
+    public int neededHeat;
 
-		this.neededHeat = neededHeat;
-	}
+    public BlastFurnaceRecipe(ItemStack input1, ItemStack input2, ItemStack output1, ItemStack output2, int tickTime, int euPerTick, int neededHeat) {
+        super(Reference.blastFurnaceRecipe, tickTime, euPerTick);
+        if (input1 != null)
+            inputs.add(input1);
+        if (input2 != null)
+            inputs.add(input2);
+        if (output1 != null)
+            addOutput(output1);
+        if (output2 != null)
+            addOutput(output2);
 
-	@Override
-	public String getUserFreindlyName()
-	{
-		return "Blast Furnace";
-	}
+        this.neededHeat = neededHeat;
+    }
 
-	@Override
-	public boolean canCraft(TileEntity tile)
-	{
-		if (tile instanceof TileBlastFurnace)
-		{
-			TileBlastFurnace blastFurnace = (TileBlastFurnace) tile;
-			return blastFurnace.getHeat() >= neededHeat;
-		}
-		return false;
-	}
+    @Override
+    public String getUserFreindlyName() {
+        return "Blast Furnace";
+    }
 
-	@Override
-	public boolean onCraft(TileEntity tile)
-	{
-		return super.onCraft(tile);
-	}
+    @Override
+    public boolean canCraft(TileEntity tile) {
+        if (tile instanceof TileBlastFurnace) {
+            TileBlastFurnace blastFurnace = (TileBlastFurnace) tile;
+            return blastFurnace.getHeat() >= neededHeat;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onCraft(TileEntity tile) {
+        return super.onCraft(tile);
+    }
 }
