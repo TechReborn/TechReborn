@@ -1,31 +1,26 @@
 package techreborn.config;
 
-import net.minecraftforge.common.config.Configuration;
-
 import java.io.File;
 
-public class ConfigTechReborn {
-	private static ConfigTechReborn instance = null;
+import net.minecraftforge.common.config.Configuration;
+
+public class ConfigTechReborn
+{
 	public static String CATEGORY_WORLD = "world";
 	public static String CATEGORY_POWER = "power";
 	public static String CATEGORY_CRAFTING = "crafting";
 	public static String CATEGORY_UU = "uu";
 	public static String CATEGORY_EMC = "emc";
 	public static String CATEGORY_INTEGRATION = "Integration";
-
 	public static double FortuneSecondaryOreMultiplierPerLevel;
-
 	public static boolean RubberSaplingLoot;
 	public static boolean TinIngotsLoot;
 	public static boolean CopperIngotsLoot;
 	public static boolean SteelIngotsLoot;
-
 	public static boolean UninsulatedElectocutionSound;
 	public static boolean UninsulatedElectocutionParticle;
 	public static boolean UninsulatedElectocutionDamage;
-
 	public static boolean scrapboxDispenser;
-
 	// Power
 	public static int ThermalGenertaorOutput;
 	public static int CentrifugeInputTick;
@@ -128,16 +123,16 @@ public class ConfigTechReborn {
 	public static boolean AllowForestryRecipes;
 	public static boolean AllowBOPRecipes;
 	public static boolean AllowNaturaRecipes;
-	// EMC
-
 	// Client
 	public static boolean ShowChargeHud;
+	// EMC
 	public static boolean useConnectedTextures;
 	public static boolean oreUnifer;
-
 	public static Configuration config;
+	private static ConfigTechReborn instance = null;
 
-	private ConfigTechReborn(File configFile) {
+	private ConfigTechReborn(File configFile)
+	{
 		config = new Configuration(configFile);
 		config.load();
 
@@ -147,7 +142,8 @@ public class ConfigTechReborn {
 
 	}
 
-	public static ConfigTechReborn initialize(File configFile) {
+	public static ConfigTechReborn initialize(File configFile)
+	{
 
 		if (instance == null)
 			instance = new ConfigTechReborn(configFile);
@@ -157,15 +153,18 @@ public class ConfigTechReborn {
 		return instance;
 	}
 
-	public static ConfigTechReborn instance() {
-		if (instance == null) {
+	public static ConfigTechReborn instance()
+	{
+		if (instance == null)
+		{
 
 			throw new IllegalStateException("Instance of TechReborn Config requested before initialization");
 		}
 		return instance;
 	}
 
-	public static void Configs() {
+	public static void Configs()
+	{
 		RubberSaplingLoot = config
 				.get(CATEGORY_WORLD, "Rubber Sapling Loot", true, "Allow Rubber Saplings to generate in loot chests")
 				.getBoolean(true);
@@ -207,16 +206,14 @@ public class ConfigTechReborn {
 		aesuMaxStorage = config.get(CATEGORY_POWER, "AESU Max Storage", 30, "Set the max Storage for the AESU")
 				.getInt();
 
-
 		// Charge
 		IronDrillCharge = config
-				.get(CATEGORY_POWER, "IronDrill MaxCharge", 10000, "Set the max charge for the iron drill")
-				.getInt();
-		
+				.get(CATEGORY_POWER, "IronDrill MaxCharge", 10000, "Set the max charge for the iron drill").getInt();
+
 		DiamondDrillCharge = config
 				.get(CATEGORY_POWER, "DiamondDrill MaxCharge", 100000, "Set the max charge for the diamond drill")
 				.getInt();
-		
+
 		AdvancedDrillCharge = config
 				.get(CATEGORY_POWER, "AdvancedDrill MaxCharge", 1000000, "Set the max charge for the advanced drill")
 				.getInt();
@@ -224,26 +221,23 @@ public class ConfigTechReborn {
 		IronChainsawCharge = config
 				.get(CATEGORY_POWER, "IronChainsaw MaxCharge", 10000, "Set the max charge for the iron chainsaw")
 				.getInt();
-		
+
 		DiamondChainsawCharge = config
 				.get(CATEGORY_POWER, "DiamondChainsaw MaxCharge", 100000, "Set the max charge for the diamond chainsaw")
 				.getInt();
-		
-		AdvancedChainsawCharge = config
-				.get(CATEGORY_POWER, "AdvancedChainsaw MaxCharge", 1000000, "Set the max charge for the advanced chainsaw")
-				.getInt();
+
+		AdvancedChainsawCharge = config.get(CATEGORY_POWER, "AdvancedChainsaw MaxCharge", 1000000,
+				"Set the max charge for the advanced chainsaw").getInt();
 
 		IronJackhammerCharge = config
 				.get(CATEGORY_POWER, "IronJackhammer MaxCharge", 10000, "Set the max charge for the iron jackhammer")
 				.getInt();
-		
-		SteelJackhammerCharge = config
-				.get(CATEGORY_POWER, "AdvancedJackhammer MaxCharge", 20000, "Set the max charge for the advanced jackhammer")
-				.getInt();
-		
-		DiamondJackhammerCharge = config
-				.get(CATEGORY_POWER, "DiamondJackhammer MaxCharge", 100000, "Set the max charge for the diamond jackhammer")
-				.getInt();
+
+		SteelJackhammerCharge = config.get(CATEGORY_POWER, "AdvancedJackhammer MaxCharge", 20000,
+				"Set the max charge for the advanced jackhammer").getInt();
+
+		DiamondJackhammerCharge = config.get(CATEGORY_POWER, "DiamondJackhammer MaxCharge", 100000,
+				"Set the max charge for the diamond jackhammer").getInt();
 
 		LapotronPackCharge = config
 				.get(CATEGORY_POWER, "LapotronPack MaxCharge", 100000000, "Set the max charge for the LapotronPack")
@@ -287,32 +281,31 @@ public class ConfigTechReborn {
 		farmEu = config.get(CATEGORY_POWER, "farmeu", 32, "").getInt();
 
 		// Tier
-		IronDrillTier = config.get(CATEGORY_POWER, "IronDrill Tier", 2, "Set the Tier of the iron drill")
-				.getInt();
-		
+		IronDrillTier = config.get(CATEGORY_POWER, "IronDrill Tier", 2, "Set the Tier of the iron drill").getInt();
+
 		DiamondDrillTier = config.get(CATEGORY_POWER, "DiamondDrill Tier", 2, "Set the Tier of the diamond drill")
 				.getInt();
-		
+
 		AdvancedDrillTier = config.get(CATEGORY_POWER, "AdvancedDrill Tier", 2, "Set the Tier of the advanced drill")
 				.getInt();
 
 		IronChainsawTier = config.get(CATEGORY_POWER, "IronChainsaw Tier", 2, "Set the Tier of the iron chainsaw")
 				.getInt();
-		
-		DiamondChainsawTier = config.get(CATEGORY_POWER, "DiamondChainsaw Tier", 2, "Set the Tier of the diamond chainsaw")
-				.getInt();
-		
-		AdvancedChainsawTier = config.get(CATEGORY_POWER, "AdvancedChainsaw Tier", 2, "Set the Tier of the advanced chainsaw")
-				.getInt();
+
+		DiamondChainsawTier = config
+				.get(CATEGORY_POWER, "DiamondChainsaw Tier", 2, "Set the Tier of the diamond chainsaw").getInt();
+
+		AdvancedChainsawTier = config
+				.get(CATEGORY_POWER, "AdvancedChainsaw Tier", 2, "Set the Tier of the advanced chainsaw").getInt();
 
 		IronJackhammerTier = config.get(CATEGORY_POWER, "IronJackhammer Tier", 2, "Set the Tier of the iron jackhammer")
 				.getInt();
-		
-		DiamondJackhammerTier = config.get(CATEGORY_POWER, "DiamondJackhammer Tier", 2, "Set the Tier of the diamond jackhammer")
-				.getInt();
-		
-		SteelJackhammerTier = config.get(CATEGORY_POWER, "AdvancedJackhammer Tier", 2, "Set the Tier of the advanced jackhammer")
-				.getInt();
+
+		DiamondJackhammerTier = config
+				.get(CATEGORY_POWER, "DiamondJackhammer Tier", 2, "Set the Tier of the diamond jackhammer").getInt();
+
+		SteelJackhammerTier = config
+				.get(CATEGORY_POWER, "AdvancedJackhammer Tier", 2, "Set the Tier of the advanced jackhammer").getInt();
 
 		LapotronPackTier = config.get(CATEGORY_POWER, "LapotronPack Tier", 2, "Set the Tier of the LapotronPack")
 				.getInt();
@@ -496,16 +489,12 @@ public class ConfigTechReborn {
 		oreUnifer = config.get(CATEGORY_INTEGRATION, "OreUnifer", false, "change all ores int TechReborn Ores")
 				.getBoolean(false);
 
-
-		UninsulatedElectocutionDamage = config
-				.get(CATEGORY_WORLD, "Uninsulated Electocution Damage", true, "Damage entities on contact with uninsulated cables")
-				.getBoolean(true);
-		UninsulatedElectocutionSound = config
-				.get(CATEGORY_WORLD, "Uninsulated Electocution Sound", true, "Play sound on contact with uninsulated cables")
-				.getBoolean(true);
-		UninsulatedElectocutionParticle = config
-				.get(CATEGORY_WORLD, "Uninsulated Electocution Particle", true, "Spawn particles on contact with uninsulated cables")
-				.getBoolean(true);
+		UninsulatedElectocutionDamage = config.get(CATEGORY_WORLD, "Uninsulated Electocution Damage", true,
+				"Damage entities on contact with uninsulated cables").getBoolean(true);
+		UninsulatedElectocutionSound = config.get(CATEGORY_WORLD, "Uninsulated Electocution Sound", true,
+				"Play sound on contact with uninsulated cables").getBoolean(true);
+		UninsulatedElectocutionParticle = config.get(CATEGORY_WORLD, "Uninsulated Electocution Particle", true,
+				"Spawn particles on contact with uninsulated cables").getBoolean(true);
 
 		scrapboxDispenser = config
 				.get(CATEGORY_WORLD, "Scrapboxes in Dispenser", true, "Allow scrapbox to be opened via dispenser")
@@ -514,7 +503,6 @@ public class ConfigTechReborn {
 		ExpensiveWatermill = config
 				.get(CATEGORY_CRAFTING, "Expensive Watermill", true, "Allow TechReborn to change the Watermill recipe")
 				.getBoolean(true);
-
 
 		// Integration
 		AllowBOPRecipes = config.get(CATEGORY_INTEGRATION, "Allow Bop Recipes", true, "Add BOP suport")
@@ -526,7 +514,8 @@ public class ConfigTechReborn {
 		AllowNaturaRecipes = config.get(CATEGORY_INTEGRATION, "Allow Natura Recipes", true, "Add Natura suport")
 				.getBoolean(true);
 
-		if (config.hasChanged()) {
+		if (config.hasChanged())
+		{
 			config.save();
 		}
 	}

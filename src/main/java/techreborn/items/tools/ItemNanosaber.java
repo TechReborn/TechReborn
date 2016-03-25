@@ -1,5 +1,7 @@
 package techreborn.items.tools;
 
+import java.util.List;
+
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
@@ -21,17 +23,17 @@ import reborncore.common.util.ItemNBTHelper;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 
-import java.util.List;
+public class ItemNanosaber extends ItemSword implements IEnergyItemInfo, ITexturedItem
+{
 
-public class ItemNanosaber extends ItemSword implements IEnergyItemInfo, ITexturedItem {
-
+	public static int tier = 1;
 	public int maxCharge = 1;
 	public int cost = 250;
 	public float unpoweredSpeed = 2.0F;
-	public static int tier = 1;
 	public double transferLimit = 100;
 
-	public ItemNanosaber() {
+	public ItemNanosaber()
+	{
 		super(ToolMaterial.DIAMOND);
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
@@ -43,14 +45,16 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo, ITextur
 	}
 
 	@Override
-	public boolean hitEntity(ItemStack itemstack, EntityLivingBase entityliving, EntityLivingBase entityliving1) {
+	public boolean hitEntity(ItemStack itemstack, EntityLivingBase entityliving, EntityLivingBase entityliving1)
+	{
 		PoweredItem.useEnergy(cost, itemstack);
 		return true;
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World worldIn, EntityPlayer player, EnumHand hand) {
-		if(player.isSneaking())
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World worldIn, EntityPlayer player, EnumHand hand)
+	{
+		if (player.isSneaking())
 		{
 			changeMode(stack);
 		}
@@ -62,71 +66,75 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo, ITextur
 		if (!ItemNBTHelper.verifyExistance(stack, "isActive"))
 		{
 			ItemNBTHelper.setBoolean(stack, "isActive", true);
-		}
-		else if(ItemNBTHelper.verifyExistance(stack, "isActive"))
+		} else if (ItemNBTHelper.verifyExistance(stack, "isActive"))
 		{
 			stack.getTagCompound().removeTag("isActive");
 		}
 	}
-	
+
 	public boolean isItemActive(ItemStack stack)
 	{
 		if (!ItemNBTHelper.verifyExistance(stack, "isActive"))
 		{
 			return true;
-		}
-		else
+		} else
 			return false;
 	}
-	
+
 	@SideOnly(Side.CLIENT)
-    @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) 
-    {
-		if(ItemNBTHelper.verifyExistance(stack, "isActive"))
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4)
+	{
+		if (ItemNBTHelper.verifyExistance(stack, "isActive"))
 		{
 			list.add("Active");
-		}
-		else if(!ItemNBTHelper.verifyExistance(stack, "isActive"))
+		} else if (!ItemNBTHelper.verifyExistance(stack, "isActive"))
 		{
 			list.add("Not Active");
 		}
-    	super.addInformation(stack, player, list, par4);
-    }
+		super.addInformation(stack, player, list, par4);
+	}
 
 	@Override
-	public boolean isRepairable() {
+	public boolean isRepairable()
+	{
 		return false;
 	}
 
 	@Override
-	public double getMaxPower(ItemStack stack) {
+	public double getMaxPower(ItemStack stack)
+	{
 		return maxCharge;
 	}
 
 	@Override
-	public boolean canAcceptEnergy(ItemStack stack) {
+	public boolean canAcceptEnergy(ItemStack stack)
+	{
 		return true;
 	}
 
 	@Override
-	public boolean canProvideEnergy(ItemStack stack) {
+	public boolean canProvideEnergy(ItemStack stack)
+	{
 		return false;
 	}
 
 	@Override
-	public double getMaxTransfer(ItemStack stack) {
+	public double getMaxTransfer(ItemStack stack)
+	{
 		return transferLimit;
 	}
 
 	@Override
-	public int getStackTier(ItemStack stack) {
+	public int getStackTier(ItemStack stack)
+	{
 		return tier;
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
+	public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList)
+	{
 		ItemStack itemStack = new ItemStack(this, 1);
 		itemList.add(itemStack);
 
@@ -136,33 +144,39 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo, ITextur
 	}
 
 	@Override
-	public double getDurabilityForDisplay(ItemStack stack) {
+	public double getDurabilityForDisplay(ItemStack stack)
+	{
 		double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
 		return 1 - charge;
 
 	}
 
 	@Override
-	public boolean showDurabilityBar(ItemStack stack) {
+	public boolean showDurabilityBar(ItemStack stack)
+	{
 		return true;
 	}
 
 	@Override
-	public String getTextureName(int damage) {
-		if(damage==1){
+	public String getTextureName(int damage)
+	{
+		if (damage == 1)
+		{
 			return "techreborn:items/tool/nanosaber_on";
 		}
 		return "techreborn:items/tool/nanosaber_off";
 	}
 
 	@Override
-	public int getMaxMeta() {
+	public int getMaxMeta()
+	{
 		return 2;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
+	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining)
+	{
 		return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
 	}
 }

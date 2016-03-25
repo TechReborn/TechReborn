@@ -1,52 +1,64 @@
 package techreborn.compat.jei;
 
-import mezz.jei.api.recipe.BlankRecipeWrapper;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
-import techreborn.api.recipe.BaseRecipe;
-
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public abstract class BaseRecipeWrapper<T extends BaseRecipe> extends BlankRecipeWrapper {
+import javax.annotation.Nonnull;
+
+import mezz.jei.api.recipe.BlankRecipeWrapper;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
+import techreborn.api.recipe.BaseRecipe;
+
+public abstract class BaseRecipeWrapper<T extends BaseRecipe> extends BlankRecipeWrapper
+{
 	protected final T baseRecipe;
 	@Nonnull
 	private final List<List<ItemStack>> inputs;
 
-	public BaseRecipeWrapper(T baseRecipe) {
+	public BaseRecipeWrapper(T baseRecipe)
+	{
 		this.baseRecipe = baseRecipe;
 
 		inputs = new ArrayList<>();
-		for (ItemStack input : baseRecipe.getInputs()) {
-			if (baseRecipe.useOreDic()) {
+		for (ItemStack input : baseRecipe.getInputs())
+		{
+			if (baseRecipe.useOreDic())
+			{
 				List<ItemStack> oreDictInputs = expandOreDict(input);
 				inputs.add(oreDictInputs);
-			} else {
+			} else
+			{
 				inputs.add(Collections.singletonList(input));
 			}
 		}
 	}
 
-	private static List<ItemStack> expandOreDict(ItemStack itemStack) {
+	private static List<ItemStack> expandOreDict(ItemStack itemStack)
+	{
 		int[] oreIds = OreDictionary.getOreIDs(itemStack);
-		if (oreIds.length == 0) {
+		if (oreIds.length == 0)
+		{
 			return Collections.singletonList(itemStack);
 		}
 
 		Set<ItemStack> itemStackSet = new HashSet<>();
-		for (int oreId : oreIds) {
+		for (int oreId : oreIds)
+		{
 			String oreName = OreDictionary.getOreName(oreId);
 			List<ItemStack> ores = OreDictionary.getOres(oreName);
-			for (ItemStack ore : ores) {
-				if (ore.stackSize != itemStack.stackSize) {
+			for (ItemStack ore : ores)
+			{
+				if (ore.stackSize != itemStack.stackSize)
+				{
 					ItemStack oreCopy = ore.copy();
 					oreCopy.stackSize = itemStack.stackSize;
 					itemStackSet.add(oreCopy);
-				} else {
+				} else
+				{
 					itemStackSet.add(ore);
 				}
 			}
@@ -56,13 +68,15 @@ public abstract class BaseRecipeWrapper<T extends BaseRecipe> extends BlankRecip
 
 	@Nonnull
 	@Override
-	public List<List<ItemStack>> getInputs() {
+	public List<List<ItemStack>> getInputs()
+	{
 		return inputs;
 	}
 
 	@Nonnull
 	@Override
-	public List<ItemStack> getOutputs() {
+	public List<ItemStack> getOutputs()
+	{
 		return baseRecipe.getOutputs();
 	}
 }

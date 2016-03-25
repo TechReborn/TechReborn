@@ -12,23 +12,29 @@ import reborncore.RebornCore;
 import techreborn.api.ScrapboxList;
 import techreborn.client.TechRebornCreativeTabMisc;
 
-public class ItemScrapBox extends ItemTextureBase implements ITexturedItem{
-	
-	public ItemScrapBox() {
+public class ItemScrapBox extends ItemTextureBase implements ITexturedItem
+{
+
+	public ItemScrapBox()
+	{
 		setUnlocalizedName("techreborn.scrapbox");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		RebornCore.jsonDestroyer.registerObject(this);
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStack, World world, EntityPlayer player, EnumHand hand) {
-		if(!world.isRemote) {
+	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStack, World world, EntityPlayer player,
+			EnumHand hand)
+	{
+		if (!world.isRemote)
+		{
 			int random = world.rand.nextInt(ScrapboxList.stacks.size());
 			ItemStack out = ScrapboxList.stacks.get(random).copy();
 			float xOffset = world.rand.nextFloat() * 0.8F + 0.1F;
 			float yOffset = world.rand.nextFloat() * 0.8F + 0.1F;
 			float zOffset = world.rand.nextFloat() * 0.8F + 0.1F;
-			EntityItem entityitem = new EntityItem(world, player.getPosition().getX() + xOffset, player.getPosition().getY() + yOffset, player.getPosition().getZ() + zOffset, out);
+			EntityItem entityitem = new EntityItem(world, player.getPosition().getX() + xOffset,
+					player.getPosition().getY() + yOffset, player.getPosition().getZ() + zOffset, out);
 
 			entityitem.setPickupDelay(20);
 			world.spawnEntityInWorld(entityitem);
@@ -38,14 +44,15 @@ public class ItemScrapBox extends ItemTextureBase implements ITexturedItem{
 		return new ActionResult<>(EnumActionResult.SUCCESS, itemStack);
 	}
 
-
 	@Override
-	public int getMaxMeta() {
+	public int getMaxMeta()
+	{
 		return 1;
 	}
 
 	@Override
-	public String getTextureName(int arg0) {
-        return "techreborn:items/misc/scrapBox";
+	public String getTextureName(int arg0)
+	{
+		return "techreborn:items/misc/scrapBox";
 	}
 }

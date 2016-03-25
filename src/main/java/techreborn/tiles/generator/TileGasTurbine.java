@@ -1,6 +1,8 @@
 package techreborn.tiles.generator;
 
-import ic2.api.tile.IWrenchable;
+import java.util.HashMap;
+import java.util.Map;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -10,7 +12,12 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.IFluidHandler;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.FluidUtils;
@@ -18,272 +25,313 @@ import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
+import ic2.api.tile.IWrenchable;
 
-import java.util.HashMap;
-import java.util.Map;
+public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable, IFluidHandler, IInventory
+{
 
-public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable,
-        IFluidHandler, IInventory {
+	// TODO: run this off config
+	public static final int euTick = 16;
+	public Tank tank = new Tank("TileGasTurbine", FluidContainerRegistry.BUCKET_VOLUME * 10, this);
+	public Inventory inventory = new Inventory(3, "TileGasTurbine", 64, this);
+	Map<String, Integer> fluids = new HashMap<String, Integer>();
 
-    public Tank tank = new Tank("TileGasTurbine",
-            FluidContainerRegistry.BUCKET_VOLUME * 10, this);
-    public Inventory inventory = new Inventory(3, "TileGasTurbine", 64, this);
+	// We use this to keep track of fractional millibuckets, allowing us to hit
+	// our eu/bucket targets while still only ever removing integer millibucket
+	// amounts.
+	double pendingWithdraw = 0.0;
 
-    //TODO: run this off config
-    public static final int euTick = 16;
+	public TileGasTurbine()
+	{
+		super(ConfigTechReborn.ThermalGeneratorTier);
+		// TODO: fix this to have Gas Turbine generator values
 
-    Map<String, Integer> fluids = new HashMap<String, Integer>();
+		fluids.put("fluidhydrogen", 15000);
+		fluids.put("fluidmethane", 45000);
+	}
 
-    //We use this to keep track of fractional millibuckets, allowing us to hit our eu/bucket targets while still only ever removing integer millibucket amounts.
-    double pendingWithdraw = 0.0;
+	@Override
+	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side)
+	{
+		return false;
+	}
 
-    public TileGasTurbine() {
-        super(ConfigTechReborn.ThermalGeneratorTier);
-        //TODO: fix this to have Gas Turbine generator values
+	@Override
+	public EnumFacing getFacing()
+	{
+		return getFacingEnum();
+	}
 
-        fluids.put("fluidhydrogen", 15000);
-        fluids.put("fluidmethane", 45000);
-    }
+	@Override
+	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
+	{
+		if (entityPlayer.isSneaking())
+		{
+			return true;
+		}
+		return false;
+	}
 
-    @Override
-    public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
-        return false;
-    }
+	@Override
+	public float getWrenchDropRate()
+	{
+		return 1.0F;
+	}
 
-    @Override
-    public EnumFacing getFacing() {
-        return getFacingEnum();
-    }
+	@Override
+	public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
+	{
+		return new ItemStack(ModBlocks.Gasturbine, 1);
+	}
 
-    @Override
-    public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
-        if (entityPlayer.isSneaking()) {
-            return true;
-        }
-        return false;
-    }
+	@Override
+	public int fill(EnumFacing from, FluidStack resource, boolean doFill)
+	{
+		int fill = tank.fill(resource, doFill);
+		tank.compareAndUpdate();
+		return fill;
+	}
 
-    @Override
-    public float getWrenchDropRate() {
-        return 1.0F;
-    }
+	@Override
+	public FluidStack drain(EnumFacing from, FluidStack resource, boolean doDrain)
+	{
+		FluidStack drain = tank.drain(resource.amount, doDrain);
+		tank.compareAndUpdate();
+		return drain;
+	}
 
-    @Override
-    public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-        return new ItemStack(ModBlocks.Gasturbine, 1);
-    }
+	@Override
+	public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain)
+	{
+		FluidStack drain = tank.drain(maxDrain, doDrain);
+		tank.compareAndUpdate();
+		return drain;
+	}
 
-    @Override
-    public int fill(EnumFacing from, FluidStack resource, boolean doFill) {
-        int fill = tank.fill(resource, doFill);
-        tank.compareAndUpdate();
-        return fill;
-    }
+	@Override
+	public boolean canFill(EnumFacing from, Fluid fluid)
+	{
+		if (fluid != null)
+		{
+			return fluids.containsKey(FluidRegistry.getFluidName(fluid));
+		}
+		return false;
+	}
 
-    @Override
-    public FluidStack drain(EnumFacing from, FluidStack resource,
-                            boolean doDrain) {
-        FluidStack drain = tank.drain(resource.amount, doDrain);
-        tank.compareAndUpdate();
-        return drain;
-    }
+	@Override
+	public boolean canDrain(EnumFacing from, Fluid fluid)
+	{
+		return tank.getFluid() == null || tank.getFluid().getFluid() == fluid;
+	}
 
-    @Override
-    public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain) {
-        FluidStack drain = tank.drain(maxDrain, doDrain);
-        tank.compareAndUpdate();
-        return drain;
-    }
+	@Override
+	public FluidTankInfo[] getTankInfo(EnumFacing from)
+	{
+		return new FluidTankInfo[] { tank.getInfo() };
+	}
 
-    @Override
-    public boolean canFill(EnumFacing from, Fluid fluid) {
-        if (fluid != null) {
-            return fluids.containsKey(FluidRegistry.getFluidName(fluid));
-        }
-        return false;
-    }
+	@Override
+	public void readFromNBT(NBTTagCompound tagCompound)
+	{
+		super.readFromNBT(tagCompound);
+		tank.readFromNBT(tagCompound);
+		inventory.readFromNBT(tagCompound);
+	}
 
-    @Override
-    public boolean canDrain(EnumFacing from, Fluid fluid) {
-        return tank.getFluid() == null || tank.getFluid().getFluid() == fluid;
-    }
+	@Override
+	public void writeToNBT(NBTTagCompound tagCompound)
+	{
+		super.writeToNBT(tagCompound);
+		tank.writeToNBT(tagCompound);
+		inventory.writeToNBT(tagCompound);
+	}
 
-    @Override
-    public FluidTankInfo[] getTankInfo(EnumFacing from) {
-        return new FluidTankInfo[]{tank.getInfo()};
-    }
+	public Packet getDescriptionPacket()
+	{
+		NBTTagCompound nbtTag = new NBTTagCompound();
+		writeToNBT(nbtTag);
+		return new SPacketUpdateTileEntity(this.getPos(), 1, nbtTag);
+	}
 
-    @Override
-    public void readFromNBT(NBTTagCompound tagCompound) {
-        super.readFromNBT(tagCompound);
-        tank.readFromNBT(tagCompound);
-        inventory.readFromNBT(tagCompound);
-    }
+	@Override
+	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet)
+	{
+		worldObj.markBlockRangeForRenderUpdate(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX(),
+				getPos().getY(), getPos().getZ());
+		readFromNBT(packet.getNbtCompound());
+	}
 
-    @Override
-    public void writeToNBT(NBTTagCompound tagCompound) {
-        super.writeToNBT(tagCompound);
-        tank.writeToNBT(tagCompound);
-        inventory.writeToNBT(tagCompound);
-    }
+	@Override
+	public void updateEntity()
+	{
+		super.updateEntity();
+		if (!worldObj.isRemote)
+		{
+			FluidUtils.drainContainers(this, inventory, 0, 1);
+			tank.compareAndUpdate();
+		}
 
-    public Packet getDescriptionPacket() {
-        NBTTagCompound nbtTag = new NBTTagCompound();
-        writeToNBT(nbtTag);
-        return new SPacketUpdateTileEntity(this.getPos(), 1, nbtTag);
-    }
+		if (tank.getFluidAmount() > 0 && getMaxPower() - getEnergy() >= euTick)
+		{
+			Integer euPerBucket = fluids.get(tank.getFluidType().getName());
+			// float totalTicks = (float)euPerBucket / 8f; //x eu per bucket / 8
+			// eu per tick
+			// float millibucketsPerTick = 1000f / totalTicks;
+			float millibucketsPerTick = 16000f / (float) euPerBucket;
+			pendingWithdraw += millibucketsPerTick;
 
-    @Override
-    public void onDataPacket(NetworkManager net,
-                             SPacketUpdateTileEntity packet) {
-        worldObj.markBlockRangeForRenderUpdate(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX(),
-                getPos().getY(), getPos().getZ());
-        readFromNBT(packet.getNbtCompound());
-    }
+			int currentWithdraw = (int) pendingWithdraw; // float --> int
+															// conversion floors
+															// the float
+			pendingWithdraw -= currentWithdraw;
 
-    @Override
-    public void updateEntity() {
-        super.updateEntity();
-        if (!worldObj.isRemote) {
-            FluidUtils.drainContainers(this, inventory, 0, 1);
-            tank.compareAndUpdate();
-        }
+			tank.drain(currentWithdraw, true);
+			addEnergy(euTick);
+		}
+		if (tank.getFluidType() != null && getStackInSlot(2) == null)
+		{
+			inventory.setInventorySlotContents(2, new ItemStack(tank.getFluidType().getBlock()));
+		} else if (tank.getFluidType() == null && getStackInSlot(2) != null)
+		{
+			setInventorySlotContents(2, null);
+		}
+	}
 
-        if (tank.getFluidAmount() > 0
-                && getMaxPower() - getEnergy() >= euTick) {
-            Integer euPerBucket = fluids.get(tank.getFluidType().getName());
-            //float totalTicks = (float)euPerBucket / 8f; //x eu per bucket / 8 eu per tick
-            //float millibucketsPerTick = 1000f / totalTicks;
-            float millibucketsPerTick = 16000f / (float) euPerBucket;
-            pendingWithdraw += millibucketsPerTick;
+	@Override
+	public int getSizeInventory()
+	{
+		return inventory.getSizeInventory();
+	}
 
-            int currentWithdraw = (int) pendingWithdraw; //float --> int conversion floors the float
-            pendingWithdraw -= currentWithdraw;
+	@Override
+	public ItemStack getStackInSlot(int p_70301_1_)
+	{
+		return inventory.getStackInSlot(p_70301_1_);
+	}
 
-            tank.drain(currentWithdraw, true);
-            addEnergy(euTick);
-        }
-        if (tank.getFluidType() != null && getStackInSlot(2) == null) {
-            inventory.setInventorySlotContents(2, new ItemStack(tank
-                    .getFluidType().getBlock()));
-        } else if (tank.getFluidType() == null && getStackInSlot(2) != null) {
-            setInventorySlotContents(2, null);
-        }
-    }
+	@Override
+	public ItemStack decrStackSize(int p_70298_1_, int p_70298_2_)
+	{
+		return inventory.decrStackSize(p_70298_1_, p_70298_2_);
+	}
 
-    @Override
-    public int getSizeInventory() {
-        return inventory.getSizeInventory();
-    }
+	@Override
+	public ItemStack removeStackFromSlot(int p_70304_1_)
+	{
+		return inventory.removeStackFromSlot(p_70304_1_);
+	}
 
-    @Override
-    public ItemStack getStackInSlot(int p_70301_1_) {
-        return inventory.getStackInSlot(p_70301_1_);
-    }
+	@Override
+	public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_)
+	{
+		inventory.setInventorySlotContents(p_70299_1_, p_70299_2_);
+	}
 
-    @Override
-    public ItemStack decrStackSize(int p_70298_1_, int p_70298_2_) {
-        return inventory.decrStackSize(p_70298_1_, p_70298_2_);
-    }
+	@Override
+	public void openInventory(EntityPlayer player)
+	{
+		inventory.openInventory(player);
+	}
 
-    @Override
-    public ItemStack removeStackFromSlot(int p_70304_1_) {
-        return inventory.removeStackFromSlot(p_70304_1_);
-    }
+	@Override
+	public void closeInventory(EntityPlayer player)
+	{
+		inventory.closeInventory(player);
+	}
 
-    @Override
-    public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) {
-        inventory.setInventorySlotContents(p_70299_1_, p_70299_2_);
-    }
+	@Override
+	public int getField(int id)
+	{
+		return inventory.getField(id);
+	}
 
-    @Override
-    public void openInventory(EntityPlayer player) {
-        inventory.openInventory(player);
-    }
+	@Override
+	public void setField(int id, int value)
+	{
+		inventory.setField(id, value);
+	}
 
-    @Override
-    public void closeInventory(EntityPlayer player) {
-        inventory.closeInventory(player);
-    }
+	@Override
+	public int getFieldCount()
+	{
+		return inventory.getFieldCount();
+	}
 
+	@Override
+	public void clear()
+	{
+		inventory.clear();
+	}
 
-    @Override
-    public int getField(int id) {
-        return inventory.getField(id);
-    }
+	@Override
+	public String getName()
+	{
+		return inventory.getName();
+	}
 
-    @Override
-    public void setField(int id, int value) {
-        inventory.setField(id, value);
-    }
+	@Override
+	public boolean hasCustomName()
+	{
+		return inventory.hasCustomName();
+	}
 
-    @Override
-    public int getFieldCount() {
-        return inventory.getFieldCount();
-    }
+	@Override
+	public ITextComponent getDisplayName()
+	{
+		return inventory.getDisplayName();
+	}
 
-    @Override
-    public void clear() {
-        inventory.clear();
-    }
+	@Override
+	public int getInventoryStackLimit()
+	{
+		return inventory.getInventoryStackLimit();
+	}
 
-    @Override
-    public String getName() {
-        return inventory.getName();
-    }
+	@Override
+	public boolean isUseableByPlayer(EntityPlayer p_70300_1_)
+	{
+		return inventory.isUseableByPlayer(p_70300_1_);
+	}
 
-    @Override
-    public boolean hasCustomName() {
-        return inventory.hasCustomName();
-    }
+	@Override
+	public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_)
+	{
+		return inventory.isItemValidForSlot(p_94041_1_, p_94041_2_);
+	}
 
-    @Override
-    public ITextComponent getDisplayName() {
-        return inventory.getDisplayName();
-    }
-    @Override
-    public int getInventoryStackLimit() {
-        return inventory.getInventoryStackLimit();
-    }
+	@Override
+	public double getMaxPower()
+	{
+		return ConfigTechReborn.ThermalGeneratorCharge;
+	}
 
-    @Override
-    public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
-        return inventory.isUseableByPlayer(p_70300_1_);
-    }
+	@Override
+	public boolean canAcceptEnergy(EnumFacing direction)
+	{
+		return false;
+	}
 
-    @Override
-    public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
-        return inventory.isItemValidForSlot(p_94041_1_, p_94041_2_);
-    }
+	@Override
+	public boolean canProvideEnergy(EnumFacing direction)
+	{
+		return true;
+	}
 
+	@Override
+	public double getMaxOutput()
+	{
+		return euTick;
+	}
 
-    @Override
-    public double getMaxPower() {
-        return ConfigTechReborn.ThermalGeneratorCharge;
-    }
+	@Override
+	public double getMaxInput()
+	{
+		return 0;
+	}
 
-    @Override
-    public boolean canAcceptEnergy(EnumFacing direction) {
-        return false;
-    }
-
-    @Override
-    public boolean canProvideEnergy(EnumFacing direction) {
-        return true;
-    }
-
-    @Override
-    public double getMaxOutput() {
-        return euTick;
-    }
-
-    @Override
-    public double getMaxInput() {
-        return 0;
-    }
-
-    @Override
-    public EnumPowerTier getTier() {
-        return EnumPowerTier.MEDIUM;
-    }
+	@Override
+	public EnumPowerTier getTier()
+	{
+		return EnumPowerTier.MEDIUM;
+	}
 }

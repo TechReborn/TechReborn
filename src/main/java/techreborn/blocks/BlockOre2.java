@@ -1,5 +1,8 @@
 package techreborn.blocks;
 
+import java.security.InvalidParameterException;
+import java.util.List;
+
 import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
@@ -20,104 +23,121 @@ import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModBlocks;
 import techreborn.world.config.IOreNameProvider;
 
-import java.security.InvalidParameterException;
-import java.util.List;
+public class BlockOre2 extends BaseBlock implements ITexturedBlock, IOreNameProvider
+{
 
-public class BlockOre2 extends BaseBlock implements ITexturedBlock, IOreNameProvider {
+	public static final String[] types = new String[] { "Copper", "Tin" };
+	public PropertyInteger METADATA;
 
-    public static ItemStack getOreByName(String name, int count) {
-        for (int i = 0; i < types.length; i++) {
-            if (types[i].equalsIgnoreCase(name)) {
-                return new ItemStack(ModBlocks.ore2, count, i);
-            }
-        }
-        throw new InvalidParameterException("The ore block " + name + " could not be found.");
-    }
+	public BlockOre2(Material material)
+	{
+		super(material);
+		setUnlocalizedName("techreborn.ore2");
+		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setHardness(2.0f);
+		setHarvestLevel("pickaxe", 1);
+		this.setDefaultState(this.blockState.getBaseState().withProperty(METADATA, 0));
+	}
 
-    public static ItemStack getOreByName(String name) {
-        return getOreByName(name, 1);
-    }
+	public static ItemStack getOreByName(String name, int count)
+	{
+		for (int i = 0; i < types.length; i++)
+		{
+			if (types[i].equalsIgnoreCase(name))
+			{
+				return new ItemStack(ModBlocks.ore2, count, i);
+			}
+		}
+		throw new InvalidParameterException("The ore block " + name + " could not be found.");
+	}
 
-    public IBlockState getBlockStateFromName(String name){
-        int index = -1;
-        for (int i = 0; i < types.length; i++) {
-            if (types[i].equalsIgnoreCase(name)) {
-                index = i;
-                break;
-            }
-        }
-        if(index == -1){
-            throw new InvalidParameterException("The ore block " + name + " could not be found.");
-        }
-        return getStateFromMeta(index);
-    }
+	public static ItemStack getOreByName(String name)
+	{
+		return getOreByName(name, 1);
+	}
 
-    public static final String[] types = new String[]
-            {"Copper", "Tin"};
+	public IBlockState getBlockStateFromName(String name)
+	{
+		int index = -1;
+		for (int i = 0; i < types.length; i++)
+		{
+			if (types[i].equalsIgnoreCase(name))
+			{
+				index = i;
+				break;
+			}
+		}
+		if (index == -1)
+		{
+			throw new InvalidParameterException("The ore block " + name + " could not be found.");
+		}
+		return getStateFromMeta(index);
+	}
 
-    public PropertyInteger METADATA;
+	@Override
+	protected boolean canSilkHarvest()
+	{
+		return true;
+	}
 
-    public BlockOre2(Material material) {
-        super(material);
-        setUnlocalizedName("techreborn.ore2");
-        setCreativeTab(TechRebornCreativeTabMisc.instance);
-        setHardness(2.0f);
-        setHarvestLevel("pickaxe", 1);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(METADATA, 0));
-    }
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list)
+	{
+		for (int meta = 0; meta < types.length; meta++)
+		{
+			list.add(new ItemStack(item, 1, meta));
+		}
+	}
 
-    @Override
-    protected boolean canSilkHarvest() {
-        return true;
-    }
+	@Override
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos,
+			EntityPlayer player)
+	{
+		return super.getPickBlock(state, target, world, pos, player);
+	}
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list) {
-        for (int meta = 0; meta < types.length; meta++) {
-            list.add(new ItemStack(item, 1, meta));
-        }
-    }
+	@Override
+	public int damageDropped(IBlockState state)
+	{
+		int meta = getMetaFromState(state);
+		return meta;
+	}
 
-    @Override
-    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
-        return super.getPickBlock(state, target, world, pos, player);
-    }
+	@Override
+	public String getTextureNameFromState(IBlockState BlockStateContainer, EnumFacing facing)
+	{
+		return "techreborn:blocks/ore/ore" + types[getMetaFromState(BlockStateContainer)];
+	}
 
-    @Override
-    public int damageDropped(IBlockState state) {
-        int meta = getMetaFromState(state);
-        return meta;
-    }
+	@Override
+	public int amountOfStates()
+	{
+		return types.length;
+	}
 
-    @Override
-    public String getTextureNameFromState(IBlockState BlockStateContainer, EnumFacing facing) {
-        return "techreborn:blocks/ore/ore" + types[getMetaFromState(BlockStateContainer)];
-    }
+	@Override
+	public IBlockState getStateFromMeta(int meta)
+	{
+		return this.getDefaultState().withProperty(METADATA, meta);
+	}
 
-    @Override
-    public int amountOfStates() {
-        return types.length;
-    }
+	@Override
+	public int getMetaFromState(IBlockState state)
+	{
+		return state.getValue(METADATA);
+	}
 
-    @Override
-    public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(METADATA, meta);
-    }
+	protected BlockStateContainer createBlockState()
+	{
 
-    @Override
-    public int getMetaFromState(IBlockState state) {
-        return state.getValue(METADATA);
-    }
+		METADATA = PropertyInteger.create("type", 0, types.length - 1);
+		return new BlockStateContainer(this, METADATA);
+	}
 
-    protected BlockStateContainer createBlockState() {
-
-        METADATA = PropertyInteger.create("type", 0, types.length -1);
-        return new BlockStateContainer(this, METADATA);
-    }
-
-    @Override
-    public String getUserLoclisedName(IBlockState state) {
-        return types[state.getValue(METADATA)];
-    }
+	@Override
+	public String getUserLoclisedName(IBlockState state)
+	{
+		return types[state.getValue(METADATA)];
+	}
 }

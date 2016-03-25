@@ -1,8 +1,8 @@
 package techreborn.manual;
 
-public class Reference 
+public class Reference
 {
-	public static final String CONTENTS_KEY = "techreborn.manual.contents"; 
+	public static final String CONTENTS_KEY = "techreborn.manual.contents";
 	public static final String GETTINGSTARTED_KEY = "techreborn.manual.gettingstarted";
 	public static final String GENERATINGPOWER_KEY = "techreborn.manual.generatingpower";
 	public static final String BASICMACHINES_KEY = "techreborn.manual.basicmachines";
@@ -11,7 +11,6 @@ public class Reference
 
 	public static final String GETTINGRUBBER_KEY = "techreborn.manual.gettingrubber";
 	public static final String CRAFTINGPLATES_KEY = "techreborn.manual.gettingplates";
-
 
 	public class pageNames
 	{

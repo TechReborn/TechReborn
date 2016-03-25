@@ -1,5 +1,8 @@
 package techreborn.blocks;
 
+import java.security.InvalidParameterException;
+import java.util.List;
+
 import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
@@ -15,70 +18,77 @@ import reborncore.common.BaseBlock;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
 
-import java.security.InvalidParameterException;
-import java.util.List;
+public class BlockMachineFrame extends BaseBlock implements ITexturedBlock
+{
+	public static final String[] types = new String[] { "aluminum", "iron", "bronze", "brass", "steel", "titanium",
+			"machine", "advancedMachine" };
+	public PropertyInteger METADATA;
 
-public class BlockMachineFrame extends BaseBlock implements ITexturedBlock {
-    public PropertyInteger METADATA;
+	public BlockMachineFrame(Material material)
+	{
+		super(material);
+		setUnlocalizedName("techreborn.machineFrame");
+		setCreativeTab(TechRebornCreativeTab.instance);
+		setHardness(1f);
+		this.setDefaultState(this.getDefaultState().withProperty(METADATA, 0));
+	}
 
-    public static ItemStack getFrameByName(String name, int count) {
-        for (int i = 0; i < types.length; i++) {
-            if (types[i].equalsIgnoreCase(name)) {
-                return new ItemStack(ModBlocks.machineframe, count, i);
-            }
-        }
-        throw new InvalidParameterException("The part " + name + " could not be found.");
-    }
+	public static ItemStack getFrameByName(String name, int count)
+	{
+		for (int i = 0; i < types.length; i++)
+		{
+			if (types[i].equalsIgnoreCase(name))
+			{
+				return new ItemStack(ModBlocks.machineframe, count, i);
+			}
+		}
+		throw new InvalidParameterException("The part " + name + " could not be found.");
+	}
 
-    public static final String[] types = new String[]
-            {"aluminum", "iron", "bronze", "brass", "steel", "titanium", "machine", "advancedMachine"};
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list)
+	{
+		for (int meta = 0; meta < types.length; meta++)
+		{
+			list.add(new ItemStack(item, 1, meta));
+		}
+	}
 
+	@Override
+	public int damageDropped(IBlockState state)
+	{
+		return super.damageDropped(state);
+	}
 
-    public BlockMachineFrame(Material material) {
-        super(material);
-        setUnlocalizedName("techreborn.machineFrame");
-        setCreativeTab(TechRebornCreativeTab.instance);
-        setHardness(1f);
-        this.setDefaultState(this.getDefaultState().withProperty(METADATA, 0));
-    }
+	@Override
+	public String getTextureNameFromState(IBlockState blockState, EnumFacing facing)
+	{
+		return "techreborn:blocks/machine/machine_blocks/" + types[getMetaFromState(blockState)] + "_machine_block";
+	}
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list) {
-        for (int meta = 0; meta < types.length; meta++) {
-            list.add(new ItemStack(item, 1, meta));
-        }
-    }
+	@Override
+	public int amountOfStates()
+	{
+		return types.length;
+	}
 
+	@Override
+	public int getMetaFromState(IBlockState state)
+	{
+		return state.getValue(METADATA);
+	}
 
-    @Override
-    public int damageDropped(IBlockState state) {
-        return super.damageDropped(state);
-    }
+	protected BlockStateContainer createBlockState()
+	{
 
-    @Override
-    public String getTextureNameFromState(IBlockState blockState, EnumFacing facing) {
-        return "techreborn:blocks/machine/machine_blocks/" + types[getMetaFromState(blockState)] + "_machine_block";
-    }
+		METADATA = PropertyInteger.create("type", 0, types.length - 1);
+		return new BlockStateContainer(this, METADATA);
+	}
 
-    @Override
-    public int amountOfStates() {
-        return types.length;
-    }
-
-    @Override
-    public int getMetaFromState(IBlockState state) {
-        return state.getValue(METADATA);
-    }
-
-    protected BlockStateContainer createBlockState() {
-
-        METADATA = PropertyInteger.create("type", 0, types.length -1);
-        return new BlockStateContainer(this, METADATA);
-    }
-
-    @Override
-    public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(METADATA, meta);
-    }
+	@Override
+	public IBlockState getStateFromMeta(int meta)
+	{
+		return this.getDefaultState().withProperty(METADATA, meta);
+	}
 }

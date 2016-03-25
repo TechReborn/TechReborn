@@ -1,5 +1,9 @@
 package techreborn.api;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
@@ -11,111 +15,127 @@ import net.minecraft.world.World;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+public class RollingMachineRecipe
+{
 
-public class RollingMachineRecipe {
+	public static final RollingMachineRecipe instance = new RollingMachineRecipe();
+	private final List<IRecipe> recipes = new ArrayList<IRecipe>();
 
-    private final List<IRecipe> recipes = new ArrayList<IRecipe>();
+	public void addShapedOreRecipe(ItemStack outputItemStack, Object... objectInputs)
+	{
+		recipes.add(new ShapedOreRecipe(outputItemStack, objectInputs));
+	}
 
-    public static final RollingMachineRecipe instance = new RollingMachineRecipe();
+	public void addShapelessOreRecipe(ItemStack outputItemStack, Object... objectInputs)
+	{
+		recipes.add(new ShapelessOreRecipe(outputItemStack, objectInputs));
+	}
 
-    public  void addShapedOreRecipe(ItemStack outputItemStack,
-                                    Object... objectInputs) {
-        recipes.add(new ShapedOreRecipe(outputItemStack, objectInputs));
-    }
+	public void addRecipe(ItemStack output, Object... components)
+	{
+		String s = "";
+		int i = 0;
+		int j = 0;
+		int k = 0;
+		if (components[i] instanceof String[])
+		{
+			String as[] = (String[]) components[i++];
+			for (int l = 0; l < as.length; l++)
+			{
+				String s2 = as[l];
+				k++;
+				j = s2.length();
+				s = (new StringBuilder()).append(s).append(s2).toString();
+			}
+		} else
+		{
+			while (components[i] instanceof String)
+			{
+				String s1 = (String) components[i++];
+				k++;
+				j = s1.length();
+				s = (new StringBuilder()).append(s).append(s1).toString();
+			}
+		}
+		HashMap hashmap = new HashMap();
+		for (; i < components.length; i += 2)
+		{
+			Character character = (Character) components[i];
+			ItemStack itemstack1 = null;
+			if (components[i + 1] instanceof Item)
+			{
+				itemstack1 = new ItemStack((Item) components[i + 1]);
+			} else if (components[i + 1] instanceof Block)
+			{
+				itemstack1 = new ItemStack((Block) components[i + 1], 1, -1);
+			} else if (components[i + 1] instanceof ItemStack)
+			{
+				itemstack1 = (ItemStack) components[i + 1];
+			}
+			hashmap.put(character, itemstack1);
+		}
 
-    public  void addShapelessOreRecipe(ItemStack outputItemStack,
-                                       Object... objectInputs) {
-        recipes
-                .add(new ShapelessOreRecipe(outputItemStack, objectInputs));
-    }
+		ItemStack recipeArray[] = new ItemStack[j * k];
+		for (int i1 = 0; i1 < j * k; i1++)
+		{
+			char c = s.charAt(i1);
+			if (hashmap.containsKey(Character.valueOf(c)))
+			{
+				recipeArray[i1] = ((ItemStack) hashmap.get(Character.valueOf(c))).copy();
+			} else
+			{
+				recipeArray[i1] = null;
+			}
+		}
 
-    public void addRecipe(ItemStack output, Object... components) {
-        String s = "";
-        int i = 0;
-        int j = 0;
-        int k = 0;
-        if (components[i] instanceof String[]) {
-            String as[] = (String[]) components[i++];
-            for (int l = 0; l < as.length; l++) {
-                String s2 = as[l];
-                k++;
-                j = s2.length();
-                s = (new StringBuilder()).append(s).append(s2).toString();
-            }
-        } else {
-            while (components[i] instanceof String) {
-                String s1 = (String) components[i++];
-                k++;
-                j = s1.length();
-                s = (new StringBuilder()).append(s).append(s1).toString();
-            }
-        }
-        HashMap hashmap = new HashMap();
-        for (; i < components.length; i += 2) {
-            Character character = (Character) components[i];
-            ItemStack itemstack1 = null;
-            if (components[i + 1] instanceof Item) {
-                itemstack1 = new ItemStack((Item) components[i + 1]);
-            } else if (components[i + 1] instanceof Block) {
-                itemstack1 = new ItemStack((Block) components[i + 1], 1, -1);
-            } else if (components[i + 1] instanceof ItemStack) {
-                itemstack1 = (ItemStack) components[i + 1];
-            }
-            hashmap.put(character, itemstack1);
-        }
+		recipes.add(new ShapedRecipes(j, k, recipeArray, output));
+	}
 
-        ItemStack recipeArray[] = new ItemStack[j * k];
-        for (int i1 = 0; i1 < j * k; i1++) {
-            char c = s.charAt(i1);
-            if (hashmap.containsKey(Character.valueOf(c))) {
-                recipeArray[i1] = ((ItemStack) hashmap
-                        .get(Character.valueOf(c))).copy();
-            } else {
-                recipeArray[i1] = null;
-            }
-        }
+	public void addShapelessRecipe(ItemStack output, Object... components)
+	{
+		List<ItemStack> ingredients = new ArrayList<ItemStack>();
+		for (int j = 0; j < components.length; j++)
+		{
+			Object obj = components[j];
+			if (obj instanceof ItemStack)
+			{
+				ingredients.add(((ItemStack) obj).copy());
+				continue;
+			}
+			if (obj instanceof Item)
+			{
+				ingredients.add(new ItemStack((Item) obj));
+				continue;
+			}
+			if (obj instanceof Block)
+			{
+				ingredients.add(new ItemStack((Block) obj));
+			} else
+			{
+				throw new RuntimeException("Invalid shapeless recipe!");
+			}
+		}
 
-        recipes.add(new ShapedRecipes(j, k, recipeArray, output));
-    }
+		recipes.add(new ShapelessRecipes(output, ingredients));
+	}
 
-    public void addShapelessRecipe(ItemStack output, Object... components) {
-        List<ItemStack> ingredients = new ArrayList<ItemStack>();
-        for (int j = 0; j < components.length; j++) {
-            Object obj = components[j];
-            if (obj instanceof ItemStack) {
-                ingredients.add(((ItemStack) obj).copy());
-                continue;
-            }
-            if (obj instanceof Item) {
-                ingredients.add(new ItemStack((Item) obj));
-                continue;
-            }
-            if (obj instanceof Block) {
-                ingredients.add(new ItemStack((Block) obj));
-            } else {
-                throw new RuntimeException("Invalid shapeless recipe!");
-            }
-        }
+	public ItemStack findMatchingRecipe(InventoryCrafting inv, World world)
+	{
+		for (int k = 0; k < recipes.size(); k++)
+		{
+			IRecipe irecipe = (IRecipe) recipes.get(k);
+			if (irecipe.matches(inv, world))
+			{
+				return irecipe.getCraftingResult(inv);
+			}
+		}
 
-        recipes.add(new ShapelessRecipes(output, ingredients));
-    }
+		return null;
+	}
 
-    public ItemStack findMatchingRecipe(InventoryCrafting inv, World world) {
-        for (int k = 0; k < recipes.size(); k++) {
-            IRecipe irecipe = (IRecipe) recipes.get(k);
-            if (irecipe.matches(inv, world)) {
-                return irecipe.getCraftingResult(inv);
-            }
-        }
-
-        return null;
-    }
-
-    public List<IRecipe> getRecipeList() {
-        return recipes;
-    }
+	public List<IRecipe> getRecipeList()
+	{
+		return recipes;
+	}
 
 }

@@ -19,33 +19,42 @@ import techreborn.items.ItemTextureBase;
 /**
  * Created by Mark on 20/03/2016.
  */
-public class ItemDebugTool extends ItemTextureBase implements ITexturedItem {
+public class ItemDebugTool extends ItemTextureBase implements ITexturedItem
+{
 
-    public ItemDebugTool() {
-        setCreativeTab(TechRebornCreativeTabMisc.instance);
-        setUnlocalizedName("techreborn.debug");
-    }
+	public ItemDebugTool()
+	{
+		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setUnlocalizedName("techreborn.debug");
+	}
 
+	@Override
+	public String getTextureName(int damage)
+	{
+		return "techreborn:items/misc/debug";
+	}
 
-    @Override
-    public String getTextureName(int damage) {
-        return "techreborn:items/misc/debug";
-    }
+	@Override
+	public int getMaxMeta()
+	{
+		return 1;
+	}
 
-    @Override
-    public int getMaxMeta() {
-        return 1;
-    }
-
-    @Override
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        TileEntity tile = worldIn.getTileEntity(pos);
-        if(tile instanceof IEnergyInterfaceTile){
-            if(!tile.getWorld().isRemote){
-                playerIn.addChatComponentMessage(new TextComponentString(TextFormatting.GREEN + "Power" + TextFormatting.BLUE + PowerSystem.getLocaliszedPower(((IEnergyInterfaceTile) tile).getEnergy())));
-            }
-            return EnumActionResult.SUCCESS;
-        }
-        return EnumActionResult.FAIL;
-    }
+	@Override
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos,
+			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+	{
+		TileEntity tile = worldIn.getTileEntity(pos);
+		if (tile instanceof IEnergyInterfaceTile)
+		{
+			if (!tile.getWorld().isRemote)
+			{
+				playerIn.addChatComponentMessage(
+						new TextComponentString(TextFormatting.GREEN + "Power" + TextFormatting.BLUE
+								+ PowerSystem.getLocaliszedPower(((IEnergyInterfaceTile) tile).getEnergy())));
+			}
+			return EnumActionResult.SUCCESS;
+		}
+		return EnumActionResult.FAIL;
+	}
 }

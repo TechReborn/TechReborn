@@ -8,26 +8,29 @@ import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import reborncore.RebornCore;
 
-public class BlockFluidBase extends BlockFluidClassic {
+public class BlockFluidBase extends BlockFluidClassic
+{
 
-    public BlockFluidBase(Fluid fluid, Material material) {
-        super(fluid, material);
-        RebornCore.jsonDestroyer.registerObject(this);
-    }
+	public BlockFluidBase(Fluid fluid, Material material)
+	{
+		super(fluid, material);
+		RebornCore.jsonDestroyer.registerObject(this);
+	}
 
+	@Override
+	public boolean canDisplace(IBlockAccess world, BlockPos pos)
+	{
+		if (world.getBlockState(pos).getBlock().getMaterial(world.getBlockState(pos)).isLiquid())
+			return false;
+		return super.canDisplace(world, pos);
+	}
 
-    @Override
-    public boolean canDisplace(IBlockAccess world, BlockPos pos) {
-        if(world.getBlockState(pos).getBlock().getMaterial(world.getBlockState(pos)).isLiquid())
-            return false;
-        return super.canDisplace(world, pos);
-    }
-
-    @Override
-    public boolean displaceIfPossible(World world, BlockPos pos) {
-        if(world.getBlockState(pos).getBlock().getMaterial(world.getBlockState(pos)).isLiquid())
-            return false;
-        return super.displaceIfPossible(world, pos);
-    }
+	@Override
+	public boolean displaceIfPossible(World world, BlockPos pos)
+	{
+		if (world.getBlockState(pos).getBlock().getMaterial(world.getBlockState(pos)).isLiquid())
+			return false;
+		return super.displaceIfPossible(world, pos);
+	}
 
 }

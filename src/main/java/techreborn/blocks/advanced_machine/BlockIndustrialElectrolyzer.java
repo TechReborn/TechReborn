@@ -11,50 +11,60 @@ import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileIndustrialElectrolyzer;
 
-public class BlockIndustrialElectrolyzer extends BlockMachineBase implements IRotationTexture {
+public class BlockIndustrialElectrolyzer extends BlockMachineBase implements IRotationTexture
+{
 
-    public BlockIndustrialElectrolyzer(Material material) {
-        super();
-        setUnlocalizedName("techreborn.industrialelectrolyzer");
-        setCreativeTab(TechRebornCreativeTab.instance);
-    }
+	private final String prefix = "techreborn:blocks/machine/advanced_machines/";
 
-    @Override
-    public TileEntity createNewTileEntity(World world, int p_149915_2_) {
-        return new TileIndustrialElectrolyzer();
-    }
+	public BlockIndustrialElectrolyzer(Material material)
+	{
+		super();
+		setUnlocalizedName("techreborn.industrialelectrolyzer");
+		setCreativeTab(TechRebornCreativeTab.instance);
+	}
 
-    @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-        if (!player.isSneaking())
-            player.openGui(Core.INSTANCE, GuiHandler.industrialElectrolyzerID, world, x, y, z);
-        return true;
-    }
+	@Override
+	public TileEntity createNewTileEntity(World world, int p_149915_2_)
+	{
+		return new TileIndustrialElectrolyzer();
+	}
 
-    private final String prefix = "techreborn:blocks/machine/advanced_machines/";
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
+			float hitY, float hitZ)
+	{
+		if (!player.isSneaking())
+			player.openGui(Core.INSTANCE, GuiHandler.industrialElectrolyzerID, world, x, y, z);
+		return true;
+	}
 
-    @Override
-    public String getFrontOff() {
-        return prefix + "industrial_electrolyzer_front_off";
-    }
+	@Override
+	public String getFrontOff()
+	{
+		return prefix + "industrial_electrolyzer_front_off";
+	}
 
-    @Override
-    public String getFrontOn() {
-        return prefix + "industrial_electrolyzer_front_on";
-    }
+	@Override
+	public String getFrontOn()
+	{
+		return prefix + "industrial_electrolyzer_front_on";
+	}
 
-    @Override
-    public String getSide() {
-        return prefix + "industrial_electrolyzer_front_off";
-    }
+	@Override
+	public String getSide()
+	{
+		return prefix + "industrial_electrolyzer_front_off";
+	}
 
-    @Override
-    public String getTop() {
-        return prefix + "machine_top";
-    }
+	@Override
+	public String getTop()
+	{
+		return prefix + "machine_top";
+	}
 
-    @Override
-    public String getBottom() {
-        return prefix + "machine_bottom";
-    }
+	@Override
+	public String getBottom()
+	{
+		return prefix + "machine_bottom";
+	}
 }

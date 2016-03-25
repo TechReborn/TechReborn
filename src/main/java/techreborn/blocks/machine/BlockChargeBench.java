@@ -11,50 +11,60 @@ import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileChargeBench;
 
-public class BlockChargeBench extends BlockMachineBase implements IRotationTexture {
+public class BlockChargeBench extends BlockMachineBase implements IRotationTexture
+{
 
-    public BlockChargeBench(Material material) {
-        super();
-        setUnlocalizedName("techreborn.chargebench");
-        setCreativeTab(TechRebornCreativeTab.instance);
-    }
+	private final String prefix = "techreborn:blocks/machine/greg_machines/";
 
-    @Override
-    public TileEntity createNewTileEntity(World world, int p_149915_2_) {
-        return new TileChargeBench();
-    }
+	public BlockChargeBench(Material material)
+	{
+		super();
+		setUnlocalizedName("techreborn.chargebench");
+		setCreativeTab(TechRebornCreativeTab.instance);
+	}
 
-    @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-        if (!player.isSneaking())
-            player.openGui(Core.INSTANCE, GuiHandler.chargeBench, world, x, y, z);
-        return true;
-    }
+	@Override
+	public TileEntity createNewTileEntity(World world, int p_149915_2_)
+	{
+		return new TileChargeBench();
+	}
 
-    private final String prefix = "techreborn:blocks/machine/greg_machines/";
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
+			float hitY, float hitZ)
+	{
+		if (!player.isSneaking())
+			player.openGui(Core.INSTANCE, GuiHandler.chargeBench, world, x, y, z);
+		return true;
+	}
 
-    @Override
-    public String getFrontOff() {
-        return prefix + "chargeBench_side";
-    }
+	@Override
+	public String getFrontOff()
+	{
+		return prefix + "chargeBench_side";
+	}
 
-    @Override
-    public String getFrontOn() {
-        return prefix + "chargeBench_side";
-    }
+	@Override
+	public String getFrontOn()
+	{
+		return prefix + "chargeBench_side";
+	}
 
-    @Override
-    public String getSide() {
-        return prefix + "chargeBench_side";
-    }
+	@Override
+	public String getSide()
+	{
+		return prefix + "chargeBench_side";
+	}
 
-    @Override
-    public String getTop() {
-        return prefix + "chargeBench_side";
-    }
+	@Override
+	public String getTop()
+	{
+		return prefix + "chargeBench_side";
+	}
 
-    @Override
-    public String getBottom() {
-        return prefix + "chargeBench_side";
-    }
+	@Override
+	public String getBottom()
+	{
+		return prefix + "chargeBench_side";
+	}
 }

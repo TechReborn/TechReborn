@@ -7,88 +7,97 @@ import reborncore.client.gui.SlotOutput;
 import reborncore.common.container.RebornContainer;
 import techreborn.tiles.TileAlloyFurnace;
 
-public class ContainerAlloyFurnace extends RebornContainer {
+public class ContainerAlloyFurnace extends RebornContainer
+{
 
-    EntityPlayer player;
+	public int tickTime;
+	EntityPlayer player;
+	TileAlloyFurnace tile;
+	int currentItemBurnTime;
+	int burnTime;
+	int cookTime;
+	public ContainerAlloyFurnace(TileAlloyFurnace tileAlloyfurnace, EntityPlayer player)
+	{
+		tile = tileAlloyfurnace;
+		this.player = player;
 
-    TileAlloyFurnace tile;
+		// input
+		this.addSlotToContainer(new Slot(tileAlloyfurnace.inventory, 0, 47, 17));
+		this.addSlotToContainer(new Slot(tileAlloyfurnace.inventory, 1, 65, 17));
+		// outputs
+		this.addSlotToContainer(new SlotOutput(tileAlloyfurnace.inventory, 2, 116, 35));
+		// Fuel
+		this.addSlotToContainer(new Slot(tileAlloyfurnace.inventory, 3, 56, 53));
 
-    @Override
-    public boolean canInteractWith(EntityPlayer player) {
-        return true;
-    }
+		int i;
 
-    public int tickTime;
+		for (i = 0; i < 3; ++i)
+		{
+			for (int j = 0; j < 9; ++j)
+			{
+				this.addSlotToContainer(new Slot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+			}
+		}
 
-    public ContainerAlloyFurnace(TileAlloyFurnace tileAlloyfurnace,
-                                 EntityPlayer player) {
-        tile = tileAlloyfurnace;
-        this.player = player;
+		for (i = 0; i < 9; ++i)
+		{
+			this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18, 142));
+		}
+	}
 
-        // input
-        this.addSlotToContainer(new Slot(tileAlloyfurnace.inventory, 0, 47, 17));
-        this.addSlotToContainer(new Slot(tileAlloyfurnace.inventory, 1, 65, 17));
-        // outputs
-        this.addSlotToContainer(new SlotOutput(tileAlloyfurnace.inventory, 2, 116, 35));
-        // Fuel
-        this.addSlotToContainer(new Slot(tileAlloyfurnace.inventory, 3, 56, 53));
+	@Override
+	public boolean canInteractWith(EntityPlayer player)
+	{
+		return true;
+	}
 
-        int i;
+	@Override
+	public void onCraftGuiOpened(ICrafting crafting)
+	{
+		super.onCraftGuiOpened(crafting);
+		crafting.sendProgressBarUpdate(this, 0, tile.currentItemBurnTime);
+		crafting.sendProgressBarUpdate(this, 1, tile.burnTime);
+		crafting.sendProgressBarUpdate(this, 2, tile.cookTime);
+	}
 
-        for (i = 0; i < 3; ++i) {
-            for (int j = 0; j < 9; ++j) {
-                this.addSlotToContainer(new Slot(player.inventory, j + i * 9
-                        + 9, 8 + j * 18, 84 + i * 18));
-            }
-        }
+	@Override
+	public void detectAndSendChanges()
+	{
+		for (int i = 0; i < this.crafters.size(); i++)
+		{
+			ICrafting crafting = (ICrafting) this.crafters.get(i);
+			if (this.currentItemBurnTime != tile.currentItemBurnTime)
+			{
+				crafting.sendProgressBarUpdate(this, 0, tile.currentItemBurnTime);
+			}
+			if (this.burnTime != tile.burnTime)
+			{
+				crafting.sendProgressBarUpdate(this, 1, tile.burnTime);
+			}
+			if (this.cookTime != tile.cookTime)
+			{
+				crafting.sendProgressBarUpdate(this, 2, tile.cookTime);
+			}
+		}
+		super.detectAndSendChanges();
+	}
 
-        for (i = 0; i < 9; ++i) {
-            this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18,
-                    142));
-        }
-    }
-
-    int currentItemBurnTime;
-    int burnTime;
-    int cookTime;
-
-    @Override
-    public void onCraftGuiOpened(ICrafting crafting) {
-        super.onCraftGuiOpened(crafting);
-        crafting.sendProgressBarUpdate(this, 0, tile.currentItemBurnTime);
-        crafting.sendProgressBarUpdate(this, 1, tile.burnTime);
-        crafting.sendProgressBarUpdate(this, 2, tile.cookTime);
-    }
-
-    @Override
-    public void detectAndSendChanges() {
-        for (int i = 0; i < this.crafters.size(); i++) {
-            ICrafting crafting = (ICrafting) this.crafters.get(i);
-            if (this.currentItemBurnTime != tile.currentItemBurnTime) {
-                crafting.sendProgressBarUpdate(this, 0, tile.currentItemBurnTime);
-            }
-            if (this.burnTime != tile.burnTime) {
-                crafting.sendProgressBarUpdate(this, 1, tile.burnTime);
-            }
-            if (this.cookTime != tile.cookTime) {
-                crafting.sendProgressBarUpdate(this, 2, tile.cookTime);
-            }
-        }
-        super.detectAndSendChanges();
-    }
-
-    @Override
-    public void updateProgressBar(int id, int value) {
-        super.updateProgressBar(id, value);
-        if (id == 0) {
-            this.currentItemBurnTime = value;
-        } else if (id == 1) {
-            this.burnTime = value;
-        } else if (id == 2) {
-            this.cookTime = value;
-        }
-        this.tile.currentItemBurnTime = this.currentItemBurnTime;
-        this.tile.burnTime = this.burnTime;
-        this.tile.cookTime = this.cookTime;
-    }
+	@Override
+	public void updateProgressBar(int id, int value)
+	{
+		super.updateProgressBar(id, value);
+		if (id == 0)
+		{
+			this.currentItemBurnTime = value;
+		} else if (id == 1)
+		{
+			this.burnTime = value;
+		} else if (id == 2)
+		{
+			this.cookTime = value;
+		}
+		this.tile.currentItemBurnTime = this.currentItemBurnTime;
+		this.tile.burnTime = this.burnTime;
+		this.tile.cookTime = this.cookTime;
+	}
 }

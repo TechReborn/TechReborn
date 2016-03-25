@@ -1,6 +1,5 @@
 package techreborn.items.tools;
 
-import me.modmuss50.jsonDestroyer.api.ITexturedBucket;
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,49 +12,53 @@ import reborncore.RebornCore;
 import techreborn.blocks.fluid.BlockFluidBase;
 import techreborn.client.TechRebornCreativeTabMisc;
 
-public class ItemFluidbucket extends ItemBucket implements ITexturedItem {
-    private String iconName;
+public class ItemFluidbucket extends ItemBucket implements ITexturedItem
+{
+	Fluid containedFluid;
+	private String iconName;
 
-    Fluid containedFluid;
+	public ItemFluidbucket(BlockFluidBase block)
+	{
+		super(block);
+		setContainerItem(Items.bucket);
+		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setUnlocalizedName("techreborn.fluidbucket");
+		RebornCore.jsonDestroyer.registerObject(this);
+		containedFluid = block.getFluid();
+	}
 
-    public ItemFluidbucket(BlockFluidBase block) {
-        super(block);
-        setContainerItem(Items.bucket);
-        setCreativeTab(TechRebornCreativeTabMisc.instance);
-        setUnlocalizedName("techreborn.fluidbucket");
-        RebornCore.jsonDestroyer.registerObject(this);
-        containedFluid = block.getFluid();
-    }
+	@Override
+	public Item setUnlocalizedName(String par1Str)
+	{
+		iconName = par1Str;
+		return super.setUnlocalizedName(par1Str);
+	}
 
-    @Override
-    public Item setUnlocalizedName(String par1Str) {
-        iconName = par1Str;
-        return super.setUnlocalizedName(par1Str);
-    }
+	// @Override
+	// public boolean isGas(int damage) {
+	// return false;
+	// }
+	//
+	// @Override
+	// public Fluid getFluid(int damage) {
+	// return containedFluid;
+	// }
 
+	@Override
+	public String getTextureName(int damage)
+	{
+		return "techreborn:items/bucket/" + iconName;
+	}
 
-//    @Override
-//    public boolean isGas(int damage) {
-//        return false;
-//    }
-//
-//    @Override
-//    public Fluid getFluid(int damage) {
-//        return containedFluid;
-//    }
+	@Override
+	public int getMaxMeta()
+	{
+		return 1;
+	}
 
-    @Override
-    public String getTextureName(int damage) {
-        return "techreborn:items/bucket/" + iconName;
-    }
-
-    @Override
-    public int getMaxMeta() {
-        return 1;
-    }
-
-    @Override
-    public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
-        return null;
-    }
+	@Override
+	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining)
+	{
+		return null;
+	}
 }
