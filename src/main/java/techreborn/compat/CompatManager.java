@@ -1,16 +1,14 @@
 package techreborn.compat;
 
-import java.util.ArrayList;
-
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import techreborn.client.render.parts.ClientPartLoader;
-import techreborn.compat.waila.CompatModuleWaila;
 import techreborn.config.ConfigTechReborn;
 import techreborn.parts.StandalonePartCompact;
 import techreborn.parts.TechRebornParts;
-import techreborn.parts.walia.WailaMcMultiPartCompact;
+
+import java.util.ArrayList;
 
 public class CompatManager
 {
@@ -38,7 +36,6 @@ public class CompatManager
 		{
 			isGregTechLoaded = true;
 		}
-		registerCompact(CompatModuleWaila.class, "Waila");
 		// registerCompact(MinetweakerCompat.class, "MineTweaker3");
 		// registerCompact(RecipesBiomesOPlenty.class, "BiomesOPlenty");
 		// registerCompact(RecipesBuildcraft.class, "BuildCraft|Builders");
@@ -46,7 +43,6 @@ public class CompatManager
 		registerCompact(TechRebornParts.class, "mcmultipart");
 		registerCompact(ClientPartLoader.class, "mcmultipart", "@client");
 		registerCompact(StandalonePartCompact.class, "!mcmultipart");
-		registerCompact(WailaMcMultiPartCompact.class, "mcmultipart", "Waila");
 	}
 
 	public void registerCompact(Class<? extends ICompatModule> moduleClass, Object... objs)

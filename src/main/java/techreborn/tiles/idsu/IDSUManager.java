@@ -1,23 +1,19 @@
 package techreborn.tiles.idsu;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.TreeMap;
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
+import java.io.*;
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.TreeMap;
+
 
 public class IDSUManager
 {
@@ -29,12 +25,12 @@ public class IDSUManager
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void worldSave(WorldEvent.Save event)
 	{
-		if (event.world != null && event.world.getSaveHandler() != null
-				&& event.world.getSaveHandler().getWorldDirectory() != null)
+		if (event.getWorld() != null && event.getWorld().getSaveHandler() != null
+				&& event.getWorld().getSaveHandler().getWorldDirectory() != null)
 		{
-			if (worldData.containsKey(event.world))
+			if (worldData.containsKey(event.getWorld()))
 			{
-				worldData.get(event.world).save();
+				worldData.get(event.getWorld()).save();
 			}
 		}
 	}
@@ -42,16 +38,16 @@ public class IDSUManager
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void worldLoad(WorldEvent.Load event)
 	{
-		if (event.world != null && event.world.getSaveHandler() != null
-				&& event.world.getSaveHandler().getWorldDirectory() != null)
+		if (event.getWorld() != null && event.getWorld().getSaveHandler() != null
+				&& event.getWorld().getSaveHandler().getWorldDirectory() != null)
 		{
-			if (worldData.containsKey(event.world))
+			if (worldData.containsKey(event.getWorld()))
 			{
-				worldData.get(event.world).load();
+				worldData.get(event.getWorld()).load();
 			} else
 			{
-				IDSUWorldSaveData worldSaveData = new IDSUWorldSaveData(event.world);
-				worldData.put(event.world, worldSaveData);
+				IDSUWorldSaveData worldSaveData = new IDSUWorldSaveData(event.getWorld());
+				worldData.put(event.getWorld(), worldSaveData);
 				worldSaveData.load();
 			}
 		}
@@ -60,12 +56,12 @@ public class IDSUManager
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void worldClosed(WorldEvent.Unload event)
 	{
-		if (event.world != null && event.world.getSaveHandler() != null
-				&& event.world.getSaveHandler().getWorldDirectory() != null)
+		if (event.getWorld() != null && event.getWorld().getSaveHandler() != null
+				&& event.getWorld().getSaveHandler().getWorldDirectory() != null)
 		{
-			if (worldData.containsKey(event.world))
+			if (worldData.containsKey(event.getWorld()))
 			{
-				worldData.get(event.world).save();
+				worldData.get(event.getWorld()).save();
 			}
 		}
 		// this clears the data ready for a new world

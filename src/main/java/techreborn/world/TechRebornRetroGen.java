@@ -1,10 +1,7 @@
 package techreborn.world;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.Random;
-import java.util.Set;
-
+import com.google.common.base.Objects;
+import com.google.common.collect.Sets;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.ChunkDataEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -13,8 +10,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import reborncore.common.misc.ChunkCoord;
 import techreborn.Core;
 
-import com.google.common.base.Objects;
-import com.google.common.collect.Sets;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Random;
+import java.util.Set;
 
 /**
  * Based off https://github.com/SteamNSteel/SteamNSteel
@@ -27,7 +26,7 @@ public class TechRebornRetroGen
 
 	private boolean isChunkEligibleForRetroGen(ChunkDataEvent.Load event)
 	{
-		return Core.worldGen.config.retroGenOres && event.world.provider.getDimension() == 0
+		return Core.worldGen.config.retroGenOres && event.getWorld().provider.getDimension() == 0
 				&& event.getData().getString(RETROGEN_TAG).isEmpty();
 	}
 

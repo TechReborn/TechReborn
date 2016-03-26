@@ -38,13 +38,13 @@ public class ChargeHud
 			showHud = !showHud;
 		}
 
-		if (event.isCancelable() || event.type != ElementType.ALL)
+		if (event.isCancelable() || event.getType() != ElementType.ALL)
 			return;
 
 		if (mc.inGameHasFocus || (mc.currentScreen != null && mc.gameSettings.showDebugInfo))
 		{
 			if (ConfigTechReborn.ShowChargeHud)
-				drawChargeHud(event.resolution);
+				drawChargeHud(event.getResolution());
 		}
 	}
 
