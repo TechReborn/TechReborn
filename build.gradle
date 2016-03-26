@@ -77,7 +77,7 @@ dependencies {
     }
     compile 'RebornCore:RebornCore-1.9:2.0.2.+:dev'
     deobfCompile "mezz.jei:jei_1.9:3.1.+"
-    deobfCompile 'MCMultiPart:MCMultiPart:1.1.0:universal'
+    deobfCompile 'MCMultiPart:MCMultiPart-experimental:1.1.0_55:universal'
 }
 
 
