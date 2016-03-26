@@ -94,11 +94,8 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 		{
 			TileEntity tileEntity = worldObj.getTileEntity(new BlockPos(getPos().getX() + direction.getFrontOffsetX(),
 					getPos().getY() + direction.getFrontOffsetY(), getPos().getZ() + direction.getFrontOffsetZ()));
-
-
 			if (tileEntity instanceof TileMachineCasing)
 			{
-					System.out.print(((TileMachineCasing) tileEntity).isConnected());
 				if (((TileMachineCasing) tileEntity).isConnected()
 						&& ((TileMachineCasing) tileEntity).getMultiblockController().isAssembled())
 				{

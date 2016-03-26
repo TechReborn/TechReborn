@@ -238,7 +238,6 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase
 	@Override
 	protected void onBlockAdded(IMultiblockPart newPart)
 	{
-
 	}
 
 	@Override
