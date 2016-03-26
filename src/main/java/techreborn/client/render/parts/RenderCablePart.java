@@ -31,14 +31,6 @@ public class RenderCablePart implements IBakedModel
 	public void addCubeToList(Vecs3dCube cube, ArrayList<BakedQuad> list, BlockPartFace face,
 			ModelRotation modelRotation, TextureAtlasSprite cubeTexture)
 	{
-		System.out.print(" Max X:"  + cube.getMaxX());
-		System.out.print(" Min X:"  + cube.getMinX());
-
-		System.out.print(" Max Y:"  + cube.getMaxY());
-		System.out.print(" Min Y:"  + cube.getMinY());
-
-		System.out.print(" Max Z:"  + cube.getMaxZ());
-		System.out.print(" Min Z:"  + cube.getMinZ());
 		BlockFaceUV uv = new BlockFaceUV(new float[] { (float) cube.getMinX(), (float) cube.getMinY(),
 				(float) cube.getMaxX(), (float) cube.getMaxY() }, 0);
 		face = new BlockPartFace(null, 0, "", uv);
@@ -52,7 +44,7 @@ public class RenderCablePart implements IBakedModel
 				EnumFacing.UP, modelRotation, null, true, true));// up
 		list.add(faceBakery.makeBakedQuad(
 				new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMinZ()),
-				new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMinZ()), face, cubeTexture,
+				new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture,
 				EnumFacing.NORTH, modelRotation, null, true, true));// north
 		list.add(faceBakery.makeBakedQuad(
 				new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMaxZ()),
@@ -97,13 +89,13 @@ public class RenderCablePart implements IBakedModel
 			}
 			if (state.getValue(CableMultipart.NORTH))
 			{
-				addCubeToList(new Vecs3dCube(thickness, thickness, lastThickness, lastThickness, lastThickness, 16.0),
-						list, face, ModelRotation.X0_Y0, texture);
+				addCubeToList(new Vecs3dCube(thickness, thickness, 0.0, lastThickness, lastThickness, thickness), list,
+						face, ModelRotation.X0_Y0, texture);
 			}
 			if (state.getValue(CableMultipart.SOUTH))
 			{
-				addCubeToList(new Vecs3dCube(thickness, thickness, 0.0, lastThickness , lastThickness, thickness), list,
-						face, ModelRotation.X0_Y0, texture);
+				addCubeToList(new Vecs3dCube(thickness, thickness, lastThickness, lastThickness, lastThickness, 16.0),
+						list, face, ModelRotation.X0_Y0, texture);
 			}
 			if (state.getValue(CableMultipart.EAST))
 			{
