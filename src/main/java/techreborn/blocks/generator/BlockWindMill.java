@@ -24,6 +24,7 @@ public class BlockWindMill extends BaseTileBlock implements ITexturedBlock
 		super(Material.iron);
 		setUnlocalizedName("techreborn.windmill");
 		setCreativeTab(TechRebornCreativeTab.instance);
+		setHardness(2.0F);
 		RebornCore.jsonDestroyer.registerObject(this);
 	}
 

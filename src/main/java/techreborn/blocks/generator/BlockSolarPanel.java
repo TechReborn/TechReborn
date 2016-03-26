@@ -27,6 +27,7 @@ public class BlockSolarPanel extends BaseTileBlock implements ITexturedBlock
 		setUnlocalizedName("techreborn.solarpanel");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		this.setDefaultState(this.getDefaultState().withProperty(ACTIVE, false));
+		setHardness(2.0F);
 	}
 
 	protected BlockStateContainer createBlockState()
