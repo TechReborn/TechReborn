@@ -33,7 +33,7 @@ public class ClientPartModelBakery
 	{
 		for (EnumCableType type : EnumCableType.values())
 		{
-			event.map.registerSprite(new ResourceLocation(type.textureName));
+			event.getMap().registerSprite(new ResourceLocation(type.textureName));
 		}
 	}
 

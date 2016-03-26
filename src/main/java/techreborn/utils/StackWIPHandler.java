@@ -1,12 +1,12 @@
 package techreborn.utils;
 
-import java.util.ArrayList;
-
 import net.minecraft.block.Block;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import techreborn.init.ModBlocks;
+
+import java.util.ArrayList;
 
 /**
  * Created by Mark on 23/03/2016.
@@ -28,10 +28,10 @@ public class StackWIPHandler
 	@SubscribeEvent
 	public void toolTip(ItemTooltipEvent event)
 	{
-		Block block = Block.getBlockFromItem(event.itemStack.getItem());
+		Block block = Block.getBlockFromItem(event.getItemStack().getItem());
 		if (block != null && wipBlocks.contains(block))
 		{
-			event.toolTip.add(TextFormatting.RED + "WIP Coming Soon");
+			event.getToolTip().add(TextFormatting.RED + "WIP Coming Soon");
 		}
 	}
 }

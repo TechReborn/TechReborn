@@ -23,16 +23,16 @@ public class StackToolTipEvent
 	@SubscribeEvent
 	public void handleItemTooltipEvent(ItemTooltipEvent event)
 	{
-		if (event.itemStack.getItem() instanceof IListInfoProvider)
+		if (event.getItemStack().getItem() instanceof IListInfoProvider)
 		{
-			((IListInfoProvider) event.itemStack.getItem()).addInfo(event.toolTip, false);
-		} else if (event.itemStack.getItem() instanceof IEnergyInterfaceItem)
+			((IListInfoProvider) event.getItemStack().getItem()).addInfo(event.getToolTip(), false);
+		} else if (event.getItemStack().getItem() instanceof IEnergyInterfaceItem)
 		{
 			if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT))
 			{
 				int percentage = percentage(
-						(int) ((IEnergyInterfaceItem) event.itemStack.getItem()).getMaxPower(event.itemStack),
-						(int) ((IEnergyInterfaceItem) event.itemStack.getItem()).getEnergy(event.itemStack));
+						(int) ((IEnergyInterfaceItem) event.getItemStack().getItem()).getMaxPower(event.getItemStack()),
+						(int) ((IEnergyInterfaceItem) event.getItemStack().getItem()).getEnergy(event.getItemStack()));
 				ChatFormatting color;
 				if (percentage <= 10)
 				{
@@ -44,25 +44,25 @@ public class StackToolTipEvent
 				{
 					color = ChatFormatting.YELLOW;
 				}
-				event.toolTip.add(color + ""
+				event.getToolTip().add(color + ""
 						+ PowerSystem.getLocaliszedPower(
-								(int) ((IEnergyInterfaceItem) event.itemStack.getItem()).getEnergy(event.itemStack))
+								(int) ((IEnergyInterfaceItem) event.getItemStack().getItem()).getEnergy(event.getItemStack()))
 						+ ChatFormatting.LIGHT_PURPLE + " stored");
-				event.toolTip.add(Color.GREEN + ""
+				event.getToolTip().add(Color.GREEN + ""
 						+ PowerSystem.getLocaliszedPower(
-								(int) ((IEnergyInterfaceItem) event.itemStack.getItem()).getMaxPower(event.itemStack))
+								(int) ((IEnergyInterfaceItem) event.getItemStack().getItem()).getMaxPower(event.getItemStack()))
 						+ ChatFormatting.LIGHT_PURPLE + " max");
-				event.toolTip
+				event.getToolTip()
 						.add(ChatFormatting.GREEN + "" + percentage + "%" + ChatFormatting.LIGHT_PURPLE + " charged");
-				event.toolTip.add(Color.GREEN + "" + PowerSystem.getLocaliszedPower(
-						(int) ((IEnergyInterfaceItem) event.itemStack.getItem()).getMaxTransfer(event.itemStack))
+				event.getToolTip().add(Color.GREEN + "" + PowerSystem.getLocaliszedPower(
+						(int) ((IEnergyInterfaceItem) event.getItemStack().getItem()).getMaxTransfer(event.getItemStack()))
 						+ ChatFormatting.LIGHT_PURPLE + " /tick in/out");
 			}
 		} else
 		{
 			try
 			{
-				Block block = Block.getBlockFromItem(event.itemStack.getItem());
+				Block block = Block.getBlockFromItem(event.getItemStack().getItem());
 				if (block != null && block instanceof BlockContainer
 						&& block.getClass().getCanonicalName().startsWith("techreborn."))
 				{
@@ -70,12 +70,12 @@ public class StackToolTipEvent
 							block.getDefaultState());
 					if (tile instanceof IListInfoProvider)
 					{
-						((IListInfoProvider) tile).addInfo(event.toolTip, false);
+						((IListInfoProvider) tile).addInfo(event.getToolTip(), false);
 					}
 				}
 			} catch (NullPointerException e)
 			{
-				Core.logHelper.debug("Failed to load info for " + event.itemStack.getDisplayName());
+				Core.logHelper.debug("Failed to load info for " + event.getItemStack().getDisplayName());
 			}
 		}
 	}

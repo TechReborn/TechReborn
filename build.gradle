@@ -1,3 +1,5 @@
+import scala.tools.nsc.io.Jar
+
 buildscript {
     repositories {
         mavenCentral()
@@ -76,7 +78,7 @@ dependencies {
         f.mkdir()
     }
     compile 'RebornCore:RebornCore-1.9:2.0.0.+:dev'
-    deobfCompile "mezz.jei:jei_1.9:3.0.+"
+    deobfCompile "mezz.jei:jei_1.9:3.1.+"
     deobfCompile 'MCMultiPart:MCMultiPart:1.1.0:universal'
 }
 
