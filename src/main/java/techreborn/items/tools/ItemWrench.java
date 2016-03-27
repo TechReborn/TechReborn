@@ -24,10 +24,13 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import reborncore.common.tile.TileMachineBase;
+import techreborn.blocks.storage.BlockBatBox;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.items.ItemTR;
 import techreborn.lib.ModInfo;
 import ic2.api.tile.IWrenchable;
+import techreborn.tiles.storage.TileBatBox;
 
 /**
  * Created by modmuss50 on 26/02/2016.
@@ -43,10 +46,8 @@ public class ItemWrench extends ItemTR implements ITexturedItem
 	}
 
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand,
-			EnumFacing facing, float hitX, float hitY, float hitZ)
-	{
-		if (world.isAirBlock(pos) || !player.isSneaking())
+	public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+		if (world.isAirBlock(pos))
 		{
 			return EnumActionResult.FAIL;
 		}
@@ -55,80 +56,117 @@ public class ItemWrench extends ItemTR implements ITexturedItem
 		{
 			return EnumActionResult.FAIL;
 		}
-		if (!(tile instanceof IInventory))
+
+		if(!player.isSneaking()){
+			if(tile instanceof TileBatBox){
+				tile.getWorld().setBlockState(tile.getPos(), tile.getWorld().getBlockState(pos).withProperty(BlockBatBox.FACING, side.getOpposite()));
+				return EnumActionResult.SUCCESS;
+			} else
+			if(tile instanceof TileMachineBase){
+				if(side != EnumFacing.DOWN && side != EnumFacing.UP){
+					((TileMachineBase) tile).setFacing(side);
+					return EnumActionResult.SUCCESS;
+				}
+			}
+		}
+		return super.onItemUseFirst(stack, player, world, pos, side, hitX, hitY, hitZ, hand);
+	}
+
+	@Override
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand,
+			EnumFacing facing, float hitX, float hitY, float hitZ)
+	{
+		if (world.isAirBlock(pos))
+		{
+			return EnumActionResult.FAIL;
+		}
+		TileEntity tile = world.getTileEntity(pos);
+		if (tile == null)
 		{
 			return EnumActionResult.FAIL;
 		}
 
-		List<ItemStack> items = new ArrayList<ItemStack>();
-		IInventory inventory = (IInventory) tile;
-		for (int i = 0; i < inventory.getSizeInventory(); i++)
+		if (player.isSneaking())
 		{
-			ItemStack itemStack = inventory.getStackInSlot(i);
-
-			if (itemStack == null)
+			List<ItemStack> items = new ArrayList<ItemStack>();
+			if (tile instanceof IInventory)
 			{
-				continue;
-			}
-			if (itemStack != null && itemStack.stackSize > 0)
-			{
-				if (itemStack.getItem() instanceof ItemBlock)
+				IInventory inventory = (IInventory) tile;
+				for (int i = 0; i < inventory.getSizeInventory(); i++)
 				{
-					if (((ItemBlock) itemStack.getItem()).block instanceof BlockFluidBase
-							|| ((ItemBlock) itemStack.getItem()).block instanceof BlockStaticLiquid
-							|| ((ItemBlock) itemStack.getItem()).block instanceof BlockDynamicLiquid)
+					ItemStack itemStack = inventory.getStackInSlot(i);
+
+					if (itemStack == null)
 					{
 						continue;
 					}
+					if (itemStack != null && itemStack.stackSize > 0)
+					{
+						if (itemStack.getItem() instanceof ItemBlock)
+						{
+							if (((ItemBlock) itemStack.getItem()).block instanceof BlockFluidBase
+									|| ((ItemBlock) itemStack.getItem()).block instanceof BlockStaticLiquid
+									|| ((ItemBlock) itemStack.getItem()).block instanceof BlockDynamicLiquid)
+							{
+								continue;
+							}
+						}
+					}
+					items.add(itemStack.copy());
 				}
 			}
-			items.add(itemStack.copy());
-		}
 
-		if (tile instanceof IWrenchable)
-		{
-			if (((IWrenchable) tile).wrenchCanRemove(player))
+			if (tile instanceof IWrenchable)
 			{
-				ItemStack itemStack = ((IWrenchable) tile).getWrenchDrop(player);
-				if (itemStack == null)
+				if (((IWrenchable) tile).wrenchCanRemove(player))
 				{
-					return EnumActionResult.FAIL;
+					ItemStack itemStack = ((IWrenchable) tile).getWrenchDrop(player);
+					if (itemStack == null)
+					{
+						return EnumActionResult.FAIL;
+					}
+					items.add(itemStack);
 				}
-				items.add(itemStack);
-			}
-			for (ItemStack itemStack : items)
-			{
-				Random rand = new Random();
-
-				float dX = rand.nextFloat() * 0.8F + 0.1F;
-				float dY = rand.nextFloat() * 0.8F + 0.1F;
-				float dZ = rand.nextFloat() * 0.8F + 0.1F;
-
-				EntityItem entityItem = new EntityItem(world, pos.getX() + dX, pos.getY() + dY, pos.getZ() + dZ,
-						itemStack.copy());
-
-				if (itemStack.hasTagCompound())
+				if (!items.isEmpty())
 				{
-					entityItem.getEntityItem().setTagCompound((NBTTagCompound) itemStack.getTagCompound().copy());
+					for (ItemStack itemStack : items)
+					{
+						Random rand = new Random();
+
+						float dX = rand.nextFloat() * 0.8F + 0.1F;
+						float dY = rand.nextFloat() * 0.8F + 0.1F;
+						float dZ = rand.nextFloat() * 0.8F + 0.1F;
+
+						EntityItem entityItem = new EntityItem(world, pos.getX() + dX, pos.getY() + dY, pos.getZ() + dZ,
+								itemStack.copy());
+
+						if (itemStack.hasTagCompound())
+						{
+							entityItem.getEntityItem()
+									.setTagCompound((NBTTagCompound) itemStack.getTagCompound().copy());
+						}
+
+						float factor = 0.05F;
+						entityItem.motionX = rand.nextGaussian() * factor;
+						entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
+						entityItem.motionZ = rand.nextGaussian() * factor;
+						if (!world.isRemote)
+						{
+							world.spawnEntityInWorld(entityItem);
+						}
+					}
 				}
 
-				float factor = 0.05F;
-				entityItem.motionX = rand.nextGaussian() * factor;
-				entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
-				entityItem.motionZ = rand.nextGaussian() * factor;
+				// TODO 1.9 sounds
+				// world.playSoundAtEntity(player, "techreborn:block_dismantle",
+				// 0.8F, 1F);
 				if (!world.isRemote)
 				{
-					world.spawnEntityInWorld(entityItem);
+					world.setBlockState(pos, Blocks.air.getDefaultState(), 2);
 				}
+				return EnumActionResult.SUCCESS;
 			}
-			// TODO 1.9 sounds
-			// world.playSoundAtEntity(player, "techreborn:block_dismantle",
-			// 0.8F, 1F);
-			if (!world.isRemote)
-			{
-				world.setBlockState(pos, Blocks.air.getDefaultState(), 2);
-			}
-			return EnumActionResult.SUCCESS;
+
 		}
 		return EnumActionResult.FAIL;
 	}
