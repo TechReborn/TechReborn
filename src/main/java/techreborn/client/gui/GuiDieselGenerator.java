@@ -13,7 +13,7 @@ public class GuiDieselGenerator extends GuiContainer
 {
 
 	private static final ResourceLocation texture = new ResourceLocation("techreborn",
-			"textures/gui/ThermalGenerator.png");
+			"textures/gui/diesel_generator.png");
 
 	TileDieselGenerator tile;
 
