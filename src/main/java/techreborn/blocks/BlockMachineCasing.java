@@ -90,7 +90,8 @@ public class BlockMachineCasing extends BlockMultiblockBase implements ITextured
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return super.damageDropped(state);
+		int meta = getMetaFromState(state);
+		return meta;
 	}
 
 	@Override
@@ -122,5 +123,4 @@ public class BlockMachineCasing extends BlockMultiblockBase implements ITextured
 	{
 		return types.length;
 	}
-
 }
