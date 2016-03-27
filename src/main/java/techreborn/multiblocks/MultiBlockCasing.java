@@ -1,6 +1,7 @@
 package techreborn.multiblocks;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -11,6 +12,7 @@ import reborncore.common.multiblock.MultiblockControllerBase;
 import reborncore.common.multiblock.MultiblockValidationException;
 import reborncore.common.multiblock.rectangular.RectangularMultiblockControllerBase;
 import reborncore.common.multiblock.rectangular.RectangularMultiblockTileEntityBase;
+import techreborn.init.ModBlocks;
 
 public class MultiBlockCasing extends RectangularMultiblockControllerBase
 {
@@ -32,7 +34,6 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase
 			isMachineWhole();
 		} catch (MultiblockValidationException e)
 		{
-			System.out.println(e.getLocalizedMessage());
 			e.printStackTrace();
 			value = e.getLocalizedMessage();
 		}
@@ -365,6 +366,7 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase
 	{
 		Block block = world.getBlockState(new BlockPos(x, y, z)).getBlock();
 
+		System.out.println(block);
 		if (block.isAir(world.getBlockState(new BlockPos(x, y, z)), world, new BlockPos(x, y, z)))
 		{
 
@@ -377,112 +379,18 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase
 		}
 	}
 
-	// /**
-	// * This is horrible code, don't look at this
-	// *
-	// * @param x
-	// * @param y
-	// * @param z
-	// * @return
-	// */
-	//
-	// public boolean checkIfStarShape(int x, int y, int z) {
-	// boolean isSolid = true;
-	//
-	// TileEntity te;
-	// {//corners
-	// te = this.worldObj.getTileEntity(x, y, z);
-	// isSolid = checkTeIsCorner(te);
-	// if (!isSolid) {
-	// return false;
-	// }
-	//
-	// te = this.worldObj.getTileEntity(x + 2, y, z);
-	// isSolid = checkTeIsCorner(te);
-	// if (!isSolid) {
-	// return false;
-	// }
-	//
-	// te = this.worldObj.getTileEntity(x, y, z + 2);
-	// isSolid = checkTeIsCorner(te);
-	// if (!isSolid) {
-	// return false;
-	// }
-	//
-	// te = this.worldObj.getTileEntity(x + 2, y, z + 2);
-	// isSolid = checkTeIsCorner(te);
-	// if (!isSolid) {
-	// return false;
-	// }
-	//
-	// te = this.worldObj.getTileEntity(x, y + 2, z);
-	// isSolid = checkTeIsCorner(te);
-	// if (!isSolid) {
-	// return false;
-	// }
-	//
-	// te = this.worldObj.getTileEntity(x + 2, y + 2, z);
-	// isSolid = checkTeIsCorner(te);
-	// if (!isSolid) {
-	// return false;
-	// }
-	//
-	// te = this.worldObj.getTileEntity(x, y + 2, z + 2);
-	// isSolid = checkTeIsCorner(te);
-	// if (!isSolid) {
-	// return false;
-	// }
-	//
-	// te = this.worldObj.getTileEntity(x + 2, y + 2, z + 2);
-	// isSolid = checkTeIsCorner(te);
-	// if (!isSolid) {
-	// return false;
-	// }
-	// }
-	// {//middle blocks
-	// for (int i = 0; i < 3; i++) {
-	// System.out.println(this.worldObj.getBlock(x, y - 1, z));
-	// te = this.worldObj.getTileEntity(x + 1, y + i, z);
-	// isSolid = checkTeIsCenter(te);
-	// if (!isSolid) {
-	// return false;
-	// }
-	// te = this.worldObj.getTileEntity(x, y + i, z + 1);
-	// isSolid = checkTeIsCenter(te);
-	// if (!isSolid) {
-	// return false;
-	// }
-	//
-	// te = this.worldObj.getTileEntity(x + 1, y + i, z + 1);
-	// isSolid = checkTeIsCenter(te);
-	// if (!isSolid) {
-	// return false;
-	// }
-	//
-	// te = this.worldObj.getTileEntity(x + 2, y + i, z + 1);
-	// isSolid = checkTeIsCenter(te);
-	// if (!isSolid) {
-	// return false;
-	// }
-	//
-	// te = this.worldObj.getTileEntity(x + 1, y + i, z + 2);
-	// isSolid = checkTeIsCenter(te);
-	// if (!isSolid) {
-	// return false;
-	// }
-	// }
-	// }
-	// return isSolid;
-	// }
-	//
-	// public boolean checkTeIsCorner(TileEntity te) {
-	// return (te.blockType instanceof BlockMachineCasing && te.blockMetadata ==
-	// 0);
-	// }
-	//
-	// public boolean checkTeIsCenter(TileEntity te) {
-	// return (te.blockType instanceof BlockMachineCasing && te.blockMetadata ==
-	// 1);
-	// }
+	@Override
+	protected void isBlockGoodForFrame(World world, int x, int y, int z) throws MultiblockValidationException
+	{
+		Block block = world.getBlockState(new BlockPos(x, y, z)).getBlock();
+		world.setBlockState(new BlockPos(x, y, z), Blocks.bedrock.getDefaultState(), 3);
+		if (block == ModBlocks.MachineCasing)
+		{
+
+		} else
+		{
+			super.isBlockGoodForFrame(world, x, y, z);
+		}
+	}
 
 }
