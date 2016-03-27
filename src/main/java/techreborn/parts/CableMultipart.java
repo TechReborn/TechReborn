@@ -399,8 +399,8 @@ public abstract class CableMultipart extends Multipart
 					}
 					if (ConfigTechReborn.UninsulatedElectocutionSound)
 					{
-						getWorld().playSound(entity.posX, entity.posY, entity.posZ, ModSounds.shock,
-								SoundCategory.BLOCKS, 0.6F, 1F, false);
+//						getWorld().playSound(entity.posX, entity.posY, entity.posZ, ModSounds.shock,
+//								SoundCategory.BLOCKS, 0.6F, 1F, false);
 					}
 					if (ConfigTechReborn.UninsulatedElectocutionParticle)
 					{
