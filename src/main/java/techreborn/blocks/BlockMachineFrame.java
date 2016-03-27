@@ -58,7 +58,8 @@ public class BlockMachineFrame extends BaseBlock implements ITexturedBlock
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		return super.damageDropped(state);
+		int meta = getMetaFromState(state);
+		return meta;
 	}
 
 	@Override
