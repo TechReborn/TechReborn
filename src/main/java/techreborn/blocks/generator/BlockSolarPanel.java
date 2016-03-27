@@ -1,12 +1,15 @@
 package techreborn.blocks.generator;
 
 import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.common.BaseTileBlock;
 import techreborn.client.TechRebornCreativeTab;
@@ -52,6 +55,31 @@ public class BlockSolarPanel extends BaseTileBlock implements ITexturedBlock
 	public TileEntity createNewTileEntity(World worldIn, int meta)
 	{
 		return new TileSolarPanel();
+	}
+
+	@Override public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+	{
+		if(worldIn.canBlockSeeSky(pos.up()) && !worldIn.isRaining() && !worldIn.isThundering()
+				&& worldIn.isDaytime()){
+			worldIn.setBlockState(pos,
+					worldIn.getBlockState(pos).withProperty(BlockSolarPanel.ACTIVE, true));
+		}else{
+
+			worldIn.setBlockState(pos,
+					worldIn.getBlockState(pos).withProperty(BlockSolarPanel.ACTIVE, false));
+		}
+	}
+
+	@Override public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY,
+			float hitZ, int meta, EntityLivingBase placer)
+	{
+		if(worldIn.canBlockSeeSky(pos.up()) && !worldIn.isRaining() && !worldIn.isThundering()
+				&& worldIn.isDaytime()){
+				return	this.getDefaultState().withProperty(ACTIVE, true);
+
+		}else{
+			return	this.getDefaultState().withProperty(ACTIVE, false);
+		}
 	}
 
 	@Override

@@ -1,11 +1,10 @@
 package techreborn.tiles.generator;
 
-import java.util.List;
-
 import net.minecraft.util.EnumFacing;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-import techreborn.blocks.generator.BlockSolarPanel;
+
+import java.util.List;
 
 /**
  * Created by modmuss50 on 25/02/2016.
@@ -39,13 +38,6 @@ public class TileSolarPanel extends TilePowerAcceptor
 		{
 			powerToAdd = 0;
 		}
-		if (shouldMakePower != lastTickSate)
-		{
-			if (worldObj != null)
-				worldObj.setBlockState(pos,
-						worldObj.getBlockState(pos).withProperty(BlockSolarPanel.ACTIVE, shouldMakePower));
-		}
-		lastTickSate = shouldMakePower;
 	}
 
 	@Override
