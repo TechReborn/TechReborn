@@ -10,7 +10,7 @@ public class ItemAdvancedDrill extends ItemDrill
 	public ItemAdvancedDrill()
 	{
 		super(ToolMaterial.DIAMOND, "techreborn.advancedDrill", ConfigTechReborn.AdvancedDrillCharge,
-				ConfigTechReborn.AdvancedDrillTier, 4.0F);
+				ConfigTechReborn.AdvancedDrillTier, 4.0F, 20F);
 		this.cost = 250;
 	}
 

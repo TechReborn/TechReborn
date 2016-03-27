@@ -1,11 +1,11 @@
 package techreborn.items.tools;
 
-import java.util.List;
-
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -25,6 +25,9 @@ import reborncore.common.util.TorchHelper;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 import techreborn.utils.OreDictUtils;
+
+import java.util.List;
+import java.util.Random;
 
 public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo, ITexturedItem
 {
@@ -47,17 +50,16 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo, ITex
 		this.tier = tier;
 	}
 
-	// @Override
-	// public boolean onBlockDestroyed(ItemStack stack, World worldIn, Block
-	// blockIn, BlockPos pos, EntityLivingBase playerIn) {
-	// Random rand = new Random();
-	// if
-	// (rand.nextInt(EnchantmentHelper.getEnchantmentLevel(Enchantment.unbreaking.effectId,
-	// stack) + 1) == 0) {
-	// PoweredItem.useEnergy(cost, stack);
-	// }
-	// return true;
-	// }
+	@Override public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState blockIn, BlockPos pos,
+			EntityLivingBase entityLiving)
+	{
+		Random rand = new Random();
+		if (rand.nextInt(EnchantmentHelper.getEnchantmentLevel(Enchantment.getEnchantmentByID(34), stack) + 1) == 0)
+		{
+			PoweredItem.useEnergy(cost, stack);
+		}
+		return true;
+	}
 
 	@Override
 	public boolean canHarvestBlock(IBlockState state)
@@ -70,15 +72,15 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo, ITex
 		return false;
 	}
 
-	// @Override
-	// public float getDigSpeed(ItemStack stack, IBlockState state) {
-	// if (OreDictUtils.isOre(state, "stone") && PoweredItem.canUseEnergy(cost,
-	// stack)) {
-	// return efficiencyOnProperMaterial;
-	// } else {
-	// return 0.5F;
-	// }
-	// }
+	 @Override
+	 public float getStrVsBlock(ItemStack stack, IBlockState state) {
+	 if (OreDictUtils.isOre(state, "stone") && PoweredItem.canUseEnergy(cost,
+	 stack)) {
+	 return efficiencyOnProperMaterial;
+	 } else {
+	 return 0.5F;
+	 }
+	 }
 
 	@Override
 	public boolean hitEntity(ItemStack itemstack, EntityLivingBase entityliving, EntityLivingBase entityliving1)

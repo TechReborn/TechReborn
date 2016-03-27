@@ -1,14 +1,13 @@
 package techreborn.manual.util;
 
-import java.awt.*;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
-
 import org.lwjgl.opengl.GL11;
+
+import java.awt.*;
 
 public class GuiButtonItemTexture extends GuiButtonExt
 {
@@ -39,13 +38,13 @@ public class GuiButtonItemTexture extends GuiButtonExt
 			mc.getTextureManager().bindTexture(buttonTextures);
 			int u = textureU;
 			int v = textureV;
-
 			if (flag)
 			{
-				u += width;
+				u += mc.fontRendererObj.getStringWidth(this.NAME) + 25;
+				v += mc.fontRendererObj.getStringWidth(this.NAME) + 25;
 				GL11.glPushMatrix();
 				GL11.glColor4f(0f, 0f, 0f, 1f);
-				this.drawTexturedModalRect(this.xPosition, this.yPosition, u, v, width, height);
+				this.drawTexturedModalRect(this.xPosition, this.yPosition, u, v, mc.fontRendererObj.getStringWidth(this.NAME) + 25, height);
 				GL11.glPopMatrix();
 			}
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

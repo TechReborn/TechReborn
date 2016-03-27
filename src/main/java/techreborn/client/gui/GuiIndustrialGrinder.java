@@ -17,6 +17,7 @@ public class GuiIndustrialGrinder extends GuiContainer
 	TileIndustrialGrinder grinder;
 	ContainerIndustrialGrinder containerGrinder;
 
+	boolean hasMultiBlock;
 	public GuiIndustrialGrinder(EntityPlayer player, TileIndustrialGrinder tilegrinder)
 	{
 		super(new ContainerIndustrialGrinder(tilegrinder, player));
@@ -25,7 +26,12 @@ public class GuiIndustrialGrinder extends GuiContainer
 		grinder = tilegrinder;
 		containerGrinder = (ContainerIndustrialGrinder) this.inventorySlots;
 	}
+	@Override
+	public void initGui()
+	{
+		hasMultiBlock = containerGrinder.connectionStatus != 1;
 
+	}
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_)
 	{
@@ -36,7 +42,12 @@ public class GuiIndustrialGrinder extends GuiContainer
 		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
 
 		int j = 0;
-
+		if (hasMultiBlock)
+		{
+			// GuiDraw.drawTooltipBox(k + 30, l + 50 + 12 - j, 114, 10);
+			this.fontRendererObj.drawString(I18n.translateToLocal("techreborn.message.missingmultiblock"), k + 38,
+					l + 52 + 12 - j, -1);
+		}
 		j = grinder.getProgressScaled(24);
 		if (j > 0)
 		{
@@ -49,12 +60,7 @@ public class GuiIndustrialGrinder extends GuiContainer
 			this.drawTexturedModalRect(k + 132, l + 63 + 12 - j, 176, 12 - j, 14, j + 2);
 		}
 
-		if (containerGrinder.connectionStatus != 1)
-		{
-			// GuiDraw.drawTooltipBox(k + 30, l + 50 + 12 - j, 114, 10);
-			this.fontRendererObj.drawString(I18n.translateToLocal("techreborn.message.missingmultiblock"), k + 38,
-					l + 52 + 12 - j, -1);
-		}
+
 
 		// TODO 1.8 nope
 		// if (grinder.tank.getFluidAmount() != 0) {

@@ -1,7 +1,5 @@
 package techreborn.manual;
 
-import java.io.IOException;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -10,22 +8,15 @@ import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
-
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
 import techreborn.items.ItemParts;
 import techreborn.items.ItemPlates;
-import techreborn.manual.pages.AdvancedMachines;
-import techreborn.manual.pages.BasicMachinesPage;
-import techreborn.manual.pages.ContentsPage;
-import techreborn.manual.pages.CraftingInfoPage;
-import techreborn.manual.pages.DescriptionPage;
-import techreborn.manual.pages.GeneratingPowerPage;
-import techreborn.manual.pages.GettingStartedPage;
-import techreborn.manual.pages.ToolsPage;
+import techreborn.manual.pages.*;
+
+import java.io.IOException;
 
 @SideOnly(Side.CLIENT)
 public class GuiManual extends GuiScreen
@@ -40,7 +31,7 @@ public class GuiManual extends GuiScreen
 
 	public GuiManual()
 	{
-		this.xSize = 146;
+		this.xSize = 200;
 		this.ySize = 180;
 		root = createRoot();
 	}
