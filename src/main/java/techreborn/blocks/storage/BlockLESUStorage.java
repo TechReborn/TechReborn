@@ -1,7 +1,11 @@
 package techreborn.blocks.storage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -43,6 +47,14 @@ public class BlockLESUStorage extends BlockMachineBase implements IAdvancedRotat
 			((TileLesuStorage) world.getTileEntity(new BlockPos(x, y, z))).removeFromNetwork();
 		}
 		super.breakBlock(world, x, y, z, block, meta);
+	}
+	
+	@Override
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
+	{
+		List<ItemStack> items = new ArrayList<ItemStack>();
+		items.add(new ItemStack(this));
+		return items;
 	}
 
 	@Override
