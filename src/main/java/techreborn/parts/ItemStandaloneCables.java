@@ -32,9 +32,9 @@ public class ItemStandaloneCables extends ItemTextureBase
 
 	public static ItemStack getCableByName(String name, int count)
 	{
-		for (int i = 0; i < EnumCableType.values().length; i++)
+		for (int i = 0; i < EnumStandaloneCableType.values().length; i++)
 		{
-			if (EnumCableType.values()[i].getName().equalsIgnoreCase(name))
+			if (EnumStandaloneCableType.values()[i].getName().equalsIgnoreCase(name))
 			{
 				return new ItemStack(mcPartCable != null ? mcPartCable : StandalonePartCompact.itemStandaloneCable,
 						count, i);
@@ -53,18 +53,18 @@ public class ItemStandaloneCables extends ItemTextureBase
 	public String getUnlocalizedName(ItemStack itemStack)
 	{
 		int meta = itemStack.getItemDamage();
-		if (meta < 0 || meta >= EnumCableType.values().length)
+		if (meta < 0 || meta >= EnumStandaloneCableType.values().length)
 		{
 			meta = 0;
 		}
 
-		return super.getUnlocalizedName() + "." + EnumCableType.values()[meta];
+		return super.getUnlocalizedName() + "." + EnumStandaloneCableType.values()[meta];
 	}
 
 	// Adds Dusts SubItems To Creative Tab
 	public void getSubItems(Item item, CreativeTabs creativeTabs, List list)
 	{
-		for (int meta = 0; meta < EnumCableType.values().length; ++meta)
+		for (int meta = 0; meta < EnumStandaloneCableType.values().length; ++meta)
 		{
 			list.add(new ItemStack(item, 1, meta));
 		}
@@ -73,13 +73,13 @@ public class ItemStandaloneCables extends ItemTextureBase
 	@Override
 	public String getTextureName(int damage)
 	{
-		return ModInfo.MOD_ID + ":items/cables/" + EnumCableType.values()[damage].getName();
+		return ModInfo.MOD_ID + ":items/cables/" + EnumStandaloneCableType.values()[damage].getName();
 	}
 
 	@Override
 	public int getMaxMeta()
 	{
-		return EnumCableType.values().length;
+		return EnumStandaloneCableType.values().length;
 	}
 
 	// @Override
@@ -92,11 +92,12 @@ public class ItemStandaloneCables extends ItemTextureBase
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{
-		EnumCableType type = EnumCableType.values()[stack.getItemDamage()];
+		EnumStandaloneCableType type = EnumStandaloneCableType.values()[stack.getItemDamage()];
 		tooltip.add(TextFormatting.GREEN + "EU Transfer: " + TextFormatting.LIGHT_PURPLE + type.transferRate);
 		if (type.canKill)
 		{
 			tooltip.add(TextFormatting.RED + "Damages entity's!");
 		}
+		tooltip.add(TextFormatting.RED + "!!INSTALL MCMP TO PLACE CABLES!!");
 	}
 }
