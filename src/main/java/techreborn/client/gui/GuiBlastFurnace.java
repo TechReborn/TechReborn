@@ -1,7 +1,5 @@
 package techreborn.client.gui;
 
-import java.io.IOException;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -19,6 +17,8 @@ import techreborn.init.ModBlocks;
 import techreborn.proxies.ClientProxy;
 import techreborn.tiles.TileBlastFurnace;
 
+import java.io.IOException;
+
 public class GuiBlastFurnace extends GuiContainer
 {
 
@@ -28,7 +28,7 @@ public class GuiBlastFurnace extends GuiContainer
 	TileBlastFurnace blastfurnace;
 
 	ContainerBlastFurnace containerBlastFurnace;
-
+	boolean hasMultiBlock;
 	public GuiBlastFurnace(EntityPlayer player, TileBlastFurnace tileblastfurnace)
 	{
 		super(new ContainerBlastFurnace(tileblastfurnace, player));
@@ -41,6 +41,8 @@ public class GuiBlastFurnace extends GuiContainer
 	@Override
 	public void initGui()
 	{
+
+		hasMultiBlock = containerBlastFurnace.heat != 0;
 		int k = (this.width - this.xSize) / 2;
 		int l = (this.height - this.ySize) / 2;
 		GuiButton button = new GuiButton(212, k + 4, l + 6, 20, 20, "");
@@ -69,7 +71,7 @@ public class GuiBlastFurnace extends GuiContainer
 		int l = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
 
-		if (containerBlastFurnace.heat == 0)
+		if (hasMultiBlock)
 		{
 			GuiUtil.drawTooltipBox(k + 30, l + 50 + 12 - 0, 114, 10);
 			this.fontRendererObj.drawString(I18n.translateToLocal("techreborn.message.missingmultiblock"), k + 38,

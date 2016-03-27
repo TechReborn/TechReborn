@@ -1,7 +1,5 @@
 package techreborn.manual.pages;
 
-import java.io.IOException;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -10,12 +8,14 @@ import net.minecraft.util.text.translation.I18n;
 import techreborn.manual.PageCollection;
 import techreborn.manual.Reference;
 
+import java.io.IOException;
+
 public class BasePage extends GuiScreen
 {
 
 	public static final ResourceLocation PAGE_TEXTURE = new ResourceLocation(
 			"techreborn:textures/manual/gui/manual.png");
-	private final int xSize = 146;
+	private final int xSize = 200;
 	private final int ySize = 180;
 	// Name Displayed in the index page
 	public String INDEX_NAME;

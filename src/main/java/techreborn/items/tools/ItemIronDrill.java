@@ -10,7 +10,7 @@ public class ItemIronDrill extends ItemDrill
 	public ItemIronDrill()
 	{
 		super(ToolMaterial.IRON, "techreborn.ironDrill", ConfigTechReborn.IronDrillCharge,
-				ConfigTechReborn.IronDrillTier, 2.0F);
+				ConfigTechReborn.IronDrillTier, 2.0F, 10F);
 		this.cost = 50;
 	}
 

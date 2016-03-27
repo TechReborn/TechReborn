@@ -319,14 +319,12 @@ public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchab
 		return 100000000;
 	}
 
-	@Override
-	public boolean canAcceptEnergy(EnumFacing direction)
+	@Override public boolean canAcceptEnergy(EnumFacing direction)
 	{
 		return true;
 	}
 
-	@Override
-	public boolean canProvideEnergy(EnumFacing direction)
+	@Override public boolean canProvideEnergy(EnumFacing direction)
 	{
 		return false;
 	}

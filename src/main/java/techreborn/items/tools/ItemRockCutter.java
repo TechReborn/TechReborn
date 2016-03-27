@@ -1,11 +1,10 @@
 package techreborn.items.tools;
 
-import java.util.List;
-
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -20,6 +19,8 @@ import reborncore.common.util.Color;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
 import techreborn.lib.ModInfo;
+
+import java.util.List;
 
 public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo, ITexturedItem
 {
@@ -59,29 +60,29 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo, ITex
 	{
 		if (Items.diamond_pickaxe.canHarvestBlock(state))
 		{
-			// if (PoweredItem.canUseEnergy(cost, stack)) {
-			// PoweredItem.useEnergy(cost, stack);
-			// return true;
-			// }
+//			 if (PoweredItem.canUseEnergy(cost, stack)) {
+//			 PoweredItem.useEnergy(cost, stack);
+//			 return true;
+//			 }
 		}
 		return false;
 	}
 
-	// @Override
-	// public int getHarvestLevel(ItemStack stack, String toolClass) {
-	// if (!stack.isItemEnchanted()) {
-	// stack.addEnchantment(Enchantment.silkTouch, 1);
-	// }
-	// return super.getHarvestLevel(stack, toolClass);
-	// }
-	//
-	// @Override
-	// public float getStrVsBlock(ItemStack stack, Block block) {
-	// if (!stack.isItemEnchanted()) {
-	// stack.addEnchantment(Enchantment.silkTouch, 1);
-	// }
-	// return super.getStrVsBlock(stack, block);
-	// }
+	 @Override
+	 public int getHarvestLevel(ItemStack stack, String toolClass) {
+	 if (!stack.isItemEnchanted()) {
+	 stack.addEnchantment(Enchantment.getEnchantmentByID(33), 1);
+	 }
+	 return super.getHarvestLevel(stack, toolClass);
+	 }
+
+	 @Override
+	 public float getStrVsBlock(ItemStack stack, IBlockState block) {
+	 if (!stack.isItemEnchanted()) {
+	 stack.addEnchantment(Enchantment.getEnchantmentByID(33), 1);
+	 }
+	 return super.getStrVsBlock(stack, block);
+	 }
 
 	@Override
 	public boolean isRepairable()

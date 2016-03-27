@@ -1,12 +1,9 @@
 package techreborn.manual.pages;
 
-import java.awt.*;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
+import com.google.common.base.Objects;
+import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
@@ -14,26 +11,22 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.ShapedRecipes;
-import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraft.item.crafting.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
-
 import org.lwjgl.opengl.GL11;
-
 import techreborn.manual.PageCollection;
 import techreborn.manual.util.ButtonUtil;
 
-import com.google.common.base.Objects;
-import com.google.common.base.Strings;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
+import java.awt.*;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class CraftingInfoPage extends TitledPage
 {
@@ -82,7 +75,7 @@ public class CraftingInfoPage extends TitledPage
 		{
 			if (hasRecipe)
 			{
-				renderImage(offsetX, offsetY + 10, "craftingtable");
+				renderImage(offsetX + (offsetX/ 2) , offsetY + 10, "craftingtable");
 			} else
 			{
 				drawString(fontRendererObj, "No Crafting Recipe", offsetX + 40, offsetY + 22, Color.black.getRGB());
@@ -149,7 +142,7 @@ public class CraftingInfoPage extends TitledPage
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
-		drawTexturedModalRect(offsetX, offsetY - 14, 0, 0, 140, this.height);
+		drawTexturedModalRect(offsetX + 16, offsetY + 9, 0, 0, 116, 54);
 		GL11.glDisable(GL11.GL_BLEND);
 	}
 

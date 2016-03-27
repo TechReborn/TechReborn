@@ -1,7 +1,5 @@
 package techreborn.manual.pages;
 
-import java.awt.*;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.item.ItemStack;
@@ -11,6 +9,8 @@ import techreborn.items.ItemPlates;
 import techreborn.manual.PageCollection;
 import techreborn.manual.Reference;
 import techreborn.manual.util.GuiButtonItemTexture;
+
+import java.awt.*;
 
 public class ContentsPage extends TitledPage
 {
