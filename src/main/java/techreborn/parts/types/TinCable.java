@@ -11,6 +11,6 @@ public class TinCable extends CableMultipart
 	@Override
 	public EnumCableType getCableType()
 	{
-		return EnumCableType.COPPER;
+		return EnumCableType.TIN;
 	}
 }

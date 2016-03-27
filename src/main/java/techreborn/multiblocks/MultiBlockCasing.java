@@ -383,7 +383,6 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase
 	protected void isBlockGoodForFrame(World world, int x, int y, int z) throws MultiblockValidationException
 	{
 		Block block = world.getBlockState(new BlockPos(x, y, z)).getBlock();
-		world.setBlockState(new BlockPos(x, y, z), Blocks.bedrock.getDefaultState(), 3);
 		if (block == ModBlocks.MachineCasing)
 		{
 

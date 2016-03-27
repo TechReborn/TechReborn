@@ -5,7 +5,7 @@ import net.minecraft.world.World;
 import techreborn.client.GuiHandler;
 import techreborn.tiles.lesu.TileLesu;
 
-public class BlockLESU extends BlockEnergyStorage
+public class  BlockLESU extends BlockEnergyStorage
 {
 	public BlockLESU()
 	{
@@ -17,5 +17,4 @@ public class BlockLESU extends BlockEnergyStorage
 	{
 		return new TileLesu();
 	}
-
 }

@@ -14,6 +14,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -96,11 +97,11 @@ public class ItemCables extends ItemMultiPart implements ITexturedItem
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{
 		EnumCableType type = EnumCableType.values()[stack.getItemDamage()];
-		tooltip.add(TextFormatting.GREEN + "EU Transfer: " + TextFormatting.LIGHT_PURPLE + type.transferRate);
+		tooltip.add(TextFormatting.GREEN + I18n.translateToLocal("desc.euTransfer") + TextFormatting.LIGHT_PURPLE + type.transferRate);
 		if (type.canKill)
 		{
-			tooltip.add(TextFormatting.RED + "Damages entity's!");
+			tooltip.add(TextFormatting.RED + I18n.translateToLocal("desc.uninsulatedCable"));
 		}
-		tooltip.add(TextFormatting.GREEN + "Tier: " + TextFormatting.LIGHT_PURPLE + type.tier);
+		tooltip.add(TextFormatting.GREEN + I18n.translateToLocal("desc.tier") + TextFormatting.LIGHT_PURPLE + type.tier);
 	}
 }

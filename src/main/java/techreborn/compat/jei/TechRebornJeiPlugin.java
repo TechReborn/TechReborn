@@ -19,6 +19,7 @@ import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.AssemblingMachineRecipe;
 import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
+import techreborn.blocks.fluid.BlockFluidTechReborn;
 import techreborn.client.container.ContainerAlloyFurnace;
 import techreborn.client.container.ContainerAlloySmelter;
 import techreborn.client.container.ContainerAssemblingMachine;
@@ -90,6 +91,7 @@ import techreborn.compat.jei.scrapbox.ScrapboxRecipeHandler;
 import techreborn.compat.jei.vacuumFreezer.VacuumFreezerRecipeCategory;
 import techreborn.compat.jei.vacuumFreezer.VacuumFreezerRecipeHandler;
 import techreborn.config.ConfigTechReborn;
+import techreborn.init.ModFluids;
 import techreborn.init.ModItems;
 import techreborn.items.ItemParts;
 
@@ -124,6 +126,30 @@ public class TechRebornJeiPlugin extends BlankModPlugin
 		IJeiHelpers jeiHelpers = registry.getJeiHelpers();
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidBerylium));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidCalcium));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidCalciumCarbonate));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidChlorite));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidDeuterium));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidGlyceryl));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidHelium));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidHelium3));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidHeliumplasma));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidHydrogen));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidLithium));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidMercury));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidMethane));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidNitrocoalfuel));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidNitrofuel));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidNitrogen));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidNitrogendioxide));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidPotassium));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidSilicon));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidSodium));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidSodiumpersulfate));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidTritium));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidWolframium));
+		
 		registry.addRecipeCategories(new AlloySmelterRecipeCategory(guiHelper),
 				new AssemblingMachineRecipeCategory(guiHelper), new BlastFurnaceRecipeCategory(guiHelper),
 				new CentrifugeRecipeCategory(guiHelper), new ChemicalReactorRecipeCategory(guiHelper),
