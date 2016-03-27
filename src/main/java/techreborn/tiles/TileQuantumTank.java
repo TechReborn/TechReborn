@@ -81,7 +81,7 @@ public class TileQuantumTank extends TileMachineBase
 			FluidUtils.fillContainers(this, inventory, 0, 1, tank.getFluidType());
 			if (tank.getFluidType() != null && getStackInSlot(2) == null)
 			{
-				inventory.setInventorySlotContents(2, new ItemStack(tank.getFluidType().getBlock()));
+//				inventory.setInventorySlotContents(2, new ItemStack(tank.getFluidType().getBlock()));
 			} else if (tank.getFluidType() == null && getStackInSlot(2) != null)
 			{
 				setInventorySlotContents(2, null);
