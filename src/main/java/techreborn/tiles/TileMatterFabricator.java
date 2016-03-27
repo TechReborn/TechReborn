@@ -14,6 +14,7 @@ import reborncore.common.util.ItemUtils;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
 import ic2.api.tile.IWrenchable;
+import techreborn.items.ItemParts;
 
 public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory
 {
@@ -303,6 +304,11 @@ public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchab
 	{
 		// int value = getValue(Recipes.matterAmplifier.getOutputFor(itemStack,
 		// false));
+		if(itemStack.getItem() == ModItems.parts && itemStack.getItemDamage() == ItemParts.getPartByName("scrap").getItemDamage()){
+			return 5000;
+		} else if (itemStack.getItem() == ModItems.scrapBox){
+			return 45000;
+		}
 		return 0;
 	}
 
