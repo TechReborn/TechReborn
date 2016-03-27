@@ -958,6 +958,10 @@ Cable.trippleInsulatedIronCable.name=Triple Insulated Copper Cable
 Cable.glassFiberCable.name=Glass Fiber Cable
 Cable.tinCable.name=Tin Cable
 
+desc.uninsulatedCable=Damages Entities!
+desc.euTransfer=EU Transfer: 
+desc.tier=Tier: 
+
 #Manual
 techreborn.manual.contents=Contents Page
 techreborn.manual.gettingstarted=Getting Started
