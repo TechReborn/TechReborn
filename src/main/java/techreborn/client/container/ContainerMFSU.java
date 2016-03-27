@@ -7,7 +7,6 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import reborncore.client.gui.SlotCharge;
 import reborncore.common.container.RebornContainer;
 import techreborn.tiles.storage.TileMFSU;
 
@@ -55,8 +54,8 @@ public class ContainerMFSU extends RebornContainer
 				}
 			});
 		}
-		this.addSlotToContainer(new SlotCharge(tile.inventory, 0, 80, 17));
-		this.addSlotToContainer(new SlotCharge(tile.inventory, 1, 80, 53));
+	//	this.addSlotToContainer(new SlotCharge(tile.inventory, 0, 80, 17));
+	//	this.addSlotToContainer(new SlotCharge(tile.inventory, 1, 80, 53));
 	}
 
 	@Override
