@@ -331,15 +331,15 @@ public class ModBlocks
 		GameRegistry.registerBlock(ChemicalReactor, "chemicalreactor");
 		GameRegistry.registerTileEntity(TileChemicalReactor.class, "TileChemicalReactorTR");
 
-		Idsu = new BlockIDSU(Material.rock);
+		Idsu = new BlockIDSU();
 		GameRegistry.registerBlock(Idsu, "idsu");
 		GameRegistry.registerTileEntity(TileIDSU.class, "TileIDSUTR");
 
-		Aesu = new BlockAESU(Material.rock);
+		Aesu = new BlockAESU();
 		GameRegistry.registerBlock(Aesu, ItemBlockAesu.class, "aesu");
 		GameRegistry.registerTileEntity(TileAesu.class, "TileAesuTR");
 
-		Lesu = new BlockLESU(Material.rock);
+		Lesu = new BlockLESU();
 		GameRegistry.registerBlock(Lesu, "lesu");
 		GameRegistry.registerTileEntity(TileLesu.class, "TileLesuTR");
 

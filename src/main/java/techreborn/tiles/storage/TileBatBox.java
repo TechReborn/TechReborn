@@ -2,9 +2,11 @@ package techreborn.tiles.storage;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.util.Inventory;
 import techreborn.init.ModBlocks;
 import ic2.api.tile.IWrenchable;
 
@@ -14,6 +16,7 @@ import ic2.api.tile.IWrenchable;
 public class TileBatBox extends TilePowerAcceptor implements IWrenchable
 {
 
+	public Inventory inventory = new Inventory(2, "TileBatBox", 64, this);
 	public TileBatBox()
 	{
 		super(1);
@@ -92,5 +95,17 @@ public class TileBatBox extends TilePowerAcceptor implements IWrenchable
 	public EnumPowerTier getTier()
 	{
 		return EnumPowerTier.LOW;
+	}
+	@Override
+	public void writeToNBT(NBTTagCompound tagCompound)
+	{
+		super.writeToNBT(tagCompound);
+		inventory.writeToNBT(tagCompound);
+	}
+	@Override
+	public void readFromNBT(NBTTagCompound nbttagcompound)
+	{
+		super.readFromNBT(nbttagcompound);
+		inventory.readFromNBT(nbttagcompound);
 	}
 }

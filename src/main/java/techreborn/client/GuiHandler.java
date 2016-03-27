@@ -4,114 +4,17 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
-import techreborn.client.container.ContainerAesu;
-import techreborn.client.container.ContainerAlloyFurnace;
-import techreborn.client.container.ContainerAlloySmelter;
-import techreborn.client.container.ContainerAssemblingMachine;
-import techreborn.client.container.ContainerBatbox;
-import techreborn.client.container.ContainerBlastFurnace;
-import techreborn.client.container.ContainerCentrifuge;
-import techreborn.client.container.ContainerChargeBench;
-import techreborn.client.container.ContainerChemicalReactor;
-import techreborn.client.container.ContainerChunkloader;
-import techreborn.client.container.ContainerCompressor;
-import techreborn.client.container.ContainerDestructoPack;
-import techreborn.client.container.ContainerDieselGenerator;
-import techreborn.client.container.ContainerDigitalChest;
-import techreborn.client.container.ContainerElectricFurnace;
-import techreborn.client.container.ContainerExtractor;
-import techreborn.client.container.ContainerFusionReactor;
-import techreborn.client.container.ContainerGasTurbine;
-import techreborn.client.container.ContainerGenerator;
-import techreborn.client.container.ContainerGrinder;
-import techreborn.client.container.ContainerIDSU;
-import techreborn.client.container.ContainerImplosionCompressor;
-import techreborn.client.container.ContainerIndustrialElectrolyzer;
-import techreborn.client.container.ContainerIndustrialGrinder;
-import techreborn.client.container.ContainerIndustrialSawmill;
-import techreborn.client.container.ContainerIronFurnace;
-import techreborn.client.container.ContainerLesu;
-import techreborn.client.container.ContainerMatterFabricator;
-import techreborn.client.container.ContainerQuantumChest;
-import techreborn.client.container.ContainerQuantumTank;
-import techreborn.client.container.ContainerRecycler;
-import techreborn.client.container.ContainerRollingMachine;
-import techreborn.client.container.ContainerScrapboxinator;
-import techreborn.client.container.ContainerSemifluidGenerator;
-import techreborn.client.container.ContainerThermalGenerator;
-import techreborn.client.container.ContainerVacuumFreezer;
-import techreborn.client.gui.GuiAesu;
-import techreborn.client.gui.GuiAlloyFurnace;
-import techreborn.client.gui.GuiAlloySmelter;
-import techreborn.client.gui.GuiAssemblingMachine;
-import techreborn.client.gui.GuiBatbox;
-import techreborn.client.gui.GuiBlastFurnace;
-import techreborn.client.gui.GuiCentrifuge;
-import techreborn.client.gui.GuiChargeBench;
-import techreborn.client.gui.GuiChemicalReactor;
-import techreborn.client.gui.GuiChunkLoader;
-import techreborn.client.gui.GuiCompressor;
-import techreborn.client.gui.GuiDestructoPack;
-import techreborn.client.gui.GuiDieselGenerator;
-import techreborn.client.gui.GuiDigitalChest;
-import techreborn.client.gui.GuiElectricFurnace;
-import techreborn.client.gui.GuiExtractor;
-import techreborn.client.gui.GuiFusionReactor;
-import techreborn.client.gui.GuiGasTurbine;
-import techreborn.client.gui.GuiGenerator;
-import techreborn.client.gui.GuiGrinder;
-import techreborn.client.gui.GuiIDSU;
-import techreborn.client.gui.GuiImplosionCompressor;
-import techreborn.client.gui.GuiIndustrialElectrolyzer;
-import techreborn.client.gui.GuiIndustrialGrinder;
-import techreborn.client.gui.GuiIndustrialSawmill;
-import techreborn.client.gui.GuiIronFurnace;
-import techreborn.client.gui.GuiLesu;
-import techreborn.client.gui.GuiMatterFabricator;
-import techreborn.client.gui.GuiQuantumChest;
-import techreborn.client.gui.GuiQuantumTank;
-import techreborn.client.gui.GuiRecycler;
-import techreborn.client.gui.GuiRollingMachine;
-import techreborn.client.gui.GuiScrapboxinator;
-import techreborn.client.gui.GuiSemifluidGenerator;
-import techreborn.client.gui.GuiThermalGenerator;
-import techreborn.client.gui.GuiVacuumFreezer;
+import techreborn.client.container.*;
+import techreborn.client.gui.*;
 import techreborn.manual.GuiManual;
-import techreborn.tiles.TileAesu;
-import techreborn.tiles.TileAlloyFurnace;
-import techreborn.tiles.TileAlloySmelter;
-import techreborn.tiles.TileAssemblingMachine;
-import techreborn.tiles.TileBlastFurnace;
-import techreborn.tiles.TileCentrifuge;
-import techreborn.tiles.TileChargeBench;
-import techreborn.tiles.TileChemicalReactor;
-import techreborn.tiles.TileChunkLoader;
-import techreborn.tiles.TileDigitalChest;
-import techreborn.tiles.TileImplosionCompressor;
-import techreborn.tiles.TileIndustrialElectrolyzer;
-import techreborn.tiles.TileIndustrialGrinder;
-import techreborn.tiles.TileIndustrialSawmill;
-import techreborn.tiles.TileIronFurnace;
-import techreborn.tiles.TileMatterFabricator;
-import techreborn.tiles.TileQuantumChest;
-import techreborn.tiles.TileQuantumTank;
-import techreborn.tiles.TileRollingMachine;
-import techreborn.tiles.TileScrapboxinator;
-import techreborn.tiles.TileVacuumFreezer;
+import techreborn.tiles.*;
 import techreborn.tiles.fusionReactor.TileEntityFusionController;
-import techreborn.tiles.generator.TileDieselGenerator;
-import techreborn.tiles.generator.TileGasTurbine;
-import techreborn.tiles.generator.TileGenerator;
-import techreborn.tiles.generator.TileSemifluidGenerator;
-import techreborn.tiles.generator.TileThermalGenerator;
+import techreborn.tiles.generator.*;
 import techreborn.tiles.idsu.TileIDSU;
 import techreborn.tiles.lesu.TileLesu;
 import techreborn.tiles.storage.TileBatBox;
-import techreborn.tiles.teir1.TileCompressor;
-import techreborn.tiles.teir1.TileElectricFurnace;
-import techreborn.tiles.teir1.TileExtractor;
-import techreborn.tiles.teir1.TileGrinder;
-import techreborn.tiles.teir1.TileRecycler;
+import techreborn.tiles.storage.TileMFSU;
+import techreborn.tiles.teir1.*;
 
 public class GuiHandler implements IGuiHandler
 {
@@ -153,7 +56,8 @@ public class GuiHandler implements IGuiHandler
 	public static final int recyclerID = 37;
 	public static final int scrapboxinatorID = 38;
 	public static final int batboxID = 39;
-
+	public static final int mfsuID = 40;
+	public static final int mfeID = 41;
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
@@ -280,6 +184,8 @@ public class GuiHandler implements IGuiHandler
 		} else if (ID == batboxID)
 		{
 			return new ContainerBatbox((TileBatBox) world.getTileEntity(new BlockPos(x, y, z)), player);
+		}else if (ID == mfsuID){
+			return new ContainerMFSU((TileMFSU) world.getTileEntity(new BlockPos(x, y, z)), player);
 		}
 		return null;
 	}
@@ -402,6 +308,10 @@ public class GuiHandler implements IGuiHandler
 		} else if (ID == batboxID)
 		{
 			return new GuiBatbox(player, (TileBatBox) world.getTileEntity(new BlockPos(x, y, z)));
+		}
+		else if (ID == mfsuID)
+		{
+			return new GuiMFSU(player, (TileMFSU) world.getTileEntity(new BlockPos(x, y, z)));
 		}
 		return null;
 	}

@@ -1,79 +1,36 @@
 package techreborn.blocks.storage;
 
-import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.blocks.IAdvancedRotationTexture;
-import techreborn.Core;
 import techreborn.client.GuiHandler;
-import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.idsu.TileIDSU;
 
-public class BlockIDSU extends BlockMachineBase implements IAdvancedRotationTexture
+public class BlockIDSU extends BlockEnergyStorage
 {
-
-	private final String prefix = "techreborn:blocks/machine/storage/";
-
-	public BlockIDSU(Material material)
+	public BlockIDSU()
 	{
-		super();
-		setUnlocalizedName("techreborn.idsu");
-		setCreativeTab(TechRebornCreativeTab.instance);
+		super("IDSU", GuiHandler.idsuID);
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
+	public TileEntity createNewTileEntity(World world, int p_149915_2_)
 	{
-		return new TileIDSU(5, 2048, 100000000);
+		return new TileIDSU();
 	}
 
-	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
-			float hitY, float hitZ)
-	{
-		if (!player.isSneaking())
-			player.openGui(Core.INSTANCE, GuiHandler.idsuID, world, x, y, z);
-		return true;
-	}
 
-	@Override
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemstack)
+	@Override public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY,
+			float hitZ, int meta, EntityLivingBase placer)
 	{
-		super.onBlockPlacedBy(world, x, y, z, player, itemstack);
-		TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
+		TileEntity tile = world.getTileEntity(pos);
 		if (tile instanceof TileIDSU)
 		{
-			((TileIDSU) tile).ownerUdid = player.getUniqueID().toString();
+			((TileIDSU) tile).ownerUdid = placer.getUniqueID().toString();
 		}
+		return this.getDefaultState();
 	}
-
-	@Override
-	public String getFront(boolean isActive)
-	{
-		return prefix + "idsu_front";
-	}
-
-	@Override
-	public String getSide(boolean isActive)
-	{
-		return prefix + "idsu_side";
-	}
-
-	@Override
-	public String getTop(boolean isActive)
-	{
-		return prefix + "idsu_top";
-	}
-
-	@Override
-	public String getBottom(boolean isActive)
-	{
-		return prefix + "idsu_bottom";
-	}
-
 }
