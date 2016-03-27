@@ -158,9 +158,9 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
 	public void updateEntity()
 	{
 		super.updateEntity();
-		FluidUtils.drainContainers(this, inventory, 0, 1);
 		if (!worldObj.isRemote)
 		{
+			FluidUtils.drainContainers(this, inventory, 0, 1);
 			for (EnumFacing direction : EnumFacing.values())
 			{
 				if (worldObj.getBlockState(new BlockPos(getPos().getX() + direction.getFrontOffsetX(),
