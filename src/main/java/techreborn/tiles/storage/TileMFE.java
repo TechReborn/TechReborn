@@ -13,4 +13,5 @@ public class TileMFE extends TileEnergyStorage
 	{
 		super("MFE", 2, ModBlocks.mfe, EnumPowerTier.MEDIUM, 512, 512, 4000000);
 	}
+
 }

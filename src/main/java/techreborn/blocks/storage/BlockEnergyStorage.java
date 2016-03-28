@@ -11,12 +11,10 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -127,19 +125,20 @@ public abstract class BlockEnergyStorage extends BaseTileBlock implements IRotat
 
 
 
-	protected void dropInventory(World world, BlockPos pos, ItemStack itemToDrop)
+	protected List<ItemStack> dropInventory(IBlockAccess world, BlockPos pos, ItemStack itemToDrop)
 	{
 		TileEntity tileEntity = world.getTileEntity(pos);
 
 		if (tileEntity == null)
 		{
 			System.out.print("Null");
-			return;
+			return null;
 		}
 		if (!(tileEntity instanceof IInventory))
 		{
 
-			return;
+			System.out.print("Not INstance");
+			return null;
 		}
 
 		IInventory inventory = (IInventory) tileEntity;
@@ -168,30 +167,8 @@ public abstract class BlockEnergyStorage extends BaseTileBlock implements IRotat
 			}
 			items.add(itemStack.copy());
 		}
-		items.add(itemToDrop);
-		for (ItemStack itemStack : items)
-		{
-			Random rand = new Random();
-
-			float dX = rand.nextFloat() * 0.8F + 0.1F;
-			float dY = rand.nextFloat() * 0.8F + 0.1F;
-			float dZ = rand.nextFloat() * 0.8F + 0.1F;
-
-			EntityItem entityItem = new EntityItem(world, pos.getX() + dX, pos.getY() + dY, pos.getZ() + dZ,
-					itemStack.copy());
-
-			if (itemStack.hasTagCompound())
-			{
-				entityItem.getEntityItem().setTagCompound((NBTTagCompound) itemStack.getTagCompound().copy());
-			}
-
-			float factor = 0.05F;
-			entityItem.motionX = rand.nextGaussian() * factor;
-			entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
-			entityItem.motionZ = rand.nextGaussian() * factor;
-			world.spawnEntityInWorld(entityItem);
-			itemStack.stackSize = 0;
-		}
+		items.add(itemToDrop.copy());
+		return items;
 
 	}
 
@@ -264,12 +241,6 @@ public abstract class BlockEnergyStorage extends BaseTileBlock implements IRotat
 		return 0;
 	}
 
-	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
-	{
-		List<ItemStack> items = new ArrayList<ItemStack>();
-		return items;
-	}
 
 	@Override
 	public String getFrontOff()
