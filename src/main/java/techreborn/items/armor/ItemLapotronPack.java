@@ -1,7 +1,5 @@
 package techreborn.items.armor;
 
-import java.util.List;
-
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
@@ -11,6 +9,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.RebornCore;
@@ -19,6 +18,8 @@ import reborncore.common.powerSystem.PoweredItem;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
 import techreborn.lib.ModInfo;
+
+import java.util.List;
 
 public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo, ITexturedItem
 {
@@ -91,6 +92,29 @@ public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo, ITex
 		double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
 		return 1 - charge;
 
+	}
+
+	@Override public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
+	{System.out.print("Hey!");
+	}
+
+	@Override public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack)
+	{
+		System.out.print("Hey!");
+		for(int i = 0; i < player.inventory.getSizeInventory(); i++){
+			if(player.inventory.getStackInSlot(i) != null){
+				ItemStack item = player.inventory.getStackInSlot(i);
+				if(item.getItem() instanceof IEnergyItemInfo){
+					IEnergyItemInfo energyItemInfo = (IEnergyItemInfo) item.getItem();
+					if(energyItemInfo.canAcceptEnergy(item)){
+						if(PoweredItem.canUseEnergy(energyItemInfo.getMaxPower(item), itemStack)){
+							PoweredItem.useEnergy(energyItemInfo.getMaxPower(item), itemStack);
+							PoweredItem.addEnergy(energyItemInfo.getMaxPower(item), item);
+						}
+					}
+				}
+			}
+		}
 	}
 
 	@Override
