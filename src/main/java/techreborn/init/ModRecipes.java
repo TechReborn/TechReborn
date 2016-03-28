@@ -73,33 +73,172 @@ public class ModRecipes
 
 	static void addScrapBoxloot()
 	{
-
-		for (Item i : Item.itemRegistry)
-		{
-			if (i.isDamageable())
-			{
-				registerMetadataItem(new ItemStack(i));
-				continue;
-			}
-
-			ScrapboxList.addItemStackToList(new ItemStack(i));
-		}
-
-		registerDyable(Blocks.stained_hardened_clay);
-		registerDyable(Blocks.wool);
-
+		ScrapboxList.addItemStackToList(new ItemStack(Items.diamond));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.stick));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.coal));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.apple));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.baked_potato));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.blaze_powder));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.wheat));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.carrot));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.boat));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.acacia_boat));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.birch_boat));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.dark_oak_boat));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.jungle_boat));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.spruce_boat));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.blaze_rod));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.compass));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.map));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.leather_leggings));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.bow));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.cooked_chicken));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.cake));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.acacia_door));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.dark_oak_door));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.birch_door));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.jungle_door));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.oak_door));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.spruce_door));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.wooden_axe));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.wooden_hoe));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.wooden_pickaxe));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.wooden_shovel));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.wooden_sword));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.bed));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.skull, 1, 0));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.skull, 1, 2));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.skull, 1, 4));
 		for (int i = 0; i < StackWIPHandler.devHeads.size(); i++)
-			ScrapboxList.stacks.add(StackWIPHandler.devHeads.get(i));
+			ScrapboxList.addItemStackToList(StackWIPHandler.devHeads.get(i));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.dye, 1, 3));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.glowstone_dust));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.string));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.minecart));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.chest_minecart));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.hopper_minecart));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.prismarine_shard));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.shears));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.experience_bottle));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.bone));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.bowl));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.brick));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.fishing_rod));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.book));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.paper));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.sugar));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.reeds));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.spider_eye));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.slime_ball));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.rotten_flesh));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.sign));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.writable_book));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.cooked_beef));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.name_tag));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.saddle));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.redstone));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.gunpowder));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.rabbit_hide));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.rabbit_foot));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.apple));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.golden_apple));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.gold_nugget));
 
-		for (int i = 0; i < ScrapboxList.stacks.size(); i++)
-		{
+		ScrapboxList.addItemStackToList(ItemCells.getCellByName("empty"));
+		ScrapboxList.addItemStackToList(ItemCells.getCellByName("water"));
+		ScrapboxList.addItemStackToList(ItemParts.getPartByName("scrap"));
+		ScrapboxList.addItemStackToList(ItemParts.getPartByName("rubber"));
+
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.trapdoor));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.stone_button));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.wooden_button));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.acacia_fence));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.acacia_fence_gate));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.birch_fence));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.birch_fence_gate));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.dark_oak_fence));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.dark_oak_fence_gate));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.jungle_fence));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.jungle_fence_gate));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.nether_brick_fence));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.oak_fence));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.oak_fence_gate));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.spruce_fence));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.spruce_fence_gate));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.brick_block));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.crafting_table));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.pumpkin));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.netherrack));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.grass));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.dirt, 1, 0));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.dirt, 1, 1));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.sand, 1, 0));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.sand, 1, 1));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.glowstone));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.gravel));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.hardened_clay));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.glass));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.glass_pane));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.cactus));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.tallgrass, 1, 0));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.tallgrass, 1, 1));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.deadbush));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.chest));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.tnt));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.rail));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.detector_rail));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.golden_rail));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.activator_rail));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.yellow_flower));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.red_flower, 1, 0));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.red_flower, 1, 1));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.red_flower, 1, 2));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.red_flower, 1, 3));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.red_flower, 1, 4));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.red_flower, 1, 5));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.red_flower, 1, 6));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.red_flower, 1, 7));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.red_flower, 1, 8));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.brown_mushroom));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.red_mushroom));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.brown_mushroom_block));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.red_mushroom_block));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.sapling, 1, 0));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.sapling, 1, 1));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.sapling, 1, 2));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.sapling, 1, 3));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.sapling, 1, 4));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.sapling, 1, 5));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.leaves, 1, 0));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.leaves, 1, 1));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.leaves, 1, 2));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.leaves, 1, 3));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.leaves2, 1, 0));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.leaves2, 1, 1));
+
+		ScrapboxList.addItemStackToList(new ItemStack(ModBlocks.rubberSapling));
+
+		for (String i : ItemDusts.types)
+			ScrapboxList.addItemStackToList(ItemDusts.getDustByName(i));
+
+		for (String i : ItemNuggets.types)
+			ScrapboxList.addItemStackToList(ItemNuggets.getNuggetByName(i));
+
+		for (String i : ItemGems.types)
+			ScrapboxList.addItemStackToList(ItemGems.getGemByName(i));
+
+		registerDyable(Blocks.carpet);
+		registerDyable(Blocks.stained_glass);
+		registerDyable(Blocks.stained_glass_pane);
+		registerDyable(Blocks.stained_hardened_clay);
+
+		for (int i = 0; i < ScrapboxList.stacks.size(); i++) {
 			RecipeHandler.addRecipe(new ScrapboxRecipe(ScrapboxList.stacks.get(i)));
 		}
 
 		// just for jei
 		// TODO find a way to get all ItemStacks in mc
-		for (int i = 0; i < ScrapboxList.stacks.size(); i++)
-		{
+		for (int i = 0; i < ScrapboxList.stacks.size(); i++) {
 			RecipeHandler.addRecipe(new RecyclerRecipe(ScrapboxList.stacks.get(i)));
 		}
 	}
@@ -127,12 +266,15 @@ public class ModRecipes
 				"ingotGold");
 		CraftingHelper.addShapedOreRecipe(ItemStandaloneCables.getCableByName("hv", 8), "XXX", "CCC", "XXX", 'C',
 				ItemIngots.getIngotByName("refinediron"));
+		
+		CraftingHelper.addShapedOreRecipe(ItemStandaloneCables.getCableByName("glassfiber", 4), "GGG", "SDS", "GGG", 'G',
+				"blockGlass", 'S', "dustRedstone", 'D', "diamondTR");
+
+		CraftingHelper.addShapedOreRecipe(ItemStandaloneCables.getCableByName("glassfiber", 6), "GGG", "SDS", "GGG", 'G',
+				"blockGlass", 'S', "ingotSilver", 'D', "diamondTR");
 		CraftingHelper
-				.addShapedOreRecipe(ItemStandaloneCables.getCableByName("glassfiber", 6), "GGG", "SDS", "GGG", 'G',
-						"blockGlass", 'S', "ingotSilver", 'D', Items.diamond);
-		CraftingHelper
-				.addShapedOreRecipe(ItemStandaloneCables.getCableByName("glassfiber", 4), "GGG", "RDR", "GGG", 'G',
-						"blockGlass", 'R', Items.redstone, 'D', Items.diamond);
+		.addShapedOreRecipe(ItemStandaloneCables.getCableByName("glassfiber", 8), "GGG", "SDS", "GGG", 'G',
+				"blockGlass", 'S', "ingotElectrum", 'D', "diamondTR");
 
 		CraftingHelper.addShapelessOreRecipe(ItemStandaloneCables.getCableByName("insulatedcopper"),
 				ItemParts.getPartByName("rubber"), ItemStandaloneCables.getCableByName("copper"));
