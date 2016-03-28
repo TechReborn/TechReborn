@@ -2,18 +2,19 @@ package techreborn.init;
 
 import java.security.InvalidParameterException;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagString;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
-
-import org.apache.commons.lang3.ArrayUtils;
-
 import reborncore.common.util.CraftingHelper;
 import reborncore.common.util.OreUtil;
 import techreborn.Core;
@@ -53,9 +54,9 @@ import techreborn.items.ItemParts;
 import techreborn.items.ItemPlates;
 import techreborn.parts.ItemStandaloneCables;
 import techreborn.utils.RecipeUtils;
+import techreborn.utils.StackWIPHandler;
 
-public class ModRecipes
-{
+public class ModRecipes {
 	public static ConfigTechReborn config;
 	public static ItemStack hammerStack = new ItemStack(ModItems.hammer, 1, OreDictionary.WILDCARD_VALUE);
 	public static ItemStack batteryStack = new ItemStack(ModItems.reBattery, 1, OreDictionary.WILDCARD_VALUE);
@@ -64,8 +65,7 @@ public class ModRecipes
 	public static ItemStack dyes = new ItemStack(Items.dye, 1, OreDictionary.WILDCARD_VALUE);
 	public static Item hammer = ModItems.hammer;
 
-	public static void init()
-	{
+	public static void init() {
 		addShapelessRecipes();
 		addGeneralShapedRecipes();
 		addMachineRecipes();
@@ -94,8 +94,7 @@ public class ModRecipes
 		addScrapBoxloot();
 	}
 
-	static void addScrapBoxloot()
-	{
+	static void addScrapBoxloot() {
 		ScrapboxList.addItemStackToList(new ItemStack(Items.diamond));
 		ScrapboxList.addItemStackToList(new ItemStack(Items.stick));
 		ScrapboxList.addItemStackToList(new ItemStack(Items.coal));
@@ -105,14 +104,17 @@ public class ModRecipes
 		ScrapboxList.addItemStackToList(new ItemStack(Items.wheat));
 		ScrapboxList.addItemStackToList(new ItemStack(Items.carrot));
 		ScrapboxList.addItemStackToList(new ItemStack(Items.boat));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.acacia_boat));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.birch_boat));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.dark_oak_boat));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.jungle_boat));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.spruce_boat));
 		ScrapboxList.addItemStackToList(new ItemStack(Items.blaze_rod));
 		ScrapboxList.addItemStackToList(new ItemStack(Items.compass));
 		ScrapboxList.addItemStackToList(new ItemStack(Items.map));
 		ScrapboxList.addItemStackToList(new ItemStack(Items.leather_leggings));
 		ScrapboxList.addItemStackToList(new ItemStack(Items.bow));
 		ScrapboxList.addItemStackToList(new ItemStack(Items.cooked_chicken));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.paper));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.book));
 		ScrapboxList.addItemStackToList(new ItemStack(Items.cake));
 		ScrapboxList.addItemStackToList(new ItemStack(Items.acacia_door));
 		ScrapboxList.addItemStackToList(new ItemStack(Items.dark_oak_door));
@@ -129,6 +131,8 @@ public class ModRecipes
 		ScrapboxList.addItemStackToList(new ItemStack(Items.skull, 1, 0));
 		ScrapboxList.addItemStackToList(new ItemStack(Items.skull, 1, 2));
 		ScrapboxList.addItemStackToList(new ItemStack(Items.skull, 1, 4));
+		for (int i = 0; i < StackWIPHandler.devHeads.size(); i++)
+			ScrapboxList.addItemStackToList(StackWIPHandler.devHeads.get(i));
 		ScrapboxList.addItemStackToList(new ItemStack(Items.dye, 1, 3));
 		ScrapboxList.addItemStackToList(new ItemStack(Items.glowstone_dust));
 		ScrapboxList.addItemStackToList(new ItemStack(Items.string));
@@ -142,6 +146,7 @@ public class ModRecipes
 		ScrapboxList.addItemStackToList(new ItemStack(Items.bowl));
 		ScrapboxList.addItemStackToList(new ItemStack(Items.brick));
 		ScrapboxList.addItemStackToList(new ItemStack(Items.fishing_rod));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.book));
 		ScrapboxList.addItemStackToList(new ItemStack(Items.paper));
 		ScrapboxList.addItemStackToList(new ItemStack(Items.sugar));
 		ScrapboxList.addItemStackToList(new ItemStack(Items.reeds));
@@ -158,6 +163,8 @@ public class ModRecipes
 		ScrapboxList.addItemStackToList(new ItemStack(Items.rabbit_hide));
 		ScrapboxList.addItemStackToList(new ItemStack(Items.rabbit_foot));
 		ScrapboxList.addItemStackToList(new ItemStack(Items.apple));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.golden_apple));
+		ScrapboxList.addItemStackToList(new ItemStack(Items.gold_nugget));
 
 		ScrapboxList.addItemStackToList(ItemCells.getCellByName("empty"));
 		ScrapboxList.addItemStackToList(ItemCells.getCellByName("water"));
@@ -165,6 +172,21 @@ public class ModRecipes
 		ScrapboxList.addItemStackToList(ItemParts.getPartByName("rubber"));
 
 		ScrapboxList.addItemStackToList(new ItemStack(Blocks.trapdoor));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.stone_button));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.wooden_button));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.acacia_fence));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.acacia_fence_gate));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.birch_fence));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.birch_fence_gate));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.dark_oak_fence));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.dark_oak_fence_gate));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.jungle_fence));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.jungle_fence_gate));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.nether_brick_fence));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.oak_fence));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.oak_fence_gate));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.spruce_fence));
+		ScrapboxList.addItemStackToList(new ItemStack(Blocks.spruce_fence_gate));
 		ScrapboxList.addItemStackToList(new ItemStack(Blocks.brick_block));
 		ScrapboxList.addItemStackToList(new ItemStack(Blocks.crafting_table));
 		ScrapboxList.addItemStackToList(new ItemStack(Blocks.pumpkin));
@@ -219,41 +241,36 @@ public class ModRecipes
 		ScrapboxList.addItemStackToList(new ItemStack(ModBlocks.rubberSapling));
 
 		for (String i : ItemDusts.types)
-		{
 			ScrapboxList.addItemStackToList(ItemDusts.getDustByName(i));
-		}
+
+		for (String i : ItemNuggets.types)
+			ScrapboxList.addItemStackToList(ItemNuggets.getNuggetByName(i));
 
 		for (String i : ItemGems.types)
-		{
 			ScrapboxList.addItemStackToList(ItemGems.getGemByName(i));
-		}
 
 		registerDyable(Blocks.carpet);
 		registerDyable(Blocks.stained_glass);
 		registerDyable(Blocks.stained_glass_pane);
 		registerDyable(Blocks.stained_hardened_clay);
 
-		for (int i = 0; i < ScrapboxList.stacks.size(); i++)
-		{
+		for (int i = 0; i < ScrapboxList.stacks.size(); i++) {
 			RecipeHandler.addRecipe(new ScrapboxRecipe(ScrapboxList.stacks.get(i)));
 		}
 
 		// just for jei
 		// TODO find a way to get all ItemStacks in mc
-		for (int i = 0; i < ScrapboxList.stacks.size(); i++)
-		{
+		for (int i = 0; i < ScrapboxList.stacks.size(); i++) {
 			RecipeHandler.addRecipe(new RecyclerRecipe(ScrapboxList.stacks.get(i)));
 		}
 	}
 
-	static void registerDyable(Block block)
-	{
+	static void registerDyable(Block block) {
 		for (int i = 0; i < 16; i++)
 			ScrapboxList.addItemStackToList(new ItemStack(block, 1, i));
 	}
 
-	static void addWireRecipes()
-	{
+	static void addWireRecipes() {
 		CraftingHelper.addShapedOreRecipe(ItemStandaloneCables.getCableByName("copper", 6), "XXX", "CCC", "XXX", 'C',
 				"ingotCopper");
 		CraftingHelper.addShapedOreRecipe(ItemStandaloneCables.getCableByName("tin", 9), "XXX", "CCC", "XXX", 'C',
@@ -275,8 +292,7 @@ public class ModRecipes
 				ItemParts.getPartByName("rubber"), ItemStandaloneCables.getCableByName("hv"));
 	}
 
-	private static void addCompressorRecipes()
-	{
+	private static void addCompressorRecipes() {
 		RecipeHandler.addRecipe(new CompressorRecipe(ItemParts.getPartByName("mixedmetalingot"),
 				ItemParts.getPartByName("advancedAlloy"), 400, 20));
 		RecipeHandler.addRecipe(new CompressorRecipe(ItemParts.getPartByName("carbonfiber"),
@@ -284,24 +300,21 @@ public class ModRecipes
 
 	}
 
-	static void addExtractorRecipes()
-	{
+	static void addExtractorRecipes() {
 		RecipeHandler.addRecipe(new ExtractorRecipe(ItemParts.getPartByName("rubberSap"),
 				ItemParts.getPartByName("rubber", 3), 400, 20));
 		RecipeHandler.addRecipe(
 				new ExtractorRecipe(new ItemStack(ModBlocks.rubberLog), ItemParts.getPartByName("rubber"), 400, 20));
 	}
 
-	static void addIc2ReplacementReicpes()
-	{
+	static void addIc2ReplacementReicpes() {
 		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("pump"), "CEC", "CMC", "PTP", 'C',
 				ItemCells.getCellByName("empty"), 'T', new ItemStack(ModItems.treeTap), 'M',
 				new ItemStack(ModBlocks.MachineCasing), 'P', new ItemStack(Blocks.iron_bars), 'E',
 				ItemParts.getPartByName("electronicCircuit"));
 	}
 
-	static void addGrinderRecipes()
-	{
+	static void addGrinderRecipes() {
 		// Vanilla
 		RecipeHandler.addRecipe(
 				new GrinderRecipe(new ItemStack(Blocks.iron_ore), ItemDusts.getDustByName("iron", 2), 100, 20));
@@ -328,8 +341,7 @@ public class ModRecipes
 				.addRecipe(new GrinderRecipe(ItemGems.getGemByName("ruby"), ItemDusts.getDustByName("ruby"), 100, 20));
 	}
 
-	static void addHammerRecipes()
-	{
+	static void addHammerRecipes() {
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.hammer), "III", "ISI", " S ", 'S', Items.stick, 'I',
 				"ingotIron");
 
@@ -343,8 +355,7 @@ public class ModRecipes
 		hammer.setContainerItem(hammer);
 	}
 
-	static void addReactorRecipes()
-	{
+	static void addReactorRecipes() {
 		FusionReactorRecipeHelper.registerRecipe(new FusionReactorRecipe(ItemCells.getCellByName("tritium"),
 				ItemCells.getCellByName("deuterium"), ItemCells.getCellByName("helium"), 40000000, 32768, 1024));
 		FusionReactorRecipeHelper.registerRecipe(new FusionReactorRecipe(ItemCells.getCellByName("tritium"),
@@ -353,12 +364,10 @@ public class ModRecipes
 				ItemCells.getCellByName("Berylium"), ItemDusts.getDustByName("platinum"), 80000000, -2048, 1024));
 	}
 
-	static void addGeneralShapedRecipes()
-	{
+	static void addGeneralShapedRecipes() {
 
 		// Storage Blocks
-		for (String name : ArrayUtils.addAll(BlockStorage.types, BlockStorage2.types))
-		{
+		for (String name : ArrayUtils.addAll(BlockStorage.types, BlockStorage2.types)) {
 			CraftingHelper.addShapedOreRecipe(BlockStorage.getStorageBlockByName(name), "AAA", "AAA", "AAA", 'A',
 					"ingot" + name.substring(0, 1).toUpperCase() + name.substring(1));
 		}
@@ -522,10 +531,8 @@ public class ModRecipes
 		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("rockCutterBlade"), "SDS", "SDS", "SDS", 'D',
 				new ItemStack(Items.diamond), 'S', "ingotSteel");
 
-		for (String part : ItemParts.types)
-		{
-			if (part.endsWith("Gear"))
-			{
+		for (String part : ItemParts.types) {
+			if (part.endsWith("Gear")) {
 				CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName(part), " O ", "OIO", " O ", 'I',
 						new ItemStack(Items.iron_ingot), 'O',
 						"ingot" + capitalizeFirstLetter(part.replace("Gear", "")));
@@ -588,34 +595,26 @@ public class ModRecipes
 		Core.logHelper.info("Shapped Recipes Added");
 	}
 
-	public static String capitalizeFirstLetter(String original)
-	{
+	public static String capitalizeFirstLetter(String original) {
 		if (original.length() == 0)
 			return original;
 		return original.substring(0, 1).toUpperCase() + original.substring(1);
 	}
 
-	static void addShapelessRecipes()
-	{
-		for (String name : ArrayUtils.addAll(BlockStorage.types, BlockStorage2.types))
-		{
+	static void addShapelessRecipes() {
+		for (String name : ArrayUtils.addAll(BlockStorage.types, BlockStorage2.types)) {
 			ItemStack item = null;
-			try
-			{
+			try {
 				item = ItemIngots.getIngotByName(name, 9);
-			} catch (InvalidParameterException e)
-			{
-				try
-				{
+			} catch (InvalidParameterException e) {
+				try {
 					item = ItemGems.getGemByName(name, 9);
-				} catch (InvalidParameterException e2)
-				{
+				} catch (InvalidParameterException e2) {
 					continue;
 				}
 			}
 
-			if (item == null)
-			{
+			if (item == null) {
 				continue;
 			}
 
@@ -626,8 +625,7 @@ public class ModRecipes
 
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.rubberPlanks, 4), ModBlocks.rubberLog);
 
-		for (String name : ItemDustsSmall.types)
-		{
+		for (String name : ItemDustsSmall.types) {
 			GameRegistry.addShapelessRecipe(ItemDustsSmall.getSmallDustByName(name, 4), ItemDusts.getDustByName(name));
 			GameRegistry.addShapelessRecipe(ItemDusts.getDustByName(name, 1), ItemDustsSmall.getSmallDustByName(name),
 					ItemDustsSmall.getSmallDustByName(name), ItemDustsSmall.getSmallDustByName(name),
@@ -637,8 +635,7 @@ public class ModRecipes
 		Core.logHelper.info("Shapless Recipes Added");
 	}
 
-	static void addMachineRecipes()
-	{
+	static void addMachineRecipes() {
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.quantumTank), "EPE", "PCP", "EPE", 'P',
 				"ingotPlatinum", 'E', ItemParts.getPartByName("advancedCircuit"), 'C', ModBlocks.quantumChest);
 
@@ -665,8 +662,7 @@ public class ModRecipes
 				new VacuumFreezerRecipe(ItemCells.getCellByName("water"), ItemCells.getCellByName("cell"), 60, 128));
 	}
 
-	static void addSmeltingRecipes()
-	{
+	static void addSmeltingRecipes() {
 		GameRegistry.addSmelting(ItemDusts.getDustByName("iron", 1), new ItemStack(Items.iron_ingot), 1F);
 		GameRegistry.addSmelting(ItemDusts.getDustByName("gold", 1), new ItemStack(Items.gold_ingot), 1F);
 		GameRegistry.addSmelting(ItemParts.getPartByName("rubberSap"), ItemParts.getPartByName("rubber"), 1F);
@@ -677,8 +673,7 @@ public class ModRecipes
 		Core.logHelper.info("Smelting Recipes Added");
 	}
 
-	static void addAlloySmelterRecipes()
-	{
+	static void addAlloySmelterRecipes() {
 
 		// Bronze
 		RecipeHandler.addRecipe(new AlloySmelterRecipe(ItemIngots.getIngotByName("copper", 3),
@@ -747,8 +742,7 @@ public class ModRecipes
 				ItemDusts.getDustByName("antimony", 1), ItemIngots.getIngotByName("batteryAlloy", 5), 200, 16));
 
 		// Brass
-		if (OreUtil.doesOreExistAndValid("ingotBrass"))
-		{
+		if (OreUtil.doesOreExistAndValid("ingotBrass")) {
 			ItemStack brassStack = OreDictionary.getOres("ingotBrass").get(0);
 			brassStack.stackSize = 4;
 			RecipeHandler.addRecipe(new AlloySmelterRecipe(ItemIngots.getIngotByName("copper", 3),
@@ -762,8 +756,7 @@ public class ModRecipes
 		}
 
 		// Red Alloy
-		if (OreUtil.doesOreExistAndValid("ingotRedAlloy"))
-		{
+		if (OreUtil.doesOreExistAndValid("ingotRedAlloy")) {
 			ItemStack redAlloyStack = OreDictionary.getOres("ingotRedAlloy").get(0);
 			redAlloyStack.stackSize = 1;
 			RecipeHandler.addRecipe(new AlloySmelterRecipe(new ItemStack(Items.redstone, 4),
@@ -773,8 +766,7 @@ public class ModRecipes
 		}
 
 		// Blue Alloy
-		if (OreUtil.doesOreExistAndValid("ingotBlueAlloy"))
-		{
+		if (OreUtil.doesOreExistAndValid("ingotBlueAlloy")) {
 			ItemStack blueAlloyStack = OreDictionary.getOres("ingotBlueAlloy").get(0);
 			blueAlloyStack.stackSize = 1;
 			RecipeHandler.addRecipe(new AlloySmelterRecipe(ItemDusts.getDustByName("teslatite", 4),
@@ -782,8 +774,7 @@ public class ModRecipes
 		}
 
 		// Blue Alloy
-		if (OreUtil.doesOreExistAndValid("ingotPurpleAlloy") && OreUtil.doesOreExistAndValid("dustInfusedTeslatite"))
-		{
+		if (OreUtil.doesOreExistAndValid("ingotPurpleAlloy") && OreUtil.doesOreExistAndValid("dustInfusedTeslatite")) {
 			ItemStack purpleAlloyStack = OreDictionary.getOres("ingotPurpleAlloy").get(0);
 			purpleAlloyStack.stackSize = 1;
 			ItemStack infusedTeslatiteStack = OreDictionary.getOres("ingotPurpleAlloy").get(0);
@@ -795,8 +786,7 @@ public class ModRecipes
 		}
 
 		// Aluminum Brass
-		if (OreUtil.doesOreExistAndValid("ingotAluminumBrass"))
-		{
+		if (OreUtil.doesOreExistAndValid("ingotAluminumBrass")) {
 			ItemStack aluminumBrassStack = OreDictionary.getOres("ingotAluminumBrass").get(0);
 			aluminumBrassStack.stackSize = 4;
 			RecipeHandler.addRecipe(new AlloySmelterRecipe(ItemIngots.getIngotByName("copper", 3),
@@ -811,8 +801,7 @@ public class ModRecipes
 
 		// Manyullyn
 		if (OreUtil.doesOreExistAndValid("ingotManyullyn") && OreUtil.doesOreExistAndValid("ingotCobalt")
-				&& OreUtil.doesOreExistAndValid("ingotArdite"))
-		{
+				&& OreUtil.doesOreExistAndValid("ingotArdite")) {
 			ItemStack manyullynStack = OreDictionary.getOres("ingotManyullyn").get(0);
 			manyullynStack.stackSize = 1;
 			ItemStack cobaltStack = OreDictionary.getOres("ingotCobalt").get(0);
@@ -829,8 +818,7 @@ public class ModRecipes
 		}
 
 		// Conductive Iron
-		if (OreUtil.doesOreExistAndValid("ingotConductiveIron"))
-		{
+		if (OreUtil.doesOreExistAndValid("ingotConductiveIron")) {
 			ItemStack conductiveIronStack = OreDictionary.getOres("ingotConductiveIron").get(0);
 			conductiveIronStack.stackSize = 1;
 			RecipeHandler.addRecipe(new AlloySmelterRecipe(new ItemStack(Items.redstone, 1),
@@ -838,8 +826,7 @@ public class ModRecipes
 		}
 
 		// Redstone Alloy
-		if (OreUtil.doesOreExistAndValid("ingotRedstoneAlloy") && OreUtil.doesOreExistAndValid("itemSilicon"))
-		{
+		if (OreUtil.doesOreExistAndValid("ingotRedstoneAlloy") && OreUtil.doesOreExistAndValid("itemSilicon")) {
 			ItemStack redstoneAlloyStack = OreDictionary.getOres("ingotRedstoneAlloy").get(0);
 			redstoneAlloyStack.stackSize = 1;
 			ItemStack siliconStack = OreDictionary.getOres("itemSilicon").get(0);
@@ -849,8 +836,7 @@ public class ModRecipes
 		}
 
 		// Pulsating Iron
-		if (OreUtil.doesOreExistAndValid("ingotPhasedIron"))
-		{
+		if (OreUtil.doesOreExistAndValid("ingotPhasedIron")) {
 			ItemStack pulsatingIronStack = OreDictionary.getOres("ingotPhasedIron").get(0);
 			pulsatingIronStack.stackSize = 1;
 			RecipeHandler.addRecipe(new AlloySmelterRecipe(new ItemStack(Items.iron_ingot, 1),
@@ -860,8 +846,7 @@ public class ModRecipes
 		}
 
 		// Vibrant Alloy
-		if (OreUtil.doesOreExistAndValid("ingotEnergeticAlloy") && OreUtil.doesOreExistAndValid("ingotPhasedGold"))
-		{
+		if (OreUtil.doesOreExistAndValid("ingotEnergeticAlloy") && OreUtil.doesOreExistAndValid("ingotPhasedGold")) {
 			ItemStack energeticAlloyStack = OreDictionary.getOres("ingotEnergeticAlloy").get(0);
 			energeticAlloyStack.stackSize = 1;
 			ItemStack vibrantAlloyStack = OreDictionary.getOres("ingotPhasedGold").get(0);
@@ -873,8 +858,7 @@ public class ModRecipes
 		}
 
 		// Soularium
-		if (OreUtil.doesOreExistAndValid("ingotSoularium"))
-		{
+		if (OreUtil.doesOreExistAndValid("ingotSoularium")) {
 			ItemStack soulariumStack = OreDictionary.getOres("ingotSoularium").get(0);
 			soulariumStack.stackSize = 1;
 			RecipeHandler.addRecipe(new AlloySmelterRecipe(new ItemStack(Blocks.soul_sand, 1),
@@ -883,13 +867,10 @@ public class ModRecipes
 
 	}
 
-	static void addPlateCuttingMachineRecipes()
-	{
+	static void addPlateCuttingMachineRecipes() {
 
-		for (String ore : OreUtil.oreNames)
-		{
-			if (OreUtil.hasBlock(ore) && OreUtil.hasPlate(ore))
-			{
+		for (String ore : OreUtil.oreNames) {
+			if (OreUtil.hasBlock(ore) && OreUtil.hasPlate(ore)) {
 				RecipeHandler.addRecipe(
 						new PlateCuttingMachineRecipe(OreUtil.getStackFromName("block" + capitalizeFirstLetter(ore)),
 								OreUtil.getStackFromName("plate" + capitalizeFirstLetter(ore), 9), 200, 16));
@@ -901,8 +882,7 @@ public class ModRecipes
 				ItemPlates.getPlateByName("obsidian", 9), 100, 4));
 	}
 
-	static void addIndustrialSawmillRecipes()
-	{
+	static void addIndustrialSawmillRecipes() {
 		ItemStack pulpStack = OreDictionary.getOres("pulpWood").get(0);
 		RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.log, 1, 0), null,
 				new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(Blocks.planks, 6, 0), pulpStack, null, 200, 30,
@@ -947,8 +927,7 @@ public class ModRecipes
 						new ItemStack(Blocks.planks, 6, 5), pulpStack, new ItemStack(Items.bucket), 200, 30, false));
 	}
 
-	static void addBlastFurnaceRecipes()
-	{
+	static void addBlastFurnaceRecipes() {
 		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDusts.getDustByName("titanium"), null,
 				ItemIngots.getIngotByName("titanium"), null, 3600, 120, 1500));
 		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsSmall.getSmallDustByName("titanium", 4), null,
@@ -1013,8 +992,7 @@ public class ModRecipes
 						new ItemStack(Items.iron_ingot, 2), ItemDusts.getDustByName("darkAshes"), 140, 120, 1000));
 	}
 
-	static void addUUrecipes()
-	{
+	static void addUUrecipes() {
 
 		if (ConfigTechReborn.UUrecipesWood)
 			CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.log, 8), " U ", "   ", "   ", 'U',
@@ -1156,13 +1134,11 @@ public class ModRecipes
 
 	}
 
-	static void hideUUrecipes()
-	{
+	static void hideUUrecipes() {
 		// TODO
 	}
 
-	static void addIndustrialCentrifugeRecipes()
-	{
+	static void addIndustrialCentrifugeRecipes() {
 
 		// Mycelium Byproducts
 		RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Blocks.mycelium, 8), null,
@@ -1241,12 +1217,9 @@ public class ModRecipes
 		// ItemStack(Blocks.sand, 12), 4800, 5));
 	}
 
-	static void addIndustrialGrinderRecipes()
-	{
-		for (String ore : OreUtil.oreNames)
-		{
-			if (OreUtil.hasIngot(ore) && OreUtil.hasDustSmall(ore) && OreUtil.hasBlock(ore))
-			{
+	static void addIndustrialGrinderRecipes() {
+		for (String ore : OreUtil.oreNames) {
+			if (OreUtil.hasIngot(ore) && OreUtil.hasDustSmall(ore) && OreUtil.hasBlock(ore)) {
 				RecipeHandler.addRecipe(
 						new IndustrialGrinderRecipe(OreUtil.getStackFromName("block" + capitalizeFirstLetter(ore)),
 								null, new FluidStack(FluidRegistry.WATER, 1000),
@@ -1264,10 +1237,8 @@ public class ModRecipes
 		}
 
 		// Copper Ore
-		if (OreUtil.doesOreExistAndValid("oreCopper"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreCopper")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreCopper").get(0);
 				RecipeHandler.addRecipe(
 						new IndustrialGrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000),
@@ -1293,17 +1264,14 @@ public class ModRecipes
 				RecipeHandler.addRecipe(new IndustrialGrinderRecipe(oreStack, ItemCells.getCellByName("mercury", 1),
 						null, ItemDusts.getDustByName("copper", 2), ItemDustsSmall.getSmallDustByName("Gold", 1),
 						ItemDusts.getDustByName("nickel", 1), new ItemStack(Items.bucket), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Copper Ore");
 			}
 		}
 
 		// Tin Ore
-		if (OreUtil.doesOreExistAndValid("oreTin"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreTin")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreTin").get(0);
 				RecipeHandler.addRecipe(
 						new IndustrialGrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000),
@@ -1321,17 +1289,14 @@ public class ModRecipes
 						.addRecipe(new IndustrialGrinderRecipe(oreStack, new ItemStack(ModItems.bucketSodiumpersulfate),
 								null, ItemDusts.getDustByName("tin", 2), ItemDustsSmall.getSmallDustByName("Iron", 1),
 								ItemDusts.getDustByName("zinc", 1), new ItemStack(Items.bucket), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Tin Ore");
 			}
 		}
 
 		// Nickel Ore
-		if (OreUtil.doesOreExistAndValid("oreNickel"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreNickel")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreNickel").get(0);
 				RecipeHandler.addRecipe(
 						new IndustrialGrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000),
@@ -1357,17 +1322,14 @@ public class ModRecipes
 				RecipeHandler.addRecipe(new IndustrialGrinderRecipe(oreStack, new ItemStack(ModItems.bucketMercury),
 						null, ItemDusts.getDustByName("nickel", 2), ItemDustsSmall.getSmallDustByName("Iron", 1),
 						ItemDusts.getDustByName("platinum", 1), new ItemStack(Items.bucket), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Nickel Ore");
 			}
 		}
 
 		// Zinc Ore
-		if (OreUtil.doesOreExistAndValid("oreZinc"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreZinc")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreZinc").get(0);
 				RecipeHandler.addRecipe(
 						new IndustrialGrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000),
@@ -1385,17 +1347,14 @@ public class ModRecipes
 						.addRecipe(new IndustrialGrinderRecipe(oreStack, new ItemStack(ModItems.bucketSodiumpersulfate),
 								null, ItemDusts.getDustByName("zinc", 2), ItemDustsSmall.getSmallDustByName("Iron", 1),
 								ItemDusts.getDustByName("iron", 1), new ItemStack(Items.bucket), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Zinc Ore");
 			}
 		}
 
 		// Silver Ore
-		if (OreUtil.doesOreExistAndValid("oreSilver"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreSilver")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreSilver").get(0);
 				RecipeHandler.addRecipe(
 						new IndustrialGrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000),
@@ -1412,17 +1371,14 @@ public class ModRecipes
 				RecipeHandler.addRecipe(new IndustrialGrinderRecipe(oreStack, new ItemStack(ModItems.bucketMercury),
 						null, ItemDusts.getDustByName("silver", 3), ItemDustsSmall.getSmallDustByName("Lead", 1),
 						ItemDustsSmall.getSmallDustByName("Sulfur", 1), new ItemStack(Items.bucket), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Silver Ore");
 			}
 		}
 
 		// Lead Ore
-		if (OreUtil.doesOreExistAndValid("oreLead"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreLead")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreLead").get(0);
 				RecipeHandler.addRecipe(
 						new IndustrialGrinderRecipe(oreStack, null, new FluidStack(FluidRegistry.WATER, 1000),
@@ -1439,17 +1395,14 @@ public class ModRecipes
 				RecipeHandler.addRecipe(new IndustrialGrinderRecipe(oreStack, new ItemStack(ModItems.bucketMercury),
 						null, ItemDusts.getDustByName("lead", 2), ItemDusts.getDustByName("silver", 1),
 						ItemDustsSmall.getSmallDustByName("Sulfur", 1), new ItemStack(Items.bucket), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Lead Ore");
 			}
 		}
 
 		// Apatite Ore
-		if (OreUtil.doesOreExistAndValid("oreApatite") & OreUtil.doesOreExistAndValid("gemApatite"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreApatite") & OreUtil.doesOreExistAndValid("gemApatite")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreApatite").get(0);
 				ItemStack gemStack = OreDictionary.getOres("gemApatite").get(0);
 				gemStack.stackSize = 6;
@@ -1459,17 +1412,14 @@ public class ModRecipes
 				RecipeHandler.addRecipe(new IndustrialGrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null,
 						gemStack, gemStack, ItemDustsSmall.getSmallDustByName("Phosphorous", 4),
 						new ItemStack(Items.bucket), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Apatite Ore");
 			}
 		}
 
 		// Nether Quartz Ore
-		if (OreUtil.doesOreExistAndValid("dustNetherQuartz"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("dustNetherQuartz")) {
+			try {
 				ItemStack dustStack = OreDictionary.getOres("dustNetherQuartz").get(0);
 				dustStack.stackSize = 4;
 				RecipeHandler.addRecipe(new IndustrialGrinderRecipe(new ItemStack(Blocks.quartz_ore, 1), null,
@@ -1478,17 +1428,14 @@ public class ModRecipes
 				RecipeHandler.addRecipe(new IndustrialGrinderRecipe(new ItemStack(Blocks.quartz_ore, 1),
 						new ItemStack(Items.water_bucket), null, new ItemStack(Items.quartz, 2), dustStack,
 						ItemDustsSmall.getSmallDustByName("Netherrack", 2), new ItemStack(Items.bucket), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Nether Quartz Ore");
 			}
 		}
 
 		// Certus Quartz Ore
-		if (OreUtil.doesOreExistAndValid("oreCertusQuartz"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreCertusQuartz")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreCertusQuartz").get(0);
 				ItemStack gemStack = OreDictionary.getOres("crystalCertusQuartz").get(0);
 				ItemStack dustStack = OreDictionary.getOres("dustCertusQuartz").get(0);
@@ -1497,17 +1444,14 @@ public class ModRecipes
 						new FluidStack(FluidRegistry.WATER, 1000), gemStack, dustStack, null, null, 100, 120));
 				RecipeHandler.addRecipe(new IndustrialGrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null,
 						gemStack, dustStack, null, new ItemStack(Items.bucket), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Certus Quartz Ore");
 			}
 		}
 
 		// Charged Certus Quartz Ore
-		if (OreUtil.doesOreExistAndValid("oreChargedCertusQuartz"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreChargedCertusQuartz")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreChargedCertusQuartz").get(0);
 				ItemStack gemStack = OreDictionary.getOres("crystalChargedCertusQuartz").get(0);
 				ItemStack dustStack = OreDictionary.getOres("dustCertusQuartz").get(0);
@@ -1516,17 +1460,14 @@ public class ModRecipes
 						new FluidStack(FluidRegistry.WATER, 1000), gemStack, dustStack, null, null, 100, 120));
 				RecipeHandler.addRecipe(new IndustrialGrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null,
 						gemStack, dustStack, null, new ItemStack(Items.bucket), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Charged Certus Quartz Ore");
 			}
 		}
 
 		// Amethyst Ore
-		if (OreUtil.doesOreExistAndValid("oreAmethyst") && OreUtil.doesOreExistAndValid("gemAmethyst"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreAmethyst") && OreUtil.doesOreExistAndValid("gemAmethyst")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreAmethyst").get(0);
 				ItemStack gemStack = OreDictionary.getOres("gemAmethyst").get(0);
 				gemStack.stackSize = 2;
@@ -1536,17 +1477,14 @@ public class ModRecipes
 						new FluidStack(FluidRegistry.WATER, 1000), gemStack, dustStack, null, null, 100, 120));
 				RecipeHandler.addRecipe(new IndustrialGrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null,
 						gemStack, dustStack, null, new ItemStack(Items.bucket), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Certus Quartz Ore");
 			}
 		}
 
 		// Topaz Ore
-		if (OreUtil.doesOreExistAndValid("oreTopaz") && OreUtil.doesOreExistAndValid("gemTopaz"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreTopaz") && OreUtil.doesOreExistAndValid("gemTopaz")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreTopaz").get(0);
 				ItemStack gemStack = OreDictionary.getOres("gemTopaz").get(0);
 				gemStack.stackSize = 2;
@@ -1556,17 +1494,14 @@ public class ModRecipes
 						new FluidStack(FluidRegistry.WATER, 1000), gemStack, dustStack, null, null, 100, 120));
 				RecipeHandler.addRecipe(new IndustrialGrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null,
 						gemStack, dustStack, null, new ItemStack(Items.bucket), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Topaz Ore");
 			}
 		}
 
 		// Tanzanite Ore
-		if (OreUtil.doesOreExistAndValid("oreTanzanite") && OreUtil.doesOreExistAndValid("gemTanzanite"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreTanzanite") && OreUtil.doesOreExistAndValid("gemTanzanite")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreTanzanite").get(0);
 				ItemStack gemStack = OreDictionary.getOres("gemTanzanite").get(0);
 				gemStack.stackSize = 2;
@@ -1576,17 +1511,14 @@ public class ModRecipes
 						new FluidStack(FluidRegistry.WATER, 1000), gemStack, dustStack, null, null, 100, 120));
 				RecipeHandler.addRecipe(new IndustrialGrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null,
 						gemStack, dustStack, null, new ItemStack(Items.bucket), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Tanzanite Ore");
 			}
 		}
 
 		// Malachite Ore
-		if (OreUtil.doesOreExistAndValid("oreMalachite") && OreUtil.doesOreExistAndValid("gemMalachite"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreMalachite") && OreUtil.doesOreExistAndValid("gemMalachite")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreMalachite").get(0);
 				ItemStack gemStack = OreDictionary.getOres("gemMalachite").get(0);
 				gemStack.stackSize = 2;
@@ -1596,8 +1528,7 @@ public class ModRecipes
 						new FluidStack(FluidRegistry.WATER, 1000), gemStack, dustStack, null, null, 100, 120));
 				RecipeHandler.addRecipe(new IndustrialGrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null,
 						gemStack, dustStack, null, new ItemStack(Items.bucket), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Malachite Ore");
 			}
 		}
@@ -1767,12 +1698,10 @@ public class ModRecipes
 				new ItemStack(Items.bucket), 100, 120));
 	}
 
-	static void addImplosionCompressorRecipes()
-	{
+	static void addImplosionCompressorRecipes() {
 	}
 
-	static void addChemicalReactorRecipes()
-	{
+	static void addChemicalReactorRecipes() {
 		RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemCells.getCellByName("calcium", 1),
 				ItemCells.getCellByName("carbon", 1), ItemCells.getCellByName("calciumCarbonate", 2), 240, 30));
 		RecipeHandler.addRecipe(new ChemicalReactorRecipe(new ItemStack(Items.gold_nugget, 8),
@@ -1797,8 +1726,7 @@ public class ModRecipes
 				new ItemStack(Items.slime_ball, 1), new ItemStack(Items.magma_cream, 1), 40, 30));
 	}
 
-	static void addIndustrialElectrolyzerRecipes()
-	{
+	static void addIndustrialElectrolyzerRecipes() {
 
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(ItemCells.getCellByName("nitrocarbon", 2), null,
 				ItemCells.getCellByName("nitrogen"), ItemCells.getCellByName("carbon"), null, null, 80, 60));
@@ -1811,8 +1739,7 @@ public class ModRecipes
 
 	}
 
-	static void addIc2Recipes()
-	{
+	static void addIc2Recipes() {
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.manual), ItemIngots.getIngotByName("refinedIron"),
 				Items.book);
 
@@ -2231,10 +2158,8 @@ public class ModRecipes
 				TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
 
 		// Copper Ore
-		if (OreUtil.doesOreExistAndValid("oreCopper"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreCopper")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreCopper").get(0);
 				RecipeHandler.addRecipe(new IndustrialGrinderRecipe(oreStack,
 						TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("copper", 2),
@@ -2249,17 +2174,14 @@ public class ModRecipes
 				RecipeHandler.addRecipe(new IndustrialGrinderRecipe(oreStack, ItemCells.getCellByName("mercury", 1),
 						null, ItemDusts.getDustByName("copper", 2), ItemDustsSmall.getSmallDustByName("Gold", 1),
 						ItemDusts.getDustByName("nickel", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Copper Ore");
 			}
 		}
 
 		// Tin Ore
-		if (OreUtil.doesOreExistAndValid("oreTin"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreTin")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreTin").get(0);
 				RecipeHandler.addRecipe(new IndustrialGrinderRecipe(oreStack,
 						TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("tin", 2),
@@ -2269,17 +2191,14 @@ public class ModRecipes
 						ItemCells.getCellByName("sodiumPersulfate", 1), null, ItemDusts.getDustByName("tin", 2),
 						ItemDustsSmall.getSmallDustByName("Iron", 1), ItemDusts.getDustByName("zinc", 1),
 						TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Tin Ore");
 			}
 		}
 
 		// Nickel Ore
-		if (OreUtil.doesOreExistAndValid("oreNickel"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreNickel")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreNickel").get(0);
 				RecipeHandler.addRecipe(new IndustrialGrinderRecipe(oreStack,
 						TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("nickel", 2),
@@ -2292,17 +2211,14 @@ public class ModRecipes
 				RecipeHandler.addRecipe(new IndustrialGrinderRecipe(oreStack, ItemCells.getCellByName("mercury", 1),
 						null, ItemDusts.getDustByName("nickel", 2), ItemDustsSmall.getSmallDustByName("Iron", 1),
 						ItemDusts.getDustByName("platinum", 1), TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Nickel Ore");
 			}
 		}
 
 		// Zinc Ore
-		if (OreUtil.doesOreExistAndValid("oreZinc"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreZinc")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreZinc").get(0);
 				RecipeHandler.addRecipe(new IndustrialGrinderRecipe(oreStack,
 						TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("zinc", 2),
@@ -2312,17 +2228,14 @@ public class ModRecipes
 						ItemCells.getCellByName("sodiumPersulfate", 1), null, ItemDusts.getDustByName("zinc", 2),
 						ItemDustsSmall.getSmallDustByName("Iron", 1), ItemDusts.getDustByName("iron", 1),
 						TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Zinc Ore");
 			}
 		}
 
 		// Silver Ore
-		if (OreUtil.doesOreExistAndValid("oreSilver"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreSilver")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreSilver").get(0);
 				RecipeHandler.addRecipe(new IndustrialGrinderRecipe(oreStack,
 						TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("silver", 2),
@@ -2332,17 +2245,14 @@ public class ModRecipes
 						null, ItemDusts.getDustByName("silver", 3), ItemDustsSmall.getSmallDustByName("Lead", 1),
 						ItemDustsSmall.getSmallDustByName("Sulfur", 1), TechRebornAPI.recipeCompact.getItem("cell"),
 						100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Silver Ore");
 			}
 		}
 
 		// Lead Ore
-		if (OreUtil.doesOreExistAndValid("oreLead"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreLead")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreLead").get(0);
 				RecipeHandler.addRecipe(new IndustrialGrinderRecipe(oreStack,
 						TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("lead", 2),
@@ -2352,17 +2262,14 @@ public class ModRecipes
 						null, ItemDusts.getDustByName("lead", 2), ItemDusts.getDustByName("silver", 1),
 						ItemDustsSmall.getSmallDustByName("Sulfur", 1), TechRebornAPI.recipeCompact.getItem("cell"),
 						100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Lead Ore");
 			}
 		}
 
 		// Uranium Ore
-		if (OreUtil.doesOreExistAndValid("oreUranium"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreUranium")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreUranium").get(0);
 				ItemStack uranium238Stack = TechRebornAPI.recipeCompact.getItem("Uran238");
 				uranium238Stack.stackSize = 8;
@@ -2376,17 +2283,14 @@ public class ModRecipes
 						TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
 				RecipeHandler.addRecipe(new IndustrialGrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null,
 						uranium238Stack, uranium235Stack, null, new ItemStack(Items.bucket), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Uranium Ore");
 			}
 		}
 
 		// Pitchblende Ore
-		if (OreUtil.doesOreExistAndValid("orePitchblende"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("orePitchblende")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("orePitchblende").get(0);
 				ItemStack uranium238Stack = TechRebornAPI.recipeCompact.getItem("Uran238");
 				uranium238Stack.stackSize = 8;
@@ -2400,182 +2304,149 @@ public class ModRecipes
 						TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
 				RecipeHandler.addRecipe(new IndustrialGrinderRecipe(oreStack, new ItemStack(Items.water_bucket), null,
 						uranium238Stack, uranium235Stack, null, new ItemStack(Items.bucket), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Uranium Ore");
 			}
 		}
 
 		// Aluminum Ore
-		if (OreUtil.doesOreExistAndValid("oreAluminum"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreAluminum")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreAluminum").get(0);
 				RecipeHandler.addRecipe(
 						new IndustrialGrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null,
 								ItemDusts.getDustByName("aluminum", 2), ItemDustsSmall.getSmallDustByName("Bauxite", 1),
 								ItemDustsSmall.getSmallDustByName("Bauxite", 1),
 								TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Lead Ore");
 			}
 		}
 
 		// Ardite Ore
-		if (OreUtil.doesOreExistAndValid("oreArdite"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreArdite")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreArdite").get(0);
 				RecipeHandler.addRecipe(new IndustrialGrinderRecipe(oreStack,
 						TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("ardite", 2),
 						ItemDustsSmall.getSmallDustByName("Ardite", 1), ItemDustsSmall.getSmallDustByName("Ardite", 1),
 						TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Ardite Ore");
 			}
 		}
 
 		// Cobalt Ore
-		if (OreUtil.doesOreExistAndValid("oreCobalt"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreCobalt")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreCobalt").get(0);
 				RecipeHandler.addRecipe(new IndustrialGrinderRecipe(oreStack,
 						TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("cobalt", 2),
 						ItemDustsSmall.getSmallDustByName("Cobalt", 1), ItemDustsSmall.getSmallDustByName("Cobalt", 1),
 						TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Cobalt Ore");
 			}
 		}
 
 		// Dark Iron Ore
-		if (OreUtil.doesOreExistAndValid("oreDarkIron"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreDarkIron")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreDarkIron").get(0);
 				RecipeHandler.addRecipe(new IndustrialGrinderRecipe(oreStack,
 						TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("darkIron", 2),
 						ItemDustsSmall.getSmallDustByName("DarkIron", 1), ItemDustsSmall.getSmallDustByName("Iron", 1),
 						TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Dark Iron Ore");
 			}
 		}
 
 		// Cadmium Ore
-		if (OreUtil.doesOreExistAndValid("oreCadmium"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreCadmium")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreCadmium").get(0);
 				RecipeHandler.addRecipe(
 						new IndustrialGrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null,
 								ItemDusts.getDustByName("cadmium", 2), ItemDustsSmall.getSmallDustByName("Cadmium", 1),
 								ItemDustsSmall.getSmallDustByName("Cadmium", 1),
 								TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Cadmium Ore");
 			}
 		}
 
 		// Indium Ore
-		if (OreUtil.doesOreExistAndValid("oreIndium"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreIndium")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreIndium").get(0);
 				RecipeHandler.addRecipe(new IndustrialGrinderRecipe(oreStack,
 						TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("indium", 2),
 						ItemDustsSmall.getSmallDustByName("Indium", 1), ItemDustsSmall.getSmallDustByName("Indium", 1),
 						TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Indium Ore");
 			}
 		}
 
 		// Calcite Ore
-		if (OreUtil.doesOreExistAndValid("oreCalcite") && OreUtil.doesOreExistAndValid("gemCalcite"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreCalcite") && OreUtil.doesOreExistAndValid("gemCalcite")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreCalcite").get(0);
 				ItemStack gemStack = OreDictionary.getOres("gemCalcite").get(0);
 				RecipeHandler.addRecipe(
 						new IndustrialGrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null,
 								gemStack, ItemDustsSmall.getSmallDustByName("Calcite", 6), null,
 								TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Calcite Ore");
 			}
 		}
 
 		// Magnetite Ore
-		if (OreUtil.doesOreExistAndValid("oreMagnetite") && OreUtil.doesOreExistAndValid("chunkMagnetite"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreMagnetite") && OreUtil.doesOreExistAndValid("chunkMagnetite")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreMagnetite").get(0);
 				ItemStack chunkStack = OreDictionary.getOres("chunkMagnetite").get(0);
 				RecipeHandler.addRecipe(
 						new IndustrialGrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null,
 								chunkStack, ItemDustsSmall.getSmallDustByName("Magnetite", 6), null,
 								TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Magnetite Ore");
 			}
 		}
 
 		// Graphite Ore
-		if (OreUtil.doesOreExistAndValid("oreGraphite") && OreUtil.doesOreExistAndValid("chunkGraphite"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreGraphite") && OreUtil.doesOreExistAndValid("chunkGraphite")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreGraphite").get(0);
 				ItemStack chunkStack = OreDictionary.getOres("chunkGraphite").get(0);
 				RecipeHandler.addRecipe(
 						new IndustrialGrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null,
 								chunkStack, ItemDustsSmall.getSmallDustByName("Graphite", 6), null,
 								TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Graphite Ore");
 			}
 		}
 
 		// Osmium Ore
-		if (OreUtil.doesOreExistAndValid("oreOsmium"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreOsmium")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreOsmium").get(0);
 				RecipeHandler.addRecipe(new IndustrialGrinderRecipe(oreStack,
 						TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("osmium", 2),
 						ItemDustsSmall.getSmallDustByName("Osmium", 1), ItemDustsSmall.getSmallDustByName("Osmium", 1),
 						TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Osmium Ore");
 			}
 		}
 
 		// Teslatite Ore
-		if (OreUtil.doesOreExistAndValid("oreTeslatite") && OreUtil.doesOreExistAndValid("dustTeslatite"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreTeslatite") && OreUtil.doesOreExistAndValid("dustTeslatite")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreTeslatite").get(0);
 				ItemStack dustStack = OreDictionary.getOres("dustTeslatite").get(0);
 				dustStack.stackSize = 10;
@@ -2584,50 +2455,41 @@ public class ModRecipes
 								dustStack, ItemDustsSmall.getSmallDustByName("Sodalite", 1),
 								ItemDustsSmall.getSmallDustByName("Glowstone", 1),
 								TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Teslatite Ore");
 			}
 		}
 
 		// Sulfur Ore
-		if (OreUtil.doesOreExistAndValid("oreSulfur"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreSulfur")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreSulfur").get(0);
 				RecipeHandler.addRecipe(new IndustrialGrinderRecipe(oreStack,
 						TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("sulfur", 2),
 						ItemDustsSmall.getSmallDustByName("Sulfur", 1), ItemDustsSmall.getSmallDustByName("Sulfur", 1),
 						TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Sulfur Ore");
 			}
 		}
 
 		// Saltpeter Ore
-		if (OreUtil.doesOreExistAndValid("oreSaltpeter"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreSaltpeter")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreSaltpeter").get(0);
 				RecipeHandler.addRecipe(new IndustrialGrinderRecipe(oreStack,
 						TechRebornAPI.recipeCompact.getItem("waterCell"), null, ItemDusts.getDustByName("saltpeter", 2),
 						ItemDustsSmall.getSmallDustByName("Saltpeter", 1),
 						ItemDustsSmall.getSmallDustByName("Saltpeter", 1), TechRebornAPI.recipeCompact.getItem("cell"),
 						100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Saltpeter Ore");
 			}
 		}
 
 		// Apatite Ore
-		if (OreUtil.doesOreExistAndValid("oreApatite") & OreUtil.doesOreExistAndValid("gemApatite"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreApatite") & OreUtil.doesOreExistAndValid("gemApatite")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreApatite").get(0);
 				ItemStack gemStack = OreDictionary.getOres("gemApatite").get(0);
 				gemStack.stackSize = 6;
@@ -2635,34 +2497,28 @@ public class ModRecipes
 						new IndustrialGrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null,
 								gemStack, gemStack, ItemDustsSmall.getSmallDustByName("Phosphorous", 4),
 								TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Apatite Ore");
 			}
 		}
 
 		// Nether Quartz Ore
-		if (OreUtil.doesOreExistAndValid("dustNetherQuartz"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("dustNetherQuartz")) {
+			try {
 				ItemStack dustStack = OreDictionary.getOres("dustNetherQuartz").get(0);
 				dustStack.stackSize = 4;
 				RecipeHandler.addRecipe(new IndustrialGrinderRecipe(new ItemStack(Blocks.quartz_ore, 1),
 						TechRebornAPI.recipeCompact.getItem("waterCell"), null, new ItemStack(Items.quartz, 2),
 						dustStack, ItemDustsSmall.getSmallDustByName("Netherrack", 2),
 						TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Nether Quartz Ore");
 			}
 		}
 
 		// Certus Quartz Ore
-		if (OreUtil.doesOreExistAndValid("oreCertusQuartz"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreCertusQuartz")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreCertusQuartz").get(0);
 				ItemStack gemStack = OreDictionary.getOres("crystalCertusQuartz").get(0);
 				ItemStack dustStack = OreDictionary.getOres("dustCertusQuartz").get(0);
@@ -2670,17 +2526,14 @@ public class ModRecipes
 				RecipeHandler.addRecipe(
 						new IndustrialGrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null,
 								gemStack, dustStack, null, TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Certus Quartz Ore");
 			}
 		}
 
 		// Charged Certus Quartz Ore
-		if (OreUtil.doesOreExistAndValid("oreChargedCertusQuartz"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreChargedCertusQuartz")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreChargedCertusQuartz").get(0);
 				ItemStack gemStack = OreDictionary.getOres("crystalChargedCertusQuartz").get(0);
 				ItemStack dustStack = OreDictionary.getOres("dustCertusQuartz").get(0);
@@ -2688,17 +2541,14 @@ public class ModRecipes
 				RecipeHandler.addRecipe(
 						new IndustrialGrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null,
 								gemStack, dustStack, null, TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Charged Certus Quartz Ore");
 			}
 		}
 
 		// Amethyst Ore
-		if (OreUtil.doesOreExistAndValid("oreAmethyst") && OreUtil.doesOreExistAndValid("gemAmethyst"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreAmethyst") && OreUtil.doesOreExistAndValid("gemAmethyst")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreAmethyst").get(0);
 				ItemStack gemStack = OreDictionary.getOres("gemAmethyst").get(0);
 				gemStack.stackSize = 2;
@@ -2707,17 +2557,14 @@ public class ModRecipes
 				RecipeHandler.addRecipe(
 						new IndustrialGrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null,
 								gemStack, dustStack, null, TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Certus Quartz Ore");
 			}
 		}
 
 		// Topaz Ore
-		if (OreUtil.doesOreExistAndValid("oreTopaz") && OreUtil.doesOreExistAndValid("gemTopaz"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreTopaz") && OreUtil.doesOreExistAndValid("gemTopaz")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreTopaz").get(0);
 				ItemStack gemStack = OreDictionary.getOres("gemTopaz").get(0);
 				gemStack.stackSize = 2;
@@ -2726,17 +2573,14 @@ public class ModRecipes
 				RecipeHandler.addRecipe(
 						new IndustrialGrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null,
 								gemStack, dustStack, null, TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Topaz Ore");
 			}
 		}
 
 		// Tanzanite Ore
-		if (OreUtil.doesOreExistAndValid("oreTanzanite") && OreUtil.doesOreExistAndValid("gemTanzanite"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreTanzanite") && OreUtil.doesOreExistAndValid("gemTanzanite")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreTanzanite").get(0);
 				ItemStack gemStack = OreDictionary.getOres("gemTanzanite").get(0);
 				gemStack.stackSize = 2;
@@ -2745,17 +2589,14 @@ public class ModRecipes
 				RecipeHandler.addRecipe(
 						new IndustrialGrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null,
 								gemStack, dustStack, null, TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Tanzanite Ore");
 			}
 		}
 
 		// Malachite Ore
-		if (OreUtil.doesOreExistAndValid("oreMalachite") && OreUtil.doesOreExistAndValid("gemMalachite"))
-		{
-			try
-			{
+		if (OreUtil.doesOreExistAndValid("oreMalachite") && OreUtil.doesOreExistAndValid("gemMalachite")) {
+			try {
 				ItemStack oreStack = OreDictionary.getOres("oreMalachite").get(0);
 				ItemStack gemStack = OreDictionary.getOres("gemMalachite").get(0);
 				gemStack.stackSize = 2;
@@ -2764,8 +2605,7 @@ public class ModRecipes
 				RecipeHandler.addRecipe(
 						new IndustrialGrinderRecipe(oreStack, TechRebornAPI.recipeCompact.getItem("waterCell"), null,
 								gemStack, dustStack, null, TechRebornAPI.recipeCompact.getItem("cell"), 100, 120));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				Core.logHelper.info("Failed to Load Grinder Recipe for Malachite Ore");
 			}
 		}
@@ -3058,8 +2898,7 @@ public class ModRecipes
 				new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 2, 0),
 				ItemCells.getCellByName("carbon", 2), null, null, null, 20, 30));
 
-		if (OreUtil.doesOreExistAndValid("dustSalt"))
-		{
+		if (OreUtil.doesOreExistAndValid("dustSalt")) {
 			ItemStack salt = OreDictionary.getOres("dustSalt").get(0);
 			salt.stackSize = 2;
 			RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(salt,

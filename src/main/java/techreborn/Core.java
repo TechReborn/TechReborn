@@ -115,6 +115,7 @@ public class Core
 		{
 			compatModule.init(event);
 		}
+		MinecraftForge.EVENT_BUS.register(new StackWIPHandler());
 		// Recipes
 		StopWatch watch = new StopWatch();
 		watch.start();
@@ -142,7 +143,6 @@ public class Core
 		MinecraftForge.EVENT_BUS.register(new TRTickHandler());
 		MinecraftForge.EVENT_BUS.register(new OreUnifier());
 		MinecraftForge.EVENT_BUS.register(worldGen.retroGen);
-		MinecraftForge.EVENT_BUS.register(new StackWIPHandler());
 		// Scrapbox
 		if (config.scrapboxDispenser)
 		{
