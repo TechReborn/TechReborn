@@ -1,6 +1,9 @@
 package techreborn.blocks.storage;
 
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import techreborn.client.GuiHandler;
 import techreborn.tiles.storage.TileBatBox;
@@ -20,5 +23,9 @@ public class BlockBatBox extends BlockEnergyStorage
 	{
 		return new TileBatBox();
 	}
-
+	@Override
+	public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+	{
+		dropInventory(worldIn, pos, new ItemStack(this));
+	}
 }

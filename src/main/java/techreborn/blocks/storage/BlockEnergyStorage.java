@@ -28,7 +28,6 @@ import reborncore.common.BaseTileBlock;
 import reborncore.common.blocks.IRotationTexture;
 import techreborn.Core;
 import techreborn.client.TechRebornCreativeTab;
-import techreborn.init.ModBlocks;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -48,6 +47,7 @@ public abstract class BlockEnergyStorage extends BaseTileBlock implements IRotat
 	public BlockEnergyStorage(String name, int guiID)
 	{
 		super(Material.rock);
+		setHardness(2f);
 		setUnlocalizedName("techreborn." + name.toLowerCase());
 		setCreativeTab(TechRebornCreativeTab.instance);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
@@ -125,23 +125,20 @@ public abstract class BlockEnergyStorage extends BaseTileBlock implements IRotat
 		setFacing(facing, worldIn, pos);
 	}
 
-	@Override
-	public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
-	{
-		dropInventory(worldIn, pos);
-		super.breakBlock(worldIn, pos, state);
-	}
 
-	protected void dropInventory(World world, BlockPos pos)
+
+	protected void dropInventory(World world, BlockPos pos, ItemStack itemToDrop)
 	{
 		TileEntity tileEntity = world.getTileEntity(pos);
 
 		if (tileEntity == null)
 		{
+			System.out.print("Null");
 			return;
 		}
 		if (!(tileEntity instanceof IInventory))
 		{
+
 			return;
 		}
 
@@ -171,7 +168,7 @@ public abstract class BlockEnergyStorage extends BaseTileBlock implements IRotat
 			}
 			items.add(itemStack.copy());
 		}
-
+		items.add(itemToDrop);
 		for (ItemStack itemStack : items)
 		{
 			Random rand = new Random();
@@ -195,6 +192,7 @@ public abstract class BlockEnergyStorage extends BaseTileBlock implements IRotat
 			world.spawnEntityInWorld(entityItem);
 			itemStack.stackSize = 0;
 		}
+
 	}
 
 
@@ -270,7 +268,6 @@ public abstract class BlockEnergyStorage extends BaseTileBlock implements IRotat
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
 	{
 		List<ItemStack> items = new ArrayList<ItemStack>();
-		items.add(new ItemStack(ModBlocks.machineframe));
 		return items;
 	}
 

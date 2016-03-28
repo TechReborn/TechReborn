@@ -1,8 +1,12 @@
 package techreborn.blocks.storage;
 
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import techreborn.client.GuiHandler;
+import techreborn.init.ModBlocks;
 import techreborn.tiles.storage.TileMFE;
 
 /**
@@ -20,5 +24,10 @@ public class BlockMFE extends BlockEnergyStorage
 	{
 		return new TileMFE();
 	}
-
+	@Override
+	public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+	{
+		dropInventory(worldIn, pos, new ItemStack(ModBlocks.machineframe));
+		super.breakBlock(worldIn, pos, state);
+	}
 }
