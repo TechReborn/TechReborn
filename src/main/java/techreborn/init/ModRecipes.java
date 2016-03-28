@@ -2032,7 +2032,7 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(
 				new CentrifugeRecipe(new ItemStack(TechRebornAPI.recipeCompact.getItem("rubberWood").getItem(), 16),
 						new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 5),
-						new ItemStack(TechRebornAPI.recipeCompact.getItem("rubberSap").getItem(), 8),
+						new ItemStack(ModItems.parts, 8, 41),
 						new ItemStack(Blocks.sapling, 6), ItemCells.getCellByName("methane", 1),
 						ItemCells.getCellByName("carbon", 4), 5000, 5));
 
@@ -2058,7 +2058,7 @@ public class ModRecipes {
 				new CentrifugeRecipe(ItemDusts.getDustByName("ashes", 1), TechRebornAPI.recipeCompact.getItem("cell"),
 						ItemCells.getCellByName("carbon"), null, null, null, 80, 5));
 		RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.redstone, 10),
-				new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 4),
+				TechRebornAPI.recipeCompact.getItem("cell"),
 				ItemCells.getCellByName("silicon", 1), ItemDusts.getDustByName("pyrite", 3),
 				ItemDusts.getDustByName("ruby", 1), ItemCells.getCellByName("mercury", 3), 6800, 5));
 		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("endstone", 16),
