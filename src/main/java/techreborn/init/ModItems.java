@@ -14,50 +14,11 @@ import reborncore.common.util.BucketHandler;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineFrame;
 import techreborn.events.OreUnifier;
-import techreborn.items.ItemCells;
-import techreborn.items.ItemCrushedOre;
-import techreborn.items.ItemDusts;
-import techreborn.items.ItemDustsSmall;
-import techreborn.items.ItemEnergyCrystal;
-import techreborn.items.ItemGems;
-import techreborn.items.ItemIngots;
-import techreborn.items.ItemLapotronCrystal;
-import techreborn.items.ItemLapotronicOrb;
-import techreborn.items.ItemLithiumBattery;
-import techreborn.items.ItemMissingRecipe;
-import techreborn.items.ItemNuggets;
-import techreborn.items.ItemParts;
-import techreborn.items.ItemPlates;
-import techreborn.items.ItemReBattery;
-import techreborn.items.ItemScrapBox;
-import techreborn.items.ItemUUmatter;
+import techreborn.items.*;
 import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
 import techreborn.items.armor.ItemTRArmour;
-import techreborn.items.tools.ItemAdvancedChainsaw;
-import techreborn.items.tools.ItemAdvancedDrill;
-import techreborn.items.tools.ItemCloakingDevice;
-import techreborn.items.tools.ItemDebugTool;
-import techreborn.items.tools.ItemDiamondChainsaw;
-import techreborn.items.tools.ItemDiamondDrill;
-import techreborn.items.tools.ItemDiamondJackhammer;
-import techreborn.items.tools.ItemFluidbucket;
-import techreborn.items.tools.ItemHammer;
-import techreborn.items.tools.ItemIronChainsaw;
-import techreborn.items.tools.ItemIronDrill;
-import techreborn.items.tools.ItemIronJackhammer;
-import techreborn.items.tools.ItemNanosaber;
-import techreborn.items.tools.ItemOmniTool;
-import techreborn.items.tools.ItemRockCutter;
-import techreborn.items.tools.ItemSteelJackhammer;
-import techreborn.items.tools.ItemTRAxe;
-import techreborn.items.tools.ItemTRHoe;
-import techreborn.items.tools.ItemTRPickaxe;
-import techreborn.items.tools.ItemTRSpade;
-import techreborn.items.tools.ItemTRSword;
-import techreborn.items.tools.ItemTechManual;
-import techreborn.items.tools.ItemTreeTap;
-import techreborn.items.tools.ItemWrench;
+import techreborn.items.tools.*;
 import techreborn.lib.Reference;
 
 public class ModItems
@@ -209,7 +170,12 @@ public class ModItems
 			{
 				FluidContainerRegistry.registerFluidContainer(
 						FluidRegistry.getFluid("fluid" + ItemCells.types[i].toLowerCase()),
-						ItemCells.getCellByName(ItemCells.types[i]));
+						ItemCells.getCellByName(ItemCells.types[i]), ItemCells.getCellByName("empty"));
+			}else if(FluidRegistry.getFluid(ItemCells.types[i].toLowerCase()) !=  null){
+
+				FluidContainerRegistry.registerFluidContainer(
+						FluidRegistry.getFluid(ItemCells.types[i].toLowerCase()),
+						ItemCells.getCellByName(ItemCells.types[i]), ItemCells.getCellByName("empty"));
 			}
 		}
 		rockCutter = PoweredItem.createItem(ItemRockCutter.class);

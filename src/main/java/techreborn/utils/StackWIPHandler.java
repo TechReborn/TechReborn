@@ -17,7 +17,6 @@ import techreborn.init.ModBlocks;
  */
 public class StackWIPHandler
 {
-
 	ArrayList<Block> wipBlocks = new ArrayList<>();
 	public static ArrayList<ItemStack> devHeads = new ArrayList<>();
 
@@ -28,6 +27,9 @@ public class StackWIPHandler
 		wipBlocks.add(ModBlocks.ChunkLoader);
 		wipBlocks.add(ModBlocks.ElectricCraftingTable);
 		wipBlocks.add(ModBlocks.playerDetector);
+		wipBlocks.add(ModBlocks.chargeBench);
+		wipBlocks.add(ModBlocks.playerDetector);
+		wipBlocks.add(ModBlocks.Magicenergeyconverter);
 
 		addHead("modmuss50");
 		addHead("Gigabit101");
@@ -51,9 +53,9 @@ public class StackWIPHandler
 			event.getToolTip().add(TextFormatting.RED + "WIP Coming Soon");
 		}
 		
-		if(devHeads.contains(event.getItemStack())){
+		if(devHeads.contains(event.getItemStack()))
+		{
 			event.getToolTip().add(TextFormatting.GOLD + "TechReborn Developer");
 		}
-		
 	}
 }

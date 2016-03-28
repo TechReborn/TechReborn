@@ -1,21 +1,19 @@
 package techreborn.client;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
 import org.lwjgl.input.Keyboard;
-
 import reborncore.api.IListInfoProvider;
 import reborncore.api.power.IEnergyInterfaceItem;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.Color;
 import techreborn.Core;
-
-import com.mojang.realmsclient.gui.ChatFormatting;
 
 public class StackToolTipEvent
 {
@@ -63,8 +61,8 @@ public class StackToolTipEvent
 			try
 			{
 				Block block = Block.getBlockFromItem(event.getItemStack().getItem());
-				if (block != null && block instanceof BlockContainer
-						&& block.getClass().getCanonicalName().startsWith("techreborn."))
+				if (block != null && (block instanceof BlockContainer || block instanceof ITileEntityProvider)
+						&& Block.blockRegistry.getNameForObject(block).getResourceDomain().contains("techreborn"))
 				{
 					TileEntity tile = block.createTileEntity(Minecraft.getMinecraft().theWorld,
 							block.getDefaultState());

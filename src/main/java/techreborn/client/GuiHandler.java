@@ -13,6 +13,7 @@ import techreborn.tiles.generator.*;
 import techreborn.tiles.idsu.TileIDSU;
 import techreborn.tiles.lesu.TileLesu;
 import techreborn.tiles.storage.TileBatBox;
+import techreborn.tiles.storage.TileMFE;
 import techreborn.tiles.storage.TileMFSU;
 import techreborn.tiles.teir1.*;
 
@@ -186,6 +187,8 @@ public class GuiHandler implements IGuiHandler
 			return new ContainerBatbox((TileBatBox) world.getTileEntity(new BlockPos(x, y, z)), player);
 		}else if (ID == mfsuID){
 			return new ContainerMFSU((TileMFSU) world.getTileEntity(new BlockPos(x, y, z)), player);
+		}else if (ID == mfeID){
+			return new ContainerMFE((TileMFE) world.getTileEntity(new BlockPos(x, y, z)), player);
 		}
 		return null;
 	}
@@ -312,6 +315,10 @@ public class GuiHandler implements IGuiHandler
 		else if (ID == mfsuID)
 		{
 			return new GuiMFSU(player, (TileMFSU) world.getTileEntity(new BlockPos(x, y, z)));
+		}
+		else if (ID == mfeID)
+		{
+			return new GuiMFE(player, (TileMFE) world.getTileEntity(new BlockPos(x, y, z)));
 		}
 		return null;
 	}

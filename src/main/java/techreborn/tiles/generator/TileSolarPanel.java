@@ -1,15 +1,17 @@
 package techreborn.tiles.generator;
 
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import techreborn.blocks.generator.BlockSolarPanel;
 
 import java.util.List;
 
 /**
  * Created by modmuss50 on 25/02/2016.
  */
-public class TileSolarPanel extends TilePowerAcceptor
+public class TileSolarPanel extends TilePowerAcceptor implements ITickable
 {
 
 	boolean shouldMakePower = false;
@@ -26,9 +28,11 @@ public class TileSolarPanel extends TilePowerAcceptor
 	public void updateEntity()
 	{
 		super.updateEntity();
+		if(!worldObj.isRemote){
 		if (worldObj.getTotalWorldTime() % 60 == 0)
 		{
 			shouldMakePower = isSunOut();
+
 		}
 		if (shouldMakePower)
 		{
@@ -38,6 +42,10 @@ public class TileSolarPanel extends TilePowerAcceptor
 		{
 			powerToAdd = 0;
 		}
+
+		worldObj.setBlockState(getPos(),
+				worldObj.getBlockState(this.getPos()).withProperty(BlockSolarPanel.ACTIVE, isSunOut()));
+	}
 	}
 
 	@Override
@@ -55,7 +63,7 @@ public class TileSolarPanel extends TilePowerAcceptor
 
 	public boolean isSunOut()
 	{
-		return worldObj.canBlockSeeSky(pos.up()) && !worldObj.isRaining() && !worldObj.isThundering()
+		return  worldObj.canBlockSeeSky(pos.up()) && !worldObj.isRaining() && !worldObj.isThundering()
 				&& worldObj.isDaytime();
 	}
 

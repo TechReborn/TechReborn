@@ -44,7 +44,7 @@ public class GuiBatbox extends GuiContainer
 
 		int j = 0;
 
-		j = generator.getEnergyScaled(12);
+		j = generator.getEnergyScaled(24);
 		if (j > 0)
 		{
 			this.drawTexturedModalRect(k + 109, l + 21 + 12, 176, 0, j + 1, 16);

@@ -73,12 +73,17 @@ public class BlockSolarPanel extends BaseTileBlock implements ITexturedBlock
 	@Override public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY,
 			float hitZ, int meta, EntityLivingBase placer)
 	{
-		if(worldIn.canBlockSeeSky(pos.up()) && !worldIn.isRaining() && !worldIn.isThundering()
-				&& worldIn.isDaytime()){
-				return	this.getDefaultState().withProperty(ACTIVE, true);
+		if(!worldIn.isRemote)
+		{
+			if (worldIn.canBlockSeeSky(pos.up()) && !worldIn.isRaining() && !worldIn.isThundering() && worldIn.isDaytime())
+			{
+				return this.getDefaultState().withProperty(ACTIVE, true);
 
-		}else{
-			return	this.getDefaultState().withProperty(ACTIVE, false);
+			} else
+			{
+				return this.getDefaultState().withProperty(ACTIVE, false);
+			}
+		}else{return this.getDefaultState().withProperty(ACTIVE, false);
 		}
 	}
 

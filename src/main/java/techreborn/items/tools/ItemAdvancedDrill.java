@@ -1,7 +1,12 @@
 package techreborn.items.tools;
 
+import java.util.List;
+
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextFormatting;
 import techreborn.config.ConfigTechReborn;
 
 public class ItemAdvancedDrill extends ItemDrill
@@ -30,5 +35,11 @@ public class ItemAdvancedDrill extends ItemDrill
 	public int getMaxMeta()
 	{
 		return 1;
+	}
+	
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) 
+	{
+		tooltip.add(TextFormatting.RED + "WIP Coming Soon");
 	}
 }

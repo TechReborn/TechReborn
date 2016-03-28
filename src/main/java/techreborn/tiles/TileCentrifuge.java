@@ -1,26 +1,27 @@
 package techreborn.tiles;
 
-import java.util.List;
-
+import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.ITextComponent;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.power.EnumPowerTier;
+import reborncore.api.power.IEnergyItemInfo;
+import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.lib.Reference;
-import ic2.api.tile.IWrenchable;
+
+import java.util.List;
 
 public class TileCentrifuge extends TilePowerAcceptor
-		implements IWrenchable, IInventory, ISidedInventory, IListInfoProvider
+		implements IWrenchable, IInventory,  IListInfoProvider
 {
 
 	public int tickTime;
@@ -51,6 +52,19 @@ public class TileCentrifuge extends TilePowerAcceptor
 		super.updateEntity();
 		crafter.updateEntity();
 		charge(6);
+		if (inventory.getStackInSlot(6) != null)
+		{
+			ItemStack stack = inventory.getStackInSlot(6);
+			IEnergyItemInfo item = (IEnergyItemInfo) stack.getItem();
+			if (item.canProvideEnergy(stack))
+			{
+				if (getEnergy() != getMaxPower())
+				{
+					addEnergy(item.getMaxTransfer(stack));
+					PoweredItem.setEnergy(PoweredItem.getEnergy(stack) - item.getMaxTransfer(stack), stack);
+				}
+			}
+		}
 	}
 
 	@Override
@@ -163,26 +177,26 @@ public class TileCentrifuge extends TilePowerAcceptor
 		return inventory.isItemValidForSlot(slot, stack);
 	}
 
-	// ISidedInventory
-	@Override
-	public int[] getSlotsForFace(EnumFacing side)
-	{
-		return side == EnumFacing.DOWN ? new int[] { 0, 1, 2, 3, 4, 5 } : new int[] { 0, 1, 2, 3, 4, 5 };
-	}
-
-	@Override
-	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side)
-	{
-		if (slotIndex >= 2)
-			return false;
-		return isItemValidForSlot(slotIndex, itemStack);
-	}
-
-	@Override
-	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side)
-	{
-		return slotIndex == 2 || slotIndex == 3 || slotIndex == 4 || slotIndex == 5;
-	}
+//	// ISidedInventory
+//	@Override
+//	public int[] getSlotsForFace(EnumFacing side)
+//	{
+//		return side == EnumFacing.DOWN ? new int[] { 0, 1, 2, 3, 4, 5 } : new int[] { 0, 1, 2, 3, 4, 5 };
+//	}
+//
+//	@Override
+//	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side)
+//	{
+//		if (slotIndex >= 2)
+//			return false;
+//		return isItemValidForSlot(slotIndex, itemStack);
+//	}
+//
+//	@Override
+//	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side)
+//	{
+//		return slotIndex == 2 || slotIndex == 3 || slotIndex == 4 || slotIndex == 5;
+//	}
 
 	public int getProgressScaled(int scale)
 	{
