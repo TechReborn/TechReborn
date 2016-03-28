@@ -1,20 +1,15 @@
 package techreborn.init;
 
-import java.security.InvalidParameterException;
-
-import org.apache.commons.lang3.ArrayUtils;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagString;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import org.apache.commons.lang3.ArrayUtils;
 import reborncore.common.util.CraftingHelper;
 import reborncore.common.util.OreUtil;
 import techreborn.Core;
@@ -25,36 +20,15 @@ import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.RecyclerRecipe;
 import techreborn.api.recipe.ScrapboxRecipe;
-import techreborn.api.recipe.machines.AlloySmelterRecipe;
-import techreborn.api.recipe.machines.BlastFurnaceRecipe;
-import techreborn.api.recipe.machines.CentrifugeRecipe;
-import techreborn.api.recipe.machines.ChemicalReactorRecipe;
-import techreborn.api.recipe.machines.CompressorRecipe;
-import techreborn.api.recipe.machines.ExtractorRecipe;
-import techreborn.api.recipe.machines.GrinderRecipe;
-import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
-import techreborn.api.recipe.machines.IndustrialElectrolyzerRecipe;
-import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
-import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
-import techreborn.api.recipe.machines.PlateCuttingMachineRecipe;
-import techreborn.api.recipe.machines.VacuumFreezerRecipe;
-import techreborn.blocks.BlockMachineFrame;
-import techreborn.blocks.BlockOre;
-import techreborn.blocks.BlockOre2;
-import techreborn.blocks.BlockStorage;
-import techreborn.blocks.BlockStorage2;
+import techreborn.api.recipe.machines.*;
+import techreborn.blocks.*;
 import techreborn.config.ConfigTechReborn;
-import techreborn.items.ItemCells;
-import techreborn.items.ItemDusts;
-import techreborn.items.ItemDustsSmall;
-import techreborn.items.ItemGems;
-import techreborn.items.ItemIngots;
-import techreborn.items.ItemNuggets;
-import techreborn.items.ItemParts;
-import techreborn.items.ItemPlates;
+import techreborn.items.*;
 import techreborn.parts.ItemStandaloneCables;
 import techreborn.utils.RecipeUtils;
 import techreborn.utils.StackWIPHandler;
+
+import java.security.InvalidParameterException;
 
 public class ModRecipes {
 	public static ConfigTechReborn config;
@@ -2056,9 +2030,9 @@ public class ModRecipes {
 
 		// Rubber Wood Yields
 		RecipeHandler.addRecipe(
-				new CentrifugeRecipe(new ItemStack(TechRebornAPI.recipeCompact.getItem("rubberWood").getItem(), 15),
+				new CentrifugeRecipe(new ItemStack(TechRebornAPI.recipeCompact.getItem("rubberWood").getItem(), 16),
 						new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 5),
-						new ItemStack(TechRebornAPI.recipeCompact.getItem("resin").getItem(), 8),
+						new ItemStack(TechRebornAPI.recipeCompact.getItem("rubberSap").getItem(), 8),
 						new ItemStack(Blocks.sapling, 6), ItemCells.getCellByName("methane", 1),
 						ItemCells.getCellByName("carbon", 4), 5000, 5));
 
