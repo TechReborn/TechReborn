@@ -1043,3 +1043,7 @@ techreborn.jei.category.alloy.furnace=Alloy Furnace
 
 #Death Messages
 death.attack.shock=%s was electrocuted
+
+
+#Entitys
+entity.techreborn.nuke.name=Nuke
