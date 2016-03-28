@@ -17,7 +17,6 @@ import techreborn.init.ModBlocks;
  */
 public class StackWIPHandler
 {
-
 	ArrayList<Block> wipBlocks = new ArrayList<>();
 	public static ArrayList<ItemStack> devHeads = new ArrayList<>();
 
@@ -54,9 +53,9 @@ public class StackWIPHandler
 			event.getToolTip().add(TextFormatting.RED + "WIP Coming Soon");
 		}
 		
-		if(devHeads.contains(event.getItemStack())){
+		if(devHeads.contains(event.getItemStack()))
+		{
 			event.getToolTip().add(TextFormatting.GOLD + "TechReborn Developer");
 		}
-		
 	}
 }

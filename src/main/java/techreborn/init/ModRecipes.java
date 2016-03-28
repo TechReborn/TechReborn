@@ -345,9 +345,18 @@ public class ModRecipes {
 			CraftingHelper.addShapedOreRecipe(BlockStorage.getStorageBlockByName(name), "AAA", "AAA", "AAA", 'A',
 					"ingot" + name.substring(0, 1).toUpperCase() + name.substring(1));
 		}
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.ironChainsaw), " SS", "SCS", "BS ",
+				'S', "ingotSteel", 'B', TechRebornAPI.recipeCompact.getItem("reBattery"), 'C',
+				TechRebornAPI.recipeCompact.getItem("electronicCircuit"));
+		
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.diamondChainsaw), " SS", "SBS", "CS ",
+				'S', "ingotSteel", 'B', ModItems.ironChainsaw, 'C',
+				TechRebornAPI.recipeCompact.getItem("electronicCircuit"));
 
 		CraftingHelper.addShapelessOreRecipe(ItemParts.getPartByName("carbonmesh"), ItemDusts.getDustByName("coal"),
 				ItemDusts.getDustByName("coal"), ItemDusts.getDustByName("coal"), ItemDusts.getDustByName("coal"));
+		
 		CraftingHelper.addShapelessOreRecipe(ItemParts.getPartByName("carbonfiber"),
 				ItemParts.getPartByName("carbonmesh"), ItemParts.getPartByName("carbonmesh"));
 
