@@ -346,6 +346,15 @@ public class ModRecipes {
 					"ingot" + name.substring(0, 1).toUpperCase() + name.substring(1));
 		}
 		
+		addGemToolRecipes(new ItemStack(ModItems.rubySword), new ItemStack(ModItems.rubyPickaxe), new ItemStack(ModItems.rubyAxe), new ItemStack(ModItems.rubyHoe),
+				new ItemStack(ModItems.rubySpade), new ItemStack(ModItems.rubyHelmet), new ItemStack(ModItems.rubyChestplate), new ItemStack(ModItems.rubyLeggings), new ItemStack(ModItems.rubyBoots), ItemGems.getGemByName("ruby"));
+		
+		addGemToolRecipes(new ItemStack(ModItems.sapphireSword), new ItemStack(ModItems.sapphirePickaxe), new ItemStack(ModItems.sapphireAxe), new ItemStack(ModItems.sapphireHoe),
+				new ItemStack(ModItems.sapphireSpade), new ItemStack(ModItems.sapphireHelmet), new ItemStack(ModItems.sapphireChestplate), new ItemStack(ModItems.sapphireLeggings), new ItemStack(ModItems.sapphireBoots), ItemGems.getGemByName("sapphire"));
+		
+		addGemToolRecipes(new ItemStack(ModItems.peridotSword), new ItemStack(ModItems.peridotPickaxe), new ItemStack(ModItems.peridotAxe), new ItemStack(ModItems.peridotHoe),
+				new ItemStack(ModItems.peridotSpade), new ItemStack(ModItems.peridotHelmet), new ItemStack(ModItems.peridotChestplate), new ItemStack(ModItems.peridotLeggings), new ItemStack(ModItems.peridotBoots), ItemGems.getGemByName("peridot"));
+		
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.ironChainsaw), " SS", "SCS", "BS ",
 				'S', "ingotSteel", 'B', TechRebornAPI.recipeCompact.getItem("reBattery"), 'C',
 				TechRebornAPI.recipeCompact.getItem("electronicCircuit"));
@@ -2935,5 +2944,66 @@ public class ModRecipes {
 				new ItemStack(ModItems.lapotronicOrb), 'S', ItemParts.getPartByName("superConductor"), 'I',
 				"ingotIridium", 'P', new ItemStack(ModItems.lapotronpack));
 	}
-
+	
+	static void addGemToolRecipes(ItemStack gemsword, ItemStack gempick, ItemStack gemaxe, ItemStack gemHoe, ItemStack gemspade, ItemStack gemhelmet, ItemStack gemchestplate, ItemStack gemleggings, ItemStack gemboots, ItemStack gem)
+	{
+		CraftingHelper.addShapedOreRecipe(gemsword,
+				" G ",
+				" G ",
+				" S ",
+				'S', Items.stick, 
+				'G', gem);
+		
+		CraftingHelper.addShapedOreRecipe(gempick,
+				"GGG",
+				" S ",
+				" S ",
+				'S', Items.stick, 
+				'G', gem);
+		
+		CraftingHelper.addShapedOreRecipe(gemaxe,
+				" GG",
+				" SG",
+				" S ",
+				'S', Items.stick, 
+				'G', gem);
+		
+		CraftingHelper.addShapedOreRecipe(gemHoe,
+				" GG",
+				" S ",
+				" S ",
+				'S', Items.stick, 
+				'G', gem);
+		
+		CraftingHelper.addShapedOreRecipe(gemspade,
+				" G ",
+				" S ",
+				" S ",
+				'S', Items.stick, 
+				'G', gem);
+		
+		CraftingHelper.addShapedOreRecipe(gemhelmet,
+				"GGG",
+				"G G",
+				"   ",
+				'G', gem);
+		
+		CraftingHelper.addShapedOreRecipe(gemchestplate,
+				"G G",
+				"GGG",
+				"GGG",
+				'G', gem);
+		
+		CraftingHelper.addShapedOreRecipe(gemleggings,
+				"GGG",
+				"G G",
+				"G G",
+				'G', gem);
+		
+		CraftingHelper.addShapedOreRecipe(gemboots,
+				"   ",
+				"G G",
+				"G G",
+				'G', gem);
+	}
 }
