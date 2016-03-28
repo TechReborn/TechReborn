@@ -14,8 +14,8 @@ import ic2.api.tile.IWrenchable;
 public class TileAesu extends TilePowerAcceptor implements IWrenchable
 {
 
-	public static final int MAX_OUTPUT = ConfigTechReborn.aesuMaxOutput;
-	public static final int MAX_STORAGE = ConfigTechReborn.aesuMaxStorage;
+	public static final int MAX_OUTPUT = ConfigTechReborn.AesuMaxOutput;
+	public static final int MAX_STORAGE = ConfigTechReborn.AesuMaxStorage;
 	public Inventory inventory = new Inventory(4, "TileAesu", 64, this);
 	private int OUTPUT = 64; // The current output
 	private double euLastTick = 0;
@@ -31,7 +31,7 @@ public class TileAesu extends TilePowerAcceptor implements IWrenchable
 	public void updateEntity()
 	{
 		super.updateEntity();
-		if (ticks == ConfigTechReborn.aveargeEuOutTickTime)
+		if (ticks == ConfigTechReborn.AverageEuOutTickTime)
 		{
 			euChange = -1;
 			ticks = 0;
