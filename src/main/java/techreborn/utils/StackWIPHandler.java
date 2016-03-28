@@ -28,6 +28,9 @@ public class StackWIPHandler
 		wipBlocks.add(ModBlocks.ChunkLoader);
 		wipBlocks.add(ModBlocks.ElectricCraftingTable);
 		wipBlocks.add(ModBlocks.playerDetector);
+		wipBlocks.add(ModBlocks.chargeBench);
+		wipBlocks.add(ModBlocks.playerDetector);
+		wipBlocks.add(ModBlocks.Magicenergeyconverter);
 
 		addHead("modmuss50");
 		addHead("Gigabit101");
