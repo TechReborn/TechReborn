@@ -1,6 +1,7 @@
 package techreborn.init;
 
 import net.minecraft.init.Items;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -32,6 +33,7 @@ import techreborn.items.ItemScrapBox;
 import techreborn.items.ItemUUmatter;
 import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
+import techreborn.items.armor.ItemTRArmour;
 import techreborn.items.tools.ItemAdvancedChainsaw;
 import techreborn.items.tools.ItemAdvancedDrill;
 import techreborn.items.tools.ItemCloakingDevice;
@@ -48,9 +50,15 @@ import techreborn.items.tools.ItemNanosaber;
 import techreborn.items.tools.ItemOmniTool;
 import techreborn.items.tools.ItemRockCutter;
 import techreborn.items.tools.ItemSteelJackhammer;
+import techreborn.items.tools.ItemTRAxe;
+import techreborn.items.tools.ItemTRHoe;
+import techreborn.items.tools.ItemTRPickaxe;
+import techreborn.items.tools.ItemTRSpade;
+import techreborn.items.tools.ItemTRSword;
 import techreborn.items.tools.ItemTechManual;
 import techreborn.items.tools.ItemTreeTap;
 import techreborn.items.tools.ItemWrench;
+import techreborn.lib.Reference;
 
 public class ModItems
 {
@@ -123,6 +131,17 @@ public class ModItems
 	public static Item lapotronCrystal;
 	public static Item energyCrystal;
 	public static Item scrapBox;
+
+	public static Item bronzeSword;
+	public static Item bronzePickaxe;
+	public static Item bronzeSpade;
+	public static Item bronzeAxe;
+	public static Item bronzeHoe;
+
+	public static Item bronzeHelmet;
+	public static Item bronzeChestplate;
+	public static Item bronzeLeggings;
+	public static Item bronzeBoots;
 
 	public static Item upgrades;
 
@@ -206,6 +225,26 @@ public class ModItems
 		GameRegistry.registerItem(steelJackhammer, "steeljackhammer");
 		diamondJackhammer = PoweredItem.createItem(ItemDiamondJackhammer.class);
 		GameRegistry.registerItem(diamondJackhammer, "diamondjackhammer");
+
+		bronzeSword = new ItemTRSword(Reference.BRONZE);
+		GameRegistry.registerItem(bronzeSword, "bronzeSword");
+		bronzePickaxe = new ItemTRPickaxe(Reference.BRONZE);
+		GameRegistry.registerItem(bronzePickaxe, "bronzePickaxe");
+		bronzeSpade = new ItemTRSpade(Reference.BRONZE);
+		GameRegistry.registerItem(bronzeSpade, "bronzeSpade");
+		bronzeAxe = new ItemTRAxe(Reference.BRONZE);
+		GameRegistry.registerItem(bronzeAxe, "bronzeAxe");
+		bronzeHoe = new ItemTRHoe(Reference.BRONZE);
+		GameRegistry.registerItem(bronzeHoe, "bronzeHoe");
+
+		bronzeHelmet = new ItemTRArmour(Reference.BRONZE_ARMOUR, EntityEquipmentSlot.HEAD);
+		GameRegistry.registerItem(bronzeHelmet, "bronzeHelmet");
+		bronzeChestplate = new ItemTRArmour(Reference.BRONZE_ARMOUR, EntityEquipmentSlot.CHEST);
+		GameRegistry.registerItem(bronzeChestplate, "bronzeChestplate");
+		bronzeLeggings = new ItemTRArmour(Reference.BRONZE_ARMOUR, EntityEquipmentSlot.LEGS);
+		GameRegistry.registerItem(bronzeLeggings, "bronzeLeggings");
+		bronzeBoots = new ItemTRArmour(Reference.BRONZE_ARMOUR, EntityEquipmentSlot.FEET);
+		GameRegistry.registerItem(bronzeBoots, "bronzeBoots");
 
 		hammer = new ItemHammer(100);
 		GameRegistry.registerItem(hammer, "hammer");

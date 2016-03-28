@@ -644,6 +644,15 @@ item.techreborn.hammer.name=Iron Hammer
 item.techreborn.ironJackhammer.name=Iron Jackhammer
 item.techreborn.steelJackhammer.name=Steel Jackhammer
 item.techreborn.diamondJackhammer.name=Diamond Jackhammer
+item.bronzeSword.name=Bronze Sword
+item.bronzePickaxe.name=Bronze Pickaxe
+item.bronzeSpade.name=Bronze Shovel
+item.bronzeAxe.name=Bronze Axe
+item.bronzeHoe.name=Bronze Hoe
+item.bronzeHelmet.name=Bronze Helmet
+item.bronzeChestplate.name=Bronze Chestplate
+item.bronzeLeggings.name=Bronze Leggings
+item.bronzeBoots.name=Bronze Boots
 
 #Buckets
 item.bucketberylium.name=Berylium Bucket
