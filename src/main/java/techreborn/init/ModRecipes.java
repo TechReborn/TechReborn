@@ -2034,7 +2034,7 @@ public class ModRecipes {
 						new ItemStack(TechRebornAPI.recipeCompact.getItem("cell").getItem(), 5),
 						new ItemStack(ModItems.parts, 8, 41),
 						new ItemStack(Blocks.sapling, 6), ItemCells.getCellByName("methane", 1),
-						ItemCells.getCellByName("carbon", 4), 5000, 5));
+						ItemCells.getCellByName("carbon", 4), 5000, 5, false));
 
 		// Soul Sand Byproducts
 		RecipeHandler.addRecipe(

@@ -63,4 +63,5 @@ public class BlockGrinder extends BlockMachineBase implements IAdvancedRotationT
 	{
 		return prefix + "tier1_machine_bottom";
 	}
+
 }

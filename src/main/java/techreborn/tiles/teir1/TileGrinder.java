@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.ITextComponent;
+import reborncore.api.IListInfoProvider;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
@@ -15,7 +16,10 @@ import techreborn.init.ModBlocks;
 import techreborn.lib.Reference;
 import ic2.api.tile.IWrenchable;
 
-public class TileGrinder extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory
+import java.util.List;
+
+public class TileGrinder extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory,
+		IListInfoProvider
 {
 
 	public Inventory inventory = new Inventory(6, "TileGrinder", 64, this);
@@ -261,5 +265,10 @@ public class TileGrinder extends TilePowerAcceptor implements IWrenchable, IInve
 	public ITextComponent getDisplayName()
 	{
 		return inventory.getDisplayName();
+	}
+
+	@Override public void addInfo(List<String> info, boolean isRealTile)
+	{
+		info.add("Macerator");
 	}
 }
