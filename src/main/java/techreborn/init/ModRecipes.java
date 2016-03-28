@@ -108,11 +108,11 @@ public class ModRecipes
 			ScrapboxList.addItemStackToList(new ItemStack(i));
 		}
 
-		for (int i = 0; i < StackWIPHandler.devHeads.size(); i++)
-			ScrapboxList.stacks.add(StackWIPHandler.devHeads.get(i));
-
 		registerDyable(Blocks.stained_hardened_clay);
 		registerDyable(Blocks.wool);
+
+		for (int i = 0; i < StackWIPHandler.devHeads.size(); i++)
+			ScrapboxList.stacks.add(StackWIPHandler.devHeads.get(i));
 
 		for (int i = 0; i < ScrapboxList.stacks.size(); i++)
 		{
