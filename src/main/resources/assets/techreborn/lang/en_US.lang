@@ -644,6 +644,7 @@ item.techreborn.hammer.name=Iron Hammer
 item.techreborn.ironJackhammer.name=Iron Jackhammer
 item.techreborn.steelJackhammer.name=Steel Jackhammer
 item.techreborn.diamondJackhammer.name=Diamond Jackhammer
+
 item.bronzeSword.name=Bronze Sword
 item.bronzePickaxe.name=Bronze Pickaxe
 item.bronzeSpade.name=Bronze Shovel
@@ -653,6 +654,36 @@ item.bronzeHelmet.name=Bronze Helmet
 item.bronzeChestplate.name=Bronze Chestplate
 item.bronzeLeggings.name=Bronze Leggings
 item.bronzeBoots.name=Bronze Boots
+
+item.rubySword.name=Ruby Sword
+item.rubyPickaxe.name=Ruby Pickaxe
+item.rubySpade.name=Ruby Shovel
+item.rubyAxe.name=Ruby Axe
+item.rubyHoe.name=Ruby Hoe
+item.rubyHelmet.name=Ruby Helmet
+item.rubyChestplate.name=Ruby Chestplate
+item.rubyLeggings.name=Ruby Leggings
+item.rubyBoots.name=Ruby Boots
+
+item.sapphireSword.name=Sapphire Sword
+item.sapphirePickaxe.name=Sapphire Pickaxe
+item.sapphireSpade.name=Sapphire Shovel
+item.sapphireAxe.name=Sapphire Axe
+item.sapphireHoe.name=Sapphire Hoe
+item.sapphireHelmet.name=Sapphire Helmet
+item.sapphireChestplate.name=Sapphire Chestplate
+item.sapphireLeggings.name=Sapphire Leggings
+item.sapphireBoots.name=Sapphire Boots
+
+item.peridotSword.name=Peridot Sword
+item.peridotPickaxe.name=Peridot Pickaxe
+item.peridotSpade.name=Peridot Shovel
+item.peridotAxe.name=Peridot Axe
+item.peridotHoe.name=Peridot Hoe
+item.peridotHelmet.name=Peridot Helmet
+item.peridotChestplate.name=Peridot Chestplate
+item.peridotLeggings.name=Peridot Leggings
+item.peridotBoots.name=Peridot Boots
 
 #Buckets
 item.bucketberylium.name=Berylium Bucket

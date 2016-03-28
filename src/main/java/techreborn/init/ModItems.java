@@ -143,6 +143,39 @@ public class ModItems
 	public static Item bronzeLeggings;
 	public static Item bronzeBoots;
 
+	public static Item rubySword;
+	public static Item rubyPickaxe;
+	public static Item rubySpade;
+	public static Item rubyAxe;
+	public static Item rubyHoe;
+
+	public static Item rubyHelmet;
+	public static Item rubyChestplate;
+	public static Item rubyLeggings;
+	public static Item rubyBoots;
+
+	public static Item sapphireSword;
+	public static Item sapphirePickaxe;
+	public static Item sapphireSpade;
+	public static Item sapphireAxe;
+	public static Item sapphireHoe;
+
+	public static Item sapphireHelmet;
+	public static Item sapphireChestplate;
+	public static Item sapphireLeggings;
+	public static Item sapphireBoots;
+
+	public static Item peridotSword;
+	public static Item peridotPickaxe;
+	public static Item peridotSpade;
+	public static Item peridotAxe;
+	public static Item peridotHoe;
+
+	public static Item peridotHelmet;
+	public static Item peridotChestplate;
+	public static Item peridotLeggings;
+	public static Item peridotBoots;
+
 	public static Item upgrades;
 
 	public static Item missingRecipe;
@@ -246,6 +279,68 @@ public class ModItems
 		bronzeBoots = new ItemTRArmour(Reference.BRONZE_ARMOUR, EntityEquipmentSlot.FEET);
 		GameRegistry.registerItem(bronzeBoots, "bronzeBoots");
 
+		rubySword = new ItemTRSword(Reference.RUBY);
+		GameRegistry.registerItem(rubySword, "rubySword");
+		rubyPickaxe = new ItemTRPickaxe(Reference.RUBY);
+		GameRegistry.registerItem(rubyPickaxe, "rubyPickaxe");
+		rubySpade = new ItemTRSpade(Reference.RUBY);
+		GameRegistry.registerItem(rubySpade, "rubySpade");
+		rubyAxe = new ItemTRAxe(Reference.RUBY);
+		GameRegistry.registerItem(rubyAxe, "rubyAxe");
+		rubyHoe = new ItemTRHoe(Reference.RUBY);
+		GameRegistry.registerItem(rubyHoe, "rubyHoe");
+
+		rubyHelmet = new ItemTRArmour(Reference.RUBY_ARMOUR, EntityEquipmentSlot.HEAD);
+		GameRegistry.registerItem(rubyHelmet, "rubyHelmet");
+		rubyChestplate = new ItemTRArmour(Reference.RUBY_ARMOUR, EntityEquipmentSlot.CHEST);
+		GameRegistry.registerItem(rubyChestplate, "rubyChestplate");
+		rubyLeggings = new ItemTRArmour(Reference.RUBY_ARMOUR, EntityEquipmentSlot.LEGS);
+		GameRegistry.registerItem(rubyLeggings, "rubyLeggings");
+		rubyBoots = new ItemTRArmour(Reference.RUBY_ARMOUR, EntityEquipmentSlot.FEET);
+		GameRegistry.registerItem(rubyBoots, "rubyBoots");
+
+		sapphireSword = new ItemTRSword(Reference.SAPPHIRE);
+		GameRegistry.registerItem(sapphireSword, "sapphireSword");
+		sapphirePickaxe = new ItemTRPickaxe(Reference.SAPPHIRE);
+		GameRegistry.registerItem(sapphirePickaxe, "sapphirePickaxe");
+		sapphireSpade = new ItemTRSpade(Reference.SAPPHIRE);
+		GameRegistry.registerItem(sapphireSpade, "sapphireSpade");
+		sapphireAxe = new ItemTRAxe(Reference.SAPPHIRE);
+		GameRegistry.registerItem(sapphireAxe, "sapphireAxe");
+		sapphireHoe = new ItemTRHoe(Reference.SAPPHIRE);
+		GameRegistry.registerItem(sapphireHoe, "sapphireHoe");
+
+		sapphireHelmet = new ItemTRArmour(Reference.SAPPHIRE_ARMOUR, EntityEquipmentSlot.HEAD);
+		GameRegistry.registerItem(sapphireHelmet, "sapphireHelmet");
+		sapphireChestplate = new ItemTRArmour(Reference.SAPPHIRE_ARMOUR, EntityEquipmentSlot.CHEST);
+		GameRegistry.registerItem(sapphireChestplate, "sapphireChestplate");
+		sapphireLeggings = new ItemTRArmour(Reference.SAPPHIRE_ARMOUR, EntityEquipmentSlot.LEGS);
+		GameRegistry.registerItem(sapphireLeggings, "sapphireLeggings");
+		sapphireBoots = new ItemTRArmour(Reference.SAPPHIRE_ARMOUR, EntityEquipmentSlot.FEET);
+		GameRegistry.registerItem(sapphireBoots, "sapphireBoots");
+
+		peridotSword = new ItemTRSword(Reference.PERIDOT);
+		GameRegistry.registerItem(peridotSword, "peridotSword");
+		peridotPickaxe = new ItemTRPickaxe(Reference.PERIDOT);
+		GameRegistry.registerItem(peridotPickaxe, "peridotPickaxe");
+		peridotSpade = new ItemTRSpade(Reference.PERIDOT);
+		GameRegistry.registerItem(peridotSpade, "peridotSpade");
+		peridotAxe = new ItemTRAxe(Reference.PERIDOT);
+		GameRegistry.registerItem(peridotAxe, "peridotAxe");
+		peridotHoe = new ItemTRHoe(Reference.PERIDOT);
+		GameRegistry.registerItem(peridotHoe, "peridotHoe");
+
+		peridotHelmet = new ItemTRArmour(Reference.PERIDOT_ARMOUR, EntityEquipmentSlot.HEAD);
+		GameRegistry.registerItem(peridotHelmet, "peridotHelmet");
+		peridotChestplate = new ItemTRArmour(Reference.PERIDOT_ARMOUR, EntityEquipmentSlot.CHEST);
+		GameRegistry.registerItem(peridotChestplate, "peridotChestplate");
+		peridotLeggings = new ItemTRArmour(Reference.PERIDOT_ARMOUR, EntityEquipmentSlot.LEGS);
+		GameRegistry.registerItem(peridotLeggings, "peridotLeggings");
+		peridotBoots = new ItemTRArmour(Reference.PERIDOT_ARMOUR, EntityEquipmentSlot.FEET);
+		GameRegistry.registerItem(peridotBoots, "peridotBoots");
+
+		//sword|axe|shovel|spade|hoe|helmet|chestplate|leggings|boots
+		
 		hammer = new ItemHammer(100);
 		GameRegistry.registerItem(hammer, "hammer");
 
