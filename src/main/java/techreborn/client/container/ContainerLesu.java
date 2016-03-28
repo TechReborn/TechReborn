@@ -106,7 +106,7 @@ public class ContainerLesu extends RebornContainer
 		{
 			this.euStorage = value;
 		}
-		this.euStorage = ((connectedBlocks + 1) * ConfigTechReborn.lesuStoragePerBlock);
+		this.euStorage = ((connectedBlocks + 1) * ConfigTechReborn.LesuStoragePerBlock);
 	}
 
 }

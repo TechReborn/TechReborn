@@ -36,7 +36,7 @@ public class OreUnifier
 	@SubscribeEvent
 	public void itemTick(TickEvent.PlayerTickEvent event)
 	{
-		if (ConfigTechReborn.oreUnifer && !event.player.worldObj.isRemote
+		if (ConfigTechReborn.OreUnifer && !event.player.worldObj.isRemote
 				&& event.player.worldObj.getTotalWorldTime() % 10 == 0)
 		{
 			if (event.player.getHeldItem(EnumHand.MAIN_HAND) != null)

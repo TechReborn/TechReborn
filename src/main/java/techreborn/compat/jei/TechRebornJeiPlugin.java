@@ -190,7 +190,7 @@ public class TechRebornJeiPlugin extends BlankModPlugin
 
 		registry.addDescription(ItemParts.getPartByName("rubberSap"),
 				I18n.translateToLocal("techreborn.desc.rubberSap"));
-		if (!ConfigTechReborn.scrapboxDispenser)
+		if (!ConfigTechReborn.ScrapboxDispenser)
 		{
 			registry.addDescription(new ItemStack(ModItems.scrapBox),
 					I18n.translateToLocal("techreborn.desc.scrapBoxNoDispenser"));
