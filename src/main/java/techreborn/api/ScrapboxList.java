@@ -12,6 +12,17 @@ public class ScrapboxList
 
 	public static void addItemStackToList(ItemStack stack)
 	{
-		stacks.add(stack);
+		if (!hasItems(stack))
+			stacks.add(stack);
+	}
+
+	private static boolean hasItems(ItemStack stack)
+	{
+		for (ItemStack s : stacks)
+		{
+			if (stack.getItem().getItemStackDisplayName(stack).equals(s.getItem().getItemStackDisplayName(stack)))
+				return true;
+		}
+		return false;
 	}
 }
