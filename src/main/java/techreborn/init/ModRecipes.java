@@ -2,6 +2,7 @@ package techreborn.init;
 
 import java.security.InvalidParameterException;
 
+import net.minecraft.block.Block;
 import org.apache.commons.lang3.ArrayUtils;
 
 import net.minecraft.init.Blocks;
@@ -51,6 +52,7 @@ import techreborn.items.ItemParts;
 import techreborn.items.ItemPlates;
 import techreborn.parts.ItemStandaloneCables;
 import techreborn.utils.RecipeUtils;
+import techreborn.utils.StackWIPHandler;
 
 public class ModRecipes
 {
@@ -106,6 +108,12 @@ public class ModRecipes
 			ScrapboxList.addItemStackToList(new ItemStack(i));
 		}
 
+		for (int i = 0; i < StackWIPHandler.devHeads.size(); i++)
+			ScrapboxList.stacks.add(StackWIPHandler.devHeads.get(i));
+
+		registerDyable(Blocks.stained_hardened_clay);
+		registerDyable(Blocks.wool);
+
 		for (int i = 0; i < ScrapboxList.stacks.size(); i++)
 		{
 			RecipeHandler.addRecipe(new ScrapboxRecipe(ScrapboxList.stacks.get(i)));
@@ -125,6 +133,11 @@ public class ModRecipes
 		{
 			ScrapboxList.addItemStackToList(new ItemStack(item.getItem(), 1, i));
 		}
+	}
+
+	static void registerDyable(Block block) {
+		for (int i = 0; i < 16; i++)
+			ScrapboxList.stacks.add(new ItemStack(block, 1, i));
 	}
 
 	static void addWireRecipes()
