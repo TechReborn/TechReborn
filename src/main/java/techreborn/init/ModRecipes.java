@@ -531,11 +531,6 @@ public class ModRecipes
 						ItemParts.getPartByName("advancedAlloy"), 'C', ItemPlates.getPlateByName("carbon"), 'M',
 						BlockMachineFrame.getFrameByName("machine", 1));
 
-		CraftingHelper.addShapedOreRecipe(BlockStorage.getStorageBlockByName("sapphire"), "AAA", "AAA", "AAA", 'A',
-				"gemSapphire");
-
-		CraftingHelper
-				.addShapedOreRecipe(BlockStorage.getStorageBlockByName("ruby"), "AAA", "AAA", "AAA", 'A', "gemRuby");
 
 		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("dataStorageCircuit"), "EEE", "ECE", "EEE", 'E',
 				new ItemStack(Items.emerald), 'C', ItemParts.getPartByName("electronicCircuit"));
