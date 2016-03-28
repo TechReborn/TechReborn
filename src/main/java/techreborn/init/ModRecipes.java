@@ -376,6 +376,13 @@ public class ModRecipes
 			CraftingHelper.addShapedOreRecipe(BlockStorage.getStorageBlockByName(name), "AAA", "AAA", "AAA", 'A',
 					"ingot" + name.substring(0, 1).toUpperCase() + name.substring(1));
 		}
+		CraftingHelper.addShapedOreRecipe(ItemCells.getCellByName("empty", 16, false), " T ", "T T", " T ",
+				'T',  "ingotTin");
+
+
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ironFence, 6), "   ", "RRR", "RRR",
+				'R', ItemIngots.getIngotByName("refinedIron"));
+
 		
 		addGemToolRecipes(new ItemStack(ModItems.rubySword), new ItemStack(ModItems.rubyPickaxe), new ItemStack(ModItems.rubyAxe), new ItemStack(ModItems.rubyHoe),
 				new ItemStack(ModItems.rubySpade), new ItemStack(ModItems.rubyHelmet), new ItemStack(ModItems.rubyChestplate), new ItemStack(ModItems.rubyLeggings), new ItemStack(ModItems.rubyBoots), ItemGems.getGemByName("ruby"));
@@ -385,7 +392,11 @@ public class ModRecipes
 		
 		addGemToolRecipes(new ItemStack(ModItems.peridotSword), new ItemStack(ModItems.peridotPickaxe), new ItemStack(ModItems.peridotAxe), new ItemStack(ModItems.peridotHoe),
 				new ItemStack(ModItems.peridotSpade), new ItemStack(ModItems.peridotHelmet), new ItemStack(ModItems.peridotChestplate), new ItemStack(ModItems.peridotLeggings), new ItemStack(ModItems.peridotBoots), ItemGems.getGemByName("peridot"));
-		
+
+		addGemToolRecipes(new ItemStack(ModItems.bronzeSword), new ItemStack(ModItems.bronzePickaxe), new ItemStack(ModItems.bronzeAxe), new ItemStack(ModItems.bronzeHoe),
+				new ItemStack(ModItems.bronzeSpade), new ItemStack(ModItems.bronzeHelmet), new ItemStack(ModItems.bronzeChestplate), new ItemStack(ModItems.bronzeLeggings), new ItemStack(ModItems.bronzeBoots), ItemIngots.getIngotByName("bronze"));
+
+
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.ironChainsaw), " SS", "SCS", "BS ",
 				'S', "ingotSteel", 'B', TechRebornAPI.recipeCompact.getItem("reBattery"), 'C',
 				TechRebornAPI.recipeCompact.getItem("electronicCircuit"));
@@ -520,11 +531,6 @@ public class ModRecipes
 						ItemParts.getPartByName("advancedAlloy"), 'C', ItemPlates.getPlateByName("carbon"), 'M',
 						BlockMachineFrame.getFrameByName("machine", 1));
 
-		CraftingHelper.addShapedOreRecipe(BlockStorage.getStorageBlockByName("sapphire"), "AAA", "AAA", "AAA", 'A',
-				"gemSapphire");
-
-		CraftingHelper
-				.addShapedOreRecipe(BlockStorage.getStorageBlockByName("ruby"), "AAA", "AAA", "AAA", 'A', "gemRuby");
 
 		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("dataStorageCircuit"), "EEE", "ECE", "EEE", 'E',
 				new ItemStack(Items.emerald), 'C', ItemParts.getPartByName("electronicCircuit"));

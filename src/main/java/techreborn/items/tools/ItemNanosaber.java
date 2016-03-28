@@ -13,6 +13,7 @@ import net.minecraft.item.ItemSword;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -81,19 +82,19 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo, ITextur
 			return false;
 	}
 
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4)
-	{
-		if (ItemNBTHelper.verifyExistance(stack, "isActive"))
-		{
-			list.add("Active");
-		} else if (!ItemNBTHelper.verifyExistance(stack, "isActive"))
-		{
-			list.add("Not Active");
-		}
-		super.addInformation(stack, player, list, par4);
-	}
+//	@SideOnly(Side.CLIENT)
+//	@Override
+//	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4)
+//	{
+//		if (ItemNBTHelper.verifyExistance(stack, "isActive"))
+//		{
+//			list.add("Active");
+//		} else if (!ItemNBTHelper.verifyExistance(stack, "isActive"))
+//		{
+//			list.add("Not Active");
+//		}
+//		super.addInformation(stack, player, list, par4);
+//	}
 
 	@Override
 	public boolean isRepairable()
@@ -178,5 +179,11 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo, ITextur
 	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining)
 	{
 		return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
+	}
+
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
+	{
+		tooltip.add(TextFormatting.RED + "WIP Coming Soon");
 	}
 }
