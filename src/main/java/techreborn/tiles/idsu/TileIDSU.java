@@ -135,7 +135,7 @@ public class TileIDSU extends TilePowerAcceptor
 	{
 		super.updateEntity();
 
-		if (ticks == ConfigTechReborn.aveargeEuOutTickTime)
+		if (ticks == ConfigTechReborn.AverageEuOutTickTime)
 		{
 			euChange = -1;
 			ticks = 0;

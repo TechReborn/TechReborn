@@ -713,7 +713,7 @@ item.bucketwolframium.name=Wolframium Bucket
 #Items
 item.techreborn.uuMatter.name=UU-Matter
 item.techreborn.manual.name=Tech Manual
-
+item.techreborn.debug.name=Debug Tool
 #Configs
 config.techreborn.allow.galenaOre=Allow Galena Ore
 config.techreborn.allow.galenaOre.tooltip=Decide whether Galena Ore spawns or not
@@ -1043,3 +1043,7 @@ techreborn.jei.category.alloy.furnace=Alloy Furnace
 
 #Death Messages
 death.attack.shock=%s was electrocuted
+
+
+#Entitys
+entity.techreborn.nuke.name=Nuke

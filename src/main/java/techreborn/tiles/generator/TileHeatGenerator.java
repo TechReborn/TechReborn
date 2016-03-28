@@ -14,7 +14,7 @@ import ic2.api.tile.IWrenchable;
 public class TileHeatGenerator extends TilePowerAcceptor implements IWrenchable
 {
 
-	public static final int euTick = ConfigTechReborn.heatGeneratorOutput;
+	public static final int euTick = ConfigTechReborn.HeatGeneratorOutput;
 
 	public TileHeatGenerator()
 	{

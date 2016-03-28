@@ -318,7 +318,7 @@ public class TRPowerNet
 			int total = 0;
 			if (tile.canAcceptEnergy(side) && max > 0)
 			{
-				if (type.tier.ordinal() > tile.getTier().ordinal())
+				if (type.tier.ordinal() > tile.getTier().ordinal() && max > tile.getMaxInput())
 				{
 					if (tile instanceof TileEntity)
 					{
