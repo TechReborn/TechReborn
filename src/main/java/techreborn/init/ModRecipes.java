@@ -63,7 +63,7 @@ public class ModRecipes
 		addReactorRecipes();
 		addIc2Recipes();
 		addGrinderRecipes();
-		addHammerRecipes();
+//		addHammerRecipes();
 		addIc2ReplacementReicpes();
 		addExtractorRecipes();
 		addCompressorRecipes();
@@ -288,10 +288,25 @@ public class ModRecipes
 	{
 		RecipeHandler.addRecipe(new CompressorRecipe(ItemParts.getPartByName("mixedmetalingot"),
 				ItemParts.getPartByName("advancedAlloy"), 400, 20));
-		RecipeHandler.addRecipe(
-				new CompressorRecipe(ItemParts.getPartByName("carbonfiber"), ItemPlates.getPlateByName("carbon"), 400,
-						20));
+		RecipeHandler.addRecipe(new CompressorRecipe(ItemParts.getPartByName("carbonfiber"),
+				ItemPlates.getPlateByName("carbon"), 400, 20));
 
+		RecipeHandler.addRecipe(new CompressorRecipe(new ItemStack(Items.iron_ingot),
+				ItemPlates.getPlateByName("iron"), 400, 20));
+		RecipeHandler.addRecipe(new CompressorRecipe(ItemIngots.getIngotByName("copper"),
+				ItemPlates.getPlateByName("copper"), 400, 20));
+		RecipeHandler.addRecipe(new CompressorRecipe(ItemIngots.getIngotByName("tin"),
+				ItemPlates.getPlateByName("tin"), 400, 20));
+		RecipeHandler.addRecipe(new CompressorRecipe(ItemIngots.getIngotByName("aluminum"),
+				ItemPlates.getPlateByName("aluminum"), 400, 20));
+		RecipeHandler.addRecipe(new CompressorRecipe(ItemIngots.getIngotByName("brass"),
+				ItemPlates.getPlateByName("brass"), 400, 20));
+		RecipeHandler.addRecipe(new CompressorRecipe(ItemIngots.getIngotByName("bronze"),
+				ItemPlates.getPlateByName("bronze"), 400, 20));
+		RecipeHandler.addRecipe(new CompressorRecipe(ItemIngots.getIngotByName("lead"),
+				ItemPlates.getPlateByName("lead"), 400, 20));
+		RecipeHandler.addRecipe(new CompressorRecipe(ItemIngots.getIngotByName("silver"),
+				ItemPlates.getPlateByName("silver"), 400, 20));
 	}
 
 	static void addExtractorRecipes()
@@ -339,20 +354,20 @@ public class ModRecipes
 				.addRecipe(new GrinderRecipe(ItemGems.getGemByName("ruby"), ItemDusts.getDustByName("ruby"), 100, 20));
 	}
 
-	static void addHammerRecipes()
-	{
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.hammer), "III", "ISI", " S ", 'S', Items.stick, 'I',
-				"ingotIron");
-
-		CraftingHelper.addShapelessOreRecipe(ItemPlates.getPlateByName("iron", 1), hammerStack, "ingotIron");
-		CraftingHelper.addShapelessOreRecipe(ItemPlates.getPlateByName("copper", 1), hammerStack, "ingotCopper");
-		CraftingHelper.addShapelessOreRecipe(ItemPlates.getPlateByName("tin", 1), hammerStack, "ingotTin");
-		CraftingHelper.addShapelessOreRecipe(ItemPlates.getPlateByName("bronze", 1), hammerStack, "ingotBronze");
-		CraftingHelper.addShapelessOreRecipe(ItemPlates.getPlateByName("brass", 1), hammerStack, "ingotBrass");
-		CraftingHelper.addShapelessOreRecipe(ItemPlates.getPlateByName("steel", 1), hammerStack, "ingotSteel");
-
-		hammer.setContainerItem(hammer);
-	}
+//	static void addHammerRecipes()
+//	{
+//		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.hammer), "III", "ISI", " S ", 'S', Items.stick, 'I',
+//				"ingotIron");
+//
+//		CraftingHelper.addShapelessOreRecipe(ItemPlates.getPlateByName("iron", 1), hammerStack, "ingotIron");
+//		CraftingHelper.addShapelessOreRecipe(ItemPlates.getPlateByName("copper", 1), hammerStack, "ingotCopper");
+//		CraftingHelper.addShapelessOreRecipe(ItemPlates.getPlateByName("tin", 1), hammerStack, "ingotTin");
+//		CraftingHelper.addShapelessOreRecipe(ItemPlates.getPlateByName("bronze", 1), hammerStack, "ingotBronze");
+//		CraftingHelper.addShapelessOreRecipe(ItemPlates.getPlateByName("brass", 1), hammerStack, "ingotBrass");
+//		CraftingHelper.addShapelessOreRecipe(ItemPlates.getPlateByName("steel", 1), hammerStack, "ingotSteel");
+//
+//		hammer.setContainerItem(hammer);
+//	}
 
 	static void addReactorRecipes()
 	{
