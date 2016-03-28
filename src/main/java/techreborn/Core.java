@@ -144,7 +144,7 @@ public class Core
 		MinecraftForge.EVENT_BUS.register(new OreUnifier());
 		MinecraftForge.EVENT_BUS.register(worldGen.retroGen);
 		// Scrapbox
-		if (config.scrapboxDispenser)
+		if (config.ScrapboxDispenser)
 		{
 			BlockDispenser.dispenseBehaviorRegistry.putObject(ModItems.scrapBox, new BehaviorDispenseScrapbox());
 		}

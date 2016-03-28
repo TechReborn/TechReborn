@@ -27,7 +27,7 @@ import ic2.api.tile.IWrenchable;
 public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchable, IFluidHandler, IInventory
 {
 
-	public static final int euTick = ConfigTechReborn.ThermalGenertaorOutput;
+	public static final int euTick = ConfigTechReborn.ThermalGeneratorOutput;
 	public Tank tank = new Tank("TileDieselGenerator", FluidContainerRegistry.BUCKET_VOLUME * 10, this);
 	public Inventory inventory = new Inventory(3, "TileDieselGenerator", 64, this);
 

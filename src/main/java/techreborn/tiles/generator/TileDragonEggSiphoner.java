@@ -18,7 +18,7 @@ import ic2.api.tile.IWrenchable;
 public class TileDragonEggSiphoner extends TilePowerAcceptor implements IWrenchable, IInventory
 {
 
-	public static final int euTick = ConfigTechReborn.DragoneggsiphonerOutput;
+	public static final int euTick = ConfigTechReborn.DragonEggSiphonerOutput;
 	public Inventory inventory = new Inventory(3, "TileAlloySmelter", 64, this);
 
 	public TileDragonEggSiphoner()
