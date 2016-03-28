@@ -5,25 +5,28 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 import reborncore.common.powerSystem.PowerSystem;
-import techreborn.client.container.ContainerBatbox;
-import techreborn.tiles.storage.TileBatBox;
+import techreborn.client.container.ContainerMFE;
+import techreborn.tiles.storage.TileMFE;
 
-public class GuiBatbox extends GuiContainer
+/**
+ * Created by Rushmead
+ */
+public class GuiMFE extends GuiContainer
 {
 
-	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/batbox.png");
+	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/mfe.png");
 
-	TileBatBox generator;
+	TileMFE generator;
 
-	ContainerBatbox containerGenerator;
+	ContainerMFE containerGenerator;
 
-	public GuiBatbox(EntityPlayer player, TileBatBox generator)
+	public GuiMFE(EntityPlayer player, TileMFE generator)
 	{
-		super(new ContainerBatbox(generator, player));
+		super(new ContainerMFE(generator, player));
 		this.xSize = 176;
 		this.ySize = 167;
 		this.generator = generator;
-		this.containerGenerator = (ContainerBatbox) this.inventorySlots;
+		this.containerGenerator = (ContainerMFE) this.inventorySlots;
 	}
 
 	@Override
@@ -60,15 +63,15 @@ public class GuiBatbox extends GuiContainer
 
 	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_)
 	{
-		String name = I18n.translateToLocal("tile.techreborn.batbox.name");
+		String name = I18n.translateToLocal("tile.techreborn.mfe.name");
 		this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6,
 				4210752);
 
-		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,
+		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), this.xSize - 60,
 				this.ySize - 96 + 2, 4210752);
-		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(generator.getMaxPower()), 25, this.ySize - 140,
+		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(generator.getMaxPower()), 110, this.ySize - 150,
 				4210752);
-		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerGenerator.energy), 25, this.ySize - 150,
+		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerGenerator.energy), 110, this.ySize - 160,
 				4210752);
 	}
 }

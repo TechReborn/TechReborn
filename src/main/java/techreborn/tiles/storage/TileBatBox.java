@@ -1,19 +1,22 @@
 package techreborn.tiles.storage;
 
+import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import reborncore.api.power.EnumPowerTier;
+import reborncore.api.power.IEnergyItemInfo;
+import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.init.ModBlocks;
-import ic2.api.tile.IWrenchable;
 
 /**
  * Created by modmuss50 on 14/03/2016.
  */
-public class TileBatBox extends TilePowerAcceptor implements IWrenchable
+public class TileBatBox extends TilePowerAcceptor implements IWrenchable, ITickable
 {
 
 	public Inventory inventory = new Inventory(2, "TileBatBox", 64, this);
@@ -42,6 +45,31 @@ public class TileBatBox extends TilePowerAcceptor implements IWrenchable
 			return true;
 		}
 		return false;
+	}
+
+	@Override public void updateEntity()
+	{
+		if(inventory.getStackInSlot(0) != null){
+			ItemStack stack = inventory.getStackInSlot(0);
+			IEnergyItemInfo item = (IEnergyItemInfo) inventory.getStackInSlot(0).getItem();
+			if(PoweredItem.getEnergy(stack) != PoweredItem.getMaxPower(stack)){
+				if(canUseEnergy(item.getMaxTransfer(stack)))
+				{
+					useEnergy(item.getMaxTransfer(stack));
+					PoweredItem.setEnergy(PoweredItem.getEnergy(stack) + item.getMaxTransfer(stack), stack);
+				}
+			}
+		}if(inventory.getStackInSlot(1) != null){
+			ItemStack stack = inventory.getStackInSlot(1);
+			IEnergyItemInfo item = (IEnergyItemInfo) stack.getItem();
+			if(item.canProvideEnergy(stack)){
+				if(getEnergy() != getMaxPower())
+				{
+					addEnergy(item.getMaxTransfer(stack));
+					PoweredItem.setEnergy(PoweredItem.getEnergy(stack) - item.getMaxTransfer(stack), stack);
+				}
+			}
+		}
 	}
 
 	@Override

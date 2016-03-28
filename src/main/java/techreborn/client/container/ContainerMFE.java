@@ -1,15 +1,22 @@
 package techreborn.client.container;
 
+/**
+ * Created by Rushmead
+ */
+
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.client.gui.SlotCharge;
 import reborncore.common.container.RebornContainer;
-import techreborn.tiles.storage.TileBatBox;
+import techreborn.tiles.storage.TileMFE;
 
-public class ContainerBatbox extends RebornContainer
+
+public class ContainerMFE extends RebornContainer
 {
 
 	public int burnTime = 0;
@@ -17,9 +24,9 @@ public class ContainerBatbox extends RebornContainer
 	public int energy;
 	public int tickTime;
 	EntityPlayer player;
-	TileBatBox tile;
-
-	public ContainerBatbox(TileBatBox tile, EntityPlayer player)
+	TileMFE tile;
+	private static final EntityEquipmentSlot[] equipmentSlots = new EntityEquipmentSlot[] {EntityEquipmentSlot.HEAD, EntityEquipmentSlot.CHEST, EntityEquipmentSlot.LEGS, EntityEquipmentSlot.FEET};
+	public ContainerMFE(TileMFE tile, EntityPlayer player)
 	{
 		super();
 		this.tile = tile;
@@ -39,7 +46,20 @@ public class ContainerBatbox extends RebornContainer
 		{
 			this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18, 142));
 		}
-
+		for (int k = 0; k < 4; k++)
+		{
+			final EntityEquipmentSlot slot = equipmentSlots[k];
+			addSlotToContainer(new Slot(player.inventory, player.inventory.getSizeInventory() - 2 - k, 44, 6 + k * 19)
+			{
+				@Override
+				public int getSlotStackLimit() { return 1; }
+				@Override
+				public boolean isItemValid(ItemStack stack)
+				{
+					return stack != null && stack.getItem().isValidArmor(stack, slot, player);
+				}
+			});
+		}
 		this.addSlotToContainer(new SlotCharge(tile.inventory, 0, 80, 17));
 		this.addSlotToContainer(new SlotCharge(tile.inventory, 1, 80, 53));
 	}
