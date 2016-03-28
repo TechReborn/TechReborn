@@ -32,7 +32,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -45,7 +44,6 @@ import reborncore.common.misc.Functions;
 import reborncore.common.misc.vecmath.Vecs3dCube;
 import reborncore.common.util.WorldUtils;
 import techreborn.config.ConfigTechReborn;
-import techreborn.init.ModSounds;
 import techreborn.power.TRPowerNet;
 import techreborn.utils.damageSources.ElectrialShockSource;
 
