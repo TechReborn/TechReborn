@@ -1,7 +1,5 @@
 package techreborn.events;
 
-import java.util.HashMap;
-
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -11,6 +9,8 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.common.util.ItemUtils;
 import techreborn.config.ConfigTechReborn;
+
+import java.util.HashMap;
 
 public class OreUnifier
 {
@@ -36,7 +36,7 @@ public class OreUnifier
 	@SubscribeEvent
 	public void itemTick(TickEvent.PlayerTickEvent event)
 	{
-		if (ConfigTechReborn.oreUnifer && !event.player.worldObj.isRemote
+		if (ConfigTechReborn.OreUnifer && !event.player.worldObj.isRemote
 				&& event.player.worldObj.getTotalWorldTime() % 10 == 0)
 		{
 			if (event.player.getHeldItem(EnumHand.MAIN_HAND) != null)

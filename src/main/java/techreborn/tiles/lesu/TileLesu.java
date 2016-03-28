@@ -1,13 +1,13 @@
 package techreborn.tiles.lesu;
 
-import java.util.ArrayList;
-
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.config.ConfigTechReborn;
+
+import java.util.ArrayList;
 
 public class TileLesu extends TilePowerAcceptor
 {// TODO wrench
@@ -62,10 +62,10 @@ public class TileLesu extends TilePowerAcceptor
 				}
 			}
 		}
-		maxStorage = ((connectedBlocks + 1) * ConfigTechReborn.lesuStoragePerBlock);
-		output = (connectedBlocks * ConfigTechReborn.extraOutputPerLesuBlock) + ConfigTechReborn.baseLesuOutput;
+		maxStorage = ((connectedBlocks + 1) * ConfigTechReborn.LesuStoragePerBlock);
+		output = (connectedBlocks * ConfigTechReborn.ExtraOutputPerLesuBlock) + ConfigTechReborn.BaseLesuOutput;
 
-		if (ticks == ConfigTechReborn.aveargeEuOutTickTime)
+		if (ticks == ConfigTechReborn.AverageEuOutTickTime)
 		{
 			euChange = -1;
 			ticks = 0;

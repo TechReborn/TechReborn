@@ -1,10 +1,5 @@
 package techreborn.compat.jei;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import mezz.jei.api.BlankModPlugin;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
@@ -19,42 +14,8 @@ import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.AssemblingMachineRecipe;
 import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
-import techreborn.blocks.fluid.BlockFluidTechReborn;
-import techreborn.client.container.ContainerAlloyFurnace;
-import techreborn.client.container.ContainerAlloySmelter;
-import techreborn.client.container.ContainerAssemblingMachine;
-import techreborn.client.container.ContainerBlastFurnace;
-import techreborn.client.container.ContainerCentrifuge;
-import techreborn.client.container.ContainerChemicalReactor;
-import techreborn.client.container.ContainerCompressor;
-import techreborn.client.container.ContainerExtractor;
-import techreborn.client.container.ContainerFusionReactor;
-import techreborn.client.container.ContainerGrinder;
-import techreborn.client.container.ContainerImplosionCompressor;
-import techreborn.client.container.ContainerIndustrialElectrolyzer;
-import techreborn.client.container.ContainerIndustrialGrinder;
-import techreborn.client.container.ContainerIndustrialSawmill;
-import techreborn.client.container.ContainerRollingMachine;
-import techreborn.client.container.ContainerVacuumFreezer;
-import techreborn.client.gui.GuiAlloyFurnace;
-import techreborn.client.gui.GuiAlloySmelter;
-import techreborn.client.gui.GuiAssemblingMachine;
-import techreborn.client.gui.GuiBlastFurnace;
-import techreborn.client.gui.GuiCentrifuge;
-import techreborn.client.gui.GuiChemicalReactor;
-import techreborn.client.gui.GuiCompressor;
-import techreborn.client.gui.GuiElectricFurnace;
-import techreborn.client.gui.GuiExtractor;
-import techreborn.client.gui.GuiFusionReactor;
-import techreborn.client.gui.GuiGrinder;
-import techreborn.client.gui.GuiImplosionCompressor;
-import techreborn.client.gui.GuiIndustrialElectrolyzer;
-import techreborn.client.gui.GuiIndustrialGrinder;
-import techreborn.client.gui.GuiIndustrialSawmill;
-import techreborn.client.gui.GuiIronFurnace;
-import techreborn.client.gui.GuiRecycler;
-import techreborn.client.gui.GuiRollingMachine;
-import techreborn.client.gui.GuiVacuumFreezer;
+import techreborn.client.container.*;
+import techreborn.client.gui.*;
 import techreborn.compat.jei.alloySmelter.AlloySmelterRecipeCategory;
 import techreborn.compat.jei.alloySmelter.AlloySmelterRecipeHandler;
 import techreborn.compat.jei.assemblingMachine.AssemblingMachineRecipeCategory;
@@ -94,6 +55,10 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModFluids;
 import techreborn.init.ModItems;
 import techreborn.items.ItemParts;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 @mezz.jei.api.JEIPlugin
 public class TechRebornJeiPlugin extends BlankModPlugin
@@ -190,7 +155,7 @@ public class TechRebornJeiPlugin extends BlankModPlugin
 
 		registry.addDescription(ItemParts.getPartByName("rubberSap"),
 				I18n.translateToLocal("techreborn.desc.rubberSap"));
-		if (!ConfigTechReborn.scrapboxDispenser)
+		if (!ConfigTechReborn.ScrapboxDispenser)
 		{
 			registry.addDescription(new ItemStack(ModItems.scrapBox),
 					I18n.translateToLocal("techreborn.desc.scrapBoxNoDispenser"));
