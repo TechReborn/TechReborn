@@ -14,6 +14,7 @@ import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
+import techreborn.blocks.storage.BlockEnergyStorage;
 
 /**
  * Created by Rushmead
@@ -106,12 +107,23 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IWrenchable,
 
 	@Override public boolean canAcceptEnergy(EnumFacing direction)
 	{
+
 		return getFacingEnum() != direction;
+	}
+
+	@Override public EnumFacing getFacingEnum()
+	{
+		Block block = worldObj.getBlockState(pos).getBlock();
+		if (block instanceof BlockEnergyStorage)
+		{
+			return ((BlockEnergyStorage) block).getFacing(worldObj.getBlockState(pos));
+		}
+		return null;
 	}
 
 	@Override public boolean canProvideEnergy(EnumFacing direction)
 	{
-		return getFacingEnum() == direction;
+		return getFacing() == direction;
 	}
 
 	@Override public double getMaxOutput()
