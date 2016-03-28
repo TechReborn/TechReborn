@@ -16,6 +16,7 @@ import net.minecraft.item.ItemTool;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.RebornCore;
+import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.lib.ModInfo;
 
 public class ItemTRAxe extends ItemTool implements ITexturedItem {
@@ -30,6 +31,7 @@ public class ItemTRAxe extends ItemTool implements ITexturedItem {
 		this.damageVsEntity = material.getDamageVsEntity() + 5.75F;
 		this.attackSpeed = (material.getDamageVsEntity() + 6.75F) * -0.344444F;
 		setUnlocalizedName(material.name().toLowerCase() + "Axe");
+		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		RebornCore.jsonDestroyer.registerObject(this);
 		this.material = material;
 	}

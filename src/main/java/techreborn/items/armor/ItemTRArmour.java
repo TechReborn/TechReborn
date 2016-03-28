@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.RebornCore;
+import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.lib.ModInfo;
 
 /**
@@ -29,6 +30,7 @@ public class ItemTRArmour extends ItemArmor implements ITexturedItem {
 			setUnlocalizedName(material.name().toLowerCase()+"Leggings");
 		if (slot == EntityEquipmentSlot.FEET)
 			setUnlocalizedName(material.name().toLowerCase()+"Boots");
+		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		RebornCore.jsonDestroyer.registerObject(this);
 		this.material = material;
 		this.slot = slot;

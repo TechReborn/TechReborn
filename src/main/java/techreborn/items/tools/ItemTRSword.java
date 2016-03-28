@@ -5,10 +5,10 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
-import net.minecraft.item.Item.ToolMaterial;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.RebornCore;
+import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.lib.ModInfo;
 
 public class ItemTRSword extends ItemSword implements ITexturedItem
@@ -18,6 +18,7 @@ public class ItemTRSword extends ItemSword implements ITexturedItem
 	public ItemTRSword(ToolMaterial material) {
 		super(material);
 		setUnlocalizedName(material.name().toLowerCase()+"Sword");
+		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		RebornCore.jsonDestroyer.registerObject(this);
 		this.material=material;
 	}

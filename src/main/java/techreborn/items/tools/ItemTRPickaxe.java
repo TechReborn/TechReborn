@@ -5,10 +5,10 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Item.ToolMaterial;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.RebornCore;
+import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.lib.ModInfo;
 
 public class ItemTRPickaxe extends ItemPickaxe implements ITexturedItem
@@ -18,6 +18,7 @@ public class ItemTRPickaxe extends ItemPickaxe implements ITexturedItem
 	public ItemTRPickaxe(ToolMaterial material) {
 		super(material);
 		setUnlocalizedName(material.name().toLowerCase()+"Pickaxe");
+		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		RebornCore.jsonDestroyer.registerObject(this);
 		this.material=material;
 	}
