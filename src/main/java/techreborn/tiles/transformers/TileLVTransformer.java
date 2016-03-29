@@ -1,45 +1,17 @@
 package techreborn.tiles.transformers;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import reborncore.api.power.EnumPowerTier;
-import techreborn.tiles.storage.TileBatBox;
+import techreborn.init.ModBlocks;
 
 /**
  * Created by modmuss50 on 16/03/2016.
  */
-public class TileLVTransformer extends TileBatBox
+public class TileLVTransformer extends TileTransformer
 {
 
-	@Override
-	public double getMaxOutput()
+	public TileLVTransformer()
 	{
-		return 32;
-	}
-
-	@Override
-	public double getMaxInput()
-	{
-		return 128;
-	}
-
-	@Override
-	// Can take medium power in
-	public EnumPowerTier getTier()
-	{
-		return EnumPowerTier.MEDIUM;
-	}
-
-	@Override
-	public double getMaxPower()
-	{
-		return getMaxInput() * 2;
-	}
-
-	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
-	{
-		return new ItemStack(worldObj.getBlockState(pos).getBlock());
+		super("LVTransformer", ModBlocks.lvt, EnumPowerTier.LOW, 128, 32, 128*2);
 	}
 
 }

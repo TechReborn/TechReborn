@@ -3,6 +3,7 @@ package techreborn.client.container;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.SlotFurnaceFuel;
 import reborncore.client.gui.SlotOutput;
 import reborncore.common.container.RebornContainer;
 import techreborn.tiles.TileAlloyFurnace;
@@ -27,7 +28,7 @@ public class ContainerAlloyFurnace extends RebornContainer
 		// outputs
 		this.addSlotToContainer(new SlotOutput(tileAlloyfurnace.inventory, 2, 116, 35));
 		// Fuel
-		this.addSlotToContainer(new Slot(tileAlloyfurnace.inventory, 3, 56, 53));
+		this.addSlotToContainer(new SlotFurnaceFuel(tileAlloyfurnace.inventory, 3, 56, 53));
 
 		int i;
 

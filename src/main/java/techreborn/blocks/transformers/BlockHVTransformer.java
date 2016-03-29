@@ -7,7 +7,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
 import techreborn.tiles.transformers.TileHVTransformer;
 
@@ -16,50 +15,18 @@ import java.util.Random;
 /**
  * Created by modmuss50 on 16/03/2016.
  */
-public class BlockHVTransformer extends BlockLVTransformer
+public class BlockHVTransformer extends BlockTransformer
 {
 
 	public BlockHVTransformer()
 	{
-		super();
-		setUnlocalizedName("techreborn.hvt");
-		setCreativeTab(TechRebornCreativeTab.instance);
+		super("hvtransformer");
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World world, int p_149915_2_)
 	{
 		return new TileHVTransformer();
-	}
-
-	@Override
-	public String getFrontOff()
-	{
-		return prefix + "hv_transformer_front";
-	}
-
-	@Override
-	public String getFrontOn()
-	{
-		return prefix + "hv_transformer_front";
-	}
-
-	@Override
-	public String getSide()
-	{
-		return prefix + "hv_transformer_side";
-	}
-
-	@Override
-	public String getTop()
-	{
-		return prefix + "hv_transformer_side";
-	}
-
-	@Override
-	public String getBottom()
-	{
-		return prefix + "hv_transformer_side";
 	}
 	@Override
 	public void breakBlock(World world, BlockPos pos, IBlockState state)

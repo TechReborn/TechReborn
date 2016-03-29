@@ -1,7 +1,5 @@
 package techreborn.items.armor;
 
-import java.util.List;
-
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
@@ -11,6 +9,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.RebornCore;
@@ -19,6 +18,8 @@ import reborncore.common.powerSystem.PoweredItem;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
 import techreborn.lib.ModInfo;
+
+import java.util.List;
 
 public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo, ITexturedItem
 {
@@ -35,7 +36,23 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo, IT
 		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornCore.jsonDestroyer.registerObject(this);
 	}
-
+	@Override public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack)
+	{
+		for(int i = 0; i < player.inventory.getSizeInventory(); i++){
+			if(player.inventory.getStackInSlot(i) != null){
+				ItemStack item = player.inventory.getStackInSlot(i);
+				if(item.getItem() instanceof IEnergyItemInfo){
+					IEnergyItemInfo energyItemInfo = (IEnergyItemInfo) item.getItem();
+					if(energyItemInfo.getMaxPower(item) != PoweredItem.getEnergy(item)){
+						if(PoweredItem.canUseEnergy(energyItemInfo.getMaxPower(item), itemStack)){
+							PoweredItem.useEnergy(energyItemInfo.getMaxTransfer(item), itemStack);
+							PoweredItem.setEnergy(PoweredItem.getEnergy(item) + energyItemInfo.getMaxTransfer(item), item);
+						}
+					}
+				}
+			}
+		}
+	}
 	@Override
 	@SideOnly(Side.CLIENT)
 	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type)
@@ -117,5 +134,6 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo, IT
 	{
 		return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
 	}
+
 
 }
