@@ -894,6 +894,9 @@ public class ModItems
 		OreUnifier.registerOre("containerWater", ItemCells.getCellByName("water"));
 		OreUnifier.registerOre("containerWater", Items.water_bucket);
 
+		OreUnifier.registerOre("materialResin", ItemParts.getPartByName("rubberSap"));
+		OreUnifier.registerOre("materialRubber", ItemParts.getPartByName("rubber"));
+
 	}
 
 }

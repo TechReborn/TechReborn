@@ -2,8 +2,10 @@ package techreborn.init;
 
 import java.security.InvalidParameterException;
 
-import net.minecraft.block.Block;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
+
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -12,7 +14,6 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
-import org.apache.commons.lang3.ArrayUtils;
 import reborncore.common.util.CraftingHelper;
 import reborncore.common.util.OreUtil;
 import techreborn.Core;
@@ -23,12 +24,34 @@ import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.api.recipe.RecyclerRecipe;
 import techreborn.api.recipe.ScrapboxRecipe;
-import techreborn.api.recipe.machines.*;
-import techreborn.blocks.*;
+import techreborn.api.recipe.machines.AlloySmelterRecipe;
+import techreborn.api.recipe.machines.BlastFurnaceRecipe;
+import techreborn.api.recipe.machines.CentrifugeRecipe;
+import techreborn.api.recipe.machines.ChemicalReactorRecipe;
+import techreborn.api.recipe.machines.CompressorRecipe;
+import techreborn.api.recipe.machines.ExtractorRecipe;
+import techreborn.api.recipe.machines.GrinderRecipe;
+import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
+import techreborn.api.recipe.machines.IndustrialElectrolyzerRecipe;
+import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
+import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
+import techreborn.api.recipe.machines.PlateCuttingMachineRecipe;
+import techreborn.api.recipe.machines.VacuumFreezerRecipe;
+import techreborn.blocks.BlockMachineFrame;
+import techreborn.blocks.BlockOre;
+import techreborn.blocks.BlockOre2;
+import techreborn.blocks.BlockStorage;
+import techreborn.blocks.BlockStorage2;
 import techreborn.config.ConfigTechReborn;
-import techreborn.items.*;
-import techreborn.parts.CableMultipart;
-import techreborn.parts.ItemCables;
+import techreborn.items.ItemCells;
+import techreborn.items.ItemDusts;
+import techreborn.items.ItemDustsSmall;
+import techreborn.items.ItemGems;
+import techreborn.items.ItemIngots;
+import techreborn.items.ItemNuggets;
+import techreborn.items.ItemParts;
+import techreborn.items.ItemPlates;
+import techreborn.items.ItemUpgrades;
 import techreborn.parts.ItemStandaloneCables;
 import techreborn.utils.RecipeUtils;
 import techreborn.utils.StackWIPHandler;
@@ -254,35 +277,42 @@ public class ModRecipes {
 	}
 
 	static void addWireRecipes() {
-		CraftingHelper.addShapedOreRecipe(ItemStandaloneCables.getCableByName("copper", 6), "XXX", "CCC", "XXX", 'C',
-				"ingotCopper");
-		CraftingHelper.addShapedOreRecipe(ItemStandaloneCables.getCableByName("tin", 9), "XXX", "CCC", "XXX", 'C',
-				"ingotTin");
-		CraftingHelper.addShapedOreRecipe(ItemStandaloneCables.getCableByName("gold", 12), "XXX", "CCC", "XXX", 'C',
-				"ingotGold");
-		CraftingHelper.addShapedOreRecipe(ItemStandaloneCables.getCableByName("hv", 8), "XXX", "CCC", "XXX", 'C',
-				ItemIngots.getIngotByName("refinediron"));
+		CraftingHelper.addShapedOreRecipe(ItemStandaloneCables.getCableByName("copper", 6), "CCC", 'C', "ingotCopper");
+		CraftingHelper.addShapedOreRecipe(ItemStandaloneCables.getCableByName("tin", 9), "CCC", 'C', "ingotTin");
+		CraftingHelper.addShapedOreRecipe(ItemStandaloneCables.getCableByName("gold", 12), "CCC", 'C', "ingotGold");
+		CraftingHelper.addShapedOreRecipe(ItemStandaloneCables.getCableByName("hv", 12), "CCC", 'C',
+				"ingotRefinedIron");
 
 		CraftingHelper.addShapedOreRecipe(ItemStandaloneCables.getCableByName("glassfiber", 4), "GGG", "SDS", "GGG",
 				'G', "blockGlass", 'S', "dustRedstone", 'D', "diamondTR");
+
+		CraftingHelper.addShapedOreRecipe(ItemStandaloneCables.getCableByName("glassfiber", 6), "GGG", "SDS", "GGG",
+				'G', "blockGlass", 'S', "dustRedstone", 'D', "gemRuby");
 
 		CraftingHelper.addShapedOreRecipe(ItemStandaloneCables.getCableByName("glassfiber", 6), "GGG", "SDS", "GGG",
 				'G', "blockGlass", 'S', "ingotSilver", 'D', "diamondTR");
 		CraftingHelper.addShapedOreRecipe(ItemStandaloneCables.getCableByName("glassfiber", 8), "GGG", "SDS", "GGG",
 				'G', "blockGlass", 'S', "ingotElectrum", 'D', "diamondTR");
 
-		CraftingHelper.addShapelessOreRecipe(ItemStandaloneCables.getCableByName("insulatedcopper"),
-				ItemParts.getPartByName("rubber"), ItemStandaloneCables.getCableByName("copper"));
-		CraftingHelper.addShapelessOreRecipe(ItemStandaloneCables.getCableByName("insulatedgold"),
-				ItemParts.getPartByName("rubber"), ItemStandaloneCables.getCableByName("gold"));
-		CraftingHelper.addShapelessOreRecipe(ItemStandaloneCables.getCableByName("insulatedhv"),
-				ItemParts.getPartByName("rubber"), ItemStandaloneCables.getCableByName("hv"));
+		CraftingHelper.addShapelessOreRecipe(ItemStandaloneCables.getCableByName("insulatedcopper"), "materialRubber",
+				ItemStandaloneCables.getCableByName("copper"));
+		CraftingHelper.addShapelessOreRecipe(ItemStandaloneCables.getCableByName("insulatedgold"), "materialRubber",
+				"materialRubber", ItemStandaloneCables.getCableByName("gold"));
+		CraftingHelper.addShapelessOreRecipe(ItemStandaloneCables.getCableByName("insulatedhv"), "materialRubber",
+				"materialRubber", ItemStandaloneCables.getCableByName("hv"));
+
+		CraftingHelper.addShapedOreRecipe(ItemStandaloneCables.getCableByName("insulatedcopper", 6), "RRR", "III",
+				"RRR", 'R', "materialRubber", 'I', "ingotCopper");
+		CraftingHelper.addShapedOreRecipe(ItemStandaloneCables.getCableByName("insulatedgold", 4), "RRR", "RIR", "RRR",
+				'R', "materialRubber", 'I', "ingotGold");
+		CraftingHelper.addShapedOreRecipe(ItemStandaloneCables.getCableByName("insulatedhv", 4), "RRR", "RIR", "RRR",
+				'R', "materialRubber", 'I', "ingotRefinedIron");
 	}
 
 	private static void addCompressorRecipes() {
 		RecipeHandler.addRecipe(new CompressorRecipe(ItemParts.getPartByName("mixedmetalingot"),
 				ItemParts.getPartByName("advancedAlloy"), 400, 20));
-		RecipeHandler.addRecipe(new CompressorRecipe(ItemParts.getPartByName("carbonfiber"),
+		RecipeHandler.addRecipe(new CompressorRecipe(ItemParts.getPartByName("carbonmesh"),
 				ItemPlates.getPlateByName("carbon"), 400, 20));
 
 		RecipeHandler.addRecipe(
@@ -419,11 +449,16 @@ public class ModRecipes {
 				"ingotSteel", 'B', ModItems.ironChainsaw, 'C',
 				TechRebornAPI.recipeCompact.getItem("electronicCircuit"));
 
-		CraftingHelper.addShapelessOreRecipe(ItemParts.getPartByName("carbonmesh"), ItemDusts.getDustByName("coal"),
+		CraftingHelper.addShapelessOreRecipe(ItemParts.getPartByName("carbonfiber"), ItemDusts.getDustByName("coal"),
 				ItemDusts.getDustByName("coal"), ItemDusts.getDustByName("coal"), ItemDusts.getDustByName("coal"));
 
-		CraftingHelper.addShapelessOreRecipe(ItemParts.getPartByName("carbonfiber"),
-				ItemParts.getPartByName("carbonmesh"), ItemParts.getPartByName("carbonmesh"));
+		CraftingHelper.addShapelessOreRecipe(ItemParts.getPartByName("carbonfiber"), ItemCells.getCellByName("carbon"),
+				ItemCells.getCellByName("carbon"), ItemCells.getCellByName("carbon"), ItemCells.getCellByName("carbon"),
+				ItemCells.getCellByName("carbon"), ItemCells.getCellByName("carbon"), ItemCells.getCellByName("carbon"),
+				ItemCells.getCellByName("carbon"), ItemCells.getCellByName("carbon"));
+
+		CraftingHelper.addShapelessOreRecipe(ItemParts.getPartByName("carbonmesh"),
+				ItemParts.getPartByName("carbonfiber"), ItemParts.getPartByName("carbonfiber"));
 
 		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("computerMonitor"), "ADA", "DGD", "ADA", 'D', dyes,
 				'A', "ingotAluminum", 'G', Blocks.glass_pane);
