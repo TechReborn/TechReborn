@@ -1,5 +1,6 @@
 package techreborn.items.tools;
 
+import me.modmuss50.jsonDestroyer.api.IHandHeld;
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,7 +12,7 @@ import reborncore.RebornCore;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.lib.ModInfo;
 
-public class ItemTRPickaxe extends ItemPickaxe implements ITexturedItem
+public class ItemTRPickaxe extends ItemPickaxe implements ITexturedItem , IHandHeld
 {
 	private ToolMaterial material = ToolMaterial.WOOD;
 	

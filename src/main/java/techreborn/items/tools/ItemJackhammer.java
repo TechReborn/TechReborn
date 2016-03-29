@@ -1,5 +1,6 @@
 package techreborn.items.tools;
 
+import me.modmuss50.jsonDestroyer.api.IHandHeld;
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -29,7 +30,7 @@ import techreborn.utils.OreDictUtils;
 import java.util.List;
 import java.util.Random;
 
-public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo, ITexturedItem
+public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo, ITexturedItem , IHandHeld
 {
 
 	public static int tier = 1;
