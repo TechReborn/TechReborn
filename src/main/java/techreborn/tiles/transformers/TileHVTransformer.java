@@ -1,28 +1,17 @@
 package techreborn.tiles.transformers;
 
 import reborncore.api.power.EnumPowerTier;
+import techreborn.init.ModBlocks;
 
 /**
  * Created by modmuss50 on 16/03/2016.
  */
-public class TileHVTransformer extends TileLVTransformer
+public class TileHVTransformer extends TileTransformer
 {
 
-	@Override
-	public double getMaxOutput()
+	public TileHVTransformer()
 	{
-		return 512;
+		super("HVTransformer", ModBlocks.hvt, EnumPowerTier.EXTREME, 2048, 412, 2048*2);
 	}
 
-	@Override
-	public double getMaxInput()
-	{
-		return 2048;
-	}
-
-	@Override
-	public EnumPowerTier getTier()
-	{
-		return EnumPowerTier.EXTREME;
-	}
 }

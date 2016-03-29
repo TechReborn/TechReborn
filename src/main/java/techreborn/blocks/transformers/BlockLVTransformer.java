@@ -7,8 +7,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import techreborn.blocks.storage.BlockBatBox;
-import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.transformers.TileLVTransformer;
 
 import java.util.Random;
@@ -16,14 +14,12 @@ import java.util.Random;
 /**
  * Created by modmuss50 on 16/03/2016.
  */
-public class BlockLVTransformer extends BlockBatBox
+public class BlockLVTransformer extends BlockTransformer
 {
 
 	public BlockLVTransformer()
 	{
-		super();
-		setUnlocalizedName("techreborn.lvt");
-		setCreativeTab(TechRebornCreativeTab.instance);
+		super("lvtransformer");
 	}
 
 	@Override
@@ -32,35 +28,6 @@ public class BlockLVTransformer extends BlockBatBox
 		return new TileLVTransformer();
 	}
 
-	@Override
-	public String getFrontOff()
-	{
-		return prefix + "lv_transformer_front";
-	}
-
-	@Override
-	public String getFrontOn()
-	{
-		return prefix + "lv_transformer_front";
-	}
-
-	@Override
-	public String getSide()
-	{
-		return prefix + "lv_transformer_side";
-	}
-
-	@Override
-	public String getTop()
-	{
-		return prefix + "lv_transformer_side";
-	}
-
-	@Override
-	public String getBottom()
-	{
-		return prefix + "lv_transformer_side";
-	}
 	@Override
 	public void breakBlock(World world, BlockPos pos, IBlockState state)
 	{

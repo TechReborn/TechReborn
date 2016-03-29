@@ -78,9 +78,9 @@ tile.techreborn.mfe.name=MFE
 tile.techreborn.mfsu.name=MFSU
 tile.techreborn.reinforcedglass.name=Reinforced Glass
 tile.techreborn.nuke.name=Nuke
-tile.techreborn.lvt.name=LV Transformer
-tile.techreborn.mvt.name=MV Transformer
-tile.techreborn.hvt.name=HV Transformer
+tile.techreborn.lvtransformer.name=LV Transformer
+tile.techreborn.mvtransformer.name=MV Transformer
+tile.techreborn.hvtransformer.name=HV Transformer
 
 
 #Blocks
