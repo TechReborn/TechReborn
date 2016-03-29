@@ -58,7 +58,7 @@ public class ItemCells extends ItemTextureBase implements IFluidContainerItem
 		int index = -1;
 		for (int i = 0; i < types.length; i++)
 		{
-			if (types[i].equals(name))
+			if (types[i].equalsIgnoreCase(name))
 			{
 				index = i;
 				break;
