@@ -26,7 +26,7 @@ import techreborn.blocks.storage.BlockBatBox;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.items.ItemTR;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.storage.TileEnergyStorage;
+import techreborn.tiles.storage.TileBatBox;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +60,7 @@ public class ItemWrench extends ItemTR implements ITexturedItem
 
 		if (!player.isSneaking())
 		{
-			if (tile instanceof TileEnergyStorage)
+			if (tile instanceof TileBatBox)
 			{
 				tile.getWorld().setBlockState(tile.getPos(),
 						tile.getWorld().getBlockState(pos).withProperty(BlockBatBox.FACING, side.getOpposite()));
