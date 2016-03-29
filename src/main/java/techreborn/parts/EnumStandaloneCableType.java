@@ -3,8 +3,7 @@ package techreborn.parts;
 import net.minecraft.util.IStringSerializable;
 import reborncore.api.power.EnumPowerTier;
 
-public enum EnumStandaloneCableType implements IStringSerializable
-{
+public enum EnumStandaloneCableType implements IStringSerializable {
 	COPPER("copper", "techreborn:blocks/cables/copper_cable", 128, 12.0, true, EnumPowerTier.LOW), TIN("tin",
 			"techreborn:blocks/cables/tin_cable", 32, 12.0, true, EnumPowerTier.MEDIUM), GOLD("gold",
 					"techreborn:blocks/cables/gold_cable", 512, 12.0, true, EnumPowerTier.MEDIUM), HV("hv",
@@ -26,8 +25,7 @@ public enum EnumStandaloneCableType implements IStringSerializable
 	private String friendlyName;
 
 	EnumStandaloneCableType(String friendlyName, String textureName, int transferRate, double cableThickness,
-			boolean canKill, EnumPowerTier tier)
-	{
+			boolean canKill, EnumPowerTier tier) {
 		this.friendlyName = friendlyName;
 		this.textureName = textureName;
 		this.transferRate = transferRate;
@@ -37,8 +35,7 @@ public enum EnumStandaloneCableType implements IStringSerializable
 	}
 
 	@Override
-	public String getName()
-	{
+	public String getName() {
 		return friendlyName.toLowerCase();
 	}
 }

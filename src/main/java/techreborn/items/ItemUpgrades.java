@@ -9,6 +9,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextFormatting;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.api.upgrade.IMachineUpgrade;
 import techreborn.client.TechRebornCreativeTabMisc;
@@ -33,7 +34,7 @@ public class ItemUpgrades extends ItemTextureBase implements IMachineUpgrade, IT
 		{
 			if (types[i].equalsIgnoreCase(name))
 			{
-				return new ItemStack(ModItems.plate, count, i);
+				return new ItemStack(ModItems.upgrades, count, i);
 			}
 		}
 		throw new InvalidParameterException("The upgrade " + name + " could not be found.");
@@ -90,6 +91,12 @@ public class ItemUpgrades extends ItemTextureBase implements IMachineUpgrade, IT
 		}
 	}
 
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
+	{
+		tooltip.add(TextFormatting.RED + "WIP Coming Soon");
+	}
+	
 	@Override
 	public int getMaxMeta()
 	{

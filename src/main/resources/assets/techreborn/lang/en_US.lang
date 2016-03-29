@@ -435,6 +435,9 @@ item.techreborn.energyCrystal.name=Energy Crystal
 item.techreborn.lapotronCrystal.name=Lapotron Crystal
 item.techreborn.treetap.name=Treetap
 item.techreborn.nanosaber.name=Nanosaber
+item.techreborn.upgrade.Overclock.name=Overclocker Upgrade
+item.techreborn.upgrade.Transformer.name=Tranformer Upgrade
+item.techreborn.upgrade.EnergyStorage.name=Energy Storage Upgrade
 
 #Gems
 item.techreborn.gem.ruby.name=Ruby
@@ -623,9 +626,12 @@ item.techreborn.part.rubber.name=Rubber
 item.techreborn.part.scrap.name=Scrap
 item.techreborn.part.electronicCircuit.name=Electronic Circuit
 item.techreborn.part.advancedCircuit.name=Advanced Electronic Circuit
-item.techreborn.part.pump.name=Pump
-item.techreborn.part.teleporter.name=Teleporter
 item.techreborn.part.advancedAlloy.name=Advanced Alloy
+item.techreborn.part.frequencyTransmitter.name=Frequency Transmitter
+item.techreborn.part.tungstenGrindingHead.name=Tungsten Grinding Head
+item.techreborn.part.CoolantSimple.name=10k Coolant Cell
+item.techreborn.part.CoolantTriple.name=30k Coolant Cell
+item.techreborn.part.CoolantSix.name=60k Coolant Cell
 
 #Tools
 item.techreborn.rockcutter.name=Rockcutter
