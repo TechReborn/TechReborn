@@ -93,23 +93,17 @@ public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo, ITex
 		return 1 - charge;
 
 	}
-
-	@Override public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
-	{System.out.print("Hey!");
-	}
-
 	@Override public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack)
 	{
-		System.out.print("Hey!");
 		for(int i = 0; i < player.inventory.getSizeInventory(); i++){
 			if(player.inventory.getStackInSlot(i) != null){
 				ItemStack item = player.inventory.getStackInSlot(i);
 				if(item.getItem() instanceof IEnergyItemInfo){
 					IEnergyItemInfo energyItemInfo = (IEnergyItemInfo) item.getItem();
-					if(energyItemInfo.canAcceptEnergy(item)){
+					if(energyItemInfo.getMaxPower(item) != PoweredItem.getEnergy(item)){
 						if(PoweredItem.canUseEnergy(energyItemInfo.getMaxPower(item), itemStack)){
-							PoweredItem.useEnergy(energyItemInfo.getMaxPower(item), itemStack);
-							PoweredItem.addEnergy(energyItemInfo.getMaxPower(item), item);
+							PoweredItem.useEnergy(energyItemInfo.getMaxTransfer(item), itemStack);
+							PoweredItem.setEnergy(PoweredItem.getEnergy(item) + energyItemInfo.getMaxTransfer(item), item);
 						}
 					}
 				}
@@ -134,6 +128,7 @@ public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo, ITex
 	{
 		return 1;
 	}
+
 
 	@Override
 	@SideOnly(Side.CLIENT)
