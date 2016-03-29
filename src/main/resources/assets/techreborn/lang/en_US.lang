@@ -281,7 +281,6 @@ item.techreborn.dust.voidstone.name=Voidstone Dust
 item.techreborn.dust.yellowGarnet.name=Yellow Garnet Dust
 item.techreborn.dust.zinc.name=Zinc Dust
 item.techreborn.dust.galena.name=Galena Dust
-item.techreborn.dust.greenSapphire.name=Green Sapphire Dust
 item.techreborn.dust.sawDust.name=Saw Dust
 item.techreborn.dust.olivine.name=Olivine Dust
 item.techreborn.ingot.refinedIron.name=Refined Iron Ingot
@@ -439,7 +438,7 @@ item.techreborn.nanosaber.name=Nanosaber
 #Gems
 item.techreborn.gem.ruby.name=Ruby
 item.techreborn.gem.sapphire.name=Sapphire
-item.techreborn.gem.peridot.name=Green Sapphire
+item.techreborn.gem.peridot.name=Peridot
 item.techreborn.gem.redGarnet.name=Red Garnet
 item.techreborn.gem.yellowGarnet.name=Yellow Garnet
 

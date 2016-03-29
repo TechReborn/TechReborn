@@ -11,12 +11,12 @@ import techreborn.api.upgrade.IMachineUpgrade;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
 
-public class ItemUpgrade extends ItemTR implements IMachineUpgrade
+public class ItemUpgrades extends ItemTR implements IMachineUpgrade
 {
 
-	public static final String[] types = new String[] { "0.2Speed", "0.2Power", "0.5Speed" };
+	public static final String[] types = new String[] { "Overclock", "Transformer", "EnergyStorage" };
 
-	public ItemUpgrade()
+	public ItemUpgrades()
 	{
 		setUnlocalizedName("techreborn.upgrade");
 		setHasSubtypes(true);

@@ -8,25 +8,25 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 import reborncore.common.powerSystem.PowerSystem;
-import techreborn.client.container.ContainerLesu;
+import techreborn.client.container.ContainerLESU;
 import techreborn.tiles.lesu.TileLesu;
 
-public class GuiLesu extends GuiContainer
+public class GuiLESU extends GuiContainer
 {
 
 	private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/aesu.png");
 
 	TileLesu aesu;
 
-	ContainerLesu containerLesu;
+	ContainerLESU containerLesu;
 
-	public GuiLesu(EntityPlayer player, TileLesu tileaesu)
+	public GuiLESU(EntityPlayer player, TileLesu tileaesu)
 	{
-		super(new ContainerLesu(tileaesu, player));
+		super(new ContainerLESU(tileaesu, player));
 		this.xSize = 176;
-		this.ySize = 165;
+		this.ySize = 197;
 		aesu = tileaesu;
-		this.containerLesu = (ContainerLesu) this.inventorySlots;
+		this.containerLesu = (ContainerLESU) this.inventorySlots;
 	}
 
 	@Override

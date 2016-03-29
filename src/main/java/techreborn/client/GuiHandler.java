@@ -123,7 +123,7 @@ public class GuiHandler implements IGuiHandler
 					(TileIndustrialElectrolyzer) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == aesuID)
 		{
-			return new ContainerAesu((TileAesu) world.getTileEntity(new BlockPos(x, y, z)), player);
+			return new ContainerAESU((TileAesu) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == alloyFurnaceID)
 		{
 			return new ContainerAlloyFurnace((TileAlloyFurnace) world.getTileEntity(new BlockPos(x, y, z)), player);
@@ -143,7 +143,7 @@ public class GuiHandler implements IGuiHandler
 			return new ContainerDestructoPack(player);
 		} else if (ID == lesuID)
 		{
-			return new ContainerLesu((TileLesu) world.getTileEntity(new BlockPos(x, y, z)), player);
+			return new ContainerLESU((TileLesu) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == idsuID)
 		{
 			return new ContainerIDSU((TileIDSU) world.getTileEntity(new BlockPos(x, y, z)), player);
@@ -252,7 +252,7 @@ public class GuiHandler implements IGuiHandler
 					(TileIndustrialElectrolyzer) world.getTileEntity(new BlockPos(x, y, z)));
 		} else if (ID == aesuID)
 		{
-			return new GuiAesu(player, (TileAesu) world.getTileEntity(new BlockPos(x, y, z)));
+			return new GuiAESU(player, (TileAesu) world.getTileEntity(new BlockPos(x, y, z)));
 		} else if (ID == alloyFurnaceID)
 		{
 			return new GuiAlloyFurnace(player, (TileAlloyFurnace) world.getTileEntity(new BlockPos(x, y, z)));
@@ -270,7 +270,7 @@ public class GuiHandler implements IGuiHandler
 			return new GuiDestructoPack(new ContainerDestructoPack(player));
 		} else if (ID == lesuID)
 		{
-			return new GuiLesu(player, (TileLesu) world.getTileEntity(new BlockPos(x, y, z)));
+			return new GuiLESU(player, (TileLesu) world.getTileEntity(new BlockPos(x, y, z)));
 		} else if (ID == idsuID)
 		{
 			return new GuiIDSU(player, (TileIDSU) world.getTileEntity(new BlockPos(x, y, z)));

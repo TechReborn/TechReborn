@@ -8,29 +8,29 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 import reborncore.common.packets.PacketHandler;
 import reborncore.common.powerSystem.PowerSystem;
-import techreborn.client.container.ContainerAesu;
+import techreborn.client.container.ContainerAESU;
 import techreborn.packets.PacketAesu;
 import techreborn.tiles.TileAesu;
 
 import java.awt.*;
 import java.io.IOException;
 
-public class GuiAesu extends GuiContainer
+public class GuiAESU extends GuiContainer
 {
 
 	private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/aesu.png");
 
 	TileAesu aesu;
 
-	ContainerAesu containerAesu;
+	ContainerAESU containerAesu;
 
-	public GuiAesu(EntityPlayer player, TileAesu tileaesu)
+	public GuiAESU(EntityPlayer player, TileAesu tileaesu)
 	{
-		super(new ContainerAesu(tileaesu, player));
+		super(new ContainerAESU(tileaesu, player));
 		this.xSize = 176;
 		this.ySize = 197;
 		aesu = tileaesu;
-		this.containerAesu = (ContainerAesu) this.inventorySlots;
+		this.containerAesu = (ContainerAESU) this.inventorySlots;
 	}
 
 	@Override

@@ -28,7 +28,7 @@ public class GuiIDSU extends GuiContainer
 	{
 		super(new ContainerIDSU(tileIDSU, player));
 		this.xSize = 176;
-		this.ySize = 165;
+		this.ySize = 197;
 		idsu = tileIDSU;
 		this.containerIDSU = (ContainerIDSU) this.inventorySlots;
 	}
