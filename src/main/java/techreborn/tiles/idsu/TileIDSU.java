@@ -1,18 +1,17 @@
 package techreborn.tiles.idsu;
 
+import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-
 import org.apache.commons.lang3.StringUtils;
-
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 
-public class TileIDSU extends TilePowerAcceptor
+public class TileIDSU extends TilePowerAcceptor implements IWrenchable
 {
 
 	public String ownerUdid;
@@ -164,6 +163,26 @@ public class TileIDSU extends TilePowerAcceptor
 	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side)
 	{
 		return false;
+	}
+
+	@Override public boolean wrenchCanSetFacing(EntityPlayer p0, EnumFacing p1)
+	{
+		return true;
+	}
+
+	@Override public EnumFacing getFacing()
+	{
+		return getFacingEnum();
+	}
+
+	@Override public boolean wrenchCanRemove(EntityPlayer p0)
+	{
+		return true;
+	}
+
+	@Override public float getWrenchDropRate()
+	{
+		return 1.0F;
 	}
 
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer)

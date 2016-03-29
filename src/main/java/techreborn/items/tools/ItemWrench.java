@@ -60,11 +60,18 @@ public class ItemWrench extends ItemTR implements ITexturedItem
 
 		if (!player.isSneaking())
 		{
-			if (tile instanceof TileEnergyStorage)
+			if (tile instanceof TileEnergyStorage || tile instanceof IWrenchable)
 			{
+				if(((IWrenchable)tile).wrenchCanSetFacing(player, side.getOpposite())){
+
 				tile.getWorld().setBlockState(tile.getPos(),
 						tile.getWorld().getBlockState(pos).withProperty(BlockBatBox.FACING, side.getOpposite()));
-				return EnumActionResult.SUCCESS;
+
+					return EnumActionResult.SUCCESS;
+			}else{
+
+					return EnumActionResult.FAIL;
+				}
 			} else if (tile instanceof TileMachineBase)
 			{
 				if (side != EnumFacing.DOWN && side != EnumFacing.UP)

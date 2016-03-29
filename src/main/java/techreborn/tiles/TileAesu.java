@@ -52,7 +52,7 @@ public class TileAesu extends TilePowerAcceptor implements IWrenchable
 	@Override
 	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side)
 	{
-		return false;
+		return true;
 	}
 
 	@Override

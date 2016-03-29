@@ -1,8 +1,5 @@
 package techreborn.client.gui;
 
-import java.awt.*;
-import java.io.IOException;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -14,6 +11,9 @@ import reborncore.common.powerSystem.PowerSystem;
 import techreborn.client.container.ContainerIDSU;
 import techreborn.packets.PacketIdsu;
 import techreborn.tiles.idsu.TileIDSU;
+
+import java.awt.*;
+import java.io.IOException;
 
 public class GuiIDSU extends GuiContainer
 {
@@ -64,10 +64,10 @@ public class GuiIDSU extends GuiContainer
 		this.buttonList.clear();
 		int k = (this.width - this.xSize) / 2;
 		int l = (this.height - this.ySize) / 2;
-		this.buttonList.add(new GuiButton(0, k + 128, l + 5, 15, 15, "++"));
-		this.buttonList.add(new GuiButton(1, k + 128, l + 5 + 20, 15, 15, "+"));
-		this.buttonList.add(new GuiButton(2, k + 128, l + 5 + (20 * 2), 15, 15, "-"));
-		this.buttonList.add(new GuiButton(3, k + 128, l + 5 + (20 * 3), 15, 15, "--"));
+		this.buttonList.add(new GuiButton(0, k + 115, l + 5, 15, 20, "++"));
+		this.buttonList.add(new GuiButton(1, k + 115, l + 5 + 20, 15, 20, "+"));
+		this.buttonList.add(new GuiButton(2, k + 115, l + 5 + (20 * 2), 15, 20, "-"));
+		this.buttonList.add(new GuiButton(3, k + 115, l + 5 + (20 * 3), 15, 20, "--"));
 		this.buttonList.add(new GuiButton(4, k + 40, l + 10, 10, 10, "+"));
 	}
 
