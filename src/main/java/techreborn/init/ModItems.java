@@ -31,6 +31,7 @@ import techreborn.items.ItemPlates;
 import techreborn.items.ItemReBattery;
 import techreborn.items.ItemScrapBox;
 import techreborn.items.ItemUUmatter;
+import techreborn.items.ItemUpgrades;
 import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
 import techreborn.items.armor.ItemTRArmour;
@@ -343,8 +344,6 @@ public class ModItems
 		GameRegistry.registerItem(peridotLeggings, "peridotLeggings");
 		peridotBoots = new ItemTRArmour(Reference.PERIDOT_ARMOUR, EntityEquipmentSlot.FEET);
 		GameRegistry.registerItem(peridotBoots, "peridotBoots");
-
-		//sword|axe|shovel|spade|hoe|helmet|chestplate|leggings|boots
 		
 		hammer = new ItemHammer(100);
 		GameRegistry.registerItem(hammer, "hammer");
@@ -358,8 +357,8 @@ public class ModItems
 		scrapBox = new ItemScrapBox();
 		GameRegistry.registerItem(scrapBox, "scrapbox");
 
-		// upgrades = new ItemUpgrade();
-		// GameRegistry.registerItem(upgrades, "upgrades");
+		upgrades = new ItemUpgrades();
+		GameRegistry.registerItem(upgrades, "upgrades");
 
 		cloakingDevice = PoweredItem.createItem(ItemCloakingDevice.class);
 		GameRegistry.registerItem(cloakingDevice, "cloakingdevice");
@@ -797,6 +796,7 @@ public class ModItems
 		OreUnifier.registerOre("ingotTungstensteel", ItemIngots.getIngotByName("tungstensteel"));
 		OreUnifier.registerOre("ingotHotTungstenSteel", ItemIngots.getIngotByName("hotTungstensteel"));
 		OreUnifier.registerOre("ingotZinc", ItemIngots.getIngotByName("zinc"));
+		OreUnifier.registerOre("ingotRefinedIron", ItemIngots.getIngotByName("refinedIron"));
 
 		// Nuggets
 		OreUnifier.registerOre("nuggetAluminum", ItemNuggets.getNuggetByName("aluminum"));

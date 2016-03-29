@@ -59,7 +59,7 @@ public class BlockHVTransformer extends BlockLVTransformer
 	@Override
 	public String getBottom()
 	{
-		return prefix + "hv_transformer_bottom";
+		return prefix + "hv_transformer_side";
 	}
 	@Override
 	public void breakBlock(World world, BlockPos pos, IBlockState state)

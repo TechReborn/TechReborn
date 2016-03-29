@@ -15,7 +15,6 @@ tile.techreborn.rollingmachine.name=Rolling Machine
 tile.techreborn.machineCasing.standard.name=Standard Machine Casing
 tile.techreborn.machineCasing.reinforced.name=Reinforced Machine Casing
 tile.techreborn.machineCasing.advanced.name=Advanced Machine Casing
-tile.techreborn.highlyAdvancedMachine.name=Highly Advanced Machine Block
 tile.techreborn.blastfurnace.name=Industrial Blast Furnace
 tile.techreborn.alloysmelter.name=Electric Alloy Furnace
 tile.techreborn.matterfabricator.name=Matter Fabricator
@@ -61,6 +60,7 @@ tile.techreborn.extractor.name=Extractor
 tile.techreborn.grinder.name=Grinder
 tile.techreborn.compressor.name=Compressor
 tile.techreborn.electricfurnace.name=Electric Furnace
+tile.techreborn.machineFrame.highlyAdvancedMachine.name=Highly Advanced Machine Block
 tile.techreborn.machineFrame.advancedMachine.name=Advanced Machine Block
 tile.techreborn.machineFrame.machine.name=Machine Block
 tile.techreborn.ore2.Copper.name=Copper Ore
@@ -135,11 +135,12 @@ tile.techreborn.storage2.sapphire.name=Block of Sapphire
 tile.techreborn.storage2.peridot.name=Block of Peridot
 tile.techreborn.storage2.yellowGarnet.name=Block of Yellow Garnet
 tile.techreborn.storage2.redGarnet.name=Block of Red Garnet
+tile.techreborn.storage2.refinedIron.name=Block of Refined Iron
 tile.techreborn.farm.name=Farm
 
 
 #Fluids
-tile.techreborn.berylium.name=Berylium Source
+tile.techreborn.berylium.name=Beryllium Source
 tile.techreborn.calcium.name=Calcium Source
 tile.techreborn.calciumcarbonate.name=Calciumcarbonate Source
 tile.techreborn.chlorite.name=Chlorite Source
@@ -163,7 +164,7 @@ tile.techreborn.sodiumpersulfate.name=Sodiumpersulfate Source
 tile.techreborn.tritium.name=Tritium Source
 tile.techreborn.wolframium.name=Wolframium Source
 tile.techreborn.supercondensator.name=Supercondensator
-fluid.fluid.fluidberylium=Berylium
+fluid.fluid.fluidberylium=Beryllium
 fluid.fluid.fluidcalcium=Calcium
 fluid.fluid.fluidcalciumcarbonate=Calciumcarbonate
 fluid.fluid.fluidchlorite=Chlorite
@@ -187,7 +188,7 @@ fluid.fluid.fluidsodiumpersulfate=Sodiumpersulfate
 fluid.fluid.fluidtritium=Tritium
 fluid.fluid.fluidwolframium=Wolframium
 fluid.tile.techreborn.glyceryl=Glyceryl
-fluid.tile.techreborn.berylium=Berylium
+fluid.tile.techreborn.berylium=Beryllium
 fluid.tile.techreborn.chlorite=Chlorite
 fluid.tile.techreborn.helium3=Helium3
 fluid.tile.techreborn.deuterium=Deuterium
@@ -391,7 +392,7 @@ item.techreborn.dustsmall.Galena.name=Small Pile of Galena Dust
 item.techreborn.dustsmall.Olivine.name=Small Pile of Olivine Dust
 
 #Cells
-item.techreborn.cell.Berylium.name=Berylium Cell
+item.techreborn.cell.Beryllium.name=Beryllium Cell
 item.techreborn.cell.biomass.name=Biomass Cell
 item.techreborn.cell.calciumCarbonate.name=Calcium Carbonate Cell
 item.techreborn.cell.calcium.name=Calcium Cell
@@ -685,7 +686,7 @@ item.peridotLeggings.name=Peridot Leggings
 item.peridotBoots.name=Peridot Boots
 
 #Buckets
-item.bucketberylium.name=Berylium Bucket
+item.bucketberylium.name=Beryllium Bucket
 item.bucketcalcium.name=Calcium Bucket
 item.bucketcalciumcarbonate.name=Calciumcarbonate Bucket
 item.bucketchlorite.name=Chlorite Bucket

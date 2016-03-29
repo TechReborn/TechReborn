@@ -21,7 +21,7 @@ import techreborn.init.ModBlocks;
 public class BlockMachineFrame extends BaseBlock implements ITexturedBlock
 {
 	public static final String[] types = new String[] { "aluminum", "iron", "bronze", "brass", "steel", "titanium",
-			"machine", "advancedMachine" };
+			"machine", "advancedMachine", "highlyAdvancedMachine" };
 	public PropertyInteger METADATA;
 
 	public BlockMachineFrame(Material material)

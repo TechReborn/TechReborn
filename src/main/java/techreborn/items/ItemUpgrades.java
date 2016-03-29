@@ -3,7 +3,10 @@ package techreborn.items;
 import java.security.InvalidParameterException;
 import java.util.List;
 
+import me.modmuss50.jsonDestroyer.api.ITexturedItem;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import techreborn.api.recipe.RecipeCrafter;
@@ -11,7 +14,7 @@ import techreborn.api.upgrade.IMachineUpgrade;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
 
-public class ItemUpgrades extends ItemTR implements IMachineUpgrade
+public class ItemUpgrades extends ItemTextureBase implements IMachineUpgrade, ITexturedItem
 {
 
 	public static final String[] types = new String[] { "Overclock", "Transformer", "EnergyStorage" };
@@ -85,5 +88,17 @@ public class ItemUpgrades extends ItemTR implements IMachineUpgrade
 			crafter.addSpeedMulti(0.5);
 			crafter.addPowerMulti(1);
 		}
+	}
+
+	@Override
+	public int getMaxMeta()
+	{
+		return types.length;
+	}
+
+	@Override
+	public String getTextureName(int damage)
+	{
+		return "techreborn:items/upgrade/upgrade"+types[damage];
 	}
 }

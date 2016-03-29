@@ -13,7 +13,6 @@ import techreborn.blocks.BlockDigitalChest;
 import techreborn.blocks.BlockElectricCraftingTable;
 import techreborn.blocks.BlockFusionCoil;
 import techreborn.blocks.BlockFusionControlComputer;
-import techreborn.blocks.BlockHighlyAdvancedMachine;
 import techreborn.blocks.BlockIronFence;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.blocks.BlockMachineFrame;
@@ -155,7 +154,6 @@ public class ModBlocks
 	public static Block ImplosionCompressor;
 	public static Block MatterFabricator;
 	public static Block ChunkLoader;
-	public static Block HighAdvancedMachineBlock;
 	public static Block Dragoneggenergysiphoner;
 	public static Block Magicenergeyconverter;
 	public static Block AssemblyMachine;
@@ -289,9 +287,6 @@ public class ModBlocks
 
 		storage2 = new BlockStorage2(Material.iron);
 		GameRegistry.registerBlock(storage2, ItemBlockStorage2.class, "techreborn.storage2");
-
-		HighAdvancedMachineBlock = new BlockHighlyAdvancedMachine(Material.rock);
-		GameRegistry.registerBlock(HighAdvancedMachineBlock, "highlyadvancedmachine");
 
 		Dragoneggenergysiphoner = new BlockDragonEggSiphoner(Material.rock);
 		GameRegistry.registerBlock(Dragoneggenergysiphoner, "dragoneggenergsiphon");
