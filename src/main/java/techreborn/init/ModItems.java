@@ -891,6 +891,9 @@ public class ModItems
 		OreUnifier.registerOre("batteryUltimate", ItemParts.getPartByName("diamondGrindingHead"));
 		OreUnifier.registerOre("blockLapis", ItemParts.getPartByName("lazuriteChunk"));
 
+		OreUnifier.registerOre("containerWater", ItemCells.getCellByName("water"));
+		OreUnifier.registerOre("containerWater", Items.water_bucket);
+
 	}
 
 }
