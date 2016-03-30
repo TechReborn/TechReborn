@@ -341,10 +341,15 @@ public class ModRecipes {
 	}
 
 	static void addIc2ReplacementReicpes() {
+		// TODO: Replace item pump with block
 		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("pump"), "CEC", "CMC", "PTP", 'C',
-				ItemCells.getCellByName("empty"), 'T', new ItemStack(ModItems.treeTap), 'M',
-				new ItemStack(ModBlocks.MachineCasing), 'P', new ItemStack(Blocks.iron_bars), 'E',
-				ItemParts.getPartByName("electronicCircuit"));
+				ItemCells.getCellByName("empty"), 'T', new ItemStack(ModItems.treeTap), 'M', "machineBlockBasic", 'P',
+				new ItemStack(Blocks.iron_bars), 'E', "circuitBasic");
+
+		// TODO: Replace item teleporter with block
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("teleporter"), "CTC", "WMW", "CDC", 'C',
+				"circuitAdvanced", 'T', new ItemStack(ModItems.frequencyTransmitter), 'M', "machineBlockAdvanced", 'W',
+				ItemStandaloneCables.getCableByName("glassfiber"), 'D', "gemDiamond", 'E', "circuitBasic");
 	}
 
 	static void addGrinderRecipes() {
@@ -518,16 +523,115 @@ public class ModRecipes {
 				ItemIngots.getIngotByName("refinediron"), 'E', new ItemStack(ModBlocks.Extractor), 'C',
 				ItemParts.getPartByName("advancedCircuit"));
 
-		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 2), "RRR", "BBB", "TTT", 'R',
-				ItemIngots.getIngotByName("refinediron"), 'B', "ingotBronze", 'T', "ingotTin");
+		// Mixed Metal Ingot Recipes :P
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Compressor), "SXS", "SCS", "SMS", 'C',
-				ItemParts.getPartByName("electronicCircuit"), 'M', BlockMachineFrame.getFrameByName("machine", 1), 'S',
-				Blocks.stone);
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 2), "RRR", "BBB", "TTT", 'R',
+				"ingotRefinedIron", 'B', "ingotBronze", 'T', "ingotTin");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 2), "RRR", "BBB", "TTT", 'R',
+				"ingotRefinedIron", 'B', "ingotBronze", 'T', "ingotZinc");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 2), "RRR", "BBB", "TTT", 'R',
+				"ingotRefinedIron", 'B', "ingotBrass", 'T', "ingotTin");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 2), "RRR", "BBB", "TTT", 'R',
+				"ingotRefinedIron", 'B', "ingotBrass", 'T', "ingotZinc");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 3), "RRR", "BBB", "TTT", 'R',
+				"ingotNickel", 'B', "ingotBronze", 'T', "ingotTin");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 3), "RRR", "BBB", "TTT", 'R',
+				"ingotNickel", 'B', "ingotBronze", 'T', "ingotZinc");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 3), "RRR", "BBB", "TTT", 'R',
+				"ingotNickel", 'B', "ingotBrass", 'T', "ingotTin");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 3), "RRR", "BBB", "TTT", 'R',
+				"ingotNickel", 'B', "ingotBrass", 'T', "ingotZinc");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 4), "RRR", "BBB", "TTT", 'R',
+				"ingotNickel", 'B', "ingotBronze", 'T', "ingotAluminum");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 4), "RRR", "BBB", "TTT", 'R',
+				"ingotNickel", 'B', "ingotBrass", 'T', "ingotAluminum");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 4), "RRR", "BBB", "TTT", 'R',
+				"ingotInvar", 'B', "ingotBronze", 'T', "ingotTin");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 4), "RRR", "BBB", "TTT", 'R',
+				"ingotInvar", 'B', "ingotBronze", 'T', "ingotZinc");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 4), "RRR", "BBB", "TTT", 'R',
+				"ingotInvar", 'B', "ingotBrass", 'T', "ingotTin");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 4), "RRR", "BBB", "TTT", 'R',
+				"ingotInvar", 'B', "ingotBrass", 'T', "ingotZinc");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 5), "RRR", "BBB", "TTT", 'R',
+				"ingotInvar", 'B', "ingotBronze", 'T', "ingotAluminum");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 5), "RRR", "BBB", "TTT", 'R',
+				"ingotInvar", 'B', "ingotBrass", 'T', "ingotAluminum");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 5), "RRR", "BBB", "TTT", 'R',
+				"ingotTitanium", 'B', "ingotBronze", 'T', "ingotTin");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 5), "RRR", "BBB", "TTT", 'R',
+				"ingotTitanium", 'B', "ingotBronze", 'T', "ingotZinc");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 5), "RRR", "BBB", "TTT", 'R',
+				"ingotTitanium", 'B', "ingotBrass", 'T', "ingotTin");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 5), "RRR", "BBB", "TTT", 'R',
+				"ingotTitanium", 'B', "ingotBrass", 'T', "ingotZinc");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 6), "RRR", "BBB", "TTT", 'R',
+				"ingotTitanium", 'B', "ingotBronze", 'T', "ingotAluminum");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 6), "RRR", "BBB", "TTT", 'R',
+				"ingotTitanium", 'B', "ingotBrass", 'T', "ingotAluminum");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 5), "RRR", "BBB", "TTT", 'R',
+				"ingotTungsten", 'B', "ingotBronze", 'T', "ingotTin");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 5), "RRR", "BBB", "TTT", 'R',
+				"ingotTungsten", 'B', "ingotBronze", 'T', "ingotZinc");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 5), "RRR", "BBB", "TTT", 'R',
+				"ingotTungsten", 'B', "ingotBrass", 'T', "ingotTin");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 5), "RRR", "BBB", "TTT", 'R',
+				"ingotTungsten", 'B', "ingotBrass", 'T', "ingotZinc");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 6), "RRR", "BBB", "TTT", 'R',
+				"ingotTungsten", 'B', "ingotBronze", 'T', "ingotAluminum");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 6), "RRR", "BBB", "TTT", 'R',
+				"ingotTungsten", 'B', "ingotBrass", 'T', "ingotAluminum");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 8), "RRR", "BBB", "TTT", 'R',
+				"ingotTungstensteel", 'B', "ingotBronze", 'T', "ingotTin");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 8), "RRR", "BBB", "TTT", 'R',
+				"ingotTungstensteel", 'B', "ingotBronze", 'T', "ingotZinc");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 8), "RRR", "BBB", "TTT", 'R',
+				"ingotTungstensteel", 'B', "ingotBrass", 'T', "ingotTin");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 8), "RRR", "BBB", "TTT", 'R',
+				"ingotTungstensteel", 'B', "ingotBrass", 'T', "ingotZinc");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 9), "RRR", "BBB", "TTT", 'R',
+				"ingotTungstensteel", 'B', "ingotBronze", 'T', "ingotAluminum");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("mixedmetalingot", 9), "RRR", "BBB", "TTT", 'R',
+				"ingotTungstensteel", 'B', "ingotBrass", 'T', "ingotAluminum");
+
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Compressor), "SXS", "SCS", "SMS", 'C', "circuitBasic",
+				'M', BlockMachineFrame.getFrameByName("machine", 1), 'S', Blocks.stone);
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ElectricFurnace), "XCX", "RFR", "XXX", 'C',
-				ItemParts.getPartByName("electronicCircuit"), 'F', new ItemStack(ModBlocks.ironFurnace), 'R',
-				Items.redstone);
+				"circuitBasic", 'F', new ItemStack(ModBlocks.ironFurnace), 'R', Items.redstone);
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ironFurnace), "III", "IXI", "III", 'I', "ingotIron");
 
@@ -535,8 +639,7 @@ public class ModRecipes {
 				'F', Blocks.furnace);
 
 		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("electronicCircuit"), "WWW", "SRS", "WWW", 'R',
-				ItemIngots.getIngotByName("refinediron"), 'S', Items.redstone, 'W',
-				ItemStandaloneCables.getCableByName("insulatedcopper"));
+				"ingotRefinedIron", 'S', Items.redstone, 'W', ItemStandaloneCables.getCableByName("insulatedcopper"));
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.reBattery), "XWX", "TRT", "TRT", 'T', "ingotTin", 'R',
 				Items.redstone, 'W', ItemStandaloneCables.getCableByName("insulatedcopper"));
@@ -548,9 +651,8 @@ public class ModRecipes {
 				ItemParts.getPartByName("electronicCircuit"));
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.centrifuge), "RCR", "AEA", "RCR", 'R',
-				ItemIngots.getIngotByName("refinediron"), 'E', new ItemStack(ModBlocks.Extractor), 'A',
-				BlockMachineFrame.getFrameByName("advancedMachine", 1), 'C',
-				ItemParts.getPartByName("electronicCircuit"));
+				"ingotRefinedIron", 'E', new ItemStack(ModBlocks.Extractor), 'A', "machineBlockAdvanced", 'C',
+				"circuitBasic");
 
 		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("advancedCircuit"), "RGR", "LCL", "RGR", 'R',
 				Items.redstone, 'G', Items.glowstone_dust, 'L', "dyeBlue", 'C',
@@ -687,7 +789,7 @@ public class ModRecipes {
 				ItemParts.getPartByName("NaKCoolantSimple"), 'W',
 				ItemStandaloneCables.getCableByName("insulatedcopper"), 'C',
 				ItemParts.getPartByName("electronicCircuit"));
-		
+
 		CraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("Transformer"), "GGG", "WTW", "GCG", 'G',
 				"blockGlass", 'W', ItemStandaloneCables.getCableByName("insulatedgold"), 'C',
 				ItemParts.getPartByName("electronicCircuit"), 'T', ModBlocks.mvt);
@@ -745,7 +847,7 @@ public class ModRecipes {
 		}
 
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.rubberPlanks, 4), ModBlocks.rubberLog);
-		GameRegistry.addShapelessRecipe(ItemParts.getPartByName("frequencyTransmitter"),
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.frequencyTransmitter),
 				ItemStandaloneCables.getCableByName("insulatedcopper"), ItemParts.getPartByName("electronicCircuit"));
 
 		for (String name : ItemDustsSmall.types) {

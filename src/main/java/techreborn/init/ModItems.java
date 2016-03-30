@@ -20,6 +20,7 @@ import techreborn.items.armor.ItemLithiumBatpack;
 import techreborn.items.armor.ItemTRArmour;
 import techreborn.items.tools.*;
 import techreborn.lib.Reference;
+import techreborn.parts.ItemStandaloneCables;
 
 public class ModItems
 {
@@ -92,6 +93,7 @@ public class ModItems
 	public static Item lapotronCrystal;
 	public static Item energyCrystal;
 	public static Item scrapBox;
+	public static Item frequencyTransmitter;
 
 	public static Item bronzeSword;
 	public static Item bronzePickaxe;
@@ -316,6 +318,9 @@ public class ModItems
 
 		scrapBox = new ItemScrapBox();
 		GameRegistry.registerItem(scrapBox, "scrapbox");
+		
+		frequencyTransmitter = new ItemFrequencyTransmitter();
+		GameRegistry.registerItem(frequencyTransmitter, "frequencyTransmitter");
 
 		upgrades = new ItemUpgrades();
 		GameRegistry.registerItem(upgrades, "upgrades");
@@ -896,6 +901,8 @@ public class ModItems
 
 		OreUnifier.registerOre("materialResin", ItemParts.getPartByName("rubberSap"));
 		OreUnifier.registerOre("materialRubber", ItemParts.getPartByName("rubber"));
+		OreUnifier.registerOre("circuitBasic", ItemParts.getPartByName("electronicCircuit"));
+		OreUnifier.registerOre("circuitAdvanced", ItemParts.getPartByName("advancedCircuit"));
 
 	}
 
