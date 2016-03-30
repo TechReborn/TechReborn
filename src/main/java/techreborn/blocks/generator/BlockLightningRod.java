@@ -20,24 +20,24 @@ public class BlockLightningRod extends BlockMachineBase implements IAdvancedRota
 	@Override
 	public String getFront(boolean isActive)
 	{
-		return prefix + "plasma_generator_side_off";
+		return isActive ? prefix + "lightning_rod_side_on" : prefix + "lightning_rod_side_off";
 	}
 
 	@Override
 	public String getSide(boolean isActive)
 	{
-		return prefix + "plasma_generator_side_off";
+		return isActive ? prefix + "lightning_rod_side_on" : prefix + "lightning_rod_side_off";
 	}
 
 	@Override
 	public String getTop(boolean isActive)
 	{
-		return prefix + "plasma_generator_side_off";
+		return isActive ? prefix + "lightning_rod_top_on" : prefix + "lightning_rod_top_off";
 	}
 
 	@Override
 	public String getBottom(boolean isActive)
 	{
-		return prefix + "plasma_generator_side_off";
+		return prefix + "generator_machine_bottom";
 	}
 }
