@@ -687,9 +687,9 @@ public class ModRecipes {
 				ItemParts.getPartByName("NaKCoolantSimple"), 'W',
 				ItemStandaloneCables.getCableByName("insulatedcopper"), 'C',
 				ItemParts.getPartByName("electronicCircuit"));
-
+		
 		CraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("Transformer"), "GGG", "WTW", "GCG", 'G',
-				"glass", 'W', ItemStandaloneCables.getCableByName("insulatedgold"), 'C',
+				"blockGlass", 'W', ItemStandaloneCables.getCableByName("insulatedgold"), 'C',
 				ItemParts.getPartByName("electronicCircuit"), 'T', ModBlocks.mvt);
 
 		CraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("EnergyStorage"), "PPP", "WBW", "PCP", 'P',

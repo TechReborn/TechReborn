@@ -25,7 +25,6 @@ public class ItemUpgrades extends ItemTextureBase implements IMachineUpgrade, IT
 		setUnlocalizedName("techreborn.upgrade");
 		setHasSubtypes(true);
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
-		setMaxStackSize(1);
 	}
 
 	public static ItemStack getUpgradeByName(String name, int count)
