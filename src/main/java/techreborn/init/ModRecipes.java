@@ -2294,8 +2294,8 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("cinnabar", 2),
 				ItemCells.getCellByName("empty"), ItemCells.getCellByName("mercury", 1),
 				ItemDusts.getDustByName("sulfur", 1), null, null, 80, 5));
-		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("flint", 1), null,
-				TechRebornAPI.recipeCompact.getItem("silicondioxideDust"), null, null, null, 160, 5));
+
+
 
 		// Deuterium/Tritium
 		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemCells.getCellByName("helium", 16), null,
@@ -2810,10 +2810,6 @@ public class ModRecipes {
 				new ItemStack(TechRebornAPI.recipeCompact.getItem("industrialTnt").getItem(), 32),
 				new ItemStack(TechRebornAPI.recipeCompact.getItem("industrialDiamond").getItem(), 3),
 				ItemDusts.getDustByName("darkAshes", 16), 20, 30));
-		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(TechRebornAPI.recipeCompact.getItem("coalChunk"),
-				new ItemStack(TechRebornAPI.recipeCompact.getItem("industrialTnt").getItem(), 8),
-				TechRebornAPI.recipeCompact.getItem("industrialDiamond"), ItemDusts.getDustByName("darkAshes", 4), 20,
-				30));
 		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("emerald", 4),
 				new ItemStack(TechRebornAPI.recipeCompact.getItem("industrialTnt").getItem(), 24),
 				new ItemStack(Items.emerald, 3), ItemDusts.getDustByName("darkAshes", 12), 20, 30));
@@ -2999,13 +2995,6 @@ public class ModRecipes {
 				ItemDusts.getDustByName("aluminum", 2), ItemCells.getCellByName("silicon", 6),
 				ItemCells.getCellByName("empty", 9), 520, 120));
 
-		RecipeHandler
-				.addRecipe(
-						new IndustrialElectrolyzerRecipe(
-								new ItemStack(TechRebornAPI.recipeCompact.getItem("silicondioxideDust").getItem(), 3,
-										0),
-								ItemCells.getCellByName("empty", 2), ItemCells.getCellByName("silicon", 1),
-								ItemCells.getCellByName("empty", 1), null, null, 60, 60));
 
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(new ItemStack(Items.dye, 3, 15),
 				ItemCells.getCellByName("empty", 1), null, ItemCells.getCellByName("calcium", 1), null, null, 20, 106));

@@ -165,7 +165,7 @@ public class Core
 		// RecipeHandler.scanForDupeRecipes();
 
 		// RecipeConfigManager.save();
-		recipeCompact.saveMissingItems(configDir);
+		//recipeCompact.saveMissingItems(configDir);
 	}
 
 	@Mod.EventHandler

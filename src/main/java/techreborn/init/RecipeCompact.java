@@ -69,6 +69,7 @@ public class RecipeCompact implements IRecipeCompact
 		recipes.put("reinforcedGlass", new ItemStack(ModBlocks.reinforcedglass));
 		recipes.put("compressor", new ItemStack(ModBlocks.Compressor));
 		recipes.put("insulatedGoldCableItem", ItemStandaloneCables.getCableByName("insulatedgold"));
+		recipes.put("fertilizer", new ItemStack(Items.dye));
 		inited = false;
 	}
 
