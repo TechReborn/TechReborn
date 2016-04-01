@@ -216,14 +216,10 @@ public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, II
 			ItemStack itemstack = null;
 			for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelteRecipe))
 			{
-				for (ItemStack input : recipeType.getInputs())
+				if (hasAllInputs(recipeType))
 				{
-					if (ItemUtils.isItemEqual(input, getStackInSlot(input1), true, true, true)
-							|| ItemUtils.isItemEqual(input, getStackInSlot(input2), true, true, true))
-					{
-						itemstack = recipeType.getOutput(0);
-						break;
-					}
+					itemstack = recipeType.getOutput(0);
+					break;
 				}
 				if (itemstack != null)
 				{
@@ -242,17 +238,13 @@ public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, II
 			for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelteRecipe))
 			{
 				boolean hasAllRecipes = true;
-				for (ItemStack input : recipeType.getInputs())
-				{
-					if (ItemUtils.isItemEqual(input, getStackInSlot(input1), true, true, true)
-							|| ItemUtils.isItemEqual(input, getStackInSlot(input2), true, true, true))
+					if (hasAllInputs(recipeType))
 					{
 
 					} else
 					{
 						hasAllRecipes = false;
 					}
-				}
 				if (hasAllRecipes)
 				{
 					for (ItemStack input : recipeType.getInputs())
