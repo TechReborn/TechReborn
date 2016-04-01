@@ -516,8 +516,9 @@ public class ModRecipes {
 				BlockMachineFrame.getFrameByName("machine", 1), 'E', crystalStack, 'G',
 				ItemStandaloneCables.getCableByName("insulatedgold"));
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.mfsu), "LAL", "LML", "LAL", 'A',
-				ItemParts.getPartByName("advancedCircuit"), 'L', lapcrystalStack, 'M', new ItemStack(ModBlocks.mfe));
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.mfsu), "LAL", "LML", "LOL", 'A',
+				ItemParts.getPartByName("advancedCircuit"), 'L', lapcrystalStack, 'M', new ItemStack(ModBlocks.mfe),
+				'L', BlockMachineFrame.getFrameByName("advancedMachine", 1));
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.IndustrialElectrolyzer), "RER", "CEC", "RER", 'R',
 				ItemIngots.getIngotByName("refinediron"), 'E', new ItemStack(ModBlocks.Extractor), 'C',
