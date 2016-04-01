@@ -9,6 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import techreborn.client.GuiHandler;
+import techreborn.init.ModBlocks;
 import techreborn.tiles.storage.TileBatBox;
 
 import java.util.ArrayList;
@@ -30,37 +31,11 @@ public class BlockBatBox extends BlockEnergyStorage
 	{
 		return new TileBatBox();
 	}
-	@Override
-	public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
-	{
-		ArrayList<ItemStack> items = (ArrayList<ItemStack>) dropInventory(worldIn, pos, new ItemStack(this));
-		for(ItemStack itemStack : items){
-			Random rand = new Random();
-
-			float dX = rand.nextFloat() * 0.8F + 0.1F;
-			float dY = rand.nextFloat() * 0.8F + 0.1F;
-			float dZ = rand.nextFloat() * 0.8F + 0.1F;
-
-			EntityItem entityItem = new EntityItem(worldIn, pos.getX() + dX, pos.getY() + dY, pos.getZ() + dZ,
-					itemStack.copy());
-
-			if (itemStack.hasTagCompound())
-			{
-				entityItem.getEntityItem().setTagCompound((NBTTagCompound) itemStack.getTagCompound().copy());
-			}
-
-			float factor = 0.05F;
-			entityItem.motionX = rand.nextGaussian() * factor;
-			entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
-			entityItem.motionZ = rand.nextGaussian() * factor;
-			worldIn.spawnEntityInWorld(entityItem);
-			itemStack.stackSize = 0;
-		}
-	}
 
 	@Override public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
 	{
-
-		return new ArrayList<ItemStack>();
+		ArrayList<ItemStack> list = new ArrayList<>();
+		list.add(new ItemStack(this));
+		return list;
 	}
 }

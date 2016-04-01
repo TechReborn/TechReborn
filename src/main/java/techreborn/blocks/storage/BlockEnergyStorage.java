@@ -28,6 +28,7 @@ import techreborn.Core;
 import techreborn.client.TechRebornCreativeTab;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -131,14 +132,11 @@ public abstract class BlockEnergyStorage extends BaseTileBlock implements IRotat
 
 		if (tileEntity == null)
 		{
-			System.out.print("Null");
-			return null;
+			return Collections.emptyList();
 		}
 		if (!(tileEntity instanceof IInventory))
 		{
-
-			System.out.print("Not INstance");
-			return null;
+			return Collections.emptyList();
 		}
 
 		IInventory inventory = (IInventory) tileEntity;
@@ -183,7 +181,6 @@ public abstract class BlockEnergyStorage extends BaseTileBlock implements IRotat
 	@Override
 	public IBlockState getStateFromMeta(int meta)
 	{
-		boolean active = false;
 		EnumFacing facing = getSideFromint(meta);
 		return this.getDefaultState().withProperty(FACING, facing);
 	}
