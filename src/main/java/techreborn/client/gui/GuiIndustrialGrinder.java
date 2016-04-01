@@ -29,9 +29,12 @@ public class GuiIndustrialGrinder extends GuiContainer
 	@Override
 	public void initGui()
 	{
+		int k = (this.width - this.xSize) / 2;
+		int l = (this.height - this.ySize) / 2;
 		hasMultiBlock = containerGrinder.connectionStatus != 1;
-
+        super.initGui();
 	}
+
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_)
 	{
