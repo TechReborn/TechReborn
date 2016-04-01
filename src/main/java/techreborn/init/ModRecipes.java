@@ -2299,7 +2299,7 @@ public class ModRecipes {
 
 		// Deuterium/Tritium
 		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemCells.getCellByName("helium", 16), null,
-				ItemCells.getCellByName("deuterium", 1), ItemCells.getCellByName("empty", 15), null, null, 10000, 5));
+				ItemCells.getCellByName("helium3", 1), ItemCells.getCellByName("empty", 15), null, null, 10000, 5));
 		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemCells.getCellByName("deuterium", 4), null,
 				ItemCells.getCellByName("tritium", 1), ItemCells.getCellByName("empty", 3), null, null, 3000, 5));
 		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemCells.getCellByName("hydrogen", 4), null,
