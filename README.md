@@ -30,7 +30,7 @@ Jenkins builds of TechReborn are compiled directly from this repository. Please 
 1.8.9:
 ---
 
-*This version is no longer supported, update to 1.9*
+*This version is only semi-supported while ic2 is on 1.8.9*
 
 [![Build Status](http://modmuss50.me:8080/job/TechReborn-1.8.9/badge/icon)](http://modmuss50.me:8080/job/TechReborn-1.8.9/)
 
