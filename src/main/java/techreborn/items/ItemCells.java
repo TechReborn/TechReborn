@@ -1,5 +1,6 @@
 package techreborn.items;
 
+import ic2.api.item.IC2Items;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -8,6 +9,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
+import techreborn.Core;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
@@ -23,19 +25,19 @@ public class ItemCells extends ItemTextureBase implements IFluidContainerItem {
 
     public static ItemStack getCellByName(String name, int count, boolean lookForIC2) {
         Fluid fluid = FluidRegistry.getFluid("fluid" + name.toLowerCase());
-//        if (lookForIC2 && IC2Items.getItem("FluidCell") != null) {
-//            if (fluid != null) {
-//                ItemStack stack = IC2Items.getItem("FluidCell").copy();
-//                if (stack != null && stack.getItem() instanceof IFluidContainerItem) {
-//                    IFluidContainerItem containerItem = (IFluidContainerItem) stack.getItem();
-//                    containerItem.fill(stack, new FluidStack(fluid.getID(), 2147483647), true);
-//                    stack.stackSize = count;
-//                    return stack;
-//                }
-//            } else {
-//                Core.logHelper.debug("Could not find " + "fluid" + name + " in the fluid registry!");
-//            }
-//        } //TODO ic2
+        if (lookForIC2 && IC2Items.getItem("FluidCell") != null) {
+            if (fluid != null) {
+                ItemStack stack = IC2Items.getItem("FluidCell").copy();
+                if (stack != null && stack.getItem() instanceof IFluidContainerItem) {
+                    IFluidContainerItem containerItem = (IFluidContainerItem) stack.getItem();
+                    containerItem.fill(stack, new FluidStack(fluid, 2147483647), true);
+                    stack.stackSize = count;
+                    return stack;
+                }
+            } else {
+                Core.logHelper.debug("Could not find " + "fluid" + name + " in the fluid registry!");
+            }
+        }
         int index = -1;
         for (int i = 0; i < types.length; i++) {
             if (types[i].equals(name)) {

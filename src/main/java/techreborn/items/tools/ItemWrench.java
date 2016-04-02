@@ -20,6 +20,7 @@ import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.items.ItemTR;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -66,12 +67,11 @@ public class ItemWrench extends ItemTR implements ITexturedItem {
         }
 
         if(tile instanceof IWrenchable){
-            if(((IWrenchable) tile).wrenchCanRemove(player)){
-                ItemStack itemStack = ((IWrenchable) tile).getWrenchDrop(player);
-                if(itemStack == null){
-                    return false;
+            if(((IWrenchable) tile).wrenchCanRemove(tile.getWorld(), tile.getPos(), player)){
+                List<ItemStack> itemStacks = ((IWrenchable) tile).getWrenchDrops(tile.getWorld(), tile.getPos(),tile.getWorld().getBlockState(tile.getPos()), tile, player, Collections.emptyList());
+                if(!itemStacks.isEmpty()){
+                    items.addAll(itemStacks);
                 }
-                items.add(itemStack);
             }
             for(ItemStack itemStack : items){
                 Random rand = new Random();

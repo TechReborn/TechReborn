@@ -1,8 +1,12 @@
 package techreborn.init;
 
+import ic2.api.item.IC2Items;
+import ic2.core.ref.BlockName;
+import ic2.core.ref.ItemName;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.Loader;
 import techreborn.api.recipe.IRecipeCompact;
 import techreborn.blocks.BlockMachineFrame;
 import techreborn.items.ItemCells;
@@ -14,6 +18,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -22,10 +27,14 @@ public class RecipeCompact implements IRecipeCompact {
     HashMap<String, ItemStack> recipes = new HashMap<>();
 
     ArrayList<String> missingItems = new ArrayList<>();
+    //OLD name, New Name
+    HashMap<String, Ic2ItemValue> ic2RenameDictionary = new HashMap<>();
 
     boolean inited = false;
+    boolean doesIc2Exist = false;
 
     public void init(){
+        doesIc2Exist = Loader.isModLoaded("IC2");
         recipes.put("industrialDiamond", new ItemStack(Items.diamond));
         recipes.put("industrialTnt", new ItemStack(Blocks.tnt));
         recipes.put("copperIngot", ItemIngots.getIngotByName("copper"));
@@ -63,7 +72,9 @@ public class RecipeCompact implements IRecipeCompact {
         recipes.put("windMill", new ItemStack(ModBlocks.windMill));
         recipes.put("energyCrystal", new ItemStack(ModItems.energyCrystal));
 //        recipes.put("lapotronCrystal", new ItemStack(ModItems.lapotronCrystal));
-        inited = false;
+
+        ic2RenameDictionary.put("plateiron", new Ic2ItemValue("plate", "iron"));
+        inited = true;
     }
 
 
@@ -71,6 +82,34 @@ public class RecipeCompact implements IRecipeCompact {
     public ItemStack getItem(String name) {
         if(!inited){
             init();
+        }
+        if(doesIc2Exist){
+            Ic2ItemValue newVaule = null;
+            if(ic2RenameDictionary.containsKey(name)){
+                newVaule = ic2RenameDictionary.get(name);
+            }
+            if(newVaule == null){
+                ItemStack stack = IC2Items.getItem(name);
+                if(stack == null || stack.getItem() == null){
+                    throw new InvalidParameterException("could not find " + name + " in the ic2 api");
+                }
+                return stack;
+            } else {
+                boolean requiresVariant = false;
+
+
+
+
+                ItemStack stack = IC2Items.getItem(newVaule.item);
+                if(!newVaule.variant.equals("null")){
+                    stack = IC2Items.getItem(newVaule.item, newVaule.variant);
+                }
+                if(stack == null || stack.getItem() == null){
+                    throw new InvalidParameterException("could not find " + name + " in the ic2 api");
+                }
+                return stack;
+            }
+
         }
         if(!recipes.containsKey(name)){
             if(!missingItems.contains(name)){
@@ -81,6 +120,7 @@ public class RecipeCompact implements IRecipeCompact {
             return recipes.get(name);
         }
     }
+
 
     public void saveMissingItems(File mcDir) throws IOException {
         File missingItemsFile = new File(mcDir, "missingItems.txt");
@@ -93,6 +133,20 @@ public class RecipeCompact implements IRecipeCompact {
             writer.newLine();
         }
         writer.close();
+    }
+
+    class Ic2ItemValue{
+        String item;
+        String variant = "null";
+
+        public Ic2ItemValue(String item, String variant) {
+            this.item = item;
+            this.variant = variant;
+        }
+
+        public Ic2ItemValue(String item) {
+            this.item = item;
+        }
     }
 
 }

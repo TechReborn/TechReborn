@@ -52,29 +52,6 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
     }
 
     @Override
-    public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
-        return false;
-    }
-
-    @Override
-    public EnumFacing getFacing() {
-        return getFacingEnum();
-    }
-
-    @Override
-    public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
-        if (entityPlayer.isSneaking()) {
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public float getWrenchDropRate() {
-        return 1.0F;
-    }
-
-    @Override
     public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
         return new ItemStack(ModBlocks.BlastFurnace, 1);
     }

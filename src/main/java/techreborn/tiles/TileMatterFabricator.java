@@ -1,6 +1,8 @@
 package techreborn.tiles;
 
 
+import ic2.api.recipe.RecipeOutput;
+import ic2.api.recipe.Recipes;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -27,29 +29,6 @@ public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchab
     public TileMatterFabricator() {
         super(6);
         //TODO configs
-    }
-
-    @Override
-    public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
-        return false;
-    }
-
-    @Override
-    public EnumFacing getFacing() {
-        return getFacingEnum();
-    }
-
-    @Override
-    public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
-        if (entityPlayer.isSneaking()) {
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public float getWrenchDropRate() {
-        return 1.0F;
     }
 
     @Override
@@ -248,18 +227,17 @@ public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchab
         }
     }
 
-    //TODO ic2
     public int getValue(ItemStack itemStack) {
-      //  int value = getValue(Recipes.matterAmplifier.getOutputFor(itemStack, false));
-        return 0;
+        int value = getValue(Recipes.matterAmplifier.getOutputFor(itemStack, false));
+        return value;
     }
 
-   // private static Integer getValue(RecipeOutput output) {
-//        if (output != null && output.metadata != null) {
-//            return output.metadata.getInteger("amplification");
-//        }
-     //   return 0;
-  //  }
+    private static Integer getValue(RecipeOutput output) {
+        if (output != null && output.metadata != null) {
+            return output.metadata.getInteger("amplification");
+        }
+        return 0;
+    }
 
     @Override
     public double getMaxPower() {

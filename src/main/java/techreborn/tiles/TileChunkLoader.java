@@ -1,17 +1,23 @@
 package techreborn.tiles;
 
 import ic2.api.tile.IWrenchable;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
+import net.minecraft.world.World;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.init.ModBlocks;
 
-public class TileChunkLoader extends TilePowerAcceptor implements IWrenchable, IInventory {
+import java.util.List;
+
+public class TileChunkLoader extends TilePowerAcceptor implements IInventory {
 
     public Inventory inventory = new Inventory(1, "TileChunkLoader", 64, this);
 
@@ -24,28 +30,6 @@ public class TileChunkLoader extends TilePowerAcceptor implements IWrenchable, I
         super(1);
     }
 
-    @Override
-    public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
-        return false;
-    }
-
-    @Override
-    public EnumFacing getFacing() {
-        return getFacingEnum();
-    }
-
-    @Override
-    public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
-        if (entityPlayer.isSneaking()) {
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public float getWrenchDropRate() {
-        return 1.0F;
-    }
 
     @Override
     public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {

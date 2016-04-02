@@ -44,10 +44,10 @@ public class CompatManager {
         registerCompact(RecipesBiomesOPlenty.class, "BiomesOPlenty");
         registerCompact(RecipesBuildcraft.class, "BuildCraft|Builders");
         registerCompact(RecipesThaumcraft.class, "Thaumcraft");
-        registerCompact(TechRebornParts.class, "mcmultipart");
-        registerCompact(ClientPartLoader.class, "mcmultipart", "@client");
-        registerCompact(StandalonePartCompact.class, "!mcmultipart");
-        registerCompact(WailaMcMultiPartCompact.class, "mcmultipart", "Waila");
+        registerCompact(TechRebornParts.class, "mcmultipart", "!IC2");
+        registerCompact(ClientPartLoader.class, "mcmultipart", "@client", "!IC2");
+        registerCompact(StandalonePartCompact.class, "!mcmultipart", "!IC2");
+        registerCompact(WailaMcMultiPartCompact.class, "mcmultipart", "Waila", "!IC2");
     }
 
     public void registerCompact(Class<? extends ICompatModule> moduleClass, Object... objs) {
