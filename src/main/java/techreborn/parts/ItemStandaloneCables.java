@@ -7,7 +7,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import reborncore.RebornCore;
+import techreborn.api.TechRebornAPI;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.init.ModItems;
+import techreborn.init.RecipeCompact;
 import techreborn.items.ItemTextureBase;
 import techreborn.lib.ModInfo;
 

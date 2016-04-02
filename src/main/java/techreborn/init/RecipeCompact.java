@@ -1,5 +1,6 @@
 package techreborn.init;
 
+import ic2.api.info.Info;
 import ic2.api.item.IC2Items;
 import ic2.core.ref.BlockName;
 import ic2.core.ref.ItemName;
@@ -9,10 +10,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Loader;
 import techreborn.api.recipe.IRecipeCompact;
 import techreborn.blocks.BlockMachineFrame;
+import techreborn.compat.CompatManager;
 import techreborn.items.ItemCells;
 import techreborn.items.ItemIngots;
 import techreborn.items.ItemParts;
 import techreborn.items.ItemPlates;
+import techreborn.parts.ItemStandaloneCables;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -31,10 +34,8 @@ public class RecipeCompact implements IRecipeCompact {
     HashMap<String, Ic2ItemValue> ic2RenameDictionary = new HashMap<>();
 
     boolean inited = false;
-    boolean doesIc2Exist = false;
 
     public void init(){
-        doesIc2Exist = Loader.isModLoaded("IC2");
         recipes.put("industrialDiamond", new ItemStack(Items.diamond));
         recipes.put("industrialTnt", new ItemStack(Blocks.tnt));
         recipes.put("copperIngot", ItemIngots.getIngotByName("copper"));
@@ -77,13 +78,25 @@ public class RecipeCompact implements IRecipeCompact {
         inited = true;
     }
 
+    public static ItemStack getCableByName(String name){
+        return getCableByName(name, 1);
+    }
+
+    public static ItemStack getCableByName(String name, int count) {
+        if(Info.isIc2Available()){
+            return new ItemStack(ModItems.missingRecipe);
+        } else {
+            return ItemStandaloneCables.getCableByName(name, count);
+        }
+    }
+
 
     @Override
     public ItemStack getItem(String name) {
         if(!inited){
             init();
         }
-        if(doesIc2Exist){
+        if(CompatManager.isIC2Loaded){
             Ic2ItemValue newVaule = null;
             if(ic2RenameDictionary.containsKey(name)){
                 newVaule = ic2RenameDictionary.get(name);

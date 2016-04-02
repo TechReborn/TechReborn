@@ -1,5 +1,6 @@
 package techreborn.compat;
 
+import ic2.api.info.Info;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
@@ -28,7 +29,7 @@ public class CompatManager {
     public static boolean isGregTechLoaded = false;
 
     public CompatManager() {
-        isIC2Loaded = Loader.isModLoaded("IC2");
+        isIC2Loaded = Info.isIc2Available();
         isIC2ClassicLoaded = false;
         if (isIC2ClassicLoaded) {
             isClassicEnet = true;

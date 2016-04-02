@@ -1,5 +1,6 @@
 package techreborn.init;
 
+import ic2.api.info.Info;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -38,6 +39,7 @@ import techreborn.blocks.BlockOre;
 import techreborn.blocks.BlockOre2;
 import techreborn.blocks.BlockStorage;
 import techreborn.blocks.BlockStorage2;
+import techreborn.compat.CompatManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.items.ItemCells;
 import techreborn.items.ItemDusts;
@@ -80,7 +82,9 @@ public class ModRecipes {
         addIc2ReplacementReicpes();
         addExtractorRecipes();
         addCompressorRecipes();
-        addWireRecipes();
+        if(!Info.isIc2Available()){
+            addWireRecipes();
+        }
         addScrapBoxloot();
     }
 
@@ -373,13 +377,13 @@ public class ModRecipes {
                 "WWW", "SRS", "WWW",
                 'R', ItemIngots.getIngotByName("refinediron"),
                 'S', Items.redstone,
-                'W', ItemStandaloneCables.getCableByName("insulatedcopper"));
+                'W', RecipeCompact.getCableByName("insulatedcopper"));
         
         CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.reBattery),
                 "XWX", "TRT", "TRT",
                 'T', "ingotTin",
                 'R', Items.redstone,
-                'W', ItemStandaloneCables.getCableByName("insulatedcopper"));
+                'W', RecipeCompact.getCableByName("insulatedcopper"));
                 
 	  CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.wrench),
 			  "BAB", "BBB", "ABA", 
