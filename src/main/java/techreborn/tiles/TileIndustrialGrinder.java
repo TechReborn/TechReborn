@@ -19,11 +19,11 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
-import techreborn.api.recipe.RecipeCrafter;
+import techreborn.utils.RecipeCrafter;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModFluids;
-import techreborn.lib.Reference;
+import techreborn.api.Reference;
 import ic2.api.tile.IWrenchable;
 
 public class TileIndustrialGrinder extends TilePowerAcceptor

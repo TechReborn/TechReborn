@@ -3,7 +3,7 @@ package techreborn.client.container;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import reborncore.client.gui.SlotOutput;
-import techreborn.api.SlotUpgrade;
+import techreborn.api.gui.SlotUpgrade;
 import techreborn.tiles.TileChemicalReactor;
 
 public class ContainerChemicalReactor extends ContainerCrafting

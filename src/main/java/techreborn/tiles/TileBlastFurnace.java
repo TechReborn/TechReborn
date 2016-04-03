@@ -17,11 +17,11 @@ import reborncore.common.misc.Location;
 import reborncore.common.multiblock.IMultiblockPart;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
-import techreborn.api.recipe.RecipeCrafter;
+import techreborn.utils.RecipeCrafter;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
-import techreborn.lib.Reference;
+import techreborn.api.Reference;
 import techreborn.multiblocks.MultiBlockCasing;
 import ic2.api.tile.IWrenchable;
 

@@ -6,7 +6,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.client.gui.SlotOutput;
 import reborncore.common.container.RebornContainer;
-import techreborn.api.SlotUpgrade;
+import techreborn.api.gui.SlotUpgrade;
 import techreborn.tiles.TileScrapboxinator;
 
 public class ContainerScrapboxinator extends RebornContainer

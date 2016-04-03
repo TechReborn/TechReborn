@@ -59,7 +59,7 @@ public class BlockOre extends BaseBlock implements ITexturedBlock, IOreNameProvi
 				return new ItemStack(ModBlocks.ore, count, i);
 			}
 		}
-		throw new InvalidParameterException("The ore block " + name + " could not be found.");
+		return BlockOre2.getOreByName(name, count);
 	}
 
 	public static ItemStack getOreByName(String name)

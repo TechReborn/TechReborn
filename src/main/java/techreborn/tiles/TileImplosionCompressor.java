@@ -13,10 +13,10 @@ import reborncore.api.power.EnumPowerTier;
 import reborncore.common.misc.Location;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
-import techreborn.api.recipe.RecipeCrafter;
+import techreborn.utils.RecipeCrafter;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.init.ModBlocks;
-import techreborn.lib.Reference;
+import techreborn.api.Reference;
 import ic2.api.tile.IWrenchable;
 
 public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory

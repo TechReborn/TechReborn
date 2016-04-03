@@ -10,9 +10,9 @@ import net.minecraft.util.text.ITextComponent;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
-import techreborn.api.recipe.RecipeCrafter;
+import techreborn.utils.RecipeCrafter;
 import techreborn.init.ModBlocks;
-import techreborn.lib.Reference;
+import techreborn.api.Reference;
 import ic2.api.tile.IWrenchable;
 
 public class TileIndustrialElectrolyzer extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory

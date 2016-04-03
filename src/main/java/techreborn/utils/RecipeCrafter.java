@@ -1,4 +1,4 @@
-package techreborn.api.recipe;
+package techreborn.utils;
 
 import java.util.ArrayList;
 
@@ -9,6 +9,8 @@ import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
+import techreborn.api.recipe.IBaseRecipeType;
+import techreborn.api.recipe.RecipeHandler;
 
 /**
  * Use this in your tile entity to craft things

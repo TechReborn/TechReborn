@@ -21,7 +21,7 @@ import reborncore.common.util.ItemUtils;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.init.ModBlocks;
-import techreborn.lib.Reference;
+import techreborn.api.Reference;
 import ic2.api.tile.IWrenchable;
 
 public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, IInventory

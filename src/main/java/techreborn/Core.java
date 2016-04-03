@@ -79,6 +79,7 @@ public class Core
 
 		recipeCompact = new RecipeCompact();
 		TechRebornAPI.recipeCompact = recipeCompact;
+		TechRebornAPI.subItemRetriever = new SubItemRetriever();
 
 		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules)
 		{

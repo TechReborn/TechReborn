@@ -19,8 +19,7 @@ import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
 import techreborn.items.armor.ItemTRArmour;
 import techreborn.items.tools.*;
-import techreborn.lib.Reference;
-import techreborn.parts.ItemStandaloneCables;
+import techreborn.api.Reference;
 
 public class ModItems
 {

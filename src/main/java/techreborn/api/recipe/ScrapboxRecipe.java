@@ -1,22 +1,19 @@
 package techreborn.api.recipe;
 
 import net.minecraft.item.ItemStack;
-import techreborn.init.ModItems;
-import techreborn.lib.Reference;
+import techreborn.api.Reference;
+import techreborn.api.TechRebornAPI;
 
-public class ScrapboxRecipe extends BaseRecipe
-{
+public class ScrapboxRecipe extends BaseRecipe {
 
-	public ScrapboxRecipe(ItemStack output)
-	{
-		super(Reference.scrapboxRecipe, 0, 0);
-		inputs.add(new ItemStack(ModItems.scrapBox));
-		addOutput(output);
-	}
+    public ScrapboxRecipe(ItemStack output) {
+        super(Reference.scrapboxRecipe, 0, 0);
+        inputs.add(new ItemStack(TechRebornAPI.getItem("scrapBox")));
+        addOutput(output);
+    }
 
-	@Override
-	public String getUserFreindlyName()
-	{
-		return "Scrapbox";
-	}
+    @Override
+    public String getUserFreindlyName() {
+        return "Scrapbox";
+    }
 }
