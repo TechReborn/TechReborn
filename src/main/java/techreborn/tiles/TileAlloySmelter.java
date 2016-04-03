@@ -11,7 +11,7 @@ import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.utils.RecipeCrafter;
-import techreborn.api.upgrade.UpgradeHandler;
+import techreborn.utils.upgrade.UpgradeHandler;
 import techreborn.init.ModBlocks;
 import techreborn.api.Reference;
 import ic2.api.tile.IWrenchable;

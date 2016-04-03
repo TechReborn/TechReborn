@@ -5,7 +5,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.FluidStack;
 import techreborn.api.Reference;
 import techreborn.api.recipe.BaseRecipe;
-import techreborn.tiles.TileIndustrialSawmill;
 
 public class IndustrialSawmillRecipe extends BaseRecipe {
 
@@ -49,50 +48,6 @@ public class IndustrialSawmillRecipe extends BaseRecipe {
     @Override
     public String getUserFreindlyName() {
         return "Industrial Sawmill";
-    }
-
-    @Override
-    public boolean canCraft(TileEntity tile) {
-        if (fluidStack == null) {
-            return true;
-        }
-        if (tile instanceof TileIndustrialSawmill) {
-            TileIndustrialSawmill sawmill = (TileIndustrialSawmill) tile;
-            if (sawmill.tank.getFluid() == null) {
-                return false;
-            }
-            if (sawmill.tank.getFluid() == fluidStack) {
-                if (sawmill.tank.getFluidAmount() >= fluidStack.amount) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean onCraft(TileEntity tile) {
-        if (fluidStack == null) {
-            return true;
-        }
-        if (tile instanceof TileIndustrialSawmill) {
-            TileIndustrialSawmill sawmill = (TileIndustrialSawmill) tile;
-            if (sawmill.tank.getFluid() == null) {
-                return false;
-            }
-            if (sawmill.tank.getFluid() == fluidStack) {
-                if (sawmill.tank.getFluidAmount() >= fluidStack.amount) {
-                    if (sawmill.tank.getFluidAmount() > 0) {
-                        sawmill.tank.setFluid(new FluidStack(fluidStack.getFluid(),
-                                sawmill.tank.getFluidAmount() - fluidStack.amount));
-                    } else {
-                        sawmill.tank.setFluid(null);
-                    }
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     @Override

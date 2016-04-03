@@ -1,4 +1,4 @@
-package techreborn.api.upgrade;
+package techreborn.utils.upgrade;
 
 import net.minecraft.item.ItemStack;
 import reborncore.common.util.Inventory;

@@ -4,7 +4,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import techreborn.api.Reference;
 import techreborn.api.recipe.BaseRecipe;
-import techreborn.tiles.TileBlastFurnace;
 
 public class BlastFurnaceRecipe extends BaseRecipe {
 
@@ -28,19 +27,5 @@ public class BlastFurnaceRecipe extends BaseRecipe {
     @Override
     public String getUserFreindlyName() {
         return "Blast Furnace";
-    }
-
-    @Override
-    public boolean canCraft(TileEntity tile) {
-        if (tile instanceof TileBlastFurnace) {
-            TileBlastFurnace blastFurnace = (TileBlastFurnace) tile;
-            return blastFurnace.getHeat() >= neededHeat;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean onCraft(TileEntity tile) {
-        return super.onCraft(tile);
     }
 }

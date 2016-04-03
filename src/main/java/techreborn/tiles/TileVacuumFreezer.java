@@ -5,19 +5,22 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
+import techreborn.api.recipe.ITileRecipeHandler;
+import techreborn.api.recipe.machines.VacuumFreezerRecipe;
 import techreborn.utils.RecipeCrafter;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.init.ModBlocks;
 import techreborn.api.Reference;
 import ic2.api.tile.IWrenchable;
 
-public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable, IInventory
+public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable, IInventory, ITileRecipeHandler<VacuumFreezerRecipe>
 {
 
 	public int tickTime;
@@ -289,4 +292,18 @@ public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,
 		return true;
 	}
 
+	@Override
+	public boolean canCraft(TileEntity tile, VacuumFreezerRecipe recipe) {
+		if (tile instanceof TileVacuumFreezer) {
+			if (((TileVacuumFreezer) tile).multiBlockStatus == 1) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean onCraft(TileEntity tile, VacuumFreezerRecipe recipe) {
+		return true;
+	}
 }

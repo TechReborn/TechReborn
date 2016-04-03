@@ -4,7 +4,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import techreborn.api.Reference;
 import techreborn.api.recipe.BaseRecipe;
-import techreborn.tiles.TileVacuumFreezer;
 
 public class VacuumFreezerRecipe extends BaseRecipe {
 
@@ -19,15 +18,5 @@ public class VacuumFreezerRecipe extends BaseRecipe {
     @Override
     public String getUserFreindlyName() {
         return "Vacuum Freezer";
-    }
-
-    @Override
-    public boolean canCraft(TileEntity tile) {
-        if (tile instanceof TileVacuumFreezer) {
-            if (((TileVacuumFreezer) tile).multiBlockStatus == 1) {
-                return true;
-            }
-        }
-        return false;
     }
 }

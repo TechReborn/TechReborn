@@ -5,7 +5,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.FluidStack;
 import techreborn.api.Reference;
 import techreborn.api.recipe.BaseRecipe;
-import techreborn.tiles.TileIndustrialGrinder;
 
 public class IndustrialGrinderRecipe extends BaseRecipe {
 
@@ -32,49 +31,5 @@ public class IndustrialGrinderRecipe extends BaseRecipe {
     @Override
     public String getUserFreindlyName() {
         return "IndustrialGrinder";
-    }
-
-    @Override
-    public boolean canCraft(TileEntity tile) {
-        if (fluidStack == null) {
-            return true;
-        }
-        if (tile instanceof TileIndustrialGrinder) {
-            TileIndustrialGrinder grinder = (TileIndustrialGrinder) tile;
-            if (grinder.tank.getFluid() == null) {
-                return false;
-            }
-            if (grinder.tank.getFluid() == fluidStack) {
-                if (grinder.tank.getFluidAmount() >= fluidStack.amount) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean onCraft(TileEntity tile) {
-        if (fluidStack == null) {
-            return true;
-        }
-        if (tile instanceof TileIndustrialGrinder) {
-            TileIndustrialGrinder grinder = (TileIndustrialGrinder) tile;
-            if (grinder.tank.getFluid() == null) {
-                return false;
-            }
-            if (grinder.tank.getFluid() == fluidStack) {
-                if (grinder.tank.getFluidAmount() >= fluidStack.amount) {
-                    if (grinder.tank.getFluidAmount() > 0) {
-                        grinder.tank.setFluid(new FluidStack(fluidStack.getFluid(),
-                                grinder.tank.getFluidAmount() - fluidStack.amount));
-                    } else {
-                        grinder.tank.setFluid(null);
-                    }
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 }

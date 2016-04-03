@@ -21,6 +21,8 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
+import techreborn.api.recipe.ITileRecipeHandler;
+import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
 import techreborn.utils.RecipeCrafter;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.init.ModBlocks;
@@ -29,7 +31,7 @@ import techreborn.api.Reference;
 import ic2.api.tile.IWrenchable;
 
 public class TileIndustrialSawmill extends TilePowerAcceptor
-		implements IWrenchable, IFluidHandler, IInventory, ISidedInventory, IListInfoProvider
+		implements IWrenchable, IFluidHandler, IInventory, ISidedInventory, IListInfoProvider, ITileRecipeHandler<IndustrialSawmillRecipe>
 {
 	public static final int TANK_CAPACITY = 16000;
 
@@ -372,5 +374,49 @@ public class TileIndustrialSawmill extends TilePowerAcceptor
 	public EnumPowerTier getTier()
 	{
 		return EnumPowerTier.LOW;
+	}
+
+	@Override
+	public boolean canCraft(TileEntity tile, IndustrialSawmillRecipe recipe) {
+		if (recipe.fluidStack == null) {
+			return true;
+		}
+		if (tile instanceof TileIndustrialSawmill) {
+			TileIndustrialSawmill sawmill = (TileIndustrialSawmill) tile;
+			if (sawmill.tank.getFluid() == null) {
+				return false;
+			}
+			if (sawmill.tank.getFluid() == recipe.fluidStack) {
+				if (sawmill.tank.getFluidAmount() >= recipe.fluidStack.amount) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean onCraft(TileEntity tile, IndustrialSawmillRecipe recipe) {
+		if (recipe.fluidStack == null) {
+			return true;
+		}
+		if (tile instanceof TileIndustrialSawmill) {
+			TileIndustrialSawmill sawmill = (TileIndustrialSawmill) tile;
+			if (sawmill.tank.getFluid() == null) {
+				return false;
+			}
+			if (sawmill.tank.getFluid() == recipe.fluidStack) {
+				if (sawmill.tank.getFluidAmount() >= recipe.fluidStack.amount) {
+					if (sawmill.tank.getFluidAmount() > 0) {
+						sawmill.tank.setFluid(new FluidStack(recipe.fluidStack.getFluid(),
+								sawmill.tank.getFluidAmount() - recipe.fluidStack.amount));
+					} else {
+						sawmill.tank.setFluid(null);
+					}
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

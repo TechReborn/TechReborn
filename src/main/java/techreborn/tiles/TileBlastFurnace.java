@@ -17,6 +17,8 @@ import reborncore.common.misc.Location;
 import reborncore.common.multiblock.IMultiblockPart;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
+import techreborn.api.recipe.ITileRecipeHandler;
+import techreborn.api.recipe.machines.BlastFurnaceRecipe;
 import techreborn.utils.RecipeCrafter;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.config.ConfigTechReborn;
@@ -25,7 +27,7 @@ import techreborn.api.Reference;
 import techreborn.multiblocks.MultiBlockCasing;
 import ic2.api.tile.IWrenchable;
 
-public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory
+public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory, ITileRecipeHandler<BlastFurnaceRecipe>
 {
 
 	public static int euTick = 5;
@@ -335,5 +337,19 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 	public ITextComponent getDisplayName()
 	{
 		return inventory.getDisplayName();
+	}
+
+	@Override
+	public boolean canCraft(TileEntity tile, BlastFurnaceRecipe recipe) {
+		if (tile instanceof TileBlastFurnace) {
+			TileBlastFurnace blastFurnace = (TileBlastFurnace) tile;
+			return blastFurnace.getHeat() >= recipe.neededHeat;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean onCraft(TileEntity tile, BlastFurnaceRecipe recipe) {
+		return true;
 	}
 }

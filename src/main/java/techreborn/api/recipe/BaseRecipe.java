@@ -62,11 +62,17 @@ public abstract class BaseRecipe implements IBaseRecipeType, Cloneable {
 
     @Override
     public boolean canCraft(TileEntity tile) {
+        if(tile instanceof ITileRecipeHandler){
+            return ((ITileRecipeHandler) tile).canCraft(tile, this);
+        }
         return true;
     }
 
     @Override
     public boolean onCraft(TileEntity tile) {
+        if(tile instanceof ITileRecipeHandler){
+            return ((ITileRecipeHandler) tile).onCraft(tile, this);
+        }
         return true;
     }
 

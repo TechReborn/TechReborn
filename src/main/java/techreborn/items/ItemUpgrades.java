@@ -10,7 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import techreborn.utils.RecipeCrafter;
-import techreborn.api.upgrade.IMachineUpgrade;
+import techreborn.utils.upgrade.IMachineUpgrade;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
 
