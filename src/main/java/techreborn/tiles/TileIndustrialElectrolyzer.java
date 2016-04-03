@@ -60,11 +60,7 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor implements IWr
 	@Override
 	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
 	{
-		if (entityPlayer.isSneaking())
-		{
-			return true;
-		}
-		return false;
+		return entityPlayer.isSneaking();
 	}
 
 	@Override

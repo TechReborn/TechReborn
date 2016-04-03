@@ -76,7 +76,7 @@ public class ContainerMFE extends RebornContainer
 		super.detectAndSendChanges();
 		for (int i = 0; i < this.crafters.size(); i++)
 		{
-			ICrafting icrafting = (ICrafting) this.crafters.get(i);
+			ICrafting icrafting = this.crafters.get(i);
 			if (this.energy != (int) tile.getEnergy())
 			{
 				icrafting.sendProgressBarUpdate(this, 2, (int) tile.getEnergy());

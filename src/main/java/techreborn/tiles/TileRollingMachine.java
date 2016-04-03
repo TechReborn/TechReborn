@@ -141,11 +141,7 @@ public class TileRollingMachine extends TilePowerAcceptor implements IWrenchable
 
 	public boolean canMake()
 	{
-		if (RollingMachineRecipe.instance.findMatchingRecipe(craftMatrix, worldObj) == null)
-		{
-			return false;
-		}
-		return true;
+		return RollingMachineRecipe.instance.findMatchingRecipe(craftMatrix, worldObj) != null;
 	}
 
 	@Override
@@ -163,11 +159,7 @@ public class TileRollingMachine extends TilePowerAcceptor implements IWrenchable
 	@Override
 	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
 	{
-		if (entityPlayer.isSneaking())
-		{
-			return true;
-		}
-		return false;
+		return entityPlayer.isSneaking();
 	}
 
 	@Override

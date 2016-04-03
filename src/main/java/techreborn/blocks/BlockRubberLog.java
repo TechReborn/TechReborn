@@ -204,7 +204,7 @@ public class BlockRubberLog extends Block implements ITexturedBlock
 	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
 	{
-		List<ItemStack> drops = new ArrayList<ItemStack>();
+		List<ItemStack> drops = new ArrayList<>();
 		drops.add(new ItemStack(this));
 		if (state.getValue(HAS_SAP))
 		{

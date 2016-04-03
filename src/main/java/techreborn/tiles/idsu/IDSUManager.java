@@ -20,7 +20,7 @@ public class IDSUManager
 
 	public static final String savename = "idsu.json";
 	public static IDSUManager INSTANCE;
-	public HashMap<World, IDSUWorldSaveData> worldData = new HashMap<World, IDSUWorldSaveData>();
+	public HashMap<World, IDSUWorldSaveData> worldData = new HashMap<>();
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void worldSave(WorldEvent.Save event)
@@ -122,7 +122,7 @@ public class IDSUManager
 	public class IDSUWorldSaveData
 	{
 
-		public TreeMap<String, IDSUValueSaveData> idsuValues = new TreeMap<String, IDSUValueSaveData>();
+		public TreeMap<String, IDSUValueSaveData> idsuValues = new TreeMap<>();
 
 		public World world;
 

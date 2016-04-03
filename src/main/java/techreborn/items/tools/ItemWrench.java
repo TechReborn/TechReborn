@@ -101,7 +101,7 @@ public class ItemWrench extends ItemTR implements ITexturedItem
 		{
 			if (player.isSneaking())
 			{
-				List<ItemStack> items = new ArrayList<ItemStack>();
+				List<ItemStack> items = new ArrayList<>();
 				if (tile instanceof IInventory)
 				{
 					IInventory inventory = (IInventory) tile;

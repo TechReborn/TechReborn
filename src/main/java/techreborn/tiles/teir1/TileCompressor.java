@@ -56,11 +56,7 @@ public class TileCompressor extends TilePowerAcceptor implements IWrenchable, II
 	@Override
 	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
 	{
-		if (entityPlayer.isSneaking())
-		{
-			return true;
-		}
-		return false;
+		return entityPlayer.isSneaking();
 	}
 
 	@Override

@@ -46,14 +46,14 @@ public class RecipeConfig {
 
     public void addInputs(ConfigItem item) {
         if (inputs == null) {
-            inputs = new ArrayList<ConfigItem>();
+            inputs = new ArrayList<>();
         }
         inputs.add(item);
     }
 
     public void addOutputs(ConfigItem item) {
         if (outputs == null) {
-            outputs = new ArrayList<ConfigItem>();
+            outputs = new ArrayList<>();
         }
         outputs.add(item);
     }

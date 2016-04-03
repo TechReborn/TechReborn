@@ -128,7 +128,7 @@ public class BlockNuke extends BaseBlock implements ITexturedBlock
 
 	public IBlockState getStateFromMeta(int meta)
 	{
-		return this.getDefaultState().withProperty(OVERLAY, Boolean.valueOf((meta & 1) > 0));
+		return this.getDefaultState().withProperty(OVERLAY, (meta & 1) > 0);
 	}
 
 	protected BlockStateContainer createBlockState()

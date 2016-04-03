@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class RecipeConfigManager {
 
-    public static ArrayList<RecipeConfig> configs = new ArrayList<RecipeConfig>();
+    public static ArrayList<RecipeConfig> configs = new ArrayList<>();
 
     static File configFile = null;
 

@@ -74,7 +74,7 @@ public class GuiIndustrialSawmill extends GuiContainer
 		// }
 		// }
 		drawTexturedModalRect(k + 11, l + 19, 176, 86, 12, 47);
-		if (sawmill.getMutliBlock() != true)
+		if (!sawmill.getMutliBlock())
 		{
 			GuiUtil.drawTooltipBox(k + 30, l + 50 + 12 - 0, 114, 10);
 			this.fontRendererObj.drawString(I18n.translateToLocal("techreborn.message.missingmultiblock"), k + 38,

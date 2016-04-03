@@ -14,13 +14,13 @@ public class RecipeHandler {
     /**
      * This is the array list of all of the recipes for all of the machines
      */
-    public static final ArrayList<IBaseRecipeType> recipeList = new ArrayList<IBaseRecipeType>();
+    public static final ArrayList<IBaseRecipeType> recipeList = new ArrayList<>();
 
-    public static HashMap<IBaseRecipeType, String> stackMap = new HashMap<IBaseRecipeType, String>();
+    public static HashMap<IBaseRecipeType, String> stackMap = new HashMap<>();
     /**
      * This is a list of all the registered machine names.
      */
-    public static ArrayList<String> machineNames = new ArrayList<String>();
+    public static ArrayList<String> machineNames = new ArrayList<>();
 
     /**
      * Use this to get all of the recipes form a recipe name
@@ -29,7 +29,7 @@ public class RecipeHandler {
      * @return A list of all the recipes of a given name.
      */
     public static List<IBaseRecipeType> getRecipeClassFromName(String name) {
-        List<IBaseRecipeType> baseRecipeList = new ArrayList<IBaseRecipeType>();
+        List<IBaseRecipeType> baseRecipeList = new ArrayList<>();
         for (IBaseRecipeType baseRecipe : recipeList) {
             if (baseRecipe.getRecipeName().equals(name)) {
                 baseRecipeList.add(baseRecipe);
@@ -66,7 +66,7 @@ public class RecipeHandler {
             machineNames.add(recipe.getRecipeName());
         }
         recipeList.add(recipe);
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         for (StackTraceElement ste : Thread.currentThread().getStackTrace()) {
             buffer.append(ste);
         }
@@ -82,10 +82,9 @@ public class RecipeHandler {
                     for (int i = 0; i < baseRecipeType.getInputs().size(); i++) {
                         if (ItemUtils.isItemEqual(baseRecipeType.getInputs().get(i), recipe.getInputs().get(i), true,
                                 false, false)) {
-                            StringBuffer itemInfo = new StringBuffer();
+                            StringBuilder itemInfo = new StringBuilder();
                             for (ItemStack inputs : baseRecipeType.getInputs()) {
-                                itemInfo.append(":" + inputs.getItem().getUnlocalizedName() + ","
-                                        + inputs.getDisplayName() + "," + inputs.stackSize);
+                                itemInfo.append(":").append(inputs.getItem().getUnlocalizedName()).append(",").append(inputs.getDisplayName()).append(",").append(inputs.stackSize);
                             }
                             Core.logHelper.all(stackMap.get(baseRecipeType));
                             // throw new Exception("Found a duplicate recipe for

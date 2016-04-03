@@ -52,7 +52,7 @@ public class BlockIronFurnace extends BlockMachineBase implements IRotationTextu
 	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
 	{
-		List<ItemStack> items = new ArrayList<ItemStack>();
+		List<ItemStack> items = new ArrayList<>();
 		items.add(new ItemStack(this));
 		return items;
 	}
@@ -63,7 +63,7 @@ public class BlockIronFurnace extends BlockMachineBase implements IRotationTextu
 	{
 		if (this.isActive(state))
 		{
-			EnumFacing enumfacing = (EnumFacing) state.getValue(FACING);
+			EnumFacing enumfacing = state.getValue(FACING);
 			double d0 = (double) pos.getX() + 0.5D;
 			double d1 = (double) pos.getY() + rand.nextDouble() * 6.0D / 16.0D;
 			double d2 = (double) pos.getZ() + 0.5D;

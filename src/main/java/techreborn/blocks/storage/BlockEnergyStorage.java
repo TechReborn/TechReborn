@@ -88,7 +88,7 @@ public abstract class BlockEnergyStorage extends BaseTileBlock implements IRotat
 			Block block2 = state2.getBlock();
 			IBlockState state3 = worldIn.getBlockState(pos.east());
 			Block block3 = state3.getBlock();
-			EnumFacing enumfacing = (EnumFacing) state.getValue(FACING);
+			EnumFacing enumfacing = state.getValue(FACING);
 
 			if (enumfacing == EnumFacing.NORTH && block.isFullBlock(state) && !block1.isFullBlock(state1))
 			{
@@ -141,7 +141,7 @@ public abstract class BlockEnergyStorage extends BaseTileBlock implements IRotat
 
 		IInventory inventory = (IInventory) tileEntity;
 
-		List<ItemStack> items = new ArrayList<ItemStack>();
+		List<ItemStack> items = new ArrayList<>();
 
 		for (int i = 0; i < inventory.getSizeInventory(); i++)
 		{
@@ -274,7 +274,7 @@ public abstract class BlockEnergyStorage extends BaseTileBlock implements IRotat
 	{
 		if (this instanceof IRotationTexture)
 		{
-			IRotationTexture rotationTexture = (IRotationTexture) this;
+			IRotationTexture rotationTexture = this;
 			if (getFacing(blockState) == facing)
 			{
 				return rotationTexture.getFrontOff();

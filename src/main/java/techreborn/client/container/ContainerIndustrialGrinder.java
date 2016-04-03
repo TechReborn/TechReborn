@@ -59,7 +59,7 @@ public class ContainerIndustrialGrinder extends ContainerCrafting
 		super.detectAndSendChanges();
 		for (int i = 0; i < this.crafters.size(); i++)
 		{
-			ICrafting icrafting = (ICrafting) this.crafters.get(i);
+			ICrafting icrafting = this.crafters.get(i);
 			if (this.connectionStatus != tile.connectionStatus)
 			{
 				icrafting.sendProgressBarUpdate(this, 10, tile.connectionStatus);

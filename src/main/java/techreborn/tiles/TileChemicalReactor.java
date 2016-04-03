@@ -57,11 +57,7 @@ public class TileChemicalReactor extends TilePowerAcceptor implements IWrenchabl
 	@Override
 	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
 	{
-		if (entityPlayer.isSneaking())
-		{
-			return true;
-		}
-		return false;
+		return entityPlayer.isSneaking();
 	}
 
 	@Override

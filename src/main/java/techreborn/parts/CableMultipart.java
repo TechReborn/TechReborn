@@ -239,10 +239,7 @@ public abstract class CableMultipart extends Multipart
 
 		CableMultipart cableMultipart = getPartFromWorld(getWorld(), getPos().offset(dir), dir.getOpposite());
 
-		if (cableMultipart != null && cableMultipart.getCableType() == getCableType()) {
-			return true;
-		}
-		return false;
+		return cableMultipart != null && cableMultipart.getCableType() == getCableType();
 	}
 
 	public TileEntity getNeighbourTile(EnumFacing side) {

@@ -19,7 +19,6 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
-import techreborn.api.recipe.BaseRecipe;
 import techreborn.api.recipe.ITileRecipeHandler;
 import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
 import techreborn.utils.RecipeCrafter;
@@ -71,11 +70,7 @@ public class TileIndustrialGrinder extends TilePowerAcceptor
 	@Override
 	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
 	{
-		if (entityPlayer.isSneaking())
-		{
-			return true;
-		}
-		return false;
+		return entityPlayer.isSneaking();
 	}
 
 	@Override
@@ -195,11 +190,7 @@ public class TileIndustrialGrinder extends TilePowerAcceptor
 	@Override
 	public boolean canFill(EnumFacing from, Fluid fluid)
 	{
-		if (fluid == FluidRegistry.WATER || fluid == ModFluids.fluidMercury || fluid == ModFluids.fluidSodiumpersulfate)
-		{
-			return true;
-		}
-		return false;
+		return fluid == FluidRegistry.WATER || fluid == ModFluids.fluidMercury || fluid == ModFluids.fluidSodiumpersulfate;
 	}
 
 	@Override

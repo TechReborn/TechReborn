@@ -47,7 +47,7 @@ public class BlockMachineCasing extends BlockMultiblockBase implements ITextured
 	@Override
 	public int getMetaFromState(IBlockState state)
 	{
-		return (Integer) state.getValue(METADATA);
+		return state.getValue(METADATA);
 	}
 
 	protected BlockStateContainer createBlockState()
@@ -104,12 +104,12 @@ public class BlockMachineCasing extends BlockMultiblockBase implements ITextured
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess worldIn, BlockPos pos, EnumFacing side)
 	{
 		Block b = worldIn.getBlockState(pos).getBlock();
-		return b == (Block) this ? false : super.shouldSideBeRendered(blockState, worldIn, pos, side);
+		return b != (Block) this && super.shouldSideBeRendered(blockState, worldIn, pos, side);
 	}
 
 	public boolean shouldConnectToBlock(IBlockAccess blockAccess, int x, int y, int z, Block block, int meta)
 	{
-		return block == (Block) this;
+		return block == this;
 	}
 
 	@Override

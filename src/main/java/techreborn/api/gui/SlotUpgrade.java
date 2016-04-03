@@ -13,9 +13,6 @@ public class SlotUpgrade extends Slot {
 
     @Override
     public boolean isItemValid(ItemStack stack) {
-        if (stack.getItem() instanceof IMachineUpgrade) {
-            return true;
-        } else
-            return false;
+        return stack.getItem() instanceof IMachineUpgrade;
     }
 }

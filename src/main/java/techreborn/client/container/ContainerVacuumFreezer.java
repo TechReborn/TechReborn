@@ -54,7 +54,7 @@ public class ContainerVacuumFreezer extends ContainerCrafting
 		super.detectAndSendChanges();
 		for (int i = 0; i < this.crafters.size(); i++)
 		{
-			ICrafting icrafting = (ICrafting) this.crafters.get(i);
+			ICrafting icrafting = this.crafters.get(i);
 			if (this.machineStatus != tile.multiBlockStatus)
 			{
 				icrafting.sendProgressBarUpdate(this, 3, tile.multiBlockStatus);

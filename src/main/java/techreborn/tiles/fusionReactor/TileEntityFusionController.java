@@ -45,21 +45,13 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 	@Override
 	public boolean canAcceptEnergy(EnumFacing direction)
 	{
-		if (direction == EnumFacing.DOWN || direction == EnumFacing.UP)
-		{
-			return false;
-		}
-		return true;
+		return !(direction == EnumFacing.DOWN || direction == EnumFacing.UP);
 	}
 
 	@Override
 	public boolean canProvideEnergy(EnumFacing direction)
 	{
-		if (direction == EnumFacing.DOWN || direction == EnumFacing.UP)
-		{
-			return true;
-		}
-		return false;
+		return direction == EnumFacing.DOWN || direction == EnumFacing.UP;
 	}
 
 	@Override
@@ -272,8 +264,8 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 							{
 								if (reactorRecipe.getBottomInput() != null)
 								{
-									if (ItemUtils.isItemEqual(getStackInSlot(bottomStackSlot),
-											reactorRecipe.getBottomInput(), true, true, true) == false)
+									if (!ItemUtils.isItemEqual(getStackInSlot(bottomStackSlot),
+											reactorRecipe.getBottomInput(), true, true, true))
 									{
 										break;
 									}
@@ -376,8 +368,8 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 		{
 			if (currentRecipe.getBottomInput() != null)
 			{
-				if (ItemUtils.isItemEqual(getStackInSlot(bottomStackSlot), currentRecipe.getBottomInput(), true, true,
-						true) == false)
+				if (!ItemUtils.isItemEqual(getStackInSlot(bottomStackSlot), currentRecipe.getBottomInput(), true, true,
+						true))
 				{
 					return false;
 				}

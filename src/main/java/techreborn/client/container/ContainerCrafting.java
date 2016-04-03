@@ -26,7 +26,7 @@ public abstract class ContainerCrafting extends RebornContainer
 		super.detectAndSendChanges();
 		for (int i = 0; i < this.crafters.size(); i++)
 		{
-			ICrafting icrafting = (ICrafting) this.crafters.get(i);
+			ICrafting icrafting = this.crafters.get(i);
 			if (this.currentTickTime != crafter.currentTickTime || crafter.currentTickTime == -1)
 			{
 				icrafting.sendProgressBarUpdate(this, 0, crafter.currentTickTime);

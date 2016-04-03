@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class LesuNetwork
 {
 
-	public ArrayList<TileLesuStorage> storages = new ArrayList<TileLesuStorage>();
+	public ArrayList<TileLesuStorage> storages = new ArrayList<>();
 
 	public TileLesu master;
 
@@ -37,7 +37,7 @@ public class LesuNetwork
 	{
 		if (network != this)
 		{
-			ArrayList<TileLesuStorage> tileLesuStorages = new ArrayList<TileLesuStorage>();
+			ArrayList<TileLesuStorage> tileLesuStorages = new ArrayList<>();
 			tileLesuStorages.addAll(network.storages);
 			network.clear(false);
 			for (TileLesuStorage lesuStorage : tileLesuStorages)

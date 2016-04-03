@@ -18,7 +18,7 @@ import java.util.List;
 public class RollingMachineRecipe {
 
     public static final RollingMachineRecipe instance = new RollingMachineRecipe();
-    private final List<IRecipe> recipes = new ArrayList<IRecipe>();
+    private final List<IRecipe> recipes = new ArrayList<>();
 
     public void addShapedOreRecipe(ItemStack outputItemStack, Object... objectInputs) {
         recipes.add(new ShapedOreRecipe(outputItemStack, objectInputs));
@@ -66,8 +66,8 @@ public class RollingMachineRecipe {
         ItemStack recipeArray[] = new ItemStack[j * k];
         for (int i1 = 0; i1 < j * k; i1++) {
             char c = s.charAt(i1);
-            if (hashmap.containsKey(Character.valueOf(c))) {
-                recipeArray[i1] = ((ItemStack) hashmap.get(Character.valueOf(c))).copy();
+            if (hashmap.containsKey(c)) {
+                recipeArray[i1] = ((ItemStack) hashmap.get(c)).copy();
             } else {
                 recipeArray[i1] = null;
             }
@@ -77,7 +77,7 @@ public class RollingMachineRecipe {
     }
 
     public void addShapelessRecipe(ItemStack output, Object... components) {
-        List<ItemStack> ingredients = new ArrayList<ItemStack>();
+        List<ItemStack> ingredients = new ArrayList<>();
         for (int j = 0; j < components.length; j++) {
             Object obj = components[j];
             if (obj instanceof ItemStack) {
@@ -100,7 +100,7 @@ public class RollingMachineRecipe {
 
     public ItemStack findMatchingRecipe(InventoryCrafting inv, World world) {
         for (int k = 0; k < recipes.size(); k++) {
-            IRecipe irecipe = (IRecipe) recipes.get(k);
+            IRecipe irecipe = recipes.get(k);
             if (irecipe.matches(inv, world)) {
                 return irecipe.getCraftingResult(inv);
             }

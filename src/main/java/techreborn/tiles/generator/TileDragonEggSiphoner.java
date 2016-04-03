@@ -56,11 +56,7 @@ public class TileDragonEggSiphoner extends TilePowerAcceptor implements IWrencha
 	@Override
 	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
 	{
-		if (entityPlayer.isSneaking())
-		{
-			return true;
-		}
-		return false;
+		return entityPlayer.isSneaking();
 	}
 
 	@Override

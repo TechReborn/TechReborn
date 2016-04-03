@@ -55,7 +55,7 @@ public class ContainerDieselGenerator extends RebornContainer
 		super.detectAndSendChanges();
 		for (int i = 0; i < this.crafters.size(); i++)
 		{
-			ICrafting icrafting = (ICrafting) this.crafters.get(i);
+			ICrafting icrafting = this.crafters.get(i);
 			if (this.energy != (int) tiledieselGenerator.getEnergy())
 			{
 				icrafting.sendProgressBarUpdate(this, 0, (int) tiledieselGenerator.getEnergy());

@@ -52,7 +52,7 @@ public class BlockLESUStorage extends BlockMachineBase implements IAdvancedRotat
 	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
 	{
-		List<ItemStack> items = new ArrayList<ItemStack>();
+		List<ItemStack> items = new ArrayList<>();
 		items.add(new ItemStack(this));
 		return items;
 	}
@@ -65,7 +65,7 @@ public class BlockLESUStorage extends BlockMachineBase implements IAdvancedRotat
 
 	public boolean shouldConnectToBlock(IBlockAccess blockAccess, int x, int y, int z, Block block, int meta)
 	{
-		return block == (Block) this;
+		return block == this;
 	}
 
 	@Override

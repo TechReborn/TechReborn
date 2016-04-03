@@ -62,11 +62,7 @@ public class TileAlloySmelter extends TilePowerAcceptor implements IWrenchable, 
 	@Override
 	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
 	{
-		if (entityPlayer.isSneaking())
-		{
-			return true;
-		}
-		return false;
+		return entityPlayer.isSneaking();
 	}
 
 	@Override

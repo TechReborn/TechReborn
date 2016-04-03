@@ -18,7 +18,7 @@ public class CompatManager
 	public static boolean isIC2ClassicLoaded = false;
 	public static boolean isClassicEnet = false;
 	public static boolean isGregTechLoaded = false;
-	public ArrayList<ICompatModule> compatModules = new ArrayList<ICompatModule>();
+	public ArrayList<ICompatModule> compatModules = new ArrayList<>();
 
 	public CompatManager()
 	{
@@ -87,7 +87,7 @@ public class CompatManager
 			} else if (obj instanceof Boolean)
 			{
 				Boolean boo = (Boolean) obj;
-				if (boo == false)
+				if (!boo)
 				{
 				}
 				return;
@@ -95,7 +95,7 @@ public class CompatManager
 		}
 		try
 		{
-			compatModules.add((ICompatModule) moduleClass.newInstance());
+			compatModules.add(moduleClass.newInstance());
 		} catch (InstantiationException e)
 		{
 			e.printStackTrace();

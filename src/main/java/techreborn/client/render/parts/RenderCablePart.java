@@ -63,7 +63,7 @@ public class RenderCablePart implements IBakedModel
 	@Override
 	public List<BakedQuad> getQuads(IBlockState blockState, EnumFacing side, long rand)
 	{
-		ArrayList<BakedQuad> list = new ArrayList<BakedQuad>();
+		ArrayList<BakedQuad> list = new ArrayList<>();
 		BlockFaceUV uv = new BlockFaceUV(new float[] { 0.0F, 0.0F, 16.0F, 16.0F }, 0);
 		BlockPartFace face = new BlockPartFace(null, 0, "", uv);
 		double thickness = type.cableThickness;

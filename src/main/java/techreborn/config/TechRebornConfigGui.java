@@ -23,7 +23,7 @@ public class TechRebornConfigGui extends GuiConfig
 
 	private static List<IConfigElement> getConfigCategories()
 	{
-		List<IConfigElement> list = new ArrayList<IConfigElement>();
+		List<IConfigElement> list = new ArrayList<>();
 		list.add(
 				new DummyConfigElement.DummyCategoryElement(I18n.translateToLocal("config.techreborn.category.general"),
 						"tr.configgui.category.trGeneral", TRGeneral.class));

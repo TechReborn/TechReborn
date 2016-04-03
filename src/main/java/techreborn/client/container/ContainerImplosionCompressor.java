@@ -57,7 +57,7 @@ public class ContainerImplosionCompressor extends ContainerCrafting
 		super.detectAndSendChanges();
 		for (int i = 0; i < this.crafters.size(); i++)
 		{
-			ICrafting icrafting = (ICrafting) this.crafters.get(i);
+			ICrafting icrafting = this.crafters.get(i);
 			if (this.multIBlockState != getMultIBlockStateint())
 			{
 				icrafting.sendProgressBarUpdate(this, 3, getMultIBlockStateint());

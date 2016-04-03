@@ -106,11 +106,7 @@ public class TileScrapboxinator extends TilePowerAcceptor implements IWrenchable
 
 	public boolean canOpen()
 	{
-		if (getStackInSlot(input1) != null && getStackInSlot(output) == null)
-		{
-			return true;
-		}
-		return false;
+		return getStackInSlot(input1) != null && getStackInSlot(output) == null;
 	}
 
 	public boolean isBurning()
@@ -144,11 +140,7 @@ public class TileScrapboxinator extends TilePowerAcceptor implements IWrenchable
 	@Override
 	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
 	{
-		if (entityPlayer.isSneaking())
-		{
-			return true;
-		}
-		return false;
+		return entityPlayer.isSneaking();
 	}
 
 	@Override

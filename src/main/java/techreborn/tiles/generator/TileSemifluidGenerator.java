@@ -34,7 +34,7 @@ public class TileSemifluidGenerator extends TilePowerAcceptor implements IWrench
 	public static final int euTick = 8;
 	public Tank tank = new Tank("TileSemifluidGenerator", FluidContainerRegistry.BUCKET_VOLUME * 10, this);
 	public Inventory inventory = new Inventory(3, "TileSemifluidGenerator", 64, this);
-	Map<String, Integer> fluids = new HashMap<String, Integer>();
+	Map<String, Integer> fluids = new HashMap<>();
 
 	// We use this to keep track of fractional millibuckets, allowing us to hit
 	// our eu/bucket targets while still only ever removing integer millibucket
@@ -71,11 +71,7 @@ public class TileSemifluidGenerator extends TilePowerAcceptor implements IWrench
 	@Override
 	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
 	{
-		if (entityPlayer.isSneaking())
-		{
-			return true;
-		}
-		return false;
+		return entityPlayer.isSneaking();
 	}
 
 	@Override

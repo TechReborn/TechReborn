@@ -1,7 +1,6 @@
 package techreborn.api.recipe.machines;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import techreborn.api.Reference;
 import techreborn.api.recipe.BaseRecipe;
 

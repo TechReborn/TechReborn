@@ -110,11 +110,7 @@ public class TileIndustrialSawmill extends TilePowerAcceptor
 	@Override
 	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
 	{
-		if (entityPlayer.isSneaking())
-		{
-			return true;
-		}
-		return false;
+		return entityPlayer.isSneaking();
 	}
 
 	@Override
@@ -189,11 +185,7 @@ public class TileIndustrialSawmill extends TilePowerAcceptor
 	@Override
 	public boolean canFill(EnumFacing from, Fluid fluid)
 	{
-		if (fluid == FluidRegistry.WATER)
-		{
-			return true;
-		}
-		return false;
+		return fluid == FluidRegistry.WATER;
 	}
 
 	@Override

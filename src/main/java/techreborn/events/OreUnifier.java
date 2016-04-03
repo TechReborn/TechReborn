@@ -15,7 +15,7 @@ import java.util.HashMap;
 public class OreUnifier
 {
 
-	public static HashMap<String, ItemStack> oreHash = new HashMap<String, ItemStack>();
+	public static HashMap<String, ItemStack> oreHash = new HashMap<>();
 
 	public static void registerOre(String name, ItemStack ore)
 	{

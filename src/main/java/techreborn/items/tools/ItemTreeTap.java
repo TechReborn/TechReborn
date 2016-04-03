@@ -26,11 +26,7 @@ public class ItemTreeTap extends Item implements ITexturedItem
 	@Override
 	public boolean showDurabilityBar(ItemStack stack)
 	{
-		if (stack.getMetadata() != 0)
-		{
-			return true;
-		}
-		return false;
+		return stack.getMetadata() != 0;
 	}
 
 	@Override

@@ -175,7 +175,7 @@ public class CraftingInfoPage extends TitledPage
 	{
 		if (formattedDescription == null)
 		{
-			formattedDescription = new ArrayList<String>();
+			formattedDescription = new ArrayList<>();
 
 			if (Strings.isNullOrEmpty(rawDescription))
 			{
@@ -265,7 +265,7 @@ public class CraftingInfoPage extends TitledPage
 	private ItemStack[] getFirstRecipeForItem(ItemStack resultingItem)
 	{
 		ItemStack[] recipeItems = new ItemStack[9];
-		for (IRecipe recipe : (List<IRecipe>) CraftingManager.getInstance().getRecipeList())
+		for (IRecipe recipe : CraftingManager.getInstance().getRecipeList())
 		{
 			if (recipe == null)
 				continue;

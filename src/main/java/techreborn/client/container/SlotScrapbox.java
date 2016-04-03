@@ -15,11 +15,7 @@ public class SlotScrapbox extends Slot
 
 	public boolean isItemValid(ItemStack par1ItemStack)
 	{
-		if (par1ItemStack.getItem() == ModItems.scrapBox)
-		{
-			return true;
-		}
-		return false;
+		return par1ItemStack.getItem() == ModItems.scrapBox;
 	}
 
 	public int getSlotStackLimit()

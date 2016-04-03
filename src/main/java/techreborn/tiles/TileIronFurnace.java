@@ -119,7 +119,7 @@ public class TileIronFurnace extends TileMachineBase implements IInventory
 		}
 		if (fuel <= 0 && canSmelt())
 		{
-			fuel = fuelGague = (int) (getItemBurnTime(getStackInSlot(fuelslot)));
+			fuel = fuelGague = getItemBurnTime(getStackInSlot(fuelslot));
 			if (fuel > 0)
 			{
 				if (getStackInSlot(fuelslot).getItem().hasContainerItem()) // Fuel

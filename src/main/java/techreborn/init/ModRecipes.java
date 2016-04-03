@@ -3,7 +3,6 @@ package techreborn.init;
 import java.security.InvalidParameterException;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.ArrayUtils;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;

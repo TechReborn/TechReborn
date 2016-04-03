@@ -48,7 +48,7 @@ public class BlockAlloyFurnace extends BlockMachineBase implements IRotationText
 	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
 	{
-		List<ItemStack> items = new ArrayList<ItemStack>();
+		List<ItemStack> items = new ArrayList<>();
 		items.add(new ItemStack(this));
 		return items;
 	}

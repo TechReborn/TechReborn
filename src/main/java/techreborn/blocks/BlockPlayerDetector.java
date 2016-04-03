@@ -153,7 +153,7 @@ public class BlockPlayerDetector extends BlockMachineBase implements ITexturedBl
 	@Override
 	public int getMetaFromState(IBlockState state)
 	{
-		return (Integer) state.getValue(METADATA);
+		return state.getValue(METADATA);
 	}
 
 	protected BlockStateContainer createBlockState()

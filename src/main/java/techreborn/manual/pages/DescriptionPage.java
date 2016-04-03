@@ -96,7 +96,7 @@ public class DescriptionPage extends TitledPage
 	{
 		if (formattedDescription == null)
 		{
-			formattedDescription = new ArrayList<String>();
+			formattedDescription = new ArrayList<>();
 
 			if (Strings.isNullOrEmpty(rawDescription))
 			{

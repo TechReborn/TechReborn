@@ -60,7 +60,7 @@ public class ContainerMatterFabricator extends RebornContainer
 		super.detectAndSendChanges();
 		for (int i = 0; i < this.crafters.size(); i++)
 		{
-			ICrafting icrafting = (ICrafting) this.crafters.get(i);
+			ICrafting icrafting = this.crafters.get(i);
 			if (this.progressTime != tile.progresstime)
 			{
 				icrafting.sendProgressBarUpdate(this, 0, tile.progresstime);

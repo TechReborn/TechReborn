@@ -14,7 +14,7 @@ public class TileLesu extends TilePowerAcceptor
 
 	public int connectedBlocks = 0;
 	public Inventory inventory = new Inventory(2, "TileAesu", 64, this);
-	private ArrayList<LesuNetwork> countedNetworks = new ArrayList<LesuNetwork>();
+	private ArrayList<LesuNetwork> countedNetworks = new ArrayList<>();
 	private double euLastTick = 0;
 	private double euChange;
 	private int ticks;

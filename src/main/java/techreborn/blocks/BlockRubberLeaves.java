@@ -35,8 +35,8 @@ public class BlockRubberLeaves extends BlockLeaves implements ITexturedBlock, IO
 		setUnlocalizedName("techreborn.rubberleaves");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		RebornCore.jsonDestroyer.registerObject(this);
-		this.setDefaultState(this.getDefaultState().withProperty(CHECK_DECAY, Boolean.valueOf(true))
-				.withProperty(DECAYABLE, Boolean.valueOf(true)));
+		this.setDefaultState(this.getDefaultState().withProperty(CHECK_DECAY, true)
+				.withProperty(DECAYABLE, true));
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class BlockRubberLeaves extends BlockLeaves implements ITexturedBlock, IO
 	@Override
 	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune)
 	{
-		List<ItemStack> list = new java.util.ArrayList<ItemStack>();
+		List<ItemStack> list = new java.util.ArrayList<>();
 		list.add(new ItemStack(this, 1, 0));
 		return list;
 	}
@@ -73,8 +73,8 @@ public class BlockRubberLeaves extends BlockLeaves implements ITexturedBlock, IO
 	@Override
 	protected ItemStack createStackedBlock(IBlockState state)
 	{
-		IBlockState newState = state.withProperty(CHECK_DECAY, Boolean.valueOf(false)).withProperty(DECAYABLE,
-				Boolean.valueOf(false));
+		IBlockState newState = state.withProperty(CHECK_DECAY, false).withProperty(DECAYABLE,
+				false);
 
 		return super.createStackedBlock(newState);
 	}
@@ -100,19 +100,19 @@ public class BlockRubberLeaves extends BlockLeaves implements ITexturedBlock, IO
 	@Override
 	public IBlockState getStateFromMeta(int meta)
 	{
-		return this.getDefaultState().withProperty(DECAYABLE, Boolean.valueOf((meta & 1) == 0))
-				.withProperty(CHECK_DECAY, Boolean.valueOf((meta & 2) > 0));
+		return this.getDefaultState().withProperty(DECAYABLE, (meta & 1) == 0)
+				.withProperty(CHECK_DECAY, (meta & 2) > 0);
 	}
 
 	@Override
 	public int getMetaFromState(IBlockState state)
 	{
 		int meta = 0;
-		if (!((Boolean) state.getValue(DECAYABLE)).booleanValue())
+		if (!(Boolean) state.getValue(DECAYABLE))
 		{
 			meta |= 1;
 		}
-		if (((Boolean) state.getValue(CHECK_DECAY)).booleanValue())
+		if ((Boolean) state.getValue(CHECK_DECAY))
 		{
 			meta |= 2;
 		}

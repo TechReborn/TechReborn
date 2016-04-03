@@ -174,7 +174,7 @@ public class RecipeCrafter
 						canGiveInvAll = false;
 					}
 				}
-				ArrayList<Integer> filledSlots = new ArrayList<Integer>();// The
+				ArrayList<Integer> filledSlots = new ArrayList<>();// The
 																			// slots
 																			// that
 																			// have

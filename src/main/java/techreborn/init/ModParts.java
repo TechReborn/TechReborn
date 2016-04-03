@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 public class ModParts
 {
 
-	public static HashMap<Integer, ItemStack> stackCable = new HashMap<Integer, ItemStack>();
+	public static HashMap<Integer, ItemStack> stackCable = new HashMap<>();
 
 	public static void init()
 	{ // TODO 1.8

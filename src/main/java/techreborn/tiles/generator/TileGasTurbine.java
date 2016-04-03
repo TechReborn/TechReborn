@@ -34,7 +34,7 @@ public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable, IF
 	public static final int euTick = 16;
 	public Tank tank = new Tank("TileGasTurbine", FluidContainerRegistry.BUCKET_VOLUME * 10, this);
 	public Inventory inventory = new Inventory(3, "TileGasTurbine", 64, this);
-	Map<String, Integer> fluids = new HashMap<String, Integer>();
+	Map<String, Integer> fluids = new HashMap<>();
 
 	// We use this to keep track of fractional millibuckets, allowing us to hit
 	// our eu/bucket targets while still only ever removing integer millibucket
@@ -65,11 +65,7 @@ public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable, IF
 	@Override
 	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
 	{
-		if (entityPlayer.isSneaking())
-		{
-			return true;
-		}
-		return false;
+		return entityPlayer.isSneaking();
 	}
 
 	@Override

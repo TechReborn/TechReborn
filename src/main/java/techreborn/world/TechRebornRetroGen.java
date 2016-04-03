@@ -22,7 +22,7 @@ public class TechRebornRetroGen
 {
 	private static final String RETROGEN_TAG = "techrebonr:retogen";
 	private static final Set<ChunkCoord> completedChunks = Sets.newHashSet();
-	private final Deque<ChunkCoord> chunksToRetroGen = new ArrayDeque<ChunkCoord>(64);
+	private final Deque<ChunkCoord> chunksToRetroGen = new ArrayDeque<>(64);
 
 	private boolean isChunkEligibleForRetroGen(ChunkDataEvent.Load event)
 	{

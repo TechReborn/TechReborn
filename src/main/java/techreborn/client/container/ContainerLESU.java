@@ -49,7 +49,7 @@ public class ContainerLESU extends RebornContainer {
 	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
 		for (int i = 0; i < this.crafters.size(); i++) {
-			ICrafting icrafting = (ICrafting) this.crafters.get(i);
+			ICrafting icrafting = this.crafters.get(i);
 			if (this.euOut != tile.getMaxOutput()) {
 				icrafting.sendProgressBarUpdate(this, 0, (int) tile.getMaxOutput());
 			}

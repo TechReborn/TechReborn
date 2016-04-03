@@ -23,7 +23,7 @@ public class BlockRubberSapling extends BlockSapling
 	{
 		setUnlocalizedName("techreborn.rubbersapling");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
-		this.setDefaultState(this.getDefaultState().withProperty(STAGE, Integer.valueOf(0)));
+		this.setDefaultState(this.getDefaultState().withProperty(STAGE, 0));
 	}
 
 	@Override

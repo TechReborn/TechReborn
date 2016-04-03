@@ -1,6 +1,5 @@
 package techreborn.blocks;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -149,7 +148,7 @@ public class BlockOre extends BaseBlock implements ITexturedBlock, IOreNameProvi
 			return set.drop(fortune, random);
 		}
 
-		ArrayList<ItemStack> block = new ArrayList<ItemStack>();
+		ArrayList<ItemStack> block = new ArrayList<>();
 		block.add(new ItemStack(Item.getItemFromBlock(this), 1, metadata));
 		return block;
 	}

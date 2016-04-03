@@ -75,11 +75,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo, ITextur
 
 	public boolean isItemActive(ItemStack stack)
 	{
-		if (!ItemNBTHelper.verifyExistance(stack, "isActive"))
-		{
-			return true;
-		} else
-			return false;
+		return !ItemNBTHelper.verifyExistance(stack, "isActive");
 	}
 
 //	@SideOnly(Side.CLIENT)

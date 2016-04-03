@@ -12,7 +12,7 @@ public class UpgradeHandler {
 
     Inventory inventory;
 
-    ArrayList<Integer> slots = new ArrayList<Integer>();
+    ArrayList<Integer> slots = new ArrayList<>();
 
     public UpgradeHandler(RecipeCrafter crafter, Inventory inventory, int... slots) {
         this.crafter = crafter;

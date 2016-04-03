@@ -118,7 +118,7 @@ public class LesuConnectedTextureGenerator extends TextureAtlasSprite
 		{
 			IResource typeResource = manager.getResource(getLapisResource());
 			type_image[0] = ImageIO.read(typeResource.getInputStream());
-			animation = (AnimationMetadataSection) typeResource.getMetadata("animation");
+			animation = typeResource.getMetadata("animation");
 
 			IResource edgeResource = manager.getResource(getTypeResource("lesu_block"));
 			edge_image[0] = ImageIO.read(edgeResource.getInputStream());

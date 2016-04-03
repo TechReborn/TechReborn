@@ -58,7 +58,7 @@ public class ContainerFusionReactor extends RebornContainer
 		super.detectAndSendChanges();
 		for (int i = 0; i < this.crafters.size(); i++)
 		{
-			ICrafting icrafting = (ICrafting) this.crafters.get(i);
+			ICrafting icrafting = this.crafters.get(i);
 			if (this.coilStatus != fusionController.coilStatus)
 			{
 				icrafting.sendProgressBarUpdate(this, 0, fusionController.coilStatus);

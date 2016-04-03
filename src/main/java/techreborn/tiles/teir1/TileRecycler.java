@@ -113,11 +113,7 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInv
 
 	public boolean canRecycle()
 	{
-		if (getStackInSlot(input1) != null && hasSlotGotSpace(input1))
-		{
-			return true;
-		}
-		return false;
+		return getStackInSlot(input1) != null && hasSlotGotSpace(input1);
 	}
 
 	public boolean hasSlotGotSpace(int slot)
@@ -163,11 +159,7 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInv
 	@Override
 	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
 	{
-		if (entityPlayer.isSneaking())
-		{
-			return true;
-		}
-		return false;
+		return entityPlayer.isSneaking();
 	}
 
 	@Override

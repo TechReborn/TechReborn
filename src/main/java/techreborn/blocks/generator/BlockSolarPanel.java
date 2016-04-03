@@ -42,13 +42,13 @@ public class BlockSolarPanel extends BaseTileBlock implements ITexturedBlock
 	@Override
 	public IBlockState getStateFromMeta(int meta)
 	{
-		return getDefaultState().withProperty(ACTIVE, meta == 0 ? false : true);
+		return getDefaultState().withProperty(ACTIVE, meta != 0);
 	}
 
 	@Override
 	public int getMetaFromState(IBlockState state)
 	{
-		return state.getValue(ACTIVE) == true ? 1 : 0;
+		return state.getValue(ACTIVE) ? 1 : 0;
 	}
 
 	@Override

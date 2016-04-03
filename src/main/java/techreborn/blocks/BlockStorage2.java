@@ -91,7 +91,7 @@ public class BlockStorage2 extends BaseBlock implements ITexturedBlock
 	@Override
 	public int getMetaFromState(IBlockState state)
 	{
-		return (Integer) state.getValue(METADATA);
+		return state.getValue(METADATA);
 	}
 
 	protected BlockStateContainer createBlockState()

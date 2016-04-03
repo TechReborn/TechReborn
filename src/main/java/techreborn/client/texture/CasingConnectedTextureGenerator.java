@@ -113,7 +113,7 @@ public class CasingConnectedTextureGenerator extends TextureAtlasSprite
 		{
 			IResource typeResource = manager.getResource(getTypeResource(type));
 			type_image[0] = ImageIO.read(typeResource.getInputStream());
-			animation = (AnimationMetadataSection) typeResource.getMetadata("animation");
+			animation = typeResource.getMetadata("animation");
 
 			IResource edgeResource = manager.getResource(getTypeResource(type + "_edge"));
 			edge_image[0] = ImageIO.read(edgeResource.getInputStream());

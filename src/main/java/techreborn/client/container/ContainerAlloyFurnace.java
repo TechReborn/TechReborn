@@ -66,7 +66,7 @@ public class ContainerAlloyFurnace extends RebornContainer
 	{
 		for (int i = 0; i < this.crafters.size(); i++)
 		{
-			ICrafting crafting = (ICrafting) this.crafters.get(i);
+			ICrafting crafting = this.crafters.get(i);
 			if (this.currentItemBurnTime != tile.currentItemBurnTime)
 			{
 				crafting.sendProgressBarUpdate(this, 0, tile.currentItemBurnTime);
