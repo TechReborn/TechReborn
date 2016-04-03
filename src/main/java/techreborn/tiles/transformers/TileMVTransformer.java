@@ -1,6 +1,7 @@
 package techreborn.tiles.transformers;
 
 import reborncore.api.power.EnumPowerTier;
+import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 
 /**
@@ -11,7 +12,7 @@ public class TileMVTransformer extends TileTransformer
 
 	public TileMVTransformer()
 	{
-		super("MVTransformer", ModBlocks.mvt, EnumPowerTier.HIGH, 512, 128, 512*2);
+		super("MVTransformer", ModBlocks.mvt, EnumPowerTier.HIGH, ConfigTechReborn.MVTransformerMaxInput, ConfigTechReborn.MVTransformerMaxOutput, ConfigTechReborn.LVTransformerMaxInput*2);
 	}
 
 	@Override
