@@ -33,6 +33,13 @@ public class ConfigTechReborn
 	public static int FarmEu;
 	public static int AesuMaxOutput;
 	public static int AesuMaxStorage;
+
+	public static int LVTransformerMaxInput;
+	public static int LVTransformerMaxOutput;
+	public static int MVTransformerMaxInput;
+	public static int MVTransformerMaxOutput;
+	public static int HVTransformerMaxInput;
+	public static int HVTransformerMaxOutput;
 	// Charge
 	public static int IronDrillCharge;
 	public static int DiamondDrillCharge;
@@ -206,6 +213,20 @@ public class ConfigTechReborn
 		AesuMaxStorage = config.get(CATEGORY_POWER, "AESU Max Storage", 30, "Set the max Storage for the AESU")
 				.getInt();
 
+		//Transformers
+		LVTransformerMaxInput = config.get(CATEGORY_POWER, "LV Transformer Max Input", 128, "Set the max input for the LV Trasnformer")
+				.getInt();
+		LVTransformerMaxOutput = config.get(CATEGORY_POWER, "LV Transformer Max Output", 32, "Set the max output for the LV Trasnformer")
+				.getInt();
+		MVTransformerMaxInput = config.get(CATEGORY_POWER, "MV Transformer Max Input", 512, "Set the max input for the MV Trasnformer")
+				.getInt();
+		MVTransformerMaxOutput = config.get(CATEGORY_POWER, "MV Transformer Max Output", 128, "Set the max output for the MV Trasnformer")
+				.getInt();
+		HVTransformerMaxInput = config.get(CATEGORY_POWER, "HV Transformer Max Input", 2048, "Set the max input for the HV Trasnformer")
+				.getInt();
+		HVTransformerMaxOutput = config.get(CATEGORY_POWER, "HV Transformer Max Output", 512, "Set the max output for the HV Trasnformer")
+				.getInt();
+		
 		// Charge
 		IronDrillCharge = config
 				.get(CATEGORY_POWER, "IronDrill MaxCharge", 10000, "Set the max charge for the iron drill").getInt();
