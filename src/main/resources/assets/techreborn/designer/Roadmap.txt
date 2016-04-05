@@ -1,0 +1,8 @@
+Save pages as json files:
+	List page, that has a list of sub pages
+	Crafting page
+	Picture Page
+Language support
+Automatic deploy from a git repo		
+Versioning to allow diffrent mod versions, also dev version
+Basic validator on save and deploy
