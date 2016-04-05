@@ -25,8 +25,8 @@ public class ItemStandaloneCables extends ItemTextureBase {
     public static Item mcPartCable;
 
     public static ItemStack getCableByName(String name, int count) {
-        for (int i = 0; i < EnumCableType.values().length; i++) {
-            if (EnumCableType.values()[i].getName().equalsIgnoreCase(name)) {
+        for (int i = 0; i < StandaloneEnumCableType.values().length; i++) {
+            if (StandaloneEnumCableType.values()[i].getName().equalsIgnoreCase(name)) {
                 return new ItemStack(mcPartCable != null ? mcPartCable : StandalonePartCompact.itemStandaloneCable, count, i);
             }
         }
@@ -49,28 +49,28 @@ public class ItemStandaloneCables extends ItemTextureBase {
     // gets Unlocalized Name depending on meta data
     public String getUnlocalizedName(ItemStack itemStack) {
         int meta = itemStack.getItemDamage();
-        if (meta < 0 || meta >= EnumCableType.values().length) {
+        if (meta < 0 || meta >= StandaloneEnumCableType.values().length) {
             meta = 0;
         }
 
-        return super.getUnlocalizedName() + "." + EnumCableType.values()[meta];
+        return super.getUnlocalizedName() + "." + StandaloneEnumCableType.values()[meta];
     }
 
     // Adds Dusts SubItems To Creative Tab
     public void getSubItems(Item item, CreativeTabs creativeTabs, List list) {
-        for (int meta = 0; meta < EnumCableType.values().length; ++meta) {
+        for (int meta = 0; meta < StandaloneEnumCableType.values().length; ++meta) {
             list.add(new ItemStack(item, 1, meta));
         }
     }
 
     @Override
     public String getTextureName(int damage) {
-        return ModInfo.MOD_ID + ":items/cables/" + EnumCableType.values()[damage];
+        return ModInfo.MOD_ID + ":items/cables/" + StandaloneEnumCableType.values()[damage];
     }
 
     @Override
     public int getMaxMeta() {
-        return EnumCableType.values().length;
+        return StandaloneEnumCableType.values().length;
     }
 
     @Override
@@ -80,7 +80,7 @@ public class ItemStandaloneCables extends ItemTextureBase {
 
     @Override
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-        EnumCableType type = EnumCableType.values()[stack.getItemDamage()];
+        StandaloneEnumCableType type = StandaloneEnumCableType.values()[stack.getItemDamage()];
         tooltip.add(EnumChatFormatting.GREEN + "EU Transfer: " + EnumChatFormatting.LIGHT_PURPLE + type.transferRate);
         if (type.canKill) {
             tooltip.add(EnumChatFormatting.RED + "Damages entity's!");

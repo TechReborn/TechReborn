@@ -12,7 +12,7 @@ public class GuiGasTurbine extends GuiContainer {
 
     //TODO: use semifluid generator texture
     private static final ResourceLocation texture = new ResourceLocation(
-            "techreborn", "textures/gui/ThermalGenerator.png");
+            "techreborn", "textures/gui/thermal_generator.png");
 
     TileGasTurbine tile;
 

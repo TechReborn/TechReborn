@@ -2,8 +2,6 @@ package techreborn.init;
 
 import ic2.api.info.Info;
 import ic2.api.item.IC2Items;
-import ic2.core.ref.BlockName;
-import ic2.core.ref.ItemName;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
