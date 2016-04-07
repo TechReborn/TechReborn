@@ -68,5 +68,6 @@ public class ManualDesigner extends Application {
         controller.image.setFitHeight(1000);
         controller.image.setFitWidth(1000);
         controller.image.fitWidthProperty().bind(controller.renderPane.widthProperty());
+        controller.image.fitHeightProperty().bind(controller.renderPane.heightProperty());
     }
 }

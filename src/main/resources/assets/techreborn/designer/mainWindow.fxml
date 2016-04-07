@@ -7,19 +7,21 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="techreborn.manual.designer.windows.MainWindowController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="techreborn.manual.designer.windows.MainWindowController">
    <children>
       <MenuBar fx:id="menuBar">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-                  <MenuItem mnemonicParsing="false" text="Save" />
-              <MenuItem mnemonicParsing="false" text="Close" />
+                  <MenuItem mnemonicParsing="false" onAction="#save" text="Save" />
+                  <MenuItem mnemonicParsing="false" onAction="#open" text="Open" />
+              <MenuItem mnemonicParsing="false" onAction="#close" text="Close" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
@@ -40,6 +42,7 @@
                         <AnchorPane prefHeight="49.0" prefWidth="175.0">
                            <children>
                               <Button fx:id="buttonNew" layoutX="8.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#newItem" text="New" />
+                              <Button fx:id="buttonDelete" layoutX="54.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#deleteItem" text="Delete" />
                            </children>
                         </AnchorPane>
                      </children>
@@ -49,10 +52,13 @@
           <AnchorPane fx:id="renderPane" minHeight="0.0" minWidth="0.0" prefHeight="358.0" prefWidth="417.0">
                <children>
                   <ImageView fx:id="image" fitHeight="298.0" fitWidth="417.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <AnchorPane prefHeight="75.0" prefWidth="417.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                  <AnchorPane prefHeight="98.0" prefWidth="627.0" style="-fx-background-color: lightgrey;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <children>
                         <Label layoutY="6.0" text="Settings" />
                         <TextArea fx:id="textInput" layoutX="43.0" layoutY="8.0" maxWidth="250.0" prefHeight="59.0" prefWidth="250.0" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0" />
+                        <TextField layoutX="88.0" layoutY="25.0" />
+                        <Label layoutX="6.0" layoutY="29.0" text="Registry Name" />
+                        <Button layoutX="19.0" layoutY="59.0" mnemonicParsing="false" text="Set meta" />
                      </children>
                   </AnchorPane>
                </children>

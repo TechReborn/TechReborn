@@ -11,7 +11,14 @@ public class ManualFormat {
 
     String modId;
 
-    List<Entry> blocks;
+    List<Entry> entries;
 
-    List<Entry> items;
+    public ManualFormat(String name, String modId, List<Entry> entries) {
+        this.name = name;
+        this.modId = modId;
+        this.entries = entries;
+    }
+
+    public ManualFormat() {
+    }
 }
