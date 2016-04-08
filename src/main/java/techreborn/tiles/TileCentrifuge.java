@@ -55,13 +55,15 @@ public class TileCentrifuge extends TilePowerAcceptor
 		if (inventory.getStackInSlot(6) != null)
 		{
 			ItemStack stack = inventory.getStackInSlot(6);
-			IEnergyItemInfo item = (IEnergyItemInfo) stack.getItem();
-			if (item.canProvideEnergy(stack))
-			{
-				if (getEnergy() != getMaxPower())
+			if(stack.getItem() instanceof IEnergyItemInfo){
+				IEnergyItemInfo item = (IEnergyItemInfo) stack.getItem();
+				if (item.canProvideEnergy(stack))
 				{
-					addEnergy(item.getMaxTransfer(stack));
-					PoweredItem.setEnergy(PoweredItem.getEnergy(stack) - item.getMaxTransfer(stack), stack);
+					if (getEnergy() != getMaxPower())
+					{
+						addEnergy(item.getMaxTransfer(stack));
+						PoweredItem.setEnergy(PoweredItem.getEnergy(stack) - item.getMaxTransfer(stack), stack);
+					}
 				}
 			}
 		}
