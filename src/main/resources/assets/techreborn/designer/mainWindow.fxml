@@ -56,9 +56,9 @@
                      <children>
                         <Label layoutY="6.0" text="Settings" />
                         <TextArea fx:id="textInput" layoutX="43.0" layoutY="8.0" maxWidth="250.0" prefHeight="59.0" prefWidth="250.0" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0" />
-                        <TextField layoutX="88.0" layoutY="25.0" />
+                        <TextField fx:id="nameTextArea" layoutX="88.0" layoutY="25.0" />
                         <Label layoutX="6.0" layoutY="29.0" text="Registry Name" />
-                        <Button layoutX="19.0" layoutY="59.0" mnemonicParsing="false" text="Set meta" />
+                        <Button fx:id="buttonMeta" layoutX="19.0" layoutY="59.0" mnemonicParsing="false" text="Set meta" />
                      </children>
                   </AnchorPane>
                </children>

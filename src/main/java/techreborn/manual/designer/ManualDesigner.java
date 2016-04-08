@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TreeItem;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import techreborn.manual.designer.fileUtils.SaveSystem;
 import techreborn.manual.designer.windows.MainWindowController;
 
 import java.net.URL;
@@ -19,12 +20,15 @@ import java.net.URL;
  */
 public class ManualDesigner extends Application {
 
+    public static Stage stage;
+
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        stage = primaryStage;
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         URL fxmlUrl = classLoader.getResource("assets/techreborn/designer/mainWindow.fxml");
 
@@ -57,9 +61,16 @@ public class ManualDesigner extends Application {
             public void changed(ObservableValue observable, Object oldValue,
                                 Object newValue) {
                 TreeItem<String> selectedItem = (TreeItem<String>) newValue;
-                //TODO things if needed
+                boolean isValid = !SaveSystem.entries.containsKey(selectedItem);
+                controller.textInput.setDisable(isValid);
+                controller.nameTextArea.setDisable(isValid);
+                controller.buttonMeta.setDisable(isValid);
             }
         });
+
+        controller.textInput.setDisable(false);
+        controller.nameTextArea.setDisable(false);
+        controller.buttonMeta.setDisable(false);
 
         controller.image.setImage(new Image("assets/techreborn/textures/manual/gui/manual.png"));
         controller.image.setPreserveRatio(true);
@@ -69,5 +80,7 @@ public class ManualDesigner extends Application {
         controller.image.setFitWidth(1000);
         controller.image.fitWidthProperty().bind(controller.renderPane.widthProperty());
         controller.image.fitHeightProperty().bind(controller.renderPane.heightProperty());
+
+        controller.load();
     }
 }

@@ -10,6 +10,6 @@ public class EntryData {
     /**
      * Use this to store data for a page
      */
-    HashMap<String, String> data;
+    public HashMap<String, String> data;
 
 }

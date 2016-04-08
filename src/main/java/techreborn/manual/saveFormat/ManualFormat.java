@@ -7,11 +7,11 @@ import java.util.List;
  */
 public class ManualFormat {
 
-    String name;
+    public String name;
 
-    String modId;
+    public String modId;
 
-    List<Entry> entries;
+    public List<Entry> entries;
 
     public ManualFormat(String name, String modId, List<Entry> entries) {
         this.name = name;

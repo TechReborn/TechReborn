@@ -2,23 +2,22 @@ package techreborn.manual.designer.windows;
 
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextInputDialog;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import techreborn.manual.designer.ManualCatergories;
 import techreborn.manual.designer.fileUtils.LoadSystem;
 import techreborn.manual.designer.fileUtils.SaveSystem;
 import techreborn.manual.saveFormat.Entry;
+import techreborn.manual.saveFormat.EntryData;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Optional;
 
 /**
@@ -33,6 +32,8 @@ public class MainWindowController {
     public Button buttonNew;
     public TextArea textInput;
     public Button buttonDelete;
+    public TextField nameTextArea;
+    public Button buttonMeta;
 
     public void newItem(Event event) {
         if(treeList.getSelectionModel().getSelectedItem() instanceof TreeItem){
@@ -42,7 +43,7 @@ public class MainWindowController {
                 dialog.setTitle("Name?");
                 dialog.setContentText("Name of item:");
                 Optional<String> result = dialog.showAndWait();
-                if(result.isPresent()){
+                if(result.isPresent() && !result.get().isEmpty()){
                     TreeItem<String> newItem = new TreeItem<>(result.get());
                     Entry entry = new Entry();
                     entry.name = result.get();
@@ -62,6 +63,7 @@ public class MainWindowController {
                         return;
                     }
                     item.getChildren().add(newItem);
+                    item.setExpanded(true);
                     SaveSystem.entries.put(newItem, entry);
                 } else {
                     Toolkit.getDefaultToolkit().beep();
@@ -98,5 +100,60 @@ public class MainWindowController {
     public void close(ActionEvent actionEvent) {
         //TODO checks to make sure its being saved
         System.exit(0);
+    }
+
+    public void load(){
+        textInput.textProperty().addListener((observable, oldValue, newValue) -> {
+            textAreaChanged();
+        });
+        nameTextArea.textProperty().addListener((observable, oldValue, newValue) -> {
+            nameChange();
+        });
+    }
+
+
+
+    public void textAreaChanged() {
+        if(!treeList.getSelectionModel().isEmpty()){
+            if(SaveSystem.entries.containsKey(treeList.getSelectionModel().getSelectedItem())){
+                Entry entry = SaveSystem.entries.get(treeList.getSelectionModel().getSelectedItem());
+                if(entry != null){
+                    if(entry.data == null){
+                        entry.data = new EntryData();
+                    }
+                    if(entry.data.data == null){
+                        entry.data.data = new HashMap<>();
+                    }
+                    if(entry.data.data.containsKey("text")){
+                        entry.data.data.replace("text", textInput.getText());
+                    } else {
+                        entry.data.data.put("text", textInput.getText());
+                    }
+                }
+                SaveSystem.entries.replace((TreeItem) treeList.getSelectionModel().getSelectedItem(), entry);
+            }
+        }
+    }
+
+    public void nameChange() {
+        if(!treeList.getSelectionModel().isEmpty()){
+            if(SaveSystem.entries.containsKey(treeList.getSelectionModel().getSelectedItem())){
+                Entry entry = SaveSystem.entries.get(treeList.getSelectionModel().getSelectedItem());
+                if(entry != null){
+                    if(entry.data == null){
+                        entry.data = new EntryData();
+                    }
+                    if(entry.data.data == null){
+                        entry.data.data = new HashMap<>();
+                    }
+                    if(entry.data.data.containsKey("regName")){
+                        entry.data.data.replace("regName", nameTextArea.getText());
+                    } else {
+                        entry.data.data.put("regName", nameTextArea.getText());
+                    }
+                }
+                SaveSystem.entries.replace((TreeItem) treeList.getSelectionModel().getSelectedItem(), entry);
+            }
+        }
     }
 }
