@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import techreborn.manual.designer.fileUtils.SaveSystem;
 import techreborn.manual.designer.windows.MainWindowController;
+import techreborn.manual.saveFormat.Entry;
 
 import java.net.URL;
 
@@ -64,13 +65,26 @@ public class ManualDesigner extends Application {
                 boolean isValid = !SaveSystem.entries.containsKey(selectedItem);
                 controller.textInput.setDisable(isValid);
                 controller.nameTextArea.setDisable(isValid);
-                controller.buttonMeta.setDisable(isValid);
+                if(!isValid){
+                    if(SaveSystem.entries.containsKey(selectedItem)){
+                        Entry entry = SaveSystem.entries.get(selectedItem);
+                        if(entry.data != null && entry.data.data != null){
+                            if(entry.data.data.containsKey("text")){
+                                controller.textInput.setText(entry.data.data.get("text"));
+                            }
+                            //TODO Improve this
+                        } else  {
+                            controller.textInput.setText("");
+                        }
+                        controller.nameTextArea.setText(entry.registryName);
+                    }
+                }
+
             }
         });
 
         controller.textInput.setDisable(false);
         controller.nameTextArea.setDisable(false);
-        controller.buttonMeta.setDisable(false);
 
         controller.image.setImage(new Image("assets/techreborn/textures/manual/gui/manual.png"));
         controller.image.setPreserveRatio(true);

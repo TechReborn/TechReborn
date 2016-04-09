@@ -3,12 +3,13 @@
   "modId": "techreborn",
   "entries": [
     {
-      "name": "Block",
+      "name": "Quantum Chest",
+      "registryName": "techreborn:techreborn.quantumChest",
       "type": "Text",
+      "category": "Blocks",
       "data": {
         "data": {
-          "text": "This is a block, it does things\n\nhow are new lines handled?",
-          "regName": "minecraft:diamond"
+          "text": "The quantum chest can store a lot of items"
         }
       }
     }

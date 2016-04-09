@@ -7,12 +7,15 @@ import net.minecraft.block.Block;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fml.common.registry.GameData;
 import reborncore.api.fuel.FluidPowerManager;
 import techreborn.api.recipe.RecipeHandler;
 
@@ -84,6 +87,18 @@ public class TechRebornDevCommand extends CommandBase
 						}
 					}
 				}
+			}
+		} else if ("getname".equals(args[0])) {
+			EntityPlayer player = (EntityPlayer) sender;
+			if (player.getHeldItem(EnumHand.MAIN_HAND) != null) {
+				Block block = Block.getBlockFromItem(player.getHeldItem(EnumHand.MAIN_HAND).getItem());
+				if (block != null && block != Blocks.air) {
+					sender.addChatMessage(new TextComponentString(GameData.getBlockRegistry().getNameForObject(block) + " with a meta of " + player.getHeldItem(EnumHand.MAIN_HAND).getItemDamage()));
+				} else {
+					((EntityPlayer) sender).addChatComponentMessage(new TextComponentString("hold a Block!"));
+				}
+			} else {
+				((EntityPlayer) sender).addChatComponentMessage(new TextComponentString("hold an item!"));
 			}
 		}
 	}

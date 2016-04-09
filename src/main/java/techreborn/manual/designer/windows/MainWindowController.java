@@ -16,6 +16,7 @@ import techreborn.manual.saveFormat.Entry;
 import techreborn.manual.saveFormat.EntryData;
 
 import java.awt.*;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
@@ -33,7 +34,6 @@ public class MainWindowController {
     public TextArea textInput;
     public Button buttonDelete;
     public TextField nameTextArea;
-    public Button buttonMeta;
 
     public void newItem(Event event) {
         if(treeList.getSelectionModel().getSelectedItem() instanceof TreeItem){
@@ -50,7 +50,6 @@ public class MainWindowController {
                     ArrayList<String> choices = new ArrayList<>();
                         choices.add("Text");
                         choices.add("Image");
-                        choices.add("Recipe");
 
                     ChoiceDialog<String> choiceDialog = new ChoiceDialog<>("Text", choices);
                     choiceDialog.setTitle("Type?");
@@ -62,6 +61,7 @@ public class MainWindowController {
                         Toolkit.getDefaultToolkit().beep();
                         return;
                     }
+                    entry.category = (String) item.getValue();
                     item.getChildren().add(newItem);
                     item.setExpanded(true);
                     SaveSystem.entries.put(newItem, entry);
@@ -94,7 +94,12 @@ public class MainWindowController {
     }
 
     public void open(ActionEvent actionEvent) {
-        LoadSystem.load();
+        try {
+            LoadSystem.load();
+        } catch (FileNotFoundException e) {
+            System.out.println("bad things happened");
+            e.printStackTrace();
+        }
     }
 
     public void close(ActionEvent actionEvent) {
@@ -140,19 +145,9 @@ public class MainWindowController {
             if(SaveSystem.entries.containsKey(treeList.getSelectionModel().getSelectedItem())){
                 Entry entry = SaveSystem.entries.get(treeList.getSelectionModel().getSelectedItem());
                 if(entry != null){
-                    if(entry.data == null){
-                        entry.data = new EntryData();
-                    }
-                    if(entry.data.data == null){
-                        entry.data.data = new HashMap<>();
-                    }
-                    if(entry.data.data.containsKey("regName")){
-                        entry.data.data.replace("regName", nameTextArea.getText());
-                    } else {
-                        entry.data.data.put("regName", nameTextArea.getText());
-                    }
+                    entry.registryName = nameTextArea.getText();
+                    SaveSystem.entries.replace((TreeItem) treeList.getSelectionModel().getSelectedItem(), entry);
                 }
-                SaveSystem.entries.replace((TreeItem) treeList.getSelectionModel().getSelectedItem(), entry);
             }
         }
     }

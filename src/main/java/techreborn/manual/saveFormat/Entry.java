@@ -14,9 +14,10 @@ public class Entry {
     /**
      * This says what type of page it is, crafting, image, ect
      *
-     * //TODO use class name?
      */
     public String type;
+
+    public String category;
 
     public EntryData data;
 }
