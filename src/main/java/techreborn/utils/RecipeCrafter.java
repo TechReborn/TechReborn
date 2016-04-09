@@ -361,6 +361,29 @@ public class RecipeCrafter
 		return currentRecipe != null && energy.getEnergy() >= currentRecipe.euPerTick();
 	}
 
+	private boolean canCraftAgain(){
+		for (IBaseRecipeType recipe : RecipeHandler.getRecipeClassFromName(recipeName))
+		{
+			if (recipe.canCraft(parentTile) && hasAllInputs(recipe))
+			{
+				boolean canGiveInvAll = true;
+				for (int i = 0; i < recipe.getOutputsSize(); i++)
+				{
+					if (!canFitStack(recipe.getOutput(i), outputSlots[i], recipe.useOreDic()))
+					{
+						canGiveInvAll = false;
+						return false;
+					}
+				}
+				if(energy.getEnergy() < recipe.euPerTick()){
+					return false;
+				}
+				return canGiveInvAll;
+			}
+		}
+		return false;
+	}
+
 	public void addSpeedMulti(double amount)
 	{
 		if (speedMultiplier + amount <= 0.99)
@@ -408,7 +431,8 @@ public class RecipeCrafter
 		{
 			BlockMachineBase blockMachineBase = (BlockMachineBase) parentTile.getWorld()
 					.getBlockState(parentTile.getPos()).getBlock();
-			blockMachineBase.setActive(isActive(), parentTile.getWorld(), parentTile.getPos());
+			boolean isActive = isActive() || canCraftAgain();
+			blockMachineBase.setActive(isActive, parentTile.getWorld(), parentTile.getPos());
 		}
 		parentTile.getWorld().notifyBlockUpdate(parentTile.getPos(),
 				parentTile.getWorld().getBlockState(parentTile.getPos()),
