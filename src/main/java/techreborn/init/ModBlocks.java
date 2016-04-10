@@ -497,6 +497,10 @@ public class ModBlocks
 		OreDictionary.registerOre("oreLead", new ItemStack(ore, 1, 14));
 		OreDictionary.registerOre("oreSilver", new ItemStack(ore, 1, 15));
 
+		OreDictionary.registerOre("oreCopper", BlockOre2.getOreByName("copper"));
+		OreDictionary.registerOre("oreTin", BlockOre2.getOreByName("tin"));
+
+
 		OreDictionary.registerOre("blockSilver", new ItemStack(storage, 1, 0));
 		OreDictionary.registerOre("blockAluminum", new ItemStack(storage, 1, 1));
 		OreDictionary.registerOre("blockTitanium", new ItemStack(storage, 1, 2));
