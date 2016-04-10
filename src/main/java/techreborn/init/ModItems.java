@@ -761,6 +761,8 @@ public class ModItems
 		OreUnifier.registerOre("ingotHotTungstenSteel", ItemIngots.getIngotByName("hotTungstensteel"));
 		OreUnifier.registerOre("ingotZinc", ItemIngots.getIngotByName("zinc"));
 		OreUnifier.registerOre("ingotRefinedIron", ItemIngots.getIngotByName("refinedIron"));
+		OreUnifier.registerOre("ingotCopper", ItemIngots.getIngotByName("copper"));
+
 
 		// Nuggets
 		OreUnifier.registerOre("nuggetAluminum", ItemNuggets.getNuggetByName("aluminum"));
