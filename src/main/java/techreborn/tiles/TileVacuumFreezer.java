@@ -14,7 +14,7 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.api.recipe.ITileRecipeHandler;
 import techreborn.api.recipe.machines.VacuumFreezerRecipe;
-import techreborn.utils.RecipeCrafter;
+import reborncore.common.recipes.RecipeCrafter;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.init.ModBlocks;
 import techreborn.api.Reference;

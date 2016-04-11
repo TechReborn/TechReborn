@@ -23,7 +23,7 @@ import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
 import techreborn.api.recipe.ITileRecipeHandler;
 import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
-import techreborn.utils.RecipeCrafter;
+import reborncore.common.recipes.RecipeCrafter;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModFluids;

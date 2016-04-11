@@ -1,7 +1,7 @@
 package techreborn.utils.upgrade;
 
 import net.minecraft.item.ItemStack;
-import techreborn.utils.RecipeCrafter;
+import reborncore.common.recipes.RecipeCrafter;
 
 public interface IMachineUpgrade {
 

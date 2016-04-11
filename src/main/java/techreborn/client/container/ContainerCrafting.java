@@ -4,7 +4,7 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.container.RebornContainer;
-import techreborn.utils.RecipeCrafter;
+import reborncore.common.recipes.RecipeCrafter;
 
 public abstract class ContainerCrafting extends RebornContainer
 {

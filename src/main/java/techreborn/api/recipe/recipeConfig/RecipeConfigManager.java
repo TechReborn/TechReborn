@@ -3,7 +3,7 @@ package techreborn.api.recipe.recipeConfig;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.minecraft.item.ItemStack;
-import techreborn.api.recipe.IBaseRecipeType;
+import reborncore.api.recipe.IBaseRecipeType;
 
 import java.io.File;
 import java.io.FileWriter;

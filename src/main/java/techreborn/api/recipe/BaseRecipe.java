@@ -2,6 +2,7 @@ package techreborn.api.recipe;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import reborncore.api.recipe.IBaseRecipeType;
 
 import java.util.ArrayList;
 import java.util.List;

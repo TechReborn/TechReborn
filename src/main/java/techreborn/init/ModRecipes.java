@@ -20,7 +20,7 @@ import techreborn.api.ScrapboxList;
 import techreborn.api.TechRebornAPI;
 import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
-import techreborn.api.recipe.RecipeHandler;
+import reborncore.api.recipe.RecipeHandler;
 import techreborn.api.recipe.RecyclerRecipe;
 import techreborn.api.recipe.ScrapboxRecipe;
 import techreborn.api.recipe.machines.AlloySmelterRecipe;

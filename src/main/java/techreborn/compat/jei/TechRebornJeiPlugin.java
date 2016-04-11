@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
 import techreborn.Core;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
-import techreborn.api.recipe.RecipeHandler;
+import reborncore.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.AssemblingMachineRecipe;
 import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
 import techreborn.client.container.*;

@@ -17,7 +17,7 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.common.registry.GameData;
 import reborncore.api.fuel.FluidPowerManager;
-import techreborn.api.recipe.RecipeHandler;
+import reborncore.api.recipe.RecipeHandler;
 
 public class TechRebornDevCommand extends CommandBase
 {
