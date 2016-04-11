@@ -10,6 +10,7 @@ import net.minecraft.util.text.ITextComponent;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.power.IEnergyItemInfo;
+import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
@@ -21,7 +22,7 @@ import techreborn.api.Reference;
 import java.util.List;
 
 public class TileCentrifuge extends TilePowerAcceptor
-		implements IWrenchable, IInventory,  IListInfoProvider
+		implements IWrenchable,IInventoryProvider,  IListInfoProvider
 {
 
 	public int tickTime;
@@ -108,7 +109,6 @@ public class TileCentrifuge extends TilePowerAcceptor
 	public void readFromNBT(NBTTagCompound tagCompound)
 	{
 		super.readFromNBT(tagCompound);
-		inventory.readFromNBT(tagCompound);
 		crafter.readFromNBT(tagCompound);
 	}
 
@@ -116,7 +116,6 @@ public class TileCentrifuge extends TilePowerAcceptor
 	public void writeToNBT(NBTTagCompound tagCompound)
 	{
 		super.writeToNBT(tagCompound);
-		inventory.writeToNBT(tagCompound);
 		crafter.writeToNBT(tagCompound);
 	}
 
@@ -125,54 +124,6 @@ public class TileCentrifuge extends TilePowerAcceptor
 	{
 		super.addInfo(info, isRealTile);
 		info.add("Round and round it goes");
-	}
-
-	@Override
-	public int getSizeInventory()
-	{
-		return inventory.getSizeInventory();
-	}
-
-	@Override
-	public ItemStack getStackInSlot(int slot)
-	{
-		return inventory.getStackInSlot(slot);
-	}
-
-	@Override
-	public ItemStack decrStackSize(int slot, int amount)
-	{
-		return inventory.decrStackSize(slot, amount);
-	}
-
-	@Override
-	public ItemStack removeStackFromSlot(int slot)
-	{
-		return inventory.removeStackFromSlot(slot);
-	}
-
-	@Override
-	public void setInventorySlotContents(int slot, ItemStack stack)
-	{
-		inventory.setInventorySlotContents(slot, stack);
-	}
-
-	@Override
-	public int getInventoryStackLimit()
-	{
-		return inventory.getInventoryStackLimit();
-	}
-
-	@Override
-	public boolean isUseableByPlayer(EntityPlayer player)
-	{
-		return inventory.isUseableByPlayer(player);
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int slot, ItemStack stack)
-	{
-		return inventory.isItemValidForSlot(slot, stack);
 	}
 
 //	// ISidedInventory
@@ -242,56 +193,7 @@ public class TileCentrifuge extends TilePowerAcceptor
 	}
 
 	@Override
-	public void openInventory(EntityPlayer player)
-	{
-		inventory.openInventory(player);
-	}
-
-	@Override
-	public void closeInventory(EntityPlayer player)
-	{
-		inventory.closeInventory(player);
-	}
-
-	@Override
-	public int getField(int id)
-	{
-		return inventory.getField(id);
-	}
-
-	@Override
-	public void setField(int id, int value)
-	{
-		inventory.setField(id, value);
-	}
-
-	@Override
-	public int getFieldCount()
-	{
-		return inventory.getFieldCount();
-	}
-
-	@Override
-	public void clear()
-	{
-		inventory.clear();
-	}
-
-	@Override
-	public String getName()
-	{
-		return inventory.getName();
-	}
-
-	@Override
-	public boolean hasCustomName()
-	{
-		return inventory.hasCustomName();
-	}
-
-	@Override
-	public ITextComponent getDisplayName()
-	{
-		return inventory.getDisplayName();
+	public Inventory getInventory() {
+		return inventory;
 	}
 }

@@ -16,6 +16,7 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.power.EnumPowerTier;
+import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.misc.Location;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.FluidUtils;
@@ -31,7 +32,7 @@ import techreborn.api.Reference;
 import ic2.api.tile.IWrenchable;
 
 public class TileIndustrialSawmill extends TilePowerAcceptor
-		implements IWrenchable, IFluidHandler, IInventory, ISidedInventory, IListInfoProvider, ITileRecipeHandler<IndustrialSawmillRecipe>
+		implements IWrenchable, IFluidHandler,IInventoryProvider, ISidedInventory, IListInfoProvider, ITileRecipeHandler<IndustrialSawmillRecipe>
 {
 	public static final int TANK_CAPACITY = 16000;
 
@@ -134,7 +135,6 @@ public class TileIndustrialSawmill extends TilePowerAcceptor
 	public void readFromNBT(NBTTagCompound tagCompound)
 	{
 		super.readFromNBT(tagCompound);
-		inventory.readFromNBT(tagCompound);
 		tank.readFromNBT(tagCompound);
 		crafter.readFromNBT(tagCompound);
 	}
@@ -143,7 +143,6 @@ public class TileIndustrialSawmill extends TilePowerAcceptor
 	public void writeToNBT(NBTTagCompound tagCompound)
 	{
 		super.writeToNBT(tagCompound);
-		inventory.writeToNBT(tagCompound);
 		tank.writeToNBT(tagCompound);
 		crafter.writeToNBT(tagCompound);
 	}
@@ -198,108 +197,6 @@ public class TileIndustrialSawmill extends TilePowerAcceptor
 	public FluidTankInfo[] getTankInfo(EnumFacing from)
 	{
 		return new FluidTankInfo[] { tank.getInfo() };
-	}
-
-	@Override
-	public int getSizeInventory()
-	{
-		return inventory.getSizeInventory();
-	}
-
-	@Override
-	public ItemStack getStackInSlot(int slot)
-	{
-		return inventory.getStackInSlot(slot);
-	}
-
-	@Override
-	public ItemStack decrStackSize(int slot, int amount)
-	{
-		return inventory.decrStackSize(slot, amount);
-	}
-
-	@Override
-	public ItemStack removeStackFromSlot(int slot)
-	{
-		return inventory.removeStackFromSlot(slot);
-	}
-
-	@Override
-	public void setInventorySlotContents(int slot, ItemStack stack)
-	{
-		inventory.setInventorySlotContents(slot, stack);
-	}
-
-	@Override
-	public void openInventory(EntityPlayer player)
-	{
-		inventory.openInventory(player);
-	}
-
-	@Override
-	public void closeInventory(EntityPlayer player)
-	{
-		inventory.closeInventory(player);
-	}
-
-	@Override
-	public int getField(int id)
-	{
-		return inventory.getField(id);
-	}
-
-	@Override
-	public void setField(int id, int value)
-	{
-		inventory.setField(id, value);
-	}
-
-	@Override
-	public int getFieldCount()
-	{
-		return inventory.getFieldCount();
-	}
-
-	@Override
-	public void clear()
-	{
-		inventory.clear();
-	}
-
-	@Override
-	public String getName()
-	{
-		return inventory.getName();
-	}
-
-	@Override
-	public boolean hasCustomName()
-	{
-		return inventory.hasCustomName();
-	}
-
-	@Override
-	public ITextComponent getDisplayName()
-	{
-		return inventory.getDisplayName();
-	}
-
-	@Override
-	public int getInventoryStackLimit()
-	{
-		return inventory.getInventoryStackLimit();
-	}
-
-	@Override
-	public boolean isUseableByPlayer(EntityPlayer player)
-	{
-		return inventory.isUseableByPlayer(player);
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int slot, ItemStack stack)
-	{
-		return inventory.isItemValidForSlot(slot, stack);
 	}
 
 	// ISidedInventory
@@ -410,5 +307,10 @@ public class TileIndustrialSawmill extends TilePowerAcceptor
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public Inventory getInventory() {
+		return inventory;
 	}
 }

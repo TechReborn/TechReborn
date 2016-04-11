@@ -8,6 +8,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import reborncore.api.power.EnumPowerTier;
+import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
@@ -15,7 +16,7 @@ import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.init.ModBlocks;
 
-public class TileEntityFusionController extends TilePowerAcceptor implements IInventory
+public class TileEntityFusionController extends TilePowerAcceptor implements IInventoryProvider
 {
 
 	public Inventory inventory = new Inventory(3, "TileEntityFusionController", 64, this);
@@ -84,7 +85,6 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 	public void readFromNBT(NBTTagCompound tagCompound)
 	{
 		super.readFromNBT(tagCompound);
-		inventory.readFromNBT(tagCompound);
 		crafingTickTime = tagCompound.getInteger("crafingTickTime");
 		finalTickTime = tagCompound.getInteger("finalTickTime");
 		neededPower = tagCompound.getInteger("neededPower");
@@ -95,7 +95,6 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 	public void writeToNBT(NBTTagCompound tagCompound)
 	{
 		super.writeToNBT(tagCompound);
-		inventory.writeToNBT(tagCompound);
 
 		if (crafingTickTime == -1)
 		{
@@ -115,89 +114,6 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 		tagCompound.setBoolean("hasStartedCrafting", hasStartedCrafting);
 	}
 
-	@Override
-	public int getSizeInventory()
-	{
-		return inventory.getSizeInventory();
-	}
-
-	@Override
-	public ItemStack getStackInSlot(int slot)
-	{
-		return inventory.getStackInSlot(slot);
-	}
-
-	@Override
-	public ItemStack decrStackSize(int slot, int amount)
-	{
-		return inventory.decrStackSize(slot, amount);
-	}
-
-	@Override
-	public ItemStack removeStackFromSlot(int slot)
-	{
-		return inventory.removeStackFromSlot(slot);
-	}
-
-	@Override
-	public void setInventorySlotContents(int slot, ItemStack stack)
-	{
-		inventory.setInventorySlotContents(slot, stack);
-	}
-
-	@Override
-	public int getInventoryStackLimit()
-	{
-		return inventory.getInventoryStackLimit();
-	}
-
-	@Override
-	public boolean isUseableByPlayer(EntityPlayer player)
-	{
-		return inventory.isUseableByPlayer(player);
-	}
-
-	@Override
-	public void openInventory(EntityPlayer player)
-	{
-		inventory.openInventory(player);
-	}
-
-	@Override
-	public void closeInventory(EntityPlayer player)
-	{
-		inventory.closeInventory(player);
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int slot, ItemStack stack)
-	{
-		return inventory.isItemValidForSlot(slot, stack);
-	}
-
-	@Override
-	public int getField(int id)
-	{
-		return inventory.getField(id);
-	}
-
-	@Override
-	public void setField(int id, int value)
-	{
-		inventory.setField(id, value);
-	}
-
-	@Override
-	public int getFieldCount()
-	{
-		return inventory.getFieldCount();
-	}
-
-	@Override
-	public void clear()
-	{
-		inventory.clear();
-	}
 
 	public boolean checkCoils()
 	{
@@ -427,5 +343,10 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 	public ITextComponent getDisplayName()
 	{
 		return null;
+	}
+
+	@Override
+	public Inventory getInventory() {
+		return inventory;
 	}
 }

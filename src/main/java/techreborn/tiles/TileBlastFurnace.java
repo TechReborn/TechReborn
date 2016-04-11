@@ -13,6 +13,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import reborncore.api.power.EnumPowerTier;
+import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.misc.Location;
 import reborncore.common.multiblock.IMultiblockPart;
 import reborncore.common.powerSystem.TilePowerAcceptor;
@@ -27,7 +28,7 @@ import techreborn.api.Reference;
 import techreborn.multiblocks.MultiBlockCasing;
 import ic2.api.tile.IWrenchable;
 
-public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, IInventory, ISidedInventory, ITileRecipeHandler<BlastFurnaceRecipe>
+public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable,IInventoryProvider, ISidedInventory, ITileRecipeHandler<BlastFurnaceRecipe>
 {
 
 	public static int euTick = 5;
@@ -131,89 +132,6 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 		return 0;
 	}
 
-	@Override
-	public int getSizeInventory()
-	{
-		return inventory.getSizeInventory();
-	}
-
-	@Override
-	public ItemStack getStackInSlot(int p_70301_1_)
-	{
-		return inventory.getStackInSlot(p_70301_1_);
-	}
-
-	@Override
-	public ItemStack decrStackSize(int p_70298_1_, int p_70298_2_)
-	{
-		return inventory.decrStackSize(p_70298_1_, p_70298_2_);
-	}
-
-	@Override
-	public ItemStack removeStackFromSlot(int p_70304_1_)
-	{
-		return inventory.removeStackFromSlot(p_70304_1_);
-	}
-
-	@Override
-	public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_)
-	{
-		inventory.setInventorySlotContents(p_70299_1_, p_70299_2_);
-	}
-
-	@Override
-	public int getInventoryStackLimit()
-	{
-		return inventory.getInventoryStackLimit();
-	}
-
-	@Override
-	public boolean isUseableByPlayer(EntityPlayer p_70300_1_)
-	{
-		return inventory.isUseableByPlayer(p_70300_1_);
-	}
-
-	@Override
-	public void openInventory(EntityPlayer player)
-	{
-		inventory.openInventory(player);
-	}
-
-	@Override
-	public void closeInventory(EntityPlayer player)
-	{
-		inventory.closeInventory(player);
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_)
-	{
-		return inventory.isItemValidForSlot(p_94041_1_, p_94041_2_);
-	}
-
-	@Override
-	public int getField(int id)
-	{
-		return inventory.getField(id);
-	}
-
-	@Override
-	public void setField(int id, int value)
-	{
-		inventory.setField(id, value);
-	}
-
-	@Override
-	public int getFieldCount()
-	{
-		return inventory.getFieldCount();
-	}
-
-	@Override
-	public void clear()
-	{
-		inventory.clear();
-	}
 
 	public Packet getDescriptionPacket()
 	{
@@ -234,7 +152,6 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 	public void readFromNBT(NBTTagCompound tagCompound)
 	{
 		super.readFromNBT(tagCompound);
-		inventory.readFromNBT(tagCompound);
 		tickTime = tagCompound.getInteger("tickTime");
 	}
 
@@ -242,7 +159,6 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 	public void writeToNBT(NBTTagCompound tagCompound)
 	{
 		super.writeToNBT(tagCompound);
-		inventory.writeToNBT(tagCompound);
 		writeUpdateToNBT(tagCompound);
 	}
 
@@ -318,24 +234,6 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 	}
 
 	@Override
-	public String getName()
-	{
-		return inventory.getName();
-	}
-
-	@Override
-	public boolean hasCustomName()
-	{
-		return inventory.hasCustomName();
-	}
-
-	@Override
-	public ITextComponent getDisplayName()
-	{
-		return inventory.getDisplayName();
-	}
-
-	@Override
 	public boolean canCraft(TileEntity tile, BlastFurnaceRecipe recipe) {
 		if (tile instanceof TileBlastFurnace) {
 			TileBlastFurnace blastFurnace = (TileBlastFurnace) tile;
@@ -347,5 +245,10 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 	@Override
 	public boolean onCraft(TileEntity tile, BlastFurnaceRecipe recipe) {
 		return true;
+	}
+
+	@Override
+	public Inventory getInventory() {
+		return inventory;
 	}
 }

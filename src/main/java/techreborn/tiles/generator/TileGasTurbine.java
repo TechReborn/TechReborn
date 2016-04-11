@@ -19,6 +19,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import reborncore.api.power.EnumPowerTier;
+import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
@@ -27,7 +28,7 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import ic2.api.tile.IWrenchable;
 
-public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable, IFluidHandler, IInventory
+public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable, IFluidHandler,IInventoryProvider
 {
 
 	// TODO: run this off config
@@ -131,7 +132,6 @@ public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable, IF
 	{
 		super.readFromNBT(tagCompound);
 		tank.readFromNBT(tagCompound);
-		inventory.readFromNBT(tagCompound);
 	}
 
 	@Override
@@ -139,7 +139,6 @@ public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable, IF
 	{
 		super.writeToNBT(tagCompound);
 		tank.writeToNBT(tagCompound);
-		inventory.writeToNBT(tagCompound);
 	}
 
 	public Packet getDescriptionPacket()
@@ -194,108 +193,6 @@ public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable, IF
 	}
 
 	@Override
-	public int getSizeInventory()
-	{
-		return inventory.getSizeInventory();
-	}
-
-	@Override
-	public ItemStack getStackInSlot(int p_70301_1_)
-	{
-		return inventory.getStackInSlot(p_70301_1_);
-	}
-
-	@Override
-	public ItemStack decrStackSize(int p_70298_1_, int p_70298_2_)
-	{
-		return inventory.decrStackSize(p_70298_1_, p_70298_2_);
-	}
-
-	@Override
-	public ItemStack removeStackFromSlot(int p_70304_1_)
-	{
-		return inventory.removeStackFromSlot(p_70304_1_);
-	}
-
-	@Override
-	public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_)
-	{
-		inventory.setInventorySlotContents(p_70299_1_, p_70299_2_);
-	}
-
-	@Override
-	public void openInventory(EntityPlayer player)
-	{
-		inventory.openInventory(player);
-	}
-
-	@Override
-	public void closeInventory(EntityPlayer player)
-	{
-		inventory.closeInventory(player);
-	}
-
-	@Override
-	public int getField(int id)
-	{
-		return inventory.getField(id);
-	}
-
-	@Override
-	public void setField(int id, int value)
-	{
-		inventory.setField(id, value);
-	}
-
-	@Override
-	public int getFieldCount()
-	{
-		return inventory.getFieldCount();
-	}
-
-	@Override
-	public void clear()
-	{
-		inventory.clear();
-	}
-
-	@Override
-	public String getName()
-	{
-		return inventory.getName();
-	}
-
-	@Override
-	public boolean hasCustomName()
-	{
-		return inventory.hasCustomName();
-	}
-
-	@Override
-	public ITextComponent getDisplayName()
-	{
-		return inventory.getDisplayName();
-	}
-
-	@Override
-	public int getInventoryStackLimit()
-	{
-		return inventory.getInventoryStackLimit();
-	}
-
-	@Override
-	public boolean isUseableByPlayer(EntityPlayer p_70300_1_)
-	{
-		return inventory.isUseableByPlayer(p_70300_1_);
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_)
-	{
-		return inventory.isItemValidForSlot(p_94041_1_, p_94041_2_);
-	}
-
-	@Override
 	public double getMaxPower()
 	{
 		return ConfigTechReborn.ThermalGeneratorCharge;
@@ -329,5 +226,10 @@ public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable, IF
 	public EnumPowerTier getTier()
 	{
 		return EnumPowerTier.MEDIUM;
+	}
+
+	@Override
+	public Inventory getInventory() {
+		return inventory;
 	}
 }

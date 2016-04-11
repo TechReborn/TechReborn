@@ -16,6 +16,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import reborncore.api.IListInfoProvider;
+import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
@@ -24,7 +25,7 @@ import techreborn.init.ModBlocks;
 import ic2.api.tile.IWrenchable;
 
 public class TileQuantumTank extends TileMachineBase
-		implements IFluidHandler, IInventory, IWrenchable, IListInfoProvider
+		implements IFluidHandler,IInventoryProvider, IWrenchable, IListInfoProvider
 {
 
 	public Tank tank = new Tank("TileQuantumTank", Integer.MAX_VALUE, this);
@@ -40,7 +41,6 @@ public class TileQuantumTank extends TileMachineBase
 	public void readFromNBTWithoutCoords(NBTTagCompound tagCompound)
 	{
 		tank.readFromNBT(tagCompound);
-		inventory.readFromNBT(tagCompound);
 	}
 
 	@Override
@@ -53,7 +53,6 @@ public class TileQuantumTank extends TileMachineBase
 	public void writeToNBTWithoutCoords(NBTTagCompound tagCompound)
 	{
 		tank.writeToNBT(tagCompound);
-		inventory.writeToNBT(tagCompound);
 	}
 
 	public Packet getDescriptionPacket()
@@ -133,112 +132,6 @@ public class TileQuantumTank extends TileMachineBase
 		return new FluidTankInfo[] { tank.getInfo() };
 	}
 
-	// IInventory
-	@Override
-	public int getSizeInventory()
-	{
-		return inventory.getSizeInventory();
-	}
-
-	@Override
-	public ItemStack getStackInSlot(int slot)
-	{
-		return inventory.getStackInSlot(slot);
-	}
-
-	@Override
-	public ItemStack decrStackSize(int slotId, int count)
-	{
-		ItemStack stack = inventory.decrStackSize(slotId, count);
-		syncWithAll();
-		return stack;
-	}
-
-	@Override
-	public ItemStack removeStackFromSlot(int slot)
-	{
-		return inventory.removeStackFromSlot(slot);
-	}
-
-	@Override
-	public void setInventorySlotContents(int slot, ItemStack stack)
-	{
-		inventory.setInventorySlotContents(slot, stack);
-		syncWithAll();
-	}
-
-	@Override
-	public void openInventory(EntityPlayer player)
-	{
-		inventory.openInventory(player);
-	}
-
-	@Override
-	public void closeInventory(EntityPlayer player)
-	{
-		inventory.closeInventory(player);
-	}
-
-	@Override
-	public int getField(int id)
-	{
-		return inventory.getField(id);
-	}
-
-	@Override
-	public void setField(int id, int value)
-	{
-		inventory.setField(id, value);
-	}
-
-	@Override
-	public int getFieldCount()
-	{
-		return inventory.getFieldCount();
-	}
-
-	@Override
-	public void clear()
-	{
-		inventory.clear();
-	}
-
-	@Override
-	public String getName()
-	{
-		return inventory.getName();
-	}
-
-	@Override
-	public boolean hasCustomName()
-	{
-		return inventory.hasCustomName();
-	}
-
-	@Override
-	public ITextComponent getDisplayName()
-	{
-		return inventory.getDisplayName();
-	}
-
-	@Override
-	public int getInventoryStackLimit()
-	{
-		return inventory.getInventoryStackLimit();
-	}
-
-	@Override
-	public boolean isUseableByPlayer(EntityPlayer player)
-	{
-		return inventory.isUseableByPlayer(player);
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int slot, ItemStack stack)
-	{
-		return inventory.isItemValidForSlot(slot, stack);
-	}
-
 	@Override
 	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side)
 	{
@@ -294,5 +187,10 @@ public class TileQuantumTank extends TileMachineBase
 		}
 		info.add("Capacity " + tank.getCapacity() + " mb");
 
+	}
+
+	@Override
+	public Inventory getInventory() {
+		return inventory;
 	}
 }

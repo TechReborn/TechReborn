@@ -13,6 +13,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.ITextComponent;
 import powercrystals.minefactoryreloaded.api.IDeepStorageUnit;
 import reborncore.api.IListInfoProvider;
+import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
@@ -20,7 +21,7 @@ import techreborn.init.ModBlocks;
 import ic2.api.tile.IWrenchable;
 
 public class TileQuantumChest extends TileMachineBase
-		implements IInventory, IWrenchable, IDeepStorageUnit, IListInfoProvider
+		implements IInventoryProvider, IWrenchable, IDeepStorageUnit, IListInfoProvider
 {
 
 	// Slot 0 = Input
@@ -115,7 +116,6 @@ public class TileQuantumChest extends TileMachineBase
 
 	public void readFromNBTWithoutCoords(NBTTagCompound tagCompound)
 	{
-		inventory.readFromNBT(tagCompound);
 
 		storedItem = null;
 
@@ -139,115 +139,12 @@ public class TileQuantumChest extends TileMachineBase
 
 	public void writeToNBTWithoutCoords(NBTTagCompound tagCompound)
 	{
-		inventory.writeToNBT(tagCompound);
 		if (storedItem != null)
 		{
 			tagCompound.setTag("storedStack", storedItem.writeToNBT(new NBTTagCompound()));
 			tagCompound.setInteger("storedQuantity", storedItem.stackSize);
 		} else
 			tagCompound.setInteger("storedQuantity", 0);
-	}
-
-	@Override
-	public int getSizeInventory()
-	{
-		return inventory.getSizeInventory();
-	}
-
-	@Override
-	public ItemStack getStackInSlot(int slot)
-	{
-		return inventory.getStackInSlot(slot);
-	}
-
-	@Override
-	public ItemStack decrStackSize(int slotId, int count)
-	{
-		return inventory.decrStackSize(slotId, count);
-	}
-
-	@Override
-	public ItemStack removeStackFromSlot(int slot)
-	{
-		return inventory.removeStackFromSlot(slot);
-	}
-
-	@Override
-	public void setInventorySlotContents(int slot, ItemStack stack)
-	{
-		inventory.setInventorySlotContents(slot, stack);
-	}
-
-	@Override
-	public void openInventory(EntityPlayer player)
-	{
-		inventory.openInventory(player);
-	}
-
-	@Override
-	public void closeInventory(EntityPlayer player)
-	{
-		inventory.closeInventory(player);
-	}
-
-	@Override
-	public int getField(int id)
-	{
-		return inventory.getField(id);
-	}
-
-	@Override
-	public void setField(int id, int value)
-	{
-		inventory.setField(id, value);
-	}
-
-	@Override
-	public int getFieldCount()
-	{
-		return inventory.getFieldCount();
-	}
-
-	@Override
-	public void clear()
-	{
-		inventory.clear();
-	}
-
-	@Override
-	public String getName()
-	{
-		return inventory.getName();
-	}
-
-	@Override
-	public boolean hasCustomName()
-	{
-		return inventory.hasCustomName();
-	}
-
-	@Override
-	public ITextComponent getDisplayName()
-	{
-		return inventory.getDisplayName();
-	}
-
-	@Override
-	public int getInventoryStackLimit()
-	{
-		return inventory.getInventoryStackLimit();
-	}
-
-	@Override
-	public boolean isUseableByPlayer(EntityPlayer player)
-	{
-		return inventory.isUseableByPlayer(player);
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int slot, ItemStack stack)
-	{
-		return inventory.isItemValidForSlot(slot, stack);
 	}
 
 	@Override
@@ -337,5 +234,10 @@ public class TileQuantumChest extends TileMachineBase
 			}
 			info.add(size + " " + name);
 		}
+	}
+
+	@Override
+	public Inventory getInventory() {
+		return inventory;
 	}
 }

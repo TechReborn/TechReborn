@@ -15,7 +15,7 @@ import techreborn.init.ModBlocks;
 import techreborn.api.Reference;
 import ic2.api.tile.IWrenchable;
 
-public class TileAssemblingMachine extends TilePowerAcceptor implements IWrenchable, ISidedInventory, IInventoryProvider, IRecipeCrafterProvider
+public class TileAssemblingMachine extends TilePowerAcceptor implements IWrenchable, ISidedInventory,IInventoryProvider, IRecipeCrafterProvider
 {
 
 	public int tickTime;
