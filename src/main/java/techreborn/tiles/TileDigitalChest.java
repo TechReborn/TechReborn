@@ -1,23 +1,21 @@
 package techreborn.tiles;
 
-import java.util.List;
-
+import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.text.ITextComponent;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.init.ModBlocks;
-import ic2.api.tile.IWrenchable;
+
+import java.util.List;
 
 public class TileDigitalChest extends TileMachineBase implements IInventoryProvider, IWrenchable, IListInfoProvider
 {

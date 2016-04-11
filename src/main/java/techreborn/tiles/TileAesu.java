@@ -1,5 +1,6 @@
 package techreborn.tiles;
 
+import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -9,7 +10,6 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
-import ic2.api.tile.IWrenchable;
 
 public class TileAesu extends TilePowerAcceptor implements IWrenchable
 {

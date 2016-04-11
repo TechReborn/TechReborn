@@ -1,19 +1,18 @@
 package techreborn.tiles;
 
+import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-import reborncore.common.util.Inventory;
 import reborncore.common.recipes.RecipeCrafter;
-import techreborn.init.ModBlocks;
+import reborncore.common.util.Inventory;
 import techreborn.api.Reference;
-import ic2.api.tile.IWrenchable;
+import techreborn.init.ModBlocks;
 
 public class TileAssemblingMachine extends TilePowerAcceptor implements IWrenchable, ISidedInventory,IInventoryProvider, IRecipeCrafterProvider
 {

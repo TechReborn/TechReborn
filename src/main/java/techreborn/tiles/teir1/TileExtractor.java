@@ -1,22 +1,21 @@
 package techreborn.tiles.teir1;
 
+import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.text.ITextComponent;
 import reborncore.api.power.EnumPowerTier;
+import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-import reborncore.common.util.Inventory;
 import reborncore.common.recipes.RecipeCrafter;
-import techreborn.init.ModBlocks;
+import reborncore.common.util.Inventory;
 import techreborn.api.Reference;
-import ic2.api.tile.IWrenchable;
+import techreborn.init.ModBlocks;
 
-public class TileExtractor extends TilePowerAcceptor implements IWrenchable,IInventoryProvider, ISidedInventory
+public class TileExtractor extends TilePowerAcceptor implements IWrenchable,IInventoryProvider, ISidedInventory, IRecipeCrafterProvider
 {
 
 	public Inventory inventory = new Inventory(6, "TileExtractor", 64, this);
@@ -160,5 +159,10 @@ public class TileExtractor extends TilePowerAcceptor implements IWrenchable,IInv
 	@Override
 	public Inventory getInventory() {
 		return inventory;
+	}
+
+	@Override
+	public RecipeCrafter getRecipeCrafter() {
+		return crafter;
 	}
 }

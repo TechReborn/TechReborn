@@ -1,29 +1,22 @@
 package techreborn.tiles;
 
+import ic2.api.tile.IWrenchable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
-import net.minecraft.item.ItemTool;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.item.*;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import reborncore.api.recipe.IBaseRecipeType;
+import reborncore.api.recipe.RecipeHandler;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
-import reborncore.api.recipe.IBaseRecipeType;
-import reborncore.api.recipe.RecipeHandler;
-import techreborn.init.ModBlocks;
 import techreborn.api.Reference;
-import ic2.api.tile.IWrenchable;
+import techreborn.init.ModBlocks;
 
 public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, IInventoryProvider
 {

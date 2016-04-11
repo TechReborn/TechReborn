@@ -1,19 +1,16 @@
 package techreborn.tiles;
 
+import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.text.ITextComponent;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.power.IEnergyInterfaceItem;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.init.ModBlocks;
-import ic2.api.tile.IWrenchable;
 
 public class TileChargeBench extends TilePowerAcceptor implements IWrenchable,IInventoryProvider, ISidedInventory
 {

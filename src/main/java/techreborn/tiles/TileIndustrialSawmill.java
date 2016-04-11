@@ -1,38 +1,33 @@
 package techreborn.tiles;
 
+import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.*;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.power.EnumPowerTier;
+import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.misc.Location;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
+import techreborn.api.Reference;
 import techreborn.api.recipe.ITileRecipeHandler;
 import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
-import reborncore.common.recipes.RecipeCrafter;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModFluids;
-import techreborn.api.Reference;
-import ic2.api.tile.IWrenchable;
 
 public class TileIndustrialSawmill extends TilePowerAcceptor
-		implements IWrenchable, IFluidHandler,IInventoryProvider, ISidedInventory, IListInfoProvider, ITileRecipeHandler<IndustrialSawmillRecipe>
+		implements IWrenchable, IFluidHandler,IInventoryProvider, ISidedInventory, IListInfoProvider, ITileRecipeHandler<IndustrialSawmillRecipe>, IRecipeCrafterProvider
 {
 	public static final int TANK_CAPACITY = 16000;
 
@@ -312,5 +307,10 @@ public class TileIndustrialSawmill extends TilePowerAcceptor
 	@Override
 	public Inventory getInventory() {
 		return inventory;
+	}
+
+	@Override
+	public RecipeCrafter getRecipeCrafter() {
+		return crafter;
 	}
 }

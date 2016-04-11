@@ -1,7 +1,7 @@
 package techreborn.tiles;
 
+import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -11,24 +11,23 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
 import reborncore.api.power.EnumPowerTier;
+import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.misc.Location;
 import reborncore.common.multiblock.IMultiblockPart;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Inventory;
+import techreborn.api.Reference;
 import techreborn.api.recipe.ITileRecipeHandler;
 import techreborn.api.recipe.machines.BlastFurnaceRecipe;
-import reborncore.common.recipes.RecipeCrafter;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
-import techreborn.api.Reference;
 import techreborn.multiblocks.MultiBlockCasing;
-import ic2.api.tile.IWrenchable;
 
-public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable,IInventoryProvider, ISidedInventory, ITileRecipeHandler<BlastFurnaceRecipe>
+public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable,IInventoryProvider, ISidedInventory, ITileRecipeHandler<BlastFurnaceRecipe>, IRecipeCrafterProvider
 {
 
 	public static int euTick = 5;
@@ -250,5 +249,10 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable,I
 	@Override
 	public Inventory getInventory() {
 		return inventory;
+	}
+
+	@Override
+	public RecipeCrafter getRecipeCrafter() {
+		return crafter;
 	}
 }

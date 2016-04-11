@@ -1,7 +1,5 @@
 package techreborn.tiles;
 
-import java.util.Iterator;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -9,6 +7,8 @@ import reborncore.api.power.EnumPowerTier;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.WorldUtils;
+
+import java.util.Iterator;
 
 public class TilePlayerDectector extends TilePowerAcceptor
 {
