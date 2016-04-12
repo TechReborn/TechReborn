@@ -2,7 +2,7 @@ package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ICrafting;
-import net.minecraft.inventory.Slot;
+import reborncore.client.gui.BaseSlot;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.client.gui.SlotOutput;
@@ -22,12 +22,12 @@ public class ContainerMatterFabricator extends RebornContainer
 		this.player = player;
 
 		// input
-		this.addSlotToContainer(new Slot(tileMatterfab.inventory, 0, 33, 17));
-		this.addSlotToContainer(new Slot(tileMatterfab.inventory, 1, 33, 35));
-		this.addSlotToContainer(new Slot(tileMatterfab.inventory, 2, 33, 53));
-		this.addSlotToContainer(new Slot(tileMatterfab.inventory, 3, 51, 17));
-		this.addSlotToContainer(new Slot(tileMatterfab.inventory, 4, 51, 35));
-		this.addSlotToContainer(new Slot(tileMatterfab.inventory, 5, 51, 53));
+		this.addSlotToContainer(new BaseSlot(tileMatterfab.inventory, 0, 33, 17));
+		this.addSlotToContainer(new BaseSlot(tileMatterfab.inventory, 1, 33, 35));
+		this.addSlotToContainer(new BaseSlot(tileMatterfab.inventory, 2, 33, 53));
+		this.addSlotToContainer(new BaseSlot(tileMatterfab.inventory, 3, 51, 17));
+		this.addSlotToContainer(new BaseSlot(tileMatterfab.inventory, 4, 51, 35));
+		this.addSlotToContainer(new BaseSlot(tileMatterfab.inventory, 5, 51, 53));
 
 		// outputs
 		this.addSlotToContainer(new SlotOutput(tileMatterfab.inventory, 6, 116, 35));
@@ -38,13 +38,13 @@ public class ContainerMatterFabricator extends RebornContainer
 		{
 			for (int j = 0; j < 9; ++j)
 			{
-				this.addSlotToContainer(new Slot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+				this.addSlotToContainer(new BaseSlot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 			}
 		}
 
 		for (i = 0; i < 9; ++i)
 		{
-			this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18, 142));
+			this.addSlotToContainer(new BaseSlot(player.inventory, i, 8 + i * 18, 142));
 		}
 	}
 

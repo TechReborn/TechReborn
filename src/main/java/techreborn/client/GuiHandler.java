@@ -4,6 +4,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
+import reborncore.api.tile.IContainerLayout;
+import reborncore.api.tile.IContainerProvider;
+import reborncore.common.container.RebornContainer;
 import techreborn.client.container.*;
 import techreborn.client.gui.*;
 import techreborn.manual.GuiManual;
@@ -62,6 +65,7 @@ public class GuiHandler implements IGuiHandler
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
+		RebornContainer container = null;
 		if (ID == thermalGeneratorID)
 		{
 			return new ContainerThermalGenerator((TileThermalGenerator) world.getTileEntity(new BlockPos(x, y, z)),
@@ -159,7 +163,7 @@ public class GuiHandler implements IGuiHandler
 			return new ContainerVacuumFreezer((TileVacuumFreezer) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == grinderID)
 		{
-			return new ContainerGrinder((TileGrinder) world.getTileEntity(new BlockPos(x, y, z)), player);
+			container = new ContainerGrinder();
 		} else if (ID == generatorID)
 		{
 			return new ContainerGenerator((TileGenerator) world.getTileEntity(new BlockPos(x, y, z)), player);
@@ -189,6 +193,16 @@ public class GuiHandler implements IGuiHandler
 			return new ContainerMFSU((TileMFSU) world.getTileEntity(new BlockPos(x, y, z)), player);
 		}else if (ID == mfeID){
 			return new ContainerMFE((TileMFE) world.getTileEntity(new BlockPos(x, y, z)), player);
+		}
+		if(container != null){
+			if(container instanceof IContainerLayout){
+				IContainerLayout layout = (IContainerLayout) container;
+				layout.setTile(world.getTileEntity(new BlockPos(x, y, z)));
+				layout.setPlayer(player);
+				layout.addInventorySlots();
+				layout.addPlayerSlots();
+			}
+			return container;
 		}
 		return null;
 	}

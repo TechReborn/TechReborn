@@ -1,7 +1,7 @@
 package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Slot;
+import reborncore.client.gui.BaseSlot;
 import reborncore.client.gui.SlotFake;
 import reborncore.client.gui.SlotOutput;
 import reborncore.common.container.RebornContainer;
@@ -18,7 +18,7 @@ public class ContainerSemifluidGenerator extends RebornContainer
 		this.tileSemifluidGenerator = tileSemifluidGenerator;
 		this.player = player;
 
-		this.addSlotToContainer(new Slot(tileSemifluidGenerator.inventory, 0, 80, 17));
+		this.addSlotToContainer(new BaseSlot(tileSemifluidGenerator.inventory, 0, 80, 17));
 		this.addSlotToContainer(new SlotOutput(tileSemifluidGenerator.inventory, 1, 80, 53));
 		this.addSlotToContainer(new SlotFake(tileSemifluidGenerator.inventory, 2, 59, 42, false, false, 1));
 
@@ -28,13 +28,13 @@ public class ContainerSemifluidGenerator extends RebornContainer
 		{
 			for (int j = 0; j < 9; ++j)
 			{
-				this.addSlotToContainer(new Slot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+				this.addSlotToContainer(new BaseSlot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 			}
 		}
 
 		for (i = 0; i < 9; ++i)
 		{
-			this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18, 142));
+			this.addSlotToContainer(new BaseSlot(player.inventory, i, 8 + i * 18, 142));
 		}
 	}
 

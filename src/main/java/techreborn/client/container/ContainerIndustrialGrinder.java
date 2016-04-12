@@ -2,7 +2,7 @@ package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ICrafting;
-import net.minecraft.inventory.Slot;
+import reborncore.client.gui.BaseSlot;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.client.gui.SlotOutput;
@@ -22,8 +22,8 @@ public class ContainerIndustrialGrinder extends ContainerCrafting
 		this.player = player;
 
 		// input
-		this.addSlotToContainer(new Slot(tileGrinder.inventory, 0, 32, 26));
-		this.addSlotToContainer(new Slot(tileGrinder.inventory, 1, 32, 44));
+		this.addSlotToContainer(new BaseSlot(tileGrinder.inventory, 0, 32, 26));
+		this.addSlotToContainer(new BaseSlot(tileGrinder.inventory, 1, 32, 44));
 
 		// outputs
 		this.addSlotToContainer(new SlotOutput(tileGrinder.inventory, 2, 77, 35));
@@ -37,13 +37,13 @@ public class ContainerIndustrialGrinder extends ContainerCrafting
 		{
 			for (int j = 0; j < 9; ++j)
 			{
-				this.addSlotToContainer(new Slot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+				this.addSlotToContainer(new BaseSlot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 			}
 		}
 
 		for (i = 0; i < 9; ++i)
 		{
-			this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18, 142));
+			this.addSlotToContainer(new BaseSlot(player.inventory, i, 8 + i * 18, 142));
 		}
 	}
 

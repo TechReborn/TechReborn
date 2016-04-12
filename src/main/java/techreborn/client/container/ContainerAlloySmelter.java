@@ -1,7 +1,7 @@
 package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Slot;
+import reborncore.client.gui.BaseSlot;
 import reborncore.client.gui.SlotOutput;
 import techreborn.api.gui.SlotUpgrade;
 import techreborn.tiles.TileAlloySmelter;
@@ -20,12 +20,12 @@ public class ContainerAlloySmelter extends ContainerCrafting
 		this.player = player;
 
 		// input
-		this.addSlotToContainer(new Slot(tileAlloysmelter.inventory, 0, 47, 17));
-		this.addSlotToContainer(new Slot(tileAlloysmelter.inventory, 1, 65, 17));
+		this.addSlotToContainer(new BaseSlot(tileAlloysmelter.inventory, 0, 47, 17));
+		this.addSlotToContainer(new BaseSlot(tileAlloysmelter.inventory, 1, 65, 17));
 		// outputs
 		this.addSlotToContainer(new SlotOutput(tileAlloysmelter.inventory, 2, 116, 35));
 		// battery
-		this.addSlotToContainer(new Slot(tileAlloysmelter.inventory, 3, 56, 53));
+		this.addSlotToContainer(new BaseSlot(tileAlloysmelter.inventory, 3, 56, 53));
 		// upgrades
 		this.addSlotToContainer(new SlotUpgrade(tileAlloysmelter.inventory, 4, 152, 8));
 		this.addSlotToContainer(new SlotUpgrade(tileAlloysmelter.inventory, 5, 152, 26));
@@ -38,13 +38,13 @@ public class ContainerAlloySmelter extends ContainerCrafting
 		{
 			for (int j = 0; j < 9; ++j)
 			{
-				this.addSlotToContainer(new Slot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+				this.addSlotToContainer(new BaseSlot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 			}
 		}
 
 		for (i = 0; i < 9; ++i)
 		{
-			this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18, 142));
+			this.addSlotToContainer(new BaseSlot(player.inventory, i, 8 + i * 18, 142));
 		}
 	}
 

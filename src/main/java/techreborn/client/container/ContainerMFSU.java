@@ -3,7 +3,7 @@ package techreborn.client.container;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.ICrafting;
-import net.minecraft.inventory.Slot;
+import reborncore.client.gui.BaseSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -33,18 +33,18 @@ public class ContainerMFSU extends RebornContainer
 		{
 			for (int j = 0; j < 9; ++j)
 			{
-				this.addSlotToContainer(new Slot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+				this.addSlotToContainer(new BaseSlot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 			}
 		}
 
 		for (i = 0; i < 9; ++i)
 		{
-			this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18, 142));
+			this.addSlotToContainer(new BaseSlot(player.inventory, i, 8 + i * 18, 142));
 		}
 		for (int k = 0; k < 4; k++)
 		{
 			final EntityEquipmentSlot slot = equipmentSlots[k];
-			addSlotToContainer(new Slot(player.inventory, player.inventory.getSizeInventory() - 2 - k, 44, 6 + k * 19)
+			addSlotToContainer(new BaseSlot(player.inventory, player.inventory.getSizeInventory() - 2 - k, 44, 6 + k * 19)
 			{
 				@Override
 				public int getSlotStackLimit() { return 1; }

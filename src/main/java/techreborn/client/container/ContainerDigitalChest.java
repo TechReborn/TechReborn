@@ -1,7 +1,7 @@
 package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Slot;
+import reborncore.client.gui.BaseSlot;
 import reborncore.client.gui.SlotFake;
 import reborncore.client.gui.SlotOutput;
 import reborncore.common.container.RebornContainer;
@@ -18,7 +18,7 @@ public class ContainerDigitalChest extends RebornContainer
 		this.tileDigitalChest = tileDigitalChest;
 		this.player = player;
 
-		this.addSlotToContainer(new Slot(tileDigitalChest.inventory, 0, 80, 17));
+		this.addSlotToContainer(new BaseSlot(tileDigitalChest.inventory, 0, 80, 17));
 		this.addSlotToContainer(new SlotOutput(tileDigitalChest.inventory, 1, 80, 53));
 		this.addSlotToContainer(new SlotFake(tileDigitalChest.inventory, 2, 59, 42, false, false, Integer.MAX_VALUE));
 
@@ -28,13 +28,13 @@ public class ContainerDigitalChest extends RebornContainer
 		{
 			for (int j = 0; j < 9; ++j)
 			{
-				this.addSlotToContainer(new Slot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+				this.addSlotToContainer(new BaseSlot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 			}
 		}
 
 		for (i = 0; i < 9; ++i)
 		{
-			this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18, 142));
+			this.addSlotToContainer(new BaseSlot(player.inventory, i, 8 + i * 18, 142));
 		}
 	}
 

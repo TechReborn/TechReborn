@@ -1,7 +1,8 @@
 package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Slot;
+//import reborncore.client.gui.BaseSlot;
+import reborncore.client.gui.BaseSlot;
 import reborncore.common.container.RebornContainer;
 import techreborn.tiles.TileChargeBench;
 
@@ -17,12 +18,12 @@ public class ContainerChargeBench extends RebornContainer
 		tile = tileChargeBench;
 		this.player = player;
 
-		this.addSlotToContainer(new Slot(tileChargeBench.inventory, 0, 62, 21));
-		this.addSlotToContainer(new Slot(tileChargeBench.inventory, 1, 80, 21));
-		this.addSlotToContainer(new Slot(tileChargeBench.inventory, 2, 98, 21));
-		this.addSlotToContainer(new Slot(tileChargeBench.inventory, 3, 62, 39));
-		this.addSlotToContainer(new Slot(tileChargeBench.inventory, 4, 80, 39));
-		this.addSlotToContainer(new Slot(tileChargeBench.inventory, 5, 98, 39));
+		this.addSlotToContainer(new BaseSlot(tileChargeBench.inventory, 0, 62, 21));
+		this.addSlotToContainer(new BaseSlot(tileChargeBench.inventory, 1, 80, 21));
+		this.addSlotToContainer(new BaseSlot(tileChargeBench.inventory, 2, 98, 21));
+		this.addSlotToContainer(new BaseSlot(tileChargeBench.inventory, 3, 62, 39));
+		this.addSlotToContainer(new BaseSlot(tileChargeBench.inventory, 4, 80, 39));
+		this.addSlotToContainer(new BaseSlot(tileChargeBench.inventory, 5, 98, 39));
 
 		int i;
 
@@ -30,13 +31,13 @@ public class ContainerChargeBench extends RebornContainer
 		{
 			for (int j = 0; j < 9; ++j)
 			{
-				this.addSlotToContainer(new Slot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+				this.addSlotToContainer(new BaseSlot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 			}
 		}
 
 		for (i = 0; i < 9; ++i)
 		{
-			this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18, 142));
+			this.addSlotToContainer(new BaseSlot(player.inventory, i, 8 + i * 18, 142));
 		}
 	}
 

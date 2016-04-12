@@ -2,7 +2,7 @@ package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ICrafting;
-import net.minecraft.inventory.Slot;
+import reborncore.client.gui.BaseSlot;
 import net.minecraft.inventory.SlotFurnaceFuel;
 import reborncore.client.gui.SlotOutput;
 import reborncore.common.container.RebornContainer;
@@ -23,8 +23,8 @@ public class ContainerAlloyFurnace extends RebornContainer
 		this.player = player;
 
 		// input
-		this.addSlotToContainer(new Slot(tileAlloyfurnace.inventory, 0, 47, 17));
-		this.addSlotToContainer(new Slot(tileAlloyfurnace.inventory, 1, 65, 17));
+		this.addSlotToContainer(new BaseSlot(tileAlloyfurnace.inventory, 0, 47, 17));
+		this.addSlotToContainer(new BaseSlot(tileAlloyfurnace.inventory, 1, 65, 17));
 		// outputs
 		this.addSlotToContainer(new SlotOutput(tileAlloyfurnace.inventory, 2, 116, 35));
 		// Fuel
@@ -36,13 +36,13 @@ public class ContainerAlloyFurnace extends RebornContainer
 		{
 			for (int j = 0; j < 9; ++j)
 			{
-				this.addSlotToContainer(new Slot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+				this.addSlotToContainer(new BaseSlot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 			}
 		}
 
 		for (i = 0; i < 9; ++i)
 		{
-			this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18, 142));
+			this.addSlotToContainer(new BaseSlot(player.inventory, i, 8 + i * 18, 142));
 		}
 	}
 

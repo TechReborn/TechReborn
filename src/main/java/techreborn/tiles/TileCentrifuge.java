@@ -9,19 +9,22 @@ import reborncore.api.IListInfoProvider;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.api.recipe.IRecipeCrafterProvider;
+import reborncore.api.tile.IContainerProvider;
 import reborncore.api.tile.IInventoryProvider;
+import reborncore.common.container.RebornContainer;
 import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Inventory;
 import techreborn.api.Reference;
+import techreborn.client.container.ContainerCentrifuge;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 
 import java.util.List;
 
 public class TileCentrifuge extends TilePowerAcceptor
-		implements IWrenchable,IInventoryProvider,  IListInfoProvider, IRecipeCrafterProvider
+		implements IWrenchable,IInventoryProvider,  IListInfoProvider, IRecipeCrafterProvider//, IContainerProvider
 {
 
 	public int tickTime;
@@ -124,28 +127,7 @@ public class TileCentrifuge extends TilePowerAcceptor
 		super.addInfo(info, isRealTile);
 		info.add("Round and round it goes");
 	}
-
-//	// ISidedInventory
-//	@Override
-//	public int[] getSlotsForFace(EnumFacing side)
-//	{
-//		return side == EnumFacing.DOWN ? new int[] { 0, 1, 2, 3, 4, 5 } : new int[] { 0, 1, 2, 3, 4, 5 };
-//	}
-//
-//	@Override
-//	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side)
-//	{
-//		if (slotIndex >= 2)
-//			return false;
-//		return isItemValidForSlot(slotIndex, itemStack);
-//	}
-//
-//	@Override
-//	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side)
-//	{
-//		return slotIndex == 2 || slotIndex == 3 || slotIndex == 4 || slotIndex == 5;
-//	}
-
+	
 	public int getProgressScaled(int scale)
 	{
 		if (crafter.currentTickTime != 0)
@@ -200,4 +182,9 @@ public class TileCentrifuge extends TilePowerAcceptor
 	public RecipeCrafter getRecipeCrafter() {
 		return crafter;
 	}
+
+//	@Override
+//	public RebornContainer getContainer() {
+//		return RebornContainer.getContainerFromClass(ContainerCentrifuge.class);
+//	}
 }

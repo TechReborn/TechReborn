@@ -3,7 +3,7 @@ package techreborn.client.container;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
+import reborncore.client.gui.BaseSlot;
 import net.minecraft.item.ItemStack;
 import reborncore.client.gui.SlotOutput;
 import reborncore.common.container.RebornContainer;
@@ -29,14 +29,14 @@ public class ContainerRollingMachine extends RebornContainer
 			for (int k1 = 0; k1 < 3; k1++)
 			{
 				this.addSlotToContainer(
-						new Slot(tileRollingmachine.craftMatrix, k1 + l * 3, 30 + k1 * 18, 17 + l * 18));
+						new BaseSlot(tileRollingmachine.craftMatrix, k1 + l * 3, 30 + k1 * 18, 17 + l * 18));
 			}
 		}
 
 		// output
 		this.addSlotToContainer(new SlotOutput(tileRollingmachine.inventory, 0, 124, 35));
 		// battery
-		this.addSlotToContainer(new Slot(tileRollingmachine.inventory, 2, 8, 51));
+		this.addSlotToContainer(new BaseSlot(tileRollingmachine.inventory, 2, 8, 51));
 
 		int i;
 
@@ -44,13 +44,13 @@ public class ContainerRollingMachine extends RebornContainer
 		{
 			for (int j = 0; j < 9; ++j)
 			{
-				this.addSlotToContainer(new Slot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+				this.addSlotToContainer(new BaseSlot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 			}
 		}
 
 		for (i = 0; i < 9; ++i)
 		{
-			this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18, 142));
+			this.addSlotToContainer(new BaseSlot(player.inventory, i, 8 + i * 18, 142));
 		}
 	}
 

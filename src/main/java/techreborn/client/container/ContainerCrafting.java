@@ -3,6 +3,7 @@ package techreborn.client.container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import reborncore.api.tile.IContainerLayout;
 import reborncore.common.container.RebornContainer;
 import reborncore.common.recipes.RecipeCrafter;
 
@@ -15,8 +16,17 @@ public abstract class ContainerCrafting extends RebornContainer
 	int currentNeededTicks = 0;
 	int energy;
 
+	@Deprecated
 	public ContainerCrafting(RecipeCrafter crafter)
 	{
+		this();
+		this.crafter = crafter;
+	}
+
+	public ContainerCrafting() {
+	}
+
+	public void setCrafter(RecipeCrafter crafter) {
 		this.crafter = crafter;
 	}
 

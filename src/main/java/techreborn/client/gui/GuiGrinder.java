@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
+import reborncore.common.container.RebornContainer;
 import techreborn.client.container.ContainerGrinder;
 import techreborn.tiles.teir1.TileGrinder;
 
@@ -18,7 +19,7 @@ public class GuiGrinder extends GuiContainer
 
 	public GuiGrinder(EntityPlayer player, TileGrinder tilegrinder)
 	{
-		super(new ContainerGrinder(tilegrinder, player));
+		super(RebornContainer.createContainer(ContainerGrinder.class, tilegrinder, player));
 		this.xSize = 176;
 		this.ySize = 167;
 		grinder = tilegrinder;

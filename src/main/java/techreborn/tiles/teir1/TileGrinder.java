@@ -9,17 +9,21 @@ import net.minecraft.util.EnumFacing;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.recipe.IRecipeCrafterProvider;
+import reborncore.api.tile.IContainerProvider;
 import reborncore.api.tile.IInventoryProvider;
+import reborncore.common.container.RebornContainer;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Inventory;
 import techreborn.api.Reference;
+import techreborn.client.container.ContainerCentrifuge;
+import techreborn.client.container.ContainerGrinder;
 import techreborn.init.ModBlocks;
 
 import java.util.List;
 
-public class TileGrinder extends TilePowerAcceptor implements IWrenchable,IInventoryProvider, ISidedInventory,
-		IListInfoProvider, IRecipeCrafterProvider
+public class TileGrinder extends TilePowerAcceptor implements IWrenchable,IInventoryProvider,
+		IListInfoProvider, IRecipeCrafterProvider, IContainerProvider
 {
 
 	public Inventory inventory = new Inventory(6, "TileGrinder", 64, this);
@@ -94,28 +98,6 @@ public class TileGrinder extends TilePowerAcceptor implements IWrenchable,IInven
 		crafter.writeToNBT(tagCompound);
 	}
 
-
-	// ISidedInventory
-	@Override
-	public int[] getSlotsForFace(EnumFacing side)
-	{
-		return side == EnumFacing.DOWN ? new int[] { 0, 1, 2 } : new int[] { 0, 1, 2 };
-	}
-
-	@Override
-	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side)
-	{
-		if (slotIndex == 2)
-			return false;
-		return isItemValidForSlot(slotIndex, itemStack);
-	}
-
-	@Override
-	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side)
-	{
-		return slotIndex == 2;
-	}
-
 	public int getProgressScaled(int scale)
 	{
 		if (crafter.currentTickTime != 0)
@@ -174,5 +156,10 @@ public class TileGrinder extends TilePowerAcceptor implements IWrenchable,IInven
 	@Override
 	public RecipeCrafter getRecipeCrafter() {
 		return crafter;
+	}
+
+	@Override
+	public RebornContainer getContainer() {
+		return RebornContainer.getContainerFromClass(ContainerGrinder.class, this);
 	}
 }
