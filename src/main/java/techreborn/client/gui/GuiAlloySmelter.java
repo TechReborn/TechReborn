@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
+import reborncore.common.container.RebornContainer;
 import techreborn.client.container.ContainerAlloySmelter;
 import techreborn.tiles.TileAlloySmelter;
 
@@ -18,7 +19,7 @@ public class GuiAlloySmelter extends GuiContainer
 
 	public GuiAlloySmelter(EntityPlayer player, TileAlloySmelter tilealloysmelter)
 	{
-		super(new ContainerAlloySmelter(tilealloysmelter, player));
+		super(RebornContainer.createContainer(ContainerAlloySmelter.class, tilealloysmelter, player));
 		this.xSize = 176;
 		this.ySize = 167;
 		alloysmelter = tilealloysmelter;

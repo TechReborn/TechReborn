@@ -1,37 +1,50 @@
 package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.EnumFacing;
+import reborncore.api.tile.IContainerLayout;
 import reborncore.client.gui.BaseSlot;
+import reborncore.client.gui.SlotCharge;
+import reborncore.client.gui.SlotInput;
 import reborncore.client.gui.SlotOutput;
 import techreborn.api.gui.SlotUpgrade;
 import techreborn.tiles.TileAlloySmelter;
 
-public class ContainerAlloySmelter extends ContainerCrafting
+import javax.annotation.Nullable;
+import java.util.List;
+
+public class ContainerAlloySmelter extends ContainerCrafting implements IContainerLayout<TileAlloySmelter>
 {
 
 	public int tickTime;
 	EntityPlayer player;
 	TileAlloySmelter tile;
 
-	public ContainerAlloySmelter(TileAlloySmelter tileAlloysmelter, EntityPlayer player)
+	@Override
+	public boolean canInteractWith(EntityPlayer player)
 	{
-		super(tileAlloysmelter.crafter);
-		tile = tileAlloysmelter;
-		this.player = player;
+		return true;
+	}
+
+	@Override
+	public void addInventorySlots() {
 
 		// input
-		this.addSlotToContainer(new BaseSlot(tileAlloysmelter.inventory, 0, 47, 17));
-		this.addSlotToContainer(new BaseSlot(tileAlloysmelter.inventory, 1, 65, 17));
+		this.addSlotToContainer(new SlotInput(tile.inventory, 0, 47, 17));
+		this.addSlotToContainer(new SlotInput(tile.inventory, 1, 65, 17));
 		// outputs
-		this.addSlotToContainer(new SlotOutput(tileAlloysmelter.inventory, 2, 116, 35));
+		this.addSlotToContainer(new SlotOutput(tile.inventory, 2, 116, 35));
 		// battery
-		this.addSlotToContainer(new BaseSlot(tileAlloysmelter.inventory, 3, 56, 53));
+		this.addSlotToContainer(new SlotCharge(tile.inventory, 3, 56, 53));
 		// upgrades
-		this.addSlotToContainer(new SlotUpgrade(tileAlloysmelter.inventory, 4, 152, 8));
-		this.addSlotToContainer(new SlotUpgrade(tileAlloysmelter.inventory, 5, 152, 26));
-		this.addSlotToContainer(new SlotUpgrade(tileAlloysmelter.inventory, 6, 152, 44));
-		this.addSlotToContainer(new SlotUpgrade(tileAlloysmelter.inventory, 7, 152, 62));
+		this.addSlotToContainer(new SlotUpgrade(tile.inventory, 4, 152, 8));
+		this.addSlotToContainer(new SlotUpgrade(tile.inventory, 5, 152, 26));
+		this.addSlotToContainer(new SlotUpgrade(tile.inventory, 6, 152, 44));
+		this.addSlotToContainer(new SlotUpgrade(tile.inventory, 7, 152, 62));
+	}
 
+	@Override
+	public void addPlayerSlots() {
 		int i;
 
 		for (i = 0; i < 3; ++i)
@@ -49,9 +62,31 @@ public class ContainerAlloySmelter extends ContainerCrafting
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer player)
-	{
-		return true;
+	public void setTile(TileAlloySmelter tile) {
+		this.tile = tile;
+		setCrafter(tile.crafter);
 	}
 
+	@Nullable
+	@Override
+	public TileAlloySmelter getTile() {
+		return tile;
+	}
+
+	@Override
+	public void setPlayer(EntityPlayer player) {
+		this.player = player;
+	}
+
+	@Nullable
+	@Override
+	public EntityPlayer getPlayer() {
+		return player;
+	}
+
+	@Nullable
+	@Override
+	public List<Integer> getSlotsForSide(EnumFacing facing) {
+		return null;
+	}
 }
