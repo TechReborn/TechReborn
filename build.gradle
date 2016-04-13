@@ -47,7 +47,7 @@ configurations {
     compile.extendsFrom shade
 }
 
-version = "1.0.4"
+version = "1.0.5"
 
 def ENV = System.getenv()
 if (ENV.BUILD_NUMBER) {
@@ -79,7 +79,7 @@ dependencies {
     if(!f.exists()){
         f.mkdir()
     }
-    compile 'RebornCore:RebornCore-1.9:2.0.4.+:dev'
+    compile 'RebornCore:RebornCore-1.9:2.0.5.+:dev'
     deobfCompile "mezz.jei:jei_1.9:+"
     deobfCompile 'MCMultiPart:MCMultiPart-experimental:1.1.0_55:universal'
 }
