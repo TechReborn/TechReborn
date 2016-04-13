@@ -114,7 +114,7 @@ public class RenderCablePart implements IBakedModel
 	@Override
 	public boolean isAmbientOcclusion()
 	{
-		return false;
+		return true;
 	}
 
 	@Override
