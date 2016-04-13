@@ -24,7 +24,7 @@ import techreborn.init.ModBlocks;
 import java.util.List;
 
 public class TileCentrifuge extends TilePowerAcceptor
-		implements IWrenchable,IInventoryProvider,  IListInfoProvider, IRecipeCrafterProvider//, IContainerProvider
+		implements IWrenchable,IInventoryProvider,  IListInfoProvider, IRecipeCrafterProvider, IContainerProvider
 {
 
 	public int tickTime;
@@ -183,8 +183,8 @@ public class TileCentrifuge extends TilePowerAcceptor
 		return crafter;
 	}
 
-//	@Override
-//	public RebornContainer getContainer() {
-//		return RebornContainer.getContainerFromClass(ContainerCentrifuge.class);
-//	}
+	@Override
+	public RebornContainer getContainer() {
+		return RebornContainer.getContainerFromClass(ContainerCentrifuge.class, this);
+	}
 }

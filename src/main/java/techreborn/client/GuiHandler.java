@@ -88,7 +88,7 @@ public class GuiHandler implements IGuiHandler
 			return new ContainerQuantumChest((TileQuantumChest) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == centrifugeID)
 		{
-			return new ContainerCentrifuge((TileCentrifuge) world.getTileEntity(new BlockPos(x, y, z)), player);
+			container = new ContainerCentrifuge();
 		} else if (ID == rollingMachineID)
 		{
 			return new ContainerRollingMachine((TileRollingMachine) world.getTileEntity(new BlockPos(x, y, z)), player);
@@ -115,8 +115,7 @@ public class GuiHandler implements IGuiHandler
 			return new ContainerChunkloader((TileChunkLoader) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == assemblingmachineID)
 		{
-			return new ContainerAssemblingMachine((TileAssemblingMachine) world.getTileEntity(new BlockPos(x, y, z)),
-					player);
+			container = new ContainerAssemblingMachine();
 		} else if (ID == dieselGeneratorID)
 		{
 			return new ContainerDieselGenerator((TileDieselGenerator) world.getTileEntity(new BlockPos(x, y, z)),

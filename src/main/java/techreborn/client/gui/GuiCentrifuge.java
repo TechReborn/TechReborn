@@ -5,7 +5,9 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
+import reborncore.common.container.RebornContainer;
 import techreborn.client.container.ContainerCentrifuge;
+import techreborn.client.container.ContainerGrinder;
 import techreborn.tiles.TileCentrifuge;
 
 public class GuiCentrifuge extends GuiContainer
@@ -18,7 +20,7 @@ public class GuiCentrifuge extends GuiContainer
 
 	public GuiCentrifuge(EntityPlayer player, TileCentrifuge tileCentrifuge)
 	{
-		super(new ContainerCentrifuge(tileCentrifuge, player));
+		super(RebornContainer.createContainer(ContainerCentrifuge.class, tileCentrifuge, player));
 		this.xSize = 176;
 		this.ySize = 167;
 		centrifuge = tileCentrifuge;

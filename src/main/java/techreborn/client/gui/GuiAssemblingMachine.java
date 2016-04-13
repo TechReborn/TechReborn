@@ -5,7 +5,9 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
+import reborncore.common.container.RebornContainer;
 import techreborn.client.container.ContainerAssemblingMachine;
+import techreborn.client.container.ContainerGrinder;
 import techreborn.tiles.TileAssemblingMachine;
 
 public class GuiAssemblingMachine extends GuiContainer
@@ -19,7 +21,7 @@ public class GuiAssemblingMachine extends GuiContainer
 
 	public GuiAssemblingMachine(EntityPlayer player, TileAssemblingMachine tileassemblinmachine)
 	{
-		super(new ContainerAssemblingMachine(tileassemblinmachine, player));
+		super(RebornContainer.createContainer(ContainerAssemblingMachine.class, tileassemblinmachine, player));
 		containerAssemblingMachine = (ContainerAssemblingMachine) this.inventorySlots;
 		this.xSize = 176;
 		this.ySize = 167;
