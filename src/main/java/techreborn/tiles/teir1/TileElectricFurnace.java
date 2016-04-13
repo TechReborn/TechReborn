@@ -172,7 +172,7 @@ public class TileElectricFurnace extends TilePowerAcceptor implements IWrenchabl
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
 	{
-		return new ItemStack(ModBlocks.AlloySmelter, 1);
+		return new ItemStack(ModBlocks.ElectricFurnace, 1);
 	}
 
 	public boolean isComplete()

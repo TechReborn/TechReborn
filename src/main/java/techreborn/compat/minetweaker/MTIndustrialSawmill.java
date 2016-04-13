@@ -9,7 +9,7 @@ import net.minecraftforge.fluids.FluidStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
-import techreborn.lib.Reference;
+import techreborn.api.Reference;
 
 @ZenClass("mods.techreborn.industrialSawmill")
 public class MTIndustrialSawmill extends MTGeneric {

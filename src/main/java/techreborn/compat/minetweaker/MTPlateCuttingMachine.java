@@ -6,17 +6,17 @@ import minetweaker.api.item.IItemStack;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import techreborn.api.recipe.machines.VacuumFreezerRecipe;
-import techreborn.lib.Reference;
+import techreborn.api.recipe.machines.PlateCuttingMachineRecipe;
+import techreborn.api.Reference;
 
-@ZenClass("mods.techreborn.vacuumFreezer")
-public class MTVacuumFreezer extends MTGeneric {
+@ZenClass("mods.techreborn.plateCuttingMachine")
+public class MTPlateCuttingMachine extends MTGeneric {
 
     @ZenMethod
-    public static void addRecipe(IItemStack output, IIngredient input, int ticktime, int euTick) {
-        ItemStack oInput1 = (ItemStack) MinetweakerCompat.toObject(input);
+    public static void addRecipe(IItemStack output, IIngredient input1, int ticktime, int euTick) {
+        ItemStack oInput1 = (ItemStack) MinetweakerCompat.toObject(input1);
+        PlateCuttingMachineRecipe r = new PlateCuttingMachineRecipe(oInput1, MinetweakerCompat.toStack(output), ticktime, euTick);
 
-        VacuumFreezerRecipe r = new VacuumFreezerRecipe(oInput1, MinetweakerCompat.toStack(output), ticktime, euTick);
         addRecipe(r);
     }
 
@@ -31,6 +31,6 @@ public class MTVacuumFreezer extends MTGeneric {
     }
 
     public static String getMachineName() {
-        return Reference.vacuumFreezerRecipe;
+        return Reference.plateCuttingMachineRecipe;
     }
 }

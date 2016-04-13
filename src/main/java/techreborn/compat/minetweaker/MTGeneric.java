@@ -5,10 +5,11 @@ import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.minecraft.MineTweakerMC;
 import net.minecraft.item.ItemStack;
+import reborncore.api.recipe.IBaseRecipeType;
+import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.util.ItemUtils;
 import techreborn.api.recipe.BaseRecipe;
-import techreborn.api.recipe.IBaseRecipeType;
-import techreborn.api.recipe.RecipeHandler;
+import techreborn.api.Reference;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -6,16 +6,19 @@ import minetweaker.api.item.IItemStack;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import techreborn.api.recipe.machines.PlateCuttingMachineRecipe;
-import techreborn.lib.Reference;
+import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
+import techreborn.api.Reference;
 
-@ZenClass("mods.techreborn.plateCuttingMachine")
-public class MTPlateCuttingMachine extends MTGeneric {
+@ZenClass("mods.techreborn.implosionCompressor")
+public class MTImplosionCompressor extends MTGeneric {
 
     @ZenMethod
-    public static void addRecipe(IItemStack output, IIngredient input1, int ticktime, int euTick) {
+    public static void addRecipe(IItemStack output1, IItemStack output2, IIngredient input1, IIngredient input2, int ticktime, int euTick) {
         ItemStack oInput1 = (ItemStack) MinetweakerCompat.toObject(input1);
-        PlateCuttingMachineRecipe r = new PlateCuttingMachineRecipe(oInput1, MinetweakerCompat.toStack(output), ticktime, euTick);
+        ItemStack oInput2 = (ItemStack) MinetweakerCompat.toObject(input2);
+
+
+        ImplosionCompressorRecipe r = new ImplosionCompressorRecipe(oInput1, oInput2, MinetweakerCompat.toStack(output1), MinetweakerCompat.toStack(output2), ticktime, euTick);
 
         addRecipe(r);
     }
@@ -31,6 +34,6 @@ public class MTPlateCuttingMachine extends MTGeneric {
     }
 
     public static String getMachineName() {
-        return Reference.plateCuttingMachineRecipe;
+        return Reference.implosionCompressorRecipe;
     }
 }
