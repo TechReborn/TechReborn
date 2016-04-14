@@ -6,10 +6,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import techreborn.init.ModBlocks;
 import techreborn.tiles.transformers.TileHVTransformer;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -28,30 +31,11 @@ public class BlockHVTransformer extends BlockTransformer
 	{
 		return new TileHVTransformer();
 	}
-	@Override
-	public void breakBlock(World world, BlockPos pos, IBlockState state)
+	@Override public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
 	{
-		ItemStack itemStack = new ItemStack(ModBlocks.machineframe, 1 ,7);
-		Random rand = new Random();
-
-		float dX = rand.nextFloat() * 0.8F + 0.1F;
-		float dY = rand.nextFloat() * 0.8F + 0.1F;
-		float dZ = rand.nextFloat() * 0.8F + 0.1F;
-
-		EntityItem entityItem = new EntityItem(world, pos.getX() + dX, pos.getY() + dY, pos.getZ() + dZ,
-				itemStack.copy());
-
-		if (itemStack.hasTagCompound())
-		{
-			entityItem.getEntityItem().setTagCompound((NBTTagCompound) itemStack.getTagCompound().copy());
-		}
-
-		float factor = 0.05F;
-		entityItem.motionX = rand.nextGaussian() * factor;
-		entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
-		entityItem.motionZ = rand.nextGaussian() * factor;
-		world.spawnEntityInWorld(entityItem);
-		itemStack.stackSize = 0;
+		ArrayList<ItemStack> list = new ArrayList<>();
+		list.add(new ItemStack(ModBlocks.machineframe, 1 , 7));
+		return list;
 	}
 
 
