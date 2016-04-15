@@ -110,6 +110,7 @@ task deobfJar(type: Jar) {
     from sourceSets.main.output
     exclude "**/*.psd"
     classifier = 'dev'
+    manifest { attributes 'Main-Class': 'techreborn.manual.designer.ManualDesigner' }
 }
 
 jar {

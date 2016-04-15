@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TreeItem;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -96,5 +97,11 @@ public class ManualDesigner extends Application {
         controller.image.fitHeightProperty().bind(controller.renderPane.heightProperty());
 
         controller.load();
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Info Dialog");
+        alert.setHeaderText("This is not how to run the mod!");
+        alert.setContentText("If you are trying to play with TechReborn in you minecraft world, this is NOT how you do it. You have the wrong jar file or you are doing something very wrong. Go and download the universal jar file and put it in the mods folder");
+        alert.show();
     }
 }
