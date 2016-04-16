@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import javafx.scene.control.TreeItem;
 import javafx.stage.DirectoryChooser;
-import techreborn.lib.ModInfo;
 import techreborn.manual.designer.ManualDesigner;
 import techreborn.manual.saveFormat.Entry;
 import techreborn.manual.saveFormat.ManualFormat;
@@ -30,7 +29,7 @@ public class SaveSystem {
     public static void export(){
         List<Entry> entryList = new ArrayList<>(entries.values());
         if(master == null){
-            master = new ManualFormat("TechReborn", ModInfo.MOD_ID, entryList);
+            master = new ManualFormat("TechReborn", "techreborn", entryList);
         }
         DirectoryChooser chooser = new DirectoryChooser();
         chooser.setTitle("Select export location");

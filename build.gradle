@@ -110,6 +110,14 @@ task deobfJar(type: Jar) {
     from sourceSets.main.output
     exclude "**/*.psd"
     classifier = 'dev'
+}
+
+task designerJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'designer'
+    exclude "techreborn/**"
+    include "techreborn/manual/designer"
+    include "techreborn/manual/saveFormat"
     manifest { attributes 'Main-Class': 'techreborn.manual.designer.ManualDesigner' }
 }
 
@@ -134,13 +142,15 @@ task apiJar(type: Jar) {
 }
 
 apiJar.mustRunAfter deobfJar
+designerJar.mustRunAfter apiJar
 
 artifacts {
     archives deobfJar
     archives apiJar
+    archives designerJar
 }
 
-build.dependsOn deobfJar, apiJar
+build.dependsOn deobfJar, apiJar, designerJar
 
 uploadArchives {
     repositories {
