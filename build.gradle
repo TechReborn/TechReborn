@@ -115,9 +115,10 @@ task deobfJar(type: Jar) {
 task designerJar(type: Jar) {
     from sourceSets.main.output
     classifier = 'designer'
-    exclude "techreborn/**"
-    include "techreborn/manual/designer"
-    include "techreborn/manual/saveFormat"
+    include "techreborn/manual/designer/**"
+    include "techreborn/manual/saveFormat/**"
+    include "assets/techreborn/designer/**"
+    include "assets/techreborn/textures/manual/**"
     manifest { attributes 'Main-Class': 'techreborn.manual.designer.ManualDesigner' }
 }
 
