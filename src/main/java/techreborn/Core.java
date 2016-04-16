@@ -76,6 +76,7 @@ public class Core
 		config = ConfigTechReborn.initialize(new File(configDir, "main.cfg"));
 		worldGen = new TechRebornWorldGen();
 		worldGen.configFile = (new File(configDir, "ores.json"));
+		worldGen.hConfigFile = (new File(configDir, "ores.hjson"));
 
 		recipeCompact = new RecipeCompact();
 		TechRebornAPI.recipeCompact = recipeCompact;

@@ -1,10 +1,6 @@
 package techreborn.world;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +14,8 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.common.IWorldGenerator;
+import org.hjson.JsonValue;
+import org.hjson.Stringify;
 import reborncore.common.misc.ChunkCoord;
 import techreborn.Core;
 import techreborn.init.ModBlocks;
@@ -37,6 +35,7 @@ public class TechRebornWorldGen implements IWorldGenerator
 	public static RubberTreeGenerator treeGenerator = new RubberTreeGenerator();
 	public final TechRebornRetroGen retroGen = new TechRebornRetroGen();
 	public File configFile;
+	public File hConfigFile;
 	public boolean jsonInvalid = false;
 	WorldGenConfig config;
 	WorldGenConfig defaultConfig;
@@ -75,7 +74,30 @@ public class TechRebornWorldGen implements IWorldGenerator
 	public void load()
 	{
 		init();
-		if (configFile.exists())
+		//Converts the old format to the new one
+		if(configFile.exists()){
+			if(!hConfigFile.exists()){
+				try {
+					//Reads json
+					BufferedReader reader = new BufferedReader(new FileReader(configFile));
+					//Converts to hjson
+					String hJson = JsonValue.readHjson(reader).toString(Stringify.HJSON);
+					//Saves as the new HJson file
+					FileWriter writer = new FileWriter(hConfigFile);
+					writer.write(hJson);
+					writer.close();
+					reader.close();
+					//Delete old json file
+					configFile.delete();
+
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		if (hConfigFile.exists())
 		{
 			loadFromJson();
 		} else
@@ -119,11 +141,12 @@ public class TechRebornWorldGen implements IWorldGenerator
 		try
 		{
 			Gson gson = new Gson();
-			BufferedReader reader = new BufferedReader(new FileReader(configFile));
+			BufferedReader reader = new BufferedReader(new FileReader(hConfigFile));
+			String jsonString = JsonValue.readHjson(reader).toString();
 			Type typeOfHashMap = new TypeToken<WorldGenConfig>()
 			{
 			}.getType();
-			config = gson.fromJson(reader, typeOfHashMap);
+			config = gson.fromJson(jsonString, typeOfHashMap);
 		} catch (Exception e)
 		{
 			Core.logHelper.error(
@@ -140,10 +163,11 @@ public class TechRebornWorldGen implements IWorldGenerator
 	{
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		String json = gson.toJson(config);
+		String hJson = JsonValue.readHjson(json).toString(Stringify.HJSON);
 		try
 		{
-			FileWriter writer = new FileWriter(configFile);
-			writer.write(json);
+			FileWriter writer = new FileWriter(hConfigFile);
+			writer.write(hJson);
 			writer.close();
 		} catch (IOException e)
 		{
