@@ -16,6 +16,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.common.registry.GameData;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import reborncore.api.fuel.FluidPowerManager;
 import reborncore.api.recipe.RecipeHandler;
 
@@ -91,11 +92,13 @@ public class TechRebornDevCommand extends CommandBase
 		} else if ("getname".equals(args[0])) {
 			EntityPlayer player = (EntityPlayer) sender;
 			if (player.getHeldItem(EnumHand.MAIN_HAND) != null) {
-				Block block = Block.getBlockFromItem(player.getHeldItem(EnumHand.MAIN_HAND).getItem());
-				if (block != null && block != Blocks.air) {
-					sender.addChatMessage(new TextComponentString(GameData.getBlockRegistry().getNameForObject(block) + " with a meta of " + player.getHeldItem(EnumHand.MAIN_HAND).getItemDamage()));
+				if(GameData.getItemRegistry().containsValue(player.getHeldItem(EnumHand.MAIN_HAND).getItem())){
+					sender.addChatMessage(new TextComponentString(GameData.getItemRegistry().getNameForObject(player.getHeldItem(EnumHand.MAIN_HAND).getItem()) + ":" + player.getHeldItem(EnumHand.MAIN_HAND).getItemDamage()));
 				} else {
-					((EntityPlayer) sender).addChatComponentMessage(new TextComponentString("hold a Block!"));
+					Block block = Block.getBlockFromItem(player.getHeldItem(EnumHand.MAIN_HAND).getItem());
+					if (block != null && block != Blocks.air) {
+						sender.addChatMessage(new TextComponentString(GameData.getBlockRegistry().getNameForObject(block) + ":" + player.getHeldItem(EnumHand.MAIN_HAND).getItemDamage()));
+					}
 				}
 			} else {
 				((EntityPlayer) sender).addChatComponentMessage(new TextComponentString("hold an item!"));

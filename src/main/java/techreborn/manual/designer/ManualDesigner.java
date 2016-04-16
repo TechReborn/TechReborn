@@ -11,11 +11,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TreeItem;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import techreborn.manual.designer.exporter.Exporter;
 import techreborn.manual.designer.fileUtils.SaveSystem;
 import techreborn.manual.designer.windows.MainWindowController;
 import techreborn.manual.saveFormat.Entry;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 
 /**
@@ -25,8 +28,12 @@ public class ManualDesigner extends Application {
 
     public static Stage stage;
 
-    public static void main(String[] args) {
-        launch(args);
+    public static void main(String[] args) throws Exception {
+        if(args.length > 0 && args[0].equals("-export")){
+            Exporter.run(args);
+        } else {
+            launch(args);
+        }
     }
 
     @Override
@@ -70,6 +77,7 @@ public class ManualDesigner extends Application {
                 if(!isValid){
                     if(SaveSystem.entries.containsKey(selectedItem)){
                         Entry entry = SaveSystem.entries.get(selectedItem);
+                        controller.pageimage.setVisible(false);
                         if(entry.data != null && entry.data.data != null){
                             if(entry.data.data.containsKey("text")){
                                 controller.textInput.setText(entry.data.data.get("text"));
@@ -82,6 +90,7 @@ public class ManualDesigner extends Application {
                                         File image = new File(imagesDir, entry.data.data.get("image") + ".png");
                                         if(image.exists()){
                                             controller.pageimage.setImage(new Image(image.toURI().toString()));
+                                            controller.pageimage.setVisible(true);
                                         }
                                     }
                                 }
@@ -91,6 +100,7 @@ public class ManualDesigner extends Application {
                             //TODO Improve this
                         } else  {
                             controller.textInput.setText("");
+                            controller.imageTextArea.setText("");
                         }
                         if(entry.type.equalsIgnoreCase("image")){
                             controller.imageTextArea.setDisable(false);

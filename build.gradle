@@ -45,7 +45,11 @@ repositories {
 configurations {
     shade
     compile.extendsFrom shade
+
+    designershade
+    compile.extendsFrom designershade
 }
+
 
 version = "1.0.5"
 
@@ -82,6 +86,12 @@ dependencies {
     compile 'RebornCore:RebornCore-1.9:2.0.5.+:dev'
     deobfCompile "mezz.jei:jei_1.9:+"
     deobfCompile 'MCMultiPart:MCMultiPart-experimental:1.1.0_55:universal'
+
+    //For manual designer!
+    designershade 'org.zeroturnaround:zt-zip:1.9'
+    designershade 'org.slf4j:slf4j-api:1.7.21'
+    designershade 'org.slf4j:slf4j-simple:1.7.21'
+
 }
 
 
@@ -119,7 +129,17 @@ task designerJar(type: Jar) {
     include "techreborn/manual/saveFormat/**"
     include "assets/techreborn/designer/**"
     include "assets/techreborn/textures/manual/**"
+
+    //Deps
+    include "org/slf4j/**"
+    include "org/zeroturnaround/zip/**"
+
     manifest { attributes 'Main-Class': 'techreborn.manual.designer.ManualDesigner' }
+    configurations.designershade.each { dep ->
+        from(project.zipTree(dep)){
+            exclude 'META-INF', 'META-INF/**', '**/*.java'
+        }
+    }
 }
 
 jar {
