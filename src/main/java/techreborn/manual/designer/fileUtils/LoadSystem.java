@@ -1,7 +1,9 @@
 package techreborn.manual.designer.fileUtils;
 
 import com.google.gson.Gson;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TreeItem;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import techreborn.manual.designer.ManualCatergories;
 import techreborn.manual.designer.ManualDesigner;
@@ -19,20 +21,28 @@ import java.io.FileReader;
 public class LoadSystem {
 
     public static void load() throws FileNotFoundException {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open master.json");
-        fileChooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("Jason File (*.json)", "*.json"));
-        fileChooser.setInitialFileName("master.json");
+        DirectoryChooser fileChooser = new DirectoryChooser();
+        fileChooser.setTitle("Open Folder");
         fileChooser.setInitialDirectory(new File("."));
-        File file = fileChooser.showOpenDialog(ManualDesigner.stage);
-        if(file != null){
-            if(file.getName().endsWith(".json")){
+        File folder = fileChooser.showDialog(ManualDesigner.stage);
+        if(folder != null){
+            File masterJson = new File(folder, "master.json");
+            if(!masterJson.exists()){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Could not find project");
+                alert.setHeaderText("Could not find project!");
+                alert.setContentText("Could not find the project in this directory!");
+                alert.show();
+            } else if(masterJson.getName().endsWith(".json")){
                 //Things
-                BufferedReader reader = new BufferedReader(new FileReader(file));
+                File imageDir = new File(folder, "images");
+                if(!imageDir.exists()){
+                    imageDir.mkdir();
+                }
+                BufferedReader reader = new BufferedReader(new FileReader(masterJson));
                 Gson gson = new Gson();
                 ManualFormat format;
                 format = gson.fromJson(reader, ManualFormat.class);
-                System.out.println(format.entries);
                 for(Entry entry : format.entries){
                     System.out.println(entry.type);
                     TreeItem parentTree = null;
@@ -49,6 +59,7 @@ public class LoadSystem {
                     parentTree.setExpanded(true);
                     SaveSystem.entries.put(newItem, entry);
                 }
+                SaveSystem.lastSave = folder;
             }
         }
     }

@@ -24,7 +24,7 @@ public class SaveSystem {
 
     public static ManualFormat master;
 
-    static File lastSave = null;
+    public static File lastSave = null;
 
     public static void export(){
         List<Entry> entryList = new ArrayList<>(entries.values());
@@ -40,6 +40,10 @@ public class SaveSystem {
         chooser.setInitialDirectory(openLocation);
         File selectedDirectory = chooser.showDialog(ManualDesigner.stage);
         lastSave = selectedDirectory;
+        File imageDir = new File(selectedDirectory, "images");
+        if(!imageDir.exists()){
+            imageDir.mkdir();
+        }
         File masterJson = new File(selectedDirectory, "master.json");
         if(masterJson.exists()){
             masterJson.delete();

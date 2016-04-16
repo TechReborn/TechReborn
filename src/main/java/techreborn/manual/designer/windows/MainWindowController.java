@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.scene.control.Button;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -34,6 +35,9 @@ public class MainWindowController {
     public TextArea textInput;
     public Button buttonDelete;
     public TextField nameTextArea;
+    public TextField imageTextArea;
+    public ImageView pageimage;
+    public Label infoLabel;
 
     public void newItem(Event event) {
         if(treeList.getSelectionModel().getSelectedItem() instanceof TreeItem){
@@ -114,6 +118,9 @@ public class MainWindowController {
         nameTextArea.textProperty().addListener((observable, oldValue, newValue) -> {
             nameChange();
         });
+        imageTextArea.textProperty().addListener((observable, oldValue, newValue) -> {
+            imageAreaChanged();
+        });
     }
 
 
@@ -133,6 +140,28 @@ public class MainWindowController {
                         entry.data.data.replace("text", textInput.getText());
                     } else {
                         entry.data.data.put("text", textInput.getText());
+                    }
+                }
+                SaveSystem.entries.replace((TreeItem) treeList.getSelectionModel().getSelectedItem(), entry);
+            }
+        }
+    }
+
+    public void imageAreaChanged() {
+        if(!treeList.getSelectionModel().isEmpty()){
+            if(SaveSystem.entries.containsKey(treeList.getSelectionModel().getSelectedItem())){
+                Entry entry = SaveSystem.entries.get(treeList.getSelectionModel().getSelectedItem());
+                if(entry != null){
+                    if(entry.data == null){
+                        entry.data = new EntryData();
+                    }
+                    if(entry.data.data == null){
+                        entry.data.data = new HashMap<>();
+                    }
+                    if(entry.data.data.containsKey("image")){
+                        entry.data.data.replace("image", imageTextArea.getText());
+                    } else {
+                        entry.data.data.put("image", imageTextArea.getText());
                     }
                 }
                 SaveSystem.entries.replace((TreeItem) treeList.getSelectionModel().getSelectedItem(), entry);
