@@ -2,39 +2,34 @@ package techreborn.manual.designer.exporter;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.zeroturnaround.zip.ZipUtil;
 import reborncore.shields.json.ShieldJsonLoader;
-import techreborn.manual.saveFormat.ManualFormat;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 /**
  * Created by Mark on 16/04/2016.
  */
 public class Exporter {
 
+    public static void main(String[] args) throws Exception {
+        run(args);
+    }
+
     public static void run(String[] arg) throws Exception {
-        if(arg.length < 3){
+        if(arg.length < 2){
             System.out.println("Error incorrect arguments!");
             System.exit(-1);
         }
-        File input = new File(arg[1]);
-        File output = new File(arg[2]);
+        File input = new File(arg[0]);
+        File output = new File(arg[1]);
         if(!input.exists()){
             System.out.println("that input file does not exist!");
             System.exit(-1);

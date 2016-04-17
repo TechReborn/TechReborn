@@ -11,14 +11,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TreeItem;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import techreborn.manual.designer.exporter.Exporter;
 import techreborn.manual.designer.fileUtils.SaveSystem;
 import techreborn.manual.designer.windows.MainWindowController;
 import techreborn.manual.saveFormat.Entry;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.URL;
 
 /**
@@ -28,12 +25,8 @@ public class ManualDesigner extends Application {
 
     public static Stage stage;
 
-    public static void main(String[] args) throws Exception {
-        if(args.length > 0 && args[0].equals("-export")){
-            Exporter.run(args);
-        } else {
+    public static void main(String[] args) {
             launch(args);
-        }
     }
 
     @Override

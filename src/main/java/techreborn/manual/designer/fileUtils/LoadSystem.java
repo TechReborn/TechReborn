@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TreeItem;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
 import techreborn.manual.designer.ManualCatergories;
 import techreborn.manual.designer.ManualDesigner;
 import techreborn.manual.saveFormat.Entry;
