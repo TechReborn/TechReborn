@@ -141,7 +141,7 @@ artifacts {
     archives apiJar
 }
 
-build.dependsOn deobfJar, apiJar, designerJar
+build.dependsOn deobfJar, apiJar
 
 uploadArchives {
     repositories {
