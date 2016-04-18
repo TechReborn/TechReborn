@@ -171,6 +171,12 @@ public class
         CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("heliumCoolantSimple"),
                 " T ", "TCT", " T ",
                 'T', "ingotTin",
+                'C', ItemCells.getCellByName("helium", 1, true)
+        );
+        
+        CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("heliumCoolantSimple"),
+                " T ", "TCT", " T ",
+                'T', "ingotTin",
                 'C', ItemCells.getCellByName("helium", 1, false)
         );
 
@@ -230,7 +236,7 @@ public class
         CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.FusionCoil),
                 "CSC", "NAN", "CRC",
                 'A', new ItemStack(ModBlocks.MachineCasing, 1, 2),
-                'N', new ItemStack(ModBlocks.FusionCoil),
+                'N', ItemParts.getPartByName("nichromeHeatingCoil"),
                 'C', ItemParts.getPartByName("energyFlowCircuit"),
                 'S', ItemParts.getPartByName("superConductor"),
                 'R', ItemParts.getPartByName("iridiumNeutronReflector")
@@ -849,7 +855,7 @@ public class
         RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("lapis", 16), null, ItemDusts.getDustByName("lazurite", 12), ItemDusts.getDustByName("sodalite", 2), ItemDusts.getDustByName("pyrite", 7), ItemDusts.getDustByName("calcite", 1), 3580, 5));
 
 
-        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.glowstone_dust, 16), RecipeUtils.getEmptyCell(1), ItemCells.getCellByName("helium", 1, false), ItemDusts.getDustByName("gold", 8), new ItemStack(Items.redstone), null, 25000, 20));
+//        RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.glowstone_dust, 16), RecipeUtils.getEmptyCell(1), ItemCells.getCellByName("helium", 1, false), ItemDusts.getDustByName("gold", 8), new ItemStack(Items.redstone), null, 25000, 20));
 //		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("endstone", 16), RecipeUtils.getEmptyCell(2), ItemCells.getCellByName("helium3", 1, false), ItemCells.getCellByName("helium", 1, false), ItemDustsTiny.getTinyDustByName("Tungsten"), new ItemStack(Blocks.sand, 12), 4800, 5));
     }
 

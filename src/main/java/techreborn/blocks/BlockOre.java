@@ -56,6 +56,7 @@ public class BlockOre extends Block {
         setCreativeTab(TechRebornCreativeTabMisc.instance);
         setHardness(2.0f);
         ModBlocks.blocksToCut.add(this);
+        setHarvestLevel("pickaxe", 2);
     }
 
     @Override

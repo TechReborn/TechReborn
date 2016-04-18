@@ -44,6 +44,7 @@ public class MinetweakerCompat implements ICompatModule {
         MineTweakerAPI.registerClass(MTPlateCuttingMachine.class);
         MineTweakerAPI.registerClass(MTFusionReactor.class);
         MineTweakerAPI.registerClass(MTVacuumFreezer.class);
+        MineTweakerAPI.registerClass(MTRollingMachine.class);
     }
 
     @Override

@@ -11,7 +11,7 @@ import techreborn.tiles.TileDieselGenerator;
 public class GuiDieselGenerator extends GuiContainer {
 
     private static final ResourceLocation texture = new ResourceLocation(
-            "techreborn", "textures/gui/ThermalGenerator.png");
+            "techreborn", "textures/gui/thermal_generator.png");
 
     TileDieselGenerator tile;
 
