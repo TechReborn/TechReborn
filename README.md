@@ -8,7 +8,7 @@ We have permission to use Greg's textures (see [here](https://i.imgur.com/YQEMrq
 
 # Issues
 
-We keep track of new features on youtrack, and issues are posted here on github.
+We keep track of issues and feature requests on github.
 
 [![Issues](https://img.shields.io/badge/TechReborn-Issues-0066ff.svg)](https://github.com/TechReborn/TechReborn/issues)
 
