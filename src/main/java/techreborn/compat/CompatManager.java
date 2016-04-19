@@ -42,7 +42,6 @@ public class CompatManager {
         registerCompact(RecipesBuildcraft.class, "BuildCraft|Core", "IC2");
         registerCompact(RecipesThermalExpansion.class, "ThermalExpansion");
         registerCompact(EmcValues.class, "EE3");
-        registerCompact(RecipesNatura.class, "Natura");
         registerCompact(RecipesBiomesOPlenty.class, "BiomesOPlenty");
         registerCompact(RecipesThaumcraft.class, "Thaumcraft");
         registerCompact(RecipesForestry.class, "Forestry", isForestry4());

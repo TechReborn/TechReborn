@@ -111,9 +111,6 @@ dependencies {
     compile "com.pahimar.ee3:EquivalentExchange3:1.7.10-0.3.507:dev"
     compile "net.sengir.forestry:forestry_1.7.10:4.2.0.47:dev"
     shade "net.sengir.forestry:forestry_1.7.10:4.2.0.47:api"
-    compile "tconstruct:TConstruct:1.7.10-1.8.8.build988:deobf"
-    compile "mods.natura:natura:1.7.10-107.779621d:deobf"
-    compile "mantle:Mantle:1.7.10-0.3.2.jenkins192:deobf"
     compile "com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.7.10-2.1.0.1465:deobf"
     compile 'Azanor:Thaumcraft:4.2.3.5:deobf@jar'
     compile "com.github.azanor:baubles:1.0.1.10:deobf@jar"
