@@ -29,11 +29,16 @@ public class RenderCablePart implements IBakedModel
 	}
 
 	public void addCubeToList(Vecs3dCube cube, ArrayList<BakedQuad> list, BlockPartFace face,
-			ModelRotation modelRotation, TextureAtlasSprite cubeTexture)
+			ModelRotation modelRotation, TextureAtlasSprite cubeTexture, EnumFacing dir)
 	{
 		BlockFaceUV uv = new BlockFaceUV(new float[] { (float) cube.getMinX(), (float) cube.getMinY(),
 				(float) cube.getMaxX(), (float) cube.getMaxY() }, 0);
 		face = new BlockPartFace(null, 0, "", uv);
+		if(dir == EnumFacing.NORTH ||  dir == EnumFacing.SOUTH){
+			uv = new BlockFaceUV(new float[] { (float) cube.getMinZ(), (float) cube.getMinY(),
+					(float) cube.getMaxZ(), (float) cube.getMaxY() }, 0);
+			face = new BlockPartFace(null, 0, "", uv);
+		}
 		list.add(faceBakery.makeBakedQuad(
 				new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMinZ()),
 				new Vector3f((float) cube.getMaxX(), (float) cube.getMinY(), (float) cube.getMaxZ()), face, cubeTexture,
@@ -74,38 +79,38 @@ public class RenderCablePart implements IBakedModel
 			return Collections.emptyList();
 		}
 		addCubeToList(new Vecs3dCube(thickness, thickness, thickness, lastThickness, lastThickness, lastThickness),
-				list, face, ModelRotation.X0_Y0, texture);
+				list, face, ModelRotation.X0_Y0, texture, null);
 		if (state != null)
 		{
 			if (state.getValue(CableMultipart.UP))
 			{
 				addCubeToList(new Vecs3dCube(thickness, lastThickness, thickness, lastThickness, 16.0, lastThickness),
-						list, face, ModelRotation.X0_Y0, texture);
+						list, face, ModelRotation.X0_Y0, texture, EnumFacing.UP);
 			}
 			if (state.getValue(CableMultipart.DOWN))
 			{
 				addCubeToList(new Vecs3dCube(thickness, 0.0, thickness, lastThickness, thickness, lastThickness), list,
-						face, ModelRotation.X0_Y0, texture);
+						face, ModelRotation.X0_Y0, texture, EnumFacing.DOWN);
 			}
 			if (state.getValue(CableMultipart.NORTH))
 			{
 				addCubeToList(new Vecs3dCube(thickness, thickness, 0.0, lastThickness, lastThickness, thickness), list,
-						face, ModelRotation.X0_Y0, texture);
+						face, ModelRotation.X0_Y0, texture, EnumFacing.NORTH);
 			}
 			if (state.getValue(CableMultipart.SOUTH))
 			{
 				addCubeToList(new Vecs3dCube(thickness, thickness, lastThickness, lastThickness, lastThickness, 16.0),
-						list, face, ModelRotation.X0_Y0, texture);
+						list, face, ModelRotation.X0_Y0, texture, EnumFacing.SOUTH);
 			}
 			if (state.getValue(CableMultipart.EAST))
 			{
 				addCubeToList(new Vecs3dCube(lastThickness, thickness, thickness, 16.0, lastThickness, lastThickness),
-						list, face, ModelRotation.X0_Y0, texture);
+						list, face, ModelRotation.X0_Y0, texture, EnumFacing.EAST);
 			}
 			if (state.getValue(CableMultipart.WEST))
 			{
 				addCubeToList(new Vecs3dCube(0.0, thickness, thickness, thickness, lastThickness, lastThickness), list,
-						face, ModelRotation.X0_Y0, texture);
+						face, ModelRotation.X0_Y0, texture, EnumFacing.WEST);
 			}
 		}
 		return list;
