@@ -140,7 +140,7 @@ public class TechRebornJeiPlugin extends BlankModPlugin
 
 		try
 		{
-			registry.addRecipes(RollingMachineRecipeMaker.getRecipes());
+			registry.addRecipes(RollingMachineRecipeMaker.getRecipes(jeiHelpers));
 		} catch (RuntimeException e)
 		{
 			Core.logHelper.error(
