@@ -75,7 +75,7 @@ public class ManualLoader {
 
 
             ZipFile file = new ZipFile(zipLocation);
-            file.
+//            file.
 
         }
 
