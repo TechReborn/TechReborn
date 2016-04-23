@@ -18,6 +18,10 @@ import techreborn.client.hud.ChargeHud;
 import techreborn.client.keybindings.KeyBindings;
 import techreborn.client.render.entitys.RenderNukePrimed;
 import techreborn.entitys.EntityNukePrimed;
+import techreborn.manual.loader.ManualLoader;
+
+import java.io.File;
+import java.io.IOException;
 
 public class ClientProxy extends CommonProxy
 {
@@ -29,6 +33,17 @@ public class ClientProxy extends CommonProxy
 	{
 		super.preInit(event);
 		RenderingRegistry.registerEntityRenderingHandler(EntityNukePrimed.class, new RenderManagerNuke());
+
+		ManualLoader loader = new ManualLoader(new File(event.getModConfigurationDirectory(), "techreborn"));
+
+		new Thread(() ->
+		{
+			try {
+				loader.load();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}).start();
 	}
 
 	@Override

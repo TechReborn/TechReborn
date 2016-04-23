@@ -35,6 +35,7 @@ import techreborn.events.OreUnifier;
 import techreborn.events.TRTickHandler;
 import techreborn.init.*;
 import techreborn.lib.ModInfo;
+import techreborn.manual.loader.ManualLoader;
 import techreborn.packets.PacketAesu;
 import techreborn.packets.PacketIdsu;
 import techreborn.proxies.CommonProxy;
