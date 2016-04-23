@@ -17,7 +17,6 @@ public class GuiIndustrialGrinder extends GuiContainer
 	TileIndustrialGrinder grinder;
 	ContainerIndustrialGrinder containerGrinder;
 
-	boolean hasMultiBlock;
 	public GuiIndustrialGrinder(EntityPlayer player, TileIndustrialGrinder tilegrinder)
 	{
 		super(new ContainerIndustrialGrinder(tilegrinder, player));
@@ -31,7 +30,6 @@ public class GuiIndustrialGrinder extends GuiContainer
 	{
 		int k = (this.width - this.xSize) / 2;
 		int l = (this.height - this.ySize) / 2;
-		hasMultiBlock = containerGrinder.connectionStatus != 1;
         super.initGui();
 	}
 
@@ -45,7 +43,7 @@ public class GuiIndustrialGrinder extends GuiContainer
 		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
 
 		int j = 0;
-		if (hasMultiBlock)
+		if (containerGrinder.connectionStatus == 0)
 		{
 			// GuiDraw.drawTooltipBox(k + 30, l + 50 + 12 - j, 114, 10);
 			this.fontRendererObj.drawString(I18n.translateToLocal("techreborn.message.missingmultiblock"), k + 38,
