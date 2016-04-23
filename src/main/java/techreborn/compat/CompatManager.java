@@ -7,6 +7,7 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import techreborn.client.render.parts.ClientPartLoader;
 import techreborn.compat.minetweaker.MinetweakerCompat;
+import techreborn.compat.psi.CompatModulePsi;
 import techreborn.compat.waila.CompatModuleWaila;
 import techreborn.config.ConfigTechReborn;
 import techreborn.parts.StandalonePartCompact;
@@ -45,6 +46,7 @@ public class CompatManager
 		registerCompact(StandalonePartCompact.class, "!mcmultipart");
 		registerCompact(WailaMcMultiPartCompact.class, "mcmultipart", "Waila", "!IC2");
 		registerCompact(CompatModuleWaila.class, "Waila");
+		registerCompact(CompatModulePsi.class, "Psi");
 	}
 
 	public void registerCompact(Class<? extends ICompatModule> moduleClass, Object... objs)

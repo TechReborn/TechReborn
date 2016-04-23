@@ -3,6 +3,7 @@ package techreborn.manual.loader;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.compress.archivers.zip.ZipFile;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import techreborn.manual.saveFormat.ManualFormat;
@@ -71,6 +72,11 @@ public class ManualLoader {
                     //ok the downloaded file is valid
                 }
             }
+
+
+            ZipFile file = new ZipFile(zipLocation);
+            file.
+
         }
 
     }
