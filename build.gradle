@@ -80,9 +80,9 @@ dependencies {
     if(!f.exists()){
         f.mkdir()
     }
-    compile 'RebornCore:RebornCore-1.9:2.0.5.+:dev'
+    compile 'RebornCore:RebornCore-1.9:+:dev'
     deobfCompile "mezz.jei:jei_1.9:+"
-    deobfCompile 'MCMultiPart:MCMultiPart-experimental:1.1.0_55:universal'
+    deobfCompile 'MCMultiPart:MCMultiPart-experimental:1.2.0_60:universal'
 }
 
 
