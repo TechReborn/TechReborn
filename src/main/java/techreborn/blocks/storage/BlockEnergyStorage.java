@@ -70,45 +70,6 @@ public abstract class BlockEnergyStorage extends BaseTileBlock implements IRotat
 	}
 
 	@Override
-	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
-	{
-		super.onBlockAdded(worldIn, pos, state);
-		this.setDefaultFacing(worldIn, pos, state);
-	}
-
-	private void setDefaultFacing(World worldIn, BlockPos pos, IBlockState state)
-	{
-		if (!worldIn.isRemote)
-		{
-			IBlockState sate = worldIn.getBlockState(pos.north());
-			Block block = sate.getBlock();
-			IBlockState state1 = worldIn.getBlockState(pos.south());
-			Block block1 = state1.getBlock();
-			IBlockState state2 = worldIn.getBlockState(pos.west());
-			Block block2 = state2.getBlock();
-			IBlockState state3 = worldIn.getBlockState(pos.east());
-			Block block3 = state3.getBlock();
-			EnumFacing enumfacing = state.getValue(FACING);
-
-			if (enumfacing == EnumFacing.NORTH && block.isFullBlock(state) && !block1.isFullBlock(state1))
-			{
-				enumfacing = EnumFacing.SOUTH;
-			} else if (enumfacing == EnumFacing.SOUTH && block1.isFullBlock(state1) && !block.isFullBlock(state))
-			{
-				enumfacing = EnumFacing.NORTH;
-			} else if (enumfacing == EnumFacing.WEST && block2.isFullBlock(state2) && !block3.isFullBlock(state2))
-			{
-				enumfacing = EnumFacing.EAST;
-			} else if (enumfacing == EnumFacing.EAST && block3.isFullBlock(state3) && !block2.isFullBlock(state2))
-			{
-				enumfacing = EnumFacing.WEST;
-			}
-
-			worldIn.setBlockState(pos, state.withProperty(FACING, enumfacing), 2);
-		}
-	}
-
-	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
 			ItemStack stack)
 	{
@@ -123,53 +84,6 @@ public abstract class BlockEnergyStorage extends BaseTileBlock implements IRotat
 		}
 		setFacing(facing, worldIn, pos);
 	}
-
-
-
-	protected List<ItemStack> dropInventory(IBlockAccess world, BlockPos pos, ItemStack itemToDrop)
-	{
-		TileEntity tileEntity = world.getTileEntity(pos);
-
-		if (tileEntity == null)
-		{
-			return Collections.emptyList();
-		}
-		if (!(tileEntity instanceof IInventory))
-		{
-			return Collections.emptyList();
-		}
-
-		IInventory inventory = (IInventory) tileEntity;
-
-		List<ItemStack> items = new ArrayList<>();
-
-		for (int i = 0; i < inventory.getSizeInventory(); i++)
-		{
-			ItemStack itemStack = inventory.getStackInSlot(i);
-
-			if (itemStack == null)
-			{
-				continue;
-			}
-			if (itemStack != null && itemStack.stackSize > 0)
-			{
-				if (itemStack.getItem() instanceof ItemBlock)
-				{
-					if (((ItemBlock) itemStack.getItem()).block instanceof BlockFluidBase
-							|| ((ItemBlock) itemStack.getItem()).block instanceof BlockStaticLiquid
-							|| ((ItemBlock) itemStack.getItem()).block instanceof BlockDynamicLiquid)
-					{
-						continue;
-					}
-				}
-			}
-			items.add(itemStack.copy());
-		}
-		items.add(itemToDrop.copy());
-		return items;
-
-	}
-
 
 	@Override
 	public int getMetaFromState(IBlockState state)

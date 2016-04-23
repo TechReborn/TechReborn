@@ -90,6 +90,11 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IWrenchable,
 		}
 	}
 
+	@Override
+	public void setFacing(EnumFacing enumFacing) {
+		worldObj.setBlockState(pos, worldObj.getBlockState(pos).withProperty(BlockEnergyStorage.FACING, enumFacing));
+	}
+
 	@Override public float getWrenchDropRate()
 	{
 		return 1.0F;
