@@ -56,13 +56,13 @@ public class BlockRubberLeaves extends BlockLeaves implements ITexturedBlock, IO
 	@Override
 	public BlockRenderLayer getBlockLayer()
 	{
-		return this.leavesFancy ? BlockRenderLayer.CUTOUT_MIPPED : BlockRenderLayer.SOLID;
+		return BlockRenderLayer.CUTOUT_MIPPED;
 	}
 
 	@Override
 	public boolean isOpaqueCube(IBlockState state)
 	{
-		return Blocks.leaves.isOpaqueCube(state);
+		return false;
 	}
 
 	public boolean isFullCube()

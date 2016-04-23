@@ -56,7 +56,7 @@ if (ENV.BUILD_NUMBER) {
 }
 
 minecraft {
-    version = "1.9-12.16.0.1863-1.9"
+    version = "1.9-12.16.0.1865-1.9"
     mappings = "snapshot_20160316"
     replace "@MODVERSION@", project.version
   //  makeObfSourceJar = false
@@ -80,9 +80,9 @@ dependencies {
     if(!f.exists()){
         f.mkdir()
     }
-    compile 'RebornCore:RebornCore-1.9:2.0.5.+:dev'
+    compile 'RebornCore:RebornCore-1.9:+:dev'
     deobfCompile "mezz.jei:jei_1.9:+"
-    deobfCompile 'MCMultiPart:MCMultiPart-experimental:1.1.0_55:universal'
+    deobfCompile 'MCMultiPart:MCMultiPart-experimental:1.2.0_60:universal'
 }
 
 

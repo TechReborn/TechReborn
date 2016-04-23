@@ -1,2 +1,2 @@
-gource -f -1920x1080 --seconds-per-day 1 --auto-skip-seconds 1 --key --title "TechReborn" --camera-mode overview  --multi-sampling  --hide filenames,mouse --file-idle-time 0 --bloom-multiplier 0.05 --bloom-intensity 0.75
+D:\mark\Downloads\gource-0.42.win32\cmd\gource -f -1920x1080 --seconds-per-day 0.5 --auto-skip-seconds 1 --key --title "TechReborn" --camera-mode overview  --multi-sampling  --hide filenames,mouse --file-idle-time 0 --bloom-multiplier 0.05 --bloom-intensity 0.75
 pause
