@@ -1,5 +1,7 @@
 package techreborn.compat;
 
+import java.util.ArrayList;
+
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
@@ -10,8 +12,6 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.parts.StandalonePartCompact;
 import techreborn.parts.TechRebornParts;
 import techreborn.parts.walia.WailaMcMultiPartCompact;
-
-import java.util.ArrayList;
 
 public class CompatManager
 {
