@@ -10,10 +10,6 @@ public interface ISubItemRetriever {
 
     ItemStack getCellByName(String name, int count, boolean lookForIC2);
 
-    ItemStack getCrushedOreByName(String name);
-
-    ItemStack getCrushedOreByName(String name, int count);
-
     ItemStack getDustByName(String name);
 
     ItemStack getDustByName(String name, int count);

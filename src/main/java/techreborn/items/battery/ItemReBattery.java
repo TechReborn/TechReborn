@@ -1,4 +1,4 @@
-package techreborn.items;
+package techreborn.items.battery;
 
 public class ItemReBattery extends ItemBattery {
 

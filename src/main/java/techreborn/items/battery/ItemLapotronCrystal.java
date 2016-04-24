@@ -1,4 +1,4 @@
-package techreborn.items;
+package techreborn.items.battery;
 
 public class ItemLapotronCrystal extends ItemBattery {
 

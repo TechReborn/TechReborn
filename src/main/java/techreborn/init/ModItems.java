@@ -18,6 +18,10 @@ import techreborn.items.*;
 import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
 import techreborn.items.armor.ItemTRArmour;
+import techreborn.items.battery.ItemEnergyCrystal;
+import techreborn.items.battery.ItemLapotronCrystal;
+import techreborn.items.battery.ItemLithiumBattery;
+import techreborn.items.battery.ItemReBattery;
 import techreborn.items.tools.*;
 import techreborn.api.Reference;
 
@@ -157,8 +161,6 @@ public class ModItems
 		GameRegistry.registerItem(plate, "plates");
 		nuggets = new ItemNuggets();
 		GameRegistry.registerItem(nuggets, "nuggets");
-		crushedOre = new ItemCrushedOre();
-		GameRegistry.registerItem(crushedOre, "crushedore");
 		// purifiedCrushedOre = new ItemPurifiedCrushedOre();
 		// GameRegistry.registerItem(purifiedCrushedOre, "purifiedCrushedOre");
 		parts = new ItemParts();
@@ -826,26 +828,6 @@ public class ModItems
 		OreUnifier.registerOre("plateTungstensteel", ItemPlates.getPlateByName("tungstensteel"));
 		OreUnifier.registerOre("plateYellowGarnet", ItemPlates.getPlateByName("yellowGarnet"));
 		OreUnifier.registerOre("plateZinc", ItemPlates.getPlateByName("zinc"));
-
-		// Crushed Ore
-		OreUnifier.registerOre("crushedAluminum", ItemCrushedOre.getCrushedOreByName("Aluminum"));
-		OreUnifier.registerOre("crushedAluminium", ItemCrushedOre.getCrushedOreByName("Aluminum"));
-		OreUnifier.registerOre("crushedArdite", ItemCrushedOre.getCrushedOreByName("Ardite"));
-		OreUnifier.registerOre("crushedBauxite", ItemCrushedOre.getCrushedOreByName("Bauxite"));
-		OreUnifier.registerOre("crushedCadmium", ItemCrushedOre.getCrushedOreByName("Cadmium"));
-		OreUnifier.registerOre("crushedCinnabar", ItemCrushedOre.getCrushedOreByName("Cinnabar"));
-		OreUnifier.registerOre("crushedCobalt", ItemCrushedOre.getCrushedOreByName("Cobalt"));
-		OreUnifier.registerOre("crushedDarkIron", ItemCrushedOre.getCrushedOreByName("DarkIron"));
-		OreUnifier.registerOre("crushedGalena", ItemCrushedOre.getCrushedOreByName("Galena"));
-		OreUnifier.registerOre("crushedIndium", ItemCrushedOre.getCrushedOreByName("Indium"));
-		OreUnifier.registerOre("crushedIridium", ItemCrushedOre.getCrushedOreByName("Iridium"));
-		OreUnifier.registerOre("crushedNickel", ItemCrushedOre.getCrushedOreByName("Nickel"));
-		OreUnifier.registerOre("crushedOsmium", ItemCrushedOre.getCrushedOreByName("Osmium"));
-		OreUnifier.registerOre("crushedPlatinum", ItemCrushedOre.getCrushedOreByName("Platinum"));
-		OreUnifier.registerOre("crushedPyrite", ItemCrushedOre.getCrushedOreByName("Pyrite"));
-		OreUnifier.registerOre("crushedSphalerite", ItemCrushedOre.getCrushedOreByName("Sphalerite"));
-		OreUnifier.registerOre("crushedTetrahedrite", ItemCrushedOre.getCrushedOreByName("Tetrahedrite"));
-		OreUnifier.registerOre("crushedTungsten", ItemCrushedOre.getCrushedOreByName("Tungsten"));
 
 		OreUnifier.registerOre("diamondTR", ItemDusts.getDustByName("Diamond"));
 		OreUnifier.registerOre("diamondTR", Items.diamond);

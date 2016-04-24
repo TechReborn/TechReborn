@@ -1,4 +1,4 @@
-package techreborn.items;
+package techreborn.items.battery;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PoweredItem;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.items.ItemTextureBase;
 
 public class ItemBattery extends ItemTextureBase implements IEnergyItemInfo
 {

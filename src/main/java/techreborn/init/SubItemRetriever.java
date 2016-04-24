@@ -5,7 +5,6 @@ import techreborn.api.ISubItemRetriever;
 import techreborn.blocks.BlockOre;
 import techreborn.blocks.BlockStorage;
 import techreborn.items.ItemCells;
-import techreborn.items.ItemCrushedOre;
 import techreborn.items.ItemDusts;
 import techreborn.items.ItemDustsSmall;
 import techreborn.items.ItemGems;
@@ -33,16 +32,6 @@ public class SubItemRetriever implements ISubItemRetriever {
     @Override
     public ItemStack getCellByName(String name, int count, boolean lookForIC2) {
         return ItemCells.getCellByName(name, count, lookForIC2);
-    }
-
-    @Override
-    public ItemStack getCrushedOreByName(String name) {
-        return ItemCrushedOre.getCrushedOreByName(name);
-    }
-
-    @Override
-    public ItemStack getCrushedOreByName(String name, int count) {
-        return ItemCrushedOre.getCrushedOreByName(name, count);
     }
 
     @Override
