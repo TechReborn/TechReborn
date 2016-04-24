@@ -14,6 +14,7 @@ import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
 import techreborn.items.ItemParts;
 import techreborn.items.ItemPlates;
+import techreborn.manual.loader.ManualLoader;
 import techreborn.manual.pages.*;
 
 import java.io.IOException;
@@ -33,7 +34,8 @@ public class GuiManual extends GuiScreen
 	{
 		this.xSize = 200;
 		this.ySize = 180;
-		root = createRoot();
+//		root = createRoot();
+		root = ManualLoader.getPages();
 	}
 
 	protected PageCollection createRoot()

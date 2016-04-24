@@ -3,13 +3,19 @@ package techreborn.manual.loader;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.compress.archivers.zip.ZipFile;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import reborncore.common.util.Unzip;
+import techreborn.manual.PageCollection;
+import techreborn.manual.Reference;
+import techreborn.manual.loader.pages.CategoriesPage;
+import techreborn.manual.pages.ContentsPage;
 import techreborn.manual.saveFormat.ManualFormat;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -24,6 +30,8 @@ public class ManualLoader {
     public static final String MANUAL_VERSION = "0";
 
     File configDir;
+
+    public static ManualFormat format;
 
     public ManualLoader(File configDir) {
         this.configDir = configDir;
@@ -59,27 +67,42 @@ public class ManualLoader {
         }
 
         if(downloadablePackageInfo != null){
+            boolean hasIntactZip = false;
             File zipLocation = new File(manualdir, downloadablePackageInfo.fileName);
             if(zipLocation.exists()){
                 String md5 = getMD5(zipLocation);
                 if(md5.equals(downloadablePackageInfo.md5)){
                     //Oh look we allready have it!
+                    hasIntactZip = true;
                 }
             } else {
                 FileUtils.copyURLToFile(new URL("http://modmuss50.me/techreborn/manual/packages/" + downloadablePackageInfo.fileName), zipLocation);
                 String md5 = getMD5(zipLocation);
                 if(md5.equals(downloadablePackageInfo.md5)){
                     //ok the downloaded file is valid
+                    hasIntactZip = true;
                 }
             }
-
-
-            ZipFile file = new ZipFile(zipLocation);
-//            file.
+            if(hasIntactZip){
+                File outputDir = new File(manualdir, zipLocation.getName().replace(".zip", ""));
+                Unzip.unzip(zipLocation, outputDir);
+                File inputData = new File(outputDir, "master.json");
+                BufferedReader reader = new BufferedReader(new FileReader(inputData));
+                ManualLoader.format = gson.fromJson(reader, ManualFormat.class);
+                System.out.println(ManualLoader.format);
+            }
 
         }
 
     }
+
+    public static PageCollection getPages(){
+        final PageCollection pageCollection = new PageCollection();
+        pageCollection.addPage(new CategoriesPage(Reference.pageNames.CONTENTS_PAGE, pageCollection));
+
+        return pageCollection;
+    }
+
 
     public static String getMD5(File file) throws IOException {
         FileInputStream fis = new FileInputStream(file);

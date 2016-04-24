@@ -19,6 +19,7 @@ import net.minecraftforge.fml.common.registry.GameData;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import reborncore.api.fuel.FluidPowerManager;
 import reborncore.api.recipe.RecipeHandler;
+import techreborn.dev.JsonGenerator;
 
 public class TechRebornDevCommand extends CommandBase
 {
@@ -103,6 +104,8 @@ public class TechRebornDevCommand extends CommandBase
 			} else {
 				((EntityPlayer) sender).addChatComponentMessage(new TextComponentString("hold an item!"));
 			}
+		} else if ("gen".equals(args[0])) { //TODO DO NOT SHIP!!!
+				new JsonGenerator().generate();
 		}
 	}
 }
