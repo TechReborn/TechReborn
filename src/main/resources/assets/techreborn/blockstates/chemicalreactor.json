@@ -1,0 +1,35 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "techreborn:tile.techreborn.chemicalreactor"
+  },
+  "variants": {
+     "inventory": {
+       "transform": "forge:default-block",
+       "textures": {
+          "front": "techreborn:blocks/machine/greg_machines/chemical_reactor_side_off"
+        }
+    },
+    "normal":[{"model": "techreborn:tile.techreborn.chemicalreactor"}],
+
+    "facing":{
+      "north": {},
+      "east": {"y": 90},
+      "south": {"y": 180},
+      "west": {"y": 270}
+    },
+
+    "active":{
+      "true":{
+        "textures": {
+          "front": "techreborn:blocks/machine/greg_machines/chemical_reactor_side_on"
+        }
+      },
+      "false":{
+        "textures": {
+          "front": "techreborn:blocks/machine/greg_machines/chemical_reactor_side_off"
+        }
+      }
+    }
+  }
+}

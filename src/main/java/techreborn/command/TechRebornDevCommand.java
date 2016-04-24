@@ -1,5 +1,6 @@
 package techreborn.command;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,7 +106,12 @@ public class TechRebornDevCommand extends CommandBase
 				((EntityPlayer) sender).addChatComponentMessage(new TextComponentString("hold an item!"));
 			}
 		} else if ("gen".equals(args[0])) { //TODO DO NOT SHIP!!!
+			try {
 				new JsonGenerator().generate();
+			} catch (IOException e) {
+				e.printStackTrace();
+				sender.addChatMessage(new TextComponentString(e.getLocalizedMessage()));
+			}
 		}
 	}
 }

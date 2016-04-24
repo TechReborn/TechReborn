@@ -1,0 +1,9 @@
+{
+  "parent": "block/orientable",
+  "textures": {
+    "particle": "techreborn:blocks/machine/greg_machines/chargeBench_side",
+    "top": "techreborn:blocks/machine/greg_machines/chargeBench_side",
+    "front": "techreborn:blocks/machine/greg_machines/chargeBench_side",
+    "side": "techreborn:blocks/machine/greg_machines/chargeBench_side"
+  }
+}

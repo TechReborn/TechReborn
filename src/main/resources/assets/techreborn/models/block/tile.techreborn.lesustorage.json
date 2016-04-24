@@ -1,0 +1,9 @@
+{
+  "parent": "block/orientable",
+  "textures": {
+    "particle": "techreborn:blocks/machine/storage/lesu_block",
+    "top": "techreborn:blocks/machine/storage/lesu_block",
+    "front": "techreborn:blocks/machine/storage/lesu_block",
+    "side": "techreborn:blocks/machine/storage/lesu_block"
+  }
+}

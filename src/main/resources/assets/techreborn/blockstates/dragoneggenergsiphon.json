@@ -1,0 +1,35 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "techreborn:tile.techreborn.dragoneggsiphoner"
+  },
+  "variants": {
+     "inventory": {
+       "transform": "forge:default-block",
+       "textures": {
+          "front": "techreborn:blocks/machine/generators/dragon_egg_energy_siphon_side_off"
+        }
+    },
+    "normal":[{"model": "techreborn:tile.techreborn.dragoneggsiphoner"}],
+
+    "facing":{
+      "north": {},
+      "east": {"y": 90},
+      "south": {"y": 180},
+      "west": {"y": 270}
+    },
+
+    "active":{
+      "true":{
+        "textures": {
+          "front": "techreborn:blocks/machine/generators/dragon_egg_energy_siphon_side_off"
+        }
+      },
+      "false":{
+        "textures": {
+          "front": "techreborn:blocks/machine/generators/dragon_egg_energy_siphon_side_off"
+        }
+      }
+    }
+  }
+}

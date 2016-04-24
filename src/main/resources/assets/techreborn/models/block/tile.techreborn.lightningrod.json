@@ -1,0 +1,9 @@
+{
+  "parent": "block/orientable",
+  "textures": {
+    "particle": "techreborn:blocks/machine/generators/lightning_rod_side_off",
+    "top": "techreborn:blocks/machine/generators/lightning_rod_top_off",
+    "front": "techreborn:blocks/machine/generators/lightning_rod_side_off",
+    "side": "techreborn:blocks/machine/generators/lightning_rod_side_off"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "techreborn:tile.techreborn.rollingmachine"
+  },
+  "variants": {
+     "inventory": {
+       "transform": "forge:default-block",
+       "textures": {
+          "front": "techreborn:blocks/machine/greg_machines/rolling_machine_side_off"
+        }
+    },
+    "normal":[{"model": "techreborn:tile.techreborn.rollingmachine"}],
+
+    "facing":{
+      "north": {},
+      "east": {"y": 90},
+      "south": {"y": 180},
+      "west": {"y": 270}
+    },
+
+    "active":{
+      "true":{
+        "textures": {
+          "front": "techreborn:blocks/machine/greg_machines/rolling_machine_side_on"
+        }
+      },
+      "false":{
+        "textures": {
+          "front": "techreborn:blocks/machine/greg_machines/rolling_machine_side_off"
+        }
+      }
+    }
+  }
+}

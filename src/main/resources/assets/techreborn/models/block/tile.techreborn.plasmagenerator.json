@@ -1,0 +1,9 @@
+{
+  "parent": "block/orientable",
+  "textures": {
+    "particle": "techreborn:blocks/machine/generators/plasma_generator_side_off",
+    "top": "techreborn:blocks/machine/generators/plasma_generator_side_off",
+    "front": "techreborn:blocks/machine/generators/plasma_generator_front",
+    "side": "techreborn:blocks/machine/generators/plasma_generator_side_off"
+  }
+}
