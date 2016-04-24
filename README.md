@@ -25,21 +25,21 @@ Jenkins builds of TechReborn are compiled directly from this repository. Please 
 
 *This version is constantly recieving updates, and does not have a stable, recommended, release. Once again, remember to backup your worlds before using jenkins builds.*
 
-[![Build Status](http://modmuss50.me:8080/job/TechReborn-1.9/badge/icon)](http://modmuss50.me:8080/job/TechReborn-1.9/)
+[![Build Status](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.9/badge/icon)](http://modmuss50.me:8080/job/TechReborn-1.9/)
 
 1.8.9:
 ---
 
 *This version is only semi-supported while ic2 is on 1.8.9*
 
-[![Build Status](http://modmuss50.me:8080/job/TechReborn-1.8.9/badge/icon)](http://modmuss50.me:8080/job/TechReborn-1.8.9/)
+[![Build Status](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.8.9/badge/icon)](http://modmuss50.me:8080/job/TechReborn-1.8.9/)
 
 1.7.10:
 ---
 
 *Please understand that the 1.7.10 version of TechReborn is not being maintained. We've moved onto TechReborn for Minecraft 1.8.9. If there is an extremely critical bug that you find in the 1.7.10 version, report it to the bug tracker and we will determine if it is drastic enough for a fix.*
 
-[![Build Status](http://modmuss50.me:8080/job/TechReborn-1.7.10/badge/icon)](http://modmuss50.me:8080/job/TechReborn-1.7.10/)
+[![Build Status](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.7.10/badge/icon)](http://modmuss50.me:8080/job/TechReborn-1.7.10/)
 
 # Contributators:
 
