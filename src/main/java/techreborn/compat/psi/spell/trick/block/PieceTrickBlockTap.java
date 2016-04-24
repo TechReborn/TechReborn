@@ -2,18 +2,10 @@ package techreborn.compat.psi.spell.trick.block;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 import techreborn.blocks.BlockRubberLog;
 import techreborn.items.ItemParts;
 import vazkii.psi.api.internal.Vector3;
@@ -26,11 +18,11 @@ import vazkii.psi.api.spell.SpellParam;
 import vazkii.psi.api.spell.SpellRuntimeException;
 import vazkii.psi.api.spell.param.ParamVector;
 import vazkii.psi.api.spell.piece.PieceTrick;
-import vazkii.psi.common.core.handler.ConfigHandler;
 
 public class PieceTrickBlockTap extends PieceTrick {
 
 	SpellParam position;
+	SpellParam side;
 
 	public PieceTrickBlockTap(Spell spell) {
 		super(spell);
@@ -39,6 +31,7 @@ public class PieceTrickBlockTap extends PieceTrick {
 	@Override
 	public void initParams() {
 		addParam(position = new ParamVector(SpellParam.GENERIC_NAME_POSITION, SpellParam.BLUE, false, false));
+		addParam(side = new ParamVector("Side", SpellParam.GREEN, false, false));
 	}
 
 	@Override
@@ -51,80 +44,59 @@ public class PieceTrickBlockTap extends PieceTrick {
 
 	@Override
 	public Object execute(SpellContext context) throws SpellRuntimeException {
-		if(context.caster.worldObj.isRemote)
+		if (context.caster.worldObj.isRemote)
 			return null;
 
-		Vector3 positionVal = this.<Vector3>getParamValue(context, position);
+		Vector3 positionVal = this.<Vector3> getParamValue(context, position);
+		Vector3 sideVal = this.<Vector3> getParamValue(context, side);
 
-		if(positionVal == null)
+		if (positionVal == null)
 			throw new SpellRuntimeException(SpellRuntimeException.NULL_VECTOR);
-		if(!context.isInRadius(positionVal))
+		if (!context.isInRadius(positionVal))
 			throw new SpellRuntimeException(SpellRuntimeException.OUTSIDE_RADIUS);
 
+		if (sideVal == null)
+			throw new SpellRuntimeException(SpellRuntimeException.NULL_VECTOR);
+		if (!context.isInRadius(sideVal))
+			throw new SpellRuntimeException(SpellRuntimeException.OUTSIDE_RADIUS);
+		
+		if(!sideVal.isAxial()){
+			return null;
+		}
+		
 		BlockPos pos = new BlockPos(positionVal.x, positionVal.y, positionVal.z);
 		IBlockState state = context.caster.worldObj.getBlockState(pos);
-		if(state instanceof BlockRubberLog){
-		if (state.getValue(BlockRubberLog.HAS_SAP))
-		{
-			if (state.getValue(BlockRubberLog.SAP_SIDE) == context.positionBroken.sideHit)
-			{
-				context.caster.worldObj.setBlockState(pos,
-						state.withProperty(BlockRubberLog.HAS_SAP, false).withProperty(BlockRubberLog.SAP_SIDE, EnumFacing.getHorizontal(0)));
-				// TODO 1.9 sounds
-				// worldIn.playSoundAtEntity(playerIn,
-				// "techreborn:sap_extract", 0.8F, 1F);
-				if (!context.caster.worldObj.isRemote)
-				{
-					Random rand = new Random();
-					BlockPos itemPos = pos.offset(context.positionBroken.sideHit);
-					EntityItem item = new EntityItem(context.caster.worldObj, itemPos.getX(), itemPos.getY(), itemPos.getZ(),
-							ItemParts.getPartByName("rubberSap").copy());
-					float factor = 0.05F;
-					item.motionX = rand.nextGaussian() * factor;
-					item.motionY = rand.nextGaussian() * factor + 0.2F;
-					item.motionZ = rand.nextGaussian() * factor;
-					context.caster.worldObj.spawnEntityInWorld(item);
-				}
-				return true;
-			}
-		}
-		}
-		removeBlockWithDrops(context, context.caster, context.caster.worldObj, context.tool, pos, true);
-
-		return null;
-	}
-
-	public static void removeBlockWithDrops(SpellContext context, EntityPlayer player, World world, ItemStack tool,
-			BlockPos pos, boolean particles) {
-		if (!world.isBlockLoaded(pos)
-				|| context.positionBroken != null && pos.equals(context.positionBroken.getBlockPos()))
-			return;
-
-		int harvestLevel = ConfigHandler.cadHarvestLevel;
-		IBlockState state = world.getBlockState(pos);
-		Block block = state.getBlock();
-		if (!world.isRemote && block != null && !block.isAir(state, world, pos) && !(block instanceof BlockLiquid)
-				&& block.getPlayerRelativeBlockHardness(state, player, world, pos) > 0) {
-			int neededHarvestLevel = block.getHarvestLevel(state);
-			if (neededHarvestLevel > harvestLevel && (tool != null && !tool.canHarvestBlock(state)))
-				return;
-
-			BreakEvent event = new BreakEvent(world, pos, state, player);
-			MinecraftForge.EVENT_BUS.post(event);
-			if (!event.isCanceled()) {
-				if (!player.capabilities.isCreativeMode) {
-					block.onBlockHarvested(world, pos, state, player);
-
-					if (block.removedByPlayer(state, world, pos, player, true)) {
-						block.onBlockDestroyedByPlayer(world, pos, state);
-						block.harvestBlock(world, player, pos, state, world.getTileEntity(pos), tool);
+		if (state.getBlock() instanceof BlockRubberLog) {
+			System.out.println("Is rubber log");
+			if (state.getValue(BlockRubberLog.HAS_SAP)) {
+				System.out.println("Has sap");
+				if (state.getValue(BlockRubberLog.SAP_SIDE) == null) {
+					System.out.println("got this far");
+					context.caster.worldObj.setBlockState(pos, state.withProperty(BlockRubberLog.HAS_SAP, false)
+							.withProperty(BlockRubberLog.SAP_SIDE, EnumFacing.getHorizontal(0)));
+					// TODO 1.9 sounds
+					// worldIn.playSoundAtEntity(playerIn,
+					// "techreborn:sap_extract", 0.8F, 1F);
+					if (!context.caster.worldObj.isRemote) {
+						System.out.println("doing stuff");
+						Random rand = new Random();
+						BlockPos itemPos = pos.offset(context.positionBroken.sideHit);
+						EntityItem item = new EntityItem(context.caster.worldObj, itemPos.getX(), itemPos.getY(),
+								itemPos.getZ(), ItemParts.getPartByName("rubberSap").copy());
+						float factor = 0.05F;
+						item.motionX = rand.nextGaussian() * factor;
+						item.motionY = rand.nextGaussian() * factor + 0.2F;
+						item.motionZ = rand.nextGaussian() * factor;
+						context.caster.worldObj.spawnEntityInWorld(item);
 					}
-				} else
-					world.setBlockToAir(pos);
+				} else {
+					return null;
+				}
+			} else {
+				return null;
 			}
-
-			if (particles)
-				world.playAuxSFX(2001, pos, Block.getStateId(state));
 		}
+		return null;
+
 	}
 }

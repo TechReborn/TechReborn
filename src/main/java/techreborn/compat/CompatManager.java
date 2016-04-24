@@ -46,7 +46,7 @@ public class CompatManager
 		registerCompact(StandalonePartCompact.class, "!mcmultipart");
 		registerCompact(WailaMcMultiPartCompact.class, "mcmultipart", "Waila", "!IC2");
 		registerCompact(CompatModuleWaila.class, "Waila");
-		registerCompact(CompatModulePsi.class, "Psi");
+		//registerCompact(CompatModulePsi.class, "Psi");
 	}
 
 	public void registerCompact(Class<? extends ICompatModule> moduleClass, Object... objs)
