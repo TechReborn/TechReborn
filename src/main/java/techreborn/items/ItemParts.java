@@ -15,15 +15,17 @@ import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
 
 public class ItemParts extends ItemTextureBase {
-	public static final String[] types = new String[] { "dataControlCircuit", "dataOrb", "diamondGrindingHead",
-			"diamondSawBlade", "wolframiumGrindingHead", "heliumCoolantSimple", "heliumCoolantTriple",
-			"heliumCoolantSix", "NaKCoolantSimple", "NaKCoolantTriple", "NaKCoolantSix", "cupronickelHeatingCoil",
-			"nichromeHeatingCoil", "kanthalHeatingCoil", "lazuriteChunk", "iridiumAlloyIngot", "rockCutterBlade",
-			"superConductor", "thoriumCell", "doubleThoriumCell", "quadThoriumCell", "plutoniumCell",
-			"doublePlutoniumCell", "quadPlutoniumCell", "computerMonitor", "machineParts", "neutronReflector",
-			"iridiumNeutronReflector", "thickNeutronReflector", "electronicCircuit", "advancedCircuit", "rubberSap",
-			"rubber", "scrap", "advancedAlloy", "mixedmetalingot", "carbonmesh", "carbonfiber", "coolantSimple",
-			"coolantTriple", "coolantSix" };
+	public static final String[] types = new String[] { "advancedCircuitParts", "basicCircuitBoard",
+			"advancedCircuitBoard", "processorCircuitBoard", "energyFlowCircuit", "dataControlCircuit", "dataOrb",
+			"dataStorageCircuit", "diamondGrindingHead", "diamondSawBlade", "tungstenGrindingHead",
+			"heliumCoolantSimple", "HeliumCoolantTriple", "HeliumCoolantSix", "NaKCoolantSimple", "NaKCoolantTriple",
+			"NaKCoolantSix", "cupronickelHeatingCoil", "nichromeHeatingCoil", "kanthalHeatingCoil", "laserFocus",
+			"ductTape", "lazuriteChunk", "iridiumAlloyIngot", "rockCutterBlade", "superConductor", "thoriumCell",
+			"doubleThoriumCell", "quadThoriumCell", "plutoniumCell", "doublePlutoniumCell", "quadPlutoniumCell",
+			"destructoPack", "iridiumNeutronReflector", "massHoleDevice", "computerMonitor", "machineParts",
+			"thickNeutronReflector", "neutronReflector", "electronicCircuit", "advancedCircuit", "rubberSap", "rubber",
+			"scrap", "pump", "teleporter", "advancedAlloy", "mixedmetalingot", "carbonmesh", "carbonfiber", "dogecoin",
+			"CoolantSimple", "CoolantTriple", "CoolantSix" };
 
 	public ItemParts() {
 		setCreativeTab(TechRebornCreativeTab.instance);
@@ -64,10 +66,10 @@ public class ItemParts extends ItemTextureBase {
 
 	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
 		switch (itemStack.getItemDamage()) {
-		case 37: // Destructo pack
-			player.openGui(Core.INSTANCE, GuiHandler.destructoPackID, world, (int) player.posX, (int) player.posY,
-					(int) player.posY);
-			break;
+			case 37: // Destructo pack
+				player.openGui(Core.INSTANCE, GuiHandler.destructoPackID, world, (int) player.posX, (int) player.posY,
+						(int) player.posY);
+				break;
 		}
 		return itemStack;
 	}

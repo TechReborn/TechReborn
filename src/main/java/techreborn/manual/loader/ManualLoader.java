@@ -16,6 +16,7 @@ import org.apache.commons.io.IOUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import reborncore.common.util.Unzip;
 import techreborn.manual.PageCollection;
 import techreborn.manual.Reference;
 import techreborn.manual.loader.pages.CategoriesPage;
@@ -84,7 +85,7 @@ public class ManualLoader {
             }
             if(hasIntactZip){
                 File outputDir = new File(manualdir, zipLocation.getName().replace(".zip", ""));
-                //Unzip.unzip(zipLocation, outputDir);
+                Unzip.unzip(zipLocation, outputDir);
                 File inputData = new File(outputDir, "master.json");
                 BufferedReader reader = new BufferedReader(new FileReader(inputData));
                 ManualLoader.format = gson.fromJson(reader, ManualFormat.class);
