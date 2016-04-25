@@ -1,9 +1,0 @@
-{
-  "parent": "block/orientable",
-  "textures": {
-    "particle": "techreborn:blocks/machine/greg_machines/matter_fabricator_off",
-    "top": "techreborn:blocks/machine/greg_machines/matter_fabricator_off",
-    "front": "techreborn:blocks/machine/greg_machines/matter_fabricator_off",
-    "side": "techreborn:blocks/machine/greg_machines/matter_fabricator_off"
-  }
-}

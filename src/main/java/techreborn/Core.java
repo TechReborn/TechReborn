@@ -62,8 +62,7 @@ public class Core
 	public VersionChecker versionChecker;
 
 	@Mod.EventHandler
-	public void preinit(FMLPreInitializationEvent event)
-	{
+	public void preinit(FMLPreInitializationEvent event) throws IllegalAccessException, InstantiationException {
 		event.getModMetadata().version = ModInfo.MOD_VERSION;
 		INSTANCE = this;
 		FMLCommonHandler.instance().bus().register(this);
@@ -87,6 +86,13 @@ public class Core
 		{
 			compatModule.preInit(event);
 		}
+
+		// Register ModBlocks
+		ModBlocks.init();
+		// Register Fluids
+		ModFluids.init();
+		// Register ModItems
+		ModItems.init();
 		// Entitys
 		EntityRegistry.registerModEntity(EntityNukePrimed.class, "nuke", 0, INSTANCE, 160, 5, true);
 		proxy.preInit(event);
@@ -94,19 +100,12 @@ public class Core
 		RecipeConfigManager.load(event.getModConfigurationDirectory());
 		versionChecker = new VersionChecker("TechReborn", new ModInfo());
 		versionChecker.checkVersionThreaded();
-
 		logHelper.info("PreInitialization Complete");
 	}
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) throws IllegalAccessException, InstantiationException
 	{
-		// Register ModBlocks
-		ModBlocks.init();
-		// Register Fluids
-		ModFluids.init();
-		// Register ModItems
-		ModItems.init();
 		// Registers Chest Loot
 		ModLoot.init();
 		// Multiparts

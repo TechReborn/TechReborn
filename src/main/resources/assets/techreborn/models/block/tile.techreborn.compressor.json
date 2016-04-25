@@ -1,9 +1,0 @@
-{
-  "parent": "block/orientable",
-  "textures": {
-    "particle": "techreborn:blocks/machine/tier1_machines/tier1_machine_side",
-    "top": "techreborn:blocks/machine/tier1_machines/tier1_machine_top",
-    "front": "techreborn:blocks/machine/tier1_machines/compressor_front_off",
-    "side": "techreborn:blocks/machine/tier1_machines/tier1_machine_side"
-  }
-}

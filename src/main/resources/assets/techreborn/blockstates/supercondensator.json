@@ -1,35 +1,55 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "techreborn:tile.techreborn.supercondensator"
-  },
-  "variants": {
-     "inventory": {
-       "transform": "forge:default-block",
-       "textures": {
-          "front": "techreborn:blocks/machine/greg_machines/supercondensator_front"
-        }
-    },
-    "normal":[{"model": "techreborn:tile.techreborn.supercondensator"}],
-
-    "facing":{
-      "north": {},
-      "east": {"y": 90},
-      "south": {"y": 180},
-      "west": {"y": 270}
-    },
-
-    "active":{
-      "true":{
-        "textures": {
-          "front": "techreborn:blocks/machine/greg_machines/supercondensator_front"
-        }
-      },
-      "false":{
-        "textures": {
-          "front": "techreborn:blocks/machine/greg_machines/supercondensator_front"
-        }
+   "forge_marker":1,
+   "defaults":{
+      "transform":"forge:default-block",
+      "model":"orientable",
+      "textures":{
+         "particle":"techreborn:blocks/machine/greg_machines/supercondensator_side",
+         "top":"techreborn:blocks/machine/greg_machines/supercondensator_side",
+         "side":"techreborn:blocks/machine/greg_machines/supercondensator_side"
       }
-    }
-  }
+   },
+   "variants":{
+      "inventory":{
+         "transform":"forge:default-block",
+         "textures":{
+            "front":"techreborn:blocks/machine/greg_machines/supercondensator_front"
+         }
+      },
+      "facing":{
+         "north":{
+
+         },
+         "east":{
+            "y":90
+         },
+         "south":{
+            "y":180
+         },
+         "west":{
+            "y":270
+         }
+      },
+      "active":{
+         "true":{
+            "textures":{
+               "front":"techreborn:blocks/machine/greg_machines/supercondensator_front"
+            }
+         },
+         "false":{
+            "textures":{
+               "front":"techreborn:blocks/machine/greg_machines/supercondensator_front"
+            }
+         }
+      },
+        "inventory": {
+            "model": "orientable",
+            "textures": {
+                "particle": "techreborn:blocks/machine/greg_machines/supercondensator_side",
+                "top": "techreborn:blocks/machine/greg_machines/supercondensator_side",
+                "side": "techreborn:blocks/machine/greg_machines/supercondensator_side",
+                "front": "techreborn:blocks/machine/greg_machines/supercondensator_front"
+            }
+        }
+   }
 }

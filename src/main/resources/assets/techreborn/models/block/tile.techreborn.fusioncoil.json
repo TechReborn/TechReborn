@@ -1,9 +1,0 @@
-{
-  "parent": "block/orientable",
-  "textures": {
-    "particle": "techreborn:blocks/machine/greg_machines/fusion_coil",
-    "top": "techreborn:blocks/machine/greg_machines/fusion_coil",
-    "front": "techreborn:blocks/machine/greg_machines/fusion_coil",
-    "side": "techreborn:blocks/machine/greg_machines/fusion_coil"
-  }
-}

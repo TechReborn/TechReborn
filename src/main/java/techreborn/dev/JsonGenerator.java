@@ -57,8 +57,6 @@ public class JsonGenerator {
         }
         File machineBaseFile = new File(baseJsonFiles, "machineBase.json");
         String machineBase = Files.toString(machineBaseFile, Charsets.UTF_8);
-        File machineModelBaseFile = new File(baseJsonFiles, "machineModelBase.json");
-        String machineModelBase = Files.toString(machineModelBaseFile, Charsets.UTF_8);
         for(Object object : RebornCore.jsonDestroyer.objectsToDestroy){
             if(object instanceof BlockMachineBase){
                 BlockMachineBase base = (BlockMachineBase) object;
@@ -68,34 +66,15 @@ public class JsonGenerator {
                     state.delete();
                 }
                 String output = machineBase;
-                output = output.replaceAll("%MODEL%", "techreborn:" + base.getUnlocalizedName());
                 output = output.replaceAll("%OFF_TEXTURE%", base.getTextureNameFromState(base.getDefaultState(), EnumFacing.NORTH));
                 output = output.replaceAll("%ON_TEXTURE%", base.getTextureNameFromState(base.getDefaultState().withProperty(BlockMachineBase.ACTIVE, true), EnumFacing.NORTH));
+                output = output.replaceAll("%SIDE_TEXTURE%", base.getTextureNameFromState(base.getDefaultState(), EnumFacing.EAST));
+                output = output.replaceAll("%TOP_TEXTURE%", base.getTextureNameFromState(base.getDefaultState(), EnumFacing.UP));
                 try {
                     FileOutputStream is = new FileOutputStream(state);
                     OutputStreamWriter osw = new OutputStreamWriter(is);
                     Writer w = new BufferedWriter(osw);
                     w.write(output);
-                    w.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                File model = new File(blockModels, base.getUnlocalizedName() + ".json");
-                if(model.exists()){
-                    model.delete();
-                }
-                String modelOutput = machineModelBase;
-                modelOutput = modelOutput.replaceAll("%MODEL%", base.getUnlocalizedName() );
-                modelOutput = modelOutput.replaceAll("%OFF_TEXTURE%", base.getTextureNameFromState(base.getDefaultState(), EnumFacing.NORTH));
-                modelOutput = modelOutput.replaceAll("%ON_TEXTURE%", base.getTextureNameFromState(base.getDefaultState().withProperty(BlockMachineBase.ACTIVE, true), EnumFacing.NORTH));
-                modelOutput = modelOutput.replaceAll("%SIDE_TEXTURE%", base.getTextureNameFromState(base.getDefaultState(), EnumFacing.EAST));
-                modelOutput = modelOutput.replaceAll("%TOP_TEXTURE%", base.getTextureNameFromState(base.getDefaultState(), EnumFacing.UP));
-                try {
-                    FileOutputStream is = new FileOutputStream(model);
-                    OutputStreamWriter osw = new OutputStreamWriter(is);
-                    Writer w = new BufferedWriter(osw);
-                    w.write(modelOutput);
                     w.close();
                 } catch (IOException e) {
                     e.printStackTrace();
