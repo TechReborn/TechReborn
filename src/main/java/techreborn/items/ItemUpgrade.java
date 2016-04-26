@@ -31,7 +31,6 @@ public class ItemUpgrade extends ItemTR implements IMachineUpgrade {
     public static final String[] types = new String[]
             {"0.2Speed", "0.2Power", "0.5Speed"};
 
-    private IIcon[] textures;
 
     public ItemUpgrade() {
         setUnlocalizedName("techreborn.upgrade");
@@ -43,22 +42,7 @@ public class ItemUpgrade extends ItemTR implements IMachineUpgrade {
     @Override
     // Registers Textures For All Dusts
     public void registerIcons(IIconRegister iconRegister) {
-        textures = new IIcon[types.length];
-
-        for (int i = 0; i < types.length; ++i) {
-            textures[i] = iconRegister.registerIcon("techreborn:" + "upgrade/"
-                    + types[i] + "Upgrade");
-        }
-    }
-
-    @Override
-    // Adds Texture what match's meta data
-    public IIcon getIconFromDamage(int meta) {
-        if (meta < 0 || meta >= textures.length) {
-            meta = 0;
-        }
-
-        return textures[meta];
+        this.itemIcon = iconRegister.registerIcon("techreborn:" + "UpgradeBackingTemplate");
     }
 
     @Override

@@ -596,6 +596,7 @@ item.bucketwolframium.name=Wolframium Bucket
 #Items
 item.techreborn.uuMatter.name=UU-Matter
 item.techreborn.pda.name=PDA
+item.techreborn.lithiumBattery.name=lithium Battery
 
 #Configs
 config.techreborn.allow.galenaOre=Allow Galena Ore
