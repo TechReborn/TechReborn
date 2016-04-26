@@ -69,12 +69,6 @@ public class EmcValues implements ICompatModule {
         event.registerServerCommand(new CommandReload());
     }
 
-    @SubscribeEvent
-    public void serverTick(TickEvent.ServerTickEvent event) {
-        //This should be a fix for the things not saving
-        EnergyValueRegistry.getInstance().setShouldRegenNextRestart(false);
-    }
-
     private void addOre(String name, float value) {
         WrappedStack stack = WrappedStack.wrap(new OreStack(name));
         EnergyValue energyValue = new EnergyValue(value);
