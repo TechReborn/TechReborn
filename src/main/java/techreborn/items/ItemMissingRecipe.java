@@ -1,10 +1,25 @@
 package techreborn.items;
 
-import net.minecraft.item.Item;
+import me.modmuss50.jsonDestroyer.api.ITexturedItem;
+import techreborn.client.TechRebornCreativeTabMisc;
 
-/**
- * Created by modmuss50 on 19/02/2016.
- */
-public class ItemMissingRecipe extends Item
+public class ItemMissingRecipe extends ItemTextureBase implements ITexturedItem
 {
+	public ItemMissingRecipe()
+	{
+		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setUnlocalizedName("techreborn.missingrecipe");
+	}
+
+	@Override
+	public String getTextureName(int damage)
+	{
+		return "techreborn:items/misc/missing_recipe";
+	}
+
+	@Override
+	public int getMaxMeta()
+	{
+		return 1;
+	}
 }

@@ -1,9 +1,5 @@
 package techreborn.blocks;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
@@ -31,11 +27,15 @@ import techreborn.items.ItemDusts;
 import techreborn.items.ItemGems;
 import techreborn.world.config.IOreNameProvider;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class BlockOre extends BaseBlock implements ITexturedBlock, IOreNameProvider
 {
 
 	public static final String[] types = new String[] { "Galena", "Iridium", "Ruby", "Sapphire", "Bauxite", "Pyrite",
-			"Cinnabar", "Sphalerite", "Tungston", "Sheldonite", "Peridot", "Sodalite", "Tetrahedrite", "Cassiterite",
+			"Cinnabar", "Sphalerite", "Tungston", "Sheldonite", "Peridot", "Sodalite",
 			"Lead", "Silver" };
 	public PropertyInteger METADATA;
 
@@ -118,7 +118,7 @@ public class BlockOre extends BaseBlock implements ITexturedBlock, IOreNameProvi
 			return set.drop(fortune, random);
 		}
 
-		// Sodolite
+		// Sodalite
 		if (metadata == 11)
 		{
 			OreDrop sodalite = new OreDrop(ItemDusts.getDustByName("sodalite", 6),

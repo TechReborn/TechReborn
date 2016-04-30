@@ -1,22 +1,19 @@
 package techreborn.init;
 
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import techreborn.api.recipe.IRecipeCompact;
+import techreborn.blocks.BlockMachineFrame;
+import techreborn.items.*;
+import techreborn.parts.ItemStandaloneCables;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import techreborn.api.recipe.IRecipeCompact;
-import techreborn.blocks.BlockMachineFrame;
-import techreborn.items.ItemCells;
-import techreborn.items.ItemIngots;
-import techreborn.items.ItemParts;
-import techreborn.items.ItemPlates;
-import techreborn.parts.ItemStandaloneCables;
 
 public class RecipeCompact implements IRecipeCompact
 {
@@ -36,7 +33,7 @@ public class RecipeCompact implements IRecipeCompact
 		recipes.put("bronzeIngot", ItemIngots.getIngotByName("bronze"));
 		recipes.put("leadIngot", ItemIngots.getIngotByName("lead"));
 		recipes.put("silverIngot", ItemIngots.getIngotByName("silver"));
-		recipes.put("iridiumOre", ItemIngots.getIngotByName("Iridium"));
+		recipes.put("iridiumOre", ItemIngots.getIngotByName("iridium"));
 		recipes.put("plateiron", ItemPlates.getPlateByName("iron"));
 		recipes.put("iridiumPlate", ItemPlates.getPlateByName("iridium"));
 		recipes.put("cell", ItemCells.getCellByName("empty"));
@@ -57,9 +54,9 @@ public class RecipeCompact implements IRecipeCompact
 		recipes.put("solarPanel", new ItemStack(ModBlocks.solarPanel));
 		recipes.put("waterCell", ItemCells.getCellByName("water"));
 		recipes.put("lavaCell", ItemCells.getCellByName("lava"));
-		recipes.put("pump", ItemParts.getPartByName("pump"));
-		recipes.put("teleporter", ItemParts.getPartByName("teleporter"));
-		recipes.put("advancedAlloy", ItemParts.getPartByName("advancedAlloy"));
+		recipes.put("pump", new ItemStack(ModItems.missingRecipe));
+		recipes.put("teleporter", new ItemStack(ModItems.missingRecipe));
+		recipes.put("advancedAlloy", ItemIngots.getIngotByName("advancedAlloy"));
 		recipes.put("lvTransformer", new ItemStack(ModBlocks.lvt));
 		recipes.put("mvTransformer", new ItemStack(ModBlocks.mvt));
 		recipes.put("hvTransformer", new ItemStack(ModBlocks.hvt));

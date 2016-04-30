@@ -1,11 +1,8 @@
 package techreborn.world;
 
-import java.io.*;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -22,9 +19,11 @@ import techreborn.init.ModBlocks;
 import techreborn.world.config.OreConfig;
 import techreborn.world.config.WorldGenConfig;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
+import java.io.*;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Created by modmuss50 on 11/03/2016.
@@ -52,10 +51,6 @@ public class TechRebornWorldGen implements IWorldGenerator
 		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ore.getBlockStateFromName("Ruby"), 6, 3, 10, 60));
 		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ore.getBlockStateFromName("Sapphire"), 6, 3, 10, 60));
 		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ore.getBlockStateFromName("Bauxite"), 6, 10, 10, 60));
-		defaultConfig.overworldOres
-				.add(new OreConfig(ModBlocks.ore.getBlockStateFromName("Tetrahedrite"), 6, 16, 10, 60));
-		defaultConfig.overworldOres
-				.add(new OreConfig(ModBlocks.ore.getBlockStateFromName("Cassiterite"), 6, 16, 20, 60));
 		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ore.getBlockStateFromName("Lead"), 6, 16, 20, 60));
 		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ore.getBlockStateFromName("Silver"), 6, 16, 20, 60));
 		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ore.getBlockStateFromName("copper"), 8, 16, 20, 60));

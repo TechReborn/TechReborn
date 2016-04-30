@@ -38,10 +38,6 @@ public interface ISubItemRetriever {
 
     ItemStack getPlateByName(String name, int count);
 
-    ItemStack getPurifiedCrushedOreByName(String name);
-
-    ItemStack getPurifiedCrushedOreByName(String name, int count);
-
     ItemStack getUpgradeByName(String name);
 
     ItemStack getUpgradeByName(String name, int count);

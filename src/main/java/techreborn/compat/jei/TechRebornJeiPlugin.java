@@ -9,9 +9,9 @@ import mezz.jei.api.recipe.transfer.IRecipeTransferRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
+import reborncore.api.recipe.RecipeHandler;
 import techreborn.Core;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
-import reborncore.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.AssemblingMachineRecipe;
 import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
 import techreborn.client.container.*;
@@ -42,13 +42,9 @@ import techreborn.compat.jei.industrialGrinder.IndustrialGrinderRecipeCategory;
 import techreborn.compat.jei.industrialGrinder.IndustrialGrinderRecipeHandler;
 import techreborn.compat.jei.industrialSawmill.IndustrialSawmillRecipeCategory;
 import techreborn.compat.jei.industrialSawmill.IndustrialSawmillRecipeHandler;
-import techreborn.compat.jei.recycler.RecyclerRecipeCategory;
-import techreborn.compat.jei.recycler.RecyclerRecipeHandler;
 import techreborn.compat.jei.rollingMachine.RollingMachineRecipeCategory;
 import techreborn.compat.jei.rollingMachine.RollingMachineRecipeHandler;
 import techreborn.compat.jei.rollingMachine.RollingMachineRecipeMaker;
-import techreborn.compat.jei.scrapbox.ScrapboxRecipeCategory;
-import techreborn.compat.jei.scrapbox.ScrapboxRecipeHandler;
 import techreborn.compat.jei.vacuumFreezer.VacuumFreezerRecipeCategory;
 import techreborn.compat.jei.vacuumFreezer.VacuumFreezerRecipeHandler;
 import techreborn.config.ConfigTechReborn;
@@ -122,8 +118,7 @@ public class TechRebornJeiPlugin extends BlankModPlugin
 				new ImplosionCompressorRecipeCategory(guiHelper), new IndustrialElectrolyzerRecipeCategory(guiHelper),
 				new IndustrialSawmillRecipeCategory(guiHelper), new RollingMachineRecipeCategory(guiHelper),
 				new VacuumFreezerRecipeCategory(guiHelper), new GrinderRecipeCategory(guiHelper),
-				new ExtractorRecipeCategory(guiHelper), new CompressorRecipeCategory(guiHelper),
-				new ScrapboxRecipeCategory(guiHelper), new RecyclerRecipeCategory(guiHelper));
+				new ExtractorRecipeCategory(guiHelper), new CompressorRecipeCategory(guiHelper));
 
 		registry.addRecipeHandlers(new AlloySmelterRecipeHandler(jeiHelpers),
 				new AssemblingMachineRecipeHandler(jeiHelpers), new BlastFurnaceRecipeHandler(jeiHelpers),
@@ -132,8 +127,7 @@ public class TechRebornJeiPlugin extends BlankModPlugin
 				new ImplosionCompressorRecipeHandler(jeiHelpers), new IndustrialElectrolyzerRecipeHandler(jeiHelpers),
 				new IndustrialSawmillRecipeHandler(jeiHelpers), new RollingMachineRecipeHandler(),
 				new VacuumFreezerRecipeHandler(jeiHelpers), new GrinderRecipeHandler(jeiHelpers),
-				new ExtractorRecipeHandler(jeiHelpers), new CompressorRecipeHandler(jeiHelpers),
-				new ScrapboxRecipeHandler(jeiHelpers), new RecyclerRecipeHandler(jeiHelpers));
+				new ExtractorRecipeHandler(jeiHelpers), new CompressorRecipeHandler(jeiHelpers));
 
 		registry.addRecipes(RecipeHandler.recipeList);
 		registry.addRecipes(FusionReactorRecipeHelper.reactorRecipes);
