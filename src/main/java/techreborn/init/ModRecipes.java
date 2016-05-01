@@ -301,7 +301,7 @@ public class ModRecipes
 
 	private static void addCompressorRecipes()
 	{
-		RecipeHandler.addRecipe(new CompressorRecipe(ItemIngots.getIngotByName("mixedmetalingot"),
+		RecipeHandler.addRecipe(new CompressorRecipe(ItemIngots.getIngotByName("mixedmetal"),
 				ItemIngots.getIngotByName("advancedAlloy"), 400, 20));
 		RecipeHandler.addRecipe(
 				new CompressorRecipe(ItemParts.getPartByName("carbonmesh"), ItemPlates.getPlateByName("carbon"), 400,
@@ -539,106 +539,106 @@ public class ModRecipes
 
 		// Mixed Metal Ingot Recipes :P
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 2), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 2), "RRR", "BBB", "TTT", 'R',
 				"ingotRefinedIron", 'B', "ingotBronze", 'T', "ingotTin");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 2), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 2), "RRR", "BBB", "TTT", 'R',
 				"ingotRefinedIron", 'B', "ingotBronze", 'T', "ingotZinc");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 2), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 2), "RRR", "BBB", "TTT", 'R',
 				"ingotRefinedIron", 'B', "ingotBrass", 'T', "ingotTin");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 2), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 2), "RRR", "BBB", "TTT", 'R',
 				"ingotRefinedIron", 'B', "ingotBrass", 'T', "ingotZinc");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 3), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 3), "RRR", "BBB", "TTT", 'R',
 				"ingotNickel", 'B', "ingotBronze", 'T', "ingotTin");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 3), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 3), "RRR", "BBB", "TTT", 'R',
 				"ingotNickel", 'B', "ingotBronze", 'T', "ingotZinc");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 3), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 3), "RRR", "BBB", "TTT", 'R',
 				"ingotNickel", 'B', "ingotBrass", 'T', "ingotTin");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 3), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 3), "RRR", "BBB", "TTT", 'R',
 				"ingotNickel", 'B', "ingotBrass", 'T', "ingotZinc");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 4), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 4), "RRR", "BBB", "TTT", 'R',
 				"ingotNickel", 'B', "ingotBronze", 'T', "ingotAluminum");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 4), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 4), "RRR", "BBB", "TTT", 'R',
 				"ingotNickel", 'B', "ingotBrass", 'T', "ingotAluminum");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 4), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 4), "RRR", "BBB", "TTT", 'R',
 				"ingotInvar", 'B', "ingotBronze", 'T', "ingotTin");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 4), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 4), "RRR", "BBB", "TTT", 'R',
 				"ingotInvar", 'B', "ingotBronze", 'T', "ingotZinc");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 4), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 4), "RRR", "BBB", "TTT", 'R',
 				"ingotInvar", 'B', "ingotBrass", 'T', "ingotTin");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 4), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 4), "RRR", "BBB", "TTT", 'R',
 				"ingotInvar", 'B', "ingotBrass", 'T', "ingotZinc");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 5), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 5), "RRR", "BBB", "TTT", 'R',
 				"ingotInvar", 'B', "ingotBronze", 'T', "ingotAluminum");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 5), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 5), "RRR", "BBB", "TTT", 'R',
 				"ingotInvar", 'B', "ingotBrass", 'T', "ingotAluminum");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 5), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 5), "RRR", "BBB", "TTT", 'R',
 				"ingotTitanium", 'B', "ingotBronze", 'T', "ingotTin");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 5), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 5), "RRR", "BBB", "TTT", 'R',
 				"ingotTitanium", 'B', "ingotBronze", 'T', "ingotZinc");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 5), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 5), "RRR", "BBB", "TTT", 'R',
 				"ingotTitanium", 'B', "ingotBrass", 'T', "ingotTin");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 5), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 5), "RRR", "BBB", "TTT", 'R',
 				"ingotTitanium", 'B', "ingotBrass", 'T', "ingotZinc");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 6), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 6), "RRR", "BBB", "TTT", 'R',
 				"ingotTitanium", 'B', "ingotBronze", 'T', "ingotAluminum");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 6), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 6), "RRR", "BBB", "TTT", 'R',
 				"ingotTitanium", 'B', "ingotBrass", 'T', "ingotAluminum");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 5), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 5), "RRR", "BBB", "TTT", 'R',
 				"ingotTungsten", 'B', "ingotBronze", 'T', "ingotTin");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 5), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 5), "RRR", "BBB", "TTT", 'R',
 				"ingotTungsten", 'B', "ingotBronze", 'T', "ingotZinc");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 5), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 5), "RRR", "BBB", "TTT", 'R',
 				"ingotTungsten", 'B', "ingotBrass", 'T', "ingotTin");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 5), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 5), "RRR", "BBB", "TTT", 'R',
 				"ingotTungsten", 'B', "ingotBrass", 'T', "ingotZinc");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 6), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 6), "RRR", "BBB", "TTT", 'R',
 				"ingotTungsten", 'B', "ingotBronze", 'T', "ingotAluminum");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 6), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 6), "RRR", "BBB", "TTT", 'R',
 				"ingotTungsten", 'B', "ingotBrass", 'T', "ingotAluminum");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 8), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 8), "RRR", "BBB", "TTT", 'R',
 				"ingotTungstensteel", 'B', "ingotBronze", 'T', "ingotTin");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 8), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 8), "RRR", "BBB", "TTT", 'R',
 				"ingotTungstensteel", 'B', "ingotBronze", 'T', "ingotZinc");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 8), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 8), "RRR", "BBB", "TTT", 'R',
 				"ingotTungstensteel", 'B', "ingotBrass", 'T', "ingotTin");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 8), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 8), "RRR", "BBB", "TTT", 'R',
 				"ingotTungstensteel", 'B', "ingotBrass", 'T', "ingotZinc");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 9), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 9), "RRR", "BBB", "TTT", 'R',
 				"ingotTungstensteel", 'B', "ingotBronze", 'T', "ingotAluminum");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetalingot", 9), "RRR", "BBB", "TTT", 'R',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixedmetal", 9), "RRR", "BBB", "TTT", 'R',
 				"ingotTungstensteel", 'B', "ingotBrass", 'T', "ingotAluminum");
 
 		CraftingHelper
@@ -3045,7 +3045,7 @@ public class ModRecipes
 
 		// Implosion Compressor
 
-		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemIngots.getIngotByName("iridiumAlloyIngot"),
+		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemIngots.getIngotByName("iridiumAlloy"),
 				new ItemStack(TechRebornAPI.recipeCompact.getItem("industrialTnt").getItem(), 8),
 				TechRebornAPI.recipeCompact.getItem("iridiumPlate"), ItemDusts.getDustByName("darkAshes", 4), 20, 30));
 		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("diamond", 4),
@@ -3329,7 +3329,7 @@ public class ModRecipes
 							TechRebornAPI.recipeCompact.getItem("generator"), 'C',
 							TechRebornAPI.recipeCompact.getItem("electronicCircuit"));
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("iridiumAlloyIngot"), "IAI", "ADA", "IAI", 'I',
+		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("iridiumAlloy"), "IAI", "ADA", "IAI", 'I',
 				ItemIngots.getIngotByName("iridium"), 'D', ItemDusts.getDustByName("diamond"), 'A',
 				TechRebornAPI.recipeCompact.getItem("advancedAlloy"));
 
