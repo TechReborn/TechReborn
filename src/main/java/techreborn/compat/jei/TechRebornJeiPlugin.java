@@ -45,6 +45,8 @@ import techreborn.compat.jei.industrialSawmill.IndustrialSawmillRecipeHandler;
 import techreborn.compat.jei.rollingMachine.RollingMachineRecipeCategory;
 import techreborn.compat.jei.rollingMachine.RollingMachineRecipeHandler;
 import techreborn.compat.jei.rollingMachine.RollingMachineRecipeMaker;
+import techreborn.compat.jei.scrapbox.ScrapboxRecipeCategory;
+import techreborn.compat.jei.scrapbox.ScrapboxRecipeHandler;
 import techreborn.compat.jei.vacuumFreezer.VacuumFreezerRecipeCategory;
 import techreborn.compat.jei.vacuumFreezer.VacuumFreezerRecipeHandler;
 import techreborn.config.ConfigTechReborn;
@@ -117,7 +119,7 @@ import java.util.List;
 				new ImplosionCompressorRecipeCategory(guiHelper), new IndustrialElectrolyzerRecipeCategory(guiHelper),
 				new IndustrialSawmillRecipeCategory(guiHelper), new RollingMachineRecipeCategory(guiHelper),
 				new VacuumFreezerRecipeCategory(guiHelper), new GrinderRecipeCategory(guiHelper),
-				new ExtractorRecipeCategory(guiHelper), new CompressorRecipeCategory(guiHelper));
+				new ExtractorRecipeCategory(guiHelper), new CompressorRecipeCategory(guiHelper), new ScrapboxRecipeCategory(guiHelper));
 
 		registry.addRecipeHandlers(new AlloySmelterRecipeHandler(jeiHelpers),
 				new AssemblingMachineRecipeHandler(jeiHelpers), new BlastFurnaceRecipeHandler(jeiHelpers),
@@ -126,7 +128,8 @@ import java.util.List;
 				new ImplosionCompressorRecipeHandler(jeiHelpers), new IndustrialElectrolyzerRecipeHandler(jeiHelpers),
 				new IndustrialSawmillRecipeHandler(jeiHelpers), new RollingMachineRecipeHandler(),
 				new VacuumFreezerRecipeHandler(jeiHelpers), new GrinderRecipeHandler(jeiHelpers),
-				new ExtractorRecipeHandler(jeiHelpers), new CompressorRecipeHandler(jeiHelpers));
+				new ExtractorRecipeHandler(jeiHelpers), new CompressorRecipeHandler(jeiHelpers),
+				new ScrapboxRecipeHandler(jeiHelpers));
 
 		registry.addRecipes(RecipeHandler.recipeList);
 		registry.addRecipes(FusionReactorRecipeHelper.reactorRecipes);
@@ -207,7 +210,7 @@ import java.util.List;
 				RecipeCategoryUids.INDUSTRIAL_SAWMILL);
 		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.RollingMachine),
 				RecipeCategoryUids.ROLLING_MACHINE);
-		//registry.addRecipeCategoryCraftingItem(new ItemStack(ModItems.scrapBox), RecipeCategoryUids.SCRAPBOX);
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModItems.scrapBox), RecipeCategoryUids.SCRAPBOX);
 
 		IRecipeTransferRegistry recipeTransferRegistry = registry.getRecipeTransferRegistry();
 		recipeTransferRegistry
