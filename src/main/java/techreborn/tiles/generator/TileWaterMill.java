@@ -37,7 +37,7 @@ public class TileWaterMill extends TilePowerAcceptor
 		waterblocks = 0;
 		for (EnumFacing facing : EnumFacing.HORIZONTALS)
 		{
-			if (worldObj.getBlockState(getPos().offset(facing)).getBlock() == Blocks.water)
+			if (worldObj.getBlockState(getPos().offset(facing)).getBlock() == Blocks.WATER)
 			{
 				waterblocks++;
 			}

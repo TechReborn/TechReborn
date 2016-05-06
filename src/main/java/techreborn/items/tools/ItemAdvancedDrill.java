@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import techreborn.config.ConfigTechReborn;
 
+import net.minecraft.item.Item.ToolMaterial;
 public class ItemAdvancedDrill extends ItemDrill
 {
 
@@ -22,7 +23,7 @@ public class ItemAdvancedDrill extends ItemDrill
 	@Override
 	public boolean canHarvestBlock(IBlockState blockIn)
 	{
-		return Items.diamond_pickaxe.canHarvestBlock(blockIn) || Items.diamond_shovel.canHarvestBlock(blockIn);
+		return Items.DIAMOND_PICKAXE.canHarvestBlock(blockIn) || Items.DIAMOND_SHOVEL.canHarvestBlock(blockIn);
 	}
 
 	@Override

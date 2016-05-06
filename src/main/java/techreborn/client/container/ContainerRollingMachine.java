@@ -79,9 +79,9 @@ public class ContainerRollingMachine extends RebornContainer
 	@Override
 	public void detectAndSendChanges()
 	{
-		for (int i = 0; i < this.crafters.size(); i++)
+		for (int i = 0; i < this.listeners.size(); i++)
 		{
-			ICrafting crafting = this.crafters.get(i);
+			ICrafting crafting = this.listeners.get(i);
 			if (this.currentItemBurnTime != tile.runTime)
 			{
 				crafting.sendProgressBarUpdate(this, 0, tile.runTime);

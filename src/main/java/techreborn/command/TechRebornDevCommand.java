@@ -74,9 +74,9 @@ public class TechRebornDevCommand extends CommandBase
 		{
 			EntityPlayerMP playerMP = (EntityPlayerMP) sender;
 			List<Block> blocksToRemove = new ArrayList<>();
-			blocksToRemove.add(Blocks.grass);
-			blocksToRemove.add(Blocks.dirt);
-			blocksToRemove.add(Blocks.stone);
+			blocksToRemove.add(Blocks.GRASS);
+			blocksToRemove.add(Blocks.DIRT);
+			blocksToRemove.add(Blocks.STONE);
 			for (int x = 0; x < 25; x++)
 			{
 				for (int z = 0; z < 25; z++)
@@ -86,7 +86,7 @@ public class TechRebornDevCommand extends CommandBase
 						BlockPos pos = new BlockPos(playerMP.posX + x, y, playerMP.posZ + z);
 						if (blocksToRemove.contains(playerMP.worldObj.getBlockState(pos).getBlock()))
 						{
-							playerMP.worldObj.setBlockState(pos, Blocks.air.getDefaultState(), 2);
+							playerMP.worldObj.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
 						}
 					}
 				}
@@ -98,7 +98,7 @@ public class TechRebornDevCommand extends CommandBase
 					sender.addChatMessage(new TextComponentString(GameData.getItemRegistry().getNameForObject(player.getHeldItem(EnumHand.MAIN_HAND).getItem()) + ":" + player.getHeldItem(EnumHand.MAIN_HAND).getItemDamage()));
 				} else {
 					Block block = Block.getBlockFromItem(player.getHeldItem(EnumHand.MAIN_HAND).getItem());
-					if (block != null && block != Blocks.air) {
+					if (block != null && block != Blocks.AIR) {
 						sender.addChatMessage(new TextComponentString(GameData.getBlockRegistry().getNameForObject(block) + ":" + player.getHeldItem(EnumHand.MAIN_HAND).getItemDamage()));
 					}
 				}

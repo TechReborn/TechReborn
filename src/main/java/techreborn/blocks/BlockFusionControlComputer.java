@@ -39,9 +39,9 @@ public class BlockFusionControlComputer extends BlockMachineBase implements IAdv
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, Entity entityIn)
+	public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn)
 	{
-		super.onEntityCollidedWithBlock(worldIn, pos, entityIn);
+		super.onEntityWalk(worldIn, pos, entityIn);
 		if (worldIn.getTileEntity(pos) instanceof TileEntityFusionController)
 		{
 			if (((TileEntityFusionController) worldIn.getTileEntity(pos)).crafingTickTime != 0

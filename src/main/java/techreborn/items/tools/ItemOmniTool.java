@@ -29,6 +29,7 @@ import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
 import techreborn.lib.ModInfo;
 
+import net.minecraft.item.Item.ToolMaterial;
 public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo, ITexturedItem
 {
 
@@ -59,9 +60,9 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo, ITextu
 	@Override
 	public boolean canHarvestBlock(IBlockState state)
 	{
-		return Items.diamond_axe.canHarvestBlock(state) || Items.diamond_sword.canHarvestBlock(state)
-				|| Items.diamond_pickaxe.canHarvestBlock(state) || Items.diamond_shovel.canHarvestBlock(state)
-				|| Items.shears.canHarvestBlock(state);
+		return Items.DIAMOND_AXE.canHarvestBlock(state) || Items.DIAMOND_SWORD.canHarvestBlock(state)
+				|| Items.DIAMOND_PICKAXE.canHarvestBlock(state) || Items.DIAMOND_SHOVEL.canHarvestBlock(state)
+				|| Items.SHEARS.canHarvestBlock(state);
 	}
 
 	// @Override

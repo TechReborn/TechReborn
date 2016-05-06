@@ -16,7 +16,7 @@ public class BlockRubberPlank extends Block implements ITexturedBlock
 
 	public BlockRubberPlank()
 	{
-		super(Material.wood);
+		super(Material.WOOD);
 		RebornCore.jsonDestroyer.registerObject(this);
 		setUnlocalizedName("techreborn.rubberplank");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);

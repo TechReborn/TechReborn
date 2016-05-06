@@ -236,35 +236,35 @@ public class ModBlocks
 		GameRegistry.registerBlock(centrifuge, "techreborn.centrifuge");
 		GameRegistry.registerTileEntity(TileCentrifuge.class, "TileCentrifugeTR");
 
-		RollingMachine = new BlockRollingMachine(Material.rock);
+		RollingMachine = new BlockRollingMachine(Material.ROCK);
 		GameRegistry.registerBlock(RollingMachine, "rollingmachine");
 		GameRegistry.registerTileEntity(TileRollingMachine.class, "TileRollingMachineTR");
 
-		BlastFurnace = new BlockBlastFurnace(Material.rock);
+		BlastFurnace = new BlockBlastFurnace(Material.ROCK);
 		GameRegistry.registerBlock(BlastFurnace, "blastFurnace");
 		GameRegistry.registerTileEntity(TileBlastFurnace.class, "TileBlastFurnaceTR");
 
-		AlloySmelter = new BlockAlloySmelter(Material.rock);
+		AlloySmelter = new BlockAlloySmelter(Material.ROCK);
 		GameRegistry.registerBlock(AlloySmelter, "alloySmelter");
 		GameRegistry.registerTileEntity(TileAlloySmelter.class, "TileAlloySmalterTR");
 
-		IndustrialGrinder = new BlockIndustrialGrinder(Material.rock);
+		IndustrialGrinder = new BlockIndustrialGrinder(Material.ROCK);
 		GameRegistry.registerBlock(IndustrialGrinder, "grinder");
 		GameRegistry.registerTileEntity(TileIndustrialGrinder.class, "TileIndustrialGrinderTR");
 
-		ImplosionCompressor = new BlockImplosionCompressor(Material.rock);
+		ImplosionCompressor = new BlockImplosionCompressor(Material.ROCK);
 		GameRegistry.registerBlock(ImplosionCompressor, "implosioncompressor");
 		GameRegistry.registerTileEntity(TileImplosionCompressor.class, "TileImplosionCompressorTR");
 
-		MatterFabricator = new BlockMatterFabricator(Material.rock);
+		MatterFabricator = new BlockMatterFabricator(Material.ROCK);
 		GameRegistry.registerBlock(MatterFabricator, "matterfabricator");
 		GameRegistry.registerTileEntity(TileMatterFabricator.class, "TileMatterFabricatorTR");
 
-		ChunkLoader = new BlockChunkLoader(Material.rock);
+		ChunkLoader = new BlockChunkLoader(Material.ROCK);
 		GameRegistry.registerBlock(ChunkLoader, "chunkloader");
 		GameRegistry.registerTileEntity(TileChunkLoader.class, "TileChunkLoaderTR");
 
-		chargeBench = new BlockChargeBench(Material.rock);
+		chargeBench = new BlockChargeBench(Material.ROCK);
 		GameRegistry.registerBlock(chargeBench, "chargebench");
 		GameRegistry.registerTileEntity(TileChargeBench.class, "TileChargeBench");
 
@@ -272,57 +272,57 @@ public class ModBlocks
 		GameRegistry.registerBlock(playerDetector, ItemBlockPlayerDetector.class, "playerDetector");
 		GameRegistry.registerTileEntity(TilePlayerDectector.class, "TilePlayerDectectorTR");
 
-		MachineCasing = new BlockMachineCasing(Material.rock);
+		MachineCasing = new BlockMachineCasing(Material.ROCK);
 		GameRegistry.registerBlock(MachineCasing, ItemBlockMachineCasing.class, "machinecasing");
 		GameRegistry.registerTileEntity(TileMachineCasing.class, "TileMachineCasingTR");
 
-		ore = new BlockOre(Material.rock);
+		ore = new BlockOre(Material.ROCK);
 		GameRegistry.registerBlock(ore, ItemBlockOre.class, "techreborn.ore");
 
-		ore2 = new BlockOre2(Material.rock);
+		ore2 = new BlockOre2(Material.ROCK);
 		GameRegistry.registerBlock(ore2, ItemBlockOre2.class, "techreborn.ore2");
 
-		storage = new BlockStorage(Material.iron);
+		storage = new BlockStorage(Material.IRON);
 		GameRegistry.registerBlock(storage, ItemBlockStorage.class, "techreborn.storage");
 
-		storage2 = new BlockStorage2(Material.iron);
+		storage2 = new BlockStorage2(Material.IRON);
 		GameRegistry.registerBlock(storage2, ItemBlockStorage2.class, "techreborn.storage2");
 
-		Dragoneggenergysiphoner = new BlockDragonEggSiphoner(Material.rock);
+		Dragoneggenergysiphoner = new BlockDragonEggSiphoner(Material.ROCK);
 		GameRegistry.registerBlock(Dragoneggenergysiphoner, "dragoneggenergsiphon");
 		GameRegistry.registerTileEntity(TileDragonEggSiphoner.class, "TileDragonEggSiphonerTR");
 
-		Magicenergeyconverter = new BlockMagicEnergyConverter(Material.rock);
+		Magicenergeyconverter = new BlockMagicEnergyConverter(Material.ROCK);
 		GameRegistry.registerBlock(Magicenergeyconverter, "magicenergyconverter");
 
-		AssemblyMachine = new BlockAssemblingMachine(Material.rock);
+		AssemblyMachine = new BlockAssemblingMachine(Material.ROCK);
 		GameRegistry.registerBlock(AssemblyMachine, "assemblymachine");
 		GameRegistry.registerTileEntity(TileAssemblingMachine.class, "TileAssemblyMachineTR");
 
-		DieselGenerator = new BlockDieselGenerator(Material.rock);
+		DieselGenerator = new BlockDieselGenerator(Material.ROCK);
 		GameRegistry.registerBlock(DieselGenerator, "dieselgenerator");
 		GameRegistry.registerTileEntity(TileDieselGenerator.class, "TileDieselGeneratorTR");
 
-		IndustrialElectrolyzer = new BlockIndustrialElectrolyzer(Material.rock);
+		IndustrialElectrolyzer = new BlockIndustrialElectrolyzer(Material.ROCK);
 		GameRegistry.registerBlock(IndustrialElectrolyzer, "industrialelectrolyzer");
 		GameRegistry.registerTileEntity(TileIndustrialElectrolyzer.class, "TileIndustrialElectrolyzerTR");
 
-		MagicalAbsorber = new BlockMagicEnergyAbsorber(Material.rock);
+		MagicalAbsorber = new BlockMagicEnergyAbsorber(Material.ROCK);
 		GameRegistry.registerBlock(MagicalAbsorber, "magicrnergyabsorber");
 
-		Semifluidgenerator = new BlockSemiFluidGenerator(Material.rock);
+		Semifluidgenerator = new BlockSemiFluidGenerator(Material.ROCK);
 		GameRegistry.registerBlock(Semifluidgenerator, "semifluidgenerator");
 		GameRegistry.registerTileEntity(TileSemifluidGenerator.class, "TileSemifluidGeneratorTR");
 
-		Gasturbine = new BlockGasTurbine(Material.rock);
+		Gasturbine = new BlockGasTurbine(Material.ROCK);
 		GameRegistry.registerBlock(Gasturbine, "gasturbine");
 		GameRegistry.registerTileEntity(TileGasTurbine.class, "TileGassTurbineTR");
 
-		AlloyFurnace = new BlockAlloyFurnace(Material.rock);
+		AlloyFurnace = new BlockAlloyFurnace(Material.ROCK);
 		GameRegistry.registerBlock(AlloyFurnace, "alloyfurnace");
 		GameRegistry.registerTileEntity(TileAlloyFurnace.class, "TileAlloyFurnaceTR");
 
-		ChemicalReactor = new BlockChemicalReactor(Material.rock);
+		ChemicalReactor = new BlockChemicalReactor(Material.ROCK);
 		GameRegistry.registerBlock(ChemicalReactor, "chemicalreactor");
 		GameRegistry.registerTileEntity(TileChemicalReactor.class, "TileChemicalReactorTR");
 
@@ -338,51 +338,51 @@ public class ModBlocks
 		GameRegistry.registerBlock(Lesu, "lesu");
 		GameRegistry.registerTileEntity(TileLesu.class, "TileLesuTR");
 
-		Supercondensator = new BlockSupercondensator(Material.rock);
+		Supercondensator = new BlockSupercondensator(Material.ROCK);
 		GameRegistry.registerBlock(Supercondensator, "supercondensator");
 
-		LesuStorage = new BlockLESUStorage(Material.rock);
+		LesuStorage = new BlockLESUStorage(Material.ROCK);
 		GameRegistry.registerBlock(LesuStorage, "lesustorage");
 		GameRegistry.registerTileEntity(TileLesuStorage.class, "TileLesuStorageTR");
 
-		Distillationtower = new BlockDistillationTower(Material.rock);
+		Distillationtower = new BlockDistillationTower(Material.ROCK);
 		GameRegistry.registerBlock(Distillationtower, "distillationtower");
 
-		ElectricCraftingTable = new BlockElectricCraftingTable(Material.rock);
+		ElectricCraftingTable = new BlockElectricCraftingTable(Material.ROCK);
 		GameRegistry.registerBlock(ElectricCraftingTable, "electriccraftingtable");
 
-		VacuumFreezer = new BlockVacuumFreezer(Material.rock);
+		VacuumFreezer = new BlockVacuumFreezer(Material.ROCK);
 		GameRegistry.registerBlock(VacuumFreezer, "vacuumfreezer");
 		GameRegistry.registerTileEntity(TileVacuumFreezer.class, "TileVacuumFreezerTR");
 
-		PlasmaGenerator = new BlockPlasmaGenerator(Material.rock);
+		PlasmaGenerator = new BlockPlasmaGenerator(Material.ROCK);
 		GameRegistry.registerBlock(PlasmaGenerator, "plasmagenerator");
 
-		ComputerCube = new BlockComputerCube(Material.rock);
+		ComputerCube = new BlockComputerCube(Material.ROCK);
 		GameRegistry.registerBlock(ComputerCube, "computercube");
 
-		FusionControlComputer = new BlockFusionControlComputer(Material.rock);
+		FusionControlComputer = new BlockFusionControlComputer(Material.ROCK);
 		GameRegistry.registerBlock(FusionControlComputer, "fusioncontrolcomputer");
 		GameRegistry.registerTileEntity(TileEntityFusionController.class, "TileEntityFustionControllerTR");
 
-		FusionCoil = new BlockFusionCoil(Material.rock);
+		FusionCoil = new BlockFusionCoil(Material.ROCK);
 		GameRegistry.registerBlock(FusionCoil, "fusioncoil");
 
-		LightningRod = new BlockLightningRod(Material.rock);
+		LightningRod = new BlockLightningRod(Material.ROCK);
 		GameRegistry.registerBlock(LightningRod, "lightningrod");
 
-		heatGenerator = new BlockHeatGenerator(Material.rock);
+		heatGenerator = new BlockHeatGenerator(Material.ROCK);
 		GameRegistry.registerBlock(heatGenerator, "heatgenerator");
 		GameRegistry.registerTileEntity(TileHeatGenerator.class, "TileHeatGeneratorTR");
 
-		industrialSawmill = new BlockIndustrialSawmill(Material.rock);
+		industrialSawmill = new BlockIndustrialSawmill(Material.ROCK);
 		GameRegistry.registerBlock(industrialSawmill, "industrialSawmill");
 		GameRegistry.registerTileEntity(TileIndustrialSawmill.class, "TileIndustrialSawmillTR");
 
-		machineframe = new BlockMachineFrame(Material.iron);
+		machineframe = new BlockMachineFrame(Material.IRON);
 		GameRegistry.registerBlock(machineframe, ItemBlockMachineFrame.class, "techreborn.machineFrame");
 
-		Grinder = new BlockGrinder(Material.iron);
+		Grinder = new BlockGrinder(Material.IRON);
 		GameRegistry.registerBlock(Grinder, "techreborn.grinder");
 		GameRegistry.registerTileEntity(TileGrinder.class, "TileGrinderTR");
 
@@ -390,15 +390,15 @@ public class ModBlocks
 		GameRegistry.registerBlock(Generator, "techreborn.generator");
 		GameRegistry.registerTileEntity(TileGenerator.class, "TileGeneratorTR");
 
-		Extractor = new BlockExtractor(Material.iron);
+		Extractor = new BlockExtractor(Material.IRON);
 		GameRegistry.registerBlock(Extractor, "techreborn.extractor");
 		GameRegistry.registerTileEntity(TileExtractor.class, "TileExtractorTR");
 
-		Compressor = new BlockCompressor(Material.iron);
+		Compressor = new BlockCompressor(Material.IRON);
 		GameRegistry.registerBlock(Compressor, "techreborn.compressor");
 		GameRegistry.registerTileEntity(TileCompressor.class, "TileCompressorTR");
 
-		ElectricFurnace = new BlockElectricFurnace(Material.iron);
+		ElectricFurnace = new BlockElectricFurnace(Material.IRON);
 		GameRegistry.registerBlock(ElectricFurnace, "techreborn.electricfurnace");
 		GameRegistry.registerTileEntity(TileElectricFurnace.class, "TileElectricFurnaceTR");
 
@@ -431,10 +431,10 @@ public class ModBlocks
 		ironFence = new BlockIronFence();
 		GameRegistry.registerBlock(ironFence, "ironFence");
 
-		reinforcedglass = new BlockReinforcedGlass(Material.glass);
+		reinforcedglass = new BlockReinforcedGlass(Material.GLASS);
 		GameRegistry.registerBlock(reinforcedglass, "reinforcedglass");
 
-		recycler = new BlockRecycler(Material.iron);
+		recycler = new BlockRecycler(Material.IRON);
 		GameRegistry.registerBlock(recycler, "recycler");
 		GameRegistry.registerTileEntity(TileRecycler.class, "TileRecyclerTR");
 
@@ -469,7 +469,7 @@ public class ModBlocks
 		nuke = new BlockNuke();
 		GameRegistry.registerBlock(nuke, "nuke");
 
-		scrapboxinator = new BlockScrapboxinator(Material.iron);
+		scrapboxinator = new BlockScrapboxinator(Material.IRON);
 		GameRegistry.registerBlock(scrapboxinator, "scrapboxinator");
 		GameRegistry.registerTileEntity(TileScrapboxinator.class, "TileScrapboxinatorTR");
 
@@ -526,9 +526,9 @@ public class ModBlocks
 		OreDictionary.registerOre("blockYellowGarnet", new ItemStack(storage2, 1, 8));
 		OreDictionary.registerOre("blockRedGarnet", new ItemStack(storage2, 1, 9));
 
-		OreDictionary.registerOre("craftingPiston", Blocks.piston);
-		OreDictionary.registerOre("craftingPiston", Blocks.sticky_piston);
-		OreDictionary.registerOre("crafterWood", Blocks.crafting_table);
+		OreDictionary.registerOre("craftingPiston", Blocks.PISTON);
+		OreDictionary.registerOre("craftingPiston", Blocks.STICKY_PISTON);
+		OreDictionary.registerOre("crafterWood", Blocks.CRAFTING_TABLE);
 		OreDictionary.registerOre("machineBasic", new ItemStack(machineframe, 1));
 
 		OreDictionary.registerOre("treeSapling", rubberSapling);

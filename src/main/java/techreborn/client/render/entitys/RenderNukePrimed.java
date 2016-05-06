@@ -68,6 +68,6 @@ public class RenderNukePrimed extends Render<EntityNukePrimed>
 	@Override
 	protected ResourceLocation getEntityTexture(EntityNukePrimed entity)
 	{
-		return TextureMap.locationBlocksTexture;
+		return TextureMap.LOCATION_BLOCKS_TEXTURE;
 	}
 }

@@ -30,6 +30,7 @@ import techreborn.utils.OreDictUtils;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.item.Item.ToolMaterial;
 public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo, ITexturedItem , IHandHeld
 {
 

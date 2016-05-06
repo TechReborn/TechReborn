@@ -20,7 +20,7 @@ public class ItemFluidbucket extends ItemBucket implements ITexturedItem
 	public ItemFluidbucket(BlockFluidBase block)
 	{
 		super(block);
-		setContainerItem(Items.bucket);
+		setContainerItem(Items.BUCKET);
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		setUnlocalizedName("techreborn.fluidbucket");
 		RebornCore.jsonDestroyer.registerObject(this);

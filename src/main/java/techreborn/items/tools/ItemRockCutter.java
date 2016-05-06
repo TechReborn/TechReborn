@@ -22,6 +22,7 @@ import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
 import techreborn.lib.ModInfo;
 
+import net.minecraft.item.Item.ToolMaterial;
 public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo, ITexturedItem
 {
 
@@ -58,7 +59,7 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo, ITex
 	@Override
 	public boolean canHarvestBlock(IBlockState state)
 	{
-		if (Items.diamond_pickaxe.canHarvestBlock(state))
+		if (Items.DIAMOND_PICKAXE.canHarvestBlock(state))
 		{
 //			 if (PoweredItem.canUseEnergy(cost, stack)) {
 //			 PoweredItem.useEnergy(cost, stack);

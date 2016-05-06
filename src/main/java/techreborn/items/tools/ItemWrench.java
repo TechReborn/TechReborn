@@ -158,7 +158,7 @@ public class ItemWrench extends ItemTR implements ITexturedItem
 						// 0.8F, 1F);
 						if (!world.isRemote)
 						{
-							world.setBlockState(pos, Blocks.air.getDefaultState(), 2);
+							world.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
 						}
 						return EnumActionResult.SUCCESS;
 					}

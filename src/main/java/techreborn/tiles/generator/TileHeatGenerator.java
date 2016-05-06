@@ -29,23 +29,23 @@ public class TileHeatGenerator extends TilePowerAcceptor implements IWrenchable
 		if (!worldObj.isRemote)
 		{
 			if (worldObj.getBlockState(new BlockPos(getPos().getX() + 1, getPos().getY(), getPos().getZ()))
-					.getBlock() == Blocks.lava)
+					.getBlock() == Blocks.LAVA)
 			{
 				addEnergy(euTick);
 			} else if (worldObj.getBlockState(new BlockPos(getPos().getX(), getPos().getY(), getPos().getZ() + 1))
-					.getBlock() == Blocks.lava)
+					.getBlock() == Blocks.LAVA)
 			{
 				addEnergy(euTick);
 			} else if (worldObj.getBlockState(new BlockPos(getPos().getX(), getPos().getY(), getPos().getZ() - 1))
-					.getBlock() == Blocks.lava)
+					.getBlock() == Blocks.LAVA)
 			{
 				addEnergy(euTick);
 			} else if (worldObj.getBlockState(new BlockPos(getPos().getX() - 1, getPos().getY(), getPos().getZ()))
-					.getBlock() == Blocks.lava)
+					.getBlock() == Blocks.LAVA)
 			{
 				addEnergy(euTick);
 			} else if (worldObj.getBlockState(new BlockPos(getPos().getX(), getPos().getY() - 1, getPos().getZ()))
-					.getBlock() == Blocks.lava)
+					.getBlock() == Blocks.LAVA)
 			{
 				addEnergy(euTick);
 			}

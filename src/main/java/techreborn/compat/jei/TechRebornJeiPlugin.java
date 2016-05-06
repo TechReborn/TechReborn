@@ -63,8 +63,8 @@ import java.util.List;
 {
 	private static void addDebugRecipes(IModRegistry registry)
 	{
-		ItemStack diamondBlock = new ItemStack(Blocks.diamond_block);
-		ItemStack dirtBlock = new ItemStack(Blocks.dirt);
+		ItemStack diamondBlock = new ItemStack(Blocks.DIAMOND_BLOCK);
+		ItemStack dirtBlock = new ItemStack(Blocks.DIRT);
 		List<Object> debugRecipes = new ArrayList<>();
 		for (int i = 0; i < 10; i++)
 		{

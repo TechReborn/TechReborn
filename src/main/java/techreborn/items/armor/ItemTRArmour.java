@@ -12,6 +12,7 @@ import reborncore.RebornCore;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.lib.ModInfo;
 
+import net.minecraft.item.ItemArmor.ArmorMaterial;
 /**
  * Created by modmuss50 on 26/02/2016.
  */

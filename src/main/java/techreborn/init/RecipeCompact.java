@@ -26,8 +26,8 @@ public class RecipeCompact implements IRecipeCompact
 
 	public void init()
 	{
-		recipes.put("industrialDiamond", new ItemStack(Items.diamond));
-		recipes.put("industrialTnt", new ItemStack(Blocks.tnt));
+		recipes.put("industrialDiamond", new ItemStack(Items.DIAMOND));
+		recipes.put("industrialTnt", new ItemStack(Blocks.TNT));
 		recipes.put("copperIngot", ItemIngots.getIngotByName("copper"));
 		recipes.put("tinIngot", ItemIngots.getIngotByName("tin"));
 		recipes.put("bronzeIngot", ItemIngots.getIngotByName("bronze"));
@@ -66,7 +66,7 @@ public class RecipeCompact implements IRecipeCompact
 		recipes.put("reinforcedGlass", new ItemStack(ModBlocks.reinforcedglass));
 		recipes.put("compressor", new ItemStack(ModBlocks.Compressor));
 		recipes.put("insulatedGoldCableItem", ItemStandaloneCables.getCableByName("insulatedgold"));
-		recipes.put("fertilizer", new ItemStack(Items.dye));
+		recipes.put("fertilizer", new ItemStack(Items.DYE));
 		inited = false;
 	}
 

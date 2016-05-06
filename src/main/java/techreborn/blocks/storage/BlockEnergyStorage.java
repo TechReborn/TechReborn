@@ -45,7 +45,7 @@ public abstract class BlockEnergyStorage extends BaseTileBlock implements IRotat
 
 	public BlockEnergyStorage(String name, int guiID)
 	{
-		super(Material.rock);
+		super(Material.ROCK);
 		setHardness(2f);
 		setUnlocalizedName("techreborn." + name.toLowerCase());
 		setCreativeTab(TechRebornCreativeTab.instance);

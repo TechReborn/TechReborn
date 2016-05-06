@@ -25,6 +25,7 @@ import reborncore.common.util.TorchHelper;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 
+import net.minecraft.item.Item.ToolMaterial;
 public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, ITexturedItem , IHandHeld
 {
 

@@ -2,6 +2,7 @@ package techreborn.items.tools;
 
 import techreborn.config.ConfigTechReborn;
 
+import net.minecraft.item.Item.ToolMaterial;
 public class ItemIronJackhammer extends ItemJackhammer
 {
 

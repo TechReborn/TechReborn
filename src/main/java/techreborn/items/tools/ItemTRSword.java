@@ -12,6 +12,7 @@ import reborncore.RebornCore;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.lib.ModInfo;
 
+import net.minecraft.item.Item.ToolMaterial;
 public class ItemTRSword extends ItemSword implements ITexturedItem , IHandHeld
 {
 	private ToolMaterial material = ToolMaterial.WOOD;

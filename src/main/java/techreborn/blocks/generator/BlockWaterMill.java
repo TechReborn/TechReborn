@@ -21,7 +21,7 @@ public class BlockWaterMill extends BaseTileBlock implements ITexturedBlock
 
 	public BlockWaterMill()
 	{
-		super(Material.iron);
+		super(Material.IRON);
 		setUnlocalizedName("techreborn.watermill");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setHardness(2.0F);

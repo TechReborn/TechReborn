@@ -133,7 +133,7 @@ public class BlockOre extends BaseBlock implements ITexturedBlock, IOreNameProvi
 		{
 			OreDrop cinnabar = new OreDrop(ItemDusts.getDustByName("cinnabar"),
 					ConfigTechReborn.FortuneSecondaryOreMultiplierPerLevel);
-			OreDrop redstone = new OreDrop(new ItemStack(Items.redstone), 0.25);
+			OreDrop redstone = new OreDrop(new ItemStack(Items.REDSTONE), 0.25);
 			OreDropSet set = new OreDropSet(cinnabar, redstone);
 			return set.drop(fortune, random);
 		}

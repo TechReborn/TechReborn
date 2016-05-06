@@ -41,7 +41,7 @@ public class ItemCloakingDevice extends ItemTextureBase implements IEnergyItemIn
 			player.setInvisible(true);
 		} else
 		{
-			if (!player.isPotionActive(MobEffects.invisibility))
+			if (!player.isPotionActive(MobEffects.INVISIBILITY))
 			{
 				player.setInvisible(false);
 			}

@@ -30,6 +30,7 @@ import techreborn.lib.ModInfo;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.item.Item.ToolMaterial;
 public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo, ITexturedItem , IHandHeld
 {
 
@@ -70,8 +71,8 @@ public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo, ITextured
 		{
 			return unpoweredSpeed;
 		}
-		if (Items.wooden_pickaxe.getStrVsBlock(stack, state) > 1.0F
-				|| Items.wooden_shovel.getStrVsBlock(stack, state) > 1.0F)
+		if (Items.WOODEN_PICKAXE.getStrVsBlock(stack, state) > 1.0F
+				|| Items.WOODEN_SHOVEL.getStrVsBlock(stack, state) > 1.0F)
 		{
 			return efficiencyOnProperMaterial;
 		} else

@@ -37,7 +37,7 @@ public class StackWIPHandler
 	}
 
 	private void addHead(String name){
-		ItemStack head = new ItemStack(Items.skull, 1, 3);
+		ItemStack head = new ItemStack(Items.SKULL, 1, 3);
 		head.setTagCompound(new NBTTagCompound());
 		head.getTagCompound().setTag("SkullOwner", new NBTTagString(name));
 		devHeads.add(head);
