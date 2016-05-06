@@ -1,8 +1,5 @@
 package techreborn.items;
 
-import java.security.InvalidParameterException;
-import java.util.List;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -10,20 +7,20 @@ import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
 
+import java.security.InvalidParameterException;
+import java.util.List;
+
 public class ItemDustsSmall extends ItemTextureBase
 {
 
-	public static final String[] types = new String[] { "Almandine", "AluminumBrass", "Aluminum", "Alumite",
-			"Andradite", "Antimony", "Ardite", "Ashes", "Basalt", "Bauxite", "Biotite", "Brass", "Bronze", "Cadmium",
-			"Calcite", "Charcoal", "Chrome", "Cinnabar", "Clay", "Coal", "Cobalt", "Copper", "Cupronickel", "DarkAshes",
-			"DarkIron", "Diamond", "Electrum", "Emerald", "EnderEye", "EnderPearl", "Endstone", "Flint", "Glowstone",
-			"Gold", "Graphite", "Grossular", "Gunpowder", "Indium", "Invar", "Iridium", "Iron", "Kanthal", "Lapis",
-			"Lazurite", "Lead", "Limestone", "Lodestone", "Magnesium", "Magnetite", "Manganese", "Manyullyn", "Marble",
-			"Mithril", "Netherrack", "Nichrome", "Nickel", "Obsidian", "Osmium", "Peridot", "Phosphorous", "Platinum",
-			"PotassiumFeldspar", "Pyrite", "Pyrope", "RedGarnet", "Redrock", "Redstone", "Ruby", "Saltpeter",
-			"Sapphire", "Silicon", "Silver", "Sodalite", "Spessartine", "Sphalerite", "Steel", "Sulfur", "Tellurium",
-			"Teslatite", "Tetrahedrite", "Tin", "Titanium", "Tungsten", "Uvarovite", "Vinteum", "Voidstone",
-			"YellowGarnet", "Zinc", "Galena", "Olivine" };
+	public static final String[] types = new String[] { "almandine", "aluminum", "andradite", "ashes", "basalt",
+			"bauxite", "brass", "bronze", "calcite", "charcoal", "chrome", "cinnabar", "clay", "coal", "copper",
+			"darkAshes", "diamond", "electrum", "emerald", "enderEye", "enderPearl", "endstone", "flint", "galena",
+			"gold", "grossular", "invar", "iron", "lazurite", "lead", "magnesium", "manganese", "marble", "netherrack",
+			"nickel", "obsidian", "peridot", "phosphorous", "platinum", "pyrite", "pyrope", "redGarnet", "redrock",
+			"ruby", "saltpeter", "sapphire", "sawDust", "silver", "sodalite", "spessartine", "sphalerite", "steel",
+			"sulfur", "tin", "titanium", "tungsten", "uvarovite", "vinteum", "voidstone", "yellowGarnet", "zinc",
+			"olivine", "redstone", "glowstone" };
 
 	public ItemDustsSmall()
 	{

@@ -12,7 +12,6 @@ import techreborn.items.ItemIngots;
 import techreborn.items.ItemNuggets;
 import techreborn.items.ItemParts;
 import techreborn.items.ItemPlates;
-import techreborn.items.ItemPurifiedCrushedOre;
 import techreborn.items.ItemUpgrades;
 
 /**
@@ -102,16 +101,6 @@ public class SubItemRetriever implements ISubItemRetriever {
     @Override
     public ItemStack getPlateByName(String name, int count) {
         return ItemPlates.getPlateByName(name, count);
-    }
-
-    @Override
-    public ItemStack getPurifiedCrushedOreByName(String name) {
-        return ItemPurifiedCrushedOre.getPurifiedCrushedOreByName(name);
-    }
-
-    @Override
-    public ItemStack getPurifiedCrushedOreByName(String name, int count) {
-        return ItemPurifiedCrushedOre.getPurifiedCrushedOreByName(name, count);
     }
 
     @Override

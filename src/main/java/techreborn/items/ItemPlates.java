@@ -1,8 +1,5 @@
 package techreborn.items;
 
-import java.security.InvalidParameterException;
-import java.util.List;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -10,14 +7,16 @@ import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
 
+import java.security.InvalidParameterException;
+import java.util.List;
+
 public class ItemPlates extends ItemTextureBase
 {
 
-	public static final String[] types = new String[] { "aluminum", "batteryAlloy", "brass", "bronze", "carbon",
-			"chrome", "coal", "copper", "diamond", "electrum", "emerald", "gold", "invar", "iridium", "iron", "lapis",
-			"lead", "magnalium", "nickel", "obsidian", "osmium", "peridot", "platinum", "redGarnet", "redstone", "ruby",
-			"sapphire", "silicon", "silver", "steel", "teslatite", "tin", "titanium", "tungsten", "tungstensteel",
-			"yellowGarnet", "zinc" };
+	public static final String[] types = new String[] { "aluminum", "brass", "bronze", "chrome", "copper", "electrum",
+			"invar", "iridium", "iron", "gold", "lead", "nickel", "platinum", "silver", "steel", "tin", "titanium",
+			"tungsten", "hotTungstensteel", "tungstensteel", "zinc", "refinedIron", "carbon", "wood", "magnalium",
+			"silicon", "ruby", "sapphire", "peridot", "redGarnet", "yellowGarnet", "redstone", "diamond", "emerald", "lapis", "coal", "obsidian" };
 
 	public ItemPlates()
 	{
@@ -65,14 +64,12 @@ public class ItemPlates extends ItemTextureBase
 		}
 	}
 
-	@Override
-	public String getTextureName(int damage)
+	@Override public String getTextureName(int damage)
 	{
 		return ModInfo.MOD_ID + ":items/plate/" + types[damage] + "Plate";
 	}
 
-	@Override
-	public int getMaxMeta()
+	@Override public int getMaxMeta()
 	{
 		return types.length;
 	}

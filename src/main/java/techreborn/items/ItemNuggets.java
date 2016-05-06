@@ -1,8 +1,5 @@
 package techreborn.items;
 
-import java.security.InvalidParameterException;
-import java.util.List;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -10,12 +7,16 @@ import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
 
+import java.security.InvalidParameterException;
+import java.util.List;
+
 public class ItemNuggets extends ItemTextureBase
 {
 
-	public static final String[] types = new String[] { "aluminum", "antimony", "brass", "bronze", "chrome", "copper",
-			"electrum", "invar", "iridium", "iron", "lead", "nickel", "osmium", "platinum", "silver", "steel", "tin",
-			"titanium", "tungsten", "zinc" };
+	public static final String[] types = new String[] { "aluminum", "brass", "bronze", "chrome", "copper", "electrum",
+			"invar", "iridium", "lead", "nickel", "platinum", "silver", "steel", "tin", "titanium", "tungsten",
+			"hotTungstensteel", "tungstensteel", "zinc", "refinedIron", "advancedAlloy", "mixedmetalingot",
+			"iridiumAlloyIngot", "iron", "diamond" };
 
 	public ItemNuggets()
 	{
@@ -63,14 +64,12 @@ public class ItemNuggets extends ItemTextureBase
 		}
 	}
 
-	@Override
-	public String getTextureName(int damage)
+	@Override public String getTextureName(int damage)
 	{
 		return ModInfo.MOD_ID + ":items/nuggets/" + types[damage] + "Nugget";
 	}
 
-	@Override
-	public int getMaxMeta()
+	@Override public int getMaxMeta()
 	{
 		return types.length;
 	}

@@ -544,31 +544,22 @@ public class ModItems
 
 		// Dusts
 		OreUnifier.registerOre("dustAlmandine", ItemDusts.getDustByName("almandine"));
-		OreUnifier.registerOre("dustAluminumBrass", ItemDusts.getDustByName("aluminumBrass"));
 		OreUnifier.registerOre("dustAluminum", ItemDusts.getDustByName("aluminum"));
 		OreUnifier.registerOre("dustAluminium", ItemDusts.getDustByName("aluminum"));
-		OreUnifier.registerOre("dustAlumite", ItemDusts.getDustByName("alumite"));
 		OreUnifier.registerOre("dustAndradite", ItemDusts.getDustByName("andradite"));
-		OreUnifier.registerOre("dustAntimony", ItemDusts.getDustByName("antimony"));
-		OreUnifier.registerOre("dustArdite", ItemDusts.getDustByName("ardite"));
 		OreUnifier.registerOre("dustAsh", ItemDusts.getDustByName("ashes"));
 		OreUnifier.registerOre("dustBasalt", ItemDusts.getDustByName("basalt"));
 		OreUnifier.registerOre("dustBauxite", ItemDusts.getDustByName("bauxite"));
-		OreUnifier.registerOre("dustBiotite", ItemDusts.getDustByName("biotite"));
 		OreUnifier.registerOre("dustBrass", ItemDusts.getDustByName("brass"));
 		OreUnifier.registerOre("dustBronze", ItemDusts.getDustByName("bronze"));
-		OreUnifier.registerOre("dustCadmium", ItemDusts.getDustByName("cadmium"));
 		OreUnifier.registerOre("dustCalcite", ItemDusts.getDustByName("calcite"));
 		OreUnifier.registerOre("dustCharcoal", ItemDusts.getDustByName("charcoal"));
 		OreUnifier.registerOre("dustChrome", ItemDusts.getDustByName("chrome"));
 		OreUnifier.registerOre("dustCinnabar", ItemDusts.getDustByName("cinnabar"));
 		OreUnifier.registerOre("dustClay", ItemDusts.getDustByName("clay"));
 		OreUnifier.registerOre("dustCoal", ItemDusts.getDustByName("coal"));
-		OreUnifier.registerOre("dustCobalt", ItemDusts.getDustByName("cobalt"));
 		OreUnifier.registerOre("dustCopper", ItemDusts.getDustByName("copper"));
-		OreUnifier.registerOre("dustCupronickel", ItemDusts.getDustByName("cupronickel"));
 		OreUnifier.registerOre("dustDarkAsh", ItemDusts.getDustByName("darkAshes"));
-		OreUnifier.registerOre("dustDarkIron", ItemDusts.getDustByName("darkIron"));
 		OreUnifier.registerOre("dustDiamond", ItemDusts.getDustByName("diamond"));
 		OreUnifier.registerOre("dustElectrum", ItemDusts.getDustByName("electrum"));
 		OreUnifier.registerOre("dustEmerald", ItemDusts.getDustByName("emerald"));
@@ -578,33 +569,21 @@ public class ModItems
 		OreUnifier.registerOre("dustFlint", ItemDusts.getDustByName("flint"));
 		OreUnifier.registerOre("dustGalena", ItemDusts.getDustByName("galena"));
 		OreUnifier.registerOre("dustGold", ItemDusts.getDustByName("gold"));
-		OreUnifier.registerOre("dustGraphite", ItemDusts.getDustByName("graphite"));
 		OreUnifier.registerOre("dustGrossular", ItemDusts.getDustByName("grossular"));
-		OreUnifier.registerOre("dustIndium", ItemDusts.getDustByName("indium"));
 		OreUnifier.registerOre("dustInvar", ItemDusts.getDustByName("invar"));
-		OreUnifier.registerOre("dustIridium", ItemDusts.getDustByName("iridium"));
 		OreUnifier.registerOre("dustIron", ItemDusts.getDustByName("iron"));
-		OreUnifier.registerOre("dustKanthal", ItemDusts.getDustByName("kanthal"));
-		OreUnifier.registerOre("dustLapis", ItemDusts.getDustByName("lapis"));
+		OreUnifier.registerOre("dustLapis", ItemDusts.getDustByName("lazurite"));
 		OreUnifier.registerOre("dustLazurite", ItemDusts.getDustByName("lazurite"));
 		OreUnifier.registerOre("dustLead", ItemDusts.getDustByName("lead"));
-		OreUnifier.registerOre("dustLimestone", ItemDusts.getDustByName("limestone"));
-		OreUnifier.registerOre("dustLodestone", ItemDusts.getDustByName("lodestone"));
 		OreUnifier.registerOre("dustMagnesium", ItemDusts.getDustByName("magnesium"));
-		OreUnifier.registerOre("dustMagnetite", ItemDusts.getDustByName("magnetite"));
 		OreUnifier.registerOre("dustManganese", ItemDusts.getDustByName("manganese"));
-		OreUnifier.registerOre("dustManyullyn", ItemDusts.getDustByName("manyullyn"));
 		OreUnifier.registerOre("dustMarble", ItemDusts.getDustByName("marble"));
-		OreUnifier.registerOre("dustMithril", ItemDusts.getDustByName("mithril"));
 		OreUnifier.registerOre("dustNetherrack", ItemDusts.getDustByName("netherrack"));
-		OreUnifier.registerOre("dustNichrome", ItemDusts.getDustByName("nichrome"));
 		OreUnifier.registerOre("dustNickel", ItemDusts.getDustByName("nickel"));
 		OreUnifier.registerOre("dustObsidian", ItemDusts.getDustByName("obsidian"));
-		OreUnifier.registerOre("dustOsmium", ItemDusts.getDustByName("osmium"));
 		OreUnifier.registerOre("dustPeridot", ItemDusts.getDustByName("peridot"));
 		OreUnifier.registerOre("dustPhosphorous", ItemDusts.getDustByName("phosphorous"));
 		OreUnifier.registerOre("dustPlatinum", ItemDusts.getDustByName("platinum"));
-		OreUnifier.registerOre("dustPotassiumFeldspar", ItemDusts.getDustByName("potassiumFeldspar"));
 		OreUnifier.registerOre("dustPyrite", ItemDusts.getDustByName("pyrite"));
 		OreUnifier.registerOre("dustPyrope", ItemDusts.getDustByName("pyrope"));
 		OreUnifier.registerOre("dustRedGarnet", ItemDusts.getDustByName("redGarnet"));
@@ -613,149 +592,104 @@ public class ModItems
 		OreUnifier.registerOre("dustSaltpeter", ItemDusts.getDustByName("saltpeter"));
 		OreUnifier.registerOre("dustSapphire", ItemDusts.getDustByName("sapphire"));
 		OreUnifier.registerOre("dustSilver", ItemDusts.getDustByName("silver"));
-		OreUnifier.registerOre("dustSilicon", ItemDusts.getDustByName("silicon"));
 		OreUnifier.registerOre("dustSodalite", ItemDusts.getDustByName("sodalite"));
 		OreUnifier.registerOre("dustSpessartine", ItemDusts.getDustByName("spessartine"));
 		OreUnifier.registerOre("dustSphalerite", ItemDusts.getDustByName("sphalerite"));
 		OreUnifier.registerOre("dustSteel", ItemDusts.getDustByName("steel"));
 		OreUnifier.registerOre("dustSulfur", ItemDusts.getDustByName("sulfur"));
-		OreUnifier.registerOre("dustTellurium", ItemDusts.getDustByName("tellurium"));
-		OreUnifier.registerOre("dustTeslatite", ItemDusts.getDustByName("teslatite"));
-		OreUnifier.registerOre("dustTetrahedrite", ItemDusts.getDustByName("tetrahedrite"));
 		OreUnifier.registerOre("dustCopper", ItemDusts.getDustByName("copper"));
 		OreUnifier.registerOre("dustTin", ItemDusts.getDustByName("tin"));
 		OreUnifier.registerOre("dustTitanium", ItemDusts.getDustByName("titanium"));
 		OreUnifier.registerOre("dustTungsten", ItemDusts.getDustByName("tungsten"));
 		OreUnifier.registerOre("dustUvarovite", ItemDusts.getDustByName("uvarovite"));
-		OreUnifier.registerOre("dustVinteum", ItemDusts.getDustByName("vinteum"));
+		OreUnifier.registerOre("dustVoidstone", ItemDusts.getDustByName("voidstone"));
+		OreUnifier.registerOre("dustYellowGarnet", ItemDusts.getDustByName("yellowGarnet"));
+		OreUnifier.registerOre("dustZinc", ItemDusts.getDustByName("zinc"));
+		OreUnifier.registerOre("dustOlivine", ItemDusts.getDustByName("olivine"));
+		OreUnifier.registerOre("dustWood", ItemDusts.getDustByName("sawDust"));
+		OreUnifier.registerOre("pulpWood", ItemDusts.getDustByName("sawDust"));
+
+		// Small Dusts
+		OreUnifier.registerOre("dustAlmandine", ItemDusts.getDustByName("almandine"));
+		OreUnifier.registerOre("dustAluminum", ItemDusts.getDustByName("aluminum"));
+		OreUnifier.registerOre("dustAluminium", ItemDusts.getDustByName("aluminum"));
+		OreUnifier.registerOre("dustAndradite", ItemDusts.getDustByName("andradite"));
+		OreUnifier.registerOre("dustAsh", ItemDusts.getDustByName("ashes"));
+		OreUnifier.registerOre("dustBasalt", ItemDusts.getDustByName("basalt"));
+		OreUnifier.registerOre("dustBauxite", ItemDusts.getDustByName("bauxite"));
+		OreUnifier.registerOre("dustBrass", ItemDusts.getDustByName("brass"));
+		OreUnifier.registerOre("dustBronze", ItemDusts.getDustByName("bronze"));
+		OreUnifier.registerOre("dustCalcite", ItemDusts.getDustByName("calcite"));
+		OreUnifier.registerOre("dustCharcoal", ItemDusts.getDustByName("charcoal"));
+		OreUnifier.registerOre("dustChrome", ItemDusts.getDustByName("chrome"));
+		OreUnifier.registerOre("dustCinnabar", ItemDusts.getDustByName("cinnabar"));
+		OreUnifier.registerOre("dustClay", ItemDusts.getDustByName("clay"));
+		OreUnifier.registerOre("dustCoal", ItemDusts.getDustByName("coal"));
+		OreUnifier.registerOre("dustCopper", ItemDusts.getDustByName("copper"));
+		OreUnifier.registerOre("dustDarkAsh", ItemDusts.getDustByName("darkAshes"));
+		OreUnifier.registerOre("dustDiamond", ItemDusts.getDustByName("diamond"));
+		OreUnifier.registerOre("dustElectrum", ItemDusts.getDustByName("electrum"));
+		OreUnifier.registerOre("dustEmerald", ItemDusts.getDustByName("emerald"));
+		OreUnifier.registerOre("dustEnderEye", ItemDusts.getDustByName("enderEye"));
+		OreUnifier.registerOre("dustEnderPearl", ItemDusts.getDustByName("enderPearl"));
+		OreUnifier.registerOre("dustEndstone", ItemDusts.getDustByName("endstone"));
+		OreUnifier.registerOre("dustFlint", ItemDusts.getDustByName("flint"));
+		OreUnifier.registerOre("dustGalena", ItemDusts.getDustByName("galena"));
+		OreUnifier.registerOre("dustGold", ItemDusts.getDustByName("gold"));
+		OreUnifier.registerOre("dustGrossular", ItemDusts.getDustByName("grossular"));
+		OreUnifier.registerOre("dustInvar", ItemDusts.getDustByName("invar"));
+		OreUnifier.registerOre("dustIron", ItemDusts.getDustByName("iron"));
+		OreUnifier.registerOre("dustLapis", ItemDusts.getDustByName("lazurite"));
+		OreUnifier.registerOre("dustLazurite", ItemDusts.getDustByName("lazurite"));
+		OreUnifier.registerOre("dustLead", ItemDusts.getDustByName("lead"));
+		OreUnifier.registerOre("dustMagnesium", ItemDusts.getDustByName("magnesium"));
+		OreUnifier.registerOre("dustManganese", ItemDusts.getDustByName("manganese"));
+		OreUnifier.registerOre("dustMarble", ItemDusts.getDustByName("marble"));
+		OreUnifier.registerOre("dustNetherrack", ItemDusts.getDustByName("netherrack"));
+		OreUnifier.registerOre("dustNickel", ItemDusts.getDustByName("nickel"));
+		OreUnifier.registerOre("dustObsidian", ItemDusts.getDustByName("obsidian"));
+		OreUnifier.registerOre("dustPeridot", ItemDusts.getDustByName("peridot"));
+		OreUnifier.registerOre("dustPhosphorous", ItemDusts.getDustByName("phosphorous"));
+		OreUnifier.registerOre("dustPlatinum", ItemDusts.getDustByName("platinum"));
+		OreUnifier.registerOre("dustPyrite", ItemDusts.getDustByName("pyrite"));
+		OreUnifier.registerOre("dustPyrope", ItemDusts.getDustByName("pyrope"));
+		OreUnifier.registerOre("dustRedGarnet", ItemDusts.getDustByName("redGarnet"));
+		OreUnifier.registerOre("dustRedrock", ItemDusts.getDustByName("redrock"));
+		OreUnifier.registerOre("dustRuby", ItemDusts.getDustByName("ruby"));
+		OreUnifier.registerOre("dustSaltpeter", ItemDusts.getDustByName("saltpeter"));
+		OreUnifier.registerOre("dustSapphire", ItemDusts.getDustByName("sapphire"));
+		OreUnifier.registerOre("dustSilver", ItemDusts.getDustByName("silver"));
+		OreUnifier.registerOre("dustSodalite", ItemDusts.getDustByName("sodalite"));
+		OreUnifier.registerOre("dustSpessartine", ItemDusts.getDustByName("spessartine"));
+		OreUnifier.registerOre("dustSphalerite", ItemDusts.getDustByName("sphalerite"));
+		OreUnifier.registerOre("dustSteel", ItemDusts.getDustByName("steel"));
+		OreUnifier.registerOre("dustSulfur", ItemDusts.getDustByName("sulfur"));
+		OreUnifier.registerOre("dustCopper", ItemDusts.getDustByName("copper"));
+		OreUnifier.registerOre("dustTin", ItemDusts.getDustByName("tin"));
+		OreUnifier.registerOre("dustTitanium", ItemDusts.getDustByName("titanium"));
+		OreUnifier.registerOre("dustTungsten", ItemDusts.getDustByName("tungsten"));
+		OreUnifier.registerOre("dustUvarovite", ItemDusts.getDustByName("uvarovite"));
 		OreUnifier.registerOre("dustVoidstone", ItemDusts.getDustByName("voidstone"));
 		OreUnifier.registerOre("dustYellowGarnet", ItemDusts.getDustByName("yellowGarnet"));
 		OreUnifier.registerOre("dustZinc", ItemDusts.getDustByName("zinc"));
 		OreUnifier.registerOre("dustOlivine", ItemDusts.getDustByName("olivine"));
 		OreUnifier.registerOre("pulpWood", ItemDusts.getDustByName("sawDust"));
 
-		// Small Dusts
-		OreUnifier.registerOre("dustSmallAlmandine", ItemDustsSmall.getSmallDustByName("Almandine"));
-		OreUnifier.registerOre("dustSmallAluminumBrass", ItemDustsSmall.getSmallDustByName("AluminumBrass"));
-		OreUnifier.registerOre("dustSmallAluminum", ItemDustsSmall.getSmallDustByName("Aluminum"));
-		OreUnifier.registerOre("dustSmallAluminium", ItemDustsSmall.getSmallDustByName("Aluminum"));
-		OreUnifier.registerOre("dustSmallAlumite", ItemDustsSmall.getSmallDustByName("Alumite"));
-		OreUnifier.registerOre("dustSmallAndradite", ItemDustsSmall.getSmallDustByName("Andradite"));
-		OreUnifier.registerOre("dustSmallAntimony", ItemDustsSmall.getSmallDustByName("Antimony"));
-		OreUnifier.registerOre("dustSmallArdite", ItemDustsSmall.getSmallDustByName("Ardite"));
-		OreUnifier.registerOre("dustSmallAsh", ItemDustsSmall.getSmallDustByName("Ashes"));
-		OreUnifier.registerOre("dustSmallBasalt", ItemDustsSmall.getSmallDustByName("Basalt"));
-		OreUnifier.registerOre("dustSmallBauxite", ItemDustsSmall.getSmallDustByName("Bauxite"));
-		OreUnifier.registerOre("dustSmallBiotite", ItemDustsSmall.getSmallDustByName("Biotite"));
-		OreUnifier.registerOre("dustSmallBrass", ItemDustsSmall.getSmallDustByName("Brass"));
-		OreUnifier.registerOre("dustSmallBronze", ItemDustsSmall.getSmallDustByName("Bronze"));
-		OreUnifier.registerOre("dustSmallCadmium", ItemDustsSmall.getSmallDustByName("Cadmium"));
-		OreUnifier.registerOre("dustSmallCalcite", ItemDustsSmall.getSmallDustByName("Calcite"));
-		OreUnifier.registerOre("dustSmallCharcoal", ItemDustsSmall.getSmallDustByName("Charcoal"));
-		OreUnifier.registerOre("dustSmallChrome", ItemDustsSmall.getSmallDustByName("Chrome"));
-		OreUnifier.registerOre("dustSmallCinnabar", ItemDustsSmall.getSmallDustByName("Cinnabar"));
-		OreUnifier.registerOre("dustSmallClay", ItemDustsSmall.getSmallDustByName("Clay"));
-		OreUnifier.registerOre("dustSmallCoal", ItemDustsSmall.getSmallDustByName("Coal"));
-		OreUnifier.registerOre("dustSmallCobalt", ItemDustsSmall.getSmallDustByName("Cobalt"));
-		OreUnifier.registerOre("dustSmallCopper", ItemDustsSmall.getSmallDustByName("Copper"));
-		OreUnifier.registerOre("dustSmallCupronickel", ItemDustsSmall.getSmallDustByName("Cupronickel"));
-		OreUnifier.registerOre("dustSmallDarkAsh", ItemDustsSmall.getSmallDustByName("DarkAshes"));
-		OreUnifier.registerOre("dustSmallDarkIron", ItemDustsSmall.getSmallDustByName("DarkIron"));
-		OreUnifier.registerOre("dustSmallDiamond", ItemDustsSmall.getSmallDustByName("Diamond"));
-		OreUnifier.registerOre("dustSmallElectrum", ItemDustsSmall.getSmallDustByName("Electrum"));
-		OreUnifier.registerOre("dustSmallEmerald", ItemDustsSmall.getSmallDustByName("Emerald"));
-		OreUnifier.registerOre("dustSmallEnderEye", ItemDustsSmall.getSmallDustByName("EnderEye"));
-		OreUnifier.registerOre("dustSmallEnderPearl", ItemDustsSmall.getSmallDustByName("EnderPearl"));
-		OreUnifier.registerOre("dustSmallEndstone", ItemDustsSmall.getSmallDustByName("Endstone"));
-		OreUnifier.registerOre("dustSmallFlint", ItemDustsSmall.getSmallDustByName("Flint"));
-		OreUnifier.registerOre("dustSmallGalena", ItemDustsSmall.getSmallDustByName("Galena"));
-		OreUnifier.registerOre("dustSmallGlowstone", ItemDustsSmall.getSmallDustByName("Glowstone"));
-		OreUnifier.registerOre("dustSmallGold", ItemDustsSmall.getSmallDustByName("Gold"));
-		OreUnifier.registerOre("dustSmallGraphite", ItemDustsSmall.getSmallDustByName("Graphite"));
-		OreUnifier.registerOre("dustSmallGrossular", ItemDustsSmall.getSmallDustByName("Grossular"));
-		OreUnifier.registerOre("dustSmallGunpowder", ItemDustsSmall.getSmallDustByName("Gunpowder"));
-		OreUnifier.registerOre("dustSmallIndium", ItemDustsSmall.getSmallDustByName("Indium"));
-		OreUnifier.registerOre("dustSmallInvar", ItemDustsSmall.getSmallDustByName("Invar"));
-		OreUnifier.registerOre("dustSmallIridium", ItemDustsSmall.getSmallDustByName("Iridium"));
-		OreUnifier.registerOre("dustSmallIron", ItemDustsSmall.getSmallDustByName("Iron"));
-		OreUnifier.registerOre("dustSmallKanthal", ItemDustsSmall.getSmallDustByName("Kanthal"));
-		OreUnifier.registerOre("dustSmallLapis", ItemDustsSmall.getSmallDustByName("Lapis"));
-		OreUnifier.registerOre("dustSmallLazurite", ItemDustsSmall.getSmallDustByName("Lazurite"));
-		OreUnifier.registerOre("dustSmallLead", ItemDustsSmall.getSmallDustByName("Lead"));
-		OreUnifier.registerOre("dustSmallLimestone", ItemDustsSmall.getSmallDustByName("Limestone"));
-		OreUnifier.registerOre("dustSmallLodestone", ItemDustsSmall.getSmallDustByName("Lodestone"));
-		OreUnifier.registerOre("dustSmallMagnesium", ItemDustsSmall.getSmallDustByName("Magnesium"));
-		OreUnifier.registerOre("dustSmallMagnetite", ItemDustsSmall.getSmallDustByName("Magnetite"));
-		OreUnifier.registerOre("dustSmallManganese", ItemDustsSmall.getSmallDustByName("Manganese"));
-		OreUnifier.registerOre("dustSmallManyullyn", ItemDustsSmall.getSmallDustByName("Manyullyn"));
-		OreUnifier.registerOre("dustSmallMarble", ItemDustsSmall.getSmallDustByName("Marble"));
-		OreUnifier.registerOre("dustSmallMithril", ItemDustsSmall.getSmallDustByName("Mithril"));
-		OreUnifier.registerOre("dustSmallNetherrack", ItemDustsSmall.getSmallDustByName("Netherrack"));
-		OreUnifier.registerOre("dustSmallNichrome", ItemDustsSmall.getSmallDustByName("Nichrome"));
-		OreUnifier.registerOre("dustSmallNickel", ItemDustsSmall.getSmallDustByName("Nickel"));
-		OreUnifier.registerOre("dustSmallObsidian", ItemDustsSmall.getSmallDustByName("Obsidian"));
-		OreUnifier.registerOre("dustSmallOsmium", ItemDustsSmall.getSmallDustByName("Osmium"));
-		OreUnifier.registerOre("dustSmallPeridot", ItemDustsSmall.getSmallDustByName("Peridot"));
-		OreUnifier.registerOre("dustSmallPhosphorous", ItemDustsSmall.getSmallDustByName("Phosphorous"));
-		OreUnifier.registerOre("dustSmallPlatinum", ItemDustsSmall.getSmallDustByName("Platinum"));
-		OreUnifier.registerOre("dustSmallPotassiumFeldspar", ItemDustsSmall.getSmallDustByName("PotassiumFeldspar"));
-		OreUnifier.registerOre("dustSmallPyrite", ItemDustsSmall.getSmallDustByName("Pyrite"));
-		OreUnifier.registerOre("dustSmallPyrope", ItemDustsSmall.getSmallDustByName("Pyrope"));
-		OreUnifier.registerOre("dustSmallRedGarnet", ItemDustsSmall.getSmallDustByName("RedGarnet"));
-		OreUnifier.registerOre("dustSmallRedrock", ItemDustsSmall.getSmallDustByName("Redrock"));
-		OreUnifier.registerOre("dustSmallRedstone", ItemDustsSmall.getSmallDustByName("Redstone"));
-		OreUnifier.registerOre("dustSmallRuby", ItemDustsSmall.getSmallDustByName("Ruby"));
-		OreUnifier.registerOre("dustSmallSaltpeter", ItemDustsSmall.getSmallDustByName("Saltpeter"));
-		OreUnifier.registerOre("dustSmallSapphire", ItemDustsSmall.getSmallDustByName("Sapphire"));
-		OreUnifier.registerOre("dustSmallSilver", ItemDustsSmall.getSmallDustByName("Silver"));
-		OreUnifier.registerOre("dustSmallSilicon", ItemDustsSmall.getSmallDustByName("Silicon"));
-		OreUnifier.registerOre("dustSmallSodalite", ItemDustsSmall.getSmallDustByName("Sodalite"));
-		OreUnifier.registerOre("dustSmallSpessartine", ItemDustsSmall.getSmallDustByName("Spessartine"));
-		OreUnifier.registerOre("dustSmallSphalerite", ItemDustsSmall.getSmallDustByName("Sphalerite"));
-		OreUnifier.registerOre("dustSmallSteel", ItemDustsSmall.getSmallDustByName("Steel"));
-		OreUnifier.registerOre("dustSmallSulfur", ItemDustsSmall.getSmallDustByName("Sulfur"));
-		OreUnifier.registerOre("dustSmallTellurium", ItemDustsSmall.getSmallDustByName("Tellurium"));
-		OreUnifier.registerOre("dustSmallTeslatite", ItemDustsSmall.getSmallDustByName("Teslatite"));
-		OreUnifier.registerOre("dustSmallTetrahedrite", ItemDustsSmall.getSmallDustByName("Tetrahedrite"));
-		OreUnifier.registerOre("dustSmallCopper", ItemDustsSmall.getSmallDustByName("Copper"));
-		OreUnifier.registerOre("dustSmallTin", ItemDustsSmall.getSmallDustByName("Tin"));
-		OreUnifier.registerOre("dustSmallTitanium", ItemDustsSmall.getSmallDustByName("Titanium"));
-		OreUnifier.registerOre("dustSmallTungsten", ItemDustsSmall.getSmallDustByName("Tungsten"));
-		OreUnifier.registerOre("dustSmallUvarovite", ItemDustsSmall.getSmallDustByName("Uvarovite"));
-		OreUnifier.registerOre("dustSmallVinteum", ItemDustsSmall.getSmallDustByName("Vinteum"));
-		OreUnifier.registerOre("dustSmallVoidstone", ItemDustsSmall.getSmallDustByName("Voidstone"));
-		OreUnifier.registerOre("dustSmallYellowGarnet", ItemDustsSmall.getSmallDustByName("YellowGarnet"));
-		OreUnifier.registerOre("dustSmallOlivine", ItemDustsSmall.getSmallDustByName("Olivine"));
-		OreUnifier.registerOre("dustSmallZinc", ItemDustsSmall.getSmallDustByName("Zinc"));
-
 		// Ingots
 		OreUnifier.registerOre("ingotAluminum", ItemIngots.getIngotByName("aluminum"));
 		OreUnifier.registerOre("ingotAluminium", ItemIngots.getIngotByName("aluminum"));
-		OreUnifier.registerOre("ingotAntimony", ItemIngots.getIngotByName("antimony"));
-		OreUnifier.registerOre("ingotBatteryAlloy", ItemIngots.getIngotByName("batteryAlloy"));
-		OreUnifier.registerOre("ingotBlueAlloy", ItemIngots.getIngotByName("blueAlloy"));
 		OreUnifier.registerOre("ingotBrass", ItemIngots.getIngotByName("brass"));
 		OreUnifier.registerOre("ingotBronze", ItemIngots.getIngotByName("bronze"));
-		OreUnifier.registerOre("ingotCadmium", ItemIngots.getIngotByName("cadmium"));
 		OreUnifier.registerOre("ingotChrome", ItemIngots.getIngotByName("chrome"));
 		OreUnifier.registerOre("ingotCopper", ItemIngots.getIngotByName("copper"));
-		OreUnifier.registerOre("ingotCupronickel", ItemIngots.getIngotByName("cupronickel"));
 		OreUnifier.registerOre("ingotElectrum", ItemIngots.getIngotByName("electrum"));
-		OreUnifier.registerOre("ingotIndium", ItemIngots.getIngotByName("indium"));
 		OreUnifier.registerOre("ingotInvar", ItemIngots.getIngotByName("invar"));
 		OreUnifier.registerOre("ingotIridium", ItemIngots.getIngotByName("iridium"));
-		OreUnifier.registerOre("ingotKanthal", ItemIngots.getIngotByName("kanthal"));
 		OreUnifier.registerOre("ingotLead", ItemIngots.getIngotByName("lead"));
-		OreUnifier.registerOre("ingotLodestone", ItemIngots.getIngotByName("lodestone"));
-		OreUnifier.registerOre("ingotMagnalium", ItemIngots.getIngotByName("magnalium"));
-		OreUnifier.registerOre("ingotNichrome", ItemIngots.getIngotByName("nichrome"));
 		OreUnifier.registerOre("ingotNickel", ItemIngots.getIngotByName("nickel"));
-		OreUnifier.registerOre("ingotOsmium", ItemIngots.getIngotByName("osmium"));
 		OreUnifier.registerOre("ingotPlatinum", ItemIngots.getIngotByName("platinum"));
-		OreUnifier.registerOre("ingotRedAlloy", ItemIngots.getIngotByName("redAlloy"));
 		OreUnifier.registerOre("ingotSilver", ItemIngots.getIngotByName("silver"));
 		OreUnifier.registerOre("ingotSteel", ItemIngots.getIngotByName("steel"));
-		OreUnifier.registerOre("ingotTellurium", ItemIngots.getIngotByName("tellurium"));
 		OreUnifier.registerOre("ingotTin", ItemIngots.getIngotByName("tin"));
 		OreUnifier.registerOre("ingotTitanium", ItemIngots.getIngotByName("titanium"));
 		OreUnifier.registerOre("ingotTungsten", ItemIngots.getIngotByName("tungsten"));
@@ -769,7 +703,6 @@ public class ModItems
 		// Nuggets
 		OreUnifier.registerOre("nuggetAluminum", ItemNuggets.getNuggetByName("aluminum"));
 		OreUnifier.registerOre("nuggetAluminium", ItemNuggets.getNuggetByName("aluminum"));
-		OreUnifier.registerOre("nuggetAntimony", ItemNuggets.getNuggetByName("antimony"));
 		OreUnifier.registerOre("nuggetBrass", ItemNuggets.getNuggetByName("brass"));
 		OreUnifier.registerOre("nuggetBronze", ItemNuggets.getNuggetByName("bronze"));
 		OreUnifier.registerOre("nuggetChrome", ItemNuggets.getNuggetByName("chrome"));
@@ -777,25 +710,26 @@ public class ModItems
 		OreUnifier.registerOre("nuggetElectrum", ItemNuggets.getNuggetByName("electrum"));
 		OreUnifier.registerOre("nuggetInvar", ItemNuggets.getNuggetByName("invar"));
 		OreUnifier.registerOre("nuggetIridium", ItemNuggets.getNuggetByName("iridium"));
-		OreUnifier.registerOre("nuggetIron", ItemNuggets.getNuggetByName("iron"));
 		OreUnifier.registerOre("nuggetLead", ItemNuggets.getNuggetByName("lead"));
 		OreUnifier.registerOre("nuggetNickel", ItemNuggets.getNuggetByName("nickel"));
-		OreUnifier.registerOre("nuggetOsmium", ItemNuggets.getNuggetByName("osmium"));
 		OreUnifier.registerOre("nuggetPlatinum", ItemNuggets.getNuggetByName("platinum"));
 		OreUnifier.registerOre("nuggetSilver", ItemNuggets.getNuggetByName("silver"));
 		OreUnifier.registerOre("nuggetSteel", ItemNuggets.getNuggetByName("steel"));
 		OreUnifier.registerOre("nuggetTin", ItemNuggets.getNuggetByName("tin"));
 		OreUnifier.registerOre("nuggetTitanium", ItemNuggets.getNuggetByName("titanium"));
 		OreUnifier.registerOre("nuggetTungsten", ItemNuggets.getNuggetByName("tungsten"));
+		OreUnifier.registerOre("nuggetTungstensteel", ItemNuggets.getNuggetByName("tungstensteel"));
+		OreUnifier.registerOre("nuggetHotTungstenSteel", ItemNuggets.getNuggetByName("hotTungstensteel"));
 		OreUnifier.registerOre("nuggetZinc", ItemNuggets.getNuggetByName("zinc"));
+		OreUnifier.registerOre("nuggetRefinedIron", ItemNuggets.getNuggetByName("refinedIron"));
+		OreUnifier.registerOre("nuggetCopper", ItemNuggets.getNuggetByName("copper"));
+		OreUnifier.registerOre("nuggetIron", ItemNuggets.getNuggetByName("iron"));
 
 		// Plates
 		OreUnifier.registerOre("plateAluminum", ItemPlates.getPlateByName("aluminum"));
 		OreUnifier.registerOre("plateAluminium", ItemPlates.getPlateByName("aluminum"));
-		OreUnifier.registerOre("plateBatteryAlloy", ItemPlates.getPlateByName("batteryAlloy"));
 		OreUnifier.registerOre("plateBrass", ItemPlates.getPlateByName("brass"));
 		OreUnifier.registerOre("plateBronze", ItemPlates.getPlateByName("bronze"));
-		OreUnifier.registerOre("plateCoal", ItemPlates.getPlateByName("coal"));
 		OreUnifier.registerOre("plateChrome", ItemPlates.getPlateByName("chrome"));
 		OreUnifier.registerOre("plateCopper", ItemPlates.getPlateByName("copper"));
 		OreUnifier.registerOre("plateDiamond", ItemPlates.getPlateByName("diamond"));
@@ -810,18 +744,15 @@ public class ModItems
 		OreUnifier.registerOre("plateMagnalium", ItemPlates.getPlateByName("magnalium"));
 		OreUnifier.registerOre("plateNickel", ItemPlates.getPlateByName("nickel"));
 		OreUnifier.registerOre("plateObsidian", ItemPlates.getPlateByName("obsidian"));
-		OreUnifier.registerOre("plateOsmium", ItemPlates.getPlateByName("osmium"));
 		OreUnifier.registerOre("platePeridot", ItemPlates.getPlateByName("peridot"));
 		OreUnifier.registerOre("platePlatinum", ItemPlates.getPlateByName("platinum"));
 		OreUnifier.registerOre("plateRedGarnet", ItemPlates.getPlateByName("redGarnet"));
 		OreUnifier.registerOre("plateRedstone", ItemPlates.getPlateByName("redstone"));
-		OreUnifier.registerOre("plateRedstoneAlloy", ItemPlates.getPlateByName("redstone"));
 		OreUnifier.registerOre("plateRuby", ItemPlates.getPlateByName("ruby"));
 		OreUnifier.registerOre("plateSapphire", ItemPlates.getPlateByName("sapphire"));
 		OreUnifier.registerOre("plateSilicon", ItemPlates.getPlateByName("silicon"));
 		OreUnifier.registerOre("plateSilver", ItemPlates.getPlateByName("silver"));
 		OreUnifier.registerOre("plateSteel", ItemPlates.getPlateByName("steel"));
-		OreUnifier.registerOre("plateTeslatite", ItemPlates.getPlateByName("teslatite"));
 		OreUnifier.registerOre("plateTin", ItemPlates.getPlateByName("tin"));
 		OreUnifier.registerOre("plateTitanium", ItemPlates.getPlateByName("titanium"));
 		OreUnifier.registerOre("plateTungsten", ItemPlates.getPlateByName("tungsten"));
@@ -832,47 +763,8 @@ public class ModItems
 		OreUnifier.registerOre("diamondTR", ItemDusts.getDustByName("Diamond"));
 		OreUnifier.registerOre("diamondTR", Items.diamond);
 
-		// Purified Crushed Ore
-		// OreUnifier.registerOre("crushedPurifiedAluminum",
-		// ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Aluminum"));
-		// OreUnifier.registerOre("crushedPurifiedAluminium",
-		// ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Aluminum"));
-		// OreUnifier.registerOre("crushedPurifiedArdite",
-		// ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Ardite"));
-		// OreUnifier.registerOre("crushedPurifiedBauxite",
-		// ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Bauxite"));
-		// OreUnifier.registerOre("crushedPurifiedCadmium",
-		// ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Cadmium"));
-		// OreUnifier.registerOre("crushedPurifiedCinnabar",
-		// ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Cinnabar"));
-		// OreUnifier.registerOre("crushedPurifiedCobalt",
-		// ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Cobalt"));
-		// OreUnifier.registerOre("crushedPurifiedDarkIron",
-		// ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("DarkIron"));
-		// OreUnifier.registerOre("crushedPurifiedGalena",
-		// ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Galena"));
-		// OreUnifier.registerOre("crushedPurifiedIndium",
-		// ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Indium"));
-		// OreUnifier.registerOre("crushedPurifiedIridium",
-		// ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Iridium"));
-		// OreUnifier.registerOre("crushedPurifiedNickel",
-		// ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Nickel"));
-		// OreUnifier.registerOre("crushedPurifiedOsmium",
-		// ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Osmium"));
-		// OreUnifier.registerOre("crushedPurifiedPlatinum",
-		// ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Platinum"));
-		// OreUnifier.registerOre("crushedPurifiedPyrite",
-		// ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Pyrite"));
-		// OreUnifier.registerOre("crushedPurifiedSphalerite",
-		// ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Sphalerite"));
-		// OreUnifier.registerOre("crushedPurifiedTetrahedrite",
-		// ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Tetrahedrite"));
-		// OreUnifier.registerOre("crushedPurifiedTungsten",
-		// ItemPurifiedCrushedOre.getPurifiedCrushedOreByName("Tungsten"));
-
 		OreUnifier.registerOre("craftingGrinder", ItemParts.getPartByName("diamondGrindingHead"));
-		OreUnifier.registerOre("craftingGrinder", ItemParts.getPartByName("tungstenGrindingHead"));
-		OreUnifier.registerOre("circuitMaster", ItemParts.getPartByName("energyFlowCircuit"));
+		OreUnifier.registerOre("craftingGrinder", ItemParts.getPartByName("wolframiumGrindingHead"));
 		OreUnifier.registerOre("circuitElite", ItemParts.getPartByName("dataControlCircuit"));
 		OreUnifier.registerOre("circuitData", ItemParts.getPartByName("dataStorageCircuit"));
 		OreUnifier.registerOre("craftingSuperconductor", ItemParts.getPartByName("superconductor"));
