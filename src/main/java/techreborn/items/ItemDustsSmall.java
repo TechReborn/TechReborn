@@ -19,7 +19,7 @@ public class ItemDustsSmall extends ItemTextureBase
 			"gold", "grossular", "invar", "iron", "lazurite", "lead", "magnesium", "manganese", "marble", "netherrack",
 			"nickel", "obsidian", "peridot", "phosphorous", "platinum", "pyrite", "pyrope", "redGarnet", "redrock",
 			"ruby", "saltpeter", "sapphire", "sawDust", "silver", "sodalite", "spessartine", "sphalerite", "steel",
-			"sulfur", "tin", "titanium", "tungsten", "uvarovite", "vinteum", "voidstone", "yellowGarnet", "zinc",
+			"sulfur", "tin", "titanium", "tungsten", "uvarovite", "voidstone", "yellowGarnet", "zinc",
 			"olivine", "redstone", "glowstone" };
 
 	public ItemDustsSmall()
