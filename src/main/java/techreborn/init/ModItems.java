@@ -331,190 +331,190 @@ public class ModItems
 
 		// buckets
 		bucketBerylium = new ItemFluidbucket(ModFluids.BlockFluidBerylium);
-		bucketBerylium.setUnlocalizedName("bucketberylium").setContainerItem(Items.bucket);
+		bucketBerylium.setUnlocalizedName("bucketberylium").setContainerItem(Items.BUCKET);
 		GameRegistry.registerItem(bucketBerylium, "bucketberylium");
 		FluidContainerRegistry.registerFluidContainer(
 				FluidRegistry.getFluidStack("fluidberylium", FluidContainerRegistry.BUCKET_VOLUME),
-				new ItemStack(bucketBerylium), new ItemStack(Items.bucket));
+				new ItemStack(bucketBerylium), new ItemStack(Items.BUCKET));
 		BucketHandler.INSTANCE.buckets.put(ModFluids.BlockFluidBerylium.getFluid(), bucketBerylium);
 
 		bucketcalcium = new ItemFluidbucket(ModFluids.BlockFluidCalcium);
-		bucketcalcium.setUnlocalizedName("bucketcalcium").setContainerItem(Items.bucket);
+		bucketcalcium.setUnlocalizedName("bucketcalcium").setContainerItem(Items.BUCKET);
 		GameRegistry.registerItem(bucketcalcium, "bucketcalcium");
 		FluidContainerRegistry.registerFluidContainer(
 				FluidRegistry.getFluidStack("fluidcalcium", FluidContainerRegistry.BUCKET_VOLUME),
-				new ItemStack(bucketcalcium), new ItemStack(Items.bucket));
+				new ItemStack(bucketcalcium), new ItemStack(Items.BUCKET));
 		BucketHandler.INSTANCE.buckets.put(ModFluids.BlockFluidCalcium.getFluid(), bucketcalcium);
 
 		bucketcalciumcarbonate = new ItemFluidbucket(ModFluids.BlockFluidCalciumCarbonate);
-		bucketcalciumcarbonate.setUnlocalizedName("bucketcalciumcarbonate").setContainerItem(Items.bucket);
+		bucketcalciumcarbonate.setUnlocalizedName("bucketcalciumcarbonate").setContainerItem(Items.BUCKET);
 		GameRegistry.registerItem(bucketcalciumcarbonate, "bucketcalciumcarbonate");
 		FluidContainerRegistry.registerFluidContainer(
 				FluidRegistry.getFluidStack("fluidcalciumcarbonate", FluidContainerRegistry.BUCKET_VOLUME),
-				new ItemStack(bucketcalciumcarbonate), new ItemStack(Items.bucket));
+				new ItemStack(bucketcalciumcarbonate), new ItemStack(Items.BUCKET));
 		BucketHandler.INSTANCE.buckets.put(ModFluids.BlockFluidCalciumCarbonate.getFluid(),
 				bucketcalciumcarbonate);
 
 		bucketChlorite = new ItemFluidbucket(ModFluids.BlockFluidChlorite);
-		bucketChlorite.setUnlocalizedName("bucketchlorite").setContainerItem(Items.bucket);
+		bucketChlorite.setUnlocalizedName("bucketchlorite").setContainerItem(Items.BUCKET);
 		GameRegistry.registerItem(bucketChlorite, "bucketcalchlorite");
 		FluidContainerRegistry.registerFluidContainer(
 				FluidRegistry.getFluidStack("fluidchlorite", FluidContainerRegistry.BUCKET_VOLUME),
-				new ItemStack(bucketcalciumcarbonate), new ItemStack(Items.bucket));
+				new ItemStack(bucketcalciumcarbonate), new ItemStack(Items.BUCKET));
 		BucketHandler.INSTANCE.buckets.put(ModFluids.BlockFluidChlorite.getFluid(), bucketChlorite);
 
 		bucketDeuterium = new ItemFluidbucket(ModFluids.BlockFluidDeuterium);
-		bucketDeuterium.setUnlocalizedName("bucketdeuterium").setContainerItem(Items.bucket);
+		bucketDeuterium.setUnlocalizedName("bucketdeuterium").setContainerItem(Items.BUCKET);
 		GameRegistry.registerItem(bucketDeuterium, "bucketdeuterium");
 		FluidContainerRegistry.registerFluidContainer(
 				FluidRegistry.getFluidStack("fluiddeuterium", FluidContainerRegistry.BUCKET_VOLUME),
-				new ItemStack(bucketDeuterium), new ItemStack(Items.bucket));
+				new ItemStack(bucketDeuterium), new ItemStack(Items.BUCKET));
 		BucketHandler.INSTANCE.buckets.put(ModFluids.BlockFluidDeuterium.getFluid(), bucketDeuterium);
 
 		bucketGlyceryl = new ItemFluidbucket(ModFluids.BlockFluidGlyceryl);
-		bucketGlyceryl.setUnlocalizedName("bucketglyceryl").setContainerItem(Items.bucket);
+		bucketGlyceryl.setUnlocalizedName("bucketglyceryl").setContainerItem(Items.BUCKET);
 		GameRegistry.registerItem(bucketGlyceryl, "bucketglyceryl");
 		FluidContainerRegistry.registerFluidContainer(
 				FluidRegistry.getFluidStack("fluidglyceryl", FluidContainerRegistry.BUCKET_VOLUME),
-				new ItemStack(bucketGlyceryl), new ItemStack(Items.bucket));
+				new ItemStack(bucketGlyceryl), new ItemStack(Items.BUCKET));
 		BucketHandler.INSTANCE.buckets.put(ModFluids.BlockFluidGlyceryl.getFluid(), bucketGlyceryl);
 
 		bucketHelium = new ItemFluidbucket(ModFluids.BlockFluidHelium);
-		bucketHelium.setUnlocalizedName("buckethelium").setContainerItem(Items.bucket);
+		bucketHelium.setUnlocalizedName("buckethelium").setContainerItem(Items.BUCKET);
 		GameRegistry.registerItem(bucketHelium, "buckethelium");
 		FluidContainerRegistry.registerFluidContainer(
 				FluidRegistry.getFluidStack("fluidhelium", FluidContainerRegistry.BUCKET_VOLUME),
-				new ItemStack(bucketHelium), new ItemStack(Items.bucket));
+				new ItemStack(bucketHelium), new ItemStack(Items.BUCKET));
 		BucketHandler.INSTANCE.buckets.put(ModFluids.BlockFluidHelium.getFluid(), bucketHelium);
 
 		bucketHelium3 = new ItemFluidbucket(ModFluids.BlockFluidHelium3);
-		bucketHelium3.setUnlocalizedName("buckethelium3").setContainerItem(Items.bucket);
+		bucketHelium3.setUnlocalizedName("buckethelium3").setContainerItem(Items.BUCKET);
 		GameRegistry.registerItem(bucketHelium3, "buckethelium3");
 		FluidContainerRegistry.registerFluidContainer(
 				FluidRegistry.getFluidStack("fluidhelium3", FluidContainerRegistry.BUCKET_VOLUME),
-				new ItemStack(bucketHelium3), new ItemStack(Items.bucket));
+				new ItemStack(bucketHelium3), new ItemStack(Items.BUCKET));
 		BucketHandler.INSTANCE.buckets.put(ModFluids.BlockFluidHelium3.getFluid(), bucketHelium3);
 
 		bucketHeliumplasma = new ItemFluidbucket(ModFluids.BlockFluidHeliumplasma);
-		bucketHeliumplasma.setUnlocalizedName("bucketheliumplasma").setContainerItem(Items.bucket);
+		bucketHeliumplasma.setUnlocalizedName("bucketheliumplasma").setContainerItem(Items.BUCKET);
 		GameRegistry.registerItem(bucketHeliumplasma, "bucketheliumplasma");
 		FluidContainerRegistry.registerFluidContainer(
 				FluidRegistry.getFluidStack("fluidheliumplasma", FluidContainerRegistry.BUCKET_VOLUME),
-				new ItemStack(bucketHeliumplasma), new ItemStack(Items.bucket));
+				new ItemStack(bucketHeliumplasma), new ItemStack(Items.BUCKET));
 		BucketHandler.INSTANCE.buckets.put(ModFluids.BlockFluidHeliumplasma.getFluid(), bucketHeliumplasma);
 
 		bucketHydrogen = new ItemFluidbucket(ModFluids.BlockFluidHydrogen);
-		bucketHydrogen.setUnlocalizedName("buckethydrogen").setContainerItem(Items.bucket);
+		bucketHydrogen.setUnlocalizedName("buckethydrogen").setContainerItem(Items.BUCKET);
 		GameRegistry.registerItem(bucketHydrogen, "buckethydrogen");
 		FluidContainerRegistry.registerFluidContainer(
 				FluidRegistry.getFluidStack("fluidhydrogen", FluidContainerRegistry.BUCKET_VOLUME),
-				new ItemStack(bucketHydrogen), new ItemStack(Items.bucket));
+				new ItemStack(bucketHydrogen), new ItemStack(Items.BUCKET));
 		BucketHandler.INSTANCE.buckets.put(ModFluids.BlockFluidHydrogen.getFluid(), bucketHydrogen);
 
 		bucketLithium = new ItemFluidbucket(ModFluids.BlockFluidLithium);
-		bucketLithium.setUnlocalizedName("bucketlithium").setContainerItem(Items.bucket);
+		bucketLithium.setUnlocalizedName("bucketlithium").setContainerItem(Items.BUCKET);
 		GameRegistry.registerItem(bucketLithium, "bucketlithium");
 		FluidContainerRegistry.registerFluidContainer(
 				FluidRegistry.getFluidStack("fluidlithium", FluidContainerRegistry.BUCKET_VOLUME),
-				new ItemStack(bucketLithium), new ItemStack(Items.bucket));
+				new ItemStack(bucketLithium), new ItemStack(Items.BUCKET));
 		BucketHandler.INSTANCE.buckets.put(ModFluids.BlockFluidLithium.getFluid(), bucketLithium);
 
 		bucketMercury = new ItemFluidbucket(ModFluids.BlockFluidMercury);
-		bucketMercury.setUnlocalizedName("bucketmercury").setContainerItem(Items.bucket);
+		bucketMercury.setUnlocalizedName("bucketmercury").setContainerItem(Items.BUCKET);
 		GameRegistry.registerItem(bucketMercury, "bucketmercury");
 		FluidContainerRegistry.registerFluidContainer(
 				FluidRegistry.getFluidStack("fluidmercury", FluidContainerRegistry.BUCKET_VOLUME),
-				new ItemStack(bucketMercury), new ItemStack(Items.bucket));
+				new ItemStack(bucketMercury), new ItemStack(Items.BUCKET));
 		BucketHandler.INSTANCE.buckets.put(ModFluids.BlockFluidMercury.getFluid(), bucketMercury);
 
 		bucketMethane = new ItemFluidbucket(ModFluids.BlockFluidMethane);
-		bucketMethane.setUnlocalizedName("bucketmethane").setContainerItem(Items.bucket);
+		bucketMethane.setUnlocalizedName("bucketmethane").setContainerItem(Items.BUCKET);
 		GameRegistry.registerItem(bucketMethane, "bucketmethane");
 		FluidContainerRegistry.registerFluidContainer(
 				FluidRegistry.getFluidStack("fluidmethane", FluidContainerRegistry.BUCKET_VOLUME),
-				new ItemStack(bucketMethane), new ItemStack(Items.bucket));
+				new ItemStack(bucketMethane), new ItemStack(Items.BUCKET));
 		BucketHandler.INSTANCE.buckets.put(ModFluids.BlockFluidMethane.getFluid(), bucketMethane);
 
 		bucketNitrocoalfuel = new ItemFluidbucket(ModFluids.BlockFluidNitrocoalfuel);
-		bucketNitrocoalfuel.setUnlocalizedName("bucketnitrocoalfuel").setContainerItem(Items.bucket);
+		bucketNitrocoalfuel.setUnlocalizedName("bucketnitrocoalfuel").setContainerItem(Items.BUCKET);
 		GameRegistry.registerItem(bucketNitrocoalfuel, "bucketnitrocoalfuel");
 		FluidContainerRegistry.registerFluidContainer(
 				FluidRegistry.getFluidStack("fluidnitrocoalfuel", FluidContainerRegistry.BUCKET_VOLUME),
-				new ItemStack(bucketNitrocoalfuel), new ItemStack(Items.bucket));
+				new ItemStack(bucketNitrocoalfuel), new ItemStack(Items.BUCKET));
 		BucketHandler.INSTANCE.buckets.put(ModFluids.BlockFluidNitrocoalfuel.getFluid(), bucketNitrocoalfuel);
 
 		bucketNitrofuel = new ItemFluidbucket(ModFluids.BlockFluidNitrofuel);
-		bucketNitrofuel.setUnlocalizedName("bucketnitrofuel").setContainerItem(Items.bucket);
+		bucketNitrofuel.setUnlocalizedName("bucketnitrofuel").setContainerItem(Items.BUCKET);
 		GameRegistry.registerItem(bucketNitrofuel, "bucketnitrofuel");
 		FluidContainerRegistry.registerFluidContainer(
 				FluidRegistry.getFluidStack("fluidnitrofuel", FluidContainerRegistry.BUCKET_VOLUME),
-				new ItemStack(bucketNitrofuel), new ItemStack(Items.bucket));
+				new ItemStack(bucketNitrofuel), new ItemStack(Items.BUCKET));
 		BucketHandler.INSTANCE.buckets.put(ModFluids.BlockFluidNitrofuel.getFluid(), bucketNitrofuel);
 
 		bucketNitrogen = new ItemFluidbucket(ModFluids.BlockFluidNitrogen);
-		bucketNitrogen.setUnlocalizedName("bucketnitrogen").setContainerItem(Items.bucket);
+		bucketNitrogen.setUnlocalizedName("bucketnitrogen").setContainerItem(Items.BUCKET);
 		GameRegistry.registerItem(bucketNitrogen, "bucketnitrogen");
 		FluidContainerRegistry.registerFluidContainer(
 				FluidRegistry.getFluidStack("fluidnitrogen", FluidContainerRegistry.BUCKET_VOLUME),
-				new ItemStack(bucketNitrogen), new ItemStack(Items.bucket));
+				new ItemStack(bucketNitrogen), new ItemStack(Items.BUCKET));
 		BucketHandler.INSTANCE.buckets.put(ModFluids.BlockFluidNitrogen.getFluid(), bucketNitrogen);
 
 		bucketNitrogendioxide = new ItemFluidbucket(ModFluids.BlockFluidNitrogendioxide);
-		bucketNitrogendioxide.setUnlocalizedName("bucketnitrogendioxide").setContainerItem(Items.bucket);
+		bucketNitrogendioxide.setUnlocalizedName("bucketnitrogendioxide").setContainerItem(Items.BUCKET);
 		GameRegistry.registerItem(bucketNitrogendioxide, "bucketnitrogendioxide");
 		FluidContainerRegistry.registerFluidContainer(
 				FluidRegistry.getFluidStack("fluidnitrogendioxide", FluidContainerRegistry.BUCKET_VOLUME),
-				new ItemStack(bucketNitrogendioxide), new ItemStack(Items.bucket));
+				new ItemStack(bucketNitrogendioxide), new ItemStack(Items.BUCKET));
 		BucketHandler.INSTANCE.buckets.put(ModFluids.BlockFluidNitrogendioxide.getFluid(),
 				bucketNitrogendioxide);
 
 		bucketPotassium = new ItemFluidbucket(ModFluids.BlockFluidPotassium);
-		bucketPotassium.setUnlocalizedName("bucketpotassium").setContainerItem(Items.bucket);
+		bucketPotassium.setUnlocalizedName("bucketpotassium").setContainerItem(Items.BUCKET);
 		GameRegistry.registerItem(bucketPotassium, "bucketpotassium");
 		FluidContainerRegistry.registerFluidContainer(
 				FluidRegistry.getFluidStack("fluidpotassium", FluidContainerRegistry.BUCKET_VOLUME),
-				new ItemStack(bucketPotassium), new ItemStack(Items.bucket));
+				new ItemStack(bucketPotassium), new ItemStack(Items.BUCKET));
 		BucketHandler.INSTANCE.buckets.put(ModFluids.BlockFluidPotassium.getFluid(), bucketPotassium);
 
 		bucketSilicon = new ItemFluidbucket(ModFluids.BlockFluidSilicon);
-		bucketSilicon.setUnlocalizedName("bucketsilicon").setContainerItem(Items.bucket);
+		bucketSilicon.setUnlocalizedName("bucketsilicon").setContainerItem(Items.BUCKET);
 		GameRegistry.registerItem(bucketSilicon, "bucketsilicon");
 		FluidContainerRegistry.registerFluidContainer(
 				FluidRegistry.getFluidStack("fluidsilicon", FluidContainerRegistry.BUCKET_VOLUME),
-				new ItemStack(bucketSilicon), new ItemStack(Items.bucket));
+				new ItemStack(bucketSilicon), new ItemStack(Items.BUCKET));
 		BucketHandler.INSTANCE.buckets.put(ModFluids.BlockFluidSilicon.getFluid(), bucketSilicon);
 
 		bucketSodium = new ItemFluidbucket(ModFluids.BlockFluidSodium);
-		bucketSodium.setUnlocalizedName("bucketsodium").setContainerItem(Items.bucket);
+		bucketSodium.setUnlocalizedName("bucketsodium").setContainerItem(Items.BUCKET);
 		GameRegistry.registerItem(bucketSodium, "bucketsodium");
 		FluidContainerRegistry.registerFluidContainer(
 				FluidRegistry.getFluidStack("fluidsodium", FluidContainerRegistry.BUCKET_VOLUME),
-				new ItemStack(bucketSodium), new ItemStack(Items.bucket));
+				new ItemStack(bucketSodium), new ItemStack(Items.BUCKET));
 		BucketHandler.INSTANCE.buckets.put(ModFluids.BlockFluidSodium.getFluid(), bucketSodium);
 
 		bucketSodiumpersulfate = new ItemFluidbucket(ModFluids.BlockFluidSodiumpersulfate);
-		bucketSodiumpersulfate.setUnlocalizedName("bucketsodiumpersulfate").setContainerItem(Items.bucket);
+		bucketSodiumpersulfate.setUnlocalizedName("bucketsodiumpersulfate").setContainerItem(Items.BUCKET);
 		GameRegistry.registerItem(bucketSodiumpersulfate, "bucketsodiumpersulfate");
 		FluidContainerRegistry.registerFluidContainer(
 				FluidRegistry.getFluidStack("fluidsodiumpersulfate", FluidContainerRegistry.BUCKET_VOLUME),
-				new ItemStack(bucketSodiumpersulfate), new ItemStack(Items.bucket));
+				new ItemStack(bucketSodiumpersulfate), new ItemStack(Items.BUCKET));
 		BucketHandler.INSTANCE.buckets.put(ModFluids.BlockFluidSodiumpersulfate.getFluid(),
 				bucketSodiumpersulfate);
 
 		bucketTritium = new ItemFluidbucket(ModFluids.BlockFluidTritium);
-		bucketTritium.setUnlocalizedName("buckettritium").setContainerItem(Items.bucket);
+		bucketTritium.setUnlocalizedName("buckettritium").setContainerItem(Items.BUCKET);
 		GameRegistry.registerItem(bucketTritium, "buckettritium");
 		FluidContainerRegistry.registerFluidContainer(
 				FluidRegistry.getFluidStack("fluidtritium", FluidContainerRegistry.BUCKET_VOLUME),
-				new ItemStack(bucketTritium), new ItemStack(Items.bucket));
+				new ItemStack(bucketTritium), new ItemStack(Items.BUCKET));
 		BucketHandler.INSTANCE.buckets.put(ModFluids.BlockFluidTritium.getFluid(), bucketTritium);
 
 		bucketWolframium = new ItemFluidbucket(ModFluids.BlockFluidWolframium);
-		bucketWolframium.setUnlocalizedName("bucketwolframium").setContainerItem(Items.bucket);
+		bucketWolframium.setUnlocalizedName("bucketwolframium").setContainerItem(Items.BUCKET);
 		GameRegistry.registerItem(bucketWolframium, "bucketwolframium");
 		FluidContainerRegistry.registerFluidContainer(
 				FluidRegistry.getFluidStack("fluidwolframium", FluidContainerRegistry.BUCKET_VOLUME),
-				new ItemStack(bucketWolframium), new ItemStack(Items.bucket));
+				new ItemStack(bucketWolframium), new ItemStack(Items.BUCKET));
 		BucketHandler.INSTANCE.buckets.put(ModFluids.BlockFluidWolframium.getFluid(), bucketWolframium);
 
 		missingRecipe = new ItemMissingRecipe().setUnlocalizedName("missingRecipe");
@@ -761,7 +761,7 @@ public class ModItems
 		OreUnifier.registerOre("plateZinc", ItemPlates.getPlateByName("zinc"));
 
 		OreUnifier.registerOre("diamondTR", ItemDusts.getDustByName("Diamond"));
-		OreUnifier.registerOre("diamondTR", Items.diamond);
+		OreUnifier.registerOre("diamondTR", Items.DIAMOND);
 
 		OreUnifier.registerOre("craftingGrinder", ItemParts.getPartByName("diamondGrindingHead"));
 		OreUnifier.registerOre("craftingGrinder", ItemParts.getPartByName("wolframiumGrindingHead"));
@@ -772,7 +772,7 @@ public class ModItems
 		OreUnifier.registerOre("blockLapis", ItemParts.getPartByName("lazuriteChunk"));
 
 		OreUnifier.registerOre("containerWater", ItemCells.getCellByName("water"));
-		OreUnifier.registerOre("containerWater", Items.water_bucket);
+		OreUnifier.registerOre("containerWater", Items.WATER_BUCKET);
 
 		OreUnifier.registerOre("materialResin", ItemParts.getPartByName("rubberSap"));
 		OreUnifier.registerOre("materialRubber", ItemParts.getPartByName("rubber"));

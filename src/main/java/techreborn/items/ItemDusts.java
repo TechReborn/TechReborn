@@ -41,15 +41,15 @@ public class ItemDusts extends ItemTextureBase
 
 		if (name.equalsIgnoreCase("glowstone"))
 		{
-			return new ItemStack(Items.glowstone_dust, count);
+			return new ItemStack(Items.GLOWSTONE_DUST, count);
 		}
 		if (name.equalsIgnoreCase("redstone"))
 		{
-			return new ItemStack(Items.redstone, count);
+			return new ItemStack(Items.REDSTONE, count);
 		}
 		if (name.equalsIgnoreCase("gunpowder"))
 		{
-			return new ItemStack(Items.gunpowder, count);
+			return new ItemStack(Items.GUNPOWDER, count);
 		}
 		throw new InvalidParameterException("The dust " + name + " could not be found.");
 	}

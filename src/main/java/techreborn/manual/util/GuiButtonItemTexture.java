@@ -35,7 +35,7 @@ public class GuiButtonItemTexture extends GuiButtonExt
 		{
 			boolean flag = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width
 					&& mouseY < this.yPosition + this.height;
-			mc.getTextureManager().bindTexture(buttonTextures);
+			mc.getTextureManager().bindTexture(BUTTON_TEXTURES);
 			int u = textureU;
 			int v = textureV;
 			if (flag)

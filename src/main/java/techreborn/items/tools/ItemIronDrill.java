@@ -4,6 +4,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Items;
 import techreborn.config.ConfigTechReborn;
 
+import net.minecraft.item.Item.ToolMaterial;
 public class ItemIronDrill extends ItemDrill
 {
 
@@ -17,7 +18,7 @@ public class ItemIronDrill extends ItemDrill
 	@Override
 	public boolean canHarvestBlock(IBlockState state)
 	{
-		return Items.iron_pickaxe.canHarvestBlock(state) || Items.iron_shovel.canHarvestBlock(state);
+		return Items.IRON_PICKAXE.canHarvestBlock(state) || Items.IRON_SHOVEL.canHarvestBlock(state);
 	}
 
 	@Override

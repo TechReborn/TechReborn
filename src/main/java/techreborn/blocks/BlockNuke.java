@@ -30,7 +30,7 @@ public class BlockNuke extends BaseBlock implements ITexturedBlock
 
 	public BlockNuke()
 	{
-		super(Material.tnt);
+		super(Material.TNT);
 		setUnlocalizedName("techreborn.nuke");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		RebornCore.jsonDestroyer.registerObject(this);

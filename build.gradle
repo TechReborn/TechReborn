@@ -40,6 +40,9 @@ repositories {
         name "CraftTweaker3"
         artifactPattern "http://www.blamejared.com/content/[module]-[classifier]-Full-[revision].[ext]"
     }
+    maven {
+        url 'http://maven.rubbix.net'
+    }
 }
 
 configurations {
@@ -56,8 +59,8 @@ if (ENV.BUILD_NUMBER) {
 }
 
 minecraft {
-    version = "1.9-12.16.0.1865-1.9"
-    mappings = "snapshot_20160316"
+    version = "1.9-12.16.1.1887"
+    mappings = "snapshot_20160506"
     replace "@MODVERSION@", project.version
   //  makeObfSourceJar = false
     useDepAts = true
@@ -83,6 +86,7 @@ dependencies {
     compile 'RebornCore:RebornCore-1.9:+:dev'
     deobfCompile "mezz.jei:jei_1.9:+"
     deobfCompile 'MCMultiPart:MCMultiPart-experimental:1.2.0_60:universal'
+    compile "net.darkhax.tesla:Tesla:1.9-1.0.1.21:deobf"
 }
 
 
@@ -206,4 +210,41 @@ uploadArchives {
 task wrapper(type: Wrapper) {
     //To update the wrapper change the version bellow then run: gradle wrapper
     gradleVersion = '2.9'
+}
+
+//Thanks Matthew from #ForgeGradle https://gist.github.com/matthewprenger/108265e3efc83181bd2cc2d2fc31a853
+task updateMappings(dependsOn: sourceJar) {
+
+    def remapped = file('src_remapped/main/java')
+    def methods = file('methods.csv')
+    def fields = file('fields.csv')
+
+    doLast {
+
+        Map<String, String> map = new HashMap<>()
+        methods.eachLine {line ->
+            String[] pts = line.split(",")
+            map.put(pts[0], pts[1])
+        }
+        fields.eachLine {line ->
+            String[] pts = line.split(",")
+            map.put(pts[0], pts[1])
+        }
+
+        copy {
+            from zipTree(sourceJar.archivePath)
+            into remapped
+            include '**/*.java'
+
+            filter { javaLine ->
+                map.entrySet().each { entry ->
+                    javaLine = javaLine.replace(entry.getKey(), entry.getValue())
+                }
+                return javaLine
+            }
+
+            includeEmptyDirs = false
+            eachFile { println "Processing: $it.name" }
+        }
+    }
 }

@@ -153,7 +153,7 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
 			{
 				if (worldObj.getBlockState(new BlockPos(getPos().getX() + direction.getFrontOffsetX(),
 						getPos().getY() + direction.getFrontOffsetY(), getPos().getZ() + direction.getFrontOffsetZ()))
-						.getBlock() == Blocks.lava)
+						.getBlock() == Blocks.LAVA)
 				{
 					addEnergy(1);
 				}
@@ -167,7 +167,7 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
 				{
 					if (worldObj.getBlockState(new BlockPos(getPos().getX() + direction.getFrontOffsetX(),
 							getPos().getY() + direction.getFrontOffsetY(),
-							getPos().getZ() + direction.getFrontOffsetZ())).getBlock() == Blocks.lava)
+							getPos().getZ() + direction.getFrontOffsetZ())).getBlock() == Blocks.LAVA)
 					{
 						didFindLava = true;
 					}

@@ -49,21 +49,21 @@ public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, II
 		{
 			Item item = stack.getItem();
 
-			if (item instanceof ItemBlock && Block.getBlockFromItem(item) != Blocks.air)
+			if (item instanceof ItemBlock && Block.getBlockFromItem(item) != Blocks.AIR)
 			{
 				Block block = Block.getBlockFromItem(item);
 
-				if (block == Blocks.wooden_slab)
+				if (block == Blocks.WOODEN_SLAB)
 				{
 					return 150;
 				}
 
-				if (block.getMaterial(block.getDefaultState()) == Material.wood)
+				if (block.getMaterial(block.getDefaultState()) == Material.WOOD)
 				{
 					return 300;
 				}
 
-				if (block == Blocks.coal_block)
+				if (block == Blocks.COAL_BLOCK)
 				{
 					return 16000;
 				}
@@ -75,15 +75,15 @@ public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, II
 				return 200;
 			// if (item instanceof ItemHoe && ((ItemHoe)
 			// item).getToolMaterialName().equals("WOOD")) return 200;
-			if (item == Items.stick)
+			if (item == Items.STICK)
 				return 100;
-			if (item == Items.coal)
+			if (item == Items.COAL)
 				return 1600;
-			if (item == Items.lava_bucket)
+			if (item == Items.LAVA_BUCKET)
 				return 20000;
-			if (item == Item.getItemFromBlock(Blocks.sapling))
+			if (item == Item.getItemFromBlock(Blocks.SAPLING))
 				return 100;
-			if (item == Items.blaze_rod)
+			if (item == Items.BLAZE_ROD)
 				return 2400;
 			return GameRegistry.getFuelValue(stack);
 		}

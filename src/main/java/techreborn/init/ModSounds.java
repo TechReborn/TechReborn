@@ -18,7 +18,7 @@ public class ModSounds
 
 	private static SoundEvent getSound(String str)
 	{
-		SoundEvent soundEvent = SoundEvent.soundEventRegistry.getObject(new ResourceLocation("techreborn" + str));
+		SoundEvent soundEvent = SoundEvent.REGISTRY.getObject(new ResourceLocation("techreborn" + str));
 		return soundEvent;
 	}
 

@@ -32,7 +32,7 @@ public class TileDragonEggSiphoner extends TilePowerAcceptor implements IWrencha
 		if (!worldObj.isRemote)
 		{
 			if (worldObj.getBlockState(new BlockPos(getPos().getX(), getPos().getY() + 1, getPos().getZ()))
-					.getBlock() == Blocks.dragon_egg)
+					.getBlock() == Blocks.DRAGON_EGG)
 			{
 				addEnergy(euTick);
 			}

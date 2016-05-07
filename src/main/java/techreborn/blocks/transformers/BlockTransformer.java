@@ -40,7 +40,7 @@ public abstract class BlockTransformer extends BaseTileBlock implements IRotatio
 
 	public BlockTransformer(String name)
 	{
-		super(Material.rock);
+		super(Material.ROCK);
 		setHardness(2f);
 		setUnlocalizedName("techreborn." + name.toLowerCase());
 		setCreativeTab(TechRebornCreativeTab.instance);

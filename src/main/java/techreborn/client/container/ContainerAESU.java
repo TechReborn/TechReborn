@@ -41,8 +41,8 @@ public class ContainerAESU extends RebornContainer {
 	@Override
 	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
-		for (int i = 0; i < this.crafters.size(); i++) {
-			ICrafting icrafting = this.crafters.get(i);
+		for (int i = 0; i < this.listeners.size(); i++) {
+			ICrafting icrafting = this.listeners.get(i);
 			if (this.euOut != tile.getMaxOutput()) {
 				icrafting.sendProgressBarUpdate(this, 0, (int) tile.getMaxOutput());
 			}

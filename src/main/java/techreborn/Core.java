@@ -148,7 +148,7 @@ public class Core
 		// Scrapbox
 		if (config.ScrapboxDispenser)
 		{
-			BlockDispenser.dispenseBehaviorRegistry.putObject(ModItems.scrapBox, new BehaviorDispenseScrapbox());
+			BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(ModItems.scrapBox, new BehaviorDispenseScrapbox());
 		}
 		logHelper.info("Initialization Complete");
 	}

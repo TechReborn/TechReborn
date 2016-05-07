@@ -5,6 +5,8 @@ import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.util.EnumHelper;
 
+import net.minecraft.item.Item.ToolMaterial;
+import net.minecraft.item.ItemArmor.ArmorMaterial;
 /**
  * This contains some static stuff used in recipes and other things
  */

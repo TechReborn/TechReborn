@@ -29,7 +29,7 @@ public class GuiButtonTextOnly extends GuiButton
 		if (this.visible)
 		{
 			FontRenderer fontrenderer = minecraft.fontRendererObj;
-			minecraft.getTextureManager().bindTexture(buttonTextures);
+			minecraft.getTextureManager().bindTexture(BUTTON_TEXTURES);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width
 					&& mouseY < this.yPosition + this.height;

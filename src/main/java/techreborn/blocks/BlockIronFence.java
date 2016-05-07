@@ -10,7 +10,7 @@ public class BlockIronFence extends BlockFence
 
 	public BlockIronFence()
 	{
-		super(Material.iron, BlockPlanks.EnumType.OAK.getMapColor());
+		super(Material.IRON, BlockPlanks.EnumType.OAK.getMapColor());
 		setUnlocalizedName("techreborn.ironfence");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		setHardness(2.0F);

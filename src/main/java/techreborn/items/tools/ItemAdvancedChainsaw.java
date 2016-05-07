@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import techreborn.config.ConfigTechReborn;
 
+import net.minecraft.item.Item.ToolMaterial;
 public class ItemAdvancedChainsaw extends ItemChainsaw
 {
 
@@ -22,7 +23,7 @@ public class ItemAdvancedChainsaw extends ItemChainsaw
 	@Override
 	public boolean canHarvestBlock(IBlockState blockIn)
 	{
-		return Items.diamond_axe.canHarvestBlock(blockIn);
+		return Items.DIAMOND_AXE.canHarvestBlock(blockIn);
 	}
 
 	@Override

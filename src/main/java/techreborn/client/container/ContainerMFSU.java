@@ -69,9 +69,9 @@ public class ContainerMFSU extends RebornContainer
 	public void detectAndSendChanges()
 	{
 		super.detectAndSendChanges();
-		for (int i = 0; i < this.crafters.size(); i++)
+		for (int i = 0; i < this.listeners.size(); i++)
 		{
-			ICrafting icrafting = this.crafters.get(i);
+			ICrafting icrafting = this.listeners.get(i);
 			if (this.energy != (int) tile.getEnergy())
 			{
 				icrafting.sendProgressBarUpdate(this, 2, (int) tile.getEnergy());

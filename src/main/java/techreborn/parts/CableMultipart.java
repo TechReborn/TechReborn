@@ -292,7 +292,7 @@ public abstract class CableMultipart extends Multipart
     }
 
     public Material getMaterial() {
-        return Material.cloth;
+        return Material.CLOTH;
     }
 
     @Override

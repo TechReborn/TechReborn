@@ -24,6 +24,7 @@ import reborncore.common.util.ItemNBTHelper;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 
+import net.minecraft.item.Item.ToolMaterial;
 public class ItemNanosaber extends ItemSword implements IEnergyItemInfo, ITexturedItem
 {
 

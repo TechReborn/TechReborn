@@ -21,7 +21,7 @@ public class BlockWindMill extends BaseTileBlock implements ITexturedBlock
 
 	public BlockWindMill()
 	{
-		super(Material.iron);
+		super(Material.IRON);
 		setUnlocalizedName("techreborn.windmill");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setHardness(2.0F);

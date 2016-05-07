@@ -35,7 +35,7 @@ public class BlockRubberLog extends Block implements ITexturedBlock
 
 	public BlockRubberLog()
 	{
-		super(Material.wood);
+		super(Material.WOOD);
 		setUnlocalizedName("techreborn.rubberlog");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		this.setHardness(2.0F);
