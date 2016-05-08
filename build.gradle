@@ -86,7 +86,9 @@ dependencies {
     compile 'RebornCore:RebornCore-1.9:+:dev'
     deobfCompile "mezz.jei:jei_1.9:+"
     deobfCompile 'MCMultiPart:MCMultiPart-experimental:1.2.0_60:universal'
-    compile "net.darkhax.tesla:Tesla:1.9-1.0.1.21:deobf"
+    compile "net.darkhax.tesla:Tesla:1.9-1.0.1.21:deobf"    
+	deobfCompile "slimeknights.mantle:Mantle:1.9-0.10.0.jenkins132"
+	deobfCompile "slimeknights:TConstruct:1.9-2.3.0.jenkins193"
 }
 
 

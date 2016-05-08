@@ -516,7 +516,7 @@ public class ModRecipes
 				ItemParts.getPartByName("advancedCircuit"));
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.thermalGenerator), "III", "IRI", "CGC", 'I',
-				ItemIngots.getIngotByName("invar"), 'R', ModBlocks.reinforcedglass, 'G', ModBlocks.Generator, 'C',
+				"ingotInvar", 'R', ModBlocks.reinforcedglass, 'G', ModBlocks.Generator, 'C',
 				ItemParts.getPartByName("electronicCircuit"));
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.recycler), "XEX", "DCD", "GDG", 'D', Blocks.DIRT, 'C',
