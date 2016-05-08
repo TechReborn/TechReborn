@@ -16,11 +16,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import reborncore.RebornCore;
 import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.init.ModSounds;
 import techreborn.items.ItemParts;
 import techreborn.items.tools.ItemTreeTap;
 
@@ -173,9 +175,9 @@ public class BlockRubberLog extends Block implements ITexturedBlock
 				{
 					worldIn.setBlockState(pos,
 							state.withProperty(HAS_SAP, false).withProperty(SAP_SIDE, EnumFacing.getHorizontal(0)));
-					// TODO 1.9 sounds
-					// worldIn.playSoundAtEntity(playerIn,
-					// "techreborn:sap_extract", 0.8F, 1F);
+					worldIn.playSound(null, pos.getX(), pos.getY(),
+							pos.getZ(), ModSounds.extract,
+							SoundCategory.BLOCKS, 0.6F, 1F);
 					if (!worldIn.isRemote)
 					{
 						Random rand = new Random();

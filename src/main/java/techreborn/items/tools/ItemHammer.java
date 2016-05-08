@@ -5,8 +5,15 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import techreborn.init.ModSounds;
 import techreborn.items.ItemTR;
 import techreborn.lib.ModInfo;
 
@@ -20,14 +27,13 @@ public class ItemHammer extends ItemTR implements ITexturedItem
 		setMaxDamage(MaxDamage);
 	}
 
-	// @Override
-	// public boolean onItemUse(ItemStack stack, EntityPlayer player, World
-	// world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
-	// {
-	// world.playSoundAtEntity(player, "techreborn:block_dismantle", 0.8F,
-	// 0.4F);
-	// return true;
-	// }
+	@Override
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		world.playSound(player, player.posX, player.posY,
+				player.posZ, ModSounds.dismantle,
+				SoundCategory.BLOCKS, 0.6F, 1F);
+		return EnumActionResult.SUCCESS;
+	}
 
 	@Override
 	public Item setUnlocalizedName(String par1Str)
