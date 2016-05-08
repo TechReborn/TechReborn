@@ -213,13 +213,15 @@ public class TechRebornWorldGen implements IWorldGenerator
 			for (OreConfig ore : list)
 			{
 				WorldGenMinable worldGenMinable = new WorldGenMinable(ore.state, ore.veinSize);
-				for (int i = 0; i < ore.veinsPerChunk; i++)
-				{
-					xPos = chunkX * 16 + random.nextInt(16);
-					yPos = 10 + random.nextInt(ore.maxYHeight - ore.minYHeight);
-					zPos = chunkZ * 16 + random.nextInt(16);
-					BlockPos pos = new BlockPos(xPos, yPos, zPos);
-					worldGenMinable.generate(world, random, pos);
+				if(ore.state != null){
+					for (int i = 0; i < ore.veinsPerChunk; i++)
+					{
+						xPos = chunkX * 16 + random.nextInt(16);
+						yPos = 10 + random.nextInt(ore.maxYHeight - ore.minYHeight);
+						zPos = chunkZ * 16 + random.nextInt(16);
+						BlockPos pos = new BlockPos(xPos, yPos, zPos);
+						worldGenMinable.generate(world, random, pos);
+					}
 				}
 			}
 		}

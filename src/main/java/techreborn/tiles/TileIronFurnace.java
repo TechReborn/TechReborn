@@ -7,6 +7,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.blocks.BlockMachineBase;
@@ -26,60 +29,6 @@ public class TileIronFurnace extends TileMachineBase implements IInventoryProvid
 	int output = 1;
 	int fuelslot = 2;
 	boolean active = false;
-
-	public static int getItemBurnTime(ItemStack stack)
-	{
-		if (stack == null)
-		{
-			return 0;
-		} else
-		{
-			Item item = stack.getItem();
-
-			if (stack.getItem() instanceof ItemBlock && Block.getBlockFromItem(item) != null)
-			{
-				Block block = Block.getBlockFromItem(item);
-
-				if (block == Blocks.WOODEN_SLAB)
-				{
-					return 150;
-				}
-
-				if (block == Blocks.LOG)
-				{
-					return 1200;
-				}
-
-				if (block.getMaterial(block.getDefaultState()) == Material.WOOD)
-				{
-					return 300;
-				}
-
-				if (block == Blocks.COAL_BLOCK)
-				{
-					return 16000;
-				}
-			}
-
-			if (item instanceof ItemTool && ((ItemTool) item).getToolMaterialName().equals("WOOD"))
-				return 200;
-			if (item instanceof ItemSword && ((ItemSword) item).getToolMaterialName().equals("WOOD"))
-				return 200;
-			if (item instanceof ItemHoe && ((ItemHoe) item).getMaterialName().equals("WOOD"))
-				return 200;
-			if (item == Items.STICK)
-				return 100;
-			if (item == Items.COAL)
-				return 1600;
-			if (item == Items.LAVA_BUCKET)
-				return 20000;
-			if (item == new ItemStack(Blocks.SAPLING).getItem())
-				return 100;
-			if (item == Items.BLAZE_ROD)
-				return 2400;
-			return GameRegistry.getFuelValue(stack);
-		}
-	}
 
 	public int gaugeProgressScaled(int scale)
 	{
@@ -111,7 +60,7 @@ public class TileIronFurnace extends TileMachineBase implements IInventoryProvid
 		}
 		if (fuel <= 0 && canSmelt())
 		{
-			fuel = fuelGague = getItemBurnTime(getStackInSlot(fuelslot));
+			fuel = fuelGague = (int) (TileEntityFurnace.getItemBurnTime(getStackInSlot(fuelslot)) * 1.25);
 			if (fuel > 0)
 			{
 				if (getStackInSlot(fuelslot).getItem().hasContainerItem()) // Fuel
