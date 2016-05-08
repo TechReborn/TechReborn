@@ -7,7 +7,6 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import techreborn.client.render.parts.ClientPartLoader;
 import techreborn.compat.minetweaker.MinetweakerCompat;
-import techreborn.compat.psi.CompatModulePsi;
 import techreborn.compat.waila.CompatModuleWaila;
 import techreborn.config.ConfigTechReborn;
 import techreborn.parts.StandalonePartCompact;
