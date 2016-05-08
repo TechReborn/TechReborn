@@ -60,7 +60,7 @@ public class JsonGenerator {
         for(Object object : RebornCore.jsonDestroyer.objectsToDestroy){
             if(object instanceof BlockMachineBase){
                 BlockMachineBase base = (BlockMachineBase) object;
-                String name = GameData.getBlockRegistry().getNameForObject(base).getResourcePath().replace("tile.techreborn.", "");
+                String name = base.getRegistryName().getResourcePath().replace("tile.techreborn.", "");
                 File state = new File(blockstates, name + ".json");
                 if(state.exists()){
                     state.delete();

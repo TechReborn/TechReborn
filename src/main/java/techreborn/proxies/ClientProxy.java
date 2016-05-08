@@ -99,7 +99,7 @@ public class ClientProxy extends CommonProxy
 	}
 
 	public static ResourceLocation getItemLocation(Item item) {
-		Object o = GameData.getItemRegistry().getNameForObject(item);
+		Object o = item.getRegistryName();
 		if(o == null) {
 			return null;
 		}

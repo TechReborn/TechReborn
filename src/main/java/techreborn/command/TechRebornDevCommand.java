@@ -94,14 +94,7 @@ public class TechRebornDevCommand extends CommandBase
 		} else if ("getname".equals(args[0])) {
 			EntityPlayer player = (EntityPlayer) sender;
 			if (player.getHeldItem(EnumHand.MAIN_HAND) != null) {
-				if(GameData.getItemRegistry().containsValue(player.getHeldItem(EnumHand.MAIN_HAND).getItem())){
-					sender.addChatMessage(new TextComponentString(GameData.getItemRegistry().getNameForObject(player.getHeldItem(EnumHand.MAIN_HAND).getItem()) + ":" + player.getHeldItem(EnumHand.MAIN_HAND).getItemDamage()));
-				} else {
-					Block block = Block.getBlockFromItem(player.getHeldItem(EnumHand.MAIN_HAND).getItem());
-					if (block != null && block != Blocks.AIR) {
-						sender.addChatMessage(new TextComponentString(GameData.getBlockRegistry().getNameForObject(block) + ":" + player.getHeldItem(EnumHand.MAIN_HAND).getItemDamage()));
-					}
-				}
+				sender.addChatMessage(new TextComponentString(player.getHeldItem(EnumHand.MAIN_HAND).getItem().getRegistryName() + ":" + player.getHeldItem(EnumHand.MAIN_HAND).getItemDamage()));
 			} else {
 				((EntityPlayer) sender).addChatComponentMessage(new TextComponentString("hold an item!"));
 			}
