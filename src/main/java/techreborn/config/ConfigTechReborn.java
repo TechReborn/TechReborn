@@ -33,6 +33,7 @@ public class ConfigTechReborn
 	public static int FarmEu;
 	public static int AesuMaxOutput;
 	public static int AesuMaxStorage;
+	public static int pumpExtractEU;
 
 	public static int LVTransformerMaxInput;
 	public static int LVTransformerMaxOutput;
@@ -211,6 +212,9 @@ public class ConfigTechReborn
 		AesuMaxOutput = config.get(CATEGORY_POWER, "AESU Max Output", 30, "Set the max output for the AESU").getInt();
 
 		AesuMaxStorage = config.get(CATEGORY_POWER, "AESU Max Storage", 30, "Set the max Storage for the AESU")
+				.getInt();
+
+		pumpExtractEU = config.get(CATEGORY_POWER, "Pump extract eu", 20, "How mutch eu should the pump use to extract the fluid")
 				.getInt();
 
 		//Transformers
