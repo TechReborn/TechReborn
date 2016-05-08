@@ -1,8 +1,12 @@
 package techreborn.world;
 
+import com.google.common.base.Predicate;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.state.pattern.BlockMatcher;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -195,16 +199,19 @@ public class TechRebornWorldGen implements IWorldGenerator
 		}
 		boolean genTree = false;
 		List<OreConfig> list = new ArrayList<>();
+		Predicate<IBlockState> predicate = BlockMatcher.forBlock(Blocks.STONE);
 		if (world.provider.isSurfaceWorld())
 		{
 			list.addAll(getAllGenOresFromList(config.overworldOres));
 			genTree = true;
-		} else if (world.provider.getDimension() == 0)
+		} else if (world.provider.getDimension() == -1)
 		{
 			list.addAll(getAllGenOresFromList(config.neatherOres));
+			predicate = BlockMatcher.forBlock(Blocks.NETHERRACK);
 		} else if (world.provider.getDimension() == 1)
 		{
 			list.addAll(getAllGenOresFromList(config.endOres));
+			predicate = BlockMatcher.forBlock(Blocks.END_STONE);
 		}
 
 		if (!list.isEmpty() && config.generateOres)
@@ -212,7 +219,7 @@ public class TechRebornWorldGen implements IWorldGenerator
 			int xPos, yPos, zPos;
 			for (OreConfig ore : list)
 			{
-				WorldGenMinable worldGenMinable = new WorldGenMinable(ore.state, ore.veinSize);
+				WorldGenMinable worldGenMinable = new WorldGenMinable(ore.state, ore.veinSize, predicate);
 				if(ore.state != null){
 					for (int i = 0; i < ore.veinsPerChunk; i++)
 					{
