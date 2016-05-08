@@ -946,8 +946,8 @@ public class ModRecipes
 		GameRegistry.addSmelting(new ItemStack(Items.IRON_INGOT), ItemIngots.getIngotByName("refinediron"), 1F);
 		GameRegistry.addSmelting(BlockOre2.getOreByName("copper"), ItemIngots.getIngotByName("copper"), 1F);
 		GameRegistry.addSmelting(BlockOre2.getOreByName("tin"), ItemIngots.getIngotByName("tin"), 1F);
-		GameRegistry.addSmelting(BlockOre.getOreByName("sliver"), ItemIngots.getIngotByName("sliver"), 1F);
-		GameRegistry.addSmelting(BlockOre.getOreByName("lead"), ItemIngots.getIngotByName("lead"), 1F);
+		GameRegistry.addSmelting(BlockOre.getOreByName("Silver"), ItemIngots.getIngotByName("silver"), 1F);
+		GameRegistry.addSmelting(BlockOre.getOreByName("Lead"), ItemIngots.getIngotByName("lead"), 1F);
 		Core.logHelper.info("Smelting Recipes Added");
 	}
 
