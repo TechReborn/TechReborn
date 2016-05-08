@@ -6,11 +6,15 @@ TechReborn is currently in a beta state. Crashes or bugs may happen at any time,
 
 We have permission to use Greg's textures (see [here](https://i.imgur.com/YQEMrq5.png?1)).
 
-# Issues
+# Issues and suggestions
 
-We keep track of issues and feature requests on github.
+We keep track of issues on github.
 
 [![Issues](https://img.shields.io/badge/TechReborn-Issues-0066ff.svg)](https://github.com/TechReborn/TechReborn/issues)
+
+And suggestions should be posted to our forum:
+
+[![Forum](https://img.shields.io/badge/TechReborn-Forum-0066ff.svg)](http://forum.techreborn.ovh/)
 
 # Recommended Builds:
 
