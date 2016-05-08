@@ -40,6 +40,9 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable,IInve
 	@Override
 	public void updateEntity()
 	{
+		if(worldObj.isRemote){
+			return;
+		}
 		boolean burning = isBurning();
 		boolean updateInventory = false;
 		if (getEnergy() <= cost && canRecycle())
@@ -111,7 +114,7 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable,IInve
 
 	public boolean canRecycle()
 	{
-		return getStackInSlot(input1) != null && hasSlotGotSpace(input1);
+		return getStackInSlot(input1) != null && hasSlotGotSpace(output);
 	}
 
 	public boolean hasSlotGotSpace(int slot)
@@ -181,13 +184,13 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable,IInve
 	@Override
 	public int[] getSlotsForFace(EnumFacing side)
 	{
-		return side == EnumFacing.DOWN ? new int[] { 0, 1, 2 } : new int[] { 0, 1, 2 };
+		return side == EnumFacing.DOWN ? new int[] { output } : new int[] { input1 };
 	}
 
 	@Override
 	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side)
 	{
-		if (slotIndex == 2)
+		if (slotIndex == output)
 			return false;
 		return isItemValidForSlot(slotIndex, itemStack);
 	}
@@ -195,7 +198,7 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable,IInve
 	@Override
 	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side)
 	{
-		return slotIndex == 2;
+		return slotIndex == output;
 	}
 
 	@Override
