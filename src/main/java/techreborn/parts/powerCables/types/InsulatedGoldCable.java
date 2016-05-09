@@ -1,7 +1,7 @@
-package techreborn.parts.types;
+package techreborn.parts.powerCables.types;
 
-import techreborn.parts.CableMultipart;
-import techreborn.parts.EnumCableType;
+import techreborn.parts.powerCables.CableMultipart;
+import techreborn.parts.powerCables.EnumCableType;
 
 /**
  * Created by modmuss50 on 05/03/2016.

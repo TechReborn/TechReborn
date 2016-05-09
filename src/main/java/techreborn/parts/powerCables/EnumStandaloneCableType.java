@@ -1,4 +1,4 @@
-package techreborn.parts;
+package techreborn.parts.powerCables;
 
 import net.minecraft.util.IStringSerializable;
 import reborncore.api.power.EnumPowerTier;

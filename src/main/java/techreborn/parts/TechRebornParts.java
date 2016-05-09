@@ -12,6 +12,11 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import techreborn.compat.ICompatModule;
+import techreborn.parts.fluidPipes.ItemFluidPipe;
+import techreborn.parts.fluidPipes.MultipartFluidPipe;
+import techreborn.parts.powerCables.CableMultipart;
+import techreborn.parts.powerCables.EnumCableType;
+import techreborn.parts.powerCables.ItemCables;
 
 /**
  * Created by modmuss50 on 02/03/2016.
@@ -21,6 +26,9 @@ public class TechRebornParts implements ICompatModule
 
 	@Nullable
 	public static Item cables;
+
+	@Nullable
+	public static Item fluidPipe;
 
 	public static HashMap<EnumCableType, Class<? extends CableMultipart>> multipartHashMap = new HashMap<>();
 
@@ -39,7 +47,13 @@ public class TechRebornParts implements ICompatModule
 			MultipartRegistry.registerPart(cableType.cableClass, "techreborn:cable." + cableType.name());
 		}
 		cables = new ItemCables();
-		GameRegistry.registerItem(cables, "cables");
+		cables.setRegistryName("cables");
+		GameRegistry.register(cables);
+
+		MultipartRegistry.registerPart(MultipartFluidPipe.class, "techreborn:fluidpipe");
+		fluidPipe = new ItemFluidPipe();
+		fluidPipe.setRegistryName("fluidPipe");
+		GameRegistry.register(fluidPipe);
 	}
 
 	@Override

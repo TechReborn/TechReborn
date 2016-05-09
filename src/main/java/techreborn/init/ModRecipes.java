@@ -24,7 +24,7 @@ import techreborn.api.recipe.machines.*;
 import techreborn.blocks.*;
 import techreborn.config.ConfigTechReborn;
 import techreborn.items.*;
-import techreborn.parts.ItemStandaloneCables;
+import techreborn.parts.powerCables.ItemStandaloneCables;
 import techreborn.utils.RecipeUtils;
 import techreborn.utils.StackWIPHandler;
 

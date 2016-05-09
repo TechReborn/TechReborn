@@ -10,8 +10,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import reborncore.api.power.IEnergyInterfaceTile;
-import techreborn.parts.CableMultipart;
-import techreborn.parts.EnumCableType;
+import techreborn.parts.powerCables.CableMultipart;
+import techreborn.parts.powerCables.EnumCableType;
 
 public class TRPowerNet
 {

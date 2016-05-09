@@ -1,15 +1,15 @@
-package techreborn.parts;
+package techreborn.parts.powerCables;
 
 import net.minecraft.util.IStringSerializable;
 import reborncore.api.power.EnumPowerTier;
-import techreborn.parts.types.CopperCable;
-import techreborn.parts.types.GlassFiberCable;
-import techreborn.parts.types.GoldCable;
-import techreborn.parts.types.HVCable;
-import techreborn.parts.types.InsulatedCopperCable;
-import techreborn.parts.types.InsulatedGoldCable;
-import techreborn.parts.types.InsulatedHVCable;
-import techreborn.parts.types.TinCable;
+import techreborn.parts.powerCables.types.CopperCable;
+import techreborn.parts.powerCables.types.GlassFiberCable;
+import techreborn.parts.powerCables.types.GoldCable;
+import techreborn.parts.powerCables.types.HVCable;
+import techreborn.parts.powerCables.types.InsulatedCopperCable;
+import techreborn.parts.powerCables.types.InsulatedGoldCable;
+import techreborn.parts.powerCables.types.InsulatedHVCable;
+import techreborn.parts.powerCables.types.TinCable;
 
 public enum EnumCableType implements IStringSerializable
 {

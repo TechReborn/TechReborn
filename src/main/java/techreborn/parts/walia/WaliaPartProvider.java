@@ -18,7 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import techreborn.parts.CableMultipart;
+import techreborn.parts.powerCables.CableMultipart;
 
 /**
  * Created by modmuss50 on 07/03/2016.

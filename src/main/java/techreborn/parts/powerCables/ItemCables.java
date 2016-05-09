@@ -1,4 +1,4 @@
-package techreborn.parts;
+package techreborn.parts.powerCables;
 
 import java.util.List;
 
@@ -21,6 +21,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.RebornCore;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
+import techreborn.parts.TechRebornParts;
 
 /**
  * Created by modmuss50 on 27/02/2016.

@@ -8,8 +8,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import org.lwjgl.util.vector.Vector3f;
 import reborncore.common.misc.vecmath.Vecs3dCube;
-import techreborn.parts.CableMultipart;
-import techreborn.parts.EnumCableType;
+import techreborn.parts.powerCables.CableMultipart;
+import techreborn.parts.powerCables.EnumCableType;
 
 import java.util.ArrayList;
 import java.util.Collections;

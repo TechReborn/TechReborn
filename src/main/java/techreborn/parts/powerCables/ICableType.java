@@ -1,4 +1,4 @@
-package techreborn.parts;
+package techreborn.parts.powerCables;
 
 /**
  * Created by modmuss50 on 05/03/2016.

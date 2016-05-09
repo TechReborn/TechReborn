@@ -1,4 +1,4 @@
-package techreborn.parts;
+package techreborn.parts.powerCables;
 
 import java.security.InvalidParameterException;
 import java.util.List;
@@ -12,6 +12,7 @@ import reborncore.RebornCore;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.items.ItemTextureBase;
 import techreborn.lib.ModInfo;
+import techreborn.parts.StandalonePartCompact;
 
 /**
  * Created by modmuss50 on 06/03/2016.

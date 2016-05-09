@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import techreborn.api.recipe.IRecipeCompact;
 import techreborn.blocks.BlockMachineFrame;
 import techreborn.items.*;
-import techreborn.parts.ItemStandaloneCables;
+import techreborn.parts.powerCables.ItemStandaloneCables;
 
 import java.io.BufferedWriter;
 import java.io.File;

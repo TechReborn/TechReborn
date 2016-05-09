@@ -1,4 +1,4 @@
-package techreborn.parts;
+package techreborn.parts.powerCables;
 
 import mcmultipart.MCMultiPartMod;
 import mcmultipart.microblock.IMicroblock;
@@ -31,6 +31,7 @@ import reborncore.common.misc.vecmath.Vecs3dCube;
 import reborncore.common.util.WorldUtils;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModSounds;
+import techreborn.parts.TechRebornParts;
 import techreborn.parts.walia.IPartWaliaProvider;
 import techreborn.power.TRPowerNet;
 import techreborn.utils.damageSources.ElectrialShockSource;

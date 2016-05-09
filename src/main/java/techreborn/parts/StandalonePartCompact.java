@@ -6,6 +6,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import techreborn.compat.ICompatModule;
+import techreborn.parts.powerCables.ItemStandaloneCables;
 
 /**
  * Created by modmuss50 on 06/03/2016.
