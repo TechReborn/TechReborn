@@ -1,5 +1,6 @@
 package techreborn.parts.fluidPipes;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import mcmultipart.MCMultiPartMod;
 import mcmultipart.microblock.IMicroblock;
 import mcmultipart.multipart.*;
@@ -8,28 +9,33 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ChatLine;
+import net.minecraft.client.gui.GuiNewChat;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.common.property.Properties;
+import net.minecraftforge.fluids.IFluidHandler;
 import reborncore.api.power.IEnergyInterfaceTile;
 import reborncore.common.misc.Functions;
 import reborncore.common.misc.vecmath.Vecs3dCube;
 import reborncore.common.util.WorldUtils;
 import techreborn.parts.TechRebornParts;
 
+import java.lang.reflect.Field;
 import java.util.*;
 
 /**
@@ -43,6 +49,9 @@ public class MultipartFluidPipe extends Multipart implements INormallyOccludingP
     public static final IUnlistedProperty<Boolean> EAST = Properties.toUnlisted(PropertyBool.create("east"));
     public static final IUnlistedProperty<Boolean> SOUTH = Properties.toUnlisted(PropertyBool.create("south"));
     public static final IUnlistedProperty<Boolean> WEST = Properties.toUnlisted(PropertyBool.create("west"));
+    public static final IProperty<EnumFluidPipeTypes> TYPE = PropertyEnum.create("type", EnumFluidPipeTypes.class);
+    EnumFluidPipeTypes currentType = EnumFluidPipeTypes.EMPTY;
+
     public Vecs3dCube[] boundingBoxes = new Vecs3dCube[14];
     public float center = 0.6F;
     public float offset = 0.10F;
@@ -184,7 +193,7 @@ public class MultipartFluidPipe extends Multipart implements INormallyOccludingP
             } else {
                 TileEntity tile = getNeighbourTile(dir);
 
-                if (tile instanceof IEnergyInterfaceTile) {
+                if (tile instanceof IFluidHandler && (currentType == EnumFluidPipeTypes.EXTRACT || currentType == EnumFluidPipeTypes.INSERT)) {
                     return true;
                 }
             }
@@ -240,12 +249,12 @@ public class MultipartFluidPipe extends Multipart implements INormallyOccludingP
                 .withProperty(UP, shouldConnectTo(EnumFacing.UP)).withProperty(NORTH, shouldConnectTo(EnumFacing.NORTH))
                 .withProperty(SOUTH, shouldConnectTo(EnumFacing.SOUTH))
                 .withProperty(WEST, shouldConnectTo(EnumFacing.WEST))
-                .withProperty(EAST, shouldConnectTo(EnumFacing.EAST));
+                .withProperty(EAST, shouldConnectTo(EnumFacing.EAST)).withProperty(TYPE, currentType);
     }
 
     @Override
     public BlockStateContainer createBlockState() {
-        return new ExtendedBlockState(MCMultiPartMod.multipart, new IProperty[]{},
+        return new ExtendedBlockState(MCMultiPartMod.multipart, new IProperty[]{TYPE},
                 new IUnlistedProperty[]{DOWN, UP, NORTH, SOUTH, WEST, EAST});
     }
 
@@ -278,5 +287,54 @@ public class MultipartFluidPipe extends Multipart implements INormallyOccludingP
     @Override
     public void update() {
 
+    }
+
+    @Override
+    public boolean onActivated(EntityPlayer player, EnumHand hand, ItemStack heldItem, PartMOP hit) {
+        //TODO move to client side only class
+        if(getWorld().isRemote){
+            try {
+                GuiNewChat chat = Minecraft.getMinecraft().ingameGUI.getChatGUI();
+                Field field = chat.getClass().getDeclaredField("chatLines");
+                field.setAccessible(true);
+                List<ChatLine> lines = (List<ChatLine>) field.get(chat);
+                List<Integer> linesToRemove = new ArrayList<>();
+                for(ChatLine line : lines){
+                    if(line.getChatComponent() instanceof TextComponetValue){
+                        linesToRemove.add(line.getChatLineID());
+                    }
+                }
+                for(Integer integer : linesToRemove){
+                    chat.deleteChatLine(integer);
+                }
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(currentType == EnumFluidPipeTypes.EMPTY){
+            currentType = EnumFluidPipeTypes.EXTRACT;
+            if(getWorld().isRemote)
+                player.addChatMessage(new TextComponetValue("Mode set to: " +  ChatFormatting.YELLOW + "Extract"));
+        } else if(currentType == EnumFluidPipeTypes.EXTRACT){
+            currentType = EnumFluidPipeTypes.INSERT;
+            if(getWorld().isRemote)
+                player.addChatMessage(new TextComponetValue("Mode set to: " +  ChatFormatting.BLUE + "Insert"));
+        } else if(currentType == EnumFluidPipeTypes.INSERT){
+            currentType = EnumFluidPipeTypes.EMPTY;
+            if(getWorld().isRemote)
+                player.addChatMessage(new TextComponetValue("Mode set to: " +  ChatFormatting.WHITE + "Normal"));
+        }
+        markRenderUpdate();
+        return true;
+    }
+
+    public class TextComponetValue extends TextComponentString{
+
+        public TextComponetValue(String msg) {
+            super(msg);
+        }
     }
 }

@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import org.lwjgl.util.vector.Vector3f;
+import reborncore.client.models.BakedModelUtils;
 import reborncore.common.misc.vecmath.Vecs3dCube;
 import techreborn.parts.powerCables.CableMultipart;
 import techreborn.parts.powerCables.EnumCableType;
@@ -28,43 +29,6 @@ public class RenderCablePart implements IBakedModel
 		this.type = type;
 	}
 
-	public void addCubeToList(Vecs3dCube cube, ArrayList<BakedQuad> list, BlockPartFace face,
-			ModelRotation modelRotation, TextureAtlasSprite cubeTexture, EnumFacing dir)
-	{
-		BlockFaceUV uv = new BlockFaceUV(new float[] { (float) cube.getMinX(), (float) cube.getMinY(),
-				(float) cube.getMaxX(), (float) cube.getMaxY() }, 0);
-		face = new BlockPartFace(null, 0, "", uv);
-		if(dir == EnumFacing.NORTH ||  dir == EnumFacing.SOUTH){
-			uv = new BlockFaceUV(new float[] { (float) cube.getMinZ(), (float) cube.getMinY(),
-					(float) cube.getMaxZ(), (float) cube.getMaxY() }, 0);
-			face = new BlockPartFace(null, 0, "", uv);
-		}
-		list.add(faceBakery.makeBakedQuad(
-				new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMinZ()),
-				new Vector3f((float) cube.getMaxX(), (float) cube.getMinY(), (float) cube.getMaxZ()), face, cubeTexture,
-				EnumFacing.DOWN, modelRotation, null, true, true));// down
-		list.add(faceBakery.makeBakedQuad(
-				new Vector3f((float) cube.getMinX(), (float) cube.getMaxY(), (float) cube.getMinZ()),
-				new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture,
-				EnumFacing.UP, modelRotation, null, true, true));// up
-		list.add(faceBakery.makeBakedQuad(
-				new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMinZ()),
-				new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture,
-				EnumFacing.NORTH, modelRotation, null, true, true));// north
-		list.add(faceBakery.makeBakedQuad(
-				new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMaxZ()),
-				new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture,
-				EnumFacing.SOUTH, modelRotation, null, true, true));// south
-		list.add(faceBakery.makeBakedQuad(
-				new Vector3f((float) cube.getMaxX(), (float) cube.getMinY(), (float) cube.getMinZ()),
-				new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture,
-				EnumFacing.EAST, modelRotation, null, true, true));// east
-		list.add(faceBakery.makeBakedQuad(
-				new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMinZ()),
-				new Vector3f((float) cube.getMinX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture,
-				EnumFacing.WEST, modelRotation, null, true, true));// west
-	}
-
 	@Override
 	public List<BakedQuad> getQuads(IBlockState blockState, EnumFacing side, long rand)
 	{
@@ -78,39 +42,39 @@ public class RenderCablePart implements IBakedModel
 		{
 			return Collections.emptyList();
 		}
-		addCubeToList(new Vecs3dCube(thickness, thickness, thickness, lastThickness, lastThickness, lastThickness),
-				list, face, ModelRotation.X0_Y0, texture, null);
+		BakedModelUtils.addCubeToList(new Vecs3dCube(thickness, thickness, thickness, lastThickness, lastThickness, lastThickness),
+				list, face, ModelRotation.X0_Y0, texture, null, faceBakery);
 		if (state != null)
 		{
 			if (state.getValue(CableMultipart.UP))
 			{
-				addCubeToList(new Vecs3dCube(thickness, lastThickness, thickness, lastThickness, 16.0, lastThickness),
-						list, face, ModelRotation.X0_Y0, texture, EnumFacing.UP);
+				BakedModelUtils.addCubeToList(new Vecs3dCube(thickness, lastThickness, thickness, lastThickness, 16.0, lastThickness),
+						list, face, ModelRotation.X0_Y0, texture, EnumFacing.UP, faceBakery);
 			}
 			if (state.getValue(CableMultipart.DOWN))
 			{
-				addCubeToList(new Vecs3dCube(thickness, 0.0, thickness, lastThickness, thickness, lastThickness), list,
-						face, ModelRotation.X0_Y0, texture, EnumFacing.DOWN);
+				BakedModelUtils.addCubeToList(new Vecs3dCube(thickness, 0.0, thickness, lastThickness, thickness, lastThickness), list,
+						face, ModelRotation.X0_Y0, texture, EnumFacing.DOWN, faceBakery);
 			}
 			if (state.getValue(CableMultipart.NORTH))
 			{
-				addCubeToList(new Vecs3dCube(thickness, thickness, 0.0, lastThickness, lastThickness, thickness), list,
-						face, ModelRotation.X0_Y0, texture, EnumFacing.NORTH);
+				BakedModelUtils.addCubeToList(new Vecs3dCube(thickness, thickness, 0.0, lastThickness, lastThickness, thickness), list,
+						face, ModelRotation.X0_Y0, texture, EnumFacing.NORTH, faceBakery);
 			}
 			if (state.getValue(CableMultipart.SOUTH))
 			{
-				addCubeToList(new Vecs3dCube(thickness, thickness, lastThickness, lastThickness, lastThickness, 16.0),
-						list, face, ModelRotation.X0_Y0, texture, EnumFacing.SOUTH);
+				BakedModelUtils.addCubeToList(new Vecs3dCube(thickness, thickness, lastThickness, lastThickness, lastThickness, 16.0),
+						list, face, ModelRotation.X0_Y0, texture, EnumFacing.SOUTH, faceBakery);
 			}
 			if (state.getValue(CableMultipart.EAST))
 			{
-				addCubeToList(new Vecs3dCube(lastThickness, thickness, thickness, 16.0, lastThickness, lastThickness),
-						list, face, ModelRotation.X0_Y0, texture, EnumFacing.EAST);
+				BakedModelUtils.addCubeToList(new Vecs3dCube(lastThickness, thickness, thickness, 16.0, lastThickness, lastThickness),
+						list, face, ModelRotation.X0_Y0, texture, EnumFacing.EAST, faceBakery);
 			}
 			if (state.getValue(CableMultipart.WEST))
 			{
-				addCubeToList(new Vecs3dCube(0.0, thickness, thickness, thickness, lastThickness, lastThickness), list,
-						face, ModelRotation.X0_Y0, texture, EnumFacing.WEST);
+				BakedModelUtils.addCubeToList(new Vecs3dCube(0.0, thickness, thickness, thickness, lastThickness, lastThickness), list,
+						face, ModelRotation.X0_Y0, texture, EnumFacing.WEST, faceBakery);
 			}
 		}
 		return list;
