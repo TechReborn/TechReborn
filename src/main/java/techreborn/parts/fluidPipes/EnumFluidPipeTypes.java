@@ -9,18 +9,7 @@ public enum  EnumFluidPipeTypes implements IStringSerializable {
 
     EMPTY("empty","techreborn:blocks/fluidPipes/fluidpipe", false, false),
     INSERT("insert","techreborn:blocks/fluidPipes/fluidpipe_insert", false, true),
-    EXTRACT("extract","techreborn:blocks/fluidPipes/fluidpipe_extract", true, false),
-    FLV1("flv1","techreborn:blocks/fluidPipes/fluidpipe", false, false),
-    FLV2("flv2","techreborn:blocks/fluidPipes/fluidpipe", false, false),
-    FLV3("flv3","techreborn:blocks/fluidPipes/fluidpipe", false, false),
-    FLV4("flv4","techreborn:blocks/fluidPipes/fluidpipe", false, false),
-    FLV5("flv5","techreborn:blocks/fluidPipes/fluidpipe", false, false),
-    FLV6("flv6","techreborn:blocks/fluidPipes/fluidpipe", false, false),
-    FLV7("flv7","techreborn:blocks/fluidPipes/fluidpipe", false, false),
-    FLV8("flv8","techreborn:blocks/fluidPipes/fluidpipe", false, false),
-    FLV9("flv9","techreborn:blocks/fluidPipes/fluidpipe", false, false),
-    FLV10("flv10","techreborn:blocks/fluidPipes/fluidpipe", false, false);
-
+    EXTRACT("extract","techreborn:blocks/fluidPipes/fluidpipe_extract", true, false);
 
     private String name;
     public String textureName = "minecraft:blocks/iron_block";

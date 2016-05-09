@@ -18,6 +18,7 @@ import net.minecraft.client.gui.GuiNewChat;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -28,10 +29,11 @@ import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.common.property.Properties;
+import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
-import reborncore.api.power.IEnergyInterfaceTile;
 import reborncore.common.misc.Functions;
 import reborncore.common.misc.vecmath.Vecs3dCube;
+import reborncore.common.util.Tank;
 import reborncore.common.util.WorldUtils;
 import techreborn.parts.TechRebornParts;
 
@@ -57,6 +59,8 @@ public class MultipartFluidPipe extends Multipart implements INormallyOccludingP
     public float offset = 0.10F;
     public Map<EnumFacing, BlockPos> connectedSides;
     public static final int thickness = 11;
+
+    Tank tank = new Tank("MultipartFluidPipe", 1000, null);
 
     public MultipartFluidPipe() {
         connectedSides = new HashMap<>();
@@ -286,25 +290,69 @@ public class MultipartFluidPipe extends Multipart implements INormallyOccludingP
 
     @Override
     public void update() {
-
+        if (!getWorld().isRemote) {
+            for (EnumFacing dir : EnumFacing.VALUES) {
+                if (connectedSides.containsKey(dir)) {
+                    if (currentType != EnumFluidPipeTypes.EMPTY) {
+                        MultipartFluidPipe fluidPipe = getPartFromWorld(getWorld(), getPos().offset(dir), dir);
+                        if (fluidPipe != null) {
+                            if (!fluidPipe.tank.isFull() && (fluidPipe.tank.getFluid() == null || fluidPipe.tank.getFluid().getFluid() == tank.getFluid().getFluid())) {
+                                int sharedAmount = (fluidPipe.tank.getFluidAmount() + tank.getFluidAmount()) / 2;
+                                fluidPipe.tank.setFluidAmount(sharedAmount);
+                                tank.setFluidAmount(sharedAmount);
+                            }
+                        }
+                    }
+                }
+                TileEntity tileEntity = getNeighbourTile(dir);
+                if (tileEntity != null) {
+                    if (tileEntity instanceof IFluidHandler) {
+                        IFluidHandler handler = (IFluidHandler) tileEntity;
+                        if (currentType == EnumFluidPipeTypes.EXTRACT) {
+                            if (!tank.isFull()) {
+                                FluidTankInfo[] fluidTankInfos = handler.getTankInfo(dir.getOpposite());
+                                if (fluidTankInfos.length > 1) {
+                                    FluidTankInfo info = fluidTankInfos[1];
+                                    if (tank.getFluid() == null || info.fluid.getFluid() == tank.getFluid().getFluid() && handler.canDrain(dir.getOpposite(), tank.getFluid().getFluid())) {
+                                        int amountToMove = Math.min(100, tank.getCapacity() - tank.getFluidAmount());
+                                        tank.fill(handler.drain(dir.getOpposite(), amountToMove, false), false);
+                                    }
+                                }
+                            }
+                        } else if (currentType == EnumFluidPipeTypes.INSERT) {
+                            if (!tank.isEmpty()) {
+                                FluidTankInfo[] fluidTankInfos = handler.getTankInfo(dir.getOpposite());
+                                if (fluidTankInfos.length > 1) {
+                                    FluidTankInfo info = fluidTankInfos[1];
+                                    if (info.fluid.getFluid() == null || info.fluid.getFluid() == tank.getFluid().getFluid() && handler.canFill(dir.getOpposite(), info.fluid.getFluid())) {
+                                        int amountToMove = Math.min(100, info.capacity - info.fluid.amount);
+                                        tank.fill(handler.drain(dir.getOpposite(), amountToMove, false), false);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @Override
     public boolean onActivated(EntityPlayer player, EnumHand hand, ItemStack heldItem, PartMOP hit) {
         //TODO move to client side only class
-        if(getWorld().isRemote){
+        if (getWorld().isRemote) {
             try {
                 GuiNewChat chat = Minecraft.getMinecraft().ingameGUI.getChatGUI();
                 Field field = chat.getClass().getDeclaredField("chatLines");
                 field.setAccessible(true);
                 List<ChatLine> lines = (List<ChatLine>) field.get(chat);
                 List<Integer> linesToRemove = new ArrayList<>();
-                for(ChatLine line : lines){
-                    if(line.getChatComponent() instanceof TextComponetValue){
+                for (ChatLine line : lines) {
+                    if (line.getChatComponent() instanceof TextComponetValue) {
                         linesToRemove.add(line.getChatLineID());
                     }
                 }
-                for(Integer integer : linesToRemove){
+                for (Integer integer : linesToRemove) {
                     chat.deleteChatLine(integer);
                 }
             } catch (NoSuchFieldException e) {
@@ -314,27 +362,50 @@ public class MultipartFluidPipe extends Multipart implements INormallyOccludingP
             }
         }
 
-        if(currentType == EnumFluidPipeTypes.EMPTY){
+        //TODO sync this with the server/client
+        if (currentType == EnumFluidPipeTypes.EMPTY) {
             currentType = EnumFluidPipeTypes.EXTRACT;
-            if(getWorld().isRemote)
-                player.addChatMessage(new TextComponetValue("Mode set to: " +  ChatFormatting.YELLOW + "Extract"));
-        } else if(currentType == EnumFluidPipeTypes.EXTRACT){
+            if (getWorld().isRemote)
+                player.addChatMessage(new TextComponetValue("Mode set to: " + ChatFormatting.YELLOW + "Extract"));
+        } else if (currentType == EnumFluidPipeTypes.EXTRACT) {
             currentType = EnumFluidPipeTypes.INSERT;
-            if(getWorld().isRemote)
-                player.addChatMessage(new TextComponetValue("Mode set to: " +  ChatFormatting.BLUE + "Insert"));
-        } else if(currentType == EnumFluidPipeTypes.INSERT){
+            if (getWorld().isRemote)
+                player.addChatMessage(new TextComponetValue("Mode set to: " + ChatFormatting.BLUE + "Insert"));
+        } else if (currentType == EnumFluidPipeTypes.INSERT) {
             currentType = EnumFluidPipeTypes.EMPTY;
-            if(getWorld().isRemote)
-                player.addChatMessage(new TextComponetValue("Mode set to: " +  ChatFormatting.WHITE + "Normal"));
+            if (getWorld().isRemote)
+                player.addChatMessage(new TextComponetValue("Mode set to: " + ChatFormatting.WHITE + "Normal"));
         }
+
         markRenderUpdate();
         return true;
     }
 
-    public class TextComponetValue extends TextComponentString{
+    public class TextComponetValue extends TextComponentString {
 
         public TextComponetValue(String msg) {
             super(msg);
+        }
+    }
+
+    @Override
+    public void writeToNBT(NBTTagCompound tag) {
+        super.writeToNBT(tag);
+        tank.writeToNBT(tag);
+        tag.setString("mode", currentType.getName());
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound tag) {
+        super.readFromNBT(tag);
+        tank.readFromNBT(tag);
+        String mode = tag.getString("mode");
+        if (mode.equals(EnumFluidPipeTypes.EMPTY)) {
+            currentType = EnumFluidPipeTypes.EMPTY;
+        } else if (mode.equals(EnumFluidPipeTypes.INSERT)) {
+            currentType = EnumFluidPipeTypes.INSERT;
+        } else if (mode.equals(EnumFluidPipeTypes.EXTRACT)) {
+            currentType = EnumFluidPipeTypes.EXTRACT;
         }
     }
 }
