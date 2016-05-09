@@ -1,5 +1,6 @@
 package techreborn.items.tools;
 
+import me.modmuss50.jsonDestroyer.api.ITexturedBucket;
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,7 +13,7 @@ import reborncore.RebornCore;
 import techreborn.blocks.fluid.BlockFluidBase;
 import techreborn.client.TechRebornCreativeTabMisc;
 
-public class ItemFluidbucket extends ItemBucket implements ITexturedItem
+public class ItemFluidbucket extends ItemBucket implements ITexturedBucket
 {
 	Fluid containedFluid;
 	private String iconName;
@@ -34,21 +35,21 @@ public class ItemFluidbucket extends ItemBucket implements ITexturedItem
 		return super.setUnlocalizedName(par1Str);
 	}
 
-	// @Override
-	// public boolean isGas(int damage) {
-	// return false;
-	// }
-	//
-	// @Override
-	// public Fluid getFluid(int damage) {
-	// return containedFluid;
-	// }
+	 @Override
+	 public boolean isGas(int damage) {
+	 return false;
+	 }
 
-	@Override
-	public String getTextureName(int damage)
-	{
-		return "techreborn:items/bucket/" + iconName;
-	}
+	 @Override
+	 public Fluid getFluid(int damage) {
+	 return containedFluid;
+	 }
+
+//	@Override
+//	public String getTextureName(int damage)
+//	{
+//		return "techreborn:items/bucket/" + iconName;
+//	}
 
 	@Override
 	public int getMaxMeta()
