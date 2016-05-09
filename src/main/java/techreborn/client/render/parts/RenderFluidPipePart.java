@@ -10,6 +10,7 @@ import org.lwjgl.util.vector.Vector3f;
 import reborncore.common.misc.vecmath.Vecs3dCube;
 import techreborn.parts.fluidPipes.MultipartFluidPipe;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -36,30 +37,116 @@ public class RenderFluidPipePart implements IBakedModel {
                     (float) cube.getMaxZ(), (float) cube.getMaxY()}, 0);
             face = new BlockPartFace(null, 0, "", uv);
         }
-        list.add(faceBakery.makeBakedQuad(
-                new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMinZ()),
-                new Vector3f((float) cube.getMaxX(), (float) cube.getMinY(), (float) cube.getMaxZ()), face, cubeTexture,
-                EnumFacing.DOWN, modelRotation, null, true, true));// down
-        list.add(faceBakery.makeBakedQuad(
-                new Vector3f((float) cube.getMinX(), (float) cube.getMaxY(), (float) cube.getMinZ()),
-                new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture,
-                EnumFacing.UP, modelRotation, null, true, true));// up
-        list.add(faceBakery.makeBakedQuad(
-                new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMinZ()),
-                new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture,
-                EnumFacing.NORTH, modelRotation, null, true, true));// north
-        list.add(faceBakery.makeBakedQuad(
-                new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMaxZ()),
-                new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture,
-                EnumFacing.SOUTH, modelRotation, null, true, true));// south
-        list.add(faceBakery.makeBakedQuad(
-                new Vector3f((float) cube.getMaxX(), (float) cube.getMinY(), (float) cube.getMinZ()),
-                new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture,
-                EnumFacing.EAST, modelRotation, null, true, true));// east
-        list.add(faceBakery.makeBakedQuad(
-                new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMinZ()),
-                new Vector3f((float) cube.getMinX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture,
-                EnumFacing.WEST, modelRotation, null, true, true));// west
+        if (dir == null) {
+            list.add(faceBakery.makeBakedQuad(
+                    new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMinZ()),
+                    new Vector3f((float) cube.getMaxX(), (float) cube.getMinY(), (float) cube.getMaxZ()), face, cubeTexture,
+                    EnumFacing.DOWN, modelRotation, null, true, true));// down
+            list.add(faceBakery.makeBakedQuad(
+                    new Vector3f((float) cube.getMinX(), (float) cube.getMaxY(), (float) cube.getMinZ()),
+                    new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture,
+                    EnumFacing.UP, modelRotation, null, true, true));// up
+            list.add(faceBakery.makeBakedQuad(
+                    new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMinZ()),
+                    new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture,
+                    EnumFacing.NORTH, modelRotation, null, true, true));// north
+            list.add(faceBakery.makeBakedQuad(
+                    new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMaxZ()),
+                    new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture,
+                    EnumFacing.SOUTH, modelRotation, null, true, true));// south
+            list.add(faceBakery.makeBakedQuad(
+                    new Vector3f((float) cube.getMaxX(), (float) cube.getMinY(), (float) cube.getMinZ()),
+                    new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture,
+                    EnumFacing.EAST, modelRotation, null, true, true));// east
+            list.add(faceBakery.makeBakedQuad(
+                    new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMinZ()),
+                    new Vector3f((float) cube.getMinX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture,
+                    EnumFacing.WEST, modelRotation, null, true, true));// west
+        } else {
+            if (dir != EnumFacing.DOWN) {
+                list.add(faceBakery.makeBakedQuad(
+                        new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMinZ()),
+                        new Vector3f((float) cube.getMaxX(), (float) cube.getMinY(), (float) cube.getMaxZ()), face, cubeTexture,
+                        EnumFacing.DOWN, modelRotation, null, true, true));// down
+            }
+            if (dir != EnumFacing.UP) {
+                list.add(faceBakery.makeBakedQuad(
+                        new Vector3f((float) cube.getMinX(), (float) cube.getMaxY(), (float) cube.getMinZ()),
+                        new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture,
+                        EnumFacing.UP, modelRotation, null, true, true));// up
+            }
+            if (dir != EnumFacing.NORTH) {
+                list.add(faceBakery.makeBakedQuad(
+                        new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMinZ()),
+                        new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture,
+                        EnumFacing.NORTH, modelRotation, null, true, true));// north
+            }
+            if (dir != EnumFacing.SOUTH) {
+                list.add(faceBakery.makeBakedQuad(
+                        new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMaxZ()),
+                        new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture,
+                        EnumFacing.SOUTH, modelRotation, null, true, true));// south
+            }
+            if (dir != EnumFacing.EAST) {
+                list.add(faceBakery.makeBakedQuad(
+                        new Vector3f((float) cube.getMaxX(), (float) cube.getMinY(), (float) cube.getMinZ()),
+                        new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture,
+                        EnumFacing.EAST, modelRotation, null, true, true));// east
+            }
+            if (dir != EnumFacing.WEST) {
+                list.add(faceBakery.makeBakedQuad(
+                        new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMinZ()),
+                        new Vector3f((float) cube.getMinX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture,
+                        EnumFacing.WEST, modelRotation, null, true, true));// west
+            }
+
+        }
+
+    }
+
+    public void addCulledCubeToList(Vecs3dCube cube, ArrayList<BakedQuad> list, BlockPartFace face,
+                                    ModelRotation modelRotation, TextureAtlasSprite cubeTexture, List<EnumFacing> dirs) {
+        BlockFaceUV uv = new BlockFaceUV(new float[]{(float) cube.getMinX(), (float) cube.getMinY(),
+                (float) cube.getMaxX(), (float) cube.getMaxY()}, 0);
+        face = new BlockPartFace(null, 0, "", uv);
+
+        if (dirs.contains(EnumFacing.DOWN)) {
+            list.add(faceBakery.makeBakedQuad(
+                    new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMinZ()),
+                    new Vector3f((float) cube.getMaxX(), (float) cube.getMinY(), (float) cube.getMaxZ()), face, cubeTexture,
+                    EnumFacing.DOWN, modelRotation, null, true, true));// down
+        }
+        if (dirs.contains(EnumFacing.UP)) {
+            list.add(faceBakery.makeBakedQuad(
+                    new Vector3f((float) cube.getMinX(), (float) cube.getMaxY(), (float) cube.getMinZ()),
+                    new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture,
+                    EnumFacing.UP, modelRotation, null, true, true));// up
+        }
+        if (dirs.contains(EnumFacing.NORTH)) {
+            list.add(faceBakery.makeBakedQuad(
+                    new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMinZ()),
+                    new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture,
+                    EnumFacing.NORTH, modelRotation, null, true, true));// north
+        }
+        if (dirs.contains(EnumFacing.SOUTH)) {
+            list.add(faceBakery.makeBakedQuad(
+                    new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMaxZ()),
+                    new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture,
+                    EnumFacing.SOUTH, modelRotation, null, true, true));// south
+        }
+        if (dirs.contains(EnumFacing.EAST)) {
+            list.add(faceBakery.makeBakedQuad(
+                    new Vector3f((float) cube.getMaxX(), (float) cube.getMinY(), (float) cube.getMinZ()),
+                    new Vector3f((float) cube.getMaxX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture,
+                    EnumFacing.EAST, modelRotation, null, true, true));// east
+        }
+        if (dirs.contains(EnumFacing.WEST)) {
+            list.add(faceBakery.makeBakedQuad(
+                    new Vector3f((float) cube.getMinX(), (float) cube.getMinY(), (float) cube.getMinZ()),
+                    new Vector3f((float) cube.getMinX(), (float) cube.getMaxY(), (float) cube.getMaxZ()), face, cubeTexture,
+                    EnumFacing.WEST, modelRotation, null, true, true));// west
+        }
+
     }
 
     @Override
@@ -73,8 +160,29 @@ public class RenderFluidPipePart implements IBakedModel {
         if (side != null) {
             return Collections.emptyList();
         }
-        addCubeToList(new Vecs3dCube(thickness, thickness, thickness, lastThickness, lastThickness, lastThickness),
-                list, face, ModelRotation.X0_Y0, texture, null);
+        //TODO recode the fuck out of this
+        ArrayList<EnumFacing> dirs = new ArrayList<>();
+        if(!state.getValue(MultipartFluidPipe.DOWN)){
+            dirs.add(EnumFacing.DOWN);
+        }
+        if(!state.getValue(MultipartFluidPipe.UP)){
+            dirs.add(EnumFacing.UP);
+        }
+        if(!state.getValue(MultipartFluidPipe.NORTH)){
+            dirs.add(EnumFacing.NORTH);
+        }
+        if(!state.getValue(MultipartFluidPipe.SOUTH)){
+            dirs.add(EnumFacing.SOUTH);
+        }
+        if(!state.getValue(MultipartFluidPipe.EAST)){
+            dirs.add(EnumFacing.EAST);
+        }
+        if(!state.getValue(MultipartFluidPipe.WEST)){
+            dirs.add(EnumFacing.WEST);
+        }
+
+        addCulledCubeToList(new Vecs3dCube(thickness, thickness, thickness, lastThickness, lastThickness, lastThickness),
+                list, face, ModelRotation.X0_Y0, texture, dirs);
         if (state != null) {
             if (state.getValue(MultipartFluidPipe.UP)) {
                 addCubeToList(new Vecs3dCube(thickness, lastThickness, thickness, lastThickness, 16.0, lastThickness),

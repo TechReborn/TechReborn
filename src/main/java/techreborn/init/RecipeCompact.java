@@ -54,8 +54,8 @@ public class RecipeCompact implements IRecipeCompact
 		recipes.put("solarPanel", new ItemStack(ModBlocks.solarPanel));
 		recipes.put("waterCell", ItemCells.getCellByName("water"));
 		recipes.put("lavaCell", ItemCells.getCellByName("lava"));
-		recipes.put("pump", new ItemStack(ModItems.missingRecipe));
-		recipes.put("teleporter", new ItemStack(ModItems.missingRecipe));
+		recipes.put("pump", new ItemStack(ModBlocks.pump));
+//		recipes.put("teleporter", new ItemStack(ModItems.missingRecipe));
 		recipes.put("advancedAlloy", ItemIngots.getIngotByName("advancedAlloy"));
 		recipes.put("lvTransformer", new ItemStack(ModBlocks.lvt));
 		recipes.put("mvTransformer", new ItemStack(ModBlocks.mvt));

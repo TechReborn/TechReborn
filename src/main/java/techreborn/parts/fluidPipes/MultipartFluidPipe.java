@@ -47,7 +47,7 @@ public class MultipartFluidPipe extends Multipart implements INormallyOccludingP
     public float center = 0.6F;
     public float offset = 0.10F;
     public Map<EnumFacing, BlockPos> connectedSides;
-    public static final int thickness = 12;
+    public static final int thickness = 11;
 
     public MultipartFluidPipe() {
         connectedSides = new HashMap<>();

@@ -27,7 +27,7 @@ public class ClientPartModelBakery
 					new RenderCablePart(type));
 		}
 		event.getModelRegistry().putObject(
-				new ModelResourceLocation("techreborn:fluidpipe"),
+				new ModelResourceLocation("techreborn:fluidpipe#multipart"),
 				new RenderFluidPipePart());
 	}
 
