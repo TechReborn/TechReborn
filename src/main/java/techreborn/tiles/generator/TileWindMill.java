@@ -10,7 +10,7 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 public class TileWindMill extends TilePowerAcceptor
 {
 
-	int basePower = 4;
+	int basePower = 16;
 
 	public TileWindMill()
 	{
