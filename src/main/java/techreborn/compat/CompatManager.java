@@ -1,17 +1,18 @@
 package techreborn.compat;
 
-import java.util.ArrayList;
-
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import techreborn.client.render.parts.ClientPartLoader;
 import techreborn.compat.minetweaker.MinetweakerCompat;
+import techreborn.compat.tinkers.CompatModuleTinkers;
 import techreborn.compat.waila.CompatModuleWaila;
 import techreborn.config.ConfigTechReborn;
 import techreborn.parts.StandalonePartCompact;
 import techreborn.parts.TechRebornParts;
 import techreborn.parts.walia.WailaMcMultiPartCompact;
+
+import java.util.ArrayList;
 
 public class CompatManager
 {
@@ -45,6 +46,7 @@ public class CompatManager
 		registerCompact(StandalonePartCompact.class, "!mcmultipart");
 		registerCompact(WailaMcMultiPartCompact.class, "mcmultipart", "Waila", "!IC2");
 		registerCompact(CompatModuleWaila.class, "Waila");
+		registerCompact(CompatModuleTinkers.class, "tconstruct");
 		//registerCompact(CompatModulePsi.class, "Psi");
 	}
 
@@ -107,17 +109,4 @@ public class CompatManager
 			e.printStackTrace();
 		}
 	}
-
-	public boolean isForestry4()
-	{
-		try
-		{
-			Class.forName("forestry.api.arboriculture.EnumWoodType");
-			return true;
-		} catch (ClassNotFoundException e)
-		{
-			return false;
-		}
-	}
-
 }

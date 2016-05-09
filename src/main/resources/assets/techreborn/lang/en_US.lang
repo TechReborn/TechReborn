@@ -194,6 +194,12 @@ fluid.tile.techreborn.helium3=Helium3
 fluid.tile.techreborn.deuterium=Deuterium
 fluid.tile.techreborn.helium=Helium
 fluid.tile.techreborn.calciumcarbonate=Calcium Carbonate
+fluid.titanium.name=Molten Titanium
+fluid.chrome.name=Molten Chrome
+fluid.platinum.name=Molten Platinum
+fluid.iridium.name=Molten Iridium
+fluid.invar.name=Molten Invar
+fluid.tungsten.name=Molten Tungsten
 
 #Dusts
 item.techreborn.dust.almandine.name=Almandine Dust
