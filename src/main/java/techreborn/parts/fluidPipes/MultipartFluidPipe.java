@@ -53,7 +53,7 @@ public class MultipartFluidPipe extends Multipart implements INormallyOccludingP
 	public static final IUnlistedProperty<Boolean> SOUTH = Properties.toUnlisted(PropertyBool.create("south"));
 	public static final IUnlistedProperty<Boolean> WEST = Properties.toUnlisted(PropertyBool.create("west"));
 	public static final IProperty<EnumFluidPipeTypes> TYPE = PropertyEnum.create("type", EnumFluidPipeTypes.class);
-	public static final int thickness = 11;
+	public static final double thickness = 11;
 	public Vecs3dCube[] boundingBoxes = new Vecs3dCube[14];
 	public float center = 0.6F;
 	public float offset = 0.10F;
