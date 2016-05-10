@@ -1,13 +1,9 @@
 package techreborn.items.tools;
 
 import me.modmuss50.jsonDestroyer.api.ITexturedBucket;
-import me.modmuss50.jsonDestroyer.api.ITexturedItem;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBucket;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import reborncore.RebornCore;
 import techreborn.blocks.fluid.BlockFluidBase;
@@ -45,21 +41,9 @@ public class ItemFluidbucket extends ItemBucket implements ITexturedBucket
 	 return containedFluid;
 	 }
 
-//	@Override
-//	public String getTextureName(int damage)
-//	{
-//		return "techreborn:items/bucket/" + iconName;
-//	}
-
 	@Override
 	public int getMaxMeta()
 	{
 		return 1;
-	}
-
-	@Override
-	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining)
-	{
-		return null;
 	}
 }
