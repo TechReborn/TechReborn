@@ -98,15 +98,15 @@ public class RenderFluidPipePart implements IBakedModel {
             }
             if (state.getValue(MultipartFluidPipe.SOUTH))
             {
-                BakedModelUtils.addCubeToList(new Vecs3dCube(thickness, thickness, lastThickness, lastThickness, lastThickness, 16.0),
+                BakedModelUtils.addCubeToList(new Vecs3dCube(thickness, thickness, thickness, lastThickness, lastThickness, 16.0),
                         list, face, ModelRotation.X0_Y0, texture, EnumFacing.SOUTH, faceBakery);
-                renderedConnection = true;
+                renderedConnection = false;
             }
             if (state.getValue(MultipartFluidPipe.EAST))
             {
-                BakedModelUtils.addCubeToList(new Vecs3dCube(lastThickness, thickness, thickness, 16.0, lastThickness, lastThickness),
+                BakedModelUtils.addCubeToList(new Vecs3dCube(thickness, thickness, thickness, 16, lastThickness, lastThickness),
                         list, face, ModelRotation.X0_Y0, texture, EnumFacing.EAST, faceBakery);
-                renderedConnection = true;
+                renderedConnection = false;
             }
             if (state.getValue(MultipartFluidPipe.WEST))
             {

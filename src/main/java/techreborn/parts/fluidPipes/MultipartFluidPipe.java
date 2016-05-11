@@ -60,6 +60,7 @@ public class MultipartFluidPipe extends Multipart implements INormallyOccludingP
     public Map<EnumFacing, BlockPos> connectedSides;
     EnumFluidPipeTypes currentType = EnumFluidPipeTypes.EMPTY;
     Tank tank = new Tank("MultipartFluidPipe", 1000, null);
+    public static int mbt = 20;
 
     public MultipartFluidPipe() {
         connectedSides = new HashMap<>();
@@ -302,13 +303,16 @@ public class MultipartFluidPipe extends Multipart implements INormallyOccludingP
                 //if (connectedSides.containsKey(dir)) {
                 MultipartFluidPipe fluidPipe = getPartFromWorld(getWorld(), getPos().offset(dir), dir);
                 if (fluidPipe != null) {
-                    System.out.println(tank.getFluidAmount());
                     if (!tank.isEmpty()){
                         if(fluidPipe.tank.isEmpty() || fluidPipe.tank.getFluid().getFluid() == tank.getFluid().getFluid()){
-                            int sharedAmount = (fluidPipe.tank.getFluidAmount() + tank.getFluidAmount()) / 2;
+                            int wantedAmount = fluidPipe.tank.getCapacity();
+                            if(!fluidPipe.tank.isEmpty()){
+                                wantedAmount = fluidPipe.tank.getCapacity() - fluidPipe.tank.getFluidAmount();
+                            }
+                            int amountToDischarge = Math.min(Math.min(mbt, tank.getFluidAmount()), wantedAmount);
                             fluidPipe.tank.setFluid(tank.getFluid());
-                            fluidPipe.tank.setFluidAmount(sharedAmount +  sharedAmount % 2 == 0 ? 0 : 1);
-                            tank.setFluidAmount(sharedAmount);
+                            fluidPipe.tank.setFluidAmount(fluidPipe.tank.getFluidAmount() + amountToDischarge);
+                            tank.setFluidAmount(tank.getFluidAmount() - amountToDischarge);
                         }
                     }
                 }
@@ -325,12 +329,12 @@ public class MultipartFluidPipe extends Multipart implements INormallyOccludingP
                                     if (info != null & info.fluid != null) {
                                         if(tank.isEmpty() || info.fluid.getFluid() == tank.getFluid().getFluid()){
                                             if(handler.canDrain(dir.getOpposite(), info.fluid.getFluid())){
-                                                int amountToMove = Math.min(100, tank.getCapacity() - tank.getFluidAmount());
+                                                int amountToMove = Math.min(mbt, tank.getCapacity() - tank.getFluidAmount());
                                                 int fluidAmount = tank.getFluidAmount();
                                                 FluidStack fluidStack = handler.drain(dir.getOpposite(), amountToMove, true);
                                                 tank.fill(fluidStack, true);
                                                 tank.setFluid(fluidStack);
-                                                tank.setFluidAmount(fluidAmount + fluidStack.amount);
+                                                tank.setFluidAmount(fluidAmount + amountToMove);
                                             }
                                         }
                                     }
@@ -348,7 +352,7 @@ public class MultipartFluidPipe extends Multipart implements INormallyOccludingP
                                         if(info.fluid != null){
                                             infoSpace = info.capacity - info.fluid.amount;
                                         }
-                                        int amountToMove = Math.min(100, infoSpace);
+                                        int amountToMove = Math.min(mbt, infoSpace);
                                         FluidStack fluidStack = tank.drain(amountToMove, true);
                                         handler.fill(dir.getOpposite(), fluidStack, true);
                                     }
