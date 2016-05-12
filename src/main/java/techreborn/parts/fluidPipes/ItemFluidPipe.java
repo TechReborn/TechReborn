@@ -24,6 +24,6 @@ public class ItemFluidPipe extends ItemMultiPart {
 
     @Override
     public IMultipart createPart(World world, BlockPos pos, EnumFacing side, Vec3d hit, ItemStack stack, EntityPlayer player) {
-        return new MultipartFluidPipe();
+        return new EmptyFluidPipe();
     }
 }

@@ -6,14 +6,16 @@ import javax.annotation.Nullable;
 
 import mcmultipart.multipart.MultipartRegistry;
 import net.minecraft.item.Item;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import reborncore.common.packets.AddDiscriminatorEvent;
 import techreborn.compat.ICompatModule;
-import techreborn.parts.fluidPipes.ItemFluidPipe;
-import techreborn.parts.fluidPipes.MultipartFluidPipe;
+import techreborn.parts.fluidPipes.*;
 import techreborn.parts.powerCables.CableMultipart;
 import techreborn.parts.powerCables.EnumCableType;
 import techreborn.parts.powerCables.ItemCables;
@@ -35,7 +37,7 @@ public class TechRebornParts implements ICompatModule
 	@Override
 	public void preInit(FMLPreInitializationEvent event)
 	{
-
+		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	@Override
@@ -50,7 +52,9 @@ public class TechRebornParts implements ICompatModule
 		cables.setRegistryName("cables");
 		GameRegistry.register(cables);
 
-		MultipartRegistry.registerPart(MultipartFluidPipe.class, "techreborn:fluidpipe");
+		MultipartRegistry.registerPart(EmptyFluidPipe.class, "techreborn:fluidpipe.empty");
+		MultipartRegistry.registerPart(InsertingFluidPipe.class, "techreborn:fluidpipe.inserting");
+		MultipartRegistry.registerPart(ExtractingFluidPipe.class, "techreborn:fluidpipe.extracting");
 		fluidPipe = new ItemFluidPipe();
 		fluidPipe.setRegistryName("fluidPipe");
 		GameRegistry.register(fluidPipe);

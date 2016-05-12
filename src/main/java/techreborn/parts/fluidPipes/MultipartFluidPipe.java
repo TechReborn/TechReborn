@@ -2,6 +2,7 @@ package techreborn.parts.fluidPipes;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import mcmultipart.MCMultiPartMod;
+import mcmultipart.block.TileMultipartContainer;
 import mcmultipart.microblock.IMicroblock;
 import mcmultipart.multipart.*;
 import mcmultipart.raytrace.PartMOP;
@@ -16,6 +17,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -32,10 +34,8 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import reborncore.common.misc.Functions;
 import reborncore.common.misc.vecmath.Vecs3dCube;
-import reborncore.common.util.ChatUtils;
-import reborncore.common.util.StringUtils;
-import reborncore.common.util.Tank;
-import reborncore.common.util.WorldUtils;
+import reborncore.common.packets.PacketHandler;
+import reborncore.common.util.*;
 import techreborn.parts.TechRebornParts;
 
 import java.util.*;
@@ -43,7 +43,7 @@ import java.util.*;
 /**
  * Created by modmuss50 on 09/05/2016.
  */
-public class MultipartFluidPipe extends Multipart implements INormallyOccludingPart, ISlottedPart, ITickable {
+public abstract class MultipartFluidPipe extends Multipart implements INormallyOccludingPart, ISlottedPart, ITickable, IPartType {
 
     public static final IUnlistedProperty<Boolean> UP = Properties.toUnlisted(PropertyBool.create("up"));
     public static final IUnlistedProperty<Boolean> DOWN = Properties.toUnlisted(PropertyBool.create("down"));
@@ -58,7 +58,6 @@ public class MultipartFluidPipe extends Multipart implements INormallyOccludingP
     public float center = 0.6F;
     public float offset = 0.10F;
     public Map<EnumFacing, BlockPos> connectedSides;
-    EnumFluidPipeTypes currentType = EnumFluidPipeTypes.EMPTY;
     Tank tank = new Tank("MultipartFluidPipe", 1000, null);
 
     public MultipartFluidPipe() {
@@ -202,8 +201,8 @@ public class MultipartFluidPipe extends Multipart implements INormallyOccludingP
             } else {
                 TileEntity tile = getNeighbourTile(dir);
 
-                if (tile instanceof IFluidHandler && (currentType == EnumFluidPipeTypes.EXTRACT
-                        || currentType == EnumFluidPipeTypes.INSERT)) {
+                if (tile instanceof IFluidHandler && (getPipeType() == EnumFluidPipeTypes.EXTRACT
+                        || getPipeType() == EnumFluidPipeTypes.INSERT)) {
                     return true;
                 }
             }
@@ -260,7 +259,7 @@ public class MultipartFluidPipe extends Multipart implements INormallyOccludingP
                 .withProperty(UP, shouldConnectTo(EnumFacing.UP)).withProperty(NORTH, shouldConnectTo(EnumFacing.NORTH))
                 .withProperty(SOUTH, shouldConnectTo(EnumFacing.SOUTH))
                 .withProperty(WEST, shouldConnectTo(EnumFacing.WEST))
-                .withProperty(EAST, shouldConnectTo(EnumFacing.EAST)).withProperty(TYPE, currentType);
+                .withProperty(EAST, shouldConnectTo(EnumFacing.EAST)).withProperty(TYPE, getPipeType());
     }
 
     @Override
@@ -305,13 +304,13 @@ public class MultipartFluidPipe extends Multipart implements INormallyOccludingP
                     if (!tank.isEmpty()) {
                         if (fluidPipe.tank.isEmpty() || fluidPipe.tank.getFluid().getFluid() == tank.getFluid()
                                 .getFluid()) {
-                            if(fluidPipe.tank.getFluidAmount() < tank.getFluidAmount()){
+                            if (fluidPipe.tank.getFluidAmount() < tank.getFluidAmount()) {
                                 int freeSpace = fluidPipe.tank.getCapacity();
                                 if (!fluidPipe.tank.isEmpty()) {
                                     freeSpace = fluidPipe.tank.getCapacity() - fluidPipe.tank.getFluidAmount();
                                 }
                                 int difference = tank.getFluidAmount() - freeSpace;
-                                int amountToChange = difference /2;
+                                int amountToChange = difference / 2;
                                 fluidPipe.tank.setFluid(tank.getFluid());
                                 fluidPipe.tank.setFluidAmount(fluidPipe.tank.getFluidAmount() + amountToChange);
                                 tank.setFluidAmount(tank.getFluidAmount() - amountToChange);
@@ -325,7 +324,7 @@ public class MultipartFluidPipe extends Multipart implements INormallyOccludingP
                 if (tileEntity != null) {
                     if (tileEntity instanceof IFluidHandler) {
                         IFluidHandler handler = (IFluidHandler) tileEntity;
-                        if (currentType == EnumFluidPipeTypes.EXTRACT) {
+                        if (getPipeType() == EnumFluidPipeTypes.EXTRACT) {
                             if (!tank.isFull()) {
                                 FluidTankInfo[] fluidTankInfos = handler.getTankInfo(dir.getOpposite());
                                 if (fluidTankInfos.length != 0) {
@@ -346,7 +345,7 @@ public class MultipartFluidPipe extends Multipart implements INormallyOccludingP
                                     }
                                 }
                             }
-                        } else if (currentType == EnumFluidPipeTypes.INSERT) {
+                        } else if (getPipeType() == EnumFluidPipeTypes.INSERT) {
                             if (!tank.isEmpty()) {
                                 FluidTankInfo[] fluidTankInfos = handler.getTankInfo(dir.getOpposite());
                                 if (fluidTankInfos.length != 0) {
@@ -375,45 +374,56 @@ public class MultipartFluidPipe extends Multipart implements INormallyOccludingP
     public boolean onActivated(EntityPlayer player, EnumHand hand, ItemStack heldItem, PartMOP hit) {
         //TODO make only wrench able to change mode, shift-click with wrench picks up pipe, and click with empty hand displays current mode in chat (doesn't change it)
 
-        //TODO sync this to the client, and also when part is loaded
-        //if (!getWorld().isRemote) {
-        if (currentType == EnumFluidPipeTypes.EMPTY) {
-            currentType = EnumFluidPipeTypes.EXTRACT;
-        } else if (currentType == EnumFluidPipeTypes.EXTRACT) {
-            currentType = EnumFluidPipeTypes.INSERT;
-        } else if (currentType == EnumFluidPipeTypes.INSERT) {
-            currentType = EnumFluidPipeTypes.EMPTY;
-        }
-        //  }
+        System.out.println(getWorld().isRemote);
 
-        if (getWorld().isRemote) {
-            ChatUtils.sendNoSpamClient(new TextComponentString(
-                    ChatFormatting.GRAY + I18n.translateToLocal("techreborn.message.setTo") + " " +
-                            currentType.colour + StringUtils.toFirstCapital(currentType.getName())));
+        if(!getWorld().isRemote){
+            if (getPipeType() == EnumFluidPipeTypes.EMPTY) {
+                setPartType(EnumFluidPipeTypes.EXTRACT, this);
+            } else if (getPipeType() == EnumFluidPipeTypes.EXTRACT) {
+                setPartType(EnumFluidPipeTypes.INSERT, this);
+            } else if (getPipeType()== EnumFluidPipeTypes.INSERT) {
+                setPartType(EnumFluidPipeTypes.EMPTY, this);
+            }
         }
 
-        markRenderUpdate();
         return true;
+    }
+
+    public void setPartType(EnumFluidPipeTypes type, MultipartFluidPipe pipe){
+        World world = pipe.getWorld();
+        BlockPos pos = pipe.getPos();
+        Tank tank = pipe.tank;
+        pipe.getContainer().removePart(pipe);
+        MultipartFluidPipe newPipe = null;
+        switch (type){
+            case EMPTY:
+                newPipe = new EmptyFluidPipe();
+                break;
+            case INSERT:
+                newPipe = new InsertingFluidPipe();
+                break;
+            case EXTRACT:
+                newPipe = new ExtractingFluidPipe();
+                break;
+        }
+        newPipe.tank = tank;
+        MultipartHelper.addPart(world, pos, newPipe);
+
+        ChatUtils.sendNoSpamClient(new TextComponentString(
+                ChatFormatting.GRAY + I18n.translateToLocal("techreborn.message.setTo") + " " +
+                        type.colour + reborncore.common.util.StringUtils.toFirstCapital(type.getName())));
     }
 
     @Override
     public void writeToNBT(NBTTagCompound tag) {
         super.writeToNBT(tag);
         tank.writeToNBT(tag);
-        tag.setString("mode", currentType.getName());
     }
 
     @Override
     public void readFromNBT(NBTTagCompound tag) {
         super.readFromNBT(tag);
         tank.readFromNBT(tag);
-        String mode = tag.getString("mode");
-        if (mode.equals(EnumFluidPipeTypes.EMPTY)) {
-            currentType = EnumFluidPipeTypes.EMPTY;
-        } else if (mode.equals(EnumFluidPipeTypes.INSERT)) {
-            currentType = EnumFluidPipeTypes.INSERT;
-        } else if (mode.equals(EnumFluidPipeTypes.EXTRACT)) {
-            currentType = EnumFluidPipeTypes.EXTRACT;
-        }
     }
+
 }
