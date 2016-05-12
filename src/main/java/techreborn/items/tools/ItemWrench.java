@@ -1,6 +1,6 @@
 package techreborn.items.tools;
 
-import ic2.api.tile.IWrenchable;
+import reborncore.common.IWrenchable;
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.block.BlockDynamicLiquid;
 import net.minecraft.block.BlockStaticLiquid;

@@ -1,6 +1,6 @@
 package techreborn.tiles.idsu;
 
-import ic2.api.tile.IWrenchable;
+import reborncore.common.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

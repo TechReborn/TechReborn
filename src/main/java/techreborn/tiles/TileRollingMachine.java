@@ -1,6 +1,6 @@
 package techreborn.tiles;
 
-import ic2.api.tile.IWrenchable;
+import reborncore.common.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryCrafting;

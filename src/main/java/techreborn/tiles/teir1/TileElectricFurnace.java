@@ -1,6 +1,6 @@
 package techreborn.tiles.teir1;
 
-import ic2.api.tile.IWrenchable;
+import reborncore.common.IWrenchable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
