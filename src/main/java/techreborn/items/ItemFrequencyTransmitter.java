@@ -27,6 +27,7 @@ public class ItemFrequencyTransmitter extends ItemTextureBase implements ITextur
 	{
 		setUnlocalizedName("techreborn.frequencyTransmitter");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setMaxStackSize(1);
 		RebornCore.jsonDestroyer.registerObject(this);
 	}
 
