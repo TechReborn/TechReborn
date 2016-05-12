@@ -10,9 +10,11 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import reborncore.RebornCore;
+import reborncore.common.util.ChatUtils;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.config.ConfigTechReborn;
 
@@ -39,14 +41,14 @@ public class ItemFrequencyTransmitter extends ItemTextureBase implements ITextur
 
 		if (!world.isRemote && ConfigTechReborn.FreqTransmitterChat)
 		{
-			player.addChatMessage(new TextComponentString(
-							ChatFormatting.GRAY + "Set to X: " +
+			ChatUtils.sendNoSpamClient(new TextComponentString(
+							ChatFormatting.GRAY + I18n.translateToLocal("techreborn.message.setTo") + " X: " +
 							ChatFormatting.GOLD + pos.getX() +
 							ChatFormatting.GRAY + " Y: " +
 							ChatFormatting.GOLD + pos.getY() +
 							ChatFormatting.GRAY + " Z: " +
 							ChatFormatting.GOLD + pos.getZ() +
-							ChatFormatting.GRAY + " in " +
+							ChatFormatting.GRAY + " " + I18n.translateToLocal("techreborn.message.in") + " " +
 							ChatFormatting.GOLD + DimensionManager.getProviderType(world.provider.getDimension()).getName() + " ("+world.provider.getDimension()+")"));
 		}
 		return EnumActionResult.SUCCESS;
