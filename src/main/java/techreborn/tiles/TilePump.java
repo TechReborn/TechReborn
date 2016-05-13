@@ -1,12 +1,12 @@
 package techreborn.tiles;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import reborncore.api.power.EnumPowerTier;
@@ -44,9 +44,9 @@ public class TilePump extends TilePowerAcceptor implements IFluidHandler {
     @Override
     public void addInfo(List<String> info, boolean isRealTile) {
         super.addInfo(info, isRealTile);
-        info.add(ChatFormatting.LIGHT_PURPLE + "Eu per extract " + ChatFormatting.GREEN
+        info.add(TextFormatting.LIGHT_PURPLE + "Eu per extract " + TextFormatting.GREEN
                 + PowerSystem.getLocaliszedPower(ConfigTechReborn.pumpExtractEU));
-        info.add(ChatFormatting.LIGHT_PURPLE + "Speed: " + ChatFormatting.GREEN
+        info.add(TextFormatting.LIGHT_PURPLE + "Speed: " + TextFormatting.GREEN
                 + "1000mb/5 sec");
     }
 

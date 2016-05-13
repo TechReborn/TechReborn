@@ -1,6 +1,5 @@
 package techreborn.items;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -10,6 +9,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
@@ -43,14 +43,14 @@ public class ItemFrequencyTransmitter extends ItemTextureBase implements ITextur
 		if (!world.isRemote && ConfigTechReborn.FreqTransmitterChat)
 		{
 			ChatUtils.sendNoSpamClient(new TextComponentString(
-							ChatFormatting.GRAY + I18n.translateToLocal("techreborn.message.setTo") + " X: " +
-							ChatFormatting.GOLD + pos.getX() +
-							ChatFormatting.GRAY + " Y: " +
-							ChatFormatting.GOLD + pos.getY() +
-							ChatFormatting.GRAY + " Z: " +
-							ChatFormatting.GOLD + pos.getZ() +
-							ChatFormatting.GRAY + " " + I18n.translateToLocal("techreborn.message.in") + " " +
-							ChatFormatting.GOLD + DimensionManager.getProviderType(world.provider.getDimension()).getName() + " ("+world.provider.getDimension()+")"));
+					TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.setTo") + " X: " +
+							TextFormatting.GOLD + pos.getX() +
+							TextFormatting.GRAY + " Y: " +
+							TextFormatting.GOLD + pos.getY() +
+							TextFormatting.GRAY + " Z: " +
+							TextFormatting.GOLD + pos.getZ() +
+							TextFormatting.GRAY + " " + I18n.translateToLocal("techreborn.message.in") + " " +
+							TextFormatting.GOLD + DimensionManager.getProviderType(world.provider.getDimension()).getName() + " ("+world.provider.getDimension()+")"));
 		}
 		return EnumActionResult.SUCCESS;
 	}
@@ -69,11 +69,11 @@ public class ItemFrequencyTransmitter extends ItemTextureBase implements ITextur
 				list.add("X: " + x);
 				list.add("Y: " + y);
 				list.add("X: " + z);
-				list.add(ChatFormatting.DARK_GRAY + DimensionManager.getProviderType(dim).getName());
+				list.add(TextFormatting.DARK_GRAY + DimensionManager.getProviderType(dim).getName());
 
 			} else
 			{
-				list.add(ChatFormatting.GRAY + "No Coordinates Set");
+				list.add(TextFormatting.GRAY + "No Coordinates Set");
 			}
 		}
 	}

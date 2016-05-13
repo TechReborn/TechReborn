@@ -1,11 +1,11 @@
 package techreborn.client;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.input.Keyboard;
@@ -31,30 +31,30 @@ public class StackToolTipEvent
 				int percentage = percentage(
 						(int) ((IEnergyInterfaceItem) event.getItemStack().getItem()).getMaxPower(event.getItemStack()),
 						(int) ((IEnergyInterfaceItem) event.getItemStack().getItem()).getEnergy(event.getItemStack()));
-				ChatFormatting color;
+				TextFormatting color;
 				if (percentage <= 10)
 				{
-					color = ChatFormatting.RED;
+					color = TextFormatting.RED;
 				} else if (percentage >= 75)
 				{
-					color = ChatFormatting.GREEN;
+					color = TextFormatting.GREEN;
 				} else
 				{
-					color = ChatFormatting.YELLOW;
+					color = TextFormatting.YELLOW;
 				}
 				event.getToolTip().add(color + ""
 						+ PowerSystem.getLocaliszedPower(
 								(int) ((IEnergyInterfaceItem) event.getItemStack().getItem()).getEnergy(event.getItemStack()))
-						+ ChatFormatting.LIGHT_PURPLE + " stored");
+						+ TextFormatting.LIGHT_PURPLE + " stored");
 				event.getToolTip().add(Color.GREEN + ""
 						+ PowerSystem.getLocaliszedPower(
 								(int) ((IEnergyInterfaceItem) event.getItemStack().getItem()).getMaxPower(event.getItemStack()))
-						+ ChatFormatting.LIGHT_PURPLE + " max");
+						+ TextFormatting.LIGHT_PURPLE + " max");
 				event.getToolTip()
-						.add(ChatFormatting.GREEN + "" + percentage + "%" + ChatFormatting.LIGHT_PURPLE + " charged");
+						.add(TextFormatting.GREEN + "" + percentage + "%" + TextFormatting.LIGHT_PURPLE + " charged");
 				event.getToolTip().add(Color.GREEN + "" + PowerSystem.getLocaliszedPower(
 						(int) ((IEnergyInterfaceItem) event.getItemStack().getItem()).getMaxTransfer(event.getItemStack()))
-						+ ChatFormatting.LIGHT_PURPLE + " /tick in/out");
+						+ TextFormatting.LIGHT_PURPLE + " /tick in/out");
 			}
 		} else
 		{
