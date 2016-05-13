@@ -1,6 +1,5 @@
 package techreborn.parts.fluidPipes;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
 import mcmultipart.MCMultiPartMod;
 import mcmultipart.block.TileMultipartContainer;
 import mcmultipart.microblock.IMicroblock;
@@ -23,6 +22,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.common.property.ExtendedBlockState;
@@ -410,7 +410,7 @@ public abstract class MultipartFluidPipe extends Multipart implements INormallyO
         MultipartHelper.addPart(world, pos, newPipe);
 
         ChatUtils.sendNoSpamClient(new TextComponentString(
-                ChatFormatting.GRAY + I18n.translateToLocal("techreborn.message.setTo") + " " +
+                TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.setTo") + " " +
                         type.colour + reborncore.common.util.StringUtils.toFirstCapital(type.getName())));
     }
 
