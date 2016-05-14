@@ -53,6 +53,7 @@ public class ChargeHud
 		EntityPlayer player = mc.thePlayer;
 		ItemStack armorstack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 		ItemStack offHandstack = player.getItemStackFromSlot(EntityEquipmentSlot.OFFHAND);
+		offHandstack = null;
 		ItemStack stack = mc.thePlayer.inventory.getCurrentItem();
 
 		int y = 5;
