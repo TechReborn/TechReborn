@@ -63,9 +63,14 @@ public class BlockDistributor extends Block {
 
     @Override
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-        if(entityIn instanceof EntityPlayer){
-            EntityPlayer player = (EntityPlayer) entityIn;
-            if(player.getHeldItemOffhand() == null || player.getHeldItemOffhand() != null && player.getHeldItemOffhand().getItem() != Items.SHIELD){
+        if(!entityIn.worldObj.isRemote){
+            if(entityIn instanceof EntityPlayer){
+                EntityPlayer player = (EntityPlayer) entityIn;
+                if(player.getHeldItemOffhand() != null && player.getHeldItemOffhand().getItem() == Items.SHIELD){
+                    if(ItemNBTHelper.getString(player.getHeldItemOffhand(), "type", "null").equals("modmuss50")){
+                        return;
+                    }
+                }
                 player.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, getReleaseStack());
             }
         }
