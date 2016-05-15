@@ -1,5 +1,5 @@
 {
   "variants": {
-    "nortmal": { "model": "techreborn:techreborn.distributor" }
+    "normal": { "model": "techreborn:techreborn.distributor" }
   }
 }

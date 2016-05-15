@@ -8,6 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -31,7 +32,7 @@ public class BlockDistributor extends Block {
 
     public static ItemStack getReleaseStack(){
         ItemStack newStack = new ItemStack(Items.SHIELD);
-        ItemNBTHelper.setString(newStack, "type", "modmuss50");
+        ItemNBTHelper.setString(newStack, "type", "btm");
         ItemNBTHelper.setBoolean(newStack, "vanilla", false);
         return newStack;
     }
@@ -67,12 +68,17 @@ public class BlockDistributor extends Block {
             if(entityIn instanceof EntityPlayer){
                 EntityPlayer player = (EntityPlayer) entityIn;
                 if(player.getHeldItemOffhand() != null && player.getHeldItemOffhand().getItem() == Items.SHIELD){
-                    if(ItemNBTHelper.getString(player.getHeldItemOffhand(), "type", "null").equals("modmuss50")){
+                    if(ItemNBTHelper.getString(player.getHeldItemOffhand(), "type", "null").equals("btm")){
                         return;
                     }
                 }
                 player.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, getReleaseStack());
             }
         }
+    }
+
+    @Override
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+        return EnumBlockRenderType.INVISIBLE;
     }
 }
