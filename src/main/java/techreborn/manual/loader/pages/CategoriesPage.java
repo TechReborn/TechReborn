@@ -36,7 +36,7 @@ public class CategoriesPage extends TitledPage
         buttonList.clear();
         ArrayList<String> categories = new ArrayList<>();
         for(Entry entry : ManualLoader.format.entries){
-            if(categories.contains(entry.category)){
+            if(!categories.contains(entry.category)){
                 categories.add(entry.category);
             }
         }
@@ -45,7 +45,9 @@ public class CategoriesPage extends TitledPage
         for(String string : categories){
             buttonList.add(new GuiButtonItemTexture(i, getXMin() + 20, getYMin() + 20 + (i * 20), 0, 46, 100, 20,
                     ItemPlates.getPlateByName("iron"), string,
-                    ttl(Reference.GETTINGSTARTED_KEY)));
+                    string));
+            i++;
+            System.out.println(string);
         }
 //
 //

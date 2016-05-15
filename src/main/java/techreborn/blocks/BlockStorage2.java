@@ -1,9 +1,5 @@
 package techreborn.blocks;
 
-import java.security.InvalidParameterException;
-import java.util.List;
-import java.util.Random;
-
 import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
@@ -19,10 +15,14 @@ import reborncore.common.BaseBlock;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModBlocks;
 
+import java.security.InvalidParameterException;
+import java.util.List;
+import java.util.Random;
+
 public class BlockStorage2 extends BaseBlock implements ITexturedBlock
 {
 
-	public static final String[] types = new String[] { "tungstensteel", "lodestone", "tellurium",
+	public static final String[] types = new String[] { "tungstensteel",
 			"iridium_reinforced_tungstensteel", "iridium_reinforced_stone", "ruby", "sapphire", "peridot",
 			"yellowGarnet", "redGarnet", "copper", "tin", "refinedIron" };
 	public PropertyInteger METADATA;

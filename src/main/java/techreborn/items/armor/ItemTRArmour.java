@@ -11,8 +11,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.RebornCore;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.lib.ModInfo;
-
-import net.minecraft.item.ItemArmor.ArmorMaterial;
 /**
  * Created by modmuss50 on 26/02/2016.
  */
@@ -40,14 +38,14 @@ public class ItemTRArmour extends ItemArmor implements ITexturedItem {
 	@Override
 	public String getTextureName(int damage) {
 		if (slot == EntityEquipmentSlot.HEAD)
-			return "techreborn:items/tool/" + material.name() + "_helmet";
+			return "techreborn:items/tool/" + material.name().toLowerCase() + "_helmet";
 		if (slot == EntityEquipmentSlot.CHEST)
-			return "techreborn:items/tool/" + material.name() + "_chestplate";
+			return "techreborn:items/tool/" + material.name().toLowerCase() + "_chestplate";
 		if (slot == EntityEquipmentSlot.LEGS)
-			return "techreborn:items/tool/" + material.name() + "_leggings";
+			return "techreborn:items/tool/" + material.name().toLowerCase() + "_leggings";
 		if (slot == EntityEquipmentSlot.FEET)
-			return "techreborn:items/tool/" + material.name() + "_boots";
-		return "techreborn:items/tool/" + material.name() + "_error";
+			return "techreborn:items/tool/" + material.name().toLowerCase() + "_boots";
+		return "techreborn:items/tool/" + material.name().toLowerCase() + "_error";
 	}
 
 	@Override

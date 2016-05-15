@@ -15,7 +15,7 @@ public class ItemPlates extends ItemTextureBase
 
 	public static final String[] types = new String[] { "aluminum", "brass", "bronze", "chrome", "copper", "electrum",
 			"invar", "iridium", "iron", "gold", "lead", "nickel", "platinum", "silver", "steel", "tin", "titanium",
-			"tungsten", "hotTungstensteel", "tungstensteel", "zinc", "refinedIron", "carbon", "wood", "magnalium",
+			"tungsten", "tungstensteel", "zinc", "refinedIron", "carbon", "wood", "magnalium",
 			"silicon", "ruby", "sapphire", "peridot", "redGarnet", "yellowGarnet", "redstone", "diamond", "emerald", "lapis", "coal", "obsidian" };
 
 	public ItemPlates()
