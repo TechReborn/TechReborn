@@ -89,7 +89,6 @@ public class ManualLoader {
                 File inputData = new File(outputDir, "master.json");
                 BufferedReader reader = new BufferedReader(new FileReader(inputData));
                 ManualLoader.format = gson.fromJson(reader, ManualFormat.class);
-                System.out.println(ManualLoader.format);
             }
 
         }
