@@ -1,8 +1,5 @@
 package techreborn.items;
 
-import java.security.InvalidParameterException;
-import java.util.List;
-
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,9 +7,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import reborncore.common.recipes.RecipeCrafter;
-import techreborn.utils.upgrade.IMachineUpgrade;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
+import techreborn.utils.upgrade.IMachineUpgrade;
+
+import java.security.InvalidParameterException;
+import java.util.List;
 
 public class ItemUpgrades extends ItemTextureBase implements IMachineUpgrade, ITexturedItem
 {
@@ -93,6 +93,8 @@ public class ItemUpgrades extends ItemTextureBase implements IMachineUpgrade, IT
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{
 		tooltip.add(TextFormatting.RED + "WIP Coming Soon");
+		tooltip.add(TextFormatting.RED + "Upgrades DO NOT function!");
+		tooltip.add(TextFormatting.RED + "Currently only a crafting ingredient");
 	}
 	
 	@Override

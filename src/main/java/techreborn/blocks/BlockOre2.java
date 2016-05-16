@@ -3,6 +3,7 @@ package techreborn.blocks;
 import java.security.InvalidParameterException;
 import java.util.List;
 
+import com.google.common.collect.Lists;
 import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
@@ -19,6 +20,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.BaseBlock;
+import reborncore.common.blocks.PropertyString;
+import reborncore.common.util.ArrayUtils;
+import reborncore.common.util.StringUtils;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModBlocks;
 import techreborn.world.config.IOreNameProvider;
@@ -26,8 +30,9 @@ import techreborn.world.config.IOreNameProvider;
 public class BlockOre2 extends BaseBlock implements ITexturedBlock, IOreNameProvider
 {
 
-	public static final String[] types = new String[] { "Copper", "Tin" };
-	public PropertyInteger METADATA;
+	public static final String[] ores = new String[] { "copper", "tin"};
+	static List<String> oreNamesList = Lists.newArrayList(ArrayUtils.arrayToLowercase(ores));
+	public PropertyString VARIANTS = new PropertyString("type", oreNamesList);
 
 	public BlockOre2(Material material)
 	{
@@ -36,14 +41,14 @@ public class BlockOre2 extends BaseBlock implements ITexturedBlock, IOreNameProv
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		setHardness(2.0f);
 		setHarvestLevel("pickaxe", 1);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(METADATA, 0));
+		this.setDefaultState(this.getStateFromMeta(0));
 	}
 
 	public static ItemStack getOreByName(String name, int count)
 	{
-		for (int i = 0; i < types.length; i++)
+		for (int i = 0; i < ores.length; i++)
 		{
-			if (types[i].equalsIgnoreCase(name))
+			if (ores[i].equalsIgnoreCase(name))
 			{
 				return new ItemStack(ModBlocks.ore2, count, i);
 			}
@@ -59,9 +64,9 @@ public class BlockOre2 extends BaseBlock implements ITexturedBlock, IOreNameProv
 	public IBlockState getBlockStateFromName(String name)
 	{
 		int index = -1;
-		for (int i = 0; i < types.length; i++)
+		for (int i = 0; i < ores.length; i++)
 		{
-			if (types[i].equalsIgnoreCase(name))
+			if (ores[i].equalsIgnoreCase(name))
 			{
 				index = i;
 				break;
@@ -69,7 +74,7 @@ public class BlockOre2 extends BaseBlock implements ITexturedBlock, IOreNameProv
 		}
 		if (index == -1)
 		{
-			throw new InvalidParameterException("The ore block " + name + " could not be found.");
+			return ModBlocks.ore2.getBlockStateFromName(name);
 		}
 		return getStateFromMeta(index);
 	}
@@ -84,7 +89,7 @@ public class BlockOre2 extends BaseBlock implements ITexturedBlock, IOreNameProv
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list)
 	{
-		for (int meta = 0; meta < types.length; meta++)
+		for (int meta = 0; meta < ores.length; meta++)
 		{
 			list.add(new ItemStack(item, 1, meta));
 		}
@@ -92,52 +97,64 @@ public class BlockOre2 extends BaseBlock implements ITexturedBlock, IOreNameProv
 
 	@Override
 	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos,
-			EntityPlayer player)
+								  EntityPlayer player)
 	{
-		return super.getPickBlock(state, target, world, pos, player);
+		return new ItemStack(this,1, getMetaFromState(state));
 	}
 
-	@Override
-	public int damageDropped(IBlockState state)
-	{
-		int meta = getMetaFromState(state);
-		return meta;
-	}
+//	@Override
+//	public int damageDropped(IBlockState state)
+//	{
+//		int meta = getMetaFromState(state);
+//		if (meta == 2)
+//		{
+//			return 0;
+//		} else if (meta == 3)
+//		{
+//			return 1;
+//		} else if (meta == 5)
+//		{
+//			return 60;
+//		}
+//		return meta;
+//	}
 
 	@Override
 	public String getTextureNameFromState(IBlockState BlockStateContainer, EnumFacing facing)
 	{
-		return "techreborn:blocks/ore/ore" + types[getMetaFromState(BlockStateContainer)];
+		return "techreborn:blocks/ore/ore" + StringUtils.toFirstCapital(ores[getMetaFromState(BlockStateContainer)]);
 	}
 
 	@Override
 	public int amountOfStates()
 	{
-		return types.length;
+		return ores.length;
 	}
 
 	@Override
-	public IBlockState getStateFromMeta(int meta)
-	{
-		return this.getDefaultState().withProperty(METADATA, meta);
+	public int damageDropped(IBlockState state) {
+		return getMetaFromState(state);
 	}
 
 	@Override
-	public int getMetaFromState(IBlockState state)
-	{
-		return state.getValue(METADATA);
+	public IBlockState getStateFromMeta(int meta) {
+		return getBlockState().getBaseState().withProperty(VARIANTS, oreNamesList.get(meta));
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return oreNamesList.indexOf(state.getValue(VARIANTS));
 	}
 
 	protected BlockStateContainer createBlockState()
 	{
-
-		METADATA = PropertyInteger.create("type", 0, types.length - 1);
-		return new BlockStateContainer(this, METADATA);
+		VARIANTS = new PropertyString("type", oreNamesList);
+		return new BlockStateContainer(this, VARIANTS);
 	}
 
 	@Override
 	public String getUserLoclisedName(IBlockState state)
 	{
-		return types[state.getValue(METADATA)];
+		return StringUtils.toFirstCapital(oreNamesList.get(getMetaFromState(state)));
 	}
 }

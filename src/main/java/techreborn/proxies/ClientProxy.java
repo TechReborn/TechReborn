@@ -2,6 +2,7 @@ package techreborn.proxies;
 
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.item.Item;
@@ -19,6 +20,7 @@ import net.minecraftforge.fml.common.registry.GameData;
 import reborncore.RebornCore;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.common.blocks.BlockMachineBase;
+import techreborn.blocks.BlockRubberLeaves;
 import techreborn.client.ClientMultiBlocks;
 import techreborn.client.IconSupplier;
 import techreborn.client.RegisterItemJsons;
@@ -28,6 +30,7 @@ import techreborn.client.hud.ChargeHud;
 import techreborn.client.keybindings.KeyBindings;
 import techreborn.client.render.entitys.RenderNukePrimed;
 import techreborn.entitys.EntityNukePrimed;
+import techreborn.init.ModBlocks;
 import techreborn.init.ModSounds;
 import techreborn.manual.loader.ManualLoader;
 
@@ -78,6 +81,8 @@ public class ClientProxy extends CommonProxy
 		// TODO FIX ME
 		ClientRegistry.registerKeyBinding(KeyBindings.config);
 		ClientMultiBlocks.init();
+		StateMap rubberLeavesStateMap = new StateMap.Builder().ignore(BlockRubberLeaves.CHECK_DECAY, BlockRubberLeaves.DECAYABLE).build();
+		ModelLoader.setCustomStateMapper(ModBlocks.rubberLeaves, rubberLeavesStateMap);
 	}
 
 	protected void registerItemModel(ItemStack item, String name) {
