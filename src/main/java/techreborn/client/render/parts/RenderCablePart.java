@@ -58,13 +58,13 @@ public class RenderCablePart implements IBakedModel
 			}
 			if (state.getValue(CableMultipart.NORTH))
 			{
-				BakedModelUtils.addCubeToList(new Vecs3dCube(thickness, thickness, 0.0, lastThickness, lastThickness, thickness), list,
-						face, ModelRotation.X0_Y0, texture, EnumFacing.NORTH, faceBakery);
+				BakedModelUtils.addCubeToList(new Vecs3dCube(0.0, thickness, thickness, thickness, lastThickness, lastThickness), list,
+						face, ModelRotation.X0_Y90, texture, EnumFacing.NORTH, faceBakery);
 			}
 			if (state.getValue(CableMultipart.SOUTH))
 			{
-				BakedModelUtils.addCubeToList(new Vecs3dCube(thickness, thickness, lastThickness, lastThickness, lastThickness, 16.0),
-						list, face, ModelRotation.X0_Y0, texture, EnumFacing.SOUTH, faceBakery);
+				BakedModelUtils.addCubeToList(new Vecs3dCube(0.0, thickness, thickness, thickness, lastThickness, lastThickness),
+						list, face, ModelRotation.X0_Y270, texture, EnumFacing.SOUTH, faceBakery);
 			}
 			if (state.getValue(CableMultipart.EAST))
 			{
