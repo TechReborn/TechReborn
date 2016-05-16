@@ -173,7 +173,7 @@ public class BlockOre extends BaseBlock implements ITexturedBlock, IOreNameProvi
 	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos,
 			EntityPlayer player)
 	{
-		return super.getPickBlock(state, target, world, pos, player);
+		return new ItemStack(this,1, getMetaFromState(state));
 	}
 
 	@Override
