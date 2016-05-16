@@ -4,6 +4,7 @@ import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -50,14 +51,32 @@ public class ItemFrequencyTransmitter extends ItemTextureBase implements ITextur
 							TextFormatting.GRAY + " Z: " +
 							TextFormatting.GOLD + pos.getZ() +
 							TextFormatting.GRAY + " " + I18n.translateToLocal("techreborn.message.in") + " " +
-							TextFormatting.GOLD + DimensionManager.getProviderType(world.provider.getDimension()).getName() + " ("+world.provider.getDimension()+")"));
+							TextFormatting.GOLD + DimensionManager.getProviderType(world.provider.getDimension())
+							.getName() + " (" + world.provider.getDimension() + ")"));
 		}
 		return EnumActionResult.SUCCESS;
 	}
 
+	@Override public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player,
+			EnumHand hand)
+	{
+		if (player.isSneaking())
+		{
+			stack.setTagCompound(null);
+			if (!world.isRemote && ConfigTechReborn.FreqTransmitterChat)
+			{
+				ChatUtils.sendNoSpamClient(new TextComponentString(
+						TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.coordsHaveBeen") + " "
+								+ TextFormatting.GOLD + I18n.translateToLocal("techreborn.message.cleared")));
+			}
+		}
+
+		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
+	}
+
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4)
 	{
-		if(ConfigTechReborn.FreqTransmitterTooltip)
+		if (ConfigTechReborn.FreqTransmitterTooltip)
 		{
 			if (stack.getTagCompound() != null)
 			{
@@ -73,7 +92,7 @@ public class ItemFrequencyTransmitter extends ItemTextureBase implements ITextur
 
 			} else
 			{
-				list.add(TextFormatting.GRAY + "No Coordinates Set");
+				list.add(TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.noCoordsSet"));
 			}
 		}
 	}

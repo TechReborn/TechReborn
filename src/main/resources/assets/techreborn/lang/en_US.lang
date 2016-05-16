@@ -983,6 +983,9 @@ techreborn.recipe.implosioncompressor=Implosion Compressor
 techreborn.message.missingmultiblock=Incomplete Multiblock
 techreborn.message.setTo=Set to
 techreborn.message.in=in
+techreborn.message.noCoordsSet=No Coordinates Set
+techreborn.message.coordsHaveBeen=Coordinates have been
+techreborn.message.cleared=Cleared
 
 #Cables
 Cable.copperCable.name=Copper Cable

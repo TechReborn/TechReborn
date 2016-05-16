@@ -13,6 +13,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.util.CraftingHelper;
 import reborncore.common.util.OreUtil;
+import reborncore.common.util.StringUtils;
 import techreborn.Core;
 import techreborn.api.ScrapboxList;
 import techreborn.api.TechRebornAPI;
@@ -39,6 +40,18 @@ public class ModRecipes
 	public static ItemStack lapcrystalStack = new ItemStack(ModItems.lapotronCrystal, 1, OreDictionary.WILDCARD_VALUE);
 	public static ItemStack dyes = new ItemStack(Items.DYE, 1, OreDictionary.WILDCARD_VALUE);
 	public static Item hammer = ModItems.hammer;
+
+	public static Item ironDrill = TechRebornAPI.recipeCompact.getItem("miningDrill").getItem();
+	public static ItemStack ironDrillStack = new ItemStack(ironDrill, 1, OreDictionary.WILDCARD_VALUE);
+
+	public static Item diamondDrill = ModItems.diamondDrill;
+	public static ItemStack diamondDrillStack = new ItemStack(diamondDrill, 1, OreDictionary.WILDCARD_VALUE);
+
+	public static Item ironChainsaw = ModItems.ironChainsaw;
+	public static ItemStack ironChainsawStack = new ItemStack(ironChainsaw, 1, OreDictionary.WILDCARD_VALUE);
+
+	public static Item diamondChainsaw = ModItems.diamondChainsaw;
+	public static ItemStack diamondChainsawStack = new ItemStack(diamondChainsaw, 1, OreDictionary.WILDCARD_VALUE);
 
 	public static void init()
 	{
@@ -746,7 +759,7 @@ public class ModRecipes
 			{
 				CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName(part), " O ", "OIO", " O ", 'I',
 						new ItemStack(Items.IRON_INGOT), 'O',
-						"ingot" + capitalizeFirstLetter(part.replace("Gear", "")));
+						"ingot" + StringUtils.toFirstCapital(part.replace("Gear", "")));
 			}
 		}
 
@@ -851,14 +864,14 @@ public class ModRecipes
 						'C', ItemParts.getPartByName("CoolantSimple"), 'S', ItemCells.getCellByName("sodium"), 'P',
 						ItemCells.getCellByName("potassium"));
 
-		Core.logHelper.info("Shapped Recipes Added");
-	}
+		CraftingHelper
+				.addShapedOreRecipe(new ItemStack(ModItems.advancedDrill), "ODO", "AOA", 'O', ItemUpgrades.getUpgradeByName("Overclock"),
+						'D', diamondDrillStack, 'A', "circuitAdvanced");
+		CraftingHelper
+				.addShapedOreRecipe(new ItemStack(ModItems.advancedChainsaw), "ODO", "AOA", 'O', ItemUpgrades.getUpgradeByName("Overclock"),
+						'D', diamondChainsawStack, 'A', "circuitAdvanced");
 
-	public static String capitalizeFirstLetter(String original)
-	{
-		if (original.length() == 0)
-			return original;
-		return original.substring(0, 1).toUpperCase() + original.substring(1);
+		Core.logHelper.info("Shapped Recipes Added");
 	}
 
 	static void addShapelessRecipes()
@@ -1157,8 +1170,8 @@ public class ModRecipes
 			if (OreUtil.hasBlock(ore) && OreUtil.hasPlate(ore))
 			{
 				RecipeHandler.addRecipe(
-						new PlateCuttingMachineRecipe(OreUtil.getStackFromName("block" + capitalizeFirstLetter(ore)),
-								OreUtil.getStackFromName("plate" + capitalizeFirstLetter(ore), 9), 200, 16));
+						new PlateCuttingMachineRecipe(OreUtil.getStackFromName("block" + StringUtils.toFirstCapital(ore)),
+								OreUtil.getStackFromName("plate" + StringUtils.toFirstCapital(ore), 9), 200, 16));
 			}
 		}
 
@@ -1487,17 +1500,17 @@ public class ModRecipes
 			if (OreUtil.hasIngot(ore) && OreUtil.hasDustSmall(ore) && OreUtil.hasBlock(ore))
 			{
 				RecipeHandler.addRecipe(
-						new IndustrialGrinderRecipe(OreUtil.getStackFromName("block" + capitalizeFirstLetter(ore)),
+						new IndustrialGrinderRecipe(OreUtil.getStackFromName("block" + StringUtils.toFirstCapital(ore)),
 								null, new FluidStack(FluidRegistry.WATER, 1000),
-								OreUtil.getStackFromName("ingot" + capitalizeFirstLetter(ore)),
-								OreUtil.getStackFromName("dustSmall" + capitalizeFirstLetter(ore), 6),
-								OreUtil.getStackFromName("dustSmall" + capitalizeFirstLetter(ore), 2), null, 100, 120));
+								OreUtil.getStackFromName("ingot" + StringUtils.toFirstCapital(ore)),
+								OreUtil.getStackFromName("dustSmall" + StringUtils.toFirstCapital(ore), 6),
+								OreUtil.getStackFromName("dustSmall" + StringUtils.toFirstCapital(ore), 2), null, 100, 120));
 				RecipeHandler.addRecipe(
-						new IndustrialGrinderRecipe(OreUtil.getStackFromName("block" + capitalizeFirstLetter(ore)),
+						new IndustrialGrinderRecipe(OreUtil.getStackFromName("block" + StringUtils.toFirstCapital(ore)),
 								new ItemStack(Items.WATER_BUCKET), null,
-								OreUtil.getStackFromName("ingot" + capitalizeFirstLetter(ore)),
-								OreUtil.getStackFromName("dustSmall" + capitalizeFirstLetter(ore), 6),
-								OreUtil.getStackFromName("dustSmall" + capitalizeFirstLetter(ore), 2),
+								OreUtil.getStackFromName("ingot" + StringUtils.toFirstCapital(ore)),
+								OreUtil.getStackFromName("dustSmall" + StringUtils.toFirstCapital(ore), 6),
+								OreUtil.getStackFromName("dustSmall" + StringUtils.toFirstCapital(ore), 2),
 								new ItemStack(Items.BUCKET), 100, 120));
 			}
 		}
@@ -3319,7 +3332,7 @@ public class ModRecipes
 		if (ConfigTechReborn.ExpensiveDiamondDrill)
 			CraftingHelper
 					.addShapedOreRecipe(TechRebornAPI.recipeCompact.getItem("diamondDrill"), " D ", "DBD", "TCT", 'D',
-							"gemDiamond", 'T', "ingotTitanium", 'B', drillStack, 'C',
+							"diamondTR", 'T', "ingotTitanium", 'B', drillStack, 'C',
 							TechRebornAPI.recipeCompact.getItem("advancedCircuit"));
 
 		if (ConfigTechReborn.ExpensiveSolar)
