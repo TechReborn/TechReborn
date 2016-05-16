@@ -348,7 +348,7 @@ public class ModRecipes
 				new ExtractorRecipe(ItemParts.getPartByName("rubberSap"), ItemParts.getPartByName("rubber", 3), 400,
 						20));
 		RecipeHandler.addRecipe(
-				new ExtractorRecipe(new ItemStack(ModBlocks.rubberLog), ItemParts.getPartByName("rubber"), 400, 20));
+				new ExtractorRecipe(new ItemStack(ModBlocks.rubberLog), ItemParts.getPartByName("rubber"), 400, 20, false));
 	}
 
 	static void addIc2ReplacementReicpes()
