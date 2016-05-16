@@ -10,7 +10,7 @@ public class ItemBlockOre extends ItemBlockBase
 
 	public ItemBlockOre(Block block)
 	{
-		super(ModBlocks.ore, ModBlocks.ore, BlockOre.types);
+		super(ModBlocks.ore, ModBlocks.ore, BlockOre.ores);
 	}
 
 }
