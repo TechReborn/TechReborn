@@ -121,23 +121,23 @@ public class ModItems
 	public static void init() throws InstantiationException, IllegalAccessException
 	{
 		gems = new ItemGems();
-		GameRegistry.registerItem(gems, "gem");
+		registerItem(gems, "gem");
 		ingots = new ItemIngots();
-		GameRegistry.registerItem(ingots, "ingot");
+		registerItem(ingots, "ingot");
 		dusts = new ItemDusts();
-		GameRegistry.registerItem(dusts, "dust");
+		registerItem(dusts, "dust");
 		smallDusts = new ItemDustsSmall();
-		GameRegistry.registerItem(smallDusts, "smallDust");
+		registerItem(smallDusts, "smallDust");
 		plate = new ItemPlates();
-		GameRegistry.registerItem(plate, "plates");
+		registerItem(plate, "plates");
 		nuggets = new ItemNuggets();
-		GameRegistry.registerItem(nuggets, "nuggets");
+		registerItem(nuggets, "nuggets");
 		// purifiedCrushedOre = new ItemPurifiedCrushedOre();
-		// GameRegistry.registerItem(purifiedCrushedOre, "purifiedCrushedOre");
+		// registerItem(purifiedCrushedOre, "purifiedCrushedOre");
 		parts = new ItemParts();
-		GameRegistry.registerItem(parts, "part");
+		registerItem(parts, "part");
 		cells = new ItemCells();
-		GameRegistry.registerItem(cells, "cell");
+		registerItem(cells, "cell");
 		for (int i = 0; i < ItemCells.types.length; i++)
 		{
 			if (FluidRegistry.getFluid("fluid" + ItemCells.types[i].toLowerCase()) != null)
@@ -153,164 +153,164 @@ public class ModItems
 			}
 		}
 		rockCutter = PoweredItem.createItem(ItemRockCutter.class);
-		GameRegistry.registerItem(rockCutter, "rockCutter");
+		registerItem(rockCutter, "rockCutter");
 		lithiumBatpack = PoweredItem.createItem(ItemLithiumBatpack.class);
-		GameRegistry.registerItem(lithiumBatpack, "lithiumBatpack");
+		registerItem(lithiumBatpack, "lithiumBatpack");
 		lapotronpack = PoweredItem.createItem(ItemLapotronPack.class);
-		GameRegistry.registerItem(lapotronpack, "lapotronPack");
+		registerItem(lapotronpack, "lapotronPack");
 		lithiumBattery = PoweredItem.createItem(ItemLithiumBattery.class);
-		GameRegistry.registerItem(lithiumBattery, "lithiumBattery");
+		registerItem(lithiumBattery, "lithiumBattery");
 		lapotronicOrb = PoweredItem.createItem(ItemLapotronicOrb.class);
-		GameRegistry.registerItem(lapotronicOrb, "lapotronicOrb");
+		registerItem(lapotronicOrb, "lapotronicOrb");
 		omniTool = PoweredItem.createItem(ItemOmniTool.class);
-		GameRegistry.registerItem(omniTool, "omniTool");
+		registerItem(omniTool, "omniTool");
 		energyCrystal = PoweredItem.createItem(ItemEnergyCrystal.class);
-		GameRegistry.registerItem(energyCrystal, "energycrystal");
+		registerItem(energyCrystal, "energycrystal");
 		lapotronCrystal = PoweredItem.createItem(ItemLapotronCrystal.class);
-		GameRegistry.registerItem(lapotronCrystal, "lapotroncrystal");
+		registerItem(lapotronCrystal, "lapotroncrystal");
 
 		manual = new ItemTechManual();
-		GameRegistry.registerItem(manual, "techmanuel");
+		registerItem(manual, "techmanuel");
 		uuMatter = new ItemUUmatter();
-		GameRegistry.registerItem(uuMatter, "uumatter");
+		registerItem(uuMatter, "uumatter");
 		reBattery = PoweredItem.createItem(ItemReBattery.class);
-		GameRegistry.registerItem(reBattery, "rebattery");
+		registerItem(reBattery, "rebattery");
 		treeTap = new ItemTreeTap();
-		GameRegistry.registerItem(treeTap, "treetap");
+		registerItem(treeTap, "treetap");
 
 		ironDrill = PoweredItem.createItem(ItemIronDrill.class);
-		GameRegistry.registerItem(ironDrill, "irondrill");
+		registerItem(ironDrill, "irondrill");
 		diamondDrill = PoweredItem.createItem(ItemDiamondDrill.class);
-		GameRegistry.registerItem(diamondDrill, "diamonddrill");
+		registerItem(diamondDrill, "diamonddrill");
 		advancedDrill = PoweredItem.createItem(ItemAdvancedDrill.class);
-		GameRegistry.registerItem(advancedDrill, "advanceddrill");
+		registerItem(advancedDrill, "advanceddrill");
 
 		ironChainsaw = PoweredItem.createItem(ItemIronChainsaw.class);
-		GameRegistry.registerItem(ironChainsaw, "ironchainsaw");
+		registerItem(ironChainsaw, "ironchainsaw");
 		diamondChainsaw = PoweredItem.createItem(ItemDiamondChainsaw.class);
-		GameRegistry.registerItem(diamondChainsaw, "diamondchainsaw");
+		registerItem(diamondChainsaw, "diamondchainsaw");
 		advancedChainsaw = PoweredItem.createItem(ItemAdvancedChainsaw.class);
-		GameRegistry.registerItem(advancedChainsaw, "advancedchainsaw");
+		registerItem(advancedChainsaw, "advancedchainsaw");
 
 		ironJackhammer = PoweredItem.createItem(ItemIronJackhammer.class);
-		GameRegistry.registerItem(ironJackhammer, "ironjackhammer");
+		registerItem(ironJackhammer, "ironjackhammer");
 		steelJackhammer = PoweredItem.createItem(ItemSteelJackhammer.class);
-		GameRegistry.registerItem(steelJackhammer, "steeljackhammer");
+		registerItem(steelJackhammer, "steeljackhammer");
 		diamondJackhammer = PoweredItem.createItem(ItemDiamondJackhammer.class);
-		GameRegistry.registerItem(diamondJackhammer, "diamondjackhammer");
+		registerItem(diamondJackhammer, "diamondjackhammer");
 
 		bronzeSword = new ItemTRSword(Reference.BRONZE);
-		GameRegistry.registerItem(bronzeSword, "bronzeSword");
+		registerItem(bronzeSword, "bronzeSword");
 		bronzePickaxe = new ItemTRPickaxe(Reference.BRONZE);
-		GameRegistry.registerItem(bronzePickaxe, "bronzePickaxe");
+		registerItem(bronzePickaxe, "bronzePickaxe");
 		bronzeSpade = new ItemTRSpade(Reference.BRONZE);
-		GameRegistry.registerItem(bronzeSpade, "bronzeSpade");
+		registerItem(bronzeSpade, "bronzeSpade");
 		bronzeAxe = new ItemTRAxe(Reference.BRONZE);
-		GameRegistry.registerItem(bronzeAxe, "bronzeAxe");
+		registerItem(bronzeAxe, "bronzeAxe");
 		bronzeHoe = new ItemTRHoe(Reference.BRONZE);
-		GameRegistry.registerItem(bronzeHoe, "bronzeHoe");
+		registerItem(bronzeHoe, "bronzeHoe");
 
 		bronzeHelmet = new ItemTRArmour(Reference.BRONZE_ARMOUR, EntityEquipmentSlot.HEAD);
-		GameRegistry.registerItem(bronzeHelmet, "bronzeHelmet");
+		registerItem(bronzeHelmet, "bronzeHelmet");
 		bronzeChestplate = new ItemTRArmour(Reference.BRONZE_ARMOUR, EntityEquipmentSlot.CHEST);
-		GameRegistry.registerItem(bronzeChestplate, "bronzeChestplate");
+		registerItem(bronzeChestplate, "bronzeChestplate");
 		bronzeLeggings = new ItemTRArmour(Reference.BRONZE_ARMOUR, EntityEquipmentSlot.LEGS);
-		GameRegistry.registerItem(bronzeLeggings, "bronzeLeggings");
+		registerItem(bronzeLeggings, "bronzeLeggings");
 		bronzeBoots = new ItemTRArmour(Reference.BRONZE_ARMOUR, EntityEquipmentSlot.FEET);
-		GameRegistry.registerItem(bronzeBoots, "bronzeBoots");
+		registerItem(bronzeBoots, "bronzeBoots");
 
 		rubySword = new ItemTRSword(Reference.RUBY);
-		GameRegistry.registerItem(rubySword, "rubySword");
+		registerItem(rubySword, "rubySword");
 		rubyPickaxe = new ItemTRPickaxe(Reference.RUBY);
-		GameRegistry.registerItem(rubyPickaxe, "rubyPickaxe");
+		registerItem(rubyPickaxe, "rubyPickaxe");
 		rubySpade = new ItemTRSpade(Reference.RUBY);
-		GameRegistry.registerItem(rubySpade, "rubySpade");
+		registerItem(rubySpade, "rubySpade");
 		rubyAxe = new ItemTRAxe(Reference.RUBY);
-		GameRegistry.registerItem(rubyAxe, "rubyAxe");
+		registerItem(rubyAxe, "rubyAxe");
 		rubyHoe = new ItemTRHoe(Reference.RUBY);
-		GameRegistry.registerItem(rubyHoe, "rubyHoe");
+		registerItem(rubyHoe, "rubyHoe");
 
 		rubyHelmet = new ItemTRArmour(Reference.RUBY_ARMOUR, EntityEquipmentSlot.HEAD);
-		GameRegistry.registerItem(rubyHelmet, "rubyHelmet");
+		registerItem(rubyHelmet, "rubyHelmet");
 		rubyChestplate = new ItemTRArmour(Reference.RUBY_ARMOUR, EntityEquipmentSlot.CHEST);
-		GameRegistry.registerItem(rubyChestplate, "rubyChestplate");
+		registerItem(rubyChestplate, "rubyChestplate");
 		rubyLeggings = new ItemTRArmour(Reference.RUBY_ARMOUR, EntityEquipmentSlot.LEGS);
-		GameRegistry.registerItem(rubyLeggings, "rubyLeggings");
+		registerItem(rubyLeggings, "rubyLeggings");
 		rubyBoots = new ItemTRArmour(Reference.RUBY_ARMOUR, EntityEquipmentSlot.FEET);
-		GameRegistry.registerItem(rubyBoots, "rubyBoots");
+		registerItem(rubyBoots, "rubyBoots");
 
 		sapphireSword = new ItemTRSword(Reference.SAPPHIRE);
-		GameRegistry.registerItem(sapphireSword, "sapphireSword");
+		registerItem(sapphireSword, "sapphireSword");
 		sapphirePickaxe = new ItemTRPickaxe(Reference.SAPPHIRE);
-		GameRegistry.registerItem(sapphirePickaxe, "sapphirePickaxe");
+		registerItem(sapphirePickaxe, "sapphirePickaxe");
 		sapphireSpade = new ItemTRSpade(Reference.SAPPHIRE);
-		GameRegistry.registerItem(sapphireSpade, "sapphireSpade");
+		registerItem(sapphireSpade, "sapphireSpade");
 		sapphireAxe = new ItemTRAxe(Reference.SAPPHIRE);
-		GameRegistry.registerItem(sapphireAxe, "sapphireAxe");
+		registerItem(sapphireAxe, "sapphireAxe");
 		sapphireHoe = new ItemTRHoe(Reference.SAPPHIRE);
-		GameRegistry.registerItem(sapphireHoe, "sapphireHoe");
+		registerItem(sapphireHoe, "sapphireHoe");
 
 		sapphireHelmet = new ItemTRArmour(Reference.SAPPHIRE_ARMOUR, EntityEquipmentSlot.HEAD);
-		GameRegistry.registerItem(sapphireHelmet, "sapphireHelmet");
+		registerItem(sapphireHelmet, "sapphireHelmet");
 		sapphireChestplate = new ItemTRArmour(Reference.SAPPHIRE_ARMOUR, EntityEquipmentSlot.CHEST);
-		GameRegistry.registerItem(sapphireChestplate, "sapphireChestplate");
+		registerItem(sapphireChestplate, "sapphireChestplate");
 		sapphireLeggings = new ItemTRArmour(Reference.SAPPHIRE_ARMOUR, EntityEquipmentSlot.LEGS);
-		GameRegistry.registerItem(sapphireLeggings, "sapphireLeggings");
+		registerItem(sapphireLeggings, "sapphireLeggings");
 		sapphireBoots = new ItemTRArmour(Reference.SAPPHIRE_ARMOUR, EntityEquipmentSlot.FEET);
-		GameRegistry.registerItem(sapphireBoots, "sapphireBoots");
+		registerItem(sapphireBoots, "sapphireBoots");
 
 		peridotSword = new ItemTRSword(Reference.PERIDOT);
-		GameRegistry.registerItem(peridotSword, "peridotSword");
+		registerItem(peridotSword, "peridotSword");
 		peridotPickaxe = new ItemTRPickaxe(Reference.PERIDOT);
-		GameRegistry.registerItem(peridotPickaxe, "peridotPickaxe");
+		registerItem(peridotPickaxe, "peridotPickaxe");
 		peridotSpade = new ItemTRSpade(Reference.PERIDOT);
-		GameRegistry.registerItem(peridotSpade, "peridotSpade");
+		registerItem(peridotSpade, "peridotSpade");
 		peridotAxe = new ItemTRAxe(Reference.PERIDOT);
-		GameRegistry.registerItem(peridotAxe, "peridotAxe");
+		registerItem(peridotAxe, "peridotAxe");
 		peridotHoe = new ItemTRHoe(Reference.PERIDOT);
-		GameRegistry.registerItem(peridotHoe, "peridotHoe");
+		registerItem(peridotHoe, "peridotHoe");
 
 		peridotHelmet = new ItemTRArmour(Reference.PERIDOT_ARMOUR, EntityEquipmentSlot.HEAD);
-		GameRegistry.registerItem(peridotHelmet, "peridotHelmet");
+		registerItem(peridotHelmet, "peridotHelmet");
 		peridotChestplate = new ItemTRArmour(Reference.PERIDOT_ARMOUR, EntityEquipmentSlot.CHEST);
-		GameRegistry.registerItem(peridotChestplate, "peridotChestplate");
+		registerItem(peridotChestplate, "peridotChestplate");
 		peridotLeggings = new ItemTRArmour(Reference.PERIDOT_ARMOUR, EntityEquipmentSlot.LEGS);
-		GameRegistry.registerItem(peridotLeggings, "peridotLeggings");
+		registerItem(peridotLeggings, "peridotLeggings");
 		peridotBoots = new ItemTRArmour(Reference.PERIDOT_ARMOUR, EntityEquipmentSlot.FEET);
-		GameRegistry.registerItem(peridotBoots, "peridotBoots");
+		registerItem(peridotBoots, "peridotBoots");
 		
 		hammer = new ItemHammer(100);
-		GameRegistry.registerItem(hammer, "hammer");
+		registerItem(hammer, "hammer");
 
 		wrench = new ItemWrench();
-		GameRegistry.registerItem(wrench, "wrench");
+		registerItem(wrench, "wrench");
 
 		nanosaber = new ItemNanosaber();
-		GameRegistry.registerItem(nanosaber, "nanosaber");
+		registerItem(nanosaber, "nanosaber");
 
 		scrapBox = new ItemScrapBox();
-		GameRegistry.registerItem(scrapBox, "scrapbox");
+		registerItem(scrapBox, "scrapbox");
 		
 		frequencyTransmitter = new ItemFrequencyTransmitter();
-		GameRegistry.registerItem(frequencyTransmitter, "frequencyTransmitter");
+		registerItem(frequencyTransmitter, "frequencyTransmitter");
 
 		upgrades = new ItemUpgrades();
-		GameRegistry.registerItem(upgrades, "upgrades");
+		registerItem(upgrades, "upgrades");
 
 		cloakingDevice = PoweredItem.createItem(ItemCloakingDevice.class);
-		GameRegistry.registerItem(cloakingDevice, "cloakingdevice");
+		registerItem(cloakingDevice, "cloakingdevice");
 
 		missingRecipe = new ItemMissingRecipe().setUnlocalizedName("missingRecipe");
-		GameRegistry.registerItem(missingRecipe, "mssingRecipe");
+		registerItem(missingRecipe, "mssingRecipe");
 
 		debug = new ItemDebugTool();
-		GameRegistry.registerItem(debug, "debug");
+		registerItem(debug, "debug");
 
 		emptyCell = new EmptyCell();
-		GameRegistry.registerItem(emptyCell, "emptyCell");
+		registerItem(emptyCell, "emptyCell");
 
 		dynamicCell = new DynamicCell();
-		GameRegistry.registerItem(dynamicCell, "dynamicCell");
+		registerItem(dynamicCell, "dynamicCell");
 
 		MinecraftForge.EVENT_BUS.register(BucketHandler.INSTANCE);
 
@@ -320,6 +320,11 @@ public class ModItems
 
 		BlockMachineBase.advancedMachineStack = BlockMachineFrame.getFrameByName("advancedMachine", 1);
 		BlockMachineBase.machineStack = BlockMachineFrame.getFrameByName("machine", 1);
+	}
+
+	public static void registerItem(Item item, String name){
+		item.setRegistryName(name);
+		GameRegistry.register(item);
 	}
 
 	public static void registerOreDict()
