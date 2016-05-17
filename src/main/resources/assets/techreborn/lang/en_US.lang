@@ -683,30 +683,30 @@ item.peridotChestplate.name=Peridot Chestplate
 item.peridotLeggings.name=Peridot Leggings
 item.peridotBoots.name=Peridot Boots
 
-#Buckets
-item.bucketberylium.name=Beryllium Bucket
-item.bucketcalcium.name=Calcium Bucket
-item.bucketcalciumcarbonate.name=Calciumcarbonate Bucket
-item.bucketchlorite.name=Chlorite Bucket
-item.bucketdeuterium.name=Deuterium Bucket
-item.bucketglyceryl.name=Glyceryl Bucket
-item.buckethelium.name=Helium Bucket
-item.buckethelium3.name=Helium3 Bucket
-item.bucketheliumplasma.name=Heliumplasma Bucket
-item.buckethydrogen.name=Hydrogen Bucket
-item.bucketlithium.name=Lithium Bucket
-item.bucketmercury.name=Mercury Bucket
-item.bucketmethane.name=Methane Bucket
-item.bucketnitrocoalfuel.name=Nitrocoalfuel Bucket
-item.bucketnitrofuel.name=Nitrofuel Bucket
-item.bucketnitrogen.name=Nitrogen Bucket
-item.bucketnitrogendioxide.name=Nitrogendioxide Bucket
-item.bucketpotassium.name=Potassium Bucket
-item.bucketsilicon.name=Silicon Bucket
-item.bucketsodium.name=Sodium Bucket
-item.bucketsodiumpersulfate.name=Sodiumpersulfate Bucket
-item.buckettritium.name=Tritium Bucket
-item.bucketwolframium.name=Wolframium Bucket
+#Fluid
+fluid.fluidberylium=Beryllium
+fluid.fluidcalcium=Calcium
+fluid.fluidcalciumcarbonate=Calciumcarbonate
+fluid.fluidchlorite=Chlorite
+fluid.fluiddeuterium=Deuterium
+fluid.fluidglyceryl=Glyceryl
+fluid.fluidhelium=Helium
+fluid.fluidhelium3=Helium3
+fluid.fluidheliumplasma=Heliumplasma
+fluid.fluidhydrogen=Hydrogen
+fluid.fluidlithium=Lithium
+fluid.fluidmercury=Mercury
+fluid.fluidmethane=Methane
+fluid.fluidnitrocoalfuel=Nitrocoalfuel
+fluid.fluidnitrofuel=Nitrofuel
+fluid.fluidnitrogen=Nitrogen
+fluid.fluidnitrogendioxide=Nitrogendioxide
+fluid.fluidpotassium=Potassium
+fluid.fluidsilicon=Silicon
+fluid.fluidsodium=Sodium
+fluid.fluidsodiumpersulfate=Sodiumpersulfate
+fluid.fluidtritium=Tritium
+fluid.fluidwolframium=Wolframium
 
 #Items
 item.techreborn.uuMatter.name=UU-Matter

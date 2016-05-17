@@ -1,5 +1,6 @@
 package techreborn.proxies;
 
+import net.minecraft.block.Block;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -32,4 +33,9 @@ public class CommonProxy implements ICompatModule
 	{
 
 	}
+
+	public void registerFluidBlockRendering(Block block, String name){
+
+	}
+
 }

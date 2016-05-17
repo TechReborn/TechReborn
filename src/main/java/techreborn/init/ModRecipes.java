@@ -5,8 +5,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.ForgeModContainer;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.ArrayUtils;
@@ -1534,7 +1537,7 @@ public class ModRecipes
 						ItemDusts.getDustByName("gold", 1), ItemDustsSmall.getSmallDustByName("Nickel", 1), null, 100,
 						120));
 				RecipeHandler.addRecipe(
-						new IndustrialGrinderRecipe(oreStack, new ItemStack(ModItems.bucketSodiumpersulfate), null,
+						new IndustrialGrinderRecipe(oreStack, getBucketWithFluid(ModFluids.fluidSodiumpersulfate), null,
 								ItemDusts.getDustByName("copper", 2), ItemDusts.getDustByName("gold", 1),
 								ItemDustsSmall.getSmallDustByName("Nickel", 1), new ItemStack(Items.BUCKET), 100, 120));
 
@@ -1571,7 +1574,7 @@ public class ModRecipes
 						ItemDustsSmall.getSmallDustByName("Iron", 1), ItemDusts.getDustByName("zinc", 1), null, 100,
 						120));
 				RecipeHandler.addRecipe(
-						new IndustrialGrinderRecipe(oreStack, new ItemStack(ModItems.bucketSodiumpersulfate), null,
+						new IndustrialGrinderRecipe(oreStack, getBucketWithFluid(ModFluids.fluidSodiumpersulfate), null,
 								ItemDusts.getDustByName("tin", 2), ItemDustsSmall.getSmallDustByName("Iron", 1),
 								ItemDusts.getDustByName("zinc", 1), new ItemStack(Items.BUCKET), 100, 120));
 			} catch (Exception e)
@@ -1599,7 +1602,7 @@ public class ModRecipes
 						ItemDustsSmall.getSmallDustByName("Iron", 1), ItemDustsSmall.getSmallDustByName("Platinum", 1),
 						null, 100, 120));
 				RecipeHandler.addRecipe(
-						new IndustrialGrinderRecipe(oreStack, new ItemStack(ModItems.bucketSodiumpersulfate), null,
+						new IndustrialGrinderRecipe(oreStack, getBucketWithFluid(ModFluids.fluidSodiumpersulfate), null,
 								ItemDusts.getDustByName("nickel", 3), ItemDustsSmall.getSmallDustByName("Iron", 1),
 								ItemDustsSmall.getSmallDustByName("Platinum", 1), new ItemStack(Items.BUCKET), 100,
 								120));
@@ -1609,7 +1612,7 @@ public class ModRecipes
 								ItemDusts.getDustByName("nickel", 2), ItemDustsSmall.getSmallDustByName("Iron", 1),
 								ItemDusts.getDustByName("platinum", 1), null, 100, 120));
 				RecipeHandler.addRecipe(
-						new IndustrialGrinderRecipe(oreStack, new ItemStack(ModItems.bucketMercury), null,
+						new IndustrialGrinderRecipe(oreStack, getBucketWithFluid(ModFluids.fluidMercury), null,
 								ItemDusts.getDustByName("nickel", 2), ItemDustsSmall.getSmallDustByName("Iron", 1),
 								ItemDusts.getDustByName("platinum", 1), new ItemStack(Items.BUCKET), 100, 120));
 			} catch (Exception e)
@@ -1637,7 +1640,7 @@ public class ModRecipes
 						ItemDustsSmall.getSmallDustByName("Iron", 1), ItemDusts.getDustByName("iron", 1), null, 100,
 						120));
 				RecipeHandler.addRecipe(
-						new IndustrialGrinderRecipe(oreStack, new ItemStack(ModItems.bucketSodiumpersulfate), null,
+						new IndustrialGrinderRecipe(oreStack, getBucketWithFluid(ModFluids.fluidSodiumpersulfate), null,
 								ItemDusts.getDustByName("zinc", 2), ItemDustsSmall.getSmallDustByName("Iron", 1),
 								ItemDusts.getDustByName("iron", 1), new ItemStack(Items.BUCKET), 100, 120));
 			} catch (Exception e)
@@ -1665,7 +1668,7 @@ public class ModRecipes
 								ItemDusts.getDustByName("silver", 3), ItemDustsSmall.getSmallDustByName("Lead", 1),
 								ItemDustsSmall.getSmallDustByName("Sulfur", 1), null, 100, 120));
 				RecipeHandler.addRecipe(
-						new IndustrialGrinderRecipe(oreStack, new ItemStack(ModItems.bucketMercury), null,
+						new IndustrialGrinderRecipe(oreStack, getBucketWithFluid(ModFluids.fluidMercury), null,
 								ItemDusts.getDustByName("silver", 3), ItemDustsSmall.getSmallDustByName("Lead", 1),
 								ItemDustsSmall.getSmallDustByName("Sulfur", 1), new ItemStack(Items.BUCKET), 100, 120));
 			} catch (Exception e)
@@ -1693,7 +1696,7 @@ public class ModRecipes
 								ItemDusts.getDustByName("lead", 2), ItemDusts.getDustByName("silver", 1),
 								ItemDustsSmall.getSmallDustByName("Sulfur", 1), null, 100, 120));
 				RecipeHandler.addRecipe(
-						new IndustrialGrinderRecipe(oreStack, new ItemStack(ModItems.bucketMercury), null,
+						new IndustrialGrinderRecipe(oreStack, getBucketWithFluid(ModFluids.fluidMercury), null,
 								ItemDusts.getDustByName("lead", 2), ItemDusts.getDustByName("silver", 1),
 								ItemDustsSmall.getSmallDustByName("Sulfur", 1), new ItemStack(Items.BUCKET), 100, 120));
 			} catch (Exception e)
@@ -1886,7 +1889,7 @@ public class ModRecipes
 				new FluidStack(ModFluids.fluidMercury, 1000), ItemDusts.getDustByName("galena", 2),
 				ItemDustsSmall.getSmallDustByName("Sulfur", 1), ItemDusts.getDustByName("silver", 1), null, 100, 120));
 		RecipeHandler.addRecipe(
-				new IndustrialGrinderRecipe(new ItemStack(ModBlocks.ore, 1, 0), new ItemStack(ModItems.bucketMercury),
+				new IndustrialGrinderRecipe(new ItemStack(ModBlocks.ore, 1, 0), getBucketWithFluid(ModFluids.fluidMercury),
 						null, ItemDusts.getDustByName("galena", 2), ItemDustsSmall.getSmallDustByName("Sulfur", 1),
 						ItemDusts.getDustByName("silver", 1), new ItemStack(Items.BUCKET), 100, 120));
 
@@ -1955,7 +1958,7 @@ public class ModRecipes
 				ItemDusts.getDustByName("zinc", 1), ItemDustsSmall.getSmallDustByName("YellowGarnet", 1), null, 100,
 				120));
 		RecipeHandler.addRecipe(new IndustrialGrinderRecipe(new ItemStack(ModBlocks.ore, 1, 7),
-				new ItemStack(ModItems.bucketSodiumpersulfate), null, ItemDusts.getDustByName("sphalerite", 2),
+				getBucketWithFluid(ModFluids.fluidSodiumpersulfate), null, ItemDusts.getDustByName("sphalerite", 2),
 				ItemDusts.getDustByName("zinc", 1), ItemDustsSmall.getSmallDustByName("YellowGarnet", 1),
 				new ItemStack(Items.BUCKET), 100, 120));
 
@@ -1974,7 +1977,7 @@ public class ModRecipes
 				ItemDustsSmall.getSmallDustByName("Manganese", 1), ItemDusts.getDustByName("silver", 2), null, 100,
 				120));
 		RecipeHandler.addRecipe(
-				new IndustrialGrinderRecipe(new ItemStack(ModBlocks.ore, 1, 8), new ItemStack(ModItems.bucketMercury),
+				new IndustrialGrinderRecipe(new ItemStack(ModBlocks.ore, 1, 8), getBucketWithFluid(ModFluids.fluidMercury),
 						null, ItemDusts.getDustByName("tungsten", 2), ItemDustsSmall.getSmallDustByName("Manganese", 1),
 						ItemDusts.getDustByName("silver", 2), new ItemStack(Items.BUCKET), 100, 120));
 
@@ -1991,7 +1994,7 @@ public class ModRecipes
 				new FluidStack(ModFluids.fluidMercury, 1000), ItemDusts.getDustByName("platinum", 3),
 				ItemNuggets.getNuggetByName("iridium", 2), ItemDusts.getDustByName("nickel", 1), null, 100, 120));
 		RecipeHandler.addRecipe(
-				new IndustrialGrinderRecipe(new ItemStack(ModBlocks.ore, 1, 9), new ItemStack(ModItems.bucketMercury),
+				new IndustrialGrinderRecipe(new ItemStack(ModBlocks.ore, 1, 9), getBucketWithFluid(ModFluids.fluidMercury),
 						null, ItemDusts.getDustByName("platinum", 3), ItemNuggets.getNuggetByName("iridium", 2),
 						ItemDusts.getDustByName("nickel", 1), new ItemStack(Items.BUCKET), 100, 120));
 
@@ -3118,7 +3121,7 @@ public class ModRecipes
 						ItemDustsSmall.getSmallDustByName("Platinum", 2), null,
 						ItemCells.getCellByName("empty"), 100, 120));
 		RecipeHandler.addRecipe(
-				new IndustrialGrinderRecipe(new ItemStack(ModBlocks.ore, 1, 1), new ItemStack(ModItems.bucketMercury),
+				new IndustrialGrinderRecipe(new ItemStack(ModBlocks.ore, 1, 1), getBucketWithFluid(ModFluids.fluidMercury),
 						null, TechRebornAPI.recipeCompact.getItem("iridiumOre"),
 						ItemDustsSmall.getSmallDustByName("Platinum", 2), null,
 						new ItemStack(Items.BUCKET), 100, 120));
@@ -3385,5 +3388,9 @@ public class ModRecipes
 		CraftingHelper.addShapedOreRecipe(gemleggings, "GGG", "G G", "G G", 'G', gem);
 
 		CraftingHelper.addShapedOreRecipe(gemboots, "   ", "G G", "G G", 'G', gem);
+	}
+
+	public static ItemStack getBucketWithFluid(Fluid fluid){
+		return UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, fluid);
 	}
 }
