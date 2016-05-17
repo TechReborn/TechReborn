@@ -65,8 +65,6 @@ tile.techreborn.machineFrame.advancedMachine.name=Advanced Machine Block
 tile.techreborn.machineFrame.machine.name=Machine Block
 tile.techreborn.ore2.copper.name=Copper Ore
 tile.techreborn.ore2.tin.name=Tin Ore
-tile.techreborn.storage2.copper.name=Copper Block
-tile.techreborn.storage2.tin.name=Tin Block
 tile.techreborn.solarpanel.name=Solar Panel
 tile.techreborn.watermill.name=Water Mill
 tile.techreborn.windmill.name=Wind Mill
@@ -136,6 +134,8 @@ tile.techreborn.storage2.peridot.name=Block of Peridot
 tile.techreborn.storage2.yellowGarnet.name=Block of Yellow Garnet
 tile.techreborn.storage2.redGarnet.name=Block of Red Garnet
 tile.techreborn.storage2.refinedIron.name=Block of Refined Iron
+tile.techreborn.storage2.copper.name=Block of Copper
+tile.techreborn.storage2.tin.name=Block of Tin
 tile.techreborn.farm.name=Farm
 
 
