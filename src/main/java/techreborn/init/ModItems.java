@@ -28,18 +28,11 @@ import techreborn.api.Reference;
 public class ModItems
 {
 
-	// This are deprected to stop people using them in the recipes.
-	@Deprecated
 	public static Item gems;
-	@Deprecated
 	public static Item ingots;
-	@Deprecated
 	public static Item nuggets;
-	@Deprecated
 	public static Item dusts;
-	@Deprecated
 	public static Item smallDusts;
-	@Deprecated
 	public static Item parts;
 	@Deprecated
 	public static Item cells;
@@ -52,8 +45,6 @@ public class ModItems
 	public static Item manual;
 	public static Item uuMatter;
 	public static Item plate;
-	public static Item crushedOre;
-	public static Item purifiedCrushedOre;
 	public static Item cloakingDevice;
 
 	public static Item reBattery;
@@ -123,6 +114,9 @@ public class ModItems
 
 	public static Item missingRecipe;
 	public static Item debug;
+
+	public static Item emptyCell;
+	public static DynamicCell dynamicCell;
 
 	public static void init() throws InstantiationException, IllegalAccessException
 	{
@@ -311,6 +305,12 @@ public class ModItems
 
 		debug = new ItemDebugTool();
 		GameRegistry.registerItem(debug, "debug");
+
+		emptyCell = new EmptyCell();
+		GameRegistry.registerItem(emptyCell, "emptyCell");
+
+		dynamicCell = new DynamicCell();
+		GameRegistry.registerItem(dynamicCell, "dynamicCell");
 
 		MinecraftForge.EVENT_BUS.register(BucketHandler.INSTANCE);
 

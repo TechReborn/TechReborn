@@ -1,7 +1,7 @@
 package techreborn.utils;
 
 import net.minecraft.item.ItemStack;
-import techreborn.items.ItemCells;
+import techreborn.init.ModItems;
 
 public class RecipeUtils
 {
@@ -12,7 +12,7 @@ public class RecipeUtils
 		// cell.stackSize = stackSize;
 		// return cell;
 		// } else {
-		return ItemCells.getCellByName("empty", stackSize);
+		return new ItemStack(ModItems.emptyCell);
 		// }
 	}
 }

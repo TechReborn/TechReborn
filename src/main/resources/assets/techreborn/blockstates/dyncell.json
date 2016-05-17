@@ -1,0 +1,18 @@
+{
+  "forge_marker": 1,
+  "variants": {
+    "inventory": {
+      "model": "forge:forgebucket",
+      "textures": {
+        "base": "techreborn:items/cell_base",
+        "fluid": "techreborn:items/cell_fluid",
+        "cover": "techreborn:items/cell_cover"
+      },
+      "transform": "forge:default-item",
+      "custom": {
+        "fluid": "water",
+        "flipGas": true
+      }
+    }
+  }
+}

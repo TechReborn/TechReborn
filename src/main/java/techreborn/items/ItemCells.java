@@ -14,6 +14,7 @@ import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
 
+@Deprecated
 public class ItemCells extends ItemTextureBase implements IFluidContainerItem
 {
 

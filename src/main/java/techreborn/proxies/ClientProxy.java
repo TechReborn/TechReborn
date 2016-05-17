@@ -3,15 +3,20 @@ package techreborn.proxies;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.ItemMeshDefinition;
+import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
+import net.minecraftforge.client.model.ICustomModelLoader;
+import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.ModelDynBucket;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -34,6 +39,7 @@ import techreborn.client.keybindings.KeyBindings;
 import techreborn.client.render.entitys.RenderNukePrimed;
 import techreborn.entitys.EntityNukePrimed;
 import techreborn.init.ModBlocks;
+import techreborn.init.ModItems;
 import techreborn.init.ModSounds;
 import techreborn.lib.ModInfo;
 import techreborn.manual.loader.ManualLoader;
@@ -45,6 +51,8 @@ public class ClientProxy extends CommonProxy
 {
 
 	public static MultiblockRenderEvent multiblockRenderEvent;
+
+	public static final ModelResourceLocation MODEL_DYNAMIC_CELL = new ModelResourceLocation(new ResourceLocation("techreborn", "dyncell"), "inventory");
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event)
@@ -69,6 +77,16 @@ public class ClientProxy extends CommonProxy
 				registerItemModel(Item.getItemFromBlock(base));
 			}
 		}
+
+		ModelLoader.setCustomMeshDefinition(ModItems.dynamicCell, new ItemMeshDefinition()
+		{
+			@Override
+			public ModelResourceLocation getModelLocation(ItemStack stack)
+			{
+				return MODEL_DYNAMIC_CELL;
+			}
+		});
+		ModelBakery.registerItemVariants(ModItems.dynamicCell, MODEL_DYNAMIC_CELL);
 	}
 
 	@Override

@@ -4,15 +4,7 @@ import net.minecraft.item.ItemStack;
 import techreborn.api.ISubItemRetriever;
 import techreborn.blocks.BlockOre;
 import techreborn.blocks.BlockStorage;
-import techreborn.items.ItemCells;
-import techreborn.items.ItemDusts;
-import techreborn.items.ItemDustsSmall;
-import techreborn.items.ItemGems;
-import techreborn.items.ItemIngots;
-import techreborn.items.ItemNuggets;
-import techreborn.items.ItemParts;
-import techreborn.items.ItemPlates;
-import techreborn.items.ItemUpgrades;
+import techreborn.items.*;
 
 /**
  * Created by Mark on 03/04/2016.
