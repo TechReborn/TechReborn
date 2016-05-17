@@ -2,6 +2,7 @@ package techreborn.blocks.fluid;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
+import reborncore.common.util.Color;
 
 public class TechRebornFluid extends Fluid
 {

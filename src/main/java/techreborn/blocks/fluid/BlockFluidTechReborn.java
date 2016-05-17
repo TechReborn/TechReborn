@@ -16,9 +16,4 @@ public class BlockFluidTechReborn extends BlockFluidBase implements ITexturedFlu
 		this.name = name;
 	}
 
-	@Override
-	public String getTextureName()
-	{
-		return "techreborn:blocks/fluids/" + name.replaceAll("techreborn.", "") + "_flowing";
-	}
 }
