@@ -1,6 +1,7 @@
 package techreborn.blocks.fluid;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -14,7 +15,6 @@ public class BlockFluidBase extends BlockFluidClassic
 	public BlockFluidBase(Fluid fluid, Material material)
 	{
 		super(fluid, material);
-		RebornCore.jsonDestroyer.registerObject(this);
 	}
 
 	@Override
@@ -32,5 +32,4 @@ public class BlockFluidBase extends BlockFluidClassic
 			return false;
 		return super.displaceIfPossible(world, pos);
 	}
-
 }

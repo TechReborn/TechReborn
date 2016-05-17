@@ -36,12 +36,11 @@ public class BlockPlayerDetector extends BlockMachineBase implements ITexturedBl
 
 	public BlockPlayerDetector()
 	{
-		super();
+		super(true);
 		setUnlocalizedName("techreborn.playerDetector");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setHardness(2f);
-		this.setDefaultState(this.getDefaultState().withProperty(METADATA, 0).withProperty(FACING, EnumFacing.NORTH)
-				.withProperty(ACTIVE, false));
+		this.setDefaultState(this.getDefaultState().withProperty(METADATA, 0));
 	}
 
 	@Override
@@ -158,10 +157,8 @@ public class BlockPlayerDetector extends BlockMachineBase implements ITexturedBl
 
 	protected BlockStateContainer createBlockState()
 	{
-		FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
-		ACTIVE = PropertyBool.create("active");
 		METADATA = PropertyInteger.create("type", 0, types.length - 1);
-		return new BlockStateContainer(this, METADATA, FACING, ACTIVE);
+		return new BlockStateContainer(this, METADATA);
 	}
 
 	@Override

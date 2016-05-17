@@ -95,7 +95,7 @@ public class BlockOre extends BaseBlock implements ITexturedBlock, IOreNameProvi
 		int meta = getMetaFromState(state);
 		Random random = new Random();
 		// Ruby
-		if (variant.equals("Ruby"))
+		if (variant.equalsIgnoreCase("Ruby"))
 		{
 			OreDrop ruby = new OreDrop(ItemGems.getGemByName("ruby"),
 					ConfigTechReborn.FortuneSecondaryOreMultiplierPerLevel);
@@ -105,7 +105,7 @@ public class BlockOre extends BaseBlock implements ITexturedBlock, IOreNameProvi
 		}
 
 		// Sapphire
-		if (variant.equals("Sapphire"))
+		if (variant.equalsIgnoreCase("Sapphire"))
 		{
 			OreDrop sapphire = new OreDrop(ItemGems.getGemByName("sapphire"),
 					ConfigTechReborn.FortuneSecondaryOreMultiplierPerLevel);
@@ -115,7 +115,7 @@ public class BlockOre extends BaseBlock implements ITexturedBlock, IOreNameProvi
 		}
 
 		// Pyrite
-		if (variant.equals("Pyrite"))
+		if (variant.equalsIgnoreCase("Pyrite"))
 		{
 			OreDrop pyriteDust = new OreDrop(ItemDusts.getDustByName("pyrite"),
 					ConfigTechReborn.FortuneSecondaryOreMultiplierPerLevel);
@@ -124,7 +124,7 @@ public class BlockOre extends BaseBlock implements ITexturedBlock, IOreNameProvi
 		}
 
 		// Sodalite
-		if (variant.equals("Sodalite"))
+		if (variant.equalsIgnoreCase("Sodalite"))
 		{
 			OreDrop sodalite = new OreDrop(ItemDusts.getDustByName("sodalite", 6),
 					ConfigTechReborn.FortuneSecondaryOreMultiplierPerLevel);
@@ -134,7 +134,7 @@ public class BlockOre extends BaseBlock implements ITexturedBlock, IOreNameProvi
 		}
 
 		// Cinnabar
-		if (variant.equals("Cinnabar"))
+		if (variant.equalsIgnoreCase("Cinnabar"))
 		{
 			OreDrop cinnabar = new OreDrop(ItemDusts.getDustByName("cinnabar"),
 					ConfigTechReborn.FortuneSecondaryOreMultiplierPerLevel);
@@ -144,7 +144,7 @@ public class BlockOre extends BaseBlock implements ITexturedBlock, IOreNameProvi
 		}
 
 		// Sphalerite 1, 1/8 yellow garnet
-		if (variant.equals("Sphalerite"))
+		if (variant.equalsIgnoreCase("Sphalerite"))
 		{
 			OreDrop sphalerite = new OreDrop(ItemDusts.getDustByName("sphalerite"),
 					ConfigTechReborn.FortuneSecondaryOreMultiplierPerLevel);

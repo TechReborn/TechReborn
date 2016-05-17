@@ -3,6 +3,8 @@ package techreborn.blocks.fluid;
 import me.modmuss50.jsonDestroyer.api.ITexturedFluid;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.fluids.Fluid;
+import reborncore.RebornCore;
+import techreborn.Core;
 
 public class BlockFluidTechReborn extends BlockFluidBase implements ITexturedFluid
 {
@@ -14,11 +16,7 @@ public class BlockFluidTechReborn extends BlockFluidBase implements ITexturedFlu
 		super(fluid, material);
 		setUnlocalizedName(name);
 		this.name = name;
+		Core.proxy.registerFluidBlockRendering(this, name);
 	}
 
-	@Override
-	public String getTextureName()
-	{
-		return "techreborn:blocks/fluids/" + name.replaceAll("techreborn.", "") + "_flowing";
-	}
 }

@@ -1,8 +1,11 @@
 package techreborn.proxies;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMap;
+import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.item.Item;
@@ -32,6 +35,7 @@ import techreborn.client.render.entitys.RenderNukePrimed;
 import techreborn.entitys.EntityNukePrimed;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModSounds;
+import techreborn.lib.ModInfo;
 import techreborn.manual.loader.ManualLoader;
 
 import java.io.File;
@@ -132,4 +136,19 @@ public class ClientProxy extends CommonProxy
 		}
 	}
 
+	@Override
+	public void registerFluidBlockRendering(Block block, String name) {
+		super.registerFluidBlockRendering(block, name);
+		final ModelResourceLocation fluidLocation = new ModelResourceLocation(ModInfo.MOD_ID.toLowerCase() + ":fluids", name);
+
+		// use a custom state mapper which will ignore the LEVEL property
+		ModelLoader.setCustomStateMapper(block, new StateMapperBase()
+		{
+			@Override
+			protected ModelResourceLocation getModelResourceLocation(IBlockState state)
+			{
+				return fluidLocation;
+			}
+		});
+	}
 }
