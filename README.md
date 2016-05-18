@@ -24,10 +24,14 @@ See [this list](http://minecraft.curseforge.com/projects/techreborn/files?sort=r
 
 Jenkins builds of TechReborn are compiled directly from this repository. Please remember to backup your worlds before using a jenkins build of TechReborn.
 
-1.9:
+1.9.4:
 ---
 
 *This version is constantly recieving updates, and does not have a stable, recommended, release. Once again, remember to backup your worlds before using jenkins builds.*
+
+[![Build Status](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.9.4/badge/icon)](http://modmuss50.me:8080/job/TechReborn-1.9.4/)
+
+*1.9 builds are also available:
 
 [![Build Status](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.9/badge/icon)](http://modmuss50.me:8080/job/TechReborn-1.9/)
 
