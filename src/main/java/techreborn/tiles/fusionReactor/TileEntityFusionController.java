@@ -90,7 +90,7 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound tagCompound)
+	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
 	{
 		super.writeToNBT(tagCompound);
 
@@ -110,6 +110,7 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 		tagCompound.setInteger("finalTickTime", finalTickTime);
 		tagCompound.setInteger("neededPower", neededPower);
 		tagCompound.setBoolean("hasStartedCrafting", hasStartedCrafting);
+		return tagCompound;
 	}
 
 

@@ -84,10 +84,11 @@ public class TileExtractor extends TilePowerAcceptor implements IWrenchable,IInv
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound tagCompound)
+	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
 	{
 		super.writeToNBT(tagCompound);
 		crafter.writeToNBT(tagCompound);
+		return tagCompound;
 	}
 
 	// ISidedInventory

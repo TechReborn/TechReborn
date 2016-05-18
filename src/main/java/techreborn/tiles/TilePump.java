@@ -121,15 +121,17 @@ public class TilePump extends TilePowerAcceptor implements IFluidHandler {
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound tagCompound)
+    public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
     {
         super.writeToNBT(tagCompound);
         writeToNBTWithoutCoords(tagCompound);
+        return tagCompound;
     }
 
-    public void writeToNBTWithoutCoords(NBTTagCompound tagCompound)
+    public NBTTagCompound writeToNBTWithoutCoords(NBTTagCompound tagCompound)
     {
         tank.writeToNBT(tagCompound);
+        return tagCompound;
     }
 
     // IFluidHandler

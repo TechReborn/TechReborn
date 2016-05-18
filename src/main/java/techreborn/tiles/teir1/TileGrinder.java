@@ -92,10 +92,11 @@ public class TileGrinder extends TilePowerAcceptor implements IWrenchable,IInven
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound tagCompound)
+	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
 	{
 		super.writeToNBT(tagCompound);
 		crafter.writeToNBT(tagCompound);
+		return tagCompound;
 	}
 
 	public int getProgressScaled(int scale)

@@ -1,7 +1,7 @@
 package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ICrafting;
+import net.minecraft.inventory.IContainerListener;
 import reborncore.client.gui.BaseSlot;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -54,18 +54,18 @@ public class ContainerVacuumFreezer extends ContainerCrafting
 		super.detectAndSendChanges();
 		for (int i = 0; i < this.listeners.size(); i++)
 		{
-			ICrafting icrafting = this.listeners.get(i);
+			IContainerListener IContainerListener = this.listeners.get(i);
 			if (this.machineStatus != tile.multiBlockStatus)
 			{
-				icrafting.sendProgressBarUpdate(this, 3, tile.multiBlockStatus);
+				IContainerListener.sendProgressBarUpdate(this, 3, tile.multiBlockStatus);
 			}
 		}
 	}
 
 	@Override
-	public void onCraftGuiOpened(ICrafting crafting)
+	public void addListener(IContainerListener crafting)
 	{
-		super.onCraftGuiOpened(crafting);
+		super.addListener(crafting);
 		crafting.sendProgressBarUpdate(this, 3, tile.multiBlockStatus);
 	}
 

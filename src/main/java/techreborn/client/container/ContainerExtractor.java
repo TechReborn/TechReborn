@@ -52,8 +52,8 @@ public class ContainerExtractor extends ContainerCrafting
 	}
 
 	// @Override
-	// public void onCraftGuiOpened(ICrafting crafting) {
-	// super.onCraftGuiOpened(crafting);
+	// public void addListener(IContainerListener crafting) {
+	// super.addListener(crafting);
 	// crafting.sendProgressBarUpdate(this, 0, (int) tile.getProgressScaled(0));
 	// crafting.sendProgressBarUpdate(this, 2, (int) tile.getEnergy());
 	// }

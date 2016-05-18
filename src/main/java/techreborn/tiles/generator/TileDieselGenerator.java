@@ -115,10 +115,11 @@ public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchabl
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound tagCompound)
+	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
 	{
 		super.writeToNBT(tagCompound);
 		tank.writeToNBT(tagCompound);
+		return tagCompound;
 	}
 
 	public Packet getDescriptionPacket()

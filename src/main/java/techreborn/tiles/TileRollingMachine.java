@@ -183,11 +183,12 @@ public class TileRollingMachine extends TilePowerAcceptor implements IWrenchable
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound tagCompound)
+	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
 	{
 		super.writeToNBT(tagCompound);
 		ItemUtils.writeInvToNBT(craftMatrix, "Crafting", tagCompound);
 		writeUpdateToNBT(tagCompound);
+		return tagCompound;
 	}
 
 	public void writeUpdateToNBT(NBTTagCompound tagCompound)

@@ -1,6 +1,5 @@
 package techreborn.init;
 
-import net.minecraft.util.WeightedRandomChestContent;
 
 //TODO 1.9 nope
 public class ModLoot
@@ -33,8 +32,8 @@ public class ModLoot
 		// }
 	}
 
-	public static void generate(WeightedRandomChestContent chestContent)
-	{
+//	public static void generate(WeightedRandomChestContent chestContent)
+//	{
 		// for (String category :
 		// Arrays.asList(ChestGenHooks.VILLAGE_BLACKSMITH,
 		// ChestGenHooks.MINESHAFT_CORRIDOR, ChestGenHooks.PYRAMID_DESERT_CHEST,
@@ -45,5 +44,5 @@ public class ModLoot
 		// ChestGenHooks.DUNGEON_CHEST)) {
 		// ChestGenHooks.addItem(category, chestContent);
 		// }
-	}
+//	}
 }

@@ -130,10 +130,11 @@ public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound tagCompound)
+	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
 	{
 		super.writeToNBT(tagCompound);
 		crafter.writeToNBT(tagCompound);
+		return tagCompound;
 	}
 
 	public int getProgressScaled(int scale)

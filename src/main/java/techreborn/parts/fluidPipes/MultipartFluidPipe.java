@@ -415,9 +415,10 @@ public abstract class MultipartFluidPipe extends Multipart implements INormallyO
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound tag) {
+    public NBTTagCompound writeToNBT(NBTTagCompound tag) {
         super.writeToNBT(tag);
         tank.writeToNBT(tag);
+        return tag;
     }
 
     @Override

@@ -1,7 +1,7 @@
 package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ICrafting;
+import net.minecraft.inventory.IContainerListener;
 import reborncore.client.gui.BaseSlot;
 import reborncore.client.gui.SlotOutput;
 import techreborn.tiles.TileBlastFurnace;
@@ -59,18 +59,18 @@ public class ContainerBlastFurnace extends ContainerCrafting
 		super.detectAndSendChanges();
 		for (int i = 0; i < this.listeners.size(); i++)
 		{
-			ICrafting icrafting = this.listeners.get(i);
+			IContainerListener IContainerListener = this.listeners.get(i);
 			if (this.heat != tile.getHeat())
 			{
-				icrafting.sendProgressBarUpdate(this, 10, tile.getHeat());
+				IContainerListener.sendProgressBarUpdate(this, 10, tile.getHeat());
 			}
 		}
 	}
 
 	@Override
-	public void onCraftGuiOpened(ICrafting crafting)
+	public void addListener(IContainerListener crafting)
 	{
-		super.onCraftGuiOpened(crafting);
+		super.addListener(crafting);
 		crafting.sendProgressBarUpdate(this, 10, tile.getHeat());
 	}
 

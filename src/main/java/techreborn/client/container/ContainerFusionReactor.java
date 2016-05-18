@@ -1,7 +1,7 @@
 package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ICrafting;
+import net.minecraft.inventory.IContainerListener;
 import reborncore.client.gui.BaseSlot;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -58,34 +58,34 @@ public class ContainerFusionReactor extends RebornContainer
 		super.detectAndSendChanges();
 		for (int i = 0; i < this.listeners.size(); i++)
 		{
-			ICrafting icrafting = this.listeners.get(i);
+			IContainerListener IContainerListener = this.listeners.get(i);
 			if (this.coilStatus != fusionController.coilStatus)
 			{
-				icrafting.sendProgressBarUpdate(this, 0, fusionController.coilStatus);
+				IContainerListener.sendProgressBarUpdate(this, 0, fusionController.coilStatus);
 			}
 			if (this.energy != (int) fusionController.getEnergy())
 			{
-				icrafting.sendProgressBarUpdate(this, 1, (int) fusionController.getEnergy());
+				IContainerListener.sendProgressBarUpdate(this, 1, (int) fusionController.getEnergy());
 			}
 			if (this.tickTime != fusionController.crafingTickTime)
 			{
-				icrafting.sendProgressBarUpdate(this, 2, fusionController.crafingTickTime);
+				IContainerListener.sendProgressBarUpdate(this, 2, fusionController.crafingTickTime);
 			}
 			if (this.finalTickTime != fusionController.finalTickTime)
 			{
-				icrafting.sendProgressBarUpdate(this, 3, fusionController.finalTickTime);
+				IContainerListener.sendProgressBarUpdate(this, 3, fusionController.finalTickTime);
 			}
 			if (this.neededEU != fusionController.neededPower)
 			{
-				icrafting.sendProgressBarUpdate(this, 4, fusionController.neededPower);
+				IContainerListener.sendProgressBarUpdate(this, 4, fusionController.neededPower);
 			}
 		}
 	}
 
 	@Override
-	public void onCraftGuiOpened(ICrafting crafting)
+	public void addListener(IContainerListener crafting)
 	{
-		super.onCraftGuiOpened(crafting);
+		super.addListener(crafting);
 		crafting.sendProgressBarUpdate(this, 0, fusionController.coilStatus);
 		crafting.sendProgressBarUpdate(this, 1, (int) fusionController.getEnergy());
 		crafting.sendProgressBarUpdate(this, 2, fusionController.crafingTickTime);

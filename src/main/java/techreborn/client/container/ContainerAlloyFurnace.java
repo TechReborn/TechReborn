@@ -1,7 +1,7 @@
 package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ICrafting;
+import net.minecraft.inventory.IContainerListener;
 import reborncore.client.gui.BaseSlot;
 import net.minecraft.inventory.SlotFurnaceFuel;
 import reborncore.client.gui.SlotOutput;
@@ -53,9 +53,9 @@ public class ContainerAlloyFurnace extends RebornContainer
 	}
 
 	@Override
-	public void onCraftGuiOpened(ICrafting crafting)
+	public void addListener(IContainerListener crafting)
 	{
-		super.onCraftGuiOpened(crafting);
+		super.addListener(crafting);
 		crafting.sendProgressBarUpdate(this, 0, tile.currentItemBurnTime);
 		crafting.sendProgressBarUpdate(this, 1, tile.burnTime);
 		crafting.sendProgressBarUpdate(this, 2, tile.cookTime);
@@ -66,7 +66,7 @@ public class ContainerAlloyFurnace extends RebornContainer
 	{
 		for (int i = 0; i < this.listeners.size(); i++)
 		{
-			ICrafting crafting = this.listeners.get(i);
+			IContainerListener crafting = this.listeners.get(i);
 			if (this.currentItemBurnTime != tile.currentItemBurnTime)
 			{
 				crafting.sendProgressBarUpdate(this, 0, tile.currentItemBurnTime);

@@ -1,7 +1,7 @@
 package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ICrafting;
+import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.IInventory;
 import reborncore.client.gui.BaseSlot;
 import net.minecraft.item.ItemStack;
@@ -68,9 +68,9 @@ public class ContainerRollingMachine extends RebornContainer
 	}
 
 	@Override
-	public void onCraftGuiOpened(ICrafting crafting)
+	public void addListener(IContainerListener crafting)
 	{
-		super.onCraftGuiOpened(crafting);
+		super.addListener(crafting);
 		crafting.sendProgressBarUpdate(this, 0, tile.runTime);
 		crafting.sendProgressBarUpdate(this, 1, tile.tickTime);
 		crafting.sendProgressBarUpdate(this, 2, (int) tile.getEnergy());
@@ -81,7 +81,7 @@ public class ContainerRollingMachine extends RebornContainer
 	{
 		for (int i = 0; i < this.listeners.size(); i++)
 		{
-			ICrafting crafting = this.listeners.get(i);
+			IContainerListener crafting = this.listeners.get(i);
 			if (this.currentItemBurnTime != tile.runTime)
 			{
 				crafting.sendProgressBarUpdate(this, 0, tile.runTime);

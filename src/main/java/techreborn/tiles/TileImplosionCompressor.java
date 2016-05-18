@@ -118,10 +118,11 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound tagCompound)
+	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
 	{
 		super.writeToNBT(tagCompound);
 		crafter.writeToNBT(tagCompound);
+		return tagCompound;
 	}
 
 	// @Override

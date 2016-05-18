@@ -1,7 +1,7 @@
 package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ICrafting;
+import net.minecraft.inventory.IContainerListener;
 import reborncore.client.gui.BaseSlot;
 import net.minecraft.inventory.SlotFurnaceFuel;
 import net.minecraftforge.fml.relauncher.Side;
@@ -59,26 +59,26 @@ public class ContainerGenerator extends RebornContainer
 		super.detectAndSendChanges();
 		for (int i = 0; i < this.listeners.size(); i++)
 		{
-			ICrafting icrafting = this.listeners.get(i);
+			IContainerListener IContainerListener = this.listeners.get(i);
 			if (this.burnTime != tile.burnTime)
 			{
-				icrafting.sendProgressBarUpdate(this, 0, tile.burnTime);
+				IContainerListener.sendProgressBarUpdate(this, 0, tile.burnTime);
 			}
 			if (this.totalBurnTime != tile.totalBurnTime)
 			{
-				icrafting.sendProgressBarUpdate(this, 1, tile.totalBurnTime);
+				IContainerListener.sendProgressBarUpdate(this, 1, tile.totalBurnTime);
 			}
 			if (this.energy != (int) tile.getEnergy())
 			{
-				icrafting.sendProgressBarUpdate(this, 2, (int) tile.getEnergy());
+				IContainerListener.sendProgressBarUpdate(this, 2, (int) tile.getEnergy());
 			}
 		}
 	}
 
 	@Override
-	public void onCraftGuiOpened(ICrafting crafting)
+	public void addListener(IContainerListener crafting)
 	{
-		super.onCraftGuiOpened(crafting);
+		super.addListener(crafting);
 		crafting.sendProgressBarUpdate(this, 0, tile.burnTime);
 		crafting.sendProgressBarUpdate(this, 1, tile.totalBurnTime);
 		crafting.sendProgressBarUpdate(this, 2, (int) tile.getEnergy());

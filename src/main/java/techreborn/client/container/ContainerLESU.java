@@ -1,7 +1,7 @@
 package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ICrafting;
+import net.minecraft.inventory.IContainerListener;
 import reborncore.client.gui.BaseSlot;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -49,25 +49,25 @@ public class ContainerLESU extends RebornContainer {
 	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
 		for (int i = 0; i < this.listeners.size(); i++) {
-			ICrafting icrafting = this.listeners.get(i);
+			IContainerListener IContainerListener = this.listeners.get(i);
 			if (this.euOut != tile.getMaxOutput()) {
-				icrafting.sendProgressBarUpdate(this, 0, (int) tile.getMaxOutput());
+				IContainerListener.sendProgressBarUpdate(this, 0, (int) tile.getMaxOutput());
 			}
 			if (this.storedEu != tile.getEnergy()) {
-				icrafting.sendProgressBarUpdate(this, 1, (int) tile.getEnergy());
+				IContainerListener.sendProgressBarUpdate(this, 1, (int) tile.getEnergy());
 			}
 			if (this.euChange != tile.getEuChange() && tile.getEuChange() != -1) {
-				icrafting.sendProgressBarUpdate(this, 2, (int) tile.getEuChange());
+				IContainerListener.sendProgressBarUpdate(this, 2, (int) tile.getEuChange());
 			}
 			if (this.connectedBlocks != tile.connectedBlocks) {
-				icrafting.sendProgressBarUpdate(this, 3, tile.connectedBlocks);
+				IContainerListener.sendProgressBarUpdate(this, 3, tile.connectedBlocks);
 			}
 		}
 	}
 
 	@Override
-	public void onCraftGuiOpened(ICrafting crafting) {
-		super.onCraftGuiOpened(crafting);
+	public void addListener(IContainerListener crafting) {
+		super.addListener(crafting);
 		crafting.sendProgressBarUpdate(this, 0, (int) tile.getMaxOutput());
 		crafting.sendProgressBarUpdate(this, 1, (int) tile.getEnergy());
 		crafting.sendProgressBarUpdate(this, 2, (int) tile.getEuChange());

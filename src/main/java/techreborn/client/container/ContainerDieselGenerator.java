@@ -1,7 +1,7 @@
 package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ICrafting;
+import net.minecraft.inventory.IContainerListener;
 import reborncore.client.gui.BaseSlot;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -55,22 +55,22 @@ public class ContainerDieselGenerator extends RebornContainer
 		super.detectAndSendChanges();
 		for (int i = 0; i < this.listeners.size(); i++)
 		{
-			ICrafting icrafting = this.listeners.get(i);
+			IContainerListener IContainerListener = this.listeners.get(i);
 			if (this.energy != (int) tiledieselGenerator.getEnergy())
 			{
-				icrafting.sendProgressBarUpdate(this, 0, (int) tiledieselGenerator.getEnergy());
+				IContainerListener.sendProgressBarUpdate(this, 0, (int) tiledieselGenerator.getEnergy());
 			}
 			if (this.fluid != tiledieselGenerator.tank.getFluidAmount())
 			{
-				icrafting.sendProgressBarUpdate(this, 1, tiledieselGenerator.tank.getFluidAmount());
+				IContainerListener.sendProgressBarUpdate(this, 1, tiledieselGenerator.tank.getFluidAmount());
 			}
 		}
 	}
 
 	@Override
-	public void onCraftGuiOpened(ICrafting crafting)
+	public void addListener(IContainerListener crafting)
 	{
-		super.onCraftGuiOpened(crafting);
+		super.addListener(crafting);
 		crafting.sendProgressBarUpdate(this, 0, (int) tiledieselGenerator.getEnergy());
 		crafting.sendProgressBarUpdate(this, 1, tiledieselGenerator.tank.getFluidAmount());
 	}

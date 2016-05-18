@@ -129,20 +129,24 @@ public class TileQuantumChest extends TileMachineBase
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound tagCompound)
+	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
 	{
 		super.writeToNBT(tagCompound);
 		writeToNBTWithoutCoords(tagCompound);
+		return tagCompound;
 	}
 
-	public void writeToNBTWithoutCoords(NBTTagCompound tagCompound)
+	public NBTTagCompound writeToNBTWithoutCoords(NBTTagCompound tagCompound)
 	{
 		if (storedItem != null)
 		{
 			tagCompound.setTag("storedStack", storedItem.writeToNBT(new NBTTagCompound()));
 			tagCompound.setInteger("storedQuantity", storedItem.stackSize);
-		} else
+		} else{
 			tagCompound.setInteger("storedQuantity", 0);
+		}
+
+		return tagCompound;
 	}
 
 	@Override

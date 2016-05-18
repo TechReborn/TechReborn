@@ -131,13 +131,14 @@ public class TileAesu extends TilePowerAcceptor implements IWrenchable
 		return dropStack;
 	}
 
-	public void writeToNBT(NBTTagCompound tagCompound)
+	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
 	{
 		super.writeToNBT(tagCompound);
 		tagCompound.setDouble("euChange", euChange);
 		tagCompound.setDouble("euLastTick", euLastTick);
 		tagCompound.setInteger("output", OUTPUT);
 		inventory.writeToNBT(tagCompound);
+		return tagCompound;
 	}
 
 	public void readFromNBT(NBTTagCompound nbttagcompound)

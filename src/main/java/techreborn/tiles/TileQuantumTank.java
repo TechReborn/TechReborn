@@ -42,15 +42,17 @@ public class TileQuantumTank extends TileMachineBase
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound tagCompound)
+	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
 	{
 		super.writeToNBT(tagCompound);
 		writeToNBTWithoutCoords(tagCompound);
+		return tagCompound;
 	}
 
-	public void writeToNBTWithoutCoords(NBTTagCompound tagCompound)
+	public NBTTagCompound writeToNBTWithoutCoords(NBTTagCompound tagCompound)
 	{
 		tank.writeToNBT(tagCompound);
+		return tagCompound;
 	}
 
 	public Packet getDescriptionPacket()

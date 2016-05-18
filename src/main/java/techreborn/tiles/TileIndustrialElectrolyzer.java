@@ -88,10 +88,11 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor implements IWr
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound tagCompound)
+	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
 	{
 		super.writeToNBT(tagCompound);
 		crafter.writeToNBT(tagCompound);
+		return tagCompound;
 	}
 
 	// @Override

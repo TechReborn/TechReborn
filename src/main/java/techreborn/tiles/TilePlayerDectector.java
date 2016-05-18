@@ -118,9 +118,10 @@ public class TilePlayerDectector extends TilePowerAcceptor
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound tag)
+	public NBTTagCompound writeToNBT(NBTTagCompound tag)
 	{
 		super.writeToNBT(tag);
 		tag.setString("ownerID", owenerUdid);
+		return tag;
 	}
 }

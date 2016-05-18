@@ -57,7 +57,8 @@ public class BlockSolarPanel extends BaseTileBlock implements ITexturedBlock
 		return new TileSolarPanel();
 	}
 
-	@Override public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+
+	@Override public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block neighborBlock)
 	{
 		if(worldIn.canBlockSeeSky(pos.up()) && !worldIn.isRaining() && !worldIn.isThundering()
 				&& worldIn.isDaytime()){

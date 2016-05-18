@@ -62,12 +62,6 @@ public class TileIDSU extends TilePowerAcceptor implements IWrenchable
 	}
 
 	@Override
-	public void writeToNBTWithoutCoords(NBTTagCompound tag)
-	{
-
-	}
-
-	@Override
 	public double getMaxPower()
 	{
 		return 1000000000;
@@ -120,14 +114,15 @@ public class TileIDSU extends TilePowerAcceptor implements IWrenchable
 		this.ownerUdid = nbttagcompound.getString("ownerUdid");
 	}
 
-	public void writeToNBT(NBTTagCompound nbttagcompound)
+	public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound)
 	{
 		super.writeToNBT(nbttagcompound);
 		if (ownerUdid == null && StringUtils.isBlank(ownerUdid) || StringUtils.isEmpty(ownerUdid))
 		{
-			return;
+			return nbttagcompound;
 		}
 		nbttagcompound.setString("ownerUdid", this.ownerUdid);
+		return nbttagcompound;
 	}
 
 	public void updateEntity()

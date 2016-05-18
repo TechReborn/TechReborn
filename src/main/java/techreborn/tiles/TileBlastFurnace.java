@@ -155,10 +155,11 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable,I
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound tagCompound)
+	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
 	{
 		super.writeToNBT(tagCompound);
 		writeUpdateToNBT(tagCompound);
+		return tagCompound;
 	}
 
 	public void writeUpdateToNBT(NBTTagCompound tagCompound)

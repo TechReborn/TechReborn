@@ -9,7 +9,7 @@ import net.minecraft.block.state.pattern.BlockMatcher;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
@@ -236,7 +236,7 @@ public class TechRebornWorldGen implements IWorldGenerator
 		{
 			int chance = config.rubberTreeConfig.chance;
 			boolean isValidSpawn = false;
-			BiomeGenBase biomeGenBase = world.getBiomeGenForCoords(new BlockPos(chunkX * 16, 72, chunkZ * 16));
+			Biome biomeGenBase = world.getBiomeGenForCoords(new BlockPos(chunkX * 16, 72, chunkZ * 16));
 			if (BiomeDictionary.isBiomeOfType(biomeGenBase, BiomeDictionary.Type.SWAMP))
 			{
 				// TODO check the config file for bounds on this, might cause

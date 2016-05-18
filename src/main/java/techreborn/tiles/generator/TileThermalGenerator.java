@@ -120,10 +120,11 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound tagCompound)
+	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
 	{
 		super.writeToNBT(tagCompound);
 		tank.writeToNBT(tagCompound);
+		return tagCompound;
 	}
 
 	public Packet getDescriptionPacket()
