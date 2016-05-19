@@ -135,13 +135,6 @@ public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable, IF
 		return tagCompound;
 	}
 
-	public Packet getDescriptionPacket()
-	{
-		NBTTagCompound nbtTag = new NBTTagCompound();
-		writeToNBT(nbtTag);
-		return new SPacketUpdateTileEntity(this.getPos(), 1, nbtTag);
-	}
-
 	@Override
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet)
 	{
