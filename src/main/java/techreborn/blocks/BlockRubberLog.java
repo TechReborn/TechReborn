@@ -6,6 +6,7 @@ import java.util.Random;
 
 import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
@@ -45,6 +46,7 @@ public class BlockRubberLog extends Block implements ITexturedBlock
 		this.setDefaultState(
 				this.getDefaultState().withProperty(SAP_SIDE, EnumFacing.NORTH).withProperty(HAS_SAP, false));
 		this.setTickRandomly(true);
+		this.setSoundType(SoundType.WOOD);
 	}
 
 	protected BlockStateContainer createBlockState()
