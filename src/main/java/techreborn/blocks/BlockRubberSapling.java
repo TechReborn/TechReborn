@@ -25,7 +25,7 @@ public class BlockRubberSapling extends BlockSapling
 		setUnlocalizedName("techreborn.rubbersapling");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		this.setDefaultState(this.getDefaultState().withProperty(STAGE, 0));
-		setSoundType(SoundType.PLANT)
+		setSoundType(SoundType.PLANT);
 	}
 
 	@Override

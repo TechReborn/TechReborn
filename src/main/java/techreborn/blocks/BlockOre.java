@@ -217,6 +217,9 @@ public class BlockOre extends BaseBlock implements ITexturedBlock, IOreNameProvi
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
+		if(meta > ores.length){
+			meta = 0;
+		}
 		return getBlockState().getBaseState().withProperty(VARIANTS, oreNamesList.get(meta));
 	}
 
