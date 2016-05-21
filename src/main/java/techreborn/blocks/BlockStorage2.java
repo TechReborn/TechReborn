@@ -85,6 +85,9 @@ public class BlockStorage2 extends BaseBlock implements ITexturedBlock
 	@Override
 	public IBlockState getStateFromMeta(int meta)
 	{
+		if(meta > types.length){
+			meta = 0;
+		}
 		return this.getDefaultState().withProperty(METADATA, meta);
 	}
 
