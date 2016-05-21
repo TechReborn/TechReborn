@@ -96,7 +96,7 @@ public class ClientProxy extends CommonProxy
 		RegisterItemJsons.registerModels();
 		MinecraftForge.EVENT_BUS.register(new IconSupplier());
 		MinecraftForge.EVENT_BUS.register(new ChargeHud());
-		MinecraftForge.EVENT_BUS.register(new VersionCheckerClient());
+		//MinecraftForge.EVENT_BUS.register(new VersionCheckerClient());
 		MinecraftForge.EVENT_BUS.register(new StackToolTipEvent());
 		multiblockRenderEvent = new MultiblockRenderEvent();
 		// MinecraftForge.EVENT_BUS.register(multiblockRenderEvent);
