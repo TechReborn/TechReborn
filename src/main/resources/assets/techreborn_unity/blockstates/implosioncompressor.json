@@ -1,0 +1,65 @@
+{
+   "forge_marker":1,
+   "defaults":{
+      "transform":"forge:default-block",
+      "model":"orientable",
+      "textures":{
+         "particle":"techreborn:blocks/machine/advanced_machines/advanced_machine_west",
+         "top":"techreborn:blocks/machine/advanced_machines/advanced_machine_top",
+         "down":"techreborn:blocks/machine/advanced_machines/advanced_machine_bottom",
+         "south":"techreborn:blocks/machine/advanced_machines/advanced_machine_back"
+      }
+   },
+   "variants":{
+      "inventory":{
+         "transform":"forge:default-block",
+         "textures":{
+			"west":"techreborn:blocks/machine/advanced_machines/implosion_compressor_west_on",
+			"east":"techreborn:blocks/machine/advanced_machines/implosion_compressor_east_on",
+            "front":"techreborn:blocks/machine/advanced_machines/implosion_compressor_front_on"
+         }
+      },
+      "facing":{
+         "north":{
+
+         },
+         "east":{
+            "y":90
+         },
+         "south":{
+            "y":180
+         },
+         "west":{
+            "y":270
+         }
+      },
+      "active":{
+         "true":{
+            "textures":{
+			"west":"techreborn:blocks/machine/advanced_machines/implosion_compressor_west_on",
+			"east":"techreborn:blocks/machine/advanced_machines/implosion_compressor_east_on",
+            "front":"techreborn:blocks/machine/advanced_machines/implosion_compressor_front_on"
+            }
+         },
+         "false":{
+            "textures":{
+			"west":"techreborn:blocks/machine/advanced_machines/implosion_compressor_west_off",
+			"east":"techreborn:blocks/machine/advanced_machines/implosion_compressor_east_off",
+            "front":"techreborn:blocks/machine/advanced_machines/implosion_compressor_front_off"
+            }
+         }
+      },
+        "inventory": {
+            "model": "orientable",
+            "textures": {
+         "particle":"techreborn:blocks/machine/advanced_machines/advanced_machine_west",
+			"top":"techreborn:blocks/machine/advanced_machines/advanced_machine_top",
+			"down":"techreborn:blocks/machine/advanced_machines/advanced_machine_bottom",
+			"west":"techreborn:blocks/machine/advanced_machines/implosion_compressor_west_off",
+			"east":"techreborn:blocks/machine/advanced_machines/implosion_compressor_east_off",
+			"south":"techreborn:blocks/machine/advanced_machines/advanced_machine_back",
+            "front":"techreborn:blocks/machine/advanced_machines/implosion_compressor_front_off"
+            }
+        }
+   }
+}
