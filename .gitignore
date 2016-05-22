@@ -20,3 +20,4 @@ changelog.txt
 *.project
 *.classpath
 .idea/*
+java_pid2412.hprof

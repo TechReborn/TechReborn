@@ -13,11 +13,11 @@ import java.util.List;
 
 public class ItemDusts extends ItemTextureBase
 {
-	public static final String[] types = new String[] { "almandine", "aluminum", "andradite", "ashes", "basalt",
+	public static final String[] types = new String[] { "almandine", "aluminum", "andradite", "andesite", "ashes", "basalt",
 			"bauxite", "brass", "bronze", "calcite", "charcoal", "chrome", "cinnabar", "clay", "coal", "copper",
-			"darkAshes", "diamond", "electrum", "emerald", "enderEye", "enderPearl", "endstone", "flint", "galena",
-			"gold", "grossular", "invar", "iron", "lazurite", "lead", "magnesium", "manganese", "marble", "netherrack",
-			"nickel", "obsidian", "peridot", "phosphorous", "platinum", "pyrite", "pyrope", "redGarnet", "redrock",
+			"darkAshes", "diamond", "diorite", "electrum", "emerald", "enderEye", "enderPearl", "endstone", "flint", "galena",
+			"gold", "granite", "grossular", "invar", "iron", "lazurite", "lead", "magnesium", "manganese", "marble", "netherrack",
+			"nickel", "obsidian", "peridot", "phosphorous", "platinum", "pyrite", "pyrope", "redGarnet", "%NULL%",
 			"ruby", "saltpeter", "sapphire", "sawDust", "silver", "sodalite", "spessartine", "sphalerite", "steel",
 			"sulfur", "tin", "titanium", "tungsten", "uvarovite", "%NULL%", "yellowGarnet", "zinc",
 			"olivine" };

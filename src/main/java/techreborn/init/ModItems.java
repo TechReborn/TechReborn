@@ -340,6 +340,7 @@ public class ModItems
 		OreUnifier.registerOre("dustAlmandine", ItemDusts.getDustByName("almandine"));
 		OreUnifier.registerOre("dustAluminum", ItemDusts.getDustByName("aluminum"));
 		OreUnifier.registerOre("dustAluminium", ItemDusts.getDustByName("aluminum"));
+		OreUnifier.registerOre("dustAndesite", ItemDusts.getDustByName("andesite"));
 		OreUnifier.registerOre("dustAndradite", ItemDusts.getDustByName("andradite"));
 		OreUnifier.registerOre("dustAsh", ItemDusts.getDustByName("ashes"));
 		OreUnifier.registerOre("dustBasalt", ItemDusts.getDustByName("basalt"));
@@ -355,6 +356,7 @@ public class ModItems
 		OreUnifier.registerOre("dustCopper", ItemDusts.getDustByName("copper"));
 		OreUnifier.registerOre("dustDarkAsh", ItemDusts.getDustByName("darkAshes"));
 		OreUnifier.registerOre("dustDiamond", ItemDusts.getDustByName("diamond"));
+		OreUnifier.registerOre("dustDiorite", ItemDusts.getDustByName("diorite"));
 		OreUnifier.registerOre("dustElectrum", ItemDusts.getDustByName("electrum"));
 		OreUnifier.registerOre("dustEmerald", ItemDusts.getDustByName("emerald"));
 		OreUnifier.registerOre("dustEnderEye", ItemDusts.getDustByName("enderEye"));
@@ -363,6 +365,7 @@ public class ModItems
 		OreUnifier.registerOre("dustFlint", ItemDusts.getDustByName("flint"));
 		OreUnifier.registerOre("dustGalena", ItemDusts.getDustByName("galena"));
 		OreUnifier.registerOre("dustGold", ItemDusts.getDustByName("gold"));
+		OreUnifier.registerOre("dustGranite", ItemDusts.getDustByName("granite"));
 		OreUnifier.registerOre("dustGrossular", ItemDusts.getDustByName("grossular"));
 		OreUnifier.registerOre("dustInvar", ItemDusts.getDustByName("invar"));
 		OreUnifier.registerOre("dustIron", ItemDusts.getDustByName("iron"));
@@ -381,7 +384,6 @@ public class ModItems
 		OreUnifier.registerOre("dustPyrite", ItemDusts.getDustByName("pyrite"));
 		OreUnifier.registerOre("dustPyrope", ItemDusts.getDustByName("pyrope"));
 		OreUnifier.registerOre("dustRedGarnet", ItemDusts.getDustByName("redGarnet"));
-		OreUnifier.registerOre("dustRedrock", ItemDusts.getDustByName("redrock"));
 		OreUnifier.registerOre("dustRuby", ItemDusts.getDustByName("ruby"));
 		OreUnifier.registerOre("dustSaltpeter", ItemDusts.getDustByName("saltpeter"));
 		OreUnifier.registerOre("dustSapphire", ItemDusts.getDustByName("sapphire"));
@@ -406,6 +408,7 @@ public class ModItems
 		OreUnifier.registerOre("dustAlmandine", ItemDusts.getDustByName("almandine"));
 		OreUnifier.registerOre("dustAluminum", ItemDusts.getDustByName("aluminum"));
 		OreUnifier.registerOre("dustAluminium", ItemDusts.getDustByName("aluminum"));
+		OreUnifier.registerOre("dustAndesite", ItemDusts.getDustByName("andesite"));
 		OreUnifier.registerOre("dustAndradite", ItemDusts.getDustByName("andradite"));
 		OreUnifier.registerOre("dustAsh", ItemDusts.getDustByName("ashes"));
 		OreUnifier.registerOre("dustBasalt", ItemDusts.getDustByName("basalt"));
@@ -421,6 +424,7 @@ public class ModItems
 		OreUnifier.registerOre("dustCopper", ItemDusts.getDustByName("copper"));
 		OreUnifier.registerOre("dustDarkAsh", ItemDusts.getDustByName("darkAshes"));
 		OreUnifier.registerOre("dustDiamond", ItemDusts.getDustByName("diamond"));
+		OreUnifier.registerOre("dustDiorite", ItemDusts.getDustByName("diorite"));
 		OreUnifier.registerOre("dustElectrum", ItemDusts.getDustByName("electrum"));
 		OreUnifier.registerOre("dustEmerald", ItemDusts.getDustByName("emerald"));
 		OreUnifier.registerOre("dustEnderEye", ItemDusts.getDustByName("enderEye"));
@@ -429,6 +433,7 @@ public class ModItems
 		OreUnifier.registerOre("dustFlint", ItemDusts.getDustByName("flint"));
 		OreUnifier.registerOre("dustGalena", ItemDusts.getDustByName("galena"));
 		OreUnifier.registerOre("dustGold", ItemDusts.getDustByName("gold"));
+		OreUnifier.registerOre("dustGranite", ItemDusts.getDustByName("granite"));
 		OreUnifier.registerOre("dustGrossular", ItemDusts.getDustByName("grossular"));
 		OreUnifier.registerOre("dustInvar", ItemDusts.getDustByName("invar"));
 		OreUnifier.registerOre("dustIron", ItemDusts.getDustByName("iron"));
@@ -447,7 +452,6 @@ public class ModItems
 		OreUnifier.registerOre("dustPyrite", ItemDusts.getDustByName("pyrite"));
 		OreUnifier.registerOre("dustPyrope", ItemDusts.getDustByName("pyrope"));
 		OreUnifier.registerOre("dustRedGarnet", ItemDusts.getDustByName("redGarnet"));
-		OreUnifier.registerOre("dustRedrock", ItemDusts.getDustByName("redrock"));
 		OreUnifier.registerOre("dustRuby", ItemDusts.getDustByName("ruby"));
 		OreUnifier.registerOre("dustSaltpeter", ItemDusts.getDustByName("saltpeter"));
 		OreUnifier.registerOre("dustSapphire", ItemDusts.getDustByName("sapphire"));
