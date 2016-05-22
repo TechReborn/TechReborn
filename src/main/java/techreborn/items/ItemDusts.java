@@ -17,9 +17,9 @@ public class ItemDusts extends ItemTextureBase
 			"bauxite", "brass", "bronze", "calcite", "charcoal", "chrome", "cinnabar", "clay", "coal", "copper",
 			"darkAshes", "diamond", "electrum", "emerald", "enderEye", "enderPearl", "endstone", "flint", "galena",
 			"gold", "grossular", "invar", "iron", "lazurite", "lead", "magnesium", "manganese", "marble", "netherrack",
-			"nickel", "obsidian", "peridot", "phosphorous", "platinum", "pyrite", "pyrope", "redGarnet", "%NULL%",
+			"nickel", "obsidian", "peridot", "phosphorous", "platinum", "pyrite", "pyrope", "redGarnet", ModItems.META_PLACEHOLDER,
 			"ruby", "saltpeter", "sapphire", "sawDust", "silver", "sodalite", "spessartine", "sphalerite", "steel",
-			"sulfur", "tin", "titanium", "tungsten", "uvarovite", "%NULL%", "yellowGarnet", "zinc",
+			"sulfur", "tin", "titanium", "tungsten", "uvarovite", ModItems.META_PLACEHOLDER, "yellowGarnet", "zinc",
 			"olivine", "andesite", "diorite", "granite" };
 
 	public ItemDusts()
@@ -35,7 +35,7 @@ public class ItemDusts extends ItemTextureBase
 		{
 			if (types[i].equalsIgnoreCase(name))
 			{
-				if(types[i].equals("%NULL%")){
+				if(types[i].equals(ModItems.META_PLACEHOLDER)){
 					throw new InvalidParameterException("The dust " + name + " could not be found.");
 				}
 				return new ItemStack(ModItems.dusts, count, i);
@@ -80,7 +80,7 @@ public class ItemDusts extends ItemTextureBase
 	{
 		for (int meta = 0; meta < types.length; ++meta)
 		{
-			if(!types[meta].equals("%NULL%")){
+			if(!types[meta].equals(ModItems.META_PLACEHOLDER)){
 				list.add(new ItemStack(item, 1, meta));
 			}
 		}

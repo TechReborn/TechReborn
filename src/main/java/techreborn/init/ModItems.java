@@ -118,6 +118,8 @@ public class ModItems
 	public static Item emptyCell;
 	public static DynamicCell dynamicCell;
 
+	public static final String META_PLACEHOLDER = "PLACEHOLDER_ITEM";
+
 	public static void init() throws InstantiationException, IllegalAccessException
 	{
 		gems = new ItemGems();

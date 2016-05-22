@@ -18,9 +18,9 @@ public class ItemDustsSmall extends ItemTextureBase
 			"bauxite", "brass", "bronze", "calcite", "charcoal", "chrome", "cinnabar", "clay", "coal", "copper",
 			"darkAshes", "diamond", "electrum", "emerald", "enderEye", "enderPearl", "endstone", "flint", "galena",
 			"gold", "grossular", "invar", "iron", "lazurite", "lead", "magnesium", "manganese", "marble", "netherrack",
-			"nickel", "obsidian", "peridot", "phosphorous", "platinum", "pyrite", "pyrope", "redGarnet", "%NULL%",
+			"nickel", "obsidian", "peridot", "phosphorous", "platinum", "pyrite", "pyrope", "redGarnet", ModItems.META_PLACEHOLDER,
 			"ruby", "saltpeter", "sapphire", "sawDust", "silver", "sodalite", "spessartine", "sphalerite", "steel",
-			"sulfur", "tin", "titanium", "tungsten", "uvarovite", "%NULL%", "yellowGarnet", "zinc",
+			"sulfur", "tin", "titanium", "tungsten", "uvarovite", ModItems.META_PLACEHOLDER, "yellowGarnet", "zinc",
 			"olivine", "redstone", "glowstone", "andesite", "diorite", "granite" };
 
 	public ItemDustsSmall()
@@ -36,7 +36,7 @@ public class ItemDustsSmall extends ItemTextureBase
 		{
 			if (types[i].equalsIgnoreCase(name))
 			{
-				if(types[i].equals("%NULL%")){
+				if(types[i].equals(ModItems.META_PLACEHOLDER)){
 					throw new InvalidParameterException("The small dust " + name + " could not be found.");
 				}
 				return new ItemStack(ModItems.smallDusts, count, i);
@@ -68,7 +68,7 @@ public class ItemDustsSmall extends ItemTextureBase
 	{
 		for (int meta = 0; meta < types.length; ++meta)
 		{
-			if(!types[meta].equals("%NULL%")){
+			if(!types[meta].equals(ModItems.META_PLACEHOLDER)){
 				list.add(new ItemStack(item, 1, meta));
 			}
 		}
@@ -77,7 +77,7 @@ public class ItemDustsSmall extends ItemTextureBase
 	@Override
 	public String getTextureName(int damage)
 	{
-		if(types[damage].equals("%NULL%")){
+		if(types[damage].equals(ModItems.META_PLACEHOLDER)){
 			damage = 0;
 		}
 		return ModInfo.MOD_ID + ":items/smallDust/small" + StringUtils.toFirstCapital(types[damage]) + "Dust";

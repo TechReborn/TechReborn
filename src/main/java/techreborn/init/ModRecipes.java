@@ -234,7 +234,7 @@ public class ModRecipes
 		ScrapboxList.addItemStackToList(new ItemStack(ModBlocks.rubberSapling));
 
 		for (String i : ItemDusts.types){
-			if(i.equals("%NULL%")){
+			if(i.equals(ModItems.META_PLACEHOLDER)){
 				continue;
 			}
 			ScrapboxList.addItemStackToList(ItemDusts.getDustByName(i));
@@ -918,7 +918,7 @@ public class ModRecipes
 
 		for (String name : ItemDustsSmall.types)
 		{
-			if(name.equals("%NULL%")){
+			if(name.equals(ModItems.META_PLACEHOLDER)){
 				continue;
 			}
 			GameRegistry.addShapelessRecipe(ItemDustsSmall.getSmallDustByName(name, 4), ItemDusts.getDustByName(name));
