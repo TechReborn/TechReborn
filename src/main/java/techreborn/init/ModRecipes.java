@@ -737,7 +737,7 @@ public class ModRecipes
 						'D', "dustDiamond");
 
 		CraftingHelper
-				.addShapedOreRecipe(ItemParts.getPartByName("wolframiumGrindingHead", 2), "TST", "SBS", "TST", 'T',
+				.addShapedOreRecipe(ItemParts.getPartByName("tungstenGrindingHead", 2), "TST", "SBS", "TST", 'T',
 						"plateTungsten", 'S', "plateSteel", 'B', "blockSteel");
 
 		/* TODO: Make destructopack seperate item

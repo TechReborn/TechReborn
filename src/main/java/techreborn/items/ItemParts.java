@@ -17,7 +17,7 @@ import java.util.List;
 public class ItemParts extends ItemTextureBase
 {
 	public static final String[] types = new String[] { "energyFlowCircuit", "dataControlCircuit", "dataStorageCircuit",
-			"dataOrb", "diamondGrindingHead", "diamondSawBlade", "wolframiumGrindingHead", "heliumCoolantSimple",
+			"dataOrb", "diamondGrindingHead", "diamondSawBlade", "tungstenGrindingHead", "heliumCoolantSimple",
 			"heliumCoolantTriple", "heliumCoolantSix", "NaKCoolantSimple", "NaKCoolantTriple", "NaKCoolantSix",
 			"cupronickelHeatingCoil", "nichromeHeatingCoil", "kanthalHeatingCoil", "lazuriteChunk", "superConductor",
 			"thoriumCell", "doubleThoriumCell", "quadThoriumCell", "plutoniumCell", "doublePlutoniumCell",
