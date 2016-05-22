@@ -265,7 +265,6 @@ item.techreborn.dust.potassiumFeldspar.name=Potassium Feldspar Dust
 item.techreborn.dust.pyrite.name=Pyrite Dust
 item.techreborn.dust.pyrope.name=Pyrope Dust
 item.techreborn.dust.redGarnet.name=Red Garnet Dust
-item.techreborn.dust.redrock.name=Red Rock Dust
 item.techreborn.dust.ruby.name=Ruby Dust
 item.techreborn.dust.saltpeter.name=Saltpeter Dust
 item.techreborn.dust.sapphire.name=Sapphire Dust
@@ -290,6 +289,10 @@ item.techreborn.dust.zinc.name=Zinc Dust
 item.techreborn.dust.galena.name=Galena Dust
 item.techreborn.dust.sawDust.name=Saw Dust
 item.techreborn.dust.olivine.name=Olivine Dust
+item.techreborn.dust.andesite.name=Andesite Dust
+item.techreborn.dust.diorite.name=Diorite Dust
+item.techreborn.dust.granite.name=Granite Dust
+
 item.techreborn.ingot.refinedIron.name=Refined Iron Ingot
 item.techreborn.wrench.name=Wrench
 item.techreborn.cable.COPPER.name=Copper Cable
@@ -348,7 +351,6 @@ item.techreborn.dustsmall.platinum.name=Small Pile of Platinum Dust
 item.techreborn.dustsmall.pyrite.name=Small Pile of Pyrite Dust
 item.techreborn.dustsmall.pyrope.name=Small Pile of Pyrope Dust
 item.techreborn.dustsmall.redGarnet.name=Small Pile of Red Garnet Dust
-item.techreborn.dustsmall.redrock.name=Small Pile of Red Rock Dust
 item.techreborn.dustsmall.redstone.name=Small Pile of Redstone
 item.techreborn.dustsmall.ruby.name=Small Pile of Ruby Dust
 item.techreborn.dustsmall.saltpeter.name=Small Pile of Saltpeter Dust
@@ -368,6 +370,9 @@ item.techreborn.dustsmall.voidstone.name=Small Pile of Voidstone Dust
 item.techreborn.dustsmall.yellowGarnet.name=Small Pile of Yellow Garnet Dust
 item.techreborn.dustsmall.zinc.name=Small Pile of Zinc Dust
 item.techreborn.dustsmall.olivine.name=Small Pile of Olivine Dust
+item.techreborn.dustsmall.andesite.name=Small Pile of Andesite Dust
+item.techreborn.dustsmall.diorite.name=Small Pile of Diorite Dust
+item.techreborn.dustsmall.granite.name=Small Pile of Granite Dust
 
 #Cells
 item.techreborn.cell.Berylium.name=Beryllium Cell
