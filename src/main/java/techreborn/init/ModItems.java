@@ -396,7 +396,6 @@ public class ModItems
 		OreUnifier.registerOre("dustTitanium", ItemDusts.getDustByName("titanium"));
 		OreUnifier.registerOre("dustTungsten", ItemDusts.getDustByName("tungsten"));
 		OreUnifier.registerOre("dustUvarovite", ItemDusts.getDustByName("uvarovite"));
-		OreUnifier.registerOre("dustVoidstone", ItemDusts.getDustByName("voidstone"));
 		OreUnifier.registerOre("dustYellowGarnet", ItemDusts.getDustByName("yellowGarnet"));
 		OreUnifier.registerOre("dustZinc", ItemDusts.getDustByName("zinc"));
 		OreUnifier.registerOre("dustOlivine", ItemDusts.getDustByName("olivine"));
@@ -463,7 +462,6 @@ public class ModItems
 		OreUnifier.registerOre("dustTitanium", ItemDusts.getDustByName("titanium"));
 		OreUnifier.registerOre("dustTungsten", ItemDusts.getDustByName("tungsten"));
 		OreUnifier.registerOre("dustUvarovite", ItemDusts.getDustByName("uvarovite"));
-		OreUnifier.registerOre("dustVoidstone", ItemDusts.getDustByName("voidstone"));
 		OreUnifier.registerOre("dustYellowGarnet", ItemDusts.getDustByName("yellowGarnet"));
 		OreUnifier.registerOre("dustZinc", ItemDusts.getDustByName("zinc"));
 		OreUnifier.registerOre("dustOlivine", ItemDusts.getDustByName("olivine"));

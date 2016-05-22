@@ -233,8 +233,13 @@ public class ModRecipes
 
 		ScrapboxList.addItemStackToList(new ItemStack(ModBlocks.rubberSapling));
 
-		for (String i : ItemDusts.types)
+		for (String i : ItemDusts.types){
+			if(i.equals("%NULL%")){
+				continue;
+			}
 			ScrapboxList.addItemStackToList(ItemDusts.getDustByName(i));
+		}
+
 
 		for (String i : ItemNuggets.types)
 			ScrapboxList.addItemStackToList(ItemNuggets.getNuggetByName(i));
@@ -913,6 +918,9 @@ public class ModRecipes
 
 		for (String name : ItemDustsSmall.types)
 		{
+			if(name.equals("%NULL%")){
+				continue;
+			}
 			GameRegistry.addShapelessRecipe(ItemDustsSmall.getSmallDustByName(name, 4), ItemDusts.getDustByName(name));
 			GameRegistry.addShapelessRecipe(ItemDusts.getDustByName(name, 1), ItemDustsSmall.getSmallDustByName(name),
 					ItemDustsSmall.getSmallDustByName(name), ItemDustsSmall.getSmallDustByName(name),
