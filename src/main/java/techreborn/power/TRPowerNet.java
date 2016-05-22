@@ -222,7 +222,7 @@ public class TRPowerNet
 				CableMultipart wire = n.cables.get(i);
 				li.add(wire);
 			}
-			for (EnergyHandler ei : endpoints)
+			for (EnergyHandler ei : n.endpoints)
 			{
 				endpoints.add(ei);
 			}
