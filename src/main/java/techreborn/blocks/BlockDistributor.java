@@ -27,7 +27,6 @@ public class BlockDistributor extends Block {
         super(Material.IRON);
         setHardness(2f);
         setUnlocalizedName("techreborn.distributor");
-        setCreativeTab(TechRebornCreativeTab.instance);
     }
 
     public static ItemStack getReleaseStack(){
