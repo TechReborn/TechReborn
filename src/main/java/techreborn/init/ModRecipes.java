@@ -1469,9 +1469,10 @@ public class ModRecipes
 						ItemDusts.getDustByName("nickel", 1), null, null, 1340, 5));
 		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("marble", 8), null,
 				ItemDusts.getDustByName("magnesium", 1), ItemDusts.getDustByName("calcite", 7), null, null, 1280, 5));
-		RecipeHandler.addRecipe(
-				new CentrifugeRecipe(ItemDusts.getDustByName("redrock", 4), null, ItemDusts.getDustByName("calcite", 2),
-						ItemDusts.getDustByName("flint", 1), ItemDusts.getDustByName("clay", 1), null, 640, 5));
+//		Deprecated
+//		RecipeHandler.addRecipe(
+//				new CentrifugeRecipe(ItemDusts.getDustByName("redrock", 4), null, ItemDusts.getDustByName("calcite", 2),
+//						ItemDusts.getDustByName("flint", 1), ItemDusts.getDustByName("clay", 1), null, 640, 5));
 		RecipeHandler.addRecipe(
 				new CentrifugeRecipe(ItemDusts.getDustByName("basalt", 16), null, ItemDusts.getDustByName("peridot", 1),
 						ItemDusts.getDustByName("calcite", 3), ItemDusts.getDustByName("magnesium", 8),
