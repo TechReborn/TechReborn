@@ -266,7 +266,7 @@ public abstract class CableMultipart extends Multipart
             this.findAndJoinNetwork(getWorld(), getPos());
         } else {
             if (mergeWith != null) {
-                getNetwork().merge(network);
+                getNetwork().merge(mergeWith);
                 mergeWith = null;
             }
         }
