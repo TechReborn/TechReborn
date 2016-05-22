@@ -1,6 +1,7 @@
 /bin
 /out
-/run
+/run/*
+!/run/resourcepacks
 /build
 /eclipse
 /.gradle
