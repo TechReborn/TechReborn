@@ -1,11 +1,6 @@
 package techreborn.blocks;
 
-import java.util.List;
-import java.util.Random;
-
 import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
-import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -20,13 +15,19 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.util.ChatUtils;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.lib.MessageIDs;
 import techreborn.tiles.TilePlayerDectector;
+
+import java.util.List;
+import java.util.Random;
 
 public class BlockPlayerDetector extends BlockMachineBase implements ITexturedBlock
 {
@@ -121,17 +122,19 @@ public class BlockPlayerDetector extends BlockMachineBase implements ITexturedBl
 		switch (newMeta)
 		{
 			case 0:
-				message = TextFormatting.GREEN + "Detects all Players";
+				message = TextFormatting.GREEN + I18n.translateToLocal("techreborn.message.allPlayers");
 				break;
 			case 1:
-				message = TextFormatting.RED + "Detects only other Players";
+				message = TextFormatting.RED + I18n.translateToLocal("techreborn.message.onlyOtherPlayers");
 				break;
 			case 2:
-				message = TextFormatting.BLUE + "Detects only you";
+				message = TextFormatting.BLUE + I18n.translateToLocal("techreborn.message.onlyYou");
 		}
 		if (!world.isRemote)
 		{
-			entityPlayer.addChatComponentMessage(new TextComponentString(message));
+			ChatUtils.sendNoSpamMessages(MessageIDs.playerDetectorID, new TextComponentString(
+					TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.detects") + " "
+							+ message));
 			// world.setBlockMetadataWithNotify(x, y, z, newMeta, 2);
 		}
 		return true;

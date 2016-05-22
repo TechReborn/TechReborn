@@ -986,6 +986,10 @@ techreborn.message.in=in
 techreborn.message.noCoordsSet=No Coordinates Set
 techreborn.message.coordsHaveBeen=Coordinates have been
 techreborn.message.cleared=Cleared
+techreborn.message.detects=Detects
+techreborn.message.allPlayers=All Players
+techreborn.message.onlyOtherPlayers=Only Other Players
+techreborn.message.onlyYou=Only You
 
 #Cables
 Cable.copperCable.name=Copper Cable

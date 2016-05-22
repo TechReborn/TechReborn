@@ -1,7 +1,6 @@
 package techreborn.parts.fluidPipes;
 
 import mcmultipart.MCMultiPartMod;
-import mcmultipart.block.TileMultipartContainer;
 import mcmultipart.microblock.IMicroblock;
 import mcmultipart.multipart.*;
 import mcmultipart.raytrace.PartMOP;
@@ -16,7 +15,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -34,8 +32,10 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import reborncore.common.misc.Functions;
 import reborncore.common.misc.vecmath.Vecs3dCube;
-import reborncore.common.packets.PacketHandler;
-import reborncore.common.util.*;
+import reborncore.common.util.ChatUtils;
+import reborncore.common.util.Tank;
+import reborncore.common.util.WorldUtils;
+import techreborn.lib.MessageIDs;
 import techreborn.parts.TechRebornParts;
 
 import java.util.*;
@@ -409,7 +409,7 @@ public abstract class MultipartFluidPipe extends Multipart implements INormallyO
         newPipe.tank = tank;
         MultipartHelper.addPart(world, pos, newPipe);
 
-        ChatUtils.sendNoSpamClient(new TextComponentString(
+        ChatUtils.sendNoSpamMessages(MessageIDs.fluidPipeID, new TextComponentString(
                 TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.setTo") + " " +
                         type.colour + reborncore.common.util.StringUtils.toFirstCapital(type.getName())));
     }

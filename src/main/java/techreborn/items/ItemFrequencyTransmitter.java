@@ -18,6 +18,7 @@ import reborncore.RebornCore;
 import reborncore.common.util.ChatUtils;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.config.ConfigTechReborn;
+import techreborn.lib.MessageIDs;
 
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class ItemFrequencyTransmitter extends ItemTextureBase implements ITextur
 
 		if (!world.isRemote && ConfigTechReborn.FreqTransmitterChat)
 		{
-			ChatUtils.sendNoSpamClient(new TextComponentString(
+			ChatUtils.sendNoSpamMessages(MessageIDs.freqTransmitterID, new TextComponentString(
 					TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.setTo") + " X: " +
 							TextFormatting.GOLD + pos.getX() +
 							TextFormatting.GRAY + " Y: " +
@@ -65,7 +66,7 @@ public class ItemFrequencyTransmitter extends ItemTextureBase implements ITextur
 			stack.setTagCompound(null);
 			if (!world.isRemote && ConfigTechReborn.FreqTransmitterChat)
 			{
-				ChatUtils.sendNoSpamClient(new TextComponentString(
+				ChatUtils.sendNoSpamMessages(MessageIDs.freqTransmitterID, new TextComponentString(
 						TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.coordsHaveBeen") + " "
 								+ TextFormatting.GOLD + I18n.translateToLocal("techreborn.message.cleared")));
 			}
