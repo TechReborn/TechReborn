@@ -3,7 +3,6 @@ package techreborn.init;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -12,6 +11,7 @@ import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.util.BucketHandler;
 import techreborn.Core;
+import techreborn.api.Reference;
 import techreborn.blocks.BlockMachineFrame;
 import techreborn.events.OreUnifier;
 import techreborn.items.*;
@@ -23,7 +23,6 @@ import techreborn.items.battery.ItemLapotronCrystal;
 import techreborn.items.battery.ItemLithiumBattery;
 import techreborn.items.battery.ItemReBattery;
 import techreborn.items.tools.*;
-import techreborn.api.Reference;
 
 public class ModItems
 {
@@ -562,7 +561,7 @@ public class ModItems
 		OreUnifier.registerOre("diamondTR", Items.DIAMOND);
 
 		OreUnifier.registerOre("craftingGrinder", ItemParts.getPartByName("diamondGrindingHead"));
-		OreUnifier.registerOre("craftingGrinder", ItemParts.getPartByName("wolframiumGrindingHead"));
+		OreUnifier.registerOre("craftingGrinder", ItemParts.getPartByName("tungstenGrindingHead"));
 		OreUnifier.registerOre("circuitElite", ItemParts.getPartByName("dataControlCircuit"));
 		OreUnifier.registerOre("circuitData", ItemParts.getPartByName("dataStorageCircuit"));
 		OreUnifier.registerOre("craftingSuperconductor", ItemParts.getPartByName("superconductor"));
