@@ -65,7 +65,7 @@ public class TilePlayerDectector extends TilePowerAcceptor
 		{
 			boolean lastRedstone = redstone;
 			redstone = false;
-			if (canUseEnergy(50))
+			if (canUseEnergy(10))
 			{
 				Iterator tIterator = super.worldObj.playerEntities.iterator();
 				while (tIterator.hasNext())
@@ -95,7 +95,7 @@ public class TilePlayerDectector extends TilePowerAcceptor
 						redstone = true;
 					}
 				}
-				useEnergy(50);
+				useEnergy(10);
 			}
 			if (lastRedstone != redstone)
 			{

@@ -199,7 +199,7 @@ public class ConfigTechReborn
 
 		// Power
 		ThermalGeneratorOutput = config
-				.get(CATEGORY_POWER, "ThermalGenerator Max Output", 30, "Set the max output for the ThermalGenerator")
+				.get(CATEGORY_POWER, "ThermalGenerator Max Output", 60, "Set the max output for the ThermalGenerator")
 				.getInt();
 
 		DragonEggSiphonerOutput = config
