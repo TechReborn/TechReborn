@@ -82,6 +82,35 @@ public class ModFluids
 	public static Fluid fluidWolframium = new TechRebornFluid("fluidwolframium");
 	public static BlockFluidBase BlockFluidWolframium;
 
+	public static Fluid fluidCarbon = new TechRebornFluid("fluidcarbon");
+	public static BlockFluidBase BlockFluidCarbon;
+
+	public static Fluid fluidCarbonFiber = new TechRebornFluid("fluidcarbonfiber");
+	public static BlockFluidBase BlockFluidCarbonFiber;
+
+	public static Fluid fluidNitroCarbon = new TechRebornFluid("fluidnitrocarbon");
+	public static BlockFluidBase BlockFluidNitroCarbon;
+
+	public static Fluid fluidSulfur = new TechRebornFluid("fluidSulfur");
+	public static BlockFluidBase BlockFluidSulfur;
+
+	public static Fluid fluidSodiumSulfide= new TechRebornFluid("fluidsodiumSulfide");
+	public static BlockFluidBase BlockFluidSodiumSulfide;
+
+	public static Fluid fluidDiesel= new TechRebornFluid("fluiddiesel");
+	public static BlockFluidBase BlockFluidDiesel;
+
+	public static Fluid fluidNitroDiesel = new TechRebornFluid("fluidnitrodiesel");
+	public static BlockFluidBase BlockFluidNitroDiesel;
+
+	public static Fluid fluidOil = new TechRebornFluid("fluidoil");
+	public static BlockFluidBase BlockFluidOil;
+
+	public static Fluid fluidSulfuricAcid = new TechRebornFluid("fluidsulfuricacid");
+	public static BlockFluidBase BlockFluidSulfuricAcid;
+
+
+
 	public static void init()
 	{
 		FluidRegistry.registerFluid(fluidberylium);
@@ -204,5 +233,50 @@ public class ModFluids
 		GameRegistry.registerBlock(BlockFluidWolframium,
 				ModInfo.MOD_ID + "_" + BlockFluidWolframium.getUnlocalizedName().substring(5));
 
+		FluidRegistry.registerFluid(fluidCarbon);
+		BlockFluidCarbon = new BlockFluidTechReborn(fluidCarbon, Material.WATER, "techreborn.carbon");
+		GameRegistry.registerBlock(BlockFluidCarbon,
+				ModInfo.MOD_ID + "_" + BlockFluidCarbon.getUnlocalizedName().substring(5));
+
+		FluidRegistry.registerFluid(fluidCarbonFiber);
+		BlockFluidCarbonFiber = new BlockFluidTechReborn(fluidCarbonFiber, Material.WATER, "techreborn.carbonfiber");
+		GameRegistry.registerBlock(BlockFluidCarbonFiber,
+				ModInfo.MOD_ID + "_" + BlockFluidCarbonFiber.getUnlocalizedName().substring(5));
+
+		FluidRegistry.registerFluid(fluidNitroCarbon);
+		BlockFluidNitroCarbon= new BlockFluidTechReborn(fluidNitroCarbon, Material.WATER, "techreborn.nitrocarbon");
+		GameRegistry.registerBlock(BlockFluidNitroCarbon,
+				ModInfo.MOD_ID + "_" + BlockFluidNitroCarbon.getUnlocalizedName().substring(5));
+
+		FluidRegistry.registerFluid(fluidSulfur);
+		BlockFluidSulfur= new BlockFluidTechReborn(fluidSulfur, Material.WATER, "techreborn.sulfur");
+		GameRegistry.registerBlock(BlockFluidSulfur,
+				ModInfo.MOD_ID + "_" + BlockFluidSulfur.getUnlocalizedName().substring(5));
+
+
+		FluidRegistry.registerFluid(fluidSodiumSulfide);
+		BlockFluidSodiumSulfide= new BlockFluidTechReborn(fluidSodiumSulfide, Material.WATER, "techreborn.sodiumsulfide");
+		GameRegistry.registerBlock(BlockFluidSodiumSulfide,
+				ModInfo.MOD_ID + "_" + BlockFluidSodiumSulfide.getUnlocalizedName().substring(5));
+
+		FluidRegistry.registerFluid(fluidDiesel);
+		BlockFluidDiesel = new BlockFluidTechReborn(fluidDiesel, Material.WATER, "techreborn.diesel");
+		GameRegistry.registerBlock(BlockFluidDiesel,
+				ModInfo.MOD_ID + "_" + BlockFluidDiesel.getUnlocalizedName().substring(5));
+
+		FluidRegistry.registerFluid(fluidNitroDiesel);
+		BlockFluidNitroDiesel = new BlockFluidTechReborn(fluidNitroDiesel, Material.WATER, "techreborn.nitrodiesel");
+		GameRegistry.registerBlock(BlockFluidNitroDiesel,
+				ModInfo.MOD_ID + "_" + BlockFluidNitroDiesel.getUnlocalizedName().substring(5));
+
+		FluidRegistry.registerFluid(fluidOil);
+		BlockFluidOil = new BlockFluidTechReborn(fluidOil, Material.WATER, "techreborn.oil");
+		GameRegistry.registerBlock(BlockFluidOil,
+				ModInfo.MOD_ID + "_" + BlockFluidOil.getUnlocalizedName().substring(5));
+
+		FluidRegistry.registerFluid(fluidSulfuricAcid);
+		BlockFluidSulfuricAcid = new BlockFluidTechReborn(fluidSulfuricAcid, Material.WATER, "techreborn.sulfuricacid");
+		GameRegistry.registerBlock(BlockFluidSulfuricAcid,
+				ModInfo.MOD_ID + "_" + BlockFluidSulfuricAcid.getUnlocalizedName().substring(5));
 	}
 }

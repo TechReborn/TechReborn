@@ -11,6 +11,7 @@ import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.UniversalBucket;
+import org.apache.commons.lang3.Validate;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModItems;
 
@@ -80,15 +81,14 @@ public class DynamicCell extends UniversalBucket{
     }
 
     public static ItemStack getCellWithFluid(Fluid fluid, int stackSize){
+        Validate.notNull(fluid);
         ItemStack stack = new ItemStack(ModItems.dynamicCell, stackSize);
         ModItems.dynamicCell.fill(stack, new FluidStack(fluid, ModItems.dynamicCell.getCapacity()), true);
         return stack;
     }
 
     public static ItemStack getCellWithFluid(Fluid fluid){
-        ItemStack stack = new ItemStack(ModItems.dynamicCell);
-        ModItems.dynamicCell.fill(stack, new FluidStack(fluid, ModItems.dynamicCell.getCapacity()), true);
-        return stack;
+        return getCellWithFluid(fluid, 1);
     }
 
 }

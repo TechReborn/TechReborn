@@ -33,8 +33,6 @@ public class ModItems
 	public static Item dusts;
 	public static Item smallDusts;
 	public static Item parts;
-	@Deprecated
-	public static Item cells;
 	public static Item rockCutter;
 	public static Item lithiumBatpack;
 	public static Item lapotronpack;
@@ -141,22 +139,7 @@ public class ModItems
 		// registerItem(purifiedCrushedOre, "purifiedCrushedOre");
 		parts = new ItemParts();
 		registerItem(parts, "part");
-		cells = new ItemCells();
-		registerItem(cells, "cell");
-		for (int i = 0; i < ItemCells.types.length; i++)
-		{
-			if (FluidRegistry.getFluid("fluid" + ItemCells.types[i].toLowerCase()) != null)
-			{
-				FluidContainerRegistry.registerFluidContainer(
-						FluidRegistry.getFluid("fluid" + ItemCells.types[i].toLowerCase()),
-						ItemCells.getCellByName(ItemCells.types[i]), ItemCells.getCellByName("empty"));
-			}else if(FluidRegistry.getFluid(ItemCells.types[i].toLowerCase()) !=  null){
 
-				FluidContainerRegistry.registerFluidContainer(
-						FluidRegistry.getFluid(ItemCells.types[i].toLowerCase()),
-						ItemCells.getCellByName(ItemCells.types[i]), ItemCells.getCellByName("empty"));
-			}
-		}
 		rockCutter = PoweredItem.createItem(ItemRockCutter.class);
 		registerItem(rockCutter, "rockCutter");
 		lithiumBatpack = PoweredItem.createItem(ItemLithiumBatpack.class);

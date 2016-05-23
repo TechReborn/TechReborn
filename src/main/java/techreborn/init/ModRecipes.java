@@ -2420,11 +2420,6 @@ public class ModRecipes
 						ItemCells.getCellByName("oil", 1), ItemDusts.getDustByName("saltpeter", 4),
 						ItemDusts.getDustByName("coal", 1), new ItemStack(Blocks.SAND, 10), 2500, 5));
 
-		// Ice
-		RecipeHandler.addRecipe(
-				new CentrifugeRecipe(ItemCells.getCellByName("ice", 1), null, new ItemStack(Blocks.ICE, 1),
-						ItemCells.getCellByName("empty"), null, null, 40, 5));
-
 		// Dust Byproducts
 
 		RecipeHandler.addRecipe(
