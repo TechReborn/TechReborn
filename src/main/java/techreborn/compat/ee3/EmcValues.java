@@ -65,10 +65,10 @@ public class EmcValues implements ICompatModule {
 
     @Override
     public void serverStarting(FMLServerStartingEvent event) {
-        
+
     }
 
-    private void addOre(String name, float value) {
+    private void addOre(String name, Number value) {
         WrappedStack stack = WrappedStack.wrap(new OreStack(name));
         EnergyValue energyValue = new EnergyValue(value);
 
@@ -76,7 +76,7 @@ public class EmcValues implements ICompatModule {
     }
 
 
-    private void addStack(ItemStack itemStack, float value) {
+    private void addStack(ItemStack itemStack, Number value) {
         WrappedStack stack = WrappedStack.wrap(itemStack);
         EnergyValue energyValue = new EnergyValue(value);
 
