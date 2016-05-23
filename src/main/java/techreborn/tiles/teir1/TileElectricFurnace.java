@@ -24,6 +24,9 @@ public class TileElectricFurnace extends TilePowerAcceptor implements IWrenchabl
 	public int cost = 10;
 	int input1 = 0;
 	int output = 1;
+	private static final int[] SLOTS_TOP = new int[] {0};
+	private static final int[] SLOTS_BOTTOM = new int[] {1};
+	private static final int[] SLOTS_SIDES = new int[] {1};
 
 	public TileElectricFurnace()
 	{
@@ -184,7 +187,7 @@ public class TileElectricFurnace extends TilePowerAcceptor implements IWrenchabl
 	@Override
 	public int[] getSlotsForFace(EnumFacing side)
 	{
-		return side == EnumFacing.DOWN ? new int[] { 0, 1, 2 } : new int[] { 0, 1, 2 };
+		return side == EnumFacing.DOWN ? SLOTS_BOTTOM : (side == EnumFacing.UP ? SLOTS_TOP : SLOTS_SIDES);
 	}
 
 	@Override
