@@ -65,8 +65,7 @@ public class EmcValues implements ICompatModule {
 
     @Override
     public void serverStarting(FMLServerStartingEvent event) {
-        event.registerServerCommand(new CommandRegen());
-        event.registerServerCommand(new CommandReload());
+        
     }
 
     private void addOre(String name, float value) {
