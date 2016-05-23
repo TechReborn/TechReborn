@@ -119,50 +119,47 @@ public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, II
     /**
      * Turn one item from the furnace source stack into the appropriate smelted item in the furnace result stack
      */
-    public void smeltItem() {
-        if (this.canSmelt()) {
-            ItemStack itemstack = null;
-            for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelteRecipe)) {
-                for (ItemStack input : recipeType.getInputs()) {
-                    if (ItemUtils.isItemEqual(input, getStackInSlot(input1), true, true, true) || ItemUtils.isItemEqual(input, getStackInSlot(input2), true, true, true)) {
-                        itemstack = recipeType.getOutput(0);
-                        break;
-                    }
-                }
-                if (itemstack != null) {
-                    break;
-                }
-            }
+	public void smeltItem() {
+		ItemStack itemstack = null;
+		if (this.canSmelt()) {
+			for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelteRecipe)) {
+				if (hasAllInputs(recipeType)) {
+					itemstack = recipeType.getOutput(0);
+					break;
+				}
+				if (itemstack != null) {
+					break;
+				}
+			}
+		}
 
-            if (this.getStackInSlot(output) == null) {
-                setInventorySlotContents(output, itemstack.copy());
-            } else if (this.getStackInSlot(output).getItem() == itemstack.getItem()) {
-                decrStackSize(output, -itemstack.stackSize);
-            }
+		if (this.getStackInSlot(output) == null) {
+			setInventorySlotContents(output, itemstack.copy());
+		} else if (this.getStackInSlot(output).getItem() == itemstack.getItem()) {
+			decrStackSize(output, -itemstack.stackSize);
+		}
 
-            for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelteRecipe)) {
-                boolean hasAllRecipes = true;
-                for (ItemStack input : recipeType.getInputs()) {
-                    if (ItemUtils.isItemEqual(input, getStackInSlot(input1), true, true, true) || ItemUtils.isItemEqual(input, getStackInSlot(input2), true, true, true)) {
+		for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelteRecipe)) {
+			boolean hasAllRecipes = true;
+			if (hasAllInputs(recipeType)) {
+			} else {
+				hasAllRecipes = false;
+			}
+			if (hasAllRecipes) {
+				for (ItemStack input : recipeType.getInputs()) {
+					for (int inputSlot = 0; inputSlot < 2; inputSlot++) {
+						if (ItemUtils.isItemEqual(input, inventory.getStackInSlot(inputSlot), true, true,
+								recipeType.useOreDic())) {
+							inventory.decrStackSize(inputSlot, input.stackSize);
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
 
-                    } else {
-                        hasAllRecipes = false;
-                    }
-                }
-                if(hasAllRecipes){
-                    for (ItemStack input : recipeType.getInputs()) {
-                        for (int inputSlot = 0; inputSlot < 2; inputSlot++) {
-                            if (ItemUtils.isItemEqual(input, inventory.getStackInSlot(inputSlot), true, true, recipeType.useOreDic())) {
-                                inventory.decrStackSize(inputSlot, input.stackSize);
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
 
-        }
-    }
 
     /**
      * Furnace isBurning
