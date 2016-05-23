@@ -26,7 +26,6 @@ public class StackWIPHandler
 		wipBlocks.add(ModBlocks.MagicalAbsorber);
 		wipBlocks.add(ModBlocks.ChunkLoader);
 		wipBlocks.add(ModBlocks.ElectricCraftingTable);
-		wipBlocks.add(ModBlocks.playerDetector);
 		wipBlocks.add(ModBlocks.chargeBench);
 		wipBlocks.add(ModBlocks.Magicenergeyconverter);
 

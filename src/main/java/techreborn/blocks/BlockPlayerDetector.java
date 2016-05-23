@@ -1,5 +1,6 @@
 package techreborn.blocks;
 
+import com.google.common.collect.Lists;
 import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
@@ -21,7 +22,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.PropertyString;
+import reborncore.common.util.ArrayUtils;
 import reborncore.common.util.ChatUtils;
+import reborncore.common.util.StringUtils;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.MessageIDs;
 import techreborn.tiles.TilePlayerDectector;
@@ -33,7 +37,8 @@ public class BlockPlayerDetector extends BlockMachineBase implements ITexturedBl
 {
 
 	public static final String[] types = new String[] { "all", "others", "you" };
-	public PropertyInteger METADATA;
+	public PropertyString TYPE;
+	static List<String> typeNamesList = Lists.newArrayList(ArrayUtils.arrayToLowercase(types));
 
 	public BlockPlayerDetector()
 	{
@@ -41,7 +46,7 @@ public class BlockPlayerDetector extends BlockMachineBase implements ITexturedBl
 		setUnlocalizedName("techreborn.playerDetector");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setHardness(2f);
-		this.setDefaultState(this.getDefaultState().withProperty(METADATA, 0));
+		this.setDefaultState(this.getDefaultState().withProperty(TYPE, "all"));
 	}
 
 	@Override
@@ -116,26 +121,23 @@ public class BlockPlayerDetector extends BlockMachineBase implements ITexturedBl
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer entityPlayer,
 			EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)
 	{
-		// int newMeta = (world.getBlockMetadata(x, y, z) + 1) % 3;
-		int newMeta = getMetaFromState(state);
-		String message = "";
-		switch (newMeta)
-		{
-			case 0:
-				message = TextFormatting.GREEN + I18n.translateToLocal("techreborn.message.allPlayers");
-				break;
-			case 1:
-				message = TextFormatting.RED + I18n.translateToLocal("techreborn.message.onlyOtherPlayers");
-				break;
-			case 2:
-				message = TextFormatting.BLUE + I18n.translateToLocal("techreborn.message.onlyYou");
+		String type = state.getValue(TYPE);
+		String newType  = type;
+		TextFormatting color = TextFormatting.GREEN;
+		if(type.equals("all")){
+			newType = "others";
+			color = TextFormatting.RED;
+		} else if(type.equals("others")){
+			newType = "you";
+			color = TextFormatting.BLUE;
+		}else if(type.equals("you")){
+			newType = "all";
 		}
-		if (!world.isRemote)
-		{
+		world.setBlockState(pos, state.withProperty(TYPE, newType));
+		if (!world.isRemote) {
 			ChatUtils.sendNoSpamMessages(MessageIDs.playerDetectorID, new TextComponentString(
-					TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.detects") + " "
-							+ message));
-			// world.setBlockMetadataWithNotify(x, y, z, newMeta, 2);
+					TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.detects") + " " + color
+							+ StringUtils.toFirstCapital(newType)));
 		}
 		return true;
 	}
@@ -152,21 +154,23 @@ public class BlockPlayerDetector extends BlockMachineBase implements ITexturedBl
 		return types.length;
 	}
 
-	@Override
-	public int getMetaFromState(IBlockState state)
-	{
-		return state.getValue(METADATA);
-	}
 
 	protected BlockStateContainer createBlockState()
 	{
-		METADATA = PropertyInteger.create("type", 0, types.length - 1);
-		return new BlockStateContainer(this, METADATA);
+		TYPE = new PropertyString("type", types);
+		return new BlockStateContainer(this, TYPE);
 	}
 
 	@Override
-	public IBlockState getStateFromMeta(int meta)
-	{
-		return this.getDefaultState().withProperty(METADATA, meta);
+	public IBlockState getStateFromMeta(int meta) {
+		if(meta > types.length){
+			meta = 0;
+		}
+		return getBlockState().getBaseState().withProperty(TYPE, typeNamesList.get(meta));
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return typeNamesList.indexOf(state.getValue(TYPE));
 	}
 }
