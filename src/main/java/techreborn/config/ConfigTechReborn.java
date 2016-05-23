@@ -50,9 +50,9 @@ public class ConfigTechReborn
 	public static int IronChainsawCharge;
 	public static int DiamondChainsawCharge;
 	public static int AdvancedChainsawCharge;
-	public static int IronJackhammerCharge;
-	public static int DiamondJackhammerCharge;
 	public static int SteelJackhammerCharge;
+	public static int DiamondJackhammerCharge;
+	public static int AdvancedJackhammerCharge;
 	public static int LapotronPackCharge;
 	public static int LithiumBatpackCharge;
 	public static int LapotronicOrbMaxCharge;
@@ -68,9 +68,9 @@ public class ConfigTechReborn
 	public static int IronChainsawTier;
 	public static int DiamondChainsawTier;
 	public static int AdvancedChainsawTier;
-	public static int IronJackhammerTier;
-	public static int DiamondJackhammerTier;
 	public static int SteelJackhammerTier;
+	public static int DiamondJackhammerTier;
+	public static int AdvancedJackhammerTier;
 	public static int LapotronPackTier;
 	public static int LapotronicOrbTier;
 	public static int LithiumBatpackTier;
@@ -259,14 +259,14 @@ public class ConfigTechReborn
 		AdvancedChainsawCharge = config.get(CATEGORY_POWER, "AdvancedChainsaw MaxCharge", 1000000,
 				"Set the max charge for the advanced chainsaw").getInt();
 
-		IronJackhammerCharge = config
-				.get(CATEGORY_POWER, "IronJackhammer MaxCharge", 10000, "Set the max charge for the iron jackhammer")
+		AdvancedJackhammerCharge = config
+				.get(CATEGORY_POWER, "AdvancedJackhammer MaxCharge", 100000, "Set the max charge for the advanced jackhammer")
 				.getInt();
 
-		SteelJackhammerCharge = config.get(CATEGORY_POWER, "AdvancedJackhammer MaxCharge", 20000,
-				"Set the max charge for the advanced jackhammer").getInt();
+		SteelJackhammerCharge = config.get(CATEGORY_POWER, "AdvancedJackhammer MaxCharge", 10000,
+				"Set the max charge for the steel jackhammer").getInt();
 
-		DiamondJackhammerCharge = config.get(CATEGORY_POWER, "DiamondJackhammer MaxCharge", 100000,
+		DiamondJackhammerCharge = config.get(CATEGORY_POWER, "DiamondJackhammer MaxCharge", 20000,
 				"Set the max charge for the diamond jackhammer").getInt();
 
 		LapotronPackCharge = config
@@ -328,7 +328,7 @@ public class ConfigTechReborn
 		AdvancedChainsawTier = config
 				.get(CATEGORY_POWER, "AdvancedChainsaw Tier", 2, "Set the Tier of the advanced chainsaw").getInt();
 
-		IronJackhammerTier = config.get(CATEGORY_POWER, "IronJackhammer Tier", 2, "Set the Tier of the iron jackhammer")
+		AdvancedJackhammerTier = config.get(CATEGORY_POWER, "AdvancedJackhammer Tier", 2, "Set the Tier of the advanced jackhammer")
 				.getInt();
 
 		DiamondJackhammerTier = config

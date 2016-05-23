@@ -48,15 +48,19 @@ public class ModItems
 
 	public static Item reBattery;
 	public static Item treeTap;
+
 	public static Item ironDrill;
 	public static Item diamondDrill;
 	public static Item advancedDrill;
+
 	public static Item ironChainsaw;
 	public static Item diamondChainsaw;
 	public static Item advancedChainsaw;
-	public static Item ironJackhammer;
+
 	public static Item steelJackhammer;
 	public static Item diamondJackhammer;
+	public static Item advancedJackhammer;
+
 	public static Item nanosaber;
 	public static Item hammer;
 	public static Item wrench;
@@ -179,26 +183,26 @@ public class ModItems
 		treeTap = new ItemTreeTap();
 		registerItem(treeTap, "treetap");
 
-		ironDrill = PoweredItem.createItem(ItemIronDrill.class);
+		ironDrill = PoweredItem.createItem(ItemSteelDrill.class);
 		registerItem(ironDrill, "irondrill");
 		diamondDrill = PoweredItem.createItem(ItemDiamondDrill.class);
 		registerItem(diamondDrill, "diamonddrill");
 		advancedDrill = PoweredItem.createItem(ItemAdvancedDrill.class);
 		registerItem(advancedDrill, "advanceddrill");
 
-		ironChainsaw = PoweredItem.createItem(ItemIronChainsaw.class);
+		ironChainsaw = PoweredItem.createItem(ItemSteelChainsaw.class);
 		registerItem(ironChainsaw, "ironchainsaw");
 		diamondChainsaw = PoweredItem.createItem(ItemDiamondChainsaw.class);
 		registerItem(diamondChainsaw, "diamondchainsaw");
 		advancedChainsaw = PoweredItem.createItem(ItemAdvancedChainsaw.class);
 		registerItem(advancedChainsaw, "advancedchainsaw");
 
-		ironJackhammer = PoweredItem.createItem(ItemIronJackhammer.class);
-		registerItem(ironJackhammer, "ironjackhammer");
 		steelJackhammer = PoweredItem.createItem(ItemSteelJackhammer.class);
 		registerItem(steelJackhammer, "steeljackhammer");
 		diamondJackhammer = PoweredItem.createItem(ItemDiamondJackhammer.class);
 		registerItem(diamondJackhammer, "diamondjackhammer");
+		advancedJackhammer = PoweredItem.createItem(ItemAdvancedJackhammer.class);
+		registerItem(advancedJackhammer, "ironjackhammer");
 
 		bronzeSword = new ItemTRSword(Reference.BRONZE);
 		registerItem(bronzeSword, "bronzeSword");

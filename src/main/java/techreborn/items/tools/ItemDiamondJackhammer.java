@@ -1,8 +1,6 @@
 package techreborn.items.tools;
 
 import techreborn.config.ConfigTechReborn;
-
-import net.minecraft.item.Item.ToolMaterial;
 public class ItemDiamondJackhammer extends ItemJackhammer
 {
 
@@ -10,8 +8,8 @@ public class ItemDiamondJackhammer extends ItemJackhammer
 	{
 		super(ToolMaterial.DIAMOND, "techreborn.diamondJackhammer", ConfigTechReborn.DiamondJackhammerCharge,
 				ConfigTechReborn.DiamondJackhammerTier);
-		this.cost = 250;
-		this.efficiencyOnProperMaterial = 60F;
+		this.cost = 100;
+		this.efficiencyOnProperMaterial = 16F;
 	}
 
 	@Override

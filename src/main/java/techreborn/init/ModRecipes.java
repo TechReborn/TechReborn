@@ -322,8 +322,8 @@ public class ModRecipes
 
 	private static void addCompressorRecipes()
 	{
-		RecipeHandler.addRecipe(new CompressorRecipe(ItemIngots.getIngotByName("mixedmetal"),
-				ItemIngots.getIngotByName("advancedAlloy"), 400, 20));
+		RecipeHandler.addRecipe(new CompressorRecipe(ItemIngots.getIngotByName("advancedAlloy"),
+				ItemPlates.getPlateByName("advancedAlloy"), 400, 20));
 		RecipeHandler.addRecipe(
 				new CompressorRecipe(ItemParts.getPartByName("carbonmesh"), ItemPlates.getPlateByName("carbon"), 400,
 						20));
@@ -972,6 +972,7 @@ public class ModRecipes
 		GameRegistry.addSmelting(BlockOre2.getOreByName("tin"), ItemIngots.getIngotByName("tin"), 1F);
 		GameRegistry.addSmelting(BlockOre.getOreByName("Silver"), ItemIngots.getIngotByName("silver"), 1F);
 		GameRegistry.addSmelting(BlockOre.getOreByName("Lead"), ItemIngots.getIngotByName("lead"), 1F);
+		GameRegistry.addSmelting(ItemIngots.getIngotByName("mixedMetal"), ItemIngots.getIngotByName("advancedAlloy"), 1F);
 		Core.logHelper.info("Smelting Recipes Added");
 	}
 
