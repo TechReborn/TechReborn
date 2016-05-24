@@ -34,8 +34,8 @@ public class GuiManual extends GuiScreen
 	{
 		this.xSize = 200;
 		this.ySize = 180;
-//		root = createRoot();
-		root = ManualLoader.getPages();
+		root = createRoot();
+		//root = ManualLoader.getPages();
 	}
 
 	protected PageCollection createRoot()

@@ -62,14 +62,14 @@ public class ClientProxy extends CommonProxy
 
 		ManualLoader loader = new ManualLoader(new File(event.getModConfigurationDirectory(), "techreborn"));
 
-		new Thread(() ->
-		{
-			try {
-				loader.load();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}).start();
+//		new Thread(() ->
+//		{
+//			try {
+//				loader.load();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}).start();
 
 		for(Object object : RebornCore.jsonDestroyer.objectsToDestroy) {
 			if (object instanceof BlockMachineBase) {
