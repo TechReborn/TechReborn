@@ -68,7 +68,7 @@ public class ItemWrench extends ItemTR implements ITexturedItem {
 
         if(tile instanceof IWrenchable){
             if(((IWrenchable) tile).wrenchCanRemove(tile.getWorld(), tile.getPos(), player)){
-                List<ItemStack> itemStacks = ((IWrenchable) tile).getWrenchDrops(tile.getWorld(), tile.getPos(),tile.getWorld().getBlockState(tile.getPos()), tile, player, Collections.emptyList());
+                List<ItemStack> itemStacks = ((IWrenchable) tile).getWrenchDrops(tile.getWorld(), tile.getPos(),tile.getWorld().getBlockState(tile.getPos()), tile, player, 0);
                 if(!itemStacks.isEmpty()){
                     items.addAll(itemStacks);
                 }

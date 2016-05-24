@@ -72,7 +72,7 @@ configurations {
     compile.extendsFrom shade
 }
 
-version = "0.8.1"
+version = "0.8.2"
 
 def ENV = System.getenv()
 if (ENV.BUILD_NUMBER) {
@@ -104,24 +104,18 @@ dependencies {
     if(!f.exists()){
         f.mkdir()
     }
-    compile 'net.industrial-craft:industrialcraft-2:2.3.131-ex18:dev'
+    compile 'net.industrial-craft:industrialcraft-2:2.3.249-ex18:dev'
     compile ("mcp.mobius.waila:Waila:1.6.0-B3_1.8.8:dev") {
         exclude group: 'mcp.mobius.waila'
     }
-  //  compile "qmunity:QmunityLib:0.2.+:deobf"
-  //  compile "com.pahimar.ee3:EquivalentExchange3:1.7.10-0.3.507:dev"
-  //  compile "net.sengir.forestry:forestry_1.7.10:4.2.0.47:dev"
-  //  shade "net.sengir.forestry:forestry_1.7.10:4.2.0.47:api"
     compile "slimeknights:TConstruct:1.8.8-2.0.1.jenkins11:deobf"
-  //  compile "mods.natura:natura:1.7.10-107.779621d:deobf"
     compile "slimeknights.mantle:Mantle:1.8.8-0.6.jenkins60:deobf"
     compile "com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.8.9-3.0.0.1923:deobf"
     compile 'Azanor:Thaumcraft:5.1.6:deobf@jar'
     compile "com.github.azanor:baubles:1.1.3.0:deobf@jar"
     compile name: "CraftTweaker", version: "1.8.8-3.0.0", classifier: "Dev"
-  //  shade 'IC2-Classic-API-STANDALONE:IC2-Classic-API-STANDALONE:1.1.0.19-5:api'
-    deobfCompile 'RebornCore:RebornCore-1.8.9:1.5.1.+:universal'
-    deobfCompile "mezz.jei:jei_1.8.9:2.27.+"
+    deobfCompile 'RebornCore:RebornCore-1.8.9:+:universal'
+    deobfCompile "mezz.jei:jei_1.8.9:+"
     deobfCompile 'MCMultiPart:MCMultiPart:1.0.8:universal'
 
     println("Downloading dependencies that have no maven :/")
@@ -161,13 +155,6 @@ task deobfJar(type: Jar) {
 jar {
     exclude "**/*.psd"
     classifier = 'universal'
-//    configurations.shade.each { dep ->
-//        from(project.zipTree(dep)){
-//            include 'ic2/api/'
-//            include 'forestry/api/fuels/'
-//            exclude 'META-INF', 'META-INF/**', '**/*.java'
-//        }
-//    }
 }
 
 task apiJar(type: Jar) {
