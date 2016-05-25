@@ -16,6 +16,7 @@ import org.apache.commons.io.IOUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import reborncore.RebornCore;
 import reborncore.common.util.Unzip;
 import techreborn.manual.PageCollection;
 import techreborn.manual.Reference;
@@ -45,7 +46,7 @@ public class ManualLoader {
             manualdir.mkdir();
         }
 
-        URL url = new URL("http://modmuss50.me/techreborn/manual/versions.json");
+        URL url = new URL(RebornCore.WEB_URL + "techreborn/manual/versions.json");
         URLConnection con = url.openConnection();
         InputStream in = con.getInputStream();
         String encoding = con.getContentEncoding();
@@ -76,7 +77,7 @@ public class ManualLoader {
                     hasIntactZip = true;
                 }
             } else {
-                FileUtils.copyURLToFile(new URL("http://modmuss50.me/techreborn/manual/packages/" + downloadablePackageInfo.fileName), zipLocation);
+                FileUtils.copyURLToFile(new URL(RebornCore.WEB_URL + "techreborn/manual/packages/" + downloadablePackageInfo.fileName), zipLocation);
                 String md5 = getMD5(zipLocation);
                 if(md5.equals(downloadablePackageInfo.md5)){
                     //ok the downloaded file is valid

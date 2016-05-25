@@ -10,7 +10,6 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.UniversalBucket;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.ArrayUtils;
 import reborncore.api.recipe.RecipeHandler;
@@ -906,14 +905,14 @@ public class ModRecipes
 				continue;
 			}
 
-			GameRegistry
+			CraftingHelper
 					.addShapelessRecipe(BlockStorage.getStorageBlockByName(name), item, item, item, item, item, item,
 							item, item, item);
-			GameRegistry.addShapelessRecipe(item, BlockStorage.getStorageBlockByName(name, 9));
+			CraftingHelper.addShapelessRecipe(item, BlockStorage.getStorageBlockByName(name, 9));
 		}
 
-		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.rubberPlanks, 4), ModBlocks.rubberLog);
-		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.frequencyTransmitter),
+		CraftingHelper.addShapelessRecipe(new ItemStack(ModBlocks.rubberPlanks, 4), ModBlocks.rubberLog);
+		CraftingHelper.addShapelessRecipe(new ItemStack(ModItems.frequencyTransmitter),
 				ItemStandaloneCables.getCableByName("insulatedcopper"), ItemParts.getPartByName("electronicCircuit"));
 
 		for (String name : ItemDustsSmall.types)
@@ -921,8 +920,8 @@ public class ModRecipes
 			if(name.equals(ModItems.META_PLACEHOLDER)){
 				continue;
 			}
-			GameRegistry.addShapelessRecipe(ItemDustsSmall.getSmallDustByName(name, 4), ItemDusts.getDustByName(name));
-			GameRegistry.addShapelessRecipe(ItemDusts.getDustByName(name, 1), ItemDustsSmall.getSmallDustByName(name),
+			CraftingHelper.addShapelessRecipe(ItemDustsSmall.getSmallDustByName(name, 4), ItemDusts.getDustByName(name));
+			CraftingHelper.addShapelessRecipe(ItemDusts.getDustByName(name, 1), ItemDustsSmall.getSmallDustByName(name),
 					ItemDustsSmall.getSmallDustByName(name), ItemDustsSmall.getSmallDustByName(name),
 					ItemDustsSmall.getSmallDustByName(name));
 		}
@@ -964,15 +963,15 @@ public class ModRecipes
 
 	static void addSmeltingRecipes()
 	{
-		GameRegistry.addSmelting(ItemDusts.getDustByName("iron", 1), new ItemStack(Items.IRON_INGOT), 1F);
-		GameRegistry.addSmelting(ItemDusts.getDustByName("gold", 1), new ItemStack(Items.GOLD_INGOT), 1F);
-		GameRegistry.addSmelting(ItemParts.getPartByName("rubberSap"), ItemParts.getPartByName("rubber"), 1F);
-		GameRegistry.addSmelting(new ItemStack(Items.IRON_INGOT), ItemIngots.getIngotByName("refinediron"), 1F);
-		GameRegistry.addSmelting(BlockOre2.getOreByName("copper"), ItemIngots.getIngotByName("copper"), 1F);
-		GameRegistry.addSmelting(BlockOre2.getOreByName("tin"), ItemIngots.getIngotByName("tin"), 1F);
-		GameRegistry.addSmelting(BlockOre.getOreByName("Silver"), ItemIngots.getIngotByName("silver"), 1F);
-		GameRegistry.addSmelting(BlockOre.getOreByName("Lead"), ItemIngots.getIngotByName("lead"), 1F);
-		GameRegistry.addSmelting(ItemIngots.getIngotByName("mixedMetal"), ItemIngots.getIngotByName("advancedAlloy"), 1F);
+		CraftingHelper.addSmelting(ItemDusts.getDustByName("iron", 1), new ItemStack(Items.IRON_INGOT), 1F);
+		CraftingHelper.addSmelting(ItemDusts.getDustByName("gold", 1), new ItemStack(Items.GOLD_INGOT), 1F);
+		CraftingHelper.addSmelting(ItemParts.getPartByName("rubberSap"), ItemParts.getPartByName("rubber"), 1F);
+		CraftingHelper.addSmelting(new ItemStack(Items.IRON_INGOT), ItemIngots.getIngotByName("refinediron"), 1F);
+		CraftingHelper.addSmelting(BlockOre2.getOreByName("copper"), ItemIngots.getIngotByName("copper"), 1F);
+		CraftingHelper.addSmelting(BlockOre2.getOreByName("tin"), ItemIngots.getIngotByName("tin"), 1F);
+		CraftingHelper.addSmelting(BlockOre.getOreByName("Silver"), ItemIngots.getIngotByName("silver"), 1F);
+		CraftingHelper.addSmelting(BlockOre.getOreByName("Lead"), ItemIngots.getIngotByName("lead"), 1F);
+		CraftingHelper.addSmelting(ItemIngots.getIngotByName("mixedMetal"), ItemIngots.getIngotByName("advancedAlloy"), 1F);
 		Core.logHelper.info("Smelting Recipes Added");
 	}
 
@@ -2266,17 +2265,17 @@ public class ModRecipes
 				ItemParts.getPartByName("energyFlowCircuit"));
 
 		// Smetling
-		GameRegistry
+		CraftingHelper
 				.addSmelting(ItemDusts.getDustByName("copper", 1), TechRebornAPI.recipeCompact.getItem("copperIngot"),
 						1F);
-		GameRegistry
+		CraftingHelper
 				.addSmelting(ItemDusts.getDustByName("tin", 1), TechRebornAPI.recipeCompact.getItem("tinIngot"), 1F);
-		GameRegistry
+		CraftingHelper
 				.addSmelting(ItemDusts.getDustByName("bronze", 1), TechRebornAPI.recipeCompact.getItem("bronzeIngot"),
 						1F);
-		GameRegistry
+		CraftingHelper
 				.addSmelting(ItemDusts.getDustByName("lead", 1), TechRebornAPI.recipeCompact.getItem("leadIngot"), 1F);
-		GameRegistry
+		CraftingHelper
 				.addSmelting(ItemDusts.getDustByName("silver", 1), TechRebornAPI.recipeCompact.getItem("silverIngot"),
 						1F);
 

@@ -10,6 +10,7 @@ import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+import org.apache.commons.lang3.Validate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,10 +22,20 @@ public class RollingMachineRecipe {
     private final List<IRecipe> recipes = new ArrayList<>();
 
     public void addShapedOreRecipe(ItemStack outputItemStack, Object... objectInputs) {
+        Validate.notNull(outputItemStack);
+        Validate.notNull(outputItemStack.getItem());
+        if(objectInputs.length == 0){
+            Validate.notNull(null); //Quick way to crash
+        }
         recipes.add(new ShapedOreRecipe(outputItemStack, objectInputs));
     }
 
     public void addShapelessOreRecipe(ItemStack outputItemStack, Object... objectInputs) {
+        Validate.notNull(outputItemStack);
+        Validate.notNull(outputItemStack.getItem());
+        if(objectInputs.length == 0){
+            Validate.notNull(null); //Quick way to crash
+        }
         recipes.add(new ShapelessOreRecipe(outputItemStack, objectInputs));
     }
 
