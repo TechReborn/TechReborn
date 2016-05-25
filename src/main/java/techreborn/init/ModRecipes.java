@@ -3,6 +3,7 @@ package techreborn.init;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import mezz.jei.plugins.vanilla.crafting.ShapedOreRecipeHandler;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -3264,9 +3265,6 @@ public class ModRecipes
 				ItemCells.getCellByName("empty"), ItemDusts.getDustByName("aluminum", 2),
 				ItemCells.getCellByName("empty", 5), null, null, 100, 60));
 
-		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(ItemCells.getCellByName("nitrogenDioxide", 3), null,
-				ItemCells.getCellByName("nitrogen", 1), ItemCells.getCellByName("empty", 5), null,
-				ItemCells.getCellByName("empty"), 160, 60));
 
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(ItemCells.getCellByName("sodiumSulfide", 2), null,
 				ItemCells.getCellByName("sodium", 1), ItemDusts.getDustByName("sulfur", 1), null,

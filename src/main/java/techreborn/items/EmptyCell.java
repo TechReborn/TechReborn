@@ -10,6 +10,7 @@ public class EmptyCell extends ItemTextureBase {
 
     public EmptyCell()
     {
+        super();
         setUnlocalizedName("techreborn.cell");
         setCreativeTab(TechRebornCreativeTab.instance);
     }
@@ -20,6 +21,6 @@ public class EmptyCell extends ItemTextureBase {
 
     @Override
     public int getMaxMeta() {
-        return 0;
+        return 1;
     }
 }
