@@ -20,7 +20,9 @@ import net.minecraftforge.fml.common.registry.GameData;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import reborncore.api.fuel.FluidPowerManager;
 import reborncore.api.recipe.RecipeHandler;
+import techreborn.Core;
 import techreborn.dev.JsonGenerator;
+import techreborn.init.RecipeCompact;
 
 public class TechRebornDevCommand extends CommandBase
 {
@@ -98,12 +100,18 @@ public class TechRebornDevCommand extends CommandBase
 			} else {
 				((EntityPlayer) sender).addChatComponentMessage(new TextComponentString("hold an item!"));
 			}
-		} else if ("gen".equals(args[0])) { //TODO DO NOT SHIP!!!
+		} else if ("gen".equals(args[0])) {
 			try {
 				new JsonGenerator().generate();
 			} catch (IOException e) {
 				e.printStackTrace();
 				sender.addChatMessage(new TextComponentString(e.getLocalizedMessage()));
+			}
+		} else if ("missing".equals(args[0])) {
+			try {
+				Core.recipeCompact.saveMissingItems(Core.configDir);
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		}
 	}

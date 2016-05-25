@@ -63,8 +63,8 @@ public class Core
 	public static Core INSTANCE;
 	public static LogHelper logHelper = new LogHelper(new ModInfo());
 	public static TechRebornWorldGen worldGen;
-	private static RecipeCompact recipeCompact;
-	private static File configDir;
+	public static RecipeCompact recipeCompact;
+	public static File configDir;
 	public VersionChecker versionChecker;
 
 	@Mod.EventHandler
