@@ -1,5 +1,8 @@
 package techreborn.init;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -32,6 +35,10 @@ import techreborn.utils.RecipeUtils;
 import techreborn.utils.StackWIPHandler;
 
 import java.security.InvalidParameterException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class ModRecipes
 {
@@ -256,12 +263,33 @@ public class ModRecipes
 			RecipeHandler.addRecipe(new ScrapboxRecipe(ScrapboxList.stacks.get(i)));
 		}
 
-		// just for jei
-		// TODO find a way to get all ItemStacks in mc
-		for (int i = 0; i < ScrapboxList.stacks.size(); i++)
-		{
-			RecipeHandler.addRecipe(new RecyclerRecipe(ScrapboxList.stacks.get(i)));
+		boolean showAllItems = false;
+
+		if(showAllItems){
+			//This is bad, laggy and slow
+			List<Item> items = Lists.newArrayList(Iterables.filter(Item.REGISTRY, item -> item.getRegistryName() != null));
+			Collections.sort(items, (i1, i2) -> i1.getRegistryName().toString().compareTo(i2.getRegistryName().toString()));
+
+			for (Item item : items) {
+				List<ItemStack> stacks = new ArrayList<>();
+				if(item.getHasSubtypes()){
+					for (int i = 0; i < item.getMaxDamage(); i++) {
+						stacks.add(new ItemStack(item, 1, i));
+					}
+				} else {
+					stacks.add(new ItemStack(item, 1, 0));
+				}
+				for(ItemStack stack : stacks){
+					RecipeHandler.addRecipe(new RecyclerRecipe(stack));
+				}
+			}
+		} else {
+			for (int i = 0; i < ScrapboxList.stacks.size(); i++) {
+				RecipeHandler.addRecipe(new RecyclerRecipe(ScrapboxList.stacks.get(i)));
+			}
 		}
+
+
 	}
 
 	static void registerMetadataItem(ItemStack item)
