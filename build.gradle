@@ -211,7 +211,7 @@ uploadArchives {
 
 task wrapper(type: Wrapper) {
     //To update the wrapper change the version bellow then run: gradle wrapper
-    gradleVersion = '2.9'
+    gradleVersion = '2.13'
 }
 
 //Thanks Matthew from #ForgeGradle https://gist.github.com/matthewprenger/108265e3efc83181bd2cc2d2fc31a853
