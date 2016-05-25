@@ -426,7 +426,7 @@ public class ModRecipes
 	static void addReactorRecipes()
 	{
 		FusionReactorRecipeHelper.registerRecipe(
-				new FusionReactorRecipe(ItemCells.getCellByName("tritium"), ItemCells.getCellByName("deuterium"),
+				new FusionReactorRecipe(ItemCells.getCellByName("helium3"), ItemCells.getCellByName("deuterium"),
 						ItemCells.getCellByName("helium"), 40000000, 32768, 1024));
 		FusionReactorRecipeHelper.registerRecipe(
 				new FusionReactorRecipe(ItemCells.getCellByName("tritium"), ItemCells.getCellByName("deuterium"),
@@ -434,6 +434,9 @@ public class ModRecipes
 		FusionReactorRecipeHelper.registerRecipe(
 				new FusionReactorRecipe(ItemCells.getCellByName("wolframium"), ItemCells.getCellByName("Berylium"),
 						ItemDusts.getDustByName("platinum"), 80000000, -2048, 1024));
+		FusionReactorRecipeHelper.registerRecipe(
+				new FusionReactorRecipe(ItemCells.getCellByName("wolframium"), ItemCells.getCellByName("lithium"),
+						BlockOre.getOreByName("iridium"), 90000000, -2048, 1024));
 	}
 
 	static void addGeneralShapedRecipes()
