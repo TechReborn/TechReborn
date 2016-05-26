@@ -163,7 +163,7 @@ uploadToModsIO {
 	tag = "alpha"
 	apiKey = project.getProperty('modsioTRKey')
 	artifact = jar.archivePath
-	current = false;
+	current = true;
 }
 
 uploadArchives {
