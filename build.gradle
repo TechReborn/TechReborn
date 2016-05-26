@@ -9,15 +9,21 @@ buildscript {
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
+		maven {
+            name = "Modmuss50"
+            url = "http://maven.modmuss50.me/"
+        }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+		classpath 'ModsIOUpload:ModsIOUpload:+'
     }
 }
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
+apply plugin: 'modsio'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -148,6 +154,17 @@ artifacts {
 }
 
 build.dependsOn deobfJar, apiJar
+
+
+uploadToModsIO {
+	modId = "1182"
+	minecraft = "1.9.4"
+	changelog = "See github"
+	tag = "alpha"
+	apiKey = project.getProperty('modsioTRKey')
+	artifact = jar.archivePath
+	current = false;
+}
 
 uploadArchives {
     repositories {
