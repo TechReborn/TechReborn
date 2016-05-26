@@ -159,7 +159,7 @@ build.dependsOn deobfJar, apiJar
 uploadToModsIO {
 	modId = "1182"
 	minecraft = "1.9.4"
-	changelog = "See github"
+	changelog = "See github at : https://github.com/TechReborn/TechReborn"
 	tag = "alpha"
 	apiKey = project.getProperty('modsioTRKey')
 	artifact = jar.archivePath
