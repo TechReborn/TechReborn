@@ -157,7 +157,7 @@ build.dependsOn deobfJar, apiJar
 
 
 uploadToModsIO {
-	modId = "1182"
+	modid = "1182"
 	minecraft = "1.9.4"
 	changelog = "See github at : https://github.com/TechReborn/TechReborn"
 	tag = "alpha"
