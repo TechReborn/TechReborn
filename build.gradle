@@ -23,7 +23,7 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
-apply plugin: 'modsio'
+apply plugin: 'net.cazzar.gradle.modsio'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
