@@ -24,6 +24,7 @@ public class DynamicCell extends UniversalBucket{
         super(1000, new ItemStack(ModItems.emptyCell), false);
         setCreativeTab(TechRebornCreativeTab.instance);
         setUnlocalizedName("techreborn.cellFilled");
+        setMaxStackSize(16);
     }
 
     @Override
