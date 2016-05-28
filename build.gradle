@@ -157,7 +157,11 @@ build.dependsOn deobfJar, apiJar
 
 
 modsIO {
-        key = project.getProperty('modsioTRKey')
+		if (project.hasProperty('mavenPass'))
+        {
+		key = project.getProperty('modsioTRKey')
+		}
+        
 
         project {
             artifact = jar.archivePath
