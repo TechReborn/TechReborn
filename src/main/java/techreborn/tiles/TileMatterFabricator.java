@@ -16,7 +16,7 @@ import techreborn.items.ItemParts;
 public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchable,IInventoryProvider
 {
 
-	public static int fabricationRate = 2666656;
+	public static int fabricationRate = 10000;
 	public int tickTime;
 	public Inventory inventory = new Inventory(7, "TileMatterFabricator", 64, this);
 	public int progresstime = 0;
@@ -99,7 +99,7 @@ public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchab
 			for (int i = 0; i < 6; i++)
 			{
 				ItemStack stack = inventory.getStackInSlot(i);
-				if (this.amplifier < 100000 && stack != null)
+				if (this.amplifier < 10000 && stack != null)
 				{
 					int amp = (int) ((long) (getValue(stack) / 32));
 					if (ItemUtils.isItemEqual(stack, inventory.getStackInSlot(i), true, true))
