@@ -117,7 +117,7 @@ public class ItemCloakingDevice extends ItemTextureBase implements IEnergyItemIn
 	@Override
 	public String getTextureName(int damage)
 	{
-		return "techreborn:items/techreborn.cloakingdevice";
+		return "techreborn:items/tool/cloakingDevice";
 	}
 
 	@Override

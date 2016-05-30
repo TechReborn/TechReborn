@@ -120,7 +120,7 @@ public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo, ITex
 	@Override
 	public String getTextureName(int damage)
 	{
-		return "techreborn:items/tool/lapotronicEnergyOrb";
+		return "techreborn:items/tool/lapotronicPack";
 	}
 
 	@Override

@@ -565,6 +565,7 @@ item.techreborn.plate.zinc.name=Zinc Plate
 item.techreborn.plate.refinedIron.name=Refined Iron Plate
 item.techreborn.plate.wood.name=Wooden Plate
 item.techreborn.plate.advancedAlloy.name=Advanced Alloy
+item.techreborn.plate.lazurite.name=Lazurite Plate
 
 #Parts
 item.techreborn.part.advancedCircuitParts.name=Advanced Circuit Parts
@@ -591,7 +592,6 @@ item.techreborn.part.steelGear.name=Steel Gear
 item.techreborn.part.tungstensteelGear.name=Tungstensteel Gear
 item.techreborn.part.laserFocus.name=Laser Focus
 item.techreborn.part.ductTape.name=Aerospace Advanced Reinforced Duct Tape FAL-84
-item.techreborn.part.lazuriteChunk.name=Lazurite Chunk
 item.techreborn.part.iridiumAlloyIngot.name=Iridium Alloy Ingot
 item.techreborn.part.rockCutterBlade.name=Rock Cutter Blade
 item.techreborn.part.superConductor.name=Superconductor

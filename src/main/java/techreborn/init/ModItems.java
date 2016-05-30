@@ -543,6 +543,7 @@ public class ModItems
 		OreUnifier.registerOre("plateTungstensteel", ItemPlates.getPlateByName("tungstensteel"));
 		OreUnifier.registerOre("plateYellowGarnet", ItemPlates.getPlateByName("yellowGarnet"));
 		OreUnifier.registerOre("plateZinc", ItemPlates.getPlateByName("zinc"));
+		OreUnifier.registerOre("blockLapis", ItemPlates.getPlateByName("lazurite"));
 
 		OreUnifier.registerOre("diamondTR", ItemDusts.getDustByName("Diamond"));
 		OreUnifier.registerOre("diamondTR", Items.DIAMOND);
@@ -553,7 +554,6 @@ public class ModItems
 		OreUnifier.registerOre("circuitData", ItemParts.getPartByName("dataStorageCircuit"));
 		OreUnifier.registerOre("craftingSuperconductor", ItemParts.getPartByName("superconductor"));
 		OreUnifier.registerOre("batteryUltimate", ItemParts.getPartByName("diamondGrindingHead"));
-		OreUnifier.registerOre("blockLapis", ItemParts.getPartByName("lazuriteChunk"));
 
 		OreUnifier.registerOre("containerWater", ItemCells.getCellByName("water"));
 		OreUnifier.registerOre("containerWater", Items.WATER_BUCKET);
