@@ -41,12 +41,10 @@ import java.util.List;
 public class ModRecipes
 {
 	public static ConfigTechReborn config;
-	public static ItemStack hammerStack = new ItemStack(ModItems.hammer, 1, OreDictionary.WILDCARD_VALUE);
 	public static ItemStack batteryStack = new ItemStack(ModItems.reBattery, 1, OreDictionary.WILDCARD_VALUE);
 	public static ItemStack crystalStack = new ItemStack(ModItems.energyCrystal, 1, OreDictionary.WILDCARD_VALUE);
 	public static ItemStack lapcrystalStack = new ItemStack(ModItems.lapotronCrystal, 1, OreDictionary.WILDCARD_VALUE);
 	public static ItemStack dyes = new ItemStack(Items.DYE, 1, OreDictionary.WILDCARD_VALUE);
-	public static Item hammer = ModItems.hammer;
 
 	public static Item ironDrill = TechRebornAPI.recipeCompact.getItem("miningDrill").getItem();
 	public static ItemStack ironDrillStack = new ItemStack(ironDrill, 1, OreDictionary.WILDCARD_VALUE);

@@ -60,7 +60,6 @@ public class ModItems
 	public static Item advancedJackhammer;
 
 	public static Item nanosaber;
-	public static Item hammer;
 	public static Item wrench;
 	public static Item lapotronCrystal;
 	public static Item energyCrystal;
@@ -266,9 +265,6 @@ public class ModItems
 		registerItem(peridotLeggings, "peridotLeggings");
 		peridotBoots = new ItemTRArmour(Reference.PERIDOT_ARMOUR, EntityEquipmentSlot.FEET);
 		registerItem(peridotBoots, "peridotBoots");
-		
-		hammer = new ItemHammer(100);
-		registerItem(hammer, "hammer");
 
 		wrench = new ItemWrench();
 		registerItem(wrench, "wrench");
