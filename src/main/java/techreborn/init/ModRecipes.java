@@ -494,13 +494,6 @@ public class
     }
 
     static void addPlateCuttingMachineRecipes() {
-
-        for(String ore : OreUtil.oreNames){
-            if(OreUtil.hasBlock(ore) && OreUtil.hasPlate(ore)){
-                RecipeHandler.addRecipe(new PlateCuttingMachineRecipe(OreUtil.getStackFromName("block" + capitalizeFirstLetter(ore)), OreUtil.getStackFromName("plate" + capitalizeFirstLetter(ore), 9), 200, 16));
-            }
-        }
-
         //Obsidian
         RecipeHandler.addRecipe(new PlateCuttingMachineRecipe(new ItemStack(Blocks.obsidian), ItemPlates.getPlateByName("obsidian", 9), 100, 4));
     }
