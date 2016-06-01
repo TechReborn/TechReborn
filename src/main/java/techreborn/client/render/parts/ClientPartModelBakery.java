@@ -1,6 +1,7 @@
 package techreborn.client.render.parts;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -11,11 +12,15 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import techreborn.parts.fluidPipes.EnumFluidPipeTypes;
 import techreborn.parts.powerCables.EnumCableType;
 
+import java.util.HashMap;
+
 /**
  * Created by modmuss50 on 04/03/2016.
  */
 public class ClientPartModelBakery
 {
+
+	public static HashMap<EnumCableType, TextureAtlasSprite> textureMap =  new HashMap<>();
 
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent(priority = EventPriority.LOWEST)
@@ -25,7 +30,7 @@ public class ClientPartModelBakery
 		{
 			event.getModelRegistry().putObject(
 					new ModelResourceLocation("techreborn:cable#type=" + type.getName().toLowerCase()),
-					new RenderCablePart(type));
+					new RenderCablePart());
 		}
 		for(EnumFluidPipeTypes type : EnumFluidPipeTypes.values()){
 			event.getModelRegistry().putObject(
@@ -41,6 +46,7 @@ public class ClientPartModelBakery
 		for (EnumCableType type : EnumCableType.values())
 		{
 			event.getMap().registerSprite(new ResourceLocation(type.textureName));
+
 		}
 		for(EnumFluidPipeTypes type : EnumFluidPipeTypes.values()){
 			event.getMap().registerSprite(new ResourceLocation(type.textureName));

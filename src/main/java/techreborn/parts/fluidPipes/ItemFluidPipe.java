@@ -1,7 +1,7 @@
 package techreborn.parts.fluidPipes;
 
-import mcmultipart.item.ItemMultiPart;
-import mcmultipart.multipart.IMultipart;
+import reborncore.mcmultipart.item.ItemMultiPart;
+import reborncore.mcmultipart.multipart.IMultipart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;

@@ -1,6 +1,6 @@
 package techreborn.parts.walia;
 
-import mcmultipart.block.TileMultipartContainer;
+import reborncore.mcmultipart.block.TileMultipartContainer;
 import mcp.mobius.waila.api.IWailaRegistrar;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInterModComms;

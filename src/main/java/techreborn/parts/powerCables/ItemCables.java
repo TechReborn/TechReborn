@@ -2,8 +2,8 @@ package techreborn.parts.powerCables;
 
 import java.util.List;
 
-import mcmultipart.item.ItemMultiPart;
-import mcmultipart.multipart.IMultipart;
+import reborncore.mcmultipart.item.ItemMultiPart;
+import reborncore.mcmultipart.multipart.IMultipart;
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;

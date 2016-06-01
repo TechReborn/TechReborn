@@ -3,9 +3,9 @@ package techreborn.parts.walia;
 import java.util.ArrayList;
 import java.util.List;
 
-import mcmultipart.block.TileMultipartContainer;
-import mcmultipart.raytrace.PartMOP;
-import mcmultipart.raytrace.RayTraceUtils;
+import reborncore.mcmultipart.block.TileMultipartContainer;
+import reborncore.mcmultipart.raytrace.PartMOP;
+import reborncore.mcmultipart.raytrace.RayTraceUtils;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;

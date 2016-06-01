@@ -1,9 +1,9 @@
 package techreborn.parts.fluidPipes;
 
-import mcmultipart.MCMultiPartMod;
-import mcmultipart.microblock.IMicroblock;
-import mcmultipart.multipart.*;
-import mcmultipart.raytrace.PartMOP;
+import reborncore.mcmultipart.MCMultiPartMod;
+import reborncore.mcmultipart.microblock.IMicroblock;
+import reborncore.mcmultipart.multipart.*;
+import reborncore.mcmultipart.raytrace.PartMOP;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;

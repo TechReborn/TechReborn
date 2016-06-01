@@ -4,16 +4,14 @@ import java.util.HashMap;
 
 import javax.annotation.Nullable;
 
-import mcmultipart.multipart.MultipartRegistry;
+import reborncore.mcmultipart.multipart.MultipartRegistry;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import reborncore.common.packets.AddDiscriminatorEvent;
 import techreborn.compat.ICompatModule;
 import techreborn.parts.fluidPipes.*;
 import techreborn.parts.powerCables.CableMultipart;

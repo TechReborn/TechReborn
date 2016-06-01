@@ -39,10 +39,10 @@ public class CompatManager
 			isGregTechLoaded = true;
 		}
 		//registerCompact(MinetweakerCompat.class, "MineTweaker3");
-		registerCompact(TechRebornParts.class, "mcmultipart");
-		registerCompact(ClientPartLoader.class, "mcmultipart", "@client");
-		registerCompact(StandalonePartCompact.class, "!mcmultipart");
-		registerCompact(WailaMcMultiPartCompact.class, "mcmultipart", "Waila", "!IC2");
+		registerCompact(TechRebornParts.class, "reborncore-mcmultipart");
+		registerCompact(ClientPartLoader.class, "reborncore-mcmultipart", "@client");
+		registerCompact(StandalonePartCompact.class, "!reborncore-mcmultipart");
+		registerCompact(WailaMcMultiPartCompact.class, "reborncore-mcmultipart", "Waila", "!IC2");
 		registerCompact(CompatModuleWaila.class, "Waila");
 		//registerCompact(CompatModuleTinkers.class, "tconstruct");
 		//registerCompact(CompatModulePsi.class, "Psi");

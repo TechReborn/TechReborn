@@ -19,19 +19,19 @@ import java.util.List;
 public class RenderCablePart implements IBakedModel
 {
 
-	EnumCableType type;
 	private FaceBakery faceBakery = new FaceBakery();
-	private TextureAtlasSprite texture;
-
-	public RenderCablePart(EnumCableType type)
-	{
-		texture = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(type.textureName);
-		this.type = type;
-	}
 
 	@Override
 	public List<BakedQuad> getQuads(IBlockState blockState, EnumFacing side, long rand)
 	{
+		TextureAtlasSprite texture;
+		EnumCableType type =  blockState.getValue(CableMultipart.TYPE);
+		if(ClientPartModelBakery.textureMap.containsKey(type)){
+			texture = ClientPartModelBakery.textureMap.get(type);
+		} else {
+			texture = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(type.textureName);
+			ClientPartModelBakery.textureMap.put(type, texture);
+		}
 		ArrayList<BakedQuad> list = new ArrayList<>();
 		BlockFaceUV uv = new BlockFaceUV(new float[] { 0.0F, 0.0F, 16.0F, 16.0F }, 0);
 		BlockPartFace face = new BlockPartFace(null, 0, "", uv);
@@ -101,7 +101,10 @@ public class RenderCablePart implements IBakedModel
 	@Override
 	public TextureAtlasSprite getParticleTexture()
 	{
-		return texture;
+		if(ClientPartModelBakery.textureMap.containsKey(EnumCableType.COPPER)){
+			return ClientPartModelBakery.textureMap.get(EnumCableType.COPPER);
+		}
+		return Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite();
 	}
 
 	@Override
