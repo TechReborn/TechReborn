@@ -29,7 +29,7 @@ public class ItemBlockRubberSapling extends ItemBlock implements ITexturedItem
 	@Override
 	public String getTextureName(int damage)
 	{
-		return "techreborn:items/rubber_sapling";
+		return "techreborn:items/misc/rubber_sapling";
 	}
 
 	@Override

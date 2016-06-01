@@ -19,7 +19,7 @@ public class ItemParts extends ItemTextureBase
 	public static final String[] types = new String[] { "energyFlowCircuit", "dataControlCircuit", "dataStorageCircuit",
 			"dataOrb", "diamondGrindingHead", "diamondSawBlade", "tungstenGrindingHead", "heliumCoolantSimple",
 			"heliumCoolantTriple", "heliumCoolantSix", "NaKCoolantSimple", "NaKCoolantTriple", "NaKCoolantSix",
-			"cupronickelHeatingCoil", "nichromeHeatingCoil", "kanthalHeatingCoil", "lazuriteChunk", "superConductor",
+			"cupronickelHeatingCoil", "nichromeHeatingCoil", "kanthalHeatingCoil", ModItems.META_PLACEHOLDER, "superConductor",
 			"thoriumCell", "doubleThoriumCell", "quadThoriumCell", "plutoniumCell", "doublePlutoniumCell",
 			"quadPlutoniumCell", "computerMonitor", "machineParts", "neutronReflector", "iridiumNeutronReflector",
 			"thickNeutronReflector", "electronicCircuit", "advancedCircuit", "rubberSap", "rubber", "scrap",

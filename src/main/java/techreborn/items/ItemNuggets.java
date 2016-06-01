@@ -15,8 +15,8 @@ public class ItemNuggets extends ItemTextureBase
 
 	public static final String[] types = new String[] { "aluminum", "brass", "bronze", "chrome", "copper", "electrum",
 			"invar", "iridium", "lead", "nickel", "platinum", "silver", "steel", "tin", "titanium", "tungsten",
-			"hotTungstensteel", "tungstensteel", "zinc", "refinedIron", "advancedAlloy", "mixedMetal",
-			"iridiumAlloy", "iron", "diamond" };
+			"hotTungstensteel", "tungstensteel", "zinc", "refinedIron", ModItems.META_PLACEHOLDER, ModItems.META_PLACEHOLDER,
+			ModItems.META_PLACEHOLDER, "iron", "diamond" };
 
 	public ItemNuggets()
 	{
@@ -60,7 +60,9 @@ public class ItemNuggets extends ItemTextureBase
 	{
 		for (int meta = 0; meta < types.length; ++meta)
 		{
-			list.add(new ItemStack(item, 1, meta));
+			if(!types[meta].equals(ModItems.META_PLACEHOLDER)){
+				list.add(new ItemStack(item, 1, meta));
+			}
 		}
 	}
 

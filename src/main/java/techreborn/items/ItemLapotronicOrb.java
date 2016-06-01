@@ -54,7 +54,7 @@ public class ItemLapotronicOrb extends ItemTextureBase implements IEnergyItemInf
 	@Override
 	public String getTextureName(int damage)
 	{
-		return "techreborn:items/lapotronicEnergyOrb";
+		return "techreborn:items/tool/lapotronicEnergyOrb";
 	}
 
 	@Override

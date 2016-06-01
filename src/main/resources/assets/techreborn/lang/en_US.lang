@@ -481,9 +481,6 @@ item.techreborn.nuggets.tungstensteel.name=Tungstensteel Nugget
 item.techreborn.nuggets.hotTungstensteel.name=Hot Tungstensteeel Nugget
 item.techreborn.nuggets.zinc.name=Zinc Nugget
 item.techreborn.nuggets.refinedIron.name=Refined Iron Nugget
-item.techreborn.nuggets.advancedAlloy.name=Advanced Alloy Nugget
-item.techreborn.nuggets.iridiumAlloy.name=Iridium Alloy Nugget
-item.techreborn.nuggets.mixedMetal.name=Mixed Metal Nugget
 item.techreborn.nuggets.diamond.name=Diamond Nugget
 
 #Crushed Ore
@@ -565,6 +562,7 @@ item.techreborn.plate.zinc.name=Zinc Plate
 item.techreborn.plate.refinedIron.name=Refined Iron Plate
 item.techreborn.plate.wood.name=Wooden Plate
 item.techreborn.plate.advancedAlloy.name=Advanced Alloy
+item.techreborn.plate.lazurite.name=Lazurite Plate
 
 #Parts
 item.techreborn.part.advancedCircuitParts.name=Advanced Circuit Parts
@@ -591,7 +589,6 @@ item.techreborn.part.steelGear.name=Steel Gear
 item.techreborn.part.tungstensteelGear.name=Tungstensteel Gear
 item.techreborn.part.laserFocus.name=Laser Focus
 item.techreborn.part.ductTape.name=Aerospace Advanced Reinforced Duct Tape FAL-84
-item.techreborn.part.lazuriteChunk.name=Lazurite Chunk
 item.techreborn.part.iridiumAlloyIngot.name=Iridium Alloy Ingot
 item.techreborn.part.rockCutterBlade.name=Rock Cutter Blade
 item.techreborn.part.superConductor.name=Superconductor
@@ -635,7 +632,6 @@ item.techreborn.diamondChainsaw.name=Diamond Chainsaw
 item.techreborn.advancedChainsaw.name=Advanced Chainsaw
 item.techreborn.lapotronicorb.name=Lapotronic Energy Orb
 item.techreborn.cloakingdevice.name=Cloaking Device
-item.techreborn.hammer.name=Iron Hammer
 item.techreborn.steelJackhammer.name=Steel Jackhammer
 item.techreborn.diamondJackhammer.name=Diamond Jackhammer
 item.techreborn.advancedJackhammer.name=Advanced Jackhammer
