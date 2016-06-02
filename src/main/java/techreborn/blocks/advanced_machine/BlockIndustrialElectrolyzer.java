@@ -14,7 +14,7 @@ import techreborn.tiles.TileIndustrialElectrolyzer;
 public class BlockIndustrialElectrolyzer extends BlockMachineBase implements IRotationTexture
 {
 
-	private final String prefix = "techreborn:blocks/machine/advanced_machines/";
+	private final String prefix = "techreborn:blocks/machine/greg_machines/";
 
 	public BlockIndustrialElectrolyzer(Material material)
 	{
