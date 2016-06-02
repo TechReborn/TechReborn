@@ -67,7 +67,9 @@ public class ItemParts extends ItemTextureBase
 	{
 		for (int meta = 0; meta < types.length; ++meta)
 		{
-			list.add(new ItemStack(item, 1, meta));
+			if(!types[meta].equals(ModItems.META_PLACEHOLDER)){
+				list.add(new ItemStack(item, 1, meta));
+			}
 		}
 	}
 
