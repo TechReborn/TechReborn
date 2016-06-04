@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import reborncore.common.recipes.RecipeCrafter;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
@@ -92,9 +93,9 @@ public class ItemUpgrades extends ItemTextureBase implements IMachineUpgrade, IT
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{
-		tooltip.add(TextFormatting.RED + "WIP Coming Soon");
-		tooltip.add(TextFormatting.RED + "Upgrades DO NOT function!");
-		tooltip.add(TextFormatting.RED + "Currently only a crafting ingredient");
+		tooltip.add(TextFormatting.RED + I18n.translateToLocal("tooltip.wip"));
+		tooltip.add(TextFormatting.RED + I18n.translateToLocal("tooltip.upBroken"));
+		tooltip.add(TextFormatting.RED + I18n.translateToLocal("tooltip.ingredient"));
 	}
 	
 	@Override

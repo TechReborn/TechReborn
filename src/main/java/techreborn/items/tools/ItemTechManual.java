@@ -9,6 +9,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.client.GuiHandler;
@@ -49,6 +50,6 @@ public class ItemTechManual extends ItemTextureBase implements ITexturedItem
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) 
 	{
-		tooltip.add(TextFormatting.RED + "WIP Coming Soon");
+		tooltip.add(TextFormatting.RED + I18n.translateToLocal("tooltip.wip"));
 	}
 }
