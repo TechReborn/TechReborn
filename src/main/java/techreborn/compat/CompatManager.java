@@ -1,5 +1,6 @@
 package techreborn.compat;
 
+import ic2.api.info.Info;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
@@ -19,27 +20,11 @@ public class CompatManager
 
 	public static CompatManager INSTANCE = new CompatManager();
 	public static boolean isIC2Loaded = false;
-	public static boolean isIC2ClassicLoaded = false;
-	public static boolean isClassicEnet = false;
-	public static boolean isGregTechLoaded = false;
 	public ArrayList<ICompatModule> compatModules = new ArrayList<>();
 
 	public CompatManager()
 	{
 		isIC2Loaded = Loader.isModLoaded("IC2");
-		isIC2ClassicLoaded = false;
-		if (isIC2ClassicLoaded)
-		{
-			isClassicEnet = true;
-		}
-		if (Loader.isModLoaded("Uncomplication"))
-		{
-			isClassicEnet = true;
-		}
-		if (Loader.isModLoaded("gregtech"))
-		{
-			isGregTechLoaded = true;
-		}
 		//registerCompact(MinetweakerCompat.class, "MineTweaker3");
 		registerCompact(TechRebornParts.class, "reborncore-mcmultipart");
 		registerCompact(ClientPartLoader.class, "reborncore-mcmultipart", "@client");

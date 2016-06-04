@@ -1,14 +1,18 @@
 package techreborn.init;
 
+import ic2.api.item.IC2Items;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fml.common.Loader;
 import techreborn.api.recipe.IRecipeCompact;
 import techreborn.blocks.BlockMachineFrame;
+import techreborn.compat.CompatManager;
 import techreborn.items.*;
 import techreborn.parts.powerCables.ItemStandaloneCables;
 
+import javax.annotation.Nullable;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -22,6 +26,8 @@ public class RecipeCompact implements IRecipeCompact
 	HashMap<String, ItemStack> recipes = new HashMap<>();
 
 	ArrayList<String> missingItems = new ArrayList<>();
+
+	HashMap<String, Ic2ItemLookup> lookupHashMap = new HashMap<>();
 
 	boolean inited = false;
 
@@ -68,6 +74,30 @@ public class RecipeCompact implements IRecipeCompact
 		recipes.put("compressor", new ItemStack(ModBlocks.Compressor));
 		recipes.put("insulatedGoldCableItem", ItemStandaloneCables.getCableByName("insulatedgold"));
 		recipes.put("fertilizer", new ItemStack(Items.DYE));
+
+
+		lookupHashMap.put("miningDrill", new Ic2ItemLookup("drill"));
+		lookupHashMap.put("reBattery", new Ic2ItemLookup("re_battery"));
+		lookupHashMap.put("electronicCircuit", new Ic2ItemLookup("crafting", "circuit"));
+		lookupHashMap.put("advancedCircuit", new Ic2ItemLookup("crafting", "advanced_circuit"));
+		lookupHashMap.put("lapotronCrystal", new Ic2ItemLookup("lapotron_crystal"));
+		lookupHashMap.put("lapotronCrystal", new Ic2ItemLookup("lapotron_crystal"));
+		lookupHashMap.put("iridiumPlate", new Ic2ItemLookup(ItemPlates.getPlateByName("iridium")));
+		lookupHashMap.put("advancedMachine", new Ic2ItemLookup("resource", "advanced_machine"));
+		lookupHashMap.put("windMill", new Ic2ItemLookup("te", "wind_generator"));
+		lookupHashMap.put("reinforcedGlass", new Ic2ItemLookup("glass", "reinforced"));
+		lookupHashMap.put("extractor", new Ic2ItemLookup("te", "extractor"));
+		lookupHashMap.put("machine", new Ic2ItemLookup("resource", "machine"));
+		lookupHashMap.put("hvTransformer", new Ic2ItemLookup("te", "hv_transformer"));
+		lookupHashMap.put("generator", new Ic2ItemLookup("te", "generator"));
+		lookupHashMap.put("rubberWood", new Ic2ItemLookup("rubber_wood"));
+		lookupHashMap.put("industrialTnt", new Ic2ItemLookup("te", "itnt"));
+		lookupHashMap.put("industrialDiamond", new Ic2ItemLookup("crafting", "industrial_diamond"));
+		lookupHashMap.put("macerator", new Ic2ItemLookup("te", "macerator"));
+		lookupHashMap.put("diamondDrill", new Ic2ItemLookup("diamond_drill"));
+		lookupHashMap.put("solarPanel", new Ic2ItemLookup("te", "solar_generator"));
+		lookupHashMap.put("insulatedGoldCableItem", new Ic2ItemLookup("cable", "type:gold,insulation:1"));
+
 		inited = false;
 	}
 
@@ -77,6 +107,26 @@ public class RecipeCompact implements IRecipeCompact
 		if (!inited)
 		{
 			init();
+		}
+		if(Loader.isModLoaded("IC2")){
+			ItemStack stack = IC2Items.getItem(name);
+			if(stack == null){
+				if(lookupHashMap.containsKey(name)){
+					Ic2ItemLookup lookup = lookupHashMap.get(name);
+					if(lookup.getStack() != null){
+						return lookup.getStack();
+					}
+					return IC2Items.getItem(lookup.getName(), lookup.getVariant());
+				} else {
+					String line = "IC2:" + name;
+					if (!missingItems.contains(line))
+					{
+						missingItems.add(line);
+					}
+				}
+			} else {
+				return stack;
+			}
 		}
 		if (!recipes.containsKey(name))
 		{
@@ -105,6 +155,41 @@ public class RecipeCompact implements IRecipeCompact
 			writer.newLine();
 		}
 		writer.close();
+	}
+
+	class Ic2ItemLookup {
+		@Nullable
+		String name;
+		@Nullable
+		String variant;
+		@Nullable
+		ItemStack stack;
+
+		public Ic2ItemLookup(String name, String variant) {
+			this.name = name;
+			this.variant = variant;
+		}
+
+		public Ic2ItemLookup(String name) {
+			this.name = name;
+		}
+
+		public Ic2ItemLookup(ItemStack stack) {
+			this.stack = stack;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public String getVariant() {
+			return variant;
+		}
+
+		@Nullable
+		public ItemStack getStack() {
+			return stack;
+		}
 	}
 
 }
