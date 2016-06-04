@@ -49,6 +49,9 @@ repositories {
     maven {
         url 'http://maven.epoxide.xyz'
     }
+    maven {
+        url "http://maven.tterrag.com/"
+    }
 }
 
 configurations {
@@ -94,6 +97,7 @@ dependencies {
     compile "net.darkhax.tesla:Tesla:1.9.4-1.1.0.24:deobf"
 	deobfCompile "slimeknights.mantle:Mantle:1.9.4-0.10.1.jenkins142"
 	deobfCompile "slimeknights:TConstruct:1.9.4-2.3.1.jenkins229"
+    deobfCompile "mcjty.theoneprobe:TheOneProbe:1.9.4-1.0.4-14"
 }
 
 
