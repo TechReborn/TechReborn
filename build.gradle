@@ -65,8 +65,8 @@ if (ENV.BUILD_NUMBER) {
 }
 
 minecraft {
-    version = "1.9.4-12.17.0.1921-1.9.4"
-    mappings = "snapshot_20160518"
+    version = "1.9.4-12.17.0.1950"
+    mappings = "snapshot_20160604"
     replace "@MODVERSION@", project.version
   //  makeObfSourceJar = false
     useDepAts = true
@@ -92,8 +92,8 @@ dependencies {
     compile 'RebornCore:RebornCore-1.9.4:+:dev'
     deobfCompile "mezz.jei:jei_1.9.4:+"
     compile "net.darkhax.tesla:Tesla:1.9.4-1.1.0.24:deobf"
-	//deobfCompile "slimeknights.mantle:Mantle:1.9-0.10.0.jenkins132"
-	//deobfCompile "slimeknights:TConstruct:1.9-2.3.0.jenkins193"
+	deobfCompile "slimeknights.mantle:Mantle:1.9.4-0.10.1.jenkins142"
+	deobfCompile "slimeknights:TConstruct:1.9.4-2.3.1.jenkins229"
 }
 
 

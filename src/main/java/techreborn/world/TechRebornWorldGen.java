@@ -241,7 +241,7 @@ public class TechRebornWorldGen implements IWorldGenerator
 		{
 			int chance = config.rubberTreeConfig.chance;
 			boolean isValidSpawn = false;
-			Biome biomeGenBase = world.getBiomeGenForCoords(new BlockPos(chunkX * 16, 72, chunkZ * 16));
+			Biome biomeGenBase = world.getBiomeForCoordsBody(new BlockPos(chunkX * 16, 72, chunkZ * 16));
 			if (BiomeDictionary.isBiomeOfType(biomeGenBase, BiomeDictionary.Type.SWAMP))
 			{
 				// TODO check the config file for bounds on this, might cause
