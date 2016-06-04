@@ -24,6 +24,7 @@ public class CompactTheOneProbe implements ICompatModule {
     @Override
     public void postInit(FMLPostInitializationEvent event) {
         TheOneProbe.theOneProbeImp.registerProvider(new ProbeProvider());
+        TheOneProbe.theOneProbeImp.registerProbeConfigProvider(new ProbeConfig());
     }
 
     @Override
