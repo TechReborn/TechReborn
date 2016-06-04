@@ -5,7 +5,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.common.tile.TileMachineBase;
@@ -199,6 +198,7 @@ public class ModBlocks
 		centrifuge = new BlockCentrifuge();
 		registerBlock(centrifuge, "techreborn.centrifuge");
 		GameRegistry.registerTileEntity(TileCentrifuge.class, "TileCentrifugeTR");
+		Core.proxy.registerCustomBlockSateLocation(centrifuge, "machines/centrifuge");
 
 		RollingMachine = new BlockRollingMachine(Material.ROCK);
 		registerBlock(RollingMachine, "rollingmachine");
