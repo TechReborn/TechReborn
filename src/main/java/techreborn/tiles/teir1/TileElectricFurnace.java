@@ -21,7 +21,7 @@ public class TileElectricFurnace extends TilePowerAcceptor implements IWrenchabl
 	public int capacity = 1000;
 	public int progress;
 	public int fuelScale = 100;
-	public int cost = 10;
+	public int cost = 8;
 	int input1 = 0;
 	int output = 1;
 	private static final int[] SLOTS_TOP = new int[] {0};
@@ -43,18 +43,14 @@ public class TileElectricFurnace extends TilePowerAcceptor implements IWrenchabl
 	{
 		boolean burning = isBurning();
 		boolean updateInventory = false;
-		if (getEnergy() <= cost && canSmelt())
-		{
-			if (getEnergy() > cost)
-			{
-				updateInventory = true;
-			}
-		}
 		if (isBurning() && canSmelt())
 		{
 			updateState();
 
 			progress++;
+			if(progress % 10 == 0){
+				useEnergy(cost);
+			}
 			if (progress >= fuelScale)
 			{
 				progress = 0;
@@ -84,20 +80,16 @@ public class TileElectricFurnace extends TilePowerAcceptor implements IWrenchabl
 
 			if (getStackInSlot(output) == null)
 			{
-				useEnergy(cost);
 				setInventorySlotContents(output, itemstack.copy());
 			} else if (getStackInSlot(output).isItemEqual(itemstack))
 			{
-				useEnergy(cost);
 				getStackInSlot(output).stackSize += itemstack.stackSize;
 			}
 			if (getStackInSlot(input1).stackSize > 1)
 			{
-				useEnergy(cost);
 				this.decrStackSize(input1, 1);
 			} else
 			{
-				useEnergy(cost);
 				setInventorySlotContents(input1, null);
 			}
 		}
