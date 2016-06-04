@@ -38,4 +38,8 @@ public class CommonProxy implements ICompatModule
 
 	}
 
+	public void registerCustomBlockSateLocation(Block block, String name) {
+
+	}
+
 }

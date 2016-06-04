@@ -5,18 +5,14 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Util;
-import net.minecraftforge.client.model.ICustomModelLoader;
-import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.ModelDynBucket;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -24,7 +20,6 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.registry.GameData;
 import reborncore.RebornCore;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.common.blocks.BlockMachineBase;
@@ -33,19 +28,16 @@ import techreborn.client.ClientMultiBlocks;
 import techreborn.client.IconSupplier;
 import techreborn.client.RegisterItemJsons;
 import techreborn.client.StackToolTipEvent;
-import techreborn.client.VersionCheckerClient;
 import techreborn.client.hud.ChargeHud;
 import techreborn.client.keybindings.KeyBindings;
 import techreborn.client.render.entitys.RenderNukePrimed;
 import techreborn.entitys.EntityNukePrimed;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
-import techreborn.init.ModSounds;
 import techreborn.lib.ModInfo;
 import techreborn.manual.loader.ManualLoader;
 
 import java.io.File;
-import java.io.IOException;
 
 public class ClientProxy extends CommonProxy
 {
@@ -168,5 +160,22 @@ public class ClientProxy extends CommonProxy
 				return fluidLocation;
 			}
 		});
+	}
+
+	@Override
+	public void registerCustomBlockSateLocation(Block block, String resourceLocation) {
+		super.registerCustomBlockSateLocation(block, resourceLocation);
+		ModelLoader.setCustomStateMapper(block, new DefaultStateMapper()
+		{
+			@Override
+			protected ModelResourceLocation getModelResourceLocation(IBlockState state)
+			{
+				String resourceDomain = Block.REGISTRY.getNameForObject(state.getBlock()).getResourceDomain();
+				String propertyString = getPropertyString(state.getProperties());
+				return new ModelResourceLocation(resourceDomain + ':' + resourceLocation, propertyString);
+			}
+		});
+		String resourceDomain = Block.REGISTRY.getNameForObject(block).getResourceDomain();
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(resourceDomain + ':' + resourceLocation, "inventory"));
 	}
 }
