@@ -259,8 +259,8 @@ public class TechRebornWorldGen implements IWorldGenerator
 			{
 				return;
 			}
-			if(chance <0){
-				chance = 0;
+			if(chance <= 0){
+				chance = 1;
 			}
 			if (random.nextInt(chance) == 0)
 			{

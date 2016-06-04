@@ -52,6 +52,10 @@ repositories {
     maven {
         url "http://maven.tterrag.com/"
     }
+    maven {
+        name = "ic2"
+        url = "http://maven.ic2.player.to/"
+    }
 }
 
 configurations {
@@ -69,7 +73,7 @@ if (ENV.BUILD_NUMBER) {
 
 minecraft {
     version = "1.9.4-12.17.0.1950"
-    mappings = "snapshot_20160604"
+    mappings = "snapshot_20160518"
     replace "@MODVERSION@", project.version
   //  makeObfSourceJar = false
     useDepAts = true
@@ -98,6 +102,7 @@ dependencies {
 	deobfCompile "slimeknights.mantle:Mantle:1.9.4-0.10.1.jenkins142"
 	deobfCompile "slimeknights:TConstruct:1.9.4-2.3.1.jenkins229"
     deobfCompile "mcjty.theoneprobe:TheOneProbe:1.9.4-1.0.4-14"
+    deobfCompile 'net.industrial-craft:industrialcraft-2:2.5.1-ex19:dev'
 }
 
 
