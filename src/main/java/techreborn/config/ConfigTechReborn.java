@@ -141,6 +141,9 @@ public class ConfigTechReborn
 	// EMC
 	public static boolean UseConnectedTextures;
 	public static boolean OreUnifer;
+
+	public static boolean enableGemArmorAndTools;
+
 	public static Configuration config;
 	private static ConfigTechReborn instance = null;
 
@@ -369,6 +372,8 @@ public class ConfigTechReborn
 		FreqTransmitterTooltip = config
 				.get(CATEGORY_FEATURES, "Frequency Transmitter tooltips", true, "Allow Frequency Transmitter to display tooltip info")
 				.getBoolean(true);
+
+		enableGemArmorAndTools = config.get(CATEGORY_FEATURES, "Gem tools and armor", true, "Should the gem tools and armor be added to the game").getBoolean(true);
 
 		// Crafting
 		ExpensiveMacerator = config

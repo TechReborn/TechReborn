@@ -495,28 +495,30 @@ public class ModRecipes
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ironFence, 6), "   ", "RRR", "RRR", 'R',
 				ItemIngots.getIngotByName("refinedIron"));
 
-		addGemToolRecipes(new ItemStack(ModItems.rubySword), new ItemStack(ModItems.rubyPickaxe),
-				new ItemStack(ModItems.rubyAxe), new ItemStack(ModItems.rubyHoe), new ItemStack(ModItems.rubySpade),
-				new ItemStack(ModItems.rubyHelmet), new ItemStack(ModItems.rubyChestplate),
-				new ItemStack(ModItems.rubyLeggings), new ItemStack(ModItems.rubyBoots), "gemRuby");
+		if(ConfigTechReborn.enableGemArmorAndTools){
+			addGemToolRecipes(new ItemStack(ModItems.rubySword), new ItemStack(ModItems.rubyPickaxe),
+					new ItemStack(ModItems.rubyAxe), new ItemStack(ModItems.rubyHoe), new ItemStack(ModItems.rubySpade),
+					new ItemStack(ModItems.rubyHelmet), new ItemStack(ModItems.rubyChestplate),
+					new ItemStack(ModItems.rubyLeggings), new ItemStack(ModItems.rubyBoots), "gemRuby");
 
-		addGemToolRecipes(new ItemStack(ModItems.sapphireSword), new ItemStack(ModItems.sapphirePickaxe),
-				new ItemStack(ModItems.sapphireAxe), new ItemStack(ModItems.sapphireHoe),
-				new ItemStack(ModItems.sapphireSpade), new ItemStack(ModItems.sapphireHelmet),
-				new ItemStack(ModItems.sapphireChestplate), new ItemStack(ModItems.sapphireLeggings),
-				new ItemStack(ModItems.sapphireBoots), "gemSapphire");
+			addGemToolRecipes(new ItemStack(ModItems.sapphireSword), new ItemStack(ModItems.sapphirePickaxe),
+					new ItemStack(ModItems.sapphireAxe), new ItemStack(ModItems.sapphireHoe),
+					new ItemStack(ModItems.sapphireSpade), new ItemStack(ModItems.sapphireHelmet),
+					new ItemStack(ModItems.sapphireChestplate), new ItemStack(ModItems.sapphireLeggings),
+					new ItemStack(ModItems.sapphireBoots), "gemSapphire");
 
-		addGemToolRecipes(new ItemStack(ModItems.peridotSword), new ItemStack(ModItems.peridotPickaxe),
-				new ItemStack(ModItems.peridotAxe), new ItemStack(ModItems.peridotHoe),
-				new ItemStack(ModItems.peridotSpade), new ItemStack(ModItems.peridotHelmet),
-				new ItemStack(ModItems.peridotChestplate), new ItemStack(ModItems.peridotLeggings),
-				new ItemStack(ModItems.peridotBoots), "gemPeridot");
+			addGemToolRecipes(new ItemStack(ModItems.peridotSword), new ItemStack(ModItems.peridotPickaxe),
+					new ItemStack(ModItems.peridotAxe), new ItemStack(ModItems.peridotHoe),
+					new ItemStack(ModItems.peridotSpade), new ItemStack(ModItems.peridotHelmet),
+					new ItemStack(ModItems.peridotChestplate), new ItemStack(ModItems.peridotLeggings),
+					new ItemStack(ModItems.peridotBoots), "gemPeridot");
 
-		addGemToolRecipes(new ItemStack(ModItems.bronzeSword), new ItemStack(ModItems.bronzePickaxe),
-				new ItemStack(ModItems.bronzeAxe), new ItemStack(ModItems.bronzeHoe),
-				new ItemStack(ModItems.bronzeSpade), new ItemStack(ModItems.bronzeHelmet),
-				new ItemStack(ModItems.bronzeChestplate), new ItemStack(ModItems.bronzeLeggings),
-				new ItemStack(ModItems.bronzeBoots), "ingotBronze");
+			addGemToolRecipes(new ItemStack(ModItems.bronzeSword), new ItemStack(ModItems.bronzePickaxe),
+					new ItemStack(ModItems.bronzeAxe), new ItemStack(ModItems.bronzeHoe),
+					new ItemStack(ModItems.bronzeSpade), new ItemStack(ModItems.bronzeHelmet),
+					new ItemStack(ModItems.bronzeChestplate), new ItemStack(ModItems.bronzeLeggings),
+					new ItemStack(ModItems.bronzeBoots), "ingotBronze");
+		}
 
 		CraftingHelper
 				.addShapedOreRecipe(new ItemStack(ModItems.ironChainsaw), " SS", "SCS", "BS ", 'S', "ingotSteel", 'B',
