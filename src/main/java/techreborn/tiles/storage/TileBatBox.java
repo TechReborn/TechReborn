@@ -14,7 +14,7 @@ public class TileBatBox extends TileEnergyStorage implements IListInfoProvider
 
 	public TileBatBox()
 	{
-		super("BatBox", 2, ModBlocks.batBox, EnumPowerTier.LOW, 32, 32, 4000);
+		super("BatBox", 2, ModBlocks.batBox, EnumPowerTier.LOW, 32, 32, 40000);
 	}
 	@Override public void addInfo(List<String> info, boolean isRealTile)
 	{
