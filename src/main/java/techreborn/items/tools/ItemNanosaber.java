@@ -97,7 +97,6 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo
 		ItemStack inactiveUncharged = new ItemStack(ModItems.nanosaber);
 		inactiveUncharged.setTagCompound(new NBTTagCompound());
 		inactiveUncharged.getTagCompound().setBoolean("isActive", false);
-		PoweredItem.setEnergy(0, inactiveUncharged);
 
 		ItemStack inactiveCharged = new ItemStack(ModItems.nanosaber);
 		inactiveCharged.setTagCompound(new NBTTagCompound());
@@ -107,7 +106,6 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo
 		ItemStack activeUncharged = new ItemStack(ModItems.nanosaber);
 		activeUncharged.setTagCompound(new NBTTagCompound());
 		activeUncharged.getTagCompound().setBoolean("isActive", true);
-		PoweredItem.setEnergy(0, activeUncharged);
 
 		ItemStack activeCharged = new ItemStack(ModItems.nanosaber);
 		activeCharged.setTagCompound(new NBTTagCompound());
@@ -169,8 +167,13 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo
 
 	@Override public double getDurabilityForDisplay(ItemStack stack)
 	{
+		if (PoweredItem.getEnergy(stack) > getMaxPower(stack))
+		{
+			return 0;
+		}
 		double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
 		return 1 - charge;
+
 
 	}
 
