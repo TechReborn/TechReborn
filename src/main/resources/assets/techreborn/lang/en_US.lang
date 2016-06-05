@@ -946,6 +946,8 @@ techreborn.message.detects=Detects
 techreborn.message.allPlayers=All Players
 techreborn.message.onlyOtherPlayers=Only Other Players
 techreborn.message.onlyYou=Only You
+techreborn.message.nanosaberActive=Active
+techreborn.message.nanosaberInactive=Inactive
 
 #Cables
 Cable.copperCable.name=Copper Cable

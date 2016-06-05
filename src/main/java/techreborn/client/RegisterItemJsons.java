@@ -21,6 +21,7 @@ public class RegisterItemJsons
 		register(ModItems.lithiumBattery, "lithiumBattery");
 		register(ModItems.energyCrystal, "energyCrystal");
 		register(ModItems.lapotronCrystal, "lapotronCrystal");
+		register(ModItems.nanosaber, "nanosaber");
 	}
 
 	private static void registerBlocks()
