@@ -2,7 +2,6 @@ package techreborn.items.tools;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import me.modmuss50.jsonDestroyer.api.IHandHeld;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -35,13 +34,14 @@ import techreborn.lib.MessageIDs;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemNanosaber extends ItemSword implements IEnergyItemInfo, IHandHeld
+public class ItemNanosaber extends ItemSword implements IEnergyItemInfo
 {
 	public int cost = 250;
 
 	public ItemNanosaber()
 	{
 		super(ToolMaterial.DIAMOND);
+		setNoRepair();
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
 		setMaxDamage(1);
@@ -91,36 +91,6 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo, IHandHe
 		}
 	}
 
-	@Override public boolean isRepairable()
-	{
-		return false;
-	}
-
-	@Override public double getMaxPower(ItemStack stack)
-	{
-		return 100000;
-	}
-
-	@Override public boolean canAcceptEnergy(ItemStack stack)
-	{
-		return true;
-	}
-
-	@Override public boolean canProvideEnergy(ItemStack stack)
-	{
-		return false;
-	}
-
-	@Override public double getMaxTransfer(ItemStack stack)
-	{
-		return 512;
-	}
-
-	@Override public int getStackTier(ItemStack stack)
-	{
-		return 2;
-	}
-
 	@SuppressWarnings({ "rawtypes", "unchecked" }) @SideOnly(Side.CLIENT) public void getSubItems(Item item,
 			CreativeTabs par2CreativeTabs, List itemList)
 	{
@@ -161,13 +131,6 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo, IHandHe
 		}
 	}
 
-	@Override public double getDurabilityForDisplay(ItemStack stack)
-	{
-		double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
-		return 1 - charge;
-
-	}
-
 	@Override public boolean showDurabilityBar(ItemStack stack)
 	{
 		return true;
@@ -202,5 +165,42 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo, IHandHe
 			}
 		}
 		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
+	}
+
+	@Override public double getDurabilityForDisplay(ItemStack stack)
+	{
+		double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
+		return 1 - charge;
+
+	}
+
+	@Override public boolean isRepairable()
+	{
+		return false;
+	}
+
+	@Override public double getMaxPower(ItemStack stack)
+	{
+		return 100000;
+	}
+
+	@Override public boolean canAcceptEnergy(ItemStack stack)
+	{
+		return true;
+	}
+
+	@Override public boolean canProvideEnergy(ItemStack stack)
+	{
+		return false;
+	}
+
+	@Override public double getMaxTransfer(ItemStack stack)
+	{
+		return 512;
+	}
+
+	@Override public int getStackTier(ItemStack stack)
+	{
+		return 2;
 	}
 }
