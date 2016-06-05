@@ -1,6 +1,6 @@
-# TechReborn
+# TechReborn 1.9.4 Branch
 
-TechReborn is a resurrection of GregTech 2.78 for modern Minecraft. It brings most of GT4's features and behaviors to Minecraft, with lots of tweaks, and a few editions. It also aims to be more compatible with other mods than GregTech, and has the ultimate goal of becoming a standalone mod, compatible with but not dependent on IC2.
+TechReborn is a resurrection of GregTech 2.78 for modern Minecraft. It brings most of it's features and behaviors to Minecraft, with lots of tweaks, and a few editions. It also aims to be more compatible with other mods than GregTech, and has the ultimate goal of becoming a standalone mod, compatible with, but not dependent on IC2. We have no plans of ever supporting IC2 classic as of now.
 
 TechReborn is currently in a beta state. Crashes or bugs may happen at any time, so *please* do not use this on a world that is important to you, or at the very least back it up on every update.
 
@@ -18,27 +18,27 @@ And suggestions should be posted to our forum:
 
 # Recommended Builds:
 
-See [this list](http://minecraft.curseforge.com/projects/techreborn/files?sort=releasetype). The top one should always be the latest, recommended build of TechReborn. Currently TechReborn does not have a recommended 1.8.9 build.
+See [this list](http://minecraft.curseforge.com/projects/techreborn/files?sort=releasetype). The top one should always be the latest, recommended build of TechReborn.
 
 # Jenkins Builds:
 
-Jenkins builds of TechReborn are compiled directly from this repository. Please remember to backup your worlds before using a jenkins build of TechReborn.
+Jenkins builds of TechReborn are compiled directly from this repository. Please remember to backup your worlds before using a jenkins build of TechReborn. Before reporting a bug, we highly encourage trying to reproduce the bug with the latest jenkins build in a seperate environment, to make sure we haven't fixed it already.
 
 1.9.4:
 ---
 
-*This version is constantly recieving updates, and does not have a stable, recommended, release. Once again, remember to backup your worlds before using jenkins builds.*
+*This version is constantly recieving updates, and does has a semi-stable release. Any 1.9.4 builds (including semi-stable releases) are still subject to change and potentially (though unlikely) could break worlds. Once again, remember to backup your worlds before using any jenkins builds.*
 
 [![Build Status](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.9.4/badge/icon)](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.9.4/)
 
-*1.9 builds are also available:
+1.9.0 builds are also available, but are not supported at all:
 
 [![Build Status](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.9/badge/icon)](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.9/)
 
 1.8.9:
 ---
 
-*This version is only semi-supported while ic2 is on 1.8.9*
+*This version is not supported at all. Use at your own risk, we won't push a new build with a bugfix no matter what, with the exceptions of pull requests, which we still discourage.*
 
 [![Build Status](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.8.9/badge/icon)](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.8.9/)
 
