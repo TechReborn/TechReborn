@@ -450,7 +450,7 @@ public class ModRecipes
 		RecipeHandler.addRecipe(
 				new GrinderRecipe(new ItemStack(Items.IRON_INGOT), ItemDusts.getDustByName("iron", 1), ticktime, eutick));
 		RecipeHandler.addRecipe(
-				new GrinderRecipe(new ItemStack(Blocks.GOLD_INGOT), ItemDusts.getDustByName("gold", 1), ticktime, eutick));
+				new GrinderRecipe(new ItemStack(Items.GOLD_INGOT), ItemDusts.getDustByName("gold", 1), ticktime, eutick));
 		RecipeHandler.addRecipe(
 				new GrinderRecipe(ItemIngots.getIngotByName("aluminum"), ItemDusts.getDustByName("aluminum", 1), ticktime, eutick));
 		RecipeHandler.addRecipe(
