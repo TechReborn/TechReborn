@@ -111,6 +111,15 @@ import java.util.List;
 		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidSodiumpersulfate));
 		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidTritium));
 		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidWolframium));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidSulfur));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidSulfuricAcid));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidCarbon));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidCarbonFiber));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidNitroCarbon));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidSodiumSulfide));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidDiesel));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidNitroDiesel));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidOil));
 
 		registry.addRecipeCategories(new AlloySmelterRecipeCategory(guiHelper),
 				new AssemblingMachineRecipeCategory(guiHelper), new BlastFurnaceRecipeCategory(guiHelper),
