@@ -82,6 +82,7 @@ public class ConfigTechReborn
 
 	public static boolean FreqTransmitterChat;
 	public static boolean FreqTransmitterTooltip;
+	public static boolean NanosaberChat;
 	// EU/T
 	public static int CloakingDeviceEUTick;
 	// Crafting
@@ -371,6 +372,10 @@ public class ConfigTechReborn
 
 		FreqTransmitterTooltip = config
 				.get(CATEGORY_FEATURES, "Frequency Transmitter tooltips", true, "Allow Frequency Transmitter to display tooltip info")
+				.getBoolean(true);
+
+		NanosaberChat = config
+				.get(CATEGORY_FEATURES, "Nanosaber Chat messages", true, "Allow Nanosaber chat messages")
 				.getBoolean(true);
 
 		enableGemArmorAndTools = config.get(CATEGORY_FEATURES, "Gem tools and armor", true, "Should the gem tools and armor be added to the game").getBoolean(true);

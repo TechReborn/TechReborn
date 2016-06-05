@@ -1,0 +1,14 @@
+{
+    "parent": "techreborn:item/techrebornItem",
+    "textures": {
+        "layer0": "techreborn:items/tool/nanosaber_off"
+    },
+    "overrides": [
+        {
+            "predicate": {
+                "techreborn:active": 1
+            },
+            "model": "techreborn:item/nanosaberActive"
+        }
+    ]
+}
