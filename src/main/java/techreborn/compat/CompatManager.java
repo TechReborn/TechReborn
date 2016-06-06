@@ -5,6 +5,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import techreborn.client.render.parts.ClientPartLoader;
+import techreborn.compat.ic2.RecipesIC2;
 import techreborn.compat.theoneprobe.CompactTheOneProbe;
 import techreborn.compat.tinkers.CompatModuleTinkers;
 import techreborn.compat.waila.CompatModuleWaila;
@@ -34,6 +35,7 @@ public class CompatManager
 		registerCompact(CompatModuleTinkers.class, "tconstruct");
 		registerCompact(CompactTheOneProbe.class, "theoneprobe");
 		//registerCompact(CompatModulePsi.class, "Psi");
+		registerCompact(RecipesIC2.class, "IC2");
 	}
 
 	public void registerCompact(Class<? extends ICompatModule> moduleClass, Object... objs)

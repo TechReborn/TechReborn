@@ -108,26 +108,26 @@ public class RecipeCompact implements IRecipeCompact
 		{
 			init();
 		}
-//		if(Loader.isModLoaded("IC2")){
-//			ItemStack stack = IC2Items.getItem(name);
-//			if(stack == null){
-//				if(lookupHashMap.containsKey(name)){
-//					Ic2ItemLookup lookup = lookupHashMap.get(name);
-//					if(lookup.getStack() != null){
-//						return lookup.getStack();
-//					}
-//					return IC2Items.getItem(lookup.getName(), lookup.getVariant());
-//				} else {
-//					String line = "IC2:" + name;
-//					if (!missingItems.contains(line))
-//					{
-//						missingItems.add(line);
-//					}
-//				}
-//			} else {
-//				return stack;
-//			}
-//		}
+		if(Loader.isModLoaded("IC2")){
+			ItemStack stack = IC2Items.getItem(name);
+			if(stack == null){
+				if(lookupHashMap.containsKey(name)){
+					Ic2ItemLookup lookup = lookupHashMap.get(name);
+					if(lookup.getStack() != null){
+						return lookup.getStack();
+					}
+					return IC2Items.getItem(lookup.getName(), lookup.getVariant());
+				} else {
+					String line = "IC2:" + name;
+					if (!missingItems.contains(line))
+					{
+						missingItems.add(line);
+					}
+				}
+			} else {
+				return stack;
+			}
+		}
 		if (!recipes.containsKey(name))
 		{
 			if (!missingItems.contains(name))
