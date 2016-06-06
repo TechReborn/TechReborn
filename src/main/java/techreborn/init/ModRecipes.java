@@ -443,8 +443,6 @@ public class ModRecipes
 				new GrinderRecipe(BlockOre.getOreByName("Lead"), ItemDusts.getDustByName("lead", 2), ticktime, eutick));
 		RecipeHandler.addRecipe(
 				new GrinderRecipe(BlockOre.getOreByName("Silver"), ItemDusts.getDustByName("silver", 2), ticktime, eutick));
-		RecipeHandler
-				.addRecipe(new GrinderRecipe(ItemGems.getGemByName("ruby"), ItemDusts.getDustByName("ruby"), ticktime, eutick));
 
 		// Ingots to Dust
 		RecipeHandler.addRecipe(
@@ -483,6 +481,18 @@ public class ModRecipes
 				new GrinderRecipe(ItemIngots.getIngotByName("tungsten"), ItemDusts.getDustByName("tungsten", 1), ticktime, eutick));
 		RecipeHandler.addRecipe(
 				new GrinderRecipe(ItemIngots.getIngotByName("zinc"), ItemDusts.getDustByName("zinc", 1), ticktime, eutick));
+
+		// Others to Dust
+		RecipeHandler.addRecipe(
+				new GrinderRecipe(ItemGems.getGemByName("ruby"), ItemDusts.getDustByName("ruby"), ticktime, eutick));
+		RecipeHandler.addRecipe(
+				new GrinderRecipe(ItemGems.getGemByName("sapphire"), ItemDusts.getDustByName("sapphire"), ticktime, eutick));
+		RecipeHandler.addRecipe(
+				new GrinderRecipe(ItemGems.getGemByName("peridot"), ItemDusts.getDustByName("peridot"), ticktime, eutick));
+		RecipeHandler.addRecipe(
+				new GrinderRecipe(ItemGems.getGemByName("redGarnet"), ItemDusts.getDustByName("redGarnet"), ticktime, eutick));
+		RecipeHandler.addRecipe(
+				new GrinderRecipe(ItemGems.getGemByName("yellowGarnet"), ItemDusts.getDustByName("yellowGarnet"), ticktime, eutick));
 
 	}
 
@@ -3489,8 +3499,8 @@ public class ModRecipes
 	}
 
 	static void addGemToolRecipes(ItemStack gemsword, ItemStack gempick, ItemStack gemaxe, ItemStack gemHoe,
-			ItemStack gemspade, ItemStack gemhelmet, ItemStack gemchestplate, ItemStack gemleggings, ItemStack gemboots,
-			String gem)
+								  ItemStack gemspade, ItemStack gemhelmet, ItemStack gemchestplate, ItemStack gemleggings, ItemStack gemboots,
+								  String gem)
 	{
 		CraftingHelper.addShapedOreRecipe(gemsword, " G ", " G ", " S ", 'S', Items.STICK, 'G', gem);
 
