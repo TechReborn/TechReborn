@@ -91,25 +91,27 @@ public class ChargeHud
 			{
 				double MaxCharge = ((IEnergyInterfaceItem) offHandstack.getItem()).getMaxPower(offHandstack);
 				double CurrentCharge = ((IEnergyInterfaceItem) offHandstack.getItem()).getEnergy(offHandstack);
-				Color color = Color.GREEN;
-				double quarter = MaxCharge / 4;
-				double half = MaxCharge / 2;
-				GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-				GL11.glEnable(32826);
-				RenderHelper.enableStandardItemLighting();
-				RenderHelper.enableGUIStandardItemLighting();
-				renderItemStack(offHandstack, 0, y - 5);
-				if (CurrentCharge <= half)
-				{
-					color = Color.YELLOW;
+				if(MaxCharge != 0){
+					Color color = Color.GREEN;
+					double quarter = MaxCharge / 4;
+					double half = MaxCharge / 2;
+					GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+					GL11.glEnable(32826);
+					RenderHelper.enableStandardItemLighting();
+					RenderHelper.enableGUIStandardItemLighting();
+					renderItemStack(offHandstack, 0, y - 5);
+					if (CurrentCharge <= half)
+					{
+						color = Color.YELLOW;
+					}
+					if (CurrentCharge <= quarter)
+					{
+						color = Color.DARK_RED;
+					}
+					mc.fontRendererObj.drawString(color + PowerSystem.getLocaliszedPower(CurrentCharge) + "/"
+							+ PowerSystem.getLocaliszedPower(MaxCharge), 20, y, 0);
+					y += 20;
 				}
-				if (CurrentCharge <= quarter)
-				{
-					color = Color.DARK_RED;
-				}
-				mc.fontRendererObj.drawString(color + PowerSystem.getLocaliszedPower(CurrentCharge) + "/"
-						+ PowerSystem.getLocaliszedPower(MaxCharge), 20, y, 0);
-				y += 20;
 			}
 			if (stack != null && stack.getItem() instanceof IEnergyInterfaceItem)
 			{
