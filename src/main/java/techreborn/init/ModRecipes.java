@@ -423,13 +423,16 @@ public class ModRecipes
 				new GrinderRecipe(new ItemStack(Blocks.IRON_ORE), ItemDusts.getDustByName("iron", 2), ticktime, eutick));
 		RecipeHandler.addRecipe(
 				new GrinderRecipe(new ItemStack(Blocks.GOLD_ORE), ItemDusts.getDustByName("gold", 2), ticktime, eutick));
-		RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(Items.COAL), ItemDusts.getDustByName("coal"), ticktime, eutick));
-		RecipeHandler
-				.addRecipe(new GrinderRecipe(new ItemStack(Blocks.COAL_ORE), new ItemStack(Items.COAL, 2), ticktime, eutick));
-		RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(Items.BONE), new ItemStack(Items.DYE, 6, 15), ticktime, eutick));
-		RecipeHandler
-				.addRecipe(new GrinderRecipe(new ItemStack(Blocks.COBBLESTONE), new ItemStack(Blocks.SAND), ticktime, eutick));
-		RecipeHandler.addRecipe(new GrinderRecipe(new ItemStack(Blocks.GRAVEL), new ItemStack(Items.FLINT), ticktime, eutick));
+		RecipeHandler.addRecipe(
+				new GrinderRecipe(new ItemStack(Items.COAL), ItemDusts.getDustByName("coal"), ticktime, eutick));
+		RecipeHandler.addRecipe(
+				new GrinderRecipe(new ItemStack(Blocks.COAL_ORE), new ItemStack(Items.COAL, 2), ticktime, eutick));
+		RecipeHandler.addRecipe(
+				new GrinderRecipe(new ItemStack(Items.BONE), new ItemStack(Items.DYE, 6, 15), ticktime, eutick));
+		RecipeHandler.addRecipe(
+				new GrinderRecipe(new ItemStack(Blocks.COBBLESTONE), new ItemStack(Blocks.SAND), ticktime, eutick));
+		RecipeHandler.addRecipe(
+				new GrinderRecipe(new ItemStack(Blocks.GRAVEL), new ItemStack(Items.FLINT), ticktime, eutick));
 
 		// TechReborn
 		RecipeHandler.addRecipe(
@@ -442,6 +445,45 @@ public class ModRecipes
 				new GrinderRecipe(BlockOre.getOreByName("Silver"), ItemDusts.getDustByName("silver", 2), ticktime, eutick));
 		RecipeHandler
 				.addRecipe(new GrinderRecipe(ItemGems.getGemByName("ruby"), ItemDusts.getDustByName("ruby"), ticktime, eutick));
+
+		// Ingots to Dust
+		RecipeHandler.addRecipe(
+				new GrinderRecipe(new ItemStack(Items.IRON_INGOT), ItemDusts.getDustByName("iron", 1), ticktime, eutick));
+		RecipeHandler.addRecipe(
+				new GrinderRecipe(new ItemStack(Items.GOLD_INGOT), ItemDusts.getDustByName("gold", 1), ticktime, eutick));
+		RecipeHandler.addRecipe(
+				new GrinderRecipe(ItemIngots.getIngotByName("aluminum"), ItemDusts.getDustByName("aluminum", 1), ticktime, eutick));
+		RecipeHandler.addRecipe(
+				new GrinderRecipe(ItemIngots.getIngotByName("brass"), ItemDusts.getDustByName("brass", 1), ticktime, eutick));
+		RecipeHandler.addRecipe(
+				new GrinderRecipe(ItemIngots.getIngotByName("bronze"), ItemDusts.getDustByName("bronze", 1), ticktime, eutick));
+		RecipeHandler.addRecipe(
+				new GrinderRecipe(ItemIngots.getIngotByName("chrome"), ItemDusts.getDustByName("chrome", 1), ticktime, eutick));
+		RecipeHandler.addRecipe(
+				new GrinderRecipe(ItemIngots.getIngotByName("copper"), ItemDusts.getDustByName("copper", 1), ticktime, eutick));
+		RecipeHandler.addRecipe(
+				new GrinderRecipe(ItemIngots.getIngotByName("electrum"), ItemDusts.getDustByName("electrum", 1), ticktime, eutick));
+		RecipeHandler.addRecipe(
+				new GrinderRecipe(ItemIngots.getIngotByName("invar"), ItemDusts.getDustByName("invar", 1), ticktime, eutick));
+		RecipeHandler.addRecipe(
+				new GrinderRecipe(ItemIngots.getIngotByName("lead"), ItemDusts.getDustByName("lead", 1), ticktime, eutick));
+		RecipeHandler.addRecipe(
+				new GrinderRecipe(ItemIngots.getIngotByName("nickel"), ItemDusts.getDustByName("nickel", 1), ticktime, eutick));
+		RecipeHandler.addRecipe(
+				new GrinderRecipe(ItemIngots.getIngotByName("platinum"), ItemDusts.getDustByName("platinum", 1), ticktime, eutick));
+		RecipeHandler.addRecipe(
+				new GrinderRecipe(ItemIngots.getIngotByName("silver"), ItemDusts.getDustByName("silver", 1), ticktime, eutick));
+		RecipeHandler.addRecipe(
+				new GrinderRecipe(ItemIngots.getIngotByName("steel"), ItemDusts.getDustByName("steel", 1), ticktime, eutick));
+		RecipeHandler.addRecipe(
+				new GrinderRecipe(ItemIngots.getIngotByName("tin"), ItemDusts.getDustByName("tin", 1), ticktime, eutick));
+		RecipeHandler.addRecipe(
+				new GrinderRecipe(ItemIngots.getIngotByName("titanium"), ItemDusts.getDustByName("titanium", 1), ticktime, eutick));
+		RecipeHandler.addRecipe(
+				new GrinderRecipe(ItemIngots.getIngotByName("tungsten"), ItemDusts.getDustByName("tungsten", 1), ticktime, eutick));
+		RecipeHandler.addRecipe(
+				new GrinderRecipe(ItemIngots.getIngotByName("zinc"), ItemDusts.getDustByName("zinc", 1), ticktime, eutick));
+
 	}
 
 	// static void addHammerRecipes()

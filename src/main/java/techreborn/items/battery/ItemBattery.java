@@ -1,18 +1,22 @@
 package techreborn.items.battery;
 
-import java.util.List;
-
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PoweredItem;
-import techreborn.client.TechRebornCreativeTab;
-import techreborn.items.ItemTextureBase;
+import techreborn.items.ItemTRNoDestroy;
 
-public class ItemBattery extends ItemTextureBase implements IEnergyItemInfo
+import javax.annotation.Nullable;
+import java.util.List;
+
+public class ItemBattery extends ItemTRNoDestroy implements IEnergyItemInfo
 {
 
 	String name = "null";
@@ -30,7 +34,18 @@ public class ItemBattery extends ItemTextureBase implements IEnergyItemInfo
 		this.maxEnergy=maxEnergy;
 		this.maxTransfer=maxTransfer;
 		this.tier=tier;
-		setCreativeTab(TechRebornCreativeTab.instance);
+		this.addPropertyOverride(new ResourceLocation("techreborn:empty"), new IItemPropertyGetter()
+		{
+			@SideOnly(Side.CLIENT) public float apply(ItemStack stack, @Nullable World worldIn,
+					@Nullable EntityLivingBase entityIn)
+			{
+				if (stack != null && PoweredItem.getEnergy(stack) == 0.0)
+				{
+					return 1.0F;
+				}
+				return 0.0F;
+			}
+		});
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -87,17 +102,5 @@ public class ItemBattery extends ItemTextureBase implements IEnergyItemInfo
 	public int getStackTier(ItemStack stack)
 	{
 		return tier;
-	}
-
-	@Override
-	public String getTextureName(int damage)
-	{
-		return "techreborn:items/tool/"+name;
-	}
-
-	@Override
-	public int getMaxMeta()
-	{
-		return 1;
 	}
 }

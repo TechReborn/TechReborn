@@ -273,7 +273,7 @@ public class ModItems
 		wrench = new ItemWrench();
 		registerItem(wrench, "wrench");
 
-		nanosaber = new ItemNanosaber();
+		nanosaber = PoweredItem.createItem(ItemNanosaber.class);
 		registerItem(nanosaber, "nanosaber");
 
 		scrapBox = new ItemScrapBox();

@@ -79,13 +79,13 @@ public class ClientProxy extends CommonProxy
 			}
 		});
 		ModelBakery.registerItemVariants(ModItems.dynamicCell, MODEL_DYNAMIC_CELL);
+		RegisterItemJsons.registerModels();
 	}
 
 	@Override
 	public void init(FMLInitializationEvent event)
 	{
 		super.init(event);
-		RegisterItemJsons.registerModels();
 		MinecraftForge.EVENT_BUS.register(new IconSupplier());
 		MinecraftForge.EVENT_BUS.register(new ChargeHud());
 		//MinecraftForge.EVENT_BUS.register(new VersionCheckerClient());
