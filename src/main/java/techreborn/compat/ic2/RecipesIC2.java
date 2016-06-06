@@ -10,10 +10,16 @@ import reborncore.common.util.CraftingHelper;
 import techreborn.compat.ICompatModule;
 import techreborn.init.ModBlocks;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Mark on 06/06/2016.
  */
 public class RecipesIC2 implements ICompatModule {
+
+    List<RecipeDuplicate> recipeDuplicateList = new ArrayList<>();
+
     @Override
     public void preInit(FMLPreInitializationEvent event) {
 
@@ -21,8 +27,11 @@ public class RecipesIC2 implements ICompatModule {
 
     @Override
     public void init(FMLInitializationEvent event) {
-        CraftingHelper.addShapelessRecipe(new ItemStack(ModBlocks.machineframe, 0, 1), IC2Items.getItem("resource","machine"));
-        CraftingHelper.addShapelessRecipe( IC2Items.getItem("resource","machine"), new ItemStack(ModBlocks.machineframe, 0, 1));
+        recipeDuplicateList.add(new RecipeDuplicate(new ItemStack(ModBlocks.machineframe, 0, 1), IC2Items.getItem("resource","machine")));
+
+        for(RecipeDuplicate duplicate : recipeDuplicateList){
+            duplicate.add();
+        }
     }
 
     @Override
@@ -34,4 +43,25 @@ public class RecipesIC2 implements ICompatModule {
     public void serverStarting(FMLServerStartingEvent event) {
 
     }
+
+    public class RecipeDuplicate {
+
+        ItemStack stack1;
+
+        ItemStack stack2;
+
+        public RecipeDuplicate(ItemStack stack1, ItemStack stack2) {
+            this.stack1 = stack1;
+            this.stack2 = stack2;
+        }
+
+        public void add(){
+
+            CraftingHelper.addShapelessRecipe(stack2, stack1);
+            CraftingHelper.addShapelessRecipe(stack1, stack2);
+
+        }
+
+    }
+
 }
