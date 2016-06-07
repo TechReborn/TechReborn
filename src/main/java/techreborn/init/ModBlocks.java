@@ -7,6 +7,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import org.apache.commons.lang3.ArrayUtils;
 import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.StringUtils;
 import techreborn.Core;
@@ -476,33 +477,10 @@ public class ModBlocks
 		for(String ore : BlockOre2.ores){
 			OreDictionary.registerOre("ore" + StringUtils.toFirstCapital(ore), BlockOre2.getOreByName(ore));
 		}
-		
-		OreDictionary.registerOre("blockSilver", new ItemStack(storage, 1, 0));
-		OreDictionary.registerOre("blockAluminum", new ItemStack(storage, 1, 1));
-		OreDictionary.registerOre("blockTitanium", new ItemStack(storage, 1, 2));
-		OreDictionary.registerOre("blockChrome", new ItemStack(storage, 1, 3));
-		OreDictionary.registerOre("blockSteel", new ItemStack(storage, 1, 4));
-		OreDictionary.registerOre("blockBrass", new ItemStack(storage, 1, 5));
-		OreDictionary.registerOre("blockLead", new ItemStack(storage, 1, 6));
-		OreDictionary.registerOre("blockElectrum", new ItemStack(storage, 1, 7));
-		OreDictionary.registerOre("blockZinc", new ItemStack(storage, 1, 8));
-		OreDictionary.registerOre("blockPlatinum", new ItemStack(storage, 1, 9));
-		OreDictionary.registerOre("blockTungsten", new ItemStack(storage, 1, 10));
-		OreDictionary.registerOre("blockNickel", new ItemStack(storage, 1, 11));
-		OreDictionary.registerOre("blockInvar", new ItemStack(storage, 1, 12));
-		OreDictionary.registerOre("blockOsmium", new ItemStack(storage, 1, 13));
-		OreDictionary.registerOre("blockIridium", new ItemStack(storage, 1, 14));
-		OreDictionary.registerOre("blockCopper", BlockStorage2.getStorageBlockByName("copper", 1));
-		OreDictionary.registerOre("blockTin", BlockStorage2.getStorageBlockByName("tin", 1));
 
-		OreDictionary.registerOre("blockTungstensteel", new ItemStack(storage2, 1, 0));
-		OreDictionary.registerOre("blockLodestone", new ItemStack(storage2, 1, 1));
-		OreDictionary.registerOre("blockTellurium", new ItemStack(storage2, 1, 2));
-		OreDictionary.registerOre("blockRuby", new ItemStack(storage2, 1, 5));
-		OreDictionary.registerOre("blockSapphire", new ItemStack(storage2, 1, 6));
-		OreDictionary.registerOre("blockPeridot", new ItemStack(storage2, 1, 7));
-		OreDictionary.registerOre("blockYellowGarnet", new ItemStack(storage2, 1, 8));
-		OreDictionary.registerOre("blockRedGarnet", new ItemStack(storage2, 1, 9));
+		for(String name : ArrayUtils.addAll(BlockStorage.types, BlockStorage2.types)){
+			OreDictionary.registerOre("block" + StringUtils.toFirstCapital(name), BlockStorage.getStorageBlockByName(name));
+		}
 
 		OreDictionary.registerOre("craftingPiston", Blocks.PISTON);
 		OreDictionary.registerOre("craftingPiston", Blocks.STICKY_PISTON);
