@@ -34,6 +34,12 @@ public class AlloySmelterRecipeHandler implements IRecipeHandler<AlloySmelterRec
 
 	@Nonnull
 	@Override
+	public String getRecipeCategoryUid(@Nonnull AlloySmelterRecipe recipe) {
+		return RecipeCategoryUids.ALLOY_SMELTER;
+	}
+
+	@Nonnull
+	@Override
 	public IRecipeWrapper getRecipeWrapper(@Nonnull AlloySmelterRecipe recipe)
 	{
 		return new AlloySmelterRecipeWrapper(jeiHelpers, recipe);
