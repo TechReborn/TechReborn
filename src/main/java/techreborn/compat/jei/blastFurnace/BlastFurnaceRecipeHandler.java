@@ -34,6 +34,12 @@ public class BlastFurnaceRecipeHandler implements IRecipeHandler<BlastFurnaceRec
 
 	@Nonnull
 	@Override
+	public String getRecipeCategoryUid(@Nonnull BlastFurnaceRecipe recipe) {
+		return RecipeCategoryUids.BLAST_FURNACE;
+	}
+
+	@Nonnull
+	@Override
 	public IRecipeWrapper getRecipeWrapper(@Nonnull BlastFurnaceRecipe recipe)
 	{
 		return new BlastFurnaceRecipeWrapper(jeiHelpers, recipe);
