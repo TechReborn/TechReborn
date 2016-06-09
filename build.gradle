@@ -32,7 +32,7 @@ targetCompatibility = 1.8
 repositories {
     maven {
         name = "Modmuss50"
-        url = "http://maven.modmuss50.me/"
+        url = "https://maven.modmuss50.me/"
     }
     maven {
         name "TiC"
