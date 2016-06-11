@@ -163,8 +163,8 @@ public class ClientProxy extends CommonProxy
 	}
 
 	@Override
-	public void registerCustomBlockSateLocation(Block block, String resourceLocation, boolean item) {
-		super.registerCustomBlockSateLocation(block, resourceLocation, item);
+	public void registerCustomBlockStateLocation(Block block, String resourceLocation, boolean item) {
+		super.registerCustomBlockStateLocation(block, resourceLocation, item);
 		ModelLoader.setCustomStateMapper(block, new DefaultStateMapper()
 		{
 			@Override
