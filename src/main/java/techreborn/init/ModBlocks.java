@@ -254,9 +254,17 @@ public class ModBlocks
 
 		storage = new BlockStorage(Material.IRON);
 		registerBlock(storage, ItemBlockStorage.class, "techreborn.storage");
+		Core.proxy.registerCustomBlockSateLocation(storage, "storage/storage");
+		for (int i = 0; i < BlockStorage.types.length; i++) {
+			Core.proxy.registerSubBlockInventoryLocation(storage, i, "storage/storage", BlockStorage.types[i]);
+		}
 
 		storage2 = new BlockStorage2(Material.IRON);
 		registerBlock(storage2, ItemBlockStorage2.class, "techreborn.storage2");
+		Core.proxy.registerCustomBlockSateLocation(storage2, "storage/storage");
+		for (int i = 0; i < BlockStorage2.types.length; i++) {
+			Core.proxy.registerSubBlockInventoryLocation(storage2, i, "storage/storage", BlockStorage2.types[i]);
+		}
 
 		Dragoneggenergysiphoner = new BlockDragonEggSiphoner(Material.ROCK);
 		registerBlock(Dragoneggenergysiphoner, "dragoneggenergsiphon");
