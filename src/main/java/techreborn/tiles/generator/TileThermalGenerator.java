@@ -21,7 +21,7 @@ import reborncore.common.util.Tank;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 
-public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchable, IFluidHandler,IInventoryProvider
+public class  TileThermalGenerator extends TilePowerAcceptor implements IWrenchable, IFluidHandler,IInventoryProvider
 {
 
 	public static final int euTick = ConfigTechReborn.ThermalGeneratorOutput;
@@ -144,6 +144,7 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
 		if (!worldObj.isRemote)
 		{
 			FluidUtils.drainContainers(this, inventory, 0, 1);
+			boolean didFindLava = false;
 			for (EnumFacing direction : EnumFacing.values())
 			{
 				if (worldObj.getBlockState(new BlockPos(getPos().getX() + direction.getFrontOffsetX(),
@@ -151,22 +152,11 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
 						.getBlock() == Blocks.LAVA)
 				{
 					addEnergy(1);
+					didFindLava = true;
 				}
 			}
-
-			if (worldObj.getTotalWorldTime() % 40 == 0)
-			{
+			if (worldObj.getTotalWorldTime() % 40 == 0) {
 				BlockMachineBase bmb = (BlockMachineBase) worldObj.getBlockState(pos).getBlock();
-				boolean didFindLava = false;
-				for (EnumFacing direction : EnumFacing.values())
-				{
-					if (worldObj.getBlockState(new BlockPos(getPos().getX() + direction.getFrontOffsetX(),
-							getPos().getY() + direction.getFrontOffsetY(),
-							getPos().getZ() + direction.getFrontOffsetZ())).getBlock() == Blocks.LAVA)
-					{
-						didFindLava = true;
-					}
-				}
 				bmb.setActive(didFindLava, worldObj, pos);
 			}
 		}
@@ -183,6 +173,7 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
 		{
 			setInventorySlotContents(2, null);
 		}
+<<<<<<< HEAD
 
 		//Lava being nearby
 		if (!worldObj.isRemote)
@@ -210,6 +201,8 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
 			}
 
 		}
+=======
+>>>>>>> 72da228b15d0c3573cc5a50da141b428c31e4bb2
 	}
 
 	@Override
