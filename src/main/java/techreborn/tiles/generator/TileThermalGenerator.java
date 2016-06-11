@@ -21,7 +21,7 @@ import reborncore.common.util.Tank;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 
-public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchable, IFluidHandler,IInventoryProvider
+public class  TileThermalGenerator extends TilePowerAcceptor implements IWrenchable, IFluidHandler,IInventoryProvider
 {
 
 	public static final int euTick = ConfigTechReborn.ThermalGeneratorOutput;
@@ -142,6 +142,7 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
 		if (!worldObj.isRemote)
 		{
 			FluidUtils.drainContainers(this, inventory, 0, 1);
+			boolean didFindLava = false;
 			for (EnumFacing direction : EnumFacing.values())
 			{
 				if (worldObj.getBlockState(new BlockPos(getPos().getX() + direction.getFrontOffsetX(),
@@ -149,22 +150,11 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
 						.getBlock() == Blocks.LAVA)
 				{
 					addEnergy(1);
+					didFindLava = true;
 				}
 			}
-
-			if (worldObj.getTotalWorldTime() % 40 == 0)
-			{
+			if (worldObj.getTotalWorldTime() % 40 == 0) {
 				BlockMachineBase bmb = (BlockMachineBase) worldObj.getBlockState(pos).getBlock();
-				boolean didFindLava = false;
-				for (EnumFacing direction : EnumFacing.values())
-				{
-					if (worldObj.getBlockState(new BlockPos(getPos().getX() + direction.getFrontOffsetX(),
-							getPos().getY() + direction.getFrontOffsetY(),
-							getPos().getZ() + direction.getFrontOffsetZ())).getBlock() == Blocks.LAVA)
-					{
-						didFindLava = true;
-					}
-				}
 				bmb.setActive(didFindLava, worldObj, pos);
 			}
 		}
@@ -180,34 +170,6 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
 		} else if (tank.getFluidType() == null && getStackInSlot(2) != null)
 		{
 			setInventorySlotContents(2, null);
-		}
-
-		super.updateEntity();
-
-		if (!worldObj.isRemote)
-		{
-			if (worldObj.getBlockState(new BlockPos(getPos().getX() + 1, getPos().getY(), getPos().getZ()))
-					.getBlock() == Blocks.LAVA)
-			{
-				addEnergy(euTick);
-			} else if (worldObj.getBlockState(new BlockPos(getPos().getX(), getPos().getY(), getPos().getZ() + 1))
-					.getBlock() == Blocks.LAVA)
-			{
-				addEnergy(euTick);
-			} else if (worldObj.getBlockState(new BlockPos(getPos().getX(), getPos().getY(), getPos().getZ() - 1))
-					.getBlock() == Blocks.LAVA)
-			{
-				addEnergy(euTick);
-			} else if (worldObj.getBlockState(new BlockPos(getPos().getX() - 1, getPos().getY(), getPos().getZ()))
-					.getBlock() == Blocks.LAVA)
-			{
-				addEnergy(euTick);
-			} else if (worldObj.getBlockState(new BlockPos(getPos().getX(), getPos().getY() - 1, getPos().getZ()))
-					.getBlock() == Blocks.LAVA)
-			{
-				addEnergy(euTick);
-			}
-
 		}
 	}
 
