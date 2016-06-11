@@ -139,8 +139,6 @@ public class  TileThermalGenerator extends TilePowerAcceptor implements IWrencha
 	public void updateEntity()
 	{
 		super.updateEntity();
-		
-		//Lava being pumped in
 		if (!worldObj.isRemote)
 		{
 			FluidUtils.drainContainers(this, inventory, 0, 1);
@@ -173,36 +171,6 @@ public class  TileThermalGenerator extends TilePowerAcceptor implements IWrencha
 		{
 			setInventorySlotContents(2, null);
 		}
-<<<<<<< HEAD
-
-		//Lava being nearby
-		if (!worldObj.isRemote)
-		{
-			if (worldObj.getBlockState(new BlockPos(getPos().getX() + 1, getPos().getY(), getPos().getZ()))
-					.getBlock() == Blocks.LAVA)
-			{
-				addEnergy(euTick);
-			} else if (worldObj.getBlockState(new BlockPos(getPos().getX(), getPos().getY(), getPos().getZ() + 1))
-					.getBlock() == Blocks.LAVA)
-			{
-				addEnergy(euTick);
-			} else if (worldObj.getBlockState(new BlockPos(getPos().getX(), getPos().getY(), getPos().getZ() - 1))
-					.getBlock() == Blocks.LAVA)
-			{
-				addEnergy(euTick);
-			} else if (worldObj.getBlockState(new BlockPos(getPos().getX() - 1, getPos().getY(), getPos().getZ()))
-					.getBlock() == Blocks.LAVA)
-			{
-				addEnergy(euTick);
-			} else if (worldObj.getBlockState(new BlockPos(getPos().getX(), getPos().getY() - 1, getPos().getZ()))
-					.getBlock() == Blocks.LAVA)
-			{
-				addEnergy(euTick);
-			}
-
-		}
-=======
->>>>>>> 72da228b15d0c3573cc5a50da141b428c31e4bb2
 	}
 
 	@Override
