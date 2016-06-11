@@ -63,8 +63,6 @@ public class GuiManual extends GuiScreen
 				new ItemStack(ModBlocks.thermalGenerator), "", Reference.pageNames.GENERATINGPOWER_PAGE));
 		pageCollection.addPage(new CraftingInfoPage(ModBlocks.solarPanel.getLocalizedName(), pageCollection,
 				new ItemStack(ModBlocks.solarPanel), "", Reference.pageNames.GENERATINGPOWER_PAGE));
-		pageCollection.addPage(new CraftingInfoPage(ModBlocks.heatGenerator.getLocalizedName(), pageCollection,
-				new ItemStack(ModBlocks.heatGenerator), "", Reference.pageNames.GENERATINGPOWER_PAGE));
 		pageCollection.addPage(new CraftingInfoPage(ModBlocks.LightningRod.getLocalizedName(), pageCollection,
 				new ItemStack(ModBlocks.LightningRod), "", Reference.pageNames.GENERATINGPOWER_PAGE));
 
