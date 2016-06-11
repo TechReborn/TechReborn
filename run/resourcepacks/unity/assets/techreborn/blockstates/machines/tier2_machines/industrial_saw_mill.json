@@ -4,19 +4,19 @@
       "transform":"forge:default-block",
       "model":"orientable",
       "textures":{
-         "particle":"techreborn:blocks/machine/tier2_machines/machine_west",
-         "top":"techreborn:blocks/machine/tier2_machines/machine_top",
-         "down":"techreborn:blocks/machine/tier2_machines/machine_bottom",
-         "west":"techreborn:blocks/machine/tier2_machines/machine_west",
-         "east":"techreborn:blocks/machine/tier2_machines/machine_east",
-         "south":"techreborn:blocks/machine/tier2_machines/machine_back"
+         "particle":"techreborn:blocks/machines/tier2_machines/machine_west",
+         "top":"techreborn:blocks/machines/tier2_machines/machine_top",
+         "down":"techreborn:blocks/machines/tier2_machines/machine_bottom",
+         "west":"techreborn:blocks/machines/tier2_machines/machine_west",
+         "east":"techreborn:blocks/machines/tier2_machines/machine_east",
+         "south":"techreborn:blocks/machines/tier2_machines/machine_back"
       }
    },
    "variants":{
       "inventory":{
          "transform":"forge:default-block",
          "textures":{
-            "front":"techreborn:blocks/machine/tier2_machines/industrial_sawmill_front_off"
+            "front":"techreborn:blocks/machines/tier2_machines/industrial_sawmill_front_off"
          }
       },
       "facing":{
@@ -36,25 +36,25 @@
       "active":{
          "true":{
             "textures":{
-               "front":"techreborn:blocks/machine/tier2_machines/industrial_sawmill_front_on"
+               "front":"techreborn:blocks/machines/tier2_machines/industrial_sawmill_front_on"
             }
          },
          "false":{
             "textures":{
-               "front":"techreborn:blocks/machine/tier2_machines/industrial_sawmill_front_off"
+               "front":"techreborn:blocks/machines/tier2_machines/industrial_sawmill_front_off"
             }
          }
       },
         "inventory": {
             "model": "orientable",
             "textures": {
-				"particle":"techreborn:blocks/machine/tier2_machines/machine_west",
-				"top":"techreborn:blocks/machine/tier2_machines/machine_top",
-				"down":"techreborn:blocks/machine/tier2_machines/machine_bottom",
-				"west":"techreborn:blocks/machine/tier2_machines/machine_west",
-				"east":"techreborn:blocks/machine/tier2_machines/machine_east",
-				"south":"techreborn:blocks/machine/tier2_machines/machine_back",
-				"front": "techreborn:blocks/machine/tier2_machines/industrial_sawmill_front_off"
+				"particle":"techreborn:blocks/machines/tier2_machines/machine_west",
+				"top":"techreborn:blocks/machines/tier2_machines/machine_top",
+				"down":"techreborn:blocks/machines/tier2_machines/machine_bottom",
+				"west":"techreborn:blocks/machines/tier2_machines/machine_west",
+				"east":"techreborn:blocks/machines/tier2_machines/machine_east",
+				"south":"techreborn:blocks/machines/tier2_machines/machine_back",
+				"front": "techreborn:blocks/machines/tier2_machines/industrial_sawmill_front_off"
             }
         }
    }

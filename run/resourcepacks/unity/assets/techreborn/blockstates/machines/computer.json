@@ -4,11 +4,11 @@
       "transform":"forge:default-block",
       "model":"orientable",
 	  "textures": {
-        "particle":"techreborn:blocks/computer_side",
-        "bottom": "techreborn:blocks/computer_side,
-        "top": "techreborn:blocks/computer_side",
-        "front": "techreborn:blocks/computer_front",
-        "side": "techreborn:blocks/computer_side"
+        "particle":"techreborn:blocks/machines/computer_side",
+        "bottom": "techreborn:blocks//machines/computer_side,
+        "top": "techreborn:blocks//machines/computer_side",
+        "front": "techreborn:blocks//machines/computer_front",
+        "side": "techreborn:blocks//machines/computer_side"
 	  }
     }
 }

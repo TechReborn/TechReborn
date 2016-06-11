@@ -4,17 +4,17 @@
       "transform":"forge:default-block",
       "model":"orientable",
       "textures":{
-         "particle":"techreborn:blocks/machine/tier1_machines/machine_side",
-         "top":"techreborn:blocks/machine/tier1_machines/machine_top",
-         "down":"techreborn:blocks/machine/tier1_machines/machine_bottom",
-         "side":"techreborn:blocks/machine/tier1_machines/machine_side"
+         "particle":"techreborn:blocks/machines/tier1_machines/machine_side",
+         "top":"techreborn:blocks/machines/tier1_machines/machine_top",
+         "down":"techreborn:blocks/machines/tier1_machines/machine_bottom",
+         "side":"techreborn:blocks/machines/tier1_machines/machine_side"
       }
    },
    "variants":{
       "inventory":{
          "transform":"forge:default-block",
          "textures":{
-            "front":"techreborn:blocks/machine/tier1_machines/alloy_smelter_front_off"
+            "front":"techreborn:blocks/machines/tier1_machines/alloy_smelter_front_off"
          }
       },
       "facing":{
@@ -34,23 +34,23 @@
       "active":{
          "true":{
             "textures":{
-               "front":"techreborn:blocks/machine/tier1_machines/alloy_smelter_front_on"
+               "front":"techreborn:blocks/machines/tier1_machines/alloy_smelter_front_on"
             }
          },
          "false":{
             "textures":{
-               "front":"techreborn:blocks/machine/tier1_machines/alloy_smelter_front_off"
+               "front":"techreborn:blocks/machines/tier1_machines/alloy_smelter_front_off"
             }
          }
       },
         "inventory": {
             "model": "orientable",
             "textures": {
-                "particle": "techreborn:blocks/machine/tier1_machines/machine_side",
-                "top": "techreborn:blocks/machine/tier1_machines/machine_top",
-				"down":"techreborn:blocks/machine/tier1_machines/machine_bottom",
-                "side": "techreborn:blocks/machine/tier1_machines/machine_side",
-                "front": "techreborn:blocks/machine/tier1_machines/alloy_smelter_front_off"
+                "particle": "techreborn:blocks/machines/tier1_machines/machine_side",
+                "top": "techreborn:blocks/machines/tier1_machines/machine_top",
+				"down":"techreborn:blocks/machines/tier1_machines/machine_bottom",
+                "side": "techreborn:blocks/machines/tier1_machines/machine_side",
+                "front": "techreborn:blocks/machines/tier1_machines/alloy_smelter_front_off"
             }
         }
    }
