@@ -39,11 +39,11 @@ public class CommonProxy implements ICompatModule
 
 	}
 
-	public void registerCustomBlockSateLocation(Block block, String name) {
-		registerCustomBlockSateLocation(block, name, true);
+	public void registerCustomBlockStateLocation(Block block, String name) {
+		registerCustomBlockStateLocation(block, name, true);
 	}
 
-	public void registerCustomBlockSateLocation(Block block, String name, boolean item) {
+	public void registerCustomBlockStateLocation(Block block, String name, boolean item) {
 
 	}
 
