@@ -31,7 +31,7 @@ public class BlockDistributor extends Block {
     }
 
     public static ItemStack getReleaseStack(){
-        ItemStack newStack = new ItemStack(RebornCoreShields.shieldItem);
+        ItemStack newStack = new ItemStack(Items.SHIELD);
         ItemNBTHelper.setString(newStack, "type", "btm");
         ItemNBTHelper.setBoolean(newStack, "vanilla", false);
         return newStack;
