@@ -14,7 +14,7 @@
       "inventory":{
          "transform":"forge:default-block",
          "textures":{
-            "front":"techreborn:blocks/machines/tier1_machines/assembly_machine_front_off"
+            "front":"techreborn:blocks/machines/tier1_machines/assembling_machine_front_off"
          }
       },
       "facing":{
@@ -34,12 +34,12 @@
       "active":{
          "true":{
             "textures":{
-               "front":"techreborn:blocks/machines/tier1_machines/assembly_machine_front_on"
+               "front":"techreborn:blocks/machines/tier1_machines/assembling_machine_front_on"
             }
          },
          "false":{
             "textures":{
-               "front":"techreborn:blocks/machines/tier1_machines/assembly_machine_front_off"
+               "front":"techreborn:blocks/machines/tier1_machines/assembling_machine_front_off"
             }
          }
       },
@@ -49,7 +49,7 @@
                 "particle": "techreborn:blocks/machines/tier1_machines/machine_side",
                 "top": "techreborn:blocks/machines/tier1_machines/machine_top",
                 "side": "techreborn:blocks/machines/tier1_machines/machine_side",
-                "front": "techreborn:blocks/machines/tier1_machines/assembly_machine_front_off"
+                "front": "techreborn:blocks/machines/tier1_machines/assembling_machine_front_off"
             }
         }
    }

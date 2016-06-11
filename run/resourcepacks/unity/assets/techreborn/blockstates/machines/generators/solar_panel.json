@@ -4,7 +4,7 @@
       "transform":"forge:default-block",
       "model":"techreborn:template/cube_wrapped",
       "textures":{
-         "particle":"techreborn:blocks/machines/generators/gas_turbine_side_off",
+         "particle":"techreborn:blocks/machines/generators/solar_panel_side_off",
          "down":"techreborn:blocks/machines/generators/generator_bottom"
       }
    },
@@ -12,8 +12,8 @@
       "inventory":{
          "transform":"forge:default-block",
          "textures":{
-			"top":"techreborn:blocks/machines/generators/gas_turbine_top_off",
-			"side":"techreborn:blocks/machines/generators/gas_turbine_side_off"
+			"top":"techreborn:blocks/machines/generators/solar_panel_top_off",
+			"side":"techreborn:blocks/machines/generators/solar_panel_side_off"
          }
       },
       "facing":{
@@ -33,24 +33,24 @@
       "active":{
          "true":{
             "textures":{
-				"top":"techreborn:blocks/machines/generators/gas_turbine_top_on",
-				"side":"techreborn:blocks/machines/generators/gas_turbine_side_on"            
+				"top":"techreborn:blocks/machines/generators/solar_panel_top_on",
+				"side":"techreborn:blocks/machines/generators/solar_panel_side_on"            
 				}
          },
          "false":{
             "textures":{
-			"top":"techreborn:blocks/machines/generators/gas_turbine_top_off",
-			"side":"techreborn:blocks/machines/generators/gas_turbine_side_off"            
+			"top":"techreborn:blocks/machines/generators/solar_panel_top_off",
+			"side":"techreborn:blocks/machines/generators/solar_panel_side_off"            
 			}
          }
       },
         "inventory": {
             "model": "techreborn:template/cube_wrapped",
             "textures": {
-				"particle":"techreborn:blocks/machines/generators/gas_turbine_side_off",
+				"particle":"techreborn:blocks/machines/generators/solar_panel_side_off",
 				"down":"techreborn:blocks/machines/generators/generator_bottom",
-				"top":"techreborn:blocks/machines/generators/gas_turbine_top_off",
-				"side":"techreborn:blocks/machines/generators/gas_turbine_side_off"            
+				"top":"techreborn:blocks/machines/generators/solar_panel_top_off",
+				"side":"techreborn:blocks/machines/generators/solar_panel_side_off"            
 				}
         }
    }
