@@ -1,0 +1,14 @@
+{
+   "forge_marker":1,
+   "defaults":{
+      "transform":"forge:default-block",
+      "model":"orientable",
+	  "textures": {
+        "particle":"techreborn:blocks/computer_side",
+        "bottom": "techreborn:blocks/computer_side,
+        "top": "techreborn:blocks/computer_side",
+        "front": "techreborn:blocks/computer_front",
+        "side": "techreborn:blocks/computer_side"
+	  }
+    }
+}

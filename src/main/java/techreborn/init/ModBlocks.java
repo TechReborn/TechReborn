@@ -269,6 +269,8 @@ public class ModBlocks
 		Dragoneggenergysiphoner = new BlockDragonEggSiphoner(Material.ROCK);
 		registerBlock(Dragoneggenergysiphoner, "dragoneggenergsiphon");
 		GameRegistry.registerTileEntity(TileDragonEggSiphoner.class, "TileDragonEggSiphonerTR");
+		Core.proxy.registerCustomBlockSateLocation(Dragoneggenergysiphoner, "machines/generators/dragon_egg_syphon");
+
 
 		Magicenergeyconverter = new BlockMagicEnergyConverter(Material.ROCK);
 		registerBlock(Magicenergeyconverter, "magicenergyconverter");
