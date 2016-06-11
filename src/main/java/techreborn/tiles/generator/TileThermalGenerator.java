@@ -139,6 +139,8 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
 	public void updateEntity()
 	{
 		super.updateEntity();
+		
+		//Lava being pumped in
 		if (!worldObj.isRemote)
 		{
 			FluidUtils.drainContainers(this, inventory, 0, 1);
@@ -182,8 +184,7 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
 			setInventorySlotContents(2, null);
 		}
 
-		super.updateEntity();
-
+		//Lava being nearby
 		if (!worldObj.isRemote)
 		{
 			if (worldObj.getBlockState(new BlockPos(getPos().getX() + 1, getPos().getY(), getPos().getZ()))
