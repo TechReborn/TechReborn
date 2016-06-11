@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class BlockOre extends BaseBlock implements ITexturedBlock, IOreNameProvider
+public class BlockOre extends BaseBlock implements IOreNameProvider
 {
 
 	public static final String[] ores = new String[] { "galena", "iridium", "ruby", "sapphire", "bauxite", "pyrite",
@@ -198,17 +198,17 @@ public class BlockOre extends BaseBlock implements ITexturedBlock, IOreNameProvi
 //		return meta;
 //	}
 
-	@Override
-	public String getTextureNameFromState(IBlockState BlockStateContainer, EnumFacing facing)
-	{
-		return "techreborn:blocks/ore/ore" + StringUtils.toFirstCapital(ores[getMetaFromState(BlockStateContainer)]);
-	}
-
-	@Override
-	public int amountOfStates()
-	{
-		return ores.length;
-	}
+//	@Override
+//	public String getTextureNameFromState(IBlockState BlockStateContainer, EnumFacing facing)
+//	{
+//		return "techreborn:blocks/ore/ore" + StringUtils.toFirstCapital(ores[getMetaFromState(BlockStateContainer)]);
+//	}
+//
+//	@Override
+//	public int amountOfStates()
+//	{
+//		return ores.length;
+//	}
 
 	@Override
 	public int damageDropped(IBlockState state) {

@@ -243,9 +243,17 @@ public class ModBlocks
 
 		ore = new BlockOre(Material.ROCK);
 		registerBlock(ore, ItemBlockOre.class, "techreborn.ore");
+		Core.proxy.registerCustomBlockSateLocation(ore, "storage/ores");
+		for (int i = 0; i < BlockOre.ores.length; i++) {
+			Core.proxy.registerSubBlockInventoryLocation(ore, i, "storage/ores", BlockOre.ores[i]);
+		}
 
 		ore2 = new BlockOre2(Material.ROCK);
 		registerBlock(ore2, ItemBlockOre2.class, "techreborn.ore2");
+		Core.proxy.registerCustomBlockSateLocation(ore2, "storage/ores");
+		for (int i = 0; i < BlockOre2.ores.length; i++) {
+			Core.proxy.registerSubBlockInventoryLocation(ore2, i, "storage/ores", BlockOre2.ores[i]);
+		}
 
 		storage = new BlockStorage(Material.IRON);
 		registerBlock(storage, ItemBlockStorage.class, "techreborn.storage");

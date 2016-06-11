@@ -163,8 +163,8 @@ public class ClientProxy extends CommonProxy
 	}
 
 	@Override
-	public void registerCustomBlockSateLocation(Block block, String resourceLocation) {
-		super.registerCustomBlockSateLocation(block, resourceLocation);
+	public void registerCustomBlockSateLocation(Block block, String resourceLocation, boolean item) {
+		super.registerCustomBlockSateLocation(block, resourceLocation, item);
 		ModelLoader.setCustomStateMapper(block, new DefaultStateMapper()
 		{
 			@Override
@@ -175,7 +175,35 @@ public class ClientProxy extends CommonProxy
 				return new ModelResourceLocation(resourceDomain + ':' + resourceLocation, propertyString);
 			}
 		});
-		String resourceDomain = Block.REGISTRY.getNameForObject(block).getResourceDomain();
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(resourceDomain + ':' + resourceLocation, "inventory"));
+		if(item){
+			String resourceDomain = Block.REGISTRY.getNameForObject(block).getResourceDomain();
+			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(resourceDomain + ':' + resourceLocation, "inventory"));
+		}
 	}
+
+
+	@Override
+	public void registerSubItemInventoryLocation(Item item, int meta, String location, String name) {
+		super.registerSubItemInventoryLocation(item, meta, location, name);
+		Block block = Block.getBlockFromItem(item);
+		if(block != null){
+			IBlockState state = block.getStateFromMeta(meta);
+			String resourceDomain = Block.REGISTRY.getNameForObject(state.getBlock()).getResourceDomain();
+			StateMapperBase base = new StateMapperBase() {
+				@Override
+				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+					return null;
+				}
+			};
+			String propertyString = base.getPropertyString(state.getProperties());
+			ModelResourceLocation resourceLocation = new ModelResourceLocation(resourceDomain + ':' + location, propertyString);
+			ModelLoader.setCustomModelResourceLocation(item, meta, resourceLocation);
+		} else {
+			ResourceLocation loc = item.getRegistryName();
+			String resourceDomain = Item.REGISTRY.getNameForObject(item).getResourceDomain();
+			ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(resourceDomain + ':' + loc, "type=" + name));
+		}
+
+	}
+
 }

@@ -14,6 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import reborncore.common.util.ItemNBTHelper;
+import reborncore.shields.RebornCoreShields;
 import techreborn.client.TechRebornCreativeTab;
 
 /**
@@ -30,7 +31,7 @@ public class BlockDistributor extends Block {
     }
 
     public static ItemStack getReleaseStack(){
-        ItemStack newStack = new ItemStack(Items.SHIELD);
+        ItemStack newStack = new ItemStack(RebornCoreShields.shieldItem);
         ItemNBTHelper.setString(newStack, "type", "btm");
         ItemNBTHelper.setBoolean(newStack, "vanilla", false);
         return newStack;

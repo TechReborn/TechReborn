@@ -1,0 +1,93 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {},
+    "transform": "forge:default-block",
+    "model": "cube_all"
+  },
+  "variants": {
+    "inventory": [{}],
+    "type": {
+      "galena": {
+        "textures": {
+          "all": "techreborn:blocks/ore/oreGalena"
+        }
+      },
+      "iridium": {
+        "textures": {
+          "all": "techreborn:blocks/ore/oreIridium"
+        }
+      },
+      "ruby": {
+        "textures": {
+          "all": "techreborn:blocks/ore/oreRuby"
+        }
+      },
+      "sapphire": {
+        "textures": {
+          "all": "techreborn:blocks/ore/oreSapphire"
+        }
+      },
+      "bauxite": {
+        "textures": {
+          "all": "techreborn:blocks/ore/oreBauxite"
+        }
+      },
+      "pyrite": {
+        "textures": {
+          "all": "techreborn:blocks/ore/orePyrite"
+        }
+      },
+      "cinnabar": {
+        "textures": {
+          "all": "techreborn:blocks/ore/oreCinnabar"
+        }
+      },
+      "sphalerite": {
+        "textures": {
+          "all": "techreborn:blocks/ore/oreSphalerite"
+        }
+      },
+      "tungston": {
+        "textures": {
+          "all": "techreborn:blocks/ore/oreTungston"
+        }
+      },
+      "sheldonite": {
+        "textures": {
+          "all": "techreborn:blocks/ore/oreSheldonite"
+        }
+      },
+      "peridot": {
+        "textures": {
+          "all": "techreborn:blocks/ore/orePeridot"
+        }
+      },
+      "sodalite": {
+        "textures": {
+          "all": "techreborn:blocks/ore/oreSodalite"
+        }
+      },
+      "lead": {
+        "textures": {
+          "all": "techreborn:blocks/ore/oreLead"
+        }
+      },
+      "silver": {
+        "textures": {
+          "all": "techreborn:blocks/ore/oreSilver"
+        }
+      },
+      "copper": {
+        "textures": {
+          "all": "techreborn:blocks/ore/oreCopper"
+        }
+      },
+      "tin": {
+        "textures": {
+          "all": "techreborn:blocks/ore/oreTin"
+        }
+      }
+    }
+  }
+}
