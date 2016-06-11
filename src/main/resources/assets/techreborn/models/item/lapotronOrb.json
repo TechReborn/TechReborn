@@ -1,0 +1,14 @@
+{
+    "parent": "techreborn:item/techrebornItem",
+    "textures": {
+        "layer0": "techreborn:items/tool/lapotronOrb"
+    },
+    "overrides": [
+        {
+            "predicate": {
+                "techreborn:empty": 1
+            },
+            "model": "techreborn:item/lapotronOrbEmpty"
+        }
+    ]
+}
