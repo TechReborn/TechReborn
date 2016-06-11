@@ -280,7 +280,7 @@ public abstract class MultipartFluidPipe extends Multipart implements INormallyO
     @Override
     public List<ItemStack> getDrops() {
         List<ItemStack> list = new ArrayList<>();
-        list.add(new ItemStack(TechRebornParts.fluidPipe, 1, 0));
+       // list.add(new ItemStack(TechRebornParts.fluidPipe, 1, 0));
         return list;
     }
 

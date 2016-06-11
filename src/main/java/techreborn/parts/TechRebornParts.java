@@ -27,8 +27,8 @@ public class TechRebornParts implements ICompatModule
 	@Nullable
 	public static Item cables;
 
-	@Nullable
-	public static Item fluidPipe;
+//	@Nullable
+//	public static Item fluidPipe;
 
 	public static HashMap<EnumCableType, Class<? extends CableMultipart>> multipartHashMap = new HashMap<>();
 
@@ -50,12 +50,12 @@ public class TechRebornParts implements ICompatModule
 		cables.setRegistryName("cables");
 		GameRegistry.register(cables);
 
-		MultipartRegistry.registerPart(EmptyFluidPipe.class, "techreborn:fluidpipe.empty");
-		MultipartRegistry.registerPart(InsertingFluidPipe.class, "techreborn:fluidpipe.inserting");
-		MultipartRegistry.registerPart(ExtractingFluidPipe.class, "techreborn:fluidpipe.extracting");
-		fluidPipe = new ItemFluidPipe();
-		fluidPipe.setRegistryName("fluidPipe");
-		GameRegistry.register(fluidPipe);
+//		MultipartRegistry.registerPart(EmptyFluidPipe.class, "techreborn:fluidpipe.empty");
+//		MultipartRegistry.registerPart(InsertingFluidPipe.class, "techreborn:fluidpipe.inserting");
+//		MultipartRegistry.registerPart(ExtractingFluidPipe.class, "techreborn:fluidpipe.extracting");
+//		fluidPipe = new ItemFluidPipe();
+//		fluidPipe.setRegistryName("fluidPipe");
+//		GameRegistry.register(fluidPipe);
 	}
 
 	@Override
