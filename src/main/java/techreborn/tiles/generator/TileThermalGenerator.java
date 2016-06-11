@@ -136,7 +136,6 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
 	}
 
 	@Override
-	// TODO optimise this code
 	public void updateEntity()
 	{
 		super.updateEntity();
@@ -181,6 +180,34 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
 		} else if (tank.getFluidType() == null && getStackInSlot(2) != null)
 		{
 			setInventorySlotContents(2, null);
+		}
+
+		super.updateEntity();
+
+		if (!worldObj.isRemote)
+		{
+			if (worldObj.getBlockState(new BlockPos(getPos().getX() + 1, getPos().getY(), getPos().getZ()))
+					.getBlock() == Blocks.LAVA)
+			{
+				addEnergy(euTick);
+			} else if (worldObj.getBlockState(new BlockPos(getPos().getX(), getPos().getY(), getPos().getZ() + 1))
+					.getBlock() == Blocks.LAVA)
+			{
+				addEnergy(euTick);
+			} else if (worldObj.getBlockState(new BlockPos(getPos().getX(), getPos().getY(), getPos().getZ() - 1))
+					.getBlock() == Blocks.LAVA)
+			{
+				addEnergy(euTick);
+			} else if (worldObj.getBlockState(new BlockPos(getPos().getX() - 1, getPos().getY(), getPos().getZ()))
+					.getBlock() == Blocks.LAVA)
+			{
+				addEnergy(euTick);
+			} else if (worldObj.getBlockState(new BlockPos(getPos().getX(), getPos().getY() - 1, getPos().getZ()))
+					.getBlock() == Blocks.LAVA)
+			{
+				addEnergy(euTick);
+			}
+
 		}
 	}
 

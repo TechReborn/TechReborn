@@ -27,7 +27,6 @@ public class ConfigTechReborn
 	public static int ThermalGeneratorOutput;
 	public static int CentrifugeInputTick;
 	public static int DragonEggSiphonerOutput;
-	public static int HeatGeneratorOutput;
 	public static int AverageEuOutTickTime;
 	public static int ExtraOutputPerLesuBlock;
 	public static int BaseLesuOutput;
@@ -212,10 +211,6 @@ public class ConfigTechReborn
 
 		CentrifugeInputTick = config
 				.get(CATEGORY_POWER, "Centrifuge Max Tick", 30, "Set the max power the Centrifuge uses per tick")
-				.getInt();
-
-		HeatGeneratorOutput = config
-				.get(CATEGORY_POWER, "HeatGenerator Max Output", 30, "Set the max output for the HeatGenerator")
 				.getInt();
 
 		AesuMaxOutput = config.get(CATEGORY_POWER, "AESU Max Output", 30, "Set the max output for the AESU").getInt();
