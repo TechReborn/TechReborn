@@ -2,7 +2,7 @@
    "forge_marker":1,
    "defaults":{
       "transform":"forge:default-block",
-      "model":"orientable",
+      "model":"cube_all",
       "textures":{
          "particle":"techreborn:blocks/machines/generators/dragon_egg_syphon_side_off",
          "down":"techreborn:blocks/machines/generators/generator_bottom"
@@ -45,7 +45,7 @@
          }
       },
         "inventory": {
-            "model": "orientable",
+            "model": "cube_all",
             "textures": {
 				"particle":"techreborn:blocks/machines/generators/dragon_egg_syphon_side_off",
 				"down":"techreborn:blocks/machines/generators/generator_bottom",
