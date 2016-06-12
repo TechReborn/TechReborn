@@ -1,0 +1,57 @@
+{
+   "forge_marker":1,
+   "defaults":{
+      "transform":"forge:default-block",
+      "model":"orientable",
+      "textures":{
+         "particle":"techreborn:blocks/machines/tier0_machines/machine_side",
+         "top":"techreborn:blocks/machines/tier0_machines/machine_top",
+         "down":"techreborn:blocks/machines/tier0_machines/machine_bottom",
+         "side":"techreborn:blocks/machines/tier0_machines/machine_side"
+      }
+   },
+   "variants":{
+      "inventory":{
+         "transform":"forge:default-block",
+         "textures":{
+            "front":"techreborn:blocks/machines/tier0_machines/furnace_front_off"
+         }
+      },
+      "facing":{
+         "north":{
+
+         },
+         "east":{
+            "y":90
+         },
+         "south":{
+            "y":180
+         },
+         "west":{
+            "y":270
+         }
+      },
+      "active":{
+         "true":{
+            "textures":{
+               "front":"techreborn:blocks/machines/tier0_machines/alloy_furnace_front_on"
+            }
+         },
+         "false":{
+            "textures":{
+               "front":"techreborn:blocks/machines/tier0_machines/alloy_furnace_front_off"
+            }
+         }
+      },
+        "inventory": {
+            "model": "orientable",
+            "textures": {
+                "particle": "techreborn:blocks/machines/tier0_machines/machine_side",
+                "top": "techreborn:blocks/machines/tier0_machines/machine_top",
+                "down": "techreborn:blocks/machines/tier0_machines/machine_bottom",
+                "side": "techreborn:blocks/machines/tier0_machines/machine_side",
+                "front": "techreborn:blocks/machines/tier0_machines/alloy_furnace_front_off"
+            }
+        }
+   }
+}

@@ -1,0 +1,61 @@
+{
+   "forge_marker":1,
+   "defaults":{
+      "transform":"forge:default-block",
+      "model":"orientable",
+      "textures":{
+         "particle":"techreborn:blocks/machines/tier2_machines/machine_west",
+         "top":"techreborn:blocks/machines/tier2_machines/machine_top",
+         "down":"techreborn:blocks/machines/tier2_machines/machine_bottom",
+         "west":"techreborn:blocks/machines/tier2_machines/machine_west",
+         "east":"techreborn:blocks/machines/tier2_machines/machine_east",
+         "south":"techreborn:blocks/machines/tier2_machines/machine_back"
+      }
+   },
+   "variants":{
+      "inventory":{
+         "transform":"forge:default-block",
+         "textures":{
+            "front":"techreborn:blocks/machines/tier2_machines/industrial_sawmill_front_off"
+         }
+      },
+      "facing":{
+         "north":{
+
+         },
+         "east":{
+            "y":90
+         },
+         "south":{
+            "y":180
+         },
+         "west":{
+            "y":270
+         }
+      },
+      "active":{
+         "true":{
+            "textures":{
+               "front":"techreborn:blocks/machines/tier2_machines/industrial_sawmill_front_on"
+            }
+         },
+         "false":{
+            "textures":{
+               "front":"techreborn:blocks/machines/tier2_machines/industrial_sawmill_front_off"
+            }
+         }
+      },
+        "inventory": {
+            "model": "orientable",
+            "textures": {
+				"particle":"techreborn:blocks/machines/tier2_machines/machine_west",
+				"top":"techreborn:blocks/machines/tier2_machines/machine_top",
+				"down":"techreborn:blocks/machines/tier2_machines/machine_bottom",
+				"west":"techreborn:blocks/machines/tier2_machines/machine_west",
+				"east":"techreborn:blocks/machines/tier2_machines/machine_east",
+				"south":"techreborn:blocks/machines/tier2_machines/machine_back",
+				"front": "techreborn:blocks/machines/tier2_machines/industrial_sawmill_front_off"
+            }
+        }
+   }
+}

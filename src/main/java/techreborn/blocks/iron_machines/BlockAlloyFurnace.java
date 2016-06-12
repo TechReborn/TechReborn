@@ -18,7 +18,7 @@ import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileAlloyFurnace;
 
-public class BlockAlloyFurnace extends BlockMachineBase implements IRotationTexture
+public class BlockAlloyFurnace extends BlockMachineBase
 {
 
 	private final String prefix = "techreborn:blocks/machine/iron_machines/";
@@ -51,35 +51,5 @@ public class BlockAlloyFurnace extends BlockMachineBase implements IRotationText
 		List<ItemStack> items = new ArrayList<>();
 		items.add(new ItemStack(this));
 		return items;
-	}
-
-	@Override
-	public String getFrontOff()
-	{
-		return prefix + "alloy_furnace_front_off";
-	}
-
-	@Override
-	public String getFrontOn()
-	{
-		return prefix + "alloy_furnace_front_on";
-	}
-
-	@Override
-	public String getSide()
-	{
-		return prefix + "iron_machine_side";
-	}
-
-	@Override
-	public String getTop()
-	{
-		return prefix + "iron_machine_top";
-	}
-
-	@Override
-	public String getBottom()
-	{
-		return prefix + "iron_machine_bottom";
 	}
 }

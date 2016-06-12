@@ -1,0 +1,12 @@
+{
+    "parent": "block/cube_directional",
+    "textures": {
+        "particle": "techreborn:blocks/machines/energy/lv_storage_side",
+        "down": "techreborn:blocks/machines/energy/lv_storage_side",
+        "up": "techreborn:blocks/machines/energy/lv_storage_side",
+        "north": "techreborn:blocks/machines/energy/lv_storage_front",
+        "east": "techreborn:blocks/machines/energy/lv_storage_side",
+        "south": "techreborn:blocks/machines/energy/lv_storage_side",
+        "west": "techreborn:blocks/machines/energy/lv_storage_side"
+    }
+}
