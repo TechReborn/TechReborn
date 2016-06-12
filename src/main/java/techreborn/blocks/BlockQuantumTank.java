@@ -11,7 +11,7 @@ import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileQuantumTank;
 
-public class BlockQuantumTank extends BlockMachineBase implements IAdvancedRotationTexture
+public class BlockQuantumTank extends BlockMachineBase
 {
 
 	private final String prefix = "techreborn:blocks/machine/greg_machines/";
@@ -43,29 +43,5 @@ public class BlockQuantumTank extends BlockMachineBase implements IAdvancedRotat
 			player.openGui(Core.INSTANCE, GuiHandler.quantumTankID, world, x, y, z);
 		}
 		return true;
-	}
-
-	@Override
-	public String getFront(boolean isActive)
-	{
-		return "techreborn:blocks/machine/generators/thermal_generator_side_off";
-	}
-
-	@Override
-	public String getSide(boolean isActive)
-	{
-		return "techreborn:blocks/machine/generators/thermal_generator_side_off";
-	}
-
-	@Override
-	public String getTop(boolean isActive)
-	{
-		return prefix + "quantum_top";
-	}
-
-	@Override
-	public String getBottom(boolean isActive)
-	{
-		return "techreborn:blocks/machine/generators/thermal_generator_bottom";
 	}
 }

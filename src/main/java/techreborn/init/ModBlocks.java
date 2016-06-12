@@ -219,7 +219,7 @@ public class ModBlocks
 		AlloySmelter = new BlockAlloySmelter(Material.ROCK);
 		registerBlock(AlloySmelter, "alloySmelter");
 		GameRegistry.registerTileEntity(TileAlloySmelter.class, "TileAlloySmalterTR");
-		Core.proxy.registerCustomBlockStateLocation(AlloySmelter, "machines/tier1_machines/alloy_smelter");
+		Core.proxy.registerCustomBlockStateLocation(AlloySmelter, "machines/tier1_machines/electric_alloy_smelter");
 
 		IndustrialGrinder = new BlockIndustrialGrinder(Material.ROCK);
 		registerBlock(IndustrialGrinder, "grinder");

@@ -1,0 +1,28 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {},
+    "transform": "forge:default-block",
+    "model": "cube_all"
+  },
+  "variants": {
+    "inventory": [{}],
+    "tier1": {
+      "galena": {
+        "textures": {
+          "all": "techreborn:blocks/machines/structure/tier1_machine_block"
+        }
+      },
+      "tier2": {
+        "textures": {
+          "all": "techreborn:blocks/machines/structure/tier2_machine_block"
+        }
+      },
+      "tier3": {
+        "textures": {
+          "all": "techreborn:blocks/machines/structure/tier3_machine_block"
+        }
+      }
+    }
+  }
+}
