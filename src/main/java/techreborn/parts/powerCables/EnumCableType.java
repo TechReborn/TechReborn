@@ -9,6 +9,7 @@ import techreborn.parts.powerCables.types.HVCable;
 import techreborn.parts.powerCables.types.InsulatedCopperCable;
 import techreborn.parts.powerCables.types.InsulatedGoldCable;
 import techreborn.parts.powerCables.types.InsulatedHVCable;
+import techreborn.parts.powerCables.types.SuperconductorCable;
 import techreborn.parts.powerCables.types.TinCable;
 
 public enum EnumCableType implements IStringSerializable
@@ -20,7 +21,9 @@ public enum EnumCableType implements IStringSerializable
 	GLASSFIBER("glassfiber", "techreborn:blocks/cables/glass_fiber_cable", 8192, 12.0, false, EnumPowerTier.HIGH, GlassFiberCable.class),
 	ICOPPER("insulatedcopper", "techreborn:blocks/cables/copper_insulated_cable", 128, 10.0, false, EnumPowerTier.LOW, InsulatedCopperCable.class),
 	IGOLD("insulatedgold", "techreborn:blocks/cables/gold_insulated_cable", 512, 10.0, false, EnumPowerTier.MEDIUM, InsulatedGoldCable.class),
-	IHV("insulatedhv", "techreborn:blocks/cables/hv_insulated_cable", 2048, 10.0, false, EnumPowerTier.HIGH, InsulatedHVCable.class);
+	IHV("insulatedhv", "techreborn:blocks/cables/hv_insulated_cable", 2048, 10.0, false, EnumPowerTier.HIGH, InsulatedHVCable.class),
+	SUPERCONDUCTOR("superconductor", "techreborn:blocks/cables/superconductor", 8192, 10.0, false, EnumPowerTier.EXTREME, SuperconductorCable.class);
+
 
 	public String textureName = "minecraft:blocks/iron_block";
 	public int transferRate = 128;
