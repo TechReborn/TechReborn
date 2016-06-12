@@ -34,12 +34,12 @@
       "active":{
          "true":{
             "textures":{
-               "front":"techreborn:blocks/machines/tier0_machines/furnace_front_on"
+               "front":"techreborn:blocks/machines/tier0_machines/alloy_furnace_front_on"
             }
          },
          "false":{
             "textures":{
-               "front":"techreborn:blocks/machines/tier0_machines/furnace_front_off"
+               "front":"techreborn:blocks/machines/tier0_machines/alloy_furnace_front_off"
             }
          }
       },
@@ -50,7 +50,7 @@
                 "top": "techreborn:blocks/machines/tier0_machines/machine_top",
                 "down": "techreborn:blocks/machines/tier0_machines/machine_bottom",
                 "side": "techreborn:blocks/machines/tier0_machines/machine_side",
-                "front": "techreborn:blocks/machines/tier0_machines/furnace_front_off"
+                "front": "techreborn:blocks/machines/tier0_machines/alloy_furnace_front_off"
             }
         }
    }
