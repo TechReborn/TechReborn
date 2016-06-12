@@ -1,14 +1,12 @@
 {
-   "forge_marker":1,
-   "defaults":{
-      "transform":"forge:default-block",
-      "model":"orientable",
-	  "textures": {
-        "particle":"techreborn:blocks/machines/energy/lv_storage_side",
-        "bottom": "techreborn:blocks/machines/energy/lv_storage_side,
-        "top": "techreborn:blocks/machines/energy/lv_storage_side",
-        "front": "techreborn:blocks/machines/energy/lv_storage_front",
-        "side": "techreborn:blocks/machines/energy/lv_storage_side"
-	  }
+    "parent": "block/cube_directional",
+    "textures": {
+        "particle": "techreborn:blocks/machines/energy/lv_storage_side",
+        "down": "techreborn:blocks/machines/energy/lv_storage_side",
+        "up": "techreborn:blocks/machines/energy/lv_storage_side",
+        "north": "techreborn:blocks/machines/energy/lv_storage_front",
+        "east": "techreborn:blocks/machines/energy/lv_storage_side",
+        "south": "techreborn:blocks/machines/energy/lv_storage_side",
+        "west": "techreborn:blocks/machines/energy/lv_storage_side"
     }
 }

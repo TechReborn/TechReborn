@@ -1,0 +1,28 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {},
+    "transform": "forge:default-block",
+    "model": "cube_all"
+  },
+  "variants": {
+    "inventory": [{}],
+    "type": {
+      "all": {
+        "textures": {
+          "all": "techreborn:blocks/tier1_machines/player_detector_all"
+        }
+      },
+      "others": {
+        "textures": {
+          "all": "techreborn:blocks/tier1_machines/player_detector_others"
+        }
+      },
+      "you": {
+        "textures": {
+          "all": "techreborn:blocks/tier1_machines/player_detector_you"
+        }
+      }
+    }
+  }
+}

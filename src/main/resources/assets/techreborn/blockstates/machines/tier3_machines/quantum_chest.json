@@ -2,7 +2,7 @@
    "forge_marker":1,
    "defaults":{
       "transform":"forge:default-block",
-      "model":"techreborn:template/cube_wrapped",
+      "model":"cube_column",
 	  "textures": {
         "particle":"techreborn:blocks/machines/tier3_machines/quantum_chest_side",
         "bottom": "techreborn:blocks/machines/tier3_machines/machine_bottom,
