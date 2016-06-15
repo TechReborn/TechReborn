@@ -67,6 +67,6 @@ Inactive
 
  And everyone else who has helped with languages and code.
  
- # License Infomation:
+# License Infomation:
  
  The mod is licenced under MIT. We have got permisson from Greg to use his textures, everything else has been recoded and retextured. If you have any quierys please ask on irc or in an issue.
