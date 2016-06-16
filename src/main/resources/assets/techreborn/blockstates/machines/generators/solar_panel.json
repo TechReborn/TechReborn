@@ -2,7 +2,7 @@
   "forge_marker": 1,
   "defaults": {
     "transform": "forge:default-block",
-    "model": "cube_bottom_top",
+    "model": "orientable",
     "textures": {
       "particle": "techreborn:blocks/machines/generators/solar_panel_side_off",
       "down": "techreborn:blocks/machines/generators/generator_bottom"
@@ -44,7 +44,7 @@
       }
     },
     "inventory": {
-      "model": "cube_bottom_top",
+      "model": "orientable",
       "textures": {
         "particle": "techreborn:blocks/machines/generators/solar_panel_side_off",
         "down": "techreborn:blocks/machines/generators/generator_bottom",
@@ -54,3 +54,4 @@
     }
   }
 }
+
