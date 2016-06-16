@@ -1,14 +1,14 @@
 {
-    "parent": "techreborn:item/techrebornItem",
-    "textures": {
-        "layer0": "techreborn:items/tool/reBattery"
-    },
-    "overrides": [
-        {
-            "predicate": {
-                "techreborn:empty": 1
-            },
-            "model": "techreborn:item/reBatteryEmpty"
-        }
-    ]
+  "parent": "techreborn:item/techrebornItem",
+  "textures": {
+    "layer0": "techreborn:items/tool/reBattery"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "techreborn:empty": 1
+      },
+      "model": "techreborn:item/reBatteryEmpty"
+    }
+  ]
 }

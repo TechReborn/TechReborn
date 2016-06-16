@@ -6,7 +6,9 @@
     "model": "cube_all"
   },
   "variants": {
-    "inventory": [{}],
+    "inventory": [
+      {}
+    ],
     "type": {
       "galena": {
         "textures": {

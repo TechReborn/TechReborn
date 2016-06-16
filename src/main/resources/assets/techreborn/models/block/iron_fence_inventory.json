@@ -1,6 +1,6 @@
 {
-    "parent": "block/fence_inventory",
-    "textures": {
-        "texture": "blocks/iron_block"
-    }
+  "parent": "block/fence_inventory",
+  "textures": {
+    "texture": "blocks/iron_block"
+  }
 }
