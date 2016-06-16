@@ -17,7 +17,7 @@ public class  BlockLESU extends BlockEnergyStorage
 {
 	public BlockLESU()
 	{
-		super("LESU", GuiHandler.lesuID);
+		super("LESU", GuiHandler.lesuID, "");
 	}
 
 	@Override

@@ -26,6 +26,9 @@ public class TESRGlowing extends TileEntitySpecialRenderer<TileMachineBase> {
 	public void renderTileEntityAt(TileMachineBase te, double x, double y, double z, float partialTicks, int destroyStage) {
 
 		if (ClientProxy.handler.informationHashMap.containsKey(te.getClass())) {
+			if(!te.isActive()){
+				return;
+			}
 			List<GlowInformation> informationList = ClientProxy.handler.informationHashMap.get(te.getClass());
 			//Binds the blocks texture
 			Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
@@ -47,7 +50,7 @@ public class TESRGlowing extends TileEntitySpecialRenderer<TileMachineBase> {
 				float maxU = tas.getMaxU();
 				float minV = tas.getMinV();
 				float maxV = tas.getMaxV();
-				
+
 				EnumFacing dir = information.getDir();
 				if (dir == null) {
 					dir = te.getFacingEnum();

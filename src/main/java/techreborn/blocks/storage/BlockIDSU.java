@@ -19,7 +19,7 @@ public class BlockIDSU extends BlockEnergyStorage
 {
 	public BlockIDSU()
 	{
-		super("IDSU", GuiHandler.idsuID);
+		super("IDSU", GuiHandler.idsuID, "ev_storage_transmitter");
 	}
 
 	@Override

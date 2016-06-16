@@ -22,7 +22,7 @@ public class BlockLVTransformer extends BlockTransformer
 
 	public BlockLVTransformer()
 	{
-		super("lvtransformer");
+		super("lvtransformer", "lv");
 	}
 
 	@Override

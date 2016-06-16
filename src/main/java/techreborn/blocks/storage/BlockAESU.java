@@ -17,7 +17,7 @@ public class BlockAESU extends BlockEnergyStorage
 {
 	public BlockAESU()
 	{
-		super("AESU", GuiHandler.aesuID);
+		super("AESU", GuiHandler.aesuID ,"ev_storage_adjust");
 	}
 
 	@Override
