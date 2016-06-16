@@ -31,6 +31,7 @@ import techreborn.client.StackToolTipEvent;
 import techreborn.client.hud.ChargeHud;
 import techreborn.client.keybindings.KeyBindings;
 import techreborn.client.render.entitys.RenderNukePrimed;
+import techreborn.client.render.tiles.GlowHandler;
 import techreborn.entitys.EntityNukePrimed;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
@@ -46,10 +47,14 @@ public class ClientProxy extends CommonProxy
 
 	public static final ModelResourceLocation MODEL_DYNAMIC_CELL = new ModelResourceLocation(new ResourceLocation("techreborn", "dyncell"), "inventory");
 
+	public static GlowHandler handler;
+
 	@Override
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		super.preInit(event);
+		GlowHandler.createAndLoad();
+
 		RenderingRegistry.registerEntityRenderingHandler(EntityNukePrimed.class, new RenderManagerNuke());
 
 		ManualLoader loader = new ManualLoader(new File(event.getModConfigurationDirectory(), "techreborn"));

@@ -251,7 +251,7 @@ public class ModBlocks
 		playerDetector = new BlockPlayerDetector();
 		registerBlock(playerDetector, ItemBlockPlayerDetector.class, "playerDetector");
 		GameRegistry.registerTileEntity(TilePlayerDectector.class, "TilePlayerDectectorTR");
-		Core.proxy.registerCustomBlockStateLocation(ChunkLoader, "machines/tier1_machines/player_detectors");
+		Core.proxy.registerCustomBlockStateLocation(playerDetector, "machines/tier1_machines/player_detectors");
 
 
 		MachineCasing = new BlockMachineCasing(Material.ROCK);
