@@ -12,7 +12,7 @@ public enum EnumStandaloneCableType implements IStringSerializable {
 	ICOPPER("insulatedcopper", "techreborn:blocks/cables/copper_insulated_cable", 128, 10.0, false, EnumPowerTier.LOW),
 	IGOLD("insulatedgold", "techreborn:blocks/cables/gold_insulated_cable", 512, 10.0, false, EnumPowerTier.MEDIUM),
 	IHV("insulatedhv", "techreborn:blocks/cables/hv_insulated_cable", 2048, 10.0, false, EnumPowerTier.HIGH),
-	SUPERCONDUCTOR("superconductor", "techreborn:blocks/cables/superconductor", 2048, 10.0, false, EnumPowerTier.HIGH);
+	SUPERCONDUCTOR("superconductor", "techreborn:blocks/cables/superconductor_cable", 2048, 10.0, false, EnumPowerTier.EXTREME);
 
 
 	public String textureName = "minecraft:blocks/iron_block";
