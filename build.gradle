@@ -73,6 +73,9 @@ if (ENV.BUILD_NUMBER) {
 
 minecraft {
     version = "1.9.4-12.17.0.1950"
+	if(ENV.JOB_BASE_NAME == "TechReborn-1.10"){
+	version = "1.10-12.18.0.1992-1.10.0"
+	}
     mappings = "snapshot_20160518"
     replace "@MODVERSION@", project.version
   //  makeObfSourceJar = false
@@ -175,6 +178,9 @@ modsIO {
             artifact = jar.archivePath
             modid = "1182"
             minecraft = "1.9.4"
+            if(ENV.JOB_BASE_NAME == "TechReborn-1.10"){
+                minecraft = "1.10"
+            }
             changelog = "See github at : https://github.com/TechReborn/TechReborn"
             tag = "alpha"
             current = true
