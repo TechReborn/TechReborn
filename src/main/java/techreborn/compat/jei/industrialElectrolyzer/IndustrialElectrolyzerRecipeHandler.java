@@ -34,12 +34,6 @@ public class IndustrialElectrolyzerRecipeHandler implements IRecipeHandler<Indus
 
 	@Nonnull
 	@Override
-	public String getRecipeCategoryUid(@Nonnull IndustrialElectrolyzerRecipe recipe) {
-		return RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER;
-	}
-
-	@Nonnull
-	@Override
 	public IRecipeWrapper getRecipeWrapper(@Nonnull IndustrialElectrolyzerRecipe recipe)
 	{
 		return new IndustrialElectrolyzerRecipeWrapper(jeiHelpers, recipe);

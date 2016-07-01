@@ -1,6 +1,5 @@
 package techreborn.blocks;
 
-import com.google.common.collect.Lists;
 import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
@@ -13,21 +12,18 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.BaseBlock;
-import reborncore.common.blocks.PropertyString;
-import reborncore.common.util.ArrayUtils;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModBlocks;
 
 import java.util.List;
 import java.util.Random;
 
-public class BlockStorage extends BaseBlock
+public class BlockStorage extends BaseBlock implements ITexturedBlock
 {
 
 	public static final String[] types = new String[] { "silver", "aluminum", "titanium", "chrome", "steel", "brass",
 			"lead", "electrum", "zinc", "platinum", "tungsten", "nickel", "invar", "iridium" };
-	static List<String> oreNamesList = Lists.newArrayList(ArrayUtils.arrayToLowercase(types));
-	public PropertyString VARIANTS = new PropertyString("type", oreNamesList);
+	public PropertyInteger METADATA;
 
 	public BlockStorage(Material material)
 	{
@@ -35,7 +31,7 @@ public class BlockStorage extends BaseBlock
 		setUnlocalizedName("techreborn.storage");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		setHardness(2f);
-		this.setDefaultState(this.getStateFromMeta(0));
+		this.setDefaultState(this.getDefaultState().withProperty(METADATA, 0));
 	}
 
 	public static ItemStack getStorageBlockByName(String name, int count)
@@ -78,22 +74,37 @@ public class BlockStorage extends BaseBlock
 	}
 
 	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		if(meta > types.length){
-			meta = 0;
-		}
-		return getBlockState().getBaseState().withProperty(VARIANTS, oreNamesList.get(meta));
+	public String getTextureNameFromState(IBlockState BlockStateContainer, EnumFacing facing)
+	{
+		return "techreborn:blocks/storage/" + types[getMetaFromState(BlockStateContainer)] + "_block";
 	}
 
 	@Override
-	public int getMetaFromState(IBlockState state) {
-		return oreNamesList.indexOf(state.getValue(VARIANTS));
+	public int amountOfStates()
+	{
+		return types.length;
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta)
+	{
+		if(meta > types.length){
+			meta = 0;
+		}
+		return this.getDefaultState().withProperty(METADATA, meta);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state)
+	{
+		return state.getValue(METADATA);
 	}
 
 	protected BlockStateContainer createBlockState()
 	{
-		VARIANTS = new PropertyString("type", oreNamesList);
-		return new BlockStateContainer(this, VARIANTS);
+
+		METADATA = PropertyInteger.create("type", 0, types.length - 1);
+		return new BlockStateContainer(this, METADATA);
 	}
 
 }

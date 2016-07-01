@@ -34,12 +34,6 @@ public class IndustrialSawmillRecipeHandler implements IRecipeHandler<Industrial
 
 	@Nonnull
 	@Override
-	public String getRecipeCategoryUid(@Nonnull IndustrialSawmillRecipe recipe) {
-		return RecipeCategoryUids.INDUSTRIAL_SAWMILL;
-	}
-
-	@Nonnull
-	@Override
 	public IRecipeWrapper getRecipeWrapper(@Nonnull IndustrialSawmillRecipe recipe)
 	{
 		return new IndustrialSawmillRecipeWrapper(jeiHelpers, recipe);

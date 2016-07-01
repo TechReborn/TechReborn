@@ -34,12 +34,6 @@ public class ExtractorRecipeHandler implements IRecipeHandler<ExtractorRecipe>
 
 	@Nonnull
 	@Override
-	public String getRecipeCategoryUid(@Nonnull ExtractorRecipe recipe) {
-		return RecipeCategoryUids.EXTRACTOR;
-	}
-
-	@Nonnull
-	@Override
 	public IRecipeWrapper getRecipeWrapper(@Nonnull ExtractorRecipe recipe)
 	{
 		return new ExtractorRecipeWrapper(jeiHelpers, recipe);

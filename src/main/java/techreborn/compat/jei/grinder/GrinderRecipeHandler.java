@@ -34,12 +34,6 @@ public class GrinderRecipeHandler implements IRecipeHandler<GrinderRecipe>
 
 	@Nonnull
 	@Override
-	public String getRecipeCategoryUid(@Nonnull GrinderRecipe recipe) {
-		return RecipeCategoryUids.GRINDER;
-	}
-
-	@Nonnull
-	@Override
 	public IRecipeWrapper getRecipeWrapper(@Nonnull GrinderRecipe recipe)
 	{
 		return new GrinderRecipeWrapper(jeiHelpers, recipe);
