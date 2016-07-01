@@ -1,0 +1,14 @@
+{
+   "forge_marker":1,
+   "defaults":{
+      "transform":"forge:default-block",
+      "model":"orientable",
+	  "textures": {
+        "particle":"techreborn:blocks/machines/energy/ev_storage_transmitter_side",
+        "bottom": "techreborn:blocks/machines/energy/ev_storage_transmitter_side,
+        "top": "techreborn:blocks/machines/energy/ev_storage_transmitter_side",
+        "front": "techreborn:blocks/machines/energy/ev_storage_transmitter_front",
+        "side": "techreborn:blocks/machines/energy/ev_storage_transmitter_side"
+	  }
+    }
+}

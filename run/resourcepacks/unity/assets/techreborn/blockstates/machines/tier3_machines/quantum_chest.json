@@ -1,0 +1,13 @@
+{
+   "forge_marker":1,
+   "defaults":{
+      "transform":"forge:default-block",
+      "model":"techreborn:template/cube_wrapped",
+	  "textures": {
+        "particle":"techreborn:blocks/machines/tier3_machines/quantum_chest_side",
+        "bottom": "techreborn:blocks/machines/tier3_machines/machine_bottom,
+        "top": "techreborn:blocks/machines/tier3_machines/quantum_chest_top",
+        "side": "techreborn:blocks/machines/tier3_machines/quantum_chest_side"
+	  }
+    }
+}

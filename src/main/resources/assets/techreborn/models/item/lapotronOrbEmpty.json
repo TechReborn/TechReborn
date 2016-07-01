@@ -1,0 +1,6 @@
+{
+    "parent": "techreborn:item/techrebornItem",
+    "textures": {
+        "layer0": "techreborn:items/tool/lapotronOrbEmpty"
+    }
+}

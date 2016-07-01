@@ -34,6 +34,12 @@ public class AssemblingMachineRecipeHandler implements IRecipeHandler<Assembling
 
 	@Nonnull
 	@Override
+	public String getRecipeCategoryUid(@Nonnull AssemblingMachineRecipe recipe) {
+		return RecipeCategoryUids.ASSEMBLING_MACHINE;
+	}
+
+	@Nonnull
+	@Override
 	public IRecipeWrapper getRecipeWrapper(@Nonnull AssemblingMachineRecipe recipe)
 	{
 		return new AssemblingMachineRecipeWrapper(jeiHelpers, recipe);

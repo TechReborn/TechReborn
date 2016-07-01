@@ -2251,9 +2251,6 @@ public class ModRecipes
 				ItemParts.getPartByName("energyFlowCircuit"), 'T', ModBlocks.Extractor, 'A',
 				BlockMachineFrame.getFrameByName("highlyAdvancedMachine", 1), 'O', ModItems.lapotronicOrb);
 
-		CraftingHelper
-				.addShapedOreRecipe(new ItemStack(ModBlocks.heatGenerator), "III", "IHI", "CGC", 'I', "plateIron", 'H',
-						new ItemStack(Blocks.IRON_BARS), 'C', "circuitBasic", 'G', ModBlocks.Generator);
 
 		CraftingHelper
 				.addShapedOreRecipe(new ItemStack(ModBlocks.Gasturbine), "IAI", "WGW", "IAI", 'I', "ingotInvar", 'A',

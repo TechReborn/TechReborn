@@ -4,8 +4,6 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PoweredItem;
@@ -19,10 +17,7 @@ import techreborn.items.*;
 import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
 import techreborn.items.armor.ItemTRArmour;
-import techreborn.items.battery.ItemEnergyCrystal;
-import techreborn.items.battery.ItemLapotronCrystal;
-import techreborn.items.battery.ItemLithiumBattery;
-import techreborn.items.battery.ItemReBattery;
+import techreborn.items.battery.*;
 import techreborn.items.tools.*;
 
 public class ModItems
@@ -148,7 +143,7 @@ public class ModItems
 		registerItem(lapotronpack, "lapotronPack");
 		lithiumBattery = PoweredItem.createItem(ItemLithiumBattery.class);
 		registerItem(lithiumBattery, "lithiumBattery");
-		lapotronicOrb = PoweredItem.createItem(ItemLapotronicOrb.class);
+		lapotronicOrb = PoweredItem.createItem(ItemLapotronOrb.class);
 		registerItem(lapotronicOrb, "lapotronicOrb");
 		omniTool = PoweredItem.createItem(ItemOmniTool.class);
 		registerItem(omniTool, "omniTool");

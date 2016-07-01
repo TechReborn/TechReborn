@@ -105,6 +105,6 @@ public class ItemFrequencyTransmitter extends ItemTextureBase implements ITextur
 
 	@Override public String getTextureName(int arg0)
 	{
-		return "techreborn:items/tools/frequency_transmitter";
+		return "techreborn:items/tool/frequency_transmitter";
 	}
 }

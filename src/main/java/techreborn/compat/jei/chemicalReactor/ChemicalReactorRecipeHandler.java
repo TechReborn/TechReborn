@@ -34,6 +34,12 @@ public class ChemicalReactorRecipeHandler implements IRecipeHandler<ChemicalReac
 
 	@Nonnull
 	@Override
+	public String getRecipeCategoryUid(@Nonnull ChemicalReactorRecipe recipe) {
+		return RecipeCategoryUids.CHEMICAL_REACTOR;
+	}
+
+	@Nonnull
+	@Override
 	public IRecipeWrapper getRecipeWrapper(@Nonnull ChemicalReactorRecipe recipe)
 	{
 		return new ChemicalReactorRecipeWrapper(jeiHelpers, recipe);

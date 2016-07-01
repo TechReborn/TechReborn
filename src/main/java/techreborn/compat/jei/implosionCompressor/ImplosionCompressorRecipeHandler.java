@@ -34,6 +34,12 @@ public class ImplosionCompressorRecipeHandler implements IRecipeHandler<Implosio
 
 	@Nonnull
 	@Override
+	public String getRecipeCategoryUid(@Nonnull ImplosionCompressorRecipe recipe) {
+		return RecipeCategoryUids.IMPLOSION_COMPRESSOR;
+	}
+
+	@Nonnull
+	@Override
 	public IRecipeWrapper getRecipeWrapper(@Nonnull ImplosionCompressorRecipe recipe)
 	{
 		return new ImplosionCompressorRecipeWrapper(jeiHelpers, recipe);

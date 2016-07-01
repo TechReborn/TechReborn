@@ -1,0 +1,55 @@
+{
+   "forge_marker":1,
+   "defaults":{
+      "transform":"forge:default-block",
+      "model":"techreborn:template/cube_wrapped",
+      "textures":{
+         "particle":"techreborn:blocks/machines/generators/dragon_egg_syphon_side_off",
+         "top":"techreborn:blocks/machines/generators/dragon_egg_syphon_top",
+         "down":"techreborn:blocks/machines/generators/generator_bottom"
+      }
+   },
+   "variants":{
+      "inventory":{
+         "transform":"forge:default-block",
+         "textures":{
+			"side":"techreborn:blocks/machines/generators/dragon_egg_syphon_side_off"
+         }
+      },
+      "facing":{
+         "north":{
+
+         },
+         "east":{
+            "y":90
+         },
+         "south":{
+            "y":180
+         },
+         "west":{
+            "y":270
+         }
+      },
+      "active":{
+         "true":{
+            "textures":{
+				"side":"techreborn:blocks/machines/generators/dragon_egg_syphon_side_on"
+            }
+         },
+         "false":{
+            "textures":{
+				"side":"techreborn:blocks/machines/generators/dragon_egg_syphon_side_off"
+            }
+         }
+      },
+        "inventory": {
+            "model": "techreborn:template/cube_wrapped",
+            "textures": {
+				"particle":"techreborn:blocks/machines/generators/dragon_egg_syphon_side_off",
+				"down":"techreborn:blocks/machines/generators/generator_bottom",
+				"top":"techreborn:blocks/machines/generators/dragon_egg_syphon_top",
+				"side":"techreborn:blocks/machines/generators/dragon_egg_syphon_side_off"
+            }
+        }
+   }
+}

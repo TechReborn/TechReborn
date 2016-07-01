@@ -191,10 +191,10 @@ public class TRPowerNet
 
 	public void setEnergy(int energy)
 	{
-		energy += energy;
-		if (energy < 0)
+		this.energy += energy;
+		if (this.energy < 0)
 		{
-			energy = 0;
+			this.energy = 0;
 		}
 	}
 
@@ -337,7 +337,7 @@ public class TRPowerNet
 
 		public int getTotalCollectible()
 		{
-			if (tile.canProvideEnergy(side.getOpposite()) && tile.getEnergy() != 0)
+			if (tile.canProvideEnergy(side.getOpposite()) && tile.getEnergy() > 0)
 			{
 				return (int) Math.min(tile.getMaxOutput(), tile.getEnergy());
 			}
@@ -347,7 +347,7 @@ public class TRPowerNet
 		public int getTotalInsertible()
 		{
 			int total = 0;
-			if (tile.canAcceptEnergy(side.getOpposite()) && tile.getMaxPower() - tile.getEnergy() != 0)
+			if (tile.canAcceptEnergy(side.getOpposite()) && tile.getMaxPower() - tile.getEnergy() > 0)
 			{
 				total += tile.addEnergy(type.transferRate, true);
 			}

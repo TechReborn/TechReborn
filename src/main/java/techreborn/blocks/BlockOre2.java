@@ -27,7 +27,7 @@ import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModBlocks;
 import techreborn.world.config.IOreNameProvider;
 
-public class BlockOre2 extends BaseBlock implements ITexturedBlock, IOreNameProvider
+public class BlockOre2 extends BaseBlock implements IOreNameProvider
 {
 
 	public static final String[] ores = new String[] { "copper", "tin"};
@@ -119,17 +119,17 @@ public class BlockOre2 extends BaseBlock implements ITexturedBlock, IOreNameProv
 //		return meta;
 //	}
 
-	@Override
-	public String getTextureNameFromState(IBlockState BlockStateContainer, EnumFacing facing)
-	{
-		return "techreborn:blocks/ore/ore" + StringUtils.toFirstCapital(ores[getMetaFromState(BlockStateContainer)]);
-	}
-
-	@Override
-	public int amountOfStates()
-	{
-		return ores.length;
-	}
+//	@Override
+//	public String getTextureNameFromState(IBlockState BlockStateContainer, EnumFacing facing)
+//	{
+//		return "techreborn:blocks/ore/ore" + StringUtils.toFirstCapital(ores[getMetaFromState(BlockStateContainer)]);
+//	}
+//
+//	@Override
+//	public int amountOfStates()
+//	{
+//		return ores.length;
+//	}
 
 	@Override
 	public int damageDropped(IBlockState state) {

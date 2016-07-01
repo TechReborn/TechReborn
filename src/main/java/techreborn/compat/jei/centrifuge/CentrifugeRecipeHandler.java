@@ -34,6 +34,12 @@ public class CentrifugeRecipeHandler implements IRecipeHandler<CentrifugeRecipe>
 
 	@Nonnull
 	@Override
+	public String getRecipeCategoryUid(@Nonnull CentrifugeRecipe recipe) {
+		return RecipeCategoryUids.CENTRIFUGE;
+	}
+
+	@Nonnull
+	@Override
 	public IRecipeWrapper getRecipeWrapper(@Nonnull CentrifugeRecipe recipe)
 	{
 		return new CentrifugeRecipeWrapper(jeiHelpers, recipe);
