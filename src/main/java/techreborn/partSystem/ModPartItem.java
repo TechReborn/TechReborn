@@ -9,7 +9,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import uk.co.qmunity.lib.ref.Names;
 
 public class ModPartItem extends Item {
 
@@ -17,7 +16,7 @@ public class ModPartItem extends Item {
 
     public ModPartItem(ModPart part) {
         modPart = part;
-        setUnlocalizedName(Names.Unlocalized.Items.MULTIPART);
+
     }
 
     @Override

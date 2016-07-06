@@ -71,7 +71,7 @@ configurations {
     compile.extendsFrom shade
 }
 
-version = "0.7.17"
+version = "0.7.18"
 
 def ENV = System.getenv()
 if (ENV.BUILD_NUMBER) {
@@ -107,7 +107,6 @@ dependencies {
     compile 'net.industrial-craft:industrialcraft-2:2.2.796-experimental:dev'
     shade 'net.industrial-craft:industrialcraft-2:2.2.796-experimental:api'
     compile name: 'buildcraft', version: '7.1.13', classifier: "dev", ext: 'jar'
-    compile "qmunity:QmunityLib:0.2.+:deobf"
     compile "net.sengir.forestry:forestry_1.7.10:4.2.0.47:dev"
     shade "net.sengir.forestry:forestry_1.7.10:4.2.0.47:api"
     compile "com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.7.10-2.1.0.1465:deobf"

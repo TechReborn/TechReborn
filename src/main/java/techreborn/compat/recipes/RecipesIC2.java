@@ -361,6 +361,12 @@ public class RecipesIC2 implements ICompatModule {
                 'P', "plateIron",
                 'C', IC2Items.getItem("electronicCircuit"));
 
+        CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("dataControlCircuit", 4),
+                "ASA", "SIS", "ASA",
+                'A', IC2Items.getItem("advancedCircuit"),
+                'S', ItemParts.getPartByName("dataStorageCircuit"),
+                'I', "plateIridium");
+
         //Smetling
         GameRegistry.addSmelting(ItemDusts.getDustByName("copper", 1), IC2Items.getItem("copperIngot"), 1F);
         GameRegistry.addSmelting(ItemDusts.getDustByName("tin", 1), IC2Items.getItem("tinIngot"), 1F);

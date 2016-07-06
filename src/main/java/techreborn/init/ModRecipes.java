@@ -261,6 +261,22 @@ public class
                 'P', "plateCopper"
         );
 
+        CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("dataOrb"),
+                "SSS", "SCS", "SSS",
+                'S', ItemParts.getPartByName("dataStorageCircuit"),
+                'C', ItemParts.getPartByName("dataControlCircuit")
+        );
+
+        CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("computerMonitor"),
+                "AGA", "RCB", "AYA",
+                'A', "plateAluminum",
+                'G', new ItemStack(Items.dye, 1, 2),
+                'R', new ItemStack(Items.dye, 1, 1),
+                'B', new ItemStack(Items.dye, 1, 5),
+                'Y', new ItemStack(Items.glowstone_dust)
+        );
+
+
         Core.logHelper.info("Shapped Recipes Added");
     }
 
