@@ -565,7 +565,7 @@ item.techreborn.part.doublePlutoniumCell.name=双联燃料棒(钚)
 item.techreborn.part.quadPlutoniumCell.name=四联燃料棒(钚)
 item.techreborn.part.destructoPack.name=便携式焚化炉
 item.techreborn.part.iridiumNeutronReflector.name=铱中子反射板
-item.techreborn.part.massHoleDevice.name=Mass Hole Device
+item.techreborn.part.massHoleDevice.name=黑洞设备
 item.techreborn.part.computerMonitor.name=电脑显示器
 item.techreborn.part.machineParts.name=机械零件
 item.techreborn.part.neutronReflector.name=中子反射器
@@ -893,128 +893,128 @@ config.techreborn.aesuMaxOutput=AESU最大输出
 config.techreborn.aesuMaxStorage=AESU最大储能
 config.techreborn.aveargeEuOutTickTime=计算平均输出时间
 config.techreborn.baseLesuOutput=基础LESU输出
-config.techreborn.cloakingDeviceEUTick=Clocking Device EU usage per tick
-config.techreborn.cloakingDeviceMaxCharge=Cloaking Device Max Charge
-config.techreborn.cloakingDeviceTier=Cloaking Device Tier
-config.techreborn.dragoneggsiphonerPower=Dragon Egg Siphoner EU output
-config.techreborn.extraOutputPerLesuBlock=LESU block power
-config.techreborn.heatGeneratorOutput=Heat Generator Output
-config.techreborn.lapotronicOrbTier=Lapotronic Orb Tier
-config.techreborn.lesuStoragePerBlock=Lesu Storage Per Block
-config.techreborn.showChargehud=Show charge HUD
-config.techreborn.allowExpensiveWatermill=Allow Expensive水mill
-config.techreborn.allowExpensiveWindmill=Allow Expensive Windmill
+config.techreborn.cloakingDeviceEUTick=隐身装置耗电量
+config.techreborn.cloakingDeviceMaxCharge=隐身装置最大充电量
+config.techreborn.cloakingDeviceTier=隐身装置等级
+config.techreborn.dragoneggsiphonerPower=龙蛋发电机输出量
+config.techreborn.extraOutputPerLesuBlock=LESU方块能量
+config.techreborn.heatGeneratorOutput=热能发电机输出
+config.techreborn.lapotronicOrbTier=兰博顿能量球等级
+config.techreborn.lesuStoragePerBlock=LESU方块储存量
+config.techreborn.showChargehud=显示充电HUD
+config.techreborn.allowExpensiveWatermill=启用昂贵的水力发电机
+config.techreborn.allowExpensiveWindmill=启用昂贵的风力发电机
 
 
 #ConfigGui
-config.techreborn.category.general=General Configs
-config.techreborn.category.world=World Configs
-config.techreborn.category.power=Power Configs
-config.techreborn.category.crafting=Crafting Configs
-config.techreborn.category.uu=UU Configs
-config.techreborn.category.emc=EMC Configs
-config.techreborn.category.integration=Integration
+config.techreborn.category.general=全局设置
+config.techreborn.category.world=世界设置
+config.techreborn.category.power=能源设置
+config.techreborn.category.crafting=合成设置
+config.techreborn.category.uu=UU设置
+config.techreborn.category.emc=EMC设置
+config.techreborn.category.integration=全部
 
-tr.configgui.category.trGeneral.tooltip=General
-tr.configgui.category.trWorld.tooltip=World
-tr.configgui.category.trPower.tooltip=Power
-tr.configgui.category.trCrafting.tooltip=Crafting
+tr.configgui.category.trGeneral.tooltip=全局
+tr.configgui.category.trWorld.tooltip=世界
+tr.configgui.category.trPower.tooltip=能源
+tr.configgui.category.trCrafting.tooltip=合成
 tr.configgui.category.truu.tooltip=UU
 tr.configgui.category.tremc.tooltip=EMC
 tr.configgui.category.treinter.tooltip=Mod Integration
 
 #Recipe Handlers
-techreborn.recipe.alloysmelter=Alloy Furnace Recipe
-techreborn.recipe.ironalloysmelter=Iron Alloy Furnace Recipe
-techreborn.recipe.assemblingmachine=Assembling Machine Recipe
-techreborn.recipe.blastfurnace=Blast Furnace Recipe
-techreborn.recipe.centrifuge=Centrifuge Recipe
-techreborn.recipe.grinder=Industrial Grinder Recipe
-techreborn.recipe.industrialelectrolyzer=Industrial Electrolyzer Recipe
-techreborn.recipe.industrialsawmill=Industrial Sawmill Recipe
-techreborn.recipe.lathe=Lathe Recipe
-techreborn.recipe.platecuttingmachine=Plate Cutting Machine Recipe
-techreborn.recipe.chemicalReactor=Chemical Reactor Recipe
-techreborn.recipe.implosioncompressor=Implosion Compressor
+techreborn.recipe.alloysmelter=合金炉合成
+techreborn.recipe.ironalloysmelter=铁合金炉合成
+techreborn.recipe.assemblingmachine=组装机合成
+techreborn.recipe.blastfurnace=高炉合成
+techreborn.recipe.centrifuge=离心机合成
+techreborn.recipe.grinder=工业研磨机合成
+techreborn.recipe.industrialelectrolyzer=工业电解器合成
+techreborn.recipe.industrialsawmill=工业锯木机合成
+techreborn.recipe.lathe=车床合成
+techreborn.recipe.platecuttingmachine=板材切割机合成
+techreborn.recipe.chemicalReactor=化学反应器合成
+techreborn.recipe.implosioncompressor=聚爆压缩机合成
 
 #Message
-techreborn.message.missingmultiblock=Incomplete Multiblock
-techreborn.message.setTo=Set to
-techreborn.message.in=in
-techreborn.message.noCoordsSet=No Coordinates Set
-techreborn.message.coordsHaveBeen=Coordinates have been
-techreborn.message.cleared=Cleared
-techreborn.message.detects=Detects
-techreborn.message.allPlayers=All Players
-techreborn.message.onlyOtherPlayers=Only Other Players
-techreborn.message.onlyYou=Only You
-techreborn.message.nanosaberActive=Active
-techreborn.message.nanosaberInactive=Inactive
+techreborn.message.missingmultiblock=未完成的多方块结构
+techreborn.message.setTo=设置为
+techreborn.message.in=在
+techreborn.message.noCoordsSet=没有设置坐标
+techreborn.message.coordsHaveBeen=坐标已设置为
+techreborn.message.cleared=清楚
+techreborn.message.detects=检测
+techreborn.message.allPlayers=全部玩家
+techreborn.message.onlyOtherPlayers=除你以外
+techreborn.message.onlyYou=只有你
+techreborn.message.nanosaberActive=激活
+techreborn.message.nanosaberInactive=未激活
 
 #Cables
-Cable.copperCable.name=Copper Cable
-Cable.insulatedCopperCable.name=Insulated铜 Cable
-Cable.goldCable.name=Gold Cable
-Cable.insulatedGoldCable.name=Insulated铜 Cable
-Cable.doubleInsulatedGoldCable.name=Double Insulated铜 Cable
-Cable.ironCable.name=Iron Cable
-Cable.copperCable.name=Copper Cable
-Cable.insulatedIronCable.name=Insulated铁 Cable
-Cable.doubleInsulatedIronCable.name=Double Insulated铜 Cable
-Cable.trippleInsulatedIronCable.name=Triple Insulated铜 Cable
-Cable.glassFiberCable.name=Glass Fiber Cable
-Cable.tinCable.name=Tin Cable
+Cable.copperCable.name=铜线缆
+Cable.insulatedCopperCable.name=绝缘铜线缆
+Cable.goldCable.name=金线缆
+Cable.insulatedGoldCable.name=绝缘铜线缆
+Cable.doubleInsulatedGoldCable.name=2x绝缘铜线缆
+Cable.ironCable.name=铁线缆
+Cable.copperCable.name=铜线缆
+Cable.insulatedIronCable.name=绝缘铁线缆
+Cable.doubleInsulatedIronCable.name=2x绝缘铜线缆
+Cable.trippleInsulatedIronCable.name=3x绝缘铜线缆
+Cable.glassFiberCable.name=玻璃纤维线缆
+Cable.tinCable.name=锡线缆
 
-desc.uninsulatedCable=Damages Entities!
-desc.euTransfer=EU Transfer: 
-desc.tier=Tier:
+desc.uninsulatedCable=会对附近的生物造成伤害!
+desc.euTransfer=EU传输: 
+desc.tier=等级:
 
 
 #Manual
-techreborn.manual.contents=Contents Page
-techreborn.manual.gettingstarted=Getting Started
-techreborn.manual.generatingpower=Generating Power
-techreborn.manual.basicmachines=Basic Machines
-techreborn.manual.advancedmachines=Advanced Machines
-techreborn.manual.tools=Tools
+techreborn.manual.contents=目录
+techreborn.manual.gettingstarted=司机上路
+techreborn.manual.generatingpower=产生能源
+techreborn.manual.basicmachines=基础机器
+techreborn.manual.advancedmachines=高级机器
+techreborn.manual.tools=工具
 
-techreborn.manual.gettingrubber=Collecting Rubber
-techreborn.manual.backbutton=Back
-techreborn.manual.gettingplates=Crafting Plates
+techreborn.manual.gettingrubber=收集橡胶
+techreborn.manual.backbutton=返回
+techreborn.manual.gettingplates=合成板材
 
-item.techreborn.advancedDrill.description=This Tool is a advanced version of the mining drill, when this item is activated it will dig out a 3x3.
-tile.techreborn.alloyfurnace.description=This Machine is your first step into TechReborn with this you can fuse metals into other metals. These other metals can be used to craft the higher tier machines.
-tile.techreborn.alloysmelter.description=This machine is a upgraded version of the Alloy Furnace, This block requires EU or RF.
-tile.techreborn.assemblingmachine.description=This block is used to craft some of the more complex machines that can't be crafted in a normal crafting table.
-tile.techreborn.blastfurnace.description=This Machine needs a 3x4x3 of machine casings behind it to increase its internal heat, The hotter the machine is the more recipes will open up to you. This machine also needs EU/RF.
+item.techreborn.advancedDrill.description=这个工具是一个高级版本的采矿钻头,当它被激活时将以3x3的范围挖掘。
+tile.techreborn.alloyfurnace.description=这是你初次步入TechReborn时第一次能融合金属们变成另外一种金属的机器。这样加工出来的金属可以用来加工更高级别的机器。
+tile.techreborn.alloysmelter.description=这台机器是一个升级版本的合金炉,它需要使用EU或RF。
+tile.techreborn.assemblingmachine.description=这台机器用于加工许多不能用普通工作台加工的复杂设备。
+tile.techreborn.blastfurnace.description=这台机器需要在后面放置一个3x4x3的机器外壳来增加其内部热量，更高热量的高炉可以给你带来更多配方。这台机器也需要使用EU或RF。
 
 keys.techreborn.category=TechReborn Category
-keys.techreborn.config=Config
+keys.techreborn.config=配置文件
 
-achievement.TechReborn:ore_PickUp=New矿石!
-achievement.TechReborn:ore_PickUp.desc=Mine a TechReborn ore
-achievement.TechReborn:centrifuge_Craft=Time to Spin
-achievement.TechReborn:thermalgen_Craft=Time to Heat
+achievement.TechReborn:ore_PickUp=新矿石!
+achievement.TechReborn:ore_PickUp.desc=挖到一个TechReborn的矿石
+achievement.TechReborn:centrifuge_Craft=没时间解释了,快跑!
+achievement.TechReborn:thermalgen_Craft=是时候热起来了
 
 # JEI Integration
-techreborn.jei.recipe.start.cost=Start: %sEU
+techreborn.jei.recipe.start.cost=启动所需: %sEU
 techreborn.jei.recipe.running.cost=EU/t: %s
-techreborn.jei.recipe.processing.time.1=Time: %s ticks
-techreborn.jei.recipe.processing.time.2=(%s seconds)
-jei.techreborn.scrapbox.name=Opening Scrapboxes
-techreborn.desc.rubberSap=In order to get sap, you need to find a rubber tree or obtain a rubber tree sapling and proceed to grow it. Once you have obtained a rubber tree, search around for little yellowish spots on the tree. If you don't see any, just wait a bit and eventually these yellow "sap" spots. To harvest the sap, use a treetap and use it on the log.
-techreborn.desc.scrapBox=Scrapboxes can be opened by either a simple use in hand, or by dispensers. That's right, just throw your scrapboxes into dispensers and give them a redstone signal, and boom! Random item!
-techreborn.desc.scrapBoxNoDispenser=Scrapboxes can be opened by a simple use in hand!
+techreborn.jei.recipe.processing.time.1=时间: %s ticks
+techreborn.jei.recipe.processing.time.2=(%s秒)
+jei.techreborn.scrapbox.name=开垃圾箱
+techreborn.desc.rubberSap=为了获得粘性树脂,你需要找一颗橡胶树.当你找到了一个橡胶树后,看看树干有没有黄点.如果没有,过一会就会出现了. 为了收获粘性树脂,你需要一个木龙头对着黄点右击.
+techreborn.desc.scrapBox=垃圾箱可以用手开,也能扔进开箱机开.对,只要把垃圾箱扔进开箱机,然后给一个红石信号.然后验证你血统的时候来了.搏一搏,单车变摩托!
+techreborn.desc.scrapBoxNoDispenser=垃圾箱只要拿在手上,猛击右键就能使用了.无需花16买钥匙.
 
-techreborn.jei.category.alloy.furnace=Alloy Furnace
+techreborn.jei.category.alloy.furnace=合金炉
 
 #Death Messages
-death.attack.shock=%s was electrocuted
+death.attack.shock=%s被电了个里焦外嫩
 
 
 #Entitys
-entity.techreborn.nuke.name=Nuke
+entity.techreborn.nuke.name=核弹
 
-tooltip.wip=WIP Coming Soon
-tooltip.upBroken=Upgrades DO NOT function!
+tooltip.wip=没完工呢
+tooltip.upBroken=没卵用的升级
 tooltip.ingredient=Currently only a crafting ingre
