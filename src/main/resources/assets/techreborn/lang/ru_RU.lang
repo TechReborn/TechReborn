@@ -27,7 +27,7 @@ tile.techreborn.industrialelectrolyzer.name=Промышленный элект�
 tile.techreborn.magicenergyabsorber.name=Абсорбер магической энергии
 tile.techreborn.assemblingmachine.name=Сборочная машина
 tile.techreborn.semifluidgenerator.name=Генератор полужидкости
-tile.techreborn.alloyfurnace.name=Железный завод сплавов
+tile.techreborn.alloyfurnace.name=Железная сплавовая печь
 tile.techreborn.chemicalreactor.name=Химический реактор
 tile.techreborn.dragoneggsiphoner.name=Сифон энергии драконьего яйца
 tile.techreborn.idsu.name=IDSU
@@ -60,7 +60,7 @@ tile.techreborn.extractor.name=Экстрактор
 tile.techreborn.grinder.name=Шлифовальный станок
 tile.techreborn.compressor.name=Компрессор
 tile.techreborn.electricfurnace.name=Электропечь
-tile.techreborn.machineFrame.highlyAdvancedMachine.name=Очень продвинутый блок машины
+tile.techreborn.machineFrame.highlyAdvancedMachine.name=Чрезвычайно продвинутый блок машины
 tile.techreborn.machineFrame.advancedMachine.name=Продвинутый блок машины
 tile.techreborn.machineFrame.machine.name=Блок машины
 tile.techreborn.ore2.copper.name=Медная руда
@@ -285,18 +285,18 @@ item.techreborn.dust.diorite.name=Diorite Dust
 item.techreborn.dust.granite.name=Granite Dust
 
 item.techreborn.ingot.refinedIron.name=Refined Iron Ingot
-item.techreborn.wrench.name=Wrench
-item.techreborn.cable.COPPER.name=Copper Cable
-item.techreborn.cable.TIN.name=Tin Cable
-item.techreborn.cable.GOLD.name=Gold Cable
-item.techreborn.cable.HV.name=HV Cable
-item.techreborn.cable.GLASSFIBER.name=Glass Fiber Cable
-item.techreborn.cable.ICOPPER.name=Insulated Copper Cable
-item.techreborn.cable.IGOLD.name=Insulated Gold Cable
-item.techreborn.cable.IHV.name=Insulated HV Cable
-item.techreborn.scrapbox.name=Scrap Box
-item.techreborn.part.carbonmesh.name=Carbon Mesh
-item.techreborn.part.carbonfiber.name=Carbon Fiber
+item.techreborn.wrench.name=Гаечный ключ
+item.techreborn.cable.COPPER.name=Медный кабель
+item.techreborn.cable.TIN.name=Оловянный кабель
+item.techreborn.cable.GOLD.name=Золотой кабель
+item.techreborn.cable.HV.name=Кабель высокого напряжения
+item.techreborn.cable.GLASSFIBER.name=Cтекловолоконный кабель
+item.techreborn.cable.ICOPPER.name=Изолированный медный кабель
+item.techreborn.cable.IGOLD.name=Изолированный золотой кабель
+item.techreborn.cable.IHV.name=Изолированный кабель высокого напряжения
+item.techreborn.scrapbox.name=Ящик с ломом
+item.techreborn.part.carbonmesh.name=Углеродный меш
+item.techreborn.part.carbonfiber.name=Углеродное волокно
 
 #Small Dusts
 item.techreborn.dustsmall.almandine.name=Small Pile of Almandine Dust
@@ -365,16 +365,16 @@ item.techreborn.dustsmall.andesite.name=Small Pile of Andesite Dust
 item.techreborn.dustsmall.diorite.name=Small Pile of Diorite Dust
 item.techreborn.dustsmall.granite.name=Small Pile of Granite Dust
 
-item.techreborn.cell.name=Empty Cell
-item.techreborn.rebattery.name=Battery
-item.techreborn.lithiumBattery.name=Lithium Battery
-item.techreborn.energyCrystal.name=Energy Crystal
-item.techreborn.lapotronCrystal.name=Lapotron Crystal
-item.techreborn.treetap.name=Treetap
-item.techreborn.nanosaber.name=Nanosaber
-item.techreborn.upgrade.Overclock.name=Overclocker Upgrade
-item.techreborn.upgrade.Transformer.name=Tranformer Upgrade
-item.techreborn.upgrade.EnergyStorage.name=Energy Storage Upgrade
+item.techreborn.cell.name=Пустая капсула
+item.techreborn.rebattery.name=Аккумулятор
+item.techreborn.lithiumBattery.name=Литиевый аккумулятор
+item.techreborn.energyCrystal.name=Энергетический кристалл
+item.techreborn.lapotronCrystal.name=Лазуротроновый кристалл
+item.techreborn.treetap.name=Краник
+item.techreborn.nanosaber.name=Наносабля
+item.techreborn.upgrade.Overclock.name=Улучшение «Ускоритель»
+item.techreborn.upgrade.Transformer.name=Улучшение «Трансформатор»
+item.techreborn.upgrade.EnergyStorage.name=Улучшение «Энергохранитель»
 
 #Gems
 item.techreborn.gem.ruby.name=Рубин
@@ -905,28 +905,28 @@ config.techreborn.allowExpensiveWindmill=Allow Expensive Windmill
 
 
 #ConfigGui
-config.techreborn.category.general=General Configs
-config.techreborn.category.world=World Configs
-config.techreborn.category.power=Power Configs
-config.techreborn.category.crafting=Crafting Configs
-config.techreborn.category.uu=UU Configs
-config.techreborn.category.emc=EMC Configs
-config.techreborn.category.integration=Integration
+config.techreborn.category.general=Основные настройки
+config.techreborn.category.world=Настройки мира
+config.techreborn.category.power=Настройки энергии
+config.techreborn.category.crafting=Настройки крафта
+config.techreborn.category.uu=Настройки UU
+config.techreborn.category.emc=Настройки EMC
+config.techreborn.category.integration=Интеграция
 
-tr.configgui.category.trGeneral.tooltip=General
-tr.configgui.category.trWorld.tooltip=World
-tr.configgui.category.trPower.tooltip=Power
-tr.configgui.category.trCrafting.tooltip=Crafting
+tr.configgui.category.trGeneral.tooltip=Основные
+tr.configgui.category.trWorld.tooltip=Мир
+tr.configgui.category.trPower.tooltip=Энергия
+tr.configgui.category.trCrafting.tooltip=Крафтинг
 tr.configgui.category.truu.tooltip=UU
 tr.configgui.category.tremc.tooltip=EMC
-tr.configgui.category.treinter.tooltip=Mod Integration
+tr.configgui.category.treinter.tooltip=Интеграция с модами
 
 #Recipe Handlers
-techreborn.recipe.alloysmelter=Alloy Furnace Recipe
-techreborn.recipe.ironalloysmelter=Iron Alloy Furnace Recipe
-techreborn.recipe.assemblingmachine=Assembling Machine Recipe
+techreborn.recipe.alloysmelter=Рецепт завода сплавов
+techreborn.recipe.ironalloysmelter=Рецепт железного завода сплавов
+techreborn.recipe.assemblingmachine=Рецепт сборочной машины
 techreborn.recipe.blastfurnace=Blast Furnace Recipe
-techreborn.recipe.centrifuge=Centrifuge Recipe
+techreborn.recipe.centrifuge=Рецепт центрифуги
 techreborn.recipe.grinder=Industrial Grinder Recipe
 techreborn.recipe.industrialelectrolyzer=Industrial Electrolyzer Recipe
 techreborn.recipe.industrialsawmill=Industrial Sawmill Recipe
@@ -950,34 +950,34 @@ techreborn.message.nanosaberActive=Active
 techreborn.message.nanosaberInactive=Inactive
 
 #Cables
-Cable.copperCable.name=Copper Cable
-Cable.insulatedCopperCable.name=Insulated Copper Cable
-Cable.goldCable.name=Gold Cable
-Cable.insulatedGoldCable.name=Insulated Copper Cable
-Cable.doubleInsulatedGoldCable.name=Double Insulated Copper Cable
-Cable.ironCable.name=Iron Cable
-Cable.copperCable.name=Copper Cable
-Cable.insulatedIronCable.name=Insulated Iron Cable
-Cable.doubleInsulatedIronCable.name=Double Insulated Copper Cable
-Cable.trippleInsulatedIronCable.name=Triple Insulated Copper Cable
-Cable.glassFiberCable.name=Glass Fiber Cable
-Cable.tinCable.name=Tin Cable
+Cable.copperCable.name=Медный кабель
+Cable.insulatedCopperCable.name=Изолированный медный кабель
+Cable.goldCable.name=Золотой кабель
+Cable.insulatedGoldCable.name=Изолированный золотой кабель
+Cable.doubleInsulatedGoldCable.name=Золотой кабель двойной изоляции
+Cable.ironCable.name=Железный кабель
+Cable.copperCable.name=Медный кабель
+Cable.insulatedIronCable.name=Изолированный железный кабель
+Cable.doubleInsulatedIronCable.name=Железный кабель двойной изоляции
+Cable.trippleInsulatedIronCable.name=Железный кабель тройной изоляции
+Cable.glassFiberCable.name=Стекловолоконный кабель
+Cable.tinCable.name=Оловянный кабель
 
-desc.uninsulatedCable=Damages Entities!
-desc.euTransfer=EU Transfer: 
-desc.tier=Tier:
+desc.uninsulatedCable=Наносит урон существам!
+desc.euTransfer=Трансфер еЭ: 
+desc.tier=Уровень:
 
 
 #Manual
-techreborn.manual.contents=Contents Page
-techreborn.manual.gettingstarted=Getting Started
-techreborn.manual.generatingpower=Generating Power
-techreborn.manual.basicmachines=Basic Machines
-techreborn.manual.advancedmachines=Advanced Machines
-techreborn.manual.tools=Tools
+techreborn.manual.contents=Содержание
+techreborn.manual.gettingstarted=Начало
+techreborn.manual.generatingpower=Генерация энергии
+techreborn.manual.basicmachines=Базовые машины
+techreborn.manual.advancedmachines=Продвинутые машины
+techreborn.manual.tools=Инструменты
 
-techreborn.manual.gettingrubber=Collecting Rubber
-techreborn.manual.backbutton=Back
+techreborn.manual.gettingrubber=Получение резины
+techreborn.manual.backbutton=Назад
 techreborn.manual.gettingplates=Crafting Plates
 
 item.techreborn.advancedDrill.description=This Tool is a advanced version of the mining drill, when this item is activated it will dig out a 3x3.
@@ -986,33 +986,33 @@ tile.techreborn.alloysmelter.description=This machine is a upgraded version of t
 tile.techreborn.assemblingmachine.description=This block is used to craft some of the more complex machines that can't be crafted in a normal crafting table.
 tile.techreborn.blastfurnace.description=This Machine needs a 3x4x3 of machine casings behind it to increase its internal heat, The hotter the machine is the more recipes will open up to you. This machine also needs EU/RF.
 
-keys.techreborn.category=TechReborn Category
-keys.techreborn.config=Config
+keys.techreborn.category=Категория TechReborn
+keys.techreborn.config=Конфигурация
 
 achievement.TechReborn:ore_PickUp=Новая руда!
 achievement.TechReborn:ore_PickUp.desc=Добудьте руду из мода TechReborn
-achievement.TechReborn:centrifuge_Craft=Time to Spin
-achievement.TechReborn:thermalgen_Craft=Time to Heat
+achievement.TechReborn:centrifuge_Craft=Вращение
+achievement.TechReborn:thermalgen_Craft=Нагрев
 
 # JEI Integration
-techreborn.jei.recipe.start.cost=Start: %sEU
-techreborn.jei.recipe.running.cost=EU/t: %s
-techreborn.jei.recipe.processing.time.1=Time: %s ticks
-techreborn.jei.recipe.processing.time.2=(%s seconds)
+techreborn.jei.recipe.start.cost=Начало: %sеЭ
+techreborn.jei.recipe.running.cost=еЭ/т: %s
+techreborn.jei.recipe.processing.time.1=Время: %s тиков
+techreborn.jei.recipe.processing.time.2=(%s сек.)
 jei.techreborn.scrapbox.name=Opening Scrapboxes
 techreborn.desc.rubberSap=In order to get sap, you need to find a rubber tree or obtain a rubber tree sapling and proceed to grow it. Once you have obtained a rubber tree, search around for little yellowish spots on the tree. If you don't see any, just wait a bit and eventually these yellow "sap" spots. To harvest the sap, use a treetap and use it on the log.
 techreborn.desc.scrapBox=Scrapboxes can be opened by either a simple use in hand, or by dispensers. That's right, just throw your scrapboxes into dispensers and give them a redstone signal, and boom! Random item!
 techreborn.desc.scrapBoxNoDispenser=Scrapboxes can be opened by a simple use in hand!
 
-techreborn.jei.category.alloy.furnace=Alloy Furnace
+techreborn.jei.category.alloy.furnace=Сплавовая печь
 
 #Death Messages
-death.attack.shock=%s убило током
+death.attack.shock=%s получил(а) удар током
 
 
 #Entitys
 entity.techreborn.nuke.name=Nuke
 
-tooltip.wip=WIP Coming Soon
+tooltip.wip=Скоро
 tooltip.upBroken=Upgrades DO NOT function!
-tooltip.ingredient=Currently only a crafting ingredient
+tooltip.ingredient=На данный момент является только ингридиентом для крафта
