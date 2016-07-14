@@ -6,6 +6,7 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import techreborn.client.render.parts.ClientPartLoader;
 import techreborn.compat.ic2.RecipesIC2;
+import techreborn.compat.minetweaker.MinetweakerCompat;
 import techreborn.compat.theoneprobe.CompactTheOneProbe;
 import techreborn.compat.tinkers.CompatModuleTinkers;
 import techreborn.compat.waila.CompatModuleWaila;
@@ -26,7 +27,7 @@ public class CompatManager
 	public CompatManager()
 	{
 		isIC2Loaded = Loader.isModLoaded("IC2");
-		//registerCompact(MinetweakerCompat.class, "MineTweaker3");
+		registerCompact(MinetweakerCompat.class, "MineTweaker3");
 		registerCompact(TechRebornParts.class, "reborncore-mcmultipart");
 		registerCompact(ClientPartLoader.class, "reborncore-mcmultipart", "@client");
 		registerCompact(StandalonePartCompact.class, "!reborncore-mcmultipart");
