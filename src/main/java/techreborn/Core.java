@@ -63,7 +63,6 @@ public class Core
 	public static Core INSTANCE;
 	public static LogHelper logHelper = new LogHelper(new ModInfo());
 	public static TechRebornWorldGen worldGen;
-	public static RecipeCompact recipeCompact;
 	public static File configDir;
 	public VersionChecker versionChecker;
 
@@ -84,8 +83,6 @@ public class Core
 		worldGen.configFile = (new File(configDir, "ores.json"));
 		worldGen.hConfigFile = (new File(configDir, "ores.hjson"));
 
-		recipeCompact = new RecipeCompact();
-		TechRebornAPI.recipeCompact = recipeCompact;
 		TechRebornAPI.subItemRetriever = new SubItemRetriever();
 
 		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules)
@@ -101,9 +98,11 @@ public class Core
 		ModItems.init();
 		// Entitys
 		EntityRegistry.registerModEntity(EntityNukePrimed.class, "nuke", 0, INSTANCE, 160, 5, true);
+
 		proxy.preInit(event);
 
 		RecipeConfigManager.load(event.getModConfigurationDirectory());
+
 		versionChecker = new VersionChecker("TechReborn", new ModInfo());
 		versionChecker.checkVersionThreaded();
 		logHelper.info("PreInitialization Complete");
@@ -124,6 +123,10 @@ public class Core
 			compatModule.init(event);
 		}
 		MinecraftForge.EVENT_BUS.register(new StackWIPHandler());
+
+		//Ore Dictionary
+		OreDict.init();
+
 		// Recipes
 		StopWatch watch = new StopWatch();
 		watch.start();

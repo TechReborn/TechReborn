@@ -558,8 +558,9 @@ public class ModItems
 		OreUnifier.registerOre("craftingSuperconductor", ItemParts.getPartByName("superconductor"));
 		OreUnifier.registerOre("batteryUltimate", ItemParts.getPartByName("diamondGrindingHead"));
 
-		OreUnifier.registerOre("containerWater", ItemCells.getCellByName("water"));
-		OreUnifier.registerOre("containerWater", Items.WATER_BUCKET);
+		//Buggy.
+		//OreUnifier.registerOre("containerWater", ItemCells.getCellByName("water"));
+		//OreUnifier.registerOre("containerWater", Items.WATER_BUCKET);
 
 		OreUnifier.registerOre("materialResin", ItemParts.getPartByName("rubberSap"));
 		OreUnifier.registerOre("materialRubber", ItemParts.getPartByName("rubber"));

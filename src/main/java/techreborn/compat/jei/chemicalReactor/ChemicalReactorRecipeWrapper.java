@@ -1,7 +1,5 @@
 package techreborn.compat.jei.chemicalReactor;
 
-import javax.annotation.Nonnull;
-
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
@@ -10,6 +8,8 @@ import net.minecraft.client.Minecraft;
 import techreborn.api.recipe.machines.ChemicalReactorRecipe;
 import techreborn.client.gui.GuiChemicalReactor;
 import techreborn.compat.jei.BaseRecipeWrapper;
+
+import javax.annotation.Nonnull;
 
 public class ChemicalReactorRecipeWrapper extends BaseRecipeWrapper<ChemicalReactorRecipe>
 {
@@ -31,5 +31,12 @@ public class ChemicalReactorRecipeWrapper extends BaseRecipeWrapper<ChemicalReac
 	{
 		super.drawAnimations(minecraft, recipeWidth, recipeHeight);
 		progress.draw(minecraft, 3, 18);
+
+		int x = (int) (-recipeWidth * 1.6f);
+		int y = (int) (recipeHeight - recipeHeight / 3F);
+		int lineHeight = minecraft.fontRendererObj.FONT_HEIGHT;
+
+		minecraft.fontRendererObj.drawString("Time: " +  baseRecipe.tickTime / 20 + " secs", x, y, 0x444444);
+		minecraft.fontRendererObj.drawString("EU: " +  baseRecipe.euPerTick + " EU/t", x, y += lineHeight, 0x444444);
 	}
 }
