@@ -3,6 +3,7 @@ package techreborn.init;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -294,11 +295,13 @@ public class ModItems
 		debug = new ItemDebugTool();
 		registerItem(debug, "debug");
 
-		emptyCell = new EmptyCell();
-		registerItem(emptyCell, "emptyCell");
-
 		dynamicCell = new DynamicCell();
 		registerItem(dynamicCell, "dynamicCell");
+
+		emptyCell = dynamicCell;
+		Item cell = new EmptyCell();
+		registerItem(cell, "emptyCell");
+		GameRegistry.addShapelessRecipe(new ItemStack(dynamicCell), cell);
 
 		MinecraftForge.EVENT_BUS.register(BucketHandler.INSTANCE);
 

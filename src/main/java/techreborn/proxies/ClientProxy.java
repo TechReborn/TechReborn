@@ -30,6 +30,7 @@ import techreborn.client.RegisterItemJsons;
 import techreborn.client.StackToolTipEvent;
 import techreborn.client.hud.ChargeHud;
 import techreborn.client.keybindings.KeyBindings;
+import techreborn.client.render.ModelDynamicCell;
 import techreborn.client.render.entitys.RenderNukePrimed;
 import techreborn.entitys.EntityNukePrimed;
 import techreborn.init.ModBlocks;
@@ -43,8 +44,6 @@ public class ClientProxy extends CommonProxy
 {
 
 	public static MultiblockRenderEvent multiblockRenderEvent;
-
-	public static final ModelResourceLocation MODEL_DYNAMIC_CELL = new ModelResourceLocation(new ResourceLocation("techreborn", "dyncell"), "inventory");
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event)
@@ -70,15 +69,7 @@ public class ClientProxy extends CommonProxy
 			}
 		}
 
-		ModelLoader.setCustomMeshDefinition(ModItems.dynamicCell, new ItemMeshDefinition()
-		{
-			@Override
-			public ModelResourceLocation getModelLocation(ItemStack stack)
-			{
-				return MODEL_DYNAMIC_CELL;
-			}
-		});
-		ModelBakery.registerItemVariants(ModItems.dynamicCell, MODEL_DYNAMIC_CELL);
+		ModelDynamicCell.init();
 		RegisterItemJsons.registerModels();
 	}
 
