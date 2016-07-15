@@ -7,9 +7,11 @@ import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
 import net.minecraft.client.Minecraft;
+import techreborn.Core;
 import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
 import techreborn.client.gui.GuiImplosionCompressor;
 import techreborn.compat.jei.BaseRecipeWrapper;
+import techreborn.init.ModRecipes;
 
 public class ImplosionCompressorRecipeWrapper extends BaseRecipeWrapper<ImplosionCompressorRecipe>
 {
@@ -30,5 +32,12 @@ public class ImplosionCompressorRecipeWrapper extends BaseRecipeWrapper<Implosio
 	{
 		super.drawAnimations(minecraft, recipeWidth, recipeHeight);
 		progress.draw(minecraft, 44, 13);
+
+		int x = -45;
+		int y = 4;
+		int lineHeight = minecraft.fontRendererObj.FONT_HEIGHT;
+
+		minecraft.fontRendererObj.drawString("Time: " +  baseRecipe.tickTime / 20 + " s", x, y, 0x444444);
+		minecraft.fontRendererObj.drawString("EU: " +  baseRecipe.euPerTick + " EU/t", x, y += lineHeight, 0x444444);
 	}
 }

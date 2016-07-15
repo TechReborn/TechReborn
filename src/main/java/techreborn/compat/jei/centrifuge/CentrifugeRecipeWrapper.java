@@ -47,5 +47,13 @@ public class CentrifugeRecipeWrapper extends BaseRecipeWrapper<CentrifugeRecipe>
 		progressLeft.draw(minecraft, 18, 33);
 		progressDown.draw(minecraft, 33, 48);
 		progressRight.draw(minecraft, 48, 33);
+
+		int x = -45;
+		int y = 60;
+		int lineHeight = minecraft.fontRendererObj.FONT_HEIGHT;
+
+		minecraft.fontRendererObj.drawString("Time: " +  baseRecipe.tickTime / 20 + " secs", x, y, 0x444444);
+		minecraft.fontRendererObj.drawString("EU: " +  baseRecipe.euPerTick + " EU/t", x, y += lineHeight, 0x444444);
+
 	}
 }

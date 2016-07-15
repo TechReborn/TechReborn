@@ -1,9 +1,5 @@
 package techreborn.command;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -16,13 +12,13 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fml.common.registry.GameData;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import reborncore.api.fuel.FluidPowerManager;
 import reborncore.api.recipe.RecipeHandler;
-import techreborn.Core;
 import techreborn.dev.JsonGenerator;
-import techreborn.init.RecipeCompact;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TechRebornDevCommand extends CommandBase
 {
@@ -106,12 +102,6 @@ public class TechRebornDevCommand extends CommandBase
 			} catch (IOException e) {
 				e.printStackTrace();
 				sender.addChatMessage(new TextComponentString(e.getLocalizedMessage()));
-			}
-		} else if ("missing".equals(args[0])) {
-			try {
-				Core.recipeCompact.saveMissingItems(Core.configDir);
-			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		}
 	}

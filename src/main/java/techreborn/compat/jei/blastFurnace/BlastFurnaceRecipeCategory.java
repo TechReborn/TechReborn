@@ -23,7 +23,7 @@ public class BlastFurnaceRecipeCategory extends BlankRecipeCategory
 
 	public BlastFurnaceRecipeCategory(IGuiHelper guiHelper)
 	{
-		background = guiHelper.createDrawable(GuiBlastFurnace.texture, 39, 24, 100, 36);
+		background = guiHelper.createDrawable(GuiBlastFurnace.texture, 39, 24, 90, 60);
 		title = I18n.translateToLocal("tile.techreborn.blastfurnace.name");
 	}
 
