@@ -180,7 +180,7 @@ public class TRPowerNet
 			te.setNetwork(null);
 			te.findAndJoinNetwork(te.getWorld(), te.getPos());
 		}
-		this.clear(true);
+		this.clear(false);
 		MinecraftForge.EVENT_BUS.unregister(this);
 	}
 
