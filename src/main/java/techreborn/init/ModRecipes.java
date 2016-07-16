@@ -389,11 +389,11 @@ public class ModRecipes
 	static void addExtractorRecipes()
 	{
 		RecipeHandler.addRecipe(
-				new ExtractorRecipe(ItemParts.getPartByName("rubberSap"), ItemParts.getPartByName("rubber", 3), 400,
-						2));
+				new ExtractorRecipe(ItemParts.getPartByName("rubberSap"),
+						ItemParts.getPartByName("rubber", 3), 400, 2));
 		RecipeHandler.addRecipe(
-				new ExtractorRecipe(new ItemStack(ModBlocks.rubberLog), ItemParts.getPartByName("rubber"), 400, 2,
-						false));
+				new ExtractorRecipe(new ItemStack(ModBlocks.rubberLog),
+						ItemParts.getPartByName("rubber"), 400, 2, true));
 	}
 
 	static void addIc2ReplacementReicpes()
@@ -519,7 +519,7 @@ public class ModRecipes
 	{
 		FusionReactorRecipeHelper.registerRecipe(
 				new FusionReactorRecipe(ItemCells.getCellByName("helium3"), ItemCells.getCellByName("deuterium"),
-						ItemCells.getCellByName("helium"), 40000000, 32768, 1024));
+						ItemCells.getCellByName("heliumplasma"), 40000000, 32768, 1024));
 		FusionReactorRecipeHelper.registerRecipe(
 				new FusionReactorRecipe(ItemCells.getCellByName("tritium"), ItemCells.getCellByName("deuterium"),
 						ItemCells.getCellByName("helium3"), 60000000, 32768, 2048));
@@ -628,7 +628,7 @@ public class ModRecipes
 				"ingotCopper", 'W', ItemStandaloneCables.getCableByName("insulatedcopper"));
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.MachineCasing, 4, 0), "RRR", "CAC", "RRR", 'R',
-				ItemIngots.getIngotByName("refinedIron"), 'C', ItemParts.getPartByName("electronicCircuit"), 'A',
+				ItemIngots.getIngotByName("refinedIron"), 'C', "circuitBasic", 'A',
 				BlockMachineFrame.getFrameByName("machine", 1));
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.MachineCasing, 4, 1), "RRR", "CAC", "RRR", 'R',
@@ -636,19 +636,18 @@ public class ModRecipes
 				BlockMachineFrame.getFrameByName("advancedMachine", 1));
 
 		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("dataOrb"), "DDD", "DID", "DDD", 'D',
-				"circuitElite", 'I', ItemParts.getPartByName("dataControlCircuit"));
+				"circuitData", 'I', "circuitElite");
 
 		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("dataControlCircuit", 4), "CDC", "DID", "CDC", 'I',
-				ItemPlates.getPlateByName("iridium"), 'D', "circuitElite", 'C',
-				"circuitAdvanced");
+				ItemPlates.getPlateByName("iridium"), 'D', "circuitData", 'C', "circuitAdvanced");
 
 		CraftingHelper
 				.addShapedOreRecipe(new ItemStack(ModBlocks.thermalGenerator), "III", "IRI", "CGC", 'I', "ingotInvar",
 						'R', ModBlocks.reinforcedglass, 'G', ModBlocks.Generator, 'C',
-						ItemParts.getPartByName("electronicCircuit"));
+						"circuitBasic");
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.recycler), "XEX", "DCD", "GDG", 'D', Blocks.DIRT, 'C',
-				ModBlocks.Compressor, 'G', Items.GLOWSTONE_DUST, 'E', ItemParts.getPartByName("electronicCircuit"));
+				ModBlocks.Compressor, 'G', Items.GLOWSTONE_DUST, 'E', "circuitBasic");
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.batBox), "WCW", "BBB", "WWW", 'W', "plankWood", 'B',
 				batteryStack, 'C', ItemStandaloneCables.getCableByName("insulatedcopper"));
@@ -806,15 +805,14 @@ public class ModRecipes
 		CraftingHelper
 				.addShapedOreRecipe(new ItemStack(ModBlocks.Extractor), "TMT", "TCT", "XXX", 'T', ModItems.treeTap, 'M',
 						BlockMachineFrame.getFrameByName("machine", 1), 'C',
-						ItemParts.getPartByName("electronicCircuit"));
+						"circuitBasic");
 
 		CraftingHelper
 				.addShapedOreRecipe(new ItemStack(ModBlocks.centrifuge), "RCR", "AEA", "RCR", 'R', "ingotRefinedIron",
 						'E', new ItemStack(ModBlocks.Extractor), 'A', "machineBlockAdvanced", 'C', "circuitBasic");
 
 		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("advancedCircuit"), "RGR", "LCL", "RGR", 'R',
-				Items.REDSTONE, 'G', Items.GLOWSTONE_DUST, 'L', "dyeBlue", 'C',
-				ItemParts.getPartByName("electronicCircuit"));
+				Items.REDSTONE, 'G', Items.GLOWSTONE_DUST, 'L', "dyeBlue", 'C', "circuitBasic");
 
 		CraftingHelper
 				.addShapedOreRecipe(new ItemStack(ModItems.energyCrystal), "RRR", "RDR", "RRR", 'R', Items.REDSTONE,
@@ -822,7 +820,7 @@ public class ModRecipes
 
 		CraftingHelper
 				.addShapedOreRecipe(new ItemStack(ModItems.lapotronCrystal), "LCL", "LEL", "LCL", 'L', "dyeBlue", 'E',
-						new ItemStack(ModItems.energyCrystal), 'C', ItemParts.getPartByName("electronicCircuit"));
+						"energyCrystal", 'C',"circuitBasic");
 
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModBlocks.Generator), batteryStack,
 				BlockMachineFrame.getFrameByName("machine", 1), Blocks.FURNACE);
@@ -835,8 +833,8 @@ public class ModRecipes
 						ItemIngots.getIngotByName("advancedAlloy"), 'C', ItemPlates.getPlateByName("carbon"), 'M',
 						BlockMachineFrame.getFrameByName("machine", 1));
 
-		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("dataControlCircuit"), "EEE", "ECE", "EEE", 'E',
-				new ItemStack(Items.EMERALD), 'C', ItemParts.getPartByName("electronicCircuit"));
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("dataStorageCircuit", 8), "EEE", "ECE", "EEE", 'E',
+				new ItemStack(Items.EMERALD), 'C', "circuitBasic");
 
 		CraftingHelper
 				.addShapedOreRecipe(new ItemStack(ModItems.parts, 4, 8), "DSD", "S S", "DSD", 'D', "dustDiamond", 'S',
@@ -877,7 +875,7 @@ public class ModRecipes
 
 		CraftingHelper
 				.addShapedOreRecipe(new ItemStack(ModItems.rockCutter), "DT ", "DT ", "DCB", 'D', "dustDiamond", 'T',
-						"ingotTitanium", 'C', ItemParts.getPartByName("electronicCircuit"), 'B', batteryStack);
+						"ingotTitanium", 'C', "circuitBasic", 'B', batteryStack);
 
 		for (String part : ItemParts.types)
 		{
@@ -948,25 +946,25 @@ public class ModRecipes
 
 		CraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("Overclock"), "TTT", "WCW", 'T',
 				ItemParts.getPartByName("CoolantSimple"), 'W', ItemStandaloneCables.getCableByName("insulatedcopper"),
-				'C', ItemParts.getPartByName("electronicCircuit"));
+				'C', "circuitBasic");
 
 		CraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("Overclock", 2), " T ", "WCW", 'T',
 				ItemParts.getPartByName("heliumCoolantSimple"), 'W',
 				ItemStandaloneCables.getCableByName("insulatedcopper"), 'C',
-				ItemParts.getPartByName("electronicCircuit"));
+				"circuitBasic");
 
 		CraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("Overclock", 2), " T ", "WCW", 'T',
 				ItemParts.getPartByName("NaKCoolantSimple"), 'W',
 				ItemStandaloneCables.getCableByName("insulatedcopper"), 'C',
-				ItemParts.getPartByName("electronicCircuit"));
+				"circuitBasic");
 
 		CraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("Transformer"), "GGG", "WTW", "GCG", 'G',
 				"blockGlass", 'W', ItemStandaloneCables.getCableByName("insulatedgold"), 'C',
-				ItemParts.getPartByName("electronicCircuit"), 'T', ModBlocks.mvt);
+				"circuitBasic", 'T', ModBlocks.mvt);
 
 		CraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("EnergyStorage"), "PPP", "WBW", "PCP", 'P',
 				"plankWood", 'W', ItemStandaloneCables.getCableByName("insulatedcopper"), 'C',
-				ItemParts.getPartByName("electronicCircuit"), 'B', ModItems.reBattery);
+				"circuitBasic", 'B', ModItems.reBattery);
 
 		CraftingHelper
 				.addShapedOreRecipe(ItemParts.getPartByName("CoolantSimple"), " T ", "TWT", " T ", 'T', "ingotTin", 'W',
@@ -1031,8 +1029,8 @@ public class ModRecipes
 		}
 
 		CraftingHelper.addShapelessRecipe(new ItemStack(ModBlocks.rubberPlanks, 4), ModBlocks.rubberLog);
-		CraftingHelper.addShapelessRecipe(new ItemStack(ModItems.frequencyTransmitter),
-				ItemStandaloneCables.getCableByName("insulatedcopper"), ItemParts.getPartByName("electronicCircuit"));
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.frequencyTransmitter),
+				ItemStandaloneCables.getCableByName("insulatedcopper"), "circuitBasic");
 
 		for (String name : ItemDustsSmall.types)
 		{
@@ -1065,12 +1063,12 @@ public class ModRecipes
 						ItemParts.getPartByName("dataOrb"), 'C', ItemParts.getPartByName("computerMonitor"));
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.AlloySmelter), "XCX", "FMF", "XXX", 'C',
-				ItemParts.getPartByName("electronicCircuit"), 'F', new ItemStack(ModBlocks.ElectricFurnace), 'M',
+				"circuitBasic", 'F', new ItemStack(ModBlocks.ElectricFurnace), 'M',
 				BlockMachineFrame.getFrameByName("machine", 1));
 
 		CraftingHelper
 				.addShapedOreRecipe(new ItemStack(ModBlocks.LesuStorage), "LLL", "LCL", "LLL", 'L', "blockLapis", 'C',
-						ItemParts.getPartByName("electronicCircuit"));
+						"circuitBasic");
 
 		TechRebornAPI
 				.addRollingOreMachinceRecipe(ItemParts.getPartByName("cupronickelHeatingCoil"), "NCN", "C C", "NCN",
@@ -1078,8 +1076,13 @@ public class ModRecipes
 
 		RecipeHandler.addRecipe(new VacuumFreezerRecipe(ItemIngots.getIngotByName("hotTungstensteel"),
 				ItemIngots.getIngotByName("tungstensteel"), 440, 128));
+
+		RecipeHandler.addRecipe(new VacuumFreezerRecipe(ItemCells.getCellByName("heliumplasma"),
+				ItemCells.getCellByName("helium"), 440, 128));
+
 		RecipeHandler.addRecipe(
-				new VacuumFreezerRecipe(ItemCells.getCellByName("water"), ItemCells.getCellByName("cell"), 60, 128));
+				new VacuumFreezerRecipe(ItemCells.getCellByName("water"),
+						ItemCells.getCellByName("cell"), 60, 128));
 	}
 
 	static void addSmeltingRecipes()
@@ -2265,20 +2268,20 @@ public class ModRecipes
 
 		CraftingHelper
 				.addShapedOreRecipe(new ItemStack(ModBlocks.Semifluidgenerator), "III", "IHI", "CGC", 'I', "plateIron",
-						'H', ModBlocks.reinforcedglass, 'C', ItemParts.getPartByName("electronicCircuit"), 'G',
+						'H', ModBlocks.reinforcedglass, 'C', "circuitBasic", 'G',
 						ModBlocks.Generator);
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Semifluidgenerator), "AAA", "AHA", "CGC", 'A',
-				"plateAluminum", 'H', ModBlocks.reinforcedglass, 'C', ItemParts.getPartByName("electronicCircuit"), 'G',
+				"plateAluminum", 'H', ModBlocks.reinforcedglass, 'C', "circuitBasic", 'G',
 				ModBlocks.Generator);
 
 		CraftingHelper
 				.addShapedOreRecipe(new ItemStack(ModBlocks.DieselGenerator), "III", "I I", "CGC", 'I', "refinedIron",
-						'C', ItemParts.getPartByName("electronicCircuit"), 'G', ModBlocks.Generator);
+						'C', "circuitBasic", 'G', ModBlocks.Generator);
 
 		CraftingHelper
 				.addShapedOreRecipe(new ItemStack(ModBlocks.DieselGenerator), "AAA", "A A", "CGC", 'A', "ingotAluminum",
-						'C', ItemParts.getPartByName("electronicCircuit"), 'G', ModBlocks.Generator);
+						'C', "circuitBasic", 'G', ModBlocks.Generator);
 
 		// CraftingHelper.addShapedOreRecipe(new
 		// ItemStack(ModBlocks.MagicalAbsorber),
@@ -2299,7 +2302,7 @@ public class ModRecipes
 		// 'T', TechRebornAPI.recipeCompact.getItem("teleporter"));
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Dragoneggenergysiphoner), "CTC", "ISI", "CBC", 'I',
-				"plateIridium", 'C', ItemParts.getPartByName("electronicCircuit"),
+				"plateIridium", 'C', "circuitBasic",
 				'B', ModItems.lithiumBattery, 'S', ModBlocks.Supercondensator, 'T', ModBlocks.Extractor);
 
 		CraftingHelper
@@ -2408,7 +2411,7 @@ public class ModRecipes
 		CraftingHelper
 				.addSmelting(ItemDusts.getDustByName("silver", 1), ItemIngots.getIngotByName("silver"),
 						1F);
-		
+
 		// UU
 		if (ConfigTechReborn.UUrecipesIridiamOre)
 			CraftingHelper
@@ -2518,9 +2521,9 @@ public class ModRecipes
 		// Rubber Wood Yields
 		RecipeHandler.addRecipe(
 				new CentrifugeRecipe(new ItemStack(getOre("rubberWood").getItem(), 16),
-						ItemCells.getCellByName("empty", 5), new ItemStack(ModItems.parts, 8, 41),
+						ItemCells.getCellByName("empty", 5), ItemParts.getPartByName("rubber", 8),
 						new ItemStack(Blocks.SAPLING, 6), ItemCells.getCellByName("methane", 1),
-						ItemCells.getCellByName("carbon", 4), 5000, 5, false));
+						ItemCells.getCellByName("carbon", 4), 5000, 5, true));
 
 		// Soul Sand Byproducts
 		RecipeHandler.addRecipe(
@@ -3163,7 +3166,7 @@ public class ModRecipes
 				gemStack.stackSize = 2;
 				ItemStack dustStack = OreDictionary.getOres("gemMalachite").get(0);
 				dustStack.stackSize = 1;
-				
+
 				RecipeHandler.addRecipe(
 						new IndustrialGrinderRecipe(oreStack,ItemCells.getCellByName("water"), null,
 								gemStack, dustStack, null, ItemCells.getCellByName("empty"), 100, 120));
@@ -3471,7 +3474,7 @@ public class ModRecipes
 				.addShapedOreRecipe(new ItemStack(ModItems.lapotronpack, 1, OreDictionary.WILDCARD_VALUE), "FOF", "SPS",
 						"FIF", 'F', "circuitMaster", 'O',
 						new ItemStack(ModItems.lapotronicOrb), 'S', ItemParts.getPartByName("superConductor"), 'I',
-						"ingotIridium", 'P', new ItemStack(ModItems.lapotronpack));
+						"ingotIridium", 'P', new ItemStack(ModItems.lithiumBatpack));
 	}
 
 	static void addGemToolRecipes(ItemStack gemsword, ItemStack gempick, ItemStack gemaxe, ItemStack gemHoe,
@@ -3501,9 +3504,9 @@ public class ModRecipes
 	{
 		return UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, fluid);
 	}
-	
+
 	public static ItemStack getOre(String name) {
 		return OreDictionary.getOres(name).get(0).copy();
 	}
-	
+
 }
