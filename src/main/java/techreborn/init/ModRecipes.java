@@ -3506,6 +3506,9 @@ public class ModRecipes
 	}
 
 	public static ItemStack getOre(String name) {
+		if(OreDictionary.getOres(name).isEmpty()){
+			return new ItemStack(ModItems.missingRecipe);
+		}
 		return OreDictionary.getOres(name).get(0).copy();
 	}
 
