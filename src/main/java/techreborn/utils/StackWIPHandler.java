@@ -22,7 +22,6 @@ public class StackWIPHandler
 
 	public StackWIPHandler()
 	{
-		wipBlocks.add(ModBlocks.LightningRod);
 		wipBlocks.add(ModBlocks.MagicalAbsorber);
 		wipBlocks.add(ModBlocks.ChunkLoader);
 		wipBlocks.add(ModBlocks.ElectricCraftingTable);

@@ -3,9 +3,11 @@ package techreborn.items;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
+import techreborn.utils.OreDictUtils;
 
 import java.security.InvalidParameterException;
 import java.util.List;
@@ -13,11 +15,10 @@ import java.util.List;
 public class ItemPlates extends ItemTextureBase
 {
 
-	public static final String[] types = new String[] { "aluminum", "brass", "bronze", "chrome", "copper", "electrum",
-			"invar", "iridium", "iron", "gold", "lead", "nickel", "platinum", "silver", "steel", "tin", "titanium",
-			"tungsten", "tungstensteel", "zinc", "refinedIron", "carbon", "wood", "magnalium",
-			"silicon", "ruby", "sapphire", "peridot", "redGarnet", "yellowGarnet", "redstone",
-			"diamond", "emerald", "lapis", "coal", "obsidian", "advancedAlloy", "lazurite" };
+	//Vanilla plates or plates not from ingots or gems
+	public static String[] types = new String[] {
+			"iron", "gold", "carbon", "wood", "redstone", "diamond", "emerald", "lapis", "coal", "obsidian", "lazurite"
+	};
 
 	public ItemPlates()
 	{
@@ -63,6 +64,19 @@ public class ItemPlates extends ItemTextureBase
 		{
 			list.add(new ItemStack(item, 1, meta));
 		}
+	}
+
+	public static void registerType(String plateType) {
+		for (String type : types) {
+			if (type.equals(plateType)) return;
+		}
+		int plateIndex = types.length;
+		String[] newTypes = new String[plateIndex + 1];
+		System.arraycopy(types, 0, newTypes, 0, types.length);
+		types = newTypes;
+		newTypes[plateIndex] = plateType;
+		String oreName = "plate" + OreDictUtils.toFirstUpper(plateType);
+		OreDictionary.registerOre(oreName, new ItemStack(ModItems.plate, 1, plateIndex));
 	}
 
 	@Override public String getTextureName(int damage)

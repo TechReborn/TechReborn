@@ -15,7 +15,7 @@ public class ItemIngots extends ItemTextureBase
 	public static final String[] types = new String[] { "aluminum", "brass", "bronze", "chrome", "copper", "electrum",
 			"invar", "iridium", "lead", "nickel", "platinum", "silver", "steel", "tin", "titanium", "tungsten",
 			"hotTungstensteel", "tungstensteel", "zinc", "refinedIron", "advancedAlloy", "mixedMetal",
-			"iridiumAlloy" };
+			"iridiumAlloy", "silicon" };
 
 	public ItemIngots()
 	{
