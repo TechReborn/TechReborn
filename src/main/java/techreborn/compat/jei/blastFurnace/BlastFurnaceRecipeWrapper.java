@@ -11,6 +11,8 @@ import techreborn.api.recipe.machines.BlastFurnaceRecipe;
 import techreborn.client.gui.GuiBlastFurnace;
 import techreborn.compat.jei.BaseRecipeWrapper;
 
+import java.awt.*;
+
 public class BlastFurnaceRecipeWrapper extends BaseRecipeWrapper<BlastFurnaceRecipe>
 {
 	private final IDrawableAnimated progress;
@@ -29,5 +31,13 @@ public class BlastFurnaceRecipeWrapper extends BaseRecipeWrapper<BlastFurnaceRec
 	{
 		super.drawAnimations(minecraft, recipeWidth, recipeHeight);
 		progress.draw(minecraft, 54 - 29, 13);
+
+		int x = recipeWidth / 3;
+		int y = (int) (recipeHeight - recipeHeight / 2.2F);
+		int lineHeight = minecraft.fontRendererObj.FONT_HEIGHT;
+
+		minecraft.fontRendererObj.drawString("Time: " +  baseRecipe.tickTime / 20 + " secs", x, y, 0x444444);
+		minecraft.fontRendererObj.drawString("EU: " +  baseRecipe.euPerTick + " EU/t", x, y += lineHeight, 0x444444);
+		minecraft.fontRendererObj.drawString("Heat capacity: " +  baseRecipe.neededHeat, x, y += lineHeight, 0x444444);
 	}
 }
