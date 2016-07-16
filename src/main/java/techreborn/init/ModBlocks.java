@@ -72,16 +72,7 @@ import techreborn.itemblocks.ItemBlockStorage;
 import techreborn.itemblocks.ItemBlockStorage2;
 import techreborn.tiles.*;
 import techreborn.tiles.fusionReactor.TileEntityFusionController;
-import techreborn.tiles.generator.TileDieselGenerator;
-import techreborn.tiles.generator.TileDragonEggSiphoner;
-import techreborn.tiles.generator.TileGasTurbine;
-import techreborn.tiles.generator.TileGenerator;
-import techreborn.tiles.generator.TileHeatGenerator;
-import techreborn.tiles.generator.TileSemifluidGenerator;
-import techreborn.tiles.generator.TileSolarPanel;
-import techreborn.tiles.generator.TileThermalGenerator;
-import techreborn.tiles.generator.TileWaterMill;
-import techreborn.tiles.generator.TileWindMill;
+import techreborn.tiles.generator.*;
 import techreborn.tiles.idsu.TileIDSU;
 import techreborn.tiles.lesu.TileLesu;
 import techreborn.tiles.lesu.TileLesuStorage;
@@ -334,6 +325,7 @@ public class ModBlocks
 
 		LightningRod = new BlockLightningRod(Material.ROCK);
 		registerBlock(LightningRod, "lightningrod");
+		GameRegistry.registerTileEntity(TileLightningRod.class, "TileLightningRodTR");
 
 		heatGenerator = new BlockHeatGenerator(Material.ROCK);
 		registerBlock(heatGenerator, "heatgenerator");

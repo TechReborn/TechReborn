@@ -9,6 +9,16 @@ import net.minecraftforge.oredict.OreDictionary;
 public class OreDictUtils
 {
 
+	public static String toFirstLower(String string) {
+		if(string == null || string.isEmpty()) return string;
+		return Character.toLowerCase(string.charAt(0)) + string.substring(1);
+	}
+
+	public static String toFirstUpper(String string) {
+		if(string.isEmpty()) return string;
+		return Character.toUpperCase(string.charAt(0)) + string.substring(1);
+	}
+
 	public static boolean isOre(Block block, String oreName)
 	{
 		return isOre(new ItemStack(Item.getItemFromBlock(block)), oreName);

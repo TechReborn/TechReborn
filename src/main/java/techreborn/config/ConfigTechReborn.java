@@ -24,6 +24,7 @@ public class ConfigTechReborn
 	public static boolean UninsulatedElectocutionDamage;
 	public static boolean ScrapboxDispenser;
 	// Power
+	public static int LightningRodChance;
 	public static int ThermalGeneratorOutput;
 	public static int CentrifugeInputTick;
 	public static int DragonEggSiphonerOutput;
@@ -202,6 +203,10 @@ public class ConfigTechReborn
 				"FortuneSecondaryOreMultiplierPerLevel").getDouble();
 
 		// Power
+		LightningRodChance = config
+				.get(CATEGORY_POWER, "Lightning Rod light struck chance", 24, "Set the chance of light strike (0-70)", 0, 70)
+				.getInt();
+
 		ThermalGeneratorOutput = config
 				.get(CATEGORY_POWER, "ThermalGenerator Max Output", 60, "Set the max output for the ThermalGenerator")
 				.getInt();
