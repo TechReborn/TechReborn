@@ -1,5 +1,9 @@
 package techreborn.client.container;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.tile.IContainerLayout;
@@ -82,31 +86,4 @@ public class ContainerExtractor extends ContainerCrafting implements IContainerL
 	public List<Integer> getSlotsForSide(EnumFacing facing) {
 		return null;
 	}
-
-	// @Override
-	// public void addListener(IContainerListener crafting) {
-	// super.addListener(crafting);
-	// crafting.sendProgressBarUpdate(this, 0, (int) tile.getProgressScaled(0));
-	// crafting.sendProgressBarUpdate(this, 2, (int) tile.getEnergy());
-	// }
-	//
-	// @SideOnly(Side.CLIENT)
-	// @Override
-	// public void updateProgressBar(int id, int value) {
-	// if (id == 0) {
-	// this.progress = value;
-	// }
-	// else if (id == 2) {
-	// this.energy = value;
-	// }
-	// this.tile.setEnergy(energy);
-	// }
-
-	// @SideOnly(Side.CLIENT)
-	// @Override
-	// public void updateProgressBar(int id, int value) {
-	// if (id == 10) {
-	// this.connectionStatus = value;
-	// }
-	// }
 }
