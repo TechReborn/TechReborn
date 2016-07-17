@@ -1,76 +1,37 @@
 package techreborn.init;
 
-import ic2.core.block.BlockTexGlass;
-import ic2.core.block.type.ResourceBlock;
-import ic2.core.block.wiring.CableType;
-import ic2.core.item.type.*;
-import ic2.core.ref.BlockName;
-import ic2.core.ref.ItemName;
-import ic2.core.ref.TeBlock;
+import com.google.common.collect.ImmutableList;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.oredict.OreDictionary;
+import techreborn.Core;
 import techreborn.blocks.BlockMachineFrame;
-import techreborn.items.ItemIngots;
-import techreborn.items.ItemParts;
-import techreborn.items.ItemPlates;
+import techreborn.items.*;
 import techreborn.parts.powerCables.ItemStandaloneCables;
+import techreborn.utils.OreDictUtils;
 
 public class OreDict {
 
+    private static final ImmutableList<String> plateGenIgnores = ImmutableList.of(
+            "hot", //Hot ingots
+            "mixedMetal", //Mixed metal has own version of plate
+            "iridiumAlloy", //Iridium alloy is plate itself
+            ModItems.META_PLACEHOLDER //...
+    );
+
     public static void init() {
         if(Loader.isModLoaded("IC2")) {
-            OreDictionary.registerOre("reBattery", ItemName.re_battery.getItemStack());
-
-            OreDictionary.registerOre("circuitBasic", ItemName.crafting.getItemStack(CraftingItemType.circuit));
-            OreDictionary.registerOre("circuitAdvanced", ItemName.crafting.getItemStack(CraftingItemType.advanced_circuit));
-
-
-            OreDictionary.registerOre("machineBlockBasic", BlockName.resource.getItemStack(ResourceBlock.machine));
-            OreDictionary.registerOre("machineBlockAdvanced", BlockName.resource.getItemStack(ResourceBlock.advanced_machine));
-
-            OreDictionary.registerOre("lapotronCrystal", ItemName.lapotron_crystal.getItemStack());
-            OreDictionary.registerOre("energyCrystal", ItemName.lapotron_crystal.getItemStack());
-
-            OreDictionary.registerOre("drillBasic", ItemName.drill.getItemStack());
-            OreDictionary.registerOre("drillDiamond", ItemName.diamond_drill.getItemStack());
-            OreDictionary.registerOre("drillAdvanced", ItemName.iridium_drill.getItemStack());
-
-            ItemStack industrialTnt = BlockName.te.getItemStack(TeBlock.itnt);
-            industrialTnt.setItemDamage(1);
-            OreDictionary.registerOre("industrialTnt", industrialTnt);
-
-            OreDictionary.registerOre("craftingIndustrialDiamond", ItemName.crafting.getItemStack(CraftingItemType.industrial_diamond));
-            OreDictionary.registerOre("fertilizer", ItemName.crafting.getItemStack(CraftingItemType.bio_chaff));
-            OreDictionary.registerOre("hvTransformer", BlockName.te.getItemStack(TeBlock.hv_transformer));
-
-            //TODO:
-
-            //OreDictionary.registerOre("insulatedGoldCableItem", BlockName.te.getItemStack(CableType.gold));
-
-            //OreDictionary.registerOre("ic2Generator", ModBlocks.Generator);
-            //OreDictionary.registerOre("ic2SolarPanel", ModBlocks.solarPanel);
-            //OreDictionary.registerOre("ic2Macerator", ModBlocks.Grinder);
-            //OreDictionary.registerOre("ic2Extractor", ModBlocks.Extractor);
-            //OreDictionary.registerOre("ic2Windmill", ModBlocks.windMill);
-            //OreDictionary.registerOre("ic2Watermill", ModBlocks.waterMill);
-
-            OreDictionary.registerOre("uran235", ItemName.nuclear.getItemStack(NuclearResourceType.uranium_235));
-            OreDictionary.registerOre("uran238", ItemName.nuclear.getItemStack(NuclearResourceType.uranium_238));
-            OreDictionary.registerOre("smallUran238", ItemName.nuclear.getItemStack(NuclearResourceType.small_uranium_238));
-            OreDictionary.registerOre("smallUran235", ItemName.nuclear.getItemStack(NuclearResourceType.small_uranium_235));
-
-            OreDictionary.registerOre("rubberWood", BlockName.rubber_wood.getItemStack());
-            OreDictionary.registerOre("glassReinforced", BlockName.glass.getItemStack(BlockTexGlass.GlassType.reinforced));
-            OreDictionary.registerOre("oreIridium", ItemName.misc_resource.getItemStack(MiscResourceType.iridium_ore));
+            Core.logHelper.info("IC2 installed, enabling integration");
+            IC2Dict.init();
         }
 
         OreDictionary.registerOre("reBattery", ModItems.reBattery);
 
         OreDictionary.registerOre("circuitBasic", ItemParts.getPartByName("electronicCircuit"));
         OreDictionary.registerOre("circuitAdvanced", ItemParts.getPartByName("advancedCircuit"));
+        OreDictionary.registerOre("circuitStorage", ItemParts.getPartByName("dataStorageCircuit"));
         OreDictionary.registerOre("circuitElite", ItemParts.getPartByName("dataControlCircuit"));
         OreDictionary.registerOre("circuitMaster", ItemParts.getPartByName("energyFlowCircuit"));
 
@@ -96,26 +57,69 @@ public class OreDict {
         OreDictionary.registerOre("ic2Windmill", ModBlocks.windMill);
         OreDictionary.registerOre("ic2Watermill", ModBlocks.waterMill);
 
-        //OreDictionary.registerOre("uran235", );
-        //OreDictionary.registerOre("uran238", );
-        //OreDictionary.registerOre("smallUran235", );
+        //OreDictionary.registerOre("uran235", nothing);
+        //OreDictionary.registerOre("uran238", nothing);
+        //OreDictionary.registerOre("smallUran235", nothing);
 
+        OreDictionary.registerOre("fenceIron", ModBlocks.ironFence);
         OreDictionary.registerOre("woodRubber", ModBlocks.rubberLog);
         OreDictionary.registerOre("glassReinforced", ModBlocks.reinforcedglass);
 
+        OreDictionary.registerOre("diamondTR", ItemDusts.getDustByName("Diamond"));
+        OreDictionary.registerOre("diamondTR", Items.DIAMOND);
+
+        OreDictionary.registerOre("craftingGrinder", ItemParts.getPartByName("diamondGrindingHead"));
+        OreDictionary.registerOre("craftingGrinder", ItemParts.getPartByName("tungstenGrindingHead"));
+        OreDictionary.registerOre("craftingSuperconductor", ItemParts.getPartByName("superconductor"));
+        OreDictionary.registerOre("batteryUltimate", ItemParts.getPartByName("diamondGrindingHead"));
+
+        OreDictionary.registerOre("materialResin", ItemParts.getPartByName("rubberSap"));
+        OreDictionary.registerOre("materialRubber", ItemParts.getPartByName("rubber"));
+        OreDictionary.registerOre("pulpWood", ItemDusts.getDustByName("sawDust"));
+
+        //Gems registration
+        for(String type : ItemGems.types) {
+            if(type.equals(ModItems.META_PLACEHOLDER)) continue; //Aware of placeholders!
+            String upper = OreDictUtils.toFirstUpper(type);
+            OreDictionary.registerOre("gem" + upper, ItemGems.getGemByName(type));
+            boolean ignoreIt = false;
+            for(String ignore : plateGenIgnores)
+                if(type.startsWith(ignore)) ignoreIt = true;
+            if(!ignoreIt) ItemPlates.registerType(upper);
+        }
+        
+        //Ingots registration
+        for(String type : ItemIngots.types) {
+            if(type.equals(ModItems.META_PLACEHOLDER)) continue; //Aware of placeholders!
+            String upperName = OreDictUtils.toFirstUpper(type);
+            OreDictionary.registerOre("ingot" + upperName, ItemIngots.getIngotByName(type));
+            boolean ignoreIt = false;
+            for(String ignore : plateGenIgnores)
+                if(type.startsWith(ignore)) ignoreIt = true;
+            if(!ignoreIt) ItemPlates.registerType(type);
+        }
+
+
+        //Dusts, nuggets and plates auto-registration
+
         for(String type : ItemPlates.types) {
-            String oreDictName = "plate" + Character.toUpperCase(type.charAt(0)) + type.substring(1);
-            System.out.println(oreDictName);
+            if(type.equals(ModItems.META_PLACEHOLDER)) continue; //Aware of placeholders!
+            String oreDictName = "plate" + OreDictUtils.toFirstUpper(type);
             OreDictionary.registerOre(oreDictName, ItemPlates.getPlateByName(type));
         }
-
-        for(String type : ItemIngots.types) {
-            String oreDictName = "ingot" + Character.toUpperCase(type.charAt(0)) + type.substring(1);
-            System.out.println(oreDictName);
-            OreDictionary.registerOre(oreDictName, ItemIngots.getIngotByName(type));
+        
+        for(String type : ItemDusts.types) {
+            if(type.equals(ModItems.META_PLACEHOLDER)) continue; //Aware of placeholders!
+            String oreDictName = "dust" + OreDictUtils.toFirstUpper(type);
+            OreDictionary.registerOre(oreDictName, ItemDusts.getDustByName(type));
         }
-
-
+        
+        for(String type : ItemNuggets.types) {
+            if(type.equals(ModItems.META_PLACEHOLDER)) continue; //Aware of placeholders!
+            String oreDictName = "nugget" + OreDictUtils.toFirstUpper(type);
+            OreDictionary.registerOre(oreDictName, ItemNuggets.getNuggetByName(type));
+        }
+        
     }
 
 }

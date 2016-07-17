@@ -1,18 +1,11 @@
 package techreborn.utils;
 
 import net.minecraft.item.ItemStack;
-import techreborn.init.ModItems;
+import techreborn.items.DynamicCell;
 
 public class RecipeUtils
 {
-	public static ItemStack getEmptyCell(int stackSize)
-	{ // TODO ic2
-		// if (Loader.isModLoaded("IC2")) {
-		// ItemStack cell = IC2Items.getItem("cell").copy();
-		// cell.stackSize = stackSize;
-		// return cell;
-		// } else {
-		return new ItemStack(ModItems.emptyCell);
-		// }
+	public static ItemStack getEmptyCell(int stackSize) {
+		return DynamicCell.getEmptyCell(stackSize);
 	}
 }
