@@ -22,7 +22,7 @@ public class GuiGrinder extends GuiContainer
 		super(RebornContainer.createContainer(ContainerGrinder.class, tilegrinder, player));
 		this.xSize = 176;
 		this.ySize = 167;
-		grinder = tilegrinder;
+		this.grinder = tilegrinder;
 		containerGrinder = (ContainerGrinder) this.inventorySlots;
 	}
 
