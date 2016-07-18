@@ -13,6 +13,7 @@ import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.blocks.storage.BlockEnergyStorage;
+import techreborn.power.PowerNet;
 
 /**
  * Created by Rushmead
@@ -54,40 +55,39 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IWrenchable,
 		return entityPlayer.isSneaking();
 	}
 
-	@Override public void updateEntity()
-	{
-		if (inventory.getStackInSlot(0) != null)
-		{
+	@Override public void updateEntity() {
+		if (inventory.getStackInSlot(0) != null) {
 			ItemStack stack = inventory.getStackInSlot(0);
-			if(!(stack.getItem() instanceof IEnergyItemInfo)){
+			if (!(stack.getItem() instanceof IEnergyItemInfo)) {
 				return;
 			}
 			IEnergyItemInfo item = (IEnergyItemInfo) inventory.getStackInSlot(0).getItem();
-			if (PoweredItem.getEnergy(stack) != PoweredItem.getMaxPower(stack))
-			{
-				if (canUseEnergy(item.getMaxTransfer(stack)))
-				{
+			if (PoweredItem.getEnergy(stack) != PoweredItem.getMaxPower(stack)) {
+				if (canUseEnergy(item.getMaxTransfer(stack))) {
 					useEnergy(item.getMaxTransfer(stack));
 					PoweredItem.setEnergy(PoweredItem.getEnergy(stack) + item.getMaxTransfer(stack), stack);
 				}
 			}
 		}
-		if (inventory.getStackInSlot(1) != null)
-		{
+		if (inventory.getStackInSlot(1) != null) {
 			ItemStack stack = inventory.getStackInSlot(1);
-			if(!(stack.getItem() instanceof IEnergyItemInfo)){
+			if (!(stack.getItem() instanceof IEnergyItemInfo)) {
 				return;
 			}
 			IEnergyItemInfo item = (IEnergyItemInfo) stack.getItem();
-			if (item.canProvideEnergy(stack))
-			{
-				if (getEnergy() != getMaxPower())
-				{
+			if (item.canProvideEnergy(stack)) {
+				if (getEnergy() != getMaxPower()) {
 					addEnergy(item.getMaxTransfer(stack));
 					PoweredItem.setEnergy(PoweredItem.getEnergy(stack) - item.getMaxTransfer(stack), stack);
 				}
 			}
 		}
+
+		if (!worldObj.isRemote && getEnergy() > 0) {
+			double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
+			useEnergy(PowerNet.dispatchEnergyPacket(worldObj, getPos(), maxOutput));
+		}
+
 	}
 
 	@Override

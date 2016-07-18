@@ -12,6 +12,7 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
+import techreborn.power.PowerNet;
 
 public class TileDragonEggSiphoner extends TilePowerAcceptor implements IWrenchable,IInventoryProvider
 {
@@ -25,17 +26,19 @@ public class TileDragonEggSiphoner extends TilePowerAcceptor implements IWrencha
 	}
 
 	@Override
-	public void updateEntity()
-	{
+	public void updateEntity() {
 		super.updateEntity();
 
-		if (!worldObj.isRemote)
-		{
+		if (!worldObj.isRemote) {
 			if (worldObj.getBlockState(new BlockPos(getPos().getX(), getPos().getY() + 1, getPos().getZ()))
-					.getBlock() == Blocks.DRAGON_EGG)
-			{
+					.getBlock() == Blocks.DRAGON_EGG) {
 				addEnergy(euTick);
 			}
+		}
+
+		if (!worldObj.isRemote && getEnergy() > 0) {
+			double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
+			useEnergy(PowerNet.dispatchEnergyPacket(worldObj, getPos(), maxOutput));
 		}
 	}
 

@@ -887,10 +887,10 @@ public class ModRecipes
 			}
 		}
 
-		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("nichromeHeatingCoil"), " N ", "NCN", " N ", 'N',
+		TechRebornAPI.addRollingOreMachinceRecipe(ItemParts.getPartByName("nichromeHeatingCoil"), " N ", "NCN", " N ", 'N',
 				"ingotNickel", 'C', "ingotChrome");
 
-		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("kanthalHeatingCoil"), "III", "CAA", "AAA", 'I',
+		TechRebornAPI.addRollingOreMachinceRecipe(ItemParts.getPartByName("kanthalHeatingCoil"), "III", "CAA", "AAA", 'I',
 				"ingotSteel", 'C', "ingotChrome", 'A', "ingotAluminum");
 
 		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("heliumCoolantSimple"), " T ", "TCT", " T ", 'T',
@@ -1070,8 +1070,7 @@ public class ModRecipes
 				.addShapedOreRecipe(new ItemStack(ModBlocks.LesuStorage), "LLL", "LCL", "LLL", 'L', "blockLapis", 'C',
 						"circuitBasic");
 
-		TechRebornAPI
-				.addRollingOreMachinceRecipe(ItemParts.getPartByName("cupronickelHeatingCoil"), "NCN", "C C", "NCN",
+		TechRebornAPI.addRollingOreMachinceRecipe(ItemParts.getPartByName("cupronickelHeatingCoil"), "NCN", "C C", "NCN",
 						'N', "ingotCupronickel", 'C', "ingotCopper");
 
 		RecipeHandler.addRecipe(new VacuumFreezerRecipe(ItemIngots.getIngotByName("hotTungstensteel"),
@@ -2311,7 +2310,7 @@ public class ModRecipes
 						getOre("ic2Extractor"));
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.BlastFurnace), "CHC", "HBH", "FHF", 'H',
-				new ItemStack(ModItems.parts, 1, 17), 'C', "circuitAdvanced", 'B',
+				ItemParts.getPartByName("cupronickelHeatingCoil"), 'C', "circuitAdvanced", 'B',
 				BlockMachineFrame.getFrameByName("advancedMachine", 1), 'F', ModBlocks.ElectricFurnace);
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.IndustrialGrinder), "ECP", "GGG", "CBC", 'E',
@@ -2344,7 +2343,7 @@ public class ModRecipes
 		CraftingHelper
 				.addShapedOreRecipe(new ItemStack(ModBlocks.RollingMachine), "PCP", "MBM", "PCP", 'P', Blocks.PISTON,
 						'C', "circuitAdvanced", 'M', ModBlocks.Compressor, 'B',
-						BlockMachineFrame.getFrameByName("machine", 1));
+						"machineBlockAdvanced");
 
 		// CraftingHelper.addShapedOreRecipe(new
 		// ItemStack(ModBlocks.ElectricCraftingTable),

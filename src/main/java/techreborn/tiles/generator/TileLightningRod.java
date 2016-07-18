@@ -10,6 +10,7 @@ import reborncore.api.power.EnumPowerTier;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.config.ConfigTechReborn;
+import techreborn.power.PowerNet;
 
 public class TileLightningRod extends TilePowerAcceptor {
 
@@ -23,17 +24,17 @@ public class TileLightningRod extends TilePowerAcceptor {
     public void update() {
         super.update();
 
-        if(onStatusHoldTicks > 0)
+        if (onStatusHoldTicks > 0)
             --onStatusHoldTicks;
 
-        if(onStatusHoldTicks == 0 || getEnergy() <= 0) {
-            if(getBlockType() instanceof BlockMachineBase)
+        if (onStatusHoldTicks == 0 || getEnergy() <= 0) {
+            if (getBlockType() instanceof BlockMachineBase)
                 ((BlockMachineBase) getBlockType()).setActive(false, worldObj, pos);
             onStatusHoldTicks = -1;
         }
 
         float weatherStrength = worldObj.getThunderStrength(1.0F);
-        if(weatherStrength > 0.2F) {
+        if (weatherStrength > 0.2F) {
             //lightStrikeChance = (MAX - (CHANCE * WEATHER_STRENGTH)
             float lightStrikeChance = ((100F - ConfigTechReborn.LightningRodChance) * 20F);
             float totalChance = lightStrikeChance * getLightningStrikeMultiplier() * ((1.1F - weatherStrength));
@@ -50,6 +51,10 @@ public class TileLightningRod extends TilePowerAcceptor {
             }
         }
 
+        if (!worldObj.isRemote && getEnergy() > 0) {
+            double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
+            useEnergy(PowerNet.dispatchEnergyPacket(worldObj, getPos(), maxOutput));
+        }
     }
 
     public float getLightningStrikeMultiplier() {
