@@ -1,6 +1,8 @@
 package techreborn.tiles.teir1;
 
-import reborncore.common.IWrenchable;import reborncore.common.IWrenchable;
+import reborncore.common.IWrenchable;
+import reborncore.common.container.RebornContainer;
+import reborncore.common.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -8,14 +10,17 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.recipe.IRecipeCrafterProvider;
+import reborncore.api.tile.IContainerProvider;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Inventory;
 import techreborn.api.Reference;
+import techreborn.client.container.ContainerExtractor;
+import techreborn.client.container.ContainerGrinder;
 import techreborn.init.ModBlocks;
 
-public class TileExtractor extends TilePowerAcceptor implements IWrenchable,IInventoryProvider, ISidedInventory, IRecipeCrafterProvider
+public class TileExtractor extends TilePowerAcceptor implements IWrenchable,IInventoryProvider, IRecipeCrafterProvider, IContainerProvider
 {
 
 	public Inventory inventory = new Inventory(6, "TileExtractor", 64, this);
@@ -91,27 +96,6 @@ public class TileExtractor extends TilePowerAcceptor implements IWrenchable,IInv
 		return tagCompound;
 	}
 
-	// ISidedInventory
-	@Override
-	public int[] getSlotsForFace(EnumFacing side)
-	{
-		return side == EnumFacing.DOWN ? new int[] { 0, 1, 2 } : new int[] { 0, 1, 2 };
-	}
-
-	@Override
-	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side)
-	{
-		if (slotIndex == 2)
-			return false;
-		return isItemValidForSlot(slotIndex, itemStack);
-	}
-
-	@Override
-	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side)
-	{
-		return slotIndex == 2;
-	}
-
 	public int getProgressScaled(int scale)
 	{
 		if (crafter.currentTickTime != 0)
@@ -165,5 +149,10 @@ public class TileExtractor extends TilePowerAcceptor implements IWrenchable,IInv
 	@Override
 	public RecipeCrafter getRecipeCrafter() {
 		return crafter;
+	}
+
+	@Override
+	public RebornContainer getContainer() {
+		return RebornContainer.getContainerFromClass(ContainerExtractor.class, this);
 	}
 }

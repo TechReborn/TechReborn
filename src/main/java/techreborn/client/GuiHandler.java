@@ -168,7 +168,7 @@ public class GuiHandler implements IGuiHandler
 			return new ContainerGenerator((TileGenerator) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == extractorID)
 		{
-			return new ContainerExtractor((TileExtractor) world.getTileEntity(new BlockPos(x, y, z)), player);
+			container = new ContainerExtractor();
 		} else if (ID == compressorID)
 		{
 			return new ContainerCompressor((TileCompressor) world.getTileEntity(new BlockPos(x, y, z)), player);

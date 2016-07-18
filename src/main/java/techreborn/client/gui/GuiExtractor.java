@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
+import reborncore.common.container.RebornContainer;
 import techreborn.client.container.ContainerExtractor;
 import techreborn.tiles.teir1.TileExtractor;
 
@@ -14,15 +15,15 @@ public class GuiExtractor extends GuiContainer
 	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/compressor.png");
 
 	TileExtractor extractor;
-	ContainerExtractor containerGrinder;
+	ContainerExtractor containerExtractor;
 
-	public GuiExtractor(EntityPlayer player, TileExtractor tilegrinder)
+	public GuiExtractor(EntityPlayer player, TileExtractor tileExtractor)
 	{
-		super(new ContainerExtractor(tilegrinder, player));
+		super(RebornContainer.createContainer(ContainerExtractor.class, tileExtractor, player));
 		this.xSize = 176;
 		this.ySize = 167;
-		extractor = tilegrinder;
-		containerGrinder = (ContainerExtractor) this.inventorySlots;
+		this.extractor = tileExtractor;
+		containerExtractor = (ContainerExtractor) this.inventorySlots;
 	}
 
 	@Override
