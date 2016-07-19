@@ -75,7 +75,7 @@ public class ContainerExtractor extends ContainerCrafting implements IContainerL
 		this.player = player;
 		
 	}
-
+	@Nullable
 	@Override
 	public EntityPlayer getPlayer() {
 		return player;

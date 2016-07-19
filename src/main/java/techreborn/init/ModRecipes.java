@@ -430,7 +430,9 @@ public class ModRecipes
 				new GrinderRecipe(new ItemStack(Blocks.COBBLESTONE), new ItemStack(Blocks.SAND), ticktime, eutick));
 		RecipeHandler.addRecipe(
 				new GrinderRecipe(new ItemStack(Blocks.GRAVEL), new ItemStack(Items.FLINT), ticktime, eutick));
-
+		RecipeHandler.addRecipe(
+				new GrinderRecipe(new ItemStack(Blocks.NETHERRACK), ItemDusts.getDustByName("netherrack"), ticktime, eutick));
+						
 		// TechReborn
 		RecipeHandler.addRecipe(
 				new GrinderRecipe(BlockOre2.getOreByName("copper"), ItemDusts.getDustByName("copper", 2), ticktime, eutick));
@@ -3412,9 +3414,9 @@ public class ModRecipes
 				ItemDusts.getDustByName("chrome", 2), ItemCells.getCellByName("silicon", 3),
 				ItemCells.getCellByName("empty", 6), 480, 120));
 
-		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(ItemCells.getCellByName("empty", 6), null,
-				ItemCells.getCellByName("hydrogen", 4), ItemCells.getCellByName("empty", 5),
-				ItemCells.getCellByName("empty", 1), null, 100, 30));
+//		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(ItemCells.getCellByName("empty", 6), null,
+//				ItemCells.getCellByName("hydrogen", 4), ItemCells.getCellByName("empty", 5),
+//				ItemCells.getCellByName("empty", 1), null, 100, 30));
 
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(ItemDusts.getDustByName("darkAshes"),
 				ItemCells.getCellByName("empty", 2), ItemCells.getCellByName("carbon", 2), null, null, null, 20, 30));

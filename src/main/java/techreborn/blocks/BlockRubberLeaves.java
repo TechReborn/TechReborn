@@ -7,6 +7,7 @@ import me.modmuss50.jsonDestroyer.api.IOpaqueBlock;
 import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockPlanks;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -31,12 +32,12 @@ public class BlockRubberLeaves extends BlockLeaves implements ITexturedBlock, IO
 
 	public BlockRubberLeaves()
 	{
-		super();
 		setUnlocalizedName("techreborn.rubberleaves");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		RebornCore.jsonDestroyer.registerObject(this);
 		this.setDefaultState(this.getDefaultState().withProperty(CHECK_DECAY, true)
 				.withProperty(DECAYABLE, true));
+        Blocks.FIRE.setFireInfo(this, 30, 60);
 	}
 
 	@Override
