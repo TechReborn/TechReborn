@@ -32,6 +32,7 @@ public class BlockRubberLeaves extends BlockLeaves implements ITexturedBlock, IO
 
 	public BlockRubberLeaves()
 	{
+		super();
 		setUnlocalizedName("techreborn.rubberleaves");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		RebornCore.jsonDestroyer.registerObject(this);
