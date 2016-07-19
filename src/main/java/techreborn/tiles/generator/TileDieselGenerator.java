@@ -18,6 +18,7 @@ import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
+import techreborn.power.PowerNet;
 
 public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchable, IFluidHandler, IInventoryProvider
 {
@@ -131,35 +132,33 @@ public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchabl
 	}
 
 	@Override
-	public void updateEntity()
-	{
+	public void updateEntity() {
 		super.updateEntity();
-		if (!worldObj.isRemote)
-		{
+		if (!worldObj.isRemote) {
 			FluidUtils.drainContainers(this, inventory, 0, 1);
 			FluidUtils.fillContainers(this, inventory, 0, 1, tank.getFluidType());
-			if (tank.getFluidType() != null && getStackInSlot(2) == null)
-			{
+			if (tank.getFluidType() != null && getStackInSlot(2) == null) {
 				inventory.setInventorySlotContents(2, new ItemStack(tank.getFluidType().getBlock()));
 				syncWithAll();
-			} else if (tank.getFluidType() == null && getStackInSlot(2) != null)
-			{
+			} else if (tank.getFluidType() == null && getStackInSlot(2) != null) {
 				setInventorySlotContents(2, null);
 				syncWithAll();
 			}
 
 			if (!tank.isEmpty() && tank.getFluidType() != null
-					&& FluidPowerManager.fluidPowerValues.containsKey(tank.getFluidType()))
-			{
+					&& FluidPowerManager.fluidPowerValues.containsKey(tank.getFluidType())) {
 				double powerIn = FluidPowerManager.fluidPowerValues.get(tank.getFluidType());
-				if (getFreeSpace() >= powerIn)
-				{
+				if (getFreeSpace() >= powerIn) {
 					addEnergy(powerIn, false);
 					tank.drain(1, true);
 				}
 			}
 		}
 
+		if (!worldObj.isRemote && getEnergy() > 0) {
+			double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
+			useEnergy(PowerNet.dispatchEnergyPacket(worldObj, getPos(), maxOutput));
+		}
 	}
 
 	@Override

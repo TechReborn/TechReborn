@@ -10,6 +10,7 @@ import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
+import techreborn.power.PowerNet;
 
 public class TileHeatGenerator extends TilePowerAcceptor implements IWrenchable
 {
@@ -22,34 +23,32 @@ public class TileHeatGenerator extends TilePowerAcceptor implements IWrenchable
 	}
 
 	@Override
-	public void updateEntity()
-	{
+	public void updateEntity() {
 		super.updateEntity();
 
-		if (!worldObj.isRemote)
-		{
+		if (!worldObj.isRemote) {
 			if (worldObj.getBlockState(new BlockPos(getPos().getX() + 1, getPos().getY(), getPos().getZ()))
-					.getBlock() == Blocks.LAVA)
-			{
+					.getBlock() == Blocks.LAVA) {
 				addEnergy(euTick);
 			} else if (worldObj.getBlockState(new BlockPos(getPos().getX(), getPos().getY(), getPos().getZ() + 1))
-					.getBlock() == Blocks.LAVA)
-			{
+					.getBlock() == Blocks.LAVA) {
 				addEnergy(euTick);
 			} else if (worldObj.getBlockState(new BlockPos(getPos().getX(), getPos().getY(), getPos().getZ() - 1))
-					.getBlock() == Blocks.LAVA)
-			{
+					.getBlock() == Blocks.LAVA) {
 				addEnergy(euTick);
 			} else if (worldObj.getBlockState(new BlockPos(getPos().getX() - 1, getPos().getY(), getPos().getZ()))
-					.getBlock() == Blocks.LAVA)
-			{
+					.getBlock() == Blocks.LAVA) {
 				addEnergy(euTick);
 			} else if (worldObj.getBlockState(new BlockPos(getPos().getX(), getPos().getY() - 1, getPos().getZ()))
-					.getBlock() == Blocks.LAVA)
-			{
+					.getBlock() == Blocks.LAVA) {
 				addEnergy(euTick);
 			}
 
+		}
+
+		if (!worldObj.isRemote && getEnergy() > 0) {
+			double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
+			useEnergy(PowerNet.dispatchEnergyPacket(worldObj, getPos(), maxOutput));
 		}
 	}
 
