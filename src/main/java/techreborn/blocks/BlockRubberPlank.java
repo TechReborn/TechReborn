@@ -5,6 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import reborncore.RebornCore;
 import techreborn.client.TechRebornCreativeTabMisc;
@@ -23,6 +24,7 @@ public class BlockRubberPlank extends Block implements ITexturedBlock
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		this.setHardness(2.0F);
 		this.setSoundType(SoundType.WOOD);
+        Blocks.FIRE.setFireInfo(this, 5, 20);
 	}
 
 	@Override

@@ -14,6 +14,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -47,6 +48,7 @@ public class BlockRubberLog extends Block implements ITexturedBlock
 				this.getDefaultState().withProperty(SAP_SIDE, EnumFacing.NORTH).withProperty(HAS_SAP, false));
 		this.setTickRandomly(true);
 		this.setSoundType(SoundType.WOOD);
+        Blocks.FIRE.setFireInfo(this, 5, 5);
 	}
 
 	protected BlockStateContainer createBlockState()
@@ -89,7 +91,7 @@ public class BlockRubberLog extends Block implements ITexturedBlock
 		}
 		if (state.getValue(HAS_SAP))
 		{
-			tempMeta += 3;
+			tempMeta += 4;
 		}
 		return tempMeta;
 	}
