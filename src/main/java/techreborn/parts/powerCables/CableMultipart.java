@@ -1,9 +1,5 @@
 package techreborn.parts.powerCables;
 
-import reborncore.mcmultipart.MCMultiPartMod;
-import reborncore.mcmultipart.microblock.IMicroblock;
-import reborncore.mcmultipart.multipart.*;
-import reborncore.mcmultipart.raytrace.PartMOP;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -15,8 +11,13 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
@@ -29,11 +30,12 @@ import reborncore.api.power.IEnergyInterfaceTile;
 import reborncore.common.misc.Functions;
 import reborncore.common.misc.vecmath.Vecs3dCube;
 import reborncore.common.util.WorldUtils;
-import techreborn.config.ConfigTechReborn;
-import techreborn.init.ModSounds;
+import reborncore.mcmultipart.MCMultiPartMod;
+import reborncore.mcmultipart.microblock.IMicroblock;
+import reborncore.mcmultipart.multipart.*;
+import reborncore.mcmultipart.raytrace.PartMOP;
 import techreborn.parts.TechRebornParts;
 import techreborn.parts.walia.IPartWaliaProvider;
-import techreborn.power.TRPowerNet;
 import techreborn.utils.damageSources.ElectrialShockSource;
 
 import java.util.*;
@@ -41,7 +43,7 @@ import java.util.*;
 /**
  * Created by modmuss50 on 02/03/2016.
  */
-public abstract class CableMultipart extends Multipart
+public class CableMultipart extends Multipart
         implements INormallyOccludingPart, ISlottedPart, ITickable, ICableType, IPartWaliaProvider {
 
     public static final IUnlistedProperty<Boolean> UP = Properties.toUnlisted(PropertyBool.create("up"));
@@ -55,10 +57,14 @@ public abstract class CableMultipart extends Multipart
     public float center = 0.6F;
     public float offset = 0.10F;
     public Map<EnumFacing, BlockPos> connectedSides;
-    public int ticks = 0;
-    public ItemStack stack;
-    public TRPowerNet mergeWith = null;
-    private TRPowerNet network;
+    public double lastEnergyPacket;
+    public EnumCableType cableType = EnumCableType.ICOPPER;
+
+    public CableMultipart(EnumCableType cableType) {
+        this.cableType = cableType;
+        connectedSides = new HashMap<>();
+        refreshBounding();
+    }
 
     public CableMultipart() {
         connectedSides = new HashMap<>();
@@ -144,19 +150,12 @@ public abstract class CableMultipart extends Multipart
     @Override
     public void onRemoved() {
         super.onRemoved();
-        removeFromNetwork();
         for (EnumFacing dir : EnumFacing.VALUES) {
             CableMultipart multipart = getPartFromWorld(getWorld(), getPos().offset(dir), dir);
             if (multipart != null) {
                 multipart.nearByChange();
             }
         }
-    }
-
-    @Override
-    public void onUnloaded() {
-        super.onUnloaded();
-        removeFromNetwork();
     }
 
     @Override
@@ -172,13 +171,9 @@ public abstract class CableMultipart extends Multipart
     public void onNeighborBlockChange(Block block) {
         super.onNeighborBlockChange(block);
         nearByChange();
-
     }
 
     public void nearByChange() {
-        if (network == null) {
-            findAndJoinNetwork(getWorld(), getPos());
-        }
         checkConnectedSides();
         for (EnumFacing direction : EnumFacing.VALUES) {
             BlockPos blockPos = getPos().offset(direction);
@@ -188,7 +183,6 @@ public abstract class CableMultipart extends Multipart
                 part.checkConnectedSides();
             }
         }
-        TRPowerNet.buildEndpoint(network);
     }
 
     @Override
@@ -258,18 +252,14 @@ public abstract class CableMultipart extends Multipart
     @Override
     public void update() {
         if (getWorld() != null) {
+            if(lastEnergyPacket > 0)
+                --lastEnergyPacket;
+
             if (getWorld().getTotalWorldTime() % 80 == 0) {
                 checkConnectedSides();
             }
         }
-        if (network == null) {
-            this.findAndJoinNetwork(getWorld(), getPos());
-        } else {
-            if (mergeWith != null) {
-                getNetwork().merge(mergeWith);
-                mergeWith = null;
-            }
-        }
+
     }
 
     @Override
@@ -294,7 +284,7 @@ public abstract class CableMultipart extends Multipart
     }
 
     public Material getMaterial() {
-        return Material.CLOTH;
+        return getCableType().material;
     }
 
     @Override
@@ -307,95 +297,14 @@ public abstract class CableMultipart extends Multipart
     @Override
     public void onEntityCollided(Entity entity) {
         if (getCableType().canKill && entity instanceof EntityLivingBase) {
-                if (network != null) {
-                    if (network.getEnergy() != 0) {
-                        if (ConfigTechReborn.UninsulatedElectocutionDamage) {
-                            if (getCableType() == EnumCableType.HV) {
-                                entity.setFire(1);
-                            }
-                            network.setEnergy(-1);
-                            entity.attackEntityFrom(new ElectrialShockSource(), 1F);
-                        }
-                        if (ConfigTechReborn.UninsulatedElectocutionSound) {
-                             getWorld().playSound(null, entity.posX, entity.posY,
-                             entity.posZ, ModSounds.shock,
-                             SoundCategory.BLOCKS, 0.6F, 1F);
-                        }
-                        if (ConfigTechReborn.UninsulatedElectocutionParticle) {
-                            getWorld().spawnParticle(EnumParticleTypes.CRIT, entity.posX, entity.posY, entity.posZ, 0,
-                                    0, 0);
-                        }
-                    }
-                }
+            entity.attackEntityFrom(new ElectrialShockSource(), (float) (lastEnergyPacket / 16F));
         }
-
-    }
-
-    @Override
-    public void onEntityStanding(Entity entity) {
 
     }
 
     @Override
     public ItemStack getPickBlock(EntityPlayer player, PartMOP hit) {
         return new ItemStack(TechRebornParts.cables, 1, getCableType().ordinal());
-    }
-
-    public final void findAndJoinNetwork(World world, BlockPos pos) {
-        for (EnumFacing dir : EnumFacing.VALUES) {
-            CableMultipart cableMultipart = getPartFromWorld(getWorld(), getPos().offset(dir), dir);
-            if (cableMultipart != null && cableMultipart.getCableType() == getCableType()) {
-                TRPowerNet net = cableMultipart.getNetwork();
-                if (net != null) {
-                    network = net;
-                    network.addElement(this);
-                    break;
-                }
-            }
-        }
-        if (network == null) {
-            network = new TRPowerNet(getCableType());
-            network.addElement(this);
-        }
-        network.endpoints.clear();
-        for (EnumFacing dir : EnumFacing.VALUES) {
-            TileEntity te = getNeighbourTile(dir);
-            if (te != null && te instanceof IEnergyInterfaceTile) {
-                network.addConnection((IEnergyInterfaceTile) te, dir.getOpposite());
-            }
-        }
-    }
-
-    public final TRPowerNet getNetwork() {
-        return network;
-    }
-
-    public final void setNetwork(TRPowerNet n) {
-        if (n == null) {
-        } else {
-            network = n;
-            network.addElement(this);
-        }
-    }
-
-    public final void removeFromNetwork() {
-        if (network == null) {
-        } else
-            network.removeElement(this);
-    }
-
-    public final void rebuildNetwork() {
-        this.removeFromNetwork();
-        this.resetNetwork();
-        this.findAndJoinNetwork(getWorld(), getPos());
-    }
-
-    public final void resetNetwork() {
-        if (network != null) {
-            network.removeElement(this);
-        }
-
-        network = null;
     }
 
     @Override
@@ -416,4 +325,35 @@ public abstract class CableMultipart extends Multipart
     public boolean canRenderInLayer(BlockRenderLayer layer) {
         return layer == BlockRenderLayer.CUTOUT;
     }
+
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound tag) {
+        tag.setString("CableType", cableType.name());
+        return tag;
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound tag) {
+        if(tag.hasKey("CableType")) {
+            cableType = EnumCableType.valueOf(tag.getString("CableType"));
+        }
+    }
+
+    @Override
+    public void writeUpdatePacket(PacketBuffer buf) {
+        super.writeUpdatePacket(buf);
+        buf.writeInt(cableType.ordinal());
+    }
+
+    @Override
+    public void readUpdatePacket(PacketBuffer buf) {
+        super.readUpdatePacket(buf);
+        cableType = EnumCableType.values()[buf.readInt()];
+    }
+
+    @Override
+    public EnumCableType getCableType() {
+        return cableType;
+    }
+
 }

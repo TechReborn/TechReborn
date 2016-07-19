@@ -30,8 +30,6 @@ public class TechRebornParts implements ICompatModule
 	@Nullable
 	public static Item fluidPipe;
 
-	public static HashMap<EnumCableType, Class<? extends CableMultipart>> multipartHashMap = new HashMap<>();
-
 	@Override
 	public void preInit(FMLPreInitializationEvent event)
 	{
@@ -39,17 +37,13 @@ public class TechRebornParts implements ICompatModule
 	}
 
 	@Override
-	public void init(FMLInitializationEvent event)
-	{
-		for (EnumCableType cableType : EnumCableType.values())
-		{
-			multipartHashMap.put(cableType, cableType.cableClass);
-			MultipartRegistry.registerPart(cableType.cableClass, "techreborn:cable." + cableType.name());
-		}
+	public void init(FMLInitializationEvent event) {
+
 		cables = new ItemCables();
 		cables.setRegistryName("cables");
 		GameRegistry.register(cables);
 
+		MultipartRegistry.registerPart(CableMultipart.class, "techreborn:cable");
 		MultipartRegistry.registerPart(EmptyFluidPipe.class, "techreborn:fluidpipe.empty");
 		MultipartRegistry.registerPart(InsertingFluidPipe.class, "techreborn:fluidpipe.inserting");
 		MultipartRegistry.registerPart(ExtractingFluidPipe.class, "techreborn:fluidpipe.extracting");

@@ -10,6 +10,7 @@ import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
+import techreborn.power.PowerNet;
 
 public class TileIDSU extends TilePowerAcceptor implements IWrenchable
 {
@@ -125,32 +126,26 @@ public class TileIDSU extends TilePowerAcceptor implements IWrenchable
 		return nbttagcompound;
 	}
 
-	public void updateEntity()
-	{
+	public void updateEntity() {
 		super.updateEntity();
 
-		if (ticks == ConfigTechReborn.AverageEuOutTickTime)
-		{
+		if (ticks == ConfigTechReborn.AverageEuOutTickTime) {
 			euChange = -1;
 			ticks = 0;
 
-		} else
-		{
+		} else {
 			ticks++;
 			euChange += getEnergy() - euLastTick;
-			if (euLastTick == getEnergy())
-			{
+			if (euLastTick == getEnergy()) {
 				euChange = 0;
 			}
 		}
 
 		euLastTick = getEnergy();
 
-		boolean needsInvUpdate = false;
-
-		if (needsInvUpdate)
-		{
-			this.markDirty();
+		if (!worldObj.isRemote && getEnergy() > 0) {
+			double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
+			useEnergy(PowerNet.dispatchEnergyPacket(worldObj, getPos(), maxOutput));
 		}
 
 	}

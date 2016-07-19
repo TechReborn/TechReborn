@@ -6,6 +6,7 @@ import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.config.ConfigTechReborn;
+import techreborn.power.PowerNet;
 
 import java.util.ArrayList;
 
@@ -27,32 +28,25 @@ public class TileLesu extends TilePowerAcceptor
 	}
 
 	@Override
-	public void updateEntity()
-	{
+	public void updateEntity() {
 		super.updateEntity();
-		if (worldObj.isRemote)
-		{
+		if (worldObj.isRemote) {
 			return;
 		}
 		countedNetworks.clear();
 		connectedBlocks = 0;
-		for (EnumFacing dir : EnumFacing.values())
-		{
+		for (EnumFacing dir : EnumFacing.values()) {
 			if (worldObj.getTileEntity(
 					new BlockPos(getPos().getX() + dir.getFrontOffsetX(), getPos().getY() + dir.getFrontOffsetY(),
-							getPos().getZ() + dir.getFrontOffsetZ())) instanceof TileLesuStorage)
-			{
+							getPos().getZ() + dir.getFrontOffsetZ())) instanceof TileLesuStorage) {
 				if (((TileLesuStorage) worldObj.getTileEntity(
 						new BlockPos(getPos().getX() + dir.getFrontOffsetX(), getPos().getY() + dir.getFrontOffsetY(),
-								getPos().getZ() + dir.getFrontOffsetZ()))).network != null)
-				{
+								getPos().getZ() + dir.getFrontOffsetZ()))).network != null) {
 					LesuNetwork network = ((TileLesuStorage) worldObj.getTileEntity(new BlockPos(
 							getPos().getX() + dir.getFrontOffsetX(), getPos().getY() + dir.getFrontOffsetY(),
 							getPos().getZ() + dir.getFrontOffsetZ()))).network;
-					if (!countedNetworks.contains(network))
-					{
-						if (network.master == null || network.master == this)
-						{
+					if (!countedNetworks.contains(network)) {
+						if (network.master == null || network.master == this) {
 							connectedBlocks += network.storages.size();
 							countedNetworks.add(network);
 							network.master = this;
@@ -65,25 +59,27 @@ public class TileLesu extends TilePowerAcceptor
 		maxStorage = ((connectedBlocks + 1) * ConfigTechReborn.LesuStoragePerBlock);
 		output = (connectedBlocks * ConfigTechReborn.ExtraOutputPerLesuBlock) + ConfigTechReborn.BaseLesuOutput;
 
-		if (ticks == ConfigTechReborn.AverageEuOutTickTime)
-		{
+		if (ticks == ConfigTechReborn.AverageEuOutTickTime) {
 			euChange = -1;
 			ticks = 0;
-		} else
-		{
+		} else {
 			ticks++;
-			if (euChange == -1)
-			{
+			if (euChange == -1) {
 				euChange = 0;
 			}
 			euChange += getEnergy() - euLastTick;
-			if (euLastTick == getEnergy())
-			{
+			if (euLastTick == getEnergy()) {
 				euChange = 0;
 			}
 		}
 
 		euLastTick = getEnergy();
+
+		if (!worldObj.isRemote && getEnergy() > 0) {
+			double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
+			useEnergy(PowerNet.dispatchEnergyPacket(worldObj, getPos(), maxOutput));
+		}
+
 	}
 
 	public double getEuChange()
