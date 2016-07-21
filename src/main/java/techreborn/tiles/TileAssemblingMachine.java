@@ -10,23 +10,20 @@ import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IContainerProvider;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.container.RebornContainer;
-import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
+import reborncore.common.tile.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.api.Reference;
 import techreborn.client.container.ContainerAssemblingMachine;
 import techreborn.init.ModBlocks;
 
-public class TileAssemblingMachine extends TilePowerAcceptor implements IWrenchable, ISidedInventory,IInventoryProvider, IRecipeCrafterProvider, IContainerProvider
-{
+public class TileAssemblingMachine extends TilePowerAcceptor implements IWrenchable, ISidedInventory,IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
 
 	public int tickTime;
 	public Inventory inventory = new Inventory(8, "TileAssemblingMachine", 64, this);
 	public RecipeCrafter crafter;
 
-	public TileAssemblingMachine()
-	{
-		super(2);
+	public TileAssemblingMachine() {
 		// Input slots
 		int[] inputs = new int[2];
 		inputs[0] = 0;
@@ -37,66 +34,57 @@ public class TileAssemblingMachine extends TilePowerAcceptor implements IWrencha
 	}
 
 	@Override
-	public void updateEntity()
-	{
-		super.updateEntity();
-		charge(3);
+	public void update() {
+		super.update();
+		crafter.updateEntity();
+		// charge(3);
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side)
-	{
+	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
 		return false;
 	}
 
 	@Override
-	public EnumFacing getFacing()
-	{
+	public EnumFacing getFacing() {
 		return getFacingEnum();
 	}
 
 	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
-	{
+	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
 		return entityPlayer.isSneaking();
 	}
 
 	@Override
-	public float getWrenchDropRate()
-	{
+	public float getWrenchDropRate() {
 		return 1.0F;
 	}
 
 	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
-	{
+	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.AssemblyMachine, 1);
 	}
 
-	public boolean isComplete()
-	{
+	public boolean isComplete() {
 		return false;
 	}
 
 
 	// ISidedInventory
 	@Override
-	public int[] getSlotsForFace(EnumFacing side)
-	{
-		return side == EnumFacing.DOWN ? new int[] { 0, 1, 2 } : new int[] { 0, 1, 2 };
+	public int[] getSlotsForFace(EnumFacing side) {
+		return side == EnumFacing.DOWN ? new int[]{0, 1, 2} : new int[]{0, 1, 2};
 	}
 
 	@Override
-	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side)
-	{
+	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
 		if (slotIndex == 2)
 			return false;
 		return isItemValidForSlot(slotIndex, itemStack);
 	}
 
 	@Override
-	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side)
-	{
+	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
 		return slotIndex == 2;
 	}
 
@@ -110,49 +98,21 @@ public class TileAssemblingMachine extends TilePowerAcceptor implements IWrencha
 	// }
 	// }
 
-	public int getProgressScaled(int scale)
-	{
-		if (crafter.currentTickTime != 0)
-		{
+	public int getProgressScaled(int scale) {
+		if (crafter.currentTickTime != 0) {
 			return crafter.currentTickTime * scale / crafter.currentNeededTicks;
 		}
 		return 0;
 	}
 
 	@Override
-	public double getMaxPower()
-	{
-		return 10000;
+	public double getMaxPower() {
+		return 64000;
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction)
-	{
-		return true;
-	}
-
-	@Override
-	public boolean canProvideEnergy(EnumFacing direction)
-	{
-		return false;
-	}
-
-	@Override
-	public double getMaxOutput()
-	{
-		return 0;
-	}
-
-	@Override
-	public double getMaxInput()
-	{
-		return 128;
-	}
-
-	@Override
-	public EnumPowerTier getTier()
-	{
-		return EnumPowerTier.LOW;
+	public EnumPowerTier getTier() {
+		return EnumPowerTier.MEDIUM;
 	}
 
 	@Override
@@ -169,4 +129,5 @@ public class TileAssemblingMachine extends TilePowerAcceptor implements IWrencha
 	public RebornContainer getContainer() {
 		return RebornContainer.getContainerFromClass(ContainerAssemblingMachine.class, this);
 	}
+
 }

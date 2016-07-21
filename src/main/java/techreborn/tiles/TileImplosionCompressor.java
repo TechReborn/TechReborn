@@ -12,8 +12,8 @@ import reborncore.api.power.EnumPowerTier;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.misc.Location;
-import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
+import reborncore.common.tile.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.api.Reference;
 import techreborn.blocks.BlockMachineCasing;
@@ -28,7 +28,6 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
 
 	public TileImplosionCompressor()
 	{
-		super(1);
 		// Input slots
 		int[] inputs = new int[2];
 		inputs[0] = 0;
@@ -101,11 +100,10 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
 	}
 
 	@Override
-	public void updateEntity()
+	public void update()
 	{
-		super.updateEntity();
-		if (getMutliBlock())
-		{
+		super.update();
+		if (getMutliBlock()) {
 			crafter.updateEntity();
 		}
 	}
@@ -169,37 +167,13 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
 	@Override
 	public double getMaxPower()
 	{
-		return 100000;
-	}
-
-	@Override
-	public boolean canAcceptEnergy(EnumFacing direction)
-	{
-		return true;
-	}
-
-	@Override
-	public boolean canProvideEnergy(EnumFacing direction)
-	{
-		return false;
-	}
-
-	@Override
-	public double getMaxOutput()
-	{
-		return 0;
-	}
-
-	@Override
-	public double getMaxInput()
-	{
-		return 64;
+		return 64000;
 	}
 
 	@Override
 	public EnumPowerTier getTier()
 	{
-		return EnumPowerTier.LOW;
+		return EnumPowerTier.MEDIUM;
 	}
 
 	@Override

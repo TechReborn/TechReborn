@@ -44,7 +44,7 @@ public class GuiScrapboxinator extends GuiContainer
 			this.drawTexturedModalRect(k + 78, l + 35, 176, 14, j + 1, 16);
 		}
 
-		j = tile.getEnergyScaled(12);
+		j = (int)(tile.getEnergy() * 12f / tile.getMaxPower());
 		if (j > 0)
 		{
 			this.drawTexturedModalRect(k + 24, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);

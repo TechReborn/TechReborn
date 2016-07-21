@@ -14,8 +14,8 @@ import reborncore.api.power.EnumPowerTier;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.misc.Location;
-import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
+import reborncore.common.tile.TilePowerAcceptor;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
@@ -26,9 +26,7 @@ import techreborn.blocks.BlockMachineCasing;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModFluids;
 
-public class TileIndustrialSawmill extends TilePowerAcceptor
-		implements IWrenchable, IFluidHandler,IInventoryProvider, ISidedInventory, IListInfoProvider, ITileRecipeHandler<IndustrialSawmillRecipe>, IRecipeCrafterProvider
-{
+public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrenchable, IFluidHandler,IInventoryProvider, ISidedInventory, IListInfoProvider, ITileRecipeHandler<IndustrialSawmillRecipe>, IRecipeCrafterProvider {
 	public static final int TANK_CAPACITY = 16000;
 
 	public int tickTime;
@@ -36,9 +34,7 @@ public class TileIndustrialSawmill extends TilePowerAcceptor
 	public Tank tank = new Tank("TileSawmill", TANK_CAPACITY, this);
 	public RecipeCrafter crafter;
 
-	public TileIndustrialSawmill()
-	{
-		super(2);
+	public TileIndustrialSawmill() {
 		// TODO configs
 		// Input slots
 		int[] inputs = new int[2];
@@ -52,27 +48,21 @@ public class TileIndustrialSawmill extends TilePowerAcceptor
 	}
 
 	@Override
-	public void updateEntity()
-	{
-		super.updateEntity();
-		if (getMutliBlock())
-		{
+	public void update() {
+		super.update();
+		if (getMutliBlock()) {
 			crafter.updateEntity();
 		}
 		FluidUtils.drainContainers(this, inventory, 0, 4);
 		FluidUtils.drainContainers(this, inventory, 1, 4);
 	}
 
-	public boolean getMutliBlock()
-	{
-		for (EnumFacing direction : EnumFacing.values())
-		{
+	public boolean getMutliBlock() {
+		for (EnumFacing direction : EnumFacing.values()) {
 			TileEntity tileEntity = worldObj.getTileEntity(new BlockPos(getPos().getX() + direction.getFrontOffsetX(),
 					getPos().getY() + direction.getFrontOffsetY(), getPos().getZ() + direction.getFrontOffsetZ()));
-			if (tileEntity instanceof TileMachineCasing)
-			{
-				if ((tileEntity.getBlockType() instanceof BlockMachineCasing))
-				{
+			if (tileEntity instanceof TileMachineCasing) {
+				if ((tileEntity.getBlockType() instanceof BlockMachineCasing)) {
 					int heat;
 					BlockMachineCasing blockMachineCasing = (BlockMachineCasing) tileEntity.getBlockType();
 					heat = blockMachineCasing
@@ -80,8 +70,7 @@ public class TileIndustrialSawmill extends TilePowerAcceptor
 					Location location = new Location(getPos().getX(), getPos().getY(), getPos().getZ(), direction);
 					location.modifyPositionFromSide(direction, 1);
 					if (worldObj.getBlockState(location.getBlockPos()).getBlock().getUnlocalizedName()
-							.equals("tile.lava"))
-					{
+							.equals("tile.lava")) {
 						heat += 500;
 					}
 					return true;
@@ -92,51 +81,43 @@ public class TileIndustrialSawmill extends TilePowerAcceptor
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side)
-	{
+	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
 		return false;
 	}
 
 	@Override
-	public EnumFacing getFacing()
-	{
+	public EnumFacing getFacing() {
 		return getFacingEnum();
 	}
 
 	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
-	{
+	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
 		return entityPlayer.isSneaking();
 	}
 
 	@Override
-	public float getWrenchDropRate()
-	{
+	public float getWrenchDropRate() {
 		return 1.0F;
 	}
 
 	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
-	{
+	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.industrialSawmill, 1);
 	}
 
-	public boolean isComplete()
-	{
+	public boolean isComplete() {
 		return false;
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound tagCompound)
-	{
+	public void readFromNBT(NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
 		tank.readFromNBT(tagCompound);
 		crafter.readFromNBT(tagCompound);
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
-	{
+	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
 		tank.writeToNBT(tagCompound);
 		crafter.writeToNBT(tagCompound);
@@ -145,11 +126,9 @@ public class TileIndustrialSawmill extends TilePowerAcceptor
 
 	/* IFluidHandler */
 	@Override
-	public int fill(EnumFacing from, FluidStack resource, boolean doFill)
-	{
+	public int fill(EnumFacing from, FluidStack resource, boolean doFill) {
 		if (resource.getFluid() == FluidRegistry.WATER || resource.getFluid() == ModFluids.fluidMercury
-				|| resource.getFluid() == ModFluids.fluidSodiumpersulfate)
-		{
+				|| resource.getFluid() == ModFluids.fluidSodiumpersulfate) {
 			int filled = tank.fill(resource, doFill);
 			tank.compareAndUpdate();
 			return filled;
@@ -158,10 +137,8 @@ public class TileIndustrialSawmill extends TilePowerAcceptor
 	}
 
 	@Override
-	public FluidStack drain(EnumFacing from, FluidStack resource, boolean doDrain)
-	{
-		if (resource == null || !resource.isFluidEqual(tank.getFluid()))
-		{
+	public FluidStack drain(EnumFacing from, FluidStack resource, boolean doDrain) {
+		if (resource == null || !resource.isFluidEqual(tank.getFluid())) {
 			return null;
 		}
 		FluidStack fluidStack = tank.drain(resource.amount, doDrain);
@@ -170,95 +147,60 @@ public class TileIndustrialSawmill extends TilePowerAcceptor
 	}
 
 	@Override
-	public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain)
-	{
+	public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain) {
 		FluidStack drained = tank.drain(maxDrain, doDrain);
 		tank.compareAndUpdate();
 		return drained;
 	}
 
 	@Override
-	public boolean canFill(EnumFacing from, Fluid fluid)
-	{
+	public boolean canFill(EnumFacing from, Fluid fluid) {
 		return fluid == FluidRegistry.WATER;
 	}
 
 	@Override
-	public boolean canDrain(EnumFacing from, Fluid fluid)
-	{
+	public boolean canDrain(EnumFacing from, Fluid fluid) {
 		return false;
 	}
 
 	@Override
-	public FluidTankInfo[] getTankInfo(EnumFacing from)
-	{
-		return new FluidTankInfo[] { tank.getInfo() };
+	public FluidTankInfo[] getTankInfo(EnumFacing from) {
+		return new FluidTankInfo[]{tank.getInfo()};
 	}
 
 	// ISidedInventory
 	@Override
-	public int[] getSlotsForFace(EnumFacing side)
-	{
-		return side == EnumFacing.DOWN ? new int[] { 0, 1, 2, 3, 4 } : new int[] { 0, 1, 2, 3, 4 };
+	public int[] getSlotsForFace(EnumFacing side) {
+		return side == EnumFacing.DOWN ? new int[]{0, 1, 2, 3, 4} : new int[]{0, 1, 2, 3, 4};
 	}
 
 	@Override
-	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side)
-	{
+	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
 		if (slotIndex >= 2)
 			return false;
 		return isItemValidForSlot(slotIndex, itemStack);
 	}
 
 	@Override
-	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side)
-	{
+	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
 		return slotIndex == 2 || slotIndex == 3 || slotIndex == 4;
 	}
 
-	public int getProgressScaled(int scale)
-	{
-		if (crafter.currentTickTime != 0)
-		{
+	public int getProgressScaled(int scale) {
+		if (crafter.currentTickTime != 0) {
 			return crafter.currentTickTime * scale / crafter.currentNeededTicks;
 		}
 		return 0;
 	}
 
 	@Override
-	public double getMaxPower()
-	{
-		return 10000;
+	public double getMaxPower() {
+		return 64000;
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction)
-	{
-		return true;
-	}
-
-	@Override
-	public boolean canProvideEnergy(EnumFacing direction)
-	{
-		return false;
-	}
-
-	@Override
-	public double getMaxOutput()
-	{
-		return 0;
-	}
-
-	@Override
-	public double getMaxInput()
-	{
-		return 64;
-	}
-
-	@Override
-	public EnumPowerTier getTier()
-	{
-		return EnumPowerTier.LOW;
+	public EnumPowerTier getTier() {
+		return EnumPowerTier.MEDIUM;
 	}
 
 	@Override

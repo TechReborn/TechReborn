@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.tile.TilePowerAcceptor;
 import reborncore.common.util.Tank;
 import techreborn.config.ConfigTechReborn;
 
@@ -24,16 +24,12 @@ public class TilePump extends TilePowerAcceptor implements IFluidHandler {
 
     public Tank tank = new Tank("TilePump", 10000, this);
 
-    public TilePump() {
-        super(1);
-    }
-
     @Override
-    public void updateEntity() {
-        super.updateEntity();
-        if(!worldObj.isRemote && worldObj.getTotalWorldTime() % 10 == 0 && !tank.isFull() && tank.getCapacity() - tank.getFluidAmount() >= 1000 && canUseEnergy(ConfigTechReborn.pumpExtractEU)){
+    public void update() {
+        super.update();
+        if (!worldObj.isRemote && worldObj.getTotalWorldTime() % 10 == 0 && !tank.isFull() && tank.getCapacity() - tank.getFluidAmount() >= 1000 && canUseEnergy(ConfigTechReborn.pumpExtractEU)) {
             FluidStack fluidStack = drainBlock(worldObj, pos.down(), false);
-            if(fluidStack != null){
+            if (fluidStack != null) {
                 tank.fill(drainBlock(worldObj, pos.down(), true), true);
                 useEnergy(ConfigTechReborn.pumpExtractEU);
             }
@@ -80,27 +76,7 @@ public class TilePump extends TilePowerAcceptor implements IFluidHandler {
 
     @Override
     public double getMaxPower() {
-        return 10000;
-    }
-
-    @Override
-    public boolean canAcceptEnergy(EnumFacing direction) {
-        return true;
-    }
-
-    @Override
-    public boolean canProvideEnergy(EnumFacing direction) {
-        return false;
-    }
-
-    @Override
-    public double getMaxOutput() {
-        return 0;
-    }
-
-    @Override
-    public double getMaxInput() {
-        return 32;
+        return 16000;
     }
 
     @Override
@@ -109,71 +85,62 @@ public class TilePump extends TilePowerAcceptor implements IFluidHandler {
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound tagCompound)
-    {
+    public void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
         readFromNBTWithoutCoords(tagCompound);
     }
 
-    public void readFromNBTWithoutCoords(NBTTagCompound tagCompound)
-    {
+    public void readFromNBTWithoutCoords(NBTTagCompound tagCompound) {
         tank.readFromNBT(tagCompound);
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
-    {
+    public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
         writeToNBTWithoutCoords(tagCompound);
         return tagCompound;
     }
 
-    public NBTTagCompound writeToNBTWithoutCoords(NBTTagCompound tagCompound)
-    {
+    public NBTTagCompound writeToNBTWithoutCoords(NBTTagCompound tagCompound) {
         tank.writeToNBT(tagCompound);
         return tagCompound;
     }
 
     // IFluidHandler
     @Override
-    public int fill(EnumFacing from, FluidStack resource, boolean doFill)
-    {
+    public int fill(EnumFacing from, FluidStack resource, boolean doFill) {
         int fill = tank.fill(resource, doFill);
         tank.compareAndUpdate();
         return fill;
     }
 
     @Override
-    public FluidStack drain(EnumFacing from, FluidStack resource, boolean doDrain)
-    {
+    public FluidStack drain(EnumFacing from, FluidStack resource, boolean doDrain) {
         FluidStack drain = tank.drain(resource.amount, doDrain);
         tank.compareAndUpdate();
         return drain;
     }
 
     @Override
-    public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain)
-    {
+    public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain) {
         FluidStack drain = tank.drain(maxDrain, doDrain);
         tank.compareAndUpdate();
         return drain;
     }
 
     @Override
-    public boolean canFill(EnumFacing from, Fluid fluid)
-    {
+    public boolean canFill(EnumFacing from, Fluid fluid) {
         return false;
     }
 
     @Override
-    public boolean canDrain(EnumFacing from, Fluid fluid)
-    {
+    public boolean canDrain(EnumFacing from, Fluid fluid) {
         return tank.getFluid() == null || tank.getFluid().getFluid() == fluid;
     }
 
     @Override
-    public FluidTankInfo[] getTankInfo(EnumFacing from)
-    {
-        return new FluidTankInfo[] { tank.getInfo() };
+    public FluidTankInfo[] getTankInfo(EnumFacing from) {
+        return new FluidTankInfo[]{tank.getInfo()};
     }
+
 }

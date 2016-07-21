@@ -55,7 +55,7 @@ public class GuiIndustrialGrinder extends GuiContainer
 			this.drawTexturedModalRect(k + 50, l + 36, 176, 14, j + 1, 16);
 		}
 
-		j = grinder.getEnergyScaled(12);
+		j = (int)(grinder.getEnergy() * 12f / grinder.getMaxPower());
 		if (j > 0)
 		{
 			this.drawTexturedModalRect(k + 132, l + 63 + 12 - j, 176, 12 - j, 14, j + 2);
