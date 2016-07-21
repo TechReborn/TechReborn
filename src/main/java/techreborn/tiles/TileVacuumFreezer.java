@@ -11,8 +11,8 @@ import net.minecraft.util.math.BlockPos;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
+import reborncore.common.tile.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.api.Reference;
 import techreborn.api.recipe.ITileRecipeHandler;
@@ -20,17 +20,14 @@ import techreborn.api.recipe.machines.VacuumFreezerRecipe;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.init.ModBlocks;
 
-public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,IInventoryProvider, ITileRecipeHandler<VacuumFreezerRecipe>, IRecipeCrafterProvider
-{
+public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,IInventoryProvider, ITileRecipeHandler<VacuumFreezerRecipe>, IRecipeCrafterProvider {
 
 	public int tickTime;
 	public Inventory inventory = new Inventory(3, "TileVacuumFreezer", 64, this);
 	public RecipeCrafter crafter;
 	public int multiBlockStatus = 0;
 
-	public TileVacuumFreezer()
-	{
-		super(2);
+	public TileVacuumFreezer() {
 		// Input slots
 		int[] inputs = new int[1];
 		inputs[0] = 0;
@@ -40,128 +37,84 @@ public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,
 	}
 
 	@Override
-	public void updateEntity()
-	{
-		super.updateEntity();
+	public void update() {
+		super.update();
 		crafter.updateEntity();
 
-		if (worldObj.getTotalWorldTime() % 20 == 0)
-		{
+		if (worldObj.getTotalWorldTime() % 20 == 0) {
 			multiBlockStatus = checkMachine() ? 1 : 0;
 		}
 	}
 
 	@Override
-	public double getMaxPower()
-	{
-		return 10000;
+	public double getMaxPower() {
+		return 64000;
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction)
-	{
-		return true;
-	}
-
-	@Override
-	public boolean canProvideEnergy(EnumFacing direction)
-	{
-		return false;
-	}
-
-	@Override
-	public double getMaxOutput()
-	{
-		return 0;
-	}
-
-	@Override
-	public double getMaxInput()
-	{
-		return 128;
-	}
-
-	@Override
-	public EnumPowerTier getTier()
-	{
+	public EnumPowerTier getTier() {
 		return EnumPowerTier.MEDIUM;
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side)
-	{
+	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
 		return false;
 	}
 
 	@Override
-	public EnumFacing getFacing()
-	{
+	public EnumFacing getFacing() {
 		return getFacingEnum();
 	}
 
 	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
-	{
+	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
 		return entityPlayer.isSneaking();
 	}
 
 	@Override
-	public float getWrenchDropRate()
-	{
+	public float getWrenchDropRate() {
 		return 1.0F;
 	}
 
 	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
-	{
+	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.AlloySmelter, 1);
 	}
 
-	public boolean isComplete()
-	{
+	public boolean isComplete() {
 		return false;
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound tagCompound)
-	{
+	public void readFromNBT(NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
 		crafter.readFromNBT(tagCompound);
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
-	{
+	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
 		crafter.writeToNBT(tagCompound);
 		return tagCompound;
 	}
 
-	public int getProgressScaled(int scale)
-	{
-		if (crafter.currentTickTime != 0)
-		{
+	public int getProgressScaled(int scale) {
+		if (crafter.currentTickTime != 0) {
 			return crafter.currentTickTime * scale / crafter.currentNeededTicks;
 		}
 		return 0;
 	}
 
-	public boolean checkMachine()
-	{
+	public boolean checkMachine() {
 		int xDir = EnumFacing.UP.getFrontOffsetX() * 2;
 		int yDir = EnumFacing.UP.getFrontOffsetY() * 2;
 		int zDir = EnumFacing.UP.getFrontOffsetZ() * 2;
-		for (int i = -1; i < 2; i++)
-		{
-			for (int j = -1; j < 2; j++)
-			{
-				for (int k = -1; k < 2; k++)
-				{
-					if ((i != 0) || (j != 0) || (k != 0))
-					{
+		for (int i = -1; i < 2; i++) {
+			for (int j = -1; j < 2; j++) {
+				for (int k = -1; k < 2; k++) {
+					if ((i != 0) || (j != 0) || (k != 0)) {
 						if (worldObj.getBlockState(new BlockPos(getPos().getX() - xDir + i, getPos().getY() - yDir + j,
-								getPos().getZ() - zDir + k)).getBlock() != ModBlocks.MachineCasing)
-						{
+								getPos().getZ() - zDir + k)).getBlock() != ModBlocks.MachineCasing) {
 							return false;
 						}
 						IBlockState BlockStateContainer = worldObj.getBlockState(new BlockPos(
@@ -169,14 +122,12 @@ public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,
 						BlockMachineCasing blockMachineCasing = (BlockMachineCasing) BlockStateContainer.getBlock();
 						if (blockMachineCasing
 								.getMetaFromState(BlockStateContainer) != (((i == 0) && (j == 0) && (k != 0))
-										|| ((i == 0) && (j != 0) && (k == 0)) || ((i != 0) && (j == 0) && (k == 0)) ? 2
-												: 1))
-						{
+								|| ((i == 0) && (j != 0) && (k == 0)) || ((i != 0) && (j == 0) && (k == 0)) ? 2
+								: 1)) {
 							return false;
 						}
 					} else if (!worldObj.isAirBlock(new BlockPos(getPos().getX() - xDir + i, getPos().getY() - yDir + j,
-							getPos().getZ() - zDir + k)))
-					{
+							getPos().getZ() - zDir + k))) {
 						return false;
 					}
 				}
@@ -209,4 +160,5 @@ public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,
 	public RecipeCrafter getRecipeCrafter() {
 		return crafter;
 	}
+
 }

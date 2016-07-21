@@ -43,9 +43,8 @@ public class GuiGrinder extends GuiContainer
 			this.drawTexturedModalRect(k + 80, l + 36, 176, 14, j + 1, 16);
 		}
 
-		j = grinder.getEnergyScaled(12);
-		if (j > 0)
-		{
+		j = (int)(grinder.getEnergy() * 12f / grinder.getMaxPower());
+		if (j > 0) {
 			this.drawTexturedModalRect(k + 24, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);
 		}
 	}

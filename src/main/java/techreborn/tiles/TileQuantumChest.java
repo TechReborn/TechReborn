@@ -19,8 +19,7 @@ import techreborn.init.ModBlocks;
 import java.util.List;
 
 public class TileQuantumChest extends TileMachineBase
-		implements IInventoryProvider, IWrenchable, IDeepStorageUnit, IListInfoProvider
-{
+		implements IInventoryProvider, IWrenchable, IDeepStorageUnit, IListInfoProvider {
 
 	// Slot 0 = Input
 	// Slot 1 = Output
@@ -33,56 +32,44 @@ public class TileQuantumChest extends TileMachineBase
 	public Inventory inventory = new Inventory(3, "TileQuantumChest", storage, this);
 
 	@Override
-	public void updateEntity()
-	{
-		if (!worldObj.isRemote)
-		{
-			if (storedItem != null)
-			{
+	public void update() {
+		super.update();
+		if (!worldObj.isRemote) {
+			if (storedItem != null) {
 				ItemStack fakeStack = storedItem.copy();
 				fakeStack.stackSize = 1;
 				setInventorySlotContents(2, fakeStack);
-			} else if (storedItem == null && getStackInSlot(1) != null)
-			{
+			} else if (storedItem == null && getStackInSlot(1) != null) {
 				ItemStack fakeStack = getStackInSlot(1).copy();
 				fakeStack.stackSize = 1;
 				setInventorySlotContents(2, fakeStack);
-			} else
-			{
+			} else {
 				setInventorySlotContents(2, null);
 			}
 
-			if (getStackInSlot(0) != null)
-			{
-				if (storedItem == null)
-				{
+			if (getStackInSlot(0) != null) {
+				if (storedItem == null) {
 					storedItem = getStackInSlot(0);
 					setInventorySlotContents(0, null);
-				} else if (ItemUtils.isItemEqual(storedItem, getStackInSlot(0), true, true))
-				{
-					if (storedItem.stackSize <= storage - getStackInSlot(0).stackSize)
-					{
+				} else if (ItemUtils.isItemEqual(storedItem, getStackInSlot(0), true, true)) {
+					if (storedItem.stackSize <= storage - getStackInSlot(0).stackSize) {
 						storedItem.stackSize += getStackInSlot(0).stackSize;
 						decrStackSize(0, getStackInSlot(0).stackSize);
 					}
 				}
 			}
 
-			if (storedItem != null && getStackInSlot(1) == null)
-			{
+			if (storedItem != null && getStackInSlot(1) == null) {
 				ItemStack itemStack = storedItem.copy();
 				itemStack.stackSize = itemStack.getMaxStackSize();
 				setInventorySlotContents(1, itemStack);
 				storedItem.stackSize -= itemStack.getMaxStackSize();
-			} else if (ItemUtils.isItemEqual(getStackInSlot(1), storedItem, true, true))
-			{
+			} else if (ItemUtils.isItemEqual(getStackInSlot(1), storedItem, true, true)) {
 				int wanted = getStackInSlot(1).getMaxStackSize() - getStackInSlot(1).stackSize;
-				if (storedItem.stackSize >= wanted)
-				{
+				if (storedItem.stackSize >= wanted) {
 					decrStackSize(1, -wanted);
 					storedItem.stackSize -= wanted;
-				} else
-				{
+				} else {
 					decrStackSize(1, -storedItem.stackSize);
 					storedItem = null;
 				}
@@ -91,51 +78,43 @@ public class TileQuantumChest extends TileMachineBase
 	}
 
 	@Override
-	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet)
-	{
+	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
 		worldObj.markBlockRangeForRenderUpdate(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX(),
 				getPos().getY(), getPos().getZ());
 		readFromNBT(packet.getNbtCompound());
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound tagCompound)
-	{
+	public void readFromNBT(NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
 		readFromNBTWithoutCoords(tagCompound);
 	}
 
-	public void readFromNBTWithoutCoords(NBTTagCompound tagCompound)
-	{
+	public void readFromNBTWithoutCoords(NBTTagCompound tagCompound) {
 
 		storedItem = null;
 
-		if (tagCompound.hasKey("storedStack"))
-		{
+		if (tagCompound.hasKey("storedStack")) {
 			storedItem = ItemStack.loadItemStackFromNBT((NBTTagCompound) tagCompound.getTag("storedStack"));
 		}
 
-		if (storedItem != null)
-		{
+		if (storedItem != null) {
 			storedItem.stackSize = tagCompound.getInteger("storedQuantity");
 		}
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
-	{
+	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
 		writeToNBTWithoutCoords(tagCompound);
 		return tagCompound;
 	}
 
-	public NBTTagCompound writeToNBTWithoutCoords(NBTTagCompound tagCompound)
-	{
-		if (storedItem != null)
-		{
+	public NBTTagCompound writeToNBTWithoutCoords(NBTTagCompound tagCompound) {
+		if (storedItem != null) {
 			tagCompound.setTag("storedStack", storedItem.writeToNBT(new NBTTagCompound()));
 			tagCompound.setInteger("storedQuantity", storedItem.stackSize);
-		} else{
+		} else {
 			tagCompound.setInteger("storedQuantity", 0);
 		}
 
@@ -143,37 +122,31 @@ public class TileQuantumChest extends TileMachineBase
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side)
-	{
+	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
 		return false;
 	}
 
 	@Override
-	public EnumFacing getFacing()
-	{
+	public EnumFacing getFacing() {
 		return getFacingEnum();
 	}
 
 	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
-	{
+	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
 		return entityPlayer.isSneaking();
 	}
 
 	@Override
-	public float getWrenchDropRate()
-	{
+	public float getWrenchDropRate() {
 		return 1F;
 	}
 
 	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
-	{
+	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
 		return getDropWithNBT();
 	}
 
-	public ItemStack getDropWithNBT()
-	{
+	public ItemStack getDropWithNBT() {
 		NBTTagCompound tileEntity = new NBTTagCompound();
 		ItemStack dropStack = new ItemStack(ModBlocks.quantumChest, 1);
 		writeToNBTWithoutCoords(tileEntity);
@@ -183,47 +156,39 @@ public class TileQuantumChest extends TileMachineBase
 	}
 
 	@Override
-	public ItemStack getStoredItemType()
-	{
+	public ItemStack getStoredItemType() {
 		return this.storedItem;
 	}
 
 	@Override
-	public void setStoredItemCount(int amount)
-	{
+	public void setStoredItemCount(int amount) {
 		this.storedItem.stackSize = 0;
 		this.storedItem.stackSize += (amount);
 		this.markDirty();
 	}
 
 	@Override
-	public void setStoredItemType(ItemStack type, int amount)
-	{
+	public void setStoredItemType(ItemStack type, int amount) {
 		this.storedItem = type;
 		this.storedItem.stackSize = amount;
 		this.markDirty();
 	}
 
 	@Override
-	public int getMaxStoredCount()
-	{
+	public int getMaxStoredCount() {
 		return this.storage;
 	}
 
 	@Override
-	public void addInfo(List<String> info, boolean isRealTile)
-	{
-		if (isRealTile)
-		{
+	public void addInfo(List<String> info, boolean isRealTile) {
+		if (isRealTile) {
 			int size = 0;
 			String name = "of nothing";
-			if (storedItem != null)
-			{
+			if (storedItem != null) {
 				name = storedItem.getDisplayName();
 				size += storedItem.stackSize;
 			}
-			if (getStackInSlot(1) != null)
-			{
+			if (getStackInSlot(1) != null) {
 				name = getStackInSlot(1).getDisplayName();
 				size += getStackInSlot(1).stackSize;
 			}
@@ -235,4 +200,5 @@ public class TileQuantumChest extends TileMachineBase
 	public Inventory getInventory() {
 		return inventory;
 	}
+
 }

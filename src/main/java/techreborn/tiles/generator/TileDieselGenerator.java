@@ -1,5 +1,6 @@
 package techreborn.tiles.generator;
 
+import net.minecraft.util.math.BlockPos;
 import reborncore.common.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -12,6 +13,7 @@ import reborncore.api.fuel.FluidPowerManager;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.tile.TilePowerProducer;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
@@ -19,16 +21,23 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.power.EnergyUtils;
 
-public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchable, IFluidHandler, IInventoryProvider
+public class TileDieselGenerator extends TilePowerProducer implements IWrenchable, IFluidHandler, IInventoryProvider
 {
 
 	public static final int euTick = ConfigTechReborn.ThermalGeneratorOutput;
 	public Tank tank = new Tank("TileDieselGenerator", FluidContainerRegistry.BUCKET_VOLUME * 10, this);
 	public Inventory inventory = new Inventory(3, "TileDieselGenerator", 64, this);
 
-	public TileDieselGenerator()
-	{
-		super(ConfigTechReborn.ThermalGeneratorTier);
+
+	@Override
+	public double emitEnergy(EnumFacing enumFacing, double amount) {
+		BlockPos pos = getPos().offset(enumFacing);
+		EnergyUtils.PowerNetReceiver receiver = EnergyUtils.getReceiver(
+				worldObj, enumFacing.getOpposite(), pos);
+		if(receiver != null) {
+			addEnergy(amount - receiver.receiveEnergy(amount, false));
+		} else addEnergy(amount);
+		return 0; //Temporary hack die to my bug RebornCore
 	}
 
 	@Override
@@ -131,8 +140,8 @@ public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchabl
 	}
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
+	public void update() {
+		super.update();
 		if (!worldObj.isRemote) {
 			FluidUtils.drainContainers(this, inventory, 0, 1);
 			FluidUtils.fillContainers(this, inventory, 0, 1, tank.getFluidType());
@@ -147,57 +156,28 @@ public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchabl
 			if (!tank.isEmpty() && tank.getFluidType() != null
 					&& FluidPowerManager.fluidPowerValues.containsKey(tank.getFluidType())) {
 				double powerIn = FluidPowerManager.fluidPowerValues.get(tank.getFluidType());
-				if (getFreeSpace() >= powerIn) {
+				if (getMaxPower() - getEnergy() >= powerIn) {
 					addEnergy(powerIn, false);
 					tank.drain(1, true);
 				}
 			}
 		}
-
-		if (!worldObj.isRemote && getEnergy() > 0) {
-			double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
-			useEnergy(EnergyUtils.dispatchEnergyToNeighbours(worldObj, getPos(), this, maxOutput));
-		}
 	}
 
 	@Override
-	public double getMaxPower()
-	{
-		return ConfigTechReborn.ThermalGeneratorCharge;
-	}
-
-	@Override
-	public boolean canAcceptEnergy(EnumFacing direction)
-	{
-		return false;
-	}
-
-	@Override
-	public boolean canProvideEnergy(EnumFacing direction)
-	{
-		return true;
-	}
-
-	@Override
-	public double getMaxOutput()
-	{
-		return 64;
-	}
-
-	@Override
-	public double getMaxInput()
-	{
-		return 0;
+	public double getMaxPower() {
+		return 64000;
 	}
 
 	@Override
 	public EnumPowerTier getTier()
 	{
-		return EnumPowerTier.LOW;
+		return EnumPowerTier.MEDIUM;
 	}
 
 	@Override
 	public Inventory getInventory() {
 		return inventory;
 	}
+
 }

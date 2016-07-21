@@ -42,7 +42,7 @@ public class GuiRecycler extends GuiContainer
 			this.drawTexturedModalRect(k + 78, l + 35, 176, 14, j + 1, 16);
 		}
 
-		j = compressor.getEnergyScaled(12);
+		j = (int)(compressor.getEnergy() * 12f / compressor.getMaxPower());
 		if (j > 0)
 		{
 			this.drawTexturedModalRect(k + 24, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);

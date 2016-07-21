@@ -72,7 +72,7 @@ public class GuiVacuumFreezer extends GuiContainer
 			this.drawTexturedModalRect(k + 79, l + 37, 176, 14, j + 1, 16);
 		}
 
-		j = crafter.getEnergyScaled(12);
+		j = (int)(crafter.getEnergy() * 12f / crafter.getMaxPower());
 		if (j > 0)
 		{
 			this.drawTexturedModalRect(k + 26, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);

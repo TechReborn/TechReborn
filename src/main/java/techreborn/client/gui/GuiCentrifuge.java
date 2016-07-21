@@ -43,9 +43,7 @@ public class GuiCentrifuge extends GuiContainer
 		int l = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
 
-		int j = 0;
-
-		j = centrifuge.getProgressScaled(11);
+		int j = centrifuge.getProgressScaled(11);
 		if (j > 0)
 		{
 			this.drawTexturedModalRect(k + 83, l + 23 + 10 - j, 177, 15 + 10 - j, 10, j);
@@ -54,10 +52,8 @@ public class GuiCentrifuge extends GuiContainer
 			this.drawTexturedModalRect(k + 68 + 10 - j, l + 38, 177 + 10 - j, 27, j, 10);
 		}
 
-		j = centrifuge.getEnergyScaled(12);
-
-		if (j > 0)
-		{
+		j = (int)(centrifuge.getEnergy() * 12f / centrifuge.getMaxPower());
+		if (j > 0) {
 			this.drawTexturedModalRect(k + 9, l + 32 + 12 - j, 176, 12 - j, 14, j + 2);
 		}
 	}

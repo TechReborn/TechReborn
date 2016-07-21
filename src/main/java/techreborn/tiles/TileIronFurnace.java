@@ -16,8 +16,7 @@ import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.Inventory;
 
-public class TileIronFurnace extends TileMachineBase implements IInventoryProvider
-{
+public class TileIronFurnace extends TileMachineBase implements IInventoryProvider {
 
 	public int tickTime;
 	public Inventory inventory = new Inventory(3, "TileIronFurnace", 64, this);
@@ -30,18 +29,14 @@ public class TileIronFurnace extends TileMachineBase implements IInventoryProvid
 	int fuelslot = 2;
 	boolean active = false;
 
-	public int gaugeProgressScaled(int scale)
-	{
+	public int gaugeProgressScaled(int scale) {
 		return (progress * scale) / fuelScale;
 	}
 
-	public int gaugeFuelScaled(int scale)
-	{
-		if (fuelGague == 0)
-		{
+	public int gaugeFuelScaled(int scale) {
+		if (fuelGague == 0) {
 			fuelGague = fuel;
-			if (fuelGague == 0)
-			{
+			if (fuelGague == 0) {
 				fuelGague = fuelScale;
 			}
 		}
@@ -49,88 +44,69 @@ public class TileIronFurnace extends TileMachineBase implements IInventoryProvid
 	}
 
 	@Override
-	public void updateEntity()
-	{
+	public void update() {
+		super.update();
 		boolean burning = isBurning();
 		boolean updateInventory = false;
-		if (fuel > 0)
-		{
+		if (fuel > 0) {
 			fuel--;
 			updateState();
 		}
-		if (fuel <= 0 && canSmelt())
-		{
+		if (fuel <= 0 && canSmelt()) {
 			fuel = fuelGague = (int) (TileEntityFurnace.getItemBurnTime(getStackInSlot(fuelslot)) * 1.25);
-			if (fuel > 0)
-			{
+			if (fuel > 0) {
 				if (getStackInSlot(fuelslot).getItem().hasContainerItem()) // Fuel
-																			// slot
+				// slot
 				{
 					setInventorySlotContents(fuelslot,
 							new ItemStack(getStackInSlot(fuelslot).getItem().getContainerItem()));
-				} else if (getStackInSlot(fuelslot).stackSize > 1)
-				{
+				} else if (getStackInSlot(fuelslot).stackSize > 1) {
 					decrStackSize(fuelslot, 1);
-				} else if (getStackInSlot(fuelslot).stackSize == 1)
-				{
+				} else if (getStackInSlot(fuelslot).stackSize == 1) {
 					setInventorySlotContents(fuelslot, null);
 				}
 				updateInventory = true;
 			}
 		}
-		if (isBurning() && canSmelt())
-		{
+		if (isBurning() && canSmelt()) {
 			progress++;
-			if (progress >= fuelScale)
-			{
+			if (progress >= fuelScale) {
 				progress = 0;
 				cookItems();
 				updateInventory = true;
 			}
-		} else
-		{
+		} else {
 			progress = 0;
 		}
-		if (burning != isBurning())
-		{
+		if (burning != isBurning()) {
 			updateInventory = true;
 		}
-		if (updateInventory)
-		{
+		if (updateInventory) {
 			markDirty();
 		}
 	}
 
-	public void cookItems()
-	{
-		if (this.canSmelt())
-		{
+	public void cookItems() {
+		if (this.canSmelt()) {
 			ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(getStackInSlot(input1));
 
-			if (getStackInSlot(output) == null)
-			{
+			if (getStackInSlot(output) == null) {
 				setInventorySlotContents(output, itemstack.copy());
-			} else if (getStackInSlot(output).isItemEqual(itemstack))
-			{
+			} else if (getStackInSlot(output).isItemEqual(itemstack)) {
 				getStackInSlot(output).stackSize += itemstack.stackSize;
 			}
-			if (getStackInSlot(input1).stackSize > 1)
-			{
+			if (getStackInSlot(input1).stackSize > 1) {
 				this.decrStackSize(input1, 1);
-			} else
-			{
+			} else {
 				setInventorySlotContents(input1, null);
 			}
 		}
 	}
 
-	public boolean canSmelt()
-	{
-		if (getStackInSlot(input1) == null)
-		{
+	public boolean canSmelt() {
+		if (getStackInSlot(input1) == null) {
 			return false;
-		} else
-		{
+		} else {
 			ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(getStackInSlot(input1));
 			if (itemstack == null)
 				return false;
@@ -143,26 +119,21 @@ public class TileIronFurnace extends TileMachineBase implements IInventoryProvid
 		}
 	}
 
-	public boolean isBurning()
-	{
+	public boolean isBurning() {
 		return fuel > 0;
 	}
 
-	public ItemStack getResultFor(ItemStack stack)
-	{
+	public ItemStack getResultFor(ItemStack stack) {
 		ItemStack result = FurnaceRecipes.instance().getSmeltingResult(stack);
-		if (result != null)
-		{
+		if (result != null) {
 			return result.copy();
 		}
 		return null;
 	}
 
-	public void updateState()
-	{
+	public void updateState() {
 		IBlockState BlockStateContainer = worldObj.getBlockState(pos);
-		if (BlockStateContainer.getBlock() instanceof BlockMachineBase)
-		{
+		if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
 			BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
 			if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != fuel > 0)
 				blockMachineBase.setActive(fuel > 0, worldObj, pos);

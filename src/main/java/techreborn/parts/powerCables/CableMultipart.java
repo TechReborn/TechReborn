@@ -34,6 +34,8 @@ import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.common.property.Properties;
 import net.minecraftforge.fml.common.Loader;
 import reborncore.api.power.IEnergyInterfaceTile;
+import reborncore.api.power.tile.IEnergyProducerTile;
+import reborncore.api.power.tile.IEnergyReceiverTile;
 import reborncore.common.RebornCoreConfig;
 import reborncore.common.misc.Functions;
 import reborncore.common.misc.vecmath.Vecs3dCube;
@@ -211,8 +213,11 @@ public class CableMultipart extends Multipart
                 TileEntity tile = getNeighbourTile(dir);
                 if(tile != null) {
                     EnumFacing facing = dir.getOpposite();
-                    if (tile instanceof IEnergyInterfaceTile &&
-                            ((IEnergyInterfaceTile) tile).canAcceptEnergy(facing)) {
+                    if (tile instanceof IEnergyReceiverTile &&
+                            ((IEnergyReceiverTile) tile).canAcceptEnergy(facing)) {
+                        return true;
+                    } else if(tile instanceof IEnergyProducerTile &&
+                            ((IEnergyProducerTile) tile).canProvideEnergy(facing)) {
                         return true;
                     } else if (tile instanceof IEnergyReceiver &&
                             ((IEnergyReceiver) tile).canConnectEnergy(facing) &&

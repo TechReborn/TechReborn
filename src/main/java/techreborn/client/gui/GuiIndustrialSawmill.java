@@ -50,9 +50,8 @@ public class GuiIndustrialSawmill extends GuiContainer
 			this.drawTexturedModalRect(k + 56, l + 38, 176, 14, j - 1, 11);
 		}
 
-		j = sawmill.getEnergyScaled(12);
-		if (j > 0)
-		{
+		j = (int)(sawmill.getEnergy() * 12f / sawmill.getMaxPower());
+		if (j > 0) {
 			this.drawTexturedModalRect(k + 33, l + 65 + 12 - j, 176, 12 - j, 14, j + 2);
 		}
 		// TODO 1.8

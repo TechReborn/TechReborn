@@ -45,11 +45,8 @@ public class GuiMFSU extends GuiContainer
 		int l = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
 
-		int j = 0;
-
-		j = generator.getEnergyScaled(24);
-		if (j > 0)
-		{
+		int j = (int)(generator.getEnergy() * 24f / generator.getMaxPower());
+		if (j > 0) {
 			this.drawTexturedModalRect(k + 109, l + 21 + 12, 176, 0, j + 1, 16);
 		}
 		//

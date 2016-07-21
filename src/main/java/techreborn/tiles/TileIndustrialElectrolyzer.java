@@ -9,8 +9,8 @@ import net.minecraft.util.EnumFacing;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
+import reborncore.common.tile.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.api.Reference;
 import techreborn.init.ModBlocks;
@@ -24,7 +24,6 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor implements IWr
 
 	public TileIndustrialElectrolyzer()
 	{
-		super(2);
 		// Input slots
 		int[] inputs = new int[2];
 		inputs[0] = 0;
@@ -38,11 +37,11 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor implements IWr
 	}
 
 	@Override
-	public void updateEntity()
+	public void update()
 	{
-		super.updateEntity();
+		super.update();
 		crafter.updateEntity();
-		charge(6);
+		//charge(6); TODO
 	}
 
 	@Override
@@ -138,37 +137,13 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor implements IWr
 	@Override
 	public double getMaxPower()
 	{
-		return 1000;
-	}
-
-	@Override
-	public boolean canAcceptEnergy(EnumFacing direction)
-	{
-		return true;
-	}
-
-	@Override
-	public boolean canProvideEnergy(EnumFacing direction)
-	{
-		return false;
-	}
-
-	@Override
-	public double getMaxOutput()
-	{
-		return 0;
-	}
-
-	@Override
-	public double getMaxInput()
-	{
-		return 128;
+		return 64000;
 	}
 
 	@Override
 	public EnumPowerTier getTier()
 	{
-		return EnumPowerTier.LOW;
+		return EnumPowerTier.MEDIUM;
 	}
 
 	@Override

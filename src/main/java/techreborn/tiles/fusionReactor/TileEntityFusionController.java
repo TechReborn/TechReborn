@@ -8,6 +8,7 @@ import net.minecraft.util.text.ITextComponent;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.tile.TilePowerAcceptorProducer;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.api.reactor.FusionReactorRecipe;
@@ -15,7 +16,7 @@ import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.init.ModBlocks;
 import techreborn.power.EnergyUtils;
 
-public class TileEntityFusionController extends TilePowerAcceptor implements IInventoryProvider
+public class TileEntityFusionController extends TilePowerAcceptorProducer implements IInventoryProvider
 {
 
 	public Inventory inventory = new Inventory(3, "TileEntityFusionController", 64, this);
@@ -31,31 +32,23 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 	FusionReactorRecipe currentRecipe = null;
 	boolean hasStartedCrafting = false;
 
-	public TileEntityFusionController()
-	{
-		super(4);
-	}
-
 	@Override
 	public double getMaxPower() {
 		return 100000000;
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction)
-	{
-		return !(direction == EnumFacing.DOWN || direction == EnumFacing.UP);
+	public boolean canAcceptEnergy(EnumFacing direction) {
+		return hasStartedCrafting;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnumFacing direction)
-	{
-		return direction == EnumFacing.DOWN || direction == EnumFacing.UP;
+	public boolean canProvideEnergy(EnumFacing direction) {
+		return !hasStartedCrafting;
 	}
 
 	@Override
-	public double getMaxOutput()
-	{
+	public double getMaxOutput() {
 		if (!hasStartedCrafting)
 		{
 			return 0;
@@ -64,17 +57,9 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 	}
 
 	@Override
-	public double getMaxInput() {
-		if (hasStartedCrafting) {
-			return 0;
-		}
-		return 8192;
-	}
-
-	@Override
 	public EnumPowerTier getTier()
 	{
-		return EnumPowerTier.EXTREME;
+		return EnumPowerTier.INSANE;
 	}
 
 	@Override
@@ -152,9 +137,9 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 	}
 
 	@Override
-	public void updateEntity()
+	public void update()
 	{
-		super.updateEntity();
+		super.update();
 		// TODO improve this code a lot
 
 		if (worldObj.getTotalWorldTime() % 20 == 0)
@@ -276,9 +261,27 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 
 		if (!worldObj.isRemote && getEnergy() > 0 && hasStartedCrafting) {
 			double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
-			useEnergy(EnergyUtils.dispatchEnergyToNeighbours(worldObj, getPos(), this, maxOutput));
+			for(EnumFacing facing : EnumFacing.VALUES) {
+				double disposed = emitEnergy(facing, maxOutput);
+				if(disposed != 0) {
+					maxOutput -= disposed;
+					useEnergy(disposed);
+					if (maxOutput == 0) return;
+				}
+			}
 		}
 
+	}
+
+	//TODO move to RebornCore
+	public double emitEnergy(EnumFacing enumFacing, double amount) {
+		BlockPos pos = getPos().offset(enumFacing);
+		EnergyUtils.PowerNetReceiver receiver = EnergyUtils.getReceiver(
+				worldObj, enumFacing.getOpposite(), pos);
+		if(receiver != null) {
+			return receiver.receiveEnergy(amount, false);
+		}
+		return 0;
 	}
 
 	private boolean validateRecipe()
@@ -333,7 +336,7 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 	@Override
 	public String getName()
 	{
-		return null;
+		return "Fusion Reactor";
 	}
 
 	@Override

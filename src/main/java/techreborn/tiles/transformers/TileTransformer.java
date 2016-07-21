@@ -12,7 +12,11 @@ import techreborn.blocks.transformers.BlockTransformer;
 
 /**
  * Created by Rushmead
+ *
+ * @deprecated ? If wires limited to transfer rate and doesn't burn out, what's use of the transformers?
+ * TODO: Rewrite, find use or remove
  */
+@Deprecated
 public class TileTransformer extends TilePowerAcceptor implements IWrenchable, ITickable
 {
 
