@@ -10,7 +10,7 @@ import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
-import techreborn.power.PowerNet;
+import techreborn.power.EnergyUtils;
 
 public class TileIDSU extends TilePowerAcceptor implements IWrenchable
 {
@@ -145,7 +145,7 @@ public class TileIDSU extends TilePowerAcceptor implements IWrenchable
 
 		if (!worldObj.isRemote && getEnergy() > 0) {
 			double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
-			useEnergy(PowerNet.dispatchEnergyPacket(worldObj, getPos(), maxOutput));
+			useEnergy(EnergyUtils.dispatchEnergyToNeighbours(worldObj, getPos(), this, maxOutput));
 		}
 
 	}

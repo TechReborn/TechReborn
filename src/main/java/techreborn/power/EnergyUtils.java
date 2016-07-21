@@ -24,18 +24,43 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.function.BiFunction;
 
-public class PowerNet {
-
+public class EnergyUtils {
 
     /**
-     * Same as {@link #dispatchEnergyPacketRecursively(World, ArrayList, BlockPos, boolean, double)}
+     * Dispatches energy to available neighbours
+     * @param world world
+     * @param source source position
+     * @param tile controller
+     * @param amount amount of energy
+     * @return amount of energy dispatched
+     */
+    public static double dispatchEnergyToNeighbours(World world, BlockPos source, IEnergyInterfaceTile tile, double amount) {
+        double energyLeft = amount;
+        for(EnumFacing facing : EnumFacing.VALUES) {
+            if(tile.canProvideEnergy(facing)) {
+                PowerNetReceiver receiver = getReceiver(world, facing.getOpposite(), source.offset(facing));
+                if(receiver != null) energyLeft -= receiver.receiveEnergy(energyLeft, false);
+                if(energyLeft == 0) return energyLeft;
+            }
+        }
+        return amount - energyLeft;
+    }
+
+    /**
+     * Same as {@link #dispatchWiresEnergyPacketRecursively(World, ArrayList, BlockPos, boolean, double)}
      * But not simulated and excluding source block
      * @param world the world to dispatch in
      * @param energyAmount energy units to dispatch
      * @return dispatched energy units
+     * @deprecated for internal use only
+     *
+     * WARNING: For internal use in wires only
      */
-    public static double dispatchEnergyPacket(World world, BlockPos source, double energyAmount) {
-        return dispatchEnergyPacketRecursively(world, Lists.newArrayList(source), source, false, energyAmount);
+    public static double dispatchWiresEnergyPacket(World world, BlockPos source, double energyAmount, BlockPos... excludes) {
+        ArrayList<BlockPos> exclude = new ArrayList<>(excludes.length + 1);
+        exclude.addAll(Arrays.asList(excludes));
+        exclude.add(source);
+        return dispatchWiresEnergyPacketRecursively(world, exclude, source, false, energyAmount);
     }
 
     /**
@@ -46,8 +71,11 @@ public class PowerNet {
      * @param maxEnergy energy units to dispatch
      * @param simulate true if dispatch is only simulated
      * @return dispatched energy units
+     * @deprecated for internal use only
+     *
+     * WARNING: For internal use in wires only
      */
-    public static double dispatchEnergyPacketRecursively(World world, ArrayList<BlockPos> excludes, BlockPos blockPos, boolean simulate, final double maxEnergy) {
+    public static double dispatchWiresEnergyPacketRecursively(World world, ArrayList<BlockPos> excludes, BlockPos blockPos, boolean simulate, final double maxEnergy) {
         double energyLeft = maxEnergy;
         Collection<EnumFacing> connections = Lists.newArrayList(EnumFacing.VALUES);
 
@@ -75,7 +103,7 @@ public class PowerNet {
                     EnumCableType cableType = cable.getCableType();
                     double transferRate = cableType.transferRate;
                     double maxPacket = transferRate > maxEnergy ? maxEnergy : transferRate;
-                    energyLeft -= dispatchEnergyPacketRecursively(world, excludes, offsetPos, simulate, maxPacket);
+                    energyLeft -= dispatchWiresEnergyPacketRecursively(world, excludes, offsetPos, simulate, maxPacket);
                     if(energyLeft == 0) {
                         if(selfCable != null)
                             selfCable.lastEnergyPacket = maxEnergy * 1.3F;
@@ -128,22 +156,20 @@ public class PowerNet {
 
     public static PowerNetReceiver getReceiver(World world, EnumFacing side, BlockPos pos) {
         TileEntity tileEntity = world.getTileEntity(pos);
-        if(Loader.isModLoaded("IC2") && RebornCoreConfig.getRebornPower().eu()) {
+        if (Loader.isModLoaded("IC2") && RebornCoreConfig.getRebornPower().eu()) {
             PowerNetReceiver ic2receiver = getIC2Receiver(tileEntity, side);
-            if(ic2receiver != null) return ic2receiver;
+            if (ic2receiver != null) return ic2receiver;
         }
-        if(Loader.isModLoaded("Tesla") && RebornCoreConfig.getRebornPower().tesla()) {
+        if (Loader.isModLoaded("Tesla") && RebornCoreConfig.getRebornPower().tesla()) {
             PowerNetReceiver teslaReceiver = getTeslaReceiver(tileEntity, side);
-            if(teslaReceiver != null) return teslaReceiver;
+            if (teslaReceiver != null) return teslaReceiver;
         }
-        if(RebornCoreConfig.getRebornPower().rf()) {
+        if (RebornCoreConfig.getRebornPower().rf()) {
             PowerNetReceiver rfReceiver = getRFReceiver(tileEntity, side);
-            if(rfReceiver != null) return rfReceiver;
+            if (rfReceiver != null) return rfReceiver;
         }
-        if(RebornCoreConfig.getRebornPower().internal()) {
-            PowerNetReceiver internalReceiver = getInternalReceiver(tileEntity, side);
-            if(internalReceiver != null) return internalReceiver;
-        }
+        PowerNetReceiver internalReceiver = getInternalReceiver(tileEntity, side);
+        if (internalReceiver != null) return internalReceiver;
         return null;
     }
 

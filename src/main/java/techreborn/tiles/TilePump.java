@@ -45,7 +45,7 @@ public class TilePump extends TilePowerAcceptor implements IFluidHandler {
     public void addInfo(List<String> info, boolean isRealTile) {
         super.addInfo(info, isRealTile);
         info.add(TextFormatting.LIGHT_PURPLE + "Eu per extract " + TextFormatting.GREEN
-                + PowerSystem.getLocaliszedPower(ConfigTechReborn.pumpExtractEU));
+                + PowerSystem.getLocalizedPower(ConfigTechReborn.pumpExtractEU));
         info.add(TextFormatting.LIGHT_PURPLE + "Speed: " + TextFormatting.GREEN
                 + "1000mb/5 sec");
     }

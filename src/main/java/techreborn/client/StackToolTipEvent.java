@@ -43,16 +43,16 @@ public class StackToolTipEvent
 					color = TextFormatting.YELLOW;
 				}
 				event.getToolTip().add(color + ""
-						+ PowerSystem.getLocaliszedPower(
+						+ PowerSystem.getLocalizedPower(
 								(int) ((IEnergyInterfaceItem) event.getItemStack().getItem()).getEnergy(event.getItemStack()))
 						+ TextFormatting.LIGHT_PURPLE + " stored");
 				event.getToolTip().add(Color.GREEN + ""
-						+ PowerSystem.getLocaliszedPower(
+						+ PowerSystem.getLocalizedPower(
 								(int) ((IEnergyInterfaceItem) event.getItemStack().getItem()).getMaxPower(event.getItemStack()))
 						+ TextFormatting.LIGHT_PURPLE + " max");
 				event.getToolTip()
 						.add(TextFormatting.GREEN + "" + percentage + "%" + TextFormatting.LIGHT_PURPLE + " charged");
-				event.getToolTip().add(Color.GREEN + "" + PowerSystem.getLocaliszedPower(
+				event.getToolTip().add(Color.GREEN + "" + PowerSystem.getLocalizedPower(
 						(int) ((IEnergyInterfaceItem) event.getItemStack().getItem()).getMaxTransfer(event.getItemStack()))
 						+ TextFormatting.LIGHT_PURPLE + " /tick in/out");
 			}

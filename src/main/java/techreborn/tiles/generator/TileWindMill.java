@@ -3,7 +3,7 @@ package techreborn.tiles.generator;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-import techreborn.power.PowerNet;
+import techreborn.power.EnergyUtils;
 
 /**
  * Created by modmuss50 on 25/02/2016.
@@ -28,7 +28,7 @@ public class TileWindMill extends TilePowerAcceptor
 
 		if (!worldObj.isRemote && getEnergy() > 0) {
 			double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
-			useEnergy(PowerNet.dispatchEnergyPacket(worldObj, getPos(), maxOutput));
+			useEnergy(EnergyUtils.dispatchEnergyToNeighbours(worldObj, getPos(), this, maxOutput));
 		}
 	}
 

@@ -12,7 +12,7 @@ import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.init.ModBlocks;
-import techreborn.power.PowerNet;
+import techreborn.power.EnergyUtils;
 
 public class TileGenerator extends TilePowerAcceptor implements IWrenchable,IInventoryProvider
 {
@@ -71,7 +71,7 @@ public class TileGenerator extends TilePowerAcceptor implements IWrenchable,IInv
 
 		if (!worldObj.isRemote && getEnergy() > 0) {
 			double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
-			useEnergy(PowerNet.dispatchEnergyPacket(worldObj, getPos(), maxOutput));
+			useEnergy(EnergyUtils.dispatchEnergyToNeighbours(worldObj, getPos(), this, maxOutput));
 		}
 	}
 
