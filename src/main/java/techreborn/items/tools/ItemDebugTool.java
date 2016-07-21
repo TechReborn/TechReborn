@@ -51,7 +51,7 @@ public class ItemDebugTool extends ItemTextureBase implements ITexturedItem
 			{
 				playerIn.addChatComponentMessage(
 						new TextComponentString(TextFormatting.GREEN + "Power" + TextFormatting.BLUE
-								+ PowerSystem.getLocaliszedPower(((IEnergyInterfaceTile) tile).getEnergy())));
+								+ PowerSystem.getLocalizedPower(((IEnergyInterfaceTile) tile).getEnergy())));
 			}
 			return EnumActionResult.SUCCESS;
 		}

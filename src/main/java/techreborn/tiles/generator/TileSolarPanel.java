@@ -56,7 +56,7 @@ public class TileSolarPanel extends TilePowerAcceptor implements ITickable
 		{
 			// FIXME: 25/02/2016
 			// info.add(TextFormatting.LIGHT_PURPLE + "Power gen/tick " +
-			// TextFormatting.GREEN + PowerSystem.getLocaliszedPower(
+			// TextFormatting.GREEN + PowerSystem.getLocalizedPower(
 			// powerToAdd)) ;
 		}
 	}

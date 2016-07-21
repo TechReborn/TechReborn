@@ -35,8 +35,7 @@ public class ItemBlockAesu extends ItemBlock
 		if (stack != null && stack.hasTagCompound())
 		{
 			if (stack.getTagCompound().getCompoundTag("tileEntity") != null)
-				list.add(PowerSystem
-						.getLocaliszedPower(stack.getTagCompound().getCompoundTag("tileEntity").getInteger("energy")));
+				list.add(PowerSystem.getLocalizedPower(stack.getTagCompound().getCompoundTag("tileEntity").getInteger("energy")));
 		}
 	}
 

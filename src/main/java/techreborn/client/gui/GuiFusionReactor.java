@@ -35,7 +35,7 @@ public class GuiFusionReactor extends GuiContainer
 		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,
 				this.ySize - 96 + 2, 4210752);
 
-		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerFusionReactor.energy), 11, 8, 16448255);
+		this.fontRendererObj.drawString(PowerSystem.getLocalizedPower(containerFusionReactor.energy), 11, 8, 16448255);
 		this.fontRendererObj.drawString("Coils: " + (containerFusionReactor.coilStatus == 1 ? "Yes" : "No"), 11, 16,
 				16448255);
 		if (containerFusionReactor.neededEU > 1 && containerFusionReactor.tickTime < 1)

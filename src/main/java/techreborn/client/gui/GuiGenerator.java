@@ -65,7 +65,7 @@ public class GuiGenerator extends GuiContainer
 		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,
 				this.ySize - 96 + 2, 4210752);
 
-		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerGenerator.energy), 25, this.ySize - 150,
+		this.fontRendererObj.drawString(PowerSystem.getLocalizedPower(containerGenerator.energy), 25, this.ySize - 150,
 				4210752);
 	}
 }

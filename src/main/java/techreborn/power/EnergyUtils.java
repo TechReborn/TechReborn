@@ -156,22 +156,20 @@ public class EnergyUtils {
 
     public static PowerNetReceiver getReceiver(World world, EnumFacing side, BlockPos pos) {
         TileEntity tileEntity = world.getTileEntity(pos);
-        if(Loader.isModLoaded("IC2") && RebornCoreConfig.getRebornPower().eu()) {
+        if (Loader.isModLoaded("IC2") && RebornCoreConfig.getRebornPower().eu()) {
             PowerNetReceiver ic2receiver = getIC2Receiver(tileEntity, side);
-            if(ic2receiver != null) return ic2receiver;
+            if (ic2receiver != null) return ic2receiver;
         }
-        if(Loader.isModLoaded("Tesla") && RebornCoreConfig.getRebornPower().tesla()) {
+        if (Loader.isModLoaded("Tesla") && RebornCoreConfig.getRebornPower().tesla()) {
             PowerNetReceiver teslaReceiver = getTeslaReceiver(tileEntity, side);
-            if(teslaReceiver != null) return teslaReceiver;
+            if (teslaReceiver != null) return teslaReceiver;
         }
-        if(RebornCoreConfig.getRebornPower().rf()) {
+        if (RebornCoreConfig.getRebornPower().rf()) {
             PowerNetReceiver rfReceiver = getRFReceiver(tileEntity, side);
-            if(rfReceiver != null) return rfReceiver;
+            if (rfReceiver != null) return rfReceiver;
         }
-        if(RebornCoreConfig.getRebornPower().internal()) {
-            PowerNetReceiver internalReceiver = getInternalReceiver(tileEntity, side);
-            if(internalReceiver != null) return internalReceiver;
-        }
+        PowerNetReceiver internalReceiver = getInternalReceiver(tileEntity, side);
+        if (internalReceiver != null) return internalReceiver;
         return null;
     }
 

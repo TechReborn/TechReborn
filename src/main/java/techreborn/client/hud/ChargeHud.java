@@ -80,8 +80,8 @@ public class ChargeHud
 			{
 				color = Color.DARK_RED;
 			}
-			mc.fontRendererObj.drawString(color + PowerSystem.getLocaliszedPower(CurrentCharge) + "/"
-					+ PowerSystem.getLocaliszedPower(MaxCharge), 20, y, 0);
+			mc.fontRendererObj.drawString(color + PowerSystem.getLocalizedPower(CurrentCharge) + "/"
+					+ PowerSystem.getLocalizedPower(MaxCharge), 20, y, 0);
 			y += 20;
 		}
 
@@ -108,8 +108,8 @@ public class ChargeHud
 					{
 						color = Color.DARK_RED;
 					}
-					mc.fontRendererObj.drawString(color + PowerSystem.getLocaliszedPower(CurrentCharge) + "/"
-							+ PowerSystem.getLocaliszedPower(MaxCharge), 20, y, 0);
+					mc.fontRendererObj.drawString(color + PowerSystem.getLocalizedPower(CurrentCharge) + "/"
+							+ PowerSystem.getLocalizedPower(MaxCharge), 20, y, 0);
 					y += 20;
 				}
 			}
@@ -133,7 +133,7 @@ public class ChargeHud
 				{
 					color = Color.DARK_RED;
 				}
-				mc.fontRendererObj.drawString(color + PowerSystem.getLocaliszedPower(CurrentCharge) + "/" + PowerSystem.getLocaliszedPower(MaxCharge), 20, y, 0);
+				mc.fontRendererObj.drawString(color + PowerSystem.getLocalizedPower(CurrentCharge) + "/" + PowerSystem.getLocalizedPower(MaxCharge), 20, y, 0);
 			}
 		}
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

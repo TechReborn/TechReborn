@@ -85,11 +85,11 @@ public class GuiIDSU extends GuiContainer
 	{
 		this.fontRendererObj.drawString(I18n.translateToLocal("tile.techreborn.idsu.name"), 75, 10,
 				Color.WHITE.getRGB());
-		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerIDSU.euOut) + "/tick", 10, 22,
+		this.fontRendererObj.drawString(PowerSystem.getLocalizedPower(containerIDSU.euOut) + "/tick", 10, 22,
 				Color.WHITE.getRGB());
-		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerIDSU.storedEu), 10, 32,
+		this.fontRendererObj.drawString(PowerSystem.getLocalizedPower(containerIDSU.storedEu), 10, 32,
 				Color.WHITE.getRGB());
-		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerIDSU.euChange) + "  change", 10, 42,
+		this.fontRendererObj.drawString(PowerSystem.getLocalizedPower(containerIDSU.euChange) + "  change", 10, 42,
 				Color.WHITE.getRGB());
 	}
 
