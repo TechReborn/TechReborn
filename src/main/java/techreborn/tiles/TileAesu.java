@@ -1,20 +1,20 @@
 package techreborn.tiles;
 
 import net.minecraft.util.math.BlockPos;
+import reborncore.api.power.tile.IEnergyProducerTile;
 import reborncore.common.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.power.EnumPowerTier;
-import reborncore.common.powerSystem.TilePowerAcceptor;
-import reborncore.common.tile.TilePowerAcceptorProducer;
+import reborncore.common.tile.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.power.EnergyUtils;
 
-public class TileAesu extends TilePowerAcceptorProducer implements IWrenchable {
+public class TileAesu extends TilePowerAcceptor implements IEnergyProducerTile, IWrenchable {
 
 	public static final int MAX_OUTPUT = ConfigTechReborn.AesuMaxOutput;
 	public static final int MAX_STORAGE = ConfigTechReborn.AesuMaxStorage;
@@ -44,19 +44,11 @@ public class TileAesu extends TilePowerAcceptorProducer implements IWrenchable {
 
 		if (!worldObj.isRemote && getEnergy() > 0) {
 			double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
-			for(EnumFacing facing : EnumFacing.VALUES) {
-				double disposed = emitEnergy(facing, maxOutput);
-				if(disposed != 0) {
-					maxOutput -= disposed;
-					useEnergy(disposed);
-					if (maxOutput == 0) return;
-				}
-			}
+			double disposed = emitEnergy(getFacingEnum(), maxOutput);
+			if (maxOutput != 0 && disposed != 0) useEnergy(disposed);
 		}
-
 	}
 
-	//TODO move to RebornCore
 	public double emitEnergy(EnumFacing enumFacing, double amount) {
 		BlockPos pos = getPos().offset(enumFacing);
 		EnergyUtils.PowerNetReceiver receiver = EnergyUtils.getReceiver(
@@ -65,6 +57,16 @@ public class TileAesu extends TilePowerAcceptorProducer implements IWrenchable {
 			return receiver.receiveEnergy(amount, false);
 		}
 		return 0;
+	}
+
+	@Override
+	public boolean canAcceptEnergy(EnumFacing direction) {
+		return getFacingEnum() != direction;
+	}
+
+	@Override
+	public boolean canProvideEnergy(EnumFacing direction) {
+		return getFacingEnum() == direction;
 	}
 
 
