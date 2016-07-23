@@ -76,7 +76,6 @@ public class ModRecipes
 		addChemicalReactorRecipes();
 		addIndustrialElectrolyzerRecipes();
 
-		addIndustrialSawmillRecipes();
 		addBlastFurnaceRecipes();
 		addIndustrialGrinderRecipes();
 		addImplosionCompressorRecipes();
@@ -1320,52 +1319,6 @@ public class ModRecipes
 		RecipeHandler.addRecipe(
 				new PlateCuttingMachineRecipe(new ItemStack(Blocks.OBSIDIAN), ItemPlates.getPlateByName("obsidian", 9),
 						100, 4));
-	}
-
-	static void addIndustrialSawmillRecipes()
-	{
-		ItemStack pulpStack = OreDictionary.getOres("pulpWood").get(0);
-		RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.LOG, 1, 0), null,
-				new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(Blocks.PLANKS, 6, 0), pulpStack, null, 200, 30,
-				false));
-		RecipeHandler.addRecipe(
-				new IndustrialSawmillRecipe(new ItemStack(Blocks.LOG, 1, 0), new ItemStack(Items.WATER_BUCKET), null,
-						new ItemStack(Blocks.PLANKS, 6, 0), pulpStack, new ItemStack(Items.BUCKET), 200, 30, false));
-
-		RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.LOG, 1, 1), null,
-				new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(Blocks.PLANKS, 6, 1), pulpStack, null, 200, 30,
-				false));
-		RecipeHandler.addRecipe(
-				new IndustrialSawmillRecipe(new ItemStack(Blocks.LOG, 1, 1), new ItemStack(Items.WATER_BUCKET), null,
-						new ItemStack(Blocks.PLANKS, 6, 1), pulpStack, new ItemStack(Items.BUCKET), 200, 30, false));
-
-		RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.LOG, 1, 2), null,
-				new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(Blocks.PLANKS, 6, 2), pulpStack, null, 200, 30,
-				false));
-		RecipeHandler.addRecipe(
-				new IndustrialSawmillRecipe(new ItemStack(Blocks.LOG, 1, 2), new ItemStack(Items.WATER_BUCKET), null,
-						new ItemStack(Blocks.PLANKS, 6, 2), pulpStack, new ItemStack(Items.BUCKET), 200, 30, false));
-
-		RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.LOG, 1, 3), null,
-				new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(Blocks.PLANKS, 6, 3), pulpStack, null, 200, 30,
-				false));
-		RecipeHandler.addRecipe(
-				new IndustrialSawmillRecipe(new ItemStack(Blocks.LOG, 1, 3), new ItemStack(Items.WATER_BUCKET), null,
-						new ItemStack(Blocks.PLANKS, 6, 3), pulpStack, new ItemStack(Items.BUCKET), 200, 30, false));
-
-		RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.LOG2, 1, 0), null,
-				new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(Blocks.PLANKS, 6, 4), pulpStack, null, 200, 30,
-				false));
-		RecipeHandler.addRecipe(
-				new IndustrialSawmillRecipe(new ItemStack(Blocks.LOG2, 1, 0), new ItemStack(Items.WATER_BUCKET), null,
-						new ItemStack(Blocks.PLANKS, 6, 4), pulpStack, new ItemStack(Items.BUCKET), 200, 30, false));
-
-		RecipeHandler.addRecipe(new IndustrialSawmillRecipe(new ItemStack(Blocks.LOG2, 1, 1), null,
-				new FluidStack(FluidRegistry.WATER, 1000), new ItemStack(Blocks.PLANKS, 6, 5), pulpStack, null, 200, 30,
-				false));
-		RecipeHandler.addRecipe(
-				new IndustrialSawmillRecipe(new ItemStack(Blocks.LOG2, 1, 1), new ItemStack(Items.WATER_BUCKET), null,
-						new ItemStack(Blocks.PLANKS, 6, 5), pulpStack, new ItemStack(Items.BUCKET), 200, 30, false));
 	}
 
 	static void addBlastFurnaceRecipes()

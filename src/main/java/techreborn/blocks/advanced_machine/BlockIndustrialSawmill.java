@@ -10,7 +10,7 @@ import reborncore.common.blocks.IRotationTexture;
 import techreborn.Core;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
-import techreborn.tiles.TileIndustrialSawmill;
+import techreborn.tiles.multiblock.TileIndustrialSawmill;
 
 public class BlockIndustrialSawmill extends BlockMachineBase implements IRotationTexture
 {

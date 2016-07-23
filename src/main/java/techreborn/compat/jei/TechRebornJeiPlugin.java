@@ -40,8 +40,6 @@ import techreborn.compat.jei.industrialElectrolyzer.IndustrialElectrolyzerRecipe
 import techreborn.compat.jei.industrialElectrolyzer.IndustrialElectrolyzerRecipeHandler;
 import techreborn.compat.jei.industrialGrinder.IndustrialGrinderRecipeCategory;
 import techreborn.compat.jei.industrialGrinder.IndustrialGrinderRecipeHandler;
-import techreborn.compat.jei.industrialSawmill.IndustrialSawmillRecipeCategory;
-import techreborn.compat.jei.industrialSawmill.IndustrialSawmillRecipeHandler;
 import techreborn.compat.jei.rollingMachine.RollingMachineRecipeCategory;
 import techreborn.compat.jei.rollingMachine.RollingMachineRecipeHandler;
 import techreborn.compat.jei.rollingMachine.RollingMachineRecipeMaker;
@@ -126,7 +124,7 @@ import java.util.List;
 				new CentrifugeRecipeCategory(guiHelper), new ChemicalReactorRecipeCategory(guiHelper),
 				new FusionReactorRecipeCategory(guiHelper), new IndustrialGrinderRecipeCategory(guiHelper),
 				new ImplosionCompressorRecipeCategory(guiHelper), new IndustrialElectrolyzerRecipeCategory(guiHelper),
-				new IndustrialSawmillRecipeCategory(guiHelper), new RollingMachineRecipeCategory(guiHelper),
+				new RollingMachineRecipeCategory(guiHelper),
 				new VacuumFreezerRecipeCategory(guiHelper), new GrinderRecipeCategory(guiHelper),
 				new ExtractorRecipeCategory(guiHelper), new CompressorRecipeCategory(guiHelper), new ScrapboxRecipeCategory(guiHelper));
 
@@ -135,7 +133,7 @@ import java.util.List;
 				new CentrifugeRecipeHandler(jeiHelpers), new ChemicalReactorRecipeHandler(jeiHelpers),
 				new FusionReactorRecipeHandler(), new IndustrialGrinderRecipeHandler(jeiHelpers),
 				new ImplosionCompressorRecipeHandler(jeiHelpers), new IndustrialElectrolyzerRecipeHandler(jeiHelpers),
-				new IndustrialSawmillRecipeHandler(jeiHelpers), new RollingMachineRecipeHandler(),
+				new RollingMachineRecipeHandler(),
 				new VacuumFreezerRecipeHandler(jeiHelpers), new GrinderRecipeHandler(jeiHelpers),
 				new ExtractorRecipeHandler(jeiHelpers), new CompressorRecipeHandler(jeiHelpers),
 				new ScrapboxRecipeHandler(jeiHelpers));
@@ -186,7 +184,6 @@ import java.util.List;
 				RecipeCategoryUids.IMPLOSION_COMPRESSOR);
 		registry.addRecipeClickArea(GuiIndustrialElectrolyzer.class, 72, 37, 33, 14,
 				RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER);
-		registry.addRecipeClickArea(GuiIndustrialSawmill.class, 55, 36, 24, 16, RecipeCategoryUids.INDUSTRIAL_SAWMILL);
 		registry.addRecipeClickArea(GuiRollingMachine.class, 89, 32, 26, 25, RecipeCategoryUids.ROLLING_MACHINE);
 		registry.addRecipeClickArea(GuiVacuumFreezer.class, 78, 36, 24, 16, RecipeCategoryUids.VACUUM_FREEZER);
 		registry.addRecipeClickArea(GuiGrinder.class, 78, 36, 24, 16, RecipeCategoryUids.GRINDER);
@@ -215,8 +212,6 @@ import java.util.List;
 				RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER);
 		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.IndustrialGrinder),
 				RecipeCategoryUids.INDUSTRIAL_GRINDER);
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.industrialSawmill),
-				RecipeCategoryUids.INDUSTRIAL_SAWMILL);
 		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.RollingMachine),
 				RecipeCategoryUids.ROLLING_MACHINE);
 		registry.addRecipeCategoryCraftingItem(new ItemStack(ModItems.scrapBox), RecipeCategoryUids.SCRAPBOX);
@@ -247,9 +242,6 @@ import java.util.List;
 						0, 2, 4, 36);
 		recipeTransferRegistry.addRecipeTransferHandler(ContainerIndustrialElectrolyzer.class,
 				RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER, 0, 2, 7, 36);
-		recipeTransferRegistry
-				.addRecipeTransferHandler(ContainerIndustrialSawmill.class, RecipeCategoryUids.INDUSTRIAL_SAWMILL, 0, 2,
-						5, 36);
 		recipeTransferRegistry
 				.addRecipeTransferHandler(ContainerRollingMachine.class, RecipeCategoryUids.ROLLING_MACHINE, 0, 9, 11,
 						36);

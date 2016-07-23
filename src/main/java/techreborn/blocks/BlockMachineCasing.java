@@ -23,14 +23,12 @@ import reborncore.common.multiblock.BlockMultiblockBase;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileMachineCasing;
 
-public class BlockMachineCasing extends BlockMultiblockBase implements ITexturedBlock
-{
+public class BlockMachineCasing extends BlockMultiblockBase implements ITexturedBlock {
 
-	public static final String[] types = new String[] { "standard", "reinforced", "advanced" };
-	public PropertyInteger METADATA;
+	public static final String[] types = new String[]{"standard", "reinforced", "advanced"};
+	public static final PropertyInteger METADATA = PropertyInteger.create("type", 0, types.length);
 
-	public BlockMachineCasing(Material material)
-	{
+	public BlockMachineCasing(Material material) {
 		super(material);
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setUnlocalizedName("techreborn.machineCasing");
@@ -39,28 +37,21 @@ public class BlockMachineCasing extends BlockMultiblockBase implements ITextured
 	}
 
 	@Override
-	public IBlockState getStateFromMeta(int meta)
-	{
+	public IBlockState getStateFromMeta(int meta) {
 		return this.getDefaultState().withProperty(METADATA, meta);
 	}
 
 	@Override
-	public int getMetaFromState(IBlockState state)
-	{
+	public int getMetaFromState(IBlockState state) {
 		return state.getValue(METADATA);
 	}
 
-	protected BlockStateContainer createBlockState()
-	{
-
-		METADATA = PropertyInteger.create("type", 0, types.length);
+	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, METADATA);
 	}
 
-	public int getHeatFromState(IBlockState state)
-	{
-		switch (getMetaFromState(state))
-		{
+	public int getHeatFromState(IBlockState state) {
+		switch (getMetaFromState(state)) {
 			case 0:
 				return 1020 / 25;
 			case 1:
@@ -72,55 +63,42 @@ public class BlockMachineCasing extends BlockMultiblockBase implements ITextured
 	}
 
 	@Override
-	public Item getItemDropped(IBlockState state, Random rand, int fortune)
-	{
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
 		return Item.getItemFromBlock(this);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list)
-	{
-		for (int meta = 0; meta < types.length; meta++)
-		{
+	public void getSubBlocks(Item item, CreativeTabs creativeTabs, List<ItemStack> list) {
+		for (int meta = 0; meta < types.length; meta++) {
 			list.add(new ItemStack(item, 1, meta));
 		}
 	}
 
 	@Override
-	public int damageDropped(IBlockState state)
-	{
-		int meta = getMetaFromState(state);
-		return meta;
+	public int damageDropped(IBlockState state) {
+		return getMetaFromState(state);
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
-	{
+	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
 		return new TileMachineCasing();
 	}
 
 	@Override
-	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess worldIn, BlockPos pos, EnumFacing side)
-	{
+	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
 		Block b = worldIn.getBlockState(pos).getBlock();
-		return b != (Block) this && super.shouldSideBeRendered(blockState, worldIn, pos, side);
-	}
-
-	public boolean shouldConnectToBlock(IBlockAccess blockAccess, int x, int y, int z, Block block, int meta)
-	{
-		return block == this;
+		return b != this && super.shouldSideBeRendered(blockState, worldIn, pos, side);
 	}
 
 	@Override
-	public String getTextureNameFromState(IBlockState blockState, EnumFacing facing)
-	{
+	public String getTextureNameFromState(IBlockState blockState, EnumFacing facing) {
 		return "techreborn:blocks/machine/machine_blocks/casing" + types[getMetaFromState(blockState)] + "_full";
 	}
 
 	@Override
-	public int amountOfStates()
-	{
+	public int amountOfStates() {
 		return types.length;
 	}
+
 }

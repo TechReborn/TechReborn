@@ -2,12 +2,14 @@ package techreborn.client.gui;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
-import reborncore.client.gui.GuiUtil;
+import net.minecraftforge.fluids.FluidStack;
 import techreborn.client.container.ContainerIndustrialSawmill;
-import techreborn.tiles.TileIndustrialSawmill;
+import techreborn.tiles.multiblock.TileIndustrialSawmill;
 
 public class GuiIndustrialSawmill extends GuiContainer
 {
@@ -22,7 +24,7 @@ public class GuiIndustrialSawmill extends GuiContainer
 		super(new ContainerIndustrialSawmill(tilesawmill, player));
 		this.xSize = 176;
 		this.ySize = 167;
-		sawmill = tilesawmill;
+        this.sawmill = tilesawmill;
 	}
 
 	@Override
@@ -40,54 +42,54 @@ public class GuiIndustrialSawmill extends GuiContainer
 		this.mc.getTextureManager().bindTexture(texture);
 		int k = (this.width - this.xSize) / 2;
 		int l = (this.height - this.ySize) / 2;
+
 		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
 
-		int j = 0;
+		int progress = sawmill.getProgressScaled(24);
+		this.drawTexturedModalRect(k + 56, l + 38, 176, 14, progress - 1, 11);
 
-		j = sawmill.getProgressScaled(24);
-		if (j > 0)
-		{
-			this.drawTexturedModalRect(k + 56, l + 38, 176, 14, j - 1, 11);
+		int energy = 13 - (int) (sawmill.getEnergy() / sawmill.getMaxPower() * 13F);
+		drawTexturedModalRect(k + 36, l + 66 + energy, 179, 1 + energy, 7, 13 - energy);
+
+		if(!sawmill.tank.isEmpty()) {
+			drawFluid(sawmill.tank.getFluid(), k + 11, l + 66, 12, 47, sawmill.tank.getCapacity());
+
+			mc.renderEngine.bindTexture(texture);
+			drawTexturedModalRect(k + 14, l + 24, 179, 88, 9, 37);
 		}
 
-		j = (int)(sawmill.getEnergy() * 12f / sawmill.getMaxPower());
-		if (j > 0) {
-			this.drawTexturedModalRect(k + 33, l + 65 + 12 - j, 176, 12 - j, 14, j + 2);
-		}
-		// TODO 1.8
-		// if (sawmill.tank.getFluidAmount() != 0) {
-		// IIcon fluidIcon = sawmill.tank.getFluid().getFluid().getIcon();
-		// if (fluidIcon != null) {
-		// this.mc.renderEngine.bindTexture(texture);
-		//
-		//
-		// this.mc.renderEngine
-		// .bindTexture(TextureMap.locationBlocksTexture);
-		// int liquidHeight = sawmill.tank.getFluidAmount() * 47
-		// / sawmill.tank.getCapacity();
-		// GuiUtil.drawRepeated(fluidIcon, k + 11, l + 19 + 47
-		// - liquidHeight, 12.0D, liquidHeight, this.zLevel);
-		//
-		// this.mc.renderEngine.bindTexture(texture);
-		// // drawTexturedModalRect(k + 7, l + 15, 176, 31, 20, 55);
-		// }
-		// }
-		drawTexturedModalRect(k + 11, l + 19, 176, 86, 12, 47);
-		if (!sawmill.getMutliBlock())
-		{
-			GuiUtil.drawTooltipBox(k + 30, l + 50 + 12 - 0, 114, 10);
+		if (!sawmill.getMutliBlock()) {
+			//GuiUtil.drawTooltipBox(k + 30, l + 50 + 12, 114, 10);
 			this.fontRendererObj.drawString(I18n.translateToLocal("techreborn.message.missingmultiblock"), k + 38,
-					l + 52 + 12 - 0, -1);
+					l + 52 + 12, -1);
 		}
 
 	}
 
-	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_)
-	{
-		String name = I18n.translateToLocal("tile.techreborn.industrialsawmill.name");
-		this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6,
-				4210752);
-		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 58,
-				this.ySize - 96 + 2, 4210752);
+	public void drawFluid(FluidStack fluid, int x, int y, int width, int height, int maxCapacity) {
+		mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		ResourceLocation still = fluid.getFluid().getStill(fluid);
+		TextureAtlasSprite sprite = mc.getTextureMapBlocks().getAtlasSprite(still.toString());
+
+		int drawHeight = (int) ((fluid.amount / (maxCapacity * 1F)) * height);
+		int iconHeight = sprite.getIconHeight();
+		int offsetHeight = drawHeight;
+
+		int iteration = 0;
+		while(offsetHeight != 0) {
+			int curHeight = offsetHeight < iconHeight ? offsetHeight : iconHeight;
+			drawTexturedModalRect(x, y - offsetHeight, sprite, width, curHeight);
+			offsetHeight -= curHeight;
+			iteration++;
+			if(iteration > 50) break;
+		}
+
 	}
+
+	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
+		String name = I18n.translateToLocal("tile.techreborn.industrialsawmill.name");
+		this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
+		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory"), 58, this.ySize - 96 + 2, 4210752);
+	}
+
 }
