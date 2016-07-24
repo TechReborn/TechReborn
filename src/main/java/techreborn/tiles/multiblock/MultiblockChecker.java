@@ -82,4 +82,18 @@ public class MultiblockChecker {
         }
         return true;
     }
+
+    public boolean checkRingYHollow(int sizeX, int sizeZ, int casingType, BlockPos offset) {
+        for(int x = -sizeX; x <= sizeX; x++) {
+            for(int z = -sizeZ; z <= sizeZ; z++) {
+                if((x == sizeX || x == -sizeX) || (z == sizeZ || z == -sizeZ)) {
+                    if (!checkCasing(x + offset.getX(), offset.getY(), z + offset.getZ(), casingType))
+                        return false;
+                } else if (!checkAir(x + offset.getX(), offset.getY(), z + offset.getZ()))
+                    return false;
+            }
+        }
+        return true;
+    }
+
 }

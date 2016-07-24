@@ -15,7 +15,7 @@ import reborncore.common.multiblock.CoordTriplet;
 import techreborn.client.container.ContainerBlastFurnace;
 import techreborn.init.ModBlocks;
 import techreborn.proxies.ClientProxy;
-import techreborn.tiles.TileBlastFurnace;
+import techreborn.tiles.multiblock.TileBlastFurnace;
 
 import java.io.IOException;
 

@@ -9,7 +9,7 @@ import reborncore.common.blocks.IRotationTexture;
 import techreborn.Core;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
-import techreborn.tiles.TileBlastFurnace;
+import techreborn.tiles.multiblock.TileBlastFurnace;
 
 public class BlockBlastFurnace extends BlockMachineBase implements IRotationTexture
 {

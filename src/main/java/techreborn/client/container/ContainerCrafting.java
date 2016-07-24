@@ -16,7 +16,6 @@ public abstract class ContainerCrafting extends RebornContainer
 	int currentNeededTicks = 0;
 	int energy;
 
-	@Deprecated
 	public ContainerCrafting(RecipeCrafter crafter)
 	{
 		this();

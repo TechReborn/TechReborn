@@ -10,7 +10,7 @@ import reborncore.common.blocks.IRotationTexture;
 import techreborn.Core;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
-import techreborn.tiles.TileIndustrialGrinder;
+import techreborn.tiles.multiblock.TileIndustrialGrinder;
 
 public class BlockIndustrialGrinder extends BlockMachineBase implements IRotationTexture
 {

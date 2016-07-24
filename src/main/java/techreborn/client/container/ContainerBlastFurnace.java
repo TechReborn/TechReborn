@@ -4,7 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IContainerListener;
 import reborncore.client.gui.BaseSlot;
 import reborncore.client.gui.SlotOutput;
-import techreborn.tiles.TileBlastFurnace;
+import techreborn.tiles.multiblock.TileBlastFurnace;
 
 public class ContainerBlastFurnace extends ContainerCrafting
 {

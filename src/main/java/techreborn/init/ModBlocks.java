@@ -76,7 +76,7 @@ import techreborn.tiles.generator.*;
 import techreborn.tiles.idsu.TileIDSU;
 import techreborn.tiles.lesu.TileLesu;
 import techreborn.tiles.lesu.TileLesuStorage;
-import techreborn.tiles.multiblock.TileIndustrialSawmill;
+import techreborn.tiles.multiblock.*;
 import techreborn.tiles.storage.TileBatBox;
 import techreborn.tiles.storage.TileMFE;
 import techreborn.tiles.storage.TileMFSU;

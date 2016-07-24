@@ -6,7 +6,7 @@ import reborncore.client.gui.BaseSlot;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.client.gui.SlotOutput;
-import techreborn.tiles.TileImplosionCompressor;
+import techreborn.tiles.multiblock.TileImplosionCompressor;
 
 public class ContainerImplosionCompressor extends ContainerCrafting
 {

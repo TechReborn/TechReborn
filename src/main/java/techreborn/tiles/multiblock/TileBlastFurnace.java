@@ -1,4 +1,4 @@
-package techreborn.tiles;
+package techreborn.tiles.multiblock;
 
 import reborncore.common.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -6,7 +6,6 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -23,9 +22,9 @@ import techreborn.api.Reference;
 import techreborn.api.recipe.ITileRecipeHandler;
 import techreborn.api.recipe.machines.BlastFurnaceRecipe;
 import techreborn.blocks.BlockMachineCasing;
-import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.multiblocks.MultiBlockCasing;
+import techreborn.tiles.TileMachineCasing;
 
 public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable,IInventoryProvider, ISidedInventory, ITileRecipeHandler<BlastFurnaceRecipe>, IRecipeCrafterProvider {
 

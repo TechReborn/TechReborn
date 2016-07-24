@@ -9,7 +9,7 @@ import reborncore.common.blocks.IRotationTexture;
 import techreborn.Core;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
-import techreborn.tiles.TileImplosionCompressor;
+import techreborn.tiles.multiblock.TileImplosionCompressor;
 
 public class BlockImplosionCompressor extends BlockMachineBase implements IRotationTexture
 {

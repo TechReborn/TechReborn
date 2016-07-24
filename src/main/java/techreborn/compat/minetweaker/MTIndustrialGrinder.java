@@ -31,9 +31,9 @@ public class MTIndustrialGrinder extends MTGeneric {
             fluidStack = MinetweakerCompat.toFluidStack(fluid);
         }
 
-        IndustrialGrinderRecipe r = new IndustrialGrinderRecipe(oInput1, oInput2, fluidStack, MinetweakerCompat.toStack(output1), MinetweakerCompat.toStack(output2), MinetweakerCompat.toStack(output3), MinetweakerCompat.toStack(output4), ticktime, euTick);
-
-        addRecipe(r);
+        //FIXME 25.07.2016
+        //IndustrialGrinderRecipe r = new IndustrialGrinderRecipe(oInput1, oInput2, fluidStack, MinetweakerCompat.toStack(output1), MinetweakerCompat.toStack(output3), MinetweakerCompat.toStack(output4), ticktime, euTick);
+        //addRecipe(r);
     }
 
     @ZenMethod

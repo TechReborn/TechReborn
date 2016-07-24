@@ -9,13 +9,11 @@ public class IndustrialGrinderRecipe extends BaseRecipe {
 
     public FluidStack fluidStack;
 
-    public IndustrialGrinderRecipe(ItemStack input1, ItemStack input2, FluidStack fluidStack, ItemStack output1,
+    public IndustrialGrinderRecipe(ItemStack input1, FluidStack fluidStack, ItemStack output1,
                                    ItemStack output2, ItemStack output3, ItemStack output4, int tickTime, int euPerTick) {
         super(Reference.industrialGrinderRecipe, tickTime, euPerTick);
         if (input1 != null)
             inputs.add(input1);
-        if (input2 != null)
-            inputs.add(input2);
         if (output1 != null)
             addOutput(output1);
         if (output2 != null)
