@@ -8,8 +8,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
-import reborncore.common.powerSystem.PowerSystem;
-import techreborn.api.reactor.FusionReactorRecipe;
+import reborncore.common.util.PowerLocalization;
 import techreborn.client.container.ContainerFusionReactor;
 import techreborn.tiles.fusionReactor.TileEntityFusionController;
 
@@ -30,7 +29,7 @@ public class GuiFusionReactor extends GuiContainer
 		this.fontRendererObj.drawString(name, 87, 6, 4210752);
 		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
 
-		this.fontRendererObj.drawString(PowerSystem.getLocalizedPower(containerFusionReactor.energy), 11, 8, 16448255);
+		this.fontRendererObj.drawString(PowerLocalization.getLocalizedPower(containerFusionReactor.energy), 11, 8, 16448255);
 		this.fontRendererObj.drawString("Coils: " + (containerFusionReactor.hasCoils ? "Yes" : "No"), 11, 16, 16448255);
 
 		if(containerFusionReactor.tickTime != -1) {

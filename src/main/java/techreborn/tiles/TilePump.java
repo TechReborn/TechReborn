@@ -10,7 +10,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import reborncore.api.power.EnumPowerTier;
-import reborncore.common.powerSystem.PowerSystem;
+import reborncore.common.util.PowerLocalization;
 import reborncore.common.tile.TilePowerAcceptor;
 import reborncore.common.util.Tank;
 import techreborn.config.ConfigTechReborn;
@@ -41,7 +41,7 @@ public class TilePump extends TilePowerAcceptor implements IFluidHandler {
     public void addInfo(List<String> info, boolean isRealTile) {
         super.addInfo(info, isRealTile);
         info.add(TextFormatting.LIGHT_PURPLE + "Eu per extract " + TextFormatting.GREEN
-                + PowerSystem.getLocalizedPower(ConfigTechReborn.pumpExtractEU));
+                + PowerLocalization.getLocalizedPower(ConfigTechReborn.pumpExtractEU));
         info.add(TextFormatting.LIGHT_PURPLE + "Speed: " + TextFormatting.GREEN
                 + "1000mb/5 sec");
     }

@@ -55,6 +55,7 @@ import techreborn.blocks.tier1.BlockElectricFurnace;
 import techreborn.blocks.tier1.BlockExtractor;
 import techreborn.blocks.tier1.BlockGrinder;
 import techreborn.blocks.tier1.BlockRecycler;
+import techreborn.blocks.transformers.BlockEVTransformer;
 import techreborn.blocks.transformers.BlockHVTransformer;
 import techreborn.blocks.transformers.BlockLVTransformer;
 import techreborn.blocks.transformers.BlockMVTransformer;
@@ -85,6 +86,7 @@ import techreborn.tiles.teir1.TileElectricFurnace;
 import techreborn.tiles.teir1.TileExtractor;
 import techreborn.tiles.teir1.TileGrinder;
 import techreborn.tiles.teir1.TileRecycler;
+import techreborn.tiles.transformers.TileEVTransformer;
 import techreborn.tiles.transformers.TileHVTransformer;
 import techreborn.tiles.transformers.TileLVTransformer;
 import techreborn.tiles.transformers.TileMVTransformer;
@@ -147,10 +149,12 @@ public class ModBlocks
 	public static Block mfe;
 	public static Block mfsu;
 	public static Block scrapboxinator;
+    public static Block pump;
+
 	public static Block lvt;
 	public static Block mvt;
 	public static Block hvt;
-	public static Block pump;
+    public static Block evt;
 
 	public static BlockOre ore;
 	public static BlockOre2 ore2;
@@ -437,7 +441,11 @@ public class ModBlocks
 		distributor = new BlockDistributor();
 		registerBlock(distributor, "distributor");
 
-		registerOreDict();
+        evt = new BlockEVTransformer();
+        registerBlock(evt, "evt");
+        GameRegistry.registerTileEntity(TileEVTransformer.class, "TileEVTransformer");
+
+        registerOreDict();
 		Core.logHelper.info("TechReborns Blocks Loaded");
 	}
 

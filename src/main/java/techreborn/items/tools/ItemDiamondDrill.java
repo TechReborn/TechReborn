@@ -32,4 +32,5 @@ public class ItemDiamondDrill extends ItemDrill
 	{
 		return 1;
 	}
+
 }

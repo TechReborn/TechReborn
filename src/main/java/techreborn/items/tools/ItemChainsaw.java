@@ -20,12 +20,13 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.RebornCore;
 import reborncore.api.power.IEnergyItemInfo;
-import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.util.TorchHelper;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 
 import net.minecraft.item.Item.ToolMaterial;
+import techreborn.power.EnergyItem;
+
 public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, ITexturedItem , IHandHeld
 {
 
@@ -137,14 +138,14 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, ITexturedI
 		itemList.add(itemStack);
 
 		ItemStack charged = new ItemStack(this, 1);
-		PoweredItem.setEnergy(getMaxPower(charged), charged);
+		EnergyItem.setEnergy(getMaxPower(charged), charged);
 		itemList.add(charged);
 	}
 
 	@Override
 	public double getDurabilityForDisplay(ItemStack stack)
 	{
-		double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
+		double charge = (EnergyItem.getEnergy(stack) / getMaxPower(stack));
 		return 1 - charge;
 
 	}

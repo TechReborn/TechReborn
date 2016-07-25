@@ -4,7 +4,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
-import reborncore.common.powerSystem.PowerSystem;
+import reborncore.common.util.PowerLocalization;
 import techreborn.client.container.ContainerMFSU;
 import techreborn.tiles.storage.TileMFSU;
 
@@ -66,9 +66,9 @@ public class GuiMFSU extends GuiContainer
 
 		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), this.xSize - 60,
 				this.ySize - 96 + 2, 4210752);
-		this.fontRendererObj.drawString(PowerSystem.getLocalizedPower(generator.getMaxPower()), 110, this.ySize - 150,
+		this.fontRendererObj.drawString(PowerLocalization.getLocalizedPower(generator.getMaxPower()), 110, this.ySize - 150,
 				4210752);
-		this.fontRendererObj.drawString(PowerSystem.getLocalizedPower(containerGenerator.energy), 110, this.ySize - 160,
+		this.fontRendererObj.drawString(PowerLocalization.getLocalizedPower(containerGenerator.energy), 110, this.ySize - 160,
 				4210752);
 	}
 }

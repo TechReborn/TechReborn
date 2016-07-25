@@ -10,9 +10,8 @@ import techreborn.init.ModBlocks;
 public class TileLVTransformer extends TileTransformer
 {
 
-	public TileLVTransformer()
-	{
-		super("LVTransformer", ModBlocks.lvt, EnumPowerTier.LOW, ConfigTechReborn.LVTransformerMaxInput, ConfigTechReborn.LVTransformerMaxOutput, ConfigTechReborn.LVTransformerMaxInput*2);
+	public TileLVTransformer() {
+		super("LVTransformer", ModBlocks.lvt, EnumPowerTier.MEDIUM, 128, 32, 128);
 	}
 
 }

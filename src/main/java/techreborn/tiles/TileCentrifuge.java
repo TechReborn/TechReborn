@@ -12,7 +12,6 @@ import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IContainerProvider;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.container.RebornContainer;
-import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.tile.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
@@ -50,18 +49,6 @@ public class TileCentrifuge extends TilePowerAcceptor implements IWrenchable,IIn
 		super.update();
 		crafter.updateEntity();
 		// charge(6); TODO
-		if (inventory.getStackInSlot(6) != null) {
-			ItemStack stack = inventory.getStackInSlot(6);
-			if (stack.getItem() instanceof IEnergyItemInfo) {
-				IEnergyItemInfo item = (IEnergyItemInfo) stack.getItem();
-				if (item.canProvideEnergy(stack)) {
-					if (getEnergy() != getMaxPower()) {
-						addEnergy(item.getMaxTransfer(stack));
-						PoweredItem.setEnergy(PoweredItem.getEnergy(stack) - item.getMaxTransfer(stack), stack);
-					}
-				}
-			}
-		}
 	}
 
 	@Override

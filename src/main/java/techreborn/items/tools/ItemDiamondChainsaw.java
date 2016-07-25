@@ -32,4 +32,5 @@ public class ItemDiamondChainsaw extends ItemChainsaw
 	{
 		return 1;
 	}
+
 }

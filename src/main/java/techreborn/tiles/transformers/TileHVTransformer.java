@@ -12,7 +12,7 @@ public class TileHVTransformer extends TileTransformer
 
 	public TileHVTransformer()
 	{
-		super("HVTransformer", ModBlocks.hvt, EnumPowerTier.EXTREME, ConfigTechReborn.HVTransformerMaxInput, ConfigTechReborn.HVTransformerMaxOutput, ConfigTechReborn.HVTransformerMaxInput*2);
+		super("HVTransformer", ModBlocks.hvt, EnumPowerTier.HIGH, 2048, 512, 2048);
 	}
 
 }

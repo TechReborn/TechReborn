@@ -23,4 +23,5 @@ public class ItemDiamondJackhammer extends ItemJackhammer
 	{
 		return 1;
 	}
+
 }

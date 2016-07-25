@@ -15,9 +15,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import reborncore.common.powerSystem.PowerSystem;
+import reborncore.common.util.PowerLocalization;
 import techreborn.init.ModBlocks;
-import techreborn.tiles.TileAesu;
 
 public class ItemBlockAesu extends ItemBlock
 {
@@ -35,7 +34,7 @@ public class ItemBlockAesu extends ItemBlock
 		if (stack != null && stack.hasTagCompound())
 		{
 			if (stack.getTagCompound().getCompoundTag("tileEntity") != null)
-				list.add(PowerSystem.getLocalizedPower(stack.getTagCompound().getCompoundTag("tileEntity").getInteger("energy")));
+				list.add(PowerLocalization.getLocalizedPower(stack.getTagCompound().getCompoundTag("tileEntity").getInteger("energy")));
 		}
 	}
 

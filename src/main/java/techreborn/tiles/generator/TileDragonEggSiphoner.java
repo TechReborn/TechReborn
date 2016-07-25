@@ -1,6 +1,5 @@
 package techreborn.tiles.generator;
 
-import reborncore.common.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -8,7 +7,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.IWrenchable;
 import reborncore.common.tile.TilePowerProducer;
 import reborncore.common.util.Inventory;
 import techreborn.config.ConfigTechReborn;
