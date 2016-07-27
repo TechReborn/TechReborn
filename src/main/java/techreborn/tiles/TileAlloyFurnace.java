@@ -267,4 +267,19 @@ public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, II
 		return inventory;
 	}
 
+    @Override
+    public int[] getSlotsForFace(EnumFacing side) {
+        return new int[] {0, 1, 2};
+    }
+
+    @Override
+    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+        return index == 0 || index == 1;
+    }
+
+    @Override
+    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+        return index == 2;
+    }
+
 }

@@ -1,5 +1,6 @@
 package techreborn.tiles.teir1;
 
+import net.minecraft.inventory.ISidedInventory;
 import reborncore.common.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -17,12 +18,16 @@ import reborncore.common.util.Inventory;
 import techreborn.api.Reference;
 import techreborn.client.container.ContainerGrinder;
 import techreborn.init.ModBlocks;
+import techreborn.utils.upgrade.UpgradeHandler;
 
-public class TileGrinder extends TilePowerAcceptor implements IWrenchable,IInventoryProvider,
-		IListInfoProvider, IRecipeCrafterProvider, IContainerProvider {
+public class TileGrinder extends TilePowerAcceptor implements IWrenchable, IInventoryProvider,
+		IListInfoProvider, IRecipeCrafterProvider, IContainerProvider, ISidedInventory {
 
 	public Inventory inventory = new Inventory(6, "TileGrinder", 64, this);
+
+    public UpgradeHandler upgradeHandler;
 	public RecipeCrafter crafter;
+
 	public int capacity = 1000;
 
 	public TileGrinder() {
@@ -31,12 +36,14 @@ public class TileGrinder extends TilePowerAcceptor implements IWrenchable,IInven
 		int[] outputs = new int[1];
 		outputs[0] = 1;
 		crafter = new RecipeCrafter(Reference.grinderRecipe, this, 2, 1, inventory, inputs, outputs);
+        upgradeHandler = new UpgradeHandler(crafter, inventory, 2, 3, 4, 5);
 	}
 
 	@Override
 	public void update() {
 		super.update();
 		crafter.updateEntity();
+        upgradeHandler.tick();
 		//charge(3); TODO
 	}
 
@@ -63,10 +70,6 @@ public class TileGrinder extends TilePowerAcceptor implements IWrenchable,IInven
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.Grinder, 1);
-	}
-
-	public boolean isComplete() {
-		return false;
 	}
 
 	@Override
@@ -114,4 +117,19 @@ public class TileGrinder extends TilePowerAcceptor implements IWrenchable,IInven
 	public RebornContainer getContainer() {
 		return RebornContainer.getContainerFromClass(ContainerGrinder.class, this);
 	}
+
+    @Override
+    public int[] getSlotsForFace(EnumFacing side) {
+        return new int[] {0, 1};
+    }
+
+    @Override
+    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+        return index == 0;
+    }
+
+    @Override
+    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+        return index == 1;
+    }
 }

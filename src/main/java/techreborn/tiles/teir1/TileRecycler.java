@@ -142,21 +142,15 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable,IInve
 		return new ItemStack(ModBlocks.recycler, 1);
 	}
 
-	public boolean isComplete() {
-		return false;
-	}
-
 	// ISidedInventory
 	@Override
 	public int[] getSlotsForFace(EnumFacing side) {
-		return side == EnumFacing.DOWN ? new int[]{output} : new int[]{input1};
+		return new int[] {input1, output};
 	}
 
 	@Override
 	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
-		if (slotIndex == output)
-			return false;
-		return isItemValidForSlot(slotIndex, itemStack);
+		return slotIndex == input1;
 	}
 
 	@Override

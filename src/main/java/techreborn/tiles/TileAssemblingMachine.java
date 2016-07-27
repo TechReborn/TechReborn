@@ -65,39 +65,6 @@ public class TileAssemblingMachine extends TilePowerAcceptor implements IWrencha
 		return new ItemStack(ModBlocks.AssemblyMachine, 1);
 	}
 
-	public boolean isComplete() {
-		return false;
-	}
-
-
-	// ISidedInventory
-	@Override
-	public int[] getSlotsForFace(EnumFacing side) {
-		return side == EnumFacing.DOWN ? new int[]{0, 1, 2} : new int[]{0, 1, 2};
-	}
-
-	@Override
-	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
-		if (slotIndex == 2)
-			return false;
-		return isItemValidForSlot(slotIndex, itemStack);
-	}
-
-	@Override
-	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
-		return slotIndex == 2;
-	}
-
-	// @Override
-	// public void addWailaInfo(List<String> info)
-	// {
-	// super.addWailaInfo(info);
-	// info.add("Power Stored " + energy.getEnergyStored() +" EU");
-	// if(crafter.currentRecipe !=null){
-	// info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
-	// }
-	// }
-
 	public int getProgressScaled(int scale) {
 		if (crafter.currentTickTime != 0) {
 			return crafter.currentTickTime * scale / crafter.currentNeededTicks;
@@ -129,5 +96,20 @@ public class TileAssemblingMachine extends TilePowerAcceptor implements IWrencha
 	public RebornContainer getContainer() {
 		return RebornContainer.getContainerFromClass(ContainerAssemblingMachine.class, this);
 	}
+
+    @Override
+    public int[] getSlotsForFace(EnumFacing side) {
+        return new int[] {0, 1, 2};
+    }
+
+    @Override
+    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+        return index == 0 || index == 1;
+    }
+
+    @Override
+    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+        return index == 2;
+    }
 
 }

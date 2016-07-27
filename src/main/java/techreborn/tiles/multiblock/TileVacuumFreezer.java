@@ -1,6 +1,7 @@
 package techreborn.tiles.multiblock;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -17,7 +18,7 @@ import techreborn.init.ModBlocks;
 import static techreborn.tiles.multiblock.MultiblockChecker.CASING_REINFORCED;
 import static techreborn.tiles.multiblock.MultiblockChecker.ZERO_OFFSET;
 
-public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,IInventoryProvider, IRecipeCrafterProvider {
+public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,IInventoryProvider, IRecipeCrafterProvider, ISidedInventory {
 
 	public Inventory inventory = new Inventory(3, "TileVacuumFreezer", 64, this);
     public MultiblockChecker multiblockChecker;
@@ -110,5 +111,20 @@ public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,
 	public RecipeCrafter getRecipeCrafter() {
 		return crafter;
 	}
+
+    @Override
+    public int[] getSlotsForFace(EnumFacing side) {
+        return new int[] {0, 1};
+    }
+
+    @Override
+    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+        return index == 0;
+    }
+
+    @Override
+    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+        return index == 1;
+    }
 
 }

@@ -16,11 +16,15 @@ import reborncore.common.util.Inventory;
 import techreborn.api.Reference;
 import techreborn.client.container.ContainerExtractor;
 import techreborn.init.ModBlocks;
+import techreborn.utils.upgrade.UpgradeHandler;
 
 public class TileExtractor extends TilePowerAcceptor implements IWrenchable,IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
 
 	public Inventory inventory = new Inventory(6, "TileExtractor", 64, this);
+
+    public UpgradeHandler upgradeHandler;
 	public RecipeCrafter crafter;
+
 	public int capacity = 1000;
 
 	public TileExtractor() {
@@ -29,13 +33,14 @@ public class TileExtractor extends TilePowerAcceptor implements IWrenchable,IInv
 		int[] outputs = new int[1];
 		outputs[0] = 1;
 		crafter = new RecipeCrafter(Reference.extractorRecipe, this, 2, 1, inventory, inputs, outputs);
+        upgradeHandler = new UpgradeHandler(crafter, inventory, 2, 3, 4, 5);
 	}
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
+	public void update() {
+		super.update();
 		crafter.updateEntity();
-		// upgrades.tick();
+		upgradeHandler.tick();
 		//charge(3); TODO
 	}
 
@@ -111,4 +116,20 @@ public class TileExtractor extends TilePowerAcceptor implements IWrenchable,IInv
 	public RebornContainer getContainer() {
 		return RebornContainer.getContainerFromClass(ContainerExtractor.class, this);
 	}
+
+    @Override
+    public int[] getSlotsForFace(EnumFacing side) {
+        return new int[] {0, 1};
+    }
+
+    @Override
+    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+        return index == 0;
+    }
+
+    @Override
+    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+        return index == 1;
+    }
+
 }

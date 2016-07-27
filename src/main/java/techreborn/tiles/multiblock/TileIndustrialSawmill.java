@@ -188,21 +188,20 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
 		return new FluidTankInfo[]{tank.getInfo()};
 	}
 
-	// ISidedInventory
-	@Override
-	public int[] getSlotsForFace(EnumFacing side) {
-		return side == EnumFacing.DOWN ? new int[]{0, 1, 2, 3, 4} : new int[]{0, 1, 2, 3, 4};
-	}
-
-	@Override
-	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
-        return slotIndex < 2 && isItemValidForSlot(slotIndex, itemStack);
+    @Override
+    public int[] getSlotsForFace(EnumFacing side) {
+        return new int[] {0, 2, 3, 4, 5};
     }
 
-	@Override
-	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
-		return slotIndex == 2 || slotIndex == 3 || slotIndex == 4;
-	}
+    @Override
+    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+        return index == 0;
+    }
+
+    @Override
+    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+        return index >= 2;
+    }
 
 	public int getProgressScaled(int scale) {
 		if (tickTime != 0) {

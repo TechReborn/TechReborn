@@ -1,5 +1,6 @@
 package techreborn.tiles.teir1;
 
+import ic2.core.upgrade.IUpgradeItem;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -10,9 +11,11 @@ import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.tile.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.init.ModBlocks;
+import techreborn.utils.upgrade.UpgradeHandler;
 
 public class TileElectricFurnace extends TilePowerAcceptor implements IWrenchable,IInventoryProvider, ISidedInventory {
 
@@ -34,6 +37,7 @@ public class TileElectricFurnace extends TilePowerAcceptor implements IWrenchabl
 	public void update() {
 		super.update();
 		//charge(3); TODO
+
 		boolean burning = isBurning();
 		boolean updateInventory = false;
 		if (isBurning() && canSmelt()) {
@@ -144,22 +148,20 @@ public class TileElectricFurnace extends TilePowerAcceptor implements IWrenchabl
 	}
 
 	// ISidedInventory
-	@Override
-	public int[] getSlotsForFace(EnumFacing side) {
-		return side == EnumFacing.DOWN ? SLOTS_BOTTOM : (side == EnumFacing.UP ? SLOTS_TOP : SLOTS_SIDES);
-	}
+    @Override
+    public int[] getSlotsForFace(EnumFacing side) {
+        return new int[] {0, 1};
+    }
 
-	@Override
-	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
-		if (slotIndex == 2)
-			return false;
-		return isItemValidForSlot(slotIndex, itemStack);
-	}
+    @Override
+    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+        return index == 0;
+    }
 
-	@Override
-	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
-		return slotIndex == 2;
-	}
+    @Override
+    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+        return index == 1;
+    }
 
 	@Override
 	public double getMaxPower() {

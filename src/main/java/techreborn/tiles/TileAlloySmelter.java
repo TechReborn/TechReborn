@@ -36,7 +36,7 @@ public class TileAlloySmelter extends TilePowerAcceptor implements IWrenchable,I
 
 	@Override
 	public void update() {
-		super.updateEntity();
+		super.update();
 		crafter.updateEntity();
 		upgrades.tick();
 		//charge(3); TODO
@@ -95,23 +95,20 @@ public class TileAlloySmelter extends TilePowerAcceptor implements IWrenchable,I
 	// }
 	// }
 
-	// ISidedInventory
-	@Override
-	public int[] getSlotsForFace(EnumFacing side) {
-		return side == EnumFacing.DOWN ? new int[]{0, 1, 2} : new int[]{0, 1, 2};
-	}
+    @Override
+    public int[] getSlotsForFace(EnumFacing side) {
+        return new int[] {0, 1, 2};
+    }
 
-	@Override
-	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
-		if (slotIndex == 2)
-			return false;
-		return isItemValidForSlot(slotIndex, itemStack);
-	}
+    @Override
+    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+        return index == 0 || index == 1;
+    }
 
-	@Override
-	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
-		return slotIndex == 2;
-	}
+    @Override
+    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+        return index == 2;
+    }
 
 	public int getProgressScaled(int scale) {
 		if (crafter.currentTickTime != 0 && crafter.currentNeededTicks != 0) {

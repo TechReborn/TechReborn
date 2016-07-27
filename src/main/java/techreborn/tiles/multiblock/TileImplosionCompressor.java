@@ -1,28 +1,21 @@
 package techreborn.tiles.multiblock;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
-import reborncore.common.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.misc.Location;
+import reborncore.common.IWrenchable;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.tile.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.api.Reference;
-import techreborn.blocks.BlockMachineCasing;
 import techreborn.init.ModBlocks;
-import techreborn.tiles.TileMachineCasing;
 
-import static techreborn.tiles.multiblock.MultiblockChecker.CASING_NORMAL;
 import static techreborn.tiles.multiblock.MultiblockChecker.CASING_REINFORCED;
 import static techreborn.tiles.multiblock.MultiblockChecker.ZERO_OFFSET;
 
@@ -97,20 +90,19 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
         return tagCompound;
     }
 
-    // ISidedInventory
     @Override
     public int[] getSlotsForFace(EnumFacing side) {
-        return side == EnumFacing.DOWN ? new int[]{0, 1, 2, 3} : new int[]{0, 1, 2, 3};
+        return new int[] {0, 1};
     }
 
     @Override
-    public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
-        return slotIndex < 2 && isItemValidForSlot(slotIndex, itemStack);
+    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+        return index == 0;
     }
 
     @Override
-    public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
-        return slotIndex == 2 || slotIndex == 3;
+    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+        return index == 1;
     }
 
     public int getProgressScaled(int scale) {
