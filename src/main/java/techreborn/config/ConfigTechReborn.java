@@ -538,7 +538,7 @@ public class ConfigTechReborn
 				.getBoolean(true);
 
 		UseConnectedTextures = config.get(CATEGORY_INTEGRATION, "Render Conected Textures", true,
-				"Render Conected Textures (Clinet Side Only)").getBoolean(true);
+				"Render Conected Textures (Client Side Only)").getBoolean(true);
 
 		OreUnifer = config.get(CATEGORY_INTEGRATION, "OreUnifer", false, "Change all ores into TechReborn Ores")
 				.getBoolean(false);
