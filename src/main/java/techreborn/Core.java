@@ -62,7 +62,7 @@ public class Core {
     @Mod.Instance
     public static Core INSTANCE;
     public static LogHelper logHelper = new LogHelper(new ModInfo());
-    //public static TechRebornWorldGen worldGen;
+    public static TechRebornWorldGen worldGen;
     public static File configDir;
     public VersionChecker versionChecker;
 
@@ -78,9 +78,9 @@ public class Core {
             configDir.mkdir();
         }
         config = ConfigTechReborn.initialize(new File(configDir, "main.cfg"));
-        //worldGen = new TechRebornWorldGen();
-        //worldGen.configFile = (new File(configDir, "ores.json"));
-        //worldGen.hConfigFile = (new File(configDir, "ores.hjson"));
+        worldGen = new TechRebornWorldGen();
+        worldGen.configFile = (new File(configDir, "ores.json"));
+        worldGen.hConfigFile = (new File(configDir, "ores.hjson"));
 
         TechRebornAPI.subItemRetriever = new SubItemRetriever();
 
@@ -135,7 +135,7 @@ public class Core {
         // Client only init, needs to be done before parts system
         proxy.init(event);
         // WorldGen
-        //worldGen.load();
+        worldGen.load();
         //GameRegistry.registerWorldGenerator(worldGen, 0);
 
         // DungeonLoot.init();
