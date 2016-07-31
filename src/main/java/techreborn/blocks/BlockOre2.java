@@ -72,9 +72,8 @@ public class BlockOre2 extends BaseBlock implements ITexturedBlock, IOreNameProv
 				break;
 			}
 		}
-		if (index == -1)
-		{
-			return ModBlocks.ore2.getBlockStateFromName(name);
+		if (index == -1) {
+            throw new InvalidParameterException("The ore block " + name + " could not be found.");
 		}
 		return getStateFromMeta(index);
 	}

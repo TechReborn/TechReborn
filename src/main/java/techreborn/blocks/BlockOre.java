@@ -34,152 +34,134 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class BlockOre extends BaseBlock implements ITexturedBlock, IOreNameProvider
-{
+public class BlockOre extends BaseBlock implements ITexturedBlock, IOreNameProvider {
 
-	public static final String[] ores = new String[] { "galena", "iridium", "ruby", "sapphire", "bauxite", "pyrite",
-			"cinnabar", "sphalerite", "tungston", "sheldonite", "peridot", "sodalite",
-			"lead", "silver" };
-	static List<String> oreNamesList = Lists.newArrayList(ArrayUtils.arrayToLowercase(ores));
-	public PropertyString VARIANTS = new PropertyString("type", oreNamesList);
+    public static final String[] ores = new String[]{
+            "galena", "iridium", "ruby", "sapphire", "bauxite", "pyrite",
+            "cinnabar", "sphalerite", "tungsten", "sheldonite", "peridot", "sodalite",
+            "lead", "silver"};
 
-	public BlockOre(Material material)
-	{
-		super(material);
-		setUnlocalizedName("techreborn.ore");
-		setCreativeTab(TechRebornCreativeTabMisc.instance);
-		setHardness(2.0f);
-		setHarvestLevel("pickaxe", 2);
-		this.setDefaultState(this.getStateFromMeta(0));
-	}
+    private static final List<String> oreNamesList = Lists.newArrayList(ArrayUtils.arrayToLowercase(ores));
 
-	public static ItemStack getOreByName(String name, int count)
-	{
-		for (int i = 0; i < ores.length; i++)
-		{
-			if (ores[i].equalsIgnoreCase(name))
-			{
-				return new ItemStack(ModBlocks.ore, count, i);
-			}
-		}
-		return BlockOre2.getOreByName(name, count);
-	}
+    public static final PropertyString VARIANTS = new PropertyString("type", oreNamesList);
 
-	public static ItemStack getOreByName(String name)
-	{
-		return getOreByName(name, 1);
-	}
+    public BlockOre(Material material) {
+        super(material);
+        setUnlocalizedName("techreborn.ore");
+        setCreativeTab(TechRebornCreativeTabMisc.instance);
+        setHardness(2.0f);
+        setHarvestLevel("pickaxe", 2);
+        this.setDefaultState(this.getStateFromMeta(0));
+    }
 
-	public IBlockState getBlockStateFromName(String name)
-	{
-		int index = -1;
-		for (int i = 0; i < ores.length; i++)
-		{
-			if (ores[i].equalsIgnoreCase(name))
-			{
-				index = i;
-				break;
-			}
-		}
-		if (index == -1)
-		{
-			return ModBlocks.ore2.getBlockStateFromName(name);
-		}
-		return getStateFromMeta(index);
-	}
+    public static ItemStack getOreByName(String name, int count) {
+        for (int i = 0; i < ores.length; i++) {
+            if (ores[i].equalsIgnoreCase(name)) {
+                return new ItemStack(ModBlocks.ore, count, i);
+            }
+        }
+        return BlockOre2.getOreByName(name, count);
+    }
 
-	@Deprecated
-	public ArrayList<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
-	{
-		String variant = state.getValue(VARIANTS);
-		int meta = getMetaFromState(state);
-		Random random = new Random();
-		// Ruby
-		if (variant.equalsIgnoreCase("Ruby"))
-		{
-			OreDrop ruby = new OreDrop(ItemGems.getGemByName("ruby"),
-					ConfigTechReborn.FortuneSecondaryOreMultiplierPerLevel);
-			OreDrop redGarnet = new OreDrop(ItemGems.getGemByName("redGarnet"), 0.02);
-			OreDropSet set = new OreDropSet(ruby, redGarnet);
-			return set.drop(fortune, random);
-		}
+    public static ItemStack getOreByName(String name) {
+        return getOreByName(name, 1);
+    }
 
-		// Sapphire
-		if (variant.equalsIgnoreCase("Sapphire"))
-		{
-			OreDrop sapphire = new OreDrop(ItemGems.getGemByName("sapphire"),
-					ConfigTechReborn.FortuneSecondaryOreMultiplierPerLevel);
-			OreDrop peridot = new OreDrop(ItemGems.getGemByName("peridot"), 0.03);
-			OreDropSet set = new OreDropSet(sapphire, peridot);
-			return set.drop(fortune, random);
-		}
+    public IBlockState getBlockStateFromName(String name) {
+        int index = -1;
+        for (int i = 0; i < ores.length; i++) {
+            if (ores[i].equalsIgnoreCase(name)) {
+                index = i;
+                break;
+            }
+        }
+        if (index == -1) {
+            return ModBlocks.ore2.getBlockStateFromName(name);
+        }
+        return getStateFromMeta(index);
+    }
 
-		// Pyrite
-		if (variant.equalsIgnoreCase("Pyrite"))
-		{
-			OreDrop pyriteDust = new OreDrop(ItemDusts.getDustByName("pyrite"),
-					ConfigTechReborn.FortuneSecondaryOreMultiplierPerLevel);
-			OreDropSet set = new OreDropSet(pyriteDust);
-			return set.drop(fortune, random);
-		}
+    @Deprecated
+    public ArrayList<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+        String variant = state.getValue(VARIANTS);
+        int meta = getMetaFromState(state);
+        Random random = new Random();
+        // Ruby
+        if (variant.equalsIgnoreCase("Ruby")) {
+            OreDrop ruby = new OreDrop(ItemGems.getGemByName("ruby"),
+                    ConfigTechReborn.FortuneSecondaryOreMultiplierPerLevel);
+            OreDrop redGarnet = new OreDrop(ItemGems.getGemByName("redGarnet"), 0.02);
+            OreDropSet set = new OreDropSet(ruby, redGarnet);
+            return set.drop(fortune, random);
+        }
 
-		// Sodalite
-		if (variant.equalsIgnoreCase("Sodalite"))
-		{
-			OreDrop sodalite = new OreDrop(ItemDusts.getDustByName("sodalite", 6),
-					ConfigTechReborn.FortuneSecondaryOreMultiplierPerLevel);
-			OreDrop aluminum = new OreDrop(ItemDusts.getDustByName("aluminum"), 0.50);
-			OreDropSet set = new OreDropSet(sodalite, aluminum);
-			return set.drop(fortune, random);
-		}
+        // Sapphire
+        if (variant.equalsIgnoreCase("Sapphire")) {
+            OreDrop sapphire = new OreDrop(ItemGems.getGemByName("sapphire"),
+                    ConfigTechReborn.FortuneSecondaryOreMultiplierPerLevel);
+            OreDrop peridot = new OreDrop(ItemGems.getGemByName("peridot"), 0.03);
+            OreDropSet set = new OreDropSet(sapphire, peridot);
+            return set.drop(fortune, random);
+        }
 
-		// Cinnabar
-		if (variant.equalsIgnoreCase("Cinnabar"))
-		{
-			OreDrop cinnabar = new OreDrop(ItemDusts.getDustByName("cinnabar"),
-					ConfigTechReborn.FortuneSecondaryOreMultiplierPerLevel);
-			OreDrop redstone = new OreDrop(new ItemStack(Items.REDSTONE), 0.25);
-			OreDropSet set = new OreDropSet(cinnabar, redstone);
-			return set.drop(fortune, random);
-		}
+        // Pyrite
+        if (variant.equalsIgnoreCase("Pyrite")) {
+            OreDrop pyriteDust = new OreDrop(ItemDusts.getDustByName("pyrite"),
+                    ConfigTechReborn.FortuneSecondaryOreMultiplierPerLevel);
+            OreDropSet set = new OreDropSet(pyriteDust);
+            return set.drop(fortune, random);
+        }
 
-		// Sphalerite 1, 1/8 yellow garnet
-		if (variant.equalsIgnoreCase("Sphalerite"))
-		{
-			OreDrop sphalerite = new OreDrop(ItemDusts.getDustByName("sphalerite"),
-					ConfigTechReborn.FortuneSecondaryOreMultiplierPerLevel);
-			OreDrop yellowGarnet = new OreDrop(ItemGems.getGemByName("yellowGarnet"), 0.125);
-			OreDropSet set = new OreDropSet(sphalerite, yellowGarnet);
-			return set.drop(fortune, random);
-		}
+        // Sodalite
+        if (variant.equalsIgnoreCase("Sodalite")) {
+            OreDrop sodalite = new OreDrop(ItemDusts.getDustByName("sodalite", 6),
+                    ConfigTechReborn.FortuneSecondaryOreMultiplierPerLevel);
+            OreDrop aluminum = new OreDrop(ItemDusts.getDustByName("aluminum"), 0.50);
+            OreDropSet set = new OreDropSet(sodalite, aluminum);
+            return set.drop(fortune, random);
+        }
 
-		ArrayList<ItemStack> block = new ArrayList<>();
-		block.add(new ItemStack(Item.getItemFromBlock(this), 1, meta));
-		return block;
-	}
+        // Cinnabar
+        if (variant.equalsIgnoreCase("Cinnabar")) {
+            OreDrop cinnabar = new OreDrop(ItemDusts.getDustByName("cinnabar"),
+                    ConfigTechReborn.FortuneSecondaryOreMultiplierPerLevel);
+            OreDrop redstone = new OreDrop(new ItemStack(Items.REDSTONE), 0.25);
+            OreDropSet set = new OreDropSet(cinnabar, redstone);
+            return set.drop(fortune, random);
+        }
 
-	@Override
-	protected boolean canSilkHarvest()
-	{
-		return true;
-	}
+        // Sphalerite 1, 1/8 yellow garnet
+        if (variant.equalsIgnoreCase("Sphalerite")) {
+            OreDrop sphalerite = new OreDrop(ItemDusts.getDustByName("sphalerite"),
+                    ConfigTechReborn.FortuneSecondaryOreMultiplierPerLevel);
+            OreDrop yellowGarnet = new OreDrop(ItemGems.getGemByName("yellowGarnet"), 0.125);
+            OreDropSet set = new OreDropSet(sphalerite, yellowGarnet);
+            return set.drop(fortune, random);
+        }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list)
-	{
-		for (int meta = 0; meta < ores.length; meta++)
-		{
-			list.add(new ItemStack(item, 1, meta));
-		}
-	}
+        ArrayList<ItemStack> block = new ArrayList<>();
+        block.add(new ItemStack(Item.getItemFromBlock(this), 1, meta));
+        return block;
+    }
 
-	@Override
-	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos,
-			EntityPlayer player)
-	{
-		return new ItemStack(this,1, getMetaFromState(state));
-	}
+    @Override
+    protected boolean canSilkHarvest() {
+        return true;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list) {
+        for (int meta = 0; meta < ores.length; meta++) {
+            list.add(new ItemStack(item, 1, meta));
+        }
+    }
+
+    @Override
+    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos,
+                                  EntityPlayer player) {
+        return new ItemStack(this, 1, getMetaFromState(state));
+    }
 
 //	@Override
 //	public int damageDropped(IBlockState state)
@@ -198,45 +180,41 @@ public class BlockOre extends BaseBlock implements ITexturedBlock, IOreNameProvi
 //		return meta;
 //	}
 
-	@Override
-	public String getTextureNameFromState(IBlockState BlockStateContainer, EnumFacing facing)
-	{
-		return "techreborn:blocks/ore/ore" + StringUtils.toFirstCapital(ores[getMetaFromState(BlockStateContainer)]);
-	}
+    @Override
+    public String getTextureNameFromState(IBlockState BlockStateContainer, EnumFacing facing) {
+        return "techreborn:blocks/ore/ore" + StringUtils.toFirstCapital(ores[getMetaFromState(BlockStateContainer)]);
+    }
 
-	@Override
-	public int amountOfStates()
-	{
-		return ores.length;
-	}
+    @Override
+    public int amountOfStates() {
+        return ores.length;
+    }
 
-	@Override
-	public int damageDropped(IBlockState state) {
-		return getMetaFromState(state);
-	}
+    @Override
+    public int damageDropped(IBlockState state) {
+        return getMetaFromState(state);
+    }
 
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		if(meta > ores.length){
-			meta = 0;
-		}
-		return getBlockState().getBaseState().withProperty(VARIANTS, oreNamesList.get(meta));
-	}
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        if (meta > ores.length) {
+            meta = 0;
+        }
+        return getBlockState().getBaseState().withProperty(VARIANTS, oreNamesList.get(meta));
+    }
 
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return oreNamesList.indexOf(state.getValue(VARIANTS));
-	}
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return oreNamesList.indexOf(state.getValue(VARIANTS));
+    }
 
-	protected BlockStateContainer createBlockState()
-	{
-		VARIANTS = new PropertyString("type", oreNamesList);
-		return new BlockStateContainer(this, VARIANTS);
-	}
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, VARIANTS);
+    }
 
-	@Override
-	public String getUserLoclisedName(IBlockState state)
-	{
-		return StringUtils.toFirstCapital(oreNamesList.get(getMetaFromState(state)));
-	}
+    @Override
+    public String getUserLoclisedName(IBlockState state) {
+        return StringUtils.toFirstCapital(oreNamesList.get(getMetaFromState(state)));
+    }
+
 }
