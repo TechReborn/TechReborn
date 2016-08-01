@@ -110,7 +110,9 @@ public class Core {
     public void init(FMLInitializationEvent event) throws IllegalAccessException, InstantiationException {
         //World gen
         VeinWorldGenerator.registerTRVeins();
-        GameRegistry.registerWorldGenerator(VeinWorldGenerator.INSTANCE, 0);
+        if(ConfigTechReborn.veinOres){
+            GameRegistry.registerWorldGenerator(VeinWorldGenerator.INSTANCE, 0);
+        }
         // Registers Chest Loot
         ModLoot.init();
         // Multiparts
@@ -136,7 +138,9 @@ public class Core {
         proxy.init(event);
         // WorldGen
         worldGen.load();
-        //GameRegistry.registerWorldGenerator(worldGen, 0);
+        if(!ConfigTechReborn.veinOres){
+            GameRegistry.registerWorldGenerator(worldGen, 0);
+        }
 
         // DungeonLoot.init();
         // Register Gui Handler

@@ -146,6 +146,8 @@ public class ConfigTechReborn
 
 	public static boolean enableGemArmorAndTools;
 
+	public static boolean veinOres;
+
 	public static Configuration config;
 	private static ConfigTechReborn instance = null;
 
@@ -198,6 +200,10 @@ public class ConfigTechReborn
 		SteelIngotsLoot = config
 				.get(CATEGORY_WORLD, "Steel Ingots Loot", true, "Allow Steel Ingots to generate in loot chests")
 				.getBoolean(true);
+
+		veinOres = config
+				.get(CATEGORY_WORLD, "Custom Ore veins", false, "Use the new style GT vein ore generation - game restart required")
+				.getBoolean(false);
 
 		FortuneSecondaryOreMultiplierPerLevel = config.get(CATEGORY_WORLD, "FortuneSecondaryOreMultiplierPerLevel", 0.5,
 				"FortuneSecondaryOreMultiplierPerLevel").getDouble();

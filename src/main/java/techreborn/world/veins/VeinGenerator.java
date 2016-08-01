@@ -81,17 +81,6 @@ public class VeinGenerator {
             return true;
         }
 
-        for(int i = 0; i < 16; i++) {
-            for(int j = 0; j < 16; j++) {
-                for(int k = 0; k < world.provider.getAverageGroundLevel(); ++k) {
-                    BlockPos pos = new BlockPos(chunkX * 16 + i, k, chunkZ * 16 + j);
-                    if(world.getBlockState(pos).getBlock() == Blocks.STONE) {
-                        world.setBlockToAir(pos);
-                    }
-                }
-            }
-        }
-
         return false;
     }
 
