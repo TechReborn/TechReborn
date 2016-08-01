@@ -4,8 +4,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.IChunkGenerator;
-import net.minecraft.world.chunk.IChunkProvider;
 import org.apache.commons.lang3.tuple.Pair;
 import techreborn.utils.OreDictUtils;
 
@@ -16,11 +14,11 @@ import java.util.Random;
 
 public class VeinGenerator {
 
-    public static final int BASE_VEIN_SIZE_Y = 38;
-    public static final int BASE_VEIN_SIZE_WIDTH = 26;
-    public static final int BASE_VEIN_SIZE_DEPTH = 14;
+    public static final int BASE_VEIN_SIZE_Y = 17;
+    public static final int BASE_VEIN_SIZE_WIDTH = 23;
+    public static final int BASE_VEIN_SIZE_DEPTH = 11;
 
-    public static final int VEIN_DENSITY = 3;
+    public static final int VEIN_DENSITY = 4;
 
     private static final HashMap<Integer, ArrayList<VeinInfo>> dimensionVeins = new HashMap<>();
 
@@ -37,7 +35,7 @@ public class VeinGenerator {
     public static void registerVein(int dimension, float chance, float averageSize, int minHeight, int maxHeight, Pair<Float, IBlockState>... varargs) {
         HashMap<Integer, IBlockState> veinBlocks = new HashMap<>();
         for(Pair<Float, IBlockState> block : varargs) veinBlocks.put((int) (block.getKey() * 100), block.getValue());
-        registerVein(dimension, chance, averageSize - 0.5f, averageSize + 0.5f, minHeight, maxHeight, veinBlocks);
+        registerVein(dimension, chance, averageSize - 0.2f, averageSize + 0.2f, minHeight, maxHeight, veinBlocks);
     }
 
     public static void generateRandomVein(Random random, int chunkX, int chunkZ, World world) {
@@ -83,45 +81,84 @@ public class VeinGenerator {
             return true;
         }
 
+        for(int i = 0; i < 16; i++) {
+            for(int j = 0; j < 16; j++) {
+                for(int k = 0; k < world.provider.getAverageGroundLevel(); ++k) {
+                    BlockPos pos = new BlockPos(chunkX * 16 + i, k, chunkZ * 16 + j);
+                    if(world.getBlockState(pos).getBlock() == Blocks.STONE) {
+                        world.setBlockToAir(pos);
+                    }
+                }
+            }
+        }
+
         return false;
     }
 
     public static IBlockState getOreBlock(VeinInfo veinInfo, Random random) {
         Map<Integer, IBlockState> veinBlocks = veinInfo.getVeinBlocks();
-        HashMap<Integer, IBlockState> clamped = new HashMap<>();
+        ArrayList<RangedValue<IBlockState>> blocks = new ArrayList<>();
         int maxValue = 0;
         for(Map.Entry<Integer, IBlockState> entry : veinBlocks.entrySet()) {
-            maxValue += entry.getKey();
-            clamped.put(maxValue, entry.getValue());
+            blocks.add(new RangedValue<>(maxValue, maxValue += entry.getKey(), entry.getValue()));
         }
         int randomValue = random.nextInt(maxValue);
-        for(Map.Entry<Integer, IBlockState> entry : clamped.entrySet()) {
-            if(entry.getKey() > randomValue) return entry.getValue();
+        for(RangedValue<IBlockState> rangedValue : blocks) {
+            if(rangedValue.isInBounds(randomValue))
+                return rangedValue.get();
         }
+
+        //if you found diamond block in the vein, report it!
         return Blocks.DIAMOND_BLOCK.getDefaultState();
     }
 
     private static VeinInfo getRandomVein(ArrayList<VeinInfo> veins, Random random) {
-        if(veins.isEmpty())
-            return null;
+        if(veins.isEmpty()) return null;
 
-        HashMap<Integer, VeinInfo> clamped = new HashMap<>();
+        ArrayList<RangedValue<VeinInfo>> blocks = new ArrayList<>();
         int maxValue = 0;
-        for(VeinInfo veinInfo : veins) {
-            maxValue += veinInfo.getChance();
-            clamped.put(maxValue, veinInfo);
+        for(VeinInfo entry : veins) {
+            blocks.add(new RangedValue<>(maxValue, maxValue += entry.getChance(), entry));
         }
         int randomValue = random.nextInt(maxValue);
-        for(Map.Entry<Integer, VeinInfo> entry : clamped.entrySet()) {
-            if(entry.getKey() > randomValue)
-                return entry.getValue();
+        for(RangedValue<VeinInfo> rangedValue : blocks) {
+            if(rangedValue.isInBounds(randomValue))
+                return rangedValue.get();
         }
+
         return null;
     }
 
     public static boolean isStone(World world, BlockPos blockPos) {
         IBlockState block = world.getBlockState(blockPos);
-        return block.getBlock() == Blocks.STONE || OreDictUtils.isOre(block, "stone");
+        switch (world.provider.getDimension()) {
+            case 1:
+                return block.getBlock() == Blocks.END_STONE || OreDictUtils.isOre(block, "endstone");
+            case -1:
+                return block.getBlock() == Blocks.NETHERRACK || OreDictUtils.isOre(block, "netherrack");
+            default:
+                return block.getBlock() == Blocks.STONE || OreDictUtils.isOre(block, "stone");
+        }
+    }
+
+    private static class RangedValue<T> {
+
+        private final int min, max;
+        private final T block;
+
+        public RangedValue(int min, int max, T block) {
+            this.min = min;
+            this.max = max;
+            this.block = block;
+        }
+
+        public boolean isInBounds(int num) {
+            return num >= min && num <= max;
+        }
+
+        public T get() {
+            return block;
+        }
     }
 
 }

@@ -1,11 +1,8 @@
 package techreborn.world.veins;
 
 import com.google.common.collect.ImmutableMap;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import techreborn.blocks.BlockOre;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 

@@ -1015,8 +1015,8 @@ public class ModRecipes
 				.addShapedOreRecipe(new ItemStack(ModBlocks.LesuStorage), "LLL", "LCL", "LLL", 'L', "blockLapis", 'C',
 						"circuitBasic");
 
-		TechRebornAPI.addRollingOreMachinceRecipe(ItemParts.getPartByName("cupronickelHeatingCoil"), "NCN", "C C", "NCN",
-						'N', "ingotCupronickel", 'C', "ingotCopper");
+		TechRebornAPI.addRollingOreMachinceRecipe(ItemParts.getPartByName("cupronickelHeatingCoil"), "NCN", "CAC", "NCN",
+						'N', "ingotNickel", 'C', "ingotCopper");
 	}
 
     static void addVacuumFreezerRecipes() {
