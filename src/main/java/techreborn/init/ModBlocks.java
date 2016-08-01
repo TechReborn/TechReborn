@@ -171,7 +171,6 @@ public class ModBlocks
 	public static Block rubberPlanks;
 
 	public static Block ironFence;
-	public static Block distributor;
 
 	public static void init()
 	{
@@ -437,9 +436,6 @@ public class ModBlocks
 		scrapboxinator = new BlockScrapboxinator(Material.IRON);
 		registerBlock(scrapboxinator, "scrapboxinator");
 		GameRegistry.registerTileEntity(TileScrapboxinator.class, "TileScrapboxinatorTR");
-
-		distributor = new BlockDistributor();
-		registerBlock(distributor, "distributor");
 
         evt = new BlockEVTransformer();
         registerBlock(evt, "evt");
