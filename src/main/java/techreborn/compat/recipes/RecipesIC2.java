@@ -459,7 +459,7 @@ public class RecipesIC2 implements ICompatModule {
         RecipeHandler.addRecipe(new CentrifugeRecipe(ItemCells.getCellByName("hydrogen", 4), null, ItemCells.getCellByName("deuterium", 1), new ItemStack(IC2Items.getItem("cell").getItem(), 3), null, null, 3000, 5));
 
         //Lava Cell Byproducts
-        ItemStack lavaCells = IC2Items.getItem("lavaCell");
+        ItemStack lavaCells = IC2Items.getItem("lavaCell").copy();
         lavaCells.stackSize = 8;
         RecipeHandler.addRecipe(new CentrifugeRecipe(lavaCells, null, ItemNuggets.getNuggetByName("electrum", 4), ItemIngots.getIngotByName("copper", 2), ItemDustsSmall.getSmallDustByName("Tungsten", 1), ItemIngots.getIngotByName("tin", 2), 6000, 5));
 
