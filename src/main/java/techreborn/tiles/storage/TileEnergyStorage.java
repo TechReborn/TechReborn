@@ -1,6 +1,5 @@
 package techreborn.tiles.storage;
 
-import reborncore.api.IListInfoProvider;
 import reborncore.common.IWrenchable;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,14 +13,13 @@ import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.blocks.storage.BlockEnergyStorage;
-import techreborn.power.EnergyUtils;
-
-import java.util.List;
+import techreborn.power.PowerNet;
 
 /**
  * Created by Rushmead
  */
-public class TileEnergyStorage extends TilePowerAcceptor implements IWrenchable, ITickable, IInventoryProvider, IListInfoProvider {
+public class TileEnergyStorage extends TilePowerAcceptor implements IWrenchable, ITickable, IInventoryProvider
+{
 
 	public Inventory inventory;
 	public String name;
@@ -30,8 +28,8 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IWrenchable,
 	public int maxInput;
 	public int maxOutput;
 	public int maxStorage;
-
-	public TileEnergyStorage(String name, int invSize, Block wrenchDrop, EnumPowerTier tier, int maxInput, int maxOuput, int maxStorage) {
+	public TileEnergyStorage(String name, int invSize, Block wrenchDrop, EnumPowerTier tier, int maxInput, int maxOuput, int maxStorage)
+	{
 		super(1);
 		inventory = new Inventory(invSize, "Tile" + name, 64, this);
 		this.wrenchDrop = wrenchDrop;
@@ -42,29 +40,22 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IWrenchable,
 		this.maxStorage = maxStorage;
 	}
 
-	@Override
-	public void addInfo(List<String> info, boolean isRealTile) {
-		info.add(name);
-		super.addInfo(info, isRealTile);
-	}
-
-	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
+	@Override public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side)
+	{
 		return true;
 	}
 
-	@Override
-	public EnumFacing getFacing() {
+	@Override public EnumFacing getFacing()
+	{
 		return getFacingEnum();
 	}
 
-	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
+	@Override public boolean wrenchCanRemove(EntityPlayer entityPlayer)
+	{
 		return entityPlayer.isSneaking();
 	}
 
-	@Override
-	public void updateEntity() {
+	@Override public void updateEntity() {
 		if (inventory.getStackInSlot(0) != null) {
 			ItemStack stack = inventory.getStackInSlot(0);
 			if (!(stack.getItem() instanceof IEnergyItemInfo)) {
@@ -94,7 +85,7 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IWrenchable,
 
 		if (!worldObj.isRemote && getEnergy() > 0) {
 			double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
-			useEnergy(EnergyUtils.dispatchEnergyToNeighbours(worldObj, getPos(), this, maxOutput));
+			useEnergy(PowerNet.dispatchEnergyPacket(worldObj, getPos(), maxOutput));
 		}
 
 	}
@@ -104,53 +95,54 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IWrenchable,
 		worldObj.setBlockState(pos, worldObj.getBlockState(pos).withProperty(BlockEnergyStorage.FACING, enumFacing));
 	}
 
-	@Override
-	public float getWrenchDropRate() {
+	@Override public float getWrenchDropRate()
+	{
 		return 1.0F;
 	}
 
-	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+	@Override public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
+	{
 		return new ItemStack(wrenchDrop);
 	}
 
-	@Override
-	public double getMaxPower() {
+	@Override public double getMaxPower()
+	{
 		return maxStorage;
 	}
 
-	@Override
-	public boolean canAcceptEnergy(EnumFacing direction) {
+	@Override public boolean canAcceptEnergy(EnumFacing direction)
+	{
 
 		return getFacingEnum() != direction;
 	}
 
-	@Override
-	public EnumFacing getFacingEnum() {
+	@Override public EnumFacing getFacingEnum()
+	{
 		Block block = worldObj.getBlockState(pos).getBlock();
-		if (block instanceof BlockEnergyStorage) {
+		if (block instanceof BlockEnergyStorage)
+		{
 			return ((BlockEnergyStorage) block).getFacing(worldObj.getBlockState(pos));
 		}
 		return null;
 	}
 
-	@Override
-	public boolean canProvideEnergy(EnumFacing direction) {
+	@Override public boolean canProvideEnergy(EnumFacing direction)
+	{
 		return getFacing() == direction;
 	}
 
-	@Override
-	public double getMaxOutput() {
+	@Override public double getMaxOutput()
+	{
 		return maxOutput;
 	}
 
-	@Override
-	public double getMaxInput() {
+	@Override public double getMaxInput()
+	{
 		return maxInput;
 	}
 
-	@Override
-	public EnumPowerTier getTier() {
+	@Override public EnumPowerTier getTier()
+	{
 		return tier;
 	}
 
@@ -158,6 +150,7 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IWrenchable,
 	public Inventory getInventory() {
 		return inventory;
 	}
+<<<<<<< HEAD
 
     @Override
     public int[] getSlotsForFace(EnumFacing side) {
@@ -174,4 +167,6 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IWrenchable,
         return true;
     }
 
+=======
+>>>>>>> parent of 6f54e38... Wires now transfer energy from all mods and manages it as EU. (#686)
 }

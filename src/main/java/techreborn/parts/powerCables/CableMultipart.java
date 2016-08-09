@@ -1,11 +1,5 @@
 package techreborn.parts.powerCables;
 
-import cofh.api.energy.IEnergyProvider;
-import cofh.api.energy.IEnergyReceiver;
-import ic2.api.energy.tile.*;
-import ic2.api.tile.IEnergyStorage;
-import net.darkhax.tesla.api.ITeslaProducer;
-import net.darkhax.tesla.capability.TeslaCapabilities;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -32,9 +26,7 @@ import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.common.property.Properties;
-import net.minecraftforge.fml.common.Loader;
 import reborncore.api.power.IEnergyInterfaceTile;
-import reborncore.common.RebornCoreConfig;
 import reborncore.common.misc.Functions;
 import reborncore.common.misc.vecmath.Vecs3dCube;
 import reborncore.common.util.WorldUtils;
@@ -44,7 +36,6 @@ import reborncore.mcmultipart.multipart.*;
 import reborncore.mcmultipart.raytrace.PartMOP;
 import techreborn.parts.TechRebornParts;
 import techreborn.parts.walia.IPartWaliaProvider;
-import techreborn.power.EnergyUtils;
 import techreborn.utils.damageSources.ElectrialShockSource;
 
 import java.util.*;
@@ -199,7 +190,6 @@ public class CableMultipart extends Multipart
         nearByChange();
     }
 
-
     public boolean shouldConnectTo(EnumFacing dir) {
         if (dir != null) {
             if (internalShouldConnectTo(dir)) {
@@ -209,25 +199,9 @@ public class CableMultipart extends Multipart
                 }
             } else {
                 TileEntity tile = getNeighbourTile(dir);
-                if(tile != null) {
-                    EnumFacing facing = dir.getOpposite();
-                    if (tile instanceof IEnergyInterfaceTile &&
-                            ((IEnergyInterfaceTile) tile).canAcceptEnergy(facing)) {
-                        return true;
-                    } else if (tile instanceof IEnergyReceiver &&
-                            ((IEnergyReceiver) tile).canConnectEnergy(facing) &&
-                            RebornCoreConfig.getRebornPower().rf()) {
-                        return true;
-                    } else if (Loader.isModLoaded("IC2") &&
-                            RebornCoreConfig.getRebornPower().eu() &&
-                            (tile instanceof IEnergySource ||
-                                    tile instanceof IEnergyEmitter ||
-                                    tile instanceof IEnergyAcceptor)) {
-                        return true;
-                    } else if (Loader.isModLoaded("Tesla") &&
-                            tile.hasCapability(TeslaCapabilities.CAPABILITY_CONSUMER, facing)) {
-                        return true;
-                    }
+
+                if (tile instanceof IEnergyInterfaceTile) {
+                    return true;
                 }
             }
         }
@@ -283,82 +257,6 @@ public class CableMultipart extends Multipart
 
             if (getWorld().getTotalWorldTime() % 80 == 0) {
                 checkConnectedSides();
-            }
-
-            for(EnumFacing connection : connectedSides.keySet()) {
-                BlockPos blockPos = connectedSides.get(connection);
-                TileEntity tileEntity = getWorld().getTileEntity(blockPos);
-                if(tileEntity == null) continue;
-                EnumFacing opposite = connection.getOpposite();
-
-                //TODO rewrite for new version
-                if(tileEntity instanceof IEnergyInterfaceTile) {
-                    IEnergyInterfaceTile interfaceTile = (IEnergyInterfaceTile) tileEntity;
-                    if(interfaceTile.canProvideEnergy(opposite)) {
-                        double extractedEU = interfaceTile.useEnergy(getCableType().transferRate, true);
-                        double dispatched = EnergyUtils.dispatchWiresEnergyPacket(getWorld(), getPos(), extractedEU, blockPos);
-                        interfaceTile.useEnergy(dispatched);
-                        continue;
-                    }
-                }
-
-                if(Loader.isModLoaded("IC2") && RebornCoreConfig.getRebornPower().eu()) {
-                    if (tileEntity instanceof IEnergySource) {
-                        IEnergySource source = (IEnergySource) tileEntity;
-                        if(source.emitsEnergyTo((emitter, from) -> true, opposite)) {
-                            double extractedEU = source.getOfferedEnergy();
-                            if (extractedEU > getCableType().transferRate)
-                                extractedEU = getCableType().transferRate;
-                            double dispatched = EnergyUtils.dispatchWiresEnergyPacket(getWorld(), getPos(), extractedEU, blockPos);
-                            source.drawEnergy(dispatched);
-                            continue;
-                        }
-                    } else if(tileEntity instanceof IEnergyStorage) {
-                        IEnergyStorage storage = (IEnergyStorage) tileEntity;
-                        double extractedEU = storage.getStored();
-                        if(extractedEU > getCableType().transferRate)
-                            extractedEU = getCableType().transferRate;
-                        double dispatched = EnergyUtils.dispatchWiresEnergyPacket(getWorld(), getPos(), extractedEU, blockPos);
-                        storage.setStored((int) (extractedEU - dispatched));
-                        continue;
-                    }
-                }
-
-                if(RebornCoreConfig.getRebornPower().rf()) {
-                    if (tileEntity instanceof IEnergyProvider) {
-                        IEnergyProvider provider = (IEnergyProvider) tileEntity;
-                        if (provider.canConnectEnergy(opposite)) {
-                            int extractedRF = provider.extractEnergy(opposite,
-                                    getCableType().transferRate * RebornCoreConfig.euPerRF, true);
-                            double extractedEU = extractedRF / (RebornCoreConfig.euPerRF * 1f);
-                            double dispatched = EnergyUtils.dispatchWiresEnergyPacket(getWorld(), getPos(), extractedEU, blockPos);
-                            provider.extractEnergy(opposite, (int) (dispatched * RebornCoreConfig.euPerRF), false);
-                            continue;
-                        }
-                    } else if(tileEntity instanceof cofh.api.energy.IEnergyStorage) {
-                        cofh.api.energy.IEnergyStorage energyStorage = (cofh.api.energy.IEnergyStorage) tileEntity;
-                        int extractedRF = energyStorage.extractEnergy(
-                                getCableType().transferRate * RebornCoreConfig.euPerRF, true);
-                        double extractedEU = extractedRF / (RebornCoreConfig.euPerRF * 1f);
-                        if (extractedEU > getCableType().transferRate)
-                            extractedEU = getCableType().transferRate;
-                        double dispatched = EnergyUtils.dispatchWiresEnergyPacket(getWorld(), getPos(), extractedEU, blockPos);
-                        energyStorage.extractEnergy((int) (dispatched * RebornCoreConfig.euPerRF), false);
-                        continue;
-                    }
-                }
-
-                if(Loader.isModLoaded("Tesla") && RebornCoreConfig.getRebornPower().tesla()) {
-                    if(tileEntity.hasCapability(TeslaCapabilities.CAPABILITY_PRODUCER, opposite)) {
-                        ITeslaProducer producer = tileEntity.getCapability(TeslaCapabilities.CAPABILITY_PRODUCER, opposite);
-                        double extractedRF = producer.takePower(getCableType().transferRate * RebornCoreConfig.euPerRF, true);
-                        double extractedEU = extractedRF / (RebornCoreConfig.euPerRF * 1F);
-                        double dispatched = EnergyUtils.dispatchWiresEnergyPacket(getWorld(), getPos(), extractedEU, blockPos);
-                        producer.takePower((long) (dispatched * RebornCoreConfig.euPerRF), false);
-                        continue;
-                    }
-                }
-
             }
         }
 

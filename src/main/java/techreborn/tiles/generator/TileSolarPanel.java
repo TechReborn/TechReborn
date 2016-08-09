@@ -5,7 +5,7 @@ import net.minecraft.util.ITickable;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.blocks.generator.BlockSolarPanel;
-import techreborn.power.EnergyUtils;
+import techreborn.power.PowerNet;
 
 import java.util.List;
 
@@ -44,7 +44,7 @@ public class TileSolarPanel extends TilePowerAcceptor implements ITickable
 
 		if (!worldObj.isRemote && getEnergy() > 0) {
 			double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
-			useEnergy(EnergyUtils.dispatchEnergyToNeighbours(worldObj, getPos(), this, maxOutput));
+			useEnergy(PowerNet.dispatchEnergyPacket(worldObj, getPos(), maxOutput));
 		}
 	}
 
@@ -56,7 +56,7 @@ public class TileSolarPanel extends TilePowerAcceptor implements ITickable
 		{
 			// FIXME: 25/02/2016
 			// info.add(TextFormatting.LIGHT_PURPLE + "Power gen/tick " +
-			// TextFormatting.GREEN + PowerSystem.getLocalizedPower(
+			// TextFormatting.GREEN + PowerSystem.getLocaliszedPower(
 			// powerToAdd)) ;
 		}
 	}

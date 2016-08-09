@@ -6,7 +6,7 @@ import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.config.ConfigTechReborn;
-import techreborn.power.EnergyUtils;
+import techreborn.power.PowerNet;
 
 import java.util.ArrayList;
 
@@ -77,7 +77,7 @@ public class TileLesu extends TilePowerAcceptor
 
 		if (!worldObj.isRemote && getEnergy() > 0) {
 			double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
-			useEnergy(EnergyUtils.dispatchEnergyToNeighbours(worldObj, getPos(), this, maxOutput));
+			useEnergy(PowerNet.dispatchEnergyPacket(worldObj, getPos(), maxOutput));
 		}
 
 	}
