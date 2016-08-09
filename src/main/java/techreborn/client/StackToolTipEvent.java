@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.input.Keyboard;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.power.IEnergyInterfaceItem;
-import reborncore.common.util.PowerLocalization;
+import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.Color;
 import techreborn.Core;
 
@@ -43,16 +43,16 @@ public class StackToolTipEvent
 					color = TextFormatting.YELLOW;
 				}
 				event.getToolTip().add(color + ""
-						+ PowerLocalization.getLocalizedPower(
+						+ PowerSystem.getLocalizedPower(
 								(int) ((IEnergyInterfaceItem) event.getItemStack().getItem()).getEnergy(event.getItemStack()))
 						+ TextFormatting.LIGHT_PURPLE + " stored");
 				event.getToolTip().add(Color.GREEN + ""
-						+ PowerLocalization.getLocalizedPower(
+						+ PowerSystem.getLocalizedPower(
 								(int) ((IEnergyInterfaceItem) event.getItemStack().getItem()).getMaxPower(event.getItemStack()))
 						+ TextFormatting.LIGHT_PURPLE + " max");
 				event.getToolTip()
 						.add(TextFormatting.GREEN + "" + percentage + "%" + TextFormatting.LIGHT_PURPLE + " charged");
-				event.getToolTip().add(Color.GREEN + "" + PowerLocalization.getLocalizedPower(
+				event.getToolTip().add(Color.GREEN + "" + PowerSystem.getLocalizedPower(
 						(int) ((IEnergyInterfaceItem) event.getItemStack().getItem()).getMaxTransfer(event.getItemStack()))
 						+ TextFormatting.LIGHT_PURPLE + " /tick in/out");
 			}

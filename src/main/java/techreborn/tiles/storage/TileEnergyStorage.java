@@ -8,13 +8,15 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.power.EnumPowerTier;
+import reborncore.api.power.IEnergyItemInfo;
 import reborncore.api.power.tile.IEnergyProducerTile;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
+import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.tile.TilePowerAcceptor;
+import reborncore.common.tile.TilePowerAcceptorProducer;
 import reborncore.common.util.Inventory;
 import techreborn.blocks.storage.BlockEnergyStorage;
-import techreborn.power.EnergyItem;
 import techreborn.power.EnergyUtils;
 
 import java.util.List;
@@ -62,12 +64,31 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IEnergyProdu
 	@Override
 	public void update() {
 		super.update();
-
 		if (inventory.getStackInSlot(0) != null) {
-            EnergyItem.charge(inventory.getStackInSlot(0), this);
+			ItemStack stack = inventory.getStackInSlot(0);
+			if (!(stack.getItem() instanceof IEnergyItemInfo)) {
+				return;
+			}
+			IEnergyItemInfo item = (IEnergyItemInfo) inventory.getStackInSlot(0).getItem();
+			if (PoweredItem.getEnergy(stack) != PoweredItem.getMaxPower(stack)) {
+				if (canUseEnergy(item.getMaxTransfer(stack))) {
+					useEnergy(item.getMaxTransfer(stack));
+					PoweredItem.setEnergy(PoweredItem.getEnergy(stack) + item.getMaxTransfer(stack), stack);
+				}
+			}
 		}
 		if (inventory.getStackInSlot(1) != null) {
-            EnergyItem.discharge(inventory.getStackInSlot(1), this);
+			ItemStack stack = inventory.getStackInSlot(1);
+			if (!(stack.getItem() instanceof IEnergyItemInfo)) {
+				return;
+			}
+			IEnergyItemInfo item = (IEnergyItemInfo) stack.getItem();
+			if (item.canProvideEnergy(stack)) {
+				if (getEnergy() != getMaxPower()) {
+					addEnergy(item.getMaxTransfer(stack));
+					PoweredItem.setEnergy(PoweredItem.getEnergy(stack) - item.getMaxTransfer(stack), stack);
+				}
+			}
 		}
 
 		if (!worldObj.isRemote && getEnergy() > 0) {

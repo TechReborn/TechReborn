@@ -9,7 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import reborncore.common.tile.TilePowerAcceptor;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 
 /**
  * Created by Mark on 04/06/2016.

@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
-import reborncore.common.util.PowerLocalization;
+import reborncore.common.powerSystem.PowerSystem;
 import techreborn.client.container.ContainerLESU;
 import techreborn.tiles.lesu.TileLesu;
 
@@ -43,14 +43,14 @@ public class GuiLESU extends GuiContainer
 	{
 		this.fontRendererObj.drawString(I18n.translateToLocal("tile.techreborn.lesu.name"), 40, 10,
 				Color.WHITE.getRGB());
-		this.fontRendererObj.drawString(PowerLocalization.getLocalizedPower(containerLesu.euOut) + "/t", 10, 20,
+		this.fontRendererObj.drawString(PowerSystem.getLocalizedPower(containerLesu.euOut) + "/t", 10, 20,
 				Color.WHITE.getRGB());
-		this.fontRendererObj.drawString(PowerLocalization.getLocalizedPower(containerLesu.storedEu), 10, 30,
+		this.fontRendererObj.drawString(PowerSystem.getLocalizedPower(containerLesu.storedEu), 10, 30,
 				Color.WHITE.getRGB());
-		this.fontRendererObj.drawString(PowerLocalization.getLocalizedPower(containerLesu.euChange) + " change", 10, 40,
+		this.fontRendererObj.drawString(PowerSystem.getLocalizedPower(containerLesu.euChange) + " change", 10, 40,
 				Color.WHITE.getRGB());
 		this.fontRendererObj.drawString(containerLesu.connectedBlocks + " blocks", 10, 50, Color.WHITE.getRGB());
-		this.fontRendererObj.drawString(PowerLocalization.getLocalizedPower(containerLesu.euStorage) + " max", 10, 60,
+		this.fontRendererObj.drawString(PowerSystem.getLocalizedPower(containerLesu.euStorage) + " max", 10, 60,
 				Color.WHITE.getRGB());
 	}
 

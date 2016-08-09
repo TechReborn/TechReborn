@@ -17,7 +17,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 import reborncore.api.power.IEnergyInterfaceItem;
-import reborncore.common.util.PowerLocalization;
+import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.Color;
 import techreborn.client.keybindings.KeyBindings;
 import techreborn.config.ConfigTechReborn;
@@ -80,8 +80,8 @@ public class ChargeHud
 			{
 				color = Color.DARK_RED;
 			}
-			mc.fontRendererObj.drawString(color + PowerLocalization.getLocalizedPower(CurrentCharge) + "/"
-					+ PowerLocalization.getLocalizedPower(MaxCharge), 20, y, 0);
+			mc.fontRendererObj.drawString(color + PowerSystem.getLocalizedPower(CurrentCharge) + "/"
+					+ PowerSystem.getLocalizedPower(MaxCharge), 20, y, 0);
 			y += 20;
 		}
 
@@ -108,8 +108,8 @@ public class ChargeHud
 					{
 						color = Color.DARK_RED;
 					}
-					mc.fontRendererObj.drawString(color + PowerLocalization.getLocalizedPower(CurrentCharge) + "/"
-							+ PowerLocalization.getLocalizedPower(MaxCharge), 20, y, 0);
+					mc.fontRendererObj.drawString(color + PowerSystem.getLocalizedPower(CurrentCharge) + "/"
+							+ PowerSystem.getLocalizedPower(MaxCharge), 20, y, 0);
 					y += 20;
 				}
 			}
@@ -133,7 +133,7 @@ public class ChargeHud
 				{
 					color = Color.DARK_RED;
 				}
-				mc.fontRendererObj.drawString(color + PowerLocalization.getLocalizedPower(CurrentCharge) + "/" + PowerLocalization.getLocalizedPower(MaxCharge), 20, y, 0);
+				mc.fontRendererObj.drawString(color + PowerSystem.getLocalizedPower(CurrentCharge) + "/" + PowerSystem.getLocalizedPower(MaxCharge), 20, y, 0);
 			}
 		}
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
