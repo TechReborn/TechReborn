@@ -101,11 +101,19 @@ public class TileIDSU extends TilePowerAcceptorProducer implements IWrenchable {
 
 		if (!worldObj.isRemote && getEnergy() > 0) {
 			double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
-			double disposed = emitEnergy(getFacingEnum(), maxOutput);
-			if (maxOutput != 0 && disposed != 0) useEnergy(disposed);
+			for(EnumFacing facing : EnumFacing.VALUES) {
+				double disposed = emitEnergy(facing, maxOutput);
+				if(disposed != 0) {
+					maxOutput -= disposed;
+					useEnergy(disposed);
+					if (maxOutput == 0) return;
+				}
+			}
 		}
+
 	}
 
+	//TODO move to RebornCore
 	public double emitEnergy(EnumFacing enumFacing, double amount) {
 		BlockPos pos = getPos().offset(enumFacing);
 		EnergyUtils.PowerNetReceiver receiver = EnergyUtils.getReceiver(
@@ -114,16 +122,6 @@ public class TileIDSU extends TilePowerAcceptorProducer implements IWrenchable {
 			return receiver.receiveEnergy(amount, false);
 		}
 		return 0;
-	}
-
-	@Override
-	public boolean canAcceptEnergy(EnumFacing direction) {
-		return getFacingEnum() != direction;
-	}
-
-	@Override
-	public boolean canProvideEnergy(EnumFacing direction) {
-		return getFacingEnum() == direction;
 	}
 
 

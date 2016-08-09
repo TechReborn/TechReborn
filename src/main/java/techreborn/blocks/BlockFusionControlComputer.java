@@ -44,7 +44,7 @@ public class BlockFusionControlComputer extends BlockMachineBase implements IAdv
 		super.onEntityWalk(worldIn, pos, entityIn);
 		if (worldIn.getTileEntity(pos) instanceof TileEntityFusionController)
 		{
-			if (((TileEntityFusionController) worldIn.getTileEntity(pos)).recipe != null
+			if (((TileEntityFusionController) worldIn.getTileEntity(pos)).crafingTickTime != 0
 					&& ((TileEntityFusionController) worldIn.getTileEntity(pos)).checkCoils())
 			{
 				entityIn.attackEntityFrom(new FusionDamageSource(), 200F);

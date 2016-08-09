@@ -3,9 +3,7 @@ package techreborn.parts.powerCables;
 import cofh.api.energy.IEnergyConnection;
 import cofh.api.energy.IEnergyProvider;
 import cofh.api.energy.IEnergyReceiver;
-import ic2.api.energy.tile.IEnergyAcceptor;
-import ic2.api.energy.tile.IEnergyEmitter;
-import ic2.api.energy.tile.IEnergySource;
+import ic2.api.energy.tile.*;
 import ic2.api.tile.IEnergyStorage;
 import net.darkhax.tesla.api.ITeslaProducer;
 import net.darkhax.tesla.capability.TeslaCapabilities;
@@ -36,6 +34,7 @@ import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.common.property.Properties;
 import net.minecraftforge.fml.common.Loader;
+import reborncore.api.power.IEnergyInterfaceTile;
 import reborncore.api.power.tile.IEnergyProducerTile;
 import reborncore.api.power.tile.IEnergyReceiverTile;
 import reborncore.common.RebornCoreConfig;
@@ -301,36 +300,36 @@ public class CableMultipart extends Multipart
                 if(tileEntity == null) continue;
                 EnumFacing opposite = connection.getOpposite();
 
+                //TODO rewrite for new version
                 if(tileEntity instanceof IEnergyProducerTile) {
                     IEnergyProducerTile interfaceTile = (IEnergyProducerTile) tileEntity;
                     if(interfaceTile.canProvideEnergy(opposite)) {
                         double extractedEU = interfaceTile.useEnergy(getCableType().transferRate, true);
                         double dispatched = EnergyUtils.dispatchWiresEnergyPacket(getWorld(), getPos(), extractedEU, blockPos);
                         interfaceTile.useEnergy(dispatched);
-                        if(extractedEU != 0) continue;
+                        continue;
                     }
                 }
 
                 if(Loader.isModLoaded("IC2") && RebornCoreConfig.getRebornPower().eu()) {
                     if (tileEntity instanceof IEnergySource) {
                         IEnergySource source = (IEnergySource) tileEntity;
-                        if (source.emitsEnergyTo((emitter, from) -> true, opposite)) {
+                        if(source.emitsEnergyTo((emitter, from) -> true, opposite)) {
                             double extractedEU = source.getOfferedEnergy();
                             if (extractedEU > getCableType().transferRate)
                                 extractedEU = getCableType().transferRate;
                             double dispatched = EnergyUtils.dispatchWiresEnergyPacket(getWorld(), getPos(), extractedEU, blockPos);
                             source.drawEnergy(dispatched);
-                            if (extractedEU != 0) continue;
+                            continue;
                         }
-                    }
-                    if (tileEntity instanceof IEnergyStorage) {
+                    } else if(tileEntity instanceof IEnergyStorage) {
                         IEnergyStorage storage = (IEnergyStorage) tileEntity;
                         double extractedEU = storage.getStored();
-                        if (extractedEU > getCableType().transferRate)
+                        if(extractedEU > getCableType().transferRate)
                             extractedEU = getCableType().transferRate;
                         double dispatched = EnergyUtils.dispatchWiresEnergyPacket(getWorld(), getPos(), extractedEU, blockPos);
                         storage.setStored((int) (extractedEU - dispatched));
-                        if (extractedEU != 0) continue;
+                        continue;
                     }
                 }
 
@@ -343,17 +342,18 @@ public class CableMultipart extends Multipart
                             double extractedEU = extractedRF / (RebornCoreConfig.euPerRF * 1f);
                             double dispatched = EnergyUtils.dispatchWiresEnergyPacket(getWorld(), getPos(), extractedEU, blockPos);
                             provider.extractEnergy(opposite, (int) (dispatched * RebornCoreConfig.euPerRF), false);
-                            if (extractedEU != 0) continue;
+                            continue;
                         }
-                    }
-                    if (tileEntity instanceof cofh.api.energy.IEnergyStorage) {
+                    } else if(tileEntity instanceof cofh.api.energy.IEnergyStorage) {
                         cofh.api.energy.IEnergyStorage energyStorage = (cofh.api.energy.IEnergyStorage) tileEntity;
                         int extractedRF = energyStorage.extractEnergy(
                                 getCableType().transferRate * RebornCoreConfig.euPerRF, true);
                         double extractedEU = extractedRF / (RebornCoreConfig.euPerRF * 1f);
+                        if (extractedEU > getCableType().transferRate)
+                            extractedEU = getCableType().transferRate;
                         double dispatched = EnergyUtils.dispatchWiresEnergyPacket(getWorld(), getPos(), extractedEU, blockPos);
                         energyStorage.extractEnergy((int) (dispatched * RebornCoreConfig.euPerRF), false);
-                        if (extractedEU != 0) continue;
+                        continue;
                     }
                 }
 
@@ -364,7 +364,7 @@ public class CableMultipart extends Multipart
                         double extractedEU = extractedRF / (RebornCoreConfig.euPerRF * 1F);
                         double dispatched = EnergyUtils.dispatchWiresEnergyPacket(getWorld(), getPos(), extractedEU, blockPos);
                         producer.takePower((long) (dispatched * RebornCoreConfig.euPerRF), false);
-                        if (extractedEU != 0) continue;
+                        continue;
                     }
                 }
 

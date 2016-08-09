@@ -4,8 +4,6 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.oredict.OreDictionary;
 import techreborn.Core;
@@ -120,12 +118,6 @@ public class OreDict {
             if(type.equals(ModItems.META_PLACEHOLDER)) continue; //Aware of placeholders!
             String oreDictName = "nugget" + OreDictUtils.toFirstUpper(type);
             OreDictionary.registerOre(oreDictName, ItemNuggets.getNuggetByName(type));
-        }
-
-        for(Fluid fluid : FluidRegistry.getRegisteredFluids().values()) {
-            ItemStack cell = DynamicCell.getCellWithFluid(fluid);
-            String oreDictName = "cell" + OreDictUtils.toFirstUpper(fluid.getName().toLowerCase());
-            OreDictionary.registerOre(oreDictName, cell);
         }
         
     }

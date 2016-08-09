@@ -9,11 +9,9 @@ import net.minecraft.util.math.BlockPos;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.power.IEnergyItemInfo;
-import reborncore.api.power.tile.IEnergyProducerTile;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.PoweredItem;
-import reborncore.common.tile.TilePowerAcceptor;
 import reborncore.common.tile.TilePowerAcceptorProducer;
 import reborncore.common.util.Inventory;
 import techreborn.blocks.storage.BlockEnergyStorage;
@@ -24,19 +22,23 @@ import java.util.List;
 /**
  * Created by Rushmead
  */
-public class TileEnergyStorage extends TilePowerAcceptor implements IEnergyProducerTile, IWrenchable, ITickable, IInventoryProvider, IListInfoProvider {
+public class TileEnergyStorage extends TilePowerAcceptorProducer implements IWrenchable, ITickable, IInventoryProvider, IListInfoProvider {
 
 	public Inventory inventory;
 	public String name;
 	public Block wrenchDrop;
 	public EnumPowerTier tier;
+	public int maxInput;
+	public int maxOutput;
 	public int maxStorage;
 
-	public TileEnergyStorage(String name, int invSize, Block wrenchDrop, EnumPowerTier tier, int maxStorage) {
+	public TileEnergyStorage(String name, int invSize, Block wrenchDrop, EnumPowerTier tier, int maxInput, int maxOuput, int maxStorage) {
 		inventory = new Inventory(invSize, "Tile" + name, 64, this);
 		this.wrenchDrop = wrenchDrop;
 		this.tier = tier;
 		this.name = name;
+		this.maxInput = maxInput;
+		this.maxOutput = maxOuput;
 		this.maxStorage = maxStorage;
 	}
 
@@ -91,13 +93,23 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IEnergyProdu
 			}
 		}
 
+
+
 		if (!worldObj.isRemote && getEnergy() > 0) {
 			double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
-			double disposed = emitEnergy(getFacingEnum(), maxOutput);
-			if (maxOutput != 0 && disposed != 0) useEnergy(disposed);
+			for(EnumFacing facing : EnumFacing.VALUES) {
+				double disposed = emitEnergy(facing, maxOutput);
+				if(disposed != 0) {
+					maxOutput -= disposed;
+					useEnergy(disposed);
+					if (maxOutput == 0) return;
+				}
+			}
 		}
+
 	}
 
+	//TODO move to RebornCore
 	public double emitEnergy(EnumFacing enumFacing, double amount) {
 		BlockPos pos = getPos().offset(enumFacing);
 		EnergyUtils.PowerNetReceiver receiver = EnergyUtils.getReceiver(
@@ -106,16 +118,6 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IEnergyProdu
 			return receiver.receiveEnergy(amount, false);
 		}
 		return 0;
-	}
-
-	@Override
-	public boolean canAcceptEnergy(EnumFacing direction) {
-		return getFacingEnum() != direction;
-	}
-
-	@Override
-	public boolean canProvideEnergy(EnumFacing direction) {
-		return getFacingEnum() == direction;
 	}
 
 	@Override

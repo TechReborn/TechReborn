@@ -9,7 +9,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 import reborncore.common.powerSystem.PowerSystem;
-import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.client.container.ContainerFusionReactor;
 import techreborn.tiles.fusionReactor.TileEntityFusionController;
 
@@ -20,28 +19,29 @@ public class GuiFusionReactor extends GuiContainer
 			"textures/gui/fusion_reactor.png");
 
 	ContainerFusionReactor containerFusionReactor;
-	public GuiFusionReactor(EntityPlayer player, TileEntityFusionController tileaesu) {
+	TileEntityFusionController fusionController;
+
+	public GuiFusionReactor(EntityPlayer player, TileEntityFusionController tileaesu)
+	{
 		super(new ContainerFusionReactor(tileaesu, player));
 		containerFusionReactor = (ContainerFusionReactor) this.inventorySlots;
+		this.fusionController = tileaesu;
 	}
 
-	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
+	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_)
+	{
 		String name = I18n.translateToLocal("tile.techreborn.fusioncontrolcomputer.name");
 		this.fontRendererObj.drawString(name, 87, 6, 4210752);
-		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
+		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,
+				this.ySize - 96 + 2, 4210752);
 
 		this.fontRendererObj.drawString(PowerSystem.getLocalizedPower(containerFusionReactor.energy), 11, 8, 16448255);
-		this.fontRendererObj.drawString("Coils: " + (containerFusionReactor.hasCoils ? "Yes" : "No"), 11, 16, 16448255);
-
-		if(containerFusionReactor.tickTime != -1) {
-			if (containerFusionReactor.tickTime == 0) {
-				this.fontRendererObj.drawString("Start: " + percentage(containerFusionReactor.neededEnergy,
-						containerFusionReactor.energy) + "%", 11, 24, 16448255);
-			} else {
-				this.fontRendererObj.drawString("Fusion: " + percentage(containerFusionReactor.finalTickTime,
-						containerFusionReactor.tickTime) + "%", 11, 24, 16448255);
-			}
-		}
+		this.fontRendererObj.drawString("Coils: " + (containerFusionReactor.coilStatus == 1 ? "Yes" : "No"), 11, 16,
+				16448255);
+		if (containerFusionReactor.neededEU > 1 && containerFusionReactor.tickTime < 1)
+			this.fontRendererObj.drawString(
+					"Start: " + percentage(containerFusionReactor.neededEU, containerFusionReactor.energy) + "%", 11,
+					24, 16448255);
 
 	}
 
@@ -85,7 +85,7 @@ public class GuiFusionReactor extends GuiContainer
 
 	}
 
-	public int percentage(double MaxValue, double CurrentValue)
+	public int percentage(int MaxValue, int CurrentValue)
 	{
 		if (CurrentValue == 0)
 			return 0;
