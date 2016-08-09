@@ -1,6 +1,5 @@
 package techreborn.parts.powerCables;
 
-import cofh.api.energy.IEnergyConnection;
 import cofh.api.energy.IEnergyProvider;
 import cofh.api.energy.IEnergyReceiver;
 import ic2.api.energy.tile.*;
@@ -220,10 +219,8 @@ public class CableMultipart extends Multipart
                     } else if(tile instanceof IEnergyProducerTile &&
                             ((IEnergyProducerTile) tile).canProvideEnergy(facing)) {
                         return true;
-                    } else if ((tile instanceof IEnergyProvider ||
-                            tile instanceof IEnergyReceiver ||
-                            tile instanceof cofh.api.energy.IEnergyStorage) &&
-                            ((IEnergyConnection) tile).canConnectEnergy(facing) &&
+                    } else if (tile instanceof IEnergyReceiver &&
+                            ((IEnergyReceiver) tile).canConnectEnergy(facing) &&
                             RebornCoreConfig.getRebornPower().rf()) {
                         return true;
                     } else if (Loader.isModLoaded("IC2") &&
@@ -233,8 +230,7 @@ public class CableMultipart extends Multipart
                                     tile instanceof IEnergyAcceptor)) {
                         return true;
                     } else if (Loader.isModLoaded("Tesla") &&
-                            tile.hasCapability(TeslaCapabilities.CAPABILITY_CONSUMER, facing) ||
-                            tile.hasCapability(TeslaCapabilities.CAPABILITY_PRODUCER, facing)) {
+                            tile.hasCapability(TeslaCapabilities.CAPABILITY_CONSUMER, facing)) {
                         return true;
                     }
                 }
@@ -301,8 +297,8 @@ public class CableMultipart extends Multipart
                 EnumFacing opposite = connection.getOpposite();
 
                 //TODO rewrite for new version
-                if(tileEntity instanceof IEnergyProducerTile) {
-                    IEnergyProducerTile interfaceTile = (IEnergyProducerTile) tileEntity;
+                if(tileEntity instanceof IEnergyInterfaceTile) {
+                    IEnergyInterfaceTile interfaceTile = (IEnergyInterfaceTile) tileEntity;
                     if(interfaceTile.canProvideEnergy(opposite)) {
                         double extractedEU = interfaceTile.useEnergy(getCableType().transferRate, true);
                         double dispatched = EnergyUtils.dispatchWiresEnergyPacket(getWorld(), getPos(), extractedEU, blockPos);
