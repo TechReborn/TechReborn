@@ -43,7 +43,15 @@ public class GuiVacuumFreezer extends GuiContainer {
             this.fontRendererObj.drawString(I18n.translateToLocal("techreborn.message.missingmultiblock"), k + 38, l + 52 + 12, -1);
         }
 
+<<<<<<< HEAD
     }
+=======
+		j = crafter.getEnergyScaled(12);
+		if (j > 0)
+		{
+			this.drawTexturedModalRect(k + 26, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);
+		}
+>>>>>>> parent of b292fdd... Rewrite to use new RebornCore Power API. Texture fixes.
 
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         String name = I18n.translateToLocal("tile.techreborn.vacuumfreezer.name");

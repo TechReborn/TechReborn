@@ -10,8 +10,8 @@ import reborncore.api.power.EnumPowerTier;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
-import reborncore.common.tile.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.api.Reference;
 import techreborn.init.ModBlocks;
@@ -26,6 +26,7 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
     public RecipeCrafter crafter;
 
     public TileImplosionCompressor() {
+        super(2);
         int[] inputs = new int[]{0, 1};
         int[] outputs = new int[]{2, 3};
         crafter = new RecipeCrafter(Reference.implosionCompressorRecipe, this, 2, 2, inventory, inputs, outputs);
@@ -115,6 +116,26 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
     @Override
     public double getMaxPower() {
         return 64000;
+    }
+
+    @Override
+    public boolean canAcceptEnergy(EnumFacing direction) {
+        return true;
+    }
+
+    @Override
+    public boolean canProvideEnergy(EnumFacing direction) {
+        return false;
+    }
+
+    @Override
+    public double getMaxOutput() {
+        return 0;
+    }
+
+    @Override
+    public double getMaxInput() {
+        return 64;
     }
 
     @Override

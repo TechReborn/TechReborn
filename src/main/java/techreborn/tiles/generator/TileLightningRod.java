@@ -8,13 +8,17 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.tile.TilePowerProducer;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.config.ConfigTechReborn;
 import techreborn.power.EnergyUtils;
 
-public class TileLightningRod extends TilePowerProducer {
+public class TileLightningRod extends TilePowerAcceptor {
 
     private int onStatusHoldTicks = -1;
+
+    public TileLightningRod() {
+        super(2);
+    }
 
     @Override
     public void update() {
@@ -47,6 +51,10 @@ public class TileLightningRod extends TilePowerProducer {
             }
         }
 
+        if (!worldObj.isRemote && getEnergy() > 0) {
+            double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
+            useEnergy(EnergyUtils.dispatchEnergyToNeighbours(worldObj, getPos(), this, maxOutput));
+        }
     }
 
     public float getLightningStrikeMultiplier() {
@@ -64,17 +72,6 @@ public class TileLightningRod extends TilePowerProducer {
         return 4F;
     }
 
-    @Override
-    public double emitEnergy(EnumFacing enumFacing, double amount) {
-        BlockPos pos = getPos().offset(enumFacing);
-        EnergyUtils.PowerNetReceiver receiver = EnergyUtils.getReceiver(
-                worldObj, enumFacing.getOpposite(), pos);
-        if(receiver != null) {
-            addEnergy(amount - receiver.receiveEnergy(amount, false));
-        } else addEnergy(amount);
-        return 0; //Temporary hack die to my bug RebornCore
-    }
-
     public boolean isValidIronFence(int y) {
         Item itemBlock = Item.getItemFromBlock(worldObj.getBlockState(new BlockPos(pos.getX(), y, pos.getZ())).getBlock());
         for(ItemStack fence : OreDictionary.getOres("fenceIron")) {
@@ -85,17 +82,32 @@ public class TileLightningRod extends TilePowerProducer {
 
     @Override
     public double getMaxPower() {
-        return 1024000;
+        return 327680;
+    }
+
+    @Override
+    public boolean canAcceptEnergy(EnumFacing direction) {
+        return false;
+    }
+
+    @Override
+    public boolean canProvideEnergy(EnumFacing direction) {
+        return direction == getFacingEnum();
     }
 
     @Override
     public double getMaxOutput() {
-        return 32768;
+        return 2048;
+    }
+
+    @Override
+    public double getMaxInput() {
+        return 0;
     }
 
     @Override
     public EnumPowerTier getTier() {
-        return EnumPowerTier.INSANE;
+        return EnumPowerTier.HIGH;
     }
 
 }

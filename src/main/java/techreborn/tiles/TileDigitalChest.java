@@ -31,9 +31,8 @@ public class TileDigitalChest extends TileMachineBase implements IInventoryProvi
 	public Inventory inventory = new Inventory(3, "TileDigitalChest", storage, this);
 
 	@Override
-	public void update()
+	public void updateEntity()
 	{
-		super.update();
 		if (!worldObj.isRemote)
 		{
 			if (storedItem != null)

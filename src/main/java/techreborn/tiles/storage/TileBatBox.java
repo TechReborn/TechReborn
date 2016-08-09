@@ -1,7 +1,10 @@
 package techreborn.tiles.storage;
 
+import reborncore.api.IListInfoProvider;
 import reborncore.api.power.EnumPowerTier;
 import techreborn.init.ModBlocks;
+
+import java.util.List;
 
 /**
  * Created by modmuss50 on 14/03/2016.

@@ -55,7 +55,8 @@ public class ItemBlockAesu extends ItemBlock
 		}
 		if (stack != null && stack.hasTagCompound())
 		{
-			//TODO  ((TileAesu) world.getTileEntity(pos)).readFromNBTWithoutCoords(stack.getTagCompound().getCompoundTag("tileEntity"));
+			((TileAesu) world.getTileEntity(pos))
+					.readFromNBTWithoutCoords(stack.getTagCompound().getCompoundTag("tileEntity"));
 		}
 		return true;
 	}

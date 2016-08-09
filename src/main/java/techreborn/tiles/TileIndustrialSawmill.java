@@ -1,8 +1,7 @@
-package techreborn.tiles.multiblock;
+package techreborn.tiles;
 
-import net.minecraft.block.state.IBlockState;
+import reborncore.common.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -10,10 +9,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.*;
+import reborncore.api.IListInfoProvider;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.IWrenchable;
+import reborncore.common.misc.Location;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.FluidUtils;
@@ -21,35 +21,74 @@ import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
 import techreborn.api.Reference;
 import techreborn.api.recipe.ITileRecipeHandler;
-import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
-import techreborn.config.ConfigTechReborn;
+import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
+import techreborn.blocks.BlockMachineCasing;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModFluids;
 
-import static techreborn.tiles.multiblock.MultiblockChecker.*;
-
-public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrenchable, IFluidHandler, IInventoryProvider, ISidedInventory, ITileRecipeHandler<IndustrialGrinderRecipe>, IRecipeCrafterProvider {
+public class TileIndustrialSawmill extends TilePowerAcceptor
+		implements IWrenchable, IFluidHandler,IInventoryProvider, ISidedInventory, IListInfoProvider, ITileRecipeHandler<IndustrialSawmillRecipe>, IRecipeCrafterProvider
+{
 	public static final int TANK_CAPACITY = 16000;
 
-	public Inventory inventory = new Inventory(6, "TileGrinder", 64, this);
-	public Tank tank = new Tank("TileGrinder", TANK_CAPACITY, this);
+	public int tickTime;
+	public Inventory inventory = new Inventory(5, "TileIndustrialSawmill", 64, this);
+	public Tank tank = new Tank("TileSawmill", TANK_CAPACITY, this);
 	public RecipeCrafter crafter;
-    public MultiblockChecker multiblockChecker;
 
-	public TileIndustrialGrinder()
+	public TileIndustrialSawmill()
 	{
-		super(ConfigTechReborn.CentrifugeTier);
+		super(2);
 		// TODO configs
-
+		// Input slots
 		int[] inputs = new int[2];
 		inputs[0] = 0;
 		inputs[1] = 1;
-		int[] outputs = new int[4];
+		int[] outputs = new int[3];
 		outputs[0] = 2;
 		outputs[1] = 3;
 		outputs[2] = 4;
-		outputs[3] = 5;
-		crafter = new RecipeCrafter(Reference.industrialGrinderRecipe, this, 1, 4, inventory, inputs, outputs);
+		crafter = new RecipeCrafter(Reference.industrialSawmillRecipe, this, 2, 3, inventory, inputs, outputs);
+	}
+
+	@Override
+	public void updateEntity()
+	{
+		super.updateEntity();
+		if (getMutliBlock())
+		{
+			crafter.updateEntity();
+		}
+		FluidUtils.drainContainers(this, inventory, 0, 4);
+		FluidUtils.drainContainers(this, inventory, 1, 4);
+	}
+
+	public boolean getMutliBlock()
+	{
+		for (EnumFacing direction : EnumFacing.values())
+		{
+			TileEntity tileEntity = worldObj.getTileEntity(new BlockPos(getPos().getX() + direction.getFrontOffsetX(),
+					getPos().getY() + direction.getFrontOffsetY(), getPos().getZ() + direction.getFrontOffsetZ()));
+			if (tileEntity instanceof TileMachineCasing)
+			{
+				if ((tileEntity.getBlockType() instanceof BlockMachineCasing))
+				{
+					int heat;
+					BlockMachineCasing blockMachineCasing = (BlockMachineCasing) tileEntity.getBlockType();
+					heat = blockMachineCasing
+							.getHeatFromState(tileEntity.getWorld().getBlockState(tileEntity.getPos()));
+					Location location = new Location(getPos().getX(), getPos().getY(), getPos().getZ(), direction);
+					location.modifyPositionFromSide(direction, 1);
+					if (worldObj.getBlockState(location.getBlockPos()).getBlock().getUnlocalizedName()
+							.equals("tile.lava"))
+					{
+						heat += 500;
+					}
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	@Override
@@ -79,31 +118,12 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrencha
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
 	{
-		return new ItemStack(ModBlocks.IndustrialGrinder, 1);
+		return new ItemStack(ModBlocks.industrialSawmill, 1);
 	}
 
-	public boolean getMutliBlock() {
-        boolean down = multiblockChecker.checkRectY(1, 1, CASING_NORMAL, ZERO_OFFSET);
-        boolean up = multiblockChecker.checkRectY(1, 1, CASING_NORMAL, new BlockPos(0, 2, 0));
-        boolean blade = multiblockChecker.checkRingY(1, 1, CASING_REINFORCED, new BlockPos(0, 1, 0));
-        IBlockState centerBlock = multiblockChecker.getBlock(0, 1, 0);
-        boolean center = centerBlock.getBlock() == Blocks.WATER;
-        return down && center && blade && up;
-	}
-
-	@Override
-	public void update() {
-		super.update();
-
-        if(multiblockChecker == null) {
-            BlockPos pos = getPos().offset(getFacing().getOpposite(), 2).down();
-            multiblockChecker = new MultiblockChecker(worldObj, pos);
-        }
-
-		if (getMutliBlock()) {
-			crafter.updateEntity();
-		}
-		FluidUtils.drainContainers(this, inventory, 1, 5);
+	public boolean isComplete()
+	{
+		return false;
 	}
 
 	@Override
@@ -121,18 +141,6 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrencha
 		tank.writeToNBT(tagCompound);
 		crafter.writeToNBT(tagCompound);
 		return tagCompound;
-	}
-
-	@Override
-	public void invalidate()
-	{
-		super.invalidate();
-	}
-
-	@Override
-	public void onChunkUnload()
-	{
-		super.onChunkUnload();
 	}
 
 	/* IFluidHandler */
@@ -172,7 +180,7 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrencha
 	@Override
 	public boolean canFill(EnumFacing from, Fluid fluid)
 	{
-		return fluid == FluidRegistry.WATER || fluid == ModFluids.fluidMercury || fluid == ModFluids.fluidSodiumpersulfate;
+		return fluid == FluidRegistry.WATER;
 	}
 
 	@Override
@@ -191,7 +199,7 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrencha
 	@Override
 	public int[] getSlotsForFace(EnumFacing side)
 	{
-		return side == EnumFacing.DOWN ? new int[] { 0, 1, 2, 3, 4, 5 } : new int[] { 0, 1, 2, 3, 4, 5 };
+		return side == EnumFacing.DOWN ? new int[] { 0, 1, 2, 3, 4 } : new int[] { 0, 1, 2, 3, 4 };
 	}
 
 	@Override
@@ -205,7 +213,7 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrencha
 	@Override
 	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side)
 	{
-		return slotIndex == 2 || slotIndex == 3 || slotIndex == 4 || slotIndex == 5;
+		return slotIndex == 2 || slotIndex == 3 || slotIndex == 4;
 	}
 
 	public int getProgressScaled(int scale)
@@ -244,7 +252,7 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrencha
 	@Override
 	public double getMaxInput()
 	{
-		return 32;
+		return 64;
 	}
 
 	@Override
@@ -253,44 +261,48 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrencha
 		return EnumPowerTier.LOW;
 	}
 
+	@Override
+	public boolean canCraft(TileEntity tile, IndustrialSawmillRecipe recipe) {
+		if (recipe.fluidStack == null) {
+			return true;
+		}
+		if (tile instanceof TileIndustrialSawmill) {
+			TileIndustrialSawmill sawmill = (TileIndustrialSawmill) tile;
+			if (sawmill.tank.getFluid() == null) {
+				return false;
+			}
+			if (sawmill.tank.getFluid() == recipe.fluidStack) {
+				if (sawmill.tank.getFluidAmount() >= recipe.fluidStack.amount) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 
 	@Override
-	public boolean canCraft(TileEntity tile, IndustrialGrinderRecipe recipe) {
-        FluidStack recipeFluid = recipe.fluidStack;
-        FluidStack tankFluid = tank.getFluid();
-        if (recipe.fluidStack == null) {
-            return true;
-        }
-        if(tankFluid == null) {
-            return false;
-        }
-        if (tankFluid.isFluidEqual(recipeFluid)) {
-            if (tankFluid.amount >= recipeFluid.amount) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-	@Override
-	public boolean onCraft(TileEntity tile, IndustrialGrinderRecipe recipe) {
-        FluidStack recipeFluid = recipe.fluidStack;
-        FluidStack tankFluid = tank.getFluid();
-        if (recipe.fluidStack == null) {
-            return true;
-        }
-        if(tankFluid == null) {
-            return false;
-        }
-        if (tankFluid.isFluidEqual(recipeFluid)) {
-            if (tankFluid.amount >= recipeFluid.amount) {
-                if(tankFluid.amount == recipeFluid.amount)
-                    tank.setFluid(null);
-                else tankFluid.amount -= recipeFluid.amount;
-                return true;
-            }
-        }
-        return false;
+	public boolean onCraft(TileEntity tile, IndustrialSawmillRecipe recipe) {
+		if (recipe.fluidStack == null) {
+			return true;
+		}
+		if (tile instanceof TileIndustrialSawmill) {
+			TileIndustrialSawmill sawmill = (TileIndustrialSawmill) tile;
+			if (sawmill.tank.getFluid() == null) {
+				return false;
+			}
+			if (sawmill.tank.getFluid() == recipe.fluidStack) {
+				if (sawmill.tank.getFluidAmount() >= recipe.fluidStack.amount) {
+					if (sawmill.tank.getFluidAmount() > 0) {
+						sawmill.tank.setFluid(new FluidStack(recipe.fluidStack.getFluid(),
+								sawmill.tank.getFluidAmount() - recipe.fluidStack.amount));
+					} else {
+						sawmill.tank.setFluid(null);
+					}
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	@Override
@@ -302,5 +314,4 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrencha
 	public RecipeCrafter getRecipeCrafter() {
 		return crafter;
 	}
-
 }

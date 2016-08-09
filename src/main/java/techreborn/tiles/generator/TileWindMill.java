@@ -1,47 +1,70 @@
 package techreborn.tiles.generator;
 
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
 import reborncore.api.power.EnumPowerTier;
-import reborncore.common.tile.TilePowerProducer;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.power.EnergyUtils;
 
 /**
  * Created by modmuss50 on 25/02/2016.
  */
-public class TileWindMill extends TilePowerProducer {
+public class TileWindMill extends TilePowerAcceptor
+{
 
 	int basePower = 16;
 
+	public TileWindMill()
+	{
+		super(2);
+	}
 
 	@Override
-	public void update() {
-		super.update();
+	public void updateEntity() {
+		super.updateEntity();
 		if (pos.getY() > 64) {
 			double actualPower = basePower + basePower * worldObj.getThunderStrength(1.0F);
 			addEnergy(actualPower);
 		}
+
+		if (!worldObj.isRemote && getEnergy() > 0) {
+			double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
+			useEnergy(EnergyUtils.dispatchEnergyToNeighbours(worldObj, getPos(), this, maxOutput));
+		}
 	}
 
 	@Override
-	public double emitEnergy(EnumFacing enumFacing, double amount) {
-		BlockPos pos = getPos().offset(enumFacing);
-		EnergyUtils.PowerNetReceiver receiver = EnergyUtils.getReceiver(
-				worldObj, enumFacing.getOpposite(), pos);
-		if(receiver != null) {
-			addEnergy(amount - receiver.receiveEnergy(amount, false));
-		} else addEnergy(amount);
-		return 0; //Temporary hack die to my bug RebornCore
+	public double getMaxPower()
+	{
+		return 10000;
 	}
 
 	@Override
-	public double getMaxPower() {
-		return 8000;
+	public boolean canAcceptEnergy(EnumFacing direction)
+	{
+		return false;
 	}
 
 	@Override
-	public EnumPowerTier getTier() {
+	public boolean canProvideEnergy(EnumFacing direction)
+	{
+		return true;
+	}
+
+	@Override
+	public double getMaxOutput()
+	{
+		return 128;
+	}
+
+	@Override
+	public double getMaxInput()
+	{
+		return 0;
+	}
+
+	@Override
+	public EnumPowerTier getTier()
+	{
 		return EnumPowerTier.LOW;
 	}
-
 }

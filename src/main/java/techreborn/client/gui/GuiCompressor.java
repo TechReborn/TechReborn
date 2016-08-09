@@ -34,16 +34,19 @@ public class GuiCompressor extends GuiContainer
 		int l = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
 
-		int j = compressor.getProgressScaled(24);
-		if (j > 0) {
+		int j = 0;
+
+		j = compressor.getProgressScaled(24);
+		if (j > 0)
+		{
 			this.drawTexturedModalRect(k + 78, l + 35, 176, 14, j + 1, 16);
 		}
 
-		j = (int)(compressor.getEnergy() * 12f / compressor.getMaxPower());
-		if (j > 0) {
+		j = compressor.getEnergyScaled(12);
+		if (j > 0)
+		{
 			this.drawTexturedModalRect(k + 24, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);
 		}
-
 	}
 
 	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_)

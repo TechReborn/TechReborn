@@ -78,15 +78,17 @@ public class GuiBlastFurnace extends GuiContainer
 					l + 52 + 12 - 0, -1);
 		}
 
+		int j = 0;
 		this.mc.getTextureManager().bindTexture(texture);
-		int j = blastfurnace.getProgressScaled(24);
+		j = blastfurnace.getProgressScaled(24);
 		if (j > 0)
 		{
 			this.drawTexturedModalRect(k + 64, l + 37, 176, 14, j + 1, 16);
 		}
 
-		j = (int)(blastfurnace.getEnergy() * 12f / blastfurnace.getMaxPower());
-		if (j > 0) {
+		j = blastfurnace.getEnergyScaled(12);
+		if (j > 0)
+		{
 			this.drawTexturedModalRect(k + 9, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);
 		}
 

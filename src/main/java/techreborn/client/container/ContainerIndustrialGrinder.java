@@ -14,7 +14,7 @@ public class ContainerIndustrialGrinder extends ContainerCrafting {
     TileIndustrialGrinder tile;
 
     public ContainerIndustrialGrinder(TileIndustrialGrinder tileGrinder, EntityPlayer player) {
-        super(tileGrinder.crafter);
+        super(tileGrinder.getRecipeCrafter());
         tile = tileGrinder;
         this.player = player;
 

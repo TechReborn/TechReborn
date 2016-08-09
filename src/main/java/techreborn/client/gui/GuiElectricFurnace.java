@@ -34,16 +34,19 @@ public class GuiElectricFurnace extends GuiContainer
 		int l = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
 
-		int j = furnace.gaugeProgressScaled(24);
-		if (j > 0) {
+		int j = 0;
+
+		j = furnace.gaugeProgressScaled(24);
+		if (j > 0)
+		{
 			this.drawTexturedModalRect(k + 78, l + 34, 176, 14, j + 1, 16);
 		}
 
-		j = (int)(furnace.getEnergy() * 12f / furnace.getMaxPower());
-		if (j > 0) {
+		j = furnace.getEnergyScaled(12);
+		if (j > 0)
+		{
 			this.drawTexturedModalRect(k + 24, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);
 		}
-
 	}
 
 	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_)

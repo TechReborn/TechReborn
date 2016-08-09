@@ -1,6 +1,5 @@
 package techreborn.tiles;
 
-import net.minecraft.util.math.BlockPos;
 import reborncore.common.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -8,13 +7,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-import reborncore.common.tile.TilePowerAcceptorProducer;
 import reborncore.common.util.Inventory;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
-import techreborn.power.EnergyUtils;
 
-public class TileAesu extends TilePowerAcceptorProducer implements IWrenchable {
+public class TileAesu extends TilePowerAcceptor implements IWrenchable
+{
 
 	public static final int MAX_OUTPUT = ConfigTechReborn.AesuMaxOutput;
 	public static final int MAX_STORAGE = ConfigTechReborn.AesuMaxStorage;
@@ -24,116 +22,117 @@ public class TileAesu extends TilePowerAcceptorProducer implements IWrenchable {
 	private double euChange;
 	private int ticks;
 
+	public TileAesu()
+	{
+		super(5);
+	}
 
 	@Override
-	public void update() {
-		super.update();
-		if (ticks == ConfigTechReborn.AverageEuOutTickTime) {
+	public void updateEntity()
+	{
+		super.updateEntity();
+		if (ticks == ConfigTechReborn.AverageEuOutTickTime)
+		{
 			euChange = -1;
 			ticks = 0;
 
-		} else {
+		} else
+		{
 			ticks++;
 			euChange += getEnergy() - euLastTick;
-			if (euLastTick == getEnergy()) {
+			if (euLastTick == getEnergy())
+			{
 				euChange = 0;
 			}
 		}
 
 		euLastTick = getEnergy();
-
-		if (!worldObj.isRemote && getEnergy() > 0) {
-			double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
-			for(EnumFacing facing : EnumFacing.VALUES) {
-				double disposed = emitEnergy(facing, maxOutput);
-				if(disposed != 0) {
-					maxOutput -= disposed;
-					useEnergy(disposed);
-					if (maxOutput == 0) return;
-				}
-			}
-		}
-
 	}
-
-	//TODO move to RebornCore
-	public double emitEnergy(EnumFacing enumFacing, double amount) {
-		BlockPos pos = getPos().offset(enumFacing);
-		EnergyUtils.PowerNetReceiver receiver = EnergyUtils.getReceiver(
-				worldObj, enumFacing.getOpposite(), pos);
-		if(receiver != null) {
-			return receiver.receiveEnergy(amount, false);
-		}
-		return 0;
-	}
-
 
 	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
+	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side)
+	{
 		return true;
 	}
 
 	@Override
-	public EnumFacing getFacing() {
+	public EnumFacing getFacing()
+	{
 		return getFacingEnum();
 	}
 
 	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
+	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
+	{
 		return entityPlayer.isSneaking();
 	}
 
 	@Override
-	public float getWrenchDropRate() {
+	public float getWrenchDropRate()
+	{
 		return 1.0F;
 	}
 
 	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+	public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
+	{
 		return getDropWithNBT();
 	}
 
-	public boolean isComplete() {
+	public boolean isComplete()
+	{
 		return false;
 	}
 
-	public void handleGuiInputFromClient(int id) {
-		if (id == 0) {
+	public void handleGuiInputFromClient(int id)
+	{
+		if (id == 0)
+		{
 			OUTPUT += 256;
 		}
-		if (id == 1) {
+		if (id == 1)
+		{
 			OUTPUT += 64;
 		}
-		if (id == 2) {
+		if (id == 2)
+		{
 			OUTPUT -= 64;
 		}
-		if (id == 3) {
+		if (id == 3)
+		{
 			OUTPUT -= 256;
 		}
-		if (OUTPUT > MAX_OUTPUT) {
+		if (OUTPUT > MAX_OUTPUT)
+		{
 			OUTPUT = MAX_OUTPUT;
 		}
-		if (OUTPUT <= -1) {
+		if (OUTPUT <= -1)
+		{
 			OUTPUT = 0;
 		}
 	}
 
-	public double getEuChange() {
-		if (euChange == -1) {
+	public double getEuChange()
+	{
+		if (euChange == -1)
+		{
 			return -1;
 		}
 		return (euChange / ticks);
 	}
 
-	public ItemStack getDropWithNBT() {
+	public ItemStack getDropWithNBT()
+	{
 		NBTTagCompound tileEntity = new NBTTagCompound();
 		ItemStack dropStack = new ItemStack(ModBlocks.Aesu, 1);
+		writeToNBTWithoutCoords(tileEntity);
 		dropStack.setTagCompound(new NBTTagCompound());
 		dropStack.getTagCompound().setTag("tileEntity", tileEntity);
 		return dropStack;
 	}
 
-	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
+	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
+	{
 		super.writeToNBT(tagCompound);
 		tagCompound.setDouble("euChange", euChange);
 		tagCompound.setDouble("euLastTick", euLastTick);
@@ -142,7 +141,8 @@ public class TileAesu extends TilePowerAcceptorProducer implements IWrenchable {
 		return tagCompound;
 	}
 
-	public void readFromNBT(NBTTagCompound nbttagcompound) {
+	public void readFromNBT(NBTTagCompound nbttagcompound)
+	{
 		super.readFromNBT(nbttagcompound);
 		this.euChange = nbttagcompound.getDouble("euChange");
 		this.euLastTick = nbttagcompound.getDouble("euLastTick");
@@ -151,18 +151,38 @@ public class TileAesu extends TilePowerAcceptorProducer implements IWrenchable {
 	}
 
 	@Override
-	public double getMaxPower() {
+	public double getMaxPower()
+	{
 		return TileAesu.MAX_STORAGE;
 	}
 
 	@Override
-	public double getMaxOutput() {
+	public boolean canAcceptEnergy(EnumFacing direction)
+	{
+		return getFacingEnum() != direction;
+	}
+
+	@Override
+	public boolean canProvideEnergy(EnumFacing direction)
+	{
+		return getFacingEnum() == direction;
+	}
+
+	@Override
+	public double getMaxOutput()
+	{
 		return OUTPUT;
 	}
 
 	@Override
-	public EnumPowerTier getTier() {
-		return EnumPowerTier.INSANE;
+	public double getMaxInput()
+	{
+		return 4096 * 2;
 	}
 
+	@Override
+	public EnumPowerTier getTier()
+	{
+		return EnumPowerTier.EXTREME;
+	}
 }

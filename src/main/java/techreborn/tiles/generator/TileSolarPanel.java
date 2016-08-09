@@ -2,9 +2,8 @@ package techreborn.tiles.generator;
 
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
-import net.minecraft.util.math.BlockPos;
 import reborncore.api.power.EnumPowerTier;
-import reborncore.common.tile.TilePowerProducer;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.blocks.generator.BlockSolarPanel;
 import techreborn.power.EnergyUtils;
 
@@ -13,15 +12,22 @@ import java.util.List;
 /**
  * Created by modmuss50 on 25/02/2016.
  */
-public class TileSolarPanel extends TilePowerProducer implements ITickable {
+public class TileSolarPanel extends TilePowerAcceptor implements ITickable
+{
 
 	boolean shouldMakePower = false;
+	boolean lastTickSate = false;
 
 	int powerToAdd;
 
+	public TileSolarPanel()
+	{
+		super(1);
+	}
+
 	@Override
-	public void update() {
-		super.update();
+	public void updateEntity() {
+		super.updateEntity();
 		if (!worldObj.isRemote) {
 			if (worldObj.getTotalWorldTime() % 60 == 0) {
 				shouldMakePower = isSunOut();
@@ -35,12 +41,19 @@ public class TileSolarPanel extends TilePowerProducer implements ITickable {
 			}
 			worldObj.setBlockState(getPos(), worldObj.getBlockState(this.getPos()).withProperty(BlockSolarPanel.ACTIVE, isSunOut()));
 		}
+
+		if (!worldObj.isRemote && getEnergy() > 0) {
+			double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
+			useEnergy(EnergyUtils.dispatchEnergyToNeighbours(worldObj, getPos(), this, maxOutput));
+		}
 	}
 
 	@Override
-	public void addInfo(List<String> info, boolean isRealTile) {
+	public void addInfo(List<String> info, boolean isRealTile)
+	{
 		super.addInfo(info, isRealTile);
-		if (isRealTile) {
+		if (isRealTile)
+		{
 			// FIXME: 25/02/2016
 			// info.add(TextFormatting.LIGHT_PURPLE + "Power gen/tick " +
 			// TextFormatting.GREEN + PowerSystem.getLocalizedPower(
@@ -48,30 +61,45 @@ public class TileSolarPanel extends TilePowerProducer implements ITickable {
 		}
 	}
 
-	@Override
-	public double emitEnergy(EnumFacing enumFacing, double amount) {
-		BlockPos pos = getPos().offset(enumFacing);
-		EnergyUtils.PowerNetReceiver receiver = EnergyUtils.getReceiver(
-				worldObj, enumFacing.getOpposite(), pos);
-		if(receiver != null) {
-			addEnergy(amount - receiver.receiveEnergy(amount, false));
-		} else addEnergy(amount);
-		return 0; //Temporary hack die to my bug RebornCore
-	}
-
-	public boolean isSunOut() {
-		return worldObj.canBlockSeeSky(pos.up()) && !worldObj.isRaining() && !worldObj.isThundering()
+	public boolean isSunOut()
+	{
+		return  worldObj.canBlockSeeSky(pos.up()) && !worldObj.isRaining() && !worldObj.isThundering()
 				&& worldObj.isDaytime();
 	}
 
 	@Override
-	public double getMaxPower() {
-		return 8000;
+	public double getMaxPower()
+	{
+		return 1000;
 	}
 
 	@Override
-	public EnumPowerTier getTier() {
-		return EnumPowerTier.LOW;
+	public boolean canAcceptEnergy(EnumFacing direction)
+	{
+		return false;
 	}
 
+	@Override
+	public boolean canProvideEnergy(EnumFacing direction)
+	{
+		return true;
+	}
+
+	@Override
+	public double getMaxOutput()
+	{
+		return 32;
+	}
+
+	@Override
+	public double getMaxInput()
+	{
+		return 0;
+	}
+
+	@Override
+	public EnumPowerTier getTier()
+	{
+		return EnumPowerTier.LOW;
+	}
 }

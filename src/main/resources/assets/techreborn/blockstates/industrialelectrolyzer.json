@@ -4,16 +4,16 @@
       "transform":"forge:default-block",
       "model":"orientable",
       "textures":{
-         "particle":"techreborn:blocks/machine/advanced_machines/advanced_machine_side",
+         "particle":"techreborn:blocks/machine/advanced_machines/industrial_electrolyzer_front_off",
          "top":"techreborn:blocks/machine/advanced_machines/machine_top",
-         "side":"techreborn:blocks/machine/advanced_machines/advanced_machine_side"
+         "side":"techreborn:blocks/machine/advanced_machines/industrial_electrolyzer_front_off"
       }
    },
    "variants":{
       "inventory":{
          "transform":"forge:default-block",
          "textures":{
-            "front":"techreborn:blocks/machine/advanced_machines/advanced_machine_side"
+            "front":"techreborn:blocks/machine/advanced_machines/industrial_electrolyzer_front_off"
          }
       },
       "facing":{
@@ -33,22 +33,22 @@
       "active":{
          "true":{
             "textures":{
-               "front":"techreborn:blocks/machine/advanced_machines/advanced_machine_side"
+               "front":"techreborn:blocks/machine/advanced_machines/industrial_electrolyzer_front_on"
             }
          },
          "false":{
             "textures":{
-               "front":"techreborn:blocks/machine/advanced_machines/advanced_machine_side"
+               "front":"techreborn:blocks/machine/advanced_machines/industrial_electrolyzer_front_off"
             }
          }
       },
         "inventory": {
             "model": "orientable",
             "textures": {
-                "particle": "techreborn:blocks/machine/advanced_machines/advanced_machine_side",
+                "particle": "techreborn:blocks/machine/advanced_machines/industrial_electrolyzer_front_off",
                 "top": "techreborn:blocks/machine/advanced_machines/machine_top",
-                "side": "techreborn:blocks/machine/advanced_machines/advanced_machine_side",
-                "front": "techreborn:blocks/machine/advanced_machines/advanced_machine_side"
+                "side": "techreborn:blocks/machine/advanced_machines/industrial_electrolyzer_front_off",
+                "front": "techreborn:blocks/machine/advanced_machines/industrial_electrolyzer_front_off"
             }
         }
    }

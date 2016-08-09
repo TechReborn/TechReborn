@@ -93,4 +93,5 @@ public class GuiIndustrialGrinder extends GuiContainer {
                 this.ySize - 96 + 2, 4210752);
     }
 
+
 }

@@ -45,12 +45,15 @@ public class GuiAssemblingMachine extends GuiContainer
 		int l = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
 
-		int j = assemblingmachine.getProgressScaled(20);
-		if (j > 0) {
+		int j = 0;
+
+		j = assemblingmachine.getProgressScaled(20);
+		if (j > 0)
+		{
 			this.drawTexturedModalRect(k + 86, l + 34, 176, 14, j + 1, 16);
 		}
 
-		j = (int)(assemblingmachine.getEnergy() * 12f / assemblingmachine.getMaxPower());
+		j = assemblingmachine.getEnergyScaled(12);
 		if (j > 0)
 		{
 			this.drawTexturedModalRect(k + 56, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);

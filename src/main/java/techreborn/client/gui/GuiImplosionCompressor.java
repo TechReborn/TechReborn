@@ -50,11 +50,12 @@ public class GuiImplosionCompressor extends GuiContainer {
             this.drawTexturedModalRect(k + 61, l + 37, 176, 14, j + 1, 16);
         }
 
-        j = (int) (compresser.getEnergy() * 12f / compresser.getMaxPower());
-        if (j > 0) {
-            this.drawTexturedModalRect(k + 14, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);
-        }
-    }
+		j = compresser.getEnergyScaled(12);
+		if (j > 0)
+		{
+			this.drawTexturedModalRect(k + 14, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);
+		}
+	}
 
     protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
         String name = I18n.translateToLocal("tile.techreborn.implosioncompressor.name");

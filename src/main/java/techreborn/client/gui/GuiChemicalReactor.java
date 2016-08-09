@@ -51,8 +51,9 @@ public class GuiChemicalReactor extends GuiContainer
 			this.drawTexturedModalRect(k + 73, l + 39, 177, 15, 30, j);
 		}
 
-		j = (int)(chemicalReactor.getEnergy() * 12f / chemicalReactor.getMaxPower());
-		if (j > 0) {
+		j = chemicalReactor.getEnergyScaled(12);
+		if (j > 0)
+		{
 			this.drawTexturedModalRect(k + 9, l + 32 + 12 - j, 176, 12 - j, 14, j + 2);
 		}
 

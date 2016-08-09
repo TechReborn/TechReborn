@@ -42,7 +42,9 @@ public class GuiBatbox extends GuiContainer
 		int l = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
 
-		int j = (int)(generator.getEnergy() * 24f / generator.getMaxPower());
+		int j = 0;
+
+		j = generator.getEnergyScaled(24);
 		if (j > 0)
 		{
 			this.drawTexturedModalRect(k + 109, l + 21 + 12, 176, 0, j + 1, 16);
@@ -64,9 +66,9 @@ public class GuiBatbox extends GuiContainer
 
 		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,
 				this.ySize - 96 + 2, 4210752);
-		this.fontRendererObj.drawString(PowerSystem.getLocalizedPower(generator.getMaxPower()), 25, this.ySize - 140,
+		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(generator.getMaxPower()), 25, this.ySize - 140,
 				4210752);
-		this.fontRendererObj.drawString(PowerSystem.getLocalizedPower(containerGenerator.energy), 25, this.ySize - 150,
+		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerGenerator.energy), 25, this.ySize - 150,
 				4210752);
 	}
 }

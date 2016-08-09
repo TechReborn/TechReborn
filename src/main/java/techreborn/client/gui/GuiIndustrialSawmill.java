@@ -54,8 +54,15 @@ public class GuiIndustrialSawmill extends GuiContainer
 		if(!sawmill.tank.isEmpty()) {
 			drawFluid(sawmill.tank.getFluid(), k + 11, l + 66, 12, 47, sawmill.tank.getCapacity());
 
+<<<<<<< HEAD
 			mc.renderEngine.bindTexture(texture);
 			drawTexturedModalRect(k + 14, l + 24, 179, 88, 9, 37);
+=======
+		j = sawmill.getEnergyScaled(12);
+		if (j > 0)
+		{
+			this.drawTexturedModalRect(k + 33, l + 65 + 12 - j, 176, 12 - j, 14, j + 2);
+>>>>>>> parent of b292fdd... Rewrite to use new RebornCore Power API. Texture fixes.
 		}
 
 		if (!sawmill.getMutliBlock()) {

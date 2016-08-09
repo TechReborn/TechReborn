@@ -42,8 +42,9 @@ public class GuiChargeBench extends GuiContainer
 
 		int j = 0;
 
-		j = (int)(chargebench.getEnergy() * 12f / chargebench.getMaxPower());
-		if (j > 0) {
+		j = chargebench.getEnergyScaled(12);
+		if (j > 0)
+		{
 			this.drawTexturedModalRect(k + 10, l + 32 + 12 - j, 176, 12 - j, 14, j + 2);
 		}
 	}

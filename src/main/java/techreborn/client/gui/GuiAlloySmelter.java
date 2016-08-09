@@ -42,13 +42,15 @@ public class GuiAlloySmelter extends GuiContainer
 		int l = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
 
-		int j = alloysmelter.getProgressScaled(24);
-		if (j > 0) {
+		int j = 0;
+
+		j = alloysmelter.getProgressScaled(24);
+		if (j > 0)
+		{
 			this.drawTexturedModalRect(k + 79, l + 34, 176, 14, j + 1, 16);
 		}
 
-
-		j = (int)(alloysmelter.getEnergy() * 24f / alloysmelter.getMaxPower());
+		j = alloysmelter.getEnergyScaled(12);
 		if (j > 0)
 		{
 			this.drawTexturedModalRect(k + 56, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);

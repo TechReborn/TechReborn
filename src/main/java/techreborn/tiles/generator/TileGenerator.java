@@ -1,6 +1,5 @@
 package techreborn.tiles.generator;
 
-import net.minecraft.util.math.BlockPos;
 import reborncore.common.IWrenchable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,42 +9,37 @@ import net.minecraft.util.EnumFacing;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.tile.TilePowerAcceptor;
-import reborncore.common.tile.TilePowerProducer;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.init.ModBlocks;
 import techreborn.power.EnergyUtils;
 
-public class TileGenerator extends TilePowerProducer implements IWrenchable,IInventoryProvider {
+public class TileGenerator extends TilePowerAcceptor implements IWrenchable,IInventoryProvider
+{
 	public static int outputAmount = 10; // This is in line with BC engines rf,
 	public Inventory inventory = new Inventory(2, "TileGenerator", 64, this);
 	public int fuelSlot = 0;
 	public int burnTime;
 	public int totalBurnTime = 0;
-	// sould properly use the conversion
-	// ratio here.
+											// sould properly use the conversion
+											// ratio here.
 	public boolean isBurning;
 	public boolean lastTickBurning;
 	ItemStack burnItem;
 
-	public static int getItemBurnTime(ItemStack stack) {
+	public TileGenerator()
+	{
+		super(1);
+	}
+
+	public static int getItemBurnTime(ItemStack stack)
+	{
 		return TileEntityFurnace.getItemBurnTime(stack) / 4;
 	}
 
 	@Override
-	public double emitEnergy(EnumFacing enumFacing, double amount) {
-		BlockPos pos = getPos().offset(enumFacing);
-		EnergyUtils.PowerNetReceiver receiver = EnergyUtils.getReceiver(
-				worldObj, enumFacing.getOpposite(), pos);
-		if(receiver != null) {
-			addEnergy(amount - receiver.receiveEnergy(amount, false));
-		} else addEnergy(amount);
-		return 0; //Temporary hack die to my bug RebornCore
-	}
-
-	@Override
-	public void update() {
-		super.update();
+	public void updateEntity() {
+		super.updateEntity();
 		if (worldObj.isRemote) {
 			return;
 		}
@@ -75,11 +69,17 @@ public class TileGenerator extends TilePowerProducer implements IWrenchable,IInv
 
 		lastTickBurning = isBurning;
 
+		if (!worldObj.isRemote && getEnergy() > 0) {
+			double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
+			useEnergy(EnergyUtils.dispatchEnergyToNeighbours(worldObj, getPos(), this, maxOutput));
+		}
 	}
 
-	public void updateState() {
+	public void updateState()
+	{
 		IBlockState BlockStateContainer = worldObj.getBlockState(pos);
-		if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
+		if (BlockStateContainer.getBlock() instanceof BlockMachineBase)
+		{
 			BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
 			if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != burnTime > 0)
 				blockMachineBase.setActive(burnTime > 0, worldObj, pos);
@@ -87,37 +87,68 @@ public class TileGenerator extends TilePowerProducer implements IWrenchable,IInv
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
+	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side)
+	{
 		return false;
 	}
 
 	@Override
-	public EnumFacing getFacing() {
+	public EnumFacing getFacing()
+	{
 		return getFacingEnum();
 	}
 
 	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
+	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
+	{
 		return entityPlayer.isSneaking();
 	}
 
 	@Override
-	public float getWrenchDropRate() {
+	public float getWrenchDropRate()
+	{
 		return 1.0F;
 	}
 
 	@Override
-	public double getMaxPower() {
-		return 8000;
+	public double getMaxPower()
+	{
+		return 100;
 	}
 
 	@Override
-	public EnumPowerTier getTier() {
+	public boolean canAcceptEnergy(EnumFacing direction)
+	{
+		return false;
+	}
+
+	@Override
+	public boolean canProvideEnergy(EnumFacing direction)
+	{
+		return true;
+	}
+
+	@Override
+	public double getMaxOutput()
+	{
+		return 64;
+	}
+
+	@Override
+	public double getMaxInput()
+	{
+		return 0;
+	}
+
+	@Override
+	public EnumPowerTier getTier()
+	{
 		return EnumPowerTier.LOW;
 	}
 
 	@Override
-	public ItemStack getWrenchDrop(EntityPlayer p0) {
+	public ItemStack getWrenchDrop(EntityPlayer p0)
+	{
 		return new ItemStack(ModBlocks.Generator);
 	}
 

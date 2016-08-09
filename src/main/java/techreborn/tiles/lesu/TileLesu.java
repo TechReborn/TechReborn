@@ -3,14 +3,15 @@ package techreborn.tiles.lesu;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import reborncore.api.power.EnumPowerTier;
-import reborncore.common.tile.TilePowerAcceptorProducer;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.config.ConfigTechReborn;
 import techreborn.power.EnergyUtils;
 
 import java.util.ArrayList;
 
-public class TileLesu extends TilePowerAcceptorProducer {// TODO wrench
+public class TileLesu extends TilePowerAcceptor
+{// TODO wrench
 
 	public int connectedBlocks = 0;
 	public Inventory inventory = new Inventory(2, "TileAesu", 64, this);
@@ -21,10 +22,14 @@ public class TileLesu extends TilePowerAcceptorProducer {// TODO wrench
 	private int output;
 	private int maxStorage;
 
+	public TileLesu()
+	{
+		super(5);
+	}
 
 	@Override
-	public void update() {
-		super.update();
+	public void updateEntity() {
+		super.updateEntity();
 		if (worldObj.isRemote) {
 			return;
 		}
@@ -72,44 +77,53 @@ public class TileLesu extends TilePowerAcceptorProducer {// TODO wrench
 
 		if (!worldObj.isRemote && getEnergy() > 0) {
 			double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
-			for(EnumFacing facing : EnumFacing.VALUES) {
-				double disposed = emitEnergy(facing, maxOutput);
-				if(disposed != 0) {
-					maxOutput -= disposed;
-					useEnergy(disposed);
-					if (maxOutput == 0) return;
-				}
-			}
+			useEnergy(EnergyUtils.dispatchEnergyToNeighbours(worldObj, getPos(), this, maxOutput));
 		}
 
 	}
 
-	//TODO move to RebornCore
-	public double emitEnergy(EnumFacing enumFacing, double amount) {
-		BlockPos pos = getPos().offset(enumFacing);
-		EnergyUtils.PowerNetReceiver receiver = EnergyUtils.getReceiver(
-				worldObj, enumFacing.getOpposite(), pos);
-		if(receiver != null) {
-			return receiver.receiveEnergy(amount, false);
-		}
-		return 0;
-	}
-
-
-	public double getEuChange() {
-		if (euChange == -1) {
+	public double getEuChange()
+	{
+		if (euChange == -1)
+		{
 			return 0;
 		}
 		return (euChange / ticks);
 	}
 
 	@Override
-	public double getMaxPower() {
+	public double getMaxPower()
+	{
 		return maxStorage;
 	}
 
 	@Override
-	public EnumPowerTier getTier() {
-		return EnumPowerTier.INSANE;
+	public boolean canAcceptEnergy(EnumFacing direction)
+	{
+		return direction != getFacingEnum();
+	}
+
+	@Override
+	public boolean canProvideEnergy(EnumFacing direction)
+	{
+		return direction == getFacingEnum();
+	}
+
+	@Override
+	public double getMaxOutput()
+	{
+		return output;
+	}
+
+	@Override
+	public double getMaxInput()
+	{
+		return 8192;
+	}
+
+	@Override
+	public EnumPowerTier getTier()
+	{
+		return EnumPowerTier.EXTREME;
 	}
 }

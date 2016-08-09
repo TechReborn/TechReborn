@@ -11,7 +11,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Loader;
 import reborncore.api.power.IEnergyInterfaceTile;
-import reborncore.api.power.tile.IEnergyReceiverTile;
 import reborncore.common.RebornCoreConfig;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.mcmultipart.block.TileMultipartContainer;
@@ -27,6 +26,25 @@ import java.util.function.BiFunction;
 
 public class EnergyUtils {
 
+    /**
+     * Dispatches energy to available neighbours
+     * @param world world
+     * @param source source position
+     * @param tile controller
+     * @param amount amount of energy
+     * @return amount of energy dispatched
+     */
+    public static double dispatchEnergyToNeighbours(World world, BlockPos source, IEnergyInterfaceTile tile, double amount) {
+        double energyLeft = amount;
+        for(EnumFacing facing : EnumFacing.VALUES) {
+            if(tile.canProvideEnergy(facing)) {
+                PowerNetReceiver receiver = getReceiver(world, facing.getOpposite(), source.offset(facing));
+                if(receiver != null) energyLeft -= receiver.receiveEnergy(energyLeft, false);
+                if(energyLeft == 0) return energyLeft;
+            }
+        }
+        return amount - energyLeft;
+    }
 
     /**
      * Same as {@link #dispatchWiresEnergyPacketRecursively(World, ArrayList, BlockPos, boolean, double)}
@@ -156,8 +174,8 @@ public class EnergyUtils {
     }
 
     public static PowerNetReceiver getInternalReceiver(TileEntity tileEntity, EnumFacing side) {
-        if(tileEntity instanceof IEnergyReceiverTile) {
-            IEnergyReceiverTile energyInterface = (IEnergyReceiverTile) tileEntity;
+        if(tileEntity instanceof IEnergyInterfaceTile) {
+            IEnergyInterfaceTile energyInterface = (IEnergyInterfaceTile) tileEntity;
             return new PowerNetReceiver(
                     (energy, simulated) -> {
                         if(energyInterface.canAcceptEnergy(side))

@@ -52,7 +52,7 @@ public class GuiIndustrialElectrolyzer extends GuiContainer
 			this.drawTexturedModalRect(k + 72, l + 38, 176, 14, j + 1, 16);
 		}
 
-		j = (int)(eletrolyzer.getEnergy() * 12f / eletrolyzer.getMaxPower());
+		j = eletrolyzer.getEnergyScaled(12);
 		if (j > 0)
 		{
 			this.drawTexturedModalRect(k + 134, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);

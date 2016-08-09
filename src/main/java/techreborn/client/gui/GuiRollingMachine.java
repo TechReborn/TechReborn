@@ -38,7 +38,7 @@ public class GuiRollingMachine extends GuiContainer
 		int j = this.containerRollingMachine.getBurnTimeRemainingScaled(24);
 		this.drawTexturedModalRect(k + 91, l + 34, 176, 14, j + 1, 19);
 
-		j = (int)(rollingMachine.getEnergy() * 12f / rollingMachine.getMaxPower());
+		j = this.rollingMachine.getEnergyScaled(12);
 		if (j > 0)
 		{
 			this.drawTexturedModalRect(k + 7, l + 33 + 12 - j, 176, 12 - j, 14, j + 2);

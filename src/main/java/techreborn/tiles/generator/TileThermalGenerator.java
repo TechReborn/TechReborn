@@ -1,5 +1,6 @@
 package techreborn.tiles.generator;
 
+import reborncore.common.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -11,9 +12,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.*;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.IWrenchable;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.tile.TilePowerProducer;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
@@ -21,73 +21,79 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.power.EnergyUtils;
 
-public class TileThermalGenerator extends TilePowerProducer implements IWrenchable, IFluidHandler,IInventoryProvider {
+public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchable, IFluidHandler,IInventoryProvider
+{
 
 	public static final int euTick = ConfigTechReborn.ThermalGeneratorOutput;
 	public Tank tank = new Tank("TileThermalGenerator", FluidContainerRegistry.BUCKET_VOLUME * 10, this);
 	public Inventory inventory = new Inventory(3, "TileThermalGenerator", 64, this);
 
-	@Override
-	public double emitEnergy(EnumFacing enumFacing, double amount) {
-		BlockPos pos = getPos().offset(enumFacing);
-		EnergyUtils.PowerNetReceiver receiver = EnergyUtils.getReceiver(
-				worldObj, enumFacing.getOpposite(), pos);
-		if(receiver != null) {
-			addEnergy(amount - receiver.receiveEnergy(amount, false));
-		} else addEnergy(amount);
-		return 0; //Temporary hack die to my bug RebornCore
+	public TileThermalGenerator()
+	{
+		super(ConfigTechReborn.ThermalGeneratorTier);
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
+	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side)
+	{
 		return false;
 	}
 
 	@Override
-	public EnumFacing getFacing() {
+	public EnumFacing getFacing()
+	{
 		return getFacingEnum();
 	}
 
 	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
+	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
+	{
 		return entityPlayer.isSneaking();
 	}
 
 	@Override
-	public float getWrenchDropRate() {
+	public float getWrenchDropRate()
+	{
 		return 1.0F;
 	}
 
 	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+	public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
+	{
 		return new ItemStack(ModBlocks.thermalGenerator, 1);
 	}
 
 	@Override
-	public int fill(EnumFacing from, FluidStack resource, boolean doFill) {
+	public int fill(EnumFacing from, FluidStack resource, boolean doFill)
+	{
 		int fill = tank.fill(resource, doFill);
 		tank.compareAndUpdate();
 		return fill;
 	}
 
 	@Override
-	public FluidStack drain(EnumFacing from, FluidStack resource, boolean doDrain) {
+	public FluidStack drain(EnumFacing from, FluidStack resource, boolean doDrain)
+	{
 		FluidStack drain = tank.drain(resource.amount, doDrain);
 		tank.compareAndUpdate();
 		return drain;
 	}
 
 	@Override
-	public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain) {
+	public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain)
+	{
 		FluidStack drain = tank.drain(maxDrain, doDrain);
 		tank.compareAndUpdate();
 		return drain;
 	}
 
 	@Override
-	public boolean canFill(EnumFacing from, Fluid fluid) {
-		if (fluid != null) {
-			if (fluid == FluidRegistry.LAVA) {
+	public boolean canFill(EnumFacing from, Fluid fluid)
+	{
+		if (fluid != null)
+		{
+			if (fluid == FluidRegistry.LAVA)
+			{
 				return true;
 			}
 		}
@@ -95,30 +101,35 @@ public class TileThermalGenerator extends TilePowerProducer implements IWrenchab
 	}
 
 	@Override
-	public boolean canDrain(EnumFacing from, Fluid fluid) {
+	public boolean canDrain(EnumFacing from, Fluid fluid)
+	{
 		return tank.getFluid() == null || tank.getFluid().getFluid() == fluid;
 	}
 
 	@Override
-	public FluidTankInfo[] getTankInfo(EnumFacing from) {
-		return new FluidTankInfo[]{tank.getInfo()};
+	public FluidTankInfo[] getTankInfo(EnumFacing from)
+	{
+		return new FluidTankInfo[] { tank.getInfo() };
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound tagCompound) {
+	public void readFromNBT(NBTTagCompound tagCompound)
+	{
 		super.readFromNBT(tagCompound);
 		tank.readFromNBT(tagCompound);
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
+	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
+	{
 		super.writeToNBT(tagCompound);
 		tank.writeToNBT(tagCompound);
 		return tagCompound;
 	}
 
 	@Override
-	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
+	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet)
+	{
 		worldObj.markBlockRangeForRenderUpdate(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX(),
 				getPos().getY(), getPos().getZ());
 		readFromNBT(packet.getNbtCompound());
@@ -126,8 +137,8 @@ public class TileThermalGenerator extends TilePowerProducer implements IWrenchab
 
 	@Override
 	// TODO optimise this code
-	public void update() {
-		super.update();
+	public void updateEntity() {
+		super.updateEntity();
 		if (!worldObj.isRemote) {
 			FluidUtils.drainContainers(this, inventory, 0, 1);
 			for (EnumFacing direction : EnumFacing.values()) {
@@ -161,15 +172,46 @@ public class TileThermalGenerator extends TilePowerProducer implements IWrenchab
 		} else if (tank.getFluidType() == null && getStackInSlot(2) != null) {
 			setInventorySlotContents(2, null);
 		}
+
+		if (!worldObj.isRemote && getEnergy() > 0) {
+			double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
+			useEnergy(EnergyUtils.dispatchEnergyToNeighbours(worldObj, getPos(), this, maxOutput));
+		}
 	}
 
 	@Override
-	public double getMaxPower() {
-		return 16000;
+	public double getMaxPower()
+	{
+		return ConfigTechReborn.ThermalGeneratorCharge;
 	}
 
 	@Override
-	public EnumPowerTier getTier() {
+	public boolean canAcceptEnergy(EnumFacing direction)
+	{
+		return false;
+	}
+
+	@Override
+	public boolean canProvideEnergy(EnumFacing direction)
+	{
+		return true;
+	}
+
+	@Override
+	public double getMaxOutput()
+	{
+		return 128;
+	}
+
+	@Override
+	public double getMaxInput()
+	{
+		return 0;
+	}
+
+	@Override
+	public EnumPowerTier getTier()
+	{
 		return EnumPowerTier.LOW;
 	}
 

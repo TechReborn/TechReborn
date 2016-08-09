@@ -9,12 +9,13 @@ import net.minecraft.util.EnumFacing;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.tile.TilePowerAcceptor;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.init.ModBlocks;
 import techreborn.items.ItemParts;
 
-public class TileRecycler extends TilePowerAcceptor implements IWrenchable,IInventoryProvider, ISidedInventory {
+public class TileRecycler extends TilePowerAcceptor implements IWrenchable,IInventoryProvider, ISidedInventory
+{
 
 	public Inventory inventory = new Inventory(6, "TileRecycler", 64, this);
 	public int capacity = 1000;
@@ -26,91 +27,118 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable,IInve
 	public int input1 = 0;
 	public int output = 1;
 
-	public int gaugeProgressScaled(int scale) {
+	public TileRecycler()
+	{
+		super(1);
+	}
+
+	public int gaugeProgressScaled(int scale)
+	{
 		return (progress * scale) / time;
 	}
 
 	@Override
-	public void update() {
-		super.update();
-		//charge(3); TODO
-		if (worldObj.isRemote) {
+	public void updateEntity()
+	{
+		if(worldObj.isRemote){
 			return;
 		}
 		boolean burning = isBurning();
 		boolean updateInventory = false;
-		if (getEnergy() <= cost && canRecycle()) {
-			if (getEnergy() > cost) {
+		if (getEnergy() <= cost && canRecycle())
+		{
+			if (getEnergy() > cost)
+			{
 				updateInventory = true;
 			}
 		}
-		if (isBurning() && canRecycle()) {
+		if (isBurning() && canRecycle())
+		{
 			updateState();
 
 			progress++;
-			if (progress >= time) {
+			if (progress >= time)
+			{
 				progress = 0;
 				recycleItems();
 				updateInventory = true;
 			}
-		} else {
+		} else
+		{
 			progress = 0;
 			updateState();
 		}
-		if (burning != isBurning()) {
+		if (burning != isBurning())
+		{
 			updateInventory = true;
 		}
-		if (updateInventory) {
+		if (updateInventory)
+		{
 			markDirty();
 		}
 	}
 
-	public void recycleItems() {
-		if (this.canRecycle()) {
+	public void recycleItems()
+	{
+		if (this.canRecycle())
+		{
 			ItemStack itemstack = ItemParts.getPartByName("scrap");
 			int randomchance = worldObj.rand.nextInt(chance);
 
-			if (getStackInSlot(output) == null) {
+			if (getStackInSlot(output) == null)
+			{
 				useEnergy(cost);
-				if (randomchance == 1) {
+				if (randomchance == 1)
+				{
 					setInventorySlotContents(output, itemstack.copy());
 				}
-			} else if (getStackInSlot(output).isItemEqual(itemstack)) {
+			} else if (getStackInSlot(output).isItemEqual(itemstack))
+			{
 				useEnergy(cost);
-				if (randomchance == 1) {
+				if (randomchance == 1)
+				{
 					getStackInSlot(output).stackSize += itemstack.stackSize;
 				}
 			}
-			if (getStackInSlot(input1).stackSize > 1) {
+			if (getStackInSlot(input1).stackSize > 1)
+			{
 				useEnergy(cost);
 				this.decrStackSize(input1, 1);
-			} else {
+			} else
+			{
 				useEnergy(cost);
 				setInventorySlotContents(input1, null);
 			}
 		}
 	}
 
-	public boolean canRecycle() {
+	public boolean canRecycle()
+	{
 		return getStackInSlot(input1) != null && hasSlotGotSpace(output);
 	}
 
-	public boolean hasSlotGotSpace(int slot) {
-		if (getStackInSlot(slot) == null) {
+	public boolean hasSlotGotSpace(int slot)
+	{
+		if (getStackInSlot(slot) == null)
+		{
 			return true;
-		} else if (getStackInSlot(slot).stackSize < getStackInSlot(slot).getMaxStackSize()) {
+		} else if (getStackInSlot(slot).stackSize < getStackInSlot(slot).getMaxStackSize())
+		{
 			return true;
 		}
 		return true;
 	}
 
-	public boolean isBurning() {
+	public boolean isBurning()
+	{
 		return getEnergy() > cost;
 	}
 
-	public void updateState() {
+	public void updateState()
+	{
 		IBlockState BlockStateContainer = worldObj.getBlockState(pos);
-		if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
+		if (BlockStateContainer.getBlock() instanceof BlockMachineBase)
+		{
 			BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
 			if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != progress > 0)
 				blockMachineBase.setActive(progress > 0, worldObj, pos);
@@ -118,53 +146,94 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable,IInve
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
+	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side)
+	{
 		return false;
 	}
 
 	@Override
-	public EnumFacing getFacing() {
+	public EnumFacing getFacing()
+	{
 		return getFacingEnum();
 	}
 
 	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
+	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
+	{
 		return entityPlayer.isSneaking();
 	}
 
 	@Override
-	public float getWrenchDropRate() {
+	public float getWrenchDropRate()
+	{
 		return 1.0F;
 	}
 
 	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+	public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
+	{
 		return new ItemStack(ModBlocks.recycler, 1);
+	}
+
+	public boolean isComplete()
+	{
+		return false;
 	}
 
 	// ISidedInventory
 	@Override
-	public int[] getSlotsForFace(EnumFacing side) {
-		return new int[] {input1, output};
+	public int[] getSlotsForFace(EnumFacing side)
+	{
+		return side == EnumFacing.DOWN ? new int[] { output } : new int[] { input1 };
 	}
 
 	@Override
-	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
-		return slotIndex == input1;
+	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side)
+	{
+		if (slotIndex == output)
+			return false;
+		return isItemValidForSlot(slotIndex, itemStack);
 	}
 
 	@Override
-	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
+	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side)
+	{
 		return slotIndex == output;
 	}
 
 	@Override
-	public double getMaxPower() {
+	public double getMaxPower()
+	{
 		return capacity;
 	}
 
 	@Override
-	public EnumPowerTier getTier() {
+	public boolean canAcceptEnergy(EnumFacing direction)
+	{
+		return true;
+	}
+
+	@Override
+	public boolean canProvideEnergy(EnumFacing direction)
+	{
+		return false;
+	}
+
+	@Override
+	public double getMaxOutput()
+	{
+		return 0;
+	}
+
+	@Override
+	public double getMaxInput()
+	{
+		return 32;
+	}
+
+	@Override
+	public EnumPowerTier getTier()
+	{
 		return EnumPowerTier.MEDIUM;
 	}
 
