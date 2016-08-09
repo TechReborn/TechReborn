@@ -39,14 +39,8 @@ public class TileAlloySmelter extends TilePowerAcceptor implements IWrenchable,I
 	}
 
 	@Override
-<<<<<<< HEAD
 	public void update() {
 		super.update();
-=======
-	public void updateEntity()
-	{
-		super.updateEntity();
->>>>>>> parent of b292fdd... Rewrite to use new RebornCore Power API. Texture fixes.
 		crafter.updateEntity();
 		upgrades.tick();
 		charge(3);
@@ -113,22 +107,7 @@ public class TileAlloySmelter extends TilePowerAcceptor implements IWrenchable,I
 	// }
 	// }
 
-<<<<<<< HEAD
-    @Override
-    public int[] getSlotsForFace(EnumFacing side) {
-        return new int[] {0, 1, 2};
-    }
 
-    @Override
-    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
-        return index == 0 || index == 1;
-    }
-
-    @Override
-    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
-        return index == 2;
-    }
-=======
 	// ISidedInventory
 	@Override
 	public int[] getSlotsForFace(EnumFacing side)
@@ -149,7 +128,6 @@ public class TileAlloySmelter extends TilePowerAcceptor implements IWrenchable,I
 	{
 		return slotIndex == 2;
 	}
->>>>>>> parent of b292fdd... Rewrite to use new RebornCore Power API. Texture fixes.
 
 	public int getProgressScaled(int scale)
 	{

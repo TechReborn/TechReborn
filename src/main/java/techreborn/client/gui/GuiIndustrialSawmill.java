@@ -54,23 +54,17 @@ public class GuiIndustrialSawmill extends GuiContainer
 		if(!sawmill.tank.isEmpty()) {
 			drawFluid(sawmill.tank.getFluid(), k + 11, l + 66, 12, 47, sawmill.tank.getCapacity());
 
-<<<<<<< HEAD
-			mc.renderEngine.bindTexture(texture);
-			drawTexturedModalRect(k + 14, l + 24, 179, 88, 9, 37);
-=======
-		j = sawmill.getEnergyScaled(12);
-		if (j > 0)
-		{
-			this.drawTexturedModalRect(k + 33, l + 65 + 12 - j, 176, 12 - j, 14, j + 2);
->>>>>>> parent of b292fdd... Rewrite to use new RebornCore Power API. Texture fixes.
-		}
+			int j = sawmill.getEnergyScaled(12);
+			if (j > 0) {
+				this.drawTexturedModalRect(k + 33, l + 65 + 12 - j, 176, 12 - j, 14, j + 2);
+			}
 
-		if (!sawmill.getMutliBlock()) {
-			//GuiUtil.drawTooltipBox(k + 30, l + 50 + 12, 114, 10);
-			this.fontRendererObj.drawString(I18n.translateToLocal("techreborn.message.missingmultiblock"), k + 38,
-					l + 52 + 12, -1);
+			if (!sawmill.getMutliBlock()) {
+				//GuiUtil.drawTooltipBox(k + 30, l + 50 + 12, 114, 10);
+				this.fontRendererObj.drawString(I18n.translateToLocal("techreborn.message.missingmultiblock"), k + 38,
+						l + 52 + 12, -1);
+			}
 		}
-
 	}
 
 	public void drawFluid(FluidStack fluid, int x, int y, int width, int height, int maxCapacity) {

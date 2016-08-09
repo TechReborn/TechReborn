@@ -17,7 +17,6 @@ import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
-import techreborn.power.PowerNet;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -151,12 +150,14 @@ public class TileSemifluidGenerator extends TilePowerAcceptor implements IWrench
 	}
 
 	@Override
-	public void updateEntity() {
+	public void updateEntity()
+	{
 		super.updateEntity();
 		if (!worldObj.isRemote)
 			FluidUtils.drainContainers(this, inventory, 0, 1);
 
-		if (tank.getFluidAmount() > 0 && getMaxPower() - getEnergy() >= euTick) {
+		if (tank.getFluidAmount() > 0 && getMaxPower() - getEnergy() >= euTick)
+		{
 			Integer euPerBucket = fluids.get(tank.getFluidType().getName());
 			// float totalTicks = (float)euPerBucket / 8f; //x eu per bucket / 8
 			// eu per tick
@@ -165,22 +166,19 @@ public class TileSemifluidGenerator extends TilePowerAcceptor implements IWrench
 			pendingWithdraw += millibucketsPerTick;
 
 			int currentWithdraw = (int) pendingWithdraw; // float --> int
-			// conversion floors
-			// the float
+															// conversion floors
+															// the float
 			pendingWithdraw -= currentWithdraw;
 
 			tank.drain(currentWithdraw, true);
 			addEnergy(euTick);
 		}
-		if (tank.getFluidType() != null && getStackInSlot(2) == null) {
+		if (tank.getFluidType() != null && getStackInSlot(2) == null)
+		{
 			inventory.setInventorySlotContents(2, new ItemStack(tank.getFluidType().getBlock()));
-		} else if (tank.getFluidType() == null && getStackInSlot(2) != null) {
+		} else if (tank.getFluidType() == null && getStackInSlot(2) != null)
+		{
 			setInventorySlotContents(2, null);
-		}
-
-		if (!worldObj.isRemote && getEnergy() > 0) {
-			double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
-			useEnergy(PowerNet.dispatchEnergyPacket(worldObj, getPos(), maxOutput));
 		}
 	}
 

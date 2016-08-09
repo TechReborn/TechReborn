@@ -15,6 +15,7 @@ import techreborn.tiles.generator.*;
 import techreborn.tiles.idsu.TileIDSU;
 import techreborn.tiles.lesu.TileLesu;
 import techreborn.tiles.multiblock.*;
+import techreborn.tiles.multiblock.TileImplosionCompressor;
 import techreborn.tiles.storage.TileBatBox;
 import techreborn.tiles.storage.TileMFE;
 import techreborn.tiles.storage.TileMFSU;

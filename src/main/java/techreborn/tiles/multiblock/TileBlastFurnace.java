@@ -22,6 +22,7 @@ import techreborn.api.Reference;
 import techreborn.api.recipe.ITileRecipeHandler;
 import techreborn.api.recipe.machines.BlastFurnaceRecipe;
 import techreborn.blocks.BlockMachineCasing;
+import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.multiblocks.MultiBlockCasing;
 import techreborn.tiles.TileMachineCasing;
@@ -158,22 +159,6 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable,I
 		tagCompound.setInteger("tickTime", tickTime);
 	}
 
-<<<<<<< HEAD:src/main/java/techreborn/tiles/multiblock/TileBlastFurnace.java
-    @Override
-    public int[] getSlotsForFace(EnumFacing side) {
-        return new int[] {0, 1, 2, 3};
-    }
-
-    @Override
-    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
-        return index == 0 || index == 1;
-    }
-
-    @Override
-    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
-        return index == 2 || index == 3;
-    }
-=======
 	// ISidedInventory
 	@Override
 	public int[] getSlotsForFace(EnumFacing side)
@@ -194,7 +179,6 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable,I
 	{
 		return slotIndex == 2 || slotIndex == 3;
 	}
->>>>>>> parent of b292fdd... Rewrite to use new RebornCore Power API. Texture fixes.:src/main/java/techreborn/tiles/TileBlastFurnace.java
 
 	public int getProgressScaled(int scale)
 	{

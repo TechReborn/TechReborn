@@ -25,6 +25,7 @@ public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,
 	public RecipeCrafter crafter;
 
 	public TileVacuumFreezer() {
+		super(2);
 		int[] inputs = new int[] {0};
 		int[] outputs = new int[] {1};
 		crafter = new RecipeCrafter(Reference.vacuumFreezerRecipe, this, 2, 1, inventory, inputs, outputs);
@@ -50,6 +51,26 @@ public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,
 	@Override
 	public double getMaxPower() {
 		return 64000;
+	}
+
+	@Override
+	public boolean canAcceptEnergy(EnumFacing direction) {
+		return true;
+	}
+
+	@Override
+	public boolean canProvideEnergy(EnumFacing direction) {
+		return false;
+	}
+
+	@Override
+	public double getMaxOutput() {
+		return 0;
+	}
+
+	@Override
+	public double getMaxInput() {
+		return 64;
 	}
 
 	@Override

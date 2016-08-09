@@ -4,7 +4,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-import techreborn.power.PowerNet;
 
 /**
  * Created by modmuss50 on 25/02/2016.
@@ -20,18 +19,16 @@ public class TileWaterMill extends TilePowerAcceptor
 	}
 
 	@Override
-	public void updateEntity() {
+	public void updateEntity()
+	{
 		super.updateEntity();
-		if (worldObj.getTotalWorldTime() % 20 == 0) {
+		if (worldObj.getTotalWorldTime() % 20 == 0)
+		{
 			checkForWater();
 		}
-		if (waterblocks > 0) {
+		if (waterblocks > 0)
+		{
 			addEnergy(waterblocks);
-		}
-
-		if (!worldObj.isRemote && getEnergy() > 0) {
-			double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
-			useEnergy(PowerNet.dispatchEnergyPacket(worldObj, getPos(), maxOutput));
 		}
 	}
 

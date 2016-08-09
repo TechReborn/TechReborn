@@ -3,7 +3,6 @@ package techreborn.tiles.generator;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-import techreborn.power.PowerNet;
 
 /**
  * Created by modmuss50 on 25/02/2016.
@@ -19,16 +18,19 @@ public class TileWindMill extends TilePowerAcceptor
 	}
 
 	@Override
-	public void updateEntity() {
+	public void updateEntity()
+	{
 		super.updateEntity();
-		if (pos.getY() > 64) {
-			double actualPower = basePower + basePower * worldObj.getThunderStrength(1.0F);
-			addEnergy(actualPower);
-		}
-
-		if (!worldObj.isRemote && getEnergy() > 0) {
-			double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
-			useEnergy(PowerNet.dispatchEnergyPacket(worldObj, getPos(), maxOutput));
+		if (pos.getY() > 64)
+		{
+			int actualPower = basePower;
+			if (worldObj.isThundering())
+			{
+				actualPower *= 1.25;
+			}
+			addEnergy(actualPower); // Value taken from
+									// http://wiki.industrial-craft.net/?title=Wind_Mill
+									// Not worth making more complicated
 		}
 	}
 

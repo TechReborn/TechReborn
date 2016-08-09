@@ -12,7 +12,6 @@ import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.init.ModBlocks;
-import techreborn.power.PowerNet;
 
 public class TileGenerator extends TilePowerAcceptor implements IWrenchable,IInventoryProvider
 {
@@ -38,41 +37,45 @@ public class TileGenerator extends TilePowerAcceptor implements IWrenchable,IInv
 	}
 
 	@Override
-	public void updateEntity() {
+	public void updateEntity()
+	{
 		super.updateEntity();
-		if (worldObj.isRemote) {
+		if (worldObj.isRemote)
+		{
 			return;
 		}
-		if (getEnergy() < getMaxPower()) {
-			if (burnTime > 0) {
+		if (getEnergy() < getMaxPower())
+		{
+			if (burnTime > 0)
+			{
 				burnTime--;
 				addEnergy(outputAmount);
 				isBurning = true;
 			}
-		} else {
+		} else
+		{
 			isBurning = false;
 		}
 
-		if (burnTime == 0) {
+		if (burnTime == 0)
+		{
 			updateState();
 			burnTime = totalBurnTime = getItemBurnTime(getStackInSlot(fuelSlot));
-			if (burnTime > 0) {
+			if (burnTime > 0)
+			{
 				updateState();
 				burnItem = getStackInSlot(fuelSlot);
-				if (getStackInSlot(fuelSlot).stackSize == 1) {
+				if (getStackInSlot(fuelSlot).stackSize == 1)
+				{
 					setInventorySlotContents(fuelSlot, null);
-				} else {
+				} else
+				{
 					decrStackSize(fuelSlot, 1);
 				}
 			}
 		}
 
 		lastTickBurning = isBurning;
-
-		if (!worldObj.isRemote && getEnergy() > 0) {
-			double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
-			useEnergy(PowerNet.dispatchEnergyPacket(worldObj, getPos(), maxOutput));
-		}
 	}
 
 	public void updateState()

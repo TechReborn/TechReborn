@@ -5,7 +5,6 @@ import net.minecraft.util.ITickable;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.blocks.generator.BlockSolarPanel;
-import techreborn.power.PowerNet;
 
 import java.util.List;
 
@@ -26,26 +25,27 @@ public class TileSolarPanel extends TilePowerAcceptor implements ITickable
 	}
 
 	@Override
-	public void updateEntity() {
+	public void updateEntity()
+	{
 		super.updateEntity();
-		if (!worldObj.isRemote) {
-			if (worldObj.getTotalWorldTime() % 60 == 0) {
-				shouldMakePower = isSunOut();
+		if(!worldObj.isRemote){
+		if (worldObj.getTotalWorldTime() % 60 == 0)
+		{
+			shouldMakePower = isSunOut();
 
-			}
-			if (shouldMakePower) {
-				powerToAdd = 10;
-				addEnergy(powerToAdd);
-			} else {
-				powerToAdd = 0;
-			}
-			worldObj.setBlockState(getPos(), worldObj.getBlockState(this.getPos()).withProperty(BlockSolarPanel.ACTIVE, isSunOut()));
+		}
+		if (shouldMakePower)
+		{
+			powerToAdd = 10;
+			addEnergy(powerToAdd);
+		} else
+		{
+			powerToAdd = 0;
 		}
 
-		if (!worldObj.isRemote && getEnergy() > 0) {
-			double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
-			useEnergy(PowerNet.dispatchEnergyPacket(worldObj, getPos(), maxOutput));
-		}
+		worldObj.setBlockState(getPos(),
+				worldObj.getBlockState(this.getPos()).withProperty(BlockSolarPanel.ACTIVE, isSunOut()));
+	}
 	}
 
 	@Override

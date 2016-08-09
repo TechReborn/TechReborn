@@ -13,7 +13,6 @@ import reborncore.common.util.ItemUtils;
 import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.init.ModBlocks;
-import techreborn.power.PowerNet;
 
 public class TileEntityFusionController extends TilePowerAcceptor implements IInventoryProvider
 {
@@ -37,7 +36,8 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 	}
 
 	@Override
-	public double getMaxPower() {
+	public double getMaxPower()
+	{
 		return 100000000;
 	}
 
@@ -64,8 +64,10 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 	}
 
 	@Override
-	public double getMaxInput() {
-		if (hasStartedCrafting) {
+	public double getMaxInput()
+	{
+		if (hasStartedCrafting)
+		{
 			return 0;
 		}
 		return 8192;
@@ -273,12 +275,6 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 		{
 			inventory.hasChanged = false;
 		}
-
-		if (!worldObj.isRemote && getEnergy() > 0 && hasStartedCrafting) {
-			double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
-			useEnergy(PowerNet.dispatchEnergyPacket(worldObj, getPos(), maxOutput));
-		}
-
 	}
 
 	private boolean validateRecipe()

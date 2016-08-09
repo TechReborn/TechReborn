@@ -40,8 +40,17 @@ public class ItemCables extends ItemMultiPart implements ITexturedItem
 	}
 
 	@Override
-	public IMultipart createPart(World world, BlockPos pos, EnumFacing side, Vec3d hit, ItemStack stack, EntityPlayer player) {
-		return new CableMultipart(EnumCableType.values()[stack.getItemDamage()]);
+	public IMultipart createPart(World world, BlockPos pos, EnumFacing side, Vec3d hit, ItemStack stack,
+			EntityPlayer player)
+	{
+		try
+		{
+			return TechRebornParts.multipartHashMap.get(EnumCableType.values()[stack.getItemDamage()]).newInstance();
+		} catch (InstantiationException | IllegalAccessException e)
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override

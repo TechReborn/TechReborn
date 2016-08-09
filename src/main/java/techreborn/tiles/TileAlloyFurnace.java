@@ -321,7 +321,6 @@ public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, II
 	public Inventory getInventory() {
 		return inventory;
 	}
-<<<<<<< HEAD
 
     @Override
     public int[] getSlotsForFace(EnumFacing side) {
@@ -338,6 +337,4 @@ public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, II
         return index == 2;
     }
 
-=======
->>>>>>> parent of b292fdd... Rewrite to use new RebornCore Power API. Texture fixes.
 }

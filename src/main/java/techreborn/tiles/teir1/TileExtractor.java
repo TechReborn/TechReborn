@@ -43,20 +43,11 @@ public class TileExtractor extends TilePowerAcceptor implements IWrenchable,IInv
 	}
 
 	@Override
-<<<<<<< HEAD
 	public void update() {
 		super.update();
 		crafter.updateEntity();
 		upgradeHandler.tick();
-		//charge(3); TODO
-=======
-	public void updateEntity()
-	{
-		super.updateEntity();
-		crafter.updateEntity();
-		// upgrades.tick();
 		charge(3);
->>>>>>> parent of b292fdd... Rewrite to use new RebornCore Power API. Texture fixes.
 	}
 
 	@Override

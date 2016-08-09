@@ -15,6 +15,7 @@ import reborncore.api.IListInfoProvider;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
@@ -35,6 +36,10 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
 
 	public int tickTime;
 	public MultiblockChecker multiblockChecker;
+
+	public TileIndustrialSawmill() {
+		super(2);
+	}
 
 	@Override
 	public void update() {
@@ -212,6 +217,26 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
 	@Override
 	public double getMaxPower() {
 		return 64000;
+	}
+
+	@Override
+	public boolean canAcceptEnergy(EnumFacing direction) {
+		return true;
+	}
+
+	@Override
+	public boolean canProvideEnergy(EnumFacing direction) {
+		return false;
+	}
+
+	@Override
+	public double getMaxOutput() {
+		return 0;
+	}
+
+	@Override
+	public double getMaxInput() {
+		return 64;
 	}
 
 	@Override

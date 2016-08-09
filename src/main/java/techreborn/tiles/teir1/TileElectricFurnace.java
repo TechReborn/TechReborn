@@ -1,10 +1,6 @@
 package techreborn.tiles.teir1;
 
-<<<<<<< HEAD
-import ic2.core.upgrade.IUpgradeItem;
-=======
 import reborncore.common.IWrenchable;
->>>>>>> parent of b292fdd... Rewrite to use new RebornCore Power API. Texture fixes.
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -14,12 +10,9 @@ import net.minecraft.util.EnumFacing;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.blocks.BlockMachineBase;
-<<<<<<< HEAD
-import reborncore.common.recipes.RecipeCrafter;
-import reborncore.common.tile.TilePowerAcceptor;
-=======
 import reborncore.common.powerSystem.TilePowerAcceptor;
->>>>>>> parent of b292fdd... Rewrite to use new RebornCore Power API. Texture fixes.
+import reborncore.common.recipes.RecipeCrafter;
+
 import reborncore.common.util.Inventory;
 import techreborn.init.ModBlocks;
 import techreborn.utils.upgrade.UpgradeHandler;
@@ -49,15 +42,8 @@ public class TileElectricFurnace extends TilePowerAcceptor implements IWrenchabl
 	}
 
 	@Override
-<<<<<<< HEAD
 	public void update() {
 		super.update();
-		//charge(3); TODO
-
-=======
-	public void updateEntity()
-	{
->>>>>>> parent of b292fdd... Rewrite to use new RebornCore Power API. Texture fixes.
 		boolean burning = isBurning();
 		boolean updateInventory = false;
 		if (isBurning() && canSmelt())
@@ -193,22 +179,6 @@ public class TileElectricFurnace extends TilePowerAcceptor implements IWrenchabl
 	}
 
 	// ISidedInventory
-<<<<<<< HEAD
-    @Override
-    public int[] getSlotsForFace(EnumFacing side) {
-        return new int[] {0, 1};
-    }
-
-    @Override
-    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
-        return index == 0;
-    }
-
-    @Override
-    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
-        return index == 1;
-    }
-=======
 	@Override
 	public int[] getSlotsForFace(EnumFacing side)
 	{
@@ -228,7 +198,6 @@ public class TileElectricFurnace extends TilePowerAcceptor implements IWrenchabl
 	{
 		return slotIndex == 2;
 	}
->>>>>>> parent of b292fdd... Rewrite to use new RebornCore Power API. Texture fixes.
 
 	@Override
 	public double getMaxPower()

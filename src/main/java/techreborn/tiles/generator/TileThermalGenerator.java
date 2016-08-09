@@ -20,7 +20,6 @@ import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
-import techreborn.power.PowerNet;
 
 public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchable, IFluidHandler,IInventoryProvider
 {
@@ -138,45 +137,50 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
 
 	@Override
 	// TODO optimise this code
-	public void updateEntity() {
+	public void updateEntity()
+	{
 		super.updateEntity();
-		if (!worldObj.isRemote) {
+		if (!worldObj.isRemote)
+		{
 			FluidUtils.drainContainers(this, inventory, 0, 1);
-			for (EnumFacing direction : EnumFacing.values()) {
+			for (EnumFacing direction : EnumFacing.values())
+			{
 				if (worldObj.getBlockState(new BlockPos(getPos().getX() + direction.getFrontOffsetX(),
 						getPos().getY() + direction.getFrontOffsetY(), getPos().getZ() + direction.getFrontOffsetZ()))
-						.getBlock() == Blocks.LAVA) {
+						.getBlock() == Blocks.LAVA)
+				{
 					addEnergy(1);
 				}
 			}
 
-			if (worldObj.getTotalWorldTime() % 40 == 0) {
+			if (worldObj.getTotalWorldTime() % 40 == 0)
+			{
 				BlockMachineBase bmb = (BlockMachineBase) worldObj.getBlockState(pos).getBlock();
 				boolean didFindLava = false;
-				for (EnumFacing direction : EnumFacing.values()) {
+				for (EnumFacing direction : EnumFacing.values())
+				{
 					if (worldObj.getBlockState(new BlockPos(getPos().getX() + direction.getFrontOffsetX(),
 							getPos().getY() + direction.getFrontOffsetY(),
-							getPos().getZ() + direction.getFrontOffsetZ())).getBlock() == Blocks.LAVA) {
+							getPos().getZ() + direction.getFrontOffsetZ())).getBlock() == Blocks.LAVA)
+					{
 						didFindLava = true;
 					}
 				}
 				bmb.setActive(didFindLava, worldObj, pos);
 			}
 		}
-		if (tank.getFluidAmount() > 0 && getMaxPower() - getEnergy() >= euTick) {
+		if (tank.getFluidAmount() > 0 && getMaxPower() - getEnergy() >= euTick)
+		{
 			tank.drain(1, true);
 			addEnergy(euTick);
 		}
-		if (tank.getFluidType() != null && getStackInSlot(2) == null) {
+		if (tank.getFluidType() != null && getStackInSlot(2) == null)
+		{
 			// inventory.setInventorySlotContents(2, new ItemStack(tank
 			// .getFluidType().getBlock()));
-		} else if (tank.getFluidType() == null && getStackInSlot(2) != null) {
+		} else if (tank.getFluidType() == null && getStackInSlot(2) != null)
+		{
 			setInventorySlotContents(2, null);
-		}
-
-		if (!worldObj.isRemote && getEnergy() > 0) {
-			double maxOutput = getEnergy() > getMaxOutput() ? getMaxOutput() : getEnergy();
-			useEnergy(PowerNet.dispatchEnergyPacket(worldObj, getPos(), maxOutput));
 		}
 	}
 
