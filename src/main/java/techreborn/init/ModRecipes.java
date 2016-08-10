@@ -445,16 +445,18 @@ public class ModRecipes
                 ItemStack oreStack = getDictOreOrNull(oreDictionaryName, 1);
                 String[] data = getDictData(oreDictionaryName);
 
-
                 //High-level ores shouldn't grind here
                 if(data[0].equals("ore") && (
                         data[1].equals("tungsten") ||
                         data[1].equals("titanium") ||
                         data[1].equals("aluminium") ||
-                        data[1].equals("iridium")))
+                        data[1].equals("iridium")  ||
+						data[1].equals("saltpeter")) ||
+						oreStack == null)
                     continue;
 
                 boolean ore = data[0].equals("ore");
+				Core.logHelper.info("Ore: " + data[1]);
                 ItemStack dust = getDictOreOrNull(joinDictName("dust", data[1]), ore ? 2 : 1);
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, dust, ore ? 270 : 200, ore ? 31 : 22));
             }
