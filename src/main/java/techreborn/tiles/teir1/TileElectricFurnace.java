@@ -196,7 +196,7 @@ public class TileElectricFurnace extends TilePowerAcceptor implements IWrenchabl
 	@Override
 	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side)
 	{
-		return slotIndex == 2;
+		return slotIndex == 1;
 	}
 
 	@Override
