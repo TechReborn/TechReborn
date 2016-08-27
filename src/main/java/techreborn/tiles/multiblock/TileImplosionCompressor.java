@@ -93,17 +93,17 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
 
     @Override
     public int[] getSlotsForFace(EnumFacing side) {
-        return new int[] {0, 1};
+        return new int[] {0, 1, 2, 3};
     }
 
     @Override
     public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
-        return index == 0;
+        return index == 0 || index == 1;
     }
 
     @Override
     public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
-        return index == 1;
+        return index == 2 || index == 3;
     }
 
     public int getProgressScaled(int scale) {

@@ -98,7 +98,7 @@ public class TileCompressor extends TilePowerAcceptor implements IWrenchable, II
 	@Override
 	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side)
 	{
-		return slotIndex == 2;
+		return slotIndex == 1;
 	}
 
 	public int getProgressScaled(int scale)
