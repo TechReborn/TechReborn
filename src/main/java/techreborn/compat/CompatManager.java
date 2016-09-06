@@ -26,7 +26,7 @@ public class CompatManager
 
 	public CompatManager()
 	{
-		isIC2Loaded = Loader.isModLoaded("IC2");
+		isIC2Loaded = Info.isIc2Available();
 		registerCompact(MinetweakerCompat.class, "MineTweaker3");
 		registerCompact(TechRebornParts.class, "reborncore-mcmultipart");
 		registerCompact(ClientPartLoader.class, "reborncore-mcmultipart", "@client");

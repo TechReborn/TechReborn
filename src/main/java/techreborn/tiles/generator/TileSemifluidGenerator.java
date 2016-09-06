@@ -156,7 +156,7 @@ public class TileSemifluidGenerator extends TilePowerAcceptor implements IWrench
 		if (!worldObj.isRemote)
 			FluidUtils.drainContainers(this, inventory, 0, 1);
 
-		if (tank.getFluidAmount() > 0 && getMaxPower() - getEnergy() >= euTick)
+		if (tank.getFluidAmount() > 0 && getMaxPower() - getEnergy() >= euTick && tank.getFluidType() != null && fluids.containsKey(tank.getFluidType().getName()))
 		{
 			Integer euPerBucket = fluids.get(tank.getFluidType().getName());
 			// float totalTicks = (float)euPerBucket / 8f; //x eu per bucket / 8

@@ -16,14 +16,12 @@ buildscript {
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
-		classpath 'ModsIOUpload:ModsIOUpload:+'
     }
 }
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
-apply plugin: 'net.cazzar.gradle.modsio'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -96,13 +94,13 @@ dependencies {
     if(!f.exists()){
         f.mkdir()
     }
-    compile 'RebornCore:RebornCore-1.9.4:+:dev'
+    compile 'RebornCore:RebornCore-1.10.2:+:dev'
     deobfCompile "mezz.jei:jei_1.9.4:+"
 //    compile "net.darkhax.tesla:Tesla:1.9.4-1.1.0.24:deobf"
 	deobfCompile "slimeknights.mantle:Mantle:1.9.4-0.10.1.jenkins142"
 	deobfCompile "slimeknights:TConstruct:1.9.4-2.3.1.jenkins229"
     deobfCompile "mcjty.theoneprobe:TheOneProbe:1.9.4-1.0.4-14"
-    deobfCompile 'net.industrial-craft:industrialcraft-2:2.5.1-ex19:dev'
+    deobfCompile 'net.industrial-craft:industrialcraft-2:2.6.58-ex110:dev'
 }
 
 
@@ -164,22 +162,6 @@ artifacts {
 build.dependsOn deobfJar, apiJar
 
 
-modsIO {
-		if (project.hasProperty('mavenPass'))
-        {
-		key = project.getProperty('modsioTRKey')
-		}
-        
-
-        project {
-            artifact = jar.archivePath
-            modid = "1182"
-            minecraft = "1.10.2"
-            changelog = "See github at : https://github.com/TechReborn/TechReborn"
-            tag = "alpha"
-            current = true
-        }
-    }
 
 uploadArchives {
     repositories {

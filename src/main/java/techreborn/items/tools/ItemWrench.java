@@ -25,10 +25,12 @@ import reborncore.common.tile.TileMachineBase;
 import techreborn.blocks.fluid.BlockFluidBase;
 import techreborn.blocks.storage.BlockBatBox;
 import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.compat.CompatManager;
 import techreborn.init.ModSounds;
 import techreborn.items.ItemTR;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.storage.TileEnergyStorage;
+import techreborn.utils.IC2WrenchHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +52,12 @@ public class ItemWrench extends ItemTR implements ITexturedItem
 	@Override public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos,
 			EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand)
 	{
+		if(CompatManager.isIC2Loaded){
+			EnumActionResult result = IC2WrenchHelper.onItemUseFirst(stack, player, world, pos, side, hitX, hitY, hitZ, hand);
+			if(result == EnumActionResult.SUCCESS){
+				return result;
+			}
+		}
 		if (world.isAirBlock(pos))
 		{
 			return EnumActionResult.FAIL;

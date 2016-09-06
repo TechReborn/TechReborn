@@ -1,5 +1,6 @@
 package techreborn;
 
+import ic2.api.info.Info;
 import net.minecraft.block.BlockDispenser;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -83,6 +84,8 @@ public class Core {
         worldGen.hConfigFile = (new File(configDir, "ores.hjson"));
 
         TechRebornAPI.subItemRetriever = new SubItemRetriever();
+        //Recheck here because things break at times
+        CompatManager.isIC2Loaded = Info.isIc2Available();
 
         for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
             compatModule.preInit(event);
