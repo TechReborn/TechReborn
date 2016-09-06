@@ -445,16 +445,18 @@ public class ModRecipes
                 ItemStack oreStack = getDictOreOrNull(oreDictionaryName, 1);
                 String[] data = getDictData(oreDictionaryName);
 
-
                 //High-level ores shouldn't grind here
                 if(data[0].equals("ore") && (
                         data[1].equals("tungsten") ||
                         data[1].equals("titanium") ||
                         data[1].equals("aluminium") ||
-                        data[1].equals("iridium")))
+                        data[1].equals("iridium")  ||
+						data[1].equals("saltpeter")) ||
+						oreStack == null)
                     continue;
 
                 boolean ore = data[0].equals("ore");
+				Core.logHelper.info("Ore: " + data[1]);
                 ItemStack dust = getDictOreOrNull(joinDictName("dust", data[1]), ore ? 2 : 1);
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, dust, ore ? 270 : 200, ore ? 31 : 22));
             }
@@ -2046,7 +2048,7 @@ public class ModRecipes
 				ItemCells.getCellByName("nitrogen"), ItemCells.getCellByName("carbon"), null, null, 80, 60));
 
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(ItemDusts.getDustByName("pyrite", 3), null,
-				ItemDusts.getDustByName("iron"), ItemDusts.getDustByName("sulfur"), null, null, 120, 128));
+				ItemDusts.getDustByName("iron"), ItemDusts.getDustByName("sulfur", 2), null, null, 120, 128));
 
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(ItemDusts.getDustByName("sphalerite", 2), null,
 				ItemDusts.getDustByName("zinc"), ItemDusts.getDustByName("sulfur"), null, null, 150, 100));
@@ -3228,13 +3230,13 @@ public class ModRecipes
 				ItemCells.getCellByName("empty", 2), ItemCells.getCellByName("empty", 3), 400, 90));
 
 		RecipeHandler.addRecipe(
-				new IndustrialElectrolyzerRecipe(ItemDusts.getDustByName("ruby", 6), ItemCells.getCellByName("empty"),
+				new IndustrialElectrolyzerRecipe(ItemDusts.getDustByName("ruby", 9), ItemCells.getCellByName("empty"),
 						ItemDusts.getDustByName("aluminum", 2), ItemCells.getCellByName("empty", 1),
 						ItemDusts.getDustByName("chrome", 1), null, 140, 90));
 
-		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(ItemDusts.getDustByName("sapphire", 5),
+		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(ItemDusts.getDustByName("sapphire", 8),
 				ItemCells.getCellByName("empty"), ItemDusts.getDustByName("aluminum", 2),
-				ItemCells.getCellByName("empty", 5), null, null, 100, 60));
+				ItemCells.getCellByName("empty"), null, null, 100, 60));
 
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(ItemCells.getCellByName("sodiumSulfide", 2), null,
 				ItemCells.getCellByName("sodium", 1), ItemDusts.getDustByName("sulfur", 1), null,
@@ -3242,7 +3244,7 @@ public class ModRecipes
 
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(ItemDusts.getDustByName("peridot", 5),
 				ItemCells.getCellByName("empty"), ItemDusts.getDustByName("aluminum", 2),
-				ItemCells.getCellByName("empty", 5), null, null, 100, 60));
+				ItemCells.getCellByName("empty"), null, null, 100, 60));
 
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(ItemDusts.getDustByName("emerald", 29),
 				ItemCells.getCellByName("empty", 18), ItemCells.getCellByName("berylium", 3),
@@ -3273,13 +3275,13 @@ public class ModRecipes
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(ItemDusts.getDustByName("pyrope", 20),
 				ItemCells.getCellByName("empty", 9), ItemDusts.getDustByName("aluminum", 2),
 				ItemDusts.getDustByName("magnesium", 3), ItemCells.getCellByName("silicon", 3),
-				ItemCells.getCellByName("empty", 9), 400, 120));
+				ItemCells.getCellByName("empty", 6), 400, 120));
 
 		ItemStack sand = new ItemStack(Blocks.SAND);
 		sand.stackSize = 16;
 
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(sand, ItemCells.getCellByName("empty", 2),
-				ItemCells.getCellByName("silicon", 1), ItemCells.getCellByName("empty", 2), null, null, 1000, 25));
+				ItemCells.getCellByName("silicon", 1), ItemCells.getCellByName("empty"), null, null, 1000, 25));
 
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(ItemDusts.getDustByName("almandine", 20),
 				ItemCells.getCellByName("empty", 9), ItemDusts.getDustByName("aluminum", 2),
