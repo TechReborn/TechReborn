@@ -1,6 +1,5 @@
 package techreborn.compat;
 
-import ic2.api.info.Info;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
@@ -26,7 +25,7 @@ public class CompatManager
 
 	public CompatManager()
 	{
-		isIC2Loaded = Info.isIc2Available();
+		isIC2Loaded = Loader.isModLoaded("IC2");
 		registerCompact(MinetweakerCompat.class, "MineTweaker3");
 		registerCompact(TechRebornParts.class, "reborncore-mcmultipart");
 		registerCompact(ClientPartLoader.class, "reborncore-mcmultipart", "@client");

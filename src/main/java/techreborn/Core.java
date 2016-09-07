@@ -1,11 +1,11 @@
 package techreborn;
 
-import ic2.api.info.Info;
 import net.minecraft.block.BlockDispenser;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -85,7 +85,7 @@ public class Core {
 
         TechRebornAPI.subItemRetriever = new SubItemRetriever();
         //Recheck here because things break at times
-        CompatManager.isIC2Loaded = Info.isIc2Available();
+        CompatManager.isIC2Loaded = Loader.isModLoaded("IC2");
 
         for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
             compatModule.preInit(event);
