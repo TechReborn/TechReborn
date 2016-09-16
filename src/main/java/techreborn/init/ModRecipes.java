@@ -439,7 +439,8 @@ public class ModRecipes
                 new ItemStack(Blocks.NETHERRACK),
                 ItemDusts.getDustByName("netherrack"),
                 300, 27));
-						
+
+
 		for(String oreDictionaryName : OreDictionary.getOreNames()) {
             if(isDictPrefixed(oreDictionaryName, "ore", "gem", "ingot")) {
                 ItemStack oreStack = getDictOreOrNull(oreDictionaryName, 1);
@@ -456,8 +457,11 @@ public class ModRecipes
                     continue;
 
                 boolean ore = data[0].equals("ore");
-				Core.logHelper.info("Ore: " + data[1]);
+				Core.logHelper.debug("Ore: " + data[1]);
                 ItemStack dust = getDictOreOrNull(joinDictName("dust", data[1]), ore ? 2 : 1);
+	            if(dust == null || dust.getItem() == null){
+		            continue;
+	            }
                 RecipeHandler.addRecipe(new GrinderRecipe(oreStack, dust, ore ? 270 : 200, ore ? 31 : 22));
             }
         }

@@ -6,9 +6,12 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.util.CraftingHelper;
 import techreborn.compat.ICompatModule;
 import techreborn.init.ModBlocks;
+import techreborn.init.ModItems;
+import techreborn.items.ItemParts;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +39,10 @@ public class RecipesIC2 implements ICompatModule {
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
+	    CraftingHelper.addShapelessRecipe(ItemParts.getPartByName("rubber"), IC2Items.getItem("crafting", "rubber"));
+	    CraftingHelper.addShapelessRecipe(IC2Items.getItem("crafting", "rubber"), ItemParts.getPartByName("rubber"));
 
+	    CraftingHelper.addShapelessRecipe(IC2Items.getItem("electric_wrench"), new ItemStack(ModItems.wrench), IC2Items.getItem("crafting", "small_power_unit"));
     }
 
     @Override

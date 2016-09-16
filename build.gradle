@@ -62,7 +62,7 @@ configurations {
 }
 
 
-version = "1.4.2"
+version = "1.4.3"
 
 def ENV = System.getenv()
 if (ENV.BUILD_NUMBER) {
@@ -70,7 +70,7 @@ if (ENV.BUILD_NUMBER) {
 }
 
 minecraft {
-    version = "1.10.2-12.18.1.2044"
+    version = "1.10.2-12.18.1.2084"
     mappings = "snapshot_20160518"
     replace "@MODVERSION@", project.version
   //  makeObfSourceJar = false

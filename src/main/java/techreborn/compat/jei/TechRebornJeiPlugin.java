@@ -254,5 +254,7 @@ import java.util.List;
 		recipeTransferRegistry
 				.addRecipeTransferHandler(ContainerCompressor.class, RecipeCategoryUids.COMPRESSOR, 0, 1, 2, 36);
 
+		registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.pump));
+
 	}
 }
