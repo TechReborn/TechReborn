@@ -70,6 +70,7 @@ import techreborn.itemblocks.ItemBlockQuantumTank;
 import techreborn.itemblocks.ItemBlockRubberSapling;
 import techreborn.itemblocks.ItemBlockStorage;
 import techreborn.itemblocks.ItemBlockStorage2;
+import techreborn.items.ItemParts;
 import techreborn.tiles.*;
 import techreborn.tiles.fusionReactor.TileEntityFusionController;
 import techreborn.tiles.generator.*;
@@ -515,6 +516,9 @@ public class ModBlocks
 		OreDictionary.registerOre("machineBlockBasic", BlockMachineFrame.getFrameByName("machine", 1));
 		OreDictionary.registerOre("machineBlockAdvanced", BlockMachineFrame.getFrameByName("advancedMachine", 1));
 		OreDictionary.registerOre("machineBlockHighlyAdvanced", BlockMachineFrame.getFrameByName("highlyAdvancedMachine", 1));
+
+
+		OreDictionary.registerOre("itemRubber", ItemParts.getPartByName("rubber"));
 	}
 
 }
