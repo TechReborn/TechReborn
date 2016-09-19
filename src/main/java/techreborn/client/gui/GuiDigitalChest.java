@@ -12,7 +12,7 @@ public class GuiDigitalChest extends GuiContainer
 {
 
 	private static final ResourceLocation texture = new ResourceLocation("techreborn",
-			"textures/gui/ThermalGenerator.png");
+			"textures/gui/thermal_generator.png");
 
 	TileDigitalChest tile;
 

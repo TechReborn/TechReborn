@@ -12,7 +12,7 @@ public class GuiQuantumChest extends GuiContainer
 {
 
 	private static final ResourceLocation texture = new ResourceLocation("techreborn",
-			"textures/gui/ThermalGenerator.png");
+			"textures/gui/thermal_generator.png");
 
 	TileQuantumChest tile;
 
