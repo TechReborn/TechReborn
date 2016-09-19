@@ -89,9 +89,11 @@ public class ModelDynamicCell implements IModel {
         ResourceLocation sprite = fluid != null ? fluid.getStill() : emptyTexture;
         int color = fluid != null ? fluid.getColor() : Color.WHITE.getRGB();
         TextureAtlasSprite fluidSprite = bakedTextureGetter.apply(sprite);
-        if (fluidSprite != null) {
-            builder.add(ItemTextureQuadConverter.genQuad(format, transform, 5, 2, 11, 14, NORTH_Z_FLUID, fluidSprite, EnumFacing.NORTH, color));
-            builder.add(ItemTextureQuadConverter.genQuad(format, transform, 5, 2, 11, 14, SOUTH_Z_FLUID, fluidSprite, EnumFacing.SOUTH, color));
+        if(fluid != null){
+            if (fluidSprite != null) {
+                builder.add(ItemTextureQuadConverter.genQuad(format, transform, 5, 2, 11, 14, NORTH_Z_FLUID, fluidSprite, EnumFacing.NORTH, color));
+                builder.add(ItemTextureQuadConverter.genQuad(format, transform, 5, 2, 11, 14, SOUTH_Z_FLUID, fluidSprite, EnumFacing.SOUTH, color));
+            }
         }
 
         return new BakedDynamicCell(builder.build(), this, bakedTextureGetter.apply(baseTexture), format, transformMap);

@@ -8,6 +8,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.util.BucketHandler;
@@ -309,6 +310,8 @@ public class ModItems
 
 		BlockMachineBase.advancedMachineStack = BlockMachineFrame.getFrameByName("advancedMachine", 1);
 		BlockMachineBase.machineStack = BlockMachineFrame.getFrameByName("machine", 1);
+
+		OreDictionary.registerOre("itemRubber", ItemParts.getPartByName("rubber"));
 	}
 
 	public static void registerItem(Item item, String name){

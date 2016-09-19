@@ -946,6 +946,14 @@ public class ModRecipes
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.advancedJackhammer), "ODO", "AOA", 'O',
 				ItemUpgrades.getUpgradeByName("Overclock"), 'D', diamondJackhammerStack, 'A', "circuitAdvanced");
 
+		CraftingHelper
+				.addShapedOreRecipe(ItemParts.getPartByName("dataControlCircuit"), "ADA", "DID", "ADA", 'I', "ingotIridium",
+						'A', ItemParts.getPartByName("advancedCircuit"), 'D', ItemParts.getPartByName("dataStorageCircuit"));
+
+		CraftingHelper
+				.addShapedOreRecipe(ItemParts.getPartByName("dataOrb"), "DDD", "DSD", "DDD",
+						'D', ItemParts.getPartByName("dataStorageCircuit"), 'S', ItemParts.getPartByName("dataStorageCircuit"));
+
 		Core.logHelper.info("Shapped Recipes Added");
 	}
 

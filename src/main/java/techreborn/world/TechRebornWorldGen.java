@@ -18,6 +18,7 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 import org.hjson.JsonValue;
 import org.hjson.Stringify;
 import reborncore.common.misc.ChunkCoord;
+import reborncore.common.util.ArrayUtils;
 import techreborn.Core;
 import techreborn.init.ModBlocks;
 import techreborn.world.config.OreConfig;
@@ -146,6 +147,21 @@ public class TechRebornWorldGen implements IWorldGenerator
 			{
 			}.getType();
 			config = gson.fromJson(jsonString, typeOfHashMap);
+			ArrayUtils.addAll(config.endOres, config.neatherOres, config.overworldOres).stream().forEach(oreConfig -> {
+				if(oreConfig.minYHeight > oreConfig.maxYHeight){
+					printError(oreConfig.blockName + " ore generation value is invalid, the min y height is bigger than the max y height, this ore value will be disabled in code");
+
+					oreConfig.minYHeight = -1;
+					oreConfig.maxYHeight = -1;
+				}
+
+				if(oreConfig.minYHeight < 0 || oreConfig.maxYHeight < 0){
+					printError(oreConfig.blockName + " ore generation value is invalid, the min y height or the max y height is less than 0, this ore value will be disabled in code");
+					oreConfig.minYHeight = -1;
+					oreConfig.maxYHeight = -1;
+				}
+
+			});
 		} catch (Exception e)
 		{
 			Core.logHelper.error(
@@ -156,6 +172,14 @@ public class TechRebornWorldGen implements IWorldGenerator
 					"The ores.json file was ignored and the default values loaded, you file will NOT be over written");
 			e.printStackTrace();
 		}
+	}
+
+	public void printError(String string){
+		Core.logHelper.error("###############-ERROR-####################");
+		Core.logHelper.error("");
+		Core.logHelper.error(string);
+		Core.logHelper.error("");
+		Core.logHelper.error("###############-ERROR-####################");
 	}
 
 	private void save()
@@ -224,6 +248,9 @@ public class TechRebornWorldGen implements IWorldGenerator
 					for (int i = 0; i < ore.veinsPerChunk; i++)
 					{
 						xPos = chunkX * 16 + random.nextInt(16);
+						if(ore.maxYHeight == -1 || ore.minYHeight == -1){
+							continue;
+						}
 						yPos = 10 + random.nextInt(ore.maxYHeight - ore.minYHeight);
 						zPos = chunkZ * 16 + random.nextInt(16);
 						BlockPos pos = new BlockPos(xPos, yPos, zPos);

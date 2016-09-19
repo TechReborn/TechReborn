@@ -517,8 +517,6 @@ public class ModBlocks
 		OreDictionary.registerOre("machineBlockAdvanced", BlockMachineFrame.getFrameByName("advancedMachine", 1));
 		OreDictionary.registerOre("machineBlockHighlyAdvanced", BlockMachineFrame.getFrameByName("highlyAdvancedMachine", 1));
 
-
-		OreDictionary.registerOre("itemRubber", ItemParts.getPartByName("rubber"));
 	}
 
 }
