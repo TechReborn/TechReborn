@@ -247,11 +247,10 @@ public class ModRecipes
 
 		for (String i : ItemDusts.types)
 		{
-			if (!i.equals(ModItems.META_PLACEHOLDER) && i.equals(ModItems.META_PLACEHOLDER))
+			if (!i.equals(ModItems.META_PLACEHOLDER))
 			{
-				continue;
+				ScrapboxList.addItemStackToList(ItemDusts.getDustByName(i));
 			}
-			ScrapboxList.addItemStackToList(ItemDusts.getDustByName(i));
 		}
 
 		for (String i : ItemNuggets.types){
