@@ -7,6 +7,7 @@ import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiFluidStackGroup;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
@@ -16,7 +17,7 @@ import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
 import techreborn.tiles.multiblock.TileIndustrialGrinder;
 
-public class IndustrialGrinderRecipeCategory extends BlankRecipeCategory
+public class IndustrialGrinderRecipeCategory extends BlankRecipeCategory<IndustrialGrinderRecipeWrapper>
 {
 	private static final int[] INPUT_SLOTS = { 0, 1 };
 	private static final int[] OUTPUT_SLOTS = { 2, 3, 4, 5 };
@@ -64,7 +65,7 @@ public class IndustrialGrinderRecipeCategory extends BlankRecipeCategory
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper)
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IndustrialGrinderRecipeWrapper recipeWrapper)
 	{
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
 		guiItemStacks.init(INPUT_SLOTS[0], true, 24, 10);
@@ -78,10 +79,24 @@ public class IndustrialGrinderRecipeCategory extends BlankRecipeCategory
 		IGuiFluidStackGroup guiFluidStacks = recipeLayout.getFluidStacks();
 		guiFluidStacks.init(INPUT_TANKS[0], true, 4, 4, 12, 47, TileIndustrialGrinder.TANK_CAPACITY, true, tankOverlay);
 
-		if (recipeWrapper instanceof IndustrialGrinderRecipeWrapper)
-		{
-			IndustrialGrinderRecipeWrapper recipe = (IndustrialGrinderRecipeWrapper) recipeWrapper;
-			RecipeUtil.setRecipeItems(recipeLayout, recipe, INPUT_SLOTS, OUTPUT_SLOTS, INPUT_TANKS, null);
-		}
+		RecipeUtil.setRecipeItems(recipeLayout, recipeWrapper, INPUT_SLOTS, OUTPUT_SLOTS, INPUT_TANKS, null);
+	}
+
+	@Override
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IndustrialGrinderRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients)
+	{
+		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
+		guiItemStacks.init(INPUT_SLOTS[0], true, 24, 10);
+		guiItemStacks.init(INPUT_SLOTS[1], true, 24, 28);
+
+		guiItemStacks.init(OUTPUT_SLOTS[0], false, 69, 19);
+		guiItemStacks.init(OUTPUT_SLOTS[1], false, 87, 19);
+		guiItemStacks.init(OUTPUT_SLOTS[2], false, 105, 19);
+		guiItemStacks.init(OUTPUT_SLOTS[3], false, 123, 19);
+
+		IGuiFluidStackGroup guiFluidStacks = recipeLayout.getFluidStacks();
+		guiFluidStacks.init(INPUT_TANKS[0], true, 4, 4, 12, 47, TileIndustrialGrinder.TANK_CAPACITY, true, tankOverlay);
+
+		RecipeUtil.setRecipeItems(recipeLayout, ingredients, INPUT_SLOTS, OUTPUT_SLOTS, INPUT_TANKS, null);
 	}
 }

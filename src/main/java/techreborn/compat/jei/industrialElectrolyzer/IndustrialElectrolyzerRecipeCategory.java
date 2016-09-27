@@ -6,6 +6,7 @@ import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.util.text.translation.I18n;
@@ -13,7 +14,7 @@ import techreborn.client.gui.GuiIndustrialElectrolyzer;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
 
-public class IndustrialElectrolyzerRecipeCategory extends BlankRecipeCategory
+public class IndustrialElectrolyzerRecipeCategory extends BlankRecipeCategory<IndustrialElectrolyzerRecipeWrapper>
 {
 	private static final int[] INPUT_SLOTS = { 0, 1 };
 	private static final int[] OUTPUT_SLOTS = { 2, 3, 4, 5 };
@@ -49,7 +50,7 @@ public class IndustrialElectrolyzerRecipeCategory extends BlankRecipeCategory
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper)
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IndustrialElectrolyzerRecipeWrapper recipeWrapper)
 	{
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
 		guiItemStacks.init(INPUT_SLOTS[0], true, 30, 32);
@@ -59,10 +60,20 @@ public class IndustrialElectrolyzerRecipeCategory extends BlankRecipeCategory
 		guiItemStacks.init(OUTPUT_SLOTS[2], false, 40, 0);
 		guiItemStacks.init(OUTPUT_SLOTS[3], false, 60, 0);
 
-		if (recipeWrapper instanceof IndustrialElectrolyzerRecipeWrapper)
-		{
-			IndustrialElectrolyzerRecipeWrapper recipe = (IndustrialElectrolyzerRecipeWrapper) recipeWrapper;
-			RecipeUtil.setRecipeItems(recipeLayout, recipe, INPUT_SLOTS, OUTPUT_SLOTS, null, null);
-		}
+		RecipeUtil.setRecipeItems(recipeLayout, recipeWrapper, INPUT_SLOTS, OUTPUT_SLOTS, null, null);
+	}
+
+	@Override
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IndustrialElectrolyzerRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients)
+	{
+		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
+		guiItemStacks.init(INPUT_SLOTS[0], true, 30, 32);
+		guiItemStacks.init(INPUT_SLOTS[1], true, 0, 32);
+		guiItemStacks.init(OUTPUT_SLOTS[0], false, 0, 0);
+		guiItemStacks.init(OUTPUT_SLOTS[1], false, 20, 0);
+		guiItemStacks.init(OUTPUT_SLOTS[2], false, 40, 0);
+		guiItemStacks.init(OUTPUT_SLOTS[3], false, 60, 0);
+
+		RecipeUtil.setRecipeItems(recipeLayout, ingredients, INPUT_SLOTS, OUTPUT_SLOTS, null, null);
 	}
 }

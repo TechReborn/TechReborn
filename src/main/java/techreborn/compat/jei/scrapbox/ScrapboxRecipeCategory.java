@@ -6,6 +6,7 @@ import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.util.text.translation.I18n;
@@ -13,7 +14,7 @@ import techreborn.client.gui.GuiCompressor;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
 
-public class ScrapboxRecipeCategory extends BlankRecipeCategory
+public class ScrapboxRecipeCategory extends BlankRecipeCategory<ScrapboxRecipeWrapper>
 {
 	private static final int[] INPUT_SLOTS = { 0 };
 	private static final int[] OUTPUT_SLOTS = { 1 };
@@ -49,17 +50,24 @@ public class ScrapboxRecipeCategory extends BlankRecipeCategory
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper)
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull ScrapboxRecipeWrapper recipeWrapper)
 	{
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
 		guiItemStacks.init(INPUT_SLOTS[0], true, 0, 3);
 
 		guiItemStacks.init(OUTPUT_SLOTS[0], false, 60, 4);
 
-		if (recipeWrapper instanceof ScrapboxRecipeWrapper)
-		{
-			ScrapboxRecipeWrapper recipe = (ScrapboxRecipeWrapper) recipeWrapper;
-			RecipeUtil.setRecipeItems(recipeLayout, recipe, INPUT_SLOTS, OUTPUT_SLOTS, null, null);
-		}
+		RecipeUtil.setRecipeItems(recipeLayout, recipeWrapper, INPUT_SLOTS, OUTPUT_SLOTS, null, null);
+	}
+
+	@Override
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull ScrapboxRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients)
+	{
+		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
+		guiItemStacks.init(INPUT_SLOTS[0], true, 0, 3);
+
+		guiItemStacks.init(OUTPUT_SLOTS[0], false, 60, 4);
+
+		RecipeUtil.setRecipeItems(recipeLayout, ingredients, INPUT_SLOTS, OUTPUT_SLOTS, null, null);
 	}
 }

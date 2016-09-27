@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -64,6 +65,13 @@ public abstract class BaseRecipeWrapper<T extends BaseRecipe> extends BlankRecip
 			}
 		}
 		return new ArrayList<>(itemStackSet);
+	}
+
+	@Override
+	public void getIngredients(@Nonnull IIngredients ingredients)
+	{
+		ingredients.setInputLists(ItemStack.class, inputs);
+		ingredients.setOutputs(ItemStack.class, baseRecipe.getOutputs());
 	}
 
 	@Nonnull
