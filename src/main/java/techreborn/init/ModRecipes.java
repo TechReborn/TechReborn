@@ -247,18 +247,24 @@ public class ModRecipes
 
 		for (String i : ItemDusts.types)
 		{
-			if (i.equals(ModItems.META_PLACEHOLDER))
+			if (!i.equals(ModItems.META_PLACEHOLDER) && i.equals(ModItems.META_PLACEHOLDER))
 			{
 				continue;
 			}
 			ScrapboxList.addItemStackToList(ItemDusts.getDustByName(i));
 		}
 
-		for (String i : ItemNuggets.types)
-			ScrapboxList.addItemStackToList(ItemNuggets.getNuggetByName(i));
-
-		for (String i : ItemGems.types)
-			ScrapboxList.addItemStackToList(ItemGems.getGemByName(i));
+		for (String i : ItemNuggets.types){
+			if(!i.equals(ModItems.META_PLACEHOLDER)){
+				ScrapboxList.addItemStackToList(ItemNuggets.getNuggetByName(i));
+			}
+		}
+		
+		for (String i : ItemGems.types){
+			if(!i.equals(ModItems.META_PLACEHOLDER)){
+				ScrapboxList.addItemStackToList(ItemGems.getGemByName(i));
+			}
+		}
 
 		registerDyable(Blocks.CARPET);
 		registerDyable(Blocks.STAINED_GLASS);
