@@ -9,6 +9,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
@@ -72,8 +73,7 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo, ITex
 
 	 @Override
 	 public float getStrVsBlock(ItemStack stack, IBlockState state) {
-	 if (OreDictUtils.isOre(state, "stone") && PoweredItem.canUseEnergy(cost,
-	 stack)) {
+	 if ((OreDictUtils.isOre(state, "stone") || state.getBlock() == Blocks.STONE) && PoweredItem.canUseEnergy(cost, stack)) {
 	 return efficiencyOnProperMaterial;
 	 } else {
 	 return 0.5F;
