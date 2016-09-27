@@ -6,13 +6,15 @@ import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
 import techreborn.client.gui.GuiFusionReactor;
 import techreborn.compat.jei.RecipeCategoryUids;
 
-public class FusionReactorRecipeCategory extends BlankRecipeCategory
+public class FusionReactorRecipeCategory extends BlankRecipeCategory<FusionReactorRecipeWrapper>
 {
 
 	private static final int inputSlotTop = 0;
@@ -52,20 +54,29 @@ public class FusionReactorRecipeCategory extends BlankRecipeCategory
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper)
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull FusionReactorRecipeWrapper recipeWrapper)
 	{
 		IGuiItemStackGroup itemStacks = recipeLayout.getItemStacks();
 		itemStacks.init(inputSlotTop, true, 21, 0);
 		itemStacks.init(inputSlotBottom, true, 21, 36);
 		itemStacks.init(outputSlot, false, 81, 18);
 
-		if (recipeWrapper instanceof FusionReactorRecipeWrapper)
-		{
-			FusionReactorRecipeWrapper fusionRecipe = (FusionReactorRecipeWrapper) recipeWrapper;
-			itemStacks.set(inputSlotTop, fusionRecipe.getTopInput());
-			itemStacks.set(inputSlotBottom, fusionRecipe.getBottomInput());
-			itemStacks.set(outputSlot, fusionRecipe.getOutputs());
-		}
+		itemStacks.set(inputSlotTop, recipeWrapper.getTopInput());
+		itemStacks.set(inputSlotBottom, recipeWrapper.getBottomInput());
+		itemStacks.set(outputSlot, recipeWrapper.getOutputs());
+	}
+
+	@Override
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull FusionReactorRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients)
+	{
+		IGuiItemStackGroup itemStacks = recipeLayout.getItemStacks();
+		itemStacks.init(inputSlotTop, true, 21, 0);
+		itemStacks.init(inputSlotBottom, true, 21, 36);
+		itemStacks.init(outputSlot, false, 81, 18);
+
+		itemStacks.set(inputSlotTop, recipeWrapper.getTopInput());
+		itemStacks.set(inputSlotBottom, recipeWrapper.getBottomInput());
+		itemStacks.set(outputSlot, ingredients.getOutputs(ItemStack.class));
 	}
 
 }

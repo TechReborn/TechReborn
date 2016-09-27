@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
 import mezz.jei.api.recipe.wrapper.ICraftingRecipeWrapper;
 import mezz.jei.plugins.vanilla.crafting.ShapedOreRecipeWrapper;
@@ -55,6 +56,12 @@ public class RollingMachineRecipeWrapper extends BlankRecipeWrapper implements I
 		}
 
 		return new RollingMachineRecipeWrapper(recipeWrapper);
+	}
+
+	@Override
+	public void getIngredients(@Nonnull IIngredients ingredients)
+	{
+		baseRecipe.getIngredients(ingredients);
 	}
 
 	@Override

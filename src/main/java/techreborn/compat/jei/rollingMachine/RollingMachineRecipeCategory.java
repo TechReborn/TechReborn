@@ -9,14 +9,16 @@ import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
 import techreborn.client.gui.GuiRollingMachine;
 import techreborn.compat.jei.RecipeCategoryUids;
 
-public class RollingMachineRecipeCategory extends BlankRecipeCategory
+public class RollingMachineRecipeCategory extends BlankRecipeCategory<RollingMachineRecipeWrapper>
 {
 	private static final int[] INPUT_SLOTS = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 	private static final int[] OUTPUT_SLOTS = { 10 };
@@ -65,7 +67,7 @@ public class RollingMachineRecipeCategory extends BlankRecipeCategory
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper)
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull RollingMachineRecipeWrapper recipeWrapper)
 	{
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
 		for (int l = 0; l < 3; l++)
@@ -79,11 +81,26 @@ public class RollingMachineRecipeCategory extends BlankRecipeCategory
 
 		guiItemStacks.init(OUTPUT_SLOTS[0], false, 94, 18);
 
-		if (recipeWrapper instanceof RollingMachineRecipeWrapper)
+		craftingGridHelper.setInput(guiItemStacks, recipeWrapper.getInputs());
+		craftingGridHelper.setOutput(guiItemStacks, recipeWrapper.getOutputs());
+	}
+
+	@Override
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull RollingMachineRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients)
+	{
+		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
+		for (int l = 0; l < 3; l++)
 		{
-			RollingMachineRecipeWrapper recipe = (RollingMachineRecipeWrapper) recipeWrapper;
-			craftingGridHelper.setInput(guiItemStacks, recipe.getInputs());
-			craftingGridHelper.setOutput(guiItemStacks, recipe.getOutputs());
+			for (int k1 = 0; k1 < 3; k1++)
+			{
+				int i = k1 + l * 3;
+				guiItemStacks.init(INPUT_SLOTS[i], true, k1 * 18, l * 18);
+			}
 		}
+
+		guiItemStacks.init(OUTPUT_SLOTS[0], false, 94, 18);
+
+		craftingGridHelper.setInputStacks(guiItemStacks, ingredients.getInputs(ItemStack.class));
+		craftingGridHelper.setOutput(guiItemStacks, ingredients.getOutputs(ItemStack.class));
 	}
 }
