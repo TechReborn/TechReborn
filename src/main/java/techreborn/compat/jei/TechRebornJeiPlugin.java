@@ -16,6 +16,7 @@ import techreborn.api.recipe.machines.AssemblingMachineRecipe;
 import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
 import techreborn.client.container.*;
 import techreborn.client.gui.*;
+import techreborn.compat.CompatManager;
 import techreborn.compat.jei.alloySmelter.AlloySmelterRecipeCategory;
 import techreborn.compat.jei.alloySmelter.AlloySmelterRecipeHandler;
 import techreborn.compat.jei.assemblingMachine.AssemblingMachineRecipeCategory;
@@ -255,6 +256,11 @@ import java.util.List;
 				.addRecipeTransferHandler(ContainerCompressor.class, RecipeCategoryUids.COMPRESSOR, 0, 1, 2, 36);
 
 		registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.pump));
+
+		if(CompatManager.isQuantumStorageLoaded){
+			registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.quantumChest));
+			registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.quantumTank));
+		}
 
 	}
 }

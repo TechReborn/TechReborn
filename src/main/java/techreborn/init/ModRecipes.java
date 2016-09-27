@@ -12,6 +12,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.UniversalBucket;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.ArrayUtils;
 import reborncore.api.recipe.RecipeHandler;
@@ -27,6 +28,7 @@ import techreborn.api.recipe.RecyclerRecipe;
 import techreborn.api.recipe.ScrapboxRecipe;
 import techreborn.api.recipe.machines.*;
 import techreborn.blocks.*;
+import techreborn.compat.CompatManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.items.*;
 import techreborn.parts.powerCables.ItemStandaloneCables;
@@ -65,6 +67,8 @@ public class ModRecipes
 
 	public static void init()
 	{
+		//Done again incase we loaded before QuantumStorage
+		CompatManager.isQuantumStorageLoaded = Loader.isModLoaded("quantumstorage");
 		addShapelessRecipes();
 		addGeneralShapedRecipes();
 		addMachineRecipes();
@@ -1009,9 +1013,11 @@ public class ModRecipes
 
 	static void addMachineRecipes()
 	{
-		CraftingHelper
+		if(!CompatManager.isQuantumStorageLoaded){
+			CraftingHelper
 				.addShapedOreRecipe(new ItemStack(ModBlocks.quantumTank), "EPE", "PCP", "EPE", 'P', "ingotPlatinum",
-						'E', "circuitAdvanced", 'C', ModBlocks.quantumChest);
+					'E', "circuitAdvanced", 'C', ModBlocks.quantumChest);
+		}
 
 		CraftingHelper
 				.addShapedOreRecipe(new ItemStack(ModBlocks.digitalChest), "PPP", "PDP", "PCP", 'P', "plateAluminum",
@@ -2242,10 +2248,12 @@ public class ModRecipes
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.MachineCasing, 4, 2), "HHH", "CBC", "HHH", 'H',
 				"ingotChrome", 'C', "circuitElite", 'B', BlockMachineFrame.getFrameByName("highlyAdvancedMachine", 1));
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.quantumChest), "DCD", "ATA", "DQD", 'D',
+		if(!CompatManager.isQuantumStorageLoaded){
+			CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.quantumChest), "DCD", "ATA", "DQD", 'D',
 				ItemParts.getPartByName("dataOrb"), 'C', ItemParts.getPartByName("computerMonitor"), 'A',
 				BlockMachineFrame.getFrameByName("highlyAdvancedMachine", 1), 'Q', ModBlocks.digitalChest, 'T',
 				ModBlocks.Compressor);
+		}
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.PlasmaGenerator), "PPP", "PTP", "CGC", 'P',
 				ItemPlates.getPlateByName("tungstensteel"), 'T', getOre("hvTransformer"),
