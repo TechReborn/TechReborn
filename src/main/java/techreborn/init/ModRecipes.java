@@ -259,7 +259,7 @@ public class ModRecipes
 				ScrapboxList.addItemStackToList(ItemNuggets.getNuggetByName(i));
 			}
 		}
-		
+
 		for (String i : ItemGems.types){
 			if(!i.equals(ModItems.META_PLACEHOLDER)){
 				ScrapboxList.addItemStackToList(ItemGems.getGemByName(i));
