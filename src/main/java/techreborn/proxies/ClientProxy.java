@@ -169,4 +169,23 @@ public class ClientProxy extends CommonProxy
 		String resourceDomain = Block.REGISTRY.getNameForObject(block).getResourceDomain();
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(resourceDomain + ':' + resourceLocation, "inventory"));
 	}
+
+	@Override
+	public void registerCustomBlockStateLocation(Block block, String resourceLocation, boolean item) {
+		super.registerCustomBlockStateLocation(block, resourceLocation, item);
+		ModelLoader.setCustomStateMapper(block, new DefaultStateMapper()
+		{
+			@Override
+			protected ModelResourceLocation getModelResourceLocation(IBlockState state)
+			{
+				String resourceDomain = Block.REGISTRY.getNameForObject(state.getBlock()).getResourceDomain();
+				String propertyString = getPropertyString(state.getProperties());
+				return new ModelResourceLocation(resourceDomain + ':' + resourceLocation, propertyString);
+			}
+		});
+		if(item){
+			String resourceDomain = Block.REGISTRY.getNameForObject(block).getResourceDomain();
+			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(resourceDomain + ':' + resourceLocation, "inventory"));
+		}
+	}
 }
