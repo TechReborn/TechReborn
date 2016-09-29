@@ -4,11 +4,9 @@
     "transform": "forge:default-block",
     "model": "orientable",
     "textures": {
-      "particle": "techreborn:blocks/machines/tier2_machines/advanced_machine_west",
-      "down": "techreborn:blocks/machines/tier2_machines/advanced_machine_bottom",
-      "west": "techreborn:blocks/machines/tier2_machines/advanced_machine_west",
-      "east": "techreborn:blocks/machines/tier2_machines/advanced_machine_east",
-      "south": "techreborn:blocks/machines/tier2_machines/advanced_machine_back"
+      "particle": "techreborn:blocks/machines/tier1_machines/machine_side",
+      "down": "techreborn:blocks/machines/tier1_machines/machine_bottom",
+      "side": "techreborn:blocks/machines/tier1_machines/machine_side"
     }
   },
   "variants": {
@@ -49,11 +47,10 @@
     "inventory": {
       "model": "orientable",
       "textures": {
-        "particle": "techreborn:blocks/machines/tier2_machines/advanced_machine_west",
-        "top": "techreborn:blocks/machines/tier2_machines/industrial_centrifuge_top_off",
-        "down": "techreborn:blocks/machines/tier2_machines/advanced_machine_bottom",
-        "front": "techreborn:blocks/machines/tier2_machines/industrial_centrifuge_front_off",
-        "side": "techreborn:blocks/machines/tier2_machines/industrial_centrifuge_front_off"
+        "particle": "techreborn:blocks/machines/tier1_machines/machine_side",
+        "side": "techreborn:blocks/machines/tier1_machines/machine_side",
+        "front": "techreborn:blocks/machines/tier1_machines/rolling_machine_front_off",
+        "top": "techreborn:blocks/machines/tier2_machines/industrial_centrifuge_top_off"
       }
     }
   }

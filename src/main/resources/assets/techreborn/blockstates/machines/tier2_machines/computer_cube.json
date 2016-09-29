@@ -5,7 +5,7 @@
     "model": "orientable",
     "textures": {
       "particle": "techreborn:blocks/machines/computer_cube_side",
-      "bottom": "techreborn:blocks//machines/computer_cube_side,
+      "bottom": "techreborn:blocks//machines/computer_cube_side",
       "top": "techreborn:blocks//machines/computer_cube_side",
       "front": "techreborn:blocks//machines/computer_cube_front",
       "side": "techreborn:blocks//machines/computer_cube_side"

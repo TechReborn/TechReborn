@@ -197,7 +197,6 @@ public class ModBlocks
 		centrifuge = new BlockCentrifuge();
 		registerBlock(centrifuge, "techreborn.centrifuge");
 		GameRegistry.registerTileEntity(TileCentrifuge.class, "TileCentrifugeTR");
-		Core.proxy.registerCustomBlockSateLocation(centrifuge, "machines/centrifuge");
 		Core.proxy.registerCustomBlockStateLocation(centrifuge, "machines/tier2_machines/centrifuge");
 
 		RollingMachine = new BlockRollingMachine(Material.ROCK);
