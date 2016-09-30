@@ -54,7 +54,7 @@ public class BlockMachineFrame extends BaseBlock implements ITexturedBlock {
 
     @Override
     public String getTextureNameFromState(IBlockState blockState, EnumFacing facing) {
-        return "techreborn:blocks/machine/machine_blocks/" + types[getMetaFromState(blockState)] + "_machine_block";
+	    return "techreborn:blocks/machines/structure/tier" + (getMetaFromState(blockState) + 1) + "_machine_block";
     }
 
     @Override

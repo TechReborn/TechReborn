@@ -488,7 +488,7 @@ public class ModBlocks
 		ironFurnace = new BlockIronFurnace();
 		registerBlock(ironFurnace, "ironfurnace");
 		GameRegistry.registerTileEntity(TileIronFurnace.class, "TileIronFurnaceTR");
-		Core.proxy.registerCustomBlockStateLocation(hvt, "machines/tier0_machines/furnace");
+		Core.proxy.registerCustomBlockStateLocation(ironFurnace, "machines/tier0_machines/furnace");
 
 		nuke = new BlockNuke();
 		registerBlock(nuke, "nuke");
