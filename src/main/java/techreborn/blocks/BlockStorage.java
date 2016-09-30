@@ -18,15 +18,13 @@ import techreborn.init.ModBlocks;
 import java.util.List;
 import java.util.Random;
 
-public class BlockStorage extends BaseBlock implements ITexturedBlock
-{
+public class BlockStorage extends BaseBlock implements ITexturedBlock {
 
 	public static final String[] types = new String[] { "silver", "aluminum", "titanium", "chrome", "steel", "brass",
-			"lead", "electrum", "zinc", "platinum", "tungsten", "nickel", "invar", "iridium" };
+		"lead", "electrum", "zinc", "platinum", "tungsten", "nickel", "invar", "iridium" };
 	public PropertyInteger METADATA;
 
-	public BlockStorage(Material material)
-	{
+	public BlockStorage(Material material) {
 		super(material);
 		setUnlocalizedName("techreborn.storage");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
@@ -34,74 +32,61 @@ public class BlockStorage extends BaseBlock implements ITexturedBlock
 		this.setDefaultState(this.getDefaultState().withProperty(METADATA, 0));
 	}
 
-	public static ItemStack getStorageBlockByName(String name, int count)
-	{
-		for (int i = 0; i < types.length; i++)
-		{
-			if (types[i].equals(name))
-			{
+	public static ItemStack getStorageBlockByName(String name, int count) {
+		for (int i = 0; i < types.length; i++) {
+			if (types[i].equals(name)) {
 				return new ItemStack(ModBlocks.storage, count, i);
 			}
 		}
 		return BlockStorage2.getStorageBlockByName(name, count);
 	}
 
-	public static ItemStack getStorageBlockByName(String name)
-	{
+	public static ItemStack getStorageBlockByName(String name) {
 		return getStorageBlockByName(name, 1);
 	}
 
 	@Override
-	public Item getItemDropped(IBlockState state, Random rand, int fortune)
-	{
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
 		return Item.getItemFromBlock(this);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list)
-	{
-		for (int meta = 0; meta < types.length; meta++)
-		{
+	public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list) {
+		for (int meta = 0; meta < types.length; meta++) {
 			list.add(new ItemStack(item, 1, meta));
 		}
 	}
 
 	@Override
-	public int damageDropped(IBlockState state)
-	{
+	public int damageDropped(IBlockState state) {
 		return getMetaFromState(state);
 	}
 
 	@Override
-	public String getTextureNameFromState(IBlockState BlockStateContainer, EnumFacing facing)
-	{
+	public String getTextureNameFromState(IBlockState BlockStateContainer, EnumFacing facing) {
 		return "techreborn:blocks/storage/" + types[getMetaFromState(BlockStateContainer)] + "_block";
 	}
 
 	@Override
-	public int amountOfStates()
-	{
+	public int amountOfStates() {
 		return types.length;
 	}
 
 	@Override
-	public IBlockState getStateFromMeta(int meta)
-	{
-		if(meta > types.length){
+	public IBlockState getStateFromMeta(int meta) {
+		if (meta > types.length) {
 			meta = 0;
 		}
 		return this.getDefaultState().withProperty(METADATA, meta);
 	}
 
 	@Override
-	public int getMetaFromState(IBlockState state)
-	{
+	public int getMetaFromState(IBlockState state) {
 		return state.getValue(METADATA);
 	}
 
-	protected BlockStateContainer createBlockState()
-	{
+	protected BlockStateContainer createBlockState() {
 
 		METADATA = PropertyInteger.create("type", 0, types.length - 1);
 		return new BlockStateContainer(this, METADATA);

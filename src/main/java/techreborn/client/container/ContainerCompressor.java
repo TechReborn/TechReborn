@@ -6,15 +6,13 @@ import reborncore.client.gui.SlotOutput;
 import techreborn.api.gui.SlotUpgrade;
 import techreborn.tiles.teir1.TileCompressor;
 
-public class ContainerCompressor extends ContainerCrafting
-{
+public class ContainerCompressor extends ContainerCrafting {
 
 	public int connectionStatus;
 	EntityPlayer player;
 	TileCompressor tile;
 
-	public ContainerCompressor(TileCompressor tileGrinder, EntityPlayer player)
-	{
+	public ContainerCompressor(TileCompressor tileGrinder, EntityPlayer player) {
 		super(tileGrinder.crafter);
 		tile = tileGrinder;
 		this.player = player;
@@ -31,23 +29,19 @@ public class ContainerCompressor extends ContainerCrafting
 
 		int i;
 
-		for (i = 0; i < 3; ++i)
-		{
-			for (int j = 0; j < 9; ++j)
-			{
+		for (i = 0; i < 3; ++i) {
+			for (int j = 0; j < 9; ++j) {
 				this.addSlotToContainer(new BaseSlot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 			}
 		}
 
-		for (i = 0; i < 9; ++i)
-		{
+		for (i = 0; i < 9; ++i) {
 			this.addSlotToContainer(new BaseSlot(player.inventory, i, 8 + i * 18, 142));
 		}
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer p_75145_1_)
-	{
+	public boolean canInteractWith(EntityPlayer p_75145_1_) {
 		return true;
 	}
 }

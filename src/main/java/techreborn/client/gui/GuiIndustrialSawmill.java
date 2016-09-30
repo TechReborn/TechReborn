@@ -11,33 +11,29 @@ import net.minecraftforge.fluids.FluidStack;
 import techreborn.client.container.ContainerIndustrialSawmill;
 import techreborn.tiles.multiblock.TileIndustrialSawmill;
 
-public class GuiIndustrialSawmill extends GuiContainer
-{
+public class GuiIndustrialSawmill extends GuiContainer {
 
 	public static final ResourceLocation texture = new ResourceLocation("techreborn",
-			"textures/gui/industrial_sawmill.png");
+		"textures/gui/industrial_sawmill.png");
 
 	TileIndustrialSawmill sawmill;
 
-	public GuiIndustrialSawmill(EntityPlayer player, TileIndustrialSawmill tilesawmill)
-	{
+	public GuiIndustrialSawmill(EntityPlayer player, TileIndustrialSawmill tilesawmill) {
 		super(new ContainerIndustrialSawmill(tilesawmill, player));
 		this.xSize = 176;
 		this.ySize = 167;
-        this.sawmill = tilesawmill;
+		this.sawmill = tilesawmill;
 	}
 
 	@Override
-	public void initGui()
-	{
+	public void initGui() {
 		int k = (this.width - this.xSize) / 2;
 		int l = (this.height - this.ySize) / 2;
 		super.initGui();
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_)
-	{
+	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_) {
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.getTextureManager().bindTexture(texture);
 		int k = (this.width - this.xSize) / 2;
@@ -51,7 +47,7 @@ public class GuiIndustrialSawmill extends GuiContainer
 		int energy = 13 - (int) (sawmill.getEnergy() / sawmill.getMaxPower() * 13F);
 		drawTexturedModalRect(k + 36, l + 66 + energy, 179, 1 + energy, 7, 13 - energy);
 
-		if(!sawmill.tank.isEmpty()) {
+		if (!sawmill.tank.isEmpty()) {
 			drawFluid(sawmill.tank.getFluid(), k + 11, l + 66, 12, 47, sawmill.tank.getCapacity());
 
 			int j = sawmill.getEnergyScaled(12);
@@ -62,7 +58,7 @@ public class GuiIndustrialSawmill extends GuiContainer
 			if (!sawmill.getMutliBlock()) {
 				//GuiUtil.drawTooltipBox(k + 30, l + 50 + 12, 114, 10);
 				this.fontRendererObj.drawString(I18n.translateToLocal("techreborn.message.missingmultiblock"), k + 38,
-						l + 52 + 12, -1);
+					l + 52 + 12, -1);
 			}
 		}
 	}
@@ -77,12 +73,13 @@ public class GuiIndustrialSawmill extends GuiContainer
 		int offsetHeight = drawHeight;
 
 		int iteration = 0;
-		while(offsetHeight != 0) {
+		while (offsetHeight != 0) {
 			int curHeight = offsetHeight < iconHeight ? offsetHeight : iconHeight;
 			drawTexturedModalRect(x, y - offsetHeight, sprite, width, curHeight);
 			offsetHeight -= curHeight;
 			iteration++;
-			if(iteration > 50) break;
+			if (iteration > 50)
+				break;
 		}
 
 	}

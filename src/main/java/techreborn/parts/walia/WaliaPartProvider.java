@@ -1,11 +1,5 @@
 package techreborn.parts.walia;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import reborncore.mcmultipart.block.TileMultipartContainer;
-import reborncore.mcmultipart.raytrace.PartMOP;
-import reborncore.mcmultipart.raytrace.RayTraceUtils;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
@@ -18,21 +12,23 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import reborncore.mcmultipart.block.TileMultipartContainer;
+import reborncore.mcmultipart.raytrace.PartMOP;
+import reborncore.mcmultipart.raytrace.RayTraceUtils;
 import techreborn.parts.powerCables.CableMultipart;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by modmuss50 on 07/03/2016.
  */
-public class WaliaPartProvider implements IWailaDataProvider
-{
+public class WaliaPartProvider implements IWailaDataProvider {
 	@Override
-	public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config)
-	{
+	public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config) {
 		PartMOP mop = reTrace(accessor.getWorld(), accessor.getPosition(), accessor.getPlayer());
-		if (mop != null)
-		{
-			if (mop.partHit instanceof CableMultipart)
-			{
+		if (mop != null) {
+			if (mop.partHit instanceof CableMultipart) {
 				return mop.partHit.getDrops().get(0);
 			}
 		}
@@ -41,21 +37,17 @@ public class WaliaPartProvider implements IWailaDataProvider
 
 	@Override
 	public List<String> getWailaHead(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
-			IWailaConfigHandler config)
-	{
+	                                 IWailaConfigHandler config) {
 		return null;
 	}
 
 	@Override
 	public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
-			IWailaConfigHandler config)
-	{
+	                                 IWailaConfigHandler config) {
 		PartMOP mop = reTrace(accessor.getWorld(), accessor.getPosition(), accessor.getPlayer());
 		List<String> data = new ArrayList<>();
-		if (mop != null)
-		{
-			if (mop.partHit instanceof IPartWaliaProvider)
-			{
+		if (mop != null) {
+			if (mop.partHit instanceof IPartWaliaProvider) {
 				((IPartWaliaProvider) mop.partHit).addInfo(data);
 			}
 		}
@@ -64,33 +56,29 @@ public class WaliaPartProvider implements IWailaDataProvider
 
 	@Override
 	public List<String> getWailaTail(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
-			IWailaConfigHandler config)
-	{
+	                                 IWailaConfigHandler config) {
 		return null;
 	}
 
 	@Override
 	public NBTTagCompound getNBTData(EntityPlayerMP player, TileEntity te, NBTTagCompound tag, World world,
-			BlockPos pos)
-	{
+	                                 BlockPos pos) {
 		return null;
 	}
 
 	// Stolen from
 	// https://github.com/amadornes/MCMultiPart/blob/master/src/main/java/mcmultipart/block/BlockMultipart.java
-	private PartMOP reTrace(World world, BlockPos pos, EntityPlayer player)
-	{
+	private PartMOP reTrace(World world, BlockPos pos, EntityPlayer player) {
 		Vec3d start = RayTraceUtils.getStart(player);
 		Vec3d end = RayTraceUtils.getEnd(player);
 		RayTraceUtils.AdvancedRayTraceResultPart result = getMultipartTile(world, pos).getPartContainer()
-				.collisionRayTrace(start, end);
+			.collisionRayTrace(start, end);
 		return result == null ? null : result.hit;
 	}
 
 	// Stolen from
 	// https://github.com/amadornes/MCMultiPart/blob/master/src/main/java/mcmultipart/block/BlockMultipart.java
-	private TileMultipartContainer getMultipartTile(IBlockAccess world, BlockPos pos)
-	{
+	private TileMultipartContainer getMultipartTile(IBlockAccess world, BlockPos pos) {
 		TileEntity tile = world.getTileEntity(pos);
 		return tile instanceof TileMultipartContainer ? (TileMultipartContainer) tile : null;
 	}

@@ -2,14 +2,13 @@ package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IContainerListener;
-import reborncore.client.gui.BaseSlot;
 import net.minecraft.inventory.SlotFurnaceFuel;
+import reborncore.client.gui.BaseSlot;
 import reborncore.client.gui.SlotOutput;
 import reborncore.common.container.RebornContainer;
 import techreborn.tiles.TileAlloyFurnace;
 
-public class ContainerAlloyFurnace extends RebornContainer
-{
+public class ContainerAlloyFurnace extends RebornContainer {
 
 	public int tickTime;
 	EntityPlayer player;
@@ -17,8 +16,8 @@ public class ContainerAlloyFurnace extends RebornContainer
 	int currentItemBurnTime;
 	int burnTime;
 	int cookTime;
-	public ContainerAlloyFurnace(TileAlloyFurnace tileAlloyfurnace, EntityPlayer player)
-	{
+
+	public ContainerAlloyFurnace(TileAlloyFurnace tileAlloyfurnace, EntityPlayer player) {
 		tile = tileAlloyfurnace;
 		this.player = player;
 
@@ -32,29 +31,24 @@ public class ContainerAlloyFurnace extends RebornContainer
 
 		int i;
 
-		for (i = 0; i < 3; ++i)
-		{
-			for (int j = 0; j < 9; ++j)
-			{
+		for (i = 0; i < 3; ++i) {
+			for (int j = 0; j < 9; ++j) {
 				this.addSlotToContainer(new BaseSlot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 			}
 		}
 
-		for (i = 0; i < 9; ++i)
-		{
+		for (i = 0; i < 9; ++i) {
 			this.addSlotToContainer(new BaseSlot(player.inventory, i, 8 + i * 18, 142));
 		}
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer player)
-	{
+	public boolean canInteractWith(EntityPlayer player) {
 		return true;
 	}
 
 	@Override
-	public void addListener(IContainerListener crafting)
-	{
+	public void addListener(IContainerListener crafting) {
 		super.addListener(crafting);
 		crafting.sendProgressBarUpdate(this, 0, tile.currentItemBurnTime);
 		crafting.sendProgressBarUpdate(this, 1, tile.burnTime);
@@ -62,21 +56,16 @@ public class ContainerAlloyFurnace extends RebornContainer
 	}
 
 	@Override
-	public void detectAndSendChanges()
-	{
-		for (int i = 0; i < this.listeners.size(); i++)
-		{
+	public void detectAndSendChanges() {
+		for (int i = 0; i < this.listeners.size(); i++) {
 			IContainerListener crafting = this.listeners.get(i);
-			if (this.currentItemBurnTime != tile.currentItemBurnTime)
-			{
+			if (this.currentItemBurnTime != tile.currentItemBurnTime) {
 				crafting.sendProgressBarUpdate(this, 0, tile.currentItemBurnTime);
 			}
-			if (this.burnTime != tile.burnTime)
-			{
+			if (this.burnTime != tile.burnTime) {
 				crafting.sendProgressBarUpdate(this, 1, tile.burnTime);
 			}
-			if (this.cookTime != tile.cookTime)
-			{
+			if (this.cookTime != tile.cookTime) {
 				crafting.sendProgressBarUpdate(this, 2, tile.cookTime);
 			}
 		}
@@ -84,17 +73,13 @@ public class ContainerAlloyFurnace extends RebornContainer
 	}
 
 	@Override
-	public void updateProgressBar(int id, int value)
-	{
+	public void updateProgressBar(int id, int value) {
 		super.updateProgressBar(id, value);
-		if (id == 0)
-		{
+		if (id == 0) {
 			this.currentItemBurnTime = value;
-		} else if (id == 1)
-		{
+		} else if (id == 1) {
 			this.burnTime = value;
-		} else if (id == 2)
-		{
+		} else if (id == 2) {
 			this.cookTime = value;
 		}
 		this.tile.currentItemBurnTime = this.currentItemBurnTime;

@@ -5,10 +5,10 @@ package techreborn.manual.loader;
  */
 public class PackageInfo {
 
-    public String name;
+	public String name;
 
-    public String version;
+	public String version;
 
-    public String language;
+	public String language;
 
 }

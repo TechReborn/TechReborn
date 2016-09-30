@@ -15,23 +15,19 @@ import techreborn.init.ModBlocks;
 /**
  * Created by Mark on 13/03/2016.
  */
-public class RenderNukePrimed extends Render<EntityNukePrimed>
-{
+public class RenderNukePrimed extends Render<EntityNukePrimed> {
 
-	public RenderNukePrimed(RenderManager renderManager)
-	{
+	public RenderNukePrimed(RenderManager renderManager) {
 		super(renderManager);
 		this.shadowSize = 0.5F;
 	}
 
 	@Override
-	public void doRender(EntityNukePrimed entity, double x, double y, double z, float entityYaw, float partialTicks)
-	{
+	public void doRender(EntityNukePrimed entity, double x, double y, double z, float entityYaw, float partialTicks) {
 		BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
 		GlStateManager.pushMatrix();
 		GlStateManager.translate((float) x, (float) y + 0.5F, (float) z);
-		if ((float) entity.fuse - partialTicks + 1.0F < 10.0F)
-		{
+		if ((float) entity.fuse - partialTicks + 1.0F < 10.0F) {
 			float f = 1.0F - ((float) entity.fuse - partialTicks + 1.0F) / 10.0F;
 			f = MathHelper.clamp_float(f, 0.0F, 1.0F);
 			f = f * f;
@@ -43,10 +39,9 @@ public class RenderNukePrimed extends Render<EntityNukePrimed>
 		this.bindEntityTexture(entity);
 		GlStateManager.translate(-0.5F, -0.5F, 0.5F);
 		blockrendererdispatcher.renderBlockBrightness(ModBlocks.nuke.getDefaultState(),
-				entity.getBrightness(partialTicks));
+			entity.getBrightness(partialTicks));
 		GlStateManager.translate(0.0F, 0.0F, 1.0F);
-		if (entity.fuse / 5 % 2 == 0)
-		{
+		if (entity.fuse / 5 % 2 == 0) {
 			GlStateManager.disableLighting();
 			GlStateManager.enableBlend();
 			GlStateManager.blendFunc(770, 772);
@@ -54,7 +49,7 @@ public class RenderNukePrimed extends Render<EntityNukePrimed>
 			GlStateManager.doPolygonOffset(-3.0F, -3.0F);
 			GlStateManager.enablePolygonOffset();
 			blockrendererdispatcher.renderBlockBrightness(
-					ModBlocks.nuke.getDefaultState().withProperty(BlockNuke.OVERLAY, true), 1.0F);
+				ModBlocks.nuke.getDefaultState().withProperty(BlockNuke.OVERLAY, true), 1.0F);
 			GlStateManager.doPolygonOffset(0.0F, 0.0F);
 			GlStateManager.disablePolygonOffset();
 			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -66,8 +61,7 @@ public class RenderNukePrimed extends Render<EntityNukePrimed>
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(EntityNukePrimed entity)
-	{
+	protected ResourceLocation getEntityTexture(EntityNukePrimed entity) {
 		return TextureMap.LOCATION_BLOCKS_TEXTURE;
 	}
 }

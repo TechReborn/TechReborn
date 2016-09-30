@@ -9,8 +9,7 @@ import techreborn.config.ConfigTechReborn;
 
 import java.util.ArrayList;
 
-public class TileLesu extends TilePowerAcceptor
-{// TODO wrench
+public class TileLesu extends TilePowerAcceptor {// TODO wrench
 
 	public int connectedBlocks = 0;
 	public Inventory inventory = new Inventory(2, "TileAesu", 64, this);
@@ -21,38 +20,30 @@ public class TileLesu extends TilePowerAcceptor
 	private int output;
 	private int maxStorage;
 
-	public TileLesu()
-	{
+	public TileLesu() {
 		super(5);
 	}
 
 	@Override
-	public void updateEntity()
-	{
+	public void updateEntity() {
 		super.updateEntity();
-		if (worldObj.isRemote)
-		{
+		if (worldObj.isRemote) {
 			return;
 		}
 		countedNetworks.clear();
 		connectedBlocks = 0;
-		for (EnumFacing dir : EnumFacing.values())
-		{
+		for (EnumFacing dir : EnumFacing.values()) {
 			if (worldObj.getTileEntity(
-					new BlockPos(getPos().getX() + dir.getFrontOffsetX(), getPos().getY() + dir.getFrontOffsetY(),
-							getPos().getZ() + dir.getFrontOffsetZ())) instanceof TileLesuStorage)
-			{
+				new BlockPos(getPos().getX() + dir.getFrontOffsetX(), getPos().getY() + dir.getFrontOffsetY(),
+					getPos().getZ() + dir.getFrontOffsetZ())) instanceof TileLesuStorage) {
 				if (((TileLesuStorage) worldObj.getTileEntity(
-						new BlockPos(getPos().getX() + dir.getFrontOffsetX(), getPos().getY() + dir.getFrontOffsetY(),
-								getPos().getZ() + dir.getFrontOffsetZ()))).network != null)
-				{
+					new BlockPos(getPos().getX() + dir.getFrontOffsetX(), getPos().getY() + dir.getFrontOffsetY(),
+						getPos().getZ() + dir.getFrontOffsetZ()))).network != null) {
 					LesuNetwork network = ((TileLesuStorage) worldObj.getTileEntity(new BlockPos(
-							getPos().getX() + dir.getFrontOffsetX(), getPos().getY() + dir.getFrontOffsetY(),
-							getPos().getZ() + dir.getFrontOffsetZ()))).network;
-					if (!countedNetworks.contains(network))
-					{
-						if (network.master == null || network.master == this)
-						{
+						getPos().getX() + dir.getFrontOffsetX(), getPos().getY() + dir.getFrontOffsetY(),
+						getPos().getZ() + dir.getFrontOffsetZ()))).network;
+					if (!countedNetworks.contains(network)) {
+						if (network.master == null || network.master == this) {
 							connectedBlocks += network.storages.size();
 							countedNetworks.add(network);
 							network.master = this;
@@ -65,20 +56,16 @@ public class TileLesu extends TilePowerAcceptor
 		maxStorage = ((connectedBlocks + 1) * ConfigTechReborn.LesuStoragePerBlock);
 		output = (connectedBlocks * ConfigTechReborn.ExtraOutputPerLesuBlock) + ConfigTechReborn.BaseLesuOutput;
 
-		if (ticks == ConfigTechReborn.AverageEuOutTickTime)
-		{
+		if (ticks == ConfigTechReborn.AverageEuOutTickTime) {
 			euChange = -1;
 			ticks = 0;
-		} else
-		{
+		} else {
 			ticks++;
-			if (euChange == -1)
-			{
+			if (euChange == -1) {
 				euChange = 0;
 			}
 			euChange += getEnergy() - euLastTick;
-			if (euLastTick == getEnergy())
-			{
+			if (euLastTick == getEnergy()) {
 				euChange = 0;
 			}
 		}
@@ -86,48 +73,40 @@ public class TileLesu extends TilePowerAcceptor
 		euLastTick = getEnergy();
 	}
 
-	public double getEuChange()
-	{
-		if (euChange == -1)
-		{
+	public double getEuChange() {
+		if (euChange == -1) {
 			return 0;
 		}
 		return (euChange / ticks);
 	}
 
 	@Override
-	public double getMaxPower()
-	{
+	public double getMaxPower() {
 		return maxStorage;
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction)
-	{
+	public boolean canAcceptEnergy(EnumFacing direction) {
 		return direction != getFacingEnum();
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnumFacing direction)
-	{
+	public boolean canProvideEnergy(EnumFacing direction) {
 		return direction == getFacingEnum();
 	}
 
 	@Override
-	public double getMaxOutput()
-	{
+	public double getMaxOutput() {
 		return output;
 	}
 
 	@Override
-	public double getMaxInput()
-	{
+	public double getMaxInput() {
 		return 8192;
 	}
 
 	@Override
-	public EnumPowerTier getTier()
-	{
+	public EnumPowerTier getTier() {
 		return EnumPowerTier.EXTREME;
 	}
 }

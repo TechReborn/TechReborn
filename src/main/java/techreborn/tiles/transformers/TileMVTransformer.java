@@ -7,29 +7,24 @@ import techreborn.init.ModBlocks;
 /**
  * Created by modmuss50 on 16/03/2016.
  */
-public class TileMVTransformer extends TileTransformer
-{
+public class TileMVTransformer extends TileTransformer {
 
-	public TileMVTransformer()
-	{
-		super("MVTransformer", ModBlocks.mvt, EnumPowerTier.HIGH, ConfigTechReborn.MVTransformerMaxInput, ConfigTechReborn.MVTransformerMaxOutput, ConfigTechReborn.LVTransformerMaxInput*2);
+	public TileMVTransformer() {
+		super("MVTransformer", ModBlocks.mvt, EnumPowerTier.HIGH, ConfigTechReborn.MVTransformerMaxInput, ConfigTechReborn.MVTransformerMaxOutput, ConfigTechReborn.LVTransformerMaxInput * 2);
 	}
 
 	@Override
-	public double getMaxOutput()
-	{
+	public double getMaxOutput() {
 		return 128;
 	}
 
 	@Override
-	public double getMaxInput()
-	{
+	public double getMaxInput() {
 		return 512;
 	}
 
 	@Override
-	public EnumPowerTier getTier()
-	{
+	public EnumPowerTier getTier() {
 		return EnumPowerTier.HIGH;
 	}
 }

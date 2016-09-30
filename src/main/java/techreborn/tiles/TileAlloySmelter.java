@@ -16,8 +16,7 @@ import techreborn.api.Reference;
 import techreborn.init.ModBlocks;
 import techreborn.utils.upgrade.UpgradeHandler;
 
-public class TileAlloySmelter extends TilePowerAcceptor implements IWrenchable,IInventoryProvider, ISidedInventory, IRecipeCrafterProvider
-{
+public class TileAlloySmelter extends TilePowerAcceptor implements IWrenchable, IInventoryProvider, ISidedInventory, IRecipeCrafterProvider {
 
 	public int tickTime;
 	public Inventory inventory = new Inventory(8, "TileAlloySmelter", 64, this);
@@ -25,8 +24,7 @@ public class TileAlloySmelter extends TilePowerAcceptor implements IWrenchable,I
 	public int capacity = 1000;
 	UpgradeHandler upgrades;
 
-	public TileAlloySmelter()
-	{
+	public TileAlloySmelter() {
 		super(1);
 		// Input slots
 		int[] inputs = new int[2];
@@ -47,51 +45,43 @@ public class TileAlloySmelter extends TilePowerAcceptor implements IWrenchable,I
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side)
-	{
+	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
 		return false;
 	}
 
 	@Override
-	public EnumFacing getFacing()
-	{
+	public EnumFacing getFacing() {
 		return getFacingEnum();
 	}
 
 	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
-	{
+	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
 		return entityPlayer.isSneaking();
 	}
 
 	@Override
-	public float getWrenchDropRate()
-	{
+	public float getWrenchDropRate() {
 		return 1.0F;
 	}
 
 	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
-	{
+	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.AlloySmelter, 1);
 	}
 
-	public boolean isComplete()
-	{
+	public boolean isComplete() {
 		return false;
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound tagCompound)
-	{
+	public void readFromNBT(NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
 		inventory.readFromNBT(tagCompound);
 		crafter.readFromNBT(tagCompound);
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
-	{
+	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
 		crafter.writeToNBT(tagCompound);
 		return tagCompound;
@@ -107,70 +97,58 @@ public class TileAlloySmelter extends TilePowerAcceptor implements IWrenchable,I
 	// }
 	// }
 
-
 	// ISidedInventory
 	@Override
-	public int[] getSlotsForFace(EnumFacing side)
-	{
+	public int[] getSlotsForFace(EnumFacing side) {
 		return side == EnumFacing.DOWN ? new int[] { 0, 1, 2 } : new int[] { 0, 1, 2 };
 	}
 
 	@Override
-	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side)
-	{
+	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
 		if (slotIndex == 2)
 			return false;
 		return isItemValidForSlot(slotIndex, itemStack);
 	}
 
 	@Override
-	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side)
-	{
+	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
 		return slotIndex == 2;
 	}
 
-	public int getProgressScaled(int scale)
-	{
-		if (crafter.currentTickTime != 0 && crafter.currentNeededTicks != 0)
-		{
+	public int getProgressScaled(int scale) {
+		if (crafter.currentTickTime != 0 && crafter.currentNeededTicks != 0) {
 			return crafter.currentTickTime * scale / crafter.currentNeededTicks;
 		}
 		return 0;
 	}
 
 	@Override
-	public double getMaxPower()
-	{
+	public double getMaxPower() {
 		return capacity;
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction)
-	{
+	public boolean canAcceptEnergy(EnumFacing direction) {
 		return true;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnumFacing direction)
-	{
+	public boolean canProvideEnergy(EnumFacing direction) {
 		return false;
 	}
 
 	@Override
-	public double getMaxOutput()
-	{
+	public double getMaxOutput() {
 		return 0;
 	}
 
 	@Override
-	public double getMaxInput()
-	{
+	public double getMaxInput() {
 		return 32;
 	}
 
 	@Override
-	public EnumPowerTier getTier()
-	{
+	public EnumPowerTier getTier() {
 		return EnumPowerTier.LOW;
 	}
 

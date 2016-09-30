@@ -5,10 +5,10 @@ package techreborn.manual.loader;
  */
 public class DownloadablePackageInfo {
 
-    PackageInfo packageInfo;
+	PackageInfo packageInfo;
 
-    String md5;
+	String md5;
 
-    String fileName;
+	String fileName;
 
 }

@@ -13,29 +13,25 @@ import techreborn.client.TechRebornCreativeTabMisc;
 /**
  * Created by modmuss50 on 20/02/2016.
  */
-public class BlockRubberPlank extends Block implements ITexturedBlock
-{
+public class BlockRubberPlank extends Block implements ITexturedBlock {
 
-	public BlockRubberPlank()
-	{
+	public BlockRubberPlank() {
 		super(Material.WOOD);
 		RebornCore.jsonDestroyer.registerObject(this);
 		setUnlocalizedName("techreborn.rubberplank");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		this.setHardness(2.0F);
 		this.setSoundType(SoundType.WOOD);
-        Blocks.FIRE.setFireInfo(this, 5, 20);
+		Blocks.FIRE.setFireInfo(this, 5, 20);
 	}
 
 	@Override
-	public String getTextureNameFromState(IBlockState state, EnumFacing side)
-	{
+	public String getTextureNameFromState(IBlockState state, EnumFacing side) {
 		return "techreborn:blocks/rubber_planks";
 	}
 
 	@Override
-	public int amountOfStates()
-	{
+	public int amountOfStates() {
 		return 1;
 	}
 }

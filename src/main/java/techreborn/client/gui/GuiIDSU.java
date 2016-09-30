@@ -15,8 +15,7 @@ import techreborn.tiles.idsu.TileIDSU;
 import java.awt.*;
 import java.io.IOException;
 
-public class GuiIDSU extends GuiContainer
-{
+public class GuiIDSU extends GuiContainer {
 
 	private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/aesu.png");
 
@@ -24,8 +23,7 @@ public class GuiIDSU extends GuiContainer
 
 	ContainerIDSU containerIDSU;
 
-	public GuiIDSU(EntityPlayer player, TileIDSU tileIDSU)
-	{
+	public GuiIDSU(EntityPlayer player, TileIDSU tileIDSU) {
 		super(new ContainerIDSU(tileIDSU, player));
 		this.xSize = 176;
 		this.ySize = 197;
@@ -33,19 +31,15 @@ public class GuiIDSU extends GuiContainer
 		this.containerIDSU = (ContainerIDSU) this.inventorySlots;
 	}
 
-	public static boolean isInteger(String s)
-	{
+	public static boolean isInteger(String s) {
 		return isInteger(s, 10);
 	}
 
-	public static boolean isInteger(String s, int radix)
-	{
+	public static boolean isInteger(String s, int radix) {
 		if (s.isEmpty())
 			return false;
-		for (int i = 0; i < s.length(); i++)
-		{
-			if (i == 0 && s.charAt(i) == '-')
-			{
+		for (int i = 0; i < s.length(); i++) {
+			if (i == 0 && s.charAt(i) == '-') {
 				if (s.length() == 1)
 					return false;
 				else
@@ -58,8 +52,7 @@ public class GuiIDSU extends GuiContainer
 	}
 
 	@Override
-	public void initGui()
-	{
+	public void initGui() {
 		super.initGui();
 		this.buttonList.clear();
 		int k = (this.width - this.xSize) / 2;
@@ -72,8 +65,7 @@ public class GuiIDSU extends GuiContainer
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_)
-	{
+	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_) {
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.getTextureManager().bindTexture(texture);
 		int k = (this.width - this.xSize) / 2;
@@ -81,21 +73,19 @@ public class GuiIDSU extends GuiContainer
 		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
 	}
 
-	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_)
-	{
+	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
 		this.fontRendererObj.drawString(I18n.translateToLocal("tile.techreborn.idsu.name"), 75, 10,
-				Color.WHITE.getRGB());
+			Color.WHITE.getRGB());
 		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerIDSU.euOut) + "/tick", 10, 22,
-				Color.WHITE.getRGB());
+			Color.WHITE.getRGB());
 		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerIDSU.storedEu), 10, 32,
-				Color.WHITE.getRGB());
+			Color.WHITE.getRGB());
 		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerIDSU.euChange) + "  change", 10, 42,
-				Color.WHITE.getRGB());
+			Color.WHITE.getRGB());
 	}
 
 	@Override
-	protected void actionPerformed(GuiButton button) throws IOException
-	{
+	protected void actionPerformed(GuiButton button) throws IOException {
 		super.actionPerformed(button);
 		PacketHandler.sendPacketToServer(new PacketIdsu(button.id, idsu));
 

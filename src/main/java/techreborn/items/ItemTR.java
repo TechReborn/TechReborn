@@ -4,11 +4,9 @@ import net.minecraft.item.Item;
 import reborncore.RebornCore;
 import techreborn.client.TechRebornCreativeTab;
 
-public class ItemTR extends Item
-{
+public class ItemTR extends Item {
 
-	public ItemTR()
-	{
+	public ItemTR() {
 		setNoRepair();
 		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornCore.jsonDestroyer.registerObject(this);

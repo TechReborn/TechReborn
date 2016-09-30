@@ -11,24 +11,27 @@ import techreborn.compat.jei.BaseRecipeWrapper;
 
 import javax.annotation.Nonnull;
 
-public class ChemicalReactorRecipeWrapper extends BaseRecipeWrapper<ChemicalReactorRecipe>
-{
+public class ChemicalReactorRecipeWrapper extends BaseRecipeWrapper<ChemicalReactorRecipe> {
 	private final IDrawableAnimated progress;
 
-	public ChemicalReactorRecipeWrapper(@Nonnull IJeiHelpers jeiHelpers, @Nonnull ChemicalReactorRecipe baseRecipe)
-	{
+	public ChemicalReactorRecipeWrapper(
+		@Nonnull
+			IJeiHelpers jeiHelpers,
+		@Nonnull
+			ChemicalReactorRecipe baseRecipe) {
 		super(baseRecipe);
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 		IDrawableStatic progressStatic = guiHelper.createDrawable(GuiChemicalReactor.texture, 176, 14, 32, 12);
 
 		int ticksPerCycle = baseRecipe.tickTime();
 		this.progress = guiHelper.createAnimatedDrawable(progressStatic, ticksPerCycle,
-				IDrawableAnimated.StartDirection.TOP, false);
+			IDrawableAnimated.StartDirection.TOP, false);
 	}
 
 	@Override
-	public void drawAnimations(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight)
-	{
+	public void drawAnimations(
+		@Nonnull
+			Minecraft minecraft, int recipeWidth, int recipeHeight) {
 		super.drawAnimations(minecraft, recipeWidth, recipeHeight);
 		progress.draw(minecraft, 3, 18);
 
@@ -36,7 +39,7 @@ public class ChemicalReactorRecipeWrapper extends BaseRecipeWrapper<ChemicalReac
 		int y = (int) (recipeHeight - recipeHeight / 3F);
 		int lineHeight = minecraft.fontRendererObj.FONT_HEIGHT;
 
-		minecraft.fontRendererObj.drawString("Time: " +  baseRecipe.tickTime / 20 + " secs", x, y, 0x444444);
-		minecraft.fontRendererObj.drawString("EU: " +  baseRecipe.euPerTick + " EU/t", x, y += lineHeight, 0x444444);
+		minecraft.fontRendererObj.drawString("Time: " + baseRecipe.tickTime / 20 + " secs", x, y, 0x444444);
+		minecraft.fontRendererObj.drawString("EU: " + baseRecipe.euPerTick + " EU/t", x, y += lineHeight, 0x444444);
 	}
 }

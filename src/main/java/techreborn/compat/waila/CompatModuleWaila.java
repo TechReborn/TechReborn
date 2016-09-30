@@ -1,42 +1,32 @@
 package techreborn.compat.waila;
 
 import mcp.mobius.waila.api.IWailaRegistrar;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLInterModComms;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.event.*;
 import reborncore.common.tile.TileMachineBase;
 import techreborn.compat.ICompatModule;
 
-public class CompatModuleWaila implements ICompatModule
-{
+public class CompatModuleWaila implements ICompatModule {
 
-	public static void callbackRegister(IWailaRegistrar registrar)
-	{
+	public static void callbackRegister(IWailaRegistrar registrar) {
 		registrar.registerBodyProvider(new WailaProviderMachines(), TileMachineBase.class);
 	}
 
 	@Override
-	public void preInit(FMLPreInitializationEvent event)
-	{
+	public void preInit(FMLPreInitializationEvent event) {
 
 	}
 
-	public void init(FMLInitializationEvent event)
-	{
+	public void init(FMLInitializationEvent event) {
 		FMLInterModComms.sendMessage("Waila", "register", getClass().getName() + ".callbackRegister");
 	}
 
 	@Override
-	public void postInit(FMLPostInitializationEvent event)
-	{
+	public void postInit(FMLPostInitializationEvent event) {
 
 	}
 
 	@Override
-	public void serverStarting(FMLServerStartingEvent event)
-	{
+	public void serverStarting(FMLServerStartingEvent event) {
 
 	}
 }

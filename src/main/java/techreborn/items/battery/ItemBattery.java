@@ -16,31 +16,30 @@ import techreborn.items.ItemTRNoDestroy;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemBattery extends ItemTRNoDestroy implements IEnergyItemInfo
-{
+public class ItemBattery extends ItemTRNoDestroy implements IEnergyItemInfo {
 
 	String name = "null";
 	int maxEnergy = 0;
 	int maxTransfer = 0;
 	int tier = 0;
-	
-	public ItemBattery(String name, int maxEnergy, int maxTransfer, int tier)
-	{
+
+	public ItemBattery(String name, int maxEnergy, int maxTransfer, int tier) {
 		super();
 		setMaxStackSize(1);
 		setMaxDamage(1);
-		setUnlocalizedName("techreborn."+name);
-		this.name=name;
-		this.maxEnergy=maxEnergy;
-		this.maxTransfer=maxTransfer;
-		this.tier=tier;
-		this.addPropertyOverride(new ResourceLocation("techreborn:empty"), new IItemPropertyGetter()
-		{
-			@SideOnly(Side.CLIENT) public float apply(ItemStack stack, @Nullable World worldIn,
-					@Nullable EntityLivingBase entityIn)
-			{
-				if (stack != null && PoweredItem.getEnergy(stack) == 0.0)
-				{
+		setUnlocalizedName("techreborn." + name);
+		this.name = name;
+		this.maxEnergy = maxEnergy;
+		this.maxTransfer = maxTransfer;
+		this.tier = tier;
+		this.addPropertyOverride(new ResourceLocation("techreborn:empty"), new IItemPropertyGetter() {
+			@SideOnly(Side.CLIENT)
+			public float apply(ItemStack stack,
+			                   @Nullable
+				                   World worldIn,
+			                   @Nullable
+				                   EntityLivingBase entityIn) {
+				if (stack != null && PoweredItem.getEnergy(stack) == 0.0) {
 					return 1.0F;
 				}
 				return 0.0F;
@@ -50,8 +49,7 @@ public class ItemBattery extends ItemTRNoDestroy implements IEnergyItemInfo
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList)
-	{
+	public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
 		ItemStack itemStack = new ItemStack(this, 1);
 		itemList.add(itemStack);
 
@@ -61,46 +59,39 @@ public class ItemBattery extends ItemTRNoDestroy implements IEnergyItemInfo
 	}
 
 	@Override
-	public double getDurabilityForDisplay(ItemStack stack)
-	{
+	public double getDurabilityForDisplay(ItemStack stack) {
 		double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
 		return 1 - charge;
 
 	}
 
 	@Override
-	public boolean showDurabilityBar(ItemStack stack)
-	{
+	public boolean showDurabilityBar(ItemStack stack) {
 		return true;
 	}
 
 	@Override
-	public double getMaxPower(ItemStack stack)
-	{
+	public double getMaxPower(ItemStack stack) {
 		return maxEnergy;
 	}
 
 	@Override
-	public boolean canAcceptEnergy(ItemStack stack)
-	{
+	public boolean canAcceptEnergy(ItemStack stack) {
 		return true;
 	}
 
 	@Override
-	public boolean canProvideEnergy(ItemStack stack)
-	{
+	public boolean canProvideEnergy(ItemStack stack) {
 		return true;
 	}
 
 	@Override
-	public double getMaxTransfer(ItemStack stack)
-	{
+	public double getMaxTransfer(ItemStack stack) {
 		return maxTransfer;
 	}
 
 	@Override
-	public int getStackTier(ItemStack stack)
-	{
+	public int getStackTier(ItemStack stack) {
 		return tier;
 	}
 }

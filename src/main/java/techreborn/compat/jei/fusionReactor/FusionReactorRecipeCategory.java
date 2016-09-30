@@ -1,21 +1,19 @@
 package techreborn.compat.jei.fusionReactor;
 
-import javax.annotation.Nonnull;
-
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeCategory;
-import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
 import techreborn.client.gui.GuiFusionReactor;
 import techreborn.compat.jei.RecipeCategoryUids;
 
-public class FusionReactorRecipeCategory extends BlankRecipeCategory<FusionReactorRecipeWrapper>
-{
+import javax.annotation.Nonnull;
+
+public class FusionReactorRecipeCategory extends BlankRecipeCategory<FusionReactorRecipeWrapper> {
 
 	private static final int inputSlotTop = 0;
 	private static final int inputSlotBottom = 1;
@@ -26,36 +24,35 @@ public class FusionReactorRecipeCategory extends BlankRecipeCategory<FusionReact
 	@Nonnull
 	private final String title;
 
-	public FusionReactorRecipeCategory(IGuiHelper guiHelper)
-	{
+	public FusionReactorRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(GuiFusionReactor.texture, 86, 16, 85, 64, 0, 40, 20, 20);
 		title = I18n.translateToLocal("tile.techreborn.fusioncontrolcomputer.name");
 	}
 
 	@Nonnull
 	@Override
-	public String getUid()
-	{
+	public String getUid() {
 		return RecipeCategoryUids.FUSION_REACTOR;
 	}
 
 	@Nonnull
 	@Override
-	public String getTitle()
-	{
+	public String getTitle() {
 		return title;
 	}
 
 	@Nonnull
 	@Override
-	public IDrawable getBackground()
-	{
+	public IDrawable getBackground() {
 		return background;
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull FusionReactorRecipeWrapper recipeWrapper)
-	{
+	public void setRecipe(
+		@Nonnull
+			IRecipeLayout recipeLayout,
+		@Nonnull
+			FusionReactorRecipeWrapper recipeWrapper) {
 		IGuiItemStackGroup itemStacks = recipeLayout.getItemStacks();
 		itemStacks.init(inputSlotTop, true, 21, 0);
 		itemStacks.init(inputSlotBottom, true, 21, 36);
@@ -67,8 +64,13 @@ public class FusionReactorRecipeCategory extends BlankRecipeCategory<FusionReact
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull FusionReactorRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients)
-	{
+	public void setRecipe(
+		@Nonnull
+			IRecipeLayout recipeLayout,
+		@Nonnull
+			FusionReactorRecipeWrapper recipeWrapper,
+		@Nonnull
+			IIngredients ingredients) {
 		IGuiItemStackGroup itemStacks = recipeLayout.getItemStacks();
 		itemStacks.init(inputSlotTop, true, 21, 0);
 		itemStacks.init(inputSlotBottom, true, 21, 36);

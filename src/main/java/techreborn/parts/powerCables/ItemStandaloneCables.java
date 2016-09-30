@@ -1,8 +1,5 @@
 package techreborn.parts.powerCables;
 
-import java.security.InvalidParameterException;
-import java.util.List;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -14,16 +11,17 @@ import techreborn.items.ItemTextureBase;
 import techreborn.lib.ModInfo;
 import techreborn.parts.StandalonePartCompact;
 
+import java.security.InvalidParameterException;
+import java.util.List;
+
 /**
  * Created by modmuss50 on 06/03/2016.
  */
-public class ItemStandaloneCables extends ItemTextureBase
-{
+public class ItemStandaloneCables extends ItemTextureBase {
 
 	public static Item mcPartCable;
 
-	public ItemStandaloneCables()
-	{
+	public ItemStandaloneCables() {
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setHasSubtypes(true);
 		setUnlocalizedName("techreborn.cable");
@@ -31,31 +29,25 @@ public class ItemStandaloneCables extends ItemTextureBase
 		RebornCore.jsonDestroyer.registerObject(this);
 	}
 
-	public static ItemStack getCableByName(String name, int count)
-	{
-		for (int i = 0; i < EnumStandaloneCableType.values().length; i++)
-		{
-			if (EnumStandaloneCableType.values()[i].getName().equalsIgnoreCase(name))
-			{
+	public static ItemStack getCableByName(String name, int count) {
+		for (int i = 0; i < EnumStandaloneCableType.values().length; i++) {
+			if (EnumStandaloneCableType.values()[i].getName().equalsIgnoreCase(name)) {
 				return new ItemStack(mcPartCable != null ? mcPartCable : StandalonePartCompact.itemStandaloneCable,
-						count, i);
+					count, i);
 			}
 		}
 		throw new InvalidParameterException("The cable " + name + " could not be found.");
 	}
 
-	public static ItemStack getCableByName(String name)
-	{
+	public static ItemStack getCableByName(String name) {
 		return getCableByName(name, 1);
 	}
 
 	@Override
 	// gets Unlocalized Name depending on meta data
-	public String getUnlocalizedName(ItemStack itemStack)
-	{
+	public String getUnlocalizedName(ItemStack itemStack) {
 		int meta = itemStack.getItemDamage();
-		if (meta < 0 || meta >= EnumStandaloneCableType.values().length)
-		{
+		if (meta < 0 || meta >= EnumStandaloneCableType.values().length) {
 			meta = 0;
 		}
 
@@ -63,23 +55,19 @@ public class ItemStandaloneCables extends ItemTextureBase
 	}
 
 	// Adds Dusts SubItems To Creative Tab
-	public void getSubItems(Item item, CreativeTabs creativeTabs, List list)
-	{
-		for (int meta = 0; meta < EnumStandaloneCableType.values().length; ++meta)
-		{
+	public void getSubItems(Item item, CreativeTabs creativeTabs, List list) {
+		for (int meta = 0; meta < EnumStandaloneCableType.values().length; ++meta) {
 			list.add(new ItemStack(item, 1, meta));
 		}
 	}
 
 	@Override
-	public String getTextureName(int damage)
-	{
+	public String getTextureName(int damage) {
 		return ModInfo.MOD_ID + ":items/cables/" + EnumStandaloneCableType.values()[damage].getName();
 	}
 
 	@Override
-	public int getMaxMeta()
-	{
+	public int getMaxMeta() {
 		return EnumStandaloneCableType.values().length;
 	}
 
@@ -91,12 +79,10 @@ public class ItemStandaloneCables extends ItemTextureBase
 	// }
 
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
-	{
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
 		EnumStandaloneCableType type = EnumStandaloneCableType.values()[stack.getItemDamage()];
 		tooltip.add(TextFormatting.GREEN + "EU Transfer: " + TextFormatting.LIGHT_PURPLE + type.transferRate);
-		if (type.canKill)
-		{
+		if (type.canKill) {
 			tooltip.add(TextFormatting.RED + "Damages entity's!");
 		}
 		tooltip.add(TextFormatting.RED + "!!INSTALL MCMP TO PLACE CABLES!!");

@@ -2,22 +2,20 @@ package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IContainerListener;
-import reborncore.client.gui.BaseSlot;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import reborncore.client.gui.BaseSlot;
 import reborncore.client.gui.SlotOutput;
 import techreborn.tiles.multiblock.TileImplosionCompressor;
 
-public class ContainerImplosionCompressor extends ContainerCrafting
-{
+public class ContainerImplosionCompressor extends ContainerCrafting {
 
 	public int tickTime;
 	public int multIBlockState = 0;
 	EntityPlayer player;
 	TileImplosionCompressor tile;
 
-	public ContainerImplosionCompressor(TileImplosionCompressor tilecompressor, EntityPlayer player)
-	{
+	public ContainerImplosionCompressor(TileImplosionCompressor tilecompressor, EntityPlayer player) {
 		super(tilecompressor.crafter);
 		tile = tilecompressor;
 		this.player = player;
@@ -31,59 +29,48 @@ public class ContainerImplosionCompressor extends ContainerCrafting
 
 		int i;
 
-		for (i = 0; i < 3; ++i)
-		{
-			for (int j = 0; j < 9; ++j)
-			{
+		for (i = 0; i < 3; ++i) {
+			for (int j = 0; j < 9; ++j) {
 				this.addSlotToContainer(new BaseSlot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 			}
 		}
 
-		for (i = 0; i < 9; ++i)
-		{
+		for (i = 0; i < 9; ++i) {
 			this.addSlotToContainer(new BaseSlot(player.inventory, i, 8 + i * 18, 142));
 		}
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer p_75145_1_)
-	{
+	public boolean canInteractWith(EntityPlayer p_75145_1_) {
 		return true;
 	}
 
 	@Override
-	public void detectAndSendChanges()
-	{
+	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
-		for (int i = 0; i < this.listeners.size(); i++)
-		{
+		for (int i = 0; i < this.listeners.size(); i++) {
 			IContainerListener IContainerListener = this.listeners.get(i);
-			if (this.multIBlockState != getMultIBlockStateint())
-			{
+			if (this.multIBlockState != getMultIBlockStateint()) {
 				IContainerListener.sendProgressBarUpdate(this, 3, getMultIBlockStateint());
 			}
 		}
 	}
 
 	@Override
-	public void addListener(IContainerListener crafting)
-	{
+	public void addListener(IContainerListener crafting) {
 		super.addListener(crafting);
 		crafting.sendProgressBarUpdate(this, 3, getMultIBlockStateint());
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void updateProgressBar(int id, int value)
-	{
-		if (id == 3)
-		{
+	public void updateProgressBar(int id, int value) {
+		if (id == 3) {
 			this.multIBlockState = value;
 		}
 	}
 
-	public int getMultIBlockStateint()
-	{
+	public int getMultIBlockStateint() {
 		return tile.getMutliBlock() ? 1 : 0;
 	}
 

@@ -11,6 +11,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.RebornCore;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.lib.ModInfo;
+
 /**
  * Created by modmuss50 on 26/02/2016.
  */
@@ -22,13 +23,13 @@ public class ItemTRArmour extends ItemArmor implements ITexturedItem {
 	public ItemTRArmour(ArmorMaterial material, EntityEquipmentSlot slot) {
 		super(material, material.getDamageReductionAmount(slot), slot);
 		if (slot == EntityEquipmentSlot.HEAD)
-			setUnlocalizedName(material.name().toLowerCase()+"Helmet");
+			setUnlocalizedName(material.name().toLowerCase() + "Helmet");
 		if (slot == EntityEquipmentSlot.CHEST)
-			setUnlocalizedName(material.name().toLowerCase()+"Chestplate");
+			setUnlocalizedName(material.name().toLowerCase() + "Chestplate");
 		if (slot == EntityEquipmentSlot.LEGS)
-			setUnlocalizedName(material.name().toLowerCase()+"Leggings");
+			setUnlocalizedName(material.name().toLowerCase() + "Leggings");
 		if (slot == EntityEquipmentSlot.FEET)
-			setUnlocalizedName(material.name().toLowerCase()+"Boots");
+			setUnlocalizedName(material.name().toLowerCase() + "Boots");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		RebornCore.jsonDestroyer.registerObject(this);
 		this.material = material;

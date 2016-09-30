@@ -7,9 +7,9 @@ import java.util.HashMap;
  */
 public class EntryData {
 
-    /**
-     * Use this to store data for a page
-     */
-    public HashMap<String, String> data;
+	/**
+	 * Use this to store data for a page
+	 */
+	public HashMap<String, String> data;
 
 }

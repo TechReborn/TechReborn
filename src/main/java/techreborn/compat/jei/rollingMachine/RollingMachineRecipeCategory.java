@@ -1,25 +1,18 @@
 package techreborn.compat.jei.rollingMachine;
 
-import javax.annotation.Nonnull;
-
 import mezz.jei.api.IGuiHelper;
-import mezz.jei.api.gui.ICraftingGridHelper;
-import mezz.jei.api.gui.IDrawable;
-import mezz.jei.api.gui.IDrawableAnimated;
-import mezz.jei.api.gui.IDrawableStatic;
-import mezz.jei.api.gui.IGuiItemStackGroup;
-import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.*;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeCategory;
-import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
 import techreborn.client.gui.GuiRollingMachine;
 import techreborn.compat.jei.RecipeCategoryUids;
 
-public class RollingMachineRecipeCategory extends BlankRecipeCategory<RollingMachineRecipeWrapper>
-{
+import javax.annotation.Nonnull;
+
+public class RollingMachineRecipeCategory extends BlankRecipeCategory<RollingMachineRecipeWrapper> {
 	private static final int[] INPUT_SLOTS = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 	private static final int[] OUTPUT_SLOTS = { 10 };
 
@@ -28,8 +21,7 @@ public class RollingMachineRecipeCategory extends BlankRecipeCategory<RollingMac
 	private final ICraftingGridHelper craftingGridHelper;
 	private final String title;
 
-	public RollingMachineRecipeCategory(IGuiHelper guiHelper)
-	{
+	public RollingMachineRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(GuiRollingMachine.texture, 29, 16, 116, 54);
 		title = I18n.translateToLocal("tile.techreborn.rollingmachine.name");
 
@@ -41,39 +33,38 @@ public class RollingMachineRecipeCategory extends BlankRecipeCategory<RollingMac
 
 	@Nonnull
 	@Override
-	public String getUid()
-	{
+	public String getUid() {
 		return RecipeCategoryUids.ROLLING_MACHINE;
 	}
 
 	@Nonnull
 	@Override
-	public String getTitle()
-	{
+	public String getTitle() {
 		return title;
 	}
 
 	@Nonnull
 	@Override
-	public IDrawable getBackground()
-	{
+	public IDrawable getBackground() {
 		return background;
 	}
 
 	@Override
-	public void drawAnimations(@Nonnull Minecraft minecraft)
-	{
+	public void drawAnimations(
+		@Nonnull
+			Minecraft minecraft) {
 		progress.draw(minecraft, 62, 18);
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull RollingMachineRecipeWrapper recipeWrapper)
-	{
+	public void setRecipe(
+		@Nonnull
+			IRecipeLayout recipeLayout,
+		@Nonnull
+			RollingMachineRecipeWrapper recipeWrapper) {
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
-		for (int l = 0; l < 3; l++)
-		{
-			for (int k1 = 0; k1 < 3; k1++)
-			{
+		for (int l = 0; l < 3; l++) {
+			for (int k1 = 0; k1 < 3; k1++) {
 				int i = k1 + l * 3;
 				guiItemStacks.init(INPUT_SLOTS[i], true, k1 * 18, l * 18);
 			}
@@ -86,13 +77,16 @@ public class RollingMachineRecipeCategory extends BlankRecipeCategory<RollingMac
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull RollingMachineRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients)
-	{
+	public void setRecipe(
+		@Nonnull
+			IRecipeLayout recipeLayout,
+		@Nonnull
+			RollingMachineRecipeWrapper recipeWrapper,
+		@Nonnull
+			IIngredients ingredients) {
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
-		for (int l = 0; l < 3; l++)
-		{
-			for (int k1 = 0; k1 < 3; k1++)
-			{
+		for (int l = 0; l < 3; l++) {
+			for (int k1 = 0; k1 < 3; k1++) {
 				int i = k1 + l * 3;
 				guiItemStacks.init(INPUT_SLOTS[i], true, k1 * 18, l * 18);
 			}

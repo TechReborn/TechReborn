@@ -9,16 +9,14 @@ import reborncore.common.container.RebornContainer;
 import techreborn.client.container.ContainerExtractor;
 import techreborn.tiles.teir1.TileExtractor;
 
-public class GuiExtractor extends GuiContainer
-{
+public class GuiExtractor extends GuiContainer {
 
 	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/compressor.png");
 
 	TileExtractor extractor;
 	ContainerExtractor containerExtractor;
 
-	public GuiExtractor(EntityPlayer player, TileExtractor tileExtractor)
-	{
+	public GuiExtractor(EntityPlayer player, TileExtractor tileExtractor) {
 		super(RebornContainer.createContainer(ContainerExtractor.class, tileExtractor, player));
 		this.xSize = 176;
 		this.ySize = 167;
@@ -27,8 +25,7 @@ public class GuiExtractor extends GuiContainer
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_)
-	{
+	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_) {
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.getTextureManager().bindTexture(texture);
 		int k = (this.width - this.xSize) / 2;
@@ -38,24 +35,21 @@ public class GuiExtractor extends GuiContainer
 		int j = 0;
 
 		j = extractor.getProgressScaled(24);
-		if (j > 0)
-		{
+		if (j > 0) {
 			this.drawTexturedModalRect(k + 78, l + 35, 176, 14, j + 1, 16);
 		}
 
 		j = extractor.getEnergyScaled(12);
-		if (j > 0)
-		{
+		if (j > 0) {
 			this.drawTexturedModalRect(k + 24, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);
 		}
 	}
 
-	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_)
-	{
+	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
 		String name = I18n.translateToLocal("tile.techreborn.extractor.name");
 		this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6,
-				4210752);
+			4210752);
 		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,
-				this.ySize - 96 + 2, 4210752);
+			this.ySize - 96 + 2, 4210752);
 	}
 }

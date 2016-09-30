@@ -5,8 +5,7 @@ import java.util.List;
 /**
  * Created by modmuss50 on 11/03/2016.
  */
-public class WorldGenConfig
-{
+public class WorldGenConfig {
 
 	public boolean generateTechRebornFeatures = true;
 

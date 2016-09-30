@@ -28,8 +28,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class CraftingInfoPage extends TitledPage
-{
+public class CraftingInfoPage extends TitledPage {
 	public ItemStack result;
 	public String imageprefix = "techreborn:textures/manual/elements/";
 	public String backpage;
@@ -41,8 +40,7 @@ public class CraftingInfoPage extends TitledPage
 	private float descriptionScale = 0.66f;
 
 	public CraftingInfoPage(String name, PageCollection collection, ItemStack itemStack, String unlocalizedDescription,
-			String backPage)
-	{
+	                        String backPage) {
 		super(name, true, collection, itemStack.getUnlocalizedName() + ".name", Color.white.getRGB());
 		this.result = itemStack;
 		this.recipe = getFirstRecipeForItem(itemStack);
@@ -57,27 +55,21 @@ public class CraftingInfoPage extends TitledPage
 	}
 
 	@Override
-	public void initGui()
-	{
+	public void initGui() {
 		buttonList.clear();
 		ButtonUtil.addBackButton(0, width / 2 - 60, height / 2 + 64, buttonList);
 	}
 
 	@Override
-	public void renderBackgroundLayer(Minecraft minecraft, int offsetX, int offsetY, int mouseX, int mouseY)
-	{
+	public void renderBackgroundLayer(Minecraft minecraft, int offsetX, int offsetY, int mouseX, int mouseY) {
 		super.renderBackgroundLayer(minecraft, offsetX, offsetY, mouseX, mouseY);
 		GL11.glPushMatrix();
-		if (isSmelting)
-		{
+		if (isSmelting) {
 			renderImage(offsetX + 15, offsetY + 10, "furnacerecipe");
-		} else
-		{
-			if (hasRecipe)
-			{
-				renderImage(offsetX + (offsetX/ 2) , offsetY + 10, "craftingtable");
-			} else
-			{
+		} else {
+			if (hasRecipe) {
+				renderImage(offsetX + (offsetX / 2), offsetY + 10, "craftingtable");
+			} else {
 				drawString(fontRendererObj, "No Crafting Recipe", offsetX + 40, offsetY + 22, Color.black.getRGB());
 			}
 		}
@@ -85,8 +77,7 @@ public class CraftingInfoPage extends TitledPage
 
 	}
 
-	public void drawScreen(Minecraft minecraft, int offsetX, int offsetY, int mouseX, int mouseY)
-	{
+	public void drawScreen(Minecraft minecraft, int offsetX, int offsetY, int mouseX, int mouseY) {
 		super.drawScreen(minecraft, offsetX, offsetY, mouseX, mouseY);
 		int relativeMouseX = mouseX + offsetX;
 		int relativeMouseY = mouseY + offsetY;
@@ -97,18 +88,15 @@ public class CraftingInfoPage extends TitledPage
 
 		ItemStack tooltip = null;
 		int i = 0;
-		for (ItemStack input : recipe)
-		{
-			if (input != null)
-			{
+		for (ItemStack input : recipe) {
+			if (input != null) {
 				int row = (i % 3);
 				int column = i / 3;
 				int itemX = offsetX + gridOffsetX + (row * itemBoxSize) - 54;
 				int itemY = offsetY + gridOffsetY + (column * itemBoxSize) + 2;
 				drawItemStack(input, itemX, itemY, "");
 				if (relativeMouseX > itemX - 2 && relativeMouseX < itemX - 2 + itemBoxSize && relativeMouseY > itemY - 2
-						&& relativeMouseY < itemY - 2 + itemBoxSize)
-				{
+					&& relativeMouseY < itemY - 2 + itemBoxSize) {
 					tooltip = input;
 				}
 			}
@@ -116,26 +104,22 @@ public class CraftingInfoPage extends TitledPage
 		}
 		int itemX = offsetX + (isSmelting ? 92 : 112);
 		int itemY = offsetY + (isSmelting ? 40 : 38);
-		if (!hasRecipe)
-		{
+		if (!hasRecipe) {
 			itemX = offsetX + 20;
 			itemY = offsetY + 18;
 		}
 
 		drawItemStack(result, itemX, itemY, "");
 		if (relativeMouseX > itemX - 2 && relativeMouseX < itemX - 2 + itemBoxSize && relativeMouseY > itemY - 2
-				&& relativeMouseY < itemY - 2 + itemBoxSize)
-		{
+			&& relativeMouseY < itemY - 2 + itemBoxSize) {
 			tooltip = result;
 		}
-		if (tooltip != null)
-		{
+		if (tooltip != null) {
 			drawItemStackTooltip(tooltip, relativeMouseX, relativeMouseY);
 		}
 	}
 
-	public void renderImage(int offsetX, int offsetY, String imagename)
-	{
+	public void renderImage(int offsetX, int offsetY, String imagename) {
 		TextureManager render = Minecraft.getMinecraft().renderEngine;
 		render.bindTexture(new ResourceLocation(imageprefix + imagename + ".png"));
 
@@ -146,8 +130,7 @@ public class CraftingInfoPage extends TitledPage
 		GL11.glDisable(GL11.GL_BLEND);
 	}
 
-	public void addDescription(Minecraft minecraft, int offsetX, int offsetY)
-	{
+	public void addDescription(Minecraft minecraft, int offsetX, int offsetY) {
 		GL11.glPushMatrix();
 		if (hasRecipe)
 			GL11.glTranslated(offsetX + 5, offsetY + 75, 1);
@@ -155,12 +138,10 @@ public class CraftingInfoPage extends TitledPage
 			GL11.glTranslated(offsetX + 5, offsetY + 40, 1);
 		GL11.glScalef(descriptionScale, descriptionScale, descriptionScale);
 		int offset = 0;
-		for (String s : getFormattedText(fontRendererObj))
-		{
+		for (String s : getFormattedText(fontRendererObj)) {
 			if (s == null)
 				break;
-			if (s.contains("\\%") && s.substring(0, 2).equals("\\%"))
-			{
+			if (s.contains("\\%") && s.substring(0, 2).equals("\\%")) {
 				s = s.substring(2);
 				offset += fontRendererObj.FONT_HEIGHT / 2;
 			}
@@ -171,19 +152,15 @@ public class CraftingInfoPage extends TitledPage
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<String> getFormattedText(FontRenderer fr)
-	{
-		if (formattedDescription == null)
-		{
+	public List<String> getFormattedText(FontRenderer fr) {
+		if (formattedDescription == null) {
 			formattedDescription = new ArrayList<>();
 
-			if (Strings.isNullOrEmpty(rawDescription))
-			{
+			if (Strings.isNullOrEmpty(rawDescription)) {
 				formattedDescription = ImmutableList.of();
 				return formattedDescription;
 			}
-			if (!rawDescription.contains("\\n"))
-			{
+			if (!rawDescription.contains("\\n")) {
 				formattedDescription = ImmutableList.copyOf(fr.listFormattedStringToWidth(rawDescription, 370));
 				return formattedDescription;
 			}
@@ -192,16 +169,14 @@ public class CraftingInfoPage extends TitledPage
 			String raw = rawDescription;
 
 			int escape = 0;
-			while (raw.contains("\\n"))
-			{
+			while (raw.contains("\\n")) {
 				segments.add(raw.substring(0, raw.indexOf("\\n")));
 				raw = raw.substring(raw.indexOf("\\n") + 2);
 				if (!raw.contains("\\n"))
 					segments.add(raw);
 
 				escape++;
-				if (escape > 100)
-				{
+				if (escape > 100) {
 					break;
 				}
 			}
@@ -212,8 +187,7 @@ public class CraftingInfoPage extends TitledPage
 		return formattedDescription;
 	}
 
-	protected void drawItemStackTooltip(ItemStack stack, int x, int y)
-	{
+	protected void drawItemStackTooltip(ItemStack stack, int x, int y) {
 		final Minecraft mc = Minecraft.getMinecraft();
 		FontRenderer font = Objects.firstNonNull(stack.getItem().getFontRenderer(stack), mc.fontRendererObj);
 
@@ -230,8 +204,7 @@ public class CraftingInfoPage extends TitledPage
 		drawHoveringText(colored, x, y, font);
 	}
 
-	private void drawItemStack(ItemStack par1ItemStack, int par2, int par3, String par4Str)
-	{
+	private void drawItemStack(ItemStack par1ItemStack, int par2, int par3, String par4Str) {
 		GL11.glTranslatef(0.0F, 0.0F, 32.0F);
 		this.zLevel = 200.0F;
 		RenderHelper.enableGUIStandardItemLighting();
@@ -246,10 +219,8 @@ public class CraftingInfoPage extends TitledPage
 		this.zLevel = 0.0F;
 	}
 
-	public void renderItemStack(ItemStack stack, int x, int y)
-	{
-		if (stack != null)
-		{
+	public void renderItemStack(ItemStack stack, int x, int y) {
+		if (stack != null) {
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			RenderHelper.enableGUIStandardItemLighting();
@@ -262,11 +233,9 @@ public class CraftingInfoPage extends TitledPage
 	}
 
 	@SuppressWarnings("unchecked")
-	private ItemStack[] getFirstRecipeForItem(ItemStack resultingItem)
-	{
+	private ItemStack[] getFirstRecipeForItem(ItemStack resultingItem) {
 		ItemStack[] recipeItems = new ItemStack[9];
-		for (IRecipe recipe : CraftingManager.getInstance().getRecipeList())
-		{
+		for (IRecipe recipe : CraftingManager.getInstance().getRecipeList()) {
 			if (recipe == null)
 				continue;
 
@@ -287,11 +256,9 @@ public class CraftingInfoPage extends TitledPage
 		Iterator iterator = FurnaceRecipes.instance().getSmeltingList().entrySet().iterator();
 		Map.Entry entry;
 
-		while (iterator.hasNext())
-		{
+		while (iterator.hasNext()) {
 			entry = (Map.Entry) iterator.next();
-			if (entry.getKey() instanceof ItemStack && ((ItemStack) entry.getValue()).isItemEqual(result))
-			{
+			if (entry.getKey() instanceof ItemStack && ((ItemStack) entry.getValue()).isItemEqual(result)) {
 				isSmelting = true;
 				recipeItems[0] = (ItemStack) entry.getKey();
 			}
@@ -300,14 +267,11 @@ public class CraftingInfoPage extends TitledPage
 		return recipeItems;
 	}
 
-	protected ItemStack convertToStack(Object obj)
-	{
+	protected ItemStack convertToStack(Object obj) {
 		ItemStack entry = null;
-		if (obj instanceof ItemStack)
-		{
+		if (obj instanceof ItemStack) {
 			entry = (ItemStack) obj;
-		} else if (obj instanceof List)
-		{
+		} else if (obj instanceof List) {
 			@SuppressWarnings("unchecked")
 			List<ItemStack> list = (List<ItemStack>) obj;
 			if (list.size() > 0)
@@ -323,8 +287,7 @@ public class CraftingInfoPage extends TitledPage
 	}
 
 	@SuppressWarnings("unchecked")
-	private Object[] getRecipeInput(IRecipe recipe)
-	{
+	private Object[] getRecipeInput(IRecipe recipe) {
 		if (recipe instanceof ShapelessOreRecipe)
 			return ((ShapelessOreRecipe) recipe).getInput().toArray();
 		else if (recipe instanceof ShapedOreRecipe)
@@ -336,43 +299,34 @@ public class CraftingInfoPage extends TitledPage
 		return null;
 	}
 
-	private Object[] getShapedOreRecipe(ShapedOreRecipe recipe)
-	{
-		try
-		{
+	private Object[] getShapedOreRecipe(ShapedOreRecipe recipe) {
+		try {
 			Field field = ShapedOreRecipe.class.getDeclaredField("width");
-			if (field != null)
-			{
+			if (field != null) {
 				field.setAccessible(true);
 				int width = field.getInt(recipe);
 				Object[] input = recipe.getInput();
 				Object[] grid = new Object[9];
-				for (int i = 0, offset = 0, y = 0; y < 3; y++)
-				{
-					for (int x = 0; x < 3; x++, i++)
-					{
-						if (x < width && offset < input.length)
-						{
+				for (int i = 0, offset = 0, y = 0; y < 3; y++) {
+					for (int x = 0; x < 3; x++, i++) {
+						if (x < width && offset < input.length) {
 							grid[i] = input[offset];
 							offset++;
-						} else
-						{
+						} else {
 							grid[i] = null;
 						}
 					}
 				}
 				return grid;
 			}
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 
 	@Override
-	public void actionPerformed(GuiButton button)
-	{
+	public void actionPerformed(GuiButton button) {
 		if (button.id == 0)
 			collection.changeActivePage(backpage);
 	}

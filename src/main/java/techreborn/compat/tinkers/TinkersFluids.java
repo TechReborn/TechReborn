@@ -12,11 +12,10 @@ import slimeknights.tconstruct.library.fluid.FluidMolten;
 /**
  * @author Prospector on 08/05/16
  */
-public class TinkersFluids
-{
+public class TinkersFluids {
 	private static ResourceLocation moltenMetal = new ResourceLocation("tconstruct:blocks/fluids/molten_metal");
 	private static ResourceLocation moltenMetalFlowing = new ResourceLocation(
-			"tconstruct:blocks/fluids/molten_metal_flow");
+		"tconstruct:blocks/fluids/molten_metal_flow");
 
 	public static FluidMolten moltenChrome = new FluidMolten("chrome", 0x90C9C9, moltenMetal, moltenMetalFlowing);
 	public static FluidMolten moltenInvar = new FluidMolten("invar", 0x7F907F, moltenMetal, moltenMetalFlowing);
@@ -25,8 +24,7 @@ public class TinkersFluids
 	public static FluidMolten moltenTitanium = new FluidMolten("titanium", 0x3C372F, moltenMetal, moltenMetalFlowing);
 	public static FluidMolten moltenTungsten = new FluidMolten("tungsten", 0x3A464F, moltenMetal, moltenMetalFlowing);
 
-	public static void init()
-	{
+	public static void init() {
 		addFluidStuff(moltenChrome, "Chrome");
 		moltenChrome.setTemperature(800);
 		addFluidStuff(moltenInvar, "Invar");
@@ -61,8 +59,7 @@ public class TinkersFluids
 		FMLInterModComms.sendMessage("tconstruct", "alloy", message);
 	}
 
-	public static void addFluidStuff(Fluid fluid, String oreSuffix)
-	{
+	public static void addFluidStuff(Fluid fluid, String oreSuffix) {
 		FluidRegistry.registerFluid(fluid);
 		FluidRegistry.addBucketForFluid(fluid);
 		NBTTagCompound tag = new NBTTagCompound();

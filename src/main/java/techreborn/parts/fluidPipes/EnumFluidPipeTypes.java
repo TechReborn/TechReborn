@@ -6,8 +6,7 @@ import net.minecraft.util.text.TextFormatting;
 /**
  * Created by modmuss50 on 09/05/2016.
  */
-public enum EnumFluidPipeTypes implements IStringSerializable
-{
+public enum EnumFluidPipeTypes implements IStringSerializable {
 
 	EMPTY("empty", "techreborn:blocks/fluidPipes/fluidpipe", false, false, TextFormatting.DARK_GRAY),
 	INSERT("insert", "techreborn:blocks/fluidPipes/fluidpipe_insert", false, true, TextFormatting.BLUE),
@@ -19,8 +18,7 @@ public enum EnumFluidPipeTypes implements IStringSerializable
 	public TextFormatting colour = TextFormatting.WHITE;
 	private String name;
 
-	EnumFluidPipeTypes(String name, String textureName, boolean extract, boolean insert, TextFormatting colour)
-	{
+	EnumFluidPipeTypes(String name, String textureName, boolean extract, boolean insert, TextFormatting colour) {
 		this.name = name;
 		this.textureName = textureName;
 		this.extract = extract;
@@ -28,8 +26,8 @@ public enum EnumFluidPipeTypes implements IStringSerializable
 		this.colour = colour;
 	}
 
-	@Override public String getName()
-	{
+	@Override
+	public String getName() {
 		return name;
 	}
 }

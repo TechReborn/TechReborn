@@ -5,19 +5,18 @@ package techreborn.manual.saveFormat;
  */
 public class Entry {
 
-    public String name;
+	public String name;
 
-    public String registryName;
+	public String registryName;
 
-    public MetaData meta;
+	public MetaData meta;
 
-    /**
-     * This says what type of page it is, crafting, image, ect
-     *
-     */
-    public String type;
+	/**
+	 * This says what type of page it is, crafting, image, ect
+	 */
+	public String type;
 
-    public String category;
+	public String category;
 
-    public EntryData data;
+	public EntryData data;
 }

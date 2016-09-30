@@ -7,18 +7,18 @@ import java.util.List;
  */
 public class ManualFormat {
 
-    public String name;
+	public String name;
 
-    public String modId;
+	public String modId;
 
-    public List<Entry> entries;
+	public List<Entry> entries;
 
-    public ManualFormat(String name, String modId, List<Entry> entries) {
-        this.name = name;
-        this.modId = modId;
-        this.entries = entries;
-    }
+	public ManualFormat(String name, String modId, List<Entry> entries) {
+		this.name = name;
+		this.modId = modId;
+		this.entries = entries;
+	}
 
-    public ManualFormat() {
-    }
+	public ManualFormat() {
+	}
 }

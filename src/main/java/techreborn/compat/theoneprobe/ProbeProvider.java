@@ -17,31 +17,31 @@ import java.util.List;
  */
 public class ProbeProvider implements IProbeInfoProvider {
 
-    ProgressStyle euStyle = new ProgressStyle();
+	ProgressStyle euStyle = new ProgressStyle();
 
-    public ProbeProvider() {
-       euStyle.suffix(" EU");
-        euStyle.numberFormat(NumberFormat.COMPACT);
-    }
+	public ProbeProvider() {
+		euStyle.suffix(" EU");
+		euStyle.numberFormat(NumberFormat.COMPACT);
+	}
 
-    @Override
-    public String getID() {
-        return "TechReborn";
-    }
+	@Override
+	public String getID() {
+		return "TechReborn";
+	}
 
-    @Override
-    public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data) {
-        TileEntity tile = world.getTileEntity(data.getPos());
-        if(tile instanceof IListInfoProvider){
-            List<String> strs = new ArrayList<>();
-            ((IListInfoProvider) tile).addInfo(strs, true);
-            for(String string : strs){
-                probeInfo.text(string);
-            }
-        }
-        if(tile instanceof IEnergyInterfaceTile){
-            IEnergyInterfaceTile energy = (IEnergyInterfaceTile) tile;
-            probeInfo.progress((int)energy.getEnergy(), (int)energy.getMaxPower(), euStyle);
-        }
-    }
+	@Override
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data) {
+		TileEntity tile = world.getTileEntity(data.getPos());
+		if (tile instanceof IListInfoProvider) {
+			List<String> strs = new ArrayList<>();
+			((IListInfoProvider) tile).addInfo(strs, true);
+			for (String string : strs) {
+				probeInfo.text(string);
+			}
+		}
+		if (tile instanceof IEnergyInterfaceTile) {
+			IEnergyInterfaceTile energy = (IEnergyInterfaceTile) tile;
+			probeInfo.progress((int) energy.getEnergy(), (int) energy.getMaxPower(), euStyle);
+		}
+	}
 }

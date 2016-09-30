@@ -9,19 +9,17 @@ import net.minecraft.util.text.translation.I18n;
 import techreborn.client.container.ContainerChunkloader;
 import techreborn.tiles.TileChunkLoader;
 
-public class GuiChunkLoader extends GuiContainer
-{
+public class GuiChunkLoader extends GuiContainer {
 
 	private static final ResourceLocation texture = new ResourceLocation("techreborn",
-			"textures/gui/industrial_chunkloader.png");
+		"textures/gui/industrial_chunkloader.png");
 	TileChunkLoader chunkloader;
 	private GuiButton plusOneButton;
 	private GuiButton plusTenButton;
 	private GuiButton minusOneButton;
 	private GuiButton minusTenButton;
 
-	public GuiChunkLoader(EntityPlayer player, TileChunkLoader tilechunkloader)
-	{
+	public GuiChunkLoader(EntityPlayer player, TileChunkLoader tilechunkloader) {
 		super(new ContainerChunkloader(tilechunkloader, player));
 		this.xSize = 176;
 		this.ySize = 167;
@@ -29,8 +27,7 @@ public class GuiChunkLoader extends GuiContainer
 	}
 
 	@Override
-	public void initGui()
-	{
+	public void initGui() {
 		super.initGui();
 		this.guiLeft = this.width / 2 - this.xSize / 2;
 		this.guiTop = this.height / 2 - this.ySize / 2;
@@ -47,8 +44,7 @@ public class GuiChunkLoader extends GuiContainer
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_)
-	{
+	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_) {
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.getTextureManager().bindTexture(texture);
 		int k = (this.width - this.xSize) / 2;
@@ -56,13 +52,12 @@ public class GuiChunkLoader extends GuiContainer
 		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
 	}
 
-	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_)
-	{
+	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
 		String name = I18n.translateToLocal("tile.techreborn.chunkloader.name");
 		this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6,
-				4210752);
+			4210752);
 		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,
-				this.ySize - 96 + 2, 4210752);
+			this.ySize - 96 + 2, 4210752);
 	}
 
 }

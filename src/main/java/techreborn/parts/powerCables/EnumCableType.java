@@ -2,17 +2,9 @@ package techreborn.parts.powerCables;
 
 import net.minecraft.util.IStringSerializable;
 import reborncore.api.power.EnumPowerTier;
-import techreborn.parts.powerCables.types.CopperCable;
-import techreborn.parts.powerCables.types.GlassFiberCable;
-import techreborn.parts.powerCables.types.GoldCable;
-import techreborn.parts.powerCables.types.HVCable;
-import techreborn.parts.powerCables.types.InsulatedCopperCable;
-import techreborn.parts.powerCables.types.InsulatedGoldCable;
-import techreborn.parts.powerCables.types.InsulatedHVCable;
-import techreborn.parts.powerCables.types.TinCable;
+import techreborn.parts.powerCables.types.*;
 
-public enum EnumCableType implements IStringSerializable
-{
+public enum EnumCableType implements IStringSerializable {
 	COPPER("copper", "techreborn:blocks/cables/copper_cable", 128, 12.0, true, EnumPowerTier.LOW, CopperCable.class),
 	TIN("tin", "techreborn:blocks/cables/tin_cable", 32, 12.0, true, EnumPowerTier.MEDIUM, TinCable.class),
 	GOLD("gold", "techreborn:blocks/cables/gold_cable", 512, 12.0, true, EnumPowerTier.MEDIUM, GoldCable.class),
@@ -31,8 +23,7 @@ public enum EnumCableType implements IStringSerializable
 	private String friendlyName;
 
 	EnumCableType(String friendlyName, String textureName, int transferRate, double cableThickness, boolean canKill,
-			EnumPowerTier tier, Class<? extends CableMultipart> cableClass)
-	{
+	              EnumPowerTier tier, Class<? extends CableMultipart> cableClass) {
 		this.friendlyName = friendlyName;
 		this.textureName = textureName;
 		this.transferRate = transferRate;
@@ -43,8 +34,7 @@ public enum EnumCableType implements IStringSerializable
 	}
 
 	@Override
-	public String getName()
-	{
+	public String getName() {
 		return friendlyName.toLowerCase();
 	}
 }

@@ -1,7 +1,6 @@
 package techreborn.compat.jei;
 
-public class RecipeCategoryUids
-{
+public class RecipeCategoryUids {
 	public static final String ALLOY_SMELTER = "TechReborn.AlloySmelter";
 	public static final String ASSEMBLING_MACHINE = "TechReborn.AssemblingMachine";
 	public static final String BLAST_FURNACE = "TechReborn.BlastFurnace";
@@ -17,7 +16,7 @@ public class RecipeCategoryUids
 	public static final String EXTRACTOR = "TechReborn.Extractor";
 	public static final String COMPRESSOR = "TechReborn.Compressor";
 	public static final String SCRAPBOX = "TechReborn.Scrapbox";
-	private RecipeCategoryUids()
-	{
+
+	private RecipeCategoryUids() {
 	}
 }

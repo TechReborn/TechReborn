@@ -1,12 +1,9 @@
 package techreborn.init;
 
-import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.common.blocks.BlockMachineBase;
@@ -16,7 +13,6 @@ import techreborn.Core;
 import techreborn.api.Reference;
 import techreborn.blocks.BlockMachineFrame;
 import techreborn.config.ConfigTechReborn;
-import techreborn.events.OreUnifier;
 import techreborn.items.*;
 import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
@@ -27,8 +23,7 @@ import techreborn.items.battery.ItemLithiumBattery;
 import techreborn.items.battery.ItemReBattery;
 import techreborn.items.tools.*;
 
-public class ModItems
-{
+public class ModItems {
 
 	public static Item gems;
 	public static Item ingots;
@@ -123,8 +118,7 @@ public class ModItems
 
 	public static final String META_PLACEHOLDER = "PLACEHOLDER_ITEM";
 
-	public static void init() throws InstantiationException, IllegalAccessException
-	{
+	public static void init() throws InstantiationException, IllegalAccessException {
 		gems = new ItemGems();
 		registerItem(gems, "gem");
 		ingots = new ItemIngots();
@@ -189,7 +183,7 @@ public class ModItems
 		advancedJackhammer = PoweredItem.createItem(ItemAdvancedJackhammer.class);
 		registerItem(advancedJackhammer, "ironjackhammer");
 
-		if(ConfigTechReborn.enableGemArmorAndTools){
+		if (ConfigTechReborn.enableGemArmorAndTools) {
 			bronzeSword = new ItemTRSword(Reference.BRONZE);
 			registerItem(bronzeSword, "bronzeSword");
 			bronzePickaxe = new ItemTRPickaxe(Reference.BRONZE);
@@ -271,7 +265,6 @@ public class ModItems
 			registerItem(peridotBoots, "peridotBoots");
 		}
 
-
 		wrench = new ItemWrench();
 		registerItem(wrench, "wrench");
 
@@ -280,7 +273,7 @@ public class ModItems
 
 		scrapBox = new ItemScrapBox();
 		registerItem(scrapBox, "scrapbox");
-		
+
 		frequencyTransmitter = new ItemFrequencyTransmitter();
 		registerItem(frequencyTransmitter, "frequencyTransmitter");
 
@@ -314,7 +307,7 @@ public class ModItems
 		OreDictionary.registerOre("itemRubber", ItemParts.getPartByName("rubber"));
 	}
 
-	public static void registerItem(Item item, String name){
+	public static void registerItem(Item item, String name) {
 		item.setRegistryName(name);
 		GameRegistry.register(item);
 	}

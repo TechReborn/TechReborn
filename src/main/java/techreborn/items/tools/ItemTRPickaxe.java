@@ -12,41 +12,35 @@ import reborncore.RebornCore;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.lib.ModInfo;
 
-import net.minecraft.item.Item.ToolMaterial;
-public class ItemTRPickaxe extends ItemPickaxe implements ITexturedItem , IHandHeld
-{
+public class ItemTRPickaxe extends ItemPickaxe implements ITexturedItem, IHandHeld {
 	private ToolMaterial material = ToolMaterial.WOOD;
-	
+
 	public ItemTRPickaxe(ToolMaterial material) {
 		super(material);
-		setUnlocalizedName(material.name().toLowerCase()+"Pickaxe");
+		setUnlocalizedName(material.name().toLowerCase() + "Pickaxe");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		RebornCore.jsonDestroyer.registerObject(this);
-		this.material=material;
+		this.material = material;
 	}
 
 	@Override
-	public String getTextureName(int damage)
-	{
-		return "techreborn:items/tool/"+material.name().toLowerCase()+"_pickaxe";
+	public String getTextureName(int damage) {
+		return "techreborn:items/tool/" + material.name().toLowerCase() + "_pickaxe";
 	}
 
 	@Override
-	public int getMaxMeta()
-	{
+	public int getMaxMeta() {
 		return 1;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining)
-	{
+	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
 		return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
 	}
 
 	@SideOnly(Side.CLIENT)
-	public boolean isFull3D()
-	{
+	public boolean isFull3D() {
 		return true;
 	}
 }

@@ -8,75 +8,61 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 /**
  * Created by modmuss50 on 25/02/2016.
  */
-public class TileWaterMill extends TilePowerAcceptor
-{
+public class TileWaterMill extends TilePowerAcceptor {
 
 	int waterblocks = 0;
 
-	public TileWaterMill()
-	{
+	public TileWaterMill() {
 		super(1);
 	}
 
 	@Override
-	public void updateEntity()
-	{
+	public void updateEntity() {
 		super.updateEntity();
-		if (worldObj.getTotalWorldTime() % 20 == 0)
-		{
+		if (worldObj.getTotalWorldTime() % 20 == 0) {
 			checkForWater();
 		}
-		if (waterblocks > 0)
-		{
+		if (waterblocks > 0) {
 			addEnergy(waterblocks);
 		}
 	}
 
-	public void checkForWater()
-	{
+	public void checkForWater() {
 		waterblocks = 0;
-		for (EnumFacing facing : EnumFacing.HORIZONTALS)
-		{
-			if (worldObj.getBlockState(getPos().offset(facing)).getBlock() == Blocks.WATER)
-			{
+		for (EnumFacing facing : EnumFacing.HORIZONTALS) {
+			if (worldObj.getBlockState(getPos().offset(facing)).getBlock() == Blocks.WATER) {
 				waterblocks++;
 			}
 		}
 	}
 
 	@Override
-	public double getMaxPower()
-	{
+	public double getMaxPower() {
 		return 1000;
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction)
-	{
+	public boolean canAcceptEnergy(EnumFacing direction) {
 		return false;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnumFacing direction)
-	{
+	public boolean canProvideEnergy(EnumFacing direction) {
 		return true;
 	}
 
 	@Override
-	public double getMaxOutput()
-	{
+	public double getMaxOutput() {
 		return 32;
 	}
 
 	@Override
-	public double getMaxInput()
-	{
+	public double getMaxInput() {
 		return 0;
 	}
 
 	@Override
-	public EnumPowerTier getTier()
-	{
+	public EnumPowerTier getTier() {
 		return EnumPowerTier.LOW;
 	}
 }

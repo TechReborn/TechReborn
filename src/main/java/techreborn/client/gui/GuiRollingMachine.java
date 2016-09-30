@@ -9,16 +9,14 @@ import net.minecraft.util.text.translation.I18n;
 import techreborn.client.container.ContainerRollingMachine;
 import techreborn.tiles.TileRollingMachine;
 
-public class GuiRollingMachine extends GuiContainer
-{
+public class GuiRollingMachine extends GuiContainer {
 
 	public static final ResourceLocation texture = new ResourceLocation("techreborn",
-			"textures/gui/rolling_machine.png");
+		"textures/gui/rolling_machine.png");
 	TileRollingMachine rollingMachine;
 	ContainerRollingMachine containerRollingMachine;
 
-	public GuiRollingMachine(EntityPlayer player, TileRollingMachine tileRollingmachine)
-	{
+	public GuiRollingMachine(EntityPlayer player, TileRollingMachine tileRollingmachine) {
 		super(new ContainerRollingMachine(tileRollingmachine, player));
 		this.xSize = 176;
 		this.ySize = 167;
@@ -27,8 +25,7 @@ public class GuiRollingMachine extends GuiContainer
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_)
-	{
+	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_) {
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.getTextureManager().bindTexture(texture);
 		int k = (this.width - this.xSize) / 2;
@@ -39,24 +36,21 @@ public class GuiRollingMachine extends GuiContainer
 		this.drawTexturedModalRect(k + 91, l + 34, 176, 14, j + 1, 19);
 
 		j = this.rollingMachine.getEnergyScaled(12);
-		if (j > 0)
-		{
+		if (j > 0) {
 			this.drawTexturedModalRect(k + 7, l + 33 + 12 - j, 176, 12 - j, 14, j + 2);
 		}
 	}
 
-	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_)
-	{
+	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
 		String name = I18n.translateToLocal("tile.techreborn.rollingmachine.name");
 		this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6,
-				4210752);
+			4210752);
 		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,
-				this.ySize - 96 + 2, 4210752);
+			this.ySize - 96 + 2, 4210752);
 	}
 
 	@Override
-	public void initGui()
-	{
+	public void initGui() {
 		this.buttonList.clear();
 		int k = (this.width - this.xSize) / 2;
 		int l = (this.height - this.ySize) / 2;

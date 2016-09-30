@@ -15,16 +15,16 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
  * Created by Mark on 04/06/2016.
  */
 public class ProbeConfig implements IProbeConfigProvider {
-    @Override
-    public void getProbeConfig(IProbeConfig config, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data) {
+	@Override
+	public void getProbeConfig(IProbeConfig config, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data) {
 
-    }
+	}
 
-    @Override
-    public void getProbeConfig(IProbeConfig config, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data) {
-        TileEntity tile = world.getTileEntity(data.getPos());
-        if(tile instanceof TilePowerAcceptor){
-            config.setRFMode(0);
-        }
-    }
+	@Override
+	public void getProbeConfig(IProbeConfig config, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data) {
+		TileEntity tile = world.getTileEntity(data.getPos());
+		if (tile instanceof TilePowerAcceptor) {
+			config.setRFMode(0);
+		}
+	}
 }

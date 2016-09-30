@@ -15,11 +15,9 @@ import techreborn.lib.ModInfo;
 /**
  * Created by modmuss50 on 20/02/2016.
  */
-public class ItemBlockRubberSapling extends ItemBlock implements ITexturedItem
-{
+public class ItemBlockRubberSapling extends ItemBlock implements ITexturedItem {
 
-	public ItemBlockRubberSapling(Block block)
-	{
+	public ItemBlockRubberSapling(Block block) {
 		super(block);
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		setUnlocalizedName("techreborn.rubberSapling");
@@ -27,21 +25,18 @@ public class ItemBlockRubberSapling extends ItemBlock implements ITexturedItem
 	}
 
 	@Override
-	public String getTextureName(int damage)
-	{
+	public String getTextureName(int damage) {
 		return "techreborn:items/misc/rubber_sapling";
 	}
 
 	@Override
-	public int getMaxMeta()
-	{
+	public int getMaxMeta() {
 		return 1;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining)
-	{
+	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
 		return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
 	}
 }

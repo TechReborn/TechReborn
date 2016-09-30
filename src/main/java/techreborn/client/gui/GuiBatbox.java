@@ -8,8 +8,7 @@ import reborncore.common.powerSystem.PowerSystem;
 import techreborn.client.container.ContainerBatbox;
 import techreborn.tiles.storage.TileBatBox;
 
-public class GuiBatbox extends GuiContainer
-{
+public class GuiBatbox extends GuiContainer {
 
 	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/batbox.png");
 
@@ -17,8 +16,7 @@ public class GuiBatbox extends GuiContainer
 
 	ContainerBatbox containerGenerator;
 
-	public GuiBatbox(EntityPlayer player, TileBatBox generator)
-	{
+	public GuiBatbox(EntityPlayer player, TileBatBox generator) {
 		super(new ContainerBatbox(generator, player));
 		this.xSize = 176;
 		this.ySize = 167;
@@ -27,16 +25,14 @@ public class GuiBatbox extends GuiContainer
 	}
 
 	@Override
-	public void initGui()
-	{
+	public void initGui() {
 		int k = (this.width - this.xSize) / 2;
 		int l = (this.height - this.ySize) / 2;
 		super.initGui();
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_)
-	{
+	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_) {
 		this.mc.getTextureManager().bindTexture(texture);
 		int k = (this.width - this.xSize) / 2;
 		int l = (this.height - this.ySize) / 2;
@@ -45,8 +41,7 @@ public class GuiBatbox extends GuiContainer
 		int j = 0;
 
 		j = generator.getEnergyScaled(24);
-		if (j > 0)
-		{
+		if (j > 0) {
 			this.drawTexturedModalRect(k + 109, l + 21 + 12, 176, 0, j + 1, 16);
 		}
 		//
@@ -58,17 +53,16 @@ public class GuiBatbox extends GuiContainer
 		// }
 	}
 
-	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_)
-	{
+	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
 		String name = I18n.translateToLocal("tile.techreborn.batbox.name");
 		this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6,
-				4210752);
+			4210752);
 
 		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,
-				this.ySize - 96 + 2, 4210752);
+			this.ySize - 96 + 2, 4210752);
 		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(generator.getMaxPower()), 25, this.ySize - 140,
-				4210752);
+			4210752);
 		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerGenerator.energy), 25, this.ySize - 150,
-				4210752);
+			4210752);
 	}
 }

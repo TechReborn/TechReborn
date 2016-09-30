@@ -1,6 +1,5 @@
 package techreborn.tiles;
 
-import reborncore.common.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -9,6 +8,7 @@ import reborncore.api.power.EnumPowerTier;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IContainerProvider;
 import reborncore.api.tile.IInventoryProvider;
+import reborncore.common.IWrenchable;
 import reborncore.common.container.RebornContainer;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
@@ -17,15 +17,13 @@ import techreborn.api.Reference;
 import techreborn.client.container.ContainerAssemblingMachine;
 import techreborn.init.ModBlocks;
 
-public class TileAssemblingMachine extends TilePowerAcceptor implements IWrenchable, ISidedInventory,IInventoryProvider, IRecipeCrafterProvider, IContainerProvider
-{
+public class TileAssemblingMachine extends TilePowerAcceptor implements IWrenchable, ISidedInventory, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
 
 	public int tickTime;
 	public Inventory inventory = new Inventory(8, "TileAssemblingMachine", 64, this);
 	public RecipeCrafter crafter;
 
-	public TileAssemblingMachine()
-	{
+	public TileAssemblingMachine() {
 		super(2);
 		// Input slots
 		int[] inputs = new int[2];
@@ -37,45 +35,37 @@ public class TileAssemblingMachine extends TilePowerAcceptor implements IWrencha
 	}
 
 	@Override
-	public void updateEntity()
-	{
+	public void updateEntity() {
 		super.updateEntity();
 		charge(3);
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side)
-	{
+	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
 		return false;
 	}
 
 	@Override
-	public EnumFacing getFacing()
-	{
+	public EnumFacing getFacing() {
 		return getFacingEnum();
 	}
 
 	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
-	{
+	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
 		return entityPlayer.isSneaking();
 	}
 
 	@Override
-	public float getWrenchDropRate()
-	{
+	public float getWrenchDropRate() {
 		return 1.0F;
 	}
 
 	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
-	{
+	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.AssemblyMachine, 1);
 	}
 
-
-	public boolean isComplete()
-	{
+	public boolean isComplete() {
 		return false;
 	}
 
@@ -89,48 +79,40 @@ public class TileAssemblingMachine extends TilePowerAcceptor implements IWrencha
 	// }
 	// }
 
-	public int getProgressScaled(int scale)
-	{
-		if (crafter.currentTickTime != 0)
-		{
+	public int getProgressScaled(int scale) {
+		if (crafter.currentTickTime != 0) {
 			return crafter.currentTickTime * scale / crafter.currentNeededTicks;
 		}
 		return 0;
 	}
 
 	@Override
-	public double getMaxPower()
-	{
+	public double getMaxPower() {
 		return 10000;
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction)
-	{
+	public boolean canAcceptEnergy(EnumFacing direction) {
 		return true;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnumFacing direction)
-	{
+	public boolean canProvideEnergy(EnumFacing direction) {
 		return false;
 	}
 
 	@Override
-	public double getMaxOutput()
-	{
+	public double getMaxOutput() {
 		return 0;
 	}
 
 	@Override
-	public double getMaxInput()
-	{
+	public double getMaxInput() {
 		return 128;
 	}
 
 	@Override
-	public EnumPowerTier getTier()
-	{
+	public EnumPowerTier getTier() {
 		return EnumPowerTier.LOW;
 	}
 
@@ -149,19 +131,19 @@ public class TileAssemblingMachine extends TilePowerAcceptor implements IWrencha
 		return RebornContainer.getContainerFromClass(ContainerAssemblingMachine.class, this);
 	}
 
-    @Override
-    public int[] getSlotsForFace(EnumFacing side) {
-        return new int[] {0, 1, 2};
-    }
+	@Override
+	public int[] getSlotsForFace(EnumFacing side) {
+		return new int[] { 0, 1, 2 };
+	}
 
-    @Override
-    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
-        return index == 0 || index == 1;
-    }
+	@Override
+	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+		return index == 0 || index == 1;
+	}
 
-    @Override
-    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
-        return index == 2;
-    }
+	@Override
+	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+		return index == 2;
+	}
 
 }

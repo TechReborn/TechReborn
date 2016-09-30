@@ -58,32 +58,31 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-@mezz.jei.api.JEIPlugin public class TechRebornJeiPlugin extends BlankModPlugin
-{
-	private static void addDebugRecipes(IModRegistry registry)
-	{
+@mezz.jei.api.JEIPlugin
+public class TechRebornJeiPlugin extends BlankModPlugin {
+	private static void addDebugRecipes(IModRegistry registry) {
 		ItemStack diamondBlock = new ItemStack(Blocks.DIAMOND_BLOCK);
 		ItemStack dirtBlock = new ItemStack(Blocks.DIRT);
 		List<Object> debugRecipes = new ArrayList<>();
-		for (int i = 0; i < 10; i++)
-		{
+		for (int i = 0; i < 10; i++) {
 			int time = (int) Math.round(200 + Math.random() * 100);
 			AssemblingMachineRecipe assemblingMachineRecipe = new AssemblingMachineRecipe(diamondBlock, diamondBlock,
-					dirtBlock, time, 120);
+				dirtBlock, time, 120);
 			debugRecipes.add(assemblingMachineRecipe);
 		}
-		for (int i = 0; i < 10; i++)
-		{
+		for (int i = 0; i < 10; i++) {
 			int time = (int) Math.round(200 + Math.random() * 100);
 			ImplosionCompressorRecipe recipe = new ImplosionCompressorRecipe(diamondBlock, diamondBlock, dirtBlock,
-					dirtBlock, time, 120);
+				dirtBlock, time, 120);
 			debugRecipes.add(recipe);
 		}
 		registry.addRecipes(debugRecipes);
 	}
 
-	@Override public void register(@Nonnull IModRegistry registry)
-	{
+	@Override
+	public void register(
+		@Nonnull
+			IModRegistry registry) {
 		IJeiHelpers jeiHelpers = registry.getJeiHelpers();
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 
@@ -121,56 +120,51 @@ import java.util.List;
 		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidOil));
 
 		registry.addRecipeCategories(new AlloySmelterRecipeCategory(guiHelper),
-				new AssemblingMachineRecipeCategory(guiHelper), new BlastFurnaceRecipeCategory(guiHelper),
-				new CentrifugeRecipeCategory(guiHelper), new ChemicalReactorRecipeCategory(guiHelper),
-				new FusionReactorRecipeCategory(guiHelper), new IndustrialGrinderRecipeCategory(guiHelper),
-				new ImplosionCompressorRecipeCategory(guiHelper), new IndustrialElectrolyzerRecipeCategory(guiHelper),
-				new RollingMachineRecipeCategory(guiHelper),
-				new VacuumFreezerRecipeCategory(guiHelper), new GrinderRecipeCategory(guiHelper),
-				new ExtractorRecipeCategory(guiHelper), new CompressorRecipeCategory(guiHelper), new ScrapboxRecipeCategory(guiHelper));
+			new AssemblingMachineRecipeCategory(guiHelper), new BlastFurnaceRecipeCategory(guiHelper),
+			new CentrifugeRecipeCategory(guiHelper), new ChemicalReactorRecipeCategory(guiHelper),
+			new FusionReactorRecipeCategory(guiHelper), new IndustrialGrinderRecipeCategory(guiHelper),
+			new ImplosionCompressorRecipeCategory(guiHelper), new IndustrialElectrolyzerRecipeCategory(guiHelper),
+			new RollingMachineRecipeCategory(guiHelper),
+			new VacuumFreezerRecipeCategory(guiHelper), new GrinderRecipeCategory(guiHelper),
+			new ExtractorRecipeCategory(guiHelper), new CompressorRecipeCategory(guiHelper), new ScrapboxRecipeCategory(guiHelper));
 
 		registry.addRecipeHandlers(new AlloySmelterRecipeHandler(jeiHelpers),
-				new AssemblingMachineRecipeHandler(jeiHelpers), new BlastFurnaceRecipeHandler(jeiHelpers),
-				new CentrifugeRecipeHandler(jeiHelpers), new ChemicalReactorRecipeHandler(jeiHelpers),
-				new FusionReactorRecipeHandler(), new IndustrialGrinderRecipeHandler(jeiHelpers),
-				new ImplosionCompressorRecipeHandler(jeiHelpers), new IndustrialElectrolyzerRecipeHandler(jeiHelpers),
-				new RollingMachineRecipeHandler(),
-				new VacuumFreezerRecipeHandler(jeiHelpers), new GrinderRecipeHandler(jeiHelpers),
-				new ExtractorRecipeHandler(jeiHelpers), new CompressorRecipeHandler(jeiHelpers),
-				new ScrapboxRecipeHandler(jeiHelpers));
+			new AssemblingMachineRecipeHandler(jeiHelpers), new BlastFurnaceRecipeHandler(jeiHelpers),
+			new CentrifugeRecipeHandler(jeiHelpers), new ChemicalReactorRecipeHandler(jeiHelpers),
+			new FusionReactorRecipeHandler(), new IndustrialGrinderRecipeHandler(jeiHelpers),
+			new ImplosionCompressorRecipeHandler(jeiHelpers), new IndustrialElectrolyzerRecipeHandler(jeiHelpers),
+			new RollingMachineRecipeHandler(),
+			new VacuumFreezerRecipeHandler(jeiHelpers), new GrinderRecipeHandler(jeiHelpers),
+			new ExtractorRecipeHandler(jeiHelpers), new CompressorRecipeHandler(jeiHelpers),
+			new ScrapboxRecipeHandler(jeiHelpers));
 
 		registry.addRecipes(RecipeHandler.recipeList);
 		registry.addRecipes(FusionReactorRecipeHelper.reactorRecipes);
 
-		try
-		{
+		try {
 			registry.addRecipes(RollingMachineRecipeMaker.getRecipes(jeiHelpers));
-		} catch (RuntimeException e)
-		{
+		} catch (RuntimeException e) {
 			Core.logHelper
-					.error("Could not register rolling machine recipes. JEI may have changed its internal recipe wrapper locations.");
+				.error("Could not register rolling machine recipes. JEI may have changed its internal recipe wrapper locations.");
 			e.printStackTrace();
 		}
 
-		if (mezz.jei.config.Config.isDebugModeEnabled())
-		{
+		if (mezz.jei.config.Config.isDebugModeEnabled()) {
 			addDebugRecipes(registry);
 		}
 
 		registry.addDescription(ItemParts.getPartByName("rubberSap"),
-				I18n.translateToLocal("techreborn.desc.rubberSap"));
-		if (!ConfigTechReborn.ScrapboxDispenser)
-		{
+			I18n.translateToLocal("techreborn.desc.rubberSap"));
+		if (!ConfigTechReborn.ScrapboxDispenser) {
 			registry.addDescription(new ItemStack(ModItems.scrapBox),
-					I18n.translateToLocal("techreborn.desc.scrapBoxNoDispenser"));
-		} else
-		{
+				I18n.translateToLocal("techreborn.desc.scrapBoxNoDispenser"));
+		} else {
 			registry.addDescription(new ItemStack(ModItems.scrapBox),
-					I18n.translateToLocal("techreborn.desc.scrapBox"));
+				I18n.translateToLocal("techreborn.desc.scrapBox"));
 		}
 
 		registry.addRecipeClickArea(GuiAlloyFurnace.class, 80, 35, 26, 20, RecipeCategoryUids.ALLOY_SMELTER,
-				VanillaRecipeCategoryUid.FUEL);
+			VanillaRecipeCategoryUid.FUEL);
 		registry.addRecipeClickArea(GuiAlloySmelter.class, 80, 35, 26, 20, RecipeCategoryUids.ALLOY_SMELTER);
 		registry.addRecipeClickArea(GuiAssemblingMachine.class, 85, 34, 24, 20, RecipeCategoryUids.ASSEMBLING_MACHINE);
 		registry.addRecipeClickArea(GuiBlastFurnace.class, 63, 36, 24, 15, RecipeCategoryUids.BLAST_FURNACE);
@@ -182,82 +176,82 @@ import java.util.List;
 		registry.addRecipeClickArea(GuiFusionReactor.class, 111, 34, 27, 19, RecipeCategoryUids.FUSION_REACTOR);
 		registry.addRecipeClickArea(GuiIndustrialGrinder.class, 50, 35, 25, 16, RecipeCategoryUids.INDUSTRIAL_GRINDER);
 		registry.addRecipeClickArea(GuiImplosionCompressor.class, 60, 37, 24, 15,
-				RecipeCategoryUids.IMPLOSION_COMPRESSOR);
+			RecipeCategoryUids.IMPLOSION_COMPRESSOR);
 		registry.addRecipeClickArea(GuiIndustrialElectrolyzer.class, 72, 37, 33, 14,
-				RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER);
+			RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER);
 		registry.addRecipeClickArea(GuiRollingMachine.class, 89, 32, 26, 25, RecipeCategoryUids.ROLLING_MACHINE);
 		registry.addRecipeClickArea(GuiVacuumFreezer.class, 78, 36, 24, 16, RecipeCategoryUids.VACUUM_FREEZER);
 		registry.addRecipeClickArea(GuiGrinder.class, 78, 36, 24, 16, RecipeCategoryUids.GRINDER);
 		registry.addRecipeClickArea(GuiExtractor.class, 78, 36, 24, 16, RecipeCategoryUids.EXTRACTOR);
 		registry.addRecipeClickArea(GuiCompressor.class, 78, 36, 24, 16, RecipeCategoryUids.COMPRESSOR);
 		registry.addRecipeClickArea(GuiIronFurnace.class, 78, 36, 24, 16, VanillaRecipeCategoryUid.SMELTING,
-				VanillaRecipeCategoryUid.FUEL);
+			VanillaRecipeCategoryUid.FUEL);
 		registry.addRecipeClickArea(GuiElectricFurnace.class, 78, 36, 24, 16, VanillaRecipeCategoryUid.SMELTING);
 
 		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.Compressor), RecipeCategoryUids.COMPRESSOR);
 		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.AlloyFurnace), RecipeCategoryUids.ALLOY_SMELTER);
 		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.AlloySmelter), RecipeCategoryUids.ALLOY_SMELTER);
 		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.AssemblyMachine),
-				RecipeCategoryUids.ASSEMBLING_MACHINE);
+			RecipeCategoryUids.ASSEMBLING_MACHINE);
 		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.BlastFurnace), RecipeCategoryUids.BLAST_FURNACE);
 		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.centrifuge), RecipeCategoryUids.CENTRIFUGE);
 		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.ChemicalReactor),
-				RecipeCategoryUids.CHEMICAL_REACTOR);
+			RecipeCategoryUids.CHEMICAL_REACTOR);
 		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.Extractor), RecipeCategoryUids.EXTRACTOR);
 		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.FusionControlComputer),
-				RecipeCategoryUids.FUSION_REACTOR);
+			RecipeCategoryUids.FUSION_REACTOR);
 		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.Grinder), RecipeCategoryUids.GRINDER);
 		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.ImplosionCompressor),
-				RecipeCategoryUids.IMPLOSION_COMPRESSOR);
+			RecipeCategoryUids.IMPLOSION_COMPRESSOR);
 		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.IndustrialElectrolyzer),
-				RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER);
+			RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER);
 		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.IndustrialGrinder),
-				RecipeCategoryUids.INDUSTRIAL_GRINDER);
+			RecipeCategoryUids.INDUSTRIAL_GRINDER);
 		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.RollingMachine),
-				RecipeCategoryUids.ROLLING_MACHINE);
+			RecipeCategoryUids.ROLLING_MACHINE);
 		registry.addRecipeCategoryCraftingItem(new ItemStack(ModItems.scrapBox), RecipeCategoryUids.SCRAPBOX);
 
 		IRecipeTransferRegistry recipeTransferRegistry = registry.getRecipeTransferRegistry();
 		recipeTransferRegistry
-				.addRecipeTransferHandler(ContainerAlloyFurnace.class, RecipeCategoryUids.ALLOY_SMELTER, 0, 2, 4, 36);
+			.addRecipeTransferHandler(ContainerAlloyFurnace.class, RecipeCategoryUids.ALLOY_SMELTER, 0, 2, 4, 36);
 		recipeTransferRegistry
-				.addRecipeTransferHandler(ContainerAlloySmelter.class, RecipeCategoryUids.ALLOY_SMELTER, 0, 2, 8, 36);
+			.addRecipeTransferHandler(ContainerAlloySmelter.class, RecipeCategoryUids.ALLOY_SMELTER, 0, 2, 8, 36);
 		recipeTransferRegistry
-				.addRecipeTransferHandler(ContainerAlloyFurnace.class, VanillaRecipeCategoryUid.FUEL, 3, 1, 4, 36);
+			.addRecipeTransferHandler(ContainerAlloyFurnace.class, VanillaRecipeCategoryUid.FUEL, 3, 1, 4, 36);
 		recipeTransferRegistry
-				.addRecipeTransferHandler(ContainerAssemblingMachine.class, RecipeCategoryUids.ASSEMBLING_MACHINE, 0, 2,
-						8, 36);
+			.addRecipeTransferHandler(ContainerAssemblingMachine.class, RecipeCategoryUids.ASSEMBLING_MACHINE, 0, 2,
+				8, 36);
 		recipeTransferRegistry
-				.addRecipeTransferHandler(ContainerBlastFurnace.class, RecipeCategoryUids.BLAST_FURNACE, 0, 2, 4, 36);
+			.addRecipeTransferHandler(ContainerBlastFurnace.class, RecipeCategoryUids.BLAST_FURNACE, 0, 2, 4, 36);
 		recipeTransferRegistry
-				.addRecipeTransferHandler(ContainerCentrifuge.class, RecipeCategoryUids.CENTRIFUGE, 0, 2, 11, 36);
+			.addRecipeTransferHandler(ContainerCentrifuge.class, RecipeCategoryUids.CENTRIFUGE, 0, 2, 11, 36);
 		recipeTransferRegistry
-				.addRecipeTransferHandler(ContainerChemicalReactor.class, RecipeCategoryUids.CHEMICAL_REACTOR, 0, 2, 8,
-						36);
+			.addRecipeTransferHandler(ContainerChemicalReactor.class, RecipeCategoryUids.CHEMICAL_REACTOR, 0, 2, 8,
+				36);
 		recipeTransferRegistry
-				.addRecipeTransferHandler(ContainerFusionReactor.class, RecipeCategoryUids.FUSION_REACTOR, 0, 2, 3, 36);
+			.addRecipeTransferHandler(ContainerFusionReactor.class, RecipeCategoryUids.FUSION_REACTOR, 0, 2, 3, 36);
 		recipeTransferRegistry
-				.addRecipeTransferHandler(ContainerIndustrialGrinder.class, RecipeCategoryUids.GRINDER, 0, 2, 6, 36);
+			.addRecipeTransferHandler(ContainerIndustrialGrinder.class, RecipeCategoryUids.GRINDER, 0, 2, 6, 36);
 		recipeTransferRegistry
-				.addRecipeTransferHandler(ContainerImplosionCompressor.class, RecipeCategoryUids.IMPLOSION_COMPRESSOR,
-						0, 2, 4, 36);
+			.addRecipeTransferHandler(ContainerImplosionCompressor.class, RecipeCategoryUids.IMPLOSION_COMPRESSOR,
+				0, 2, 4, 36);
 		recipeTransferRegistry.addRecipeTransferHandler(ContainerIndustrialElectrolyzer.class,
-				RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER, 0, 2, 7, 36);
+			RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER, 0, 2, 7, 36);
 		recipeTransferRegistry
-				.addRecipeTransferHandler(ContainerRollingMachine.class, RecipeCategoryUids.ROLLING_MACHINE, 0, 9, 11,
-						36);
+			.addRecipeTransferHandler(ContainerRollingMachine.class, RecipeCategoryUids.ROLLING_MACHINE, 0, 9, 11,
+				36);
 		recipeTransferRegistry
-				.addRecipeTransferHandler(ContainerVacuumFreezer.class, RecipeCategoryUids.VACUUM_FREEZER, 0, 1, 2, 36);
+			.addRecipeTransferHandler(ContainerVacuumFreezer.class, RecipeCategoryUids.VACUUM_FREEZER, 0, 1, 2, 36);
 		recipeTransferRegistry
-				.addRecipeTransferHandler(ContainerGrinder.class, RecipeCategoryUids.GRINDER, 0, 1, 2, 36);
+			.addRecipeTransferHandler(ContainerGrinder.class, RecipeCategoryUids.GRINDER, 0, 1, 2, 36);
 		recipeTransferRegistry
-				.addRecipeTransferHandler(ContainerExtractor.class, RecipeCategoryUids.EXTRACTOR, 0, 1, 2, 36);
+			.addRecipeTransferHandler(ContainerExtractor.class, RecipeCategoryUids.EXTRACTOR, 0, 1, 2, 36);
 		recipeTransferRegistry
-				.addRecipeTransferHandler(ContainerCompressor.class, RecipeCategoryUids.COMPRESSOR, 0, 1, 2, 36);
+			.addRecipeTransferHandler(ContainerCompressor.class, RecipeCategoryUids.COMPRESSOR, 0, 1, 2, 36);
 
 		registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.pump));
 
-		if(CompatManager.isQuantumStorageLoaded){
+		if (CompatManager.isQuantumStorageLoaded) {
 			registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.quantumChest));
 			registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.quantumTank));
 		}

@@ -5,11 +5,9 @@ import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.material.Material;
 import techreborn.client.TechRebornCreativeTabMisc;
 
-public class BlockIronFence extends BlockFence
-{
+public class BlockIronFence extends BlockFence {
 
-	public BlockIronFence()
-	{
+	public BlockIronFence() {
 		super(Material.IRON, BlockPlanks.EnumType.OAK.getMapColor());
 		setUnlocalizedName("techreborn.ironfence");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);

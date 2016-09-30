@@ -9,8 +9,7 @@ import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 
-public class GuiButtonItemTexture extends GuiButtonExt
-{
+public class GuiButtonItemTexture extends GuiButtonExt {
 
 	public int textureU;
 	public int textureV;
@@ -19,8 +18,7 @@ public class GuiButtonItemTexture extends GuiButtonExt
 	public String NAME;
 
 	public GuiButtonItemTexture(int id, int xPos, int yPos, int u, int v, int width, int height, ItemStack stack,
-			String linkedPage, String name)
-	{
+	                            String linkedPage, String name) {
 		super(id, xPos, yPos, width, height, "_");
 		textureU = u;
 		textureV = v;
@@ -29,17 +27,14 @@ public class GuiButtonItemTexture extends GuiButtonExt
 		this.LINKED_PAGE = linkedPage;
 	}
 
-	public void drawButton(Minecraft mc, int mouseX, int mouseY)
-	{
-		if (this.visible)
-		{
+	public void drawButton(Minecraft mc, int mouseX, int mouseY) {
+		if (this.visible) {
 			boolean flag = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width
-					&& mouseY < this.yPosition + this.height;
+				&& mouseY < this.yPosition + this.height;
 			mc.getTextureManager().bindTexture(BUTTON_TEXTURES);
 			int u = textureU;
 			int v = textureV;
-			if (flag)
-			{
+			if (flag) {
 				u += mc.fontRendererObj.getStringWidth(this.NAME) + 25;
 				v += mc.fontRendererObj.getStringWidth(this.NAME) + 25;
 				GL11.glPushMatrix();
@@ -54,12 +49,11 @@ public class GuiButtonItemTexture extends GuiButtonExt
 			RenderItem itemRenderer = Minecraft.getMinecraft().getRenderItem();
 			itemRenderer.renderItemIntoGUI(itemstack, this.xPosition, this.yPosition);
 			this.drawString(mc.fontRendererObj, this.NAME, this.xPosition + 20, this.yPosition + 3,
-					Color.white.getRGB());
+				Color.white.getRGB());
 		}
 	}
 
-	public boolean getIsHovering()
-	{
+	public boolean getIsHovering() {
 		return hovered;
 	}
 
