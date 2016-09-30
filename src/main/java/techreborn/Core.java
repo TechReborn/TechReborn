@@ -51,7 +51,6 @@ import java.io.File;
 public class Core {
 
     public Core() {
-        //Forge says to call it here, so yeah
         FluidRegistry.enableUniversalBucket();
     }
 
