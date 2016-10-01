@@ -411,17 +411,14 @@ public class ModBlocks {
 		lvt = new BlockLVTransformer();
 		registerBlock(lvt, "lvt");
 		GameRegistry.registerTileEntity(TileLVTransformer.class, "TileLVTransformer");
-		Core.proxy.registerCustomBlockStateLocation(lvt, "machines/energy/lv_transformer");
 
 		mvt = new BlockMVTransformer();
 		registerBlock(mvt, "mvt");
 		GameRegistry.registerTileEntity(TileMVTransformer.class, "TileMVTransformer");
-		Core.proxy.registerCustomBlockStateLocation(mvt, "machines/energy/mv_transformer");
 
 		hvt = new BlockHVTransformer();
 		registerBlock(hvt, "hvt");
 		GameRegistry.registerTileEntity(TileHVTransformer.class, "TileHVTransformer");
-		Core.proxy.registerCustomBlockStateLocation(hvt, "machines/energy/hv_transformer");
 
 		pump = new BlockPump();
 		registerBlock(pump, "pump");

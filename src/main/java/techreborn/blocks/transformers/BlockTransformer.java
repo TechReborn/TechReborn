@@ -34,7 +34,7 @@ import java.util.Random;
  */
 public abstract class BlockTransformer extends BaseTileBlock implements IRotationTexture, ITexturedBlock {
 	public static PropertyDirection FACING = PropertyDirection.create("facing", Facings.ALL);
-	protected final String prefix = "techreborn:blocks/machine/storage/";
+	protected final String prefix = "techreborn:blocks/machines/energy/";
 	public String name;
 
 	public BlockTransformer(String name) {
@@ -188,27 +188,27 @@ public abstract class BlockTransformer extends BaseTileBlock implements IRotatio
 
 	@Override
 	public String getFrontOff() {
-		return prefix + name.toLowerCase() + "_front";
+		return prefix + name.toLowerCase().replace("transformer" ,"") + "_transformer_front";
 	}
 
 	@Override
 	public String getFrontOn() {
-		return prefix + name.toLowerCase() + "_front";
+		return prefix + name.toLowerCase().replace("transformer" ,"") + "_transformer_front";
 	}
 
 	@Override
 	public String getSide() {
-		return prefix + name.toLowerCase() + "_side";
+		return prefix + name.toLowerCase().replace("transformer" ,"") + "_transformer_side";
 	}
 
 	@Override
 	public String getTop() {
-		return prefix + name.toLowerCase() + "_side";
+		return prefix + name.toLowerCase().replace("transformer" ,"") + "_transformer_side";
 	}
 
 	@Override
 	public String getBottom() {
-		return prefix + name.toLowerCase() + "_side";
+		return prefix + name.toLowerCase().replace("transformer" ,"") + "_transformer_side";
 	}
 
 	@Override
