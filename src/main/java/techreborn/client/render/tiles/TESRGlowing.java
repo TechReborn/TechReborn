@@ -40,7 +40,7 @@ public class TESRGlowing extends TileEntitySpecialRenderer<TileMachineBase> {
 			GlStateManager.color(1, 1, 1);
 
 			for (GlowInformation information : informationList) {
-				if(!te.getWorld().getBlockState(te.getPos()).getValue(information.isActive)){
+				if(information.isActive != null && !te.getWorld().getBlockState(te.getPos()).getValue(information.isActive)){
 					continue;
 				}
 				//Get the texture uv

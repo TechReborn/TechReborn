@@ -18,6 +18,8 @@ public class GlowInformation {
 
 	private ResourceLocation textureLocation;
 	public TextureAtlasSprite textureAtlasSprite;
+
+	@Nullable
 	public PropertyBool isActive;
 
 	public GlowInformation(EnumFacing dir, ResourceLocation texture, PropertyBool isActive) {

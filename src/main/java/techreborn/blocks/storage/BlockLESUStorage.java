@@ -19,7 +19,7 @@ import java.util.List;
 
 public class BlockLESUStorage extends BlockMachineBase implements IAdvancedRotationTexture {
 
-	private final String prefix = "techreborn:blocks/machine/storage/";
+	private final String prefix = "techreborn:blocks/machines/energy/";
 
 	public BlockLESUStorage(Material material) {
 		super();
@@ -61,21 +61,21 @@ public class BlockLESUStorage extends BlockMachineBase implements IAdvancedRotat
 
 	@Override
 	public String getFront(boolean isActive) {
-		return prefix + "lesu_block";
+		return prefix + "ev_multi_side";
 	}
 
 	@Override
 	public String getSide(boolean isActive) {
-		return prefix + "lesu_block";
+		return prefix + "ev_multi_side";
 	}
 
 	@Override
 	public String getTop(boolean isActive) {
-		return prefix + "lesu_block";
+		return prefix + "ev_multi_side";
 	}
 
 	@Override
 	public String getBottom(boolean isActive) {
-		return prefix + "lesu_block";
+		return prefix + "ev_multi_side";
 	}
 }

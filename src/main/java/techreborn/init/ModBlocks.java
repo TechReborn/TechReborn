@@ -278,7 +278,6 @@ public class ModBlocks {
 		LesuStorage = new BlockLESUStorage(Material.ROCK);
 		registerBlock(LesuStorage, "lesustorage");
 		GameRegistry.registerTileEntity(TileLesuStorage.class, "TileLesuStorageTR");
-		Core.proxy.registerCustomBlockStateLocation(Lesu, "machines/energy/ev_storage_multi_storage");
 
 		Distillationtower = new BlockDistillationTower(Material.ROCK);
 		registerBlock(Distillationtower, "distillationtower");
@@ -295,7 +294,7 @@ public class ModBlocks {
 
 		PlasmaGenerator = new BlockPlasmaGenerator(Material.ROCK);
 		registerBlock(PlasmaGenerator, "plasmagenerator");
-		Core.proxy.registerCustomBlockStateLocation(PlasmaGenerator, "machines/generators/plasma_generator");
+		GameRegistry.registerTileEntity(TilePlasmaGenerator.class, "TilePlasmaGeneratorTR");
 
 		ComputerCube = new BlockComputerCube(Material.ROCK);
 		registerBlock(ComputerCube, "computercube");

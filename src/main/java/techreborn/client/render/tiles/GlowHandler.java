@@ -12,6 +12,7 @@ import techreborn.blocks.tier1.BlockAlloySmelter;
 import techreborn.proxies.ClientProxy;
 import techreborn.tiles.TileAlloySmelter;
 import techreborn.tiles.TileAssemblingMachine;
+import techreborn.tiles.generator.TilePlasmaGenerator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,6 +55,7 @@ public class GlowHandler {
 	public void registerGlow(GlowRegisterEvent e) {
 		e.handler.register(TileAssemblingMachine.class, new GlowInformation(null, new ResourceLocation("techreborn", "blocks/machines/tier1_machines/electric_alloy_smelter_front_on_glow"), BlockAssemblingMachine.ACTIVE));
 		e.handler.register(TileAlloySmelter.class, new GlowInformation(null, new ResourceLocation("techreborn", "blocks/machines/tier1_machines/electric_alloy_smelter_front_on_glow"), BlockAlloySmelter.ACTIVE));
+		//TODO improve this to allow this to work //e.handler.register(TilePlasmaGenerator.class, new GlowInformation(null, new ResourceLocation("techreborn", "blocks/machines/generators/plasmagenerator_side_glow"), null));
 	}
 
 	public class GlowRegisterEvent extends Event {

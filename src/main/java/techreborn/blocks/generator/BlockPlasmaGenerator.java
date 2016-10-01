@@ -1,13 +1,19 @@
 package techreborn.blocks.generator;
 
+import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.world.World;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.blocks.IAdvancedRotationTexture;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.tiles.generator.TilePlasmaGenerator;
 
-public class BlockPlasmaGenerator extends BlockMachineBase implements IAdvancedRotationTexture {
+public class BlockPlasmaGenerator extends BlockMachineBase implements ITexturedBlock {
 
-	private final String prefix = "techreborn:blocks/machine/generators/";
+	private final String prefix = "techreborn:blocks/machines/generators/";
 
 	public BlockPlasmaGenerator(Material material) {
 		super();
@@ -16,22 +22,22 @@ public class BlockPlasmaGenerator extends BlockMachineBase implements IAdvancedR
 	}
 
 	@Override
-	public String getFront(boolean isActive) {
-		return prefix + "plasma_generator_front";
+	public String getTextureNameFromState(IBlockState state, EnumFacing side){
+		if(side == EnumFacing.UP){
+			return prefix + "plasmagenerator_top_on";
+		} else if (side == EnumFacing.DOWN){
+			return prefix + "plasmagenerator_bottom";
+		}
+		return prefix + "plasmagenerator_side_on";
 	}
 
 	@Override
-	public String getSide(boolean isActive) {
-		return prefix + "plasma_generator_side_off";
+	public int amountOfStates(){
+		return 9;
 	}
 
 	@Override
-	public String getTop(boolean isActive) {
-		return prefix + "plasma_generator_side_off";
-	}
-
-	@Override
-	public String getBottom(boolean isActive) {
-		return prefix + "plasma_generator_side_off";
+	public TileEntity createNewTileEntity(World world, int meta) {
+		return new TilePlasmaGenerator();
 	}
 }
