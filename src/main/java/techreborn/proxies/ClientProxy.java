@@ -31,6 +31,7 @@ import techreborn.client.hud.ChargeHud;
 import techreborn.client.keybindings.KeyBindings;
 import techreborn.client.render.ModelDynamicCell;
 import techreborn.client.render.entitys.RenderNukePrimed;
+import techreborn.client.render.tiles.GlowHandler;
 import techreborn.entitys.EntityNukePrimed;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
@@ -41,6 +42,8 @@ import java.io.File;
 public class ClientProxy extends CommonProxy {
 
 	public static MultiblockRenderEvent multiblockRenderEvent;
+
+	public static GlowHandler handler;
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
@@ -83,6 +86,7 @@ public class ClientProxy extends CommonProxy {
 		ClientMultiBlocks.init();
 		StateMap rubberLeavesStateMap = new StateMap.Builder().ignore(BlockRubberLeaves.CHECK_DECAY, BlockRubberLeaves.DECAYABLE).build();
 		ModelLoader.setCustomStateMapper(ModBlocks.rubberLeaves, rubberLeavesStateMap);
+		GlowHandler.createAndLoad();
 	}
 
 	protected void registerItemModel(ItemStack item, String name) {
