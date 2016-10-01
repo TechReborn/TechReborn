@@ -263,17 +263,14 @@ public class ModBlocks {
 		Idsu = new BlockIDSU();
 		registerBlock(Idsu, "idsu");
 		GameRegistry.registerTileEntity(TileIDSU.class, "TileIDSUTR");
-		Core.proxy.registerCustomBlockStateLocation(Idsu, "machines/energy/ev_storage_transmitter");
 
 		Aesu = new BlockAESU();
 		registerBlock(Aesu, ItemBlockAesu.class, "aesu");
 		GameRegistry.registerTileEntity(TileAesu.class, "TileAesuTR");
-		Core.proxy.registerCustomBlockStateLocation(Aesu, "machines/energy/ev_storage_adjust");
 
 		Lesu = new BlockLESU();
 		registerBlock(Lesu, "lesu");
 		GameRegistry.registerTileEntity(TileLesu.class, "TileLesuTR");
-		Core.proxy.registerCustomBlockStateLocation(Lesu, "machines/energy/ev_storage_multi");
 
 		Supercondensator = new BlockSupercondensator(Material.ROCK);
 		registerBlock(Supercondensator, "supercondensator");
@@ -396,17 +393,14 @@ public class ModBlocks {
 		batBox = new BlockBatBox();
 		registerBlock(batBox, "batBox");
 		GameRegistry.registerTileEntity(TileBatBox.class, "TileBatBox");
-		Core.proxy.registerCustomBlockStateLocation(batBox, "machines/energy/lv_storage");
 
 		mfe = new BlockMFE();
 		registerBlock(mfe, "mfe");
 		GameRegistry.registerTileEntity(TileMFE.class, "TileMFE");
-		Core.proxy.registerCustomBlockStateLocation(mfe, "machines/energy/mv_storage");
 
 		mfsu = new BlockMFSU();
 		registerBlock(mfsu, "mfsu");
 		GameRegistry.registerTileEntity(TileMFSU.class, "TileMFSU");
-		Core.proxy.registerCustomBlockStateLocation(mfsu, "machines/energy/hv_storage");
 
 		lvt = new BlockLVTransformer();
 		registerBlock(lvt, "lvt");
