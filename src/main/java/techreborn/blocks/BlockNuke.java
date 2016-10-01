@@ -78,7 +78,8 @@ public class BlockNuke extends BaseBlock implements ITexturedBlock {
 	/**
 	 * Called when a neighboring block changes.
 	 */
-	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
+	@Override
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
 		if (worldIn.isBlockPowered(pos)) {
 			this.explode(worldIn, pos, state, null);
 			worldIn.setBlockToAir(pos);
@@ -94,9 +95,12 @@ public class BlockNuke extends BaseBlock implements ITexturedBlock {
 	@Override
 	public String getTextureNameFromState(IBlockState iBlockState, EnumFacing enumFacing) {
 		if (iBlockState.getValue(OVERLAY)) {
-			return "techreborn:blocks/nuke_overlay";
+			return "techreborn:blocks/nuke_front";
 		}
-		return "techreborn:blocks/nuke";
+		if(enumFacing == EnumFacing.UP || enumFacing == EnumFacing.DOWN){
+			return "techreborn:blocks/nuke_top";
+		}
+		return "techreborn:blocks/nuke_side";
 	}
 
 	@Override

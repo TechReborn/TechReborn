@@ -425,7 +425,6 @@ public class ModBlocks {
 
 		nuke = new BlockNuke();
 		registerBlock(nuke, "nuke");
-		Core.proxy.registerCustomBlockStateLocation(nuke, "nuke");
 
 		scrapboxinator = new BlockScrapboxinator(Material.IRON);
 		registerBlock(scrapboxinator, "scrapboxinator");
