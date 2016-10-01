@@ -128,7 +128,7 @@ public class BlockPlayerDetector extends BlockMachineBase implements ITexturedBl
 
 	@Override
 	public String getTextureNameFromState(IBlockState blockState, EnumFacing facing) {
-		return "techreborn:blocks/machine/greg_machines/player_detector_" + types[getMetaFromState(blockState)];
+		return "techreborn:blocks/machines/tier1_machines/player_detector_" + types[getMetaFromState(blockState)];
 	}
 
 	@Override
