@@ -357,7 +357,10 @@ public abstract class CableMultipart extends Multipart
 			network = new TRPowerNet(getCableType());
 			network.addElement(this);
 		}
-		network.endpoints.clear();
+		for (Iterator<TRPowerNet.EnergyHandler> it = network.endpoints.iterator(); it.hasNext(); ) {
+			it.next();
+			it.remove();
+		}
 		for (EnumFacing dir : EnumFacing.VALUES) {
 			TileEntity te = getNeighbourTile(dir);
 			if (te != null && te instanceof IEnergyInterfaceTile) {

@@ -11,6 +11,7 @@ import techreborn.parts.powerCables.CableMultipart;
 import techreborn.parts.powerCables.EnumCableType;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class TRPowerNet {
@@ -135,7 +136,12 @@ public class TRPowerNet {
 			}
 
 		}
-		endpoints.removeAll(deadHandlers);
+		for (Iterator<EnergyHandler> it = endpoints.iterator(); it.hasNext(); ) {
+			EnergyHandler energyHandler = it.next();
+			if (deadHandlers.contains(energyHandler)) {
+				it.remove();
+			}
+		}
 	}
 
 	public void rebuild() {
@@ -206,7 +212,10 @@ public class TRPowerNet {
 		}
 
 		cables.clear();
-		endpoints.clear();
+		for (Iterator<TRPowerNet.EnergyHandler> it = endpoints.iterator(); it.hasNext(); ) {
+			it.next();
+			it.remove();
+		}
 		energy = 0;
 
 		MinecraftForge.EVENT_BUS.unregister(this);
@@ -221,7 +230,7 @@ public class TRPowerNet {
 		return maxAdd;
 	}
 
-	private static class EnergyHandler {
+	public static class EnergyHandler {
 		private final IEnergyInterfaceTile tile;
 		private final EnumCableType type;
 		private EnumFacing side;
