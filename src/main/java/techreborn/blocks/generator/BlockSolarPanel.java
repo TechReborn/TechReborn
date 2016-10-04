@@ -21,7 +21,7 @@ import techreborn.tiles.generator.TileSolarPanel;
 public class BlockSolarPanel extends BaseTileBlock implements ITexturedBlock {
 
 	public static PropertyBool ACTIVE = PropertyBool.create("active");
-	private final String prefix = "techreborn:blocks/machine/generators/";
+	private final String prefix = "techreborn:blocks/machines/generators/";
 
 	public BlockSolarPanel() {
 		super(Material.IRON);
@@ -83,7 +83,7 @@ public class BlockSolarPanel extends BaseTileBlock implements ITexturedBlock {
 	public String getTextureNameFromState(IBlockState state, EnumFacing side) {
 		boolean isActive = state.getValue(ACTIVE);
 		if (side == EnumFacing.UP) {
-			return prefix + "solar_panel_top_" + (isActive ? "on" : "off");
+			return prefix + "solar_panel_top";
 		} else if (side == EnumFacing.DOWN) {
 			return prefix + "generator_machine_bottom";
 		}
