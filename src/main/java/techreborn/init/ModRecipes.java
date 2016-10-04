@@ -448,7 +448,7 @@ public class ModRecipes {
 
 				boolean ore = data[0].equals("ore");
 				Core.logHelper.debug("Ore: " + data[1]);
-				ItemStack dust = getDictOreOrNull(joinDictName("dust", data[1]), ore ? 2 : 1);
+				ItemStack dust = getDictOreOrNull(joinDictName("dust", data[1]), ore ? 2 : 1).copy();
 				if (dust == null || dust.getItem() == null) {
 					continue;
 				}
@@ -2076,9 +2076,9 @@ public class ModRecipes {
 				"circuitAdvanced", 'B', "machineBlockAdvanced", 'E',
 				getOre("ic2Extractor"));
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.blastFurnace), "CHC", "HBH", "FHF", 'H',
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.BlastFurnace), "CHC", "HBH", "FHF", 'H',
 				ItemParts.getPartByName("cupronickelHeatingCoil"), 'C', "circuitAdvanced", 'B',
-				BlockMachineFrame.getFrameByName("advancedMachine", 1), 'F', ModBlocks.electricFurnace);
+				BlockMachineFrame.getFrameByName("advancedMachine", 1), 'F', ModBlocks.ElectricFurnace);
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.IndustrialGrinder), "ECP", "GGG", "CBC", 'E',
 			ModBlocks.IndustrialElectrolyzer, 'P', ModBlocks.Extractor, 'C',
