@@ -448,10 +448,11 @@ public class ModRecipes {
 
 				boolean ore = data[0].equals("ore");
 				Core.logHelper.debug("Ore: " + data[1]);
-				ItemStack dust = getDictOreOrNull(joinDictName("dust", data[1]), ore ? 2 : 1);
+				ItemStack dust = getDictOreOrNull(joinDictName("dust", data[1]), ore ? 2 : 1).copy();
 				if (dust == null || dust.getItem() == null) {
 					continue;
 				}
+				dust.stackSize = 2;
 				RecipeHandler.addRecipe(new GrinderRecipe(oreStack, dust, ore ? 270 : 200, ore ? 31 : 22));
 			}
 		}
