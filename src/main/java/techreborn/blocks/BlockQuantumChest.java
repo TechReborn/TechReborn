@@ -15,13 +15,11 @@ import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileQuantumChest;
 
-public class BlockQuantumChest extends BlockMachineBase implements IAdvancedRotationTexture
-{
+public class BlockQuantumChest extends BlockMachineBase implements IAdvancedRotationTexture {
 
 	private final String prefix = "techreborn:blocks/machine/greg_machines/";
 
-	public BlockQuantumChest()
-	{
+	public BlockQuantumChest() {
 		super();
 		setUnlocalizedName("techreborn.quantumChest");
 		setCreativeTab(TechRebornCreativeTab.instance);
@@ -29,41 +27,35 @@ public class BlockQuantumChest extends BlockMachineBase implements IAdvancedRota
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
-	{
+	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
 		return new TileQuantumChest();
 	}
 
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-			EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)
-	{
+	                                EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
 		if (!playerIn.isSneaking())
 			playerIn.openGui(Core.INSTANCE, GuiHandler.quantumChestID, worldIn, pos.getX(), pos.getY(), pos.getZ());
 		return true;
 	}
 
 	@Override
-	public String getFront(boolean isActive)
-	{
+	public String getFront(boolean isActive) {
 		return prefix + "quantum_chest";
 	}
 
 	@Override
-	public String getSide(boolean isActive)
-	{
+	public String getSide(boolean isActive) {
 		return prefix + "qchest_side";
 	}
 
 	@Override
-	public String getTop(boolean isActive)
-	{
+	public String getTop(boolean isActive) {
 		return prefix + "quantum_top";
 	}
 
 	@Override
-	public String getBottom(boolean isActive)
-	{
+	public String getBottom(boolean isActive) {
 		return prefix + "machine_bottom";
 	}
 }

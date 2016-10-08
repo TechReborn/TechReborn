@@ -14,35 +14,30 @@ import techreborn.parts.powerCables.EnumCableType;
 /**
  * Created by modmuss50 on 04/03/2016.
  */
-public class ClientPartModelBakery
-{
+public class ClientPartModelBakery {
 
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent(priority = EventPriority.LOWEST)
-	public void onModelBake(ModelBakeEvent event)
-	{
-		for (EnumCableType type : EnumCableType.values())
-		{
+	public void onModelBake(ModelBakeEvent event) {
+		for (EnumCableType type : EnumCableType.values()) {
 			event.getModelRegistry().putObject(
-					new ModelResourceLocation("techreborn:cable", "type=" + type.getName().toLowerCase()),
-					new RenderCablePart(type));
+				new ModelResourceLocation("techreborn:cable", "type=" + type.getName().toLowerCase()),
+				new RenderCablePart(type));
 		}
-		for(EnumFluidPipeTypes type : EnumFluidPipeTypes.values()){
+		for (EnumFluidPipeTypes type : EnumFluidPipeTypes.values()) {
 			event.getModelRegistry().putObject(
-					new ModelResourceLocation("techreborn:fluidpipe#type=" + type.getName().toLowerCase()),
-					new RenderFluidPipePart(type));
+				new ModelResourceLocation("techreborn:fluidpipe#type=" + type.getName().toLowerCase()),
+				new RenderFluidPipePart(type));
 		}
 
 	}
 
 	@SubscribeEvent
-	public void textureStichEvent(TextureStitchEvent event)
-	{
-		for (EnumCableType type : EnumCableType.values())
-		{
+	public void textureStichEvent(TextureStitchEvent event) {
+		for (EnumCableType type : EnumCableType.values()) {
 			event.getMap().registerSprite(new ResourceLocation(type.textureName));
 		}
-		for(EnumFluidPipeTypes type : EnumFluidPipeTypes.values()){
+		for (EnumFluidPipeTypes type : EnumFluidPipeTypes.values()) {
 			event.getMap().registerSprite(new ResourceLocation(type.textureName));
 		}
 	}

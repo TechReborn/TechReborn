@@ -1,9 +1,6 @@
 package techreborn.items.tools;
 
-import java.util.Set;
-
 import com.google.common.collect.Sets;
-
 import me.modmuss50.jsonDestroyer.api.IHandHeld;
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.block.Block;
@@ -20,13 +17,14 @@ import reborncore.RebornCore;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.lib.ModInfo;
 
-import net.minecraft.item.Item.ToolMaterial;
-public class ItemTRAxe extends ItemTool implements ITexturedItem , IHandHeld {
+import java.util.Set;
+
+public class ItemTRAxe extends ItemTool implements ITexturedItem, IHandHeld {
 	private ToolMaterial material = ToolMaterial.WOOD;
 
 	private static final Set<Block> EFFECTIVE_ON = Sets.newHashSet(new Block[] { Blocks.PLANKS, Blocks.BOOKSHELF,
-			Blocks.LOG, Blocks.LOG2, Blocks.CHEST, Blocks.PUMPKIN, Blocks.LIT_PUMPKIN, Blocks.MELON_BLOCK,
-			Blocks.LADDER, Blocks.WOODEN_BUTTON, Blocks.WOODEN_PRESSURE_PLATE });
+		Blocks.LOG, Blocks.LOG2, Blocks.CHEST, Blocks.PUMPKIN, Blocks.LIT_PUMPKIN, Blocks.MELON_BLOCK,
+		Blocks.LADDER, Blocks.WOODEN_BUTTON, Blocks.WOODEN_PRESSURE_PLATE });
 
 	public ItemTRAxe(ToolMaterial material) {
 		super(material, EFFECTIVE_ON);
@@ -41,7 +39,7 @@ public class ItemTRAxe extends ItemTool implements ITexturedItem , IHandHeld {
 	public float getStrVsBlock(ItemStack stack, IBlockState state) {
 		Material material = state.getMaterial();
 		return material != Material.WOOD && material != Material.PLANTS && material != Material.VINE
-				? super.getStrVsBlock(stack, state) : this.efficiencyOnProperMaterial;
+		       ? super.getStrVsBlock(stack, state) : this.efficiencyOnProperMaterial;
 	}
 
 	@Override

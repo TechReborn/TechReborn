@@ -2,22 +2,20 @@ package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IContainerListener;
-import reborncore.client.gui.BaseSlot;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import reborncore.client.gui.BaseSlot;
 import reborncore.client.gui.SlotOutput;
 import reborncore.common.container.RebornContainer;
 import techreborn.tiles.TileMatterFabricator;
 
-public class ContainerMatterFabricator extends RebornContainer
-{
+public class ContainerMatterFabricator extends RebornContainer {
 
 	public int progressTime;
 	EntityPlayer player;
 	TileMatterFabricator tile;
 
-	public ContainerMatterFabricator(TileMatterFabricator tileMatterfab, EntityPlayer player)
-	{
+	public ContainerMatterFabricator(TileMatterFabricator tileMatterfab, EntityPlayer player) {
 		tile = tileMatterfab;
 		this.player = player;
 
@@ -34,61 +32,49 @@ public class ContainerMatterFabricator extends RebornContainer
 
 		int i;
 
-		for (i = 0; i < 3; ++i)
-		{
-			for (int j = 0; j < 9; ++j)
-			{
+		for (i = 0; i < 3; ++i) {
+			for (int j = 0; j < 9; ++j) {
 				this.addSlotToContainer(new BaseSlot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 			}
 		}
 
-		for (i = 0; i < 9; ++i)
-		{
+		for (i = 0; i < 9; ++i) {
 			this.addSlotToContainer(new BaseSlot(player.inventory, i, 8 + i * 18, 142));
 		}
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer p_75145_1_)
-	{
+	public boolean canInteractWith(EntityPlayer p_75145_1_) {
 		return true;
 	}
 
 	@Override
-	public void detectAndSendChanges()
-	{
+	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
-		for (int i = 0; i < this.listeners.size(); i++)
-		{
+		for (int i = 0; i < this.listeners.size(); i++) {
 			IContainerListener IContainerListener = this.listeners.get(i);
-			if (this.progressTime != tile.progresstime)
-			{
+			if (this.progressTime != tile.progresstime) {
 				IContainerListener.sendProgressBarUpdate(this, 0, tile.progresstime);
 			}
 		}
 	}
 
 	@Override
-	public void addListener(IContainerListener crafting)
-	{
+	public void addListener(IContainerListener crafting) {
 		super.addListener(crafting);
 		crafting.sendProgressBarUpdate(this, 0, tile.progresstime);
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void updateProgressBar(int id, int value)
-	{
-		if (id == 0)
-		{
+	public void updateProgressBar(int id, int value) {
+		if (id == 0) {
 			this.progressTime = value;
 		}
 	}
 
-	public int getProgressScaled(int scale)
-	{
-		if (progressTime != 0)
-		{
+	public int getProgressScaled(int scale) {
+		if (progressTime != 0) {
 			return progressTime * scale / tile.maxProgresstime();
 		}
 		return 0;

@@ -6,8 +6,8 @@ import stanhebben.zenscript.annotations.ZenClass;
 
 @ZenClass("mods.techreborn.generator")
 public class MTGenerator {
-    public static void addFluidPower(ILiquidStack fluid, double value){
-        FluidPowerManager.fluidPowerValues.put(MinetweakerCompat.toFluidStack(fluid).getFluid(), value);
-    }
+	public static void addFluidPower(ILiquidStack fluid, double value) {
+		FluidPowerManager.fluidPowerValues.put(MinetweakerCompat.toFluidStack(fluid).getFluid(), value);
+	}
 
 }

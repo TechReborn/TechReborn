@@ -26,18 +26,20 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModFluids;
 
-import static techreborn.tiles.multiblock.MultiblockChecker.*;
+import static techreborn.tiles.multiblock.MultiblockChecker.CASING_NORMAL;
+import static techreborn.tiles.multiblock.MultiblockChecker.CASING_REINFORCED;
+import static techreborn.tiles.multiblock.MultiblockChecker.ZERO_OFFSET;
 
-public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrenchable, IFluidHandler, IInventoryProvider, ISidedInventory, ITileRecipeHandler<IndustrialGrinderRecipe>, IRecipeCrafterProvider {
+public class TileIndustrialGrinder extends TilePowerAcceptor
+	implements IWrenchable, IFluidHandler, IInventoryProvider, ISidedInventory, ITileRecipeHandler<IndustrialGrinderRecipe>, IRecipeCrafterProvider {
 	public static final int TANK_CAPACITY = 16000;
 
 	public Inventory inventory = new Inventory(6, "TileGrinder", 64, this);
 	public Tank tank = new Tank("TileGrinder", TANK_CAPACITY, this);
 	public RecipeCrafter crafter;
-    public MultiblockChecker multiblockChecker;
+	public MultiblockChecker multiblockChecker;
 
-	public TileIndustrialGrinder()
-	{
+	public TileIndustrialGrinder() {
 		super(ConfigTechReborn.CentrifugeTier);
 		// TODO configs
 
@@ -53,52 +55,47 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrencha
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side)
-	{
+	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
 		return false;
 	}
 
 	@Override
-	public EnumFacing getFacing()
-	{
+	public EnumFacing getFacing() {
 		return getFacingEnum();
 	}
 
 	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
-	{
+	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
 		return entityPlayer.isSneaking();
 	}
 
 	@Override
-	public float getWrenchDropRate()
-	{
+	public float getWrenchDropRate() {
 		return 1.0F;
 	}
 
 	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
-	{
+	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.IndustrialGrinder, 1);
 	}
 
 	public boolean getMutliBlock() {
-        boolean down = multiblockChecker.checkRectY(1, 1, CASING_NORMAL, ZERO_OFFSET);
-        boolean up = multiblockChecker.checkRectY(1, 1, CASING_NORMAL, new BlockPos(0, 2, 0));
-        boolean blade = multiblockChecker.checkRingY(1, 1, CASING_REINFORCED, new BlockPos(0, 1, 0));
-        IBlockState centerBlock = multiblockChecker.getBlock(0, 1, 0);
-        boolean center = centerBlock.getBlock() == Blocks.WATER;
-        return down && center && blade && up;
+		boolean down = multiblockChecker.checkRectY(1, 1, CASING_NORMAL, ZERO_OFFSET);
+		boolean up = multiblockChecker.checkRectY(1, 1, CASING_NORMAL, new BlockPos(0, 2, 0));
+		boolean blade = multiblockChecker.checkRingY(1, 1, CASING_REINFORCED, new BlockPos(0, 1, 0));
+		IBlockState centerBlock = multiblockChecker.getBlock(0, 1, 0);
+		boolean center = centerBlock.getBlock() == Blocks.WATER;
+		return down && center && blade && up;
 	}
 
 	@Override
 	public void update() {
 		super.update();
 
-        if(multiblockChecker == null) {
-            BlockPos pos = getPos().offset(getFacing().getOpposite(), 2).down();
-            multiblockChecker = new MultiblockChecker(worldObj, pos);
-        }
+		if (multiblockChecker == null) {
+			BlockPos pos = getPos().offset(getFacing().getOpposite(), 2).down();
+			multiblockChecker = new MultiblockChecker(worldObj, pos);
+		}
 
 		if (getMutliBlock()) {
 			crafter.updateEntity();
@@ -107,16 +104,14 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrencha
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound tagCompound)
-	{
+	public void readFromNBT(NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
 		tank.readFromNBT(tagCompound);
 		crafter.readFromNBT(tagCompound);
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
-	{
+	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
 		tank.writeToNBT(tagCompound);
 		crafter.writeToNBT(tagCompound);
@@ -124,24 +119,20 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrencha
 	}
 
 	@Override
-	public void invalidate()
-	{
+	public void invalidate() {
 		super.invalidate();
 	}
 
 	@Override
-	public void onChunkUnload()
-	{
+	public void onChunkUnload() {
 		super.onChunkUnload();
 	}
 
 	/* IFluidHandler */
 	@Override
-	public int fill(EnumFacing from, FluidStack resource, boolean doFill)
-	{
+	public int fill(EnumFacing from, FluidStack resource, boolean doFill) {
 		if (resource.getFluid() == FluidRegistry.WATER || resource.getFluid() == ModFluids.fluidMercury
-				|| resource.getFluid() == ModFluids.fluidSodiumpersulfate)
-		{
+			|| resource.getFluid() == ModFluids.fluidSodiumpersulfate) {
 			int filled = tank.fill(resource, doFill);
 			tank.compareAndUpdate();
 			return filled;
@@ -150,10 +141,8 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrencha
 	}
 
 	@Override
-	public FluidStack drain(EnumFacing from, FluidStack resource, boolean doDrain)
-	{
-		if (resource == null || !resource.isFluidEqual(tank.getFluid()))
-		{
+	public FluidStack drain(EnumFacing from, FluidStack resource, boolean doDrain) {
+		if (resource == null || !resource.isFluidEqual(tank.getFluid())) {
 			return null;
 		}
 		FluidStack fluidStack = tank.drain(resource.amount, doDrain);
@@ -162,135 +151,120 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrencha
 	}
 
 	@Override
-	public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain)
-	{
+	public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain) {
 		FluidStack drained = tank.drain(maxDrain, doDrain);
 		tank.compareAndUpdate();
 		return drained;
 	}
 
 	@Override
-	public boolean canFill(EnumFacing from, Fluid fluid)
-	{
+	public boolean canFill(EnumFacing from, Fluid fluid) {
 		return fluid == FluidRegistry.WATER || fluid == ModFluids.fluidMercury || fluid == ModFluids.fluidSodiumpersulfate;
 	}
 
 	@Override
-	public boolean canDrain(EnumFacing from, Fluid fluid)
-	{
+	public boolean canDrain(EnumFacing from, Fluid fluid) {
 		return false;
 	}
 
 	@Override
-	public FluidTankInfo[] getTankInfo(EnumFacing from)
-	{
+	public FluidTankInfo[] getTankInfo(EnumFacing from) {
 		return new FluidTankInfo[] { tank.getInfo() };
 	}
 
 	// ISidedInventory
 	@Override
-	public int[] getSlotsForFace(EnumFacing side)
-	{
+	public int[] getSlotsForFace(EnumFacing side) {
 		return side == EnumFacing.DOWN ? new int[] { 0, 1, 2, 3, 4, 5 } : new int[] { 0, 1, 2, 3, 4, 5 };
 	}
 
 	@Override
-	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side)
-	{
+	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
 		if (slotIndex >= 2)
 			return false;
 		return isItemValidForSlot(slotIndex, itemStack);
 	}
 
 	@Override
-	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side)
-	{
+	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
 		return slotIndex == 2 || slotIndex == 3 || slotIndex == 4 || slotIndex == 5;
 	}
 
-	public int getProgressScaled(int scale)
-	{
-		if (crafter.currentTickTime != 0)
-		{
+	public int getProgressScaled(int scale) {
+		if (crafter.currentTickTime != 0) {
 			return crafter.currentTickTime * scale / crafter.currentNeededTicks;
 		}
 		return 0;
 	}
 
 	@Override
-	public double getMaxPower()
-	{
+	public double getMaxPower() {
 		return 10000;
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction)
-	{
+	public boolean canAcceptEnergy(EnumFacing direction) {
 		return true;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnumFacing direction)
-	{
+	public boolean canProvideEnergy(EnumFacing direction) {
 		return false;
 	}
 
 	@Override
-	public double getMaxOutput()
-	{
+	public double getMaxOutput() {
 		return 0;
 	}
 
 	@Override
-	public double getMaxInput()
-	{
+	public double getMaxInput() {
 		return 32;
 	}
 
 	@Override
-	public EnumPowerTier getTier()
-	{
+	public EnumPowerTier getTier() {
 		return EnumPowerTier.LOW;
 	}
 
-
 	@Override
 	public boolean canCraft(TileEntity tile, IndustrialGrinderRecipe recipe) {
-        FluidStack recipeFluid = recipe.fluidStack;
-        FluidStack tankFluid = tank.getFluid();
-        if (recipe.fluidStack == null) {
-            return true;
-        }
-        if(tankFluid == null) {
-            return false;
-        }
-        if (tankFluid.isFluidEqual(recipeFluid)) {
-            if (tankFluid.amount >= recipeFluid.amount) {
-                return true;
-            }
-        }
-        return false;
-    }
+		FluidStack recipeFluid = recipe.fluidStack;
+		FluidStack tankFluid = tank.getFluid();
+		if (recipe.fluidStack == null) {
+			return true;
+		}
+		if (tankFluid == null) {
+			return false;
+		}
+		if (tankFluid.isFluidEqual(recipeFluid)) {
+			if (tankFluid.amount >= recipeFluid.amount) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	@Override
 	public boolean onCraft(TileEntity tile, IndustrialGrinderRecipe recipe) {
-        FluidStack recipeFluid = recipe.fluidStack;
-        FluidStack tankFluid = tank.getFluid();
-        if (recipe.fluidStack == null) {
-            return true;
-        }
-        if(tankFluid == null) {
-            return false;
-        }
-        if (tankFluid.isFluidEqual(recipeFluid)) {
-            if (tankFluid.amount >= recipeFluid.amount) {
-                if(tankFluid.amount == recipeFluid.amount)
-                    tank.setFluid(null);
-                else tankFluid.amount -= recipeFluid.amount;
-                return true;
-            }
-        }
-        return false;
+		FluidStack recipeFluid = recipe.fluidStack;
+		FluidStack tankFluid = tank.getFluid();
+		if (recipe.fluidStack == null) {
+			return true;
+		}
+		if (tankFluid == null) {
+			return false;
+		}
+		if (tankFluid.isFluidEqual(recipeFluid)) {
+			if (tankFluid.amount >= recipeFluid.amount) {
+				if (tankFluid.amount == recipeFluid.amount)
+					tank.setFluid(null);
+				else
+					tankFluid.amount -= recipeFluid.amount;
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override

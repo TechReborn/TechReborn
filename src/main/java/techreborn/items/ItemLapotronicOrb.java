@@ -5,15 +5,13 @@ import reborncore.api.power.IEnergyItemInfo;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
 
-public class ItemLapotronicOrb extends ItemTextureBase implements IEnergyItemInfo
-{
+public class ItemLapotronicOrb extends ItemTextureBase implements IEnergyItemInfo {
 
 	public static final int maxCharge = ConfigTechReborn.LapotronicOrbMaxCharge;
 	public static final int tier = ConfigTechReborn.LithiumBatpackTier;
 	public double transferLimit = 10000;
 
-	public ItemLapotronicOrb()
-	{
+	public ItemLapotronicOrb() {
 		super();
 		setMaxStackSize(1);
 		setMaxDamage(13);
@@ -22,44 +20,37 @@ public class ItemLapotronicOrb extends ItemTextureBase implements IEnergyItemInf
 	}
 
 	@Override
-	public double getMaxPower(ItemStack stack)
-	{
+	public double getMaxPower(ItemStack stack) {
 		return maxCharge;
 	}
 
 	@Override
-	public boolean canAcceptEnergy(ItemStack stack)
-	{
+	public boolean canAcceptEnergy(ItemStack stack) {
 		return true;
 	}
 
 	@Override
-	public boolean canProvideEnergy(ItemStack stack)
-	{
+	public boolean canProvideEnergy(ItemStack stack) {
 		return true;
 	}
 
 	@Override
-	public double getMaxTransfer(ItemStack stack)
-	{
+	public double getMaxTransfer(ItemStack stack) {
 		return transferLimit;
 	}
 
 	@Override
-	public int getStackTier(ItemStack stack)
-	{
+	public int getStackTier(ItemStack stack) {
 		return tier;
 	}
 
 	@Override
-	public String getTextureName(int damage)
-	{
+	public String getTextureName(int damage) {
 		return "techreborn:items/tool/lapotronicEnergyOrb";
 	}
 
 	@Override
-	public int getMaxMeta()
-	{
+	public int getMaxMeta() {
 		return 1;
 	}
 }

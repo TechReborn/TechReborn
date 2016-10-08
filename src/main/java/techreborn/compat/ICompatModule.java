@@ -5,8 +5,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
-public interface ICompatModule
-{
+public interface ICompatModule {
 
 	public void preInit(FMLPreInitializationEvent event);
 

@@ -1,6 +1,5 @@
 package techreborn.tiles.teir1;
 
-import reborncore.common.IWrenchable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -9,16 +8,13 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
+import reborncore.common.IWrenchable;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-import reborncore.common.recipes.RecipeCrafter;
-
 import reborncore.common.util.Inventory;
 import techreborn.init.ModBlocks;
-import techreborn.utils.upgrade.UpgradeHandler;
 
-public class TileElectricFurnace extends TilePowerAcceptor implements IWrenchable,IInventoryProvider, ISidedInventory
-{
+public class TileElectricFurnace extends TilePowerAcceptor implements IWrenchable, IInventoryProvider, ISidedInventory {
 
 	public Inventory inventory = new Inventory(6, "TileElectricFurnace", 64, this);
 	public int capacity = 1000;
@@ -27,17 +23,15 @@ public class TileElectricFurnace extends TilePowerAcceptor implements IWrenchabl
 	public int cost = 8;
 	int input1 = 0;
 	int output = 1;
-	private static final int[] SLOTS_TOP = new int[] {0};
-	private static final int[] SLOTS_BOTTOM = new int[] {1};
-	private static final int[] SLOTS_SIDES = new int[] {1};
+	private static final int[] SLOTS_TOP = new int[] { 0 };
+	private static final int[] SLOTS_BOTTOM = new int[] { 1 };
+	private static final int[] SLOTS_SIDES = new int[] { 1 };
 
-	public TileElectricFurnace()
-	{
+	public TileElectricFurnace() {
 		super(1);
 	}
 
-	public int gaugeProgressScaled(int scale)
-	{
+	public int gaugeProgressScaled(int scale) {
 		return (progress * scale) / fuelScale;
 	}
 
@@ -46,65 +40,51 @@ public class TileElectricFurnace extends TilePowerAcceptor implements IWrenchabl
 		super.update();
 		boolean burning = isBurning();
 		boolean updateInventory = false;
-		if (isBurning() && canSmelt())
-		{
+		if (isBurning() && canSmelt()) {
 			updateState();
 
 			progress++;
-			if(progress % 10 == 0){
+			if (progress % 10 == 0) {
 				useEnergy(cost);
 			}
-			if (progress >= fuelScale)
-			{
+			if (progress >= fuelScale) {
 				progress = 0;
 				cookItems();
 				updateInventory = true;
 			}
-		} else
-		{
+		} else {
 			progress = 0;
 			updateState();
 		}
-		if (burning != isBurning())
-		{
+		if (burning != isBurning()) {
 			updateInventory = true;
 		}
-		if (updateInventory)
-		{
+		if (updateInventory) {
 			markDirty();
 		}
 	}
 
-	public void cookItems()
-	{
-		if (this.canSmelt())
-		{
+	public void cookItems() {
+		if (this.canSmelt()) {
 			ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(getStackInSlot(input1));
 
-			if (getStackInSlot(output) == null)
-			{
+			if (getStackInSlot(output) == null) {
 				setInventorySlotContents(output, itemstack.copy());
-			} else if (getStackInSlot(output).isItemEqual(itemstack))
-			{
+			} else if (getStackInSlot(output).isItemEqual(itemstack)) {
 				getStackInSlot(output).stackSize += itemstack.stackSize;
 			}
-			if (getStackInSlot(input1).stackSize > 1)
-			{
+			if (getStackInSlot(input1).stackSize > 1) {
 				this.decrStackSize(input1, 1);
-			} else
-			{
+			} else {
 				setInventorySlotContents(input1, null);
 			}
 		}
 	}
 
-	public boolean canSmelt()
-	{
-		if (getStackInSlot(input1) == null)
-		{
+	public boolean canSmelt() {
+		if (getStackInSlot(input1) == null) {
 			return false;
-		} else
-		{
+		} else {
 			ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(getStackInSlot(input1));
 			if (itemstack == null)
 				return false;
@@ -117,26 +97,21 @@ public class TileElectricFurnace extends TilePowerAcceptor implements IWrenchabl
 		}
 	}
 
-	public boolean isBurning()
-	{
+	public boolean isBurning() {
 		return getEnergy() > cost;
 	}
 
-	public ItemStack getResultFor(ItemStack stack)
-	{
+	public ItemStack getResultFor(ItemStack stack) {
 		ItemStack result = FurnaceRecipes.instance().getSmeltingResult(stack);
-		if (result != null)
-		{
+		if (result != null) {
 			return result.copy();
 		}
 		return null;
 	}
 
-	public void updateState()
-	{
+	public void updateState() {
 		IBlockState BlockStateContainer = worldObj.getBlockState(pos);
-		if (BlockStateContainer.getBlock() instanceof BlockMachineBase)
-		{
+		if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
 			BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
 			if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != progress > 0)
 				blockMachineBase.setActive(progress > 0, worldObj, pos);
@@ -144,94 +119,79 @@ public class TileElectricFurnace extends TilePowerAcceptor implements IWrenchabl
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side)
-	{
+	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
 		return false;
 	}
 
 	@Override
-	public EnumFacing getFacing()
-	{
+	public EnumFacing getFacing() {
 		return getFacingEnum();
 	}
 
 	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
-	{
+	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
 		return entityPlayer.isSneaking();
 	}
 
 	@Override
-	public float getWrenchDropRate()
-	{
+	public float getWrenchDropRate() {
 		return 1.0F;
 	}
 
 	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
-	{
+	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.ElectricFurnace, 1);
 	}
 
-	public boolean isComplete()
-	{
+	public boolean isComplete() {
 		return false;
 	}
 
 	// ISidedInventory
 	@Override
-	public int[] getSlotsForFace(EnumFacing side)
-	{
+	public int[] getSlotsForFace(EnumFacing side) {
 		return side == EnumFacing.DOWN ? SLOTS_BOTTOM : (side == EnumFacing.UP ? SLOTS_TOP : SLOTS_SIDES);
 	}
 
 	@Override
-	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side)
-	{
+	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
 		if (slotIndex == 2)
 			return false;
 		return isItemValidForSlot(slotIndex, itemStack);
 	}
 
 	@Override
-	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side)
-	{
+	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
 		return slotIndex == 1;
 	}
 
 	@Override
-	public double getMaxPower()
-	{
+	public double getMaxPower() {
 		return capacity;
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction)
-	{
+	public boolean canAcceptEnergy(EnumFacing direction) {
 		return true;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnumFacing direction)
-	{
+	public boolean canProvideEnergy(EnumFacing direction) {
 		return false;
 	}
 
 	@Override
-	public double getMaxOutput()
-	{
+	public double getMaxOutput() {
 		return 0;
 	}
 
 	@Override
-	public double getMaxInput()
-	{
+	public double getMaxInput() {
 		return 32;
 	}
 
 	@Override
-	public EnumPowerTier getTier()
-	{
+	public EnumPowerTier getTier() {
 		return EnumPowerTier.LOW;
 	}
 

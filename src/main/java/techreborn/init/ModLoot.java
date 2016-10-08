@@ -1,9 +1,7 @@
 package techreborn.init;
 
-
 //TODO 1.9 nope
-public class ModLoot
-{
+public class ModLoot {
 	//
 	// public static WeightedRandomChestContent rubberSaplingLoot = new
 	// WeightedRandomChestContent(new ItemStack(ModBlocks.rubberSapling), 1, 3,
@@ -16,8 +14,7 @@ public class ModLoot
 	// public static WeightedRandomChestContent steelIngotLoot = new
 	// WeightedRandomChestContent(ItemIngots.getIngotByName("steel"), 1, 3, 5);
 
-	public static void init()
-	{
+	public static void init() {
 		// if(ConfigTechReborn.RubberSaplingLoot){
 		// generate(rubberSaplingLoot);
 		// }
@@ -32,17 +29,17 @@ public class ModLoot
 		// }
 	}
 
-//	public static void generate(WeightedRandomChestContent chestContent)
-//	{
-		// for (String category :
-		// Arrays.asList(ChestGenHooks.VILLAGE_BLACKSMITH,
-		// ChestGenHooks.MINESHAFT_CORRIDOR, ChestGenHooks.PYRAMID_DESERT_CHEST,
-		// ChestGenHooks.PYRAMID_JUNGLE_CHEST,
-		// ChestGenHooks.PYRAMID_JUNGLE_DISPENSER,
-		// ChestGenHooks.STRONGHOLD_CORRIDOR, ChestGenHooks.STRONGHOLD_LIBRARY,
-		// ChestGenHooks.STRONGHOLD_CROSSING, ChestGenHooks.BONUS_CHEST,
-		// ChestGenHooks.DUNGEON_CHEST)) {
-		// ChestGenHooks.addItem(category, chestContent);
-		// }
-//	}
+	//	public static void generate(WeightedRandomChestContent chestContent)
+	//	{
+	// for (String category :
+	// Arrays.asList(ChestGenHooks.VILLAGE_BLACKSMITH,
+	// ChestGenHooks.MINESHAFT_CORRIDOR, ChestGenHooks.PYRAMID_DESERT_CHEST,
+	// ChestGenHooks.PYRAMID_JUNGLE_CHEST,
+	// ChestGenHooks.PYRAMID_JUNGLE_DISPENSER,
+	// ChestGenHooks.STRONGHOLD_CORRIDOR, ChestGenHooks.STRONGHOLD_LIBRARY,
+	// ChestGenHooks.STRONGHOLD_CROSSING, ChestGenHooks.BONUS_CHEST,
+	// ChestGenHooks.DUNGEON_CHEST)) {
+	// ChestGenHooks.addItem(category, chestContent);
+	// }
+	//	}
 }

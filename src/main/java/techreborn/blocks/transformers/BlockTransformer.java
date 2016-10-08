@@ -32,14 +32,12 @@ import java.util.Random;
 /**
  * Created by Rushmead
  */
-public abstract class BlockTransformer extends BaseTileBlock implements IRotationTexture, ITexturedBlock
-{
+public abstract class BlockTransformer extends BaseTileBlock implements IRotationTexture, ITexturedBlock {
 	public static PropertyDirection FACING = PropertyDirection.create("facing", Facings.ALL);
 	protected final String prefix = "techreborn:blocks/machine/storage/";
 	public String name;
 
-	public BlockTransformer(String name)
-	{
+	public BlockTransformer(String name) {
 		super(Material.ROCK);
 		setHardness(2f);
 		setUnlocalizedName("techreborn." + name.toLowerCase());
@@ -47,23 +45,20 @@ public abstract class BlockTransformer extends BaseTileBlock implements IRotatio
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		this.name = name;
 	}
-	protected BlockStateContainer createBlockState()
-	{
+
+	protected BlockStateContainer createBlockState() {
 		FACING = PropertyDirection.create("facing", Facings.ALL);
 		return new BlockStateContainer(this, FACING);
 	}
 
 	@Override
-	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
-	{
+	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
 		super.onBlockAdded(worldIn, pos, state);
 		this.setDefaultFacing(worldIn, pos, state);
 	}
 
-	private void setDefaultFacing(World worldIn, BlockPos pos, IBlockState state)
-	{
-		if (!worldIn.isRemote)
-		{
+	private void setDefaultFacing(World worldIn, BlockPos pos, IBlockState state) {
+		if (!worldIn.isRemote) {
 			IBlockState sate = worldIn.getBlockState(pos.north());
 			Block block = sate.getBlock();
 			IBlockState state1 = worldIn.getBlockState(pos.south());
@@ -74,17 +69,13 @@ public abstract class BlockTransformer extends BaseTileBlock implements IRotatio
 			Block block3 = state3.getBlock();
 			EnumFacing enumfacing = state.getValue(FACING);
 
-			if (enumfacing == EnumFacing.NORTH && block.isFullBlock(state) && !block1.isFullBlock(state1))
-			{
+			if (enumfacing == EnumFacing.NORTH && block.isFullBlock(state) && !block1.isFullBlock(state1)) {
 				enumfacing = EnumFacing.SOUTH;
-			} else if (enumfacing == EnumFacing.SOUTH && block1.isFullBlock(state1) && !block.isFullBlock(state))
-			{
+			} else if (enumfacing == EnumFacing.SOUTH && block1.isFullBlock(state1) && !block.isFullBlock(state)) {
 				enumfacing = EnumFacing.NORTH;
-			} else if (enumfacing == EnumFacing.WEST && block2.isFullBlock(state2) && !block3.isFullBlock(state2))
-			{
+			} else if (enumfacing == EnumFacing.WEST && block2.isFullBlock(state2) && !block3.isFullBlock(state2)) {
 				enumfacing = EnumFacing.EAST;
-			} else if (enumfacing == EnumFacing.EAST && block3.isFullBlock(state3) && !block2.isFullBlock(state2))
-			{
+			} else if (enumfacing == EnumFacing.EAST && block3.isFullBlock(state3) && !block2.isFullBlock(state2)) {
 				enumfacing = EnumFacing.WEST;
 			}
 
@@ -94,33 +85,25 @@ public abstract class BlockTransformer extends BaseTileBlock implements IRotatio
 
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
-			ItemStack stack)
-	{
+	                            ItemStack stack) {
 		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
 		EnumFacing facing = placer.getHorizontalFacing().getOpposite();
-		if (placer.rotationPitch < -50)
-		{
+		if (placer.rotationPitch < -50) {
 			facing = EnumFacing.DOWN;
-		} else if (placer.rotationPitch > 50)
-		{
+		} else if (placer.rotationPitch > 50) {
 			facing = EnumFacing.UP;
 		}
 		setFacing(facing, worldIn, pos);
 	}
 
-
-
-	protected List<ItemStack> dropInventory(IBlockAccess world, BlockPos pos, ItemStack itemToDrop)
-	{
+	protected List<ItemStack> dropInventory(IBlockAccess world, BlockPos pos, ItemStack itemToDrop) {
 		TileEntity tileEntity = world.getTileEntity(pos);
 
-		if (tileEntity == null)
-		{
+		if (tileEntity == null) {
 			System.out.print("Null");
 			return null;
 		}
-		if (!(tileEntity instanceof IInventory))
-		{
+		if (!(tileEntity instanceof IInventory)) {
 
 			System.out.print("Not INstance");
 			return null;
@@ -130,22 +113,17 @@ public abstract class BlockTransformer extends BaseTileBlock implements IRotatio
 
 		List<ItemStack> items = new ArrayList<>();
 
-		for (int i = 0; i < inventory.getSizeInventory(); i++)
-		{
+		for (int i = 0; i < inventory.getSizeInventory(); i++) {
 			ItemStack itemStack = inventory.getStackInSlot(i);
 
-			if (itemStack == null)
-			{
+			if (itemStack == null) {
 				continue;
 			}
-			if (itemStack != null && itemStack.stackSize > 0)
-			{
-				if (itemStack.getItem() instanceof ItemBlock)
-				{
+			if (itemStack != null && itemStack.stackSize > 0) {
+				if (itemStack.getItem() instanceof ItemBlock) {
 					if (((ItemBlock) itemStack.getItem()).block instanceof BlockFluidBase
-							|| ((ItemBlock) itemStack.getItem()).block instanceof BlockStaticLiquid
-							|| ((ItemBlock) itemStack.getItem()).block instanceof BlockDynamicLiquid)
-					{
+						|| ((ItemBlock) itemStack.getItem()).block instanceof BlockStaticLiquid
+						|| ((ItemBlock) itemStack.getItem()).block instanceof BlockDynamicLiquid) {
 						continue;
 					}
 				}
@@ -157,122 +135,93 @@ public abstract class BlockTransformer extends BaseTileBlock implements IRotatio
 
 	}
 
-
 	@Override
-	public int getMetaFromState(IBlockState state)
-	{
+	public int getMetaFromState(IBlockState state) {
 		int facingInt = getSideFromEnum(state.getValue(FACING));
 		return facingInt;
 	}
 
 	@Override
-	public IBlockState getStateFromMeta(int meta)
-	{
+	public IBlockState getStateFromMeta(int meta) {
 		boolean active = false;
 		EnumFacing facing = getSideFromint(meta);
 		return this.getDefaultState().withProperty(FACING, facing);
 	}
 
-	public void setFacing(EnumFacing facing, World world, BlockPos pos)
-	{
+	public void setFacing(EnumFacing facing, World world, BlockPos pos) {
 		world.setBlockState(pos, world.getBlockState(pos).withProperty(FACING, facing));
 	}
 
-	public EnumFacing getSideFromint(int i)
-	{
-		if (i == 0)
-		{
+	public EnumFacing getSideFromint(int i) {
+		if (i == 0) {
 			return EnumFacing.NORTH;
-		} else if (i == 1)
-		{
+		} else if (i == 1) {
 			return EnumFacing.SOUTH;
-		} else if (i == 2)
-		{
+		} else if (i == 2) {
 			return EnumFacing.EAST;
-		} else if (i == 3)
-		{
+		} else if (i == 3) {
 			return EnumFacing.WEST;
-		} else if (i == 4)
-		{
+		} else if (i == 4) {
 			return EnumFacing.UP;
-		} else if (i == 5)
-		{
+		} else if (i == 5) {
 			return EnumFacing.DOWN;
 		}
 		return EnumFacing.NORTH;
 	}
 
-	public int getSideFromEnum(EnumFacing facing)
-	{
-		if (facing == EnumFacing.NORTH)
-		{
+	public int getSideFromEnum(EnumFacing facing) {
+		if (facing == EnumFacing.NORTH) {
 			return 0;
-		} else if (facing == EnumFacing.SOUTH)
-		{
+		} else if (facing == EnumFacing.SOUTH) {
 			return 1;
-		} else if (facing == EnumFacing.EAST)
-		{
+		} else if (facing == EnumFacing.EAST) {
 			return 2;
-		} else if (facing == EnumFacing.WEST)
-		{
+		} else if (facing == EnumFacing.WEST) {
 			return 3;
-		} else if (facing == EnumFacing.UP)
-		{
+		} else if (facing == EnumFacing.UP) {
 			return 4;
-		} else if (facing == EnumFacing.DOWN)
-		{
+		} else if (facing == EnumFacing.DOWN) {
 			return 5;
 		}
 		return 0;
 	}
 
-
 	@Override
-	public String getFrontOff()
-	{
-		return prefix  + name.toLowerCase() +  "_front";
+	public String getFrontOff() {
+		return prefix + name.toLowerCase() + "_front";
 	}
 
 	@Override
-	public String getFrontOn()
-	{
-		return prefix  + name.toLowerCase() +  "_front";
+	public String getFrontOn() {
+		return prefix + name.toLowerCase() + "_front";
 	}
 
 	@Override
-	public String getSide()
-	{
-		return prefix  + name.toLowerCase() +  "_side";
-	}
-
-	@Override
-	public String getTop()
-	{
-		return prefix + name.toLowerCase() +  "_side";
-	}
-
-	@Override
-	public String getBottom()
-	{
+	public String getSide() {
 		return prefix + name.toLowerCase() + "_side";
 	}
 
 	@Override
-	public String getTextureNameFromState(IBlockState blockState, EnumFacing facing)
-	{
-		if (this instanceof IRotationTexture)
-		{
+	public String getTop() {
+		return prefix + name.toLowerCase() + "_side";
+	}
+
+	@Override
+	public String getBottom() {
+		return prefix + name.toLowerCase() + "_side";
+	}
+
+	@Override
+	public String getTextureNameFromState(IBlockState blockState, EnumFacing facing) {
+		if (this instanceof IRotationTexture) {
 			IRotationTexture rotationTexture = this;
-			if (getFacing(blockState) == facing)
-			{
+			if (getFacing(blockState) == facing) {
 				return rotationTexture.getFrontOff();
 			}
-			if (facing == EnumFacing.UP)
-			{
+			if (facing == EnumFacing.UP) {
 				return rotationTexture.getTop();
 			}
-			if (facing == EnumFacing.DOWN)
-			{
+			if (facing == EnumFacing.DOWN) {
 				return rotationTexture.getBottom();
 			}
 			return rotationTexture.getSide();
@@ -280,42 +229,33 @@ public abstract class BlockTransformer extends BaseTileBlock implements IRotatio
 		return "techreborn:blocks/machine/machine_side";
 	}
 
-	public EnumFacing getFacing(IBlockState state)
-	{
+	public EnumFacing getFacing(IBlockState state) {
 		return state.getValue(FACING);
 	}
 
 	@Override
-	public int amountOfStates()
-	{
+	public int amountOfStates() {
 		return 6;
 	}
 
-
-
-	public enum Facings implements Predicate<EnumFacing>,Iterable<EnumFacing>
-	{
+	public enum Facings implements Predicate<EnumFacing>, Iterable<EnumFacing> {
 		ALL;
 
-		public EnumFacing[] facings()
-		{
+		public EnumFacing[] facings() {
 			return new EnumFacing[] { EnumFacing.NORTH, EnumFacing.EAST, EnumFacing.SOUTH, EnumFacing.WEST,
-					EnumFacing.UP, EnumFacing.DOWN };
+				EnumFacing.UP, EnumFacing.DOWN };
 		}
 
-		public EnumFacing random(Random rand)
-		{
+		public EnumFacing random(Random rand) {
 			EnumFacing[] aenumfacing = this.facings();
 			return aenumfacing[rand.nextInt(aenumfacing.length)];
 		}
 
-		public boolean apply(EnumFacing p_apply_1_)
-		{
+		public boolean apply(EnumFacing p_apply_1_) {
 			return p_apply_1_ != null;
 		}
 
-		public Iterator<EnumFacing> iterator()
-		{
+		public Iterator<EnumFacing> iterator() {
 			return Iterators.forArray(this.facings());
 		}
 	}

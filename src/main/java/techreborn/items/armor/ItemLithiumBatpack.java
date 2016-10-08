@@ -21,30 +21,29 @@ import techreborn.lib.ModInfo;
 
 import java.util.List;
 
-public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo, ITexturedItem
-{
+public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo, ITexturedItem {
 
 	public static final int maxCharge = ConfigTechReborn.LithiumBatpackCharge;
 	public static final int tier = ConfigTechReborn.LithiumBatpackTier;
 	public double transferLimit = 10000;
 
-	public ItemLithiumBatpack()
-	{
+	public ItemLithiumBatpack() {
 		super(ItemArmor.ArmorMaterial.DIAMOND, 7, EntityEquipmentSlot.CHEST);
 		setMaxStackSize(1);
 		setUnlocalizedName("techreborn.lithiumbatpack");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornCore.jsonDestroyer.registerObject(this);
 	}
-	@Override public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack)
-	{
-		for(int i = 0; i < player.inventory.getSizeInventory(); i++){
-			if(player.inventory.getStackInSlot(i) != null){
+
+	@Override
+	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
+		for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
+			if (player.inventory.getStackInSlot(i) != null) {
 				ItemStack item = player.inventory.getStackInSlot(i);
-				if(item.getItem() instanceof IEnergyItemInfo){
+				if (item.getItem() instanceof IEnergyItemInfo) {
 					IEnergyItemInfo energyItemInfo = (IEnergyItemInfo) item.getItem();
-					if(energyItemInfo.getMaxPower(item) != PoweredItem.getEnergy(item)){
-						if(PoweredItem.canUseEnergy(energyItemInfo.getMaxPower(item), itemStack)){
+					if (energyItemInfo.getMaxPower(item) != PoweredItem.getEnergy(item)) {
+						if (PoweredItem.canUseEnergy(energyItemInfo.getMaxPower(item), itemStack)) {
 							PoweredItem.useEnergy(energyItemInfo.getMaxTransfer(item), itemStack);
 							PoweredItem.setEnergy(PoweredItem.getEnergy(item) + energyItemInfo.getMaxTransfer(item), item);
 						}
@@ -53,47 +52,41 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo, IT
 			}
 		}
 	}
+
 	@Override
 	@SideOnly(Side.CLIENT)
-	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type)
-	{
+	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
 		return "techreborn:" + "textures/models/lithiumbatpack.png";
 	}
 
 	@Override
-	public double getMaxPower(ItemStack stack)
-	{
+	public double getMaxPower(ItemStack stack) {
 		return maxCharge;
 	}
 
 	@Override
-	public boolean canAcceptEnergy(ItemStack stack)
-	{
+	public boolean canAcceptEnergy(ItemStack stack) {
 		return true;
 	}
 
 	@Override
-	public boolean canProvideEnergy(ItemStack stack)
-	{
+	public boolean canProvideEnergy(ItemStack stack) {
 		return true;
 	}
 
 	@Override
-	public double getMaxTransfer(ItemStack stack)
-	{
+	public double getMaxTransfer(ItemStack stack) {
 		return transferLimit;
 	}
 
 	@Override
-	public int getStackTier(ItemStack stack)
-	{
+	public int getStackTier(ItemStack stack) {
 		return tier;
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList)
-	{
+	public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
 		ItemStack itemStack = new ItemStack(this, 1);
 		itemList.add(itemStack);
 
@@ -103,37 +96,31 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo, IT
 	}
 
 	@Override
-	public double getDurabilityForDisplay(ItemStack stack)
-	{
+	public double getDurabilityForDisplay(ItemStack stack) {
 		double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
 		return 1 - charge;
 
 	}
 
 	@Override
-	public boolean showDurabilityBar(ItemStack stack)
-	{
+	public boolean showDurabilityBar(ItemStack stack) {
 		return true;
 	}
 
 	@Override
-	public String getTextureName(int damage)
-	{
+	public String getTextureName(int damage) {
 		return "techreborn:items/tool/lithiumBatpack";
 	}
 
 	@Override
-	public int getMaxMeta()
-	{
+	public int getMaxMeta() {
 		return 1;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining)
-	{
+	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
 		return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
 	}
-
 
 }

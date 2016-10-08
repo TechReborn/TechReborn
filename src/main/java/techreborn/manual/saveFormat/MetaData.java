@@ -5,8 +5,8 @@ package techreborn.manual.saveFormat;
  */
 public class MetaData {
 
-    int startMeta;
+	int startMeta;
 
-    int endMeta;
+	int endMeta;
 
 }

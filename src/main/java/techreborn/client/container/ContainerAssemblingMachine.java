@@ -7,21 +7,18 @@ import reborncore.client.gui.BaseSlot;
 import reborncore.client.gui.SlotOutput;
 import techreborn.api.gui.SlotUpgrade;
 import techreborn.tiles.TileAssemblingMachine;
-import techreborn.tiles.teir1.TileGrinder;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ContainerAssemblingMachine extends ContainerCrafting implements IContainerLayout<TileAssemblingMachine>
-{
+public class ContainerAssemblingMachine extends ContainerCrafting implements IContainerLayout<TileAssemblingMachine> {
 
 	public int tickTime;
 	EntityPlayer player;
 	TileAssemblingMachine tile;
 
 	@Override
-	public boolean canInteractWith(EntityPlayer player)
-	{
+	public boolean canInteractWith(EntityPlayer player) {
 		return true;
 	}
 
@@ -45,16 +42,13 @@ public class ContainerAssemblingMachine extends ContainerCrafting implements ICo
 	public void addPlayerSlots() {
 		int i;
 
-		for (i = 0; i < 3; ++i)
-		{
-			for (int j = 0; j < 9; ++j)
-			{
+		for (i = 0; i < 3; ++i) {
+			for (int j = 0; j < 9; ++j) {
 				this.addSlotToContainer(new BaseSlot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 			}
 		}
 
-		for (i = 0; i < 9; ++i)
-		{
+		for (i = 0; i < 9; ++i) {
 			this.addSlotToContainer(new BaseSlot(player.inventory, i, 8 + i * 18, 142));
 		}
 	}

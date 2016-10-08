@@ -1,10 +1,5 @@
 package techreborn.compat.jei.rollingMachine;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.ingredients.IIngredients;
@@ -20,38 +15,33 @@ import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
-import techreborn.Core;
-import techreborn.compat.CompatManager;
-import techreborn.compat.jei.TechRebornJeiPlugin;
 
-public class RollingMachineRecipeWrapper extends BlankRecipeWrapper implements ICraftingRecipeWrapper
-{
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.List;
+
+public class RollingMachineRecipeWrapper extends BlankRecipeWrapper implements ICraftingRecipeWrapper {
 	private final ICraftingRecipeWrapper baseRecipe;
 
-	public RollingMachineRecipeWrapper(ICraftingRecipeWrapper baseRecipe)
-	{
+	public RollingMachineRecipeWrapper(ICraftingRecipeWrapper baseRecipe) {
 		this.baseRecipe = baseRecipe;
 	}
 
 	@Nullable
-	public static RollingMachineRecipeWrapper create(@Nonnull IJeiHelpers jeiHelpers, IRecipe baseRecipe)
-	{
+	public static RollingMachineRecipeWrapper create(
+		@Nonnull
+			IJeiHelpers jeiHelpers, IRecipe baseRecipe) {
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 		ICraftingRecipeWrapper recipeWrapper;
-		if (baseRecipe instanceof ShapelessRecipes)
-		{
+		if (baseRecipe instanceof ShapelessRecipes) {
 			recipeWrapper = new ShapelessRecipesWrapper(guiHelper, (ShapelessRecipes) baseRecipe);
-		} else if (baseRecipe instanceof ShapedRecipes)
-		{
+		} else if (baseRecipe instanceof ShapedRecipes) {
 			recipeWrapper = new ShapedRecipesWrapper((ShapedRecipes) baseRecipe);
-		} else if (baseRecipe instanceof ShapedOreRecipe)
-		{
+		} else if (baseRecipe instanceof ShapedOreRecipe) {
 			recipeWrapper = new ShapedOreRecipeWrapper((ShapedOreRecipe) baseRecipe);
-		} else if (baseRecipe instanceof ShapelessOreRecipe)
-		{
+		} else if (baseRecipe instanceof ShapelessOreRecipe) {
 			recipeWrapper = new ShapelessOreRecipeWrapper(guiHelper, (ShapelessOreRecipe) baseRecipe);
-		} else
-		{
+		} else {
 			return null;
 		}
 
@@ -59,22 +49,21 @@ public class RollingMachineRecipeWrapper extends BlankRecipeWrapper implements I
 	}
 
 	@Override
-	public void getIngredients(@Nonnull IIngredients ingredients)
-	{
+	public void getIngredients(
+		@Nonnull
+			IIngredients ingredients) {
 		baseRecipe.getIngredients(ingredients);
 	}
 
 	@Override
 	@Nonnull
-	public List getInputs()
-	{
+	public List getInputs() {
 		return baseRecipe.getInputs();
 	}
 
 	@Override
 	@Nonnull
-	public List<ItemStack> getOutputs()
-	{
+	public List<ItemStack> getOutputs() {
 		return baseRecipe.getOutputs();
 	}
 }

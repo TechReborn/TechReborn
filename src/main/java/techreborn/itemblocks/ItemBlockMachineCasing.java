@@ -5,11 +5,9 @@ import net.minecraft.item.ItemMultiTexture;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.init.ModBlocks;
 
-public class ItemBlockMachineCasing extends ItemMultiTexture
-{
+public class ItemBlockMachineCasing extends ItemMultiTexture {
 
-	public ItemBlockMachineCasing(Block block)
-	{
+	public ItemBlockMachineCasing(Block block) {
 		super(ModBlocks.MachineCasing, ModBlocks.MachineCasing, BlockMachineCasing.types);
 	}
 

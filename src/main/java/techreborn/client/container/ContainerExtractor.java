@@ -1,9 +1,5 @@
 package techreborn.client.container;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.tile.IContainerLayout;
@@ -13,17 +9,17 @@ import reborncore.client.gui.SlotOutput;
 import techreborn.api.gui.SlotUpgrade;
 import techreborn.tiles.teir1.TileExtractor;
 
-public class ContainerExtractor extends ContainerCrafting implements IContainerLayout<TileExtractor>
-{
+import javax.annotation.Nullable;
+import java.util.List;
+
+public class ContainerExtractor extends ContainerCrafting implements IContainerLayout<TileExtractor> {
 
 	public int connectionStatus;
 	EntityPlayer player;
 	TileExtractor tileExtractor;
 
-
 	@Override
-	public boolean canInteractWith(EntityPlayer p_75145_1_)
-	{
+	public boolean canInteractWith(EntityPlayer p_75145_1_) {
 		return true;
 	}
 
@@ -38,23 +34,20 @@ public class ContainerExtractor extends ContainerCrafting implements IContainerL
 		this.addSlotToContainer(new SlotUpgrade(tileExtractor.inventory, 2, 152, 8));
 		this.addSlotToContainer(new SlotUpgrade(tileExtractor.inventory, 3, 152, 26));
 		this.addSlotToContainer(new SlotUpgrade(tileExtractor.inventory, 4, 152, 44));
-		this.addSlotToContainer(new SlotUpgrade(tileExtractor.inventory, 5, 152, 62));		
+		this.addSlotToContainer(new SlotUpgrade(tileExtractor.inventory, 5, 152, 62));
 	}
 
 	@Override
 	public void addPlayerSlots() {
 		int i;
 
-		for (i = 0; i < 3; ++i)
-		{
-			for (int j = 0; j < 9; ++j)
-			{
+		for (i = 0; i < 3; ++i) {
+			for (int j = 0; j < 9; ++j) {
 				this.addSlotToContainer(new BaseSlot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 			}
 		}
 
-		for (i = 0; i < 9; ++i)
-		{
+		for (i = 0; i < 9; ++i) {
 			this.addSlotToContainer(new BaseSlot(player.inventory, i, 8 + i * 18, 142));
 		}
 	}
@@ -73,7 +66,7 @@ public class ContainerExtractor extends ContainerCrafting implements IContainerL
 	@Override
 	public void setPlayer(EntityPlayer player) {
 		this.player = player;
-		
+
 	}
 
 	@Override

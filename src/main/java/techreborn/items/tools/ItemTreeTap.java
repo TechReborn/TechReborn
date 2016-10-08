@@ -11,11 +11,9 @@ import reborncore.RebornCore;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 
-public class ItemTreeTap extends Item implements ITexturedItem
-{
+public class ItemTreeTap extends Item implements ITexturedItem {
 
-	public ItemTreeTap()
-	{
+	public ItemTreeTap() {
 		setMaxStackSize(1);
 		setMaxDamage(20);
 		setUnlocalizedName("techreborn.treetap");
@@ -24,27 +22,23 @@ public class ItemTreeTap extends Item implements ITexturedItem
 	}
 
 	@Override
-	public boolean showDurabilityBar(ItemStack stack)
-	{
+	public boolean showDurabilityBar(ItemStack stack) {
 		return stack.getMetadata() != 0;
 	}
 
 	@Override
-	public String getTextureName(int damage)
-	{
+	public String getTextureName(int damage) {
 		return "techreborn:items/tool/treetap";
 	}
 
 	@Override
-	public int getMaxMeta()
-	{
+	public int getMaxMeta() {
 		return 1;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining)
-	{
+	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
 		return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
 	}
 }

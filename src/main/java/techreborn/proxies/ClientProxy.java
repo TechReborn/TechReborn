@@ -3,7 +3,6 @@ package techreborn.proxies;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
 import net.minecraft.client.renderer.block.statemap.StateMap;
@@ -34,35 +33,32 @@ import techreborn.client.render.ModelDynamicCell;
 import techreborn.client.render.entitys.RenderNukePrimed;
 import techreborn.entitys.EntityNukePrimed;
 import techreborn.init.ModBlocks;
-import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
 import techreborn.manual.loader.ManualLoader;
 
 import java.io.File;
 
-public class ClientProxy extends CommonProxy
-{
+public class ClientProxy extends CommonProxy {
 
 	public static MultiblockRenderEvent multiblockRenderEvent;
 
 	@Override
-	public void preInit(FMLPreInitializationEvent event)
-	{
+	public void preInit(FMLPreInitializationEvent event) {
 		super.preInit(event);
 		RenderingRegistry.registerEntityRenderingHandler(EntityNukePrimed.class, new RenderManagerNuke());
 
 		ManualLoader loader = new ManualLoader(new File(event.getModConfigurationDirectory(), "techreborn"));
 
-//		new Thread(() ->
-//		{
-//			try {
-//				loader.load();
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//		}).start();
+		//		new Thread(() ->
+		//		{
+		//			try {
+		//				loader.load();
+		//			} catch (IOException e) {
+		//				e.printStackTrace();
+		//			}
+		//		}).start();
 
-		for(Object object : RebornCore.jsonDestroyer.objectsToDestroy) {
+		for (Object object : RebornCore.jsonDestroyer.objectsToDestroy) {
 			if (object instanceof BlockMachineBase) {
 				BlockMachineBase base = (BlockMachineBase) object;
 				registerItemModel(Item.getItemFromBlock(base));
@@ -74,8 +70,7 @@ public class ClientProxy extends CommonProxy
 	}
 
 	@Override
-	public void init(FMLInitializationEvent event)
-	{
+	public void init(FMLInitializationEvent event) {
 		super.init(event);
 		MinecraftForge.EVENT_BUS.register(new IconSupplier());
 		MinecraftForge.EVENT_BUS.register(new ChargeHud());
@@ -95,12 +90,12 @@ public class ClientProxy extends CommonProxy
 		ModelLoader.registerItemVariants(item.getItem(), new ResourceLocation(name));
 		// tell the game which model to use for this item-meta combination
 		ModelLoader.setCustomModelResourceLocation(item.getItem(), item
-				.getMetadata(), new ModelResourceLocation(name, "inventory"));
+			.getMetadata(), new ModelResourceLocation(name, "inventory"));
 	}
 
 	public ResourceLocation registerItemModel(Item item) {
 		ResourceLocation itemLocation = getItemLocation(item);
-		if(itemLocation == null) {
+		if (itemLocation == null) {
 			return null;
 		}
 
@@ -109,7 +104,7 @@ public class ClientProxy extends CommonProxy
 
 	public static ResourceLocation getItemLocation(Item item) {
 		Object o = item.getRegistryName();
-		if(o == null) {
+		if (o == null) {
 			return null;
 		}
 		return (ResourceLocation) o;
@@ -127,12 +122,10 @@ public class ClientProxy extends CommonProxy
 		return location;
 	}
 
-	public class RenderManagerNuke implements IRenderFactory<EntityNukePrimed>
-	{
+	public class RenderManagerNuke implements IRenderFactory<EntityNukePrimed> {
 
 		@Override
-		public Render<? super EntityNukePrimed> createRenderFor(RenderManager manager)
-		{
+		public Render<? super EntityNukePrimed> createRenderFor(RenderManager manager) {
 			return new RenderNukePrimed(manager);
 		}
 	}
@@ -143,11 +136,9 @@ public class ClientProxy extends CommonProxy
 		final ModelResourceLocation fluidLocation = new ModelResourceLocation(ModInfo.MOD_ID.toLowerCase() + ":fluids", name);
 
 		// use a custom state mapper which will ignore the LEVEL property
-		ModelLoader.setCustomStateMapper(block, new StateMapperBase()
-		{
+		ModelLoader.setCustomStateMapper(block, new StateMapperBase() {
 			@Override
-			protected ModelResourceLocation getModelResourceLocation(IBlockState state)
-			{
+			protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
 				return fluidLocation;
 			}
 		});
@@ -156,11 +147,9 @@ public class ClientProxy extends CommonProxy
 	@Override
 	public void registerCustomBlockSateLocation(Block block, String resourceLocation) {
 		super.registerCustomBlockSateLocation(block, resourceLocation);
-		ModelLoader.setCustomStateMapper(block, new DefaultStateMapper()
-		{
+		ModelLoader.setCustomStateMapper(block, new DefaultStateMapper() {
 			@Override
-			protected ModelResourceLocation getModelResourceLocation(IBlockState state)
-			{
+			protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
 				String resourceDomain = Block.REGISTRY.getNameForObject(state.getBlock()).getResourceDomain();
 				String propertyString = getPropertyString(state.getProperties());
 				return new ModelResourceLocation(resourceDomain + ':' + resourceLocation, propertyString);

@@ -1,8 +1,7 @@
 package techreborn.client;
 
 //TODO recode for 1.8
-public class IconSupplier
-{
+public class IconSupplier {
 	// public static IIcon insulatedCopperCable;
 	// public static IIcon copperCable;
 	// public static IIcon goldCable;

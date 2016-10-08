@@ -1,8 +1,5 @@
 package techreborn.blocks;
 
-import java.util.List;
-import java.util.Random;
-
 import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -23,9 +20,12 @@ import reborncore.common.multiblock.BlockMultiblockBase;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileMachineCasing;
 
+import java.util.List;
+import java.util.Random;
+
 public class BlockMachineCasing extends BlockMultiblockBase implements ITexturedBlock {
 
-	public static final String[] types = new String[]{"standard", "reinforced", "advanced"};
+	public static final String[] types = new String[] { "standard", "reinforced", "advanced" };
 	public static final PropertyInteger METADATA = PropertyInteger.create("type", 0, types.length);
 
 	public BlockMachineCasing(Material material) {

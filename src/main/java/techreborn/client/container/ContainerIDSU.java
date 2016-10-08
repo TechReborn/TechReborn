@@ -2,9 +2,9 @@ package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IContainerListener;
-import reborncore.client.gui.BaseSlot;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import reborncore.client.gui.BaseSlot;
 import reborncore.common.container.RebornContainer;
 import techreborn.tiles.idsu.TileIDSU;
 

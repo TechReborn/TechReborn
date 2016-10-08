@@ -12,30 +12,25 @@ import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.multiblock.TileIndustrialSawmill;
 
-public class BlockIndustrialSawmill extends BlockMachineBase implements IRotationTexture
-{
+public class BlockIndustrialSawmill extends BlockMachineBase implements IRotationTexture {
 
 	private final String prefix = "techreborn:blocks/machine/advanced_machines/";
 
-	public BlockIndustrialSawmill(Material material)
-	{
+	public BlockIndustrialSawmill(Material material) {
 		super();
 		setUnlocalizedName("techreborn.industrialsawmill");
 		setCreativeTab(TechRebornCreativeTab.instance);
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int p_149915_2_)
-	{
+	public TileEntity createNewTileEntity(World world, int p_149915_2_) {
 		return new TileIndustrialSawmill();
 	}
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
-			float hitY, float hitZ)
-	{
-		if (fillBlockWithFluid(world, new BlockPos(x, y, z), player))
-		{
+	                                float hitY, float hitZ) {
+		if (fillBlockWithFluid(world, new BlockPos(x, y, z), player)) {
 			return true;
 		}
 		if (!player.isSneaking())
@@ -44,32 +39,27 @@ public class BlockIndustrialSawmill extends BlockMachineBase implements IRotatio
 	}
 
 	@Override
-	public String getFrontOff()
-	{
+	public String getFrontOff() {
 		return prefix + "industrial_sawmill_front_off";
 	}
 
 	@Override
-	public String getFrontOn()
-	{
+	public String getFrontOn() {
 		return prefix + "industrial_sawmill_front_on";
 	}
 
 	@Override
-	public String getSide()
-	{
+	public String getSide() {
 		return prefix + "advanced_machine_side";
 	}
 
 	@Override
-	public String getTop()
-	{
+	public String getTop() {
 		return prefix + "advanced_machine_side";
 	}
 
 	@Override
-	public String getBottom()
-	{
+	public String getBottom() {
 		return prefix + "advanced_machine_side";
 	}
 }

@@ -11,8 +11,7 @@ import techreborn.tiles.storage.TileMFSU;
 /**
  * Created by Rushmead
  */
-public class GuiMFSU extends GuiContainer
-{
+public class GuiMFSU extends GuiContainer {
 
 	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/mfsu.png");
 
@@ -20,8 +19,7 @@ public class GuiMFSU extends GuiContainer
 
 	ContainerMFSU containerGenerator;
 
-	public GuiMFSU(EntityPlayer player, TileMFSU generator)
-	{
+	public GuiMFSU(EntityPlayer player, TileMFSU generator) {
 		super(new ContainerMFSU(generator, player));
 		this.xSize = 176;
 		this.ySize = 167;
@@ -30,16 +28,14 @@ public class GuiMFSU extends GuiContainer
 	}
 
 	@Override
-	public void initGui()
-	{
+	public void initGui() {
 		int k = (this.width - this.xSize) / 2;
 		int l = (this.height - this.ySize) / 2;
 		super.initGui();
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_)
-	{
+	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_) {
 		this.mc.getTextureManager().bindTexture(texture);
 		int k = (this.width - this.xSize) / 2;
 		int l = (this.height - this.ySize) / 2;
@@ -48,8 +44,7 @@ public class GuiMFSU extends GuiContainer
 		int j = 0;
 
 		j = generator.getEnergyScaled(24);
-		if (j > 0)
-		{
+		if (j > 0) {
 			this.drawTexturedModalRect(k + 109, l + 21 + 12, 176, 0, j + 1, 16);
 		}
 		//
@@ -61,17 +56,16 @@ public class GuiMFSU extends GuiContainer
 		// }
 	}
 
-	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_)
-	{
+	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
 		String name = I18n.translateToLocal("tile.techreborn.mfsu.name");
 		this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6,
-				4210752);
+			4210752);
 
 		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), this.xSize - 60,
-				this.ySize - 96 + 2, 4210752);
+			this.ySize - 96 + 2, 4210752);
 		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(generator.getMaxPower()), 110, this.ySize - 150,
-				4210752);
+			4210752);
 		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerGenerator.energy), 110, this.ySize - 160,
-				4210752);
+			4210752);
 	}
 }

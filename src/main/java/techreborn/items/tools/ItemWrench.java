@@ -1,6 +1,5 @@
 package techreborn.items.tools;
 
-import reborncore.common.IWrenchable;
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.block.BlockDynamicLiquid;
 import net.minecraft.block.BlockStaticLiquid;
@@ -21,15 +20,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import reborncore.common.IWrenchable;
 import reborncore.common.tile.TileMachineBase;
 import techreborn.blocks.fluid.BlockFluidBase;
-import techreborn.blocks.storage.BlockBatBox;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.compat.CompatManager;
 import techreborn.init.ModSounds;
 import techreborn.items.ItemTR;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.storage.TileEnergyStorage;
 import techreborn.utils.IC2WrenchHelper;
 
 import java.util.ArrayList;
@@ -39,41 +37,34 @@ import java.util.Random;
 /**
  * Created by modmuss50 on 26/02/2016.
  */
-public class ItemWrench extends ItemTR implements ITexturedItem
-{
+public class ItemWrench extends ItemTR implements ITexturedItem {
 
-	public ItemWrench()
-	{
+	public ItemWrench() {
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		setUnlocalizedName("techreborn.wrench");
 		setMaxStackSize(1);
 	}
 
-	@Override public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos,
-			EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand)
-	{
-		if(CompatManager.isIC2Loaded){
+	@Override
+	public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos,
+	                                       EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+		if (CompatManager.isIC2Loaded) {
 			EnumActionResult result = IC2WrenchHelper.onItemUseFirst(stack, player, world, pos, side, hitX, hitY, hitZ, hand);
-			if(result == EnumActionResult.SUCCESS){
+			if (result == EnumActionResult.SUCCESS) {
 				return result;
 			}
 		}
-		if (world.isAirBlock(pos))
-		{
+		if (world.isAirBlock(pos)) {
 			return EnumActionResult.FAIL;
 		}
 		TileEntity tile = world.getTileEntity(pos);
-		if (tile == null)
-		{
+		if (tile == null) {
 			return EnumActionResult.FAIL;
 		}
 
-		if (!player.isSneaking() && !player.worldObj.isRemote)
-		{
-			if (tile instanceof TileMachineBase)
-			{
-				if (side != EnumFacing.DOWN && side != EnumFacing.UP)
-				{
+		if (!player.isSneaking() && !player.worldObj.isRemote) {
+			if (tile instanceof TileMachineBase) {
+				if (side != EnumFacing.DOWN && side != EnumFacing.UP) {
 					((TileMachineBase) tile).setFacing(side);
 					return EnumActionResult.SUCCESS;
 				}
@@ -82,60 +73,46 @@ public class ItemWrench extends ItemTR implements ITexturedItem
 		return super.onItemUseFirst(stack, player, world, pos, side, hitX, hitY, hitZ, hand);
 	}
 
-	@Override public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos,
-			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
-	{
+	@Override
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos,
+	                                  EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 
-		if (world.isAirBlock(pos))
-		{
+		if (world.isAirBlock(pos)) {
 			return EnumActionResult.FAIL;
 		}
 		TileEntity tile = world.getTileEntity(pos);
-		if (tile == null)
-		{
+		if (tile == null) {
 			return EnumActionResult.FAIL;
 		}
-		if (!world.isRemote)
-		{
-			if (player.isSneaking())
-			{
+		if (!world.isRemote) {
+			if (player.isSneaking()) {
 				List<ItemStack> items = new ArrayList<>();
-				if (tile instanceof IInventory)
-				{
+				if (tile instanceof IInventory) {
 					IInventory inventory = (IInventory) tile;
-					for (int i = 0; i < inventory.getSizeInventory(); i++)
-					{
+					for (int i = 0; i < inventory.getSizeInventory(); i++) {
 						ItemStack itemStack = inventory.getStackInSlot(i);
 
-						if (itemStack != null)
-						{
-							if (itemStack.stackSize > 0)
-							{
+						if (itemStack != null) {
+							if (itemStack.stackSize > 0) {
 								if (itemStack.getItem() instanceof ItemBlock)
 
 									if (!(((ItemBlock) itemStack.getItem()).block instanceof BlockFluidBase) || !(((ItemBlock) itemStack.getItem()).block instanceof BlockStaticLiquid)
-											|| !(((ItemBlock) itemStack.getItem()).block instanceof BlockDynamicLiquid))
-									{
+										|| !(((ItemBlock) itemStack.getItem()).block instanceof BlockDynamicLiquid)) {
 										items.add(itemStack.copy());
 									}
 							}
 						}
 					}
-					if (tile instanceof IWrenchable)
-					{
-						if (((IWrenchable) tile).wrenchCanRemove(player))
-						{
+					if (tile instanceof IWrenchable) {
+						if (((IWrenchable) tile).wrenchCanRemove(player)) {
 							ItemStack itemStack = ((IWrenchable) tile).getWrenchDrop(player);
-							if (itemStack == null)
-							{
+							if (itemStack == null) {
 								return EnumActionResult.FAIL;
 							}
 							items.add(itemStack);
 						}
-						if (!items.isEmpty())
-						{
-							for (ItemStack itemStack : items)
-							{
+						if (!items.isEmpty()) {
+							for (ItemStack itemStack : items) {
 
 								Random rand = new Random();
 
@@ -144,29 +121,26 @@ public class ItemWrench extends ItemTR implements ITexturedItem
 								float dZ = rand.nextFloat() * 0.8F + 0.1F;
 
 								EntityItem entityItem = new EntityItem(world, pos.getX() + dX, pos.getY() + dY,
-										pos.getZ() + dZ, itemStack.copy());
+									pos.getZ() + dZ, itemStack.copy());
 
-								if (itemStack.hasTagCompound())
-								{
+								if (itemStack.hasTagCompound()) {
 									entityItem.getEntityItem()
-											.setTagCompound((NBTTagCompound) itemStack.getTagCompound().copy());
+										.setTagCompound((NBTTagCompound) itemStack.getTagCompound().copy());
 								}
 
 								float factor = 0.05F;
 								entityItem.motionX = rand.nextGaussian() * factor;
 								entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
 								entityItem.motionZ = rand.nextGaussian() * factor;
-								if (!world.isRemote)
-								{
+								if (!world.isRemote) {
 									world.spawnEntityInWorld(entityItem);
 								}
 							}
 						}
 						world.playSound(null, player.posX, player.posY,
-								player.posZ, ModSounds.dismantle,
-								SoundCategory.BLOCKS, 0.6F, 1F);
-						if (!world.isRemote)
-						{
+							player.posZ, ModSounds.dismantle,
+							SoundCategory.BLOCKS, 0.6F, 1F);
+						if (!world.isRemote) {
 							world.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
 						}
 						return EnumActionResult.SUCCESS;
@@ -175,29 +149,30 @@ public class ItemWrench extends ItemTR implements ITexturedItem
 				}
 			}
 			return EnumActionResult.FAIL;
-		}else{
+		} else {
 			return EnumActionResult.FAIL;
 		}
 	}
 
-	@Override public String getTextureName(int damage)
-	{
+	@Override
+	public String getTextureName(int damage) {
 		return "techreborn:items/tool/wrench";
 	}
 
-	@Override public int getMaxMeta()
-	{
+	@Override
+	public int getMaxMeta() {
 		return 1;
 	}
 
-	@Override @SideOnly(Side.CLIENT) public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player,
-			int useRemaining)
-	{
+	@Override
+	@SideOnly(Side.CLIENT)
+	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player,
+	                                      int useRemaining) {
 		return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
 	}
 
-	@SideOnly(Side.CLIENT) public boolean isFull3D()
-	{
+	@SideOnly(Side.CLIENT)
+	public boolean isFull3D() {
 		return true;
 	}
 }

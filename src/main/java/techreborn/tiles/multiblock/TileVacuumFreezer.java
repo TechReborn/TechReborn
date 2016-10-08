@@ -18,35 +18,35 @@ import techreborn.init.ModBlocks;
 import static techreborn.tiles.multiblock.MultiblockChecker.CASING_REINFORCED;
 import static techreborn.tiles.multiblock.MultiblockChecker.ZERO_OFFSET;
 
-public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,IInventoryProvider, IRecipeCrafterProvider, ISidedInventory {
+public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable, IInventoryProvider, IRecipeCrafterProvider, ISidedInventory {
 
 	public Inventory inventory = new Inventory(3, "TileVacuumFreezer", 64, this);
-    public MultiblockChecker multiblockChecker;
+	public MultiblockChecker multiblockChecker;
 	public RecipeCrafter crafter;
 
 	public TileVacuumFreezer() {
 		super(2);
-		int[] inputs = new int[] {0};
-		int[] outputs = new int[] {1};
+		int[] inputs = new int[] { 0 };
+		int[] outputs = new int[] { 1 };
 		crafter = new RecipeCrafter(Reference.vacuumFreezerRecipe, this, 2, 1, inventory, inputs, outputs);
 	}
 
-    @Override
-    public void validate() {
-        super.validate();
-        multiblockChecker = new MultiblockChecker(worldObj, getPos().down());
-    }
-
-    @Override
-	public void update() {
-		super.update();
-        if(getMultiBlock())
-            crafter.updateEntity();
+	@Override
+	public void validate() {
+		super.validate();
+		multiblockChecker = new MultiblockChecker(worldObj, getPos().down());
 	}
 
-    public boolean getMultiBlock() {
-        return multiblockChecker.checkRectY(1, 1, CASING_REINFORCED, ZERO_OFFSET);
-    }
+	@Override
+	public void update() {
+		super.update();
+		if (getMultiBlock())
+			crafter.updateEntity();
+	}
+
+	public boolean getMultiBlock() {
+		return multiblockChecker.checkRectY(1, 1, CASING_REINFORCED, ZERO_OFFSET);
+	}
 
 	@Override
 	public double getMaxPower() {
@@ -133,19 +133,19 @@ public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,
 		return crafter;
 	}
 
-    @Override
-    public int[] getSlotsForFace(EnumFacing side) {
-        return new int[] {0, 1};
-    }
+	@Override
+	public int[] getSlotsForFace(EnumFacing side) {
+		return new int[] { 0, 1 };
+	}
 
-    @Override
-    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
-        return index == 0;
-    }
+	@Override
+	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+		return index == 0;
+	}
 
-    @Override
-    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
-        return index == 1;
-    }
+	@Override
+	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+		return index == 1;
+	}
 
 }

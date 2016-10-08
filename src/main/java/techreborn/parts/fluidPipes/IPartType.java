@@ -5,6 +5,6 @@ package techreborn.parts.fluidPipes;
  */
 public interface IPartType {
 
-    EnumFluidPipeTypes getPipeType();
+	EnumFluidPipeTypes getPipeType();
 
 }

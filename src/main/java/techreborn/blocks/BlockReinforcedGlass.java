@@ -10,13 +10,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.BaseBlock;
 import techreborn.client.TechRebornCreativeTabMisc;
 
-public class BlockReinforcedGlass extends BaseBlock implements ITexturedBlock
-{
+public class BlockReinforcedGlass extends BaseBlock implements ITexturedBlock {
 
 	private final String prefix = "techreborn:blocks/";
 
-	public BlockReinforcedGlass(Material materialIn)
-	{
+	public BlockReinforcedGlass(Material materialIn) {
 		super(materialIn);
 		setUnlocalizedName("techreborn.reinforcedglass");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
@@ -24,31 +22,26 @@ public class BlockReinforcedGlass extends BaseBlock implements ITexturedBlock
 	}
 
 	@Override
-	public boolean isOpaqueCube(IBlockState state)
-	{
+	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 
 	@SideOnly(Side.CLIENT)
-	public BlockRenderLayer getBlockLayer()
-	{
+	public BlockRenderLayer getBlockLayer() {
 		return BlockRenderLayer.CUTOUT;
 	}
 
-	public boolean isFullCube()
-	{
+	public boolean isFullCube() {
 		return false;
 	}
 
 	@Override
-	public int amountOfStates()
-	{
+	public int amountOfStates() {
 		return 1;
 	}
 
 	@Override
-	public String getTextureNameFromState(IBlockState arg0, EnumFacing arg1)
-	{
+	public String getTextureNameFromState(IBlockState arg0, EnumFacing arg1) {
 		return prefix + "reinforcedglass";
 	}
 

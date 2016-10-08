@@ -8,13 +8,11 @@ import reborncore.client.gui.SlotOutput;
 import reborncore.common.container.RebornContainer;
 import techreborn.tiles.generator.TileThermalGenerator;
 
-public class ContainerThermalGenerator extends RebornContainer
-{
+public class ContainerThermalGenerator extends RebornContainer {
 	public TileThermalGenerator tileThermalGenerator;
 	public EntityPlayer player;
 
-	public ContainerThermalGenerator(TileThermalGenerator tileThermalGenerator, EntityPlayer player)
-	{
+	public ContainerThermalGenerator(TileThermalGenerator tileThermalGenerator, EntityPlayer player) {
 		super();
 		this.tileThermalGenerator = tileThermalGenerator;
 		this.player = player;
@@ -25,23 +23,19 @@ public class ContainerThermalGenerator extends RebornContainer
 
 		int i;
 
-		for (i = 0; i < 3; ++i)
-		{
-			for (int j = 0; j < 9; ++j)
-			{
+		for (i = 0; i < 3; ++i) {
+			for (int j = 0; j < 9; ++j) {
 				this.addSlotToContainer(new BaseSlot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 			}
 		}
 
-		for (i = 0; i < 9; ++i)
-		{
+		for (i = 0; i < 9; ++i) {
 			this.addSlotToContainer(new BaseSlot(player.inventory, i, 8 + i * 18, 142));
 		}
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer player)
-	{
+	public boolean canInteractWith(EntityPlayer player) {
 		return true;
 	}
 }

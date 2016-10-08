@@ -4,32 +4,26 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Items;
 import techreborn.config.ConfigTechReborn;
 
-import net.minecraft.item.Item.ToolMaterial;
-public class ItemDiamondDrill extends ItemDrill
-{
+public class ItemDiamondDrill extends ItemDrill {
 
-	public ItemDiamondDrill()
-	{
+	public ItemDiamondDrill() {
 		super(ToolMaterial.DIAMOND, "techreborn.diamondDrill", ConfigTechReborn.DiamondDrillCharge,
-				ConfigTechReborn.DiamondDrillTier, 0.5F, 15F);
+			ConfigTechReborn.DiamondDrillTier, 0.5F, 15F);
 		this.cost = 250;
 	}
 
 	@Override
-	public boolean canHarvestBlock(IBlockState state)
-	{
+	public boolean canHarvestBlock(IBlockState state) {
 		return Items.DIAMOND_PICKAXE.canHarvestBlock(state) || Items.DIAMOND_SHOVEL.canHarvestBlock(state);
 	}
 
 	@Override
-	public String getTextureName(int damage)
-	{
+	public String getTextureName(int damage) {
 		return "techreborn:items/tool/diamondDrill";
 	}
 
 	@Override
-	public int getMaxMeta()
-	{
+	public int getMaxMeta() {
 		return 1;
 	}
 }

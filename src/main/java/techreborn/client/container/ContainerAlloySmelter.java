@@ -13,16 +13,14 @@ import techreborn.tiles.TileAlloySmelter;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ContainerAlloySmelter extends ContainerCrafting implements IContainerLayout<TileAlloySmelter>
-{
+public class ContainerAlloySmelter extends ContainerCrafting implements IContainerLayout<TileAlloySmelter> {
 
 	public int tickTime;
 	EntityPlayer player;
 	TileAlloySmelter tile;
 
 	@Override
-	public boolean canInteractWith(EntityPlayer player)
-	{
+	public boolean canInteractWith(EntityPlayer player) {
 		return true;
 	}
 
@@ -47,16 +45,13 @@ public class ContainerAlloySmelter extends ContainerCrafting implements IContain
 	public void addPlayerSlots() {
 		int i;
 
-		for (i = 0; i < 3; ++i)
-		{
-			for (int j = 0; j < 9; ++j)
-			{
+		for (i = 0; i < 3; ++i) {
+			for (int j = 0; j < 9; ++j) {
 				this.addSlotToContainer(new BaseSlot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 			}
 		}
 
-		for (i = 0; i < 9; ++i)
-		{
+		for (i = 0; i < 9; ++i) {
 			this.addSlotToContainer(new BaseSlot(player.inventory, i, 8 + i * 18, 142));
 		}
 	}

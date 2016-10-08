@@ -1,17 +1,15 @@
 package techreborn.manual.util;
 
-import java.awt.*;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
-
 import org.lwjgl.opengl.GL11;
 
-public class GuiButtonCustomTexture extends GuiButtonExt
-{
+import java.awt.*;
+
+public class GuiButtonCustomTexture extends GuiButtonExt {
 	public int textureU;
 	public int textureV;
 	public String texturename;
@@ -26,8 +24,7 @@ public class GuiButtonCustomTexture extends GuiButtonExt
 	public int textureW;
 
 	public GuiButtonCustomTexture(int id, int xPos, int yPos, int u, int v, int buttonWidth, int buttonHeight,
-			String texturename, String linkedPage, String name, int buttonU, int buttonV, int textureH, int textureW)
-	{
+	                              String texturename, String linkedPage, String name, int buttonU, int buttonV, int textureH, int textureW) {
 		super(id, xPos, yPos, buttonWidth, buttonHeight, "_");
 		this.textureU = u;
 		this.textureV = v;
@@ -42,18 +39,15 @@ public class GuiButtonCustomTexture extends GuiButtonExt
 		this.textureW = textureW;
 	}
 
-	public void drawButton(Minecraft mc, int mouseX, int mouseY)
-	{
-		if (this.visible)
-		{
+	public void drawButton(Minecraft mc, int mouseX, int mouseY) {
+		if (this.visible) {
 			boolean flag = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width
-					&& mouseY < this.yPosition + this.height;
+				&& mouseY < this.yPosition + this.height;
 			mc.getTextureManager().bindTexture(BUTTON_TEXTURES);
 			int u = textureU;
 			int v = textureV;
 
-			if (flag)
-			{
+			if (flag) {
 				u += width;
 				GL11.glPushMatrix();
 				GL11.glColor4f(0f, 0f, 0f, 1f);
@@ -66,12 +60,11 @@ public class GuiButtonCustomTexture extends GuiButtonExt
 			RenderHelper.enableGUIStandardItemLighting();
 			renderImage(this.xPosition, this.yPosition);
 			this.drawString(mc.fontRendererObj, this.NAME, this.xPosition + 20, this.yPosition + 3,
-					Color.white.getRGB());
+				Color.white.getRGB());
 		}
 	}
 
-	public void renderImage(int offsetX, int offsetY)
-	{
+	public void renderImage(int offsetX, int offsetY) {
 		TextureManager render = Minecraft.getMinecraft().renderEngine;
 		render.bindTexture(new ResourceLocation(imageprefix + this.texturename + ".png"));
 
@@ -82,8 +75,7 @@ public class GuiButtonCustomTexture extends GuiButtonExt
 		GL11.glDisable(GL11.GL_BLEND);
 	}
 
-	public boolean getIsHovering()
-	{
+	public boolean getIsHovering() {
 		return hovered;
 	}
 }

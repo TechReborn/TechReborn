@@ -7,10 +7,10 @@ import java.util.List;
  */
 public class VersionsInfo {
 
-    String name;
+	String name;
 
-    String lastUpdated;
+	String lastUpdated;
 
-    List<DownloadablePackageInfo> versions;
+	List<DownloadablePackageInfo> versions;
 
 }

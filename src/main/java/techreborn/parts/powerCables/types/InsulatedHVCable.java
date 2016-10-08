@@ -6,11 +6,9 @@ import techreborn.parts.powerCables.EnumCableType;
 /**
  * Created by modmuss50 on 05/03/2016.
  */
-public class InsulatedHVCable extends CableMultipart
-{
+public class InsulatedHVCable extends CableMultipart {
 	@Override
-	public EnumCableType getCableType()
-	{
+	public EnumCableType getCableType() {
 		return EnumCableType.IHV;
 	}
 }

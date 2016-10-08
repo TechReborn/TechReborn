@@ -15,8 +15,7 @@ import techreborn.tiles.TileAesu;
 import java.awt.*;
 import java.io.IOException;
 
-public class GuiAESU extends GuiContainer
-{
+public class GuiAESU extends GuiContainer {
 
 	private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/aesu.png");
 
@@ -24,8 +23,7 @@ public class GuiAESU extends GuiContainer
 
 	ContainerAESU containerAesu;
 
-	public GuiAESU(EntityPlayer player, TileAesu tileaesu)
-	{
+	public GuiAESU(EntityPlayer player, TileAesu tileaesu) {
 		super(new ContainerAESU(tileaesu, player));
 		this.xSize = 176;
 		this.ySize = 197;
@@ -34,8 +32,7 @@ public class GuiAESU extends GuiContainer
 	}
 
 	@Override
-	public void initGui()
-	{
+	public void initGui() {
 		super.initGui();
 		this.buttonList.clear();
 		int k = (this.width - this.xSize) / 2;
@@ -47,8 +44,7 @@ public class GuiAESU extends GuiContainer
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_)
-	{
+	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_) {
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.getTextureManager().bindTexture(texture);
 		int k = (this.width - this.xSize) / 2;
@@ -56,21 +52,19 @@ public class GuiAESU extends GuiContainer
 		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
 	}
 
-	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_)
-	{
+	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
 		this.fontRendererObj.drawString(I18n.translateToLocal("tile.techreborn.aesu.name"), 40, 10,
-				Color.WHITE.getRGB());
+			Color.WHITE.getRGB());
 		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerAesu.euOut) + " /tick", 10, 20,
-				Color.WHITE.getRGB());
+			Color.WHITE.getRGB());
 		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerAesu.storedEu) + " ", 10, 30,
-				Color.WHITE.getRGB());
+			Color.WHITE.getRGB());
 		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerAesu.euChange) + " change", 10, 40,
-				Color.WHITE.getRGB());
+			Color.WHITE.getRGB());
 	}
 
 	@Override
-	protected void actionPerformed(GuiButton button) throws IOException
-	{
+	protected void actionPerformed(GuiButton button) throws IOException {
 		super.actionPerformed(button);
 		PacketHandler.sendPacketToServer(new PacketAesu(button.id, aesu));
 	}

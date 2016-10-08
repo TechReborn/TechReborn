@@ -21,26 +21,24 @@ import java.io.Reader;
 @SideOnly(Side.CLIENT)
 public class ModelHelper {
 
-    public static final ItemCameraTransforms DEFAULT_ITEM_TRANSFORMS = loadTransformFromJson(new ResourceLocation("minecraft:models/item/generated"));
-    public static final ItemCameraTransforms HANDHELD_ITEM_TRANSFORMS = loadTransformFromJson(new ResourceLocation("minecraft:models/item/handheld"));
+	public static final ItemCameraTransforms DEFAULT_ITEM_TRANSFORMS = loadTransformFromJson(new ResourceLocation("minecraft:models/item/generated"));
+	public static final ItemCameraTransforms HANDHELD_ITEM_TRANSFORMS = loadTransformFromJson(new ResourceLocation("minecraft:models/item/handheld"));
 
+	public static ItemCameraTransforms loadTransformFromJson(ResourceLocation location) {
+		try {
 
-    public static ItemCameraTransforms loadTransformFromJson(ResourceLocation location) {
-        try {
+			return ModelBlock.deserialize(getReaderForResource(location)).getAllTransforms();
+		} catch (IOException exception) {
+			Core.logHelper.warn("Can't load resource " + location);
+			exception.printStackTrace();
+			return null;
+		}
+	}
 
-            return ModelBlock.deserialize(getReaderForResource(location)).getAllTransforms();
-        } catch (IOException exception) {
-            Core.logHelper.warn("Can't load resource " + location);
-            exception.printStackTrace();
-            return null;
-        }
-    }
-
-    public static Reader getReaderForResource(ResourceLocation location) throws IOException {
-        ResourceLocation file = new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + ".json");
-        IResource iresource = Minecraft.getMinecraft().getResourceManager().getResource(file);
-        return new BufferedReader(new InputStreamReader(iresource.getInputStream(), Charsets.UTF_8));
-    }
-
+	public static Reader getReaderForResource(ResourceLocation location) throws IOException {
+		ResourceLocation file = new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + ".json");
+		IResource iresource = Minecraft.getMinecraft().getResourceManager().getResource(file);
+		return new BufferedReader(new InputStreamReader(iresource.getInputStream(), Charsets.UTF_8));
+	}
 
 }

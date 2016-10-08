@@ -1,7 +1,5 @@
 package techreborn.items.tools;
 
-import java.util.List;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
@@ -17,73 +15,62 @@ import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
 import techreborn.items.ItemTextureBase;
 
-public class ItemCloakingDevice extends ItemTextureBase implements IEnergyItemInfo
-{
+import java.util.List;
+
+public class ItemCloakingDevice extends ItemTextureBase implements IEnergyItemInfo {
 	public static int Teir = ConfigTechReborn.CloakingDeviceTier;
 	public static int MaxCharge = ConfigTechReborn.CloakingDeviceCharge;
 	public static int Limit = 100;
 	public static boolean isActive;
 	private int armorType = 1;
 
-	public ItemCloakingDevice()
-	{
+	public ItemCloakingDevice() {
 		setUnlocalizedName("techreborn.cloakingdevice");
 		setMaxStackSize(1);
 		setCreativeTab(TechRebornCreativeTab.instance);
 	}
 
 	@Override
-	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack)
-	{
-		if (PoweredItem.canUseEnergy(ConfigTechReborn.CloakingDeviceEUTick, itemStack))
-		{
+	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
+		if (PoweredItem.canUseEnergy(ConfigTechReborn.CloakingDeviceEUTick, itemStack)) {
 			PoweredItem.useEnergy(ConfigTechReborn.CloakingDeviceEUTick, itemStack);
 			player.setInvisible(true);
-		} else
-		{
-			if (!player.isPotionActive(MobEffects.INVISIBILITY))
-			{
+		} else {
+			if (!player.isPotionActive(MobEffects.INVISIBILITY)) {
 				player.setInvisible(false);
 			}
 		}
 	}
 
 	@Override
-	public double getMaxPower(ItemStack stack)
-	{
+	public double getMaxPower(ItemStack stack) {
 		return MaxCharge;
 	}
 
 	@Override
-	public boolean canAcceptEnergy(ItemStack stack)
-	{
+	public boolean canAcceptEnergy(ItemStack stack) {
 		return true;
 	}
 
 	@Override
-	public boolean canProvideEnergy(ItemStack itemStack)
-	{
+	public boolean canProvideEnergy(ItemStack itemStack) {
 		return false;
 	}
 
 	@Override
-	public double getMaxTransfer(ItemStack stack)
-	{
+	public double getMaxTransfer(ItemStack stack) {
 		return Limit;
 	}
 
 	@Override
-	public int getStackTier(ItemStack stack)
-	{
+	public int getStackTier(ItemStack stack) {
 		return Teir;
 	}
 
-	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
-	{
+	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
 		ItemStack itemstack1 = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 
-		if (itemstack1 == null)
-		{
+		if (itemstack1 == null) {
 			player.setItemStackToSlot(EntityEquipmentSlot.CHEST, itemStack.copy());
 			itemStack.stackSize = 0;
 		}
@@ -92,8 +79,7 @@ public class ItemCloakingDevice extends ItemTextureBase implements IEnergyItemIn
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList)
-	{
+	public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
 		ItemStack itemStack = new ItemStack(this, 1);
 		itemList.add(itemStack);
 
@@ -102,27 +88,23 @@ public class ItemCloakingDevice extends ItemTextureBase implements IEnergyItemIn
 		itemList.add(charged);
 	}
 
-	public double getDurabilityForDisplay(ItemStack stack)
-	{
+	public double getDurabilityForDisplay(ItemStack stack) {
 		double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
 		return 1 - charge;
 
 	}
 
-	public boolean showDurabilityBar(ItemStack stack)
-	{
+	public boolean showDurabilityBar(ItemStack stack) {
 		return true;
 	}
 
 	@Override
-	public String getTextureName(int damage)
-	{
+	public String getTextureName(int damage) {
 		return "techreborn:items/tool/cloakingDevice";
 	}
 
 	@Override
-	public int getMaxMeta()
-	{
+	public int getMaxMeta() {
 		return 1;
 	}
 }

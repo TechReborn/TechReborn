@@ -12,13 +12,13 @@ import net.minecraft.world.World;
 
 public class IC2WrenchHelper {
 
-    static ItemToolWrench wrench;
+	static ItemToolWrench wrench;
 
-    public static EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos,
-                                           EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand){
-        if(wrench == null){
-            wrench = (ItemToolWrench) IC2Items.getItem("wrench").getItem();
-        }
-        return wrench.onItemUseFirst(stack, player, world, pos, side, hitX, hitY, hitZ, hand);
-    }
+	public static EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos,
+	                                              EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+		if (wrench == null) {
+			wrench = (ItemToolWrench) IC2Items.getItem("wrench").getItem();
+		}
+		return wrench.onItemUseFirst(stack, player, world, pos, side, hitX, hitY, hitZ, hand);
+	}
 }

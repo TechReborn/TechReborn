@@ -12,11 +12,9 @@ import techreborn.Core;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTabMisc;
 
-public class ItemDestructopack extends ItemTextureBase implements ITexturedItem
-{
+public class ItemDestructopack extends ItemTextureBase implements ITexturedItem {
 
-	public ItemDestructopack()
-	{
+	public ItemDestructopack() {
 		setUnlocalizedName("techreborn.destructopack");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		RebornCore.jsonDestroyer.registerObject(this);
@@ -24,22 +22,19 @@ public class ItemDestructopack extends ItemTextureBase implements ITexturedItem
 
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStack, World world, EntityPlayer player,
-			EnumHand hand)
-	{
+	                                                EnumHand hand) {
 		player.openGui(Core.INSTANCE, GuiHandler.destructoPackID, world, (int) player.posX, (int) player.posY,
-				(int) player.posY);
+			(int) player.posY);
 		return new ActionResult<>(EnumActionResult.SUCCESS, itemStack);
 	}
 
 	@Override
-	public int getMaxMeta()
-	{
+	public int getMaxMeta() {
 		return 1;
 	}
 
 	@Override
-	public String getTextureName(int arg0)
-	{
+	public String getTextureName(int arg0) {
 		return "techreborn:items/misc/destructopack";
 	}
 }

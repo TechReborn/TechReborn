@@ -11,60 +11,51 @@ import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileMatterFabricator;
 
-public class BlockMatterFabricator extends BlockMachineBase implements IAdvancedRotationTexture
-{
+public class BlockMatterFabricator extends BlockMachineBase implements IAdvancedRotationTexture {
 
 	private final String prefix = "techreborn:blocks/machine/greg_machines/";
 
-	public BlockMatterFabricator(Material material)
-	{
+	public BlockMatterFabricator(Material material) {
 		super();
 		setUnlocalizedName("techreborn.matterfabricator");
 		setCreativeTab(TechRebornCreativeTab.instance);
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
-	{
+	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
 		return new TileMatterFabricator();
 	}
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
-			float hitY, float hitZ)
-	{
+	                                float hitY, float hitZ) {
 		if (!player.isSneaking())
 			player.openGui(Core.INSTANCE, GuiHandler.matterfabID, world, x, y, z);
 		return true;
 	}
 
 	@Override
-	public boolean isAdvanced()
-	{
+	public boolean isAdvanced() {
 		return true;
 	}
 
 	@Override
-	public String getFront(boolean isActive)
-	{
+	public String getFront(boolean isActive) {
 		return isActive ? prefix + "matter_fabricator_on" : prefix + "matter_fabricator_off";
 	}
 
 	@Override
-	public String getSide(boolean isActive)
-	{
+	public String getSide(boolean isActive) {
 		return isActive ? prefix + "matter_fabricator_on" : prefix + "matter_fabricator_off";
 	}
 
 	@Override
-	public String getTop(boolean isActive)
-	{
+	public String getTop(boolean isActive) {
 		return isActive ? prefix + "matter_fabricator_on" : prefix + "matter_fabricator_off";
 	}
 
 	@Override
-	public String getBottom(boolean isActive)
-	{
+	public String getBottom(boolean isActive) {
 		return isActive ? prefix + "matter_fabricator_on" : prefix + "matter_fabricator_off";
 	}
 }

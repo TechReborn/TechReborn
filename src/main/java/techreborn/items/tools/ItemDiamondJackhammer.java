@@ -1,26 +1,23 @@
 package techreborn.items.tools;
 
 import techreborn.config.ConfigTechReborn;
-public class ItemDiamondJackhammer extends ItemJackhammer
-{
 
-	public ItemDiamondJackhammer()
-	{
+public class ItemDiamondJackhammer extends ItemJackhammer {
+
+	public ItemDiamondJackhammer() {
 		super(ToolMaterial.DIAMOND, "techreborn.diamondJackhammer", ConfigTechReborn.DiamondJackhammerCharge,
-				ConfigTechReborn.DiamondJackhammerTier);
+			ConfigTechReborn.DiamondJackhammerTier);
 		this.cost = 100;
 		this.efficiencyOnProperMaterial = 16F;
 	}
 
 	@Override
-	public String getTextureName(int damage)
-	{
+	public String getTextureName(int damage) {
 		return "techreborn:items/tool/diamondJackhammer";
 	}
 
 	@Override
-	public int getMaxMeta()
-	{
+	public int getMaxMeta() {
 		return 1;
 	}
 }

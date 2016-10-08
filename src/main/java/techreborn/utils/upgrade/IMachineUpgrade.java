@@ -5,5 +5,5 @@ import reborncore.common.recipes.RecipeCrafter;
 
 public interface IMachineUpgrade {
 
-    public void processUpgrade(RecipeCrafter crafter, ItemStack stack);
+	public void processUpgrade(RecipeCrafter crafter, ItemStack stack);
 }

@@ -1,24 +1,18 @@
 package techreborn.compat.jei.alloySmelter;
 
-import javax.annotation.Nonnull;
-
 import mezz.jei.api.IGuiHelper;
-import mezz.jei.api.gui.IDrawable;
-import mezz.jei.api.gui.IDrawableAnimated;
-import mezz.jei.api.gui.IDrawableStatic;
-import mezz.jei.api.gui.IGuiItemStackGroup;
-import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.*;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeCategory;
-import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.translation.I18n;
 import techreborn.client.gui.GuiAlloySmelter;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
 
-public class AlloySmelterRecipeCategory extends BlankRecipeCategory<AlloySmelterRecipeWrapper>
-{
+import javax.annotation.Nonnull;
+
+public class AlloySmelterRecipeCategory extends BlankRecipeCategory<AlloySmelterRecipeWrapper> {
 	private static final int[] INPUT_SLOTS = { 0, 1 };
 	private static final int[] OUTPUT_SLOTS = { 2 };
 
@@ -26,45 +20,45 @@ public class AlloySmelterRecipeCategory extends BlankRecipeCategory<AlloySmelter
 	private final IDrawableAnimated electricity;
 	private final String title;
 
-	public AlloySmelterRecipeCategory(IGuiHelper guiHelper)
-	{
+	public AlloySmelterRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(GuiAlloySmelter.texture, 46, 16, 91, 54);
 		IDrawableStatic electricityDrawable = guiHelper.createDrawable(GuiAlloySmelter.texture, 176, 0, 14, 14);
 		electricity = guiHelper.createAnimatedDrawable(electricityDrawable, 300, IDrawableAnimated.StartDirection.TOP,
-				true);
+			true);
 		title = I18n.translateToLocal("techreborn.jei.category.alloy.furnace");
 	}
 
 	@Nonnull
 	@Override
-	public String getUid()
-	{
+	public String getUid() {
 		return RecipeCategoryUids.ALLOY_SMELTER;
 	}
 
 	@Nonnull
 	@Override
-	public String getTitle()
-	{
+	public String getTitle() {
 		return title;
 	}
 
 	@Nonnull
 	@Override
-	public IDrawable getBackground()
-	{
+	public IDrawable getBackground() {
 		return background;
 	}
 
 	@Override
-	public void drawAnimations(@Nonnull Minecraft minecraft)
-	{
+	public void drawAnimations(
+		@Nonnull
+			Minecraft minecraft) {
 		electricity.draw(minecraft, 10, 20);
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull AlloySmelterRecipeWrapper recipeWrapper)
-	{
+	public void setRecipe(
+		@Nonnull
+			IRecipeLayout recipeLayout,
+		@Nonnull
+			AlloySmelterRecipeWrapper recipeWrapper) {
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
 		guiItemStacks.init(INPUT_SLOTS[0], true, 0, 0);
 		guiItemStacks.init(INPUT_SLOTS[1], true, 18, 0);
@@ -74,8 +68,13 @@ public class AlloySmelterRecipeCategory extends BlankRecipeCategory<AlloySmelter
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull AlloySmelterRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients)
-	{
+	public void setRecipe(
+		@Nonnull
+			IRecipeLayout recipeLayout,
+		@Nonnull
+			AlloySmelterRecipeWrapper recipeWrapper,
+		@Nonnull
+			IIngredients ingredients) {
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
 		guiItemStacks.init(INPUT_SLOTS[0], true, 0, 0);
 		guiItemStacks.init(INPUT_SLOTS[1], true, 18, 0);

@@ -7,66 +7,55 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 /**
  * Created by modmuss50 on 25/02/2016.
  */
-public class TileWindMill extends TilePowerAcceptor
-{
+public class TileWindMill extends TilePowerAcceptor {
 
 	int basePower = 16;
 
-	public TileWindMill()
-	{
+	public TileWindMill() {
 		super(2);
 	}
 
 	@Override
-	public void updateEntity()
-	{
+	public void updateEntity() {
 		super.updateEntity();
-		if (pos.getY() > 64)
-		{
+		if (pos.getY() > 64) {
 			int actualPower = basePower;
-			if (worldObj.isThundering())
-			{
+			if (worldObj.isThundering()) {
 				actualPower *= 1.25;
 			}
 			addEnergy(actualPower); // Value taken from
-									// http://wiki.industrial-craft.net/?title=Wind_Mill
-									// Not worth making more complicated
+			// http://wiki.industrial-craft.net/?title=Wind_Mill
+			// Not worth making more complicated
 		}
 	}
 
 	@Override
-	public double getMaxPower()
-	{
+	public double getMaxPower() {
 		return 10000;
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction)
-	{
+	public boolean canAcceptEnergy(EnumFacing direction) {
 		return false;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnumFacing direction)
-	{
+	public boolean canProvideEnergy(EnumFacing direction) {
 		return true;
 	}
 
 	@Override
-	public double getMaxOutput()
-	{
+	public double getMaxOutput() {
 		return 128;
 	}
 
 	@Override
-	public double getMaxInput()
-	{
+	public double getMaxInput() {
 		return 0;
 	}
 
 	@Override
-	public EnumPowerTier getTier()
-	{
+	public EnumPowerTier getTier() {
 		return EnumPowerTier.LOW;
 	}
 }

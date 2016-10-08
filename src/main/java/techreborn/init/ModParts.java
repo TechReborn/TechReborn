@@ -1,16 +1,14 @@
 package techreborn.init;
 
-import java.util.HashMap;
-
 import net.minecraft.item.ItemStack;
 
-public class ModParts
-{
+import java.util.HashMap;
+
+public class ModParts {
 
 	public static HashMap<Integer, ItemStack> stackCable = new HashMap<>();
 
-	public static void init()
-	{ // TODO 1.8
+	public static void init() { // TODO 1.8
 		// if (Loader.isModLoaded("IC2")) {
 		// for (int i = 0; i < 11; i++) {
 		// CablePart part = new CablePart();

@@ -13,26 +13,21 @@ import reborncore.common.multiblock.rectangular.RectangularMultiblockControllerB
 import reborncore.common.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 import techreborn.init.ModBlocks;
 
-public class MultiBlockCasing extends RectangularMultiblockControllerBase
-{
+public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 
 	public boolean hasLava;
 	public boolean isStar = false;
 	public int height = 0;
 
-	public MultiBlockCasing(World world)
-	{
+	public MultiBlockCasing(World world) {
 		super(world);
 	}
 
-	public String getInfo()
-	{
+	public String getInfo() {
 		String value = "Intact";
-		try
-		{
+		try {
 			isMachineWhole();
-		} catch (MultiblockValidationException e)
-		{
+		} catch (MultiblockValidationException e) {
 			e.printStackTrace();
 			value = e.getLocalizedMessage();
 		}
@@ -41,13 +36,11 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase
 
 	/**
 	 * @return True if the machine is "whole" and should be assembled. False
-	 *         otherwise.
+	 * otherwise.
 	 */
 	@Override
-	protected void isMachineWhole() throws MultiblockValidationException
-	{
-		if (connectedParts.size() < getMinimumNumberOfBlocksForAssembledMachine())
-		{
+	protected void isMachineWhole() throws MultiblockValidationException {
+		if (connectedParts.size() < getMinimumNumberOfBlocksForAssembledMachine()) {
 			throw new MultiblockValidationException("Machine is too small.");
 		}
 
@@ -66,35 +59,29 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase
 		int minY = getMinimumYSize();
 		int minZ = getMinimumZSize();
 
-		if (maxX > 0 && deltaX > maxX)
-		{
+		if (maxX > 0 && deltaX > maxX) {
 			throw new MultiblockValidationException(
-					String.format("Machine is too large, it may be at most %d blocks in the X dimension", maxX));
+				String.format("Machine is too large, it may be at most %d blocks in the X dimension", maxX));
 		}
-		if (maxY > 0 && deltaY > maxY)
-		{
+		if (maxY > 0 && deltaY > maxY) {
 			throw new MultiblockValidationException(
-					String.format("Machine is too large, it may be at most %d blocks in the Y dimension", maxY));
+				String.format("Machine is too large, it may be at most %d blocks in the Y dimension", maxY));
 		}
-		if (maxZ > 0 && deltaZ > maxZ)
-		{
+		if (maxZ > 0 && deltaZ > maxZ) {
 			throw new MultiblockValidationException(
-					String.format("Machine is too large, it may be at most %d blocks in the Z dimension", maxZ));
+				String.format("Machine is too large, it may be at most %d blocks in the Z dimension", maxZ));
 		}
-		if (deltaX < minX)
-		{
+		if (deltaX < minX) {
 			throw new MultiblockValidationException(
-					String.format("Machine is too small, it must be at least %d blocks in the X dimension", minX));
+				String.format("Machine is too small, it must be at least %d blocks in the X dimension", minX));
 		}
-		if (deltaY < minY)
-		{
+		if (deltaY < minY) {
 			throw new MultiblockValidationException(
-					String.format("Machine is too small, it must be at least %d blocks in the Y dimension", minY));
+				String.format("Machine is too small, it must be at least %d blocks in the Y dimension", minY));
 		}
-		if (deltaZ < minZ)
-		{
+		if (deltaZ < minZ) {
 			throw new MultiblockValidationException(
-					String.format("Machine is too small, it must be at least %d blocks in the Z dimension", minZ));
+				String.format("Machine is too small, it must be at least %d blocks in the Z dimension", minZ));
 		}
 		height = deltaY;
 
@@ -105,10 +92,9 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase
 		// isStar = false;
 		// }
 
-		if (deltaY < minY)
-		{
+		if (deltaY < minY) {
 			throw new MultiblockValidationException(
-					String.format("Machine is too small, it must be at least %d blocks in the Y dimension", minY));
+				String.format("Machine is too small, it must be at least %d blocks in the Y dimension", minY));
 		}
 
 		// Now we run a simple check on each block within that volume.
@@ -117,29 +103,23 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase
 		RectangularMultiblockTileEntityBase part;
 		Class<? extends RectangularMultiblockControllerBase> myClass = this.getClass();
 
-		for (int x = minimumCoord.x; x <= maximumCoord.x; x++)
-		{
-			for (int y = minimumCoord.y; y <= maximumCoord.y; y++)
-			{
-				for (int z = minimumCoord.z; z <= maximumCoord.z; z++)
-				{
+		for (int x = minimumCoord.x; x <= maximumCoord.x; x++) {
+			for (int y = minimumCoord.y; y <= maximumCoord.y; y++) {
+				for (int z = minimumCoord.z; z <= maximumCoord.z; z++) {
 					// Okay, figure out what sort of block this should be.
 
 					te = this.worldObj.getTileEntity(new BlockPos(x, y, z));
-					if (te instanceof RectangularMultiblockTileEntityBase)
-					{
+					if (te instanceof RectangularMultiblockTileEntityBase) {
 						part = (RectangularMultiblockTileEntityBase) te;
 
 						// Ensure this part should actually be allowed within a
 						// cube of this controller's type
-						if (!myClass.equals(part.getMultiblockControllerType()))
-						{
+						if (!myClass.equals(part.getMultiblockControllerType())) {
 							throw new MultiblockValidationException(
-									String.format("Part @ %d, %d, %d is incompatible with machines of type %s", x, y, z,
-											myClass.getSimpleName()));
+								String.format("Part @ %d, %d, %d is incompatible with machines of type %s", x, y, z,
+									myClass.getSimpleName()));
 						}
-					} else
-					{
+					} else {
 						// This is permitted so that we can incorporate certain
 						// non-multiblock parts inside interiors
 						part = null;
@@ -148,79 +128,57 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase
 					// Validate block type against both part-level and
 					// material-level validators.
 					int extremes = 0;
-					if (x == minimumCoord.x)
-					{
+					if (x == minimumCoord.x) {
 						extremes++;
 					}
-					if (y == minimumCoord.y)
-					{
+					if (y == minimumCoord.y) {
 						extremes++;
 					}
-					if (z == minimumCoord.z)
-					{
+					if (z == minimumCoord.z) {
 						extremes++;
 					}
 
-					if (x == maximumCoord.x)
-					{
+					if (x == maximumCoord.x) {
 						extremes++;
 					}
-					if (y == maximumCoord.y)
-					{
+					if (y == maximumCoord.y) {
 						extremes++;
 					}
-					if (z == maximumCoord.z)
-					{
+					if (z == maximumCoord.z) {
 						extremes++;
 					}
 
-					if (extremes >= 2)
-					{
-						if (part != null)
-						{
+					if (extremes >= 2) {
+						if (part != null) {
 							part.isGoodForFrame();
-						} else
-						{
+						} else {
 							isBlockGoodForFrame(this.worldObj, x, y, z);
 						}
-					} else if (extremes == 1)
-					{
-						if (y == maximumCoord.y)
-						{
-							if (part != null)
-							{
+					} else if (extremes == 1) {
+						if (y == maximumCoord.y) {
+							if (part != null) {
 								part.isGoodForTop();
-							} else
-							{
+							} else {
 								isBlockGoodForTop(this.worldObj, x, y, z);
 							}
-						} else if (y == minimumCoord.y)
-						{
-							if (part != null)
-							{
+						} else if (y == minimumCoord.y) {
+							if (part != null) {
 								part.isGoodForBottom();
-							} else
-							{
+							} else {
 								isBlockGoodForBottom(this.worldObj, x, y, z);
 							}
-						} else
-						{
+						} else {
 							// Side
-							if (part != null)
-							{
+							if (part != null) {
 								part.isGoodForSides();
-							} else
-							{
+							} else {
 								isBlockGoodForSides(this.worldObj, x, y, z);
 							}
 						}
-					} else
-					{
-						if (part != null)
-						{
+					} else {
+						if (part != null) {
 							part.isGoodForInterior();
-						} else
-						{
+						} else {
 							isBlockGoodForInterior(this.worldObj, x, y, z);
 						}
 					}
@@ -230,163 +188,134 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase
 	}
 
 	@Override
-	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data)
-	{
+	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
 
 	}
 
 	@Override
-	protected void onBlockAdded(IMultiblockPart newPart)
-	{
+	protected void onBlockAdded(IMultiblockPart newPart) {
 	}
 
 	@Override
-	protected void onBlockRemoved(IMultiblockPart oldPart)
-	{
-
-	}
-
-	@Override
-	protected void onMachineAssembled()
-	{
+	protected void onBlockRemoved(IMultiblockPart oldPart) {
 
 	}
 
 	@Override
-	protected void onMachineRestored()
-	{
+	protected void onMachineAssembled() {
 
 	}
 
 	@Override
-	protected void onMachinePaused()
-	{
+	protected void onMachineRestored() {
 
 	}
 
 	@Override
-	protected void onMachineDisassembled()
-	{
+	protected void onMachinePaused() {
 
 	}
 
 	@Override
-	protected int getMinimumNumberOfBlocksForAssembledMachine()
-	{
+	protected void onMachineDisassembled() {
+
+	}
+
+	@Override
+	protected int getMinimumNumberOfBlocksForAssembledMachine() {
 		return 1;
 	}
 
 	@Override
-	protected int getMaximumXSize()
-	{
+	protected int getMaximumXSize() {
 		return 3;
 	}
 
 	@Override
-	protected int getMaximumZSize()
-	{
+	protected int getMaximumZSize() {
 		return 3;
 	}
 
 	@Override
-	protected int getMaximumYSize()
-	{
+	protected int getMaximumYSize() {
 		return 4;
 	}
 
 	@Override
-	protected int getMinimumXSize()
-	{
+	protected int getMinimumXSize() {
 		return 3;
 	}
 
 	@Override
-	protected int getMinimumYSize()
-	{
+	protected int getMinimumYSize() {
 		return 3;
 	}
 
 	@Override
-	protected int getMinimumZSize()
-	{
+	protected int getMinimumZSize() {
 		return 3;
 	}
 
 	@Override
-	protected void onAssimilate(MultiblockControllerBase assimilated)
-	{
+	protected void onAssimilate(MultiblockControllerBase assimilated) {
 
 	}
 
 	@Override
-	protected void onAssimilated(MultiblockControllerBase assimilator)
-	{
+	protected void onAssimilated(MultiblockControllerBase assimilator) {
 
 	}
 
 	@Override
-	protected boolean updateServer()
-	{
+	protected boolean updateServer() {
 		return true;
 	}
 
 	@Override
-	protected void updateClient()
-	{
+	protected void updateClient() {
 
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound data)
-	{
+	public void writeToNBT(NBTTagCompound data) {
 
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound data)
-	{
+	public void readFromNBT(NBTTagCompound data) {
 
 	}
 
 	@Override
-	public void formatDescriptionPacket(NBTTagCompound data)
-	{
+	public void formatDescriptionPacket(NBTTagCompound data) {
 
 	}
 
 	@Override
-	public void decodeDescriptionPacket(NBTTagCompound data)
-	{
+	public void decodeDescriptionPacket(NBTTagCompound data) {
 
 	}
 
 	@Override
-	protected void isBlockGoodForInterior(World world, int x, int y, int z) throws MultiblockValidationException
-	{
+	protected void isBlockGoodForInterior(World world, int x, int y, int z) throws MultiblockValidationException {
 		Block block = world.getBlockState(new BlockPos(x, y, z)).getBlock();
 
 		System.out.println(block);
-		if (block.isAir(world.getBlockState(new BlockPos(x, y, z)), world, new BlockPos(x, y, z)))
-		{
+		if (block.isAir(world.getBlockState(new BlockPos(x, y, z)), world, new BlockPos(x, y, z))) {
 
-		} else if (block.getUnlocalizedName().equals("tile.lava"))
-		{
+		} else if (block.getUnlocalizedName().equals("tile.lava")) {
 			hasLava = true;
-		} else
-		{
+		} else {
 			super.isBlockGoodForInterior(world, x, y, z);
 		}
 	}
 
 	@Override
-	protected void isBlockGoodForFrame(World world, int x, int y, int z) throws MultiblockValidationException
-	{
+	protected void isBlockGoodForFrame(World world, int x, int y, int z) throws MultiblockValidationException {
 		Block block = world.getBlockState(new BlockPos(x, y, z)).getBlock();
-		if (block == ModBlocks.MachineCasing)
-		{
+		if (block == ModBlocks.MachineCasing) {
 
-		} else
-		{
+		} else {
 			super.isBlockGoodForFrame(world, x, y, z);
 		}
 	}
