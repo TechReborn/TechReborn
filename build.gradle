@@ -97,8 +97,8 @@ dependencies {
 	deobfCompile 'RebornCore:RebornCore-1.10.2:+:universal'
     deobfCompile "mezz.jei:jei_1.10.2:+"
 //    compile "net.darkhax.tesla:Tesla:1.9.4-1.1.0.24:deobf"
-	deobfCompile "slimeknights.mantle:Mantle:1.9.4-0.10.1.jenkins142"
-	deobfCompile "slimeknights:TConstruct:1.9.4-2.3.1.jenkins229"
+	deobfCompile "slimeknights:TConstruct:1.10.2-2.5.3.jenkins384"
+	deobfCompile "slimeknights.mantle:Mantle:1.10.2-1.0.0.jenkins170"
     deobfCompile "mcjty.theoneprobe:TheOneProbe:1.9.4-1.0.4-14"
     deobfCompile 'net.industrial-craft:industrialcraft-2:2.6.58-ex110:dev'
 }
