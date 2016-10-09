@@ -47,7 +47,6 @@
       "model": "cube_bottom_top",
       "textures": {
         "particle": "techreborn:blocks/machines/generators/thermal_generator_side_off",
-        "down": "techreborn:blocks/machines/generators/thermal_generator_bottom",
         "top": "techreborn:blocks/machines/generators/thermal_generator_top_off",
         "side": "techreborn:blocks/machines/generators/thermal_generator_side_off"
       }
