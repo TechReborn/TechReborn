@@ -5,16 +5,16 @@
     "model": "orientable",
     "textures": {
       "particle": "techreborn:blocks/machines/tier3_machines/quantum_chest_side",
-      "bottom": "techreborn:blocks/machines/tier3_machines/machine_bottom",
+      "down": "techreborn:blocks/machines/tier3_machines/quantum_chest_bottom",
       "top": "techreborn:blocks/machines/tier3_machines/quantum_chest_top",
-      "side": "techreborn:blocks/machines/tier3_machines/quantum_chest_side"
+      "side": "techreborn:blocks/machines/tier3_machines/quantum_chest_side",
+      "front": "techreborn:blocks/machines/tier3_machines/quantum_chest_side"
     }
   },
   "variants": {
     "inventory": {
       "transform": "forge:default-block",
       "textures": {
-        "front": "techreborn:blocks/machines/tier3_machines/quantum_chest_side"
       }
     },
     "facing": {
@@ -33,23 +33,16 @@
     "active": {
       "true": {
         "textures": {
-          "front": "techreborn:blocks/machines/tier3_machines/quantum_chest_side"
         }
       },
       "false": {
         "textures": {
-          "front": "techreborn:blocks/machines/tier3_machines/quantum_chest_side"
         }
       }
     },
     "inventory": {
       "model": "orientable",
       "textures": {
-        "particle": "techreborn:blocks/machines/tier3_machines/quantum_chest_side",
-        "bottom": "techreborn:blocks/machines/tier3_machines/machine_bottom",
-        "top": "techreborn:blocks/machines/tier3_machines/quantum_chest_top",
-        "side": "techreborn:blocks/machines/tier3_machines/quantum_chest_side",
-        "front": "techreborn:blocks/machines/tier3_machines/quantum_chest_side"
       }
     }
   }
