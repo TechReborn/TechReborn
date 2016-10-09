@@ -2,20 +2,19 @@
   "forge_marker": 1,
   "defaults": {
     "transform": "forge:default-block",
-    "model": "cube_bottom_top",
+    "model": "orientable",
     "textures": {
       "particle": "techreborn:blocks/machines/tier2_machines/digital_chest_side",
-      "bottom": "techreborn:blocks/machines/tier2_machines/machine_bottom",
+      "down": "techreborn:blocks/machines/tier2_machines/digital_chest_bottom",
       "top": "techreborn:blocks/machines/tier2_machines/digital_chest_top",
-      "side": "techreborn:blocks/machines/tier2_machines/digital_chest_side"
+      "side": "techreborn:blocks/machines/tier2_machines/digital_chest_side",
+      "front": "techreborn:blocks/machines/tier2_machines/digital_chest_side"
     }
   },
   "variants": {
     "inventory": {
       "transform": "forge:default-block",
       "textures": {
-        "top": "techreborn:blocks/machines/tier2_machines/digital_chest_top",
-        "side": "techreborn:blocks/machines/tier2_machines/digital_chest_side"
       }
     },
     "facing": {
@@ -31,13 +30,19 @@
         "y": 270
       }
     },
+    "active": {
+      "true": {
+        "textures": {
+        }
+      },
+      "false": {
+        "textures": {
+        }
+      }
+    },
     "inventory": {
-      "model": "cube_bottom_top",
+      "model": "orientable",
       "textures": {
-        "particle": "techreborn:blocks/machines/tier2_machines/digital_chest_side",
-        "down": "techreborn:blocks/machines/tier2_machines/machine_bottom",
-        "top": "techreborn:blocks/machines/tier2_machines/digital_chest_top",
-        "side": "techreborn:blocks/machines/tier2_machines/digital_chest_side"
       }
     }
   }
