@@ -68,6 +68,7 @@ public class Core {
 
 	@Mod.EventHandler
 	public void preinit(FMLPreInitializationEvent event) throws IllegalAccessException, InstantiationException {
+		proxy.prePreInit(event);
 		event.getModMetadata().version = ModInfo.MOD_VERSION;
 		INSTANCE = this;
 		FMLCommonHandler.instance().bus().register(this);
