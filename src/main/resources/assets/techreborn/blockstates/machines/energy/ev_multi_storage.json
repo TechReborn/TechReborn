@@ -2,15 +2,9 @@
   "forge_marker": 1,
   "defaults": {
     "transform": "forge:default-block",
-    "model": "cube_directional",
+    "model": "cube_all",
     "textures": {
-      "particle": "techreborn:blocks/machines/energy/ev_multi_side",
-      "down": "techreborn:blocks/machines/energy/eev_multi_side",
-      "up": "techreborn:blocks/machines/energy/ev_multi_side",
-      "north": "techreborn:blocks/machines/energy/ev_multi_side",
-      "west": "techreborn:blocks/machines/energy/ev_multi_side",
-      "east": "techreborn:blocks/machines/energy/ev_multi_side",
-      "south": "techreborn:blocks/machines/energy/ev_multi_side"
+      "all": "techreborn:blocks/machines/energy/ev_multi_side"
     }
   }
 }

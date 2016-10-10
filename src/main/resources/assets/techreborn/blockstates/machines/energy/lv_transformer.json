@@ -5,7 +5,7 @@
     "model": "orientable",
     "textures": {
       "particle": "techreborn:blocks/machines/energy/lv_transformer_side",
-      "bottom": "techreborn:blocks/machines/energy/lv_transformer_side,
+      "bottom": "techreborn:blocks/machines/energy/lv_transformer_side",
       "top": "techreborn:blocks/machines/energy/lv_transformer_side",
       "front": "techreborn:blocks/machines/energy/lv_transformer_front",
       "side": "techreborn:blocks/machines/energy/lv_transformer_side"

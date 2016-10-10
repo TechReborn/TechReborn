@@ -1,5 +1,5 @@
 {
-	"type":"CTM"
+	"type":"CTM",
 	"textures":[
 		"./ev_multi_side",
 		"./ev_multi_side_ctm"
