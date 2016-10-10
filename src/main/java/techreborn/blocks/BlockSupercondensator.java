@@ -12,7 +12,6 @@ public class BlockSupercondensator extends BlockMachineBase implements IAdvanced
 	public BlockSupercondensator(Material material) {
 		super();
 		setUnlocalizedName("techreborn.supercondensator");
-		setCreativeTab(TechRebornCreativeTab.instance);
 	}
 
 	@Override
