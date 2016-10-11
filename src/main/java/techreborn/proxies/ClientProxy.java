@@ -23,6 +23,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import reborncore.RebornCore;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.common.blocks.BlockMachineBase;
+import techreborn.Core;
 import techreborn.blocks.BlockRubberLeaves;
 import techreborn.client.ClientMultiBlocks;
 import techreborn.client.IconSupplier;
@@ -83,6 +84,7 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new StackToolTipEvent());
 		multiblockRenderEvent = new MultiblockRenderEvent();
 		MinecraftForge.EVENT_BUS.register(multiblockRenderEvent);
+
 		ClientRegistry.registerKeyBinding(KeyBindings.config);
 		ClientMultiBlocks.init();
 		StateMap rubberLeavesStateMap = new StateMap.Builder().ignore(BlockRubberLeaves.CHECK_DECAY, BlockRubberLeaves.DECAYABLE).build();

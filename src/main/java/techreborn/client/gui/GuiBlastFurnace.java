@@ -5,6 +5,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -147,11 +148,15 @@ public class GuiBlastFurnace extends GuiContainer {
 					addComponent(1, 3, -1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
 					addComponent(1, 3, 1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
 
+					addComponent(1, 4, 0, ModBlocks.LesuStorage.getDefaultState(), multiblock);
+					addComponent(1, 4, 1, ModBlocks.Lesu.getDefaultState(), multiblock);
+					addComponent(1, 4, 2, ModBlocks.AlloyFurnace.getDefaultState(), multiblock);
+
 					MultiblockSet set = new MultiblockSet(multiblock);
 					ClientProxy.multiblockRenderEvent.setMultiblock(set);
-					ClientProxy.multiblockRenderEvent.partent = new Location(blastfurnace.getPos().getX(),
+					ClientProxy.multiblockRenderEvent.parent = new Location(blastfurnace.getPos().getX(),
 						blastfurnace.getPos().getY(), blastfurnace.getPos().getZ(), blastfurnace.getWorld());
-					MultiblockRenderEvent.anchor = new CoordTriplet(
+					MultiblockRenderEvent.anchor = new BlockPos(
 						blastfurnace.getPos().getX()
 							- (EnumFacing.getFront(blastfurnace.getFacingInt()).getFrontOffsetX() * 2),
 						blastfurnace.getPos().getY() - 1, blastfurnace.getPos().getZ()

@@ -95,7 +95,7 @@ public class GuiFusionReactor extends GuiContainer {
 		// selected one.
 		// MultiblockSet set = new MultiblockSet(ClientMultiBlocks.reactor);
 		// ClientProxy.multiblockRenderEvent.setMultiblock(set);
-		// ClientProxy.multiblockRenderEvent.partent = new
+		// ClientProxy.multiblockRenderEvent.parent = new
 		// Location(fusionController.getPos().getX(),
 		// fusionController.getPos().getY(), fusionController.getPos().getZ(),
 		// fusionController.getWorld());
