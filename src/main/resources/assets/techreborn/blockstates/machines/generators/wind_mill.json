@@ -5,7 +5,7 @@
     "model": "orientable",
     "textures": {
       "particle": "techreborn:blocks/machines/generators/solar_panel_side_off",
-      "top": "techreborn:blocks/machines/generators/solar_panel_top",
+      "top": "techreborn:blocks/machines/generators/generator_top",
       "down": "techreborn:blocks/machines/generators/generator_bottom"
     }
   },

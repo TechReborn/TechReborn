@@ -4,16 +4,16 @@
     "transform": "forge:default-block",
     "model": "cube_bottom_top",
     "textures": {
-      "particle": "techreborn:blocks/machines/generators/gas_turbine_side_off",
-      "down": "techreborn:blocks/machines/generators/generator_bottom"
+      "particle": "techreborn:blocks/machines/generators/gas_turbine_top_off",
+      "down": "techreborn:blocks/machines/generators/generator_bottom",
+      "side": "techreborn:blocks/machines/generators/generator_side"
     }
   },
   "variants": {
     "inventory": {
       "transform": "forge:default-block",
       "textures": {
-        "top": "techreborn:blocks/machines/generators/gas_turbine_top_off",
-        "side": "techreborn:blocks/machines/generators/gas_turbine_side_off"
+        "top": "techreborn:blocks/machines/generators/gas_turbine_top_off"
       }
     },
     "facing": {
@@ -32,23 +32,19 @@
     "active": {
       "true": {
         "textures": {
-          "top": "techreborn:blocks/machines/generators/gas_turbine_top_on",
-          "side": "techreborn:blocks/machines/generators/gas_turbine_side_on"
+          "top": "techreborn:blocks/machines/generators/gas_turbine_top_on"
         }
       },
       "false": {
         "textures": {
-          "top": "techreborn:blocks/machines/generators/gas_turbine_top_off",
-          "side": "techreborn:blocks/machines/generators/gas_turbine_side_off"
+          "top": "techreborn:blocks/machines/generators/gas_turbine_top_off"
         }
       }
     },
     "inventory": {
       "model": "cube_bottom_top",
       "textures": {
-        "down": "techreborn:blocks/machines/generators/generator_bottom",
-        "top": "techreborn:blocks/machines/generators/gas_turbine_top_off",
-        "side": "techreborn:blocks/machines/generators/gas_turbine_side_off"
+        "top": "techreborn:blocks/machines/generators/gas_turbine_top_off"
       }
     }
   }

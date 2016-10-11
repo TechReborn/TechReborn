@@ -1,7 +1,7 @@
 {
   "parent": "techreborn:item/techrebornItem",
   "textures": {
-    "layer0": "techreborn:items/tool/lapotronOrb"
+    "layer0": "techreborn:items/tool/lapotronEnergyOrb"
   },
   "overrides": [
     {

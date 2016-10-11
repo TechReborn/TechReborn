@@ -52,6 +52,7 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModFluids;
 import techreborn.init.ModItems;
+import techreborn.items.ItemIngots;
 import techreborn.items.ItemParts;
 
 import javax.annotation.Nonnull;
@@ -254,6 +255,7 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 		registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.ElectricCraftingTable));
 		registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.ComputerCube));
 		registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(new ItemStack(ModItems.missingRecipe));
+		registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(ItemIngots.getIngotByName("silicon"));
 
 		if (CompatManager.isQuantumStorageLoaded) {
 			registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.quantumChest));
