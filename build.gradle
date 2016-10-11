@@ -70,8 +70,8 @@ if (ENV.BUILD_NUMBER) {
 }
 
 minecraft {
-    version = "1.10.2-12.18.1.2084"
-    mappings = "snapshot_20160518"
+    version = "1.10.2-12.18.2.2099"
+    mappings = "snapshot_20160913"
     replace "@MODVERSION@", project.version
   //  makeObfSourceJar = false
     useDepAts = true
@@ -101,7 +101,7 @@ dependencies {
 	deobfCompile "slimeknights:TConstruct:1.9.4-2.3.1.jenkins229"
     deobfCompile "mcjty.theoneprobe:TheOneProbe:1.9.4-1.0.4-14"
     deobfCompile 'net.industrial-craft:industrialcraft-2:2.6.58-ex110:dev'
-	deobfCompile 'team.chisel:Chisel:MC1.9.4-0.0.6.50'
+	deobfCompile 'team.chisel:Chisel:MC1.9.4-0.0.6.51'
 }
 
 
