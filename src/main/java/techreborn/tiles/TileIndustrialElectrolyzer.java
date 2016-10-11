@@ -64,7 +64,7 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor implements IWr
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.IndustrialElectrolyzer, 1);
+		return new ItemStack(ModBlocks.industrialElectrolyzer, 1);
 	}
 
 	public boolean isComplete() {

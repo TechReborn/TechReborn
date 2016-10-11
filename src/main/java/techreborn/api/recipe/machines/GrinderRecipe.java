@@ -16,6 +16,6 @@ public class GrinderRecipe extends BaseRecipe {
 
 	@Override
 	public String getUserFreindlyName() {
-		return "Grinder";
+		return "grinder";
 	}
 }

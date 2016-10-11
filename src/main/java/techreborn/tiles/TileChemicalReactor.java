@@ -61,7 +61,7 @@ public class TileChemicalReactor extends TilePowerAcceptor implements IWrenchabl
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.ChemicalReactor, 1);
+		return new ItemStack(ModBlocks.chemicalReactor, 1);
 	}
 
 	public boolean isComplete() {

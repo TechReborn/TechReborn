@@ -27,6 +27,6 @@ public class IndustrialGrinderRecipe extends BaseRecipe {
 
 	@Override
 	public String getUserFreindlyName() {
-		return "IndustrialGrinder";
+		return "industrialGrinder";
 	}
 }

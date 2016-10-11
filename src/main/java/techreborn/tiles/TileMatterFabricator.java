@@ -48,7 +48,7 @@ public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchab
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.MatterFabricator, 1);
+		return new ItemStack(ModBlocks.matterFabricator, 1);
 	}
 
 	public boolean isComplete() {

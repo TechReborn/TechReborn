@@ -102,7 +102,7 @@ public class TileAesu extends TilePowerAcceptor implements IWrenchable {
 
 	public ItemStack getDropWithNBT() {
 		NBTTagCompound tileEntity = new NBTTagCompound();
-		ItemStack dropStack = new ItemStack(ModBlocks.Aesu, 1);
+		ItemStack dropStack = new ItemStack(ModBlocks.aesu, 1);
 		writeToNBTWithoutCoords(tileEntity);
 		dropStack.setTagCompound(new NBTTagCompound());
 		dropStack.getTagCompound().setTag("tileEntity", tileEntity);

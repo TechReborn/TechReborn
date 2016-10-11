@@ -49,10 +49,10 @@ public class IC2Dict {
 
 			//OreDictionary.registerOre("insulatedGoldCableItem", BlockName.te.getItemStack(CableType.gold));
 
-			//OreDictionary.registerOre("ic2Generator", ModBlocks.Generator);
+			//OreDictionary.registerOre("ic2Generator", ModBlocks.generator);
 			//OreDictionary.registerOre("ic2SolarPanel", ModBlocks.solarPanel);
-			//OreDictionary.registerOre("ic2Macerator", ModBlocks.Grinder);
-			//OreDictionary.registerOre("ic2Extractor", ModBlocks.Extractor);
+			//OreDictionary.registerOre("ic2Macerator", ModBlocks.grinder);
+			//OreDictionary.registerOre("ic2Extractor", ModBlocks.extractor);
 			//OreDictionary.registerOre("ic2Windmill", ModBlocks.windMill);
 			//OreDictionary.registerOre("ic2Watermill", ModBlocks.waterMill);
 

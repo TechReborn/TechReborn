@@ -62,7 +62,7 @@ public class TileAssemblingMachine extends TilePowerAcceptor implements IWrencha
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.AssemblyMachine, 1);
+		return new ItemStack(ModBlocks.assemblyMachine, 1);
 	}
 
 	public boolean isComplete() {

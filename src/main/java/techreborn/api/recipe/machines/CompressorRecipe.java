@@ -16,6 +16,6 @@ public class CompressorRecipe extends BaseRecipe {
 
 	@Override
 	public String getUserFreindlyName() {
-		return "Compressor";
+		return "compressor";
 	}
 }

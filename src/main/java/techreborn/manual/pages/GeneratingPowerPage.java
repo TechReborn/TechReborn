@@ -20,8 +20,8 @@ public class GeneratingPowerPage extends TitledPage {
 		buttonList.clear();
 		ButtonUtil.addBackButton(0, width / 2 - 60, height / 2 + 64, buttonList);
 		buttonList.add(new GuiButtonItemTexture(1, getXMin() + 20, getYMin() + 20, 0, 46, 100, 20,
-			new ItemStack(ModBlocks.Generator), ModBlocks.Generator.getUnlocalizedName(),
-			ttl(ModBlocks.Generator.getLocalizedName())));
+			new ItemStack(ModBlocks.generator), ModBlocks.generator.getUnlocalizedName(),
+			ttl(ModBlocks.generator.getLocalizedName())));
 		buttonList.add(new GuiButtonItemTexture(2, getXMin() + 20, getYMin() + 40, 0, 46, 100, 20,
 			new ItemStack(ModBlocks.thermalGenerator), ModBlocks.thermalGenerator.getUnlocalizedName(),
 			ttl(ModBlocks.thermalGenerator.getLocalizedName())));
@@ -32,8 +32,8 @@ public class GeneratingPowerPage extends TitledPage {
 			new ItemStack(ModBlocks.heatGenerator), ModBlocks.heatGenerator.getUnlocalizedName(),
 			ttl(ModBlocks.heatGenerator.getLocalizedName())));
 		buttonList.add(new GuiButtonItemTexture(5, getXMin() + 20, getYMin() + 100, 0, 46, 100, 20,
-			new ItemStack(ModBlocks.LightningRod), ModBlocks.LightningRod.getUnlocalizedName(),
-			ttl(ModBlocks.LightningRod.getLocalizedName())));
+			new ItemStack(ModBlocks.lightningRod), ModBlocks.lightningRod.getUnlocalizedName(),
+			ttl(ModBlocks.lightningRod.getLocalizedName())));
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class GeneratingPowerPage extends TitledPage {
 		if (button.id == 0)
 			collection.changeActivePage(Reference.pageNames.CONTENTS_PAGE);
 		if (button.id == 1)
-			collection.changeActivePage(ModBlocks.Generator.getLocalizedName());
+			collection.changeActivePage(ModBlocks.generator.getLocalizedName());
 		if (button.id == 2)
 			collection.changeActivePage(ModBlocks.thermalGenerator.getLocalizedName());
 		if (button.id == 3)
@@ -49,6 +49,6 @@ public class GeneratingPowerPage extends TitledPage {
 		if (button.id == 4)
 			collection.changeActivePage(ModBlocks.heatGenerator.getLocalizedName());
 		if (button.id == 5)
-			collection.changeActivePage(ModBlocks.LightningRod.getLocalizedName());
+			collection.changeActivePage(ModBlocks.lightningRod.getLocalizedName());
 	}
 }

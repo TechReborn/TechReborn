@@ -23,7 +23,7 @@ public class ExtractorRecipe extends BaseRecipe {
 
 	@Override
 	public String getUserFreindlyName() {
-		return "Extractor";
+		return "extractor";
 	}
 
 	@Override

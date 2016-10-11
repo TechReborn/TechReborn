@@ -116,10 +116,6 @@ public class Core {
 		if (ConfigTechReborn.veinOres) {
 			GameRegistry.registerWorldGenerator(VeinWorldGenerator.INSTANCE, 0);
 		}
-		// Registers Chest Loot
-		ModLoot.init();
-		// Multiparts
-		ModParts.init();
 		// Sounds
 		ModSounds.init();
 		// Compat

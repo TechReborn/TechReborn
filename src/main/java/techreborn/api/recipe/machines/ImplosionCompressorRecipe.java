@@ -21,6 +21,6 @@ public class ImplosionCompressorRecipe extends BaseRecipe {
 
 	@Override
 	public String getUserFreindlyName() {
-		return "Implosion Compressor";
+		return "Implosion compressor";
 	}
 }

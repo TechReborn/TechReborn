@@ -131,7 +131,7 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 	}
 
 	private boolean isCoil(int x, int y, int z) {
-		return worldObj.getBlockState(new BlockPos(x, y, z)).getBlock() == ModBlocks.FusionCoil;
+		return worldObj.getBlockState(new BlockPos(x, y, z)).getBlock() == ModBlocks.fusionCoil;
 	}
 
 	@Override

@@ -45,7 +45,7 @@ public class TileChunkLoader extends TilePowerAcceptor implements IWrenchable, I
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.ChunkLoader, 1);
+		return new ItemStack(ModBlocks.chunkLoader, 1);
 	}
 
 	public boolean isComplete() {
