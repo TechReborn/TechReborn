@@ -16,7 +16,6 @@ public class BlockComputerCube extends BlockMachineBase implements IAdvancedRota
 	public BlockComputerCube(Material material) {
 		super();
 		setUnlocalizedName("techreborn.computercube");
-		setCreativeTab(TechRebornCreativeTab.instance);
 	}
 
 	@Override

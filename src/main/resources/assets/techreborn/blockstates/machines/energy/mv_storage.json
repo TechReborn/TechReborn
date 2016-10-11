@@ -4,7 +4,7 @@
     "transform": "forge:default-block",
     "model": "orientable",
     "textures": {
-      "particle": "techreborn:blocks/machines/energy/mv_storage_front",
+      "particle": "techreborn:blocks/machines/energy/mv_storage_side",
       "bottom": "techreborn:blocks/machines/energy/mv_storage_side",
       "top": "techreborn:blocks/machines/energy/mv_storage_side",
       "front": "techreborn:blocks/machines/energy/mv_storage_front",

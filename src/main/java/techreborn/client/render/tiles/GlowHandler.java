@@ -1,5 +1,6 @@
 package techreborn.client.render.tiles;
 
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -55,7 +56,9 @@ public class GlowHandler {
 	public void registerGlow(GlowRegisterEvent e) {
 		e.handler.register(TileAssemblingMachine.class, new GlowInformation(null, new ResourceLocation("techreborn", "blocks/machines/tier1_machines/electric_alloy_smelter_front_on_glow"), BlockAssemblingMachine.ACTIVE));
 		e.handler.register(TileAlloySmelter.class, new GlowInformation(null, new ResourceLocation("techreborn", "blocks/machines/tier1_machines/electric_alloy_smelter_front_on_glow"), BlockAlloySmelter.ACTIVE));
-		//TODO improve this to allow this to work //e.handler.register(TilePlasmaGenerator.class, new GlowInformation(null, new ResourceLocation("techreborn", "blocks/machines/generators/plasmagenerator_side_glow"), null));
+		for(EnumFacing side : EnumFacing.HORIZONTALS){
+			e.handler.register(TilePlasmaGenerator.class, new GlowInformation(side, new ResourceLocation("techreborn", "blocks/machines/generators/plasmagenerator_side_glow"), null));
+		}
 	}
 
 	public class GlowRegisterEvent extends Event {

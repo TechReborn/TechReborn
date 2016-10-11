@@ -250,6 +250,10 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 			.addRecipeTransferHandler(ContainerCompressor.class, RecipeCategoryUids.COMPRESSOR, 0, 1, 2, 36);
 
 		registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.pump));
+		registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.Supercondensator));
+		registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.ElectricCraftingTable));
+		registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.ComputerCube));
+		registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(new ItemStack(ModItems.missingRecipe));
 
 		if (CompatManager.isQuantumStorageLoaded) {
 			registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.quantumChest));

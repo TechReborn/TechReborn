@@ -278,6 +278,11 @@ public class ModBlocks {
 		LesuStorage = new BlockLESUStorage(Material.ROCK);
 		registerBlock(LesuStorage, "lesustorage");
 		GameRegistry.registerTileEntity(TileLesuStorage.class, "TileLesuStorageTR");
+		if(Core.proxy.isCTMAvailable()){
+			Core.proxy.registerCustomBlockStateLocation(LesuStorage, "machines/energy/ev_multi_storage_ctm");
+		} else {
+			Core.proxy.registerCustomBlockStateLocation(LesuStorage, "machines/energy/ev_multi_storage");
+		}
 
 		Distillationtower = new BlockDistillationTower(Material.ROCK);
 		registerBlock(Distillationtower, "distillationtower");

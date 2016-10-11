@@ -12,7 +12,6 @@ public class BlockElectricCraftingTable extends BlockMachineBase implements IAdv
 	public BlockElectricCraftingTable(Material material) {
 		super();
 		setUnlocalizedName("techreborn.electriccraftingtable");
-		setCreativeTab(TechRebornCreativeTab.instance);
 	}
 
 	@Override
