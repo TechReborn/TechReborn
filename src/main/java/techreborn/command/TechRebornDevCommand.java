@@ -14,7 +14,6 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fluids.Fluid;
 import reborncore.api.fuel.FluidPowerManager;
 import reborncore.api.recipe.RecipeHandler;
-import techreborn.dev.JsonGenerator;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -78,13 +77,6 @@ public class TechRebornDevCommand extends CommandBase {
 				sender.addChatMessage(new TextComponentString(player.getHeldItem(EnumHand.MAIN_HAND).getItem().getRegistryName() + ":" + player.getHeldItem(EnumHand.MAIN_HAND).getItemDamage()));
 			} else {
 				((EntityPlayer) sender).addChatComponentMessage(new TextComponentString("hold an item!"));
-			}
-		} else if ("gen".equals(args[0])) {
-			try {
-				new JsonGenerator().generate();
-			} catch (IOException e) {
-				e.printStackTrace();
-				sender.addChatMessage(new TextComponentString(e.getLocalizedMessage()));
 			}
 		}
 	}

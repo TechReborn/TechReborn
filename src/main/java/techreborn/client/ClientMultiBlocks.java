@@ -19,7 +19,6 @@ public class ClientMultiBlocks {
 	}
 
 	//WTF was I thinking when I wrote this
-	//TODO help me
 	public static void addCoils() {
 		addCoil(3 , 0, 1 );
 		addCoil(3 , 0, 0 );

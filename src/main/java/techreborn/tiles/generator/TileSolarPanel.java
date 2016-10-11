@@ -42,17 +42,6 @@ public class TileSolarPanel extends TilePowerAcceptor implements ITickable {
 		}
 	}
 
-	@Override
-	public void addInfo(List<String> info, boolean isRealTile) {
-		super.addInfo(info, isRealTile);
-		if (isRealTile) {
-			// FIXME: 25/02/2016
-			// info.add(TextFormatting.LIGHT_PURPLE + "Power gen/tick " +
-			// TextFormatting.GREEN + PowerSystem.getLocaliszedPower(
-			// powerToAdd)) ;
-		}
-	}
-
 	public boolean isSunOut() {
 		return worldObj.canBlockSeeSky(pos.up()) && !worldObj.isRaining() && !worldObj.isThundering()
 			&& worldObj.isDaytime();

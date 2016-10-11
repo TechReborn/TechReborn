@@ -24,24 +24,12 @@ public class Reference {
 		2 }, 16, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0F);
 
 	public static ToolMaterial BRONZE = EnumHelper.addToolMaterial("BRONZE", 2, 375, 6.0F, 2.25F, 8);
-	//    public static ArmorMaterial BRONZE_ARMOUR = addArmorMaterial("BRONZE", "techreborn:bronze", 17,
-	//            new int[]{3, 6, 5, 2}, 8, null/* TODO: SoundEvent */, 0.0F);
 
 	public static ToolMaterial RUBY = EnumHelper.addToolMaterial("RUBY", 2, 320, 6.2F, 2.7F, 10);
-	//    public static ArmorMaterial RUBY_ARMOUR = addArmorMaterial("RUBY", "techreborn:ruby", 16,
-	//            new int[]{2, 7, 5, 2}, 10, null/* TODO: SoundEvent */, 0.0F);
 
 	public static ToolMaterial SAPPHIRE = EnumHelper.addToolMaterial("SAPPHIRE", 2, 620, 5.0F, 2F, 8);
-	//    public static ArmorMaterial SAPPHIRE_ARMOUR = addArmorMaterial("SAPPHIRE", "techreborn:sapphire",
-	//            19, new int[]{4, 4, 4, 4}, 8, null/* TODO: SoundEvent */, 0.0F);
 
 	public static ToolMaterial PERIDOT = EnumHelper.addToolMaterial("PERIDOT", 2, 400, 7.0F, 2.4F, 16);
-	//    public static ArmorMaterial PERIDOT_ARMOUR = addArmorMaterial("PERIDOT", "techreborn:peridot", 17,
-	//            new int[]{3, 8, 3, 2}, 16, null/* TODO: SoundEvent */, 0.0F);
-
-	public static ArmorMaterial addArmorMaterial(String name, String textureName, int durability, int[] reductionAmounts, int enchantability, SoundEvent soundOnEquip, float toughness) {
-		return ArmorMaterial.LEATHER;
-	}
 
 	public static String alloySmelteRecipe = I18n.translateToLocal("techreborn.recipe.alloysmelter");
 	public static String assemblingMachineRecipe = I18n.translateToLocal("techreborn.recipe.assemblingmachine");

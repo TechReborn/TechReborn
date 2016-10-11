@@ -26,7 +26,6 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.Core;
 import techreborn.blocks.BlockRubberLeaves;
 import techreborn.client.ClientMultiBlocks;
-import techreborn.client.IconSupplier;
 import techreborn.client.RegisterItemJsons;
 import techreborn.client.StackToolTipEvent;
 import techreborn.client.hud.ChargeHud;
@@ -78,7 +77,6 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
-		MinecraftForge.EVENT_BUS.register(new IconSupplier());
 		MinecraftForge.EVENT_BUS.register(new ChargeHud());
 		//MinecraftForge.EVENT_BUS.register(new VersionCheckerClient());
 		MinecraftForge.EVENT_BUS.register(new StackToolTipEvent());
