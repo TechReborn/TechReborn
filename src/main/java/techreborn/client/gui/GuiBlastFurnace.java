@@ -46,16 +46,7 @@ public class GuiBlastFurnace extends GuiContainer {
 		GuiButton button = new GuiButton(212, k + 4, l + 6, 20, 20, "");
 		buttonList.add(button);
 		super.initGui();
-		CoordTriplet coordinates = new CoordTriplet(
-			blastfurnace.getPos().getX() - (EnumFacing.getFront(blastfurnace.getFacingInt()).getFrontOffsetX() * 2),
-			blastfurnace.getPos().getY() - 1, blastfurnace.getPos().getZ()
-			- (EnumFacing.getFront(blastfurnace.getFacingInt()).getFrontOffsetZ() * 2));
-		if (coordinates.equals(ClientProxy.multiblockRenderEvent.anchor) && blastfurnace.getHeat() != 0) {
-			ClientProxy.multiblockRenderEvent.setMultiblock(null);
-			button.displayString = "B";
-		} else {
-			button.displayString = "A";
-		}
+
 	}
 
 	@Override
@@ -102,63 +93,7 @@ public class GuiBlastFurnace extends GuiContainer {
 	public void actionPerformed(GuiButton button) throws IOException {
 		super.actionPerformed(button);
 		if (button.id == 212) {
-			if (ClientProxy.multiblockRenderEvent.currentMultiblock == null) {
-				{// This code here makes a basic multiblock and then sets to the
-					// selected one.
-					Multiblock multiblock = new Multiblock();
-					multiblock.addComponent(0, 0, 0, ModBlocks.MachineCasing, 0);
-					multiblock.addComponent(1, 0, 0, ModBlocks.MachineCasing, 0);
-					multiblock.addComponent(0, 0, 1, ModBlocks.MachineCasing, 0);
-					multiblock.addComponent(-1, 0, 0, ModBlocks.MachineCasing, 0);
-					multiblock.addComponent(0, 0, -1, ModBlocks.MachineCasing, 0);
-					multiblock.addComponent(-1, 0, -1, ModBlocks.MachineCasing, 0);
-					multiblock.addComponent(-1, 0, 1, ModBlocks.MachineCasing, 0);
-					multiblock.addComponent(1, 0, -1, ModBlocks.MachineCasing, 0);
-					multiblock.addComponent(1, 0, 1, ModBlocks.MachineCasing, 0);
-
-					multiblock.addComponent(1, 1, 0, ModBlocks.MachineCasing, 0);
-					multiblock.addComponent(0, 1, 1, ModBlocks.MachineCasing, 0);
-					multiblock.addComponent(-1, 1, 0, ModBlocks.MachineCasing, 0);
-					multiblock.addComponent(0, 1, -1, ModBlocks.MachineCasing, 0);
-					multiblock.addComponent(-1, 1, -1, ModBlocks.MachineCasing, 0);
-					multiblock.addComponent(-1, 1, 1, ModBlocks.MachineCasing, 0);
-					multiblock.addComponent(1, 1, -1, ModBlocks.MachineCasing, 0);
-					multiblock.addComponent(1, 1, 1, ModBlocks.MachineCasing, 0);
-
-					multiblock.addComponent(1, 2, 0, ModBlocks.MachineCasing, 0);
-					multiblock.addComponent(0, 2, 1, ModBlocks.MachineCasing, 0);
-					multiblock.addComponent(-1, 2, 0, ModBlocks.MachineCasing, 0);
-					multiblock.addComponent(0, 2, -1, ModBlocks.MachineCasing, 0);
-					multiblock.addComponent(-1, 2, -1, ModBlocks.MachineCasing, 0);
-					multiblock.addComponent(-1, 2, 1, ModBlocks.MachineCasing, 0);
-					multiblock.addComponent(1, 2, -1, ModBlocks.MachineCasing, 0);
-					multiblock.addComponent(1, 2, 1, ModBlocks.MachineCasing, 0);
-
-					multiblock.addComponent(0, 3, 0, ModBlocks.MachineCasing, 0);
-					multiblock.addComponent(1, 3, 0, ModBlocks.MachineCasing, 0);
-					multiblock.addComponent(0, 3, 1, ModBlocks.MachineCasing, 0);
-					multiblock.addComponent(-1, 3, 0, ModBlocks.MachineCasing, 0);
-					multiblock.addComponent(0, 3, -1, ModBlocks.MachineCasing, 0);
-					multiblock.addComponent(-1, 3, -1, ModBlocks.MachineCasing, 0);
-					multiblock.addComponent(-1, 3, 1, ModBlocks.MachineCasing, 0);
-					multiblock.addComponent(1, 3, -1, ModBlocks.MachineCasing, 0);
-					multiblock.addComponent(1, 3, 1, ModBlocks.MachineCasing, 0);
-
-					MultiblockSet set = new MultiblockSet(multiblock);
-					ClientProxy.multiblockRenderEvent.setMultiblock(set);
-					ClientProxy.multiblockRenderEvent.partent = new Location(blastfurnace.getPos().getX(),
-						blastfurnace.getPos().getY(), blastfurnace.getPos().getZ(), blastfurnace.getWorld());
-					ClientProxy.multiblockRenderEvent.anchor = new CoordTriplet(
-						blastfurnace.getPos().getX()
-							- (EnumFacing.getFront(blastfurnace.getFacingInt()).getFrontOffsetX() * 2),
-						blastfurnace.getPos().getY() - 1, blastfurnace.getPos().getZ()
-						- (EnumFacing.getFront(blastfurnace.getFacingInt()).getFrontOffsetZ() * 2));
-				}
-				button.displayString = "A";
-			} else {
-				ClientProxy.multiblockRenderEvent.setMultiblock(null);
-				button.displayString = "B";
-			}
+			//TODO multiblock rendering
 		}
 	}
 }

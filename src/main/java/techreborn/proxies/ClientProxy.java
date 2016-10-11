@@ -17,11 +17,9 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import reborncore.RebornCore;
-import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.blocks.BlockRubberLeaves;
 import techreborn.client.ClientMultiBlocks;
@@ -41,8 +39,6 @@ import techreborn.manual.loader.ManualLoader;
 import java.io.File;
 
 public class ClientProxy extends CommonProxy {
-
-	public static MultiblockRenderEvent multiblockRenderEvent;
 
 	public static GlowHandler handler;
 
@@ -81,7 +77,6 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new ChargeHud());
 		//MinecraftForge.EVENT_BUS.register(new VersionCheckerClient());
 		MinecraftForge.EVENT_BUS.register(new StackToolTipEvent());
-		multiblockRenderEvent = new MultiblockRenderEvent();
 		// MinecraftForge.EVENT_BUS.register(multiblockRenderEvent);
 		// TODO FIX ME
 		ClientRegistry.registerKeyBinding(KeyBindings.config);
