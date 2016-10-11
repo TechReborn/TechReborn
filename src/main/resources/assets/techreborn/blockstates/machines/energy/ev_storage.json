@@ -4,8 +4,8 @@
     "transform": "forge:default-block",
     "model": "cube_directional",
     "textures": {
-      "particle": "techreborn:blocks/machines/energy/ev_storage_side",
-      "down": "techreborn:blocks/machines/energy/ev_storage_side,
+      "particle": "techreborn:blocks/machines/energy/ev_storage_front",
+      "down": "techreborn:blocks/machines/energy/ev_storage_side",
       "up": "techreborn:blocks/machines/energy/ev_storage_side",
       "north": "techreborn:blocks/machines/energy/ev_storage_front",
       "west": "techreborn:blocks/machines/energy/ev_storage_side",

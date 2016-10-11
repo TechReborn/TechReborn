@@ -44,9 +44,6 @@
     "inventory": {
       "model": "cube_bottom_top",
       "textures": {
-        "particle": "techreborn:blocks/machines/generators/dragon_egg_syphon_side_off",
-        "down": "techreborn:blocks/machines/generators/generator_bottom",
-        "top": "techreborn:blocks/machines/generators/dragon_egg_syphon_top",
         "side": "techreborn:blocks/machines/generators/dragon_egg_syphon_side_off"
       }
     }

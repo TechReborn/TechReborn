@@ -4,7 +4,7 @@
     "transform": "forge:default-block",
     "model": "orientable",
     "textures": {
-      "particle": "techreborn:blocks/machines/tier2_machines/machine_west",
+      "particle": "techreborn:blocks/machines/tier2_machines/industrial_blast_furnace_front_off",
       "top": "techreborn:blocks/machines/tier2_machines/machine_top",
       "down": "techreborn:blocks/machines/tier2_machines/machine_bottom",
       "south": "techreborn:blocks/machines/tier2_machines/machine_back"
@@ -14,9 +14,9 @@
     "inventory": {
       "transform": "forge:default-block",
       "textures": {
-        "west": "techreborn:blocks/machines/tier2_machines/industrial_blast_furnace_west_on",
-        "east": "techreborn:blocks/machines/tier2_machines/industrial_blast_furnace_east_on",
-        "front": "techreborn:blocks/machines/tier2_machines/industrial_blast_furnace_front_on"
+        "west": "techreborn:blocks/machines/tier2_machines/industrial_blast_furnace_west_off",
+        "east": "techreborn:blocks/machines/tier2_machines/industrial_blast_furnace_east_off",
+        "front": "techreborn:blocks/machines/tier2_machines/industrial_blast_furnace_front_off"
       }
     },
     "facing": {
@@ -51,10 +51,6 @@
     "inventory": {
       "model": "orientable",
       "textures": {
-        "particle": "techreborn:blocks/machines/tier2_machines/machine_west",
-        "top": "techreborn:blocks/machines/tier2_machines/machine_top",
-        "down": "techreborn:blocks/machines/tier2_machines/machine_bottom",
-        "south": "techreborn:blocks/machines/tier2_machines/machine_back",
         "west": "techreborn:blocks/machines/tier2_machines/implosion_compressor_west_off",
         "east": "techreborn:blocks/machines/tier2_machines/implosion_compressor_east_off",
         "front": "techreborn:blocks/machines/tier2_machines/industrial_blast_furnace_front_off"

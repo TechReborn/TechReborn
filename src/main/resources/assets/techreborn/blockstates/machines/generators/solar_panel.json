@@ -46,8 +46,6 @@
     "inventory": {
       "model": "orientable",
       "textures": {
-        "particle": "techreborn:blocks/machines/generators/solar_panel_side_off",
-        "down": "techreborn:blocks/machines/generators/generator_bottom",
         "top": "techreborn:blocks/machines/generators/solar_panel_top_off",
         "side": "techreborn:blocks/machines/generators/solar_panel_side_off"
       }

@@ -4,7 +4,7 @@
     "transform": "forge:default-block",
     "model": "orientable",
     "textures": {
-      "particle": "techreborn:blocks/machines/tier1_machines/machine_side",
+      "particle": "techreborn:blocks/machines/tier1_machines/recycler_front_off",
       "top": "techreborn:blocks/machines/tier1_machines/machine_top",
       "down": "techreborn:blocks/machines/tier1_machines/machine_bottom",
       "side": "techreborn:blocks/machines/tier1_machines/machine_side"
@@ -45,10 +45,6 @@
     "inventory": {
       "model": "orientable",
       "textures": {
-        "particle": "techreborn:blocks/machines/tier1_machines/machine_side",
-        "top": "techreborn:blocks/machines/tier1_machines/machine_top",
-        "down": "techreborn:blocks/machines/tier1_machines/machine_bottom",
-        "side": "techreborn:blocks/machines/tier1_machines/machine_side",
         "front": "techreborn:blocks/machines/tier1_machines/recycler_front_off"
       }
     }

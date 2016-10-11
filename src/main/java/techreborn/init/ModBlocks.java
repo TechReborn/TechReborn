@@ -352,6 +352,7 @@ public class ModBlocks {
 		solarPanel = new BlockSolarPanel();
 		registerBlock(solarPanel, "techreborn.solarpanel");
 		GameRegistry.registerTileEntity(TileSolarPanel.class, "TileSolarPanel");
+		Core.proxy.registerCustomBlockStateLocation(ElectricFurnace, "machines/generators/solar_panel");
 
 		waterMill = new BlockWaterMill();
 		registerBlock(waterMill, "techreborn.watermill");

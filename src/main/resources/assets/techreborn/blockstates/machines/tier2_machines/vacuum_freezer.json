@@ -4,7 +4,7 @@
     "transform": "forge:default-block",
     "model": "orientable",
     "textures": {
-      "particle": "techreborn:blocks/machines/tier2_machines/machine_side",
+      "particle": "techreborn:blocks/machines/tier2_machines/vacuum_freezer_front_off",
       "down": "techreborn:blocks/machines/tier2_machines/machine_bottom",
       "side": "techreborn:blocks/machines/tier2_machines/machine_side"
     }
@@ -47,9 +47,6 @@
     "inventory": {
       "model": "orientable",
       "textures": {
-        "particle": "techreborn:blocks/machines/tier2_machines/machine_side",
-        "down": "techreborn:blocks/machines/tier2_machines/machine_bottom",
-        "side": "techreborn:blocks/machines/tier2_machines/machine_side",
         "top": "techreborn:blocks/machines/tier2_machines/vacuum_freezer_top_off",
         "front": "techreborn:blocks/machines/tier2_machines/vacuum_freezer_front_off"
       }

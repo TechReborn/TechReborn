@@ -7,14 +7,14 @@
       "particle": "techreborn:blocks/machines/tier3_machines/industrial_chunkloader_side",
       "top": "techreborn:blocks/machines/tier3_machines/industrial_chunkloader_top",
       "side": "techreborn:blocks/machines/tier3_machines/industrial_chunkloader_side",
-      "bottom": "techreborn:blocks/machines/tier3_machines/machine_bottom"
+      "bottom": "techreborn:blocks/machines/tier3_machines/machine_bottom",
+      "front": "techreborn:blocks/machines/tier3_machines/industrial_chunkloader_side"
     }
   },
   "variants": {
     "inventory": {
       "transform": "forge:default-block",
       "textures": {
-        "front": "techreborn:blocks/machines/tier3_machines/industrial_chunkloader_side"
       }
     },
     "facing": {
@@ -33,22 +33,16 @@
     "active": {
       "true": {
         "textures": {
-          "front": "techreborn:blocks/machines/tier3_machines/industrial_chunkloader_side"
         }
       },
       "false": {
         "textures": {
-          "front": "techreborn:blocks/machines/tier3_machines/industrial_chunkloader_side"
         }
       }
     },
     "inventory": {
       "model": "orientable",
       "textures": {
-        "particle": "techreborn:blocks/machines/tier3_machines/industrial_chunkloader_side",
-        "top": "techreborn:blocks/machines/tier3_machines/industrial_chunkloader_top",
-        "side": "techreborn:blocks/machines/tier3_machines/industrial_chunkloader_side",
-        "front": "techreborn:blocks/machines/tier3_machines/industrial_chunkloader_side"
       }
     }
   }

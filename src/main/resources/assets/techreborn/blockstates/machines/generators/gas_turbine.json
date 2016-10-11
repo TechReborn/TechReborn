@@ -46,7 +46,6 @@
     "inventory": {
       "model": "cube_bottom_top",
       "textures": {
-        "particle": "techreborn:blocks/machines/generators/gas_turbine_side_off",
         "down": "techreborn:blocks/machines/generators/generator_bottom",
         "top": "techreborn:blocks/machines/generators/gas_turbine_top_off",
         "side": "techreborn:blocks/machines/generators/gas_turbine_side_off"

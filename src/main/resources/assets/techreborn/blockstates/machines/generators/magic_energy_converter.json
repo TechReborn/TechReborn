@@ -46,8 +46,6 @@
     "inventory": {
       "model": "cube_bottom_top",
       "textures": {
-        "particle": "techreborn:blocks/machines/generators/magic_energy_converter_side_off",
-        "down": "techreborn:blocks/machines/generators/magic_energy_converter_bottom",
         "top": "techreborn:blocks/machines/generators/magic_energy_converter_top_off",
         "side": "techreborn:blocks/machines/generators/magic_energy_converter_side_off"
       }

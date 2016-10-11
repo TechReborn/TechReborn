@@ -5,7 +5,7 @@
     "model": "cube_bottom_top",
     "textures": {
       "particle": "techreborn:blocks/machines/tier3_machines/quantum_tank_side",
-      "bottom": "techreborn:blocks/machines/tier3_machines/quantum_tank_bottom,
+      "bottom": "techreborn:blocks/machines/tier3_machines/quantum_tank_bottom",
       "top": "techreborn:blocks/machines/tier3_machines/quantum_tank_top",
       "side": "techreborn:blocks/machines/tier3_machines/quantum_tank_side"
     }
