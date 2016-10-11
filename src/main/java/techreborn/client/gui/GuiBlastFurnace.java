@@ -1,14 +1,17 @@
 package techreborn.client.gui;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
 import reborncore.client.gui.GuiUtil;
 import reborncore.client.multiblock.Multiblock;
+import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
 import reborncore.common.misc.Location;
 import reborncore.common.multiblock.CoordTriplet;
@@ -46,7 +49,16 @@ public class GuiBlastFurnace extends GuiContainer {
 		GuiButton button = new GuiButton(212, k + 4, l + 6, 20, 20, "");
 		buttonList.add(button);
 		super.initGui();
-
+		CoordTriplet coordinates = new CoordTriplet(
+			blastfurnace.getPos().getX() - (EnumFacing.getFront(blastfurnace.getFacingInt()).getFrontOffsetX() * 2),
+			blastfurnace.getPos().getY() - 1, blastfurnace.getPos().getZ()
+			- (EnumFacing.getFront(blastfurnace.getFacingInt()).getFrontOffsetZ() * 2));
+		if (coordinates.equals(ClientProxy.multiblockRenderEvent.anchor) && blastfurnace.getHeat() != 0) {
+			ClientProxy.multiblockRenderEvent.setMultiblock(null);
+			button.displayString = "B";
+		} else {
+			button.displayString = "A";
+		}
 	}
 
 	@Override
@@ -93,7 +105,69 @@ public class GuiBlastFurnace extends GuiContainer {
 	public void actionPerformed(GuiButton button) throws IOException {
 		super.actionPerformed(button);
 		if (button.id == 212) {
-			//TODO multiblock rendering
+			if (ClientProxy.multiblockRenderEvent.currentMultiblock == null) {
+				{
+					//WTF was I doing again?
+					Multiblock multiblock = new Multiblock();
+					addComponent(0, 0, 0, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(1, 0, 0, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(0, 0, 1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(-1, 0, 0, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(0, 0, -1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(-1, 0, -1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(-1, 0, 1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(1, 0, -1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(1, 0, 1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+
+					addComponent(1, 1, 0, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(0, 1, 1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(-1, 1, 0, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(0, 1, -1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(-1, 1, -1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(-1, 1, 1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(1, 1, -1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(1, 1, 1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+
+					addComponent(1, 2, 0, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(0, 2, 1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(-1, 2, 0, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(0, 2, -1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(-1, 2, -1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(-1, 2, 1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(1, 2, -1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(1, 2, 1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+
+					addComponent(0, 3, 0, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(1, 3, 0, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(0, 3, 1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(-1, 3, 0, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(0, 3, -1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(-1, 3, -1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(-1, 3, 1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(1, 3, -1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(1, 3, 1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+
+					MultiblockSet set = new MultiblockSet(multiblock);
+					ClientProxy.multiblockRenderEvent.setMultiblock(set);
+					ClientProxy.multiblockRenderEvent.partent = new Location(blastfurnace.getPos().getX(),
+						blastfurnace.getPos().getY(), blastfurnace.getPos().getZ(), blastfurnace.getWorld());
+					MultiblockRenderEvent.anchor = new CoordTriplet(
+						blastfurnace.getPos().getX()
+							- (EnumFacing.getFront(blastfurnace.getFacingInt()).getFrontOffsetX() * 2),
+						blastfurnace.getPos().getY() - 1, blastfurnace.getPos().getZ()
+						- (EnumFacing.getFront(blastfurnace.getFacingInt()).getFrontOffsetZ() * 2));
+				}
+				button.displayString = "A";
+			} else {
+				ClientProxy.multiblockRenderEvent.setMultiblock(null);
+				button.displayString = "B";
+			}
 		}
 	}
+	
+	public void addComponent(int x, int y, int z, IBlockState blockState, Multiblock multiblock){
+		multiblock.addComponent(new BlockPos(x, y, z), blockState);
+	}
+	
+	
 }
