@@ -100,7 +100,7 @@ dependencies {
 	deobfCompile "slimeknights.mantle:Mantle:1.9.4-0.10.1.jenkins142"
 	deobfCompile "slimeknights:TConstruct:1.9.4-2.3.1.jenkins229"
     deobfCompile "mcjty.theoneprobe:TheOneProbe:1.9.4-1.0.4-14"
-    deobfCompile 'net.industrial-craft:industrialcraft-2:2.6.58-ex110'
+    deobfCompile 'net.industrial-craft:industrialcraft-2:2.6.58-ex110:dev'
 	deobfCompile 'team.chisel:Chisel:MC1.9.4-0.0.6.51'
 }
 
