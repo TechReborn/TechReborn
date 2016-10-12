@@ -24,6 +24,7 @@ import reborncore.common.util.Color;
 import techreborn.client.keybindings.KeyBindings;
 import techreborn.config.ConfigTechReborn;
 import techreborn.items.ItemFrequencyTransmitter;
+import techreborn.items.tools.ItemNanosaber;
 
 public class HudStackInfo {
     public static final HudStackInfo instance = new HudStackInfo();
@@ -101,7 +102,15 @@ public class HudStackInfo {
                 if (CurrentCharge <= quarter) {
                     color = Color.DARK_RED;
                 }
-                mc.fontRendererObj.drawString(color + PowerSystem.getLocaliszedPower(CurrentCharge) + "/" + PowerSystem.getLocaliszedPower(MaxCharge), x + 18, y, 0);
+                if (stack.getItem() instanceof ItemNanosaber) {
+                    String state = I18n.translateToLocal("techreborn.message.nanosaberInactive");
+                    if (stack.getTagCompound() != null && stack.getTagCompound().getBoolean("isActive")) {
+                        state = I18n.translateToLocal("techreborn.message.nanosaberActive");
+                    }
+                    mc.fontRendererObj.drawString(color + PowerSystem.getLocaliszedPower(CurrentCharge) + "/" + PowerSystem.getLocaliszedPower(MaxCharge) + gold + " (" + state + ")", x + 18, y, 0);
+                } else {
+                    mc.fontRendererObj.drawString(color + PowerSystem.getLocaliszedPower(CurrentCharge) + "/" + PowerSystem.getLocaliszedPower(MaxCharge), x + 18, y, 0);
+                }
                 didShit = true;
             } else if (stack.getItem() instanceof ItemFrequencyTransmitter) {
                 renderStackForInfo(stack);
