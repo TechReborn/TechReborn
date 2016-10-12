@@ -1,8 +1,0 @@
-Advanced Machine Block:
--Base: Side/ Bottom
-- Hue Pencil : 60564a
-- Curves: X 170 Y 120
-
-Highly Advanced Machine Block:
--Base: Side - Advanced / Bottom - Advanced
-- Hue Shift:
