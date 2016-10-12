@@ -16,7 +16,7 @@ public class ItemPlates extends ItemTextureBase {
 
 	//Vanilla plates or plates not from ingots or gems
 	public static String[] types = new String[] {
-		"iron", "gold", "carbon", "wood", "redstone", "diamond", "emerald", "lapis", "coal", "obsidian", "lazurite"
+		"iron", "gold", "carbon", "wood", "redstone", "diamond", "emerald", "lapis", "coal", "obsidian", "lazurite", "advancedAlloy"
 	};
 
 	public ItemPlates() {

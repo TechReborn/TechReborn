@@ -354,8 +354,6 @@ public class ModRecipes {
 	}
 
 	private static void addCompressorRecipes() {
-		RecipeHandler.addRecipe(new CompressorRecipe(ItemIngots.getIngotByName("advancedAlloy"),
-			ItemPlates.getPlateByName("advancedAlloy"), 400, 20));
 		RecipeHandler.addRecipe(
 			new CompressorRecipe(ItemParts.getPartByName("carbonmesh"), ItemPlates.getPlateByName("carbon"), 400,
 				2));
@@ -377,6 +375,8 @@ public class ModRecipes {
 				2));
 		RecipeHandler.addRecipe(
 			new CompressorRecipe(ItemIngots.getIngotByName("lead"), ItemPlates.getPlateByName("lead"), 400, 2));
+		RecipeHandler.addRecipe(
+				new CompressorRecipe(ItemIngots.getIngotByName("mixedMetal"), ItemPlates.getPlateByName("advancedAlloy"), 400, 2));
 		RecipeHandler.addRecipe(
 			new CompressorRecipe(ItemIngots.getIngotByName("silver"), ItemPlates.getPlateByName("silver"), 400,
 				2));
@@ -549,7 +549,7 @@ public class ModRecipes {
 				"ingotAluminum", 'G', Blocks.GLASS_PANE);
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.reinforcedglass, 7), "GAG", "GGG", "GAG", 'A',
-			ItemIngots.getIngotByName("advancedAlloy"), 'G', Blocks.GLASS);
+			ItemPlates.getPlateByName("advancedAlloy"), 'G', Blocks.GLASS);
 
 		CraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModBlocks.windMill, 2), "IXI", "XGX", "IXI", 'I', "ingotIron", 'G',
@@ -772,7 +772,7 @@ public class ModRecipes {
 
 		CraftingHelper
 			.addShapedOreRecipe(BlockMachineFrame.getFrameByName("advancedMachine", 1), "XCX", "AMA", "XCX", 'A',
-				ItemIngots.getIngotByName("advancedAlloy"), 'C', ItemPlates.getPlateByName("carbon"), 'M',
+				ItemPlates.getPlateByName("advancedAlloy"), 'C', ItemPlates.getPlateByName("carbon"), 'M',
 				BlockMachineFrame.getFrameByName("machine", 1));
 
 		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("dataStorageCircuit", 8), "EEE", "ECE", "EEE", 'E',
@@ -1059,8 +1059,6 @@ public class ModRecipes {
 		CraftingHelper.addSmelting(BlockOre.getOreByName("Silver"), ItemIngots.getIngotByName("silver"), 1F);
 		CraftingHelper.addSmelting(BlockOre.getOreByName("Lead"), ItemIngots.getIngotByName("lead"), 1F);
 		CraftingHelper.addSmelting(BlockOre.getOreByName("Sheldonite"), ItemIngots.getIngotByName("platinum"), 1F);
-		CraftingHelper
-			.addSmelting(ItemIngots.getIngotByName("mixedMetal"), ItemIngots.getIngotByName("advancedAlloy"), 1F);
 		CraftingHelper.addSmelting(ItemDusts.getDustByName("nickel", 1), ItemIngots.getIngotByName("nickel"), 1F);
 		CraftingHelper.addSmelting(ItemDusts.getDustByName("platinum", 1), ItemIngots.getIngotByName("platinum"), 1F);
 		CraftingHelper.addSmelting(ItemDusts.getDustByName("zinc", 1), ItemIngots.getIngotByName("zinc"), 1F);
@@ -2086,7 +2084,7 @@ public class ModRecipes {
 			'G', ModBlocks.grinder);
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.implosionCompressor), "ABA", "CPC", "ABA", 'A',
-			ItemIngots.getIngotByName("advancedAlloy"), 'C', "circuitAdvanced", 'B',
+			ItemPlates.getPlateByName("advancedAlloy"), 'C', "circuitAdvanced", 'B',
 			BlockMachineFrame.getFrameByName("advancedMachine", 1), 'P', ModBlocks.compressor);
 
 		CraftingHelper

@@ -422,6 +422,7 @@ public class ModBlocks {
 		registerBlock(pump, "pump");
 		GameRegistry.registerTileEntity(TilePump.class, "TilePump");
 
+
 		ironFurnace = new BlockIronFurnace();
 		registerBlock(ironFurnace, "ironfurnace");
 		GameRegistry.registerTileEntity(TileIronFurnace.class, "TileIronFurnaceTR");
