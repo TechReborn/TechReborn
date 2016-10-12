@@ -1,4 +1,11 @@
 {
-  "model": { "model": "cube" },
-  "face": "techreborn:machines/energy/ev_multi_ctm.cf"
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "techreborn:machines/energy/ev_multi_side"
+  },
+
+  "ctm" : {
+    "model": { "model": "cube" },
+    "face": "techreborn:machines/energy/ev_multi_ctm.cf"
+  }
 }

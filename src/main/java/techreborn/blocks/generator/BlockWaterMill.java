@@ -16,7 +16,7 @@ import techreborn.tiles.generator.TileWaterMill;
  */
 public class BlockWaterMill extends BaseTileBlock implements ITexturedBlock {
 
-	private final String prefix = "techreborn:blocks/machine/generators/";
+	private final String prefix = "techreborn:blocks/machines/generators/";
 
 	public BlockWaterMill() {
 		super(Material.IRON);
@@ -35,12 +35,9 @@ public class BlockWaterMill extends BaseTileBlock implements ITexturedBlock {
 	public String getTextureNameFromState(IBlockState state, EnumFacing side) {
 		boolean isActive = false;
 		if (side == EnumFacing.UP) {
-			return prefix + "generator_machine_bottom";// + (isActive ? "on" :
-			// "off");
-		} else if (side == EnumFacing.DOWN) {
-			return prefix + "generator_machine_bottom";
+			return prefix + "watermill_top_" + (isActive ? "on" : "off");
 		}
-		return prefix + "solar_panel_side_" + (isActive ? "on" : "off");
+		return prefix + "watermill_side_" + (isActive ? "on" : "off");
 	}
 
 	@Override
