@@ -1,7 +1,7 @@
 /bin
 /out
 /run/*
-!/run/resourcepacks
+/run/resourcepacks
 /run/resourcepacks/Unity-master
 /build
 /eclipse
