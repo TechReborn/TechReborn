@@ -192,6 +192,7 @@ public class ModBlocks {
 		machineCasing = new BlockMachineCasing(Material.ROCK);
 		registerBlock(machineCasing, ItemBlockMachineCasing.class, "machinecasing");
 		GameRegistry.registerTileEntity(TileMachineCasing.class, "TileMachineCasingTR");
+		Core.proxy.registerCustomBlockStateLocation(machineCasing, "machines/structure/machine_casing");
 
 		ore = new BlockOre(Material.ROCK);
 		registerBlock(ore, ItemBlockOre.class, "techreborn.ore");

@@ -1,5 +1,6 @@
 package techreborn.blocks;
 
+import com.google.common.collect.Lists;
 import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -16,38 +17,44 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import reborncore.common.blocks.PropertyString;
 import reborncore.common.multiblock.BlockMultiblockBase;
+import reborncore.common.util.ArrayUtils;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileMachineCasing;
 
 import java.util.List;
 import java.util.Random;
 
-public class BlockMachineCasing extends BlockMultiblockBase implements ITexturedBlock {
+public class BlockMachineCasing extends BlockMultiblockBase {
 
 	public static final String[] types = new String[] { "standard", "reinforced", "advanced" };
-	public static final PropertyInteger METADATA = PropertyInteger.create("type", 0, types.length);
+	public static final PropertyString VARIANTS = new PropertyString("type", types);
+	public static final List<String> typesList = Lists.newArrayList(ArrayUtils.arrayToLowercase(types));
 
 	public BlockMachineCasing(Material material) {
 		super(material);
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setUnlocalizedName("techreborn.machineCasing");
 		setHardness(2F);
-		this.setDefaultState(this.getDefaultState().withProperty(METADATA, 0));
+		this.setDefaultState(this.getDefaultState().withProperty(VARIANTS, "standard"));
 	}
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		return this.getDefaultState().withProperty(METADATA, meta);
+		if (meta > types.length) {
+			meta = 0;
+		}
+		return getBlockState().getBaseState().withProperty(VARIANTS, typesList.get(meta));
 	}
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return state.getValue(METADATA);
+		return typesList.indexOf(state.getValue(VARIANTS));
 	}
 
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, METADATA);
+		return new BlockStateContainer(this, VARIANTS);
 	}
 
 	public int getHeatFromState(IBlockState state) {
@@ -85,20 +92,14 @@ public class BlockMachineCasing extends BlockMultiblockBase implements ITextured
 		return new TileMachineCasing();
 	}
 
-	@Override
-	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
-		Block b = worldIn.getBlockState(pos).getBlock();
-		return b != this && super.shouldSideBeRendered(blockState, worldIn, pos, side);
-	}
-
-	@Override
-	public String getTextureNameFromState(IBlockState blockState, EnumFacing facing) {
-		return "techreborn:blocks/machines/structure/casing" + types[getMetaFromState(blockState)] + "_full";
-	}
-
-	@Override
-	public int amountOfStates() {
-		return types.length;
-	}
+//	@Override
+//	public String getTextureNameFromState(IBlockState blockState, EnumFacing facing) {
+//		return "techreborn:blocks/machines/structure/casing" + types[getMetaFromState(blockState)] + "_full";
+//	}
+//
+//	@Override
+//	public int amountOfStates() {
+//		return types.length;
+//	}
 
 }

@@ -1,0 +1,11 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "techreborn:machines/structure/tier1_casing_ctm"
+  },
+
+  "ctm" : {
+    "model": { "model": "cube" },
+    "face": "techreborn:machines/structure/tier1_casing_ctm"
+  }
+}
