@@ -107,6 +107,7 @@ public class ModItems {
 
 	public static Item upgrades;
 
+	@Deprecated
 	public static Item missingRecipe;
 	public static Item debug;
 

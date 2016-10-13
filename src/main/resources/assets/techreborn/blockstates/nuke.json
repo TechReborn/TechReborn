@@ -5,7 +5,7 @@
     "model": "orientable",
     "textures": {
       "particle": "techreborn:blocks/nuke_side",
-      "bottom": "techreborn:blocks/nuke_bottom,
+      "bottom": "techreborn:blocks/nuke_bottom",
       "top": "techreborn:blocks/nuke_top",
       "front": "techreborn:blocks/nuke_front",
       "side": "techreborn:blocks/nuke_side"

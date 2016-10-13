@@ -14,10 +14,7 @@ import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.fusionReactor.TileEntityFusionController;
 import techreborn.utils.damageSources.FusionDamageSource;
 
-public class BlockFusionControlComputer extends BlockMachineBase implements IAdvancedRotationTexture {
-
-	private final String prefix = "techreborn:blocks/machine/greg_machines/";
-
+public class BlockFusionControlComputer extends BlockMachineBase {
 	public BlockFusionControlComputer(Material material) {
 		super();
 		setUnlocalizedName("techreborn.fusioncontrolcomputer");
@@ -49,25 +46,5 @@ public class BlockFusionControlComputer extends BlockMachineBase implements IAdv
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileEntityFusionController();
-	}
-
-	@Override
-	public String getFront(boolean isActive) {
-		return prefix + "fusion_control_computer_front";
-	}
-
-	@Override
-	public String getSide(boolean isActive) {
-		return prefix + "machine_side";
-	}
-
-	@Override
-	public String getTop(boolean isActive) {
-		return prefix + "machine_side";
-	}
-
-	@Override
-	public String getBottom(boolean isActive) {
-		return prefix + "machine_side";
 	}
 }

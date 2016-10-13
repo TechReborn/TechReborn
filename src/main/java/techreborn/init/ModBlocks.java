@@ -67,16 +67,20 @@ public class ModBlocks {
 	public static Block idsu;
 	public static Block aesu;
 	public static Block lesu;
+	@Deprecated
 	public static Block supercondensator;
 	public static Block lesuStorage;
 	public static Block distillationTower;
+	@Deprecated
 	public static Block electricCraftingTable;
 	public static Block vacuumFreezer;
 	public static Block plasmaGenerator;
 	public static Block fusionControlComputer;
+	@Deprecated
 	public static Block computerCube;
 	public static Block fusionCoil;
 	public static Block lightningRod;
+	@Deprecated
 	public static Block heatGenerator;
 	public static Block industrialSawmill;
 	public static Block chargeBench;
@@ -97,6 +101,7 @@ public class ModBlocks {
 	public static Block lvt;
 	public static Block mvt;
 	public static Block hvt;
+	@Deprecated
 	public static Block pump;
 
 	public static BlockOre ore;
@@ -308,9 +313,11 @@ public class ModBlocks {
 		fusionControlComputer = new BlockFusionControlComputer(Material.ROCK);
 		registerBlock(fusionControlComputer, "fusioncontrolcomputer");
 		GameRegistry.registerTileEntity(TileEntityFusionController.class, "TileEntityFustionControllerTR");
+		Core.proxy.registerCustomBlockStateLocation(fusionControlComputer, "machines/generators/fusion_reactor");
 
 		fusionCoil = new BlockFusionCoil(Material.ROCK);
 		registerBlock(fusionCoil, "fusioncoil");
+		Core.proxy.registerCustomBlockStateLocation(fusionCoil, "machines/generators/fusion_coil");
 
 		lightningRod = new BlockLightningRod(Material.ROCK);
 		registerBlock(lightningRod, "lightningrod");
