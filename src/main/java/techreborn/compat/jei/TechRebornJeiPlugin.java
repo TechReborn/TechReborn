@@ -255,6 +255,7 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 		registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.electricCraftingTable));
 		registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.computerCube));
 		registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(new ItemStack(ModItems.missingRecipe));
+		registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.heatGenerator));
 		registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(ItemIngots.getIngotByName("silicon"));
 
 		if (CompatManager.isQuantumStorageLoaded) {

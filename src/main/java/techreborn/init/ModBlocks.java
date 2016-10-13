@@ -317,6 +317,10 @@ public class ModBlocks {
 		GameRegistry.registerTileEntity(TileLightningRod.class, "TileLightningRodTR");
 		Core.proxy.registerCustomBlockStateLocation(lightningRod, "machines/generators/lightning_rod");
 
+		heatGenerator = new BlockHeatGenerator(Material.ROCK);
+		registerBlock(heatGenerator, "heatgenerator");
+		GameRegistry.registerTileEntity(TileHeatGenerator.class, "TileHeatGeneratorTR");
+
 		industrialSawmill = new BlockIndustrialSawmill(Material.ROCK);
 		registerBlock(industrialSawmill, "industrialSawmill");
 		GameRegistry.registerTileEntity(TileIndustrialSawmill.class, "TileIndustrialSawmillTR");
