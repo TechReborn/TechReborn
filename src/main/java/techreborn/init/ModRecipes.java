@@ -3215,23 +3215,23 @@ public class ModRecipes {
 	static void addGemToolRecipes(ItemStack gemsword, ItemStack gempick, ItemStack gemaxe, ItemStack gemHoe,
 	                              ItemStack gemspade, ItemStack gemhelmet, ItemStack gemchestplate, ItemStack gemleggings, ItemStack gemboots,
 	                              String gem) {
-		CraftingHelper.addShapedOreRecipe(gemsword, " G ", " G ", " S ", 'S', Items.STICK, 'G', gem);
+		CraftingHelper.addShapedOreRecipe(gemsword, "G", "G", "S", 'S', Items.STICK, 'G', gem);
 
 		CraftingHelper.addShapedOreRecipe(gempick, "GGG", " S ", " S ", 'S', Items.STICK, 'G', gem);
 
-		CraftingHelper.addShapedOreRecipe(gemaxe, " GG", " SG", " S ", 'S', Items.STICK, 'G', gem);
+		CraftingHelper.addShapedOreRecipe(gemaxe, "GG", "SG", "S ", 'S', Items.STICK, 'G', gem);
 
-		CraftingHelper.addShapedOreRecipe(gemHoe, " GG", " S ", " S ", 'S', Items.STICK, 'G', gem);
+		CraftingHelper.addShapedOreRecipe(gemHoe, "GG", "S ", "S ", 'S', Items.STICK, 'G', gem);
 
-		CraftingHelper.addShapedOreRecipe(gemspade, " G ", " S ", " S ", 'S', Items.STICK, 'G', gem);
+		CraftingHelper.addShapedOreRecipe(gemspade, "G", "S", "S", 'S', Items.STICK, 'G', gem);
 
-		CraftingHelper.addShapedOreRecipe(gemhelmet, "GGG", "G G", "   ", 'G', gem);
+		CraftingHelper.addShapedOreRecipe(gemhelmet, "GGG", "G G", 'G', gem);
 
 		CraftingHelper.addShapedOreRecipe(gemchestplate, "G G", "GGG", "GGG", 'G', gem);
 
 		CraftingHelper.addShapedOreRecipe(gemleggings, "GGG", "G G", "G G", 'G', gem);
 
-		CraftingHelper.addShapedOreRecipe(gemboots, "   ", "G G", "G G", 'G', gem);
+		CraftingHelper.addShapedOreRecipe(gemboots, "G G", "G G", 'G', gem);
 	}
 
 	public static ItemStack getBucketWithFluid(Fluid fluid) {
