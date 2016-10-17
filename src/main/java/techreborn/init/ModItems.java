@@ -41,6 +41,7 @@ public class ModItems {
 
 	public static Item reBattery;
 	public static Item treeTap;
+	public static Item electricTreetap;
 
 	public static Item ironDrill;
 	public static Item diamondDrill;
@@ -180,6 +181,9 @@ public class ModItems {
 		registerItem(diamondJackhammer, "diamondjackhammer");
 		advancedJackhammer = PoweredItem.createItem(ItemAdvancedJackhammer.class);
 		registerItem(advancedJackhammer, "ironjackhammer");
+
+		electricTreetap = PoweredItem.createItem(ItemElectricTreetap.class);
+		registerItem(electricTreetap, "electricTreetap");
 
 		if (ConfigTechReborn.enableGemArmorAndTools) {
 			bronzeSword = new ItemTRSword(Reference.BRONZE);

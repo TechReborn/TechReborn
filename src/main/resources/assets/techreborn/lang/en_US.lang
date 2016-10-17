@@ -376,6 +376,7 @@ item.techreborn.nanosaber.name=Nanosaber
 item.techreborn.upgrade.Overclock.name=Overclocker Upgrade
 item.techreborn.upgrade.Transformer.name=Tranformer Upgrade
 item.techreborn.upgrade.EnergyStorage.name=Energy Storage Upgrade
+item.techreborn.electric_treetap.name=Electric Treetap
 
 #Gems
 item.techreborn.gem.ruby.name=Ruby
