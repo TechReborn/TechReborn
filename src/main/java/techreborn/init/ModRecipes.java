@@ -3215,7 +3215,7 @@ public class ModRecipes {
 
 		CraftingHelper.addShapedOreRecipe(gempick, "GGG", " S ", " S ", 'S', Items.STICK, 'G', gem);
 
-		CraftingHelper.addShapedOreRecipe(gemaxe, "GG", " SG", " S", 'S', Items.STICK, 'G', gem);
+		CraftingHelper.addShapedOreRecipe(gemaxe, "GG", "GS", " S", 'S', Items.STICK, 'G', gem);
 
 		CraftingHelper.addShapedOreRecipe(gemHoe, "GG", " S", " S", 'S', Items.STICK, 'G', gem);
 
