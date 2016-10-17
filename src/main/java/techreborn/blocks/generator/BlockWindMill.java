@@ -14,7 +14,7 @@ import techreborn.tiles.generator.TileWindMill;
 /**
  * Created by modmuss50 on 25/02/2016.
  */
-public class BlockWindMill extends BaseTileBlock implements ITexturedBlock {
+public class BlockWindMill extends BaseTileBlock {
 
 	private final String prefix = "techreborn:blocks/machines/generators/";
 
@@ -23,7 +23,6 @@ public class BlockWindMill extends BaseTileBlock implements ITexturedBlock {
 		setUnlocalizedName("techreborn.windmill");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setHardness(2.0F);
-		RebornCore.jsonDestroyer.registerObject(this);
 	}
 
 	@Override
@@ -31,17 +30,4 @@ public class BlockWindMill extends BaseTileBlock implements ITexturedBlock {
 		return new TileWindMill();
 	}
 
-	@Override
-	public String getTextureNameFromState(IBlockState state, EnumFacing side) {
-		boolean isActive = false;
-		if (side == EnumFacing.UP) {
-			return prefix + "wind_mill_top_" + (isActive ? "on" : "off");
-		}
-		return prefix + "wind_mill_side_" + (isActive ? "on" : "off");
-	}
-
-	@Override
-	public int amountOfStates() {
-		return 2;
-	}
 }
