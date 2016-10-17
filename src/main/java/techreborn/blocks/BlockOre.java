@@ -91,7 +91,7 @@ public class BlockOre extends BaseBlock implements ITexturedBlock, IOreNameProvi
 			OreDrop ruby = new OreDrop(ItemGems.getGemByName("ruby"),
 				ConfigTechReborn.FortuneSecondaryOreMultiplierPerLevel);
 			OreDrop redGarnet = new OreDrop(ItemGems.getGemByName("redGarnet"), 0.02);
-			OreDropSet set = new OreDropSet(ruby, redGarnet);
+			OreDropSet set = new OreDropSet(ruby);
 			return set.drop(fortune, random);
 		}
 
