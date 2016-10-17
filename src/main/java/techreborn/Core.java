@@ -33,6 +33,7 @@ import techreborn.compat.ICompatModule;
 import techreborn.config.ConfigTechReborn;
 import techreborn.dispenser.BehaviorDispenseScrapbox;
 import techreborn.entitys.EntityNukePrimed;
+import techreborn.events.BlockBreakHandler;
 import techreborn.events.OreUnifier;
 import techreborn.events.TRTickHandler;
 import techreborn.init.*;
@@ -127,6 +128,7 @@ public class Core {
 			compatModule.init(event);
 		}
 		MinecraftForge.EVENT_BUS.register(new StackWIPHandler());
+		MinecraftForge.EVENT_BUS.register(new BlockBreakHandler());
 
 		//Ore Dictionary
 		OreDict.init();
