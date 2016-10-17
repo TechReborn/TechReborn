@@ -2075,8 +2075,8 @@ public class ModRecipes {
 				getOre("ic2Extractor"));
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.blastFurnace), "CHC", "HBH", "FHF", 'H',
-			new ItemStack(ModItems.parts, 1, 17), 'C', "circuitAdvanced", 'B',
-			BlockMachineFrame.getFrameByName("advancedMachine", 1), 'F', ModBlocks.electricFurnace);
+				ItemParts.getPartByName("cupronickelHeatingCoil"), 'C', "circuitAdvanced", 'B',
+				BlockMachineFrame.getFrameByName("advancedMachine", 1), 'F', ModBlocks.electricFurnace);
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.industrialGrinder), "ECP", "GGG", "CBC", 'E',
 			ModBlocks.industrialElectrolyzer, 'P', ModBlocks.extractor, 'C',
