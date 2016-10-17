@@ -184,6 +184,7 @@ public class ModBlocks {
 		chargeBench = new BlockChargeBench(Material.ROCK);
 		registerBlock(chargeBench, "chargebench");
 		GameRegistry.registerTileEntity(TileChargeBench.class, "TileChargeBench");
+		Core.proxy.registerCustomBlockStateLocation(chargeBench, "machines/tier2_machines/charge_bench");
 
 		playerDetector = new BlockPlayerDetector();
 		registerBlock(playerDetector, ItemBlockPlayerDetector.class, "playerDetector");
