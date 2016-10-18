@@ -99,9 +99,9 @@ public class TechRebornWorldGen implements IWorldGenerator {
 		} else {
 			config = defaultConfig;
 		}
-		config.overworldOres.addAll(getMissingOres(config.overworldOres, defaultConfig.overworldOres));
-		config.neatherOres.addAll(getMissingOres(config.neatherOres, defaultConfig.neatherOres));
-		config.endOres.addAll(getMissingOres(config.endOres, defaultConfig.endOres));
+//		config.overworldOres.addAll(getMissingOres(config.overworldOres, defaultConfig.overworldOres));
+//		config.neatherOres.addAll(getMissingOres(config.neatherOres, defaultConfig.neatherOres));
+//		config.endOres.addAll(getMissingOres(config.endOres, defaultConfig.endOres));
 		if (!jsonInvalid) {
 			save();
 		}
@@ -201,7 +201,7 @@ public class TechRebornWorldGen implements IWorldGenerator {
 		boolean genTree = false;
 		List<OreConfig> list = new ArrayList<>();
 		Predicate<IBlockState> predicate = BlockMatcher.forBlock(Blocks.STONE);
-		if (world.provider.isSurfaceWorld()) {
+		if (world.provider.getDimension() == 0) {
 			list.addAll(getAllGenOresFromList(config.overworldOres));
 			genTree = true;
 		} else if (world.provider.getDimension() == -1) {
