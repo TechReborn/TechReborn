@@ -32,7 +32,7 @@ public class BlockRubberSapling extends BlockSapling {
 			return;
 		}
 		worldIn.setBlockToAir(pos);
-		if (!new RubberTreeGenerator(false).generate(worldIn, rand, pos)) {
+		if (!new RubberTreeGenerator(false).growTree(worldIn, rand, pos.getX(), pos.getY(), pos.getZ())) {
 			worldIn.setBlockState(pos, state); // Re-add the sapling if the tree
 			// failed to grow
 		}
