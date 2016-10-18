@@ -3,6 +3,7 @@ package techreborn.items.tools;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -87,6 +88,17 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
         }
     }
 
+    @Override
+    public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+        if (stack.getTagCompound() != null && stack.getTagCompound().getBoolean("isActive") && !PoweredItem.canUseEnergy(cost, stack)) {
+            ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
+                    TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.nanosaberEnergyError") + " "
+                            + TextFormatting.GOLD + I18n
+                            .translateToLocal("techreborn.message.nanosaberDeactivating")));
+            stack.getTagCompound().setBoolean("isActive", false);
+        }
+    }
+
     @SuppressWarnings({"rawtypes", "unchecked"})
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item item,
@@ -100,10 +112,6 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
         inactiveCharged.getTagCompound().setBoolean("isActive", false);
         PoweredItem.setEnergy(getMaxPower(inactiveCharged), inactiveCharged);
 
-        ItemStack activeUncharged = new ItemStack(ModItems.nanosaber);
-        activeUncharged.setTagCompound(new NBTTagCompound());
-        activeUncharged.getTagCompound().setBoolean("isActive", true);
-
         ItemStack activeCharged = new ItemStack(ModItems.nanosaber);
         activeCharged.setTagCompound(new NBTTagCompound());
         activeCharged.getTagCompound().setBoolean("isActive", true);
@@ -111,7 +119,6 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 
         itemList.add(inactiveUncharged);
         itemList.add(inactiveCharged);
-        itemList.add(activeUncharged);
         itemList.add(activeCharged);
     }
 
@@ -132,24 +139,31 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
     public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player,
                                                     EnumHand hand) {
         if (player.isSneaking()) {
-            if (stack.getTagCompound() == null || !stack.getTagCompound().getBoolean("isActive")) {
-                if (stack.getTagCompound() == null) {
-                    stack.setTagCompound(new NBTTagCompound());
-                }
-                stack.getTagCompound().setBoolean("isActive", true);
-                if (!world.isRemote && ConfigTechReborn.NanosaberChat) {
-                    ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
-                            TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.setTo") + " "
-                                    + TextFormatting.GOLD + I18n
-                                    .translateToLocal("techreborn.message.nanosaberActive")));
-                }
+            if (!PoweredItem.canUseEnergy(cost, stack)) {
+                ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
+                        TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.nanosaberEnergyErrorTo") + " "
+                                + TextFormatting.GOLD + I18n
+                                .translateToLocal("techreborn.message.nanosaberActivate")));
             } else {
-                stack.getTagCompound().setBoolean("isActive", false);
-                if (!world.isRemote && ConfigTechReborn.NanosaberChat) {
-                    ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
-                            TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.setTo") + " "
-                                    + TextFormatting.GOLD + I18n
-                                    .translateToLocal("techreborn.message.nanosaberInactive")));
+                if (stack.getTagCompound() == null || !stack.getTagCompound().getBoolean("isActive")) {
+                    if (stack.getTagCompound() == null) {
+                        stack.setTagCompound(new NBTTagCompound());
+                    }
+                    stack.getTagCompound().setBoolean("isActive", true);
+                    if (!world.isRemote && ConfigTechReborn.NanosaberChat) {
+                        ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
+                                TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.setTo") + " "
+                                        + TextFormatting.GOLD + I18n
+                                        .translateToLocal("techreborn.message.nanosaberActive")));
+                    }
+                } else {
+                    stack.getTagCompound().setBoolean("isActive", false);
+                    if (!world.isRemote && ConfigTechReborn.NanosaberChat) {
+                        ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
+                                TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.setTo") + " "
+                                        + TextFormatting.GOLD + I18n
+                                        .translateToLocal("techreborn.message.nanosaberInactive")));
+                    }
                 }
             }
             return new ActionResult<>(EnumActionResult.SUCCESS, stack);

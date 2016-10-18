@@ -957,7 +957,11 @@ techreborn.message.allPlayers=All Players
 techreborn.message.onlyOtherPlayers=Only Other Players
 techreborn.message.onlyYou=Only You
 techreborn.message.nanosaberActive=Active
+techreborn.message.nanosaberActivate=Activate
+techreborn.message.nanosaberDeactivating=Deactivating
 techreborn.message.nanosaberInactive=Inactive
+techreborn.message.nanosaberEnergyErrorTo=Not Enough Energy to
+techreborn.message.nanosaberEnergyError=Not Enough Energy:
 
 #Cables
 Cable.copperCable.name=Copper Cable
