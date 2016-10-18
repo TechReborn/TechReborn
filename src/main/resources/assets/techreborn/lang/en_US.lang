@@ -4,6 +4,7 @@ item.missingRecipe.name=Missing Recipe Placeholder
 itemGroup.techreborn=Tech Reborn
 
 #machines
+tile.techreborn.pump.name=Pump
 tile.techreborn.gasTurbine.name=Gas Turbine
 tile.techreborn.industrialBlock.name=Industrial
 tile.techreborn.thermalGenerator.name=Thermal Generator
