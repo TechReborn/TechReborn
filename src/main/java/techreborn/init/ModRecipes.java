@@ -1011,8 +1011,8 @@ public class ModRecipes {
 				"circuitBasic");
 
 		TechRebornAPI
-			.addRollingOreMachinceRecipe(ItemParts.getPartByName("cupronickelHeatingCoil"), "NCN", "C C", "NCN",
-				'N', "ingotCupronickel", 'C', "ingotCopper");
+			.addRollingOreMachinceRecipe(ItemParts.getPartByName("cupronickelHeatingCoil",3), "NCN", "C C", "NCN",
+				'N', "ingotNickel", 'C', "ingotCopper");
 
 		RecipeHandler.addRecipe(new VacuumFreezerRecipe(ItemIngots.getIngotByName("hotTungstensteel"),
 			ItemIngots.getIngotByName("tungstensteel"), 440, 128));
