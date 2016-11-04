@@ -453,7 +453,9 @@ public class ModRecipes {
 					continue;
 				}
 				dust = dust.copy();
-				dust.stackSize = 2;
+				if(ore){
+					dust.stackSize = 2;
+				}
 				RecipeHandler.addRecipe(new GrinderRecipe(oreStack, dust, ore ? 270 : 200, ore ? 31 : 22));
 			}
 		}
