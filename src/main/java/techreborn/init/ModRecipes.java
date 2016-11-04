@@ -448,7 +448,7 @@ public class ModRecipes {
 
 				boolean ore = data[0].equals("ore");
 				Core.logHelper.debug("Ore: " + data[1]);
-				ItemStack dust = getDictOreOrNull(joinDictName("dust", data[1]), ore ? 2 : 1).copy();
+				ItemStack dust = getDictOreOrNull(joinDictName("dust", data[1]), ore ? 2 : 1);
 				if (dust == null || dust.getItem() == null) {
 					continue;
 				}
