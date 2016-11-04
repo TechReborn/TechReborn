@@ -13,6 +13,7 @@ import net.minecraftforge.fluids.IFluidHandler;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
+import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
@@ -21,7 +22,7 @@ import techreborn.init.ModBlocks;
 
 import java.util.List;
 
-public class TileQuantumTank extends TileMachineBase
+public class TileQuantumTank extends TileLegacyMachineBase
 	implements IFluidHandler, IInventoryProvider, IWrenchable, IListInfoProvider {
 
 	public Tank tank = new Tank("TileQuantumTank", Integer.MAX_VALUE, this);

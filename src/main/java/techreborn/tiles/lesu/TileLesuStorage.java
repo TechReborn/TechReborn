@@ -3,9 +3,10 @@ package techreborn.tiles.lesu;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.tile.TileMachineBase;
 
-public class TileLesuStorage extends TileMachineBase {
+public class TileLesuStorage extends TileLegacyMachineBase {
 
 	public LesuNetwork network;
 

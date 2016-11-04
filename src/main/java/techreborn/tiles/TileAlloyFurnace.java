@@ -12,13 +12,14 @@ import reborncore.api.recipe.IBaseRecipeType;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
+import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.api.Reference;
 import techreborn.init.ModBlocks;
 
-public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, IInventoryProvider {
+public class TileAlloyFurnace extends TileLegacyMachineBase implements IWrenchable, IInventoryProvider {
 
 	public int tickTime;
 	public Inventory inventory = new Inventory(4, "TileAlloyFurnace", 64, this);

@@ -9,6 +9,7 @@ import net.minecraft.util.EnumFacing;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
+import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
@@ -16,7 +17,7 @@ import techreborn.init.ModBlocks;
 
 import java.util.List;
 
-public class TileDigitalChest extends TileMachineBase implements IInventoryProvider, IWrenchable, IListInfoProvider {
+public class TileDigitalChest extends TileLegacyMachineBase implements IInventoryProvider, IWrenchable, IListInfoProvider {
 
 	// Slot 0 = Input
 	// Slot 1 = Output

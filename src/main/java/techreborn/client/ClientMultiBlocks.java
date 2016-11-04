@@ -1,6 +1,7 @@
 package techreborn.client;
 
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import reborncore.client.multiblock.Multiblock;
 import techreborn.init.ModBlocks;
 
@@ -28,7 +29,7 @@ public class ClientMultiBlocks {
 	}
 
 	private static boolean isCoil(int x, int y, int z) {
-		reactor.addComponent(x, y, z, ModBlocks.FusionCoil, 0);
+		reactor.addComponent(new BlockPos(x, y, z), ModBlocks.FusionCoil.getDefaultState());
 		return true;
 	}
 
@@ -40,9 +41,10 @@ public class ClientMultiBlocks {
 			for (int j = -1; j < 2; j++) {
 				for (int k = -1; k < 2; k++) {
 					if ((i != 0) || (j != 0) || (k != 0)) {
-						frezzer.addComponent(xDir + i, yDir + j, zDir + k, ModBlocks.MachineCasing,
-							(((i == 0) && (j == 0) && (k != 0)) || ((i == 0) && (j != 0) && (k == 0))
-								 || ((i != 0) && (j == 0) && (k == 0)) ? 2 : 1));
+						BlockPos pos = new BlockPos(xDir + i, yDir + j, zDir + k);
+						int meta = (((i == 0) && (j == 0) && (k != 0)) || ((i == 0) && (j != 0) && (k == 0))
+							            || ((i != 0) && (j == 0) && (k == 0)) ? 2 : 1);
+						frezzer.addComponent(pos, ModBlocks.MachineCasing.getStateFromMeta(meta));
 					}
 				}
 			}

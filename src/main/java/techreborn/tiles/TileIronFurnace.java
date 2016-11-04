@@ -6,10 +6,11 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntityFurnace;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.Inventory;
 
-public class TileIronFurnace extends TileMachineBase implements IInventoryProvider {
+public class TileIronFurnace extends TileLegacyMachineBase implements IInventoryProvider {
 
 	public int tickTime;
 	public Inventory inventory = new Inventory(3, "TileIronFurnace", 64, this);
