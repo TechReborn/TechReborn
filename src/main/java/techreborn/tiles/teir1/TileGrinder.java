@@ -45,7 +45,6 @@ public class TileGrinder extends TilePowerAcceptor implements IWrenchable, IInve
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		crafter.updateEntity();
 		upgradeHandler.tick();
 		//charge(3); TODO
 		charge(3);
