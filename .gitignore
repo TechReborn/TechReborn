@@ -7,9 +7,11 @@
 /eclipse
 /.gradle
 *.iml
+*.ipr
+*.iws
 /.metadata
 /.settings
-./classpath
+/classpath
 /dep
 
 TechReborn.iws
