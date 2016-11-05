@@ -20,8 +20,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.server.permission.PermissionAPI;
+import net.minecraftforge.server.permission.context.BlockPosContext;
 import reborncore.common.IWrenchable;
 import reborncore.common.tile.TileMachineBase;
+import reborncore.common.util.RebornPermissions;
 import techreborn.blocks.fluid.BlockFluidBase;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.compat.CompatManager;
@@ -48,6 +51,9 @@ public class ItemWrench extends ItemTR implements ITexturedItem {
 	@Override
 	public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos,
 	                                       EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+		if(!PermissionAPI.hasPermission(player.getGameProfile(), RebornPermissions.WRENCH_BLOCK, new BlockPosContext(player, pos, world.getBlockState(pos), side))){
+			return EnumActionResult.FAIL;
+		}
 		if (CompatManager.isIC2Loaded) {
 			EnumActionResult result = IC2WrenchHelper.onItemUseFirst(stack, player, world, pos, side, hitX, hitY, hitZ, hand);
 			if (result == EnumActionResult.SUCCESS) {
@@ -76,7 +82,15 @@ public class ItemWrench extends ItemTR implements ITexturedItem {
 	@Override
 	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos,
 	                                  EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-
+		if(!PermissionAPI.hasPermission(player.getGameProfile(), RebornPermissions.WRENCH_BLOCK, new BlockPosContext(player, pos, world.getBlockState(pos), facing))){
+			return EnumActionResult.FAIL;
+		}
+		if (CompatManager.isIC2Loaded) {
+			EnumActionResult result = IC2WrenchHelper.onItemUse(stack, player, world, pos, hand, facing, hitX, hitY, hitZ);
+			if (result == EnumActionResult.SUCCESS) {
+				return result;
+			}
+		}
 		if (world.isAirBlock(pos)) {
 			return EnumActionResult.FAIL;
 		}

@@ -102,7 +102,7 @@ public class TechRebornWorldGen implements IWorldGenerator {
 //		config.overworldOres.addAll(getMissingOres(config.overworldOres, defaultConfig.overworldOres));
 //		config.neatherOres.addAll(getMissingOres(config.neatherOres, defaultConfig.neatherOres));
 //		config.endOres.addAll(getMissingOres(config.endOres, defaultConfig.endOres));
-		if (!jsonInvalid) {
+		if (jsonInvalid) {
 			save();
 		}
 	}

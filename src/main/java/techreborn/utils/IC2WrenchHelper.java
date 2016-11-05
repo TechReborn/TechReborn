@@ -21,4 +21,11 @@ public class IC2WrenchHelper {
 		}
 		return wrench.onItemUseFirst(stack, player, world, pos, side, hitX, hitY, hitZ, hand);
 	}
+
+	public static EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		if (wrench == null) {
+			wrench = (ItemToolWrench) IC2Items.getItem("wrench").getItem();
+		}
+		return wrench.onItemUse(stack, playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+	}
 }

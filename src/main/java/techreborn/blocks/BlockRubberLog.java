@@ -18,7 +18,10 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.server.permission.PermissionAPI;
+import net.minecraftforge.server.permission.context.BlockPosContext;
 import reborncore.RebornCore;
+import reborncore.common.util.RebornPermissions;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModSounds;
 import techreborn.items.ItemParts;
@@ -147,6 +150,9 @@ public class BlockRubberLog extends Block implements ITexturedBlock {
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 	                                EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
 		super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ);
+		if(!PermissionAPI.hasPermission(playerIn.getGameProfile(), RebornPermissions.TAP_BLOCK, new BlockPosContext(playerIn, pos, worldIn.getBlockState(pos), side))){
+			return false;
+		}
 		if (playerIn.getHeldItem(EnumHand.MAIN_HAND) != null
 			&& playerIn.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ItemTreeTap)
 			if (state.getValue(HAS_SAP)) {
