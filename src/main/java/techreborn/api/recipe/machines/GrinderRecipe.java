@@ -7,7 +7,7 @@ import techreborn.api.recipe.BaseRecipe;
 public class GrinderRecipe extends BaseRecipe {
 
 	public GrinderRecipe(ItemStack input1, ItemStack output1, int tickTime, int euPerTick) {
-		super(Reference.grinderRecipe, tickTime, euPerTick);
+		super(Reference.grinderRecipe, tickTime, euPerTick / 10); //Done to buff energy usage to be more in line with ic2
 		if (input1 != null)
 			inputs.add(input1);
 		if (output1 != null)

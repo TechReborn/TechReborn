@@ -16,7 +16,7 @@ import reborncore.common.util.Inventory;
 import techreborn.init.ModBlocks;
 
 public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IInventoryProvider {
-	public static int outputAmount = 10; // This is in line with BC engines rf,
+	public static int outputAmount = 10;
 	public Inventory inventory = new Inventory(2, "TileGenerator", 64, this);
 	public int fuelSlot = 0;
 	public int burnTime;

@@ -219,7 +219,7 @@ public class TileIndustrialGrinder extends TilePowerAcceptor
 
 	@Override
 	public double getMaxInput() {
-		return 32;
+		return 64;
 	}
 
 	@Override
