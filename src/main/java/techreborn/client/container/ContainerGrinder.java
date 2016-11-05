@@ -6,24 +6,32 @@ import reborncore.api.tile.IContainerLayout;
 import reborncore.client.gui.BaseSlot;
 import reborncore.client.gui.SlotInput;
 import reborncore.client.gui.SlotOutput;
+import reborncore.common.recipes.RecipeCrafter;
 import techreborn.api.gui.SlotUpgrade;
 import techreborn.tiles.teir1.TileGrinder;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ContainerGrinder extends ContainerCrafting implements IContainerLayout<TileGrinder> {
+public class ContainerGrinder extends ContainerCrafting {
 
 	public int connectionStatus;
 	EntityPlayer player;
 	TileGrinder tile;
+
+	public ContainerGrinder(EntityPlayer player, TileGrinder tile) {
+		super(tile.crafter);
+		this.player = player;
+		this.tile = tile;
+		addInventorySlots();
+	}
 
 	@Override
 	public boolean canInteractWith(EntityPlayer p_75145_1_) {
 		return true;
 	}
 
-	@Override
+
 	public void addInventorySlots() {
 		// input
 		this.addSlotToContainer(new SlotInput(tile.inventory, 0, 56, 34));
@@ -34,9 +42,11 @@ public class ContainerGrinder extends ContainerCrafting implements IContainerLay
 		this.addSlotToContainer(new SlotUpgrade(tile.inventory, 3, 152, 26));
 		this.addSlotToContainer(new SlotUpgrade(tile.inventory, 4, 152, 44));
 		this.addSlotToContainer(new SlotUpgrade(tile.inventory, 5, 152, 62));
+
+		addPlayerSlots();
 	}
 
-	@Override
+
 	public void addPlayerSlots() {
 		int i;
 
@@ -51,32 +61,4 @@ public class ContainerGrinder extends ContainerCrafting implements IContainerLay
 		}
 	}
 
-	@Override
-	public void setTile(TileGrinder tile) {
-		this.tile = tile;
-		setCrafter(tile.crafter);
-	}
-
-	@Nullable
-	@Override
-	public TileGrinder getTile() {
-		return tile;
-	}
-
-	@Override
-	public void setPlayer(EntityPlayer player) {
-		this.player = player;
-	}
-
-	@Nullable
-	@Override
-	public EntityPlayer getPlayer() {
-		return player;
-	}
-
-	@Nullable
-	@Override
-	public List<Integer> getSlotsForSide(EnumFacing facing) {
-		return null;
-	}
 }

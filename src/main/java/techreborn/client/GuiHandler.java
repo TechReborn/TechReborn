@@ -132,11 +132,11 @@ public class GuiHandler implements IGuiHandler {
 		} else if (ID == vacuumFreezerID) {
 			return new ContainerVacuumFreezer((TileVacuumFreezer) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == grinderID) {
-			container = new ContainerGrinder();
+			container = new ContainerGrinder(player, (TileGrinder) world.getTileEntity(new BlockPos(x, y, z)));
 		} else if (ID == generatorID) {
 			return new ContainerGenerator((TileGenerator) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == extractorID) {
-			container = new ContainerExtractor();
+			container = new ContainerExtractor(player, (TileExtractor) world.getTileEntity(new BlockPos(x, y, z)));
 		} else if (ID == compressorID) {
 			return new ContainerCompressor((TileCompressor) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == electricFurnaceID) {
