@@ -164,6 +164,7 @@ public class ModFluids {
 		BlockFluidLithium = new BlockFluidTechReborn(fluidLithium, Material.WATER, "techreborn.lithium");
 		GameRegistry.registerBlock(BlockFluidLithium,
 			ModInfo.MOD_ID + "_" + BlockFluidLithium.getUnlocalizedName().substring(5));
+		FluidPowerManager.fluidPowerValues.put(fluidNitrofuel, 24.0);
 
 		FluidRegistry.registerFluid(fluidMercury);
 		BlockFluidMercury = new BlockFluidTechReborn(fluidMercury, Material.WATER, "techreborn.mercury");
@@ -186,6 +187,7 @@ public class ModFluids {
 		BlockFluidNitrofuel = new BlockFluidTechReborn(fluidNitrofuel, Material.WATER, "techreborn.nitrofuel");
 		GameRegistry.registerBlock(BlockFluidNitrofuel,
 			ModInfo.MOD_ID + "_" + BlockFluidNitrofuel.getUnlocalizedName().substring(5));
+		FluidPowerManager.fluidPowerValues.put(fluidNitrofuel, 42.0);
 
 		FluidRegistry.registerFluid(fluidNitrogen);
 		BlockFluidNitrogen = new BlockFluidTechReborn(fluidNitrogen, Material.WATER, "techreborn.nitrogen");
@@ -212,6 +214,7 @@ public class ModFluids {
 		BlockFluidSodium = new BlockFluidTechReborn(fluidSodium, Material.WATER, "techreborn.sodium");
 		GameRegistry.registerBlock(BlockFluidSodium,
 			ModInfo.MOD_ID + "_" + BlockFluidSodium.getUnlocalizedName().substring(5));
+		FluidPowerManager.fluidPowerValues.put(fluidNitrofuel, 22.0);
 
 		FluidRegistry.registerFluid(fluidSodiumpersulfate);
 		BlockFluidSodiumpersulfate = new BlockFluidTechReborn(fluidSodiumpersulfate, Material.WATER,
@@ -263,11 +266,13 @@ public class ModFluids {
 		BlockFluidNitroDiesel = new BlockFluidTechReborn(fluidNitroDiesel, Material.WATER, "techreborn.nitrodiesel");
 		GameRegistry.registerBlock(BlockFluidNitroDiesel,
 			ModInfo.MOD_ID + "_" + BlockFluidNitroDiesel.getUnlocalizedName().substring(5));
+		FluidPowerManager.fluidPowerValues.put(fluidNitrofuel, 36.0);
 
 		FluidRegistry.registerFluid(fluidOil);
 		BlockFluidOil = new BlockFluidTechReborn(fluidOil, Material.WATER, "techreborn.oil");
 		GameRegistry.registerBlock(BlockFluidOil,
 			ModInfo.MOD_ID + "_" + BlockFluidOil.getUnlocalizedName().substring(5));
+		FluidPowerManager.fluidPowerValues.put(fluidNitrofuel, 16.0);
 
 		FluidRegistry.registerFluid(fluidSulfuricAcid);
 		BlockFluidSulfuricAcid = new BlockFluidTechReborn(fluidSulfuricAcid, Material.WATER, "techreborn.sulfuricacid");
