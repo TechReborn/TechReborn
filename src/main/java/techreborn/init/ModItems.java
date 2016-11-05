@@ -44,6 +44,7 @@ public class ModItems {
 
 	public static Item reBattery;
 	public static Item treeTap;
+	public static Item electricTreetap;
 
 	public static Item ironDrill;
 	public static Item diamondDrill;
@@ -161,6 +162,9 @@ public class ModItems {
 		registerItem(reBattery, "rebattery");
 		treeTap = new ItemTreeTap();
 		registerItem(treeTap, "treetap");
+
+		electricTreetap = PoweredItem.createItem(ItemElectricTreetap.class);
+		registerItem(electricTreetap, "electricTreetap");
 
 		ironDrill = PoweredItem.createItem(ItemSteelDrill.class);
 		registerItem(ironDrill, "irondrill");

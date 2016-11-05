@@ -18,13 +18,12 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.server.permission.PermissionAPI;
-import net.minecraftforge.server.permission.context.BlockPosContext;
 import reborncore.RebornCore;
-import reborncore.common.util.RebornPermissions;
+import reborncore.common.powerSystem.PoweredItem;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModSounds;
 import techreborn.items.ItemParts;
+import techreborn.items.tools.ItemElectricTreetap;
 import techreborn.items.tools.ItemTreeTap;
 
 import java.util.ArrayList;
@@ -150,33 +149,37 @@ public class BlockRubberLog extends Block implements ITexturedBlock {
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 	                                EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
 		super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ);
-		if(!PermissionAPI.hasPermission(playerIn.getGameProfile(), RebornPermissions.TAP_BLOCK, new BlockPosContext(playerIn, pos, worldIn.getBlockState(pos), side))){
-			return false;
-		}
-		if (playerIn.getHeldItem(EnumHand.MAIN_HAND) != null
-			&& playerIn.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ItemTreeTap)
-			if (state.getValue(HAS_SAP)) {
-				if (state.getValue(SAP_SIDE) == side) {
-					worldIn.setBlockState(pos,
-						state.withProperty(HAS_SAP, false).withProperty(SAP_SIDE, EnumFacing.getHorizontal(0)));
-					worldIn.playSound(null, pos.getX(), pos.getY(),
-						pos.getZ(), ModSounds.extract,
-						SoundCategory.BLOCKS, 0.6F, 1F);
-					if (!worldIn.isRemote) {
-						Random rand = new Random();
-						BlockPos itemPos = pos.offset(side);
-						EntityItem item = new EntityItem(worldIn, itemPos.getX(), itemPos.getY(), itemPos.getZ(),
-							ItemParts.getPartByName("rubberSap").copy());
-						float factor = 0.05F;
-						playerIn.getHeldItem(EnumHand.MAIN_HAND).damageItem(1, playerIn);
-						item.motionX = rand.nextGaussian() * factor;
-						item.motionY = rand.nextGaussian() * factor + 0.2F;
-						item.motionZ = rand.nextGaussian() * factor;
-						worldIn.spawnEntityInWorld(item);
+		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
+		if (stack != null)
+			if ((stack.getItem() instanceof ItemElectricTreetap && PoweredItem.canUseEnergy(20, stack)) || stack.getItem() instanceof ItemTreeTap)
+				if (state.getValue(HAS_SAP)) {
+					if (state.getValue(SAP_SIDE) == side) {
+						worldIn.setBlockState(pos,
+							state.withProperty(HAS_SAP, false).withProperty(SAP_SIDE, EnumFacing.getHorizontal(0)));
+						worldIn.playSound(null, pos.getX(), pos.getY(),
+							pos.getZ(), ModSounds.extract,
+							SoundCategory.BLOCKS, 0.6F, 1F);
+						if (!worldIn.isRemote) {
+							if (stack.getItem() instanceof ItemElectricTreetap) {
+								PoweredItem.useEnergy(20, stack);
+							} else {
+								playerIn.getHeldItem(EnumHand.MAIN_HAND).damageItem(1, playerIn);
+							}
+							if (!playerIn.inventory.addItemStackToInventory(ItemParts.getPartByName("rubberSap").copy())) {
+								Random rand = new Random();
+								BlockPos itemPos = pos.offset(side);
+								EntityItem item = new EntityItem(worldIn, itemPos.getX(), itemPos.getY(), itemPos.getZ(),
+									ItemParts.getPartByName("rubberSap").copy());
+								float factor = 0.05F;
+								item.motionX = rand.nextGaussian() * factor;
+								item.motionY = rand.nextGaussian() * factor + 0.2F;
+								item.motionZ = rand.nextGaussian() * factor;
+								worldIn.spawnEntityInWorld(item);
+							}
+						}
+						return true;
 					}
-					return true;
 				}
-			}
 		return false;
 	}
 
