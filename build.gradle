@@ -271,3 +271,5 @@ configurations.all {
         cacheChangingModulesFor 0, "seconds"
     }
 }
+
+apply from: 'https://github.com/FabricMC/fabric-docs/raw/master/gradle/ideconfig.gradle'
