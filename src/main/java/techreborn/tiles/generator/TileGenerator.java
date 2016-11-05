@@ -2,9 +2,11 @@ package techreborn.tiles.generator;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.common.ForgeModContainer;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
@@ -56,7 +58,12 @@ public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IIn
 				updateState();
 				burnItem = getStackInSlot(fuelSlot);
 				if (getStackInSlot(fuelSlot).stackSize == 1) {
-					setInventorySlotContents(fuelSlot, null);
+					if(getStackInSlot(fuelSlot).getItem() == Items.LAVA_BUCKET || getStackInSlot(fuelSlot).getItem() == ForgeModContainer.getInstance().universalBucket){
+						setInventorySlotContents(fuelSlot, new ItemStack(Items.BUCKET));
+					} else {
+						setInventorySlotContents(fuelSlot, null);
+					}
+
 				} else {
 					decrStackSize(fuelSlot, 1);
 				}
