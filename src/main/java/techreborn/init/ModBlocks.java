@@ -1,9 +1,11 @@
 package techreborn.init;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockColored;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemColored;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
@@ -21,6 +23,7 @@ import techreborn.blocks.tier1.*;
 import techreborn.blocks.transformers.BlockHVTransformer;
 import techreborn.blocks.transformers.BlockLVTransformer;
 import techreborn.blocks.transformers.BlockMVTransformer;
+import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.itemblocks.*;
 import techreborn.tiles.*;
 import techreborn.tiles.fusionReactor.TileEntityFusionController;
@@ -114,6 +117,7 @@ public class ModBlocks {
 	public static Block rubberPlanks;
 
 	public static Block ironFence;
+	public static Block flare;
 
 	public static void init() {
 		thermalGenerator = new BlockThermalGenerator();
@@ -378,6 +382,14 @@ public class ModBlocks {
 		scrapboxinator = new BlockScrapboxinator(Material.IRON);
 		registerBlock(scrapboxinator, "scrapboxinator");
 		GameRegistry.registerTileEntity(TileScrapboxinator.class, "TileScrapboxinatorTR");
+
+		flare = new BlockFlare();
+		registerBlock(flare, "flare");
+		ItemBlock itemBlock = new ItemColored(flare, true);
+		itemBlock.setRegistryName("flareItemBlock");
+		itemBlock.setCreativeTab(TechRebornCreativeTabMisc.instance);
+		GameRegistry.register(itemBlock);
+		GameRegistry.registerTileEntity(TileEntityFlare.class, "TileEntityFlareTR");
 
 		registerOreDict();
 		Core.logHelper.info("TechReborns Blocks Loaded");
