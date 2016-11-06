@@ -383,13 +383,14 @@ public class ModBlocks {
 		registerBlock(scrapboxinator, "scrapboxinator");
 		GameRegistry.registerTileEntity(TileScrapboxinator.class, "TileScrapboxinatorTR");
 
-		flare = new BlockFlare();
-		registerBlock(flare, "flare");
-		ItemBlock itemBlock = new ItemColored(flare, true);
-		itemBlock.setRegistryName("flareItemBlock");
-		itemBlock.setCreativeTab(TechRebornCreativeTabMisc.instance);
-		GameRegistry.register(itemBlock);
-		GameRegistry.registerTileEntity(TileEntityFlare.class, "TileEntityFlareTR");
+		//TODO enable when done
+//		flare = new BlockFlare();
+//		registerBlock(flare, "flare");
+//		ItemBlock itemBlock = new ItemColored(flare, true);
+//		itemBlock.setRegistryName("flareItemBlock");
+//		itemBlock.setCreativeTab(TechRebornCreativeTabMisc.instance);
+//		GameRegistry.register(itemBlock);
+//		GameRegistry.registerTileEntity(TileEntityFlare.class, "TileEntityFlareTR");
 
 		registerOreDict();
 		Core.logHelper.info("TechReborns Blocks Loaded");
