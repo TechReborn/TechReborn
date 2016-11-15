@@ -1,4 +1,4 @@
-[![](http://cf.way2muchnoise.eu/full_233564_downloads.svg)](https://minecraft.curseforge.com/projects/techreborn) [![](http://cf.way2muchnoise.eu/versions/233564.svg)](https://minecraft.curseforge.com/projects/techreborn)
+[![](https://cf.way2muchnoise.eu/full_233564_downloads.svg)](https://minecraft.curseforge.com/projects/techreborn) [![](https://cf.way2muchnoise.eu/versions/233564.svg)](https://minecraft.curseforge.com/projects/techreborn)
 # TechReborn 1.10.2 Branch
 
 TechReborn is a resurrection of GregTech 2.78 for modern Minecraft. It brings most of it's features and behaviors to Minecraft, with lots of tweaks, and a few additions. It also aims to be more compatible with mods other than GregTech, and has the ultimate goal of becoming a standalone mod, compatible with, but not dependent on IC2. We have no plans of ever supporting IC2 classic as of now.
