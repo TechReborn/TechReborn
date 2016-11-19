@@ -80,7 +80,7 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 
 	public int getHeat() {
 		for (EnumFacing direction : EnumFacing.values()) {
-			TileEntity tileEntity = worldObj.getTileEntity(new BlockPos(getPos().getX() + direction.getFrontOffsetX(),
+			TileEntity tileEntity = world.getTileEntity(new BlockPos(getPos().getX() + direction.getFrontOffsetX(),
 				getPos().getY() + direction.getFrontOffsetY(), getPos().getZ() + direction.getFrontOffsetZ()));
 			if (tileEntity instanceof TileMachineCasing) {
 				if (((TileMachineCasing) tileEntity).isConnected()
@@ -89,22 +89,22 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 					Location location = new Location(getPos().getX(), getPos().getY(), getPos().getZ(), direction);
 					location.modifyPositionFromSide(direction, 1);
 					int heat = 0;
-					if (worldObj.getBlockState(new BlockPos(location.getX(), location.getY() - 1, location.getZ()))
+					if (world.getBlockState(new BlockPos(location.getX(), location.getY() - 1, location.getZ()))
 						.getBlock() == tileEntity.getBlockType()) {
 						return 0;
 					}
 
 					for (IMultiblockPart part : casing.connectedParts) {
-						BlockMachineCasing casing1 = (BlockMachineCasing) worldObj.getBlockState(part.getPos())
+						BlockMachineCasing casing1 = (BlockMachineCasing) world.getBlockState(part.getPos())
 							.getBlock();
 						heat += casing1
 							.getHeatFromState(part.getWorld().getBlockState(part.getWorldLocation().toBlockPos()));
 						// TODO meta fix
 					}
 
-					if (worldObj.getBlockState(new BlockPos(location.getX(), location.getY(), location.getZ()))
+					if (world.getBlockState(new BlockPos(location.getX(), location.getY(), location.getZ()))
 						.getBlock().getUnlocalizedName().equals("tile.lava")
-						&& worldObj
+						&& world
 						.getBlockState(new BlockPos(location.getX(), location.getY() + 1, location.getZ()))
 						.getBlock().getUnlocalizedName().equals("tile.lava")) {
 						heat += 500;
@@ -118,7 +118,7 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 
 	@Override
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
-		worldObj.markBlockRangeForRenderUpdate(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX(),
+		world.markBlockRangeForRenderUpdate(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX(),
 			getPos().getY(), getPos().getZ());
 		readFromNBT(packet.getNbtCompound());
 	}

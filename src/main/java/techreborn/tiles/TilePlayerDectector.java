@@ -52,17 +52,17 @@ public class TilePlayerDectector extends TilePowerAcceptor {
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		if (!worldObj.isRemote && worldObj.getWorldTime() % 20 == 0) {
+		if (!world.isRemote && world.getWorldTime() % 20 == 0) {
 			boolean lastRedstone = redstone;
 			redstone = false;
 			if (canUseEnergy(10)) {
-				Iterator tIterator = super.worldObj.playerEntities.iterator();
+				Iterator tIterator = super.world.playerEntities.iterator();
 				while (tIterator.hasNext()) {
 					EntityPlayer player = (EntityPlayer) tIterator.next();
 					if (player.getDistanceSq((double) super.getPos().getX() + 0.5D,
 						(double) super.getPos().getY() + 0.5D, (double) super.getPos().getZ() + 0.5D) <= 256.0D) {
-						BlockMachineBase blockMachineBase = (BlockMachineBase) worldObj.getBlockState(pos).getBlock();
-						int meta = blockMachineBase.getMetaFromState(worldObj.getBlockState(pos));
+						BlockMachineBase blockMachineBase = (BlockMachineBase) world.getBlockState(pos).getBlock();
+						int meta = blockMachineBase.getMetaFromState(world.getBlockState(pos));
 						if (meta == 0) {// ALL
 							redstone = true;
 						} else if (meta == 1) {// Others
@@ -80,8 +80,8 @@ public class TilePlayerDectector extends TilePowerAcceptor {
 				useEnergy(10);
 			}
 			if (lastRedstone != redstone) {
-				WorldUtils.updateBlock(worldObj, getPos());
-				worldObj.notifyNeighborsOfStateChange(getPos(), worldObj.getBlockState(getPos()).getBlock());
+				WorldUtils.updateBlock(world, getPos());
+				world.notifyNeighborsOfStateChange(getPos(), world.getBlockState(getPos()).getBlock());
 			}
 		}
 	}

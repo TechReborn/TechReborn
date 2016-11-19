@@ -4,8 +4,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IContainerListener;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import reborncore.client.gui.BaseSlot;
-import reborncore.client.gui.SlotCharge;
+import reborncore.client.gui.slots.BaseSlot;
+import reborncore.client.gui.slots.SlotCharge;
 import reborncore.common.container.RebornContainer;
 import techreborn.tiles.storage.TileBatBox;
 

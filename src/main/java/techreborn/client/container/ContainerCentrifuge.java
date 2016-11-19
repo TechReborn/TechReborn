@@ -3,8 +3,8 @@ package techreborn.client.container;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.tile.IContainerLayout;
-import reborncore.client.gui.BaseSlot;
-import reborncore.client.gui.SlotOutput;
+import reborncore.client.gui.slots.BaseSlot;
+import reborncore.client.gui.slots.SlotOutput;
 import techreborn.api.gui.SlotUpgrade;
 import techreborn.tiles.TileCentrifuge;
 

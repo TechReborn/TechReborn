@@ -68,7 +68,7 @@ public class TileScrapboxinator extends TilePowerAcceptor implements IWrenchable
 	}
 
 	public void recycleItems() {
-		if (this.canOpen() && !worldObj.isRemote) {
+		if (this.canOpen() && !world.isRemote) {
 			int random = new Random().nextInt(ScrapboxList.stacks.size());
 			ItemStack out = ScrapboxList.stacks.get(random).copy();
 			if (getStackInSlot(output) == null) {
@@ -76,7 +76,7 @@ public class TileScrapboxinator extends TilePowerAcceptor implements IWrenchable
 				setInventorySlotContents(output, out);
 			}
 
-			if (getStackInSlot(input1).stackSize > 1) {
+			if (getStackInSlot(input1).getCount() > 1) {
 				useEnergy(cost);
 				this.decrStackSize(input1, 1);
 			} else {
@@ -95,11 +95,11 @@ public class TileScrapboxinator extends TilePowerAcceptor implements IWrenchable
 	}
 
 	public void updateState() {
-		IBlockState blockState = worldObj.getBlockState(pos);
+		IBlockState blockState = world.getBlockState(pos);
 		if (blockState.getBlock() instanceof BlockMachineBase) {
 			BlockMachineBase blockMachineBase = (BlockMachineBase) blockState.getBlock();
 			if (blockState.getValue(BlockMachineBase.ACTIVE) != progress > 0)
-				blockMachineBase.setActive(progress > 0, worldObj, pos);
+				blockMachineBase.setActive(progress > 0, world, pos);
 		}
 	}
 

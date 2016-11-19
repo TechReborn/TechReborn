@@ -4,9 +4,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IContainerListener;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import reborncore.client.gui.BaseSlot;
-import reborncore.client.gui.SlotFake;
-import reborncore.client.gui.SlotOutput;
+import reborncore.client.gui.slots.BaseSlot;
+import reborncore.client.gui.slots.SlotFake;
+import reborncore.client.gui.slots.SlotOutput;
 import reborncore.common.container.RebornContainer;
 import techreborn.tiles.generator.TileDieselGenerator;
 

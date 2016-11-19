@@ -37,7 +37,7 @@ public class TileIDSU extends TilePowerAcceptor implements IWrenchable {
 		if (ownerUdid == null && StringUtils.isBlank(ownerUdid) || StringUtils.isEmpty(ownerUdid)) {
 			return 0.0;
 		}
-		return IDSUManager.INSTANCE.getSaveDataForWorld(worldObj, ownerUdid).storedPower;
+		return IDSUManager.INSTANCE.getSaveDataForWorld(world, ownerUdid).storedPower;
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class TileIDSU extends TilePowerAcceptor implements IWrenchable {
 		if (ownerUdid == null && StringUtils.isBlank(ownerUdid) || StringUtils.isEmpty(ownerUdid)) {
 			return;
 		}
-		IDSUManager.INSTANCE.getSaveDataForWorld(worldObj, ownerUdid).storedPower = energy;
+		IDSUManager.INSTANCE.getSaveDataForWorld(world, ownerUdid).storedPower = energy;
 	}
 
 	@Override

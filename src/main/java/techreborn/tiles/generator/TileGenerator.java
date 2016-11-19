@@ -38,7 +38,7 @@ public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IIn
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		if (worldObj.isRemote) {
+		if (world.isRemote) {
 			return;
 		}
 		if (getEnergy() < getMaxPower()) {
@@ -57,7 +57,7 @@ public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IIn
 			if (burnTime > 0) {
 				updateState();
 				burnItem = getStackInSlot(fuelSlot);
-				if (getStackInSlot(fuelSlot).stackSize == 1) {
+				if (getStackInSlot(fuelSlot).getCount() == 1) {
 					if(getStackInSlot(fuelSlot).getItem() == Items.LAVA_BUCKET || getStackInSlot(fuelSlot).getItem() == ForgeModContainer.getInstance().universalBucket){
 						setInventorySlotContents(fuelSlot, new ItemStack(Items.BUCKET));
 					} else {
@@ -74,11 +74,11 @@ public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IIn
 	}
 
 	public void updateState() {
-		IBlockState BlockStateContainer = worldObj.getBlockState(pos);
+		IBlockState BlockStateContainer = world.getBlockState(pos);
 		if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
 			BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
 			if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != burnTime > 0)
-				blockMachineBase.setActive(burnTime > 0, worldObj, pos);
+				blockMachineBase.setActive(burnTime > 0, world, pos);
 		}
 	}
 

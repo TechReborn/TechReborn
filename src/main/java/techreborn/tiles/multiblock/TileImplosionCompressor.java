@@ -35,7 +35,7 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
 	@Override
 	public void validate() {
 		super.validate();
-		multiblockChecker = new MultiblockChecker(worldObj, getPos().down(3));
+		multiblockChecker = new MultiblockChecker(world, getPos().down(3));
 	}
 
 	@Override

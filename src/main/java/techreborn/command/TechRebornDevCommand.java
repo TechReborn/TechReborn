@@ -23,12 +23,12 @@ import java.util.List;
 public class TechRebornDevCommand extends CommandBase {
 
 	@Override
-	public String getCommandName() {
+	public String getName() {
 		return "trdev";
 	}
 
 	@Override
-	public String getCommandUsage(ICommandSender icommandsender) {
+	public String getUsage(ICommandSender icommandsender) {
 		return "commands.forge.usage";
 	}
 
@@ -40,20 +40,20 @@ public class TechRebornDevCommand extends CommandBase {
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		if (args.length == 0) {
-			sender.addChatMessage(new TextComponentString("You need to use arguments, see /trdev help"));
+			sender.sendMessage(new TextComponentString("You need to use arguments, see /trdev help"));
 		} else if ("help".equals(args[0])) {
-			sender.addChatMessage(new TextComponentString("recipes 	- Shows size of the recipe array"));
-			sender.addChatMessage(new TextComponentString("fluid     	- Lists the fluid power values"));
+			sender.sendMessage(new TextComponentString("recipes 	- Shows size of the recipe array"));
+			sender.sendMessage(new TextComponentString("fluid     	- Lists the fluid power values"));
 		} else if ("recipes".equals(args[0])) {
-			sender.addChatMessage(new TextComponentString(RecipeHandler.recipeList.size() + " recipes loaded"));
+			sender.sendMessage(new TextComponentString(RecipeHandler.recipeList.size() + " recipes loaded"));
 		} else if ("fluid".equals(args[0])) {
 			for (Object object : FluidPowerManager.fluidPowerValues.keySet().toArray()) {
 				if (object instanceof Fluid) {
 					Fluid fluid = (Fluid) object;
-					sender.addChatMessage(new TextComponentString(
+					sender.sendMessage(new TextComponentString(
 						fluid.getUnlocalizedName() + " : " + FluidPowerManager.fluidPowerValues.get(fluid)));
 				} else {
-					sender.addChatMessage(new TextComponentString("Found invalid fluid entry"));
+					sender.sendMessage(new TextComponentString("Found invalid fluid entry"));
 				}
 			}
 		} else if ("clear".equals(args[0])) {
@@ -66,8 +66,8 @@ public class TechRebornDevCommand extends CommandBase {
 				for (int z = 0; z < 25; z++) {
 					for (int y = 0; y < playerMP.posY; y++) {
 						BlockPos pos = new BlockPos(playerMP.posX + x, y, playerMP.posZ + z);
-						if (blocksToRemove.contains(playerMP.worldObj.getBlockState(pos).getBlock())) {
-							playerMP.worldObj.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
+						if (blocksToRemove.contains(playerMP.world.getBlockState(pos).getBlock())) {
+							playerMP.world.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
 						}
 					}
 				}
@@ -75,16 +75,16 @@ public class TechRebornDevCommand extends CommandBase {
 		} else if ("getname".equals(args[0])) {
 			EntityPlayer player = (EntityPlayer) sender;
 			if (player.getHeldItem(EnumHand.MAIN_HAND) != null) {
-				sender.addChatMessage(new TextComponentString(player.getHeldItem(EnumHand.MAIN_HAND).getItem().getRegistryName() + ":" + player.getHeldItem(EnumHand.MAIN_HAND).getItemDamage()));
+				sender.sendMessage(new TextComponentString(player.getHeldItem(EnumHand.MAIN_HAND).getItem().getRegistryName() + ":" + player.getHeldItem(EnumHand.MAIN_HAND).getItemDamage()));
 			} else {
-				((EntityPlayer) sender).addChatComponentMessage(new TextComponentString("hold an item!"));
+				sender.sendMessage(new TextComponentString("hold an item!"));
 			}
 		} else if ("gen".equals(args[0])) {
 			try {
 				new JsonGenerator().generate();
 			} catch (IOException e) {
 				e.printStackTrace();
-				sender.addChatMessage(new TextComponentString(e.getLocalizedMessage()));
+				sender.sendMessage(new TextComponentString(e.getLocalizedMessage()));
 			}
 		}
 	}

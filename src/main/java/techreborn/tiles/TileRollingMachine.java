@@ -65,11 +65,11 @@ public class TileRollingMachine extends TilePowerAcceptor implements IWrenchable
 	public void updateEntity() {
 		super.updateEntity();
 		charge(2);
-		if (!worldObj.isRemote) {
-			currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(craftMatrix, worldObj);
+		if (!world.isRemote) {
+			currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(craftMatrix, world);
 			if (currentRecipe != null && canMake()) {
 				if (tickTime >= runTime) {
-					currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(craftMatrix, worldObj);
+					currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(craftMatrix, world);
 					if (currentRecipe != null) {
 						boolean hasCrafted = false;
 						if (inventory.getStackInSlot(0) == null) {
@@ -77,10 +77,10 @@ public class TileRollingMachine extends TilePowerAcceptor implements IWrenchable
 							tickTime = -1;
 							hasCrafted = true;
 						} else {
-							if (inventory.getStackInSlot(0).stackSize + currentRecipe.stackSize <= currentRecipe
+							if (inventory.getStackInSlot(0).getCount() + currentRecipe.getCount() <= currentRecipe
 								.getMaxStackSize()) {
 								ItemStack stack = inventory.getStackInSlot(0);
-								stack.stackSize = stack.stackSize + currentRecipe.stackSize;
+								stack.getCount() = stack.getCount() + currentRecipe.getCount();
 								inventory.setInventorySlotContents(0, stack);
 								tickTime = -1;
 								hasCrafted = true;
@@ -105,7 +105,7 @@ public class TileRollingMachine extends TilePowerAcceptor implements IWrenchable
 				tickTime = -1;
 			}
 		} else {
-			currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(craftMatrix, worldObj);
+			currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(craftMatrix, world);
 			if (currentRecipe != null) {
 				inventory.setInventorySlotContents(1, currentRecipe);
 			} else {
@@ -115,7 +115,7 @@ public class TileRollingMachine extends TilePowerAcceptor implements IWrenchable
 	}
 
 	public boolean canMake() {
-		return RollingMachineRecipe.instance.findMatchingRecipe(craftMatrix, worldObj) != null;
+		return RollingMachineRecipe.instance.findMatchingRecipe(craftMatrix, world) != null;
 	}
 
 	@Override

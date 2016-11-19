@@ -39,9 +39,9 @@ public class GuiQuantumChest extends GuiContainer {
 			this.ySize - 96 + 2, 4210752);
 		this.fontRendererObj.drawString("Amount", 10, 20, 16448255);
 		if (tile.storedItem != null && tile.getStackInSlot(1) != null)
-			this.fontRendererObj.drawString(tile.storedItem.stackSize + tile.getStackInSlot(1).stackSize + "", 10, 30,
+			this.fontRendererObj.drawString(tile.storedItem.getCount() + tile.getStackInSlot(1).getCount() + "", 10, 30,
 				16448255);
 		if (tile.storedItem == null && tile.getStackInSlot(1) != null)
-			this.fontRendererObj.drawString(tile.getStackInSlot(1).stackSize + "", 10, 30, 16448255);
+			this.fontRendererObj.drawString(tile.getStackInSlot(1).getCount() + "", 10, 30, 16448255);
 	}
 }

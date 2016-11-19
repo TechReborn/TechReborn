@@ -70,9 +70,9 @@ public class TileTransformer extends TilePowerAcceptor implements IWrenchable, I
 
 	@Override
 	public EnumFacing getFacingEnum() {
-		Block block = worldObj.getBlockState(pos).getBlock();
+		Block block = world.getBlockState(pos).getBlock();
 		if (block instanceof BlockTransformer) {
-			return ((BlockTransformer) block).getFacing(worldObj.getBlockState(pos));
+			return ((BlockTransformer) block).getFacing(world.getBlockState(pos));
 		}
 		return null;
 	}

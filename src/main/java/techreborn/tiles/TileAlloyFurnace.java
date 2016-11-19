@@ -89,7 +89,7 @@ public class TileAlloyFurnace extends TileLegacyMachineBase implements IWrenchab
 		if (this.burnTime > 0) {
 			--this.burnTime;
 		}
-		if (!this.worldObj.isRemote) {
+		if (!this.world.isRemote) {
 			if (this.burnTime != 0 || getStackInSlot(input1) != null && getStackInSlot(fuel) != null) {
 				if (this.burnTime == 0 && this.canSmelt()) {
 					this.currentItemBurnTime = this.burnTime = getItemBurnTime(getStackInSlot(fuel));
@@ -129,7 +129,7 @@ public class TileAlloyFurnace extends TileLegacyMachineBase implements IWrenchab
 			Boolean hasItem = false;
 			for (int inputslot = 0; inputslot < 2; inputslot++) {
 				if (ItemUtils.isItemEqual(input, inventory.getStackInSlot(inputslot), true, true,
-					recipeType.useOreDic()) && inventory.getStackInSlot(inputslot).stackSize >= input.stackSize) {
+					recipeType.useOreDic()) && inventory.getStackInSlot(inputslot).getCount() >= input.getCount()) {
 					hasItem = true;
 				}
 			}
@@ -157,7 +157,7 @@ public class TileAlloyFurnace extends TileLegacyMachineBase implements IWrenchab
 				return true;
 			if (!this.getStackInSlot(output).isItemEqual(itemstack))
 				return false;
-			int result = getStackInSlot(output).stackSize + itemstack.stackSize;
+			int result = getStackInSlot(output).getCount() + itemstack.getCount();
 			return result <= getInventoryStackLimit() && result <= this.getStackInSlot(output).getMaxStackSize(); // Forge
 			// BugFix:
 			// Make
@@ -189,7 +189,7 @@ public class TileAlloyFurnace extends TileLegacyMachineBase implements IWrenchab
 			if (this.getStackInSlot(output) == null) {
 				setInventorySlotContents(output, itemstack.copy());
 			} else if (this.getStackInSlot(output).getItem() == itemstack.getItem()) {
-				decrStackSize(output, -itemstack.stackSize);
+				decrStackSize(output, -itemstack.getCount());
 			}
 
 			for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelteRecipe)) {
@@ -204,7 +204,7 @@ public class TileAlloyFurnace extends TileLegacyMachineBase implements IWrenchab
 						for (int inputSlot = 0; inputSlot < 2; inputSlot++) {
 							if (ItemUtils.isItemEqual(input, inventory.getStackInSlot(inputSlot), true, true,
 								recipeType.useOreDic())) {
-								inventory.decrStackSize(inputSlot, input.stackSize);
+								inventory.decrStackSize(inputSlot, input.getCount());
 								break;
 							}
 						}

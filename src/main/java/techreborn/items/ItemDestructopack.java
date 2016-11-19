@@ -21,11 +21,11 @@ public class ItemDestructopack extends ItemTextureBase implements ITexturedItem 
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStack, World world, EntityPlayer player,
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player,
 	                                                EnumHand hand) {
 		player.openGui(Core.INSTANCE, GuiHandler.destructoPackID, world, (int) player.posX, (int) player.posY,
 			(int) player.posY);
-		return new ActionResult<>(EnumActionResult.SUCCESS, itemStack);
+		return new ActionResult<>(EnumActionResult.SUCCESS, player.getHeldItem(hand));
 	}
 
 	@Override

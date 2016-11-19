@@ -1,8 +1,8 @@
 package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
-import reborncore.client.gui.BaseSlot;
-import reborncore.client.gui.SlotOutput;
+import reborncore.client.gui.slots.BaseSlot;
+import reborncore.client.gui.slots.SlotOutput;
 import techreborn.api.gui.SlotUpgrade;
 import techreborn.tiles.TileChemicalReactor;
 

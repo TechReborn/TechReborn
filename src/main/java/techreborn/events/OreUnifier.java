@@ -31,9 +31,9 @@ public class OreUnifier {
 
 	@SubscribeEvent
 	public void itemTick(TickEvent.PlayerTickEvent event) {
-		if (ConfigTechReborn.OreUnifer && !event.player.worldObj.isRemote
-			&& event.player.worldObj.getTotalWorldTime() % 10 == 0) {
-			if (event.player.getHeldItem(EnumHand.MAIN_HAND) != null) {
+		if (ConfigTechReborn.OreUnifer && !event.player.world.isRemote
+			&& event.player.world.getTotalWorldTime() % 10 == 0) {
+			if (event.player.getHeldItem(EnumHand.MAIN_HAND) != ItemStack.EMPTY) {
 				int[] oreIds = OreDictionary.getOreIDs(event.player.getHeldItem(EnumHand.MAIN_HAND));
 				for (int id : oreIds) {
 					String oreName = OreDictionary.getOreName(id);
@@ -43,7 +43,7 @@ public class OreUnifier {
 							&& !ItemUtils.isItemEqual(event.player.getHeldItem(EnumHand.MAIN_HAND),
 							oreHash.get(oreName), true, true, false)) {
 							ItemStack stack = oreHash.get(oreName).copy();
-							stack.stackSize = event.player.getHeldItem(EnumHand.MAIN_HAND).stackSize;
+							stack.setCount(event.player.getHeldItem(EnumHand.MAIN_HAND).getCount());
 							stack.setTagCompound(event.player.getHeldItem(EnumHand.MAIN_HAND).getTagCompound());
 							event.player.inventory.setInventorySlotContents(event.player.inventory.currentItem, stack);
 						}

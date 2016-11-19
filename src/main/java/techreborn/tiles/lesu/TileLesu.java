@@ -27,19 +27,19 @@ public class TileLesu extends TilePowerAcceptor {// TODO wrench
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		if (worldObj.isRemote) {
+		if (world.isRemote) {
 			return;
 		}
 		countedNetworks.clear();
 		connectedBlocks = 0;
 		for (EnumFacing dir : EnumFacing.values()) {
-			if (worldObj.getTileEntity(
+			if (world.getTileEntity(
 				new BlockPos(getPos().getX() + dir.getFrontOffsetX(), getPos().getY() + dir.getFrontOffsetY(),
 					getPos().getZ() + dir.getFrontOffsetZ())) instanceof TileLesuStorage) {
-				if (((TileLesuStorage) worldObj.getTileEntity(
+				if (((TileLesuStorage) world.getTileEntity(
 					new BlockPos(getPos().getX() + dir.getFrontOffsetX(), getPos().getY() + dir.getFrontOffsetY(),
 						getPos().getZ() + dir.getFrontOffsetZ()))).network != null) {
-					LesuNetwork network = ((TileLesuStorage) worldObj.getTileEntity(new BlockPos(
+					LesuNetwork network = ((TileLesuStorage) world.getTileEntity(new BlockPos(
 						getPos().getX() + dir.getFrontOffsetX(), getPos().getY() + dir.getFrontOffsetY(),
 						getPos().getZ() + dir.getFrontOffsetZ()))).network;
 					if (!countedNetworks.contains(network)) {

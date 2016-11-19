@@ -111,7 +111,7 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
 
 	@Override
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
-		worldObj.markBlockRangeForRenderUpdate(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX(),
+		world.markBlockRangeForRenderUpdate(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX(),
 			getPos().getY(), getPos().getZ());
 		readFromNBT(packet.getNbtCompound());
 	}
@@ -120,27 +120,27 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
 	// TODO optimise this code
 	public void updateEntity() {
 		super.updateEntity();
-		if (!worldObj.isRemote) {
+		if (!world.isRemote) {
 			FluidUtils.drainContainers(this, inventory, 0, 1);
 			for (EnumFacing direction : EnumFacing.values()) {
-				if (worldObj.getBlockState(new BlockPos(getPos().getX() + direction.getFrontOffsetX(),
+				if (world.getBlockState(new BlockPos(getPos().getX() + direction.getFrontOffsetX(),
 					getPos().getY() + direction.getFrontOffsetY(), getPos().getZ() + direction.getFrontOffsetZ()))
 					.getBlock() == Blocks.LAVA) {
 					addEnergy(1);
 				}
 			}
 
-			if (worldObj.getTotalWorldTime() % 40 == 0) {
-				BlockMachineBase bmb = (BlockMachineBase) worldObj.getBlockState(pos).getBlock();
+			if (world.getTotalWorldTime() % 40 == 0) {
+				BlockMachineBase bmb = (BlockMachineBase) world.getBlockState(pos).getBlock();
 				boolean didFindLava = false;
 				for (EnumFacing direction : EnumFacing.values()) {
-					if (worldObj.getBlockState(new BlockPos(getPos().getX() + direction.getFrontOffsetX(),
+					if (world.getBlockState(new BlockPos(getPos().getX() + direction.getFrontOffsetX(),
 						getPos().getY() + direction.getFrontOffsetY(),
 						getPos().getZ() + direction.getFrontOffsetZ())).getBlock() == Blocks.LAVA) {
 						didFindLava = true;
 					}
 				}
-				bmb.setActive(didFindLava, worldObj, pos);
+				bmb.setActive(didFindLava, world, pos);
 			}
 		}
 		if (tank.getFluidAmount() > 0 && getMaxPower() - getEnergy() >= euTick) {

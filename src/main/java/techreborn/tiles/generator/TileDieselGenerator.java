@@ -107,7 +107,7 @@ public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchabl
 
 	@Override
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
-		worldObj.markBlockRangeForRenderUpdate(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX(),
+		world.markBlockRangeForRenderUpdate(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX(),
 			getPos().getY(), getPos().getZ());
 		readFromNBT(packet.getNbtCompound());
 	}
@@ -115,7 +115,7 @@ public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchabl
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		if (!worldObj.isRemote) {
+		if (!world.isRemote) {
 			FluidUtils.drainContainers(this, inventory, 0, 1);
 			FluidUtils.fillContainers(this, inventory, 0, 1, tank.getFluidType());
 			if (tank.getFluidType() != null && getStackInSlot(2) == null) {

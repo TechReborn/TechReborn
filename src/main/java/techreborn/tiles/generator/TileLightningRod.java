@@ -28,24 +28,24 @@ public class TileLightningRod extends TilePowerAcceptor {
 
 		if (onStatusHoldTicks == 0 || getEnergy() <= 0) {
 			if (getBlockType() instanceof BlockMachineBase)
-				((BlockMachineBase) getBlockType()).setActive(false, worldObj, pos);
+				((BlockMachineBase) getBlockType()).setActive(false, world, pos);
 			onStatusHoldTicks = -1;
 		}
 
-		float weatherStrength = worldObj.getThunderStrength(1.0F);
+		float weatherStrength = world.getThunderStrength(1.0F);
 		if (weatherStrength > 0.2F) {
 			//lightStrikeChance = (MAX - (CHANCE * WEATHER_STRENGTH)
 			float lightStrikeChance = ((100F - ConfigTechReborn.LightningRodChance) * 20F);
 			float totalChance = lightStrikeChance * getLightningStrikeMultiplier() * ((1.1F - weatherStrength));
-			if (worldObj.rand.nextInt((int) Math.floor(totalChance)) == 0) {
-				EntityLightningBolt lightningBolt = new EntityLightningBolt(worldObj,
+			if (world.rand.nextInt((int) Math.floor(totalChance)) == 0) {
+				EntityLightningBolt lightningBolt = new EntityLightningBolt(world,
 					pos.getX() + 0.5F,
-					worldObj.provider.getAverageGroundLevel(),
+					world.provider.getAverageGroundLevel(),
 					pos.getZ() + 0.5F, false);
-				worldObj.addWeatherEffect(lightningBolt);
-				worldObj.spawnEntityInWorld(lightningBolt);
+				world.addWeatherEffect(lightningBolt);
+				world.spawnEntity(lightningBolt);
 				addEnergy(32768 * (0.3F + weatherStrength));
-				((BlockMachineBase) getBlockType()).setActive(true, worldObj, pos);
+				((BlockMachineBase) getBlockType()).setActive(true, world, pos);
 				onStatusHoldTicks = 400;
 			}
 		}
@@ -53,8 +53,8 @@ public class TileLightningRod extends TilePowerAcceptor {
 	}
 
 	public float getLightningStrikeMultiplier() {
-		float actualHeight = worldObj.provider.getActualHeight();
-		float groundLevel = worldObj.provider.getAverageGroundLevel();
+		float actualHeight = world.provider.getActualHeight();
+		float groundLevel = world.provider.getAverageGroundLevel();
 		for (int i = pos.getY() + 1; i < actualHeight; i++) {
 			if (!isValidIronFence(i)) {
 				if (groundLevel >= i)
@@ -68,7 +68,7 @@ public class TileLightningRod extends TilePowerAcceptor {
 	}
 
 	public boolean isValidIronFence(int y) {
-		Item itemBlock = Item.getItemFromBlock(worldObj.getBlockState(new BlockPos(pos.getX(), y, pos.getZ())).getBlock());
+		Item itemBlock = Item.getItemFromBlock(world.getBlockState(new BlockPos(pos.getX(), y, pos.getZ())).getBlock());
 		for (ItemStack fence : OreDictionary.getOres("fenceIron")) {
 			if (fence.getItem() == itemBlock)
 				return true;

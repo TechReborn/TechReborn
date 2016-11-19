@@ -192,7 +192,7 @@ public class CraftingInfoPage extends TitledPage {
 		FontRenderer font = Objects.firstNonNull(stack.getItem().getFontRenderer(stack), mc.fontRendererObj);
 
 		@SuppressWarnings("unchecked")
-		List<String> list = stack.getTooltip(mc.thePlayer, mc.gameSettings.advancedItemTooltips);
+		List<String> list = stack.getTooltip(mc.player, mc.gameSettings.advancedItemTooltips);
 
 		List<String> colored = Lists.newArrayListWithCapacity(list.size());
 		colored.add(stack.getRarity().rarityColor + list.get(0));

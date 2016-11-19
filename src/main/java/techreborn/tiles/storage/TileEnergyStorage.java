@@ -85,7 +85,7 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IWrenchable,
 
 	@Override
 	public void setFacing(EnumFacing enumFacing) {
-		worldObj.setBlockState(pos, worldObj.getBlockState(pos).withProperty(BlockEnergyStorage.FACING, enumFacing));
+		world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockEnergyStorage.FACING, enumFacing));
 	}
 
 	@Override
@@ -111,9 +111,9 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IWrenchable,
 
 	@Override
 	public EnumFacing getFacingEnum() {
-		Block block = worldObj.getBlockState(pos).getBlock();
+		Block block = world.getBlockState(pos).getBlock();
 		if (block instanceof BlockEnergyStorage) {
-			return ((BlockEnergyStorage) block).getFacing(worldObj.getBlockState(pos));
+			return ((BlockEnergyStorage) block).getFacing(world.getBlockState(pos));
 		}
 		return null;
 	}

@@ -47,7 +47,7 @@ public class AssemblingMachineRecipeCategory extends BlankRecipeCategory<Assembl
 	}
 
 	@Override
-	public void drawAnimations(
+	public void drawExtras(
 		@Nonnull
 			Minecraft minecraft) {
 		electricity.draw(minecraft, 10, 20);

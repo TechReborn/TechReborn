@@ -1,10 +1,10 @@
 package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
-import reborncore.client.gui.BaseSlot;
-import reborncore.client.gui.SlotFake;
-import reborncore.client.gui.SlotFluid;
-import reborncore.client.gui.SlotOutput;
+import reborncore.client.gui.slots.BaseSlot;
+import reborncore.client.gui.slots.SlotFake;
+import reborncore.client.gui.slots.SlotFluid;
+import reborncore.client.gui.slots.SlotOutput;
 import reborncore.common.container.RebornContainer;
 import techreborn.tiles.generator.TileThermalGenerator;
 

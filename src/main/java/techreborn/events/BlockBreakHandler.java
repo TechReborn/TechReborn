@@ -19,7 +19,7 @@ public class BlockBreakHandler {
             if (OreDictUtils.isOre(ore, "gemRuby")) {
                 EntityItem item = new EntityItem(event.getWorld(), event.getPos().getX(), event.getPos().getY(), event.getPos().getZ(),
                         ItemGems.getGemByName("redGarnet").copy());
-                event.getWorld().spawnEntityInWorld(item);
+                event.getWorld().spawnEntity(item);
             }
         }
     }

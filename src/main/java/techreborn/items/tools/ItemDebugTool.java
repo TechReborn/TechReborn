@@ -37,12 +37,12 @@ public class ItemDebugTool extends ItemTextureBase implements ITexturedItem {
 	}
 
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos,
+	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos,
 	                                  EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		TileEntity tile = worldIn.getTileEntity(pos);
 		if (tile instanceof IEnergyInterfaceTile) {
 			if (!tile.getWorld().isRemote) {
-				playerIn.addChatComponentMessage(
+				playerIn.sendMessage(
 					new TextComponentString(TextFormatting.GREEN + "Power" + TextFormatting.BLUE
 						+ PowerSystem.getLocaliszedPower(((IEnergyInterfaceTile) tile).getEnergy())));
 			}

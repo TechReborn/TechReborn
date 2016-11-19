@@ -94,7 +94,7 @@ public class TileIndustrialGrinder extends TilePowerAcceptor
 
 		if (multiblockChecker == null) {
 			BlockPos pos = getPos().offset(getFacing().getOpposite(), 2).down();
-			multiblockChecker = new MultiblockChecker(worldObj, pos);
+			multiblockChecker = new MultiblockChecker(world, pos);
 		}
 
 		if (getMutliBlock()) {

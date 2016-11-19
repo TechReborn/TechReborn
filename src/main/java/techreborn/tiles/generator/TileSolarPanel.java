@@ -25,8 +25,8 @@ public class TileSolarPanel extends TilePowerAcceptor implements ITickable {
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		if (!worldObj.isRemote) {
-			if (worldObj.getTotalWorldTime() % 60 == 0) {
+		if (!world.isRemote) {
+			if (world.getTotalWorldTime() % 60 == 0) {
 				shouldMakePower = isSunOut();
 
 			}
@@ -37,8 +37,8 @@ public class TileSolarPanel extends TilePowerAcceptor implements ITickable {
 				powerToAdd = 0;
 			}
 
-			worldObj.setBlockState(getPos(),
-				worldObj.getBlockState(this.getPos()).withProperty(BlockSolarPanel.ACTIVE, isSunOut()));
+			world.setBlockState(getPos(),
+				world.getBlockState(this.getPos()).withProperty(BlockSolarPanel.ACTIVE, isSunOut()));
 		}
 	}
 
@@ -54,8 +54,8 @@ public class TileSolarPanel extends TilePowerAcceptor implements ITickable {
 	}
 
 	public boolean isSunOut() {
-		return worldObj.canBlockSeeSky(pos.up()) && !worldObj.isRaining() && !worldObj.isThundering()
-			&& worldObj.isDaytime();
+		return world.canBlockSeeSky(pos.up()) && !world.isRaining() && !world.isThundering()
+			&& world.isDaytime();
 	}
 
 	@Override

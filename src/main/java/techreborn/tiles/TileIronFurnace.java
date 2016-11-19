@@ -53,9 +53,9 @@ public class TileIronFurnace extends TileLegacyMachineBase implements IInventory
 				{
 					setInventorySlotContents(fuelslot,
 						new ItemStack(getStackInSlot(fuelslot).getItem().getContainerItem()));
-				} else if (getStackInSlot(fuelslot).stackSize > 1) {
+				} else if (getStackInSlot(fuelslot).getCount() > 1) {
 					decrStackSize(fuelslot, 1);
-				} else if (getStackInSlot(fuelslot).stackSize == 1) {
+				} else if (getStackInSlot(fuelslot).getCount() == 1) {
 					setInventorySlotContents(fuelslot, null);
 				}
 				updateInventory = true;
@@ -86,9 +86,9 @@ public class TileIronFurnace extends TileLegacyMachineBase implements IInventory
 			if (getStackInSlot(output) == null) {
 				setInventorySlotContents(output, itemstack.copy());
 			} else if (getStackInSlot(output).isItemEqual(itemstack)) {
-				getStackInSlot(output).stackSize += itemstack.stackSize;
+				getStackInSlot(output).getCount() += itemstack.getCount();
 			}
-			if (getStackInSlot(input1).stackSize > 1) {
+			if (getStackInSlot(input1).getCount() > 1) {
 				this.decrStackSize(input1, 1);
 			} else {
 				setInventorySlotContents(input1, null);
@@ -107,7 +107,7 @@ public class TileIronFurnace extends TileLegacyMachineBase implements IInventory
 				return true;
 			if (!getStackInSlot(output).isItemEqual(itemstack))
 				return false;
-			int result = getStackInSlot(output).stackSize + itemstack.stackSize;
+			int result = getStackInSlot(output).getCount() + itemstack.getCount();
 			return (result <= getInventoryStackLimit() && result <= itemstack.getMaxStackSize());
 		}
 	}
@@ -125,11 +125,11 @@ public class TileIronFurnace extends TileLegacyMachineBase implements IInventory
 	}
 
 	public void updateState() {
-		IBlockState BlockStateContainer = worldObj.getBlockState(pos);
+		IBlockState BlockStateContainer = world.getBlockState(pos);
 		if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
 			BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
 			if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != fuel > 0)
-				blockMachineBase.setActive(fuel > 0, worldObj, pos);
+				blockMachineBase.setActive(fuel > 0, world, pos);
 		}
 	}
 

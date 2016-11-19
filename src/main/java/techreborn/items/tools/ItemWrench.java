@@ -49,13 +49,13 @@ public class ItemWrench extends ItemTR implements ITexturedItem {
 	}
 
 	@Override
-	public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos,
+	public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos,
 	                                       EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
 		if(!PermissionAPI.hasPermission(player.getGameProfile(), RebornPermissions.WRENCH_BLOCK, new BlockPosContext(player, pos, world.getBlockState(pos), side))){
 			return EnumActionResult.FAIL;
 		}
 		if (CompatManager.isIC2Loaded) {
-			EnumActionResult result = IC2WrenchHelper.onItemUseFirst(stack, player, world, pos, side, hitX, hitY, hitZ, hand);
+			EnumActionResult result = IC2WrenchHelper.onItemUseFirst(player.getHeldItem(hand), player, world, pos, side, hitX, hitY, hitZ, hand);
 			if (result == EnumActionResult.SUCCESS) {
 				return result;
 			}
@@ -68,7 +68,7 @@ public class ItemWrench extends ItemTR implements ITexturedItem {
 			return EnumActionResult.FAIL;
 		}
 
-		if (!player.isSneaking() && !player.worldObj.isRemote) {
+		if (!player.isSneaking() && !player.world.isRemote) {
 			if (tile instanceof TileMachineBase) {
 				if (side != EnumFacing.DOWN && side != EnumFacing.UP) {
 					((TileMachineBase) tile).setFacing(side);
@@ -76,17 +76,17 @@ public class ItemWrench extends ItemTR implements ITexturedItem {
 				}
 			}
 		}
-		return super.onItemUseFirst(stack, player, world, pos, side, hitX, hitY, hitZ, hand);
+		return super.onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, hand);
 	}
 
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos,
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos,
 	                                  EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if(!PermissionAPI.hasPermission(player.getGameProfile(), RebornPermissions.WRENCH_BLOCK, new BlockPosContext(player, pos, world.getBlockState(pos), facing))){
 			return EnumActionResult.FAIL;
 		}
 		if (CompatManager.isIC2Loaded) {
-			EnumActionResult result = IC2WrenchHelper.onItemUse(stack, player, world, pos, hand, facing, hitX, hitY, hitZ);
+			EnumActionResult result = IC2WrenchHelper.onItemUse(player.getHeldItem(hand), player, world, pos, hand, facing, hitX, hitY, hitZ);
 			if (result == EnumActionResult.SUCCESS) {
 				return result;
 			}
@@ -106,8 +106,8 @@ public class ItemWrench extends ItemTR implements ITexturedItem {
 					for (int i = 0; i < inventory.getSizeInventory(); i++) {
 						ItemStack itemStack = inventory.getStackInSlot(i);
 
-						if (itemStack != null) {
-							if (itemStack.stackSize > 0) {
+						if (itemStack != ItemStack.EMPTY) {
+							if (itemStack.getCount() > 0) {
 								if (itemStack.getItem() instanceof ItemBlock)
 
 									if (!(((ItemBlock) itemStack.getItem()).block instanceof BlockFluidBase) || !(((ItemBlock) itemStack.getItem()).block instanceof BlockStaticLiquid)
@@ -147,7 +147,7 @@ public class ItemWrench extends ItemTR implements ITexturedItem {
 								entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
 								entityItem.motionZ = rand.nextGaussian() * factor;
 								if (!world.isRemote) {
-									world.spawnEntityInWorld(entityItem);
+									world.spawnEntity(entityItem);
 								}
 							}
 						}

@@ -71,9 +71,9 @@ public class TileElectricFurnace extends TilePowerAcceptor implements IWrenchabl
 			if (getStackInSlot(output) == null) {
 				setInventorySlotContents(output, itemstack.copy());
 			} else if (getStackInSlot(output).isItemEqual(itemstack)) {
-				getStackInSlot(output).stackSize += itemstack.stackSize;
+				getStackInSlot(output).grow(itemstack.getCount());
 			}
-			if (getStackInSlot(input1).stackSize > 1) {
+			if (getStackInSlot(input1).getCount() > 1) {
 				this.decrStackSize(input1, 1);
 			} else {
 				setInventorySlotContents(input1, null);
@@ -92,7 +92,7 @@ public class TileElectricFurnace extends TilePowerAcceptor implements IWrenchabl
 				return true;
 			if (!getStackInSlot(output).isItemEqual(itemstack))
 				return false;
-			int result = getStackInSlot(output).stackSize + itemstack.stackSize;
+			int result = getStackInSlot(output).getCount() + itemstack.getCount();
 			return (result <= getInventoryStackLimit() && result <= itemstack.getMaxStackSize());
 		}
 	}
@@ -110,11 +110,11 @@ public class TileElectricFurnace extends TilePowerAcceptor implements IWrenchabl
 	}
 
 	public void updateState() {
-		IBlockState BlockStateContainer = worldObj.getBlockState(pos);
+		IBlockState BlockStateContainer = world.getBlockState(pos);
 		if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
 			BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
 			if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != progress > 0)
-				blockMachineBase.setActive(progress > 0, worldObj, pos);
+				blockMachineBase.setActive(progress > 0, world, pos);
 		}
 	}
 

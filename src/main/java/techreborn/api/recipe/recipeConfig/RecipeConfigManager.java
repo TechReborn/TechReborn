@@ -55,7 +55,7 @@ public class RecipeConfigManager {
 		ConfigItem newItem = new ConfigItem();
 		newItem.setItemName(stack.getItem().getUnlocalizedName());
 		newItem.setMeta(stack.getItemDamage());
-		newItem.setStackSize(stack.stackSize);
+		newItem.setStackSize(stack.getCount());
 		newItem.setLocalName(stack.getDisplayName());
 		return newItem;
 	}

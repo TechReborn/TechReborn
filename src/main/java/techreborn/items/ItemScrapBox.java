@@ -21,8 +21,9 @@ public class ItemScrapBox extends ItemTextureBase implements ITexturedItem {
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStack, World world, EntityPlayer player,
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player,
 	                                                EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
 		if (!world.isRemote) {
 			int random = world.rand.nextInt(ScrapboxList.stacks.size());
 			ItemStack out = ScrapboxList.stacks.get(random).copy();
@@ -33,11 +34,10 @@ public class ItemScrapBox extends ItemTextureBase implements ITexturedItem {
 				player.getPosition().getY() + yOffset, player.getPosition().getZ() + zOffset, out);
 
 			entityitem.setPickupDelay(20);
-			world.spawnEntityInWorld(entityitem);
-
-			itemStack.stackSize--;
+			world.spawnEntity(entityitem);
+			stack.shrink(1);
 		}
-		return new ActionResult<>(EnumActionResult.SUCCESS, itemStack);
+		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
 	}
 
 	@Override

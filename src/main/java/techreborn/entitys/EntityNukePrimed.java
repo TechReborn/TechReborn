@@ -1,6 +1,7 @@
 package techreborn.entitys;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.MoverType;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
@@ -29,7 +30,7 @@ public class EntityNukePrimed extends EntityTNTPrimed {
 		this.prevPosY = this.posY;
 		this.prevPosZ = this.posZ;
 		this.motionY -= 0.03999999910593033D;
-		this.moveEntity(this.motionX, this.motionY, this.motionZ);
+		this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
 		this.motionX *= 0.9800000190734863D;
 		this.motionY *= 0.9800000190734863D;
 		this.motionZ *= 0.9800000190734863D;
@@ -40,18 +41,18 @@ public class EntityNukePrimed extends EntityTNTPrimed {
 		}
 		if (this.fuse-- <= 0) {
 			this.setDead();
-			if (!this.worldObj.isRemote) {
+			if (!this.world.isRemote) {
 				this.explodeNuke();
 			}
 		} else {
 			this.handleWaterMovement();
-			this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_LARGE, this.posX, this.posY + 0.5D, this.posZ, 0.0D,
+			this.world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, this.posX, this.posY + 0.5D, this.posZ, 0.0D,
 				0.0D, 0.0D, new int[0]);
 		}
 	}
 
 	public void explodeNuke() {
-		RebornExplosion nukeExplosion = new RebornExplosion(new BlockPos(this.posX, this.posY, this.posZ), worldObj,
+		RebornExplosion nukeExplosion = new RebornExplosion(new BlockPos(this.posX, this.posY, this.posZ), world,
 			40);
 		nukeExplosion.setLivingBase(getTntPlacedBy());
 		nukeExplosion.explode();

@@ -371,7 +371,7 @@ public abstract class MultipartFluidPipe extends Multipart implements INormallyO
 	}
 
 	@Override
-	public boolean onActivated(EntityPlayer player, EnumHand hand, ItemStack heldItem, PartMOP hit) {
+	public boolean onActivated(EntityPlayer player, EnumHand hand, PartMOP hit) {
 		//TODO make only wrench able to change mode, shift-click with wrench picks up pipe, and click with empty hand displays current mode in chat (doesn't change it)
 
 		System.out.println(getWorld().isRemote);

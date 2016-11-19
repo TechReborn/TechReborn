@@ -126,7 +126,7 @@ public class TileSemifluidGenerator extends TilePowerAcceptor implements IWrench
 
 	@Override
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
-		worldObj.markBlockRangeForRenderUpdate(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX(),
+		world.markBlockRangeForRenderUpdate(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX(),
 			getPos().getY(), getPos().getZ());
 		readFromNBT(packet.getNbtCompound());
 	}
@@ -134,7 +134,7 @@ public class TileSemifluidGenerator extends TilePowerAcceptor implements IWrench
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		if (!worldObj.isRemote)
+		if (!world.isRemote)
 			FluidUtils.drainContainers(this, inventory, 0, 1);
 
 		if (tank.getFluidAmount() > 0 && getMaxPower() - getEnergy() >= euTick && tank.getFluidType() != null && fluids.containsKey(tank.getFluidType().getName())) {

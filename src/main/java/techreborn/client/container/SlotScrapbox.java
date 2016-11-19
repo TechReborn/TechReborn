@@ -2,7 +2,7 @@ package techreborn.client.container;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import reborncore.client.gui.BaseSlot;
+import reborncore.client.gui.slots.BaseSlot;
 import techreborn.init.ModItems;
 
 public class SlotScrapbox extends BaseSlot {

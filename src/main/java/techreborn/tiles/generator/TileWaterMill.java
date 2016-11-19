@@ -19,7 +19,7 @@ public class TileWaterMill extends TilePowerAcceptor {
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		if (worldObj.getTotalWorldTime() % 20 == 0) {
+		if (world.getTotalWorldTime() % 20 == 0) {
 			checkForWater();
 		}
 		if (waterblocks > 0) {
@@ -30,7 +30,7 @@ public class TileWaterMill extends TilePowerAcceptor {
 	public void checkForWater() {
 		waterblocks = 0;
 		for (EnumFacing facing : EnumFacing.HORIZONTALS) {
-			if (worldObj.getBlockState(getPos().offset(facing)).getBlock() == Blocks.WATER) {
+			if (world.getBlockState(getPos().offset(facing)).getBlock() == Blocks.WATER) {
 				waterblocks++;
 			}
 		}

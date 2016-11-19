@@ -19,7 +19,7 @@ public class TileMachineCasing extends RectangularMultiblockTileEntityBase {
 
 	@Override
 	public MultiblockControllerBase createNewMultiblock() {
-		return new MultiBlockCasing(worldObj);
+		return new MultiBlockCasing(world);
 	}
 
 	@Override

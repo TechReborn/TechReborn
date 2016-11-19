@@ -70,9 +70,9 @@ public class ItemCloakingDevice extends ItemTextureBase implements IEnergyItemIn
 	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
 		ItemStack itemstack1 = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 
-		if (itemstack1 == null) {
+		if (itemstack1 == ItemStack.EMPTY) {
 			player.setItemStackToSlot(EntityEquipmentSlot.CHEST, itemStack.copy());
-			itemStack.stackSize = 0;
+			itemStack.setCount(0);
 		}
 
 		return itemStack;

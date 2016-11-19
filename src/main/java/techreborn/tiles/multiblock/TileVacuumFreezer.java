@@ -34,7 +34,7 @@ public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,
 	@Override
 	public void validate() {
 		super.validate();
-		multiblockChecker = new MultiblockChecker(worldObj, getPos().down());
+		multiblockChecker = new MultiblockChecker(world, getPos().down());
 	}
 
 	@Override

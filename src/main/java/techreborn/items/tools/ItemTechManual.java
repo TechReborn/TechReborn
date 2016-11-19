@@ -25,11 +25,11 @@ public class ItemTechManual extends ItemTextureBase implements ITexturedItem {
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World world, EntityPlayer player,
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player,
 	                                                EnumHand hand) {
 		player.openGui(Core.INSTANCE, GuiHandler.manuelID, world, (int) player.posX, (int) player.posY,
 			(int) player.posY);
-		return new ActionResult<>(EnumActionResult.SUCCESS, itemStackIn);
+		return new ActionResult<>(EnumActionResult.SUCCESS, player.getHeldItem(hand));
 	}
 
 	@Override

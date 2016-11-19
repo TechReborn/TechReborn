@@ -69,9 +69,9 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 			modifier = 9;
 
 		if (slot == EntityEquipmentSlot.MAINHAND) {
-			multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(),
+			multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(),
 				new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", (double) modifier, 0));
-			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(),
+			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
 				new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -2.4000000953674316D, 0));
 		}
 		return multimap;
@@ -130,8 +130,9 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player,
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player,
 	                                                EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
 		if (player.isSneaking()) {
 			if (!PoweredItem.canUseEnergy(cost, stack)) {
 				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(

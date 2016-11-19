@@ -131,7 +131,7 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 	}
 
 	private boolean isCoil(int x, int y, int z) {
-		return worldObj.getBlockState(new BlockPos(x, y, z)).getBlock() == ModBlocks.FusionCoil;
+		return world.getBlockState(new BlockPos(x, y, z)).getBlock() == ModBlocks.FusionCoil;
 	}
 
 	@Override
@@ -139,11 +139,11 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 		super.updateEntity();
 		// TODO improve this code a lot
 
-		if (worldObj.getTotalWorldTime() % 20 == 0) {
+		if (world.getTotalWorldTime() % 20 == 0) {
 			checkCoils();
 		}
 
-		if (!worldObj.isRemote) {
+		if (!world.isRemote) {
 			if (coilStatus == 1) {
 				if (currentRecipe == null) {
 					if (inventory.hasChanged || crafingTickTime != 0) {
@@ -205,11 +205,11 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 								if (getStackInSlot(outputStackSlot) == null) {
 									setInventorySlotContents(outputStackSlot, currentRecipe.getOutput().copy());
 								} else {
-									decrStackSize(outputStackSlot, -currentRecipe.getOutput().stackSize);
+									decrStackSize(outputStackSlot, -currentRecipe.getOutput().getCount());
 								}
-								decrStackSize(topStackSlot, currentRecipe.getTopInput().stackSize);
+								decrStackSize(topStackSlot, currentRecipe.getTopInput().getCount());
 								if (currentRecipe.getBottomInput() != null) {
-									decrStackSize(bottomStackSlot, currentRecipe.getBottomInput().stackSize);
+									decrStackSize(bottomStackSlot, currentRecipe.getBottomInput().getCount());
 								}
 								resetCrafter();
 							}
@@ -259,7 +259,7 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 			return true;
 		}
 		if (ItemUtils.isItemEqual(inventory.getStackInSlot(slot), stack, true, true, oreDic)) {
-			if (stack.stackSize + inventory.getStackInSlot(slot).stackSize <= stack.getMaxStackSize()) {
+			if (stack.getCount() + inventory.getStackInSlot(slot).getCount() <= stack.getMaxStackSize()) {
 				return true;
 			}
 		}

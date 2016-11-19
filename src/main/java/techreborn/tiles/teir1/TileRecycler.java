@@ -36,7 +36,7 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInv
 
 	@Override
 	public void updateEntity() {
-		if (worldObj.isRemote) {
+		if (world.isRemote) {
 			return;
 		}
 		boolean burning = isBurning();
@@ -70,7 +70,7 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInv
 	public void recycleItems() {
 		if (this.canRecycle()) {
 			ItemStack itemstack = ItemParts.getPartByName("scrap");
-			int randomchance = worldObj.rand.nextInt(chance);
+			int randomchance = world.rand.nextInt(chance);
 
 			if (getStackInSlot(output) == null) {
 				useEnergy(cost);
@@ -80,10 +80,10 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInv
 			} else if (getStackInSlot(output).isItemEqual(itemstack)) {
 				useEnergy(cost);
 				if (randomchance == 1) {
-					getStackInSlot(output).stackSize += itemstack.stackSize;
+					getStackInSlot(output).getCount() += itemstack.getCount();
 				}
 			}
-			if (getStackInSlot(input1).stackSize > 1) {
+			if (getStackInSlot(input1).getCount() > 1) {
 				useEnergy(cost);
 				this.decrStackSize(input1, 1);
 			} else {
@@ -100,7 +100,7 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInv
 	public boolean hasSlotGotSpace(int slot) {
 		if (getStackInSlot(slot) == null) {
 			return true;
-		} else if (getStackInSlot(slot).stackSize < getStackInSlot(slot).getMaxStackSize()) {
+		} else if (getStackInSlot(slot).getCount() < getStackInSlot(slot).getMaxStackSize()) {
 			return true;
 		}
 		return true;
@@ -111,11 +111,11 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInv
 	}
 
 	public void updateState() {
-		IBlockState BlockStateContainer = worldObj.getBlockState(pos);
+		IBlockState BlockStateContainer = world.getBlockState(pos);
 		if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
 			BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
 			if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != progress > 0)
-				blockMachineBase.setActive(progress > 0, worldObj, pos);
+				blockMachineBase.setActive(progress > 0, world, pos);
 		}
 	}
 

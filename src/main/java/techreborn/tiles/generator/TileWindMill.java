@@ -20,7 +20,7 @@ public class TileWindMill extends TilePowerAcceptor {
 		super.updateEntity();
 		if (pos.getY() > 64) {
 			int actualPower = basePower;
-			if (worldObj.isThundering()) {
+			if (world.isThundering()) {
 				actualPower *= 1.25;
 			}
 			addEnergy(actualPower); // Value taken from

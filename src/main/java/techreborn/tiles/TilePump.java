@@ -31,10 +31,10 @@ public class TilePump extends TilePowerAcceptor implements IFluidHandler {
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		if (!worldObj.isRemote && worldObj.getTotalWorldTime() % 10 == 0 && !tank.isFull() && tank.getCapacity() - tank.getFluidAmount() >= 1000 && canUseEnergy(ConfigTechReborn.pumpExtractEU)) {
-			FluidStack fluidStack = drainBlock(worldObj, pos.down(), false);
+		if (!world.isRemote && world.getTotalWorldTime() % 10 == 0 && !tank.isFull() && tank.getCapacity() - tank.getFluidAmount() >= 1000 && canUseEnergy(ConfigTechReborn.pumpExtractEU)) {
+			FluidStack fluidStack = drainBlock(world, pos.down(), false);
 			if (fluidStack != null) {
-				tank.fill(drainBlock(worldObj, pos.down(), true), true);
+				tank.fill(drainBlock(world, pos.down(), true), true);
 				useEnergy(ConfigTechReborn.pumpExtractEU);
 			}
 			tank.compareAndUpdate();

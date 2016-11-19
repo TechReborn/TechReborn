@@ -43,10 +43,10 @@ public class ChargeHud {
 	}
 
 	public void drawChargeHud(ScaledResolution res) {
-		EntityPlayer player = mc.thePlayer;
+		EntityPlayer player = mc.player;
 		ItemStack armorstack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 		ItemStack offHandstack = player.getItemStackFromSlot(EntityEquipmentSlot.OFFHAND);
-		ItemStack stack = mc.thePlayer.inventory.getCurrentItem();
+		ItemStack stack = mc.player.inventory.getCurrentItem();
 
 		int y = 5;
 

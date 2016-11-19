@@ -57,9 +57,9 @@ public class OreDictUtils {
 	public static ItemStack getDictOreOrNull(String name, int amount) {
 		List<ItemStack> ores = OreDictionary.getOres(name);
 		if (ores.isEmpty())
-			return null;
+			return ItemStack.EMPTY;
 		ItemStack ore = ores.get(0);
-		ore.stackSize = amount;
+		ore.setCount(amount);
 		return ore;
 	}
 
@@ -78,7 +78,7 @@ public class OreDictUtils {
 	}
 
 	public static boolean isOre(ItemStack stack, String oreName) {
-		if (stack != null && stack.getItem() != null && oreName != null) {
+		if (stack != null && !stack.isEmpty() && oreName != null) {
 			int id = OreDictionary.getOreID(oreName);
 			int[] ids = OreDictionary.getOreIDs(stack);
 

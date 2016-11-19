@@ -2,6 +2,7 @@ package techreborn.client;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import techreborn.init.ModItems;
 
 public class TechRebornCreativeTabMisc extends CreativeTabs {
@@ -13,8 +14,8 @@ public class TechRebornCreativeTabMisc extends CreativeTabs {
 	}
 
 	@Override
-	public Item getTabIconItem() {
-		return ModItems.dynamicCell;
+	public ItemStack getTabIconItem() {
+		return new ItemStack(ModItems.dynamicCell);
 	}
 
 }

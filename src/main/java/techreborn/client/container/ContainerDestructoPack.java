@@ -2,8 +2,8 @@ package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import reborncore.client.gui.BaseSlot;
-import reborncore.client.gui.SlotFilteredVoid;
+import reborncore.client.gui.slots.BaseSlot;
+import reborncore.client.gui.slots.SlotFilteredVoid;
 import reborncore.common.container.RebornContainer;
 import reborncore.common.util.Inventory;
 import techreborn.init.ModItems;

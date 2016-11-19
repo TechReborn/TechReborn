@@ -57,7 +57,7 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
 							canUseEnergy(128.0F) &&
 							!tank.isEmpty() &&
 							tank.getFluid().amount >= 1000) {
-							if (--wood.stackSize == 0)
+							if (--wood.getCount() == 0)
 								setInventorySlotContents(0, null);
 							tank.drain(1000, true);
 							useEnergy(128.0F);
@@ -66,7 +66,7 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
 					}
 				}
 			} else if (++tickTime > 100) {
-				Random rnd = worldObj.rand;
+				Random rnd = world.rand;
 				addOutput(2, new ItemStack(Blocks.PLANKS, 6 + rnd.nextInt(4)));
 				if (rnd.nextInt(4) != 0) {
 					ItemStack pulp = ItemDusts.getDustByName("sawDust", 2 + rnd.nextInt(3));
@@ -85,18 +85,18 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
 	public void addOutput(int slot, ItemStack stack) {
 		if (getStackInSlot(slot) == null)
 			setInventorySlotContents(slot, stack);
-		getStackInSlot(slot).stackSize += stack.stackSize;
+		getStackInSlot(slot).getCount() += stack.getCount();
 	}
 
 	public boolean canAddOutput(int slot, int amount) {
 		ItemStack stack = getStackInSlot(slot);
-		return stack == null || getInventoryStackLimit() - stack.stackSize >= amount;
+		return stack == null || getInventoryStackLimit() - stack.getCount() >= amount;
 	}
 
 	@Override
 	public void validate() {
 		super.validate();
-		multiblockChecker = new MultiblockChecker(worldObj, getPos().down(3));
+		multiblockChecker = new MultiblockChecker(world, getPos().down(3));
 	}
 
 	public boolean getMutliBlock() {
