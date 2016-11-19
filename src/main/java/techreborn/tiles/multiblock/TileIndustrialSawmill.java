@@ -9,7 +9,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.power.EnumPowerTier;
@@ -29,7 +31,7 @@ import static techreborn.tiles.multiblock.MultiblockChecker.CASING_NORMAL;
 import static techreborn.tiles.multiblock.MultiblockChecker.CASING_REINFORCED;
 import static techreborn.tiles.multiblock.MultiblockChecker.ZERO_OFFSET;
 
-public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrenchable, IFluidHandler, IInventoryProvider, ISidedInventory, IListInfoProvider {
+public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrenchable, IInventoryProvider, ISidedInventory, IListInfoProvider {
 
 	public Inventory inventory = new Inventory(5, "Sawmill", 64, this);
 	public Tank tank = new Tank("Sawmill", 16000, this);
@@ -57,8 +59,9 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
 							canUseEnergy(128.0F) &&
 							!tank.isEmpty() &&
 							tank.getFluid().amount >= 1000) {
-							if (--wood.getCount() == 0)
-								setInventorySlotContents(0, null);
+							wood.shrink(1);
+							if (wood.getCount() == 0)
+								setInventorySlotContents(0, ItemStack.EMPTY);
 							tank.drain(1000, true);
 							useEnergy(128.0F);
 							tickTime = 1;
@@ -79,13 +82,13 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
 				tickTime = 0;
 			}
 		}
-		FluidUtils.drainContainers(this, inventory, 1, 4);
+		FluidUtils.drainContainers(tank, inventory, 1, 4);
 	}
 
 	public void addOutput(int slot, ItemStack stack) {
 		if (getStackInSlot(slot) == null)
 			setInventorySlotContents(slot, stack);
-		getStackInSlot(slot).getCount() += stack.getCount();
+		getStackInSlot(slot).grow(stack.getCount());
 	}
 
 	public boolean canAddOutput(int slot, int amount) {
@@ -148,48 +151,20 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
 		return tagCompound;
 	}
 
-	/* IFluidHandler */
 	@Override
-	public int fill(EnumFacing from, FluidStack resource, boolean doFill) {
-		if (resource.getFluid() == FluidRegistry.WATER || resource.getFluid() == ModFluids.fluidMercury
-			|| resource.getFluid() == ModFluids.fluidSodiumpersulfate) {
-			int filled = tank.fill(resource, doFill);
-			tank.compareAndUpdate();
-			return filled;
+	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
+			return true;
 		}
-		return 0;
+		return super.hasCapability(capability, facing);
 	}
 
 	@Override
-	public FluidStack drain(EnumFacing from, FluidStack resource, boolean doDrain) {
-		if (resource == null || !resource.isFluidEqual(tank.getFluid())) {
-			return null;
+	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
+			return (T) tank;
 		}
-		FluidStack fluidStack = tank.drain(resource.amount, doDrain);
-		tank.compareAndUpdate();
-		return fluidStack;
-	}
-
-	@Override
-	public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain) {
-		FluidStack drained = tank.drain(maxDrain, doDrain);
-		tank.compareAndUpdate();
-		return drained;
-	}
-
-	@Override
-	public boolean canFill(EnumFacing from, Fluid fluid) {
-		return fluid == FluidRegistry.WATER;
-	}
-
-	@Override
-	public boolean canDrain(EnumFacing from, Fluid fluid) {
-		return false;
-	}
-
-	@Override
-	public FluidTankInfo[] getTankInfo(EnumFacing from) {
-		return new FluidTankInfo[] { tank.getInfo() };
+		return super.getCapability(capability, facing);
 	}
 
 	@Override

@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
@@ -53,7 +54,7 @@ public class BlockPlayerDetector extends BlockMachineBase implements ITexturedBl
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list) {
+	public void getSubBlocks(Item item, CreativeTabs creativeTabs, NonNullList<ItemStack> list) {
 		for (int meta = 0; meta < types.length; meta++) {
 			list.add(new ItemStack(item, 1, meta));
 		}
@@ -104,7 +105,7 @@ public class BlockPlayerDetector extends BlockMachineBase implements ITexturedBl
 
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer entityPlayer,
-	                                EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+	                                EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		String type = state.getValue(TYPE);
 		String newType = type;
 		TextFormatting color = TextFormatting.GREEN;

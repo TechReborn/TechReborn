@@ -25,7 +25,7 @@ public class BlockIDSU extends BlockEnergyStorage {
 	}
 
 	@Override
-	public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY,
+	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY,
 	                                 float hitZ, int meta, EntityLivingBase placer) {
 		TileEntity tile = world.getTileEntity(pos);
 		if (tile instanceof TileIDSU) {

@@ -80,7 +80,7 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInv
 			} else if (getStackInSlot(output).isItemEqual(itemstack)) {
 				useEnergy(cost);
 				if (randomchance == 1) {
-					getStackInSlot(output).getCount() += itemstack.getCount();
+					getStackInSlot(output).setCount(itemstack.getCount());
 				}
 			}
 			if (getStackInSlot(input1).getCount() > 1) {

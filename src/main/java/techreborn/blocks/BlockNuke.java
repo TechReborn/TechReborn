@@ -39,7 +39,7 @@ public class BlockNuke extends BaseBlock implements ITexturedBlock {
 		if (!worldIn.isRemote) {
 			EntityNukePrimed entitynukeprimed = new EntityNukePrimed(worldIn, (double) ((float) pos.getX() + 0.5F),
 				(double) pos.getY(), (double) ((float) pos.getZ() + 0.5F), igniter);
-			worldIn.spawnEntityInWorld(entitynukeprimed);
+			worldIn.spawnEntity(entitynukeprimed);
 			// worldIn.playSoundAtEntity(entitynukeprimed, "game.tnt.primed",
 			// 1.0F, 1.0F);
 		}
@@ -51,7 +51,7 @@ public class BlockNuke extends BaseBlock implements ITexturedBlock {
 			EntityNukePrimed entitynukeprimed = new EntityNukePrimed(worldIn, (double) ((float) pos.getX() + 0.5F),
 				(double) pos.getY(), (double) ((float) pos.getZ() + 0.5F), explosionIn.getExplosivePlacedBy());
 			entitynukeprimed.fuse = worldIn.rand.nextInt(entitynukeprimed.fuse / 4) + entitynukeprimed.fuse / 8;
-			worldIn.spawnEntityInWorld(entitynukeprimed);
+			worldIn.spawnEntity(entitynukeprimed);
 		}
 	}
 
@@ -87,7 +87,7 @@ public class BlockNuke extends BaseBlock implements ITexturedBlock {
 
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-	                                EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+	                                EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		return false;
 	}
 

@@ -23,7 +23,7 @@ public class TileDigitalChest extends TileLegacyMachineBase implements IInventor
 	// Slot 1 = Output
 	// Slot 2 = Fake Item
 
-	public ItemStack storedItem;
+	public ItemStack storedItem = ItemStack.EMPTY;
 	// TODO use long so we can have 9,223,372,036,854,775,807 items instead of
 	// 2,147,483,647
 	int storage = 32767;
@@ -34,11 +34,11 @@ public class TileDigitalChest extends TileLegacyMachineBase implements IInventor
 		if (!world.isRemote) {
 			if (storedItem != null) {
 				ItemStack fakeStack = storedItem.copy();
-				fakeStack.getCount() = 1;
+				fakeStack.setCount(1);
 				setInventorySlotContents(2, fakeStack);
-			} else if (storedItem == null && getStackInSlot(1) != null) {
+			} else if (storedItem == ItemStack.EMPTY && getStackInSlot(1) != ItemStack.EMPTY) {
 				ItemStack fakeStack = getStackInSlot(1).copy();
-				fakeStack.getCount() = 1;
+				fakeStack.setCount(1);
 				setInventorySlotContents(2, fakeStack);
 			} else {
 				setInventorySlotContents(2, null);
@@ -47,10 +47,10 @@ public class TileDigitalChest extends TileLegacyMachineBase implements IInventor
 			if (getStackInSlot(0) != null) {
 				if (storedItem == null) {
 					storedItem = getStackInSlot(0);
-					setInventorySlotContents(0, null);
+					setInventorySlotContents(0, ItemStack.EMPTY);
 				} else if (ItemUtils.isItemEqual(storedItem, getStackInSlot(0), true, true)) {
 					if (storedItem.getCount() <= storage - getStackInSlot(0).getCount()) {
-						storedItem.getCount() += getStackInSlot(0).getCount();
+						storedItem.grow(getStackInSlot(0).getCount());
 						decrStackSize(0, getStackInSlot(0).getCount());
 					}
 				}
@@ -58,14 +58,14 @@ public class TileDigitalChest extends TileLegacyMachineBase implements IInventor
 
 			if (storedItem != null && getStackInSlot(1) == null) {
 				ItemStack itemStack = storedItem.copy();
-				itemStack.getCount() = itemStack.getMaxStackSize();
+				itemStack.setCount(itemStack.getMaxStackSize());
 				setInventorySlotContents(1, itemStack);
-				storedItem.getCount() -= itemStack.getMaxStackSize();
+				storedItem.shrink(itemStack.getMaxStackSize());
 			} else if (ItemUtils.isItemEqual(getStackInSlot(1), storedItem, true, true)) {
 				int wanted = getStackInSlot(1).getMaxStackSize() - getStackInSlot(1).getCount();
 				if (storedItem.getCount() >= wanted) {
 					decrStackSize(1, -wanted);
-					storedItem.getCount() -= wanted;
+					storedItem.shrink(wanted);
 				} else {
 					decrStackSize(1, -storedItem.getCount());
 					storedItem = null;
@@ -92,11 +92,11 @@ public class TileDigitalChest extends TileLegacyMachineBase implements IInventor
 		storedItem = null;
 
 		if (tagCompound.hasKey("storedStack")) {
-			storedItem = ItemStack.loadItemStackFromNBT((NBTTagCompound) tagCompound.getTag("storedStack"));
+			storedItem = new ItemStack((NBTTagCompound) tagCompound.getTag("storedStack"));
 		}
 
 		if (storedItem != null) {
-			storedItem.getCount() = tagCompound.getInteger("storedQuantity");
+			storedItem.setCount(tagCompound.getInteger("storedQuantity"));
 		}
 	}
 

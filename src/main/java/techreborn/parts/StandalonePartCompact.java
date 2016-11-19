@@ -6,6 +6,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import techreborn.compat.ICompatModule;
+import techreborn.init.ModItems;
 import techreborn.parts.powerCables.ItemStandaloneCables;
 
 /**
@@ -23,7 +24,7 @@ public class StandalonePartCompact implements ICompatModule {
 	@Override
 	public void init(FMLInitializationEvent event) {
 		itemStandaloneCable = new ItemStandaloneCables();
-		GameRegistry.registerItem(itemStandaloneCable, "cables");
+		ModItems.registerItem(itemStandaloneCable, "cables");
 	}
 
 	@Override

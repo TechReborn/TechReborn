@@ -130,7 +130,7 @@ public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchab
 		if (inventory.getStackInSlot(6) == null) {
 			inventory.setInventorySlotContents(6, new ItemStack(ModItems.uuMatter));
 		} else if (ItemUtils.isItemEqual(inventory.getStackInSlot(6), new ItemStack(ModItems.uuMatter), true, true)) {
-			inventory.getStackInSlot(6).getCount() = Math.min(64, 1 + inventory.getStackInSlot(6).getCount());
+			inventory.getStackInSlot(6).setCount(Math.min(64, 1 + inventory.getStackInSlot(6).getCount()));
 		}
 	}
 

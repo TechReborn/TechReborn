@@ -86,7 +86,7 @@ public class TileIronFurnace extends TileLegacyMachineBase implements IInventory
 			if (getStackInSlot(output) == null) {
 				setInventorySlotContents(output, itemstack.copy());
 			} else if (getStackInSlot(output).isItemEqual(itemstack)) {
-				getStackInSlot(output).getCount() += itemstack.getCount();
+				getStackInSlot(output).grow(itemstack.getCount());
 			}
 			if (getStackInSlot(input1).getCount() > 1) {
 				this.decrStackSize(input1, 1);

@@ -64,13 +64,14 @@ public class BlockRubberLeaves extends BlockLeaves implements ITexturedBlock, IO
 		return false;
 	}
 
-	@Override
-	protected ItemStack createStackedBlock(IBlockState state) {
-		IBlockState newState = state.withProperty(CHECK_DECAY, false).withProperty(DECAYABLE,
-			false);
-
-		return super.createStackedBlock(newState);
-	}
+	//TODO 1.11: what is this?
+//	@Override
+//	protected ItemStack createStackedBlock(IBlockState state) {
+//		IBlockState newState = state.withProperty(CHECK_DECAY, false).withProperty(DECAYABLE,
+//			false);
+//
+//		return super.createStackedBlock(newState);
+//	}
 
 	@Override
 	public String getTextureNameFromState(IBlockState IBlockState, EnumFacing enumFacing) {

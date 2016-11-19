@@ -9,7 +9,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
@@ -31,7 +33,7 @@ import static techreborn.tiles.multiblock.MultiblockChecker.CASING_REINFORCED;
 import static techreborn.tiles.multiblock.MultiblockChecker.ZERO_OFFSET;
 
 public class TileIndustrialGrinder extends TilePowerAcceptor
-	implements IWrenchable, IFluidHandler, IInventoryProvider, ISidedInventory, ITileRecipeHandler<IndustrialGrinderRecipe>, IRecipeCrafterProvider {
+	implements IWrenchable, IInventoryProvider, ISidedInventory, ITileRecipeHandler<IndustrialGrinderRecipe>, IRecipeCrafterProvider {
 	public static final int TANK_CAPACITY = 16000;
 
 	public Inventory inventory = new Inventory(6, "TileGrinder", 64, this);
@@ -100,7 +102,7 @@ public class TileIndustrialGrinder extends TilePowerAcceptor
 		if (getMutliBlock()) {
 			crafter.updateEntity();
 		}
-		FluidUtils.drainContainers(this, inventory, 1, 5);
+		FluidUtils.drainContainers(tank, inventory, 1, 5);
 	}
 
 	@Override
@@ -128,48 +130,20 @@ public class TileIndustrialGrinder extends TilePowerAcceptor
 		super.onChunkUnload();
 	}
 
-	/* IFluidHandler */
 	@Override
-	public int fill(EnumFacing from, FluidStack resource, boolean doFill) {
-		if (resource.getFluid() == FluidRegistry.WATER || resource.getFluid() == ModFluids.fluidMercury
-			|| resource.getFluid() == ModFluids.fluidSodiumpersulfate) {
-			int filled = tank.fill(resource, doFill);
-			tank.compareAndUpdate();
-			return filled;
+	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
+			return true;
 		}
-		return 0;
+		return super.hasCapability(capability, facing);
 	}
 
 	@Override
-	public FluidStack drain(EnumFacing from, FluidStack resource, boolean doDrain) {
-		if (resource == null || !resource.isFluidEqual(tank.getFluid())) {
-			return null;
+	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
+			return (T) tank;
 		}
-		FluidStack fluidStack = tank.drain(resource.amount, doDrain);
-		tank.compareAndUpdate();
-		return fluidStack;
-	}
-
-	@Override
-	public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain) {
-		FluidStack drained = tank.drain(maxDrain, doDrain);
-		tank.compareAndUpdate();
-		return drained;
-	}
-
-	@Override
-	public boolean canFill(EnumFacing from, Fluid fluid) {
-		return fluid == FluidRegistry.WATER || fluid == ModFluids.fluidMercury || fluid == ModFluids.fluidSodiumpersulfate;
-	}
-
-	@Override
-	public boolean canDrain(EnumFacing from, Fluid fluid) {
-		return false;
-	}
-
-	@Override
-	public FluidTankInfo[] getTankInfo(EnumFacing from) {
-		return new FluidTankInfo[] { tank.getInfo() };
+		return super.getCapability(capability, facing);
 	}
 
 	// ISidedInventory

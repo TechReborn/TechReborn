@@ -65,7 +65,7 @@ public class BlockSolarPanel extends BaseTileBlock implements ITexturedBlock {
 	}
 
 	@Override
-	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY,
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY,
 	                                 float hitZ, int meta, EntityLivingBase placer) {
 		if (!worldIn.isRemote) {
 			if (worldIn.canBlockSeeSky(pos.up()) && !worldIn.isRaining() && !worldIn.isThundering() && worldIn.isDaytime()) {

@@ -147,8 +147,8 @@ public class BlockRubberLog extends Block implements ITexturedBlock {
 
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-	                                EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-		super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ);
+	                                EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+		super.onBlockActivated(worldIn, pos, state, playerIn, hand, side, hitX, hitY, hitZ);
 		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
 		if (stack != null)
 			if ((stack.getItem() instanceof ItemElectricTreetap && PoweredItem.canUseEnergy(20, stack)) || stack.getItem() instanceof ItemTreeTap)
@@ -174,7 +174,7 @@ public class BlockRubberLog extends Block implements ITexturedBlock {
 								item.motionX = rand.nextGaussian() * factor;
 								item.motionY = rand.nextGaussian() * factor + 0.2F;
 								item.motionZ = rand.nextGaussian() * factor;
-								worldIn.spawnEntityInWorld(item);
+								worldIn.spawnEntity(item);
 							}
 						}
 						return true;

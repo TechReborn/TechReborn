@@ -80,7 +80,7 @@ public class TileRollingMachine extends TilePowerAcceptor implements IWrenchable
 							if (inventory.getStackInSlot(0).getCount() + currentRecipe.getCount() <= currentRecipe
 								.getMaxStackSize()) {
 								ItemStack stack = inventory.getStackInSlot(0);
-								stack.getCount() = stack.getCount() + currentRecipe.getCount();
+								stack.setCount(stack.getCount() + currentRecipe.getCount());
 								inventory.setInventorySlotContents(0, stack);
 								tickTime = -1;
 								hasCrafted = true;

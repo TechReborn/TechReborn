@@ -81,7 +81,7 @@ public class TilePlayerDectector extends TilePowerAcceptor {
 			}
 			if (lastRedstone != redstone) {
 				WorldUtils.updateBlock(world, getPos());
-				world.notifyNeighborsOfStateChange(getPos(), world.getBlockState(getPos()).getBlock());
+				world.notifyNeighborsOfStateChange(getPos(), world.getBlockState(getPos()).getBlock(), true);
 			}
 		}
 	}

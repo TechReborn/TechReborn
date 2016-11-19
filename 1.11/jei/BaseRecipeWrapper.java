@@ -39,7 +39,7 @@ public abstract class BaseRecipeWrapper<T extends BaseRecipe> extends BlankRecip
 			String oreName = OreDictionary.getOreName(oreId);
 			List<ItemStack> ores = OreDictionary.getOres(oreName);
 			for (ItemStack ore : ores) {
-				if (ore.stackSize != itemStack.stackSize) {
+				if (ore.getCount() != itemStack.stackSize) {
 					ItemStack oreCopy = ore.copy();
 					oreCopy.stackSize = itemStack.stackSize;
 					itemStackSet.add(oreCopy);

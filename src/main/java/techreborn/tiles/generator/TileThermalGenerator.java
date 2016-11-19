@@ -8,7 +8,9 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
@@ -20,10 +22,10 @@ import reborncore.common.util.Tank;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 
-public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchable, IFluidHandler, IInventoryProvider {
+public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchable, IInventoryProvider {
 
 	public static final int euTick = ConfigTechReborn.ThermalGeneratorOutput;
-	public Tank tank = new Tank("TileThermalGenerator", FluidContainerRegistry.BUCKET_VOLUME * 10, this);
+	public Tank tank = new Tank("TileThermalGenerator", 1000 * 10, this);
 	public Inventory inventory = new Inventory(3, "TileThermalGenerator", 64, this);
 
 	public TileThermalGenerator() {
@@ -56,44 +58,19 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
 	}
 
 	@Override
-	public int fill(EnumFacing from, FluidStack resource, boolean doFill) {
-		int fill = tank.fill(resource, doFill);
-		tank.compareAndUpdate();
-		return fill;
-	}
-
-	@Override
-	public FluidStack drain(EnumFacing from, FluidStack resource, boolean doDrain) {
-		FluidStack drain = tank.drain(resource.amount, doDrain);
-		tank.compareAndUpdate();
-		return drain;
-	}
-
-	@Override
-	public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain) {
-		FluidStack drain = tank.drain(maxDrain, doDrain);
-		tank.compareAndUpdate();
-		return drain;
-	}
-
-	@Override
-	public boolean canFill(EnumFacing from, Fluid fluid) {
-		if (fluid != null) {
-			if (fluid == FluidRegistry.LAVA) {
-				return true;
-			}
+	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
+			return true;
 		}
-		return false;
+		return super.hasCapability(capability, facing);
 	}
 
 	@Override
-	public boolean canDrain(EnumFacing from, Fluid fluid) {
-		return tank.getFluid() == null || tank.getFluid().getFluid() == fluid;
-	}
-
-	@Override
-	public FluidTankInfo[] getTankInfo(EnumFacing from) {
-		return new FluidTankInfo[] { tank.getInfo() };
+	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
+			return (T) tank;
+		}
+		return super.getCapability(capability, facing);
 	}
 
 	@Override
@@ -121,7 +98,7 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
 	public void updateEntity() {
 		super.updateEntity();
 		if (!world.isRemote) {
-			FluidUtils.drainContainers(this, inventory, 0, 1);
+			FluidUtils.drainContainers(tank, inventory, 0, 1);
 			for (EnumFacing direction : EnumFacing.values()) {
 				if (world.getBlockState(new BlockPos(getPos().getX() + direction.getFrontOffsetX(),
 					getPos().getY() + direction.getFrontOffsetY(), getPos().getZ() + direction.getFrontOffsetZ()))

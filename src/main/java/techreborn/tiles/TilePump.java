@@ -8,7 +8,9 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
@@ -20,7 +22,7 @@ import java.util.List;
 /**
  * Created by modmuss50 on 08/05/2016.
  */
-public class TilePump extends TilePowerAcceptor implements IFluidHandler {
+public class TilePump extends TilePowerAcceptor {
 
 	public Tank tank = new Tank("TilePump", 10000, this);
 
@@ -130,40 +132,19 @@ public class TilePump extends TilePowerAcceptor implements IFluidHandler {
 		return tagCompound;
 	}
 
-	// IFluidHandler
 	@Override
-	public int fill(EnumFacing from, FluidStack resource, boolean doFill) {
-		int fill = tank.fill(resource, doFill);
-		tank.compareAndUpdate();
-		return fill;
+	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
+			return true;
+		}
+		return super.hasCapability(capability, facing);
 	}
 
 	@Override
-	public FluidStack drain(EnumFacing from, FluidStack resource, boolean doDrain) {
-		FluidStack drain = tank.drain(resource.amount, doDrain);
-		tank.compareAndUpdate();
-		return drain;
-	}
-
-	@Override
-	public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain) {
-		FluidStack drain = tank.drain(maxDrain, doDrain);
-		tank.compareAndUpdate();
-		return drain;
-	}
-
-	@Override
-	public boolean canFill(EnumFacing from, Fluid fluid) {
-		return false;
-	}
-
-	@Override
-	public boolean canDrain(EnumFacing from, Fluid fluid) {
-		return tank.getFluid() == null || tank.getFluid().getFluid() == fluid;
-	}
-
-	@Override
-	public FluidTankInfo[] getTankInfo(EnumFacing from) {
-		return new FluidTankInfo[] { tank.getInfo() };
+	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
+			return (T) tank;
+		}
+		return super.getCapability(capability, facing);
 	}
 }

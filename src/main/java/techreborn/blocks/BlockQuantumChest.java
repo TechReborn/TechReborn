@@ -33,7 +33,7 @@ public class BlockQuantumChest extends BlockMachineBase implements IAdvancedRota
 
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-	                                EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+	                                EnumHand hand,  EnumFacing side, float hitX, float hitY, float hitZ) {
 		if (!playerIn.isSneaking())
 			playerIn.openGui(Core.INSTANCE, GuiHandler.quantumChestID, worldIn, pos.getX(), pos.getY(), pos.getZ());
 		return true;

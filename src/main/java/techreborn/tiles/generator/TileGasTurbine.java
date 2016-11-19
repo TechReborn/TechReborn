@@ -6,7 +6,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
@@ -20,11 +22,11 @@ import techreborn.init.ModBlocks;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable, IFluidHandler, IInventoryProvider {
+public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable, IInventoryProvider {
 
 	// TODO: run this off config
 	public static final int euTick = 16;
-	public Tank tank = new Tank("TileGasTurbine", FluidContainerRegistry.BUCKET_VOLUME * 10, this);
+	public Tank tank = new Tank("TileGasTurbine", 1000 * 10, this);
 	public Inventory inventory = new Inventory(3, "TileGasTurbine", 64, this);
 	Map<String, Integer> fluids = new HashMap<>();
 
@@ -67,42 +69,19 @@ public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable, IF
 	}
 
 	@Override
-	public int fill(EnumFacing from, FluidStack resource, boolean doFill) {
-		int fill = tank.fill(resource, doFill);
-		tank.compareAndUpdate();
-		return fill;
-	}
-
-	@Override
-	public FluidStack drain(EnumFacing from, FluidStack resource, boolean doDrain) {
-		FluidStack drain = tank.drain(resource.amount, doDrain);
-		tank.compareAndUpdate();
-		return drain;
-	}
-
-	@Override
-	public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain) {
-		FluidStack drain = tank.drain(maxDrain, doDrain);
-		tank.compareAndUpdate();
-		return drain;
-	}
-
-	@Override
-	public boolean canFill(EnumFacing from, Fluid fluid) {
-		if (fluid != null) {
-			return fluids.containsKey(FluidRegistry.getFluidName(fluid));
+	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
+			return true;
 		}
-		return false;
+		return super.hasCapability(capability, facing);
 	}
 
 	@Override
-	public boolean canDrain(EnumFacing from, Fluid fluid) {
-		return tank.getFluid() == null || tank.getFluid().getFluid() == fluid;
-	}
-
-	@Override
-	public FluidTankInfo[] getTankInfo(EnumFacing from) {
-		return new FluidTankInfo[] { tank.getInfo() };
+	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
+			return (T) tank;
+		}
+		return super.getCapability(capability, facing);
 	}
 
 	@Override
@@ -129,7 +108,7 @@ public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable, IF
 	public void updateEntity() {
 		super.updateEntity();
 		if (!world.isRemote) {
-			FluidUtils.drainContainers(this, inventory, 0, 1);
+			FluidUtils.drainContainers(tank, inventory, 0, 1);
 			tank.compareAndUpdate();
 		}
 
