@@ -72,7 +72,7 @@ public class TileRollingMachine extends TilePowerAcceptor implements IWrenchable
 					currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(craftMatrix, world);
 					if (currentRecipe != null) {
 						boolean hasCrafted = false;
-						if (inventory.getStackInSlot(0) == null) {
+						if (inventory.getStackInSlot(0) == ItemStack.EMPTY) {
 							inventory.setInventorySlotContents(0, currentRecipe);
 							tickTime = -1;
 							hasCrafted = true;
@@ -109,7 +109,7 @@ public class TileRollingMachine extends TilePowerAcceptor implements IWrenchable
 			if (currentRecipe != null) {
 				inventory.setInventorySlotContents(1, currentRecipe);
 			} else {
-				inventory.setInventorySlotContents(1, null);
+				inventory.setInventorySlotContents(1, ItemStack.EMPTY);
 			}
 		}
 	}

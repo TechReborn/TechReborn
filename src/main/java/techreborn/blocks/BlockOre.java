@@ -183,7 +183,7 @@ public class BlockOre extends BaseBlock implements ITexturedBlock, IOreNameProvi
 
 	@Override
 	public String getTextureNameFromState(IBlockState BlockStateContainer, EnumFacing facing) {
-		return "techreborn:blocks/ore/ore" + StringUtils.toFirstCapital(ores[getMetaFromState(BlockStateContainer)]);
+		return "techreborn:blocks/ore/ore" + ores[getMetaFromState(BlockStateContainer)];
 	}
 
 	@Override

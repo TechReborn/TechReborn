@@ -202,13 +202,13 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 							}
 						} else {
 							if (canFitStack(currentRecipe.getOutput(), outputStackSlot, true)) {
-								if (getStackInSlot(outputStackSlot) == null) {
+								if (getStackInSlot(outputStackSlot) == ItemStack.EMPTY) {
 									setInventorySlotContents(outputStackSlot, currentRecipe.getOutput().copy());
 								} else {
 									decrStackSize(outputStackSlot, -currentRecipe.getOutput().getCount());
 								}
 								decrStackSize(topStackSlot, currentRecipe.getTopInput().getCount());
-								if (currentRecipe.getBottomInput() != null) {
+								if (currentRecipe.getBottomInput() != ItemStack.EMPTY) {
 									decrStackSize(bottomStackSlot, currentRecipe.getBottomInput().getCount());
 								}
 								resetCrafter();
@@ -252,10 +252,10 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 	}
 
 	public boolean canFitStack(ItemStack stack, int slot, boolean oreDic) {// Checks to see if it can fit the stack
-		if (stack == null) {
+		if (stack == ItemStack.EMPTY) {
 			return true;
 		}
-		if (inventory.getStackInSlot(slot) == null) {
+		if (inventory.getStackInSlot(slot) == ItemStack.EMPTY) {
 			return true;
 		}
 		if (ItemUtils.isItemEqual(inventory.getStackInSlot(slot), stack, true, true, oreDic)) {

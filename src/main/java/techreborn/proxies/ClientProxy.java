@@ -132,6 +132,7 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void registerFluidBlockRendering(Block block, String name) {
+		name = name.toLowerCase();
 		super.registerFluidBlockRendering(block, name);
 		final ModelResourceLocation fluidLocation = new ModelResourceLocation(ModInfo.MOD_ID.toLowerCase() + ":fluids", name);
 
@@ -146,13 +147,15 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void registerCustomBlockSateLocation(Block block, String resourceLocation) {
+		resourceLocation = resourceLocation.toLowerCase();
 		super.registerCustomBlockSateLocation(block, resourceLocation);
+		String finalResourceLocation = resourceLocation;
 		ModelLoader.setCustomStateMapper(block, new DefaultStateMapper() {
 			@Override
 			protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
 				String resourceDomain = Block.REGISTRY.getNameForObject(state.getBlock()).getResourceDomain();
 				String propertyString = getPropertyString(state.getProperties());
-				return new ModelResourceLocation(resourceDomain + ':' + resourceLocation, propertyString);
+				return new ModelResourceLocation(resourceDomain + ':' + finalResourceLocation, propertyString);
 			}
 		});
 		String resourceDomain = Block.REGISTRY.getNameForObject(block).getResourceDomain();

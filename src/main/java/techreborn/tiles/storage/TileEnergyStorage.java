@@ -55,7 +55,7 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IWrenchable,
 
 	@Override
 	public void updateEntity() {
-		if (inventory.getStackInSlot(0) != null) {
+		if (inventory.getStackInSlot(0) != ItemStack.EMPTY) {
 			ItemStack stack = inventory.getStackInSlot(0);
 			if (!(stack.getItem() instanceof IEnergyItemInfo)) {
 				return;
@@ -68,7 +68,7 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IWrenchable,
 				}
 			}
 		}
-		if (inventory.getStackInSlot(1) != null) {
+		if (inventory.getStackInSlot(1) != ItemStack.EMPTY) {
 			ItemStack stack = inventory.getStackInSlot(1);
 			if (!(stack.getItem() instanceof IEnergyItemInfo)) {
 				return;

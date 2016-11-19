@@ -97,11 +97,11 @@ public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchabl
 		if (!world.isRemote) {
 			FluidUtils.drainContainers(tank, inventory, 0, 1);
 			FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluidType());
-			if (tank.getFluidType() != null && getStackInSlot(2) == null) {
+			if (tank.getFluidType() != null && getStackInSlot(2) == ItemStack.EMPTY) {
 				inventory.setInventorySlotContents(2, new ItemStack(tank.getFluidType().getBlock()));
 				syncWithAll();
-			} else if (tank.getFluidType() == null && getStackInSlot(2) != null) {
-				setInventorySlotContents(2, null);
+			} else if (tank.getFluidType() == null && getStackInSlot(2) != ItemStack.EMPTY) {
+				setInventorySlotContents(2, ItemStack.EMPTY);
 				syncWithAll();
 			}
 

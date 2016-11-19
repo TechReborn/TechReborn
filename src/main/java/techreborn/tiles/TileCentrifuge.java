@@ -52,7 +52,7 @@ public class TileCentrifuge extends TilePowerAcceptor
 		super.updateEntity();
 		crafter.updateEntity();
 		charge(6);
-		if (inventory.getStackInSlot(6) != null) {
+		if (inventory.getStackInSlot(6) != ItemStack.EMPTY) {
 			ItemStack stack = inventory.getStackInSlot(6);
 			if (stack.getItem() instanceof IEnergyItemInfo) {
 				IEnergyItemInfo item = (IEnergyItemInfo) stack.getItem();

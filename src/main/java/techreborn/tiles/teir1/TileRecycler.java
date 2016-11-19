@@ -72,7 +72,7 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInv
 			ItemStack itemstack = ItemParts.getPartByName("scrap");
 			int randomchance = world.rand.nextInt(chance);
 
-			if (getStackInSlot(output) == null) {
+			if (getStackInSlot(output) == ItemStack.EMPTY) {
 				useEnergy(cost);
 				if (randomchance == 1) {
 					setInventorySlotContents(output, itemstack.copy());
@@ -98,7 +98,7 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInv
 	}
 
 	public boolean hasSlotGotSpace(int slot) {
-		if (getStackInSlot(slot) == null) {
+		if (getStackInSlot(slot) == ItemStack.EMPTY) {
 			return true;
 		} else if (getStackInSlot(slot).getCount() < getStackInSlot(slot).getMaxStackSize()) {
 			return true;

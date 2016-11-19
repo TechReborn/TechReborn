@@ -397,12 +397,14 @@ public class ModBlocks {
 	}
 
 	public static void registerBlock(Block block, String name) {
+		name = name.toLowerCase();
 		block.setRegistryName(name);
 		GameRegistry.register(block);
 		GameRegistry.register(new ItemBlock(block), block.getRegistryName());
 	}
 
 	public static void registerBlock(Block block, Class<? extends ItemBlock> itemclass, String name) {
+		name = name.toLowerCase();
 		block.setRegistryName(name);
 		GameRegistry.register(block);
 		try {

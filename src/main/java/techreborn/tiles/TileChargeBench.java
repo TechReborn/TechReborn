@@ -26,7 +26,7 @@ public class TileChargeBench extends TilePowerAcceptor implements IWrenchable, I
 		super.updateEntity();
 
 		for (int i = 0; i < 6; i++) {
-			if (inventory.getStackInSlot(i) != null) {
+			if (inventory.getStackInSlot(i) != ItemStack.EMPTY) {
 				if (getEnergy() > 0) {
 					ItemStack stack = inventory.getStackInSlot(i);
 					if (stack.getItem() instanceof IEnergyInterfaceItem) {

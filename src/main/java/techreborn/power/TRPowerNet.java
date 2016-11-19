@@ -34,7 +34,7 @@ public class TRPowerNet {
 			for (EnumFacing facing : EnumFacing.VALUES) {
 				BlockPos pos = cable.getPos().offset(facing);
 				TileEntity tile = cable.getWorld().getTileEntity(pos);
-				if (tile != null && tile instanceof IEnergyInterfaceTile) {
+				if (tile instanceof IEnergyInterfaceTile) {
 					IEnergyInterfaceTile eit = (IEnergyInterfaceTile) tile;
 					net.addConnection(eit, facing);
 				}

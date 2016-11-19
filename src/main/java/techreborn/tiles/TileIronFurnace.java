@@ -51,12 +51,11 @@ public class TileIronFurnace extends TileLegacyMachineBase implements IInventory
 				if (getStackInSlot(fuelslot).getItem().hasContainerItem()) // Fuel
 				// slot
 				{
-					setInventorySlotContents(fuelslot,
-						new ItemStack(getStackInSlot(fuelslot).getItem().getContainerItem()));
+					setInventorySlotContents(fuelslot, new ItemStack(getStackInSlot(fuelslot).getItem().getContainerItem()));
 				} else if (getStackInSlot(fuelslot).getCount() > 1) {
 					decrStackSize(fuelslot, 1);
 				} else if (getStackInSlot(fuelslot).getCount() == 1) {
-					setInventorySlotContents(fuelslot, null);
+					setInventorySlotContents(fuelslot, ItemStack.EMPTY);
 				}
 				updateInventory = true;
 			}
@@ -83,7 +82,7 @@ public class TileIronFurnace extends TileLegacyMachineBase implements IInventory
 		if (this.canSmelt()) {
 			ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(getStackInSlot(input1));
 
-			if (getStackInSlot(output) == null) {
+			if (getStackInSlot(output) == ItemStack.EMPTY) {
 				setInventorySlotContents(output, itemstack.copy());
 			} else if (getStackInSlot(output).isItemEqual(itemstack)) {
 				getStackInSlot(output).grow(itemstack.getCount());
@@ -91,19 +90,19 @@ public class TileIronFurnace extends TileLegacyMachineBase implements IInventory
 			if (getStackInSlot(input1).getCount() > 1) {
 				this.decrStackSize(input1, 1);
 			} else {
-				setInventorySlotContents(input1, null);
+				setInventorySlotContents(input1, ItemStack.EMPTY);
 			}
 		}
 	}
 
 	public boolean canSmelt() {
-		if (getStackInSlot(input1) == null) {
+		if (getStackInSlot(input1) == ItemStack.EMPTY) {
 			return false;
 		} else {
 			ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(getStackInSlot(input1));
-			if (itemstack == null)
+			if (itemstack == ItemStack.EMPTY)
 				return false;
-			if (getStackInSlot(output) == null)
+			if (getStackInSlot(output) == ItemStack.EMPTY)
 				return true;
 			if (!getStackInSlot(output).isItemEqual(itemstack))
 				return false;

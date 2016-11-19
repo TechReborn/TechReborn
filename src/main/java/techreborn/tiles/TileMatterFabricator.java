@@ -87,7 +87,7 @@ public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchab
 		if (!super.world.isRemote) {
 			for (int i = 0; i < 6; i++) {
 				ItemStack stack = inventory.getStackInSlot(i);
-				if (this.amplifier < 10000 && stack != null) {
+				if (this.amplifier < 10000 && stack != ItemStack.EMPTY) {
 					int amp = (int) ((long) (getValue(stack) / 32));
 					if (ItemUtils.isItemEqual(stack, inventory.getStackInSlot(i), true, true)) {
 						if (canUseEnergy(1)) {
@@ -120,14 +120,14 @@ public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchab
 	}
 
 	private boolean spaceForOutput() {
-		return inventory.getStackInSlot(6) == null
+		return inventory.getStackInSlot(6) == ItemStack.EMPTY
 			|| ItemUtils.isItemEqual(inventory.getStackInSlot(6), new ItemStack(ModItems.uuMatter), true, true)
 			&& inventory.getStackInSlot(6).getCount() < 64;
 	}
 
 	private void addOutputProducts() {
 
-		if (inventory.getStackInSlot(6) == null) {
+		if (inventory.getStackInSlot(6) == ItemStack.EMPTY) {
 			inventory.setInventorySlotContents(6, new ItemStack(ModItems.uuMatter));
 		} else if (ItemUtils.isItemEqual(inventory.getStackInSlot(6), new ItemStack(ModItems.uuMatter), true, true)) {
 			inventory.getStackInSlot(6).setCount(Math.min(64, 1 + inventory.getStackInSlot(6).getCount()));

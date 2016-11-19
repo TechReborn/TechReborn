@@ -124,10 +124,10 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
 			tank.drain(1, true);
 			addEnergy(euTick);
 		}
-		if (tank.getFluidType() != null && getStackInSlot(2) == null) {
+		if (tank.getFluidType() != null && getStackInSlot(2) == ItemStack.EMPTY) {
 			// inventory.setInventorySlotContents(2, new ItemStack(tank
 			// .getFluidType().getBlock()));
-		} else if (tank.getFluidType() == null && getStackInSlot(2) != null) {
+		} else if (tank.getFluidType() == null && getStackInSlot(2) != ItemStack.EMPTY) {
 			setInventorySlotContents(2, null);
 		}
 	}

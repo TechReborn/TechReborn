@@ -6,6 +6,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class OreDictUtils {
@@ -54,6 +55,7 @@ public class OreDictUtils {
 		return false;
 	}
 
+	@Nonnull
 	public static ItemStack getDictOreOrNull(String name, int amount) {
 		List<ItemStack> ores = OreDictionary.getOres(name);
 		if (ores.isEmpty())
@@ -77,8 +79,8 @@ public class OreDictUtils {
 		return isOre(new ItemStack(item), oreName);
 	}
 
-	public static boolean isOre(ItemStack stack, String oreName) {
-		if (stack != null && !stack.isEmpty() && oreName != null) {
+	public static boolean isOre(@Nonnull ItemStack stack, String oreName) {
+		if (stack != ItemStack.EMPTY && !stack.isEmpty() && oreName != null) {
 			int id = OreDictionary.getOreID(oreName);
 			int[] ids = OreDictionary.getOreIDs(stack);
 

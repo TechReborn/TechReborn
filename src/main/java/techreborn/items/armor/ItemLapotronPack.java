@@ -9,6 +9,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -68,7 +69,7 @@ public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo, ITex
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
+	public void getSubItems(Item item, CreativeTabs par2CreativeTabs, NonNullList itemList) {
 		ItemStack itemStack = new ItemStack(this, 1);
 		itemList.add(itemStack);
 
@@ -87,7 +88,7 @@ public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo, ITex
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
 		for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
-			if (player.inventory.getStackInSlot(i) != null) {
+			if (player.inventory.getStackInSlot(i) != ItemStack.EMPTY) {
 				ItemStack item = player.inventory.getStackInSlot(i);
 				if (item.getItem() instanceof IEnergyItemInfo) {
 					IEnergyItemInfo energyItemInfo = (IEnergyItemInfo) item.getItem();

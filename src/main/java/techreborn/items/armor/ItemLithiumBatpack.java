@@ -38,7 +38,7 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo, IT
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
 		for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
-			if (player.inventory.getStackInSlot(i) != null) {
+			if (player.inventory.getStackInSlot(i) != ItemStack.EMPTY) {
 				ItemStack item = player.inventory.getStackInSlot(i);
 				if (item.getItem() instanceof IEnergyItemInfo) {
 					IEnergyItemInfo energyItemInfo = (IEnergyItemInfo) item.getItem();

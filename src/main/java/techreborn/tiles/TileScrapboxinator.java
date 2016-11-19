@@ -81,13 +81,13 @@ public class TileScrapboxinator extends TilePowerAcceptor implements IWrenchable
 				this.decrStackSize(input1, 1);
 			} else {
 				useEnergy(cost);
-				setInventorySlotContents(input1, null);
+				setInventorySlotContents(input1, ItemStack.EMPTY);
 			}
 		}
 	}
 
 	public boolean canOpen() {
-		return getStackInSlot(input1) != null && getStackInSlot(output) == null;
+		return getStackInSlot(input1) != ItemStack.EMPTY && getStackInSlot(output) == ItemStack.EMPTY;
 	}
 
 	public boolean isBurning() {

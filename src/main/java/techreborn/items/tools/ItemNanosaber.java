@@ -52,7 +52,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 				                   World worldIn,
 			                   @Nullable
 				                   EntityLivingBase entityIn) {
-				if (stack != null && stack.getTagCompound().getBoolean("isActive")) {
+				if (stack != ItemStack.EMPTY && stack.getTagCompound().getBoolean("isActive")) {
 					return 1.0F;
 				}
 				return 0.0F;
@@ -65,7 +65,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 	                                                                 ItemStack stack) {
 		Multimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier>create();
 		int modifier = 0;
-		if (stack.getTagCompound().getBoolean("isActive"))
+		if (!stack.isEmpty() && stack.getTagCompound().getBoolean("isActive"))
 			modifier = 9;
 
 		if (slot == EntityEquipmentSlot.MAINHAND) {

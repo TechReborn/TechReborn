@@ -86,14 +86,14 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
 	}
 
 	public void addOutput(int slot, ItemStack stack) {
-		if (getStackInSlot(slot) == null)
+		if (getStackInSlot(slot) == ItemStack.EMPTY)
 			setInventorySlotContents(slot, stack);
 		getStackInSlot(slot).grow(stack.getCount());
 	}
 
 	public boolean canAddOutput(int slot, int amount) {
 		ItemStack stack = getStackInSlot(slot);
-		return stack == null || getInventoryStackLimit() - stack.getCount() >= amount;
+		return stack == ItemStack.EMPTY || getInventoryStackLimit() - stack.getCount() >= amount;
 	}
 
 	@Override
