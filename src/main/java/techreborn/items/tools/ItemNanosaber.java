@@ -14,10 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
@@ -52,7 +49,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 				                   World worldIn,
 			                   @Nullable
 				                   EntityLivingBase entityIn) {
-				if (stack != ItemStack.EMPTY && stack.getTagCompound().getBoolean("isActive")) {
+				if (stack != ItemStack.EMPTY && stack.hasTagCompound() && stack.getTagCompound().hasKey("isActive") && stack.getTagCompound().getBoolean("isActive")) {
 					return 1.0F;
 				}
 				return 0.0F;
@@ -91,7 +88,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item,
-	                        CreativeTabs par2CreativeTabs, List itemList) {
+	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
 		ItemStack inactiveUncharged = new ItemStack(ModItems.nanosaber);
 		inactiveUncharged.setTagCompound(new NBTTagCompound());
 		inactiveUncharged.getTagCompound().setBoolean("isActive", false);

@@ -3,6 +3,7 @@ package techreborn.items;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import reborncore.common.util.StringUtils;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
@@ -56,7 +57,7 @@ public class ItemDustsSmall extends ItemTextureBase {
 	}
 
 	// Adds Dusts SubItems To Creative Tab
-	public void getSubItems(Item item, CreativeTabs creativeTabs, List list) {
+	public void getSubItems(Item item, CreativeTabs creativeTabs, NonNullList list) {
 		for (int meta = 0; meta < types.length; ++meta) {
 			if (!types[meta].equals(ModItems.META_PLACEHOLDER)) {
 				list.add(new ItemStack(item, 1, meta));
