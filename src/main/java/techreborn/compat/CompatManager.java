@@ -38,13 +38,13 @@ public class CompatManager {
 		register(RecipesIC2.class, "IC2");
 	}
 
-	public void register(Class<? extends ICompatModule> moduleClass,Object... objs){
+	public void register(Class<? extends ICompatModule> moduleClass, Object... objs) {
 		registerCompact(moduleClass, true, objs);
 	}
 
 	public void registerCompact(Class<? extends ICompatModule> moduleClass, boolean config, Object... objs) {
 		boolean shouldLoad = true;
-		if(config){
+		if (config) {
 			shouldLoad = ConfigTechReborn.config
 				.get(ConfigTechReborn.CATEGORY_INTEGRATION, "Compat:" + moduleClass.getSimpleName(), true,
 					"Should the " + moduleClass.getSimpleName() + " be loaded?")
@@ -75,7 +75,7 @@ public class CompatManager {
 				return;
 			}
 		}
-		if(config){
+		if (config) {
 			if (ConfigTechReborn.config.hasChanged())
 				ConfigTechReborn.config.save();
 			if (!shouldLoad) {

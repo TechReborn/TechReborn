@@ -10,7 +10,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.recipe.IRecipeCrafterProvider;
@@ -26,7 +26,6 @@ import techreborn.api.recipe.ITileRecipeHandler;
 import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
-import techreborn.init.ModFluids;
 
 import static techreborn.tiles.multiblock.MultiblockChecker.CASING_NORMAL;
 import static techreborn.tiles.multiblock.MultiblockChecker.CASING_REINFORCED;
@@ -132,7 +131,7 @@ public class TileIndustrialGrinder extends TilePowerAcceptor
 
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
+		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 			return true;
 		}
 		return super.hasCapability(capability, facing);
@@ -140,7 +139,7 @@ public class TileIndustrialGrinder extends TilePowerAcceptor
 
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
+		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 			return (T) tank;
 		}
 		return super.getCapability(capability, facing);

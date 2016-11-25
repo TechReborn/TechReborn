@@ -14,7 +14,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.commons.lang3.time.StopWatch;
 import reborncore.api.recipe.RecipeHandler;
@@ -32,7 +31,6 @@ import techreborn.compat.CompatManager;
 import techreborn.compat.ICompatModule;
 import techreborn.config.ConfigTechReborn;
 import techreborn.dispenser.BehaviorDispenseScrapbox;
-import techreborn.entitys.EntityNukePrimed;
 import techreborn.events.BlockBreakHandler;
 import techreborn.events.OreUnifier;
 import techreborn.events.TRTickHandler;
@@ -99,7 +97,7 @@ public class Core {
 		// Register ModItems
 		ModItems.init();
 		// Entitys
-	//	EntityRegistry.registerModEntity(EntityNukePrimed.class, "nuke", 0, INSTANCE, 160, 5, true);
+		//	EntityRegistry.registerModEntity(EntityNukePrimed.class, "nuke", 0, INSTANCE, 160, 5, true);
 
 		proxy.preInit(event);
 

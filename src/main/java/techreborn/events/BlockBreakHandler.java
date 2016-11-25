@@ -5,7 +5,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import techreborn.items.ItemGems;
-import techreborn.items.ItemParts;
 import techreborn.utils.OreDictUtils;
 
 /**
@@ -13,14 +12,14 @@ import techreborn.utils.OreDictUtils;
  */
 public class BlockBreakHandler {
 
-    @SubscribeEvent
-    public void onBlockHarvest(BlockEvent.HarvestDropsEvent event) {
-        for (ItemStack ore : event.getDrops()) {
-            if (OreDictUtils.isOre(ore, "gemRuby")) {
-                EntityItem item = new EntityItem(event.getWorld(), event.getPos().getX(), event.getPos().getY(), event.getPos().getZ(),
-                        ItemGems.getGemByName("redGarnet").copy());
-                event.getWorld().spawnEntity(item);
-            }
-        }
-    }
+	@SubscribeEvent
+	public void onBlockHarvest(BlockEvent.HarvestDropsEvent event) {
+		for (ItemStack ore : event.getDrops()) {
+			if (OreDictUtils.isOre(ore, "gemRuby")) {
+				EntityItem item = new EntityItem(event.getWorld(), event.getPos().getX(), event.getPos().getY(), event.getPos().getZ(),
+					ItemGems.getGemByName("redGarnet").copy());
+				event.getWorld().spawnEntity(item);
+			}
+		}
+	}
 }

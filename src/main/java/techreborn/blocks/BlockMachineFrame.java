@@ -17,7 +17,6 @@ import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
 
 import java.security.InvalidParameterException;
-import java.util.List;
 
 public class BlockMachineFrame extends BaseBlock implements ITexturedBlock {
 	public static final String[] types = new String[] { "machine", "advancedMachine", "highlyAdvancedMachine" };

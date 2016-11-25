@@ -9,7 +9,6 @@ import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
 
 import java.security.InvalidParameterException;
-import java.util.List;
 
 public class ItemIngots extends ItemTextureBase {
 	public static final String[] types = new String[] { "aluminum", "brass", "bronze", "chrome", "copper", "electrum",

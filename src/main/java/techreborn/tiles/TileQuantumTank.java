@@ -12,7 +12,6 @@ import reborncore.api.IListInfoProvider;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.tile.TileLegacyMachineBase;
-import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
@@ -72,7 +71,7 @@ public class TileQuantumTank extends TileLegacyMachineBase
 
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
+		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 			return true;
 		}
 		return super.hasCapability(capability, facing);
@@ -80,7 +79,7 @@ public class TileQuantumTank extends TileLegacyMachineBase
 
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
+		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 			return (T) tank;
 		}
 		return super.getCapability(capability, facing);

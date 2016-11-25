@@ -17,7 +17,6 @@ import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModBlocks;
 
 import java.security.InvalidParameterException;
-import java.util.List;
 import java.util.Random;
 
 public class BlockStorage2 extends BaseBlock implements ITexturedBlock {

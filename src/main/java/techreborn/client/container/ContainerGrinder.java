@@ -1,17 +1,11 @@
 package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumFacing;
-import reborncore.api.tile.IContainerLayout;
 import reborncore.client.gui.slots.BaseSlot;
 import reborncore.client.gui.slots.SlotInput;
 import reborncore.client.gui.slots.SlotOutput;
-import reborncore.common.recipes.RecipeCrafter;
 import techreborn.api.gui.SlotUpgrade;
 import techreborn.tiles.teir1.TileGrinder;
-
-import javax.annotation.Nullable;
-import java.util.List;
 
 public class ContainerGrinder extends ContainerCrafting {
 
@@ -31,7 +25,6 @@ public class ContainerGrinder extends ContainerCrafting {
 		return true;
 	}
 
-
 	public void addInventorySlots() {
 		// input
 		this.addSlotToContainer(new SlotInput(tile.inventory, 0, 56, 34));
@@ -45,7 +38,6 @@ public class ContainerGrinder extends ContainerCrafting {
 
 		addPlayerSlots();
 	}
-
 
 	public void addPlayerSlots() {
 		int i;

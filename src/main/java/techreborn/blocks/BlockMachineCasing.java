@@ -21,7 +21,6 @@ import reborncore.common.multiblock.BlockMultiblockBase;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileMachineCasing;
 
-import java.util.List;
 import java.util.Random;
 
 public class BlockMachineCasing extends BlockMultiblockBase implements ITexturedBlock {

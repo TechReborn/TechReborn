@@ -17,7 +17,7 @@ public class CompatModuleTinkers implements ICompatModule {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
-	//	TinkersFluids.init();
+		//	TinkersFluids.init();
 	}
 
 	@Override

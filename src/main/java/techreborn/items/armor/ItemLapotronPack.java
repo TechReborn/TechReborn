@@ -20,8 +20,6 @@ import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
 import techreborn.lib.ModInfo;
 
-import java.util.List;
-
 public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo, ITexturedItem {
 
 	public static final int maxCharge = ConfigTechReborn.LapotronPackCharge;

@@ -10,7 +10,6 @@ import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
 
 import java.security.InvalidParameterException;
-import java.util.List;
 
 public class ItemDusts extends ItemTextureBase {
 	public static final String[] types = new String[] { "almandine", "aluminum", "andradite", "ashes", "basalt",

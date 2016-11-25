@@ -7,7 +7,6 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import reborncore.api.fuel.FluidPowerManager;
 import reborncore.api.power.EnumPowerTier;
@@ -57,7 +56,7 @@ public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchabl
 
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
+		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 			return true;
 		}
 		return super.hasCapability(capability, facing);
@@ -65,7 +64,7 @@ public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchabl
 
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
+		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 			return (T) tank;
 		}
 		return super.getCapability(capability, facing);

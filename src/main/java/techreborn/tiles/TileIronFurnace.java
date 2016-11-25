@@ -7,7 +7,6 @@ import net.minecraft.tileentity.TileEntityFurnace;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.tile.TileLegacyMachineBase;
-import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.Inventory;
 
 public class TileIronFurnace extends TileLegacyMachineBase implements IInventoryProvider {

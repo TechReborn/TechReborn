@@ -453,7 +453,7 @@ public class ModRecipes {
 					continue;
 				}
 				dust = dust.copy();
-				if(ore){
+				if (ore) {
 					dust.setCount(2);
 				}
 				RecipeHandler.addRecipe(new GrinderRecipe(oreStack, dust, ore ? 270 : 200, ore ? 31 : 22));
@@ -1013,7 +1013,7 @@ public class ModRecipes {
 				"circuitBasic");
 
 		TechRebornAPI
-			.addRollingOreMachinceRecipe(ItemParts.getPartByName("cupronickelHeatingCoil",3), "NCN", "C C", "NCN",
+			.addRollingOreMachinceRecipe(ItemParts.getPartByName("cupronickelHeatingCoil", 3), "NCN", "C C", "NCN",
 				'N', "ingotNickel", 'C', "ingotCopper");
 
 		RecipeHandler.addRecipe(new VacuumFreezerRecipe(ItemIngots.getIngotByName("hotTungstensteel"),
@@ -2080,8 +2080,8 @@ public class ModRecipes {
 				getOre("ic2Extractor"));
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.BlastFurnace), "CHC", "HBH", "FHF", 'H',
-				ItemParts.getPartByName("cupronickelHeatingCoil"), 'C', "circuitAdvanced", 'B',
-				BlockMachineFrame.getFrameByName("advancedMachine", 1), 'F', ModBlocks.ElectricFurnace);
+			ItemParts.getPartByName("cupronickelHeatingCoil"), 'C', "circuitAdvanced", 'B',
+			BlockMachineFrame.getFrameByName("advancedMachine", 1), 'F', ModBlocks.ElectricFurnace);
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.IndustrialGrinder), "ECP", "GGG", "CBC", 'E',
 			ModBlocks.IndustrialElectrolyzer, 'P', ModBlocks.Extractor, 'C',

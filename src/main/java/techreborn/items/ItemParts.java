@@ -13,7 +13,6 @@ import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
 
 import java.security.InvalidParameterException;
-import java.util.List;
 
 public class ItemParts extends ItemTextureBase {
 	public static final String[] types = new String[] { "energyFlowCircuit", "dataControlCircuit", "dataStorageCircuit",

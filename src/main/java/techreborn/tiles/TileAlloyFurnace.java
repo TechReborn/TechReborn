@@ -13,7 +13,6 @@ import reborncore.api.recipe.RecipeHandler;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.tile.TileLegacyMachineBase;
-import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.api.Reference;

@@ -9,7 +9,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.PowerSystem;
@@ -134,7 +137,7 @@ public class TilePump extends TilePowerAcceptor {
 
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
+		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 			return true;
 		}
 		return super.hasCapability(capability, facing);
@@ -142,7 +145,7 @@ public class TilePump extends TilePowerAcceptor {
 
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
+		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 			return (T) tank;
 		}
 		return super.getCapability(capability, facing);

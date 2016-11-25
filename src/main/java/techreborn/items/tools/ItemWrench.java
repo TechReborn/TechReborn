@@ -51,7 +51,7 @@ public class ItemWrench extends ItemTR implements ITexturedItem {
 	@Override
 	public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos,
 	                                       EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
-		if(!PermissionAPI.hasPermission(player.getGameProfile(), RebornPermissions.WRENCH_BLOCK, new BlockPosContext(player, pos, world.getBlockState(pos), side))){
+		if (!PermissionAPI.hasPermission(player.getGameProfile(), RebornPermissions.WRENCH_BLOCK, new BlockPosContext(player, pos, world.getBlockState(pos), side))) {
 			return EnumActionResult.FAIL;
 		}
 		if (CompatManager.isIC2Loaded) {
@@ -82,7 +82,7 @@ public class ItemWrench extends ItemTR implements ITexturedItem {
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos,
 	                                  EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if(!PermissionAPI.hasPermission(player.getGameProfile(), RebornPermissions.WRENCH_BLOCK, new BlockPosContext(player, pos, world.getBlockState(pos), facing))){
+		if (!PermissionAPI.hasPermission(player.getGameProfile(), RebornPermissions.WRENCH_BLOCK, new BlockPosContext(player, pos, world.getBlockState(pos), facing))) {
 			return EnumActionResult.FAIL;
 		}
 		if (CompatManager.isIC2Loaded) {

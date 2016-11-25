@@ -10,7 +10,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.api.IListInfoProvider;
@@ -22,7 +21,6 @@ import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
 import techreborn.init.ModBlocks;
-import techreborn.init.ModFluids;
 import techreborn.items.ItemDusts;
 
 import java.util.Random;
@@ -153,7 +151,7 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
 
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
+		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 			return true;
 		}
 		return super.hasCapability(capability, facing);
@@ -161,7 +159,7 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
 
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
+		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 			return (T) tank;
 		}
 		return super.getCapability(capability, facing);

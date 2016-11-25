@@ -42,8 +42,8 @@ public class TRTickHandler {
 		MinecraftForge.EVENT_BUS.post(new PowerTickEvent());
 		long elapsed = System.nanoTime() - start;
 		tickTime += elapsed;
-		ticksCounted ++;
-		if(ticksCounted == 20 * 5){
+		ticksCounted++;
+		if (ticksCounted == 20 * 5) {
 			//Enable this this line to get some infomation when debuging.
 			//System.out.println("Average powernet tick time over last 5 seconds: " + (tickTime / ticksCounted) + "ns");
 			ticksCounted = 0;

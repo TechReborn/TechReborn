@@ -16,7 +16,6 @@ import reborncore.common.BaseBlock;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModBlocks;
 
-import java.util.List;
 import java.util.Random;
 
 public class BlockStorage extends BaseBlock implements ITexturedBlock {

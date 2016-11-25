@@ -27,8 +27,6 @@ import org.apache.commons.lang3.Validate;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModItems;
 
-import java.util.List;
-
 /**
  * Created by modmuss50 on 17/05/2016.
  */

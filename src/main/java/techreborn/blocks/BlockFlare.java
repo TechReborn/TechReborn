@@ -7,7 +7,6 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -22,7 +21,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.tiles.TileEntityFlare;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 /**

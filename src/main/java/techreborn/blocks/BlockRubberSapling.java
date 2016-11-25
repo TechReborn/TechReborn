@@ -12,7 +12,6 @@ import net.minecraft.world.World;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.world.RubberTreeGenerator;
 
-import java.util.List;
 import java.util.Random;
 
 /**

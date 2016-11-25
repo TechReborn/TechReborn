@@ -11,7 +11,6 @@ import techreborn.lib.ModInfo;
 import techreborn.utils.OreDictUtils;
 
 import java.security.InvalidParameterException;
-import java.util.List;
 
 public class ItemPlates extends ItemTextureBase {
 

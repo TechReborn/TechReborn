@@ -83,7 +83,7 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, ITexturedI
 	}
 
 	@Override
-	public EnumActionResult onItemUse( EntityPlayer playerIn, World worldIn, BlockPos pos,
+	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos,
 	                                  EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		return TorchHelper.placeTorch(playerIn.getHeldItem(hand), playerIn, worldIn, pos, facing, hitX, hitY, hitZ, hand);
 	}
