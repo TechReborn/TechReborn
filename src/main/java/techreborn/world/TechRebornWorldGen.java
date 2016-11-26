@@ -202,7 +202,7 @@ public class TechRebornWorldGen implements IWorldGenerator {
 		boolean genTree = false;
 		List<OreConfig> list = new ArrayList<>();
 		Predicate<IBlockState> predicate = BlockMatcher.forBlock(Blocks.STONE);
-		if (world.provider.getDimension() == 0) {
+		if (world.provider.isSurfaceWorld()) {
 			list.addAll(getAllGenOresFromList(config.overworldOres));
 			genTree = true;
 		} else if (world.provider.getDimension() == -1) {
