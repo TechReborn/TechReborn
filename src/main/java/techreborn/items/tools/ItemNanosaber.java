@@ -52,7 +52,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 				                   World worldIn,
 			                   @Nullable
 				                   EntityLivingBase entityIn) {
-				if (stack != null && stack.getTagCompound().getBoolean("isActive")) {
+				if (stack != null && stack.hasTagCompound() && stack.getTagCompound().hasKey("isActive") && stack.getTagCompound().getBoolean("isActive")) {
 					return 1.0F;
 				}
 				return 0.0F;
