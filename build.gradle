@@ -54,6 +54,11 @@ repositories {
         name = "ic2"
         url = "http://maven.ic2.player.to/"
     }
+	
+    maven {// HWYLA
+        name "TehNut"
+        url "http://tehnut.info/maven/"
+    }
 }
 
 configurations {
@@ -95,14 +100,15 @@ dependencies {
         f.mkdir()
     }
 	deobfCompile 'RebornCore:RebornCore-1.11:+:universal'
-    deobfCompile "mezz.jei:jei_1.11:+"
-    //1.11 updates
-//  compile "net.darkhax.tesla:Tesla:1.9.4-1.1.0.24:deobf"
-//	deobfCompile "slimeknights:TConstruct:1.10.2-2.5.3.jenkins384"
-//	deobfCompile "slimeknights.mantle:Mantle:1.10.2-1.0.0.jenkins170"
-    deobfCompile "mcjty.theoneprobe:TheOneProbe:1.11-1.3.3-46"
-    //Only API untill 
-    deobfCompile 'net.industrial-craft:industrialcraft-2:2.6.58-ex110:api'
+	deobfCompile "mezz.jei:jei_1.11:+"
+	compile "mcp.mobius.waila:Hwyla:+"
+	//1.11 updates
+	//compile "net.darkhax.tesla:Tesla:1.9.4-1.1.0.24:deobf"
+	//deobfCompile "slimeknights:TConstruct:1.10.2-2.5.3.jenkins384"
+	//deobfCompile "slimeknights.mantle:Mantle:1.10.2-1.0.0.jenkins170"
+	deobfCompile "mcjty.theoneprobe:TheOneProbe:1.11-1.3.3-46"
+	//Only API until ... 
+	deobfCompile 'net.industrial-craft:industrialcraft-2:2.6.58-ex110:api'
 }
 
 
