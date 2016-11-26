@@ -273,3 +273,32 @@ configurations.all {
 }
 
 apply from: 'https://github.com/FabricMC/fabric-docs/raw/master/gradle/ideconfig.gradle'
+
+import org.apache.commons.io.FileUtils;
+import groovy.util.XmlSlurper;
+import java.io.File;
+
+task curseTools << {
+	def cacheFiles = new File(".gradle/curseTools")
+	if (!cacheFiles.exists()) cacheFiles.mkdirs()
+
+	def mavenMetadata = new File(cacheFiles, "maven-metadata.xml")
+
+	logger.lifecycle(":downloading curseTools metadata")
+	FileUtils.copyURLToFile(new URL("http://maven.modmuss50.me/CurseTools/CurseTools/maven-metadata.xml"), mavenMetadata)
+
+	def metadata = new XmlSlurper().parseText(FileUtils.readFileToString(mavenMetadata))
+	def curseToolsVersion = metadata.versioning.release
+
+	def curseTools = new File(cacheFiles, "${curseToolsVersion}.jar")
+
+	logger.lifecycle(":downloading CurseTools")
+	FileUtils.copyURLToFile(new URL("http://maven.modmuss50.me/CurseTools/CurseTools/${curseToolsVersion}/CurseTools-${curseToolsVersion}.jar"), curseTools)
+
+	logger.lifecycle(":launching CurseTools")
+	ant.java(jar: curseTools.getAbsolutePath(), fork: true, spawn: false) {
+		arg(value: jar.archivePath.getAbsolutePath())
+		arg(value: deobfJar.archivePath.getAbsolutePath())
+		arg(value: apiJar.archivePath.getAbsolutePath())
+	}
+}
