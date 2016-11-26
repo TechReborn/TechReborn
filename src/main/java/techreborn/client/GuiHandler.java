@@ -99,7 +99,7 @@ public class GuiHandler implements IGuiHandler {
 		} else if (ID == chunkloaderID) {
 			return new ContainerChunkloader((TileChunkLoader) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == assemblingmachineID) {
-			container = new ContainerAssemblingMachine();
+			container = new ContainerAssemblingMachine(player, (TileAssemblingMachine) world.getTileEntity(new BlockPos(x, y, z)));
 		} else if (ID == dieselGeneratorID) {
 			return new ContainerDieselGenerator((TileDieselGenerator) world.getTileEntity(new BlockPos(x, y, z)),
 				player);
