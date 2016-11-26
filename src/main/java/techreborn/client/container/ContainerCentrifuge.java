@@ -5,24 +5,33 @@ import net.minecraft.util.EnumFacing;
 import reborncore.api.tile.IContainerLayout;
 import reborncore.client.gui.BaseSlot;
 import reborncore.client.gui.SlotOutput;
+import reborncore.common.recipes.RecipeCrafter;
 import techreborn.api.gui.SlotUpgrade;
 import techreborn.tiles.TileCentrifuge;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ContainerCentrifuge extends ContainerCrafting implements IContainerLayout<TileCentrifuge> {
+public class ContainerCentrifuge extends ContainerCrafting {
 
 	public int tickTime;
 	EntityPlayer player;
 	TileCentrifuge tile;
+
+	public ContainerCentrifuge(EntityPlayer player, TileCentrifuge tile) {
+		super(tile.crafter);
+		this.player = player;
+		this.tile = tile;
+		addInventorySlots();
+		addPlayerSlots();
+	}
 
 	@Override
 	public boolean canInteractWith(EntityPlayer player) {
 		return true;
 	}
 
-	@Override
+
 	public void addInventorySlots() {
 		// input
 		this.addSlotToContainer(new BaseSlot(tile.inventory, 0, 80, 35));
@@ -41,7 +50,7 @@ public class ContainerCentrifuge extends ContainerCrafting implements IContainer
 		this.addSlotToContainer(new SlotUpgrade(tile.inventory, 10, 152, 62));
 	}
 
-	@Override
+
 	public void addPlayerSlots() {
 		int i;
 
@@ -56,32 +65,4 @@ public class ContainerCentrifuge extends ContainerCrafting implements IContainer
 		}
 	}
 
-	@Override
-	public void setTile(TileCentrifuge tile) {
-		this.tile = tile;
-		this.crafter = tile.crafter;
-	}
-
-	@Nullable
-	@Override
-	public TileCentrifuge getTile() {
-		return tile;
-	}
-
-	@Override
-	public void setPlayer(EntityPlayer player) {
-		this.player = player;
-	}
-
-	@Nullable
-	@Override
-	public EntityPlayer getPlayer() {
-		return player;
-	}
-
-	@Nullable
-	@Override
-	public List<Integer> getSlotsForSide(EnumFacing facing) {
-		return null;
-	}
 }

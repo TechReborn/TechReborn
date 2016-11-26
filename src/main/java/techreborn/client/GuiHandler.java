@@ -80,7 +80,7 @@ public class GuiHandler implements IGuiHandler {
 		} else if (ID == quantumChestID) {
 			return new ContainerQuantumChest((TileQuantumChest) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == centrifugeID) {
-			container = new ContainerCentrifuge();
+			container = new ContainerCentrifuge(player, (TileCentrifuge) world.getTileEntity(new BlockPos(x, y, z)));
 		} else if (ID == rollingMachineID) {
 			return new ContainerRollingMachine((TileRollingMachine) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == blastFurnaceID) {
