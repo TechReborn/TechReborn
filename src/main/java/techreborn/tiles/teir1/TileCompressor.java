@@ -26,10 +26,8 @@ public class TileCompressor extends TilePowerAcceptor implements IWrenchable, II
 
 	public TileCompressor() {
 		super(1);
-		int[] inputs = new int[1];
-		inputs[0] = 0;
-		int[] outputs = new int[1];
-		outputs[0] = 1;
+		int[] inputs = new int[] { 0 };
+		int[] outputs = new int[] { 1 };
 		crafter = new RecipeCrafter(Reference.compressorRecipe, this, 2, 1, inventory, inputs, outputs);
 		upgradeHandler = new UpgradeHandler(crafter, inventory, 2, 3, 4, 5);
 	}
@@ -78,15 +76,13 @@ public class TileCompressor extends TilePowerAcceptor implements IWrenchable, II
 	}
 
 	@Override
-	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
-		if (slotIndex == 2)
-			return false;
-		return isItemValidForSlot(slotIndex, itemStack);
+	public boolean canInsertItem(int Index, ItemStack itemStack, EnumFacing side) {
+		return Index == 0;
 	}
 
 	@Override
-	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
-		return slotIndex == 1;
+	public boolean canExtractItem(int Index, ItemStack itemStack, EnumFacing side) {
+		return Index == 1;
 	}
 
 	public int getProgressScaled(int scale) {
