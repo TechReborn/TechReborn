@@ -7,24 +7,33 @@ import reborncore.client.gui.BaseSlot;
 import reborncore.client.gui.SlotCharge;
 import reborncore.client.gui.SlotInput;
 import reborncore.client.gui.SlotOutput;
+import reborncore.common.recipes.RecipeCrafter;
 import techreborn.api.gui.SlotUpgrade;
 import techreborn.tiles.TileAlloySmelter;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ContainerAlloySmelter extends ContainerCrafting implements IContainerLayout<TileAlloySmelter> {
+public class ContainerAlloySmelter extends ContainerCrafting {
 
 	public int tickTime;
 	EntityPlayer player;
 	TileAlloySmelter tile;
+
+	public ContainerAlloySmelter(EntityPlayer player, TileAlloySmelter tile) {
+		super(tile.crafter);
+		this.player = player;
+		this.tile = tile;
+		addPlayerSlots();
+		addInventorySlots();
+	}
 
 	@Override
 	public boolean canInteractWith(EntityPlayer player) {
 		return true;
 	}
 
-	@Override
+
 	public void addInventorySlots() {
 
 		// input
@@ -41,7 +50,7 @@ public class ContainerAlloySmelter extends ContainerCrafting implements IContain
 		this.addSlotToContainer(new SlotUpgrade(tile.inventory, 7, 152, 62));
 	}
 
-	@Override
+
 	public void addPlayerSlots() {
 		int i;
 
@@ -56,32 +65,4 @@ public class ContainerAlloySmelter extends ContainerCrafting implements IContain
 		}
 	}
 
-	@Override
-	public void setTile(TileAlloySmelter tile) {
-		this.tile = tile;
-		setCrafter(tile.crafter);
-	}
-
-	@Nullable
-	@Override
-	public TileAlloySmelter getTile() {
-		return tile;
-	}
-
-	@Override
-	public void setPlayer(EntityPlayer player) {
-		this.player = player;
-	}
-
-	@Nullable
-	@Override
-	public EntityPlayer getPlayer() {
-		return player;
-	}
-
-	@Nullable
-	@Override
-	public List<Integer> getSlotsForSide(EnumFacing facing) {
-		return null;
-	}
 }

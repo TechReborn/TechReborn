@@ -86,7 +86,7 @@ public class GuiHandler implements IGuiHandler {
 		} else if (ID == blastFurnaceID) {
 			return new ContainerBlastFurnace((TileBlastFurnace) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == alloySmelterID) {
-			container = new ContainerAlloySmelter();
+			container = new ContainerAlloySmelter(player, (TileAlloySmelter) world.getTileEntity(new BlockPos(x, y, z)));
 		} else if (ID == industrialGrinderID) {
 			return new ContainerIndustrialGrinder((TileIndustrialGrinder) world.getTileEntity(new BlockPos(x, y, z)),
 				player);
