@@ -67,14 +67,11 @@ public class ModBlocks {
 	public static Block Idsu;
 	public static Block Aesu;
 	public static Block Lesu;
-	public static Block Supercondensator;
 	public static Block LesuStorage;
 	public static Block Distillationtower;
 	public static Block ElectricCraftingTable;
 	public static Block VacuumFreezer;
-	public static Block PlasmaGenerator;
 	public static Block FusionControlComputer;
-	public static Block ComputerCube;
 	public static Block FusionCoil;
 	public static Block LightningRod;
 	public static Block heatGenerator;
@@ -97,7 +94,6 @@ public class ModBlocks {
 	public static Block lvt;
 	public static Block mvt;
 	public static Block hvt;
-	public static Block pump;
 
 	public static BlockOre ore;
 	public static BlockOre2 ore2;
@@ -279,9 +275,6 @@ public class ModBlocks {
 		registerBlock(Lesu, "lesu");
 		GameRegistry.registerTileEntity(TileLesu.class, "TileLesuTR");
 
-		Supercondensator = new BlockSupercondensator(Material.ROCK);
-		registerBlock(Supercondensator, "supercondensator");
-
 		LesuStorage = new BlockLESUStorage(Material.ROCK);
 		registerBlock(LesuStorage, "lesustorage");
 		GameRegistry.registerTileEntity(TileLesuStorage.class, "TileLesuStorageTR");
@@ -303,13 +296,6 @@ public class ModBlocks {
 		registerBlock(VacuumFreezer, "vacuumfreezer");
 		GameRegistry.registerTileEntity(TileVacuumFreezer.class, "TileVacuumFreezerTR");
 		Core.proxy.registerCustomBlockStateLocation(VacuumFreezer, "machines/tier2_machines/vacuum_freezer");
-
-		PlasmaGenerator = new BlockPlasmaGenerator(Material.ROCK);
-		registerBlock(PlasmaGenerator, "plasmagenerator");
-
-		ComputerCube = new BlockComputerCube(Material.ROCK);
-		registerBlock(ComputerCube, "computercube");
-		Core.proxy.registerCustomBlockStateLocation(ComputerCube, "machines/machines/tier2_machines/computer_cube");
 
 		FusionControlComputer = new BlockFusionControlComputer(Material.ROCK);
 		registerBlock(FusionControlComputer, "fusioncontrolcomputer");
@@ -426,10 +412,6 @@ public class ModBlocks {
 		hvt = new BlockHVTransformer();
 		registerBlock(hvt, "hvt");
 		GameRegistry.registerTileEntity(TileHVTransformer.class, "TileHVTransformer");
-
-		pump = new BlockPump();
-		registerBlock(pump, "pump");
-		GameRegistry.registerTileEntity(TilePump.class, "TilePump");
 
 		ironFurnace = new BlockIronFurnace();
 		registerBlock(ironFurnace, "ironfurnace");
