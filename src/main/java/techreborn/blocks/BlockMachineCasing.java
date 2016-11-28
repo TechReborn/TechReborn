@@ -10,6 +10,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
@@ -91,5 +92,9 @@ public class BlockMachineCasing extends BlockMultiblockBase  {
 		return b != this && super.shouldSideBeRendered(blockState, worldIn, pos, side);
 	}
 
+	@Override
+	public boolean canRenderInLayer(BlockRenderLayer layer) {
+		return true;
+	}
 
 }
