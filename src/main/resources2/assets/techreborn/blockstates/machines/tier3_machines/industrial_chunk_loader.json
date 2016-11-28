@@ -1,0 +1,49 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "transform": "forge:default-block",
+    "model": "orientable",
+    "textures": {
+      "particle": "techreborn:blocks/machines/tier3_machines/industrial_chunkloader_side",
+      "top": "techreborn:blocks/machines/tier3_machines/industrial_chunkloader_top",
+      "side": "techreborn:blocks/machines/tier3_machines/industrial_chunkloader_side",
+      "bottom": "techreborn:blocks/machines/tier3_machines/machine_bottom",
+      "front": "techreborn:blocks/machines/tier3_machines/industrial_chunkloader_side"
+    }
+  },
+  "variants": {
+    "inventory": {
+      "transform": "forge:default-block",
+      "textures": {
+      }
+    },
+    "facing": {
+      "north": {
+      },
+      "east": {
+        "y": 90
+      },
+      "south": {
+        "y": 180
+      },
+      "west": {
+        "y": 270
+      }
+    },
+    "active": {
+      "true": {
+        "textures": {
+        }
+      },
+      "false": {
+        "textures": {
+        }
+      }
+    },
+    "inventory": {
+      "model": "orientable",
+      "textures": {
+      }
+    }
+  }
+}

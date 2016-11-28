@@ -1,0 +1,55 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "transform": "forge:default-block",
+    "model": "orientable",
+    "textures": {
+      "particle": "techreborn:blocks/machines/generators/solar_panel_side_off",
+      "west": "techreborn:blocks/machines/generators/wind_mill_left",
+      "east": "techreborn:blocks/machines/generators/wind_mill_right",
+      "south": "techreborn:blocks/machines/generators/generator_bottom",
+      "top": "techreborn:blocks/machines/generators/wind_mill_top",
+      "down": "techreborn:blocks/machines/generators/wind_mill_bottom"
+    }
+  },
+  "variants": {
+    "inventory": {
+      "transform": "forge:default-block",
+      "textures": {
+        "north": "techreborn:blocks/machines/generators/wind_mill_front_off"
+      }
+    },
+    "facing": {
+      "north": {
+      },
+      "east": {
+        "y": 90
+      },
+      "south": {
+        "y": 180
+      },
+      "west": {
+        "y": 270
+      }
+    },
+    "active": {
+      "true": {
+        "textures": {
+          "north": "techreborn:blocks/machines/generators/wind_mill_front_off"
+        }
+      },
+      "false": {
+        "textures": {
+          "north": "techreborn:blocks/machines/generators/wind_mill_front_on"
+        }
+      }
+    },
+    "inventory": {
+      "model": "orientable",
+      "textures": {
+        "north": "techreborn:blocks/machines/generators/wind_mill_front_off"
+      }
+    }
+  }
+}
+

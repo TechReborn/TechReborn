@@ -27,7 +27,7 @@ import java.util.Random;
  */
 public abstract class BlockEnergyStorage extends BaseTileBlock implements IRotationTexture, ITexturedBlock {
 	public static PropertyDirection FACING = PropertyDirection.create("facing", Facings.ALL);
-	protected final String prefix = "techreborn:blocks/machine/storage/";
+	protected final String prefix = "techreborn:blocks/machines/energy/";
 	public String name;
 	public int guiID;
 
@@ -119,27 +119,27 @@ public abstract class BlockEnergyStorage extends BaseTileBlock implements IRotat
 
 	@Override
 	public String getFrontOff() {
-		return prefix + name.toLowerCase() + "_front";
+		return prefix + getSimpleName(name.toLowerCase()) + "_front";
 	}
 
 	@Override
 	public String getFrontOn() {
-		return prefix + name.toLowerCase() + "_front";
+		return prefix + getSimpleName(name.toLowerCase()) + "_front";
 	}
 
 	@Override
 	public String getSide() {
-		return prefix + name.toLowerCase() + "_side";
+		return prefix + getSimpleName(name.toLowerCase()) + "_side";
 	}
 
 	@Override
 	public String getTop() {
-		return prefix + name.toLowerCase() + "_top";
+		return prefix + getSimpleName(name.toLowerCase()) + "_side";
 	}
 
 	@Override
 	public String getBottom() {
-		return prefix + name.toLowerCase() + "_bottom";
+		return prefix + getSimpleName(name.toLowerCase()) + "_side";
 	}
 
 	@Override
@@ -189,6 +189,28 @@ public abstract class BlockEnergyStorage extends BaseTileBlock implements IRotat
 		public Iterator<EnumFacing> iterator() {
 			return Iterators.forArray(this.facings());
 		}
+	}
+
+	public String getSimpleName(String fullName) {
+		if (fullName.equalsIgnoreCase("Batbox")) {
+			return "lv_storage";
+		}
+		if (fullName.equalsIgnoreCase("MFE")) {
+			return "mv_storage";
+		}
+		if (fullName.equalsIgnoreCase("MFSU")) {
+			return "hv_storage";
+		}
+		if (fullName.equalsIgnoreCase("AESU")) {
+			return "ev_storage_adjust";
+		}
+		if (fullName.equalsIgnoreCase("IDSU")) {
+			return "ev_storage_transmitter";
+		}
+		if (fullName.equalsIgnoreCase("LESU")) {
+			return "ev_multi";
+		}
+		return fullName.toLowerCase();
 	}
 
 }

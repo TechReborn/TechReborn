@@ -1,0 +1,7 @@
+T2:
+- Hue Pencil : 60564a
+- Curves: X 170 Y 120
+
+T3:
+- Hue / Saturation : Hue -160 Saturation -55
+

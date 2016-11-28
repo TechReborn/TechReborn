@@ -1,0 +1,26 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {},
+    "transform": "forge:default-block",
+    "model": "techreborn:machine_casing_standard"
+  },
+  "variants": {
+    "type": {
+      "standard":
+        {
+          "model": "techreborn:machine_casing_standard"
+        },
+      "reinforced": [
+        {
+          "model": "techreborn:machine_casing_standard"
+        }
+      ],
+      "advanced": [
+        {
+          "model": "techreborn:machine_casing_standard"
+        }
+      ]
+    }
+  }
+}

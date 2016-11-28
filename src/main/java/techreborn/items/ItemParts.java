@@ -75,7 +75,7 @@ public class ItemParts extends ItemTextureBase {
 
 	@Override
 	public String getTextureName(int damage) {
-		return ModInfo.MOD_ID + ":items/part/" + types[damage];
+		return ModInfo.MOD_ID + ":items/part/" + types[damage].toLowerCase();
 	}
 
 	@Override

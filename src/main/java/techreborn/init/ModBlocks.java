@@ -120,55 +120,67 @@ public class ModBlocks {
 		thermalGenerator = new BlockThermalGenerator();
 		registerBlock(thermalGenerator, "techreborn.thermalGenerator");
 		GameRegistry.registerTileEntity(TileThermalGenerator.class, "TileThermalGeneratorTR");
+		Core.proxy.registerCustomBlockStateLocation(thermalGenerator, "machines/generators/thermal_generator");
 
 		quantumTank = new BlockQuantumTank();
 		registerBlock(quantumTank, ItemBlockQuantumTank.class, "techreborn.quantumTank");
 		GameRegistry.registerTileEntity(TileQuantumTank.class, "TileQuantumTankTR");
+		Core.proxy.registerCustomBlockStateLocation(quantumTank, "machines/tier3_machines/quantum_tank");
 
 		quantumChest = new BlockQuantumChest();
 		registerBlock(quantumChest, ItemBlockQuantumChest.class, "techreborn.quantumChest");
 		GameRegistry.registerTileEntity(TileQuantumChest.class, "TileQuantumChestTR");
+		Core.proxy.registerCustomBlockStateLocation(quantumChest, "machines/tier3_machines/quantum_chest");
 
 		digitalChest = new BlockDigitalChest();
 		registerBlock(digitalChest, ItemBlockDigitalChest.class, "techreborn.digitalChest");
 		GameRegistry.registerTileEntity(TileDigitalChest.class, "TileDigitalChestTR");
+		Core.proxy.registerCustomBlockStateLocation(digitalChest, "machines/tier2_machines/digital_chest");
 
 		centrifuge = new BlockCentrifuge();
 		registerBlock(centrifuge, "techreborn.centrifuge");
 		GameRegistry.registerTileEntity(TileCentrifuge.class, "TileCentrifugeTR");
-		Core.proxy.registerCustomBlockSateLocation(centrifuge, "machines/centrifuge");
+		Core.proxy.registerCustomBlockStateLocation(centrifuge, "machines/tier2_machines/industrial_centrifuge");
 
 		RollingMachine = new BlockRollingMachine(Material.ROCK);
 		registerBlock(RollingMachine, "rollingmachine");
 		GameRegistry.registerTileEntity(TileRollingMachine.class, "TileRollingMachineTR");
+		Core.proxy.registerCustomBlockStateLocation(RollingMachine, "machines/tier1_machines/rolling_machine");
 
 		BlastFurnace = new BlockBlastFurnace(Material.ROCK);
 		registerBlock(BlastFurnace, "blastFurnace");
 		GameRegistry.registerTileEntity(TileBlastFurnace.class, "TileBlastFurnaceTR");
+		Core.proxy.registerCustomBlockStateLocation(BlastFurnace, "machines/tier2_machines/industrial_blast_furnace");
 
 		AlloySmelter = new BlockAlloySmelter(Material.ROCK);
 		registerBlock(AlloySmelter, "alloySmelter");
 		GameRegistry.registerTileEntity(TileAlloySmelter.class, "TileAlloySmalterTR");
+		Core.proxy.registerCustomBlockStateLocation(AlloySmelter, "machines/tier1_machines/electric_alloy_smelter");
 
 		IndustrialGrinder = new BlockIndustrialGrinder(Material.ROCK);
 		registerBlock(IndustrialGrinder, "grinder");
 		GameRegistry.registerTileEntity(TileIndustrialGrinder.class, "TileIndustrialGrinderTR");
+		Core.proxy.registerCustomBlockStateLocation(IndustrialGrinder, "machines/tier2_machines/industrial_grinder");
 
 		ImplosionCompressor = new BlockImplosionCompressor(Material.ROCK);
 		registerBlock(ImplosionCompressor, "implosioncompressor");
 		GameRegistry.registerTileEntity(TileImplosionCompressor.class, "TileImplosionCompressorTR");
+		Core.proxy.registerCustomBlockStateLocation(ImplosionCompressor, "machines/tier2_machines/implosion_compressor");
 
 		MatterFabricator = new BlockMatterFabricator(Material.ROCK);
 		registerBlock(MatterFabricator, "matterfabricator");
 		GameRegistry.registerTileEntity(TileMatterFabricator.class, "TileMatterFabricatorTR");
+		Core.proxy.registerCustomBlockStateLocation(MatterFabricator, "machines/tier3_machines/matter_fabricator");
 
 		ChunkLoader = new BlockChunkLoader(Material.ROCK);
 		registerBlock(ChunkLoader, "chunkloader");
 		GameRegistry.registerTileEntity(TileChunkLoader.class, "TileChunkLoaderTR");
+		Core.proxy.registerCustomBlockStateLocation(ChunkLoader, "machines/tier3_machines/industrial_chunk_loader");
 
 		chargeBench = new BlockChargeBench(Material.ROCK);
 		registerBlock(chargeBench, "chargebench");
 		GameRegistry.registerTileEntity(TileChargeBench.class, "TileChargeBench");
+		Core.proxy.registerCustomBlockStateLocation(chargeBench, "machines/tier2_machines/charge_bench");
 
 		playerDetector = new BlockPlayerDetector();
 		registerBlock(playerDetector, ItemBlockPlayerDetector.class, "playerDetector");
@@ -177,56 +189,83 @@ public class ModBlocks {
 		MachineCasing = new BlockMachineCasing(Material.ROCK);
 		registerBlock(MachineCasing, ItemBlockMachineCasing.class, "machinecasing");
 		GameRegistry.registerTileEntity(TileMachineCasing.class, "TileMachineCasingTR");
+		Core.proxy.registerCustomBlockStateLocation(MachineCasing, "machines/structure/machine_casing");
+
 
 		ore = new BlockOre(Material.ROCK);
 		registerBlock(ore, ItemBlockOre.class, "techreborn.ore");
+		for (int i = 0; i < BlockOre.ores.length; i++) {
+			Core.proxy.registerSubBlockInventoryLocation(ore, i, "storage/ores", BlockOre.ores[i]);
+		}
 
 		ore2 = new BlockOre2(Material.ROCK);
 		registerBlock(ore2, ItemBlockOre2.class, "techreborn.ore2");
+		for (int i = 0; i < BlockOre2.ores.length; i++) {
+			Core.proxy.registerSubBlockInventoryLocation(ore2, i, "storage/ores", BlockOre2.ores[i]);
+		}
 
 		storage = new BlockStorage(Material.IRON);
 		registerBlock(storage, ItemBlockStorage.class, "techreborn.storage");
+		for (int i = 0; i < BlockStorage.types.length; i++) {
+			Core.proxy.registerSubBlockInventoryLocation(storage, i, "storage/storage", BlockStorage.types[i]);
+		}
 
 		storage2 = new BlockStorage2(Material.IRON);
 		registerBlock(storage2, ItemBlockStorage2.class, "techreborn.storage2");
+		for (int i = 0; i < BlockStorage2.types.length; i++) {
+			Core.proxy.registerSubBlockInventoryLocation(storage2, i, "storage/storage", BlockStorage2.types[i]);
+		}
 
 		Dragoneggenergysiphoner = new BlockDragonEggSiphoner(Material.ROCK);
 		registerBlock(Dragoneggenergysiphoner, "dragoneggenergsiphon");
 		GameRegistry.registerTileEntity(TileDragonEggSiphoner.class, "TileDragonEggSiphonerTR");
+		Core.proxy.registerCustomBlockStateLocation(Dragoneggenergysiphoner, "machines/generators/dragon_egg_syphon");
 
 		Magicenergeyconverter = new BlockMagicEnergyConverter(Material.ROCK);
 		registerBlock(Magicenergeyconverter, "magicenergyconverter");
+		Core.proxy.registerCustomBlockStateLocation(Magicenergeyconverter, "machines/generators/magic_energy_converter");
+
 
 		AssemblyMachine = new BlockAssemblingMachine(Material.ROCK);
 		registerBlock(AssemblyMachine, "assemblymachine");
 		GameRegistry.registerTileEntity(TileAssemblingMachine.class, "TileAssemblyMachineTR");
+		Core.proxy.registerCustomBlockStateLocation(AssemblyMachine, "machines/tier1_machines/assembly_machine");
 
 		DieselGenerator = new BlockDieselGenerator(Material.ROCK);
 		registerBlock(DieselGenerator, "dieselgenerator");
 		GameRegistry.registerTileEntity(TileDieselGenerator.class, "TileDieselGeneratorTR");
+		Core.proxy.registerCustomBlockStateLocation(DieselGenerator, "machines/generators/diesel_generator");
+
 
 		IndustrialElectrolyzer = new BlockIndustrialElectrolyzer(Material.ROCK);
 		registerBlock(IndustrialElectrolyzer, "industrialelectrolyzer");
 		GameRegistry.registerTileEntity(TileIndustrialElectrolyzer.class, "TileIndustrialElectrolyzerTR");
+		Core.proxy.registerCustomBlockStateLocation(IndustrialElectrolyzer, "machines/tier1_machines/industrial_electrolyzer");
+
 
 		MagicalAbsorber = new BlockMagicEnergyAbsorber(Material.ROCK);
 		registerBlock(MagicalAbsorber, "magicrnergyabsorber");
+		Core.proxy.registerCustomBlockStateLocation(MagicalAbsorber, "machines/generators/magic_energy_absorber");
 
 		Semifluidgenerator = new BlockSemiFluidGenerator(Material.ROCK);
 		registerBlock(Semifluidgenerator, "semifluidgenerator");
 		GameRegistry.registerTileEntity(TileSemifluidGenerator.class, "TileSemifluidGeneratorTR");
+		Core.proxy.registerCustomBlockStateLocation(Semifluidgenerator, "machines/generators/semi_fluid_generator");
 
 		Gasturbine = new BlockGasTurbine(Material.ROCK);
 		registerBlock(Gasturbine, "gasturbine");
 		GameRegistry.registerTileEntity(TileGasTurbine.class, "TileGassTurbineTR");
+		Core.proxy.registerCustomBlockStateLocation(Gasturbine, "machines/generators/gas_turbine");
 
 		AlloyFurnace = new BlockAlloyFurnace(Material.ROCK);
 		registerBlock(AlloyFurnace, "alloyfurnace");
 		GameRegistry.registerTileEntity(TileAlloyFurnace.class, "TileAlloyFurnaceTR");
+		Core.proxy.registerCustomBlockStateLocation(AlloyFurnace, "machines/tier0_machines/alloy_furnace");
 
 		ChemicalReactor = new BlockChemicalReactor(Material.ROCK);
 		registerBlock(ChemicalReactor, "chemicalreactor");
 		GameRegistry.registerTileEntity(TileChemicalReactor.class, "TileChemicalReactorTR");
+		Core.proxy.registerCustomBlockStateLocation(ChemicalReactor, "machines/tier1_machines/chemical_reactor");
 
 		Idsu = new BlockIDSU();
 		registerBlock(Idsu, "idsu");
@@ -246,33 +285,46 @@ public class ModBlocks {
 		LesuStorage = new BlockLESUStorage(Material.ROCK);
 		registerBlock(LesuStorage, "lesustorage");
 		GameRegistry.registerTileEntity(TileLesuStorage.class, "TileLesuStorageTR");
+		if (Core.proxy.isCTMAvailable()) {
+			Core.proxy.registerCustomBlockStateLocation(LesuStorage, "machines/energy/ev_multi_storage_ctm");
+		} else {
+			Core.proxy.registerCustomBlockStateLocation(LesuStorage, "machines/energy/ev_multi_storage");
+		}
 
 		Distillationtower = new BlockDistillationTower(Material.ROCK);
 		registerBlock(Distillationtower, "distillationtower");
+		Core.proxy.registerCustomBlockStateLocation(Distillationtower, "machines/tier2_machines/distillation_tower");
 
 		ElectricCraftingTable = new BlockElectricCraftingTable(Material.ROCK);
 		registerBlock(ElectricCraftingTable, "electriccraftingtable");
+		Core.proxy.registerCustomBlockStateLocation(ElectricCraftingTable, "machines/tier1_machines/electric_crafting_table");
 
 		VacuumFreezer = new BlockVacuumFreezer(Material.ROCK);
 		registerBlock(VacuumFreezer, "vacuumfreezer");
 		GameRegistry.registerTileEntity(TileVacuumFreezer.class, "TileVacuumFreezerTR");
+		Core.proxy.registerCustomBlockStateLocation(VacuumFreezer, "machines/tier2_machines/vacuum_freezer");
 
 		PlasmaGenerator = new BlockPlasmaGenerator(Material.ROCK);
 		registerBlock(PlasmaGenerator, "plasmagenerator");
 
 		ComputerCube = new BlockComputerCube(Material.ROCK);
 		registerBlock(ComputerCube, "computercube");
+		Core.proxy.registerCustomBlockStateLocation(ComputerCube, "machines/machines/tier2_machines/computer_cube");
 
 		FusionControlComputer = new BlockFusionControlComputer(Material.ROCK);
 		registerBlock(FusionControlComputer, "fusioncontrolcomputer");
 		GameRegistry.registerTileEntity(TileEntityFusionController.class, "TileEntityFustionControllerTR");
+		Core.proxy.registerCustomBlockStateLocation(FusionControlComputer, "machines/generators/fusion_reactor");
+
 
 		FusionCoil = new BlockFusionCoil(Material.ROCK);
 		registerBlock(FusionCoil, "fusioncoil");
+		Core.proxy.registerCustomBlockStateLocation(FusionCoil, "machines/generators/fusion_coil");
 
 		LightningRod = new BlockLightningRod(Material.ROCK);
 		registerBlock(LightningRod, "lightningrod");
 		GameRegistry.registerTileEntity(TileLightningRod.class, "TileLightningRodTR");
+		Core.proxy.registerCustomBlockStateLocation(LightningRod, "machines/generators/lightning_rod");
 
 		heatGenerator = new BlockHeatGenerator(Material.ROCK);
 		registerBlock(heatGenerator, "heatgenerator");
@@ -281,6 +333,7 @@ public class ModBlocks {
 		industrialSawmill = new BlockIndustrialSawmill(Material.ROCK);
 		registerBlock(industrialSawmill, "industrialSawmill");
 		GameRegistry.registerTileEntity(TileIndustrialSawmill.class, "TileIndustrialSawmillTR");
+		Core.proxy.registerCustomBlockStateLocation(industrialSawmill, "machines/tier2_machines/industrial_saw_mill");
 
 		machineframe = new BlockMachineFrame(Material.IRON);
 		registerBlock(machineframe, ItemBlockMachineFrame.class, "techreborn.machineFrame");
@@ -288,34 +341,42 @@ public class ModBlocks {
 		Grinder = new BlockGrinder(Material.IRON);
 		registerBlock(Grinder, "techreborn.grinder");
 		GameRegistry.registerTileEntity(TileGrinder.class, "TileGrinderTR");
+		Core.proxy.registerCustomBlockStateLocation(Grinder, "machines/tier1_machines/grinder");
 
 		Generator = new BlockGenerator();
 		registerBlock(Generator, "techreborn.generator");
 		GameRegistry.registerTileEntity(TileGenerator.class, "TileGeneratorTR");
+		Core.proxy.registerCustomBlockStateLocation(Generator, "machines/generators/generator");
 
 		Extractor = new BlockExtractor(Material.IRON);
 		registerBlock(Extractor, "techreborn.extractor");
 		GameRegistry.registerTileEntity(TileExtractor.class, "TileExtractorTR");
+		Core.proxy.registerCustomBlockStateLocation(Extractor, "machines/tier1_machines/extractor");
 
 		Compressor = new BlockCompressor(Material.IRON);
 		registerBlock(Compressor, "techreborn.compressor");
 		GameRegistry.registerTileEntity(TileCompressor.class, "TileCompressorTR");
+		Core.proxy.registerCustomBlockStateLocation(Compressor, "machines/tier1_machines/compressor");
 
 		ElectricFurnace = new BlockElectricFurnace(Material.IRON);
 		registerBlock(ElectricFurnace, "techreborn.electricfurnace");
 		GameRegistry.registerTileEntity(TileElectricFurnace.class, "TileElectricFurnaceTR");
+		Core.proxy.registerCustomBlockStateLocation(ElectricFurnace, "machines/tier1_machines/electric_furnace");
 
 		solarPanel = new BlockSolarPanel();
 		registerBlock(solarPanel, "techreborn.solarpanel");
 		GameRegistry.registerTileEntity(TileSolarPanel.class, "TileSolarPanel");
+		Core.proxy.registerCustomBlockStateLocation(solarPanel, "machines/generators/solar_panel");
 
 		waterMill = new BlockWaterMill();
 		registerBlock(waterMill, "techreborn.watermill");
 		GameRegistry.registerTileEntity(TileWaterMill.class, "TileWaterMill");
+		Core.proxy.registerCustomBlockStateLocation(waterMill, "machines/generators/water_mill");
 
 		windMill = new BlockWindMill();
 		registerBlock(windMill, "techreborn.windmill");
 		GameRegistry.registerTileEntity(TileWindMill.class, "TileWindMill");
+		Core.proxy.registerCustomBlockStateLocation(windMill, "machines/generators/wind_mill");
 
 		GameRegistry.registerTileEntity(TileMachineBase.class, "TileMachineBaseTR");
 
@@ -340,6 +401,7 @@ public class ModBlocks {
 		recycler = new BlockRecycler(Material.IRON);
 		registerBlock(recycler, "recycler");
 		GameRegistry.registerTileEntity(TileRecycler.class, "TileRecyclerTR");
+		Core.proxy.registerCustomBlockStateLocation(recycler, "machines/tier1_machines/recycler");
 
 		batBox = new BlockBatBox();
 		registerBlock(batBox, "batBox");
@@ -372,6 +434,7 @@ public class ModBlocks {
 		ironFurnace = new BlockIronFurnace();
 		registerBlock(ironFurnace, "ironfurnace");
 		GameRegistry.registerTileEntity(TileIronFurnace.class, "TileIronFurnaceTR");
+		Core.proxy.registerCustomBlockStateLocation(ironFurnace, "machines/tier0_machines/furnace");
 
 		nuke = new BlockNuke();
 		registerBlock(nuke, "nuke");
@@ -379,6 +442,7 @@ public class ModBlocks {
 		scrapboxinator = new BlockScrapboxinator(Material.IRON);
 		registerBlock(scrapboxinator, "scrapboxinator");
 		GameRegistry.registerTileEntity(TileScrapboxinator.class, "TileScrapboxinatorTR");
+		Core.proxy.registerCustomBlockStateLocation(scrapboxinator, "machines/tier1_machines/scrapboxinator");
 
 		//TODO enable when done
 		//		flare = new BlockFlare();

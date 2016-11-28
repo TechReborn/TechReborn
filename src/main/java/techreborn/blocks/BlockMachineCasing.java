@@ -23,7 +23,7 @@ import techreborn.tiles.TileMachineCasing;
 
 import java.util.Random;
 
-public class BlockMachineCasing extends BlockMultiblockBase implements ITexturedBlock {
+public class BlockMachineCasing extends BlockMultiblockBase  {
 
 	public static final String[] types = new String[] { "standard", "reinforced", "advanced" };
 	public static final PropertyInteger METADATA = PropertyInteger.create("type", 0, types.length);
@@ -91,14 +91,5 @@ public class BlockMachineCasing extends BlockMultiblockBase implements ITextured
 		return b != this && super.shouldSideBeRendered(blockState, worldIn, pos, side);
 	}
 
-	@Override
-	public String getTextureNameFromState(IBlockState blockState, EnumFacing facing) {
-		return "techreborn:blocks/machine/machine_blocks/casing" + types[getMetaFromState(blockState)] + "_full";
-	}
-
-	@Override
-	public int amountOfStates() {
-		return types.length;
-	}
 
 }

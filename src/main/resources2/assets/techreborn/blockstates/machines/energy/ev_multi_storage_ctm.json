@@ -1,0 +1,10 @@
+{
+  "variants":{
+    "normal":{
+      "model": "techreborn:ev_multi_ctm"
+    },
+    "inventory":{
+      "model":"techreborn:ev_multi_ctm"
+    }
+  }
+}

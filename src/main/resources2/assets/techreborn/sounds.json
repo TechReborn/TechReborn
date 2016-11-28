@@ -1,0 +1,20 @@
+{
+  "sap_extract": {
+    "category": "block",
+    "sounds": [
+      "techreborn:sap_extract"
+    ]
+  },
+  "block_dismantle": {
+    "category": "block",
+    "sounds": [
+      "techreborn:block_dismantle"
+    ]
+  },
+  "cable_shock": {
+    "category": "block",
+    "sounds": [
+      "techreborn:cable_shock"
+    ]
+  }
+}

@@ -146,9 +146,9 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	@Override
-	public void registerCustomBlockSateLocation(Block block, String resourceLocation) {
+	public void registerCustomBlockStateLocation(Block block, String resourceLocation) {
 		resourceLocation = resourceLocation.toLowerCase();
-		super.registerCustomBlockSateLocation(block, resourceLocation);
+		super.registerCustomBlockStateLocation(block, resourceLocation);
 		String finalResourceLocation = resourceLocation;
 		ModelLoader.setCustomStateMapper(block, new DefaultStateMapper() {
 			@Override
@@ -161,4 +161,30 @@ public class ClientProxy extends CommonProxy {
 		String resourceDomain = Block.REGISTRY.getNameForObject(block).getResourceDomain();
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(resourceDomain + ':' + resourceLocation, "inventory"));
 	}
+
+
+	@Override
+	public void registerCustomBlockStateLocation(Block block, String resourceLocation, boolean item) {
+		resourceLocation = resourceLocation.toLowerCase();
+		super.registerCustomBlockStateLocation(block, resourceLocation, item);
+		String finalResourceLocation = resourceLocation;
+		ModelLoader.setCustomStateMapper(block, new DefaultStateMapper() {
+			@Override
+			protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+				String resourceDomain = Block.REGISTRY.getNameForObject(state.getBlock()).getResourceDomain();
+				String propertyString = getPropertyString(state.getProperties());
+				return new ModelResourceLocation(resourceDomain + ':' + finalResourceLocation, propertyString);
+			}
+		});
+		if (item) {
+			String resourceDomain = Block.REGISTRY.getNameForObject(block).getResourceDomain();
+			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(resourceDomain + ':' + resourceLocation, "inventory"));
+		}
+	}
+
+	@Override
+	public boolean isCTMAvailable() {
+		return isChiselAround;
+	}
+
 }

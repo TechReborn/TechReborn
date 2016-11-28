@@ -1,0 +1,50 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "transform": "forge:default-block",
+    "model": "orientable",
+    "textures": {
+      "particle": "techreborn:blocks/machines/generators/lightning_rod_side",
+      "top": "techreborn:blocks/machines/generators/lightning_rod_top",
+      "side": "techreborn:blocks/machines/generators/lightning_rod_side",
+      "front": "techreborn:blocks/machines/generators/lightning_rod_side",
+      "down": "techreborn:blocks/machines/generators/generator_bottom"
+    }
+  },
+  "variants": {
+    "inventory": {
+      "transform": "forge:default-block",
+      "textures": {
+      }
+    },
+    "facing": {
+      "north": {
+      },
+      "east": {
+        "y": 90
+      },
+      "south": {
+        "y": 180
+      },
+      "west": {
+        "y": 270
+      }
+    },
+    "active": {
+      "true": {
+        "textures": {
+        }
+      },
+      "false": {
+        "textures": {
+        }
+      }
+    },
+    "inventory": {
+      "model": "orientable",
+      "textures": {
+      }
+    }
+  }
+}
+

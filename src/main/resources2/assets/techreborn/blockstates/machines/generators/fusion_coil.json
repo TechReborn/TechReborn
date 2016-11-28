@@ -1,0 +1,32 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "transform": "forge:default-block",
+    "model": "orientable",
+    "textures": {
+      "particle": "techreborn:blocks/machines/structure/fusion_coil_side",
+      "side": "techreborn:blocks/machines/structure/fusion_coil_side",
+      "front": "techreborn:blocks/machines/structure/fusion_coil_side",
+      "top": "techreborn:blocks/machines/structure/fusion_coil_heart",
+      "down": "techreborn:blocks/machines/structure/fusion_coil_heart"
+    }
+  },
+  "variants": {
+    "normal": {
+      "transform": "forge:default-block",
+      "textures": {
+        "particle": "techreborn:blocks/machines/structure/fusion_coil_side",
+        "side": "techreborn:blocks/machines/structure/fusion_coil_side",
+        "front": "techreborn:blocks/machines/structure/fusion_coil_side",
+        "top": "techreborn:blocks/machines/structure/fusion_coil_heart",
+        "down": "techreborn:blocks/machines/structure/fusion_coil_heart"
+      }
+    },
+    "inventory": {
+      "model": "cube_bottom_top",
+      "textures": {
+        "top": "techreborn:blocks/machines/structure/fusion_coil_heart"
+      }
+    }
+  }
+}
