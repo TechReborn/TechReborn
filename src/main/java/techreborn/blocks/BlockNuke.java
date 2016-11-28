@@ -93,9 +93,12 @@ public class BlockNuke extends BaseBlock implements ITexturedBlock {
 	@Override
 	public String getTextureNameFromState(IBlockState iBlockState, EnumFacing enumFacing) {
 		if (iBlockState.getValue(OVERLAY)) {
-			return "techreborn:blocks/nuke_overlay";
+			return "techreborn:blocks/nuke_front";
 		}
-		return "techreborn:blocks/nuke";
+		if (enumFacing == EnumFacing.UP || enumFacing == EnumFacing.DOWN) {
+			return "techreborn:blocks/nuke_top";
+		}
+		return "techreborn:blocks/nuke_side";
 	}
 
 	@Override
