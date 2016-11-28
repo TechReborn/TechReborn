@@ -20,6 +20,8 @@ import techreborn.api.Reference;
 import techreborn.client.container.ContainerCentrifuge;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
+import techreborn.init.ModItems;
+import techreborn.utils.upgrade.UpgradeHandler;
 
 import java.util.List;
 
@@ -28,29 +30,31 @@ public class TileCentrifuge extends TilePowerAcceptor
 
 	public int tickTime;
 	public Inventory inventory = new Inventory(11, "TileCentrifuge", 64, this);
+	public UpgradeHandler upgradeHandler;
 	public RecipeCrafter crafter;
+	
 
 	public int euTick = ConfigTechReborn.CentrifugeInputTick;
 
 	public TileCentrifuge() {
 		super(2);
 		// Input slots
-		int[] inputs = new int[2];
-		inputs[0] = 0;
-		inputs[1] = 1;
+		int[] inputs = new int[] { 0, 1 };
 		int[] outputs = new int[4];
 		outputs[0] = 2;
 		outputs[1] = 3;
 		outputs[2] = 4;
-		outputs[3] = 5;
-
+        outputs[3] = 5;
+	
 		crafter = new RecipeCrafter(Reference.centrifugeRecipe, this, 2, 4, inventory, inputs, outputs);
+		upgradeHandler = new UpgradeHandler(crafter, inventory, 7, 8, 9, 10);
 	}
 
-	@Override
+@Override
 	public void updateEntity() {
 		super.updateEntity();
 		crafter.updateEntity();
+		upgradeHandler.tick();
 		charge(6);
 		if (inventory.getStackInSlot(6) != null) {
 			ItemStack stack = inventory.getStackInSlot(6);
@@ -64,7 +68,7 @@ public class TileCentrifuge extends TilePowerAcceptor
 				}
 			}
 		}
-	}
+}
 
 	@Override
 	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
@@ -108,6 +112,25 @@ public class TileCentrifuge extends TilePowerAcceptor
 		return tagCompound;
 	}
 
+	// ISidedInventory
+	
+	@Override
+	public int[] getSlotsForFace(EnumFacing side) {
+		return side == EnumFacing.DOWN ? new int[] { 0, 1, 2, 3, 4, 5 } : new int[] { 0, 1, 2, 3, 4, 5};
+	}
+
+
+	@Override
+	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+		return itemStackIn.getItem() == ModItems.emptyCell ? index == 1 : index == 0;
+	}
+
+	@Override
+	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
+		return slotIndex >= 2 && slotIndex <= 5;
+   }
+	
+	
 	@Override
 	public void addInfo(List<String> info, boolean isRealTile) {
 		super.addInfo(info, isRealTile);
