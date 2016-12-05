@@ -69,7 +69,6 @@ public class ModBlocks {
 	public static Block LESU;
 	public static Block LESUStorage;
 	public static Block distillationTower;
-	public static Block electricCraftingTable;
 	public static Block vacuumFreezer;
 	public static Block fusionControlComputer;
 	public static Block fusionCoil;
@@ -291,10 +290,6 @@ public class ModBlocks {
 		distillationTower = new BlockDistillationTower(Material.ROCK);
 		registerBlock(distillationTower, "distillationtower");
 		Core.proxy.registerCustomBlockStateLocation(distillationTower, "machines/tier2_machines/distillation_tower");
-
-		electricCraftingTable = new BlockElectricCraftingTable(Material.ROCK);
-		registerBlock(electricCraftingTable, "electriccraftingtable");
-		Core.proxy.registerCustomBlockStateLocation(electricCraftingTable, "machines/tier1_machines/electric_crafting_table");
 
 		vacuumFreezer = new BlockVacuumFreezer(Material.ROCK);
 		registerBlock(vacuumFreezer, "vacuumfreezer");

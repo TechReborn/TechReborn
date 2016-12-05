@@ -22,7 +22,6 @@ public class StackWIPHandler {
 	public StackWIPHandler() {
 		wipBlocks.add(ModBlocks.magicalAbsorber);
 		wipBlocks.add(ModBlocks.chunkLoader);
-		wipBlocks.add(ModBlocks.electricCraftingTable);
 		wipBlocks.add(ModBlocks.chargeBench);
 		wipBlocks.add(ModBlocks.magicEnergeyConverter);
 
