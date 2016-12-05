@@ -2174,10 +2174,6 @@ public class ModRecipes {
 				.addShapedOreRecipe((OreDictionary.getOres("oreIridium").get(0)), "UUU", " U ", "UUU", 'U',
 					ModItems.uuMatter);
 
-		// Blast Furnace
-		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemCells.getCellByName("silicon", 2), null,
-			ItemPlates.getPlateByName("silicon"), ItemCells.getCellByName("empty", 2), 1000, 120, 1500));
-
 		// CentrifugeRecipes
 
 		// Plantball/Bio Chaff
@@ -3172,7 +3168,7 @@ public class ModRecipes {
 		if (ConfigTechReborn.ExpensiveSolar)
 			CraftingHelper
 				.addShapedOreRecipe(OreDictionary.getOres("ic2SolarPanel").get(0).copy(), "PPP", "SZS", "CGC", 'P',
-					"paneGlass", 'S', ItemPlates.getPlateByName("silicon"), 'Z',
+					"paneGlass", 'S', ItemPlates.getPlateByName("carbon"), 'Z',
 					"plateCarbon", 'G',
 					"ic2Generator", 'C',
 					"circuitBasic");
