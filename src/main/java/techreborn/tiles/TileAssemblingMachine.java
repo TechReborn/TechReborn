@@ -17,7 +17,7 @@ import techreborn.api.Reference;
 import techreborn.client.container.ContainerAssemblingMachine;
 import techreborn.init.ModBlocks;
 
-public class TileAssemblingMachine extends TilePowerAcceptor implements IWrenchable, ISidedInventory, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
+public class TileAssemblingMachine extends TilePowerAcceptor implements IWrenchable, ISidedInventory, IInventoryProvider, IRecipeCrafterProvider {
 
 	public int tickTime;
 	public Inventory inventory = new Inventory(8, "TileAssemblingMachine", 64, this);
@@ -124,11 +124,6 @@ public class TileAssemblingMachine extends TilePowerAcceptor implements IWrencha
 	@Override
 	public RecipeCrafter getRecipeCrafter() {
 		return crafter;
-	}
-
-	@Override
-	public RebornContainer getContainer() {
-		return RebornContainer.getContainerFromClass(ContainerAssemblingMachine.class, this);
 	}
 
 	@Override

@@ -11,7 +11,7 @@ import techreborn.tiles.TileAssemblingMachine;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ContainerAssemblingMachine extends ContainerCrafting implements IContainerLayout<TileAssemblingMachine> {
+public class ContainerAssemblingMachine extends ContainerCrafting{
 
 	public int tickTime;
 	EntityPlayer player;
@@ -22,7 +22,15 @@ public class ContainerAssemblingMachine extends ContainerCrafting implements ICo
 		return true;
 	}
 
-	@Override
+	public ContainerAssemblingMachine(EntityPlayer player, TileAssemblingMachine tile) {
+		super(tile.crafter);
+		this.player = player;
+		this.tile = tile;
+		addPlayerSlots();
+		addInventorySlots();
+	}
+
+
 	public void addInventorySlots() {
 		// input
 		this.addSlotToContainer(new BaseSlot(tile.inventory, 0, 47, 17));
@@ -38,7 +46,7 @@ public class ContainerAssemblingMachine extends ContainerCrafting implements ICo
 		this.addSlotToContainer(new SlotUpgrade(tile.inventory, 7, 152, 62));
 	}
 
-	@Override
+
 	public void addPlayerSlots() {
 		int i;
 
@@ -53,32 +61,4 @@ public class ContainerAssemblingMachine extends ContainerCrafting implements ICo
 		}
 	}
 
-	@Override
-	public void setTile(TileAssemblingMachine tile) {
-		this.tile = tile;
-		this.crafter = tile.crafter;
-	}
-
-	@Nullable
-	@Override
-	public TileAssemblingMachine getTile() {
-		return tile;
-	}
-
-	@Override
-	public void setPlayer(EntityPlayer player) {
-		this.player = player;
-	}
-
-	@Nullable
-	@Override
-	public EntityPlayer getPlayer() {
-		return player;
-	}
-
-	@Nullable
-	@Override
-	public List<Integer> getSlotsForSide(EnumFacing facing) {
-		return null;
-	}
 }

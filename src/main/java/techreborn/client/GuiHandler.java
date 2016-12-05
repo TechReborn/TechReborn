@@ -80,13 +80,13 @@ public class GuiHandler implements IGuiHandler {
 		} else if (ID == quantumChestID) {
 			return new ContainerQuantumChest((TileQuantumChest) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == centrifugeID) {
-			container = new ContainerCentrifuge();
+			container = new ContainerCentrifuge(player, (TileCentrifuge) world.getTileEntity(new BlockPos(x, y, z)));
 		} else if (ID == rollingMachineID) {
 			return new ContainerRollingMachine((TileRollingMachine) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == blastFurnaceID) {
 			return new ContainerBlastFurnace((TileBlastFurnace) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == alloySmelterID) {
-			container = new ContainerAlloySmelter();
+			container = new ContainerAlloySmelter(player, (TileAlloySmelter) world.getTileEntity(new BlockPos(x, y, z)));
 		} else if (ID == industrialGrinderID) {
 			return new ContainerIndustrialGrinder((TileIndustrialGrinder) world.getTileEntity(new BlockPos(x, y, z)),
 				player);
@@ -99,7 +99,7 @@ public class GuiHandler implements IGuiHandler {
 		} else if (ID == chunkloaderID) {
 			return new ContainerChunkloader((TileChunkLoader) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == assemblingmachineID) {
-			container = new ContainerAssemblingMachine();
+			container = new ContainerAssemblingMachine(player, (TileAssemblingMachine) world.getTileEntity(new BlockPos(x, y, z)));
 		} else if (ID == dieselGeneratorID) {
 			return new ContainerDieselGenerator((TileDieselGenerator) world.getTileEntity(new BlockPos(x, y, z)),
 				player);
