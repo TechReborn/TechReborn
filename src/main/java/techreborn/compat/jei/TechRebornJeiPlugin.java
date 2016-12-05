@@ -118,6 +118,7 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidDiesel));
 		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidNitroDiesel));
 		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidOil));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModItems.missingRecipe));
 
 		registry.addRecipeCategories(new AlloySmelterRecipeCategory(guiHelper),
 			new AssemblingMachineRecipeCategory(guiHelper), new BlastFurnaceRecipeCategory(guiHelper),
