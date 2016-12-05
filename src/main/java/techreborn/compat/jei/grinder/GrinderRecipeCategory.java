@@ -43,7 +43,6 @@ public class GrinderRecipeCategory extends BlankRecipeCategory<GrinderRecipeWrap
 		return background;
 	}
 
-
 	@Override
 	public void setRecipe(
 		@Nonnull

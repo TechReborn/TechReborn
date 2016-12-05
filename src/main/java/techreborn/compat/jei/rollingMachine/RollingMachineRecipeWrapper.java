@@ -9,7 +9,6 @@ import mezz.jei.plugins.vanilla.crafting.ShapedOreRecipeWrapper;
 import mezz.jei.plugins.vanilla.crafting.ShapedRecipesWrapper;
 import mezz.jei.plugins.vanilla.crafting.ShapelessOreRecipeWrapper;
 import mezz.jei.plugins.vanilla.crafting.ShapelessRecipesWrapper;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
@@ -18,7 +17,6 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.List;
 
 public class RollingMachineRecipeWrapper extends BlankRecipeWrapper implements ICraftingRecipeWrapper {
 	private final ICraftingRecipeWrapper baseRecipe;

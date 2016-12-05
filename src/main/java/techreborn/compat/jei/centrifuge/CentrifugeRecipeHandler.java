@@ -24,7 +24,6 @@ public class CentrifugeRecipeHandler implements IRecipeHandler<CentrifugeRecipe>
 		return CentrifugeRecipe.class;
 	}
 
-
 	@Nonnull
 	@Override
 	public String getRecipeCategoryUid(

@@ -24,7 +24,6 @@ public class ChemicalReactorRecipeHandler implements IRecipeHandler<ChemicalReac
 		return ChemicalReactorRecipe.class;
 	}
 
-
 	@Nonnull
 	@Override
 	public String getRecipeCategoryUid(

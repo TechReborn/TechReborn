@@ -47,7 +47,6 @@ public class FusionReactorRecipeCategory extends BlankRecipeCategory<FusionReact
 		return background;
 	}
 
-
 	@Override
 	public void setRecipe(
 		@Nonnull

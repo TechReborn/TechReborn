@@ -43,7 +43,6 @@ public class IndustrialElectrolyzerRecipeCategory extends BlankRecipeCategory<In
 		return background;
 	}
 
-
 	@Override
 	public void setRecipe(
 		@Nonnull

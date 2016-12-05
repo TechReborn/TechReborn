@@ -9,8 +9,6 @@ import techreborn.compat.jei.RecipeUtil;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 public class FusionReactorRecipeWrapper extends BlankRecipeWrapper {
 	private final FusionReactorRecipe baseRecipe;
@@ -26,7 +24,6 @@ public class FusionReactorRecipeWrapper extends BlankRecipeWrapper {
 		ingredients.setOutputs(ItemStack.class, Arrays.asList(baseRecipe.getTopInput(), baseRecipe.getBottomInput()));
 		ingredients.setInput(ItemStack.class, baseRecipe.getOutput());
 	}
-
 
 	public ItemStack getTopInput() {
 		return baseRecipe.getTopInput();

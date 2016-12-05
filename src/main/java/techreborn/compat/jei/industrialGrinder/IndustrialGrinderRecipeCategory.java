@@ -59,7 +59,6 @@ public class IndustrialGrinderRecipeCategory extends BlankRecipeCategory<Industr
 		blankArea.draw(minecraft, 129, 49);
 	}
 
-
 	@Override
 	public void setRecipe(
 		@Nonnull

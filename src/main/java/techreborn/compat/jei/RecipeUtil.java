@@ -101,13 +101,13 @@ public class RecipeUtil {
 		}
 
 		//TODO 1.11
-//		if (fluidOutputSlots != null) {
-//			List<FluidStack> fluidOutputs = recipe.getFluidOutputs();
-//			for (int i = 0; i < fluidOutputs.size() && i < fluidOutputSlots.length; i++) {
-//				int outputTank = fluidOutputSlots[i];
-//				guiFluidStacks.set(outputTank, fluidOutputs.get(i));
-//			}
-//		}
+		//		if (fluidOutputSlots != null) {
+		//			List<FluidStack> fluidOutputs = recipe.getFluidOutputs();
+		//			for (int i = 0; i < fluidOutputs.size() && i < fluidOutputSlots.length; i++) {
+		//				int outputTank = fluidOutputSlots[i];
+		//				guiFluidStacks.set(outputTank, fluidOutputs.get(i));
+		//			}
+		//		}
 	}
 
 	public static void setRecipeItems(

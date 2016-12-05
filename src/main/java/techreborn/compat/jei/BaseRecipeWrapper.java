@@ -76,14 +76,14 @@ public abstract class BaseRecipeWrapper<T extends BaseRecipe> extends BlankRecip
 		return inputs;
 	}
 
-	public List<FluidStack> getFluidInputs(){
+	public List<FluidStack> getFluidInputs() {
 		return new ArrayList<>();
 	}
 
 	@Nonnull
 	public List<ItemStack> getOutputs() {
 		List<ItemStack> stacks = new ArrayList<>();
-		for(List<ItemStack> stackList : outputs){
+		for (List<ItemStack> stackList : outputs) {
 			stacks.addAll(stackList);
 		}
 		return stacks;

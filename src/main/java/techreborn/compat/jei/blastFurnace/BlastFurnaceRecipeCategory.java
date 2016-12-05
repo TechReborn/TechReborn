@@ -43,7 +43,6 @@ public class BlastFurnaceRecipeCategory extends BlankRecipeCategory<BlastFurnace
 		return background;
 	}
 
-
 	@Override
 	public void setRecipe(
 		@Nonnull

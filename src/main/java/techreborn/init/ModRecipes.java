@@ -2001,7 +2001,6 @@ public class ModRecipes {
 			'S', ItemParts.getPartByName("diamondSawBlade"), 'C',
 			"machineBlockAdvanced");
 
-
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.chargeBench), "ETE", "COC", "EAD", 'E',
 			"circuitMaster", 'T', ModItems.energyCrystal, 'C', Blocks.CHEST, 'O',
 			ModItems.lapotronicOrb, 'A', "machineBlockAdvanced");
@@ -2061,9 +2060,9 @@ public class ModRecipes {
 		// 'L', "lapotronCrystal",
 		// 'T', TechRebornAPI.recipeCompact.getItem("teleporter"));
 
-//		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.dragonEggEnergySiphoner), "CTC", "ISI", "CBC", 'I',
-//			"plateIridium", 'C', "circuitBasic",
-//			'B', ModItems.lithiumBattery, 'S', ModBlocks.Supercondensator, 'T', ModBlocks.extractor);
+		//		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.dragonEggEnergySiphoner), "CTC", "ISI", "CBC", 'I',
+		//			"plateIridium", 'C', "circuitBasic",
+		//			'B', ModItems.lithiumBattery, 'S', ModBlocks.Supercondensator, 'T', ModBlocks.extractor);
 
 		CraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModBlocks.centrifuge), "SCS", "BEB", "SCS", 'S', "plateSteel", 'C',
@@ -2153,7 +2152,6 @@ public class ModRecipes {
 				BlockMachineFrame.getFrameByName("highlyAdvancedMachine", 1), 'Q', ModBlocks.digitalChest, 'T',
 				ModBlocks.compressor);
 		}
-
 
 		// Smetling
 		CraftingHelper

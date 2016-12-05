@@ -184,12 +184,11 @@ public class ModBlocks {
 		machineCasing = new BlockMachineCasing(Material.ROCK);
 		registerBlock(machineCasing, ItemBlockMachineCasing.class, "machinecasing");
 		GameRegistry.registerTileEntity(TileMachineCasing.class, "TileMachineCasingTR");
-		if(Core.proxy.isCTMAvailable()){
+		if (Core.proxy.isCTMAvailable()) {
 			Core.proxy.registerCustomBlockStateLocation(machineCasing, "machines/structure/machine_casing_ctm");
 		} else {
 			Core.proxy.registerCustomBlockStateLocation(machineCasing, "machines/structure/machine_casing");
 		}
-
 
 		ore = new BlockOre(Material.ROCK);
 		registerBlock(ore, ItemBlockOre.class, "techreborn.ore");
@@ -224,7 +223,6 @@ public class ModBlocks {
 		registerBlock(magicEnergeyConverter, "magicenergyconverter");
 		Core.proxy.registerCustomBlockStateLocation(magicEnergeyConverter, "machines/generators/magic_energy_converter");
 
-
 		assemblyMachine = new BlockAssemblingMachine(Material.ROCK);
 		registerBlock(assemblyMachine, "assemblymachine");
 		GameRegistry.registerTileEntity(TileAssemblingMachine.class, "TileAssemblyMachineTR");
@@ -235,12 +233,10 @@ public class ModBlocks {
 		GameRegistry.registerTileEntity(TileDieselGenerator.class, "TileDieselGeneratorTR");
 		Core.proxy.registerCustomBlockStateLocation(dieselGenerator, "machines/generators/diesel_generator");
 
-
 		industrialElectrolyzer = new BlockIndustrialElectrolyzer(Material.ROCK);
 		registerBlock(industrialElectrolyzer, "industrialelectrolyzer");
 		GameRegistry.registerTileEntity(TileIndustrialElectrolyzer.class, "TileIndustrialElectrolyzerTR");
 		Core.proxy.registerCustomBlockStateLocation(industrialElectrolyzer, "machines/tier1_machines/industrial_electrolyzer");
-
 
 		magicalAbsorber = new BlockMagicEnergyAbsorber(Material.ROCK);
 		registerBlock(magicalAbsorber, "magicrnergyabsorber");
@@ -300,7 +296,6 @@ public class ModBlocks {
 		registerBlock(fusionControlComputer, "fusioncontrolcomputer");
 		GameRegistry.registerTileEntity(TileEntityFusionController.class, "TileEntityFustionControllerTR");
 		Core.proxy.registerCustomBlockStateLocation(fusionControlComputer, "machines/generators/fusion_reactor");
-
 
 		fusionCoil = new BlockFusionCoil(Material.ROCK);
 		registerBlock(fusionCoil, "fusioncoil");

@@ -43,8 +43,6 @@ public class ExtractorRecipeCategory extends BlankRecipeCategory<ExtractorRecipe
 		return background;
 	}
 
-
-
 	@Override
 	public void setRecipe(
 		@Nonnull

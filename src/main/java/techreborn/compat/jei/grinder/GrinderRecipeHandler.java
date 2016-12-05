@@ -24,7 +24,6 @@ public class GrinderRecipeHandler implements IRecipeHandler<GrinderRecipe> {
 		return GrinderRecipe.class;
 	}
 
-
 	@Nonnull
 	@Override
 	public String getRecipeCategoryUid(

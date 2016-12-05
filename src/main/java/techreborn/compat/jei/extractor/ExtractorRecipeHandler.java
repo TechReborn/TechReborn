@@ -24,7 +24,6 @@ public class ExtractorRecipeHandler implements IRecipeHandler<ExtractorRecipe> {
 		return ExtractorRecipe.class;
 	}
 
-
 	@Nonnull
 	@Override
 	public String getRecipeCategoryUid(

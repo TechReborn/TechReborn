@@ -178,7 +178,6 @@ public class ClientProxy extends CommonProxy {
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(resourceDomain + ':' + resourceLocation, "inventory"));
 	}
 
-
 	@Override
 	public void registerCustomBlockStateLocation(Block block, String resourceLocation, boolean item) {
 		resourceLocation = resourceLocation.toLowerCase();

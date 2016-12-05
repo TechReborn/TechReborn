@@ -1,7 +1,5 @@
 package techreborn.blocks;
 
-import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
@@ -10,11 +8,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -24,7 +18,7 @@ import techreborn.tiles.TileMachineCasing;
 
 import java.util.Random;
 
-public class BlockMachineCasing extends BlockMultiblockBase  {
+public class BlockMachineCasing extends BlockMultiblockBase {
 
 	public static final String[] types = new String[] { "standard", "reinforced", "advanced" };
 	public static final PropertyInteger METADATA = PropertyInteger.create("type", 0, types.length);

@@ -24,7 +24,6 @@ public class CompressorRecipeHandler implements IRecipeHandler<CompressorRecipe>
 		return CompressorRecipe.class;
 	}
 
-
 	@Nonnull
 	@Override
 	public String getRecipeCategoryUid(

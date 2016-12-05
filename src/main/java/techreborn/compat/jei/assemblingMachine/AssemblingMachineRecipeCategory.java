@@ -53,7 +53,6 @@ public class AssemblingMachineRecipeCategory extends BlankRecipeCategory<Assembl
 		electricity.draw(minecraft, 10, 20);
 	}
 
-
 	@Override
 	public void setRecipe(
 		@Nonnull

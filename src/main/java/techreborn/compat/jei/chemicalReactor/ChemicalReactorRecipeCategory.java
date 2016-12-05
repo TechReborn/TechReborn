@@ -43,7 +43,6 @@ public class ChemicalReactorRecipeCategory extends BlankRecipeCategory<ChemicalR
 		return background;
 	}
 
-
 	@Override
 	public void setRecipe(
 		@Nonnull

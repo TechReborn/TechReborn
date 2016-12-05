@@ -248,7 +248,6 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 			.addRecipeTransferHandler(ContainerExtractor.class, RecipeCategoryUids.EXTRACTOR, 0, 1, 2, 36);
 		recipeTransferRegistry
 			.addRecipeTransferHandler(ContainerCompressor.class, RecipeCategoryUids.COMPRESSOR, 0, 1, 2, 36);
-		
 
 		if (CompatManager.isQuantumStorageLoaded) {
 			registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.quantumChest));

@@ -43,8 +43,6 @@ public class CompressorRecipeCategory extends BlankRecipeCategory<CompressorReci
 		return background;
 	}
 
-
-
 	@Override
 	public void setRecipe(
 		@Nonnull

@@ -24,7 +24,6 @@ public class IndustrialElectrolyzerRecipeHandler implements IRecipeHandler<Indus
 		return IndustrialElectrolyzerRecipe.class;
 	}
 
-
 	@Nonnull
 	@Override
 	public String getRecipeCategoryUid(

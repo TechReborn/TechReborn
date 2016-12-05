@@ -1,6 +1,5 @@
 package techreborn.blocks.generator;
 
-import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -18,7 +17,7 @@ import techreborn.tiles.generator.TileSolarPanel;
 /**
  * Created by modmuss50 on 25/02/2016.
  */
-public class BlockSolarPanel extends BaseTileBlock  {
+public class BlockSolarPanel extends BaseTileBlock {
 
 	public static PropertyBool ACTIVE = PropertyBool.create("active");
 	private final String prefix = "techreborn:blocks/machine/generators/";
