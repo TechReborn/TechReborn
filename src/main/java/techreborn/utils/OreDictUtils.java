@@ -56,7 +56,7 @@ public class OreDictUtils {
 	}
 
 	@Nonnull
-	public static ItemStack getDictOreOrNull(String name, int amount) {
+	public static ItemStack getDictOreOrEmpty(String name, int amount) {
 		List<ItemStack> ores = OreDictionary.getOres(name);
 		if (ores.isEmpty())
 			return ItemStack.EMPTY;

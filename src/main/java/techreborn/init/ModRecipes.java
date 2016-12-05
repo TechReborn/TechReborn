@@ -41,7 +41,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static techreborn.utils.OreDictUtils.getDictData;
-import static techreborn.utils.OreDictUtils.getDictOreOrNull;
+import static techreborn.utils.OreDictUtils.getDictOreOrEmpty;
 import static techreborn.utils.OreDictUtils.isDictPrefixed;
 import static techreborn.utils.OreDictUtils.joinDictName;
 
@@ -433,7 +433,7 @@ public class ModRecipes {
 
 		for (String oreDictionaryName : OreDictionary.getOreNames()) {
 			if (isDictPrefixed(oreDictionaryName, "ore", "gem", "ingot")) {
-				ItemStack oreStack = getDictOreOrNull(oreDictionaryName, 1);
+				ItemStack oreStack = getDictOreOrEmpty(oreDictionaryName, 1);
 				String[] data = getDictData(oreDictionaryName);
 
 				//High-level ores shouldn't grind here
@@ -448,7 +448,7 @@ public class ModRecipes {
 
 				boolean ore = data[0].equals("ore");
 				Core.logHelper.debug("Ore: " + data[1]);
-				ItemStack dust = getDictOreOrNull(joinDictName("dust", data[1]), ore ? 2 : 1);
+				ItemStack dust = getDictOreOrEmpty(joinDictName("dust", data[1]), ore ? 2 : 1);
 				if (dust == ItemStack.EMPTY || dust.getItem() == null) {
 					continue;
 				}
