@@ -53,7 +53,7 @@ public class CategoriesPage extends TitledPage {
 		//                new ItemStack(ModBlocks.ElectricFurnace), Reference.pageNames.BASICMACHINES_PAGE,
 		//                ttl(Reference.BASICMACHINES_KEY)));
 		//        buttonList.add(new GuiButtonItemTexture(3, getXMin() + 20, getYMin() + 80, 0, 46, 100, 20,
-		//                new ItemStack(ModBlocks.BlastFurnace), Reference.pageNames.ADVANCEDMACHINES_PAGE,
+		//                new ItemStack(ModBlocks.blastFurnace), Reference.pageNames.ADVANCEDMACHINES_PAGE,
 		//                ttl(Reference.ADVANCEDMACHINES_KEY)));
 		//        buttonList.add(new GuiButtonItemTexture(4, getXMin() + 20, getYMin() + 100, 0, 46, 100, 20,
 		//                new ItemStack(ModItems.ironDrill), Reference.pageNames.TOOLS_PAGE, ttl(Reference.TOOLS_KEY)));

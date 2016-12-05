@@ -64,7 +64,7 @@ public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable, II
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.Gasturbine, 1);
+		return new ItemStack(ModBlocks.gasTurbine, 1);
 	}
 
 	@Override

@@ -77,7 +77,7 @@ public class TileIndustrialGrinder extends TilePowerAcceptor
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.IndustrialGrinder, 1);
+		return new ItemStack(ModBlocks.industrialGrinder, 1);
 	}
 
 	public boolean getMutliBlock() {

@@ -20,11 +20,11 @@ public class StackWIPHandler {
 	public static ArrayList<ItemStack> devHeads = new ArrayList<>();
 
 	public StackWIPHandler() {
-		wipBlocks.add(ModBlocks.MagicalAbsorber);
-		wipBlocks.add(ModBlocks.ChunkLoader);
-		wipBlocks.add(ModBlocks.ElectricCraftingTable);
+		wipBlocks.add(ModBlocks.magicalAbsorber);
+		wipBlocks.add(ModBlocks.chunkLoader);
+		wipBlocks.add(ModBlocks.electricCraftingTable);
 		wipBlocks.add(ModBlocks.chargeBench);
-		wipBlocks.add(ModBlocks.Magicenergeyconverter);
+		wipBlocks.add(ModBlocks.magicEnergeyConverter);
 
 		addHead("modmuss50");
 		addHead("Gigabit101");

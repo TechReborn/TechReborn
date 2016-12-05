@@ -72,7 +72,7 @@ public class TileGrinder extends TilePowerAcceptor implements IWrenchable, IInve
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.Grinder, 1);
+		return new ItemStack(ModBlocks.grinder, 1);
 	}
 
 	public boolean isComplete() {

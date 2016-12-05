@@ -29,7 +29,7 @@ public class ClientMultiBlocks {
 	}
 
 	private static boolean isCoil(int x, int y, int z) {
-		reactor.addComponent(new BlockPos(x, y, z), ModBlocks.FusionCoil.getDefaultState());
+		reactor.addComponent(new BlockPos(x, y, z), ModBlocks.fusionCoil.getDefaultState());
 		return true;
 	}
 
@@ -44,7 +44,7 @@ public class ClientMultiBlocks {
 						BlockPos pos = new BlockPos(xDir + i, yDir + j, zDir + k);
 						int meta = (((i == 0) && (j == 0) && (k != 0)) || ((i == 0) && (j != 0) && (k == 0))
 							            || ((i != 0) && (j == 0) && (k == 0)) ? 2 : 1);
-						frezzer.addComponent(pos, ModBlocks.MachineCasing.getStateFromMeta(meta));
+						frezzer.addComponent(pos, ModBlocks.machineCasing.getStateFromMeta(meta));
 					}
 				}
 			}

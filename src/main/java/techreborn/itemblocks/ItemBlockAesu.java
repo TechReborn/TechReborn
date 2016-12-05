@@ -63,7 +63,7 @@ public class ItemBlockAesu extends ItemBlock {
 
 	public ItemStack getDropWithNBT(double energy) {
 		NBTTagCompound tileEntity = new NBTTagCompound();
-		ItemStack dropStack = new ItemStack(ModBlocks.Aesu, 1);
+		ItemStack dropStack = new ItemStack(ModBlocks.AESU, 1);
 		writeToNBTWithoutCoords(tileEntity, energy);
 		dropStack.setTagCompound(new NBTTagCompound());
 		dropStack.getTagCompound().setTag("tileEntity", tileEntity);

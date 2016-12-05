@@ -555,27 +555,27 @@ public class ModRecipes {
 
 		CraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModBlocks.windMill, 2), "IXI", "XGX", "IXI", 'I', "ingotIron", 'G',
-				ModBlocks.Generator);
+				ModBlocks.generator);
 
 		CraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModBlocks.waterMill), "SWS", "WGW", "SWS", 'S', Items.STICK, 'W',
-				"plankWood", 'G', ModBlocks.Generator);
+				"plankWood", 'G', ModBlocks.generator);
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.hvt), "XHX", "XMX", "XHX", 'M', ModBlocks.mvt, 'H',
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.HVT), "XHX", "XMX", "XHX", 'M', ModBlocks.MVT, 'H',
 			ItemStandaloneCables.getCableByName("insulatedhv"));
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.mvt), "XGX", "XMX", "XGX", 'M',
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.MVT), "XGX", "XMX", "XGX", 'M',
 			BlockMachineFrame.getFrameByName("machine", 1), 'G',
 			ItemStandaloneCables.getCableByName("insulatedgold"));
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.lvt), "PWP", "CCC", "PPP", 'P', "plankWood", 'C',
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.LVT), "PWP", "CCC", "PPP", 'P', "plankWood", 'C',
 			"ingotCopper", 'W', ItemStandaloneCables.getCableByName("insulatedcopper"));
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.MachineCasing, 4, 0), "RRR", "CAC", "RRR", 'R',
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.machineCasing, 4, 0), "RRR", "CAC", "RRR", 'R',
 			ItemIngots.getIngotByName("refinedIron"), 'C', "circuitBasic", 'A',
 			BlockMachineFrame.getFrameByName("machine", 1));
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.MachineCasing, 4, 1), "RRR", "CAC", "RRR", 'R',
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.machineCasing, 4, 1), "RRR", "CAC", "RRR", 'R',
 			"ingotSteel", 'C', "circuitAdvanced", 'A',
 			BlockMachineFrame.getFrameByName("advancedMachine", 1));
 
@@ -587,25 +587,25 @@ public class ModRecipes {
 
 		CraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModBlocks.thermalGenerator), "III", "IRI", "CGC", 'I', "ingotInvar",
-				'R', ModBlocks.reinforcedglass, 'G', ModBlocks.Generator, 'C',
+				'R', ModBlocks.reinforcedglass, 'G', ModBlocks.generator, 'C',
 				"circuitBasic");
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.recycler), "XEX", "DCD", "GDG", 'D', Blocks.DIRT, 'C',
-			ModBlocks.Compressor, 'G', Items.GLOWSTONE_DUST, 'E', "circuitBasic");
+			ModBlocks.compressor, 'G', Items.GLOWSTONE_DUST, 'E', "circuitBasic");
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.batBox), "WCW", "BBB", "WWW", 'W', "plankWood", 'B',
 			batteryStack, 'C', ItemStandaloneCables.getCableByName("insulatedcopper"));
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.mfe), "GEG", "EME", "GEG", 'M',
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.MFE), "GEG", "EME", "GEG", 'M',
 			BlockMachineFrame.getFrameByName("machine", 1), 'E', crystalStack, 'G',
 			ItemStandaloneCables.getCableByName("insulatedgold"));
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.mfsu), "LAL", "LML", "LOL", 'A',
-			"circuitAdvanced", 'L', lapcrystalStack, 'M', new ItemStack(ModBlocks.mfe),
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.MFSU), "LAL", "LML", "LOL", 'A',
+			"circuitAdvanced", 'L', lapcrystalStack, 'M', new ItemStack(ModBlocks.MFE),
 			'O', BlockMachineFrame.getFrameByName("advancedMachine", 1));
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.IndustrialElectrolyzer), "RER", "CEC", "RER", 'R',
-			ItemIngots.getIngotByName("refinediron"), 'E', new ItemStack(ModBlocks.Extractor), 'C',
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.industrialElectrolyzer), "RER", "CEC", "RER", 'R',
+			ItemIngots.getIngotByName("refinediron"), 'E', new ItemStack(ModBlocks.extractor), 'C',
 			"circuitAdvanced");
 
 		// Mixed Metal Ingot Recipes :P
@@ -725,11 +725,11 @@ public class ModRecipes {
 			"ingotTungstensteel", 'B', "ingotBrass", 'T', "ingotAluminum");
 
 		CraftingHelper
-			.addShapedOreRecipe(new ItemStack(ModBlocks.Compressor), "SXS", "SCS", "SMS", 'C', "circuitBasic", 'M',
+			.addShapedOreRecipe(new ItemStack(ModBlocks.compressor), "SXS", "SCS", "SMS", 'C', "circuitBasic", 'M',
 				BlockMachineFrame.getFrameByName("machine", 1), 'S', Blocks.STONE);
 
 		CraftingHelper
-			.addShapedOreRecipe(new ItemStack(ModBlocks.ElectricFurnace), "XCX", "RFR", "XXX", 'C', "circuitBasic",
+			.addShapedOreRecipe(new ItemStack(ModBlocks.electricFurnace), "XCX", "RFR", "XXX", 'C', "circuitBasic",
 				'F', new ItemStack(ModBlocks.ironFurnace), 'R', Items.REDSTONE);
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ironFurnace), "III", "IXI", "III", 'I', "ingotIron");
@@ -747,13 +747,13 @@ public class ModRecipes {
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.wrench), "BAB", "BBB", "ABA", 'B', "ingotBronze");
 
 		CraftingHelper
-			.addShapedOreRecipe(new ItemStack(ModBlocks.Extractor), "TMT", "TCT", "XXX", 'T', ModItems.treeTap, 'M',
+			.addShapedOreRecipe(new ItemStack(ModBlocks.extractor), "TMT", "TCT", "XXX", 'T', ModItems.treeTap, 'M',
 				BlockMachineFrame.getFrameByName("machine", 1), 'C',
 				"circuitBasic");
 
 		CraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModBlocks.centrifuge), "RCR", "AEA", "RCR", 'R', "ingotRefinedIron",
-				'E', new ItemStack(ModBlocks.Extractor), 'A', "machineBlockAdvanced", 'C', "circuitBasic");
+				'E', new ItemStack(ModBlocks.extractor), 'A', "machineBlockAdvanced", 'C', "circuitBasic");
 
 		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("advancedCircuit"), "RGR", "LCL", "RGR", 'R',
 			Items.REDSTONE, 'G', Items.GLOWSTONE_DUST, 'L', "dyeBlue", 'C', "circuitBasic");
@@ -766,7 +766,7 @@ public class ModRecipes {
 			.addShapedOreRecipe(new ItemStack(ModItems.lapotronCrystal), "LCL", "LEL", "LCL", 'L', "dyeBlue", 'E',
 				"energyCrystal", 'C', "circuitBasic");
 
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModBlocks.Generator), batteryStack,
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModBlocks.generator), batteryStack,
 			BlockMachineFrame.getFrameByName("machine", 1), Blocks.FURNACE);
 
 		CraftingHelper.addShapedOreRecipe(BlockMachineFrame.getFrameByName("machine", 1), "AAA", "AXA", "AAA", 'A',
@@ -848,23 +848,23 @@ public class ModRecipes {
 			.addShapedOreRecipe(ItemParts.getPartByName("NaKCoolantSix"), "THT", "TCT", "THT", 'T', "ingotTin", 'C',
 				"ingotCopper", 'H', ItemParts.getPartByName("NaKCoolantTriple"));
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Aesu), "LLL", "LCL", "LLL", 'L',
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.AESU), "LLL", "LCL", "LLL", 'L',
 			new ItemStack(ModItems.lapotronicOrb), 'C', new ItemStack(ModItems.energyCrystal));
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Idsu), "PAP", "ACA", "PAP", 'P',
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.IDSU), "PAP", "ACA", "PAP", 'P',
 			ItemPlates.getPlateByName("iridium"), 'C', new ItemStack(Blocks.ENDER_CHEST), 'A',
-			new ItemStack(ModBlocks.Aesu));
+			new ItemStack(ModBlocks.AESU));
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.FusionControlComputer), "CCC", "PTP", "CCC", 'P',
-			new ItemStack(ModItems.energyCrystal), 'T', new ItemStack(ModBlocks.FusionCoil), 'C',
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.fusionControlComputer), "CCC", "PTP", "CCC", 'P',
+			new ItemStack(ModItems.energyCrystal), 'T', new ItemStack(ModBlocks.fusionCoil), 'C',
 			"circuitMaster");
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.LightningRod), "CAC", "ACA", "CAC", 'A',
-			new ItemStack(ModBlocks.MachineCasing, 1, 2), 'S', ItemParts.getPartByName("superConductor"), 'C',
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.lightningRod), "CAC", "ACA", "CAC", 'A',
+			new ItemStack(ModBlocks.machineCasing, 1, 2), 'S', ItemParts.getPartByName("superConductor"), 'C',
 			"circuitMaster");
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.FusionCoil), "CSC", "NAN", "CRC", 'A',
-			new ItemStack(ModBlocks.MachineCasing, 1, 2), 'N', ItemParts.getPartByName("nichromeHeatingCoil"), 'C',
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.fusionCoil), "CSC", "NAN", "CRC", 'A',
+			new ItemStack(ModBlocks.machineCasing, 1, 2), 'N', ItemParts.getPartByName("nichromeHeatingCoil"), 'C',
 			"circuitMaster", 'S', ItemParts.getPartByName("superConductor"), 'R',
 			ItemParts.getPartByName("iridiumNeutronReflector"));
 
@@ -897,7 +897,7 @@ public class ModRecipes {
 
 		CraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("Transformer"), "GGG", "WTW", "GCG", 'G',
 			"blockGlass", 'W', ItemStandaloneCables.getCableByName("insulatedgold"), 'C',
-			"circuitBasic", 'T', ModBlocks.mvt);
+			"circuitBasic", 'T', ModBlocks.MVT);
 
 		CraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("EnergyStorage"), "PPP", "WBW", "PCP", 'P',
 			"plankWood", 'W', ItemStandaloneCables.getCableByName("insulatedcopper"), 'C',
@@ -999,12 +999,12 @@ public class ModRecipes {
 			.addShapedOreRecipe(new ItemStack(ModBlocks.digitalChest), "PPP", "PDP", "PCP", 'P', "plateSteel", 'D',
 				ItemParts.getPartByName("dataOrb"), 'C', ItemParts.getPartByName("computerMonitor"));
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.AlloySmelter), "XCX", "FMF", "XXX", 'C',
-			"circuitBasic", 'F', new ItemStack(ModBlocks.ElectricFurnace), 'M',
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.alloySmelter), "XCX", "FMF", "XXX", 'C',
+			"circuitBasic", 'F', new ItemStack(ModBlocks.electricFurnace), 'M',
 			BlockMachineFrame.getFrameByName("machine", 1));
 
 		CraftingHelper
-			.addShapedOreRecipe(new ItemStack(ModBlocks.LesuStorage), "LLL", "LCL", "LLL", 'L', "blockLapis", 'C',
+			.addShapedOreRecipe(new ItemStack(ModBlocks.LESUStorage), "LLL", "LCL", "LLL", 'L', "blockLapis", 'C',
 				"circuitBasic");
 
 		TechRebornAPI
@@ -1571,7 +1571,7 @@ public class ModRecipes {
 						ItemDusts.getDustByName("nickel", 1), null, 100, 120));
 
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Copper Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Copper Ore");
 			}
 		}
 
@@ -1593,7 +1593,7 @@ public class ModRecipes {
 					120));
 
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Tin Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Tin Ore");
 			}
 		}
 
@@ -1623,7 +1623,7 @@ public class ModRecipes {
 						ItemDusts.getDustByName("nickel", 2), ItemDustsSmall.getSmallDustByName("Iron", 1),
 						ItemDusts.getDustByName("platinum", 1), new ItemStack(Items.BUCKET), 100, 120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Nickel Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Nickel Ore");
 			}
 		}
 
@@ -1645,7 +1645,7 @@ public class ModRecipes {
 					120));
 
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Zinc Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Zinc Ore");
 			}
 		}
 
@@ -1670,7 +1670,7 @@ public class ModRecipes {
 						ItemDusts.getDustByName("silver", 3), ItemDustsSmall.getSmallDustByName("Lead", 1),
 						ItemDustsSmall.getSmallDustByName("Sulfur", 1), new ItemStack(Items.BUCKET), 100, 120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Silver Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Silver Ore");
 			}
 		}
 
@@ -1695,7 +1695,7 @@ public class ModRecipes {
 						ItemDusts.getDustByName("lead", 2), ItemDusts.getDustByName("silver", 1),
 						ItemDustsSmall.getSmallDustByName("Sulfur", 1), new ItemStack(Items.BUCKET), 100, 120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Lead Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Lead Ore");
 			}
 		}
 
@@ -1713,7 +1713,7 @@ public class ModRecipes {
 						gemStack, ItemDustsSmall.getSmallDustByName("Phosphorous", 4),
 						new ItemStack(Items.BUCKET), 100, 120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Apatite Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Apatite Ore");
 			}
 		}
 
@@ -1727,7 +1727,7 @@ public class ModRecipes {
 					ItemDustsSmall.getSmallDustByName("Netherrack", 2), null, 100, 120));
 
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Nether Quartz Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Nether Quartz Ore");
 			}
 		}
 
@@ -1745,7 +1745,7 @@ public class ModRecipes {
 					new IndustrialGrinderRecipe(oreStack, new FluidStack(FluidRegistry.WATER, 1000), gemStack,
 						dustStack, null, new ItemStack(Items.BUCKET), 100, 120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Certus Quartz Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Certus Quartz Ore");
 			}
 		}
 
@@ -1763,7 +1763,7 @@ public class ModRecipes {
 					new IndustrialGrinderRecipe(oreStack, new FluidStack(FluidRegistry.WATER, 1000), gemStack,
 						dustStack, null, new ItemStack(Items.BUCKET), 100, 120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Charged Certus Quartz Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Charged Certus Quartz Ore");
 			}
 		}
 
@@ -1782,7 +1782,7 @@ public class ModRecipes {
 					new IndustrialGrinderRecipe(oreStack, new FluidStack(FluidRegistry.WATER, 1000), gemStack,
 						dustStack, null, new ItemStack(Items.BUCKET), 100, 120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Certus Quartz Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Certus Quartz Ore");
 			}
 		}
 
@@ -1801,7 +1801,7 @@ public class ModRecipes {
 					new IndustrialGrinderRecipe(oreStack, new FluidStack(FluidRegistry.WATER, 1000), gemStack,
 						dustStack, null, new ItemStack(Items.BUCKET), 100, 120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Topaz Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Topaz Ore");
 			}
 		}
 
@@ -1820,7 +1820,7 @@ public class ModRecipes {
 					new IndustrialGrinderRecipe(oreStack, new FluidStack(FluidRegistry.WATER, 1000), gemStack,
 						dustStack, null, new ItemStack(Items.BUCKET), 100, 120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Tanzanite Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Tanzanite Ore");
 			}
 		}
 
@@ -1839,7 +1839,7 @@ public class ModRecipes {
 					new IndustrialGrinderRecipe(oreStack, new FluidStack(FluidRegistry.WATER, 1000), gemStack,
 						dustStack, null, new ItemStack(Items.BUCKET), 100, 120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Malachite Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Malachite Ore");
 			}
 		}
 
@@ -2006,54 +2006,54 @@ public class ModRecipes {
 			"circuitMaster", 'T', ModItems.energyCrystal, 'C', Blocks.CHEST, 'O',
 			ModItems.lapotronicOrb, 'A', "machineBlockAdvanced");
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.MatterFabricator), "ETE", "AOA", "ETE", 'E',
-			"circuitMaster", 'T', ModBlocks.Extractor, 'A',
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.matterFabricator), "ETE", "AOA", "ETE", 'E',
+			"circuitMaster", 'T', ModBlocks.extractor, 'A',
 			BlockMachineFrame.getFrameByName("highlyAdvancedMachine", 1), 'O', ModItems.lapotronicOrb);
 
 		CraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModBlocks.heatGenerator), "III", "IHI", "CGC", 'I', "plateIron", 'H',
-				new ItemStack(Blocks.IRON_BARS), 'C', "circuitBasic", 'G', ModBlocks.Generator);
+				new ItemStack(Blocks.IRON_BARS), 'C', "circuitBasic", 'G', ModBlocks.generator);
 
 		CraftingHelper
-			.addShapedOreRecipe(new ItemStack(ModBlocks.Gasturbine), "IAI", "WGW", "IAI", 'I', "ingotInvar", 'A',
+			.addShapedOreRecipe(new ItemStack(ModBlocks.gasTurbine), "IAI", "WGW", "IAI", 'I', "ingotInvar", 'A',
 				"circuitAdvanced", 'W',
 				getOre("ic2Windmill"), 'G',
 				getOre("glassReinforced"));
 
 		CraftingHelper
-			.addShapedOreRecipe(new ItemStack(ModBlocks.Gasturbine), "IAI", "WGW", "IAI", 'I', "ingotAluminum", 'A',
+			.addShapedOreRecipe(new ItemStack(ModBlocks.gasTurbine), "IAI", "WGW", "IAI", 'I', "ingotAluminum", 'A',
 				"circuitAdvanced", 'W',
 				getOre("ic2Windmill"), 'G',
 				getOre("glassReinforced"));
 
 		CraftingHelper
-			.addShapedOreRecipe(new ItemStack(ModBlocks.Semifluidgenerator), "III", "IHI", "CGC", 'I', "plateIron",
+			.addShapedOreRecipe(new ItemStack(ModBlocks.semiFluidGenerator), "III", "IHI", "CGC", 'I', "plateIron",
 				'H', ModBlocks.reinforcedglass, 'C', "circuitBasic", 'G',
-				ModBlocks.Generator);
+				ModBlocks.generator);
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Semifluidgenerator), "AAA", "AHA", "CGC", 'A',
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.semiFluidGenerator), "AAA", "AHA", "CGC", 'A',
 			"plateAluminum", 'H', ModBlocks.reinforcedglass, 'C', "circuitBasic", 'G',
-			ModBlocks.Generator);
+			ModBlocks.generator);
 
 		CraftingHelper
-			.addShapedOreRecipe(new ItemStack(ModBlocks.DieselGenerator), "III", "I I", "CGC", 'I', "refinedIron",
-				'C', "circuitBasic", 'G', ModBlocks.Generator);
+			.addShapedOreRecipe(new ItemStack(ModBlocks.dieselGenerator), "III", "I I", "CGC", 'I', "refinedIron",
+				'C', "circuitBasic", 'G', ModBlocks.generator);
 
 		CraftingHelper
-			.addShapedOreRecipe(new ItemStack(ModBlocks.DieselGenerator), "AAA", "A A", "CGC", 'A', "ingotAluminum",
-				'C', "circuitBasic", 'G', ModBlocks.Generator);
+			.addShapedOreRecipe(new ItemStack(ModBlocks.dieselGenerator), "AAA", "A A", "CGC", 'A', "ingotAluminum",
+				'C', "circuitBasic", 'G', ModBlocks.generator);
 
 		// CraftingHelper.addShapedOreRecipe(new
-		// ItemStack(ModBlocks.MagicalAbsorber),
+		// ItemStack(ModBlocks.magicalAbsorber),
 		// "CSC", "IBI", "CAC",
 		// 'C', "circuitMaster",
 		// 'S', "craftingSuperconductor",
 		// 'B', Blocks.beacon,
-		// 'A', ModBlocks.Magicenergeyconverter,
+		// 'A', ModBlocks.magicEnergeyConverter,
 		// 'I', "plateIridium");
 		//
 		// CraftingHelper.addShapedOreRecipe(new
-		// ItemStack(ModBlocks.Magicenergeyconverter),
+		// ItemStack(ModBlocks.magicEnergeyConverter),
 		// "CTC", "PBP", "CLC",
 		// 'C', "circuitAdvanced",
 		// 'P', "platePlatinum",
@@ -2061,53 +2061,53 @@ public class ModRecipes {
 		// 'L', "lapotronCrystal",
 		// 'T', TechRebornAPI.recipeCompact.getItem("teleporter"));
 
-//		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Dragoneggenergysiphoner), "CTC", "ISI", "CBC", 'I',
+//		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.dragonEggEnergySiphoner), "CTC", "ISI", "CBC", 'I',
 //			"plateIridium", 'C', "circuitBasic",
-//			'B', ModItems.lithiumBattery, 'S', ModBlocks.Supercondensator, 'T', ModBlocks.Extractor);
+//			'B', ModItems.lithiumBattery, 'S', ModBlocks.Supercondensator, 'T', ModBlocks.extractor);
 
 		CraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModBlocks.centrifuge), "SCS", "BEB", "SCS", 'S', "plateSteel", 'C',
 				"circuitAdvanced", 'B', "machineBlockAdvanced", 'E',
 				getOre("ic2Extractor"));
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.BlastFurnace), "CHC", "HBH", "FHF", 'H',
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.blastFurnace), "CHC", "HBH", "FHF", 'H',
 			ItemParts.getPartByName("cupronickelHeatingCoil"), 'C', "circuitAdvanced", 'B',
-			BlockMachineFrame.getFrameByName("advancedMachine", 1), 'F', ModBlocks.ElectricFurnace);
+			BlockMachineFrame.getFrameByName("advancedMachine", 1), 'F', ModBlocks.electricFurnace);
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.IndustrialGrinder), "ECP", "GGG", "CBC", 'E',
-			ModBlocks.IndustrialElectrolyzer, 'P', ModBlocks.Extractor, 'C',
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.industrialGrinder), "ECP", "GGG", "CBC", 'E',
+			ModBlocks.industrialElectrolyzer, 'P', ModBlocks.extractor, 'C',
 			"circuitAdvanced", 'B', "machineBlockAdvanced",
-			'G', ModBlocks.Grinder);
+			'G', ModBlocks.grinder);
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ImplosionCompressor), "ABA", "CPC", "ABA", 'A',
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.implosionCompressor), "ABA", "CPC", "ABA", 'A',
 			ItemIngots.getIngotByName("advancedAlloy"), 'C', "circuitAdvanced", 'B',
-			BlockMachineFrame.getFrameByName("advancedMachine", 1), 'P', ModBlocks.Compressor);
+			BlockMachineFrame.getFrameByName("advancedMachine", 1), 'P', ModBlocks.compressor);
 
 		CraftingHelper
-			.addShapedOreRecipe(new ItemStack(ModBlocks.VacuumFreezer), "SPS", "CGC", "SPS", 'S', "plateSteel", 'C',
+			.addShapedOreRecipe(new ItemStack(ModBlocks.vacuumFreezer), "SPS", "CGC", "SPS", 'S', "plateSteel", 'C',
 				"circuitAdvanced", 'G', ModBlocks.reinforcedglass, 'P',
-				ModBlocks.Extractor);
+				ModBlocks.extractor);
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Distillationtower), "CMC", "PBP", "EME", 'E',
-			ModBlocks.IndustrialElectrolyzer, 'M', "circuitMaster", 'B',
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.distillationTower), "CMC", "PBP", "EME", 'E',
+			ModBlocks.industrialElectrolyzer, 'M', "circuitMaster", 'B',
 			"machineBlockAdvanced", 'C', ModBlocks.centrifuge, 'P',
-			ModBlocks.Extractor);
+			ModBlocks.extractor);
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.AlloyFurnace), "III", "F F", "III", 'I',
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.alloyFurnace), "III", "F F", "III", 'I',
 			ItemIngots.getIngotByName("refinediron"), 'F', new ItemStack(ModBlocks.ironFurnace));
 
 		CraftingHelper
-			.addShapedOreRecipe(new ItemStack(ModBlocks.ChemicalReactor), "IMI", "CPC", "IEI", 'I', "ingotInvar",
-				'C', "circuitAdvanced", 'M', ModBlocks.Extractor, 'P',
-				ModBlocks.Compressor, 'E', ModBlocks.Extractor);
+			.addShapedOreRecipe(new ItemStack(ModBlocks.chemicalReactor), "IMI", "CPC", "IEI", 'I', "ingotInvar",
+				'C', "circuitAdvanced", 'M', ModBlocks.extractor, 'P',
+				ModBlocks.compressor, 'E', ModBlocks.extractor);
 
 		CraftingHelper
-			.addShapedOreRecipe(new ItemStack(ModBlocks.RollingMachine), "PCP", "MBM", "PCP", 'P', Blocks.PISTON,
-				'C', "circuitAdvanced", 'M', ModBlocks.Compressor, 'B',
+			.addShapedOreRecipe(new ItemStack(ModBlocks.rollingMachine), "PCP", "MBM", "PCP", 'P', Blocks.PISTON,
+				'C', "circuitAdvanced", 'M', ModBlocks.compressor, 'B',
 				BlockMachineFrame.getFrameByName("machine", 1));
 
 		// CraftingHelper.addShapedOreRecipe(new
-		// ItemStack(ModBlocks.ElectricCraftingTable),
+		// ItemStack(ModBlocks.electricCraftingTable),
 		// "ITI", "IBI", "ICI",
 		// 'I', "plateIron",
 		// 'C', "circuitAdvanced",
@@ -2115,7 +2115,7 @@ public class ModRecipes {
 		// 'B', "machineBlockBasic");
 
 		// CraftingHelper.addShapedOreRecipe(new
-		// ItemStack(ModBlocks.ElectricCraftingTable),
+		// ItemStack(ModBlocks.electricCraftingTable),
 		// "ATA", "ABA", "ACA",
 		// 'A', "plateAluminum",
 		// 'C', "circuitAdvanced",
@@ -2123,14 +2123,14 @@ public class ModRecipes {
 		// 'B', "machineBlockBasic");
 
 		// CraftingHelper.addShapedOreRecipe(new
-		// ItemStack(ModBlocks.ChunkLoader),
+		// ItemStack(ModBlocks.chunkLoader),
 		// "SCS", "CMC", "SCS",
 		// 'S', "plateSteel",
 		// 'C', "circuitMaster",
 		// 'M', new ItemStack(ModItems.parts, 1, 39));
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.Lesu), " L ", "CBC", " M ", 'L', ModBlocks.lvt, 'C',
-			"circuitAdvanced", 'M', ModBlocks.mvt, 'B', ModBlocks.LesuStorage);
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.LESU), " L ", "CBC", " M ", 'L', ModBlocks.LVT, 'C',
+			"circuitAdvanced", 'M', ModBlocks.MVT, 'B', ModBlocks.LESUStorage);
 
 		CraftingHelper
 			.addShapedOreRecipe(BlockMachineFrame.getFrameByName("highlyAdvancedMachine", 1), "CTC", "TBT", "CTC",
@@ -2138,20 +2138,20 @@ public class ModRecipes {
 				"machineBlockAdvanced");
 
 		CraftingHelper
-			.addShapedOreRecipe(new ItemStack(ModBlocks.MachineCasing, 4, 0), "III", "CBC", "III", 'I', "plateIron",
+			.addShapedOreRecipe(new ItemStack(ModBlocks.machineCasing, 4, 0), "III", "CBC", "III", 'I', "plateIron",
 				'C', "circuitBasic", 'B', "machineBlockBasic");
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.MachineCasing, 4, 1), "SSS", "CBC", "SSS", 'S',
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.machineCasing, 4, 1), "SSS", "CBC", "SSS", 'S',
 			"plateSteel", 'C', "circuitAdvanced", 'B', "machineBlockAdvanced");
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.MachineCasing, 4, 2), "HHH", "CBC", "HHH", 'H',
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.machineCasing, 4, 2), "HHH", "CBC", "HHH", 'H',
 			"ingotChrome", 'C', "circuitElite", 'B', BlockMachineFrame.getFrameByName("highlyAdvancedMachine", 1));
 
 		if (!CompatManager.isQuantumStorageLoaded) {
 			CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.quantumChest), "DCD", "ATA", "DQD", 'D',
 				ItemParts.getPartByName("dataOrb"), 'C', ItemParts.getPartByName("computerMonitor"), 'A',
 				BlockMachineFrame.getFrameByName("highlyAdvancedMachine", 1), 'Q', ModBlocks.digitalChest, 'T',
-				ModBlocks.Compressor);
+				ModBlocks.compressor);
 		}
 
 
@@ -2393,7 +2393,7 @@ public class ModRecipes {
 						ItemDusts.getDustByName("copper", 2), ItemDustsSmall.getSmallDustByName("Gold", 1),
 						ItemDusts.getDustByName("nickel", 1), null, 100, 120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Copper Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Copper Ore");
 			}
 		}
 
@@ -2411,7 +2411,7 @@ public class ModRecipes {
 						ItemDusts.getDustByName("tin", 2), ItemDustsSmall.getSmallDustByName("Iron", 1),
 						ItemDusts.getDustByName("zinc", 1), null, 100, 120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Tin Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Tin Ore");
 			}
 		}
 
@@ -2434,7 +2434,7 @@ public class ModRecipes {
 						ItemDusts.getDustByName("nickel", 2), ItemDustsSmall.getSmallDustByName("Iron", 1),
 						ItemDusts.getDustByName("platinum", 1), null, 100, 120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Nickel Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Nickel Ore");
 			}
 		}
 
@@ -2452,7 +2452,7 @@ public class ModRecipes {
 						ItemDusts.getDustByName("zinc", 2), ItemDustsSmall.getSmallDustByName("Iron", 1),
 						ItemDusts.getDustByName("iron", 1), null, 100, 120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Zinc Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Zinc Ore");
 			}
 		}
 
@@ -2471,7 +2471,7 @@ public class ModRecipes {
 						ItemDustsSmall.getSmallDustByName("Sulfur", 1), null, 100,
 						120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Silver Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Silver Ore");
 			}
 		}
 
@@ -2490,7 +2490,7 @@ public class ModRecipes {
 						ItemDustsSmall.getSmallDustByName("Sulfur", 1), null, 100,
 						120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Lead Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Lead Ore");
 			}
 		}
 
@@ -2512,7 +2512,7 @@ public class ModRecipes {
 					new IndustrialGrinderRecipe(oreStack, new FluidStack(FluidRegistry.WATER, 1000), uranium238Stack,
 						uranium235Stack, null, new ItemStack(Items.BUCKET), 100, 120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Uranium Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Uranium Ore");
 			}
 		}
 
@@ -2534,7 +2534,7 @@ public class ModRecipes {
 					new IndustrialGrinderRecipe(oreStack, new FluidStack(FluidRegistry.WATER, 1000), uranium238Stack,
 						uranium235Stack, null, new ItemStack(Items.BUCKET), 100, 120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Uranium Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Uranium Ore");
 			}
 		}
 
@@ -2548,7 +2548,7 @@ public class ModRecipes {
 						ItemDustsSmall.getSmallDustByName("Bauxite", 1), ItemCells.getCellByName("empty"), 100,
 						120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Lead Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Lead Ore");
 			}
 		}
 
@@ -2562,7 +2562,7 @@ public class ModRecipes {
 						ItemDustsSmall.getSmallDustByName("Ardite", 1), ItemCells.getCellByName("empty"), 100,
 						120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Ardite Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Ardite Ore");
 			}
 		}
 
@@ -2576,7 +2576,7 @@ public class ModRecipes {
 						ItemDustsSmall.getSmallDustByName("Cobalt", 1), ItemCells.getCellByName("empty"), 100,
 						120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Cobalt Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Cobalt Ore");
 			}
 		}
 
@@ -2591,7 +2591,7 @@ public class ModRecipes {
 						ItemDustsSmall.getSmallDustByName("Iron", 1), ItemCells.getCellByName("empty"), 100,
 						120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Dark Iron Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Dark Iron Ore");
 			}
 		}
 
@@ -2605,7 +2605,7 @@ public class ModRecipes {
 						ItemDustsSmall.getSmallDustByName("Cadmium", 1), ItemCells.getCellByName("empty"), 100,
 						120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Cadmium Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Cadmium Ore");
 			}
 		}
 
@@ -2619,7 +2619,7 @@ public class ModRecipes {
 						ItemDustsSmall.getSmallDustByName("Indium", 1), ItemCells.getCellByName("empty"), 100,
 						120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Indium Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Indium Ore");
 			}
 		}
 
@@ -2633,7 +2633,7 @@ public class ModRecipes {
 						gemStack, ItemDustsSmall.getSmallDustByName("Calcite", 6), null,
 						ItemCells.getCellByName("empty"), 100, 120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Calcite Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Calcite Ore");
 			}
 		}
 
@@ -2647,7 +2647,7 @@ public class ModRecipes {
 						chunkStack, ItemDustsSmall.getSmallDustByName("Magnetite", 6), null,
 						ItemCells.getCellByName("empty"), 100, 120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Magnetite Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Magnetite Ore");
 			}
 		}
 
@@ -2661,7 +2661,7 @@ public class ModRecipes {
 						chunkStack, ItemDustsSmall.getSmallDustByName("Graphite", 6), null,
 						ItemCells.getCellByName("empty"), 100, 120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Graphite Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Graphite Ore");
 			}
 		}
 
@@ -2675,7 +2675,7 @@ public class ModRecipes {
 						ItemDustsSmall.getSmallDustByName("Osmium", 1), ItemCells.getCellByName("empty"), 100,
 						120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Osmium Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Osmium Ore");
 			}
 		}
 
@@ -2691,7 +2691,7 @@ public class ModRecipes {
 						ItemDustsSmall.getSmallDustByName("Glowstone", 1), ItemCells.getCellByName("empty"),
 						100, 120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Teslatite Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Teslatite Ore");
 			}
 		}
 
@@ -2705,7 +2705,7 @@ public class ModRecipes {
 						ItemDustsSmall.getSmallDustByName("Sulfur", 1), ItemCells.getCellByName("empty"), 100,
 						120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Sulfur Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Sulfur Ore");
 			}
 		}
 
@@ -2720,7 +2720,7 @@ public class ModRecipes {
 						ItemDustsSmall.getSmallDustByName("Saltpeter", 1), ItemCells.getCellByName("empty"),
 						100, 120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Saltpeter Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Saltpeter Ore");
 			}
 		}
 
@@ -2735,7 +2735,7 @@ public class ModRecipes {
 						gemStack, gemStack, ItemDustsSmall.getSmallDustByName("Phosphorous", 4),
 						ItemCells.getCellByName("empty"), 100, 120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Apatite Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Apatite Ore");
 			}
 		}
 
@@ -2749,7 +2749,7 @@ public class ModRecipes {
 					dustStack, ItemDustsSmall.getSmallDustByName("Netherrack", 2), ItemCells.getCellByName("empty"),
 					100, 120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Nether Quartz Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Nether Quartz Ore");
 			}
 		}
 
@@ -2764,7 +2764,7 @@ public class ModRecipes {
 					new IndustrialGrinderRecipe(oreStack, new FluidStack(FluidRegistry.WATER, 1000),
 						gemStack, dustStack, null, ItemCells.getCellByName("empty"), 100, 120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Certus Quartz Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Certus Quartz Ore");
 			}
 		}
 
@@ -2779,7 +2779,7 @@ public class ModRecipes {
 					new IndustrialGrinderRecipe(oreStack, new FluidStack(FluidRegistry.WATER, 1000),
 						gemStack, dustStack, null, ItemCells.getCellByName("empty"), 100, 120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Charged Certus Quartz Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Charged Certus Quartz Ore");
 			}
 		}
 
@@ -2795,7 +2795,7 @@ public class ModRecipes {
 					new IndustrialGrinderRecipe(oreStack, new FluidStack(FluidRegistry.WATER, 1000),
 						gemStack, dustStack, null, ItemCells.getCellByName("empty"), 100, 120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Certus Quartz Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Certus Quartz Ore");
 			}
 		}
 
@@ -2813,7 +2813,7 @@ public class ModRecipes {
 						gemStack, dustStack,
 						null, null, 100, 120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Topaz Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Topaz Ore");
 			}
 		}
 
@@ -2831,7 +2831,7 @@ public class ModRecipes {
 						gemStack, dustStack,
 						null, null, 100, 120));
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Tanzanite Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Tanzanite Ore");
 			}
 		}
 
@@ -2850,11 +2850,11 @@ public class ModRecipes {
 					null, null, 100, 120));
 
 			} catch (Exception e) {
-				Core.logHelper.info("Failed to Load Grinder Recipe for Malachite Ore");
+				Core.logHelper.info("Failed to Load grinder Recipe for Malachite Ore");
 			}
 		}
 
-		// Implosion Compressor
+		// Implosion compressor
 
 		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemIngots.getIngotByName("iridiumAlloy"),
 			new ItemStack(Blocks.TNT, 8),
@@ -2882,7 +2882,7 @@ public class ModRecipes {
 			new ItemStack(Blocks.TNT, 24),
 			ItemGems.getGemByName("peridot", 3), ItemDusts.getDustByName("darkAshes", 12), 20, 30));
 
-		// Grinder
+		// grinder
 
 		RecipeHandler.addRecipe(new IndustrialGrinderRecipe(
 			new ItemStack(ModBlocks.ore, 1, 0),
@@ -3051,7 +3051,7 @@ public class ModRecipes {
 			ItemCells.getCellByName("empty"), ItemCells.getCellByName("nitrogenDioxide", 2), 1240,
 			30));
 
-		// IndustrialElectrolyzer
+		// industrialElectrolyzer
 
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(ItemCells.getCellByName("sulfuricAcid", 7), null,
 			ItemCells.getCellByName("hydrogen", 2), ItemDusts.getDustByName("sulfur"),

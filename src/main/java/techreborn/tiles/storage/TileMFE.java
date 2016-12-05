@@ -9,7 +9,7 @@ import techreborn.init.ModBlocks;
 public class TileMFE extends TileEnergyStorage {
 
 	public TileMFE() {
-		super("MFE", 2, ModBlocks.mfe, EnumPowerTier.MEDIUM, 512, 512, 600000);
+		super("MFE", 2, ModBlocks.MFE, EnumPowerTier.MEDIUM, 512, 512, 600000);
 	}
 
 }

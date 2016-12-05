@@ -70,7 +70,7 @@ public class TileSemifluidGenerator extends TilePowerAcceptor implements IWrench
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.Semifluidgenerator, 1);
+		return new ItemStack(ModBlocks.semiFluidGenerator, 1);
 	}
 
 	@Override

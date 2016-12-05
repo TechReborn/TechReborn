@@ -188,26 +188,26 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 			VanillaRecipeCategoryUid.FUEL);
 		registry.addRecipeClickArea(GuiElectricFurnace.class, 78, 36, 24, 16, VanillaRecipeCategoryUid.SMELTING);
 
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.Compressor), RecipeCategoryUids.COMPRESSOR);
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.AlloyFurnace), RecipeCategoryUids.ALLOY_SMELTER);
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.AlloySmelter), RecipeCategoryUids.ALLOY_SMELTER);
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.AssemblyMachine),
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.compressor), RecipeCategoryUids.COMPRESSOR);
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.alloyFurnace), RecipeCategoryUids.ALLOY_SMELTER);
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.alloySmelter), RecipeCategoryUids.ALLOY_SMELTER);
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.assemblyMachine),
 			RecipeCategoryUids.ASSEMBLING_MACHINE);
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.BlastFurnace), RecipeCategoryUids.BLAST_FURNACE);
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.blastFurnace), RecipeCategoryUids.BLAST_FURNACE);
 		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.centrifuge), RecipeCategoryUids.CENTRIFUGE);
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.ChemicalReactor),
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.chemicalReactor),
 			RecipeCategoryUids.CHEMICAL_REACTOR);
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.Extractor), RecipeCategoryUids.EXTRACTOR);
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.FusionControlComputer),
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.extractor), RecipeCategoryUids.EXTRACTOR);
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.fusionControlComputer),
 			RecipeCategoryUids.FUSION_REACTOR);
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.Grinder), RecipeCategoryUids.GRINDER);
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.ImplosionCompressor),
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.grinder), RecipeCategoryUids.GRINDER);
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.implosionCompressor),
 			RecipeCategoryUids.IMPLOSION_COMPRESSOR);
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.IndustrialElectrolyzer),
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.industrialElectrolyzer),
 			RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER);
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.IndustrialGrinder),
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.industrialGrinder),
 			RecipeCategoryUids.INDUSTRIAL_GRINDER);
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.RollingMachine),
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.rollingMachine),
 			RecipeCategoryUids.ROLLING_MACHINE);
 		registry.addRecipeCategoryCraftingItem(new ItemStack(ModItems.scrapBox), RecipeCategoryUids.SCRAPBOX);
 

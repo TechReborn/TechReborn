@@ -134,7 +134,7 @@ public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IIn
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer p0) {
-		return new ItemStack(ModBlocks.Generator);
+		return new ItemStack(ModBlocks.generator);
 	}
 
 	@Override

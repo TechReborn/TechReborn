@@ -109,47 +109,47 @@ public class GuiBlastFurnace extends GuiContainer {
 				{// This code here makes a basic multiblock and then sets to the
 					// selected one.
 					Multiblock multiblock = new Multiblock();
-					addComponent(0, 0, 0, ModBlocks.MachineCasing.getDefaultState(), multiblock);
-					addComponent(1, 0, 0, ModBlocks.MachineCasing.getDefaultState(), multiblock);
-					addComponent(0, 0, 1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
-					addComponent(-1, 0, 0, ModBlocks.MachineCasing.getDefaultState(), multiblock);
-					addComponent(0, 0, -1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
-					addComponent(-1, 0, -1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
-					addComponent(-1, 0, 1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
-					addComponent(1, 0, -1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
-					addComponent(1, 0, 1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(0, 0, 0, ModBlocks.machineCasing.getDefaultState(), multiblock);
+					addComponent(1, 0, 0, ModBlocks.machineCasing.getDefaultState(), multiblock);
+					addComponent(0, 0, 1, ModBlocks.machineCasing.getDefaultState(), multiblock);
+					addComponent(-1, 0, 0, ModBlocks.machineCasing.getDefaultState(), multiblock);
+					addComponent(0, 0, -1, ModBlocks.machineCasing.getDefaultState(), multiblock);
+					addComponent(-1, 0, -1, ModBlocks.machineCasing.getDefaultState(), multiblock);
+					addComponent(-1, 0, 1, ModBlocks.machineCasing.getDefaultState(), multiblock);
+					addComponent(1, 0, -1, ModBlocks.machineCasing.getDefaultState(), multiblock);
+					addComponent(1, 0, 1, ModBlocks.machineCasing.getDefaultState(), multiblock);
 
-					addComponent(1, 1, 0, ModBlocks.MachineCasing.getDefaultState(), multiblock);
-					addComponent(0, 1, 1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
-					addComponent(-1, 1, 0, ModBlocks.MachineCasing.getDefaultState(), multiblock);
-					addComponent(0, 1, -1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
-					addComponent(-1, 1, -1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
-					addComponent(-1, 1, 1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
-					addComponent(1, 1, -1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
-					addComponent(1, 1, 1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(1, 1, 0, ModBlocks.machineCasing.getDefaultState(), multiblock);
+					addComponent(0, 1, 1, ModBlocks.machineCasing.getDefaultState(), multiblock);
+					addComponent(-1, 1, 0, ModBlocks.machineCasing.getDefaultState(), multiblock);
+					addComponent(0, 1, -1, ModBlocks.machineCasing.getDefaultState(), multiblock);
+					addComponent(-1, 1, -1, ModBlocks.machineCasing.getDefaultState(), multiblock);
+					addComponent(-1, 1, 1, ModBlocks.machineCasing.getDefaultState(), multiblock);
+					addComponent(1, 1, -1, ModBlocks.machineCasing.getDefaultState(), multiblock);
+					addComponent(1, 1, 1, ModBlocks.machineCasing.getDefaultState(), multiblock);
 
-					addComponent(1, 2, 0, ModBlocks.MachineCasing.getDefaultState(), multiblock);
-					addComponent(0, 2, 1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
-					addComponent(-1, 2, 0, ModBlocks.MachineCasing.getDefaultState(), multiblock);
-					addComponent(0, 2, -1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
-					addComponent(-1, 2, -1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
-					addComponent(-1, 2, 1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
-					addComponent(1, 2, -1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
-					addComponent(1, 2, 1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(1, 2, 0, ModBlocks.machineCasing.getDefaultState(), multiblock);
+					addComponent(0, 2, 1, ModBlocks.machineCasing.getDefaultState(), multiblock);
+					addComponent(-1, 2, 0, ModBlocks.machineCasing.getDefaultState(), multiblock);
+					addComponent(0, 2, -1, ModBlocks.machineCasing.getDefaultState(), multiblock);
+					addComponent(-1, 2, -1, ModBlocks.machineCasing.getDefaultState(), multiblock);
+					addComponent(-1, 2, 1, ModBlocks.machineCasing.getDefaultState(), multiblock);
+					addComponent(1, 2, -1, ModBlocks.machineCasing.getDefaultState(), multiblock);
+					addComponent(1, 2, 1, ModBlocks.machineCasing.getDefaultState(), multiblock);
 
-					addComponent(0, 3, 0, ModBlocks.MachineCasing.getDefaultState(), multiblock);
-					addComponent(1, 3, 0, ModBlocks.MachineCasing.getDefaultState(), multiblock);
-					addComponent(0, 3, 1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
-					addComponent(-1, 3, 0, ModBlocks.MachineCasing.getDefaultState(), multiblock);
-					addComponent(0, 3, -1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
-					addComponent(-1, 3, -1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
-					addComponent(-1, 3, 1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
-					addComponent(1, 3, -1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
-					addComponent(1, 3, 1, ModBlocks.MachineCasing.getDefaultState(), multiblock);
+					addComponent(0, 3, 0, ModBlocks.machineCasing.getDefaultState(), multiblock);
+					addComponent(1, 3, 0, ModBlocks.machineCasing.getDefaultState(), multiblock);
+					addComponent(0, 3, 1, ModBlocks.machineCasing.getDefaultState(), multiblock);
+					addComponent(-1, 3, 0, ModBlocks.machineCasing.getDefaultState(), multiblock);
+					addComponent(0, 3, -1, ModBlocks.machineCasing.getDefaultState(), multiblock);
+					addComponent(-1, 3, -1, ModBlocks.machineCasing.getDefaultState(), multiblock);
+					addComponent(-1, 3, 1, ModBlocks.machineCasing.getDefaultState(), multiblock);
+					addComponent(1, 3, -1, ModBlocks.machineCasing.getDefaultState(), multiblock);
+					addComponent(1, 3, 1, ModBlocks.machineCasing.getDefaultState(), multiblock);
 
-					addComponent(1, 4, 0, ModBlocks.LesuStorage.getDefaultState(), multiblock);
-					addComponent(1, 4, 1, ModBlocks.Lesu.getDefaultState(), multiblock);
-					addComponent(1, 4, 2, ModBlocks.AlloyFurnace.getDefaultState(), multiblock);
+					addComponent(1, 4, 0, ModBlocks.LESUStorage.getDefaultState(), multiblock);
+					addComponent(1, 4, 1, ModBlocks.LESU.getDefaultState(), multiblock);
+					addComponent(1, 4, 2, ModBlocks.alloyFurnace.getDefaultState(), multiblock);
 
 					MultiblockSet set = new MultiblockSet(multiblock);
 					ClientProxy.multiblockRenderEvent.setMultiblock(set);

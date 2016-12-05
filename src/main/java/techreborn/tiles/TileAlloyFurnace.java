@@ -255,7 +255,7 @@ public class TileAlloyFurnace extends TileLegacyMachineBase implements IWrenchab
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.AlloyFurnace, 1);
+		return new ItemStack(ModBlocks.alloyFurnace, 1);
 	}
 
 	public boolean isComplete() {

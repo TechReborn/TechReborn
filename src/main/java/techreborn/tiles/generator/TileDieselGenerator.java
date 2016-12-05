@@ -51,7 +51,7 @@ public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchabl
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.DieselGenerator, 1);
+		return new ItemStack(ModBlocks.dieselGenerator, 1);
 	}
 
 	@Override

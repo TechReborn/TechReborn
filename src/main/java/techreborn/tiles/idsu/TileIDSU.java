@@ -157,7 +157,7 @@ public class TileIDSU extends TilePowerAcceptor implements IWrenchable {
 
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
 		NBTTagCompound tileEntity = new NBTTagCompound();
-		ItemStack dropStack = new ItemStack(ModBlocks.Idsu, 1);
+		ItemStack dropStack = new ItemStack(ModBlocks.IDSU, 1);
 		writeToNBT(tileEntity);
 		dropStack.setTagCompound(new NBTTagCompound());
 		dropStack.getTagCompound().setTag("tileEntity", tileEntity);
