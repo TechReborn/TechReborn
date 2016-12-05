@@ -1,14 +1,17 @@
 package techreborn.blocks.storage;
 
+import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import reborncore.common.BaseTileBlock;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.blocks.IAdvancedRotationTexture;
 import techreborn.client.TechRebornCreativeTab;
@@ -17,30 +20,30 @@ import techreborn.tiles.lesu.TileLesuStorage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlockLESUStorage extends BlockMachineBase implements IAdvancedRotationTexture {
+public class BlockLESUStorage extends BaseTileBlock implements ITexturedBlock {
 
-	private final String prefix = "techreborn:blocks/machine/storage/";
+	private final String prefix = "techreborn:blocks/machines/energy/";
 
 	public BlockLESUStorage(Material material) {
-		super();
+		super(material);
 		setUnlocalizedName("techreborn.lesustorage");
 		setCreativeTab(TechRebornCreativeTab.instance);
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemstack) {
-		super.onBlockPlacedBy(world, x, y, z, player, itemstack);
-		if (world.getTileEntity(new BlockPos(x, y, z)) instanceof TileLesuStorage) {
-			((TileLesuStorage) world.getTileEntity(new BlockPos(x, y, z))).rebuildNetwork();
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase player, ItemStack itemstack) {
+		super.onBlockPlacedBy(world, pos, state, player, itemstack);
+		if (world.getTileEntity(pos) instanceof TileLesuStorage) {
+			((TileLesuStorage) world.getTileEntity(pos)).rebuildNetwork();
 		}
 	}
 
 	@Override
-	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
-		if (world.getTileEntity(new BlockPos(x, y, z)) instanceof TileLesuStorage) {
-			((TileLesuStorage) world.getTileEntity(new BlockPos(x, y, z))).removeFromNetwork();
+	public void breakBlock(World world, BlockPos pos, IBlockState state) {
+		if (world.getTileEntity(pos) instanceof TileLesuStorage) {
+			((TileLesuStorage) world.getTileEntity(pos)).removeFromNetwork();
 		}
-		super.breakBlock(world, x, y, z, block, meta);
+		super.breakBlock(world, pos, state);
 	}
 
 	@Override
@@ -60,22 +63,12 @@ public class BlockLESUStorage extends BlockMachineBase implements IAdvancedRotat
 	}
 
 	@Override
-	public String getFront(boolean isActive) {
-		return prefix + "lesu_block";
+	public String getTextureNameFromState(IBlockState blockState, EnumFacing facing) {
+		return prefix + "ev_multi_side";
 	}
 
 	@Override
-	public String getSide(boolean isActive) {
-		return prefix + "lesu_block";
-	}
-
-	@Override
-	public String getTop(boolean isActive) {
-		return prefix + "lesu_block";
-	}
-
-	@Override
-	public String getBottom(boolean isActive) {
-		return prefix + "lesu_block";
+	public int amountOfStates() {
+		return 1;
 	}
 }
