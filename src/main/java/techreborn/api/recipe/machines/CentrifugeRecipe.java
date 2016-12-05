@@ -12,9 +12,9 @@ public class CentrifugeRecipe extends BaseRecipe {
 	                        ItemStack output4, int tickTime, int euPerTick) {
 		super(Reference.centrifugeRecipe, tickTime, euPerTick);
 		if (input1 != null)
-			inputs.add(input1);
+			addInput(input1);
 		if (input2 != null)
-			inputs.add(input2);
+			addInput(input2);
 		if (output1 != null)
 			addOutput(output1);
 		if (output2 != null)

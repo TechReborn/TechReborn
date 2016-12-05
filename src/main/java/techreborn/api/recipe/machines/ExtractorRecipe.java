@@ -11,7 +11,7 @@ public class ExtractorRecipe extends BaseRecipe {
 	public ExtractorRecipe(ItemStack input1, ItemStack output1, int tickTime, int euPerTick) {
 		super(Reference.extractorRecipe, tickTime, euPerTick);
 		if (input1 != null)
-			inputs.add(input1);
+			addInput(input1);
 		if (output1 != null)
 			addOutput(output1);
 	}

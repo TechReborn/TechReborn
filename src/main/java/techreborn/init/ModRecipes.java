@@ -443,13 +443,13 @@ public class ModRecipes {
 						data[1].equals("aluminium") ||
 						data[1].equals("iridium") ||
 						data[1].equals("saltpeter")) ||
-					oreStack == null)
+					oreStack == ItemStack.EMPTY)
 					continue;
 
 				boolean ore = data[0].equals("ore");
 				Core.logHelper.debug("Ore: " + data[1]);
 				ItemStack dust = getDictOreOrNull(joinDictName("dust", data[1]), ore ? 2 : 1);
-				if (dust == null || dust.getItem() == null) {
+				if (dust == ItemStack.EMPTY || dust.getItem() == null) {
 					continue;
 				}
 				dust = dust.copy();

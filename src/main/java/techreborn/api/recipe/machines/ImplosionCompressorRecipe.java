@@ -10,9 +10,9 @@ public class ImplosionCompressorRecipe extends BaseRecipe {
 	                                 int tickTime, int euPerTick) {
 		super(Reference.implosionCompressorRecipe, tickTime, euPerTick);
 		if (input1 != null)
-			inputs.add(input1);
+			addInput(input1);
 		if (input2 != null)
-			inputs.add(input2);
+			addInput(input2);
 		if (output1 != null)
 			addOutput(output1);
 		if (output2 != null)

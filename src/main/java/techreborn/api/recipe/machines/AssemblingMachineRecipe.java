@@ -9,9 +9,9 @@ public class AssemblingMachineRecipe extends BaseRecipe {
 	public AssemblingMachineRecipe(ItemStack input1, ItemStack input2, ItemStack output1, int tickTime, int euPerTick) {
 		super(Reference.assemblingMachineRecipe, tickTime, euPerTick);
 		if (input1 != null)
-			inputs.add(input1);
+			addInput(input1);
 		if (input2 != null)
-			inputs.add(input2);
+			addInput(input2);
 		if (output1 != null)
 			addOutput(output1);
 	}

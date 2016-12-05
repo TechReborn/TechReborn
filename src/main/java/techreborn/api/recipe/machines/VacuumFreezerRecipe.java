@@ -9,7 +9,7 @@ public class VacuumFreezerRecipe extends BaseRecipe {
 	public VacuumFreezerRecipe(ItemStack input, ItemStack output, int tickTime, int euPerTick) {
 		super(Reference.vacuumFreezerRecipe, tickTime, euPerTick);
 		if (input != null)
-			inputs.add(input);
+			addInput(input);
 		if (output != null)
 			addOutput(output);
 	}

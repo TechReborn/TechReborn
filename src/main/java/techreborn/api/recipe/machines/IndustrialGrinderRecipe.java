@@ -13,7 +13,7 @@ public class IndustrialGrinderRecipe extends BaseRecipe {
 	                               ItemStack output2, ItemStack output3, ItemStack output4, int tickTime, int euPerTick) {
 		super(Reference.industrialGrinderRecipe, tickTime, (int) (euPerTick / 2.5)); // Buff energy usage to be more in line with other machines
 		if (input1 != null)
-			inputs.add(input1);
+			addInput(input1);
 		if (output1 != null)
 			addOutput(output1);
 		if (output2 != null)

@@ -4,6 +4,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import reborncore.api.recipe.IBaseRecipeType;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public abstract class BaseRecipe implements IBaseRecipeType, Cloneable {
 
-	public ArrayList<ItemStack> inputs;
+	private ArrayList<ItemStack> inputs;
 	public String name;
 	public int tickTime;
 	public int euPerTick;
@@ -38,6 +39,9 @@ public abstract class BaseRecipe implements IBaseRecipeType, Cloneable {
 	}
 
 	public void addOutput(ItemStack stack) {
+		if(stack == null || stack.isEmpty()){
+			throw new InvalidParameterException("output is invalid!");
+		}
 		outputs.add(stack);
 	}
 
@@ -90,5 +94,12 @@ public abstract class BaseRecipe implements IBaseRecipeType, Cloneable {
 	@Override
 	public List<ItemStack> getOutputs() {
 		return outputs;
+	}
+
+	public void addInput(ItemStack inuput){
+		if(inuput == null || inuput.isEmpty()){
+			throw new InvalidParameterException("input is invalid!");
+		}
+		inputs.add(inuput);
 	}
 }

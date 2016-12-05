@@ -12,9 +12,9 @@ public class IndustrialElectrolyzerRecipe extends BaseRecipe {
 	                                    ItemStack output3, ItemStack output4, int tickTime, int euPerTick) {
 		super(Reference.industrialElectrolyzerRecipe, tickTime, euPerTick);
 		if (inputCells != null)
-			inputs.add(inputCells);
+			addInput(inputCells);
 		if (input2 != null)
-			inputs.add(input2);
+			addInput(input2);
 		if (output1 != null)
 			addOutput(output1);
 		if (output2 != null)
