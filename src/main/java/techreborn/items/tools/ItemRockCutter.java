@@ -24,6 +24,7 @@ import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
 import techreborn.lib.ModInfo;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
@@ -61,13 +62,16 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo, ITex
 	}
 
 	@Override
-	public int getHarvestLevel(ItemStack stack, String toolClass) {
-
+	public int getHarvestLevel(ItemStack stack,
+	                           String toolClass,
+	                           @Nullable
+		                           EntityPlayer player,
+	                           @Nullable
+		                           IBlockState blockState) {
 		if (!stack.isItemEnchanted()) {
 			stack.addEnchantment(Enchantment.getEnchantmentByID(33), 1);
 		}
-
-		return super.getHarvestLevel(stack, toolClass);
+		return super.getHarvestLevel(stack, toolClass, player, blockState);
 	}
 
 	@Override

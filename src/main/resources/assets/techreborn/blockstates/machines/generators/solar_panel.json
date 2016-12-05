@@ -6,7 +6,8 @@
     "textures": {
       "particle": "techreborn:blocks/machines/generators/solar_panel_side_off",
       "top": "techreborn:blocks/machines/generators/solar_panel_top",
-      "down": "techreborn:blocks/machines/generators/generator_bottom"
+      "down": "techreborn:blocks/machines/generators/generator_bottom",
+      "side": "techreborn:blocks/machines/generators/solar_panel_side_off"
     }
   },
   "variants": {

@@ -93,7 +93,7 @@ public class BlockMachineCasing extends BlockMultiblockBase  {
 	}
 
 	@Override
-	public boolean canRenderInLayer(BlockRenderLayer layer) {
+	public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer) {
 		return true;
 	}
 

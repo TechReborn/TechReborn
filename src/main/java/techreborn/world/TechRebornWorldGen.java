@@ -240,14 +240,14 @@ public class TechRebornWorldGen implements IWorldGenerator {
 			int chance = config.rubberTreeConfig.chance;
 			boolean isValidSpawn = false;
 			Biome biomeGenBase = world.getBiomeForCoordsBody(new BlockPos(chunkX * 16, 72, chunkZ * 16));
-			if (BiomeDictionary.isBiomeOfType(biomeGenBase, BiomeDictionary.Type.SWAMP)) {
+			if (BiomeDictionary.hasType(biomeGenBase, BiomeDictionary.Type.SWAMP)) {
 				// TODO check the config file for bounds on this, might cause
 				// issues
 				chance -= random.nextInt(10) + 10;
 				isValidSpawn = true;
 			}
-			if (BiomeDictionary.isBiomeOfType(biomeGenBase, BiomeDictionary.Type.FOREST)
-				|| BiomeDictionary.isBiomeOfType(biomeGenBase, BiomeDictionary.Type.JUNGLE)) {
+			if (BiomeDictionary.hasType(biomeGenBase, BiomeDictionary.Type.FOREST)
+				|| BiomeDictionary.hasType(biomeGenBase, BiomeDictionary.Type.JUNGLE)) {
 				chance -= random.nextInt(5) + 3;
 				isValidSpawn = true;
 			}
