@@ -42,7 +42,7 @@ public class BlockReinforcedGlass extends BaseBlock implements ITexturedBlock {
 
 	@Override
 	public String getTextureNameFromState(IBlockState arg0, EnumFacing arg1) {
-		return prefix + "reinforcedglass";
+		return prefix + "reinforced_glass";
 	}
 
 }
