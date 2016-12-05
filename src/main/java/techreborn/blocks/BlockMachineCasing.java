@@ -86,15 +86,4 @@ public class BlockMachineCasing extends BlockMultiblockBase  {
 		return new TileMachineCasing();
 	}
 
-	@Override
-	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
-		Block b = worldIn.getBlockState(pos).getBlock();
-		return b != this && super.shouldSideBeRendered(blockState, worldIn, pos, side);
-	}
-
-	@Override
-	public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer) {
-		return true;
-	}
-
 }

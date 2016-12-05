@@ -3,24 +3,28 @@
   "defaults": {
     "textures": {},
     "transform": "forge:default-block",
-    "model": "techreborn:machine_casing_standard"
+    "model": "cube_all"
   },
   "variants": {
+    "inventory": [
+      {}
+    ],
     "type": {
-      "standard":
-        {
-          "model": "techreborn:machine_casing_standard"
-        },
-      "reinforced": [
-        {
-          "model": "techreborn:machine_casing_standard"
+      "0": {
+        "textures": {
+          "all": "techreborn:blocks/machines/structure/tier1_casing"
         }
-      ],
-      "advanced": [
-        {
-          "model": "techreborn:machine_casing_standard"
+      },
+      "1": {
+        "textures": {
+          "all": "techreborn:blocks/machines/structure/tier2_casing"
         }
-      ]
+      },
+      "2": {
+        "textures": {
+          "all": "techreborn:blocks/machines/structure/tier3_casing"
+        }
+      }
     }
   }
 }
