@@ -24,6 +24,7 @@ import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineCasing;
+import techreborn.blocks.BlockMachineFrame;
 import techreborn.blocks.BlockRubberLeaves;
 import techreborn.client.ClientMultiBlocks;
 import techreborn.client.IconSupplier;
@@ -69,6 +70,9 @@ public class ClientProxy extends CommonProxy {
 
 		for (int i = 0; i < BlockMachineCasing.types.length; i++) {
 			Core.proxy.registerSubBlockInventoryLocation(ModBlocks.machineCasing, i, "techreborn:machines/structure/machine_casing", "type=" + i);
+		}
+		for (int i = 0; i < BlockMachineFrame.types.length; i++) {
+			Core.proxy.registerSubBlockInventoryLocation(ModBlocks.machineframe, i, "techreborn:machines/storage/machine_blocks", "type=" + i);
 		}
 
 		ModelDynamicCell.init();

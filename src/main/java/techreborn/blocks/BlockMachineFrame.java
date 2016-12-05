@@ -18,7 +18,7 @@ import techreborn.init.ModBlocks;
 
 import java.security.InvalidParameterException;
 
-public class BlockMachineFrame extends BaseBlock implements ITexturedBlock {
+public class BlockMachineFrame extends BaseBlock {
 	public static final String[] types = new String[] { "machine", "advancedMachine", "highlyAdvancedMachine" };
 	public static final PropertyInteger METADATA = PropertyInteger.create("type", 0, types.length - 1);
 
@@ -50,16 +50,6 @@ public class BlockMachineFrame extends BaseBlock implements ITexturedBlock {
 	@Override
 	public int damageDropped(IBlockState state) {
 		return getMetaFromState(state);
-	}
-
-	@Override
-	public String getTextureNameFromState(IBlockState blockState, EnumFacing facing) {
-		return "techreborn:blocks/machine/machine_blocks/" + types[getMetaFromState(blockState)] + "_machine_block";
-	}
-
-	@Override
-	public int amountOfStates() {
-		return types.length;
 	}
 
 	@Override

@@ -9,18 +9,18 @@
     "inventory": [
       {}
     ],
-    "tier1": {
-      "galena": {
+    "type": {
+      "0": {
         "textures": {
           "all": "techreborn:blocks/machines/structure/tier1_machine_block"
         }
       },
-      "tier2": {
+      "1": {
         "textures": {
           "all": "techreborn:blocks/machines/structure/tier2_machine_block"
         }
       },
-      "tier3": {
+      "2": {
         "textures": {
           "all": "techreborn:blocks/machines/structure/tier3_machine_block"
         }

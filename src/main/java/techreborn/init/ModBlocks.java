@@ -327,6 +327,7 @@ public class ModBlocks {
 
 		machineframe = new BlockMachineFrame(Material.IRON);
 		registerBlock(machineframe, ItemBlockMachineFrame.class, "techreborn.machineFrame");
+		Core.proxy.registerCustomBlockStateLocation(machineframe, "machines/storage/machine_blocks");
 
 		grinder = new BlockGrinder(Material.IRON);
 		registerBlock(grinder, "techreborn.grinder");
