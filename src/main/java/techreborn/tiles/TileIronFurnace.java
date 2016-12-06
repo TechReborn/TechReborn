@@ -116,7 +116,7 @@ public class TileIronFurnace extends TileLegacyMachineBase implements IInventory
 
 	public ItemStack getResultFor(ItemStack stack) {
 		ItemStack result = FurnaceRecipes.instance().getSmeltingResult(stack);
-		if (result != null) {
+		if (result != ItemStack.EMPTY) {
 			return result.copy();
 		}
 		return null;

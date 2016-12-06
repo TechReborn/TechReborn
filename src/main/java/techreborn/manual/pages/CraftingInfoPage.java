@@ -240,7 +240,7 @@ public class CraftingInfoPage extends TitledPage {
 				continue;
 
 			ItemStack result = recipe.getRecipeOutput();
-			if (result == null || !result.isItemEqual(resultingItem))
+			if (result == ItemStack.EMPTY || !result.isItemEqual(resultingItem))
 				continue;
 
 			Object[] input = getRecipeInput(recipe);

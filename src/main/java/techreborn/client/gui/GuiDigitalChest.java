@@ -3,6 +3,7 @@ package techreborn.client.gui;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 import techreborn.client.container.ContainerDigitalChest;
@@ -38,10 +39,10 @@ public class GuiDigitalChest extends GuiContainer {
 		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,
 			this.ySize - 96 + 2, 4210752);
 		this.fontRendererObj.drawString("Amount", 10, 20, 16448255);
-		if (tile.storedItem != null && tile.getStackInSlot(1) != null)
+		if (tile.storedItem != ItemStack.EMPTY && tile.getStackInSlot(1) != null)
 			this.fontRendererObj.drawString(tile.storedItem.getCount() + tile.getStackInSlot(1).getCount() + "", 10, 30,
 				16448255);
-		if (tile.storedItem == null && tile.getStackInSlot(1) != null)
+		if (tile.storedItem == ItemStack.EMPTY && tile.getStackInSlot(1) != null)
 			this.fontRendererObj.drawString(tile.getStackInSlot(1).getCount() + "", 10, 30, 16448255);
 	}
 }

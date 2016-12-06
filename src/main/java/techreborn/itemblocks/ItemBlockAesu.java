@@ -29,7 +29,7 @@ public class ItemBlockAesu extends ItemBlock {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
-		if (stack != null && stack.hasTagCompound()) {
+		if (stack != ItemStack.EMPTY && stack.hasTagCompound()) {
 			if (stack.getTagCompound().getCompoundTag("tileEntity") != null)
 				list.add(PowerSystem
 					.getLocaliszedPower(stack.getTagCompound().getCompoundTag("tileEntity").getInteger("energy")));
@@ -47,7 +47,7 @@ public class ItemBlockAesu extends ItemBlock {
 			// world.getBlockState(pos).getBlock().onPostBlockPlaced(world, x,
 			// y, z, metadata);
 		}
-		if (stack != null && stack.hasTagCompound()) {
+		if (stack != ItemStack.EMPTY && stack.hasTagCompound()) {
 			((TileAesu) world.getTileEntity(pos))
 				.readFromNBTWithoutCoords(stack.getTagCompound().getCompoundTag("tileEntity"));
 		}

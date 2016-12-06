@@ -130,7 +130,7 @@ public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable, II
 		if (tank.getFluidType() != null && getStackInSlot(2) == ItemStack.EMPTY) {
 			inventory.setInventorySlotContents(2, new ItemStack(tank.getFluidType().getBlock()));
 		} else if (tank.getFluidType() == null && getStackInSlot(2) != ItemStack.EMPTY) {
-			setInventorySlotContents(2, null);
+			setInventorySlotContents(2, ItemStack.EMPTY);
 		}
 	}
 

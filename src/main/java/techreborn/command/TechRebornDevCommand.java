@@ -7,6 +7,7 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
@@ -74,7 +75,7 @@ public class TechRebornDevCommand extends CommandBase {
 			}
 		} else if ("getname".equals(args[0])) {
 			EntityPlayer player = (EntityPlayer) sender;
-			if (player.getHeldItem(EnumHand.MAIN_HAND) != null) {
+			if (player.getHeldItem(EnumHand.MAIN_HAND) != ItemStack.EMPTY) {
 				sender.sendMessage(new TextComponentString(player.getHeldItem(EnumHand.MAIN_HAND).getItem().getRegistryName() + ":" + player.getHeldItem(EnumHand.MAIN_HAND).getItemDamage()));
 			} else {
 				sender.sendMessage(new TextComponentString("hold an item!"));

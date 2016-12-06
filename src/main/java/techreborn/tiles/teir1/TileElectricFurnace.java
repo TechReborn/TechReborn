@@ -76,7 +76,7 @@ public class TileElectricFurnace extends TilePowerAcceptor implements IWrenchabl
 			if (getStackInSlot(input1).getCount() > 1) {
 				this.decrStackSize(input1, 1);
 			} else {
-				setInventorySlotContents(input1, null);
+				setInventorySlotContents(input1, ItemStack.EMPTY);
 			}
 		}
 	}
@@ -86,7 +86,7 @@ public class TileElectricFurnace extends TilePowerAcceptor implements IWrenchabl
 			return false;
 		} else {
 			ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(getStackInSlot(input1));
-			if (itemstack == null)
+			if (itemstack == ItemStack.EMPTY)
 				return false;
 			if (getStackInSlot(output) == ItemStack.EMPTY)
 				return true;

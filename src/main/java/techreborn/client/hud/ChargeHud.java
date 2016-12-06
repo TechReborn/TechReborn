@@ -50,7 +50,7 @@ public class ChargeHud {
 
 		int y = 5;
 
-		if (armorstack != null && ConfigTechReborn.ShowChargeHud
+		if (armorstack != ItemStack.EMPTY && ConfigTechReborn.ShowChargeHud
 			&& armorstack.getItem() instanceof IEnergyInterfaceItem) {
 			double MaxCharge = ((IEnergyInterfaceItem) armorstack.getItem()).getMaxPower(armorstack);
 			double CurrentCharge = ((IEnergyInterfaceItem) armorstack.getItem()).getEnergy(armorstack);
@@ -76,7 +76,7 @@ public class ChargeHud {
 		}
 
 		if (showHud) {
-			if (offHandstack != null && offHandstack.getItem() instanceof IEnergyInterfaceItem) {
+			if (offHandstack != ItemStack.EMPTY && offHandstack.getItem() instanceof IEnergyInterfaceItem) {
 				double MaxCharge = ((IEnergyInterfaceItem) offHandstack.getItem()).getMaxPower(offHandstack);
 				double CurrentCharge = ((IEnergyInterfaceItem) offHandstack.getItem()).getEnergy(offHandstack);
 				if (MaxCharge != 0) {
@@ -99,7 +99,7 @@ public class ChargeHud {
 					y += 20;
 				}
 			}
-			if (stack != null && stack.getItem() instanceof IEnergyInterfaceItem) {
+			if (stack != ItemStack.EMPTY && stack.getItem() instanceof IEnergyInterfaceItem) {
 				double MaxCharge = ((IEnergyInterfaceItem) stack.getItem()).getMaxPower(stack);
 				double CurrentCharge = ((IEnergyInterfaceItem) stack.getItem()).getEnergy(stack);
 				Color color = Color.GREEN;

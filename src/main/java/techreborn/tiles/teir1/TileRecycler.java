@@ -88,7 +88,7 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInv
 				this.decrStackSize(input1, 1);
 			} else {
 				useEnergy(cost);
-				setInventorySlotContents(input1, null);
+				setInventorySlotContents(input1, ItemStack.EMPTY);
 			}
 		}
 	}
