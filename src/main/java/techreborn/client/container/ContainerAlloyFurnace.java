@@ -2,11 +2,20 @@ package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IContainerListener;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.SlotFurnaceFuel;
+import net.minecraft.item.ItemStack;
+import reborncore.api.recipe.IBaseRecipeType;
+import reborncore.api.recipe.RecipeHandler;
 import reborncore.client.gui.BaseSlot;
 import reborncore.client.gui.SlotOutput;
 import reborncore.common.container.RebornContainer;
+import reborncore.common.util.ItemUtils;
+import techreborn.api.recipe.machines.AlloySmelterRecipe;
+import techreborn.api.recipe.recipeConfig.RecipeConfigManager;
 import techreborn.tiles.TileAlloyFurnace;
+
+import javax.annotation.Nullable;
 
 public class ContainerAlloyFurnace extends RebornContainer {
 
@@ -22,8 +31,8 @@ public class ContainerAlloyFurnace extends RebornContainer {
 		this.player = player;
 
 		// input
-		this.addSlotToContainer(new BaseSlot(tileAlloyfurnace.inventory, 0, 47, 17));
-		this.addSlotToContainer(new BaseSlot(tileAlloyfurnace.inventory, 1, 65, 17));
+		this.addSlotToContainer(new SlotInputCustom(tileAlloyfurnace.inventory, 0, 47, 17, 0));
+		this.addSlotToContainer(new SlotInputCustom(tileAlloyfurnace.inventory, 1, 65, 17, 1));
 		// outputs
 		this.addSlotToContainer(new SlotOutput(tileAlloyfurnace.inventory, 2, 116, 35));
 		// Fuel
@@ -39,6 +48,30 @@ public class ContainerAlloyFurnace extends RebornContainer {
 
 		for (i = 0; i < 9; ++i) {
 			this.addSlotToContainer(new BaseSlot(player.inventory, i, 8 + i * 18, 142));
+		}
+	}
+
+	public static class SlotInputCustom extends reborncore.client.gui.slots.BaseSlot {
+
+		int recipeSlot = 0;
+
+		public SlotInputCustom(IInventory inventoryIn, int index, int xPosition, int yPosition, int recipeSlot) {
+			super(inventoryIn, index, xPosition, yPosition);
+			this.recipeSlot = recipeSlot;
+		}
+
+		@Override
+		public boolean isItemValid(
+			@Nullable
+				ItemStack stack) {
+			for(IBaseRecipeType recipe : RecipeHandler.recipeList){
+				if(recipe instanceof AlloySmelterRecipe){
+					if(ItemUtils.isItemEqual(recipe.getInputs().get(recipeSlot), stack, true, true, true)){
+						return true;
+					}
+				}
+			}
+			return false;
 		}
 	}
 

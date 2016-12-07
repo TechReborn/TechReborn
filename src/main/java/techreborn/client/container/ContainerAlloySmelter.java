@@ -37,8 +37,8 @@ public class ContainerAlloySmelter extends ContainerCrafting {
 	public void addInventorySlots() {
 
 		// input
-		this.addSlotToContainer(new SlotInput(tile.inventory, 0, 47, 17));
-		this.addSlotToContainer(new SlotInput(tile.inventory, 1, 65, 17));
+		this.addSlotToContainer(new ContainerAlloyFurnace.SlotInputCustom(tile.inventory, 0, 47, 17, 0));
+		this.addSlotToContainer(new ContainerAlloyFurnace.SlotInputCustom(tile.inventory, 1, 65, 17, 1));
 		// outputs
 		this.addSlotToContainer(new SlotOutput(tile.inventory, 2, 116, 35));
 		// battery
