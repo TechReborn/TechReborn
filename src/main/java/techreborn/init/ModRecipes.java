@@ -3155,7 +3155,7 @@ public class ModRecipes {
 
 		if (ConfigTechReborn.ExpensiveDrill)
 			CraftingHelper
-				.addShapedOreRecipe(OreDictionary.getOres("drillBasic").get(0).copy(), " S ", "SCS", "SBS", 'S',
+				.addShapedOreRecipe(new ItemStack(ModItems.ironDrill), " S ", "SCS", "SBS", 'S',
 					"ingotSteel", 'B', "reBattery", 'C',
 					"circuitBasic");
 

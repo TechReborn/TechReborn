@@ -54,7 +54,7 @@ repositories {
         name = "ic2"
         url = "http://maven.ic2.player.to/"
     }
-	
+
     maven {// HWYLA
         name "TehNut"
         url "http://tehnut.info/maven/"
@@ -109,7 +109,7 @@ dependencies {
 	//deobfCompile "slimeknights.mantle:Mantle:1.10.2-1.0.0.jenkins170"
 	deobfCompile "mcjty.theoneprobe:TheOneProbe:1.11-1.3.3-46"
 
-	//Only API until ... 
+	//Only API until ...
 	deobfCompile 'net.industrial-craft:industrialcraft-2:2.6.58-ex110:api'
 }
 
