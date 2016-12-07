@@ -9,12 +9,9 @@ import reborncore.client.gui.slots.SlotOutput;
 import net.minecraft.item.ItemStack;
 import reborncore.api.recipe.IBaseRecipeType;
 import reborncore.api.recipe.RecipeHandler;
-import reborncore.client.gui.BaseSlot;
-import reborncore.client.gui.SlotOutput;
 import reborncore.common.container.RebornContainer;
 import reborncore.common.util.ItemUtils;
 import techreborn.api.recipe.machines.AlloySmelterRecipe;
-import techreborn.api.recipe.recipeConfig.RecipeConfigManager;
 import techreborn.tiles.TileAlloyFurnace;
 
 import javax.annotation.Nullable;
@@ -53,7 +50,7 @@ public class ContainerAlloyFurnace extends RebornContainer {
 		}
 	}
 
-	public static class SlotInputCustom extends reborncore.client.gui.slots.BaseSlot {
+	public static class SlotInputCustom extends BaseSlot {
 
 		int recipeSlot = 0;
 
