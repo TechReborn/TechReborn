@@ -79,7 +79,13 @@ public class ItemWrench extends ItemTR implements ITexturedItem {
 			}
 			IBlockState state = world.getBlockState(pos);
 			if(state.getBlock() instanceof BlockEnergyStorage){
-				world.setBlockState(pos, state.withProperty(BlockEnergyStorage.FACING, side.getOpposite()));
+				EnumFacing facing = state.getValue(BlockEnergyStorage.FACING);
+				if(facing.getOpposite() == side){
+					facing = side;
+				} else  {
+					facing = side.getOpposite();
+				}
+				world.setBlockState(pos, state.withProperty(BlockEnergyStorage.FACING, facing));
 				return EnumActionResult.SUCCESS;
 			}
 		}
