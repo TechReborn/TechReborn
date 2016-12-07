@@ -3,6 +3,7 @@ package techreborn.items.tools;
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.block.BlockDynamicLiquid;
 import net.minecraft.block.BlockStaticLiquid;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,6 +27,7 @@ import reborncore.common.IWrenchable;
 import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.RebornPermissions;
 import techreborn.blocks.fluid.BlockFluidBase;
+import techreborn.blocks.storage.BlockEnergyStorage;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.compat.CompatManager;
 import techreborn.init.ModSounds;
@@ -68,12 +70,17 @@ public class ItemWrench extends ItemTR implements ITexturedItem {
 			return EnumActionResult.FAIL;
 		}
 
-		if (!player.isSneaking() && !player.worldObj.isRemote) {
+		if (!player.isSneaking()) {
 			if (tile instanceof TileMachineBase) {
 				if (side != EnumFacing.DOWN && side != EnumFacing.UP) {
 					((TileMachineBase) tile).setFacing(side);
 					return EnumActionResult.SUCCESS;
 				}
+			}
+			IBlockState state = world.getBlockState(pos);
+			if(state.getBlock() instanceof BlockEnergyStorage){
+				world.setBlockState(pos, state.withProperty(BlockEnergyStorage.FACING, side.getOpposite()));
+				return EnumActionResult.SUCCESS;
 			}
 		}
 		return super.onItemUseFirst(stack, player, world, pos, side, hitX, hitY, hitZ, hand);
