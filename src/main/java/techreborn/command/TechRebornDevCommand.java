@@ -62,6 +62,7 @@ public class TechRebornDevCommand extends CommandBase {
 			blocksToRemove.add(Blocks.GRASS);
 			blocksToRemove.add(Blocks.DIRT);
 			blocksToRemove.add(Blocks.STONE);
+			blocksToRemove.add(Blocks.END_STONE);
 			for (int x = 0; x < 25; x++) {
 				for (int z = 0; z < 25; z++) {
 					for (int y = 0; y < playerMP.posY; y++) {
