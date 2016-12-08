@@ -30,7 +30,6 @@ import techreborn.client.ClientMultiBlocks;
 import techreborn.client.IconSupplier;
 import techreborn.client.RegisterItemJsons;
 import techreborn.client.StackToolTipEvent;
-import techreborn.client.hud.ChargeHud;
 import techreborn.client.keybindings.KeyBindings;
 import techreborn.client.render.ModelDynamicCell;
 import techreborn.client.render.entitys.RenderNukePrimed;
@@ -44,6 +43,26 @@ import java.io.File;
 public class ClientProxy extends CommonProxy {
 
 	public static MultiblockRenderEvent multiblockRenderEvent;
+
+	public static ResourceLocation getItemLocation(Item item) {
+		Object o = item.getRegistryName();
+		if (o == null) {
+			return null;
+		}
+		return (ResourceLocation) o;
+	}
+
+	private static ResourceLocation registerIt(Item item, final ResourceLocation location) {
+		ModelLoader.setCustomMeshDefinition(item, new ItemMeshDefinition() {
+			@Override
+			public ModelResourceLocation getModelLocation(ItemStack stack) {
+				return new ModelResourceLocation(location, "inventory");
+			}
+		});
+		ModelLoader.registerItemVariants(item, location);
+
+		return location;
+	}
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
@@ -89,7 +108,6 @@ public class ClientProxy extends CommonProxy {
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
 		MinecraftForge.EVENT_BUS.register(new IconSupplier());
-		MinecraftForge.EVENT_BUS.register(new ChargeHud());
 		//MinecraftForge.EVENT_BUS.register(new VersionCheckerClient());
 		MinecraftForge.EVENT_BUS.register(new StackToolTipEvent());
 		multiblockRenderEvent = new MultiblockRenderEvent();
@@ -116,34 +134,6 @@ public class ClientProxy extends CommonProxy {
 		}
 
 		return registerIt(item, itemLocation);
-	}
-
-	public static ResourceLocation getItemLocation(Item item) {
-		Object o = item.getRegistryName();
-		if (o == null) {
-			return null;
-		}
-		return (ResourceLocation) o;
-	}
-
-	private static ResourceLocation registerIt(Item item, final ResourceLocation location) {
-		ModelLoader.setCustomMeshDefinition(item, new ItemMeshDefinition() {
-			@Override
-			public ModelResourceLocation getModelLocation(ItemStack stack) {
-				return new ModelResourceLocation(location, "inventory");
-			}
-		});
-		ModelLoader.registerItemVariants(item, location);
-
-		return location;
-	}
-
-	public class RenderManagerNuke implements IRenderFactory<EntityNukePrimed> {
-
-		@Override
-		public Render<? super EntityNukePrimed> createRenderFor(RenderManager manager) {
-			return new RenderNukePrimed(manager);
-		}
 	}
 
 	@Override
@@ -200,6 +190,14 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public boolean isCTMAvailable() {
 		return isChiselAround;
+	}
+
+	public class RenderManagerNuke implements IRenderFactory<EntityNukePrimed> {
+
+		@Override
+		public Render<? super EntityNukePrimed> createRenderFor(RenderManager manager) {
+			return new RenderNukePrimed(manager);
+		}
 	}
 
 }
