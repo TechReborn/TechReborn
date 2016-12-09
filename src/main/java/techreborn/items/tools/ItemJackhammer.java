@@ -22,6 +22,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.RebornCore;
 import reborncore.api.power.IEnergyItemInfo;
+import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.util.TorchHelper;
 import techreborn.client.TechRebornCreativeTab;
@@ -48,6 +49,11 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo, ITex
 		RebornCore.jsonDestroyer.registerObject(this);
 		this.maxCharge = energyCapacity;
 		this.tier = tier;
+	}
+
+	@Override
+	public int getRGBDurabilityForDisplay(ItemStack stack) {
+		return PowerSystem.getDisplayPower().colour;
 	}
 
 	@Override

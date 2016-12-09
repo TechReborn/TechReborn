@@ -7,19 +7,20 @@ import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.powerSystem.PoweredItem;
+import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
 
-public class ItemLithiumBattery extends ItemBattery {
+public class ItemLapotronicOrb extends ItemBattery {
 
-	public ItemLithiumBattery() {
-		super("lithiumBattery", 100000, 512, 1);
+	public ItemLapotronicOrb() {
+		super("lapotronicorb", ConfigTechReborn.LapotronicOrbMaxCharge, 10000, ConfigTechReborn.LapotronicOrbTier);
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item,
 	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
-		ItemStack stack = new ItemStack(ModItems.lithiumBattery);
+		ItemStack stack = new ItemStack(ModItems.lapotronicOrb);
 		ItemStack uncharged = stack.copy();
 		ItemStack charged = stack.copy();
 		PoweredItem.setEnergy(getMaxPower(charged), charged);
@@ -28,4 +29,3 @@ public class ItemLithiumBattery extends ItemBattery {
 		itemList.add(charged);
 	}
 }
-

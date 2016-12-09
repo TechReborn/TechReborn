@@ -1,24 +1,22 @@
 package techreborn.items.battery;
 
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.IItemPropertyGetter;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
+import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItem;
 import techreborn.items.ItemTRNoDestroy;
 
 import javax.annotation.Nullable;
-import java.util.List;
 
 public class ItemBattery extends ItemTRNoDestroy implements IEnergyItemInfo {
 
-	String name = "null";
+	String name;
 	int maxEnergy = 0;
 	int maxTransfer = 0;
 	int tier = 0;
@@ -47,17 +45,6 @@ public class ItemBattery extends ItemTRNoDestroy implements IEnergyItemInfo {
 		});
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
-		ItemStack itemStack = new ItemStack(this, 1);
-		itemList.add(itemStack);
-
-		ItemStack charged = new ItemStack(this, 1);
-		PoweredItem.setEnergy(getMaxPower(charged), charged);
-		itemList.add(charged);
-	}
-
 	@Override
 	public double getDurabilityForDisplay(ItemStack stack) {
 		double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
@@ -68,6 +55,11 @@ public class ItemBattery extends ItemTRNoDestroy implements IEnergyItemInfo {
 	@Override
 	public boolean showDurabilityBar(ItemStack stack) {
 		return true;
+	}
+
+	@Override
+	public int getRGBDurabilityForDisplay(ItemStack stack) {
+		return PowerSystem.getDisplayPower().colour;
 	}
 
 	@Override

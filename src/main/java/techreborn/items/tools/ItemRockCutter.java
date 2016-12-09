@@ -13,19 +13,21 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.RebornCore;
 import reborncore.api.power.IEnergyItemInfo;
+import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItem;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
+import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
 
 import javax.annotation.Nullable;
-import java.util.List;
 import java.util.Random;
 
 public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo, ITexturedItem {
@@ -41,6 +43,11 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo, ITex
 		setMaxStackSize(1);
 		efficiencyOnProperMaterial = 16F;
 		RebornCore.jsonDestroyer.registerObject(this);
+	}
+
+	@Override
+	public int getRGBDurabilityForDisplay(ItemStack stack) {
+		return PowerSystem.getDisplayPower().colour;
 	}
 
 	@Override
@@ -118,17 +125,17 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo, ITex
 		return 2;
 	}
 
+
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item,
-	                        CreativeTabs par2CreativeTabs, List itemList) {
-		ItemStack itemStack = new ItemStack(this, 1);
-		itemStack.addEnchantment(Enchantments.SILK_TOUCH, 1);
-		itemList.add(itemStack);
-
-		ItemStack charged = new ItemStack(this, 1);
-		charged.addEnchantment(Enchantments.SILK_TOUCH, 1);
+	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
+		ItemStack uncharged = new ItemStack(ModItems.rockCutter);
+		ItemStack charged = new ItemStack(ModItems.rockCutter);
 		PoweredItem.setEnergy(getMaxPower(charged), charged);
+
+		itemList.add(uncharged);
 		itemList.add(charged);
 	}
 

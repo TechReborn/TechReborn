@@ -16,18 +16,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.RebornCore;
 import reborncore.api.power.IEnergyItemInfo;
+import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.util.TorchHelper;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 
-import java.util.List;
 import java.util.Random;
 
 public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo, ITexturedItem, IHandHeld {
@@ -49,6 +50,11 @@ public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo, ITextured
 		this.maxCharge = energyCapacity;
 		this.tier = tier;
 		this.unpoweredSpeed = unpoweredSpeed;
+	}
+
+	@Override
+	public int getRGBDurabilityForDisplay(ItemStack stack) {
+		return PowerSystem.getDisplayPower().colour;
 	}
 
 	@Override
@@ -114,18 +120,6 @@ public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo, ITextured
 	@Override
 	public int getStackTier(ItemStack stack) {
 		return tier;
-	}
-
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item,
-	                        CreativeTabs par2CreativeTabs, List itemList) {
-		ItemStack itemStack = new ItemStack(this, 1);
-		itemList.add(itemStack);
-
-		ItemStack charged = new ItemStack(this, 1);
-		PoweredItem.setEnergy(getMaxPower(charged), charged);
-		itemList.add(charged);
 	}
 
 	@Override

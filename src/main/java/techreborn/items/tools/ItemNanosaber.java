@@ -22,6 +22,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
+import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.util.ChatUtils;
 import techreborn.client.TechRebornCreativeTab;
@@ -85,6 +86,11 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 		}
 	}
 
+	@Override
+	public int getRGBDurabilityForDisplay(ItemStack stack) {
+		return PowerSystem.getDisplayPower().colour;
+	}
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item,
@@ -98,10 +104,6 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 		inactiveCharged.getTagCompound().setBoolean("isActive", false);
 		PoweredItem.setEnergy(getMaxPower(inactiveCharged), inactiveCharged);
 
-		ItemStack activeUncharged = new ItemStack(ModItems.nanosaber);
-		activeUncharged.setTagCompound(new NBTTagCompound());
-		activeUncharged.getTagCompound().setBoolean("isActive", true);
-
 		ItemStack activeCharged = new ItemStack(ModItems.nanosaber);
 		activeCharged.setTagCompound(new NBTTagCompound());
 		activeCharged.getTagCompound().setBoolean("isActive", true);
@@ -109,7 +111,6 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 
 		itemList.add(inactiveUncharged);
 		itemList.add(inactiveCharged);
-		itemList.add(activeUncharged);
 		itemList.add(activeCharged);
 	}
 

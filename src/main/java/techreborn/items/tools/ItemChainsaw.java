@@ -3,10 +3,8 @@ package techreborn.items.tools;
 import me.modmuss50.jsonDestroyer.api.IHandHeld;
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
@@ -18,12 +16,11 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.RebornCore;
 import reborncore.api.power.IEnergyItemInfo;
+import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.util.TorchHelper;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
-
-import java.util.List;
 
 public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, ITexturedItem, IHandHeld {
 
@@ -45,6 +42,11 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, ITexturedI
 		this.maxCharge = energyCapacity;
 		this.tier = tier;
 		this.unpoweredSpeed = unpoweredSpeed;
+	}
+
+	@Override
+	public int getRGBDurabilityForDisplay(ItemStack stack) {
+		return PowerSystem.getDisplayPower().colour;
 	}
 
 	// @Override
@@ -116,17 +118,6 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, ITexturedI
 	@Override
 	public int getStackTier(ItemStack stack) {
 		return tier;
-	}
-
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
-		ItemStack itemStack = new ItemStack(this, 1);
-		itemList.add(itemStack);
-
-		ItemStack charged = new ItemStack(this, 1);
-		PoweredItem.setEnergy(getMaxPower(charged), charged);
-		itemList.add(charged);
 	}
 
 	@Override

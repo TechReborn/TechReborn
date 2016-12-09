@@ -6,15 +6,16 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.RebornCore;
 import reborncore.api.power.IEnergyItemInfo;
+import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItem;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
-
-import java.util.List;
 
 /**
  * Created by modmuss50 on 05/11/2016.
@@ -65,14 +66,22 @@ public class ItemElectricTreetap extends Item implements IEnergyItemInfo, ITextu
 
 	}
 
+	@Override
+	public int getRGBDurabilityForDisplay(ItemStack stack) {
+		return PowerSystem.getDisplayPower().colour;
+	}
+
+
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
-		ItemStack itemStack = new ItemStack(this, 1);
-		itemList.add(itemStack);
-
-		ItemStack charged = new ItemStack(this, 1);
+	public void getSubItems(Item item,
+	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
+		ItemStack uncharged = new ItemStack(ModItems.electricTreetap);
+		ItemStack charged = new ItemStack(ModItems.electricTreetap);
 		PoweredItem.setEnergy(getMaxPower(charged), charged);
+
+		itemList.add(uncharged);
 		itemList.add(charged);
 	}
 

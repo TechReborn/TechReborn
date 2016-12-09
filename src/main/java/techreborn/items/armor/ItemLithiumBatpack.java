@@ -9,17 +9,18 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.RebornCore;
 import reborncore.api.power.IEnergyItemInfo;
+import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItem;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
+import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
-
-import java.util.List;
 
 public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo, ITexturedItem {
 
@@ -33,6 +34,11 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo, IT
 		setUnlocalizedName("techreborn.lithiumbatpack");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornCore.jsonDestroyer.registerObject(this);
+	}
+
+	@Override
+	public int getRGBDurabilityForDisplay(ItemStack stack) {
+		return PowerSystem.getDisplayPower().colour;
 	}
 
 	@Override
@@ -86,12 +92,13 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo, IT
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
-		ItemStack itemStack = new ItemStack(this, 1);
-		itemList.add(itemStack);
-
-		ItemStack charged = new ItemStack(this, 1);
+	public void getSubItems(Item item,
+	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
+		ItemStack uncharged = new ItemStack(ModItems.lithiumBatpack);
+		ItemStack charged = new ItemStack(ModItems.lithiumBatpack);
 		PoweredItem.setEnergy(getMaxPower(charged), charged);
+
+		itemList.add(uncharged);
 		itemList.add(charged);
 	}
 

@@ -15,9 +15,11 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.RebornCore;
 import reborncore.api.power.IEnergyItemInfo;
+import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItem;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
+import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
 
 public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo, ITexturedItem {
@@ -32,6 +34,11 @@ public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo, ITex
 		setUnlocalizedName("techreborn.lapotronpack");
 		setMaxStackSize(1);
 		RebornCore.jsonDestroyer.registerObject(this);
+	}
+
+	@Override
+	public int getRGBDurabilityForDisplay(ItemStack stack) {
+		return PowerSystem.getDisplayPower().colour;
 	}
 
 	@Override
@@ -67,12 +74,13 @@ public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo, ITex
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs par2CreativeTabs, NonNullList itemList) {
-		ItemStack itemStack = new ItemStack(this, 1);
-		itemList.add(itemStack);
-
-		ItemStack charged = new ItemStack(this, 1);
+	public void getSubItems(Item item,
+	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
+		ItemStack uncharged = new ItemStack(ModItems.lapotronpack);
+		ItemStack charged = new ItemStack(ModItems.lapotronpack);
 		PoweredItem.setEnergy(getMaxPower(charged), charged);
+
+		itemList.add(uncharged);
 		itemList.add(charged);
 	}
 

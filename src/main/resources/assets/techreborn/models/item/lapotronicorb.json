@@ -8,7 +8,7 @@
       "predicate": {
         "techreborn:empty": 1
       },
-      "model": "techreborn:item/lapotronOrbEmpty"
+      "model": "techreborn:item/lapotronicOrbEmpty"
     }
   ]
 }

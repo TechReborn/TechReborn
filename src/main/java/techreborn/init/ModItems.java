@@ -17,10 +17,7 @@ import techreborn.items.*;
 import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
 import techreborn.items.armor.ItemTRArmour;
-import techreborn.items.battery.ItemEnergyCrystal;
-import techreborn.items.battery.ItemLapotronCrystal;
-import techreborn.items.battery.ItemLithiumBattery;
-import techreborn.items.battery.ItemReBattery;
+import techreborn.items.battery.*;
 import techreborn.items.tools.*;
 
 public class ModItems {
