@@ -1,0 +1,36 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "builtin/generated",
+    "transform": "forge:default-item"
+  },
+  "variants": {
+    "type": {
+      "ruby": {
+        "textures": {
+          "layer0": "techreborn:items/gem/ruby"
+        }
+      },
+      "sapphire": {
+        "textures": {
+          "layer0": "techreborn:items/gem/sapphire"
+        }
+      },
+      "peridot": {
+        "textures": {
+          "layer0": "techreborn:items/gem/peridot"
+        }
+      },
+      "red_garnet": {
+        "textures": {
+          "layer0": "techreborn:items/gem/red_garnet"
+        }
+      },
+      "yellow_garnet": {
+        "textures": {
+          "layer0": "techreborn:items/gem/yellow_garnet"
+        }
+      }
+    }
+  }
+}

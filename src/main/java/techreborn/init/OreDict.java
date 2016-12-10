@@ -1,5 +1,6 @@
 package techreborn.init;
 
+import com.google.common.base.CaseFormat;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -16,8 +17,8 @@ public class OreDict {
 
 	private static final ImmutableList<String> plateGenIgnores = ImmutableList.of(
 		"hot", //Hot ingots
-		"mixedMetal", //Mixed metal has own version of plate
-		"iridiumAlloy", //Iridium alloy is plate itself
+		"mixed_metal", //Mixed metal has own version of plate
+		"iridium_alloy", //Iridium alloy is plate itself
 		ModItems.META_PLACEHOLDER //...
 	);
 
@@ -81,22 +82,20 @@ public class OreDict {
 		for (String type : ItemGems.types) {
 			if (type.equals(ModItems.META_PLACEHOLDER))
 				continue; //Aware of placeholders!
-			String upper = OreDictUtils.toFirstUpper(type);
-			OreDictionary.registerOre("gem" + upper, ItemGems.getGemByName(type));
+			OreDictionary.registerOre("gem" + CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, type), ItemGems.getGemByName(type));
 			boolean ignoreIt = false;
 			for (String ignore : plateGenIgnores)
 				if (type.startsWith(ignore))
 					ignoreIt = true;
 			if (!ignoreIt)
-				ItemPlates.registerType(upper);
+				ItemPlates.registerType(type);
 		}
 
 		//Ingots registration
 		for (String type : ItemIngots.types) {
 			if (type.equals(ModItems.META_PLACEHOLDER))
 				continue; //Aware of placeholders!
-			String upperName = OreDictUtils.toFirstUpper(type);
-			OreDictionary.registerOre("ingot" + upperName, ItemIngots.getIngotByName(type));
+			OreDictionary.registerOre("ingot" + CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, type), ItemIngots.getIngotByName(type));
 			boolean ignoreIt = false;
 			for (String ignore : plateGenIgnores)
 				if (type.startsWith(ignore))

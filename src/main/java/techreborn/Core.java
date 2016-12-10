@@ -52,22 +52,19 @@ import java.io.File;
 @Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = ModInfo.MOD_DEPENDENCIES, guiFactory = ModInfo.GUI_FACTORY_CLASS, acceptedMinecraftVersions = "[1.11]")
 public class Core {
 
-	public Core() {
-		//Forge says to call it here, so yeah
-		FluidRegistry.enableUniversalBucket();
-	}
-
 	public static ConfigTechReborn config;
-
 	@SidedProxy(clientSide = ModInfo.CLIENT_PROXY_CLASS, serverSide = ModInfo.SERVER_PROXY_CLASS)
 	public static CommonProxy proxy;
-
 	@Mod.Instance
 	public static Core INSTANCE;
 	public static LogHelper logHelper = new LogHelper(new ModInfo());
 	public static TechRebornWorldGen worldGen;
 	public static File configDir;
 	public VersionChecker versionChecker;
+	public Core() {
+		//Forge says to call it here, so yeah
+		FluidRegistry.enableUniversalBucket();
+	}
 
 	@Mod.EventHandler
 	public void preinit(FMLPreInitializationEvent event) throws IllegalAccessException, InstantiationException {
@@ -102,6 +99,8 @@ public class Core {
 		// Entitys
 		EntityRegistry.registerModEntity(new ResourceLocation("techreborn", "nuke"), EntityNukePrimed.class, "nuke", 0, INSTANCE, 160, 5, true);
 
+		//Ore Dictionary
+		OreDict.init();
 		proxy.preInit(event);
 
 		RecipeConfigManager.load(event.getModConfigurationDirectory());
@@ -130,9 +129,6 @@ public class Core {
 		}
 		MinecraftForge.EVENT_BUS.register(new StackWIPHandler());
 		MinecraftForge.EVENT_BUS.register(new BlockBreakHandler());
-
-		//Ore Dictionary
-		OreDict.init();
 
 		// Recipes
 		StopWatch watch = new StopWatch();

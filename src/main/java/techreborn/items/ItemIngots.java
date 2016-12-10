@@ -6,15 +6,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
-import techreborn.lib.ModInfo;
 
 import java.security.InvalidParameterException;
 
-public class ItemIngots extends ItemTextureBase {
+public class ItemIngots extends ItemTRNoDestroy {
 	public static final String[] types = new String[] { "aluminum", "brass", "bronze", "chrome", "copper", "electrum",
 		"invar", "iridium", "lead", "nickel", "platinum", "silver", "steel", "tin", "titanium", "tungsten",
-		"hotTungstensteel", "tungstensteel", "zinc", "refinedIron", "advancedAlloy", "mixedMetal",
-		"iridiumAlloy"};
+		"hot_tungstensteel", "tungstensteel", "zinc", "refined_iron", "advanced_alloy", "mixed_metal",
+		"iridium_alloy" };
 
 	public ItemIngots() {
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
@@ -54,15 +53,4 @@ public class ItemIngots extends ItemTextureBase {
 			}
 		}
 	}
-
-	@Override
-	public String getTextureName(int damage) {
-		return ModInfo.MOD_ID + ":items/ingot/" + types[damage] + "Ingot";
-	}
-
-	@Override
-	public int getMaxMeta() {
-		return types.length;
-	}
-
 }

@@ -6,13 +6,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
-import techreborn.lib.ModInfo;
 
 import java.security.InvalidParameterException;
 
-public class ItemGems extends ItemTextureBase {
+public class ItemGems extends ItemTRNoDestroy {
 
-	public static final String[] types = new String[] { "ruby", "sapphire", "peridot", "redGarnet", "yellowGarnet" };
+	public static final String[] types = new String[] { "ruby", "sapphire", "peridot", "red_garnet", "yellow_garnet" };
 
 	public ItemGems() {
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
@@ -49,16 +48,6 @@ public class ItemGems extends ItemTextureBase {
 		for (int meta = 0; meta < types.length; ++meta) {
 			list.add(new ItemStack(item, 1, meta));
 		}
-	}
-
-	@Override
-	public String getTextureName(int damage) {
-		return ModInfo.MOD_ID + ":items/gem/" + types[damage];
-	}
-
-	@Override
-	public int getMaxMeta() {
-		return types.length;
 	}
 
 }
