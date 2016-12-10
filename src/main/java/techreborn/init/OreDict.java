@@ -112,6 +112,7 @@ public class OreDict {
 			OreDictionary.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "plate_" + type), ItemPlates.getPlateByName(type));
 		}
 
+		//still need to switch these to snake_case and json
 		for (String type : ItemDusts.types) {
 			if (type.equals(ModItems.META_PLACEHOLDER))
 				continue; //Aware of placeholders!
