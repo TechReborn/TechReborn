@@ -1,28 +1,26 @@
 package techreborn.items.tools;
 
-import me.modmuss50.jsonDestroyer.api.IHandHeld;
-import me.modmuss50.jsonDestroyer.api.ITexturedItem;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Enchantments;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import reborncore.RebornCore;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItem;
-import reborncore.common.util.TorchHelper;
 import techreborn.client.TechRebornCreativeTab;
-import techreborn.lib.ModInfo;
 
-public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, ITexturedItem, IHandHeld {
+import javax.annotation.Nullable;
+import java.util.Random;
+
+public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
 
 	public static int tier = 1;
 	public int maxCharge = 1;
@@ -36,12 +34,24 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, ITexturedI
 		efficiencyOnProperMaterial = 20F;
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
-		setMaxDamage(240);
 		setUnlocalizedName(unlocalizedName);
-		RebornCore.jsonDestroyer.registerObject(this);
 		this.maxCharge = energyCapacity;
 		this.tier = tier;
 		this.unpoweredSpeed = unpoweredSpeed;
+
+		this.addPropertyOverride(new ResourceLocation("techreborn:animated"), new IItemPropertyGetter() {
+			@SideOnly(Side.CLIENT)
+			public float apply(ItemStack stack,
+			                   @Nullable
+				                   World worldIn,
+			                   @Nullable
+				                   EntityLivingBase entityIn) {
+				if (stack != ItemStack.EMPTY && PoweredItem.canUseEnergy(cost, stack) && entityIn != null && entityIn.getHeldItemMainhand().isItemEqual(stack)) {
+					return 1.0F;
+				}
+				return 0.0F;
+			}
+		});
 	}
 
 	@Override
@@ -49,45 +59,19 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, ITexturedI
 		return PowerSystem.getDisplayPower().colour;
 	}
 
-	// @Override
-	// public boolean onBlockDestroyed(ItemStack stack, World worldIn,
-	// IBlockState blockIn, BlockPos pos, EntityLivingBase entityLiving) {
-	// Random rand = new Random();
-	// if
-	// (rand.nextInt(EnchantmentHelper.getEnchantmentLevel(Enchantment.unbreaking.effectId,
-	// stack) + 1) == 0) {
-	// PoweredItem.useEnergy(cost, stack);
-	// }
-	// return true;
-	// }
-
-	// @Override
-	// public float getDigSpeed(ItemStack stack, IBlockState state) {
-	// if (!PoweredItem.canUseEnergy(cost, stack)) {
-	// return unpoweredSpeed;
-	// }
-	//
-	// if (OreDictUtils.isOre(state, "treeLeaves") &&
-	// PoweredItem.canUseEnergy(cost, stack)) {
-	// return 40F;
-	// }
-	//
-	// if (Items.wooden_axe.getDigSpeed(stack, state) > 1.0F) {
-	// return efficiencyOnProperMaterial;
-	// } else {
-	// return super.getDigSpeed(stack, state);
-	// }
-	// }
-
 	@Override
-	public boolean hitEntity(ItemStack itemstack, EntityLivingBase entityliving, EntityLivingBase entityliving1) {
+	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState blockIn, BlockPos pos,
+	                                EntityLivingBase entityLiving) {
+		Random rand = new Random();
+		if (rand.nextInt(EnchantmentHelper.getEnchantmentLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
+			PoweredItem.useEnergy(cost, stack);
+		}
 		return true;
 	}
 
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos,
-	                                  EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		return TorchHelper.placeTorch(playerIn.getHeldItem(hand), playerIn, worldIn, pos, facing, hitX, hitY, hitZ, hand);
+	public boolean hitEntity(ItemStack itemstack, EntityLivingBase entityliving, EntityLivingBase entityliving1) {
+		return true;
 	}
 
 	@Override
@@ -130,21 +114,5 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, ITexturedI
 	@Override
 	public boolean showDurabilityBar(ItemStack stack) {
 		return true;
-	}
-
-	@Override
-	public String getTextureName(int damage) {
-		return "techreborn:items/tool/nullChainsaw";
-	}
-
-	@Override
-	public int getMaxMeta() {
-		return 1;
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
-		return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
 	}
 }

@@ -1,0 +1,14 @@
+{
+  "parent": "techreborn:item/techrebornItem",
+  "textures": {
+    "layer0": "techreborn:items/tool/frequency_transmitter"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "techreborn:coords": 1
+      },
+      "model": "techreborn:item/frequencytransmittercoords"
+    }
+  ]
+}

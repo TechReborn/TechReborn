@@ -1,0 +1,14 @@
+{
+  "parent": "techreborn:item/techrebornItem",
+  "textures": {
+    "layer0": "techreborn:items/tool/diamond_chainsaw"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "techreborn:animated": 1
+      },
+      "model": "techreborn:item/tool/override/diamond_chainsaw_animated"
+    }
+  ]
+}

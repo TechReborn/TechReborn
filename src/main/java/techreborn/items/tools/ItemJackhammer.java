@@ -1,21 +1,14 @@
 package techreborn.items.tools;
 
-import me.modmuss50.jsonDestroyer.api.IHandHeld;
-import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -24,15 +17,13 @@ import reborncore.RebornCore;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItem;
-import reborncore.common.util.TorchHelper;
 import techreborn.client.TechRebornCreativeTab;
-import techreborn.lib.ModInfo;
 import techreborn.utils.OreDictUtils;
 
 import java.util.List;
 import java.util.Random;
 
-public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo, ITexturedItem, IHandHeld {
+public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo {
 
 	public static int tier = 1;
 	public int maxCharge = 1;
@@ -46,7 +37,6 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo, ITex
 		setMaxStackSize(1);
 		setMaxDamage(240);
 		setUnlocalizedName(unlocalizedName);
-		RebornCore.jsonDestroyer.registerObject(this);
 		this.maxCharge = energyCapacity;
 		this.tier = tier;
 	}
@@ -60,7 +50,7 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo, ITex
 	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState blockIn, BlockPos pos,
 	                                EntityLivingBase entityLiving) {
 		Random rand = new Random();
-		if (rand.nextInt(EnchantmentHelper.getEnchantmentLevel(Enchantment.getEnchantmentByID(34), stack) + 1) == 0) {
+		if (rand.nextInt(EnchantmentHelper.getEnchantmentLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
 			PoweredItem.useEnergy(cost, stack);
 		}
 		return true;
@@ -84,12 +74,6 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo, ITex
 	@Override
 	public boolean hitEntity(ItemStack itemstack, EntityLivingBase entityliving, EntityLivingBase entityliving1) {
 		return true;
-	}
-
-	@Override
-	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos,
-	                                  EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		return TorchHelper.placeTorch(playerIn.getHeldItem(hand), playerIn, worldIn, pos, facing, hitX, hitY, hitZ, hand);
 	}
 
 	@Override
@@ -146,21 +130,5 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo, ITex
 	@Override
 	public boolean showDurabilityBar(ItemStack stack) {
 		return true;
-	}
-
-	@Override
-	public String getTextureName(int damage) {
-		return "techreborn:items/tool/nullJackhammer";
-	}
-
-	@Override
-	public int getMaxMeta() {
-		return 1;
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
-		return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
 	}
 }

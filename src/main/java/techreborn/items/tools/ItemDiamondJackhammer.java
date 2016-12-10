@@ -31,14 +31,4 @@ public class ItemDiamondJackhammer extends ItemJackhammer {
 		itemList.add(uncharged);
 		itemList.add(charged);
 	}
-
-	@Override
-	public String getTextureName(int damage) {
-		return "techreborn:items/tool/diamondJackhammer";
-	}
-
-	@Override
-	public int getMaxMeta() {
-		return 1;
-	}
 }

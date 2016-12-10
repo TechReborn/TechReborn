@@ -37,14 +37,4 @@ public class ItemSteelChainsaw extends ItemChainsaw {
 	public boolean canHarvestBlock(IBlockState state) {
 		return Items.IRON_AXE.canHarvestBlock(state);
 	}
-
-	@Override
-	public String getTextureName(int damage) {
-		return "techreborn:items/tool/steelChainsaw";
-	}
-
-	@Override
-	public int getMaxMeta() {
-		return 1;
-	}
 }

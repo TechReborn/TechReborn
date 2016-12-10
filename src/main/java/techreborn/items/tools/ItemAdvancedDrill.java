@@ -38,13 +38,4 @@ public class ItemAdvancedDrill extends ItemDrill {
 		return Items.DIAMOND_PICKAXE.canHarvestBlock(blockIn) || Items.DIAMOND_SHOVEL.canHarvestBlock(blockIn);
 	}
 
-	@Override
-	public String getTextureName(int damage) {
-		return "techreborn:items/tool/advancedDrill";
-	}
-
-	@Override
-	public int getMaxMeta() {
-		return 1;
-	}
 }

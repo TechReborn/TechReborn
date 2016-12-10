@@ -14,16 +14,30 @@ public class RegisterItemJsons {
 	}
 
 	private static void registerItems() {
-		register(ModItems.reBattery, "reBattery");
-		register(ModItems.lithiumBattery, "lithiumBattery");
-		register(ModItems.energyCrystal, "energyCrystal");
-		register(ModItems.lapotronCrystal, "lapotronCrystal");
-		register(ModItems.lapotronicOrb, "lapotronicOrb");
+		register(ModItems.reBattery, "rebattery");
+		register(ModItems.lithiumBattery, "lithiumbattery");
+		register(ModItems.energyCrystal, "energycrystal");
+		register(ModItems.lapotronCrystal, "lapotroncrystal");
+		register(ModItems.lapotronicOrb, "lapotronicorb");
 		register(ModItems.nanosaber, "nanosaber");
+
+		register(ModItems.frequencyTransmitter, "frequencytransmitter");
+
+		register(ModItems.ironDrill, "tool/steel_drill");
+		register(ModItems.diamondDrill, "tool/diamond_drill");
+		register(ModItems.advancedDrill, "tool/advanced_drill");
+
+		register(ModItems.ironChainsaw, "tool/steel_chainsaw");
+		register(ModItems.diamondChainsaw, "tool/diamond_chainsaw");
+		register(ModItems.advancedChainsaw, "tool/advanced_chainsaw");
+
+		register(ModItems.steelJackhammer, "tool/steel_jackhammer");
+		register(ModItems.diamondJackhammer, "tool/diamond_jackhammer");
+		register(ModItems.advancedJackhammer, "tool/advanced_jackhammer");
 	}
 
 	private static void registerBlocks() {
-		register(ModBlocks.ironFence, "ironFence");
+		register(ModBlocks.ironFence, "ironfence");
 	}
 
 	private static void register(Item item, int meta, String name) {

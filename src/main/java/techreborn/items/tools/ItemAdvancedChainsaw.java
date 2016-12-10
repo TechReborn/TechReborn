@@ -38,13 +38,4 @@ public class ItemAdvancedChainsaw extends ItemChainsaw {
 		return Items.DIAMOND_AXE.canHarvestBlock(blockIn);
 	}
 
-	@Override
-	public String getTextureName(int damage) {
-		return "techreborn:items/tool/advancedChainsaw";
-	}
-
-	@Override
-	public int getMaxMeta() {
-		return 1;
-	}
 }

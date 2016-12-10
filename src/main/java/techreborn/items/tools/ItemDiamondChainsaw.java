@@ -20,7 +20,6 @@ public class ItemDiamondChainsaw extends ItemChainsaw {
 		this.cost = 250;
 	}
 
-
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item,
@@ -33,18 +32,10 @@ public class ItemDiamondChainsaw extends ItemChainsaw {
 		itemList.add(uncharged);
 		itemList.add(charged);
 	}
+
 	@Override
 	public boolean canHarvestBlock(IBlockState blockIn) {
 		return Items.DIAMOND_AXE.canHarvestBlock(blockIn);
 	}
 
-	@Override
-	public String getTextureName(int damage) {
-		return "techreborn:items/tool/diamondChainsaw";
-	}
-
-	@Override
-	public int getMaxMeta() {
-		return 1;
-	}
 }

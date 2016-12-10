@@ -37,14 +37,4 @@ public class ItemSteelDrill extends ItemDrill {
 	public boolean canHarvestBlock(IBlockState state) {
 		return Items.IRON_PICKAXE.canHarvestBlock(state) || Items.IRON_SHOVEL.canHarvestBlock(state);
 	}
-
-	@Override
-	public String getTextureName(int damage) {
-		return "techreborn:items/tool/steelDrill";
-	}
-
-	@Override
-	public int getMaxMeta() {
-		return 1;
-	}
 }

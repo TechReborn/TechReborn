@@ -1,20 +1,19 @@
 package techreborn.items;
 
-import me.modmuss50.jsonDestroyer.api.ITexturedItem;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
-import reborncore.RebornCore;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.client.hud.StackInfoElement;
 import reborncore.client.hud.StackInfoHUD;
 import reborncore.common.util.ChatUtils;
@@ -24,16 +23,29 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
 import techreborn.lib.MessageIDs;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemFrequencyTransmitter extends ItemTextureBase implements ITexturedItem {
+public class ItemFrequencyTransmitter extends ItemTRNoDestroy {
 
 	public ItemFrequencyTransmitter() {
 		setUnlocalizedName("techreborn.frequencyTransmitter");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		setMaxStackSize(1);
-		RebornCore.jsonDestroyer.registerObject(this);
 		StackInfoHUD.registerElement(new StackInfoFreqTransmitter());
+		this.addPropertyOverride(new ResourceLocation("techreborn:coords"), new IItemPropertyGetter() {
+			@SideOnly(Side.CLIENT)
+			public float apply(ItemStack stack,
+			                   @Nullable
+				                   World worldIn,
+			                   @Nullable
+				                   EntityLivingBase entityIn) {
+				if (stack != ItemStack.EMPTY && stack.hasTagCompound() && stack.getTagCompound() != null && stack.getTagCompound().hasKey("x") && stack.getTagCompound().hasKey("y") && stack.getTagCompound().hasKey("z") && stack.getTagCompound().hasKey("dim")) {
+					return 1.0F;
+				}
+				return 0.0F;
+			}
+		});
 	}
 
 	@Override
@@ -89,7 +101,7 @@ public class ItemFrequencyTransmitter extends ItemTextureBase implements ITextur
 
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
 		if (ConfigTechReborn.FreqTransmitterTooltip) {
-			if (stack.getTagCompound() != null) {
+			if (stack.hasTagCompound() && stack.getTagCompound() != null && stack.getTagCompound().hasKey("x") && stack.getTagCompound().hasKey("y") && stack.getTagCompound().hasKey("z") && stack.getTagCompound().hasKey("dim")) {
 				int x = stack.getTagCompound().getInteger("x");
 				int y = stack.getTagCompound().getInteger("y");
 				int z = stack.getTagCompound().getInteger("z");
@@ -106,16 +118,6 @@ public class ItemFrequencyTransmitter extends ItemTextureBase implements ITextur
 		}
 	}
 
-	@Override
-	public int getMaxMeta() {
-		return 1;
-	}
-
-	@Override
-	public String getTextureName(int arg0) {
-		return "techreborn:items/tool/frequency_transmitter";
-	}
-
 	public static class StackInfoFreqTransmitter extends StackInfoElement {
 		public StackInfoFreqTransmitter() {
 			super(ModItems.frequencyTransmitter);
@@ -127,7 +129,7 @@ public class ItemFrequencyTransmitter extends ItemTextureBase implements ITextur
 			Color gold = Color.GOLD;
 			Color grey = Color.GRAY;
 			if (stack.getItem() instanceof ItemFrequencyTransmitter) {
-				if (stack.getTagCompound() != null && stack.getTagCompound().hasKey("x") && stack.getTagCompound().hasKey("y") && stack.getTagCompound().hasKey("z") && stack.getTagCompound().hasKey("dim")) {
+				if (stack.hasTagCompound() && stack.getTagCompound() != null && stack.getTagCompound().hasKey("x") && stack.getTagCompound().hasKey("y") && stack.getTagCompound().hasKey("z") && stack.getTagCompound().hasKey("dim")) {
 					int coordX = stack.getTagCompound().getInteger("x");
 					int coordY = stack.getTagCompound().getInteger("y");
 					int coordZ = stack.getTagCompound().getInteger("z");
