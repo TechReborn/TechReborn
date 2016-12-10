@@ -1,0 +1,14 @@
+{
+  "parent": "techreborn:item/battery/battery",
+  "textures": {
+    "layer0": "techreborn:items/battery/lapotronic_orb"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "techreborn:empty": 1
+      },
+      "model": "techreborn:item/battery/override/lapotronic_orb_empty"
+    }
+  ]
+}

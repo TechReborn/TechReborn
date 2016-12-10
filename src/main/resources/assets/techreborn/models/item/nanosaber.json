@@ -6,6 +6,12 @@
   "overrides": [
     {
       "predicate": {
+        "techreborn:active": 0.5
+      },
+      "model": "techreborn:item/nanosaberActiveLow"
+    },
+    {
+      "predicate": {
         "techreborn:active": 1
       },
       "model": "techreborn:item/nanosaberActive"

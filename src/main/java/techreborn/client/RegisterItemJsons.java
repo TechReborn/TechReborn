@@ -14,11 +14,11 @@ public class RegisterItemJsons {
 	}
 
 	private static void registerItems() {
-		register(ModItems.reBattery, "rebattery");
-		register(ModItems.lithiumBattery, "lithiumbattery");
-		register(ModItems.energyCrystal, "energycrystal");
-		register(ModItems.lapotronCrystal, "lapotroncrystal");
-		register(ModItems.lapotronicOrb, "lapotronicorb");
+		register(ModItems.reBattery, "battery/re_battery");
+		register(ModItems.lithiumBattery, "battery/lithium_battery");
+		register(ModItems.energyCrystal, "battery/energy_crystal");
+		register(ModItems.lapotronCrystal, "battery/lapotron_crystal");
+		register(ModItems.lapotronicOrb, "battery/lapotronic_orb");
 		register(ModItems.nanosaber, "nanosaber");
 
 		register(ModItems.frequencyTransmitter, "frequencytransmitter");

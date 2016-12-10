@@ -1,0 +1,6 @@
+{
+  "parent": "techreborn:item/battery/battery",
+  "textures": {
+    "layer0": "techreborn:items/battery/lapotron_crystal_empty"
+  }
+}

@@ -3,6 +3,7 @@ package techreborn.items.tools;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemAxe;
@@ -27,6 +28,7 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
 	public int cost = 250;
 	public float unpoweredSpeed = 2.0F;
 	public double transferLimit = 100;
+	public boolean isBreaking = false;
 
 	public ItemChainsaw(ToolMaterial material, String unlocalizedName, int energyCapacity, int tier,
 	                    float unpoweredSpeed) {
@@ -46,7 +48,7 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
 				                   World worldIn,
 			                   @Nullable
 				                   EntityLivingBase entityIn) {
-				if (stack != ItemStack.EMPTY && PoweredItem.canUseEnergy(cost, stack) && entityIn != null && entityIn.getHeldItemMainhand().isItemEqual(stack)) {
+				if (stack != ItemStack.EMPTY && PoweredItem.canUseEnergy(cost, stack) && entityIn != null && entityIn.getHeldItemMainhand().equals(stack)) {
 					return 1.0F;
 				}
 				return 0.0F;
@@ -92,6 +94,12 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
 	@Override
 	public boolean canProvideEnergy(ItemStack stack) {
 		return false;
+	}
+
+	@Override
+	public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
+
+		return super.onBlockStartBreak(itemstack, pos, player);
 	}
 
 	@Override
