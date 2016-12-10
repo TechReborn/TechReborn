@@ -109,8 +109,8 @@ public class OreDict {
 		for (String type : ItemPlates.types) {
 			if (type.equals(ModItems.META_PLACEHOLDER))
 				continue; //Aware of placeholders!
-			String oreDictName = "plate" + OreDictUtils.toFirstUpper(type);
-			OreDictionary.registerOre(oreDictName, ItemPlates.getPlateByName(type));
+			OreDictionary.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "plate_" + type), ItemPlates.getPlateByName(type));
+			System.out.println(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "plate_" + type));
 		}
 
 		for (String type : ItemDusts.types) {
