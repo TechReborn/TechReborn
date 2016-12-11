@@ -15,7 +15,6 @@ import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.client.hud.StackInfoElement;
-import reborncore.client.hud.StackInfoHUD;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.Color;
 import techreborn.client.TechRebornCreativeTabMisc;
@@ -32,7 +31,6 @@ public class ItemFrequencyTransmitter extends ItemTRNoDestroy {
 		setUnlocalizedName("techreborn.frequencyTransmitter");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		setMaxStackSize(1);
-		StackInfoHUD.registerElement(new StackInfoFreqTransmitter());
 		this.addPropertyOverride(new ResourceLocation("techreborn:coords"), new IItemPropertyGetter() {
 			@SideOnly(Side.CLIENT)
 			public float apply(ItemStack stack,

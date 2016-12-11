@@ -20,6 +20,7 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import reborncore.RebornCore;
+import reborncore.client.hud.StackInfoHUD;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.Core;
@@ -35,6 +36,7 @@ import techreborn.client.render.ModelDynamicCell;
 import techreborn.client.render.entitys.RenderNukePrimed;
 import techreborn.entitys.EntityNukePrimed;
 import techreborn.init.ModBlocks;
+import techreborn.items.ItemFrequencyTransmitter;
 import techreborn.lib.ModInfo;
 import techreborn.manual.loader.ManualLoader;
 
@@ -67,6 +69,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		super.preInit(event);
+		StackInfoHUD.registerElement(new ItemFrequencyTransmitter.StackInfoFreqTransmitter());
 		RenderingRegistry.registerEntityRenderingHandler(EntityNukePrimed.class, new RenderManagerNuke());
 
 		ManualLoader loader = new ManualLoader(new File(event.getModConfigurationDirectory(), "techreborn"));
