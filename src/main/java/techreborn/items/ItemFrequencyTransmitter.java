@@ -50,35 +50,25 @@ public class ItemFrequencyTransmitter extends ItemTRNoDestroy {
 	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos,
 	                                  EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		ItemStack stack = player.getHeldItem(hand);
-		if (player.isSneaking()) {
-			stack.setTagCompound(null);
-			if (!world.isRemote && ConfigTechReborn.FreqTransmitterChat) {
-				ChatUtils.sendNoSpamMessages(MessageIDs.freqTransmitterID, new TextComponentString(
-					TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.coordsHaveBeen") + " "
-						+ TextFormatting.GOLD + I18n.translateToLocal("techreborn.message.cleared")));
-			}
-			return EnumActionResult.PASS;
-		} else {
-			stack.setTagCompound(new NBTTagCompound());
-			stack.getTagCompound().setInteger("x", pos.getX());
-			stack.getTagCompound().setInteger("y", pos.getY());
-			stack.getTagCompound().setInteger("z", pos.getZ());
-			stack.getTagCompound().setInteger("dim", world.provider.getDimension());
+		stack.setTagCompound(new NBTTagCompound());
+		stack.getTagCompound().setInteger("x", pos.getX());
+		stack.getTagCompound().setInteger("y", pos.getY());
+		stack.getTagCompound().setInteger("z", pos.getZ());
+		stack.getTagCompound().setInteger("dim", world.provider.getDimension());
 
-			if (!world.isRemote && ConfigTechReborn.FreqTransmitterChat) {
-				ChatUtils.sendNoSpamMessages(MessageIDs.freqTransmitterID, new TextComponentString(
-					TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.setTo") + " X: " +
-						TextFormatting.GOLD + pos.getX() +
-						TextFormatting.GRAY + " Y: " +
-						TextFormatting.GOLD + pos.getY() +
-						TextFormatting.GRAY + " Z: " +
-						TextFormatting.GOLD + pos.getZ() +
-						TextFormatting.GRAY + " " + I18n.translateToLocal("techreborn.message.in") + " " +
-						TextFormatting.GOLD + DimensionManager.getProviderType(world.provider.getDimension())
-						.getName() + " (" + world.provider.getDimension() + ")"));
-			}
-			return EnumActionResult.SUCCESS;
+		if (!world.isRemote && ConfigTechReborn.FreqTransmitterChat) {
+			ChatUtils.sendNoSpamMessages(MessageIDs.freqTransmitterID, new TextComponentString(
+				TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.setTo") + " X: " +
+					TextFormatting.GOLD + pos.getX() +
+					TextFormatting.GRAY + " Y: " +
+					TextFormatting.GOLD + pos.getY() +
+					TextFormatting.GRAY + " Z: " +
+					TextFormatting.GOLD + pos.getZ() +
+					TextFormatting.GRAY + " " + I18n.translateToLocal("techreborn.message.in") + " " +
+					TextFormatting.GOLD + DimensionManager.getProviderType(world.provider.getDimension())
+					.getName() + " (" + world.provider.getDimension() + ")"));
 		}
+		return EnumActionResult.SUCCESS;
 	}
 
 	@Override
@@ -105,9 +95,9 @@ public class ItemFrequencyTransmitter extends ItemTRNoDestroy {
 				int z = stack.getTagCompound().getInteger("z");
 				int dim = stack.getTagCompound().getInteger("dim");
 
-				list.add("X: " + x);
-				list.add("Y: " + y);
-				list.add("X: " + z);
+				list.add(TextFormatting.GRAY + "X: " + TextFormatting.GOLD + x);
+				list.add(TextFormatting.GRAY + "Y: " + TextFormatting.GOLD + y);
+				list.add(TextFormatting.GRAY + "Z: " + TextFormatting.GOLD + z);
 				list.add(TextFormatting.DARK_GRAY + DimensionManager.getProviderType(dim).getName());
 
 			} else {
