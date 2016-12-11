@@ -11,7 +11,6 @@ import techreborn.Core;
 import techreborn.blocks.BlockMachineFrame;
 import techreborn.items.*;
 import techreborn.parts.powerCables.ItemStandaloneCables;
-import techreborn.utils.OreDictUtils;
 
 public class OreDict {
 
@@ -76,9 +75,8 @@ public class OreDict {
 
 		OreDictionary.registerOre("materialResin", ItemParts.getPartByName("rubberSap"));
 		OreDictionary.registerOre("materialRubber", ItemParts.getPartByName("rubber"));
-		OreDictionary.registerOre("pulpWood", ItemDusts.getDustByName("sawDust"));
+		OreDictionary.registerOre("pulpWood", ItemDusts.getDustByName("saw_dust"));
 
-		//Gems registration
 		for (String type : ItemGems.types) {
 			if (type.equals(ModItems.META_PLACEHOLDER))
 				continue; //Aware of placeholders!
@@ -91,7 +89,6 @@ public class OreDict {
 				ItemPlates.registerType(type);
 		}
 
-		//Ingots registration
 		for (String type : ItemIngots.types) {
 			if (type.equals(ModItems.META_PLACEHOLDER))
 				continue; //Aware of placeholders!
@@ -104,20 +101,23 @@ public class OreDict {
 				ItemPlates.registerType(type);
 		}
 
-		//Dusts, nuggets and plates auto-registration
-
 		for (String type : ItemPlates.types) {
 			if (type.equals(ModItems.META_PLACEHOLDER))
 				continue; //Aware of placeholders!
 			OreDictionary.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "plate_" + type), ItemPlates.getPlateByName(type));
 		}
 
-		//still need to switch these to snake_case and json
 		for (String type : ItemDusts.types) {
 			if (type.equals(ModItems.META_PLACEHOLDER))
 				continue; //Aware of placeholders!
-			String oreDictName = "dust" + OreDictUtils.toFirstUpper(type);
-			OreDictionary.registerOre(oreDictName, ItemDusts.getDustByName(type));
+			OreDictionary.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "dust_" + type), ItemDusts.getDustByName(type));
+		}
+
+		for (String type : ItemDustsSmall.types) {
+			if (type.equals(ModItems.META_PLACEHOLDER))
+				continue; //Aware of placeholders!
+			OreDictionary.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "dust_tiny_" + type), ItemDustsSmall.getSmallDustByName(type));
+			OreDictionary.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "dust_small_" + type), ItemDustsSmall.getSmallDustByName(type));
 		}
 
 		for (String type : ItemNuggets.types) {

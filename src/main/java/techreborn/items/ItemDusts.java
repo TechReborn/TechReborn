@@ -11,14 +11,14 @@ import techreborn.lib.ModInfo;
 
 import java.security.InvalidParameterException;
 
-public class ItemDusts extends ItemTextureBase {
+public class ItemDusts extends ItemTRNoDestroy {
 	public static final String[] types = new String[] { "almandine", "aluminum", "andradite", "ashes", "basalt",
 		"bauxite", "brass", "bronze", "calcite", "charcoal", "chrome", "cinnabar", "clay", "coal", "copper",
-		"darkAshes", "diamond", "electrum", "emerald", "enderEye", "enderPearl", "endstone", "flint", "galena",
+		"dark_ashes", "diamond", "electrum", "emerald", "ender_eye", "ender_pearl", "endstone", "flint", "galena",
 		"gold", "grossular", "invar", "iron", "lazurite", "lead", "magnesium", "manganese", "marble", "netherrack",
-		"nickel", "obsidian", "peridot", "phosphorous", "platinum", "pyrite", "pyrope", "redGarnet", ModItems.META_PLACEHOLDER,
-		"ruby", "saltpeter", "sapphire", "sawDust", "silver", "sodalite", "spessartine", "sphalerite", "steel",
-		"sulfur", "tin", "titanium", "tungsten", "uvarovite", ModItems.META_PLACEHOLDER, "yellowGarnet", "zinc",
+		"nickel", "obsidian", "peridot", "phosphorous", "platinum", "pyrite", "pyrope", "red_garnet", ModItems.META_PLACEHOLDER,
+		"ruby", "saltpeter", "sapphire", "saw_dust", "silver", "sodalite", "spessartine", "sphalerite", "steel",
+		"sulfur", "tin", "titanium", "tungsten", "uvarovite", ModItems.META_PLACEHOLDER, "yellow_garnet", "zinc",
 		"olivine", "andesite", "diorite", "granite" };
 
 	public ItemDusts() {
@@ -72,19 +72,6 @@ public class ItemDusts extends ItemTextureBase {
 				list.add(new ItemStack(item, 1, meta));
 			}
 		}
-	}
-
-	@Override
-	public String getTextureName(int damage) {
-		if (types[damage].equals("%NULL%")) {
-			damage = 0;
-		}
-		return ModInfo.MOD_ID + ":items/dust/" + types[damage] + "Dust";
-	}
-
-	@Override
-	public int getMaxMeta() {
-		return types.length;
 	}
 
 }

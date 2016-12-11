@@ -1,0 +1,326 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "builtin/generated",
+    "transform": "forge:default-item"
+  },
+  "variants": {
+    "type": {
+      "almandine": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/almandine_smalldust"
+        }
+      },
+      "aluminum": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/aluminum_smalldust"
+        }
+      },
+      "andradite": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/andradite_smalldust"
+        }
+      },
+      "ashes": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/ashes_smalldust"
+        }
+      },
+      "basalt": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/basalt_smalldust"
+        }
+      },
+      "bauxite": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/bauxite_smalldust"
+        }
+      },
+      "brass": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/brass_smalldust"
+        }
+      },
+      "bronze": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/bronze_smalldust"
+        }
+      },
+      "calcite": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/calcite_smalldust"
+        }
+      },
+      "charcoal": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/charcoal_smalldust"
+        }
+      },
+      "chrome": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/chrome_smalldust"
+        }
+      },
+      "cinnabar": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/cinnabar_smalldust"
+        }
+      },
+      "clay": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/clay_smalldust"
+        }
+      },
+      "coal": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/coal_smalldust"
+        }
+      },
+      "copper": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/copper_smalldust"
+        }
+      },
+      "dark_ashes": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/dark_ashes_smalldust"
+        }
+      },
+      "diamond": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/diamond_smalldust"
+        }
+      },
+      "electrum": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/electrum_smalldust"
+        }
+      },
+      "emerald": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/emerald_smalldust"
+        }
+      },
+      "ender_eye": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/ender_eye_smalldust"
+        }
+      },
+      "ender_pearl": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/ender_pearl_smalldust"
+        }
+      },
+      "endstone": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/endstone_smalldust"
+        }
+      },
+      "flint": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/flint_smalldust"
+        }
+      },
+      "galena": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/galena_smalldust"
+        }
+      },
+      "gold": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/gold_smalldust"
+        }
+      },
+      "grossular": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/grossular_smalldust"
+        }
+      },
+      "invar": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/invar_smalldust"
+        }
+      },
+      "iron": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/iron_smalldust"
+        }
+      },
+      "lazurite": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/lazurite_smalldust"
+        }
+      },
+      "lead": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/lead_smalldust"
+        }
+      },
+      "magnesium": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/magnesium_smalldust"
+        }
+      },
+      "manganese": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/manganese_smalldust"
+        }
+      },
+      "marble": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/marble_smalldust"
+        }
+      },
+      "netherrack": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/netherrack_smalldust"
+        }
+      },
+      "nickel": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/nickel_smalldust"
+        }
+      },
+      "obsidian": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/obsidian_smalldust"
+        }
+      },
+      "peridot": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/peridot_smalldust"
+        }
+      },
+      "phosphorous": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/phosphorous_smalldust"
+        }
+      },
+      "platinum": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/platinum_smalldust"
+        }
+      },
+      "pyrite": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/pyrite_smalldust"
+        }
+      },
+      "red_garnet": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/red_garnet_smalldust"
+        }
+      },
+      "ruby": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/ruby_smalldust"
+        }
+      },
+      "saltpeter": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/saltpeter_smalldust"
+        }
+      },
+      "sapphire": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/sapphire_smalldust"
+        }
+      },
+      "saw_smalldust": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/saw_smalldust_smalldust"
+        }
+      },
+      "silver": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/silver_smalldust"
+        }
+      },
+      "sodalite": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/sodalite_smalldust"
+        }
+      },
+      "spessartine": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/spessartine_smalldust"
+        }
+      },
+      "sphalerite": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/sphalerite_smalldust"
+        }
+      },
+      "steel": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/steel_smalldust"
+        }
+      },
+      "sulfur": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/sulfur_smalldust"
+        }
+      },
+      "tin": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/tin_smalldust"
+        }
+      },
+      "titanium": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/titanium_smalldust"
+        }
+      },
+      "tungsten": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/tungsten_smalldust"
+        }
+      },
+      "uvarovite": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/uvarovite_smalldust"
+        }
+      },
+      "yellow_garnet": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/yellow_garnet_smalldust"
+        }
+      },
+      "zinc": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/zinc_smalldust"
+        }
+      },
+      "olivine": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/olivine_smalldust"
+        }
+      },
+      "andesite": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/andesite_smalldust"
+        }
+      },
+      "diorite": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/diorite_smalldust"
+        }
+      },
+      "granite": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/granite_smalldust"
+        }
+      },
+      "redstone": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/redstone_smalldust"
+        }
+      },
+      "glowstone": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/glowstone_smalldust"
+        }
+      }
+    }
+  }
+}

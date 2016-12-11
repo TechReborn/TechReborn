@@ -1222,7 +1222,7 @@ public class ModRecipes {
 				new AlloySmelterRecipe(new ItemStack(Items.IRON_INGOT, 1), new ItemStack(Items.ENDER_PEARL, 1),
 					pulsatingIronStack, 200, 16));
 			RecipeHandler.addRecipe(
-				new AlloySmelterRecipe(new ItemStack(Items.IRON_INGOT, 1), ItemDusts.getDustByName("enderPearl", 1),
+				new AlloySmelterRecipe(new ItemStack(Items.IRON_INGOT, 1), ItemDusts.getDustByName("ender_pearl", 1),
 					pulsatingIronStack, 200, 16));
 		}
 
@@ -1236,7 +1236,7 @@ public class ModRecipes {
 				new AlloySmelterRecipe(energeticAlloyStack, new ItemStack(Items.ENDER_PEARL, 1), vibrantAlloyStack,
 					200, 16));
 			RecipeHandler.addRecipe(
-				new AlloySmelterRecipe(energeticAlloyStack, ItemDusts.getDustByName("enderPearl", 1),
+				new AlloySmelterRecipe(energeticAlloyStack, ItemDusts.getDustByName("ender_pearl", 1),
 					vibrantAlloyStack, 200, 16));
 		}
 
@@ -1300,20 +1300,20 @@ public class ModRecipes {
 
 		RecipeHandler.addRecipe(
 			new BlastFurnaceRecipe(new ItemStack(Items.IRON_INGOT), ItemDusts.getDustByName("coal", 2),
-				ItemIngots.getIngotByName("steel"), ItemDusts.getDustByName("darkAshes", 2), 500, 120, 1000));
+				ItemIngots.getIngotByName("steel"), ItemDusts.getDustByName("dark_ashes", 2), 500, 120, 1000));
 
 		RecipeHandler.addRecipe(
 			new BlastFurnaceRecipe(ItemIngots.getIngotByName("tungsten"), ItemIngots.getIngotByName("steel"),
-				ItemIngots.getIngotByName("hot_tungstensteel"), ItemDusts.getDustByName("darkAshes", 4), 500,
+				ItemIngots.getIngotByName("hot_tungstensteel"), ItemDusts.getDustByName("dark_ashes", 4), 500,
 				500, 3000));
 
 		RecipeHandler.addRecipe(
 			new BlastFurnaceRecipe(new ItemStack(Blocks.IRON_ORE), ItemDusts.getDustByName("calcite"),
-				new ItemStack(Items.IRON_INGOT, 3), ItemDusts.getDustByName("darkAshes"), 140, 120, 1000));
+				new ItemStack(Items.IRON_INGOT, 3), ItemDusts.getDustByName("dark_ashes"), 140, 120, 1000));
 
 		RecipeHandler.addRecipe(
 			new BlastFurnaceRecipe(BlockOre.getOreByName("Pyrite"), ItemDusts.getDustByName("calcite"),
-				new ItemStack(Items.IRON_INGOT, 2), ItemDusts.getDustByName("darkAshes"), 140, 120, 1000));
+				new ItemStack(Items.IRON_INGOT, 2), ItemDusts.getDustByName("dark_ashes"), 140, 120, 1000));
 	}
 
 	static void addUUrecipes() {
@@ -1472,7 +1472,7 @@ public class ModRecipes {
 
 		// Blaze Powder Byproducts
 		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(new ItemStack(Items.BLAZE_POWDER), null, ItemDusts.getDustByName("darkAshes", 1),
+			new CentrifugeRecipe(new ItemStack(Items.BLAZE_POWDER), null, ItemDusts.getDustByName("dark_ashes", 1),
 				ItemDusts.getDustByName("sulfur", 1), null, null, 1240, 5));
 
 		// Magma Cream Products
@@ -1501,15 +1501,15 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(
 			new CentrifugeRecipe(ItemDusts.getDustByName("basalt", 16), null, ItemDusts.getDustByName("peridot", 1),
 				ItemDusts.getDustByName("calcite", 3), ItemDusts.getDustByName("magnesium", 8),
-				ItemDusts.getDustByName("darkAshes", 4), 2680, 5));
-		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("yellowGarnet", 16), null,
+				ItemDusts.getDustByName("dark_ashes", 4), 2680, 5));
+		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("yellow_garnet", 16), null,
 			ItemDusts.getDustByName("andradite", 5), ItemDusts.getDustByName("grossular", 8),
 			ItemDusts.getDustByName("uvarovite", 3), null, 2940, 5));
-		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("redGarnet", 16), null,
+		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("red_garnet", 16), null,
 			ItemDusts.getDustByName("pyrope", 3), ItemDusts.getDustByName("almandine", 5),
 			ItemDusts.getDustByName("spessartine", 8), null, 2940, 5));
 		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(ItemDusts.getDustByName("darkAshes", 2), null, ItemDusts.getDustByName("ashes", 2),
+			new CentrifugeRecipe(ItemDusts.getDustByName("dark_ashes", 2), null, ItemDusts.getDustByName("ashes", 2),
 				null, null, null, 240, 5));
 		RecipeHandler.addRecipe(
 			new CentrifugeRecipe(ItemDusts.getDustByName("brass", 4), null, ItemDusts.getDustByName("zinc", 1),
@@ -1521,8 +1521,8 @@ public class ModRecipes {
 			new CentrifugeRecipe(ItemDusts.getDustByName("netherrack", 16), null, new ItemStack(Items.REDSTONE, 1),
 				ItemDusts.getDustByName("sulfur", 4), ItemDusts.getDustByName("basalt", 1),
 				new ItemStack(Items.GOLD_NUGGET, 1), 2400, 5));
-		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("enderEye", 1), null,
-			ItemDusts.getDustByName("enderPearl", 1), new ItemStack(Items.BLAZE_POWDER, 1), null, null, 1280, 5));
+		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("ender_eye", 1), null,
+			ItemDusts.getDustByName("ender_pearl", 1), new ItemStack(Items.BLAZE_POWDER, 1), null, null, 1280, 5));
 
 		RecipeHandler.addRecipe(
 			new CentrifugeRecipe(new ItemStack(Items.GLOWSTONE_DUST, 16), RecipeUtils.getEmptyCell(1),
@@ -1886,12 +1886,12 @@ public class ModRecipes {
 		// Sphalerite Ore
 		RecipeHandler.addRecipe(new IndustrialGrinderRecipe(new ItemStack(ModBlocks.ore, 1, 7),
 			new FluidStack(FluidRegistry.WATER, 1000), ItemDusts.getDustByName("sphalerite", 2),
-			ItemDustsSmall.getSmallDustByName("Zinc", 1), ItemDustsSmall.getSmallDustByName("YellowGarnet", 1),
+			ItemDustsSmall.getSmallDustByName("Zinc", 1), ItemDustsSmall.getSmallDustByName("yellow_garnet", 1),
 			null, 100, 120));
 
 		RecipeHandler.addRecipe(new IndustrialGrinderRecipe(new ItemStack(ModBlocks.ore, 1, 7),
 			new FluidStack(ModFluids.fluidSodiumpersulfate, 1000), ItemDusts.getDustByName("sphalerite", 2),
-			ItemDusts.getDustByName("zinc", 1), ItemDustsSmall.getSmallDustByName("YellowGarnet", 1), null, 100,
+			ItemDusts.getDustByName("zinc", 1), ItemDustsSmall.getSmallDustByName("yellow_garnet", 1), null, 100,
 			120));
 
 		// Tungsten Ore
@@ -2852,29 +2852,29 @@ public class ModRecipes {
 
 		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemIngots.getIngotByName("iridium_alloy"),
 			new ItemStack(Blocks.TNT, 8),
-			OreDictionary.getOres("plateIridium").get(0).copy(), ItemDusts.getDustByName("darkAshes", 4), 20, 30));
+			OreDictionary.getOres("plateIridium").get(0).copy(), ItemDusts.getDustByName("dark_ashes", 4), 20, 30));
 		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("diamond", 4),
 			new ItemStack(Blocks.TNT, 32),
 			new ItemStack(Items.DIAMOND, 3),
-			ItemDusts.getDustByName("darkAshes", 16), 20, 30));
+			ItemDusts.getDustByName("dark_ashes", 16), 20, 30));
 		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("emerald", 4),
 			new ItemStack(Blocks.TNT, 24),
-			new ItemStack(Items.EMERALD, 3), ItemDusts.getDustByName("darkAshes", 12), 20, 30));
+			new ItemStack(Items.EMERALD, 3), ItemDusts.getDustByName("dark_ashes", 12), 20, 30));
 		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("sapphire", 4),
 			new ItemStack(Blocks.TNT, 24),
-			ItemGems.getGemByName("sapphire", 3), ItemDusts.getDustByName("darkAshes", 12), 20, 30));
+			ItemGems.getGemByName("sapphire", 3), ItemDusts.getDustByName("dark_ashes", 12), 20, 30));
 		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("ruby", 4),
 			new ItemStack(Blocks.TNT, 24),
-			ItemGems.getGemByName("ruby", 3), ItemDusts.getDustByName("darkAshes", 12), 20, 30));
-		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("yellowGarnet", 4),
+			ItemGems.getGemByName("ruby", 3), ItemDusts.getDustByName("dark_ashes", 12), 20, 30));
+		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("yellow_garnet", 4),
 			new ItemStack(Blocks.TNT, 24),
-			ItemGems.getGemByName("yellow_garnet", 3), ItemDusts.getDustByName("darkAshes", 12), 20, 30));
-		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("redGarnet", 4),
+			ItemGems.getGemByName("yellow_garnet", 3), ItemDusts.getDustByName("dark_ashes", 12), 20, 30));
+		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("red_garnet", 4),
 			new ItemStack(Blocks.TNT, 24),
-			ItemGems.getGemByName("red_garnet", 3), ItemDusts.getDustByName("darkAshes", 12), 20, 30));
+			ItemGems.getGemByName("red_garnet", 3), ItemDusts.getDustByName("dark_ashes", 12), 20, 30));
 		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("peridot", 4),
 			new ItemStack(Blocks.TNT, 24),
-			ItemGems.getGemByName("peridot", 3), ItemDusts.getDustByName("darkAshes", 12), 20, 30));
+			ItemGems.getGemByName("peridot", 3), ItemDusts.getDustByName("dark_ashes", 12), 20, 30));
 
 		// grinder
 
@@ -2953,7 +2953,7 @@ public class ModRecipes {
 			new FluidStack(FluidRegistry.WATER, 1000),
 			ItemDusts.getDustByName("sphalerite", 2),
 			ItemDustsSmall.getSmallDustByName("Zinc", 1),
-			ItemDustsSmall.getSmallDustByName("YellowGarnet", 1),
+			ItemDustsSmall.getSmallDustByName("yellow_garnet", 1),
 			null, 100, 120));
 
 		RecipeHandler.addRecipe(new IndustrialGrinderRecipe(
@@ -2961,7 +2961,7 @@ public class ModRecipes {
 			new FluidStack(ModFluids.fluidSodiumpersulfate, 1000),
 			ItemDusts.getDustByName("sphalerite", 2),
 			ItemDusts.getDustByName("zinc", 1),
-			ItemDustsSmall.getSmallDustByName("YellowGarnet", 1),
+			ItemDustsSmall.getSmallDustByName("yellow_garnet", 1),
 			null, 100, 120));
 
 		RecipeHandler.addRecipe(new IndustrialGrinderRecipe(
@@ -3134,7 +3134,7 @@ public class ModRecipes {
 		//				ItemCells.getCellByName("hydrogen", 4), ItemCells.getCellByName("empty", 5),
 		//				ItemCells.getCellByName("empty", 1), null, 100, 30));
 
-		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(ItemDusts.getDustByName("darkAshes"),
+		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(ItemDusts.getDustByName("dark_ashes"),
 			ItemCells.getCellByName("empty", 2), ItemCells.getCellByName("carbon", 2), null, null, null, 20, 30));
 
 		if (OreUtil.doesOreExistAndValid("dustSalt")) {
