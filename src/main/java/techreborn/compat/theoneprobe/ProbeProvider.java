@@ -8,6 +8,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.power.IEnergyInterfaceTile;
+import reborncore.common.RebornCoreConfig;
+import reborncore.common.powerSystem.PowerSystem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +19,11 @@ import java.util.List;
  */
 public class ProbeProvider implements IProbeInfoProvider {
 
-	ProgressStyle euStyle = new ProgressStyle();
+	ProgressStyle euStyle = new ProgressStyle().backgroundColor(0xFF8B8B8B).borderColor(0xFF373737).alternateFilledColor(PowerSystem.getDisplayPower().altColour).filledColor(PowerSystem.getDisplayPower().colour);
 
 	public ProbeProvider() {
-		euStyle.suffix(" EU");
-		euStyle.numberFormat(NumberFormat.COMPACT);
+		euStyle.suffix(" " + PowerSystem.getDisplayPower().abbreviation);
+		euStyle.numberFormat(NumberFormat.COMMAS);
 	}
 
 	@Override
@@ -41,7 +43,11 @@ public class ProbeProvider implements IProbeInfoProvider {
 		}
 		if (tile instanceof IEnergyInterfaceTile) {
 			IEnergyInterfaceTile energy = (IEnergyInterfaceTile) tile;
-			probeInfo.progress((int) energy.getEnergy(), (int) energy.getMaxPower(), euStyle);
+			if (PowerSystem.getDisplayPower() != PowerSystem.EnergySystem.EU) {
+				probeInfo.progress((int) energy.getEnergy() * RebornCoreConfig.euPerFU, (int) energy.getMaxPower() * RebornCoreConfig.euPerFU, euStyle);
+			} else {
+				probeInfo.progress((int) energy.getEnergy(), (int) energy.getMaxPower(), euStyle);
+			}
 		}
 	}
 }
