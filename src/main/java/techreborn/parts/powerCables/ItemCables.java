@@ -7,6 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextFormatting;
@@ -15,6 +16,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.RebornCore;
+import reborncore.common.powerSystem.PowerSystem;
+import reborncore.common.util.StringUtils;
 import reborncore.mcmultipart.item.ItemMultiPart;
 import reborncore.mcmultipart.multipart.IMultipart;
 import techreborn.client.TechRebornCreativeTab;
@@ -59,10 +62,10 @@ public class ItemCables extends ItemMultiPart implements ITexturedItem {
 		return super.getUnlocalizedName() + "." + EnumCableType.values()[meta];
 	}
 
-	// Adds Dusts SubItems To Creative Tab
-	public void getSubItems(Item item, CreativeTabs creativeTabs, List list) {
+	@Override
+	public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
 		for (int meta = 0; meta < EnumCableType.values().length; ++meta) {
-			list.add(new ItemStack(item, 1, meta));
+			subItems.add(new ItemStack(itemIn, 1, meta));
 		}
 	}
 
@@ -85,10 +88,10 @@ public class ItemCables extends ItemMultiPart implements ITexturedItem {
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
 		EnumCableType type = EnumCableType.values()[stack.getItemDamage()];
-		tooltip.add(TextFormatting.GREEN + I18n.translateToLocal("desc.euTransfer") + TextFormatting.LIGHT_PURPLE + type.transferRate);
+		tooltip.add(TextFormatting.GRAY + I18n.translateToLocal("desc.transfer") + " " + TextFormatting.GOLD + PowerSystem.getLocaliszedPowerFormatted(type.transferRate));
+		tooltip.add(TextFormatting.GRAY + I18n.translateToLocal("desc.tier") + " " + TextFormatting.GOLD + StringUtils.toFirstCapitalAllLowercase(type.tier.toString()));
 		if (type.canKill) {
 			tooltip.add(TextFormatting.RED + I18n.translateToLocal("desc.uninsulatedCable"));
 		}
-		tooltip.add(TextFormatting.GREEN + I18n.translateToLocal("desc.tier") + TextFormatting.LIGHT_PURPLE + type.tier);
 	}
 }

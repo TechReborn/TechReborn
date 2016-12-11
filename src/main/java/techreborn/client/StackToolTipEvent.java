@@ -12,7 +12,6 @@ import org.lwjgl.input.Keyboard;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.power.IEnergyInterfaceItem;
 import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.util.Color;
 import techreborn.Core;
 
 public class StackToolTipEvent {
@@ -22,6 +21,10 @@ public class StackToolTipEvent {
 		if (event.getItemStack().getItem() instanceof IListInfoProvider) {
 			((IListInfoProvider) event.getItemStack().getItem()).addInfo(event.getToolTip(), false);
 		} else if (event.getItemStack().getItem() instanceof IEnergyInterfaceItem) {
+			event.getToolTip().add(1, TextFormatting.GOLD + PowerSystem.getLocaliszedPowerFormattedNoSuffix(
+				(int) ((IEnergyInterfaceItem) event.getItemStack().getItem()).getEnergy(event.getItemStack()))
+				+ "/" + PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) ((IEnergyInterfaceItem) event.getItemStack().getItem()).getMaxPower(event.getItemStack()))
+				+ " " + PowerSystem.getDisplayPower().abbreviation);
 			if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
 				int percentage = percentage(
 					(int) ((IEnergyInterfaceItem) event.getItemStack().getItem()).getMaxPower(event.getItemStack()),
@@ -34,19 +37,8 @@ public class StackToolTipEvent {
 				} else {
 					color = TextFormatting.YELLOW;
 				}
-				event.getToolTip().add(color + ""
-					+ PowerSystem.getLocaliszedPower(
-					(int) ((IEnergyInterfaceItem) event.getItemStack().getItem()).getEnergy(event.getItemStack()))
-					+ TextFormatting.LIGHT_PURPLE + " stored");
-				event.getToolTip().add(Color.GREEN + ""
-					+ PowerSystem.getLocaliszedPower(
-					(int) ((IEnergyInterfaceItem) event.getItemStack().getItem()).getMaxPower(event.getItemStack()))
-					+ TextFormatting.LIGHT_PURPLE + " max");
-				event.getToolTip()
-					.add(TextFormatting.GREEN + "" + percentage + "%" + TextFormatting.LIGHT_PURPLE + " charged");
-				event.getToolTip().add(Color.GREEN + "" + PowerSystem.getLocaliszedPower(
-					(int) ((IEnergyInterfaceItem) event.getItemStack().getItem()).getMaxTransfer(event.getItemStack()))
-					+ TextFormatting.LIGHT_PURPLE + " /tick in/out");
+				event.getToolTip().add(2, color + "" + percentage + "%" + TextFormatting.GRAY + " Charged");
+				event.getToolTip().add(3, TextFormatting.GOLD + PowerSystem.getLocaliszedPowerFormatted((int) ((IEnergyInterfaceItem) event.getItemStack().getItem()).getMaxTransfer(event.getItemStack())) + TextFormatting.GRAY + " I/O Rate");
 			}
 		} else {
 			try {
