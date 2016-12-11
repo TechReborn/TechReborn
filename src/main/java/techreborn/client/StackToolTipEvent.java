@@ -38,7 +38,7 @@ public class StackToolTipEvent {
 					color = TextFormatting.YELLOW;
 				}
 				event.getToolTip().add(2, color + "" + percentage + "%" + TextFormatting.GRAY + " Charged");
-				event.getToolTip().add(3, TextFormatting.GOLD + PowerSystem.getLocaliszedPowerFormatted((int) ((IEnergyInterfaceItem) event.getItemStack().getItem()).getMaxTransfer(event.getItemStack())) + TextFormatting.GRAY + " I/O Rate");
+				event.getToolTip().add(3, TextFormatting.GRAY + "I/O Rate: " + TextFormatting.GOLD + PowerSystem.getLocaliszedPowerFormatted((int) ((IEnergyInterfaceItem) event.getItemStack().getItem()).getMaxTransfer(event.getItemStack())));
 			}
 		} else {
 			try {
