@@ -3,18 +3,17 @@ package techreborn.items;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
-import techreborn.lib.ModInfo;
 
 import java.security.InvalidParameterException;
-import java.util.List;
 
-public class ItemNuggets extends ItemTextureBase {
+public class ItemNuggets extends ItemTRNoDestroy {
 
 	public static final String[] types = new String[] { "aluminum", "brass", "bronze", "chrome", "copper", "electrum",
 		"invar", "iridium", "lead", "nickel", "platinum", "silver", "steel", "tin", "titanium", "tungsten",
-		"hotTungstensteel", "tungstensteel", "zinc", "refinedIron", ModItems.META_PLACEHOLDER, ModItems.META_PLACEHOLDER,
+		"hot_tungstensteel", "tungstensteel", "zinc", "refined_iron", ModItems.META_PLACEHOLDER, ModItems.META_PLACEHOLDER,
 		ModItems.META_PLACEHOLDER, "iron", "diamond" };
 
 	public ItemNuggets() {
@@ -48,22 +47,13 @@ public class ItemNuggets extends ItemTextureBase {
 	}
 
 	// Adds Dusts SubItems To Creative Tab
-	public void getSubItems(Item item, CreativeTabs creativeTabs, List list) {
+	@Override
+	public void getSubItems(Item item, CreativeTabs creativeTabs, NonNullList list) {
 		for (int meta = 0; meta < types.length; ++meta) {
 			if (!types[meta].equals(ModItems.META_PLACEHOLDER)) {
 				list.add(new ItemStack(item, 1, meta));
 			}
 		}
-	}
-
-	@Override
-	public String getTextureName(int damage) {
-		return ModInfo.MOD_ID + ":items/nuggets/" + types[damage] + "Nugget";
-	}
-
-	@Override
-	public int getMaxMeta() {
-		return types.length;
 	}
 
 }

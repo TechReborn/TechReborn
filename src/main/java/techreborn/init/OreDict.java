@@ -123,8 +123,7 @@ public class OreDict {
 		for (String type : ItemNuggets.types) {
 			if (type.equals(ModItems.META_PLACEHOLDER))
 				continue; //Aware of placeholders!
-			String oreDictName = "nugget" + OreDictUtils.toFirstUpper(type);
-			OreDictionary.registerOre(oreDictName, ItemNuggets.getNuggetByName(type));
+			OreDictionary.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "nugget_" + type), ItemNuggets.getNuggetByName(type));
 		}
 
 	}

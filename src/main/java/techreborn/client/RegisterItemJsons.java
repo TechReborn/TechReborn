@@ -9,6 +9,7 @@ import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
 import techreborn.items.ItemGems;
 import techreborn.items.ItemIngots;
+import techreborn.items.ItemNuggets;
 import techreborn.items.ItemPlates;
 
 public class RegisterItemJsons {
@@ -52,6 +53,11 @@ public class RegisterItemJsons {
 		for (int i = 0; i < ItemPlates.types.length; ++i) {
 			String[] name = ItemPlates.types.clone();
 			registerBlockstate(ModItems.plate, i, name[i]);
+		}
+
+		for (int i = 0; i < ItemNuggets.types.length; ++i) {
+			String[] name = ItemNuggets.types.clone();
+			registerBlockstate(ModItems.nuggets, i, name[i]);
 		}
 	}
 
