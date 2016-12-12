@@ -206,6 +206,11 @@
           "layer0": "techreborn:items/dust/pyrite_dust"
         }
       },
+      "pyrope": {
+        "textures": {
+          "layer0": "techreborn:items/dust/pyrope_dust"
+        }
+      },
       "red_garnet": {
         "textures": {
           "layer0": "techreborn:items/dust/red_garnet_dust"

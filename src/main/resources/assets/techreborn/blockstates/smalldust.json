@@ -206,6 +206,11 @@
           "layer0": "techreborn:items/smalldust/pyrite_smalldust"
         }
       },
+      "pyrope": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/pyrope_smalldust"
+        }
+      },
       "red_garnet": {
         "textures": {
           "layer0": "techreborn:items/smalldust/red_garnet_smalldust"
@@ -226,9 +231,9 @@
           "layer0": "techreborn:items/smalldust/sapphire_smalldust"
         }
       },
-      "saw_smalldust": {
+      "saw_dust": {
         "textures": {
-          "layer0": "techreborn:items/smalldust/saw_smalldust_smalldust"
+          "layer0": "techreborn:items/smalldust/saw_dust_smalldust"
         }
       },
       "silver": {
