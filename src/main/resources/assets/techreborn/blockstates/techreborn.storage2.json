@@ -1,0 +1,70 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {},
+    "transform": "forge:default-block",
+    "model": "cube_all"
+  },
+  "variants": {
+    "inventory": [
+      {}
+    ],
+    "type": {
+      "tungstensteel": {
+        "textures": {
+          "all": "techreborn:blocks/storage/tungstensteel_block"
+        }
+      },
+      "iridium_reinforced_tungstensteel": {
+        "textures": {
+          "all": "techreborn:blocks/storage/iridium_reinforced_tungstensteel_block"
+        }
+      },
+      "iridium_reinforced_stone": {
+        "textures": {
+          "all": "techreborn:blocks/storage/iridium_reinforced_stone_block"
+        }
+      },
+      "ruby": {
+        "textures": {
+          "all": "techreborn:blocks/storage/ruby_block"
+        }
+      },
+      "sapphire": {
+        "textures": {
+          "all": "techreborn:blocks/storage/sapphire_block"
+        }
+      },
+      "peridot": {
+        "textures": {
+          "all": "techreborn:blocks/storage/peridot_block"
+        }
+      },
+      "yellowgarnet": {
+        "textures": {
+          "all": "techreborn:blocks/storage/yellowgarnet_block"
+        }
+      },
+      "redgarnet": {
+        "textures": {
+          "all": "techreborn:blocks/storage/redgarnet_block"
+        }
+      },
+      "copper": {
+        "textures": {
+          "all": "techreborn:blocks/storage/copper_block"
+        }
+      },
+      "tin": {
+        "textures": {
+          "all": "techreborn:blocks/storage/tin_block"
+        }
+      },
+      "refinediron": {
+        "textures": {
+          "all": "techreborn:blocks/storage/refinediron_block"
+        }
+      }
+    }
+  }
+}

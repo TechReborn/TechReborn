@@ -31,11 +31,6 @@ public class TechRebornParts implements ICompatModule {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
-		MinecraftForge.EVENT_BUS.register(this);
-	}
-
-	@Override
-	public void init(FMLInitializationEvent event) {
 		for (EnumCableType cableType : EnumCableType.values()) {
 			multipartHashMap.put(cableType, cableType.cableClass);
 			MultipartRegistry.registerPart(cableType.cableClass, "techreborn:cable." + cableType.name());
@@ -43,6 +38,11 @@ public class TechRebornParts implements ICompatModule {
 		cables = new ItemCables();
 		cables.setRegistryName("cables");
 		GameRegistry.register(cables);
+		MinecraftForge.EVENT_BUS.register(this);
+	}
+
+	@Override
+	public void init(FMLInitializationEvent event) {
 
 		//		MultipartRegistry.registerPart(EmptyFluidPipe.class, "techreborn:fluidpipe.empty");
 		//		MultipartRegistry.registerPart(InsertingFluidPipe.class, "techreborn:fluidpipe.inserting");

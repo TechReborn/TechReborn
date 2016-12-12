@@ -61,6 +61,7 @@ public class Core {
 	public static TechRebornWorldGen worldGen;
 	public static File configDir;
 	public VersionChecker versionChecker;
+
 	public Core() {
 		//Forge says to call it here, so yeah
 		FluidRegistry.enableUniversalBucket();
@@ -84,11 +85,6 @@ public class Core {
 
 		TechRebornAPI.subItemRetriever = new SubItemRetriever();
 		//Recheck here because things break at times
-		CompatManager.isIC2Loaded = Loader.isModLoaded("IC2");
-
-		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
-			compatModule.preInit(event);
-		}
 
 		// Register ModBlocks
 		ModBlocks.init();
@@ -98,6 +94,12 @@ public class Core {
 		ModItems.init();
 		// Entitys
 		EntityRegistry.registerModEntity(new ResourceLocation("techreborn", "nuke"), EntityNukePrimed.class, "nuke", 0, INSTANCE, 160, 5, true);
+
+		CompatManager.isIC2Loaded = Loader.isModLoaded("IC2");
+
+		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
+			compatModule.preInit(event);
+		}
 
 		//Ore Dictionary
 		OreDict.init();

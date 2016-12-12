@@ -5,11 +5,16 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.Loader;
 import techreborn.blocks.BlockOre;
 import techreborn.blocks.BlockOre2;
+import techreborn.blocks.BlockStorage;
+import techreborn.blocks.BlockStorage2;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
 import techreborn.items.*;
+import techreborn.parts.TechRebornParts;
+import techreborn.parts.powerCables.EnumCableType;
 
 public class RegisterItemJsons {
 	public static void registerModels() {
@@ -44,37 +49,37 @@ public class RegisterItemJsons {
 
 		for (int i = 0; i < ItemIngots.types.length; ++i) {
 			String[] name = ItemIngots.types.clone();
-			registerBlockstate(ModItems.ingots, i, name[i]);
+			registerBlockstate(ModItems.ingots, i, name[i], "items/materials/");
 		}
 
 		for (int i = 0; i < ItemGems.types.length; ++i) {
 			String[] name = ItemGems.types.clone();
-			registerBlockstate(ModItems.gems, i, name[i]);
+			registerBlockstate(ModItems.gems, i, name[i], "items/materials/");
 		}
 
 		for (int i = 0; i < ItemPlates.types.length; ++i) {
 			String[] name = ItemPlates.types.clone();
-			registerBlockstate(ModItems.plate, i, name[i]);
+			registerBlockstate(ModItems.plate, i, name[i], "items/materials/");
 		}
 
 		for (int i = 0; i < ItemNuggets.types.length; ++i) {
 			String[] name = ItemNuggets.types.clone();
-			registerBlockstate(ModItems.nuggets, i, name[i]);
+			registerBlockstate(ModItems.nuggets, i, name[i], "items/materials/");
 		}
 
 		for (int i = 0; i < ItemDusts.types.length; ++i) {
 			String[] name = ItemDusts.types.clone();
-			registerBlockstate(ModItems.dusts, i, name[i]);
+			registerBlockstate(ModItems.dusts, i, name[i], "items/materials/");
 		}
 
 		for (int i = 0; i < ItemDustsSmall.types.length; ++i) {
 			String[] name = ItemDustsSmall.types.clone();
-			registerBlockstate(ModItems.smallDusts, i, name[i]);
+			registerBlockstate(ModItems.smallDusts, i, name[i], "items/materials/");
 		}
 
 		for (int i = 0; i < ItemUpgrades.types.length; ++i) {
 			String[] name = ItemUpgrades.types.clone();
-			registerBlockstate(ModItems.upgrades, i, name[i]);
+			registerBlockstate(ModItems.upgrades, i, name[i], "items/misc/");
 		}
 
 		for (int i = 0; i < BlockOre.ores.length; ++i) {
@@ -86,6 +91,22 @@ public class RegisterItemJsons {
 			String[] name = BlockOre2.ores.clone();
 			registerBlockstate(ModBlocks.ore2, i, name[i]);
 		}
+
+		for (int i = 0; i < BlockStorage.types.length; ++i) {
+			String[] name = BlockStorage.types.clone();
+			registerBlockstate(ModBlocks.storage, i, name[i]);
+		}
+
+		for (int i = 0; i < BlockStorage2.types.length; ++i) {
+			String[] name = BlockStorage2.types.clone();
+			registerBlockstate(ModBlocks.storage2, i, name[i]);
+		}
+
+		if (Loader.isModLoaded("reborncore-mcmultipart"))
+			for (EnumCableType i : EnumCableType.values()) {
+				String name = i.getName();
+				registerBlockstate(TechRebornParts.cables, i.ordinal(), name, "items/misc/");
+			}
 	}
 
 	private static void registerBlocks() {
@@ -110,12 +131,19 @@ public class RegisterItemJsons {
 	}
 
 	private static void registerBlockstate(Item i, int meta, String variant) {
-		ResourceLocation loc = i.getRegistryName();
+		registerBlockstate(i, meta, variant, "");
+	}
+
+	private static void registerBlockstate(Item i, int meta, String variant, String dir) {
+		ResourceLocation loc = new ResourceLocation("techreborn", dir + i.getRegistryName().getResourcePath());
 		ModelLoader.setCustomModelResourceLocation(i, meta, new ModelResourceLocation(loc, "type=" + variant));
 	}
 
 	private static void registerBlockstate(Block i, int meta, String variant) {
-		ResourceLocation loc = i.getRegistryName();
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(i), meta, new ModelResourceLocation(loc, "type=" + variant));
+		registerBlockstate(i, meta, variant, "");
+	}
+
+	private static void registerBlockstate(Block i, int meta, String variant, String dir) {
+		registerBlockstate(Item.getItemFromBlock(i), meta, variant, dir);
 	}
 }
