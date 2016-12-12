@@ -28,24 +28,32 @@ public class RegisterItemJsons {
 		register(ModItems.energyCrystal, "battery/energy_crystal");
 		register(ModItems.lapotronCrystal, "battery/lapotron_crystal");
 		register(ModItems.lapotronicOrb, "battery/lapotronic_orb");
-		register(ModItems.nanosaber, "nanosaber");
 
-		register(ModItems.frequencyTransmitter, "frequencytransmitter");
+		register(ModItems.frequencyTransmitter, "misc/frequency_transmitter");
 		register(ModItems.uuMatter, "misc/uu_matter");
 		register(ModItems.scrapBox, "misc/scrapbox");
+		register(ModItems.manual, "misc/manual");
+		register(ModItems.debug, "misc/debug");
+		register(ModBlocks.rubberSapling, "misc/rubber_sapling");
 
 		register(ModItems.ironDrill, "tool/steel_drill");
 		register(ModItems.diamondDrill, "tool/diamond_drill");
 		register(ModItems.advancedDrill, "tool/advanced_drill");
-
 		register(ModItems.ironChainsaw, "tool/steel_chainsaw");
 		register(ModItems.diamondChainsaw, "tool/diamond_chainsaw");
 		register(ModItems.advancedChainsaw, "tool/advanced_chainsaw");
-
 		register(ModItems.steelJackhammer, "tool/steel_jackhammer");
 		register(ModItems.diamondJackhammer, "tool/diamond_jackhammer");
 		register(ModItems.advancedJackhammer, "tool/advanced_jackhammer");
-		register(ModBlocks.rubberSapling, "misc/rubber_sapling");
+		register(ModItems.nanosaber, "tool/nanosaber");
+		register(ModItems.treeTap, "tool/treetap");
+		register(ModItems.electricTreetap, "tool/electric_treetap");
+		register(ModItems.cloakingDevice, "tool/cloaking_device");
+		register(ModItems.omniTool, "tool/omni_tool");
+		register(ModItems.rockCutter, "tool/rock_cutter");
+		register(ModItems.wrench, "tool/wrench");
+		register(ModItems.lapotronpack, "tool/lapotronic_orbpack");
+		register(ModItems.lithiumBatpack, "tool/lithium_batpack");
 
 		for (int i = 0; i < ItemIngots.types.length; ++i) {
 			String[] name = ItemIngots.types.clone();
@@ -110,7 +118,7 @@ public class RegisterItemJsons {
 	}
 
 	private static void registerBlocks() {
-		register(ModBlocks.ironFence, "ironfence");
+		register(ModBlocks.ironFence, "iron_fence");
 	}
 
 	private static void register(Item item, int meta, String name) {

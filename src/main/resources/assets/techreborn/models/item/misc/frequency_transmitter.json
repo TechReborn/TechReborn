@@ -8,7 +8,7 @@
       "predicate": {
         "techreborn:coords": 1
       },
-      "model": "techreborn:item/frequencytransmittercoords"
+      "model": "techreborn:item/misc/frequency_transmitter_coords"
     }
   ]
 }
