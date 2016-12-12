@@ -68,6 +68,8 @@ public class ModRecipes {
 	public static ItemStack diamondJackhammerStack = new ItemStack(diamondJackhammer, 1, OreDictionary.WILDCARD_VALUE);
 
 	public static void init() {
+		//Gonna rescan to make sure we have an uptodate list
+		OreUtil.scanForOres();
 		//Done again incase we loaded before QuantumStorage
 		CompatManager.isQuantumStorageLoaded = Loader.isModLoaded("quantumstorage");
 		addShapelessRecipes();
@@ -359,27 +361,23 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(
 			new CompressorRecipe(ItemParts.getPartByName("carbonmesh"), ItemPlates.getPlateByName("carbon"), 400,
 				2));
+		
+		for(String ore : OreUtil.oreNames){
+			System.out.println(ore);
+			System.out.println("plate" +  OreUtil.capitalizeFirstLetter(ore));
+			if(OreUtil.doesOreExistAndValid("plate" +  OreUtil.capitalizeFirstLetter(ore)) && OreUtil.doesOreExistAndValid("ingot" +  OreUtil.capitalizeFirstLetter(ore))){
+				RecipeHandler.addRecipe(
+					new CompressorRecipe(OreUtil.getStackFromName("ingot" + OreUtil.capitalizeFirstLetter(ore), 9), OreUtil.getStackFromName("plate" + OreUtil.capitalizeFirstLetter(ore), 1), 300,
+						4));
+			}
 
-		RecipeHandler.addRecipe(
-			new CompressorRecipe(new ItemStack(Items.IRON_INGOT), ItemPlates.getPlateByName("iron"), 400, 2));
-		RecipeHandler.addRecipe(
-			new CompressorRecipe(ItemIngots.getIngotByName("copper"), ItemPlates.getPlateByName("copper"), 400,
-				2));
-		RecipeHandler.addRecipe(
-			new CompressorRecipe(ItemIngots.getIngotByName("tin"), ItemPlates.getPlateByName("tin"), 400, 2));
-		RecipeHandler.addRecipe(
-			new CompressorRecipe(ItemIngots.getIngotByName("aluminum"), ItemPlates.getPlateByName("aluminum"), 400,
-				2));
-		RecipeHandler.addRecipe(
-			new CompressorRecipe(ItemIngots.getIngotByName("brass"), ItemPlates.getPlateByName("brass"), 400, 2));
-		RecipeHandler.addRecipe(
-			new CompressorRecipe(ItemIngots.getIngotByName("bronze"), ItemPlates.getPlateByName("bronze"), 400,
-				2));
-		RecipeHandler.addRecipe(
-			new CompressorRecipe(ItemIngots.getIngotByName("lead"), ItemPlates.getPlateByName("lead"), 400, 2));
-		RecipeHandler.addRecipe(
-			new CompressorRecipe(ItemIngots.getIngotByName("silver"), ItemPlates.getPlateByName("silver"), 400,
-				2));
+			if(OreUtil.hasPlate(ore) && OreUtil.hasBlock(ore)){
+				RecipeHandler.addRecipe(
+					new CompressorRecipe(OreUtil.getStackFromName("block" + OreUtil.capitalizeFirstLetter(ore), 1), OreUtil.getStackFromName("plate" + OreUtil.capitalizeFirstLetter(ore), 1), 300,
+						4));
+			}
+		}
+
 	}
 
 	static void addExtractorRecipes() {
@@ -1204,13 +1202,6 @@ public class ModRecipes {
 			ItemStack arditeStack = OreDictionary.getOres("ingotArdite").get(0);
 			arditeStack.stackSize = 1;
 			RecipeHandler.addRecipe(new AlloySmelterRecipe(cobaltStack, arditeStack, manyullynStack, 200, 16));
-			RecipeHandler.addRecipe(
-				new AlloySmelterRecipe(cobaltStack, ItemDusts.getDustByName("ardite", 1), manyullynStack, 200, 16));
-			RecipeHandler.addRecipe(
-				new AlloySmelterRecipe(ItemDusts.getDustByName("cobalt", 1), arditeStack, manyullynStack, 200, 16));
-			RecipeHandler.addRecipe(
-				new AlloySmelterRecipe(ItemDusts.getDustByName("cobalt", 1), ItemDusts.getDustByName("ardite", 1),
-					manyullynStack, 200, 16));
 		}
 
 		// Conductive Iron
