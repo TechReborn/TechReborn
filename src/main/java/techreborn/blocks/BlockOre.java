@@ -1,7 +1,7 @@
 package techreborn.blocks;
 
 import com.google.common.collect.Lists;
-import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -10,7 +10,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -18,7 +17,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import reborncore.common.BaseBlock;
 import reborncore.common.blocks.PropertyString;
 import reborncore.common.util.ArrayUtils;
 import reborncore.common.util.OreDrop;
@@ -35,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class BlockOre extends BaseBlock implements ITexturedBlock, IOreNameProvider {
+public class BlockOre extends Block implements IOreNameProvider {
 
 	public static final String[] ores = new String[] {
 		"galena", "iridium", "ruby", "sapphire", "bauxite", "pyrite",
@@ -180,16 +178,6 @@ public class BlockOre extends BaseBlock implements ITexturedBlock, IOreNameProvi
 	//		}
 	//		return meta;
 	//	}
-
-	@Override
-	public String getTextureNameFromState(IBlockState BlockStateContainer, EnumFacing facing) {
-		return "techreborn:blocks/ore/ore" + ores[getMetaFromState(BlockStateContainer)];
-	}
-
-	@Override
-	public int amountOfStates() {
-		return ores.length;
-	}
 
 	@Override
 	public int damageDropped(IBlockState state) {

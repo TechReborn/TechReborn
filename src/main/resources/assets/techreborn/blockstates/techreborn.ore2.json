@@ -1,0 +1,25 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {},
+    "transform": "forge:default-block",
+    "model": "cube_all"
+  },
+  "variants": {
+    "inventory": [
+      {}
+    ],
+    "type": {
+      "copper": {
+        "textures": {
+          "all": "techreborn:blocks/ore/copper_ore"
+        }
+      },
+      "tin": {
+        "textures": {
+          "all": "techreborn:blocks/ore/tin_ore"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {},
+    "transform": "forge:default-block",
+    "model": "cube_all"
+  },
+  "variants": {
+    "inventory": [
+      {}
+    ],
+    "type": {
+      "galena": {
+        "textures": {
+          "all": "techreborn:blocks/ore/galena_ore"
+        }
+      },
+      "iridium": {
+        "textures": {
+          "all": "techreborn:blocks/ore/iridium_ore"
+        }
+      },
+      "ruby": {
+        "textures": {
+          "all": "techreborn:blocks/ore/ruby_ore"
+        }
+      },
+      "sapphire": {
+        "textures": {
+          "all": "techreborn:blocks/ore/sapphire_ore"
+        }
+      },
+      "bauxite": {
+        "textures": {
+          "all": "techreborn:blocks/ore/bauxite_ore"
+        }
+      },
+      "pyrite": {
+        "textures": {
+          "all": "techreborn:blocks/ore/pyrite_ore"
+        }
+      },
+      "cinnabar": {
+        "textures": {
+          "all": "techreborn:blocks/ore/cinnabar_ore"
+        }
+      },
+      "sphalerite": {
+        "textures": {
+          "all": "techreborn:blocks/ore/sphalerite_ore"
+        }
+      },
+      "tungsten": {
+        "textures": {
+          "all": "techreborn:blocks/ore/tungsten_ore"
+        }
+      },
+      "sheldonite": {
+        "textures": {
+          "all": "techreborn:blocks/ore/sheldonite_ore"
+        }
+      },
+      "peridot": {
+        "textures": {
+          "all": "techreborn:blocks/ore/peridot_ore"
+        }
+      },
+      "sodalite": {
+        "textures": {
+          "all": "techreborn:blocks/ore/sodalite_ore"
+        }
+      },
+      "lead": {
+        "textures": {
+          "all": "techreborn:blocks/ore/lead_ore"
+        }
+      },
+      "silver": {
+        "textures": {
+          "all": "techreborn:blocks/ore/silver_ore"
+        }
+      }
+    }
+  }
+}

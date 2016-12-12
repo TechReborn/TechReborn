@@ -5,6 +5,8 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+import techreborn.blocks.BlockOre;
+import techreborn.blocks.BlockOre2;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
 import techreborn.items.*;
@@ -39,6 +41,8 @@ public class RegisterItemJsons {
 		register(ModItems.diamondJackhammer, "tool/diamond_jackhammer");
 		register(ModItems.advancedJackhammer, "tool/advanced_jackhammer");
 		register(ModBlocks.rubberSapling, "misc/rubber_sapling");
+		register(ModBlocks.ore, "techreborn.ore");
+		register(ModBlocks.ore2, "techreborn.ore2");
 
 		for (int i = 0; i < ItemIngots.types.length; ++i) {
 			String[] name = ItemIngots.types.clone();
@@ -74,6 +78,16 @@ public class RegisterItemJsons {
 			String[] name = ItemUpgrades.types.clone();
 			registerBlockstate(ModItems.upgrades, i, name[i]);
 		}
+
+		for (int i = 0; i < BlockOre.ores.length; ++i) {
+			String[] name = BlockOre.ores.clone();
+			registerBlockstate(ModBlocks.ore, i, name[i]);
+		}
+
+		for (int i = 0; i < BlockOre2.ores.length; ++i) {
+			String[] name = BlockOre2.ores.clone();
+			registerBlockstate(ModBlocks.ore2, i, name[i]);
+		}
 	}
 
 	private static void registerBlocks() {
@@ -100,5 +114,10 @@ public class RegisterItemJsons {
 	private static void registerBlockstate(Item i, int meta, String variant) {
 		ResourceLocation loc = i.getRegistryName();
 		ModelLoader.setCustomModelResourceLocation(i, meta, new ModelResourceLocation(loc, "type=" + variant));
+	}
+
+	private static void registerBlockstate(Block i, int meta, String variant) {
+		ResourceLocation loc = i.getRegistryName();
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(i), meta, new ModelResourceLocation(loc, "type=" + variant));
 	}
 }
