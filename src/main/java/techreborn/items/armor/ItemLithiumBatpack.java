@@ -30,7 +30,6 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo {
 		setMaxStackSize(1);
 		setUnlocalizedName("techreborn.lithiumbatpack");
 		setCreativeTab(TechRebornCreativeTab.instance);
-		RebornCore.jsonDestroyer.registerObject(this);
 	}
 
 	@Override

@@ -1,0 +1,91 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "builtin/generated",
+    "transform": "forge:default-item"
+  },
+  "variants": {
+    "type": {
+      "ruby_helmet": {
+        "textures": {
+          "layer0": "techreborn:items/tool/ruby_helmet"
+        }
+      },
+      "ruby_chestplate": {
+        "textures": {
+          "layer0": "techreborn:items/tool/ruby_chestplate"
+        }
+      },
+      "ruby_leggings": {
+        "textures": {
+          "layer0": "techreborn:items/tool/ruby_leggings"
+        }
+      },
+      "ruby_boots": {
+        "textures": {
+          "layer0": "techreborn:items/tool/ruby_boots"
+        }
+      },
+      "sapphire_helmet": {
+        "textures": {
+          "layer0": "techreborn:items/tool/sapphire_helmet"
+        }
+      },
+      "sapphire_chestplate": {
+        "textures": {
+          "layer0": "techreborn:items/tool/sapphire_chestplate"
+        }
+      },
+      "sapphire_leggings": {
+        "textures": {
+          "layer0": "techreborn:items/tool/sapphire_leggings"
+        }
+      },
+      "sapphire_boots": {
+        "textures": {
+          "layer0": "techreborn:items/tool/sapphire_boots"
+        }
+      },
+      "peridot_helmet": {
+        "textures": {
+          "layer0": "techreborn:items/tool/peridot_helmet"
+        }
+      },
+      "peridot_chestplate": {
+        "textures": {
+          "layer0": "techreborn:items/tool/peridot_chestplate"
+        }
+      },
+      "peridot_leggings": {
+        "textures": {
+          "layer0": "techreborn:items/tool/peridot_leggings"
+        }
+      },
+      "peridot_boots": {
+        "textures": {
+          "layer0": "techreborn:items/tool/peridot_boots"
+        }
+      },
+      "bronze_helmet": {
+        "textures": {
+          "layer0": "techreborn:items/tool/bronze_helmet"
+        }
+      },
+      "bronze_chestplate": {
+        "textures": {
+          "layer0": "techreborn:items/tool/bronze_chestplate"
+        }
+      },
+      "bronze_leggings": {
+        "textures": {
+          "layer0": "techreborn:items/tool/bronze_leggings"
+        }
+      },
+      "bronze_boots": {
+        "textures": {
+          "layer0": "techreborn:items/tool/bronze_boots"
+        }
+      }
+    }
+  }
+}

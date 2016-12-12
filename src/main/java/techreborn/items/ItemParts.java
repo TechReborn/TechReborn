@@ -1,5 +1,6 @@
 package techreborn.items;
 
+import com.google.common.base.CaseFormat;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -10,19 +11,18 @@ import techreborn.Core;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModItems;
-import techreborn.lib.ModInfo;
 
 import java.security.InvalidParameterException;
 
-public class ItemParts extends ItemTextureBase {
-	public static final String[] types = new String[] { "energyFlowCircuit", "dataControlCircuit", "dataStorageCircuit",
-		"dataOrb", "diamondGrindingHead", "diamondSawBlade", "tungstenGrindingHead", "heliumCoolantSimple",
-		"heliumCoolantTriple", "heliumCoolantSix", "NaKCoolantSimple", "NaKCoolantTriple", "NaKCoolantSix",
-		"cupronickelHeatingCoil", "nichromeHeatingCoil", "kanthalHeatingCoil", ModItems.META_PLACEHOLDER, "superConductor",
-		"thoriumCell", "doubleThoriumCell", "quadThoriumCell", "plutoniumCell", "doublePlutoniumCell",
-		"quadPlutoniumCell", "computerMonitor", "machineParts", "neutronReflector", "iridiumNeutronReflector",
-		"thickNeutronReflector", "electronicCircuit", "advancedCircuit", "rubberSap", "rubber", "scrap",
-		"carbonmesh", "carbonfiber", "coolantSimple", "coolantTriple", "coolantSix" };
+public class ItemParts extends ItemTRNoDestroy {
+	public static final String[] types = new String[] { "energy_flow_circuit", "data_control_circuit", "data_storage_circuit",
+		"data_orb", "diamond_grinding_head", "diamond_saw_blade", "tungsten_grinding_head", "helium_coolant_simple",
+		"helium_coolant_triple", "helium_coolant_six", "nak_coolant_simple", "nak_coolant_triple", "nak_coolant_six",
+		"cupronickel_heating_coil", "nichrome_heating_coil", "kanthal_heating_coil", ModItems.META_PLACEHOLDER, "super_conductor",
+		"thorium_cell", "double_thorium_cell", "quad_thorium_cell", "plutonium_cell", "double_plutonium_cell",
+		"quad_plutonium_cell", "computer_monitor", "machine_parts", "neutron_reflector", "iridium_neutron_reflector",
+		"thick_neutron_reflector", "electronic_circuit", "advanced_circuit", "sap", "rubber", "scrap",
+		"carbon_mesh", "carbon_fiber", "coolant_simple", "coolant_triple", "coolant_six" };
 
 	public ItemParts() {
 		setCreativeTab(TechRebornCreativeTab.instance);
@@ -31,6 +31,22 @@ public class ItemParts extends ItemTextureBase {
 	}
 
 	public static ItemStack getPartByName(String name, int count) {
+		//TODO: Change all recipes n' shit to use proper snake_case names so I don't have to do this bullshit
+		if (name.equals("NaKCoolantSimple"))
+			name = "nak_coolant_simple";
+		if (name.equals("NaKCoolantTriple"))
+			name = "nak_coolant_triple";
+		if (name.equals("NaKCoolantSix"))
+			name = "nak_coolant_six";
+		if (name.equals("superconductor"))
+			name = "super_conductor";
+		if (name.equals("carbonfiber"))
+			name = "carbon_fiber";
+		if (name.equals("carbonmesh"))
+			name = "carbon_mesh";
+		if (name.equals("rubberSap"))
+			name = "sap";
+		name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, name);
 		for (int i = 0; i < types.length; i++) {
 			if (types[i].equalsIgnoreCase(name)) {
 				return new ItemStack(ModItems.parts, count, i);
@@ -71,15 +87,5 @@ public class ItemParts extends ItemTextureBase {
 				break;
 		}
 		return itemStack;
-	}
-
-	@Override
-	public String getTextureName(int damage) {
-		return ModInfo.MOD_ID + ":items/part/" + types[damage].toLowerCase();
-	}
-
-	@Override
-	public int getMaxMeta() {
-		return types.length;
 	}
 }

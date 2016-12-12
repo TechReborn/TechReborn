@@ -55,6 +55,44 @@ public class RegisterItemJsons {
 		register(ModItems.lapotronpack, "tool/lapotronic_orbpack");
 		register(ModItems.lithiumBatpack, "tool/lithium_batpack");
 
+		registerBlockstateMultiItem(ModItems.rubyHelmet, "ruby_helmet", "items/tool/armour");
+		registerBlockstateMultiItem(ModItems.rubyChestplate, "ruby_chestplate", "items/tool/armour");
+		registerBlockstateMultiItem(ModItems.rubyLeggings, "ruby_leggings", "items/tool/armour");
+		registerBlockstateMultiItem(ModItems.rubyBoots, "ruby_boots", "items/tool/armour");
+		registerBlockstateMultiItem(ModItems.sapphireHelmet, "sapphire_helmet", "items/tool/armour");
+		registerBlockstateMultiItem(ModItems.sapphireChestplate, "sapphire_chestplate", "items/tool/armour");
+		registerBlockstateMultiItem(ModItems.sapphireLeggings, "sapphire_leggings", "items/tool/armour");
+		registerBlockstateMultiItem(ModItems.sapphireBoots, "sapphire_boots", "items/tool/armour");
+		registerBlockstateMultiItem(ModItems.peridotHelmet, "peridot_helmet", "items/tool/armour");
+		registerBlockstateMultiItem(ModItems.peridotChestplate, "peridot_chestplate", "items/tool/armour");
+		registerBlockstateMultiItem(ModItems.peridotLeggings, "peridot_leggings", "items/tool/armour");
+		registerBlockstateMultiItem(ModItems.peridotBoots, "peridot_boots", "items/tool/armour");
+		registerBlockstateMultiItem(ModItems.bronzeHelmet, "bronze_helmet", "items/tool/armour");
+		registerBlockstateMultiItem(ModItems.bronzeChestplate, "bronze_chestplate", "items/tool/armour");
+		registerBlockstateMultiItem(ModItems.bronzeLeggings, "bronze_leggings", "items/tool/armour");
+		registerBlockstateMultiItem(ModItems.bronzeBoots, "bronze_boots", "items/tool/armour");
+
+		registerBlockstateMultiItem(ModItems.rubyPickaxe, "ruby_pickaxe", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.rubySword, "ruby_sword", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.rubyAxe, "ruby_axe", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.rubySpade, "ruby_spade", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.rubyHoe, "ruby_hoe", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.sapphirePickaxe, "sapphire_pickaxe", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.sapphireSword, "sapphire_sword", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.sapphireAxe, "sapphire_axe", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.sapphireSpade, "sapphire_spade", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.sapphireHoe, "sapphire_hoe", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.peridotPickaxe, "peridot_pickaxe", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.peridotSword, "peridot_sword", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.peridotAxe, "peridot_axe", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.peridotSpade, "peridot_spade", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.peridotHoe, "peridot_hoe", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.bronzePickaxe, "bronze_pickaxe", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.bronzeSword, "bronze_sword", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.bronzeAxe, "bronze_axe", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.bronzeSpade, "bronze_spade", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.bronzeHoe, "bronze_hoe", "items/tool/tool");
+
 		for (int i = 0; i < ItemIngots.types.length; ++i) {
 			String[] name = ItemIngots.types.clone();
 			registerBlockstate(ModItems.ingots, i, name[i], "items/materials/");
@@ -83,6 +121,11 @@ public class RegisterItemJsons {
 		for (int i = 0; i < ItemDustsSmall.types.length; ++i) {
 			String[] name = ItemDustsSmall.types.clone();
 			registerBlockstate(ModItems.smallDusts, i, name[i], "items/materials/");
+		}
+
+		for (int i = 0; i < ItemParts.types.length; ++i) {
+			String[] name = ItemParts.types.clone();
+			registerBlockstate(ModItems.parts, i, name[i], "items/materials/");
 		}
 
 		for (int i = 0; i < ItemUpgrades.types.length; ++i) {
@@ -153,5 +196,10 @@ public class RegisterItemJsons {
 
 	private static void registerBlockstate(Block i, int meta, String variant, String dir) {
 		registerBlockstate(Item.getItemFromBlock(i), meta, variant, dir);
+	}
+
+	private static void registerBlockstateMultiItem(Item item, String variantName, String path) {
+		ResourceLocation loc = new ResourceLocation("techreborn", path);
+		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(loc, "type=" + variantName));
 	}
 }

@@ -1,0 +1,111 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "builtin/generated",
+    "transform": "forge:default-item"
+  },
+  "variants": {
+    "type": {
+      "ruby_pickaxe": {
+        "textures": {
+          "layer0": "techreborn:items/tool/ruby_pickaxe"
+        }
+      },
+      "ruby_sword": {
+        "textures": {
+          "layer0": "techreborn:items/tool/ruby_sword"
+        }
+      },
+      "ruby_axe": {
+        "textures": {
+          "layer0": "techreborn:items/tool/ruby_axe"
+        }
+      },
+      "ruby_spade": {
+        "textures": {
+          "layer0": "techreborn:items/tool/ruby_spade"
+        }
+      },
+      "ruby_hoe": {
+        "textures": {
+          "layer0": "techreborn:items/tool/ruby_hoe"
+        }
+      },
+      "sapphire_pickaxe": {
+        "textures": {
+          "layer0": "techreborn:items/tool/sapphire_pickaxe"
+        }
+      },
+      "sapphire_sword": {
+        "textures": {
+          "layer0": "techreborn:items/tool/sapphire_sword"
+        }
+      },
+      "sapphire_axe": {
+        "textures": {
+          "layer0": "techreborn:items/tool/sapphire_axe"
+        }
+      },
+      "sapphire_spade": {
+        "textures": {
+          "layer0": "techreborn:items/tool/sapphire_spade"
+        }
+      },
+      "sapphire_hoe": {
+        "textures": {
+          "layer0": "techreborn:items/tool/sapphire_hoe"
+        }
+      },
+      "peridot_pickaxe": {
+        "textures": {
+          "layer0": "techreborn:items/tool/peridot_pickaxe"
+        }
+      },
+      "peridot_sword": {
+        "textures": {
+          "layer0": "techreborn:items/tool/peridot_sword"
+        }
+      },
+      "peridot_axe": {
+        "textures": {
+          "layer0": "techreborn:items/tool/peridot_axe"
+        }
+      },
+      "peridot_spade": {
+        "textures": {
+          "layer0": "techreborn:items/tool/peridot_spade"
+        }
+      },
+      "peridot_hoe": {
+        "textures": {
+          "layer0": "techreborn:items/tool/peridot_hoe"
+        }
+      },
+      "bronze_pickaxe": {
+        "textures": {
+          "layer0": "techreborn:items/tool/bronze_pickaxe"
+        }
+      },
+      "bronze_sword": {
+        "textures": {
+          "layer0": "techreborn:items/tool/bronze_sword"
+        }
+      },
+      "bronze_axe": {
+        "textures": {
+          "layer0": "techreborn:items/tool/bronze_axe"
+        }
+      },
+      "bronze_spade": {
+        "textures": {
+          "layer0": "techreborn:items/tool/bronze_spade"
+        }
+      },
+      "bronze_hoe": {
+        "textures": {
+          "layer0": "techreborn:items/tool/bronze_hoe"
+        }
+      }
+    }
+  }
+}

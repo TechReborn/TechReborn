@@ -1,0 +1,201 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "builtin/generated",
+    "transform": "forge:default-item"
+  },
+  "variants": {
+    "type": {
+      "energy_flow_circuit": {
+        "textures": {
+          "layer0": "techreborn:items/part/energy_flow_circuit"
+        }
+      },
+      "data_control_circuit": {
+        "textures": {
+          "layer0": "techreborn:items/part/data_control_circuit"
+        }
+      },
+      "data_storage_circuit": {
+        "textures": {
+          "layer0": "techreborn:items/part/data_storage_circuit"
+        }
+      },
+      "data_orb": {
+        "textures": {
+          "layer0": "techreborn:items/part/data_orb"
+        }
+      },
+      "diamond_grinding_head": {
+        "textures": {
+          "layer0": "techreborn:items/part/diamond_grinding_head"
+        }
+      },
+      "diamond_saw_blade": {
+        "textures": {
+          "layer0": "techreborn:items/part/diamond_saw_blade"
+        }
+      },
+      "tungsten_grinding_head": {
+        "textures": {
+          "layer0": "techreborn:items/part/tungsten_grinding_head"
+        }
+      },
+      "helium_coolant_simple": {
+        "textures": {
+          "layer0": "techreborn:items/part/helium_coolant_simple"
+        }
+      },
+      "helium_coolant_triple": {
+        "textures": {
+          "layer0": "techreborn:items/part/helium_coolant_triple"
+        }
+      },
+      "helium_coolant_six": {
+        "textures": {
+          "layer0": "techreborn:items/part/helium_coolant_six"
+        }
+      },
+      "nak_coolant_simple": {
+        "textures": {
+          "layer0": "techreborn:items/part/nak_coolant_simple"
+        }
+      },
+      "nak_coolant_triple": {
+        "textures": {
+          "layer0": "techreborn:items/part/nak_coolant_triple"
+        }
+      },
+      "nak_coolant_six": {
+        "textures": {
+          "layer0": "techreborn:items/part/nak_coolant_six"
+        }
+      },
+      "cupronickel_heating_coil": {
+        "textures": {
+          "layer0": "techreborn:items/part/cupronickel_heating_coil"
+        }
+      },
+      "nichrome_heating_coil": {
+        "textures": {
+          "layer0": "techreborn:items/part/nichrome_heating_coil"
+        }
+      },
+      "kanthal_heating_coil": {
+        "textures": {
+          "layer0": "techreborn:items/part/kanthal_heating_coil"
+        }
+      },
+      "super_conductor": {
+        "textures": {
+          "layer0": "techreborn:items/part/super_conductor"
+        }
+      },
+      "thorium_cell": {
+        "textures": {
+          "layer0": "techreborn:items/part/thorium_cell"
+        }
+      },
+      "double_thorium_cell": {
+        "textures": {
+          "layer0": "techreborn:items/part/double_thorium_cell"
+        }
+      },
+      "quad_thorium_cell": {
+        "textures": {
+          "layer0": "techreborn:items/part/quad_thorium_cell"
+        }
+      },
+      "plutonium_cell": {
+        "textures": {
+          "layer0": "techreborn:items/part/plutonium_cell"
+        }
+      },
+      "double_plutonium_cell": {
+        "textures": {
+          "layer0": "techreborn:items/part/double_plutonium_cell"
+        }
+      },
+      "quad_plutonium_cell": {
+        "textures": {
+          "layer0": "techreborn:items/part/quad_plutonium_cell"
+        }
+      },
+      "computer_monitor": {
+        "textures": {
+          "layer0": "techreborn:items/part/computer_monitor"
+        }
+      },
+      "machine_parts": {
+        "textures": {
+          "layer0": "techreborn:items/part/machine_parts"
+        }
+      },
+      "neutron_reflector": {
+        "textures": {
+          "layer0": "techreborn:items/part/neutron_reflector"
+        }
+      },
+      "iridium_neutron_reflector": {
+        "textures": {
+          "layer0": "techreborn:items/part/iridium_neutron_reflector"
+        }
+      },
+      "thick_neutron_reflector": {
+        "textures": {
+          "layer0": "techreborn:items/part/thick_neutron_reflector"
+        }
+      },
+      "electronic_circuit": {
+        "textures": {
+          "layer0": "techreborn:items/part/electronic_circuit"
+        }
+      },
+      "advanced_circuit": {
+        "textures": {
+          "layer0": "techreborn:items/part/advanced_circuit"
+        }
+      },
+      "sap": {
+        "textures": {
+          "layer0": "techreborn:items/part/sap"
+        }
+      },
+      "rubber": {
+        "textures": {
+          "layer0": "techreborn:items/part/rubber"
+        }
+      },
+      "scrap": {
+        "textures": {
+          "layer0": "techreborn:items/part/scrap"
+        }
+      },
+      "carbon_mesh": {
+        "textures": {
+          "layer0": "techreborn:items/part/carbon_mesh"
+        }
+      },
+      "carbon_fiber": {
+        "textures": {
+          "layer0": "techreborn:items/part/carbon_fiber"
+        }
+      },
+      "coolant_simple": {
+        "textures": {
+          "layer0": "techreborn:items/part/coolant_simple"
+        }
+      },
+      "coolant_triple": {
+        "textures": {
+          "layer0": "techreborn:items/part/coolant_triple"
+        }
+      },
+      "coolant_six": {
+        "textures": {
+          "layer0": "techreborn:items/part/coolant_six"
+        }
+      }
+    }
+  }
+}
