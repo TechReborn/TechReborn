@@ -1,6 +1,5 @@
 package techreborn.items.tools;
 
-import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
@@ -13,26 +12,16 @@ import net.minecraft.world.World;
 import reborncore.api.power.IEnergyInterfaceTile;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.client.TechRebornCreativeTabMisc;
-import techreborn.items.ItemTextureBase;
+import techreborn.items.ItemTRNoDestroy;
 
 /**
  * Created by Mark on 20/03/2016.
  */
-public class ItemDebugTool extends ItemTextureBase implements ITexturedItem {
+public class ItemDebugTool extends ItemTRNoDestroy {
 
 	public ItemDebugTool() {
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		setUnlocalizedName("techreborn.debug");
-	}
-
-	@Override
-	public String getTextureName(int damage) {
-		return "techreborn:items/misc/debug";
-	}
-
-	@Override
-	public int getMaxMeta() {
-		return 1;
 	}
 
 	@Override

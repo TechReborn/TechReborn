@@ -15,12 +15,13 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItem;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModItems;
+import techreborn.items.ItemTRNoDestroy;
 import techreborn.lib.ModInfo;
 
 /**
  * Created by modmuss50 on 05/11/2016.
  */
-public class ItemElectricTreetap extends Item implements IEnergyItemInfo, ITexturedItem {
+public class ItemElectricTreetap extends ItemTRNoDestroy implements IEnergyItemInfo {
 
 	public static final int maxCharge = 5120;
 	public static final int tier = 1;
@@ -31,7 +32,6 @@ public class ItemElectricTreetap extends Item implements IEnergyItemInfo, ITextu
 		setUnlocalizedName("techreborn.electric_treetap");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
-		RebornCore.jsonDestroyer.registerObject(this);
 	}
 
 	@Override
@@ -89,22 +89,4 @@ public class ItemElectricTreetap extends Item implements IEnergyItemInfo, ITextu
 	public boolean showDurabilityBar(ItemStack stack) {
 		return true;
 	}
-
-	@Override
-	public String getTextureName(int damage) {
-		return "techreborn:items/tool/electricTreetap";
-	}
-
-	@Override
-	public int getMaxMeta() {
-		return 1;
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player,
-	                                      int useRemaining) {
-		return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
-	}
-
 }

@@ -1,6 +1,5 @@
 package techreborn.items.tools;
 
-import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -12,11 +11,11 @@ import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
-import techreborn.items.ItemTextureBase;
+import techreborn.items.ItemTRNoDestroy;
 
 import java.util.List;
 
-public class ItemTechManual extends ItemTextureBase implements ITexturedItem {
+public class ItemTechManual extends ItemTRNoDestroy {
 
 	public ItemTechManual() {
 		setCreativeTab(TechRebornCreativeTab.instance);
@@ -30,16 +29,6 @@ public class ItemTechManual extends ItemTextureBase implements ITexturedItem {
 		player.openGui(Core.INSTANCE, GuiHandler.manuelID, world, (int) player.posX, (int) player.posY,
 			(int) player.posY);
 		return new ActionResult<>(EnumActionResult.SUCCESS, player.getHeldItem(hand));
-	}
-
-	@Override
-	public int getMaxMeta() {
-		return 1;
-	}
-
-	@Override
-	public String getTextureName(int damage) {
-		return "techreborn:items/tool/manual";
 	}
 
 	@Override

@@ -1,7 +1,5 @@
 package techreborn.items.armor;
 
-import me.modmuss50.jsonDestroyer.api.ITexturedItem;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,16 +11,14 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import reborncore.RebornCore;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItem;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
-import techreborn.lib.ModInfo;
 
-public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo, ITexturedItem {
+public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo {
 
 	public static final int maxCharge = ConfigTechReborn.LapotronPackCharge;
 	public static final int tier = ConfigTechReborn.LapotronPackTier;
@@ -33,7 +29,6 @@ public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo, ITex
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setUnlocalizedName("techreborn.lapotronpack");
 		setMaxStackSize(1);
-		RebornCore.jsonDestroyer.registerObject(this);
 	}
 
 	@Override
@@ -112,22 +107,6 @@ public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo, ITex
 	@Override
 	public boolean showDurabilityBar(ItemStack stack) {
 		return true;
-	}
-
-	@Override
-	public String getTextureName(int damage) {
-		return "techreborn:items/tool/lapotronicPack";
-	}
-
-	@Override
-	public int getMaxMeta() {
-		return 1;
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
-		return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
 	}
 
 }

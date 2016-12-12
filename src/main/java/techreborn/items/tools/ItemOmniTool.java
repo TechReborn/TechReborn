@@ -1,8 +1,6 @@
 package techreborn.items.tools;
 
-import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,7 +14,6 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import reborncore.RebornCore;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItem;
@@ -24,11 +21,10 @@ import reborncore.common.util.TorchHelper;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
-import techreborn.lib.ModInfo;
 
 import java.util.List;
 
-public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo, ITexturedItem {
+public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
 
 	public static final int maxCharge = ConfigTechReborn.OmniToolCharge;
 	public static final int tier = ConfigTechReborn.OmniToolTier;
@@ -42,7 +38,6 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo, ITextu
 		setMaxStackSize(1);
 		setMaxDamage(200);
 		setUnlocalizedName("techreborn.omniTool");
-		RebornCore.jsonDestroyer.registerObject(this);
 	}
 
 	@Override
@@ -127,7 +122,6 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo, ITextu
 		return 2;
 	}
 
-
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item,
@@ -150,22 +144,6 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo, ITextu
 	@Override
 	public boolean showDurabilityBar(ItemStack stack) {
 		return true;
-	}
-
-	@Override
-	public String getTextureName(int damage) {
-		return "techreborn:items/tool/omnitool";
-	}
-
-	@Override
-	public int getMaxMeta() {
-		return 1;
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
-		return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
 	}
 
 	@Override

@@ -16,9 +16,10 @@ import reborncore.common.powerSystem.PoweredItem;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
+import techreborn.items.ItemTRNoDestroy;
 import techreborn.items.ItemTextureBase;
 
-public class ItemCloakingDevice extends ItemTextureBase implements IEnergyItemInfo {
+public class ItemCloakingDevice extends ItemTRNoDestroy implements IEnergyItemInfo {
 	public static int Teir = ConfigTechReborn.CloakingDeviceTier;
 	public static int MaxCharge = ConfigTechReborn.CloakingDeviceCharge;
 	public static int Limit = 100;
@@ -104,15 +105,5 @@ public class ItemCloakingDevice extends ItemTextureBase implements IEnergyItemIn
 
 	public boolean showDurabilityBar(ItemStack stack) {
 		return true;
-	}
-
-	@Override
-	public String getTextureName(int damage) {
-		return "techreborn:items/tool/cloakingDevice";
-	}
-
-	@Override
-	public int getMaxMeta() {
-		return 1;
 	}
 }

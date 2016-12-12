@@ -1,8 +1,6 @@
 package techreborn.items.tools;
 
-import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -18,19 +16,17 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import reborncore.RebornCore;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItem;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
-import techreborn.lib.ModInfo;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo, ITexturedItem {
+public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 
 	public static final int maxCharge = ConfigTechReborn.RockCutterCharge;
 	public static final int tier = ConfigTechReborn.RockCutterTier;
@@ -42,7 +38,6 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo, ITex
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
 		efficiencyOnProperMaterial = 16F;
-		RebornCore.jsonDestroyer.registerObject(this);
 	}
 
 	@Override
@@ -125,8 +120,6 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo, ITex
 		return 2;
 	}
 
-
-
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item,
@@ -149,23 +142,6 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo, ITex
 	@Override
 	public boolean showDurabilityBar(ItemStack stack) {
 		return true;
-	}
-
-	@Override
-	public String getTextureName(int damage) {
-		return "techreborn:items/tool/rockcutter";
-	}
-
-	@Override
-	public int getMaxMeta() {
-		return 1;
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player,
-	                                      int useRemaining) {
-		return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
 	}
 
 }

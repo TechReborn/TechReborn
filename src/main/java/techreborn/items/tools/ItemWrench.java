@@ -1,10 +1,8 @@
 package techreborn.items.tools;
 
-import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.block.BlockDynamicLiquid;
 import net.minecraft.block.BlockStaticLiquid;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -31,8 +29,7 @@ import techreborn.blocks.storage.BlockEnergyStorage;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.compat.CompatManager;
 import techreborn.init.ModSounds;
-import techreborn.items.ItemTR;
-import techreborn.lib.ModInfo;
+import techreborn.items.ItemTRNoDestroy;
 import techreborn.utils.IC2WrenchHelper;
 
 import java.util.ArrayList;
@@ -42,7 +39,7 @@ import java.util.Random;
 /**
  * Created by modmuss50 on 26/02/2016.
  */
-public class ItemWrench extends ItemTR implements ITexturedItem {
+public class ItemWrench extends ItemTRNoDestroy {
 
 	public ItemWrench() {
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
@@ -78,11 +75,11 @@ public class ItemWrench extends ItemTR implements ITexturedItem {
 				}
 			}
 			IBlockState state = world.getBlockState(pos);
-			if(state.getBlock() instanceof BlockEnergyStorage){
+			if (state.getBlock() instanceof BlockEnergyStorage) {
 				EnumFacing facing = state.getValue(BlockEnergyStorage.FACING);
-				if(facing.getOpposite() == side){
+				if (facing.getOpposite() == side) {
 					facing = side;
-				} else  {
+				} else {
 					facing = side.getOpposite();
 				}
 				world.setBlockState(pos, state.withProperty(BlockEnergyStorage.FACING, facing));
@@ -179,23 +176,6 @@ public class ItemWrench extends ItemTR implements ITexturedItem {
 		} else {
 			return EnumActionResult.FAIL;
 		}
-	}
-
-	@Override
-	public String getTextureName(int damage) {
-		return "techreborn:items/tool/wrench";
-	}
-
-	@Override
-	public int getMaxMeta() {
-		return 1;
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player,
-	                                      int useRemaining) {
-		return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
 	}
 
 	@SideOnly(Side.CLIENT)
