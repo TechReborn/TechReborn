@@ -41,8 +41,6 @@ public class RegisterItemJsons {
 		register(ModItems.diamondJackhammer, "tool/diamond_jackhammer");
 		register(ModItems.advancedJackhammer, "tool/advanced_jackhammer");
 		register(ModBlocks.rubberSapling, "misc/rubber_sapling");
-		register(ModBlocks.ore, "techreborn.ore");
-		register(ModBlocks.ore2, "techreborn.ore2");
 
 		for (int i = 0; i < ItemIngots.types.length; ++i) {
 			String[] name = ItemIngots.types.clone();

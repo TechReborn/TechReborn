@@ -1,0 +1,16 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "transform": "forge:default-block",
+    "model": "cube",
+    "textures": {
+      "particle": "techreborn:blocks/machine/greg_machines/fusion_coil_side",
+      "down": "techreborn:blocks/machine/greg_machines/fusion_coil_heart",
+      "up": "techreborn:blocks/machine/greg_machines/fusion_coil_heart",
+      "north": "techreborn:blocks/machine/greg_machines/fusion_coil_side",
+      "south": "techreborn:blocks/machine/greg_machines/fusion_coil_side",
+      "west": "techreborn:blocks/machine/greg_machines/fusion_coil_side",
+      "east": "techreborn:blocks/machine/greg_machines/fusion_coil_side"
+    }
+  }
+}
