@@ -363,8 +363,6 @@ public class ModRecipes {
 				2));
 		
 		for(String ore : OreUtil.oreNames){
-			System.out.println(ore);
-			System.out.println("plate" +  OreUtil.capitalizeFirstLetter(ore));
 			if(OreUtil.doesOreExistAndValid("plate" +  OreUtil.capitalizeFirstLetter(ore)) && OreUtil.doesOreExistAndValid("ingot" +  OreUtil.capitalizeFirstLetter(ore))){
 				RecipeHandler.addRecipe(
 					new CompressorRecipe(OreUtil.getStackFromName("ingot" + OreUtil.capitalizeFirstLetter(ore), 9), OreUtil.getStackFromName("plate" + OreUtil.capitalizeFirstLetter(ore), 1), 300,

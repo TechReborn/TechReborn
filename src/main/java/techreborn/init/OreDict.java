@@ -121,6 +121,13 @@ public class OreDict {
 			OreDictionary.registerOre(oreDictName, ItemDusts.getDustByName(type));
 		}
 
+		for (String type : ItemDustsSmall.types) {
+			if (type.equals(ModItems.META_PLACEHOLDER))
+				continue; //Aware of placeholders!
+			String oreDictName = "dustSmall" + OreDictUtils.toFirstUpper(type);
+			OreDictionary.registerOre(oreDictName, ItemDusts.getDustByName(type));
+		}
+
 		for (String type : ItemNuggets.types) {
 			if (type.equals(ModItems.META_PLACEHOLDER))
 				continue; //Aware of placeholders!
