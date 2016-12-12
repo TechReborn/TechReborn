@@ -945,6 +945,21 @@ public class ModRecipes {
 			.addShapedOreRecipe(ItemParts.getPartByName("dataOrb"), "DDD", "DSD", "DDD",
 				'D', ItemParts.getPartByName("dataStorageCircuit"), 'S', ItemParts.getPartByName("dataStorageCircuit"));
 
+		CraftingHelper
+			.addShapedOreRecipe(new ItemStack(ModItems.electricTreetap), "TB", "  ",
+				'T', new ItemStack(ModItems.treeTap), 'B', new ItemStack(ModItems.reBattery));
+
+		CraftingHelper
+			.addShapedOreRecipe(new ItemStack(ModItems.nanosaber), "DC ", "DC ", "GLG",
+				'L', new ItemStack(ModItems.lapotronCrystal), 'C', ItemPlates.getPlateByName("carbon"), 'D', "plateDiamond",
+				'G', ItemDustsSmall.getSmallDustByName("glowstone"));
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("diamondGrindingHead", 2), "TST", "SBS", "TST", 'T',
+			"plateDiamond", 'S', "plateSteel", 'B', "blockDiamond");
+
+		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("coolantSimple", 2), " T ", "TWT", " T ", 'T',
+			"ingotTin", 'W', new ItemStack(Items.WATER_BUCKET));
+
 		Core.logHelper.info("Shapped Recipes Added");
 	}
 
