@@ -1,0 +1,60 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "cross",
+    "textures": {
+      "cross": "techreborn:blocks/rubber_sapling"
+    }
+  },
+  "variants": {
+    "type": {
+      "oak": {
+        "model": "cross"
+      },
+      "birch": {
+        "model": "cross"
+      },
+      "spruce": {
+        "model": "cross"
+      },
+      "jungle": {
+        "model": "cross"
+      }
+    },
+    "stage": {
+      "0": {
+        "model": "cross"
+      },
+      "1": {
+        "model": "cross"
+      },
+      "2": {
+        "model": "cross"
+      },
+      "3": {
+        "model": "cross"
+      },
+      "4": {
+        "model": "cross"
+      },
+      "5": {
+        "model": "cross"
+      },
+      "6": {
+        "model": "cross"
+      }
+    },
+    "normal": {
+      "parent": "item/generated",
+      "textures": {
+        "layer0": "expandedindustry:blocks/sapling/sapling.redwoodd"
+      }
+    },
+    "inventory": {
+      "parent": "item/generated",
+      "textures": {
+        "layer0": "expandedindustry:blocks/sapling/sapling.redwoodd"
+      }
+    }
+  }
+}

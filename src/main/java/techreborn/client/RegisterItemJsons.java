@@ -24,6 +24,8 @@ public class RegisterItemJsons {
 		register(ModItems.nanosaber, "nanosaber");
 
 		register(ModItems.frequencyTransmitter, "frequencytransmitter");
+		register(ModItems.uuMatter, "misc/uu_matter");
+		register(ModItems.scrapBox, "misc/scrapbox");
 
 		register(ModItems.ironDrill, "tool/steel_drill");
 		register(ModItems.diamondDrill, "tool/diamond_drill");
@@ -36,6 +38,7 @@ public class RegisterItemJsons {
 		register(ModItems.steelJackhammer, "tool/steel_jackhammer");
 		register(ModItems.diamondJackhammer, "tool/diamond_jackhammer");
 		register(ModItems.advancedJackhammer, "tool/advanced_jackhammer");
+		register(ModBlocks.rubberSapling, "misc/rubber_sapling");
 
 		for (int i = 0; i < ItemIngots.types.length; ++i) {
 			String[] name = ItemIngots.types.clone();
@@ -65,6 +68,11 @@ public class RegisterItemJsons {
 		for (int i = 0; i < ItemDustsSmall.types.length; ++i) {
 			String[] name = ItemDustsSmall.types.clone();
 			registerBlockstate(ModItems.smallDusts, i, name[i]);
+		}
+
+		for (int i = 0; i < ItemUpgrades.types.length; ++i) {
+			String[] name = ItemUpgrades.types.clone();
+			registerBlockstate(ModItems.upgrades, i, name[i]);
 		}
 	}
 

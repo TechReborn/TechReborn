@@ -1,0 +1,26 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "builtin/generated",
+    "transform": "forge:default-item"
+  },
+  "variants": {
+    "type": {
+      "overclock": {
+        "textures": {
+          "layer0": "techreborn:items/upgrade/overclocker_upgrade"
+        }
+      },
+      "transformer": {
+        "textures": {
+          "layer0": "techreborn:items/upgrade/transformer_upgrade"
+        }
+      },
+      "energy_storage": {
+        "textures": {
+          "layer0": "techreborn:items/upgrade/energy_storage_upgrade"
+        }
+      }
+    }
+  }
+}

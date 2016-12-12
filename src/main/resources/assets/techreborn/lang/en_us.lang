@@ -374,9 +374,9 @@ item.techreborn.energyCrystal.name=Energy Crystal
 item.techreborn.lapotronCrystal.name=Lapotron Crystal
 item.techreborn.treetap.name=Treetap
 item.techreborn.nanosaber.name=Nanosaber
-item.techreborn.upgrade.Overclock.name=Overclocker Upgrade
-item.techreborn.upgrade.Transformer.name=Tranformer Upgrade
-item.techreborn.upgrade.EnergyStorage.name=Energy Storage Upgrade
+item.techreborn.upgrade.overclock.name=Overclocker Upgrade
+item.techreborn.upgrade.transformer.name=Tranformer Upgrade
+item.techreborn.upgrade.energy_storage.name=Energy Storage Upgrade
 item.techreborn.electric_treetap.name=Electric Treetap
 
 #Gems

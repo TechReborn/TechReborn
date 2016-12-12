@@ -881,25 +881,25 @@ public class ModRecipes {
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.scrapBox), "SSS", "SSS", "SSS", 'S',
 			ItemParts.getPartByName("scrap"));
 
-		CraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("Overclock"), "TTT", "WCW", 'T',
+		CraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("overclock"), "TTT", "WCW", 'T',
 			ItemParts.getPartByName("CoolantSimple"), 'W', ItemStandaloneCables.getCableByName("insulatedcopper"),
 			'C', "circuitBasic");
 
-		CraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("Overclock", 2), " T ", "WCW", 'T',
+		CraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("overclock", 2), " T ", "WCW", 'T',
 			ItemParts.getPartByName("heliumCoolantSimple"), 'W',
 			ItemStandaloneCables.getCableByName("insulatedcopper"), 'C',
 			"circuitBasic");
 
-		CraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("Overclock", 2), " T ", "WCW", 'T',
+		CraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("overclock", 2), " T ", "WCW", 'T',
 			ItemParts.getPartByName("NaKCoolantSimple"), 'W',
 			ItemStandaloneCables.getCableByName("insulatedcopper"), 'C',
 			"circuitBasic");
 
-		CraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("Transformer"), "GGG", "WTW", "GCG", 'G',
+		CraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("transformer"), "GGG", "WTW", "GCG", 'G',
 			"blockGlass", 'W', ItemStandaloneCables.getCableByName("insulatedgold"), 'C',
 			"circuitBasic", 'T', ModBlocks.MVT);
 
-		CraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("EnergyStorage"), "PPP", "WBW", "PCP", 'P',
+		CraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("energy_storage"), "PPP", "WBW", "PCP", 'P',
 			"plankWood", 'W', ItemStandaloneCables.getCableByName("insulatedcopper"), 'C',
 			"circuitBasic", 'B', ModItems.reBattery);
 
@@ -926,11 +926,11 @@ public class ModRecipes {
 				ItemCells.getCellByName("potassium"));
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.advancedDrill), "ODO", "AOA", 'O',
-			ItemUpgrades.getUpgradeByName("Overclock"), 'D', diamondDrillStack, 'A', "circuitAdvanced");
+			ItemUpgrades.getUpgradeByName("overclock"), 'D', diamondDrillStack, 'A', "circuitAdvanced");
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.advancedChainsaw), "ODO", "AOA", 'O',
-			ItemUpgrades.getUpgradeByName("Overclock"), 'D', diamondChainsawStack, 'A', "circuitAdvanced");
+			ItemUpgrades.getUpgradeByName("overclock"), 'D', diamondChainsawStack, 'A', "circuitAdvanced");
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.advancedJackhammer), "ODO", "AOA", 'O',
-			ItemUpgrades.getUpgradeByName("Overclock"), 'D', diamondJackhammerStack, 'A', "circuitAdvanced");
+			ItemUpgrades.getUpgradeByName("overclock"), 'D', diamondJackhammerStack, 'A', "circuitAdvanced");
 
 		CraftingHelper
 			.addShapedOreRecipe(ItemParts.getPartByName("dataControlCircuit"), "ADA", "DID", "ADA", 'I', "ingotIridium",

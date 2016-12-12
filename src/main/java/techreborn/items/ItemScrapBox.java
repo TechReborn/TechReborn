@@ -1,6 +1,5 @@
 package techreborn.items;
 
-import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -12,7 +11,7 @@ import reborncore.RebornCore;
 import techreborn.api.ScrapboxList;
 import techreborn.client.TechRebornCreativeTabMisc;
 
-public class ItemScrapBox extends ItemTextureBase implements ITexturedItem {
+public class ItemScrapBox extends ItemTRNoDestroy {
 
 	public ItemScrapBox() {
 		setUnlocalizedName("techreborn.scrapbox");
@@ -38,15 +37,5 @@ public class ItemScrapBox extends ItemTextureBase implements ITexturedItem {
 			stack.shrink(1);
 		}
 		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
-	}
-
-	@Override
-	public int getMaxMeta() {
-		return 1;
-	}
-
-	@Override
-	public String getTextureName(int arg0) {
-		return "techreborn:items/misc/scrapBox";
 	}
 }

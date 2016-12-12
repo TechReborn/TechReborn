@@ -1,10 +1,10 @@
 package techreborn.items;
 
-import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import reborncore.common.recipes.RecipeCrafter;
@@ -15,9 +15,9 @@ import techreborn.utils.upgrade.IMachineUpgrade;
 import java.security.InvalidParameterException;
 import java.util.List;
 
-public class ItemUpgrades extends ItemTextureBase implements IMachineUpgrade, ITexturedItem {
+public class ItemUpgrades extends ItemTRNoDestroy implements IMachineUpgrade {
 
-	public static final String[] types = new String[] { "Overclock", "Transformer", "EnergyStorage" };
+	public static final String[] types = new String[] { "overclock", "transformer", "energy_storage" };
 
 	public ItemUpgrades() {
 		setUnlocalizedName("techreborn.upgrade");
@@ -50,7 +50,8 @@ public class ItemUpgrades extends ItemTextureBase implements IMachineUpgrade, IT
 	}
 
 	// Adds Dusts SubItems To Creative Tab
-	public void getSubItems(Item item, CreativeTabs creativeTabs, List list) {
+	@Override
+	public void getSubItems(Item item, CreativeTabs creativeTabs, NonNullList list) {
 		for (int meta = 0; meta < types.length; ++meta) {
 			list.add(new ItemStack(item, 1, meta));
 		}
@@ -81,15 +82,5 @@ public class ItemUpgrades extends ItemTextureBase implements IMachineUpgrade, IT
 		tooltip.add(TextFormatting.RED + I18n.translateToLocal("tooltip.wip"));
 		tooltip.add(TextFormatting.RED + I18n.translateToLocal("tooltip.upBroken"));
 		tooltip.add(TextFormatting.RED + I18n.translateToLocal("tooltip.ingredient"));
-	}
-
-	@Override
-	public int getMaxMeta() {
-		return types.length;
-	}
-
-	@Override
-	public String getTextureName(int damage) {
-		return "techreborn:items/upgrade/upgrade" + types[damage];
 	}
 }
