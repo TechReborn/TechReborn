@@ -2,7 +2,6 @@ package techreborn.init;
 
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
@@ -22,6 +21,7 @@ import techreborn.items.tools.*;
 
 public class ModItems {
 
+	public static final String META_PLACEHOLDER = "PLACEHOLDER_ITEM";
 	public static Item gems;
 	public static Item ingots;
 	public static Item nuggets;
@@ -38,83 +38,64 @@ public class ModItems {
 	public static Item uuMatter;
 	public static Item plate;
 	public static Item cloakingDevice;
-
 	public static Item reBattery;
 	public static Item treeTap;
 	public static Item electricTreetap;
-
 	public static Item ironDrill;
 	public static Item diamondDrill;
 	public static Item advancedDrill;
-
 	public static Item ironChainsaw;
 	public static Item diamondChainsaw;
 	public static Item advancedChainsaw;
-
 	public static Item steelJackhammer;
 	public static Item diamondJackhammer;
 	public static Item advancedJackhammer;
-
 	public static Item nanosaber;
 	public static Item wrench;
 	public static Item lapotronCrystal;
 	public static Item energyCrystal;
 	public static Item scrapBox;
 	public static Item frequencyTransmitter;
-
 	public static Item bronzeSword;
 	public static Item bronzePickaxe;
 	public static Item bronzeSpade;
 	public static Item bronzeAxe;
 	public static Item bronzeHoe;
-
 	public static Item bronzeHelmet;
 	public static Item bronzeChestplate;
 	public static Item bronzeLeggings;
 	public static Item bronzeBoots;
-
 	public static Item rubySword;
 	public static Item rubyPickaxe;
 	public static Item rubySpade;
 	public static Item rubyAxe;
 	public static Item rubyHoe;
-
 	public static Item rubyHelmet;
 	public static Item rubyChestplate;
 	public static Item rubyLeggings;
 	public static Item rubyBoots;
-
 	public static Item sapphireSword;
 	public static Item sapphirePickaxe;
 	public static Item sapphireSpade;
 	public static Item sapphireAxe;
 	public static Item sapphireHoe;
-
 	public static Item sapphireHelmet;
 	public static Item sapphireChestplate;
 	public static Item sapphireLeggings;
 	public static Item sapphireBoots;
-
 	public static Item peridotSword;
 	public static Item peridotPickaxe;
 	public static Item peridotSpade;
 	public static Item peridotAxe;
 	public static Item peridotHoe;
-
 	public static Item peridotHelmet;
 	public static Item peridotChestplate;
 	public static Item peridotLeggings;
 	public static Item peridotBoots;
-
 	public static Item upgrades;
-
 	public static Item missingRecipe;
 	public static Item debug;
-
-	public static Item emptyCell;
 	public static DynamicCell dynamicCell;
-
-	public static final String META_PLACEHOLDER = "PLACEHOLDER_ITEM";
 
 	public static void init() throws InstantiationException, IllegalAccessException {
 		gems = new ItemGems();
@@ -292,11 +273,6 @@ public class ModItems {
 
 		dynamicCell = new DynamicCell();
 		registerItem(dynamicCell, "dynamicCell");
-
-		emptyCell = dynamicCell;
-		Item cell = new EmptyCell();
-		registerItem(cell, "emptyCell");
-		GameRegistry.addShapelessRecipe(new ItemStack(dynamicCell), cell);
 
 		MinecraftForge.EVENT_BUS.register(BucketHandler.INSTANCE);
 

@@ -22,7 +22,7 @@ public class SubItemRetriever implements ISubItemRetriever {
 
 	@Override
 	public ItemStack getCellByName(String name, int count, boolean lookForIC2) {
-		return ItemCells.getCellByName(name, count, lookForIC2);
+		return ItemCells.getCellByName(name, count);
 	}
 
 	@Override

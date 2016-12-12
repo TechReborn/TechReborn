@@ -485,7 +485,7 @@ public class ModRecipes {
 				"ingot" + name.substring(0, 1).toUpperCase() + name.substring(1));
 		}
 		CraftingHelper
-			.addShapedOreRecipe(ItemCells.getCellByName("empty", 16, false), " T ", "T T", " T ", 'T', "ingotTin");
+			.addShapedOreRecipe(DynamicCell.getEmptyCell(16), " T ", "T T", " T ", 'T', "ingotTin");
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ironFence, 6), "   ", "RRR", "RRR", 'R',
 			ItemIngots.getIngotByName("refined_iron"));
@@ -831,7 +831,7 @@ public class ModRecipes {
 			"ingotSteel", 'C', "ingotChrome", 'A', "ingotAluminum");
 
 		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("heliumCoolantSimple"), " T ", "TCT", " T ", 'T',
-			"ingotTin", 'C', ItemCells.getCellByName("helium", 1, false));
+			"ingotTin", 'C', ItemCells.getCellByName("helium", 1));
 
 		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("HeliumCoolantTriple"), "TTT", "CCC", "TTT", 'T',
 			"ingotTin", 'C', ItemParts.getPartByName("heliumCoolantSimple"));
@@ -1526,7 +1526,7 @@ public class ModRecipes {
 
 		RecipeHandler.addRecipe(
 			new CentrifugeRecipe(new ItemStack(Items.GLOWSTONE_DUST, 16), RecipeUtils.getEmptyCell(1),
-				ItemCells.getCellByName("helium", 1, false), ItemDusts.getDustByName("gold", 8),
+				ItemCells.getCellByName("helium", 1), ItemDusts.getDustByName("gold", 8),
 				new ItemStack(Items.REDSTONE), null, 25000, 20));
 	}
 
