@@ -100,7 +100,7 @@ dependencies {
 	deobfCompile "slimeknights:TConstruct:1.10.2-2.5.3.jenkins384"
 	deobfCompile "slimeknights.mantle:Mantle:1.10.2-1.0.0.jenkins170"
     deobfCompile "mcjty.theoneprobe:TheOneProbe:1.9.4-1.0.4-14"
-    deobfCompile 'net.industrial-craft:industrialcraft-2:2.6.58-ex110:dev'
+    deobfCompile 'net.industrial-craft:industrialcraft-2:2.6.129-ex110'
 }
 
 
@@ -175,7 +175,7 @@ uploadArchives {
             }
         }
         else
-        { 
+        {
 			//this is when the build is executed on the master node
 			println 'Uploading to local Maven Repo'
            repository(url: "file:///var/www/maven/")
