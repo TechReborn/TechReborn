@@ -11,6 +11,7 @@ import techreborn.Core;
 import techreborn.blocks.BlockMachineFrame;
 import techreborn.items.*;
 import techreborn.parts.powerCables.ItemStandaloneCables;
+import techreborn.utils.OreDictUtils;
 
 public class OreDict {
 
