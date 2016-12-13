@@ -151,7 +151,7 @@ public class BlockRubberLog extends Block implements ITexturedBlock {
 		super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ);
 		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
 		if (stack != null)
-			if ((stack.getItem() instanceof ItemElectricTreetap && PoweredItem.canUseEnergy(20, stack)) || stack.getItem() instanceof ItemTreeTap)
+			if ((stack.getItem() instanceof ItemElectricTreetap && PoweredItem.canUseEnergy(20, stack)) || stack.getItem() instanceof ItemTreeTap) {
 				if (state.getValue(HAS_SAP)) {
 					if (state.getValue(SAP_SIDE) == side) {
 						worldIn.setBlockState(pos,
@@ -180,6 +180,7 @@ public class BlockRubberLog extends Block implements ITexturedBlock {
 						return true;
 					}
 				}
+			}
 		return false;
 	}
 
