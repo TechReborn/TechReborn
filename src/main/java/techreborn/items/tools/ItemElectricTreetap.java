@@ -43,12 +43,12 @@ public class ItemElectricTreetap extends ItemTRNoDestroy implements IEnergyItemI
 	}
 
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		IBlockState state = worldIn.getBlockState(pos);
 		Block block = state.getBlock();
-		if(CompatManager.isIC2Loaded && block == Block.getBlockFromName("ic2:rubber_wood") && PoweredItem.canUseEnergy(20, stack))
+		if(CompatManager.isIC2Loaded && block == Block.getBlockFromName("ic2:rubber_wood") && PoweredItem.canUseEnergy(20, playerIn.getHeldItem(hand)))
 			if (ItemTreetap.attemptExtract(playerIn, worldIn, pos, side, state, null) && !worldIn.isRemote) {
-				PoweredItem.useEnergy(20, stack);
+				PoweredItem.useEnergy(20, playerIn.getHeldItem(hand));
 				return EnumActionResult.SUCCESS;
 			}
 		return EnumActionResult.PASS;

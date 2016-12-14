@@ -32,13 +32,13 @@ public class ItemTreeTap extends ItemTRNoDestroy {
 
 
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		IBlockState state = worldIn.getBlockState(pos);
 		Block block = state.getBlock();
 		if(CompatManager.isIC2Loaded && block == Block.getBlockFromName("ic2:rubber_wood"))  {
 			ItemTreetap.attemptExtract(playerIn, worldIn, pos, side, state, null);
 			if (!worldIn.isRemote)
-				stack.damageItem(1, playerIn);
+				playerIn.getHeldItem(hand).damageItem(1, playerIn);
 			return EnumActionResult.SUCCESS;
 		}
 		return EnumActionResult.PASS;
