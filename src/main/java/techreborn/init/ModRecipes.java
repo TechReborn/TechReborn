@@ -2912,23 +2912,10 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(new IndustrialGrinderRecipe(
 			new ItemStack(ModBlocks.ore, 1, 1),
 			new FluidStack(FluidRegistry.WATER, 1000),
-			OreDictionary.getOres("oreIridium").get(0),
+			OreDictionary.getOres("ingotIridium").get(0),
 			ItemDustsSmall.getSmallDustByName("Platinum", 2),
 			null, null, 100, 120));
 
-		RecipeHandler.addRecipe(new IndustrialGrinderRecipe(
-			new ItemStack(ModBlocks.ore, 1, 1),
-			new FluidStack(ModFluids.fluidMercury, 1000),
-			OreDictionary.getOres("oreIridium").get(0),
-			ItemDustsSmall.getSmallDustByName("Platinum", 2),
-			null, null, 100, 120));
-
-		RecipeHandler.addRecipe(new IndustrialGrinderRecipe(
-			new ItemStack(ModBlocks.ore, 1, 1),
-			new FluidStack(ModFluids.fluidMercury, 1000),
-			OreDictionary.getOres("oreIridium").get(0),
-			ItemDustsSmall.getSmallDustByName("Platinum", 2),
-			null, null, 100, 120));
 
 		RecipeHandler.addRecipe(new IndustrialGrinderRecipe(
 			new ItemStack(ModBlocks.ore, 1, 2),
