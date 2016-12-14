@@ -6,5 +6,21 @@
     "textures": {
       "all": "techreborn:blocks/machines/energy/ev_multi_side"
     }
+  },
+  "variants": {
+    "inventory": {
+      "transform": "forge:default-block",
+      "model": "cube_all",
+      "textures": {
+        "all": "techreborn:blocks/machines/energy/ev_multi_side"
+      }
+    },
+    "normal": {
+      "transform": "forge:default-block",
+      "model": "cube_all",
+      "textures": {
+        "all": "techreborn:blocks/machines/energy/ev_multi_side"
+      }
+    }
   }
 }

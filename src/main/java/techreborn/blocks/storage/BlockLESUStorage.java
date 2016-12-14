@@ -1,28 +1,22 @@
 package techreborn.blocks.storage;
 
-import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import reborncore.common.BaseTileBlock;
-import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.blocks.IAdvancedRotationTexture;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.lesu.TileLesuStorage;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlockLESUStorage extends BaseTileBlock implements ITexturedBlock {
-
-	private final String prefix = "techreborn:blocks/machines/energy/";
+public class BlockLESUStorage extends BaseTileBlock {;
 
 	public BlockLESUStorage(Material material) {
 		super(material);
@@ -60,15 +54,5 @@ public class BlockLESUStorage extends BaseTileBlock implements ITexturedBlock {
 
 	public boolean shouldConnectToBlock(IBlockAccess blockAccess, int x, int y, int z, Block block, int meta) {
 		return block == this;
-	}
-
-	@Override
-	public String getTextureNameFromState(IBlockState blockState, EnumFacing facing) {
-		return prefix + "ev_multi_side";
-	}
-
-	@Override
-	public int amountOfStates() {
-		return 1;
 	}
 }

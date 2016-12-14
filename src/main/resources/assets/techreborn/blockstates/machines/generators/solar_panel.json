@@ -6,8 +6,7 @@
     "textures": {
       "particle": "techreborn:blocks/machines/generators/solar_panel_side_off",
       "top": "techreborn:blocks/machines/generators/solar_panel_top",
-      "down": "techreborn:blocks/machines/generators/generator_bottom",
-      "side": "techreborn:blocks/machines/generators/solar_panel_side_off"
+      "down": "techreborn:blocks/machines/generators/generator_bottom"
     }
   },
   "variants": {
@@ -16,20 +15,6 @@
       "model": "cube_bottom_top",
       "textures": {
         "side": "techreborn:blocks/machines/generators/solar_panel_side_off"
-      }
-    },
-    "facing": {
-      "north": {
-        "y": 0
-      },
-      "east": {
-        "y": 90
-      },
-      "south": {
-        "y": 180
-      },
-      "west": {
-        "y": 270
       }
     },
     "active": {
