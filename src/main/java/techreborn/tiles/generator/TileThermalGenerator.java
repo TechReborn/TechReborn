@@ -92,42 +92,47 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
 		readFromNBT(packet.getNbtCompound());
 	}
 
+	private long lastOutput = 0;
+
 	@Override
 	// TODO optimise this code
 	public void updateEntity() {
 		super.updateEntity();
-		if (!world.isRemote) {
-			FluidUtils.drainContainers(tank, inventory, 0, 1);
-			for (EnumFacing direction : EnumFacing.values()) {
-				if (world.getBlockState(new BlockPos(getPos().getX() + direction.getFrontOffsetX(),
-					getPos().getY() + direction.getFrontOffsetY(), getPos().getZ() + direction.getFrontOffsetZ()))
-					.getBlock() == Blocks.LAVA) {
-					addEnergy(1);
-				}
-			}
 
-			if (world.getTotalWorldTime() % 40 == 0) {
-				BlockMachineBase bmb = (BlockMachineBase) world.getBlockState(pos).getBlock();
-				boolean didFindLava = false;
-				for (EnumFacing direction : EnumFacing.values()) {
-					if (world.getBlockState(new BlockPos(getPos().getX() + direction.getFrontOffsetX(),
-						getPos().getY() + direction.getFrontOffsetY(),
-						getPos().getZ() + direction.getFrontOffsetZ())).getBlock() == Blocks.LAVA) {
-						didFindLava = true;
-					}
+		if (!this.world.isRemote) {
+			if (FluidUtils.drainContainers(this.tank, this.inventory, 0, 1))
+				this.syncWithAll();
+			for (final EnumFacing direction : EnumFacing.values()) {
+				if (this.world
+						.getBlockState(new BlockPos(this.getPos().getX() + direction.getFrontOffsetX(),
+								this.getPos().getY() + direction.getFrontOffsetY(),
+								this.getPos().getZ() + direction.getFrontOffsetZ()))
+						.getBlock() == Blocks.LAVA) {
+					this.addEnergy(1);
+					this.lastOutput = this.world.getTotalWorldTime();
 				}
-				bmb.setActive(didFindLava, world, pos);
 			}
 		}
-		if (tank.getFluidAmount() > 0 && getMaxPower() - getEnergy() >= euTick) {
-			tank.drain(1, true);
-			addEnergy(euTick);
+
+		if (this.tank.getFluidAmount() > 0 && this.getMaxPower() - this.getEnergy() >= TileThermalGenerator.euTick) {
+			this.tank.drain(1, true);
+			this.addEnergy(TileThermalGenerator.euTick);
+			this.lastOutput = this.world.getTotalWorldTime();
 		}
-		if (tank.getFluidType() != null && getStackInSlot(2) == ItemStack.EMPTY) {
-			// inventory.setInventorySlotContents(2, new ItemStack(tank
-			// .getFluidType().getBlock()));
-		} else if (tank.getFluidType() == null && getStackInSlot(2) != ItemStack.EMPTY) {
-			setInventorySlotContents(2, ItemStack.EMPTY);
+
+		if (!this.world.isRemote) {
+			if (this.world.getTotalWorldTime() - this.lastOutput < 30 && !this.isActive())
+				this.world.setBlockState(this.getPos(),
+						this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, true));
+			else if (this.world.getTotalWorldTime() - this.lastOutput > 30 && this.isActive())
+				this.world.setBlockState(this.getPos(),
+						this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, false));
+		}
+
+		if (this.tank.getFluidType() != null && this.getStackInSlot(2) == ItemStack.EMPTY) {
+			this.inventory.setInventorySlotContents(2, new ItemStack(this.tank.getFluidType().getBlock()));
+		} else if (this.tank.getFluidType() == null && this.getStackInSlot(2) != ItemStack.EMPTY) {
+			this.inventory.setInventorySlotContents(2, ItemStack.EMPTY);
 		}
 	}
 
