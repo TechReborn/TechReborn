@@ -11,6 +11,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
+import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
@@ -40,7 +41,7 @@ public class TileSemifluidGenerator extends TilePowerAcceptor implements IWrench
 
 		fluids.put("creosote", 3000);
 		fluids.put("biomass", 8000);
-		fluids.put("oil", 64000);
+		fluids.put("fluidoil", 64000);
 		fluids.put("fluidsodium", 30000);
 		fluids.put("fluidlithium", 60000);
 		fluids.put("biofuel", 32000);
@@ -113,7 +114,10 @@ public class TileSemifluidGenerator extends TilePowerAcceptor implements IWrench
 	public void updateEntity() {
 		super.updateEntity();
 		if (!world.isRemote)
-			FluidUtils.drainContainers(tank, inventory, 0, 1);
+		{
+			if(FluidUtils.drainContainers(tank, inventory, 0, 1))
+				this.syncWithAll();
+		}
 
 		if (tank.getFluidAmount() > 0 && getMaxPower() - getEnergy() >= euTick && tank.getFluidType() != null && fluids.containsKey(tank.getFluidType().getName())) {
 			Integer euPerBucket = fluids.get(tank.getFluidType().getName());
@@ -130,7 +134,13 @@ public class TileSemifluidGenerator extends TilePowerAcceptor implements IWrench
 
 			tank.drain(currentWithdraw, true);
 			addEnergy(euTick);
+			if(!this.isActive())
+				this.world.setBlockState(this.getPos(),
+						this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, true));
 		}
+		else if(this.isActive())
+			this.world.setBlockState(this.getPos(),
+					this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, false));
 		if (tank.getFluidType() != null && getStackInSlot(2) == ItemStack.EMPTY) {
 			inventory.setInventorySlotContents(2, new ItemStack(tank.getFluidType().getBlock()));
 		} else if (tank.getFluidType() == null && getStackInSlot(2) != ItemStack.EMPTY) {
