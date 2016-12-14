@@ -11,6 +11,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
+import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
@@ -106,31 +107,39 @@ public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable, II
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		if (!world.isRemote) {
-			FluidUtils.drainContainers(tank, inventory, 0, 1);
-			tank.compareAndUpdate();
+
+		if (!this.world.isRemote) {
+			if (FluidUtils.drainContainers(this.tank, this.inventory, 0, 1))
+				this.syncWithAll();
 		}
 
-		if (tank.getFluidAmount() > 0 && getMaxPower() - getEnergy() >= euTick) {
-			Integer euPerBucket = fluids.get(tank.getFluidType().getName());
+		if (this.tank.getFluidAmount() > 0 && this.getMaxPower() - this.getEnergy() >= TileGasTurbine.euTick) {
+			final Integer euPerBucket = this.fluids.get(this.tank.getFluidType().getName());
 			// float totalTicks = (float)euPerBucket / 8f; //x eu per bucket / 8
 			// eu per tick
 			// float millibucketsPerTick = 1000f / totalTicks;
-			float millibucketsPerTick = 16000f / (float) euPerBucket;
-			pendingWithdraw += millibucketsPerTick;
+			final float millibucketsPerTick = 16000f / (float) euPerBucket;
+			this.pendingWithdraw += millibucketsPerTick;
 
-			int currentWithdraw = (int) pendingWithdraw; // float --> int
+			final int currentWithdraw = (int) this.pendingWithdraw; // float -->
+																	// int
 			// conversion floors
 			// the float
-			pendingWithdraw -= currentWithdraw;
+			this.pendingWithdraw -= currentWithdraw;
 
-			tank.drain(currentWithdraw, true);
-			addEnergy(euTick);
-		}
-		if (tank.getFluidType() != null && getStackInSlot(2) == ItemStack.EMPTY) {
-			inventory.setInventorySlotContents(2, new ItemStack(tank.getFluidType().getBlock()));
-		} else if (tank.getFluidType() == null && getStackInSlot(2) != ItemStack.EMPTY) {
-			setInventorySlotContents(2, ItemStack.EMPTY);
+			this.tank.drain(currentWithdraw, true);
+			this.addEnergy(TileGasTurbine.euTick);
+
+			if (!this.isActive())
+				this.world.setBlockState(this.getPos(),
+						this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, true));
+		} else if (this.isActive())
+			this.world.setBlockState(this.getPos(),
+					this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, false));
+		if (this.tank.getFluidType() != null && this.getStackInSlot(2) == ItemStack.EMPTY) {
+			this.inventory.setInventorySlotContents(2, new ItemStack(this.tank.getFluidType().getBlock()));
+		} else if (this.tank.getFluidType() == null && this.getStackInSlot(2) != ItemStack.EMPTY) {
+			this.setInventorySlotContents(2, ItemStack.EMPTY);
 		}
 	}
 
