@@ -114,7 +114,7 @@ public class ClientProxy extends CommonProxy {
 		//MinecraftForge.EVENT_BUS.register(new VersionCheckerClient());
 		MinecraftForge.EVENT_BUS.register(new StackToolTipEvent());
 		multiblockRenderEvent = new MultiblockRenderEvent();
-		// MinecraftForge.EVENT_BUS.register(multiblockRenderEvent);
+		MinecraftForge.EVENT_BUS.register(multiblockRenderEvent);
 		// TODO FIX ME
 		ClientRegistry.registerKeyBinding(KeyBindings.config);
 		ClientMultiBlocks.init();

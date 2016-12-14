@@ -69,7 +69,7 @@ public class GuiBlastFurnace extends GuiContainer {
 		int l = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
 
-		if (hasMultiBlock) {
+		if (containerBlastFurnace.heat == 0) {
 			GuiUtil.drawTooltipBox(k + 30, l + 50 + 12 - 0, 114, 10);
 			this.fontRendererObj.drawString(I18n.translateToLocal("techreborn.message.missingmultiblock"), k + 38,
 				l + 52 + 12 - 0, -1);
@@ -146,10 +146,6 @@ public class GuiBlastFurnace extends GuiContainer {
 					addComponent(-1, 3, 1, ModBlocks.machineCasing.getDefaultState(), multiblock);
 					addComponent(1, 3, -1, ModBlocks.machineCasing.getDefaultState(), multiblock);
 					addComponent(1, 3, 1, ModBlocks.machineCasing.getDefaultState(), multiblock);
-
-					addComponent(1, 4, 0, ModBlocks.LESUStorage.getDefaultState(), multiblock);
-					addComponent(1, 4, 1, ModBlocks.LESU.getDefaultState(), multiblock);
-					addComponent(1, 4, 2, ModBlocks.alloyFurnace.getDefaultState(), multiblock);
 
 					MultiblockSet set = new MultiblockSet(multiblock);
 					ClientProxy.multiblockRenderEvent.setMultiblock(set);
