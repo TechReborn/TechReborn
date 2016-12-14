@@ -4,6 +4,7 @@ import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
+import mezz.jei.api.ingredients.IIngredients;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fluids.FluidStack;
 import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
@@ -29,6 +30,12 @@ public class IndustrialGrinderRecipeWrapper extends BaseRecipeWrapper<Industrial
 		int ticksPerCycle = baseRecipe.tickTime();
 		this.progress = guiHelper.createAnimatedDrawable(progressStatic, ticksPerCycle,
 			IDrawableAnimated.StartDirection.LEFT, false);
+	}
+	
+	@Override
+	public void getIngredients(@Nonnull final IIngredients ingredients) {
+		ingredients.setInput(FluidStack.class, this.baseRecipe.fluidStack);
+		super.getIngredients(ingredients);
 	}
 
 	@Override
