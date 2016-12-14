@@ -185,7 +185,7 @@ uploadArchives {
             }
         }
         else
-        { 
+        {
 			//this is when the build is executed on the master node
 			println 'Uploading to local Maven Repo'
            repository(url: "file:///var/www/maven/")
