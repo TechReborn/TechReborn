@@ -15,7 +15,7 @@ public class BlockBreakHandler {
 	public void onBlockHarvest(BlockEvent.HarvestDropsEvent event) {
 		for (ItemStack ore : event.getDrops()) {
 			if (OreDictUtils.isOre(ore, "gemRuby")) {
-				event.getDrops().add(ItemGems.getGemByName("redGarnet").copy());
+				event.getDrops().add(ItemGems.getGemByName("red_garnet").copy());
 			}
 		}
 	}
