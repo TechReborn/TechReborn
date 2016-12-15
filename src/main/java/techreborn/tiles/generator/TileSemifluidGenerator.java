@@ -119,7 +119,7 @@ public class TileSemifluidGenerator extends TilePowerAcceptor implements IWrench
 				this.syncWithAll();
 		}
 
-		if (tank.getFluidAmount() > 0 && getMaxPower() - getEnergy() >= euTick && tank.getFluidType() != null && fluids.containsKey(tank.getFluidType().getName())) {
+		if (tank.getFluidAmount() > 0 && tank.getFluidType() != null && fluids.containsKey(tank.getFluidType().getName()) && tryAddingEnergy(euTick)) {
 			Integer euPerBucket = fluids.get(tank.getFluidType().getName());
 			// float totalTicks = (float)euPerBucket / 8f; //x eu per bucket / 8
 			// eu per tick
@@ -133,7 +133,6 @@ public class TileSemifluidGenerator extends TilePowerAcceptor implements IWrench
 			pendingWithdraw -= currentWithdraw;
 
 			tank.drain(currentWithdraw, true);
-			addEnergy(euTick);
 			if(!this.isActive())
 				this.world.setBlockState(this.getPos(),
 						this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, true));
@@ -146,6 +145,21 @@ public class TileSemifluidGenerator extends TilePowerAcceptor implements IWrench
 		} else if (tank.getFluidType() == null && getStackInSlot(2) != ItemStack.EMPTY) {
 			setInventorySlotContents(2, ItemStack.EMPTY);
 		}
+	}
+	
+	private boolean tryAddingEnergy(int amount)
+	{
+		if(this.getMaxPower() - this.getEnergy() >= amount)
+		{
+			addEnergy(amount);
+			return true;
+		}
+		else if(this.getMaxPower() - this.getEnergy() > 0)
+		{
+			addEnergy(this.getMaxPower() - this.getEnergy());
+			return true;
+		}
+		return false;
 	}
 
 	@Override

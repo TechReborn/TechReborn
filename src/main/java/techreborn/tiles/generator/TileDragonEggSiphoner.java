@@ -8,6 +8,7 @@ import net.minecraft.util.math.BlockPos;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
+import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.config.ConfigTechReborn;
@@ -22,16 +23,41 @@ public class TileDragonEggSiphoner extends TilePowerAcceptor implements IWrencha
 		super(2);
 	}
 
+	private long lastOutput = 0;
+
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
 
 		if (!world.isRemote) {
 			if (world.getBlockState(new BlockPos(getPos().getX(), getPos().getY() + 1, getPos().getZ()))
-				.getBlock() == Blocks.DRAGON_EGG) {
-				addEnergy(euTick);
+					.getBlock() == Blocks.DRAGON_EGG) {
+				if(tryAddingEnergy(euTick))
+					this.lastOutput = this.world.getTotalWorldTime();
 			}
+
+			if (this.world.getTotalWorldTime() - this.lastOutput < 30 && !this.isActive())
+				this.world.setBlockState(this.getPos(),
+						this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, true));
+			else if (this.world.getTotalWorldTime() - this.lastOutput > 30 && this.isActive())
+				this.world.setBlockState(this.getPos(),
+						this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, false));
 		}
+	}
+	
+	private boolean tryAddingEnergy(int amount)
+	{
+		if(this.getMaxPower() - this.getEnergy() >= amount)
+		{
+			addEnergy(amount);
+			return true;
+		}
+		else if(this.getMaxPower() - this.getEnergy() > 0)
+		{
+			addEnergy(this.getMaxPower() - this.getEnergy());
+			return true;
+		}
+		return false;
 	}
 
 	@Override
