@@ -108,16 +108,18 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
 								this.getPos().getY() + direction.getFrontOffsetY(),
 								this.getPos().getZ() + direction.getFrontOffsetZ()))
 						.getBlock() == Blocks.LAVA) {
-					this.addEnergy(1);
-					this.lastOutput = this.world.getTotalWorldTime();
+					if(this.tryAddingEnergy(1))
+						this.lastOutput = this.world.getTotalWorldTime();
 				}
 			}
 		}
 
-		if (this.tank.getFluidAmount() > 0 && this.getMaxPower() - this.getEnergy() >= TileThermalGenerator.euTick) {
-			this.tank.drain(1, true);
-			this.addEnergy(TileThermalGenerator.euTick);
-			this.lastOutput = this.world.getTotalWorldTime();
+		if (this.tank.getFluidAmount() > 0) {
+			if(tryAddingEnergy(euTick))
+			{
+				this.tank.drain(1, true);
+				this.lastOutput = this.world.getTotalWorldTime();
+			}
 		}
 
 		if (!this.world.isRemote) {
@@ -134,6 +136,21 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
 		} else if (this.tank.getFluidType() == null && this.getStackInSlot(2) != ItemStack.EMPTY) {
 			this.inventory.setInventorySlotContents(2, ItemStack.EMPTY);
 		}
+	}
+	
+	private boolean tryAddingEnergy(int amount)
+	{
+		if(this.getMaxPower() - this.getEnergy() >= amount)
+		{
+			addEnergy(amount);
+			return true;
+		}
+		else if(this.getMaxPower() - this.getEnergy() > 0)
+		{
+			addEnergy(this.getMaxPower() - this.getEnergy());
+			return true;
+		}
+		return false;
 	}
 
 	@Override
