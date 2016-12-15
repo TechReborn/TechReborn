@@ -113,7 +113,7 @@ public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable, II
 				this.syncWithAll();
 		}
 
-		if (this.tank.getFluidAmount() > 0 && this.getMaxPower() - this.getEnergy() >= TileGasTurbine.euTick) {
+		if (this.tank.getFluidAmount() > 0 && tryAddingEnergy(euTick)) {
 			final Integer euPerBucket = this.fluids.get(this.tank.getFluidType().getName());
 			// float totalTicks = (float)euPerBucket / 8f; //x eu per bucket / 8
 			// eu per tick
@@ -128,7 +128,6 @@ public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable, II
 			this.pendingWithdraw -= currentWithdraw;
 
 			this.tank.drain(currentWithdraw, true);
-			this.addEnergy(TileGasTurbine.euTick);
 
 			if (!this.isActive())
 				this.world.setBlockState(this.getPos(),
@@ -136,6 +135,7 @@ public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable, II
 		} else if (this.isActive())
 			this.world.setBlockState(this.getPos(),
 					this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, false));
+		
 		if (this.tank.getFluidType() != null && this.getStackInSlot(2) == ItemStack.EMPTY) {
 			this.inventory.setInventorySlotContents(2, new ItemStack(this.tank.getFluidType().getBlock()));
 		} else if (this.tank.getFluidType() == null && this.getStackInSlot(2) != ItemStack.EMPTY) {
@@ -143,6 +143,21 @@ public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable, II
 		}
 	}
 
+	private boolean tryAddingEnergy(int amount)
+	{
+		if(this.getMaxPower() - this.getEnergy() >= amount)
+		{
+			addEnergy(amount);
+			return true;
+		}
+		else if(this.getMaxPower() - this.getEnergy() > 0)
+		{
+			addEnergy(this.getMaxPower() - this.getEnergy());
+			return true;
+		}
+		return false;
+	}
+	
 	@Override
 	public double getMaxPower() {
 		return ConfigTechReborn.ThermalGeneratorCharge;
