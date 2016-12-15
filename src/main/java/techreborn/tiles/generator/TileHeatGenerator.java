@@ -7,6 +7,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.IWrenchable;
+import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
@@ -18,30 +19,49 @@ public class TileHeatGenerator extends TilePowerAcceptor implements IWrenchable 
 	public TileHeatGenerator() {
 		super(1);
 	}
+	
+	private long lastOutput = 0;
 
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
 
 		if (!world.isRemote) {
-			if (world.getBlockState(new BlockPos(getPos().getX() + 1, getPos().getY(), getPos().getZ()))
-				.getBlock() == Blocks.LAVA) {
-				addEnergy(euTick);
-			} else if (world.getBlockState(new BlockPos(getPos().getX(), getPos().getY(), getPos().getZ() + 1))
-				.getBlock() == Blocks.LAVA) {
-				addEnergy(euTick);
-			} else if (world.getBlockState(new BlockPos(getPos().getX(), getPos().getY(), getPos().getZ() - 1))
-				.getBlock() == Blocks.LAVA) {
-				addEnergy(euTick);
-			} else if (world.getBlockState(new BlockPos(getPos().getX() - 1, getPos().getY(), getPos().getZ()))
-				.getBlock() == Blocks.LAVA) {
-				addEnergy(euTick);
-			} else if (world.getBlockState(new BlockPos(getPos().getX(), getPos().getY() - 1, getPos().getZ()))
-				.getBlock() == Blocks.LAVA) {
-				addEnergy(euTick);
+			for (final EnumFacing direction : EnumFacing.values()) {
+				if(direction.equals(EnumFacing.UP))
+					continue;
+				if (this.world
+						.getBlockState(new BlockPos(this.getPos().getX() + direction.getFrontOffsetX(),
+								this.getPos().getY() + direction.getFrontOffsetY(),
+								this.getPos().getZ() + direction.getFrontOffsetZ()))
+						.getBlock() == Blocks.LAVA) {
+					if(tryAddingEnergy(euTick))
+						this.lastOutput = this.world.getTotalWorldTime();
+				}
 			}
 
+			if (this.world.getTotalWorldTime() - this.lastOutput < 30 && !this.isActive())
+				this.world.setBlockState(this.getPos(),
+						this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, true));
+			else if (this.world.getTotalWorldTime() - this.lastOutput > 30 && this.isActive())
+				this.world.setBlockState(this.getPos(),
+						this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, false));
 		}
+	}
+	
+	private boolean tryAddingEnergy(int amount)
+	{
+		if(this.getMaxPower() - this.getEnergy() >= amount)
+		{
+			addEnergy(amount);
+			return true;
+		}
+		else if(this.getMaxPower() - this.getEnergy() > 0)
+		{
+			addEnergy(this.getMaxPower() - this.getEnergy());
+			return true;
+		}
+		return false;
 	}
 
 	@Override
