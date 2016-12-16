@@ -58,14 +58,15 @@ public class TileQuantumTank extends TileLegacyMachineBase
 	public void updateEntity() {
 		super.updateEntity();
 		if (!world.isRemote) {
-			FluidUtils.drainContainers(tank, inventory, 0, 1);
-			FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluidType());
+			if (FluidUtils.drainContainers(tank, inventory, 0, 1)
+					|| FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluidType()))
+				this.syncWithAll();
+
 			if (tank.getFluidType() != null && getStackInSlot(2) == ItemStack.EMPTY) {
-				//				inventory.setInventorySlotContents(2, new ItemStack(tank.getFluidType().getBlock()));
+				inventory.setInventorySlotContents(2, new ItemStack(tank.getFluidType().getBlock()));
 			} else if (tank.getFluidType() == null && getStackInSlot(2) != ItemStack.EMPTY) {
 				setInventorySlotContents(2, ItemStack.EMPTY);
 			}
-			tank.compareAndUpdate();
 		}
 	}
 
