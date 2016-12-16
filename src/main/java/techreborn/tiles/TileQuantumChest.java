@@ -25,54 +25,71 @@ public class TileQuantumChest extends TileLegacyMachineBase
 	// Slot 1 = Output
 	// Slot 2 = Fake Item
 
-	@Nonnull
 	public ItemStack storedItem = ItemStack.EMPTY;
 	// TODO use long so we can have 9,223,372,036,854,775,807 items instead of
 	// 2,147,483,647
-	int storage = (int) Double.MAX_VALUE;
+	int storage = Integer.MAX_VALUE;
 	public Inventory inventory = new Inventory(3, "TileQuantumChest", storage, this);
 
 	@Override
 	public void updateEntity() {
 		if (!world.isRemote) {
-			if (storedItem != ItemStack.EMPTY) {
-				ItemStack fakeStack = storedItem.copy();
-				fakeStack.setCount(1);
-				setInventorySlotContents(2, fakeStack);
-			} else if (storedItem == ItemStack.EMPTY && getStackInSlot(1) != ItemStack.EMPTY) {
-				ItemStack fakeStack = getStackInSlot(1).copy();
-				fakeStack.setCount(1);
-				setInventorySlotContents(2, fakeStack);
-			} else {
-				setInventorySlotContents(2, ItemStack.EMPTY);
-			}
+			if (this.getStackInSlot(0) != ItemStack.EMPTY) {
+				if (this.getStoredItemType().isEmpty() || (this.storedItem.isEmpty()
+						&& ItemUtils.isItemEqual(this.getStackInSlot(0), this.getStackInSlot(1), true, true))) {
 
-			if (getStackInSlot(0) != ItemStack.EMPTY) {
-				if (storedItem == ItemStack.EMPTY) {
-					storedItem = getStackInSlot(0);
-					setInventorySlotContents(0, ItemStack.EMPTY);
-				} else if (ItemUtils.isItemEqual(storedItem, getStackInSlot(0), true, true)) {
-					if (storedItem.getCount() <= storage - getStackInSlot(0).getCount()) {
-						storedItem.grow(getStackInSlot(0).getCount());
-						decrStackSize(0, getStackInSlot(0).getCount());
-					}
+					this.storedItem = this.getStackInSlot(0);
+					this.setInventorySlotContents(0, ItemStack.EMPTY);
+					this.syncWithAll();
+				} else if (ItemUtils.isItemEqual(this.getStoredItemType(), this.getStackInSlot(0), true, true)) {
+
+					this.setStoredItemCount(this.getStackInSlot(0).getCount());
+					this.setInventorySlotContents(0, ItemStack.EMPTY);
+					this.syncWithAll();
 				}
 			}
 
-			if (storedItem != ItemStack.EMPTY && getStackInSlot(1) == ItemStack.EMPTY) {
-				ItemStack itemStack = storedItem.copy();
-				itemStack.setCount(itemStack.getMaxStackSize());
-				setInventorySlotContents(1, itemStack);
-				storedItem.shrink(itemStack.getMaxStackSize());
-			} else if (ItemUtils.isItemEqual(getStackInSlot(1), storedItem, true, true)) {
-				int wanted = getStackInSlot(1).getMaxStackSize() - getStackInSlot(1).getCount();
-				if (storedItem.getCount() >= wanted) {
-					decrStackSize(1, -wanted);
-					storedItem.shrink(wanted);
-				} else {
-					decrStackSize(1, -storedItem.getCount());
-					storedItem = ItemStack.EMPTY;
+			if (this.storedItem != ItemStack.EMPTY) {
+				if (this.getStackInSlot(1) == ItemStack.EMPTY) {
+
+					ItemStack delivered = this.storedItem.copy();
+					delivered.setCount(Math.min(this.storedItem.getCount(), delivered.getMaxStackSize()));
+
+					this.storedItem.shrink(delivered.getCount());
+
+					if (this.storedItem.isEmpty())
+						this.storedItem = ItemStack.EMPTY;
+
+					this.setInventorySlotContents(1, delivered);
+					this.syncWithAll();
+				} else if (ItemUtils.isItemEqual(this.storedItem, this.getStackInSlot(1), true, true)
+						&& this.getStackInSlot(1).getCount() < this.getStackInSlot(1).getMaxStackSize()) {
+
+					int wanted = Math.min(this.storedItem.getCount(),
+							this.getStackInSlot(1).getMaxStackSize() - this.getStackInSlot(1).getCount());
+
+					this.getStackInSlot(1).setCount(this.getStackInSlot(1).getCount() + wanted);
+					this.storedItem.shrink(wanted);
+
+					if (this.storedItem.isEmpty())
+						this.storedItem = ItemStack.EMPTY;
+					this.syncWithAll();
 				}
+			}
+
+			if (this.getStackInSlot(2) == ItemStack.EMPTY
+					&& (!this.storedItem.isEmpty() || !this.getStackInSlot(1).isEmpty())) {
+
+				ItemStack fake = storedItem.isEmpty() ? this.getStackInSlot(1).copy() : storedItem.copy();
+				fake.setCount(1);
+
+				this.setInventorySlotContents(2, fake);
+			} else if (!ItemUtils.isItemEqual(this.getStackInSlot(2), this.storedItem, true, true)) {
+
+				ItemStack fake = storedItem.isEmpty() ? this.getStackInSlot(1).copy() : storedItem.copy();
+				fake.setCount(1);
+
+				this.setInventorySlotContents(2, fake);
 			}
 		}
 	}
@@ -157,7 +174,7 @@ public class TileQuantumChest extends TileLegacyMachineBase
 
 	@Override
 	public ItemStack getStoredItemType() {
-		return this.storedItem;
+		return this.storedItem.isEmpty() ? this.getStackInSlot(1) : this.storedItem;
 	}
 
 	@Override
@@ -176,6 +193,10 @@ public class TileQuantumChest extends TileLegacyMachineBase
 	@Override
 	public int getMaxStoredCount() {
 		return this.storage;
+	}
+
+	public int getStoredCount() {
+		return this.storedItem.getCount();
 	}
 
 	@Override

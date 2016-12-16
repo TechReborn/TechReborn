@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
+import reborncore.common.util.ItemUtils;
 import techreborn.client.container.ContainerQuantumChest;
 import techreborn.tiles.TileQuantumChest;
 
@@ -39,10 +40,15 @@ public class GuiQuantumChest extends GuiContainer {
 		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,
 			this.ySize - 96 + 2, 4210752);
 		this.fontRendererObj.drawString("Amount", 10, 20, 16448255);
-		if (tile.storedItem != ItemStack.EMPTY && tile.getStackInSlot(1) != null)
-			this.fontRendererObj.drawString(tile.storedItem.getCount() + tile.getStackInSlot(1).getCount() + "", 10, 30,
-				16448255);
-		if (tile.storedItem == ItemStack.EMPTY && tile.getStackInSlot(1) != null)
-			this.fontRendererObj.drawString(tile.getStackInSlot(1).getCount() + "", 10, 30, 16448255);
+
+		int count = 0;
+		if (tile.storedItem != ItemStack.EMPTY || !tile.getStackInSlot(1).isEmpty()) {
+
+			count = tile.storedItem.getCount();
+			if (tile.getStackInSlot(1) != ItemStack.EMPTY && (tile.storedItem.isEmpty()
+					|| ItemUtils.isItemEqual(tile.getStackInSlot(1), tile.getStackInSlot(2), true, true)))
+				count += tile.getStackInSlot(1).getCount();
+		}
+		this.fontRendererObj.drawString(count + "", 10, 30, 16448255);
 	}
 }
