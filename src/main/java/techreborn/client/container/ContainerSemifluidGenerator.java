@@ -18,8 +18,6 @@ public class ContainerSemifluidGenerator extends RebornContainer {
 
 		this.addSlotToContainer(new BaseSlot(tileSemifluidGenerator.inventory, 0, 80, 17));
 		this.addSlotToContainer(new SlotOutput(tileSemifluidGenerator.inventory, 1, 80, 53));
-		this.addSlotToContainer(new SlotFake(tileSemifluidGenerator.inventory, 2, 59, 42, false, false, 1));
-
 		int i;
 
 		for (i = 0; i < 3; ++i) {
