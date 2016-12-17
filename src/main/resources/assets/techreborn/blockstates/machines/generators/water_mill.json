@@ -17,31 +17,11 @@
         "side": "techreborn:blocks/machines/generators/watermill_side_off"
       }
     },
-    "facing": {
-      "north": {
-        "y": 0
-      },
-      "east": {
-        "y": 90
-      },
-      "south": {
-        "y": 180
-      },
-      "west": {
-        "y": 270
-      }
-    },
-    "active": {
-      "true": {
-        "textures": {
-          "side": "techreborn:blocks/machines/generators/watermill_side_on",
-          "top": "techreborn:blocks/machines/generators/watermill_top_on"
-        }
-      },
-      "false": {
-        "textures": {
-          "side": "techreborn:blocks/machines/generators/watermill_side_off"
-        }
+    "normal": {
+      "transform": "forge:default-block",
+      "model": "cube_bottom_top",
+      "textures": {
+        "side": "techreborn:blocks/machines/generators/watermill_side_off"
       }
     }
   }
