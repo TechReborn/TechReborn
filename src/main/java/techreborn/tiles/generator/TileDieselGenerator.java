@@ -10,7 +10,8 @@ import techreborn.init.ModBlocks;
 public class TileDieselGenerator extends TileBaseFluidGenerator {
 
 	public TileDieselGenerator() {
-		super(EFluidGenerator.DIESEL, ConfigTechReborn.ThermalGeneratorTier, "TileDieselGenerator", 1000*10, ConfigTechReborn.ThermalGeneratorOutput);
+		super(EFluidGenerator.DIESEL, ConfigTechReborn.ThermalGeneratorTier, "TileDieselGenerator", 1000 * 10,
+				ConfigTechReborn.ThermalGeneratorOutput);
 	}
 
 	@Override

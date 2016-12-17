@@ -10,9 +10,9 @@ import techreborn.init.ModBlocks;
 public class TileSemifluidGenerator extends TileBaseFluidGenerator {
 
 	public TileSemifluidGenerator() {
-		super(EFluidGenerator.SEMIFLUID, ConfigTechReborn.ThermalGeneratorTier, "TileSemifluidGenerator", 1000*10, 8);
+		super(EFluidGenerator.SEMIFLUID, ConfigTechReborn.ThermalGeneratorTier, "TileSemifluidGenerator", 1000 * 10, 8);
 	}
-	
+
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer arg0) {
 		return new ItemStack(ModBlocks.semiFluidGenerator, 1);
@@ -22,7 +22,7 @@ public class TileSemifluidGenerator extends TileBaseFluidGenerator {
 	public EnumPowerTier getTier() {
 		return EnumPowerTier.LOW;
 	}
-	
+
 	@Override
 	public double getMaxPower() {
 		return ConfigTechReborn.ThermalGeneratorCharge;

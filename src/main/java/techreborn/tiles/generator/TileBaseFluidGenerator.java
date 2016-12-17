@@ -64,21 +64,23 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 				this.syncWithAll();
 		}
 
-		if (this.tank.getFluidAmount() > 0 && tryAddingEnergy(euTick)) {
+		if (this.tank.getFluidAmount() > 0) {
 			this.getRecipes().getRecipeForFluid(tank.getFluidType()).ifPresent(recipe -> {
 
-				final Integer euPerBucket = recipe.getEnergyPerMb() * 1000;
-				final float millibucketsPerTick = 16000f / (float) euPerBucket;
-				this.pendingWithdraw += millibucketsPerTick;
+				if(tryAddingEnergy(euTick))
+				{
+					final Integer euPerBucket = recipe.getEnergyPerMb() * 1000;
+					final float millibucketsPerTick = 16000f / (float) euPerBucket;
+					this.pendingWithdraw += millibucketsPerTick;
 
-				final int currentWithdraw = (int) this.pendingWithdraw; // float
-																		// -->
-																		// int
-				// conversion floors
-				// the float
-				this.pendingWithdraw -= currentWithdraw;
+					final int currentWithdraw = (int) this.pendingWithdraw;
+					
+					this.pendingWithdraw -= currentWithdraw;
 
-				this.tank.drain(currentWithdraw, true);
+					this.tank.drain(currentWithdraw, true);
+					
+					this.lastOutput = this.world.getTotalWorldTime();
+				}
 			});
 		}
 

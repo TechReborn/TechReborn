@@ -10,14 +10,14 @@ import techreborn.init.ModBlocks;
 public class TileGasTurbine extends TileBaseFluidGenerator {
 
 	public TileGasTurbine() {
-		super(EFluidGenerator.GAS, ConfigTechReborn.ThermalGeneratorTier, "TileGasTurbine", 1000*10, 16);
+		super(EFluidGenerator.GAS, ConfigTechReborn.ThermalGeneratorTier, "TileGasTurbine", 1000 * 10, 16);
 	}
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.gasTurbine, 1);
 	}
-	
+
 	@Override
 	public EnumPowerTier getTier() {
 		return EnumPowerTier.MEDIUM;
