@@ -59,7 +59,8 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 		super.updateEntity();
 
 		if (!this.world.isRemote) {
-			if (this.acceptFluid() && FluidUtils.drainContainers(this.tank, this.inventory, 0, 1))
+			if ((this.acceptFluid() && FluidUtils.drainContainers(this.tank, this.inventory, 0, 1))
+					|| FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluidType()))
 				this.syncWithAll();
 		}
 
