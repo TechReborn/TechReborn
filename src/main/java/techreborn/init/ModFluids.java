@@ -166,7 +166,7 @@ public class ModFluids {
 		BlockFluidLithium = new BlockFluidTechReborn(fluidLithium, Material.WATER, "techreborn.lithium");
 		registerBlock(BlockFluidLithium,
 			ModInfo.MOD_ID + "_" + BlockFluidLithium.getUnlocalizedName().substring(5));
-		FluidPowerManager.fluidPowerValues.put(fluidNitrofuel, 24.0);
+		FluidPowerManager.fluidPowerValues.put(fluidLithium, 24.0);
 
 		FluidRegistry.registerFluid(fluidMercury);
 		BlockFluidMercury = new BlockFluidTechReborn(fluidMercury, Material.WATER, "techreborn.mercury");
@@ -268,13 +268,13 @@ public class ModFluids {
 		BlockFluidNitroDiesel = new BlockFluidTechReborn(fluidNitroDiesel, Material.WATER, "techreborn.nitrodiesel");
 		registerBlock(BlockFluidNitroDiesel,
 			ModInfo.MOD_ID + "_" + BlockFluidNitroDiesel.getUnlocalizedName().substring(5));
-		FluidPowerManager.fluidPowerValues.put(fluidNitrofuel, 36.0);
+		FluidPowerManager.fluidPowerValues.put(fluidNitroDiesel, 36.0);
 
 		FluidRegistry.registerFluid(fluidOil);
 		BlockFluidOil = new BlockFluidTechReborn(fluidOil, Material.WATER, "techreborn.oil");
 		registerBlock(BlockFluidOil,
 			ModInfo.MOD_ID + "_" + BlockFluidOil.getUnlocalizedName().substring(5));
-		FluidPowerManager.fluidPowerValues.put(fluidNitrofuel, 16.0);
+		FluidPowerManager.fluidPowerValues.put(fluidOil, 16.0);
 
 		FluidRegistry.registerFluid(fluidSulfuricAcid);
 		BlockFluidSulfuricAcid = new BlockFluidTechReborn(fluidSulfuricAcid, Material.WATER, "techreborn.sulfuricacid");

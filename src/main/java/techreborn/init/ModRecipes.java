@@ -11,6 +11,7 @@ import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.oredict.OreDictionary;
@@ -22,6 +23,8 @@ import reborncore.common.util.StringUtils;
 import techreborn.Core;
 import techreborn.api.ScrapboxList;
 import techreborn.api.TechRebornAPI;
+import techreborn.api.generator.EFluidGenerator;
+import techreborn.api.generator.GeneratorRecipeHelper;
 import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.api.recipe.RecyclerRecipe;
@@ -99,6 +102,7 @@ public class ModRecipes {
 		addCompressorRecipes();
 		addWireRecipes();
 		addScrapBoxloot();
+		addFluidGeneratorRecipes();
 	}
 
 	static void addScrapBoxloot() {
@@ -3218,6 +3222,23 @@ public class ModRecipes {
 		CraftingHelper.addShapedOreRecipe(gemleggings, "GGG", "G G", "G G", 'G', gem);
 
 		CraftingHelper.addShapedOreRecipe(gemboots, "G G", "G G", 'G', gem);
+	}
+
+	static void addFluidGeneratorRecipes() {
+		GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.DIESEL, ModFluids.fluidNitrofuel, 24);
+		GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.DIESEL, ModFluids.fluidNitrocoalfuel, 48);
+		GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.DIESEL, ModFluids.fluidLithium, 24);
+		GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.DIESEL, ModFluids.fluidNitroDiesel, 36);
+		GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.DIESEL, ModFluids.fluidOil, 16);
+
+		GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.SEMIFLUID, ModFluids.fluidOil, 64);
+		GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.SEMIFLUID, ModFluids.fluidSodium, 30);
+		GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.SEMIFLUID, ModFluids.fluidLithium, 60);
+
+		GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.THERMAL, FluidRegistry.LAVA, 60);
+		
+		GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.GAS, ModFluids.fluidHydrogen, 15);
+		GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.GAS, ModFluids.fluidMethane, 45);
 	}
 
 	public static ItemStack getBucketWithFluid(Fluid fluid) {
