@@ -11,6 +11,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
 import reborncore.api.recipe.RecipeHandler;
 import techreborn.Core;
+import techreborn.api.generator.EFluidGenerator;
+import techreborn.api.generator.GeneratorRecipeHelper;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.api.recipe.machines.AssemblingMachineRecipe;
 import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
@@ -33,6 +35,8 @@ import techreborn.compat.jei.extractor.ExtractorRecipeCategory;
 import techreborn.compat.jei.extractor.ExtractorRecipeHandler;
 import techreborn.compat.jei.fusionReactor.FusionReactorRecipeCategory;
 import techreborn.compat.jei.fusionReactor.FusionReactorRecipeHandler;
+import techreborn.compat.jei.generators.fluid.FluidGeneratorRecipeCategory;
+import techreborn.compat.jei.generators.fluid.FluidGeneratorRecipeHandler;
 import techreborn.compat.jei.grinder.GrinderRecipeCategory;
 import techreborn.compat.jei.grinder.GrinderRecipeHandler;
 import techreborn.compat.jei.implosionCompressor.ImplosionCompressorRecipeCategory;
@@ -121,26 +125,31 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModItems.missingRecipe));
 
 		registry.addRecipeCategories(new AlloySmelterRecipeCategory(guiHelper),
-			new AssemblingMachineRecipeCategory(guiHelper), new BlastFurnaceRecipeCategory(guiHelper),
-			new CentrifugeRecipeCategory(guiHelper), new ChemicalReactorRecipeCategory(guiHelper),
-			new FusionReactorRecipeCategory(guiHelper), new IndustrialGrinderRecipeCategory(guiHelper),
-			new ImplosionCompressorRecipeCategory(guiHelper), new IndustrialElectrolyzerRecipeCategory(guiHelper),
-			new RollingMachineRecipeCategory(guiHelper),
-			new VacuumFreezerRecipeCategory(guiHelper), new GrinderRecipeCategory(guiHelper),
-			new ExtractorRecipeCategory(guiHelper), new CompressorRecipeCategory(guiHelper), new ScrapboxRecipeCategory(guiHelper));
+				new AssemblingMachineRecipeCategory(guiHelper), new BlastFurnaceRecipeCategory(guiHelper),
+				new CentrifugeRecipeCategory(guiHelper), new ChemicalReactorRecipeCategory(guiHelper),
+				new FusionReactorRecipeCategory(guiHelper), new IndustrialGrinderRecipeCategory(guiHelper),
+				new ImplosionCompressorRecipeCategory(guiHelper), new IndustrialElectrolyzerRecipeCategory(guiHelper),
+				new RollingMachineRecipeCategory(guiHelper), new VacuumFreezerRecipeCategory(guiHelper),
+				new GrinderRecipeCategory(guiHelper), new ExtractorRecipeCategory(guiHelper),
+				new CompressorRecipeCategory(guiHelper), new ScrapboxRecipeCategory(guiHelper));
+
+		for(EFluidGenerator type : EFluidGenerator.values())
+			registry.addRecipeCategories(new FluidGeneratorRecipeCategory(type, guiHelper));
 
 		registry.addRecipeHandlers(new AlloySmelterRecipeHandler(jeiHelpers),
-			new AssemblingMachineRecipeHandler(jeiHelpers), new BlastFurnaceRecipeHandler(jeiHelpers),
-			new CentrifugeRecipeHandler(jeiHelpers), new ChemicalReactorRecipeHandler(jeiHelpers),
-			new FusionReactorRecipeHandler(), new IndustrialGrinderRecipeHandler(jeiHelpers),
-			new ImplosionCompressorRecipeHandler(jeiHelpers), new IndustrialElectrolyzerRecipeHandler(jeiHelpers),
-			new RollingMachineRecipeHandler(),
-			new VacuumFreezerRecipeHandler(jeiHelpers), new GrinderRecipeHandler(jeiHelpers),
-			new ExtractorRecipeHandler(jeiHelpers), new CompressorRecipeHandler(jeiHelpers),
-			new ScrapboxRecipeHandler(jeiHelpers));
+				new AssemblingMachineRecipeHandler(jeiHelpers), new BlastFurnaceRecipeHandler(jeiHelpers),
+				new CentrifugeRecipeHandler(jeiHelpers), new ChemicalReactorRecipeHandler(jeiHelpers),
+				new FusionReactorRecipeHandler(), new IndustrialGrinderRecipeHandler(jeiHelpers),
+				new ImplosionCompressorRecipeHandler(jeiHelpers), new IndustrialElectrolyzerRecipeHandler(jeiHelpers),
+				new RollingMachineRecipeHandler(), new VacuumFreezerRecipeHandler(jeiHelpers),
+				new GrinderRecipeHandler(jeiHelpers), new ExtractorRecipeHandler(jeiHelpers),
+				new CompressorRecipeHandler(jeiHelpers), new ScrapboxRecipeHandler(jeiHelpers),
+				new FluidGeneratorRecipeHandler(jeiHelpers));
 
 		registry.addRecipes(RecipeHandler.recipeList);
 		registry.addRecipes(FusionReactorRecipeHelper.reactorRecipes);
+
+		GeneratorRecipeHelper.fluidRecipes.forEach((type, list) -> registry.addRecipes(list.getRecipes()));
 
 		try {
 			registry.addRecipes(RollingMachineRecipeMaker.getRecipes(jeiHelpers));
@@ -189,6 +198,15 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 			VanillaRecipeCategoryUid.FUEL);
 		registry.addRecipeClickArea(GuiElectricFurnace.class, 78, 36, 24, 16, VanillaRecipeCategoryUid.SMELTING);
 
+		registry.addRecipeClickArea(GuiSemifluidGenerator.class, 79, 34, 18, 18,
+				EFluidGenerator.SEMIFLUID.getRecipeID());
+		registry.addRecipeClickArea(GuiDieselGenerator.class, 79, 34, 18, 18,
+				EFluidGenerator.DIESEL.getRecipeID());
+		registry.addRecipeClickArea(GuiGasTurbine.class, 79, 34, 18, 18,
+				EFluidGenerator.GAS.getRecipeID());
+		registry.addRecipeClickArea(GuiThermalGenerator.class, 79, 34, 18, 18,
+				EFluidGenerator.THERMAL.getRecipeID());
+
 		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.compressor), RecipeCategoryUids.COMPRESSOR);
 		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.alloyFurnace), RecipeCategoryUids.ALLOY_SMELTER);
 		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.alloySmelter), RecipeCategoryUids.ALLOY_SMELTER);
@@ -211,6 +229,15 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.rollingMachine),
 			RecipeCategoryUids.ROLLING_MACHINE);
 		registry.addRecipeCategoryCraftingItem(new ItemStack(ModItems.scrapBox), RecipeCategoryUids.SCRAPBOX);
+
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.semiFluidGenerator),
+				EFluidGenerator.SEMIFLUID.getRecipeID());
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.gasTurbine),
+				EFluidGenerator.GAS.getRecipeID());
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.dieselGenerator),
+				EFluidGenerator.DIESEL.getRecipeID());
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.thermalGenerator),
+				EFluidGenerator.THERMAL.getRecipeID());
 
 		IRecipeTransferRegistry recipeTransferRegistry = registry.getRecipeTransferRegistry();
 		recipeTransferRegistry

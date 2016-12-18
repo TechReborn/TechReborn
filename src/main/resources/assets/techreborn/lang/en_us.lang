@@ -952,6 +952,10 @@ techreborn.desc.scrapBox=Scrapboxes can be opened by either a simple use in hand
 techreborn.desc.scrapBoxNoDispenser=Scrapboxes can be opened by a simple use in hand!
 
 techreborn.jei.category.alloy.furnace=Alloy Furnace
+techreborn.jei.category.generator.gas=Gas Generator
+techreborn.jei.category.generator.semifluid=Semifluid Generator
+techreborn.jei.category.generator.diesel=Diesel Generator
+techreborn.jei.category.generator.thermal=Thermal Generator
 
 #Death Messages
 death.attack.shock=%s was electrocuted

@@ -28,7 +28,7 @@ public class GeneratorRecipeHelper {
 	 */
 	public static void registerFluidRecipe(EFluidGenerator generatorType, Fluid fluidType, int energyPerMb) {
 		fluidRecipes.putIfAbsent(generatorType, new FluidGeneratorRecipeList());
-		fluidRecipes.get(generatorType).addRecipe(new FluidGeneratorRecipe(fluidType, energyPerMb));
+		fluidRecipes.get(generatorType).addRecipe(new FluidGeneratorRecipe(fluidType, energyPerMb, generatorType));
 	}
 
 	/**

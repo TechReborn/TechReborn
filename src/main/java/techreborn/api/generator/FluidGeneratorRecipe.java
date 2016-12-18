@@ -3,34 +3,32 @@ package techreborn.api.generator;
 import net.minecraftforge.fluids.Fluid;
 
 public class FluidGeneratorRecipe {
-	private Fluid fluid;
-	private int energyPerMb;
+	private final EFluidGenerator generatorType;
+	private final Fluid fluid;
+	private final int energyPerMb;
 	
-	public FluidGeneratorRecipe(Fluid fluid, int energyPerMb)
+	public FluidGeneratorRecipe(Fluid fluid, int energyPerMb, EFluidGenerator generatorType)
 	{
 		this.fluid = fluid;
 		this.energyPerMb = energyPerMb;
+		this.generatorType = generatorType;
 	}
 
 	public Fluid getFluid() {
 		return fluid;
 	}
-
-	public void setFluid(Fluid fluid) {
-		this.fluid = fluid;
-	}
-
 	public int getEnergyPerMb() {
 		return energyPerMb;
 	}
 
-	public void setEnergyPerMb(int energyPerMb) {
-		this.energyPerMb = energyPerMb;
+	public EFluidGenerator getGeneratorType() {
+		return generatorType;
 	}
 
 	@Override
 	public String toString() {
-		return "FluidGeneratorRecipe [fluid=" + fluid + ", energyPerMb=" + energyPerMb + "]";
+		return "FluidGeneratorRecipe [generatorType=" + generatorType + ", fluid=" + fluid + ", energyPerMb="
+				+ energyPerMb + "]";
 	}
 
 	@Override
@@ -39,6 +37,7 @@ public class FluidGeneratorRecipe {
 		int result = 1;
 		result = prime * result + energyPerMb;
 		result = prime * result + ((fluid == null) ? 0 : fluid.hashCode());
+		result = prime * result + ((generatorType == null) ? 0 : generatorType.hashCode());
 		return result;
 	}
 
@@ -57,6 +56,8 @@ public class FluidGeneratorRecipe {
 			if (other.fluid != null)
 				return false;
 		} else if (!fluid.equals(other.fluid))
+			return false;
+		if (generatorType != other.generatorType)
 			return false;
 		return true;
 	}
