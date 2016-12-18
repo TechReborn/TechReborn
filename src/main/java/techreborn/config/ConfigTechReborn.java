@@ -92,6 +92,7 @@ public class ConfigTechReborn {
 	public static boolean ExpensiveSolar;
 	public static boolean ExpensiveWatermill;
 	public static boolean ExpensiveWindmill;
+	public static boolean removeDuplices;
 	// UU
 	public static boolean HideUuRecipes;
 	public static boolean UUrecipesIridiamOre;
@@ -407,6 +408,10 @@ public class ConfigTechReborn {
 		ExpensiveWindmill = config
 			.get(CATEGORY_CRAFTING, "Expensive Windmill", true, "Allow TechReborn to change the Windmill recipe")
 			.getBoolean(true);
+
+		removeDuplices = config
+			.get(CATEGORY_CRAFTING, "Remove Duplicates when IC2 is installed", false, "This atempts to fully intergrate TR with ic2 recipes (Beta)")
+			.getBoolean(false);
 		// Uu
 		HideUuRecipes = config.get(CATEGORY_UU, "Hide UU Recipes", true, "Hide UU Recipes from JEI/NEI")
 			.getBoolean(true);

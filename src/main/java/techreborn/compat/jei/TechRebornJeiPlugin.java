@@ -49,6 +49,7 @@ import techreborn.compat.jei.scrapbox.ScrapboxRecipeHandler;
 import techreborn.compat.jei.vacuumFreezer.VacuumFreezerRecipeCategory;
 import techreborn.compat.jei.vacuumFreezer.VacuumFreezerRecipeHandler;
 import techreborn.config.ConfigTechReborn;
+import techreborn.init.IC2Duplicates;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModFluids;
 import techreborn.init.ModItems;
@@ -118,6 +119,12 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidDiesel));
 		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidNitroDiesel));
 		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidOil));
+
+		if(IC2Duplicates.deduplicate()){
+			for(IC2Duplicates duplicate : IC2Duplicates.values()){
+				jeiHelpers.getItemBlacklist().addItemToBlacklist(duplicate.getTrStack());
+			}
+		}
 
 		registry.addRecipeCategories(new AlloySmelterRecipeCategory(guiHelper),
 			new AssemblingMachineRecipeCategory(guiHelper), new BlastFurnaceRecipeCategory(guiHelper),
