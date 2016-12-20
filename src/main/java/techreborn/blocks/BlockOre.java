@@ -89,7 +89,7 @@ public class BlockOre extends Block implements IOreNameProvider {
 		if (variant.equalsIgnoreCase("Ruby")) {
 			OreDrop ruby = new OreDrop(ItemGems.getGemByName("ruby"),
 				ConfigTechReborn.FortuneSecondaryOreMultiplierPerLevel);
-			OreDrop redGarnet = new OreDrop(ItemGems.getGemByName("redGarnet"), 0.02);
+			OreDrop redGarnet = new OreDrop(ItemGems.getGemByName("red_garnet"), 0.02);
 			OreDropSet set = new OreDropSet(ruby);
 			return set.drop(fortune, random);
 		}
