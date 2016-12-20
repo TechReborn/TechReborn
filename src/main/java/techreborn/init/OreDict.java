@@ -7,6 +7,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.oredict.OreDictionary;
+import reborncore.common.util.StringUtils;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineFrame;
 import techreborn.items.*;
@@ -81,7 +82,7 @@ public class OreDict {
 		for (String type : ItemGems.types) {
 			if (type.equals(ModItems.META_PLACEHOLDER))
 				continue; //Aware of placeholders!
-			OreDictionary.registerOre("gem" + CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "gem_" + type), ItemGems.getGemByName(type));
+			OreDictionary.registerOre("gem" + StringUtils.toFirstCapital(type.toLowerCase()), ItemGems.getGemByName(type));
 			boolean ignoreIt = false;
 			for (String ignore : plateGenIgnores)
 				if (type.startsWith(ignore))
@@ -90,10 +91,11 @@ public class OreDict {
 				ItemPlates.registerType(type);
 		}
 
+
 		for (String type : ItemIngots.types) {
 			if (type.equals(ModItems.META_PLACEHOLDER))
 				continue; //Aware of placeholders!
-			OreDictionary.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "ingot_" + type), ItemIngots.getIngotByName(type));
+			OreDictionary.registerOre("ingot" + StringUtils.toFirstCapital(type.toLowerCase()), ItemIngots.getIngotByName(type));
 			boolean ignoreIt = false;
 			for (String ignore : plateGenIgnores)
 				if (type.startsWith(ignore))
@@ -105,20 +107,20 @@ public class OreDict {
 		for (String type : ItemPlates.types) {
 			if (type.equals(ModItems.META_PLACEHOLDER))
 				continue; //Aware of placeholders!
-			OreDictionary.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "plate_" + type), ItemPlates.getPlateByName(type));
+			OreDictionary.registerOre("plate" + StringUtils.toFirstCapital(type.toLowerCase()), ItemPlates.getPlateByName(type));
 		}
 
 		for (String type : ItemDusts.types) {
 			if (type.equals(ModItems.META_PLACEHOLDER))
 				continue; //Aware of placeholders!
-			OreDictionary.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "dust_" + type), ItemDusts.getDustByName(type));
+			OreDictionary.registerOre("dust" + StringUtils.toFirstCapital(type.toLowerCase()), ItemDusts.getDustByName(type));
 		}
 
 		for (String type : ItemDustsSmall.types) {
 			if (type.equals(ModItems.META_PLACEHOLDER))
 				continue; //Aware of placeholders!
-			OreDictionary.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "dust_tiny_" + type), ItemDustsSmall.getSmallDustByName(type));
-			OreDictionary.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "dust_small_" + type), ItemDustsSmall.getSmallDustByName(type));
+			OreDictionary.registerOre("dustTiny" + StringUtils.toFirstCapital(type.toLowerCase()), ItemDustsSmall.getSmallDustByName(type));
+			OreDictionary.registerOre("dustSmall" + StringUtils.toFirstCapital(type.toLowerCase()), ItemDustsSmall.getSmallDustByName(type));
 		}
 
 		for (String type : ItemDustsSmall.types) {
@@ -131,7 +133,7 @@ public class OreDict {
 		for (String type : ItemNuggets.types) {
 			if (type.equals(ModItems.META_PLACEHOLDER))
 				continue; //Aware of placeholders!
-			OreDictionary.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "nugget_" + type), ItemNuggets.getNuggetByName(type));
+			OreDictionary.registerOre("nugget" + StringUtils.toFirstCapital(type.toLowerCase()), ItemNuggets.getNuggetByName(type));
 		}
 
 	}
