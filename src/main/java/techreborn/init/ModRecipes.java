@@ -3145,12 +3145,13 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(ItemDusts.getDustByName("dark_ashes"),
 			ItemCells.getCellByName("empty", 2), ItemCells.getCellByName("carbon", 2), null, null, null, 20, 30));
 
-		if (OreUtil.doesOreExistAndValid("dustSalt")) {
-			ItemStack salt = OreDictionary.getOres("dustSalt").get(0);
-			salt.setCount(2);
-			RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(salt, ItemCells.getCellByName("empty", 2),
-				ItemCells.getCellByName("sodium"), ItemCells.getCellByName("chlorine"), null, null, 40, 60));
-		}
+		//Disable recipe for now
+//		if (OreUtil.doesOreExistAndValid("dustSalt")) {
+//			ItemStack salt = OreDictionary.getOres("dustSalt").get(0);
+//			salt.setCount(2);
+//			RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(salt, ItemCells.getCellByName("empty", 2),
+//				ItemCells.getCellByName("sodium"), ItemCells.getCellByName("chlorine"), null, null, 40, 60));
+//		}
 
 		Item drill = OreDictionary.getOres("drillBasic").get(0).getItem();
 		ItemStack drillStack = new ItemStack(drill, 1, OreDictionary.WILDCARD_VALUE);
