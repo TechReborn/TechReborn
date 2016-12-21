@@ -54,6 +54,10 @@ import techreborn.init.ModBlocks;
 import techreborn.init.ModFluids;
 import techreborn.init.ModItems;
 import techreborn.items.ItemParts;
+import techreborn.parts.TechRebornParts;
+import techreborn.parts.powerCables.EnumCableType;
+import techreborn.parts.powerCables.ItemCables;
+import techreborn.world.TechRebornWorldGen;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -122,7 +126,24 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 
 		if(IC2Duplicates.deduplicate()){
 			for(IC2Duplicates duplicate : IC2Duplicates.values()){
-				jeiHelpers.getItemBlacklist().addItemToBlacklist(duplicate.getTrStack());
+				if(duplicate.hasIC2Stack()){
+					jeiHelpers.getItemBlacklist().addItemToBlacklist(duplicate.getTrStack());
+				}
+			}
+			if(TechRebornParts.cables != null){
+				for (int i = 0; i < EnumCableType.values().length; i++) {
+					jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(TechRebornParts.cables, 1, i));
+				}
+			}
+			jeiHelpers.getItemBlacklist().addItemToBlacklist(ItemParts.getPartByName("rubber"));
+			jeiHelpers.getItemBlacklist().addItemToBlacklist(ItemParts.getPartByName("rubberSap"));
+			if(!Core.worldGen.config.rubberTreeConfig.shouldSpawn){
+				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.rubberSapling));
+				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.rubberLog));
+				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.rubberPlanks));
+				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.rubberLeaves));
+				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModItems.treeTap));
+				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModItems.electricTreetap));
 			}
 		}
 

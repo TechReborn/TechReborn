@@ -12,6 +12,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.oredict.OreDictionary;
 import reborncore.api.fuel.FluidPowerManager;
 import reborncore.api.recipe.RecipeHandler;
 import techreborn.dev.JsonGenerator;
@@ -86,6 +87,10 @@ public class TechRebornDevCommand extends CommandBase {
 			} catch (IOException e) {
 				e.printStackTrace();
 				sender.addChatMessage(new TextComponentString(e.getLocalizedMessage()));
+			}
+		} else if ("ores".equals(args[0])) {
+			for(String ore: OreDictionary.getOreNames()){
+				System.out.println(ore);
 			}
 		}
 	}

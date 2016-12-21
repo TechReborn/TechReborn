@@ -3,6 +3,8 @@ package techreborn.init;
 import ic2.core.block.BlockIC2Fence;
 import ic2.core.block.BlockTexGlass;
 import ic2.core.block.type.ResourceBlock;
+import ic2.core.block.wiring.CableType;
+import ic2.core.item.block.ItemCable;
 import ic2.core.item.type.CraftingItemType;
 import ic2.core.item.type.MiscResourceType;
 import ic2.core.item.type.NuclearResourceType;
@@ -19,6 +21,38 @@ import techreborn.Core;
 public class IC2Dict {
 
 	public static void init() {
+
+		IC2Duplicates.GRINDER.setIc2Stack(BlockName.te.getItemStack(TeBlock.macerator.getName()));
+		IC2Duplicates.ELECTRICAL_FURNACE.setIc2Stack(BlockName.te.getItemStack(TeBlock.electric_furnace.getName()));
+		IC2Duplicates.IRON_FURNACE.setIc2Stack(BlockName.te.getItemStack(TeBlock.iron_furnace.getName()));
+		IC2Duplicates.GENERATOR.setIc2Stack(BlockName.te.getItemStack(TeBlock.generator.getName()));
+		IC2Duplicates.EXTRACTOR.setIc2Stack(BlockName.te.getItemStack(TeBlock.extractor.getName()));
+		IC2Duplicates.SOLAR_PANEL.setIc2Stack(BlockName.te.getItemStack(TeBlock.solar_generator.getName()));
+		IC2Duplicates.RECYCLER.setIc2Stack(BlockName.te.getItemStack(TeBlock.recycler.getName()));
+		IC2Duplicates.COMPRESSOR.setIc2Stack(BlockName.te.getItemStack(TeBlock.compressor.getName()));
+		IC2Duplicates.BAT_BOX.setIc2Stack(BlockName.te.getItemStack(TeBlock.batbox.getName()));
+		IC2Duplicates.MFE.setIc2Stack(BlockName.te.getItemStack(TeBlock.mfe.getName()));
+		IC2Duplicates.MFSU.setIc2Stack(BlockName.te.getItemStack(TeBlock.mfsu.getName()));
+		IC2Duplicates.LVT.setIc2Stack(BlockName.te.getItemStack(TeBlock.lv_transformer.getName()));
+		IC2Duplicates.MVT.setIc2Stack(BlockName.te.getItemStack(TeBlock.mv_transformer.getName()));
+		IC2Duplicates.HVT.setIc2Stack(BlockName.te.getItemStack(TeBlock.hv_transformer.getName()));
+		IC2Duplicates.CABLE_COPPER.setIc2Stack(getIC2Cable(CableType.copper, 0));
+		IC2Duplicates.CABLE_GOLD.setIc2Stack(getIC2Cable(CableType.gold, 0));
+		IC2Duplicates.CABLE_ICOPPER.setIc2Stack(getIC2Cable(CableType.copper, 1));
+		IC2Duplicates.CABLE_IGOLD.setIc2Stack(getIC2Cable(CableType.gold, 1));
+		IC2Duplicates.CABLE_HV.setIc2Stack(getIC2Cable(CableType.tin, 0));
+		IC2Duplicates.CABLE_IHV.setIc2Stack(getIC2Cable(CableType.tin, 1));
+		IC2Duplicates.CABLE_IIHV.setIc2Stack(getIC2Cable(CableType.tin, 2));
+		IC2Duplicates.CABLE_GLASSFIBER.setIc2Stack(getIC2Cable(CableType.glass, 0));
+
+		IC2Duplicates.UPGRADE_OVERCLOCKER.setIc2Stack(ItemName.upgrade.getItemStack("overclocker"));
+		IC2Duplicates.UPGRADE_STORAGE.setIc2Stack(ItemName.upgrade.getItemStack("energy_storage"));
+		IC2Duplicates.UPGRADE_TRANSFORMER.setIc2Stack(ItemName.upgrade.getItemStack("transformer"));
+		IC2Duplicates.MIXED_METAL.setIc2Stack(ItemName.ingot.getItemStack("alloy"));
+		//Rubber - ore dic: itemRubber, hidden from JEI
+		//Rubber Sap - only used to make rubber, hidden from JEI
+		//Rubber tree blocks, hidden when deduplication is on, and rubber tress are not set to gen, includes tree taps
+
 		try {
 			CraftingItemType.circuit.getName();
 
@@ -80,4 +114,15 @@ public class IC2Dict {
 			error.printStackTrace();
 		}
 	}
+
+
+	public static ItemStack getIC2Cable(CableType type, int insulation){
+		if(insulation > type.maxInsulation){
+			return null;
+		}
+		ItemCable itemCable = ItemName.cable.getInstance();
+		return itemCable.getCable(type, insulation);
+	}
+
+
 }
