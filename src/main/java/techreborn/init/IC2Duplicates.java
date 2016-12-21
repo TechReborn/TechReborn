@@ -41,7 +41,8 @@ public enum IC2Duplicates {
 	UPGRADE_STORAGE(ItemUpgrades.getUpgradeByName("EnergyStorage")),
 	MIXED_METAL(ItemIngots.getIngotByName("mixedMetal")),
 	CARBON_FIBER(ItemParts.getPartByName("carbonfiber")),
-	CARBON_MESH(ItemParts.getPartByName("carbonmesh"));
+	CARBON_MESH(ItemParts.getPartByName("carbonmesh")),
+	REFINED_IRON(ItemIngots.getIngotByName("refinedIron"));
 
 	ItemStack ic2Stack;
 	ItemStack trStack;

@@ -51,6 +51,7 @@ public class IC2Dict {
 		IC2Duplicates.MIXED_METAL.setIc2Stack(ItemName.ingot.getItemStack("alloy"));
 		IC2Duplicates.CARBON_FIBER.setIc2Stack(ItemName.crafting.getItemStack("carbon_fibre"));
 		IC2Duplicates.CARBON_MESH.setIc2Stack(ItemName.crafting.getItemStack("carbon_mesh"));
+		IC2Duplicates.REFINED_IRON.setIc2Stack(ItemName.plate.getItemStack("iron"));
 		//Rubber - ore dic: itemRubber, hidden from JEI
 		//Rubber Sap - only used to make rubber, hidden from JEI
 		//Rubber tree blocks, hidden when deduplication is on, and rubber tress are not set to gen, includes tree taps
