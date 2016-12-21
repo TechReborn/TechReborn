@@ -361,7 +361,7 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(new CompressorRecipe(ItemIngots.getIngotByName("advancedAlloy"),
 			ItemPlates.getPlateByName("advancedAlloy"), 400, 20));
 		RecipeHandler.addRecipe(
-			new CompressorRecipe(ItemParts.getPartByName("carbonmesh"), ItemPlates.getPlateByName("carbon"), 400,
+			new CompressorRecipe(IC2Duplicates.CARBON_MESH.getStackBasedOnConfig(), ItemPlates.getPlateByName("carbon"), 400,
 				2));
 
 		for (String ore : OreUtil.oreNames) {
@@ -532,17 +532,20 @@ public class ModRecipes {
 			"ingotTitanium", 'B', steelJackhammerStack, 'C', "circuitAdvanced",
 			'D', "diamondTR");
 
-		CraftingHelper.addShapelessOreRecipe(ItemParts.getPartByName("carbonfiber"), ItemDusts.getDustByName("coal"),
-			ItemDusts.getDustByName("coal"), ItemDusts.getDustByName("coal"), ItemDusts.getDustByName("coal"));
+		if(!IC2Duplicates.deduplicate()){
+			CraftingHelper.addShapelessOreRecipe(ItemParts.getPartByName("carbonfiber"), ItemDusts.getDustByName("coal"),
+				ItemDusts.getDustByName("coal"), ItemDusts.getDustByName("coal"), ItemDusts.getDustByName("coal"));
 
-		CraftingHelper.addShapelessOreRecipe(ItemParts.getPartByName("carbonfiber"), ItemCells.getCellByName("carbon"),
-			ItemCells.getCellByName("carbon"), ItemCells.getCellByName("carbon"), ItemCells.getCellByName("carbon"),
-			ItemCells.getCellByName("carbon"), ItemCells.getCellByName("carbon"), ItemCells.getCellByName("carbon"),
-			ItemCells.getCellByName("carbon"), ItemCells.getCellByName("carbon"));
+			CraftingHelper.addShapelessOreRecipe(ItemParts.getPartByName("carbonfiber"), ItemCells.getCellByName("carbon"),
+				ItemCells.getCellByName("carbon"), ItemCells.getCellByName("carbon"), ItemCells.getCellByName("carbon"),
+				ItemCells.getCellByName("carbon"), ItemCells.getCellByName("carbon"), ItemCells.getCellByName("carbon"),
+				ItemCells.getCellByName("carbon"), ItemCells.getCellByName("carbon"));
 
-		CraftingHelper
-			.addShapelessOreRecipe(ItemParts.getPartByName("carbonmesh"), ItemParts.getPartByName("carbonfiber"),
-				ItemParts.getPartByName("carbonfiber"));
+			CraftingHelper
+				.addShapelessOreRecipe(ItemParts.getPartByName("carbonmesh"), ItemParts.getPartByName("carbonfiber"),
+					ItemParts.getPartByName("carbonfiber"));
+		}
+
 
 		CraftingHelper
 			.addShapedOreRecipe(ItemParts.getPartByName("computerMonitor"), "ADA", "DGD", "ADA", 'D', dyes, 'A',

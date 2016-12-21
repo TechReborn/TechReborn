@@ -137,6 +137,8 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 			}
 			jeiHelpers.getItemBlacklist().addItemToBlacklist(ItemParts.getPartByName("rubber"));
 			jeiHelpers.getItemBlacklist().addItemToBlacklist(ItemParts.getPartByName("rubberSap"));
+			jeiHelpers.getItemBlacklist().addItemToBlacklist(ItemParts.getPartByName("electronicCircuit"));
+			jeiHelpers.getItemBlacklist().addItemToBlacklist(ItemParts.getPartByName("advancedCircuit"));
 			if(!Core.worldGen.config.rubberTreeConfig.shouldSpawn){
 				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.rubberSapling));
 				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.rubberLog));
