@@ -13,7 +13,6 @@ public class BlockBreakHandler {
 	@SubscribeEvent
 	public void onBlockHarvest(BlockEvent.HarvestDropsEvent event) {
 		if (OreDictUtils.isOre(event.getState(), "oreRuby")) {
-			System.out.println("HI");
 			event.getDrops().add(ItemGems.getGemByName("red_garnet").copy());
 		}
 	}
