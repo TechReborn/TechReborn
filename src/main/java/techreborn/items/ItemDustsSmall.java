@@ -1,13 +1,12 @@
 package techreborn.items;
 
+import com.google.common.base.CaseFormat;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import reborncore.common.util.StringUtils;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
-import techreborn.lib.ModInfo;
 
 import java.security.InvalidParameterException;
 
@@ -29,6 +28,7 @@ public class ItemDustsSmall extends ItemTRNoDestroy {
 	}
 
 	public static ItemStack getSmallDustByName(String name, int count) {
+		name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, name);
 		for (int i = 0; i < types.length; i++) {
 			if (types[i].equalsIgnoreCase(name)) {
 				if (types[i].equals(ModItems.META_PLACEHOLDER)) {

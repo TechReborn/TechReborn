@@ -1,5 +1,6 @@
 package techreborn.items;
 
+import com.google.common.base.CaseFormat;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -20,6 +21,7 @@ public class ItemGems extends ItemTRNoDestroy {
 	}
 
 	public static ItemStack getGemByName(String name, int count) {
+		name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, name);
 		for (int i = 0; i < types.length; i++) {
 			if (types[i].equalsIgnoreCase(name)) {
 				return new ItemStack(ModItems.gems, count, i);

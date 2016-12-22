@@ -25,6 +25,7 @@ public class ItemPlates extends ItemTRNoDestroy {
 	}
 
 	public static ItemStack getPlateByName(String name, int count) {
+		name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, name);
 		for (int i = 0; i < types.length; i++) {
 			if (types[i].equalsIgnoreCase(name)) {
 				return new ItemStack(ModItems.plate, count, i);
