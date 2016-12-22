@@ -464,32 +464,30 @@ public class ModBlocks {
 			OreDictionary.registerOre("ore" + StringUtils.toFirstCapital(ore), BlockOre2.getOreByName(ore));
 		}
 
-		OreDictionary.registerOre("blockSilver", new ItemStack(storage, 1, 0));
-		OreDictionary.registerOre("blockAluminum", new ItemStack(storage, 1, 1));
-		OreDictionary.registerOre("blockTitanium", new ItemStack(storage, 1, 2));
-		OreDictionary.registerOre("blockChrome", new ItemStack(storage, 1, 3));
-		OreDictionary.registerOre("blockSteel", new ItemStack(storage, 1, 4));
-		OreDictionary.registerOre("blockBrass", new ItemStack(storage, 1, 5));
-		OreDictionary.registerOre("blockLead", new ItemStack(storage, 1, 6));
-		OreDictionary.registerOre("blockElectrum", new ItemStack(storage, 1, 7));
-		OreDictionary.registerOre("blockZinc", new ItemStack(storage, 1, 8));
-		OreDictionary.registerOre("blockPlatinum", new ItemStack(storage, 1, 9));
-		OreDictionary.registerOre("blockTungsten", new ItemStack(storage, 1, 10));
-		OreDictionary.registerOre("blockNickel", new ItemStack(storage, 1, 11));
-		OreDictionary.registerOre("blockInvar", new ItemStack(storage, 1, 12));
-		//OreDictionary.registerOre("blockOsmium", new ItemStack(storage, 1, 13));	No osmium, stolen by Mekanism
-		OreDictionary.registerOre("blockIridium", new ItemStack(storage, 1, 13));
+		OreDictionary.registerOre("blockSilver", BlockStorage.getStorageBlockByName("silver"));
+		OreDictionary.registerOre("blockAluminum", BlockStorage.getStorageBlockByName("aluminum"));
+		OreDictionary.registerOre("blockAluminium", BlockStorage.getStorageBlockByName("aluminum"));
+		OreDictionary.registerOre("blockTitanium", BlockStorage.getStorageBlockByName("titanium"));
+		OreDictionary.registerOre("blockChrome", BlockStorage.getStorageBlockByName("chrome"));
+		OreDictionary.registerOre("blockSteel", BlockStorage.getStorageBlockByName("steel"));
+		OreDictionary.registerOre("blockBrass", BlockStorage.getStorageBlockByName("brass"));
+		OreDictionary.registerOre("blockLead", BlockStorage.getStorageBlockByName("lead"));
+		OreDictionary.registerOre("blockElectrum", BlockStorage.getStorageBlockByName("electrum"));
+		OreDictionary.registerOre("blockZinc", BlockStorage.getStorageBlockByName("zinc"));
+		OreDictionary.registerOre("blockPlatinum", BlockStorage.getStorageBlockByName("platinum"));
+		OreDictionary.registerOre("blockTungsten", BlockStorage.getStorageBlockByName("tungsten"));
+		OreDictionary.registerOre("blockNickel", BlockStorage.getStorageBlockByName("nickel"));
+		OreDictionary.registerOre("blockInvar", BlockStorage.getStorageBlockByName("invar"));
+		OreDictionary.registerOre("blockIridium", BlockStorage.getStorageBlockByName("iridium"));
 		OreDictionary.registerOre("blockCopper", BlockStorage2.getStorageBlockByName("copper", 1));
 		OreDictionary.registerOre("blockTin", BlockStorage2.getStorageBlockByName("tin", 1));
 
-		OreDictionary.registerOre("blockTungstensteel", new ItemStack(storage2, 1, 0));
-		OreDictionary.registerOre("blockLodestone", new ItemStack(storage2, 1, 1));
-		OreDictionary.registerOre("blockTellurium", new ItemStack(storage2, 1, 2));
-		OreDictionary.registerOre("blockRuby", new ItemStack(storage2, 1, 5));
-		OreDictionary.registerOre("blockSapphire", new ItemStack(storage2, 1, 6));
-		OreDictionary.registerOre("blockPeridot", new ItemStack(storage2, 1, 7));
-		OreDictionary.registerOre("blockYellowGarnet", new ItemStack(storage2, 1, 8));
-		OreDictionary.registerOre("blockRedGarnet", new ItemStack(storage2, 1, 9));
+		OreDictionary.registerOre("blockTungstensteel", BlockStorage2.getStorageBlockByName("tungstensteel", 1));
+		OreDictionary.registerOre("blockRuby", BlockStorage2.getStorageBlockByName("ruby", 1));
+		OreDictionary.registerOre("blockSapphire", BlockStorage2.getStorageBlockByName("sapphire", 1));
+		OreDictionary.registerOre("blockPeridot", BlockStorage2.getStorageBlockByName("peridot", 1));
+		OreDictionary.registerOre("blockYellowGarnet", BlockStorage2.getStorageBlockByName("yellowGarnet", 1));
+		OreDictionary.registerOre("blockRedGarnet", BlockStorage2.getStorageBlockByName("redGarnet", 1));
 
 		OreDictionary.registerOre("craftingPiston", Blocks.PISTON);
 		OreDictionary.registerOre("craftingPiston", Blocks.STICKY_PISTON);

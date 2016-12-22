@@ -11,7 +11,6 @@ import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.oredict.OreDictionary;
@@ -365,15 +364,14 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(
 			new CompressorRecipe(ItemParts.getPartByName("carbonmesh"), ItemPlates.getPlateByName("carbon"), 400,
 				2));
-		
-		for(String ore : OreUtil.oreNames){
-			if(OreUtil.doesOreExistAndValid("plate" +  OreUtil.capitalizeFirstLetter(ore)) && OreUtil.doesOreExistAndValid("ingot" +  OreUtil.capitalizeFirstLetter(ore))){
+		for (String ore : OreUtil.oreNames) {
+			if (OreUtil.doesOreExistAndValid("plate" + OreUtil.capitalizeFirstLetter(ore)) && OreUtil.doesOreExistAndValid("ingot" + OreUtil.capitalizeFirstLetter(ore))) {
 				RecipeHandler.addRecipe(
 					new CompressorRecipe(OreUtil.getStackFromName("ingot" + OreUtil.capitalizeFirstLetter(ore), 9), OreUtil.getStackFromName("plate" + OreUtil.capitalizeFirstLetter(ore), 1), 300,
 						4));
 			}
 
-			if(OreUtil.hasPlate(ore) && OreUtil.hasBlock(ore)){
+			if (OreUtil.hasPlate(ore) && OreUtil.hasBlock(ore)) {
 				RecipeHandler.addRecipe(
 					new CompressorRecipe(OreUtil.getStackFromName("block" + OreUtil.capitalizeFirstLetter(ore), 1), OreUtil.getStackFromName("plate" + OreUtil.capitalizeFirstLetter(ore), 1), 300,
 						4));
@@ -3146,12 +3144,12 @@ public class ModRecipes {
 			ItemCells.getCellByName("empty", 2), ItemCells.getCellByName("carbon", 2), null, null, null, 20, 30));
 
 		//Disable recipe for now
-//		if (OreUtil.doesOreExistAndValid("dustSalt")) {
-//			ItemStack salt = OreDictionary.getOres("dustSalt").get(0);
-//			salt.setCount(2);
-//			RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(salt, ItemCells.getCellByName("empty", 2),
-//				ItemCells.getCellByName("sodium"), ItemCells.getCellByName("chlorine"), null, null, 40, 60));
-//		}
+		//		if (OreUtil.doesOreExistAndValid("dustSalt")) {
+		//			ItemStack salt = OreDictionary.getOres("dustSalt").get(0);
+		//			salt.setCount(2);
+		//			RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(salt, ItemCells.getCellByName("empty", 2),
+		//				ItemCells.getCellByName("sodium"), ItemCells.getCellByName("chlorine"), null, null, 40, 60));
+		//		}
 
 		Item drill = OreDictionary.getOres("drillBasic").get(0).getItem();
 		ItemStack drillStack = new ItemStack(drill, 1, OreDictionary.WILDCARD_VALUE);
@@ -3237,7 +3235,7 @@ public class ModRecipes {
 		GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.SEMIFLUID, ModFluids.fluidLithium, 60);
 
 		GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.THERMAL, FluidRegistry.LAVA, 60);
-		
+
 		GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.GAS, ModFluids.fluidHydrogen, 15);
 		GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.GAS, ModFluids.fluidMethane, 45);
 	}
