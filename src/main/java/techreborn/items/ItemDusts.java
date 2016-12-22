@@ -8,7 +8,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
-import techreborn.lib.ModInfo;
 
 import java.security.InvalidParameterException;
 
