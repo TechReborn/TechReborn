@@ -996,16 +996,14 @@ public class ModRecipes {
 		}
 
 		for (String nuggets : ItemNuggets.types) {
-			if (nuggets.equals(ModItems.META_PLACEHOLDER))
+			if (nuggets.equals(ModItems.META_PLACEHOLDER) || nuggets.equalsIgnoreCase("diamond"))
 				continue; //Aware of placeholders!
 			CraftingHelper.addShapelessOreRecipe(ItemNuggets.getNuggetByName(nuggets, 9), CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "ingot_" + nuggets));
-			if (OreDictionary.getOres(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "ingot_" + nuggets)).size() > 0) {
-				CraftingHelper.addShapelessOreRecipe(OreDictionary.getOres(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "ingot_" + nuggets)).get(0), ItemNuggets.getNuggetByName(nuggets), ItemNuggets.getNuggetByName(nuggets), ItemNuggets.getNuggetByName(nuggets), ItemNuggets.getNuggetByName(nuggets), ItemNuggets.getNuggetByName(nuggets), ItemNuggets.getNuggetByName(nuggets), ItemNuggets.getNuggetByName(nuggets), ItemNuggets.getNuggetByName(nuggets), ItemNuggets.getNuggetByName(nuggets));
-			}
+			CraftingHelper.addShapelessOreRecipe(ItemIngots.getIngotByName(nuggets), CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "nugget_" + nuggets), CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "nugget_" + nuggets), CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "nugget_" + nuggets), CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "nugget_" + nuggets), CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "nugget_" + nuggets), CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "nugget_" + nuggets), CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "nugget_" + nuggets), CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "nugget_" + nuggets), CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "nugget_" + nuggets));
 		}
 
 		CraftingHelper.addShapelessOreRecipe(ItemNuggets.getNuggetByName("diamond", 9), "gemDiamond");
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(Items.DIAMOND), ItemNuggets.getNuggetByName("diamond"), ItemNuggets.getNuggetByName("diamond"), ItemNuggets.getNuggetByName("diamond"), ItemNuggets.getNuggetByName("diamond"), ItemNuggets.getNuggetByName("diamond"), ItemNuggets.getNuggetByName("diamond"), ItemNuggets.getNuggetByName("diamond"), ItemNuggets.getNuggetByName("diamond"), ItemNuggets.getNuggetByName("diamond"));
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(Items.DIAMOND), "nuggetDiamond", "nuggetDiamond", "nuggetDiamond", "nuggetDiamond", "nuggetDiamond", "nuggetDiamond", "nuggetDiamond", "nuggetDiamond", "nuggetDiamond");
 
 		CraftingHelper.addShapelessOreRecipe(BlockStorage2.getStorageBlockByName("iridium_reinforced_stone", 1), new ItemStack(Blocks.STONE), ItemIngots.getIngotByName("iridium"));
 		CraftingHelper.addShapelessOreRecipe(BlockStorage2.getStorageBlockByName("iridium_reinforced_tungstensteel", 1), BlockStorage2.getStorageBlockByName("tungstensteel", 1), ItemIngots.getIngotByName("iridium"));

@@ -2,6 +2,7 @@ package techreborn.items;
 
 import com.google.common.base.CaseFormat;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -28,6 +29,12 @@ public class ItemIngots extends ItemTRNoDestroy {
 			if (types[i].equalsIgnoreCase(name)) {
 				return new ItemStack(ModItems.ingots, count, i);
 			}
+		}
+		if (name.equalsIgnoreCase("iron")) {
+			return new ItemStack(Items.IRON_INGOT);
+		}
+		if (name.equalsIgnoreCase("gold")) {
+			return new ItemStack(Items.GOLD_INGOT);
 		}
 		throw new InvalidParameterException("The ingot " + name + " could not be found.");
 	}
