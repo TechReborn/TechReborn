@@ -1,5 +1,6 @@
 package techreborn.init;
 
+import com.google.common.base.CaseFormat;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
@@ -993,6 +994,18 @@ public class ModRecipes {
 				ItemDustsSmall.getSmallDustByName(name), ItemDustsSmall.getSmallDustByName(name),
 				ItemDustsSmall.getSmallDustByName(name));
 		}
+
+		for (String nuggets : ItemNuggets.types) {
+			if (nuggets.equals(ModItems.META_PLACEHOLDER))
+				continue; //Aware of placeholders!
+			CraftingHelper.addShapelessOreRecipe(ItemNuggets.getNuggetByName(nuggets, 9), CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "ingot_" + nuggets));
+			if (OreDictionary.getOres(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "ingot_" + nuggets)).size() > 0) {
+				CraftingHelper.addShapelessOreRecipe(OreDictionary.getOres(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "ingot_" + nuggets)).get(0), ItemNuggets.getNuggetByName(nuggets, 9));
+			}
+		}
+
+		CraftingHelper.addShapelessOreRecipe(ItemNuggets.getNuggetByName("diamond", 9), "gemDiamond");
+		CraftingHelper.addShapelessOreRecipe(new ItemStack(Items.DIAMOND), ItemNuggets.getNuggetByName("diamond", 9));
 
 		Core.logHelper.info("Shapeless Recipes Added");
 	}
