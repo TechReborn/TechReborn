@@ -81,7 +81,6 @@ public class OreDict {
 			if (type.equals(ModItems.META_PLACEHOLDER))
 				continue; //Aware of placeholders!
 			OreDictionary.registerOre("gem" + CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "gem_" + type), ItemGems.getGemByName(type));
-			System.out.println("Gem '" + type + "' has been registered as " + CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "gem_" + type) + " in the Ore dictionary");
 			boolean ignoreIt = false;
 			for (String ignore : plateGenIgnores)
 				if (type.startsWith(ignore))
@@ -94,7 +93,6 @@ public class OreDict {
 			if (type.equals(ModItems.META_PLACEHOLDER))
 				continue; //Aware of placeholders!
 			OreDictionary.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "ingot_" + type), ItemIngots.getIngotByName(type));
-			System.out.println("Ingot '" + type + "' has been registered as " + CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "ingot_" + type) + " in the Ore dictionary");
 			boolean ignoreIt = false;
 			for (String ignore : plateGenIgnores)
 				if (type.startsWith(ignore))
@@ -107,14 +105,12 @@ public class OreDict {
 			if (type.equals(ModItems.META_PLACEHOLDER))
 				continue; //Aware of placeholders!
 			OreDictionary.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "plate_" + type), ItemPlates.getPlateByName(type));
-			System.out.println("Plate '" + type + "' has been registered as " + CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "plate_" + type) + " in the Ore dictionary");
 		}
 
 		for (String type : ItemDusts.types) {
 			if (type.equals(ModItems.META_PLACEHOLDER))
 				continue; //Aware of placeholders!
 			OreDictionary.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "dust_" + type), ItemDusts.getDustByName(type));
-			System.out.println("Dust '" + type + "' has been registered as " + CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "dust_" + type) + " in the Ore dictionary");
 		}
 
 		for (String type : ItemDustsSmall.types) {
@@ -122,15 +118,12 @@ public class OreDict {
 				continue; //Aware of placeholders!
 			OreDictionary.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "dust_tiny_" + type), ItemDustsSmall.getSmallDustByName(type));
 			OreDictionary.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "dust_small_" + type), ItemDustsSmall.getSmallDustByName(type));
-			System.out.println("Small Dust '" + type + "' has been registered as " + CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "dust_tiny_" + type) + " in the Ore dictionary");
-			System.out.println("Small Dust '" + type + "' has been registered as " + CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "dust_small_" + type) + " in the Ore dictionary");
 		}
 
 		for (String type : ItemNuggets.types) {
 			if (type.equals(ModItems.META_PLACEHOLDER))
 				continue; //Aware of placeholders!
 			OreDictionary.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "nugget_" + type), ItemNuggets.getNuggetByName(type));
-			System.out.println("Nugget '" + type + "' has been registered as " + CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "nugget_" + type) + " in the Ore dictionary");
 		}
 
 	}
