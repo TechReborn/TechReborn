@@ -1007,6 +1007,10 @@ public class ModRecipes {
 		CraftingHelper.addShapelessOreRecipe(ItemNuggets.getNuggetByName("diamond", 9), "gemDiamond");
 		CraftingHelper.addShapelessOreRecipe(new ItemStack(Items.DIAMOND), ItemNuggets.getNuggetByName("diamond", 9));
 
+		CraftingHelper.addShapelessOreRecipe(BlockStorage2.getStorageBlockByName("iridium_reinforced_stone", 1), new ItemStack(Blocks.STONE), ItemIngots.getIngotByName("iridium"));
+		CraftingHelper.addShapelessOreRecipe(BlockStorage2.getStorageBlockByName("iridium_reinforced_tungstensteel", 1), BlockStorage2.getStorageBlockByName("tungstensteel", 1), ItemIngots.getIngotByName("iridium"));
+		CraftingHelper.addShapelessOreRecipe(BlockStorage2.getStorageBlockByName("iridium_reinforced_tungstensteel", 1), BlockStorage2.getStorageBlockByName("iridium_reinforced_stone", 1), ItemIngots.getIngotByName("tungstensteel"));
+
 		Core.logHelper.info("Shapeless Recipes Added");
 	}
 
