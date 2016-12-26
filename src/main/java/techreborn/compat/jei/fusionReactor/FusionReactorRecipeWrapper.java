@@ -21,8 +21,8 @@ public class FusionReactorRecipeWrapper extends BlankRecipeWrapper {
 	public void getIngredients(
 		@Nonnull
 			IIngredients ingredients) {
-		ingredients.setOutputs(ItemStack.class, Arrays.asList(baseRecipe.getTopInput(), baseRecipe.getBottomInput()));
-		ingredients.setInput(ItemStack.class, baseRecipe.getOutput());
+		ingredients.setInputs(ItemStack.class, Arrays.asList(baseRecipe.getTopInput(), baseRecipe.getBottomInput()));
+		ingredients.setOutput(ItemStack.class, baseRecipe.getOutput());
 	}
 
 	public ItemStack getTopInput() {

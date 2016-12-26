@@ -75,6 +75,7 @@ public class OreDict {
 
 		OreDictionary.registerOre("materialResin", ItemParts.getPartByName("rubberSap"));
 		OreDictionary.registerOre("materialRubber", ItemParts.getPartByName("rubber"));
+		OreDictionary.registerOre("itemRubber", ItemParts.getPartByName("rubber"));
 		OreDictionary.registerOre("pulpWood", ItemDusts.getDustByName("saw_dust"));
 
 		for (String type : ItemGems.types) {

@@ -1,5 +1,6 @@
 package techreborn.parts.powerCables;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
 import reborncore.api.power.EnumPowerTier;
 
@@ -37,5 +38,9 @@ public enum EnumStandaloneCableType implements IStringSerializable {
 	@Override
 	public String getName() {
 		return friendlyName.toLowerCase();
+	}
+
+	public ItemStack getStack(){
+		return ItemStandaloneCables.getCableByName(getName());
 	}
 }

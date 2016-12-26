@@ -40,7 +40,7 @@ public class TechRebornWorldGen implements IWorldGenerator {
 	public File configFile;
 	public File hConfigFile;
 	public boolean jsonInvalid = false;
-	WorldGenConfig config;
+	public WorldGenConfig config;
 	WorldGenConfig defaultConfig;
 
 	private void init() {

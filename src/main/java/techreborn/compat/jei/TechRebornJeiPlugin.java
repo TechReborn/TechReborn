@@ -53,10 +53,15 @@ import techreborn.compat.jei.scrapbox.ScrapboxRecipeHandler;
 import techreborn.compat.jei.vacuumFreezer.VacuumFreezerRecipeCategory;
 import techreborn.compat.jei.vacuumFreezer.VacuumFreezerRecipeHandler;
 import techreborn.config.ConfigTechReborn;
+import techreborn.init.IC2Duplicates;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModFluids;
 import techreborn.init.ModItems;
 import techreborn.items.ItemParts;
+import techreborn.parts.TechRebornParts;
+import techreborn.parts.powerCables.EnumCableType;
+import techreborn.parts.powerCables.ItemCables;
+import techreborn.world.TechRebornWorldGen;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -123,6 +128,31 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidNitroDiesel));
 		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidOil));
 		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModItems.missingRecipe));
+
+		if(IC2Duplicates.deduplicate()){
+			for(IC2Duplicates duplicate : IC2Duplicates.values()){
+				if(duplicate.hasIC2Stack()){
+					jeiHelpers.getItemBlacklist().addItemToBlacklist(duplicate.getTrStack());
+				}
+			}
+			if(TechRebornParts.cables != null){
+				for (int i = 0; i < EnumCableType.values().length; i++) {
+					jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(TechRebornParts.cables, 1, i));
+				}
+			}
+			jeiHelpers.getItemBlacklist().addItemToBlacklist(ItemParts.getPartByName("rubber"));
+			jeiHelpers.getItemBlacklist().addItemToBlacklist(ItemParts.getPartByName("rubberSap"));
+			jeiHelpers.getItemBlacklist().addItemToBlacklist(ItemParts.getPartByName("electronicCircuit"));
+			jeiHelpers.getItemBlacklist().addItemToBlacklist(ItemParts.getPartByName("advancedCircuit"));
+			if(!Core.worldGen.config.rubberTreeConfig.shouldSpawn){
+				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.rubberSapling));
+				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.rubberLog));
+				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.rubberPlanks));
+				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.rubberLeaves));
+				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModItems.treeTap));
+				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModItems.electricTreetap));
+			}
+		}
 
 		registry.addRecipeCategories(new AlloySmelterRecipeCategory(guiHelper),
 				new AssemblingMachineRecipeCategory(guiHelper), new BlastFurnaceRecipeCategory(guiHelper),
