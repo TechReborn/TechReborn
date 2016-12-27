@@ -14,20 +14,20 @@ import techreborn.parts.powerCables.ItemStandaloneCables;
  */
 public enum IC2Duplicates {
 
-	GRINDER(new ItemStack(ModBlocks.Grinder)),
-	ELECTRICAL_FURNACE(new ItemStack(ModBlocks.ElectricFurnace)),
+	GRINDER(new ItemStack(ModBlocks.grinder)),
+	ELECTRICAL_FURNACE(new ItemStack(ModBlocks.electricFurnace)),
 	IRON_FURNACE(new ItemStack(ModBlocks.ironFurnace)),
-	GENERATOR(new ItemStack(ModBlocks.Generator)),
-	EXTRACTOR(new ItemStack(ModBlocks.Extractor)),
+	GENERATOR(new ItemStack(ModBlocks.generator)),
+	EXTRACTOR(new ItemStack(ModBlocks.extractor)),
 	SOLAR_PANEL(new ItemStack(ModBlocks.solarPanel)),
 	RECYCLER(new ItemStack(ModBlocks.recycler)),
-	COMPRESSOR(new ItemStack(ModBlocks.Compressor)),
+	COMPRESSOR(new ItemStack(ModBlocks.compressor)),
 	BAT_BOX(new ItemStack(ModBlocks.batBox)),
-	MFE(new ItemStack(ModBlocks.mfe)),
-	MFSU(new ItemStack(ModBlocks.mfsu)),
-	LVT(new ItemStack(ModBlocks.lvt)),
-	MVT(new ItemStack(ModBlocks.mvt)),
-	HVT(new ItemStack(ModBlocks.hvt)),
+	MFE(new ItemStack(ModBlocks.MFE)),
+	MFSU(new ItemStack(ModBlocks.MFSU)),
+	LVT(new ItemStack(ModBlocks.LVT)),
+	MVT(new ItemStack(ModBlocks.MVT)),
+	HVT(new ItemStack(ModBlocks.HVT)),
 	CABLE_COPPER(EnumStandaloneCableType.COPPER.getStack()),
 	CABLE_GLASSFIBER(EnumStandaloneCableType.GLASSFIBER.getStack()),
 	CABLE_GOLD(EnumStandaloneCableType.GOLD.getStack()),
@@ -36,13 +36,13 @@ public enum IC2Duplicates {
 	CABLE_IGOLD(EnumStandaloneCableType.IGOLD.getStack()),
 	CABLE_IHV(EnumStandaloneCableType.IHV.getStack()),
 	CABLE_IIHV(EnumStandaloneCableType.TIN.getStack()),
-	UPGRADE_OVERCLOCKER(ItemUpgrades.getUpgradeByName("Overclock")),
-	UPGRADE_TRANSFORMER(ItemUpgrades.getUpgradeByName("Transformer")),
-	UPGRADE_STORAGE(ItemUpgrades.getUpgradeByName("EnergyStorage")),
-	MIXED_METAL(ItemIngots.getIngotByName("mixedMetal")),
-	CARBON_FIBER(ItemParts.getPartByName("carbonfiber")),
-	CARBON_MESH(ItemParts.getPartByName("carbonmesh")),
-	REFINED_IRON(ItemIngots.getIngotByName("refinedIron"));
+	UPGRADE_OVERCLOCKER(ItemUpgrades.getUpgradeByName("overclock")),
+	UPGRADE_TRANSFORMER(ItemUpgrades.getUpgradeByName("transformer")),
+	UPGRADE_STORAGE(ItemUpgrades.getUpgradeByName("energy_storage")),
+	MIXED_METAL(ItemIngots.getIngotByName("mixed_metal")),
+	CARBON_FIBER(ItemParts.getPartByName("carbon_fiber")),
+	CARBON_MESH(ItemParts.getPartByName("carbon_mesh")),
+	REFINED_IRON(ItemIngots.getIngotByName("refined_iron"));
 
 	ItemStack ic2Stack;
 	ItemStack trStack;
