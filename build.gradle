@@ -67,7 +67,7 @@ configurations {
 }
 
 
-version = "2.0.8"
+version = "2.0.9"
 
 def ENV = System.getenv()
 if (ENV.BUILD_NUMBER) {
@@ -99,7 +99,7 @@ dependencies {
     if(!f.exists()){
         f.mkdir()
     }
-	deobfCompile 'RebornCore:RebornCore-1.11:+:universal'
+	deobfCompile 'RebornCore:RebornCore-1.11.2:+:universal'
 	deobfCompile "mezz.jei:jei_1.11:+"
 	compile "mcp.mobius.waila:Hwyla:+"
 	compile "net.darkhax.tesla:Tesla:1.11-1.3.0.51:deobf"
