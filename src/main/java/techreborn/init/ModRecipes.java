@@ -375,6 +375,12 @@ public class ModRecipes {
 					new CompressorRecipe(OreUtil.getStackFromName("ingot" + OreUtil.capitalizeFirstLetter(ore), 9), OreUtil.getStackFromName("plate" + OreUtil.capitalizeFirstLetter(ore), 1), 300,
 						4));
 			}
+			if (OreUtil.doesOreExistAndValid("plate" + OreUtil.capitalizeFirstLetter(ore)) && OreUtil.doesOreExistAndValid("gem" + OreUtil.capitalizeFirstLetter(ore))) {
+
+				RecipeHandler.addRecipe(
+					new CompressorRecipe(OreUtil.getStackFromName("gem" + OreUtil.capitalizeFirstLetter(ore), 9), OreUtil.getStackFromName("plate" + OreUtil.capitalizeFirstLetter(ore), 1), 300,
+						4));
+			}
 
 			if (OreUtil.hasPlate(ore) && OreUtil.hasBlock(ore)) {
 				RecipeHandler.addRecipe(
@@ -382,7 +388,12 @@ public class ModRecipes {
 						4));
 			}
 		}
-
+		RecipeHandler.addRecipe(
+			new CompressorRecipe(OreUtil.getStackFromName("plankWood", 1), OreUtil.getStackFromName("plateWood", 1), 300,
+				4));
+		RecipeHandler.addRecipe(
+			new CompressorRecipe(OreUtil.getStackFromName("dustLazurite", 8), OreUtil.getStackFromName("plateLazurite", 1), 300,
+				4));
 	}
 
 	static void addExtractorRecipes() {
@@ -537,7 +548,7 @@ public class ModRecipes {
 			"ingotTitanium", 'B', steelJackhammerStack, 'C', "circuitAdvanced",
 			'D', "diamondTR");
 
-		if(!IC2Duplicates.deduplicate()){
+		if (!IC2Duplicates.deduplicate()) {
 			CraftingHelper.addShapelessOreRecipe(ItemParts.getPartByName("carbonfiber"), ItemDusts.getDustByName("coal"),
 				ItemDusts.getDustByName("coal"), ItemDusts.getDustByName("coal"), ItemDusts.getDustByName("coal"));
 
@@ -550,7 +561,6 @@ public class ModRecipes {
 				.addShapelessOreRecipe(ItemParts.getPartByName("carbonmesh"), ItemParts.getPartByName("carbonfiber"),
 					ItemParts.getPartByName("carbonfiber"));
 		}
-
 
 		CraftingHelper
 			.addShapedOreRecipe(ItemParts.getPartByName("computerMonitor"), "ADA", "DGD", "ADA", 'D', dyes, 'A',
@@ -620,7 +630,7 @@ public class ModRecipes {
 
 		// Mixed Metal Ingot Recipes :P
 
-		if(!IC2Duplicates.deduplicate()){
+		if (!IC2Duplicates.deduplicate()) {
 			CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixed_metal", 2), "RRR", "BBB", "TTT", 'R',
 				"ingotRefinedIron", 'B', "ingotBronze", 'T', "ingotTin");
 
@@ -677,9 +687,9 @@ public class ModRecipes {
 				.addShapedOreRecipe(ItemIngots.getIngotByName("mixed_metal", 5), "RRR", "BBB", "TTT", 'R', "ingotInvar",
 					'B', "ingotBronze", 'T', "ingotAluminum");
 
-		CraftingHelper
-			.addShapedOreRecipe(ItemIngots.getIngotByName("mixed_metal", 5), "RRR", "BBB", "TTT", 'R', "ingotInvar",
-				'B', "ingotBrass", 'T', "ingotAluminum");
+			CraftingHelper
+				.addShapedOreRecipe(ItemIngots.getIngotByName("mixed_metal", 5), "RRR", "BBB", "TTT", 'R', "ingotInvar",
+					'B', "ingotBrass", 'T', "ingotAluminum");
 
 			CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("mixed_metal", 5), "RRR", "BBB", "TTT", 'R',
 				"ingotTitanium", 'B', "ingotBronze", 'T', "ingotTin");
@@ -756,11 +766,10 @@ public class ModRecipes {
 					Blocks.FURNACE);
 		}
 
-		if(!IC2Duplicates.deduplicate()){
+		if (!IC2Duplicates.deduplicate()) {
 			CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("electronicCircuit"), "WWW", "SRS", "WWW", 'R',
 				IC2Duplicates.REFINED_IRON.getStackBasedOnConfig(), 'S', Items.REDSTONE, 'W', IC2Duplicates.CABLE_ICOPPER.getStackBasedOnConfig());
 		}
-
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.reBattery), "XWX", "TRT", "TRT", 'T', "ingotTin", 'R',
 			Items.REDSTONE, 'W', IC2Duplicates.CABLE_ICOPPER.getStackBasedOnConfig());
@@ -904,7 +913,7 @@ public class ModRecipes {
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.scrapBox), "SSS", "SSS", "SSS", 'S',
 			ItemParts.getPartByName("scrap"));
 
-		if(!IC2Duplicates.deduplicate()){
+		if (!IC2Duplicates.deduplicate()) {
 			CraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("Overclock"), "TTT", "WCW", 'T',
 				ItemParts.getPartByName("CoolantSimple"), 'W', IC2Duplicates.CABLE_ICOPPER.getStackBasedOnConfig(),
 				'C', "circuitBasic");
@@ -919,8 +928,6 @@ public class ModRecipes {
 				IC2Duplicates.CABLE_ICOPPER.getStackBasedOnConfig(), 'C',
 				"circuitBasic");
 		}
-
-
 
 		CraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("transformer"), "GGG", "WTW", "GCG", 'G',
 			"blockGlass", 'W', IC2Duplicates.CABLE_IGOLD.getStackBasedOnConfig(), 'C',
@@ -1106,7 +1113,7 @@ public class ModRecipes {
 		CraftingHelper.addSmelting(ItemDusts.getDustByName("iron", 1), new ItemStack(Items.IRON_INGOT), 1F);
 		CraftingHelper.addSmelting(ItemDusts.getDustByName("gold", 1), new ItemStack(Items.GOLD_INGOT), 1F);
 		CraftingHelper.addSmelting(ItemParts.getPartByName("rubberSap"), ItemParts.getPartByName("rubber"), 1F);
-		if(!IC2Duplicates.deduplicate()){
+		if (!IC2Duplicates.deduplicate()) {
 			CraftingHelper.addSmelting(new ItemStack(Items.IRON_INGOT), ItemIngots.getIngotByName("refined_iron"), 1F);
 		}
 		CraftingHelper.addSmelting(BlockOre2.getOreByName("copper"), ItemIngots.getIngotByName("copper"), 1F);
@@ -2205,10 +2212,10 @@ public class ModRecipes {
 				IC2Duplicates.COMPRESSOR.getStackBasedOnConfig());
 		}
 
-//		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.PlasmaGenerator), "PPP", "PTP", "CGC", 'P',
-//			ItemPlates.getPlateByName("tungstensteel"), 'T', IC2Duplicates.HVT.getStackBasedOnConfig(),
-//			'G', IC2Duplicates.GENERATOR.getStackBasedOnConfig(), 'C',
-//			"circuitMaster");
+		//		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.PlasmaGenerator), "PPP", "PTP", "CGC", 'P',
+		//			ItemPlates.getPlateByName("tungstensteel"), 'T', IC2Duplicates.HVT.getStackBasedOnConfig(),
+		//			'G', IC2Duplicates.GENERATOR.getStackBasedOnConfig(), 'C',
+		//			"circuitMaster");
 
 		// Smetling
 		CraftingHelper
