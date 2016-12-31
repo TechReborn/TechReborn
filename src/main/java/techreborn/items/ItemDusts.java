@@ -19,7 +19,7 @@ public class ItemDusts extends ItemTRNoDestroy {
 		"nickel", "obsidian", "peridot", "phosphorous", "platinum", "pyrite", "pyrope", "red_garnet", ModItems.META_PLACEHOLDER,
 		"ruby", "saltpeter", "sapphire", "saw_dust", "silver", "sodalite", "spessartine", "sphalerite", "steel",
 		"sulfur", "tin", "titanium", "tungsten", "uvarovite", ModItems.META_PLACEHOLDER, "yellow_garnet", "zinc",
-		"olivine", "andesite", "diorite", "granite" };
+		ModItems.META_PLACEHOLDER, "andesite", "diorite", "granite" };
 
 	public ItemDusts() {
 		setUnlocalizedName("techreborn.dust");

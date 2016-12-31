@@ -13,11 +13,12 @@ import java.util.List;
  */
 public abstract class BaseRecipe implements IBaseRecipeType, Cloneable {
 
-	private ArrayList<ItemStack> inputs;
 	public String name;
 	public int tickTime;
 	public int euPerTick;
+	private ArrayList<ItemStack> inputs;
 	private ArrayList<ItemStack> outputs;
+	private boolean oreDict = true;
 
 	public BaseRecipe(String name, int tickTime, int euPerTick) {
 		inputs = new ArrayList<>();
@@ -39,7 +40,7 @@ public abstract class BaseRecipe implements IBaseRecipeType, Cloneable {
 	}
 
 	public void addOutput(ItemStack stack) {
-		if(stack == null || stack.isEmpty()){
+		if (stack == null || stack.isEmpty()) {
 			throw new InvalidParameterException("output is invalid!");
 		}
 		outputs.add(stack);
@@ -86,9 +87,13 @@ public abstract class BaseRecipe implements IBaseRecipeType, Cloneable {
 		return super.clone();
 	}
 
+	public void setOreDict(boolean oreDict) {
+		this.oreDict = oreDict;
+	}
+
 	@Override
 	public boolean useOreDic() {
-		return true;
+		return oreDict;
 	}
 
 	@Override
@@ -96,8 +101,8 @@ public abstract class BaseRecipe implements IBaseRecipeType, Cloneable {
 		return outputs;
 	}
 
-	public void addInput(ItemStack inuput){
-		if(inuput == null || inuput.isEmpty()){
+	public void addInput(ItemStack inuput) {
+		if (inuput == null || inuput.isEmpty()) {
 			throw new InvalidParameterException("input is invalid!");
 		}
 		inputs.add(inuput);

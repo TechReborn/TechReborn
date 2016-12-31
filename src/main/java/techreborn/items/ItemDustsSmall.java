@@ -19,7 +19,7 @@ public class ItemDustsSmall extends ItemTRNoDestroy {
 		"nickel", "obsidian", "peridot", "phosphorous", "platinum", "pyrite", "pyrope", "red_garnet", ModItems.META_PLACEHOLDER,
 		"ruby", "saltpeter", "sapphire", "saw_dust", "silver", "sodalite", "spessartine", "sphalerite", "steel",
 		"sulfur", "tin", "titanium", "tungsten", "uvarovite", ModItems.META_PLACEHOLDER, "yellow_garnet", "zinc",
-		"olivine", "redstone", "glowstone", "andesite", "diorite", "granite" };
+		ModItems.META_PLACEHOLDER, "redstone", "glowstone", "andesite", "diorite", "granite" };
 
 	public ItemDustsSmall() {
 		setUnlocalizedName("techreborn.dustsmall");

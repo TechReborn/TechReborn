@@ -15,7 +15,7 @@ public class ItemPlates extends ItemTRNoDestroy {
 
 	//Vanilla plates or plates not from ingots or gems
 	public static String[] types = new String[] {
-		"iron", "gold", "carbon", "wood", "redstone", "diamond", "emerald", "lapis", "coal", "obsidian", "lazurite"
+		"iron", "gold", "carbon", "wood", "redstone", "diamond", "emerald", ModItems.META_PLACEHOLDER, "coal", "obsidian", "lazurite"
 	};
 
 	public ItemPlates() {
@@ -28,6 +28,9 @@ public class ItemPlates extends ItemTRNoDestroy {
 		name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, name);
 		for (int i = 0; i < types.length; i++) {
 			if (types[i].equalsIgnoreCase(name)) {
+				if (types[i].equals(ModItems.META_PLACEHOLDER)) {
+					throw new InvalidParameterException("The dust " + name + " could not be found.");
+				}
 				return new ItemStack(ModItems.plate, count, i);
 			}
 		}
@@ -66,7 +69,9 @@ public class ItemPlates extends ItemTRNoDestroy {
 	// Adds Dusts SubItems To Creative Tab
 	public void getSubItems(Item item, CreativeTabs creativeTabs, NonNullList list) {
 		for (int meta = 0; meta < types.length; ++meta) {
-			list.add(new ItemStack(item, 1, meta));
+			if (!types[meta].equals(ModItems.META_PLACEHOLDER)) {
+				list.add(new ItemStack(item, 1, meta));
+			}
 		}
 	}
 }
