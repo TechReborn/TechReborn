@@ -1,77 +1,58 @@
+![](http://i.imgur.com/XKMokQu.png "Tech Reborn")
+
+
 [![](http://cf.way2muchnoise.eu/full_233564_downloads.svg)](https://minecraft.curseforge.com/projects/techreborn) [![](http://cf.way2muchnoise.eu/versions/233564.svg)](https://minecraft.curseforge.com/projects/techreborn)
-# TechReborn 1.11 Branch
 
-TechReborn is a resurrection of GregTech 2.78 for modern Minecraft. It brings most of it's features and behaviors to Minecraft, with lots of tweaks, and a few additions. It also aims to be more compatible with mods other than GregTech, and has the ultimate goal of becoming a standalone mod, compatible with, but not dependent on IC2. We have no plans of ever supporting IC2 classic as of now.
+# Tech Reborn for 1.11.2 [![Build Status](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.11.2/badge/icon)](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.11.2/)
 
-TechReborn is currently in a beta state. Crashes or bugs may happen at any time, so *please* do not use this on a world that is important to you, or at the very least back it up on every update.
+*Tech Reborn is a completely standalone tech mod designed by the ideals of GregTech 2 and Industrial Craft 2 pre-experimental. The mod includes tools and machines to gather resources, process materials, and progression throughout the mod.*
 
-We have permission to use Greg's textures (see [here](https://i.imgur.com/YQEMrq5.png?1)).
+# Downloads
 
-# Older versions
+*Remember to always backup your worlds before adding or updating mods!*
 
-1.10.2 versions can be found on the 1.10.2-v1 branch
+### Recommended Releases
+Versions we determine are stable enough can always be found on our CurseForge page. The top file on [this list](http://minecraft.curseforge.com/projects/techreborn/files?sort=releasetype) should always be the latest recommended release of Tech Reborn.
 
-# Issues and suggestions
+### Development Builds
 
-We keep track of issues on github.
+*Jenkins builds of TechReborn are compiled directly from this repository. Please remember to backup your worlds, ESPECIALLY before using a jenkins build of TechReborn. Before reporting a bug, we highly encourage trying to reproduce the bug with the latest jenkins build in a seperate environment, to make sure we haven't fixed it already.*
 
-[![Issues](https://img.shields.io/badge/TechReborn-Issues-0066ff.svg)](https://github.com/TechReborn/TechReborn/issues)
+If you're looking for the latest bleeding edge build, these are found on our Jenkins page. Use these with caution, and please do not put these in modpacks: 
 
-And suggestions should be posted to our forum:
+1.11.2 - [![Build Status](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.11.2/badge/icon)](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.11.2/)
 
-[![Forum](https://img.shields.io/badge/TechReborn-Forum-0066ff.svg)](http://forum.techreborn.ovh/)
+1.11.0 - [![Build Status](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.11/badge/icon)](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.11/)
 
-# Recommended Builds:
+1.10.2 - [![Build Status](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.10.2/badge/icon)](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.10.2/)
 
-See [this list](http://minecraft.curseforge.com/projects/techreborn/files?sort=releasetype). The top one should always be the latest, recommended build of TechReborn.
+# Issues and Sggestions
 
-# Jenkins Builds:
+To report an issue or make a suggestion, please head up to the `Issues` tab up above, and open a new issue. You will need a GitHub account for this (it's free!). **It is very important that you include the version of Tech Reborn you are using in your issue report.**
 
-Jenkins builds of TechReborn are compiled directly from this repository. Please remember to backup your worlds before using a jenkins build of TechReborn. Before reporting a bug, we highly encourage trying to reproduce the bug with the latest jenkins build in a seperate environment, to make sure we haven't fixed it already.
+# Screenshots
 
-1.9.4:
----
+**Please note that the following screenshots use the new Tech Reborn textures that are in the 1.11+ releases:**
 
-*This version is constantly recieving updates, and does has a semi-stable release. Any 1.9.4 builds (including semi-stable releases) are still subject to change and potentially (though unlikely) could break worlds. Once again, remember to backup your worlds before using any jenkins builds.*
+![screenshot](https://i.imgur.com/BW128tX.png)
+![screenshot](https://i.imgur.com/4rxbO4Q.png)
+![screenshot](https://i.imgur.com/edaGPlL.png)
+![screenshot](https://i.imgur.com/kWOxk8I.png)
+![screenshot](https://i.imgur.com/ZKC5raQ.png)
+![screenshot](https://i.imgur.com/RBCAWgO.png)
 
-[![Build Status](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.9.4/badge/icon)](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.9.4/)
+[![reborncore](https://i.imgur.com/NcOEWOh.png)](https://minecraft.curseforge.com/projects/reborncore/)
 
-1.9.0 builds are also available, but are not supported at all:
+# Credits
 
-[![Build Status](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.9/badge/icon)](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.9/)
-
-1.8.9:
----
-
-*This version is not supported at all. Use at your own risk, we won't push a new build with a bugfix no matter what, with the exceptions of pull requests, which we still discourage.*
-
-[![Build Status](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.8.9/badge/icon)](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.8.9/)
-
-1.7.10:
----
-
-*Please understand that the 1.7.10 version of TechReborn is not being maintained. We've moved onto TechReborn for Minecraft 1.8.9. If there is an extremely critical bug that you find in the 1.7.10 version, report it to the bug tracker and we will determine if it is drastic enough for a fix.*
-
-[![Build Status](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.7.10/badge/icon)](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.7.10/)
-
-# Contributators:
-
-Active:
--------
-
- - Modmuss50 (Code)
- - Gigabit101 (Code)
- - ProfessorProspector(Code & Textures)
- - mezz (JEI addon)
-
-Inactive
--------
-
- - Tntrololol (Recipes & Textures)
- - joflashstudios (Recipes)
-
- And everyone else who has helped with languages and code.
+* Modmuss50 - Lead Developer
+* Gigabit101 - Developer
+* Prospector - Developer & Texture Artist
+* Yulife - Lead Texture Artist
+* The Chisel Team - Connected Textures if Chisel is installed
  
-# License Infomation:
- 
- The mod is licenced under MIT. We have got permisson from Greg to use his textures, everything else has been recoded and retextured. If you have any querys please ask on irc or in an issue.
+# License
+
+Tech Reborn is licensed under the MIT license. Full license in **LICENSE.md**.
+
+### No code was borrowed or taken from IndustrialCraft2 or GregTech to make this mod possible. We do, however, thank the makers of both of these mods for the majority of the ideas that make up this mod.
