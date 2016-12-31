@@ -1,6 +1,5 @@
 ![](http://i.imgur.com/XKMokQu.png "Tech Reborn")
 
-
 [![](http://cf.way2muchnoise.eu/full_233564_downloads.svg)](https://minecraft.curseforge.com/projects/techreborn) [![](http://cf.way2muchnoise.eu/versions/233564.svg)](https://minecraft.curseforge.com/projects/techreborn)
 
 # Tech Reborn for 1.11.2 [![Build Status](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.11.2/badge/icon)](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.11.2/)
@@ -13,6 +12,8 @@
 
 ### Recommended Releases
 Versions we determine are stable enough can always be found on our CurseForge page. The top file on [this list](http://minecraft.curseforge.com/projects/techreborn/files?sort=releasetype) should always be the latest recommended release of Tech Reborn.
+
+[![](http://cf.way2muchnoise.eu/versions/233564_latest.svg)](https://minecraft.curseforge.com/projects/techreborn)
 
 ### Development Builds
 
