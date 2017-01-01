@@ -131,7 +131,7 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.industrialSawmill, 1);
+		return new ItemStack(ModBlocks.INDUSTRIAL_SAWMILL, 1);
 	}
 
 	@Override

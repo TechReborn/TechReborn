@@ -10,7 +10,7 @@ import techreborn.init.ModBlocks;
 public class TileHVTransformer extends TileTransformer {
 
 	public TileHVTransformer() {
-		super("HVTransformer", ModBlocks.HVT, EnumPowerTier.EXTREME, ConfigTechReborn.HVTransformerMaxInput, ConfigTechReborn.HVTransformerMaxOutput, ConfigTechReborn.HVTransformerMaxInput * 2);
+		super("HVTransformer", ModBlocks.HV_TRANSFORMER, EnumPowerTier.EXTREME, ConfigTechReborn.HVTransformerMaxInput, ConfigTechReborn.HVTransformerMaxOutput, ConfigTechReborn.HVTransformerMaxInput * 2);
 	}
 
 }

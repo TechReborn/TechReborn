@@ -66,7 +66,7 @@ public class RubberTreeGenerator extends WorldGenerator {
 			Block baseBlock = baseSate.getBlock();
 			boolean hasPlacedBlock = false;
 			if (baseBlock != null && baseBlock.canSustainPlant(baseSate, world, new BlockPos(x, y - 1, z),
-				EnumFacing.UP, (IPlantable) ModBlocks.rubberSapling) && y < worldHeight - treeHeight - 1) {
+				EnumFacing.UP, (IPlantable) ModBlocks.RUBBER_SAPLING) && y < worldHeight - treeHeight - 1) {
 				for (yOffset = y; yOffset <= y + 1 + treeHeight; ++yOffset) {
 					byte radius = 1;
 					if (yOffset == y) {
@@ -116,7 +116,7 @@ public class RubberTreeGenerator extends WorldGenerator {
 								|| block.canBeReplacedByLeaves(state1, world,
 								new BlockPos(xOffset, yOffset, zOffset)))) {
 								this.setBlockAndNotifyAdequately(world, new BlockPos(xOffset, yOffset, zOffset),
-									ModBlocks.rubberLeaves.getDefaultState());
+									ModBlocks.RUBBER_LEAVES.getDefaultState());
 								hasPlacedBlock = true;
 							}
 						}
@@ -130,7 +130,7 @@ public class RubberTreeGenerator extends WorldGenerator {
 					Block block = state1.getBlock();
 					if (block == null || block.isAir(state1, world, blockpos) || block.isLeaves(state1, world, blockpos)
 						|| block.isReplaceable(world, blockpos)) {
-						IBlockState newState = ModBlocks.rubberLog.getDefaultState();
+						IBlockState newState = ModBlocks.RUBBER_LOG.getDefaultState();
 						boolean isAddingSap = false;
 						if (rand.nextInt(Core.worldGen.config.rubberTreeConfig.sapRarity) == 0) {
 							newState = newState.withProperty(BlockRubberLog.HAS_SAP, true)
@@ -149,7 +149,7 @@ public class RubberTreeGenerator extends WorldGenerator {
 				if (topLogPos != null) {
 					for (int i = 0; i < Core.worldGen.config.rubberTreeConfig.spireHeight; i++) {
 						BlockPos spikePos = topLogPos.up(i);
-						this.setBlockAndNotifyAdequately(world, spikePos, ModBlocks.rubberLeaves.getDefaultState()
+						this.setBlockAndNotifyAdequately(world, spikePos, ModBlocks.RUBBER_LEAVES.getDefaultState()
 							.withProperty(BlockRubberLeaves.DECAYABLE, true));
 					}
 				}

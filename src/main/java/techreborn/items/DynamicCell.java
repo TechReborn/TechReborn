@@ -38,7 +38,7 @@ public class DynamicCell extends Item {
 		super();
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setUnlocalizedName("techreborn.cell");
-		setMaxStackSize(16);
+		setMaxStackSize(64);
 	}
 
 	@Override
@@ -132,14 +132,14 @@ public class DynamicCell extends Item {
 
 	public static ItemStack getCellWithFluid(Fluid fluid, int stackSize) {
 		Validate.notNull(fluid);
-		ItemStack stack = new ItemStack(ModItems.dynamicCell);
+		ItemStack stack = new ItemStack(ModItems.CELL);
 		getFluidHandler(stack).fill(new FluidStack(fluid, CAPACITY), true);
 		stack.setCount(stackSize);
 		return stack;
 	}
 
 	public static ItemStack getEmptyCell(int amount) {
-		return new ItemStack(ModItems.dynamicCell, amount);
+		return new ItemStack(ModItems.CELL, amount);
 	}
 
 	public static ItemStack getCellWithFluid(Fluid fluid) {

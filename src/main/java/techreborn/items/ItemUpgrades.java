@@ -28,7 +28,7 @@ public class ItemUpgrades extends ItemTRNoDestroy implements IMachineUpgrade {
 	public static ItemStack getUpgradeByName(String name, int count) {
 		for (int i = 0; i < types.length; i++) {
 			if (types[i].equalsIgnoreCase(name)) {
-				return new ItemStack(ModItems.upgrades, count, i);
+				return new ItemStack(ModItems.UPGRADES, count, i);
 			}
 		}
 		throw new InvalidParameterException("The upgrade " + name + " could not be found.");

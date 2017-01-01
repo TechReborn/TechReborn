@@ -53,63 +53,63 @@ public class GuiManual extends GuiScreen {
 		// POWER GENERATION
 		pageCollection.addPage(new GeneratingPowerPage(Reference.pageNames.GENERATINGPOWER_PAGE, pageCollection));
 
-		pageCollection.addPage(new CraftingInfoPage(ModBlocks.generator.getLocalizedName(), pageCollection,
-			new ItemStack(ModBlocks.generator), "", Reference.pageNames.GENERATINGPOWER_PAGE));
-		pageCollection.addPage(new CraftingInfoPage(ModBlocks.thermalGenerator.getLocalizedName(), pageCollection,
-			new ItemStack(ModBlocks.thermalGenerator), "", Reference.pageNames.GENERATINGPOWER_PAGE));
-		pageCollection.addPage(new CraftingInfoPage(ModBlocks.solarPanel.getLocalizedName(), pageCollection,
-			new ItemStack(ModBlocks.solarPanel), "", Reference.pageNames.GENERATINGPOWER_PAGE));
-		pageCollection.addPage(new CraftingInfoPage(ModBlocks.heatGenerator.getLocalizedName(), pageCollection,
-			new ItemStack(ModBlocks.heatGenerator), "", Reference.pageNames.GENERATINGPOWER_PAGE));
-		pageCollection.addPage(new CraftingInfoPage(ModBlocks.lightningRod.getLocalizedName(), pageCollection,
-			new ItemStack(ModBlocks.lightningRod), "", Reference.pageNames.GENERATINGPOWER_PAGE));
+		pageCollection.addPage(new CraftingInfoPage(ModBlocks.SOLID_FUEL_GENEREATOR.getLocalizedName(), pageCollection,
+			new ItemStack(ModBlocks.SOLID_FUEL_GENEREATOR), "", Reference.pageNames.GENERATINGPOWER_PAGE));
+		pageCollection.addPage(new CraftingInfoPage(ModBlocks.THERMAL_GENERATOR.getLocalizedName(), pageCollection,
+			new ItemStack(ModBlocks.THERMAL_GENERATOR), "", Reference.pageNames.GENERATINGPOWER_PAGE));
+		pageCollection.addPage(new CraftingInfoPage(ModBlocks.SOLAR_PANEL.getLocalizedName(), pageCollection,
+			new ItemStack(ModBlocks.SOLAR_PANEL), "", Reference.pageNames.GENERATINGPOWER_PAGE));
+		pageCollection.addPage(new CraftingInfoPage(ModBlocks.HEAT_GENERATOR.getLocalizedName(), pageCollection,
+			new ItemStack(ModBlocks.HEAT_GENERATOR), "", Reference.pageNames.GENERATINGPOWER_PAGE));
+		pageCollection.addPage(new CraftingInfoPage(ModBlocks.LIGHTNING_ROD.getLocalizedName(), pageCollection,
+			new ItemStack(ModBlocks.LIGHTNING_ROD), "", Reference.pageNames.GENERATINGPOWER_PAGE));
 
 		// BASIC MACHINES
 		pageCollection.addPage(new BasicMachinesPage(Reference.pageNames.BASICMACHINES_PAGE, pageCollection));
-		pageCollection.addPage(new CraftingInfoPage(ModBlocks.grinder.getLocalizedName(), pageCollection,
-			new ItemStack(ModBlocks.grinder), "", Reference.pageNames.BASICMACHINES_PAGE));
-		pageCollection.addPage(new CraftingInfoPage(ModBlocks.electricFurnace.getLocalizedName(), pageCollection,
-			new ItemStack(ModBlocks.electricFurnace), "", Reference.pageNames.BASICMACHINES_PAGE));
-		pageCollection.addPage(new CraftingInfoPage(ModBlocks.alloySmelter.getLocalizedName(), pageCollection,
-			new ItemStack(ModBlocks.alloySmelter), "", Reference.pageNames.BASICMACHINES_PAGE));
-		pageCollection.addPage(new CraftingInfoPage(ModBlocks.extractor.getLocalizedName(), pageCollection,
-			new ItemStack(ModBlocks.extractor), "", Reference.pageNames.BASICMACHINES_PAGE));
-		pageCollection.addPage(new CraftingInfoPage(ModBlocks.compressor.getLocalizedName(), pageCollection,
-			new ItemStack(ModBlocks.compressor), "", Reference.pageNames.BASICMACHINES_PAGE));
+		pageCollection.addPage(new CraftingInfoPage(ModBlocks.GRINDER.getLocalizedName(), pageCollection,
+			new ItemStack(ModBlocks.GRINDER), "", Reference.pageNames.BASICMACHINES_PAGE));
+		pageCollection.addPage(new CraftingInfoPage(ModBlocks.ELECTRIC_FURNACE.getLocalizedName(), pageCollection,
+			new ItemStack(ModBlocks.ELECTRIC_FURNACE), "", Reference.pageNames.BASICMACHINES_PAGE));
+		pageCollection.addPage(new CraftingInfoPage(ModBlocks.ALLOY_SMELTER.getLocalizedName(), pageCollection,
+			new ItemStack(ModBlocks.ALLOY_SMELTER), "", Reference.pageNames.BASICMACHINES_PAGE));
+		pageCollection.addPage(new CraftingInfoPage(ModBlocks.EXTRACTOR.getLocalizedName(), pageCollection,
+			new ItemStack(ModBlocks.EXTRACTOR), "", Reference.pageNames.BASICMACHINES_PAGE));
+		pageCollection.addPage(new CraftingInfoPage(ModBlocks.COMPRESSOR.getLocalizedName(), pageCollection,
+			new ItemStack(ModBlocks.COMPRESSOR), "", Reference.pageNames.BASICMACHINES_PAGE));
 
 		// ADVANCED MACHINES
 		pageCollection.addPage(new AdvancedMachines(Reference.pageNames.ADVANCEDMACHINES_PAGE, pageCollection));
-		pageCollection.addPage(new CraftingInfoPage(ModBlocks.blastFurnace.getLocalizedName(), pageCollection,
-			new ItemStack(ModBlocks.blastFurnace), "", Reference.pageNames.ADVANCEDMACHINES_PAGE));
-		pageCollection.addPage(new CraftingInfoPage(ModBlocks.industrialSawmill.getLocalizedName(), pageCollection,
-			new ItemStack(ModBlocks.industrialSawmill), "", Reference.pageNames.ADVANCEDMACHINES_PAGE));
-		pageCollection.addPage(new CraftingInfoPage(ModBlocks.industrialElectrolyzer.getLocalizedName(), pageCollection,
-			new ItemStack(ModBlocks.industrialElectrolyzer), "", Reference.pageNames.ADVANCEDMACHINES_PAGE));
-		pageCollection.addPage(new CraftingInfoPage(ModBlocks.industrialGrinder.getLocalizedName(), pageCollection,
-			new ItemStack(ModBlocks.industrialGrinder), "", Reference.pageNames.ADVANCEDMACHINES_PAGE));
-		pageCollection.addPage(new CraftingInfoPage(ModBlocks.implosionCompressor.getLocalizedName(), pageCollection,
-			new ItemStack(ModBlocks.implosionCompressor), "", Reference.pageNames.ADVANCEDMACHINES_PAGE));
-		pageCollection.addPage(new CraftingInfoPage(ModBlocks.centrifuge.getLocalizedName(), pageCollection,
-			new ItemStack(ModBlocks.centrifuge), "", Reference.pageNames.ADVANCEDMACHINES_PAGE));
+		pageCollection.addPage(new CraftingInfoPage(ModBlocks.INDUSTRIAL_BLAST_FURNACE.getLocalizedName(), pageCollection,
+			new ItemStack(ModBlocks.INDUSTRIAL_BLAST_FURNACE), "", Reference.pageNames.ADVANCEDMACHINES_PAGE));
+		pageCollection.addPage(new CraftingInfoPage(ModBlocks.INDUSTRIAL_SAWMILL.getLocalizedName(), pageCollection,
+			new ItemStack(ModBlocks.INDUSTRIAL_SAWMILL), "", Reference.pageNames.ADVANCEDMACHINES_PAGE));
+		pageCollection.addPage(new CraftingInfoPage(ModBlocks.INDUSTRIAL_ELECTROLYZER.getLocalizedName(), pageCollection,
+			new ItemStack(ModBlocks.INDUSTRIAL_ELECTROLYZER), "", Reference.pageNames.ADVANCEDMACHINES_PAGE));
+		pageCollection.addPage(new CraftingInfoPage(ModBlocks.INDUSTRIAL_GRINDER.getLocalizedName(), pageCollection,
+			new ItemStack(ModBlocks.INDUSTRIAL_GRINDER), "", Reference.pageNames.ADVANCEDMACHINES_PAGE));
+		pageCollection.addPage(new CraftingInfoPage(ModBlocks.IMPLOSION_COMPRESSOR.getLocalizedName(), pageCollection,
+			new ItemStack(ModBlocks.IMPLOSION_COMPRESSOR), "", Reference.pageNames.ADVANCEDMACHINES_PAGE));
+		pageCollection.addPage(new CraftingInfoPage(ModBlocks.INDUSTRIAL_CENTRIFUGE.getLocalizedName(), pageCollection,
+			new ItemStack(ModBlocks.INDUSTRIAL_CENTRIFUGE), "", Reference.pageNames.ADVANCEDMACHINES_PAGE));
 
 		// TOOLS
 		pageCollection.addPage(new ToolsPage(Reference.pageNames.TOOLS_PAGE, pageCollection));
-		pageCollection.addPage(new CraftingInfoPage(ModItems.ironDrill.getUnlocalizedName() + ".name", pageCollection,
-			new ItemStack(ModItems.ironDrill), "", Reference.pageNames.TOOLS_PAGE));
-		pageCollection.addPage(new CraftingInfoPage(ModItems.diamondDrill.getUnlocalizedName() + ".name",
-			pageCollection, new ItemStack(ModItems.diamondDrill), "", Reference.pageNames.TOOLS_PAGE));
-		pageCollection.addPage(new CraftingInfoPage(ModItems.advancedDrill.getUnlocalizedName() + ".name",
-			pageCollection, new ItemStack(ModItems.advancedDrill), "", Reference.pageNames.TOOLS_PAGE));
-		pageCollection.addPage(new CraftingInfoPage(ModItems.ironChainsaw.getUnlocalizedName() + ".name",
-			pageCollection, new ItemStack(ModItems.ironChainsaw), "", Reference.pageNames.TOOLS_PAGE));
-		pageCollection.addPage(new CraftingInfoPage(ModItems.diamondChainsaw.getUnlocalizedName() + ".name",
-			pageCollection, new ItemStack(ModItems.diamondChainsaw), "", Reference.pageNames.TOOLS_PAGE));
-		pageCollection.addPage(new CraftingInfoPage(ModItems.advancedChainsaw.getUnlocalizedName() + ".name",
-			pageCollection, new ItemStack(ModItems.advancedChainsaw), "", Reference.pageNames.TOOLS_PAGE));
-		pageCollection.addPage(new CraftingInfoPage(ModItems.omniTool.getUnlocalizedName() + ".name", pageCollection,
-			new ItemStack(ModItems.omniTool), "", Reference.pageNames.TOOLS_PAGE));
-		pageCollection.addPage(new CraftingInfoPage(ModItems.treeTap.getUnlocalizedName() + ".name", pageCollection,
-			new ItemStack(ModItems.treeTap), "", Reference.pageNames.TOOLS_PAGE));
+		pageCollection.addPage(new CraftingInfoPage(ModItems.STEEL_DRILL.getUnlocalizedName() + ".name", pageCollection,
+			new ItemStack(ModItems.STEEL_DRILL), "", Reference.pageNames.TOOLS_PAGE));
+		pageCollection.addPage(new CraftingInfoPage(ModItems.DIAMOND_DRILL.getUnlocalizedName() + ".name",
+			pageCollection, new ItemStack(ModItems.DIAMOND_DRILL), "", Reference.pageNames.TOOLS_PAGE));
+		pageCollection.addPage(new CraftingInfoPage(ModItems.ADVANCED_DRILL.getUnlocalizedName() + ".name",
+			pageCollection, new ItemStack(ModItems.ADVANCED_DRILL), "", Reference.pageNames.TOOLS_PAGE));
+		pageCollection.addPage(new CraftingInfoPage(ModItems.STEEL_CHAINSAW.getUnlocalizedName() + ".name",
+			pageCollection, new ItemStack(ModItems.STEEL_CHAINSAW), "", Reference.pageNames.TOOLS_PAGE));
+		pageCollection.addPage(new CraftingInfoPage(ModItems.DIAMOND_CHAINSAW.getUnlocalizedName() + ".name",
+			pageCollection, new ItemStack(ModItems.DIAMOND_CHAINSAW), "", Reference.pageNames.TOOLS_PAGE));
+		pageCollection.addPage(new CraftingInfoPage(ModItems.ADVANCED_CHAINSAW.getUnlocalizedName() + ".name",
+			pageCollection, new ItemStack(ModItems.ADVANCED_CHAINSAW), "", Reference.pageNames.TOOLS_PAGE));
+		pageCollection.addPage(new CraftingInfoPage(ModItems.OMNI_TOOL.getUnlocalizedName() + ".name", pageCollection,
+			new ItemStack(ModItems.OMNI_TOOL), "", Reference.pageNames.TOOLS_PAGE));
+		pageCollection.addPage(new CraftingInfoPage(ModItems.TREE_TAP.getUnlocalizedName() + ".name", pageCollection,
+			new ItemStack(ModItems.TREE_TAP), "", Reference.pageNames.TOOLS_PAGE));
 
 		return pageCollection;
 	}

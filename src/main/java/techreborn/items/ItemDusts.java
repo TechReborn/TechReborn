@@ -34,7 +34,7 @@ public class ItemDusts extends ItemTRNoDestroy {
 				if (types[i].equals(ModItems.META_PLACEHOLDER)) {
 					throw new InvalidParameterException("The dust " + name + " could not be found.");
 				}
-				return new ItemStack(ModItems.dusts, count, i);
+				return new ItemStack(ModItems.DUSTS, count, i);
 			}
 		}
 

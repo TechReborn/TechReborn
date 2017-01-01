@@ -17,9 +17,9 @@ public class TRAchievements {
 	public static Achievement centrifuge_Craft;
 
 	public static void init() {
-		ore_PickUp = new AchievementMod("ore_PickUp", 0, 0, new ItemStack(ModBlocks.ore, 1, 0), null);
-		centrifuge_Craft = new AchievementMod("centrifuge_Craft", 1, 1, ModBlocks.centrifuge, ore_PickUp);
-		thermalgen_Craft = new AchievementMod("thermalgen_Craft", 2, 1, ModBlocks.thermalGenerator, ore_PickUp);
+		ore_PickUp = new AchievementMod("ore_PickUp", 0, 0, new ItemStack(ModBlocks.ORE, 1, 0), null);
+		centrifuge_Craft = new AchievementMod("centrifuge_Craft", 1, 1, ModBlocks.INDUSTRIAL_CENTRIFUGE, ore_PickUp);
+		thermalgen_Craft = new AchievementMod("thermalgen_Craft", 2, 1, ModBlocks.THERMAL_GENERATOR, ore_PickUp);
 
 		pageIndex = AchievementPage.getAchievementPages().size();
 		techrebornPage = new AchievementPage(ModInfo.MOD_NAME,

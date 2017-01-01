@@ -82,7 +82,7 @@ public class TileDragonEggSiphoner extends TilePowerAcceptor implements IWrencha
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.dragonEggEnergySiphoner, 1);
+		return new ItemStack(ModBlocks.DRAGON_EGG_SIPHONER, 1);
 	}
 
 	public boolean isComplete() {

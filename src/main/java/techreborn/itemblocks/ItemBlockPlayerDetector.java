@@ -7,6 +7,6 @@ import techreborn.init.ModBlocks;
 
 public class ItemBlockPlayerDetector extends ItemBlockBase {
 	public ItemBlockPlayerDetector(Block block) {
-		super(ModBlocks.playerDetector, ModBlocks.playerDetector, BlockPlayerDetector.types);
+		super(ModBlocks.PLAYER_DETECTOR, ModBlocks.PLAYER_DETECTOR, BlockPlayerDetector.types);
 	}
 }

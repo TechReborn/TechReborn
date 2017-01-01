@@ -27,7 +27,7 @@ public class ItemNuggets extends ItemTRNoDestroy {
 		name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, name);
 		for (int i = 0; i < types.length; i++) {
 			if (types[i].equalsIgnoreCase(name)) {
-				return new ItemStack(ModItems.nuggets, count, i);
+				return new ItemStack(ModItems.NUGGETS, count, i);
 			}
 		}
 		throw new InvalidParameterException("The nugget " + name + " could not be found.");

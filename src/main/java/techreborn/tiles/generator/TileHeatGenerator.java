@@ -86,7 +86,7 @@ public class TileHeatGenerator extends TilePowerAcceptor implements IWrenchable 
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.heatGenerator, 1);
+		return new ItemStack(ModBlocks.HEAT_GENERATOR, 1);
 	}
 
 	public boolean isComplete() {

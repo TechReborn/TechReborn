@@ -49,7 +49,7 @@ public class ItemParts extends ItemTRNoDestroy {
 		name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, name);
 		for (int i = 0; i < types.length; i++) {
 			if (types[i].equalsIgnoreCase(name)) {
-				return new ItemStack(ModItems.parts, count, i);
+				return new ItemStack(ModItems.PARTS, count, i);
 			}
 		}
 		throw new InvalidParameterException("The part " + name + " could not be found.");

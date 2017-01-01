@@ -91,10 +91,10 @@ public class ClientProxy extends CommonProxy {
 		}
 
 		for (int i = 0; i < BlockMachineCasing.types.length; i++) {
-			Core.proxy.registerSubBlockInventoryLocation(ModBlocks.machineCasing, i, "techreborn:machines/structure/machine_casing", "type=" + i);
+			Core.proxy.registerSubBlockInventoryLocation(ModBlocks.MACHINE_CASINGS, i, "techreborn:machines/structure/machine_casing", "type=" + i);
 		}
 		for (int i = 0; i < BlockMachineFrame.types.length; i++) {
-			Core.proxy.registerSubBlockInventoryLocation(ModBlocks.machineframe, i, "techreborn:machines/storage/machine_blocks", "type=" + i);
+			Core.proxy.registerSubBlockInventoryLocation(ModBlocks.MACHINE_FRAMES, i, "techreborn:machines/storage/machine_blocks", "type=" + i);
 		}
 
 		ModelDynamicCell.init();
@@ -119,7 +119,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.registerKeyBinding(KeyBindings.config);
 		ClientMultiBlocks.init();
 		StateMap rubberLeavesStateMap = new StateMap.Builder().ignore(BlockRubberLeaves.CHECK_DECAY, BlockRubberLeaves.DECAYABLE).build();
-		ModelLoader.setCustomStateMapper(ModBlocks.rubberLeaves, rubberLeavesStateMap);
+		ModelLoader.setCustomStateMapper(ModBlocks.RUBBER_LEAVES, rubberLeavesStateMap);
 	}
 
 	protected void registerItemModel(ItemStack item, String name) {

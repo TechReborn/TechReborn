@@ -140,7 +140,7 @@ public class TileRollingMachine extends TilePowerAcceptor implements IWrenchable
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.rollingMachine, 1);
+		return new ItemStack(ModBlocks.ROLLING_MACHINE, 1);
 	}
 
 	@Override

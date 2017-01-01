@@ -15,7 +15,7 @@ public class TileSemifluidGenerator extends TileBaseFluidGenerator {
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer arg0) {
-		return new ItemStack(ModBlocks.semiFluidGenerator, 1);
+		return new ItemStack(ModBlocks.SEMIFLUID_GENERATOR, 1);
 	}
 
 	@Override

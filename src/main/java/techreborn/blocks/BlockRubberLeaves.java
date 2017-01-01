@@ -123,6 +123,6 @@ public class BlockRubberLeaves extends BlockLeaves implements ITexturedBlock, IO
 
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return Item.getItemFromBlock(ModBlocks.rubberSapling);
+		return Item.getItemFromBlock(ModBlocks.RUBBER_SAPLING);
 	}
 }

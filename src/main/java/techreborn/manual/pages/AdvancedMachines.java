@@ -20,23 +20,23 @@ public class AdvancedMachines extends TitledPage {
 		buttonList.clear();
 		ButtonUtil.addBackButton(0, width / 2 - 60, height / 2 + 64, buttonList);
 		buttonList.add(new GuiButtonItemTexture(1, getXMin() + 10, getYMin() + 20, 0, 46, 100, 20,
-			new ItemStack(ModBlocks.blastFurnace), ModBlocks.blastFurnace.getUnlocalizedName(),
-			ttl(ModBlocks.blastFurnace.getLocalizedName())));
+			new ItemStack(ModBlocks.INDUSTRIAL_BLAST_FURNACE), ModBlocks.INDUSTRIAL_BLAST_FURNACE.getUnlocalizedName(),
+			ttl(ModBlocks.INDUSTRIAL_BLAST_FURNACE.getLocalizedName())));
 		buttonList.add(new GuiButtonItemTexture(2, getXMin() + 10, getYMin() + 40, 0, 46, 100, 20,
-			new ItemStack(ModBlocks.industrialSawmill), ModBlocks.industrialSawmill.getUnlocalizedName(),
-			ttl(ModBlocks.industrialSawmill.getLocalizedName())));
+			new ItemStack(ModBlocks.INDUSTRIAL_SAWMILL), ModBlocks.INDUSTRIAL_SAWMILL.getUnlocalizedName(),
+			ttl(ModBlocks.INDUSTRIAL_SAWMILL.getLocalizedName())));
 		buttonList.add(new GuiButtonItemTexture(3, getXMin() + 10, getYMin() + 60, 0, 46, 100, 20,
-			new ItemStack(ModBlocks.industrialElectrolyzer), ModBlocks.industrialElectrolyzer.getUnlocalizedName(),
-			ttl(ModBlocks.industrialElectrolyzer.getLocalizedName())));
+			new ItemStack(ModBlocks.INDUSTRIAL_ELECTROLYZER), ModBlocks.INDUSTRIAL_ELECTROLYZER.getUnlocalizedName(),
+			ttl(ModBlocks.INDUSTRIAL_ELECTROLYZER.getLocalizedName())));
 		buttonList.add(new GuiButtonItemTexture(4, getXMin() + 10, getYMin() + 80, 0, 46, 100, 20,
-			new ItemStack(ModBlocks.industrialGrinder), ModBlocks.industrialGrinder.getUnlocalizedName(),
-			ttl(ModBlocks.industrialGrinder.getLocalizedName())));
+			new ItemStack(ModBlocks.INDUSTRIAL_GRINDER), ModBlocks.INDUSTRIAL_GRINDER.getUnlocalizedName(),
+			ttl(ModBlocks.INDUSTRIAL_GRINDER.getLocalizedName())));
 		buttonList.add(new GuiButtonItemTexture(5, getXMin() + 10, getYMin() + 100, 0, 46, 100, 20,
-			new ItemStack(ModBlocks.implosionCompressor), ModBlocks.implosionCompressor.getUnlocalizedName(),
-			ttl(ModBlocks.implosionCompressor.getLocalizedName())));
+			new ItemStack(ModBlocks.IMPLOSION_COMPRESSOR), ModBlocks.IMPLOSION_COMPRESSOR.getUnlocalizedName(),
+			ttl(ModBlocks.IMPLOSION_COMPRESSOR.getLocalizedName())));
 		buttonList.add(new GuiButtonItemTexture(6, getXMin() + 10, getYMin() + 120, 0, 46, 100, 20,
-			new ItemStack(ModBlocks.centrifuge), ModBlocks.centrifuge.getUnlocalizedName(),
-			ttl(ModBlocks.centrifuge.getLocalizedName())));
+			new ItemStack(ModBlocks.INDUSTRIAL_CENTRIFUGE), ModBlocks.INDUSTRIAL_CENTRIFUGE.getUnlocalizedName(),
+			ttl(ModBlocks.INDUSTRIAL_CENTRIFUGE.getLocalizedName())));
 	}
 
 	@Override
@@ -44,16 +44,16 @@ public class AdvancedMachines extends TitledPage {
 		if (button.id == 0)
 			collection.changeActivePage(Reference.pageNames.CONTENTS_PAGE);
 		if (button.id == 1)
-			collection.changeActivePage(ModBlocks.blastFurnace.getLocalizedName());
+			collection.changeActivePage(ModBlocks.INDUSTRIAL_BLAST_FURNACE.getLocalizedName());
 		if (button.id == 2)
-			collection.changeActivePage(ModBlocks.industrialSawmill.getLocalizedName());
+			collection.changeActivePage(ModBlocks.INDUSTRIAL_SAWMILL.getLocalizedName());
 		if (button.id == 3)
-			collection.changeActivePage(ModBlocks.industrialElectrolyzer.getLocalizedName());
+			collection.changeActivePage(ModBlocks.INDUSTRIAL_ELECTROLYZER.getLocalizedName());
 		if (button.id == 4)
-			collection.changeActivePage(ModBlocks.industrialGrinder.getLocalizedName());
+			collection.changeActivePage(ModBlocks.INDUSTRIAL_GRINDER.getLocalizedName());
 		if (button.id == 5)
-			collection.changeActivePage(ModBlocks.implosionCompressor.getLocalizedName());
+			collection.changeActivePage(ModBlocks.IMPLOSION_COMPRESSOR.getLocalizedName());
 		if (button.id == 6)
-			collection.changeActivePage(ModBlocks.centrifuge.getLocalizedName());
+			collection.changeActivePage(ModBlocks.INDUSTRIAL_CENTRIFUGE.getLocalizedName());
 	}
 }

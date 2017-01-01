@@ -24,7 +24,7 @@ public class ItemDiamondDrill extends ItemDrill {
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item,
 	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
-		ItemStack stack = new ItemStack(ModItems.diamondDrill);
+		ItemStack stack = new ItemStack(ModItems.DIAMOND_DRILL);
 		ItemStack uncharged = stack.copy();
 		ItemStack charged = stack.copy();
 		PoweredItem.setEnergy(getMaxPower(charged), charged);

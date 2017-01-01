@@ -10,7 +10,7 @@ import techreborn.init.ModBlocks;
 public class TileMVTransformer extends TileTransformer {
 
 	public TileMVTransformer() {
-		super("MVTransformer", ModBlocks.MVT, EnumPowerTier.HIGH, ConfigTechReborn.MVTransformerMaxInput, ConfigTechReborn.MVTransformerMaxOutput, ConfigTechReborn.LVTransformerMaxInput * 2);
+		super("MVTransformer", ModBlocks.MV_TRANSFORMER, EnumPowerTier.HIGH, ConfigTechReborn.MVTransformerMaxInput, ConfigTechReborn.MVTransformerMaxOutput, ConfigTechReborn.LVTransformerMaxInput * 2);
 	}
 
 	@Override

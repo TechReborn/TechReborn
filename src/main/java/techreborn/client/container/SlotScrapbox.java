@@ -12,7 +12,7 @@ public class SlotScrapbox extends BaseSlot {
 	}
 
 	public boolean isItemValid(ItemStack par1ItemStack) {
-		return par1ItemStack.getItem() == ModItems.scrapBox;
+		return par1ItemStack.getItem() == ModItems.SCRAP_BOX;
 	}
 
 	public int getSlotStackLimit() {

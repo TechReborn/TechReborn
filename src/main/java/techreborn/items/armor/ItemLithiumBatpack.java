@@ -11,7 +11,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import reborncore.RebornCore;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItem;
@@ -90,8 +89,8 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo {
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item,
 	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
-		ItemStack uncharged = new ItemStack(ModItems.lithiumBatpack);
-		ItemStack charged = new ItemStack(ModItems.lithiumBatpack);
+		ItemStack uncharged = new ItemStack(ModItems.LITHIUM_BATTERY_PACK);
+		ItemStack charged = new ItemStack(ModItems.LITHIUM_BATTERY_PACK);
 		PoweredItem.setEnergy(getMaxPower(charged), charged);
 
 		itemList.add(uncharged);

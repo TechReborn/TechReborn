@@ -157,7 +157,7 @@ public class BlockRubberLog extends Block implements ITexturedBlock {
 						worldIn.setBlockState(pos,
 							state.withProperty(HAS_SAP, false).withProperty(SAP_SIDE, EnumFacing.getHorizontal(0)));
 						worldIn.playSound(null, pos.getX(), pos.getY(),
-							pos.getZ(), ModSounds.extract,
+							pos.getZ(), ModSounds.SAP_EXTRACT,
 							SoundCategory.BLOCKS, 0.6F, 1F);
 						if (!worldIn.isRemote) {
 							if (stack.getItem() instanceof ItemElectricTreetap) {

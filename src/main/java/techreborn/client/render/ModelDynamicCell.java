@@ -46,8 +46,8 @@ public class ModelDynamicCell implements IModel {
 	private static final float SOUTH_Z_FLUID = 8.4f / 16f;
 
 	public static void init() {
-		ModelLoader.setCustomMeshDefinition(ModItems.dynamicCell, stack -> MODEL_LOCATION);
-		ModelBakery.registerItemVariants(ModItems.dynamicCell, MODEL_LOCATION);
+		ModelLoader.setCustomMeshDefinition(ModItems.CELL, stack -> MODEL_LOCATION);
+		ModelBakery.registerItemVariants(ModItems.CELL, MODEL_LOCATION);
 		ModelLoaderRegistry.registerLoader(new DynamicCellLoader());
 	}
 

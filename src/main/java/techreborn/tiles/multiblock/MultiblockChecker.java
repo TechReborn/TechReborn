@@ -24,7 +24,7 @@ public class MultiblockChecker {
 
 	public boolean checkCasing(int offX, int offY, int offZ, int type) {
 		IBlockState block = getBlock(offX, offY, offZ);
-		if (block.getBlock() == ModBlocks.machineCasing) {
+		if (block.getBlock() == ModBlocks.MACHINE_CASINGS) {
 			if (block.getValue(BlockMachineCasing.METADATA) == type)
 				return true;
 		}

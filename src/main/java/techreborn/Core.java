@@ -164,7 +164,7 @@ public class Core {
 		//MinecraftForge.EVENT_BUS.register(worldGen.retroGen);
 		// Scrapbox
 		if (config.ScrapboxDispenser) {
-			BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(ModItems.scrapBox, new BehaviorDispenseScrapbox());
+			BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(ModItems.SCRAP_BOX, new BehaviorDispenseScrapbox());
 		}
 		logHelper.info("Initialization Complete");
 	}

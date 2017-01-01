@@ -26,11 +26,11 @@ public enum VeinWorldGenerator implements IWorldGenerator {
 	}
 
 	private static Pair<Float, IBlockState> additional(float chance, String name) {
-		return ImmutablePair.of(chance, ModBlocks.ore.getBlockStateFromName(name));
+		return ImmutablePair.of(chance, ModBlocks.ORE.getBlockStateFromName(name));
 	}
 
 	private static Pair<Float, IBlockState> primary(String name) {
-		return ImmutablePair.of(1.00f, ModBlocks.ore.getBlockStateFromName(name));
+		return ImmutablePair.of(1.00f, ModBlocks.ORE.getBlockStateFromName(name));
 	}
 
 	private static Pair<Float, IBlockState> primary(Block block) {

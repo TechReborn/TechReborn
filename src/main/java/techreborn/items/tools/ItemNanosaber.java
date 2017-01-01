@@ -96,16 +96,16 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item,
 	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
-		ItemStack inactiveUncharged = new ItemStack(ModItems.nanosaber);
+		ItemStack inactiveUncharged = new ItemStack(ModItems.NANOSABER);
 		inactiveUncharged.setTagCompound(new NBTTagCompound());
 		inactiveUncharged.getTagCompound().setBoolean("isActive", false);
 
-		ItemStack inactiveCharged = new ItemStack(ModItems.nanosaber);
+		ItemStack inactiveCharged = new ItemStack(ModItems.NANOSABER);
 		inactiveCharged.setTagCompound(new NBTTagCompound());
 		inactiveCharged.getTagCompound().setBoolean("isActive", false);
 		PoweredItem.setEnergy(getMaxPower(inactiveCharged), inactiveCharged);
 
-		ItemStack activeCharged = new ItemStack(ModItems.nanosaber);
+		ItemStack activeCharged = new ItemStack(ModItems.NANOSABER);
 		activeCharged.setTagCompound(new NBTTagCompound());
 		activeCharged.getTagCompound().setBoolean("isActive", true);
 		PoweredItem.setEnergy(getMaxPower(activeCharged), activeCharged);

@@ -19,7 +19,7 @@ public class ItemReBattery extends ItemBattery {
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item,
 	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
-		ItemStack stack = new ItemStack(ModItems.reBattery);
+		ItemStack stack = new ItemStack(ModItems.RE_BATTERY);
 		ItemStack uncharged = stack.copy();
 		ItemStack charged = stack.copy();
 		PoweredItem.setEnergy(getMaxPower(charged), charged);

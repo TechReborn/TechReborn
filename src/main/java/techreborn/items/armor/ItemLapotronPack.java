@@ -71,8 +71,8 @@ public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo {
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item,
 	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
-		ItemStack uncharged = new ItemStack(ModItems.lapotronpack);
-		ItemStack charged = new ItemStack(ModItems.lapotronpack);
+		ItemStack uncharged = new ItemStack(ModItems.LAPOTRONIC_ORB_PACK);
+		ItemStack charged = new ItemStack(ModItems.LAPOTRONIC_ORB_PACK);
 		PoweredItem.setEnergy(getMaxPower(charged), charged);
 
 		itemList.add(uncharged);

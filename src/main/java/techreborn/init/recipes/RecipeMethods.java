@@ -8,7 +8,7 @@ import techreborn.items.*;
 /**
  * Created by Prospector
  */
-public class RecipeMethods {
+public abstract class RecipeMethods {
 	static ItemStack getMaterial(String name, int count, Type type) {
 		if (type == Type.DUST) {
 			return ItemDusts.getDustByName(name, count);

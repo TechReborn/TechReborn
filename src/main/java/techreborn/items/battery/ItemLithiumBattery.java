@@ -19,7 +19,7 @@ public class ItemLithiumBattery extends ItemBattery {
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item,
 	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
-		ItemStack stack = new ItemStack(ModItems.lithiumBattery);
+		ItemStack stack = new ItemStack(ModItems.LITHIUM_BATTERY);
 		ItemStack uncharged = stack.copy();
 		ItemStack charged = stack.copy();
 		PoweredItem.setEnergy(getMaxPower(charged), charged);

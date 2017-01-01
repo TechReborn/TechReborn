@@ -62,7 +62,7 @@ public class TileCompressor extends TilePowerAcceptor implements IWrenchable, II
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.compressor, 1);
+		return new ItemStack(ModBlocks.COMPRESSOR, 1);
 	}
 
 	public boolean isComplete() {

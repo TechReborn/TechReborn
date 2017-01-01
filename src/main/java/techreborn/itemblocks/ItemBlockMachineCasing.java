@@ -8,7 +8,7 @@ import techreborn.init.ModBlocks;
 public class ItemBlockMachineCasing extends ItemMultiTexture {
 
 	public ItemBlockMachineCasing(Block block) {
-		super(ModBlocks.machineCasing, ModBlocks.machineCasing, BlockMachineCasing.types);
+		super(ModBlocks.MACHINE_CASINGS, ModBlocks.MACHINE_CASINGS, BlockMachineCasing.types);
 	}
 
 }

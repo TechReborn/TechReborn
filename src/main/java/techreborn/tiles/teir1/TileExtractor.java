@@ -67,7 +67,7 @@ public class TileExtractor extends TilePowerAcceptor implements IWrenchable, IIn
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.extractor, 1);
+		return new ItemStack(ModBlocks.EXTRACTOR, 1);
 	}
 
 	public boolean isComplete() {

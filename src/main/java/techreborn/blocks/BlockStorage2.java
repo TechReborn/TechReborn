@@ -37,7 +37,7 @@ public class BlockStorage2 extends BaseBlock implements ITexturedBlock {
 	public static ItemStack getStorageBlockByName(String name, int count) {
 		for (int i = 0; i < types.length; i++) {
 			if (types[i].equals(name)) {
-				return new ItemStack(ModBlocks.storage2, count, i);
+				return new ItemStack(ModBlocks.STORAGE2, count, i);
 			}
 		}
 		throw new InvalidParameterException("The storage block " + name + " could not be found.");

@@ -16,7 +16,7 @@ public class TileDieselGenerator extends TileBaseFluidGenerator {
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.dieselGenerator, 1);
+		return new ItemStack(ModBlocks.DIESEL_GENERATOR, 1);
 	}
 
 	@Override

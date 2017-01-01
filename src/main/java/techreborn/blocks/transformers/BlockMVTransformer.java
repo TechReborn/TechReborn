@@ -29,7 +29,7 @@ public class BlockMVTransformer extends BlockTransformer {
 	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
 		ArrayList<ItemStack> list = new ArrayList<>();
-		list.add(new ItemStack(ModBlocks.machineframe, 1, 0));
+		list.add(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 0));
 		return list;
 	}
 }

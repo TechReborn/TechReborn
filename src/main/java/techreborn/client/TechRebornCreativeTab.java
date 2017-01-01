@@ -14,6 +14,6 @@ public class TechRebornCreativeTab extends CreativeTabs {
 
 	@Override
 	public ItemStack getTabIconItem() {
-		return new ItemStack(ModBlocks.thermalGenerator);
+		return new ItemStack(ModBlocks.THERMAL_GENERATOR);
 	}
 }

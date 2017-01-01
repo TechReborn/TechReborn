@@ -29,7 +29,7 @@ public class RecipesIC2 implements ICompatModule {
 
 	@Override
 	public void init(FMLInitializationEvent event) {
-		recipeDuplicateList.add(new RecipeDuplicate(new ItemStack(ModBlocks.machineframe, 0, 1), IC2Items.getItem("resource", "machine")));
+		recipeDuplicateList.add(new RecipeDuplicate(new ItemStack(ModBlocks.MACHINE_FRAMES, 0, 1), IC2Items.getItem("resource", "machine")));
 
 		for (RecipeDuplicate duplicate : recipeDuplicateList) {
 			duplicate.add();
@@ -41,7 +41,7 @@ public class RecipesIC2 implements ICompatModule {
 		CraftingHelper.addShapelessRecipe(ItemParts.getPartByName("rubber"), IC2Items.getItem("crafting", "rubber"));
 		CraftingHelper.addShapelessRecipe(IC2Items.getItem("crafting", "rubber"), ItemParts.getPartByName("rubber"));
 
-		CraftingHelper.addShapelessRecipe(IC2Items.getItem("electric_wrench"), new ItemStack(ModItems.wrench), IC2Items.getItem("crafting", "small_power_unit"));
+		CraftingHelper.addShapelessRecipe(IC2Items.getItem("electric_wrench"), new ItemStack(ModItems.WRENCH), IC2Items.getItem("crafting", "small_power_unit"));
 	}
 
 	@Override

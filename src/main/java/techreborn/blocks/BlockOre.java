@@ -56,7 +56,7 @@ public class BlockOre extends Block implements IOreNameProvider {
 	public static ItemStack getOreByName(String name, int count) {
 		for (int i = 0; i < ores.length; i++) {
 			if (ores[i].equalsIgnoreCase(name)) {
-				return new ItemStack(ModBlocks.ore, count, i);
+				return new ItemStack(ModBlocks.ORE, count, i);
 			}
 		}
 		return BlockOre2.getOreByName(name, count);
@@ -75,7 +75,7 @@ public class BlockOre extends Block implements IOreNameProvider {
 			}
 		}
 		if (index == -1) {
-			return ModBlocks.ore2.getBlockStateFromName(name);
+			return ModBlocks.ORE2.getBlockStateFromName(name);
 		}
 		return getStateFromMeta(index);
 	}

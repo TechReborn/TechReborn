@@ -24,7 +24,7 @@ public class ItemGems extends ItemTRNoDestroy {
 		name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, name);
 		for (int i = 0; i < types.length; i++) {
 			if (types[i].equalsIgnoreCase(name)) {
-				return new ItemStack(ModItems.gems, count, i);
+				return new ItemStack(ModItems.GEMS, count, i);
 			}
 		}
 		throw new InvalidParameterException("The gem " + name + " could not be found.");

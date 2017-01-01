@@ -22,7 +22,7 @@ public class TRTickHandler {
 		Item chestslot = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != ItemStack.EMPTY
 		                 ? player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() : null;
 
-		if (previouslyWearing != chestslot && previouslyWearing == ModItems.cloakingDevice && player.isInvisible()
+		if (previouslyWearing != chestslot && previouslyWearing == ModItems.CLOAKING_DEVICE && player.isInvisible()
 			&& !player.isPotionActive(MobEffects.INVISIBILITY)) {
 			player.setInvisible(false);
 		}

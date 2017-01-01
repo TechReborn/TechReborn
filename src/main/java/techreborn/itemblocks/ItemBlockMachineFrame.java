@@ -8,7 +8,7 @@ import techreborn.init.ModBlocks;
 public class ItemBlockMachineFrame extends ItemBlockBase {
 
 	public ItemBlockMachineFrame(Block block) {
-		super(ModBlocks.machineframe, ModBlocks.machineframe, BlockMachineFrame.types);
+		super(ModBlocks.MACHINE_FRAMES, ModBlocks.MACHINE_FRAMES, BlockMachineFrame.types);
 	}
 
 }

@@ -23,134 +23,134 @@ public class RegisterItemJsons {
 	}
 
 	private static void registerItems() {
-		register(ModItems.reBattery, "battery/re_battery");
-		register(ModItems.lithiumBattery, "battery/lithium_battery");
-		register(ModItems.energyCrystal, "battery/energy_crystal");
-		register(ModItems.lapotronCrystal, "battery/lapotron_crystal");
-		register(ModItems.lapotronicOrb, "battery/lapotronic_orb");
+		register(ModItems.RE_BATTERY, "battery/re_battery");
+		register(ModItems.LITHIUM_BATTERY, "battery/lithium_battery");
+		register(ModItems.ENERGY_CRYSTAL, "battery/energy_crystal");
+		register(ModItems.LAPOTRONIC_CRYSTAL, "battery/lapotron_crystal");
+		register(ModItems.LAPOTRONIC_ORB, "battery/lapotronic_orb");
 
-		register(ModItems.frequencyTransmitter, "misc/frequency_transmitter");
-		register(ModItems.uuMatter, "misc/uu_matter");
-		register(ModItems.scrapBox, "misc/scrapbox");
-		register(ModItems.manual, "misc/manual");
-		register(ModItems.debug, "misc/debug");
-		register(ModBlocks.rubberSapling, "misc/rubber_sapling");
+		register(ModItems.FREQUENCY_TRANSMITTER, "misc/frequency_transmitter");
+		register(ModItems.UU_MATTER, "misc/uu_matter");
+		register(ModItems.SCRAP_BOX, "misc/scrapbox");
+		register(ModItems.MANUAL, "misc/manual");
+		register(ModItems.DEBUG, "misc/debug");
+		register(ModBlocks.RUBBER_SAPLING, "misc/rubber_sapling");
 
-		register(ModItems.ironDrill, "tool/steel_drill");
-		register(ModItems.diamondDrill, "tool/diamond_drill");
-		register(ModItems.advancedDrill, "tool/advanced_drill");
-		register(ModItems.ironChainsaw, "tool/steel_chainsaw");
-		register(ModItems.diamondChainsaw, "tool/diamond_chainsaw");
-		register(ModItems.advancedChainsaw, "tool/advanced_chainsaw");
-		register(ModItems.steelJackhammer, "tool/steel_jackhammer");
-		register(ModItems.diamondJackhammer, "tool/diamond_jackhammer");
-		register(ModItems.advancedJackhammer, "tool/advanced_jackhammer");
-		register(ModItems.nanosaber, "tool/nanosaber");
-		register(ModItems.treeTap, "tool/treetap");
-		register(ModItems.electricTreetap, "tool/electric_treetap");
-		register(ModItems.cloakingDevice, "tool/cloaking_device");
-		register(ModItems.omniTool, "tool/omni_tool");
-		register(ModItems.rockCutter, "tool/rock_cutter");
-		register(ModItems.wrench, "tool/wrench");
-		register(ModItems.lapotronpack, "tool/lapotronic_orbpack");
-		register(ModItems.lithiumBatpack, "tool/lithium_batpack");
+		register(ModItems.STEEL_DRILL, "tool/steel_drill");
+		register(ModItems.DIAMOND_DRILL, "tool/diamond_drill");
+		register(ModItems.ADVANCED_DRILL, "tool/advanced_drill");
+		register(ModItems.STEEL_CHAINSAW, "tool/steel_chainsaw");
+		register(ModItems.DIAMOND_CHAINSAW, "tool/diamond_chainsaw");
+		register(ModItems.ADVANCED_CHAINSAW, "tool/advanced_chainsaw");
+		register(ModItems.STEEL_JACKHAMMER, "tool/steel_jackhammer");
+		register(ModItems.DIAMOND_JACKHAMMER, "tool/diamond_jackhammer");
+		register(ModItems.ADVANCED_JACKHAMMER, "tool/advanced_jackhammer");
+		register(ModItems.NANOSABER, "tool/nanosaber");
+		register(ModItems.TREE_TAP, "tool/treetap");
+		register(ModItems.ELECTRIC_TREE_TAP, "tool/electric_treetap");
+		register(ModItems.CLOAKING_DEVICE, "tool/cloaking_device");
+		register(ModItems.OMNI_TOOL, "tool/omni_tool");
+		register(ModItems.ROCK_CUTTER, "tool/rock_cutter");
+		register(ModItems.WRENCH, "tool/wrench");
+		register(ModItems.LAPOTRONIC_ORB_PACK, "tool/lapotronic_orbpack");
+		register(ModItems.LITHIUM_BATTERY_PACK, "tool/lithium_batpack");
 
-		registerBlockstateMultiItem(ModItems.rubyHelmet, "ruby_helmet", "items/tool/armour");
-		registerBlockstateMultiItem(ModItems.rubyChestplate, "ruby_chestplate", "items/tool/armour");
-		registerBlockstateMultiItem(ModItems.rubyLeggings, "ruby_leggings", "items/tool/armour");
-		registerBlockstateMultiItem(ModItems.rubyBoots, "ruby_boots", "items/tool/armour");
-		registerBlockstateMultiItem(ModItems.sapphireHelmet, "sapphire_helmet", "items/tool/armour");
-		registerBlockstateMultiItem(ModItems.sapphireChestplate, "sapphire_chestplate", "items/tool/armour");
-		registerBlockstateMultiItem(ModItems.sapphireLeggings, "sapphire_leggings", "items/tool/armour");
-		registerBlockstateMultiItem(ModItems.sapphireBoots, "sapphire_boots", "items/tool/armour");
-		registerBlockstateMultiItem(ModItems.peridotHelmet, "peridot_helmet", "items/tool/armour");
-		registerBlockstateMultiItem(ModItems.peridotChestplate, "peridot_chestplate", "items/tool/armour");
-		registerBlockstateMultiItem(ModItems.peridotLeggings, "peridot_leggings", "items/tool/armour");
-		registerBlockstateMultiItem(ModItems.peridotBoots, "peridot_boots", "items/tool/armour");
-		registerBlockstateMultiItem(ModItems.bronzeHelmet, "bronze_helmet", "items/tool/armour");
-		registerBlockstateMultiItem(ModItems.bronzeChestplate, "bronze_chestplate", "items/tool/armour");
-		registerBlockstateMultiItem(ModItems.bronzeLeggings, "bronze_leggings", "items/tool/armour");
-		registerBlockstateMultiItem(ModItems.bronzeBoots, "bronze_boots", "items/tool/armour");
+		registerBlockstateMultiItem(ModItems.RUBY_HELMET, "ruby_helmet", "items/tool/armour");
+		registerBlockstateMultiItem(ModItems.RUBY_CHESTPLATE, "ruby_chestplate", "items/tool/armour");
+		registerBlockstateMultiItem(ModItems.RUBY_LEGGINGS, "ruby_leggings", "items/tool/armour");
+		registerBlockstateMultiItem(ModItems.RUBY_BOOTS, "ruby_boots", "items/tool/armour");
+		registerBlockstateMultiItem(ModItems.SAPPHIRE_HELMET, "sapphire_helmet", "items/tool/armour");
+		registerBlockstateMultiItem(ModItems.SAPPHIRE_CHSTPLATE, "sapphire_chestplate", "items/tool/armour");
+		registerBlockstateMultiItem(ModItems.SAPPHIRE_LEGGINGS, "sapphire_leggings", "items/tool/armour");
+		registerBlockstateMultiItem(ModItems.SAPPHIRE_BOOTS, "sapphire_boots", "items/tool/armour");
+		registerBlockstateMultiItem(ModItems.PERIDOT_HELMET, "peridot_helmet", "items/tool/armour");
+		registerBlockstateMultiItem(ModItems.PERIDOT_CHESTPLATE, "peridot_chestplate", "items/tool/armour");
+		registerBlockstateMultiItem(ModItems.PERIDOT_LEGGINGS, "peridot_leggings", "items/tool/armour");
+		registerBlockstateMultiItem(ModItems.PERIDOT_BOOTS, "peridot_boots", "items/tool/armour");
+		registerBlockstateMultiItem(ModItems.BRONZE_HELMET, "bronze_helmet", "items/tool/armour");
+		registerBlockstateMultiItem(ModItems.BRONZE_CHESTPLATE, "bronze_chestplate", "items/tool/armour");
+		registerBlockstateMultiItem(ModItems.BRONZE_LEGGINGS, "bronze_leggings", "items/tool/armour");
+		registerBlockstateMultiItem(ModItems.BRONZE_BOOTS, "bronze_boots", "items/tool/armour");
 
-		registerBlockstateMultiItem(ModItems.rubyPickaxe, "ruby_pickaxe", "items/tool/tool");
-		registerBlockstateMultiItem(ModItems.rubySword, "ruby_sword", "items/tool/tool");
-		registerBlockstateMultiItem(ModItems.rubyAxe, "ruby_axe", "items/tool/tool");
-		registerBlockstateMultiItem(ModItems.rubySpade, "ruby_spade", "items/tool/tool");
-		registerBlockstateMultiItem(ModItems.rubyHoe, "ruby_hoe", "items/tool/tool");
-		registerBlockstateMultiItem(ModItems.sapphirePickaxe, "sapphire_pickaxe", "items/tool/tool");
-		registerBlockstateMultiItem(ModItems.sapphireSword, "sapphire_sword", "items/tool/tool");
-		registerBlockstateMultiItem(ModItems.sapphireAxe, "sapphire_axe", "items/tool/tool");
-		registerBlockstateMultiItem(ModItems.sapphireSpade, "sapphire_spade", "items/tool/tool");
-		registerBlockstateMultiItem(ModItems.sapphireHoe, "sapphire_hoe", "items/tool/tool");
-		registerBlockstateMultiItem(ModItems.peridotPickaxe, "peridot_pickaxe", "items/tool/tool");
-		registerBlockstateMultiItem(ModItems.peridotSword, "peridot_sword", "items/tool/tool");
-		registerBlockstateMultiItem(ModItems.peridotAxe, "peridot_axe", "items/tool/tool");
-		registerBlockstateMultiItem(ModItems.peridotSpade, "peridot_spade", "items/tool/tool");
-		registerBlockstateMultiItem(ModItems.peridotHoe, "peridot_hoe", "items/tool/tool");
-		registerBlockstateMultiItem(ModItems.bronzePickaxe, "bronze_pickaxe", "items/tool/tool");
-		registerBlockstateMultiItem(ModItems.bronzeSword, "bronze_sword", "items/tool/tool");
-		registerBlockstateMultiItem(ModItems.bronzeAxe, "bronze_axe", "items/tool/tool");
-		registerBlockstateMultiItem(ModItems.bronzeSpade, "bronze_spade", "items/tool/tool");
-		registerBlockstateMultiItem(ModItems.bronzeHoe, "bronze_hoe", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.RUBY_PICKAXE, "ruby_pickaxe", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.RUBY_SWORD, "ruby_sword", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.RUBY_AXE, "ruby_axe", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.RUBY_SPADE, "ruby_spade", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.RUBY_HOE, "ruby_hoe", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.SAPPHIRE_PICKAXE, "sapphire_pickaxe", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.SAPPHIRE_SWORD, "sapphire_sword", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.SAPPHIRE_AXE, "sapphire_axe", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.SAPPHIRE_SPADE, "sapphire_spade", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.SAPPHIRE_HOE, "sapphire_hoe", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.PERIDOT_PICKAXE, "peridot_pickaxe", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.PERIDOT_SWORD, "peridot_sword", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.PERIDOT_AXE, "peridot_axe", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.PERIDOT_SAPPHIRE, "peridot_spade", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.PERIDOT_HOE, "peridot_hoe", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.BRONZE_PICKAXE, "bronze_pickaxe", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.BRONZE_SWORD, "bronze_sword", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.BRONZE_AXE, "bronze_axe", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.BRONZE_SPADE, "bronze_spade", "items/tool/tool");
+		registerBlockstateMultiItem(ModItems.BRONZE_HOE, "bronze_hoe", "items/tool/tool");
 
 		for (int i = 0; i < ItemIngots.types.length; ++i) {
 			String[] name = ItemIngots.types.clone();
-			registerBlockstate(ModItems.ingots, i, name[i], "items/materials/");
+			registerBlockstate(ModItems.INGOTS, i, name[i], "items/materials/");
 		}
 
 		for (int i = 0; i < ItemGems.types.length; ++i) {
 			String[] name = ItemGems.types.clone();
-			registerBlockstate(ModItems.gems, i, name[i], "items/materials/");
+			registerBlockstate(ModItems.GEMS, i, name[i], "items/materials/");
 		}
 
 		for (int i = 0; i < ItemPlates.types.length; ++i) {
 			String[] name = ItemPlates.types.clone();
-			registerBlockstate(ModItems.plate, i, name[i], "items/materials/");
+			registerBlockstate(ModItems.PLATES, i, name[i], "items/materials/");
 		}
 
 		for (int i = 0; i < ItemNuggets.types.length; ++i) {
 			String[] name = ItemNuggets.types.clone();
-			registerBlockstate(ModItems.nuggets, i, name[i], "items/materials/");
+			registerBlockstate(ModItems.NUGGETS, i, name[i], "items/materials/");
 		}
 
 		for (int i = 0; i < ItemDusts.types.length; ++i) {
 			String[] name = ItemDusts.types.clone();
-			registerBlockstate(ModItems.dusts, i, name[i], "items/materials/");
+			registerBlockstate(ModItems.DUSTS, i, name[i], "items/materials/");
 		}
 
 		for (int i = 0; i < ItemDustsSmall.types.length; ++i) {
 			String[] name = ItemDustsSmall.types.clone();
-			registerBlockstate(ModItems.smallDusts, i, name[i], "items/materials/");
+			registerBlockstate(ModItems.SMALL_DUSTS, i, name[i], "items/materials/");
 		}
 
 		for (int i = 0; i < ItemParts.types.length; ++i) {
 			String[] name = ItemParts.types.clone();
-			registerBlockstate(ModItems.parts, i, name[i], "items/materials/");
+			registerBlockstate(ModItems.PARTS, i, name[i], "items/materials/");
 		}
 
 		for (int i = 0; i < ItemUpgrades.types.length; ++i) {
 			String[] name = ItemUpgrades.types.clone();
-			registerBlockstate(ModItems.upgrades, i, name[i], "items/misc/");
+			registerBlockstate(ModItems.UPGRADES, i, name[i], "items/misc/");
 		}
 
 		for (int i = 0; i < BlockOre.ores.length; ++i) {
 			String[] name = BlockOre.ores.clone();
-			registerBlockstate(ModBlocks.ore, i, name[i]);
+			registerBlockstate(ModBlocks.ORE, i, name[i]);
 		}
 
 		for (int i = 0; i < BlockOre2.ores.length; ++i) {
 			String[] name = BlockOre2.ores.clone();
-			registerBlockstate(ModBlocks.ore2, i, name[i]);
+			registerBlockstate(ModBlocks.ORE2, i, name[i]);
 		}
 
 		for (int i = 0; i < BlockStorage.types.length; ++i) {
 			String[] name = BlockStorage.types.clone();
-			registerBlockstate(ModBlocks.storage, i, name[i]);
+			registerBlockstate(ModBlocks.STORAGE, i, name[i]);
 		}
 
 		for (int i = 0; i < BlockStorage2.types.length; ++i) {
 			String[] name = BlockStorage2.types.clone();
-			registerBlockstate(ModBlocks.storage2, i, name[i]);
+			registerBlockstate(ModBlocks.STORAGE2, i, name[i]);
 		}
 
 		if (Loader.isModLoaded("reborncore-mcmultipart"))
@@ -161,7 +161,7 @@ public class RegisterItemJsons {
 	}
 
 	private static void registerBlocks() {
-		register(ModBlocks.ironFence, "iron_fence");
+		register(ModBlocks.REFINED_IRON_FENCE, "iron_fence");
 	}
 
 	private static void register(Item item, int meta, String name) {

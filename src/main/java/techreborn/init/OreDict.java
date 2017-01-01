@@ -27,7 +27,7 @@ public class OreDict {
 			IC2Dict.init();
 		}
 
-		OreDictionary.registerOre("reBattery", ModItems.reBattery);
+		OreDictionary.registerOre("reBattery", ModItems.RE_BATTERY);
 
 		OreDictionary.registerOre("circuitBasic", ItemParts.getPartByName("electronicCircuit"));
 		OreDictionary.registerOre("circuitAdvanced", ItemParts.getPartByName("advancedCircuit"));
@@ -39,31 +39,31 @@ public class OreDict {
 		OreDictionary.registerOre("machineBlockAdvanced", BlockMachineFrame.getFrameByName("advancedMachine", 1));
 		OreDictionary.registerOre("machineBlockElite", BlockMachineFrame.getFrameByName("highlyAdvancedMachine", 1));
 
-		OreDictionary.registerOre("lapotronCrystal", ModItems.lapotronCrystal);
-		OreDictionary.registerOre("energyCrystal", ModItems.energyCrystal);
+		OreDictionary.registerOre("lapotronCrystal", ModItems.LAPOTRONIC_CRYSTAL);
+		OreDictionary.registerOre("energyCrystal", ModItems.ENERGY_CRYSTAL);
 
-		OreDictionary.registerOre("drillBasic", ModItems.diamondDrill);
-		OreDictionary.registerOre("drillDiamond", ModItems.diamondDrill);
+		OreDictionary.registerOre("drillBasic", ModItems.DIAMOND_DRILL);
+		OreDictionary.registerOre("drillDiamond", ModItems.DIAMOND_DRILL);
 
 		OreDictionary.registerOre("industrialTnt", Blocks.TNT);
 		OreDictionary.registerOre("craftingIndustrialDiamond", Items.DIAMOND);
 		OreDictionary.registerOre("insulatedGoldCableItem", ItemStandaloneCables.getCableByName("insulatedgold"));
 		OreDictionary.registerOre("fertilizer", new ItemStack(Items.DYE, 1, 15));
 
-		OreDictionary.registerOre("ic2Generator", ModBlocks.generator);
-		OreDictionary.registerOre("ic2SolarPanel", ModBlocks.solarPanel);
-		OreDictionary.registerOre("ic2Macerator", ModBlocks.grinder);
-		OreDictionary.registerOre("ic2Extractor", ModBlocks.extractor);
-		OreDictionary.registerOre("ic2Windmill", ModBlocks.windMill);
-		OreDictionary.registerOre("ic2Watermill", ModBlocks.waterMill);
+		OreDictionary.registerOre("ic2Generator", ModBlocks.SOLID_FUEL_GENEREATOR);
+		OreDictionary.registerOre("ic2SolarPanel", ModBlocks.SOLAR_PANEL);
+		OreDictionary.registerOre("ic2Macerator", ModBlocks.GRINDER);
+		OreDictionary.registerOre("ic2Extractor", ModBlocks.EXTRACTOR);
+		OreDictionary.registerOre("ic2Windmill", ModBlocks.WIND_MILL);
+		OreDictionary.registerOre("ic2Watermill", ModBlocks.WATER_MILL);
 
 		//OreDictionary.registerOre("uran235", nothing);
 		//OreDictionary.registerOre("uran238", nothing);
 		//OreDictionary.registerOre("smallUran235", nothing);
 
-		OreDictionary.registerOre("fenceIron", ModBlocks.ironFence);
-		OreDictionary.registerOre("woodRubber", ModBlocks.rubberLog);
-		OreDictionary.registerOre("glassReinforced", ModBlocks.reinforcedglass);
+		OreDictionary.registerOre("fenceIron", ModBlocks.REFINED_IRON_FENCE);
+		OreDictionary.registerOre("woodRubber", ModBlocks.RUBBER_LOG);
+		OreDictionary.registerOre("glassReinforced", ModBlocks.REINFORCED_GLASS);
 
 		OreDictionary.registerOre("diamondTR", ItemDusts.getDustByName("Diamond"));
 		OreDictionary.registerOre("diamondTR", Items.DIAMOND);

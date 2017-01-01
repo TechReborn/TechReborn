@@ -75,7 +75,7 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.blastFurnace, 1);
+		return new ItemStack(ModBlocks.INDUSTRIAL_BLAST_FURNACE, 1);
 	}
 
 	public int getHeat() {

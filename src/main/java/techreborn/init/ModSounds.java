@@ -9,14 +9,14 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  */
 public class ModSounds {
 
-	public static SoundEvent shock;
-	public static SoundEvent dismantle;
-	public static SoundEvent extract;
+	public static SoundEvent CABLE_SHOCK;
+	public static SoundEvent BLOCK_DISMANTLE;
+	public static SoundEvent SAP_EXTRACT;
 
 	public static void init() {
-		shock = getSound("cable_shock");
-		dismantle = getSound("block_dismantle");
-		extract = getSound("sap_extract");
+		CABLE_SHOCK = getSound("cable_shock");
+		BLOCK_DISMANTLE = getSound("block_dismantle");
+		SAP_EXTRACT = getSound("sap_extract");
 	}
 
 	private static SoundEvent getSound(String str) {

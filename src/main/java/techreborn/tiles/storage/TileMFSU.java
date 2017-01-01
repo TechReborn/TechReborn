@@ -9,6 +9,6 @@ import techreborn.init.ModBlocks;
 public class TileMFSU extends TileEnergyStorage {
 
 	public TileMFSU() {
-		super("MFSU", 2, ModBlocks.MFSU, EnumPowerTier.HIGH, 2048, 2048, 1000000);
+		super("MFSU", 2, ModBlocks.HVSU, EnumPowerTier.HIGH, 2048, 2048, 1000000);
 	}
 }

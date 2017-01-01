@@ -7,27 +7,26 @@ import techreborn.items.ItemIngots;
 import techreborn.items.ItemParts;
 import techreborn.items.ItemUpgrades;
 import techreborn.parts.powerCables.EnumStandaloneCableType;
-import techreborn.parts.powerCables.ItemStandaloneCables;
 
 /**
  * Created by Mark on 18/12/2016.
  */
 public enum IC2Duplicates {
 
-	GRINDER(new ItemStack(ModBlocks.grinder)),
-	ELECTRICAL_FURNACE(new ItemStack(ModBlocks.electricFurnace)),
-	IRON_FURNACE(new ItemStack(ModBlocks.ironFurnace)),
-	GENERATOR(new ItemStack(ModBlocks.generator)),
-	EXTRACTOR(new ItemStack(ModBlocks.extractor)),
-	SOLAR_PANEL(new ItemStack(ModBlocks.solarPanel)),
-	RECYCLER(new ItemStack(ModBlocks.recycler)),
-	COMPRESSOR(new ItemStack(ModBlocks.compressor)),
-	BAT_BOX(new ItemStack(ModBlocks.batBox)),
-	MFE(new ItemStack(ModBlocks.MFE)),
-	MFSU(new ItemStack(ModBlocks.MFSU)),
-	LVT(new ItemStack(ModBlocks.LVT)),
-	MVT(new ItemStack(ModBlocks.MVT)),
-	HVT(new ItemStack(ModBlocks.HVT)),
+	GRINDER(new ItemStack(ModBlocks.GRINDER)),
+	ELECTRICAL_FURNACE(new ItemStack(ModBlocks.ELECTRIC_FURNACE)),
+	IRON_FURNACE(new ItemStack(ModBlocks.IRON_FURNACE)),
+	GENERATOR(new ItemStack(ModBlocks.SOLID_FUEL_GENEREATOR)),
+	EXTRACTOR(new ItemStack(ModBlocks.EXTRACTOR)),
+	SOLAR_PANEL(new ItemStack(ModBlocks.SOLAR_PANEL)),
+	RECYCLER(new ItemStack(ModBlocks.RECYCLER)),
+	COMPRESSOR(new ItemStack(ModBlocks.COMPRESSOR)),
+	BAT_BOX(new ItemStack(ModBlocks.BATTERY_BOX)),
+	MFE(new ItemStack(ModBlocks.MVSU)),
+	MFSU(new ItemStack(ModBlocks.HVSU)),
+	LVT(new ItemStack(ModBlocks.LV_TRANSFORMER)),
+	MVT(new ItemStack(ModBlocks.MV_TRANSFORMER)),
+	HVT(new ItemStack(ModBlocks.HV_TRANSFORMER)),
 	CABLE_COPPER(EnumStandaloneCableType.COPPER.getStack()),
 	CABLE_GLASSFIBER(EnumStandaloneCableType.GLASSFIBER.getStack()),
 	CABLE_GOLD(EnumStandaloneCableType.GOLD.getStack()),

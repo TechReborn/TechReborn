@@ -18,8 +18,8 @@ import techreborn.init.ModFluids;
 public class IndustrialGrinderRecipes extends RecipeMethods {
 
 	static FluidStack WATER = new FluidStack(FluidRegistry.WATER, 1000);
-	static FluidStack MERCURY = new FluidStack(ModFluids.fluidMercury, 1000);
-	static FluidStack SODIUM_PERSULFATE = new FluidStack(ModFluids.fluidSodiumpersulfate, 1000);
+	static FluidStack MERCURY = new FluidStack(ModFluids.MERCURY, 1000);
+	static FluidStack SODIUM_PERSULFATE = new FluidStack(ModFluids.SODIUMPERSULFATE, 1000);
 
 	public static void init() {
 

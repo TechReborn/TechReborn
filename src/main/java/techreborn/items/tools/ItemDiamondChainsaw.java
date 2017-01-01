@@ -24,7 +24,7 @@ public class ItemDiamondChainsaw extends ItemChainsaw {
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item,
 	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
-		ItemStack stack = new ItemStack(ModItems.diamondChainsaw);
+		ItemStack stack = new ItemStack(ModItems.DIAMOND_CHAINSAW);
 		ItemStack uncharged = stack.copy();
 		ItemStack charged = stack.copy();
 		PoweredItem.setEnergy(getMaxPower(charged), charged);

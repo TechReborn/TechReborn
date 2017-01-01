@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 public class ModParts {
 
-	public static HashMap<Integer, ItemStack> stackCable = new HashMap<>();
+	public static HashMap<Integer, ItemStack> CABLE = new HashMap<>();
 
 	public static void init() { // TODO 1.8
 		// if (Loader.isModLoaded("IC2")) {

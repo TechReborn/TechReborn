@@ -26,7 +26,7 @@ public class ContainerDestructoPack extends RebornContainer {
 
 	private void buildContainer() {
 		this.addSlotToContainer(
-			new SlotFilteredVoid(inv, 0, 80, 36, new ItemStack[] { new ItemStack(ModItems.parts, 1, 37) }));
+			new SlotFilteredVoid(inv, 0, 80, 36, new ItemStack[] { new ItemStack(ModItems.PARTS, 1, 37) }));
 		int i;
 
 		for (i = 0; i < 3; ++i) {

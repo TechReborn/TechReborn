@@ -8,7 +8,7 @@ import techreborn.init.ModBlocks;
 public class ItemBlockStorage extends ItemBlockBase {
 
 	public ItemBlockStorage(Block block) {
-		super(ModBlocks.storage, ModBlocks.storage, BlockStorage.types);
+		super(ModBlocks.STORAGE, ModBlocks.STORAGE, BlockStorage.types);
 	}
 
 }

@@ -17,7 +17,6 @@ import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
 import techreborn.items.ItemTRNoDestroy;
-import techreborn.items.ItemTextureBase;
 
 public class ItemCloakingDevice extends ItemTRNoDestroy implements IEnergyItemInfo {
 	public static int Teir = ConfigTechReborn.CloakingDeviceTier;
@@ -89,8 +88,8 @@ public class ItemCloakingDevice extends ItemTRNoDestroy implements IEnergyItemIn
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item,
 	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
-		ItemStack uncharged = new ItemStack(ModItems.cloakingDevice);
-		ItemStack charged = new ItemStack(ModItems.cloakingDevice);
+		ItemStack uncharged = new ItemStack(ModItems.CLOAKING_DEVICE);
+		ItemStack charged = new ItemStack(ModItems.CLOAKING_DEVICE);
 		PoweredItem.setEnergy(getMaxPower(charged), charged);
 
 		itemList.add(uncharged);

@@ -12,7 +12,7 @@ import java.util.List;
 public class TileBatBox extends TileEnergyStorage implements IListInfoProvider {
 
 	public TileBatBox() {
-		super("BatBox", 2, ModBlocks.batBox, EnumPowerTier.LOW, 32, 32, 40000);
+		super("BatBox", 2, ModBlocks.BATTERY_BOX, EnumPowerTier.LOW, 32, 32, 40000);
 	}
 
 	@Override

@@ -8,7 +8,7 @@ public class ScrapboxRecipe extends BaseRecipe {
 
 	public ScrapboxRecipe(ItemStack output) {
 		super(Reference.scrapboxRecipe, 0, 0);
-		addInput(new ItemStack(TechRebornAPI.getItem("scrapBox")));
+		addInput(new ItemStack(TechRebornAPI.getItem("SCRAP_BOX")));
 		addOutput(output);
 	}
 

@@ -18,7 +18,6 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 import org.hjson.JsonValue;
 import org.hjson.Stringify;
 import reborncore.common.misc.ChunkCoord;
-import reborncore.common.util.ArrayUtils;
 import techreborn.Core;
 import techreborn.init.ModBlocks;
 import techreborn.world.config.OreConfig;
@@ -49,24 +48,24 @@ public class TechRebornWorldGen implements IWorldGenerator {
 		defaultConfig.endOres = new ArrayList<>();
 		defaultConfig.neatherOres = new ArrayList<>();
 
-		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ore.getBlockStateFromName("Galena"), 8, 16, 10, 60));
-		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ore.getBlockStateFromName("Iridium"), 1, 1, 10, 60));
-		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ore.getBlockStateFromName("Ruby"), 6, 3, 10, 60));
-		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ore.getBlockStateFromName("Sapphire"), 6, 3, 10, 60));
-		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ore.getBlockStateFromName("Bauxite"), 6, 10, 10, 60));
-		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ore.getBlockStateFromName("Lead"), 6, 16, 20, 60));
-		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ore.getBlockStateFromName("Silver"), 6, 16, 20, 60));
-		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ore.getBlockStateFromName("copper"), 8, 16, 20, 60));
-		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ore.getBlockStateFromName("tin"), 8, 16, 20, 60));
+		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("Galena"), 8, 16, 10, 60));
+		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("Iridium"), 1, 1, 10, 60));
+		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("Ruby"), 6, 3, 10, 60));
+		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("Sapphire"), 6, 3, 10, 60));
+		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("Bauxite"), 6, 10, 10, 60));
+		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("Lead"), 6, 16, 20, 60));
+		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("Silver"), 6, 16, 20, 60));
+		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("copper"), 8, 16, 20, 60));
+		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("tin"), 8, 16, 20, 60));
 
-		defaultConfig.neatherOres.add(new OreConfig(ModBlocks.ore.getBlockStateFromName("Pyrite"), 6, 3, 10, 250));
-		defaultConfig.neatherOres.add(new OreConfig(ModBlocks.ore.getBlockStateFromName("Cinnabar"), 6, 3, 10, 250));
-		defaultConfig.neatherOres.add(new OreConfig(ModBlocks.ore.getBlockStateFromName("Sphalerite"), 6, 3, 10, 250));
+		defaultConfig.neatherOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("Pyrite"), 6, 3, 10, 250));
+		defaultConfig.neatherOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("Cinnabar"), 6, 3, 10, 250));
+		defaultConfig.neatherOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("Sphalerite"), 6, 3, 10, 250));
 
-		defaultConfig.endOres.add(new OreConfig(ModBlocks.ore.getBlockStateFromName("Tungsten"), 6, 3, 10, 250));
-		defaultConfig.endOres.add(new OreConfig(ModBlocks.ore.getBlockStateFromName("Sheldonite"), 6, 3, 10, 250));
-		defaultConfig.endOres.add(new OreConfig(ModBlocks.ore.getBlockStateFromName("Peridot"), 6, 3, 10, 250));
-		defaultConfig.endOres.add(new OreConfig(ModBlocks.ore.getBlockStateFromName("Sodalite"), 6, 3, 10, 250));
+		defaultConfig.endOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("Tungsten"), 6, 3, 10, 250));
+		defaultConfig.endOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("Sheldonite"), 6, 3, 10, 250));
+		defaultConfig.endOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("Peridot"), 6, 3, 10, 250));
+		defaultConfig.endOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("Sodalite"), 6, 3, 10, 250));
 	}
 
 	public void load() {

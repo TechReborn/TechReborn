@@ -66,7 +66,7 @@ public class TileAlloySmelter extends TilePowerAcceptor implements IWrenchable, 
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.alloySmelter, 1);
+		return new ItemStack(ModBlocks.ALLOY_SMELTER, 1);
 	}
 
 	public boolean isComplete() {

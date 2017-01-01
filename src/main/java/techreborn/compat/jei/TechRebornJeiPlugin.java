@@ -6,6 +6,7 @@ import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 import mezz.jei.api.recipe.transfer.IRecipeTransferRegistry;
+import mezz.jei.config.Config;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
@@ -60,8 +61,6 @@ import techreborn.init.ModItems;
 import techreborn.items.ItemParts;
 import techreborn.parts.TechRebornParts;
 import techreborn.parts.powerCables.EnumCableType;
-import techreborn.parts.powerCables.ItemCables;
-import techreborn.world.TechRebornWorldGen;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -95,39 +94,39 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 		IJeiHelpers jeiHelpers = registry.getJeiHelpers();
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidBerylium));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidCalcium));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidCalciumCarbonate));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidChlorite));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidDeuterium));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidGlyceryl));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidHelium));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidHelium3));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidHeliumplasma));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidHydrogen));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidLithium));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidMercury));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidMethane));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidNitrocoalfuel));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidNitrofuel));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidNitrogen));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidNitrogendioxide));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidPotassium));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidSilicon));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidSodium));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidSodiumpersulfate));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidTritium));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidWolframium));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidSulfur));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidSulfuricAcid));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidCarbon));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidCarbonFiber));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidNitroCarbon));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidSodiumSulfide));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidDiesel));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidNitroDiesel));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BlockFluidOil));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModItems.missingRecipe));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_BERYLLIUM));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_CALCIUM));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_CALCIUM_CARBONATE));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_CHLORITE));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_DEUTERIUM));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_GLYCERYL));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_HELIUM));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_HELIUM_3));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_HELIUMPLASMA));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_HYDROGEN));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_LITHIUM));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_MERCURY));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_METHANE));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_NITROCOAL_FUEL));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_NITROFUEL));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_NITROGEN));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_NITROGENDIOXIDE));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_POTASSIUM));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_SILICON));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_SODIUM));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_SODIUMPERSULFATE));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_TRITIUM));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_WOLFRAMIUM));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_SULFUR));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_SULFURIC_ACID));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_CARBON));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_CARBON_FIBER));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_NITRO_CARBON));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_SODIUM_SULFIDE));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_DIESEL));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_NITRO_DIESEL));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_OIL));
+		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModItems.MISSING_RECIPE_PLACEHOLDER));
 
 		if(IC2Duplicates.deduplicate()){
 			for(IC2Duplicates duplicate : IC2Duplicates.values()){
@@ -145,12 +144,12 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 			jeiHelpers.getItemBlacklist().addItemToBlacklist(ItemParts.getPartByName("electronicCircuit"));
 			jeiHelpers.getItemBlacklist().addItemToBlacklist(ItemParts.getPartByName("advancedCircuit"));
 			if(!Core.worldGen.config.rubberTreeConfig.shouldSpawn){
-				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.rubberSapling));
-				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.rubberLog));
-				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.rubberPlanks));
-				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.rubberLeaves));
-				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModItems.treeTap));
-				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModItems.electricTreetap));
+				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.RUBBER_SAPLING));
+				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.RUBBER_LOG));
+				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.RUBBER_PLANKS));
+				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.RUBBER_LEAVES));
+				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModItems.TREE_TAP));
+				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModItems.ELECTRIC_TREE_TAP));
 			}
 		}
 
@@ -189,17 +188,17 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 			e.printStackTrace();
 		}
 
-		if (mezz.jei.config.Config.isDebugModeEnabled()) {
+		if (Config.isDebugModeEnabled()) {
 			addDebugRecipes(registry);
 		}
 
 		registry.addDescription(ItemParts.getPartByName("rubberSap"),
 			I18n.translateToLocal("techreborn.desc.rubberSap"));
 		if (!ConfigTechReborn.ScrapboxDispenser) {
-			registry.addDescription(new ItemStack(ModItems.scrapBox),
+			registry.addDescription(new ItemStack(ModItems.SCRAP_BOX),
 				I18n.translateToLocal("techreborn.desc.scrapBoxNoDispenser"));
 		} else {
-			registry.addDescription(new ItemStack(ModItems.scrapBox),
+			registry.addDescription(new ItemStack(ModItems.SCRAP_BOX),
 				I18n.translateToLocal("techreborn.desc.scrapBox"));
 		}
 
@@ -237,36 +236,36 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 		registry.addRecipeClickArea(GuiThermalGenerator.class, 79, 34, 18, 18,
 				EFluidGenerator.THERMAL.getRecipeID());
 
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.compressor), RecipeCategoryUids.COMPRESSOR);
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.alloyFurnace), RecipeCategoryUids.ALLOY_SMELTER);
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.alloySmelter), RecipeCategoryUids.ALLOY_SMELTER);
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.assemblyMachine),
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.COMPRESSOR), RecipeCategoryUids.COMPRESSOR);
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.IRON_ALLOY_FURNACE), RecipeCategoryUids.ALLOY_SMELTER);
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.ALLOY_SMELTER), RecipeCategoryUids.ALLOY_SMELTER);
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.ASSEMBLY_MACHINE),
 			RecipeCategoryUids.ASSEMBLING_MACHINE);
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.blastFurnace), RecipeCategoryUids.BLAST_FURNACE);
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.centrifuge), RecipeCategoryUids.CENTRIFUGE);
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.chemicalReactor),
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.INDUSTRIAL_BLAST_FURNACE), RecipeCategoryUids.BLAST_FURNACE);
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.INDUSTRIAL_CENTRIFUGE), RecipeCategoryUids.CENTRIFUGE);
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.CHEMICAL_REACTOR),
 			RecipeCategoryUids.CHEMICAL_REACTOR);
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.extractor), RecipeCategoryUids.EXTRACTOR);
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.fusionControlComputer),
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.EXTRACTOR), RecipeCategoryUids.EXTRACTOR);
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.FUSION_CONTROL_COMPUTER),
 			RecipeCategoryUids.FUSION_REACTOR);
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.grinder), RecipeCategoryUids.GRINDER);
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.implosionCompressor),
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.GRINDER), RecipeCategoryUids.GRINDER);
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.IMPLOSION_COMPRESSOR),
 			RecipeCategoryUids.IMPLOSION_COMPRESSOR);
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.industrialElectrolyzer),
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.INDUSTRIAL_ELECTROLYZER),
 			RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER);
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.industrialGrinder),
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.INDUSTRIAL_GRINDER),
 			RecipeCategoryUids.INDUSTRIAL_GRINDER);
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.rollingMachine),
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.ROLLING_MACHINE),
 			RecipeCategoryUids.ROLLING_MACHINE);
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModItems.scrapBox), RecipeCategoryUids.SCRAPBOX);
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModItems.SCRAP_BOX), RecipeCategoryUids.SCRAPBOX);
 
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.semiFluidGenerator),
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.SEMIFLUID_GENERATOR),
 				EFluidGenerator.SEMIFLUID.getRecipeID());
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.gasTurbine),
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.GAS_TURBINE),
 				EFluidGenerator.GAS.getRecipeID());
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.dieselGenerator),
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.DIESEL_GENERATOR),
 				EFluidGenerator.DIESEL.getRecipeID());
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.thermalGenerator),
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.THERMAL_GENERATOR),
 				EFluidGenerator.THERMAL.getRecipeID());
 
 		IRecipeTransferRegistry recipeTransferRegistry = registry.getRecipeTransferRegistry();
@@ -308,8 +307,8 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 			.addRecipeTransferHandler(ContainerCompressor.class, RecipeCategoryUids.COMPRESSOR, 0, 1, 2, 36);
 
 		if (CompatManager.isQuantumStorageLoaded) {
-			registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.quantumChest));
-			registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.quantumTank));
+			registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.QUANTUM_CHEST));
+			registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.QUANTUM_TANK));
 		}
 
 	}

@@ -43,7 +43,7 @@ public class BlockOre2 extends Block implements IOreNameProvider {
 	public static ItemStack getOreByName(String name, int count) {
 		for (int i = 0; i < ores.length; i++) {
 			if (ores[i].equalsIgnoreCase(name)) {
-				return new ItemStack(ModBlocks.ore2, count, i);
+				return new ItemStack(ModBlocks.ORE2, count, i);
 			}
 		}
 		throw new InvalidParameterException("The ore block " + name + " could not be found.");

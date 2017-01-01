@@ -31,7 +31,7 @@ public class ItemPlates extends ItemTRNoDestroy {
 				if (types[i].equals(ModItems.META_PLACEHOLDER)) {
 					throw new InvalidParameterException("The dust " + name + " could not be found.");
 				}
-				return new ItemStack(ModItems.plate, count, i);
+				return new ItemStack(ModItems.PLATES, count, i);
 			}
 		}
 		throw new InvalidParameterException("The plate " + name + " could not be found.");
@@ -52,7 +52,7 @@ public class ItemPlates extends ItemTRNoDestroy {
 		types = newTypes;
 		newTypes[plateIndex] = plateType;
 		String oreName = "plate" + CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, plateType);
-		OreDictionary.registerOre(oreName, new ItemStack(ModItems.plate, 1, plateIndex));
+		OreDictionary.registerOre(oreName, new ItemStack(ModItems.PLATES, 1, plateIndex));
 	}
 
 	@Override

@@ -23,7 +23,7 @@ public class ItemDiamondJackhammer extends ItemJackhammer {
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item,
 	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
-		ItemStack stack = new ItemStack(ModItems.diamondJackhammer);
+		ItemStack stack = new ItemStack(ModItems.DIAMOND_JACKHAMMER);
 		ItemStack uncharged = stack.copy();
 		ItemStack charged = stack.copy();
 		PoweredItem.setEnergy(getMaxPower(charged), charged);

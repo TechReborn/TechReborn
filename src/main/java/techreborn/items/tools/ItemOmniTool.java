@@ -126,8 +126,8 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item,
 	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
-		ItemStack uncharged = new ItemStack(ModItems.omniTool);
-		ItemStack charged = new ItemStack(ModItems.omniTool);
+		ItemStack uncharged = new ItemStack(ModItems.OMNI_TOOL);
+		ItemStack charged = new ItemStack(ModItems.OMNI_TOOL);
 		PoweredItem.setEnergy(getMaxPower(charged), charged);
 
 		itemList.add(uncharged);

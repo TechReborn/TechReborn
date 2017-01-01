@@ -63,7 +63,7 @@ public class TileChargeBench extends TilePowerAcceptor implements IWrenchable, I
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.chargeBench, 1);
+		return new ItemStack(ModBlocks.CHARGE_O_MAT, 1);
 	}
 
 	public boolean isComplete() {

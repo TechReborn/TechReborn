@@ -35,7 +35,7 @@ public class BlockStorage extends BaseBlock implements ITexturedBlock {
 	public static ItemStack getStorageBlockByName(String name, int count) {
 		for (int i = 0; i < types.length; i++) {
 			if (types[i].equals(name)) {
-				return new ItemStack(ModBlocks.storage, count, i);
+				return new ItemStack(ModBlocks.STORAGE, count, i);
 			}
 		}
 		return BlockStorage2.getStorageBlockByName(name, count);

@@ -19,7 +19,7 @@ public class ItemLapotronCrystal extends ItemBattery {
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item,
 	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
-		ItemStack stack = new ItemStack(ModItems.lapotronCrystal);
+		ItemStack stack = new ItemStack(ModItems.LAPOTRONIC_CRYSTAL);
 		ItemStack uncharged = stack.copy();
 		ItemStack charged = stack.copy();
 		PoweredItem.setEnergy(getMaxPower(charged), charged);

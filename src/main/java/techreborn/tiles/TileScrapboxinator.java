@@ -125,7 +125,7 @@ public class TileScrapboxinator extends TilePowerAcceptor implements IWrenchable
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.scrapboxinator, 1);
+		return new ItemStack(ModBlocks.SCRAPBOXINATOR, 1);
 	}
 
 	public boolean isComplete() {
@@ -143,7 +143,7 @@ public class TileScrapboxinator extends TilePowerAcceptor implements IWrenchable
 		if (slotIndex == 2)
 			return false;
 		if (slotIndex == 1) {
-			if (itemStack.getItem() == ModItems.scrapBox) {
+			if (itemStack.getItem() == ModItems.SCRAP_BOX) {
 				return true;
 			}
 		}

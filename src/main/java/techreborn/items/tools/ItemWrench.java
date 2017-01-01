@@ -162,7 +162,7 @@ public class ItemWrench extends ItemTRNoDestroy {
 							}
 						}
 						world.playSound(null, player.posX, player.posY,
-							player.posZ, ModSounds.dismantle,
+							player.posZ, ModSounds.BLOCK_DISMANTLE,
 							SoundCategory.BLOCKS, 0.6F, 1F);
 						if (!world.isRemote) {
 							world.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);

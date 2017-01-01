@@ -14,7 +14,7 @@ public class TechRebornCreativeTabMisc extends CreativeTabs {
 
 	@Override
 	public ItemStack getTabIconItem() {
-		return new ItemStack(ModItems.dynamicCell);
+		return new ItemStack(ModItems.CELL);
 	}
 
 }

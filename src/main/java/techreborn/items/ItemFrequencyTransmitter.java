@@ -108,7 +108,7 @@ public class ItemFrequencyTransmitter extends ItemTRNoDestroy {
 
 	public static class StackInfoFreqTransmitter extends StackInfoElement {
 		public StackInfoFreqTransmitter() {
-			super(ModItems.frequencyTransmitter);
+			super(ModItems.FREQUENCY_TRANSMITTER);
 		}
 
 		@Override

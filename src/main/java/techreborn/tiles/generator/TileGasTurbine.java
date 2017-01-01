@@ -15,7 +15,7 @@ public class TileGasTurbine extends TileBaseFluidGenerator {
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.gasTurbine, 1);
+		return new ItemStack(ModBlocks.GAS_TURBINE, 1);
 	}
 
 	@Override

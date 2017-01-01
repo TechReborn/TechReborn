@@ -20,7 +20,7 @@ public class TileThermalGenerator extends TileBaseFluidGenerator {
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.thermalGenerator, 1);
+		return new ItemStack(ModBlocks.THERMAL_GENERATOR, 1);
 	}
 
 	@Override

@@ -1,10 +1,8 @@
 package techreborn.items.tools;
 
 import ic2.core.item.tool.ItemTreetap;
-import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -17,7 +15,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import reborncore.RebornCore;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItem;
@@ -25,7 +22,6 @@ import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModItems;
 import techreborn.items.ItemTRNoDestroy;
 import techreborn.compat.CompatManager;
-import techreborn.lib.ModInfo;
 
 /**
  * Created by modmuss50 on 05/11/2016.
@@ -97,8 +93,8 @@ public class ItemElectricTreetap extends ItemTRNoDestroy implements IEnergyItemI
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item,
 	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
-		ItemStack uncharged = new ItemStack(ModItems.electricTreetap);
-		ItemStack charged = new ItemStack(ModItems.electricTreetap);
+		ItemStack uncharged = new ItemStack(ModItems.ELECTRIC_TREE_TAP);
+		ItemStack charged = new ItemStack(ModItems.ELECTRIC_TREE_TAP);
 		PoweredItem.setEnergy(getMaxPower(charged), charged);
 
 		itemList.add(uncharged);

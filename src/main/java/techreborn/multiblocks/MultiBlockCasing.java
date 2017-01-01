@@ -313,7 +313,7 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 	@Override
 	protected void isBlockGoodForFrame(World world, int x, int y, int z) throws MultiblockValidationException {
 		Block block = world.getBlockState(new BlockPos(x, y, z)).getBlock();
-		if (block == ModBlocks.machineCasing) {
+		if (block == ModBlocks.MACHINE_CASINGS) {
 
 		} else {
 			super.isBlockGoodForFrame(world, x, y, z);

@@ -48,7 +48,7 @@ public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchab
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.matterFabricator, 1);
+		return new ItemStack(ModBlocks.MATTER_FABRICATOR, 1);
 	}
 
 	public boolean isComplete() {
@@ -121,15 +121,15 @@ public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchab
 
 	private boolean spaceForOutput() {
 		return inventory.getStackInSlot(6) == ItemStack.EMPTY
-			|| ItemUtils.isItemEqual(inventory.getStackInSlot(6), new ItemStack(ModItems.uuMatter), true, true)
+			|| ItemUtils.isItemEqual(inventory.getStackInSlot(6), new ItemStack(ModItems.UU_MATTER), true, true)
 			&& inventory.getStackInSlot(6).getCount() < 64;
 	}
 
 	private void addOutputProducts() {
 
 		if (inventory.getStackInSlot(6) == ItemStack.EMPTY) {
-			inventory.setInventorySlotContents(6, new ItemStack(ModItems.uuMatter));
-		} else if (ItemUtils.isItemEqual(inventory.getStackInSlot(6), new ItemStack(ModItems.uuMatter), true, true)) {
+			inventory.setInventorySlotContents(6, new ItemStack(ModItems.UU_MATTER));
+		} else if (ItemUtils.isItemEqual(inventory.getStackInSlot(6), new ItemStack(ModItems.UU_MATTER), true, true)) {
 			inventory.getStackInSlot(6).setCount(Math.min(64, 1 + inventory.getStackInSlot(6).getCount()));
 		}
 	}
@@ -152,9 +152,9 @@ public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchab
 	public int getValue(ItemStack itemStack) {
 		// int value = getValue(Recipes.matterAmplifier.getOutputFor(itemStack,
 		// false));
-		if (itemStack.getItem() == ModItems.parts && itemStack.getItemDamage() == ItemParts.getPartByName("scrap").getItemDamage()) {
+		if (itemStack.getItem() == ModItems.PARTS && itemStack.getItemDamage() == ItemParts.getPartByName("scrap").getItemDamage()) {
 			return 5000;
-		} else if (itemStack.getItem() == ModItems.scrapBox) {
+		} else if (itemStack.getItem() == ModItems.SCRAP_BOX) {
 			return 45000;
 		}
 		return 0;

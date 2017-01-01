@@ -27,7 +27,7 @@ public class ItemIngots extends ItemTRNoDestroy {
 		name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, name);
 		for (int i = 0; i < types.length; i++) {
 			if (types[i].equalsIgnoreCase(name)) {
-				return new ItemStack(ModItems.ingots, count, i);
+				return new ItemStack(ModItems.INGOTS, count, i);
 			}
 		}
 		if (name.equalsIgnoreCase("iron")) {

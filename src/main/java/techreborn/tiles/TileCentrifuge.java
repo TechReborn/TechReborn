@@ -88,7 +88,7 @@ public class TileCentrifuge extends TilePowerAcceptor
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.centrifuge, 1);
+		return new ItemStack(ModBlocks.INDUSTRIAL_CENTRIFUGE, 1);
 	}
 
 	public boolean isComplete() {

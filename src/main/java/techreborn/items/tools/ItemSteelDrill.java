@@ -24,7 +24,7 @@ public class ItemSteelDrill extends ItemDrill {
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item,
 	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
-		ItemStack stack = new ItemStack(ModItems.ironDrill);
+		ItemStack stack = new ItemStack(ModItems.STEEL_DRILL);
 		ItemStack uncharged = stack.copy();
 		ItemStack charged = stack.copy();
 		PoweredItem.setEnergy(getMaxPower(charged), charged);

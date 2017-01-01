@@ -31,7 +31,7 @@ public class BlockMachineFrame extends BaseBlock {
 	public static ItemStack getFrameByName(String name, int count) {
 		for (int i = 0; i < types.length; i++) {
 			if (types[i].equalsIgnoreCase(name)) {
-				return new ItemStack(ModBlocks.machineframe, count, i);
+				return new ItemStack(ModBlocks.MACHINE_FRAMES, count, i);
 			}
 		}
 		throw new InvalidParameterException("The part " + name + " could not be found.");

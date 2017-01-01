@@ -20,7 +20,7 @@ public class ItemLapotronicOrb extends ItemBattery {
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item,
 	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
-		ItemStack stack = new ItemStack(ModItems.lapotronicOrb);
+		ItemStack stack = new ItemStack(ModItems.LAPOTRONIC_ORB);
 		ItemStack uncharged = stack.copy();
 		ItemStack charged = stack.copy();
 		PoweredItem.setEnergy(getMaxPower(charged), charged);
