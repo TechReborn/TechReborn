@@ -288,12 +288,12 @@ public class ModFluids {
 			ModInfo.MOD_ID + "_" + BLOCK_SULFURIC_ACID.getUnlocalizedName().substring(5));
 
 		FluidRegistry.registerFluid(COMPRESSED_AIR);
-		BLOCK_COMPRESSED_AIR = new BlockFluidTechReborn(COMPRESSED_AIR, Material.WATER, "techreborn:compressedair");
+		BLOCK_COMPRESSED_AIR = new BlockFluidTechReborn(COMPRESSED_AIR, Material.WATER, "techreborn.compressedair");
 		registerBlock(BLOCK_COMPRESSED_AIR,
 			ModInfo.MOD_ID + "_" + BLOCK_COMPRESSED_AIR.getUnlocalizedName().substring(5));
 
 		FluidRegistry.registerFluid(ELECTROLYZED_WATER);
-		BLOCK_ELECTROLYZED_WATER = new BlockFluidTechReborn(ELECTROLYZED_WATER, Material.WATER, "techreborn:electrolyzedwater");
+		BLOCK_ELECTROLYZED_WATER = new BlockFluidTechReborn(ELECTROLYZED_WATER, Material.WATER, "techreborn.electrolyzedwater");
 		registerBlock(BLOCK_ELECTROLYZED_WATER,
 			ModInfo.MOD_ID + "_" + BLOCK_ELECTROLYZED_WATER.getUnlocalizedName().substring(5));
 	}
