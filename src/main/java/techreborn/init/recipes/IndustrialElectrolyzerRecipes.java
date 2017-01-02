@@ -16,6 +16,7 @@ import java.security.InvalidParameterException;
 public class IndustrialElectrolyzerRecipes extends RecipeMethods {
 	public static void init() {
 		register(getMaterial("electrolyzedwater", 6, Type.CELL), 760, 120, getMaterial("hydrogen", 4, Type.CELL), getMaterial("compressedair", Type.CELL));
+		register(getMaterial("water", Type.CELL), 20, 50, getMaterial("electrolyzedwater", Type.CELL));
 		register(new ItemStack(Items.DYE, 3, 15), 20, 106, false, getMaterial("calcium", Type.CELL));
 		register(new ItemStack(Items.SUGAR, 32), 200, 32, getMaterial("carbon", 2, Type.CELL), getMaterial("water", 5, Type.CELL));
 		register(new ItemStack(Items.BLAZE_POWDER, 4), 300, 25, getMaterial("dark_ashes", Type.DUST), getMaterial("sulfur", Type.DUST));
