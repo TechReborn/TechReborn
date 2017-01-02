@@ -59,7 +59,7 @@ public class ModFluids {
 	public static Fluid NITROFUEL = new TechRebornFluid("fluidnitrofuel");
 	public static BlockFluidBase BLOCK_NITROFUEL;
 
-	public static Fluid FLUID_NITROGEN = new TechRebornFluid("fluidnitrogen");
+	public static Fluid NITROGEN = new TechRebornFluid("fluidnitrogen");
 	public static BlockFluidBase BLOCK_NITROGEN;
 
 	public static Fluid NITROGENDIOXIDE = new TechRebornFluid("fluidnitrogendioxide");
@@ -109,6 +109,12 @@ public class ModFluids {
 
 	public static Fluid SULFURIC_ACID = new TechRebornFluid("fluidsulfuricacid");
 	public static BlockFluidBase BLOCK_SULFURIC_ACID;
+
+	public static Fluid COMPRESSED_AIR = new TechRebornFluid("fluidcompressedair");
+	public static BlockFluidBase BLOCK_COMPRESSED_AIR;
+
+	public static Fluid ELECTROLYZED_WATER = new TechRebornFluid("fluidelectrolyzedwater");
+	public static BlockFluidBase BLOCK_ELECTROLYZED_WATER;
 
 	public static void init() {
 		FluidRegistry.registerFluid(BERYLLIUM);
@@ -191,8 +197,8 @@ public class ModFluids {
 			ModInfo.MOD_ID + "_" + BLOCK_NITROFUEL.getUnlocalizedName().substring(5));
 		FluidPowerManager.fluidPowerValues.put(NITROFUEL, 42.0);
 
-		FluidRegistry.registerFluid(FLUID_NITROGEN);
-		BLOCK_NITROGEN = new BlockFluidTechReborn(FLUID_NITROGEN, Material.WATER, "techreborn.nitrogen");
+		FluidRegistry.registerFluid(NITROGEN);
+		BLOCK_NITROGEN = new BlockFluidTechReborn(NITROGEN, Material.WATER, "techreborn.nitrogen");
 		registerBlock(BLOCK_NITROGEN,
 			ModInfo.MOD_ID + "_" + BLOCK_NITROGEN.getUnlocalizedName().substring(5));
 
@@ -280,6 +286,16 @@ public class ModFluids {
 		BLOCK_SULFURIC_ACID = new BlockFluidTechReborn(SULFURIC_ACID, Material.WATER, "techreborn.sulfuricacid");
 		registerBlock(BLOCK_SULFURIC_ACID,
 			ModInfo.MOD_ID + "_" + BLOCK_SULFURIC_ACID.getUnlocalizedName().substring(5));
+
+		FluidRegistry.registerFluid(COMPRESSED_AIR);
+		BLOCK_COMPRESSED_AIR = new BlockFluidTechReborn(COMPRESSED_AIR, Material.WATER, "techreborn:compressedair");
+		registerBlock(BLOCK_COMPRESSED_AIR,
+			ModInfo.MOD_ID + "_" + BLOCK_COMPRESSED_AIR.getUnlocalizedName().substring(5));
+
+		FluidRegistry.registerFluid(ELECTROLYZED_WATER);
+		BLOCK_ELECTROLYZED_WATER = new BlockFluidTechReborn(ELECTROLYZED_WATER, Material.WATER, "techreborn:electrolyzedwater");
+		registerBlock(BLOCK_ELECTROLYZED_WATER,
+			ModInfo.MOD_ID + "_" + BLOCK_ELECTROLYZED_WATER.getUnlocalizedName().substring(5));
 	}
 
 	public static void registerBlock(Block block, String name) {

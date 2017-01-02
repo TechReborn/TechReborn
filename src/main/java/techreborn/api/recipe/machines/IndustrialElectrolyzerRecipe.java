@@ -25,6 +25,12 @@ public class IndustrialElectrolyzerRecipe extends BaseRecipe {
 			addOutput(output4);
 	}
 
+	public IndustrialElectrolyzerRecipe(ItemStack inputCells, ItemStack input2, ItemStack output1, ItemStack output2,
+	                                    ItemStack output3, ItemStack output4, int tickTime, int euPerTick, boolean oreDict) {
+		this(inputCells, input2, output1, output2, output3, output4, tickTime, euPerTick);
+		this.useOreDictionary = oreDict;
+	}
+
 	@Override
 	public String getUserFreindlyName() {
 		return "Industrial Electrolyzer";
