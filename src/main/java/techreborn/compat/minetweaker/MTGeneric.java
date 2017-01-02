@@ -32,6 +32,7 @@ public class MTGeneric {
 		@Override
 		public void apply() {
 			RecipeHandler.addRecipe(recipe);
+			MineTweakerAPI.getIjeiRecipeRegistry().addRecipe(recipe);
 		}
 
 		@Override
@@ -42,6 +43,7 @@ public class MTGeneric {
 		@Override
 		public void undo() {
 			RecipeHandler.recipeList.remove(recipe);
+			MineTweakerAPI.getIjeiRecipeRegistry().removeRecipe(recipe);
 		}
 
 		@Override
@@ -77,6 +79,7 @@ public class MTGeneric {
 					if (ItemUtils.isItemEqual(stack, output, true, false)) {
 						removedRecipes.add((BaseRecipe) recipeType);
 						RecipeHandler.recipeList.remove(recipeType);
+						MineTweakerAPI.getIjeiRecipeRegistry().removeRecipe(recipeType);
 						break;
 					}
 				}
@@ -89,6 +92,7 @@ public class MTGeneric {
 				for (BaseRecipe recipe : removedRecipes) {
 					if (recipe != null) {
 						RecipeHandler.addRecipe(recipe);
+						MineTweakerAPI.getIjeiRecipeRegistry().addRecipe(recipe);
 					}
 				}
 			}
@@ -133,6 +137,7 @@ public class MTGeneric {
 					if (output.matches(MineTweakerMC.getIItemStack(stack))) {
 						removedRecipes.add((BaseRecipe) recipeType);
 						RecipeHandler.recipeList.remove(recipeType);
+						MineTweakerAPI.getIjeiRecipeRegistry().removeRecipe(recipeType);
 						break;
 					}
 				}
@@ -145,6 +150,7 @@ public class MTGeneric {
 				for (BaseRecipe recipe : removedRecipes) {
 					if (recipe != null) {
 						RecipeHandler.addRecipe(recipe);
+						MineTweakerAPI.getIjeiRecipeRegistry().addRecipe(recipe);
 					}
 				}
 			}
