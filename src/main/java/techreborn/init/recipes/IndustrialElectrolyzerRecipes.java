@@ -76,57 +76,39 @@ public class IndustrialElectrolyzerRecipes extends RecipeMethods {
 			throw new InvalidParameterException("Invalid industrial electrolyzer outputs: " + outputs);
 		}
 
-		System.out.println("==========================");
-		System.out.println("RECIPE INPUT: " + input);
-		System.out.println("OUTPUT 1: " + output1);
-		System.out.println("OUTPUT 2: " + output2);
-		System.out.println("OUTPUT 3: " + output3);
-		System.out.println("OUTPUT 4: " + output4);
-
 		int cellCount = 0;
 		for (ItemStack stack : outputs) {
 			if (stack.getItem() instanceof DynamicCell) {
 				cellCount += stack.getCount();
-				System.out.println("Output Cell Count: " + cellCount);
 			}
 
 		}
 
 		if (input.getItem() instanceof DynamicCell) {
 			int inputCount = input.getCount();
-			System.out.println("Input Cell Count: " + inputCount);
 			if (cellCount < inputCount) {
 				if (output2 == null) {
 					output2 = DynamicCell.getEmptyCell(inputCount - cellCount);
-					System.out.println("New Cell Output 2: " + (inputCount - cellCount));
 				} else if (output3 == null) {
 					output3 = DynamicCell.getEmptyCell(inputCount - cellCount);
-					System.out.println("New Cell Output 3: " + (inputCount - cellCount));
 				} else if (output4 == null) {
 					output4 = DynamicCell.getEmptyCell(inputCount - cellCount);
-					System.out.println("New Cell Output 4: " + (inputCount - cellCount));
 				}
 			}
 			cellCount -= inputCount;
-			System.out.println("New Cell Count: " + cellCount);
 
 		}
 
 		if (cellCount < 0) {
-			System.out.println("Cells less than 0: " + cellCount);
 			cellCount = 0;
 		}
-
 		ItemStack cells = null;
 		if (cellCount > 0) {
 			if (cellCount > 64) {
 				throw new InvalidParameterException("Invalid industrial electrolyzer outputs: " + outputs + "(Recipe requires > 64 cells)");
 			}
-			System.out.println("Input Cells Amount: " + cellCount);
 			cells = DynamicCell.getEmptyCell(cellCount);
 		}
-		System.out.println("==========================");
-		System.out.println("");
 		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(input, cells, output1, output2, output3, output4, ticks, euPerTick, oreDict));
 	}
 
