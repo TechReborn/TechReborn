@@ -54,6 +54,6 @@ To report an issue or make a suggestion, please head up to the `Issues` tab up a
  
 # License
 
-Tech Reborn is licensed under the MIT license. Full license in **LICENSE.md**.
+Tech Reborn is licensed under the MIT license. Full license is  in **LICENSE.md**.
 
 ### No code was borrowed or taken from IndustrialCraft2 or GregTech to make this mod possible. We do, however, thank the makers of both of these mods for the majority of the ideas that make up this mod.
