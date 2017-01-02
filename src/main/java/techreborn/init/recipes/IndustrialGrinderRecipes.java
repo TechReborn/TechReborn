@@ -5,12 +5,12 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import org.apache.logging.log4j.Level;
 import reborncore.api.recipe.RecipeHandler;
-import techreborn.Core;
 import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
 import techreborn.blocks.BlockOre;
 import techreborn.init.ModFluids;
+
+import java.security.InvalidParameterException;
 
 /**
  * Created by Prospector
@@ -171,7 +171,7 @@ public class IndustrialGrinderRecipes extends RecipeMethods {
 			RecipeHandler.addRecipe(new IndustrialGrinderRecipe(output,
 				fluid, inputs[0], inputs[1], inputs[2], inputs[3], ticks, euPerTick));
 		} else {
-			Core.logHelper.log(Level.ERROR, "Invalid industrial grinder recipe. Too many or too few inputs.");
+			throw new InvalidParameterException("Invalid industrial grinder inputs: " + inputs);
 		}
 	}
 }

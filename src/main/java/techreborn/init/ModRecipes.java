@@ -27,10 +27,13 @@ import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.api.recipe.RecyclerRecipe;
 import techreborn.api.recipe.ScrapboxRecipe;
 import techreborn.api.recipe.machines.*;
-import techreborn.blocks.*;
+import techreborn.blocks.BlockMachineFrame;
+import techreborn.blocks.BlockOre;
+import techreborn.blocks.BlockOre2;
 import techreborn.compat.CompatManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.recipes.CraftingTableRecipes;
+import techreborn.init.recipes.IndustrialElectrolyzerRecipes;
 import techreborn.init.recipes.IndustrialGrinderRecipes;
 import techreborn.items.*;
 import techreborn.parts.powerCables.ItemStandaloneCables;
@@ -61,6 +64,7 @@ public class ModRecipes {
 
 		CraftingTableRecipes.init();
 		IndustrialGrinderRecipes.init();
+		IndustrialElectrolyzerRecipes.init();
 
 		addGeneralShapedRecipes();
 		addMachineRecipes();
