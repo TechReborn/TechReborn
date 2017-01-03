@@ -33,6 +33,7 @@ import techreborn.blocks.BlockOre2;
 import techreborn.compat.CompatManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.recipes.CraftingTableRecipes;
+import techreborn.init.recipes.ImplosionCompressorRecipes;
 import techreborn.init.recipes.IndustrialElectrolyzerRecipes;
 import techreborn.init.recipes.IndustrialGrinderRecipes;
 import techreborn.items.*;
@@ -65,6 +66,7 @@ public class ModRecipes {
 		CraftingTableRecipes.init();
 		IndustrialGrinderRecipes.init();
 		IndustrialElectrolyzerRecipes.init();
+		ImplosionCompressorRecipes.init();
 
 		addGeneralShapedRecipes();
 		addMachineRecipes();
@@ -78,7 +80,6 @@ public class ModRecipes {
 		addChemicalReactorRecipes();
 
 		addBlastFurnaceRecipes();
-		addImplosionCompressorRecipes();
 		addVacuumFreezerRecipes();
 
 		addReactorRecipes();
@@ -318,7 +319,7 @@ public class ModRecipes {
 
 		CraftingHelper
 			.addShapedOreRecipe(ItemStandaloneCables.getCableByName("glassfiber", 4), "GGG", "SDS", "GGG", 'G',
-				"blockGlass", 'S', "dustRedstone", 'D', "diamondTR");
+				"blockGlass", 'S', "dustRedstone", 'D', "gemDiamond");
 
 		CraftingHelper
 			.addShapedOreRecipe(ItemStandaloneCables.getCableByName("glassfiber", 6), "GGG", "SDS", "GGG", 'G',
@@ -326,10 +327,10 @@ public class ModRecipes {
 
 		CraftingHelper
 			.addShapedOreRecipe(ItemStandaloneCables.getCableByName("glassfiber", 6), "GGG", "SDS", "GGG", 'G',
-				"blockGlass", 'S', "ingotSilver", 'D', "diamondTR");
+				"blockGlass", 'S', "ingotSilver", 'D', "gemDiamond");
 		CraftingHelper
 			.addShapedOreRecipe(ItemStandaloneCables.getCableByName("glassfiber", 8), "GGG", "SDS", "GGG", 'G',
-				"blockGlass", 'S', "ingotElectrum", 'D', "diamondTR");
+				"blockGlass", 'S', "ingotElectrum", 'D', "gemDiamond");
 
 		CraftingHelper.addShapelessOreRecipe(IC2Duplicates.CABLE_ICOPPER.getStackBasedOnConfig(), "itemRubber",
 			ItemStandaloneCables.getCableByName("copper"));
@@ -1339,9 +1340,6 @@ public class ModRecipes {
 				new ItemStack(Items.REDSTONE), null, 25000, 20));
 	}
 
-	static void addImplosionCompressorRecipes() {
-	}
-
 	static void addChemicalReactorRecipes() {
 		RecipeHandler.addRecipe(
 			new ChemicalReactorRecipe(ItemCells.getCellByName("calcium", 1), ItemCells.getCellByName("carbon", 1),
@@ -1731,33 +1729,6 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(new CentrifugeRecipe(lavaCells, null, ItemNuggets.getNuggetByName("electrum", 4),
 			ItemIngots.getIngotByName("copper", 2), ItemDustsSmall.getSmallDustByName("Tungsten", 1),
 			ItemIngots.getIngotByName("tin", 2), 6000, 5));
-
-		// Implosion compressor
-		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemIngots.getIngotByName("iridium_alloy"),
-			new ItemStack(Blocks.TNT, 8),
-			OreDictionary.getOres("plateIridium").get(0).copy(), ItemDusts.getDustByName("dark_ashes", 4), 20, 30));
-		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("diamond", 4),
-			new ItemStack(Blocks.TNT, 32),
-			new ItemStack(Items.DIAMOND, 3),
-			ItemDusts.getDustByName("dark_ashes", 16), 20, 30));
-		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("emerald", 4),
-			new ItemStack(Blocks.TNT, 24),
-			new ItemStack(Items.EMERALD, 3), ItemDusts.getDustByName("dark_ashes", 12), 20, 30));
-		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("sapphire", 4),
-			new ItemStack(Blocks.TNT, 24),
-			ItemGems.getGemByName("sapphire", 3), ItemDusts.getDustByName("dark_ashes", 12), 20, 30));
-		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("ruby", 4),
-			new ItemStack(Blocks.TNT, 24),
-			ItemGems.getGemByName("ruby", 3), ItemDusts.getDustByName("dark_ashes", 12), 20, 30));
-		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("yellow_garnet", 4),
-			new ItemStack(Blocks.TNT, 24),
-			ItemGems.getGemByName("yellow_garnet", 3), ItemDusts.getDustByName("dark_ashes", 12), 20, 30));
-		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("red_garnet", 4),
-			new ItemStack(Blocks.TNT, 24),
-			ItemGems.getGemByName("red_garnet", 3), ItemDusts.getDustByName("dark_ashes", 12), 20, 30));
-		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(ItemDusts.getDustByName("peridot", 4),
-			new ItemStack(Blocks.TNT, 24),
-			ItemGems.getGemByName("peridot", 3), ItemDusts.getDustByName("dark_ashes", 12), 20, 30));
 
 		// Chemical Reactor
 		RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemDusts.getDustByName("calcite", 1), null,

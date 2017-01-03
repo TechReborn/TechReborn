@@ -65,9 +65,6 @@ public class OreDict {
 		OreDictionary.registerOre("woodRubber", ModBlocks.RUBBER_LOG);
 		OreDictionary.registerOre("glassReinforced", ModBlocks.REINFORCED_GLASS);
 
-		OreDictionary.registerOre("diamondTR", ItemDusts.getDustByName("Diamond"));
-		OreDictionary.registerOre("diamondTR", Items.DIAMOND);
-
 		OreDictionary.registerOre("craftingGrinder", ItemParts.getPartByName("diamondGrindingHead"));
 		OreDictionary.registerOre("craftingGrinder", ItemParts.getPartByName("tungstenGrindingHead"));
 		OreDictionary.registerOre("craftingSuperconductor", ItemParts.getPartByName("superconductor"));
