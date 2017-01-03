@@ -157,7 +157,6 @@ public class Core {
 		IDSUManager.INSTANCE = new IDSUManager();
 		// Event busses
 		MinecraftForge.EVENT_BUS.register(IDSUManager.INSTANCE);
-		MinecraftForge.EVENT_BUS.register(new MultiblockServerTickHandler());
 		MinecraftForge.EVENT_BUS.register(new TRTickHandler());
 		MinecraftForge.EVENT_BUS.register(new OreUnifier());
 		//MinecraftForge.EVENT_BUS.register(worldGen.retroGen);
