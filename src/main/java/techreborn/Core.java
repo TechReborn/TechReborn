@@ -153,8 +153,6 @@ public class Core {
 
 		// Achievements
 		TRAchievements.init();
-		// Multiblock events
-		MinecraftForge.EVENT_BUS.register(new MultiblockEventHandler());
 		// IDSU manager
 		IDSUManager.INSTANCE = new IDSUManager();
 		// Event busses
