@@ -24,6 +24,8 @@ public abstract class RecipeMethods {
 			return ItemNuggets.getNuggetByName(name, count);
 		} else if (type == Type.CELL) {
 			return ItemCells.getCellByName(name, count);
+		} else if (type == Type.PART) {
+			return ItemParts.getPartByName(name, count);
 		} else {
 
 		}
@@ -52,6 +54,6 @@ public abstract class RecipeMethods {
 	}
 
 	enum Type {
-		DUST, SMALL_DUST, INGOT, NUGGET, PLATE, GEM, CELL
+		DUST, SMALL_DUST, INGOT, NUGGET, PLATE, GEM, CELL, PART
 	}
 }

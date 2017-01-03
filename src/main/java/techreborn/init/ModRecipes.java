@@ -32,13 +32,9 @@ import techreborn.blocks.BlockOre;
 import techreborn.blocks.BlockOre2;
 import techreborn.compat.CompatManager;
 import techreborn.config.ConfigTechReborn;
-import techreborn.init.recipes.CraftingTableRecipes;
-import techreborn.init.recipes.ImplosionCompressorRecipes;
-import techreborn.init.recipes.IndustrialElectrolyzerRecipes;
-import techreborn.init.recipes.IndustrialGrinderRecipes;
+import techreborn.init.recipes.*;
 import techreborn.items.*;
 import techreborn.parts.powerCables.ItemStandaloneCables;
-import techreborn.utils.RecipeUtils;
 import techreborn.utils.StackWIPHandler;
 
 import java.util.ArrayList;
@@ -65,6 +61,7 @@ public class ModRecipes {
 
 		CraftingTableRecipes.init();
 		IndustrialGrinderRecipes.init();
+		IndustrialCentrifugeRecipes.init();
 		IndustrialElectrolyzerRecipes.init();
 		ImplosionCompressorRecipes.init();
 
@@ -76,7 +73,6 @@ public class ModRecipes {
 
 		addAlloySmelterRecipes();
 		addPlateCuttingMachineRecipes();
-		addIndustrialCentrifugeRecipes();
 		addChemicalReactorRecipes();
 
 		addBlastFurnaceRecipes();
@@ -85,8 +81,6 @@ public class ModRecipes {
 		addReactorRecipes();
 		addIc2Recipes();
 		addGrinderRecipes();
-		// addHammerRecipes();
-		addIc2ReplacementReicpes();
 		addExtractorRecipes();
 		addCompressorRecipes();
 		if (!IC2Duplicates.deduplicate()) {
@@ -392,20 +386,6 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(
 			new ExtractorRecipe(new ItemStack(ModBlocks.RUBBER_LOG),
 				ItemParts.getPartByName("rubber"), 400, 2, false));
-	}
-
-	static void addIc2ReplacementReicpes() {
-		// TODO: Replace item pump with block
-		/*CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("pump"), "CEC", "CMC", "PTP", 'C',
-				ItemCells.getCellByName("empty"), 'T', new ItemStack(ModItems.treeTap), 'M', "machineBlockBasic", 'P',
-				new ItemStack(Blocks.iron_bars), 'E', "circuitBasic");
-
-		// TODO: Replace item teleporter with block
-		CraftingHelper
-				.addShapedOreRecipe(ItemParts.getPartByName("teleporter"), "CTC", "WMW", "CDC", 'C', "circuitAdvanced",
-						'T', new ItemStack(ModItems.frequencyTransmitter), 'M', "machineBlockAdvanced", 'W',
-						ItemStandaloneCables.getCableByName("glassfiber"), 'D', "gemDiamond", 'E', "circuitBasic");
-		*/
 	}
 
 	static void addGrinderRecipes() {
@@ -1262,82 +1242,6 @@ public class ModRecipes {
 		if (ConfigTechReborn.UUrecipesAluminumDust)
 			CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.DUSTS, 16, 2), " U ", " U ", "UUU", 'U',
 				ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.HideUuRecipes)
-			hideUUrecipes();
-
-	}
-
-	static void hideUUrecipes() {
-		// TODO
-	}
-
-	static void addIndustrialCentrifugeRecipes() {
-
-		// Mycelium Byproducts
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(new ItemStack(Blocks.MYCELIUM, 8), null, new ItemStack(Blocks.BROWN_MUSHROOM, 2),
-				new ItemStack(Blocks.RED_MUSHROOM, 2), new ItemStack(Items.CLAY_BALL, 1),
-				new ItemStack(Blocks.SAND, 4), 1640, 5));
-
-		// Blaze Powder Byproducts
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(new ItemStack(Items.BLAZE_POWDER), null, ItemDusts.getDustByName("dark_ashes", 1),
-				ItemDusts.getDustByName("sulfur", 1), null, null, 1240, 5));
-
-		// Magma Cream Products
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(new ItemStack(Items.MAGMA_CREAM, 1), null, new ItemStack(Items.BLAZE_POWDER, 1),
-				new ItemStack(Items.SLIME_BALL, 1), null, null, 2500, 5));
-
-		// Type Byproducts
-		// RecipeHandler.addRecipe(new
-		// CentrifugeRecipe(ItemDusts.getDustByName("platinum", 1), null,
-		// ItemDustsTiny.getTinyDustByName("Iridium", 1),
-		// ItemDustsSmall.getSmallDustByName("Nickel", 1), null, null, 3000,
-		// 5));
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(ItemDusts.getDustByName("electrum", 2), null, ItemDusts.getDustByName("silver", 1),
-				ItemDusts.getDustByName("gold", 1), null, null, 2400, 5));
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(ItemDusts.getDustByName("invar", 3), null, ItemDusts.getDustByName("iron", 2),
-				ItemDusts.getDustByName("nickel", 1), null, null, 1340, 5));
-		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("marble", 8), null,
-			ItemDusts.getDustByName("magnesium", 1), ItemDusts.getDustByName("calcite", 7), null, null, 1280, 5));
-		//		Deprecated
-		//		RecipeHandler.addRecipe(
-		//				new CentrifugeRecipe(ItemDusts.getDustByName("redrock", 4), null, ItemDusts.getDustByName("calcite", 2),
-		//						ItemDusts.getDustByName("flint", 1), ItemDusts.getDustByName("clay", 1), null, 640, 5));
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(ItemDusts.getDustByName("basalt", 16), null, ItemDusts.getDustByName("peridot", 1),
-				ItemDusts.getDustByName("calcite", 3), ItemDusts.getDustByName("magnesium", 8),
-				ItemDusts.getDustByName("dark_ashes", 4), 2680, 5));
-		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("yellow_garnet", 16), null,
-			ItemDusts.getDustByName("andradite", 5), ItemDusts.getDustByName("grossular", 8),
-			ItemDusts.getDustByName("uvarovite", 3), null, 2940, 5));
-		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("red_garnet", 16), null,
-			ItemDusts.getDustByName("pyrope", 3), ItemDusts.getDustByName("almandine", 5),
-			ItemDusts.getDustByName("spessartine", 8), null, 2940, 5));
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(ItemDusts.getDustByName("dark_ashes", 2), null, ItemDusts.getDustByName("ashes", 2),
-				null, null, null, 240, 5));
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(ItemDusts.getDustByName("brass", 4), null, ItemDusts.getDustByName("zinc", 1),
-				ItemDusts.getDustByName("copper", 3), null, null, 2000, 5));
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(ItemDusts.getDustByName("bronze", 4), null, ItemDusts.getDustByName("tin", 1),
-				ItemDusts.getDustByName("copper", 3), null, null, 2420, 5));
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(ItemDusts.getDustByName("netherrack", 16), null, new ItemStack(Items.REDSTONE, 1),
-				ItemDusts.getDustByName("sulfur", 4), ItemDusts.getDustByName("basalt", 1),
-				new ItemStack(Items.GOLD_NUGGET, 1), 2400, 5));
-		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemDusts.getDustByName("ender_eye", 1), null,
-			ItemDusts.getDustByName("ender_pearl", 1), new ItemStack(Items.BLAZE_POWDER, 1), null, null, 1280, 5));
-
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(new ItemStack(Items.GLOWSTONE_DUST, 16), RecipeUtils.getEmptyCell(1),
-				ItemCells.getCellByName("helium", 1), ItemDusts.getDustByName("gold", 8),
-				new ItemStack(Items.REDSTONE), null, 25000, 20));
 	}
 
 	static void addChemicalReactorRecipes() {
@@ -1579,156 +1483,6 @@ public class ModRecipes {
 			CraftingHelper
 				.addShapedOreRecipe((OreDictionary.getOres("oreIridium").get(0)), "UUU", " U ", "UUU", 'U',
 					ModItems.UU_MATTER);
-
-		// CentrifugeRecipes
-
-		// Plantball/Bio Chaff
-		// FIX with ic2
-		// RecipeHandler.addRecipe(new CentrifugeRecipe(new
-		// ItemStack(Blocks.grass, 16), null, new
-		// ItemStack(TechRebornAPI.recipeCompact.getItem("biochaff").getItem(),
-		// 8), new
-		// ItemStack(TechRebornAPI.recipeCompact.getItem("plantBall").getItem(),
-		// 8), new ItemStack(Items.clay_ball), new ItemStack(Blocks.sand, 8),
-		// 2500, 5));
-		// RecipeHandler.addRecipe(new CentrifugeRecipe(new
-		// ItemStack(Blocks.dirt, 16), null, new
-		// ItemStack(TechRebornAPI.recipeCompact.getItem("biochaff").getItem(),
-		// 4), new
-		// ItemStack(TechRebornAPI.recipeCompact.getItem("plantBall").getItem(),
-		// 4), new ItemStack(Items.clay_ball), new ItemStack(Blocks.sand, 8),
-		// 2500, 5));
-
-		// Methane
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(new ItemStack(Items.MUSHROOM_STEW, 16), ItemCells.getCellByName("empty"),
-				ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
-		RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.APPLE, 32), ItemCells.getCellByName("empty"),
-			ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(new ItemStack(Items.PORKCHOP, 12), ItemCells.getCellByName("empty"),
-				ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(new ItemStack(Items.COOKED_PORKCHOP, 16), ItemCells.getCellByName("empty"),
-				ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
-		RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.BREAD, 64), ItemCells.getCellByName("empty"),
-			ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
-		RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.FISH, 12), ItemCells.getCellByName("empty"),
-			ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(new ItemStack(Items.COOKED_FISH, 16), ItemCells.getCellByName("empty"),
-				ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
-		RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.BEEF, 12), ItemCells.getCellByName("empty"),
-			ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(new ItemStack(Items.COOKED_BEEF, 16), ItemCells.getCellByName("empty"),
-				ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(new ItemStack(Blocks.PUMPKIN, 16), ItemCells.getCellByName("empty"),
-				ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(new ItemStack(Items.SPECKLED_MELON, 1), ItemCells.getCellByName("empty"),
-				ItemCells.getCellByName("methane", 1), new ItemStack(Items.GOLD_NUGGET, 6), null, null, 5000,
-				5));
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(new ItemStack(Items.SPIDER_EYE, 32), ItemCells.getCellByName("empty"),
-				ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
-		RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.CHICKEN, 12), ItemCells.getCellByName("empty"),
-			ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(new ItemStack(Items.COOKED_CHICKEN, 16), ItemCells.getCellByName("empty"),
-				ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(new ItemStack(Items.ROTTEN_FLESH, 16), ItemCells.getCellByName("empty"),
-				ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
-		RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.MELON, 64), ItemCells.getCellByName("empty"),
-			ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
-		RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.COOKIE, 64), ItemCells.getCellByName("empty"),
-			ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
-		RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.CAKE, 8), ItemCells.getCellByName("empty"),
-			ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(new ItemStack(Items.GOLDEN_CARROT, 1), ItemCells.getCellByName("empty"),
-				ItemCells.getCellByName("methane", 1), new ItemStack(Items.GOLD_NUGGET, 6), null, null, 5000,
-				5));
-		RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.CARROT, 16), ItemCells.getCellByName("empty"),
-			ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(new ItemStack(Items.BAKED_POTATO, 24), ItemCells.getCellByName("empty"),
-				ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
-		RecipeHandler.addRecipe(new CentrifugeRecipe(new ItemStack(Items.POTATO, 16), ItemCells.getCellByName("empty"),
-			ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(new ItemStack(Items.POISONOUS_POTATO, 12), ItemCells.getCellByName("empty"),
-				ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(new ItemStack(Items.NETHER_WART, 1), ItemCells.getCellByName("empty"),
-				ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
-		// Fix with ic2
-		// RecipeHandler.addRecipe(new CentrifugeRecipe(new
-		// ItemStack(TechRebornAPI.recipeCompact.getItem("terraWart").getItem(),
-		// 16), ItemCells.getCellByName("empty"),
-		// ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(new ItemStack(Blocks.BROWN_MUSHROOM, 1), ItemCells.getCellByName("empty"),
-				ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(new ItemStack(Blocks.RED_MUSHROOM, 1), ItemCells.getCellByName("empty"),
-				ItemCells.getCellByName("methane", 1), null, null, null, 5000, 5));
-
-		// Rubber Wood Yields
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(new ItemStack(getOre("rubberWood").getItem(), 16),
-				ItemCells.getCellByName("empty", 5), ItemParts.getPartByName("rubber", 8),
-				new ItemStack(Blocks.SAPLING, 6), ItemCells.getCellByName("methane", 1),
-				ItemCells.getCellByName("carbon", 4), 5000, 5, true));
-
-		// Soul Sand Byproducts
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(new ItemStack(Blocks.SOUL_SAND, 16), ItemCells.getCellByName("empty"),
-				ItemCells.getCellByName("oil", 1), ItemDusts.getDustByName("saltpeter", 4),
-				ItemDusts.getDustByName("coal", 1), new ItemStack(Blocks.SAND, 10), 2500, 5));
-
-		// Type Byproducts
-
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(new ItemStack(Items.GLOWSTONE_DUST, 16), ItemCells.getCellByName("empty"),
-				new ItemStack(Items.REDSTONE, 8), ItemDusts.getDustByName("gold", 8),
-				ItemCells.getCellByName("helium", 1), null, 25000, 5));
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(ItemDusts.getDustByName("phosphorous", 5), ItemCells.getCellByName("empty", 3),
-				ItemCells.getCellByName("calcium", 3), null, null, null, 1280, 5));
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(ItemDusts.getDustByName("ashes", 1), ItemCells.getCellByName("empty"),
-				ItemCells.getCellByName("carbon"), null, null, null, 80, 5));
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(new ItemStack(Items.REDSTONE, 10), ItemCells.getCellByName("empty", 4),
-				ItemCells.getCellByName("silicon", 1), ItemDusts.getDustByName("pyrite", 3),
-				ItemDusts.getDustByName("ruby", 1), ItemCells.getCellByName("mercury", 3), 6800, 5));
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(ItemDusts.getDustByName("endstone", 16), ItemCells.getCellByName("empty", 2),
-				ItemCells.getCellByName("helium3", 1), ItemCells.getCellByName("helium"),
-				ItemDustsSmall.getSmallDustByName("Tungsten", 1), new ItemStack(Blocks.SAND, 12), 4800, 5));
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(ItemDusts.getDustByName("cinnabar", 2), ItemCells.getCellByName("empty"),
-				ItemCells.getCellByName("mercury", 1), ItemDusts.getDustByName("sulfur", 1), null, null, 80,
-				5));
-
-		// Deuterium/Tritium
-		RecipeHandler.addRecipe(
-			new CentrifugeRecipe(ItemCells.getCellByName("helium", 16), null, ItemCells.getCellByName("helium3", 1),
-				ItemCells.getCellByName("empty", 15), null, null, 10000, 5));
-		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemCells.getCellByName("deuterium", 4), null,
-			ItemCells.getCellByName("tritium", 1), ItemCells.getCellByName("empty", 3), null, null, 3000, 5));
-		RecipeHandler.addRecipe(new CentrifugeRecipe(ItemCells.getCellByName("hydrogen", 4), null,
-			ItemCells.getCellByName("deuterium", 1), ItemCells.getCellByName("empty", 3), null, null, 3000, 5));
-
-		// Lava Cell Byproducts
-		ItemStack lavaCells = ItemCells.getCellByName("lava");
-		lavaCells.setCount(8);
-		RecipeHandler.addRecipe(new CentrifugeRecipe(lavaCells, null, ItemNuggets.getNuggetByName("electrum", 4),
-			ItemIngots.getIngotByName("copper", 2), ItemDustsSmall.getSmallDustByName("Tungsten", 1),
-			ItemIngots.getIngotByName("tin", 2), 6000, 5));
 
 		// Chemical Reactor
 		RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemDusts.getDustByName("calcite", 1), null,
