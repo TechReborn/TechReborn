@@ -60,6 +60,7 @@ public class ModRecipes {
 		CompatManager.isQuantumStorageLoaded = Loader.isModLoaded("quantumstorage");
 
 		CraftingTableRecipes.init();
+		ExtractorRecipes.init();
 		IndustrialGrinderRecipes.init();
 		IndustrialCentrifugeRecipes.init();
 		IndustrialElectrolyzerRecipes.init();
@@ -81,7 +82,6 @@ public class ModRecipes {
 		addReactorRecipes();
 		addIc2Recipes();
 		addGrinderRecipes();
-		addExtractorRecipes();
 		addCompressorRecipes();
 		if (!IC2Duplicates.deduplicate()) {
 			addWireRecipes();
@@ -377,15 +377,6 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(
 			new CompressorRecipe(OreUtil.getStackFromName("dustLazurite", 8), OreUtil.getStackFromName("plateLazurite", 1), 300,
 				4));
-	}
-
-	static void addExtractorRecipes() {
-		RecipeHandler.addRecipe(
-			new ExtractorRecipe(ItemParts.getPartByName("rubberSap"),
-				ItemParts.getPartByName("rubber", 3), 400, 2));
-		RecipeHandler.addRecipe(
-			new ExtractorRecipe(new ItemStack(ModBlocks.RUBBER_LOG),
-				ItemParts.getPartByName("rubber"), 400, 2, false));
 	}
 
 	static void addGrinderRecipes() {

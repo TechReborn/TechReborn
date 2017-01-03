@@ -41,7 +41,7 @@ public abstract class BaseRecipe implements IBaseRecipeType, Cloneable {
 
 	public void addOutput(ItemStack stack) {
 		if (stack == null || stack.isEmpty()) {
-			throw new InvalidParameterException("output is invalid!");
+			throw new InvalidParameterException("Output stack is null or empty");
 		}
 		outputs.add(stack);
 	}
