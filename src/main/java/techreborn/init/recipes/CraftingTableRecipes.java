@@ -71,6 +71,134 @@ public class CraftingTableRecipes extends RecipeMethods {
 				new ItemStack(ModItems.BRONZE_BOOTS), "ingotBronze");
 		}
 
+		if (!IC2Duplicates.deduplicate()) {
+			registerShaped(getMaterial("copper", 6, Type.CABLE), "CCC", 'C', "ingotCopper");
+			registerShaped(getMaterial("tin", 9, Type.CABLE), "TTT", 'T', "ingotTin");
+			registerShaped(getMaterial("gold", 12, Type.CABLE), "GGG", 'G', "ingotGold");
+			registerShaped(getMaterial("hv", 12, Type.CABLE), "RRR", 'R', "ingotRefinedIron");
+
+			registerShaped(getMaterial("insulatedcopper", 6, Type.CABLE), "RRR", "CCC", "RRR", 'R', "itemRubber", 'C', "ingotCopper");
+			registerShaped(getMaterial("insulatedcopper", 6, Type.CABLE), "CRC", "CRC", "CRC", 'R', "itemRubber", 'C', "ingotCopper");
+			registerShapeless(getMaterial("insulatedcopper", Type.CABLE), "itemRubber", getMaterial("copper", Type.CABLE));
+
+			registerShaped(getMaterial("insulatedgold", 4, Type.CABLE), "RRR", "RGR", "RRR", 'R', "itemRubber", 'G', "ingotGold");
+			registerShapeless(getMaterial("insulatedgold", Type.CABLE), "itemRubber", "itemRubber", getMaterial("gold", Type.CABLE));
+
+			registerShaped(getMaterial("insulatedhv", 4, Type.CABLE), "RRR", "RIR", "RRR", 'R', "itemRubber", 'I', "ingotRefinedIron");
+			registerShapeless(getMaterial("insulatedhv", Type.CABLE), "itemRubber", "itemRubber", getMaterial("hv", Type.CABLE));
+
+			registerShaped(getMaterial("glassfiber", 4, Type.CABLE), "GGG", "RDR", "GGG", 'R', "dustRedstone", 'D', "gemDiamond", 'G', "blockGlass");
+			registerShaped(getMaterial("glassfiber", 4, Type.CABLE), "GGG", "RDR", "GGG", 'R', "dustRedstone", 'D', "dustDiamond", 'G', "blockGlass");
+
+			registerShaped(getMaterial("glassfiber", 3, Type.CABLE), "GGG", "RDR", "GGG", 'R', "dustRedstone", 'D', "gemRuby", 'G', "blockGlass");
+			registerShaped(getMaterial("glassfiber", 3, Type.CABLE), "GGG", "RDR", "GGG", 'R', "dustRedstone", 'D', "dustRuby", 'G', "blockGlass");
+
+			registerShaped(getMaterial("glassfiber", 6, Type.CABLE), "GGG", "RDR", "GGG", 'R', "ingotSilver", 'D', "gemDiamond", 'G', "blockGlass");
+			registerShaped(getMaterial("glassfiber", 6, Type.CABLE), "GGG", "RDR", "GGG", 'R', "ingotSilver", 'D', "dustDiamond", 'G', "blockGlass");
+
+			registerShaped(getMaterial("glassfiber", 8, Type.CABLE), "GGG", "RDR", "GGG", 'R', "ingotElectrum", 'D', "gemDiamond", 'G', "blockGlass");
+			registerShaped(getMaterial("glassfiber", 8, Type.CABLE), "GGG", "RDR", "GGG", 'R', "ingotElectrum", 'D', "dustDiamond", 'G', "blockGlass");
+		}
+
+		if (ConfigTechReborn.UUrecipesWood)
+			registerShaped(new ItemStack(Blocks.LOG, 8), " U ", "   ", "   ", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipesStone)
+			registerShaped(new ItemStack(Blocks.STONE, 16), "   ", " U ", "   ", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipesSnowBlock)
+			registerShaped(new ItemStack(Blocks.SNOW, 16), "U U", "   ", "   ", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipesGrass)
+			registerShaped(new ItemStack(Blocks.GRASS, 16), "   ", "U  ", "U  ", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipesObsidian)
+			registerShaped(new ItemStack(Blocks.OBSIDIAN, 12), "U U", "U U", "   ", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipesGlass)
+			registerShaped(new ItemStack(Blocks.GLASS, 32), " U ", "U U", " U ", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipesCocoa)
+			registerShaped(new ItemStack(Items.DYE, 32, 3), "UU ", "  U", "UU ", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipesGlowstoneBlock)
+			registerShaped(new ItemStack(Blocks.GLOWSTONE, 8), " U ", "U U", "UUU", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipesCactus)
+			registerShaped(new ItemStack(Blocks.CACTUS, 48), " U ", "UUU", "U U", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipesSugarCane)
+			registerShaped(new ItemStack(Items.REEDS, 48), "U U", "U U", "U U", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipesVine)
+			registerShaped(new ItemStack(Blocks.VINE, 24), "U  ", "U  ", "U  ", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipesSnowBall)
+			registerShaped(new ItemStack(Items.SNOWBALL, 16), "   ", "   ", "UUU", 'U', ModItems.UU_MATTER);
+		registerShaped(new ItemStack(Items.CLAY_BALL, 48), "UU ", "U  ", "UU ", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipeslilypad)
+			registerShaped(new ItemStack(Blocks.WATERLILY, 64), "U U", " U ", " U ", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipesGunpowder)
+			registerShaped(new ItemStack(Items.GUNPOWDER, 15), "UUU", "U  ", "UUU", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipesBone)
+			registerShaped(new ItemStack(Items.BONE, 32), "U  ", "UU ", "U  ", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipesFeather)
+			registerShaped(new ItemStack(Items.FEATHER, 32), " U ", " U ", "U U", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipesInk)
+			registerShaped(new ItemStack(Items.DYE, 48), " UU", " UU", " U ", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipesEnderPearl)
+			registerShaped(new ItemStack(Items.ENDER_PEARL, 1), "UUU", "U U", " U ", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipesCoal)
+			registerShaped(new ItemStack(Items.COAL, 5), "  U", "U  ", "  U", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipesIronOre)
+			registerShaped(new ItemStack(Blocks.IRON_ORE, 2), "U U", " U ", "U U", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipesGoldOre)
+			registerShaped(new ItemStack(Blocks.GOLD_ORE, 2), " U ", "UUU", " U ", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipesRedStone)
+			registerShaped(new ItemStack(Items.REDSTONE, 24), "   ", " U ", "UUU", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipesLapis)
+			registerShaped(new ItemStack(Items.DYE, 9, 4), " U ", " U ", " UU", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipesEmeraldOre)
+			registerShaped(new ItemStack(Blocks.EMERALD_ORE, 1), "UU ", "U U", " UU", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipesEmerald)
+			registerShaped(new ItemStack(Items.EMERALD, 2), "UUU", "UUU", " U ", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipesDiamond)
+			registerShaped(new ItemStack(Items.DIAMOND, 1), "UUU", "UUU", "UUU", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipesTinDust)
+			registerShaped(getMaterial("tin", 10, Type.DUST), "   ", "U U", "  U", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipesCopperDust)
+			registerShaped(getMaterial("copper", 10, Type.DUST), "  U", "U U", "   ", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipesLeadDust)
+			registerShaped(getMaterial("lead", 14, Type.DUST), "UUU", "UUU", "U  ", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipesPlatinumDust)
+			registerShaped(getMaterial("platinum", Type.DUST), "  U", "UUU", "UUU", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipesTungstenDust)
+			registerShaped(getMaterial("tungsten", Type.DUST), "U  ", "UUU", "UUU", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipesTitaniumDust)
+			registerShaped(getMaterial("titanium", 2, Type.DUST), "UUU", " U ", " U ", 'U', ModItems.UU_MATTER);
+
+		if (ConfigTechReborn.UUrecipesAluminumDust)
+			registerShaped(getMaterial("aluminum", 16, Type.DUST), " U ", " U ", "UUU", 'U', ModItems.UU_MATTER);
 	}
 
 	static void registerCompressionRecipes() {

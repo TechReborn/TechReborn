@@ -1,15 +1,10 @@
 package techreborn.init;
 
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.oredict.OreDictionary;
@@ -18,28 +13,15 @@ import reborncore.common.util.CraftingHelper;
 import reborncore.common.util.OreUtil;
 import reborncore.common.util.StringUtils;
 import techreborn.Core;
-import techreborn.api.ScrapboxList;
-import techreborn.api.TechRebornAPI;
-import techreborn.api.generator.EFluidGenerator;
-import techreborn.api.generator.GeneratorRecipeHelper;
 import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
-import techreborn.api.recipe.RecyclerRecipe;
-import techreborn.api.recipe.ScrapboxRecipe;
 import techreborn.api.recipe.machines.*;
 import techreborn.blocks.BlockMachineFrame;
 import techreborn.blocks.BlockOre;
-import techreborn.blocks.BlockOre2;
 import techreborn.compat.CompatManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.recipes.*;
 import techreborn.items.*;
-import techreborn.parts.powerCables.ItemStandaloneCables;
-import techreborn.utils.StackWIPHandler;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import static techreborn.utils.OreDictUtils.getDictData;
 import static techreborn.utils.OreDictUtils.getDictOreOrEmpty;
@@ -60,20 +42,20 @@ public class ModRecipes {
 		CompatManager.isQuantumStorageLoaded = Loader.isModLoaded("quantumstorage");
 
 		CraftingTableRecipes.init();
+		SmeltingRecipes.init();
 		ExtractorRecipes.init();
+		RollingMachineRecipes.init();
+		FluidGeneratorRecipes.init();
 		IndustrialGrinderRecipes.init();
 		IndustrialCentrifugeRecipes.init();
 		IndustrialElectrolyzerRecipes.init();
 		ImplosionCompressorRecipes.init();
+		ScrapboxRecipes.init();
 
 		addGeneralShapedRecipes();
 		addMachineRecipes();
 
-		addSmeltingRecipes();
-		addUUrecipes();
-
 		addAlloySmelterRecipes();
-		addPlateCuttingMachineRecipes();
 		addChemicalReactorRecipes();
 
 		addBlastFurnaceRecipes();
@@ -83,265 +65,6 @@ public class ModRecipes {
 		addIc2Recipes();
 		addGrinderRecipes();
 		addCompressorRecipes();
-		if (!IC2Duplicates.deduplicate()) {
-			addWireRecipes();
-		}
-		addScrapBoxloot();
-		addFluidGeneratorRecipes();
-	}
-
-	static void addScrapBoxloot() {
-		ScrapboxList.addItemStackToList(new ItemStack(Items.DIAMOND));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.STICK));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.COAL));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.APPLE));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.BAKED_POTATO));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.BLAZE_POWDER));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.WHEAT));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.CARROT));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.BOAT));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.ACACIA_BOAT));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.BIRCH_BOAT));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.DARK_OAK_BOAT));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.JUNGLE_BOAT));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.SPRUCE_BOAT));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.BLAZE_ROD));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.COMPASS));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.MAP));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.LEATHER_LEGGINGS));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.BOW));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.COOKED_CHICKEN));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.CAKE));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.ACACIA_DOOR));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.DARK_OAK_DOOR));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.BIRCH_DOOR));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.JUNGLE_DOOR));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.OAK_DOOR));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.SPRUCE_DOOR));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.WOODEN_AXE));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.WOODEN_HOE));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.WOODEN_PICKAXE));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.WOODEN_SHOVEL));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.WOODEN_SWORD));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.BED));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.SKULL, 1, 0));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.SKULL, 1, 2));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.SKULL, 1, 4));
-		for (int i = 0; i < StackWIPHandler.devHeads.size(); i++)
-			ScrapboxList.addItemStackToList(StackWIPHandler.devHeads.get(i));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.DYE, 1, 3));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.GLOWSTONE_DUST));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.STRING));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.MINECART));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.CHEST_MINECART));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.HOPPER_MINECART));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.PRISMARINE_SHARD));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.SHEARS));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.EXPERIENCE_BOTTLE));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.BONE));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.BOWL));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.BRICK));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.FISHING_ROD));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.BOOK));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.PAPER));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.SUGAR));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.REEDS));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.SPIDER_EYE));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.SLIME_BALL));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.ROTTEN_FLESH));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.SIGN));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.WRITABLE_BOOK));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.COOKED_BEEF));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.NAME_TAG));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.SADDLE));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.REDSTONE));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.GUNPOWDER));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.RABBIT_HIDE));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.RABBIT_FOOT));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.APPLE));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.GOLDEN_APPLE));
-		ScrapboxList.addItemStackToList(new ItemStack(Items.GOLD_NUGGET));
-
-		ScrapboxList.addItemStackToList(ItemCells.getCellByName("empty"));
-		ScrapboxList.addItemStackToList(ItemCells.getCellByName("water"));
-		ScrapboxList.addItemStackToList(ItemParts.getPartByName("scrap"));
-		ScrapboxList.addItemStackToList(ItemParts.getPartByName("rubber"));
-
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.TRAPDOOR));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.STONE_BUTTON));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.WOODEN_BUTTON));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.ACACIA_FENCE));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.ACACIA_FENCE_GATE));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.BIRCH_FENCE));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.BIRCH_FENCE_GATE));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.DARK_OAK_FENCE));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.DARK_OAK_FENCE_GATE));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.JUNGLE_FENCE));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.JUNGLE_FENCE_GATE));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.NETHER_BRICK_FENCE));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.OAK_FENCE));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.OAK_FENCE_GATE));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.SPRUCE_FENCE));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.SPRUCE_FENCE_GATE));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.BRICK_BLOCK));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.CRAFTING_TABLE));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.PUMPKIN));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.NETHERRACK));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.GRASS));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.DIRT, 1, 0));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.DIRT, 1, 1));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.SAND, 1, 0));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.SAND, 1, 1));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.GLOWSTONE));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.GRAVEL));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.HARDENED_CLAY));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.GLASS));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.GLASS_PANE));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.CACTUS));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.TALLGRASS, 1, 0));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.TALLGRASS, 1, 1));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.DEADBUSH));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.CHEST));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.TNT));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.RAIL));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.DETECTOR_RAIL));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.GOLDEN_RAIL));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.ACTIVATOR_RAIL));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.YELLOW_FLOWER));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.RED_FLOWER, 1, 0));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.RED_FLOWER, 1, 1));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.RED_FLOWER, 1, 2));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.RED_FLOWER, 1, 3));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.RED_FLOWER, 1, 4));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.RED_FLOWER, 1, 5));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.RED_FLOWER, 1, 6));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.RED_FLOWER, 1, 7));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.RED_FLOWER, 1, 8));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.BROWN_MUSHROOM));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.RED_MUSHROOM));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.BROWN_MUSHROOM_BLOCK));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.RED_MUSHROOM_BLOCK));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.SAPLING, 1, 0));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.SAPLING, 1, 1));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.SAPLING, 1, 2));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.SAPLING, 1, 3));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.SAPLING, 1, 4));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.SAPLING, 1, 5));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.LEAVES, 1, 0));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.LEAVES, 1, 1));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.LEAVES, 1, 2));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.LEAVES, 1, 3));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.LEAVES2, 1, 0));
-		ScrapboxList.addItemStackToList(new ItemStack(Blocks.LEAVES2, 1, 1));
-
-		ScrapboxList.addItemStackToList(new ItemStack(ModBlocks.RUBBER_SAPLING));
-
-		for (String i : ItemDusts.types) {
-			if (!i.equals(ModItems.META_PLACEHOLDER)) {
-				ScrapboxList.addItemStackToList(ItemDusts.getDustByName(i));
-			}
-		}
-
-		for (String i : ItemNuggets.types) {
-			if (!i.equals(ModItems.META_PLACEHOLDER)) {
-				ScrapboxList.addItemStackToList(ItemNuggets.getNuggetByName(i));
-			}
-		}
-
-		for (String i : ItemGems.types) {
-			if (!i.equals(ModItems.META_PLACEHOLDER)) {
-				ScrapboxList.addItemStackToList(ItemGems.getGemByName(i));
-			}
-		}
-
-		registerDyable(Blocks.CARPET);
-		registerDyable(Blocks.STAINED_GLASS);
-		registerDyable(Blocks.STAINED_GLASS_PANE);
-		registerDyable(Blocks.STAINED_HARDENED_CLAY);
-
-		for (int i = 0; i < ScrapboxList.stacks.size(); i++) {
-			RecipeHandler.addRecipe(new ScrapboxRecipe(ScrapboxList.stacks.get(i)));
-		}
-
-		boolean showAllItems = false;
-
-		if (showAllItems) {
-			//This is bad, laggy and slow
-			List<Item> items = Lists
-				.newArrayList(Iterables.filter(Item.REGISTRY, item -> item.getRegistryName() != null));
-			Collections.sort(items,
-				(i1, i2) -> i1.getRegistryName().toString().compareTo(i2.getRegistryName().toString()));
-
-			for (Item item : items) {
-				List<ItemStack> stacks = new ArrayList<>();
-				if (item.getHasSubtypes()) {
-					for (int i = 0; i < item.getMaxDamage(); i++) {
-						stacks.add(new ItemStack(item, 1, i));
-					}
-				} else {
-					stacks.add(new ItemStack(item, 1, 0));
-				}
-				for (ItemStack stack : stacks) {
-					RecipeHandler.addRecipe(new RecyclerRecipe(stack));
-				}
-			}
-		} else {
-			for (int i = 0; i < ScrapboxList.stacks.size(); i++) {
-				RecipeHandler.addRecipe(new RecyclerRecipe(ScrapboxList.stacks.get(i)));
-			}
-		}
-
-	}
-
-	static void registerMetadataItem(ItemStack item) {
-		for (int i = 0; i < item.getItem().getMaxDamage(); i++) {
-			ScrapboxList.addItemStackToList(new ItemStack(item.getItem(), 1, i));
-		}
-	}
-
-	static void registerDyable(Block block) {
-		for (int i = 0; i < 16; i++)
-			ScrapboxList.stacks.add(new ItemStack(block, 1, i));
-	}
-
-	static void addWireRecipes() {
-		CraftingHelper.addShapedOreRecipe(ItemStandaloneCables.getCableByName("copper", 6), "CCC", 'C', "ingotCopper");
-		CraftingHelper.addShapedOreRecipe(ItemStandaloneCables.getCableByName("tin", 9), "CCC", 'C', "ingotTin");
-		CraftingHelper.addShapedOreRecipe(ItemStandaloneCables.getCableByName("gold", 12), "CCC", 'C', "ingotGold");
-		CraftingHelper
-			.addShapedOreRecipe(ItemStandaloneCables.getCableByName("hv", 12), "CCC", 'C', IC2Duplicates.REFINED_IRON.getStackBasedOnConfig());
-
-		CraftingHelper
-			.addShapedOreRecipe(ItemStandaloneCables.getCableByName("glassfiber", 4), "GGG", "SDS", "GGG", 'G',
-				"blockGlass", 'S', "dustRedstone", 'D', "gemDiamond");
-
-		CraftingHelper
-			.addShapedOreRecipe(ItemStandaloneCables.getCableByName("glassfiber", 6), "GGG", "SDS", "GGG", 'G',
-				"blockGlass", 'S', "dustRedstone", 'D', "gemRuby");
-
-		CraftingHelper
-			.addShapedOreRecipe(ItemStandaloneCables.getCableByName("glassfiber", 6), "GGG", "SDS", "GGG", 'G',
-				"blockGlass", 'S', "ingotSilver", 'D', "gemDiamond");
-		CraftingHelper
-			.addShapedOreRecipe(ItemStandaloneCables.getCableByName("glassfiber", 8), "GGG", "SDS", "GGG", 'G',
-				"blockGlass", 'S', "ingotElectrum", 'D', "gemDiamond");
-
-		CraftingHelper.addShapelessOreRecipe(IC2Duplicates.CABLE_ICOPPER.getStackBasedOnConfig(), "itemRubber",
-			ItemStandaloneCables.getCableByName("copper"));
-		CraftingHelper.addShapelessOreRecipe(IC2Duplicates.CABLE_IGOLD.getStackBasedOnConfig(), "itemRubber",
-			"itemRubber", ItemStandaloneCables.getCableByName("gold"));
-		CraftingHelper.addShapelessOreRecipe(IC2Duplicates.CABLE_IHV.getStackBasedOnConfig(), "itemRubber",
-			"itemRubber", ItemStandaloneCables.getCableByName("hv"));
-
-		CraftingHelper
-			.addShapedOreRecipe(ItemStandaloneCables.getCableByName("insulatedcopper", 6), "RRR", "III", "RRR", 'R',
-				"itemRubber", 'I', "ingotCopper");
-		CraftingHelper
-			.addShapedOreRecipe(ItemStandaloneCables.getCableByName("insulatedgold", 4), "RRR", "RIR", "RRR", 'R',
-				"itemRubber", 'I', "ingotGold");
-		CraftingHelper
-			.addShapedOreRecipe(IC2Duplicates.CABLE_IHV.getStackBasedOnConfig(), "RRR", "RIR", "RRR", 'R',
-				"itemRubber", 'I', "ingotRefinedIron");
 	}
 
 	private static void addCompressorRecipes() {
@@ -642,12 +365,6 @@ public class ModRecipes {
 			}
 		}
 
-		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("nichromeHeatingCoil"), " N ", "NCN", " N ", 'N',
-			"ingotNickel", 'C', "ingotChrome");
-
-		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("kanthalHeatingCoil"), "III", "CAA", "AAA", 'I',
-			"ingotSteel", 'C', "ingotChrome", 'A', "ingotAluminum");
-
 		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("heliumCoolantSimple"), " T ", "TCT", " T ", 'T',
 			"ingotTin", 'C', ItemCells.getCellByName("helium", 1));
 
@@ -794,10 +511,6 @@ public class ModRecipes {
 			.addShapedOreRecipe(new ItemStack(ModBlocks.LSU_STORAGE_BLOCK), "LLL", "LCL", "LLL", 'L', "blockLapis", 'C',
 				"circuitBasic");
 
-		TechRebornAPI
-			.addRollingOreMachinceRecipe(ItemParts.getPartByName("cupronickelHeatingCoil", 3), "NCN", "C C", "NCN",
-				'N', "ingotNickel", 'C', "ingotCopper");
-
 		RecipeHandler.addRecipe(new VacuumFreezerRecipe(ItemIngots.getIngotByName("hot_tungstensteel"),
 			ItemIngots.getIngotByName("tungstensteel"), 440, 128));
 
@@ -831,26 +544,6 @@ public class ModRecipes {
 				ItemCells.getCellByName("water"),
 				ItemCells.getCellByName("cell"),
 				60, 87));
-	}
-
-	static void addSmeltingRecipes() {
-		CraftingHelper.addSmelting(ItemDusts.getDustByName("iron", 1), new ItemStack(Items.IRON_INGOT), 1F);
-		CraftingHelper.addSmelting(ItemDusts.getDustByName("gold", 1), new ItemStack(Items.GOLD_INGOT), 1F);
-		CraftingHelper.addSmelting(ItemParts.getPartByName("rubberSap"), ItemParts.getPartByName("rubber"), 1F);
-		if (!IC2Duplicates.deduplicate()) {
-			CraftingHelper.addSmelting(new ItemStack(Items.IRON_INGOT), ItemIngots.getIngotByName("refined_iron"), 1F);
-		}
-		CraftingHelper.addSmelting(BlockOre2.getOreByName("copper"), ItemIngots.getIngotByName("copper"), 1F);
-		CraftingHelper.addSmelting(BlockOre2.getOreByName("tin"), ItemIngots.getIngotByName("tin"), 1F);
-		CraftingHelper.addSmelting(BlockOre.getOreByName("Silver"), ItemIngots.getIngotByName("silver"), 1F);
-		CraftingHelper.addSmelting(BlockOre.getOreByName("Lead"), ItemIngots.getIngotByName("lead"), 1F);
-		CraftingHelper.addSmelting(BlockOre.getOreByName("Sheldonite"), ItemIngots.getIngotByName("platinum"), 1F);
-		CraftingHelper
-			.addSmelting(IC2Duplicates.MIXED_METAL.getStackBasedOnConfig(), ItemIngots.getIngotByName("advancedAlloy"), 1F);
-		CraftingHelper.addSmelting(ItemDusts.getDustByName("nickel", 1), ItemIngots.getIngotByName("nickel"), 1F);
-		CraftingHelper.addSmelting(ItemDusts.getDustByName("platinum", 1), ItemIngots.getIngotByName("platinum"), 1F);
-		CraftingHelper.addSmelting(ItemDusts.getDustByName("zinc", 1), ItemIngots.getIngotByName("zinc"), 1F);
-		Core.logHelper.info("Smelting Recipes Added");
 	}
 
 	static void addAlloySmelterRecipes() {
@@ -1032,22 +725,6 @@ public class ModRecipes {
 
 	}
 
-	static void addPlateCuttingMachineRecipes() {
-
-		for (String ore : OreUtil.oreNames) {
-			if (OreUtil.hasBlock(ore) && OreUtil.hasPlate(ore)) {
-				RecipeHandler.addRecipe(new PlateCuttingMachineRecipe(
-					OreUtil.getStackFromName("block" + StringUtils.toFirstCapital(ore)),
-					OreUtil.getStackFromName("plate" + StringUtils.toFirstCapital(ore), 9), 200, 16));
-			}
-		}
-
-		// Obsidian
-		RecipeHandler.addRecipe(
-			new PlateCuttingMachineRecipe(new ItemStack(Blocks.OBSIDIAN), ItemPlates.getPlateByName("obsidian", 9),
-				100, 4));
-	}
-
 	static void addBlastFurnaceRecipes() {
 		RecipeHandler.addRecipe(
 			new BlastFurnaceRecipe(ItemDusts.getDustByName("titanium"), null, ItemIngots.getIngotByName("titanium"),
@@ -1095,144 +772,6 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(
 			new BlastFurnaceRecipe(BlockOre.getOreByName("Pyrite"), ItemDusts.getDustByName("calcite"),
 				new ItemStack(Items.IRON_INGOT, 2), ItemDusts.getDustByName("dark_ashes"), 140, 120, 1000));
-	}
-
-	static void addUUrecipes() {
-
-		if (ConfigTechReborn.UUrecipesWood)
-			CraftingHelper
-				.addShapedOreRecipe(new ItemStack(Blocks.LOG, 8), " U ", "   ", "   ", 'U', ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipesStone)
-			CraftingHelper
-				.addShapedOreRecipe(new ItemStack(Blocks.STONE, 16), "   ", " U ", "   ", 'U', ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipesSnowBlock)
-			CraftingHelper
-				.addShapedOreRecipe(new ItemStack(Blocks.SNOW, 16), "U U", "   ", "   ", 'U', ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipesGrass)
-			CraftingHelper
-				.addShapedOreRecipe(new ItemStack(Blocks.GRASS, 16), "   ", "U  ", "U  ", 'U', ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipesObsidian)
-			CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.OBSIDIAN, 12), "U U", "U U", "   ", 'U',
-				ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipesGlass)
-			CraftingHelper
-				.addShapedOreRecipe(new ItemStack(Blocks.GLASS, 32), " U ", "U U", " U ", 'U', ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipesCocoa)
-			CraftingHelper
-				.addShapedOreRecipe(new ItemStack(Items.DYE, 32, 3), "UU ", "  U", "UU ", 'U', ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipesGlowstoneBlock)
-			CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.GLOWSTONE, 8), " U ", "U U", "UUU", 'U',
-				ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipesCactus)
-			CraftingHelper
-				.addShapedOreRecipe(new ItemStack(Blocks.CACTUS, 48), " U ", "UUU", "U U", 'U', ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipesSugarCane)
-			CraftingHelper
-				.addShapedOreRecipe(new ItemStack(Items.REEDS, 48), "U U", "U U", "U U", 'U', ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipesVine)
-			CraftingHelper
-				.addShapedOreRecipe(new ItemStack(Blocks.VINE, 24), "U  ", "U  ", "U  ", 'U', ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipesSnowBall)
-			CraftingHelper
-				.addShapedOreRecipe(new ItemStack(Items.SNOWBALL, 16), "   ", "   ", "UUU", 'U', ModItems.UU_MATTER);
-
-		CraftingHelper
-			.addShapedOreRecipe(new ItemStack(Items.CLAY_BALL, 48), "UU ", "U  ", "UU ", 'U', ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipeslilypad)
-			CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.WATERLILY, 64), "U U", " U ", " U ", 'U',
-				ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipesGunpowder)
-			CraftingHelper.addShapedOreRecipe(new ItemStack(Items.GUNPOWDER, 15), "UUU", "U  ", "UUU", 'U',
-				ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipesBone)
-			CraftingHelper
-				.addShapedOreRecipe(new ItemStack(Items.BONE, 32), "U  ", "UU ", "U  ", 'U', ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipesFeather)
-			CraftingHelper
-				.addShapedOreRecipe(new ItemStack(Items.FEATHER, 32), " U ", " U ", "U U", 'U', ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipesInk)
-			CraftingHelper
-				.addShapedOreRecipe(new ItemStack(Items.DYE, 48), " UU", " UU", " U ", 'U', ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipesEnderPearl)
-			CraftingHelper.addShapedOreRecipe(new ItemStack(Items.ENDER_PEARL, 1), "UUU", "U U", " U ", 'U',
-				ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipesCoal)
-			CraftingHelper
-				.addShapedOreRecipe(new ItemStack(Items.COAL, 5), "  U", "U  ", "  U", 'U', ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipesIronOre)
-			CraftingHelper
-				.addShapedOreRecipe(new ItemStack(Blocks.IRON_ORE, 2), "U U", " U ", "U U", 'U', ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipesGoldOre)
-			CraftingHelper
-				.addShapedOreRecipe(new ItemStack(Blocks.GOLD_ORE, 2), " U ", "UUU", " U ", 'U', ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipesRedStone)
-			CraftingHelper
-				.addShapedOreRecipe(new ItemStack(Items.REDSTONE, 24), "   ", " U ", "UUU", 'U', ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipesLapis)
-			CraftingHelper
-				.addShapedOreRecipe(new ItemStack(Items.DYE, 9, 4), " U ", " U ", " UU", 'U', ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipesEmeraldOre)
-			CraftingHelper.addShapedOreRecipe(new ItemStack(Blocks.EMERALD_ORE, 1), "UU ", "U U", " UU", 'U',
-				ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipesEmerald)
-			CraftingHelper
-				.addShapedOreRecipe(new ItemStack(Items.EMERALD, 2), "UUU", "UUU", " U ", 'U', ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipesDiamond)
-			CraftingHelper
-				.addShapedOreRecipe(new ItemStack(Items.DIAMOND, 1), "UUU", "UUU", "UUU", 'U', ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipesTinDust)
-			CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.DUSTS, 10, 77), "   ", "U U", "  U", 'U',
-				ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipesCopperDust)
-			CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.DUSTS, 10, 21), "  U", "U U", "   ", 'U',
-				ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipesLeadDust)
-			CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.DUSTS, 14, 42), "UUU", "UUU", "U  ", 'U',
-				ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipesPlatinumDust)
-			CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.DUSTS, 1, 58), "  U", "UUU", "UUU", 'U',
-				ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipesTungstenDust)
-			CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.DUSTS, 1, 79), "U  ", "UUU", "UUU", 'U',
-				ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipesTitaniumDust)
-			CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.DUSTS, 2, 78), "UUU", " U ", " U ", 'U',
-				ModItems.UU_MATTER);
-
-		if (ConfigTechReborn.UUrecipesAluminumDust)
-			CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.DUSTS, 16, 2), " U ", " U ", "UUU", 'U',
-				ModItems.UU_MATTER);
 	}
 
 	static void addChemicalReactorRecipes() {
@@ -1540,23 +1079,6 @@ public class ModRecipes {
 				"FIF", 'F', "circuitMaster", 'O',
 				new ItemStack(ModItems.LAPOTRONIC_ORB), 'S', ItemParts.getPartByName("superConductor"), 'I',
 				"ingotIridium", 'P', new ItemStack(ModItems.LITHIUM_BATTERY_PACK));
-	}
-
-	static void addFluidGeneratorRecipes() {
-		GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.DIESEL, ModFluids.NITROFUEL, 24);
-		GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.DIESEL, ModFluids.NITROCOAL_FUEL, 48);
-		GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.DIESEL, ModFluids.LITHIUM, 24);
-		GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.DIESEL, ModFluids.NITRO_DIESEL, 36);
-		GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.DIESEL, ModFluids.OIL, 16);
-
-		GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.SEMIFLUID, ModFluids.OIL, 64);
-		GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.SEMIFLUID, ModFluids.SODIUM, 30);
-		GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.SEMIFLUID, ModFluids.LITHIUM, 60);
-
-		GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.THERMAL, FluidRegistry.LAVA, 60);
-
-		GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.GAS, ModFluids.HYDROGEN, 15);
-		GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.GAS, ModFluids.METHANE, 45);
 	}
 
 	public static ItemStack getBucketWithFluid(Fluid fluid) {

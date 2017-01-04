@@ -4,6 +4,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.common.util.OreUtil;
 import techreborn.items.*;
+import techreborn.parts.powerCables.ItemStandaloneCables;
 
 /**
  * Created by Prospector
@@ -26,6 +27,8 @@ public abstract class RecipeMethods {
 			return ItemCells.getCellByName(name, count);
 		} else if (type == Type.PART) {
 			return ItemParts.getPartByName(name, count);
+		} else if (type == Type.CABLE) {
+			return ItemStandaloneCables.getCableByName(name, count);
 		} else {
 
 		}
@@ -54,6 +57,6 @@ public abstract class RecipeMethods {
 	}
 
 	enum Type {
-		DUST, SMALL_DUST, INGOT, NUGGET, PLATE, GEM, CELL, PART
+		DUST, SMALL_DUST, INGOT, NUGGET, PLATE, GEM, CELL, PART, CABLE
 	}
 }

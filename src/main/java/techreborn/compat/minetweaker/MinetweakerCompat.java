@@ -19,40 +19,6 @@ import static minetweaker.api.minecraft.MineTweakerMC.getItemStack;
 import static minetweaker.api.minecraft.MineTweakerMC.getLiquidStack;
 
 public class MinetweakerCompat implements ICompatModule {
-	@Override
-	public void preInit(FMLPreInitializationEvent event) {
-
-	}
-
-	@Override
-	public void init(FMLInitializationEvent event) {
-
-	}
-
-	@Override
-	public void postInit(FMLPostInitializationEvent event) {
-		MineTweakerAPI.registerClass(MTAlloySmelter.class);
-		MineTweakerAPI.registerClass(MTAssemblingMachine.class);
-		MineTweakerAPI.registerClass(MTBlastFurnace.class);
-		MineTweakerAPI.registerClass(MTCentrifuge.class);
-		MineTweakerAPI.registerClass(MTChemicalReactor.class);
-		MineTweakerAPI.registerClass(MTCompressor.class);
-		MineTweakerAPI.registerClass(MTIndustrialGrinder.class);
-		MineTweakerAPI.registerClass(MTImplosionCompressor.class);
-		MineTweakerAPI.registerClass(MTIndustrialElectrolyzer.class);
-		MineTweakerAPI.registerClass(MTIndustrialSawmill.class);
-		MineTweakerAPI.registerClass(MTPlateCuttingMachine.class);
-		MineTweakerAPI.registerClass(MTFusionReactor.class);
-		MineTweakerAPI.registerClass(MTVacuumFreezer.class);
-		MineTweakerAPI.registerClass(MTGenerator.class);
-		MineTweakerAPI.registerClass(MTRollingMachine.class);
-	}
-
-	@Override
-	public void serverStarting(FMLServerStartingEvent event) {
-
-	}
-
 	public static ItemStack toStack(IItemStack iStack) {
 		return getItemStack(iStack);
 	}
@@ -75,6 +41,39 @@ public class MinetweakerCompat implements ICompatModule {
 
 	public static FluidStack toFluidStack(ILiquidStack iStack) {
 		return getLiquidStack(iStack);
+	}
+
+	@Override
+	public void preInit(FMLPreInitializationEvent event) {
+
+	}
+
+	@Override
+	public void init(FMLInitializationEvent event) {
+
+	}
+
+	@Override
+	public void postInit(FMLPostInitializationEvent event) {
+		MineTweakerAPI.registerClass(MTAlloySmelter.class);
+		MineTweakerAPI.registerClass(MTAssemblingMachine.class);
+		MineTweakerAPI.registerClass(MTBlastFurnace.class);
+		MineTweakerAPI.registerClass(MTCentrifuge.class);
+		MineTweakerAPI.registerClass(MTChemicalReactor.class);
+		MineTweakerAPI.registerClass(MTCompressor.class);
+		MineTweakerAPI.registerClass(MTIndustrialGrinder.class);
+		MineTweakerAPI.registerClass(MTImplosionCompressor.class);
+		MineTweakerAPI.registerClass(MTIndustrialElectrolyzer.class);
+		MineTweakerAPI.registerClass(MTIndustrialSawmill.class);
+		MineTweakerAPI.registerClass(MTFusionReactor.class);
+		MineTweakerAPI.registerClass(MTVacuumFreezer.class);
+		MineTweakerAPI.registerClass(MTGenerator.class);
+		MineTweakerAPI.registerClass(MTRollingMachine.class);
+	}
+
+	@Override
+	public void serverStarting(FMLServerStartingEvent event) {
+
 	}
 
 }
