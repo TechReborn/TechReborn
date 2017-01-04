@@ -6,6 +6,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.wrapper.InvWrapper;
 
 import powercrystals.minefactoryreloaded.api.IDeepStorageUnit;
 
@@ -21,6 +24,8 @@ import java.util.List;
 
 public class TileTechStorageBase extends TileLegacyMachineBase
 		implements IInventoryProvider, IWrenchable, IListInfoProvider, IDeepStorageUnit {
+
+	public InvWrapper invWrapper;
 
 	public ItemStack storedItem;
 
@@ -241,6 +246,26 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 
 	@Override
 	public Inventory getInventory() {
-		return inventory;
+		return this.inventory;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <T> T getCapability(final Capability<T> capability, final EnumFacing facing) {
+		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+			return (T) this.getInvWrapper();
+		return super.getCapability(capability, facing);
+	}
+
+	@Override
+	public boolean hasCapability(final net.minecraftforge.common.capabilities.Capability<?> capability,
+			@javax.annotation.Nullable final net.minecraft.util.EnumFacing facing) {
+		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+	}
+
+	public InvWrapper getInvWrapper() {
+		if (this.invWrapper == null)
+			this.invWrapper = new InvWrapper(this);
+		return this.invWrapper;
 	}
 }
