@@ -14,8 +14,8 @@ import java.security.InvalidParameterException;
 public class ImplosionCompressorRecipes extends RecipeMethods {
 	public static void init() {
 		register(getOre("ingotIridiumAlloy"), getMaterial("iridium", Type.PLATE), 4);
-		register(getOre("dustDiamond", 4), new ItemStack(Items.DIAMOND, 3), 16);
-		register(getOre("dustEmerald", 4), new ItemStack(Items.EMERALD, 3), 12);
+		register(getOre("dustDiamond", 4), getStack(Items.DIAMOND, 3), 16);
+		register(getOre("dustEmerald", 4), getStack(Items.EMERALD, 3), 12);
 		register(getOre("dustRuby", 4), getMaterial("ruby", 3, Type.GEM), 12);
 		register(getOre("dustSapphire", 4), getMaterial("sapphire", 3, Type.GEM), 12);
 		register(getOre("dustPeridot", 4), getMaterial("peridot", 3, Type.GEM), 12);
@@ -50,6 +50,6 @@ public class ImplosionCompressorRecipes extends RecipeMethods {
 			throw new InvalidParameterException("Invalid implosion compressor darkAshes input: " + darkAshes);
 		}
 
-		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(input, new ItemStack(Blocks.TNT, 16), output, getMaterial("dark_ashes", darkAshes, Type.DUST), 20, 32));
+		RecipeHandler.addRecipe(new ImplosionCompressorRecipe(input, getStack(Blocks.TNT, 16), output, getMaterial("dark_ashes", darkAshes, Type.DUST), 20, 32));
 	}
 }

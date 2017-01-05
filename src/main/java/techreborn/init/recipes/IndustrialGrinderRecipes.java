@@ -23,8 +23,8 @@ public class IndustrialGrinderRecipes extends RecipeMethods {
 
 	public static void init() {
 
-		register(new ItemStack(Blocks.NETHERRACK, 16), WATER, 1600, 128, getMaterial("netherrack", 16, Type.DUST), new ItemStack(Items.GOLD_NUGGET));
-		register(new ItemStack(Blocks.NETHERRACK, 8), MERCURY, 800, 128, getMaterial("netherrack", 8, Type.DUST), new ItemStack(Items.GOLD_NUGGET));
+		register(getStack(Blocks.NETHERRACK, 16), WATER, 1600, 128, getMaterial("netherrack", 16, Type.DUST), getStack(Items.GOLD_NUGGET));
+		register(getStack(Blocks.NETHERRACK, 8), MERCURY, 800, 128, getMaterial("netherrack", 8, Type.DUST), getStack(Items.GOLD_NUGGET));
 
 		register(getOre("oreCopper"), WATER, 100, 128, getMaterial("copper", 2, Type.DUST), getMaterial("gold", Type.SMALL_DUST), getMaterial("nickel", Type.SMALL_DUST));
 		register(getOre("oreCopper"), SODIUM_PERSULFATE, 100, 128, getMaterial("copper", 3, Type.DUST), getMaterial("gold", Type.SMALL_DUST), getMaterial("nickel", Type.SMALL_DUST));
@@ -44,15 +44,15 @@ public class IndustrialGrinderRecipes extends RecipeMethods {
 		}
 
 		register(getOre("oreIron"), WATER, 100, 128, getMaterial("iron", 2, Type.DUST), getMaterial("tin", Type.SMALL_DUST), getMaterial("nickel", 1, Type.DUST));
-		register(getOre("oreLapis"), WATER, 100, 128, new ItemStack(Items.DYE, 12, 4), getMaterial("lazurite", 3, Type.DUST));
-		register(getOre("oreRedstone"), WATER, 100, 128, new ItemStack(Items.REDSTONE, 10), getMaterial("glowstone", 2, Type.SMALL_DUST));
+		register(getOre("oreLapis"), WATER, 100, 128, getStack(Items.DYE, 12, 4), getMaterial("lazurite", 3, Type.DUST));
+		register(getOre("oreRedstone"), WATER, 100, 128, getStack(Items.REDSTONE, 10), getMaterial("glowstone", 2, Type.SMALL_DUST));
 
 		register(getOre("oreGold"), WATER, 100, 128, getMaterial("gold", 2, Type.DUST), getMaterial("copper", Type.SMALL_DUST), getMaterial("nickel", Type.SMALL_DUST));
 		register(getOre("oreGold"), MERCURY, 100, 128, getMaterial("gold", 3, Type.DUST), getMaterial("copper", Type.SMALL_DUST), getMaterial("nickel", Type.SMALL_DUST));
 		register(getOre("oreGold"), SODIUM_PERSULFATE, 100, 128, getMaterial("gold", 2, Type.DUST), getMaterial("copper", Type.DUST), getMaterial("nickel", Type.SMALL_DUST));
 
-		register(getOre("oreDiamond"), WATER, 100, 128, new ItemStack(Items.DIAMOND), getMaterial("diamond", 6, Type.SMALL_DUST), getMaterial("coal", Type.DUST));
-		register(getOre("oreEmerald"), WATER, 100, 128, new ItemStack(Items.EMERALD), getMaterial("emerald", 6, Type.SMALL_DUST));
+		register(getOre("oreDiamond"), WATER, 100, 128, getStack(Items.DIAMOND), getMaterial("diamond", 6, Type.SMALL_DUST), getMaterial("coal", Type.DUST));
+		register(getOre("oreEmerald"), WATER, 100, 128, getStack(Items.EMERALD), getMaterial("emerald", 6, Type.SMALL_DUST));
 
 		register(getOre("oreGalena"), WATER, 100, 128, getMaterial("galena", 2, Type.DUST), getMaterial("sulfur", Type.DUST));
 		register(getOre("oreGalena"), MERCURY, 100, 128, getMaterial("galena", 2, Type.DUST), getMaterial("sulfur", Type.DUST), getMaterial("silver", Type.DUST));
@@ -66,7 +66,7 @@ public class IndustrialGrinderRecipes extends RecipeMethods {
 		register(getOre("oreRuby"), WATER, 100, 128, getMaterial("ruby", Type.GEM), getMaterial("ruby", 6, Type.SMALL_DUST), getMaterial("red_garnet", 2, Type.SMALL_DUST));
 		register(getOre("oreSapphire"), WATER, 100, 128, getMaterial("sapphire", Type.GEM), getMaterial("sapphire", 6, Type.SMALL_DUST), getMaterial("peridot", 2, Type.SMALL_DUST));
 		register(BlockOre.getOreByName("bauxite"), WATER, 100, 128, getMaterial("bauxite", 4, Type.DUST), getMaterial("aluminum", Type.DUST));
-		register(getOre("oreQuartz"), WATER, 100, 128, new ItemStack(Items.QUARTZ, 2), getMaterial("sulfur", 2, Type.SMALL_DUST));
+		register(getOre("oreQuartz"), WATER, 100, 128, getStack(Items.QUARTZ, 2), getMaterial("sulfur", 2, Type.SMALL_DUST));
 		register(getOre("orePyrite"), WATER, 100, 128, getMaterial("pyrite", 5, Type.DUST), getMaterial("sulfur", 2, Type.DUST));
 		register(getOre("oreCinnabar"), WATER, 100, 128, getMaterial("cinnabar", 5, Type.DUST), getMaterial("redstone", 2, Type.SMALL_DUST), getMaterial("glowstone", Type.SMALL_DUST));
 

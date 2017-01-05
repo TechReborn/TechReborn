@@ -12,11 +12,11 @@ import techreborn.init.IC2Duplicates;
  */
 public class SmeltingRecipes extends RecipeMethods {
 	public static void init() {
-		register(getMaterial("iron", Type.DUST), new ItemStack(Items.IRON_INGOT));
-		register(getMaterial("gold", Type.DUST), new ItemStack(Items.GOLD_INGOT));
+		register(getMaterial("iron", Type.DUST), getStack(Items.IRON_INGOT));
+		register(getMaterial("gold", Type.DUST), getStack(Items.GOLD_INGOT));
 		register(getMaterial("sap", Type.PART), getMaterial("rubber", Type.PART));
 		if (!IC2Duplicates.deduplicate()) {
-			register(new ItemStack(Items.IRON_INGOT), getMaterial("refined_iron", Type.INGOT));
+			register(getStack(Items.IRON_INGOT), getMaterial("refined_iron", Type.INGOT));
 		}
 		register(BlockOre2.getOreByName("copper"), getMaterial("copper", Type.INGOT));
 		register(BlockOre2.getOreByName("tin"), getMaterial("tin", Type.INGOT));
