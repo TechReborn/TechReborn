@@ -23,8 +23,6 @@ If you're looking for the latest bleeding edge build, these are found on our Jen
 
 1.11.2 - [![Build Status](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.11.2/badge/icon)](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.11.2/)
 
-1.11.0 - [![Build Status](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.11/badge/icon)](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.11/)
-
 1.10.2 - [![Build Status](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.10.2/badge/icon)](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.10.2/)
 
 # Issues and Sggestions
