@@ -15,12 +15,14 @@ public class BlockBreakHandler {
 
     @SubscribeEvent
     public void onBlockHarvest(BlockEvent.HarvestDropsEvent event) {
+    	boolean shouldAdd = false;
         for (ItemStack ore : event.getDrops()) {
             if (OreDictUtils.isOre(ore, "gemRuby")) {
-                EntityItem item = new EntityItem(event.getWorld(), event.getPos().getX(), event.getPos().getY(), event.getPos().getZ(),
-                        ItemGems.getGemByName("redGarnet").copy());
-                event.getWorld().spawnEntityInWorld(item);
+                shouldAdd = true;
             }
+        }
+        if(shouldAdd){
+	        event.getDrops().add(ItemGems.getGemByName("redGarnet").copy());
         }
     }
 }
