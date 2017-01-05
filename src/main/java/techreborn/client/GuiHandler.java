@@ -1,12 +1,14 @@
 package techreborn.client;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import reborncore.api.tile.IContainerLayout;
 import reborncore.common.container.RebornContainer;
 import techreborn.client.container.*;
+import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.client.gui.*;
 import techreborn.manual.GuiManual;
 import techreborn.tiles.*;
@@ -75,11 +77,11 @@ public class GuiHandler implements IGuiHandler {
 			return new ContainerGasTurbine((TileGasTurbine) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == quantumTankID) {
 			return new ContainerQuantumTank((TileQuantumTank) world.getTileEntity(new BlockPos(x, y, z)), player);
-		} else if (ID == digitalChestID) {
-			return new ContainerDigitalChest((TileDigitalChest) world.getTileEntity(new BlockPos(x, y, z)), player);
-		} else if (ID == quantumChestID) {
-			return new ContainerQuantumChest((TileQuantumChest) world.getTileEntity(new BlockPos(x, y, z)), player);
-		} else if (ID == centrifugeID) {
+		} else if (ID == GuiHandler.digitalChestID || ID == GuiHandler.quantumChestID) {
+			return new ContainerBuilder().player(player.inventory).inventory().hotbar().addInventory()
+					.tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 80, 17).output(1, 80, 53)
+					.fake(2, 59, 42).addInventory().create();
+		} else if (ID == GuiHandler.centrifugeID) {
 			container = new ContainerCentrifuge(player, (TileCentrifuge) world.getTileEntity(new BlockPos(x, y, z)));
 		} else if (ID == rollingMachineID) {
 			return new ContainerRollingMachine((TileRollingMachine) world.getTileEntity(new BlockPos(x, y, z)), player);

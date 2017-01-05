@@ -7,7 +7,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 import reborncore.common.util.ItemUtils;
-import techreborn.client.container.ContainerQuantumChest;
+
+import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.tiles.TileQuantumChest;
 
 public class GuiQuantumChest extends GuiContainer {
@@ -17,8 +18,9 @@ public class GuiQuantumChest extends GuiContainer {
 
 	TileQuantumChest tile;
 
-	public GuiQuantumChest(EntityPlayer player, TileQuantumChest tile) {
-		super(new ContainerQuantumChest(tile, player));
+	public GuiQuantumChest(final EntityPlayer player, final TileQuantumChest tile) {
+		super(new ContainerBuilder().player(player.inventory).inventory().hotbar().addInventory().tile(tile)
+				.slot(0, 80, 17).output(1, 80, 53).fake(2, 59, 42).addInventory().create());
 		this.xSize = 176;
 		this.ySize = 167;
 		this.tile = tile;

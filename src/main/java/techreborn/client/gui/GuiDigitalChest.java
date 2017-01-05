@@ -6,7 +6,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
-import techreborn.client.container.ContainerDigitalChest;
+
+import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.tiles.TileDigitalChest;
 
 public class GuiDigitalChest extends GuiContainer {
@@ -16,8 +17,9 @@ public class GuiDigitalChest extends GuiContainer {
 
 	TileDigitalChest tile;
 
-	public GuiDigitalChest(EntityPlayer player, TileDigitalChest tile) {
-		super(new ContainerDigitalChest(tile, player));
+	public GuiDigitalChest(final EntityPlayer player, final TileDigitalChest tile) {
+		super(new ContainerBuilder().player(player.inventory).inventory().hotbar().addInventory().tile(tile).slot(0, 80, 17)
+				.output(1, 80, 53).fake(2, 59, 42).addInventory().create());
 		this.xSize = 176;
 		this.ySize = 167;
 		this.tile = tile;
