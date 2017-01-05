@@ -1,5 +1,6 @@
 package techreborn.blocks;
 
+import com.google.common.base.CaseFormat;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
@@ -14,8 +15,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.multiblock.BlockMultiblockBase;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.init.ModBlocks;
 import techreborn.tiles.TileMachineCasing;
 
+import java.security.InvalidParameterException;
 import java.util.Random;
 
 public class BlockMachineCasing extends BlockMultiblockBase {
@@ -29,6 +32,20 @@ public class BlockMachineCasing extends BlockMultiblockBase {
 		setUnlocalizedName("techreborn.machineCasing");
 		setHardness(2F);
 		this.setDefaultState(this.getDefaultState().withProperty(METADATA, 0));
+	}
+
+	public static ItemStack getStackByName(String name, int count) {
+		name = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, name);
+		for (int i = 0; i < types.length; i++) {
+			if (types[i].equalsIgnoreCase(name)) {
+				return new ItemStack(ModBlocks.MACHINE_CASINGS, count, i);
+			}
+		}
+		throw new InvalidParameterException("The machine casing " + name + " could not be found.");
+	}
+
+	public static ItemStack getStackByName(String name) {
+		return getStackByName(name, 1);
 	}
 
 	@Override

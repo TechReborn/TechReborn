@@ -13,7 +13,9 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.IC2Duplicates;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
-import techreborn.items.*;
+import techreborn.items.DynamicCell;
+import techreborn.items.ItemDustsSmall;
+import techreborn.items.ItemNuggets;
 
 import java.security.InvalidParameterException;
 
@@ -23,52 +25,34 @@ import java.security.InvalidParameterException;
 public class CraftingTableRecipes extends RecipeMethods {
 	public static void init() {
 		registerCompressionRecipes();
-		registerShapeless(BlockStorage2.getStorageBlockByName("iridium_reinforced_stone", 1), new ItemStack(Blocks.STONE), ItemIngots.getIngotByName("iridium"));
-		registerShapeless(BlockStorage2.getStorageBlockByName("iridium_reinforced_tungstensteel", 1), BlockStorage2.getStorageBlockByName("tungstensteel", 1), ItemIngots.getIngotByName("iridium"));
-		registerShapeless(BlockStorage2.getStorageBlockByName("iridium_reinforced_tungstensteel", 1), BlockStorage2.getStorageBlockByName("iridium_reinforced_stone", 1), ItemIngots.getIngotByName("tungstensteel"));
+		registerShapeless(BlockStorage2.getStorageBlockByName("iridium_reinforced_stone", 1), getStack(Blocks.STONE), getMaterial("iridium", Type.INGOT));
+		registerShapeless(BlockStorage2.getStorageBlockByName("iridium_reinforced_tungstensteel", 1), BlockStorage2.getStorageBlockByName("tungstensteel", 1), getMaterial("iridium", Type.INGOT));
+		registerShapeless(BlockStorage2.getStorageBlockByName("iridium_reinforced_tungstensteel", 1), BlockStorage2.getStorageBlockByName("iridium_reinforced_stone", 1), getMaterial("tungstensteel", Type.INGOT));
 
-		registerShapeless(new ItemStack(ModBlocks.RUBBER_PLANKS, 4), new ItemStack(ModBlocks.RUBBER_LOG));
+		registerShapeless(getStack(ModBlocks.RUBBER_PLANKS, 4), getStack(ModBlocks.RUBBER_LOG));
 
-		registerShapeless(new ItemStack(ModItems.FREQUENCY_TRANSMITTER), IC2Duplicates.CABLE_ICOPPER.getStackBasedOnConfig(), "circuitBasic");
+		registerShapeless(getStack(ModItems.FREQUENCY_TRANSMITTER), getStack(IC2Duplicates.CABLE_ICOPPER), "circuitBasic");
 
 		registerShaped(DynamicCell.getEmptyCell(16), " T ", "T T", " T ", 'T', "ingotTin");
-		registerShaped(new ItemStack(ModBlocks.REFINED_IRON_FENCE), "RRR", "RRR", 'R', IC2Duplicates.REFINED_IRON.getStackBasedOnConfig());
+		registerShaped(getStack(ModBlocks.REFINED_IRON_FENCE), "RRR", "RRR", 'R', getStack(IC2Duplicates.REFINED_IRON));
 
-		registerShaped(new ItemStack(ModItems.STEEL_DRILL), " S ", "SCS", "SBS", 'S', "ingotSteel", 'C', "circuitBasic", 'B', "reBattery");
-		registerShaped(new ItemStack(ModItems.DIAMOND_DRILL), " D ", "DCD", "TST", 'D', "gemDiamond", 'C', "circuitAdvanced", 'S', new ItemStack(ModItems.STEEL_DRILL, 1, OreDictionary.WILDCARD_VALUE), 'T', "ingotTitanium");
-		registerShaped(new ItemStack(ModItems.ADVANCED_DRILL), " I ", "NCN", "OAO", 'I', "ingotIridium", 'N', "nuggetIridium", 'A', new ItemStack(ModItems.DIAMOND_DRILL, 1, OreDictionary.WILDCARD_VALUE), 'C', "circuitMaster", 'O', ItemUpgrades.getUpgradeByName("overclock"));
+		registerShaped(getStack(ModItems.STEEL_DRILL), " S ", "SCS", "SBS", 'S', "ingotSteel", 'C', "circuitBasic", 'B', "reBattery");
+		registerShaped(getStack(ModItems.DIAMOND_DRILL), " D ", "DCD", "TST", 'D', "gemDiamond", 'C', "circuitAdvanced", 'S', getStack(ModItems.STEEL_DRILL, 1, OreDictionary.WILDCARD_VALUE), 'T', "ingotTitanium");
+		registerShaped(getStack(ModItems.ADVANCED_DRILL), " I ", "NCN", "OAO", 'I', "ingotIridium", 'N', "nuggetIridium", 'A', getStack(ModItems.DIAMOND_DRILL, 1, OreDictionary.WILDCARD_VALUE), 'C', "circuitMaster", 'O', getMaterial("overclock", Type.UPGRADE));
 
-		registerShaped(new ItemStack(ModItems.STEEL_CHAINSAW), " SS", "SCS", "BS ", 'S', "ingotSteel", 'C', "circuitBasic", 'B', "reBattery");
-		registerShaped(new ItemStack(ModItems.DIAMOND_CHAINSAW), " DD", "TCD", "ST ", 'D', "gemDiamond", 'C', "circuitAdvanced", 'S', new ItemStack(ModItems.STEEL_CHAINSAW, 1, OreDictionary.WILDCARD_VALUE), 'T', "ingotTitanium");
-		registerShaped(new ItemStack(ModItems.ADVANCED_CHAINSAW), " NI", "OCN", "DO ", 'I', "ingotIridium", 'N', "nuggetIridium", 'D', new ItemStack(ModItems.DIAMOND_CHAINSAW, 1, OreDictionary.WILDCARD_VALUE), 'C', "circuitMaster", 'O', ItemUpgrades.getUpgradeByName("overclock"));
+		registerShaped(getStack(ModItems.STEEL_CHAINSAW), " SS", "SCS", "BS ", 'S', "ingotSteel", 'C', "circuitBasic", 'B', "reBattery");
+		registerShaped(getStack(ModItems.DIAMOND_CHAINSAW), " DD", "TCD", "ST ", 'D', "gemDiamond", 'C', "circuitAdvanced", 'S', getStack(ModItems.STEEL_CHAINSAW, 1, OreDictionary.WILDCARD_VALUE), 'T', "ingotTitanium");
+		registerShaped(getStack(ModItems.ADVANCED_CHAINSAW), " NI", "OCN", "DO ", 'I', "ingotIridium", 'N', "nuggetIridium", 'D', getStack(ModItems.DIAMOND_CHAINSAW, 1, OreDictionary.WILDCARD_VALUE), 'C', "circuitMaster", 'O', getMaterial("overclock", Type.UPGRADE));
 
-		registerShaped(new ItemStack(ModItems.STEEL_JACKHAMMER), "SBS", "SCS", " S ", 'S', "ingotSteel", 'C', "circuitBasic", 'B', "reBattery");
-		registerShaped(new ItemStack(ModItems.DIAMOND_JACKHAMMER), "DSD", "TCT", " D ", 'D', "gemDiamond", 'C', "circuitAdvanced", 'S', new ItemStack(ModItems.STEEL_JACKHAMMER, 1, OreDictionary.WILDCARD_VALUE), 'T', "ingotTitanium");
-		registerShaped(new ItemStack(ModItems.ADVANCED_JACKHAMMER), "NDN", "OCO", " I ", 'I', "ingotIridium", 'N', "nuggetIridium", 'D', new ItemStack(ModItems.DIAMOND_DRILL, 1, OreDictionary.WILDCARD_VALUE), 'C', "circuitMaster", 'O', ItemUpgrades.getUpgradeByName("overclock"));
+		registerShaped(getStack(ModItems.STEEL_JACKHAMMER), "SBS", "SCS", " S ", 'S', "ingotSteel", 'C', "circuitBasic", 'B', "reBattery");
+		registerShaped(getStack(ModItems.DIAMOND_JACKHAMMER), "DSD", "TCT", " D ", 'D', "gemDiamond", 'C', "circuitAdvanced", 'S', getStack(ModItems.STEEL_JACKHAMMER, 1, OreDictionary.WILDCARD_VALUE), 'T', "ingotTitanium");
+		registerShaped(getStack(ModItems.ADVANCED_JACKHAMMER), "NDN", "OCO", " I ", 'I', "ingotIridium", 'N', "nuggetIridium", 'D', getStack(ModItems.DIAMOND_DRILL, 1, OreDictionary.WILDCARD_VALUE), 'C', "circuitMaster", 'O', getMaterial("overclock", Type.UPGRADE));
 
 		if (ConfigTechReborn.enableGemArmorAndTools) {
-			addToolAndArmourRecipes(new ItemStack(ModItems.RUBY_SWORD), new ItemStack(ModItems.RUBY_PICKAXE),
-				new ItemStack(ModItems.RUBY_AXE), new ItemStack(ModItems.RUBY_HOE), new ItemStack(ModItems.RUBY_SPADE),
-				new ItemStack(ModItems.RUBY_HELMET), new ItemStack(ModItems.RUBY_CHESTPLATE),
-				new ItemStack(ModItems.RUBY_LEGGINGS), new ItemStack(ModItems.RUBY_BOOTS), "gemRuby");
-
-			addToolAndArmourRecipes(new ItemStack(ModItems.SAPPHIRE_SWORD), new ItemStack(ModItems.SAPPHIRE_PICKAXE),
-				new ItemStack(ModItems.SAPPHIRE_AXE), new ItemStack(ModItems.SAPPHIRE_HOE),
-				new ItemStack(ModItems.SAPPHIRE_SPADE), new ItemStack(ModItems.SAPPHIRE_HELMET),
-				new ItemStack(ModItems.SAPPHIRE_CHSTPLATE), new ItemStack(ModItems.SAPPHIRE_LEGGINGS),
-				new ItemStack(ModItems.SAPPHIRE_BOOTS), "gemSapphire");
-
-			addToolAndArmourRecipes(new ItemStack(ModItems.PERIDOT_SWORD), new ItemStack(ModItems.PERIDOT_PICKAXE),
-				new ItemStack(ModItems.PERIDOT_AXE), new ItemStack(ModItems.PERIDOT_HOE),
-				new ItemStack(ModItems.PERIDOT_SAPPHIRE), new ItemStack(ModItems.PERIDOT_HELMET),
-				new ItemStack(ModItems.PERIDOT_CHESTPLATE), new ItemStack(ModItems.PERIDOT_LEGGINGS),
-				new ItemStack(ModItems.PERIDOT_BOOTS), "gemPeridot");
-
-			addToolAndArmourRecipes(new ItemStack(ModItems.BRONZE_SWORD), new ItemStack(ModItems.BRONZE_PICKAXE),
-				new ItemStack(ModItems.BRONZE_AXE), new ItemStack(ModItems.BRONZE_HOE),
-				new ItemStack(ModItems.BRONZE_SPADE), new ItemStack(ModItems.BRONZE_HELMET),
-				new ItemStack(ModItems.BRONZE_CHESTPLATE), new ItemStack(ModItems.BRONZE_LEGGINGS),
-				new ItemStack(ModItems.BRONZE_BOOTS), "ingotBronze");
+			addToolAndArmourRecipes(getStack(ModItems.RUBY_SWORD), getStack(ModItems.RUBY_PICKAXE), getStack(ModItems.RUBY_AXE), getStack(ModItems.RUBY_HOE), getStack(ModItems.RUBY_SPADE), getStack(ModItems.RUBY_HELMET), getStack(ModItems.RUBY_CHESTPLATE), getStack(ModItems.RUBY_LEGGINGS), getStack(ModItems.RUBY_BOOTS), "gemRuby");
+			addToolAndArmourRecipes(getStack(ModItems.SAPPHIRE_SWORD), getStack(ModItems.SAPPHIRE_PICKAXE), getStack(ModItems.SAPPHIRE_AXE), getStack(ModItems.SAPPHIRE_HOE), getStack(ModItems.SAPPHIRE_SPADE), getStack(ModItems.SAPPHIRE_HELMET), getStack(ModItems.SAPPHIRE_CHSTPLATE), getStack(ModItems.SAPPHIRE_LEGGINGS), getStack(ModItems.SAPPHIRE_BOOTS), "gemSapphire");
+			addToolAndArmourRecipes(getStack(ModItems.PERIDOT_SWORD), getStack(ModItems.PERIDOT_PICKAXE), getStack(ModItems.PERIDOT_AXE), getStack(ModItems.PERIDOT_HOE), getStack(ModItems.PERIDOT_SAPPHIRE), getStack(ModItems.PERIDOT_HELMET), getStack(ModItems.PERIDOT_CHESTPLATE), getStack(ModItems.PERIDOT_LEGGINGS), getStack(ModItems.PERIDOT_BOOTS), "gemPeridot");
+			addToolAndArmourRecipes(getStack(ModItems.BRONZE_SWORD), getStack(ModItems.BRONZE_PICKAXE), getStack(ModItems.BRONZE_AXE), getStack(ModItems.BRONZE_HOE), getStack(ModItems.BRONZE_SPADE), getStack(ModItems.BRONZE_HELMET), getStack(ModItems.BRONZE_CHESTPLATE), getStack(ModItems.BRONZE_LEGGINGS), getStack(ModItems.BRONZE_BOOTS), "ingotBronze");
 		}
 
 		if (!IC2Duplicates.deduplicate()) {
@@ -78,7 +62,7 @@ public class CraftingTableRecipes extends RecipeMethods {
 			registerShaped(getMaterial("hv", 12, Type.CABLE), "RRR", 'R', "ingotRefinedIron");
 
 			registerShaped(getMaterial("insulatedcopper", 6, Type.CABLE), "RRR", "CCC", "RRR", 'R', "itemRubber", 'C', "ingotCopper");
-			registerShaped(getMaterial("insulatedcopper", 6, Type.CABLE), "CRC", "CRC", "CRC", 'R', "itemRubber", 'C', "ingotCopper");
+			registerShaped(getMaterial("insulatedcopper", 6, Type.CABLE), "RCR", "RCR", "RCR", 'R', "itemRubber", 'C', "ingotCopper");
 			registerShapeless(getMaterial("insulatedcopper", Type.CABLE), "itemRubber", getMaterial("copper", Type.CABLE));
 
 			registerShaped(getMaterial("insulatedgold", 4, Type.CABLE), "RRR", "RGR", "RRR", 'R', "itemRubber", 'G', "ingotGold");
@@ -100,84 +84,145 @@ public class CraftingTableRecipes extends RecipeMethods {
 			registerShaped(getMaterial("glassfiber", 8, Type.CABLE), "GGG", "RDR", "GGG", 'R', "ingotElectrum", 'D', "dustDiamond", 'G', "blockGlass");
 		}
 
+		if (!IC2Duplicates.deduplicate()) {
+			registerShapeless(getMaterial("carbon_fiber", Type.PART), getMaterial("coal", Type.DUST), getMaterial("coal", Type.DUST), getMaterial("coal", Type.DUST), getMaterial("coal", Type.DUST));
+			registerShapeless(getMaterial("carbon_fiber", Type.PART), getMaterial("carbon", Type.CELL), getMaterial("carbon", Type.CELL), getMaterial("carbon", Type.CELL), getMaterial("carbon", Type.CELL), getMaterial("carbon", Type.CELL), getMaterial("carbon", Type.CELL), getMaterial("carbon", Type.CELL), getMaterial("carbon", Type.CELL), getMaterial("carbon", Type.CELL));
+			registerShapeless(getMaterial("carbon_mesh", Type.PART), getMaterial("carbon_fiber", Type.PART), getMaterial("carbon_fiber", Type.PART));
+		}
+
+		registerShaped(getMaterial("computer_monitor", Type.PART), "ADA", "DGD", "ADA", 'D', "dye", 'A', "ingotAluminum", 'G', "paneGlass");
+		registerShaped(getStack(ModBlocks.REINFORCED_GLASS, 7), "GAG", "GGG", "GAG", 'A', "plateAdvancedAlloy", 'G', "blockGlass");
+		registerShaped(getStack(ModBlocks.REINFORCED_GLASS, 7), "GGG", "AGA", "GGG", 'A', "plateAdvancedAlloy", 'G', "blockGlass");
+		registerShaped(getStack(ModBlocks.WIND_MILL, 2), "IXI", "XGX", "IXI", 'I', "ingotIron", 'G', getStack(IC2Duplicates.GENERATOR));
+		registerShaped(getStack(ModBlocks.WATER_MILL), "SWS", "WGW", "SWS", 'S', "stickWood", 'W', "plankWood", 'G', getStack(IC2Duplicates.GENERATOR));
+
+		if (!IC2Duplicates.deduplicate()) {
+		}
+
+		registerShaped(getMaterial("standard", 4, Type.MACHINE_CASING), "RRR", "CAC", "RRR", 'R', getStack(IC2Duplicates.REFINED_IRON), 'C', "circuitBasic", 'A', getMaterial("machine", Type.MACHINE_FRAME));
+		registerShaped(getMaterial("reinforced", 4, Type.MACHINE_CASING), "RRR", "CAC", "RRR", 'R', "ingotSteel", 'C', "circuitAdvanced", 'A', getMaterial("advanced_machine", Type.MACHINE_FRAME));
+
+		registerShaped(getMaterial("dataOrb", Type.PART), "DDD", "DID", "DDD", 'D', "circuitData", 'I', "circuitElite");
+
+		registerShaped(getMaterial("dataControlCircuit", 4, Type.PART), "CDC", "DID", "CDC", 'I', getMaterial("iridium", Type.PLATE), 'D', "circuitData", 'C', "circuitAdvanced");
+
+		registerShaped(getStack(ModBlocks.THERMAL_GENERATOR), "III", "IRI", "CGC", 'I', "ingotInvar", 'R', ModBlocks.REINFORCED_GLASS, 'G', getStack(IC2Duplicates.GENERATOR), 'C', "circuitBasic");
+
+		if (!IC2Duplicates.deduplicate()) {
+			registerShaped(getStack(IC2Duplicates.HVT), "XHX", "XMX", "XHX", 'M', getStack(IC2Duplicates.MVT), 'H', getStack(IC2Duplicates.CABLE_IHV));
+			registerShaped(getStack(IC2Duplicates.MVT), "XGX", "XMX", "XGX", 'M', getMaterial("machine", Type.MACHINE_FRAME), 'G', getStack(IC2Duplicates.CABLE_IGOLD));
+			registerShaped(getStack(IC2Duplicates.LVT), "PWP", "CCC", "PPP", 'P', "plankWood", 'C', "ingotCopper", 'W', getStack(IC2Duplicates.CABLE_ICOPPER));
+			registerShaped(getStack(IC2Duplicates.BAT_BOX), "WCW", "BBB", "WWW", 'W', "plankWood", 'B', getStack(ModItems.RE_BATTERY), 'C', getStack(IC2Duplicates.CABLE_ICOPPER));
+			registerShaped(getStack(IC2Duplicates.MFE), "GEG", "EME", "GEG", 'M', getMaterial("machine", Type.MACHINE_FRAME), 'E', getStack(ModItems.ENERGY_CRYSTAL), 'G', getStack(IC2Duplicates.CABLE_IGOLD));
+			registerShaped(getStack(IC2Duplicates.MFSU), "LAL", "LML", "LOL", 'A', "circuitAdvanced", 'L', getStack(ModItems.LAPOTRONIC_CRYSTAL), 'M', getStack(IC2Duplicates.MFE), 'O', getMaterial("advanced_machine", Type.MACHINE_FRAME));
+			registerShaped(getStack(IC2Duplicates.COMPRESSOR), "SXS", "SCS", "SMS", 'C', "circuitBasic", 'M', getMaterial("machine", Type.MACHINE_FRAME), 'S', Blocks.STONE);
+			registerShaped(getStack(IC2Duplicates.ELECTRICAL_FURNACE), "XCX", "RFR", "XXX", 'C', "circuitBasic", 'F', getStack(IC2Duplicates.IRON_FURNACE), 'R', "dustRedstone");
+			registerShaped(getStack(IC2Duplicates.RECYCLER), "XEX", "DCD", "GDG", 'D', Blocks.DIRT, 'C', getStack(IC2Duplicates.COMPRESSOR), 'G', Items.GLOWSTONE_DUST, 'E', "circuitBasic");
+			registerShaped(getStack(IC2Duplicates.IRON_FURNACE), "III", "IXI", "III", 'I', "ingotIron");
+			registerShaped(getStack(IC2Duplicates.IRON_FURNACE), "XIX", "IXI", "IFI", 'I', "ingotIron", 'F', Blocks.FURNACE);
+			registerShaped(getMaterial("electronic_circuit", Type.PART), "WWW", "SRS", "WWW", 'R', getStack(IC2Duplicates.REFINED_IRON), 'S', Items.REDSTONE, 'W', getStack(IC2Duplicates.CABLE_ICOPPER));
+			registerShaped(getMaterial("advanced_circuit", Type.PART), "RGR", "LCL", "RGR", 'R', "dustRedstone", 'G', "dustGlowstone", 'L', "gemLapis", 'C', "circuitBasic");
+			registerShaped(getStack(IC2Duplicates.EXTRACTOR), "TMT", "TCT", "XXX", 'T', getStack(ModItems.TREE_TAP, true), 'M', getMaterial("machine", Type.MACHINE_FRAME), 'C', "circuitBasic");
+		}
+		registerShaped(getStack(ModBlocks.INDUSTRIAL_ELECTROLYZER), "RER", "CEC", "RER", 'R', getStack(IC2Duplicates.REFINED_IRON), 'E', getStack(IC2Duplicates.EXTRACTOR), 'C', "circuitAdvanced");
+
+		registerShaped(getStack(ModItems.WRENCH), "BAB", "NBN", " B ", 'B', "ingotBronze", 'N', "nuggetBronze");
+
+		registerShaped(getStack(ModItems.RE_BATTERY), "XWX", "TRT", "TRT", 'T', "ingotTin", 'R', "dustRedstone", 'W', getStack(IC2Duplicates.CABLE_ICOPPER));
+
+		registerShaped(getStack(ModBlocks.INDUSTRIAL_CENTRIFUGE), "RCR", "AEA", "RCR", 'R', getStack(IC2Duplicates.REFINED_IRON), 'E', getStack(IC2Duplicates.EXTRACTOR), 'A', "machineBlockAdvanced", 'C', "circuitBasic");
+		registerShaped(getStack(ModItems.ENERGY_CRYSTAL), "RRR", "RDR", "RRR", 'R', "dustRedstone", 'D', "gemDiamond");
+		registerShaped(getStack(ModItems.LAPOTRONIC_CRYSTAL), "LCL", "LEL", "LCL", 'L', "dyeBlue", 'E', "energyCrystal", 'C', "circuitBasic");
+		registerShapeless(getStack(IC2Duplicates.GENERATOR), getStack(ModItems.RE_BATTERY), getMaterial("machine", Type.MACHINE_FRAME), Blocks.FURNACE);
+
+		registerShaped(getMaterial("machine", Type.MACHINE_FRAME), "AAA", "AXA", "AAA", 'A', getStack(IC2Duplicates.REFINED_IRON));
+		registerShaped(getMaterial("advanced_machine", Type.MACHINE_FRAME), "XCX", "AMA", "XCX", 'A', "plateAdvancedAlloy", 'C', "plateCarbon", 'M', getMaterial("machine", Type.MACHINE_FRAME));
+
+		registerShaped(getMaterial("data_storage_circuit", Type.PART), "EEE", "ECE", "EEE", 'E', "gemEmerald", 'C', "circuitBasic");
+
+		registerShaped(getMaterial("diamond_saw_blade", 4, Type.PART), "DSD", "S S", "DSD", 'D', "dustDiamond", 'S', "ingotSteel");
+		registerShaped(getMaterial("diamond_grinding_head", 2, Type.PART), "DSD", "SGS", "DSD", 'S', "ingotSteel", 'D', "dustDiamond", 'G', "gemDiamond");
+		registerShaped(getMaterial("tungsten_grinding_head", 2, Type.PART), "TST", "SBS", "TST", 'S', "ingotSteel", 'T', "ingotTungsten", 'B', "blockSteel");
+
 		if (ConfigTechReborn.UUrecipesWood)
-			registerShaped(new ItemStack(Blocks.LOG, 8), " U ", "   ", "   ", 'U', ModItems.UU_MATTER);
+			registerShaped(getStack(Blocks.LOG, 8), " U ", "   ", "   ", 'U', ModItems.UU_MATTER);
 
 		if (ConfigTechReborn.UUrecipesStone)
-			registerShaped(new ItemStack(Blocks.STONE, 16), "   ", " U ", "   ", 'U', ModItems.UU_MATTER);
+			registerShaped(getStack(Blocks.STONE, 16), "   ", " U ", "   ", 'U', ModItems.UU_MATTER);
 
 		if (ConfigTechReborn.UUrecipesSnowBlock)
-			registerShaped(new ItemStack(Blocks.SNOW, 16), "U U", "   ", "   ", 'U', ModItems.UU_MATTER);
+			registerShaped(getStack(Blocks.SNOW, 16), "U U", "   ", "   ", 'U', ModItems.UU_MATTER);
 
 		if (ConfigTechReborn.UUrecipesGrass)
-			registerShaped(new ItemStack(Blocks.GRASS, 16), "   ", "U  ", "U  ", 'U', ModItems.UU_MATTER);
+			registerShaped(getStack(Blocks.GRASS, 16), "   ", "U  ", "U  ", 'U', ModItems.UU_MATTER);
 
 		if (ConfigTechReborn.UUrecipesObsidian)
-			registerShaped(new ItemStack(Blocks.OBSIDIAN, 12), "U U", "U U", "   ", 'U', ModItems.UU_MATTER);
+			registerShaped(getStack(Blocks.OBSIDIAN, 12), "U U", "U U", "   ", 'U', ModItems.UU_MATTER);
 
 		if (ConfigTechReborn.UUrecipesGlass)
-			registerShaped(new ItemStack(Blocks.GLASS, 32), " U ", "U U", " U ", 'U', ModItems.UU_MATTER);
+			registerShaped(getStack(Blocks.GLASS, 32), " U ", "U U", " U ", 'U', ModItems.UU_MATTER);
 
 		if (ConfigTechReborn.UUrecipesCocoa)
-			registerShaped(new ItemStack(Items.DYE, 32, 3), "UU ", "  U", "UU ", 'U', ModItems.UU_MATTER);
+			registerShaped(getStack(Items.DYE, 32, 3), "UU ", "  U", "UU ", 'U', ModItems.UU_MATTER);
 
 		if (ConfigTechReborn.UUrecipesGlowstoneBlock)
-			registerShaped(new ItemStack(Blocks.GLOWSTONE, 8), " U ", "U U", "UUU", 'U', ModItems.UU_MATTER);
+			registerShaped(getStack(Blocks.GLOWSTONE, 8), " U ", "U U", "UUU", 'U', ModItems.UU_MATTER);
 
 		if (ConfigTechReborn.UUrecipesCactus)
-			registerShaped(new ItemStack(Blocks.CACTUS, 48), " U ", "UUU", "U U", 'U', ModItems.UU_MATTER);
+			registerShaped(getStack(Blocks.CACTUS, 48), " U ", "UUU", "U U", 'U', ModItems.UU_MATTER);
 
 		if (ConfigTechReborn.UUrecipesSugarCane)
-			registerShaped(new ItemStack(Items.REEDS, 48), "U U", "U U", "U U", 'U', ModItems.UU_MATTER);
+			registerShaped(getStack(Items.REEDS, 48), "U U", "U U", "U U", 'U', ModItems.UU_MATTER);
 
 		if (ConfigTechReborn.UUrecipesVine)
-			registerShaped(new ItemStack(Blocks.VINE, 24), "U  ", "U  ", "U  ", 'U', ModItems.UU_MATTER);
+			registerShaped(getStack(Blocks.VINE, 24), "U  ", "U  ", "U  ", 'U', ModItems.UU_MATTER);
 
 		if (ConfigTechReborn.UUrecipesSnowBall)
-			registerShaped(new ItemStack(Items.SNOWBALL, 16), "   ", "   ", "UUU", 'U', ModItems.UU_MATTER);
-		registerShaped(new ItemStack(Items.CLAY_BALL, 48), "UU ", "U  ", "UU ", 'U', ModItems.UU_MATTER);
+			registerShaped(getStack(Items.SNOWBALL, 16), "   ", "   ", "UUU", 'U', ModItems.UU_MATTER);
+
+		registerShaped(getStack(Items.CLAY_BALL, 48), "UU ", "U  ", "UU ", 'U', ModItems.UU_MATTER);
 
 		if (ConfigTechReborn.UUrecipeslilypad)
-			registerShaped(new ItemStack(Blocks.WATERLILY, 64), "U U", " U ", " U ", 'U', ModItems.UU_MATTER);
+			registerShaped(getStack(Blocks.WATERLILY, 64), "U U", " U ", " U ", 'U', ModItems.UU_MATTER);
 
 		if (ConfigTechReborn.UUrecipesGunpowder)
-			registerShaped(new ItemStack(Items.GUNPOWDER, 15), "UUU", "U  ", "UUU", 'U', ModItems.UU_MATTER);
+			registerShaped(getStack(Items.GUNPOWDER, 15), "UUU", "U  ", "UUU", 'U', ModItems.UU_MATTER);
 
 		if (ConfigTechReborn.UUrecipesBone)
-			registerShaped(new ItemStack(Items.BONE, 32), "U  ", "UU ", "U  ", 'U', ModItems.UU_MATTER);
+			registerShaped(getStack(Items.BONE, 32), "U  ", "UU ", "U  ", 'U', ModItems.UU_MATTER);
 
 		if (ConfigTechReborn.UUrecipesFeather)
-			registerShaped(new ItemStack(Items.FEATHER, 32), " U ", " U ", "U U", 'U', ModItems.UU_MATTER);
+			registerShaped(getStack(Items.FEATHER, 32), " U ", " U ", "U U", 'U', ModItems.UU_MATTER);
 
 		if (ConfigTechReborn.UUrecipesInk)
-			registerShaped(new ItemStack(Items.DYE, 48), " UU", " UU", " U ", 'U', ModItems.UU_MATTER);
+			registerShaped(getStack(Items.DYE, 48), " UU", " UU", " U ", 'U', ModItems.UU_MATTER);
 
 		if (ConfigTechReborn.UUrecipesEnderPearl)
-			registerShaped(new ItemStack(Items.ENDER_PEARL, 1), "UUU", "U U", " U ", 'U', ModItems.UU_MATTER);
+			registerShaped(getStack(Items.ENDER_PEARL, 1), "UUU", "U U", " U ", 'U', ModItems.UU_MATTER);
 
 		if (ConfigTechReborn.UUrecipesCoal)
-			registerShaped(new ItemStack(Items.COAL, 5), "  U", "U  ", "  U", 'U', ModItems.UU_MATTER);
+			registerShaped(getStack(Items.COAL, 5), "  U", "U  ", "  U", 'U', ModItems.UU_MATTER);
 
 		if (ConfigTechReborn.UUrecipesIronOre)
-			registerShaped(new ItemStack(Blocks.IRON_ORE, 2), "U U", " U ", "U U", 'U', ModItems.UU_MATTER);
+			registerShaped(getStack(Blocks.IRON_ORE, 2), "U U", " U ", "U U", 'U', ModItems.UU_MATTER);
 
 		if (ConfigTechReborn.UUrecipesGoldOre)
-			registerShaped(new ItemStack(Blocks.GOLD_ORE, 2), " U ", "UUU", " U ", 'U', ModItems.UU_MATTER);
+			registerShaped(getStack(Blocks.GOLD_ORE, 2), " U ", "UUU", " U ", 'U', ModItems.UU_MATTER);
 
 		if (ConfigTechReborn.UUrecipesRedStone)
-			registerShaped(new ItemStack(Items.REDSTONE, 24), "   ", " U ", "UUU", 'U', ModItems.UU_MATTER);
+			registerShaped(getStack(Items.REDSTONE, 24), "   ", " U ", "UUU", 'U', ModItems.UU_MATTER);
 
 		if (ConfigTechReborn.UUrecipesLapis)
-			registerShaped(new ItemStack(Items.DYE, 9, 4), " U ", " U ", " UU", 'U', ModItems.UU_MATTER);
+			registerShaped(getStack(Items.DYE, 9, 4), " U ", " U ", " UU", 'U', ModItems.UU_MATTER);
 
 		if (ConfigTechReborn.UUrecipesEmeraldOre)
-			registerShaped(new ItemStack(Blocks.EMERALD_ORE, 1), "UU ", "U U", " UU", 'U', ModItems.UU_MATTER);
+			registerShaped(getStack(Blocks.EMERALD_ORE, 1), "UU ", "U U", " UU", 'U', ModItems.UU_MATTER);
 
 		if (ConfigTechReborn.UUrecipesEmerald)
-			registerShaped(new ItemStack(Items.EMERALD, 2), "UUU", "UUU", " U ", 'U', ModItems.UU_MATTER);
+			registerShaped(getStack(Items.EMERALD, 2), "UUU", "UUU", " U ", 'U', ModItems.UU_MATTER);
 
 		if (ConfigTechReborn.UUrecipesDiamond)
-			registerShaped(new ItemStack(Items.DIAMOND, 1), "UUU", "UUU", "UUU", 'U', ModItems.UU_MATTER);
+			registerShaped(getStack(Items.DIAMOND, 1), "UUU", "UUU", "UUU", 'U', ModItems.UU_MATTER);
 
 		if (ConfigTechReborn.UUrecipesTinDust)
 			registerShaped(getMaterial("tin", 10, Type.DUST), "   ", "U U", "  U", 'U', ModItems.UU_MATTER);
@@ -205,10 +250,10 @@ public class CraftingTableRecipes extends RecipeMethods {
 		for (String name : ArrayUtils.addAll(BlockStorage.types, BlockStorage2.types)) {
 			ItemStack item = ItemStack.EMPTY;
 			try {
-				item = ItemIngots.getIngotByName(name, 9);
+				item = getMaterial(name, 9, Type.INGOT);
 			} catch (InvalidParameterException e) {
 				try {
-					item = ItemGems.getGemByName(name, 9);
+					item = getMaterial(name, 9, Type.GEM);
 				} catch (InvalidParameterException e2) {
 					continue;
 				}
@@ -231,126 +276,60 @@ public class CraftingTableRecipes extends RecipeMethods {
 			if (name.equals(ModItems.META_PLACEHOLDER)) {
 				continue;
 			}
-			registerShapeless(ItemDustsSmall.getSmallDustByName(name, 4), ItemDusts.getDustByName(name));
-			registerShapeless(ItemDusts.getDustByName(name), ItemDustsSmall.getSmallDustByName(name),
-				ItemDustsSmall.getSmallDustByName(name), ItemDustsSmall.getSmallDustByName(name),
-				ItemDustsSmall.getSmallDustByName(name));
+			registerShapeless(getMaterial(name, 4, Type.SMALL_DUST), getMaterial(name, Type.DUST));
+			registerShapeless(getMaterial(name, Type.DUST), getMaterial(name, Type.SMALL_DUST), getMaterial(name, Type.SMALL_DUST), getMaterial(name, Type.SMALL_DUST), getMaterial(name, Type.SMALL_DUST));
 		}
 
 		for (String nuggets : ItemNuggets.types) {
 			if (nuggets.equals(ModItems.META_PLACEHOLDER) || nuggets.equalsIgnoreCase("diamond"))
 				continue;
-			registerShapeless(ItemNuggets.getNuggetByName(nuggets, 9), CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "ingot_" + nuggets));
-			registerShaped(ItemIngots.getIngotByName(nuggets), "NNN", "NNN", "NNN", 'N', CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "nugget_" + nuggets));
+			registerShapeless(getMaterial(nuggets, 9, Type.NUGGET), CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "ingot_" + nuggets));
+			registerShaped(getMaterial(nuggets, Type.INGOT), "NNN", "NNN", "NNN", 'N', CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "nugget_" + nuggets));
 		}
 
-		registerShapeless(ItemNuggets.getNuggetByName("diamond", 9), "gemDiamond");
-		registerShaped(new ItemStack(Items.DIAMOND), "NNN", "NNN", "NNN", 'N', "nuggetDiamond");
+		registerShapeless(getMaterial("diamond", 9, Type.NUGGET), "gemDiamond");
+		registerShaped(getStack(Items.DIAMOND), "NNN", "NNN", "NNN", 'N', "nuggetDiamond");
 	}
 
 	static void registerMixedMetalIngotRecipes() {
 		if (!IC2Duplicates.deduplicate()) {
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 2), "RRR", "BBB", "TTT", 'R',
-				"ingotRefinedIron", 'B', "ingotBronze", 'T', "ingotTin");
+			registerMixedMetal("ingotRefinedIron", "ingotBronze", "ingotTin", 2);
+			registerMixedMetal("ingotRefinedIron", "ingotBronze", "ingotZinc", 2);
 
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 2), "RRR", "BBB", "TTT", 'R',
-				"ingotRefinedIron", 'B', "ingotBronze", 'T', "ingotZinc");
+			registerMixedMetal("ingotNickel", "ingotBronze", "ingotTin", 3);
+			registerMixedMetal("ingotNickel", "ingotBronze", "ingotZinc", 3);
 
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 2), "RRR", "BBB", "TTT", 'R',
-				"ingotRefinedIron", 'B', "ingotBrass", 'T', "ingotTin");
+			registerMixedMetal("ingotNickel", "ingotBronze", "ingotAluminum", 4);
+			registerMixedMetal("ingotInvar", "ingotBronze", "ingotTin", 4);
+			registerMixedMetal("ingotInvar", "ingotBronze", "ingotZinc", 4);
 
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 2), "RRR", "BBB", "TTT", 'R',
-				"ingotRefinedIron", 'B', "ingotBrass", 'T', "ingotZinc");
+			registerMixedMetal("ingotInvar", "ingotBronze", "ingotAluminum", 5);
+			registerMixedMetal("ingotTitanium", "ingotBronze", "ingotTin", 5);
+			registerMixedMetal("ingotTitanium", "ingotBronze", "ingotZinc", 5);
+			registerMixedMetal("ingotTungsten", "ingotBronze", "ingotTin", 5);
+			registerMixedMetal("ingotTungsten", "ingotBronze", "ingotZinc", 5);
 
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 3), "RRR", "BBB", "TTT", 'R', "ingotNickel",
-				'B', "ingotBronze", 'T', "ingotTin");
+			registerMixedMetal("ingotTitanium", "ingotBronze", "ingotAluminum", 6);
+			registerMixedMetal("ingotTungsten", "ingotBronze", "ingotAluminum", 6);
 
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 3), "RRR", "BBB", "TTT", 'R', "ingotNickel",
-				'B', "ingotBronze", 'T', "ingotZinc");
+			registerMixedMetal("ingotTungstensteel", "ingotBronze", "ingotTin", 8);
+			registerMixedMetal("ingotTungstensteel", "ingotBronze", "ingotZinc", 8);
 
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 3), "RRR", "BBB", "TTT", 'R', "ingotNickel",
-				'B', "ingotBrass", 'T', "ingotTin");
+			registerMixedMetal("ingotTungstensteel", "ingotBronze", "ingotAluminum", 9);
+		}
+	}
 
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 3), "RRR", "BBB", "TTT", 'R', "ingotNickel",
-				'B', "ingotBrass", 'T', "ingotZinc");
-
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 4), "RRR", "BBB", "TTT", 'R', "ingotNickel",
-				'B', "ingotBronze", 'T', "ingotAluminum");
-
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 4), "RRR", "BBB", "TTT", 'R', "ingotNickel",
-				'B', "ingotBrass", 'T', "ingotAluminum");
-
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 4), "RRR", "BBB", "TTT", 'R', "ingotInvar",
-				'B', "ingotBronze", 'T', "ingotTin");
-
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 4), "RRR", "BBB", "TTT", 'R', "ingotInvar",
-				'B', "ingotBronze", 'T', "ingotZinc");
-
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 4), "RRR", "BBB", "TTT", 'R', "ingotInvar",
-				'B', "ingotBrass", 'T', "ingotTin");
-
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 4), "RRR", "BBB", "TTT", 'R', "ingotInvar",
-				'B', "ingotBrass", 'T', "ingotZinc");
-
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 5), "RRR", "BBB", "TTT", 'R', "ingotInvar",
-				'B', "ingotBronze", 'T', "ingotAluminum");
-
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 5), "RRR", "BBB", "TTT", 'R', "ingotInvar",
-				'B', "ingotBrass", 'T', "ingotAluminum");
-
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 5), "RRR", "BBB", "TTT", 'R',
-				"ingotTitanium", 'B', "ingotBronze", 'T', "ingotTin");
-
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 5), "RRR", "BBB", "TTT", 'R',
-				"ingotTitanium", 'B', "ingotBronze", 'T', "ingotZinc");
-
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 5), "RRR", "BBB", "TTT", 'R',
-				"ingotTitanium", 'B', "ingotBrass", 'T', "ingotTin");
-
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 5), "RRR", "BBB", "TTT", 'R',
-				"ingotTitanium", 'B', "ingotBrass", 'T', "ingotZinc");
-
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 6), "RRR", "BBB", "TTT", 'R',
-				"ingotTitanium", 'B', "ingotBronze", 'T', "ingotAluminum");
-
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 6), "RRR", "BBB", "TTT", 'R',
-				"ingotTitanium", 'B', "ingotBrass", 'T', "ingotAluminum");
-
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 5), "RRR", "BBB", "TTT", 'R',
-				"ingotTungsten", 'B', "ingotBronze", 'T', "ingotTin");
-
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 5), "RRR", "BBB", "TTT", 'R',
-				"ingotTungsten", 'B', "ingotBronze", 'T', "ingotZinc");
-
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 5), "RRR", "BBB", "TTT", 'R',
-				"ingotTungsten", 'B', "ingotBrass", 'T', "ingotTin");
-
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 5), "RRR", "BBB", "TTT", 'R',
-				"ingotTungsten", 'B', "ingotBrass", 'T', "ingotZinc");
-
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 6), "RRR", "BBB", "TTT", 'R',
-				"ingotTungsten", 'B', "ingotBronze", 'T', "ingotAluminum");
-
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 6), "RRR", "BBB", "TTT", 'R',
-				"ingotTungsten", 'B', "ingotBrass", 'T', "ingotAluminum");
-
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 8), "RRR", "BBB", "TTT", 'R',
-				"ingotTungstensteel", 'B', "ingotBronze", 'T', "ingotTin");
-
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 8), "RRR", "BBB", "TTT", 'R',
-				"ingotTungstensteel", 'B', "ingotBronze", 'T', "ingotZinc");
-
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 8), "RRR", "BBB", "TTT", 'R',
-				"ingotTungstensteel", 'B', "ingotBrass", 'T', "ingotTin");
-
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 8), "RRR", "BBB", "TTT", 'R',
-				"ingotTungstensteel", 'B', "ingotBrass", 'T', "ingotZinc");
-
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 9), "RRR", "BBB", "TTT", 'R',
-				"ingotTungstensteel", 'B', "ingotBronze", 'T', "ingotAluminum");
-
-			registerShaped(ItemIngots.getIngotByName("mixed_metal", 9), "RRR", "BBB", "TTT", 'R',
-				"ingotTungstensteel", 'B', "ingotBrass", 'T', "ingotAluminum");
+	static void registerMixedMetal(String top, String middle, String bottom, int amount) {
+		if (top.equals("ingotRefinedIron") && IC2Duplicates.deduplicate()) {
+			registerShaped(getMaterial("mixed_metal", amount, Type.INGOT), "TTT", "MMM", "BBB", 'T', getStack(IC2Duplicates.REFINED_IRON), 'M', middle, 'B', bottom);
+		} else {
+			registerShaped(getMaterial("mixed_metal", amount, Type.INGOT), "TTT", "MMM", "BBB", 'T', top, 'M', middle, 'B', bottom);
+		}
+		if (middle.equals("ingotBronze")) {
+			registerMixedMetal(top, "ingotBrass", bottom, amount);
+		}
+		if (bottom.equals("ingotAluminum")) {
+			registerMixedMetal(top, middle, "ingotAluminium", amount);
 		}
 	}
 

@@ -1,5 +1,6 @@
 package techreborn.blocks;
 
+import com.google.common.base.CaseFormat;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
@@ -29,12 +30,17 @@ public class BlockMachineFrame extends BaseBlock {
 	}
 
 	public static ItemStack getFrameByName(String name, int count) {
+		name = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, name);
 		for (int i = 0; i < types.length; i++) {
 			if (types[i].equalsIgnoreCase(name)) {
 				return new ItemStack(ModBlocks.MACHINE_FRAMES, count, i);
 			}
 		}
 		throw new InvalidParameterException("The part " + name + " could not be found.");
+	}
+
+	public static ItemStack getFrameByName(String name) {
+		return getFrameByName(name, 1);
 	}
 
 	@Override

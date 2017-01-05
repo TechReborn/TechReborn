@@ -55,11 +55,18 @@ public enum IC2Duplicates {
 		this.trStack = trStack;
 	}
 
+	public static boolean deduplicate() {
+		if (!CompatManager.isIC2Loaded) {
+			return false;
+		}
+		return ConfigTechReborn.REMOVE_DUPLICATES;
+	}
+
 	public ItemStack getIc2Stack() {
-		if(!CompatManager.isIC2Loaded){
+		if (!CompatManager.isIC2Loaded) {
 			throw new RuntimeException("IC2 isnt loaded");
 		}
-		if(ic2Stack == null){
+		if (ic2Stack.isEmpty()) {
 			throw new RuntimeException("IC2 stack wasnt set ");
 		}
 		return ic2Stack;
@@ -69,8 +76,8 @@ public enum IC2Duplicates {
 		this.ic2Stack = ic2Stack;
 	}
 
-	public boolean hasIC2Stack(){
-		return ic2Stack != null;
+	public boolean hasIC2Stack() {
+		return !ic2Stack.isEmpty();
 	}
 
 	public ItemStack getTrStack() {
@@ -78,17 +85,10 @@ public enum IC2Duplicates {
 	}
 
 	public ItemStack getStackBasedOnConfig() {
-		if(deduplicate()){
+		if (deduplicate()) {
 			return getIc2Stack();
 		}
 		return getTrStack();
-	}
-
-	public static boolean deduplicate(){
-		if(!CompatManager.isIC2Loaded){
-			return false;
-		}
-		return ConfigTechReborn.removeDuplices;
 	}
 
 }
