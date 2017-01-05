@@ -13,7 +13,10 @@ import ic2.core.ref.ItemName;
 import ic2.core.ref.TeBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import reborncore.api.recipe.RecipeHandler;
 import techreborn.Core;
+import techreborn.api.recipe.machines.ExtractorRecipe;
+import techreborn.items.ItemParts;
 
 /**
  * Created by modmuss50 on 16/07/2016.
@@ -56,6 +59,12 @@ public class IC2Dict {
 		//Rubber Sap - only used to make rubber, hidden from JEI
 		//Rubber tree blocks, hidden when deduplication is on, and rubber tress are not set to gen, includes tree taps
 		//Circuits are hidden in JEI
+
+
+		//Adding ic2 sap to the extracor
+		RecipeHandler.addRecipe(
+			new ExtractorRecipe(ItemName.misc_resource.getItemStack("resin"),
+				ItemParts.getPartByName("rubber", 3), 400, 2));
 
 		try {
 			CraftingItemType.circuit.getName();

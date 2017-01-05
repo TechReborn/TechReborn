@@ -788,8 +788,14 @@ public class ModRecipes {
 		CraftingHelper.addShapelessOreRecipe(IC2Duplicates.GENERATOR.getStackBasedOnConfig(), batteryStack,
 			BlockMachineFrame.getFrameByName("machine", 1), Blocks.FURNACE);
 
-		CraftingHelper.addShapedOreRecipe(BlockMachineFrame.getFrameByName("machine", 1), "AAA", "AXA", "AAA", 'A',
-			IC2Duplicates.REFINED_IRON.getStackBasedOnConfig());
+		if(!IC2Duplicates.deduplicate()){
+			CraftingHelper.addShapedOreRecipe(BlockMachineFrame.getFrameByName("machine", 1), "AAA", "AXA", "AAA", 'A',
+				IC2Duplicates.REFINED_IRON.getStackBasedOnConfig());
+		} else {
+			CraftingHelper.addShapedOreRecipe(BlockMachineFrame.getFrameByName("machine", 1), "PIP", "IPI", "PIP", 'P',
+				IC2Duplicates.REFINED_IRON.getStackBasedOnConfig(), 'I', "ingotIron");
+		}
+
 
 		CraftingHelper
 			.addShapedOreRecipe(BlockMachineFrame.getFrameByName("advancedMachine", 1), "XCX", "AMA", "XCX", 'A',
