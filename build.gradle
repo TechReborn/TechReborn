@@ -62,7 +62,7 @@ configurations {
 }
 
 
-version = "1.4.16"
+version = "1.4.17"
 
 def ENV = System.getenv()
 if (ENV.BUILD_NUMBER) {
