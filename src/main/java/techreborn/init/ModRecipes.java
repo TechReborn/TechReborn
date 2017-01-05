@@ -31,11 +31,12 @@ import techreborn.blocks.*;
 import techreborn.compat.CompatManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.items.*;
+import techreborn.lib.MissingIngredientExpection;
 import techreborn.parts.powerCables.ItemStandaloneCables;
 import techreborn.utils.RecipeUtils;
 import techreborn.utils.StackWIPHandler;
 
-import java.security.InvalidParameterException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -990,10 +991,10 @@ public class ModRecipes {
 			ItemStack item = null;
 			try {
 				item = ItemIngots.getIngotByName(name, 9);
-			} catch (InvalidParameterException e) {
+			} catch (MissingIngredientExpection e) {
 				try {
 					item = ItemGems.getGemByName(name, 9);
-				} catch (InvalidParameterException e2) {
+				} catch (MissingIngredientExpection e2) {
 					continue;
 				}
 			}

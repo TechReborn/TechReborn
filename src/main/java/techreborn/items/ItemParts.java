@@ -11,7 +11,7 @@ import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
 
-import java.security.InvalidParameterException;
+import techreborn.lib.MissingIngredientExpection;
 import java.util.List;
 
 public class ItemParts extends ItemTextureBase {
@@ -36,7 +36,7 @@ public class ItemParts extends ItemTextureBase {
 				return new ItemStack(ModItems.parts, count, i);
 			}
 		}
-		throw new InvalidParameterException("The part " + name + " could not be found.");
+		throw new MissingIngredientExpection("The part " + name + " could not be found.");
 	}
 
 	public static ItemStack getPartByName(String name) {

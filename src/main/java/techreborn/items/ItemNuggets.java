@@ -7,7 +7,7 @@ import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
 
-import java.security.InvalidParameterException;
+import techreborn.lib.MissingIngredientExpection;
 import java.util.List;
 
 public class ItemNuggets extends ItemTextureBase {
@@ -29,7 +29,7 @@ public class ItemNuggets extends ItemTextureBase {
 				return new ItemStack(ModItems.nuggets, count, i);
 			}
 		}
-		throw new InvalidParameterException("The nugget " + name + " could not be found.");
+		throw new MissingIngredientExpection("The nugget " + name + " could not be found.");
 	}
 
 	public static ItemStack getNuggetByName(String name) {

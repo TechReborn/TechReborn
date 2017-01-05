@@ -15,7 +15,7 @@ import reborncore.common.BaseBlock;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
 
-import java.security.InvalidParameterException;
+import techreborn.lib.MissingIngredientExpection;
 import java.util.List;
 
 public class BlockMachineFrame extends BaseBlock implements ITexturedBlock {
@@ -36,7 +36,7 @@ public class BlockMachineFrame extends BaseBlock implements ITexturedBlock {
 				return new ItemStack(ModBlocks.machineframe, count, i);
 			}
 		}
-		throw new InvalidParameterException("The part " + name + " could not be found.");
+		throw new MissingIngredientExpection("The part " + name + " could not be found.");
 	}
 
 	@Override

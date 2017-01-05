@@ -15,7 +15,7 @@ import reborncore.common.BaseBlock;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModBlocks;
 
-import java.security.InvalidParameterException;
+import techreborn.lib.MissingIngredientExpection;
 import java.util.List;
 import java.util.Random;
 
@@ -40,7 +40,7 @@ public class BlockStorage2 extends BaseBlock implements ITexturedBlock {
 				return new ItemStack(ModBlocks.storage2, count, i);
 			}
 		}
-		throw new InvalidParameterException("The storage block " + name + " could not be found.");
+		throw new MissingIngredientExpection("The storage block " + name + " could not be found.");
 	}
 
 	@Override

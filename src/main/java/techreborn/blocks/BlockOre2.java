@@ -23,7 +23,7 @@ import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModBlocks;
 import techreborn.world.config.IOreNameProvider;
 
-import java.security.InvalidParameterException;
+import techreborn.lib.MissingIngredientExpection;
 import java.util.List;
 
 public class BlockOre2 extends BaseBlock implements ITexturedBlock, IOreNameProvider {
@@ -47,7 +47,7 @@ public class BlockOre2 extends BaseBlock implements ITexturedBlock, IOreNameProv
 				return new ItemStack(ModBlocks.ore2, count, i);
 			}
 		}
-		throw new InvalidParameterException("The ore block " + name + " could not be found.");
+		throw new MissingIngredientExpection("The ore block " + name + " could not be found.");
 	}
 
 	public static ItemStack getOreByName(String name) {
@@ -63,7 +63,7 @@ public class BlockOre2 extends BaseBlock implements ITexturedBlock, IOreNameProv
 			}
 		}
 		if (index == -1) {
-			throw new InvalidParameterException("The ore block " + name + " could not be found.");
+			throw new MissingIngredientExpection("The ore block " + name + " could not be found.");
 		}
 		return getStateFromMeta(index);
 	}

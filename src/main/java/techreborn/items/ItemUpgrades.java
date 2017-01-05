@@ -12,7 +12,7 @@ import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
 import techreborn.utils.upgrade.IMachineUpgrade;
 
-import java.security.InvalidParameterException;
+import techreborn.lib.MissingIngredientExpection;
 import java.util.List;
 
 public class ItemUpgrades extends ItemTextureBase implements IMachineUpgrade, ITexturedItem {
@@ -31,7 +31,7 @@ public class ItemUpgrades extends ItemTextureBase implements IMachineUpgrade, IT
 				return new ItemStack(ModItems.upgrades, count, i);
 			}
 		}
-		throw new InvalidParameterException("The upgrade " + name + " could not be found.");
+		throw new MissingIngredientExpection("The upgrade " + name + " could not be found.");
 	}
 
 	public static ItemStack getUpgradeByName(String name) {

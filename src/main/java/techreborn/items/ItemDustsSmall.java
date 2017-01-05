@@ -8,7 +8,7 @@ import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
 
-import java.security.InvalidParameterException;
+import techreborn.lib.MissingIngredientExpection;
 import java.util.List;
 
 public class ItemDustsSmall extends ItemTextureBase {
@@ -32,12 +32,12 @@ public class ItemDustsSmall extends ItemTextureBase {
 		for (int i = 0; i < types.length; i++) {
 			if (types[i].equalsIgnoreCase(name)) {
 				if (types[i].equals(ModItems.META_PLACEHOLDER)) {
-					throw new InvalidParameterException("The small dust " + name + " could not be found.");
+					throw new MissingIngredientExpection("The small dust " + name + " could not be found.");
 				}
 				return new ItemStack(ModItems.smallDusts, count, i);
 			}
 		}
-		throw new InvalidParameterException("The small dust " + name + " could not be found.");
+		throw new MissingIngredientExpection("The small dust " + name + " could not be found.");
 	}
 
 	public static ItemStack getSmallDustByName(String name) {

@@ -7,7 +7,7 @@ import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
 
-import java.security.InvalidParameterException;
+import techreborn.lib.MissingIngredientExpection;
 import java.util.List;
 
 public class ItemGems extends ItemTextureBase {
@@ -26,7 +26,7 @@ public class ItemGems extends ItemTextureBase {
 				return new ItemStack(ModItems.gems, count, i);
 			}
 		}
-		throw new InvalidParameterException("The gem " + name + " could not be found.");
+		throw new MissingIngredientExpection("The gem " + name + " could not be found.");
 	}
 
 	public static ItemStack getGemByName(String name) {

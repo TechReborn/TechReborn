@@ -9,7 +9,7 @@ import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
 import techreborn.utils.OreDictUtils;
 
-import java.security.InvalidParameterException;
+import techreborn.lib.MissingIngredientExpection;
 import java.util.List;
 
 public class ItemPlates extends ItemTextureBase {
@@ -31,7 +31,7 @@ public class ItemPlates extends ItemTextureBase {
 				return new ItemStack(ModItems.plate, count, i);
 			}
 		}
-		throw new InvalidParameterException("The plate " + name + " could not be found.");
+		throw new MissingIngredientExpection("The plate " + name + " could not be found.");
 	}
 
 	public static ItemStack getPlateByName(String name) {

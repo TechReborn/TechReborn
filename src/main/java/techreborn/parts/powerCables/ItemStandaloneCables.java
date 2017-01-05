@@ -11,7 +11,7 @@ import techreborn.items.ItemTextureBase;
 import techreborn.lib.ModInfo;
 import techreborn.parts.StandalonePartCompact;
 
-import java.security.InvalidParameterException;
+import techreborn.lib.MissingIngredientExpection;
 import java.util.List;
 
 /**
@@ -36,7 +36,7 @@ public class ItemStandaloneCables extends ItemTextureBase {
 					count, i);
 			}
 		}
-		throw new InvalidParameterException("The cable " + name + " could not be found.");
+		throw new MissingIngredientExpection("The cable " + name + " could not be found.");
 	}
 
 	public static ItemStack getCableByName(String name) {

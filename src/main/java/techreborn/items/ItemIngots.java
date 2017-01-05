@@ -5,9 +5,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
+import techreborn.lib.MissingIngredientExpection;
 import techreborn.lib.ModInfo;
 
-import java.security.InvalidParameterException;
 import java.util.List;
 
 public class ItemIngots extends ItemTextureBase {
@@ -28,7 +28,7 @@ public class ItemIngots extends ItemTextureBase {
 				return new ItemStack(ModItems.ingots, count, i);
 			}
 		}
-		throw new InvalidParameterException("The ingot " + name + " could not be found.");
+		throw new MissingIngredientExpection("The ingot " + name + " could not be found.");
 	}
 
 	public static ItemStack getIngotByName(String name) {
