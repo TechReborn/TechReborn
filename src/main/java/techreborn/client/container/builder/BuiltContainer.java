@@ -83,7 +83,8 @@ final class BuiltContainer extends Container {
 			for (int slotIndex = start; stackToShift.getCount() > 0 && slotIndex < end; slotIndex++) {
 				final Slot slot = this.inventorySlots.get(slotIndex);
 				final ItemStack stackInSlot = slot.getStack();
-				if (stackInSlot != ItemStack.EMPTY && ItemUtils.isItemEqual(stackInSlot, stackToShift, true, true)) {
+				if (stackInSlot != ItemStack.EMPTY && ItemUtils.isItemEqual(stackInSlot, stackToShift, true, true)
+						&& slot.isItemValid(stackToShift)) {
 					final int resultingStackSize = stackInSlot.getCount() + stackToShift.getCount();
 					final int max = Math.min(stackToShift.getMaxStackSize(), slot.getSlotStackLimit());
 					if (resultingStackSize <= max) {
