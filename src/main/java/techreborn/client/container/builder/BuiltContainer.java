@@ -52,16 +52,16 @@ final class BuiltContainer extends Container {
 			for (final Range<Integer> range : this.playerSlotRanges)
 				if (range.contains(index)) {
 
-					this.shiftToTile(stackInSlot);
-					shifted = true;
+					if (this.shiftToTile(stackInSlot))
+						shifted = true;
 					break;
 				}
 
 			if (!shifted)
 				for (final Range<Integer> range : this.tileSlotRanges)
 					if (range.contains(index)) {
-						this.shiftToPlayer(stackInSlot);
-						shifted = true;
+						if (this.shiftToPlayer(stackInSlot))
+							shifted = true;
 						break;
 					}
 
@@ -93,7 +93,7 @@ final class BuiltContainer extends Container {
 						slot.onSlotChanged();
 						changed = true;
 					} else if (stackInSlot.getCount() < max) {
-						stackToShift.setCount(-(max - stackInSlot.getCount()));
+						stackToShift.shrink(max - stackInSlot.getCount());
 						stackInSlot.setCount(max);
 						slot.onSlotChanged();
 						changed = true;
