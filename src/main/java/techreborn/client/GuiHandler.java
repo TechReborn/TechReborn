@@ -98,10 +98,11 @@ public class GuiHandler implements IGuiHandler {
 		} else if (ID == matterfabID) {
 			return new ContainerMatterFabricator((TileMatterFabricator) world.getTileEntity(new BlockPos(x, y, z)),
 				player);
-		} else if (ID == chunkloaderID) {
-			return new ContainerChunkloader((TileChunkLoader) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == assemblingmachineID) {
 			container = new ContainerAssemblingMachine(player, (TileAssemblingMachine) world.getTileEntity(new BlockPos(x, y, z)));
+		} else if (ID == GuiHandler.chunkloaderID) {
+			return new ContainerBuilder().player(player.inventory).inventory().hotbar().addInventory()
+					.create();
 		} else if (ID == dieselGeneratorID) {
 			return new ContainerDieselGenerator((TileDieselGenerator) world.getTileEntity(new BlockPos(x, y, z)),
 				player);
@@ -126,11 +127,14 @@ public class GuiHandler implements IGuiHandler {
 			return new ContainerLESU((TileLesu) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == idsuID) {
 			return new ContainerIDSU((TileIDSU) world.getTileEntity(new BlockPos(x, y, z)), player);
-		} else if (ID == chargeBench) {
-			return new ContainerChargeBench((TileChargeBench) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == fusionID) {
 			return new ContainerFusionReactor((TileEntityFusionController) world.getTileEntity(new BlockPos(x, y, z)),
-				player);
+					player);
+		} else if (ID == GuiHandler.chargeBench) {
+			return new ContainerBuilder().player(player.inventory).inventory().hotbar().addInventory()
+					.tile((IInventory) world.getTileEntity(new BlockPos(x, y, z)))
+					.energy(0, 62, 21).energy(1, 80, 21).energy(2, 98, 21).energy(3, 62, 39).energy(4, 80, 39)
+					.energy(5, 98, 39).addInventory().create();
 		} else if (ID == vacuumFreezerID) {
 			return new ContainerVacuumFreezer((TileVacuumFreezer) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == grinderID) {

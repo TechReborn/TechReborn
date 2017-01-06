@@ -1,4 +1,4 @@
-package techreborn.client.container.builder;
+package techreborn.client.container.builder.slot;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;

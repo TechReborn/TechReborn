@@ -1,4 +1,4 @@
-package techreborn.client.container.builder;
+package techreborn.client.container.builder.slot;
 
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -16,7 +16,7 @@ public class ArmorSlot extends FilteredSlot {
 		this.setFilter(stack -> stack != null && stack.getItem().isValidArmor(stack, armorType, inventory.player));
 
 		this.setBackgroundLocation(
-				new ResourceLocation(ModInfo.MOD_ID, "textures/gui/armor_" + armorType.getName() + ".png"));
+				new ResourceLocation(ModInfo.MOD_ID, "textures/gui/slots/armor_" + armorType.getName() + ".png"));
 	}
 
 	@Override

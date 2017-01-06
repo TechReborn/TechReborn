@@ -7,6 +7,8 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 
 import reborncore.client.gui.slots.BaseSlot;
 
+import techreborn.client.container.builder.slot.ArmorSlot;
+
 public final class ContainerPlayerInventoryBuilder {
 
 	private final InventoryPlayer player;
