@@ -1,12 +1,9 @@
 package techreborn.client.container.builder;
 
-import org.apache.commons.lang3.Range;
-
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
-
+import org.apache.commons.lang3.Range;
 import reborncore.client.gui.slots.BaseSlot;
-
 import techreborn.client.container.builder.slot.ArmorSlot;
 
 public final class ContainerPlayerInventoryBuilder {
@@ -40,15 +37,31 @@ public final class ContainerPlayerInventoryBuilder {
 	}
 
 	public ContainerPlayerInventoryBuilder inventory() {
-		return this.inventory(8, 84);
+		return this.inventory(8, 94);
 	}
 
 	public ContainerPlayerInventoryBuilder hotbar() {
-		return this.hotbar(8, 142);
+		return this.hotbar(8, 152);
+	}
+
+	public ContainerPlayerInventoryBuilder inventory(boolean old) {
+		if (old) {
+			return this.inventory(8, 84);
+		} else {
+			return inventory();
+		}
+	}
+
+	public ContainerPlayerInventoryBuilder hotbar(boolean old) {
+		if (old) {
+			return this.hotbar(8, 142);
+		} else {
+			return hotbar();
+		}
 	}
 
 	private ContainerPlayerInventoryBuilder armor(final int index, final int xStart, final int yStart,
-			final EntityEquipmentSlot slotType) {
+	                                              final EntityEquipmentSlot slotType) {
 		this.parent.slots.add(new ArmorSlot(slotType, this.player, index, xStart, yStart));
 		return this;
 	}
@@ -71,7 +84,7 @@ public final class ContainerPlayerInventoryBuilder {
 
 	public ContainerPlayerInventoryBuilder armor(final int xStart, final int yStart) {
 		return this.helmet(xStart, yStart).chestplate(xStart, yStart + 19).leggings(xStart, yStart + 38).boots(xStart,
-				yStart + 57);
+			yStart + 57);
 	}
 
 	public ContainerBuilder addInventory() {
@@ -95,7 +108,7 @@ public final class ContainerPlayerInventoryBuilder {
 		}
 
 		private ContainerPlayerArmorInventoryBuilder armor(final int index, final int xStart, final int yStart,
-				final EntityEquipmentSlot slotType) {
+		                                                   final EntityEquipmentSlot slotType) {
 			this.parent.parent.slots.add(new ArmorSlot(slotType, this.parent.player, index, xStart, yStart));
 			return this;
 		}
@@ -118,7 +131,7 @@ public final class ContainerPlayerInventoryBuilder {
 
 		public ContainerPlayerArmorInventoryBuilder complete(final int xStart, final int yStart) {
 			return this.helmet(xStart, yStart).chestplate(xStart, yStart + 19).leggings(xStart, yStart + 38)
-					.boots(xStart, yStart + 57);
+				.boots(xStart, yStart + 57);
 		}
 
 		public ContainerPlayerInventoryBuilder addArmor() {

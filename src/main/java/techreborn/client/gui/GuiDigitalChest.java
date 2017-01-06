@@ -1,50 +1,35 @@
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
-
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.tiles.TileDigitalChest;
 
-public class GuiDigitalChest extends GuiContainer {
-
-	private static final ResourceLocation texture = new ResourceLocation("techreborn",
-		"textures/gui/thermal_generator.png");
+public class GuiDigitalChest extends GuiBase {
 
 	TileDigitalChest tile;
 
 	public GuiDigitalChest(final EntityPlayer player, final TileDigitalChest tile) {
-		super(new ContainerBuilder().player(player.inventory).inventory().hotbar().addInventory().tile(tile).slot(0, 80, 17)
-				.output(1, 80, 53).fake(2, 59, 42).addInventory().create());
-		this.xSize = 176;
-		this.ySize = 167;
+		super(player, tile, new ContainerBuilder().player(player.inventory).inventory().hotbar().addInventory().tile(tile).slot(0, 80, 20).output(1, 80, 70).fake(2, 80, 45).addInventory().create());
 		this.tile = tile;
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_) {
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.getTextureManager().bindTexture(texture);
-		int k = (this.width - this.xSize) / 2;
-		int l = (this.height - this.ySize) / 2;
-		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
+	protected void drawGuiContainerBackgroundLayer(float f, int mouseX, int mouseY) {
+		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
+
+		drawSlotBackground(80, 20);
+		drawSelectedStackBackground(80, 45);
+		drawSlotBackground(80, 70);
 	}
 
-	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
-		String name = I18n.translateToLocal("tile.techreborn.digitalChest.name");
-		this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6,
-			4210752);
-		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,
-			this.ySize - 96 + 2, 4210752);
-		this.fontRendererObj.drawString("Amount", 10, 20, 16448255);
-		if (tile.storedItem != ItemStack.EMPTY && tile.getStackInSlot(1) != null)
-			this.fontRendererObj.drawString(tile.storedItem.getCount() + tile.getStackInSlot(1).getCount() + "", 10, 30,
-				16448255);
+	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+		this.fontRendererObj.drawString("Amount", 105, 43, 0);
+		if (tile.storedItem != ItemStack.EMPTY && tile.getStackInSlot(1) != null) {
+			drawString(tile.storedItem.getCount() + tile.getStackInSlot(1).getCount() + "", 105, 53, 0);
+		}
 		if (tile.storedItem == ItemStack.EMPTY && tile.getStackInSlot(1) != null)
-			this.fontRendererObj.drawString(tile.getStackInSlot(1).getCount() + "", 10, 30, 16448255);
+			drawString(tile.getStackInSlot(1).getCount() + "", 105, 53, 0);
 	}
 }
