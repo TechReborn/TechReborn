@@ -17,6 +17,7 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 
 import techreborn.Core;
 import techreborn.client.container.builder.slot.FilteredSlot;
+import techreborn.utils.upgrade.IMachineUpgrade;
 
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
@@ -66,6 +67,12 @@ public class ContainerTileInventoryBuilder {
 	public ContainerTileInventoryBuilder fuelSlot(final int index, final int x, final int y)
 	{
 		this.parent.slots.add(new SlotFurnaceFuel(this.tile, index, x, y));
+		return this;
+	}
+
+	public ContainerTileInventoryBuilder upgradeSlot(final int index, final int x, final int y) {
+		this.parent.slots.add(new FilteredSlot(this.tile, index, x, y)
+				.setFilter(stack -> stack.getItem() instanceof IMachineUpgrade));
 		return this;
 	}
 

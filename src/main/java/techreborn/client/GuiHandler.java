@@ -149,8 +149,13 @@ public class GuiHandler implements IGuiHandler {
 		} else if (ID == GuiHandler.compressorID) {
 			return new ContainerCompressor((TileCompressor) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == GuiHandler.electricFurnaceID) {
-			return new ContainerElectricFurnace((TileElectricFurnace) world.getTileEntity(new BlockPos(x, y, z)),
-					player);
+			return new ContainerBuilder().player(player.inventory).inventory(8, 84).hotbar(8, 142).addInventory()
+					.tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 56, 34)
+					.outputSlot(1, 116, 34).upgradeSlot(2, 152, 8).upgradeSlot(3, 152, 26).upgradeSlot(4, 152, 44)
+					.upgradeSlot(5, 152, 62).syncEnergyValue()
+					.syncIntegerValue(((TileElectricFurnace) world.getTileEntity(new BlockPos(x, y, z)))::getBurnTime,
+							((TileElectricFurnace) world.getTileEntity(new BlockPos(x, y, z)))::setBurnTime)
+					.addInventory().create();
 		} else if (ID == GuiHandler.ironFurnace) {
 			return new ContainerBuilder().player(player.inventory).inventory(8, 84).hotbar(8, 142).addInventory()
 					.tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 56, 17)
