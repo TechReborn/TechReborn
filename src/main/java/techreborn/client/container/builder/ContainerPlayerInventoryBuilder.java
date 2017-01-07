@@ -27,7 +27,7 @@ public final class ContainerPlayerInventoryBuilder {
 		for (int i = 0; i < 3; ++i)
 			for (int j = 0; j < 9; ++j)
 				this.parent.slots.add(new BaseSlot(this.player, j + i * 9 + 9, xStart + j * 18, yStart + i * 18));
-		this.main = Range.between(startIndex, this.parent.slots.size() - 1);
+		this.main = Range.between(startIndex, this.parent.slots.size());
 		return this;
 	}
 
@@ -35,7 +35,7 @@ public final class ContainerPlayerInventoryBuilder {
 		final int startIndex = this.parent.slots.size();
 		for (int i = 0; i < 9; ++i)
 			this.parent.slots.add(new BaseSlot(this.player, i, xStart + i * 18, yStart));
-		this.hotbar = Range.between(startIndex, this.parent.slots.size() - 1);
+		this.hotbar = Range.between(startIndex, this.parent.slots.size());
 		return this;
 	}
 
@@ -101,7 +101,7 @@ public final class ContainerPlayerInventoryBuilder {
 		}
 
 		public ContainerPlayerInventoryBuilder addArmor() {
-			this.parent.armor = Range.between(this.startIndex, this.parent.parent.slots.size() - 1);
+			this.parent.armor = Range.between(this.startIndex, this.parent.parent.slots.size());
 			return this.parent;
 		}
 	}

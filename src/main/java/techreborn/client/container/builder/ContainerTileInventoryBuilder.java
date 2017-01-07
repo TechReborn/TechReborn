@@ -79,7 +79,7 @@ public class ContainerTileInventoryBuilder {
 	}
 
 	public ContainerBuilder addInventory() {
-		this.parent.tileInventoryRanges.add(Range.between(this.rangeStart, this.parent.slots.size() - 1));
+		this.parent.tileInventoryRanges.add(Range.between(this.rangeStart, this.parent.slots.size()));
 		return this.parent;
 	}
 }
