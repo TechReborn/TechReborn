@@ -157,10 +157,10 @@ public class GuiHandler implements IGuiHandler {
 		} else if (ID == GuiHandler.scrapboxinatorID) {
 			return new ContainerScrapboxinator((TileScrapboxinator) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == GuiHandler.batboxID) {
-			return new ContainerBatbox((TileBatBox) world.getTileEntity(new BlockPos(x, y, z)), player);
-		} else if (ID == GuiHandler.mfsuID) {
-			return new ContainerMFSU((TileMFSU) world.getTileEntity(new BlockPos(x, y, z)), player);
-		} else if (ID == GuiHandler.mfeID) {
+			return new ContainerBuilder().player(player.inventory).inventory(8, 84).hotbar(8, 142).addInventory()
+					.tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).energySlot(0, 80, 17)
+					.energySlot(1, 80, 53).syncEnergyValue().addInventory().create();
+		} else if (ID == GuiHandler.mfeID || ID == GuiHandler.mfsuID) {
 			return new ContainerBuilder().player(player.inventory).inventory(8, 84).hotbar(8, 142).armor()
 					.complete(44, 6).addArmor().addInventory()
 					.tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).energySlot(0, 80, 17)
