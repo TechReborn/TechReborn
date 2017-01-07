@@ -25,6 +25,7 @@ import java.security.InvalidParameterException;
 public class CraftingTableRecipes extends RecipeMethods {
 	public static void init() {
 		registerCompressionRecipes();
+		registerMixedMetalIngotRecipes();
 		registerShapeless(BlockStorage2.getStorageBlockByName("iridium_reinforced_stone", 1), getStack(Blocks.STONE), getMaterial("iridium", Type.INGOT));
 		registerShapeless(BlockStorage2.getStorageBlockByName("iridium_reinforced_tungstensteel", 1), BlockStorage2.getStorageBlockByName("tungstensteel", 1), getMaterial("iridium", Type.INGOT));
 		registerShapeless(BlockStorage2.getStorageBlockByName("iridium_reinforced_tungstensteel", 1), BlockStorage2.getStorageBlockByName("iridium_reinforced_stone", 1), getMaterial("tungstensteel", Type.INGOT));
