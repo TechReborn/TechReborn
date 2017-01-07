@@ -142,7 +142,15 @@ public class GuiHandler implements IGuiHandler {
 		} else if (ID == GuiHandler.grinderID) {
 			container = new ContainerGrinder(player, (TileGrinder) world.getTileEntity(new BlockPos(x, y, z)));
 		} else if (ID == GuiHandler.generatorID) {
-			return new ContainerGenerator((TileGenerator) world.getTileEntity(new BlockPos(x, y, z)), player);
+
+			return new ContainerBuilder().player(player.inventory).inventory(8, 84).hotbar(8, 142).addInventory()
+					.tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).fuelSlot(0, 80, 53)
+					.energySlot(1, 80, 17).syncEnergyValue()
+					.syncIntegerValue(((TileGenerator) world.getTileEntity(new BlockPos(x, y, z)))::getBurnTime,
+							((TileGenerator) world.getTileEntity(new BlockPos(x, y, z)))::setBurnTime)
+					.syncIntegerValue(((TileGenerator) world.getTileEntity(new BlockPos(x, y, z)))::getTotalBurnTime,
+							((TileGenerator) world.getTileEntity(new BlockPos(x, y, z)))::setTotalBurnTime)
+					.addInventory().create();
 		} else if (ID == GuiHandler.extractorID) {
 			container = new ContainerExtractor(player, (TileExtractor) world.getTileEntity(new BlockPos(x, y, z)));
 		} else if (ID == GuiHandler.compressorID) {

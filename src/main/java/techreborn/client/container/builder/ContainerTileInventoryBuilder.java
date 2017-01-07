@@ -4,8 +4,10 @@ import org.apache.commons.lang3.Range;
 import org.apache.commons.lang3.tuple.Pair;
 
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.SlotFurnaceFuel;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 import reborncore.api.power.IEnergyInterfaceItem;
 import reborncore.client.gui.slots.BaseSlot;
@@ -51,6 +53,19 @@ public class ContainerTileInventoryBuilder {
 		this.parent.slots.add(new FilteredSlot(this.tile, index, x, y)
 				.setFilter(stack -> stack.hasCapability(CapabilityEnergy.ENERGY, EnumFacing.UP)
 						|| stack.getItem() instanceof IEnergyInterfaceItem));
+		return this;
+	}
+
+	@SuppressWarnings("null")
+	public ContainerTileInventoryBuilder fluidSlot(final int index, final int x, final int y) {
+		this.parent.slots.add(new FilteredSlot(this.tile, index, x, y).setFilter(
+				stack -> stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, EnumFacing.UP)));
+		return this;
+	}
+
+	public ContainerTileInventoryBuilder fuelSlot(final int index, final int x, final int y)
+	{
+		this.parent.slots.add(new SlotFurnaceFuel(this.tile, index, x, y));
 		return this;
 	}
 
