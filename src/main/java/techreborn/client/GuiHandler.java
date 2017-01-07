@@ -152,7 +152,14 @@ public class GuiHandler implements IGuiHandler {
 			return new ContainerElectricFurnace((TileElectricFurnace) world.getTileEntity(new BlockPos(x, y, z)),
 					player);
 		} else if (ID == GuiHandler.ironFurnace) {
-			return new ContainerIronFurnace((TileIronFurnace) world.getTileEntity(new BlockPos(x, y, z)), player);
+			return new ContainerBuilder().player(player.inventory).inventory(8, 84).hotbar(8, 142).addInventory()
+					.tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 56, 17)
+					.outputSlot(1, 116, 34).fuelSlot(2, 56, 53)
+					.syncIntegerValue(((TileIronFurnace) world.getTileEntity(new BlockPos(x, y, z)))::getBurnTime,
+							((TileIronFurnace) world.getTileEntity(new BlockPos(x, y, z)))::setBurnTime)
+					.syncIntegerValue(((TileIronFurnace) world.getTileEntity(new BlockPos(x, y, z)))::getTotalBurnTime,
+							((TileIronFurnace) world.getTileEntity(new BlockPos(x, y, z)))::setTotalBurnTime)
+					.addInventory().create();
 		} else if (ID == GuiHandler.recyclerID) {
 			return new ContainerRecycler((TileRecycler) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == GuiHandler.scrapboxinatorID) {
