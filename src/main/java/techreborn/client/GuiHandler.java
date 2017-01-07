@@ -69,14 +69,11 @@ public class GuiHandler implements IGuiHandler {
 	@Override
 	public Object getServerGuiElement(final int ID, final EntityPlayer player, final World world, final int x, final int y, final int z) {
 		RebornContainer container = null;
-		if (ID == GuiHandler.thermalGeneratorID) {
-			return new ContainerThermalGenerator((TileThermalGenerator) world.getTileEntity(new BlockPos(x, y, z)),
-					player);
-		} else if (ID == GuiHandler.semifluidGeneratorID) {
-			return new ContainerSemifluidGenerator((TileSemifluidGenerator) world.getTileEntity(new BlockPos(x, y, z)),
-					player);
-		} else if (ID == GuiHandler.gasTurbineID) {
-			return new ContainerGasTurbine((TileGasTurbine) world.getTileEntity(new BlockPos(x, y, z)), player);
+		if (ID == GuiHandler.gasTurbineID || ID == GuiHandler.semifluidGeneratorID
+				|| ID == GuiHandler.thermalGeneratorID || ID == GuiHandler.dieselGeneratorID) {
+			return new ContainerBuilder().player(player.inventory).inventory(8, 84).hotbar(8, 142).addInventory()
+					.tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 80, 17).outputSlot(1, 80, 53)
+					.fakeSlot(2, 59, 42).syncEnergyValue().addInventory().create();
 		} else if (ID == GuiHandler.quantumTankID) {
 			return new ContainerQuantumTank((TileQuantumTank) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == GuiHandler.digitalChestID || ID == GuiHandler.quantumChestID) {
@@ -105,9 +102,6 @@ public class GuiHandler implements IGuiHandler {
 		} else if (ID == GuiHandler.chunkloaderID) {
 			return new ContainerBuilder().player(player.inventory).inventory().hotbar().addInventory()
 					.create();
-		} else if (ID == GuiHandler.dieselGeneratorID) {
-			return new ContainerDieselGenerator((TileDieselGenerator) world.getTileEntity(new BlockPos(x, y, z)),
-					player);
 		} else if (ID == GuiHandler.industrialElectrolyzerID) {
 			return new ContainerIndustrialElectrolyzer(
 					(TileIndustrialElectrolyzer) world.getTileEntity(new BlockPos(x, y, z)), player);
@@ -142,7 +136,6 @@ public class GuiHandler implements IGuiHandler {
 		} else if (ID == GuiHandler.grinderID) {
 			container = new ContainerGrinder(player, (TileGrinder) world.getTileEntity(new BlockPos(x, y, z)));
 		} else if (ID == GuiHandler.generatorID) {
-
 			return new ContainerBuilder().player(player.inventory).inventory(8, 84).hotbar(8, 142).addInventory()
 					.tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).fuelSlot(0, 80, 53)
 					.energySlot(1, 80, 17).syncEnergyValue()
