@@ -1,10 +1,13 @@
 package techreborn.client.container.builder;
 
+import org.apache.commons.lang3.Range;
+
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import org.apache.commons.lang3.Range;
+
 import reborncore.client.gui.slots.BaseSlot;
-import techreborn.client.container.builder.slot.ArmorSlot;
+
+import techreborn.client.container.builder.slot.FilteredSlot;
 
 public final class ContainerPlayerInventoryBuilder {
 
@@ -44,47 +47,8 @@ public final class ContainerPlayerInventoryBuilder {
 		return this.hotbar(8, 152);
 	}
 
-	public ContainerPlayerInventoryBuilder inventory(boolean old) {
-		if (old) {
-			return this.inventory(8, 84);
-		} else {
-			return inventory();
-		}
-	}
-
-	public ContainerPlayerInventoryBuilder hotbar(boolean old) {
-		if (old) {
-			return this.hotbar(8, 142);
-		} else {
-			return hotbar();
-		}
-	}
-
-	private ContainerPlayerInventoryBuilder armor(final int index, final int xStart, final int yStart,
-	                                              final EntityEquipmentSlot slotType) {
-		this.parent.slots.add(new ArmorSlot(slotType, this.player, index, xStart, yStart));
-		return this;
-	}
-
-	public ContainerPlayerInventoryBuilder helmet(final int xStart, final int yStart) {
-		return this.armor(this.player.getSizeInventory() - 2, xStart, yStart, EntityEquipmentSlot.HEAD);
-	}
-
-	public ContainerPlayerInventoryBuilder chestplate(final int xStart, final int yStart) {
-		return this.armor(this.player.getSizeInventory() - 3, xStart, yStart, EntityEquipmentSlot.CHEST);
-	}
-
-	public ContainerPlayerInventoryBuilder leggings(final int xStart, final int yStart) {
-		return this.armor(this.player.getSizeInventory() - 4, xStart, yStart, EntityEquipmentSlot.LEGS);
-	}
-
-	public ContainerPlayerInventoryBuilder boots(final int xStart, final int yStart) {
-		return this.armor(this.player.getSizeInventory() - 5, xStart, yStart, EntityEquipmentSlot.FEET);
-	}
-
-	public ContainerPlayerInventoryBuilder armor(final int xStart, final int yStart) {
-		return this.helmet(xStart, yStart).chestplate(xStart, yStart + 19).leggings(xStart, yStart + 38).boots(xStart,
-			yStart + 57);
+	public ContainerPlayerArmorInventoryBuilder armor() {
+		return new ContainerPlayerArmorInventoryBuilder(this);
 	}
 
 	public ContainerBuilder addInventory() {
@@ -108,8 +72,10 @@ public final class ContainerPlayerInventoryBuilder {
 		}
 
 		private ContainerPlayerArmorInventoryBuilder armor(final int index, final int xStart, final int yStart,
-		                                                   final EntityEquipmentSlot slotType) {
-			this.parent.parent.slots.add(new ArmorSlot(slotType, this.parent.player, index, xStart, yStart));
+				final EntityEquipmentSlot slotType) {
+
+			this.parent.parent.slots.add(new FilteredSlot(this.parent.player, index, xStart, yStart)
+					.setFilter(stack -> stack.getItem().isValidArmor(stack, slotType, this.parent.player.player)));
 			return this;
 		}
 
@@ -131,7 +97,7 @@ public final class ContainerPlayerInventoryBuilder {
 
 		public ContainerPlayerArmorInventoryBuilder complete(final int xStart, final int yStart) {
 			return this.helmet(xStart, yStart).chestplate(xStart, yStart + 19).leggings(xStart, yStart + 38)
-				.boots(xStart, yStart + 57);
+					.boots(xStart, yStart + 57);
 		}
 
 		public ContainerPlayerInventoryBuilder addArmor() {

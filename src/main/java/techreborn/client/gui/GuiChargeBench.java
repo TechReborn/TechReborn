@@ -15,7 +15,7 @@ public class GuiChargeBench extends GuiContainer {
 	TileChargeBench chargebench;
 
 	public GuiChargeBench(final EntityPlayer player, final TileChargeBench tile) {
-		super(new ContainerBuilder().player(player.inventory).inventory(true).hotbar(true).addInventory().tile(tile)
+		super(new ContainerBuilder().player(player.inventory).inventory(8, 84).hotbar(8, 152).addInventory().tile(tile)
 				.energySlot(0, 62, 21).energySlot(1, 80, 21).energySlot(2, 98, 21).energySlot(3, 62, 39).energySlot(4, 80, 39)
 				.energySlot(5, 98, 39).syncIntegerValue(() -> (int) tile.getEnergy(), tile::setEnergy).addInventory()
 				.create());

@@ -4,12 +4,15 @@ import org.apache.commons.lang3.Range;
 import org.apache.commons.lang3.tuple.Pair;
 
 import net.minecraft.inventory.IInventory;
+import net.minecraft.util.EnumFacing;
+import net.minecraftforge.energy.CapabilityEnergy;
 
+import reborncore.api.power.IEnergyInterfaceItem;
 import reborncore.client.gui.slots.BaseSlot;
 import reborncore.client.gui.slots.SlotFake;
 import reborncore.client.gui.slots.SlotOutput;
 
-import techreborn.client.container.builder.slot.EnergyChargeSlot;
+import techreborn.client.container.builder.slot.FilteredSlot;
 
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
@@ -41,8 +44,11 @@ public class ContainerTileInventoryBuilder {
 		return this;
 	}
 
+	@SuppressWarnings("null")
 	public ContainerTileInventoryBuilder energySlot(final int index, final int x, final int y) {
-		this.parent.slots.add(new EnergyChargeSlot(this.tile, index, x, y));
+		this.parent.slots.add(new FilteredSlot(this.tile, index, x, y)
+				.setFilter(stack -> stack.hasCapability(CapabilityEnergy.ENERGY, EnumFacing.UP)
+						|| stack.getItem() instanceof IEnergyInterfaceItem));
 		return this;
 	}
 
