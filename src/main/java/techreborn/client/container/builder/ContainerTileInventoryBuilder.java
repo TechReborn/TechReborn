@@ -11,7 +11,9 @@ import reborncore.api.power.IEnergyInterfaceItem;
 import reborncore.client.gui.slots.BaseSlot;
 import reborncore.client.gui.slots.SlotFake;
 import reborncore.client.gui.slots.SlotOutput;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 
+import techreborn.Core;
 import techreborn.client.container.builder.slot.FilteredSlot;
 
 import java.util.function.IntConsumer;
@@ -78,8 +80,16 @@ public class ContainerTileInventoryBuilder {
 		return this;
 	}
 
+	public ContainerTileInventoryBuilder syncEnergyValue() {
+		if (this.tile instanceof TilePowerAcceptor)
+			return this.syncIntegerValue(() -> (int) ((TilePowerAcceptor) this.tile).getEnergy(),
+					((TilePowerAcceptor) this.tile)::setEnergy);
+		Core.logHelper.error(this.tile + " is not an instance of TilePowerAcceptor! Energy cannot be synced.");
+		return this;
+	}
+
 	public ContainerBuilder addInventory() {
-		this.parent.tileInventoryRanges.add(Range.between(this.rangeStart, this.parent.slots.size()));
+		this.parent.tileInventoryRanges.add(Range.between(this.rangeStart, this.parent.slots.size() - 1));
 		return this.parent;
 	}
 }

@@ -231,14 +231,14 @@ final class BuiltContainer extends Container {
 
 	private boolean shiftToTile(final ItemStack stackToShift) {
 		for (final Range<Integer> range : this.tileSlotRanges)
-			if (this.shiftItemStack(stackToShift, range.getMinimum(), range.getMaximum()))
+			if (this.shiftItemStack(stackToShift, range.getMinimum(), range.getMaximum() + 1))
 				return true;
 		return false;
 	}
 
 	private boolean shiftToPlayer(final ItemStack stackToShift) {
 		for (final Range<Integer> range : this.playerSlotRanges)
-			if (this.shiftItemStack(stackToShift, range.getMinimum(), range.getMaximum()))
+			if (this.shiftItemStack(stackToShift, range.getMinimum(), range.getMaximum() + 1))
 				return true;
 		return false;
 	}
