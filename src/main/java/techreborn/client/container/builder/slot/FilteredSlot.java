@@ -21,6 +21,10 @@ public class FilteredSlot extends Slot {
 
 	@Override
 	public boolean isItemValid(final ItemStack stack) {
-		return this.filter.test(stack);
+		try {
+			return this.filter.test(stack);
+		} catch (NullPointerException e) {
+			return true;
+		}
 	}
 }

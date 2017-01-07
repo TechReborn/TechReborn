@@ -1,7 +1,6 @@
 package techreborn.client.gui;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
@@ -18,13 +17,12 @@ import java.util.List;
  */
 public class TRBuilder extends GuiBuilder {
 	public static final ResourceLocation GUI_SHEET = new ResourceLocation(ModInfo.MOD_ID.toLowerCase() + ":" + "textures/gui/gui_sheet.png");
-	public static final ResourceLocation SPRITE_SHEET = new ResourceLocation(ModInfo.MOD_ID.toLowerCase() + ":" + "textures/gui/slot_sprites.png");
 
 	public TRBuilder() {
 		super(GUI_SHEET);
 	}
 
-	public void drawMultiEnergyBar(GuiScreen gui, int x, int y, int energyStored, int maxEnergyStored, int mouseX, int mouseY) {
+	public void drawMultiEnergyBar(GuiBase gui, int x, int y, int energyStored, int maxEnergyStored, int mouseX, int mouseY) {
 		Minecraft.getMinecraft().getTextureManager().bindTexture(GUI_SHEET);
 
 		gui.drawTexturedModalRect(x, y, PowerSystem.getDisplayPower().xBar - 15, PowerSystem.getDisplayPower().yBar - 1, 14, 50);
@@ -55,7 +53,39 @@ public class TRBuilder extends GuiBuilder {
 		}
 	}
 
-	public void drawSelectedStack(GuiScreen gui, int x, int y) {
+	public void drawBigBlueBar(GuiBase gui, int x, int y, int value, int max, int mouseX, int mouseY, String suffix) {
+		gui.mc.getTextureManager().bindTexture(GUI_SHEET);
+		if (!suffix.equals("")) {
+			suffix = " " + suffix;
+		}
+		gui.drawTexturedModalRect(x, y, 0, 218, 114, 18);
+		int j = (int) ((double) value / (double) max * 106);
+		if (j < 0)
+			j = 0;
+		gui.drawTexturedModalRect(x + 4, y + 4, 0, 236, j, 10);
+		gui.drawCentredString(value + suffix, y + 5, 0xFFFFFF);
+		if (isInRect(x, y, 114, 18, mouseX, mouseY)) {
+			int percentage = percentage(max, value);
+			List<String> list = new ArrayList<>();
+			list.add("" + TextFormatting.GOLD + value + "/" + max + suffix);
+			list.add(getPercentageColour(percentage) + "" + percentage + "%" + TextFormatting.GRAY + " Full");
+
+			if (value > max) {
+				list.add(TextFormatting.GRAY + "Yo this is storing more than it should be able to");
+				list.add(TextFormatting.GRAY + "prolly a bug");
+				list.add(TextFormatting.GRAY + "pls report and tell how tf you did this");
+			}
+			net.minecraftforge.fml.client.config.GuiUtils.drawHoveringText(list, mouseX, mouseY, gui.width, gui.height, -1, gui.mc.fontRendererObj);
+			GlStateManager.disableLighting();
+			GlStateManager.color(1, 1, 1, 1);
+		}
+	}
+
+	public void drawBigBlueBar(GuiBase gui, int x, int y, int value, int max, int mouseX, int mouseY) {
+		drawBigBlueBar(gui, x, y, value, max, mouseX, mouseY, "");
+	}
+
+	public void drawSelectedStack(GuiBase gui, int x, int y) {
 		Minecraft.getMinecraft().getTextureManager().bindTexture(GUI_SHEET);
 		gui.drawTexturedModalRect(x - 4, y - 4, 202, 44, 24, 24);
 	}

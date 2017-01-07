@@ -8,15 +8,9 @@ import techreborn.lib.ModInfo;
 
 public class ArmorSlot extends FilteredSlot {
 
-	public ArmorSlot(final EntityEquipmentSlot armorType, final InventoryPlayer inventory, final int index,
-			final int xPosition, final int yPosition) {
-
+	public ArmorSlot(final EntityEquipmentSlot armorType, final InventoryPlayer inventory, final int index,	final int xPosition, final int yPosition) {
 		super(inventory, index, xPosition, yPosition);
-
 		this.setFilter(stack -> stack != null && stack.getItem().isValidArmor(stack, armorType, inventory.player));
-
-		this.setBackgroundLocation(
-				new ResourceLocation(ModInfo.MOD_ID, "textures/gui/slots/armor_" + armorType.getName() + ".png"));
 	}
 
 	@Override

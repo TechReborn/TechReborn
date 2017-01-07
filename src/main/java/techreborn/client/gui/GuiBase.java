@@ -80,4 +80,10 @@ public class GuiBase extends GuiContainer {
 		mc.fontRendererObj.drawString(string, x, y, colour);
 		GlStateManager.color(1, 1, 1, 1);
 	}
+
+	//TODO
+	public enum SlotRender {
+		STANDARD, OUTPUT, NONE, SPRITE;
+
+	}
 }

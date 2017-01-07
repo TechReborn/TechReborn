@@ -9,9 +9,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
-
 import powercrystals.minefactoryreloaded.api.IDeepStorageUnit;
-
 import reborncore.api.IListInfoProvider;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
@@ -23,14 +21,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TileTechStorageBase extends TileLegacyMachineBase
-		implements IInventoryProvider, IWrenchable, IListInfoProvider, IDeepStorageUnit {
-
-	public InvWrapper invWrapper;
-
-	public ItemStack storedItem;
+	implements IInventoryProvider, IWrenchable, IListInfoProvider, IDeepStorageUnit {
 
 	public final int maxCapacity;
 	public final Inventory inventory;
+	public InvWrapper invWrapper;
+	public ItemStack storedItem;
 
 	public TileTechStorageBase(String name, int maxCapacity) {
 		this.maxCapacity = maxCapacity;
@@ -43,7 +39,7 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 		if (!world.isRemote) {
 			if (this.getStackInSlot(0) != ItemStack.EMPTY) {
 				if (this.getStoredItemType().isEmpty() || (this.storedItem.isEmpty()
-						&& ItemUtils.isItemEqual(this.getStackInSlot(0), this.getStackInSlot(1), true, true))) {
+					&& ItemUtils.isItemEqual(this.getStackInSlot(0), this.getStackInSlot(1), true, true))) {
 
 					this.storedItem = this.getStackInSlot(0);
 					this.setInventorySlotContents(0, ItemStack.EMPTY);
@@ -70,10 +66,10 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 					this.setInventorySlotContents(1, delivered);
 					this.syncWithAll();
 				} else if (ItemUtils.isItemEqual(this.storedItem, this.getStackInSlot(1), true, true)
-						&& this.getStackInSlot(1).getCount() < this.getStackInSlot(1).getMaxStackSize()) {
+					&& this.getStackInSlot(1).getCount() < this.getStackInSlot(1).getMaxStackSize()) {
 
 					int wanted = Math.min(this.storedItem.getCount(),
-							this.getStackInSlot(1).getMaxStackSize() - this.getStackInSlot(1).getCount());
+						this.getStackInSlot(1).getMaxStackSize() - this.getStackInSlot(1).getCount());
 
 					this.getStackInSlot(1).setCount(this.getStackInSlot(1).getCount() + wanted);
 					this.storedItem.shrink(wanted);
@@ -85,7 +81,7 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 			}
 
 			if (this.getStackInSlot(2) == ItemStack.EMPTY
-					&& (!this.storedItem.isEmpty() || !this.getStackInSlot(1).isEmpty())) {
+				&& (!this.storedItem.isEmpty() || !this.getStackInSlot(1).isEmpty())) {
 
 				ItemStack fake = storedItem.isEmpty() ? this.getStackInSlot(1).copy() : storedItem.copy();
 				fake.setCount(1);
@@ -104,7 +100,7 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 	@Override
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
 		world.markBlockRangeForRenderUpdate(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX(),
-				getPos().getY(), getPos().getZ());
+			getPos().getY(), getPos().getZ());
 		readFromNBT(packet.getNbtCompound());
 	}
 
@@ -259,7 +255,8 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 
 	@Override
 	public boolean hasCapability(final net.minecraftforge.common.capabilities.Capability<?> capability,
-			@javax.annotation.Nullable final net.minecraft.util.EnumFacing facing) {
+	                             @javax.annotation.Nullable
+	                             final net.minecraft.util.EnumFacing facing) {
 		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
 	}
 
