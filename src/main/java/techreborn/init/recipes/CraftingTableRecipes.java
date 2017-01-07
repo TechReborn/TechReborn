@@ -131,7 +131,9 @@ public class CraftingTableRecipes extends RecipeMethods {
 
 		registerShaped(getStack(ModItems.RE_BATTERY), "XWX", "TRT", "TRT", 'T', "ingotTin", 'R', "dustRedstone", 'W', getStack(IC2Duplicates.CABLE_ICOPPER));
 
-		registerShaped(getStack(ModBlocks.INDUSTRIAL_CENTRIFUGE), "RCR", "AEA", "RCR", 'R', getStack(IC2Duplicates.REFINED_IRON), 'E', getStack(IC2Duplicates.EXTRACTOR), 'A', "machineBlockAdvanced", 'C', "circuitBasic");
+		registerShaped(getStack(ModBlocks.INDUSTRIAL_CENTRIFUGE), "RCR", "AEA", "RCR", 'R', getStack(IC2Duplicates.REFINED_IRON), 'E', getStack(IC2Duplicates.EXTRACTOR), 'A', "machineBlockAdvanced", 'C', "circuitAdvanced");
+		registerShaped(getStack(ModBlocks.INDUSTRIAL_CENTRIFUGE), "RCR", "AEA", "RCR", 'R', "ingotAluminum", 'E', getStack(IC2Duplicates.EXTRACTOR), 'A', "machineBlockAdvanced", 'C', "circuitAdvanced");
+		registerShaped(getStack(ModBlocks.INDUSTRIAL_CENTRIFUGE), "RCR", "AEA", "RCR", 'R', "ingotAluminium", 'E', getStack(IC2Duplicates.EXTRACTOR), 'A', "machineBlockAdvanced", 'C', "circuitAdvanced");
 		registerShaped(getStack(ModItems.ENERGY_CRYSTAL), "RRR", "RDR", "RRR", 'R', "dustRedstone", 'D', "gemDiamond");
 		registerShaped(getStack(ModItems.LAPOTRONIC_CRYSTAL), "LCL", "LEL", "LCL", 'L', "dyeBlue", 'E', "energyCrystal", 'C', "circuitBasic");
 		registerShapeless(getStack(IC2Duplicates.GENERATOR), getStack(ModItems.RE_BATTERY), getMaterial("machine", Type.MACHINE_FRAME), Blocks.FURNACE);
