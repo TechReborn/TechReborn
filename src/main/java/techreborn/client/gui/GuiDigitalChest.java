@@ -10,7 +10,7 @@ public class GuiDigitalChest extends GuiBase {
 	TileDigitalChest tile;
 
 	public GuiDigitalChest(final EntityPlayer player, final TileDigitalChest tile) {
-		super(player, tile, new ContainerBuilder().player(player.inventory).inventory().hotbar().addInventory().tile(tile).slot(0, 80, 20).output(1, 80, 70).fake(2, 80, 45).addInventory().create());
+		super(player, tile, new ContainerBuilder().player(player.inventory).inventory().hotbar().addInventory().tile(tile).slot(0, 80, 20).outputSlot(1, 80, 70).fakeSlot(2, 80, 45).addInventory().create());
 		this.tile = tile;
 	}
 

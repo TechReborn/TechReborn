@@ -1,15 +1,23 @@
 package techreborn.client.container.builder;
 
 import org.apache.commons.lang3.Range;
+import org.apache.commons.lang3.tuple.MutableTriple;
+import org.apache.commons.lang3.tuple.Pair;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import reborncore.common.util.ItemUtils;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.IntConsumer;
+import java.util.function.IntSupplier;
 import java.util.function.Predicate;
 
 final class BuiltContainer extends Container {
@@ -18,12 +26,34 @@ final class BuiltContainer extends Container {
 	private final List<Range<Integer>> playerSlotRanges;
 	private final List<Range<Integer>> tileSlotRanges;
 
+	private final ArrayList<MutableTriple<IntSupplier, IntConsumer, Short>> shortValues;
+	private final ArrayList<MutableTriple<IntSupplier, IntConsumer, Integer>> integerValues;
+	private Integer[] integerParts;
+
 	public BuiltContainer(final Predicate<EntityPlayer> canInteract, final List<Range<Integer>> playerSlotRange,
 			final List<Range<Integer>> tileSlotRange) {
 		this.canInteract = canInteract;
 
 		this.playerSlotRanges = playerSlotRange;
 		this.tileSlotRanges = tileSlotRange;
+
+		this.shortValues = new ArrayList<>();
+		this.integerValues = new ArrayList<>();
+	}
+
+	public void addShortSync(final List<Pair<IntSupplier, IntConsumer>> syncables) {
+
+		for (final Pair<IntSupplier, IntConsumer> syncable : syncables)
+			this.shortValues.add(MutableTriple.of(syncable.getLeft(), syncable.getRight(), (short) 0));
+		this.shortValues.trimToSize();
+	}
+
+	public void addIntegerSync(final List<Pair<IntSupplier, IntConsumer>> syncables) {
+
+		for (final Pair<IntSupplier, IntConsumer> syncable : syncables)
+			this.integerValues.add(MutableTriple.of(syncable.getLeft(), syncable.getRight(), 0));
+		this.integerValues.trimToSize();
+		this.integerParts = new Integer[this.integerValues.size()];
 	}
 
 	public void addSlot(final Slot slot) {
@@ -33,6 +63,86 @@ final class BuiltContainer extends Container {
 	@Override
 	public boolean canInteractWith(final EntityPlayer playerIn) {
 		return this.canInteract.test(playerIn);
+	}
+
+	@Override
+	public void detectAndSendChanges() {
+		super.detectAndSendChanges();
+
+		for (final IContainerListener listener : this.listeners) {
+
+			int i = 0;
+			if (!this.shortValues.isEmpty())
+				for (final MutableTriple<IntSupplier, IntConsumer, Short> value : this.shortValues) {
+					final short supplied = (short) value.getLeft().getAsInt();
+					if (supplied != value.getRight()) {
+
+						listener.sendProgressBarUpdate(this, i, supplied);
+						value.setRight(supplied);
+					}
+					i++;
+				}
+
+			if (!this.integerValues.isEmpty())
+				for (final MutableTriple<IntSupplier, IntConsumer, Integer> value : this.integerValues) {
+					final int supplied = value.getLeft().getAsInt();
+					if (supplied != value.getRight()) {
+
+						listener.sendProgressBarUpdate(this, i, supplied >> 16);
+						listener.sendProgressBarUpdate(this, i + 1, (short) (supplied & 0xFFFF));
+						value.setRight(supplied);
+					}
+					i += 2;
+				}
+		}
+	}
+
+	@Override
+	public void addListener(final IContainerListener listener) {
+		super.addListener(listener);
+
+		int i = 0;
+		if (!this.shortValues.isEmpty())
+			for (final MutableTriple<IntSupplier, IntConsumer, Short> value : this.shortValues) {
+				final short supplied = (short) value.getLeft().getAsInt();
+
+				listener.sendProgressBarUpdate(this, i, supplied);
+				value.setRight(supplied);
+				i++;
+			}
+
+		if (!this.integerValues.isEmpty())
+			for (final MutableTriple<IntSupplier, IntConsumer, Integer> value : this.integerValues) {
+				final int supplied = value.getLeft().getAsInt();
+
+				listener.sendProgressBarUpdate(this, i, supplied >> 16);
+				listener.sendProgressBarUpdate(this, i + 1, (short) (supplied & 0xFFFF));
+				value.setRight(supplied);
+				i += 2;
+			}
+
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void updateProgressBar(final int id, final int value) {
+
+		if(id < this.shortValues.size())
+		{
+			this.shortValues.get(id).getMiddle().accept((short) value);
+			this.shortValues.get(id).setRight((short) value);
+		}
+		else if (id - this.shortValues.size() < this.integerValues.size() * 2)
+		{
+
+			if ((id - this.shortValues.size()) % 2 == 0)
+				this.integerParts[(id - this.shortValues.size()) / 2] = value;
+			else
+			{
+				this.integerValues.get((id - this.shortValues.size()) / 2).getMiddle().accept(
+						(this.integerParts[(id - this.shortValues.size()) / 2] & 0xFFFF) << 16 | value & 0xFFFF);
+			}
+		}
 	}
 
 	@Override

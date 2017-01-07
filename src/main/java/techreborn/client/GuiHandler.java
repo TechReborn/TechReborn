@@ -79,8 +79,8 @@ public class GuiHandler implements IGuiHandler {
 			return new ContainerQuantumTank((TileQuantumTank) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == GuiHandler.digitalChestID || ID == GuiHandler.quantumChestID) {
 			return new ContainerBuilder().player(player.inventory).inventory().hotbar().addInventory()
-					.tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 80, 17).output(1, 80, 53)
-					.fake(2, 59, 42).addInventory().create();
+					.tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 80, 17).outputSlot(1, 80, 53)
+					.fakeSlot(2, 59, 42).addInventory().create();
 		} else if (ID == GuiHandler.centrifugeID) {
 			container = new ContainerCentrifuge(player, (TileCentrifuge) world.getTileEntity(new BlockPos(x, y, z)));
 		} else if (ID == rollingMachineID) {
@@ -132,9 +132,13 @@ public class GuiHandler implements IGuiHandler {
 					player);
 		} else if (ID == GuiHandler.chargeBench) {
 			return new ContainerBuilder().player(player.inventory).inventory().hotbar().addInventory()
-					.tile((IInventory) world.getTileEntity(new BlockPos(x, y, z)))
-					.energy(0, 62, 21).energy(1, 80, 21).energy(2, 98, 21).energy(3, 62, 39).energy(4, 80, 39)
-					.energy(5, 98, 39).addInventory().create();
+					.tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).energySlot(0, 62, 21)
+					.energySlot(1, 80, 21).energySlot(2, 98, 21).energySlot(3, 62, 39).energySlot(4, 80, 39)
+					.energySlot(5, 98, 39)
+					.syncIntegerValue(
+							() -> (int) ((TileChargeBench) world.getTileEntity(new BlockPos(x, y, z))).getEnergy(),
+							((TileChargeBench) world.getTileEntity(new BlockPos(x, y, z)))::setEnergy)
+					.addInventory().create();
 		} else if (ID == vacuumFreezerID) {
 			return new ContainerVacuumFreezer((TileVacuumFreezer) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == grinderID) {
