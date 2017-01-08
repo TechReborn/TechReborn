@@ -189,7 +189,13 @@ public class GuiHandler implements IGuiHandler {
 							((TileIronFurnace) world.getTileEntity(new BlockPos(x, y, z)))::setTotalBurnTime)
 					.addInventory().create();
 		} else if (ID == GuiHandler.recyclerID) {
-			return new ContainerRecycler((TileRecycler) world.getTileEntity(new BlockPos(x, y, z)), player);
+			return new ContainerBuilder("recycler").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 56, 34)
+					.slot(1, 116, 34).upgradeSlot(2, 152, 8).upgradeSlot(3, 152, 26).upgradeSlot(4, 152, 44)
+					.upgradeSlot(5, 152, 62).syncEnergyValue()
+					.syncIntegerValue(((TileRecycler) world.getTileEntity(new BlockPos(x, y, z)))::getProgress,
+							((TileRecycler) world.getTileEntity(new BlockPos(x, y, z)))::setProgress)
+					.addInventory().create();
 		} else if (ID == GuiHandler.scrapboxinatorID) {
 			return new ContainerScrapboxinator((TileScrapboxinator) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == GuiHandler.batboxID) {

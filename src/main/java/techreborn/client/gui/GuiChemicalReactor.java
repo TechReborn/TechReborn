@@ -19,8 +19,8 @@ public class GuiChemicalReactor extends GuiContainer {
 	public GuiChemicalReactor(final EntityPlayer player, final TileChemicalReactor tilechemicalReactor) {
 		super(new ContainerBuilder("chemicalreactor").player(player.inventory).inventory(8, 84).hotbar(8, 142)
 				.addInventory().tile(tilechemicalReactor).slot(0, 70, 21).slot(1, 90, 21).outputSlot(2, 80, 51)
-				.energySlot(6, 8, 51).upgradeSlot(7, 152, 8).upgradeSlot(8, 152, 26).upgradeSlot(9, 152, 44)
-				.upgradeSlot(10, 152, 62).syncEnergyValue().syncCrafterValue().addInventory().create());
+				.energySlot(3, 8, 51).upgradeSlot(4, 152, 8).upgradeSlot(5, 152, 26).upgradeSlot(6, 152, 44)
+				.upgradeSlot(7, 152, 62).syncEnergyValue().syncCrafterValue().addInventory().create());
 		this.xSize = 176;
 		this.ySize = 167;
 		this.chemicalReactor = tilechemicalReactor;
