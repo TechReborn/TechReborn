@@ -5,6 +5,7 @@ import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
 import net.minecraft.client.Minecraft;
+import reborncore.common.powerSystem.PowerSystem;
 import techreborn.api.recipe.machines.CentrifugeRecipe;
 import techreborn.client.gui.TRBuilder;
 import techreborn.compat.jei.BaseRecipeWrapper;
@@ -35,12 +36,12 @@ public class CentrifugeRecipeWrapper extends BaseRecipeWrapper<CentrifugeRecipe>
 		progressRight.draw(minecraft, 25, 26);
 
 		int x = -10;
-		int y1 = 3;
-		int y2 = 52;
+		int y1 = 1;
+		int y2 = 54;
 		int lineHeight = minecraft.fontRendererObj.FONT_HEIGHT;
 
-		minecraft.fontRendererObj.drawString("Time: " + baseRecipe.tickTime / 20 + " secs", (recipeWidth / 2 - minecraft.fontRendererObj.getStringWidth("Time: " + baseRecipe.tickTime / 20 + " secs") / 2) - 40, y1, 0x444444);
-		minecraft.fontRendererObj.drawString("EU: " + baseRecipe.euPerTick + " EU/t", (recipeWidth / 2 - minecraft.fontRendererObj.getStringWidth("EU: " + baseRecipe.euPerTick + " EU/t") / 2) - 40, y2, 0x444444);
+		minecraft.fontRendererObj.drawString(baseRecipe.tickTime / 20 + " seconds", (recipeWidth / 2 - minecraft.fontRendererObj.getStringWidth(baseRecipe.tickTime / 20 + " seconds") / 2) - 40, y1, 0x444444);
+		minecraft.fontRendererObj.drawString(PowerSystem.getLocaliszedPowerFormatted(baseRecipe.euPerTick * baseRecipe.tickTime), (recipeWidth / 2 - minecraft.fontRendererObj.getStringWidth(PowerSystem.getLocaliszedPowerFormatted(baseRecipe.euPerTick * baseRecipe.tickTime)) / 2) - 40, y2, 0x444444);
 
 	}
 }

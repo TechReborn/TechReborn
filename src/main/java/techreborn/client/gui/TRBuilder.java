@@ -155,6 +155,37 @@ public class TRBuilder extends GuiBuilder {
 		gui.drawTexturedModalRect(x - 4, y - 4, 202, 44, 24, 24);
 	}
 
+	public void drawBurnBar(GuiBase gui, int progress, int maxProgress, int x, int y, int mouseX, int mouseY, GuiBase.Layer layer) {
+		if (layer == GuiBase.Layer.BACKGROUND) {
+			x += gui.getGuiLeft();
+			y += gui.getGuiTop();
+		}
+		if (layer == GuiBase.Layer.FOREGROUND) {
+			mouseX -= gui.getGuiLeft();
+			mouseY -= gui.getGuiTop();
+		}
+
+		gui.mc.getTextureManager().bindTexture(GUI_SHEET);
+		gui.drawTexturedModalRect(x, y, 171, 84, 13, 13);
+		int j = 13 - (int) ((double) progress / (double) maxProgress * 13);
+		if (j > 0) {
+			gui.drawTexturedModalRect(x, y + j, 171, 70 + j, 13, 13 - j);
+
+		}
+		if (isInRect(x, y, 12, 12, mouseX, mouseY)) {
+			int percentage = percentage(maxProgress, progress);
+			List<String> list = new ArrayList<>();
+			list.add(getPercentageColour(percentage) + "" + percentage + "%");
+			net.minecraftforge.fml.client.config.GuiUtils.drawHoveringText(list, mouseX, mouseY, gui.width, gui.height, -1, gui.mc.fontRendererObj);
+			GlStateManager.disableLighting();
+			GlStateManager.color(1, 1, 1, 1);
+		}
+	}
+
+	public int getScaledBurnTime(int scale, int burnTime, int totalBurnTime) {
+		return (int) (((float) burnTime / (float) totalBurnTime) * scale);
+	}
+
 	public TextFormatting getPercentageColour(int percentage) {
 		if (percentage <= 10) {
 			return TextFormatting.RED;

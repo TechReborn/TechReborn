@@ -7,14 +7,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.ForgeModContainer;
-
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
-
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
@@ -109,7 +107,7 @@ public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IIn
 
 	@Override
 	public double getMaxPower() {
-		return 100;
+		return 10000;
 	}
 
 	@Override
@@ -169,9 +167,9 @@ public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IIn
 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("generator").player(player.inventory).inventory(8, 84).hotbar(8, 142).addInventory()
-				.tile(this).fuelSlot(0, 80, 53).energySlot(1, 80, 17).syncEnergyValue()
-				.syncIntegerValue(this::getBurnTime, this::setBurnTime)
-				.syncIntegerValue(this::getTotalBurnTime, this::setTotalBurnTime).addInventory().create();
+		return new ContainerBuilder("generator").player(player.inventory).inventory().hotbar().addInventory()
+			.tile(this).fuelSlot(0, 80, 54).energySlot(1, 8, 72).syncEnergyValue()
+			.syncIntegerValue(this::getBurnTime, this::setBurnTime)
+			.syncIntegerValue(this::getTotalBurnTime, this::setTotalBurnTime).addInventory().create();
 	}
 }
