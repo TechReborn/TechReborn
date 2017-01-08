@@ -104,7 +104,8 @@ public class GuiBase extends GuiContainer {
 	}
 
 	public void addPowerButton(int x, int y, int id, Layer layer) {
-		buttonList.clear();
+		if (id == 0)
+			buttonList.clear();
 		int factorX = 0;
 		int factorY = 0;
 		if (layer == Layer.BACKGROUND) {
