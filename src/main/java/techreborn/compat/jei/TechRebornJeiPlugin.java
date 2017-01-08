@@ -284,8 +284,7 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 				8, 36);
 		recipeTransferRegistry
 		.addRecipeTransferHandler(ContainerBlastFurnace.class, RecipeCategoryUids.BLAST_FURNACE, 0, 2, 4, 36);
-		recipeTransferRegistry
-		.addRecipeTransferHandler(ContainerCentrifuge.class, RecipeCategoryUids.CENTRIFUGE, 0, 2, 11, 36);
+
 		recipeTransferRegistry
 		.addRecipeTransferHandler(ContainerChemicalReactor.class, RecipeCategoryUids.CHEMICAL_REACTOR, 0, 2, 8,
 				36);
@@ -304,6 +303,8 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 		recipeTransferRegistry
 		.addRecipeTransferHandler(ContainerVacuumFreezer.class, RecipeCategoryUids.VACUUM_FREEZER, 0, 1, 2, 36);
 
+		recipeTransferRegistry.addRecipeTransferHandler(
+				new BuiltContainerTransferInfo("centrifuge", RecipeCategoryUids.CENTRIFUGE, 36, 2, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
 				new BuiltContainerTransferInfo("grinder", RecipeCategoryUids.GRINDER, 36, 1, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(

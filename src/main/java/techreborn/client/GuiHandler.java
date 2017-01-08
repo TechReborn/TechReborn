@@ -82,7 +82,12 @@ public class GuiHandler implements IGuiHandler {
 					.tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 80, 17).outputSlot(1, 80, 53)
 					.fakeSlot(2, 59, 42).addInventory().create();
 		} else if (ID == GuiHandler.centrifugeID) {
-			container = new ContainerCentrifuge(player, (TileCentrifuge) world.getTileEntity(new BlockPos(x, y, z)));
+			return new ContainerBuilder("centrifuge").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 80, 35)
+					.slot(1, 50, 5).outputSlot(2, 80, 5).outputSlot(3, 110, 35).outputSlot(4, 80, 65)
+					.outputSlot(5, 50, 35).energySlot(6, 8, 51).upgradeSlot(7, 152, 8).upgradeSlot(8, 152, 26)
+					.upgradeSlot(9, 152, 44).upgradeSlot(10, 152, 62).syncEnergyValue().syncCrafterValue()
+					.addInventory().create();
 		} else if (ID == GuiHandler.rollingMachineID) {
 			return new ContainerRollingMachine((TileRollingMachine) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == GuiHandler.blastFurnaceID) {
