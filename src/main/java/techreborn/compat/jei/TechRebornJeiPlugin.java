@@ -14,7 +14,6 @@ import techreborn.api.generator.GeneratorRecipeHelper;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.api.recipe.machines.AssemblingMachineRecipe;
 import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
-import techreborn.client.container.ContainerFusionReactor;
 import techreborn.client.gui.*;
 import techreborn.compat.CompatManager;
 import techreborn.compat.jei.alloySmelter.AlloySmelterRecipeCategory;
@@ -272,10 +271,8 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 
 		final IRecipeTransferRegistry recipeTransferRegistry = registry.getRecipeTransferRegistry();
 
-
-		recipeTransferRegistry
-		.addRecipeTransferHandler(ContainerFusionReactor.class, RecipeCategoryUids.FUSION_REACTOR, 0, 2, 3, 36);
-
+		recipeTransferRegistry.addRecipeTransferHandler(
+				new BuiltContainerTransferInfo("fusionreactor", RecipeCategoryUids.FUSION_REACTOR, 36, 2, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
 				new BuiltContainerTransferInfo("industrialelectrolyzer", RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER, 36,
 						2, 0, 36));

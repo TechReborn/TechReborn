@@ -197,8 +197,24 @@ public class GuiHandler implements IGuiHandler {
 		} else if (ID == GuiHandler.idsuID) {
 			return new ContainerIDSU((TileIDSU) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == GuiHandler.fusionID) {
-			return new ContainerFusionReactor((TileEntityFusionController) world.getTileEntity(new BlockPos(x, y, z)),
-					player);
+			return new ContainerBuilder("fusionreactor").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 88, 17)
+					.slot(1, 88, 53).outputSlot(2, 148, 35).syncEnergyValue()
+					.syncIntegerValue(
+							((TileEntityFusionController) world.getTileEntity(new BlockPos(x, y, z)))::getCoilStatus,
+							((TileEntityFusionController) world.getTileEntity(new BlockPos(x, y, z)))::setCoilStatus)
+					.syncIntegerValue(
+							((TileEntityFusionController) world
+									.getTileEntity(new BlockPos(x, y, z)))::getCrafingTickTime,
+							((TileEntityFusionController) world
+									.getTileEntity(new BlockPos(x, y, z)))::setCrafingTickTime)
+					.syncIntegerValue(
+							((TileEntityFusionController) world.getTileEntity(new BlockPos(x, y, z)))::getFinalTickTime,
+							((TileEntityFusionController) world.getTileEntity(new BlockPos(x, y, z)))::setFinalTickTime)
+					.syncIntegerValue(
+							((TileEntityFusionController) world.getTileEntity(new BlockPos(x, y, z)))::getNeededPower,
+							((TileEntityFusionController) world.getTileEntity(new BlockPos(x, y, z)))::setNeededPower)
+					.addInventory().create();
 		} else if (ID == GuiHandler.chargeBench) {
 			return new ContainerBuilder("chargebench").player(player.inventory).inventory().hotbar(8, 142)
 					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).energySlot(0, 62, 21)
