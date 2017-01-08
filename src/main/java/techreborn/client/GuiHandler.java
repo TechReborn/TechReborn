@@ -6,9 +6,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 
+import reborncore.api.recipe.RecipeHandler;
 import reborncore.api.tile.IContainerLayout;
 import reborncore.common.container.RebornContainer;
+import reborncore.common.util.ItemUtils;
 
+import techreborn.api.recipe.machines.AlloySmelterRecipe;
 import techreborn.client.container.*;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.client.gui.*;
@@ -70,7 +73,7 @@ public class GuiHandler implements IGuiHandler {
 	@Override
 	public Object getServerGuiElement(final int ID, final EntityPlayer player, final World world, final int x,
 			final int y, final int z) {
-		RebornContainer container = null;
+		final RebornContainer container = null;
 		if (ID == GuiHandler.gasTurbineID || ID == GuiHandler.semifluidGeneratorID
 				|| ID == GuiHandler.thermalGeneratorID || ID == GuiHandler.dieselGeneratorID) {
 			return new ContainerBuilder("fluidgenerator").player(player.inventory).inventory(8, 84).hotbar(8, 142)
@@ -94,8 +97,17 @@ public class GuiHandler implements IGuiHandler {
 		} else if (ID == GuiHandler.blastFurnaceID) {
 			return new ContainerBlastFurnace((TileBlastFurnace) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == GuiHandler.alloySmelterID) {
-			container = new ContainerAlloySmelter(player,
-					(TileAlloySmelter) world.getTileEntity(new BlockPos(x, y, z)));
+			return new ContainerBuilder("alloysmelter").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z)))
+					.filterSlot(0, 47, 17, stack -> RecipeHandler.recipeList.stream()
+							.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
+									&& ItemUtils.isItemEqual(recipe.getInputs().get(0), stack, true, true, true)))
+					.filterSlot(1, 65, 17, stack -> RecipeHandler.recipeList.stream()
+							.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
+									&& ItemUtils.isItemEqual(recipe.getInputs().get(1), stack, true, true, true)))
+					.outputSlot(2, 116, 35).energySlot(3, 56, 53).upgradeSlot(4, 152, 8).upgradeSlot(5, 152, 26)
+					.upgradeSlot(6, 152, 44).upgradeSlot(7, 152, 62).syncEnergyValue().syncCrafterValue().addInventory()
+					.create();
 		} else if (ID == GuiHandler.industrialGrinderID) {
 			return new ContainerIndustrialGrinder((TileIndustrialGrinder) world.getTileEntity(new BlockPos(x, y, z)),
 					player);
@@ -120,7 +132,23 @@ public class GuiHandler implements IGuiHandler {
 		} else if (ID == GuiHandler.aesuID) {
 			return new ContainerAESU((TileAesu) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == GuiHandler.alloyFurnaceID) {
-			return new ContainerAlloyFurnace((TileAlloyFurnace) world.getTileEntity(new BlockPos(x, y, z)), player);
+			return new ContainerBuilder("alloyfurnace").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z)))
+					.filterSlot(0, 47, 17, stack -> RecipeHandler.recipeList.stream()
+							.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
+									&& ItemUtils.isItemEqual(recipe.getInputs().get(0), stack, true, true, true)))
+					.filterSlot(1, 65, 17, stack -> RecipeHandler.recipeList.stream()
+							.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
+									&& ItemUtils.isItemEqual(recipe.getInputs().get(1), stack, true, true, true)))
+					.outputSlot(2, 116, 35).fuelSlot(3, 56, 53)
+					.syncIntegerValue(((TileAlloyFurnace) world.getTileEntity(new BlockPos(x, y, z)))::getBurnTime,
+							((TileAlloyFurnace) world.getTileEntity(new BlockPos(x, y, z)))::setBurnTime)
+					.syncIntegerValue(((TileAlloyFurnace) world.getTileEntity(new BlockPos(x, y, z)))::getCookTime,
+							((TileAlloyFurnace) world.getTileEntity(new BlockPos(x, y, z)))::setCookTime)
+					.syncIntegerValue(
+							((TileAlloyFurnace) world.getTileEntity(new BlockPos(x, y, z)))::getCurrentItemBurnTime,
+							((TileAlloyFurnace) world.getTileEntity(new BlockPos(x, y, z)))::setCurrentItemBurnTime)
+					.addInventory().create();
 		} else if (ID == GuiHandler.sawMillID) {
 			return new ContainerIndustrialSawmill((TileIndustrialSawmill) world.getTileEntity(new BlockPos(x, y, z)),
 					player);
