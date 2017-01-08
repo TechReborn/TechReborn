@@ -6,10 +6,12 @@ import org.apache.commons.lang3.tuple.Pair;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
 import java.util.function.Predicate;
@@ -17,6 +19,7 @@ import java.util.function.Predicate;
 public class ContainerBuilder {
 
 	private final String name;
+
 	private Predicate<EntityPlayer> canInteract = player -> true;
 
 	final List<Slot> slots;
@@ -24,6 +27,8 @@ public class ContainerBuilder {
 
 	final List<Pair<IntSupplier, IntConsumer>> shortValues;
 	final List<Pair<IntSupplier, IntConsumer>> integerValues;
+
+	final List<Consumer<InventoryCrafting>> craftEvents;
 
 	public ContainerBuilder(final String name) {
 
@@ -35,6 +40,8 @@ public class ContainerBuilder {
 
 		this.shortValues = new ArrayList<>();
 		this.integerValues = new ArrayList<>();
+
+		this.craftEvents = new ArrayList<>();
 	}
 
 	public ContainerBuilder interact(final Predicate<EntityPlayer> canInteract) {
@@ -59,12 +66,15 @@ public class ContainerBuilder {
 	}
 
 	public BuiltContainer create() {
-		final BuiltContainer built = new BuiltContainer(this.name, this.canInteract, this.playerInventoryRanges,
+		final BuiltContainer built = new BuiltContainer(this.name, this.canInteract,
+				this.playerInventoryRanges,
 				this.tileInventoryRanges);
 		if (!this.shortValues.isEmpty())
 			built.addShortSync(this.shortValues);
 		if (!this.integerValues.isEmpty())
 			built.addIntegerSync(this.integerValues);
+		if (!this.craftEvents.isEmpty())
+			built.addCraftEvents(this.craftEvents);
 
 		this.slots.forEach(built::addSlot);
 

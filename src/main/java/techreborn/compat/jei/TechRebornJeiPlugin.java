@@ -284,11 +284,10 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 		recipeTransferRegistry.addRecipeTransferHandler(ContainerIndustrialElectrolyzer.class,
 				RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER, 0, 2, 7, 36);
 		recipeTransferRegistry
-		.addRecipeTransferHandler(ContainerRollingMachine.class, RecipeCategoryUids.ROLLING_MACHINE, 0, 9, 11,
-				36);
-		recipeTransferRegistry
 		.addRecipeTransferHandler(ContainerVacuumFreezer.class, RecipeCategoryUids.VACUUM_FREEZER, 0, 1, 2, 36);
 
+		recipeTransferRegistry.addRecipeTransferHandler(
+				new BuiltContainerTransferInfo("rollingmachine", RecipeCategoryUids.ROLLING_MACHINE, 36, 9, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
 				new BuiltContainerTransferInfo("alloyfurnace", RecipeCategoryUids.ALLOY_SMELTER, 36, 2, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(

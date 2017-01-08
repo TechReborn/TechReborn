@@ -11,6 +11,7 @@ import reborncore.api.tile.IContainerLayout;
 import reborncore.common.container.RebornContainer;
 import reborncore.common.util.ItemUtils;
 
+import techreborn.api.RollingMachineRecipe;
 import techreborn.api.recipe.machines.AlloySmelterRecipe;
 import techreborn.client.container.*;
 import techreborn.client.container.builder.ContainerBuilder;
@@ -93,7 +94,17 @@ public class GuiHandler implements IGuiHandler {
 					.upgradeSlot(9, 152, 44).upgradeSlot(10, 152, 62).syncEnergyValue().syncCrafterValue()
 					.addInventory().create();
 		} else if (ID == GuiHandler.rollingMachineID) {
-			return new ContainerRollingMachine((TileRollingMachine) world.getTileEntity(new BlockPos(x, y, z)), player);
+			return new ContainerBuilder("rollingmachine").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+					.addInventory().tile(((TileRollingMachine) world.getTileEntity(new BlockPos(x, y, z))).craftMatrix)
+					.slot(0, 30, 17).slot(1, 48, 17).slot(2, 66, 17).slot(3, 30, 35).slot(4, 48, 35).slot(5, 66, 35)
+					.slot(6, 30, 53).slot(7, 48, 53).slot(8, 66, 53)
+					.onCraft(inv -> ((TileRollingMachine) world.getTileEntity(new BlockPos(x, y, z))).inventory
+							.setInventorySlotContents(1, RollingMachineRecipe.instance.findMatchingRecipe(inv, world)))
+					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).outputSlot(0, 124, 35)
+					.energySlot(2, 8, 51).syncEnergyValue()
+					.syncIntegerValue(((TileRollingMachine) world.getTileEntity(new BlockPos(x, y, z)))::getBurnTime,
+							((TileRollingMachine) world.getTileEntity(new BlockPos(x, y, z)))::setBurnTime)
+					.addInventory().create();
 		} else if (ID == GuiHandler.blastFurnaceID) {
 			return new ContainerBlastFurnace((TileBlastFurnace) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == GuiHandler.alloySmelterID) {

@@ -5,9 +5,7 @@ import org.apache.commons.lang3.tuple.MutableTriple;
 import org.apache.commons.lang3.tuple.Pair;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IContainerListener;
-import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -16,6 +14,7 @@ import reborncore.common.util.ItemUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
 import java.util.function.Predicate;
@@ -30,6 +29,7 @@ public class BuiltContainer extends Container {
 
 	private final ArrayList<MutableTriple<IntSupplier, IntConsumer, Short>> shortValues;
 	private final ArrayList<MutableTriple<IntSupplier, IntConsumer, Integer>> integerValues;
+	private List<Consumer<InventoryCrafting>> craftEvents;
 	private Integer[] integerParts;
 
 	public BuiltContainer(final String name, final Predicate<EntityPlayer> canInteract,
@@ -61,6 +61,10 @@ public class BuiltContainer extends Container {
 		this.integerParts = new Integer[this.integerValues.size()];
 	}
 
+	public void addCraftEvents(final List<Consumer<InventoryCrafting>> craftEvents) {
+		this.craftEvents = craftEvents;
+	}
+
 	public void addSlot(final Slot slot) {
 		this.addSlotToContainer(slot);
 	}
@@ -68,6 +72,16 @@ public class BuiltContainer extends Container {
 	@Override
 	public boolean canInteractWith(final EntityPlayer playerIn) {
 		return this.canInteract.test(playerIn);
+	}
+
+	@Override
+	public final void onCraftMatrixChanged(final IInventory inv) {
+		if (!this.craftEvents.isEmpty())
+			this.craftEvents.forEach(consumer -> consumer.accept((InventoryCrafting) inv));
+		// final ItemStack output =
+		// RollingMachineRecipe.instance.findMatchingRecipe(this.tile.craftMatrix,
+		// this.tile.getWorld());
+		// this.tile.inventory.setInventorySlotContents(1, output);
 	}
 
 	@Override

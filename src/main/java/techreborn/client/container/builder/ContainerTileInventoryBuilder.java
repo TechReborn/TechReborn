@@ -4,6 +4,7 @@ import org.apache.commons.lang3.Range;
 import org.apache.commons.lang3.tuple.Pair;
 
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.SlotFurnaceFuel;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -21,6 +22,7 @@ import techreborn.Core;
 import techreborn.client.container.builder.slot.FilteredSlot;
 import techreborn.utils.upgrade.IMachineUpgrade;
 
+import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
 import java.util.function.Predicate;
@@ -130,6 +132,11 @@ public class ContainerTileInventoryBuilder {
 							.getRecipeCrafter().currentNeededTicks = currentNeededTicks);
 		Core.logHelper
 		.error(this.tile + " is not an instance of IRecipeCrafterProvider! Craft progress cannot be synced.");
+		return this;
+	}
+
+	public ContainerTileInventoryBuilder onCraft(final Consumer<InventoryCrafting> onCraft) {
+		this.parent.craftEvents.add(onCraft);
 		return this;
 	}
 
