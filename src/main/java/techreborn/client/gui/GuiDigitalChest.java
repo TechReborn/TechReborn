@@ -17,19 +17,22 @@ public class GuiDigitalChest extends GuiBase {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
 		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
+		Layer layer = Layer.BACKGROUND;
 
-		this.drawSlotBackground(80, 24);
-		this.drawSlotBackground(80, 64);
+		this.drawSlot(80, 24, layer);
+		this.drawSlot(80, 64, layer);
 	}
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+		Layer layer = Layer.FOREGROUND;
+
 		if (this.tile.storedItem != ItemStack.EMPTY && this.tile.getStackInSlot(1) != null) {
-			this.builder.drawBigBlueBar(this, 31, 43, this.tile.storedItem.getCount() + this.tile.getStackInSlot(1).getCount(), this.tile.maxCapacity, mouseX - this.guiLeft, mouseY - this.guiTop, "Stored");
+			this.builder.drawBigBlueBar(this, 31, 43, this.tile.storedItem.getCount() + this.tile.getStackInSlot(1).getCount(), this.tile.maxCapacity, mouseX - this.guiLeft, mouseY - this.guiTop, "Stored", layer);
 		}
 		if (this.tile.storedItem == ItemStack.EMPTY && this.tile.getStackInSlot(1) != null) {
-			this.builder.drawBigBlueBar(this, 31, 43, this.tile.getStackInSlot(1).getCount(), this.tile.maxCapacity, mouseX - this.guiLeft, mouseY - this.guiTop, "Stored");
+			this.builder.drawBigBlueBar(this, 31, 43, this.tile.getStackInSlot(1).getCount(), this.tile.maxCapacity, mouseX - this.guiLeft, mouseY - this.guiTop, "Stored", layer);
 		}
 	}
 }

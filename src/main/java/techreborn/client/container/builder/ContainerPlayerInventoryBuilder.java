@@ -1,12 +1,9 @@
 package techreborn.client.container.builder;
 
-import org.apache.commons.lang3.Range;
-
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
-
+import org.apache.commons.lang3.Range;
 import reborncore.client.gui.slots.BaseSlot;
-
 import techreborn.client.container.builder.slot.FilteredSlot;
 
 public final class ContainerPlayerInventoryBuilder {
@@ -72,10 +69,10 @@ public final class ContainerPlayerInventoryBuilder {
 		}
 
 		private ContainerPlayerArmorInventoryBuilder armor(final int index, final int xStart, final int yStart,
-				final EntityEquipmentSlot slotType) {
+		                                                   final EntityEquipmentSlot slotType) {
 
 			this.parent.parent.slots.add(new FilteredSlot(this.parent.player, index, xStart, yStart)
-					.setFilter(stack -> stack.getItem().isValidArmor(stack, slotType, this.parent.player.player)));
+				.setFilter(stack -> stack.getItem().isValidArmor(stack, slotType, this.parent.player.player)));
 			return this;
 		}
 
@@ -96,8 +93,8 @@ public final class ContainerPlayerInventoryBuilder {
 		}
 
 		public ContainerPlayerArmorInventoryBuilder complete(final int xStart, final int yStart) {
-			return this.helmet(xStart, yStart).chestplate(xStart, yStart + 19).leggings(xStart, yStart + 38)
-					.boots(xStart, yStart + 57);
+			return this.helmet(xStart, yStart).chestplate(xStart, yStart + 18).leggings(xStart, yStart + 18 + 18)
+				.boots(xStart, yStart + 18 + 18 + 18);
 		}
 
 		public ContainerPlayerInventoryBuilder addArmor() {

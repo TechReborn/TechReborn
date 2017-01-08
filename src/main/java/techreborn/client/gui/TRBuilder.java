@@ -22,7 +22,15 @@ public class TRBuilder extends GuiBuilder {
 		super(GUI_SHEET);
 	}
 
-	public void drawMultiEnergyBar(GuiBase gui, int x, int y, int energyStored, int maxEnergyStored, int mouseX, int mouseY) {
+	public void drawMultiEnergyBar(GuiBase gui, int x, int y, int energyStored, int maxEnergyStored, int mouseX, int mouseY, int buttonID, GuiBase.Layer layer) {
+		if (layer == GuiBase.Layer.BACKGROUND) {
+			x += gui.getGuiLeft();
+			y += gui.getGuiTop();
+		}
+		if (layer == GuiBase.Layer.FOREGROUND) {
+			mouseX -= gui.getGuiLeft();
+			mouseY -= gui.getGuiTop();
+		}
 		Minecraft.getMinecraft().getTextureManager().bindTexture(GUI_SHEET);
 
 		gui.drawTexturedModalRect(x, y, PowerSystem.getDisplayPower().xBar - 15, PowerSystem.getDisplayPower().yBar - 1, 14, 50);
@@ -49,9 +57,14 @@ public class TRBuilder extends GuiBuilder {
 			GlStateManager.disableLighting();
 			GlStateManager.color(1, 1, 1, 1);
 		}
+		gui.addPowerButton(x, y, buttonID, layer);
 	}
 
-	public void drawBigBlueBar(GuiBase gui, int x, int y, int value, int max, int mouseX, int mouseY, String suffix) {
+	public void drawBigBlueBar(GuiBase gui, int x, int y, int value, int max, int mouseX, int mouseY, String suffix, GuiBase.Layer layer) {
+		if (layer == GuiBase.Layer.BACKGROUND) {
+			x += gui.getGuiLeft();
+			y += gui.getGuiTop();
+		}
 		gui.mc.getTextureManager().bindTexture(GUI_SHEET);
 		if (!suffix.equals("")) {
 			suffix = " " + suffix;
@@ -61,7 +74,7 @@ public class TRBuilder extends GuiBuilder {
 		if (j < 0)
 			j = 0;
 		gui.drawTexturedModalRect(x + 4, y + 4, 0, 236, j, 10);
-		gui.drawCentredString(value + suffix, y + 5, 0xFFFFFF);
+		gui.drawCentredString(value + suffix, y + 5, 0xFFFFFF, layer);
 		if (isInRect(x, y, 114, 18, mouseX, mouseY)) {
 			int percentage = percentage(max, value);
 			List<String> list = new ArrayList<>();
@@ -79,8 +92,8 @@ public class TRBuilder extends GuiBuilder {
 		}
 	}
 
-	public void drawBigBlueBar(GuiBase gui, int x, int y, int value, int max, int mouseX, int mouseY) {
-		drawBigBlueBar(gui, x, y, value, max, mouseX, mouseY, "");
+	public void drawBigBlueBar(GuiBase gui, int x, int y, int value, int max, int mouseX, int mouseY, GuiBase.Layer layer) {
+		drawBigBlueBar(gui, x, y, value, max, mouseX, mouseY, "", layer);
 	}
 
 	public void drawSelectedStack(GuiBase gui, int x, int y) {

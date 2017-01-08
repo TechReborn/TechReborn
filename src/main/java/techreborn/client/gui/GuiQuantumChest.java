@@ -15,20 +15,24 @@ public class GuiQuantumChest extends GuiBase {
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float f, int mouseX, int mouseY) {
+	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
 		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
+		Layer layer = Layer.BACKGROUND;
 
-		drawSlotBackground(80, 24);
-		drawSlotBackground(80, 64);
+		this.drawSlot(80, 24, layer);
+		this.drawSlot(80, 64, layer);
 	}
 
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+	@Override
+	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-		if (tile.storedItem != ItemStack.EMPTY && tile.getStackInSlot(1) != null) {
-			builder.drawBigBlueBar(this, 31, 43, tile.storedItem.getCount() + tile.getStackInSlot(1).getCount(), tile.maxCapacity, mouseX - guiLeft, mouseY - guiTop, "Stored");
+		Layer layer = Layer.FOREGROUND;
+
+		if (this.tile.storedItem != ItemStack.EMPTY && this.tile.getStackInSlot(1) != null) {
+			this.builder.drawBigBlueBar(this, 31, 43, this.tile.storedItem.getCount() + this.tile.getStackInSlot(1).getCount(), this.tile.maxCapacity, mouseX - this.guiLeft, mouseY - this.guiTop, "Stored", layer);
 		}
-		if (tile.storedItem == ItemStack.EMPTY && tile.getStackInSlot(1) != null) {
-			builder.drawBigBlueBar(this, 31, 43, tile.getStackInSlot(1).getCount(), tile.maxCapacity, mouseX - guiLeft, mouseY - guiTop, "Stored");
+		if (this.tile.storedItem == ItemStack.EMPTY && this.tile.getStackInSlot(1) != null) {
+			this.builder.drawBigBlueBar(this, 31, 43, this.tile.getStackInSlot(1).getCount(), this.tile.maxCapacity, mouseX - this.guiLeft, mouseY - this.guiTop, "Stored", layer);
 		}
 	}
 }
