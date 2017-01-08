@@ -5,6 +5,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.SlotFurnaceFuel;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -22,6 +23,7 @@ import techreborn.utils.upgrade.IMachineUpgrade;
 
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
+import java.util.function.Predicate;
 
 public class ContainerTileInventoryBuilder {
 
@@ -47,6 +49,12 @@ public class ContainerTileInventoryBuilder {
 
 	public ContainerTileInventoryBuilder fakeSlot(final int index, final int x, final int y) {
 		this.parent.slots.add(new SlotFake(this.tile, index, x, y, false, false, Integer.MAX_VALUE));
+		return this;
+	}
+
+	public ContainerTileInventoryBuilder filterSlot(final int index, final int x, final int y,
+			final Predicate<ItemStack> filter) {
+		this.parent.slots.add(new FilteredSlot(this.tile, index, x, y).setFilter(filter));
 		return this;
 	}
 
@@ -121,7 +129,7 @@ public class ContainerTileInventoryBuilder {
 							(currentNeededTicks) -> ((IRecipeCrafterProvider) this.tile)
 							.getRecipeCrafter().currentNeededTicks = currentNeededTicks);
 		Core.logHelper
-				.error(this.tile + " is not an instance of IRecipeCrafterProvider! Craft progress cannot be synced.");
+		.error(this.tile + " is not an instance of IRecipeCrafterProvider! Craft progress cannot be synced.");
 		return this;
 	}
 

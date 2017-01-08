@@ -12,6 +12,7 @@ import reborncore.common.container.RebornContainer;
 import techreborn.client.container.*;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.client.gui.*;
+import techreborn.init.ModItems;
 import techreborn.manual.GuiManual;
 import techreborn.tiles.*;
 import techreborn.tiles.fusionReactor.TileEntityFusionController;
@@ -197,7 +198,14 @@ public class GuiHandler implements IGuiHandler {
 							((TileRecycler) world.getTileEntity(new BlockPos(x, y, z)))::setProgress)
 					.addInventory().create();
 		} else if (ID == GuiHandler.scrapboxinatorID) {
-			return new ContainerScrapboxinator((TileScrapboxinator) world.getTileEntity(new BlockPos(x, y, z)), player);
+			return new ContainerBuilder("scrapboxinator").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z)))
+					.filterSlot(0, 56, 34, stack -> stack.getItem() == ModItems.SCRAP_BOX).outputSlot(1, 116, 34)
+					.upgradeSlot(2, 152, 8).upgradeSlot(3, 152, 26).upgradeSlot(4, 152, 44).upgradeSlot(5, 152, 62)
+					.syncEnergyValue()
+					.syncIntegerValue(((TileScrapboxinator) world.getTileEntity(new BlockPos(x, y, z)))::getProgress,
+							((TileScrapboxinator) world.getTileEntity(new BlockPos(x, y, z)))::setProgress)
+					.addInventory().create();
 		} else if (ID == GuiHandler.batboxID) {
 			return new ContainerBuilder("batbox").player(player.inventory).inventory(8, 84).hotbar(8, 142)
 					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).energySlot(0, 80, 17)
