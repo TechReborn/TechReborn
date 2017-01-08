@@ -128,8 +128,10 @@ public class GuiHandler implements IGuiHandler {
 			return new ContainerIndustrialGrinder((TileIndustrialGrinder) world.getTileEntity(new BlockPos(x, y, z)),
 					player);
 		} else if (ID == GuiHandler.implosionCompresserID) {
-			return new ContainerImplosionCompressor(
-					(TileImplosionCompressor) world.getTileEntity(new BlockPos(x, y, z)), player);
+			return new ContainerBuilder("implosioncompressor").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 37, 26)
+					.slot(1, 37, 44).outputSlot(2, 93, 35).outputSlot(3, 111, 35).syncEnergyValue().syncCrafterValue()
+					.addInventory().create();
 		} else if (ID == GuiHandler.matterfabID) {
 			return new ContainerBuilder("matterfabricator").player(player.inventory).inventory(8, 84).hotbar(8, 142)
 					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 33, 17)
@@ -196,7 +198,9 @@ public class GuiHandler implements IGuiHandler {
 					.energySlot(1, 80, 21).energySlot(2, 98, 21).energySlot(3, 62, 39).energySlot(4, 80, 39)
 					.energySlot(5, 98, 39).syncEnergyValue().addInventory().create();
 		} else if (ID == GuiHandler.vacuumFreezerID) {
-			return new ContainerVacuumFreezer((TileVacuumFreezer) world.getTileEntity(new BlockPos(x, y, z)), player);
+			return new ContainerBuilder("vacuumfreezer").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 56, 34)
+					.outputSlot(1, 116, 35).syncEnergyValue().syncCrafterValue().addInventory().create();
 		} else if (ID == GuiHandler.generatorID) {
 			return new ContainerBuilder("generator").player(player.inventory).inventory(8, 84).hotbar(8, 142)
 					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).fuelSlot(0, 80, 53)

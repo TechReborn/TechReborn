@@ -14,7 +14,9 @@ import techreborn.api.generator.GeneratorRecipeHelper;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.api.recipe.machines.AssemblingMachineRecipe;
 import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
-import techreborn.client.container.*;
+import techreborn.client.container.ContainerFusionReactor;
+import techreborn.client.container.ContainerIndustrialElectrolyzer;
+import techreborn.client.container.ContainerIndustrialGrinder;
 import techreborn.client.gui.*;
 import techreborn.compat.CompatManager;
 import techreborn.compat.jei.alloySmelter.AlloySmelterRecipeCategory;
@@ -272,20 +274,21 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 
 		final IRecipeTransferRegistry recipeTransferRegistry = registry.getRecipeTransferRegistry();
 
-		recipeTransferRegistry
-		.addRecipeTransferHandler(ContainerBlastFurnace.class, RecipeCategoryUids.BLAST_FURNACE, 0, 2, 4, 36);
+
 		recipeTransferRegistry
 		.addRecipeTransferHandler(ContainerFusionReactor.class, RecipeCategoryUids.FUSION_REACTOR, 0, 2, 3, 36);
 		recipeTransferRegistry
 		.addRecipeTransferHandler(ContainerIndustrialGrinder.class, RecipeCategoryUids.GRINDER, 0, 2, 6, 36);
-		recipeTransferRegistry
-		.addRecipeTransferHandler(ContainerImplosionCompressor.class, RecipeCategoryUids.IMPLOSION_COMPRESSOR,
-				0, 2, 4, 36);
 		recipeTransferRegistry.addRecipeTransferHandler(ContainerIndustrialElectrolyzer.class,
 				RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER, 0, 2, 7, 36);
-		recipeTransferRegistry
-		.addRecipeTransferHandler(ContainerVacuumFreezer.class, RecipeCategoryUids.VACUUM_FREEZER, 0, 1, 2, 36);
 
+		recipeTransferRegistry.addRecipeTransferHandler(
+				new BuiltContainerTransferInfo("implosioncompressor", RecipeCategoryUids.IMPLOSION_COMPRESSOR, 36, 2, 0,
+						36));
+		recipeTransferRegistry.addRecipeTransferHandler(
+				new BuiltContainerTransferInfo("vacuumfreezer", RecipeCategoryUids.VACUUM_FREEZER, 36, 1, 0, 36));
+		recipeTransferRegistry.addRecipeTransferHandler(
+				new BuiltContainerTransferInfo("blastfurnace", RecipeCategoryUids.BLAST_FURNACE, 36, 2, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
 				new BuiltContainerTransferInfo("rollingmachine", RecipeCategoryUids.ROLLING_MACHINE, 36, 9, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
