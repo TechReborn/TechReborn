@@ -124,6 +124,11 @@ public class ModRecipes {
 			ItemDusts.getDustByName("netherrack"),
 			300, 27));
 
+		RecipeHandler.addRecipe(new GrinderRecipe(
+			new ItemStack(Items.COAL),
+			ItemDusts.getDustByName("coal"),
+			300, 27));
+
 		for (String oreDictionaryName : OreDictionary.getOreNames()) {
 			if (isDictPrefixed(oreDictionaryName, "ore", "gem", "ingot")) {
 				ItemStack oreStack = getDictOreOrEmpty(oreDictionaryName, 1);
@@ -722,17 +727,12 @@ public class ModRecipes {
 		//			"plateIridium", 'C', "circuitBasic",
 		//			'B', ModItems.lithiumBattery, 'S', ModBlocks.Supercondensator, 'T', ModBlocks.extractor);
 
-		CraftingHelper
-			.addShapedOreRecipe(new ItemStack(ModBlocks.INDUSTRIAL_CENTRIFUGE), "SCS", "BEB", "SCS", 'S', "plateSteel", 'C',
-				"circuitAdvanced", 'B', "machineBlockAdvanced", 'E',
-				IC2Duplicates.EXTRACTOR.getStackBasedOnConfig());
-
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.INDUSTRIAL_BLAST_FURNACE), "CHC", "HBH", "FHF", 'H',
 			ItemParts.getPartByName("cupronickelHeatingCoil"), 'C', "circuitAdvanced", 'B',
 			BlockMachineFrame.getFrameByName("advancedMachine", 1), 'F', IC2Duplicates.ELECTRICAL_FURNACE.getStackBasedOnConfig());
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.INDUSTRIAL_GRINDER), "ECP", "GGG", "CBC", 'E',
-			ModBlocks.INDUSTRIAL_ELECTROLYZER, 'P', IC2Duplicates.EXTRACTOR.getStackBasedOnConfig(), 'C',
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.INDUSTRIAL_GRINDER), "ECG", "HHH", "CBC", 'E',
+			ModBlocks.INDUSTRIAL_ELECTROLYZER, 'H', "craftingGrinder", 'C',
 			"circuitAdvanced", 'B', "machineBlockAdvanced",
 			'G', IC2Duplicates.GRINDER.getStackBasedOnConfig());
 
