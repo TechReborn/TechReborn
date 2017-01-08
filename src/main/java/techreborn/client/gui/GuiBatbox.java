@@ -12,7 +12,7 @@ public class GuiBatbox extends GuiBase {
 	TileBatBox tile;
 
 	public GuiBatbox(final EntityPlayer player, final TileBatBox tile) {
-		super(player, tile, new ContainerBuilder("batbox").player(player.inventory).inventory(8, 84).hotbar(8, 142).addInventory().tile(tile).energySlot(0, 62, 45).energySlot(1, 98, 45).syncEnergyValue().addInventory().create());
+		super(player, tile, new ContainerBuilder("batbox").player(player.inventory).inventory().hotbar().addInventory().tile(tile).energySlot(0, 62, 45).energySlot(1, 98, 45).syncEnergyValue().addInventory().create());
 		this.tile = tile;
 	}
 
