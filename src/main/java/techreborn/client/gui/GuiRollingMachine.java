@@ -7,8 +7,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 
-import techreborn.api.RollingMachineRecipe;
-import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.tiles.TileRollingMachine;
 
 public class GuiRollingMachine extends GuiContainer {
@@ -18,14 +16,7 @@ public class GuiRollingMachine extends GuiContainer {
 	TileRollingMachine rollingMachine;
 
 	public GuiRollingMachine(final EntityPlayer player, final TileRollingMachine tileRollingmachine) {
-		super(new ContainerBuilder("rollingmachine").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory().tile(tileRollingmachine.craftMatrix).slot(0, 30, 17).slot(1, 48, 17).slot(2, 66, 17)
-				.slot(3, 30, 35).slot(4, 48, 35).slot(5, 66, 35).slot(6, 30, 53).slot(7, 48, 53).slot(8, 66, 53)
-				.onCraft(inv -> tileRollingmachine.inventory.setInventorySlotContents(1,
-						RollingMachineRecipe.instance.findMatchingRecipe(inv, tileRollingmachine.getWorld())))
-				.addInventory().tile(tileRollingmachine).outputSlot(0, 124, 35).energySlot(2, 8, 51).syncEnergyValue()
-				.syncIntegerValue(tileRollingmachine::getBurnTime, tileRollingmachine::setBurnTime).addInventory()
-				.create());
+		super(tileRollingmachine.createContainer(player));
 		this.xSize = 176;
 		this.ySize = 167;
 		this.rollingMachine = tileRollingmachine;

@@ -6,11 +6,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 
-import reborncore.api.recipe.RecipeHandler;
-import reborncore.common.util.ItemUtils;
-
-import techreborn.api.recipe.machines.AlloySmelterRecipe;
-import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.tiles.TileAlloySmelter;
 
 public class GuiAlloySmelter extends GuiContainer {
@@ -20,23 +15,11 @@ public class GuiAlloySmelter extends GuiContainer {
 
 	TileAlloySmelter alloysmelter;
 
-	public GuiAlloySmelter(final EntityPlayer player, final TileAlloySmelter tilealloysmelter) {
-		super(new ContainerBuilder("alloysmelter").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory().tile(tilealloysmelter)
-				.filterSlot(0, 47, 17,
-						stack -> RecipeHandler.recipeList.stream()
-						.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
-								&& ItemUtils.isItemEqual(recipe.getInputs().get(0), stack, true, true, true)))
-				.filterSlot(1, 65, 17,
-						stack -> RecipeHandler.recipeList.stream()
-						.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
-								&& ItemUtils.isItemEqual(recipe.getInputs().get(1), stack, true, true, true)))
-				.outputSlot(2, 116, 35).energySlot(3, 56, 53).upgradeSlot(4, 152, 8).upgradeSlot(5, 152, 26)
-				.upgradeSlot(6, 152, 44).upgradeSlot(7, 152, 62).syncEnergyValue().syncCrafterValue().addInventory()
-				.create());
+	public GuiAlloySmelter(final EntityPlayer player, final TileAlloySmelter alloySmelter) {
+		super(alloySmelter.createContainer(player));
 		this.xSize = 176;
 		this.ySize = 167;
-		this.alloysmelter = tilealloysmelter;
+		this.alloysmelter = alloySmelter;
 	}
 
 	@Override

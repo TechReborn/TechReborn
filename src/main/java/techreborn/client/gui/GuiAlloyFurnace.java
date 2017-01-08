@@ -6,11 +6,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 
-import reborncore.api.recipe.RecipeHandler;
-import reborncore.common.util.ItemUtils;
-
-import techreborn.api.recipe.machines.AlloySmelterRecipe;
-import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.tiles.TileAlloyFurnace;
 
 public class GuiAlloyFurnace extends GuiContainer {
@@ -20,25 +15,11 @@ public class GuiAlloyFurnace extends GuiContainer {
 
 	TileAlloyFurnace alloyfurnace;
 
-	public GuiAlloyFurnace(final EntityPlayer player, final TileAlloyFurnace tileAlloyFurnace) {
-		super(new ContainerBuilder("alloyfurnace").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory().tile(tileAlloyFurnace)
-				.filterSlot(0, 47, 17,
-						stack -> RecipeHandler.recipeList.stream()
-						.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
-								&& ItemUtils.isItemEqual(recipe.getInputs().get(0), stack, true, true, true)))
-				.filterSlot(1, 65, 17,
-						stack -> RecipeHandler.recipeList.stream()
-						.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
-								&& ItemUtils.isItemEqual(recipe.getInputs().get(1), stack, true, true, true)))
-				.outputSlot(2, 116, 35).fuelSlot(3, 56, 53)
-				.syncIntegerValue(tileAlloyFurnace::getBurnTime, tileAlloyFurnace::setBurnTime)
-				.syncIntegerValue(tileAlloyFurnace::getCookTime, tileAlloyFurnace::setCookTime)
-				.syncIntegerValue(tileAlloyFurnace::getCurrentItemBurnTime, tileAlloyFurnace::setCurrentItemBurnTime)
-				.addInventory().create());
+	public GuiAlloyFurnace(final EntityPlayer player, final TileAlloyFurnace alloyFurnace) {
+		super(alloyFurnace.createContainer(player));
 		this.xSize = 176;
 		this.ySize = 167;
-		this.alloyfurnace = tileAlloyFurnace;
+		this.alloyfurnace = alloyFurnace;
 	}
 
 	@Override

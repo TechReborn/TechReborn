@@ -6,7 +6,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 
-import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.tiles.TileChemicalReactor;
 
 public class GuiChemicalReactor extends GuiContainer {
@@ -16,14 +15,11 @@ public class GuiChemicalReactor extends GuiContainer {
 
 	TileChemicalReactor chemicalReactor;
 
-	public GuiChemicalReactor(final EntityPlayer player, final TileChemicalReactor tilechemicalReactor) {
-		super(new ContainerBuilder("chemicalreactor").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory().tile(tilechemicalReactor).slot(0, 70, 21).slot(1, 90, 21).outputSlot(2, 80, 51)
-				.energySlot(3, 8, 51).upgradeSlot(4, 152, 8).upgradeSlot(5, 152, 26).upgradeSlot(6, 152, 44)
-				.upgradeSlot(7, 152, 62).syncEnergyValue().syncCrafterValue().addInventory().create());
+	public GuiChemicalReactor(final EntityPlayer player, final TileChemicalReactor chemicalReactor) {
+		super(chemicalReactor.createContainer(player));
 		this.xSize = 176;
 		this.ySize = 167;
-		this.chemicalReactor = tilechemicalReactor;
+		this.chemicalReactor = chemicalReactor;
 	}
 
 	@Override

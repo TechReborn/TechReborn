@@ -6,7 +6,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 
-import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.tiles.teir1.TileGrinder;
 
 public class GuiGrinder extends GuiContainer {
@@ -16,10 +15,7 @@ public class GuiGrinder extends GuiContainer {
 	TileGrinder grinder;
 
 	public GuiGrinder(final EntityPlayer player, final TileGrinder grinder) {
-		super(new ContainerBuilder("grinder").player(player.inventory).inventory(8, 84).hotbar(8, 142).addInventory()
-				.tile(grinder).slot(0, 56, 34).outputSlot(1, 116, 34).upgradeSlot(2, 152, 8).upgradeSlot(3, 152, 26)
-				.upgradeSlot(4, 152, 44).upgradeSlot(5, 152, 62).syncEnergyValue().syncCrafterValue().addInventory()
-				.create());
+		super(grinder.createContainer(player));
 		this.xSize = 176;
 		this.ySize = 167;
 		this.grinder = grinder;

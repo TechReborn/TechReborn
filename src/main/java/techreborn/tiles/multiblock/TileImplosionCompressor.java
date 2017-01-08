@@ -1,11 +1,11 @@
 package techreborn.tiles.multiblock;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
@@ -13,13 +13,15 @@ import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Inventory;
+
 import techreborn.api.Reference;
+import techreborn.client.container.IContainerProvider;
+import techreborn.client.container.builder.BuiltContainer;
+import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 
-import static techreborn.tiles.multiblock.MultiblockChecker.CASING_REINFORCED;
-import static techreborn.tiles.multiblock.MultiblockChecker.ZERO_OFFSET;
-
-public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenchable, IInventoryProvider, ISidedInventory, IRecipeCrafterProvider {
+public class TileImplosionCompressor extends TilePowerAcceptor
+		implements IWrenchable, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
 
 	public Inventory inventory = new Inventory(4, "TileImplosionCompressor", 64, this);
 	public MultiblockChecker multiblockChecker;
@@ -27,29 +29,29 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
 
 	public TileImplosionCompressor() {
 		super(2);
-		int[] inputs = new int[] { 0, 1 };
-		int[] outputs = new int[] { 2, 3 };
-		crafter = new RecipeCrafter(Reference.implosionCompressorRecipe, this, 2, 2, inventory, inputs, outputs);
+		final int[] inputs = new int[] { 0, 1 };
+		final int[] outputs = new int[] { 2, 3 };
+		this.crafter = new RecipeCrafter(Reference.implosionCompressorRecipe, this, 2, 2, this.inventory, inputs, outputs);
 	}
 
 	@Override
 	public void validate() {
 		super.validate();
-		multiblockChecker = new MultiblockChecker(world, getPos().down(3));
+		this.multiblockChecker = new MultiblockChecker(this.world, this.getPos().down(3));
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
+	public boolean wrenchCanSetFacing(final EntityPlayer entityPlayer, final EnumFacing side) {
 		return false;
 	}
 
 	@Override
 	public EnumFacing getFacing() {
-		return getFacingEnum();
+		return this.getFacingEnum();
 	}
 
 	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
+	public boolean wrenchCanRemove(final EntityPlayer entityPlayer) {
 		return entityPlayer.isSneaking();
 	}
 
@@ -59,56 +61,56 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
 	}
 
 	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+	public ItemStack getWrenchDrop(final EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.IMPLOSION_COMPRESSOR, 1);
 	}
 
 	public boolean getMutliBlock() {
-		boolean down = multiblockChecker.checkRectY(1, 1, CASING_REINFORCED, ZERO_OFFSET);
-		boolean up = multiblockChecker.checkRectY(1, 1, CASING_REINFORCED, new BlockPos(0, 2, 0));
-		boolean chamber = multiblockChecker.checkRingYHollow(1, 1, CASING_REINFORCED, new BlockPos(0, 1, 0));
+		final boolean down = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.CASING_REINFORCED, MultiblockChecker.ZERO_OFFSET);
+		final boolean up = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.CASING_REINFORCED, new BlockPos(0, 2, 0));
+		final boolean chamber = this.multiblockChecker.checkRingYHollow(1, 1, MultiblockChecker.CASING_REINFORCED, new BlockPos(0, 1, 0));
 		return down && chamber && up;
 	}
 
 	@Override
 	public void update() {
 		super.update();
-		if (getMutliBlock()) {
-			crafter.updateEntity();
+		if (this.getMutliBlock()) {
+			this.crafter.updateEntity();
 		}
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound tagCompound) {
+	public void readFromNBT(final NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
-		crafter.readFromNBT(tagCompound);
+		this.crafter.readFromNBT(tagCompound);
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
+	public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
-		crafter.writeToNBT(tagCompound);
+		this.crafter.writeToNBT(tagCompound);
 		return tagCompound;
 	}
 
 	@Override
-	public int[] getSlotsForFace(EnumFacing side) {
+	public int[] getSlotsForFace(final EnumFacing side) {
 		return new int[] { 0, 1, 2, 3 };
 	}
 
 	@Override
-	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+	public boolean canInsertItem(final int index, final ItemStack itemStackIn, final EnumFacing direction) {
 		return index == 0 || index == 1;
 	}
 
 	@Override
-	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+	public boolean canExtractItem(final int index, final ItemStack stack, final EnumFacing direction) {
 		return index == 2 || index == 3;
 	}
 
-	public int getProgressScaled(int scale) {
-		if (crafter.currentTickTime != 0) {
-			return crafter.currentTickTime * scale / crafter.currentNeededTicks;
+	public int getProgressScaled(final int scale) {
+		if (this.crafter.currentTickTime != 0) {
+			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
 		}
 		return 0;
 	}
@@ -119,12 +121,12 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction) {
+	public boolean canAcceptEnergy(final EnumFacing direction) {
 		return true;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnumFacing direction) {
+	public boolean canProvideEnergy(final EnumFacing direction) {
 		return false;
 	}
 
@@ -145,12 +147,19 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
 
 	@Override
 	public Inventory getInventory() {
-		return inventory;
+		return this.inventory;
 	}
 
 	@Override
 	public RecipeCrafter getRecipeCrafter() {
-		return crafter;
+		return this.crafter;
+	}
+
+	@Override
+	public BuiltContainer createContainer(final EntityPlayer player) {
+		return new ContainerBuilder("implosioncompressor").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+				.addInventory().tile(this).slot(0, 37, 26).slot(1, 37, 44).outputSlot(2, 93, 35).outputSlot(3, 111, 35)
+				.syncEnergyValue().syncCrafterValue().addInventory().create();
 	}
 
 }

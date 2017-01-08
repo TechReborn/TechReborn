@@ -15,9 +15,12 @@ import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 
+import techreborn.client.container.IContainerProvider;
+import techreborn.client.container.builder.BuiltContainer;
+import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 
-public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IInventoryProvider {
+public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IInventoryProvider, IContainerProvider {
 	public static int outputAmount = 10;
 	public Inventory inventory = new Inventory(2, "TileGenerator", 64, this);
 	public int fuelSlot = 0;
@@ -162,5 +165,13 @@ public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IIn
 
 	public int getScaledBurnTime(final int i) {
 		return (int) ((float) this.burnTime / (float) this.totalBurnTime * i);
+	}
+
+	@Override
+	public BuiltContainer createContainer(final EntityPlayer player) {
+		return new ContainerBuilder("generator").player(player.inventory).inventory(8, 84).hotbar(8, 142).addInventory()
+				.tile(this).fuelSlot(0, 80, 53).energySlot(1, 80, 17).syncEnergyValue()
+				.syncIntegerValue(this::getBurnTime, this::setBurnTime)
+				.syncIntegerValue(this::getTotalBurnTime, this::setTotalBurnTime).addInventory().create();
 	}
 }

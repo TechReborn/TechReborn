@@ -17,7 +17,6 @@ import reborncore.client.multiblock.MultiblockSet;
 import reborncore.common.misc.Location;
 import reborncore.common.multiblock.CoordTriplet;
 
-import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.proxies.ClientProxy;
 import techreborn.tiles.multiblock.TileBlastFurnace;
@@ -33,14 +32,11 @@ public class GuiBlastFurnace extends GuiContainer {
 
 	boolean hasMultiBlock;
 
-	public GuiBlastFurnace(final EntityPlayer player, final TileBlastFurnace tileblastfurnace) {
-		super(new ContainerBuilder("blastfurnace").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory().tile(tileblastfurnace).slot(0, 40, 25).slot(1, 40, 43).outputSlot(2, 100, 35)
-				.outputSlot(3, 118, 35).syncEnergyValue().syncCrafterValue()
-				.syncIntegerValue(tileblastfurnace::getHeat, tileblastfurnace::setHeat).addInventory().create());
+	public GuiBlastFurnace(final EntityPlayer player, final TileBlastFurnace blastFurnace) {
+		super(blastFurnace.createContainer(player));
 		this.xSize = 176;
 		this.ySize = 167;
-		this.blastfurnace = tileblastfurnace;
+		this.blastfurnace = blastFurnace;
 	}
 
 	@Override

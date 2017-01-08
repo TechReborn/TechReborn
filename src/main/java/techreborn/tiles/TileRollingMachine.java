@@ -15,10 +15,14 @@ import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 
 import techreborn.api.RollingMachineRecipe;
+import techreborn.client.container.IContainerProvider;
+import techreborn.client.container.builder.BuiltContainer;
+import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 
 //TODO add tick and power bars.
-public class TileRollingMachine extends TilePowerAcceptor implements IWrenchable, IInventoryProvider {
+public class TileRollingMachine extends TilePowerAcceptor
+		implements IWrenchable, IInventoryProvider, IContainerProvider {
 
 	public final InventoryCrafting craftMatrix = new InventoryCrafting(new RollingTileContainer(), 3, 3);
 	public Inventory inventory = new Inventory(3, "TileRollingMachine", 64, this);
@@ -203,5 +207,16 @@ public class TileRollingMachine extends TilePowerAcceptor implements IWrenchable
 			return 0;
 		}
 		return this.tickTime * scale / this.runTime;
+	}
+
+	@Override
+	public BuiltContainer createContainer(final EntityPlayer player) {
+		return new ContainerBuilder("rollingmachine").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+				.addInventory().tile(this.craftMatrix).slot(0, 30, 17).slot(1, 48, 17).slot(2, 66, 17).slot(3, 30, 35)
+				.slot(4, 48, 35).slot(5, 66, 35).slot(6, 30, 53).slot(7, 48, 53).slot(8, 66, 53)
+				.onCraft(inv -> this.inventory.setInventorySlotContents(1,
+						RollingMachineRecipe.instance.findMatchingRecipe(inv, this.world)))
+				.addInventory().tile(this).outputSlot(0, 124, 35).energySlot(2, 8, 51).syncEnergyValue()
+				.syncIntegerValue(this::getBurnTime, this::setBurnTime).addInventory().create();
 	}
 }

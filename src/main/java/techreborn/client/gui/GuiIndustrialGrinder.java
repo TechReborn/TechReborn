@@ -9,7 +9,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fluids.FluidStack;
 
-import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.tiles.multiblock.TileIndustrialGrinder;
 
 public class GuiIndustrialGrinder extends GuiContainer {
@@ -19,14 +18,11 @@ public class GuiIndustrialGrinder extends GuiContainer {
 
 	TileIndustrialGrinder grinder;
 
-	public GuiIndustrialGrinder(final EntityPlayer player, final TileIndustrialGrinder tilegrinder) {
-		super(new ContainerBuilder("industrialgrinder").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory().tile(tilegrinder).slot(0, 32, 26).slot(1, 32, 44).outputSlot(2, 77, 35)
-				.outputSlot(3, 95, 35).outputSlot(4, 113, 35).outputSlot(5, 131, 35).syncEnergyValue()
-				.syncCrafterValue().addInventory().create());
+	public GuiIndustrialGrinder(final EntityPlayer player, final TileIndustrialGrinder grinder) {
+		super(grinder.createContainer(player));
 		this.xSize = 176;
 		this.ySize = 167;
-		this.grinder = tilegrinder;
+		this.grinder = grinder;
 	}
 
 	@Override

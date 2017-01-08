@@ -15,7 +15,6 @@ import reborncore.common.misc.Location;
 import reborncore.common.powerSystem.PowerSystem;
 
 import techreborn.client.ClientMultiBlocks;
-import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.proxies.ClientProxy;
 import techreborn.tiles.fusionReactor.TileEntityFusionController;
 
@@ -29,12 +28,7 @@ public class GuiFusionReactor extends GuiContainer {
 	TileEntityFusionController fusionController;
 
 	public GuiFusionReactor(final EntityPlayer player, final TileEntityFusionController fusion) {
-		super(new ContainerBuilder("fusionreactor").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory().tile(fusion).slot(0, 88, 17).slot(1, 88, 53).outputSlot(2, 148, 35).syncEnergyValue()
-				.syncIntegerValue(fusion::getCoilStatus, fusion::setCoilStatus)
-				.syncIntegerValue(fusion::getCrafingTickTime, fusion::setCrafingTickTime)
-				.syncIntegerValue(fusion::getFinalTickTime, fusion::setFinalTickTime)
-				.syncIntegerValue(fusion::getNeededPower, fusion::setNeededPower).addInventory().create());
+		super(fusion.createContainer(player));
 		this.fusionController = fusion;
 	}
 

@@ -7,7 +7,6 @@ import net.minecraft.util.text.translation.I18n;
 
 import reborncore.common.powerSystem.PowerSystem;
 
-import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.tiles.generator.TileGenerator;
 
 public class GuiGenerator extends GuiContainer {
@@ -17,10 +16,7 @@ public class GuiGenerator extends GuiContainer {
 	TileGenerator generator;
 
 	public GuiGenerator(final EntityPlayer player, final TileGenerator generator) {
-		super(new ContainerBuilder("generator").player(player.inventory).inventory(8, 84).hotbar(8, 142).addInventory()
-				.tile(generator).fuelSlot(0, 80, 53).energySlot(1, 80, 17).syncEnergyValue()
-				.syncIntegerValue(generator::getBurnTime, generator::setBurnTime)
-				.syncIntegerValue(generator::getTotalBurnTime, generator::setTotalBurnTime).addInventory().create());
+		super(generator.createContainer(player));
 		this.xSize = 176;
 		this.ySize = 167;
 		this.generator = generator;

@@ -1,6 +1,7 @@
 package techreborn.tiles;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
@@ -14,7 +15,12 @@ import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.util.Inventory;
 
-public class TileIronFurnace extends TileLegacyMachineBase implements IInventoryProvider, ISidedInventory {
+import techreborn.client.container.IContainerProvider;
+import techreborn.client.container.builder.BuiltContainer;
+import techreborn.client.container.builder.ContainerBuilder;
+
+public class TileIronFurnace extends TileLegacyMachineBase
+		implements IInventoryProvider, ISidedInventory, IContainerProvider {
 
 	private static final int[] SLOTS_TOP = new int[] { 0 };
 	private static final int[] SLOTS_BOTTOM = new int[] { 2, 1 };
@@ -180,5 +186,13 @@ public class TileIronFurnace extends TileLegacyMachineBase implements IInventory
 
 	public void setTotalBurnTime(final int totalBurnTime) {
 		this.fuelGague = totalBurnTime;
+	}
+
+	@Override
+	public BuiltContainer createContainer(final EntityPlayer player) {
+		return new ContainerBuilder("ironfurnace").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+				.addInventory().tile(this).slot(0, 56, 17).outputSlot(1, 116, 34).fuelSlot(2, 56, 53)
+				.syncIntegerValue(this::getBurnTime, this::setBurnTime)
+				.syncIntegerValue(this::getTotalBurnTime, this::setTotalBurnTime).addInventory().create();
 	}
 }

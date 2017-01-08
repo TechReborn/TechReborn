@@ -8,7 +8,6 @@ import net.minecraft.util.text.translation.I18n;
 
 import reborncore.common.powerSystem.PowerSystem;
 
-import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.tiles.generator.TileDieselGenerator;
 
 public class GuiDieselGenerator extends GuiContainer {
@@ -16,15 +15,13 @@ public class GuiDieselGenerator extends GuiContainer {
 	private static final ResourceLocation texture = new ResourceLocation("techreborn",
 			"textures/gui/diesel_generator.png");
 
-	TileDieselGenerator tile;
+	TileDieselGenerator dieselGenerator;
 
-	public GuiDieselGenerator(final EntityPlayer player, final TileDieselGenerator tile) {
-		super(new ContainerBuilder("fluidgenerator").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory().tile(tile).slot(0, 80, 17).outputSlot(1, 80, 53).fakeSlot(2, 59, 42).syncEnergyValue()
-				.addInventory().create());
+	public GuiDieselGenerator(final EntityPlayer player, final TileDieselGenerator dieselGenerator) {
+		super(dieselGenerator.createContainer(player));
 		this.xSize = 176;
 		this.ySize = 167;
-		this.tile = tile;
+		this.dieselGenerator = dieselGenerator;
 	}
 
 	@Override
@@ -44,10 +41,10 @@ public class GuiDieselGenerator extends GuiContainer {
 		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,
 				this.ySize - 96 + 2, 4210752);
 		this.fontRendererObj.drawString("Liquid Amount", 10, 20, 16448255);
-		this.fontRendererObj.drawString(this.tile.tank.getFluidAmount() + "", 10, 30, 16448255);
+		this.fontRendererObj.drawString(this.dieselGenerator.tank.getFluidAmount() + "", 10, 30, 16448255);
 
 		this.fontRendererObj.drawString("Power Amount", 10, 40, 16448255);
-		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(this.tile.getEnergy()) + "", 10, 50,
+		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(this.dieselGenerator.getEnergy()) + "", 10, 50,
 				16448255);
 	}
 }

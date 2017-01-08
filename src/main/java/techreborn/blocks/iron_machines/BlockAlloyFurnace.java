@@ -8,10 +8,12 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.blocks.IRotationTexture;
+
 import techreborn.Core;
-import techreborn.client.GuiHandler;
+import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileAlloyFurnace;
 
@@ -22,54 +24,54 @@ public class BlockAlloyFurnace extends BlockMachineBase implements IRotationText
 
 	private final String prefix = "techreborn:blocks/machine/iron_machines/";
 
-	public BlockAlloyFurnace(Material material) {
+	public BlockAlloyFurnace(final Material material) {
 		super();
-		setUnlocalizedName("techreborn.alloyfurnace");
-		setCreativeTab(TechRebornCreativeTab.instance);
+		this.setUnlocalizedName("techreborn.alloyfurnace");
+		this.setCreativeTab(TechRebornCreativeTab.instance);
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int p_149915_2_) {
+	public TileEntity createNewTileEntity(final World world, final int p_149915_2_) {
 		return new TileAlloyFurnace();
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
-	                                float hitY, float hitZ) {
+	public boolean onBlockActivated(final World world, final int x, final int y, final int z, final EntityPlayer player, final int side, final float hitX,
+			final float hitY, final float hitZ) {
 		if (!player.isSneaking())
-			player.openGui(Core.INSTANCE, GuiHandler.alloyFurnaceID, world, x, y, z);
+			player.openGui(Core.INSTANCE, EGui.ALLOY_FURNACE.ordinal(), world, x, y, z);
 		return true;
 	}
 
 	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-		List<ItemStack> items = new ArrayList<>();
+	public List<ItemStack> getDrops(final IBlockAccess world, final BlockPos pos, final IBlockState state, final int fortune) {
+		final List<ItemStack> items = new ArrayList<>();
 		items.add(new ItemStack(this));
 		return items;
 	}
 
 	@Override
 	public String getFrontOff() {
-		return prefix + "alloy_furnace_front_off";
+		return this.prefix + "alloy_furnace_front_off";
 	}
 
 	@Override
 	public String getFrontOn() {
-		return prefix + "alloy_furnace_front_on";
+		return this.prefix + "alloy_furnace_front_on";
 	}
 
 	@Override
 	public String getSide() {
-		return prefix + "iron_machine_side";
+		return this.prefix + "iron_machine_side";
 	}
 
 	@Override
 	public String getTop() {
-		return prefix + "iron_machine_top";
+		return this.prefix + "iron_machine_top";
 	}
 
 	@Override
 	public String getBottom() {
-		return prefix + "iron_machine_bottom";
+		return this.prefix + "iron_machine_bottom";
 	}
 }

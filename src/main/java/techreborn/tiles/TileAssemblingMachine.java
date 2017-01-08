@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
@@ -11,10 +12,15 @@ import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Inventory;
+
 import techreborn.api.Reference;
+import techreborn.client.container.IContainerProvider;
+import techreborn.client.container.builder.BuiltContainer;
+import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 
-public class TileAssemblingMachine extends TilePowerAcceptor implements IWrenchable, ISidedInventory, IInventoryProvider, IRecipeCrafterProvider {
+public class TileAssemblingMachine extends TilePowerAcceptor
+implements IWrenchable, ISidedInventory, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
 
 	public int tickTime;
 	public Inventory inventory = new Inventory(8, "TileAssemblingMachine", 64, this);
@@ -23,32 +29,32 @@ public class TileAssemblingMachine extends TilePowerAcceptor implements IWrencha
 	public TileAssemblingMachine() {
 		super(2);
 		// Input slots
-		int[] inputs = new int[2];
+		final int[] inputs = new int[2];
 		inputs[0] = 0;
 		inputs[1] = 1;
-		int[] outputs = new int[1];
+		final int[] outputs = new int[1];
 		outputs[0] = 2;
-		crafter = new RecipeCrafter(Reference.assemblingMachineRecipe, this, 2, 2, inventory, inputs, outputs);
+		this.crafter = new RecipeCrafter(Reference.assemblingMachineRecipe, this, 2, 2, this.inventory, inputs, outputs);
 	}
 
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		charge(3);
+		this.charge(3);
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
+	public boolean wrenchCanSetFacing(final EntityPlayer entityPlayer, final EnumFacing side) {
 		return false;
 	}
 
 	@Override
 	public EnumFacing getFacing() {
-		return getFacingEnum();
+		return this.getFacingEnum();
 	}
 
 	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
+	public boolean wrenchCanRemove(final EntityPlayer entityPlayer) {
 		return entityPlayer.isSneaking();
 	}
 
@@ -58,7 +64,7 @@ public class TileAssemblingMachine extends TilePowerAcceptor implements IWrencha
 	}
 
 	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+	public ItemStack getWrenchDrop(final EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.ASSEMBLY_MACHINE, 1);
 	}
 
@@ -76,9 +82,9 @@ public class TileAssemblingMachine extends TilePowerAcceptor implements IWrencha
 	// }
 	// }
 
-	public int getProgressScaled(int scale) {
-		if (crafter.currentTickTime != 0) {
-			return crafter.currentTickTime * scale / crafter.currentNeededTicks;
+	public int getProgressScaled(final int scale) {
+		if (this.crafter.currentTickTime != 0) {
+			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
 		}
 		return 0;
 	}
@@ -89,12 +95,12 @@ public class TileAssemblingMachine extends TilePowerAcceptor implements IWrencha
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction) {
+	public boolean canAcceptEnergy(final EnumFacing direction) {
 		return true;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnumFacing direction) {
+	public boolean canProvideEnergy(final EnumFacing direction) {
 		return false;
 	}
 
@@ -115,27 +121,34 @@ public class TileAssemblingMachine extends TilePowerAcceptor implements IWrencha
 
 	@Override
 	public Inventory getInventory() {
-		return inventory;
+		return this.inventory;
 	}
 
 	@Override
 	public RecipeCrafter getRecipeCrafter() {
-		return crafter;
+		return this.crafter;
 	}
 
 	@Override
-	public int[] getSlotsForFace(EnumFacing side) {
+	public int[] getSlotsForFace(final EnumFacing side) {
 		return new int[] { 0, 1, 2 };
 	}
 
 	@Override
-	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+	public boolean canInsertItem(final int index, final ItemStack itemStackIn, final EnumFacing direction) {
 		return index == 0 || index == 1;
 	}
 
 	@Override
-	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+	public boolean canExtractItem(final int index, final ItemStack stack, final EnumFacing direction) {
 		return index == 2;
 	}
 
+	@Override
+	public BuiltContainer createContainer(final EntityPlayer player) {
+		return new ContainerBuilder("assemblingmachine").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+				.addInventory().tile(this).slot(0, 47, 17).slot(1, 65, 17).outputSlot(2, 116, 35).energySlot(3, 56, 53)
+				.upgradeSlot(4, 152, 8).upgradeSlot(5, 152, 26).upgradeSlot(6, 152, 44).upgradeSlot(7, 152, 62)
+				.syncEnergyValue().syncCrafterValue().addInventory().create();
+	}
 }

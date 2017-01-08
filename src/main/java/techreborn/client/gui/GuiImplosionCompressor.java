@@ -6,7 +6,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 
-import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.tiles.multiblock.TileImplosionCompressor;
 
 public class GuiImplosionCompressor extends GuiContainer {
@@ -14,15 +13,13 @@ public class GuiImplosionCompressor extends GuiContainer {
 	public static final ResourceLocation texture = new ResourceLocation("techreborn",
 			"textures/gui/implosion_compressor.png");
 
-	TileImplosionCompressor compresser;
+	TileImplosionCompressor compressor;
 
-	public GuiImplosionCompressor(final EntityPlayer player, final TileImplosionCompressor tilecompressor) {
-		super(new ContainerBuilder("implosioncompressor").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory().tile(tilecompressor).slot(0, 37, 26).slot(1, 37, 44).outputSlot(2, 93, 35)
-				.outputSlot(3, 111, 35).syncEnergyValue().syncCrafterValue().addInventory().create());
+	public GuiImplosionCompressor(final EntityPlayer player, final TileImplosionCompressor compressor) {
+		super(compressor.createContainer(player));
 		this.xSize = 176;
 		this.ySize = 167;
-		this.compresser = tilecompressor;
+		this.compressor = compressor;
 	}
 
 	@Override
@@ -40,18 +37,18 @@ public class GuiImplosionCompressor extends GuiContainer {
 		final int l = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
 
-		if (!this.compresser.getMutliBlock()) {
+		if (!this.compressor.getMutliBlock()) {
 			// GuiDraw.drawTooltipBox(k + 30, l + 50 + 12 - 0, 114, 10);
 			this.fontRendererObj.drawString(I18n.translateToLocal("techreborn.message.missingmultiblock"), k + 38, l + 52 + 12, -1);
 		}
 
 		this.mc.getTextureManager().bindTexture(GuiImplosionCompressor.texture);
-		int j = this.compresser.getProgressScaled(24);
+		int j = this.compressor.getProgressScaled(24);
 		if (j > 0) {
 			this.drawTexturedModalRect(k + 61, l + 37, 176, 14, j + 1, 16);
 		}
 
-		j = this.compresser.getEnergyScaled(12);
+		j = this.compressor.getEnergyScaled(12);
 		if (j > 0) {
 			this.drawTexturedModalRect(k + 14, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);
 		}

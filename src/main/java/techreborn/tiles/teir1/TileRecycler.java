@@ -2,7 +2,6 @@ package techreborn.tiles.teir1;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 
@@ -13,10 +12,13 @@ import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 
+import techreborn.client.container.IContainerProvider;
+import techreborn.client.container.builder.BuiltContainer;
+import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.items.ItemParts;
 
-public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInventoryProvider, ISidedInventory {
+public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInventoryProvider, IContainerProvider {
 
 	public Inventory inventory = new Inventory(6, "TileRecycler", 64, this);
 	public int capacity = 1000;
@@ -209,5 +211,13 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInv
 
 	public void setProgress(final int progress) {
 		this.progress = progress;
+	}
+
+	@Override
+	public BuiltContainer createContainer(final EntityPlayer player) {
+		return new ContainerBuilder("recycler").player(player.inventory).inventory(8, 84).hotbar(8, 142).addInventory()
+				.tile(this).slot(0, 56, 34).slot(1, 116, 34).upgradeSlot(2, 152, 8).upgradeSlot(3, 152, 26)
+				.upgradeSlot(4, 152, 44).upgradeSlot(5, 152, 62).syncEnergyValue()
+				.syncIntegerValue(this::getProgress, this::setProgress).addInventory().create();
 	}
 }

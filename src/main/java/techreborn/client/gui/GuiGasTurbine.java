@@ -6,7 +6,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 
-import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.tiles.generator.TileGasTurbine;
 
 public class GuiGasTurbine extends GuiContainer {
@@ -15,16 +14,13 @@ public class GuiGasTurbine extends GuiContainer {
 	private static final ResourceLocation texture = new ResourceLocation("techreborn",
 			"textures/gui/thermal_generator.png");
 
-	TileGasTurbine tile;
+	TileGasTurbine gasTurbine;
 
-	public GuiGasTurbine(final EntityPlayer player, final TileGasTurbine tile) {
-		super(new ContainerBuilder("fluidgenerator").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory()
-				.tile(tile).slot(0, 80, 17).outputSlot(1, 80, 53).fakeSlot(2, 59, 42).syncEnergyValue().addInventory()
-				.create());
+	public GuiGasTurbine(final EntityPlayer player, final TileGasTurbine gasTurbine) {
+		super(gasTurbine.createContainer(player));
 		this.xSize = 176;
 		this.ySize = 167;
-		this.tile = tile;
+		this.gasTurbine = gasTurbine;
 	}
 
 	@Override
@@ -44,6 +40,6 @@ public class GuiGasTurbine extends GuiContainer {
 		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,
 				this.ySize - 96 + 2, 4210752);
 		this.fontRendererObj.drawString("Liquid Amount", 10, 20, 16448255);
-		this.fontRendererObj.drawString(this.tile.tank.getFluidAmount() + "", 10, 30, 16448255);
+		this.fontRendererObj.drawString(this.gasTurbine.tank.getFluidAmount() + "", 10, 30, 16448255);
 	}
 }

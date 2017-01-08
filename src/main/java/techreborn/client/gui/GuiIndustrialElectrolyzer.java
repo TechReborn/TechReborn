@@ -6,7 +6,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 
-import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.tiles.TileIndustrialElectrolyzer;
 
 public class GuiIndustrialElectrolyzer extends GuiContainer {
@@ -18,10 +17,7 @@ public class GuiIndustrialElectrolyzer extends GuiContainer {
 
 
 	public GuiIndustrialElectrolyzer(final EntityPlayer player, final TileIndustrialElectrolyzer tileeletrolyzer) {
-		super(new ContainerBuilder("industrialelectrolyzer").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory().tile(tileeletrolyzer).slot(0, 80, 51).slot(1, 50, 51).outputSlot(2, 50, 19)
-				.outputSlot(3, 70, 19).outputSlot(4, 90, 19).outputSlot(5, 110, 19).energySlot(6, 18, 51)
-				.syncEnergyValue().syncCrafterValue().addInventory().create());
+		super(tileeletrolyzer.createContainer(player));
 		this.xSize = 176;
 		this.ySize = 167;
 		this.eletrolyzer = tileeletrolyzer;

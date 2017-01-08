@@ -4,10 +4,12 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.blocks.IAdvancedRotationTexture;
+
 import techreborn.Core;
-import techreborn.client.GuiHandler;
+import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileChunkLoader;
 
@@ -15,42 +17,42 @@ public class BlockChunkLoader extends BlockMachineBase implements IAdvancedRotat
 
 	private final String prefix = "techreborn:blocks/machine/greg_machines/";
 
-	public BlockChunkLoader(Material material) {
+	public BlockChunkLoader(final Material material) {
 		super();
-		setUnlocalizedName("techreborn.chunkloader");
-		setCreativeTab(TechRebornCreativeTab.instance);
+		this.setUnlocalizedName("techreborn.chunkloader");
+		this.setCreativeTab(TechRebornCreativeTab.instance);
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int p_149915_2_) {
+	public TileEntity createNewTileEntity(final World world, final int p_149915_2_) {
 		return new TileChunkLoader();
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
-	                                float hitY, float hitZ) {
+	public boolean onBlockActivated(final World world, final int x, final int y, final int z, final EntityPlayer player, final int side, final float hitX,
+			final float hitY, final float hitZ) {
 		if (!player.isSneaking())
-			player.openGui(Core.INSTANCE, GuiHandler.chunkloaderID, world, x, y, z);
+			player.openGui(Core.INSTANCE, EGui.CHUNK_LOADER.ordinal(), world, x, y, z);
 		return true;
 	}
 
 	@Override
-	public String getFront(boolean isActive) {
-		return prefix + "industrial_chunk_loader_side";
+	public String getFront(final boolean isActive) {
+		return this.prefix + "industrial_chunk_loader_side";
 	}
 
 	@Override
-	public String getSide(boolean isActive) {
-		return prefix + "industrial_chunk_loader_side";
+	public String getSide(final boolean isActive) {
+		return this.prefix + "industrial_chunk_loader_side";
 	}
 
 	@Override
-	public String getTop(boolean isActive) {
-		return prefix + "machine_top";
+	public String getTop(final boolean isActive) {
+		return this.prefix + "machine_top";
 	}
 
 	@Override
-	public String getBottom(boolean isActive) {
-		return prefix + "machine_bottom";
+	public String getBottom(final boolean isActive) {
+		return this.prefix + "machine_bottom";
 	}
 }

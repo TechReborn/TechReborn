@@ -1,19 +1,16 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
-import techreborn.client.container.builder.ContainerBuilder;
+
 import techreborn.tiles.TileCentrifuge;
 
 public class GuiCentrifuge extends GuiBase {
 
-	TileCentrifuge tile;
+	TileCentrifuge centrifuge;
 
-	public GuiCentrifuge(final EntityPlayer player, final TileCentrifuge tile) {
-		super(player, tile, new ContainerBuilder("centrifuge").player(player.inventory).inventory().hotbar().addInventory()
-			.tile(tile).slot(0, 40, 34).slot(1, 40, 54).outputSlot(2, 82, 44).outputSlot(3, 101, 25)
-			.outputSlot(4, 120, 44).outputSlot(5, 101, 63).energySlot(6, 8, 72).syncEnergyValue()
-			.syncCrafterValue().addInventory().create());
-		this.tile = tile;
+	public GuiCentrifuge(final EntityPlayer player, final TileCentrifuge centrifuge) {
+		super(player, centrifuge, centrifuge.createContainer(player));
+		this.centrifuge = centrifuge;
 	}
 
 	@Override
@@ -24,29 +21,29 @@ public class GuiCentrifuge extends GuiBase {
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float f, int mouseX, int mouseY) {
+	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
 		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
-		Layer layer = Layer.BACKGROUND;
+		final Layer layer = Layer.BACKGROUND;
 
-		drawSlot(8, 72, layer);
+		this.drawSlot(8, 72, layer);
 
-		drawSlot(40, 34, layer);
-		drawSlot(40, 54, layer);
+		this.drawSlot(40, 34, layer);
+		this.drawSlot(40, 54, layer);
 
-		drawSlot(82, 44, layer);
-		drawSlot(101, 25, layer);
-		drawSlot(120, 44, layer);
-		drawSlot(101, 63, layer);
+		this.drawSlot(82, 44, layer);
+		this.drawSlot(101, 25, layer);
+		this.drawSlot(120, 44, layer);
+		this.drawSlot(101, 63, layer);
 
-		builder.drawJEIButton(this, 150, 4, mouseX, mouseY, layer);
+		this.builder.drawJEIButton(this, 150, 4, mouseX, mouseY, layer);
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-		Layer layer = Layer.FOREGROUND;
+		final Layer layer = Layer.FOREGROUND;
 
-		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 61, 47, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
-		builder.drawMultiEnergyBar(this, 9, 18, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		this.builder.drawProgressBar(this, this.centrifuge.getProgressScaled(100), 100, 61, 47, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
+		this.builder.drawMultiEnergyBar(this, 9, 18, (int) this.centrifuge.getEnergy(), (int) this.centrifuge.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 }

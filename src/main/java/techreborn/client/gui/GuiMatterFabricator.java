@@ -6,7 +6,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 
-import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.tiles.TileMatterFabricator;
 
 public class GuiMatterFabricator extends GuiContainer {
@@ -17,10 +16,7 @@ public class GuiMatterFabricator extends GuiContainer {
 	TileMatterFabricator matterfab;
 
 	public GuiMatterFabricator(final EntityPlayer player, final TileMatterFabricator tilematterfab) {
-		super(new ContainerBuilder("matterfabricator").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory().tile(tilematterfab).slot(0, 33, 17).slot(1, 33, 35).slot(2, 33, 53).slot(3, 51, 17)
-				.slot(4, 51, 35).slot(5, 51, 53).outputSlot(6, 116, 35).syncEnergyValue()
-				.syncIntegerValue(tilematterfab::getProgress, tilematterfab::setProgress).addInventory().create());
+		super(tilematterfab.createContainer(player));
 		this.xSize = 176;
 		this.ySize = 167;
 		this.matterfab = tilematterfab;

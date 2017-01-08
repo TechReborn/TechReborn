@@ -8,8 +8,9 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+
 import techreborn.Core;
-import techreborn.client.GuiHandler;
+import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.items.ItemTRNoDestroy;
 
@@ -18,21 +19,21 @@ import java.util.List;
 public class ItemTechManual extends ItemTRNoDestroy {
 
 	public ItemTechManual() {
-		setCreativeTab(TechRebornCreativeTab.instance);
-		setUnlocalizedName("techreborn.manual");
-		setMaxStackSize(1);
+		this.setCreativeTab(TechRebornCreativeTab.instance);
+		this.setUnlocalizedName("techreborn.manual");
+		this.setMaxStackSize(1);
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player,
-	                                                EnumHand hand) {
-		player.openGui(Core.INSTANCE, GuiHandler.manuelID, world, (int) player.posX, (int) player.posY,
-			(int) player.posY);
+	public ActionResult<ItemStack> onItemRightClick(final World world, final EntityPlayer player,
+			final EnumHand hand) {
+		player.openGui(Core.INSTANCE, EGui.MANUAL.ordinal(), world, (int) player.posX, (int) player.posY,
+				(int) player.posY);
 		return new ActionResult<>(EnumActionResult.SUCCESS, player.getHeldItem(hand));
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+	public void addInformation(final ItemStack stack, final EntityPlayer playerIn, final List<String> tooltip, final boolean advanced) {
 		tooltip.add(TextFormatting.RED + I18n.translateToLocal("tooltip.wip"));
 	}
 }

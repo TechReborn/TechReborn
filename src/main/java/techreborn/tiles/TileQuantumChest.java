@@ -1,8 +1,20 @@
 package techreborn.tiles;
 
-public class TileQuantumChest extends TileTechStorageBase {
+import net.minecraft.entity.player.EntityPlayer;
+
+import techreborn.client.container.IContainerProvider;
+import techreborn.client.container.builder.BuiltContainer;
+import techreborn.client.container.builder.ContainerBuilder;
+
+public class TileQuantumChest extends TileTechStorageBase implements IContainerProvider {
 
 	public TileQuantumChest() {
 		super("TileQuantumChest", Integer.MAX_VALUE);
+	}
+
+	@Override
+	public BuiltContainer createContainer(final EntityPlayer player) {
+		return new ContainerBuilder("quantumchest").player(player.inventory).inventory().hotbar().addInventory()
+				.tile(this).slot(0, 80, 17).outputSlot(1, 80, 53).fakeSlot(2, 59, 42).addInventory().create();
 	}
 }

@@ -1,7 +1,6 @@
 package techreborn.tiles.multiblock;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -24,12 +23,16 @@ import techreborn.api.Reference;
 import techreborn.api.recipe.ITileRecipeHandler;
 import techreborn.api.recipe.machines.BlastFurnaceRecipe;
 import techreborn.blocks.BlockMachineCasing;
+import techreborn.client.container.IContainerProvider;
+import techreborn.client.container.builder.BuiltContainer;
+import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.multiblocks.MultiBlockCasing;
 import techreborn.tiles.TileMachineCasing;
 
-public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, IInventoryProvider, ISidedInventory, ITileRecipeHandler<BlastFurnaceRecipe>, IRecipeCrafterProvider {
+public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, IInventoryProvider,
+		ITileRecipeHandler<BlastFurnaceRecipe>, IRecipeCrafterProvider, IContainerProvider {
 
 	public static int euTick = 5;
 	public int tickTime;
@@ -229,5 +232,13 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 
 	public int getCachedHeat() {
 		return this.cachedHeat;
+	}
+
+	@Override
+	public BuiltContainer createContainer(final EntityPlayer player) {
+		return new ContainerBuilder("blastfurnace").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+				.addInventory().tile(this).slot(0, 40, 25).slot(1, 40, 43).outputSlot(2, 100, 35).outputSlot(3, 118, 35)
+				.syncEnergyValue().syncCrafterValue().syncIntegerValue(this::getHeat, this::setHeat).addInventory()
+				.create();
 	}
 }

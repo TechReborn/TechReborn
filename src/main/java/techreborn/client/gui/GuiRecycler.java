@@ -6,7 +6,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 
-import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.tiles.teir1.TileRecycler;
 
 public class GuiRecycler extends GuiContainer {
@@ -16,10 +15,7 @@ public class GuiRecycler extends GuiContainer {
 	TileRecycler recycler;
 
 	public GuiRecycler(final EntityPlayer player, final TileRecycler recycler) {
-		super(new ContainerBuilder("recycler").player(player.inventory).inventory(8, 84).hotbar(8, 142).addInventory()
-				.tile(recycler).slot(0, 56, 34).slot(1, 116, 34).upgradeSlot(2, 152, 8).upgradeSlot(3, 152, 26)
-				.upgradeSlot(4, 152, 44).upgradeSlot(5, 152, 62).syncEnergyValue()
-				.syncIntegerValue(recycler::getProgress, recycler::setProgress).addInventory().create());
+		super(recycler.createContainer(player));
 		this.xSize = 176;
 		this.ySize = 167;
 		this.recycler = recycler;

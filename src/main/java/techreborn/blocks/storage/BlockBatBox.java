@@ -6,7 +6,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import techreborn.client.GuiHandler;
+
+import techreborn.client.EGui;
 import techreborn.tiles.storage.TileBatBox;
 
 import java.util.ArrayList;
@@ -17,17 +18,17 @@ import java.util.List;
  */
 public class BlockBatBox extends BlockEnergyStorage {
 	public BlockBatBox() {
-		super("Batbox", GuiHandler.batboxID);
+		super("Batbox", EGui.BATBOX.ordinal());
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int p_149915_2_) {
+	public TileEntity createNewTileEntity(final World world, final int p_149915_2_) {
 		return new TileBatBox();
 	}
 
 	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-		ArrayList<ItemStack> list = new ArrayList<>();
+	public List<ItemStack> getDrops(final IBlockAccess world, final BlockPos pos, final IBlockState state, final int fortune) {
+		final ArrayList<ItemStack> list = new ArrayList<>();
 		list.add(new ItemStack(this));
 		return list;
 	}

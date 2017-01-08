@@ -14,11 +14,14 @@ import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Inventory;
 
 import techreborn.api.Reference;
+import techreborn.client.container.IContainerProvider;
+import techreborn.client.container.builder.BuiltContainer;
+import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.utils.upgrade.UpgradeHandler;
 
 public class TileExtractor extends TilePowerAcceptor
-		implements IWrenchable, IInventoryProvider, IRecipeCrafterProvider {
+implements IWrenchable, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
 
 	public Inventory inventory = new Inventory(6, "TileExtractor", 64, this);
 
@@ -147,6 +150,14 @@ public class TileExtractor extends TilePowerAcceptor
 	@Override
 	public boolean canExtractItem(final int index, final ItemStack stack, final EnumFacing direction) {
 		return index == 1;
+	}
+
+	@Override
+	public BuiltContainer createContainer(final EntityPlayer player) {
+		return new ContainerBuilder("extractor").player(player.inventory).inventory(8, 84).hotbar(8, 142).addInventory()
+				.tile(this).slot(0, 56, 34).outputSlot(1, 116, 34).upgradeSlot(2, 152, 8).upgradeSlot(3, 152, 26)
+				.upgradeSlot(4, 152, 44).upgradeSlot(5, 152, 62).syncEnergyValue().syncCrafterValue().addInventory()
+				.create();
 	}
 
 }

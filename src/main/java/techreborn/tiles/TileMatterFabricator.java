@@ -11,11 +11,15 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 
+import techreborn.client.container.IContainerProvider;
+import techreborn.client.container.builder.BuiltContainer;
+import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
 import techreborn.items.ItemParts;
 
-public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchable, IInventoryProvider {
+public class TileMatterFabricator extends TilePowerAcceptor
+		implements IWrenchable, IInventoryProvider, IContainerProvider {
 
 	public static int fabricationRate = 10000;
 	public int tickTime;
@@ -217,5 +221,13 @@ public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchab
 			return this.progresstime * scale / this.maxProgresstime();
 		}
 		return 0;
+	}
+
+	@Override
+	public BuiltContainer createContainer(final EntityPlayer player) {
+		return new ContainerBuilder("matterfabricator").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+				.addInventory().tile(this).slot(0, 33, 17).slot(1, 33, 35).slot(2, 33, 53).slot(3, 51, 17)
+				.slot(4, 51, 35).slot(5, 51, 53).outputSlot(6, 116, 35).syncEnergyValue()
+				.syncIntegerValue(this::getProgress, this::setProgress).addInventory().create();
 	}
 }

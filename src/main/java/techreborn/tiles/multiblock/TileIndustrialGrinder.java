@@ -3,7 +3,6 @@ package techreborn.tiles.multiblock;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -12,6 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
@@ -21,22 +21,22 @@ import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
+
 import techreborn.api.Reference;
 import techreborn.api.recipe.ITileRecipeHandler;
 import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
+import techreborn.client.container.IContainerProvider;
+import techreborn.client.container.builder.BuiltContainer;
+import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 
-import static techreborn.tiles.multiblock.MultiblockChecker.CASING_NORMAL;
-import static techreborn.tiles.multiblock.MultiblockChecker.CASING_REINFORCED;
-import static techreborn.tiles.multiblock.MultiblockChecker.ZERO_OFFSET;
-
-public class TileIndustrialGrinder extends TilePowerAcceptor
-	implements IWrenchable, IInventoryProvider, ISidedInventory, ITileRecipeHandler<IndustrialGrinderRecipe>, IRecipeCrafterProvider {
+public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrenchable, IInventoryProvider,
+ITileRecipeHandler<IndustrialGrinderRecipe>, IRecipeCrafterProvider, IContainerProvider {
 	public static final int TANK_CAPACITY = 16000;
 
 	public Inventory inventory = new Inventory(6, "TileGrinder", 64, this);
-	public Tank tank = new Tank("TileGrinder", TANK_CAPACITY, this);
+	public Tank tank = new Tank("TileGrinder", TileIndustrialGrinder.TANK_CAPACITY, this);
 	public RecipeCrafter crafter;
 	public MultiblockChecker multiblockChecker;
 
@@ -44,29 +44,30 @@ public class TileIndustrialGrinder extends TilePowerAcceptor
 		super(ConfigTechReborn.CentrifugeTier);
 		// TODO configs
 
-		int[] inputs = new int[2];
+		final int[] inputs = new int[2];
 		inputs[0] = 0;
 		inputs[1] = 1;
-		int[] outputs = new int[4];
+		final int[] outputs = new int[4];
 		outputs[0] = 2;
 		outputs[1] = 3;
 		outputs[2] = 4;
 		outputs[3] = 5;
-		crafter = new RecipeCrafter(Reference.industrialGrinderRecipe, this, 1, 4, inventory, inputs, outputs);
+		this.crafter = new RecipeCrafter(Reference.industrialGrinderRecipe, this, 1, 4, this.inventory, inputs,
+				outputs);
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
+	public boolean wrenchCanSetFacing(final EntityPlayer entityPlayer, final EnumFacing side) {
 		return false;
 	}
 
 	@Override
 	public EnumFacing getFacing() {
-		return getFacingEnum();
+		return this.getFacingEnum();
 	}
 
 	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
+	public boolean wrenchCanRemove(final EntityPlayer entityPlayer) {
 		return entityPlayer.isSneaking();
 	}
 
@@ -76,16 +77,19 @@ public class TileIndustrialGrinder extends TilePowerAcceptor
 	}
 
 	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+	public ItemStack getWrenchDrop(final EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.INDUSTRIAL_GRINDER, 1);
 	}
 
 	public boolean getMutliBlock() {
-		boolean down = multiblockChecker.checkRectY(1, 1, CASING_NORMAL, ZERO_OFFSET);
-		boolean up = multiblockChecker.checkRectY(1, 1, CASING_NORMAL, new BlockPos(0, 2, 0));
-		boolean blade = multiblockChecker.checkRingY(1, 1, CASING_REINFORCED, new BlockPos(0, 1, 0));
-		IBlockState centerBlock = multiblockChecker.getBlock(0, 1, 0);
-		boolean center = centerBlock.getBlock() == Blocks.WATER;
+		final boolean down = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.CASING_NORMAL,
+				MultiblockChecker.ZERO_OFFSET);
+		final boolean up = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.CASING_NORMAL,
+				new BlockPos(0, 2, 0));
+		final boolean blade = this.multiblockChecker.checkRingY(1, 1, MultiblockChecker.CASING_REINFORCED,
+				new BlockPos(0, 1, 0));
+		final IBlockState centerBlock = this.multiblockChecker.getBlock(0, 1, 0);
+		final boolean center = centerBlock.getBlock() == Blocks.WATER;
 		return down && center && blade && up;
 	}
 
@@ -93,29 +97,29 @@ public class TileIndustrialGrinder extends TilePowerAcceptor
 	public void update() {
 		super.update();
 
-		if (multiblockChecker == null) {
-			BlockPos pos = getPos().offset(getFacing().getOpposite(), 2).down();
-			multiblockChecker = new MultiblockChecker(world, pos);
+		if (this.multiblockChecker == null) {
+			final BlockPos pos = this.getPos().offset(this.getFacing().getOpposite(), 2).down();
+			this.multiblockChecker = new MultiblockChecker(this.world, pos);
 		}
 
-		if (getMutliBlock()) {
-			crafter.updateEntity();
+		if (this.getMutliBlock()) {
+			this.crafter.updateEntity();
 		}
-		FluidUtils.drainContainers(tank, inventory, 1, 5);
+		FluidUtils.drainContainers(this.tank, this.inventory, 1, 5);
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound tagCompound) {
+	public void readFromNBT(final NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
-		tank.readFromNBT(tagCompound);
-		crafter.readFromNBT(tagCompound);
+		this.tank.readFromNBT(tagCompound);
+		this.crafter.readFromNBT(tagCompound);
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
+	public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
-		tank.writeToNBT(tagCompound);
-		crafter.writeToNBT(tagCompound);
+		this.tank.writeToNBT(tagCompound);
+		this.crafter.writeToNBT(tagCompound);
 		return tagCompound;
 	}
 
@@ -130,7 +134,7 @@ public class TileIndustrialGrinder extends TilePowerAcceptor
 	}
 
 	@Override
-	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+	public boolean hasCapability(final Capability<?> capability, final EnumFacing facing) {
 		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 			return true;
 		}
@@ -138,34 +142,34 @@ public class TileIndustrialGrinder extends TilePowerAcceptor
 	}
 
 	@Override
-	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+	public <T> T getCapability(final Capability<T> capability, final EnumFacing facing) {
 		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return (T) tank;
+			return (T) this.tank;
 		}
 		return super.getCapability(capability, facing);
 	}
 
 	// ISidedInventory
 	@Override
-	public int[] getSlotsForFace(EnumFacing side) {
+	public int[] getSlotsForFace(final EnumFacing side) {
 		return side == EnumFacing.DOWN ? new int[] { 0, 1, 2, 3, 4, 5 } : new int[] { 0, 1, 2, 3, 4, 5 };
 	}
 
 	@Override
-	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
+	public boolean canInsertItem(final int slotIndex, final ItemStack itemStack, final EnumFacing side) {
 		if (slotIndex >= 2)
 			return false;
-		return isItemValidForSlot(slotIndex, itemStack);
+		return this.isItemValidForSlot(slotIndex, itemStack);
 	}
 
 	@Override
-	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
+	public boolean canExtractItem(final int slotIndex, final ItemStack itemStack, final EnumFacing side) {
 		return slotIndex == 2 || slotIndex == 3 || slotIndex == 4 || slotIndex == 5;
 	}
 
-	public int getProgressScaled(int scale) {
-		if (crafter.currentTickTime != 0) {
-			return crafter.currentTickTime * scale / crafter.currentNeededTicks;
+	public int getProgressScaled(final int scale) {
+		if (this.crafter.currentTickTime != 0) {
+			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
 		}
 		return 0;
 	}
@@ -176,12 +180,12 @@ public class TileIndustrialGrinder extends TilePowerAcceptor
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction) {
+	public boolean canAcceptEnergy(final EnumFacing direction) {
 		return true;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnumFacing direction) {
+	public boolean canProvideEnergy(final EnumFacing direction) {
 		return false;
 	}
 
@@ -201,9 +205,9 @@ public class TileIndustrialGrinder extends TilePowerAcceptor
 	}
 
 	@Override
-	public boolean canCraft(TileEntity tile, IndustrialGrinderRecipe recipe) {
-		FluidStack recipeFluid = recipe.fluidStack;
-		FluidStack tankFluid = tank.getFluid();
+	public boolean canCraft(final TileEntity tile, final IndustrialGrinderRecipe recipe) {
+		final FluidStack recipeFluid = recipe.fluidStack;
+		final FluidStack tankFluid = this.tank.getFluid();
 		if (recipe.fluidStack == null) {
 			return true;
 		}
@@ -219,9 +223,9 @@ public class TileIndustrialGrinder extends TilePowerAcceptor
 	}
 
 	@Override
-	public boolean onCraft(TileEntity tile, IndustrialGrinderRecipe recipe) {
-		FluidStack recipeFluid = recipe.fluidStack;
-		FluidStack tankFluid = tank.getFluid();
+	public boolean onCraft(final TileEntity tile, final IndustrialGrinderRecipe recipe) {
+		final FluidStack recipeFluid = recipe.fluidStack;
+		final FluidStack tankFluid = this.tank.getFluid();
 		if (recipe.fluidStack == null) {
 			return true;
 		}
@@ -231,7 +235,7 @@ public class TileIndustrialGrinder extends TilePowerAcceptor
 		if (tankFluid.isFluidEqual(recipeFluid)) {
 			if (tankFluid.amount >= recipeFluid.amount) {
 				if (tankFluid.amount == recipeFluid.amount)
-					tank.setFluid(null);
+					this.tank.setFluid(null);
 				else
 					tankFluid.amount -= recipeFluid.amount;
 				return true;
@@ -242,12 +246,20 @@ public class TileIndustrialGrinder extends TilePowerAcceptor
 
 	@Override
 	public Inventory getInventory() {
-		return inventory;
+		return this.inventory;
 	}
 
 	@Override
 	public RecipeCrafter getRecipeCrafter() {
-		return crafter;
+		return this.crafter;
+	}
+
+	@Override
+	public BuiltContainer createContainer(final EntityPlayer player) {
+		return new ContainerBuilder("industrialgrinder").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+				.addInventory().tile(this).slot(0, 32, 26).slot(1, 32, 44).outputSlot(2, 77, 35).outputSlot(3, 95, 35)
+				.outputSlot(4, 113, 35).outputSlot(5, 131, 35).syncEnergyValue().syncCrafterValue().addInventory()
+				.create();
 	}
 
 }

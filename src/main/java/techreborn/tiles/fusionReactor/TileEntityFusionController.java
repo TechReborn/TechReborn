@@ -1,5 +1,6 @@
 package techreborn.tiles.fusionReactor;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -14,9 +15,12 @@ import reborncore.common.util.ItemUtils;
 
 import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
+import techreborn.client.container.IContainerProvider;
+import techreborn.client.container.builder.BuiltContainer;
+import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 
-public class TileEntityFusionController extends TilePowerAcceptor implements IInventoryProvider {
+public class TileEntityFusionController extends TilePowerAcceptor implements IInventoryProvider, IContainerProvider {
 
 	public Inventory inventory = new Inventory(3, "TileEntityFusionController", 64, this);
 
@@ -323,5 +327,15 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 	public int getProgressScaled() {
 		return Math.max(0, Math.min(24, (this.getCrafingTickTime() > 0 ? 1 : 0)
 				+ this.getCrafingTickTime() * 24 / (this.finalTickTime < 1 ? 1 : this.finalTickTime)));
+	}
+
+	@Override
+	public BuiltContainer createContainer(final EntityPlayer player) {
+		return new ContainerBuilder("fusionreactor").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+				.addInventory().tile(this).slot(0, 88, 17).slot(1, 88, 53).outputSlot(2, 148, 35).syncEnergyValue()
+				.syncIntegerValue(this::getCoilStatus, this::setCoilStatus)
+				.syncIntegerValue(this::getCrafingTickTime, this::setCrafingTickTime)
+				.syncIntegerValue(this::getFinalTickTime, this::setFinalTickTime)
+				.syncIntegerValue(this::getNeededPower, this::setNeededPower).addInventory().create();
 	}
 }

@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+
 import reborncore.api.IListInfoProvider;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.power.IEnergyItemInfo;
@@ -14,7 +15,11 @@ import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Inventory;
+
 import techreborn.api.Reference;
+import techreborn.client.container.IContainerProvider;
+import techreborn.client.container.builder.BuiltContainer;
+import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.items.DynamicCell;
@@ -23,7 +28,7 @@ import techreborn.utils.upgrade.UpgradeHandler;
 import java.util.List;
 
 public class TileCentrifuge extends TilePowerAcceptor
-	implements IWrenchable, IInventoryProvider, IListInfoProvider, IRecipeCrafterProvider {
+implements IWrenchable, IInventoryProvider, IListInfoProvider, IRecipeCrafterProvider, IContainerProvider {
 
 	public int tickTime;
 	public Inventory inventory = new Inventory(11, "TileCentrifuge", 64, this);
@@ -35,30 +40,30 @@ public class TileCentrifuge extends TilePowerAcceptor
 	public TileCentrifuge() {
 		super(2);
 		// Input slots
-		int[] inputs = new int[] { 0, 1 };
-		int[] outputs = new int[4];
+		final int[] inputs = new int[] { 0, 1 };
+		final int[] outputs = new int[4];
 		outputs[0] = 2;
 		outputs[1] = 3;
 		outputs[2] = 4;
 		outputs[3] = 5;
 
-		crafter = new RecipeCrafter(Reference.centrifugeRecipe, this, 2, 4, inventory, inputs, outputs);
-		upgradeHandler = new UpgradeHandler(crafter, inventory, 7, 8, 9, 10);
+		this.crafter = new RecipeCrafter(Reference.centrifugeRecipe, this, 2, 4, this.inventory, inputs, outputs);
+		this.upgradeHandler = new UpgradeHandler(this.crafter, this.inventory, 7, 8, 9, 10);
 	}
 
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		crafter.updateEntity();
-		upgradeHandler.tick();
-		charge(6);
-		if (inventory.getStackInSlot(6) != ItemStack.EMPTY) {
-			ItemStack stack = inventory.getStackInSlot(6);
+		this.crafter.updateEntity();
+		this.upgradeHandler.tick();
+		this.charge(6);
+		if (this.inventory.getStackInSlot(6) != ItemStack.EMPTY) {
+			final ItemStack stack = this.inventory.getStackInSlot(6);
 			if (stack.getItem() instanceof IEnergyItemInfo) {
-				IEnergyItemInfo item = (IEnergyItemInfo) stack.getItem();
+				final IEnergyItemInfo item = (IEnergyItemInfo) stack.getItem();
 				if (item.canProvideEnergy(stack)) {
-					if (getEnergy() != getMaxPower()) {
-						addEnergy(item.getMaxTransfer(stack));
+					if (this.getEnergy() != this.getMaxPower()) {
+						this.addEnergy(item.getMaxTransfer(stack));
 						PoweredItem.setEnergy(PoweredItem.getEnergy(stack) - item.getMaxTransfer(stack), stack);
 					}
 				}
@@ -67,17 +72,17 @@ public class TileCentrifuge extends TilePowerAcceptor
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
+	public boolean wrenchCanSetFacing(final EntityPlayer entityPlayer, final EnumFacing side) {
 		return false;
 	}
 
 	@Override
 	public EnumFacing getFacing() {
-		return getFacingEnum();
+		return this.getFacingEnum();
 	}
 
 	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
+	public boolean wrenchCanRemove(final EntityPlayer entityPlayer) {
 		return entityPlayer.isSneaking();
 	}
 
@@ -87,7 +92,7 @@ public class TileCentrifuge extends TilePowerAcceptor
 	}
 
 	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+	public ItemStack getWrenchDrop(final EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.INDUSTRIAL_CENTRIFUGE, 1);
 	}
 
@@ -96,44 +101,44 @@ public class TileCentrifuge extends TilePowerAcceptor
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound tagCompound) {
+	public void readFromNBT(final NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
-		crafter.readFromNBT(tagCompound);
+		this.crafter.readFromNBT(tagCompound);
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
+	public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
-		crafter.writeToNBT(tagCompound);
+		this.crafter.writeToNBT(tagCompound);
 		return tagCompound;
 	}
 
 	// ISidedInventory
 
 	@Override
-	public int[] getSlotsForFace(EnumFacing side) {
+	public int[] getSlotsForFace(final EnumFacing side) {
 		return side == EnumFacing.DOWN ? new int[] { 0, 1, 2, 3, 4, 5 } : new int[] { 0, 1, 2, 3, 4, 5 };
 	}
 
 	@Override
-	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+	public boolean canInsertItem(final int index, final ItemStack itemStackIn, final EnumFacing direction) {
 		return itemStackIn.isItemEqual(DynamicCell.getEmptyCell(1).copy()) ? index == 1 : index == 0;
 	}
 
 	@Override
-	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
+	public boolean canExtractItem(final int slotIndex, final ItemStack itemStack, final EnumFacing side) {
 		return slotIndex >= 2 && slotIndex <= 5;
 	}
 
 	@Override
-	public void addInfo(List<String> info, boolean isRealTile) {
+	public void addInfo(final List<String> info, final boolean isRealTile) {
 		super.addInfo(info, isRealTile);
 		info.add("Round and round it goes");
 	}
 
-	public int getProgressScaled(int scale) {
-		if (crafter.currentTickTime != 0) {
-			return crafter.currentTickTime * scale / crafter.currentNeededTicks;
+	public int getProgressScaled(final int scale) {
+		if (this.crafter.currentTickTime != 0) {
+			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
 		}
 		return 0;
 	}
@@ -144,12 +149,12 @@ public class TileCentrifuge extends TilePowerAcceptor
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction) {
+	public boolean canAcceptEnergy(final EnumFacing direction) {
 		return true;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnumFacing direction) {
+	public boolean canProvideEnergy(final EnumFacing direction) {
 		return false;
 	}
 
@@ -170,12 +175,21 @@ public class TileCentrifuge extends TilePowerAcceptor
 
 	@Override
 	public Inventory getInventory() {
-		return inventory;
+		return this.inventory;
 	}
 
 	@Override
 	public RecipeCrafter getRecipeCrafter() {
-		return crafter;
+		return this.crafter;
+	}
+
+	@Override
+	public BuiltContainer createContainer(final EntityPlayer player) {
+		return new ContainerBuilder("centrifuge").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+				.addInventory().tile(this).slot(0, 80, 35).slot(1, 50, 5).outputSlot(2, 80, 5).outputSlot(3, 110, 35)
+				.outputSlot(4, 80, 65).outputSlot(5, 50, 35).energySlot(6, 8, 51).upgradeSlot(7, 152, 8)
+				.upgradeSlot(8, 152, 26).upgradeSlot(9, 152, 44).upgradeSlot(10, 152, 62).syncEnergyValue()
+				.syncCrafterValue().addInventory().create();
 	}
 
 }

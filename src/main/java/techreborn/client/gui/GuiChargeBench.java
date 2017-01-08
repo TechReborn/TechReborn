@@ -6,7 +6,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 
-import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.tiles.TileChargeBench;
 
 public class GuiChargeBench extends GuiContainer {
@@ -15,13 +14,11 @@ public class GuiChargeBench extends GuiContainer {
 
 	TileChargeBench chargebench;
 
-	public GuiChargeBench(final EntityPlayer player, final TileChargeBench tile) {
-		super(new ContainerBuilder("charbench").player(player.inventory).inventory(8, 84).hotbar(8, 142).addInventory()
-				.tile(tile).energySlot(0, 62, 21).energySlot(1, 80, 21).energySlot(2, 98, 21).energySlot(3, 62, 39)
-				.energySlot(4, 80, 39).energySlot(5, 98, 39).syncEnergyValue().addInventory().create());
+	public GuiChargeBench(final EntityPlayer player, final TileChargeBench chargeBench) {
+		super(chargeBench.createContainer(player));
 		this.xSize = 176;
 		this.ySize = 167;
-		this.chargebench = tile;
+		this.chargebench = chargeBench;
 	}
 
 	@Override

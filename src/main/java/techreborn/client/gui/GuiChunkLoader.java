@@ -7,7 +7,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 
-import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.tiles.TileChunkLoader;
 
 public class GuiChunkLoader extends GuiContainer {
@@ -20,12 +19,11 @@ public class GuiChunkLoader extends GuiContainer {
 	private GuiButton minusOneButton;
 	private GuiButton minusTenButton;
 
-	public GuiChunkLoader(final EntityPlayer player, final TileChunkLoader tilechunkloader) {
-		super(new ContainerBuilder("chunkloader").player(player.inventory).inventory().hotbar().addInventory()
-				.create());
+	public GuiChunkLoader(final EntityPlayer player, final TileChunkLoader chunkLoader) {
+		super(chunkLoader.createContainer(player));
 		this.xSize = 176;
 		this.ySize = 167;
-		this.chunkloader = tilechunkloader;
+		this.chunkloader = chunkLoader;
 	}
 
 	@Override
