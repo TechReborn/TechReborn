@@ -20,15 +20,14 @@ import techreborn.items.ItemParts;
 
 public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInventoryProvider, IContainerProvider {
 
-	public Inventory inventory = new Inventory(6, "TileRecycler", 64, this);
-	public int capacity = 1000;
-	public int cost = 20;
-	public int progress;
-	public int time = 200;
-	public int chance = 4;
-	public int random;
-	public int input1 = 0;
-	public int output = 1;
+	private final Inventory inventory = new Inventory(6, "TileRecycler", 64, this);
+
+	private boolean isBurning;
+	private final int capacity = 1000;
+	private final int cost = 2;
+	private int progress;
+	private final int time = 15;
+	private final int chance = 6;
 
 	public TileRecycler() {
 		super(1);
@@ -40,65 +39,46 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInv
 
 	@Override
 	public void updateEntity() {
-		if (this.world.isRemote) {
+		if (this.world.isRemote)
 			return;
-		}
-		final boolean burning = this.isBurning();
-		boolean updateInventory = false;
-		if (this.getEnergy() <= this.cost && this.canRecycle()) {
-			if (this.getEnergy() > this.cost) {
-				updateInventory = true;
-			}
-		}
-		if (this.isBurning() && this.canRecycle()) {
-			this.updateState();
 
+		boolean updateInventory = false;
+		if (this.canRecycle() && !this.isBurning() && this.getEnergy() != 0)
+			this.setBurning(true);
+		else if (this.isBurning()) {
+			if (this.useEnergy(this.cost) != this.cost)
+				this.setBurning(false);
 			this.progress++;
 			if (this.progress >= this.time) {
 				this.progress = 0;
 				this.recycleItems();
 				updateInventory = true;
+				this.setBurning(false);
 			}
-		} else {
-			this.progress = 0;
-			this.updateState();
 		}
-		if (burning != this.isBurning()) {
-			updateInventory = true;
-		}
+
+		this.updateState();
+
 		if (updateInventory) {
 			this.markDirty();
 		}
 	}
 
 	public void recycleItems() {
-		if (this.canRecycle()) {
-			final ItemStack itemstack = ItemParts.getPartByName("scrap");
-			final int randomchance = this.world.rand.nextInt(this.chance);
+		final ItemStack itemstack = ItemParts.getPartByName("scrap");
+		final int randomchance = this.world.rand.nextInt(this.chance);
 
-			if (this.getStackInSlot(this.output) == ItemStack.EMPTY) {
-				this.useEnergy(this.cost);
-				if (randomchance == 1) {
-					this.setInventorySlotContents(this.output, itemstack.copy());
-				}
-			} else if (this.getStackInSlot(this.output).isItemEqual(itemstack)) {
-				this.useEnergy(this.cost);
-				if (randomchance == 1) {
-					this.getStackInSlot(this.output).setCount(itemstack.getCount());
-				}
-			}
-			if (this.getStackInSlot(this.input1).getCount() > 1) {
-				this.useEnergy(this.cost);
-				this.decrStackSize(this.input1, 1);
-			} else {
-				this.useEnergy(this.cost);
-				this.setInventorySlotContents(this.input1, ItemStack.EMPTY);
-			}
+		if (randomchance == 1) {
+			if (this.getStackInSlot(1).isEmpty())
+				this.setInventorySlotContents(1, itemstack.copy());
+			else
+				this.getStackInSlot(1).grow(itemstack.getCount());
 		}
+		this.decrStackSize(0, 1);
 	}
 
 	public boolean canRecycle() {
-		return this.getStackInSlot(this.input1) != null && this.hasSlotGotSpace(this.output);
+		return this.getStackInSlot(0) != ItemStack.EMPTY && this.hasSlotGotSpace(1);
 	}
 
 	public boolean hasSlotGotSpace(final int slot) {
@@ -111,15 +91,19 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInv
 	}
 
 	public boolean isBurning() {
-		return this.getEnergy() > this.cost;
+		return this.isBurning;
+	}
+
+	public void setBurning(final boolean burning) {
+		this.isBurning = burning;
 	}
 
 	public void updateState() {
 		final IBlockState BlockStateContainer = this.world.getBlockState(this.pos);
 		if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
 			final BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
-			if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != this.progress > 0)
-				blockMachineBase.setActive(this.progress > 0, this.world, this.pos);
+			if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != this.isBurning)
+				blockMachineBase.setActive(this.isBurning, this.world, this.pos);
 		}
 	}
 
@@ -155,19 +139,19 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInv
 	// ISidedInventory
 	@Override
 	public int[] getSlotsForFace(final EnumFacing side) {
-		return side == EnumFacing.DOWN ? new int[] { this.output } : new int[] { this.input1 };
+		return side == EnumFacing.DOWN ? new int[] { 1 } : new int[] { 0 };
 	}
 
 	@Override
 	public boolean canInsertItem(final int slotIndex, final ItemStack itemStack, final EnumFacing side) {
-		if (slotIndex == this.output)
+		if (slotIndex == 1)
 			return false;
 		return this.isItemValidForSlot(slotIndex, itemStack);
 	}
 
 	@Override
 	public boolean canExtractItem(final int slotIndex, final ItemStack itemStack, final EnumFacing side) {
-		return slotIndex == this.output;
+		return slotIndex == 1;
 	}
 
 	@Override
