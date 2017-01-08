@@ -105,8 +105,11 @@ public class GuiHandler implements IGuiHandler {
 			return new ContainerMatterFabricator((TileMatterFabricator) world.getTileEntity(new BlockPos(x, y, z)),
 					player);
 		} else if (ID == GuiHandler.assemblingmachineID) {
-			container = new ContainerAssemblingMachine(player,
-					(TileAssemblingMachine) world.getTileEntity(new BlockPos(x, y, z)));
+			return new ContainerBuilder("assemblingmachine").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 47, 17)
+					.slot(1, 65, 17).outputSlot(2, 116, 35).energySlot(3, 56, 53).upgradeSlot(4, 152, 8)
+					.upgradeSlot(5, 152, 26).upgradeSlot(6, 152, 44).upgradeSlot(7, 152, 62).syncEnergyValue()
+					.syncCrafterValue().addInventory().create();
 		} else if (ID == GuiHandler.chunkloaderID) {
 			return new ContainerBuilder("chunkloader").player(player.inventory).inventory().hotbar().addInventory()
 					.create();
@@ -123,8 +126,8 @@ public class GuiHandler implements IGuiHandler {
 		} else if (ID == GuiHandler.chemicalReactorID) {
 			return new ContainerBuilder("chemicalreactor").player(player.inventory).inventory(8, 84).hotbar(8, 142)
 					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 70, 21)
-					.slot(1, 90, 21).outputSlot(2, 80, 51).energySlot(6, 8, 51).upgradeSlot(7, 152, 8)
-					.upgradeSlot(8, 152, 26).upgradeSlot(9, 152, 44).upgradeSlot(10, 152, 62).syncEnergyValue()
+					.slot(1, 90, 21).outputSlot(2, 80, 51).energySlot(3, 8, 51).upgradeSlot(4, 152, 8)
+					.upgradeSlot(5, 152, 26).upgradeSlot(6, 152, 44).upgradeSlot(7, 152, 62).syncEnergyValue()
 					.syncCrafterValue().addInventory().create();
 		} else if (ID == GuiHandler.manuelID) {
 			return null;
