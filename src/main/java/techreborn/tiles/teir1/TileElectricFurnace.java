@@ -5,12 +5,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.EnumFacing;
+
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
+
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
@@ -19,9 +21,6 @@ import techreborn.init.ModBlocks;
 public class TileElectricFurnace extends TilePowerAcceptor
 		implements IWrenchable, IInventoryProvider, IContainerProvider {
 
-	private static final int[] SLOTS_TOP = new int[] { 0 };
-	private static final int[] SLOTS_BOTTOM = new int[] { 1 };
-	private static final int[] SLOTS_SIDES = new int[] { 1 };
 	public Inventory inventory = new Inventory(6, "TileElectricFurnace", 64, this);
 	public int capacity = 1000;
 	public int progress;
@@ -155,8 +154,11 @@ public class TileElectricFurnace extends TilePowerAcceptor
 	// ISidedInventory
 	@Override
 	public int[] getSlotsForFace(final EnumFacing side) {
-		return side == EnumFacing.DOWN ? TileElectricFurnace.SLOTS_BOTTOM
-				: side == EnumFacing.UP ? TileElectricFurnace.SLOTS_TOP : TileElectricFurnace.SLOTS_SIDES;
+		if (side.equals(EnumFacing.UP))
+			return new int[] { 0 };
+		else if (side.equals(EnumFacing.DOWN))
+			return new int[] { 1 };
+		return new int[0];
 	}
 
 	@Override
@@ -216,8 +218,8 @@ public class TileElectricFurnace extends TilePowerAcceptor
 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("electricfurnace").player(player.inventory).inventory().hotbar()
-			.addInventory().tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).syncEnergyValue()
-			.syncIntegerValue(this::getBurnTime, this::setBurnTime).addInventory().create();
+		return new ContainerBuilder("electricfurnace").player(player.inventory).inventory().hotbar().addInventory()
+				.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).syncEnergyValue()
+				.syncIntegerValue(this::getBurnTime, this::setBurnTime).addInventory().create();
 	}
 }

@@ -149,7 +149,11 @@ implements IWrenchable, IInventoryProvider, IRecipeCrafterProvider, IContainerPr
 
 	@Override
 	public int[] getSlotsForFace(final EnumFacing side) {
-		return new int[] { 0, 1 };
+		if (side.equals(EnumFacing.UP))
+			return new int[] { 0 };
+		else if (side.equals(EnumFacing.DOWN))
+			return new int[] { 1 };
+		return new int[0];
 	}
 
 	@Override

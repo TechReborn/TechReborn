@@ -139,7 +139,11 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInv
 	// ISidedInventory
 	@Override
 	public int[] getSlotsForFace(final EnumFacing side) {
-		return side == EnumFacing.DOWN ? new int[] { 1 } : new int[] { 0 };
+		if (side.equals(EnumFacing.UP))
+			return new int[] { 0 };
+		else if (side.equals(EnumFacing.DOWN))
+			return new int[] { 1 };
+		return new int[0];
 	}
 
 	@Override
