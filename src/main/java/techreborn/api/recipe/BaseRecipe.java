@@ -3,6 +3,7 @@ package techreborn.api.recipe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import reborncore.api.recipe.IBaseRecipeType;
+import reborncore.common.recipes.RecipeTranslator;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public abstract class BaseRecipe implements IBaseRecipeType, Cloneable {
 	public String name;
 	public int tickTime;
 	public int euPerTick;
-	private ArrayList<ItemStack> inputs;
+	private ArrayList<Object> inputs;
 	private ArrayList<ItemStack> outputs;
 	private boolean oreDict = true;
 
@@ -47,7 +48,7 @@ public abstract class BaseRecipe implements IBaseRecipeType, Cloneable {
 	}
 
 	@Override
-	public List<ItemStack> getInputs() {
+	public List<Object> getInputs() {
 		return inputs;
 	}
 
@@ -101,9 +102,17 @@ public abstract class BaseRecipe implements IBaseRecipeType, Cloneable {
 		return outputs;
 	}
 
-	public void addInput(ItemStack inuput) {
-		if (inuput == null || inuput.isEmpty()) {
+	public void addInput(Object inuput) {
+		if (inuput == null) {
 			throw new InvalidParameterException("input is invalid!");
+		}
+		if(inuput instanceof ItemStack){
+			if(((ItemStack) inuput).isEmpty()){
+				throw new InvalidParameterException("input is invalid!");
+			}
+		}
+		if(RecipeTranslator.getStackFromObject(inuput) == null){
+			throw new InvalidParameterException("Could not determin recipe input for " + inuput);
 		}
 		inputs.add(inuput);
 	}

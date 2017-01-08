@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import reborncore.api.recipe.IBaseRecipeType;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.container.RebornContainer;
+import reborncore.common.recipes.RecipeTranslator;
 import reborncore.common.util.ItemUtils;
 import techreborn.api.recipe.machines.AlloySmelterRecipe;
 import techreborn.tiles.TileAlloyFurnace;
@@ -65,7 +66,7 @@ public class ContainerAlloyFurnace extends RebornContainer {
 				ItemStack stack) {
 			for(IBaseRecipeType recipe : RecipeHandler.recipeList){
 				if(recipe instanceof AlloySmelterRecipe){
-					if(ItemUtils.isItemEqual(recipe.getInputs().get(recipeSlot), stack, true, true, true)){
+					if(ItemUtils.isInputEqual(recipe.getInputs().get(recipeSlot), stack, true, true, true)){
 						return true;
 					}
 				}

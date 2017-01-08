@@ -26,7 +26,6 @@ import reborncore.common.util.LogHelper;
 import reborncore.common.util.VersionChecker;
 import techreborn.achievement.TRAchievements;
 import techreborn.api.TechRebornAPI;
-import techreborn.api.recipe.recipeConfig.RecipeConfigManager;
 import techreborn.client.GuiHandler;
 import techreborn.command.TechRebornDevCommand;
 import techreborn.compat.CompatManager;
@@ -104,8 +103,6 @@ public class Core {
 		//Ore Dictionary
 		OreDict.init();
 		proxy.preInit(event);
-
-		RecipeConfigManager.load(event.getModConfigurationDirectory());
 
 		versionChecker = new VersionChecker("TechReborn", new ModInfo());
 		versionChecker.checkVersionThreaded();
