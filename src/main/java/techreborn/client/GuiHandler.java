@@ -121,8 +121,11 @@ public class GuiHandler implements IGuiHandler {
 			return new ContainerIndustrialSawmill((TileIndustrialSawmill) world.getTileEntity(new BlockPos(x, y, z)),
 					player);
 		} else if (ID == GuiHandler.chemicalReactorID) {
-			return new ContainerChemicalReactor((TileChemicalReactor) world.getTileEntity(new BlockPos(x, y, z)),
-					player);
+			return new ContainerBuilder("chemicalreactor").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 70, 21)
+					.slot(1, 90, 21).outputSlot(2, 80, 51).energySlot(6, 8, 51).upgradeSlot(7, 152, 8)
+					.upgradeSlot(8, 152, 26).upgradeSlot(9, 152, 44).upgradeSlot(10, 152, 62).syncEnergyValue()
+					.syncCrafterValue().addInventory().create();
 		} else if (ID == GuiHandler.manuelID) {
 			return null;
 		} else if (ID == GuiHandler.destructoPackID) {
