@@ -20,7 +20,7 @@ import techreborn.init.ModBlocks;
 import techreborn.utils.upgrade.UpgradeHandler;
 
 public class TileCompressor extends TilePowerAcceptor
-		implements IWrenchable, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
+implements IWrenchable, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
 
 	public Inventory inventory = new Inventory(6, "TileCompressor", 64, this);
 
@@ -39,10 +39,12 @@ public class TileCompressor extends TilePowerAcceptor
 
 	@Override
 	public void update() {
-		super.update();
-		this.crafter.updateEntity();
-		this.upgradeHandler.tick();
-		this.charge(3);
+		if (!this.world.isRemote) {
+			super.update();
+			this.crafter.updateEntity();
+			this.upgradeHandler.tick();
+			this.charge(3);
+		}
 	}
 
 	@Override

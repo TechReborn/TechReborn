@@ -43,11 +43,13 @@ implements IWrenchable, IInventoryProvider, IRecipeCrafterProvider, IContainerPr
 	}
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
-		this.upgradeHandler.tick();
-		//charge(3); TODO
-		this.charge(3);
+	public void update() {
+		if (!this.world.isRemote) {
+			super.update();
+			this.upgradeHandler.tick();
+			//charge(3); TODO
+			this.charge(3);
+		}
 	}
 
 	@Override

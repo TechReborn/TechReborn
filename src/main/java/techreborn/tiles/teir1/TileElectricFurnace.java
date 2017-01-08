@@ -17,7 +17,7 @@ import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 
 public class TileElectricFurnace extends TilePowerAcceptor
-	implements IWrenchable, IInventoryProvider, IContainerProvider {
+		implements IWrenchable, IInventoryProvider, IContainerProvider {
 
 	private static final int[] SLOTS_TOP = new int[] { 0 };
 	private static final int[] SLOTS_BOTTOM = new int[] { 1 };
@@ -40,30 +40,33 @@ public class TileElectricFurnace extends TilePowerAcceptor
 
 	@Override
 	public void update() {
-		super.update();
-		final boolean burning = this.isBurning();
-		boolean updateInventory = false;
-		if (this.isBurning() && this.canSmelt()) {
-			this.updateState();
+		if (!this.world.isRemote) {
+			super.update();
 
-			this.progress++;
-			if (this.progress % 10 == 0) {
-				this.useEnergy(this.cost);
-			}
-			if (this.progress >= this.fuelScale) {
+			final boolean burning = this.isBurning();
+			boolean updateInventory = false;
+			if (this.isBurning() && this.canSmelt()) {
+				this.updateState();
+
+				this.progress++;
+				if (this.progress % 10 == 0) {
+					this.useEnergy(this.cost);
+				}
+				if (this.progress >= this.fuelScale) {
+					this.progress = 0;
+					this.cookItems();
+					updateInventory = true;
+				}
+			} else {
 				this.progress = 0;
-				this.cookItems();
+				this.updateState();
+			}
+			if (burning != this.isBurning()) {
 				updateInventory = true;
 			}
-		} else {
-			this.progress = 0;
-			this.updateState();
-		}
-		if (burning != this.isBurning()) {
-			updateInventory = true;
-		}
-		if (updateInventory) {
-			this.markDirty();
+			if (updateInventory) {
+				this.markDirty();
+			}
 		}
 	}
 
@@ -87,17 +90,16 @@ public class TileElectricFurnace extends TilePowerAcceptor
 	public boolean canSmelt() {
 		if (this.getStackInSlot(this.input1) == ItemStack.EMPTY) {
 			return false;
-		} else {
-			final ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(this.getStackInSlot(this.input1));
-			if (itemstack == ItemStack.EMPTY)
-				return false;
-			if (this.getStackInSlot(this.output) == ItemStack.EMPTY)
-				return true;
-			if (!this.getStackInSlot(this.output).isItemEqual(itemstack))
-				return false;
-			final int result = this.getStackInSlot(this.output).getCount() + itemstack.getCount();
-			return result <= this.getInventoryStackLimit() && result <= itemstack.getMaxStackSize();
 		}
+		final ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(this.getStackInSlot(this.input1));
+		if (itemstack == ItemStack.EMPTY)
+			return false;
+		if (this.getStackInSlot(this.output) == ItemStack.EMPTY)
+			return true;
+		if (!this.getStackInSlot(this.output).isItemEqual(itemstack))
+			return false;
+		final int result = this.getStackInSlot(this.output).getCount() + itemstack.getCount();
+		return result <= this.getInventoryStackLimit() && result <= itemstack.getMaxStackSize();
 	}
 
 	public boolean isBurning() {
@@ -153,7 +155,8 @@ public class TileElectricFurnace extends TilePowerAcceptor
 	// ISidedInventory
 	@Override
 	public int[] getSlotsForFace(final EnumFacing side) {
-		return side == EnumFacing.DOWN ? TileElectricFurnace.SLOTS_BOTTOM : side == EnumFacing.UP ? TileElectricFurnace.SLOTS_TOP : TileElectricFurnace.SLOTS_SIDES;
+		return side == EnumFacing.DOWN ? TileElectricFurnace.SLOTS_BOTTOM
+				: side == EnumFacing.UP ? TileElectricFurnace.SLOTS_TOP : TileElectricFurnace.SLOTS_SIDES;
 	}
 
 	@Override
