@@ -126,8 +126,13 @@ public class GuiHandler implements IGuiHandler {
 			return new ContainerImplosionCompressor(
 					(TileImplosionCompressor) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == GuiHandler.matterfabID) {
-			return new ContainerMatterFabricator((TileMatterFabricator) world.getTileEntity(new BlockPos(x, y, z)),
-					player);
+			return new ContainerBuilder("matterfabricator").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 33, 17)
+					.slot(1, 33, 35).slot(2, 33, 53).slot(3, 51, 17).slot(4, 51, 35).slot(5, 51, 53)
+					.outputSlot(6, 116, 35).syncEnergyValue()
+					.syncIntegerValue(((TileMatterFabricator) world.getTileEntity(new BlockPos(x, y, z)))::getProgress,
+							((TileMatterFabricator) world.getTileEntity(new BlockPos(x, y, z)))::setProgress)
+					.addInventory().create();
 		} else if (ID == GuiHandler.assemblingmachineID) {
 			return new ContainerBuilder("assemblingmachine").player(player.inventory).inventory(8, 84).hotbar(8, 142)
 					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 47, 17)
