@@ -4,7 +4,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-
 import reborncore.api.IListInfoProvider;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.power.IEnergyItemInfo;
@@ -15,7 +14,6 @@ import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Inventory;
-
 import techreborn.api.Reference;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
@@ -28,7 +26,7 @@ import techreborn.utils.upgrade.UpgradeHandler;
 import java.util.List;
 
 public class TileCentrifuge extends TilePowerAcceptor
-implements IWrenchable, IInventoryProvider, IListInfoProvider, IRecipeCrafterProvider, IContainerProvider {
+	implements IWrenchable, IInventoryProvider, IListInfoProvider, IRecipeCrafterProvider, IContainerProvider {
 
 	public int tickTime;
 	public Inventory inventory = new Inventory(11, "TileCentrifuge", 64, this);
@@ -185,11 +183,10 @@ implements IWrenchable, IInventoryProvider, IListInfoProvider, IRecipeCrafterPro
 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("centrifuge").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory().tile(this).slot(0, 80, 35).slot(1, 50, 5).outputSlot(2, 80, 5).outputSlot(3, 110, 35)
-				.outputSlot(4, 80, 65).outputSlot(5, 50, 35).energySlot(6, 8, 51).upgradeSlot(7, 152, 8)
-				.upgradeSlot(8, 152, 26).upgradeSlot(9, 152, 44).upgradeSlot(10, 152, 62).syncEnergyValue()
-				.syncCrafterValue().addInventory().create();
+		return new ContainerBuilder("centrifuge").player(player.inventory).inventory().hotbar()
+			.addInventory().tile(this).slot(0, 40, 34).slot(1, 40, 54).outputSlot(2, 82, 44).outputSlot(3, 101, 25)
+			.outputSlot(4, 120, 44).outputSlot(5, 101, 63).energySlot(6, 8, 72).syncEnergyValue()
+			.syncCrafterValue().addInventory().create();
 	}
 
 }

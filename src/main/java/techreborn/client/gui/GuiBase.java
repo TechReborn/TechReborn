@@ -3,11 +3,11 @@ package techreborn.client.gui;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.gui.widget.GuiButtonPowerBar;
 
 /**
@@ -19,9 +19,9 @@ public class GuiBase extends GuiContainer {
 	public int ySize = 176;
 	public TRBuilder builder = new TRBuilder();
 	public TileEntity tile;
-	public Container container;
+	public BuiltContainer container;
 
-	public GuiBase(EntityPlayer player, TileEntity tile, Container container) {
+	public GuiBase(EntityPlayer player, TileEntity tile, BuiltContainer container) {
 		super(container);
 		this.tile = tile;
 		this.container = container;

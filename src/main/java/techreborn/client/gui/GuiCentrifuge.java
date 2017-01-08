@@ -1,23 +1,15 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
-
 import techreborn.tiles.TileCentrifuge;
 
 public class GuiCentrifuge extends GuiBase {
 
-	TileCentrifuge centrifuge;
+	TileCentrifuge tile;
 
-	public GuiCentrifuge(final EntityPlayer player, final TileCentrifuge centrifuge) {
-		super(player, centrifuge, centrifuge.createContainer(player));
-		this.centrifuge = centrifuge;
-	}
-
-	@Override
-	public void initGui() {
-		final int k = (this.width - this.xSize) / 2;
-		final int l = (this.height - this.ySize) / 2;
-		super.initGui();
+	public GuiCentrifuge(final EntityPlayer player, final TileCentrifuge tile) {
+		super(player, tile, tile.createContainer(player));
+		this.tile = tile;
 	}
 
 	@Override
@@ -43,7 +35,7 @@ public class GuiCentrifuge extends GuiBase {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
-		this.builder.drawProgressBar(this, this.centrifuge.getProgressScaled(100), 100, 61, 47, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
-		this.builder.drawMultiEnergyBar(this, 9, 18, (int) this.centrifuge.getEnergy(), (int) this.centrifuge.getMaxPower(), mouseX, mouseY, 0, layer);
+		this.builder.drawProgressBar(this, this.tile.getProgressScaled(100), 100, 61, 47, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
+		this.builder.drawMultiEnergyBar(this, 9, 18, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 }

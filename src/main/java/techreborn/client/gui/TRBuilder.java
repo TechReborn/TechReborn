@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.client.config.GuiUtils;
+import net.minecraftforge.fml.common.Loader;
 import reborncore.client.guibuilder.GuiBuilder;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.lib.ModInfo;
@@ -91,19 +92,21 @@ public class TRBuilder extends GuiBuilder {
 	}
 
 	public void drawJEIButton(GuiBase gui, int x, int y, int mouseX, int mouseY, GuiBase.Layer layer) {
-		if (layer == GuiBase.Layer.BACKGROUND) {
-			x += gui.getGuiLeft();
-			y += gui.getGuiTop();
-		}
-		if (layer == GuiBase.Layer.FOREGROUND) {
-			mouseX -= gui.getGuiLeft();
-			mouseY -= gui.getGuiTop();
-		}
-		gui.mc.getTextureManager().bindTexture(GUI_SHEET);
-		if (isInRect(x, y, 20, 12, mouseX, mouseY)) {
-			gui.drawTexturedModalRect(x, y, 184, 82, 20, 12);
-		} else {
-			gui.drawTexturedModalRect(x, y, 184, 70, 20, 12);
+		if (Loader.isModLoaded("jei")) {
+			if (layer == GuiBase.Layer.BACKGROUND) {
+				x += gui.getGuiLeft();
+				y += gui.getGuiTop();
+			}
+			if (layer == GuiBase.Layer.FOREGROUND) {
+				mouseX -= gui.getGuiLeft();
+				mouseY -= gui.getGuiTop();
+			}
+			gui.mc.getTextureManager().bindTexture(GUI_SHEET);
+			if (isInRect(x, y, 20, 12, mouseX, mouseY)) {
+				gui.drawTexturedModalRect(x, y, 184, 82, 20, 12);
+			} else {
+				gui.drawTexturedModalRect(x, y, 184, 70, 20, 12);
+			}
 		}
 	}
 
