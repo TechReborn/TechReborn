@@ -76,6 +76,10 @@ public class GuiBase extends GuiContainer {
 		drawString(string, (xSize / 2 - mc.fontRendererObj.getStringWidth(string) / 2), y, colour);
 	}
 
+	protected void drawCentredString(String string, int y, int colour, int modifier) {
+		drawString(string, (xSize / 2 - (mc.fontRendererObj.getStringWidth(string)) / 2) + modifier, y, colour);
+	}
+
 	protected void drawString(String string, int x, int y, int colour) {
 		mc.fontRendererObj.drawString(string, x, y, colour);
 		GlStateManager.color(1, 1, 1, 1);

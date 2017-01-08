@@ -1,27 +1,19 @@
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
-
 import reborncore.common.powerSystem.PowerSystem;
-
 import techreborn.client.container.builder.ContainerBuilder;
+import techreborn.client.gui.widget.GuiButtonPowerBar;
 import techreborn.tiles.storage.TileBatBox;
 
-public class GuiBatbox extends GuiContainer {
+public class GuiBatbox extends GuiBase {
 
-	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/batbox.png");
+	TileBatBox tile;
 
-	TileBatBox generator;
-
-	public GuiBatbox(final EntityPlayer player, final TileBatBox generator) {
-		super(new ContainerBuilder().player(player.inventory).inventory(8, 84).hotbar(8, 142).addInventory()
-				.tile(generator).energySlot(0, 80, 17).energySlot(1, 80, 53).syncEnergyValue().addInventory().create());
-		this.xSize = 176;
-		this.ySize = 167;
-		this.generator = generator;
+	public GuiBatbox(final EntityPlayer player, final TileBatBox tile) {
+		super(player, tile, new ContainerBuilder().player(player.inventory).inventory().hotbar().addInventory().tile(tile).energySlot(0, 62, 45).energySlot(1, 98, 45).syncEnergyValue().addInventory().create());
+		this.tile = tile;
 	}
 
 	@Override
@@ -32,38 +24,20 @@ public class GuiBatbox extends GuiContainer {
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
-		this.mc.getTextureManager().bindTexture(GuiBatbox.texture);
-		final int k = (this.width - this.xSize) / 2;
-		final int l = (this.height - this.ySize) / 2;
-		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
+	protected void drawGuiContainerBackgroundLayer(float f, int mouseX, int mouseY) {
+		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
 
-		int j = 0;
-
-		j = this.generator.getEnergyScaled(24);
-		if (j > 0) {
-			this.drawTexturedModalRect(k + 109, l + 21 + 12, 176, 0, j + 1, 16);
-		}
-		//
-		// if (containerGenerator.burnTime != 0)
-		// {
-		// j = containerGenerator.getScaledBurnTime(13);
-		// this.drawTexturedModalRect(k + 80, l + 38 + 12 - j, 176, 30 - j, 14,
-		// j + 1);
-		// }
+		this.buttonList.clear();
+		drawSlotBackground(62, 45);
+		drawSlotBackground(98, 45);
+		this.buttonList.add(new GuiButtonPowerBar(0, guiLeft + 82, guiTop + 29));
 	}
 
-	@Override
-	protected void drawGuiContainerForegroundLayer(final int p_146979_1_, final int p_146979_2_) {
-		final String name = I18n.translateToLocal("tile.techreborn.batbox.name");
-		this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6,
-				4210752);
-
-		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,
-				this.ySize - 96 + 2, 4210752);
-		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(this.generator.getMaxPower()), 25, this.ySize - 140,
-				4210752);
-		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(this.generator.getEnergy()), 25,
-				this.ySize - 150, 4210752);
+	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+		builder.drawMultiEnergyBar(this, 81, 28, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX - guiLeft, mouseY - guiTop);
+		GlStateManager.scale(0.6, 0.6, 5);
+		drawCentredString(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) (tile.getEnergy())) + "/" + PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) (tile.getMaxPower())) + " " + PowerSystem.getDisplayPower().abbreviation, 35, 0, 58);
+		GlStateManager.scale(1, 1, 1);
 	}
 }
