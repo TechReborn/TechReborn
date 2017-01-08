@@ -106,7 +106,12 @@ public class GuiHandler implements IGuiHandler {
 							((TileRollingMachine) world.getTileEntity(new BlockPos(x, y, z)))::setBurnTime)
 					.addInventory().create();
 		} else if (ID == GuiHandler.blastFurnaceID) {
-			return new ContainerBlastFurnace((TileBlastFurnace) world.getTileEntity(new BlockPos(x, y, z)), player);
+			return new ContainerBuilder("blastfurnace").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 40, 25)
+					.slot(1, 40, 43).outputSlot(2, 100, 35).outputSlot(3, 118, 35).syncEnergyValue().syncCrafterValue()
+					.syncIntegerValue(((TileBlastFurnace) world.getTileEntity(new BlockPos(x, y, z)))::getHeat,
+							((TileBlastFurnace) world.getTileEntity(new BlockPos(x, y, z)))::setHeat)
+					.addInventory().create();
 		} else if (ID == GuiHandler.alloySmelterID) {
 			return new ContainerBuilder("alloysmelter").player(player.inventory).inventory(8, 84).hotbar(8, 142)
 					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z)))
