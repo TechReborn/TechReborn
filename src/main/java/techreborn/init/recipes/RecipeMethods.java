@@ -60,7 +60,7 @@ public abstract class RecipeMethods {
 
 	static boolean oresExist(String... names) {
 		for (String name : names) {
-			if (!OreDictionary.doesOreNameExist(name)) {
+			if (OreDictionary.getOres(name).isEmpty()) {
 				return false;
 			}
 		}
