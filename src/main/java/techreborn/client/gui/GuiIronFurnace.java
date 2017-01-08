@@ -17,8 +17,8 @@ public class GuiIronFurnace extends GuiContainer {
 	TileIronFurnace furnace;
 
 	public GuiIronFurnace(final EntityPlayer player, final TileIronFurnace furnace) {
-		super(new ContainerBuilder().player(player.inventory).inventory(8, 84).hotbar(8, 142).addInventory()
-				.tile(furnace).slot(0, 56, 17).outputSlot(1, 116, 34).fuelSlot(2, 56, 53)
+		super(new ContainerBuilder("ironfurnace").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+				.addInventory().tile(furnace).slot(0, 56, 17).outputSlot(1, 116, 34).fuelSlot(2, 56, 53)
 				.syncIntegerValue(furnace::getBurnTime, furnace::setBurnTime)
 				.syncIntegerValue(furnace::getTotalBurnTime, furnace::setTotalBurnTime).addInventory()
 				.create());

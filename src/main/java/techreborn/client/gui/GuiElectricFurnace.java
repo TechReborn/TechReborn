@@ -16,9 +16,9 @@ public class GuiElectricFurnace extends GuiContainer {
 	TileElectricFurnace furnace;
 
 	public GuiElectricFurnace(final EntityPlayer player, final TileElectricFurnace furnace) {
-		super(new ContainerBuilder().player(player.inventory).inventory(8, 84).hotbar(8, 142).addInventory()
-				.tile(furnace).slot(0, 56, 34).outputSlot(1, 116, 34).upgradeSlot(2, 152, 8).upgradeSlot(3, 152, 26)
-				.upgradeSlot(4, 152, 44).upgradeSlot(5, 152, 62).syncEnergyValue()
+		super(new ContainerBuilder("electricfurnace").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+				.addInventory().tile(furnace).slot(0, 56, 34).outputSlot(1, 116, 34).upgradeSlot(2, 152, 8)
+				.upgradeSlot(3, 152, 26).upgradeSlot(4, 152, 44).upgradeSlot(5, 152, 62).syncEnergyValue()
 				.syncIntegerValue(furnace::getBurnTime, furnace::setBurnTime).addInventory().create());
 		this.xSize = 176;
 		this.ySize = 167;

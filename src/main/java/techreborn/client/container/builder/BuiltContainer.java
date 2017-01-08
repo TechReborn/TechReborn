@@ -20,7 +20,9 @@ import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
 import java.util.function.Predicate;
 
-final class BuiltContainer extends Container {
+public class BuiltContainer extends Container {
+
+	private final String name;
 
 	private final Predicate<EntityPlayer> canInteract;
 	private final List<Range<Integer>> playerSlotRanges;
@@ -30,8 +32,11 @@ final class BuiltContainer extends Container {
 	private final ArrayList<MutableTriple<IntSupplier, IntConsumer, Integer>> integerValues;
 	private Integer[] integerParts;
 
-	public BuiltContainer(final Predicate<EntityPlayer> canInteract, final List<Range<Integer>> playerSlotRange,
+	public BuiltContainer(final String name, final Predicate<EntityPlayer> canInteract,
+			final List<Range<Integer>> playerSlotRange,
 			final List<Range<Integer>> tileSlotRange) {
+		this.name = name;
+
 		this.canInteract = canInteract;
 
 		this.playerSlotRanges = playerSlotRange;
@@ -241,5 +246,9 @@ final class BuiltContainer extends Container {
 			if (this.shiftItemStack(stackToShift, range.getMinimum(), range.getMaximum() + 1))
 				return true;
 		return false;
+	}
+
+	public String getName() {
+		return this.name;
 	}
 }

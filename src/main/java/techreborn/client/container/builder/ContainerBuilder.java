@@ -15,6 +15,8 @@ import java.util.function.IntSupplier;
 import java.util.function.Predicate;
 
 public class ContainerBuilder {
+
+	private final String name;
 	private Predicate<EntityPlayer> canInteract = player -> true;
 
 	final List<Slot> slots;
@@ -23,7 +25,10 @@ public class ContainerBuilder {
 	final List<Pair<IntSupplier, IntConsumer>> shortValues;
 	final List<Pair<IntSupplier, IntConsumer>> integerValues;
 
-	public ContainerBuilder() {
+	public ContainerBuilder(final String name) {
+
+		this.name = name;
+
 		this.slots = new ArrayList<>();
 		this.playerInventoryRanges = new ArrayList<>();
 		this.tileInventoryRanges = new ArrayList<>();
@@ -54,7 +59,7 @@ public class ContainerBuilder {
 	}
 
 	public BuiltContainer create() {
-		final BuiltContainer built = new BuiltContainer(this.canInteract, this.playerInventoryRanges,
+		final BuiltContainer built = new BuiltContainer(this.name, this.canInteract, this.playerInventoryRanges,
 				this.tileInventoryRanges);
 		if (!this.shortValues.isEmpty())
 			built.addShortSync(this.shortValues);

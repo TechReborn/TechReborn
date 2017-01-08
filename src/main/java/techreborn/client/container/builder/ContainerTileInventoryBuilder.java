@@ -10,6 +10,7 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 import reborncore.api.power.IEnergyInterfaceItem;
+import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.client.gui.slots.BaseSlot;
 import reborncore.client.gui.slots.SlotFake;
 import reborncore.client.gui.slots.SlotOutput;
@@ -107,6 +108,20 @@ public class ContainerTileInventoryBuilder {
 			return this.syncIntegerValue(() -> (int) ((TilePowerAcceptor) this.tile).getEnergy(),
 					((TilePowerAcceptor) this.tile)::setEnergy);
 		Core.logHelper.error(this.tile + " is not an instance of TilePowerAcceptor! Energy cannot be synced.");
+		return this;
+	}
+
+	public ContainerTileInventoryBuilder syncCrafterValue() {
+		if (this.tile instanceof IRecipeCrafterProvider)
+			return this
+					.syncIntegerValue(() -> ((IRecipeCrafterProvider) this.tile).getRecipeCrafter().currentTickTime,
+							(currentTickTime) -> ((IRecipeCrafterProvider) this.tile)
+							.getRecipeCrafter().currentTickTime = currentTickTime)
+					.syncIntegerValue(() -> ((IRecipeCrafterProvider) this.tile).getRecipeCrafter().currentNeededTicks,
+							(currentNeededTicks) -> ((IRecipeCrafterProvider) this.tile)
+							.getRecipeCrafter().currentNeededTicks = currentNeededTicks);
+		Core.logHelper
+				.error(this.tile + " is not an instance of IRecipeCrafterProvider! Craft progress cannot be synced.");
 		return this;
 	}
 

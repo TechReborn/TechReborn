@@ -17,7 +17,7 @@ public class GuiGenerator extends GuiContainer {
 	TileGenerator generator;
 
 	public GuiGenerator(final EntityPlayer player, final TileGenerator generator) {
-		super(new ContainerBuilder().player(player.inventory).inventory(8, 84).hotbar(8, 142).addInventory()
+		super(new ContainerBuilder("generator").player(player.inventory).inventory(8, 84).hotbar(8, 142).addInventory()
 				.tile(generator).fuelSlot(0, 80, 53).energySlot(1, 80, 17).syncEnergyValue()
 				.syncIntegerValue(generator::getBurnTime, generator::setBurnTime)
 				.syncIntegerValue(generator::getTotalBurnTime, generator::setTotalBurnTime).addInventory().create());

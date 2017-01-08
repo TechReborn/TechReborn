@@ -21,9 +21,9 @@ public class GuiMFE extends GuiContainer {
 
 
 	public GuiMFE(final EntityPlayer player, final TileMFE generator) {
-		super(new ContainerBuilder().player(player.inventory).inventory(8, 84).hotbar(8, 142).armor().complete(44, 6)
-				.addArmor().addInventory().tile(generator).energySlot(0, 80, 17).energySlot(1, 80, 53).syncEnergyValue()
-				.addInventory().create());
+		super(new ContainerBuilder("mfe").player(player.inventory).inventory(8, 84).hotbar(8, 142).armor()
+				.complete(44, 6).addArmor().addInventory().tile(generator).energySlot(0, 80, 17).energySlot(1, 80, 53)
+				.syncEnergyValue().addInventory().create());
 		this.xSize = 176;
 		this.ySize = 167;
 		this.generator = generator;

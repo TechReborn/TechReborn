@@ -18,8 +18,10 @@ public class GuiGasTurbine extends GuiContainer {
 	TileGasTurbine tile;
 
 	public GuiGasTurbine(final EntityPlayer player, final TileGasTurbine tile) {
-		super(new ContainerBuilder().player(player.inventory).inventory(8, 84).hotbar(8, 142).addInventory().tile(tile)
-				.slot(0, 80, 17).outputSlot(1, 80, 53).fakeSlot(2, 59, 42).syncEnergyValue().addInventory().create());
+		super(new ContainerBuilder("fluidgenerator").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+				.addInventory()
+				.tile(tile).slot(0, 80, 17).outputSlot(1, 80, 53).fakeSlot(2, 59, 42).syncEnergyValue().addInventory()
+				.create());
 		this.xSize = 176;
 		this.ySize = 167;
 		this.tile = tile;
