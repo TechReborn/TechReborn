@@ -125,8 +125,10 @@ public class GuiHandler implements IGuiHandler {
 					.upgradeSlot(6, 152, 44).upgradeSlot(7, 152, 62).syncEnergyValue().syncCrafterValue().addInventory()
 					.create();
 		} else if (ID == GuiHandler.industrialGrinderID) {
-			return new ContainerIndustrialGrinder((TileIndustrialGrinder) world.getTileEntity(new BlockPos(x, y, z)),
-					player);
+			return new ContainerBuilder("industrialgrinder").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 32, 26)
+					.slot(1, 32, 44).outputSlot(2, 77, 35).outputSlot(3, 95, 35).outputSlot(4, 113, 35)
+					.outputSlot(5, 131, 35).syncEnergyValue().syncCrafterValue().addInventory().create();
 		} else if (ID == GuiHandler.implosionCompresserID) {
 			return new ContainerBuilder("implosioncompressor").player(player.inventory).inventory(8, 84).hotbar(8, 142)
 					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 37, 26)
@@ -150,8 +152,11 @@ public class GuiHandler implements IGuiHandler {
 			return new ContainerBuilder("chunkloader").player(player.inventory).inventory().hotbar().addInventory()
 					.create();
 		} else if (ID == GuiHandler.industrialElectrolyzerID) {
-			return new ContainerIndustrialElectrolyzer(
-					(TileIndustrialElectrolyzer) world.getTileEntity(new BlockPos(x, y, z)), player);
+			return new ContainerBuilder("industrialelectrolyzer").player(player.inventory).inventory(8, 84)
+					.hotbar(8, 142).addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z)))
+					.slot(0, 80, 51).slot(1, 50, 51).outputSlot(2, 50, 19).outputSlot(3, 70, 19).outputSlot(4, 90, 19)
+					.outputSlot(5, 110, 19).energySlot(6, 18, 51).syncEnergyValue().syncCrafterValue().addInventory()
+					.create();
 		} else if (ID == GuiHandler.aesuID) {
 			return new ContainerAESU((TileAesu) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == GuiHandler.alloyFurnaceID) {
@@ -173,8 +178,10 @@ public class GuiHandler implements IGuiHandler {
 							((TileAlloyFurnace) world.getTileEntity(new BlockPos(x, y, z)))::setCurrentItemBurnTime)
 					.addInventory().create();
 		} else if (ID == GuiHandler.sawMillID) {
-			return new ContainerIndustrialSawmill((TileIndustrialSawmill) world.getTileEntity(new BlockPos(x, y, z)),
-					player);
+			return new ContainerBuilder("industrialsawmill").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 32, 26)
+					.slot(1, 32, 44).outputSlot(2, 84, 35).outputSlot(3, 102, 35).outputSlot(4, 120, 35)
+					.syncEnergyValue().addInventory().create();
 		} else if (ID == GuiHandler.chemicalReactorID) {
 			return new ContainerBuilder("chemicalreactor").player(player.inventory).inventory(8, 84).hotbar(8, 142)
 					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 70, 21)
