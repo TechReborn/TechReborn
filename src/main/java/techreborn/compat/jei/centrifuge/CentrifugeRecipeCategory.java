@@ -6,22 +6,22 @@ import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeCategory;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
-import techreborn.client.gui.GuiCentrifuge;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
 
 import javax.annotation.Nonnull;
 
 public class CentrifugeRecipeCategory extends BlankRecipeCategory<CentrifugeRecipeWrapper> {
+	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/industrial_centrifuge.png");
 	private static final int[] INPUT_SLOTS = { 0, 1 };
 	private static final int[] OUTPUT_SLOTS = { 2, 3, 4, 5 };
-
 	private final IDrawable background;
 	private final String title;
 
 	public CentrifugeRecipeCategory(IGuiHelper guiHelper) {
-		background = guiHelper.createDrawable(GuiCentrifuge.texture, 49, 4, 78, 78);
+		background = guiHelper.createDrawable(texture, 49, 4, 78, 78);
 		title = I18n.translateToLocal("tile.techreborn.centrifuge.name");
 	}
 

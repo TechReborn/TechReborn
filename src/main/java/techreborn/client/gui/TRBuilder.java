@@ -60,10 +60,61 @@ public class TRBuilder extends GuiBuilder {
 		gui.addPowerButton(x, y, buttonID, layer);
 	}
 
+	public void drawProgressBar(GuiBase gui, int progress, int maxProgress, int x, int y, int mouseX, int mouseY, ProgressDirection direction, GuiBase.Layer layer) {
+		if (layer == GuiBase.Layer.BACKGROUND) {
+			x += gui.getGuiLeft();
+			y += gui.getGuiTop();
+		}
+		if (layer == GuiBase.Layer.FOREGROUND) {
+			mouseX -= gui.getGuiLeft();
+			mouseY -= gui.getGuiTop();
+		}
+
+		gui.mc.getTextureManager().bindTexture(GUI_SHEET);
+		gui.drawTexturedModalRect(x, y, direction.x, direction.y, direction.width, direction.height);
+
+		if (direction.equals(ProgressDirection.RIGHT)) {
+			int j = (int) ((double) progress / (double) maxProgress * 16);
+			if (j < 0)
+				j = 0;
+			gui.drawTexturedModalRect(x, y, direction.xActive, direction.yActive, j, 10);
+		}
+
+		if (isInRect(x, y, direction.width, direction.height, mouseX, mouseY)) {
+			int percentage = percentage(maxProgress, progress);
+			List<String> list = new ArrayList<>();
+			list.add(getPercentageColour(percentage) + "" + percentage + "%");
+			net.minecraftforge.fml.client.config.GuiUtils.drawHoveringText(list, mouseX, mouseY, gui.width, gui.height, -1, gui.mc.fontRendererObj);
+			GlStateManager.disableLighting();
+			GlStateManager.color(1, 1, 1, 1);
+		}
+	}
+
+	public void drawJEIButton(GuiBase gui, int x, int y, int mouseX, int mouseY, GuiBase.Layer layer) {
+		if (layer == GuiBase.Layer.BACKGROUND) {
+			x += gui.getGuiLeft();
+			y += gui.getGuiTop();
+		}
+		if (layer == GuiBase.Layer.FOREGROUND) {
+			mouseX -= gui.getGuiLeft();
+			mouseY -= gui.getGuiTop();
+		}
+		gui.mc.getTextureManager().bindTexture(GUI_SHEET);
+		if (isInRect(x, y, 20, 12, mouseX, mouseY)) {
+			gui.drawTexturedModalRect(x, y, 184, 82, 20, 12);
+		} else {
+			gui.drawTexturedModalRect(x, y, 184, 70, 20, 12);
+		}
+	}
+
 	public void drawBigBlueBar(GuiBase gui, int x, int y, int value, int max, int mouseX, int mouseY, String suffix, GuiBase.Layer layer) {
 		if (layer == GuiBase.Layer.BACKGROUND) {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
+		}
+		if (layer == GuiBase.Layer.FOREGROUND) {
+			mouseX -= gui.getGuiLeft();
+			mouseY -= gui.getGuiTop();
 		}
 		gui.mc.getTextureManager().bindTexture(GUI_SHEET);
 		if (!suffix.equals("")) {
@@ -115,5 +166,24 @@ public class TRBuilder extends GuiBuilder {
 		if (CurrentValue == 0)
 			return 0;
 		return (int) ((CurrentValue * 100.0f) / MaxValue);
+	}
+
+	public enum ProgressDirection {
+		RIGHT(84, 151, 100, 151, 16, 10)/*, DOWN(104, 171, 114, 171, 10, 16), UP(84, 171, 94, 171, 10, 16), LEFT(84, 161, 100, 161, 16, 10)*/;
+		public int x;
+		public int y;
+		public int xActive;
+		public int yActive;
+		public int width;
+		public int height;
+
+		ProgressDirection(int x, int y, int xActive, int yActive, int width, int height) {
+			this.x = x;
+			this.y = y;
+			this.xActive = xActive;
+			this.yActive = yActive;
+			this.width = width;
+			this.height = height;
+		}
 	}
 }
