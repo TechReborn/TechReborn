@@ -20,9 +20,9 @@ public class GuiMFSU extends GuiContainer {
 	TileMFSU generator;
 
 	public GuiMFSU(final EntityPlayer player, final TileMFSU generator) {
-		super(new ContainerBuilder().player(player.inventory).inventory(8, 84).hotbar(8, 142).armor().complete(44, 6)
-				.addArmor().addInventory().tile(generator).energySlot(0, 80, 17).energySlot(1, 80, 53).syncEnergyValue()
-				.addInventory().create());
+		super(new ContainerBuilder("mfsu").player(player.inventory).inventory(8, 84).hotbar(8, 142).armor()
+				.complete(44, 6).addArmor().addInventory().tile(generator).energySlot(0, 80, 17).energySlot(1, 80, 53)
+				.syncEnergyValue().addInventory().create());
 		this.xSize = 176;
 		this.ySize = 167;
 		this.generator = generator;

@@ -4,10 +4,13 @@ import org.apache.commons.lang3.Range;
 import org.apache.commons.lang3.tuple.Pair;
 
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.SlotFurnaceFuel;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 import reborncore.api.power.IEnergyInterfaceItem;
+import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.client.gui.slots.BaseSlot;
 import reborncore.client.gui.slots.SlotFake;
 import reborncore.client.gui.slots.SlotOutput;
@@ -15,6 +18,7 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 
 import techreborn.Core;
 import techreborn.client.container.builder.slot.FilteredSlot;
+import techreborn.utils.upgrade.IMachineUpgrade;
 
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
@@ -54,6 +58,25 @@ public class ContainerTileInventoryBuilder {
 		return this;
 	}
 
+	@SuppressWarnings("null")
+	public ContainerTileInventoryBuilder fluidSlot(final int index, final int x, final int y) {
+		this.parent.slots.add(new FilteredSlot(this.tile, index, x, y).setFilter(
+				stack -> stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, EnumFacing.UP)));
+		return this;
+	}
+
+	public ContainerTileInventoryBuilder fuelSlot(final int index, final int x, final int y)
+	{
+		this.parent.slots.add(new SlotFurnaceFuel(this.tile, index, x, y));
+		return this;
+	}
+
+	public ContainerTileInventoryBuilder upgradeSlot(final int index, final int x, final int y) {
+		this.parent.slots.add(new FilteredSlot(this.tile, index, x, y)
+				.setFilter(stack -> stack.getItem() instanceof IMachineUpgrade));
+		return this;
+	}
+
 	/**
 	 *
 	 * @param supplier
@@ -85,6 +108,20 @@ public class ContainerTileInventoryBuilder {
 			return this.syncIntegerValue(() -> (int) ((TilePowerAcceptor) this.tile).getEnergy(),
 					((TilePowerAcceptor) this.tile)::setEnergy);
 		Core.logHelper.error(this.tile + " is not an instance of TilePowerAcceptor! Energy cannot be synced.");
+		return this;
+	}
+
+	public ContainerTileInventoryBuilder syncCrafterValue() {
+		if (this.tile instanceof IRecipeCrafterProvider)
+			return this
+					.syncIntegerValue(() -> ((IRecipeCrafterProvider) this.tile).getRecipeCrafter().currentTickTime,
+							(currentTickTime) -> ((IRecipeCrafterProvider) this.tile)
+							.getRecipeCrafter().currentTickTime = currentTickTime)
+					.syncIntegerValue(() -> ((IRecipeCrafterProvider) this.tile).getRecipeCrafter().currentNeededTicks,
+							(currentNeededTicks) -> ((IRecipeCrafterProvider) this.tile)
+							.getRecipeCrafter().currentNeededTicks = currentNeededTicks);
+		Core.logHelper
+				.error(this.tile + " is not an instance of IRecipeCrafterProvider! Craft progress cannot be synced.");
 		return this;
 	}
 

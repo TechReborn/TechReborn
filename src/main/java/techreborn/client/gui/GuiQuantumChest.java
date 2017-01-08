@@ -10,7 +10,7 @@ public class GuiQuantumChest extends GuiBase {
 	TileQuantumChest tile;
 
 	public GuiQuantumChest(final EntityPlayer player, final TileQuantumChest tile) {
-		super(player, tile, new ContainerBuilder().player(player.inventory).inventory().hotbar().addInventory().tile(tile).slot(0, 80, 24).outputSlot(1, 80, 64).addInventory().create());
+		super(player, tile, new ContainerBuilder("quantumchest").player(player.inventory).inventory().hotbar().addInventory().tile(tile).slot(0, 80, 24).outputSlot(1, 80, 64).addInventory().create());
 		this.tile = tile;
 	}
 

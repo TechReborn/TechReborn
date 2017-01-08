@@ -67,30 +67,34 @@ public class GuiHandler implements IGuiHandler {
 	public static final int mfeID = 41;
 
 	@Override
-	public Object getServerGuiElement(final int ID, final EntityPlayer player, final World world, final int x, final int y, final int z) {
+	public Object getServerGuiElement(final int ID, final EntityPlayer player, final World world, final int x,
+			final int y, final int z) {
 		RebornContainer container = null;
-		if (ID == GuiHandler.thermalGeneratorID) {
-			return new ContainerThermalGenerator((TileThermalGenerator) world.getTileEntity(new BlockPos(x, y, z)),
-					player);
-		} else if (ID == GuiHandler.semifluidGeneratorID) {
-			return new ContainerSemifluidGenerator((TileSemifluidGenerator) world.getTileEntity(new BlockPos(x, y, z)),
-					player);
-		} else if (ID == GuiHandler.gasTurbineID) {
-			return new ContainerGasTurbine((TileGasTurbine) world.getTileEntity(new BlockPos(x, y, z)), player);
+		if (ID == GuiHandler.gasTurbineID || ID == GuiHandler.semifluidGeneratorID
+				|| ID == GuiHandler.thermalGeneratorID || ID == GuiHandler.dieselGeneratorID) {
+			return new ContainerBuilder("fluidgenerator").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 80, 17)
+					.outputSlot(1, 80, 53).fakeSlot(2, 59, 42).syncEnergyValue().addInventory().create();
 		} else if (ID == GuiHandler.quantumTankID) {
 			return new ContainerQuantumTank((TileQuantumTank) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == GuiHandler.digitalChestID || ID == GuiHandler.quantumChestID) {
-			return new ContainerBuilder().player(player.inventory).inventory().hotbar().addInventory()
+			return new ContainerBuilder("digitalchest").player(player.inventory).inventory().hotbar().addInventory()
 					.tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 80, 17).outputSlot(1, 80, 53)
 					.fakeSlot(2, 59, 42).addInventory().create();
 		} else if (ID == GuiHandler.centrifugeID) {
-			container = new ContainerCentrifuge(player, (TileCentrifuge) world.getTileEntity(new BlockPos(x, y, z)));
+			return new ContainerBuilder("centrifuge").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 80, 35)
+					.slot(1, 50, 5).outputSlot(2, 80, 5).outputSlot(3, 110, 35).outputSlot(4, 80, 65)
+					.outputSlot(5, 50, 35).energySlot(6, 8, 51).upgradeSlot(7, 152, 8).upgradeSlot(8, 152, 26)
+					.upgradeSlot(9, 152, 44).upgradeSlot(10, 152, 62).syncEnergyValue().syncCrafterValue()
+					.addInventory().create();
 		} else if (ID == GuiHandler.rollingMachineID) {
 			return new ContainerRollingMachine((TileRollingMachine) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == GuiHandler.blastFurnaceID) {
 			return new ContainerBlastFurnace((TileBlastFurnace) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == GuiHandler.alloySmelterID) {
-			container = new ContainerAlloySmelter(player, (TileAlloySmelter) world.getTileEntity(new BlockPos(x, y, z)));
+			container = new ContainerAlloySmelter(player,
+					(TileAlloySmelter) world.getTileEntity(new BlockPos(x, y, z)));
 		} else if (ID == GuiHandler.industrialGrinderID) {
 			return new ContainerIndustrialGrinder((TileIndustrialGrinder) world.getTileEntity(new BlockPos(x, y, z)),
 					player);
@@ -101,13 +105,14 @@ public class GuiHandler implements IGuiHandler {
 			return new ContainerMatterFabricator((TileMatterFabricator) world.getTileEntity(new BlockPos(x, y, z)),
 					player);
 		} else if (ID == GuiHandler.assemblingmachineID) {
-			container = new ContainerAssemblingMachine(player, (TileAssemblingMachine) world.getTileEntity(new BlockPos(x, y, z)));
+			return new ContainerBuilder("assemblingmachine").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 47, 17)
+					.slot(1, 65, 17).outputSlot(2, 116, 35).energySlot(3, 56, 53).upgradeSlot(4, 152, 8)
+					.upgradeSlot(5, 152, 26).upgradeSlot(6, 152, 44).upgradeSlot(7, 152, 62).syncEnergyValue()
+					.syncCrafterValue().addInventory().create();
 		} else if (ID == GuiHandler.chunkloaderID) {
-			return new ContainerBuilder().player(player.inventory).inventory().hotbar().addInventory()
+			return new ContainerBuilder("chunkloader").player(player.inventory).inventory().hotbar().addInventory()
 					.create();
-		} else if (ID == GuiHandler.dieselGeneratorID) {
-			return new ContainerDieselGenerator((TileDieselGenerator) world.getTileEntity(new BlockPos(x, y, z)),
-					player);
 		} else if (ID == GuiHandler.industrialElectrolyzerID) {
 			return new ContainerIndustrialElectrolyzer(
 					(TileIndustrialElectrolyzer) world.getTileEntity(new BlockPos(x, y, z)), player);
@@ -119,8 +124,11 @@ public class GuiHandler implements IGuiHandler {
 			return new ContainerIndustrialSawmill((TileIndustrialSawmill) world.getTileEntity(new BlockPos(x, y, z)),
 					player);
 		} else if (ID == GuiHandler.chemicalReactorID) {
-			return new ContainerChemicalReactor((TileChemicalReactor) world.getTileEntity(new BlockPos(x, y, z)),
-					player);
+			return new ContainerBuilder("chemicalreactor").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 70, 21)
+					.slot(1, 90, 21).outputSlot(2, 80, 51).energySlot(3, 8, 51).upgradeSlot(4, 152, 8)
+					.upgradeSlot(5, 152, 26).upgradeSlot(6, 152, 44).upgradeSlot(7, 152, 62).syncEnergyValue()
+					.syncCrafterValue().addInventory().create();
 		} else if (ID == GuiHandler.manuelID) {
 			return null;
 		} else if (ID == GuiHandler.destructoPackID) {
@@ -133,35 +141,74 @@ public class GuiHandler implements IGuiHandler {
 			return new ContainerFusionReactor((TileEntityFusionController) world.getTileEntity(new BlockPos(x, y, z)),
 					player);
 		} else if (ID == GuiHandler.chargeBench) {
-			return new ContainerBuilder().player(player.inventory).inventory().hotbar(8, 142).addInventory()
-					.tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).energySlot(0, 62, 21)
+			return new ContainerBuilder("chargebench").player(player.inventory).inventory().hotbar(8, 142)
+					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).energySlot(0, 62, 21)
 					.energySlot(1, 80, 21).energySlot(2, 98, 21).energySlot(3, 62, 39).energySlot(4, 80, 39)
 					.energySlot(5, 98, 39).syncEnergyValue().addInventory().create();
 		} else if (ID == GuiHandler.vacuumFreezerID) {
 			return new ContainerVacuumFreezer((TileVacuumFreezer) world.getTileEntity(new BlockPos(x, y, z)), player);
-		} else if (ID == GuiHandler.grinderID) {
-			container = new ContainerGrinder(player, (TileGrinder) world.getTileEntity(new BlockPos(x, y, z)));
 		} else if (ID == GuiHandler.generatorID) {
-			return new ContainerGenerator((TileGenerator) world.getTileEntity(new BlockPos(x, y, z)), player);
-		} else if (ID == GuiHandler.extractorID) {
-			container = new ContainerExtractor(player, (TileExtractor) world.getTileEntity(new BlockPos(x, y, z)));
+			return new ContainerBuilder("generator").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).fuelSlot(0, 80, 53)
+					.energySlot(1, 80, 17).syncEnergyValue()
+					.syncIntegerValue(((TileGenerator) world.getTileEntity(new BlockPos(x, y, z)))::getBurnTime,
+							((TileGenerator) world.getTileEntity(new BlockPos(x, y, z)))::setBurnTime)
+					.syncIntegerValue(((TileGenerator) world.getTileEntity(new BlockPos(x, y, z)))::getTotalBurnTime,
+							((TileGenerator) world.getTileEntity(new BlockPos(x, y, z)))::setTotalBurnTime)
+					.addInventory().create();
 		} else if (ID == GuiHandler.compressorID) {
-			return new ContainerCompressor((TileCompressor) world.getTileEntity(new BlockPos(x, y, z)), player);
+			return new ContainerBuilder("compressor").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 56, 34)
+					.outputSlot(1, 116, 34).upgradeSlot(2, 152, 8).upgradeSlot(3, 152, 26).upgradeSlot(4, 152, 44)
+					.upgradeSlot(5, 152, 62).syncEnergyValue().syncCrafterValue().addInventory().create();
+		} else if (ID == GuiHandler.extractorID) {
+			return new ContainerBuilder("extractor").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 56, 34)
+					.outputSlot(1, 116, 34).upgradeSlot(2, 152, 8).upgradeSlot(3, 152, 26).upgradeSlot(4, 152, 44)
+					.upgradeSlot(5, 152, 62).syncEnergyValue().syncCrafterValue().addInventory().create();
+		} else if (ID == GuiHandler.grinderID) {
+			return new ContainerBuilder("grinder").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 56, 34)
+					.outputSlot(1, 116, 34).upgradeSlot(2, 152, 8).upgradeSlot(3, 152, 26).upgradeSlot(4, 152, 44)
+					.upgradeSlot(5, 152, 62).syncEnergyValue().syncCrafterValue().addInventory().create();
 		} else if (ID == GuiHandler.electricFurnaceID) {
-			return new ContainerElectricFurnace((TileElectricFurnace) world.getTileEntity(new BlockPos(x, y, z)),
-					player);
+			return new ContainerBuilder("electricfurnace").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 56, 34)
+					.outputSlot(1, 116, 34).upgradeSlot(2, 152, 8).upgradeSlot(3, 152, 26).upgradeSlot(4, 152, 44)
+					.upgradeSlot(5, 152, 62).syncEnergyValue()
+					.syncIntegerValue(((TileElectricFurnace) world.getTileEntity(new BlockPos(x, y, z)))::getBurnTime,
+							((TileElectricFurnace) world.getTileEntity(new BlockPos(x, y, z)))::setBurnTime)
+					.addInventory().create();
 		} else if (ID == GuiHandler.ironFurnace) {
-			return new ContainerIronFurnace((TileIronFurnace) world.getTileEntity(new BlockPos(x, y, z)), player);
+			return new ContainerBuilder("ironfurnace").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 56, 17)
+					.outputSlot(1, 116, 34).fuelSlot(2, 56, 53)
+					.syncIntegerValue(((TileIronFurnace) world.getTileEntity(new BlockPos(x, y, z)))::getBurnTime,
+							((TileIronFurnace) world.getTileEntity(new BlockPos(x, y, z)))::setBurnTime)
+					.syncIntegerValue(((TileIronFurnace) world.getTileEntity(new BlockPos(x, y, z)))::getTotalBurnTime,
+							((TileIronFurnace) world.getTileEntity(new BlockPos(x, y, z)))::setTotalBurnTime)
+					.addInventory().create();
 		} else if (ID == GuiHandler.recyclerID) {
-			return new ContainerRecycler((TileRecycler) world.getTileEntity(new BlockPos(x, y, z)), player);
+			return new ContainerBuilder("recycler").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).slot(0, 56, 34)
+					.slot(1, 116, 34).upgradeSlot(2, 152, 8).upgradeSlot(3, 152, 26).upgradeSlot(4, 152, 44)
+					.upgradeSlot(5, 152, 62).syncEnergyValue()
+					.syncIntegerValue(((TileRecycler) world.getTileEntity(new BlockPos(x, y, z)))::getProgress,
+							((TileRecycler) world.getTileEntity(new BlockPos(x, y, z)))::setProgress)
+					.addInventory().create();
 		} else if (ID == GuiHandler.scrapboxinatorID) {
 			return new ContainerScrapboxinator((TileScrapboxinator) world.getTileEntity(new BlockPos(x, y, z)), player);
 		} else if (ID == GuiHandler.batboxID) {
-			return new ContainerBuilder().player(player.inventory).inventory(8, 84).hotbar(8, 142).addInventory()
+			return new ContainerBuilder("batbox").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+					.addInventory().tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).energySlot(0, 80, 17)
+					.energySlot(1, 80, 53).syncEnergyValue().addInventory().create();
+		} else if (ID == GuiHandler.mfeID) {
+			return new ContainerBuilder("mfe").player(player.inventory).inventory(8, 84).hotbar(8, 142).armor()
+					.complete(44, 6).addArmor().addInventory()
 					.tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).energySlot(0, 80, 17)
 					.energySlot(1, 80, 53).syncEnergyValue().addInventory().create();
-		} else if (ID == GuiHandler.mfeID || ID == GuiHandler.mfsuID) {
-			return new ContainerBuilder().player(player.inventory).inventory(8, 84).hotbar(8, 142).armor()
+		} else if (ID == GuiHandler.mfsuID) {
+			return new ContainerBuilder("mfsu").player(player.inventory).inventory(8, 84).hotbar(8, 142).armor()
 					.complete(44, 6).addArmor().addInventory()
 					.tile((IInventory) world.getTileEntity(new BlockPos(x, y, z))).energySlot(0, 80, 17)
 					.energySlot(1, 80, 53).syncEnergyValue().addInventory().create();
@@ -180,7 +227,8 @@ public class GuiHandler implements IGuiHandler {
 	}
 
 	@Override
-	public Object getClientGuiElement(final int ID, final EntityPlayer player, final World world, final int x, final int y, final int z) {
+	public Object getClientGuiElement(final int ID, final EntityPlayer player, final World world, final int x,
+			final int y, final int z) {
 		if (ID == GuiHandler.thermalGeneratorID) {
 			return new GuiThermalGenerator(player, (TileThermalGenerator) world.getTileEntity(new BlockPos(x, y, z)));
 		} else if (ID == GuiHandler.semifluidGeneratorID) {

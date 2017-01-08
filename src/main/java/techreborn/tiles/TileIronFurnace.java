@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
+
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.tile.TileLegacyMachineBase;
@@ -30,100 +31,98 @@ public class TileIronFurnace extends TileLegacyMachineBase implements IInventory
 	int fuelslot = 2;
 	boolean active = false;
 
-	public int gaugeProgressScaled(int scale) {
-		return (progress * scale) / fuelScale;
+	public int gaugeProgressScaled(final int scale) {
+		return this.progress * scale / this.fuelScale;
 	}
 
-	public int gaugeFuelScaled(int scale) {
-		if (fuelGague == 0) {
-			fuelGague = fuel;
-			if (fuelGague == 0) {
-				fuelGague = fuelScale;
+	public int gaugeFuelScaled(final int scale) {
+		if (this.fuelGague == 0) {
+			this.fuelGague = this.fuel;
+			if (this.fuelGague == 0) {
+				this.fuelGague = this.fuelScale;
 			}
 		}
-		return (fuel * scale) / fuelGague;
+		return this.fuel * scale / this.fuelGague;
 	}
 
 	@Override
 	public void updateEntity() {
-		boolean burning = isBurning();
+		final boolean burning = this.isBurning();
 		boolean updateInventory = false;
-		if (fuel > 0) {
-			fuel--;
-			updateState();
+		if (this.fuel > 0) {
+			this.fuel--;
+			this.updateState();
 		}
-		if (fuel <= 0 && canSmelt()) {
-			fuel = fuelGague = (int) (TileEntityFurnace.getItemBurnTime(getStackInSlot(fuelslot)) * 1.25);
-			if (fuel > 0) {
-				if (getStackInSlot(fuelslot).getItem().hasContainerItem()) // Fuel
-				// slot
+		if (this.fuel <= 0 && this.canSmelt()) {
+			this.fuel = this.fuelGague = (int) (TileEntityFurnace.getItemBurnTime(this.getStackInSlot(this.fuelslot)) * 1.25);
+			if (this.fuel > 0) {
+				if (this.getStackInSlot(this.fuelslot).getItem().hasContainerItem()) // Fuel
+					// slot
 				{
-					setInventorySlotContents(fuelslot, new ItemStack(getStackInSlot(fuelslot).getItem().getContainerItem()));
-				} else if (getStackInSlot(fuelslot).getCount() > 1) {
-					decrStackSize(fuelslot, 1);
-				} else if (getStackInSlot(fuelslot).getCount() == 1) {
-					setInventorySlotContents(fuelslot, ItemStack.EMPTY);
+					this.setInventorySlotContents(this.fuelslot, new ItemStack(this.getStackInSlot(this.fuelslot).getItem().getContainerItem()));
+				} else if (this.getStackInSlot(this.fuelslot).getCount() > 1) {
+					this.decrStackSize(this.fuelslot, 1);
+				} else if (this.getStackInSlot(this.fuelslot).getCount() == 1) {
+					this.setInventorySlotContents(this.fuelslot, ItemStack.EMPTY);
 				}
 				updateInventory = true;
 			}
 		}
-		if (isBurning() && canSmelt()) {
-			progress++;
-			if (progress >= fuelScale) {
-				progress = 0;
-				cookItems();
+		if (this.isBurning() && this.canSmelt()) {
+			this.progress++;
+			if (this.progress >= this.fuelScale) {
+				this.progress = 0;
+				this.cookItems();
 				updateInventory = true;
 			}
 		} else {
-			progress = 0;
+			this.progress = 0;
 		}
-		if (burning != isBurning()) {
+		if (burning != this.isBurning()) {
 			updateInventory = true;
 		}
 		if (updateInventory) {
-			markDirty();
+			this.markDirty();
 		}
 	}
 
 	public void cookItems() {
 		if (this.canSmelt()) {
-			ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(getStackInSlot(input1));
+			final ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(this.getStackInSlot(this.input1));
 
-			if (getStackInSlot(output) == ItemStack.EMPTY) {
-				setInventorySlotContents(output, itemstack.copy());
-			} else if (getStackInSlot(output).isItemEqual(itemstack)) {
-				getStackInSlot(output).grow(itemstack.getCount());
+			if (this.getStackInSlot(this.output) == ItemStack.EMPTY) {
+				this.setInventorySlotContents(this.output, itemstack.copy());
+			} else if (this.getStackInSlot(this.output).isItemEqual(itemstack)) {
+				this.getStackInSlot(this.output).grow(itemstack.getCount());
 			}
-			if (getStackInSlot(input1).getCount() > 1) {
-				this.decrStackSize(input1, 1);
+			if (this.getStackInSlot(this.input1).getCount() > 1) {
+				this.decrStackSize(this.input1, 1);
 			} else {
-				setInventorySlotContents(input1, ItemStack.EMPTY);
+				this.setInventorySlotContents(this.input1, ItemStack.EMPTY);
 			}
 		}
 	}
 
 	public boolean canSmelt() {
-		if (getStackInSlot(input1) == ItemStack.EMPTY) {
+		if (this.getStackInSlot(this.input1) == ItemStack.EMPTY)
 			return false;
-		} else {
-			ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(getStackInSlot(input1));
-			if (itemstack == ItemStack.EMPTY)
-				return false;
-			if (getStackInSlot(output) == ItemStack.EMPTY)
-				return true;
-			if (!getStackInSlot(output).isItemEqual(itemstack))
-				return false;
-			int result = getStackInSlot(output).getCount() + itemstack.getCount();
-			return (result <= getInventoryStackLimit() && result <= itemstack.getMaxStackSize());
-		}
+		final ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(this.getStackInSlot(this.input1));
+		if (itemstack == ItemStack.EMPTY)
+			return false;
+		if (this.getStackInSlot(this.output) == ItemStack.EMPTY)
+			return true;
+		if (!this.getStackInSlot(this.output).isItemEqual(itemstack))
+			return false;
+		final int result = this.getStackInSlot(this.output).getCount() + itemstack.getCount();
+		return result <= this.getInventoryStackLimit() && result <= itemstack.getMaxStackSize();
 	}
 
 	public boolean isBurning() {
-		return fuel > 0;
+		return this.fuel > 0;
 	}
 
-	public ItemStack getResultFor(ItemStack stack) {
-		ItemStack result = FurnaceRecipes.instance().getSmeltingResult(stack);
+	public ItemStack getResultFor(final ItemStack stack) {
+		final ItemStack result = FurnaceRecipes.instance().getSmeltingResult(stack);
 		if (result != ItemStack.EMPTY) {
 			return result.copy();
 		}
@@ -131,30 +130,33 @@ public class TileIronFurnace extends TileLegacyMachineBase implements IInventory
 	}
 
 	public void updateState() {
-		IBlockState BlockStateContainer = world.getBlockState(pos);
+		final IBlockState BlockStateContainer = this.world.getBlockState(this.pos);
 		if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
-			BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
-			if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != fuel > 0)
-				blockMachineBase.setActive(fuel > 0, world, pos);
+			final BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
+			if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != this.fuel > 0)
+				blockMachineBase.setActive(this.fuel > 0, this.world, this.pos);
 		}
 	}
 
 	@Override
 	public Inventory getInventory() {
-		return inventory;
+		return this.inventory;
 	}
 
-	public int[] getSlotsForFace(EnumFacing side) {
-		return side == EnumFacing.DOWN ? SLOTS_BOTTOM : (side == EnumFacing.UP ? SLOTS_TOP : SLOTS_SIDES);
+	@Override
+	public int[] getSlotsForFace(final EnumFacing side) {
+		return side == EnumFacing.DOWN ? TileIronFurnace.SLOTS_BOTTOM : side == EnumFacing.UP ? TileIronFurnace.SLOTS_TOP : TileIronFurnace.SLOTS_SIDES;
 	}
 
-	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+	@Override
+	public boolean canInsertItem(final int index, final ItemStack itemStackIn, final EnumFacing direction) {
 		return this.isItemValidForSlot(index, itemStackIn);
 	}
 
-	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+	@Override
+	public boolean canExtractItem(final int index, final ItemStack stack, final EnumFacing direction) {
 		if (direction == EnumFacing.DOWN && index == 1) {
-			Item item = stack.getItem();
+			final Item item = stack.getItem();
 
 			if (item != Items.WATER_BUCKET && item != Items.BUCKET) {
 				return false;
@@ -162,5 +164,21 @@ public class TileIronFurnace extends TileLegacyMachineBase implements IInventory
 		}
 
 		return true;
+	}
+
+	public int getBurnTime() {
+		return this.fuel;
+	}
+
+	public void setBurnTime(final int burnTime) {
+		this.fuel = burnTime;
+	}
+
+	public int getTotalBurnTime() {
+		return this.fuelGague;
+	}
+
+	public void setTotalBurnTime(final int totalBurnTime) {
+		this.fuelGague = totalBurnTime;
 	}
 }
