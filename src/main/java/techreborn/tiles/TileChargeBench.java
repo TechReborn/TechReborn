@@ -136,8 +136,8 @@ implements IWrenchable, IInventoryProvider, ISidedInventory, IContainerProvider 
 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("chargebench").player(player.inventory).inventory().hotbar(8, 142).addInventory()
-				.tile(this).energySlot(0, 62, 21).energySlot(1, 80, 21).energySlot(2, 98, 21).energySlot(3, 62, 39)
-				.energySlot(4, 80, 39).energySlot(5, 98, 39).syncEnergyValue().addInventory().create();
+		return new ContainerBuilder("chargebench").player(player.inventory).inventory().hotbar().addInventory()
+				.tile(this).energySlot(0, 62, 25).energySlot(1, 98, 25).energySlot(2, 62, 45).energySlot(3, 98, 45)
+				.energySlot(4, 62, 65).energySlot(5, 98, 65).syncEnergyValue().addInventory().create();
 	}
 }
