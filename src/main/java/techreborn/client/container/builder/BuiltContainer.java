@@ -78,10 +78,6 @@ public class BuiltContainer extends Container {
 	public final void onCraftMatrixChanged(final IInventory inv) {
 		if (!this.craftEvents.isEmpty())
 			this.craftEvents.forEach(consumer -> consumer.accept((InventoryCrafting) inv));
-		// final ItemStack output =
-		// RollingMachineRecipe.instance.findMatchingRecipe(this.tile.craftMatrix,
-		// this.tile.getWorld());
-		// this.tile.inventory.setInventorySlotContents(1, output);
 	}
 
 	@Override
