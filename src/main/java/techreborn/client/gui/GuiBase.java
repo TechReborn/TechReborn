@@ -51,7 +51,7 @@ public class GuiBase extends GuiContainer {
 			x += guiLeft;
 			y += guiTop;
 		}
-		builder.drawOutputSlot(this, x - 1, y - 1);
+		builder.drawOutputSlot(this, x - 5, y - 5);
 	}
 
 	protected void drawSelectedStack(int x, int y, Layer layer) {

@@ -202,13 +202,17 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 				I18n.translateToLocal("techreborn.desc.scrapBox"));
 		}
 
+		//NEW ONES
+		registry.addRecipeClickArea(GuiCentrifuge.class, 150, 4, 20, 12, RecipeCategoryUids.CENTRIFUGE);
+		registry.addRecipeClickArea(GuiElectricFurnace.class, 150, 4, 20, 12, VanillaRecipeCategoryUid.SMELTING);
+		registry.addRecipeClickArea(GuiGenerator.class, 150, 4, 20, 12, VanillaRecipeCategoryUid.FUEL);
+
+		//OLD ONES
 		registry.addRecipeClickArea(GuiAlloyFurnace.class, 80, 35, 26, 20, RecipeCategoryUids.ALLOY_SMELTER,
 			VanillaRecipeCategoryUid.FUEL);
 		registry.addRecipeClickArea(GuiAlloySmelter.class, 80, 35, 26, 20, RecipeCategoryUids.ALLOY_SMELTER);
 		registry.addRecipeClickArea(GuiAssemblingMachine.class, 85, 34, 24, 20, RecipeCategoryUids.ASSEMBLING_MACHINE);
 		registry.addRecipeClickArea(GuiBlastFurnace.class, 63, 36, 24, 15, RecipeCategoryUids.BLAST_FURNACE);
-		registry.addRecipeClickArea(GuiCentrifuge.class, 150, 4, 20, 12, RecipeCategoryUids.CENTRIFUGE);
-		registry.addRecipeClickArea(GuiGenerator.class, 150, 4, 20, 12, VanillaRecipeCategoryUid.FUEL);
 		registry.addRecipeClickArea(GuiChemicalReactor.class, 73, 39, 32, 12, RecipeCategoryUids.CHEMICAL_REACTOR);
 		registry.addRecipeClickArea(GuiFusionReactor.class, 111, 34, 27, 19, RecipeCategoryUids.FUSION_REACTOR);
 		registry.addRecipeClickArea(GuiIndustrialGrinder.class, 50, 35, 25, 16, RecipeCategoryUids.INDUSTRIAL_GRINDER);
@@ -223,7 +227,6 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 		registry.addRecipeClickArea(GuiCompressor.class, 78, 36, 24, 16, RecipeCategoryUids.COMPRESSOR);
 		registry.addRecipeClickArea(GuiIronFurnace.class, 78, 36, 24, 16, VanillaRecipeCategoryUid.SMELTING,
 			VanillaRecipeCategoryUid.FUEL);
-		registry.addRecipeClickArea(GuiElectricFurnace.class, 78, 36, 24, 16, VanillaRecipeCategoryUid.SMELTING);
 
 		registry.addRecipeClickArea(GuiSemifluidGenerator.class, 79, 34, 18, 18,
 			EFluidGenerator.SEMIFLUID.getRecipeID());

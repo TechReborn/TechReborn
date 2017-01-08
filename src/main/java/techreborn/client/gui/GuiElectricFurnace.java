@@ -1,53 +1,36 @@
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
-
 import techreborn.tiles.teir1.TileElectricFurnace;
 
-public class GuiElectricFurnace extends GuiContainer {
+public class GuiElectricFurnace extends GuiBase {
 
-	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/compressor.png");
+	TileElectricFurnace tile;
 
-	TileElectricFurnace furnace;
-
-	public GuiElectricFurnace(final EntityPlayer player, final TileElectricFurnace furnace) {
-		super(furnace.createContainer(player));
-		this.xSize = 176;
-		this.ySize = 167;
-		this.furnace = furnace;
+	public GuiElectricFurnace(final EntityPlayer player, final TileElectricFurnace tile) {
+		super(player, tile, tile.createContainer(player));
+		this.tile = tile;
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.getTextureManager().bindTexture(GuiElectricFurnace.texture);
-		final int k = (this.width - this.xSize) / 2;
-		final int l = (this.height - this.ySize) / 2;
-		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
+	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
+		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
+		final Layer layer = Layer.BACKGROUND;
 
-		int j = 0;
+		//this.drawSlot(8, 72, layer);
 
-		j = this.furnace.gaugeProgressScaled(24);
-		if (j > 0) {
-			this.drawTexturedModalRect(k + 78, l + 34, 176, 14, j + 1, 16);
-		}
+		this.drawSlot(55, 45, layer);
+		this.drawOutputSlot(101, 45, layer);
 
-		j = this.furnace.getEnergyScaled(12);
-		if (j > 0) {
-			this.drawTexturedModalRect(k + 24, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);
-		}
+		this.builder.drawJEIButton(this, 150, 4, mouseX, mouseY, layer);
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(final int p_146979_1_, final int p_146979_2_) {
-		final String name = I18n.translateToLocal("tile.techreborn.electricfurnace.name");
-		this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6,
-				4210752);
-		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,
-				this.ySize - 96 + 2, 4210752);
+	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
+		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+		final Layer layer = Layer.FOREGROUND;
+
+		this.builder.drawProgressBar(this, this.tile.gaugeProgressScaled(100), 100, 76, 48, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
+		this.builder.drawMultiEnergyBar(this, 9, 18, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 }

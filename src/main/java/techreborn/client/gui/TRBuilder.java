@@ -1,6 +1,7 @@
 package techreborn.client.gui;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
@@ -180,6 +181,16 @@ public class TRBuilder extends GuiBuilder {
 			GlStateManager.disableLighting();
 			GlStateManager.color(1, 1, 1, 1);
 		}
+	}
+
+	public void drawSlot(GuiScreen gui, int posX, int posY) {
+		Minecraft.getMinecraft().getTextureManager().bindTexture(GUI_SHEET);
+		gui.drawTexturedModalRect(posX, posY, 150, 0, 18, 18);
+	}
+
+	public void drawOutputSlot(GuiScreen gui, int posX, int posY) {
+		Minecraft.getMinecraft().getTextureManager().bindTexture(GUI_SHEET);
+		gui.drawTexturedModalRect(posX, posY, 150, 18, 26, 26);
 	}
 
 	public int getScaledBurnTime(int scale, int burnTime, int totalBurnTime) {
