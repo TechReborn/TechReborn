@@ -20,6 +20,11 @@
         "textures": {
           "layer0": "techreborn:items/upgrade/energy_storage_upgrade"
         }
+      },
+      "range": {
+        "textures": {
+          "layer0": "techreborn:items/upgrade/range_upgrade"
+        }
       }
     }
   }
