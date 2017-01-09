@@ -58,6 +58,7 @@ public class TRPowerNet {
 
 	@SubscribeEvent
 	public void tick(PowerTickEvent evt) {
+		evt.getWorld().theProfiler.startSection("TechRebornPowerNet");
 		if (tick < 20) {
 			tick++;
 			return;
@@ -101,6 +102,7 @@ public class TRPowerNet {
 			MinecraftForge.EVENT_BUS.unregister(this);
 		}
 		tick++;
+		evt.getWorld().theProfiler.endSection();
 	}
 
 	public void addElement(CableMultipart te) {

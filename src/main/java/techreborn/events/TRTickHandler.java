@@ -40,7 +40,7 @@ public class TRTickHandler {
 		}
 
 		long start = System.nanoTime();
-		MinecraftForge.EVENT_BUS.post(new PowerTickEvent());
+		MinecraftForge.EVENT_BUS.post(new PowerTickEvent(e.world));
 		long elapsed = System.nanoTime() - start;
 		tickTime += elapsed;
 		ticksCounted++;
