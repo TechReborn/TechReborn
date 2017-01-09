@@ -1,9 +1,7 @@
 package techreborn.tiles.storage;
 
 import net.minecraft.entity.player.EntityPlayer;
-
 import reborncore.api.power.EnumPowerTier;
-
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
@@ -20,9 +18,9 @@ public class TileMFE extends TileEnergyStorage implements IContainerProvider {
 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("mfe").player(player.inventory).inventory(8, 84).hotbar(8, 142).armor()
-				.complete(44, 6).addArmor().addInventory().tile(this).energySlot(0, 80, 17).energySlot(1, 80, 53)
-				.syncEnergyValue().addInventory().create();
+		return new ContainerBuilder("mfe").player(player.inventory).inventory().hotbar().armor()
+			.complete(8, 18).addArmor().addInventory().tile(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
+			.syncEnergyValue().addInventory().create();
 	}
 
 }

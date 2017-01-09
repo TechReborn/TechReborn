@@ -79,21 +79,6 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 					this.syncWithAll();
 				}
 			}
-
-			if (this.getStackInSlot(2) == ItemStack.EMPTY
-				&& (!this.storedItem.isEmpty() || !this.getStackInSlot(1).isEmpty())) {
-
-				ItemStack fake = storedItem.isEmpty() ? this.getStackInSlot(1).copy() : storedItem.copy();
-				fake.setCount(1);
-
-				this.setInventorySlotContents(2, fake);
-			} else if (!ItemUtils.isItemEqual(this.getStackInSlot(2), this.storedItem, true, true)) {
-
-				ItemStack fake = storedItem.isEmpty() ? this.getStackInSlot(1).copy() : storedItem.copy();
-				fake.setCount(1);
-
-				this.setInventorySlotContents(2, fake);
-			}
 		}
 	}
 

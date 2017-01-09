@@ -236,8 +236,8 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("blastfurnace").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory().tile(this).slot(0, 40, 25).slot(1, 40, 43).outputSlot(2, 100, 35).outputSlot(3, 118, 35)
+		return new ContainerBuilder("blastfurnace").player(player.inventory).inventory().hotbar()
+				.addInventory().tile(this).slot(0, 50, 27).slot(1, 50, 47).outputSlot(2, 92, 36).outputSlot(3, 110, 36)
 				.syncEnergyValue().syncCrafterValue().syncIntegerValue(this::getHeat, this::setHeat).addInventory()
 				.create();
 	}

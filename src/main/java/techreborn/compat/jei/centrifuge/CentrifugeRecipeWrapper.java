@@ -13,7 +13,7 @@ import techreborn.compat.jei.BaseRecipeWrapper;
 import javax.annotation.Nonnull;
 
 public class CentrifugeRecipeWrapper extends BaseRecipeWrapper<CentrifugeRecipe> {
-	private final IDrawableAnimated progressRight;
+	private final IDrawableAnimated progress;
 
 	public CentrifugeRecipeWrapper(
 		@Nonnull
@@ -26,14 +26,13 @@ public class CentrifugeRecipeWrapper extends BaseRecipeWrapper<CentrifugeRecipe>
 
 		int ticksPerCycle = baseRecipe.tickTime() / 4; // speed up the animation
 
-		this.progressRight = guiHelper.createAnimatedDrawable(progressStatic, ticksPerCycle,
-			IDrawableAnimated.StartDirection.LEFT, false);
+		this.progress = guiHelper.createAnimatedDrawable(progressStatic, ticksPerCycle, IDrawableAnimated.StartDirection.LEFT, false);
 	}
 
 	@Override
 	public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 		super.drawInfo(minecraft, recipeWidth, recipeHeight, mouseX, mouseY);
-		progressRight.draw(minecraft, 25, 26);
+		progress.draw(minecraft, 25, 26);
 
 		int x = -10;
 		int y1 = 1;

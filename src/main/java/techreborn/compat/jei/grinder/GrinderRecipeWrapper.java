@@ -6,7 +6,7 @@ import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
 import net.minecraft.client.Minecraft;
 import techreborn.api.recipe.machines.GrinderRecipe;
-import techreborn.client.gui.GuiGrinder;
+import techreborn.client.gui.TRBuilder;
 import techreborn.compat.jei.BaseRecipeWrapper;
 
 import javax.annotation.Nonnull;
@@ -21,9 +21,10 @@ public class GrinderRecipeWrapper extends BaseRecipeWrapper<GrinderRecipe> {
 			GrinderRecipe baseRecipe) {
 		super(baseRecipe);
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
-		IDrawableStatic progressStatic = guiHelper.createDrawable(GuiGrinder.texture, 176, 14, 20, 11);
+		IDrawableStatic progressStatic = guiHelper.createDrawable(TRBuilder.GUI_SHEET, 100, 151, 16, 10);
 
-		int ticksPerCycle = baseRecipe.tickTime();
+		int ticksPerCycle = baseRecipe.tickTime(); // speed up the animation
+
 		this.progress = guiHelper.createAnimatedDrawable(progressStatic, ticksPerCycle,
 			IDrawableAnimated.StartDirection.LEFT, false);
 	}
@@ -31,13 +32,6 @@ public class GrinderRecipeWrapper extends BaseRecipeWrapper<GrinderRecipe> {
 	@Override
 	public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 		super.drawInfo(minecraft, recipeWidth, recipeHeight, mouseX, mouseY);
-		progress.draw(minecraft, 25, 7);
-
-		int x = -45;
-		int y = 4;
-		int lineHeight = minecraft.fontRendererObj.FONT_HEIGHT;
-
-		minecraft.fontRendererObj.drawString("Time: " + baseRecipe.tickTime / 20 + " s", x, y, 0x444444);
-		minecraft.fontRendererObj.drawString("EU: " + baseRecipe.euPerTick + " EU/t", x, y += lineHeight, 0x444444);
+		progress.draw(minecraft, 25, 11);
 	}
 }

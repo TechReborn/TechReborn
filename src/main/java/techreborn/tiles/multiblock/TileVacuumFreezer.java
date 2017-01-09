@@ -152,9 +152,9 @@ public class TileVacuumFreezer extends TilePowerAcceptor
 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("vacuumfreezer").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory().tile(this).slot(0, 56, 34).outputSlot(1, 116, 35).syncEnergyValue().syncCrafterValue()
-				.addInventory().create();
+		return new ContainerBuilder("vacuumfreezer").player(player.inventory).inventory().hotbar().addInventory()
+			.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).syncEnergyValue().syncCrafterValue().addInventory()
+			.create();
 	}
 
 }

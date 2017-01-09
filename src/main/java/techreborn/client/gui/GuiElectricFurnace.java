@@ -22,7 +22,7 @@ public class GuiElectricFurnace extends GuiBase {
 		this.drawSlot(55, 45, layer);
 		this.drawOutputSlot(101, 45, layer);
 
-		this.builder.drawJEIButton(this, 150, 4, mouseX, mouseY, layer);
+		this.builder.drawJEIButton(this, 150, 4, layer);
 	}
 
 	@Override

@@ -112,7 +112,7 @@ public class GuiBase extends GuiContainer {
 			factorX = guiLeft;
 			factorY = guiTop;
 		}
-		buttonList.add(new GuiButtonPowerBar(0, x + factorX, y + factorY, this, layer));
+		buttonList.add(new GuiButtonPowerBar(id, x + factorX, y + factorY, this, layer));
 	}
 
 	//TODO

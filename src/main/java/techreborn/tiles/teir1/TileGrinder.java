@@ -168,9 +168,8 @@ implements IWrenchable, IInventoryProvider, IRecipeCrafterProvider, IContainerPr
 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("grinder").player(player.inventory).inventory(8, 84).hotbar(8, 142).addInventory()
-				.tile(this).slot(0, 56, 34).outputSlot(1, 116, 34).upgradeSlot(2, 152, 8).upgradeSlot(3, 152, 26)
-				.upgradeSlot(4, 152, 44).upgradeSlot(5, 152, 62).syncEnergyValue().syncCrafterValue().addInventory()
-				.create();
+		return new ContainerBuilder("grinder").player(player.inventory).inventory().hotbar().addInventory()
+			.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).syncEnergyValue().syncCrafterValue().addInventory()
+			.create();
 	}
 }

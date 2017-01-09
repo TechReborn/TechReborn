@@ -5,11 +5,13 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.client.config.GuiUtils;
 import net.minecraftforge.fml.common.Loader;
 import reborncore.client.guibuilder.GuiBuilder;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.lib.ModInfo;
+import techreborn.proxies.ClientProxy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,26 +94,18 @@ public class TRBuilder extends GuiBuilder {
 		}
 	}
 
-	public void drawJEIButton(GuiBase gui, int x, int y, int mouseX, int mouseY, GuiBase.Layer layer) {
+	public void drawJEIButton(GuiBase gui, int x, int y, GuiBase.Layer layer) {
 		if (Loader.isModLoaded("jei")) {
 			if (layer == GuiBase.Layer.BACKGROUND) {
 				x += gui.getGuiLeft();
 				y += gui.getGuiTop();
 			}
-			if (layer == GuiBase.Layer.FOREGROUND) {
-				mouseX -= gui.getGuiLeft();
-				mouseY -= gui.getGuiTop();
-			}
 			gui.mc.getTextureManager().bindTexture(GUI_SHEET);
-			if (isInRect(x, y, 20, 12, mouseX, mouseY)) {
-				gui.drawTexturedModalRect(x, y, 184, 82, 20, 12);
-			} else {
-				gui.drawTexturedModalRect(x, y, 184, 70, 20, 12);
-			}
+			gui.drawTexturedModalRect(x, y, 184, 70, 20, 12);
 		}
 	}
 
-	public void drawBigBlueBar(GuiBase gui, int x, int y, int value, int max, int mouseX, int mouseY, String suffix, GuiBase.Layer layer) {
+	public void drawHologramButton(GuiBase gui, int x, int y, int mouseX, int mouseY, GuiBase.Layer layer) {
 		if (layer == GuiBase.Layer.BACKGROUND) {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
@@ -119,6 +113,26 @@ public class TRBuilder extends GuiBuilder {
 		if (layer == GuiBase.Layer.FOREGROUND) {
 			mouseX -= gui.getGuiLeft();
 			mouseY -= gui.getGuiTop();
+		}
+		gui.mc.getTextureManager().bindTexture(GUI_SHEET);
+		if (ClientProxy.multiblockRenderEvent.currentMultiblock == null) {
+			gui.drawTexturedModalRect(x, y, 184, 94, 20, 12);
+		} else {
+			gui.drawTexturedModalRect(x, y, 184, 106, 20, 12);
+		}
+		if (isInRect(x, y, 20, 12, mouseX, mouseY)) {
+			List<String> list = new ArrayList<>();
+			list.add("Toggle Multiblock Hologram");
+			GlStateManager.pushMatrix();
+			net.minecraftforge.fml.client.config.GuiUtils.drawHoveringText(list, mouseX, mouseY, gui.width, gui.height, -1, gui.mc.fontRendererObj);
+			GlStateManager.popMatrix();
+		}
+	}
+
+	public void drawBigBlueBar(GuiBase gui, int x, int y, int value, int max, int mouseX, int mouseY, String suffix, GuiBase.Layer layer) {
+		if (layer == GuiBase.Layer.BACKGROUND) {
+			x += gui.getGuiLeft();
+			y += gui.getGuiTop();
 		}
 		gui.mc.getTextureManager().bindTexture(GUI_SHEET);
 		if (!suffix.equals("")) {
@@ -144,6 +158,25 @@ public class TRBuilder extends GuiBuilder {
 			net.minecraftforge.fml.client.config.GuiUtils.drawHoveringText(list, mouseX, mouseY, gui.width, gui.height, -1, gui.mc.fontRendererObj);
 			GlStateManager.disableLighting();
 			GlStateManager.color(1, 1, 1, 1);
+		}
+	}
+
+	public void drawBigHeatBar(GuiBase gui, int x, int y, int value, int max, GuiBase.Layer layer) {
+		if (layer == GuiBase.Layer.BACKGROUND) {
+			x += gui.getGuiLeft();
+			y += gui.getGuiTop();
+		}
+		gui.mc.getTextureManager().bindTexture(GUI_SHEET);
+		gui.drawTexturedModalRect(x, y, 0, 218, 114, 18);
+		if (value != 0) {
+			int j = (int) ((double) value / (double) max * 106);
+			if (j < 0)
+				j = 0;
+			gui.drawTexturedModalRect(x + 4, y + 4, 0, 246, j, 10);
+			gui.drawCentredString(value + " Heat", y + 5, 0xFFFFFF, layer);
+
+		} else {
+			gui.drawCentredString(I18n.translateToLocal("techreborn.message.missingmultiblock"), y + 5, 0xC60000, layer);
 		}
 	}
 

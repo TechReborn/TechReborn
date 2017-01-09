@@ -27,7 +27,7 @@ public class GuiCentrifuge extends GuiBase {
 		this.drawSlot(120, 44, layer);
 		this.drawSlot(101, 63, layer);
 
-		this.builder.drawJEIButton(this, 150, 4, mouseX, mouseY, layer);
+		this.builder.drawJEIButton(this, 150, 4, layer);
 	}
 
 	@Override
