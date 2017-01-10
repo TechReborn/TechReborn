@@ -251,7 +251,7 @@ public class CraftingTableRecipes extends RecipeMethods {
 
 	static void registerCompressionRecipes() {
 		for (String name : ArrayUtils.addAll(BlockStorage.types, BlockStorage2.types)) {
-			ItemStack item = ItemStack.EMPTY;
+			ItemStack item = null;
 			try {
 				item = getMaterial(name, 9, Type.INGOT);
 			} catch (InvalidParameterException e) {

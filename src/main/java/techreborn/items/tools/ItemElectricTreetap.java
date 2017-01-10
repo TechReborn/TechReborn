@@ -7,7 +7,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
+import java.util.List;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -39,7 +39,7 @@ public class ItemElectricTreetap extends ItemTRNoDestroy implements IEnergyItemI
 	}
 
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		IBlockState state = worldIn.getBlockState(pos);
 		Block block = state.getBlock();
 		if(CompatManager.isIC2Loaded && block == Block.getBlockFromName("ic2:rubber_wood") && PoweredItem.canUseEnergy(20, playerIn.getHeldItem(hand)))
@@ -82,17 +82,12 @@ public class ItemElectricTreetap extends ItemTRNoDestroy implements IEnergyItemI
 
 	}
 
-	@Override
-	public int getRGBDurabilityForDisplay(ItemStack stack) {
-		return PowerSystem.getDisplayPower().colour;
-	}
-
 
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item,
-	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
+	                        CreativeTabs par2CreativeTabs, List itemList) {
 		ItemStack uncharged = new ItemStack(ModItems.ELECTRIC_TREE_TAP);
 		ItemStack charged = new ItemStack(ModItems.ELECTRIC_TREE_TAP);
 		PoweredItem.setEnergy(getMaxPower(charged), charged);

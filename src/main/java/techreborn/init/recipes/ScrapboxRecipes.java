@@ -90,7 +90,6 @@ public class ScrapboxRecipes extends RecipeMethods {
 		register(getStack(Items.APPLE));
 		register(getStack(Items.GOLDEN_APPLE));
 		register(getStack(Items.GOLD_NUGGET));
-		register(getStack(Items.SHULKER_SHELL));
 
 		register(DynamicCell.getEmptyCell(1));
 		register(getMaterial("water", Type.CELL));

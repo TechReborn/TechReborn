@@ -29,7 +29,7 @@ public class UpgradeHandler {
 		crafter.resetSpeedMulti();
 		for (int slot : this.slots) {
 			ItemStack stack = inventory.getStackInSlot(slot);
-			if (stack != ItemStack.EMPTY && stack.getItem() instanceof IMachineUpgrade) {
+			if (stack != null && stack.getItem() instanceof IMachineUpgrade) {
 				((IMachineUpgrade) stack.getItem()).processUpgrade(crafter, stack);
 			}
 		}

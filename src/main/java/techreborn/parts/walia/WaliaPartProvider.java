@@ -32,7 +32,7 @@ public class WaliaPartProvider implements IWailaDataProvider {
 				return mop.partHit.getDrops().get(0);
 			}
 		}
-		return ItemStack.EMPTY;
+		return null;
 	}
 
 	@Override

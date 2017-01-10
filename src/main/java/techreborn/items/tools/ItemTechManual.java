@@ -25,7 +25,7 @@ public class ItemTechManual extends ItemTRNoDestroy {
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(final World world, final EntityPlayer player,
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, final World world, final EntityPlayer player,
 			final EnumHand hand) {
 		player.openGui(Core.INSTANCE, EGui.MANUAL.ordinal(), world, (int) player.posX, (int) player.posY,
 				(int) player.posY);

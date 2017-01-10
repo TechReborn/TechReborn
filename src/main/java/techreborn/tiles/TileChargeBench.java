@@ -32,7 +32,7 @@ implements IWrenchable, IInventoryProvider, ISidedInventory, IContainerProvider 
 		super.updateEntity();
 
 		for (int i = 0; i < 6; i++) {
-			if (this.inventory.getStackInSlot(i) != ItemStack.EMPTY) {
+			if (this.inventory.getStackInSlot(i) != null) {
 				if (this.getEnergy() > 0) {
 					final ItemStack stack = this.inventory.getStackInSlot(i);
 					if (stack.getItem() instanceof IEnergyInterfaceItem) {

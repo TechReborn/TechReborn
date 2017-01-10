@@ -43,7 +43,7 @@ public abstract class RecipeMethods {
 		} else {
 
 		}
-		return ItemStack.EMPTY;
+		return null;
 	}
 
 	static ItemStack getMaterial(String name, Type type) {
@@ -113,7 +113,7 @@ public abstract class RecipeMethods {
 
 	static ItemStack getStack(IC2Duplicates ic2Duplicates, int count) {
 		ItemStack stack = ic2Duplicates.getStackBasedOnConfig();
-		stack.setCount(count);
+		stack.stackSize = (count);
 		return stack;
 	}
 

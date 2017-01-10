@@ -19,7 +19,7 @@ public class TRTickHandler {
 	@SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
 	public void onPlayerTick(TickEvent.PlayerTickEvent e) {
 		EntityPlayer player = e.player;
-		Item chestslot = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != ItemStack.EMPTY
+		Item chestslot = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null
 		                 ? player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() : null;
 
 		if (previouslyWearing != chestslot && previouslyWearing == ModItems.CLOAKING_DEVICE && player.isInvisible()

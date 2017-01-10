@@ -10,7 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
+import java.util.List;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
@@ -150,7 +150,7 @@ public class BlockOre extends Block implements IOreNameProvider {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(Item item, CreativeTabs creativeTabs, NonNullList<ItemStack> list) {
+	public void getSubBlocks(Item item, CreativeTabs creativeTabs, List<ItemStack> list) {
 		for (int meta = 0; meta < ores.length; meta++) {
 			list.add(new ItemStack(item, 1, meta));
 		}

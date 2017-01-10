@@ -48,17 +48,12 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
 				                   World worldIn,
 			                   @Nullable
 				                   EntityLivingBase entityIn) {
-				if (stack != ItemStack.EMPTY && PoweredItem.canUseEnergy(cost, stack) && entityIn != null && entityIn.getHeldItemMainhand().equals(stack)) {
+				if (stack != null && PoweredItem.canUseEnergy(cost, stack) && entityIn != null && entityIn.getHeldItemMainhand().equals(stack)) {
 					return 1.0F;
 				}
 				return 0.0F;
 			}
 		});
-	}
-
-	@Override
-	public int getRGBDurabilityForDisplay(ItemStack stack) {
-		return PowerSystem.getDisplayPower().colour;
 	}
 
 	@Override

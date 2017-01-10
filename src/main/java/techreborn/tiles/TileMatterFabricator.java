@@ -93,7 +93,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 		if (!super.world.isRemote) {
 			for (int i = 0; i < 6; i++) {
 				final ItemStack stack = this.inventory.getStackInSlot(i);
-				if (this.amplifier < 10000 && stack != ItemStack.EMPTY) {
+				if (this.amplifier < 10000 && stack != null) {
 					final int amp = this.getValue(stack) / 32;
 					if (ItemUtils.isItemEqual(stack, this.inventory.getStackInSlot(i), true, true)) {
 						if (this.canUseEnergy(1)) {
@@ -126,17 +126,17 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	}
 
 	private boolean spaceForOutput() {
-		return this.inventory.getStackInSlot(6) == ItemStack.EMPTY
+		return this.inventory.getStackInSlot(6) == null
 				|| ItemUtils.isItemEqual(this.inventory.getStackInSlot(6), new ItemStack(ModItems.UU_MATTER), true, true)
-				&& this.inventory.getStackInSlot(6).getCount() < 64;
+				&& this.inventory.getStackInSlot(6).stackSize < 64;
 	}
 
 	private void addOutputProducts() {
 
-		if (this.inventory.getStackInSlot(6) == ItemStack.EMPTY) {
+		if (this.inventory.getStackInSlot(6) == null) {
 			this.inventory.setInventorySlotContents(6, new ItemStack(ModItems.UU_MATTER));
 		} else if (ItemUtils.isItemEqual(this.inventory.getStackInSlot(6), new ItemStack(ModItems.UU_MATTER), true, true)) {
-			this.inventory.getStackInSlot(6).setCount(Math.min(64, 1 + this.inventory.getStackInSlot(6).getCount()));
+			this.inventory.getStackInSlot(6).stackSize = (Math.min(64, 1 + this.inventory.getStackInSlot(6).stackSize));
 		}
 	}
 

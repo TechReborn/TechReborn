@@ -30,52 +30,52 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 
 	public TileTechStorageBase(String name, int maxCapacity) {
 		this.maxCapacity = maxCapacity;
-		storedItem = ItemStack.EMPTY;
+		storedItem = null;
 		inventory = new Inventory(3, name, maxCapacity, this);
 	}
 
 	@Override
 	public void updateEntity() {
 		if (!world.isRemote) {
-			if (this.getStackInSlot(0) != ItemStack.EMPTY) {
+			if (this.getStackInSlot(0) != null) {
 				if (this.getStoredItemType().isEmpty() || (this.storedItem.isEmpty()
 					&& ItemUtils.isItemEqual(this.getStackInSlot(0), this.getStackInSlot(1), true, true))) {
 
 					this.storedItem = this.getStackInSlot(0);
-					this.setInventorySlotContents(0, ItemStack.EMPTY);
+					this.setInventorySlotContents(0, null);
 					this.syncWithAll();
 				} else if (ItemUtils.isItemEqual(this.getStoredItemType(), this.getStackInSlot(0), true, true)) {
 
-					this.setStoredItemCount(this.getStackInSlot(0).getCount());
-					this.setInventorySlotContents(0, ItemStack.EMPTY);
+					this.setStoredItemCount(this.getStackInSlot(0).stackSize);
+					this.setInventorySlotContents(0, null);
 					this.syncWithAll();
 				}
 			}
 
-			if (this.storedItem != ItemStack.EMPTY) {
-				if (this.getStackInSlot(1) == ItemStack.EMPTY) {
+			if (this.storedItem != null) {
+				if (this.getStackInSlot(1) == null) {
 
 					ItemStack delivered = this.storedItem.copy();
-					delivered.setCount(Math.min(this.storedItem.getCount(), delivered.getMaxStackSize()));
+					delivered.stackSize = (Math.min(this.storedItem.stackSize, delivered.getMaxStackSize()));
 
-					this.storedItem.shrink(delivered.getCount());
+					this.storedItem.stackSize -= (delivered.stackSize);
 
 					if (this.storedItem.isEmpty())
-						this.storedItem = ItemStack.EMPTY;
+						this.storedItem = null;
 
 					this.setInventorySlotContents(1, delivered);
 					this.syncWithAll();
 				} else if (ItemUtils.isItemEqual(this.storedItem, this.getStackInSlot(1), true, true)
-					&& this.getStackInSlot(1).getCount() < this.getStackInSlot(1).getMaxStackSize()) {
+					&& this.getStackInSlot(1).stackSize < this.getStackInSlot(1).getMaxStackSize()) {
 
-					int wanted = Math.min(this.storedItem.getCount(),
-						this.getStackInSlot(1).getMaxStackSize() - this.getStackInSlot(1).getCount());
+					int wanted = Math.min(this.storedItem.stackSize,
+						this.getStackInSlot(1).getMaxStackSize() - this.getStackInSlot(1).stackSize);
 
-					this.getStackInSlot(1).setCount(this.getStackInSlot(1).getCount() + wanted);
-					this.storedItem.shrink(wanted);
+					this.getStackInSlot(1).stackSize = (this.getStackInSlot(1).stackSize + wanted);
+					this.storedItem.stackSize -= (wanted);
 
 					if (this.storedItem.isEmpty())
-						this.storedItem = ItemStack.EMPTY;
+						this.storedItem = null;
 					this.syncWithAll();
 				}
 			}
@@ -97,14 +97,14 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 
 	public void readFromNBTWithoutCoords(NBTTagCompound tagCompound) {
 
-		storedItem = ItemStack.EMPTY;
+		storedItem = null;
 
 		if (tagCompound.hasKey("storedStack")) {
 			storedItem = new ItemStack((NBTTagCompound) tagCompound.getTag("storedStack"));
 		}
 
-		if (storedItem != ItemStack.EMPTY) {
-			storedItem.setCount(tagCompound.getInteger("storedQuantity"));
+		if (storedItem != null) {
+			storedItem.stackSize = (tagCompound.getInteger("storedQuantity"));
 		}
 	}
 
@@ -116,9 +116,9 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 	}
 
 	public NBTTagCompound writeToNBTWithoutCoords(NBTTagCompound tagCompound) {
-		if (storedItem != ItemStack.EMPTY) {
+		if (storedItem != null) {
 			tagCompound.setTag("storedStack", storedItem.writeToNBT(new NBTTagCompound()));
-			tagCompound.setInteger("storedQuantity", storedItem.getCount());
+			tagCompound.setInteger("storedQuantity", storedItem.stackSize);
 		} else {
 			tagCompound.setInteger("storedQuantity", 0);
 		}
@@ -168,12 +168,12 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 				stacks.add(this.getStackInSlot(1));
 			for (int i = 0; i < this.getStoredCount() / 64; i++) {
 				ItemStack droped = this.storedItem.copy();
-				droped.setCount(64);
+				droped.stackSize = (64);
 				stacks.add(droped);
 			}
 			if (this.getStoredCount() % 64 != 0) {
 				ItemStack droped = this.storedItem.copy();
-				droped.setCount(this.getStoredCount() % 64);
+				droped.stackSize = (this.getStoredCount() % 64);
 				stacks.add(droped);
 			}
 		}
@@ -188,14 +188,14 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 
 	@Override
 	public void setStoredItemCount(int amount) {
-		storedItem.grow(amount);
+		storedItem.stackSize += (amount);
 		this.markDirty();
 	}
 
 	@Override
 	public void setStoredItemType(ItemStack type, int amount) {
 		this.storedItem = type;
-		storedItem.setCount(amount);
+		storedItem.stackSize = (amount);
 		this.markDirty();
 	}
 
@@ -205,7 +205,7 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 	}
 
 	public int getStoredCount() {
-		return this.storedItem.getCount();
+		return this.storedItem.stackSize;
 	}
 
 	@Override
@@ -213,13 +213,13 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 		if (isRealTile) {
 			int size = 0;
 			String name = "of nothing";
-			if (storedItem != ItemStack.EMPTY) {
+			if (storedItem != null) {
 				name = storedItem.getDisplayName();
-				size += storedItem.getCount();
+				size += storedItem.stackSize;
 			}
-			if (getStackInSlot(1) != ItemStack.EMPTY) {
+			if (getStackInSlot(1) != null) {
 				name = getStackInSlot(1).getDisplayName();
-				size += getStackInSlot(1).getCount();
+				size += getStackInSlot(1).stackSize;
 			}
 			info.add(size + " " + name);
 		}

@@ -84,10 +84,10 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 			});
 		}
 
-		if (this.tank.getFluidType() != null && this.getStackInSlot(2) == ItemStack.EMPTY)
+		if (this.tank.getFluidType() != null && this.getStackInSlot(2) == null)
 			this.inventory.setInventorySlotContents(2, new ItemStack(this.tank.getFluidType().getBlock()));
-		else if (this.tank.getFluidType() == null && this.getStackInSlot(2) != ItemStack.EMPTY)
-			this.setInventorySlotContents(2, ItemStack.EMPTY);
+		else if (this.tank.getFluidType() == null && this.getStackInSlot(2) != null)
+			this.setInventorySlotContents(2, null);
 
 		if (!this.world.isRemote) {
 			if (this.world.getTotalWorldTime() - this.lastOutput < 30 && !this.isActive())

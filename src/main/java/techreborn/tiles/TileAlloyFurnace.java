@@ -97,12 +97,12 @@ implements IWrenchable, IInventoryProvider, IContainerProvider {
 			--this.burnTime;
 		}
 		if (!this.world.isRemote) {
-			if (this.burnTime != 0 || this.getStackInSlot(this.input1) != ItemStack.EMPTY && this.getStackInSlot(this.fuel) != ItemStack.EMPTY) {
+			if (this.burnTime != 0 || this.getStackInSlot(this.input1) != null && this.getStackInSlot(this.fuel) != null) {
 				if (this.burnTime == 0 && this.canSmelt()) {
 					this.currentItemBurnTime = this.burnTime = TileAlloyFurnace.getItemBurnTime(this.getStackInSlot(this.fuel));
 					if (this.burnTime > 0) {
 						flag1 = true;
-						if (this.getStackInSlot(this.fuel) != ItemStack.EMPTY) {
+						if (this.getStackInSlot(this.fuel) != null) {
 							this.decrStackSize(this.fuel, 1);
 						}
 					}
@@ -140,7 +140,7 @@ implements IWrenchable, IInventoryProvider, IContainerProvider {
 				if (ItemUtils.isInputEqual(input, inventory.getStackInSlot(inputslot), true, true,
 					useOreDict)) {
 					ItemStack stack = RecipeTranslator.getStackFromObject(input);
-					if(!checkSize || inventory.getStackInSlot(inputslot).getCount() >= stack.getCount()){
+					if(!checkSize || inventory.getStackInSlot(inputslot).stackSize >= stack.stackSize){
 						hasItem = true;
 					}
 				}
@@ -152,7 +152,7 @@ implements IWrenchable, IInventoryProvider, IContainerProvider {
 	}
 
 	private boolean canSmelt() {
-		if (this.getStackInSlot(this.input1) == ItemStack.EMPTY || this.getStackInSlot(this.input2) == ItemStack.EMPTY) {
+		if (this.getStackInSlot(this.input1) == null || this.getStackInSlot(this.input2) == null) {
 			return false;
 		} else {
 			ItemStack itemstack = null;
@@ -165,11 +165,11 @@ implements IWrenchable, IInventoryProvider, IContainerProvider {
 
 			if (itemstack == null)
 				return false;
-			if (this.getStackInSlot(this.output) == ItemStack.EMPTY)
+			if (this.getStackInSlot(this.output) == null)
 				return true;
 			if (!this.getStackInSlot(this.output).isItemEqual(itemstack))
 				return false;
-			final int result = this.getStackInSlot(this.output).getCount() + itemstack.getCount();
+			final int result = this.getStackInSlot(this.output).stackSize + itemstack.stackSize;
 			return result <= this.getInventoryStackLimit() && result <= this.getStackInSlot(this.output).getMaxStackSize(); // Forge
 			// BugFix:
 			// Make
@@ -193,15 +193,15 @@ implements IWrenchable, IInventoryProvider, IContainerProvider {
 					itemstack = recipeType.getOutput(0);
 					break;
 				}
-				if (itemstack != ItemStack.EMPTY) {
+				if (itemstack != null) {
 					break;
 				}
 			}
 
-			if (this.getStackInSlot(this.output) == ItemStack.EMPTY) {
+			if (this.getStackInSlot(this.output) == null) {
 				this.setInventorySlotContents(this.output, itemstack.copy());
 			} else if (this.getStackInSlot(this.output).getItem() == itemstack.getItem()) {
-				this.decrStackSize(this.output, -itemstack.getCount());
+				this.decrStackSize(this.output, -itemstack.stackSize);
 			}
 
 			for (final IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelteRecipe)) {
@@ -219,7 +219,7 @@ implements IWrenchable, IInventoryProvider, IContainerProvider {
 									recipeType.useOreDic())) {
 								int count = 1;
 								if(input instanceof ItemStack){
-									count = RecipeTranslator.getStackFromObject(input).getCount();
+									count = RecipeTranslator.getStackFromObject(input).stackSize;
 								}
 								inventory.decrStackSize(inputSlot, count);
 								break;

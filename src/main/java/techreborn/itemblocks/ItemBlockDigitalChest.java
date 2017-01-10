@@ -24,7 +24,7 @@ public class ItemBlockDigitalChest extends ItemBlock {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
-		if (stack != ItemStack.EMPTY && stack.hasTagCompound()) {
+		if (stack != null && stack.hasTagCompound()) {
 			if (stack.getTagCompound().getCompoundTag("tileEntity") != null)
 				list.add(stack.getTagCompound().getCompoundTag("tileEntity").getInteger("storedQuantity") + " items");
 		}
@@ -41,7 +41,7 @@ public class ItemBlockDigitalChest extends ItemBlock {
 			// world.getBlockState(pos).getBlock().onPostBlockPlaced(world, x,
 			// y, z, metadata);
 		}
-		if (stack != ItemStack.EMPTY && stack.hasTagCompound()) {
+		if (stack != null && stack.hasTagCompound()) {
 			((TileDigitalChest) world.getTileEntity(pos))
 				.readFromNBTWithoutCoords(stack.getTagCompound().getCompoundTag("tileEntity"));
 		}

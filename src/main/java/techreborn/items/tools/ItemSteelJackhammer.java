@@ -3,7 +3,7 @@ package techreborn.items.tools;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
+import java.util.List;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.powerSystem.PoweredItem;
@@ -22,7 +22,7 @@ public class ItemSteelJackhammer extends ItemJackhammer {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item,
-	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
+	                        CreativeTabs par2CreativeTabs, List itemList) {
 		ItemStack stack = new ItemStack(ModItems.STEEL_JACKHAMMER);
 		ItemStack uncharged = stack.copy();
 		ItemStack charged = stack.copy();

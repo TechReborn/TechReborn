@@ -208,14 +208,14 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 							}
 						} else {
 							if (this.canFitStack(this.currentRecipe.getOutput(), this.outputStackSlot, true)) {
-								if (this.getStackInSlot(this.outputStackSlot) == ItemStack.EMPTY) {
+								if (this.getStackInSlot(this.outputStackSlot) == null) {
 									this.setInventorySlotContents(this.outputStackSlot, this.currentRecipe.getOutput().copy());
 								} else {
-									this.decrStackSize(this.outputStackSlot, -this.currentRecipe.getOutput().getCount());
+									this.decrStackSize(this.outputStackSlot, -this.currentRecipe.getOutput().stackSize);
 								}
-								this.decrStackSize(this.topStackSlot, this.currentRecipe.getTopInput().getCount());
-								if (this.currentRecipe.getBottomInput() != ItemStack.EMPTY) {
-									this.decrStackSize(this.bottomStackSlot, this.currentRecipe.getBottomInput().getCount());
+								this.decrStackSize(this.topStackSlot, this.currentRecipe.getTopInput().stackSize);
+								if (this.currentRecipe.getBottomInput() != null) {
+									this.decrStackSize(this.bottomStackSlot, this.currentRecipe.getBottomInput().stackSize);
 								}
 								this.resetCrafter();
 							}
@@ -258,14 +258,14 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 	}
 
 	public boolean canFitStack(final ItemStack stack, final int slot, final boolean oreDic) {// Checks to see if it can fit the stack
-		if (stack == ItemStack.EMPTY) {
+		if (stack == null) {
 			return true;
 		}
-		if (this.inventory.getStackInSlot(slot) == ItemStack.EMPTY) {
+		if (this.inventory.getStackInSlot(slot) == null) {
 			return true;
 		}
 		if (ItemUtils.isItemEqual(this.inventory.getStackInSlot(slot), stack, true, true, oreDic)) {
-			if (stack.getCount() + this.inventory.getStackInSlot(slot).getCount() <= stack.getMaxStackSize()) {
+			if (stack.stackSize + this.inventory.getStackInSlot(slot).stackSize <= stack.getMaxStackSize()) {
 				return true;
 			}
 		}

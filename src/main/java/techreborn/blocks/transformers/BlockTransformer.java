@@ -116,10 +116,10 @@ public abstract class BlockTransformer extends BaseTileBlock implements IRotatio
 		for (int i = 0; i < inventory.getSizeInventory(); i++) {
 			ItemStack itemStack = inventory.getStackInSlot(i);
 
-			if (itemStack == ItemStack.EMPTY) {
+			if (itemStack == null) {
 				continue;
 			}
-			if (itemStack != ItemStack.EMPTY && itemStack.getCount() > 0) {
+			if (itemStack != null && itemStack.stackSize > 0) {
 				if (itemStack.getItem() instanceof ItemBlock) {
 					if (((ItemBlock) itemStack.getItem()).block instanceof BlockFluidBase
 						|| ((ItemBlock) itemStack.getItem()).block instanceof BlockStaticLiquid

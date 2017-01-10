@@ -67,10 +67,10 @@ implements IInventoryProvider, IWrenchable, IListInfoProvider, IContainerProvide
 					|| FluidUtils.fillContainers(this.tank, this.inventory, 0, 1, this.tank.getFluidType()))
 				this.syncWithAll();
 
-			if (this.tank.getFluidType() != null && this.getStackInSlot(2) == ItemStack.EMPTY) {
+			if (this.tank.getFluidType() != null && this.getStackInSlot(2) == null) {
 				this.inventory.setInventorySlotContents(2, new ItemStack(this.tank.getFluidType().getBlock()));
-			} else if (this.tank.getFluidType() == null && this.getStackInSlot(2) != ItemStack.EMPTY) {
-				this.setInventorySlotContents(2, ItemStack.EMPTY);
+			} else if (this.tank.getFluidType() == null && this.getStackInSlot(2) != null) {
+				this.setInventorySlotContents(2, null);
 			}
 		}
 	}

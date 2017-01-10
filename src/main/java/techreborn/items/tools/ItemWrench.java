@@ -48,7 +48,7 @@ public class ItemWrench extends ItemTRNoDestroy {
 	}
 
 	@Override
-	public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos,
+	public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos,
 	                                       EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
 		if (!PermissionAPI.hasPermission(player.getGameProfile(), RebornPermissions.WRENCH_BLOCK, new BlockPosContext(player, pos, world.getBlockState(pos), side))) {
 			return EnumActionResult.FAIL;
@@ -86,11 +86,11 @@ public class ItemWrench extends ItemTRNoDestroy {
 				return EnumActionResult.SUCCESS;
 			}
 		}
-		return super.onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, hand);
+		return super.onItemUseFirst(stack, player, world, pos, side, hitX, hitY, hitZ, hand);
 	}
 
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos,
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos,
 	                                  EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (!PermissionAPI.hasPermission(player.getGameProfile(), RebornPermissions.WRENCH_BLOCK, new BlockPosContext(player, pos, world.getBlockState(pos), facing))) {
 			return EnumActionResult.FAIL;
@@ -116,8 +116,8 @@ public class ItemWrench extends ItemTRNoDestroy {
 					for (int i = 0; i < inventory.getSizeInventory(); i++) {
 						ItemStack itemStack = inventory.getStackInSlot(i);
 
-						if (itemStack != ItemStack.EMPTY) {
-							if (itemStack.getCount() > 0) {
+						if (itemStack != null) {
+							if (itemStack.stackSize > 0) {
 								if (itemStack.getItem() instanceof ItemBlock)
 
 									if (!(((ItemBlock) itemStack.getItem()).block instanceof BlockFluidBase) || !(((ItemBlock) itemStack.getItem()).block instanceof BlockStaticLiquid)

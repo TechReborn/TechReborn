@@ -34,7 +34,7 @@ public class ItemScrapBox extends ItemTRNoDestroy {
 
 			entityitem.setPickupDelay(20);
 			world.spawnEntity(entityitem);
-			stack.shrink(1);
+			stack.stackSize -= (1);
 		}
 		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
 	}

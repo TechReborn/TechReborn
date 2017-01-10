@@ -69,19 +69,19 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInv
 			if (this.getStackInSlot(1).isEmpty())
 				this.setInventorySlotContents(1, itemstack.copy());
 			else
-				this.getStackInSlot(1).grow(itemstack.getCount());
+				this.getStackInSlot(1).stackSize += (itemstack.stackSize);
 		}
 		this.decrStackSize(0, 1);
 	}
 
 	public boolean canRecycle() {
-		return this.getStackInSlot(0) != ItemStack.EMPTY && this.hasSlotGotSpace(1);
+		return this.getStackInSlot(0) != null && this.hasSlotGotSpace(1);
 	}
 
 	public boolean hasSlotGotSpace(final int slot) {
-		if (this.getStackInSlot(slot) == ItemStack.EMPTY) {
+		if (this.getStackInSlot(slot) == null) {
 			return true;
-		} else if (this.getStackInSlot(slot).getCount() < this.getStackInSlot(slot).getMaxStackSize()) {
+		} else if (this.getStackInSlot(slot).stackSize < this.getStackInSlot(slot).getMaxStackSize()) {
 			return true;
 		}
 		return true;

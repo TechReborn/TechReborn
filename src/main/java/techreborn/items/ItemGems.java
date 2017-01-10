@@ -4,7 +4,7 @@ import com.google.common.base.CaseFormat;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
+import java.util.List;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
 
@@ -46,7 +46,7 @@ public class ItemGems extends ItemTRNoDestroy {
 	}
 
 	// Adds Dusts SubItems To Creative Tab
-	public void getSubItems(Item item, CreativeTabs creativeTabs, NonNullList list) {
+	public void getSubItems(Item item, CreativeTabs creativeTabs, List list) {
 		for (int meta = 0; meta < types.length; ++meta) {
 			list.add(new ItemStack(item, 1, meta));
 		}

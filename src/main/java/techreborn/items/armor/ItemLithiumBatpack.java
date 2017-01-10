@@ -7,7 +7,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
+import java.util.List;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -32,14 +32,9 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo {
 	}
 
 	@Override
-	public int getRGBDurabilityForDisplay(ItemStack stack) {
-		return PowerSystem.getDisplayPower().colour;
-	}
-
-	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
 		for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
-			if (player.inventory.getStackInSlot(i) != ItemStack.EMPTY) {
+			if (player.inventory.getStackInSlot(i) != null) {
 				ItemStack item = player.inventory.getStackInSlot(i);
 				if (item.getItem() instanceof IEnergyItemInfo) {
 					IEnergyItemInfo energyItemInfo = (IEnergyItemInfo) item.getItem();
@@ -88,7 +83,7 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item,
-	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
+	                        CreativeTabs par2CreativeTabs, List itemList) {
 		ItemStack uncharged = new ItemStack(ModItems.LITHIUM_BATTERY_PACK);
 		ItemStack charged = new ItemStack(ModItems.LITHIUM_BATTERY_PACK);
 		PoweredItem.setEnergy(getMaxPower(charged), charged);

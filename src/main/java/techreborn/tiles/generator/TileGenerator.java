@@ -60,11 +60,11 @@ public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IIn
 			if (this.burnTime > 0) {
 				this.updateState();
 				this.burnItem = this.getStackInSlot(this.fuelSlot);
-				if (this.getStackInSlot(this.fuelSlot).getCount() == 1) {
+				if (this.getStackInSlot(this.fuelSlot).stackSize == 1) {
 					if (this.getStackInSlot(this.fuelSlot).getItem() == Items.LAVA_BUCKET || this.getStackInSlot(this.fuelSlot).getItem() == ForgeModContainer.getInstance().universalBucket) {
 						this.setInventorySlotContents(this.fuelSlot, new ItemStack(Items.BUCKET));
 					} else {
-						this.setInventorySlotContents(this.fuelSlot, ItemStack.EMPTY);
+						this.setInventorySlotContents(this.fuelSlot, null);
 					}
 
 				} else {

@@ -4,7 +4,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
+import java.util.List;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import reborncore.common.recipes.RecipeCrafter;
@@ -51,7 +51,7 @@ public class ItemUpgrades extends ItemTRNoDestroy implements IMachineUpgrade {
 
 	// Adds Dusts SubItems To Creative Tab
 	@Override
-	public void getSubItems(Item item, CreativeTabs creativeTabs, NonNullList list) {
+	public void getSubItems(Item item, CreativeTabs creativeTabs, List list) {
 		for (int meta = 0; meta < types.length; ++meta) {
 			list.add(new ItemStack(item, 1, meta));
 		}

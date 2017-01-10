@@ -78,15 +78,15 @@ public class TileRollingMachine extends TilePowerAcceptor
 					this.currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(this.craftMatrix, this.world);
 					if (this.currentRecipe != null) {
 						boolean hasCrafted = false;
-						if (this.inventory.getStackInSlot(0) == ItemStack.EMPTY) {
+						if (this.inventory.getStackInSlot(0) == null) {
 							this.inventory.setInventorySlotContents(0, this.currentRecipe);
 							this.tickTime = -1;
 							hasCrafted = true;
 						} else {
-							if (this.inventory.getStackInSlot(0).getCount() + this.currentRecipe.getCount() <= this.currentRecipe
+							if (this.inventory.getStackInSlot(0).stackSize + this.currentRecipe.stackSize <= this.currentRecipe
 									.getMaxStackSize()) {
 								final ItemStack stack = this.inventory.getStackInSlot(0);
-								stack.setCount(stack.getCount() + this.currentRecipe.getCount());
+								stack.stackSize = (stack.stackSize + this.currentRecipe.stackSize);
 								this.inventory.setInventorySlotContents(0, stack);
 								this.tickTime = -1;
 								hasCrafted = true;
@@ -115,7 +115,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 			if (this.currentRecipe != null) {
 				this.inventory.setInventorySlotContents(1, this.currentRecipe);
 			} else {
-				this.inventory.setInventorySlotContents(1, ItemStack.EMPTY);
+				this.inventory.setInventorySlotContents(1, null);
 			}
 		}
 	}

@@ -53,10 +53,10 @@ public class BlockDigitalChest extends BlockMachineBase implements IAdvancedRota
 		for (int i = 0; i < droppables.size(); i++) {
 			final ItemStack itemStack = droppables.get(i);
 
-			if (itemStack == ItemStack.EMPTY) {
+			if (itemStack == null) {
 				continue;
 			}
-			if (itemStack != ItemStack.EMPTY && itemStack.getCount() > 0) {
+			if (itemStack != null && itemStack.stackSize > 0) {
 				if (itemStack.getItem() instanceof ItemBlock) {
 					if (((ItemBlock) itemStack.getItem()).block instanceof BlockFluidBase
 							|| ((ItemBlock) itemStack.getItem()).block instanceof BlockStaticLiquid
@@ -87,7 +87,7 @@ public class BlockDigitalChest extends BlockMachineBase implements IAdvancedRota
 			entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
 			entityItem.motionZ = rand.nextGaussian() * factor;
 			world.spawnEntity(entityItem);
-			itemStack.setCount(0);
+			itemStack.stackSize = (0);
 		}
 	}
 

@@ -36,11 +36,6 @@ public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo {
 	}
 
 	@Override
-	public int getRGBDurabilityForDisplay(ItemStack stack) {
-		return PowerSystem.getDisplayPower().colour;
-	}
-
-	@Override
 	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState blockIn, BlockPos pos,
 	                                EntityLivingBase entityLiving) {
 		Random rand = new Random();

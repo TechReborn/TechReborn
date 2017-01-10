@@ -1,6 +1,7 @@
 package techreborn.client;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import techreborn.init.ModBlocks;
 
@@ -13,7 +14,7 @@ public class TechRebornCreativeTab extends CreativeTabs {
 	}
 
 	@Override
-	public ItemStack getTabIconItem() {
-		return new ItemStack(ModBlocks.THERMAL_GENERATOR);
+	public Item getTabIconItem() {
+		return Item.getItemFromBlock(ModBlocks.THERMAL_GENERATOR);
 	}
 }

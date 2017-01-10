@@ -5,7 +5,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
+import java.util.List;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.powerSystem.PoweredItem;
@@ -23,7 +23,7 @@ public class ItemAdvancedChainsaw extends ItemChainsaw {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item,
-	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
+	                        CreativeTabs par2CreativeTabs, List itemList) {
 		ItemStack stack = new ItemStack(ModItems.ADVANCED_CHAINSAW);
 		ItemStack uncharged = stack.copy();
 		ItemStack charged = stack.copy();

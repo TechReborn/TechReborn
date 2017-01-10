@@ -37,7 +37,7 @@ public class ItemBattery extends ItemTRNoDestroy implements IEnergyItemInfo {
 				                   World worldIn,
 			                   @Nullable
 				                   EntityLivingBase entityIn) {
-				if (stack != ItemStack.EMPTY && PoweredItem.getEnergy(stack) == 0.0) {
+				if (stack != null && PoweredItem.getEnergy(stack) == 0.0) {
 					return 1.0F;
 				}
 				return 0.0F;
@@ -55,11 +55,6 @@ public class ItemBattery extends ItemTRNoDestroy implements IEnergyItemInfo {
 	@Override
 	public boolean showDurabilityBar(ItemStack stack) {
 		return true;
-	}
-
-	@Override
-	public int getRGBDurabilityForDisplay(ItemStack stack) {
-		return PowerSystem.getDisplayPower().colour;
 	}
 
 	@Override

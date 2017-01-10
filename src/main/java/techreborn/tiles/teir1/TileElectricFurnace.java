@@ -73,31 +73,31 @@ public class TileElectricFurnace extends TilePowerAcceptor
 		if (this.canSmelt()) {
 			final ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(this.getStackInSlot(this.input1));
 
-			if (this.getStackInSlot(this.output) == ItemStack.EMPTY) {
+			if (this.getStackInSlot(this.output) == null) {
 				this.setInventorySlotContents(this.output, itemstack.copy());
 			} else if (this.getStackInSlot(this.output).isItemEqual(itemstack)) {
-				this.getStackInSlot(this.output).grow(itemstack.getCount());
+				this.getStackInSlot(this.output).stackSize += (itemstack.stackSize);
 			}
-			if (this.getStackInSlot(this.input1).getCount() > 1) {
+			if (this.getStackInSlot(this.input1).stackSize > 1) {
 				this.decrStackSize(this.input1, 1);
 			} else {
-				this.setInventorySlotContents(this.input1, ItemStack.EMPTY);
+				this.setInventorySlotContents(this.input1, null);
 			}
 		}
 	}
 
 	public boolean canSmelt() {
-		if (this.getStackInSlot(this.input1) == ItemStack.EMPTY) {
+		if (this.getStackInSlot(this.input1) == null) {
 			return false;
 		}
 		final ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(this.getStackInSlot(this.input1));
-		if (itemstack == ItemStack.EMPTY)
+		if (itemstack == null)
 			return false;
-		if (this.getStackInSlot(this.output) == ItemStack.EMPTY)
+		if (this.getStackInSlot(this.output) == null)
 			return true;
 		if (!this.getStackInSlot(this.output).isItemEqual(itemstack))
 			return false;
-		final int result = this.getStackInSlot(this.output).getCount() + itemstack.getCount();
+		final int result = this.getStackInSlot(this.output).stackSize + itemstack.stackSize;
 		return result <= this.getInventoryStackLimit() && result <= itemstack.getMaxStackSize();
 	}
 
@@ -107,7 +107,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 
 	public ItemStack getResultFor(final ItemStack stack) {
 		final ItemStack result = FurnaceRecipes.instance().getSmeltingResult(stack);
-		if (result != ItemStack.EMPTY) {
+		if (result != null) {
 			return result.copy();
 		}
 		return null;

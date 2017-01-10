@@ -13,7 +13,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.NonNullList;
+import java.util.List;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -99,14 +99,14 @@ public class DynamicCell extends Item {
 
 	public boolean tryAddCellToInventory(EntityPlayer player, ItemStack stack, Fluid fluid) {
 		if (player.inventory.addItemStackToInventory(DynamicCell.getCellWithFluid(fluid))) {
-			stack.shrink(1);
+			stack.stackSize -= (1);
 			return true;
 		}
 		return false;
 	}
 
 	@Override
-	public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
+	public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
 		subItems.add(getEmptyCell(1));
 		for (Fluid fluid : FluidRegistry.getRegisteredFluids().values()) {
 			subItems.add(getCellWithFluid(fluid));
@@ -134,7 +134,7 @@ public class DynamicCell extends Item {
 		Validate.notNull(fluid);
 		ItemStack stack = new ItemStack(ModItems.CELL);
 		getFluidHandler(stack).fill(new FluidStack(fluid, CAPACITY), true);
-		stack.setCount(stackSize);
+		stack.stackSize = (stackSize);
 		return stack;
 	}
 

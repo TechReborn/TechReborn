@@ -6,7 +6,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
+import java.util.List;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -29,11 +29,6 @@ public class ItemCloakingDevice extends ItemTRNoDestroy implements IEnergyItemIn
 		setUnlocalizedName("techreborn.cloakingdevice");
 		setMaxStackSize(1);
 		setCreativeTab(TechRebornCreativeTab.instance);
-	}
-
-	@Override
-	public int getRGBDurabilityForDisplay(ItemStack stack) {
-		return PowerSystem.getDisplayPower().colour;
 	}
 
 	@Override
@@ -76,9 +71,9 @@ public class ItemCloakingDevice extends ItemTRNoDestroy implements IEnergyItemIn
 	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
 		ItemStack itemstack1 = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 
-		if (itemstack1 == ItemStack.EMPTY) {
+		if (itemstack1 == null) {
 			player.setItemStackToSlot(EntityEquipmentSlot.CHEST, itemStack.copy());
-			itemStack.setCount(0);
+			itemStack.stackSize = (0);
 		}
 
 		return itemStack;
@@ -87,7 +82,7 @@ public class ItemCloakingDevice extends ItemTRNoDestroy implements IEnergyItemIn
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item,
-	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
+	                        CreativeTabs par2CreativeTabs, List itemList) {
 		ItemStack uncharged = new ItemStack(ModItems.CLOAKING_DEVICE);
 		ItemStack charged = new ItemStack(ModItems.CLOAKING_DEVICE);
 		PoweredItem.setEnergy(getMaxPower(charged), charged);

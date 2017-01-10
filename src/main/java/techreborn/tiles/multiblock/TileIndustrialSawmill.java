@@ -54,9 +54,9 @@ implements IWrenchable, IInventoryProvider, IContainerProvider {
 						if (name.equals("logWood") && this.canAddOutput(2, 10) && this.canAddOutput(3, 5)
 								&& this.canAddOutput(4, 3) && this.canUseEnergy(128.0F) && !this.tank.isEmpty()
 								&& this.tank.getFluid().amount >= 1000) {
-							wood.shrink(1);
-							if (wood.getCount() == 0)
-								this.setInventorySlotContents(0, ItemStack.EMPTY);
+							wood.stackSize -= (1);
+							if (wood.stackSize == 0)
+								this.setInventorySlotContents(0, null);
 							this.tank.drain(1000, true);
 							this.useEnergy(128.0F);
 							this.syncWithAll();
@@ -82,14 +82,14 @@ implements IWrenchable, IInventoryProvider, IContainerProvider {
 	}
 
 	public void addOutput(final int slot, final ItemStack stack) {
-		if (this.getStackInSlot(slot) == ItemStack.EMPTY)
+		if (this.getStackInSlot(slot) == null)
 			this.setInventorySlotContents(slot, stack);
-		this.getStackInSlot(slot).grow(stack.getCount());
+		this.getStackInSlot(slot).stackSize += (stack.stackSize);
 	}
 
 	public boolean canAddOutput(final int slot, final int amount) {
 		final ItemStack stack = this.getStackInSlot(slot);
-		return stack == ItemStack.EMPTY || this.getInventoryStackLimit() - stack.getCount() >= amount;
+		return stack == null || this.getInventoryStackLimit() - stack.stackSize >= amount;
 	}
 
 	@Override

@@ -150,7 +150,7 @@ public class BlockRubberLog extends Block implements ITexturedBlock {
 	                                EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		super.onBlockActivated(worldIn, pos, state, playerIn, hand, side, hitX, hitY, hitZ);
 		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
-		if (stack != ItemStack.EMPTY)
+		if (stack != null)
 			if ((stack.getItem() instanceof ItemElectricTreetap && PoweredItem.canUseEnergy(20, stack)) || stack.getItem() instanceof ItemTreeTap)
 				if (state.getValue(HAS_SAP)) {
 					if (state.getValue(SAP_SIDE) == side) {

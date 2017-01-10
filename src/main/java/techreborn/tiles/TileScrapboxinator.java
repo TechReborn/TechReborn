@@ -82,18 +82,18 @@ implements IWrenchable, IInventoryProvider, ISidedInventory, IContainerProvider 
 				this.setInventorySlotContents(this.output, out);
 			}
 
-			if (this.getStackInSlot(this.input1).getCount() > 1) {
+			if (this.getStackInSlot(this.input1).stackSize > 1) {
 				this.useEnergy(this.cost);
 				this.decrStackSize(this.input1, 1);
 			} else {
 				this.useEnergy(this.cost);
-				this.setInventorySlotContents(this.input1, ItemStack.EMPTY);
+				this.setInventorySlotContents(this.input1, null);
 			}
 		}
 	}
 
 	public boolean canOpen() {
-		return this.getStackInSlot(this.input1) != ItemStack.EMPTY && this.getStackInSlot(this.output) == ItemStack.EMPTY;
+		return this.getStackInSlot(this.input1) != null && this.getStackInSlot(this.output) == null;
 	}
 
 	public boolean isBurning() {

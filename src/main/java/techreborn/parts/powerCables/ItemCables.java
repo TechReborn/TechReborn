@@ -7,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.NonNullList;
+import java.util.List;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextFormatting;
@@ -63,7 +63,7 @@ public class ItemCables extends ItemMultiPart implements ITexturedItem {
 	}
 
 	@Override
-	public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
+	public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
 		for (int meta = 0; meta < EnumCableType.values().length; ++meta) {
 			subItems.add(new ItemStack(itemIn, 1, meta));
 		}
