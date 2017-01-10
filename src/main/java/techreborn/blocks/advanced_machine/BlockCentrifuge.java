@@ -3,10 +3,12 @@ package techreborn.blocks.advanced_machine;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.blocks.IRotationTexture;
+
 import techreborn.Core;
-import techreborn.client.GuiHandler;
+import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileCentrifuge;
 
@@ -16,46 +18,46 @@ public class BlockCentrifuge extends BlockMachineBase implements IRotationTextur
 
 	public BlockCentrifuge() {
 		super();
-		setUnlocalizedName("techreborn.centrifuge");
-		setCreativeTab(TechRebornCreativeTab.instance);
+		this.setUnlocalizedName("techreborn.centrifuge");
+		this.setCreativeTab(TechRebornCreativeTab.instance);
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
+	public TileEntity createNewTileEntity(final World p_149915_1_, final int p_149915_2_) {
 		return new TileCentrifuge();
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
-	                                float hitY, float hitZ) {
+	public boolean onBlockActivated(final World world, final int x, final int y, final int z, final EntityPlayer player, final int side, final float hitX,
+			final float hitY, final float hitZ) {
 		if (!player.isSneaking()) {
-			player.openGui(Core.INSTANCE, GuiHandler.centrifugeID, world, x, y, z);
+			player.openGui(Core.INSTANCE, EGui.CENTRIFUGE.ordinal(), world, x, y, z);
 		}
 		return true;
 	}
 
 	@Override
 	public String getFrontOff() {
-		return prefix + "industrial_centrifuge_side_off";
+		return this.prefix + "industrial_centrifuge_side_off";
 	}
 
 	@Override
 	public String getFrontOn() {
-		return prefix + "industrial_centrifuge_side_on";
+		return this.prefix + "industrial_centrifuge_side_on";
 	}
 
 	@Override
 	public String getSide() {
-		return getFrontOff();
+		return this.getFrontOff();
 	}
 
 	@Override
 	public String getTop() {
-		return prefix + "industrial_centrifuge_top_off";
+		return this.prefix + "industrial_centrifuge_top_off";
 	}
 
 	@Override
 	public String getBottom() {
-		return prefix + "industrial_centrifuge_bottom";
+		return this.prefix + "industrial_centrifuge_bottom";
 	}
 }

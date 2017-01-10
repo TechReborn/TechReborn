@@ -5,19 +5,25 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
+
 import techreborn.api.ScrapboxList;
+import techreborn.client.container.IContainerProvider;
+import techreborn.client.container.builder.BuiltContainer;
+import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
 
 import java.util.Random;
 
-public class TileScrapboxinator extends TilePowerAcceptor implements IWrenchable, IInventoryProvider, ISidedInventory {
+public class TileScrapboxinator extends TilePowerAcceptor
+implements IWrenchable, IInventoryProvider, ISidedInventory, IContainerProvider {
 
 	public Inventory inventory = new Inventory(6, "TileScrapboxinator", 64, this);
 	public int capacity = 1000;
@@ -33,88 +39,88 @@ public class TileScrapboxinator extends TilePowerAcceptor implements IWrenchable
 		super(1);
 	}
 
-	public int gaugeProgressScaled(int scale) {
-		return (progress * scale) / time;
+	public int gaugeProgressScaled(final int scale) {
+		return this.progress * scale / this.time;
 	}
 
 	@Override
 	public void updateEntity() {
-		boolean burning = isBurning();
+		final boolean burning = this.isBurning();
 		boolean updateInventory = false;
-		if (getEnergy() <= cost && canOpen()) {
-			if (getEnergy() > cost) {
+		if (this.getEnergy() <= this.cost && this.canOpen()) {
+			if (this.getEnergy() > this.cost) {
 				updateInventory = true;
 			}
 		}
-		if (isBurning() && canOpen()) {
-			updateState();
+		if (this.isBurning() && this.canOpen()) {
+			this.updateState();
 
-			progress++;
-			if (progress >= time) {
-				progress = 0;
-				recycleItems();
+			this.progress++;
+			if (this.progress >= this.time) {
+				this.progress = 0;
+				this.recycleItems();
 				updateInventory = true;
 			}
 		} else {
-			progress = 0;
-			updateState();
+			this.progress = 0;
+			this.updateState();
 		}
-		if (burning != isBurning()) {
+		if (burning != this.isBurning()) {
 			updateInventory = true;
 		}
 		if (updateInventory) {
-			markDirty();
+			this.markDirty();
 		}
 	}
 
 	public void recycleItems() {
-		if (this.canOpen() && !world.isRemote) {
-			int random = new Random().nextInt(ScrapboxList.stacks.size());
-			ItemStack out = ScrapboxList.stacks.get(random).copy();
-			if (getStackInSlot(output) == null) {
-				useEnergy(cost);
-				setInventorySlotContents(output, out);
+		if (this.canOpen() && !this.world.isRemote) {
+			final int random = new Random().nextInt(ScrapboxList.stacks.size());
+			final ItemStack out = ScrapboxList.stacks.get(random).copy();
+			if (this.getStackInSlot(this.output) == null) {
+				this.useEnergy(this.cost);
+				this.setInventorySlotContents(this.output, out);
 			}
 
-			if (getStackInSlot(input1).getCount() > 1) {
-				useEnergy(cost);
-				this.decrStackSize(input1, 1);
+			if (this.getStackInSlot(this.input1).getCount() > 1) {
+				this.useEnergy(this.cost);
+				this.decrStackSize(this.input1, 1);
 			} else {
-				useEnergy(cost);
-				setInventorySlotContents(input1, ItemStack.EMPTY);
+				this.useEnergy(this.cost);
+				this.setInventorySlotContents(this.input1, ItemStack.EMPTY);
 			}
 		}
 	}
 
 	public boolean canOpen() {
-		return getStackInSlot(input1) != ItemStack.EMPTY && getStackInSlot(output) == ItemStack.EMPTY;
+		return this.getStackInSlot(this.input1) != ItemStack.EMPTY && this.getStackInSlot(this.output) == ItemStack.EMPTY;
 	}
 
 	public boolean isBurning() {
-		return getEnergy() > cost;
+		return this.getEnergy() > this.cost;
 	}
 
 	public void updateState() {
-		IBlockState blockState = world.getBlockState(pos);
+		final IBlockState blockState = this.world.getBlockState(this.pos);
 		if (blockState.getBlock() instanceof BlockMachineBase) {
-			BlockMachineBase blockMachineBase = (BlockMachineBase) blockState.getBlock();
-			if (blockState.getValue(BlockMachineBase.ACTIVE) != progress > 0)
-				blockMachineBase.setActive(progress > 0, world, pos);
+			final BlockMachineBase blockMachineBase = (BlockMachineBase) blockState.getBlock();
+			if (blockState.getValue(BlockMachineBase.ACTIVE) != this.progress > 0)
+				blockMachineBase.setActive(this.progress > 0, this.world, this.pos);
 		}
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
+	public boolean wrenchCanSetFacing(final EntityPlayer entityPlayer, final EnumFacing side) {
 		return false;
 	}
 
 	@Override
 	public EnumFacing getFacing() {
-		return getFacingEnum();
+		return this.getFacingEnum();
 	}
 
 	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
+	public boolean wrenchCanRemove(final EntityPlayer entityPlayer) {
 		return entityPlayer.isSneaking();
 	}
 
@@ -124,7 +130,7 @@ public class TileScrapboxinator extends TilePowerAcceptor implements IWrenchable
 	}
 
 	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+	public ItemStack getWrenchDrop(final EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.SCRAPBOXINATOR, 1);
 	}
 
@@ -134,12 +140,12 @@ public class TileScrapboxinator extends TilePowerAcceptor implements IWrenchable
 
 	// ISidedInventory
 	@Override
-	public int[] getSlotsForFace(EnumFacing side) {
+	public int[] getSlotsForFace(final EnumFacing side) {
 		return side == EnumFacing.DOWN ? new int[] { 0, 1, 2 } : new int[] { 0, 1, 2 };
 	}
 
 	@Override
-	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
+	public boolean canInsertItem(final int slotIndex, final ItemStack itemStack, final EnumFacing side) {
 		if (slotIndex == 2)
 			return false;
 		if (slotIndex == 1) {
@@ -147,26 +153,26 @@ public class TileScrapboxinator extends TilePowerAcceptor implements IWrenchable
 				return true;
 			}
 		}
-		return isItemValidForSlot(slotIndex, itemStack);
+		return this.isItemValidForSlot(slotIndex, itemStack);
 	}
 
 	@Override
-	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
+	public boolean canExtractItem(final int slotIndex, final ItemStack itemStack, final EnumFacing side) {
 		return slotIndex == 2;
 	}
 
 	@Override
 	public double getMaxPower() {
-		return capacity;
+		return this.capacity;
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction) {
+	public boolean canAcceptEnergy(final EnumFacing direction) {
 		return true;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnumFacing direction) {
+	public boolean canProvideEnergy(final EnumFacing direction) {
 		return false;
 	}
 
@@ -187,6 +193,23 @@ public class TileScrapboxinator extends TilePowerAcceptor implements IWrenchable
 
 	@Override
 	public Inventory getInventory() {
-		return inventory;
+		return this.inventory;
+	}
+
+	public int getProgress() {
+		return this.progress;
+	}
+
+	public void setProgress(final int progress) {
+		this.progress = progress;
+	}
+
+	@Override
+	public BuiltContainer createContainer(final EntityPlayer player) {
+		return new ContainerBuilder("scrapboxinator").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+				.addInventory().tile(this).filterSlot(0, 56, 34, stack -> stack.getItem() == ModItems.SCRAP_BOX)
+				.outputSlot(1, 116, 34).upgradeSlot(2, 152, 8).upgradeSlot(3, 152, 26).upgradeSlot(4, 152, 44)
+				.upgradeSlot(5, 152, 62).syncEnergyValue().syncIntegerValue(this::getProgress, this::setProgress)
+				.addInventory().create();
 	}
 }

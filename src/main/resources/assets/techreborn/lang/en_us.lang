@@ -16,7 +16,7 @@ tile.techreborn.rollingmachine.name=Rolling Machine
 tile.techreborn.machineCasing.standard.name=Standard Machine Casing
 tile.techreborn.machineCasing.reinforced.name=Reinforced Machine Casing
 tile.techreborn.machineCasing.advanced.name=Advanced Machine Casing
-tile.techreborn.blastfurnace.name=Industrial Blast Furnace
+tile.techreborn.blastfurnace.name=Blast Furnace
 tile.techreborn.alloysmelter.name=Electric Alloy Furnace
 tile.techreborn.matterfabricator.name=Matter Fabricator
 tile.techreborn.implosioncompressor.name=Implosion Compressor
@@ -381,6 +381,7 @@ item.techreborn.nanosaber.name=Nanosaber
 item.techreborn.upgrade.overclock.name=Overclocker Upgrade
 item.techreborn.upgrade.transformer.name=Tranformer Upgrade
 item.techreborn.upgrade.energy_storage.name=Energy Storage Upgrade
+item.techreborn.upgrade.range.name=Range Upgrade
 item.techreborn.electric_treetap.name=Electric Treetap
 
 #Gems

@@ -5,17 +5,15 @@ import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
 import net.minecraft.client.Minecraft;
+import reborncore.common.powerSystem.PowerSystem;
 import techreborn.api.recipe.machines.CentrifugeRecipe;
-import techreborn.client.gui.GuiCentrifuge;
+import techreborn.client.gui.TRBuilder;
 import techreborn.compat.jei.BaseRecipeWrapper;
 
 import javax.annotation.Nonnull;
 
 public class CentrifugeRecipeWrapper extends BaseRecipeWrapper<CentrifugeRecipe> {
-	private final IDrawableAnimated progressUp;
-	private final IDrawableAnimated progressLeft;
-	private final IDrawableAnimated progressDown;
-	private final IDrawableAnimated progressRight;
+	private final IDrawableAnimated progress;
 
 	public CentrifugeRecipeWrapper(
 		@Nonnull
@@ -24,37 +22,25 @@ public class CentrifugeRecipeWrapper extends BaseRecipeWrapper<CentrifugeRecipe>
 			CentrifugeRecipe baseRecipe) {
 		super(baseRecipe);
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
-		IDrawableStatic progressUpStatic = guiHelper.createDrawable(GuiCentrifuge.texture, 176, 14, 12, 12);
-		IDrawableStatic progressLeftStatic = guiHelper.createDrawable(GuiCentrifuge.texture, 176, 26, 12, 12);
-		IDrawableStatic progressDownStatic = guiHelper.createDrawable(GuiCentrifuge.texture, 176, 38, 12, 12);
-		IDrawableStatic progressRightStatic = guiHelper.createDrawable(GuiCentrifuge.texture, 176, 50, 12, 12);
+		IDrawableStatic progressStatic = guiHelper.createDrawable(TRBuilder.GUI_SHEET, 100, 151, 16, 10);
 
 		int ticksPerCycle = baseRecipe.tickTime() / 4; // speed up the animation
-		// a bit
-		this.progressUp = guiHelper.createAnimatedDrawable(progressUpStatic, ticksPerCycle,
-			IDrawableAnimated.StartDirection.BOTTOM, false);
-		this.progressLeft = guiHelper.createAnimatedDrawable(progressLeftStatic, ticksPerCycle,
-			IDrawableAnimated.StartDirection.RIGHT, false);
-		this.progressDown = guiHelper.createAnimatedDrawable(progressDownStatic, ticksPerCycle,
-			IDrawableAnimated.StartDirection.TOP, false);
-		this.progressRight = guiHelper.createAnimatedDrawable(progressRightStatic, ticksPerCycle,
-			IDrawableAnimated.StartDirection.LEFT, false);
+
+		this.progress = guiHelper.createAnimatedDrawable(progressStatic, ticksPerCycle, IDrawableAnimated.StartDirection.LEFT, false);
 	}
 
 	@Override
 	public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 		super.drawInfo(minecraft, recipeWidth, recipeHeight, mouseX, mouseY);
-		progressUp.draw(minecraft, 33, 18);
-		progressLeft.draw(minecraft, 18, 33);
-		progressDown.draw(minecraft, 33, 48);
-		progressRight.draw(minecraft, 48, 33);
+		progress.draw(minecraft, 25, 26);
 
-		int x = -45;
-		int y = 60;
+		int x = -10;
+		int y1 = 1;
+		int y2 = 54;
 		int lineHeight = minecraft.fontRendererObj.FONT_HEIGHT;
 
-		minecraft.fontRendererObj.drawString("Time: " + baseRecipe.tickTime / 20 + " secs", x, y, 0x444444);
-		minecraft.fontRendererObj.drawString("EU: " + baseRecipe.euPerTick + " EU/t", x, y += lineHeight, 0x444444);
+		minecraft.fontRendererObj.drawString(baseRecipe.tickTime / 20 + " seconds", (recipeWidth / 2 - minecraft.fontRendererObj.getStringWidth(baseRecipe.tickTime / 20 + " seconds") / 2) - 40, y1, 0x444444);
+		minecraft.fontRendererObj.drawString(PowerSystem.getLocaliszedPowerFormatted(baseRecipe.euPerTick * baseRecipe.tickTime), (recipeWidth / 2 - minecraft.fontRendererObj.getStringWidth(PowerSystem.getLocaliszedPowerFormatted(baseRecipe.euPerTick * baseRecipe.tickTime)) / 2) - 40, y2, 0x444444);
 
 	}
 }

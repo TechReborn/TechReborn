@@ -6,14 +6,15 @@ import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeCategory;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
-import techreborn.client.gui.GuiBlastFurnace;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
 
 import javax.annotation.Nonnull;
 
 public class BlastFurnaceRecipeCategory extends BlankRecipeCategory<BlastFurnaceRecipeWrapper> {
+	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/jei.png");
 	private static final int[] INPUT_SLOTS = { 0, 1 };
 	private static final int[] OUTPUT_SLOTS = { 2, 3 };
 
@@ -21,7 +22,7 @@ public class BlastFurnaceRecipeCategory extends BlankRecipeCategory<BlastFurnace
 	private final String title;
 
 	public BlastFurnaceRecipeCategory(IGuiHelper guiHelper) {
-		background = guiHelper.createDrawable(GuiBlastFurnace.texture, 39, 24, 90, 60);
+		background = guiHelper.createDrawable(texture, 0, 94, 120, 78);
 		title = I18n.translateToLocal("tile.techreborn.blastfurnace.name");
 	}
 
@@ -52,10 +53,10 @@ public class BlastFurnaceRecipeCategory extends BlankRecipeCategory<BlastFurnace
 		@Nonnull
 			IIngredients ingredients) {
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
-		guiItemStacks.init(INPUT_SLOTS[0], true, 0, 0);
-		guiItemStacks.init(INPUT_SLOTS[1], true, 0, 18);
-		guiItemStacks.init(OUTPUT_SLOTS[0], false, 60, 10);
-		guiItemStacks.init(OUTPUT_SLOTS[1], false, 78, 10);
+		guiItemStacks.init(INPUT_SLOTS[0], true, 21, 3);
+		guiItemStacks.init(INPUT_SLOTS[1], true, 21, 23);
+		guiItemStacks.init(OUTPUT_SLOTS[0], false, 63, 12);
+		guiItemStacks.init(OUTPUT_SLOTS[1], false, 81, 12);
 
 		RecipeUtil.setRecipeItems(recipeLayout, ingredients, INPUT_SLOTS, OUTPUT_SLOTS, null, null);
 	}

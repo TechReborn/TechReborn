@@ -13,9 +13,12 @@ import reborncore.common.IWrenchable;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
+import techreborn.client.container.IContainerProvider;
+import techreborn.client.container.builder.BuiltContainer;
+import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 
-public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IInventoryProvider {
+public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IInventoryProvider, IContainerProvider {
 	public static int outputAmount = 10;
 	public Inventory inventory = new Inventory(2, "TileGenerator", 64, this);
 	public int fuelSlot = 0;
@@ -31,69 +34,69 @@ public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IIn
 		super(1);
 	}
 
-	public static int getItemBurnTime(ItemStack stack) {
+	public static int getItemBurnTime(final ItemStack stack) {
 		return TileEntityFurnace.getItemBurnTime(stack) / 4;
 	}
 
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		if (world.isRemote) {
+		if (this.world.isRemote) {
 			return;
 		}
-		if (getEnergy() < getMaxPower()) {
-			if (burnTime > 0) {
-				burnTime--;
-				addEnergy(outputAmount);
-				isBurning = true;
+		if (this.getEnergy() < this.getMaxPower()) {
+			if (this.burnTime > 0) {
+				this.burnTime--;
+				this.addEnergy(TileGenerator.outputAmount);
+				this.isBurning = true;
 			}
 		} else {
-			isBurning = false;
+			this.isBurning = false;
 		}
 
-		if (burnTime == 0) {
-			updateState();
-			burnTime = totalBurnTime = getItemBurnTime(getStackInSlot(fuelSlot));
-			if (burnTime > 0) {
-				updateState();
-				burnItem = getStackInSlot(fuelSlot);
-				if (getStackInSlot(fuelSlot).getCount() == 1) {
-					if (getStackInSlot(fuelSlot).getItem() == Items.LAVA_BUCKET || getStackInSlot(fuelSlot).getItem() == ForgeModContainer.getInstance().universalBucket) {
-						setInventorySlotContents(fuelSlot, new ItemStack(Items.BUCKET));
+		if (this.burnTime == 0) {
+			this.updateState();
+			this.burnTime = this.totalBurnTime = TileGenerator.getItemBurnTime(this.getStackInSlot(this.fuelSlot));
+			if (this.burnTime > 0) {
+				this.updateState();
+				this.burnItem = this.getStackInSlot(this.fuelSlot);
+				if (this.getStackInSlot(this.fuelSlot).getCount() == 1) {
+					if (this.getStackInSlot(this.fuelSlot).getItem() == Items.LAVA_BUCKET || this.getStackInSlot(this.fuelSlot).getItem() == ForgeModContainer.getInstance().universalBucket) {
+						this.setInventorySlotContents(this.fuelSlot, new ItemStack(Items.BUCKET));
 					} else {
-						setInventorySlotContents(fuelSlot, ItemStack.EMPTY);
+						this.setInventorySlotContents(this.fuelSlot, ItemStack.EMPTY);
 					}
 
 				} else {
-					decrStackSize(fuelSlot, 1);
+					this.decrStackSize(this.fuelSlot, 1);
 				}
 			}
 		}
 
-		lastTickBurning = isBurning;
+		this.lastTickBurning = this.isBurning;
 	}
 
 	public void updateState() {
-		IBlockState BlockStateContainer = world.getBlockState(pos);
+		final IBlockState BlockStateContainer = this.world.getBlockState(this.pos);
 		if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
-			BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
-			if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != burnTime > 0)
-				blockMachineBase.setActive(burnTime > 0, world, pos);
+			final BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
+			if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != this.burnTime > 0)
+				blockMachineBase.setActive(this.burnTime > 0, this.world, this.pos);
 		}
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
+	public boolean wrenchCanSetFacing(final EntityPlayer entityPlayer, final EnumFacing side) {
 		return false;
 	}
 
 	@Override
 	public EnumFacing getFacing() {
-		return getFacingEnum();
+		return this.getFacingEnum();
 	}
 
 	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
+	public boolean wrenchCanRemove(final EntityPlayer entityPlayer) {
 		return entityPlayer.isSneaking();
 	}
 
@@ -104,16 +107,16 @@ public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IIn
 
 	@Override
 	public double getMaxPower() {
-		return 100;
+		return 10000;
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction) {
+	public boolean canAcceptEnergy(final EnumFacing direction) {
 		return false;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnumFacing direction) {
+	public boolean canProvideEnergy(final EnumFacing direction) {
 		return true;
 	}
 
@@ -133,12 +136,40 @@ public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IIn
 	}
 
 	@Override
-	public ItemStack getWrenchDrop(EntityPlayer p0) {
+	public ItemStack getWrenchDrop(final EntityPlayer p0) {
 		return new ItemStack(ModBlocks.SOLID_FUEL_GENEREATOR);
 	}
 
 	@Override
 	public Inventory getInventory() {
-		return inventory;
+		return this.inventory;
+	}
+
+	public int getBurnTime() {
+		return this.burnTime;
+	}
+
+	public void setBurnTime(final int burnTime) {
+		this.burnTime = burnTime;
+	}
+
+	public int getTotalBurnTime() {
+		return this.totalBurnTime;
+	}
+
+	public void setTotalBurnTime(final int totalBurnTime) {
+		this.totalBurnTime = totalBurnTime;
+	}
+
+	public int getScaledBurnTime(final int i) {
+		return (int) ((float) this.burnTime / (float) this.totalBurnTime * i);
+	}
+
+	@Override
+	public BuiltContainer createContainer(final EntityPlayer player) {
+		return new ContainerBuilder("generator").player(player.inventory).inventory().hotbar().addInventory()
+			.tile(this).fuelSlot(0, 80, 54).energySlot(1, 8, 72).syncEnergyValue()
+			.syncIntegerValue(this::getBurnTime, this::setBurnTime)
+			.syncIntegerValue(this::getTotalBurnTime, this::setTotalBurnTime).addInventory().create();
 	}
 }

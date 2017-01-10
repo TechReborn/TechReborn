@@ -1,48 +1,41 @@
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
-import techreborn.client.container.ContainerDigitalChest;
+
 import techreborn.tiles.TileDigitalChest;
 
-public class GuiDigitalChest extends GuiContainer {
+public class GuiDigitalChest extends GuiBase {
 
-	private static final ResourceLocation texture = new ResourceLocation("techreborn",
-		"textures/gui/thermal_generator.png");
+	TileDigitalChest digitalChest;
 
-	TileDigitalChest tile;
-
-	public GuiDigitalChest(EntityPlayer player, TileDigitalChest tile) {
-		super(new ContainerDigitalChest(tile, player));
-		this.xSize = 176;
-		this.ySize = 167;
-		this.tile = tile;
+	public GuiDigitalChest(final EntityPlayer player, final TileDigitalChest digitalChest) {
+		super(player, digitalChest, digitalChest.createContainer(player));
+		this.digitalChest = digitalChest;
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_) {
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.getTextureManager().bindTexture(texture);
-		int k = (this.width - this.xSize) / 2;
-		int l = (this.height - this.ySize) / 2;
-		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
+	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
+		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
+		final Layer layer = Layer.BACKGROUND;
+
+		this.drawSlot(80, 24, layer);
+		this.drawSlot(80, 64, layer);
 	}
 
-	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
-		String name = I18n.translateToLocal("tile.techreborn.digitalChest.name");
-		this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6,
-			4210752);
-		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,
-			this.ySize - 96 + 2, 4210752);
-		this.fontRendererObj.drawString("Amount", 10, 20, 16448255);
-		if (tile.storedItem != ItemStack.EMPTY && tile.getStackInSlot(1) != null)
-			this.fontRendererObj.drawString(tile.storedItem.getCount() + tile.getStackInSlot(1).getCount() + "", 10, 30,
-				16448255);
-		if (tile.storedItem == ItemStack.EMPTY && tile.getStackInSlot(1) != null)
-			this.fontRendererObj.drawString(tile.getStackInSlot(1).getCount() + "", 10, 30, 16448255);
+	@Override
+	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
+		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+		final Layer layer = Layer.FOREGROUND;
+
+		if (this.digitalChest.storedItem != ItemStack.EMPTY && this.digitalChest.getStackInSlot(1) != null) {
+			this.builder.drawBigBlueBar(this, 31, 43,
+					this.digitalChest.storedItem.getCount() + this.digitalChest.getStackInSlot(1).getCount(),
+					this.digitalChest.maxCapacity, mouseX - this.guiLeft, mouseY - this.guiTop, "Stored", layer);
+		}
+		if (this.digitalChest.storedItem == ItemStack.EMPTY && this.digitalChest.getStackInSlot(1) != null) {
+			this.builder.drawBigBlueBar(this, 31, 43, this.digitalChest.getStackInSlot(1).getCount(),
+					this.digitalChest.maxCapacity, mouseX - this.guiLeft, mouseY - this.guiTop, "Stored", layer);
+		}
 	}
 }

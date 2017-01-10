@@ -17,7 +17,7 @@ import java.util.List;
 
 public class ItemUpgrades extends ItemTRNoDestroy implements IMachineUpgrade {
 
-	public static final String[] types = new String[] { "overclock", "transformer", "energy_storage" };
+	public static final String[] types = new String[] { "overclock", "transformer", "energy_storage", "range" };
 
 	public ItemUpgrades() {
 		setUnlocalizedName("techreborn.upgrade");

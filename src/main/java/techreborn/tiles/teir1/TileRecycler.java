@@ -2,7 +2,6 @@ package techreborn.tiles.teir1;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.power.EnumPowerTier;
@@ -11,126 +10,112 @@ import reborncore.common.IWrenchable;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
+import techreborn.client.container.IContainerProvider;
+import techreborn.client.container.builder.BuiltContainer;
+import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.items.ItemParts;
 
-public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInventoryProvider, ISidedInventory {
+public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInventoryProvider, IContainerProvider {
 
-	public Inventory inventory = new Inventory(6, "TileRecycler", 64, this);
-	public int capacity = 1000;
-	public int cost = 20;
-	public int progress;
-	public int time = 200;
-	public int chance = 4;
-	public int random;
-	public int input1 = 0;
-	public int output = 1;
+	private final Inventory inventory = new Inventory(6, "TileRecycler", 64, this);
+	private final int capacity = 1000;
+	private final int cost = 2;
+	private final int time = 15;
+	private final int chance = 6;
+	private boolean isBurning;
+	private int progress;
 
 	public TileRecycler() {
 		super(1);
 	}
 
-	public int gaugeProgressScaled(int scale) {
-		return (progress * scale) / time;
+	public int gaugeProgressScaled(final int scale) {
+		return this.progress * scale / this.time;
 	}
 
 	@Override
 	public void updateEntity() {
-		if (world.isRemote) {
+		if (this.world.isRemote)
 			return;
-		}
-		boolean burning = isBurning();
-		boolean updateInventory = false;
-		if (getEnergy() <= cost && canRecycle()) {
-			if (getEnergy() > cost) {
-				updateInventory = true;
-			}
-		}
-		if (isBurning() && canRecycle()) {
-			updateState();
 
-			progress++;
-			if (progress >= time) {
-				progress = 0;
-				recycleItems();
+		boolean updateInventory = false;
+		if (this.canRecycle() && !this.isBurning() && this.getEnergy() != 0)
+			this.setBurning(true);
+		else if (this.isBurning()) {
+			if (this.useEnergy(this.cost) != this.cost)
+				this.setBurning(false);
+			this.progress++;
+			if (this.progress >= this.time) {
+				this.progress = 0;
+				this.recycleItems();
 				updateInventory = true;
+				this.setBurning(false);
 			}
-		} else {
-			progress = 0;
-			updateState();
 		}
-		if (burning != isBurning()) {
-			updateInventory = true;
-		}
+
+		this.updateState();
+
 		if (updateInventory) {
-			markDirty();
+			this.markDirty();
 		}
 	}
 
 	public void recycleItems() {
-		if (this.canRecycle()) {
-			ItemStack itemstack = ItemParts.getPartByName("scrap");
-			int randomchance = world.rand.nextInt(chance);
+		final ItemStack itemstack = ItemParts.getPartByName("scrap");
+		final int randomchance = this.world.rand.nextInt(this.chance);
 
-			if (getStackInSlot(output) == ItemStack.EMPTY) {
-				useEnergy(cost);
-				if (randomchance == 1) {
-					setInventorySlotContents(output, itemstack.copy());
-				}
-			} else if (getStackInSlot(output).isItemEqual(itemstack)) {
-				useEnergy(cost);
-				if (randomchance == 1) {
-					getStackInSlot(output).setCount(itemstack.getCount());
-				}
-			}
-			if (getStackInSlot(input1).getCount() > 1) {
-				useEnergy(cost);
-				this.decrStackSize(input1, 1);
-			} else {
-				useEnergy(cost);
-				setInventorySlotContents(input1, ItemStack.EMPTY);
-			}
+		if (randomchance == 1) {
+			if (this.getStackInSlot(1).isEmpty())
+				this.setInventorySlotContents(1, itemstack.copy());
+			else
+				this.getStackInSlot(1).grow(itemstack.getCount());
 		}
+		this.decrStackSize(0, 1);
 	}
 
 	public boolean canRecycle() {
-		return getStackInSlot(input1) != null && hasSlotGotSpace(output);
+		return this.getStackInSlot(0) != ItemStack.EMPTY && this.hasSlotGotSpace(1);
 	}
 
-	public boolean hasSlotGotSpace(int slot) {
-		if (getStackInSlot(slot) == ItemStack.EMPTY) {
+	public boolean hasSlotGotSpace(final int slot) {
+		if (this.getStackInSlot(slot) == ItemStack.EMPTY) {
 			return true;
-		} else if (getStackInSlot(slot).getCount() < getStackInSlot(slot).getMaxStackSize()) {
+		} else if (this.getStackInSlot(slot).getCount() < this.getStackInSlot(slot).getMaxStackSize()) {
 			return true;
 		}
 		return true;
 	}
 
 	public boolean isBurning() {
-		return getEnergy() > cost;
+		return this.isBurning;
+	}
+
+	public void setBurning(final boolean burning) {
+		this.isBurning = burning;
 	}
 
 	public void updateState() {
-		IBlockState BlockStateContainer = world.getBlockState(pos);
+		final IBlockState BlockStateContainer = this.world.getBlockState(this.pos);
 		if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
-			BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
-			if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != progress > 0)
-				blockMachineBase.setActive(progress > 0, world, pos);
+			final BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
+			if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != this.isBurning)
+				blockMachineBase.setActive(this.isBurning, this.world, this.pos);
 		}
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
+	public boolean wrenchCanSetFacing(final EntityPlayer entityPlayer, final EnumFacing side) {
 		return false;
 	}
 
 	@Override
 	public EnumFacing getFacing() {
-		return getFacingEnum();
+		return this.getFacingEnum();
 	}
 
 	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
+	public boolean wrenchCanRemove(final EntityPlayer entityPlayer) {
 		return entityPlayer.isSneaking();
 	}
 
@@ -140,7 +125,7 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInv
 	}
 
 	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+	public ItemStack getWrenchDrop(final EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.RECYCLER, 1);
 	}
 
@@ -150,34 +135,38 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInv
 
 	// ISidedInventory
 	@Override
-	public int[] getSlotsForFace(EnumFacing side) {
-		return side == EnumFacing.DOWN ? new int[] { output } : new int[] { input1 };
+	public int[] getSlotsForFace(final EnumFacing side) {
+		if (side.equals(EnumFacing.UP))
+			return new int[] { 0 };
+		else if (side.equals(EnumFacing.DOWN))
+			return new int[] { 1 };
+		return new int[0];
 	}
 
 	@Override
-	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
-		if (slotIndex == output)
+	public boolean canInsertItem(final int slotIndex, final ItemStack itemStack, final EnumFacing side) {
+		if (slotIndex == 1)
 			return false;
-		return isItemValidForSlot(slotIndex, itemStack);
+		return this.isItemValidForSlot(slotIndex, itemStack);
 	}
 
 	@Override
-	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
-		return slotIndex == output;
+	public boolean canExtractItem(final int slotIndex, final ItemStack itemStack, final EnumFacing side) {
+		return slotIndex == 1;
 	}
 
 	@Override
 	public double getMaxPower() {
-		return capacity;
+		return this.capacity;
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction) {
+	public boolean canAcceptEnergy(final EnumFacing direction) {
 		return true;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnumFacing direction) {
+	public boolean canProvideEnergy(final EnumFacing direction) {
 		return false;
 	}
 
@@ -198,6 +187,21 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInv
 
 	@Override
 	public Inventory getInventory() {
-		return inventory;
+		return this.inventory;
+	}
+
+	public int getProgress() {
+		return this.progress;
+	}
+
+	public void setProgress(final int progress) {
+		this.progress = progress;
+	}
+
+	@Override
+	public BuiltContainer createContainer(final EntityPlayer player) {
+		return new ContainerBuilder("recycler").player(player.inventory).inventory().hotbar().addInventory()
+			.tile(this).slot(0, 55, 45).slot(1, 101, 45).syncEnergyValue()
+			.syncIntegerValue(this::getProgress, this::setProgress).addInventory().create();
 	}
 }

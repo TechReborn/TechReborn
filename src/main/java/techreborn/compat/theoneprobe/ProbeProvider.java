@@ -33,6 +33,8 @@ public class ProbeProvider implements IProbeInfoProvider {
 
 	@Override
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data) {
+		euStyle = new ProgressStyle().backgroundColor(0xFF8B8B8B).borderColor(0xFF373737).alternateFilledColor(PowerSystem.getDisplayPower().altColour).filledColor(PowerSystem.getDisplayPower().colour);
+		euStyle.suffix(" " + PowerSystem.getDisplayPower().abbreviation);
 		TileEntity tile = world.getTileEntity(data.getPos());
 		if (tile instanceof IListInfoProvider) {
 			List<String> strs = new ArrayList<>();

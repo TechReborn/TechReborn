@@ -11,10 +11,12 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.blocks.IRotationTexture;
+
 import techreborn.Core;
-import techreborn.client.GuiHandler;
+import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileIronFurnace;
 
@@ -28,60 +30,60 @@ public class BlockIronFurnace extends BlockMachineBase implements IRotationTextu
 
 	public BlockIronFurnace() {
 		super();
-		setUnlocalizedName("techreborn.ironfurnace");
-		setCreativeTab(TechRebornCreativeTab.instance);
+		this.setUnlocalizedName("techreborn.ironfurnace");
+		this.setCreativeTab(TechRebornCreativeTab.instance);
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int p_149915_2_) {
+	public TileEntity createNewTileEntity(final World world, final int p_149915_2_) {
 		return new TileIronFurnace();
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
-	                                float hitY, float hitZ) {
+	public boolean onBlockActivated(final World world, final int x, final int y, final int z, final EntityPlayer player, final int side, final float hitX,
+			final float hitY, final float hitZ) {
 		if (!player.isSneaking())
-			player.openGui(Core.INSTANCE, GuiHandler.ironFurnace, world, x, y, z);
+			player.openGui(Core.INSTANCE, EGui.IRON_FURNACE.ordinal(), world, x, y, z);
 		return true;
 	}
 
 	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-		List<ItemStack> items = new ArrayList<>();
+	public List<ItemStack> getDrops(final IBlockAccess world, final BlockPos pos, final IBlockState state, final int fortune) {
+		final List<ItemStack> items = new ArrayList<>();
 		items.add(new ItemStack(this));
 		return items;
 	}
 
 	@SideOnly(Side.CLIENT)
 	@SuppressWarnings("incomplete-switch")
-	public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+	public void randomDisplayTick(final World worldIn, final BlockPos pos, final IBlockState state, final Random rand) {
 		if (this.isActive(state)) {
-			EnumFacing enumfacing = state.getValue(FACING);
-			double d0 = (double) pos.getX() + 0.5D;
-			double d1 = (double) pos.getY() + rand.nextDouble() * 6.0D / 16.0D;
-			double d2 = (double) pos.getZ() + 0.5D;
-			double d3 = 0.52D;
-			double d4 = rand.nextDouble() * 0.6D - 0.3D;
+			final EnumFacing enumfacing = state.getValue(BlockMachineBase.FACING);
+			final double d0 = pos.getX() + 0.5D;
+			final double d1 = pos.getY() + rand.nextDouble() * 6.0D / 16.0D;
+			final double d2 = pos.getZ() + 0.5D;
+			final double d3 = 0.52D;
+			final double d4 = rand.nextDouble() * 0.6D - 0.3D;
 
 			switch (enumfacing) {
 				case WEST:
 					worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D,
-						new int[0]);
+							new int[0]);
 					worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D, new int[0]);
 					break;
 				case EAST:
 					worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D,
-						new int[0]);
+							new int[0]);
 					worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D, new int[0]);
 					break;
 				case NORTH:
 					worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D,
-						new int[0]);
+							new int[0]);
 					worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D, new int[0]);
 					break;
 				case SOUTH:
 					worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D,
-						new int[0]);
+							new int[0]);
 					worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D, new int[0]);
 			}
 		}
@@ -89,26 +91,26 @@ public class BlockIronFurnace extends BlockMachineBase implements IRotationTextu
 
 	@Override
 	public String getFrontOff() {
-		return prefix + "iron_furnace_front_off";
+		return this.prefix + "iron_furnace_front_off";
 	}
 
 	@Override
 	public String getFrontOn() {
-		return prefix + "iron_furnace_front_on";
+		return this.prefix + "iron_furnace_front_on";
 	}
 
 	@Override
 	public String getSide() {
-		return prefix + "iron_machine_side";
+		return this.prefix + "iron_machine_side";
 	}
 
 	@Override
 	public String getTop() {
-		return prefix + "iron_machine_top";
+		return this.prefix + "iron_machine_top";
 	}
 
 	@Override
 	public String getBottom() {
-		return prefix + "iron_machine_bottom";
+		return this.prefix + "iron_machine_bottom";
 	}
 }

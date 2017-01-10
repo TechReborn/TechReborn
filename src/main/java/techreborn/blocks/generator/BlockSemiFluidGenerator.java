@@ -5,10 +5,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.blocks.IAdvancedRotationTexture;
+
 import techreborn.Core;
-import techreborn.client.GuiHandler;
+import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.generator.TileSemifluidGenerator;
 
@@ -16,46 +18,46 @@ public class BlockSemiFluidGenerator extends BlockMachineBase implements IAdvanc
 
 	private final String prefix = "techreborn:blocks/machine/generators/";
 
-	public BlockSemiFluidGenerator(Material material) {
+	public BlockSemiFluidGenerator(final Material material) {
 		super();
-		setUnlocalizedName("techreborn.semifluidgenerator");
-		setCreativeTab(TechRebornCreativeTab.instance);
+		this.setUnlocalizedName("techreborn.semifluidgenerator");
+		this.setCreativeTab(TechRebornCreativeTab.instance);
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int p_149915_2_) {
+	public TileEntity createNewTileEntity(final World world, final int p_149915_2_) {
 		return new TileSemifluidGenerator();
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
-	                                float hitY, float hitZ) {
-		if (fillBlockWithFluid(world, new BlockPos(x, y, z), player)) {
+	public boolean onBlockActivated(final World world, final int x, final int y, final int z, final EntityPlayer player, final int side, final float hitX,
+			final float hitY, final float hitZ) {
+		if (this.fillBlockWithFluid(world, new BlockPos(x, y, z), player)) {
 			return true;
 		}
 		if (!player.isSneaking())
-			player.openGui(Core.INSTANCE, GuiHandler.semifluidGeneratorID, world, x, y, z);
+			player.openGui(Core.INSTANCE, EGui.SEMIFLUID_GENERATOR.ordinal(), world, x, y, z);
 		return true;
 	}
 
 	@Override
-	public String getFront(boolean isActive) {
-		return prefix + "semifluid_generator_side";
+	public String getFront(final boolean isActive) {
+		return this.prefix + "semifluid_generator_side";
 	}
 
 	@Override
-	public String getSide(boolean isActive) {
-		return prefix + "semifluid_generator_side";
+	public String getSide(final boolean isActive) {
+		return this.prefix + "semifluid_generator_side";
 	}
 
 	@Override
-	public String getTop(boolean isActive) {
-		return prefix + "generator_machine_top";
+	public String getTop(final boolean isActive) {
+		return this.prefix + "generator_machine_top";
 	}
 
 	@Override
-	public String getBottom(boolean isActive) {
-		return prefix + "generator_machine_bottom";
+	public String getBottom(final boolean isActive) {
+		return this.prefix + "generator_machine_bottom";
 	}
 
 }

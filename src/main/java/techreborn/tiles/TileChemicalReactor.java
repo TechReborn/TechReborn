@@ -13,9 +13,13 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Inventory;
 import techreborn.api.Reference;
+import techreborn.client.container.IContainerProvider;
+import techreborn.client.container.builder.BuiltContainer;
+import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 
-public class TileChemicalReactor extends TilePowerAcceptor implements IWrenchable, IInventoryProvider, ISidedInventory, IRecipeCrafterProvider {
+public class TileChemicalReactor extends TilePowerAcceptor
+	implements IWrenchable, IInventoryProvider, ISidedInventory, IRecipeCrafterProvider, IContainerProvider {
 
 	public int tickTime;
 	public Inventory inventory = new Inventory(8, "TileChemicalReactor", 64, this);
@@ -24,33 +28,33 @@ public class TileChemicalReactor extends TilePowerAcceptor implements IWrenchabl
 	public TileChemicalReactor() {
 		super(2);
 		// Input slots
-		int[] inputs = new int[2];
+		final int[] inputs = new int[2];
 		inputs[0] = 0;
 		inputs[1] = 1;
-		int[] outputs = new int[1];
+		final int[] outputs = new int[1];
 		outputs[0] = 2;
-		crafter = new RecipeCrafter(Reference.chemicalReactorRecipe, this, 2, 2, inventory, inputs, outputs);
+		this.crafter = new RecipeCrafter(Reference.chemicalReactorRecipe, this, 2, 2, this.inventory, inputs, outputs);
 	}
 
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		crafter.updateEntity();
-		charge(3);
+		this.crafter.updateEntity();
+		this.charge(3);
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
+	public boolean wrenchCanSetFacing(final EntityPlayer entityPlayer, final EnumFacing side) {
 		return false;
 	}
 
 	@Override
 	public EnumFacing getFacing() {
-		return getFacingEnum();
+		return this.getFacingEnum();
 	}
 
 	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
+	public boolean wrenchCanRemove(final EntityPlayer entityPlayer) {
 		return entityPlayer.isSneaking();
 	}
 
@@ -60,7 +64,7 @@ public class TileChemicalReactor extends TilePowerAcceptor implements IWrenchabl
 	}
 
 	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+	public ItemStack getWrenchDrop(final EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.CHEMICAL_REACTOR, 1);
 	}
 
@@ -69,33 +73,33 @@ public class TileChemicalReactor extends TilePowerAcceptor implements IWrenchabl
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound tagCompound) {
+	public void readFromNBT(final NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
-		crafter.readFromNBT(tagCompound);
+		this.crafter.readFromNBT(tagCompound);
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
+	public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
-		crafter.writeToNBT(tagCompound);
+		this.crafter.writeToNBT(tagCompound);
 		return tagCompound;
 	}
 
 	// ISidedInventory
 	@Override
-	public int[] getSlotsForFace(EnumFacing side) {
+	public int[] getSlotsForFace(final EnumFacing side) {
 		return side == EnumFacing.DOWN ? new int[] { 0, 1, 2 } : new int[] { 0, 1, 2 };
 	}
 
 	@Override
-	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
+	public boolean canInsertItem(final int slotIndex, final ItemStack itemStack, final EnumFacing side) {
 		if (slotIndex == 2)
 			return false;
-		return isItemValidForSlot(slotIndex, itemStack);
+		return this.isItemValidForSlot(slotIndex, itemStack);
 	}
 
 	@Override
-	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
+	public boolean canExtractItem(final int slotIndex, final ItemStack itemStack, final EnumFacing side) {
 		return slotIndex == 2;
 	}
 
@@ -109,9 +113,9 @@ public class TileChemicalReactor extends TilePowerAcceptor implements IWrenchabl
 	// }
 	// }
 
-	public int getProgressScaled(int scale) {
-		if (crafter.currentTickTime != 0) {
-			return crafter.currentTickTime * scale / crafter.currentNeededTicks;
+	public int getProgressScaled(final int scale) {
+		if (this.crafter.currentTickTime != 0) {
+			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
 		}
 		return 0;
 	}
@@ -122,12 +126,12 @@ public class TileChemicalReactor extends TilePowerAcceptor implements IWrenchabl
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction) {
+	public boolean canAcceptEnergy(final EnumFacing direction) {
 		return true;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnumFacing direction) {
+	public boolean canProvideEnergy(final EnumFacing direction) {
 		return false;
 	}
 
@@ -148,11 +152,18 @@ public class TileChemicalReactor extends TilePowerAcceptor implements IWrenchabl
 
 	@Override
 	public Inventory getInventory() {
-		return inventory;
+		return this.inventory;
 	}
 
 	@Override
 	public RecipeCrafter getRecipeCrafter() {
-		return crafter;
+		return this.crafter;
+	}
+
+	@Override
+	public BuiltContainer createContainer(final EntityPlayer player) {
+		return new ContainerBuilder("chemicalreactor").player(player.inventory).inventory().hotbar()
+			.addInventory().tile(this).slot(0, 34, 47).slot(1, 126, 47).outputSlot(2, 80, 47).energySlot(3, 8, 72)
+			.syncEnergyValue().syncCrafterValue().addInventory().create();
 	}
 }

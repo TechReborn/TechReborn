@@ -6,7 +6,6 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -14,8 +13,9 @@ import net.minecraftforge.fluids.BlockFluidBase;
 
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.blocks.IAdvancedRotationTexture;
+
 import techreborn.Core;
-import techreborn.client.GuiHandler;
+import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileDigitalChest;
 import techreborn.tiles.TileTechStorageBase;
@@ -30,13 +30,13 @@ public class BlockDigitalChest extends BlockMachineBase implements IAdvancedRota
 
 	public BlockDigitalChest() {
 		super();
-		setUnlocalizedName("techreborn.digitalChest");
-		setCreativeTab(TechRebornCreativeTab.instance);
+		this.setUnlocalizedName("techreborn.digitalChest");
+		this.setCreativeTab(TechRebornCreativeTab.instance);
 	}
 
 	@Override
-	protected void dropInventory(World world, BlockPos pos) {
-		TileEntity tileEntity = world.getTileEntity(pos);
+	protected void dropInventory(final World world, final BlockPos pos) {
+		final TileEntity tileEntity = world.getTileEntity(pos);
 
 		if (tileEntity == null) {
 			return;
@@ -45,13 +45,13 @@ public class BlockDigitalChest extends BlockMachineBase implements IAdvancedRota
 			return;
 		}
 
-		TileTechStorageBase inventory = (TileTechStorageBase) tileEntity;
+		final TileTechStorageBase inventory = (TileTechStorageBase) tileEntity;
 
-		List<ItemStack> items = new ArrayList<ItemStack>();
+		final List<ItemStack> items = new ArrayList<>();
 
-		List<ItemStack> droppables = inventory.getContentDrops();
+		final List<ItemStack> droppables = inventory.getContentDrops();
 		for (int i = 0; i < droppables.size(); i++) {
-			ItemStack itemStack = droppables.get(i);
+			final ItemStack itemStack = droppables.get(i);
 
 			if (itemStack == ItemStack.EMPTY) {
 				continue;
@@ -68,21 +68,21 @@ public class BlockDigitalChest extends BlockMachineBase implements IAdvancedRota
 			items.add(itemStack.copy());
 		}
 
-		for (ItemStack itemStack : items) {
-			Random rand = new Random();
+		for (final ItemStack itemStack : items) {
+			final Random rand = new Random();
 
-			float dX = rand.nextFloat() * 0.8F + 0.1F;
-			float dY = rand.nextFloat() * 0.8F + 0.1F;
-			float dZ = rand.nextFloat() * 0.8F + 0.1F;
+			final float dX = rand.nextFloat() * 0.8F + 0.1F;
+			final float dY = rand.nextFloat() * 0.8F + 0.1F;
+			final float dZ = rand.nextFloat() * 0.8F + 0.1F;
 
-			EntityItem entityItem = new EntityItem(world, pos.getX() + dX, pos.getY() + dY, pos.getZ() + dZ,
+			final EntityItem entityItem = new EntityItem(world, pos.getX() + dX, pos.getY() + dY, pos.getZ() + dZ,
 					itemStack.copy());
 
 			if (itemStack.hasTagCompound()) {
-				entityItem.getEntityItem().setTagCompound((NBTTagCompound) itemStack.getTagCompound().copy());
+				entityItem.getEntityItem().setTagCompound(itemStack.getTagCompound().copy());
 			}
 
-			float factor = 0.05F;
+			final float factor = 0.05F;
 			entityItem.motionX = rand.nextGaussian() * factor;
 			entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
 			entityItem.motionZ = rand.nextGaussian() * factor;
@@ -92,35 +92,35 @@ public class BlockDigitalChest extends BlockMachineBase implements IAdvancedRota
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
+	public TileEntity createNewTileEntity(final World p_149915_1_, final int p_149915_2_) {
 		return new TileDigitalChest();
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
-	                                float hitY, float hitZ) {
+	public boolean onBlockActivated(final World world, final int x, final int y, final int z, final EntityPlayer player, final int side, final float hitX,
+			final float hitY, final float hitZ) {
 		if (!player.isSneaking())
-			player.openGui(Core.INSTANCE, GuiHandler.digitalChestID, world, x, y, z);
+			player.openGui(Core.INSTANCE, EGui.DIGITAL_CHEST.ordinal(), world, x, y, z);
 		return true;
 	}
 
 	@Override
-	public String getFront(boolean isActive) {
-		return prefix + "quantum_chest";
+	public String getFront(final boolean isActive) {
+		return this.prefix + "quantum_chest";
 	}
 
 	@Override
-	public String getSide(boolean isActive) {
-		return prefix + "qchest_side";
+	public String getSide(final boolean isActive) {
+		return this.prefix + "qchest_side";
 	}
 
 	@Override
-	public String getTop(boolean isActive) {
-		return prefix + "quantum_top";
+	public String getTop(final boolean isActive) {
+		return this.prefix + "quantum_top";
 	}
 
 	@Override
-	public String getBottom(boolean isActive) {
-		return prefix + "machine_bottom";
+	public String getBottom(final boolean isActive) {
+		return this.prefix + "machine_bottom";
 	}
 }

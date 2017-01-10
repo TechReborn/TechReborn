@@ -3,17 +3,23 @@ package techreborn.tiles;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
+
+import techreborn.client.container.IContainerProvider;
+import techreborn.client.container.builder.BuiltContainer;
+import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
 import techreborn.items.ItemParts;
 
-public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchable, IInventoryProvider {
+public class TileMatterFabricator extends TilePowerAcceptor
+		implements IWrenchable, IInventoryProvider, IContainerProvider {
 
 	public static int fabricationRate = 10000;
 	public int tickTime;
@@ -27,17 +33,17 @@ public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchab
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
+	public boolean wrenchCanSetFacing(final EntityPlayer entityPlayer, final EnumFacing side) {
 		return false;
 	}
 
 	@Override
 	public EnumFacing getFacing() {
-		return getFacingEnum();
+		return this.getFacingEnum();
 	}
 
 	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
+	public boolean wrenchCanRemove(final EntityPlayer entityPlayer) {
 		return entityPlayer.isSneaking();
 	}
 
@@ -47,7 +53,7 @@ public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchab
 	}
 
 	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+	public ItemStack getWrenchDrop(final EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.MATTER_FABRICATOR, 1);
 	}
 
@@ -77,7 +83,7 @@ public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchab
 	//	}
 
 	public int maxProgresstime() {
-		return fabricationRate;
+		return TileMatterFabricator.fabricationRate;
 	}
 
 	@Override
@@ -86,14 +92,14 @@ public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchab
 
 		if (!super.world.isRemote) {
 			for (int i = 0; i < 6; i++) {
-				ItemStack stack = inventory.getStackInSlot(i);
+				final ItemStack stack = this.inventory.getStackInSlot(i);
 				if (this.amplifier < 10000 && stack != ItemStack.EMPTY) {
-					int amp = (int) ((long) (getValue(stack) / 32));
-					if (ItemUtils.isItemEqual(stack, inventory.getStackInSlot(i), true, true)) {
-						if (canUseEnergy(1)) {
-							useEnergy(1);
+					final int amp = this.getValue(stack) / 32;
+					if (ItemUtils.isItemEqual(stack, this.inventory.getStackInSlot(i), true, true)) {
+						if (this.canUseEnergy(1)) {
+							this.useEnergy(1);
 							this.amplifier += amp;
-							inventory.decrStackSize(i, 1);
+							this.inventory.decrStackSize(i, 1);
 						}
 					}
 				}
@@ -120,27 +126,27 @@ public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchab
 	}
 
 	private boolean spaceForOutput() {
-		return inventory.getStackInSlot(6) == ItemStack.EMPTY
-			|| ItemUtils.isItemEqual(inventory.getStackInSlot(6), new ItemStack(ModItems.UU_MATTER), true, true)
-			&& inventory.getStackInSlot(6).getCount() < 64;
+		return this.inventory.getStackInSlot(6) == ItemStack.EMPTY
+				|| ItemUtils.isItemEqual(this.inventory.getStackInSlot(6), new ItemStack(ModItems.UU_MATTER), true, true)
+				&& this.inventory.getStackInSlot(6).getCount() < 64;
 	}
 
 	private void addOutputProducts() {
 
-		if (inventory.getStackInSlot(6) == ItemStack.EMPTY) {
-			inventory.setInventorySlotContents(6, new ItemStack(ModItems.UU_MATTER));
-		} else if (ItemUtils.isItemEqual(inventory.getStackInSlot(6), new ItemStack(ModItems.UU_MATTER), true, true)) {
-			inventory.getStackInSlot(6).setCount(Math.min(64, 1 + inventory.getStackInSlot(6).getCount()));
+		if (this.inventory.getStackInSlot(6) == ItemStack.EMPTY) {
+			this.inventory.setInventorySlotContents(6, new ItemStack(ModItems.UU_MATTER));
+		} else if (ItemUtils.isItemEqual(this.inventory.getStackInSlot(6), new ItemStack(ModItems.UU_MATTER), true, true)) {
+			this.inventory.getStackInSlot(6).setCount(Math.min(64, 1 + this.inventory.getStackInSlot(6).getCount()));
 		}
 	}
 
-	public boolean decreaseStoredEnergy(double aEnergy, boolean aIgnoreTooLessEnergy) {
+	public boolean decreaseStoredEnergy(final double aEnergy, final boolean aIgnoreTooLessEnergy) {
 		if (this.getEnergy() - aEnergy < 0 && !aIgnoreTooLessEnergy) {
 			return false;
 		} else {
-			setEnergy(this.getEnergy() - aEnergy);
+			this.setEnergy(this.getEnergy() - aEnergy);
 			if (this.getEnergy() < 0) {
-				setEnergy(0);
+				this.setEnergy(0);
 				return false;
 			} else {
 				return true;
@@ -149,7 +155,7 @@ public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchab
 	}
 
 	// TODO ic2
-	public int getValue(ItemStack itemStack) {
+	public int getValue(final ItemStack itemStack) {
 		// int value = getValue(Recipes.matterAmplifier.getOutputFor(itemStack,
 		// false));
 		if (itemStack.getItem() == ModItems.PARTS && itemStack.getItemDamage() == ItemParts.getPartByName("scrap").getItemDamage()) {
@@ -173,12 +179,12 @@ public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchab
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction) {
+	public boolean canAcceptEnergy(final EnumFacing direction) {
 		return true;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnumFacing direction) {
+	public boolean canProvideEnergy(final EnumFacing direction) {
 		return false;
 	}
 
@@ -199,6 +205,29 @@ public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchab
 
 	@Override
 	public Inventory getInventory() {
-		return inventory;
+		return this.inventory;
+	}
+
+	public int getProgress() {
+		return this.progresstime;
+	}
+
+	public void setProgress(final int progress) {
+		this.progresstime = progress;
+	}
+
+	public int getProgressScaled(final int scale) {
+		if (this.progresstime != 0) {
+			return this.progresstime * scale / this.maxProgresstime();
+		}
+		return 0;
+	}
+
+	@Override
+	public BuiltContainer createContainer(final EntityPlayer player) {
+		return new ContainerBuilder("matterfabricator").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+				.addInventory().tile(this).slot(0, 33, 17).slot(1, 33, 35).slot(2, 33, 53).slot(3, 51, 17)
+				.slot(4, 51, 35).slot(5, 51, 53).outputSlot(6, 116, 35).syncEnergyValue()
+				.syncIntegerValue(this::getProgress, this::setProgress).addInventory().create();
 	}
 }

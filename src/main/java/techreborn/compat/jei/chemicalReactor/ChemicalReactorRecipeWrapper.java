@@ -5,14 +5,16 @@ import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
 import net.minecraft.client.Minecraft;
+import reborncore.common.powerSystem.PowerSystem;
 import techreborn.api.recipe.machines.ChemicalReactorRecipe;
-import techreborn.client.gui.GuiChemicalReactor;
+import techreborn.client.gui.TRBuilder;
 import techreborn.compat.jei.BaseRecipeWrapper;
 
 import javax.annotation.Nonnull;
 
 public class ChemicalReactorRecipeWrapper extends BaseRecipeWrapper<ChemicalReactorRecipe> {
-	private final IDrawableAnimated progress;
+	private final IDrawableAnimated progressright;
+	private final IDrawableAnimated progressleft;
 
 	public ChemicalReactorRecipeWrapper(
 		@Nonnull
@@ -21,23 +23,25 @@ public class ChemicalReactorRecipeWrapper extends BaseRecipeWrapper<ChemicalReac
 			ChemicalReactorRecipe baseRecipe) {
 		super(baseRecipe);
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
-		IDrawableStatic progressStatic = guiHelper.createDrawable(GuiChemicalReactor.texture, 176, 14, 32, 12);
+		IDrawableStatic progressrightStatic = guiHelper.createDrawable(TRBuilder.GUI_SHEET, 100, 151, 16, 10);
+		IDrawableStatic progressleftStatic = guiHelper.createDrawable(TRBuilder.GUI_SHEET, 84, 161, 16, 10);
 
-		int ticksPerCycle = baseRecipe.tickTime();
-		this.progress = guiHelper.createAnimatedDrawable(progressStatic, ticksPerCycle,
-			IDrawableAnimated.StartDirection.TOP, false);
+		int ticksPerCycle = baseRecipe.tickTime(); // speed up the animation
+
+		this.progressright = guiHelper.createAnimatedDrawable(progressrightStatic, ticksPerCycle, IDrawableAnimated.StartDirection.LEFT, false);
+		this.progressleft = guiHelper.createAnimatedDrawable(progressleftStatic, ticksPerCycle, IDrawableAnimated.StartDirection.RIGHT, false);
 	}
 
 	@Override
 	public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 		super.drawInfo(minecraft, recipeWidth, recipeHeight, mouseX, mouseY);
-		progress.draw(minecraft, 3, 18);
+		progressright.draw(minecraft, 25, 12);
+		progressleft.draw(minecraft, 75, 12);
 
-		int x = (int) (-recipeWidth * 1.6f);
-		int y = (int) (recipeHeight - recipeHeight / 3F);
+		int y = 30  ;
 		int lineHeight = minecraft.fontRendererObj.FONT_HEIGHT;
 
-		minecraft.fontRendererObj.drawString("Time: " + baseRecipe.tickTime / 20 + " secs", x, y, 0x444444);
-		minecraft.fontRendererObj.drawString("EU: " + baseRecipe.euPerTick + " EU/t", x, y += lineHeight, 0x444444);
+		minecraft.fontRendererObj.drawString(baseRecipe.tickTime / 20 + " seconds", (recipeWidth / 2 - minecraft.fontRendererObj.getStringWidth(baseRecipe.tickTime / 20 + " seconds") / 2), y, 0x444444);
+		minecraft.fontRendererObj.drawString(PowerSystem.getLocaliszedPowerFormatted(baseRecipe.euPerTick * baseRecipe.tickTime), (recipeWidth / 2 - minecraft.fontRendererObj.getStringWidth(PowerSystem.getLocaliszedPowerFormatted(baseRecipe.euPerTick * baseRecipe.tickTime)) / 2), y + lineHeight, 0x444444);
 	}
 }

@@ -4,10 +4,12 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.blocks.IAdvancedRotationTexture;
+
 import techreborn.Core;
-import techreborn.client.GuiHandler;
+import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileMatterFabricator;
 
@@ -15,22 +17,22 @@ public class BlockMatterFabricator extends BlockMachineBase implements IAdvanced
 
 	private final String prefix = "techreborn:blocks/machine/greg_machines/";
 
-	public BlockMatterFabricator(Material material) {
+	public BlockMatterFabricator(final Material material) {
 		super();
-		setUnlocalizedName("techreborn.matterfabricator");
-		setCreativeTab(TechRebornCreativeTab.instance);
+		this.setUnlocalizedName("techreborn.matterfabricator");
+		this.setCreativeTab(TechRebornCreativeTab.instance);
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
+	public TileEntity createNewTileEntity(final World p_149915_1_, final int p_149915_2_) {
 		return new TileMatterFabricator();
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
-	                                float hitY, float hitZ) {
+	public boolean onBlockActivated(final World world, final int x, final int y, final int z, final EntityPlayer player, final int side, final float hitX,
+			final float hitY, final float hitZ) {
 		if (!player.isSneaking())
-			player.openGui(Core.INSTANCE, GuiHandler.matterfabID, world, x, y, z);
+			player.openGui(Core.INSTANCE, EGui.MATTER_FABRICATOR.ordinal(), world, x, y, z);
 		return true;
 	}
 
@@ -40,22 +42,22 @@ public class BlockMatterFabricator extends BlockMachineBase implements IAdvanced
 	}
 
 	@Override
-	public String getFront(boolean isActive) {
-		return isActive ? prefix + "matter_fabricator_on" : prefix + "matter_fabricator_off";
+	public String getFront(final boolean isActive) {
+		return isActive ? this.prefix + "matter_fabricator_on" : this.prefix + "matter_fabricator_off";
 	}
 
 	@Override
-	public String getSide(boolean isActive) {
-		return isActive ? prefix + "matter_fabricator_on" : prefix + "matter_fabricator_off";
+	public String getSide(final boolean isActive) {
+		return isActive ? this.prefix + "matter_fabricator_on" : this.prefix + "matter_fabricator_off";
 	}
 
 	@Override
-	public String getTop(boolean isActive) {
-		return isActive ? prefix + "matter_fabricator_on" : prefix + "matter_fabricator_off";
+	public String getTop(final boolean isActive) {
+		return isActive ? this.prefix + "matter_fabricator_on" : this.prefix + "matter_fabricator_off";
 	}
 
 	@Override
-	public String getBottom(boolean isActive) {
-		return isActive ? prefix + "matter_fabricator_on" : prefix + "matter_fabricator_off";
+	public String getBottom(final boolean isActive) {
+		return isActive ? this.prefix + "matter_fabricator_on" : this.prefix + "matter_fabricator_off";
 	}
 }

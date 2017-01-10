@@ -8,6 +8,7 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+
 import reborncore.api.IListInfoProvider;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
@@ -15,63 +16,67 @@ import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
+
+import techreborn.client.container.IContainerProvider;
+import techreborn.client.container.builder.BuiltContainer;
+import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 
 import java.util.List;
 
 public class TileQuantumTank extends TileLegacyMachineBase
-	implements IInventoryProvider, IWrenchable, IListInfoProvider {
+implements IInventoryProvider, IWrenchable, IListInfoProvider, IContainerProvider {
 
 	public Tank tank = new Tank("TileQuantumTank", Integer.MAX_VALUE, this);
 	public Inventory inventory = new Inventory(3, "TileQuantumTank", 64, this);
 
 	@Override
-	public void readFromNBT(NBTTagCompound tagCompound) {
+	public void readFromNBT(final NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
-		readFromNBTWithoutCoords(tagCompound);
+		this.readFromNBTWithoutCoords(tagCompound);
 	}
 
-	public void readFromNBTWithoutCoords(NBTTagCompound tagCompound) {
-		tank.readFromNBT(tagCompound);
+	public void readFromNBTWithoutCoords(final NBTTagCompound tagCompound) {
+		this.tank.readFromNBT(tagCompound);
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
+	public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
-		writeToNBTWithoutCoords(tagCompound);
+		this.writeToNBTWithoutCoords(tagCompound);
 		return tagCompound;
 	}
 
-	public NBTTagCompound writeToNBTWithoutCoords(NBTTagCompound tagCompound) {
-		tank.writeToNBT(tagCompound);
+	public NBTTagCompound writeToNBTWithoutCoords(final NBTTagCompound tagCompound) {
+		this.tank.writeToNBT(tagCompound);
 		return tagCompound;
 	}
 
 	@Override
-	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
-		world.markBlockRangeForRenderUpdate(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX(),
-			getPos().getY(), getPos().getZ());
-		readFromNBT(packet.getNbtCompound());
+	public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity packet) {
+		this.world.markBlockRangeForRenderUpdate(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(),
+				this.getPos().getX(), this.getPos().getY(), this.getPos().getZ());
+		this.readFromNBT(packet.getNbtCompound());
 	}
 
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		if (!world.isRemote) {
-			if (FluidUtils.drainContainers(tank, inventory, 0, 1)
-					|| FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluidType()))
+		if (!this.world.isRemote) {
+			if (FluidUtils.drainContainers(this.tank, this.inventory, 0, 1)
+					|| FluidUtils.fillContainers(this.tank, this.inventory, 0, 1, this.tank.getFluidType()))
 				this.syncWithAll();
 
-			if (tank.getFluidType() != null && getStackInSlot(2) == ItemStack.EMPTY) {
-				inventory.setInventorySlotContents(2, new ItemStack(tank.getFluidType().getBlock()));
-			} else if (tank.getFluidType() == null && getStackInSlot(2) != ItemStack.EMPTY) {
-				setInventorySlotContents(2, ItemStack.EMPTY);
+			if (this.tank.getFluidType() != null && this.getStackInSlot(2) == ItemStack.EMPTY) {
+				this.inventory.setInventorySlotContents(2, new ItemStack(this.tank.getFluidType().getBlock()));
+			} else if (this.tank.getFluidType() == null && this.getStackInSlot(2) != ItemStack.EMPTY) {
+				this.setInventorySlotContents(2, ItemStack.EMPTY);
 			}
 		}
 	}
 
 	@Override
-	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+	public boolean hasCapability(final Capability<?> capability, final EnumFacing facing) {
 		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 			return true;
 		}
@@ -79,25 +84,25 @@ public class TileQuantumTank extends TileLegacyMachineBase
 	}
 
 	@Override
-	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+	public <T> T getCapability(final Capability<T> capability, final EnumFacing facing) {
 		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return (T) tank;
+			return (T) this.tank;
 		}
 		return super.getCapability(capability, facing);
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
+	public boolean wrenchCanSetFacing(final EntityPlayer entityPlayer, final EnumFacing side) {
 		return false;
 	}
 
 	@Override
 	public EnumFacing getFacing() {
-		return getFacingEnum();
+		return this.getFacingEnum();
 	}
 
 	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
+	public boolean wrenchCanRemove(final EntityPlayer entityPlayer) {
 		return entityPlayer.isSneaking();
 	}
 
@@ -107,34 +112,41 @@ public class TileQuantumTank extends TileLegacyMachineBase
 	}
 
 	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return getDropWithNBT();
+	public ItemStack getWrenchDrop(final EntityPlayer entityPlayer) {
+		return this.getDropWithNBT();
 	}
 
 	public ItemStack getDropWithNBT() {
-		NBTTagCompound tileEntity = new NBTTagCompound();
-		ItemStack dropStack = new ItemStack(ModBlocks.QUANTUM_TANK, 1);
-		writeToNBTWithoutCoords(tileEntity);
+		final NBTTagCompound tileEntity = new NBTTagCompound();
+		final ItemStack dropStack = new ItemStack(ModBlocks.QUANTUM_TANK, 1);
+		this.writeToNBTWithoutCoords(tileEntity);
 		dropStack.setTagCompound(new NBTTagCompound());
 		dropStack.getTagCompound().setTag("tileEntity", tileEntity);
 		return dropStack;
 	}
 
 	@Override
-	public void addInfo(List<String> info, boolean isRealTile) {
+	public void addInfo(final List<String> info, final boolean isRealTile) {
 		if (isRealTile) {
-			if (tank.getFluid() != null) {
-				info.add(tank.getFluidAmount() + " of " + tank.getFluidType().getName());
+			if (this.tank.getFluid() != null) {
+				info.add(this.tank.getFluidAmount() + " of " + this.tank.getFluidType().getName());
 			} else {
 				info.add("Empty");
 			}
 		}
-		info.add("Capacity " + tank.getCapacity() + " mb");
+		info.add("Capacity " + this.tank.getCapacity() + " mb");
 
 	}
 
 	@Override
 	public Inventory getInventory() {
-		return inventory;
+		return this.inventory;
+	}
+
+	@Override
+	public BuiltContainer createContainer(final EntityPlayer player) {
+		return new ContainerBuilder("quantumtank").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+				.addInventory().tile(this).fluidSlot(0, 80, 17).outputSlot(1, 80, 53).fakeSlot(2, 59, 42).addInventory()
+				.create();
 	}
 }

@@ -4,7 +4,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -12,7 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.oredict.OreDictionary;
-import reborncore.api.IListInfoProvider;
+
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
@@ -20,16 +19,17 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
+
+import techreborn.client.container.IContainerProvider;
+import techreborn.client.container.builder.BuiltContainer;
+import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.items.ItemDusts;
 
 import java.util.Random;
 
-import static techreborn.tiles.multiblock.MultiblockChecker.CASING_NORMAL;
-import static techreborn.tiles.multiblock.MultiblockChecker.CASING_REINFORCED;
-import static techreborn.tiles.multiblock.MultiblockChecker.ZERO_OFFSET;
-
-public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrenchable, IInventoryProvider, ISidedInventory, IListInfoProvider {
+public class TileIndustrialSawmill extends TilePowerAcceptor
+implements IWrenchable, IInventoryProvider, IContainerProvider {
 
 	public Inventory inventory = new Inventory(5, "Sawmill", 64, this);
 	public Tank tank = new Tank("Sawmill", 16000, this);
@@ -44,83 +44,84 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
 	@Override
 	public void update() {
 		super.update();
-		if (getMutliBlock()) {
-			ItemStack wood = inventory.getStackInSlot(0);
-			if (tickTime == 0) {
-				if (wood != null) {
-					for (int id : OreDictionary.getOreIDs(wood)) {
-						String name = OreDictionary.getOreName(id);
-						if (name.equals("logWood") &&
-							canAddOutput(2, 10) &&
-							canAddOutput(3, 5) &&
-							canAddOutput(4, 3) &&
-							canUseEnergy(128.0F) &&
-							!tank.isEmpty() &&
-							tank.getFluid().amount >= 1000) {
+
+		if (this.getMutliBlock()) {
+			final ItemStack wood = this.inventory.getStackInSlot(0);
+			if (this.tickTime == 0) {
+				if (!wood.isEmpty()) {
+					for (final int id : OreDictionary.getOreIDs(wood)) {
+						final String name = OreDictionary.getOreName(id);
+						if (name.equals("logWood") && this.canAddOutput(2, 10) && this.canAddOutput(3, 5)
+								&& this.canAddOutput(4, 3) && this.canUseEnergy(128.0F) && !this.tank.isEmpty()
+								&& this.tank.getFluid().amount >= 1000) {
 							wood.shrink(1);
 							if (wood.getCount() == 0)
-								setInventorySlotContents(0, ItemStack.EMPTY);
-							tank.drain(1000, true);
-							useEnergy(128.0F);
-							tickTime = 1;
+								this.setInventorySlotContents(0, ItemStack.EMPTY);
+							this.tank.drain(1000, true);
+							this.useEnergy(128.0F);
+							this.syncWithAll();
+							this.tickTime = 1;
 						}
 					}
 				}
-			} else if (++tickTime > 100) {
-				Random rnd = world.rand;
-				addOutput(2, new ItemStack(Blocks.PLANKS, 6 + rnd.nextInt(4)));
+			} else if (++this.tickTime > 100) {
+				final Random rnd = this.world.rand;
+				this.addOutput(2, new ItemStack(Blocks.PLANKS, 6 + rnd.nextInt(4)));
 				if (rnd.nextInt(4) != 0) {
-					ItemStack pulp = ItemDusts.getDustByName("sawDust", 2 + rnd.nextInt(3));
-					addOutput(3, pulp);
+					final ItemStack pulp = ItemDusts.getDustByName("sawDust", 2 + rnd.nextInt(3));
+					this.addOutput(3, pulp);
 				}
 				if (rnd.nextInt(3) == 0) {
-					ItemStack paper = new ItemStack(Items.PAPER, 1 + rnd.nextInt(2));
-					addOutput(4, paper);
+					final ItemStack paper = new ItemStack(Items.PAPER, 1 + rnd.nextInt(2));
+					this.addOutput(4, paper);
 				}
-				tickTime = 0;
+				this.tickTime = 0;
 			}
 		}
-		FluidUtils.drainContainers(tank, inventory, 1, 4);
+		FluidUtils.drainContainers(this.tank, this.inventory, 1, 4);
 	}
 
-	public void addOutput(int slot, ItemStack stack) {
-		if (getStackInSlot(slot) == ItemStack.EMPTY)
-			setInventorySlotContents(slot, stack);
-		getStackInSlot(slot).grow(stack.getCount());
+	public void addOutput(final int slot, final ItemStack stack) {
+		if (this.getStackInSlot(slot) == ItemStack.EMPTY)
+			this.setInventorySlotContents(slot, stack);
+		this.getStackInSlot(slot).grow(stack.getCount());
 	}
 
-	public boolean canAddOutput(int slot, int amount) {
-		ItemStack stack = getStackInSlot(slot);
-		return stack == ItemStack.EMPTY || getInventoryStackLimit() - stack.getCount() >= amount;
+	public boolean canAddOutput(final int slot, final int amount) {
+		final ItemStack stack = this.getStackInSlot(slot);
+		return stack == ItemStack.EMPTY || this.getInventoryStackLimit() - stack.getCount() >= amount;
 	}
 
 	@Override
 	public void validate() {
 		super.validate();
-		multiblockChecker = new MultiblockChecker(world, getPos().down(3));
+		this.multiblockChecker = new MultiblockChecker(this.world, this.getPos().down(3));
 	}
 
 	public boolean getMutliBlock() {
-		boolean down = multiblockChecker.checkRectY(1, 1, CASING_NORMAL, ZERO_OFFSET);
-		boolean up = multiblockChecker.checkRectY(1, 1, CASING_NORMAL, new BlockPos(0, 2, 0));
-		boolean blade = multiblockChecker.checkRingY(1, 1, CASING_REINFORCED, new BlockPos(0, 1, 0));
-		IBlockState centerBlock = multiblockChecker.getBlock(0, 1, 0);
-		boolean center = centerBlock.getBlock() == Blocks.WATER;
+		final boolean down = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.CASING_NORMAL,
+				MultiblockChecker.ZERO_OFFSET);
+		final boolean up = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.CASING_NORMAL,
+				new BlockPos(0, 2, 0));
+		final boolean blade = this.multiblockChecker.checkRingY(1, 1, MultiblockChecker.CASING_REINFORCED,
+				new BlockPos(0, 1, 0));
+		final IBlockState centerBlock = this.multiblockChecker.getBlock(0, 1, 0);
+		final boolean center = centerBlock.getBlock() == Blocks.WATER;
 		return down && center && blade && up;
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
+	public boolean wrenchCanSetFacing(final EntityPlayer entityPlayer, final EnumFacing side) {
 		return false;
 	}
 
 	@Override
 	public EnumFacing getFacing() {
-		return getFacingEnum();
+		return this.getFacingEnum();
 	}
 
 	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
+	public boolean wrenchCanRemove(final EntityPlayer entityPlayer) {
 		return entityPlayer.isSneaking();
 	}
 
@@ -130,27 +131,27 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
 	}
 
 	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+	public ItemStack getWrenchDrop(final EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.INDUSTRIAL_SAWMILL, 1);
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound tagCompound) {
+	public void readFromNBT(final NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
-		tank.readFromNBT(tagCompound);
-		tickTime = tagCompound.getInteger("tickTime");
+		this.tank.readFromNBT(tagCompound);
+		this.tickTime = tagCompound.getInteger("tickTime");
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
+	public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
-		tank.writeToNBT(tagCompound);
-		tagCompound.setInteger("tickTime", tickTime);
+		this.tank.writeToNBT(tagCompound);
+		tagCompound.setInteger("tickTime", this.tickTime);
 		return tagCompound;
 	}
 
 	@Override
-	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+	public boolean hasCapability(final Capability<?> capability, final EnumFacing facing) {
 		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 			return true;
 		}
@@ -158,31 +159,31 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
 	}
 
 	@Override
-	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+	public <T> T getCapability(final Capability<T> capability, final EnumFacing facing) {
 		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return (T) tank;
+			return (T) this.tank;
 		}
 		return super.getCapability(capability, facing);
 	}
 
 	@Override
-	public int[] getSlotsForFace(EnumFacing side) {
+	public int[] getSlotsForFace(final EnumFacing side) {
 		return new int[] { 0, 2, 3, 4, 5 };
 	}
 
 	@Override
-	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+	public boolean canInsertItem(final int index, final ItemStack itemStackIn, final EnumFacing direction) {
 		return index == 0;
 	}
 
 	@Override
-	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+	public boolean canExtractItem(final int index, final ItemStack stack, final EnumFacing direction) {
 		return index >= 2;
 	}
 
-	public int getProgressScaled(int scale) {
-		if (tickTime != 0) {
-			return tickTime * scale / 100;
+	public int getProgressScaled(final int scale) {
+		if (this.tickTime != 0) {
+			return this.tickTime * scale / 100;
 		}
 		return 0;
 	}
@@ -193,12 +194,12 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction) {
+	public boolean canAcceptEnergy(final EnumFacing direction) {
 		return true;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnumFacing direction) {
+	public boolean canProvideEnergy(final EnumFacing direction) {
 		return false;
 	}
 
@@ -219,7 +220,13 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
 
 	@Override
 	public Inventory getInventory() {
-		return inventory;
+		return this.inventory;
 	}
 
+	@Override
+	public BuiltContainer createContainer(final EntityPlayer player) {
+		return new ContainerBuilder("industrialsawmill").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+				.addInventory().tile(this).slot(0, 32, 26).slot(1, 32, 44).outputSlot(2, 84, 35).outputSlot(3, 102, 35)
+				.outputSlot(4, 120, 35).syncEnergyValue().addInventory().create();
+	}
 }

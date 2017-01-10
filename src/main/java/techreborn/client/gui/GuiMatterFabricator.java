@@ -5,49 +5,47 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
-import techreborn.client.container.ContainerMatterFabricator;
+
 import techreborn.tiles.TileMatterFabricator;
 
 public class GuiMatterFabricator extends GuiContainer {
 
 	private static final ResourceLocation texture = new ResourceLocation("techreborn",
-		"textures/gui/matterfabricator.png");
+			"textures/gui/matterfabricator.png");
 
 	TileMatterFabricator matterfab;
 
-	ContainerMatterFabricator containerMatterFabricator;
-
-	public GuiMatterFabricator(EntityPlayer player, TileMatterFabricator tilematterfab) {
-		super(new ContainerMatterFabricator(tilematterfab, player));
+	public GuiMatterFabricator(final EntityPlayer player, final TileMatterFabricator tilematterfab) {
+		super(tilematterfab.createContainer(player));
 		this.xSize = 176;
 		this.ySize = 167;
-		matterfab = tilematterfab;
-		containerMatterFabricator = (ContainerMatterFabricator) this.inventorySlots;
+		this.matterfab = tilematterfab;
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_) {
+	protected void drawGuiContainerBackgroundLayer(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.getTextureManager().bindTexture(texture);
-		int k = (this.width - this.xSize) / 2;
-		int l = (this.height - this.ySize) / 2;
+		this.mc.getTextureManager().bindTexture(GuiMatterFabricator.texture);
+		final int k = (this.width - this.xSize) / 2;
+		final int l = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
 
-		int j = containerMatterFabricator.getProgressScaled(24);
+		final int j = this.matterfab.getProgressScaled(24);
 		if (j > 0) {
 			this.drawTexturedModalRect(k + 79, l + 34, 176, 14, j + 1, 16);
 		}
 	}
 
-	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
-		int k = (this.width - this.xSize) / 2;
-		int l = (this.height - this.ySize) / 2;
-		String name = I18n.translateToLocal("tile.techreborn.matterfabricator.name");
+	@Override
+	protected void drawGuiContainerForegroundLayer(final int p_146979_1_, final int p_146979_2_) {
+		final int k = (this.width - this.xSize) / 2;
+		final int l = (this.height - this.ySize) / 2;
+		final String name = I18n.translateToLocal("tile.techreborn.matterfabricator.name");
 		this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6,
-			4210752);
+				4210752);
 		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,
-			this.ySize - 96 + 2, 4210752);
-		this.fontRendererObj.drawString(containerMatterFabricator.getProgressScaled(100) + "%", 80, 50, 4210752);
+				this.ySize - 96 + 2, 4210752);
+		this.fontRendererObj.drawString(this.matterfab.getProgressScaled(100) + "%", 80, 50, 4210752);
 	}
 
 }

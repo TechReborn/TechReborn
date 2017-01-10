@@ -8,6 +8,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.*;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+
 import reborncore.api.recipe.IBaseRecipeType;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.api.tile.IInventoryProvider;
@@ -16,10 +17,16 @@ import reborncore.common.recipes.RecipeTranslator;
 import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
+
 import techreborn.api.Reference;
+import techreborn.api.recipe.machines.AlloySmelterRecipe;
+import techreborn.client.container.IContainerProvider;
+import techreborn.client.container.builder.BuiltContainer;
+import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 
-public class TileAlloyFurnace extends TileLegacyMachineBase implements IWrenchable, IInventoryProvider {
+public class TileAlloyFurnace extends TileLegacyMachineBase
+implements IWrenchable, IInventoryProvider, IContainerProvider {
 
 	public int tickTime;
 	public Inventory inventory = new Inventory(4, "TileAlloyFurnace", 64, this);
@@ -39,14 +46,14 @@ public class TileAlloyFurnace extends TileLegacyMachineBase implements IWrenchab
 	 * Returns the number of ticks that the supplied fuel item will keep the
 	 * furnace burning, or 0 if the item isn't fuel
 	 */
-	public static int getItemBurnTime(ItemStack stack) {
+	public static int getItemBurnTime(final ItemStack stack) {
 		if (stack == null) {
 			return 0;
 		} else {
-			Item item = stack.getItem();
+			final Item item = stack.getItem();
 
 			if (item instanceof ItemBlock && Block.getBlockFromItem(item) != Blocks.AIR) {
-				Block block = Block.getBlockFromItem(item);
+				final Block block = Block.getBlockFromItem(item);
 
 				if (block == Blocks.WOODEN_SLAB) {
 					return 150;
@@ -84,19 +91,19 @@ public class TileAlloyFurnace extends TileLegacyMachineBase implements IWrenchab
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		boolean flag = this.burnTime > 0;
+		final boolean flag = this.burnTime > 0;
 		boolean flag1 = false;
 		if (this.burnTime > 0) {
 			--this.burnTime;
 		}
 		if (!this.world.isRemote) {
-			if (this.burnTime != 0 || getStackInSlot(input1) != ItemStack.EMPTY && getStackInSlot(fuel) != ItemStack.EMPTY) {
+			if (this.burnTime != 0 || this.getStackInSlot(this.input1) != ItemStack.EMPTY && this.getStackInSlot(this.fuel) != ItemStack.EMPTY) {
 				if (this.burnTime == 0 && this.canSmelt()) {
-					this.currentItemBurnTime = this.burnTime = getItemBurnTime(getStackInSlot(fuel));
+					this.currentItemBurnTime = this.burnTime = TileAlloyFurnace.getItemBurnTime(this.getStackInSlot(this.fuel));
 					if (this.burnTime > 0) {
 						flag1 = true;
-						if (this.getStackInSlot(fuel) != ItemStack.EMPTY) {
-							decrStackSize(fuel, 1);
+						if (this.getStackInSlot(this.fuel) != ItemStack.EMPTY) {
+							this.decrStackSize(this.fuel, 1);
 						}
 					}
 				}
@@ -121,11 +128,11 @@ public class TileAlloyFurnace extends TileLegacyMachineBase implements IWrenchab
 		}
 	}
 
-	public boolean hasAllInputs(IBaseRecipeType recipeType) {
+	public boolean hasAllInputs(final IBaseRecipeType recipeType) {
 		if (recipeType == null) {
 			return false;
 		}
-		for (Object input : recipeType.getInputs()) {
+		for (final Object input : recipeType.getInputs()) {
 			boolean hasItem = false;
 			boolean useOreDict = input instanceof String || recipeType.useOreDic();
 			boolean checkSize = input instanceof ItemStack;
@@ -138,7 +145,6 @@ public class TileAlloyFurnace extends TileLegacyMachineBase implements IWrenchab
 					}
 				}
 			}
-
 			if (!hasItem)
 				return false;
 		}
@@ -146,12 +152,12 @@ public class TileAlloyFurnace extends TileLegacyMachineBase implements IWrenchab
 	}
 
 	private boolean canSmelt() {
-		if (this.getStackInSlot(input1) == ItemStack.EMPTY || this.getStackInSlot(input2) == ItemStack.EMPTY) {
+		if (this.getStackInSlot(this.input1) == ItemStack.EMPTY || this.getStackInSlot(this.input2) == ItemStack.EMPTY) {
 			return false;
 		} else {
 			ItemStack itemstack = null;
-			for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelteRecipe)) {
-				if (hasAllInputs(recipeType)) {
+			for (final IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelteRecipe)) {
+				if (this.hasAllInputs(recipeType)) {
 					itemstack = recipeType.getOutput(0);
 					break;
 				}
@@ -159,12 +165,12 @@ public class TileAlloyFurnace extends TileLegacyMachineBase implements IWrenchab
 
 			if (itemstack == null)
 				return false;
-			if (this.getStackInSlot(output) == ItemStack.EMPTY)
+			if (this.getStackInSlot(this.output) == ItemStack.EMPTY)
 				return true;
-			if (!this.getStackInSlot(output).isItemEqual(itemstack))
+			if (!this.getStackInSlot(this.output).isItemEqual(itemstack))
 				return false;
-			int result = getStackInSlot(output).getCount() + itemstack.getCount();
-			return result <= getInventoryStackLimit() && result <= this.getStackInSlot(output).getMaxStackSize(); // Forge
+			final int result = this.getStackInSlot(this.output).getCount() + itemstack.getCount();
+			return result <= this.getInventoryStackLimit() && result <= this.getStackInSlot(this.output).getMaxStackSize(); // Forge
 			// BugFix:
 			// Make
 			// it
@@ -182,8 +188,8 @@ public class TileAlloyFurnace extends TileLegacyMachineBase implements IWrenchab
 	public void smeltItem() {
 		if (this.canSmelt()) {
 			ItemStack itemstack = null;
-			for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelteRecipe)) {
-				if (hasAllInputs(recipeType)) {
+			for (final IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelteRecipe)) {
+				if (this.hasAllInputs(recipeType)) {
 					itemstack = recipeType.getOutput(0);
 					break;
 				}
@@ -192,15 +198,15 @@ public class TileAlloyFurnace extends TileLegacyMachineBase implements IWrenchab
 				}
 			}
 
-			if (this.getStackInSlot(output) == ItemStack.EMPTY) {
-				setInventorySlotContents(output, itemstack.copy());
-			} else if (this.getStackInSlot(output).getItem() == itemstack.getItem()) {
-				decrStackSize(output, -itemstack.getCount());
+			if (this.getStackInSlot(this.output) == ItemStack.EMPTY) {
+				this.setInventorySlotContents(this.output, itemstack.copy());
+			} else if (this.getStackInSlot(this.output).getItem() == itemstack.getItem()) {
+				this.decrStackSize(this.output, -itemstack.getCount());
 			}
 
-			for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelteRecipe)) {
+			for (final IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelteRecipe)) {
 				boolean hasAllRecipes = true;
-				if (hasAllInputs(recipeType)) {
+				if (this.hasAllInputs(recipeType)) {
 
 				} else {
 					hasAllRecipes = false;
@@ -209,8 +215,8 @@ public class TileAlloyFurnace extends TileLegacyMachineBase implements IWrenchab
 					for (Object input : recipeType.getInputs()) {
 						boolean useOreDict = input instanceof String || recipeType.useOreDic();
 						for (int inputSlot = 0; inputSlot < 2; inputSlot++) {
-							if (ItemUtils.isInputEqual(input, inventory.getStackInSlot(inputSlot), true, true,
-								useOreDict)) {
+							if (ItemUtils.isInputEqual(input, this.inventory.getStackInSlot(inputSlot), true, true,
+									recipeType.useOreDic())) {
 								int count = 1;
 								if(input instanceof ItemStack){
 									count = RecipeTranslator.getStackFromObject(input).getCount();
@@ -233,7 +239,7 @@ public class TileAlloyFurnace extends TileLegacyMachineBase implements IWrenchab
 		return this.burnTime > 0;
 	}
 
-	public int getBurnTimeRemainingScaled(int scale) {
+	public int getBurnTimeRemainingScaled(final int scale) {
 		if (this.currentItemBurnTime == 0) {
 			this.currentItemBurnTime = 200;
 		}
@@ -241,22 +247,22 @@ public class TileAlloyFurnace extends TileLegacyMachineBase implements IWrenchab
 		return this.burnTime * scale / this.currentItemBurnTime;
 	}
 
-	public int getCookProgressScaled(int scale) {
+	public int getCookProgressScaled(final int scale) {
 		return this.cookTime * scale / 200;
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
+	public boolean wrenchCanSetFacing(final EntityPlayer entityPlayer, final EnumFacing side) {
 		return false;
 	}
 
 	@Override
 	public EnumFacing getFacing() {
-		return getFacingEnum();
+		return this.getFacingEnum();
 	}
 
 	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
+	public boolean wrenchCanRemove(final EntityPlayer entityPlayer) {
 		return entityPlayer.isSneaking();
 	}
 
@@ -266,7 +272,7 @@ public class TileAlloyFurnace extends TileLegacyMachineBase implements IWrenchab
 	}
 
 	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+	public ItemStack getWrenchDrop(final EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.IRON_ALLOY_FURNACE, 1);
 	}
 
@@ -276,22 +282,68 @@ public class TileAlloyFurnace extends TileLegacyMachineBase implements IWrenchab
 
 	@Override
 	public Inventory getInventory() {
-		return inventory;
+		return this.inventory;
 	}
 
 	@Override
-	public int[] getSlotsForFace(EnumFacing side) {
+	public int[] getSlotsForFace(final EnumFacing side) {
 		return new int[] { 0, 1, 2 };
 	}
 
 	@Override
-	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+	public boolean canInsertItem(final int index, final ItemStack itemStackIn, final EnumFacing direction) {
 		return index == 0 || index == 1;
 	}
 
 	@Override
-	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+	public boolean canExtractItem(final int index, final ItemStack stack, final EnumFacing direction) {
 		return index == 2;
 	}
 
+	public int getBurnTime()
+	{
+		return this.burnTime;
+	}
+
+	public void setBurnTime(final int burnTime)
+	{
+		this.burnTime = burnTime;
+	}
+
+	public int getCurrentItemBurnTime()
+	{
+		return this.currentItemBurnTime;
+	}
+
+	public void setCurrentItemBurnTime(final int currentItemBurnTime)
+	{
+		this.currentItemBurnTime = currentItemBurnTime;
+	}
+
+	public int getCookTime()
+	{
+		return this.cookTime;
+	}
+
+	public void setCookTime(final int cookTime)
+	{
+		this.cookTime = cookTime;
+	}
+
+	@Override
+	public BuiltContainer createContainer(final EntityPlayer player) {
+		return new ContainerBuilder("alloyfurnace").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+				.addInventory().tile(this)
+				.filterSlot(0, 47, 17,
+						stack -> RecipeHandler.recipeList.stream()
+								.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
+										&& ItemUtils.isInputEqual(recipe.getInputs().get(0), stack, true, true, true)))
+				.filterSlot(1, 65, 17,
+						stack -> RecipeHandler.recipeList.stream()
+								.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
+										&& ItemUtils.isInputEqual(recipe.getInputs().get(1), stack, true, true, true)))
+				.outputSlot(2, 116, 35).fuelSlot(3, 56, 53).syncIntegerValue(this::getBurnTime, this::setBurnTime)
+				.syncIntegerValue(this::getCookTime, this::setCookTime)
+				.syncIntegerValue(this::getCurrentItemBurnTime, this::setCurrentItemBurnTime).addInventory().create();
+	}
 }
