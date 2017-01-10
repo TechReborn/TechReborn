@@ -6,14 +6,15 @@ import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeCategory;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
-import techreborn.client.gui.GuiChemicalReactor;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
 
 import javax.annotation.Nonnull;
 
 public class ChemicalReactorRecipeCategory extends BlankRecipeCategory<ChemicalReactorRecipeWrapper> {
+	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/jei.png");
 	private static final int[] INPUT_SLOTS = { 0, 1 };
 	private static final int[] OUTPUT_SLOTS = { 2 };
 
@@ -21,7 +22,7 @@ public class ChemicalReactorRecipeCategory extends BlankRecipeCategory<ChemicalR
 	private final String title;
 
 	public ChemicalReactorRecipeCategory(IGuiHelper guiHelper) {
-		background = guiHelper.createDrawable(GuiChemicalReactor.texture, 69, 20, 38, 48);
+		background = guiHelper.createDrawable(texture, 0, 172, 116, 52);
 		title = I18n.translateToLocal("tile.techreborn.chemicalreactor.name");
 	}
 
@@ -52,10 +53,10 @@ public class ChemicalReactorRecipeCategory extends BlankRecipeCategory<ChemicalR
 		@Nonnull
 			IIngredients ingredients) {
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
-		guiItemStacks.init(INPUT_SLOTS[0], true, 0, 0);
-		guiItemStacks.init(INPUT_SLOTS[1], true, 20, 0);
+		guiItemStacks.init(INPUT_SLOTS[0], true, 3, 7);
+		guiItemStacks.init(INPUT_SLOTS[1], true, 95, 7);
 
-		guiItemStacks.init(OUTPUT_SLOTS[0], false, 10, 30);
+		guiItemStacks.init(OUTPUT_SLOTS[0], false, 49, 7);
 
 		RecipeUtil.setRecipeItems(recipeLayout, ingredients, INPUT_SLOTS, OUTPUT_SLOTS, null, null);
 	}

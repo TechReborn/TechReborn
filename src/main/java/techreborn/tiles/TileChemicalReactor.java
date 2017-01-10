@@ -5,7 +5,6 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
@@ -13,7 +12,6 @@ import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Inventory;
-
 import techreborn.api.Reference;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
@@ -21,7 +19,7 @@ import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 
 public class TileChemicalReactor extends TilePowerAcceptor
-implements IWrenchable, IInventoryProvider, ISidedInventory, IRecipeCrafterProvider, IContainerProvider {
+	implements IWrenchable, IInventoryProvider, ISidedInventory, IRecipeCrafterProvider, IContainerProvider {
 
 	public int tickTime;
 	public Inventory inventory = new Inventory(8, "TileChemicalReactor", 64, this);
@@ -164,9 +162,8 @@ implements IWrenchable, IInventoryProvider, ISidedInventory, IRecipeCrafterProvi
 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("chemicalreactor").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory().tile(this).slot(0, 70, 21).slot(1, 90, 21).outputSlot(2, 80, 51).energySlot(3, 8, 51)
-				.upgradeSlot(4, 152, 8).upgradeSlot(5, 152, 26).upgradeSlot(6, 152, 44).upgradeSlot(7, 152, 62)
-				.syncEnergyValue().syncCrafterValue().addInventory().create();
+		return new ContainerBuilder("chemicalreactor").player(player.inventory).inventory().hotbar()
+			.addInventory().tile(this).slot(0, 34, 47).slot(1, 126, 47).outputSlot(2, 80, 47).energySlot(3, 8, 72)
+			.syncEnergyValue().syncCrafterValue().addInventory().create();
 	}
 }
