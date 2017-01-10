@@ -1,5 +1,6 @@
 package techreborn.items.tools;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -59,7 +60,7 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo {
 	@Override
 	public boolean canHarvestBlock(IBlockState state) {
 		// TODO needs // FIXME: 13/03/2016
-		return OreDictUtils.isOre(state, "stone") && PoweredItem.canUseEnergy(cost, null);
+		return OreDictUtils.isOre(state, "stone") || state.getBlock().getMaterial(state) == Material.ROCK && PoweredItem.canUseEnergy(cost, null);
 	}
 
 	@Override
