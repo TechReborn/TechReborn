@@ -71,7 +71,7 @@ public class ContainerTileInventoryBuilder {
 	@SuppressWarnings("null")
 	public ContainerTileInventoryBuilder fluidSlot(final int index, final int x, final int y) {
 		this.parent.slots.add(new FilteredSlot(this.tile, index, x, y).setFilter(
-				stack -> stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, EnumFacing.UP)));
+				stack -> stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, EnumFacing.UP)));
 		return this;
 	}
 
