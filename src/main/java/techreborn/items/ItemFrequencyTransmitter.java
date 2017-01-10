@@ -47,9 +47,8 @@ public class ItemFrequencyTransmitter extends ItemTRNoDestroy {
 	}
 
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos,
+	public EnumActionResult onItemUse(ItemStack stack,EntityPlayer player, World world, BlockPos pos,
 	                                  EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		ItemStack stack = player.getHeldItem(hand);
 		stack.setTagCompound(new NBTTagCompound());
 		stack.getTagCompound().setInteger("x", pos.getX());
 		stack.getTagCompound().setInteger("y", pos.getY());
@@ -72,9 +71,8 @@ public class ItemFrequencyTransmitter extends ItemTRNoDestroy {
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player,
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack,World world, EntityPlayer player,
 	                                                EnumHand hand) {
-		ItemStack stack = player.getHeldItem(hand);
 		if (player.isSneaking()) {
 			stack.setTagCompound(null);
 			if (!world.isRemote && ConfigTechReborn.FreqTransmitterChat) {

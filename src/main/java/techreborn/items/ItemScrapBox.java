@@ -20,9 +20,8 @@ public class ItemScrapBox extends ItemTRNoDestroy {
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player,
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack,World world, EntityPlayer player,
 	                                                EnumHand hand) {
-		ItemStack stack = player.getHeldItem(hand);
 		if (!world.isRemote) {
 			int random = world.rand.nextInt(ScrapboxList.stacks.size());
 			ItemStack out = ScrapboxList.stacks.get(random).copy();

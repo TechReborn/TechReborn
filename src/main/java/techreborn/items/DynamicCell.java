@@ -57,8 +57,7 @@ public class DynamicCell extends Item {
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
-		ItemStack stack = playerIn.getHeldItem(hand);
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World worldIn, EntityPlayer playerIn, EnumHand hand) {
 		if (!worldIn.isRemote) {
 			RayTraceResult result = rayTrace(worldIn, playerIn, true);
 

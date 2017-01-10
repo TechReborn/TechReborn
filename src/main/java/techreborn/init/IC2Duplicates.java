@@ -66,7 +66,7 @@ public enum IC2Duplicates {
 		if (!CompatManager.isIC2Loaded) {
 			throw new RuntimeException("IC2 isnt loaded");
 		}
-		if (ic2Stack.isEmpty()) {
+		if (ic2Stack == null) {
 			throw new RuntimeException("IC2 stack wasnt set ");
 		}
 		return ic2Stack;
@@ -77,7 +77,7 @@ public enum IC2Duplicates {
 	}
 
 	public boolean hasIC2Stack() {
-		return !ic2Stack.isEmpty();
+		return ic2Stack != null;
 	}
 
 	public ItemStack getTrStack() {

@@ -105,7 +105,7 @@ public class BlockPlayerDetector extends BlockMachineBase implements ITexturedBl
 
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer entityPlayer,
-	                                EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+	                                EnumHand hand, ItemStack stack, EnumFacing side, float hitX, float hitY, float hitZ) {
 		String type = state.getValue(TYPE);
 		String newType = type;
 		TextFormatting color = TextFormatting.GREEN;

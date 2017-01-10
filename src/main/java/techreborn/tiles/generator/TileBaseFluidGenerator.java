@@ -111,7 +111,7 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 	}
 
 	protected boolean acceptFluid() {
-		if (!this.getStackInSlot(0).isEmpty()) {
+		if (this.getStackInSlot(0) != null) {
 			FluidStack stack = FluidUtils.getFluidStackInContainer(this.getStackInSlot(0));
 			if (stack != null)
 				return recipes.getRecipeForFluid(stack.getFluid()).isPresent();

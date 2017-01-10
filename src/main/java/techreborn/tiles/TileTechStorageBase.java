@@ -38,7 +38,7 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 	public void updateEntity() {
 		if (!world.isRemote) {
 			if (this.getStackInSlot(0) != null) {
-				if (this.getStoredItemType().isEmpty() || (this.storedItem.isEmpty()
+				if (this.getStoredItemType() == null || (this.getStoredItemType() == null
 					&& ItemUtils.isItemEqual(this.getStackInSlot(0), this.getStackInSlot(1), true, true))) {
 
 					this.storedItem = this.getStackInSlot(0);
@@ -60,7 +60,7 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 
 					this.storedItem.stackSize -= (delivered.stackSize);
 
-					if (this.storedItem.isEmpty())
+					if (this.storedItem.stackSize == 0)
 						this.storedItem = null;
 
 					this.setInventorySlotContents(1, delivered);
@@ -74,7 +74,7 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 					this.getStackInSlot(1).stackSize = (this.getStackInSlot(1).stackSize + wanted);
 					this.storedItem.stackSize -= (wanted);
 
-					if (this.storedItem.isEmpty())
+					if (this.storedItem.stackSize == 0)
 						this.storedItem = null;
 					this.syncWithAll();
 				}
@@ -100,7 +100,7 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 		storedItem = null;
 
 		if (tagCompound.hasKey("storedStack")) {
-			storedItem = new ItemStack((NBTTagCompound) tagCompound.getTag("storedStack"));
+			storedItem = ItemStack.loadItemStackFromNBT((NBTTagCompound) tagCompound.getTag("storedStack"));
 		}
 
 		if (storedItem != null) {
@@ -163,8 +163,8 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 	public List<ItemStack> getContentDrops() {
 		ArrayList<ItemStack> stacks = new ArrayList<>();
 
-		if (!this.getStoredItemType().isEmpty()) {
-			if (!this.getStackInSlot(1).isEmpty())
+		if (this.getStoredItemType() != null) {
+			if (this.getStackInSlot(1) != null)
 				stacks.add(this.getStackInSlot(1));
 			for (int i = 0; i < this.getStoredCount() / 64; i++) {
 				ItemStack droped = this.storedItem.copy();
@@ -183,7 +183,7 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 
 	@Override
 	public ItemStack getStoredItemType() {
-		return this.storedItem.isEmpty() ? this.getStackInSlot(1) : this.storedItem;
+		return this.storedItem == null ? this.getStackInSlot(1) : this.storedItem;
 	}
 
 	@Override

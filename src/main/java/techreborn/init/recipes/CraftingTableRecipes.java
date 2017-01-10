@@ -262,7 +262,7 @@ public class CraftingTableRecipes extends RecipeMethods {
 				}
 			}
 
-			if (!item.isEmpty()) {
+			if (item != null) {
 				registerShaped(BlockStorage.getStorageBlockByName(name), "III", "III", "III", 'I', item);
 				registerShapeless(item, BlockStorage.getStorageBlockByName(name, 9));
 			}

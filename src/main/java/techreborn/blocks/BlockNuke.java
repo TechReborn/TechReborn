@@ -10,6 +10,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
@@ -86,7 +87,7 @@ public class BlockNuke extends BaseBlock implements ITexturedBlock {
 
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-	                                EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+	                                EnumHand hand, ItemStack stack, EnumFacing side, float hitX, float hitY, float hitZ) {
 		return false;
 	}
 

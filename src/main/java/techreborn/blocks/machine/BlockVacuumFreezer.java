@@ -3,6 +3,7 @@ package techreborn.blocks.machine;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -16,6 +17,8 @@ import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.multiblock.TileVacuumFreezer;
+
+import javax.annotation.Nullable;
 
 public class BlockVacuumFreezer extends BlockMachineBase implements IAdvancedRotationTexture {
 
@@ -33,7 +36,8 @@ public class BlockVacuumFreezer extends BlockMachineBase implements IAdvancedRot
 	}
 
 	@Override
-	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
+	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, @Nullable
+		ItemStack heldItem, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
 		if (!player.isSneaking()) {
 			player.openGui(Core.INSTANCE, EGui.VACUUM_FREEZER.ordinal(), world, pos.getX(), pos.getY(), pos.getZ());
 			return true;

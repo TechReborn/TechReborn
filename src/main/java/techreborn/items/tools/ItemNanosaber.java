@@ -64,7 +64,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 	                                                                 ItemStack stack) {
 		Multimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier>create();
 		int modifier = 0;
-		if (!stack.isEmpty() && stack.getTagCompound().getBoolean("isActive"))
+		if (stack != null && stack.getTagCompound().getBoolean("isActive"))
 			modifier = 9;
 
 		if (slot == EntityEquipmentSlot.MAINHAND) {
@@ -124,9 +124,8 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player,
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player,
 	                                                EnumHand hand) {
-		ItemStack stack = player.getHeldItem(hand);
 		if (player.isSneaking()) {
 			if (!PoweredItem.canUseEnergy(cost, stack)) {
 				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(

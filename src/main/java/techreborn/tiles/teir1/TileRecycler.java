@@ -66,7 +66,7 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInv
 		final int randomchance = this.world.rand.nextInt(this.chance);
 
 		if (randomchance == 1) {
-			if (this.getStackInSlot(1).isEmpty())
+			if (this.getStackInSlot(1) == null)
 				this.setInventorySlotContents(1, itemstack.copy());
 			else
 				this.getStackInSlot(1).stackSize += (itemstack.stackSize);
