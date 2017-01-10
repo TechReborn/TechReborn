@@ -48,7 +48,7 @@ implements IWrenchable, IInventoryProvider, IContainerProvider {
 		if (this.getMutliBlock()) {
 			final ItemStack wood = this.inventory.getStackInSlot(0);
 			if (this.tickTime == 0) {
-				if (!wood.isEmpty()) {
+				if (wood != null) {
 					for (final int id : OreDictionary.getOreIDs(wood)) {
 						final String name = OreDictionary.getOreName(id);
 						if (name.equals("logWood") && this.canAddOutput(2, 10) && this.canAddOutput(3, 5)

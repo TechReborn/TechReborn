@@ -25,8 +25,8 @@ public class GuiButtonHologram extends GuiButton {
 	public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
 
 		if (layer == GuiBase.Layer.FOREGROUND) {
-			mouseX -= gui.getGuiLeft();
-			mouseY -= gui.getGuiTop();
+			mouseX -= gui.guiLeft;
+			mouseY -= gui.guiTop;
 		}
 
 		if (this.enabled && this.visible && mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height) {

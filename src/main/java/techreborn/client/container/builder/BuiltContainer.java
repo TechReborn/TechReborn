@@ -197,7 +197,7 @@ public class BuiltContainer extends Container {
 				slot.onSlotChanged();
 			if (stackInSlot.stackSize == originalStack.stackSize)
 				return null;
-			slot.onTake(player, stackInSlot);
+			slot.onPickupFromSlot(player, stackInSlot);
 		}
 		return originalStack;
 	}

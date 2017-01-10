@@ -28,12 +28,12 @@ public class TRBuilder extends GuiBuilder {
 
 	public void drawMultiEnergyBar(GuiBase gui, int x, int y, int energyStored, int maxEnergyStored, int mouseX, int mouseY, int buttonID, GuiBase.Layer layer) {
 		if (layer == GuiBase.Layer.BACKGROUND) {
-			x += gui.getGuiLeft();
-			y += gui.getGuiTop();
+			x += gui.guiLeft;
+			y += gui.guiTop;
 		}
 		if (layer == GuiBase.Layer.FOREGROUND) {
-			mouseX -= gui.getGuiLeft();
-			mouseY -= gui.getGuiTop();
+			mouseX -= gui.guiLeft;
+			mouseY -= gui.guiTop;
 		}
 		Minecraft.getMinecraft().getTextureManager().bindTexture(GUI_SHEET);
 
@@ -66,12 +66,12 @@ public class TRBuilder extends GuiBuilder {
 
 	public void drawProgressBar(GuiBase gui, int progress, int maxProgress, int x, int y, int mouseX, int mouseY, ProgressDirection direction, GuiBase.Layer layer) {
 		if (layer == GuiBase.Layer.BACKGROUND) {
-			x += gui.getGuiLeft();
-			y += gui.getGuiTop();
+			x += gui.guiLeft;
+			y += gui.guiTop;
 		}
 		if (layer == GuiBase.Layer.FOREGROUND) {
-			mouseX -= gui.getGuiLeft();
-			mouseY -= gui.getGuiTop();
+			mouseX -= gui.guiLeft;
+			mouseY -= gui.guiTop;
 		}
 
 		gui.mc.getTextureManager().bindTexture(GUI_SHEET);
@@ -104,8 +104,8 @@ public class TRBuilder extends GuiBuilder {
 	public void drawJEIButton(GuiBase gui, int x, int y, GuiBase.Layer layer) {
 		if (Loader.isModLoaded("jei")) {
 			if (layer == GuiBase.Layer.BACKGROUND) {
-				x += gui.getGuiLeft();
-				y += gui.getGuiTop();
+				x += gui.guiLeft;
+				y += gui.guiTop;
 			}
 			gui.mc.getTextureManager().bindTexture(GUI_SHEET);
 			gui.drawTexturedModalRect(x, y, 184, 70, 20, 12);
@@ -114,12 +114,12 @@ public class TRBuilder extends GuiBuilder {
 
 	public void drawHologramButton(GuiBase gui, int x, int y, int mouseX, int mouseY, GuiBase.Layer layer) {
 		if (layer == GuiBase.Layer.BACKGROUND) {
-			x += gui.getGuiLeft();
-			y += gui.getGuiTop();
+			x += gui.guiLeft;
+			y += gui.guiTop;
 		}
 		if (layer == GuiBase.Layer.FOREGROUND) {
-			mouseX -= gui.getGuiLeft();
-			mouseY -= gui.getGuiTop();
+			mouseX -= gui.guiLeft;
+			mouseY -= gui.guiTop;
 		}
 		gui.mc.getTextureManager().bindTexture(GUI_SHEET);
 		if (ClientProxy.multiblockRenderEvent.currentMultiblock == null) {
@@ -138,8 +138,8 @@ public class TRBuilder extends GuiBuilder {
 
 	public void drawBigBlueBar(GuiBase gui, int x, int y, int value, int max, int mouseX, int mouseY, String suffix, GuiBase.Layer layer) {
 		if (layer == GuiBase.Layer.BACKGROUND) {
-			x += gui.getGuiLeft();
-			y += gui.getGuiTop();
+			x += gui.guiLeft;
+			y += gui.guiTop;
 		}
 		gui.mc.getTextureManager().bindTexture(GUI_SHEET);
 		if (!suffix.equals("")) {
@@ -170,8 +170,8 @@ public class TRBuilder extends GuiBuilder {
 
 	public void drawBigHeatBar(GuiBase gui, int x, int y, int value, int max, GuiBase.Layer layer) {
 		if (layer == GuiBase.Layer.BACKGROUND) {
-			x += gui.getGuiLeft();
-			y += gui.getGuiTop();
+			x += gui.guiLeft;
+			y += gui.guiTop;
 		}
 		gui.mc.getTextureManager().bindTexture(GUI_SHEET);
 		gui.drawTexturedModalRect(x, y, 0, 218, 114, 18);
@@ -198,12 +198,12 @@ public class TRBuilder extends GuiBuilder {
 
 	public void drawBurnBar(GuiBase gui, int progress, int maxProgress, int x, int y, int mouseX, int mouseY, GuiBase.Layer layer) {
 		if (layer == GuiBase.Layer.BACKGROUND) {
-			x += gui.getGuiLeft();
-			y += gui.getGuiTop();
+			x += gui.guiLeft;
+			y += gui.guiTop;
 		}
 		if (layer == GuiBase.Layer.FOREGROUND) {
-			mouseX -= gui.getGuiLeft();
-			mouseY -= gui.getGuiTop();
+			mouseX -= gui.guiLeft;
+			mouseY -= gui.guiTop;
 		}
 
 		gui.mc.getTextureManager().bindTexture(GUI_SHEET);

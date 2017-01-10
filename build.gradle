@@ -116,6 +116,8 @@ processResources
             from(sourceSets.main.resources.srcDirs) {
                 exclude 'mcmod.info'
             }
+			// Move access transformers to META-INF
+			rename '(.+_at.cfg)', 'META-INF/$1'
         }
 
 
@@ -123,6 +125,9 @@ task deobfJar(type: Jar) {
     from sourceSets.main.output
     exclude "**/*.psd"
     classifier = 'dev'
+	manifest {
+		attributes 'FMLAT': 'techreborn_at.cfg'
+	}
 }
 
 
@@ -136,6 +141,9 @@ jar {
 //            exclude 'META-INF', 'META-INF/**', '**/*.java'
 //        }
 //    }
+	manifest {
+		attributes 'FMLAT': 'techreborn_at.cfg'
+	}
 }
 
 task apiJar(type: Jar) {
