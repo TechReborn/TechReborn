@@ -389,23 +389,23 @@ public class ModBlocks {
 		GameRegistry.registerTileEntity(TileBatBox.class, "TileBatBox");
 
 		MVSU = new BlockMFE();
-		registerBlock(MVSU, "MFE");
+		registerBlock(MVSU, "mfe");
 		GameRegistry.registerTileEntity(TileMFE.class, "TileMFE");
 
 		HVSU = new BlockMFSU();
-		registerBlock(HVSU, "MFSU");
+		registerBlock(HVSU, "mfsu");
 		GameRegistry.registerTileEntity(TileMFSU.class, "TileMFSU");
 
 		LV_TRANSFORMER = new BlockLVTransformer();
-		registerBlock(LV_TRANSFORMER, "LVT");
+		registerBlock(LV_TRANSFORMER, "lvt");
 		GameRegistry.registerTileEntity(TileLVTransformer.class, "TileLVTransformer");
 
 		MV_TRANSFORMER = new BlockMVTransformer();
-		registerBlock(MV_TRANSFORMER, "MVT");
+		registerBlock(MV_TRANSFORMER, "mvt");
 		GameRegistry.registerTileEntity(TileMVTransformer.class, "TileMVTransformer");
 
 		HV_TRANSFORMER = new BlockHVTransformer();
-		registerBlock(HV_TRANSFORMER, "HVT");
+		registerBlock(HV_TRANSFORMER, "hvt");
 		GameRegistry.registerTileEntity(TileHVTransformer.class, "TileHVTransformer");
 
 		IRON_FURNACE = new BlockIronFurnace();
@@ -435,14 +435,12 @@ public class ModBlocks {
 	}
 
 	public static void registerBlock(Block block, String name) {
-		name = name.toLowerCase();
 		block.setRegistryName(name);
 		GameRegistry.register(block);
 		GameRegistry.register(new ItemBlock(block), block.getRegistryName());
 	}
 
 	public static void registerBlock(Block block, Class<? extends ItemBlock> itemclass, String name) {
-		name = name.toLowerCase();
 		block.setRegistryName(name);
 		GameRegistry.register(block);
 		try {
