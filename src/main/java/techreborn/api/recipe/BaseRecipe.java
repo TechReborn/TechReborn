@@ -3,7 +3,9 @@ package techreborn.api.recipe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import reborncore.api.recipe.IBaseRecipeType;
+import reborncore.common.recipes.RecipeTranslator;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,11 +14,12 @@ import java.util.List;
  */
 public abstract class BaseRecipe implements IBaseRecipeType, Cloneable {
 
-	public ArrayList<ItemStack> inputs;
 	public String name;
 	public int tickTime;
 	public int euPerTick;
+	public ArrayList<Object> inputs;
 	private ArrayList<ItemStack> outputs;
+	private boolean oreDict = true;
 
 	public BaseRecipe(String name, int tickTime, int euPerTick) {
 		inputs = new ArrayList<>();
@@ -38,11 +41,14 @@ public abstract class BaseRecipe implements IBaseRecipeType, Cloneable {
 	}
 
 	public void addOutput(ItemStack stack) {
+		if (stack == null || stack.getItem() == null) {
+			throw new InvalidParameterException("Output stack is null or empty");
+		}
 		outputs.add(stack);
 	}
 
 	@Override
-	public List<ItemStack> getInputs() {
+	public List<Object> getInputs() {
 		return inputs;
 	}
 
@@ -82,13 +88,32 @@ public abstract class BaseRecipe implements IBaseRecipeType, Cloneable {
 		return super.clone();
 	}
 
+	public void setOreDict(boolean oreDict) {
+		this.oreDict = oreDict;
+	}
+
 	@Override
 	public boolean useOreDic() {
-		return true;
+		return oreDict;
 	}
 
 	@Override
 	public List<ItemStack> getOutputs() {
 		return outputs;
+	}
+
+	public void addInput(Object inuput) {
+		if (inuput == null) {
+			throw new InvalidParameterException("input is invalid!");
+		}
+		if(inuput instanceof ItemStack){
+			if(((ItemStack) inuput).getItem() == null){
+				throw new InvalidParameterException("input is invalid!");
+			}
+		}
+		if(RecipeTranslator.getStackFromObject(inuput) == null){
+			throw new InvalidParameterException("Could not determin recipe input for " + inuput);
+		}
+		inputs.add(inuput);
 	}
 }

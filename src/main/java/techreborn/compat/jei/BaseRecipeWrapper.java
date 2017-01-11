@@ -3,6 +3,7 @@ package techreborn.compat.jei;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import techreborn.api.recipe.BaseRecipe;
 
@@ -13,17 +14,33 @@ public abstract class BaseRecipeWrapper<T extends BaseRecipe> extends BlankRecip
 	protected final T baseRecipe;
 	@Nonnull
 	private final List<List<ItemStack>> inputs;
+	@Nonnull
+	private final List<List<ItemStack>> outputs;
 
 	public BaseRecipeWrapper(T baseRecipe) {
 		this.baseRecipe = baseRecipe;
 
 		inputs = new ArrayList<>();
-		for (ItemStack input : baseRecipe.getInputs()) {
+		outputs = new ArrayList<>();
+		for (Object input : baseRecipe.getInputs()) {
+			if(input instanceof ItemStack){
+				ItemStack stack = (ItemStack) input;
+				if (baseRecipe.useOreDic()) {
+					List<ItemStack> oreDictInputs = expandOreDict(stack);
+					inputs.add(oreDictInputs);
+				} else {
+					inputs.add(Collections.singletonList(stack));
+				}
+			} else if (input instanceof String){
+				inputs.add(OreDictionary.getOres((String) input));
+			}
+		}
+		for (ItemStack input : baseRecipe.getOutputs()) {
 			if (baseRecipe.useOreDic()) {
 				List<ItemStack> oreDictInputs = expandOreDict(input);
-				inputs.add(oreDictInputs);
+				outputs.add(oreDictInputs);
 			} else {
-				inputs.add(Collections.singletonList(input));
+				outputs.add(Collections.singletonList(input));
 			}
 		}
 	}
@@ -65,9 +82,16 @@ public abstract class BaseRecipeWrapper<T extends BaseRecipe> extends BlankRecip
 		return inputs;
 	}
 
+	public List<FluidStack> getFluidInputs() {
+		return new ArrayList<>();
+	}
+
 	@Nonnull
-	@Override
 	public List<ItemStack> getOutputs() {
-		return baseRecipe.getOutputs();
+		List<ItemStack> stacks = new ArrayList<>();
+		for (List<ItemStack> stackList : outputs) {
+			stacks.addAll(stackList);
+		}
+		return stacks;
 	}
 }

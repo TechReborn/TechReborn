@@ -22,6 +22,7 @@ public class ConfigTechReborn {
 	public static boolean UninsulatedElectocutionParticle;
 	public static boolean UninsulatedElectocutionDamage;
 	public static boolean ScrapboxDispenser;
+	public static boolean disableRailcraftSteelNuggetRecipe;
 	// Power
 	public static int LightningRodChance;
 	public static int ThermalGeneratorOutput;
@@ -412,6 +413,11 @@ public class ConfigTechReborn {
 		removeDuplices = config
 			.get(CATEGORY_CRAFTING, "Remove Duplicates when IC2 is installed", false, "This atempts to fully intergrate TR with ic2 recipes (Beta)")
 			.getBoolean(false);
+
+		disableRailcraftSteelNuggetRecipe = config
+			.get(CATEGORY_CRAFTING, "Disable Railcraft's Steel nugget recipe", false, "When true TechReborn will remove Railcrafts Iron Nugget to steel nuggert recipe.")
+			.getBoolean(false);
+
 		// Uu
 		HideUuRecipes = config.get(CATEGORY_UU, "Hide UU Recipes", true, "Hide UU Recipes from JEI/NEI")
 			.getBoolean(true);

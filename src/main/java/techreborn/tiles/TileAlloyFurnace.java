@@ -12,6 +12,7 @@ import reborncore.api.recipe.IBaseRecipeType;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
+import reborncore.common.recipes.RecipeTranslator;
 import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.Inventory;
@@ -125,14 +126,20 @@ public class TileAlloyFurnace extends TileLegacyMachineBase implements IWrenchab
 		if (recipeType == null) {
 			return false;
 		}
-		for (ItemStack input : recipeType.getInputs()) {
-			Boolean hasItem = false;
+		for (Object input : recipeType.getInputs()) {
+			boolean hasItem = false;
+			boolean useOreDict = input instanceof String || recipeType.useOreDic();
+			boolean checkSize = input instanceof ItemStack;
 			for (int inputslot = 0; inputslot < 2; inputslot++) {
-				if (ItemUtils.isItemEqual(input, inventory.getStackInSlot(inputslot), true, true,
-					recipeType.useOreDic()) && inventory.getStackInSlot(inputslot).stackSize >= input.stackSize) {
-					hasItem = true;
+				if (ItemUtils.isInputEqual(input, inventory.getStackInSlot(inputslot), true, true,
+					useOreDict)) {
+					ItemStack stack = RecipeTranslator.getStackFromObject(input);
+					if(!checkSize || inventory.getStackInSlot(inputslot).stackSize >= stack.stackSize){
+						hasItem = true;
+					}
 				}
 			}
+
 			if (!hasItem)
 				return false;
 		}
@@ -200,11 +207,16 @@ public class TileAlloyFurnace extends TileLegacyMachineBase implements IWrenchab
 					hasAllRecipes = false;
 				}
 				if (hasAllRecipes) {
-					for (ItemStack input : recipeType.getInputs()) {
+					for (Object input : recipeType.getInputs()) {
+						boolean useOreDict = input instanceof String || recipeType.useOreDic();
 						for (int inputSlot = 0; inputSlot < 2; inputSlot++) {
-							if (ItemUtils.isItemEqual(input, inventory.getStackInSlot(inputSlot), true, true,
-								recipeType.useOreDic())) {
-								inventory.decrStackSize(inputSlot, input.stackSize);
+							if (ItemUtils.isInputEqual(input, inventory.getStackInSlot(inputSlot), true, true,
+								useOreDict)) {
+								int count = 1;
+								if(input instanceof ItemStack){
+									count = RecipeTranslator.getStackFromObject(input).stackSize;
+								}
+								inventory.decrStackSize(inputSlot, count);
 								break;
 							}
 						}

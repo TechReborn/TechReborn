@@ -133,12 +133,13 @@ public class MTGeneric {
 		@Override
 		public void apply() {
 			for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(name)) {
-				for (ItemStack stack : recipeType.getInputs()) {
-					if (output.matches(MineTweakerMC.getIItemStack(stack))) {
-						removedRecipes.add((BaseRecipe) recipeType);
-						RecipeHandler.recipeList.remove(recipeType);
-						MineTweakerAPI.getIjeiRecipeRegistry().removeRecipe(recipeType);
-						break;
+				for (Object stack : recipeType.getInputs()) {
+					if(stack instanceof ItemStack){
+						if (output.matches(MineTweakerMC.getIItemStack((ItemStack) stack))) {
+							removedRecipes.add((BaseRecipe) recipeType);
+							RecipeHandler.recipeList.remove(recipeType);
+							break;
+						}
 					}
 				}
 			}

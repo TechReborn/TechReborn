@@ -7,6 +7,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -17,6 +18,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.ArrayUtils;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.util.CraftingHelper;
+import reborncore.common.util.ItemUtils;
 import reborncore.common.util.OreUtil;
 import reborncore.common.util.StringUtils;
 import techreborn.Core;
@@ -36,10 +38,8 @@ import techreborn.parts.powerCables.ItemStandaloneCables;
 import techreborn.utils.RecipeUtils;
 import techreborn.utils.StackWIPHandler;
 
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.function.BiConsumer;
 
 import static techreborn.utils.OreDictUtils.getDictData;
 import static techreborn.utils.OreDictUtils.getDictOreOrNull;
@@ -102,6 +102,25 @@ public class ModRecipes {
 			addWireRecipes();
 		}
 		addScrapBoxloot();
+	}
+
+	public static void postInit(){
+		if(ConfigTechReborn.disableRailcraftSteelNuggetRecipe){
+			Iterator iterator = FurnaceRecipes.instance().getSmeltingList().entrySet().iterator();
+			Map.Entry entry;
+			while (iterator.hasNext()) {
+				entry = (Map.Entry) iterator.next();
+				if (entry.getValue() instanceof ItemStack && entry.getKey() instanceof ItemStack) {
+					ItemStack input = (ItemStack) entry.getKey();
+					ItemStack output = (ItemStack) entry.getValue();
+					System.out.println("====");
+					if(ItemUtils.isInputEqual("nuggetSteel", output, true , true, false) && ItemUtils.isInputEqual("nuggetIron", input, true , true, false)){
+						Core.logHelper.info("Removing a steelnugget smelting recipe");
+						iterator.remove();
+					}
+				}
+			}
+		}
 	}
 
 	static void addScrapBoxloot() {

@@ -10,9 +10,9 @@ import reborncore.api.recipe.RecipeHandler;
 import reborncore.client.gui.BaseSlot;
 import reborncore.client.gui.SlotOutput;
 import reborncore.common.container.RebornContainer;
+import reborncore.common.recipes.RecipeTranslator;
 import reborncore.common.util.ItemUtils;
 import techreborn.api.recipe.machines.AlloySmelterRecipe;
-import techreborn.api.recipe.recipeConfig.RecipeConfigManager;
 import techreborn.tiles.TileAlloyFurnace;
 
 import javax.annotation.Nullable;
@@ -66,7 +66,7 @@ public class ContainerAlloyFurnace extends RebornContainer {
 				ItemStack stack) {
 			for(IBaseRecipeType recipe : RecipeHandler.recipeList){
 				if(recipe instanceof AlloySmelterRecipe){
-					if(ItemUtils.isItemEqual(recipe.getInputs().get(recipeSlot), stack, true, true, true)){
+					if(ItemUtils.isInputEqual(recipe.getInputs().get(recipeSlot), stack, true, true, true)){
 						return true;
 					}
 				}
