@@ -6,9 +6,9 @@ import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.ingredients.IIngredients;
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
-import techreborn.client.gui.GuiIndustrialGrinder;
 import techreborn.compat.jei.BaseRecipeWrapper;
 
 import javax.annotation.Nonnull;
@@ -16,6 +16,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class IndustrialGrinderRecipeWrapper extends BaseRecipeWrapper<IndustrialGrinderRecipe> {
+	public static final ResourceLocation texture = new ResourceLocation("techreborn",
+		"textures/gui/industrial_grinder.png");
 	private final IDrawableAnimated progress;
 
 	public IndustrialGrinderRecipeWrapper(
@@ -25,15 +27,17 @@ public class IndustrialGrinderRecipeWrapper extends BaseRecipeWrapper<Industrial
 			IndustrialGrinderRecipe baseRecipe) {
 		super(baseRecipe);
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
-		IDrawableStatic progressStatic = guiHelper.createDrawable(GuiIndustrialGrinder.texture, 176, 14, 24, 17);
+		IDrawableStatic progressStatic = guiHelper.createDrawable(texture, 176, 14, 24, 17);
 
 		int ticksPerCycle = baseRecipe.tickTime();
 		this.progress = guiHelper.createAnimatedDrawable(progressStatic, ticksPerCycle,
 			IDrawableAnimated.StartDirection.LEFT, false);
 	}
-	
+
 	@Override
-	public void getIngredients(@Nonnull final IIngredients ingredients) {
+	public void getIngredients(
+		@Nonnull
+		final IIngredients ingredients) {
 		ingredients.setInput(FluidStack.class, this.baseRecipe.fluidStack);
 		super.getIngredients(ingredients);
 	}

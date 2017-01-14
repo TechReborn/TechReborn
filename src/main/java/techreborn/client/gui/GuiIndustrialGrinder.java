@@ -1,96 +1,140 @@
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
-import net.minecraftforge.fluids.FluidStack;
-
+import net.minecraft.init.Blocks;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import reborncore.client.multiblock.Multiblock;
+import reborncore.client.multiblock.MultiblockRenderEvent;
+import reborncore.client.multiblock.MultiblockSet;
+import reborncore.common.misc.Location;
+import techreborn.client.gui.widget.GuiButtonHologram;
+import techreborn.init.ModBlocks;
+import techreborn.proxies.ClientProxy;
 import techreborn.tiles.multiblock.TileIndustrialGrinder;
 
-public class GuiIndustrialGrinder extends GuiContainer {
+import java.io.IOException;
 
-	public static final ResourceLocation texture = new ResourceLocation("techreborn",
-			"textures/gui/industrial_grinder.png");
+public class GuiIndustrialGrinder extends GuiBase {
 
-	TileIndustrialGrinder grinder;
+	TileIndustrialGrinder tile;
 
-	public GuiIndustrialGrinder(final EntityPlayer player, final TileIndustrialGrinder grinder) {
-		super(grinder.createContainer(player));
-		this.xSize = 176;
-		this.ySize = 167;
-		this.grinder = grinder;
+	public GuiIndustrialGrinder(final EntityPlayer player, final TileIndustrialGrinder tile) {
+		super(player, tile, tile.createContainer(player));
+		this.tile = tile;
 	}
 
 	@Override
 	public void initGui() {
-		final int k = (this.width - this.xSize) / 2;
-		final int l = (this.height - this.ySize) / 2;
 		super.initGui();
+		ClientProxy.multiblockRenderEvent.setMultiblock(null);
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.getTextureManager().bindTexture(GuiIndustrialGrinder.texture);
-		final int k = (this.width - this.xSize) / 2;
-		final int l = (this.height - this.ySize) / 2;
-		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
+	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
+		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
+		final Layer layer = Layer.BACKGROUND;
 
-		final int progress = this.grinder.getProgressScaled(24);
-		if (progress > 0) {
-			this.drawTexturedModalRect(k + 50, l + 35, 176, 14, progress + 1, 16);
-		}
+		drawSlot(34, 35, layer);
+		drawSlot(34, 55, layer);
+		drawSlot(84, 43, layer);
+		drawSlot(126, 18, layer);
+		drawSlot(126, 36, layer);
+		drawSlot(126, 54, layer);
+		drawSlot(126, 72, layer);
 
-		final int energy = (int) (this.grinder.getEnergy() * 12f / this.grinder.getMaxPower());
-		if (energy > 0) {
-			this.drawTexturedModalRect(k + 132, l + 63 + 12 - energy, 176, 12 - energy, 14, energy + 2);
-		}
-
-		if (!this.grinder.tank.isEmpty()) {
-			this.drawFluid(this.grinder.tank.getFluid(), k + 11, l + 66, 12, 47, this.grinder.tank.getCapacity());
-
-			this.mc.renderEngine.bindTexture(GuiIndustrialGrinder.texture);
-			this.drawTexturedModalRect(k + 14, l + 24, 179, 88, 9, 37);
-		}
-
-		if (!this.grinder.getMutliBlock()) {
-			this.fontRendererObj.drawString(I18n.translateToLocal("techreborn.message.missingmultiblock"), k + 38, l + 52 + 12, -1);
-		}
-
-	}
-
-	public void drawFluid(final FluidStack fluid, final int x, final int y, final int width, final int height, final int maxCapacity) {
-		this.mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-		final ResourceLocation still = fluid.getFluid().getStill(fluid);
-		final TextureAtlasSprite sprite = this.mc.getTextureMapBlocks().getAtlasSprite(still.toString());
-
-		final int drawHeight = (int) (fluid.amount / (maxCapacity * 1F) * height);
-		final int iconHeight = sprite.getIconHeight();
-		int offsetHeight = drawHeight;
-
-		int iteration = 0;
-		while (offsetHeight != 0) {
-			final int curHeight = offsetHeight < iconHeight ? offsetHeight : iconHeight;
-			this.drawTexturedModalRect(x, y - offsetHeight, sprite, width, curHeight);
-			offsetHeight -= curHeight;
-			iteration++;
-			if (iteration > 50)
-				break;
-		}
-
+		this.builder.drawJEIButton(this, 150, 4, layer);
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(final int p_146979_1_, final int p_146979_2_) {
-		final String name = I18n.translateToLocal("tile.techreborn.industrialgrinder.name");
-		this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6,
-				4210752);
-		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,
-				this.ySize - 96 + 2, 4210752);
+	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
+		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+		final Layer layer = Layer.FOREGROUND;
+
+		this.builder.drawProgressBar(this, this.tile.getProgressScaled(100), 100, 105, 47, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
+		this.builder.drawTank(this, 53, 25, mouseX, mouseY, tile.tank.getFluid(), tile.tank.getCapacity(), tile.tank.isEmpty(), layer);
+		this.builder.drawMultiEnergyBar(this, 9, 18, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		if (tile.getMutliBlock()) {
+			addHologramButton(6, 4, 212, layer);
+			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
+		} else {
+			builder.drawMultiblockMissingBar(this, layer);
+			addHologramButton(76, 56, 212, layer);
+			builder.drawHologramButton(this, 76, 56, mouseX, mouseY, layer);
+		}
+	}
+
+	public void addHologramButton(int x, int y, int id, Layer layer) {
+		if (id == 0)
+			buttonList.clear();
+		int factorX = 0;
+		int factorY = 0;
+		if (layer == Layer.BACKGROUND) {
+			factorX = guiLeft;
+			factorY = guiTop;
+		}
+		buttonList.add(new GuiButtonHologram(id, x + factorX, y + factorY, this, layer));
+	}
+
+	@Override
+	public void actionPerformed(final GuiButton button) throws IOException {
+		super.actionPerformed(button);
+		if (button.id == 212) {
+			if (ClientProxy.multiblockRenderEvent.currentMultiblock == null) {
+				{
+					// This code here makes a basic multiblock and then sets to the selected one.
+					final Multiblock multiblock = new Multiblock();
+					this.addComponent(0, -1, 0, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
+					this.addComponent(1, -1, 0, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
+					this.addComponent(0, -1, 1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
+					this.addComponent(-1, -1, 0, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
+					this.addComponent(0, -1, -1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
+					this.addComponent(-1, -1, -1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
+					this.addComponent(-1, -1, 1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
+					this.addComponent(1, -1, -1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
+					this.addComponent(1, -1, 1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
+
+					this.addComponent(0, 0, 0, Blocks.WATER.getDefaultState(), multiblock);
+					this.addComponent(1, 0, 0, ModBlocks.MACHINE_CASINGS.getStateFromMeta(1), multiblock);
+					this.addComponent(0, 0, 1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(1), multiblock);
+					this.addComponent(-1, 0, 0, ModBlocks.MACHINE_CASINGS.getStateFromMeta(1), multiblock);
+					this.addComponent(0, 0, -1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(1), multiblock);
+					this.addComponent(-1, 0, -1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(1), multiblock);
+					this.addComponent(-1, 0, 1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(1), multiblock);
+					this.addComponent(1, 0, -1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(1), multiblock);
+					this.addComponent(1, 0, 1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(1), multiblock);
+
+					this.addComponent(0, 1, 0, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
+					this.addComponent(0, 1, 0, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
+					this.addComponent(1, 1, 0, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
+					this.addComponent(0, 1, 1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
+					this.addComponent(-1, 1, 0, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
+					this.addComponent(0, 1, -1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
+					this.addComponent(-1, 1, -1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
+					this.addComponent(-1, 1, 1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
+					this.addComponent(1, 1, -1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
+					this.addComponent(1, 1, 1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
+
+					final MultiblockSet set = new MultiblockSet(multiblock);
+					ClientProxy.multiblockRenderEvent.setMultiblock(set);
+					ClientProxy.multiblockRenderEvent.parent = new Location(this.tile.getPos().getX(),
+						this.tile.getPos().getY(), this.tile.getPos().getZ(), this.tile.getWorld());
+					MultiblockRenderEvent.anchor = new BlockPos(
+						this.tile.getPos().getX()
+							- EnumFacing.getFront(this.tile.getFacingInt()).getFrontOffsetX() * 2,
+						this.tile.getPos().getY() - 1, this.tile.getPos().getZ()
+						- EnumFacing.getFront(this.tile.getFacingInt()).getFrontOffsetZ() * 2);
+				}
+			} else {
+				ClientProxy.multiblockRenderEvent.setMultiblock(null);
+			}
+		}
+	}
+
+	public void addComponent(final int x, final int y, final int z, final IBlockState blockState, final Multiblock multiblock) {
+		multiblock.addComponent(new BlockPos(x, y, z), blockState);
 	}
 
 }

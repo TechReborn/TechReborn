@@ -3,9 +3,12 @@ package techreborn.client.gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.client.config.GuiUtils;
 import net.minecraftforge.fml.common.Loader;
 import reborncore.client.guibuilder.GuiBuilder;
@@ -101,6 +104,64 @@ public class TRBuilder extends GuiBuilder {
 		}
 	}
 
+	public void drawTank(GuiBase gui, int x, int y, int mouseX, int mouseY, FluidStack fluid, int maxCapacity, boolean isTankEmpty, GuiBase.Layer layer) {
+		if (layer == GuiBase.Layer.BACKGROUND) {
+			x += gui.getGuiLeft();
+			y += gui.getGuiTop();
+		}
+		if (layer == GuiBase.Layer.FOREGROUND) {
+			mouseX -= gui.getGuiLeft();
+			mouseY -= gui.getGuiTop();
+		}
+		int percentage = 0;
+		int amount = 0;
+		boolean empty = true;
+		if (!isTankEmpty) {
+			amount = fluid.amount;
+			percentage = percentage(maxCapacity, amount);
+			empty = false;
+		}
+		gui.mc.getTextureManager().bindTexture(GUI_SHEET);
+		gui.drawTexturedModalRect(x, y, 228, 18, 22, 56);
+		if (!empty)
+			drawFluid(gui, fluid, x + 4, y + 4, 14, 48, maxCapacity);
+		gui.drawTexturedModalRect(x + 3, y + 3, 231, 74, 16, 50);
+
+		if (isInRect(x, y, 22, 56, mouseX, mouseY)) {
+			List<String> list = new ArrayList<>();
+			if (empty)
+				list.add(TextFormatting.GOLD + "Empty Tank");
+			else
+				list.add(TextFormatting.GOLD + "" + amount + "mB/" + maxCapacity + "mB " + fluid.getLocalizedName());
+			list.add(getPercentageColour(percentage) + "" + percentage + "%" + TextFormatting.GRAY + " Full");
+			net.minecraftforge.fml.client.config.GuiUtils.drawHoveringText(list, mouseX, mouseY, gui.width, gui.height, -1, gui.mc.fontRendererObj);
+			GlStateManager.disableLighting();
+			GlStateManager.color(1, 1, 1, 1);
+		}
+	}
+
+	public void drawFluid(GuiBase gui, FluidStack fluid, int x, int y, int width, int height, int maxCapacity) {
+		gui.mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		y += height;
+		final ResourceLocation still = fluid.getFluid().getStill(fluid);
+		final TextureAtlasSprite sprite = gui.mc.getTextureMapBlocks().getAtlasSprite(still.toString());
+
+		final int drawHeight = (int) (fluid.amount / (maxCapacity * 1F) * height);
+		final int iconHeight = sprite.getIconHeight();
+		int offsetHeight = drawHeight;
+
+		int iteration = 0;
+		while (offsetHeight != 0) {
+			final int curHeight = offsetHeight < iconHeight ? offsetHeight : iconHeight;
+			gui.drawTexturedModalRect(x, y - offsetHeight, sprite, width, curHeight);
+			offsetHeight -= curHeight;
+			iteration++;
+			if (iteration > 50)
+				break;
+		}
+		gui.mc.getTextureManager().bindTexture(GUI_SHEET);
+	}
+
 	public void drawJEIButton(GuiBase gui, int x, int y, GuiBase.Layer layer) {
 		if (Loader.isModLoaded("jei")) {
 			if (layer == GuiBase.Layer.BACKGROUND) {
@@ -182,9 +243,26 @@ public class TRBuilder extends GuiBuilder {
 			gui.drawTexturedModalRect(x + 4, y + 4, 0, 246, j, 10);
 			gui.drawCentredString(value + " Heat", y + 5, 0xFFFFFF, layer);
 
-		} else {
-			gui.drawCentredString(I18n.translateToLocal("techreborn.message.missingmultiblock"), y + 5, 0xC60000, layer);
 		}
+	}
+
+	public void drawMultiblockMissingBar(GuiBase gui, GuiBase.Layer layer) {
+		int x = 0;
+		int y = 4;
+		if (layer == GuiBase.Layer.BACKGROUND) {
+			x += gui.getGuiLeft();
+			y += gui.getGuiTop();
+		}
+		gui.mc.getTextureManager().bindTexture(GUI_SHEET);
+		GlStateManager.disableLighting();
+		GlStateManager.disableDepth();
+		GlStateManager.colorMask(true, true, true, false);
+		GuiUtils.drawGradientRect(0, x, y, x + 176, y + 20, 0x000000, 0xC0000000);
+		GuiUtils.drawGradientRect(0, x, y + 20, x + 176, y + 20 + 48, 0xC0000000, 0xC0000000);
+		GuiUtils.drawGradientRect(0, x, y + 68, x + 176, y + 70 + 20, 0xC0000000, 0x00000000);
+		GlStateManager.colorMask(true, true, true, true);
+		GlStateManager.enableDepth();
+		gui.drawCentredString(I18n.translateToLocal("techreborn.message.missingmultiblock"), 43, 0xFFFFFF, layer);
 	}
 
 	public void drawBigBlueBar(GuiBase gui, int x, int y, int value, int max, int mouseX, int mouseY, GuiBase.Layer layer) {
