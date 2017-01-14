@@ -440,6 +440,12 @@ public class ModRecipes {
 			230, 23));
 
 		RecipeHandler.addRecipe(new GrinderRecipe(
+			new ItemStack(Items.COAL),
+			ItemDusts.getDustByName("coal"),
+			120, 10));
+
+
+		RecipeHandler.addRecipe(new GrinderRecipe(
 			new ItemStack(Blocks.GRAVEL),
 			new ItemStack(Items.FLINT),
 			200, 20));
@@ -984,6 +990,7 @@ public class ModRecipes {
 			IC2Duplicates.UPGRADE_OVERCLOCKER.getStackBasedOnConfig(), 'D', diamondChainsawStack, 'A', "circuitAdvanced");
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.advancedJackhammer), "ODO", "AOA", 'O',
 			IC2Duplicates.UPGRADE_OVERCLOCKER.getStackBasedOnConfig(), 'D', diamondJackhammerStack, 'A', "circuitAdvanced");
+		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.diamondDrill), " D ", "DCD", "TST", 'D', "gemDiamond", 'C', "circuitAdvanced", 'S', new ItemStack(ModItems.ironDrill, 1, OreDictionary.WILDCARD_VALUE), 'T', "ingotTitanium");
 
 		CraftingHelper
 			.addShapedOreRecipe(ItemParts.getPartByName("dataControlCircuit"), "ADA", "DID", "ADA", 'I', "ingotIridium",
