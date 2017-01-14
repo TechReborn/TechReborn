@@ -9,6 +9,7 @@ import net.minecraftforge.fluids.FluidStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import techreborn.api.Reference;
+import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
 
 @ZenClass("mods.techreborn.grinder")
 public class MTIndustrialGrinder extends MTGeneric {
@@ -29,9 +30,8 @@ public class MTIndustrialGrinder extends MTGeneric {
 			fluidStack = MinetweakerCompat.toFluidStack(fluid);
 		}
 
-		//FIXME 25.07.2016
-		//IndustrialGrinderRecipe r = new IndustrialGrinderRecipe(oInput1, oInput2, fluidStack, MinetweakerCompat.toStack(output1), MinetweakerCompat.toStack(output3), MinetweakerCompat.toStack(output4), ticktime, euTick);
-		//addRecipe(r);
+		IndustrialGrinderRecipe r = new IndustrialGrinderRecipe(oInput1, fluidStack, MinetweakerCompat.toStack(output1),MinetweakerCompat.toStack(output2),  MinetweakerCompat.toStack(output3), MinetweakerCompat.toStack(output4), ticktime, euTick);
+		addRecipe(r);
 	}
 
 	@ZenMethod
