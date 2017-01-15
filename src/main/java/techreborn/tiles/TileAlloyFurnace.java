@@ -187,7 +187,7 @@ implements IWrenchable, IInventoryProvider, IContainerProvider {
 	 */
 	public void smeltItem() {
 		if (this.canSmelt()) {
-			ItemStack itemstack = null;
+			ItemStack itemstack = ItemStack.EMPTY;
 			for (final IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelteRecipe)) {
 				if (this.hasAllInputs(recipeType)) {
 					itemstack = recipeType.getOutput(0);
