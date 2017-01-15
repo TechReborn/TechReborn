@@ -274,13 +274,6 @@ task updateMappings(dependsOn: sourceJar) {
     }
 }
 
-configurations.all {
-    resolutionStrategy {
-        cacheDynamicVersionsFor 0, "seconds"
-        cacheChangingModulesFor 0, "seconds"
-    }
-}
-
 apply from: 'https://github.com/FabricMC/fabric-docs/raw/master/gradle/ideconfig.gradle'
 
 import org.apache.commons.io.FileUtils;
