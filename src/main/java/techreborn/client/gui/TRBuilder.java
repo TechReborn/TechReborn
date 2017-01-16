@@ -106,12 +106,12 @@ public class TRBuilder extends GuiBuilder {
 
 	public void drawTank(GuiBase gui, int x, int y, int mouseX, int mouseY, FluidStack fluid, int maxCapacity, boolean isTankEmpty, GuiBase.Layer layer) {
 		if (layer == GuiBase.Layer.BACKGROUND) {
-			x += gui.getGuiLeft();
-			y += gui.getGuiTop();
+			x += gui.guiLeft;
+			y += gui.guiTop;
 		}
 		if (layer == GuiBase.Layer.FOREGROUND) {
-			mouseX -= gui.getGuiLeft();
-			mouseY -= gui.getGuiTop();
+			mouseX -= gui.guiLeft;
+			mouseY -= gui.guiTop;
 		}
 		int percentage = 0;
 		int amount = 0;
@@ -250,8 +250,8 @@ public class TRBuilder extends GuiBuilder {
 		int x = 0;
 		int y = 4;
 		if (layer == GuiBase.Layer.BACKGROUND) {
-			x += gui.getGuiLeft();
-			y += gui.getGuiTop();
+			x += gui.guiLeft;
+			y += gui.guiTop;
 		}
 		gui.mc.getTextureManager().bindTexture(GUI_SHEET);
 		GlStateManager.disableLighting();
