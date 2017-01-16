@@ -53,7 +53,7 @@ public class CommonProxy implements ICompatModule {
 	}
 
 	public void registerSubBlockInventoryLocation(Block block, int meta, String location, String name) {
-		registerSubItemInventoryLocation(Item.getItemFromBlock(block), meta, location, name);
+		registerSubItemInventoryLocation(Item.getItemFromBlock(block), meta, location, name.toLowerCase());
 	}
 
 	public boolean isCTMAvailable() {
