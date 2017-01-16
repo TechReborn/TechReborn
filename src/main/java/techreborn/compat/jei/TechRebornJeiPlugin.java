@@ -13,6 +13,7 @@ import net.minecraft.util.text.translation.I18n;
 import reborncore.api.recipe.RecipeHandler;
 import techreborn.Core;
 import techreborn.api.generator.EFluidGenerator;
+import techreborn.api.generator.FluidGeneratorRecipe;
 import techreborn.api.generator.GeneratorRecipeHelper;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.api.recipe.machines.AssemblingMachineRecipe;
@@ -178,7 +179,8 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 		registry.addRecipes(RecipeHandler.recipeList);
 		registry.addRecipes(FusionReactorRecipeHelper.reactorRecipes);
 
-		GeneratorRecipeHelper.fluidRecipes.forEach((type, list) -> registry.addRecipes(list.getRecipes()));
+
+		GeneratorRecipeHelper.fluidRecipes.forEach((type, list) -> registry.addRecipes(new ArrayList<FluidGeneratorRecipe>(list.getRecipes())));
 
 		try {
 			registry.addRecipes(RollingMachineRecipeMaker.getRecipes(jeiHelpers));

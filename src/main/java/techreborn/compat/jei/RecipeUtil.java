@@ -135,7 +135,7 @@ public class RecipeUtil {
 		}
 
 		if (itemOutputSlots != null) {
-			List<List<ItemStack>> outputs = ingredients.getOutputs(ItemStack.class);
+			List<ItemStack> outputs = ingredients.getOutputs(ItemStack.class);
 			for (int i = 0; i < outputs.size() && i < itemOutputSlots.length; i++) {
 				int outputSlot = itemOutputSlots[i];
 				guiItemStacks.set(outputSlot, outputs.get(i));
@@ -151,7 +151,7 @@ public class RecipeUtil {
 		}
 
 		if (fluidOutputSlots != null) {
-			List<List<FluidStack>> fluidOutputs = ingredients.getOutputs(FluidStack.class);
+			List<FluidStack> fluidOutputs = ingredients.getOutputs(FluidStack.class);
 			for (int i = 0; i < fluidOutputs.size() && i < fluidOutputSlots.length; i++) {
 				int outputTank = fluidOutputSlots[i];
 				guiFluidStacks.set(outputTank, fluidOutputs.get(i));

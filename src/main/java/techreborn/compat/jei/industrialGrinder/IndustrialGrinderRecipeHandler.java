@@ -46,4 +46,11 @@ public class IndustrialGrinderRecipeHandler implements IRecipeHandler<Industrial
 			IndustrialGrinderRecipe recipe) {
 		return true;
 	}
+
+	@Nonnull
+	@Override
+	public String getRecipeCategoryUid() {
+		return RecipeCategoryUids.INDUSTRIAL_GRINDER;
+	}
+
 }

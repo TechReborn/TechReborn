@@ -46,4 +46,11 @@ public class AlloySmelterRecipeHandler implements IRecipeHandler<AlloySmelterRec
 			AlloySmelterRecipe recipe) {
 		return true;
 	}
+
+	@Nonnull
+	@Override
+	public String getRecipeCategoryUid() {
+		return RecipeCategoryUids.ALLOY_SMELTER;
+	}
+
 }

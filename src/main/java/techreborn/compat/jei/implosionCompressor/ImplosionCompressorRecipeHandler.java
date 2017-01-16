@@ -26,6 +26,12 @@ public class ImplosionCompressorRecipeHandler implements IRecipeHandler<Implosio
 
 	@Nonnull
 	@Override
+	public String getRecipeCategoryUid() {
+		return RecipeCategoryUids.IMPLOSION_COMPRESSOR;
+	}
+
+	@Nonnull
+	@Override
 	public String getRecipeCategoryUid(
 		@Nonnull
 			ImplosionCompressorRecipe recipe) {

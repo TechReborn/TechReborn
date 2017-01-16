@@ -23,6 +23,12 @@ public class RollingMachineRecipeHandler implements IRecipeHandler<RollingMachin
 
 	@Nonnull
 	@Override
+	public String getRecipeCategoryUid() {
+		return RecipeCategoryUids.ROLLING_MACHINE;
+	}
+
+	@Nonnull
+	@Override
 	public IRecipeWrapper getRecipeWrapper(
 		@Nonnull
 			RollingMachineRecipeWrapper recipe) {

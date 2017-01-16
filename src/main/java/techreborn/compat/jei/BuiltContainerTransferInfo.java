@@ -38,11 +38,11 @@ public class BuiltContainerTransferInfo implements IRecipeTransferInfo<BuiltCont
 		return this.recipeCategory;
 	}
 
-	@Override
-	public boolean canHandle(final BuiltContainer container) {
-		return container.getName().equals(this.containerName);
-	}
-
+//	@Override
+//	public boolean canHandle(final BuiltContainer container) {
+//		return container.getName().equals(this.containerName);
+//	}
+//
 	@Override
 	public List<Slot> getRecipeSlots(final BuiltContainer container) {
 		final List<Slot> slots = new ArrayList<>();

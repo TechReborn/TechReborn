@@ -26,6 +26,12 @@ public class AssemblingMachineRecipeHandler implements IRecipeHandler<Assembling
 
 	@Nonnull
 	@Override
+	public String getRecipeCategoryUid() {
+		return RecipeCategoryUids.ASSEMBLING_MACHINE;
+	}
+
+	@Nonnull
+	@Override
 	public String getRecipeCategoryUid(
 		@Nonnull
 			AssemblingMachineRecipe recipe) {

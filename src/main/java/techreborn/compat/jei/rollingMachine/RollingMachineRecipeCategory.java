@@ -75,6 +75,6 @@ public class RollingMachineRecipeCategory extends BlankRecipeCategory<RollingMac
 		guiItemStacks.init(OUTPUT_SLOTS[0], false, 94, 18);
 
 		craftingGridHelper.setInputStacks(guiItemStacks, ingredients.getInputs(ItemStack.class));
-		craftingGridHelper.setOutput(guiItemStacks, ingredients.getOutputs(ItemStack.class).get(0));
+		craftingGridHelper.setOutput(guiItemStacks, ingredients.getOutputs(ItemStack.class));
 	}
 }

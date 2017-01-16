@@ -26,6 +26,12 @@ public class ScrapboxRecipeHandler implements IRecipeHandler<ScrapboxRecipe> {
 
 	@Nonnull
 	@Override
+	public String getRecipeCategoryUid() {
+		return RecipeCategoryUids.SCRAPBOX;
+	}
+
+	@Nonnull
+	@Override
 	public String getRecipeCategoryUid(
 		@Nonnull
 			ScrapboxRecipe recipe) {

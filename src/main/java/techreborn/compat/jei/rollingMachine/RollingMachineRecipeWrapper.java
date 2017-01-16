@@ -32,7 +32,7 @@ public class RollingMachineRecipeWrapper extends BlankRecipeWrapper implements I
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 		ICraftingRecipeWrapper recipeWrapper;
 		if (baseRecipe instanceof ShapelessRecipes) {
-			recipeWrapper = new ShapelessRecipesWrapper((ShapelessRecipes) baseRecipe);
+			recipeWrapper = new ShapelessRecipesWrapper(guiHelper, (ShapelessRecipes) baseRecipe);
 		} else if (baseRecipe instanceof ShapedRecipes) {
 			recipeWrapper = new ShapedRecipesWrapper((ShapedRecipes) baseRecipe);
 		} else if (baseRecipe instanceof ShapedOreRecipe) {

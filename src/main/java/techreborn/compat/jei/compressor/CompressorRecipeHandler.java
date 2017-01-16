@@ -26,6 +26,12 @@ public class CompressorRecipeHandler implements IRecipeHandler<CompressorRecipe>
 
 	@Nonnull
 	@Override
+	public String getRecipeCategoryUid() {
+		return RecipeCategoryUids.COMPRESSOR;
+	}
+
+	@Nonnull
+	@Override
 	public String getRecipeCategoryUid(
 		@Nonnull
 			CompressorRecipe recipe) {
