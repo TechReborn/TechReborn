@@ -2,6 +2,7 @@ package techreborn.events;
 
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.oredict.OreDictionary;
 import techreborn.items.ItemGems;
 import techreborn.utils.OreDictUtils;
 
@@ -12,7 +13,7 @@ public class BlockBreakHandler {
 
 	@SubscribeEvent
 	public void onBlockHarvest(BlockEvent.HarvestDropsEvent event) {
-		if (OreDictUtils.isOre(event.getState(), "oreRuby")) {
+		if (event.getState() != null && OreDictionary.doesOreNameExist("oreRuby") && OreDictUtils.isOre(event.getState(), "oreRuby")) {
 			event.getDrops().add(ItemGems.getGemByName("red_garnet").copy());
 		}
 	}
