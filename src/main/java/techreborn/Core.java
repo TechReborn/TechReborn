@@ -175,6 +175,8 @@ public class Core {
 		proxy.postInit(event);
 		logHelper.info(RecipeHandler.recipeList.size() + " recipes loaded");
 
+		ModRecipes.postInit();
+
 		// RecipeHandler.scanForDupeRecipes();
 
 		// RecipeConfigManager.save();
