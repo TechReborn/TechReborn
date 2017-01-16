@@ -1,5 +1,5 @@
 {
-  "parent": "techreborn:item/techrebornItem",
+  "parent": "techreborn:item/techrebornitem",
   "textures": {
     "layer0": "techreborn:items/tool/frequency_transmitter"
   },

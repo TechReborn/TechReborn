@@ -190,7 +190,7 @@ public class RegisterItemJsons {
 	}
 
 	private static void registerBlockstate(Item i, int meta, String variant, String dir) {
-		ResourceLocation loc = new ResourceLocation("techreborn", dir + i.getRegistryName().getResourcePath());
+		ResourceLocation loc = new ResourceLocation("techreborn", dir.toLowerCase() + i.getRegistryName().getResourcePath().toLowerCase());
 		ModelLoader.setCustomModelResourceLocation(i, meta, new ModelResourceLocation(loc, "type=" + variant));
 	}
 
