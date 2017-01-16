@@ -102,7 +102,7 @@ public class TRBuilder extends GuiBuilder {
 	}
 
 	public void drawJEIButton(GuiBase gui, int x, int y, GuiBase.Layer layer) {
-		if (Loader.isModLoaded("jei")) {
+		if (Loader.isModLoaded("JEI")) {
 			if (layer == GuiBase.Layer.BACKGROUND) {
 				x += gui.guiLeft;
 				y += gui.guiTop;
