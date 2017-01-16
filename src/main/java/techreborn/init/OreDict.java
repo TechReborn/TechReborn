@@ -62,7 +62,7 @@ public class OreDict {
 		//OreDictionary.registerOre("smallUran235", nothing);
 
 		OreDictionary.registerOre("fenceIron", ModBlocks.REFINED_IRON_FENCE);
-		OreDictionary.registerOre("woodRubber", ModBlocks.RUBBER_LOG);
+		//OreDictionary.registerOre("woodRubber", ModBlocks.RUBBER_LOG); //Disabed as it crashes IC2 for some reason?
 		OreDictionary.registerOre("glassReinforced", ModBlocks.REINFORCED_GLASS);
 
 		OreDictionary.registerOre("craftingGrinder", ItemParts.getPartByName("diamondGrindingHead"));
