@@ -31,11 +31,13 @@ public class GuiBlastFurnace extends GuiBase {
 	public void initGui() {
 		super.initGui();
 		this.hasMultiBlock = this.tile.getCachedHeat() != 0;
+		ClientProxy.multiblockRenderEvent.setMultiblock(null);
 	}
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
 		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
+		this.hasMultiBlock = this.tile.getCachedHeat() != 0;
 
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		final GuiBase.Layer layer = Layer.BACKGROUND;
@@ -51,13 +53,20 @@ public class GuiBlastFurnace extends GuiBase {
 	@Override
 	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+		this.hasMultiBlock = this.tile.getCachedHeat() != 0;
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
 		this.builder.drawProgressBar(this, this.tile.getProgressScaled(100), 100, 71, 40, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
 		this.builder.drawMultiEnergyBar(this, 9, 18, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
 		this.builder.drawBigHeatBar(this, 31, 71, tile.getCachedHeat(), 3230, layer);
-		addHologramButton(6, 4, 212, layer);
-		builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
+		if (hasMultiBlock) {
+			addHologramButton(6, 4, 212, layer);
+			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
+		} else {
+			builder.drawMultiblockMissingBar(this, layer);
+			addHologramButton(76, 56, 212, layer);
+			builder.drawHologramButton(this, 76, 56, mouseX, mouseY, layer);
+		}
 	}
 
 	public void addHologramButton(int x, int y, int id, Layer layer) {

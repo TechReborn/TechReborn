@@ -11,7 +11,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
@@ -21,7 +20,6 @@ import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
-
 import techreborn.api.Reference;
 import techreborn.api.recipe.ITileRecipeHandler;
 import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
@@ -32,10 +30,10 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 
 public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrenchable, IInventoryProvider,
-ITileRecipeHandler<IndustrialGrinderRecipe>, IRecipeCrafterProvider, IContainerProvider {
+	ITileRecipeHandler<IndustrialGrinderRecipe>, IRecipeCrafterProvider, IContainerProvider {
 	public static final int TANK_CAPACITY = 16000;
 
-	public Inventory inventory = new Inventory(6, "TileGrinder", 64, this);
+	public Inventory inventory = new Inventory(7, "TileGrinder", 64, this);
 	public Tank tank = new Tank("TileGrinder", TileIndustrialGrinder.TANK_CAPACITY, this);
 	public RecipeCrafter crafter;
 	public MultiblockChecker multiblockChecker;
@@ -53,7 +51,7 @@ ITileRecipeHandler<IndustrialGrinderRecipe>, IRecipeCrafterProvider, IContainerP
 		outputs[2] = 4;
 		outputs[3] = 5;
 		this.crafter = new RecipeCrafter(Reference.industrialGrinderRecipe, this, 1, 4, this.inventory, inputs,
-				outputs);
+			outputs);
 	}
 
 	@Override
@@ -83,11 +81,11 @@ ITileRecipeHandler<IndustrialGrinderRecipe>, IRecipeCrafterProvider, IContainerP
 
 	public boolean getMutliBlock() {
 		final boolean down = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.CASING_NORMAL,
-				MultiblockChecker.ZERO_OFFSET);
+			MultiblockChecker.ZERO_OFFSET);
 		final boolean up = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.CASING_NORMAL,
-				new BlockPos(0, 2, 0));
+			new BlockPos(0, 2, 0));
 		final boolean blade = this.multiblockChecker.checkRingY(1, 1, MultiblockChecker.CASING_REINFORCED,
-				new BlockPos(0, 1, 0));
+			new BlockPos(0, 1, 0));
 		final IBlockState centerBlock = this.multiblockChecker.getBlock(0, 1, 0);
 		final boolean center = centerBlock.getBlock() == Blocks.WATER;
 		return down && center && blade && up;
@@ -105,7 +103,7 @@ ITileRecipeHandler<IndustrialGrinderRecipe>, IRecipeCrafterProvider, IContainerP
 		if (this.getMutliBlock()) {
 			this.crafter.updateEntity();
 		}
-		FluidUtils.drainContainers(this.tank, this.inventory, 1, 5);
+		FluidUtils.drainContainers(this.tank, this.inventory, 1, 6);
 	}
 
 	@Override
@@ -164,7 +162,7 @@ ITileRecipeHandler<IndustrialGrinderRecipe>, IRecipeCrafterProvider, IContainerP
 
 	@Override
 	public boolean canExtractItem(final int slotIndex, final ItemStack itemStack, final EnumFacing side) {
-		return slotIndex == 2 || slotIndex == 3 || slotIndex == 4 || slotIndex == 5;
+		return slotIndex == 2 || slotIndex == 3 || slotIndex == 4 || slotIndex == 5 || slotIndex == 6;
 	}
 
 	public int getProgressScaled(final int scale) {
@@ -256,10 +254,10 @@ ITileRecipeHandler<IndustrialGrinderRecipe>, IRecipeCrafterProvider, IContainerP
 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("industrialgrinder").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory().tile(this).slot(0, 32, 26).slot(1, 32, 44).outputSlot(2, 77, 35).outputSlot(3, 95, 35)
-				.outputSlot(4, 113, 35).outputSlot(5, 131, 35).syncEnergyValue().syncCrafterValue().addInventory()
-				.create();
+		return new ContainerBuilder("industrialgrinder").player(player.inventory).inventory().hotbar()
+			.addInventory().tile(this).slot(1, 34, 35).slot(0, 84, 43).outputSlot(2, 126, 18).outputSlot(3, 126, 36)
+			.outputSlot(4, 126, 54).outputSlot(5, 126, 72).outputSlot(6, 34, 55).syncEnergyValue().syncCrafterValue().addInventory()
+			.create();
 	}
 
 }

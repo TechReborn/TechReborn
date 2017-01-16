@@ -68,7 +68,7 @@ configurations {
 }
 
 
-version = "2.0.9"
+version = "2.1.0"
 
 def ENV = System.getenv()
 if (ENV.BUILD_NUMBER) {
@@ -264,13 +264,6 @@ task updateMappings(dependsOn: sourceJar) {
             includeEmptyDirs = false
             eachFile { println "Processing: $it.name" }
         }
-    }
-}
-
-configurations.all {
-    resolutionStrategy {
-        cacheDynamicVersionsFor 0, "seconds"
-        cacheChangingModulesFor 0, "seconds"
     }
 }
 

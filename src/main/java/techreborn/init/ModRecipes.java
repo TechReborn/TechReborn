@@ -3,6 +3,7 @@ package techreborn.init;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.UniversalBucket;
@@ -10,6 +11,7 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.util.CraftingHelper;
+import reborncore.common.util.ItemUtils;
 import reborncore.common.util.OreUtil;
 import reborncore.common.util.StringUtils;
 import techreborn.Core;
@@ -22,6 +24,9 @@ import techreborn.compat.CompatManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.recipes.*;
 import techreborn.items.*;
+
+import java.util.Iterator;
+import java.util.Map;
 
 import static techreborn.utils.OreDictUtils.getDictData;
 import static techreborn.utils.OreDictUtils.getDictOreOrEmpty;
@@ -61,6 +66,24 @@ public class ModRecipes {
 		addIc2Recipes();
 		addGrinderRecipes();
 		addCompressorRecipes();
+	}
+
+	public static void postInit(){
+		if(ConfigTechReborn.disableRailcraftSteelNuggetRecipe){
+			Iterator iterator = FurnaceRecipes.instance().getSmeltingList().entrySet().iterator();
+			Map.Entry entry;
+			while (iterator.hasNext()) {
+				entry = (Map.Entry) iterator.next();
+				if (entry.getValue() instanceof ItemStack && entry.getKey() instanceof ItemStack) {
+					ItemStack input = (ItemStack) entry.getKey();
+					ItemStack output = (ItemStack) entry.getValue();
+					if(ItemUtils.isInputEqual("nuggetSteel", output, true , true, false) && ItemUtils.isInputEqual("nuggetIron", input, true , true, false)){
+						Core.logHelper.info("Removing a steelnugget smelting recipe");
+						iterator.remove();
+					}
+				}
+			}
+		}
 	}
 
 	private static void addCompressorRecipes() {
@@ -157,6 +180,11 @@ public class ModRecipes {
 				RecipeHandler.addRecipe(new GrinderRecipe(oreStack, dust, ore ? 270 : 200, ore ? 31 : 22));
 			}
 		}
+
+		RecipeHandler.addRecipe(new GrinderRecipe(
+			new ItemStack(Items.COAL),
+			ItemDusts.getDustByName("coal"),
+			120, 10));
 
 	}
 

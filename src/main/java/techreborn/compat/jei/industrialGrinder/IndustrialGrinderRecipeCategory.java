@@ -8,6 +8,7 @@ import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeCategory;
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 import techreborn.client.gui.GuiIndustrialGrinder;
 import techreborn.compat.jei.RecipeCategoryUids;
@@ -17,10 +18,12 @@ import techreborn.tiles.multiblock.TileIndustrialGrinder;
 import javax.annotation.Nonnull;
 
 public class IndustrialGrinderRecipeCategory extends BlankRecipeCategory<IndustrialGrinderRecipeWrapper> {
+
+	public static final ResourceLocation texture = new ResourceLocation("techreborn",
+		"textures/gui/industrial_grinder.png");
 	private static final int[] INPUT_SLOTS = { 0, 1 };
 	private static final int[] OUTPUT_SLOTS = { 2, 3, 4, 5 };
 	private static final int[] INPUT_TANKS = { 0 };
-
 	private final IDrawable background;
 	private final IDrawable blankArea; // for covering the lightning power
 	// symbol
@@ -28,9 +31,9 @@ public class IndustrialGrinderRecipeCategory extends BlankRecipeCategory<Industr
 	private final String title;
 
 	public IndustrialGrinderRecipeCategory(IGuiHelper guiHelper) {
-		background = guiHelper.createDrawable(GuiIndustrialGrinder.texture, 7, 15, 141, 55);
-		blankArea = guiHelper.createDrawable(GuiIndustrialGrinder.texture, 50, 45, 6, 6);
-		tankOverlay = guiHelper.createDrawable(GuiIndustrialGrinder.texture, 176, 86, 12, 47);
+		background = guiHelper.createDrawable(texture, 7, 15, 141, 55);
+		blankArea = guiHelper.createDrawable(texture, 50, 45, 6, 6);
+		tankOverlay = guiHelper.createDrawable(texture, 176, 86, 12, 47);
 		title = I18n.translateToLocal("tile.techreborn.industrialgrinder.name");
 	}
 
