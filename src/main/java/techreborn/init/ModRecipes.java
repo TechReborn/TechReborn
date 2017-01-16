@@ -181,6 +181,11 @@ public class ModRecipes {
 			}
 		}
 
+		RecipeHandler.addRecipe(new GrinderRecipe(
+			new ItemStack(Items.COAL),
+			ItemDusts.getDustByName("coal"),
+			120, 10));
+
 	}
 
 	static void addReactorRecipes() {
