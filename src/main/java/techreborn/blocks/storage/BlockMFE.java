@@ -30,7 +30,7 @@ public class BlockMFE extends BlockEnergyStorage {
 	@Override
 	public List<ItemStack> getDrops(final IBlockAccess world, final BlockPos pos, final IBlockState state, final int fortune) {
 		final ArrayList<ItemStack> list = new ArrayList<>();
-		list.add(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 1));
+		list.add(new ItemStack(ModBlocks.MACHINE_FRAMES, 0, 1));
 		return list;
 	}
 }
