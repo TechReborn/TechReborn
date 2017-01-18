@@ -81,6 +81,8 @@ public class Core {
 		worldGen = new TechRebornWorldGen();
 		worldGen.configFile = (new File(configDir, "ores.json"));
 		worldGen.hConfigFile = (new File(configDir, "ores.hjson"));
+		//Must be done before the item classes are loaded.
+		ModPoweredItems.preInit();
 
 		TechRebornAPI.subItemRetriever = new SubItemRetriever();
 		//Recheck here because things break at times
