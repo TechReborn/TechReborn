@@ -41,11 +41,6 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
 	}
 
 	@Override
-	public int getRGBDurabilityForDisplay(ItemStack stack) {
-		return PowerSystem.getDisplayPower().colour;
-	}
-
-	@Override
 	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState blockIn, BlockPos pos,
 	                                EntityLivingBase entityLiving) {
 		PoweredItem.useEnergy(cost, stack);
@@ -134,17 +129,6 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
 		itemList.add(charged);
 	}
 
-	@Override
-	public double getDurabilityForDisplay(ItemStack stack) {
-		double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
-		return 1 - charge;
-
-	}
-
-	@Override
-	public boolean showDurabilityBar(ItemStack stack) {
-		return true;
-	}
 
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {

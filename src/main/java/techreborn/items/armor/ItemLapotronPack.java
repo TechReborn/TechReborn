@@ -32,11 +32,6 @@ public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo {
 	}
 
 	@Override
-	public int getRGBDurabilityForDisplay(ItemStack stack) {
-		return PowerSystem.getDisplayPower().colour;
-	}
-
-	@Override
 	@SideOnly(Side.CLIENT)
 	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
 		return "techreborn:" + "textures/models/lapotronpack.png";
@@ -80,13 +75,6 @@ public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo {
 	}
 
 	@Override
-	public double getDurabilityForDisplay(ItemStack stack) {
-		double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
-		return 1 - charge;
-
-	}
-
-	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
 		for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
 			if (player.inventory.getStackInSlot(i) != ItemStack.EMPTY) {
@@ -102,11 +90,6 @@ public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo {
 				}
 			}
 		}
-	}
-
-	@Override
-	public boolean showDurabilityBar(ItemStack stack) {
-		return true;
 	}
 
 }

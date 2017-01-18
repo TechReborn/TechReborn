@@ -32,11 +32,6 @@ public class ItemCloakingDevice extends ItemTRNoDestroy implements IEnergyItemIn
 	}
 
 	@Override
-	public int getRGBDurabilityForDisplay(ItemStack stack) {
-		return PowerSystem.getDisplayPower().colour;
-	}
-
-	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
 		if (PoweredItem.canUseEnergy(ConfigTechReborn.CloakingDeviceEUTick, itemStack)) {
 			PoweredItem.useEnergy(ConfigTechReborn.CloakingDeviceEUTick, itemStack);
@@ -94,15 +89,5 @@ public class ItemCloakingDevice extends ItemTRNoDestroy implements IEnergyItemIn
 
 		itemList.add(uncharged);
 		itemList.add(charged);
-	}
-
-	public double getDurabilityForDisplay(ItemStack stack) {
-		double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
-		return 1 - charge;
-
-	}
-
-	public boolean showDurabilityBar(ItemStack stack) {
-		return true;
 	}
 }

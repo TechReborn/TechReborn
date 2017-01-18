@@ -46,23 +46,6 @@ public class ItemBattery extends ItemTRNoDestroy implements IEnergyItemInfo {
 	}
 
 	@Override
-	public double getDurabilityForDisplay(ItemStack stack) {
-		double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
-		return 1 - charge;
-
-	}
-
-	@Override
-	public boolean showDurabilityBar(ItemStack stack) {
-		return true;
-	}
-
-	@Override
-	public int getRGBDurabilityForDisplay(ItemStack stack) {
-		return PowerSystem.getDisplayPower().colour;
-	}
-
-	@Override
 	public double getMaxPower(ItemStack stack) {
 		return maxEnergy;
 	}

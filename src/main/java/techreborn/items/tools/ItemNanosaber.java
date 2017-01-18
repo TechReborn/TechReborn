@@ -87,11 +87,6 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 		}
 	}
 
-	@Override
-	public int getRGBDurabilityForDisplay(ItemStack stack) {
-		return PowerSystem.getDisplayPower().colour;
-	}
-
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item,
@@ -123,10 +118,6 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 		}
 	}
 
-	@Override
-	public boolean showDurabilityBar(ItemStack stack) {
-		return true;
-	}
 
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player,
@@ -174,16 +165,6 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 					.translateToLocal("techreborn.message.nanosaberDeactivating")));
 			stack.getTagCompound().setBoolean("isActive", false);
 		}
-	}
-
-	@Override
-	public double getDurabilityForDisplay(ItemStack stack) {
-		if (PoweredItem.getEnergy(stack) > getMaxPower(stack)) {
-			return 0;
-		}
-		double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
-		return 1 - charge;
-
 	}
 
 	@Override
