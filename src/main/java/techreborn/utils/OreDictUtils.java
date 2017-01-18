@@ -60,7 +60,7 @@ public class OreDictUtils {
 		List<ItemStack> ores = OreDictionary.getOres(name);
 		if (ores.isEmpty())
 			return ItemStack.EMPTY;
-		ItemStack ore = ores.get(0);
+		ItemStack ore = ores.get(0).copy();
 		ore.setCount(amount);
 		return ore;
 	}
