@@ -5,6 +5,8 @@ import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import reborncore.api.power.IEnergyInterfaceItem;
+import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.util.BucketHandler;
@@ -115,54 +117,54 @@ public class ModItems {
 		PARTS = new ItemParts();
 		registerItem(PARTS, "part");
 
-		ROCK_CUTTER = PoweredItem.createItem(ItemRockCutter.class);
+		ROCK_CUTTER = new ItemRockCutter();
 		registerItem(ROCK_CUTTER, "rockCutter");
-		LITHIUM_BATTERY_PACK = PoweredItem.createItem(ItemLithiumBatpack.class);
+		LITHIUM_BATTERY_PACK = new ItemLithiumBatpack();
 		registerItem(LITHIUM_BATTERY_PACK, "lithiumBatpack");
-		LAPOTRONIC_ORB_PACK = PoweredItem.createItem(ItemLapotronPack.class);
+		LAPOTRONIC_ORB_PACK = new ItemLapotronPack();
 		registerItem(LAPOTRONIC_ORB_PACK, "lapotronPack");
-		LITHIUM_BATTERY = PoweredItem.createItem(ItemLithiumBattery.class);
+		LITHIUM_BATTERY = new ItemLithiumBattery();
 		registerItem(LITHIUM_BATTERY, "lithiumBattery");
-		LAPOTRONIC_ORB = PoweredItem.createItem(ItemLapotronicOrb.class);
+		LAPOTRONIC_ORB = new ItemLapotronicOrb();
 		registerItem(LAPOTRONIC_ORB, "lapotronicOrb");
-		OMNI_TOOL = PoweredItem.createItem(ItemOmniTool.class);
+		OMNI_TOOL = new ItemOmniTool();
 		registerItem(OMNI_TOOL, "omniTool");
-		ENERGY_CRYSTAL = PoweredItem.createItem(ItemEnergyCrystal.class);
+		ENERGY_CRYSTAL = new ItemEnergyCrystal();
 		registerItem(ENERGY_CRYSTAL, "energycrystal");
-		LAPOTRONIC_CRYSTAL = PoweredItem.createItem(ItemLapotronCrystal.class);
+		LAPOTRONIC_CRYSTAL = new ItemLapotronCrystal();
 		registerItem(LAPOTRONIC_CRYSTAL, "lapotroncrystal");
 
 		MANUAL = new ItemTechManual();
 		registerItem(MANUAL, "techmanuel");
 		UU_MATTER = new ItemUUmatter();
 		registerItem(UU_MATTER, "uumatter");
-		RE_BATTERY = PoweredItem.createItem(ItemReBattery.class);
+		RE_BATTERY = new ItemReBattery();
 		registerItem(RE_BATTERY, "rebattery");
 		TREE_TAP = new ItemTreeTap();
 		registerItem(TREE_TAP, "treetap");
 
-		ELECTRIC_TREE_TAP = PoweredItem.createItem(ItemElectricTreetap.class);
+		ELECTRIC_TREE_TAP = new ItemElectricTreetap();
 		registerItem(ELECTRIC_TREE_TAP, "electricTreetap");
 
-		STEEL_DRILL = PoweredItem.createItem(ItemSteelDrill.class);
+		STEEL_DRILL = new ItemSteelDrill();
 		registerItem(STEEL_DRILL, "irondrill");
-		DIAMOND_DRILL = PoweredItem.createItem(ItemDiamondDrill.class);
+		DIAMOND_DRILL = new ItemDiamondDrill();
 		registerItem(DIAMOND_DRILL, "diamonddrill");
-		ADVANCED_DRILL = PoweredItem.createItem(ItemAdvancedDrill.class);
+		ADVANCED_DRILL = new ItemAdvancedDrill();
 		registerItem(ADVANCED_DRILL, "advanceddrill");
 
-		STEEL_CHAINSAW = PoweredItem.createItem(ItemSteelChainsaw.class);
+		STEEL_CHAINSAW = new ItemSteelChainsaw();
 		registerItem(STEEL_CHAINSAW, "ironchainsaw");
-		DIAMOND_CHAINSAW = PoweredItem.createItem(ItemDiamondChainsaw.class);
+		DIAMOND_CHAINSAW = new ItemDiamondChainsaw();
 		registerItem(DIAMOND_CHAINSAW, "diamondchainsaw");
-		ADVANCED_CHAINSAW = PoweredItem.createItem(ItemAdvancedChainsaw.class);
+		ADVANCED_CHAINSAW = new ItemAdvancedChainsaw();
 		registerItem(ADVANCED_CHAINSAW, "advancedchainsaw");
 
-		STEEL_JACKHAMMER = PoweredItem.createItem(ItemSteelJackhammer.class);
+		STEEL_JACKHAMMER = new ItemSteelJackhammer();
 		registerItem(STEEL_JACKHAMMER, "steeljackhammer");
-		DIAMOND_JACKHAMMER = PoweredItem.createItem(ItemDiamondJackhammer.class);
+		DIAMOND_JACKHAMMER = new ItemDiamondJackhammer();
 		registerItem(DIAMOND_JACKHAMMER, "diamondjackhammer");
-		ADVANCED_JACKHAMMER = PoweredItem.createItem(ItemAdvancedJackhammer.class);
+		ADVANCED_JACKHAMMER = new ItemAdvancedJackhammer();
 		registerItem(ADVANCED_JACKHAMMER, "ironjackhammer");
 
 		if (ConfigTechReborn.enableGemArmorAndTools) {
@@ -250,7 +252,7 @@ public class ModItems {
 		WRENCH = new ItemWrench();
 		registerItem(WRENCH, "wrench");
 
-		NANOSABER = PoweredItem.createItem(ItemNanosaber.class);
+		NANOSABER = new ItemNanosaber();
 		registerItem(NANOSABER, "nanosaber");
 
 		SCRAP_BOX = new ItemScrapBox();
@@ -262,7 +264,7 @@ public class ModItems {
 		UPGRADES = new ItemUpgrades();
 		registerItem(UPGRADES, "upgrades");
 
-		CLOAKING_DEVICE = PoweredItem.createItem(ItemCloakingDevice.class);
+		CLOAKING_DEVICE = new ItemCloakingDevice();
 		registerItem(CLOAKING_DEVICE, "cloakingdevice");
 
 		MISSING_RECIPE_PLACEHOLDER = new ItemMissingRecipe().setUnlocalizedName("missingRecipe");
@@ -287,6 +289,12 @@ public class ModItems {
 	public static void registerItem(Item item, String name) {
 		item.setRegistryName(name);
 		GameRegistry.register(item);
+		if(item.getClass().isInstance(IEnergyItemInfo.class)){
+			if(!item.getClass().isInstance(IEnergyInterfaceItem.class)){
+				Core.logHelper.error(name + " was not patched with the power mixin. This is a error, the item may not work as intended.");
+				Core.logHelper.error("Please check that the reborn core loading plugin has been registerd.");
+			}
+		}
 	}
 
 }
