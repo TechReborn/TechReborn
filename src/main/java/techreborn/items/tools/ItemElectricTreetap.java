@@ -75,15 +75,6 @@ public class ItemElectricTreetap extends ItemTRNoDestroy implements IEnergyItemI
 		return tier;
 	}
 
-	@Override
-	public double getDurabilityForDisplay(ItemStack stack) {
-		double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
-		return 1 - charge;
-
-	}
-
-
-
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item,
@@ -96,8 +87,4 @@ public class ItemElectricTreetap extends ItemTRNoDestroy implements IEnergyItemI
 		itemList.add(charged);
 	}
 
-	@Override
-	public boolean showDurabilityBar(ItemStack stack) {
-		return true;
-	}
 }

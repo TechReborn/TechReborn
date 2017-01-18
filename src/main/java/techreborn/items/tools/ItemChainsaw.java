@@ -106,15 +106,4 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
 		return tier;
 	}
 
-	@Override
-	public double getDurabilityForDisplay(ItemStack stack) {
-		double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
-		return 1 - charge;
-
-	}
-
-	@Override
-	public boolean showDurabilityBar(ItemStack stack) {
-		return true;
-	}
 }

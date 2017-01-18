@@ -90,14 +90,4 @@ public class ItemCloakingDevice extends ItemTRNoDestroy implements IEnergyItemIn
 		itemList.add(uncharged);
 		itemList.add(charged);
 	}
-
-	public double getDurabilityForDisplay(ItemStack stack) {
-		double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
-		return 1 - charge;
-
-	}
-
-	public boolean showDurabilityBar(ItemStack stack) {
-		return true;
-	}
 }
