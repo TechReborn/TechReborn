@@ -17,7 +17,9 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
+
 import techreborn.api.generator.EFluidGenerator;
+import techreborn.api.generator.FluidGeneratorRecipe;
 import techreborn.api.generator.FluidGeneratorRecipeList;
 import techreborn.api.generator.GeneratorRecipeHelper;
 
@@ -53,35 +55,38 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 	}
 
 	protected long lastOutput = 0;
+	private FluidGeneratorRecipe currentRecipe;
 
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
 
 		if (!this.world.isRemote) {
-			if ((this.acceptFluid() && FluidUtils.drainContainers(this.tank, this.inventory, 0, 1))
-					|| FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluidType()))
+			if (this.acceptFluid() && FluidUtils.drainContainers(this.tank, this.inventory, 0, 1)
+					|| FluidUtils.fillContainers(this.tank, this.inventory, 0, 1, this.tank.getFluidType()))
 				this.syncWithAll();
 		}
 
 		if (this.tank.getFluidAmount() > 0) {
-			this.getRecipes().getRecipeForFluid(tank.getFluidType()).ifPresent(recipe -> {
 
-				if(tryAddingEnergy(euTick))
-				{
-					final Integer euPerBucket = recipe.getEnergyPerMb() * 1000;
+			if (this.currentRecipe == null || !this.currentRecipe.getFluid().equals(this.tank.getFluidType()))
+				this.currentRecipe = this.getRecipes().getRecipeForFluid(this.tank.getFluidType()).orElse(null);
+
+			if (this.currentRecipe != null) {
+				if (this.tryAddingEnergy(this.euTick)) {
+					final Integer euPerBucket = this.currentRecipe.getEnergyPerMb() * 1000;
 					final float millibucketsPerTick = 16000f / (float) euPerBucket;
 					this.pendingWithdraw += millibucketsPerTick;
 
 					final int currentWithdraw = (int) this.pendingWithdraw;
-					
+
 					this.pendingWithdraw -= currentWithdraw;
 
 					this.tank.drain(currentWithdraw, true);
-					
+
 					this.lastOutput = this.world.getTotalWorldTime();
 				}
-			});
+			}
 		}
 
 		if (this.tank.getFluidType() != null && this.getStackInSlot(2) == ItemStack.EMPTY)
