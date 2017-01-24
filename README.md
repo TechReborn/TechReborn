@@ -1,6 +1,6 @@
 ![](http://i.imgur.com/XKMokQu.png "Tech Reborn")
 
-[![](http://cf.way2muchnoise.eu/full_233564_downloads.svg)](https://minecraft.curseforge.com/projects/techreborn) [![](http://cf.way2muchnoise.eu/versions/233564.svg)](https://minecraft.curseforge.com/projects/techreborn)
+[![](http://cf.way2muchnoise.eu/full_233564_downloads.svg)](https://minecraft.curseforge.com/projects/techreborn) [![](http://cf.way2muchnoise.eu/versions/233564.svg)](https://minecraft.curseforge.com/projects/techreborn) [![](https://img.shields.io/badge/Discord-TeamReborn-738bd7.svg)](https://discord.gg/0tCDWb77cvetwm0e)
 
 # Tech Reborn for 1.11.2 [![Build Status](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.11.2/badge/icon)](http://modmuss50.me:8080/job/TechReborn/job/TechReborn-1.11.2/)
 
