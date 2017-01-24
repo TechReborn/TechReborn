@@ -57,25 +57,24 @@ public class TRPowerNet {
 	}
 
 	@SubscribeEvent
-	public void tick(PowerTickEvent evt) {
+	public synchronized void tick(PowerTickEvent evt) {
 		evt.getWorld().theProfiler.startSection("TechRebornPowerNet");
 		if (tick < 20) {
 			tick++;
 			return;
 		}
 		if (tick % 80 == 0) {
-			List<CableMultipart> oldCables = new ArrayList<>();
-			for (CableMultipart cableMultipart : cables) {
+			for (Iterator<CableMultipart> it = cables.iterator(); it.hasNext(); ) {
+				CableMultipart cableMultipart = it.next();
 				if (cableMultipart.getWorld() == null || cableMultipart.getPos() == null) {
-					oldCables.add(cableMultipart);
+					it.remove();
 				}
 				CableMultipart mp = cableMultipart.getPartFromWorld(cableMultipart.getWorld(), cableMultipart.getPos(),
 					null);
 				if (mp == null) {
-					oldCables.add(cableMultipart);
+					it.remove();
 				}
 			}
-			cables.removeAll(oldCables);
 		}
 		if (!cables.isEmpty()) {
 			ArrayList<EnergyHandler> collectibles = new ArrayList();
@@ -106,13 +105,17 @@ public class TRPowerNet {
 	}
 
 	public void addElement(CableMultipart te) {
-		if (!cables.contains(te)) {
-			cables.add(te);
+		synchronized (cables){
+			if (!cables.contains(te)) {
+				cables.add(te);
+			}
 		}
 	}
 
 	public void removeElement(CableMultipart te) {
-		cables.remove(te);
+		synchronized (cables){
+			cables.remove(te);
+		}
 		this.rebuild();
 		this.checkAndRemoveOldEndpoints();
 	}
