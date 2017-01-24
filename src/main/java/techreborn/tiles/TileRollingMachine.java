@@ -39,7 +39,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 
 	@Override
 	public double getMaxPower() {
-		return 100000;
+		return 10000;
 	}
 
 	@Override
