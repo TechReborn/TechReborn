@@ -172,4 +172,14 @@ public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IIn
 			.syncIntegerValue(this::getBurnTime, this::setBurnTime)
 			.syncIntegerValue(this::getTotalBurnTime, this::setTotalBurnTime).addInventory().create();
 	}
+
+	@Override
+	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+		return TileGenerator.getItemBurnTime(itemStackIn) != 0;
+	}
+
+	@Override
+	public int[] getSlotsForFace(EnumFacing side) {
+		return new int[]{fuelSlot};
+	}
 }
