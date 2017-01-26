@@ -78,7 +78,8 @@ public class BlockNuke extends BaseBlock implements ITexturedBlock {
 	/**
 	 * Called when a neighboring block changes.
 	 */
-	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
+	@Override
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos p_189540_5_) {
 		if (worldIn.isBlockPowered(pos)) {
 			this.explode(worldIn, pos, state, null);
 			worldIn.setBlockToAir(pos);
