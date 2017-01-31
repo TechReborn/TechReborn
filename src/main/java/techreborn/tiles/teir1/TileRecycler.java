@@ -4,12 +4,14 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
+
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
@@ -201,7 +203,7 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInv
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("recycler").player(player.inventory).inventory().hotbar().addInventory()
-			.tile(this).slot(0, 55, 45).slot(1, 101, 45).syncEnergyValue()
-			.syncIntegerValue(this::getProgress, this::setProgress).addInventory().create();
+				.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).syncEnergyValue()
+				.syncIntegerValue(this::getProgress, this::setProgress).addInventory().create();
 	}
 }
