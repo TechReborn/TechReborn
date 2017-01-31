@@ -76,11 +76,11 @@ public abstract class RecipeMethods {
 	}
 
 	static ItemStack getStack(Item item, boolean wildcard) {
-		return getStack(item, 1, true);
+		return getStack(item, 1, wildcard);
 	}
 
 	static ItemStack getStack(Item item, int count, boolean wildcard) {
-		return getStack(item, count, OreDictionary.WILDCARD_VALUE);
+		return getStack(item, count, wildcard ?  OreDictionary.WILDCARD_VALUE : 0);
 	}
 
 	static ItemStack getStack(Item item, int count, int metadata) {
@@ -100,11 +100,11 @@ public abstract class RecipeMethods {
 	}
 
 	static ItemStack getStack(Block block, int count, boolean wildcard) {
-		return getStack(block, count, OreDictionary.WILDCARD_VALUE);
+		return getStack(block, count, wildcard ?  OreDictionary.WILDCARD_VALUE : 0);
 	}
 
 	static ItemStack getStack(Block block, int count, int metadata) {
-		return getStack(Item.getItemFromBlock(block), count, OreDictionary.WILDCARD_VALUE);
+		return getStack(Item.getItemFromBlock(block), count, metadata);
 	}
 
 	static ItemStack getStack(IC2Duplicates ic2Duplicates) {
