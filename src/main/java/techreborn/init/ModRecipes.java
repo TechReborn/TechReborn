@@ -152,6 +152,11 @@ public class ModRecipes {
 			ItemDusts.getDustByName("coal"),
 			300, 27));
 
+		RecipeHandler.addRecipe(new GrinderRecipe(
+			new ItemStack(net.minecraft.init.Items.CLAY_BALL),
+			ItemDusts.getDustByName("clay"),
+			200, 18));
+
 		for (String oreDictionaryName : OreDictionary.getOreNames()) {
 			if (isDictPrefixed(oreDictionaryName, "ore", "gem", "ingot")) {
 				ItemStack oreStack = getDictOreOrEmpty(oreDictionaryName, 1);
