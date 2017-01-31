@@ -1,5 +1,7 @@
 package techreborn.init;
 
+import ic2.api.recipe.RecipeInputItemStack;
+import ic2.api.recipe.Recipes;
 import ic2.core.block.BlockIC2Fence;
 import ic2.core.block.BlockTexGlass;
 import ic2.core.block.type.ResourceBlock;
@@ -16,7 +18,9 @@ import net.minecraftforge.oredict.OreDictionary;
 import reborncore.api.recipe.RecipeHandler;
 import techreborn.Core;
 import techreborn.api.recipe.machines.ExtractorRecipe;
+import techreborn.items.ItemIngots;
 import techreborn.items.ItemParts;
+import techreborn.items.ItemPlates;
 
 /**
  * Created by modmuss50 on 16/07/2016.
@@ -112,6 +116,8 @@ public class IC2Dict {
 			OreDictionary.registerOre("glassReinforced", BlockName.glass.getItemStack(BlockTexGlass.GlassType.reinforced));
 
 			OreDictionary.registerOre("oreIridium", ItemName.misc_resource.getItemStack(MiscResourceType.iridium_ore));
+
+			Recipes.compressor.addRecipe(new RecipeInputItemStack(ItemIngots.getIngotByName("iridium")), null, true, ItemPlates.getPlateByName("iridium"));
 		} catch (NoClassDefFoundError notFound) {
 			Core.logHelper.warn(
 				"Can't enable integration: IC2 installed but cannot be hooked\n" +
