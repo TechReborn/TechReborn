@@ -99,7 +99,9 @@ dependencies {
     if(!f.exists()){
         f.mkdir()
     }
-	deobfCompile 'RebornCore:RebornCore-1.11.2:+:universal'
+	deobfCompile ('RebornCore:RebornCore-1.11.2:+:universal'){
+		transitive = false
+	}
 	deobfCompile "mezz.jei:jei_1.11:+"
 	compile "mcp.mobius.waila:Hwyla:+"
 	compile "net.darkhax.tesla:Tesla:1.11-1.3.0.51:deobf"
