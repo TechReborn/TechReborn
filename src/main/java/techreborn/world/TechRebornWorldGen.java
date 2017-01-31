@@ -49,7 +49,7 @@ public class TechRebornWorldGen implements IWorldGenerator {
 		defaultConfig.neatherOres = new ArrayList<>();
 
 		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("Galena"), 8, 16, 10, 60));
-		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("Iridium"), 1, 1, 10, 60));
+		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("Iridium"), 3, 3, 5, 60));
 		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("Ruby"), 6, 3, 10, 60));
 		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("Sapphire"), 6, 3, 10, 60));
 		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("Bauxite"), 6, 10, 10, 60));
