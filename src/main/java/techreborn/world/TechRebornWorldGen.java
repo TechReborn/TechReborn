@@ -226,11 +226,16 @@ public class TechRebornWorldGen implements IWorldGenerator {
 						yPos = 10 + random.nextInt(ore.maxYHeight - ore.minYHeight);
 						zPos = chunkZ * 16 + random.nextInt(16);
 						BlockPos pos = new BlockPos(xPos, yPos, zPos);
-						try {
-							worldGenMinable.generate(world, random, pos);
-						} catch (ArrayIndexOutOfBoundsException e) {
-							Core.logHelper.error("Something bad is happening during world gen the ore " + ore.blockNiceName + " caused a crash when generating. Report this to the TechReborn devs with a log");
+						if(ore.blockNiceName.equalsIgnoreCase("iridium")){ //Work around for iridium
+							world.setBlockState(pos, ore.state);
+						} else {
+							try {
+								worldGenMinable.generate(world, random, pos);
+							} catch (ArrayIndexOutOfBoundsException e) {
+								Core.logHelper.error("Something bad is happening during world gen the ore " + ore.blockNiceName + " caused a crash when generating. Report this to the TechReborn devs with a log");
+							}
 						}
+
 
 					}
 				}
