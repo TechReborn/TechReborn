@@ -27,9 +27,9 @@ public class ItemCells extends ItemTR implements IFluidContainerItem {
 
     public static ItemStack getCellByName(String name, int count, boolean lookForIC2) {
         Fluid fluid = FluidRegistry.getFluid("fluid" + name.toLowerCase());
-        if (lookForIC2 && IC2Items.getItem("FluidCell") != null) {
+        if (lookForIC2 && IC2Items.getItem("cell") != null) {
             if (fluid != null) {
-                ItemStack stack = IC2Items.getItem("FluidCell").copy();
+                ItemStack stack = IC2Items.getItem("cell").copy();
                 if (stack != null && stack.getItem() instanceof IFluidContainerItem) {
                     IFluidContainerItem containerItem = (IFluidContainerItem) stack.getItem();
                     containerItem.fill(stack, new FluidStack(fluid.getID(), 2147483647), true);

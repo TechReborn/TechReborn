@@ -15,6 +15,7 @@ import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
 import techreborn.items.tools.*;
 import techreborn.powerSystem.PoweredItem;
+import ic2.api.item.IC2Items;
 
 public class ModItems {
 
@@ -96,9 +97,10 @@ public class ModItems {
         GameRegistry.registerItem(parts, "part");
         cells = new ItemCells();
         GameRegistry.registerItem(cells, "cell");
+        ItemStack ecell = IC2Items.getItem("cell").copy();
         for (int i = 0; i < ItemCells.types.length; i++) {
             if(FluidRegistry.getFluid("fluid" + ItemCells.types[i].toLowerCase()) != null){
-                FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluid("fluid" + ItemCells.types[i].toLowerCase()), ItemCells.getCellByName(ItemCells.types[i]));
+                FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluid("fluid" + ItemCells.types[i].toLowerCase()), ItemCells.getCellByName(ItemCells.types[i]), ecell);
             }
         }
         rockCutter = PoweredItem.createItem(ItemRockCutter.class);
