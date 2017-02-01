@@ -79,7 +79,7 @@ if (ENV.BUILD_NUMBER) {
 }
 
 minecraft {
-    version = "1.7.10-10.13.4.1448-1.7.10"
+    version = "1.7.10-10.13.4.1614-1.7.10"
     replace "@MODVERSION@", project.version
 }
 
@@ -104,11 +104,11 @@ dependencies {
     if (!f.exists()) {
         f.mkdir()
     }
-    compile 'net.industrial-craft:industrialcraft-2:2.2.796-experimental:dev'
-    shade 'net.industrial-craft:industrialcraft-2:2.2.796-experimental:api'
-    compile name: 'buildcraft', version: '7.1.13', classifier: "dev", ext: 'jar'
-    compile "net.sengir.forestry:forestry_1.7.10:4.2.0.47:dev"
-    shade "net.sengir.forestry:forestry_1.7.10:4.2.0.47:api"
+    compile 'net.industrial-craft:industrialcraft-2:2.2.827-experimental:dev'
+    shade 'net.industrial-craft:industrialcraft-2:2.2.827-experimental:api'
+    compile name: 'buildcraft', version: '7.1.19', classifier: "dev", ext: 'jar'
+    compile "net.sengir.forestry:forestry_1.7.10:4.2.16.64:dev"
+    shade "net.sengir.forestry:forestry_1.7.10:4.2.16.64:api"
     compile "com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.7.10-2.1.0.1465:deobf"
     compile 'Azanor:Thaumcraft:4.2.3.5:deobf@jar'
     compile "com.github.azanor:baubles:1.0.1.10:deobf@jar"
