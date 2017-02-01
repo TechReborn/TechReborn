@@ -56,7 +56,7 @@ public enum IC2Duplicates {
 	}
 
 	public static boolean deduplicate() {
-		if (!CompatManager.isIC2Loaded) {
+		if (!CompatManager.isIC2Loaded || CompatManager.isIC2ClassicLoaded) {
 			return false;
 		}
 		return ConfigTechReborn.REMOVE_DUPLICATES;

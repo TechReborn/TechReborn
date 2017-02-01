@@ -20,11 +20,13 @@ public class CompatManager {
 
 	public static CompatManager INSTANCE = new CompatManager();
 	public static boolean isIC2Loaded = false;
+	public static boolean isIC2ClassicLoaded = false;
 	public static boolean isQuantumStorageLoaded = false;
 	public ArrayList<ICompatModule> compatModules = new ArrayList<>();
 
 	public CompatManager() {
 		isIC2Loaded = Loader.isModLoaded("IC2");
+		isIC2ClassicLoaded = Loader.isModLoaded("IC2-Classic-Spmod");
 		isQuantumStorageLoaded = Loader.isModLoaded("quantumstorage");
 		register(MinetweakerCompat.class, "MineTweaker3");
 		registerCompact(TechRebornParts.class, false, "reborncore-mcmultipart");

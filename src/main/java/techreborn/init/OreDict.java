@@ -23,8 +23,13 @@ public class OreDict {
 
 	public static void init() {
 		if (Loader.isModLoaded("IC2")) {
-			Core.logHelper.info("IC2 installed, enabling integration");
-			IC2Dict.init();
+			if(Loader.isModLoaded("IC2-Classic-Spmod")){
+				Core.logHelper.info("IC2 classic installed, disabling integration");
+			} else {
+				Core.logHelper.info("IC2 installed, enabling integration");
+				IC2Dict.init();
+			}
+
 		}
 
 		OreDictionary.registerOre("reBattery", ModItems.RE_BATTERY);
