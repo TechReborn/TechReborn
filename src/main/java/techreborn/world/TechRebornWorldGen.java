@@ -227,7 +227,10 @@ public class TechRebornWorldGen implements IWorldGenerator {
 						zPos = chunkZ * 16 + random.nextInt(16);
 						BlockPos pos = new BlockPos(xPos, yPos, zPos);
 						if(ore.blockNiceName.equalsIgnoreCase("iridium")){ //Work around for iridium
-							world.setBlockState(pos, ore.state);
+							if(world.getBlockState(pos).getBlock().isReplaceableOreGen(world.getBlockState(pos), world, pos, predicate)){
+								world.setBlockState(pos, ore.state);
+							}
+
 						} else {
 							try {
 								worldGenMinable.generate(world, random, pos);
