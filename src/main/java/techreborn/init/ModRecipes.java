@@ -191,6 +191,11 @@ public class ModRecipes {
 			ItemDusts.getDustByName("coal"),
 			120, 10));
 
+		RecipeHandler.addRecipe(new GrinderRecipe(
+			new ItemStack(Blocks.END_STONE),
+			ItemDusts.getDustByName("endstone"),
+			300, 16));
+
 	}
 
 	static void addReactorRecipes() {
