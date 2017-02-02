@@ -20,8 +20,6 @@ import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.utils.upgrade.UpgradeHandler;
 
-import java.util.List;
-
 public class TileGrinder extends TilePowerAcceptor
 implements IWrenchable, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
 
@@ -130,11 +128,6 @@ implements IWrenchable, IInventoryProvider, IRecipeCrafterProvider, IContainerPr
 	@Override
 	public EnumPowerTier getTier() {
 		return EnumPowerTier.LOW;
-	}
-
-	@Override
-	public void addInfo(final List<String> info, final boolean isRealTile) {
-		info.add("Macerator");
 	}
 
 	@Override
