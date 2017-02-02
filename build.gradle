@@ -94,7 +94,7 @@ dependencies {
 	deobfCompile "slimeknights.mantle:Mantle:1.10.2-1.0.0.jenkins170"
     deobfCompile "mcjty.theoneprobe:TheOneProbe:1.9.4-1.0.4-14"
     deobfCompile 'net.industrial-craft:industrialcraft-2:2.6.129-ex110'
-	deobfCompile "MineTweaker3:MineTweaker3-MC1102-Main:+"
+
 }
 
 
