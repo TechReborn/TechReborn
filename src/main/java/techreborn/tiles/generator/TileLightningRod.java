@@ -1,17 +1,22 @@
 package techreborn.tiles.generator;
 
 import net.minecraft.entity.effect.EntityLightningBolt;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.oredict.OreDictionary;
+
 import reborncore.api.power.EnumPowerTier;
+import reborncore.common.IWrenchable;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-import techreborn.config.ConfigTechReborn;
 
-public class TileLightningRod extends TilePowerAcceptor {
+import techreborn.config.ConfigTechReborn;
+import techreborn.init.ModBlocks;
+
+public class TileLightningRod extends TilePowerAcceptor implements IWrenchable {
 
 	private int onStatusHoldTicks = -1;
 
@@ -23,53 +28,53 @@ public class TileLightningRod extends TilePowerAcceptor {
 	public void update() {
 		super.update();
 
-		if (onStatusHoldTicks > 0)
-			--onStatusHoldTicks;
+		if (this.onStatusHoldTicks > 0)
+			--this.onStatusHoldTicks;
 
-		if (onStatusHoldTicks == 0 || getEnergy() <= 0) {
-			if (getBlockType() instanceof BlockMachineBase)
-				((BlockMachineBase) getBlockType()).setActive(false, world, pos);
-			onStatusHoldTicks = -1;
+		if (this.onStatusHoldTicks == 0 || this.getEnergy() <= 0) {
+			if (this.getBlockType() instanceof BlockMachineBase)
+				((BlockMachineBase) this.getBlockType()).setActive(false, this.world, this.pos);
+			this.onStatusHoldTicks = -1;
 		}
 
-		float weatherStrength = world.getThunderStrength(1.0F);
+		final float weatherStrength = this.world.getThunderStrength(1.0F);
 		if (weatherStrength > 0.2F) {
 			//lightStrikeChance = (MAX - (CHANCE * WEATHER_STRENGTH)
-			float lightStrikeChance = ((100F - ConfigTechReborn.LightningRodChance) * 20F);
-			float totalChance = lightStrikeChance * getLightningStrikeMultiplier() * ((1.1F - weatherStrength));
-			if (world.rand.nextInt((int) Math.floor(totalChance)) == 0) {
-				EntityLightningBolt lightningBolt = new EntityLightningBolt(world,
-					pos.getX() + 0.5F,
-					world.provider.getAverageGroundLevel(),
-					pos.getZ() + 0.5F, false);
-				world.addWeatherEffect(lightningBolt);
-				world.spawnEntity(lightningBolt);
-				addEnergy(32768 * (0.3F + weatherStrength));
-				((BlockMachineBase) getBlockType()).setActive(true, world, pos);
-				onStatusHoldTicks = 400;
+			final float lightStrikeChance = (100F - ConfigTechReborn.LightningRodChance) * 20F;
+			final float totalChance = lightStrikeChance * this.getLightningStrikeMultiplier() * (1.1F - weatherStrength);
+			if (this.world.rand.nextInt((int) Math.floor(totalChance)) == 0) {
+				final EntityLightningBolt lightningBolt = new EntityLightningBolt(this.world,
+						this.pos.getX() + 0.5F,
+						this.world.provider.getAverageGroundLevel(),
+						this.pos.getZ() + 0.5F, false);
+				this.world.addWeatherEffect(lightningBolt);
+				this.world.spawnEntity(lightningBolt);
+				this.addEnergy(32768 * (0.3F + weatherStrength));
+				((BlockMachineBase) this.getBlockType()).setActive(true, this.world, this.pos);
+				this.onStatusHoldTicks = 400;
 			}
 		}
 
 	}
 
 	public float getLightningStrikeMultiplier() {
-		float actualHeight = world.provider.getActualHeight();
-		float groundLevel = world.provider.getAverageGroundLevel();
-		for (int i = pos.getY() + 1; i < actualHeight; i++) {
-			if (!isValidIronFence(i)) {
+		final float actualHeight = this.world.provider.getActualHeight();
+		final float groundLevel = this.world.provider.getAverageGroundLevel();
+		for (int i = this.pos.getY() + 1; i < actualHeight; i++) {
+			if (!this.isValidIronFence(i)) {
 				if (groundLevel >= i)
 					return 4.3F;
-				float max = actualHeight - groundLevel;
-				float got = i - groundLevel;
+				final float max = actualHeight - groundLevel;
+				final float got = i - groundLevel;
 				return 1.2F - got / max;
 			}
 		}
 		return 4F;
 	}
 
-	public boolean isValidIronFence(int y) {
-		Item itemBlock = Item.getItemFromBlock(world.getBlockState(new BlockPos(pos.getX(), y, pos.getZ())).getBlock());
-		for (ItemStack fence : OreDictionary.getOres("fenceIron")) {
+	public boolean isValidIronFence(final int y) {
+		final Item itemBlock = Item.getItemFromBlock(this.world.getBlockState(new BlockPos(this.pos.getX(), y, this.pos.getZ())).getBlock());
+		for (final ItemStack fence : OreDictionary.getOres("fenceIron")) {
 			if (fence.getItem() == itemBlock)
 				return true;
 		}
@@ -82,13 +87,13 @@ public class TileLightningRod extends TilePowerAcceptor {
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction) {
+	public boolean canAcceptEnergy(final EnumFacing direction) {
 		return false;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnumFacing direction) {
-		return direction == getFacingEnum();
+	public boolean canProvideEnergy(final EnumFacing direction) {
+		return direction == this.getFacingEnum();
 	}
 
 	@Override
@@ -106,4 +111,28 @@ public class TileLightningRod extends TilePowerAcceptor {
 		return EnumPowerTier.HIGH;
 	}
 
+	@Override
+	public boolean wrenchCanSetFacing(final EntityPlayer entityPlayer, final EnumFacing side) {
+		return false;
+	}
+
+	@Override
+	public EnumFacing getFacing() {
+		return this.getFacingEnum();
+	}
+
+	@Override
+	public boolean wrenchCanRemove(final EntityPlayer entityPlayer) {
+		return entityPlayer.isSneaking();
+	}
+
+	@Override
+	public float getWrenchDropRate() {
+		return 1.0F;
+	}
+
+	@Override
+	public ItemStack getWrenchDrop(final EntityPlayer p0) {
+		return new ItemStack(ModBlocks.LIGHTNING_ROD);
+	}
 }

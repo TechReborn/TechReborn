@@ -1,17 +1,22 @@
 package techreborn.tiles.generator;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
+
 import reborncore.api.power.EnumPowerTier;
+import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+
 import techreborn.blocks.generator.BlockSolarPanel;
+import techreborn.init.ModBlocks;
 
 import java.util.List;
 
 /**
  * Created by modmuss50 on 25/02/2016.
  */
-public class TileSolarPanel extends TilePowerAcceptor implements ITickable {
+public class TileSolarPanel extends TilePowerAcceptor implements IWrenchable {
 
 	boolean shouldMakePower = false;
 	boolean lastTickSate = false;
@@ -25,25 +30,25 @@ public class TileSolarPanel extends TilePowerAcceptor implements ITickable {
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		if (!world.isRemote) {
-			if (world.getTotalWorldTime() % 60 == 0) {
-				shouldMakePower = isSunOut();
+		if (!this.world.isRemote) {
+			if (this.world.getTotalWorldTime() % 60 == 0) {
+				this.shouldMakePower = this.isSunOut();
 
 			}
-			if (shouldMakePower) {
-				powerToAdd = 10;
-				addEnergy(powerToAdd);
+			if (this.shouldMakePower) {
+				this.powerToAdd = 10;
+				this.addEnergy(this.powerToAdd);
 			} else {
-				powerToAdd = 0;
+				this.powerToAdd = 0;
 			}
 
-			world.setBlockState(getPos(),
-				world.getBlockState(this.getPos()).withProperty(BlockSolarPanel.ACTIVE, isSunOut()));
+			this.world.setBlockState(this.getPos(),
+					this.world.getBlockState(this.getPos()).withProperty(BlockSolarPanel.ACTIVE, this.isSunOut()));
 		}
 	}
 
 	@Override
-	public void addInfo(List<String> info, boolean isRealTile) {
+	public void addInfo(final List<String> info, final boolean isRealTile) {
 		super.addInfo(info, isRealTile);
 		if (isRealTile) {
 			// FIXME: 25/02/2016
@@ -54,8 +59,8 @@ public class TileSolarPanel extends TilePowerAcceptor implements ITickable {
 	}
 
 	public boolean isSunOut() {
-		return world.canBlockSeeSky(pos.up()) && !world.isRaining() && !world.isThundering()
-			&& world.isDaytime();
+		return this.world.canBlockSeeSky(this.pos.up()) && !this.world.isRaining() && !this.world.isThundering()
+				&& this.world.isDaytime();
 	}
 
 	@Override
@@ -64,12 +69,12 @@ public class TileSolarPanel extends TilePowerAcceptor implements ITickable {
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction) {
+	public boolean canAcceptEnergy(final EnumFacing direction) {
 		return false;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnumFacing direction) {
+	public boolean canProvideEnergy(final EnumFacing direction) {
 		return true;
 	}
 
@@ -86,5 +91,30 @@ public class TileSolarPanel extends TilePowerAcceptor implements ITickable {
 	@Override
 	public EnumPowerTier getTier() {
 		return EnumPowerTier.LOW;
+	}
+
+	@Override
+	public boolean wrenchCanSetFacing(final EntityPlayer entityPlayer, final EnumFacing side) {
+		return false;
+	}
+
+	@Override
+	public EnumFacing getFacing() {
+		return this.getFacingEnum();
+	}
+
+	@Override
+	public boolean wrenchCanRemove(final EntityPlayer entityPlayer) {
+		return entityPlayer.isSneaking();
+	}
+
+	@Override
+	public float getWrenchDropRate() {
+		return 1.0F;
+	}
+
+	@Override
+	public ItemStack getWrenchDrop(final EntityPlayer p0) {
+		return new ItemStack(ModBlocks.SOLAR_PANEL);
 	}
 }
