@@ -13,12 +13,14 @@ import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Inventory;
+import reborncore.common.util.ItemUtils;
 
 import techreborn.api.Reference;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
+import techreborn.items.DynamicCell;
 
 public class TileIndustrialElectrolyzer extends TilePowerAcceptor
 		implements IWrenchable, IInventoryProvider, ISidedInventory, IRecipeCrafterProvider, IContainerProvider {
@@ -107,10 +109,12 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor
 	}
 
 	@Override
-	public boolean canInsertItem(final int slotIndex, final ItemStack itemStack, final EnumFacing side) {
-		if (slotIndex >= 1)
+	public boolean canInsertItem(final int slotIndex, final ItemStack stack, final EnumFacing side) {
+		if (slotIndex > 1)
 			return false;
-		return this.isItemValidForSlot(slotIndex, itemStack);
+		if(slotIndex == 1)
+			return ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true);
+		return !ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true);
 	}
 
 	@Override
@@ -168,8 +172,10 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("industrialelectrolyzer").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory().tile(this).slot(0, 80, 51).slot(1, 50, 51).outputSlot(2, 50, 19).outputSlot(3, 70, 19)
-				.outputSlot(4, 90, 19).outputSlot(5, 110, 19).energySlot(6, 18, 51).syncEnergyValue().syncCrafterValue()
-				.addInventory().create();
+				.addInventory().tile(this)
+				.filterSlot(1, 50, 51, stack -> ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true))
+				.filterSlot(0, 80, 51, stack -> !ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true))
+				.outputSlot(2, 50, 19).outputSlot(3, 70, 19).outputSlot(4, 90, 19).outputSlot(5, 110, 19)
+				.energySlot(6, 18, 51).syncEnergyValue().syncCrafterValue().addInventory().create();
 	}
 }

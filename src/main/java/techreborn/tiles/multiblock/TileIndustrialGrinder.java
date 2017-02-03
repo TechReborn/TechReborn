@@ -150,7 +150,7 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrencha
 	// ISidedInventory
 	@Override
 	public int[] getSlotsForFace(final EnumFacing side) {
-		return side == EnumFacing.DOWN ? new int[] { 0, 1, 2, 3, 4, 5 } : new int[] { 0, 1, 2, 3, 4, 5 };
+		return new int[] { 0, 1, 2, 3, 4, 5, 6 };
 	}
 
 	@Override
