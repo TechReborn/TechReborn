@@ -27,6 +27,7 @@ public class SmeltingRecipes extends RecipeMethods {
 		register(getMaterial("nickel", Type.DUST), getMaterial("nickel", Type.INGOT));
 		register(getMaterial("platinum", Type.DUST), getMaterial("platinum", Type.INGOT));
 		register(getMaterial("zinc", Type.DUST), getMaterial("zinc", Type.INGOT));
+		register(getMaterial("steel", Type.DUST), getMaterial("steel", Type.INGOT));
 	}
 
 	static void register(ItemStack input, ItemStack output) {

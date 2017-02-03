@@ -16,6 +16,16 @@ public class AlloySmelterRecipe extends BaseRecipe {
 			addOutput(output1);
 	}
 
+	public AlloySmelterRecipe(String input1, String input2, ItemStack output1, int tickTime, int euPerTick) {
+		super(Reference.alloySmelteRecipe, tickTime, euPerTick);
+		if (input1 != null)
+			addInput(input1);
+		if (input2 != null)
+			addInput(input2);
+		if (output1 != null)
+			addOutput(output1);
+	}
+
 	@Override
 	public String getUserFreindlyName() {
 		return "Alloy Smelter";

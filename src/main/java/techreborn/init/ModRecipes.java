@@ -20,6 +20,7 @@ import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.api.recipe.machines.*;
 import techreborn.blocks.BlockMachineFrame;
 import techreborn.blocks.BlockOre;
+import techreborn.blocks.BlockStorage;
 import techreborn.compat.CompatManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.recipes.*;
@@ -586,6 +587,10 @@ public class ModRecipes {
 					soulariumStack, 200, 16));
 		}
 
+		RecipeHandler.addRecipe(
+			new AlloySmelterRecipe("dustIron",
+				"dustCoal", ItemDusts.getDustByName("steel"), 300, 24));
+
 	}
 
 	static void addBlastFurnaceRecipes() {
@@ -610,8 +615,8 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsSmall.getSmallDustByName("chrome", 4), null,
 			ItemIngots.getIngotByName("chrome"), null, 4420, 120, 1700));
 		RecipeHandler.addRecipe(
-			new BlastFurnaceRecipe(ItemDusts.getDustByName("steel"), null, ItemIngots.getIngotByName("steel"), null,
-				2800, 120, 1000));
+			new BlastFurnaceRecipe(new ItemStack(Blocks.COAL_BLOCK), new ItemStack(Blocks.IRON_BLOCK), BlockStorage.getStorageBlockByName("steel"), null,
+				1400, 120, 1000));
 		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsSmall.getSmallDustByName("steel", 4), null,
 			ItemIngots.getIngotByName("steel"), null, 2800, 120, 1000));
 
