@@ -462,6 +462,8 @@ public class ModBlocks {
 			OreDictionary.registerOre("ore" + StringUtils.toFirstCapital(ore), BlockOre2.getOreByName(ore));
 		}
 
+		OreDictionary.registerOre("oreNickel", BlockOre2.getOreByName("garnierite"));
+		OreDictionary.registerOre("oreFerrous", BlockOre2.getOreByName("garnierite"));
 		OreDictionary.registerOre("blockSilver", BlockStorage.getStorageBlockByName("silver"));
 		OreDictionary.registerOre("blockAluminum", BlockStorage.getStorageBlockByName("aluminum"));
 		OreDictionary.registerOre("blockAluminium", BlockStorage.getStorageBlockByName("aluminum"));

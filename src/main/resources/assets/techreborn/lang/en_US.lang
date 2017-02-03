@@ -66,6 +66,7 @@ tile.techreborn.machineFrame.advancedMachine.name=Advanced Machine Block
 tile.techreborn.machineFrame.machine.name=Machine Block
 tile.techreborn.ore2.copper.name=Copper Ore
 tile.techreborn.ore2.tin.name=Tin Ore
+tile.techreborn.ore2.garnierite.name=Garnierite Ore
 tile.techreborn.solarpanel.name=Solar Panel
 tile.techreborn.watermill.name=Water Mill
 tile.techreborn.windmill.name=Wind Mill
