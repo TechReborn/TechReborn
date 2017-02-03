@@ -120,34 +120,34 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player,
-	                                                EnumHand hand) {
-		ItemStack stack = player.getHeldItem(hand);
+	public ActionResult<ItemStack> onItemRightClick(final World world, final EntityPlayer player,
+			final EnumHand hand) {
+		final ItemStack stack = player.getHeldItem(hand);
 		if (player.isSneaking()) {
-			if (!PoweredItem.canUseEnergy(cost, stack)) {
+			if (!PoweredItem.canUseEnergy(this.cost, stack)) {
 				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
-					TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.nanosaberEnergyErrorTo") + " "
-						+ TextFormatting.GOLD + I18n
-						.translateToLocal("techreborn.message.nanosaberActivate")));
+						TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.nanosaberEnergyErrorTo") + " "
+								+ TextFormatting.GOLD + I18n
+								.translateToLocal("techreborn.message.nanosaberActivate")));
 			} else {
 				if (stack.getTagCompound() == null || !stack.getTagCompound().getBoolean("isActive")) {
 					if (stack.getTagCompound() == null) {
 						stack.setTagCompound(new NBTTagCompound());
 					}
 					stack.getTagCompound().setBoolean("isActive", true);
-					if (!world.isRemote && ConfigTechReborn.NanosaberChat) {
+					if (world.isRemote && ConfigTechReborn.NanosaberChat) {
 						ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
-							TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.setTo") + " "
-								+ TextFormatting.GOLD + I18n
-								.translateToLocal("techreborn.message.nanosaberActive")));
+								TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.setTo") + " "
+										+ TextFormatting.GOLD + I18n
+										.translateToLocal("techreborn.message.nanosaberActive")));
 					}
 				} else {
 					stack.getTagCompound().setBoolean("isActive", false);
-					if (!world.isRemote && ConfigTechReborn.NanosaberChat) {
+					if (world.isRemote && ConfigTechReborn.NanosaberChat) {
 						ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
-							TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.setTo") + " "
-								+ TextFormatting.GOLD + I18n
-								.translateToLocal("techreborn.message.nanosaberInactive")));
+								TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.setTo") + " "
+										+ TextFormatting.GOLD + I18n
+										.translateToLocal("techreborn.message.nanosaberInactive")));
 					}
 				}
 			}
