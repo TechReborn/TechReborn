@@ -53,9 +53,9 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo {
 	}
 
 	@Override
-	public boolean canHarvestBlock(IBlockState state) {
-		// TODO needs // FIXME: 13/03/2016
-		return OreDictUtils.isOre(state, "stone") || state.getBlock().getMaterial(state) == Material.ROCK && PoweredItem.canUseEnergy(cost, null);
+	public boolean canHarvestBlock(final IBlockState state, final ItemStack stack) {
+		return OreDictUtils.isOre(state, "stone")
+				|| state.getBlock().getMaterial(state) == Material.ROCK && PoweredItem.canUseEnergy(this.cost, stack);
 	}
 
 	@Override
