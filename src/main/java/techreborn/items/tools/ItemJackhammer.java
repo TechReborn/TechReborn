@@ -60,7 +60,7 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo {
 
 	@Override
 	public float getStrVsBlock(ItemStack stack, IBlockState state) {
-		if ((OreDictUtils.isOre(state, "stone") || state.getBlock() == Blocks.STONE) && PoweredItem.canUseEnergy(cost, stack)) {
+		if ((OreDictUtils.isOre(state, "stone") || state.getBlock() == Blocks.STONE || state.getBlock().getMaterial(state) == Material.ROCK ) && PoweredItem.canUseEnergy(cost, stack)) {
 			return efficiencyOnProperMaterial;
 		} else {
 			return 0.5F;
