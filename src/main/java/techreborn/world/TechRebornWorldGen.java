@@ -59,9 +59,9 @@ public class TechRebornWorldGen implements IWorldGenerator {
 		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("tin"), 8, 16, 20, 60));
 		defaultConfig.overworldOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("garnierite"), 10, 2, 32, 128));
 
-		defaultConfig.neatherOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("Pyrite"), 6, 3, 10, 250));
-		defaultConfig.neatherOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("Cinnabar"), 6, 3, 10, 250));
-		defaultConfig.neatherOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("Sphalerite"), 6, 3, 10, 250));
+		defaultConfig.neatherOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("Pyrite"), 6, 3, 10, 126));
+		defaultConfig.neatherOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("Cinnabar"), 6, 3, 10, 126));
+		defaultConfig.neatherOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("Sphalerite"), 6, 3, 10, 126));
 
 		defaultConfig.endOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("Tungsten"), 6, 3, 10, 250));
 		defaultConfig.endOres.add(new OreConfig(ModBlocks.ORE.getBlockStateFromName("Sheldonite"), 6, 3, 10, 250));
