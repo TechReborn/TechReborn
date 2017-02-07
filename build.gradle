@@ -1,15 +1,15 @@
 buildscript {
     repositories {
-        mavenCentral()
+        jcenter()
         maven {
-            name = "forge"
-            url = "http://files.minecraftforge.net/maven"
-        }
-        maven {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+            name = "covers1624"
+            url = "http://maven.covers1624.net/"
         }
 		maven {
+            name = "covers1624"
+            url = "http://mavenmirror.covers1624.net/"
+        }
+	maven {
             name = "Modmuss50"
             url = "http://maven.modmuss50.me/"
         }
