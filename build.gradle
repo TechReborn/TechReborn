@@ -1,15 +1,15 @@
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()
         maven {
-            name = "covers1624"
-            url = "http://maven.covers1624.net/"
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
 		maven {
-            name = "covers1624"
-            url = "http://mavenmirror.covers1624.net/"
-        }
-	maven {
             name = "Modmuss50"
             url = "http://maven.modmuss50.me/"
         }
@@ -67,7 +67,7 @@ configurations {
 }
 
 
-version = "2.1.3"
+version = "2.1.4"
 
 def ENV = System.getenv()
 if (ENV.BUILD_NUMBER) {
