@@ -119,7 +119,7 @@ public class BlockPlayerDetector extends BlockMachineBase implements ITexturedBl
 			newType = "all";
 		}
 		world.setBlockState(pos, state.withProperty(TYPE, newType));
-		if (!world.isRemote) {
+		if (world.isRemote) {
 			ChatUtils.sendNoSpamMessages(MessageIDs.playerDetectorID, new TextComponentString(
 				TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.detects") + " " + color
 					+ StringUtils.toFirstCapital(newType)));
