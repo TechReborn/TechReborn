@@ -29,27 +29,17 @@ public class RubberTreeGenerator extends WorldGenerator {
 
 	@Override
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-		int x = position.getX();
-		int z = position.getZ();
 		int retries = rand.nextInt(3) + 2;
-		if (isWorldGen) {
-			for (int c = 0; c < retries; c++) {
-				int y = worldIn.getActualHeight() - 1;
-				while (worldIn.isAirBlock(new BlockPos(x, y, z)) && y > 0) {
-					y--;
-				}
-				if (!growTree(worldIn, rand, x, y + 1, z)) {
-					retries--;
-				}
-				x += rand.nextInt(16) - 8;
-				z += rand.nextInt(16) - 8;
-			}
-		} else {
-			int y = worldIn.getActualHeight() - 1;
+		for (int c = 0; c < retries; c++) {
+			int x = position.getX() + 8 + rand.nextInt(16);
+			int z = position.getZ() + 8 + rand.nextInt(16);
+			int y = worldIn.getHeight(x, z) - 1;
 			while (worldIn.isAirBlock(new BlockPos(x, y, z)) && y > 0) {
 				y--;
 			}
-			return growTree(worldIn, rand, x, y + 1, z);
+			if (!growTree(worldIn, rand, x, y + 1, z)) {
+				retries--;
+			}
 		}
 
 		return false;

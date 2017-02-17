@@ -268,18 +268,11 @@ public class TechRebornWorldGen implements IWorldGenerator {
 				chance = 1;
 			}
 			if (random.nextInt(chance) == 0) {
-				int x = (chunkX * 16) + random.nextInt(15);
-				int z = (chunkZ * 16) + random.nextInt(15);
+				int x = chunkX * 16;
+				int z = chunkZ * 16;
 				for (int i = 0; i < config.rubberTreeConfig.clusterSize; i++) {
-					int y = world.getActualHeight() - 1;
-					while (world.isAirBlock(new BlockPos(x, y, z)) && y > 0) {
-						y--;
-					}
 					treeGenerator.generate(world, random, new BlockPos(x, 72, z));
-					x += random.nextInt(16) - 8;
-					z += random.nextInt(16) - 8;
 				}
-
 			}
 			retroGen.markChunk(ChunkCoord.of(chunkX, chunkZ));
 		}
