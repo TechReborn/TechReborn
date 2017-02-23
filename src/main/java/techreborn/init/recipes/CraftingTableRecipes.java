@@ -110,7 +110,7 @@ public class CraftingTableRecipes extends RecipeMethods {
 		}
 
 		if (!IC2Duplicates.deduplicate()) {
-			registerShapeless(getMaterial("carbon_fiber", Type.PART), getMaterial("coal", Type.DUST), getMaterial("coal", Type.DUST), getMaterial("coal", Type.DUST), getMaterial("coal", Type.DUST));
+			registerShapeless(getMaterial("carbon_fiber", Type.PART), "dustCoal", "dustCoal", "dustCoal", "dustCoal");
 			registerShapeless(getMaterial("carbon_fiber", Type.PART), getMaterial("carbon", Type.CELL), getMaterial("carbon", Type.CELL), getMaterial("carbon", Type.CELL), getMaterial("carbon", Type.CELL), getMaterial("carbon", Type.CELL), getMaterial("carbon", Type.CELL), getMaterial("carbon", Type.CELL), getMaterial("carbon", Type.CELL), getMaterial("carbon", Type.CELL));
 			registerShapeless(getMaterial("carbon_mesh", Type.PART), getMaterial("carbon_fiber", Type.PART), getMaterial("carbon_fiber", Type.PART));
 		}
