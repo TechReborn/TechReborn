@@ -168,7 +168,7 @@ public class GuiBlastFurnace extends GuiBase {
 	}
 
 	public void addComponent(final int x, final int y, final int z, final IBlockState blockState, final Multiblock multiblock) {
-		multiblock.addComponent(new BlockPos(x, y, z), blockState);
+		multiblock.addComponent(new BlockPos(x, y, z).up(), blockState);
 	}
 
 }
