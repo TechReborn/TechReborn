@@ -179,6 +179,10 @@ public class IndustrialGrinderRecipes extends RecipeMethods {
 		if (oresExist("oreSaltpeter")) {
 			register(getOre("oreSaltpeter"), WATER, 100, 128, getMaterial("saltpeter", 2, Type.DUST), getMaterial("saltpeter", Type.SMALL_DUST));
 		}
+
+		register(new ItemStack(Blocks.END_STONE), WATER, 100, 128, getMaterial("endstone", 2, Type.DUST));
+		register(new ItemStack(Blocks.END_BRICKS), WATER, 100, 128, getMaterial("endstone", 4, Type.DUST));
+
 	}
 
 	static void register(ItemStack output, FluidStack fluid, int ticks, int euPerTick, ItemStack... inputs) {
