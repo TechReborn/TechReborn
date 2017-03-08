@@ -46,7 +46,6 @@ public class StackWIPHandler {
 	public StackWIPHandler() {
 		wipBlocks.add(ModBlocks.MAGICAL_ABSORBER);
 		wipBlocks.add(ModBlocks.CHUNK_LOADER);
-		wipBlocks.add(ModBlocks.CHARGE_O_MAT);
 		wipBlocks.add(ModBlocks.MAGIC_ENERGY_CONVERTER);
 
 		addHead("modmuss50");
