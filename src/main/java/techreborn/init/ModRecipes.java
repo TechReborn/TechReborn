@@ -275,7 +275,7 @@ public class ModRecipes {
 			new ItemStack(ModItems.LAPOTRONIC_ORB), 'C', new ItemStack(ModItems.ENERGY_CRYSTAL));
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.INTERDIMENSIONAL_SU), "PAP", "ACA", "PAP", 'P',
-			ItemPlates.getPlateByName("iridium"), 'C', new ItemStack(Blocks.ENDER_CHEST), 'A',
+			"plateIridium", 'C', new ItemStack(Blocks.ENDER_CHEST), 'A',
 			new ItemStack(ModBlocks.ADJUSTABLE_SU));
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.FUSION_CONTROL_COMPUTER), "CCC", "PTP", "CCC", 'P',
@@ -338,7 +338,7 @@ public class ModRecipes {
 
 		CraftingHelper
 			.addShapedOreRecipe(ItemParts.getPartByName("CoolantSix"), "TCT", "TPT", "TCT", 'T', "ingotTin", 'C',
-				ItemParts.getPartByName("CoolantTriple"), 'P', ItemPlates.getPlateByName("copper"));
+				ItemParts.getPartByName("CoolantTriple"), 'P', "plateCopper");
 
 		CraftingHelper
 			.addShapedOreRecipe(ItemParts.getPartByName("NaKCoolantSimple"), "TST", "PCP", "TST", 'T', "ingotTin",
@@ -364,7 +364,7 @@ public class ModRecipes {
 
 		CraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModItems.NANOSABER), "DC ", "DC ", "GLG",
-				'L', new ItemStack(ModItems.LAPOTRONIC_CRYSTAL), 'C', ItemPlates.getPlateByName("carbon"), 'D', "plateDiamond",
+				'L', new ItemStack(ModItems.LAPOTRONIC_CRYSTAL), 'C', "plateCarbon", 'D', "plateDiamond",
 				'G', ItemDustsSmall.getSmallDustByName("glowstone"));
 
 		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("diamondGrindingHead", 2), "TST", "SBS", "TST", 'T',
@@ -823,7 +823,7 @@ public class ModRecipes {
 		CraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModBlocks.ROLLING_MACHINE), "PCP", "MBM", "PCP", 'P', Blocks.PISTON,
 				'C', "circuitAdvanced", 'M', IC2Duplicates.COMPRESSOR.getStackBasedOnConfig(), 'B',
-				BlockMachineFrame.getFrameByName("machine", 1));
+				"machineBlockBasic");
 
 		// CraftingHelper.addShapedOreRecipe(new
 		// ItemStack(ModBlocks.electricCraftingTable),
@@ -940,7 +940,7 @@ public class ModRecipes {
 		if (ConfigTechReborn.ExpensiveSolar && !IC2Duplicates.deduplicate())
 			CraftingHelper
 				.addShapedOreRecipe(IC2Duplicates.SOLAR_PANEL.getStackBasedOnConfig(), "PPP", "SZS", "CGC", 'P',
-					"paneGlass", 'S', ItemPlates.getPlateByName("lazurite"), 'Z',
+					"paneGlass", 'S', "platelazurite", 'Z',
 					"plateCarbon", 'G',
 					IC2Duplicates.GENERATOR.getStackBasedOnConfig(), 'C',
 					"circuitBasic");
