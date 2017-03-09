@@ -38,6 +38,8 @@ import ic2.core.ref.TeBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import techreborn.Core;
+import techreborn.api.recipe.machines.ExtractorRecipe;
+import techreborn.items.ItemParts;
 
 /**
  * Created by modmuss50 on 16/07/2016.

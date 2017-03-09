@@ -29,6 +29,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.common.util.OreUtil;
+import reborncore.common.util.StringUtils;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.blocks.BlockMachineFrame;
 import techreborn.init.IC2Duplicates;
@@ -70,8 +71,39 @@ public abstract class RecipeMethods {
 		return ItemStack.EMPTY;
 	}
 
+	static Object getMaterialObjectFromType(String name, Type type) {
+		Object object = null;
+		if (type == Type.DUST) {
+			object = "dust" + StringUtils.toFirstCapital(name);
+		} else if (type == Type.SMALL_DUST) {
+			object = "dust" + StringUtils.toFirstCapital(name);
+		} else if (type == Type.INGOT) {
+			object = "ingot" + StringUtils.toFirstCapital(name);
+		} else if (type == Type.GEM) {
+			object = "gem" + StringUtils.toFirstCapital(name);
+		} else if (type == Type.PLATE) {
+			object = "plate" + StringUtils.toFirstCapital(name);
+		} else if (type == Type.NUGGET) {
+			object = "nugget" + StringUtils.toFirstCapital(name);
+		}
+		if(object != null){
+			if(object instanceof String){
+				if(OreUtil.doesOreExistAndValid((String) object)){
+					return object;
+				}
+			} else {
+				return object;
+			}
+		}
+		return getMaterial(name, type);
+	}
+
 	static ItemStack getMaterial(String name, Type type) {
 		return getMaterial(name, 1, type);
+	}
+
+	static Object getMaterialObject(String name, Type type) {
+		return getMaterialObjectFromType(name, type);
 	}
 
 	static ItemStack getOre(String name, int count) {
