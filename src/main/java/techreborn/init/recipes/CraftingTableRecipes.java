@@ -56,7 +56,9 @@ public class CraftingTableRecipes extends RecipeMethods {
 
 		registerShapeless(getStack(ModBlocks.RUBBER_PLANKS, 4), getStack(ModBlocks.RUBBER_LOG));
 
-		registerShapeless(getStack(ModItems.FREQUENCY_TRANSMITTER), getStack(IC2Duplicates.CABLE_ICOPPER), "circuitBasic");
+		if(!IC2Duplicates.deduplicate()){
+			registerShapeless(getStack(ModItems.FREQUENCY_TRANSMITTER), getStack(IC2Duplicates.CABLE_ICOPPER), "circuitBasic");
+		}
 
 		registerShaped(DynamicCell.getEmptyCell(16), " T ", "T T", " T ", 'T', "ingotTin");
 		registerShaped(getStack(ModBlocks.REFINED_IRON_FENCE), "RRR", "RRR", 'R', getStack(IC2Duplicates.REFINED_IRON));
