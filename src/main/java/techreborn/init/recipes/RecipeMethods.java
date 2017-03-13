@@ -76,7 +76,7 @@ public abstract class RecipeMethods {
 		if (type == Type.DUST) {
 			object = "dust" + StringUtils.toFirstCapital(name);
 		} else if (type == Type.SMALL_DUST) {
-			object = "dust" + StringUtils.toFirstCapital(name);
+			object = "smallDust" + StringUtils.toFirstCapital(name);
 		} else if (type == Type.INGOT) {
 			object = "ingot" + StringUtils.toFirstCapital(name);
 		} else if (type == Type.GEM) {
