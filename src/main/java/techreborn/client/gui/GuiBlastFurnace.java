@@ -81,7 +81,7 @@ public class GuiBlastFurnace extends GuiBase {
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
 		this.builder.drawProgressBar(this, this.tile.getProgressScaled(100), 100, 71, 40, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
-		this.builder.drawMultiEnergyBar(this, 9, 18, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		this.builder.drawMultiEnergyBar(this, 9, 19, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
 		this.builder.drawBigHeatBar(this, 31, 71, tile.getCachedHeat(), 3230, layer);
 		if (hasMultiBlock) {
 			addHologramButton(6, 4, 212, layer);
