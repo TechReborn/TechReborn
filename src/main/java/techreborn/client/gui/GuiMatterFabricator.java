@@ -24,52 +24,39 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
-
 import techreborn.tiles.TileMatterFabricator;
 
-public class GuiMatterFabricator extends GuiContainer {
+public class GuiMatterFabricator extends GuiBase {
 
-	private static final ResourceLocation texture = new ResourceLocation("techreborn",
-			"textures/gui/matterfabricator.png");
+	TileMatterFabricator tile;
 
-	TileMatterFabricator matterfab;
-
-	public GuiMatterFabricator(final EntityPlayer player, final TileMatterFabricator tilematterfab) {
-		super(tilematterfab.createContainer(player));
-		this.xSize = 176;
-		this.ySize = 167;
-		this.matterfab = tilematterfab;
+	public GuiMatterFabricator(final EntityPlayer player, final TileMatterFabricator tile) {
+		super(player, tile, tile.createContainer(player));
+		this.tile = tile;
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.getTextureManager().bindTexture(GuiMatterFabricator.texture);
-		final int k = (this.width - this.xSize) / 2;
-		final int l = (this.height - this.ySize) / 2;
-		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
+	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
+		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
+		final Layer layer = Layer.BACKGROUND;
 
-		final int j = this.matterfab.getProgressScaled(24);
-		if (j > 0) {
-			this.drawTexturedModalRect(k + 79, l + 34, 176, 14, j + 1, 16);
-		}
+		drawScrapSlot(30, 20, layer);
+		drawScrapSlot(50, 20, layer);
+		drawScrapSlot(70, 20, layer);
+		drawScrapSlot(90, 20, layer);
+		drawScrapSlot(110, 20, layer);
+		drawScrapSlot(130, 20, layer);
+		drawOutputSlotBar(39, 65, 5, layer);
+
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(final int p_146979_1_, final int p_146979_2_) {
-		final int k = (this.width - this.xSize) / 2;
-		final int l = (this.height - this.ySize) / 2;
-		final String name = I18n.translateToLocal("tile.techreborn.matterfabricator.name");
-		this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6,
-				4210752);
-		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,
-				this.ySize - 96 + 2, 4210752);
-		this.fontRendererObj.drawString(this.matterfab.getProgressScaled(100) + "%", 80, 50, 4210752);
-	}
+	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
+		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+		final Layer layer = Layer.FOREGROUND;
 
+		//this.builder.drawProgressBar(this, this.tile.getProgressScaled(100), 100, 105, 47, mouseX, mouseY, TRBuilder.ProgressDirection.DOWN, layer);
+		this.builder.drawMultiEnergyBar(this, 9, 19, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
+	}
 }

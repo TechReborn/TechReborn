@@ -336,6 +336,30 @@ public class TRBuilder extends GuiBuilder {
 		gui.drawTexturedModalRect(posX -27, posY + 4, 126, 151, 30, 87);
 	}
 
+	public void drawScrapSlot(GuiScreen gui, int posX, int posY) {
+		Minecraft.getMinecraft().getTextureManager().bindTexture(GUI_SHEET);
+		gui.drawTexturedModalRect(posX, posY, 150, 70, 18, 18);
+	}
+
+	public void drawOutputSlotBar(GuiScreen gui, int posX, int posY, int count) {
+		Minecraft.getMinecraft().getTextureManager().bindTexture(GUI_SHEET);
+		for (int i = 1; i <= count; i++) {
+			if (i == 1) {
+				gui.drawTexturedModalRect(posX, posY, 114, 218, 22, 26);
+				posX += 22;
+				if (1 == count) {
+					gui.drawTexturedModalRect(posX, posY, 136, 218, 4, 26);
+				}
+			} else if (i != 1 && i != count) {
+				gui.drawTexturedModalRect(posX, posY, 116, 218, 20, 26);
+				posX += 20;
+			} else if (i == count) {
+				gui.drawTexturedModalRect(posX, posY, 116, 218, 24, 26);
+				posX += 24;
+			}
+		}
+	}
+
 	public void drawOutputSlot(GuiScreen gui, int posX, int posY) {
 		Minecraft.getMinecraft().getTextureManager().bindTexture(GUI_SHEET);
 		gui.drawTexturedModalRect(posX, posY, 150, 18, 26, 26);
