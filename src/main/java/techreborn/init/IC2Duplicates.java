@@ -65,7 +65,8 @@ public enum IC2Duplicates {
 	MIXED_METAL(ItemIngots.getIngotByName("mixed_metal")),
 	CARBON_FIBER(ItemParts.getPartByName("carbon_fiber")),
 	CARBON_MESH(ItemParts.getPartByName("carbon_mesh")),
-	REFINED_IRON(ItemIngots.getIngotByName("refined_iron"));
+	REFINED_IRON(ItemIngots.getIngotByName("refined_iron")),
+	SCRAP(ItemParts.getPartByName("scrap"));
 
 	ItemStack ic2Stack;
 	ItemStack trStack;

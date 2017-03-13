@@ -38,6 +38,7 @@ import reborncore.common.util.ItemUtils;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
+import techreborn.init.IC2Duplicates;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
 import techreborn.items.ItemParts;
@@ -45,10 +46,9 @@ import techreborn.items.ItemParts;
 public class TileMatterFabricator extends TilePowerAcceptor
 		implements IWrenchable, IInventoryProvider, IContainerProvider {
 
-	public static int fabricationRate = 10000;
+	public int fabricationRate = 10000;
 	public int tickTime;
 	public Inventory inventory = new Inventory(7, "TileMatterFabricator", 64, this);
-	public int progresstime = 0;
 	private int amplifier = 0;
 
 	public TileMatterFabricator() {
@@ -106,9 +106,6 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	//		return slotIndex == 6;
 	//	}
 
-	public int maxProgresstime() {
-		return TileMatterFabricator.fabricationRate;
-	}
 
 	@Override
 	public void updateEntity() {
@@ -117,34 +114,22 @@ public class TileMatterFabricator extends TilePowerAcceptor
 		if (!super.world.isRemote) {
 			for (int i = 0; i < 6; i++) {
 				final ItemStack stack = this.inventory.getStackInSlot(i);
-				if (this.amplifier < 10000 && stack != ItemStack.EMPTY) {
-					final int amp = this.getValue(stack) / 32;
-					if (ItemUtils.isItemEqual(stack, this.inventory.getStackInSlot(i), true, true)) {
-						if (this.canUseEnergy(1)) {
-							this.useEnergy(1);
-							this.amplifier += amp;
-							this.inventory.decrStackSize(i, 1);
-						}
+				if (stack != null) {
+					final int amp = this.getValue(stack);
+					if(amp != 0 && this.canUseEnergy(85)){
+						this.useEnergy(85);
+						this.amplifier += amp;
+						this.inventory.decrStackSize(i, 1);
 					}
 				}
 			}
 
-			if (this.amplifier > 0) {
-				if (this.amplifier > this.getEnergy()) {
-					this.progresstime += this.getEnergy();
-					this.amplifier -= this.getEnergy();
-					this.decreaseStoredEnergy(this.getEnergy(), true);
-				} else {
-					this.progresstime += this.amplifier;
-					this.decreaseStoredEnergy(this.amplifier, true);
-					this.amplifier = 0;
+			if(amplifier >= fabricationRate){
+				if(spaceForOutput()){
+					this.addOutputProducts();
+					amplifier -= fabricationRate;
 				}
 			}
-			if (this.progresstime > this.maxProgresstime() && this.spaceForOutput()) {
-				this.progresstime -= this.maxProgresstime();
-				this.addOutputProducts();
-			}
-
 		}
 
 	}
@@ -176,26 +161,22 @@ public class TileMatterFabricator extends TilePowerAcceptor
 				return true;
 			}
 		}
+
 	}
 
-	// TODO ic2
 	public int getValue(final ItemStack itemStack) {
-		// int value = getValue(Recipes.matterAmplifier.getOutputFor(itemStack,
-		// false));
 		if (itemStack.getItem() == ModItems.PARTS && itemStack.getItemDamage() == ItemParts.getPartByName("scrap").getItemDamage()) {
-			return 5000;
+			return 200;
 		} else if (itemStack.getItem() == ModItems.SCRAP_BOX) {
-			return 45000;
+			return 2000;
+		}
+		if(IC2Duplicates.SCRAP.hasIC2Stack()){
+			if(ItemUtils.isInputEqual(itemStack, IC2Duplicates.SCRAP.getIc2Stack(), true, true, true)){
+				return 200;
+			}
 		}
 		return 0;
 	}
-
-	// private static Integer getValue(RecipeOutput output) {
-	// if (output != null && output.metadata != null) {
-	// return output.metadata.getInteger("amplification");
-	// }
-	// return 0;
-	// }
 
 	@Override
 	public double getMaxPower() {
@@ -233,16 +214,16 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	}
 
 	public int getProgress() {
-		return this.progresstime;
+		return this.amplifier;
 	}
 
 	public void setProgress(final int progress) {
-		this.progresstime = progress;
+		this.amplifier = progress;
 	}
 
 	public int getProgressScaled(final int scale) {
-		if (this.progresstime != 0) {
-			return this.progresstime * scale / this.maxProgresstime();
+		if (this.amplifier != 0) {
+			return Math.min(this.amplifier * scale / fabricationRate, 100);
 		}
 		return 0;
 	}
