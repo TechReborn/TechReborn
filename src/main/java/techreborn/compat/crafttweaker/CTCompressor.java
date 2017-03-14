@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.compat.minetweaker;
+package techreborn.compat.crafttweaker;
 
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
@@ -31,16 +31,22 @@ import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import techreborn.api.Reference;
-import techreborn.api.recipe.machines.VacuumFreezerRecipe;
+import techreborn.api.recipe.machines.CompressorRecipe;
 
-@ZenClass("mods.techreborn.vacuumFreezer")
-public class MTVacuumFreezer extends MTGeneric {
+/*
+ * mods.techreborn.compressor.addRecipe(<minecraft:clay>,<minecraft:clay_ball>, 40,100);
+ */
+
+@ZenClass("mods.techreborn.compressor")
+public class CTCompressor extends CTGeneric {
 
 	@ZenMethod
-	public static void addRecipe(IItemStack output, IIngredient input, int ticktime, int euTick) {
-		ItemStack oInput1 = (ItemStack) MinetweakerCompat.toObject(input);
+	public static void addRecipe(IItemStack output1, IIngredient input1, int ticktime, int euTick) {
+		ItemStack oInput1 = (ItemStack) CraftTweakerCompat.toObject(input1);
 
-		VacuumFreezerRecipe r = new VacuumFreezerRecipe(oInput1, MinetweakerCompat.toStack(output), ticktime, euTick);
+		//public CompressorRecipe(ItemStack input1, ItemStack output1, int tickTime, int euPerTick) {
+		CompressorRecipe r = new CompressorRecipe(oInput1, CraftTweakerCompat.toStack(output1), ticktime, euTick);
+
 		addRecipe(r);
 	}
 
@@ -51,10 +57,10 @@ public class MTVacuumFreezer extends MTGeneric {
 
 	@ZenMethod
 	public static void removeRecipe(IItemStack output) {
-		MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(output), getMachineName()));
+		MineTweakerAPI.apply(new Remove(CraftTweakerCompat.toStack(output), getMachineName()));
 	}
 
 	public static String getMachineName() {
-		return Reference.vacuumFreezerRecipe;
+		return Reference.compressorRecipe;
 	}
 }

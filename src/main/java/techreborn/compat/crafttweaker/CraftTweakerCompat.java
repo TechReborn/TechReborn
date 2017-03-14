@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.compat.minetweaker;
+package techreborn.compat.crafttweaker;
 
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
@@ -42,7 +42,7 @@ import techreborn.compat.ICompatModule;
 import static minetweaker.api.minecraft.MineTweakerMC.getItemStack;
 import static minetweaker.api.minecraft.MineTweakerMC.getLiquidStack;
 
-public class MinetweakerCompat implements ICompatModule {
+public class CraftTweakerCompat implements ICompatModule {
 	public static ItemStack toStack(IItemStack iStack) {
 		return getItemStack(iStack);
 	}
@@ -79,20 +79,20 @@ public class MinetweakerCompat implements ICompatModule {
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
-		MineTweakerAPI.registerClass(MTAlloySmelter.class);
-		MineTweakerAPI.registerClass(MTAssemblingMachine.class);
-		MineTweakerAPI.registerClass(MTBlastFurnace.class);
-		MineTweakerAPI.registerClass(MTCentrifuge.class);
-		MineTweakerAPI.registerClass(MTChemicalReactor.class);
-		MineTweakerAPI.registerClass(MTCompressor.class);
-		MineTweakerAPI.registerClass(MTIndustrialGrinder.class);
-		MineTweakerAPI.registerClass(MTImplosionCompressor.class);
-		MineTweakerAPI.registerClass(MTIndustrialElectrolyzer.class);
-		MineTweakerAPI.registerClass(MTIndustrialSawmill.class);
-		MineTweakerAPI.registerClass(MTFusionReactor.class);
-		MineTweakerAPI.registerClass(MTVacuumFreezer.class);
-		MineTweakerAPI.registerClass(MTGenerator.class);
-		MineTweakerAPI.registerClass(MTRollingMachine.class);
+		MineTweakerAPI.registerClass(CTAlloySmelter.class);
+		MineTweakerAPI.registerClass(CTAssemblingMachine.class);
+		MineTweakerAPI.registerClass(CTBlastFurnace.class);
+		MineTweakerAPI.registerClass(CTCentrifuge.class);
+		MineTweakerAPI.registerClass(CTChemicalReactor.class);
+		MineTweakerAPI.registerClass(CTCompressor.class);
+		MineTweakerAPI.registerClass(CTIndustrialGrinder.class);
+		MineTweakerAPI.registerClass(CTImplosionCompressor.class);
+		MineTweakerAPI.registerClass(CTIndustrialElectrolyzer.class);
+		MineTweakerAPI.registerClass(CTIndustrialSawmill.class);
+		MineTweakerAPI.registerClass(CTFusionReactor.class);
+		MineTweakerAPI.registerClass(CTVacuumFreezer.class);
+		MineTweakerAPI.registerClass(CTGenerator.class);
+		MineTweakerAPI.registerClass(CTRollingMachine.class);
 	}
 
 	@Override

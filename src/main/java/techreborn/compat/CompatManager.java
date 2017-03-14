@@ -29,7 +29,7 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import techreborn.client.render.parts.ClientPartLoader;
 import techreborn.compat.ic2.RecipesIC2;
-import techreborn.compat.minetweaker.MinetweakerCompat;
+import techreborn.compat.crafttweaker.CraftTweakerCompat;
 import techreborn.compat.theoneprobe.CompactTheOneProbe;
 import techreborn.compat.tinkers.CompatModuleTinkers;
 import techreborn.compat.waila.CompatModuleWaila;
@@ -50,7 +50,7 @@ public class CompatManager {
 	public CompatManager() {
 		isIC2Loaded = Loader.isModLoaded("IC2");
 		isQuantumStorageLoaded = Loader.isModLoaded("quantumstorage");
-		register(MinetweakerCompat.class, "MineTweaker3");
+		register(CraftTweakerCompat.class, "crafttweaker");
 		registerCompact(TechRebornParts.class, false, "reborncore-mcmultipart");
 		registerCompact(ClientPartLoader.class, false, "reborncore-mcmultipart", "@client");
 		registerCompact(StandalonePartCompact.class, false, "!reborncore-mcmultipart");

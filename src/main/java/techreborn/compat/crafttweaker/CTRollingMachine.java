@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.compat.minetweaker;
+package techreborn.compat.crafttweaker;
 
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
@@ -40,7 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ZenClass("mods.techreborn.rollingMachine")
-public class MTRollingMachine {
+public class CTRollingMachine {
 
 	@ZenMethod
 	public static void addShaped(IItemStack output, IIngredient[][] ingredients) {
@@ -56,7 +56,7 @@ public class MTRollingMachine {
 	public static void removeRecipe(IItemStack output) {
 		List<IRecipe> toRemove = new ArrayList<>();
 		for (IRecipe recipe : RollingMachineRecipe.instance.getRecipeList()) {
-			if (ItemUtils.isItemEqual(recipe.getRecipeOutput(), MinetweakerCompat.toStack(output), true, false)) {
+			if (ItemUtils.isItemEqual(recipe.getRecipeOutput(), CraftTweakerCompat.toStack(output), true, false)) {
 				toRemove.add(recipe);
 			}
 		}

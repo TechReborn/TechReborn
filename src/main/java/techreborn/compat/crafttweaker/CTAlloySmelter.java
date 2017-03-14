@@ -22,39 +22,31 @@
  * SOFTWARE.
  */
 
-package techreborn.compat.minetweaker;
+package techreborn.compat.crafttweaker;
 
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
-import minetweaker.api.liquid.ILiquidStack;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import techreborn.api.Reference;
-import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
+import techreborn.api.recipe.machines.AlloySmelterRecipe;
 
-@ZenClass("mods.techreborn.grinder")
-public class MTIndustrialGrinder extends MTGeneric {
+/**
+ * mods.techreborn.alloySmelter.addRecipe(<minecraft:gold_ingot>, <minecraft:iron_ingot>, <minecraft:diamond>, 20, 100);
+ */
+
+@ZenClass("mods.techreborn.alloySmelter")
+public class CTAlloySmelter extends CTGeneric {
 
 	@ZenMethod
-	public static void addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient input1, IIngredient input2, int ticktime, int euTick) {
-		addRecipe(output1, output2, output3, output4, input1, input2, null, ticktime, euTick);
-	}
+	public static void addRecipe(IItemStack output, IIngredient input1, IIngredient input2, int ticktime, int euTick) {
+		ItemStack oInput1 = (ItemStack) CraftTweakerCompat.toObject(input1);
+		ItemStack oInput2 = (ItemStack) CraftTweakerCompat.toObject(input2);
 
-	@ZenMethod
-	public static void addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient input1, IIngredient input2, ILiquidStack fluid, int ticktime, int euTick) {
-		ItemStack oInput1 = (ItemStack) MinetweakerCompat.toObject(input1);
+		AlloySmelterRecipe r = new AlloySmelterRecipe(oInput1, oInput2, CraftTweakerCompat.toStack(output), ticktime, euTick);
 
-		ItemStack oInput2 = (ItemStack) MinetweakerCompat.toObject(input2);
-
-		FluidStack fluidStack = null;
-		if (fluid != null) {
-			fluidStack = MinetweakerCompat.toFluidStack(fluid);
-		}
-
-		IndustrialGrinderRecipe r = new IndustrialGrinderRecipe(oInput1, fluidStack, MinetweakerCompat.toStack(output1),MinetweakerCompat.toStack(output2),  MinetweakerCompat.toStack(output3), MinetweakerCompat.toStack(output4), ticktime, euTick);
 		addRecipe(r);
 	}
 
@@ -65,10 +57,10 @@ public class MTIndustrialGrinder extends MTGeneric {
 
 	@ZenMethod
 	public static void removeRecipe(IItemStack output) {
-		MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(output), getMachineName()));
+		MineTweakerAPI.apply(new Remove(CraftTweakerCompat.toStack(output), getMachineName()));
 	}
 
 	public static String getMachineName() {
-		return Reference.industrialGrinderRecipe;
+		return Reference.alloySmelteRecipe;
 	}
 }

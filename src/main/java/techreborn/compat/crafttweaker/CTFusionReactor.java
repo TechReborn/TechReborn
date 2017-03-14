@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.compat.minetweaker;
+package techreborn.compat.crafttweaker;
 
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
@@ -40,11 +40,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ZenClass("mods.techreborn.fusionReactor")
-public class MTFusionReactor {
+public class CTFusionReactor {
 
 	@ZenMethod
 	public static void addRecipe(IIngredient topInput, IIngredient bottomInput, IItemStack output, int startEU, int euTick, int tickTime) {
-		FusionReactorRecipe reactorRecipe = new FusionReactorRecipe((ItemStack) MinetweakerCompat.toObject(topInput), (ItemStack) MinetweakerCompat.toObject(bottomInput), MinetweakerCompat.toStack(output), startEU, euTick, tickTime);
+		FusionReactorRecipe reactorRecipe = new FusionReactorRecipe((ItemStack) CraftTweakerCompat.toObject(topInput), (ItemStack) CraftTweakerCompat.toObject(bottomInput), CraftTweakerCompat.toStack(output), startEU, euTick, tickTime);
 		MineTweakerAPI.apply(new Add(reactorRecipe));
 	}
 
@@ -98,7 +98,7 @@ public class MTFusionReactor {
 
 	@ZenMethod
 	public static void removeRecipe(IItemStack output) {
-		MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(output)));
+		MineTweakerAPI.apply(new Remove(CraftTweakerCompat.toStack(output)));
 	}
 
 	private static class Remove implements IUndoableAction {

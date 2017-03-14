@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.compat.minetweaker;
+package techreborn.compat.crafttweaker;
 
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
@@ -37,7 +37,7 @@ import techreborn.api.recipe.BaseRecipe;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MTGeneric {
+public class CTGeneric {
 	public static String getMachineName() {
 		return null;
 	}

@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.compat.minetweaker;
+package techreborn.compat.crafttweaker;
 
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
@@ -31,17 +31,17 @@ import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import techreborn.api.Reference;
-import techreborn.api.recipe.machines.AssemblingMachineRecipe;
+import techreborn.api.recipe.machines.IndustrialElectrolyzerRecipe;
 
-@ZenClass("mods.techreborn.assemblingMachine")
-public class MTAssemblingMachine extends MTGeneric {
+@ZenClass("mods.techreborn.industrialElectrolyzer")
+public class CTIndustrialElectrolyzer extends CTGeneric {
 
 	@ZenMethod
-	public static void addRecipe(IItemStack output, IIngredient input1, IIngredient input2, int ticktime, int euTick) {
-		ItemStack oInput1 = (ItemStack) MinetweakerCompat.toObject(input1);
-		ItemStack oInput2 = (ItemStack) MinetweakerCompat.toObject(input2);
+	public static void addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient cells, IIngredient input2, int ticktime, int euTick) {
+		ItemStack oInput1 = (ItemStack) CraftTweakerCompat.toObject(cells);
+		ItemStack oInput2 = (ItemStack) CraftTweakerCompat.toObject(input2);
 
-		AssemblingMachineRecipe r = new AssemblingMachineRecipe(oInput1, oInput2, MinetweakerCompat.toStack(output), ticktime, euTick);
+		IndustrialElectrolyzerRecipe r = new IndustrialElectrolyzerRecipe(oInput1, oInput2, CraftTweakerCompat.toStack(output1), CraftTweakerCompat.toStack(output2), CraftTweakerCompat.toStack(output3), CraftTweakerCompat.toStack(output4), ticktime, euTick);
 
 		addRecipe(r);
 	}
@@ -53,11 +53,10 @@ public class MTAssemblingMachine extends MTGeneric {
 
 	@ZenMethod
 	public static void removeRecipe(IItemStack output) {
-		MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(output), getMachineName()));
+		MineTweakerAPI.apply(new Remove(CraftTweakerCompat.toStack(output), getMachineName()));
 	}
 
 	public static String getMachineName() {
-		return Reference.assemblingMachineRecipe;
+		return Reference.industrialElectrolyzerRecipe;
 	}
-
 }

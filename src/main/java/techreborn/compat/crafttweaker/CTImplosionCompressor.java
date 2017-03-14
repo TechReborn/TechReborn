@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.compat.minetweaker;
+package techreborn.compat.crafttweaker;
 
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
@@ -31,17 +31,17 @@ import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import techreborn.api.Reference;
-import techreborn.api.recipe.machines.BlastFurnaceRecipe;
+import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
 
-@ZenClass("mods.techreborn.blastFurnace")
-public class MTBlastFurnace extends MTGeneric {
+@ZenClass("mods.techreborn.implosionCompressor")
+public class CTImplosionCompressor extends CTGeneric {
 
 	@ZenMethod
-	public static void addRecipe(IItemStack output1, IItemStack output2, IIngredient input1, IIngredient input2, int ticktime, int euTick, int neededHeat) {
-		ItemStack oInput1 = (ItemStack) MinetweakerCompat.toObject(input1);
-		ItemStack oInput2 = (ItemStack) MinetweakerCompat.toObject(input2);
+	public static void addRecipe(IItemStack output1, IItemStack output2, IIngredient input1, IIngredient input2, int ticktime, int euTick) {
+		ItemStack oInput1 = (ItemStack) CraftTweakerCompat.toObject(input1);
+		ItemStack oInput2 = (ItemStack) CraftTweakerCompat.toObject(input2);
 
-		BlastFurnaceRecipe r = new BlastFurnaceRecipe(oInput1, oInput2, MinetweakerCompat.toStack(output1), MinetweakerCompat.toStack(output2), ticktime, euTick, neededHeat);
+		ImplosionCompressorRecipe r = new ImplosionCompressorRecipe(oInput1, oInput2, CraftTweakerCompat.toStack(output1), CraftTweakerCompat.toStack(output2), ticktime, euTick);
 
 		addRecipe(r);
 	}
@@ -53,10 +53,10 @@ public class MTBlastFurnace extends MTGeneric {
 
 	@ZenMethod
 	public static void removeRecipe(IItemStack output) {
-		MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(output), getMachineName()));
+		MineTweakerAPI.apply(new Remove(CraftTweakerCompat.toStack(output), getMachineName()));
 	}
 
 	public static String getMachineName() {
-		return Reference.blastFurnaceRecipe;
+		return Reference.implosionCompressorRecipe;
 	}
 }

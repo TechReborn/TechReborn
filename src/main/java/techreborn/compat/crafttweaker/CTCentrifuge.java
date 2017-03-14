@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.compat.minetweaker;
+package techreborn.compat.crafttweaker;
 
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
@@ -31,21 +31,17 @@ import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import techreborn.api.Reference;
-import techreborn.api.recipe.machines.CompressorRecipe;
+import techreborn.api.recipe.machines.CentrifugeRecipe;
 
-/*
- * mods.techreborn.compressor.addRecipe(<minecraft:clay>,<minecraft:clay_ball>, 40,100);
- */
-
-@ZenClass("mods.techreborn.compressor")
-public class MTCompressor extends MTGeneric {
+@ZenClass("mods.techreborn.centrifuge")
+public class CTCentrifuge extends CTGeneric {
 
 	@ZenMethod
-	public static void addRecipe(IItemStack output1, IIngredient input1, int ticktime, int euTick) {
-		ItemStack oInput1 = (ItemStack) MinetweakerCompat.toObject(input1);
+	public static void addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient input1, IIngredient input2, int ticktime, int euTick) {
+		ItemStack oInput1 = (ItemStack) CraftTweakerCompat.toObject(input1);
+		ItemStack oInput2 = (ItemStack) CraftTweakerCompat.toObject(input2);
 
-		//public CompressorRecipe(ItemStack input1, ItemStack output1, int tickTime, int euPerTick) {
-		CompressorRecipe r = new CompressorRecipe(oInput1, MinetweakerCompat.toStack(output1), ticktime, euTick);
+		CentrifugeRecipe r = new CentrifugeRecipe(oInput1, oInput2, CraftTweakerCompat.toStack(output1), CraftTweakerCompat.toStack(output2), CraftTweakerCompat.toStack(output3), CraftTweakerCompat.toStack(output4), ticktime, euTick);
 
 		addRecipe(r);
 	}
@@ -57,10 +53,10 @@ public class MTCompressor extends MTGeneric {
 
 	@ZenMethod
 	public static void removeRecipe(IItemStack output) {
-		MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(output), getMachineName()));
+		MineTweakerAPI.apply(new Remove(CraftTweakerCompat.toStack(output), getMachineName()));
 	}
 
 	public static String getMachineName() {
-		return Reference.compressorRecipe;
+		return Reference.centrifugeRecipe;
 	}
 }

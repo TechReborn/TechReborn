@@ -22,16 +22,16 @@
  * SOFTWARE.
  */
 
-package techreborn.compat.minetweaker;
+package techreborn.compat.crafttweaker;
 
 import minetweaker.api.liquid.ILiquidStack;
 import reborncore.api.fuel.FluidPowerManager;
 import stanhebben.zenscript.annotations.ZenClass;
 
 @ZenClass("mods.techreborn.generator")
-public class MTGenerator {
+public class CTGenerator {
 	public static void addFluidPower(ILiquidStack fluid, double value) {
-		FluidPowerManager.fluidPowerValues.put(MinetweakerCompat.toFluidStack(fluid).getFluid(), value);
+		FluidPowerManager.fluidPowerValues.put(CraftTweakerCompat.toFluidStack(fluid).getFluid(), value);
 	}
 
 }

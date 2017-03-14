@@ -22,27 +22,39 @@
  * SOFTWARE.
  */
 
-package techreborn.compat.minetweaker;
+package techreborn.compat.crafttweaker;
 
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
+import minetweaker.api.liquid.ILiquidStack;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import techreborn.api.Reference;
-import techreborn.api.recipe.machines.CentrifugeRecipe;
+import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
 
-@ZenClass("mods.techreborn.centrifuge")
-public class MTCentrifuge extends MTGeneric {
+@ZenClass("mods.techreborn.grinder")
+public class CTIndustrialGrinder extends CTGeneric {
 
 	@ZenMethod
 	public static void addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient input1, IIngredient input2, int ticktime, int euTick) {
-		ItemStack oInput1 = (ItemStack) MinetweakerCompat.toObject(input1);
-		ItemStack oInput2 = (ItemStack) MinetweakerCompat.toObject(input2);
+		addRecipe(output1, output2, output3, output4, input1, input2, null, ticktime, euTick);
+	}
 
-		CentrifugeRecipe r = new CentrifugeRecipe(oInput1, oInput2, MinetweakerCompat.toStack(output1), MinetweakerCompat.toStack(output2), MinetweakerCompat.toStack(output3), MinetweakerCompat.toStack(output4), ticktime, euTick);
+	@ZenMethod
+	public static void addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient input1, IIngredient input2, ILiquidStack fluid, int ticktime, int euTick) {
+		ItemStack oInput1 = (ItemStack) CraftTweakerCompat.toObject(input1);
 
+		ItemStack oInput2 = (ItemStack) CraftTweakerCompat.toObject(input2);
+
+		FluidStack fluidStack = null;
+		if (fluid != null) {
+			fluidStack = CraftTweakerCompat.toFluidStack(fluid);
+		}
+
+		IndustrialGrinderRecipe r = new IndustrialGrinderRecipe(oInput1, fluidStack, CraftTweakerCompat.toStack(output1), CraftTweakerCompat.toStack(output2),  CraftTweakerCompat.toStack(output3), CraftTweakerCompat.toStack(output4), ticktime, euTick);
 		addRecipe(r);
 	}
 
@@ -53,10 +65,10 @@ public class MTCentrifuge extends MTGeneric {
 
 	@ZenMethod
 	public static void removeRecipe(IItemStack output) {
-		MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(output), getMachineName()));
+		MineTweakerAPI.apply(new Remove(CraftTweakerCompat.toStack(output), getMachineName()));
 	}
 
 	public static String getMachineName() {
-		return Reference.centrifugeRecipe;
+		return Reference.industrialGrinderRecipe;
 	}
 }

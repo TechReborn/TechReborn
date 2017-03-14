@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.compat.minetweaker;
+package techreborn.compat.crafttweaker;
 
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
@@ -36,7 +36,7 @@ import techreborn.api.Reference;
 import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
 
 @ZenClass("mods.techreborn.industrialSawmill")
-public class MTIndustrialSawmill extends MTGeneric {
+public class CTIndustrialSawmill extends CTGeneric {
 
 	@ZenMethod
 	public static void addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IIngredient input1, IIngredient input2, ILiquidStack fluid, int ticktime, int euTick) {
@@ -55,16 +55,16 @@ public class MTIndustrialSawmill extends MTGeneric {
 
 	@ZenMethod
 	public static void addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IIngredient input1, IIngredient input2, ILiquidStack fluid, int ticktime, int euTick, boolean useOreDic) {
-		ItemStack oInput1 = (ItemStack) MinetweakerCompat.toObject(input1);
+		ItemStack oInput1 = (ItemStack) CraftTweakerCompat.toObject(input1);
 
-		ItemStack oInput2 = (ItemStack) MinetweakerCompat.toObject(input2);
+		ItemStack oInput2 = (ItemStack) CraftTweakerCompat.toObject(input2);
 
 		FluidStack fluidStack = null;
 		if (fluid != null) {
-			fluidStack = MinetweakerCompat.toFluidStack(fluid);
+			fluidStack = CraftTweakerCompat.toFluidStack(fluid);
 		}
 
-		IndustrialSawmillRecipe r = new IndustrialSawmillRecipe(oInput1, oInput2, fluidStack, MinetweakerCompat.toStack(output1), MinetweakerCompat.toStack(output2), MinetweakerCompat.toStack(output3), ticktime, euTick, useOreDic);
+		IndustrialSawmillRecipe r = new IndustrialSawmillRecipe(oInput1, oInput2, fluidStack, CraftTweakerCompat.toStack(output1), CraftTweakerCompat.toStack(output2), CraftTweakerCompat.toStack(output3), ticktime, euTick, useOreDic);
 
 		addRecipe(r);
 	}
@@ -76,7 +76,7 @@ public class MTIndustrialSawmill extends MTGeneric {
 
 	@ZenMethod
 	public static void removeRecipe(IItemStack output) {
-		MineTweakerAPI.apply(new Remove(MinetweakerCompat.toStack(output), getMachineName()));
+		MineTweakerAPI.apply(new Remove(CraftTweakerCompat.toStack(output), getMachineName()));
 	}
 
 	public static String getMachineName() {
