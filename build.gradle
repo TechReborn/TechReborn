@@ -48,7 +48,7 @@ repositories {
     }
 	ivy {
 		name "CraftTweaker"
-		artifactPattern "https://addons-origin.cursecdn.com/files/2392/420/[module]-[revision](-[classifier]).[ext]"
+		artifactPattern "https://addons-origin.cursecdn.com/files/2338/490/[module]-[revision](-[classifier]).[ext]"
 	}
     maven {
         url 'http://maven.epoxide.xyz'
@@ -110,7 +110,7 @@ dependencies {
 	//deobfCompile "slimeknights:TConstruct:1.10.2-2.5.3.jenkins384"
 	//deobfCompile "slimeknights.mantle:Mantle:1.10.2-1.0.0.jenkins170"
 	deobfCompile "mcjty.theoneprobe:TheOneProbe:1.11-1.3.3-46"
-	compile "CraftTweaker:CraftTweaker:1.10.2-3.0.24"
+	compile "CraftTweaker:CraftTweaker:1.11.2-3.0.24"
 
 	compileOnly 'net.industrial-craft:industrialcraft-2:2.6.129-ex110'
 }
