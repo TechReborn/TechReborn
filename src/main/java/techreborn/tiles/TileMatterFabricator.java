@@ -27,14 +27,12 @@ package techreborn.tiles;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
-
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
@@ -44,7 +42,7 @@ import techreborn.init.ModItems;
 import techreborn.items.ItemParts;
 
 public class TileMatterFabricator extends TilePowerAcceptor
-		implements IWrenchable, IInventoryProvider, IContainerProvider {
+	implements IWrenchable, IInventoryProvider, IContainerProvider {
 
 	public int fabricationRate = 10000;
 	public int tickTime;
@@ -55,6 +53,27 @@ public class TileMatterFabricator extends TilePowerAcceptor
 		super(6);
 		// TODO configs
 	}
+
+	//	// ISidedInventory
+	//	@Override
+	//	public int[] getSlotsForFace(EnumFacing side)
+	//	{
+	//		return side == EnumFacing.DOWN ? new int[] { 0, 1, 2, 3, 4, 5, 6 } : new int[] { 0, 1, 2, 3, 4, 5, 6 };
+	//	}
+	//
+	//	@Override
+	//	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side)
+	//	{
+	//		if (slotIndex == 6)
+	//			return false;
+	//		return isItemValidForSlot(slotIndex, itemStack);
+	//	}
+	//
+	//	@Override
+	//	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side)
+	//	{
+	//		return slotIndex == 6;
+	//	}
 
 	@Override
 	public boolean wrenchCanSetFacing(final EntityPlayer entityPlayer, final EnumFacing side) {
@@ -85,28 +104,6 @@ public class TileMatterFabricator extends TilePowerAcceptor
 		return false;
 	}
 
-	//	// ISidedInventory
-	//	@Override
-	//	public int[] getSlotsForFace(EnumFacing side)
-	//	{
-	//		return side == EnumFacing.DOWN ? new int[] { 0, 1, 2, 3, 4, 5, 6 } : new int[] { 0, 1, 2, 3, 4, 5, 6 };
-	//	}
-	//
-	//	@Override
-	//	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side)
-	//	{
-	//		if (slotIndex == 6)
-	//			return false;
-	//		return isItemValidForSlot(slotIndex, itemStack);
-	//	}
-	//
-	//	@Override
-	//	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side)
-	//	{
-	//		return slotIndex == 6;
-	//	}
-
-
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
@@ -116,7 +113,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 				final ItemStack stack = this.inventory.getStackInSlot(i);
 				if (stack != null) {
 					final int amp = this.getValue(stack);
-					if(amp != 0 && this.canUseEnergy(85)){
+					if (amp != 0 && this.canUseEnergy(85)) {
 						this.useEnergy(85);
 						this.amplifier += amp;
 						this.inventory.decrStackSize(i, 1);
@@ -124,8 +121,8 @@ public class TileMatterFabricator extends TilePowerAcceptor
 				}
 			}
 
-			if(amplifier >= fabricationRate){
-				if(spaceForOutput()){
+			if (amplifier >= fabricationRate) {
+				if (spaceForOutput()) {
 					this.addOutputProducts();
 					amplifier -= fabricationRate;
 				}
@@ -136,8 +133,8 @@ public class TileMatterFabricator extends TilePowerAcceptor
 
 	private boolean spaceForOutput() {
 		return this.inventory.getStackInSlot(6) == null
-				|| ItemUtils.isItemEqual(this.inventory.getStackInSlot(6), new ItemStack(ModItems.UU_MATTER), true, true)
-				&& this.inventory.getStackInSlot(6).stackSize < 64;
+			|| ItemUtils.isItemEqual(this.inventory.getStackInSlot(6), new ItemStack(ModItems.UU_MATTER), true, true)
+			&& this.inventory.getStackInSlot(6).stackSize < 64;
 	}
 
 	private void addOutputProducts() {
@@ -170,8 +167,8 @@ public class TileMatterFabricator extends TilePowerAcceptor
 		} else if (itemStack.getItem() == ModItems.SCRAP_BOX) {
 			return 2000;
 		}
-		if(IC2Duplicates.SCRAP.hasIC2Stack()){
-			if(ItemUtils.isInputEqual(itemStack, IC2Duplicates.SCRAP.getIc2Stack(), true, true, true)){
+		if (IC2Duplicates.SCRAP.hasIC2Stack()) {
+			if (ItemUtils.isInputEqual(itemStack, IC2Duplicates.SCRAP.getIc2Stack(), true, true, true)) {
 				return 200;
 			}
 		}
@@ -230,9 +227,9 @@ public class TileMatterFabricator extends TilePowerAcceptor
 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("matterfabricator").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory().tile(this).slot(0, 33, 17).slot(1, 33, 35).slot(2, 33, 53).slot(3, 51, 17)
-				.slot(4, 51, 35).slot(5, 51, 53).outputSlot(6, 116, 35).syncEnergyValue()
-				.syncIntegerValue(this::getProgress, this::setProgress).addInventory().create();
+		return new ContainerBuilder("matterfabricator").player(player.inventory).inventory().hotbar()
+			.addInventory().tile(this).slot(0, 30, 20).slot(1, 50, 20).slot(2, 70, 20).slot(3, 90, 20)
+			.slot(4, 110, 20).slot(5, 130, 20).outputSlot(6, 40, 66).syncEnergyValue()
+			.syncIntegerValue(this::getProgress, this::setProgress).addInventory().create();
 	}
 }

@@ -54,6 +54,6 @@ public class GuiGenerator extends GuiBase {
 		final Layer layer = Layer.FOREGROUND;
 
 		this.builder.drawBurnBar(this, this.tile.getScaledBurnTime(100), 100, 81, 38, mouseX, mouseY, layer);
-		this.builder.drawMultiEnergyBar(this, 9, 18, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		this.builder.drawMultiEnergyBar(this, 9, 19, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 }

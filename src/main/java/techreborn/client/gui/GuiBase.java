@@ -59,6 +59,22 @@ public class GuiBase extends GuiContainer {
 		builder.drawSlot(this, x - 1, y - 1);
 	}
 
+	protected void drawScrapSlot(int x, int y, Layer layer) {
+		if (layer == Layer.BACKGROUND) {
+			x += guiLeft;
+			y += guiTop;
+		}
+		builder.drawScrapSlot(this, x - 1, y - 1);
+	}
+
+	protected void drawOutputSlotBar(int x, int y, int count, Layer layer) {
+		if (layer == Layer.BACKGROUND) {
+			x += guiLeft;
+			y += guiTop;
+		}
+		builder.drawOutputSlotBar(this, x - 4, y - 4, count);
+	}
+
 	protected void drawArmourSlots(int x, int y, Layer layer) {
 		if (layer == Layer.BACKGROUND) {
 			x += guiLeft;
