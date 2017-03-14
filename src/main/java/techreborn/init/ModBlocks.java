@@ -107,6 +107,7 @@ public class ModBlocks {
 	public static Block EXTRACTOR;
 	public static Block ELECTRIC_FURNACE;
 	public static Block SOLAR_PANEL;
+	public static Block CREATIVE_PANEL;
 	public static Block WATER_MILL;
 	public static Block WIND_MILL;
 	public static Block RECYCLER;
@@ -372,6 +373,11 @@ public class ModBlocks {
 		registerBlock(SOLAR_PANEL, "techreborn.solarpanel");
 		GameRegistry.registerTileEntity(TileSolarPanel.class, "TileSolarPanel");
 		Core.proxy.registerCustomBlockStateLocation(SOLAR_PANEL, "machines/generators/solar_panel");
+
+		CREATIVE_PANEL = new BlockCreativePanel();
+		registerBlock(CREATIVE_PANEL, "techreborn.creativepanel");
+		GameRegistry.registerTileEntity(TileCreativePanel.class, "TileCreativePanel");
+		Core.proxy.registerCustomBlockStateLocation(CREATIVE_PANEL, "machines/generators/creative_panel");
 
 		WATER_MILL = new BlockWaterMill();
 		registerBlock(WATER_MILL, "techreborn.watermill");
