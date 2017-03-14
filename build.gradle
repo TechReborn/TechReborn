@@ -46,10 +46,10 @@ repositories {
         name = "Amadornes"
         url "http://maven.amadornes.com/"
     }
-    ivy {
-        name "CraftTweaker3"
-        artifactPattern "http://www.blamejared.com/content/[module]-[classifier]-Full-[revision].[ext]"
-    }
+	ivy {
+		name "CraftTweaker"
+		artifactPattern "https://addons-origin.cursecdn.com/files/2392/420/[module]-[revision](-[classifier]).[ext]"
+	}
     maven {
         url 'http://maven.epoxide.xyz'
     }
@@ -97,20 +97,8 @@ license {
 
 group = 'TechReborn'
 
-def grabDep(name, url){
-    ant.get(src: url, dest: 'dep')
-    file("dep/" + url.substring(url.lastIndexOf("/"))).renameTo(file("dep/" + name + ".jar"))
-}
 
 dependencies {
-    def f = new File('dep/')
-    if(f.exists()){
-        f.delete()
-    }
-    f.mkdirs()
-    if(!f.exists()){
-        f.mkdir()
-    }
 	deobfCompile ('RebornCore:RebornCore-1.11.2:+:universal'){
 		transitive = false
 	}
@@ -122,6 +110,7 @@ dependencies {
 	//deobfCompile "slimeknights:TConstruct:1.10.2-2.5.3.jenkins384"
 	//deobfCompile "slimeknights.mantle:Mantle:1.10.2-1.0.0.jenkins170"
 	deobfCompile "mcjty.theoneprobe:TheOneProbe:1.11-1.3.3-46"
+	compile "CraftTweaker:CraftTweaker:1.10.2-3.0.24"
 
 	compileOnly 'net.industrial-craft:industrialcraft-2:2.6.129-ex110'
 }
