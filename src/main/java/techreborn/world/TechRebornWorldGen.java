@@ -247,7 +247,7 @@ public class TechRebornWorldGen implements IWorldGenerator {
 						if (ore.maxYHeight == -1 || ore.minYHeight == -1) {
 							continue;
 						}
-						yPos = 10 + random.nextInt(ore.maxYHeight - ore.minYHeight);
+						yPos = ore.minYHeight + random.nextInt(ore.maxYHeight - ore.minYHeight);
 						zPos = chunkZ * 16 + random.nextInt(16);
 						BlockPos pos = new BlockPos(xPos, yPos, zPos);
 						if(ore.blockNiceName.equalsIgnoreCase("iridium")){ //Work around for iridium
