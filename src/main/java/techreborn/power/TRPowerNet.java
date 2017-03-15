@@ -205,7 +205,7 @@ public class TRPowerNet {
 		}
 	}
 
-	public void merge(TRPowerNet n) {
+	public TRPowerNet merge(TRPowerNet n) {
 		if (n != this) {
 			ArrayList<CableMultipart> li = new ArrayList();
 			for (int i = 0; i < n.cables.size(); i++) {
@@ -223,6 +223,7 @@ public class TRPowerNet {
 			checkAndRemoveOldEndpoints();
 			MinecraftForge.EVENT_BUS.unregister(n);
 		}
+		return this;
 	}
 
 	private EnergyHandler getHandleFrom(IEnergyInterfaceTile tile) {

@@ -200,9 +200,6 @@ public abstract class CableMultipart extends Multipart
 	}
 
 	public void nearByChange() {
-		if (network == null) {
-			findAndJoinNetwork(getWorld(), getPos());
-		}
 		checkConnectedSides();
 		for (EnumFacing direction : EnumFacing.VALUES) {
 			BlockPos blockPos = getPos().offset(direction);
@@ -212,13 +209,34 @@ public abstract class CableMultipart extends Multipart
 				part.checkConnectedSides();
 			}
 		}
+		if (network == null) {
+			findAndJoinNetwork(getWorld(), getPos());
+		}
 		TRPowerNet.buildEndpoint(network);
 	}
 
 	@Override
 	public void onAdded() {
-		nearByChange();
+		checkConnectedSides();
 	}
+
+	public void tryNetworkMerge(EnumFacing dir){
+		if (dir != null) {
+			if (internalShouldConnectTo(dir)) {
+				CableMultipart cableMultipart = getPartFromWorld(getWorld(), getPos().offset(dir), dir);
+				if (cableMultipart != null && cableMultipart.internalShouldConnectTo(dir.getOpposite())) {
+					if(network == null && cableMultipart.network != null){
+						network = cableMultipart.network;
+						network.addElement(this);
+					} else if (network != cableMultipart.network){
+						network = cableMultipart.network.merge(network);
+						network.addElement(this);
+					}
+				}
+			}
+		}
+	}
+
 
 	public boolean shouldConnectTo(EnumFacing dir) {
 		if (dir != null) {
@@ -270,6 +288,7 @@ public abstract class CableMultipart extends Multipart
 			TileEntity te = getNeighbourTile(dir);
 			if (shouldConnectTo(dir)) {
 				connectedSides.put(dir, te.getPos());
+				tryNetworkMerge(dir);
 			}
 		}
 	}
@@ -282,15 +301,21 @@ public abstract class CableMultipart extends Multipart
 	@Override
 	public void update() {
 		if (getWorld() != null) {
+			ticks ++;
 			if (getWorld().getTotalWorldTime() % 80 == 0) {
 				checkConnectedSides();
+			}
+			if(ticks == 20){ // Rebuilds the whole network just after the part has been added, we allow for some time to let the world load in.
+				resetNetwork();
+				findAndJoinNetwork(getWorld(), getPos());
 			}
 		}
 		if (network == null) {
 			this.findAndJoinNetwork(getWorld(), getPos());
 		} else {
 			if (mergeWith != null) {
-				getNetwork().merge(mergeWith);
+				network = getNetwork().merge(mergeWith);
+				network.addElement(this);
 				mergeWith = null;
 			}
 		}
@@ -371,8 +396,13 @@ public abstract class CableMultipart extends Multipart
 			if (cableMultipart != null && cableMultipart.getCableType() == getCableType()) {
 				TRPowerNet net = cableMultipart.getNetwork();
 				if (net != null) {
-					network = net;
-					network.addElement(this);
+					if(network == null){
+						network = net;
+						network.addElement(this);
+					} else {
+						network = net.merge(network);
+						network.addElement(this);
+					}
 					break;
 				}
 			}
@@ -381,13 +411,9 @@ public abstract class CableMultipart extends Multipart
 			network = new TRPowerNet(getCableType());
 			network.addElement(this);
 		}
-		for (Iterator<TRPowerNet.EnergyHandler> it = network.endpoints.iterator(); it.hasNext(); ) {
-			it.next();
-			it.remove();
-		}
 		for (EnumFacing dir : EnumFacing.VALUES) {
 			TileEntity te = getNeighbourTile(dir);
-			if (te != null && te instanceof IEnergyInterfaceTile) {
+			if (te instanceof IEnergyInterfaceTile) {
 				network.addConnection((IEnergyInterfaceTile) te, dir.getOpposite());
 			}
 		}
