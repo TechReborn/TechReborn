@@ -32,7 +32,6 @@ import net.minecraftforge.oredict.OreDictionary;
 import reborncore.api.power.IEnergyInterfaceItem;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.util.BucketHandler;
 import techreborn.Core;
 import techreborn.api.Reference;
@@ -44,6 +43,8 @@ import techreborn.items.armor.ItemLithiumBatpack;
 import techreborn.items.armor.ItemTRArmour;
 import techreborn.items.battery.*;
 import techreborn.items.tools.*;
+
+import javax.annotation.Nullable;
 
 public class ModItems {
 
@@ -82,41 +83,76 @@ public class ModItems {
 	public static Item ENERGY_CRYSTAL;
 	public static Item SCRAP_BOX;
 	public static Item FREQUENCY_TRANSMITTER;
-	public static Item BRONZE_SWORD;
+	public static @Nullable Item BRONZE_SWORD;
+	@Nullable
 	public static Item BRONZE_PICKAXE;
+	@Nullable
 	public static Item BRONZE_SPADE;
+	@Nullable
 	public static Item BRONZE_AXE;
+	@Nullable
 	public static Item BRONZE_HOE;
+	@Nullable
 	public static Item BRONZE_HELMET;
+	@Nullable
 	public static Item BRONZE_CHESTPLATE;
+	@Nullable
 	public static Item BRONZE_LEGGINGS;
+	@Nullable
 	public static Item BRONZE_BOOTS;
+	@Nullable
 	public static Item RUBY_SWORD;
+	@Nullable
 	public static Item RUBY_PICKAXE;
+	@Nullable
 	public static Item RUBY_SPADE;
+	@Nullable
 	public static Item RUBY_AXE;
+	@Nullable
 	public static Item RUBY_HOE;
+	@Nullable
 	public static Item RUBY_HELMET;
+	@Nullable
 	public static Item RUBY_CHESTPLATE;
+	@Nullable
 	public static Item RUBY_LEGGINGS;
+	@Nullable
 	public static Item RUBY_BOOTS;
+	@Nullable
 	public static Item SAPPHIRE_SWORD;
+	@Nullable
 	public static Item SAPPHIRE_PICKAXE;
+	@Nullable
 	public static Item SAPPHIRE_SPADE;
+	@Nullable
 	public static Item SAPPHIRE_AXE;
+	@Nullable
 	public static Item SAPPHIRE_HOE;
+	@Nullable
 	public static Item SAPPHIRE_HELMET;
+	@Nullable
 	public static Item SAPPHIRE_CHSTPLATE;
+	@Nullable
 	public static Item SAPPHIRE_LEGGINGS;
+	@Nullable
 	public static Item SAPPHIRE_BOOTS;
+	@Nullable
 	public static Item PERIDOT_SWORD;
+	@Nullable
 	public static Item PERIDOT_PICKAXE;
+	@Nullable
 	public static Item PERIDOT_SAPPHIRE;
+	@Nullable
 	public static Item PERIDOT_AXE;
+	@Nullable
 	public static Item PERIDOT_HOE;
+	@Nullable
 	public static Item PERIDOT_HELMET;
+	@Nullable
 	public static Item PERIDOT_CHESTPLATE;
+	@Nullable
 	public static Item PERIDOT_LEGGINGS;
+	@Nullable
 	public static Item PERIDOT_BOOTS;
 	public static Item UPGRADES;
 	public static Item MISSING_RECIPE_PLACEHOLDER;
