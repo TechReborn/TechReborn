@@ -24,10 +24,11 @@
 
 package techreborn.power;
 
-import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import reborncore.api.power.IEnergyInterfaceTile;
@@ -296,11 +297,14 @@ public class TRPowerNet {
 			int total = 0;
 			if (tile.canAcceptEnergy(side.getOpposite()) && max > 0) {
 				if (type.tier.ordinal() > tile.getTier().ordinal() && max > tile.getMaxInput()) {
-					if (tile instanceof TileEntity) {
-						((TileEntity) tile).getWorld().createExplosion(
-							new EntityTNTPrimed(((TileEntity) tile).getWorld()),
-							((TileEntity) tile).getPos().getX(), ((TileEntity) tile).getPos().getY(),
-							((TileEntity) tile).getPos().getZ(), 2.5F, true);
+					if (tile instanceof TileEntity && ((TileEntity) tile).getWorld() instanceof WorldServer) {
+						WorldServer worldServer = (WorldServer) ((TileEntity) tile).getWorld();
+						if(worldServer.rand.nextInt(5) == 0){
+							double x = (double)((TileEntity) tile).getPos().getX() + worldServer.rand.nextDouble() + (side.getFrontOffsetX() / 2);
+							double y = (double)((TileEntity) tile).getPos().getY() + worldServer.rand.nextDouble() + 1;
+							double z = (double)((TileEntity) tile).getPos().getZ() + worldServer.rand.nextDouble()+ (side.getFrontOffsetZ() / 2);
+							worldServer.spawnParticle(EnumParticleTypes.SMOKE_LARGE, x, y, z,1, 0.0D, 0.0D, 0.0D, 0D);
+						}
 					}
 					return 0;
 				}

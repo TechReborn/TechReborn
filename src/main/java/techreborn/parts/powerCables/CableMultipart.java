@@ -228,9 +228,11 @@ public abstract class CableMultipart extends Multipart
 					if(network == null && cableMultipart.network != null){
 						network = cableMultipart.network;
 						network.addElement(this);
-					} else if (network != cableMultipart.network){
+					} else if (network != null && cableMultipart.network != null && network != cableMultipart.network){
 						network = cableMultipart.network.merge(network);
 						network.addElement(this);
+					} else {
+						findAndJoinNetwork(getWorld(), getPos());
 					}
 				}
 			}
