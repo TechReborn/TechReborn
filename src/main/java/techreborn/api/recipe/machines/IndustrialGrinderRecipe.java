@@ -25,11 +25,9 @@
 package techreborn.api.recipe.machines;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.FluidStack;
 import techreborn.api.Reference;
 import techreborn.api.recipe.BaseRecipe;
-import techreborn.tiles.multiblock.TileIndustrialGrinder;
 
 public class IndustrialGrinderRecipe extends BaseRecipe {
 
@@ -66,13 +64,5 @@ public class IndustrialGrinderRecipe extends BaseRecipe {
 	@Override
 	public boolean useOreDic() {
 		return useOreDic;
-	}
-
-	@Override
-	public boolean canCraft(TileEntity tile) {
-		if(tile instanceof TileIndustrialGrinder){
-			return ((TileIndustrialGrinder) tile).getMutliBlock();
-		}
-		return false;
 	}
 }
