@@ -25,7 +25,6 @@
 package techreborn.tiles.generator;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -107,11 +106,6 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 				}
 			});
 		}
-
-		if (this.tank.getFluidType() != null && this.getStackInSlot(2) == null)
-			this.inventory.setInventorySlotContents(2, new ItemStack(this.tank.getFluidType().getBlock()));
-		else if (this.tank.getFluidType() == null && this.getStackInSlot(2) != null)
-			this.setInventorySlotContents(2, null);
 
 		if (!this.world.isRemote) {
 			if (this.world.getTotalWorldTime() - this.lastOutput < 30 && !this.isActive())
