@@ -231,6 +231,9 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrencha
 
 	@Override
 	public boolean canCraft(final TileEntity tile, final IndustrialGrinderRecipe recipe) {
+		if(!getMutliBlock()){
+			return false;
+		}
 		final FluidStack recipeFluid = recipe.fluidStack;
 		final FluidStack tankFluid = this.tank.getFluid();
 		if (recipe.fluidStack == null) {
