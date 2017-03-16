@@ -28,6 +28,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -45,10 +46,13 @@ public class TRPowerNet {
 	EnumCableType cableType;
 	private ArrayList<CableMultipart> cables = new ArrayList();
 	private int energy = 0;
+	private World world;
 
-	public TRPowerNet(EnumCableType cableType) {
+
+	public TRPowerNet(EnumCableType cableType, World world) {
 		this.cableType = cableType;
 		MinecraftForge.EVENT_BUS.register(this);
+		this.world = world;
 	}
 
 	public static void buildEndpoint(TRPowerNet net) {
@@ -83,7 +87,7 @@ public class TRPowerNet {
 
 	@SubscribeEvent
 	public synchronized void tick(PowerTickEvent evt) {
-		evt.getWorld().theProfiler.startSection("TechRebornPowerNet");
+
 		if (tick < 20) {
 			tick++;
 			return;
@@ -100,6 +104,7 @@ public class TRPowerNet {
 					it.remove();
 				}
 			}
+			buildEndpoint(this);
 		}
 		if (!cables.isEmpty()) {
 			ArrayList<EnergyHandler> collectibles = new ArrayList();
@@ -126,7 +131,14 @@ public class TRPowerNet {
 			MinecraftForge.EVENT_BUS.unregister(this);
 		}
 		tick++;
-		evt.getWorld().theProfiler.endSection();
+	}
+
+	@SubscribeEvent
+	public void destory(PowerDestroyEvent event){
+		if(event.getWorld() == world){
+			world = null;
+			MinecraftForge.EVENT_BUS.unregister(this);
+		}
 	}
 
 	public void addElement(CableMultipart te) {

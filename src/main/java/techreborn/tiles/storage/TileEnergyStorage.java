@@ -129,8 +129,7 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IWrenchable,
 
 	@Override
 	public boolean canAcceptEnergy(EnumFacing direction) {
-
-		return getFacingEnum() != direction;
+		return getFacing() != direction;
 	}
 
 	@Override
