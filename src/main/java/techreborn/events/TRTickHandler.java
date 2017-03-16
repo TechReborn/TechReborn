@@ -30,10 +30,12 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import techreborn.init.ModItems;
+import techreborn.power.PowerDestroyEvent;
 import techreborn.power.PowerTickEvent;
 
 public class TRTickHandler {
@@ -64,7 +66,9 @@ public class TRTickHandler {
 		}
 
 		long start = System.nanoTime();
+		e.world.theProfiler.startSection("TechRebornPowerNet");
 		MinecraftForge.EVENT_BUS.post(new PowerTickEvent(e.world));
+		e.world.theProfiler.endSection();
 		long elapsed = System.nanoTime() - start;
 		tickTime += elapsed;
 		ticksCounted++;
@@ -76,4 +80,8 @@ public class TRTickHandler {
 		}
 	}
 
+	@SubscribeEvent
+	public void unload(WorldEvent.Unload event){
+		MinecraftForge.EVENT_BUS.post(new PowerDestroyEvent(event.getWorld()));
+	}
 }

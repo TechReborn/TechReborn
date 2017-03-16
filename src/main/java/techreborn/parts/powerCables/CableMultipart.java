@@ -410,13 +410,13 @@ public abstract class CableMultipart extends Multipart
 			}
 		}
 		if (network == null) {
-			network = new TRPowerNet(getCableType());
+			network = new TRPowerNet(getCableType(), world);
 			network.addElement(this);
 		}
 		for (EnumFacing dir : EnumFacing.VALUES) {
 			TileEntity te = getNeighbourTile(dir);
 			if (te instanceof IEnergyInterfaceTile) {
-				network.addConnection((IEnergyInterfaceTile) te, dir.getOpposite());
+				network.addConnection((IEnergyInterfaceTile) te, dir);
 			}
 		}
 	}
