@@ -24,26 +24,14 @@
 
 package techreborn.items.tools;
 
-import com.google.common.collect.Sets;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemAxe;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTool;
-import reborncore.RebornCore;
 import techreborn.client.TechRebornCreativeTabMisc;
-
-import java.util.Set;
 
 public class ItemTRAxe extends ItemAxe {
 	private ToolMaterial material = ToolMaterial.WOOD;
 
 	public ItemTRAxe(ToolMaterial material) {
-		super(material);
-		this.damageVsEntity = material.getDamageVsEntity() + 5.75F;
-		this.attackSpeed = (material.getDamageVsEntity() + 6.75F) * -0.344444F;
+		super(material, material.getDamageVsEntity() + 5.75F, (material.getDamageVsEntity() + 6.75F) * -0.344444F);
 		setUnlocalizedName(material.name().toLowerCase() + "Axe");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		this.material = material;
