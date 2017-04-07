@@ -57,7 +57,7 @@ public class IndustrialSawmillRecipeWrapper extends BaseRecipeWrapper <Industria
 			IndustrialSawmillRecipe baseRecipe) {
 		super(baseRecipe);
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
-		IDrawableStatic progressStatic = guiHelper.createDrawable(texture, 176, 14, 24, 17);
+		IDrawableStatic progressStatic = guiHelper.createDrawable(texture, 176, 14, 20, 13);
 		int ticksPerCycle = baseRecipe.tickTime();
 		this.progress = guiHelper.createAnimatedDrawable(progressStatic, ticksPerCycle,
 			IDrawableAnimated.StartDirection.LEFT, false);
@@ -84,7 +84,7 @@ public class IndustrialSawmillRecipeWrapper extends BaseRecipeWrapper <Industria
 	@Override
 	public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 		super.drawInfo(minecraft, recipeWidth, recipeHeight, mouseX, mouseY);
-		progress.draw(minecraft, 44, 20);
+		progress.draw(minecraft, 48, 23);
 		
 		if (minecraft.fontRendererObj != null) {
 			int x = 70;

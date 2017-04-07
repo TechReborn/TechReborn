@@ -35,6 +35,7 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeCategory;
 import mezz.jei.util.Translator;
 import net.minecraft.util.ResourceLocation;
+import techreborn.Core;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
 import techreborn.tiles.multiblock.TileIndustrialSawmill;
@@ -55,7 +56,6 @@ public class IndustrialSawmillRecipeCategory extends BlankRecipeCategory<Industr
 		title = Translator.translateToLocal("tile.techreborn.industrialsawmill.name");
 		background = guiHelper.createDrawable(texture, 7, 15, 141, 55);
 		tankOverlay = guiHelper.createDrawable(texture, 176, 86, 12, 47);
-		
 	}
 	
 	@Nonnull
@@ -82,9 +82,9 @@ public class IndustrialSawmillRecipeCategory extends BlankRecipeCategory<Industr
 		guiItemStacks.init(INPUT_SLOTS[0], true, 24, 10);
 		guiItemStacks.init(INPUT_SLOTS[1], true, 24, 28);
 
-		guiItemStacks.init(OUTPUT_SLOTS[0], false, 69, 19);
-		guiItemStacks.init(OUTPUT_SLOTS[1], false, 87, 19);
-		guiItemStacks.init(OUTPUT_SLOTS[2], false, 105, 19);
+		guiItemStacks.init(OUTPUT_SLOTS[0], false, 76, 19);
+		guiItemStacks.init(OUTPUT_SLOTS[1], false, 94, 19);
+		guiItemStacks.init(OUTPUT_SLOTS[2], false, 112, 19);
 		
 		IGuiFluidStackGroup guiFluidStacks = recipeLayout.getFluidStacks();
 		guiFluidStacks.init(INPUT_TANKS[0], true, 4, 4, 12, 47, TileIndustrialSawmill.TANK_CAPACITY, true, tankOverlay);
