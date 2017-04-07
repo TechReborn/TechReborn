@@ -29,6 +29,7 @@ import javax.annotation.Nonnull;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
+import techreborn.Core;
 import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
 import techreborn.compat.jei.RecipeCategoryUids;
 

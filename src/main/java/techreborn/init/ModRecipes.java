@@ -90,6 +90,8 @@ public class ModRecipes {
 		addIc2Recipes();
 		addGrinderRecipes();
 		addCompressorRecipes();
+		
+		IndustrialSawmillRecipes.init();
 	}
 
 	public static void postInit(){

@@ -33,28 +33,29 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.util.OreUtil;
-import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
+import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
 import techreborn.items.ItemDusts;
 
 public class IndustrialSawmillRecipes extends RecipeMethods {
 	static FluidStack WATER = new FluidStack(FluidRegistry.WATER, 1000);
 
 	public static void init() {
-		register(getStack(Blocks.LOG, 1, 1), WATER, 100, 128, OreUtil.getStackFromName("plankWood", 8), ItemDusts.getDustByName("sawDust", 3), getStack(Items.PAPER,1));
+		register(getStack(Blocks.LOG, 1, true), getMaterial("water", Type.CELL), WATER, 100, 128, getStack(Blocks.PLANKS, 8, true), ItemDusts.getDustByName("sawDust", 3), getStack(Items.PAPER,1));
+		
 	}
 	
-	static void register(ItemStack input, FluidStack fluid, int ticks, int euPerTick, ItemStack... outputs) {
+	static void register(ItemStack input1, ItemStack input2, FluidStack fluid, int ticks, int euPerTick, ItemStack... outputs) {
 		if (outputs.length == 3) {
-			RecipeHandler.addRecipe(new IndustrialGrinderRecipe(input,
-				fluid, outputs[0], outputs[1], outputs[2], null, ticks, euPerTick));
+			RecipeHandler.addRecipe(new IndustrialSawmillRecipe(input1, input2,
+				fluid, outputs[0], outputs[1], outputs[2], ticks, euPerTick));
 		}
 		else if (outputs.length == 2) {
-			RecipeHandler.addRecipe(new IndustrialGrinderRecipe(input,
-				fluid, outputs[0], outputs[1], null, null, ticks, euPerTick));
+			RecipeHandler.addRecipe(new IndustrialSawmillRecipe(input1, input2,
+				fluid, outputs[0], outputs[1], null, ticks, euPerTick));
 		}
 		else if (outputs.length == 1) {
-			RecipeHandler.addRecipe(new IndustrialGrinderRecipe(input,
-				fluid, outputs[0], null, null, null, ticks, euPerTick));
+			RecipeHandler.addRecipe(new IndustrialSawmillRecipe(input1, input2,
+				fluid, outputs[0], null, null, ticks, euPerTick));
 		}
 		else {
 			throw new InvalidParameterException("Invalid industrial sawmill outputs: " + outputs);
