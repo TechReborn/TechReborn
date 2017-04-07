@@ -40,6 +40,7 @@ public class RecipeCategoryUids {
 	public static final String EXTRACTOR = "TechReborn.Extractor";
 	public static final String COMPRESSOR = "TechReborn.Compressor";
 	public static final String SCRAPBOX = "TechReborn.Scrapbox";
+	public static final String INDUSTRIAL_SAWMILL = "TechReborn.IndustrialSawmill";
 
 	private RecipeCategoryUids() {
 	}

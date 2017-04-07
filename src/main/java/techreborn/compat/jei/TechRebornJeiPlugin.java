@@ -76,6 +76,8 @@ import techreborn.compat.jei.scrapbox.ScrapboxRecipeCategory;
 import techreborn.compat.jei.scrapbox.ScrapboxRecipeHandler;
 import techreborn.compat.jei.vacuumFreezer.VacuumFreezerRecipeCategory;
 import techreborn.compat.jei.vacuumFreezer.VacuumFreezerRecipeHandler;
+import techreborn.compat.jei.industrialSawmill.IndustrialSawmillRecipeCategory;
+import techreborn.compat.jei.industrialSawmill.IndustrialSawmillRecipeHandler;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.IC2Duplicates;
 import techreborn.init.ModBlocks;
@@ -184,7 +186,9 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 			new ImplosionCompressorRecipeCategory(guiHelper), new IndustrialElectrolyzerRecipeCategory(guiHelper),
 			new RollingMachineRecipeCategory(guiHelper), new VacuumFreezerRecipeCategory(guiHelper),
 			new GrinderRecipeCategory(guiHelper), new ExtractorRecipeCategory(guiHelper),
-			new CompressorRecipeCategory(guiHelper), new ScrapboxRecipeCategory(guiHelper));
+			new CompressorRecipeCategory(guiHelper), new ScrapboxRecipeCategory(guiHelper), 
+			new IndustrialSawmillRecipeCategory(guiHelper));
+		
 
 		for (final EFluidGenerator type : EFluidGenerator.values())
 			registry.addRecipeCategories(new FluidGeneratorRecipeCategory(type, guiHelper));
@@ -197,8 +201,8 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 			new RollingMachineRecipeHandler(), new VacuumFreezerRecipeHandler(jeiHelpers),
 			new GrinderRecipeHandler(jeiHelpers), new ExtractorRecipeHandler(jeiHelpers),
 			new CompressorRecipeHandler(jeiHelpers), new ScrapboxRecipeHandler(jeiHelpers),
-			new FluidGeneratorRecipeHandler(jeiHelpers));
-
+			new FluidGeneratorRecipeHandler(jeiHelpers), new IndustrialSawmillRecipeHandler(jeiHelpers));
+		
 		registry.addRecipes(RecipeHandler.recipeList);
 		registry.addRecipes(FusionReactorRecipeHelper.reactorRecipes);
 
@@ -237,6 +241,8 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 		registry.addRecipeClickArea(GuiBlastFurnace.class, 150, 4, 20, 12, RecipeCategoryUids.BLAST_FURNACE);
 		registry.addRecipeClickArea(GuiChemicalReactor.class, 150, 4, 20, 12, RecipeCategoryUids.CHEMICAL_REACTOR);
 		registry.addRecipeClickArea(GuiIndustrialGrinder.class, 150, 4, 20, 12, RecipeCategoryUids.INDUSTRIAL_GRINDER);
+		
+		registry.addRecipeClickArea(GuiIndustrialSawmill.class, 55, 35, 20, 15, RecipeCategoryUids.INDUSTRIAL_SAWMILL);
 
 		//OLD ONES
 		registry.addRecipeClickArea(GuiAlloyFurnace.class, 80, 35, 26, 20, RecipeCategoryUids.ALLOY_SMELTER,
@@ -296,6 +302,8 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 			EFluidGenerator.DIESEL.getRecipeID());
 		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.THERMAL_GENERATOR),
 			EFluidGenerator.THERMAL.getRecipeID());
+		
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.INDUSTRIAL_SAWMILL), RecipeCategoryUids.INDUSTRIAL_SAWMILL);
 
 		final IRecipeTransferRegistry recipeTransferRegistry = registry.getRecipeTransferRegistry();
 
@@ -334,7 +342,9 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 			new BuiltContainerTransferInfo("extractor", RecipeCategoryUids.EXTRACTOR, 36, 1, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
 			new BuiltContainerTransferInfo("compressor", RecipeCategoryUids.COMPRESSOR, 36, 1, 0, 36));
-
+		recipeTransferRegistry.addRecipeTransferHandler(
+				new BuiltContainerTransferInfo("industrialsawmill", RecipeCategoryUids.INDUSTRIAL_SAWMILL, 36, 2, 0, 36));
+		
 		if (CompatManager.isQuantumStorageLoaded) {
 			registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.QUANTUM_CHEST));
 			registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.QUANTUM_TANK));
