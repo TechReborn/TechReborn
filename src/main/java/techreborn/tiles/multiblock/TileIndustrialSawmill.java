@@ -54,9 +54,10 @@ import java.util.Random;
 
 public class TileIndustrialSawmill extends TilePowerAcceptor
 implements IWrenchable, IInventoryProvider, IContainerProvider {
+	public static final int TANK_CAPACITY = 16000;
 
 	public Inventory inventory = new Inventory(5, "Sawmill", 64, this);
-	public Tank tank = new Tank("Sawmill", 16000, this);
+	public Tank tank = new Tank("Sawmill", TileIndustrialSawmill.TANK_CAPACITY, this);
 
 	public int tickTime;
 	public MultiblockChecker multiblockChecker;
