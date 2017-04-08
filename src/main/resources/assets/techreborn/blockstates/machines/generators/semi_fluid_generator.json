@@ -47,7 +47,7 @@
       "model": "cube_bottom_top",
       "textures": {
         "particle": "techreborn:blocks/machines/generators/semi_fluid_generator_side_off",
-        "down": "techreborn:blocks/machines/generators/semi_fluid_generator_bottom",
+        "down": "techreborn:blocks/machines/generators/generator_bottom",
         "top": "techreborn:blocks/machines/generators/semi_fluid_generator_top_off",
         "side": "techreborn:blocks/machines/generators/semi_fluid_generator_side_off"
       }
