@@ -55,7 +55,7 @@ public class TileIronFurnace extends TileLegacyMachineBase
 	public int fuel;
 	public int fuelGague;
 	public int progress;
-	public int fuelScale = 200;
+	public int fuelScale = 160;
 	int input1 = 0;
 	int output = 1;
 	int fuelslot = 2;
