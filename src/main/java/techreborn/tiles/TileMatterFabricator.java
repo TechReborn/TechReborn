@@ -27,12 +27,14 @@ package techreborn.tiles;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
+
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
@@ -53,27 +55,6 @@ public class TileMatterFabricator extends TilePowerAcceptor
 		super(6);
 		// TODO configs
 	}
-
-	//	// ISidedInventory
-	//	@Override
-	//	public int[] getSlotsForFace(EnumFacing side)
-	//	{
-	//		return side == EnumFacing.DOWN ? new int[] { 0, 1, 2, 3, 4, 5, 6 } : new int[] { 0, 1, 2, 3, 4, 5, 6 };
-	//	}
-	//
-	//	@Override
-	//	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side)
-	//	{
-	//		if (slotIndex == 6)
-	//			return false;
-	//		return isItemValidForSlot(slotIndex, itemStack);
-	//	}
-	//
-	//	@Override
-	//	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side)
-	//	{
-	//		return slotIndex == 6;
-	//	}
 
 	@Override
 	public boolean wrenchCanSetFacing(final EntityPlayer entityPlayer, final EnumFacing side) {
@@ -102,6 +83,23 @@ public class TileMatterFabricator extends TilePowerAcceptor
 
 	public boolean isComplete() {
 		return false;
+	}
+
+	@Override
+	public int[] getSlotsForFace(EnumFacing side) {
+		return side == EnumFacing.DOWN ? new int[] { 0, 1, 2, 3, 4, 5, 6 } : new int[] { 0, 1, 2, 3, 4, 5, 6 };
+	}
+
+	@Override
+	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
+		if (slotIndex == 6)
+			return false;
+		return isItemValidForSlot(slotIndex, itemStack);
+	}
+
+	@Override
+	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
+		return slotIndex == 6;
 	}
 
 	@Override
