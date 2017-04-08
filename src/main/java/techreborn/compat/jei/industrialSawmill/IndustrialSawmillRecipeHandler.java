@@ -47,6 +47,11 @@ public class IndustrialSawmillRecipeHandler implements IRecipeHandler<Industrial
 		return IndustrialSawmillRecipe.class;
 	}
 
+	@Override
+	public String getRecipeCategoryUid() {
+		return RecipeCategoryUids.INDUSTRIAL_SAWMILL;
+	}
+
 	@Nonnull
 	@Override
 	public String getRecipeCategoryUid(
