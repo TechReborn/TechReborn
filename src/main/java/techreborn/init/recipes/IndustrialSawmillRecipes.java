@@ -24,13 +24,14 @@
 
 package techreborn.init.recipes;
 
-import net.minecraft.entity.player.EntityPlayer;
+import java.security.InvalidParameterException;
+
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -39,8 +40,8 @@ import reborncore.common.util.ItemUtils;
 import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
 import techreborn.items.ItemDusts;
 
+import javax.annotation.Nonnull;
 import java.security.InvalidParameterException;
-import java.util.List;
 
 public class IndustrialSawmillRecipes extends RecipeMethods {
 	static FluidStack WATER = new FluidStack(FluidRegistry.WATER, 1000);
@@ -54,10 +55,10 @@ public class IndustrialSawmillRecipes extends RecipeMethods {
 		}, 3, 3);
 
 		for (int i = 0; i < 9; i++) {
-			inventoryCrafting.setInventorySlotContents(i, null);
+			inventoryCrafting.setInventorySlotContents(i, ItemStack.EMPTY);
 		}
 
-		List<ItemStack> logs = OreDictionary.getOres("logWood");
+		NonNullList<ItemStack> logs = OreDictionary.getOres("logWood");
 		for (ItemStack logStack : logs) {
 			if (logStack.getItemDamage() == OreDictionary.WILDCARD_VALUE) {
 				for (int i = 0; i < 16; i++) {
@@ -65,7 +66,7 @@ public class IndustrialSawmillRecipes extends RecipeMethods {
 					newStack.setItemDamage(i);
 					inventoryCrafting.setInventorySlotContents(0, newStack);
 					ItemStack output = findMatchingRecipe(inventoryCrafting);
-					if (output != null) {
+					if (!output.isEmpty()) {
 						if (ItemUtils.isInputEqual("plankWood", output, false, false, false)) {
 							addRecipe(newStack.copy(), output.copy());
 						}
@@ -74,7 +75,7 @@ public class IndustrialSawmillRecipes extends RecipeMethods {
 			} else {
 				inventoryCrafting.setInventorySlotContents(0, logStack.copy());
 				ItemStack output = findMatchingRecipe(inventoryCrafting);
-				if (output != null) {
+				if (!output.isEmpty()) {
 					if (ItemUtils.isInputEqual("plankWood", output, false, false, false)) {
 						addRecipe(logStack.copy(), output.copy());
 					}
@@ -84,6 +85,7 @@ public class IndustrialSawmillRecipes extends RecipeMethods {
 
 	}
 
+	@Nonnull
 	public static ItemStack findMatchingRecipe(InventoryCrafting inv) {
 		IRecipe recipe;
 		for (int i = 0; i < CraftingManager.getInstance().getRecipeList().size(); i++) {
@@ -92,7 +94,7 @@ public class IndustrialSawmillRecipes extends RecipeMethods {
 				return recipe.getCraftingResult(inv);
 			}
 		}
-		return null;
+		return ItemStack.EMPTY;
 
 	}
 
