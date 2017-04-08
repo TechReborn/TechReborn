@@ -199,9 +199,9 @@ public class Core {
 			compatModule.postInit(event);
 		}
 		proxy.postInit(event);
-		logHelper.info(RecipeHandler.recipeList.size() + " recipes loaded");
 
 		ModRecipes.postInit();
+		logHelper.info(RecipeHandler.recipeList.size() + " recipes loaded");
 
 		// RecipeHandler.scanForDupeRecipes();
 

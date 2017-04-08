@@ -90,8 +90,6 @@ public class ModRecipes {
 		addIc2Recipes();
 		addGrinderRecipes();
 		addCompressorRecipes();
-		
-		IndustrialSawmillRecipes.init();
 	}
 
 	public static void postInit(){
@@ -110,6 +108,7 @@ public class ModRecipes {
 				}
 			}
 		}
+		IndustrialSawmillRecipes.init();
 	}
 
 	private static void addCompressorRecipes() {
