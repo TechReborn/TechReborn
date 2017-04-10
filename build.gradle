@@ -283,7 +283,7 @@ import org.apache.commons.io.FileUtils;
 import groovy.util.XmlSlurper;
 import java.io.File;
 
-task curseTools << {
+task curseTools {
 	def cacheFiles = new File(".gradle/curseTools")
 	if (!cacheFiles.exists()) cacheFiles.mkdirs()
 
