@@ -46,7 +46,6 @@ import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
-import techreborn.utils.upgrade.UpgradeHandler;
 
 public class TileAlloySmelter extends TilePowerAcceptor
 		implements IWrenchable, IInventoryProvider, ISidedInventory, IRecipeCrafterProvider, IContainerProvider {
@@ -55,7 +54,6 @@ public class TileAlloySmelter extends TilePowerAcceptor
 	public Inventory inventory = new Inventory(8, "TileAlloySmelter", 64, this);
 	public RecipeCrafter crafter;
 	public int capacity = 1000;
-	UpgradeHandler upgrades;
 
 	public TileAlloySmelter() {
 		super(1);
@@ -66,14 +64,12 @@ public class TileAlloySmelter extends TilePowerAcceptor
 		final int[] outputs = new int[1];
 		outputs[0] = 2;
 		this.crafter = new RecipeCrafter(Reference.alloySmelteRecipe, this, 2, 1, this.inventory, inputs, outputs);
-		this.upgrades = new UpgradeHandler(this.crafter, this.inventory, 4, 5, 6, 7);
 	}
 
 	@Override
 	public void update() {
 		super.update();
 		this.crafter.updateEntity();
-		this.upgrades.tick();
 		this.charge(3);
 	}
 

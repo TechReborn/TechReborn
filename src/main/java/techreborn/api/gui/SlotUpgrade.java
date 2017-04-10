@@ -26,8 +26,8 @@ package techreborn.api.gui;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import reborncore.api.tile.IUpgrade;
 import reborncore.client.gui.slots.BaseSlot;
-import techreborn.utils.upgrade.IMachineUpgrade;
 
 public class SlotUpgrade extends BaseSlot {
 
@@ -37,6 +37,6 @@ public class SlotUpgrade extends BaseSlot {
 
 	@Override
 	public boolean isItemValid(ItemStack stack) {
-		return stack.getItem() instanceof IMachineUpgrade;
+		return stack.getItem() instanceof IUpgrade;
 	}
 }

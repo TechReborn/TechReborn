@@ -40,14 +40,12 @@ import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
-import techreborn.utils.upgrade.UpgradeHandler;
 
 public class TileExtractor extends TilePowerAcceptor
 	implements IWrenchable, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
 
 	public Inventory inventory = new Inventory(6, "TileExtractor", 64, this);
 
-	public UpgradeHandler upgradeHandler;
 	public RecipeCrafter crafter;
 
 	public int capacity = 1000;
@@ -59,7 +57,6 @@ public class TileExtractor extends TilePowerAcceptor
 		final int[] outputs = new int[1];
 		outputs[0] = 1;
 		this.crafter = new RecipeCrafter(Reference.extractorRecipe, this, 2, 1, this.inventory, inputs, outputs);
-		this.upgradeHandler = new UpgradeHandler(this.crafter, this.inventory, 2, 3, 4, 5);
 	}
 
 	@Override
@@ -67,7 +64,6 @@ public class TileExtractor extends TilePowerAcceptor
 		if (!this.world.isRemote) {
 			super.update();
 			this.crafter.updateEntity();
-			this.upgradeHandler.tick();
 			this.charge(3);
 		}
 	}

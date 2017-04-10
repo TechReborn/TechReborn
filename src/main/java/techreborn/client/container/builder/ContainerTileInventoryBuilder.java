@@ -37,6 +37,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 import reborncore.api.power.IEnergyInterfaceItem;
 import reborncore.api.recipe.IRecipeCrafterProvider;
+import reborncore.api.tile.IUpgrade;
 import reborncore.client.gui.slots.BaseSlot;
 import reborncore.client.gui.slots.SlotFake;
 import reborncore.client.gui.slots.SlotOutput;
@@ -44,7 +45,6 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 
 import techreborn.Core;
 import techreborn.client.container.builder.slot.FilteredSlot;
-import techreborn.utils.upgrade.IMachineUpgrade;
 
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
@@ -107,7 +107,7 @@ public class ContainerTileInventoryBuilder {
 
 	public ContainerTileInventoryBuilder upgradeSlot(final int index, final int x, final int y) {
 		this.parent.slots.add(new FilteredSlot(this.tile, index, x, y)
-				.setFilter(stack -> stack.getItem() instanceof IMachineUpgrade));
+				.setFilter(stack -> stack.getItem() instanceof IUpgrade));
 		return this;
 	}
 
