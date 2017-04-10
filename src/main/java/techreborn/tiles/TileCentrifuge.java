@@ -45,7 +45,6 @@ import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.items.DynamicCell;
-import techreborn.utils.upgrade.UpgradeHandler;
 
 import java.util.List;
 
@@ -54,7 +53,6 @@ public class TileCentrifuge extends TilePowerAcceptor
 
 	public int tickTime;
 	public Inventory inventory = new Inventory(11, "TileCentrifuge", 64, this);
-	public UpgradeHandler upgradeHandler;
 	public RecipeCrafter crafter;
 
 	public int euTick = ConfigTechReborn.CentrifugeInputTick;
@@ -70,14 +68,12 @@ public class TileCentrifuge extends TilePowerAcceptor
 		outputs[3] = 5;
 
 		this.crafter = new RecipeCrafter(Reference.centrifugeRecipe, this, 2, 4, this.inventory, inputs, outputs);
-		this.upgradeHandler = new UpgradeHandler(this.crafter, this.inventory, 7, 8, 9, 10);
 	}
 
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
 		this.crafter.updateEntity();
-		this.upgradeHandler.tick();
 		this.charge(6);
 		if (this.inventory.getStackInSlot(6) != ItemStack.EMPTY) {
 			final ItemStack stack = this.inventory.getStackInSlot(6);
