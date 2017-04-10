@@ -31,14 +31,18 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
+import reborncore.api.tile.IUpgrade;
 import reborncore.common.recipes.RecipeCrafter;
+import reborncore.common.tile.TileLegacyMachineBase;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.security.InvalidParameterException;
 import java.util.List;
 
-public class ItemUpgrades extends ItemTRNoDestroy {
+public class ItemUpgrades extends ItemTRNoDestroy implements IUpgrade {
 
 	public static final String[] types = new String[] { "overclock", "transformer", "energy_storage", "range" };
 
@@ -80,30 +84,26 @@ public class ItemUpgrades extends ItemTRNoDestroy {
 		}
 	}
 
-//	@Override
-//	public void processUpgrade(RecipeCrafter crafter, ItemStack stack) {
-//		// Remember the max speed multiplier can only be 0.99!!
-//
-//		if (stack.getItemDamage() == 0) {// Check the meta data here
-//			crafter.addSpeedMulti(0.2);// This will set the speed multiplier to
-//			// 0.8
-//			crafter.addPowerMulti(0.5);// This will use eu/tick x 1.5
-//			// crafter.addPowerMulti(2); This will use twice the amount of
-//			// power.
-//		}
-//		if (stack.getItemDamage() == 1) {
-//			crafter.addPowerMulti(-0.2);// This will use eu/tick 0.8
-//		}
-//		if (stack.getItemDamage() == 2) {
-//			crafter.addSpeedMulti(0.5);
-//			crafter.addPowerMulti(1);
-//		}
-//	}
-
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
 		tooltip.add(TextFormatting.RED + I18n.translateToLocal("tooltip.wip"));
 		tooltip.add(TextFormatting.RED + I18n.translateToLocal("tooltip.upBroken"));
 		tooltip.add(TextFormatting.RED + I18n.translateToLocal("tooltip.ingredient"));
+	}
+
+	@Override
+	public void process(
+		@Nonnull
+			TileLegacyMachineBase machineBase,
+		@Nullable
+			RecipeCrafter crafter,
+		@Nonnull
+			ItemStack stack) {
+		if(crafter != null){
+			if (stack.getItemDamage() == 0) {
+				crafter.addSpeedMulti(0.2);
+				crafter.addPowerMulti(0.5);
+			}
+		}
 	}
 }
