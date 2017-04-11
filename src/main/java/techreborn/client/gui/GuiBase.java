@@ -100,9 +100,10 @@ public class GuiBase extends GuiContainer {
 		if(tile instanceof IUpgradeable){
 			IUpgradeable upgradeable = (IUpgradeable) tile;
 			if(upgradeable.canBeUpgraded()){
-				for (int i = 0; i < upgradeable.getUpgradeSlotCount(); i++) {
-					drawSlot(-22, i * 22 + 5, Layer.BACKGROUND);
-				}
+//				for (int i = 0; i < upgradeable.getUpgradeSlotCount(); i++) {
+//					drawSlot(-22, i * 22 + 5, Layer.BACKGROUND);
+//				}
+				builder.drawUpgrades(this, upgradeable, guiLeft, guiTop);
 			}
 		}
 	}

@@ -35,6 +35,7 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.client.config.GuiUtils;
 import net.minecraftforge.fml.common.Loader;
+import reborncore.api.tile.IUpgradeable;
 import reborncore.client.guibuilder.GuiBuilder;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.lib.ModInfo;
@@ -328,6 +329,11 @@ public class TRBuilder extends GuiBuilder {
 	public void drawSlot(GuiScreen gui, int posX, int posY) {
 		Minecraft.getMinecraft().getTextureManager().bindTexture(GUI_SHEET);
 		gui.drawTexturedModalRect(posX, posY, 150, 0, 18, 18);
+	}
+
+	public void drawUpgrades(GuiScreen gui, IUpgradeable upgradeable, int posX, int posY) {
+		Minecraft.getMinecraft().getTextureManager().bindTexture(GUI_SHEET);
+		gui.drawTexturedModalRect(posX -27, posY + 4, 126, 151, 30, 87);
 	}
 
 	public void drawOutputSlot(GuiScreen gui, int posX, int posY) {

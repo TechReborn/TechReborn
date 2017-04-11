@@ -57,6 +57,7 @@ public class ItemUpgrades extends ItemTRNoDestroy implements IUpgrade {
 		setUnlocalizedName("techreborn.upgrade");
 		setHasSubtypes(true);
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setMaxStackSize(1);
 	}
 
 	public static ItemStack getUpgradeByName(String name, int count) {
