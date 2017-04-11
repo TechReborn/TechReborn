@@ -32,6 +32,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import reborncore.api.tile.IUpgrade;
+import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.tile.TileLegacyMachineBase;
 import techreborn.client.TechRebornCreativeTabMisc;
@@ -85,13 +86,6 @@ public class ItemUpgrades extends ItemTRNoDestroy implements IUpgrade {
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-		tooltip.add(TextFormatting.RED + I18n.translateToLocal("tooltip.wip"));
-		tooltip.add(TextFormatting.RED + I18n.translateToLocal("tooltip.upBroken"));
-		tooltip.add(TextFormatting.RED + I18n.translateToLocal("tooltip.ingredient"));
-	}
-
-	@Override
 	public void process(
 		@Nonnull
 			TileLegacyMachineBase machineBase,
@@ -105,5 +99,12 @@ public class ItemUpgrades extends ItemTRNoDestroy implements IUpgrade {
 				crafter.addPowerMulti(0.5);
 			}
 		}
+		if(machineBase instanceof TilePowerAcceptor){
+			if (stack.getItemDamage() == 2) {
+				TilePowerAcceptor acceptor = (TilePowerAcceptor) machineBase;
+				acceptor.extraPowerStoage += acceptor.getBaseMaxPower();
+			}
+		}
+
 	}
 }
