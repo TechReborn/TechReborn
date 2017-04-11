@@ -26,15 +26,21 @@ package techreborn.items;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 import reborncore.api.tile.IUpgrade;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.tile.TileLegacyMachineBase;
+import reborncore.common.util.InventoryHelper;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
 
@@ -45,7 +51,7 @@ import java.util.List;
 
 public class ItemUpgrades extends ItemTRNoDestroy implements IUpgrade {
 
-	public static final String[] types = new String[] { "overclock", "transformer", "energy_storage", "range" };
+	public static final String[] types = new String[] { "overclock", "transformer", "energy_storage", "range", "ejection", "injection" };
 
 	public ItemUpgrades() {
 		setUnlocalizedName("techreborn.upgrade");
@@ -97,6 +103,42 @@ public class ItemUpgrades extends ItemTRNoDestroy implements IUpgrade {
 			if (stack.getItemDamage() == 0) {
 				crafter.addSpeedMulti(0.25);
 				crafter.addPowerMulti(0.5);
+			} else if(stack.getItemDamage() == 4){
+				EnumFacing dir = EnumFacing.NORTH;
+				TileEntity tileEntity = machineBase.getWorld().getTileEntity(machineBase.getPos().offset(dir));
+				if(tileEntity instanceof IInventory){
+					for(Integer outSlot : crafter.outputSlots){
+						ItemStack outputStack = crafter.inventory.getStackInSlot(outSlot);
+						if(!outputStack.isEmpty()){
+							int amount = InventoryHelper.testInventoryInsertion((IInventory) tileEntity, outputStack, dir);
+							if(amount > 0){
+								InventoryHelper.insertItemIntoInventory((IInventory) tileEntity,outputStack);
+								crafter.inventory.decrStackSize(outSlot, amount);
+							}
+						}
+					}
+				}
+			} else if (stack.getItemDamage() == 5){
+				if(machineBase.getWorld().getTotalWorldTime() % 10 != 0){
+					return;
+				}
+				EnumFacing dir = EnumFacing.UP;
+				TileEntity tileEntity = machineBase.getWorld().getTileEntity(machineBase.getPos().offset(dir));
+				if(tileEntity.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, dir.getOpposite())){
+					IItemHandler itemHandler = tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, dir.getOpposite());
+					for (int i = 0; i < itemHandler.getSlots(); i++) {
+						ItemStack stack1 = itemHandler.getStackInSlot(i);
+						if(crafter.isStackValidInput(stack1)){
+							ItemStack extractedStack = itemHandler.extractItem(i, 1, true);
+							int amount = InventoryHelper.testInventoryInsertion(machineBase, extractedStack, null);
+							if(amount > 0){
+								extractedStack = itemHandler.extractItem(i, 1, false);
+								extractedStack.setCount(1);
+								InventoryHelper.insertItemIntoInventory(machineBase , extractedStack);
+							}
+						}
+					}
+				}
 			}
 		}
 		if(machineBase instanceof TilePowerAcceptor){
@@ -105,6 +147,5 @@ public class ItemUpgrades extends ItemTRNoDestroy implements IUpgrade {
 				acceptor.extraPowerStoage += acceptor.getBaseMaxPower();
 			}
 		}
-
 	}
 }
