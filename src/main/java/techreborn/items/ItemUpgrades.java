@@ -101,7 +101,7 @@ public class ItemUpgrades extends ItemTRNoDestroy implements IUpgrade {
 			ItemStack stack) {
 		if(crafter != null){
 			if (stack.getItemDamage() == 0) {
-				crafter.addSpeedMulti(0.2);
+				crafter.addSpeedMulti(0.25);
 				crafter.addPowerMulti(0.5);
 			}
 		}

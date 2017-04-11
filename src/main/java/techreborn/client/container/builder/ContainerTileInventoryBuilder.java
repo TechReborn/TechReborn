@@ -38,6 +38,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import reborncore.api.power.IEnergyInterfaceItem;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IUpgrade;
+import reborncore.api.tile.IUpgradeable;
 import reborncore.client.gui.slots.BaseSlot;
 import reborncore.client.gui.slots.SlotFake;
 import reborncore.client.gui.slots.SlotOutput;
@@ -61,6 +62,9 @@ public class ContainerTileInventoryBuilder {
 		this.tile = tile;
 		this.parent = parent;
 		this.rangeStart = parent.slots.size();
+		if(tile instanceof IUpgradeable){
+			upgradeSlots((IUpgradeable) tile);
+		}
 	}
 
 	public ContainerTileInventoryBuilder slot(final int index, final int x, final int y) {
@@ -105,9 +109,20 @@ public class ContainerTileInventoryBuilder {
 		return this;
 	}
 
+	@Deprecated
 	public ContainerTileInventoryBuilder upgradeSlot(final int index, final int x, final int y) {
 		this.parent.slots.add(new FilteredSlot(this.tile, index, x, y)
 				.setFilter(stack -> stack.getItem() instanceof IUpgrade));
+		return this;
+	}
+
+	private ContainerTileInventoryBuilder upgradeSlots(IUpgradeable upgradeable){
+		if(upgradeable.canBeUpgraded()){
+			for (int i = 0; i < upgradeable.getUpgradeSlotCount(); i++) {
+				this.parent.slots.add(new FilteredSlot(upgradeable.getUpgradeInvetory(), i, 0, i * 22)
+					.setFilter(stack -> stack.getItem() instanceof IUpgrade));
+			}
+		}
 		return this;
 	}
 

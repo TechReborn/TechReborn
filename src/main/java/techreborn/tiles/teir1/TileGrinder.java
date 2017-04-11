@@ -185,4 +185,9 @@ implements IWrenchable, IInventoryProvider, IRecipeCrafterProvider, IContainerPr
 			.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).syncEnergyValue().syncCrafterValue().addInventory()
 			.create();
 	}
+
+	@Override
+	public boolean canBeUpgraded() {
+		return true;
+	}
 }
