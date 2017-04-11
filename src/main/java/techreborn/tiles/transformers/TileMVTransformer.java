@@ -38,17 +38,17 @@ public class TileMVTransformer extends TileTransformer {
 	}
 
 	@Override
-	public double getMaxOutput() {
+	public double getBaseMaxOutput() {
 		return 128;
 	}
 
 	@Override
-	public double getMaxInput() {
+	public double getBaseMaxInput() {
 		return 512;
 	}
 
 	@Override
-	public EnumPowerTier getTier() {
+	public EnumPowerTier getBaseTier() {
 		return EnumPowerTier.HIGH;
 	}
 }

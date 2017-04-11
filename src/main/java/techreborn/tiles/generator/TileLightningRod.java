@@ -106,7 +106,7 @@ public class TileLightningRod extends TilePowerAcceptor implements IWrenchable {
 	}
 
 	@Override
-	public double getMaxPower() {
+	public double getBaseMaxPower() {
 		return 327680;
 	}
 
@@ -121,17 +121,17 @@ public class TileLightningRod extends TilePowerAcceptor implements IWrenchable {
 	}
 
 	@Override
-	public double getMaxOutput() {
+	public double getBaseMaxOutput() {
 		return 2048;
 	}
 
 	@Override
-	public double getMaxInput() {
+	public double getBaseMaxInput() {
 		return 0;
 	}
 
 	@Override
-	public EnumPowerTier getTier() {
+	public EnumPowerTier getBaseTier() {
 		return EnumPowerTier.HIGH;
 	}
 

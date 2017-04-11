@@ -82,7 +82,7 @@ public class TileChunkLoader extends TilePowerAcceptor implements IWrenchable, I
 	}
 
 	@Override
-	public double getMaxPower() {
+	public double getBaseMaxPower() {
 		return 10000;
 	}
 
@@ -97,17 +97,17 @@ public class TileChunkLoader extends TilePowerAcceptor implements IWrenchable, I
 	}
 
 	@Override
-	public double getMaxOutput() {
+	public double getBaseMaxOutput() {
 		return 0;
 	}
 
 	@Override
-	public double getMaxInput() {
+	public double getBaseMaxInput() {
 		return 32;
 	}
 
 	@Override
-	public EnumPowerTier getTier() {
+	public EnumPowerTier getBaseTier() {
 		return EnumPowerTier.MEDIUM;
 	}
 

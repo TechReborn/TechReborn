@@ -114,7 +114,7 @@ public class TileDragonEggSiphoner extends TilePowerAcceptor implements IWrencha
 	}
 
 	@Override
-	public double getMaxPower() {
+	public double getBaseMaxPower() {
 		return 1000;
 	}
 
@@ -129,17 +129,17 @@ public class TileDragonEggSiphoner extends TilePowerAcceptor implements IWrencha
 	}
 
 	@Override
-	public double getMaxOutput() {
+	public double getBaseMaxOutput() {
 		return euTick;
 	}
 
 	@Override
-	public double getMaxInput() {
+	public double getBaseMaxInput() {
 		return 0;
 	}
 
 	@Override
-	public EnumPowerTier getTier() {
+	public EnumPowerTier getBaseTier() {
 		return EnumPowerTier.HIGH;
 	}
 

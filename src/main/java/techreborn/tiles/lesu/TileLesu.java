@@ -105,7 +105,7 @@ public class TileLesu extends TilePowerAcceptor {// TODO wrench
 	}
 
 	@Override
-	public double getMaxPower() {
+	public double getBaseMaxPower() {
 		return maxStorage;
 	}
 
@@ -120,17 +120,17 @@ public class TileLesu extends TilePowerAcceptor {// TODO wrench
 	}
 
 	@Override
-	public double getMaxOutput() {
+	public double getBaseMaxOutput() {
 		return output;
 	}
 
 	@Override
-	public double getMaxInput() {
+	public double getBaseMaxInput() {
 		return 8192;
 	}
 
 	@Override
-	public EnumPowerTier getTier() {
+	public EnumPowerTier getBaseTier() {
 		return EnumPowerTier.EXTREME;
 	}
 }

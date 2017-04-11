@@ -123,7 +123,7 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IWrenchable,
 	}
 
 	@Override
-	public double getMaxPower() {
+	public double getBaseMaxPower() {
 		return maxStorage;
 	}
 
@@ -147,17 +147,17 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IWrenchable,
 	}
 
 	@Override
-	public double getMaxOutput() {
+	public double getBaseMaxOutput() {
 		return maxOutput;
 	}
 
 	@Override
-	public double getMaxInput() {
+	public double getBaseMaxInput() {
 		return maxInput;
 	}
 
 	@Override
-	public EnumPowerTier getTier() {
+	public EnumPowerTier getBaseTier() {
 		return tier;
 	}
 

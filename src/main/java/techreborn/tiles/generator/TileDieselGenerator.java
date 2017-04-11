@@ -49,17 +49,17 @@ public class TileDieselGenerator extends TileBaseFluidGenerator implements ICont
 	}
 
 	@Override
-	public double getMaxPower() {
+	public double getBaseMaxPower() {
 		return ConfigTechReborn.ThermalGeneratorCharge;
 	}
 
 	@Override
-	public double getMaxOutput() {
+	public double getBaseMaxOutput() {
 		return 64;
 	}
 
 	@Override
-	public EnumPowerTier getTier() {
+	public EnumPowerTier getBaseTier() {
 		return EnumPowerTier.LOW;
 	}
 

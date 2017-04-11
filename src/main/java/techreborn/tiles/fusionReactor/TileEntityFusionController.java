@@ -64,7 +64,7 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 	}
 
 	@Override
-	public double getMaxPower() {
+	public double getBaseMaxPower() {
 		return 100000000;
 	}
 
@@ -79,7 +79,7 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 	}
 
 	@Override
-	public double getMaxOutput() {
+	public double getBaseMaxOutput() {
 		if (!this.hasStartedCrafting) {
 			return 0;
 		}
@@ -87,7 +87,7 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 	}
 
 	@Override
-	public double getMaxInput() {
+	public double getBaseMaxInput() {
 		if (this.hasStartedCrafting) {
 			return 0;
 		}
@@ -95,7 +95,7 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 	}
 
 	@Override
-	public EnumPowerTier getTier() {
+	public EnumPowerTier getBaseTier() {
 		return EnumPowerTier.EXTREME;
 	}
 

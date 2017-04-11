@@ -73,17 +73,17 @@ public class TileThermalGenerator extends TileBaseFluidGenerator implements ICon
 	}
 
 	@Override
-	public double getMaxPower() {
+	public double getBaseMaxPower() {
 		return ConfigTechReborn.ThermalGeneratorCharge;
 	}
 
 	@Override
-	public double getMaxOutput() {
+	public double getBaseMaxOutput() {
 		return 128;
 	}
 
 	@Override
-	public EnumPowerTier getTier() {
+	public EnumPowerTier getBaseTier() {
 		return EnumPowerTier.LOW;
 	}
 

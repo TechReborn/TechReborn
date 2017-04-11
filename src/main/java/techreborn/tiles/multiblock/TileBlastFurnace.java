@@ -197,7 +197,7 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 	}
 
 	@Override
-	public double getMaxPower() {
+	public double getBaseMaxPower() {
 		return 10000;
 	}
 
@@ -212,17 +212,17 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 	}
 
 	@Override
-	public double getMaxOutput() {
+	public double getBaseMaxOutput() {
 		return 0;
 	}
 
 	@Override
-	public double getMaxInput() {
+	public double getBaseMaxInput() {
 		return 128;
 	}
 
 	@Override
-	public EnumPowerTier getTier() {
+	public EnumPowerTier getBaseTier() {
 		return EnumPowerTier.HIGH;
 	}
 

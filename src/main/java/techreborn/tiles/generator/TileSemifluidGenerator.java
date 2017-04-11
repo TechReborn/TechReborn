@@ -48,12 +48,12 @@ public class TileSemifluidGenerator extends TileBaseFluidGenerator implements IC
 	}
 
 	@Override
-	public EnumPowerTier getTier() {
+	public EnumPowerTier getBaseTier() {
 		return EnumPowerTier.LOW;
 	}
 
 	@Override
-	public double getMaxPower() {
+	public double getBaseMaxPower() {
 		return ConfigTechReborn.ThermalGeneratorCharge;
 	}
 

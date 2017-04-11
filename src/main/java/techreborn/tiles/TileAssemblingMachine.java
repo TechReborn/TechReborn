@@ -114,7 +114,7 @@ implements IWrenchable, ISidedInventory, IInventoryProvider, IRecipeCrafterProvi
 	}
 
 	@Override
-	public double getMaxPower() {
+	public double getBaseMaxPower() {
 		return 10000;
 	}
 
@@ -129,17 +129,17 @@ implements IWrenchable, ISidedInventory, IInventoryProvider, IRecipeCrafterProvi
 	}
 
 	@Override
-	public double getMaxOutput() {
+	public double getBaseMaxOutput() {
 		return 0;
 	}
 
 	@Override
-	public double getMaxInput() {
+	public double getBaseMaxInput() {
 		return 128;
 	}
 
 	@Override
-	public EnumPowerTier getTier() {
+	public EnumPowerTier getBaseTier() {
 		return EnumPowerTier.LOW;
 	}
 

@@ -118,7 +118,7 @@ public class TileHeatGenerator extends TilePowerAcceptor implements IWrenchable 
 	}
 
 	@Override
-	public double getMaxPower() {
+	public double getBaseMaxPower() {
 		return 10000;
 	}
 
@@ -133,17 +133,17 @@ public class TileHeatGenerator extends TilePowerAcceptor implements IWrenchable 
 	}
 
 	@Override
-	public double getMaxOutput() {
+	public double getBaseMaxOutput() {
 		return 64;
 	}
 
 	@Override
-	public double getMaxInput() {
+	public double getBaseMaxInput() {
 		return 0;
 	}
 
 	@Override
-	public EnumPowerTier getTier() {
+	public EnumPowerTier getBaseTier() {
 		return EnumPowerTier.LOW;
 	}
 

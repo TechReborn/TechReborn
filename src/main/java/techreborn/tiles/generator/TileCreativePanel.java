@@ -61,7 +61,7 @@ public class TileCreativePanel extends TilePowerAcceptor implements IWrenchable 
 	}
 
 	@Override
-	public double getMaxPower() {
+	public double getBaseMaxPower() {
 		return 1000000;
 	}
 
@@ -76,17 +76,17 @@ public class TileCreativePanel extends TilePowerAcceptor implements IWrenchable 
 	}
 
 	@Override
-	public double getMaxOutput() {
+	public double getBaseMaxOutput() {
 		return 16192;
 	}
 
 	@Override
-	public double getMaxInput() {
+	public double getBaseMaxInput() {
 		return 0;
 	}
 
 	@Override
-	public EnumPowerTier getTier() {
+	public EnumPowerTier getBaseTier() {
 		return EnumPowerTier.LOW;
 	}
 

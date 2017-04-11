@@ -78,7 +78,7 @@ public class TileIDSU extends TilePowerAcceptor implements IWrenchable {
 	}
 
 	@Override
-	public double getMaxPower() {
+	public double getBaseMaxPower() {
 		return 1000000000;
 	}
 
@@ -93,17 +93,17 @@ public class TileIDSU extends TilePowerAcceptor implements IWrenchable {
 	}
 
 	@Override
-	public double getMaxOutput() {
+	public double getBaseMaxOutput() {
 		return output;
 	}
 
 	@Override
-	public double getMaxInput() {
+	public double getBaseMaxInput() {
 		return maxStorage;
 	}
 
 	@Override
-	public EnumPowerTier getTier() {
+	public EnumPowerTier getBaseTier() {
 		return EnumPowerTier.EXTREME;
 	}
 

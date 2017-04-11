@@ -48,12 +48,12 @@ public class TileGasTurbine extends TileBaseFluidGenerator implements IContainer
 	}
 
 	@Override
-	public EnumPowerTier getTier() {
+	public EnumPowerTier getBaseTier() {
 		return EnumPowerTier.MEDIUM;
 	}
 
 	@Override
-	public double getMaxPower() {
+	public double getBaseMaxPower() {
 		return ConfigTechReborn.ThermalGeneratorCharge;
 	}
 

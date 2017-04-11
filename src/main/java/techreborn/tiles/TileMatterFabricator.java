@@ -172,7 +172,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	}
 
 	@Override
-	public double getMaxPower() {
+	public double getBaseMaxPower() {
 		return 100000000;
 	}
 
@@ -187,17 +187,17 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	}
 
 	@Override
-	public double getMaxOutput() {
+	public double getBaseMaxOutput() {
 		return 0;
 	}
 
 	@Override
-	public double getMaxInput() {
+	public double getBaseMaxInput() {
 		return 4096;
 	}
 
 	@Override
-	public EnumPowerTier getTier() {
+	public EnumPowerTier getBaseTier() {
 		return EnumPowerTier.EXTREME;
 	}
 
