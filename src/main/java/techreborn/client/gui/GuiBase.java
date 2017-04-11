@@ -31,6 +31,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import reborncore.api.tile.IUpgradeable;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.gui.widget.GuiButtonPowerBar;
 
@@ -96,6 +97,14 @@ public class GuiBase extends GuiContainer {
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		builder.drawDefaultBackground(this, guiLeft, guiTop, xSize, ySize);
 		builder.drawPlayerSlots(this, guiLeft + xSize / 2, guiTop + 93, true);
+		if(tile instanceof IUpgradeable){
+			IUpgradeable upgradeable = (IUpgradeable) tile;
+			if(upgradeable.canBeUpgraded()){
+				for (int i = 0; i < upgradeable.getUpgradeSlotCount(); i++) {
+					drawSlot(-22, i * 22 + 5, Layer.BACKGROUND);
+				}
+			}
+		}
 	}
 
 	@SideOnly(Side.CLIENT)

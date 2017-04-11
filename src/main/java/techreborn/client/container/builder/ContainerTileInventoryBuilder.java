@@ -119,7 +119,7 @@ public class ContainerTileInventoryBuilder {
 	private ContainerTileInventoryBuilder upgradeSlots(IUpgradeable upgradeable){
 		if(upgradeable.canBeUpgraded()){
 			for (int i = 0; i < upgradeable.getUpgradeSlotCount(); i++) {
-				this.parent.slots.add(new FilteredSlot(upgradeable.getUpgradeInvetory(), i, 0, i * 22)
+				this.parent.slots.add(new FilteredSlot(upgradeable.getUpgradeInvetory(), i, -22, i * 22 + 5)
 					.setFilter(stack -> stack.getItem() instanceof IUpgrade));
 			}
 		}
