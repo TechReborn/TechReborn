@@ -86,7 +86,7 @@ if (ENV.BUILD_NUMBER) {
 
 minecraft {
 	version = "1.11.2-13.20.0.2255"
-	mappings = "snapshot_20161118"
+	mappings = "snapshot_20161220"
     replace "@MODVERSION@", project.version
   //  makeObfSourceJar = false
     useDepAts = true
