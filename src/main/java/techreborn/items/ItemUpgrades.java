@@ -24,6 +24,7 @@
 
 package techreborn.items;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -43,6 +44,8 @@ import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.util.InventoryHelper;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.client.container.builder.BuiltContainer;
+import techreborn.client.container.builder.ContainerBuilder;
+import techreborn.client.gui.upgrades.GuiSideConfig;
 import techreborn.init.ModItems;
 
 import javax.annotation.Nonnull;
@@ -153,10 +156,16 @@ public class ItemUpgrades extends ItemTRNoDestroy implements IUpgrade {
 
 	@Override
 	public void handleRightClick(TileEntity tile, ItemStack stack, BuiltContainer container) {
-		if(stack.getItemDamage() == 4){
-			System.out.println("open a gui here");
-		} else if(stack.getItemDamage() == 5){
-			System.out.println("open a gui here");
+		if(tile.getWorld().isRemote){
+			if(stack.getItemDamage() == 4){
+				Minecraft.getMinecraft().displayGuiScreen(new GuiSideConfig(Minecraft.getMinecraft().player, tile, getContainer(Minecraft.getMinecraft().player)));
+			} else if(stack.getItemDamage() == 5){
+				Minecraft.getMinecraft().displayGuiScreen(new GuiSideConfig(Minecraft.getMinecraft().player, tile, getContainer(Minecraft.getMinecraft().player)));
+			}
 		}
+	}
+
+	public BuiltContainer getContainer(EntityPlayer player){
+		return new ContainerBuilder("sides").player(player.inventory).inventory().hotbar().addInventory().create();
 	}
 }

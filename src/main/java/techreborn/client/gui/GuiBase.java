@@ -97,15 +97,16 @@ public class GuiBase extends GuiContainer {
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		builder.drawDefaultBackground(this, guiLeft, guiTop, xSize, ySize);
 		builder.drawPlayerSlots(this, guiLeft + xSize / 2, guiTop + 93, true);
-		if(tile instanceof IUpgradeable){
+		if(tryAddUpgrades() && tile instanceof IUpgradeable){
 			IUpgradeable upgradeable = (IUpgradeable) tile;
 			if(upgradeable.canBeUpgraded()){
-//				for (int i = 0; i < upgradeable.getUpgradeSlotCount(); i++) {
-//					drawSlot(-22, i * 22 + 5, Layer.BACKGROUND);
-//				}
 				builder.drawUpgrades(this, upgradeable, guiLeft, guiTop);
 			}
 		}
+	}
+
+	public boolean tryAddUpgrades(){
+		return true;
 	}
 
 	@SideOnly(Side.CLIENT)
