@@ -193,7 +193,11 @@ public class ItemUpgrades extends ItemTRNoDestroy implements IUpgrade {
 		if(machineBase instanceof TilePowerAcceptor){
 			if (stack.getItemDamage() == 2) {
 				TilePowerAcceptor acceptor = (TilePowerAcceptor) machineBase;
-				acceptor.extraPowerStoage += acceptor.getBaseMaxPower();
+				acceptor.extraPowerStoage += 40000;
+			}
+			if (stack.getItemDamage() == 1) {
+				TilePowerAcceptor acceptor = (TilePowerAcceptor) machineBase;
+				acceptor.extraTeir += 1;
 			}
 		}
 	}
