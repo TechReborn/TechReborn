@@ -84,4 +84,9 @@ public class CommonProxy implements ICompatModule {
 		return false;
 	}
 
+
+	public String getUpgradeConfigText(){
+		return "";
+	}
+
 }

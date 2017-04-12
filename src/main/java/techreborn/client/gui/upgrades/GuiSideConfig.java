@@ -75,6 +75,7 @@ public class GuiSideConfig extends GuiBase {
 	protected void actionPerformed(GuiButton button) throws IOException {
 		super.actionPerformed(button);
 		NetworkManager.sendToServer(new PacketSyncSideConfig(slotID, button.id, tileEntity.getPos()));
+		Minecraft.getMinecraft().displayGuiScreen(null);
 	}
 
 	@Override

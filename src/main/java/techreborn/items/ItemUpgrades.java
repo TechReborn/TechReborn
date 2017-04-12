@@ -40,9 +40,11 @@ import net.minecraftforge.items.IItemHandler;
 import reborncore.api.tile.IUpgrade;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
+import reborncore.common.tile.IMachineSlotProvider;
 import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.util.InventoryHelper;
 import reborncore.common.util.ItemNBTHelper;
+import techreborn.Core;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
@@ -102,6 +104,10 @@ public class ItemUpgrades extends ItemTRNoDestroy implements IUpgrade {
 		super.addInformation(stack, playerIn, tooltip, advanced);
 		if(stack.getItemDamage() == 4 || stack.getItemDamage() == 5){
 			tooltip.add("Facing: " + getFacing(stack).getName());
+			String text = Core.proxy.getUpgradeConfigText();
+			if(!text.isEmpty()){
+				tooltip.add(text);
+			}
 		}
 	}
 
@@ -135,8 +141,31 @@ public class ItemUpgrades extends ItemTRNoDestroy implements IUpgrade {
 								}
 							}
 						}
+					} else if (machineBase instanceof IMachineSlotProvider){
+						IMachineSlotProvider slotProvider = (IMachineSlotProvider) machineBase;
+						for(Integer outSlot : slotProvider.getOuputSlots()){
+							ItemStack outputStack = slotProvider.getMachineInv().getStackInSlot(outSlot);
+							if(!outputStack.isEmpty()){
+								int amount = InventoryHelper.testInventoryInsertion((IInventory) tileEntity, outputStack, dir);
+								if(amount > 0){
+									InventoryHelper.insertItemIntoInventory((IInventory) tileEntity,outputStack);
+									slotProvider.getMachineInv().decrStackSize(outSlot, amount);
+								}
+							}
+						}
+					} else {
+						IInventory inventory = machineBase;
+						for (int outSlot = 0; outSlot < inventory.getSizeInventory(); outSlot++) {
+							ItemStack outputStack = inventory.getStackInSlot(outSlot);
+							if(!outputStack.isEmpty()){
+								int amount = InventoryHelper.testInventoryInsertion((IInventory) tileEntity, outputStack, dir);
+								if(amount > 0){
+									InventoryHelper.insertItemIntoInventory((IInventory) tileEntity,outputStack);
+									inventory.decrStackSize(outSlot, amount);
+								}
+							}
+						}
 					}
-					//TODO fix when crafter is null
 				}
 			} else if (stack.getItemDamage() == 5){
 				if(machineBase.getWorld().getTotalWorldTime() % 10 != 0){

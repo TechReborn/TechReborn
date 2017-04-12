@@ -26,6 +26,7 @@ package techreborn.proxies;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
@@ -35,7 +36,9 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -44,6 +47,7 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import reborncore.RebornCore;
+import reborncore.api.tile.IUpgradeable;
 import reborncore.client.hud.StackInfoHUD;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.common.blocks.BlockMachineBase;
@@ -55,6 +59,7 @@ import techreborn.client.ClientMultiBlocks;
 import techreborn.client.IconSupplier;
 import techreborn.client.RegisterItemJsons;
 import techreborn.client.StackToolTipEvent;
+import techreborn.client.gui.GuiBase;
 import techreborn.client.keybindings.KeyBindings;
 import techreborn.client.render.ModelDynamicCell;
 import techreborn.client.render.entitys.RenderNukePrimed;
@@ -227,4 +232,16 @@ public class ClientProxy extends CommonProxy {
 		}
 	}
 
+	@Override
+	public String getUpgradeConfigText() {
+		if(Minecraft.getMinecraft().currentScreen instanceof GuiBase){
+			GuiBase base = (GuiBase) Minecraft.getMinecraft().currentScreen;
+			if(base.tile instanceof IUpgradeable){
+				if(((IUpgradeable) base.tile).canBeUpgraded()){
+					return TextFormatting.LIGHT_PURPLE + "Right click to configure";
+				}
+			}
+		}
+		return super.getUpgradeConfigText();
+	}
 }

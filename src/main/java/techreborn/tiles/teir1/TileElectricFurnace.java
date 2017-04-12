@@ -26,6 +26,7 @@ package techreborn.tiles.teir1;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.EnumFacing;
@@ -36,6 +37,7 @@ import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.tile.IMachineSlotProvider;
 import reborncore.common.util.Inventory;
 
 import techreborn.client.container.IContainerProvider;
@@ -44,7 +46,7 @@ import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 
 public class TileElectricFurnace extends TilePowerAcceptor
-		implements IWrenchable, IInventoryProvider, IContainerProvider {
+		implements IWrenchable, IInventoryProvider, IContainerProvider, IMachineSlotProvider {
 
 	public Inventory inventory = new Inventory(6, "TileElectricFurnace", 64, this);
 	public int capacity = 1000;
@@ -245,5 +247,20 @@ public class TileElectricFurnace extends TilePowerAcceptor
 		return new ContainerBuilder("electricfurnace").player(player.inventory).inventory().hotbar().addInventory()
 				.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).syncEnergyValue()
 				.syncIntegerValue(this::getBurnTime, this::setBurnTime).addInventory().create();
+	}
+
+	@Override
+	public int[] getInputSlots() {
+		return new int[]{input1};
+	}
+
+	@Override
+	public int[] getOuputSlots() {
+		return new int[]{output};
+	}
+
+	@Override
+	public IInventory getMachineInv() {
+		return inventory;
 	}
 }
