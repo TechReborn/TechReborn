@@ -41,10 +41,12 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
 import org.apache.commons.lang3.time.StopWatch;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.multiblock.MultiblockEventHandler;
 import reborncore.common.multiblock.MultiblockServerTickHandler;
+import reborncore.common.network.RegisterPacketEvent;
 import reborncore.common.packets.AddDiscriminatorEvent;
 import reborncore.common.util.LogHelper;
 import reborncore.common.util.VersionChecker;
@@ -64,6 +66,7 @@ import techreborn.init.*;
 import techreborn.lib.ModInfo;
 import techreborn.packets.PacketAesu;
 import techreborn.packets.PacketIdsu;
+import techreborn.packets.PacketSyncSideConfig;
 import techreborn.proxies.CommonProxy;
 import techreborn.tiles.idsu.IDSUManager;
 import techreborn.utils.StackWIPHandler;
@@ -229,5 +232,11 @@ public class Core {
 		event.getPacketHandler().addDiscriminator(event.getPacketHandler().nextDiscriminator, PacketAesu.class);
 		event.getPacketHandler().addDiscriminator(event.getPacketHandler().nextDiscriminator, PacketIdsu.class);
 	}
+
+	@SubscribeEvent
+	public void LoadPackets(RegisterPacketEvent event){
+		event.registerPacket(PacketSyncSideConfig.class, Side.SERVER);
+	}
+
 
 }

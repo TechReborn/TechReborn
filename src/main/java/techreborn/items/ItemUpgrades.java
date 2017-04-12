@@ -42,6 +42,7 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.util.InventoryHelper;
+import reborncore.common.util.ItemNBTHelper;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
@@ -97,6 +98,14 @@ public class ItemUpgrades extends ItemTRNoDestroy implements IUpgrade {
 	}
 
 	@Override
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+		super.addInformation(stack, playerIn, tooltip, advanced);
+		if(stack.getItemDamage() == 4 || stack.getItemDamage() == 5){
+			tooltip.add("Facing: " + getFacing(stack).getName());
+		}
+	}
+
+	@Override
 	public void process(
 		@Nonnull
 			TileLegacyMachineBase machineBase,
@@ -104,36 +113,42 @@ public class ItemUpgrades extends ItemTRNoDestroy implements IUpgrade {
 			RecipeCrafter crafter,
 		@Nonnull
 			ItemStack stack) {
-		if(crafter != null){
+
 			if (stack.getItemDamage() == 0) {
-				crafter.addSpeedMulti(0.25);
-				crafter.addPowerMulti(0.5);
+				if(crafter != null) {
+					crafter.addSpeedMulti(0.25);
+					crafter.addPowerMulti(0.5);
+				}
+
 			} else if(stack.getItemDamage() == 4){
-				EnumFacing dir = EnumFacing.NORTH;
+				EnumFacing dir = getFacing(stack);
 				TileEntity tileEntity = machineBase.getWorld().getTileEntity(machineBase.getPos().offset(dir));
 				if(tileEntity instanceof IInventory){
-					for(Integer outSlot : crafter.outputSlots){
-						ItemStack outputStack = crafter.inventory.getStackInSlot(outSlot);
-						if(!outputStack.isEmpty()){
-							int amount = InventoryHelper.testInventoryInsertion((IInventory) tileEntity, outputStack, dir);
-							if(amount > 0){
-								InventoryHelper.insertItemIntoInventory((IInventory) tileEntity,outputStack);
-								crafter.inventory.decrStackSize(outSlot, amount);
+					if(crafter != null){
+						for(Integer outSlot : crafter.outputSlots){
+							ItemStack outputStack = crafter.inventory.getStackInSlot(outSlot);
+							if(!outputStack.isEmpty()){
+								int amount = InventoryHelper.testInventoryInsertion((IInventory) tileEntity, outputStack, dir);
+								if(amount > 0){
+									InventoryHelper.insertItemIntoInventory((IInventory) tileEntity,outputStack);
+									crafter.inventory.decrStackSize(outSlot, amount);
+								}
 							}
 						}
 					}
+					//TODO fix when crafter is null
 				}
 			} else if (stack.getItemDamage() == 5){
 				if(machineBase.getWorld().getTotalWorldTime() % 10 != 0){
 					return;
 				}
-				EnumFacing dir = EnumFacing.UP;
+				EnumFacing dir = getFacing(stack);
 				TileEntity tileEntity = machineBase.getWorld().getTileEntity(machineBase.getPos().offset(dir));
-				if(tileEntity.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, dir.getOpposite())){
+				if(tileEntity != null && tileEntity.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, dir.getOpposite())){
 					IItemHandler itemHandler = tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, dir.getOpposite());
 					for (int i = 0; i < itemHandler.getSlots(); i++) {
 						ItemStack stack1 = itemHandler.getStackInSlot(i);
-						if(crafter.isStackValidInput(stack1)){
+						if(crafter == null || crafter.isStackValidInput(stack1)){
 							ItemStack extractedStack = itemHandler.extractItem(i, 1, true);
 							int amount = InventoryHelper.testInventoryInsertion(machineBase, extractedStack, null);
 							if(amount > 0){
@@ -144,7 +159,7 @@ public class ItemUpgrades extends ItemTRNoDestroy implements IUpgrade {
 						}
 					}
 				}
-			}
+
 		}
 		if(machineBase instanceof TilePowerAcceptor){
 			if (stack.getItemDamage() == 2) {
@@ -155,17 +170,20 @@ public class ItemUpgrades extends ItemTRNoDestroy implements IUpgrade {
 	}
 
 	@Override
-	public void handleRightClick(TileEntity tile, ItemStack stack, BuiltContainer container) {
+	public void handleRightClick(TileEntity tile, ItemStack stack, BuiltContainer container, int slotID) {
 		if(tile.getWorld().isRemote){
-			if(stack.getItemDamage() == 4){
-				Minecraft.getMinecraft().displayGuiScreen(new GuiSideConfig(Minecraft.getMinecraft().player, tile, getContainer(Minecraft.getMinecraft().player)));
-			} else if(stack.getItemDamage() == 5){
-				Minecraft.getMinecraft().displayGuiScreen(new GuiSideConfig(Minecraft.getMinecraft().player, tile, getContainer(Minecraft.getMinecraft().player)));
+			if(stack.getItemDamage() == 4 || stack.getItemDamage() == 5){
+				//TODO use the full gui handler
+				Minecraft.getMinecraft().displayGuiScreen(new GuiSideConfig(Minecraft.getMinecraft().player, tile, getContainer(Minecraft.getMinecraft().player), slotID));
 			}
 		}
 	}
 
 	public BuiltContainer getContainer(EntityPlayer player){
-		return new ContainerBuilder("sides").player(player.inventory).inventory().hotbar().addInventory().create();
+		return new ContainerBuilder("sides").create();
+	}
+
+	public EnumFacing getFacing(ItemStack stack){
+		return EnumFacing.VALUES[ItemNBTHelper.getInt(stack, "side", 0)];
 	}
 }

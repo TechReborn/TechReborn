@@ -107,7 +107,7 @@ public class BuiltContainer extends Container {
 
 	@Override
 	public ItemStack slotClick(int slotId, int dragType, ClickType clickTypeIn, EntityPlayer player) {
-		if(slotId > 0 && slotId < 1000){
+		if(dragType == 1 && slotId > 0 && slotId < 1000){
 			Slot slot = this.inventorySlots.get(slotId);
 			if(slot instanceof IRightClickHandler){
 				if(((IRightClickHandler) slot).handleRightClick(slot.getSlotIndex(), player, this)){

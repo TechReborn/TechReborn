@@ -31,6 +31,7 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.EnumFacing;
 
 import reborncore.api.power.EnumPowerTier;
+import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.blocks.BlockMachineBase;
@@ -63,9 +64,8 @@ public class TileElectricFurnace extends TilePowerAcceptor
 
 	@Override
 	public void update() {
+		super.update();
 		if (!this.world.isRemote) {
-			super.update();
-
 			final boolean burning = this.isBurning();
 			boolean updateInventory = false;
 			if (this.isBurning() && this.canSmelt()) {
