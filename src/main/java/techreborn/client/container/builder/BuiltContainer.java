@@ -35,6 +35,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import reborncore.common.util.ItemUtils;
+import techreborn.client.container.IRightClickHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,6 +103,19 @@ public class BuiltContainer extends Container {
 	public final void onCraftMatrixChanged(final IInventory inv) {
 		if (!this.craftEvents.isEmpty())
 			this.craftEvents.forEach(consumer -> consumer.accept((InventoryCrafting) inv));
+	}
+
+	@Override
+	public ItemStack slotClick(int slotId, int dragType, ClickType clickTypeIn, EntityPlayer player) {
+		if(slotId > 0 && slotId < 1000){
+			Slot slot = this.inventorySlots.get(slotId);
+			if(slot instanceof IRightClickHandler){
+				if(((IRightClickHandler) slot).handleRightClick(slot.getSlotIndex(), player, this)){
+					return ItemStack.EMPTY;
+				}
+			}
+		}
+		return super.slotClick(slotId, dragType, clickTypeIn, player);
 	}
 
 	@Override

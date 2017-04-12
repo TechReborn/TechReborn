@@ -42,6 +42,7 @@ import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.util.InventoryHelper;
 import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.client.container.builder.BuiltContainer;
 import techreborn.init.ModItems;
 
 import javax.annotation.Nonnull;
@@ -147,6 +148,15 @@ public class ItemUpgrades extends ItemTRNoDestroy implements IUpgrade {
 				TilePowerAcceptor acceptor = (TilePowerAcceptor) machineBase;
 				acceptor.extraPowerStoage += acceptor.getBaseMaxPower();
 			}
+		}
+	}
+
+	@Override
+	public void handleRightClick(TileEntity tile, ItemStack stack, BuiltContainer container) {
+		if(stack.getItemDamage() == 4){
+			System.out.println("open a gui here");
+		} else if(stack.getItemDamage() == 5){
+			System.out.println("open a gui here");
 		}
 	}
 }
