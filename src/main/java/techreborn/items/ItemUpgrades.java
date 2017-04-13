@@ -27,6 +27,7 @@ package techreborn.items;
 import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -203,7 +204,7 @@ public class ItemUpgrades extends ItemTRNoDestroy implements IUpgrade {
 	}
 
 	@Override
-	public void handleRightClick(TileEntity tile, ItemStack stack, BuiltContainer container, int slotID) {
+	public void handleRightClick(TileEntity tile, ItemStack stack, Container container, int slotID) {
 		if(tile.getWorld().isRemote){
 			if(stack.getItemDamage() == 4 || stack.getItemDamage() == 5){
 				//TODO use the full gui handler
