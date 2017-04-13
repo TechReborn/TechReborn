@@ -29,20 +29,15 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.*;
+import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import org.apache.commons.lang3.time.StopWatch;
+import reborncore.RebornCore;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.multiblock.MultiblockEventHandler;
 import reborncore.common.multiblock.MultiblockServerTickHandler;
@@ -75,7 +70,7 @@ import techreborn.world.VeinWorldGenerator;
 
 import java.io.File;
 
-@Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = ModInfo.MOD_DEPENDENCIES, guiFactory = ModInfo.GUI_FACTORY_CLASS, acceptedMinecraftVersions = "[1.11]")
+@Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = ModInfo.MOD_DEPENDENCIES, guiFactory = ModInfo.GUI_FACTORY_CLASS, acceptedMinecraftVersions = "[1.11]", certificateFingerprint = "8727a3141c8ec7f173b87aa78b9b9807867c4e6b")
 public class Core {
 
 	public static ConfigTechReborn config;
@@ -238,5 +233,10 @@ public class Core {
 		event.registerPacket(PacketSyncSideConfig.class, Side.SERVER);
 	}
 
+	@Mod.EventHandler
+	public void onFingerprintViolation(FMLFingerprintViolationEvent event) {
+		FMLLog.warning("Invalid fingerprint detected for TechReborn!");
+		RebornCore.proxy.invalidFingerprints.add("Invalid fingerprint detected for TechReborn!");
+	}
 
 }
