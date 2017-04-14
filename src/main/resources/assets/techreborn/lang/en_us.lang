@@ -972,8 +972,9 @@ death.attack.shock=%s was electrocuted
 
 
 #Entitys
-entity.techreborn.nuke.name=Nuke
+entity.nuke.name=Nuke
 
+#Tooltips
 tooltip.wip=WIP Coming Soon
 tooltip.upBroken=Upgrades DO NOT function!
 tooltip.ingredient=Currently only a crafting ingredient
