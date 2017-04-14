@@ -333,7 +333,7 @@ public class ConfigTechReborn {
 			"Set the max charge for the ThermalGenerator").getInt();
 
 		AverageEuOutTickTime = config.get(CATEGORY_POWER, "Average EU-out Tick Time", 100,
-			"Sets the adverage EU-out Tick Time").getInt();
+			"Set the average EU-out tick time").getInt();
 
 		LesuStoragePerBlock = config.get(CATEGORY_POWER, "LESU Storage Block Amount", 1000000,
 			"The Amount of energy storage added per Storage block").getInt();
