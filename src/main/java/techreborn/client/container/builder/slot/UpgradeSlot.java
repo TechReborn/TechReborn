@@ -67,8 +67,9 @@ public class UpgradeSlot extends Slot implements IRightClickHandler {
 				if(upgradeable.canBeUpgraded()){
 					ItemStack stack = upgradeable.getUpgradeInvetory().getStackInSlot(slotID);
 					if(!stack.isEmpty() && stack.getItem() instanceof IUpgrade){
-						//Called on both sides :)
-						((IUpgrade) stack.getItem()).handleRightClick(tileEntity, stack, container, slotID);
+						if(player.world.isRemote){
+							((IUpgrade) stack.getItem()).handleRightClick(tileEntity, stack, container, slotID);
+						}
 					}
 				}
 			}
