@@ -254,7 +254,7 @@ public class ConfigTechReborn {
 		AesuMaxStorage = config.get(CATEGORY_POWER, "AESU Max Storage", 30, "Set the max Storage for the AESU")
 			.getInt();
 
-		pumpExtractEU = config.get(CATEGORY_POWER, "Pump extract eu", 20, "How mutch eu should the pump use to extract the fluid")
+		pumpExtractEU = config.get(CATEGORY_POWER, "Pump extract eu", 20, "How much eu should the pump use to extract the fluid")
 			.getInt();
 
 		//Transformers
@@ -332,13 +332,13 @@ public class ConfigTechReborn {
 		ThermalGeneratorCharge = config.get(CATEGORY_POWER, "ThermalGenerator MaxCharge", 1000000,
 			"Set the max charge for the ThermalGenerator").getInt();
 
-		AverageEuOutTickTime = config.get(CATEGORY_POWER, "config.techreborn.AverageEuOutTickTime", 100,
-			"config.techreborn.AverageEuOutTickTime.tooltip").getInt();
+		AverageEuOutTickTime = config.get(CATEGORY_POWER, "Average EU-out Tick Time", 100,
+			"Sets the adverage EU-out Tick Time").getInt();
 
 		LesuStoragePerBlock = config.get(CATEGORY_POWER, "LESU Storage Block Amount", 1000000,
 			"The Amount of energy storage added per Storage block").getInt();
 
-		BaseLesuOutput = config.get(CATEGORY_POWER, "LESU base output", 16, "The output of the LESU befor upgrades")
+		BaseLesuOutput = config.get(CATEGORY_POWER, "LESU base output", 16, "The output of the LESU before upgrades")
 			.getInt();
 
 		ExtraOutputPerLesuBlock = config.get(CATEGORY_POWER, "Extra output on Storage Blocks", 8, "").getInt();
@@ -435,7 +435,7 @@ public class ConfigTechReborn {
 			.getBoolean(true);
 
 		REMOVE_DUPLICATES = config
-			.get(CATEGORY_CRAFTING, "Remove Duplicates when IC2 is installed", false, "This atempts to fully intergrate TR with ic2 recipes (Beta)")
+			.get(CATEGORY_CRAFTING, "Remove Duplicates when IC2 is installed", false, "This attempts to fully integrate TR with ic2 recipes (Beta)")
 			.getBoolean(false);
 
 		disableRailcraftSteelNuggetRecipe = config.get(CATEGORY_CRAFTING, "Disable Railcraft's Steel nugget recipe", false, "When true TechReborn will remove Railcrafts Iron Nugget to steel nuggert recipe.").getBoolean(false);
@@ -592,13 +592,13 @@ public class ConfigTechReborn {
 			.getBoolean(true);
 
 		// Integration
-		AllowBOPRecipes = config.get(CATEGORY_INTEGRATION, "Allow Bop Recipes", true, "Add BOP suport")
+		AllowBOPRecipes = config.get(CATEGORY_INTEGRATION, "Allow Bop Recipes", true, "Add BOP support")
 			.getBoolean(true);
 
-		AllowForestryRecipes = config.get(CATEGORY_INTEGRATION, "Allow Forestry Recipes", true, "Add Forestry suport")
+		AllowForestryRecipes = config.get(CATEGORY_INTEGRATION, "Allow Forestry Recipes", true, "Add Forestry support")
 			.getBoolean(true);
 
-		AllowNaturaRecipes = config.get(CATEGORY_INTEGRATION, "Allow Natura Recipes", true, "Add Natura suport")
+		AllowNaturaRecipes = config.get(CATEGORY_INTEGRATION, "Allow Natura Recipes", true, "Add Natura support")
 			.getBoolean(true);
 
 		if (config.hasChanged()) {
