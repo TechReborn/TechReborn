@@ -27,14 +27,12 @@ package techreborn.tiles;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
-
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
@@ -109,7 +107,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 		if (!super.world.isRemote) {
 			for (int i = 0; i < 6; i++) {
 				final ItemStack stack = this.inventory.getStackInSlot(i);
-				if (stack != null) {
+				if (stack != null && spaceForOutput()) {
 					final int amp = this.getValue(stack);
 					if (amp != 0 && this.canUseEnergy(85)) {
 						this.useEnergy(85);
