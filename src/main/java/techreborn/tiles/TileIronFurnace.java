@@ -57,8 +57,8 @@ public class TileIronFurnace extends TileLegacyMachineBase
 	public int progress;
 	public int fuelScale = 160;
 	int input1 = 0;
-	int output = 1;
-	int fuelslot = 2;
+	int fuelslot = 1;
+	int output = 2;
 	boolean active = false;
 
 	public int gaugeProgressScaled(final int scale) {
@@ -215,7 +215,7 @@ public class TileIronFurnace extends TileLegacyMachineBase
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("ironfurnace").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory().tile(this).slot(0, 56, 17).outputSlot(1, 116, 34).fuelSlot(2, 56, 53)
+			.addInventory().tile(this).slot(0, 56, 17).outputSlot(2, 116, 34).fuelSlot(1, 56, 53)
 				.syncIntegerValue(this::getBurnTime, this::setBurnTime)
 				.syncIntegerValue(this::getTotalBurnTime, this::setTotalBurnTime).addInventory().create();
 	}
