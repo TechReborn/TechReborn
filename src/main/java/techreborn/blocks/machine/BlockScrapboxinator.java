@@ -26,7 +26,9 @@ package techreborn.blocks.machine;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
 import reborncore.common.blocks.BlockMachineBase;
@@ -36,6 +38,8 @@ import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileScrapboxinator;
+
+import java.util.List;
 
 public class BlockScrapboxinator extends BlockMachineBase implements IRotationTexture {
 
@@ -84,5 +88,12 @@ public class BlockScrapboxinator extends BlockMachineBase implements IRotationTe
 	@Override
 	public String getBottom() {
 		return this.prefix + "machine_bottom";
+	}
+
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+		tooltip.add(TextFormatting.RED + "WIP Coming Soon");
+		//TODO Finish Scrapboxinator and add recipe
+		//Remember to remove WIP override and imports once complete
 	}
 }
