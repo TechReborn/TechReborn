@@ -77,7 +77,7 @@ public class TileIronFurnace extends TileLegacyMachineBase
 	}
 
 	@Override
-	public void update() {
+	public void updateEntity() {
 		final boolean burning = this.isBurning();
 		boolean updateInventory = false;
 		if (this.fuel > 0) {
