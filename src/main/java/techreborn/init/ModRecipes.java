@@ -169,8 +169,6 @@ public class ModRecipes {
 
 		RecipeHandler.addRecipe(new GrinderRecipe(
 			new ItemStack(Blocks.GLOWSTONE),
-			ItemDusts.getDustByName("glowstone", 4),
-			300, 16));
 
 		RecipeHandler.addRecipe(new GrinderRecipe(
 			new ItemStack(Blocks.NETHERRACK),
