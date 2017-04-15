@@ -178,11 +178,5 @@ public class BlockPlayerDetector extends BlockMachineBase implements ITexturedBl
 	public int getMetaFromState(IBlockState state) {
 		return typeNamesList.indexOf(state.getValue(TYPE));
 	}
-
-	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-		tooltip.add(TextFormatting.RED + "WIP Coming Soon");
-		//TODO Finish Player Detector and add recipe
-		//Remember to remove WIP override and imports once complete
-	}
+	
 }

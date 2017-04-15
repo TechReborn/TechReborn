@@ -89,9 +89,4 @@ public class BlockAssemblingMachine extends BlockMachineBase implements IRotatio
 		return this.prefix + "assembling_machine_top";
 	}
 
-	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-		tooltip.add(TextFormatting.RED + "WIP Coming Soon");
-		//Remember to remove WIP override and imports once obsolete
-	}
 }
