@@ -178,5 +178,4 @@ public class BlockPlayerDetector extends BlockMachineBase implements ITexturedBl
 	public int getMetaFromState(IBlockState state) {
 		return typeNamesList.indexOf(state.getValue(TYPE));
 	}
-	
 }
