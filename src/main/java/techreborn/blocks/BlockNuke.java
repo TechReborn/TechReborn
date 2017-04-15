@@ -147,10 +147,4 @@ public class BlockNuke extends BaseBlock implements ITexturedBlock {
 		return new BlockStateContainer(this, OVERLAY);
 	}
 
-	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-		tooltip.add(TextFormatting.RED + "WIP Coming Soon");
-		//TODO Finish Nuke and add recipe
-		//Remember to remove WIP override and imports once complete
-	}
 }
