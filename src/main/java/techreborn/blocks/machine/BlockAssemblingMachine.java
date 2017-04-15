@@ -37,7 +37,6 @@ import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileAssemblingMachine;
 
-
 public class BlockAssemblingMachine extends BlockMachineBase implements IRotationTexture {
 
 	private final String prefix = "techreborn:blocks/machine/greg_machines/";
