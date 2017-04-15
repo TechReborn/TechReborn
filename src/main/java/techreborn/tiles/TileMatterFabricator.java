@@ -107,7 +107,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 		if (!super.world.isRemote) {
 			for (int i = 0; i < 6; i++) {
 				final ItemStack stack = this.inventory.getStackInSlot(i);
-				if (!stack.isEmpty()) {
+				if (!stack.isEmpty() && spaceForOutput()) {
 					final int amp = this.getValue(stack);
 					if (amp != 0 && this.canUseEnergy(85)) {
 						this.useEnergy(85);

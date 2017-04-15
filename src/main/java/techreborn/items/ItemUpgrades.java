@@ -34,8 +34,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import reborncore.api.tile.IUpgrade;
@@ -204,6 +204,7 @@ public class ItemUpgrades extends ItemTRNoDestroy implements IUpgrade {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void handleRightClick(TileEntity tile, ItemStack stack, Container container, int slotID) {
 		if(tile.getWorld().isRemote){
 			if(stack.getItemDamage() == 4 || stack.getItemDamage() == 5){
@@ -213,6 +214,7 @@ public class ItemUpgrades extends ItemTRNoDestroy implements IUpgrade {
 		}
 	}
 
+	@SideOnly(Side.CLIENT)
 	public BuiltContainer getContainer(EntityPlayer player){
 		return new ContainerBuilder("sides").create();
 	}

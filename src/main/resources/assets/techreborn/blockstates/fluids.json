@@ -19,16 +19,46 @@
         "fluid": "fluidcalciumcarbonate"
       }
     },
+    "techreborn.carbon": {
+      "model": "forge:fluid",
+      "custom": {
+        "fluid": "fluidcarbon"
+      }
+    },
+    "techreborn.carbonfiber": {
+      "model": "forge:fluid",
+      "custom": {
+        "fluid": "fluidcarbonfiber"
+      }
+    },
     "techreborn.chlorite": {
       "model": "forge:fluid",
       "custom": {
         "fluid": "fluidchlorite"
       }
     },
+    "techreborn.compressedair": {
+      "model": "forge:fluid",
+      "custom": {
+        "fluid": "fluidcompressedair"
+      }
+    },
     "techreborn.deuterium": {
       "model": "forge:fluid",
       "custom": {
         "fluid": "fluiddeuterium"
+      }
+    },
+    "techreborn.diesel": {
+      "model": "forge:fluid",
+      "custom": {
+        "fluid": "fluiddiesel"
+      }
+    },
+    "techreborn.electrolyzedwater": {
+      "model": "forge:fluid",
+      "custom": {
+        "fluid": "fluidelectrolyzedwater"
       }
     },
     "techreborn.glyceryl": {
@@ -79,10 +109,22 @@
         "fluid": "fluidmethane"
       }
     },
+    "techreborn.nitrocarbon": {
+      "model": "forge:fluid",
+      "custom": {
+        "fluid": "fluidnitrocarbon"
+      }
+    },
     "techreborn.nitrocoalfuel": {
       "model": "forge:fluid",
       "custom": {
         "fluid": "fluidnitrocoalfuel"
+      }
+    },
+    "techreborn.nitrodiesel": {
+      "model": "forge:fluid",
+      "custom": {
+        "fluid": "fluidnitrodiesel"
       }
     },
     "techreborn.nitrofuel": {
@@ -101,6 +143,12 @@
       "model": "forge:fluid",
       "custom": {
         "fluid": "fluidnitrogendioxide"
+      }
+    },
+    "techreborn.oil": {
+      "model": "forge:fluid",
+      "custom": {
+        "fluid": "fluidoil"
       }
     },
     "techreborn.potassium": {
@@ -125,6 +173,24 @@
       "model": "forge:fluid",
       "custom": {
         "fluid": "fluidsodiumpersulfate"
+      }
+    },
+    "techreborn.sodiumsulfide": {
+      "model": "forge:fluid",
+      "custom": {
+        "fluid": "fluidsodiumsulfide"
+      }
+    },
+    "techreborn.sulfur": {
+      "model": "forge:fluid",
+      "custom": {
+        "fluid": "fluidsulfur"
+      }
+    },
+    "techreborn.sulfuricacid": {
+      "model": "forge:fluid",
+      "custom": {
+        "fluid": "fluidsulfuricacid"
       }
     },
     "techreborn.tritium": {

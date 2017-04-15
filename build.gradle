@@ -1,26 +1,26 @@
 buildscript {
-    repositories {
-        mavenCentral()
-        maven {
-            name = "forge"
-            url = "http://files.minecraftforge.net/maven"
-        }
-        maven {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots/"
-        }
+	repositories {
+		mavenCentral()
 		maven {
-            name = "Modmuss50"
-            url = "http://maven.modmuss50.me/"
-        }
+			name = "forge"
+			url = "http://files.minecraftforge.net/maven"
+		}
 		maven {
-            url "https://plugins.gradle.org/m2/"
-        }
-    }
-    dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
-        classpath "gradle.plugin.net.minecrell:licenser:0.2.1"
-    }
+			name = "sonatype"
+			url = "https://oss.sonatype.org/content/repositories/snapshots/"
+		}
+		maven {
+			name = "Modmuss50"
+			url = "http://maven.modmuss50.me/"
+		}
+		maven {
+			url "https://plugins.gradle.org/m2/"
+		}
+	}
+	dependencies {
+		classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+		classpath "gradle.plugin.net.minecrell:licenser:0.2.1"
+	}
 }
 
 apply plugin: 'net.minecraftforge.gradle.forge'
@@ -34,76 +34,77 @@ targetCompatibility = 1.8
 
 
 repositories {
-    maven {
-        name = "Modmuss50"
-        url = "http://maven.modmuss50.me/"
-    }
-    maven {
-        name "TiC"
-        url "http://dvs1.progwml6.com/files/maven"
-    }
-    maven {
-        name = "Amadornes"
-        url "http://maven.amadornes.com/"
-    }
+	maven {
+		name = "Modmuss50"
+		url = "http://maven.modmuss50.me/"
+	}
+	maven {
+		name "TiC"
+		url "http://dvs1.progwml6.com/files/maven"
+	}
+	maven {
+		name = "Amadornes"
+		url "http://maven.amadornes.com/"
+	}
 	ivy {
 		name "CraftTweaker"
 		artifactPattern "https://addons-origin.cursecdn.com/files/2392/421/[module]-[revision](-[classifier]).[ext]"
 	}
-    maven {
-        url 'http://maven.epoxide.xyz'
-    }
-    maven {
-        url "http://maven.tterrag.com/"
-    }
-    maven {
-        name = "ic2"
-        url = "http://maven.ic2.player.to/"
-    }
+	maven {
+		url 'http://maven.epoxide.xyz'
+	}
+	maven {
+		url "http://maven.tterrag.com/"
+	}
+	maven {
+		name = "ic2"
+		url = "http://maven.ic2.player.to/"
+	}
 
-    maven {// HWYLA
-        name "TehNut"
-        url "http://tehnut.info/maven/"
-    }
-    maven {
+	maven {
+		// HWYLA
+		name "TehNut"
+		url "http://tehnut.info/maven/"
+	}
+	maven {
 		name 'CB Repo'
 		url "http://chickenbones.net/maven/"
 	}
 }
 
 configurations {
-    shade
-    compile.extendsFrom shade
+	shade
+	compile.extendsFrom shade
 }
 
 
-version = "2.1.11"
+version = "2.2.0"
 
 def ENV = System.getenv()
 if (ENV.BUILD_NUMBER) {
-    version = version + "." + "${System.getenv().BUILD_NUMBER}"
+	version = version + "." + "${System.getenv().BUILD_NUMBER}"
 }
 
 minecraft {
 	version = "1.11.2-13.20.0.2255"
 	mappings = "snapshot_20161220"
-    replace "@MODVERSION@", project.version
-  //  makeObfSourceJar = false
-    useDepAts = true
-    runDir = "run"
+	replace "@MODVERSION@", project.version
+	//  makeObfSourceJar = false
+	useDepAts = true
+	runDir = "run"
 }
 
 license {
-    header file('HEADER')
-    include '**/*.java'
-    ignoreFailures = true //Stops the build from failing if a file does not have a license header
+	header file('HEADER')
+	include '**/*.java'
+	ignoreFailures = true //Stops the build from failing if a file does not have a license header
 }
 
 group = 'TechReborn'
 
 
 dependencies {
-	deobfCompile ('RebornCore:RebornCore-1.11.2:+:universal'){
+	deobfCompile('RebornCore:RebornCore-1.11.2:+:universal') {
 		transitive = false
 	}
 	deobfCompile "mezz.jei:jei_1.11.2:+"
@@ -115,13 +116,13 @@ dependencies {
 	//deobfCompile "slimeknights.mantle:Mantle:1.10.2-1.0.0.jenkins170"
 	deobfCompile "mcjty.theoneprobe:TheOneProbe:1.11-1.3.3-46"
 	compile "CraftTweaker:CraftTweaker:1.11.2-3.0.24"
-    compile ("codechicken:CodeChickenLib:1.11.2-+:deobf"){
+	compile("codechicken:CodeChickenLib:1.11.2-+:deobf") {
 		transitive = false
 	}
-    compile ("codechicken:NotEnoughItems:1.11.2-+:deobf"){
+	compile("codechicken:NotEnoughItems:1.11.2-+:deobf") {
 		transitive = false
 	}
-    compile ("codechicken:ForgeMultipart:1.11.2-+:deobf"){
+	compile("codechicken:ForgeMultipart:1.11.2-+:deobf") {
 		transitive = false
 	}
 	compileOnly 'net.industrial-craft:industrialcraft-2:2.6.129-ex110'
@@ -129,58 +130,58 @@ dependencies {
 
 
 processResources
-        {
-            // this will ensure that this task is redone when the versions change.
-            inputs.property "version", project.version
-            inputs.property "mcversion", project.minecraft.version
+	{
+		// this will ensure that this task is redone when the versions change.
+		inputs.property "version", project.version
+		inputs.property "mcversion", project.minecraft.version
 
-            // replace stuff in mcmod.info, nothing else
-            from(sourceSets.main.resources.srcDirs) {
-                include 'mcmod.info'
+		// replace stuff in mcmod.info, nothing else
+		from(sourceSets.main.resources.srcDirs) {
+			include 'mcmod.info'
 
-                // replace version and mcversion
-                expand 'version':project.version, 'mcversion':project.minecraft.version
-            }
+			// replace version and mcversion
+			expand 'version': project.version, 'mcversion': project.minecraft.version
+		}
 
-            // copy everything else, thats not the mcmod.info
-            from(sourceSets.main.resources.srcDirs) {
-                exclude 'mcmod.info'
-            }
-        }
+		// copy everything else, thats not the mcmod.info
+		from(sourceSets.main.resources.srcDirs) {
+			exclude 'mcmod.info'
+		}
+	}
 
 
 task deobfJar(type: Jar) {
-    from sourceSets.main.output
-    exclude "**/*.psd"
-    classifier = 'dev'
+	from sourceSets.main.output
+	exclude "**/*.psd"
+	classifier = 'dev'
 }
 
 
 jar {
-    exclude "**/*.psd"
-    classifier = 'universal'
-//    configurations.shade.each { dep ->
-//        from(project.zipTree(dep)){
-//            include 'ic2/api/'
-//            include 'forestry/api/fuels/'
-//            exclude 'META-INF', 'META-INF/**', '**/*.java'
-//        }
-//    }
+	exclude "**/*.psd"
+	classifier = 'universal'
+	//    configurations.shade.each { dep ->
+	//        from(project.zipTree(dep)){
+	//            include 'ic2/api/'
+	//            include 'forestry/api/fuels/'
+	//            exclude 'META-INF', 'META-INF/**', '**/*.java'
+	//        }
+	//    }
 }
 
 task apiJar(type: Jar) {
-    from sourceSets.main.allSource
-    from sourceSets.main.output
-        include 'techreborn/api/**/*'
+	from sourceSets.main.allSource
+	from sourceSets.main.output
+	include 'techreborn/api/**/*'
 
-    classifier = "api"
+	classifier = "api"
 }
 
 apiJar.mustRunAfter deobfJar
 
 artifacts {
-    archives deobfJar
-    archives apiJar
+	archives deobfJar
+	archives apiJar
 }
 
 build.dependsOn deobfJar, apiJar
@@ -188,105 +189,102 @@ build.dependsOn deobfJar, apiJar
 
 
 uploadArchives {
-    repositories {
-        mavenDeployer {
-            //This is used when the build is done on a slave node
-		if (project.hasProperty('mavenPass'))
-        {
-			println 'Uploading to remote Maven Repo'
-            repository(url: "http://mavenupload.modmuss50.me/") {
-                authentication(userName: "buildslave", password: project.getProperty('mavenPass'))
-            }
-        }
-        else
-        {
-			//this is when the build is executed on the master node
-			println 'Uploading to local Maven Repo'
-           repository(url: "file:///var/www/maven/")
-        }
-            pom {
-                groupId = "TechReborn"
-                version = project.version
-                artifactId = project.archivesBaseName
-                project {
-                    name project.archivesBaseName
-                    packaging 'jar'
-                    description 'TechReborn'
-                    url 'https://github.com/TechReborn/TechReborn'
-                    scm {
-                        url 'https://github.com/TechReborn/TechReborn'
-                        connection 'scm:git:git@github.com:TechReborn/TechReborn.git'
-                        developerConnection 'scm:git:git@github.com:TechReborn/TechReborn.git'
-                    }
-                    issueManagement {
-                        system 'github'
-                        url 'https://github.com/TechReborn/TechReborn/issues'
-                    }
-                    licenses {
-                        license {
-                            name 'License'
-                            url 'https://raw.githubusercontent.com/TechReborn/TechReborn/master/LICENSE.md'
-                            distribution 'repo'
-                        }
-                    }
-                    developers {
-                        developer {
-                            id 'modmuss50'
-                            name 'modmuss50'
-                            roles { role 'developer' }
-                        }
-                        developer {
-                            id 'Gigabit101'
-                            name 'Gigabit101'
-                            roles { role 'developer' }
-                        }
-                    }
-                }
-            }
-        }
-    }
+	repositories {
+		mavenDeployer {
+			//This is used when the build is done on a slave node
+			if (project.hasProperty('mavenPass')) {
+				println 'Uploading to remote Maven Repo'
+				repository(url: "http://mavenupload.modmuss50.me/") {
+					authentication(userName: "buildslave", password: project.getProperty('mavenPass'))
+				}
+			} else {
+				//this is when the build is executed on the master node
+				println 'Uploading to local Maven Repo'
+				repository(url: "file:///var/www/maven/")
+			}
+			pom {
+				groupId = "TechReborn"
+				version = project.version
+				artifactId = project.archivesBaseName
+				project {
+					name project.archivesBaseName
+					packaging 'jar'
+					description 'TechReborn'
+					url 'https://github.com/TechReborn/TechReborn'
+					scm {
+						url 'https://github.com/TechReborn/TechReborn'
+						connection 'scm:git:git@github.com:TechReborn/TechReborn.git'
+						developerConnection 'scm:git:git@github.com:TechReborn/TechReborn.git'
+					}
+					issueManagement {
+						system 'github'
+						url 'https://github.com/TechReborn/TechReborn/issues'
+					}
+					licenses {
+						license {
+							name 'License'
+							url 'https://raw.githubusercontent.com/TechReborn/TechReborn/master/LICENSE.md'
+							distribution 'repo'
+						}
+					}
+					developers {
+						developer {
+							id 'modmuss50'
+							name 'modmuss50'
+							roles {role 'developer'}
+						}
+						developer {
+							id 'Gigabit101'
+							name 'Gigabit101'
+							roles {role 'developer'}
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 task wrapper(type: Wrapper) {
-    //To update the wrapper change the version bellow then run: gradle wrapper
-    gradleVersion = '2.13'
+	//To update the wrapper change the version bellow then run: gradle wrapper
+	gradleVersion = '2.13'
 }
 
 //Thanks Matthew from #ForgeGradle https://gist.github.com/matthewprenger/108265e3efc83181bd2cc2d2fc31a853
 task updateMappings(dependsOn: sourceJar) {
 
-    def remapped = file('src_remapped/main/java')
-    def methods = file('methods.csv')
-    def fields = file('fields.csv')
+	def remapped = file('src_remapped/main/java')
+	def methods = file('methods.csv')
+	def fields = file('fields.csv')
 
-    doLast {
+	doLast {
 
-        Map<String, String> map = new HashMap<>()
-        methods.eachLine {line ->
-            String[] pts = line.split(",")
-            map.put(pts[0], pts[1])
-        }
-        fields.eachLine {line ->
-            String[] pts = line.split(",")
-            map.put(pts[0], pts[1])
-        }
+		Map<String, String> map = new HashMap<>()
+		methods.eachLine {line ->
+			String[] pts = line.split(",")
+			map.put(pts[0], pts[1])
+		}
+		fields.eachLine {line ->
+			String[] pts = line.split(",")
+			map.put(pts[0], pts[1])
+		}
 
-        copy {
-            from zipTree(sourceJar.archivePath)
-            into remapped
-            include '**/*.java'
+		copy {
+			from zipTree(sourceJar.archivePath)
+			into remapped
+			include '**/*.java'
 
-            filter { javaLine ->
-                map.entrySet().each { entry ->
-                    javaLine = javaLine.replace(entry.getKey(), entry.getValue())
-                }
-                return javaLine
-            }
+			filter {javaLine ->
+				map.entrySet().each {entry ->
+					javaLine = javaLine.replace(entry.getKey(), entry.getValue())
+				}
+				return javaLine
+			}
 
-            includeEmptyDirs = false
-            eachFile { println "Processing: $it.name" }
-        }
-    }
+			includeEmptyDirs = false
+			eachFile {println "Processing: $it.name"}
+		}
+	}
 }
 
 
@@ -310,33 +308,34 @@ build.dependsOn signJar
 
 apply from: 'https://github.com/FabricMC/fabric-docs/raw/master/gradle/ideconfig.gradle'
 
-import org.apache.commons.io.FileUtils;
-import groovy.util.XmlSlurper;
-import java.io.File;
+import groovy.util.XmlSlurper
+import org.apache.commons.io.FileUtils
 
 task curseTools {
 	doLast {
-	def cacheFiles = new File(".gradle/curseTools")
-	if (!cacheFiles.exists()) cacheFiles.mkdirs()
+		def cacheFiles = new File(".gradle/curseTools")
+		if (!cacheFiles.exists()) {
+			cacheFiles.mkdirs()
+		}
 
-	def mavenMetadata = new File(cacheFiles, "maven-metadata.xml")
+		def mavenMetadata = new File(cacheFiles, "maven-metadata.xml")
 
-	logger.lifecycle(":downloading curseTools metadata")
-	FileUtils.copyURLToFile(new URL("http://maven.modmuss50.me/CurseTools/CurseTools/maven-metadata.xml"), mavenMetadata)
+		logger.lifecycle(":downloading curseTools metadata")
+		FileUtils.copyURLToFile(new URL("http://maven.modmuss50.me/CurseTools/CurseTools/maven-metadata.xml"), mavenMetadata)
 
-	def metadata = new XmlSlurper().parseText(FileUtils.readFileToString(mavenMetadata))
-	def curseToolsVersion = metadata.versioning.release
+		def metadata = new XmlSlurper().parseText(FileUtils.readFileToString(mavenMetadata))
+		def curseToolsVersion = metadata.versioning.release
 
-	def curseTools = new File(cacheFiles, "${curseToolsVersion}.jar")
+		def curseTools = new File(cacheFiles, "${curseToolsVersion}.jar")
 
-	logger.lifecycle(":downloading CurseTools")
-	FileUtils.copyURLToFile(new URL("http://maven.modmuss50.me/CurseTools/CurseTools/${curseToolsVersion}/CurseTools-${curseToolsVersion}.jar"), curseTools)
+		logger.lifecycle(":downloading CurseTools")
+		FileUtils.copyURLToFile(new URL("http://maven.modmuss50.me/CurseTools/CurseTools/${curseToolsVersion}/CurseTools-${curseToolsVersion}.jar"), curseTools)
 
-	logger.lifecycle(":launching CurseTools")
-	ant.java(jar: curseTools.getAbsolutePath(), fork: true, spawn: false) {
-		arg(value: jar.archivePath.getAbsolutePath())
-		arg(value: deobfJar.archivePath.getAbsolutePath())
-		arg(value: apiJar.archivePath.getAbsolutePath())
-	}
+		logger.lifecycle(":launching CurseTools")
+		ant.java(jar: curseTools.getAbsolutePath(), fork: true, spawn: false) {
+			arg(value: jar.archivePath.getAbsolutePath())
+			arg(value: deobfJar.archivePath.getAbsolutePath())
+			arg(value: apiJar.archivePath.getAbsolutePath())
+		}
 	}
 }
