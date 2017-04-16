@@ -25,12 +25,17 @@
 package techreborn.blocks.generator;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.blocks.IAdvancedRotationTexture;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.generator.TileHeatGenerator;
+
+import java.util.List;
 
 public class BlockHeatGenerator extends BlockMachineBase implements IAdvancedRotationTexture {
 
@@ -67,4 +72,10 @@ public class BlockHeatGenerator extends BlockMachineBase implements IAdvancedRot
 		return prefix + "heat_generator_bottom";
 	}
 
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+		tooltip.add(TextFormatting.RED + "WIP Coming Soon");
+		//TODO Finish Heat Generator and add recipe + texture
+		//Remember to remove WIP override and imports once complete
+	}
 }
