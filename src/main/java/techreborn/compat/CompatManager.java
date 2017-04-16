@@ -62,6 +62,7 @@ public class CompatManager {
 		register(CompactTheOneProbe.class, "theoneprobe");
 		//register(CompatModulePsi.class, "Psi");
 		register(RecipesIC2.class, "IC2");
+		register(OpenComputers.class, "OpenComputers");
 	}
 
 	public void register(Class<? extends ICompatModule> moduleClass, Object... objs) {
