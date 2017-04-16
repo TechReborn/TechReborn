@@ -65,11 +65,6 @@ repositories {
 		name "Minetweaker"
 		url "http://blamejared.com/maven"
 	}
-
-	maven {
-		name "OpenComputers"
-		url = "http://maven.cil.li/"
-	}
 }
 
 configurations {
@@ -110,7 +105,7 @@ dependencies {
 	deobfCompile "slimeknights.mantle:Mantle:1.10.2-1.0.0.jenkins170"
     deobfCompile "mcjty.theoneprobe:TheOneProbe:1.9.4-1.0.4-14"
     deobfCompile 'net.industrial-craft:industrialcraft-2:2.6.129-ex110'
-	deobfCompile "li.cil.oc:OpenComputers:MC1.10.2+"
+
 }
 
 
