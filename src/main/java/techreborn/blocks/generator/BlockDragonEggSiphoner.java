@@ -25,12 +25,17 @@
 package techreborn.blocks.generator;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.blocks.IAdvancedRotationTexture;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.generator.TileDragonEggSiphoner;
+
+import java.util.List;
 
 public class BlockDragonEggSiphoner extends BlockMachineBase implements IAdvancedRotationTexture {
 
@@ -65,6 +70,13 @@ public class BlockDragonEggSiphoner extends BlockMachineBase implements IAdvance
 	@Override
 	public String getBottom(boolean isActive) {
 		return prefix + "generator_machine_bottom";
+	}
+
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+		tooltip.add(TextFormatting.RED + "WIP Coming Soon");
+		//TODO Finish Dragon Egg Siphoner and add recipe
+		//Remember to remove WIP override and imports once complete
 	}
 
 }
