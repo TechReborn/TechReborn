@@ -27,7 +27,7 @@ package techreborn.lib;
 import reborncore.common.IModInfo;
 
 public class ModInfo implements IModInfo {
-	public static final String MOD_NAME = "TechReborn";
+	public static final String MOD_NAME = "Tech Reborn";
 	public static final String MOD_ID = "techreborn";
 	public static final String MOD_VERSION = "@MODVERSION@";
 	public static final String MOD_DEPENDENCIES = "required-after:forge;required-after:reborncore;after:jei@[3.13,);after:ic2";

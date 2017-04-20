@@ -1,23 +1,20 @@
 [
 {
   "modid": "techreborn",
-  "name": "TechReborn",
-  "description": "TechReborn, The Gregtech revival you dream about on a cool mid summer's eve.",
+  "name": "Tech Reborn",
+  "description": "Tech Reborn is a completely standalone tech mod designed by the ideals of GregTech 2 and Industrial Craft 2 pre-experimental. The mod includes tools and machines to gather resources, process materials, and progression throughout the mod. http://www.techreborn.ovh/",
   "version": "$version",
   "mcversion": "$mcversion",
   "url": "https://github.com/TechReborn/TechReborn",
   "updateUrl": "",
   "authorList": [
-    "modmuss50", "Gigabit101",
-    "tntrololol", "joflashstudios",
-	"Prospector"
+    "modmuss50", "Gigabit101", "Prospector"
   ],
-  "credits": "TheMattaBase, Mj11jM and Mazdallier for language work, [testers, etc]",
-  "logoFile": "",
+  "credits": "Thanks to these contributors: TheMattaBase, Mj11jM, Mazdallier, tntrololol, joflashstudios, drcrazy, lclc98, Lordmau5, mezz, and Thog",
+  "logoFile": "logo.png",
   "screenshots": [
   ],
   "parent":"",
-  "dependencies": [
-  ]
+  "dependencies": ["reborncore"]
 }
 ]
