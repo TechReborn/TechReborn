@@ -86,7 +86,7 @@ if (ENV.BUILD_NUMBER) {
 }
 
 minecraft {
-	version = "1.11.2-13.20.0.2255"
+	version = "1.11.2-13.20.0.2282"
 	mappings = "snapshot_20161220"
 	replace "@MODVERSION@", project.version
 	//  makeObfSourceJar = false
@@ -125,7 +125,7 @@ dependencies {
 	compile("codechicken:ForgeMultipart:1.11.2-+:deobf") {
 		transitive = false
 	}
-	compileOnly 'net.industrial-craft:industrialcraft-2:2.6.129-ex110'
+	deobfCompile  'net.industrial-craft:industrialcraft-2:2.7.5-ex111'
 }
 
 
