@@ -117,7 +117,7 @@ public class TileCreativePanel extends TilePowerAcceptor implements IWrenchable 
 
 	//Done to prevent ic2 from exploding the adjacent blocks
 	@Override
-	@Optional.Method(modid = "IC2")
+	@Optional.Method(modid = "ic2")
 	public int getSourceTier() {
 		return 0;
 	}

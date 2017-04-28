@@ -48,7 +48,7 @@ public class CompatManager {
 	public ArrayList<ICompatModule> compatModules = new ArrayList<>();
 
 	public CompatManager() {
-		isIC2Loaded = Loader.isModLoaded("IC2");
+		isIC2Loaded = Loader.isModLoaded("ic2");
 		isQuantumStorageLoaded = Loader.isModLoaded("quantumstorage");
 		register(CraftTweakerCompat.class, "crafttweaker");
 		registerCompact(TechRebornParts.class, false, "reborncore-mcmultipart");
@@ -59,7 +59,7 @@ public class CompatManager {
 		register(CompatModuleTinkers.class, "tconstruct");
 		register(CompactTheOneProbe.class, "theoneprobe");
 		//register(CompatModulePsi.class, "Psi");
-		register(RecipesIC2.class, "IC2");
+		register(RecipesIC2.class, "ic2");
 	}
 
 	public void register(Class<? extends ICompatModule> moduleClass, Object... objs) {

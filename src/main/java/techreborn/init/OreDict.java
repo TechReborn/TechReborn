@@ -46,7 +46,7 @@ public class OreDict {
 	);
 
 	public static void init() {
-		if (Loader.isModLoaded("IC2")) {
+		if (Loader.isModLoaded("ic2")) {
 			Core.logHelper.info("IC2 installed, enabling integration");
 			IC2Dict.init();
 		}
@@ -86,7 +86,8 @@ public class OreDict {
 		//OreDictionary.registerOre("smallUran235", nothing);
 
 		OreDictionary.registerOre("fenceIron", ModBlocks.REFINED_IRON_FENCE);
-		OreDictionary.registerOre("woodRubber", ModBlocks.RUBBER_LOG);
+		//TODO ic2 bug? Disabled as it crashes with this line
+		//OreDictionary.registerOre("woodRubber", ModBlocks.RUBBER_LOG);
 		OreDictionary.registerOre("glassReinforced", ModBlocks.REINFORCED_GLASS);
 
 		OreDictionary.registerOre("craftingGrinder", ItemParts.getPartByName("diamondGrindingHead"));

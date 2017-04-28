@@ -118,7 +118,7 @@ public class Core {
 		// Entitys
 		EntityRegistry.registerModEntity(new ResourceLocation("techreborn", "nuke"), EntityNukePrimed.class, "nuke", 0, INSTANCE, 160, 5, true);
 
-		CompatManager.isIC2Loaded = Loader.isModLoaded("IC2");
+		CompatManager.isIC2Loaded = Loader.isModLoaded("ic2");
 
 		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
 			compatModule.preInit(event);
