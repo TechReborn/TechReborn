@@ -193,6 +193,16 @@ public class TileRollingMachine extends TilePowerAcceptor
 		tagCompound.setBoolean("isRunning", this.isRunning);
 		tagCompound.setInteger("tickTime", this.tickTime);
 	}
+	
+	@Override
+	public boolean canInsertItem(final int Index, final ItemStack itemStack, final EnumFacing side) {
+		return Index == 0;
+	}
+
+	@Override
+	public boolean canExtractItem(final int Index, final ItemStack itemStack, final EnumFacing side) {
+		return Index == 1;
+	}
 
 	@Override
 	public void invalidate() {
