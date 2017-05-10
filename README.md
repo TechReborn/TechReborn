@@ -25,7 +25,7 @@ If you're looking for the latest bleeding edge build, these are found on our Jen
 
 1.10.2 - [![Build Status](https://jenkins.modmuss50.me/job/TeamReborn/job/TechReborn/job/TechReborn-1.10.2/badge/icon)](https://jenkins.modmuss50.me/job/TeamReborn/job/TechReborn/job/TechReborn-1.10.2/)
 
-# Issues and Sggestions
+# Issues and Suggestions
 
 To report an issue or make a suggestion, please head up to the `Issues` tab up above, and open a new issue. You will need a GitHub account for this (it's free!). **It is very important that you include the version of Tech Reborn you are using in your issue report.**
 
