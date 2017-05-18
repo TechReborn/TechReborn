@@ -301,7 +301,7 @@ public abstract class CableMultipart extends Multipart
 				if (pipe != null) {
 					int averPower = (power + pipe.power) / 2;
 					pipe.power = averPower;
-					if(averPower % 2 != 0){
+					if(averPower % 2 != 0 && power != 0){
 						averPower ++;
 					}
 					power = averPower;
@@ -405,7 +405,7 @@ public abstract class CableMultipart extends Multipart
 
 	@Override
 	public int getMaxEnergyStored() {
-		return getCableType().transferRate * RebornCoreConfig.euPerFU * 2;
+		return getCableType().transferRate * 2;
 	}
 
 	@Override
