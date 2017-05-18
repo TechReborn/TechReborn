@@ -290,7 +290,7 @@ public abstract class CableMultipart extends Multipart
 				if (tile.hasCapability(CapabilityEnergy.ENERGY, face.getOpposite())) {
 					IEnergyStorage energy = tile.getCapability(CapabilityEnergy.ENERGY, face.getOpposite());
 					if (energy.canReceive()) {
-						int move = energy.receiveEnergy(Math.min(getCableType().transferRate * RebornCoreConfig.euPerFU, power), false);
+						int move = energy.receiveEnergy(Math.min(getCableType().transferRate, power), false);
 						if (move != 0) {
 							power -= move;
 						}
@@ -410,7 +410,7 @@ public abstract class CableMultipart extends Multipart
 
 	@Override
 	public boolean canExtract() {
-		return false;
+		return true;
 	}
 
 	@Override
