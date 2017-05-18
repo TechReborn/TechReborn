@@ -43,6 +43,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
@@ -415,5 +416,21 @@ public abstract class CableMultipart extends Multipart
 	@Override
 	public boolean canReceive() {
 		return true;
+	}
+
+	@Override
+	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+		if(capability == CapabilityEnergy.ENERGY){
+			return true;
+		}
+		return super.hasCapability(capability, facing);
+	}
+
+	@Override
+	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+		if(capability == CapabilityEnergy.ENERGY){
+			return (T) this;
+		}
+		return super.getCapability(capability, facing);
 	}
 }
