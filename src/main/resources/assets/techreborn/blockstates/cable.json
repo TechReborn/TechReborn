@@ -1,0 +1,101 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "transform": "forge:default-block",
+    "model": "techreborn:cable",
+    "textures": {
+      "cable": "techreborn:block/cable",
+      "particle": "#cable"
+    }
+  },
+  "variants": {
+    "inventory": [
+      {
+        "transform": "forge:default-block",
+        "model": "techreborn:cable",
+        "textures": {
+        }
+      }
+    ],
+    "down": {
+      "true": {
+        "submodel": {
+          "pipeDown": {
+            "model": "techreborn:cable_connection_alt",
+            "x": 270
+          }
+        }
+      },
+      "false": {
+      }
+    },
+    "east": {
+      "true": {
+        "submodel": "techreborn:cable_connection",
+        "y": 90
+      },
+      "false": {
+      }
+    },
+    "north": {
+      "true": {
+        "submodel": "techreborn:cable_connection"
+      },
+      "false": {
+      }
+    },
+    "south": {
+      "true": {
+        "submodel": "techreborn:cable_connection_alt"
+      },
+      "false": {
+      }
+    },
+    "up": {
+      "true": {
+        "submodel": {
+          "pipeUp": {
+            "model": "techreborn:cable_connection",
+            "x": 270
+          }
+        }
+      },
+      "false": {
+      }
+    },
+    "west": {
+      "true": {
+        "submodel": "techreborn:cable_connection_alt",
+        "y": 90
+      },
+      "false": {
+      }
+    },
+    "type": {
+      "copper" : {
+
+      },
+      "tin" : {
+
+      },
+      "gold" : {
+
+      },
+      "hv" : {
+
+      },
+      "glassfiber" : {
+
+      },
+      "insulatedcopper" : {
+
+      },
+      "insulatedgold" : {
+
+      },
+      "insulatedhv" : {
+
+      }
+    }
+  }
+}
