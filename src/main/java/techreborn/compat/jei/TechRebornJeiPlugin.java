@@ -188,9 +188,14 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 			new FusionReactorRecipeCategory(guiHelper), new IndustrialGrinderRecipeCategory(guiHelper),
 			new ImplosionCompressorRecipeCategory(guiHelper), new IndustrialElectrolyzerRecipeCategory(guiHelper),
 			new RollingMachineRecipeCategory(guiHelper), new VacuumFreezerRecipeCategory(guiHelper),
-			new GrinderRecipeCategory(guiHelper), new ExtractorRecipeCategory(guiHelper),
+			new GrinderRecipeCategory(guiHelper),
 			new CompressorRecipeCategory(guiHelper), new ScrapboxRecipeCategory(guiHelper),
 			new IndustrialSawmillRecipeCategory(guiHelper));
+
+		if(!IC2Duplicates.deduplicate()){
+			registry.addRecipeCategories(new ExtractorRecipeCategory(guiHelper));
+			registry.addRecipeHandlers(new ExtractorRecipeHandler(jeiHelpers));
+		}
 
 		for (final EFluidGenerator type : EFluidGenerator.values())
 			registry.addRecipeCategories(new FluidGeneratorRecipeCategory(type, guiHelper));
@@ -201,7 +206,7 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 			new FusionReactorRecipeHandler(), new IndustrialGrinderRecipeHandler(jeiHelpers),
 			new ImplosionCompressorRecipeHandler(jeiHelpers), new IndustrialElectrolyzerRecipeHandler(jeiHelpers),
 			new RollingMachineRecipeHandler(), new VacuumFreezerRecipeHandler(jeiHelpers),
-			new GrinderRecipeHandler(jeiHelpers), new ExtractorRecipeHandler(jeiHelpers),
+			new GrinderRecipeHandler(jeiHelpers),
 			new CompressorRecipeHandler(jeiHelpers), new ScrapboxRecipeHandler(jeiHelpers),
 			new FluidGeneratorRecipeHandler(jeiHelpers), new IndustrialSawmillRecipeHandler(jeiHelpers));
 
