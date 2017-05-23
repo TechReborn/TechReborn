@@ -402,6 +402,7 @@ public class ModBlocks {
 
 		RUBBER_SAPLING = new BlockRubberSapling();
 		registerBlock(RUBBER_SAPLING, ItemBlockRubberSapling.class, "rubberSapling");
+		Core.proxy.registerCustomBlockStateLocation(RUBBER_SAPLING, "rubbersapling");
 
 		REFINED_IRON_FENCE = new BlockIronFence();
 		registerBlock(REFINED_IRON_FENCE, "ironFence");
