@@ -151,7 +151,7 @@ public class CraftingTableRecipes extends RecipeMethods {
 			registerShaped(getMaterial("advanced_circuit", Type.PART), "RGR", "LCL", "RGR", 'R', "dustRedstone", 'G', "dustGlowstone", 'L', "gemLapis", 'C', "circuitBasic");
 			registerShaped(getStack(IC2Duplicates.EXTRACTOR), "TMT", "TCT", "XXX", 'T', getStack(ModItems.TREE_TAP, true), 'M', getMaterialObject("machine", Type.MACHINE_FRAME), 'C', "circuitBasic");
 		}
-		registerShaped(getStack(ModBlocks.INDUSTRIAL_ELECTROLYZER), "RER", "CEC", "RER", 'R', getStack(IC2Duplicates.REFINED_IRON), 'E', getStack(IC2Duplicates.EXTRACTOR), 'C', "circuitAdvanced");
+		registerShaped(getStack(ModBlocks.INDUSTRIAL_ELECTROLYZER), "RER", "CEC", "RER", 'R', "plateIron", 'E', getStack(IC2Duplicates.EXTRACTOR), 'C', "circuitAdvanced");
 
 		registerShaped(getStack(ModItems.WRENCH), "BAB", "NBN", " B ", 'B', "ingotBronze", 'N', "nuggetBronze");
 
