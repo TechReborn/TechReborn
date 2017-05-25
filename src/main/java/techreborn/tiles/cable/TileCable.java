@@ -19,7 +19,7 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 
 	@Override
 	public void update() {
-		if(world.isRemote){
+		if (world.isRemote) {
 			return;
 		}
 		for (EnumFacing face : EnumFacing.VALUES) {
@@ -27,6 +27,16 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 			TileEntity tile = getWorld().getTileEntity(offPos);
 			if (tile == null) {
 				continue;
+			}
+
+			if (!(tile instanceof TileCable) && tile.hasCapability(CapabilityEnergy.ENERGY, face.getOpposite())) {
+				IEnergyStorage energy = tile.getCapability(CapabilityEnergy.ENERGY, face.getOpposite());
+				if (energy.canReceive()) {
+					int move = energy.receiveEnergy(Math.min(getCableType().transferRate, power), false);
+					if (move != 0) {
+						power -= move;
+					}
+				}
 			}
 			if (tile instanceof TileCable) {
 				TileCable cable = (TileCable) tile;
@@ -36,28 +46,19 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 					averPower++;
 				}
 				power = averPower;
-			} else if (tile.hasCapability(CapabilityEnergy.ENERGY, face.getOpposite())) {
-				IEnergyStorage energy = tile.getCapability(CapabilityEnergy.ENERGY, face.getOpposite());
-				if (energy.canReceive()) {
-					int move = energy.receiveEnergy(Math.min(getCableType().transferRate, power), false);
-					if (move != 0) {
-						power -= move;
-					}
-				}
 			}
 
 		}
 	}
 
-
-	private EnumCableType getCableType(){
+	private EnumCableType getCableType() {
 		//Todo cache this
 		return world.getBlockState(pos).getValue(BlockCable.TYPE);
 	}
 
 	@Override
 	public int receiveEnergy(int maxReceive, boolean simulate) {
-		if (!canReceive()){
+		if (!canReceive()) {
 			return 0;
 		}
 
@@ -69,7 +70,7 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 
 	@Override
 	public int extractEnergy(int maxExtract, boolean simulate) {
-		if (!canExtract()){
+		if (!canExtract()) {
 			return 0;
 		}
 
@@ -101,7 +102,7 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-		if(capability == CapabilityEnergy.ENERGY){
+		if (capability == CapabilityEnergy.ENERGY) {
 			return true;
 		}
 		return super.hasCapability(capability, facing);
@@ -109,7 +110,7 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		if(capability == CapabilityEnergy.ENERGY){
+		if (capability == CapabilityEnergy.ENERGY) {
 			return (T) this;
 		}
 		return super.getCapability(capability, facing);
