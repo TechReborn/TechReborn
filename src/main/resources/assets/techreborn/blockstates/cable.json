@@ -73,28 +73,44 @@
     },
     "type": {
       "copper" : {
-
+        "textures": {
+          "cable": "techreborn:blocks/cables/copper_cable"
+        }
       },
       "tin" : {
-
+        "textures": {
+          "cable": "techreborn:blocks/cables/tin_cable"
+        }
       },
       "gold" : {
-
+        "textures": {
+          "cable": "techreborn:blocks/cables/gold_cabl"
+        }
       },
       "hv" : {
-
+        "textures": {
+          "cable": "techreborn:blocks/cables/hv_cable"
+        }
       },
       "glassfiber" : {
-
+        "textures": {
+          "cable": "techreborn:blocks/cables/glass_fiber_cable"
+        }
       },
       "insulatedcopper" : {
-
+        "textures": {
+          "cable": "techreborn:blocks/cables/copper_insulated_cable"
+        }
       },
       "insulatedgold" : {
-
+        "textures": {
+          "cable": "techreborn:blocks/cables/gold_insulated_cable"
+        }
       },
       "insulatedhv" : {
-
+        "textures": {
+          "cable": "techreborn:blocks/cables/hv_insulated_cable"
+        }
       }
     }
   }
