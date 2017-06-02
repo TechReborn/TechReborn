@@ -24,11 +24,13 @@
 
 package techreborn.tiles.lesu;
 
+import net.minecraft.block.Block;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
+import techreborn.blocks.storage.BlockLESU;
 import techreborn.config.ConfigTechReborn;
 
 import java.util.ArrayList;
@@ -132,5 +134,14 @@ public class TileLesu extends TilePowerAcceptor {// TODO wrench
 	@Override
 	public EnumPowerTier getBaseTier() {
 		return EnumPowerTier.EXTREME;
+	}
+
+	@Override
+	public EnumFacing getFacingEnum() {
+		Block block = world.getBlockState(pos).getBlock();
+		if (block instanceof BlockLESU) {
+			return ((BlockLESU) block).getFacing(world.getBlockState(pos));
+		}
+		return null;
 	}
 }
