@@ -93,6 +93,7 @@ public class CraftTweakerCompat implements ICompatModule {
 		MineTweakerAPI.registerClass(CTVacuumFreezer.class);
 		MineTweakerAPI.registerClass(CTGenerator.class);
 		MineTweakerAPI.registerClass(CTRollingMachine.class);
+		MineTweakerAPI.registerClass(CTScrapbox.class);
 	}
 
 	@Override
