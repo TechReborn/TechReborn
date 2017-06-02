@@ -45,7 +45,6 @@ import reborncore.common.network.RegisterPacketEvent;
 import reborncore.common.packets.AddDiscriminatorEvent;
 import reborncore.common.util.LogHelper;
 import reborncore.common.util.VersionChecker;
-import techreborn.achievement.TRAchievements;
 import techreborn.api.TechRebornAPI;
 import techreborn.client.GuiHandler;
 import techreborn.command.TechRebornDevCommand;
@@ -171,8 +170,6 @@ public class Core {
 		// Register Gui Handler
 		NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
 
-		// Achievements
-		TRAchievements.init();
 		// Multiblock events
 		MinecraftForge.EVENT_BUS.register(new MultiblockEventHandler());
 		// IDSU manager
