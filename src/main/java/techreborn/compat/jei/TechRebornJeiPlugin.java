@@ -120,64 +120,66 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 		final IJeiHelpers jeiHelpers = registry.getJeiHelpers();
 		final IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_BERYLLIUM));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_CALCIUM));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_CALCIUM_CARBONATE));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_CHLORITE));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_DEUTERIUM));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_GLYCERYL));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_HELIUM));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_HELIUM_3));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_HELIUMPLASMA));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_HYDROGEN));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_LITHIUM));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_MERCURY));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_METHANE));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_NITROCOAL_FUEL));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_NITROFUEL));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_NITROGEN));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_NITROGENDIOXIDE));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_POTASSIUM));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_SILICON));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_SODIUM));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_SODIUMPERSULFATE));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_TRITIUM));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_WOLFRAMIUM));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_SULFUR));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_SULFURIC_ACID));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_CARBON));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_CARBON_FIBER));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_NITRO_CARBON));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_SODIUM_SULFIDE));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_DIESEL));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_NITRO_DIESEL));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_OIL));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_ELECTROLYZED_WATER));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModFluids.BLOCK_COMPRESSED_AIR));
-		jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModItems.MISSING_RECIPE_PLACEHOLDER));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_BERYLLIUM));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_CALCIUM));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_CALCIUM_CARBONATE));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_CHLORITE));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_DEUTERIUM));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_GLYCERYL));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_HELIUM));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_HELIUM_3));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_HELIUMPLASMA));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_HYDROGEN));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_LITHIUM));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_MERCURY));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_METHANE));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_NITROCOAL_FUEL));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_NITROFUEL));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_NITROGEN));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_NITROGENDIOXIDE));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_POTASSIUM));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_SILICON));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_SODIUM));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_SODIUMPERSULFATE));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_TRITIUM));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_WOLFRAMIUM));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_SULFUR));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_SULFURIC_ACID));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_CARBON));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_CARBON_FIBER));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_NITRO_CARBON));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_SODIUM_SULFIDE));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_DIESEL));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_NITRO_DIESEL));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_OIL));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_ELECTROLYZED_WATER));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_COMPRESSED_AIR));
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModItems.MISSING_RECIPE_PLACEHOLDER));
+		
+		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModBlocks.CABLE));
 
 		if (IC2Duplicates.deduplicate()) {
 			for (final IC2Duplicates duplicate : IC2Duplicates.values()) {
 				if (duplicate.hasIC2Stack()) {
-					jeiHelpers.getItemBlacklist().addItemToBlacklist(duplicate.getTrStack());
+					jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(duplicate.getTrStack());
 				}
 			}
 			if (TechRebornParts.cables != null) {
 				for (int i = 0; i < EnumCableType.values().length; i++) {
-					jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(TechRebornParts.cables, 1, i));
+					jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(TechRebornParts.cables, 1, i));
 				}
 			}
-			jeiHelpers.getItemBlacklist().addItemToBlacklist(ItemParts.getPartByName("rubber"));
-			jeiHelpers.getItemBlacklist().addItemToBlacklist(ItemParts.getPartByName("rubberSap"));
-			jeiHelpers.getItemBlacklist().addItemToBlacklist(ItemParts.getPartByName("electronicCircuit"));
-			jeiHelpers.getItemBlacklist().addItemToBlacklist(ItemParts.getPartByName("advancedCircuit"));
+			jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(ItemParts.getPartByName("rubber"));
+			jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(ItemParts.getPartByName("rubberSap"));
+			jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(ItemParts.getPartByName("electronicCircuit"));
+			jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(ItemParts.getPartByName("advancedCircuit"));
 			if (!Core.worldGen.config.rubberTreeConfig.shouldSpawn) {
-				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.RUBBER_SAPLING));
-				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.RUBBER_LOG));
-				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.RUBBER_PLANKS));
-				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.RUBBER_LEAVES));
-				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModItems.TREE_TAP));
-				jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModItems.ELECTRIC_TREE_TAP));
+				jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModBlocks.RUBBER_SAPLING));
+				jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModBlocks.RUBBER_LOG));
+				jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModBlocks.RUBBER_PLANKS));
+				jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModBlocks.RUBBER_LEAVES));
+				jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModItems.TREE_TAP));
+				jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModItems.ELECTRIC_TREE_TAP));
 			}
 		}
 
