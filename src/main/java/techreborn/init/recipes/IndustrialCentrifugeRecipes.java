@@ -145,7 +145,7 @@ public class IndustrialCentrifugeRecipes extends RecipeMethods {
 
 		if(input instanceof ItemStack){
 			if (((ItemStack) input).getItem() instanceof DynamicCell) {
-				int inputCount = ((ItemStack) input).stackSize;
+				int inputCount = ((ItemStack) input).getCount();
 				if (cellCount < inputCount) {
 					if (output2 == null) {
 						output2 = DynamicCell.getEmptyCell(inputCount - cellCount);

@@ -249,4 +249,9 @@ public class TileMatterFabricator extends TilePowerAcceptor
 			.outputSlot(9, 100, 66).outputSlot(10, 120, 66).syncEnergyValue()
 			.syncIntegerValue(this::getProgress, this::setProgress).addInventory().create();
 	}
+
+	@Override
+	public boolean canBeUpgraded() {
+		return false;
+	}
 }
