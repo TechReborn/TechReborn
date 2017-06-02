@@ -130,7 +130,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	}
 
 	private boolean spaceForOutput() {
-		for (int i = 6; i < 10; i++) {
+		for (int i = 6; i < 11; i++) {
 			if(spaceForOutput(i)){
 				return true;
 			}
@@ -145,7 +145,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	}
 
 	private void addOutputProducts() {
-		for (int i = 6; i < 10; i++) {
+		for (int i = 6; i < 11; i++) {
 			if(spaceForOutput(i)){
 				addOutputProducts(i);
 				break;
