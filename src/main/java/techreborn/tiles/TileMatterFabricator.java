@@ -137,9 +137,9 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	}
 
 	private boolean spaceForOutput(int slot) {
-		return this.inventory.getStackInSlot(slot) == null
+		return this.inventory.getStackInSlot(slot).isEmpty()
 			|| ItemUtils.isItemEqual(this.inventory.getStackInSlot(slot), new ItemStack(ModItems.UU_MATTER), true, true)
-			&& this.inventory.getStackInSlot(slot).stackSize < 64;
+			&& this.inventory.getStackInSlot(slot).getCount() < 64;
 	}
 
 	private void addOutputProducts() {
@@ -153,10 +153,10 @@ public class TileMatterFabricator extends TilePowerAcceptor
 
 	private void addOutputProducts(int slot) {
 
-		if (this.inventory.getStackInSlot(slot) == null) {
+		if (this.inventory.getStackInSlot(slot).isEmpty()) {
 			this.inventory.setInventorySlotContents(slot, new ItemStack(ModItems.UU_MATTER));
 		} else if (ItemUtils.isItemEqual(this.inventory.getStackInSlot(slot), new ItemStack(ModItems.UU_MATTER), true, true)) {
-			this.inventory.getStackInSlot(slot).stackSize = (Math.min(64, 1 + this.inventory.getStackInSlot(slot).stackSize));
+			this.inventory.getStackInSlot(slot).setCount((Math.min(64, 1 + this.inventory.getStackInSlot(slot).getCount())));
 		}
 	}
 
