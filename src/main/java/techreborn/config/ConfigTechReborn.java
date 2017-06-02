@@ -118,6 +118,7 @@ public class ConfigTechReborn {
 	public static boolean ExpensiveWatermill;
 	public static boolean ExpensiveWindmill;
 	public static boolean REMOVE_DUPLICATES;
+	public static boolean ExpensiveQuarry;
 	// UU
 	public static boolean HideUuRecipes;
 	public static boolean UUrecipesIridiamOre;
@@ -437,6 +438,10 @@ public class ConfigTechReborn {
 		REMOVE_DUPLICATES = config
 			.get(CATEGORY_CRAFTING, "Remove Duplicates when IC2 is installed", false, "This attempts to fully integrate TR with ic2 recipes (Beta)")
 			.getBoolean(false);
+
+		ExpensiveQuarry = config
+			.get(CATEGORY_CRAFTING, "Expensive Buildcraft quarry", true, "Change the buildcraft quarry recipe to require the diamond drill")
+			.getBoolean(true);
 
 		disableRailcraftSteelNuggetRecipe = config.get(CATEGORY_CRAFTING, "Disable Railcraft's Steel nugget recipe", false, "When true TechReborn will remove Railcrafts Iron Nugget to steel nuggert recipe.").getBoolean(false);
 
