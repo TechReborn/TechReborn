@@ -65,4 +65,13 @@ public class BlockIDSU extends BlockEnergyStorage {
 		list.add(new ItemStack(this, 1, 2));
 		return list;
 	}
+
+	@Override
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+		super.onBlockPlacedBy(world, pos, state, placer, stack);
+		TileEntity tile = world.getTileEntity(pos);
+		if (tile instanceof TileIDSU) {
+			((TileIDSU) tile).ownerUdid = placer.getUniqueID().toString();
+		}
+	}
 }
