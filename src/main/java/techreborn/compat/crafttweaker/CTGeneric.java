@@ -162,6 +162,7 @@ public class CTGeneric {
 						if (output.matches(MineTweakerMC.getIItemStack((ItemStack) stack))) {
 							removedRecipes.add((BaseRecipe) recipeType);
 							RecipeHandler.recipeList.remove(recipeType);
+							MineTweakerAPI.getIjeiRecipeRegistry().removeRecipe(recipeType);
 							break;
 						}
 					}
