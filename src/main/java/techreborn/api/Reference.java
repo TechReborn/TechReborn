@@ -67,7 +67,7 @@ public class Reference {
 		return ArmorMaterial.LEATHER;
 	}
 
-	public static String alloySmelteRecipe = I18n.translateToLocal("techreborn.recipe.alloysmelter");
+	public static String alloySmelterRecipe = I18n.translateToLocal("techreborn.recipe.alloysmelter");
 	public static String assemblingMachineRecipe = I18n.translateToLocal("techreborn.recipe.assemblingmachine");
 	public static String blastFurnaceRecipe = I18n.translateToLocal("techreborn.recipe.blastfurnace");
 	public static String centrifugeRecipe = I18n.translateToLocal("techreborn.recipe.centrifuge");

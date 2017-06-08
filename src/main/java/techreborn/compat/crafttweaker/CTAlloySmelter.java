@@ -61,6 +61,6 @@ public class CTAlloySmelter extends CTGeneric {
 	}
 
 	public static String getMachineName() {
-		return Reference.alloySmelteRecipe;
+		return Reference.alloySmelterRecipe;
 	}
 }

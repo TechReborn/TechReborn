@@ -31,14 +31,27 @@ import net.minecraft.util.EnumFacing;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
+import techreborn.lib.ModInfo;
 
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileAesu extends TilePowerAcceptor implements IWrenchable {
 
-	public static final int MAX_OUTPUT = ConfigTechReborn.AesuMaxOutput;
-	public static final int MAX_STORAGE = ConfigTechReborn.AesuMaxStorage;
+	@ConfigRegistry(config = "machines", category = "aesu", key = "AesuMaxInput", comment = "AESU Max Input (Value in EU)")
+	public static int MAX_INPUT = 8192;
+	@ConfigRegistry(config = "machines", category = "aesu", key = "AesuMaxOutput", comment = "AESU Max Output (Value in EU)")
+	public static int MAX_OUTPUT = 8192;
+	@ConfigRegistry(config = "machines", category = "aesu", key = "AesuMaxStorage", comment = "AESU Max Storage (Value in EU)")
+	public static int MAX_STORAGE = 100000000;
+	@ConfigRegistry(config = "machines", category = "aesu", key = "AesuTier", comment = "AESU Tier")
+	public static int TIER = 5;
+//	@ConfigRegistry(config = "machines", category = "aesu", key = "AesuWrenchDropRate", comment = "AESU Wrench Drop Rate")
+	public static float WRENCH_DROP_RATE = 1.0F;
+
 	public Inventory inventory = new Inventory(4, "TileAesu", 64, this);
 	private int OUTPUT = 64; // The current output
 	private double euLastTick = 0;
@@ -46,7 +59,7 @@ public class TileAesu extends TilePowerAcceptor implements IWrenchable {
 	private int ticks;
 
 	public TileAesu() {
-		super(5);
+		super(TIER);
 	}
 
 	@Override
@@ -84,7 +97,7 @@ public class TileAesu extends TilePowerAcceptor implements IWrenchable {
 
 	@Override
 	public float getWrenchDropRate() {
-		return 1.0F;
+		return WRENCH_DROP_RATE;
 	}
 
 	@Override
@@ -152,7 +165,7 @@ public class TileAesu extends TilePowerAcceptor implements IWrenchable {
 
 	@Override
 	public double getBaseMaxPower() {
-		return TileAesu.MAX_STORAGE;
+		return MAX_STORAGE;
 	}
 
 	@Override
@@ -172,11 +185,11 @@ public class TileAesu extends TilePowerAcceptor implements IWrenchable {
 
 	@Override
 	public double getBaseMaxInput() {
-		return 4096 * 2;
+		return MAX_INPUT;
 	}
 
 	@Override
 	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.EXTREME;
+		return EnumPowerTier.INSANE;
 	}
 }

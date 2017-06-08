@@ -32,25 +32,30 @@ import net.minecraft.init.Items;
 import net.minecraft.item.*;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-
 import reborncore.api.recipe.IBaseRecipeType;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.recipes.RecipeTranslator;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
-
 import techreborn.api.Reference;
 import techreborn.api.recipe.machines.AlloySmelterRecipe;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
+import techreborn.lib.ModInfo;
 
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileAlloyFurnace extends TileLegacyMachineBase
-implements IWrenchable, IInventoryProvider, IContainerProvider {
+	implements IWrenchable, IInventoryProvider, IContainerProvider {
+
+//	@ConfigRegistry(config = "machines", category = "alloy_furnace", key = "AlloyFurnaceWrenchDropRate", comment = "Alloy Furnace Wrench Drop Rate")
+	public static float WRENCH_DROP_RATE = 1.0F;
 
 	public int tickTime;
 	public Inventory inventory = new Inventory(4, "TileAlloyFurnace", 64, this);
@@ -164,7 +169,7 @@ implements IWrenchable, IInventoryProvider, IContainerProvider {
 				if (ItemUtils.isInputEqual(input, inventory.getStackInSlot(inputslot), true, true,
 					useOreDict)) {
 					ItemStack stack = RecipeTranslator.getStackFromObject(input);
-					if(!checkSize || inventory.getStackInSlot(inputslot).getCount() >= stack.getCount()){
+					if (!checkSize || inventory.getStackInSlot(inputslot).getCount() >= stack.getCount()) {
 						hasItem = true;
 					}
 				}
@@ -180,7 +185,7 @@ implements IWrenchable, IInventoryProvider, IContainerProvider {
 			return false;
 		} else {
 			ItemStack itemstack = null;
-			for (final IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelteRecipe)) {
+			for (final IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelterRecipe)) {
 				if (this.hasAllInputs(recipeType)) {
 					itemstack = recipeType.getOutput(0);
 					break;
@@ -212,7 +217,7 @@ implements IWrenchable, IInventoryProvider, IContainerProvider {
 	public void smeltItem() {
 		if (this.canSmelt()) {
 			ItemStack itemstack = ItemStack.EMPTY;
-			for (final IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelteRecipe)) {
+			for (final IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelterRecipe)) {
 				if (this.hasAllInputs(recipeType)) {
 					itemstack = recipeType.getOutput(0);
 					break;
@@ -228,7 +233,7 @@ implements IWrenchable, IInventoryProvider, IContainerProvider {
 				this.decrStackSize(this.output, -itemstack.getCount());
 			}
 
-			for (final IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelteRecipe)) {
+			for (final IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelterRecipe)) {
 				boolean hasAllRecipes = true;
 				if (this.hasAllInputs(recipeType)) {
 
@@ -240,9 +245,9 @@ implements IWrenchable, IInventoryProvider, IContainerProvider {
 						boolean useOreDict = input instanceof String || recipeType.useOreDic();
 						for (int inputSlot = 0; inputSlot < 2; inputSlot++) {
 							if (ItemUtils.isInputEqual(input, this.inventory.getStackInSlot(inputSlot), true, true,
-									recipeType.useOreDic())) {
+								recipeType.useOreDic())) {
 								int count = 1;
-								if(input instanceof ItemStack){
+								if (input instanceof ItemStack) {
 									count = RecipeTranslator.getStackFromObject(input).getCount();
 								}
 								inventory.decrStackSize(inputSlot, count);
@@ -292,7 +297,7 @@ implements IWrenchable, IInventoryProvider, IContainerProvider {
 
 	@Override
 	public float getWrenchDropRate() {
-		return 1.0F;
+		return WRENCH_DROP_RATE;
 	}
 
 	@Override
@@ -324,50 +329,44 @@ implements IWrenchable, IInventoryProvider, IContainerProvider {
 		return index == 2;
 	}
 
-	public int getBurnTime()
-	{
+	public int getBurnTime() {
 		return this.burnTime;
 	}
 
-	public void setBurnTime(final int burnTime)
-	{
+	public void setBurnTime(final int burnTime) {
 		this.burnTime = burnTime;
 	}
 
-	public int getCurrentItemBurnTime()
-	{
+	public int getCurrentItemBurnTime() {
 		return this.currentItemBurnTime;
 	}
 
-	public void setCurrentItemBurnTime(final int currentItemBurnTime)
-	{
+	public void setCurrentItemBurnTime(final int currentItemBurnTime) {
 		this.currentItemBurnTime = currentItemBurnTime;
 	}
 
-	public int getCookTime()
-	{
+	public int getCookTime() {
 		return this.cookTime;
 	}
 
-	public void setCookTime(final int cookTime)
-	{
+	public void setCookTime(final int cookTime) {
 		this.cookTime = cookTime;
 	}
 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("alloyfurnace").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory().tile(this)
-				.filterSlot(0, 47, 17,
-						stack -> RecipeHandler.recipeList.stream()
-								.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
-										&& ItemUtils.isInputEqual(recipe.getInputs().get(0), stack, true, true, true)))
-				.filterSlot(1, 65, 17,
-						stack -> RecipeHandler.recipeList.stream()
-								.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
-										&& ItemUtils.isInputEqual(recipe.getInputs().get(1), stack, true, true, true)))
-				.outputSlot(2, 116, 35).fuelSlot(3, 56, 53).syncIntegerValue(this::getBurnTime, this::setBurnTime)
-				.syncIntegerValue(this::getCookTime, this::setCookTime)
-				.syncIntegerValue(this::getCurrentItemBurnTime, this::setCurrentItemBurnTime).addInventory().create();
+			.addInventory().tile(this)
+			.filterSlot(0, 47, 17,
+				stack -> RecipeHandler.recipeList.stream()
+					.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
+						&& ItemUtils.isInputEqual(recipe.getInputs().get(0), stack, true, true, true)))
+			.filterSlot(1, 65, 17,
+				stack -> RecipeHandler.recipeList.stream()
+					.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
+						&& ItemUtils.isInputEqual(recipe.getInputs().get(1), stack, true, true, true)))
+			.outputSlot(2, 116, 35).fuelSlot(3, 56, 53).syncIntegerValue(this::getBurnTime, this::setBurnTime)
+			.syncIntegerValue(this::getCookTime, this::setCookTime)
+			.syncIntegerValue(this::getCurrentItemBurnTime, this::setCurrentItemBurnTime).addInventory().create();
 	}
 }

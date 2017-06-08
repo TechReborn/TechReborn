@@ -31,7 +31,7 @@ import techreborn.api.recipe.BaseRecipe;
 public class AlloySmelterRecipe extends BaseRecipe {
 
 	public AlloySmelterRecipe(ItemStack input1, ItemStack input2, ItemStack output1, int tickTime, int euPerTick) {
-		super(Reference.alloySmelteRecipe, tickTime, euPerTick);
+		super(Reference.alloySmelterRecipe, tickTime, euPerTick);
 		if (input1 != null)
 			addInput(input1);
 		if (input2 != null)
