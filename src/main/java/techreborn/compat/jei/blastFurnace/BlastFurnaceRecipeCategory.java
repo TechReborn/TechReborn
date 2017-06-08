@@ -34,6 +34,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
+import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
 
@@ -48,6 +49,11 @@ public class BlastFurnaceRecipeCategory extends BlankRecipeCategory<BlastFurnace
 	public BlastFurnaceRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 0, 94, 120, 78);
 		title = I18n.translateToLocal("tile.techreborn.blastfurnace.name");
+	}
+
+	@Override
+	public String getModName() {
+		return ModInfo.MOD_NAME;
 	}
 
 	@Nonnull

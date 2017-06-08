@@ -33,6 +33,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
 import techreborn.client.gui.GuiRollingMachine;
 import techreborn.compat.jei.RecipeCategoryUids;
+import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
 
@@ -65,6 +66,11 @@ public class RollingMachineRecipeCategory extends BlankRecipeCategory<RollingMac
 	@Override
 	public String getTitle() {
 		return title;
+	}
+
+	@Override
+	public String getModName() {
+		return ModInfo.MOD_NAME;
 	}
 
 	@Nonnull

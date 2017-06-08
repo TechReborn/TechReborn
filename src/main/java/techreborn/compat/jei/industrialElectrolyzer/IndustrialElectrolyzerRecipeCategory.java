@@ -34,6 +34,7 @@ import net.minecraft.util.text.translation.I18n;
 import techreborn.client.gui.GuiIndustrialElectrolyzer;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
+import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
 
@@ -47,6 +48,11 @@ public class IndustrialElectrolyzerRecipeCategory extends BlankRecipeCategory<In
 	public IndustrialElectrolyzerRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(GuiIndustrialElectrolyzer.texture, 49, 18, 78, 50);
 		title = I18n.translateToLocal("tile.techreborn.industrialelectrolyzer.name");
+	}
+
+	@Override
+	public String getModName() {
+		return ModInfo.MOD_NAME;
 	}
 
 	@Nonnull

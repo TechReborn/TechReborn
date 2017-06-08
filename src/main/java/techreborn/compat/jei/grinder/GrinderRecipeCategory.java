@@ -34,6 +34,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
+import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
 
@@ -48,6 +49,10 @@ public class GrinderRecipeCategory extends BlankRecipeCategory<GrinderRecipeWrap
 	public GrinderRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 0, 62, 74, 32);
 		title = I18n.translateToLocal("tile.techreborn.grinder.name");
+	}
+	@Override
+	public String getModName() {
+		return ModInfo.MOD_NAME;
 	}
 
 	@Nonnull

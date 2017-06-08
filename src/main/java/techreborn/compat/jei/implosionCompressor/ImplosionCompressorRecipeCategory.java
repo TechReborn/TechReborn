@@ -33,6 +33,7 @@ import net.minecraft.util.text.translation.I18n;
 import techreborn.client.gui.GuiImplosionCompressor;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
+import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
 
@@ -50,6 +51,11 @@ public class ImplosionCompressorRecipeCategory extends BlankRecipeCategory<Implo
 		electricity = guiHelper.createAnimatedDrawable(electricityDrawable, 300, IDrawableAnimated.StartDirection.TOP,
 			true);
 		title = I18n.translateToLocal("tile.techreborn.implosioncompressor.name");
+	}
+
+	@Override
+	public String getModName() {
+		return ModInfo.MOD_NAME;
 	}
 
 	@Nonnull
