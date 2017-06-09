@@ -48,18 +48,7 @@ public class ConfigTechReborn {
 	public static boolean ScrapboxDispenser;
 	public static boolean disableRailcraftSteelNuggetRecipe;
 	// Power
-	public static int LightningRodChance;
-	public static int ThermalGeneratorOutput;
-	public static int CentrifugeInputTick;
-	public static int DragonEggSiphonerOutput;
-	public static int HeatGeneratorOutput;
 	public static int $$$$$$$$$$$$DONT_DELETE_$$$$$$$$$$$AverageEuOutTickTime;
-	public static int ExtraOutputPerLesuBlock;
-	public static int BaseLesuOutput;
-	public static int LesuStoragePerBlock;
-	public static int FarmEu;
-	public static int AesuMaxOutput;
-	public static int AesuMaxStorage;
 	public static int pumpExtractEU;
 
 	public static int LVTransformerMaxInput;
@@ -86,6 +75,7 @@ public class ConfigTechReborn {
 	public static int CloakingDeviceCharge;
 	public static int CentrifugeCharge;
 	public static int ThermalGeneratorCharge;
+
 	// Tier
 	public static int IronDrillTier;
 	public static int DiamondDrillTier;
@@ -230,31 +220,6 @@ public class ConfigTechReborn {
 			"FortuneSecondaryOreMultiplierPerLevel").getDouble();
 
 		// Power
-		LightningRodChance = config
-			.get(CATEGORY_POWER, "Lightning Rod light struck chance", 24, "Set the chance of light strike (0-70)", 0, 70)
-			.getInt();
-
-		ThermalGeneratorOutput = config
-			.get(CATEGORY_POWER, "ThermalGenerator Max Output", 60, "Set the max output for the ThermalGenerator")
-			.getInt();
-
-		DragonEggSiphonerOutput = config
-			.get(CATEGORY_POWER, "DragoneggSiphoner Max Output", 30, "Set the max output for the DragonEggSiphoner")
-			.getInt();
-
-		CentrifugeInputTick = config
-			.get(CATEGORY_POWER, "Centrifuge Max Tick", 30, "Set the max power the Centrifuge uses per tick")
-			.getInt();
-
-		HeatGeneratorOutput = config
-			.get(CATEGORY_POWER, "HeatGenerator Max Output", 30, "Set the max output for the HeatGenerator")
-			.getInt();
-
-		AesuMaxOutput = config.get(CATEGORY_POWER, "AESU Max Output", 30, "Set the max output for the AESU").getInt();
-
-		AesuMaxStorage = config.get(CATEGORY_POWER, "AESU Max Storage", 30, "Set the max Storage for the AESU")
-			.getInt();
-
 		pumpExtractEU = config.get(CATEGORY_POWER, "Pump extract eu", 20, "How much eu should the pump use to extract the fluid")
 			.getInt();
 
@@ -335,16 +300,6 @@ public class ConfigTechReborn {
 
 		$$$$$$$$$$$$DONT_DELETE_$$$$$$$$$$$AverageEuOutTickTime = config.get(CATEGORY_POWER, "Average EU-out Tick Time", 100,
 			"Set the average EU-out tick time").getInt();
-
-		LesuStoragePerBlock = config.get(CATEGORY_POWER, "LESU Storage Block Amount", 1000000,
-			"The Amount of energy storage added per Storage block").getInt();
-
-		BaseLesuOutput = config.get(CATEGORY_POWER, "LESU base output", 16, "The output of the LESU before upgrades")
-			.getInt();
-
-		ExtraOutputPerLesuBlock = config.get(CATEGORY_POWER, "Extra output on Storage Blocks", 8, "").getInt();
-
-		FarmEu = config.get(CATEGORY_POWER, "farmeu", 32, "").getInt();
 
 		// Tier
 		IronDrillTier = config.get(CATEGORY_POWER, "IronDrill Tier", 2, "Set the Tier of the iron drill").getInt();

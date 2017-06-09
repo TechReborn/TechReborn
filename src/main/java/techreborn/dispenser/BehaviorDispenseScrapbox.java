@@ -41,7 +41,7 @@ import techreborn.lib.ModInfo;
 public class BehaviorDispenseScrapbox extends BehaviorDefaultDispenseItem {
 
 	@ConfigRegistry(config = "misc", category = "general", key = "DispenserScrapbox", comment = "Dispensers will open scrapboxes")
-	public static boolean dispenseScrapboxes = false;
+	public static boolean dispenseScrapboxes = true;
 
 	@Override
 	protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
