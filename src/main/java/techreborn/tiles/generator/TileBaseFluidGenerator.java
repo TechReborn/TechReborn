@@ -62,19 +62,14 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 	 */
 	double pendingWithdraw = 0.0;
 
-	public TileBaseFluidGenerator(EFluidGenerator type, int tier, String tileName, int tankCapacity, int euTick) {
-		super(tier);
+	public TileBaseFluidGenerator(EFluidGenerator type, String tileName, int tankCapacity, int euTick) {
+		super();
 
 		recipes = GeneratorRecipeHelper.getFluidRecipesForGenerator(type);
 
 		tank = new Tank(tileName, tankCapacity, this);
 		inventory = new Inventory(3, tileName, 64, this);
 		this.euTick = euTick;
-	}
-
-	public TileBaseFluidGenerator(EFluidGenerator type, EnumPowerTier tier, String tileName, int tankCapacity,
-			int euTick) {
-		this(type, tier.ordinal(), tileName, tankCapacity, euTick);
 	}
 
 	protected long lastOutput = 0;

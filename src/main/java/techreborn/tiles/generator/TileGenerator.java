@@ -35,14 +35,25 @@ import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
+import techreborn.lib.ModInfo;
 
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IInventoryProvider, IContainerProvider {
+
+	@ConfigRegistry(config = "machines", category = "generator", key = "GeneratorMaxOutput", comment = "Solid Fuel Generator Max Output (Value in EU)")
+	public static int maxOutput = 128;
+	@ConfigRegistry(config = "machines", category = "generator", key = "GeneratorMaxEnergy", comment = "Solid Fuel Generator Max Energy (Value in EU)")
+	public static int maxEnergy = 10000;
+	@ConfigRegistry(config = "machines", category = "generator", key = "GeneratorEnergyOutput", comment = "Solid Fuel Generator Energy Output Amount (Value in EU)")
 	public static int outputAmount = 10;
+
 	public Inventory inventory = new Inventory(2, "TileGenerator", 64, this);
 	public int fuelSlot = 0;
 	public int burnTime;
@@ -130,7 +141,7 @@ public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IIn
 
 	@Override
 	public double getBaseMaxPower() {
-		return 10000;
+		return maxEnergy;
 	}
 
 	@Override
@@ -145,7 +156,7 @@ public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IIn
 
 	@Override
 	public double getBaseMaxOutput() {
-		return 64;
+		return maxOutput;
 	}
 
 	@Override
@@ -198,6 +209,6 @@ public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IIn
 
 	@Override
 	public int[] getSlotsForFace(EnumFacing side) {
-		return new int[]{fuelSlot};
+		return new int[] { fuelSlot };
 	}
 }

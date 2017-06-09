@@ -31,28 +31,29 @@ import net.minecraft.util.EnumFacing;
 import org.apache.commons.lang3.StringUtils;
 import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
+import techreborn.lib.ModInfo;
 
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileIDSU extends TilePowerAcceptor implements IWrenchable {
 
+	@ConfigRegistry(config = "machines", category = "idsu", key = "IdsuMaxInput", comment = "IDSU Max Input (Value in EU)")
+	public static int maxInput = 8192;
+	@ConfigRegistry(config = "machines", category = "idsu", key = "IdsuMaxOutput", comment = "IDSU Max Output (Value in EU)")
+	public static int maxOutput = 8192;
+	@ConfigRegistry(config = "machines", category = "idsu", key = "IdsuMaxEnergy", comment = "IDSU Max Energy (Value in EU)")
+	public static int maxEnergy = 100000000;
+
 	public String ownerUdid;
-	public int tier;
-	public int output;
-	public double maxStorage;
 	private double euLastTick = 0;
 	private double euChange;
 	private int ticks;
 
-	public TileIDSU(int tier1, int output1, int maxStorage1) {
-		super(tier1);
-		this.tier = tier1;
-		this.output = output1;
-		this.maxStorage = maxStorage1;
-	}
-
 	public TileIDSU() {
-		this(5, 2048, 100000000);
+		super();
 	}
 
 	@Override
@@ -78,7 +79,7 @@ public class TileIDSU extends TilePowerAcceptor implements IWrenchable {
 
 	@Override
 	public double getBaseMaxPower() {
-		return 1000000000;
+		return maxEnergy;
 	}
 
 	@Override
@@ -93,17 +94,16 @@ public class TileIDSU extends TilePowerAcceptor implements IWrenchable {
 
 	@Override
 	public double getBaseMaxOutput() {
-		return output;
+		return maxOutput;
 	}
 
 	@Override
 	public double getBaseMaxInput() {
-		return maxStorage;
+		return maxInput;
 	}
 
-
 	public float getChargeLevel() {
-		float ret = (float) this.getEnergy() / (float) this.maxStorage;
+		float ret = (float) this.getEnergy() / (float) maxEnergy;
 		if (ret > 1.0F) {
 			ret = 1.0F;
 		}
@@ -128,7 +128,7 @@ public class TileIDSU extends TilePowerAcceptor implements IWrenchable {
 	public void updateEntity() {
 		super.updateEntity();
 
-		if (ticks == ConfigTechReborn.AverageEuOutTickTime) {
+		if (ticks == ConfigTechReborn.$$$$$$$$$$$$DONT_DELETE_$$$$$$$$$$$AverageEuOutTickTime) {
 			euChange = -1;
 			ticks = 0;
 
@@ -188,26 +188,5 @@ public class TileIDSU extends TilePowerAcceptor implements IWrenchable {
 			return -1;
 		}
 		return (euChange / ticks);
-	}
-
-	public void handleGuiInputFromClient(int id) {
-		if (id == 0) {
-			output += 256;
-		}
-		if (id == 1) {
-			output += 64;
-		}
-		if (id == 2) {
-			output -= 64;
-		}
-		if (id == 3) {
-			output -= 256;
-		}
-		if (output > 4096) {
-			output = 4096;
-		}
-		if (output <= -1) {
-			output = 0;
-		}
 	}
 }

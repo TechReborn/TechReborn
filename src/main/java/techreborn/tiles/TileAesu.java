@@ -46,8 +46,6 @@ public class TileAesu extends TilePowerAcceptor implements IWrenchable {
 	public static int maxOutput = 8192;
 	@ConfigRegistry(config = "machines", category = "aesu", key = "AesuMaxEnergy", comment = "AESU Max Energy (Value in EU)")
 	public static int maxEnergy = 100000000;
-//	@ConfigRegistry(config = "machines", category = "aesu", key = "AesuWrenchDropRate", comment = "AESU Wrench Drop Rate")
-	public static float wrenchDropRate = 1.0F;
 
 	public Inventory inventory = new Inventory(4, "TileAesu", 64, this);
 	private int OUTPUT = 64; // The current output
@@ -62,7 +60,7 @@ public class TileAesu extends TilePowerAcceptor implements IWrenchable {
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		if (ticks == ConfigTechReborn.AverageEuOutTickTime) {
+		if (ticks == ConfigTechReborn.$$$$$$$$$$$$DONT_DELETE_$$$$$$$$$$$AverageEuOutTickTime) {
 			euChange = -1;
 			ticks = 0;
 
@@ -94,7 +92,7 @@ public class TileAesu extends TilePowerAcceptor implements IWrenchable {
 
 	@Override
 	public float getWrenchDropRate() {
-		return wrenchDropRate;
+		return 1.0F;
 	}
 
 	@Override

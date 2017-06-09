@@ -28,13 +28,26 @@ import net.minecraft.block.Block;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import techreborn.blocks.storage.BlockLESU;
 import techreborn.config.ConfigTechReborn;
+import techreborn.lib.ModInfo;
 
 import java.util.ArrayList;
 
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileLesu extends TilePowerAcceptor {// TODO wrench
+
+	@ConfigRegistry(config = "machines", category = "lesu", key = "LesuMaxInput", comment = "LESU Max Input (Value in EU)")
+	public static int maxInput = 8192;
+	@ConfigRegistry(config = "machines", category = "lesu", key = "LesuMaxOutput", comment = "LESU Base Output (Value in EU)")
+	public static int baseOutput = 16;
+	@ConfigRegistry(config = "machines", category = "lesu", key = "LesuMaxEnergyPerBlock", comment = "LESU Max Energy Per Block (Value in EU)")
+	public static int storagePerBlock = 1000000;
+	@ConfigRegistry(config = "machines", category = "lesu", key = "LesuExtraIO", comment = "LESU Extra I/O Multiplier")
+	public static int extraIOPerBlock = 8;
 
 	public int connectedBlocks = 0;
 	public Inventory inventory = new Inventory(2, "TileAesu", 64, this);
@@ -78,10 +91,10 @@ public class TileLesu extends TilePowerAcceptor {// TODO wrench
 				}
 			}
 		}
-		maxStorage = ((connectedBlocks + 1) * ConfigTechReborn.LesuStoragePerBlock);
-		output = (connectedBlocks * ConfigTechReborn.ExtraOutputPerLesuBlock) + ConfigTechReborn.BaseLesuOutput;
+		maxStorage = ((connectedBlocks + 1) * storagePerBlock);
+		output = (connectedBlocks * extraIOPerBlock) + baseOutput;
 
-		if (ticks == ConfigTechReborn.AverageEuOutTickTime) {
+		if (ticks == ConfigTechReborn.$$$$$$$$$$$$DONT_DELETE_$$$$$$$$$$$AverageEuOutTickTime) {
 			euChange = -1;
 			ticks = 0;
 		} else {
@@ -127,7 +140,7 @@ public class TileLesu extends TilePowerAcceptor {// TODO wrench
 
 	@Override
 	public double getBaseMaxInput() {
-		return 8192;
+		return maxInput;
 	}
 
 	@Override

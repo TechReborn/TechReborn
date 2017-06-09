@@ -26,17 +26,30 @@ package techreborn.tiles.generator;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
+import techreborn.lib.ModInfo;
 
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileGasTurbine extends TileBaseFluidGenerator implements IContainerProvider {
 
+	@ConfigRegistry(config = "machines", category = "gas_generator", key = "GasGeneratorMaxOutput", comment = "Gas Generator Max Output (Value in EU)")
+	public static int maxOutput = 128;
+	@ConfigRegistry(config = "machines", category = "gas_generator", key = "GasGeneratorMaxEnergy", comment = "Gas Generator Max Energy (Value in EU)")
+	public static int maxEnergy = 1000000;
+	@ConfigRegistry(config = "machines", category = "gas_generator", key = "GasGeneratorTankCapacity", comment = "Gas Generator Tank Capacity")
+	public static int tankCapacity = 10000;
+	@ConfigRegistry(config = "machines", category = "gas_generator", key = "GasGeneratorEnergyPerTick", comment = "Gas Generator Energy Per Tick (Value in EU)")
+	public static int energyPerTick = 16;
+
 	public TileGasTurbine() {
-		super(EFluidGenerator.GAS, ConfigTechReborn.ThermalGeneratorTier, "TileGasTurbine", 1000 * 10, 16);
+		super(EFluidGenerator.GAS, "TileGasTurbine", tankCapacity, energyPerTick);
 	}
 
 	@Override
@@ -46,8 +59,14 @@ public class TileGasTurbine extends TileBaseFluidGenerator implements IContainer
 
 	@Override
 	public double getBaseMaxPower() {
-		return ConfigTechReborn.ThermalGeneratorCharge;
+		return maxEnergy;
 	}
+
+	@Override
+	public double getBaseMaxOutput() {
+		return maxOutput;
+	}
+
 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {

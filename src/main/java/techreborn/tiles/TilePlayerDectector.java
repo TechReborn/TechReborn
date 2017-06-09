@@ -43,14 +43,12 @@ public class TilePlayerDectector extends TilePowerAcceptor {
 	public static int maxInput = 32;
 	@ConfigRegistry(config = "machines", category = "player_detector", key = "PlayerDetectorMaxEnergy", comment = "Player Detector Max Energy (Value in EU)")
 	public static int maxEnergy = 10000;
-	@ConfigRegistry(config = "machines", category = "player_detector", key = "PlayerDetectorTier", comment = "Player Detector Tier")
-	public static int tier = 1;
 
 	public String owenerUdid = "";
 	boolean redstone = false;
 
 	public TilePlayerDectector() {
-		super(tier);
+		super();
 	}
 
 	@Override

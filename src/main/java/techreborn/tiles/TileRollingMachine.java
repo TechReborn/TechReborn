@@ -58,8 +58,6 @@ public class TileRollingMachine extends TilePowerAcceptor
 	public static int runTime = 250;
 	@ConfigRegistry(config = "machines", category = "rolling_machine", key = "RollingMachineMaxEnergy", comment = "Rolling Machine Max Energy (Value in EU)")
 	public static int maxEnergy = 10000;
-	@ConfigRegistry(config = "machines", category = "rolling_machine", key = "RollingMachineTier", comment = "Rolling Machine Tier")
-	public static int tier = 1;
 	//  @ConfigRegistry(config = "machines", category = "rolling_machine", key = "RollingMachineWrenchDropRate", comment = "Rolling Machi Wrench Drop Rate")
 	public static float wrenchDropRate = 1.0F;
 
@@ -71,7 +69,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 	private int outputSlot;
 
 	public TileRollingMachine() {
-		super(tier);
+		super();
 		outputSlot = 0;
 	}
 

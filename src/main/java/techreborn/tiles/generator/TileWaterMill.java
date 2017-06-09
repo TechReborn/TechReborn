@@ -30,12 +30,24 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import techreborn.init.ModBlocks;
+import techreborn.lib.ModInfo;
 
 /**
  * Created by modmuss50 on 25/02/2016.
  */
+
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileWaterMill extends TilePowerAcceptor implements IWrenchable {
+
+	@ConfigRegistry(config = "machines", category = "water_mill", key = "WaterMillMaxOutput", comment = "Water Mill Max Output (Value in EU)")
+	public static int maxOutput = 32;
+	@ConfigRegistry(config = "machines", category = "water_mill", key = "WaterMillMaxEnergy", comment = "Water Mill Max Energy (Value in EU)")
+	public static int maxEnergy = 1000;
+	@ConfigRegistry(config = "machines", category = "water_mill", key = "WaterMillEnergyPerTick", comment = "Water Mill Energy Multiplier")
+	public static int energyMultiplier = 1;
 
 	int waterblocks = 0;
 
@@ -50,7 +62,7 @@ public class TileWaterMill extends TilePowerAcceptor implements IWrenchable {
 			this.checkForWater();
 		}
 		if (this.waterblocks > 0) {
-			this.addEnergy(this.waterblocks);
+			this.addEnergy(this.waterblocks * energyMultiplier);
 		}
 	}
 
@@ -65,7 +77,7 @@ public class TileWaterMill extends TilePowerAcceptor implements IWrenchable {
 
 	@Override
 	public double getBaseMaxPower() {
-		return 1000;
+		return maxEnergy;
 	}
 
 	@Override
@@ -80,7 +92,7 @@ public class TileWaterMill extends TilePowerAcceptor implements IWrenchable {
 
 	@Override
 	public double getBaseMaxOutput() {
-		return 32;
+		return maxOutput;
 	}
 
 	@Override

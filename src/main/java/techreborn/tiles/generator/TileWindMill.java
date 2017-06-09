@@ -29,12 +29,26 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import techreborn.init.ModBlocks;
+import techreborn.lib.ModInfo;
 
 /**
  * Created by modmuss50 on 25/02/2016.
  */
+
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileWindMill extends TilePowerAcceptor implements IWrenchable {
+
+	@ConfigRegistry(config = "machines", category = "wind_mill", key = "WindMillMaxOutput", comment = "Wind Mill Max Output (Value in EU)")
+	public static int maxOutput = 128;
+	@ConfigRegistry(config = "machines", category = "wind_mill", key = "WindMillMaxEnergy", comment = "Wind Mill Max Energy (Value in EU)")
+	public static int maxEnergy = 10000;
+	@ConfigRegistry(config = "machines", category = "wind_mill", key = "WindMillEnergyPerTick", comment = "Wind Mill Energy Per Tick (Value in EU)")
+	public static int baseEnergy = 2;
+	@ConfigRegistry(config = "machines", category = "wind_mill", key = "WindMillEnergyPerTick", comment = "Wind Mill Thunder Multiplier")
+	public static double thunderMultiplier = 1.25;
 
 	int basePower = 16;
 
@@ -48,7 +62,7 @@ public class TileWindMill extends TilePowerAcceptor implements IWrenchable {
 		if (this.pos.getY() > 64) {
 			int actualPower = this.basePower;
 			if (this.world.isThundering()) {
-				actualPower *= 1.25;
+				actualPower *= thunderMultiplier;
 			}
 			this.addEnergy(actualPower); // Value taken from
 			// http://wiki.industrial-craft.net/?title=Wind_Mill
@@ -58,7 +72,7 @@ public class TileWindMill extends TilePowerAcceptor implements IWrenchable {
 
 	@Override
 	public double getBaseMaxPower() {
-		return 10000;
+		return maxEnergy;
 	}
 
 	@Override
@@ -73,7 +87,7 @@ public class TileWindMill extends TilePowerAcceptor implements IWrenchable {
 
 	@Override
 	public double getBaseMaxOutput() {
-		return 128;
+		return maxOutput;
 	}
 
 	@Override

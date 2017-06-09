@@ -54,8 +54,6 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor
 	public static int maxInput = 128;
 	@ConfigRegistry(config = "machines", category = "industrial_electrolyzer", key = "IndustrialElectrolyzerMaxEnergy", comment = "Industrial Electrolyzer Max Energy (Value in EU)")
 	public static int maxEnergy = 1000;
-	@ConfigRegistry(config = "machines", category = "industrial_electrolyzer", key = "IndustrialElectrolyzerTier", comment = "Industrial Electrolyzer Tier")
-	public static int tier = 2;
 	//  @ConfigRegistry(config = "machines", category = "industrial_electrolyzer", key = "IndustrialElectrolyzerWrenchDropRate", comment = "Industrial Electrolyzer Wrench Drop Rate")
 	public static float wrenchDropRate = 1.0F;
 
@@ -64,7 +62,7 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor
 	public RecipeCrafter crafter;
 
 	public TileIndustrialElectrolyzer() {
-		super(tier);
+		super();
 		// Input slots
 		final int[] inputs = new int[2];
 		inputs[0] = 0;

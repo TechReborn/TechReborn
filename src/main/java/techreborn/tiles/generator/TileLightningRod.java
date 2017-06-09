@@ -34,10 +34,22 @@ import net.minecraftforge.oredict.OreDictionary;
 import reborncore.common.IWrenchable;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-import techreborn.config.ConfigTechReborn;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import techreborn.init.ModBlocks;
+import techreborn.lib.ModInfo;
 
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileLightningRod extends TilePowerAcceptor implements IWrenchable {
+
+	@ConfigRegistry(config = "machines", category = "lightning_rod", key = "LightningRodMaxOutput", comment = "Lightning Rod Max Output (Value in EU)")
+	public static int maxOutput = 2048;
+	@ConfigRegistry(config = "machines", category = "lightning_rod", key = "LightningRodMaxEnergy", comment = "Lightning Rod Max Energy (Value in EU)")
+	public static int maxEnergy = 1000000;
+	@ConfigRegistry(config = "machines", category = "lightning_rod", key = "LightningRodChanceOfStrike", comment = "Chance of lightning striking a rod (Range: 0-70)")
+	public static int chanceOfStrike = 24;
+	@ConfigRegistry(config = "machines", category = "lightning_rod", key = "LightningRodBaseStrikeEnergy", comment = "Base amount of energy per strike (Value in EU)")
+	public static int baseEnergyStrike = 32768;
 
 	private int onStatusHoldTicks = -1;
 
@@ -61,16 +73,16 @@ public class TileLightningRod extends TilePowerAcceptor implements IWrenchable {
 		final float weatherStrength = this.world.getThunderStrength(1.0F);
 		if (weatherStrength > 0.2F) {
 			//lightStrikeChance = (MAX - (CHANCE * WEATHER_STRENGTH)
-			final float lightStrikeChance = (100F - ConfigTechReborn.LightningRodChance) * 20F;
+			final float lightStrikeChance = (100F - chanceOfStrike) * 20F;
 			final float totalChance = lightStrikeChance * this.getLightningStrikeMultiplier() * (1.1F - weatherStrength);
 			if (this.world.rand.nextInt((int) Math.floor(totalChance)) == 0) {
 				final EntityLightningBolt lightningBolt = new EntityLightningBolt(this.world,
-						this.pos.getX() + 0.5F,
-						this.world.provider.getAverageGroundLevel(),
-						this.pos.getZ() + 0.5F, false);
+					this.pos.getX() + 0.5F,
+					this.world.provider.getAverageGroundLevel(),
+					this.pos.getZ() + 0.5F, false);
 				this.world.addWeatherEffect(lightningBolt);
 				this.world.spawnEntity(lightningBolt);
-				this.addEnergy(32768 * (0.3F + weatherStrength));
+				this.addEnergy(baseEnergyStrike * (0.3F + weatherStrength));
 				((BlockMachineBase) this.getBlockType()).setActive(true, this.world, this.pos);
 				this.onStatusHoldTicks = 400;
 			}
@@ -104,7 +116,7 @@ public class TileLightningRod extends TilePowerAcceptor implements IWrenchable {
 
 	@Override
 	public double getBaseMaxPower() {
-		return 327680;
+		return maxEnergy;
 	}
 
 	@Override
@@ -119,7 +131,7 @@ public class TileLightningRod extends TilePowerAcceptor implements IWrenchable {
 
 	@Override
 	public double getBaseMaxOutput() {
-		return 2048;
+		return maxOutput;
 	}
 
 	@Override

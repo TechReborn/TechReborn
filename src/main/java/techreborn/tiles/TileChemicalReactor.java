@@ -49,8 +49,6 @@ public class TileChemicalReactor extends TilePowerAcceptor
 	public static int maxInput = 128;
 	@ConfigRegistry(config = "machines", category = "chemical_reactor", key = "ChemicalReactorMaxEnergy", comment = "Chemical Reactor Max Energy (Value in EU)")
 	public static int maxEnergy = 10000;
-	@ConfigRegistry(config = "machines", category = "chemical_reactor", key = "ChemicalReactorTier", comment = "Chemical Reactor Tier")
-	public static int tier = 2;
 	//  @ConfigRegistry(config = "machines", category = "chemical_reactor", key = "ChemicalReactorWrenchDropRate", comment = "Chemical Reactor Wrench Drop Rate")
 	public static float wrenchDropRate = 1.0F;
 
@@ -59,7 +57,7 @@ public class TileChemicalReactor extends TilePowerAcceptor
 	public RecipeCrafter crafter;
 
 	public TileChemicalReactor() {
-		super(tier);
+		super();
 		// Input slots
 		final int[] inputs = new int[2];
 		inputs[0] = 0;

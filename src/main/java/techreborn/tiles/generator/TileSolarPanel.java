@@ -29,15 +29,27 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import techreborn.blocks.generator.BlockSolarPanel;
 import techreborn.init.ModBlocks;
+import techreborn.lib.ModInfo;
 
 import java.util.List;
 
 /**
  * Created by modmuss50 on 25/02/2016.
  */
+
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileSolarPanel extends TilePowerAcceptor implements IWrenchable {
+
+	@ConfigRegistry(config = "machines", category = "solar_panel", key = "SolarPanelMaxOutput", comment = "Solar Panel Max Output (Value in EU)")
+	public static int maxOutput = 32;
+	@ConfigRegistry(config = "machines", category = "solar_panel", key = "SolarPanelMaxEnergy", comment = "Solar Panel Max Energy (Value in EU)")
+	public static int maxEnergy = 1000;
+	@ConfigRegistry(config = "machines", category = "solar_panel", key = "SolarPanelEnergyPerTick", comment = "Solar Panel Energy Per Tick (Value in EU)")
+	public static int energyPerTick = 1;
 
 	boolean shouldMakePower = false;
 	boolean lastTickSate = false;
@@ -57,14 +69,14 @@ public class TileSolarPanel extends TilePowerAcceptor implements IWrenchable {
 
 			}
 			if (this.shouldMakePower) {
-				this.powerToAdd = 10;
+				this.powerToAdd = energyPerTick;
 				this.addEnergy(this.powerToAdd);
 			} else {
 				this.powerToAdd = 0;
 			}
 
 			this.world.setBlockState(this.getPos(),
-					this.world.getBlockState(this.getPos()).withProperty(BlockSolarPanel.ACTIVE, this.isSunOut()));
+				this.world.getBlockState(this.getPos()).withProperty(BlockSolarPanel.ACTIVE, this.isSunOut()));
 		}
 	}
 
@@ -81,12 +93,12 @@ public class TileSolarPanel extends TilePowerAcceptor implements IWrenchable {
 
 	public boolean isSunOut() {
 		return this.world.canBlockSeeSky(this.pos.up()) && !this.world.isRaining() && !this.world.isThundering()
-				&& this.world.isDaytime();
+			&& this.world.isDaytime();
 	}
 
 	@Override
 	public double getBaseMaxPower() {
-		return 1000;
+		return maxEnergy;
 	}
 
 	@Override
@@ -101,7 +113,7 @@ public class TileSolarPanel extends TilePowerAcceptor implements IWrenchable {
 
 	@Override
 	public double getBaseMaxOutput() {
-		return 32;
+		return maxOutput;
 	}
 
 	@Override

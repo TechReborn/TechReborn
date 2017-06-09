@@ -53,8 +53,6 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	public static int maxEnergy = 100000000;
 	@ConfigRegistry(config = "machines", category = "matter_fabricator", key = "MatterFabricatorFabricationRate", comment = "Matter Fabricator Fabrication Rate")
 	public static int fabricationRate = 10000;
-	@ConfigRegistry(config = "machines", category = "matter_fabricator", key = "MatterFabricatorTier", comment = "Matter Fabricator Tier")
-	public static int tier = 6;
 	//  @ConfigRegistry(config = "machines", category = "matter_fabricator", key = "MatterFabricatorWrenchDropRate", comment = "Matter Fabricator Wrench Drop Rate")
 	public static float wrenchDropRate = 1.0F;
 
@@ -62,7 +60,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	private int amplifier = 0;
 
 	public TileMatterFabricator() {
-		super(tier);
+		super();
 		// TODO configs
 	}
 

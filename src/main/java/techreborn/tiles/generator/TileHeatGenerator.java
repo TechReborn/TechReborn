@@ -32,18 +32,26 @@ import net.minecraft.util.math.BlockPos;
 import reborncore.common.IWrenchable;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-import techreborn.config.ConfigTechReborn;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import techreborn.init.ModBlocks;
+import techreborn.lib.ModInfo;
 
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileHeatGenerator extends TilePowerAcceptor implements IWrenchable {
 
-	public static final int euTick = ConfigTechReborn.HeatGeneratorOutput;
+	@ConfigRegistry(config = "machines", category = "heat_generator", key = "HeatGeneratorMaxOutput", comment = "Heat Generator Max Output (Value in EU)")
+	public static int maxOutput = 128;
+	@ConfigRegistry(config = "machines", category = "heat_generator", key = "HeatGeneratorMaxEnergy", comment = "Heat Generator Max Energy (Value in EU)")
+	public static int maxEnergy = 10000;
+	@ConfigRegistry(config = "machines", category = "heat_generator", key = "HeatGeneratorEnergyPerTick", comment = "Heat Generator Energy Per Tick (Value in EU)")
+	public static int energyPerTick = 5;
+
+	private long lastOutput = 0;
 
 	public TileHeatGenerator() {
 		super(1);
 	}
-	
-	private long lastOutput = 0;
 
 	@Override
 	public void updateEntity() {
@@ -51,36 +59,32 @@ public class TileHeatGenerator extends TilePowerAcceptor implements IWrenchable 
 
 		if (!world.isRemote) {
 			for (final EnumFacing direction : EnumFacing.values()) {
-				if(direction.equals(EnumFacing.UP))
+				if (direction.equals(EnumFacing.UP))
 					continue;
 				if (this.world
-						.getBlockState(new BlockPos(this.getPos().getX() + direction.getFrontOffsetX(),
-								this.getPos().getY() + direction.getFrontOffsetY(),
-								this.getPos().getZ() + direction.getFrontOffsetZ()))
-						.getBlock() == Blocks.LAVA) {
-					if(tryAddingEnergy(euTick))
+					.getBlockState(new BlockPos(this.getPos().getX() + direction.getFrontOffsetX(),
+						this.getPos().getY() + direction.getFrontOffsetY(),
+						this.getPos().getZ() + direction.getFrontOffsetZ()))
+					.getBlock() == Blocks.LAVA) {
+					if (tryAddingEnergy(energyPerTick))
 						this.lastOutput = this.world.getTotalWorldTime();
 				}
 			}
 
 			if (this.world.getTotalWorldTime() - this.lastOutput < 30 && !this.isActive())
 				this.world.setBlockState(this.getPos(),
-						this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, true));
+					this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, true));
 			else if (this.world.getTotalWorldTime() - this.lastOutput > 30 && this.isActive())
 				this.world.setBlockState(this.getPos(),
-						this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, false));
+					this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, false));
 		}
 	}
-	
-	private boolean tryAddingEnergy(int amount)
-	{
-		if(this.getMaxPower() - this.getEnergy() >= amount)
-		{
+
+	private boolean tryAddingEnergy(int amount) {
+		if (this.getMaxPower() - this.getEnergy() >= amount) {
 			addEnergy(amount);
 			return true;
-		}
-		else if(this.getMaxPower() - this.getEnergy() > 0)
-		{
+		} else if (this.getMaxPower() - this.getEnergy() > 0) {
 			addEnergy(this.getMaxPower() - this.getEnergy());
 			return true;
 		}
@@ -118,7 +122,7 @@ public class TileHeatGenerator extends TilePowerAcceptor implements IWrenchable 
 
 	@Override
 	public double getBaseMaxPower() {
-		return 10000;
+		return maxEnergy;
 	}
 
 	@Override
@@ -133,7 +137,7 @@ public class TileHeatGenerator extends TilePowerAcceptor implements IWrenchable 
 
 	@Override
 	public double getBaseMaxOutput() {
-		return 64;
+		return maxOutput;
 	}
 
 	@Override

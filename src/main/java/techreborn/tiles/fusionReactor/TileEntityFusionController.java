@@ -53,8 +53,6 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 	public static int maxOutput = 1000000;
 	@ConfigRegistry(config = "machines", category = "fusion_reactor", key = "FusionReactorMaxEnergy", comment = "Fusion Reactor Max Energy (Value in EU)")
 	public static int maxEnergy = 100000000;
-	@ConfigRegistry(config = "machines", category = "fusion_reactor", key = "FusionReactorTier", comment = "Fusion Reactor Tier")
-	public static int tier = 4;
 	//  @ConfigRegistry(config = "machines", category = "fusion_reactor", key = "FusionReactorWrenchDropRate", comment = "Fusion Reactor Wrench Drop Rate")
 	public static float wrenchDropRate = 1.0F;
 
@@ -72,7 +70,7 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 	boolean hasStartedCrafting = false;
 
 	public TileEntityFusionController() {
-		super(tier);
+		super();
 	}
 
 	@Override

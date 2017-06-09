@@ -51,8 +51,6 @@ public class TileAssemblingMachine extends TilePowerAcceptor
 	public static int maxInput = 128;
 	@ConfigRegistry(config = "machines", category = "assembling_machine", key = "AssemblingMachineMaxEnergy", comment = "Assembling Machine Max Energy (Value in EU)")
 	public static int maxEnergy = 10000;
-	@ConfigRegistry(config = "machines", category = "assembling_machine", key = "AssemblingMachineTier", comment = "Assembling Machine Tier")
-	public static int tier = 2;
 	//  @ConfigRegistry(config = "machines", category = "assembling_machine", key = "AssemblingMachineWrenchDropRate", comment = "Assembling Machine Wrench Drop Rate")
 	public static float wrenchDropRate = 1.0F;
 
@@ -61,7 +59,7 @@ public class TileAssemblingMachine extends TilePowerAcceptor
 	public RecipeCrafter crafter;
 
 	public TileAssemblingMachine() {
-		super(tier);
+		super();
 		// Input slots
 		final int[] inputs = new int[2];
 		inputs[0] = 0;

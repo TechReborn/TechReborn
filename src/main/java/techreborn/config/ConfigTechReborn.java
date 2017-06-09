@@ -53,7 +53,7 @@ public class ConfigTechReborn {
 	public static int CentrifugeInputTick;
 	public static int DragonEggSiphonerOutput;
 	public static int HeatGeneratorOutput;
-	public static int AverageEuOutTickTime;
+	public static int $$$$$$$$$$$$DONT_DELETE_$$$$$$$$$$$AverageEuOutTickTime;
 	public static int ExtraOutputPerLesuBlock;
 	public static int BaseLesuOutput;
 	public static int LesuStoragePerBlock;
@@ -333,7 +333,7 @@ public class ConfigTechReborn {
 		ThermalGeneratorCharge = config.get(CATEGORY_POWER, "ThermalGenerator MaxCharge", 1000000,
 			"Set the max charge for the ThermalGenerator").getInt();
 
-		AverageEuOutTickTime = config.get(CATEGORY_POWER, "Average EU-out Tick Time", 100,
+		$$$$$$$$$$$$DONT_DELETE_$$$$$$$$$$$AverageEuOutTickTime = config.get(CATEGORY_POWER, "Average EU-out Tick Time", 100,
 			"Set the average EU-out tick time").getInt();
 
 		LesuStoragePerBlock = config.get(CATEGORY_POWER, "LESU Storage Block Amount", 1000000,

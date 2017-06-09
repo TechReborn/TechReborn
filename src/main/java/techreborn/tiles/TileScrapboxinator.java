@@ -58,8 +58,6 @@ public class TileScrapboxinator extends TilePowerAcceptor
 	public static int cost = 20;
 	@ConfigRegistry(config = "machines", category = "scrapboxinator", key = "ScrapboxinatorRunTime", comment = "Scrapboxinator Run Time")
 	public static int runTime = 200;
-	@ConfigRegistry(config = "machines", category = "scrapboxinator", key = "ScrapboxinatorTier", comment = "Scrapboxinator Tier")
-	public static int tier = 1;
 	//  @ConfigRegistry(config = "machines", category = "scrapboxinator", key = "ScrapboxinatorWrenchDropRate", comment = "Scrapboxinator Wrench Drop Rate")
 	public static float wrenchDropRate = 1.0F;
 
@@ -70,7 +68,7 @@ public class TileScrapboxinator extends TilePowerAcceptor
 	public int output = 1;
 
 	public TileScrapboxinator() {
-		super(tier);
+		super();
 	}
 
 	public int gaugeProgressScaled(final int scale) {

@@ -46,11 +46,9 @@ public class TileDieselGenerator extends TileBaseFluidGenerator implements ICont
 	public static int tankCapacity = 10000;
 	@ConfigRegistry(config = "machines", category = "diesel_generator", key = "DieselGeneratorEnergyPerTick", comment = "Diesel Generator Energy Per Tick (Value in EU)")
 	public static int energyPerTick = 20;
-	@ConfigRegistry(config = "machines", category = "diesel_generator", key = "DieselGeneratorTier", comment = "Diesel Generator Tier")
-	public static int tier = 2;
 
 	public TileDieselGenerator() {
-		super(EFluidGenerator.DIESEL, tier, "TileDieselGenerator", tankCapacity, energyPerTick);
+		super(EFluidGenerator.DIESEL, "TileDieselGenerator", tankCapacity, energyPerTick);
 	}
 
 	@Override

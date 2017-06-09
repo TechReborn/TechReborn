@@ -50,11 +50,9 @@ public class TileThermalGenerator extends TileBaseFluidGenerator implements ICon
 	public static int tankCapacity = 10000;
 	@ConfigRegistry(config = "machines", category = "thermal_generator", key = "ThermalGeneratorEnergyPerTick", comment = "Thermal Generator Energy Per Tick (Value in EU)")
 	public static int energyPerTick = 10;
-	@ConfigRegistry(config = "machines", category = "thermal_generator", key = "ThermalGeneratorTier", comment = "Thermal Generator Tier")
-	public static int tier = 2;
 
 	public TileThermalGenerator() {
-		super(EFluidGenerator.THERMAL, tier, "TileThermalGenerator", tankCapacity, energyPerTick);
+		super(EFluidGenerator.THERMAL, "TileThermalGenerator", tankCapacity, energyPerTick);
 	}
 
 	@Override
