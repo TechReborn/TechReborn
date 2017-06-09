@@ -31,12 +31,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.oredict.OreDictionary;
-
-import reborncore.api.power.EnumPowerTier;
 import reborncore.common.IWrenchable;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 
@@ -128,11 +125,6 @@ public class TileLightningRod extends TilePowerAcceptor implements IWrenchable {
 	@Override
 	public double getBaseMaxInput() {
 		return 0;
-	}
-
-	@Override
-	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.HIGH;
 	}
 
 	@Override

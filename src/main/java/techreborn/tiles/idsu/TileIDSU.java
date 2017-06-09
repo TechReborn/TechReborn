@@ -29,7 +29,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import org.apache.commons.lang3.StringUtils;
-import reborncore.api.power.EnumPowerTier;
 import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.config.ConfigTechReborn;
@@ -102,10 +101,6 @@ public class TileIDSU extends TilePowerAcceptor implements IWrenchable {
 		return maxStorage;
 	}
 
-	@Override
-	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.EXTREME;
-	}
 
 	public float getChargeLevel() {
 		float ret = (float) this.getEnergy() / (float) this.maxStorage;

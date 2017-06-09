@@ -32,8 +32,6 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-
-import reborncore.api.power.EnumPowerTier;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
@@ -42,7 +40,6 @@ import reborncore.common.multiblock.IMultiblockPart;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Inventory;
-
 import techreborn.api.Reference;
 import techreborn.api.recipe.ITileRecipeHandler;
 import techreborn.api.recipe.machines.BlastFurnaceRecipe;
@@ -50,7 +47,6 @@ import techreborn.blocks.BlockMachineCasing;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.multiblocks.MultiBlockCasing;
 import techreborn.tiles.TileMachineCasing;
@@ -67,7 +63,7 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 	private int cachedHeat;
 
 	public TileBlastFurnace() {
-		super(ConfigTechReborn.CentrifugeTier);
+		super();
 		// TODO configs
 		final int[] inputs = new int[2];
 		inputs[0] = 0;
@@ -219,11 +215,6 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 	@Override
 	public double getBaseMaxInput() {
 		return 128;
-	}
-
-	@Override
-	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.HIGH;
 	}
 
 	@Override

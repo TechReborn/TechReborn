@@ -46,9 +46,4 @@ public class TileMVTransformer extends TileTransformer {
 	public double getBaseMaxInput() {
 		return 512;
 	}
-
-	@Override
-	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.HIGH;
-	}
 }

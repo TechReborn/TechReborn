@@ -30,16 +30,12 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.EnumFacing;
-
-import reborncore.api.power.EnumPowerTier;
-import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.tile.IMachineSlotProvider;
 import reborncore.common.util.Inventory;
-
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
@@ -222,11 +218,6 @@ public class TileElectricFurnace extends TilePowerAcceptor
 	@Override
 	public double getBaseMaxInput() {
 		return 32;
-	}
-
-	@Override
-	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.LOW;
 	}
 
 	@Override

@@ -31,7 +31,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.ForgeModContainer;
-import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.blocks.BlockMachineBase;
@@ -55,7 +54,7 @@ public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IIn
 	ItemStack burnItem;
 
 	public TileGenerator() {
-		super(1);
+		super();
 	}
 
 	public static int getItemBurnTime(final ItemStack stack) {
@@ -152,11 +151,6 @@ public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IIn
 	@Override
 	public double getBaseMaxInput() {
 		return 0;
-	}
-
-	@Override
-	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.LOW;
 	}
 
 	@Override

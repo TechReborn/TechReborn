@@ -157,11 +157,6 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 	}
 
 	@Override
-	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.values()[this.tier];
-	}
-
-	@Override
 	public boolean canAcceptEnergy(EnumFacing direction) {
 		return false;
 	}

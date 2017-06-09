@@ -35,7 +35,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import reborncore.api.power.EnumPowerTier;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
@@ -222,11 +221,6 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrencha
 	@Override
 	public double getBaseMaxInput() {
 		return 64;
-	}
-
-	@Override
-	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.LOW;
 	}
 
 	@Override

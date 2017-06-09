@@ -27,7 +27,6 @@ package techreborn.tiles.lesu;
 import net.minecraft.block.Block;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.blocks.storage.BlockLESU;
@@ -47,7 +46,7 @@ public class TileLesu extends TilePowerAcceptor {// TODO wrench
 	private int maxStorage;
 
 	public TileLesu() {
-		super(5);
+		super();
 	}
 
 	@Override
@@ -129,11 +128,6 @@ public class TileLesu extends TilePowerAcceptor {// TODO wrench
 	@Override
 	public double getBaseMaxInput() {
 		return 8192;
-	}
-
-	@Override
-	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.EXTREME;
 	}
 
 	@Override

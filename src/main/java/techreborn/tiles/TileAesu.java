@@ -28,7 +28,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import reborncore.api.power.EnumPowerTier;
 import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
@@ -47,8 +46,6 @@ public class TileAesu extends TilePowerAcceptor implements IWrenchable {
 	public static int maxOutput = 8192;
 	@ConfigRegistry(config = "machines", category = "aesu", key = "AesuMaxEnergy", comment = "AESU Max Energy (Value in EU)")
 	public static int maxEnergy = 100000000;
-	@ConfigRegistry(config = "machines", category = "aesu", key = "AesuTier", comment = "AESU Tier")
-	public static int tier = 5;
 //	@ConfigRegistry(config = "machines", category = "aesu", key = "AesuWrenchDropRate", comment = "AESU Wrench Drop Rate")
 	public static float wrenchDropRate = 1.0F;
 
@@ -59,7 +56,7 @@ public class TileAesu extends TilePowerAcceptor implements IWrenchable {
 	private int ticks;
 
 	public TileAesu() {
-		super(tier);
+		super();
 	}
 
 	@Override
@@ -186,10 +183,5 @@ public class TileAesu extends TilePowerAcceptor implements IWrenchable {
 	@Override
 	public double getBaseMaxInput() {
 		return maxInput;
-	}
-
-	@Override
-	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.INSANE;
 	}
 }

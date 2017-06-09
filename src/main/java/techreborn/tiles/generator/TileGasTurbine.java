@@ -26,9 +26,6 @@ package techreborn.tiles.generator;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-
-import reborncore.api.power.EnumPowerTier;
-
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
@@ -45,11 +42,6 @@ public class TileGasTurbine extends TileBaseFluidGenerator implements IContainer
 	@Override
 	public ItemStack getWrenchDrop(final EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.GAS_TURBINE, 1);
-	}
-
-	@Override
-	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.MEDIUM;
 	}
 
 	@Override

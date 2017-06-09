@@ -26,9 +26,6 @@ package techreborn.tiles.generator;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-
-import reborncore.api.power.EnumPowerTier;
-
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
@@ -47,10 +44,6 @@ public class TileSemifluidGenerator extends TileBaseFluidGenerator implements IC
 		return new ItemStack(ModBlocks.SEMIFLUID_GENERATOR, 1);
 	}
 
-	@Override
-	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.LOW;
-	}
 
 	@Override
 	public double getBaseMaxPower() {

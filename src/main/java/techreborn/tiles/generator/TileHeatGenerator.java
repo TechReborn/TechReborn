@@ -29,7 +29,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import reborncore.api.power.EnumPowerTier;
 import reborncore.common.IWrenchable;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
@@ -140,11 +139,6 @@ public class TileHeatGenerator extends TilePowerAcceptor implements IWrenchable 
 	@Override
 	public double getBaseMaxInput() {
 		return 0;
-	}
-
-	@Override
-	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.LOW;
 	}
 
 	// @Override

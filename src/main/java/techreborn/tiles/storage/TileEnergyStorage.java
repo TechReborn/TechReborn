@@ -52,7 +52,7 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IWrenchable,
 	public int maxStorage;
 
 	public TileEnergyStorage(String name, int invSize, Block wrenchDrop, EnumPowerTier tier, int maxInput, int maxOuput, int maxStorage) {
-		super(1);
+		super();
 		inventory = new Inventory(invSize, "Tile" + name, 64, this);
 		this.wrenchDrop = wrenchDrop;
 		this.tier = tier;

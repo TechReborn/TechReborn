@@ -30,7 +30,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
-import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
@@ -107,10 +106,6 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 		return maxInput;
 	}
 
-	@Override
-	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.INSANE;
-	}
 
 	@Override
 	public void readFromNBT(final NBTTagCompound tagCompound) {

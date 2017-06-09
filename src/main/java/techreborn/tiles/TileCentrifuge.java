@@ -29,7 +29,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IListInfoProvider;
-import reborncore.api.power.EnumPowerTier;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
@@ -58,8 +57,6 @@ public class TileCentrifuge extends TilePowerAcceptor
 	public static int maxInput = 32;
 	@ConfigRegistry(config = "machines", category = "centrifuge", key = "CentrifugeMaxEnergy", comment = "Centrifuge Max Energy (Value in EU)")
 	public static int maxEnergy = 10000;
-	@ConfigRegistry(config = "machines", category = "centrifuge", key = "CentrifugeTier", comment = "Centrifuge Tier")
-	public static int tier = 2;
 	//  @ConfigRegistry(config = "machines", category = "centrifuge", key = "CentrifugeWrenchDropRate", comment = "Centrifuge Wrench Drop Rate")
 	public static float wrenchDropRate = 1.0F;
 
@@ -68,7 +65,7 @@ public class TileCentrifuge extends TilePowerAcceptor
 	public RecipeCrafter crafter;
 
 	public TileCentrifuge() {
-		super(tier);
+		super();
 		// Input slots
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[4];
@@ -194,11 +191,6 @@ public class TileCentrifuge extends TilePowerAcceptor
 	@Override
 	public double getBaseMaxInput() {
 		return maxInput;
-	}
-
-	@Override
-	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.LOW;
 	}
 
 	@Override

@@ -29,7 +29,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.blocks.BlockMachineBase;
@@ -49,14 +48,12 @@ public class TileDragonEggSiphoner extends TilePowerAcceptor implements IWrencha
 	public static int maxEnergy = 1000;
 	@ConfigRegistry(config = "machines", category = "dragon_egg_siphoner", key = "DragonEggSiphonerEnergyPerTick", comment = "Dragon Egg Siphoner Energy Per Tick (Value in EU)")
 	public static int energyPerTick = 4;
-	@ConfigRegistry(config = "machines", category = "dragon_egg_siphoner", key = "DragonEggSiphonerTier", comment = "Dragon Egg Siphoner Tier")
-	public static int tier = 2;
 
 	public Inventory inventory = new Inventory(3, "TileDragonEggSiphoner", 64, this);
 	private long lastOutput = 0;
 
 	public TileDragonEggSiphoner() {
-		super(tier);
+		super();
 	}
 
 	@Override
@@ -142,11 +139,6 @@ public class TileDragonEggSiphoner extends TilePowerAcceptor implements IWrencha
 	@Override
 	public double getBaseMaxInput() {
 		return 0;
-	}
-
-	@Override
-	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.MEDIUM;
 	}
 
 	@Override

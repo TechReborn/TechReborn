@@ -27,11 +27,8 @@ package techreborn.tiles.generator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-
-import reborncore.api.power.EnumPowerTier;
 import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-
 import techreborn.init.ModBlocks;
 
 /**
@@ -82,11 +79,6 @@ public class TileWindMill extends TilePowerAcceptor implements IWrenchable {
 	@Override
 	public double getBaseMaxInput() {
 		return 0;
-	}
-
-	@Override
-	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.LOW;
 	}
 
 	@Override

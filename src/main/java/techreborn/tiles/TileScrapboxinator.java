@@ -29,7 +29,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.blocks.BlockMachineBase;
@@ -221,10 +220,6 @@ public class TileScrapboxinator extends TilePowerAcceptor
 		return maxInput;
 	}
 
-	@Override
-	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.LOW;
-	}
 
 	@Override
 	public Inventory getInventory() {

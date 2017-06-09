@@ -28,7 +28,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import reborncore.api.power.EnumPowerTier;
 import reborncore.api.power.IEnergyInterfaceItem;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
@@ -50,15 +49,13 @@ public class TileChargeBench extends TilePowerAcceptor
 	public static int maxInput = 512;
 	@ConfigRegistry(config = "machines", category = "charge_bench", key = "ChargeBenchMaxEnergy", comment = "Charge Bench Max Energy (Value in EU)")
 	public static int maxEnergy = 100000;
-	@ConfigRegistry(config = "machines", category = "charge_bench", key = "ChargeBenchTier", comment = "Charge Bench Tier")
-	public static int tier = 2;
 	//  @ConfigRegistry(config = "machines", category = "charge_bench", key = "ChargeBenchWrenchDropRate", comment = "Charge Bench Wrench Drop Rate")
 	public static float wrenchDropRate = 1.0F;
 
 	public Inventory inventory = new Inventory(6, "TileChargeBench", 64, this);
 
 	public TileChargeBench() {
-		super(4);
+		super();
 	}
 
 	@Override
@@ -156,11 +153,6 @@ public class TileChargeBench extends TilePowerAcceptor
 	@Override
 	public double getBaseMaxInput() {
 		return maxInput;
-	}
-
-	@Override
-	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.HIGH;
 	}
 
 	@Override

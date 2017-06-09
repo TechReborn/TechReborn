@@ -29,7 +29,6 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import reborncore.api.power.EnumPowerTier;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.api.tile.IInventoryProvider;
@@ -56,8 +55,6 @@ public class TileAlloySmelter extends TilePowerAcceptor
 	public static int maxInput = 32;
 	@ConfigRegistry(config = "machines", category = "alloy_smelter", key = "AlloySmelterMaxEnergy", comment = "Alloy Smelter Max Energy (Value in EU)")
 	public static int maxEnergy = 1000;
-	@ConfigRegistry(config = "machines", category = "alloy_smelter", key = "AlloySmelterTier", comment = "Alloy Smelter Tier")
-	public static int tier = 1;
 //	@ConfigRegistry(config = "machines", category = "alloy_smelter", key = "AlloySmelterWrenchDropRate", comment = "Alloy Smelter Wrench Drop Rate")
 	public static float wrenchDropRate = 1.0F;
 
@@ -66,7 +63,7 @@ public class TileAlloySmelter extends TilePowerAcceptor
 	public RecipeCrafter crafter;
 
 	public TileAlloySmelter() {
-		super(tier);
+		super();
 		// Input slots
 		final int[] inputs = new int[2];
 		inputs[0] = 0;
@@ -184,11 +181,6 @@ public class TileAlloySmelter extends TilePowerAcceptor
 	@Override
 	public double getBaseMaxInput() {
 		return maxInput;
-	}
-
-	@Override
-	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.LOW;
 	}
 
 	@Override

@@ -26,7 +26,6 @@ package techreborn.tiles.generator;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import reborncore.api.power.EnumPowerTier;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import techreborn.api.generator.EFluidGenerator;
@@ -67,11 +66,6 @@ public class TileDieselGenerator extends TileBaseFluidGenerator implements ICont
 	@Override
 	public double getBaseMaxOutput() {
 		return maxOutput;
-	}
-
-	@Override
-	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.MEDIUM;
 	}
 
 	@Override

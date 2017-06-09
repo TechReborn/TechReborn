@@ -29,7 +29,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import reborncore.api.power.EnumPowerTier;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.FluidUtils;
@@ -91,11 +90,6 @@ public class TileThermalGenerator extends TileBaseFluidGenerator implements ICon
 	@Override
 	public double getBaseMaxOutput() {
 		return maxOutput;
-	}
-
-	@Override
-	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.MEDIUM;
 	}
 
 	@Override

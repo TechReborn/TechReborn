@@ -30,7 +30,6 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
@@ -100,11 +99,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 	public double getBaseMaxInput() {
 		return maxInput;
 	}
-
-	@Override
-	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.LOW;
-	}
+	
 
 	@Override
 	public void updateEntity() {

@@ -45,10 +45,6 @@ public class TileCreativePanel extends TilePowerAcceptor implements IWrenchable 
 
 	int powerToAdd;
 
-	public TileCreativePanel() {
-		super(1);
-	}
-
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
