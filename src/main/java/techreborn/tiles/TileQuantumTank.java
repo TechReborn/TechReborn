@@ -53,7 +53,7 @@ import java.util.List;
 public class TileQuantumTank extends TileLegacyMachineBase
 	implements IInventoryProvider, IWrenchable, IListInfoProvider, IContainerProvider {
 
-	@ConfigRegistry(config = "machines", category = "quantum_tank", key = "QuantumTankMaxStorage", comment = "Maximum amount of millibuckets a Quantum Tankcan store")
+	@ConfigRegistry(config = "machines", category = "quantum_tank", key = "QuantumTankMaxStorage", comment = "Maximum amount of millibuckets a Quantum Tank can store")
 	public static int maxStorage = Integer.MAX_VALUE;
 	//  @ConfigRegistry(config = "machines", category = "quantum_tank", key = "QuantumTankWrenchDropRate", comment = "Quantum Tank Wrench Drop Rate")
 	public static float wrenchDropRate = 1.0F;

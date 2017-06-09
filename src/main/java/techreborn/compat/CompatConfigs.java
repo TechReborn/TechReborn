@@ -2,8 +2,9 @@ package techreborn.compat;
 
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
+import techreborn.lib.ModInfo;
 
-@RebornRegistry
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class CompatConfigs {
 	@ConfigRegistry(config = "compat", category = "buildcraft", key = "ExpensiveQuarryRecipe", comment = "Buildcraft's quarry will require an advanced circuit and diamond drill if enabled")
 	public static boolean expensiveQuarry = true;
