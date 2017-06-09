@@ -26,17 +26,21 @@ package techreborn.events;
 
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import techreborn.items.ItemGems;
+import techreborn.lib.ModInfo;
 import techreborn.utils.OreDictUtils;
 
-/**
- * Created by McKeever on 10/16/2016.
- */
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class BlockBreakHandler {
+
+	@ConfigRegistry(config = "misc", category = "general", key = "RubyRedGarnetDrops", comment = "Give red garnet drops to any harvested oreRuby")
+	public static boolean rubyGarnetDrops = true;
 
 	@SubscribeEvent
 	public void onBlockHarvest(BlockEvent.HarvestDropsEvent event) {
-		if (OreDictUtils.isOre(event.getState(), "oreRuby")) {
+		if (rubyGarnetDrops && OreDictUtils.isOre(event.getState(), "oreRuby")) {
 			event.getDrops().add(ItemGems.getGemByName("red_garnet").copy());
 		}
 	}

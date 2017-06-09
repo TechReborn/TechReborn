@@ -25,7 +25,10 @@
 package techreborn.compat.waila;
 
 import mcp.mobius.waila.api.IWailaRegistrar;
-import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import reborncore.common.tile.TileMachineBase;
 import techreborn.compat.ICompatModule;
 
@@ -41,7 +44,7 @@ public class CompatModuleWaila implements ICompatModule {
 	}
 
 	public void init(FMLInitializationEvent event) {
-		FMLInterModComms.sendMessage("Waila", "register", getClass().getName() + ".callbackRegister");
+		//		FMLInterModComms.sendMessage("Waila", "register", getClass().getName() + ".callbackRegister");
 	}
 
 	@Override

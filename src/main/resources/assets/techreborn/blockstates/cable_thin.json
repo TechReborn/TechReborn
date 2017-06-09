@@ -9,14 +9,6 @@
     }
   },
   "variants": {
-    "inventory": [
-      {
-        "transform": "forge:default-block",
-        "model": "techreborn:cable",
-        "textures": {
-        }
-      }
-    ],
     "down": {
       "true": {
         "submodel": {

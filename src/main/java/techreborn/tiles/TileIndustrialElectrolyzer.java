@@ -29,32 +29,43 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
-
 import techreborn.api.Reference;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.items.DynamicCell;
+import techreborn.lib.ModInfo;
 
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileIndustrialElectrolyzer extends TilePowerAcceptor
-		implements IWrenchable, IInventoryProvider, ISidedInventory, IRecipeCrafterProvider, IContainerProvider {
+	implements IWrenchable, IInventoryProvider, ISidedInventory, IRecipeCrafterProvider, IContainerProvider {
+
+	@ConfigRegistry(config = "machines", category = "industrial_electrolyzer", key = "IndustrialElectrolyzerMaxInput", comment = "Industrial Electrolyzer Max Input (Value in EU)")
+	public static int maxInput = 128;
+	@ConfigRegistry(config = "machines", category = "industrial_electrolyzer", key = "IndustrialElectrolyzerMaxEnergy", comment = "Industrial Electrolyzer Max Energy (Value in EU)")
+	public static int maxEnergy = 1000;
+	@ConfigRegistry(config = "machines", category = "industrial_electrolyzer", key = "IndustrialElectrolyzerTier", comment = "Industrial Electrolyzer Tier")
+	public static int tier = 2;
+	//  @ConfigRegistry(config = "machines", category = "industrial_electrolyzer", key = "IndustrialElectrolyzerWrenchDropRate", comment = "Industrial Electrolyzer Wrench Drop Rate")
+	public static float wrenchDropRate = 1.0F;
 
 	public int tickTime;
 	public Inventory inventory = new Inventory(8, "TileIndustrialElectrolyzer", 64, this);
 	public RecipeCrafter crafter;
 
 	public TileIndustrialElectrolyzer() {
-		super(2);
+		super(tier);
 		// Input slots
 		final int[] inputs = new int[2];
 		inputs[0] = 0;
@@ -91,7 +102,7 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor
 
 	@Override
 	public float getWrenchDropRate() {
-		return 1.0F;
+		return wrenchDropRate;
 	}
 
 	@Override
@@ -136,7 +147,7 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor
 	public boolean canInsertItem(final int slotIndex, final ItemStack stack, final EnumFacing side) {
 		if (slotIndex > 1)
 			return false;
-		if(slotIndex == 1)
+		if (slotIndex == 1)
 			return ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true);
 		return !ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true);
 	}
@@ -155,7 +166,7 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor
 
 	@Override
 	public double getBaseMaxPower() {
-		return 1000;
+		return maxEnergy;
 	}
 
 	@Override
@@ -175,12 +186,12 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor
 
 	@Override
 	public double getBaseMaxInput() {
-		return 128;
+		return maxInput;
 	}
 
 	@Override
 	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.LOW;
+		return EnumPowerTier.MEDIUM;
 	}
 
 	@Override
@@ -196,10 +207,10 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("industrialelectrolyzer").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory().tile(this)
-				.filterSlot(1, 50, 51, stack -> ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true))
-				.filterSlot(0, 80, 51, stack -> !ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true))
-				.outputSlot(2, 50, 19).outputSlot(3, 70, 19).outputSlot(4, 90, 19).outputSlot(5, 110, 19)
-				.energySlot(6, 18, 51).syncEnergyValue().syncCrafterValue().addInventory().create();
+			.addInventory().tile(this)
+			.filterSlot(1, 50, 51, stack -> ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true))
+			.filterSlot(0, 80, 51, stack -> !ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true))
+			.outputSlot(2, 50, 19).outputSlot(3, 70, 19).outputSlot(4, 90, 19).outputSlot(5, 110, 19)
+			.energySlot(6, 18, 51).syncEnergyValue().syncCrafterValue().addInventory().create();
 	}
 }

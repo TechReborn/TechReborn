@@ -53,20 +53,20 @@ public class TileAlloySmelter extends TilePowerAcceptor
 	implements IWrenchable, IInventoryProvider, ISidedInventory, IRecipeCrafterProvider, IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "alloy_smelter", key = "AlloySmelterMaxInput", comment = "Alloy Smelter Max Input (Value in EU)")
-	public static int MAX_INPUT = 32;
-	@ConfigRegistry(config = "machines", category = "alloy_smelter", key = "AlloySmelterMaxStorage", comment = "Alloy Smelter Max Storage (Value in EU)")
-	public static int MAX_STORAGE = 1000;
+	public static int maxInput = 32;
+	@ConfigRegistry(config = "machines", category = "alloy_smelter", key = "AlloySmelterMaxEnergy", comment = "Alloy Smelter Max Energy (Value in EU)")
+	public static int maxEnergy = 1000;
 	@ConfigRegistry(config = "machines", category = "alloy_smelter", key = "AlloySmelterTier", comment = "Alloy Smelter Tier")
-	public static int TIER = 1;
+	public static int tier = 1;
 //	@ConfigRegistry(config = "machines", category = "alloy_smelter", key = "AlloySmelterWrenchDropRate", comment = "Alloy Smelter Wrench Drop Rate")
-	public static float WRENCH_DROP_RATE = 1.0F;
+	public static float wrenchDropRate = 1.0F;
 
 	public int tickTime;
 	public Inventory inventory = new Inventory(8, "TileAlloySmelter", 64, this);
 	public RecipeCrafter crafter;
 
 	public TileAlloySmelter() {
-		super(TIER);
+		super(tier);
 		// Input slots
 		final int[] inputs = new int[2];
 		inputs[0] = 0;
@@ -163,7 +163,7 @@ public class TileAlloySmelter extends TilePowerAcceptor
 
 	@Override
 	public double getBaseMaxPower() {
-		return MAX_STORAGE;
+		return maxEnergy;
 	}
 
 	@Override
@@ -183,7 +183,7 @@ public class TileAlloySmelter extends TilePowerAcceptor
 
 	@Override
 	public double getBaseMaxInput() {
-		return MAX_INPUT;
+		return maxInput;
 	}
 
 	@Override

@@ -38,7 +38,6 @@ import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.recipes.RecipeTranslator;
 import reborncore.common.registration.RebornRegistry;
-import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
@@ -55,7 +54,7 @@ public class TileAlloyFurnace extends TileLegacyMachineBase
 	implements IWrenchable, IInventoryProvider, IContainerProvider {
 
 //	@ConfigRegistry(config = "machines", category = "alloy_furnace", key = "AlloyFurnaceWrenchDropRate", comment = "Alloy Furnace Wrench Drop Rate")
-	public static float WRENCH_DROP_RATE = 1.0F;
+	public static float wrenchDropRate = 1.0F;
 
 	public int tickTime;
 	public Inventory inventory = new Inventory(4, "TileAlloyFurnace", 64, this);
@@ -297,7 +296,7 @@ public class TileAlloyFurnace extends TileLegacyMachineBase
 
 	@Override
 	public float getWrenchDropRate() {
-		return WRENCH_DROP_RATE;
+		return wrenchDropRate;
 	}
 
 	@Override

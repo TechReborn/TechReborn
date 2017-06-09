@@ -30,22 +30,33 @@ import net.minecraft.util.EnumFacing;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.WorldUtils;
+import techreborn.lib.ModInfo;
 
 import java.util.Iterator;
 
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TilePlayerDectector extends TilePowerAcceptor {
+
+	@ConfigRegistry(config = "machines", category = "player_detector", key = "PlayerDetectorMaxInput", comment = "Player Detector Max Input (Value in EU)")
+	public static int maxInput = 32;
+	@ConfigRegistry(config = "machines", category = "player_detector", key = "PlayerDetectorMaxEnergy", comment = "Player Detector Max Energy (Value in EU)")
+	public static int maxEnergy = 10000;
+	@ConfigRegistry(config = "machines", category = "player_detector", key = "PlayerDetectorTier", comment = "Player Detector Tier")
+	public static int tier = 1;
 
 	public String owenerUdid = "";
 	boolean redstone = false;
 
 	public TilePlayerDectector() {
-		super(1);
+		super(tier);
 	}
 
 	@Override
 	public double getBaseMaxPower() {
-		return 10000;
+		return maxEnergy;
 	}
 
 	@Override
@@ -65,7 +76,7 @@ public class TilePlayerDectector extends TilePowerAcceptor {
 
 	@Override
 	public double getBaseMaxInput() {
-		return 32;
+		return maxInput;
 	}
 
 	@Override

@@ -32,26 +32,33 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-
 import reborncore.api.IListInfoProvider;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
-
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
+import techreborn.lib.ModInfo;
 
 import java.util.List;
 
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileQuantumTank extends TileLegacyMachineBase
-implements IInventoryProvider, IWrenchable, IListInfoProvider, IContainerProvider {
+	implements IInventoryProvider, IWrenchable, IListInfoProvider, IContainerProvider {
 
-	public Tank tank = new Tank("TileQuantumTank", Integer.MAX_VALUE, this);
+	@ConfigRegistry(config = "machines", category = "quantum_tank", key = "QuantumTankMaxStorage", comment = "Maximum amount of millibuckets a Quantum Tankcan store")
+	public static int maxStorage = Integer.MAX_VALUE;
+	//  @ConfigRegistry(config = "machines", category = "quantum_tank", key = "QuantumTankWrenchDropRate", comment = "Quantum Tank Wrench Drop Rate")
+	public static float wrenchDropRate = 1.0F;
+
+	public Tank tank = new Tank("TileQuantumTank", maxStorage, this);
 	public Inventory inventory = new Inventory(3, "TileQuantumTank", 64, this);
 
 	@Override
@@ -79,7 +86,7 @@ implements IInventoryProvider, IWrenchable, IListInfoProvider, IContainerProvide
 	@Override
 	public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity packet) {
 		this.world.markBlockRangeForRenderUpdate(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(),
-				this.getPos().getX(), this.getPos().getY(), this.getPos().getZ());
+			this.getPos().getX(), this.getPos().getY(), this.getPos().getZ());
 		this.readFromNBT(packet.getNbtCompound());
 	}
 
@@ -88,7 +95,7 @@ implements IInventoryProvider, IWrenchable, IListInfoProvider, IContainerProvide
 		super.updateEntity();
 		if (!this.world.isRemote) {
 			if (FluidUtils.drainContainers(this.tank, this.inventory, 0, 1)
-					|| FluidUtils.fillContainers(this.tank, this.inventory, 0, 1, this.tank.getFluidType()))
+				|| FluidUtils.fillContainers(this.tank, this.inventory, 0, 1, this.tank.getFluidType()))
 				this.syncWithAll();
 
 			if (this.tank.getFluidType() != null && this.getStackInSlot(2) == ItemStack.EMPTY) {
@@ -132,7 +139,7 @@ implements IInventoryProvider, IWrenchable, IListInfoProvider, IContainerProvide
 
 	@Override
 	public float getWrenchDropRate() {
-		return 1F;
+		return wrenchDropRate;
 	}
 
 	@Override
@@ -170,7 +177,7 @@ implements IInventoryProvider, IWrenchable, IListInfoProvider, IContainerProvide
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("quantumtank").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory().tile(this).fluidSlot(0, 80, 17).outputSlot(1, 80, 53).fakeSlot(2, 59, 42).addInventory()
-				.create();
+			.addInventory().tile(this).fluidSlot(0, 80, 17).outputSlot(1, 80, 53).fakeSlot(2, 59, 42).addInventory()
+			.create();
 	}
 }

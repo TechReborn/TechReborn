@@ -37,28 +37,38 @@ import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import techreborn.api.Reference;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.items.DynamicCell;
+import techreborn.lib.ModInfo;
 
 import java.util.List;
 
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileCentrifuge extends TilePowerAcceptor
 	implements IWrenchable, IInventoryProvider, IListInfoProvider, IRecipeCrafterProvider, IContainerProvider {
+
+	@ConfigRegistry(config = "machines", category = "centrifuge", key = "CentrifugeMaxInput", comment = "Centrifuge Max Input (Value in EU)")
+	public static int maxInput = 32;
+	@ConfigRegistry(config = "machines", category = "centrifuge", key = "CentrifugeMaxEnergy", comment = "Centrifuge Max Energy (Value in EU)")
+	public static int maxEnergy = 10000;
+	@ConfigRegistry(config = "machines", category = "centrifuge", key = "CentrifugeTier", comment = "Centrifuge Tier")
+	public static int tier = 2;
+	//  @ConfigRegistry(config = "machines", category = "centrifuge", key = "CentrifugeWrenchDropRate", comment = "Centrifuge Wrench Drop Rate")
+	public static float wrenchDropRate = 1.0F;
 
 	public int tickTime;
 	public Inventory inventory = new Inventory(11, "TileCentrifuge", 64, this);
 	public RecipeCrafter crafter;
 
-	public int euTick = ConfigTechReborn.CentrifugeInputTick;
-
 	public TileCentrifuge() {
-		super(2);
+		super(tier);
 		// Input slots
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[4];
@@ -106,7 +116,7 @@ public class TileCentrifuge extends TilePowerAcceptor
 
 	@Override
 	public float getWrenchDropRate() {
-		return 1.0F;
+		return wrenchDropRate;
 	}
 
 	@Override
@@ -163,7 +173,7 @@ public class TileCentrifuge extends TilePowerAcceptor
 
 	@Override
 	public double getBaseMaxPower() {
-		return 10000;
+		return maxEnergy;
 	}
 
 	@Override
@@ -183,7 +193,7 @@ public class TileCentrifuge extends TilePowerAcceptor
 
 	@Override
 	public double getBaseMaxInput() {
-		return 32;
+		return maxInput;
 	}
 
 	@Override

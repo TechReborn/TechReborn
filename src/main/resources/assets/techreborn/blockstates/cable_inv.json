@@ -1,0 +1,17 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "transform": "forge:default-block",
+    "model": "techreborn:item"
+  },
+  "variants": {
+    "copper": [
+      {
+        "transform": "forge:default-item",
+        "textures": {
+          "texture": "techreborn:items/cables/copper"
+        }
+      }
+    ]
+  }
+}

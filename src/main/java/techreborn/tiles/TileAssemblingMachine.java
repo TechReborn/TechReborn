@@ -49,20 +49,20 @@ public class TileAssemblingMachine extends TilePowerAcceptor
 	implements IWrenchable, ISidedInventory, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "assembling_machine", key = "AssemblingMachineMaxInput", comment = "Assembling Machine Max Input (Value in EU)")
-	public static int MAX_INPUT = 128;
-	@ConfigRegistry(config = "machines", category = "assembling_machine", key = "AssemblingMachineMaxStorage", comment = "Assembling Machine Max Storage (Value in EU)")
-	public static int MAX_STORAGE = 10000;
+	public static int maxInput = 128;
+	@ConfigRegistry(config = "machines", category = "assembling_machine", key = "AssemblingMachineMaxEnergy", comment = "Assembling Machine Max Energy (Value in EU)")
+	public static int maxEnergy = 10000;
 	@ConfigRegistry(config = "machines", category = "assembling_machine", key = "AssemblingMachineTier", comment = "Assembling Machine Tier")
-	public static int TIER = 2;
-	//	@ConfigRegistry(config = "machines", category = "assembling_machine", key = "AssemblingMachineWrenchDropRate", comment = "Assembling Machine Wrench Drop Rate")
-	public static float WRENCH_DROP_RATE = 1.0F;
+	public static int tier = 2;
+	//  @ConfigRegistry(config = "machines", category = "assembling_machine", key = "AssemblingMachineWrenchDropRate", comment = "Assembling Machine Wrench Drop Rate")
+	public static float wrenchDropRate = 1.0F;
 
 	public int tickTime;
 	public Inventory inventory = new Inventory(8, "TileAssemblingMachine", 64, this);
 	public RecipeCrafter crafter;
 
 	public TileAssemblingMachine() {
-		super(TIER);
+		super(tier);
 		// Input slots
 		final int[] inputs = new int[2];
 		inputs[0] = 0;
@@ -95,7 +95,7 @@ public class TileAssemblingMachine extends TilePowerAcceptor
 
 	@Override
 	public float getWrenchDropRate() {
-		return WRENCH_DROP_RATE;
+		return wrenchDropRate;
 	}
 
 	@Override
@@ -126,7 +126,7 @@ public class TileAssemblingMachine extends TilePowerAcceptor
 
 	@Override
 	public double getBaseMaxPower() {
-		return MAX_STORAGE;
+		return maxEnergy;
 	}
 
 	@Override
@@ -146,12 +146,12 @@ public class TileAssemblingMachine extends TilePowerAcceptor
 
 	@Override
 	public double getBaseMaxInput() {
-		return MAX_INPUT;
+		return maxInput;
 	}
 
 	@Override
 	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.LOW;
+		return EnumPowerTier.MEDIUM;
 	}
 
 	@Override

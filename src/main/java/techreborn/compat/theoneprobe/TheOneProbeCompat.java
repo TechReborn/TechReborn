@@ -31,10 +31,13 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import techreborn.compat.ICompatModule;
 
+import static techreborn.compat.CompatConfigs.enableTOP;
+
 /**
  * Created by Mark on 04/06/2016.
  */
-public class CompactTheOneProbe implements ICompatModule {
+public class TheOneProbeCompat implements ICompatModule {
+
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 
@@ -47,8 +50,10 @@ public class CompactTheOneProbe implements ICompatModule {
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
-		TheOneProbe.theOneProbeImp.registerProvider(new ProbeProvider());
-		TheOneProbe.theOneProbeImp.registerProbeConfigProvider(new ProbeConfig());
+		if (enableTOP) {
+			TheOneProbe.theOneProbeImp.registerProvider(new ProbeProvider());
+			TheOneProbe.theOneProbeImp.registerProbeConfigProvider(new ProbeConfig());
+		}
 	}
 
 	@Override

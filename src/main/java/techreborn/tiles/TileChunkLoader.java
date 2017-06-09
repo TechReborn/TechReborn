@@ -27,29 +27,38 @@ package techreborn.tiles;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
-
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
+import techreborn.lib.ModInfo;
 
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileChunkLoader extends TilePowerAcceptor implements IWrenchable, IInventoryProvider, IContainerProvider {
+
+	@ConfigRegistry(config = "machines", category = "chunk_loader", key = "ChunkLoaderMaxInput", comment = "Chunk Loader Max Input (Value in EU)")
+	public static int maxInput = 32;
+	@ConfigRegistry(config = "machines", category = "chunk_loader", key = "ChunkLoaderMaxEnergy", comment = "Chunk Loader Max Energy (Value in EU)")
+	public static int maxEnergy = 10000;
+	@ConfigRegistry(config = "machines", category = "chunk_loader", key = "ChunkLoaderTier", comment = "Chunk Loader Tier")
+	public static int tier = 1;
+	//  @ConfigRegistry(config = "machines", category = "chunk_loader", key = "ChunkLoaderWrenchDropRate", comment = "Chunk Loader Wrench Drop Rate")
+	public static float wrenchDropRate = 1.0F;
 
 	public Inventory inventory = new Inventory(1, "TileChunkLoader", 64, this);
 
 	public boolean isRunning;
 	public int tickTime;
 
-	public int euTick = 32;
-
 	public TileChunkLoader() {
-		super(1);
+		super(tier);
 	}
 
 	@Override
@@ -69,7 +78,7 @@ public class TileChunkLoader extends TilePowerAcceptor implements IWrenchable, I
 
 	@Override
 	public float getWrenchDropRate() {
-		return 1.0F;
+		return wrenchDropRate;
 	}
 
 	@Override
@@ -83,7 +92,7 @@ public class TileChunkLoader extends TilePowerAcceptor implements IWrenchable, I
 
 	@Override
 	public double getBaseMaxPower() {
-		return 10000;
+		return maxEnergy;
 	}
 
 	@Override
@@ -103,12 +112,12 @@ public class TileChunkLoader extends TilePowerAcceptor implements IWrenchable, I
 
 	@Override
 	public double getBaseMaxInput() {
-		return 32;
+		return maxInput;
 	}
 
 	@Override
 	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.MEDIUM;
+		return EnumPowerTier.LOW;
 	}
 
 	@Override
@@ -119,6 +128,6 @@ public class TileChunkLoader extends TilePowerAcceptor implements IWrenchable, I
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("chunkloader").player(player.inventory).inventory().hotbar().addInventory()
-				.create();
+			.create();
 	}
 }

@@ -29,50 +29,61 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
-
 import techreborn.api.ScrapboxList;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
+import techreborn.lib.ModInfo;
 
 import java.util.Random;
 
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileScrapboxinator extends TilePowerAcceptor
-implements IWrenchable, IInventoryProvider, ISidedInventory, IContainerProvider {
+	implements IWrenchable, IInventoryProvider, ISidedInventory, IContainerProvider {
+
+	@ConfigRegistry(config = "machines", category = "scrapboxinator", key = "ScrapboxinatorMaxInput", comment = "Scrapboxinator Max Input (Value in EU)")
+	public static int maxInput = 32;
+	@ConfigRegistry(config = "machines", category = "scrapboxinator", key = "ScrapboxinatorMaxEnergy", comment = "Scrapboxinator Max Energy (Value in EU)")
+	public static int maxEnergy = 1000;
+	@ConfigRegistry(config = "machines", category = "scrapboxinator", key = "ScrapboxinatorEnergyCost", comment = "Scrapboxinator Energy Cost (Value in EU)")
+	public static int cost = 20;
+	@ConfigRegistry(config = "machines", category = "scrapboxinator", key = "ScrapboxinatorRunTime", comment = "Scrapboxinator Run Time")
+	public static int runTime = 200;
+	@ConfigRegistry(config = "machines", category = "scrapboxinator", key = "ScrapboxinatorTier", comment = "Scrapboxinator Tier")
+	public static int tier = 1;
+	//  @ConfigRegistry(config = "machines", category = "scrapboxinator", key = "ScrapboxinatorWrenchDropRate", comment = "Scrapboxinator Wrench Drop Rate")
+	public static float wrenchDropRate = 1.0F;
 
 	public Inventory inventory = new Inventory(6, "TileScrapboxinator", 64, this);
-	public int capacity = 1000;
-	public int cost = 20;
+
 	public int progress;
-	public int time = 200;
-	public int chance = 4;
-	public int random;
 	public int input1 = 0;
 	public int output = 1;
 
 	public TileScrapboxinator() {
-		super(1);
+		super(tier);
 	}
 
 	public int gaugeProgressScaled(final int scale) {
-		return this.progress * scale / this.time;
+		return this.progress * scale / runTime;
 	}
 
 	@Override
 	public void updateEntity() {
 		final boolean burning = this.isBurning();
 		boolean updateInventory = false;
-		if (this.getEnergy() <= this.cost && this.canOpen()) {
-			if (this.getEnergy() > this.cost) {
+		if (this.getEnergy() <= cost && this.canOpen()) {
+			if (this.getEnergy() > cost) {
 				updateInventory = true;
 			}
 		}
@@ -80,7 +91,7 @@ implements IWrenchable, IInventoryProvider, ISidedInventory, IContainerProvider 
 			this.updateState();
 
 			this.progress++;
-			if (this.progress >= this.time) {
+			if (this.progress >= runTime) {
 				this.progress = 0;
 				this.recycleItems();
 				updateInventory = true;
@@ -102,15 +113,15 @@ implements IWrenchable, IInventoryProvider, ISidedInventory, IContainerProvider 
 			final int random = new Random().nextInt(ScrapboxList.stacks.size());
 			final ItemStack out = ScrapboxList.stacks.get(random).copy();
 			if (this.getStackInSlot(this.output) == null) {
-				this.useEnergy(this.cost);
+				this.useEnergy(cost);
 				this.setInventorySlotContents(this.output, out);
 			}
 
 			if (this.getStackInSlot(this.input1).getCount() > 1) {
-				this.useEnergy(this.cost);
+				this.useEnergy(cost);
 				this.decrStackSize(this.input1, 1);
 			} else {
-				this.useEnergy(this.cost);
+				this.useEnergy(cost);
 				this.setInventorySlotContents(this.input1, ItemStack.EMPTY);
 			}
 		}
@@ -121,7 +132,7 @@ implements IWrenchable, IInventoryProvider, ISidedInventory, IContainerProvider 
 	}
 
 	public boolean isBurning() {
-		return this.getEnergy() > this.cost;
+		return this.getEnergy() > cost;
 	}
 
 	public void updateState() {
@@ -150,7 +161,7 @@ implements IWrenchable, IInventoryProvider, ISidedInventory, IContainerProvider 
 
 	@Override
 	public float getWrenchDropRate() {
-		return 1.0F;
+		return wrenchDropRate;
 	}
 
 	@Override
@@ -187,7 +198,7 @@ implements IWrenchable, IInventoryProvider, ISidedInventory, IContainerProvider 
 
 	@Override
 	public double getBaseMaxPower() {
-		return this.capacity;
+		return maxEnergy;
 	}
 
 	@Override
@@ -207,12 +218,12 @@ implements IWrenchable, IInventoryProvider, ISidedInventory, IContainerProvider 
 
 	@Override
 	public double getBaseMaxInput() {
-		return 32;
+		return maxInput;
 	}
 
 	@Override
 	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.MEDIUM;
+		return EnumPowerTier.LOW;
 	}
 
 	@Override
@@ -231,9 +242,9 @@ implements IWrenchable, IInventoryProvider, ISidedInventory, IContainerProvider 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("scrapboxinator").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory().tile(this).filterSlot(0, 56, 34, stack -> stack.getItem() == ModItems.SCRAP_BOX)
-				.outputSlot(1, 116, 34).upgradeSlot(2, 152, 8).upgradeSlot(3, 152, 26).upgradeSlot(4, 152, 44)
-				.upgradeSlot(5, 152, 62).syncEnergyValue().syncIntegerValue(this::getProgress, this::setProgress)
-				.addInventory().create();
+			.addInventory().tile(this).filterSlot(0, 56, 34, stack -> stack.getItem() == ModItems.SCRAP_BOX)
+			.outputSlot(1, 116, 34).upgradeSlot(2, 152, 8).upgradeSlot(3, 152, 26).upgradeSlot(4, 152, 44)
+			.upgradeSlot(5, 152, 62).syncEnergyValue().syncIntegerValue(this::getProgress, this::setProgress)
+			.addInventory().create();
 	}
 }

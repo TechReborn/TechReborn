@@ -34,20 +34,30 @@ import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
-import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
+import techreborn.lib.ModInfo;
 
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileDragonEggSiphoner extends TilePowerAcceptor implements IWrenchable, IInventoryProvider {
 
-	public static final int euTick = ConfigTechReborn.DragonEggSiphonerOutput;
-	public Inventory inventory = new Inventory(3, "TileAlloySmelter", 64, this);
+	@ConfigRegistry(config = "machines", category = "dragon_egg_siphoner", key = "DragonEggSiphonerMaxOutput", comment = "Dragon Egg Siphoner Max Output (Value in EU)")
+	public static int maxOutput = 128;
+	@ConfigRegistry(config = "machines", category = "dragon_egg_siphoner", key = "DragonEggSiphonerMaxEnergy", comment = "Dragon Egg Siphoner Max Energy (Value in EU)")
+	public static int maxEnergy = 1000;
+	@ConfigRegistry(config = "machines", category = "dragon_egg_siphoner", key = "DragonEggSiphonerEnergyPerTick", comment = "Dragon Egg Siphoner Energy Per Tick (Value in EU)")
+	public static int energyPerTick = 4;
+	@ConfigRegistry(config = "machines", category = "dragon_egg_siphoner", key = "DragonEggSiphonerTier", comment = "Dragon Egg Siphoner Tier")
+	public static int tier = 2;
+
+	public Inventory inventory = new Inventory(3, "TileDragonEggSiphoner", 64, this);
+	private long lastOutput = 0;
 
 	public TileDragonEggSiphoner() {
-		super(2);
+		super(tier);
 	}
-
-	private long lastOutput = 0;
 
 	@Override
 	public void updateEntity() {
@@ -55,29 +65,25 @@ public class TileDragonEggSiphoner extends TilePowerAcceptor implements IWrencha
 
 		if (!world.isRemote) {
 			if (world.getBlockState(new BlockPos(getPos().getX(), getPos().getY() + 1, getPos().getZ()))
-					.getBlock() == Blocks.DRAGON_EGG) {
-				if(tryAddingEnergy(euTick))
+				.getBlock() == Blocks.DRAGON_EGG) {
+				if (tryAddingEnergy(energyPerTick))
 					this.lastOutput = this.world.getTotalWorldTime();
 			}
 
 			if (this.world.getTotalWorldTime() - this.lastOutput < 30 && !this.isActive())
 				this.world.setBlockState(this.getPos(),
-						this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, true));
+					this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, true));
 			else if (this.world.getTotalWorldTime() - this.lastOutput > 30 && this.isActive())
 				this.world.setBlockState(this.getPos(),
-						this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, false));
+					this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, false));
 		}
 	}
-	
-	private boolean tryAddingEnergy(int amount)
-	{
-		if(this.getMaxPower() - this.getEnergy() >= amount)
-		{
+
+	private boolean tryAddingEnergy(int amount) {
+		if (this.getMaxPower() - this.getEnergy() >= amount) {
 			addEnergy(amount);
 			return true;
-		}
-		else if(this.getMaxPower() - this.getEnergy() > 0)
-		{
+		} else if (this.getMaxPower() - this.getEnergy() > 0) {
 			addEnergy(this.getMaxPower() - this.getEnergy());
 			return true;
 		}
@@ -115,7 +121,7 @@ public class TileDragonEggSiphoner extends TilePowerAcceptor implements IWrencha
 
 	@Override
 	public double getBaseMaxPower() {
-		return 1000;
+		return maxEnergy;
 	}
 
 	@Override
@@ -130,7 +136,7 @@ public class TileDragonEggSiphoner extends TilePowerAcceptor implements IWrencha
 
 	@Override
 	public double getBaseMaxOutput() {
-		return euTick;
+		return maxOutput;
 	}
 
 	@Override
@@ -140,7 +146,7 @@ public class TileDragonEggSiphoner extends TilePowerAcceptor implements IWrencha
 
 	@Override
 	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.HIGH;
+		return EnumPowerTier.MEDIUM;
 	}
 
 	@Override

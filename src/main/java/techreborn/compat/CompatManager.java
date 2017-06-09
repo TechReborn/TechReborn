@@ -32,7 +32,7 @@ import techreborn.compat.buildcraft.BuildcraftBuildersCompat;
 import techreborn.compat.buildcraft.BuildcraftCompat;
 import techreborn.compat.ic2.RecipesIC2;
 import techreborn.compat.crafttweaker.CraftTweakerCompat;
-import techreborn.compat.theoneprobe.CompactTheOneProbe;
+import techreborn.compat.theoneprobe.TheOneProbeCompat;
 import techreborn.compat.tinkers.CompatModuleTinkers;
 import techreborn.compat.waila.CompatModuleWaila;
 import techreborn.config.ConfigTechReborn;
@@ -59,7 +59,7 @@ public class CompatManager {
 		registerCompact(WailaMcMultiPartCompact.class, false, "reborncore-mcmultipart", "Waila", "!IC2");
 		register(CompatModuleWaila.class, "Waila");
 		register(CompatModuleTinkers.class, "tconstruct");
-		register(CompactTheOneProbe.class, "theoneprobe");
+		register(TheOneProbeCompat.class, "theoneprobe");
 		//register(CompatModulePsi.class, "Psi");
 		register(RecipesIC2.class, "ic2");
 		register(BuildcraftBuildersCompat.class, "buildcraftbuilders");

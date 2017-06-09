@@ -26,21 +26,32 @@ package techreborn.tiles.generator;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-
 import reborncore.api.power.EnumPowerTier;
-
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
+import techreborn.lib.ModInfo;
 
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileDieselGenerator extends TileBaseFluidGenerator implements IContainerProvider {
 
+	@ConfigRegistry(config = "machines", category = "diesel_generator", key = "DieselGeneratorMaxOutput", comment = "Diesel Generator Max Output (Value in EU)")
+	public static int maxOutput = 128;
+	@ConfigRegistry(config = "machines", category = "diesel_generator", key = "DieselGeneratorMaxEnergy", comment = "Diesel Generator Max Energy (Value in EU)")
+	public static int maxEnergy = 1000000;
+	@ConfigRegistry(config = "machines", category = "diesel_generator", key = "DieselGeneratorTankCapacity", comment = "Diesel Generator Tank Capacity")
+	public static int tankCapacity = 10000;
+	@ConfigRegistry(config = "machines", category = "diesel_generator", key = "DieselGeneratorEnergyPerTick", comment = "Diesel Generator Energy Per Tick (Value in EU)")
+	public static int energyPerTick = 20;
+	@ConfigRegistry(config = "machines", category = "diesel_generator", key = "DieselGeneratorTier", comment = "Diesel Generator Tier")
+	public static int tier = 2;
+
 	public TileDieselGenerator() {
-		super(EFluidGenerator.DIESEL, ConfigTechReborn.ThermalGeneratorTier, "TileDieselGenerator", 1000 * 10,
-				ConfigTechReborn.ThermalGeneratorOutput);
+		super(EFluidGenerator.DIESEL, tier, "TileDieselGenerator", tankCapacity, energyPerTick);
 	}
 
 	@Override
@@ -50,23 +61,23 @@ public class TileDieselGenerator extends TileBaseFluidGenerator implements ICont
 
 	@Override
 	public double getBaseMaxPower() {
-		return ConfigTechReborn.ThermalGeneratorCharge;
+		return maxEnergy;
 	}
 
 	@Override
 	public double getBaseMaxOutput() {
-		return 64;
+		return maxOutput;
 	}
 
 	@Override
 	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.LOW;
+		return EnumPowerTier.MEDIUM;
 	}
 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("dieselgenerator").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory().tile(this).slot(0, 80, 17).outputSlot(1, 80, 53).fakeSlot(2, 59, 42).syncEnergyValue()
-				.addInventory().create();
+			.addInventory().tile(this).slot(0, 80, 17).outputSlot(1, 80, 53).fakeSlot(2, 59, 42).syncEnergyValue()
+			.addInventory().create();
 	}
 }

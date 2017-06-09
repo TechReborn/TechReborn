@@ -28,24 +28,34 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.power.IEnergyInterfaceItem;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
-
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
+import techreborn.lib.ModInfo;
 
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileChargeBench extends TilePowerAcceptor
-implements IWrenchable, IInventoryProvider, ISidedInventory, IContainerProvider {
+	implements IWrenchable, IInventoryProvider, ISidedInventory, IContainerProvider {
+
+	@ConfigRegistry(config = "machines", category = "charge_bench", key = "ChargeBenchMaxInput", comment = "Charge Bench Max Input (Value in EU)")
+	public static int maxInput = 512;
+	@ConfigRegistry(config = "machines", category = "charge_bench", key = "ChargeBenchMaxEnergy", comment = "Charge Bench Max Energy (Value in EU)")
+	public static int maxEnergy = 100000;
+	@ConfigRegistry(config = "machines", category = "charge_bench", key = "ChargeBenchTier", comment = "Charge Bench Tier")
+	public static int tier = 2;
+	//  @ConfigRegistry(config = "machines", category = "charge_bench", key = "ChargeBenchWrenchDropRate", comment = "Charge Bench Wrench Drop Rate")
+	public static float wrenchDropRate = 1.0F;
 
 	public Inventory inventory = new Inventory(6, "TileChargeBench", 64, this);
-	public int capacity = 100000;
 
 	public TileChargeBench() {
 		super(4);
@@ -62,7 +72,7 @@ implements IWrenchable, IInventoryProvider, ISidedInventory, IContainerProvider 
 					if (stack.getItem() instanceof IEnergyInterfaceItem) {
 						final IEnergyInterfaceItem interfaceItem = (IEnergyInterfaceItem) stack.getItem();
 						final double trans = Math.min(interfaceItem.getMaxPower(stack) - interfaceItem.getEnergy(stack),
-								Math.min(interfaceItem.getMaxTransfer(stack), this.getEnergy()));
+							Math.min(interfaceItem.getMaxTransfer(stack), this.getEnergy()));
 						interfaceItem.setEnergy(trans + interfaceItem.getEnergy(stack), stack);
 						this.useEnergy(trans);
 					}
@@ -125,7 +135,7 @@ implements IWrenchable, IInventoryProvider, ISidedInventory, IContainerProvider 
 
 	@Override
 	public double getBaseMaxPower() {
-		return this.capacity;
+		return maxEnergy;
 	}
 
 	@Override
@@ -145,12 +155,12 @@ implements IWrenchable, IInventoryProvider, ISidedInventory, IContainerProvider 
 
 	@Override
 	public double getBaseMaxInput() {
-		return 512;
+		return maxInput;
 	}
 
 	@Override
 	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.MEDIUM;
+		return EnumPowerTier.HIGH;
 	}
 
 	@Override
@@ -161,7 +171,7 @@ implements IWrenchable, IInventoryProvider, ISidedInventory, IContainerProvider 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("chargebench").player(player.inventory).inventory().hotbar().addInventory()
-				.tile(this).energySlot(0, 62, 25).energySlot(1, 98, 25).energySlot(2, 62, 45).energySlot(3, 98, 45)
-				.energySlot(4, 62, 65).energySlot(5, 98, 65).syncEnergyValue().addInventory().create();
+			.tile(this).energySlot(0, 62, 25).energySlot(1, 98, 25).energySlot(2, 62, 45).energySlot(3, 98, 45)
+			.energySlot(4, 62, 65).energySlot(5, 98, 65).syncEnergyValue().addInventory().create();
 	}
 }

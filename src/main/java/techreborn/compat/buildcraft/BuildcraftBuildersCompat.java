@@ -33,13 +33,15 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import reborncore.common.util.CraftingHelper;
 import reborncore.common.util.RecipeRemover;
 import techreborn.compat.ICompatModule;
-import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
+
+import static techreborn.compat.CompatConfigs.expensiveQuarry;
 
 /**
  * Created by Mark on 02/06/2017.
  */
 public class BuildcraftBuildersCompat implements ICompatModule {
+
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 
@@ -52,9 +54,8 @@ public class BuildcraftBuildersCompat implements ICompatModule {
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
-		if(ConfigTechReborn.ExpensiveQuarry){
+		if (expensiveQuarry) {
 			RecipeRemover.removeAnyRecipe(new ItemStack(BCBuildersBlocks.quarry));
-
 			CraftingHelper.addShapedOreRecipe(new ItemStack(BCBuildersBlocks.quarry),
 				"IAI", "GIG", "DED",
 				'I', "gearIron",

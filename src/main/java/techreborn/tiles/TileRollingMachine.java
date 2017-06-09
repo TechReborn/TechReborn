@@ -30,43 +30,55 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
-
 import techreborn.api.RollingMachineRecipe;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
+import techreborn.lib.ModInfo;
 
 //TODO add tick and power bars.
+
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileRollingMachine extends TilePowerAcceptor
-		implements IWrenchable, IInventoryProvider, IContainerProvider {
+	implements IWrenchable, IInventoryProvider, IContainerProvider {
+
+	@ConfigRegistry(config = "machines", category = "rolling_machine", key = "RollingMachineMaxInput", comment = "Rolling Machine Max Input (Value in EU)")
+	public static int maxInput = 32;
+	@ConfigRegistry(config = "machines", category = "rolling_machine", key = "RollingMachineEnergyPerTick", comment = "Rolling Machine Energy Per Tick (Value in EU)")
+	public static int energyPerTick = 5;
+	@ConfigRegistry(config = "machines", category = "rolling_machine", key = "RollingMachineEnergyRunTime", comment = "Rolling Machine Run Time")
+	public static int runTime = 250;
+	@ConfigRegistry(config = "machines", category = "rolling_machine", key = "RollingMachineMaxEnergy", comment = "Rolling Machine Max Energy (Value in EU)")
+	public static int maxEnergy = 10000;
+	@ConfigRegistry(config = "machines", category = "rolling_machine", key = "RollingMachineTier", comment = "Rolling Machine Tier")
+	public static int tier = 1;
+	//  @ConfigRegistry(config = "machines", category = "rolling_machine", key = "RollingMachineWrenchDropRate", comment = "Rolling Machi Wrench Drop Rate")
+	public static float wrenchDropRate = 1.0F;
 
 	public final InventoryCrafting craftMatrix = new InventoryCrafting(new RollingTileContainer(), 3, 3);
 	public Inventory inventory = new Inventory(3, "TileRollingMachine", 64, this);
 	public boolean isRunning;
 	public int tickTime;
-	public int runTime = 250;
 	public ItemStack currentRecipe;
-	
 	private int outputSlot;
 
-	public int euTick = 5;
-
 	public TileRollingMachine() {
-		super(1);
-		outputSlot =  0;
+		super(tier);
+		outputSlot = 0;
 	}
 
 	@Override
 	public double getBaseMaxPower() {
-		return 10000;
+		return maxEnergy;
 	}
 
 	@Override
@@ -86,7 +98,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 
 	@Override
 	public double getBaseMaxInput() {
-		return 64;
+		return maxInput;
 	}
 
 	@Override
@@ -111,7 +123,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 							hasCrafted = true;
 						} else {
 							if (this.inventory.getStackInSlot(outputSlot).getCount() + this.currentRecipe.getCount() <= this.currentRecipe
-									.getMaxStackSize()) {
+								.getMaxStackSize()) {
 								final ItemStack stack = this.inventory.getStackInSlot(outputSlot);
 								stack.setCount(stack.getCount() + this.currentRecipe.getCount());
 								this.inventory.setInventorySlotContents(outputSlot, stack);
@@ -129,8 +141,8 @@ public class TileRollingMachine extends TilePowerAcceptor
 				}
 			}
 			if (this.currentRecipe != null) {
-				if (this.canUseEnergy(this.euTick) && this.tickTime < this.runTime) {
-					this.useEnergy(this.euTick);
+				if (this.canUseEnergy(energyPerTick) && this.tickTime < this.runTime) {
+					this.useEnergy(energyPerTick);
 					this.tickTime++;
 				}
 			}
@@ -168,7 +180,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 
 	@Override
 	public float getWrenchDropRate() {
-		return 1.0F;
+		return wrenchDropRate;
 	}
 
 	@Override
@@ -203,7 +215,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 			return new int[] { 0 };
 		return new int[0];
 	}
-	
+
 	@Override
 	public boolean canInsertItem(final int Index, final ItemStack itemStack, final EnumFacing side) {
 		return false;
@@ -229,15 +241,6 @@ public class TileRollingMachine extends TilePowerAcceptor
 		return this.inventory;
 	}
 
-	private static class RollingTileContainer extends Container {
-
-		@Override
-		public boolean canInteractWith(final EntityPlayer entityplayer) {
-			return true;
-		}
-
-	}
-
 	public int getBurnTime() {
 		return this.tickTime;
 	}
@@ -256,11 +259,20 @@ public class TileRollingMachine extends TilePowerAcceptor
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("rollingmachine").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory().tile(this.craftMatrix).slot(0, 30, 17).slot(1, 48, 17).slot(2, 66, 17).slot(3, 30, 35)
-				.slot(4, 48, 35).slot(5, 66, 35).slot(6, 30, 53).slot(7, 48, 53).slot(8, 66, 53)
-				.onCraft(inv -> this.inventory.setInventorySlotContents(1,
-						RollingMachineRecipe.instance.findMatchingRecipe(inv, this.world)))
-				.addInventory().tile(this).outputSlot(0, 124, 35).energySlot(2, 8, 51).syncEnergyValue()
-				.syncIntegerValue(this::getBurnTime, this::setBurnTime).addInventory().create();
+			.addInventory().tile(this.craftMatrix).slot(0, 30, 17).slot(1, 48, 17).slot(2, 66, 17).slot(3, 30, 35)
+			.slot(4, 48, 35).slot(5, 66, 35).slot(6, 30, 53).slot(7, 48, 53).slot(8, 66, 53)
+			.onCraft(inv -> this.inventory.setInventorySlotContents(1,
+				RollingMachineRecipe.instance.findMatchingRecipe(inv, this.world)))
+			.addInventory().tile(this).outputSlot(0, 124, 35).energySlot(2, 8, 51).syncEnergyValue()
+			.syncIntegerValue(this::getBurnTime, this::setBurnTime).addInventory().create();
+	}
+
+	private static class RollingTileContainer extends Container {
+
+		@Override
+		public boolean canInteractWith(final EntityPlayer entityplayer) {
+			return true;
+		}
+
 	}
 }

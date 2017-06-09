@@ -30,21 +30,34 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
-
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
-
 import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
+import techreborn.lib.ModInfo;
 
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileEntityFusionController extends TilePowerAcceptor implements IInventoryProvider, IContainerProvider {
+
+	@ConfigRegistry(config = "machines", category = "fusion_reactor", key = "FusionReactorMaxInput", comment = "Fusion Reactor Max Input (Value in EU)")
+	public static int maxInput = 8192;
+	@ConfigRegistry(config = "machines", category = "fusion_reactor", key = "FusionReactorMaxOutput", comment = "Fusion Reactor Max Output (Value in EU)")
+	public static int maxOutput = 1000000;
+	@ConfigRegistry(config = "machines", category = "fusion_reactor", key = "FusionReactorMaxEnergy", comment = "Fusion Reactor Max Energy (Value in EU)")
+	public static int maxEnergy = 100000000;
+	@ConfigRegistry(config = "machines", category = "fusion_reactor", key = "FusionReactorTier", comment = "Fusion Reactor Tier")
+	public static int tier = 4;
+	//  @ConfigRegistry(config = "machines", category = "fusion_reactor", key = "FusionReactorWrenchDropRate", comment = "Fusion Reactor Wrench Drop Rate")
+	public static float wrenchDropRate = 1.0F;
 
 	public Inventory inventory = new Inventory(3, "TileEntityFusionController", 64, this);
 
@@ -60,12 +73,12 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 	boolean hasStartedCrafting = false;
 
 	public TileEntityFusionController() {
-		super(4);
+		super(tier);
 	}
 
 	@Override
 	public double getBaseMaxPower() {
-		return 100000000;
+		return maxEnergy;
 	}
 
 	@Override
@@ -83,7 +96,7 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 		if (!this.hasStartedCrafting) {
 			return 0;
 		}
-		return 1000000;
+		return maxOutput;
 	}
 
 	@Override
@@ -91,12 +104,12 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 		if (this.hasStartedCrafting) {
 			return 0;
 		}
-		return 8192;
+		return maxInput;
 	}
 
 	@Override
 	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.EXTREME;
+		return EnumPowerTier.INSANE;
 	}
 
 	@Override
@@ -130,29 +143,29 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 
 	public boolean checkCoils() {
 		if (this.isCoil(this.getPos().getX() + 3, this.getPos().getY(), this.getPos().getZ() + 1)
-				&& this.isCoil(this.getPos().getX() + 3, this.getPos().getY(), this.getPos().getZ())
-				&& this.isCoil(this.getPos().getX() + 3, this.getPos().getY(), this.getPos().getZ() - 1)
-				&& this.isCoil(this.getPos().getX() - 3, this.getPos().getY(), this.getPos().getZ() + 1)
-				&& this.isCoil(this.getPos().getX() - 3, this.getPos().getY(), this.getPos().getZ())
-				&& this.isCoil(this.getPos().getX() - 3, this.getPos().getY(), this.getPos().getZ() - 1)
-				&& this.isCoil(this.getPos().getX() + 2, this.getPos().getY(), this.getPos().getZ() + 2)
-				&& this.isCoil(this.getPos().getX() + 2, this.getPos().getY(), this.getPos().getZ() + 1)
-				&& this.isCoil(this.getPos().getX() + 2, this.getPos().getY(), this.getPos().getZ() - 1)
-				&& this.isCoil(this.getPos().getX() + 2, this.getPos().getY(), this.getPos().getZ() - 2)
-				&& this.isCoil(this.getPos().getX() - 2, this.getPos().getY(), this.getPos().getZ() + 2)
-				&& this.isCoil(this.getPos().getX() - 2, this.getPos().getY(), this.getPos().getZ() + 1)
-				&& this.isCoil(this.getPos().getX() - 2, this.getPos().getY(), this.getPos().getZ() - 1)
-				&& this.isCoil(this.getPos().getX() - 2, this.getPos().getY(), this.getPos().getZ() - 2)
-				&& this.isCoil(this.getPos().getX() + 1, this.getPos().getY(), this.getPos().getZ() + 3)
-				&& this.isCoil(this.getPos().getX() + 1, this.getPos().getY(), this.getPos().getZ() + 2)
-				&& this.isCoil(this.getPos().getX() + 1, this.getPos().getY(), this.getPos().getZ() - 2)
-				&& this.isCoil(this.getPos().getX() + 1, this.getPos().getY(), this.getPos().getZ() - 3)
-				&& this.isCoil(this.getPos().getX() - 1, this.getPos().getY(), this.getPos().getZ() + 3)
-				&& this.isCoil(this.getPos().getX() - 1, this.getPos().getY(), this.getPos().getZ() + 2)
-				&& this.isCoil(this.getPos().getX() - 1, this.getPos().getY(), this.getPos().getZ() - 2)
-				&& this.isCoil(this.getPos().getX() - 1, this.getPos().getY(), this.getPos().getZ() - 3)
-				&& this.isCoil(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ() + 3)
-				&& this.isCoil(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ() - 3)) {
+			&& this.isCoil(this.getPos().getX() + 3, this.getPos().getY(), this.getPos().getZ())
+			&& this.isCoil(this.getPos().getX() + 3, this.getPos().getY(), this.getPos().getZ() - 1)
+			&& this.isCoil(this.getPos().getX() - 3, this.getPos().getY(), this.getPos().getZ() + 1)
+			&& this.isCoil(this.getPos().getX() - 3, this.getPos().getY(), this.getPos().getZ())
+			&& this.isCoil(this.getPos().getX() - 3, this.getPos().getY(), this.getPos().getZ() - 1)
+			&& this.isCoil(this.getPos().getX() + 2, this.getPos().getY(), this.getPos().getZ() + 2)
+			&& this.isCoil(this.getPos().getX() + 2, this.getPos().getY(), this.getPos().getZ() + 1)
+			&& this.isCoil(this.getPos().getX() + 2, this.getPos().getY(), this.getPos().getZ() - 1)
+			&& this.isCoil(this.getPos().getX() + 2, this.getPos().getY(), this.getPos().getZ() - 2)
+			&& this.isCoil(this.getPos().getX() - 2, this.getPos().getY(), this.getPos().getZ() + 2)
+			&& this.isCoil(this.getPos().getX() - 2, this.getPos().getY(), this.getPos().getZ() + 1)
+			&& this.isCoil(this.getPos().getX() - 2, this.getPos().getY(), this.getPos().getZ() - 1)
+			&& this.isCoil(this.getPos().getX() - 2, this.getPos().getY(), this.getPos().getZ() - 2)
+			&& this.isCoil(this.getPos().getX() + 1, this.getPos().getY(), this.getPos().getZ() + 3)
+			&& this.isCoil(this.getPos().getX() + 1, this.getPos().getY(), this.getPos().getZ() + 2)
+			&& this.isCoil(this.getPos().getX() + 1, this.getPos().getY(), this.getPos().getZ() - 2)
+			&& this.isCoil(this.getPos().getX() + 1, this.getPos().getY(), this.getPos().getZ() - 3)
+			&& this.isCoil(this.getPos().getX() - 1, this.getPos().getY(), this.getPos().getZ() + 3)
+			&& this.isCoil(this.getPos().getX() - 1, this.getPos().getY(), this.getPos().getZ() + 2)
+			&& this.isCoil(this.getPos().getX() - 1, this.getPos().getY(), this.getPos().getZ() - 2)
+			&& this.isCoil(this.getPos().getX() - 1, this.getPos().getY(), this.getPos().getZ() - 3)
+			&& this.isCoil(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ() + 3)
+			&& this.isCoil(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ() - 3)) {
 			this.coilStatus = 1;
 			return true;
 		}
@@ -179,10 +192,10 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 					if (this.inventory.hasChanged || this.crafingTickTime != 0) {
 						for (final FusionReactorRecipe reactorRecipe : FusionReactorRecipeHelper.reactorRecipes) {
 							if (ItemUtils.isItemEqual(this.getStackInSlot(this.topStackSlot), reactorRecipe.getTopInput(), true,
-									true, true)) {
+								true, true)) {
 								if (reactorRecipe.getBottomInput() != null) {
 									if (!ItemUtils.isItemEqual(this.getStackInSlot(this.bottomStackSlot),
-											reactorRecipe.getBottomInput(), true, true, true)) {
+										reactorRecipe.getBottomInput(), true, true, true)) {
 										break;
 									}
 								}
@@ -262,7 +275,7 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 		if (ItemUtils.isItemEqual(this.getStackInSlot(this.topStackSlot), this.currentRecipe.getTopInput(), true, true, true)) {
 			if (this.currentRecipe.getBottomInput() != null) {
 				if (!ItemUtils.isItemEqual(this.getStackInSlot(this.bottomStackSlot), this.currentRecipe.getBottomInput(), true, true,
-						true)) {
+					true)) {
 					return false;
 				}
 			}
@@ -350,16 +363,16 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 
 	public int getProgressScaled() {
 		return Math.max(0, Math.min(24, (this.getCrafingTickTime() > 0 ? 1 : 0)
-				+ this.getCrafingTickTime() * 24 / (this.finalTickTime < 1 ? 1 : this.finalTickTime)));
+			+ this.getCrafingTickTime() * 24 / (this.finalTickTime < 1 ? 1 : this.finalTickTime)));
 	}
 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("fusionreactor").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory().tile(this).slot(0, 88, 17).slot(1, 88, 53).outputSlot(2, 148, 35).syncEnergyValue()
-				.syncIntegerValue(this::getCoilStatus, this::setCoilStatus)
-				.syncIntegerValue(this::getCrafingTickTime, this::setCrafingTickTime)
-				.syncIntegerValue(this::getFinalTickTime, this::setFinalTickTime)
-				.syncIntegerValue(this::getNeededPower, this::setNeededPower).addInventory().create();
+			.addInventory().tile(this).slot(0, 88, 17).slot(1, 88, 53).outputSlot(2, 148, 35).syncEnergyValue()
+			.syncIntegerValue(this::getCoilStatus, this::setCoilStatus)
+			.syncIntegerValue(this::getCrafingTickTime, this::setCrafingTickTime)
+			.syncIntegerValue(this::getFinalTickTime, this::setFinalTickTime)
+			.syncIntegerValue(this::getNeededPower, this::setNeededPower).addInventory().create();
 	}
 }

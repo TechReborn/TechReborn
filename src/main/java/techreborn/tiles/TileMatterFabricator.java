@@ -27,14 +27,14 @@ package techreborn.tiles;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
-
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
@@ -42,17 +42,28 @@ import techreborn.init.IC2Duplicates;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
 import techreborn.items.ItemParts;
+import techreborn.lib.ModInfo;
 
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileMatterFabricator extends TilePowerAcceptor
 	implements IWrenchable, IInventoryProvider, IContainerProvider {
 
-	public int fabricationRate = 10000;
-	public int tickTime;
+	@ConfigRegistry(config = "machines", category = "matter_fabricator", key = "MatterFabricatorMaxInput", comment = "Matter Fabricator Max Input (Value in EU)")
+	public static int maxInput = 8192;
+	@ConfigRegistry(config = "machines", category = "matter_fabricator", key = "MatterFabricatorMaxEnergy", comment = "Matter Fabricator Max Energy (Value in EU)")
+	public static int maxEnergy = 100000000;
+	@ConfigRegistry(config = "machines", category = "matter_fabricator", key = "MatterFabricatorFabricationRate", comment = "Matter Fabricator Fabrication Rate")
+	public static int fabricationRate = 10000;
+	@ConfigRegistry(config = "machines", category = "matter_fabricator", key = "MatterFabricatorTier", comment = "Matter Fabricator Tier")
+	public static int tier = 6;
+	//  @ConfigRegistry(config = "machines", category = "matter_fabricator", key = "MatterFabricatorWrenchDropRate", comment = "Matter Fabricator Wrench Drop Rate")
+	public static float wrenchDropRate = 1.0F;
+
 	public Inventory inventory = new Inventory(11, "TileMatterFabricator", 64, this);
 	private int amplifier = 0;
 
 	public TileMatterFabricator() {
-		super(6);
+		super(tier);
 		// TODO configs
 	}
 
@@ -73,7 +84,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 
 	@Override
 	public float getWrenchDropRate() {
-		return 1.0F;
+		return wrenchDropRate;
 	}
 
 	@Override
@@ -131,7 +142,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 
 	private boolean spaceForOutput() {
 		for (int i = 6; i < 11; i++) {
-			if(spaceForOutput(i)){
+			if (spaceForOutput(i)) {
 				return true;
 			}
 		}
@@ -146,7 +157,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 
 	private void addOutputProducts() {
 		for (int i = 6; i < 11; i++) {
-			if(spaceForOutput(i)){
+			if (spaceForOutput(i)) {
 				addOutputProducts(i);
 				break;
 			}
@@ -193,7 +204,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 
 	@Override
 	public double getBaseMaxPower() {
-		return 100000000;
+		return maxEnergy;
 	}
 
 	@Override
@@ -213,12 +224,12 @@ public class TileMatterFabricator extends TilePowerAcceptor
 
 	@Override
 	public double getBaseMaxInput() {
-		return 4096;
+		return maxInput;
 	}
 
 	@Override
 	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.EXTREME;
+		return EnumPowerTier.INSANE;
 	}
 
 	@Override

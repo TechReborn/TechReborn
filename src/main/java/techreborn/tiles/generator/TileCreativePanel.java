@@ -87,7 +87,7 @@ public class TileCreativePanel extends TilePowerAcceptor implements IWrenchable 
 
 	@Override
 	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.LOW;
+		return EnumPowerTier.INFINITE;
 	}
 
 	@Override

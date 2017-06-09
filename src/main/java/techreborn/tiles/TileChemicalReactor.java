@@ -35,6 +35,7 @@ import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import techreborn.api.Reference;
 import techreborn.client.container.IContainerProvider;
@@ -45,12 +46,21 @@ import techreborn.init.ModBlocks;
 public class TileChemicalReactor extends TilePowerAcceptor
 	implements IWrenchable, IInventoryProvider, ISidedInventory, IRecipeCrafterProvider, IContainerProvider {
 
+	@ConfigRegistry(config = "machines", category = "chemical_reactor", key = "ChemicalReactorMaxInput", comment = "Chemical Reactor Max Input (Value in EU)")
+	public static int maxInput = 128;
+	@ConfigRegistry(config = "machines", category = "chemical_reactor", key = "ChemicalReactorMaxEnergy", comment = "Chemical Reactor Max Energy (Value in EU)")
+	public static int maxEnergy = 10000;
+	@ConfigRegistry(config = "machines", category = "chemical_reactor", key = "ChemicalReactorTier", comment = "Chemical Reactor Tier")
+	public static int tier = 2;
+	//  @ConfigRegistry(config = "machines", category = "chemical_reactor", key = "ChemicalReactorWrenchDropRate", comment = "Chemical Reactor Wrench Drop Rate")
+	public static float wrenchDropRate = 1.0F;
+
 	public int tickTime;
 	public Inventory inventory = new Inventory(8, "TileChemicalReactor", 64, this);
 	public RecipeCrafter crafter;
 
 	public TileChemicalReactor() {
-		super(2);
+		super(tier);
 		// Input slots
 		final int[] inputs = new int[2];
 		inputs[0] = 0;
@@ -84,7 +94,7 @@ public class TileChemicalReactor extends TilePowerAcceptor
 
 	@Override
 	public float getWrenchDropRate() {
-		return 1.0F;
+		return wrenchDropRate;
 	}
 
 	@Override
@@ -146,7 +156,7 @@ public class TileChemicalReactor extends TilePowerAcceptor
 
 	@Override
 	public double getBaseMaxPower() {
-		return 10000;
+		return maxEnergy;
 	}
 
 	@Override
@@ -166,12 +176,12 @@ public class TileChemicalReactor extends TilePowerAcceptor
 
 	@Override
 	public double getBaseMaxInput() {
-		return 128;
+		return maxInput;
 	}
 
 	@Override
 	public EnumPowerTier getBaseTier() {
-		return EnumPowerTier.LOW;
+		return EnumPowerTier.MEDIUM;
 	}
 
 	@Override

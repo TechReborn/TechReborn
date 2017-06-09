@@ -1,6 +1,6 @@
 {
 	"credit": "Made with Blockbench, a free, modern block model editor by JannisX11",
-	"textures": {"0": "textures/#cable"},
+	"textures": {"0": "#cable"},
 	"elements": [
 		{
 			"name": "Cable",

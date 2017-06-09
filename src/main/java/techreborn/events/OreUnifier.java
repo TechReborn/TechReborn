@@ -31,12 +31,18 @@ import net.minecraft.util.EnumHand;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.oredict.OreDictionary;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.ItemUtils;
-import techreborn.config.ConfigTechReborn;
+import techreborn.lib.ModInfo;
 
 import java.util.HashMap;
 
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class OreUnifier {
+
+	@ConfigRegistry(config = "misc", category = "general", key = "OreUnifier", comment = "Convert any ore itemstacks into Tech Reborn ores")
+	public static boolean oreUnifier = false;
 
 	public static HashMap<String, ItemStack> oreHash = new HashMap<>();
 
@@ -55,7 +61,7 @@ public class OreUnifier {
 
 	@SubscribeEvent
 	public void itemTick(TickEvent.PlayerTickEvent event) {
-		if (ConfigTechReborn.OreUnifer && !event.player.world.isRemote
+		if (oreUnifier && !event.player.world.isRemote
 			&& event.player.world.getTotalWorldTime() % 10 == 0) {
 			if (event.player.getHeldItem(EnumHand.MAIN_HAND) != ItemStack.EMPTY) {
 				int[] oreIds = OreDictionary.getOreIDs(event.player.getHeldItem(EnumHand.MAIN_HAND));
