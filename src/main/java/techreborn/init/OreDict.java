@@ -99,6 +99,7 @@ public class OreDict {
 		OreDictionary.registerOre("materialRubber", ItemParts.getPartByName("rubber"));
 		OreDictionary.registerOre("itemRubber", ItemParts.getPartByName("rubber"));
 		OreDictionary.registerOre("pulpWood", ItemDusts.getDustByName("saw_dust"));
+		OreDictionary.registerOre("dustAsh", ItemDusts.getDustByName("ashes"));
 
 		for (String type : ItemGems.types) {
 			if (type.equals(ModItems.META_PLACEHOLDER))
