@@ -1,6 +1,5 @@
 package techreborn.client.gui;
 
-import codechicken.lib.gui.GuiDraw;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.I18n;
@@ -11,6 +10,7 @@ import net.minecraft.util.StatCollector;
 import reborncore.client.gui.GuiUtil;
 import techreborn.client.container.ContainerGrinder;
 import techreborn.tiles.TileGrinder;
+import org.lwjgl.opengl.GL11;
 
 public class GuiGrinder extends GuiContainer {
 
@@ -29,6 +29,7 @@ public class GuiGrinder extends GuiContainer {
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_) {
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(texture);
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
@@ -47,7 +48,7 @@ public class GuiGrinder extends GuiContainer {
         }
 
         if (containerGrinder.connectionStatus != 1) {
-            GuiDraw.drawTooltipBox(k + 30, l + 50 + 12 - j, 114, 10);
+            GuiUtil.drawTooltipBox(k + 30, l + 50 + 12 - j, 114, 10);
             this.fontRendererObj.drawString(StatCollector.translateToLocal("techreborn.message.missingmultiblock"), k + 38, l + 52 + 12 - j, -1);
         }
 
