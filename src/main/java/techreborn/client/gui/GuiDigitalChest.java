@@ -7,11 +7,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import techreborn.client.container.ContainerDigitalChest;
 import techreborn.tiles.TileDigitalChest;
+import org.lwjgl.opengl.GL11;
 
 public class GuiDigitalChest extends GuiContainer {
 
     private static final ResourceLocation texture = new ResourceLocation(
-            "techreborn", "textures/gui/ThermalGenerator.png");
+            "techreborn", "textures/gui/thermal_generator.png");
 
     TileDigitalChest tile;
 
@@ -25,6 +26,7 @@ public class GuiDigitalChest extends GuiContainer {
     @Override
     protected void drawGuiContainerBackgroundLayer(float p_146976_1_,
                                                    int p_146976_2_, int p_146976_3_) {
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(texture);
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
