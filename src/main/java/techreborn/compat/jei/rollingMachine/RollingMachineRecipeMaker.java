@@ -26,11 +26,13 @@ package techreborn.compat.jei.rollingMachine;
 
 import mezz.jei.api.IJeiHelpers;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.ResourceLocation;
 import techreborn.api.RollingMachineRecipe;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class RollingMachineRecipeMaker {
 	private RollingMachineRecipeMaker() {
@@ -41,8 +43,8 @@ public class RollingMachineRecipeMaker {
 		@Nonnull
 			IJeiHelpers jeiHelpers) {
 		List<Object> recipes = new ArrayList<>();
-		for (IRecipe recipe : RollingMachineRecipe.instance.getRecipeList()) {
-			RollingMachineRecipeWrapper recipeWrapper = RollingMachineRecipeWrapper.create(jeiHelpers, recipe);
+		for (Map.Entry<ResourceLocation, IRecipe> recipe : RollingMachineRecipe.instance.getRecipeList().entrySet()) {
+			RollingMachineRecipeWrapper recipeWrapper = RollingMachineRecipeWrapper.create(jeiHelpers, recipe.getValue());
 			if (recipeWrapper != null) {
 				recipes.add(recipeWrapper);
 			}

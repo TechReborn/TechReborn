@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.entitys;
+package techreborn.entities;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.MoverType;

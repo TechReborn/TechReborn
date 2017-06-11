@@ -45,8 +45,8 @@ public class ItemDiamondJackhammer extends ItemJackhammer {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item,
-	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
+	@Override
+	public void getSubItems(CreativeTabs par2CreativeTabs, NonNullList itemList) {
 		ItemStack stack = new ItemStack(ModItems.DIAMOND_JACKHAMMER);
 		ItemStack uncharged = stack.copy();
 		ItemStack charged = stack.copy();

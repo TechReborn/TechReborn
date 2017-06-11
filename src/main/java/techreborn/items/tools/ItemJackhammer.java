@@ -34,6 +34,7 @@ import net.minecraft.init.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -128,7 +129,8 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
+	@Override
+	public void getSubItems(CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {
 		ItemStack itemStack = new ItemStack(this, 1);
 		itemList.add(itemStack);
 
@@ -136,5 +138,4 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo {
 		PoweredItem.setEnergy(getMaxPower(charged), charged);
 		itemList.add(charged);
 	}
-
 }

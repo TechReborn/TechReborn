@@ -24,6 +24,7 @@
 
 package techreborn.items.tools;
 
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -57,7 +58,7 @@ public class ItemTechManual extends ItemTRNoDestroy {
 	}
 
 	@Override
-	public void addInformation(final ItemStack stack, final EntityPlayer playerIn, final List<String> tooltip, final boolean advanced) {
+	public void addInformation(final ItemStack stack, final World world, final List<String> tooltip, ITooltipFlag flag) {
 		tooltip.add(TextFormatting.RED + I18n.translateToLocal("tooltip.wip"));
 	}
 }

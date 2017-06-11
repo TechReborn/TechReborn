@@ -25,6 +25,7 @@
 package techreborn.items;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -34,6 +35,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -94,15 +96,15 @@ public class ItemUpgrades extends ItemTRNoDestroy implements IUpgrade {
 
 	// Adds Dusts SubItems To Creative Tab
 	@Override
-	public void getSubItems(Item item, CreativeTabs creativeTabs, NonNullList list) {
+	public void getSubItems(CreativeTabs creativeTabs, NonNullList list) {
 		for (int meta = 0; meta < types.length; ++meta) {
-			list.add(new ItemStack(item, 1, meta));
+			list.add(new ItemStack(this, 1, meta));
 		}
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-		super.addInformation(stack, playerIn, tooltip, advanced);
+	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag) {
+		super.addInformation(stack, world, tooltip, flag);
 		if(stack.getItemDamage() == 4 || stack.getItemDamage() == 5){
 			tooltip.add("Facing: " + getFacing(stack).getName());
 			String text = Core.proxy.getUpgradeConfigText();

@@ -107,7 +107,7 @@ public class BlockCable extends BlockContainer {
 	}
 
 	@Override
-	public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list) {
+	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
 		for(EnumCableType cableType : EnumCableType.values()){
 			list.add(new ItemStack(this, 1, cableType.ordinal()));
 		}

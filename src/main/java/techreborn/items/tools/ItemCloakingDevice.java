@@ -105,7 +105,8 @@ public class ItemCloakingDevice extends ItemTRNoDestroy implements IEnergyItemIn
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item,
+	@Override
+	public void getSubItems(
 	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
 		ItemStack uncharged = new ItemStack(ModItems.CLOAKING_DEVICE);
 		ItemStack charged = new ItemStack(ModItems.CLOAKING_DEVICE);

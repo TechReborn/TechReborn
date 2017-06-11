@@ -46,7 +46,8 @@ public class ItemDiamondChainsaw extends ItemChainsaw {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item,
+	@Override
+	public void getSubItems(
 	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
 		ItemStack stack = new ItemStack(ModItems.DIAMOND_CHAINSAW);
 		ItemStack uncharged = stack.copy();

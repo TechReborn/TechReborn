@@ -82,10 +82,6 @@ public class BlockFlare extends BlockContainer {
 		}
 	}
 
-	public MapColor getMapColor(IBlockState state) {
-		return (state.getValue(COLOR)).getMapColor();
-	}
-
 	public IBlockState getStateFromMeta(int meta) {
 		return this.getDefaultState().withProperty(COLOR, EnumDyeColor.byMetadata(meta));
 	}

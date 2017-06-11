@@ -26,6 +26,7 @@ package techreborn.parts.powerCables;
 
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -87,9 +88,9 @@ public class ItemCables extends ItemMultiPart implements ITexturedItem {
 	}
 
 	@Override
-	public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
 		for (int meta = 0; meta < EnumCableType.values().length; ++meta) {
-			subItems.add(new ItemStack(itemIn, 1, meta));
+			subItems.add(new ItemStack(this, 1, meta));
 		}
 	}
 
@@ -110,7 +111,7 @@ public class ItemCables extends ItemMultiPart implements ITexturedItem {
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag) {
 		EnumCableType type = EnumCableType.values()[stack.getItemDamage()];
 		tooltip.add(TextFormatting.GRAY + I18n.translateToLocal("desc.transfer") + " " + TextFormatting.GOLD + PowerSystem.getLocaliszedPowerFormatted(type.transferRate));
 		tooltip.add(TextFormatting.GRAY + I18n.translateToLocal("desc.tier") + " " + TextFormatting.GOLD + StringUtils.toFirstCapitalAllLowercase(type.tier.toString()));

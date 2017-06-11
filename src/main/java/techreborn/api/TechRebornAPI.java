@@ -27,6 +27,7 @@ package techreborn.api;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import techreborn.api.recipe.IRecipeCompact;
 
 public final class TechRebornAPI {
@@ -38,20 +39,20 @@ public final class TechRebornAPI {
 
 	public static ISubItemRetriever subItemRetriever;
 
-	public static void addRollingOreMachinceRecipe(ItemStack output, Object... components) {
-		RollingMachineRecipe.instance.addShapedOreRecipe(output, components);
+	public static void addRollingOreMachinceRecipe(ResourceLocation resourceLocation, ItemStack output, Object... components) {
+		RollingMachineRecipe.instance.addShapedOreRecipe(resourceLocation, output, components);
 	}
 
-	public static void addShapelessOreRollingMachinceRecipe(ItemStack output, Object... components) {
-		RollingMachineRecipe.instance.addShapelessOreRecipe(output, components);
+	public static void addShapelessOreRollingMachinceRecipe(ResourceLocation resourceLocation, ItemStack output, Object... components) {
+		RollingMachineRecipe.instance.addShapelessOreRecipe(resourceLocation,output, components);
 	}
 
-	public static void addRollingMachinceRecipe(ItemStack output, Object... components) {
-		RollingMachineRecipe.instance.addRecipe(output, components);
+	public static void addRollingMachinceRecipe(ResourceLocation resourceLocation, ItemStack output, Object... components) {
+		RollingMachineRecipe.instance.addRecipe(resourceLocation,output, components);
 	}
 
-	public static void addShapelessRollingMachinceRecipe(ItemStack output, Object... components) {
-		RollingMachineRecipe.instance.addShapelessRecipe(output, components);
+	public static void addShapelessRollingMachinceRecipe(ResourceLocation resourceLocation, ItemStack output, Object... components) {
+		RollingMachineRecipe.instance.addShapelessRecipe(resourceLocation,output, components);
 	}
 
 	/**

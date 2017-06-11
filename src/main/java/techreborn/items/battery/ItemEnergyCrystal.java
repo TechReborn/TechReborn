@@ -41,8 +41,8 @@ public class ItemEnergyCrystal extends ItemBattery {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item,
-	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
+	@Override
+	public void getSubItems(CreativeTabs par2CreativeTabs, NonNullList itemList) {
 		ItemStack stack = new ItemStack(ModItems.ENERGY_CRYSTAL);
 		ItemStack uncharged = stack.copy();
 		ItemStack charged = stack.copy();

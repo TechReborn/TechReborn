@@ -52,7 +52,7 @@ import techreborn.compat.CompatManager;
 import techreborn.compat.ICompatModule;
 import techreborn.config.ConfigTechReborn;
 import techreborn.dispenser.BehaviorDispenseScrapbox;
-import techreborn.entitys.EntityNukePrimed;
+import techreborn.entities.EntityNukePrimed;
 import techreborn.events.BlockBreakHandler;
 import techreborn.events.OreUnifier;
 import techreborn.events.TRTickHandler;
@@ -69,7 +69,7 @@ import techreborn.world.VeinWorldGenerator;
 
 import java.io.File;
 
-@Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = ModInfo.MOD_DEPENDENCIES, guiFactory = ModInfo.GUI_FACTORY_CLASS, acceptedMinecraftVersions = "[1.11]", certificateFingerprint = "8727a3141c8ec7f173b87aa78b9b9807867c4e6b")
+@Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = ModInfo.MOD_DEPENDENCIES, guiFactory = ModInfo.GUI_FACTORY_CLASS, acceptedMinecraftVersions = "[1.12]", certificateFingerprint = "8727a3141c8ec7f173b87aa78b9b9807867c4e6b")
 public class Core {
 
 	public static ConfigTechReborn config;

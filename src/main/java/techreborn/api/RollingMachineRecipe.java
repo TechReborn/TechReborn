@@ -29,12 +29,16 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import org.apache.commons.lang3.Validate;
+import reborncore.common.util.CraftingHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,27 +47,27 @@ import java.util.List;
 public class RollingMachineRecipe {
 
 	public static final RollingMachineRecipe instance = new RollingMachineRecipe();
-	private final List<IRecipe> recipes = new ArrayList<>();
+	private final HashMap<ResourceLocation, IRecipe> recipes = new HashMap<>();
 
-	public void addShapedOreRecipe(ItemStack outputItemStack, Object... objectInputs) {
-		Validate.notNull(outputItemStack);
-		Validate.notNull(outputItemStack.getItem());
-		if (objectInputs.length == 0) {
-			Validate.notNull(null); //Quick way to crash
-		}
-		recipes.add(new ShapedOreRecipe(outputItemStack, objectInputs));
+	public void addShapedOreRecipe(ResourceLocation resourceLocation, ItemStack outputItemStack, Object... objectInputs) {
+//		Validate.notNull(outputItemStack);
+//		Validate.notNull(outputItemStack.getItem());
+//		if (objectInputs.length == 0) {
+//			Validate.notNull(null); //Quick way to crash
+//		}
+//		recipes.put(resourceLocation, new ShapedOreRecipe(resourceLocation, outputItemStack, objectInputs));
 	}
 
-	public void addShapelessOreRecipe(ItemStack outputItemStack, Object... objectInputs) {
-		Validate.notNull(outputItemStack);
-		Validate.notNull(outputItemStack.getItem());
-		if (objectInputs.length == 0) {
-			Validate.notNull(null); //Quick way to crash
-		}
-		recipes.add(new ShapelessOreRecipe(outputItemStack, objectInputs));
+	public void addShapelessOreRecipe(ResourceLocation resourceLocation, ItemStack outputItemStack, Object... objectInputs) {
+//		Validate.notNull(outputItemStack);
+//		Validate.notNull(outputItemStack.getItem());
+//		if (objectInputs.length == 0) {
+//			Validate.notNull(null); //Quick way to crash
+//		}
+//		recipes.put(resourceLocation, new ShapelessOreRecipe(resourceLocation, outputItemStack, objectInputs));
 	}
 
-	public void addRecipe(ItemStack output, Object... components) {
+	public void addRecipe(ResourceLocation resourceLocation, ItemStack output, Object... components) {
 		String s = "";
 		int i = 0;
 		int j = 0;
@@ -98,39 +102,25 @@ public class RollingMachineRecipe {
 			hashmap.put(character, itemstack1);
 		}
 
-		ItemStack recipeArray[] = new ItemStack[j * k];
+		NonNullList<Ingredient> recipeArray = NonNullList.create();
 		for (int i1 = 0; i1 < j * k; i1++) {
 			char c = s.charAt(i1);
 			if (hashmap.containsKey(c)) {
-				recipeArray[i1] = ((ItemStack) hashmap.get(c)).copy();
+				recipeArray.set(i1, CraftingHelper.toIngredient(((ItemStack) hashmap.get(c)).copy()));
 			} else {
-				recipeArray[i1] = null;
+				recipeArray.set(i1, CraftingHelper.toIngredient(ItemStack.EMPTY));
 			}
 		}
 
-		recipes.add(new ShapedRecipes(j, k, recipeArray, output));
+		recipes.put(resourceLocation, new ShapedRecipes("", j, k, recipeArray, output));
 	}
 
-	public void addShapelessRecipe(ItemStack output, Object... components) {
-		List<ItemStack> ingredients = new ArrayList<>();
+	public void addShapelessRecipe(ResourceLocation resourceLocation,ItemStack output, Object... components) {
+		NonNullList<Ingredient> ingredients = NonNullList.create();
 		for (int j = 0; j < components.length; j++) {
-			Object obj = components[j];
-			if (obj instanceof ItemStack) {
-				ingredients.add(((ItemStack) obj).copy());
-				continue;
-			}
-			if (obj instanceof Item) {
-				ingredients.add(new ItemStack((Item) obj));
-				continue;
-			}
-			if (obj instanceof Block) {
-				ingredients.add(new ItemStack((Block) obj));
-			} else {
-				throw new RuntimeException("Invalid shapeless recipe!");
-			}
+			ingredients.add(CraftingHelper.toIngredient(components[j]));
 		}
-
-		recipes.add(new ShapelessRecipes(output, ingredients));
+		recipes.put(resourceLocation, new ShapelessRecipes("", output, ingredients));
 	}
 
 	public ItemStack findMatchingRecipe(InventoryCrafting inv, World world) {
@@ -144,7 +134,7 @@ public class RollingMachineRecipe {
 		return null;
 	}
 
-	public List<IRecipe> getRecipeList() {
+	public HashMap<ResourceLocation, IRecipe> getRecipeList() {
 		return recipes;
 	}
 

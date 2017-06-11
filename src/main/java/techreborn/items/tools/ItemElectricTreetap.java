@@ -101,8 +101,8 @@ public class ItemElectricTreetap extends ItemTRNoDestroy implements IEnergyItemI
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item,
-	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
+	@Override
+	public void getSubItems(CreativeTabs par2CreativeTabs, NonNullList itemList) {
 		ItemStack uncharged = new ItemStack(ModItems.ELECTRIC_TREE_TAP);
 		ItemStack charged = new ItemStack(ModItems.ELECTRIC_TREE_TAP);
 		PoweredItem.setEnergy(getMaxPower(charged), charged);

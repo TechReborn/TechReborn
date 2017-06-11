@@ -24,6 +24,7 @@
 
 package techreborn.world;
 
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.google.common.collect.Sets;
 import net.minecraft.world.World;
@@ -100,6 +101,6 @@ public class TechRebornRetroGen {
 
 	@Override
 	public String toString() {
-		return Objects.toStringHelper(this).add("chunksToRetroGen", chunksToRetroGen).toString();
+		return MoreObjects.toStringHelper(this).add("chunksToRetroGen", chunksToRetroGen).toString();
 	}
 }

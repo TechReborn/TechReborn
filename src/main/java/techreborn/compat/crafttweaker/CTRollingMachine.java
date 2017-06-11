@@ -30,6 +30,7 @@ import minetweaker.api.item.IItemStack;
 import minetweaker.api.oredict.IOreDictEntry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.ResourceLocation;
 import reborncore.common.util.ItemUtils;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -38,29 +39,34 @@ import techreborn.api.TechRebornAPI;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @ZenClass("mods.techreborn.rollingMachine")
 public class CTRollingMachine {
 
-	@ZenMethod
-	public static void addShaped(IItemStack output, IIngredient[][] ingredients) {
-		TechRebornAPI.addRollingOreMachinceRecipe(toStack(output), toShapedObjects(ingredients));
-	}
 
-	@ZenMethod
-	public static void addShapeless(IItemStack output, IIngredient[] ingredients) {
-		TechRebornAPI.addShapelessOreRollingMachinceRecipe(toStack(output), toObjects(ingredients));
-	}
+	//TODO 1.12 Crafttweaker
+//	@ZenMethod
+//	public static void addShaped(IItemStack output, IIngredient[][] ingredients) {
+//		TechRebornAPI.addRollingOreMachinceRecipe(toStack(output), toShapedObjects(ingredients));
+//	}
+
+//	@ZenMethod
+//	public static void addShapeless(IItemStack output, IIngredient[] ingredients) {
+//		TechRebornAPI.addShapelessOreRollingMachinceRecipe(toStack(output), toObjects(ingredients));
+//	}
 
 	@ZenMethod
 	public static void removeRecipe(IItemStack output) {
-		List<IRecipe> toRemove = new ArrayList<>();
-		for (IRecipe recipe : RollingMachineRecipe.instance.getRecipeList()) {
-			if (ItemUtils.isItemEqual(recipe.getRecipeOutput(), CraftTweakerCompat.toStack(output), true, false)) {
-				toRemove.add(recipe);
+		List<ResourceLocation> toRemove = new ArrayList<>();
+		for (Map.Entry<ResourceLocation, IRecipe> recipe : RollingMachineRecipe.instance.getRecipeList().entrySet()) {
+			if (ItemUtils.isItemEqual(recipe.getValue().getRecipeOutput(), CraftTweakerCompat.toStack(output), true, false)) {
+				toRemove.add(recipe.getKey());
 			}
 		}
-		RollingMachineRecipe.instance.getRecipeList().removeAll(toRemove);
+		for(ResourceLocation  resourceLocation : toRemove){
+			RollingMachineRecipe.instance.getRecipeList().remove(resourceLocation);
+		}
 	}
 
 	public static ItemStack toStack(IItemStack iStack) {

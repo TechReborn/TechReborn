@@ -79,10 +79,11 @@ public class ItemIngots extends ItemTRNoDestroy {
 	}
 
 	// Adds Dusts SubItems To Creative Tab
-	public void getSubItems(Item item, CreativeTabs creativeTabs, NonNullList list) {
+	@Override
+	public void getSubItems(CreativeTabs creativeTabs, NonNullList list) {
 		for (int meta = 0; meta < types.length; ++meta) {
 			if (!types[meta].equals(ModItems.META_PLACEHOLDER)) {
-				list.add(new ItemStack(item, 1, meta));
+				list.add(new ItemStack(this, 1, meta));
 			}
 		}
 	}

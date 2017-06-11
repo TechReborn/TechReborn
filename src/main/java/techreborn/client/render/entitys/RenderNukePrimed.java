@@ -33,7 +33,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import techreborn.blocks.BlockNuke;
-import techreborn.entitys.EntityNukePrimed;
+import techreborn.entities.EntityNukePrimed;
 import techreborn.init.ModBlocks;
 
 /**
@@ -63,7 +63,7 @@ public class RenderNukePrimed extends Render<EntityNukePrimed> {
 		this.bindEntityTexture(entity);
 		GlStateManager.translate(-0.5F, -0.5F, 0.5F);
 		blockrendererdispatcher.renderBlockBrightness(ModBlocks.NUKE.getDefaultState(),
-			entity.getBrightness(partialTicks));
+			entity.getBrightness());
 		GlStateManager.translate(0.0F, 0.0F, 1.0F);
 		if (entity.fuse / 5 % 2 == 0) {
 			GlStateManager.disableLighting();

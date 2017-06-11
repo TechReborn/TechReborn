@@ -112,7 +112,7 @@ public class ContainerLESU extends RebornContainer {
 		} else if (id == 4) {
 			this.euStorage = value;
 		}
-		this.euStorage = ((connectedBlocks + 1) * ConfigTechReborn.LesuStoragePerBlock);
+		this.euStorage = ((connectedBlocks + 1) * TileLesu.storagePerBlock);
 	}
 
 }

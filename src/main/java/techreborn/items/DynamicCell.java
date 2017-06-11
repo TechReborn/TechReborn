@@ -130,7 +130,7 @@ public class DynamicCell extends Item {
 	}
 
 	@Override
-	public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
 		subItems.add(getEmptyCell(1));
 		for (Fluid fluid : FluidRegistry.getRegisteredFluids().values()) {
 			subItems.add(getCellWithFluid(fluid));

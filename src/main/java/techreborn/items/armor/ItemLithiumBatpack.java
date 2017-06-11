@@ -106,7 +106,8 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item,
+	@Override
+	public void getSubItems(
 	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
 		ItemStack uncharged = new ItemStack(ModItems.LITHIUM_BATTERY_PACK);
 		ItemStack charged = new ItemStack(ModItems.LITHIUM_BATTERY_PACK);

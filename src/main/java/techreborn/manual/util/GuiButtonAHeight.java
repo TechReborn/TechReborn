@@ -37,7 +37,7 @@ public class GuiButtonAHeight extends GuiButton {
 	}
 
 	@Override
-	public void drawButton(Minecraft minecraft, int mouseX, int mouseY) {
+	public void func_191745_a(Minecraft minecraft, int mouseX, int mouseY, float ticks) {
 		if (this.visible) {
 			FontRenderer fontrenderer = minecraft.fontRendererObj;
 			minecraft.getTextureManager().bindTexture(BUTTON_TEXTURES);

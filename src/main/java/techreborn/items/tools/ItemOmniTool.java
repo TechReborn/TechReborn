@@ -25,6 +25,7 @@
 package techreborn.items.tools;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -143,7 +144,8 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item,
+	@Override
+	public void getSubItems(
 	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
 		ItemStack uncharged = new ItemStack(ModItems.OMNI_TOOL);
 		ItemStack charged = new ItemStack(ModItems.OMNI_TOOL);
@@ -155,7 +157,7 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
 
 
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag) {
 		tooltip.add(TextFormatting.RED + "WIP Coming Soon");
 	}
 }

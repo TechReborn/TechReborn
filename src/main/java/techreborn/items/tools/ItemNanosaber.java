@@ -88,7 +88,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 	                                                                 ItemStack stack) {
 		Multimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier>create();
 		int modifier = 0;
-		if (!stack.isEmpty() && stack.getTagCompound().getBoolean("isActive"))
+		if (!stack.isEmpty() && stack.getTagCompound() != null && stack.getTagCompound().getBoolean("isActive"))
 			modifier = 9;
 
 		if (slot == EntityEquipmentSlot.MAINHAND) {
@@ -113,7 +113,8 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item,
+	@Override
+	public void getSubItems(
 	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
 		ItemStack inactiveUncharged = new ItemStack(ModItems.NANOSABER);
 		inactiveUncharged.setTagCompound(new NBTTagCompound());

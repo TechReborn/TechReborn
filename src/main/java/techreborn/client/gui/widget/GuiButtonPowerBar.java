@@ -62,9 +62,4 @@ public class GuiButtonPowerBar extends GuiButton {
 	public void drawButtonForegroundLayer(int mouseX, int mouseY) {
 
 	}
-
-	@Override
-	public void drawButton(Minecraft mc, int mouseX, int mouseY) {
-
-	}
 }

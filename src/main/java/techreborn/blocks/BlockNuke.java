@@ -42,7 +42,7 @@ import net.minecraft.world.World;
 import reborncore.RebornCore;
 import reborncore.common.BaseBlock;
 import techreborn.client.TechRebornCreativeTabMisc;
-import techreborn.entitys.EntityNukePrimed;
+import techreborn.entities.EntityNukePrimed;
 
 /**
  * Created by Mark on 13/03/2016.

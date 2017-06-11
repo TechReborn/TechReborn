@@ -24,11 +24,13 @@
 
 package techreborn.parts.powerCables;
 
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
 import reborncore.RebornCore;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.items.ItemTextureBase;
@@ -103,7 +105,7 @@ public class ItemStandaloneCables extends ItemTextureBase {
 	// }
 
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag) {
 		EnumStandaloneCableType type = EnumStandaloneCableType.values()[stack.getItemDamage()];
 		tooltip.add(TextFormatting.GREEN + "EU Transfer: " + TextFormatting.LIGHT_PURPLE + type.transferRate);
 		if (type.canKill) {

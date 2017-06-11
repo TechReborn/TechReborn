@@ -41,7 +41,8 @@ public class ItemLapotronCrystal extends ItemBattery {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item,
+	@Override
+	public void getSubItems(
 	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
 		ItemStack stack = new ItemStack(ModItems.LAPOTRONIC_CRYSTAL);
 		ItemStack uncharged = stack.copy();

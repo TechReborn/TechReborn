@@ -25,6 +25,7 @@
 package techreborn.blocks.generator;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -73,7 +74,7 @@ public class BlockHeatGenerator extends BlockMachineBase implements IAdvancedRot
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag) {
 		tooltip.add(TextFormatting.RED + "WIP Coming Soon");
 		//TODO Finish Heat Generator and add recipe + texture
 		//Remember to remove WIP override and imports once complete

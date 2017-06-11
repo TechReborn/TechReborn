@@ -174,9 +174,9 @@ public class BlockOre extends Block implements IOreNameProvider {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(Item item, CreativeTabs creativeTabs, NonNullList<ItemStack> list) {
+	public void getSubBlocks(CreativeTabs creativeTabs, NonNullList<ItemStack> list) {
 		for (int meta = 0; meta < ores.length; meta++) {
-			list.add(new ItemStack(item, 1, meta));
+			list.add(new ItemStack(this, 1, meta));
 		}
 	}
 

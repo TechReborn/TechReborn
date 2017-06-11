@@ -63,7 +63,7 @@ public class BlockRubberSapling extends BlockSapling {
 	}
 
 	@Override
-	public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list) {
-		list.add(new ItemStack(itemIn, 1, 0));
+	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
+		list.add(new ItemStack(this, 1, 0));
 	}
 }

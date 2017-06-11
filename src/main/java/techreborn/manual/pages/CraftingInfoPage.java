@@ -24,6 +24,7 @@
 
 package techreborn.manual.pages;
 
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
@@ -34,8 +35,10 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.*;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.oredict.OreDictionary;
@@ -213,10 +216,10 @@ public class CraftingInfoPage extends TitledPage {
 
 	protected void drawItemStackTooltip(ItemStack stack, int x, int y) {
 		final Minecraft mc = Minecraft.getMinecraft();
-		FontRenderer font = Objects.firstNonNull(stack.getItem().getFontRenderer(stack), mc.fontRendererObj);
+		FontRenderer font = MoreObjects.firstNonNull(stack.getItem().getFontRenderer(stack), mc.fontRendererObj);
 
 		@SuppressWarnings("unchecked")
-		List<String> list = stack.getTooltip(mc.player, mc.gameSettings.advancedItemTooltips);
+		List<String> list = stack.getTooltip(mc.player, mc.gameSettings.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL);
 
 		List<String> colored = Lists.newArrayListWithCapacity(list.size());
 		colored.add(stack.getRarity().rarityColor + list.get(0));
@@ -259,7 +262,7 @@ public class CraftingInfoPage extends TitledPage {
 	@SuppressWarnings("unchecked")
 	private ItemStack[] getFirstRecipeForItem(ItemStack resultingItem) {
 		ItemStack[] recipeItems = new ItemStack[9];
-		for (IRecipe recipe : CraftingManager.getInstance().getRecipeList()) {
+		for (IRecipe recipe : CraftingManager.field_193380_a) {
 			if (recipe == null)
 				continue;
 
@@ -267,12 +270,12 @@ public class CraftingInfoPage extends TitledPage {
 			if (result == ItemStack.EMPTY || !result.isItemEqual(resultingItem))
 				continue;
 
-			Object[] input = getRecipeInput(recipe);
-			if (input == null)
+			NonNullList<Ingredient> input = recipe.func_192400_c();
+			if (input.isEmpty())
 				continue;
 
-			for (int i = 0; i < input.length; i++)
-				recipeItems[i] = convertToStack(input[i]);
+			for (int i = 0; i < input.size(); i++)
+				recipeItems[i] = convertToStack(input.get(i));
 			break;
 
 		}
@@ -291,36 +294,15 @@ public class CraftingInfoPage extends TitledPage {
 		return recipeItems;
 	}
 
-	protected ItemStack convertToStack(Object obj) {
-		ItemStack entry = null;
-		if (obj instanceof ItemStack) {
-			entry = (ItemStack) obj;
-		} else if (obj instanceof List) {
-			@SuppressWarnings("unchecked")
-			List<ItemStack> list = (List<ItemStack>) obj;
-			if (list.size() > 0)
-				entry = list.get(0);
-		}
-
-		if (entry == null)
+	protected ItemStack convertToStack(Ingredient ingredient) {
+		ItemStack entry = ItemStack.EMPTY;
+		entry = ingredient.func_193365_a()[0];
+		if (entry == null || entry.isEmpty())
 			return null;
 		entry = entry.copy();
 		if (entry.getItemDamage() == OreDictionary.WILDCARD_VALUE)
 			entry.setItemDamage(0);
 		return entry;
-	}
-
-	@SuppressWarnings("unchecked")
-	private Object[] getRecipeInput(IRecipe recipe) {
-		if (recipe instanceof ShapelessOreRecipe)
-			return ((ShapelessOreRecipe) recipe).getInput().toArray();
-		else if (recipe instanceof ShapedOreRecipe)
-			return getShapedOreRecipe((ShapedOreRecipe) recipe);
-		else if (recipe instanceof ShapedRecipes)
-			return ((ShapedRecipes) recipe).recipeItems;
-		else if (recipe instanceof ShapelessRecipes)
-			return ((ShapelessRecipes) recipe).recipeItems.toArray(new ItemStack[0]);
-		return null;
 	}
 
 	private Object[] getShapedOreRecipe(ShapedOreRecipe recipe) {
@@ -329,12 +311,12 @@ public class CraftingInfoPage extends TitledPage {
 			if (field != null) {
 				field.setAccessible(true);
 				int width = field.getInt(recipe);
-				Object[] input = recipe.getInput();
+				NonNullList<Ingredient> input = recipe.func_192400_c();
 				Object[] grid = new Object[9];
 				for (int i = 0, offset = 0, y = 0; y < 3; y++) {
 					for (int x = 0; x < 3; x++, i++) {
-						if (x < width && offset < input.length) {
-							grid[i] = input[offset];
+						if (x < width && offset < input.size()) {
+							grid[i] = input.get(offset);
 							offset++;
 						} else {
 							grid[i] = null;
