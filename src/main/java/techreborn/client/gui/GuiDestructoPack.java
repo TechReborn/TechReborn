@@ -6,6 +6,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import org.lwjgl.opengl.GL11;
 
 public class GuiDestructoPack extends GuiContainer {
 
@@ -20,6 +21,7 @@ public class GuiDestructoPack extends GuiContainer {
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float arg0, int arg1, int arg2) {
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         Minecraft.getMinecraft().renderEngine.bindTexture(texture);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, 176, 166);
     }

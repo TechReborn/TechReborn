@@ -15,6 +15,7 @@ import techreborn.client.ClientMultiBlocks;
 import techreborn.client.container.ContainerVacuumFreezer;
 import techreborn.proxies.ClientProxy;
 import techreborn.tiles.TileVacuumFreezer;
+import org.lwjgl.opengl.GL11;
 
 public class GuiVacuumFreezer extends GuiContainer {
 
@@ -49,6 +50,7 @@ public class GuiVacuumFreezer extends GuiContainer {
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_) {
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(texture);
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
