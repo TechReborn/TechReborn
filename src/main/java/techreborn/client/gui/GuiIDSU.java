@@ -9,6 +9,7 @@ import reborncore.common.packets.PacketHandler;
 import techreborn.client.container.ContainerIDSU;
 import techreborn.packets.PacketIdsu;
 import techreborn.tiles.idsu.TileIDSU;
+import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 
@@ -41,12 +42,12 @@ public class GuiIDSU extends GuiContainer {
         this.buttonList.add(new GuiButton(1, k + 128, l + 5 + 20, 15, 15, "+"));
         this.buttonList.add(new GuiButton(2, k + 128, l + 5 + (20 * 2), 15, 15, "-"));
         this.buttonList.add(new GuiButton(3, k + 128, l + 5 + (20 * 3), 15, 15, "--"));
-        this.buttonList.add(new GuiButton(4, k + 40, l + 10, 10, 10, "+"));
     }
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float p_146976_1_,
                                                    int p_146976_2_, int p_146976_3_) {
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(texture);
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
