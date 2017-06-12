@@ -112,6 +112,62 @@
         "textures": {
           "cable": "techreborn:blocks/cables/hv_insulated_cable"
         }
+      },
+      "inv_copper": {
+        "transform": "forge:default-block",
+        "model": "techreborn:cable",
+        "textures": {
+          "cable": "techreborn:blocks/cables/copper_cable"
+        }
+      },
+      "inv_tin": {
+        "transform": "forge:default-block",
+        "model": "techreborn:cable",
+        "textures": {
+          "cable": "techreborn:blocks/cables/tin_cable"
+        }
+      },
+      "inv_gold": {
+        "transform": "forge:default-block",
+        "model": "techreborn:cable",
+        "textures": {
+          "cable": "techreborn:blocks/cables/gold_cable"
+        }
+      },
+      "inv_hv": {
+        "transform": "forge:default-block",
+        "model": "techreborn:cable",
+        "textures": {
+          "cable": "techreborn:blocks/cables/hv_cable"
+        }
+      },
+      "inv_glassfiber": {
+        "transform": "forge:default-block",
+        "model": "techreborn:cable",
+        "textures": {
+          "cable": "techreborn:blocks/cables/glass_fiber_cable"
+        }
+      },
+      "inv_insulatedcopper": {
+        "transform": "forge:default-block",
+        "model": "techreborn:cable",
+        "textures": {
+          "cable": "techreborn:blocks/cables/copper_insulated_cable"
+        }
+      },
+      "inv_insulatedgold": {
+        "transform": "forge:default-block",
+        "model": "techreborn:cable",
+        "textures": {
+          "cable": "techreborn:blocks/cables/gold_insulated_cable"
+        }
+      },
+      "inv_insulatedhv": {
+        "transform": "forge:default-block",
+        "model": "techreborn:cable",
+        "textures": {
+          "cable": "techreborn:blocks/cables/hv_insulated_cable"
+        }
       }
     }
   }

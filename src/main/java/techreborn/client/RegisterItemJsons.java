@@ -33,6 +33,7 @@ import techreborn.blocks.BlockOre;
 import techreborn.blocks.BlockOre2;
 import techreborn.blocks.BlockStorage;
 import techreborn.blocks.BlockStorage2;
+import techreborn.blocks.cable.EnumCableType;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
@@ -175,6 +176,10 @@ public class RegisterItemJsons {
 		for (int i = 0; i < BlockStorage2.types.length; ++i) {
 			String[] name = BlockStorage2.types.clone();
 			registerBlockstate(ModBlocks.STORAGE2, i, name[i]);
+		}
+
+		for (EnumCableType cableType : EnumCableType.values()) {
+			registerBlockstate(ModBlocks.CABLE, cableType.ordinal(), "inv_" +cableType.getName().toLowerCase());
 		}
 	}
 
