@@ -48,7 +48,7 @@ import techreborn.lib.ModInfo;
 public class TileGenerator extends TilePowerAcceptor implements IWrenchable, IInventoryProvider, IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "generator", key = "GeneratorMaxOutput", comment = "Solid Fuel Generator Max Output (Value in EU)")
-	public static int maxOutput = 128;
+	public static int maxOutput = 32;
 	@ConfigRegistry(config = "machines", category = "generator", key = "GeneratorMaxEnergy", comment = "Solid Fuel Generator Max Energy (Value in EU)")
 	public static int maxEnergy = 10000;
 	@ConfigRegistry(config = "machines", category = "generator", key = "GeneratorEnergyOutput", comment = "Solid Fuel Generator Energy Output Amount (Value in EU)")
