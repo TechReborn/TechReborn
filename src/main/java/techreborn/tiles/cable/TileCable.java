@@ -33,7 +33,7 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import reborncore.common.RebornCoreConfig;
 import techreborn.blocks.cable.BlockCable;
-import techreborn.parts.powerCables.EnumCableType;
+import techreborn.blocks.cable.EnumCableType;
 
 /**
  * Created by modmuss50 on 19/05/2017.

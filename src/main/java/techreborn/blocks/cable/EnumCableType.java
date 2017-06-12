@@ -22,13 +22,14 @@
  * SOFTWARE.
  */
 
-package techreborn.parts.powerCables;
+package techreborn.blocks.cable;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
 import reborncore.api.power.EnumPowerTier;
+import techreborn.init.ModBlocks;
 
-public enum EnumStandaloneCableType implements IStringSerializable {
+public enum EnumCableType implements IStringSerializable {
 	COPPER("copper", "techreborn:blocks/cables/copper_cable", 128, 12.0, true, EnumPowerTier.LOW),
 	TIN("tin", "techreborn:blocks/cables/tin_cable", 32, 12.0, true, EnumPowerTier.MEDIUM),
 	GOLD("gold", "techreborn:blocks/cables/gold_cable", 512, 12.0, true, EnumPowerTier.MEDIUM),
@@ -45,8 +46,8 @@ public enum EnumStandaloneCableType implements IStringSerializable {
 	public EnumPowerTier tier;
 	private String friendlyName;
 
-	EnumStandaloneCableType(String friendlyName, String textureName, int transferRate, double cableThickness,
-	                        boolean canKill, EnumPowerTier tier) {
+	EnumCableType(String friendlyName, String textureName, int transferRate, double cableThickness, boolean canKill,
+	              EnumPowerTier tier) {
 		this.friendlyName = friendlyName;
 		this.textureName = textureName;
 		this.transferRate = transferRate;
@@ -60,7 +61,7 @@ public enum EnumStandaloneCableType implements IStringSerializable {
 		return friendlyName.toLowerCase();
 	}
 
-	public ItemStack getStack() {
-		return ItemStandaloneCables.getCableByName(getName());
+	public ItemStack getStack(){
+		return new ItemStack(ModBlocks.CABLE,1, this.ordinal());
 	}
 }

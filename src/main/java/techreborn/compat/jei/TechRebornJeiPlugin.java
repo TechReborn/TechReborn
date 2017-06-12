@@ -41,6 +41,7 @@ import techreborn.api.generator.GeneratorRecipeHelper;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.api.recipe.machines.AssemblingMachineRecipe;
 import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
+import techreborn.blocks.cable.EnumCableType;
 import techreborn.client.gui.*;
 import techreborn.compat.CompatManager;
 import techreborn.compat.jei.alloySmelter.AlloySmelterRecipeCategory;
@@ -84,8 +85,6 @@ import techreborn.init.ModBlocks;
 import techreborn.init.ModFluids;
 import techreborn.init.ModItems;
 import techreborn.items.ItemParts;
-import techreborn.parts.TechRebornParts;
-import techreborn.parts.powerCables.EnumCableType;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -162,11 +161,10 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 					jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(duplicate.getTrStack());
 				}
 			}
-			if (TechRebornParts.cables != null) {
-				for (int i = 0; i < EnumCableType.values().length; i++) {
-					jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(TechRebornParts.cables, 1, i));
-				}
+			for (int i = 0; i < EnumCableType.values().length; i++) {
+				jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModBlocks.CABLE, 1, i));
 			}
+
 			jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(ItemParts.getPartByName("rubber"));
 			jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(ItemParts.getPartByName("rubberSap"));
 			jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(ItemParts.getPartByName("electronicCircuit"));

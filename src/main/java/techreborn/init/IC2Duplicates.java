@@ -25,15 +25,12 @@
 package techreborn.init;
 
 import net.minecraft.item.ItemStack;
+import techreborn.blocks.cable.EnumCableType;
 import techreborn.compat.CompatManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.items.ItemIngots;
 import techreborn.items.ItemParts;
 import techreborn.items.ItemUpgrades;
-import techreborn.parts.powerCables.EnumStandaloneCableType;
-
-import javax.annotation.Nonnull;
-
 /**
  * Created by Mark on 18/12/2016.
  */
@@ -53,14 +50,14 @@ public enum IC2Duplicates {
 	LVT(new ItemStack(ModBlocks.LV_TRANSFORMER)),
 	MVT(new ItemStack(ModBlocks.MV_TRANSFORMER)),
 	HVT(new ItemStack(ModBlocks.HV_TRANSFORMER)),
-	CABLE_COPPER(EnumStandaloneCableType.COPPER.getStack()),
-	CABLE_GLASSFIBER(EnumStandaloneCableType.GLASSFIBER.getStack()),
-	CABLE_GOLD(EnumStandaloneCableType.GOLD.getStack()),
-	CABLE_HV(EnumStandaloneCableType.HV.getStack()),
-	CABLE_ICOPPER(EnumStandaloneCableType.ICOPPER.getStack()),
-	CABLE_IGOLD(EnumStandaloneCableType.IGOLD.getStack()),
-	CABLE_IHV(EnumStandaloneCableType.IHV.getStack()),
-	CABLE_IIHV(EnumStandaloneCableType.TIN.getStack()),
+	CABLE_COPPER(EnumCableType.COPPER.getStack()),
+	CABLE_GLASSFIBER(EnumCableType.GLASSFIBER.getStack()),
+	CABLE_GOLD(EnumCableType.GOLD.getStack()),
+	CABLE_HV(EnumCableType.HV.getStack()),
+	CABLE_ICOPPER(EnumCableType.ICOPPER.getStack()),
+	CABLE_IGOLD(EnumCableType.IGOLD.getStack()),
+	CABLE_IHV(EnumCableType.IHV.getStack()),
+	CABLE_IIHV(EnumCableType.TIN.getStack()),
 	UPGRADE_OVERCLOCKER(ItemUpgrades.getUpgradeByName("overclock")),
 	UPGRADE_TRANSFORMER(ItemUpgrades.getUpgradeByName("transformer")),
 	UPGRADE_STORAGE(ItemUpgrades.getUpgradeByName("energy_storage")),

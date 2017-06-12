@@ -32,9 +32,9 @@ import reborncore.common.util.OreUtil;
 import reborncore.common.util.StringUtils;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.blocks.BlockMachineFrame;
+import techreborn.blocks.cable.BlockCable;
 import techreborn.init.IC2Duplicates;
 import techreborn.items.*;
-import techreborn.parts.powerCables.ItemStandaloneCables;
 
 /**
  * Created by Prospector
@@ -58,7 +58,7 @@ public abstract class RecipeMethods {
 		} else if (type == Type.PART) {
 			return ItemParts.getPartByName(name, count);
 		} else if (type == Type.CABLE) {
-			return ItemStandaloneCables.getCableByName(name, count);
+			return BlockCable.getCableByName(name, count);
 		} else if (type == Type.MACHINE_FRAME) {
 			return BlockMachineFrame.getFrameByName(name, count);
 		} else if (type == Type.MACHINE_CASING) {

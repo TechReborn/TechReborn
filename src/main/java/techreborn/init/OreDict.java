@@ -33,8 +33,8 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.oredict.OreDictionary;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineFrame;
+import techreborn.blocks.cable.BlockCable;
 import techreborn.items.*;
-import techreborn.parts.powerCables.ItemStandaloneCables;
 
 public class OreDict {
 
@@ -71,7 +71,7 @@ public class OreDict {
 
 		OreDictionary.registerOre("industrialTnt", Blocks.TNT);
 		OreDictionary.registerOre("craftingIndustrialDiamond", Items.DIAMOND);
-		OreDictionary.registerOre("insulatedGoldCableItem", ItemStandaloneCables.getCableByName("insulatedgold"));
+		OreDictionary.registerOre("insulatedGoldCableItem", BlockCable.getCableByName("insulatedgold"));
 		OreDictionary.registerOre("fertilizer", new ItemStack(Items.DYE, 1, 15));
 
 		OreDictionary.registerOre("ic2Generator", ModBlocks.SOLID_FUEL_GENEREATOR);

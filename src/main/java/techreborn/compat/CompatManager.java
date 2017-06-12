@@ -27,18 +27,14 @@ package techreborn.compat;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
-import techreborn.client.render.parts.ClientPartLoader;
 import techreborn.compat.buildcraft.BuildcraftBuildersCompat;
 import techreborn.compat.buildcraft.BuildcraftCompat;
-import techreborn.compat.ic2.RecipesIC2;
 import techreborn.compat.crafttweaker.CraftTweakerCompat;
+import techreborn.compat.ic2.RecipesIC2;
 import techreborn.compat.theoneprobe.TheOneProbeCompat;
 import techreborn.compat.tinkers.CompatModuleTinkers;
 import techreborn.compat.waila.CompatModuleWaila;
 import techreborn.config.ConfigTechReborn;
-import techreborn.parts.StandalonePartCompact;
-import techreborn.parts.TechRebornParts;
-import techreborn.parts.walia.WailaMcMultiPartCompact;
 
 import java.util.ArrayList;
 
@@ -53,10 +49,6 @@ public class CompatManager {
 		isIC2Loaded = Loader.isModLoaded("ic2");
 		isQuantumStorageLoaded = Loader.isModLoaded("quantumstorage");
 		register(CraftTweakerCompat.class, "crafttweaker");
-		registerCompact(TechRebornParts.class, false, "reborncore-mcmultipart");
-		registerCompact(ClientPartLoader.class, false, "reborncore-mcmultipart", "@client");
-		registerCompact(StandalonePartCompact.class, false, "!reborncore-mcmultipart");
-		registerCompact(WailaMcMultiPartCompact.class, false, "reborncore-mcmultipart", "Waila", "!IC2");
 		register(CompatModuleWaila.class, "Waila");
 		register(CompatModuleTinkers.class, "tconstruct");
 		register(TheOneProbeCompat.class, "theoneprobe");

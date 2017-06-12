@@ -34,7 +34,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
@@ -50,10 +49,11 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.energy.CapabilityEnergy;
 import techreborn.client.TechRebornCreativeTab;
-import techreborn.parts.powerCables.EnumCableType;
+import techreborn.init.ModBlocks;
 import techreborn.tiles.cable.TileCable;
 
 import javax.annotation.Nullable;
+import java.security.InvalidParameterException;
 
 /**
  * Created by modmuss50 on 19/05/2017.
@@ -74,6 +74,20 @@ public class BlockCable extends BlockContainer {
 		setCreativeTab(TechRebornCreativeTab.instance);
 		this.setUnlocalizedName("techreborn.cable");
 		setDefaultState(getDefaultState().withProperty(EAST, false).withProperty(WEST, false).withProperty(NORTH, false).withProperty(SOUTH, false).withProperty(UP, false).withProperty(DOWN, false).withProperty(TYPE, EnumCableType.COPPER));
+	}
+
+	public static ItemStack getCableByName(String name, int count) {
+		for (int i = 0; i < EnumCableType.values().length; i++) {
+			if (EnumCableType.values()[i].getName().equalsIgnoreCase(name)) {
+				return new ItemStack(ModBlocks.CABLE,
+					count, i);
+			}
+		}
+		throw new InvalidParameterException("The cable " + name + " could not be found.");
+	}
+
+	public static ItemStack getCableByName(String name) {
+		return getCableByName(name, 1);
 	}
 
 	@Override

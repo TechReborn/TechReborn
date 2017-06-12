@@ -47,7 +47,7 @@ import techreborn.blocks.transformers.BlockHVTransformer;
 import techreborn.blocks.transformers.BlockLVTransformer;
 import techreborn.blocks.transformers.BlockMVTransformer;
 import techreborn.itemblocks.*;
-import techreborn.parts.powerCables.EnumCableType;
+import techreborn.blocks.cable.EnumCableType;
 import techreborn.tiles.*;
 import techreborn.tiles.cable.TileCable;
 import techreborn.tiles.fusionReactor.TileEntityFusionController;

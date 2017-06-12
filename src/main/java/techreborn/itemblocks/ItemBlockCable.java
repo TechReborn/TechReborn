@@ -3,7 +3,7 @@ package techreborn.itemblocks;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import techreborn.parts.powerCables.EnumCableType;
+import techreborn.blocks.cable.EnumCableType;
 
 /**
  * Created by modmuss50 on 12/06/2017.

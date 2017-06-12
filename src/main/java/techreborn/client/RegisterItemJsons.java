@@ -29,7 +29,6 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.Loader;
 import techreborn.blocks.BlockOre;
 import techreborn.blocks.BlockOre2;
 import techreborn.blocks.BlockStorage;
@@ -38,8 +37,6 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
 import techreborn.items.*;
-import techreborn.parts.TechRebornParts;
-import techreborn.parts.powerCables.EnumCableType;
 
 public class RegisterItemJsons {
 	public static void registerModels() {
@@ -179,12 +176,6 @@ public class RegisterItemJsons {
 			String[] name = BlockStorage2.types.clone();
 			registerBlockstate(ModBlocks.STORAGE2, i, name[i]);
 		}
-
-		if (Loader.isModLoaded("reborncore-mcmultipart"))
-			for (EnumCableType i : EnumCableType.values()) {
-				String name = i.getName();
-				registerBlockstate(TechRebornParts.cables, i.ordinal(), name, "items/misc/");
-			}
 	}
 
 	private static void registerBlocks() {
