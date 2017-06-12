@@ -28,7 +28,6 @@ import net.minecraft.block.BlockDispenser;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -49,7 +48,6 @@ import techreborn.client.GuiHandler;
 import techreborn.command.TechRebornDevCommand;
 import techreborn.compat.CompatManager;
 import techreborn.compat.ICompatModule;
-import techreborn.config.ConfigTechReborn;
 import techreborn.dispenser.BehaviorDispenseScrapbox;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.events.BlockBreakHandler;
@@ -69,7 +67,6 @@ import java.io.File;
 @Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = ModInfo.MOD_DEPENDENCIES, guiFactory = ModInfo.GUI_FACTORY_CLASS, acceptedMinecraftVersions = "[1.12]", certificateFingerprint = "8727a3141c8ec7f173b87aa78b9b9807867c4e6b")
 public class Core {
 
-	public static ConfigTechReborn config;
 	@SidedProxy(clientSide = ModInfo.CLIENT_PROXY_CLASS, serverSide = ModInfo.SERVER_PROXY_CLASS)
 	public static CommonProxy proxy;
 	@Mod.Instance
@@ -92,10 +89,6 @@ public class Core {
 		MinecraftForge.EVENT_BUS.register(this);
 
 		configDir = new File(new File(event.getModConfigurationDirectory(), "teamreborn"), "techreborn");
-		if (!configDir.exists()) {
-			configDir.mkdir();
-		}
-		config = ConfigTechReborn.initialize(new File(configDir, "main.cfg"));
 		worldGen = new TechRebornWorldGen();
 		worldGen.configFile = (new File(configDir, "ores.json"));
 		//Must be done before the item classes are loaded.
@@ -197,13 +190,6 @@ public class Core {
 		event.registerServerCommand(new TechRebornDevCommand());
 		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
 			compatModule.serverStarting(event);
-		}
-	}
-
-	@SubscribeEvent
-	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent cfgChange) {
-		if (cfgChange.getModID().equals("TechReborn")) {
-			ConfigTechReborn.Configs();
 		}
 	}
 

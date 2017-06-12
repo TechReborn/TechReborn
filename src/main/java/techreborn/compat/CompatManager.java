@@ -34,7 +34,6 @@ import techreborn.compat.ic2.RecipesIC2;
 import techreborn.compat.theoneprobe.TheOneProbeCompat;
 import techreborn.compat.tinkers.CompatModuleTinkers;
 import techreborn.compat.waila.CompatModuleWaila;
-import techreborn.config.ConfigTechReborn;
 
 import java.util.ArrayList;
 
@@ -64,12 +63,13 @@ public class CompatManager {
 
 	public void registerCompact(Class<? extends ICompatModule> moduleClass, boolean config, Object... objs) {
 		boolean shouldLoad = true;
-		if (config) {
-			shouldLoad = ConfigTechReborn.config
-				.get(ConfigTechReborn.CATEGORY_INTEGRATION, "Compat:" + moduleClass.getSimpleName(), true,
-					"Should the " + moduleClass.getSimpleName() + " be loaded?")
-				.getBoolean(true);
-		}
+		//TODO config
+//		if (config) {
+//			shouldLoad = ConfigTechReborn.config
+//				.get(ConfigTechReborn.CATEGORY_INTEGRATION, "Compat:" + moduleClass.getSimpleName(), true,
+//					"Should the " + moduleClass.getSimpleName() + " be loaded?")
+//				.getBoolean(true);
+//		}
 		for (Object obj : objs) {
 			if (obj instanceof String) {
 				String modid = (String) obj;
@@ -92,13 +92,6 @@ public class CompatManager {
 				Boolean boo = (Boolean) obj;
 				if (!boo) {
 				}
-				return;
-			}
-		}
-		if (config) {
-			if (ConfigTechReborn.config.hasChanged())
-				ConfigTechReborn.config.save();
-			if (!shouldLoad) {
 				return;
 			}
 		}
