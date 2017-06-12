@@ -35,12 +35,20 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PoweredItem;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
 import techreborn.items.ItemTRNoDestroy;
+import techreborn.lib.ModInfo;
 
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class ItemCloakingDevice extends ItemTRNoDestroy implements IEnergyItemInfo {
+
+	@ConfigRegistry(config = "items", category = "cloacking_device", key = "ClockingDeviceEnergyUsage", comment = "Cloacking device energy usesage (Value in EU)")
+	public static int usage = 10;
+
 	public static int MaxCharge = ConfigTechReborn.CloakingDeviceCharge;
 	public static int Limit = 100;
 	public static boolean isActive;
@@ -54,8 +62,8 @@ public class ItemCloakingDevice extends ItemTRNoDestroy implements IEnergyItemIn
 
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
-		if (PoweredItem.canUseEnergy(ConfigTechReborn.CloakingDeviceEUTick, itemStack)) {
-			PoweredItem.useEnergy(ConfigTechReborn.CloakingDeviceEUTick, itemStack);
+		if (PoweredItem.canUseEnergy(usage, itemStack)) {
+			PoweredItem.useEnergy(usage, itemStack);
 			player.setInvisible(true);
 		} else {
 			if (!player.isPotionActive(MobEffects.INVISIBILITY)) {

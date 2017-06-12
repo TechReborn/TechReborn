@@ -42,22 +42,28 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.blocks.PropertyString;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.ArrayUtils;
 import reborncore.common.util.OreDrop;
 import reborncore.common.util.OreDropSet;
 import reborncore.common.util.StringUtils;
 import techreborn.client.TechRebornCreativeTabMisc;
-import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.items.ItemDusts;
 import techreborn.items.ItemGems;
+import techreborn.lib.ModInfo;
 import techreborn.world.config.IOreNameProvider;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class BlockOre extends Block implements IOreNameProvider {
+
+	@ConfigRegistry(category = "blocks", key = "secondaryDropChance", comment = "Secondary Gem drop chance")
+	public static double secondaryDropChance = 0.5;
 
 	public static final String[] ores = new String[] {
 		"galena", "iridium", "ruby", "sapphire", "bauxite", "pyrite",
@@ -112,7 +118,7 @@ public class BlockOre extends Block implements IOreNameProvider {
 		// Ruby
 		if (variant.equalsIgnoreCase("Ruby")) {
 			OreDrop ruby = new OreDrop(ItemGems.getGemByName("ruby"),
-				ConfigTechReborn.FortuneSecondaryOreMultiplierPerLevel);
+				secondaryDropChance);
 			OreDrop redGarnet = new OreDrop(ItemGems.getGemByName("red_garnet"), 0.02);
 			OreDropSet set = new OreDropSet(ruby);
 			return set.drop(fortune, random);
@@ -121,7 +127,7 @@ public class BlockOre extends Block implements IOreNameProvider {
 		// Sapphire
 		if (variant.equalsIgnoreCase("Sapphire")) {
 			OreDrop sapphire = new OreDrop(ItemGems.getGemByName("sapphire"),
-				ConfigTechReborn.FortuneSecondaryOreMultiplierPerLevel);
+				secondaryDropChance);
 			OreDrop peridot = new OreDrop(ItemGems.getGemByName("peridot"), 0.03);
 			OreDropSet set = new OreDropSet(sapphire, peridot);
 			return set.drop(fortune, random);
@@ -130,7 +136,7 @@ public class BlockOre extends Block implements IOreNameProvider {
 		// Pyrite
 		if (variant.equalsIgnoreCase("Pyrite")) {
 			OreDrop pyriteDust = new OreDrop(ItemDusts.getDustByName("pyrite"),
-				ConfigTechReborn.FortuneSecondaryOreMultiplierPerLevel);
+				secondaryDropChance);
 			OreDropSet set = new OreDropSet(pyriteDust);
 			return set.drop(fortune, random);
 		}
@@ -138,7 +144,7 @@ public class BlockOre extends Block implements IOreNameProvider {
 		// Sodalite
 		if (variant.equalsIgnoreCase("Sodalite")) {
 			OreDrop sodalite = new OreDrop(ItemDusts.getDustByName("sodalite", 6),
-				ConfigTechReborn.FortuneSecondaryOreMultiplierPerLevel);
+				secondaryDropChance);
 			OreDrop aluminum = new OreDrop(ItemDusts.getDustByName("aluminum"), 0.50);
 			OreDropSet set = new OreDropSet(sodalite, aluminum);
 			return set.drop(fortune, random);
@@ -147,7 +153,7 @@ public class BlockOre extends Block implements IOreNameProvider {
 		// Cinnabar
 		if (variant.equalsIgnoreCase("Cinnabar")) {
 			OreDrop cinnabar = new OreDrop(ItemDusts.getDustByName("cinnabar"),
-				ConfigTechReborn.FortuneSecondaryOreMultiplierPerLevel);
+				secondaryDropChance);
 			OreDrop redstone = new OreDrop(new ItemStack(Items.REDSTONE), 0.25);
 			OreDropSet set = new OreDropSet(cinnabar, redstone);
 			return set.drop(fortune, random);
@@ -156,7 +162,7 @@ public class BlockOre extends Block implements IOreNameProvider {
 		// Sphalerite 1, 1/8 yellow garnet
 		if (variant.equalsIgnoreCase("Sphalerite")) {
 			OreDrop sphalerite = new OreDrop(ItemDusts.getDustByName("sphalerite"),
-				ConfigTechReborn.FortuneSecondaryOreMultiplierPerLevel);
+				secondaryDropChance);
 			OreDrop yellowGarnet = new OreDrop(ItemGems.getGemByName("yellowGarnet"), 0.125);
 			OreDropSet set = new OreDropSet(sphalerite, yellowGarnet);
 			return set.drop(fortune, random);

@@ -48,7 +48,6 @@ import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.util.ChatUtils;
 import techreborn.client.TechRebornCreativeTab;
-import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
 import techreborn.lib.MessageIDs;
 
@@ -160,7 +159,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 						stack.setTagCompound(new NBTTagCompound());
 					}
 					stack.getTagCompound().setBoolean("isActive", true);
-					if (world.isRemote && ConfigTechReborn.NanosaberChat) {
+					if (world.isRemote) {
 						ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
 							TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.setTo") + " "
 								+ TextFormatting.GOLD + I18n
@@ -168,7 +167,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 					}
 				} else {
 					stack.getTagCompound().setBoolean("isActive", false);
-					if (world.isRemote && ConfigTechReborn.NanosaberChat) {
+					if (world.isRemote) {
 						ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
 							TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.setTo") + " "
 								+ TextFormatting.GOLD + I18n

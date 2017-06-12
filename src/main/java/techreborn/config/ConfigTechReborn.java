@@ -25,9 +25,13 @@
 package techreborn.config;
 
 import net.minecraftforge.common.config.Configuration;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
+import techreborn.lib.ModInfo;
 
 import java.io.File;
 
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class ConfigTechReborn {
 	public static String CATEGORY_WORLD = "world";
 	public static String CATEGORY_POWER = "power";
@@ -37,24 +41,8 @@ public class ConfigTechReborn {
 	public static String CATEGORY_INTEGRATION = "Integration";
 	public static String CATEGORY_FEATURES = "Features";
 
-	public static double FortuneSecondaryOreMultiplierPerLevel;
-	public static boolean RubberSaplingLoot;
-	public static boolean TinIngotsLoot;
-	public static boolean CopperIngotsLoot;
-	public static boolean SteelIngotsLoot;
-	public static boolean UninsulatedElectocutionSound;
-	public static boolean UninsulatedElectocutionParticle;
-	public static boolean UninsulatedElectocutionDamage;
-	public static boolean ScrapboxDispenser;
-	public static boolean disableRailcraftSteelNuggetRecipe;
-	// Power
-
-	public static int LVTransformerMaxInput;
-	public static int LVTransformerMaxOutput;
-	public static int MVTransformerMaxInput;
-	public static int MVTransformerMaxOutput;
-	public static int HVTransformerMaxInput;
-	public static int HVTransformerMaxOutput;
+	@ConfigRegistry(config = "recipes", category = "railcraft", key = "disableRailcraftNugget", comment = "When true TechReborn will remove Railcrafts Iron Nugget to steel nuggert recipe.")
+	public static boolean disableRailcraftSteelNuggetRecipe = false;
 	// Charge
 	public static int IronDrillCharge;
 	public static int DiamondDrillCharge;
@@ -74,20 +62,9 @@ public class ConfigTechReborn {
 	public static int CentrifugeCharge;
 	public static int ThermalGeneratorCharge;
 
-	public static boolean FreqTransmitterChat;
-	public static boolean FreqTransmitterTooltip;
-	public static boolean NanosaberChat;
-	// EU/T
-	public static int CloakingDeviceEUTick;
 	// Crafting
-	public static boolean ExpensiveMacerator;
-	public static boolean ExpensiveDrill;
-	public static boolean ExpensiveDiamondDrill;
-	public static boolean ExpensiveSolar;
-	public static boolean ExpensiveWatermill;
-	public static boolean ExpensiveWindmill;
-	public static boolean REMOVE_DUPLICATES;
-	public static boolean ExpensiveQuarry;
+	@ConfigRegistry(config = "recipes", category = "ic2", key = "deduplicate", comment = "Changes a lot of reipes and hides blocks to intrgrade TechReborn into IC2")
+	public static boolean REMOVE_DUPLICATES = false;
 	// Client
 	public static boolean ShowChargeHud;
 
@@ -125,38 +102,6 @@ public class ConfigTechReborn {
 	}
 
 	public static void Configs() {
-		RubberSaplingLoot = config
-			.get(CATEGORY_WORLD, "Rubber Sapling Loot", true, "Allow Rubber Saplings to generate in loot chests")
-			.getBoolean(true);
-
-		CopperIngotsLoot = config
-			.get(CATEGORY_WORLD, "Copper Ingots Loot", true, "Allow Copper Ingots to generate in loot chests")
-			.getBoolean(true);
-
-		TinIngotsLoot = config
-			.get(CATEGORY_WORLD, "Tin Ingots Loot", true, "Allow Tin Ingots to generate in loot chests")
-			.getBoolean(true);
-
-		SteelIngotsLoot = config
-			.get(CATEGORY_WORLD, "Steel Ingots Loot", true, "Allow Steel Ingots to generate in loot chests")
-			.getBoolean(true);
-
-		FortuneSecondaryOreMultiplierPerLevel = config.get(CATEGORY_WORLD, "FortuneSecondaryOreMultiplierPerLevel", 0.5,
-			"FortuneSecondaryOreMultiplierPerLevel").getDouble();
-
-		//Transformers
-		LVTransformerMaxInput = config.get(CATEGORY_POWER, "LV Transformer Max Input", 128, "Set the max input for the LV Trasnformer")
-			.getInt();
-		LVTransformerMaxOutput = config.get(CATEGORY_POWER, "LV Transformer Max Output", 32, "Set the max output for the LV Trasnformer")
-			.getInt();
-		MVTransformerMaxInput = config.get(CATEGORY_POWER, "MV Transformer Max Input", 512, "Set the max input for the MV Trasnformer")
-			.getInt();
-		MVTransformerMaxOutput = config.get(CATEGORY_POWER, "MV Transformer Max Output", 128, "Set the max output for the MV Trasnformer")
-			.getInt();
-		HVTransformerMaxInput = config.get(CATEGORY_POWER, "HV Transformer Max Input", 2048, "Set the max input for the HV Trasnformer")
-			.getInt();
-		HVTransformerMaxOutput = config.get(CATEGORY_POWER, "HV Transformer Max Output", 512, "Set the max output for the HV Trasnformer")
-			.getInt();
 
 		// Charge
 		IronDrillCharge = config
@@ -219,71 +164,12 @@ public class ConfigTechReborn {
 		ThermalGeneratorCharge = config.get(CATEGORY_POWER, "ThermalGenerator MaxCharge", 1000000,
 			"Set the max charge for the ThermalGenerator").getInt();
 
-		//Features
-		FreqTransmitterChat = config
-			.get(CATEGORY_FEATURES, "Frequency Transmitter Chat messages", true, "Allow Frequency Transmitter chat messages")
-			.getBoolean(true);
-
-		FreqTransmitterTooltip = config
-			.get(CATEGORY_FEATURES, "Frequency Transmitter tooltips", true, "Allow Frequency Transmitter to display tooltip info")
-			.getBoolean(true);
-
-		NanosaberChat = config
-			.get(CATEGORY_FEATURES, "Nanosaber Chat messages", true, "Allow Nanosaber chat messages")
-			.getBoolean(true);
 
 		enableGemArmorAndTools = config.get(CATEGORY_FEATURES, "Gem tools and armor", true, "Should the gem tools and armor be added to the game").getBoolean(true);
-
-		// Crafting
-		ExpensiveMacerator = config
-			.get(CATEGORY_CRAFTING, "Expensive Macerator", true, "Allow TechReborn to change the Macerator recipe")
-			.getBoolean(true);
-
-		ExpensiveDrill = config
-			.get(CATEGORY_CRAFTING, "Expensive Drill", true, "Allow TechReborn to change the Drill recipe")
-			.getBoolean(true);
-
-		ExpensiveDiamondDrill = config.get(CATEGORY_CRAFTING, "Expensive DiamondDrill", true,
-			"Allow TechReborn to change the DiamondDrill recipe").getBoolean(true);
-
-		ExpensiveSolar = config.get(CATEGORY_CRAFTING, "Expensive Solarpanels", true,
-			"Allow TechReborn to change the Solarpanels recipe").getBoolean(true);
-
-		ExpensiveWatermill = config
-			.get(CATEGORY_CRAFTING, "Expensive Watermill", true, "Allow TechReborn to change the Watermill recipe")
-			.getBoolean(true);
-
-		ExpensiveWindmill = config
-			.get(CATEGORY_CRAFTING, "Expensive Windmill", true, "Allow TechReborn to change the Windmill recipe")
-			.getBoolean(true);
-
-		REMOVE_DUPLICATES = config
-			.get(CATEGORY_CRAFTING, "Remove Duplicates when IC2 is installed", false, "This attempts to fully integrate TR with ic2 recipes (Beta)")
-			.getBoolean(false);
-
-		ExpensiveQuarry = config
-			.get(CATEGORY_CRAFTING, "Expensive Buildcraft quarry", true, "Change the buildcraft quarry recipe to require the diamond drill")
-			.getBoolean(true);
-
-		disableRailcraftSteelNuggetRecipe = config.get(CATEGORY_CRAFTING, "Disable Railcraft's Steel nugget recipe", false, "When true TechReborn will remove Railcrafts Iron Nugget to steel nuggert recipe.").getBoolean(false);
 
 		ShowChargeHud = config.get(CATEGORY_POWER, "Show Charge hud", true, "Show Charge hud (ClientSideOnly)")
 			.getBoolean(true);
 
-		UninsulatedElectocutionDamage = config.get(CATEGORY_WORLD, "Uninsulated Electrocution Damage", true,
-			"Damage entities on contact with uninsulated cables").getBoolean(true);
-		UninsulatedElectocutionSound = config.get(CATEGORY_WORLD, "Uninsulated Electrocution Sound", true,
-			"Play sound on contact with uninsulated cables").getBoolean(true);
-		UninsulatedElectocutionParticle = config.get(CATEGORY_WORLD, "Uninsulated Electrocution Particle", true,
-			"Spawn particles on contact with uninsulated cables").getBoolean(true);
-
-		ScrapboxDispenser = config
-			.get(CATEGORY_WORLD, "Scrapboxes in Dispenser", true, "Allow scrapboxes to be opened via dispenser")
-			.getBoolean(true);
-
-		ExpensiveWatermill = config
-			.get(CATEGORY_CRAFTING, "Expensive Watermill", true, "Allow TechReborn to change the Watermill recipe")
-			.getBoolean(true);
 
 		if (config.hasChanged()) {
 			config.save();

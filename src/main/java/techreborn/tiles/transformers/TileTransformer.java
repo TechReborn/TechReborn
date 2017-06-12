@@ -46,14 +46,14 @@ public class TileTransformer extends TilePowerAcceptor implements IWrenchable, I
 	public int maxOutput;
 	public int maxStorage;
 
-	public TileTransformer(String name, Block wrenchDrop, EnumPowerTier tier, int maxInput, int maxOuput, int maxStorage) {
+	public TileTransformer(String name, Block wrenchDrop, EnumPowerTier tier) {
 		super(1);
 		this.wrenchDrop = wrenchDrop;
 		this.tier = tier;
 		this.name = name;
-		this.maxInput = maxInput;
-		this.maxOutput = maxOuput;
-		this.maxStorage = maxStorage;
+		this.maxInput = tier.getMaxInput();
+		this.maxOutput = tier.getMaxOutput();
+		this.maxStorage = tier.getMaxInput() * 2;
 	}
 
 	@Override

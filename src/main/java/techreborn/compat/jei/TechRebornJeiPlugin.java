@@ -79,7 +79,7 @@ import techreborn.compat.jei.scrapbox.ScrapboxRecipeCategory;
 import techreborn.compat.jei.scrapbox.ScrapboxRecipeHandler;
 import techreborn.compat.jei.vacuumFreezer.VacuumFreezerRecipeCategory;
 import techreborn.compat.jei.vacuumFreezer.VacuumFreezerRecipeHandler;
-import techreborn.config.ConfigTechReborn;
+import techreborn.dispenser.BehaviorDispenseScrapbox;
 import techreborn.init.IC2Duplicates;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModFluids;
@@ -226,7 +226,7 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 
 		registry.addDescription(ItemParts.getPartByName("rubberSap"),
 			I18n.translateToLocal("techreborn.desc.rubberSap"));
-		if (!ConfigTechReborn.ScrapboxDispenser) {
+		if (!BehaviorDispenseScrapbox.dispenseScrapboxes) {
 			registry.addDescription(new ItemStack(ModItems.SCRAP_BOX),
 				I18n.translateToLocal("techreborn.desc.scrapBoxNoDispenser"));
 		} else {

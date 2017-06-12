@@ -53,7 +53,6 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.dispenser.BehaviorDispenseScrapbox;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.events.BlockBreakHandler;
-import techreborn.events.OreUnifier;
 import techreborn.events.TRTickHandler;
 import techreborn.init.*;
 import techreborn.lib.ModInfo;
@@ -169,10 +168,9 @@ public class Core {
 		MinecraftForge.EVENT_BUS.register(IDSUManager.INSTANCE);
 		MinecraftForge.EVENT_BUS.register(new MultiblockServerTickHandler());
 		MinecraftForge.EVENT_BUS.register(new TRTickHandler());
-		MinecraftForge.EVENT_BUS.register(new OreUnifier());
 		//MinecraftForge.EVENT_BUS.register(worldGen.retroGen);
 		// Scrapbox
-		if (config.ScrapboxDispenser) {
+		if (BehaviorDispenseScrapbox.dispenseScrapboxes) {
 			BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(ModItems.SCRAP_BOX, new BehaviorDispenseScrapbox());
 		}
 		logHelper.info("Initialization Complete");

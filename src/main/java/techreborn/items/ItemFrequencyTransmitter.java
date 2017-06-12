@@ -42,7 +42,6 @@ import reborncore.client.hud.StackInfoElement;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.Color;
 import techreborn.client.TechRebornCreativeTabMisc;
-import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
 import techreborn.lib.MessageIDs;
 
@@ -80,7 +79,7 @@ public class ItemFrequencyTransmitter extends ItemTRNoDestroy {
 		stack.getTagCompound().setInteger("z", pos.getZ());
 		stack.getTagCompound().setInteger("dim", world.provider.getDimension());
 
-		if (!world.isRemote && ConfigTechReborn.FreqTransmitterChat) {
+		if (!world.isRemote) {
 			ChatUtils.sendNoSpamMessages(MessageIDs.freqTransmitterID, new TextComponentString(
 				TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.setTo") + " X: " +
 					TextFormatting.GOLD + pos.getX() +
@@ -101,7 +100,7 @@ public class ItemFrequencyTransmitter extends ItemTRNoDestroy {
 		ItemStack stack = player.getHeldItem(hand);
 		if (player.isSneaking()) {
 			stack.setTagCompound(null);
-			if (!world.isRemote && ConfigTechReborn.FreqTransmitterChat) {
+			if (!world.isRemote) {
 				ChatUtils.sendNoSpamMessages(MessageIDs.freqTransmitterID, new TextComponentString(
 					TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.coordsHaveBeen") + " "
 						+ TextFormatting.GOLD + I18n.translateToLocal("techreborn.message.cleared")));
@@ -112,21 +111,19 @@ public class ItemFrequencyTransmitter extends ItemTRNoDestroy {
 	}
 
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
-		if (ConfigTechReborn.FreqTransmitterTooltip) {
-			if (stack.hasTagCompound() && stack.getTagCompound() != null && stack.getTagCompound().hasKey("x") && stack.getTagCompound().hasKey("y") && stack.getTagCompound().hasKey("z") && stack.getTagCompound().hasKey("dim")) {
-				int x = stack.getTagCompound().getInteger("x");
-				int y = stack.getTagCompound().getInteger("y");
-				int z = stack.getTagCompound().getInteger("z");
-				int dim = stack.getTagCompound().getInteger("dim");
+		if (stack.hasTagCompound() && stack.getTagCompound() != null && stack.getTagCompound().hasKey("x") && stack.getTagCompound().hasKey("y") && stack.getTagCompound().hasKey("z") && stack.getTagCompound().hasKey("dim")) {
+			int x = stack.getTagCompound().getInteger("x");
+			int y = stack.getTagCompound().getInteger("y");
+			int z = stack.getTagCompound().getInteger("z");
+			int dim = stack.getTagCompound().getInteger("dim");
 
-				list.add(TextFormatting.GRAY + "X: " + TextFormatting.GOLD + x);
-				list.add(TextFormatting.GRAY + "Y: " + TextFormatting.GOLD + y);
-				list.add(TextFormatting.GRAY + "Z: " + TextFormatting.GOLD + z);
-				list.add(TextFormatting.DARK_GRAY + DimensionManager.getProviderType(dim).getName());
+			list.add(TextFormatting.GRAY + "X: " + TextFormatting.GOLD + x);
+			list.add(TextFormatting.GRAY + "Y: " + TextFormatting.GOLD + y);
+			list.add(TextFormatting.GRAY + "Z: " + TextFormatting.GOLD + z);
+			list.add(TextFormatting.DARK_GRAY + DimensionManager.getProviderType(dim).getName());
 
-			} else {
-				list.add(TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.noCoordsSet"));
-			}
+		} else {
+			list.add(TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.noCoordsSet"));
 		}
 	}
 

@@ -34,6 +34,8 @@ import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.api.recipe.RecipeHandler;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.CraftingHelper;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.OreUtil;
@@ -48,6 +50,7 @@ import techreborn.compat.CompatManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.recipes.*;
 import techreborn.items.*;
+import techreborn.lib.ModInfo;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -57,8 +60,14 @@ import static techreborn.utils.OreDictUtils.getDictOreOrEmpty;
 import static techreborn.utils.OreDictUtils.isDictPrefixed;
 import static techreborn.utils.OreDictUtils.joinDictName;
 
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class ModRecipes {
-	public static ConfigTechReborn config;
+
+	@ConfigRegistry(config = "recipes", category = "changes", key = "expesive_macerator", comment = "Enable the expensive macertor recipe")
+	public static boolean expensiveMacerator = false;
+
+	@ConfigRegistry(config = "recipes", category = "changes", key = "expesive_solar", comment = "Enable the expensive solar panel recipe")
+	public static boolean expensiveSolar = false;
 
 	public static void init() {
 		//Gonna rescan to make sure we have an uptodate list
@@ -936,13 +945,13 @@ public class ModRecipes {
 			ItemCells.getCellByName("empty"), ItemCells.getCellByName("nitrogenDioxide", 2), 1240,
 			30));
 
-		if (ConfigTechReborn.ExpensiveMacerator && !IC2Duplicates.deduplicate())
+		if (expensiveMacerator && !IC2Duplicates.deduplicate())
 			CraftingHelper
 				.addShapedOreRecipe(getOre("ic2Macerator"), "FDF", "DMD", "FCF", 'F',
 					Items.FLINT, 'D', Items.DIAMOND, 'M', "machineBlockBasic", 'C',
 					"circuitBasic");
 
-		if (ConfigTechReborn.ExpensiveSolar && !IC2Duplicates.deduplicate())
+		if (expensiveSolar && !IC2Duplicates.deduplicate())
 			CraftingHelper
 				.addShapedOreRecipe(IC2Duplicates.SOLAR_PANEL.getStackBasedOnConfig(), "PPP", "SZS", "CGC", 'P',
 					"paneGlass", 'S', "platelazurite", 'Z',
