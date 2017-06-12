@@ -31,8 +31,7 @@ import mezz.jei.api.recipe.BlankRecipeWrapper;
 import mezz.jei.api.recipe.wrapper.ICraftingRecipeWrapper;
 import mezz.jei.plugins.vanilla.crafting.ShapedOreRecipeWrapper;
 import mezz.jei.plugins.vanilla.crafting.ShapedRecipesWrapper;
-import mezz.jei.plugins.vanilla.crafting.ShapelessOreRecipeWrapper;
-import mezz.jei.plugins.vanilla.crafting.ShapelessRecipesWrapper;
+import mezz.jei.plugins.vanilla.crafting.ShapelessRecipeWrapper;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
@@ -56,13 +55,13 @@ public class RollingMachineRecipeWrapper extends BlankRecipeWrapper implements I
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 		ICraftingRecipeWrapper recipeWrapper;
 		if (baseRecipe instanceof ShapelessRecipes) {
-			recipeWrapper = new ShapelessRecipesWrapper((ShapelessRecipes) baseRecipe);
+			recipeWrapper = new ShapelessRecipeWrapper(jeiHelpers, baseRecipe);
 		} else if (baseRecipe instanceof ShapedRecipes) {
-			recipeWrapper = new ShapedRecipesWrapper((ShapedRecipes) baseRecipe);
+			recipeWrapper = new ShapedRecipesWrapper(jeiHelpers, (ShapedRecipes) baseRecipe);
 		} else if (baseRecipe instanceof ShapedOreRecipe) {
 			recipeWrapper = new ShapedOreRecipeWrapper(jeiHelpers, (ShapedOreRecipe) baseRecipe);
 		} else if (baseRecipe instanceof ShapelessOreRecipe) {
-			recipeWrapper = new ShapelessOreRecipeWrapper(jeiHelpers, (ShapelessOreRecipe) baseRecipe);
+			recipeWrapper = new ShapelessRecipeWrapper(jeiHelpers,  baseRecipe);
 		} else {
 			return null;
 		}
