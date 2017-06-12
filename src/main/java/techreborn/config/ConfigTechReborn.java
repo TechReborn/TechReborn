@@ -48,7 +48,7 @@ public class ConfigTechReborn {
 	public static boolean ScrapboxDispenser;
 	public static boolean disableRailcraftSteelNuggetRecipe;
 	// Power
-	public static int $$$$$$$$$$$$DONT_DELETE_$$$$$$$$$$$AverageEuOutTickTime;
+
 	public static int pumpExtractEU;
 
 	public static int LVTransformerMaxInput;
@@ -109,60 +109,10 @@ public class ConfigTechReborn {
 	public static boolean ExpensiveWindmill;
 	public static boolean REMOVE_DUPLICATES;
 	public static boolean ExpensiveQuarry;
-	// UU
-	public static boolean HideUuRecipes;
-	public static boolean UUrecipesIridiamOre;
-	public static boolean UUrecipesWood;
-	public static boolean UUrecipesStone;
-	public static boolean UUrecipesSnowBlock;
-	public static boolean UUrecipesGrass;
-	public static boolean UUrecipesObsidian;
-	public static boolean UUrecipesGlass;
-	public static boolean UUrecipesWater;
-	public static boolean UUrecipesLava;
-	public static boolean UUrecipesCocoa;
-	public static boolean UUrecipesGunpowder;
-	public static boolean UUrecipesGlowstoneBlock;
-	public static boolean UUrecipesCactus;
-	public static boolean UUrecipesSugarCane;
-	public static boolean UUrecipesVine;
-	public static boolean UUrecipesSnowBall;
-	public static boolean UUrecipeslilypad;
-	public static boolean UUrecipesBone;
-	public static boolean UUrecipesFeather;
-	public static boolean UUrecipesInk;
-	public static boolean UUrecipesEnderPearl;
-	public static boolean UUrecipesCoal;
-	public static boolean UUrecipesIronOre;
-	public static boolean UUrecipesIronDust;
-	public static boolean UUrecipesGoldOre;
-	public static boolean UUrecipesGoldDust;
-	public static boolean UUrecipesRedStone;
-	public static boolean UUrecipesLapis;
-	public static boolean UUrecipesEmeraldOre;
-	public static boolean UUrecipesEmerald;
-	public static boolean UUrecipesDiamond;
-	public static boolean UUrecipesResin;
-	public static boolean UUrecipesTinDust;
-	public static boolean UUrecipesCopperDust;
-	public static boolean UUrecipesLeadDust;
-	public static boolean UUrecipesPlatinumDust;
-	public static boolean UUrecipesTungstenDust;
-	public static boolean UUrecipesTitaniumDust;
-	public static boolean UUrecipesAluminumDust;
-	// Integration
-	public static boolean AllowForestryRecipes;
-	public static boolean AllowBOPRecipes;
-	public static boolean AllowNaturaRecipes;
 	// Client
 	public static boolean ShowChargeHud;
-	// EMC
-	public static boolean UseConnectedTextures;
-	public static boolean OreUnifer;
 
 	public static boolean enableGemArmorAndTools;
-
-	public static boolean veinOres;
 
 	public static Configuration config;
 	private static ConfigTechReborn instance = null;
@@ -211,10 +161,6 @@ public class ConfigTechReborn {
 		SteelIngotsLoot = config
 			.get(CATEGORY_WORLD, "Steel Ingots Loot", true, "Allow Steel Ingots to generate in loot chests")
 			.getBoolean(true);
-
-		veinOres = config
-			.get(CATEGORY_WORLD, "Custom Ore veins", false, "Use the new style GT vein ore generation - game restart required")
-			.getBoolean(false);
 
 		FortuneSecondaryOreMultiplierPerLevel = config.get(CATEGORY_WORLD, "FortuneSecondaryOreMultiplierPerLevel", 0.5,
 			"FortuneSecondaryOreMultiplierPerLevel").getDouble();
@@ -297,9 +243,6 @@ public class ConfigTechReborn {
 
 		ThermalGeneratorCharge = config.get(CATEGORY_POWER, "ThermalGenerator MaxCharge", 1000000,
 			"Set the max charge for the ThermalGenerator").getInt();
-
-		$$$$$$$$$$$$DONT_DELETE_$$$$$$$$$$$AverageEuOutTickTime = config.get(CATEGORY_POWER, "Average EU-out Tick Time", 100,
-			"Set the average EU-out tick time").getInt();
 
 		// Tier
 		IronDrillTier = config.get(CATEGORY_POWER, "IronDrill Tier", 2, "Set the Tier of the iron drill").getInt();
@@ -400,141 +343,8 @@ public class ConfigTechReborn {
 
 		disableRailcraftSteelNuggetRecipe = config.get(CATEGORY_CRAFTING, "Disable Railcraft's Steel nugget recipe", false, "When true TechReborn will remove Railcrafts Iron Nugget to steel nuggert recipe.").getBoolean(false);
 
-		// Uu
-		HideUuRecipes = config.get(CATEGORY_UU, "Hide UU Recipes", true, "Hide UU Recipes from JEI/NEI")
-			.getBoolean(true);
-
-		UUrecipesIridiamOre = config
-			.get(CATEGORY_UU, "UUrecipe IridiamOre", true, "Allow Iridium Ore to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesWood = config.get(CATEGORY_UU, "UUrecipe Wood", true, "Allow Wood to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesStone = config.get(CATEGORY_UU, "UUrecipe Stone", true, "Allow Stone to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesSnowBlock = config
-			.get(CATEGORY_UU, "UUrecipe SnowBlock", true, "Allow Snow Blocks to be crafted with UU").getBoolean(true);
-
-		UUrecipesGrass = config.get(CATEGORY_UU, "UUrecipe Grass", true, "Allow Grass to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesObsidian = config.get(CATEGORY_UU, "UUrecipe Obsidian", true, "Allow Obsidian to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesGlass = config.get(CATEGORY_UU, "UUrecipe Glass", true, "Allow Glass to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesWater = config.get(CATEGORY_UU, "UUrecipe Water", true, "Allow Water to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesLava = config.get(CATEGORY_UU, "UUrecipe Lava", true, "Allow Lava to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesCocoa = config.get(CATEGORY_UU, "UUrecipe Cocoa", true, "Allow Cocoa to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesGlowstoneBlock = config
-			.get(CATEGORY_UU, "UUrecipe GlowstoneBlock", true, "Allow Glowstone Blocks to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesCactus = config.get(CATEGORY_UU, "UUrecipe Cactus", true, "Allow Cactus to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesSugarCane = config
-			.get(CATEGORY_UU, "UUrecipe SugarCane", true, "Allow SugarCane to be crafted with UU").getBoolean(true);
-
-		UUrecipesVine = config.get(CATEGORY_UU, "UUrecipe Vine", true, "Allow Vines to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesSnowBall = config.get(CATEGORY_UU, "UUrecipe SnowBall", true, "Allow SnowBall to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipeslilypad = config.get(CATEGORY_UU, "UUrecipe lilypad", true, "Allow lilypads to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesBone = config.get(CATEGORY_UU, "UUrecipe Bone", true, "Allow Bones to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesFeather = config.get(CATEGORY_UU, "UUrecipe Feather", true, "Allow Feathers to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesInk = config.get(CATEGORY_UU, "UUrecipe Ink", true, "Allow Ink to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesEnderPearl = config
-			.get(CATEGORY_UU, "UUrecipe EnderPearl", true, "Allow EnderPearls to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesCoal = config.get(CATEGORY_UU, "UUrecipe Coal", true, "Allow Coal to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesIronOre = config.get(CATEGORY_UU, "UUrecipe IronOre", true, "Allow Iron Ore to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesIronDust = config.get(CATEGORY_UU, "UUrecipe IronDust", true, "Allow Iron Dust to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesGoldOre = config.get(CATEGORY_UU, "UUrecipe GoldOre", true, "Allow Gold Ore to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesGoldDust = config.get(CATEGORY_UU, "UUrecipe GoldDust", true, "Allow Gold Dust to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesRedStone = config.get(CATEGORY_UU, "UUrecipe RedStone", true, "Allow Redstone to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesLapis = config.get(CATEGORY_UU, "UUrecipe Lapis", true, "Allow Lapis to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesEmeraldOre = config
-			.get(CATEGORY_UU, "UUrecipe EmeraldOre", true, "Allow EmeraldOre to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesEmerald = config.get(CATEGORY_UU, "UUrecipe Emerald", true, "Allow Emerald to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesDiamond = config.get(CATEGORY_UU, "UUrecipe Diamond", true, "Allow Diamond to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesResin = config.get(CATEGORY_UU, "UUrecipe Resin", true, "Allow Resin to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesTinDust = config.get(CATEGORY_UU, "UUrecipe TinDust", true, "Allow TinDust to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesCopperDust = config
-			.get(CATEGORY_UU, "UUrecipe CopperDust", true, "Allow CopperDust to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesLeadDust = config.get(CATEGORY_UU, "UUrecipe LeadDust", true, "Allow LeadDust to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesPlatinumDust = config
-			.get(CATEGORY_UU, "UUrecipe PlatinumDust", true, "Allow PlatinumDust to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesTungstenDust = config
-			.get(CATEGORY_UU, "UUrecipe TungstenDust", true, "Allow TungstenDust to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesTitaniumDust = config
-			.get(CATEGORY_UU, "UUrecipe TitaniumDust", true, "Allow TitaniumDust to be crafted with UU")
-			.getBoolean(true);
-
-		UUrecipesAluminumDust = config
-			.get(CATEGORY_UU, "UUrecipe AluminumDust", true, "Allow AluminumDust to be crafted with UU")
-			.getBoolean(true);
-
 		ShowChargeHud = config.get(CATEGORY_POWER, "Show Charge hud", true, "Show Charge hud (ClientSideOnly)")
 			.getBoolean(true);
-
-		UseConnectedTextures = config.get(CATEGORY_INTEGRATION, "Render Conected Textures", true,
-			"Render Conected Textures (Client Side Only)").getBoolean(true);
-
-		OreUnifer = config.get(CATEGORY_INTEGRATION, "OreUnifer", false, "Change all ores into TechReborn Ores")
-			.getBoolean(false);
 
 		UninsulatedElectocutionDamage = config.get(CATEGORY_WORLD, "Uninsulated Electrocution Damage", true,
 			"Damage entities on contact with uninsulated cables").getBoolean(true);
@@ -549,16 +359,6 @@ public class ConfigTechReborn {
 
 		ExpensiveWatermill = config
 			.get(CATEGORY_CRAFTING, "Expensive Watermill", true, "Allow TechReborn to change the Watermill recipe")
-			.getBoolean(true);
-
-		// Integration
-		AllowBOPRecipes = config.get(CATEGORY_INTEGRATION, "Allow Bop Recipes", true, "Add BOP support")
-			.getBoolean(true);
-
-		AllowForestryRecipes = config.get(CATEGORY_INTEGRATION, "Allow Forestry Recipes", true, "Add Forestry support")
-			.getBoolean(true);
-
-		AllowNaturaRecipes = config.get(CATEGORY_INTEGRATION, "Allow Natura Recipes", true, "Add Natura support")
 			.getBoolean(true);
 
 		if (config.hasChanged()) {

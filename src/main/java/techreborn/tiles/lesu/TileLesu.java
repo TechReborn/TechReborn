@@ -32,7 +32,6 @@ import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import techreborn.blocks.storage.BlockLESU;
-import techreborn.config.ConfigTechReborn;
 import techreborn.lib.ModInfo;
 
 import java.util.ArrayList;
@@ -94,7 +93,7 @@ public class TileLesu extends TilePowerAcceptor {// TODO wrench
 		maxStorage = ((connectedBlocks + 1) * storagePerBlock);
 		output = (connectedBlocks * extraIOPerBlock) + baseOutput;
 
-		if (ticks == ConfigTechReborn.$$$$$$$$$$$$DONT_DELETE_$$$$$$$$$$$AverageEuOutTickTime) {
+		if (ticks == 100) {
 			euChange = -1;
 			ticks = 0;
 		} else {

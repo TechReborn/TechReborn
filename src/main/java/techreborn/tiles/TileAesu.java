@@ -33,7 +33,6 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
-import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 
@@ -60,7 +59,7 @@ public class TileAesu extends TilePowerAcceptor implements IWrenchable {
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		if (ticks == ConfigTechReborn.$$$$$$$$$$$$DONT_DELETE_$$$$$$$$$$$AverageEuOutTickTime) {
+		if (ticks == 100) {
 			euChange = -1;
 			ticks = 0;
 

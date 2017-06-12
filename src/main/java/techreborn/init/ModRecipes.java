@@ -900,8 +900,6 @@ public class ModRecipes {
 			.addSmelting(ItemDusts.getDustByName("silver", 1), ItemIngots.getIngotByName("silver"),
 				1F);
 
-		// UU
-		if (ConfigTechReborn.UUrecipesIridiamOre)
 			CraftingHelper
 				.addShapedOreRecipe((OreDictionary.getOres("oreIridium").get(0)), "UUU", " U ", "UUU", 'U',
 					ModItems.UU_MATTER);

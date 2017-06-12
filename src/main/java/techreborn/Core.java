@@ -64,7 +64,6 @@ import techreborn.proxies.CommonProxy;
 import techreborn.tiles.idsu.IDSUManager;
 import techreborn.utils.StackWIPHandler;
 import techreborn.world.TechRebornWorldGen;
-import techreborn.world.VeinWorldGenerator;
 
 import java.io.File;
 
@@ -133,11 +132,6 @@ public class Core {
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) throws IllegalAccessException, InstantiationException {
-		//World gen
-		VeinWorldGenerator.registerTRVeins();
-		if (ConfigTechReborn.veinOres) {
-			GameRegistry.registerWorldGenerator(VeinWorldGenerator.INSTANCE, 0);
-		}
 		// Registers Chest Loot
 		ModLoot.init();
 		// Multiparts
@@ -161,9 +155,7 @@ public class Core {
 		proxy.init(event);
 		// WorldGen
 		worldGen.load();
-		if (!ConfigTechReborn.veinOres) {
-			GameRegistry.registerWorldGenerator(worldGen, 0);
-		}
+		GameRegistry.registerWorldGenerator(worldGen, 0);
 
 		// DungeonLoot.init();
 		// Register Gui Handler
