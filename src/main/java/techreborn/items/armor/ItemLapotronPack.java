@@ -44,7 +44,6 @@ import techreborn.init.ModItems;
 public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo {
 
 	public static final int maxCharge = ConfigTechReborn.LapotronPackCharge;
-	public static final int tier = ConfigTechReborn.LapotronPackTier;
 	public double transferLimit = 100000;
 
 	public ItemLapotronPack() {
@@ -78,11 +77,6 @@ public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo {
 	@Override
 	public double getMaxTransfer(ItemStack stack) {
 		return transferLimit;
-	}
-
-	@Override
-	public int getStackTier(ItemStack stack) {
-		return tier;
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })

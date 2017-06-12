@@ -36,7 +36,7 @@ import techreborn.init.ModItems;
 public class ItemLapotronicOrb extends ItemBattery {
 
 	public ItemLapotronicOrb() {
-		super("lapotronicorb", ConfigTechReborn.LapotronicOrbMaxCharge, 10000, ConfigTechReborn.LapotronicOrbTier);
+		super("lapotronicorb", ConfigTechReborn.LapotronicOrbMaxCharge, 10000);
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })

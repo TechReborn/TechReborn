@@ -35,7 +35,7 @@ import techreborn.init.ModItems;
 public class ItemReBattery extends ItemBattery {
 
 	public ItemReBattery() {
-		super("rebattery", 10000, 64, 1);
+		super("rebattery", 10000, 64);
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })

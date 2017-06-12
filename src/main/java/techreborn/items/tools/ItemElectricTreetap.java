@@ -92,11 +92,6 @@ public class ItemElectricTreetap extends ItemTRNoDestroy implements IEnergyItemI
 		return 200;
 	}
 
-	@Override
-	public int getStackTier(ItemStack stack) {
-		return tier;
-	}
-
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
 	@Override

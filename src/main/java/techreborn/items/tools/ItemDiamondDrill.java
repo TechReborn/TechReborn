@@ -39,7 +39,7 @@ public class ItemDiamondDrill extends ItemDrill {
 
 	public ItemDiamondDrill() {
 		super(ToolMaterial.DIAMOND, "techreborn.diamondDrill", ConfigTechReborn.DiamondDrillCharge,
-			ConfigTechReborn.DiamondDrillTier, 0.5F, 15F);
+			 0.5F, 15F);
 		this.cost = 250;
 	}
 

@@ -46,14 +46,13 @@ import java.util.Random;
 
 public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
 
-	public static int tier = 1;
 	public int maxCharge = 1;
 	public int cost = 250;
 	public float unpoweredSpeed = 2.0F;
 	public double transferLimit = 100;
 	public boolean isBreaking = false;
 
-	public ItemChainsaw(ToolMaterial material, String unlocalizedName, int energyCapacity, int tier,
+	public ItemChainsaw(ToolMaterial material, String unlocalizedName, int energyCapacity,
 	                    float unpoweredSpeed) {
 		super(material);
 		efficiencyOnProperMaterial = 20F;
@@ -61,7 +60,6 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
 		setMaxStackSize(1);
 		setUnlocalizedName(unlocalizedName);
 		this.maxCharge = energyCapacity;
-		this.tier = tier;
 		this.unpoweredSpeed = unpoweredSpeed;
 
 		this.addPropertyOverride(new ResourceLocation("techreborn:animated"), new IItemPropertyGetter() {
@@ -123,11 +121,6 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
 	@Override
 	public double getMaxTransfer(ItemStack stack) {
 		return transferLimit;
-	}
-
-	@Override
-	public int getStackTier(ItemStack stack) {
-		return tier;
 	}
 
 }

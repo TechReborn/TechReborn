@@ -47,12 +47,11 @@ import java.util.Random;
 
 public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo {
 
-	public static int tier = 1;
 	public int maxCharge = 1;
 	public int cost = 250;
 	public double transferLimit = 100;
 
-	public ItemJackhammer(ToolMaterial material, String unlocalizedName, int energyCapacity, int tier) {
+	public ItemJackhammer(ToolMaterial material, String unlocalizedName, int energyCapacity) {
 		super(material);
 		efficiencyOnProperMaterial = 20F;
 		setCreativeTab(TechRebornCreativeTab.instance);
@@ -60,7 +59,6 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo {
 		setMaxDamage(240);
 		setUnlocalizedName(unlocalizedName);
 		this.maxCharge = energyCapacity;
-		this.tier = tier;
 	}
 
 	@Override
@@ -116,11 +114,6 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo {
 	@Override
 	public double getMaxTransfer(ItemStack stack) {
 		return transferLimit;
-	}
-
-	@Override
-	public int getStackTier(ItemStack stack) {
-		return tier;
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })

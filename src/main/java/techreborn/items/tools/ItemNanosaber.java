@@ -217,8 +217,4 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 		return 512;
 	}
 
-	@Override
-	public int getStackTier(ItemStack stack) {
-		return 2;
-	}
 }

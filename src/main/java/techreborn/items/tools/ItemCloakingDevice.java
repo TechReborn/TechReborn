@@ -41,7 +41,6 @@ import techreborn.init.ModItems;
 import techreborn.items.ItemTRNoDestroy;
 
 public class ItemCloakingDevice extends ItemTRNoDestroy implements IEnergyItemInfo {
-	public static int Teir = ConfigTechReborn.CloakingDeviceTier;
 	public static int MaxCharge = ConfigTechReborn.CloakingDeviceCharge;
 	public static int Limit = 100;
 	public static boolean isActive;
@@ -83,11 +82,6 @@ public class ItemCloakingDevice extends ItemTRNoDestroy implements IEnergyItemIn
 	@Override
 	public double getMaxTransfer(ItemStack stack) {
 		return Limit;
-	}
-
-	@Override
-	public int getStackTier(ItemStack stack) {
-		return Teir;
 	}
 
 	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {

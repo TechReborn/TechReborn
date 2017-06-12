@@ -40,15 +40,21 @@ import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Tank;
-import techreborn.config.ConfigTechReborn;
+import techreborn.lib.ModInfo;
 
 import java.util.List;
 
 /**
  * Created by modmuss50 on 08/05/2016.
  */
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TilePump extends TilePowerAcceptor {
+
+	@ConfigRegistry(config = "machines", category = "pump", key = "PumpEUCost", comment = "Pump cost for one block of fluid (Value in EU)")
+	public static int pumpExtractEU = 20;
 
 	public Tank tank = new Tank("TilePump", 10000, this);
 
@@ -59,11 +65,11 @@ public class TilePump extends TilePowerAcceptor {
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		if (!world.isRemote && world.getTotalWorldTime() % 10 == 0 && !tank.isFull() && tank.getCapacity() - tank.getFluidAmount() >= 1000 && canUseEnergy(ConfigTechReborn.pumpExtractEU)) {
+		if (!world.isRemote && world.getTotalWorldTime() % 10 == 0 && !tank.isFull() && tank.getCapacity() - tank.getFluidAmount() >= 1000 && canUseEnergy(pumpExtractEU)) {
 			FluidStack fluidStack = drainBlock(world, pos.down(), false);
 			if (fluidStack != null) {
 				tank.fill(drainBlock(world, pos.down(), true), true);
-				useEnergy(ConfigTechReborn.pumpExtractEU);
+				useEnergy(pumpExtractEU);
 			}
 			tank.compareAndUpdate();
 		}
@@ -73,7 +79,7 @@ public class TilePump extends TilePowerAcceptor {
 	public void addInfo(List<String> info, boolean isRealTile) {
 		super.addInfo(info, isRealTile);
 		info.add(TextFormatting.LIGHT_PURPLE + "Eu per extract " + TextFormatting.GREEN
-			+ PowerSystem.getLocaliszedPower(ConfigTechReborn.pumpExtractEU));
+			+ PowerSystem.getLocaliszedPower(pumpExtractEU));
 		info.add(TextFormatting.LIGHT_PURPLE + "Speed: " + TextFormatting.GREEN
 			+ "1000mb/5 sec");
 	}

@@ -50,7 +50,6 @@ import java.util.List;
 public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
 
 	public static final int maxCharge = ConfigTechReborn.OmniToolCharge;
-	public static final int tier = ConfigTechReborn.OmniToolTier;
 	public int cost = 100;
 	public int hitCost = 125;
 
@@ -133,11 +132,6 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
 	@Override
 	public double getMaxTransfer(ItemStack stack) {
 		return 200;
-	}
-
-	@Override
-	public int getStackTier(ItemStack stack) {
-		return 2;
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })

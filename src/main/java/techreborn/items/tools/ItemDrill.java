@@ -41,20 +41,18 @@ import java.util.Random;
 
 public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo {
 
-	public static int tier = 1;
 	public int maxCharge = 1;
 	public int cost = 250;
 	public float unpoweredSpeed = 2.0F;
 	public double transferLimit = 100;
 
-	public ItemDrill(ToolMaterial material, String unlocalizedName, int energyCapacity, int tier, float unpoweredSpeed, float efficiencyOnProperMaterial) {
+	public ItemDrill(ToolMaterial material, String unlocalizedName, int energyCapacity, float unpoweredSpeed, float efficiencyOnProperMaterial) {
 		super(material);
 		this.efficiencyOnProperMaterial = efficiencyOnProperMaterial;
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
 		setUnlocalizedName(unlocalizedName);
 		this.maxCharge = energyCapacity;
-		this.tier = tier;
 		this.unpoweredSpeed = unpoweredSpeed;
 	}
 
@@ -110,11 +108,6 @@ public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo {
 	@Override
 	public double getMaxTransfer(ItemStack stack) {
 		return transferLimit;
-	}
-
-	@Override
-	public int getStackTier(ItemStack stack) {
-		return tier;
 	}
 
 }

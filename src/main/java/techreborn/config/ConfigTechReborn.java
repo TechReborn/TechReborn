@@ -49,8 +49,6 @@ public class ConfigTechReborn {
 	public static boolean disableRailcraftSteelNuggetRecipe;
 	// Power
 
-	public static int pumpExtractEU;
-
 	public static int LVTransformerMaxInput;
 	public static int LVTransformerMaxOutput;
 	public static int MVTransformerMaxInput;
@@ -75,25 +73,6 @@ public class ConfigTechReborn {
 	public static int CloakingDeviceCharge;
 	public static int CentrifugeCharge;
 	public static int ThermalGeneratorCharge;
-
-	// Tier
-	public static int IronDrillTier;
-	public static int DiamondDrillTier;
-	public static int AdvancedDrillTier;
-	public static int IronChainsawTier;
-	public static int DiamondChainsawTier;
-	public static int AdvancedChainsawTier;
-	public static int SteelJackhammerTier;
-	public static int DiamondJackhammerTier;
-	public static int AdvancedJackhammerTier;
-	public static int LapotronPackTier;
-	public static int LapotronicOrbTier;
-	public static int LithiumBatpackTier;
-	public static int OmniToolTier;
-	public static int RockCutterTier;
-	public static int CloakingDeviceTier;
-	public static int CentrifugeTier;
-	public static int ThermalGeneratorTier;
 
 	public static boolean FreqTransmitterChat;
 	public static boolean FreqTransmitterTooltip;
@@ -164,10 +143,6 @@ public class ConfigTechReborn {
 
 		FortuneSecondaryOreMultiplierPerLevel = config.get(CATEGORY_WORLD, "FortuneSecondaryOreMultiplierPerLevel", 0.5,
 			"FortuneSecondaryOreMultiplierPerLevel").getDouble();
-
-		// Power
-		pumpExtractEU = config.get(CATEGORY_POWER, "Pump extract eu", 20, "How much eu should the pump use to extract the fluid")
-			.getInt();
 
 		//Transformers
 		LVTransformerMaxInput = config.get(CATEGORY_POWER, "LV Transformer Max Input", 128, "Set the max input for the LV Trasnformer")
@@ -243,57 +218,6 @@ public class ConfigTechReborn {
 
 		ThermalGeneratorCharge = config.get(CATEGORY_POWER, "ThermalGenerator MaxCharge", 1000000,
 			"Set the max charge for the ThermalGenerator").getInt();
-
-		// Tier
-		IronDrillTier = config.get(CATEGORY_POWER, "IronDrill Tier", 2, "Set the Tier of the iron drill").getInt();
-
-		DiamondDrillTier = config.get(CATEGORY_POWER, "DiamondDrill Tier", 2, "Set the Tier of the diamond drill")
-			.getInt();
-
-		AdvancedDrillTier = config.get(CATEGORY_POWER, "AdvancedDrill Tier", 2, "Set the Tier of the advanced drill")
-			.getInt();
-
-		IronChainsawTier = config.get(CATEGORY_POWER, "IronChainsaw Tier", 2, "Set the Tier of the iron chainsaw")
-			.getInt();
-
-		DiamondChainsawTier = config
-			.get(CATEGORY_POWER, "DiamondChainsaw Tier", 2, "Set the Tier of the diamond chainsaw").getInt();
-
-		AdvancedChainsawTier = config
-			.get(CATEGORY_POWER, "AdvancedChainsaw Tier", 2, "Set the Tier of the advanced chainsaw").getInt();
-
-		AdvancedJackhammerTier = config.get(CATEGORY_POWER, "AdvancedJackhammer Tier", 2, "Set the Tier of the advanced jackhammer")
-			.getInt();
-
-		DiamondJackhammerTier = config
-			.get(CATEGORY_POWER, "DiamondJackhammer Tier", 2, "Set the Tier of the diamond jackhammer").getInt();
-
-		SteelJackhammerTier = config
-			.get(CATEGORY_POWER, "SteelJackhammer Tier", 2, "Set the Tier of the steel jackhammer").getInt();
-
-		LapotronPackTier = config.get(CATEGORY_POWER, "LapotronPack Tier", 2, "Set the Tier of the LapotronPack")
-			.getInt();
-
-		LapotronicOrbTier = config.get(CATEGORY_POWER, "LapotronicOrb Tier", 2, "Set the Tier of the LapotronicOrb")
-			.getInt();
-
-		LithiumBatpackTier = config.get(CATEGORY_POWER, "LithiumBatpack Tier", 3, "Set the Tier of the LithiumBatpack")
-			.getInt();
-
-		OmniToolTier = config.get(CATEGORY_POWER, "OmniTool Tier", 3, "Set the Tier of the OmniTool").getInt();
-
-		RockCutterTier = config.get(CATEGORY_POWER, "RockCutter Tier", 2, "Set the Tier of the RockCutter").getInt();
-
-		CloakingDeviceTier = config.get(CATEGORY_POWER, "CloakingDevice Tier", 2, "Set the Tier of the CloakingDevice")
-			.getInt();
-
-		CloakingDeviceEUTick = config.get(CATEGORY_POWER, "CloakingDevice EUTick", 10000, "CloakingDevice EUTick")
-			.getInt();
-
-		CentrifugeTier = config.get(CATEGORY_POWER, "Centrifuge Tier", 1, "Set the Tier of the Centrifuge").getInt();
-
-		ThermalGeneratorTier = config
-			.get(CATEGORY_POWER, "ThermalGenerator Tier", 1, "Set the Tier of the ThermalGenerator").getInt();
 
 		//Features
 		FreqTransmitterChat = config

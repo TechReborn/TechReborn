@@ -43,7 +43,6 @@ import techreborn.init.ModItems;
 public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo {
 
 	public static final int maxCharge = ConfigTechReborn.LithiumBatpackCharge;
-	public static final int tier = ConfigTechReborn.LithiumBatpackTier;
 	public double transferLimit = 10000;
 
 	public ItemLithiumBatpack() {
@@ -95,11 +94,6 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo {
 	@Override
 	public double getMaxTransfer(ItemStack stack) {
 		return transferLimit;
-	}
-
-	@Override
-	public int getStackTier(ItemStack stack) {
-		return tier;
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })

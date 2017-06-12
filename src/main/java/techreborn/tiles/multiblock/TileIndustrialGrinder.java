@@ -49,7 +49,6 @@ import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 
 public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrenchable, IInventoryProvider,
@@ -62,7 +61,7 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrencha
 	public MultiblockChecker multiblockChecker;
 
 	public TileIndustrialGrinder() {
-		super(ConfigTechReborn.CentrifugeTier);
+		super();
 		// TODO configs
 
 		final int[] inputs = new int[2];

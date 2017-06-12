@@ -42,9 +42,8 @@ public class ItemBattery extends ItemTRNoDestroy implements IEnergyItemInfo {
 	String name;
 	int maxEnergy = 0;
 	int maxTransfer = 0;
-	int tier = 0;
 
-	public ItemBattery(String name, int maxEnergy, int maxTransfer, int tier) {
+	public ItemBattery(String name, int maxEnergy, int maxTransfer) {
 		super();
 		setMaxStackSize(1);
 		setMaxDamage(1);
@@ -52,7 +51,6 @@ public class ItemBattery extends ItemTRNoDestroy implements IEnergyItemInfo {
 		this.name = name;
 		this.maxEnergy = maxEnergy;
 		this.maxTransfer = maxTransfer;
-		this.tier = tier;
 		this.addPropertyOverride(new ResourceLocation("techreborn:empty"), new IItemPropertyGetter() {
 			@SideOnly(Side.CLIENT)
 			public float apply(ItemStack stack,
@@ -86,10 +84,5 @@ public class ItemBattery extends ItemTRNoDestroy implements IEnergyItemInfo {
 	@Override
 	public double getMaxTransfer(ItemStack stack) {
 		return maxTransfer;
-	}
-
-	@Override
-	public int getStackTier(ItemStack stack) {
-		return tier;
 	}
 }

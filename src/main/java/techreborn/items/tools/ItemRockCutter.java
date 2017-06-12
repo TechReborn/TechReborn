@@ -51,7 +51,6 @@ import java.util.Random;
 public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 
 	public static final int maxCharge = ConfigTechReborn.RockCutterCharge;
-	public static final int tier = ConfigTechReborn.RockCutterTier;
 	public int cost = 500;
 
 	public ItemRockCutter() {
@@ -132,10 +131,6 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 		return 200;
 	}
 
-	@Override
-	public int getStackTier(ItemStack stack) {
-		return 2;
-	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
