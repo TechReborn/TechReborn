@@ -24,8 +24,12 @@
 
 package techreborn.client;
 
+import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
@@ -33,11 +37,14 @@ import techreborn.blocks.BlockOre;
 import techreborn.blocks.BlockOre2;
 import techreborn.blocks.BlockStorage;
 import techreborn.blocks.BlockStorage2;
+import techreborn.blocks.cable.BlockCable;
 import techreborn.blocks.cable.EnumCableType;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
 import techreborn.items.*;
+
+import java.util.Map;
 
 public class RegisterItemJsons {
 	public static void registerModels() {
@@ -179,8 +186,33 @@ public class RegisterItemJsons {
 		}
 
 		for (EnumCableType cableType : EnumCableType.values()) {
-			registerBlockstate(ModBlocks.CABLE, cableType.ordinal(), "inv_" + cableType.getName().toLowerCase());
+			registerBlockstateMultiItem(Item.getItemFromBlock(ModBlocks.CABLE), cableType.ordinal(), cableType.getName().toLowerCase(), "cable_inv");
 		}
+
+		ModelLoader.setCustomStateMapper(ModBlocks.CABLE, new DefaultStateMapper() {
+			@Override
+			protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+				Map<IProperty<?>, Comparable<?>> map = Maps.<IProperty<?>, Comparable<?>>newLinkedHashMap(state.getProperties());
+				if (state.getValue(BlockCable.TYPE).ordinal() <= 4) {
+					return new ModelResourceLocation(new ResourceLocation(ModBlocks.CABLE.getRegistryName().getResourceDomain(), ModBlocks.CABLE.getRegistryName().getResourcePath()) + "_thin", this.getPropertyString(map));
+				}
+				return new ModelResourceLocation(new ResourceLocation(ModBlocks.CABLE.getRegistryName().getResourceDomain(), ModBlocks.CABLE.getRegistryName().getResourcePath()) + "_thick", this.getPropertyString(map));
+			}
+		});
+	}
+
+	public static void setBlockStateMapper(Block block, String path, IProperty... ignoredProperties) {
+		final String slash = !path.isEmpty() ? "/" : "";
+		ModelLoader.setCustomStateMapper(block, new DefaultStateMapper() {
+			@Override
+			protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+				Map<IProperty<?>, Comparable<?>> map = Maps.<IProperty<?>, Comparable<?>>newLinkedHashMap(state.getProperties());
+				for (IProperty<?> iproperty : ignoredProperties) {
+					map.remove(iproperty);
+				}
+				return new ModelResourceLocation(new ResourceLocation(block.getRegistryName().getResourceDomain(), path + slash + block.getRegistryName().getResourcePath()), this.getPropertyString(map));
+			}
+		});
 	}
 
 	private static void registerBlocks() {
@@ -224,5 +256,10 @@ public class RegisterItemJsons {
 	private static void registerBlockstateMultiItem(Item item, String variantName, String path) {
 		ResourceLocation loc = new ResourceLocation("techreborn", path);
 		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(loc, "type=" + variantName));
+	}
+
+	private static void registerBlockstateMultiItem(Item item, int meta, String variantName, String path) {
+		ResourceLocation loc = new ResourceLocation("techreborn", path);
+		ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(loc, "type=" + variantName));
 	}
 }

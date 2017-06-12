@@ -18,7 +18,7 @@
       ],
       "faces": {
         "north": {
-          "texture": "#-1",
+          "texture": "#0",
           "uv": [
             0.0,
             0.0,
@@ -37,7 +37,7 @@
           ]
         },
         "south": {
-          "texture": "#-1",
+          "texture": "#0",
           "uv": [
             0.0,
             0.0,

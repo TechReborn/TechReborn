@@ -1,20 +1,21 @@
 {
-	"credit": "Made with Blockbench, a free, modern block model editor by JannisX11",
-	"textures": {"0": "textures/#cable"},
-	"elements": [
-		{
-			"name": "Cable",
-			"from": [6, 6, 6],
-			"to": [10, 10, 10],
-			"shade": true,
-			"faces": {
-				"north": {"uv": [1, 1, 5, 5], "texture": "#0"},
-				"east": {"uv": [1, 1, 5, 5], "texture": "#0"},
-				"south": {"uv": [1, 1, 5, 5], "texture": "#0"},
-				"west": {"uv": [1, 1, 5, 5], "texture": "#0"},
-				"up": {"uv": [1, 1, 5, 5], "texture": "#0"},
-				"down": {"uv": [1, 1, 5, 5], "texture": "#0"}
-			}
-		}
-	]
+  "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
+  "textures": {
+    "0": "#cable"
+  },
+  "elements": [
+    {
+      "name": "Cable",
+      "from": [ 5.0, 5.0, 5.0 ],
+      "to": [ 11.0, 11.0, 11.0 ],
+      "faces": {
+        "north": { "texture": "#0", "uv": [ 0.0, 0.0, 6.0, 6.0 ] },
+        "east": { "texture": "#0", "uv": [ 0.0, 0.0, 6.0, 6.0 ] },
+        "south": { "texture": "#0", "uv": [ 0.0, 0.0, 6.0, 6.0 ] },
+        "west": { "texture": "#0", "uv": [ 0.0, 0.0, 6.0, 6.0 ] },
+        "up": { "texture": "#0", "uv": [ 0.0, 0.0, 6.0, 6.0 ] },
+        "down": { "texture": "#0", "uv": [ 0.0, 0.0, 6.0, 6.0 ] }
+      }
+    }
+  ]
 }

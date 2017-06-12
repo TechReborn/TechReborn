@@ -4,11 +4,19 @@
     "transform": "forge:default-block",
     "model": "techreborn:cable_thin",
     "textures": {
-      "cable": "techreborn:block/cable",
       "particle": "#cable"
     }
   },
   "variants": {
+    "inventory": [
+      {
+        "transform": "forge:default-block",
+        "model": "techreborn:cable",
+        "textures": {
+          "cable": "techreborn:blocks/cables/copper_cable"
+        }
+      }
+    ],
     "down": {
       "true": {
         "submodel": {
@@ -87,21 +95,6 @@
       "glassfiber": {
         "textures": {
           "cable": "techreborn:blocks/cables/glass_fiber_cable"
-        }
-      },
-      "insulatedcopper": {
-        "textures": {
-          "cable": "techreborn:blocks/cables/copper_insulated_cable"
-        }
-      },
-      "insulatedgold": {
-        "textures": {
-          "cable": "techreborn:blocks/cables/gold_insulated_cable"
-        }
-      },
-      "insulatedhv": {
-        "textures": {
-          "cable": "techreborn:blocks/cables/hv_insulated_cable"
         }
       }
     }
