@@ -127,6 +127,9 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubItems(CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {
+		if(!func_194125_a(par2CreativeTabs)){
+			return;
+		}
 		ItemStack itemStack = new ItemStack(this, 1);
 		itemList.add(itemStack);
 

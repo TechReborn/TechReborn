@@ -43,6 +43,9 @@ public class ItemLapotronCrystal extends ItemBattery {
 	@Override
 	public void getSubItems(
 		CreativeTabs par2CreativeTabs, NonNullList itemList) {
+		if(!func_194125_a(par2CreativeTabs)){
+			return;
+		}
 		ItemStack stack = new ItemStack(ModItems.LAPOTRONIC_CRYSTAL);
 		ItemStack uncharged = stack.copy();
 		ItemStack charged = stack.copy();

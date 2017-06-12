@@ -59,6 +59,9 @@ public class ItemAdvancedDrill extends ItemDrill {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubItems(CreativeTabs par2CreativeTabs, NonNullList itemList) {
+		if(!func_194125_a(par2CreativeTabs)){
+			return;
+		}
 		ItemStack stack = new ItemStack(ModItems.ADVANCED_DRILL);
 		ItemStack uncharged = stack.copy();
 		ItemStack charged = stack.copy();

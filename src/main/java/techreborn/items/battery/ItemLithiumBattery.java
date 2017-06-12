@@ -43,6 +43,9 @@ public class ItemLithiumBattery extends ItemBattery {
 	@Override
 	public void getSubItems(
 		CreativeTabs par2CreativeTabs, NonNullList itemList) {
+		if(!func_194125_a(par2CreativeTabs)){
+			return;
+		}
 		ItemStack stack = new ItemStack(ModItems.LITHIUM_BATTERY);
 		ItemStack uncharged = stack.copy();
 		ItemStack charged = stack.copy();

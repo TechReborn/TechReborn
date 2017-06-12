@@ -101,6 +101,9 @@ public class ItemElectricTreetap extends ItemTRNoDestroy implements IEnergyItemI
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubItems(CreativeTabs par2CreativeTabs, NonNullList itemList) {
+		if(!func_194125_a(par2CreativeTabs)){
+			return;
+		}
 		ItemStack uncharged = new ItemStack(ModItems.ELECTRIC_TREE_TAP);
 		ItemStack charged = new ItemStack(ModItems.ELECTRIC_TREE_TAP);
 		PoweredItem.setEnergy(getMaxPower(charged), charged);

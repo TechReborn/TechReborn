@@ -107,6 +107,9 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo {
 	@Override
 	public void getSubItems(
 		CreativeTabs par2CreativeTabs, NonNullList itemList) {
+		if(!func_194125_a(par2CreativeTabs)){
+			return;
+		}
 		ItemStack uncharged = new ItemStack(ModItems.LITHIUM_BATTERY_PACK);
 		ItemStack charged = new ItemStack(ModItems.LITHIUM_BATTERY_PACK);
 		PoweredItem.setEnergy(getMaxPower(charged), charged);

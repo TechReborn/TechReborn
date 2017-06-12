@@ -142,6 +142,9 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 	@Override
 	public void getSubItems(
 		CreativeTabs par2CreativeTabs, NonNullList itemList) {
+		if(!func_194125_a(par2CreativeTabs)){
+			return;
+		}
 		ItemStack uncharged = new ItemStack(ModItems.ROCK_CUTTER);
 		ItemStack charged = new ItemStack(ModItems.ROCK_CUTTER);
 		PoweredItem.setEnergy(getMaxPower(charged), charged);
