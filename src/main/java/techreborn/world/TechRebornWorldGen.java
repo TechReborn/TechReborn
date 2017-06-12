@@ -27,7 +27,6 @@ package techreborn.world;
 import com.google.common.base.Predicate;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockMatcher;
 import net.minecraft.init.Blocks;
@@ -39,16 +38,16 @@ import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.common.IWorldGenerator;
-import org.hjson.JsonValue;
-import org.hjson.Stringify;
+import org.apache.commons.io.FileUtils;
 import reborncore.common.misc.ChunkCoord;
 import techreborn.Core;
 import techreborn.init.ModBlocks;
 import techreborn.world.config.OreConfig;
 import techreborn.world.config.WorldGenConfig;
 
-import java.io.*;
-import java.lang.reflect.Type;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -61,7 +60,6 @@ public class TechRebornWorldGen implements IWorldGenerator {
 	public static RubberTreeGenerator treeGenerator = new RubberTreeGenerator();
 	public final TechRebornRetroGen retroGen = new TechRebornRetroGen();
 	public File configFile;
-	public File hConfigFile;
 	public boolean jsonInvalid = false;
 	public WorldGenConfig config;
 	WorldGenConfig defaultConfig;
@@ -94,30 +92,7 @@ public class TechRebornWorldGen implements IWorldGenerator {
 
 	public void load() {
 		init();
-		//Converts the old format to the new one
 		if (configFile.exists()) {
-			if (!hConfigFile.exists()) {
-				try {
-					//Reads json
-					BufferedReader reader = new BufferedReader(new FileReader(configFile));
-					//Converts to hjson
-					String hJson = JsonValue.readHjson(reader).toString(Stringify.HJSON);
-					//Saves as the new HJson file
-					FileWriter writer = new FileWriter(hConfigFile);
-					writer.write(hJson);
-					writer.close();
-					reader.close();
-					//Delete old json file
-					configFile.delete();
-
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		if (hConfigFile.exists()) {
 			loadFromJson();
 		} else {
 			config = defaultConfig;
@@ -152,11 +127,8 @@ public class TechRebornWorldGen implements IWorldGenerator {
 	private void loadFromJson() {
 		try {
 			Gson gson = new Gson();
-			BufferedReader reader = new BufferedReader(new FileReader(hConfigFile));
-			String jsonString = JsonValue.readHjson(reader).toString();
-			Type typeOfHashMap = new TypeToken<WorldGenConfig>() {
-			}.getType();
-			config = gson.fromJson(jsonString, typeOfHashMap);
+			String jsonString = FileUtils.readFileToString(configFile, Charset.defaultCharset());
+			config = gson.fromJson(jsonString, WorldGenConfig.class);
 			//			ArrayUtils.addAll(config.endOres, config.neatherOres, config.overworldOres).stream().forEach(oreConfig -> {
 			//				if (oreConfig.minYHeight > oreConfig.maxYHeight) {
 			//					printError(oreConfig.blockName + " ore generation value is invalid, the min y height is bigger than the max y height, this ore value will be disabled in code");
@@ -194,13 +166,9 @@ public class TechRebornWorldGen implements IWorldGenerator {
 	private void save() {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		String json = gson.toJson(config);
-		String hJson = JsonValue.readHjson(json).toString(Stringify.HJSON);
 		try {
-			FileWriter writer = new FileWriter(hConfigFile);
-			writer.write(hJson);
-			writer.close();
+			FileUtils.writeStringToFile(configFile, json, Charset.defaultCharset());
 		} catch (IOException e) {
-			Core.logHelper.error("The ores.json file was invalid, something bad happened");
 			e.printStackTrace();
 		}
 	}

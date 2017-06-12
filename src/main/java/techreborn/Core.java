@@ -91,14 +91,13 @@ public class Core {
 		FMLCommonHandler.instance().bus().register(this);
 		MinecraftForge.EVENT_BUS.register(this);
 
-		configDir = new File(event.getModConfigurationDirectory(), "techreborn");
+		configDir = new File(new File(event.getModConfigurationDirectory(), "teamreborn"), "techreborn");
 		if (!configDir.exists()) {
 			configDir.mkdir();
 		}
 		config = ConfigTechReborn.initialize(new File(configDir, "main.cfg"));
 		worldGen = new TechRebornWorldGen();
 		worldGen.configFile = (new File(configDir, "ores.json"));
-		worldGen.hConfigFile = (new File(configDir, "ores.hjson"));
 		//Must be done before the item classes are loaded.
 		ModPoweredItems.preInit();
 
