@@ -62,4 +62,9 @@ public class GuiButtonPowerBar extends GuiButton {
 	public void drawButtonForegroundLayer(int mouseX, int mouseY) {
 
 	}
+
+	@Override
+	public void func_191745_a(Minecraft p_191745_1_, int p_191745_2_, int p_191745_3_, float p_191745_4_) {
+
+	}
 }
