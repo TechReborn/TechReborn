@@ -42,7 +42,6 @@ import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.multiblock.MultiblockEventHandler;
 import reborncore.common.multiblock.MultiblockServerTickHandler;
 import reborncore.common.network.RegisterPacketEvent;
-import reborncore.common.packets.AddDiscriminatorEvent;
 import reborncore.common.util.LogHelper;
 import reborncore.common.util.VersionChecker;
 import techreborn.api.TechRebornAPI;
@@ -220,14 +219,10 @@ public class Core {
 	}
 
 	@SubscribeEvent
-	public void addDiscriminator(AddDiscriminatorEvent event) {
-		event.getPacketHandler().addDiscriminator(event.getPacketHandler().nextDiscriminator, PacketAesu.class);
-		event.getPacketHandler().addDiscriminator(event.getPacketHandler().nextDiscriminator, PacketIdsu.class);
-	}
-
-	@SubscribeEvent
 	public void LoadPackets(RegisterPacketEvent event){
 		event.registerPacket(PacketSyncSideConfig.class, Side.SERVER);
+		event.registerPacket(PacketAesu.class, Side.SERVER);
+		event.registerPacket(PacketIdsu.class, Side.SERVER);
 	}
 
 	@Mod.EventHandler

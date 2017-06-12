@@ -30,7 +30,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
-import reborncore.common.packets.PacketHandler;
+import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.client.container.ContainerAESU;
 import techreborn.packets.PacketAesu;
@@ -90,6 +90,6 @@ public class GuiAESU extends GuiContainer {
 	@Override
 	protected void actionPerformed(GuiButton button) throws IOException {
 		super.actionPerformed(button);
-		PacketHandler.sendPacketToServer(new PacketAesu(button.id, aesu));
+		NetworkManager.sendToServer(new PacketAesu(button.id, aesu));
 	}
 }

@@ -30,7 +30,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
-import reborncore.common.packets.PacketHandler;
+import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.client.container.ContainerIDSU;
 import techreborn.packets.PacketIdsu;
@@ -111,7 +111,7 @@ public class GuiIDSU extends GuiContainer {
 	@Override
 	protected void actionPerformed(GuiButton button) throws IOException {
 		super.actionPerformed(button);
-		PacketHandler.sendPacketToServer(new PacketIdsu(button.id, idsu));
+		NetworkManager.sendToServer(new PacketIdsu(button.id, idsu));
 
 	}
 

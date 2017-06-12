@@ -24,41 +24,43 @@
 
 package techreborn.packets;
 
-import io.netty.buffer.ByteBuf;
-import reborncore.common.packets.SimplePacket;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import reborncore.common.network.ExtendedPacketBuffer;
+import reborncore.common.network.INetworkPacket;
 import techreborn.tiles.TileAesu;
 
 import java.io.IOException;
 
-public class PacketAesu extends SimplePacket {
+public class PacketAesu implements INetworkPacket<PacketAesu> {
 
 	int buttonID;
-	TileAesu aesu;
+	BlockPos pos;
 
 	public PacketAesu() {
 	}
 
-	public PacketAesu(int buttonID, TileAesu aesu) {
-		this.aesu = aesu;
+	public PacketAesu(int buttonID, TileAesu tile) {
+		this.pos = tile.getPos();
 		this.buttonID = buttonID;
 	}
 
 	@Override
-	public void writeData(ByteBuf out) throws IOException {
-		SimplePacket.writeTileEntity(aesu, out);
+	public void writeData(ExtendedPacketBuffer out) throws IOException {
+		out.writeBlockPos(pos);
 		out.writeInt(buttonID);
 	}
 
 	@Override
-	public void readData(ByteBuf in) throws IOException {
-		this.aesu = (TileAesu) SimplePacket.readTileEntity(in);
+	public void readData(ExtendedPacketBuffer in) throws IOException {
+		this.pos = in.readBlockPos();
 		buttonID = in.readInt();
 	}
 
 	@Override
-	public void execute() {
-		if (!aesu.getWorld().isRemote) {
-			aesu.handleGuiInputFromClient(buttonID);
-		}
+	public void processData(PacketAesu message, MessageContext context) {
+//		if (!pos.getWorld().isRemote) {
+//			pos.handleGuiInputFromClient(buttonID);
+//		}
 	}
 }
