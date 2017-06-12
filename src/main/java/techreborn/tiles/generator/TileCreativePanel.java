@@ -117,4 +117,9 @@ public class TileCreativePanel extends TilePowerAcceptor implements IWrenchable 
 	public int getSourceTier() {
 		return 0;
 	}
+
+	@Override
+	public boolean handleTierWithPower() {
+		return false;
+	}
 }
