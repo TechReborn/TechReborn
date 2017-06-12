@@ -66,9 +66,11 @@ public class ConfigTechReborn {
 	@ConfigRegistry(config = "recipes", category = "ic2", key = "deduplicate", comment = "Changes a lot of reipes and hides blocks to intrgrade TechReborn into IC2")
 	public static boolean REMOVE_DUPLICATES = false;
 	// Client
-	public static boolean ShowChargeHud;
+	@ConfigRegistry(config = "client", category = "hud", key = "showChargeHud", comment = "Show the charge hud")
+	public static boolean ShowChargeHud = true;
 
-	public static boolean enableGemArmorAndTools;
+	@ConfigRegistry(config = "misc", category = "general", key = "enableGemTools", comment = "Enable Gem armor and tools")
+	public static boolean enableGemArmorAndTools = true;
 
 	public static Configuration config;
 	private static ConfigTechReborn instance = null;
@@ -163,12 +165,6 @@ public class ConfigTechReborn {
 
 		ThermalGeneratorCharge = config.get(CATEGORY_POWER, "ThermalGenerator MaxCharge", 1000000,
 			"Set the max charge for the ThermalGenerator").getInt();
-
-
-		enableGemArmorAndTools = config.get(CATEGORY_FEATURES, "Gem tools and armor", true, "Should the gem tools and armor be added to the game").getBoolean(true);
-
-		ShowChargeHud = config.get(CATEGORY_POWER, "Show Charge hud", true, "Show Charge hud (ClientSideOnly)")
-			.getBoolean(true);
 
 
 		if (config.hasChanged()) {
