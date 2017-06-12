@@ -42,7 +42,7 @@ import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 
 public class TileImplosionCompressor extends TilePowerAcceptor
-		implements IWrenchable, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
+	implements IWrenchable, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
 
 	public Inventory inventory = new Inventory(4, "TileImplosionCompressor", 64, this);
 	public MultiblockChecker multiblockChecker;
@@ -174,8 +174,8 @@ public class TileImplosionCompressor extends TilePowerAcceptor
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("implosioncompressor").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory().tile(this).slot(0, 37, 26).slot(1, 37, 44).outputSlot(2, 93, 35).outputSlot(3, 111, 35)
-				.syncEnergyValue().syncCrafterValue().addInventory().create();
+			.addInventory().tile(this).slot(0, 37, 26).slot(1, 37, 44).outputSlot(2, 93, 35).outputSlot(3, 111, 35)
+			.syncEnergyValue().syncCrafterValue().addInventory().create();
 	}
 
 }

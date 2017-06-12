@@ -30,9 +30,8 @@ public class FluidGeneratorRecipe {
 	private final EFluidGenerator generatorType;
 	private final Fluid fluid;
 	private final int energyPerMb;
-	
-	public FluidGeneratorRecipe(Fluid fluid, int energyPerMb, EFluidGenerator generatorType)
-	{
+
+	public FluidGeneratorRecipe(Fluid fluid, int energyPerMb, EFluidGenerator generatorType) {
 		this.fluid = fluid;
 		this.energyPerMb = energyPerMb;
 		this.generatorType = generatorType;
@@ -41,6 +40,7 @@ public class FluidGeneratorRecipe {
 	public Fluid getFluid() {
 		return fluid;
 	}
+
 	public int getEnergyPerMb() {
 		return energyPerMb;
 	}
@@ -52,7 +52,7 @@ public class FluidGeneratorRecipe {
 	@Override
 	public String toString() {
 		return "FluidGeneratorRecipe [generatorType=" + generatorType + ", fluid=" + fluid + ", energyPerMb="
-				+ energyPerMb + "]";
+			+ energyPerMb + "]";
 	}
 
 	@Override

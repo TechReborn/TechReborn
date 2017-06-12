@@ -92,8 +92,8 @@ public class ModRecipes {
 		addCompressorRecipes();
 	}
 
-	public static void postInit(){
-		if(ConfigTechReborn.disableRailcraftSteelNuggetRecipe){
+	public static void postInit() {
+		if (ConfigTechReborn.disableRailcraftSteelNuggetRecipe) {
 			Iterator iterator = FurnaceRecipes.instance().getSmeltingList().entrySet().iterator();
 			Map.Entry entry;
 			while (iterator.hasNext()) {
@@ -101,7 +101,7 @@ public class ModRecipes {
 				if (entry.getValue() instanceof ItemStack && entry.getKey() instanceof ItemStack) {
 					ItemStack input = (ItemStack) entry.getKey();
 					ItemStack output = (ItemStack) entry.getValue();
-					if(ItemUtils.isInputEqual("nuggetSteel", output, true , true, false) && ItemUtils.isInputEqual("nuggetIron", input, true , true, false)){
+					if (ItemUtils.isInputEqual("nuggetSteel", output, true, true, false) && ItemUtils.isInputEqual("nuggetIron", input, true, true, false)) {
 						Core.logHelper.info("Removing a steelnugget smelting recipe");
 						iterator.remove();
 					}
@@ -332,7 +332,6 @@ public class ModRecipes {
 				"blockGlass", 'W', IC2Duplicates.CABLE_IGOLD.getStackBasedOnConfig(), 'C',
 				"circuitBasic", 'T', IC2Duplicates.MVT.getStackBasedOnConfig());
 		}
-
 
 		CraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("energy_storage"), "PPP", "WBW", "PCP", 'P',
 			"plankWood", 'W', IC2Duplicates.CABLE_ICOPPER.getStackBasedOnConfig(), 'C',

@@ -114,7 +114,7 @@ public class TechRebornDevCommand extends CommandBase {
 				sender.sendMessage(new TextComponentString(e.getLocalizedMessage()));
 			}
 		} else if ("ores".equals(args[0])) {
-			for(String ore: OreDictionary.getOreNames()){
+			for (String ore : OreDictionary.getOreNames()) {
 				System.out.println(ore);
 			}
 		}

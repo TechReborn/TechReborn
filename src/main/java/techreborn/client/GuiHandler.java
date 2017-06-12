@@ -29,7 +29,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
-
 import techreborn.client.container.*;
 import techreborn.client.gui.*;
 import techreborn.manual.GuiManual;
@@ -48,7 +47,7 @@ public class GuiHandler implements IGuiHandler {
 
 	@Override
 	public Object getServerGuiElement(final int ID, final EntityPlayer player, final World world, final int x,
-			final int y, final int z) {
+	                                  final int y, final int z) {
 
 		final EGui gui = EGui.values()[ID];
 		final TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
@@ -73,7 +72,7 @@ public class GuiHandler implements IGuiHandler {
 
 	@Override
 	public Object getClientGuiElement(final int ID, final EntityPlayer player, final World world, final int x,
-			final int y, final int z) {
+	                                  final int y, final int z) {
 		final EGui gui = EGui.values()[ID];
 		final TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
 

@@ -68,8 +68,7 @@ public enum EGui {
 
 	private final boolean containerBuilder;
 
-	private EGui(final boolean containerBuilder)
-	{
+	private EGui(final boolean containerBuilder) {
 		this.containerBuilder = containerBuilder;
 	}
 

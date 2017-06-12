@@ -143,7 +143,7 @@ public class IndustrialCentrifugeRecipes extends RecipeMethods {
 
 		}
 
-		if(input instanceof ItemStack){
+		if (input instanceof ItemStack) {
 			if (((ItemStack) input).getItem() instanceof DynamicCell) {
 				int inputCount = ((ItemStack) input).getCount();
 				if (cellCount < inputCount) {

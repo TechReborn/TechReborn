@@ -61,7 +61,7 @@ public class RollingMachineRecipeWrapper extends BlankRecipeWrapper implements I
 		} else if (baseRecipe instanceof ShapedOreRecipe) {
 			recipeWrapper = new ShapedOreRecipeWrapper(jeiHelpers, (ShapedOreRecipe) baseRecipe);
 		} else if (baseRecipe instanceof ShapelessOreRecipe) {
-			recipeWrapper = new ShapelessRecipeWrapper(jeiHelpers,  baseRecipe);
+			recipeWrapper = new ShapelessRecipeWrapper(jeiHelpers, baseRecipe);
 		} else {
 			return null;
 		}

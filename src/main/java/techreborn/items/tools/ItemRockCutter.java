@@ -32,7 +32,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -41,7 +40,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
-import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItem;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
@@ -143,7 +141,7 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubItems(
-	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
+		CreativeTabs par2CreativeTabs, NonNullList itemList) {
 		ItemStack uncharged = new ItemStack(ModItems.ROCK_CUTTER);
 		ItemStack charged = new ItemStack(ModItems.ROCK_CUTTER);
 		PoweredItem.setEnergy(getMaxPower(charged), charged);
@@ -151,6 +149,5 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 		itemList.add(uncharged);
 		itemList.add(charged);
 	}
-
 
 }

@@ -50,6 +50,7 @@ public class GrinderRecipeCategory extends BlankRecipeCategory<GrinderRecipeWrap
 		background = guiHelper.createDrawable(texture, 0, 62, 74, 32);
 		title = I18n.translateToLocal("tile.techreborn.grinder.name");
 	}
+
 	@Override
 	public String getModName() {
 		return ModInfo.MOD_NAME;

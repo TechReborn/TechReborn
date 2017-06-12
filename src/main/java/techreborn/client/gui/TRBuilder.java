@@ -333,7 +333,7 @@ public class TRBuilder extends GuiBuilder {
 
 	public void drawUpgrades(GuiScreen gui, IUpgradeable upgradeable, int posX, int posY) {
 		Minecraft.getMinecraft().getTextureManager().bindTexture(GUI_SHEET);
-		gui.drawTexturedModalRect(posX -27, posY + 4, 126, 151, 30, 87);
+		gui.drawTexturedModalRect(posX - 27, posY + 4, 126, 151, 30, 87);
 	}
 
 	public void drawScrapSlot(GuiScreen gui, int posX, int posY) {

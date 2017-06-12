@@ -28,7 +28,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -36,7 +35,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
-import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItem;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
@@ -108,7 +106,7 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubItems(
-	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
+		CreativeTabs par2CreativeTabs, NonNullList itemList) {
 		ItemStack uncharged = new ItemStack(ModItems.LITHIUM_BATTERY_PACK);
 		ItemStack charged = new ItemStack(ModItems.LITHIUM_BATTERY_PACK);
 		PoweredItem.setEnergy(getMaxPower(charged), charged);
@@ -116,6 +114,5 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo {
 		itemList.add(uncharged);
 		itemList.add(charged);
 	}
-
 
 }

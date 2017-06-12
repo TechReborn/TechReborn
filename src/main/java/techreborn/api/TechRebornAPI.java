@@ -44,15 +44,15 @@ public final class TechRebornAPI {
 	}
 
 	public static void addShapelessOreRollingMachinceRecipe(ResourceLocation resourceLocation, ItemStack output, Object... components) {
-		RollingMachineRecipe.instance.addShapelessOreRecipe(resourceLocation,output, components);
+		RollingMachineRecipe.instance.addShapelessOreRecipe(resourceLocation, output, components);
 	}
 
 	public static void addRollingMachinceRecipe(ResourceLocation resourceLocation, ItemStack output, Object... components) {
-		RollingMachineRecipe.instance.addRecipe(resourceLocation,output, components);
+		RollingMachineRecipe.instance.addRecipe(resourceLocation, output, components);
 	}
 
 	public static void addShapelessRollingMachinceRecipe(ResourceLocation resourceLocation, ItemStack output, Object... components) {
-		RollingMachineRecipe.instance.addShapelessRecipe(resourceLocation,output, components);
+		RollingMachineRecipe.instance.addShapelessRecipe(resourceLocation, output, components);
 	}
 
 	/**

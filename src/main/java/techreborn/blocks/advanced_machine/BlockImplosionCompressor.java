@@ -28,10 +28,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.blocks.IRotationTexture;
-
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
@@ -54,7 +52,7 @@ public class BlockImplosionCompressor extends BlockMachineBase implements IRotat
 
 	@Override
 	public boolean onBlockActivated(final World world, final int x, final int y, final int z, final EntityPlayer player, final int side, final float hitX,
-			final float hitY, final float hitZ) {
+	                                final float hitY, final float hitZ) {
 		if (!player.isSneaking())
 			player.openGui(Core.INSTANCE, EGui.IMPLOSION_COMPRESSOR.ordinal(), world, x, y, z);
 		return true;

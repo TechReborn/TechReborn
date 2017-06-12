@@ -24,14 +24,13 @@
 
 package techreborn.client.container.builder;
 
-import org.apache.commons.lang3.Range;
-import org.apache.commons.lang3.tuple.Pair;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
+import org.apache.commons.lang3.Range;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,8 +90,8 @@ public class ContainerBuilder {
 
 	public BuiltContainer create() {
 		final BuiltContainer built = new BuiltContainer(this.name, this.canInteract,
-				this.playerInventoryRanges,
-				this.tileInventoryRanges);
+			this.playerInventoryRanges,
+			this.tileInventoryRanges);
 		if (!this.shortValues.isEmpty())
 			built.addShortSync(this.shortValues);
 		if (!this.integerValues.isEmpty())

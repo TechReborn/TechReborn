@@ -40,7 +40,8 @@ import techreborn.tiles.lesu.TileLesuStorage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlockLESUStorage extends BaseTileBlock {;
+public class BlockLESUStorage extends BaseTileBlock {
+	;
 
 	public BlockLESUStorage(Material material) {
 		super(material);

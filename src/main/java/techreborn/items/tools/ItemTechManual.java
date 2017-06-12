@@ -33,7 +33,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
@@ -51,9 +50,9 @@ public class ItemTechManual extends ItemTRNoDestroy {
 
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(final World world, final EntityPlayer player,
-			final EnumHand hand) {
+	                                                final EnumHand hand) {
 		player.openGui(Core.INSTANCE, EGui.MANUAL.ordinal(), world, (int) player.posX, (int) player.posY,
-				(int) player.posY);
+			(int) player.posY);
 		return new ActionResult<>(EnumActionResult.SUCCESS, player.getHeldItem(hand));
 	}
 

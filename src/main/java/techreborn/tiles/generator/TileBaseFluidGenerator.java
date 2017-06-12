@@ -32,7 +32,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.blocks.BlockMachineBase;
@@ -40,7 +39,6 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
-
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.api.generator.FluidGeneratorRecipe;
 import techreborn.api.generator.FluidGeneratorRecipeList;
@@ -81,7 +79,7 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 
 		if (!this.world.isRemote) {
 			if (this.acceptFluid() && FluidUtils.drainContainers(this.tank, this.inventory, 0, 1)
-					|| FluidUtils.fillContainers(this.tank, this.inventory, 0, 1, this.tank.getFluidType()))
+				|| FluidUtils.fillContainers(this.tank, this.inventory, 0, 1, this.tank.getFluidType()))
 				this.syncWithAll();
 		}
 
@@ -110,10 +108,10 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 		if (!this.world.isRemote) {
 			if (this.world.getTotalWorldTime() - this.lastOutput < 30 && !this.isActive())
 				this.world.setBlockState(this.getPos(),
-						this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, true));
+					this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, true));
 			else if (this.world.getTotalWorldTime() - this.lastOutput > 30 && this.isActive())
 				this.world.setBlockState(this.getPos(),
-						this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, false));
+					this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, false));
 		}
 	}
 
@@ -198,7 +196,7 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 	@Override
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
 		world.markBlockRangeForRenderUpdate(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX(),
-				getPos().getY(), getPos().getZ());
+			getPos().getY(), getPos().getZ());
 		readFromNBT(packet.getNbtCompound());
 	}
 

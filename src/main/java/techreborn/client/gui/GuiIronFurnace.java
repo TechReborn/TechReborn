@@ -29,13 +29,12 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
-
 import techreborn.tiles.TileIronFurnace;
 
 public class GuiIronFurnace extends GuiContainer {
 
 	public static final ResourceLocation texture = new ResourceLocation("minecraft",
-			"textures/gui/container/furnace.png");
+		"textures/gui/container/furnace.png");
 
 	TileIronFurnace furnace;
 
@@ -71,9 +70,9 @@ public class GuiIronFurnace extends GuiContainer {
 	protected void drawGuiContainerForegroundLayer(final int p_146979_1_, final int p_146979_2_) {
 		final String name = I18n.translateToLocal("tile.techreborn.ironfurnace.name");
 		this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6,
-				4210752);
+			4210752);
 		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,
-				this.ySize - 96 + 2, 4210752);
+			this.ySize - 96 + 2, 4210752);
 	}
 
 }

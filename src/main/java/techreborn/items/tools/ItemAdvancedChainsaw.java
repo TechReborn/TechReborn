@@ -27,7 +27,6 @@ package techreborn.items.tools;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
@@ -48,7 +47,7 @@ public class ItemAdvancedChainsaw extends ItemChainsaw {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubItems(
-	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
+		CreativeTabs par2CreativeTabs, NonNullList itemList) {
 		ItemStack stack = new ItemStack(ModItems.ADVANCED_CHAINSAW);
 		ItemStack uncharged = stack.copy();
 		ItemStack charged = stack.copy();

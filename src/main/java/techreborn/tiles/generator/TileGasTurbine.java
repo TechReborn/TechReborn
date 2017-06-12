@@ -32,7 +32,6 @@ import techreborn.api.generator.EFluidGenerator;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 
@@ -67,11 +66,10 @@ public class TileGasTurbine extends TileBaseFluidGenerator implements IContainer
 		return maxOutput;
 	}
 
-
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("gasturbine").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory().tile(this).slot(0, 80, 17).outputSlot(1, 80, 53).fakeSlot(2, 59, 42).syncEnergyValue()
-				.addInventory().create();
+			.addInventory().tile(this).slot(0, 80, 17).outputSlot(1, 80, 53).fakeSlot(2, 59, 42).syncEnergyValue()
+			.addInventory().create();
 	}
 }

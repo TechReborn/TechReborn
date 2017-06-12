@@ -70,7 +70,7 @@ public class PacketSyncSideConfig implements INetworkPacket<PacketSyncSideConfig
 	@Override
 	public void processData(PacketSyncSideConfig message, MessageContext context) {
 		TileEntity tileEntity = context.getServerHandler().playerEntity.world.getTileEntity(message.pos);
-		if(tileEntity instanceof IUpgradeable){
+		if (tileEntity instanceof IUpgradeable) {
 			ItemStack stack = ((IUpgradeable) tileEntity).getUpgradeInvetory().getStackInSlot(message.slotID);
 			ItemNBTHelper.setInt(stack, "side", message.side);
 		}

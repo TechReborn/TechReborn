@@ -24,9 +24,6 @@
 
 package techreborn.client.container.builder;
 
-import org.apache.commons.lang3.Range;
-import org.apache.commons.lang3.tuple.Pair;
-
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.SlotFurnaceFuel;
@@ -34,7 +31,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-
+import org.apache.commons.lang3.Range;
+import org.apache.commons.lang3.tuple.Pair;
 import reborncore.api.power.IEnergyInterfaceItem;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IUpgrade;
@@ -43,7 +41,6 @@ import reborncore.client.gui.slots.BaseSlot;
 import reborncore.client.gui.slots.SlotFake;
 import reborncore.client.gui.slots.SlotOutput;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-
 import techreborn.Core;
 import techreborn.client.container.builder.slot.FilteredSlot;
 import techreborn.client.container.builder.slot.UpgradeSlot;
@@ -63,7 +60,7 @@ public class ContainerTileInventoryBuilder {
 		this.tile = tile;
 		this.parent = parent;
 		this.rangeStart = parent.slots.size();
-		if(tile instanceof IUpgradeable){
+		if (tile instanceof IUpgradeable) {
 			upgradeSlots((IUpgradeable) tile);
 		}
 	}
@@ -84,7 +81,7 @@ public class ContainerTileInventoryBuilder {
 	}
 
 	public ContainerTileInventoryBuilder filterSlot(final int index, final int x, final int y,
-			final Predicate<ItemStack> filter) {
+	                                                final Predicate<ItemStack> filter) {
 		this.parent.slots.add(new FilteredSlot(this.tile, index, x, y).setFilter(filter));
 		return this;
 	}
@@ -92,20 +89,19 @@ public class ContainerTileInventoryBuilder {
 	@SuppressWarnings("null")
 	public ContainerTileInventoryBuilder energySlot(final int index, final int x, final int y) {
 		this.parent.slots.add(new FilteredSlot(this.tile, index, x, y)
-				.setFilter(stack -> stack.hasCapability(CapabilityEnergy.ENERGY, EnumFacing.UP)
-						|| stack.getItem() instanceof IEnergyInterfaceItem));
+			.setFilter(stack -> stack.hasCapability(CapabilityEnergy.ENERGY, EnumFacing.UP)
+				|| stack.getItem() instanceof IEnergyInterfaceItem));
 		return this;
 	}
 
 	@SuppressWarnings("null")
 	public ContainerTileInventoryBuilder fluidSlot(final int index, final int x, final int y) {
 		this.parent.slots.add(new FilteredSlot(this.tile, index, x, y).setFilter(
-				stack -> stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, EnumFacing.UP)));
+			stack -> stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, EnumFacing.UP)));
 		return this;
 	}
 
-	public ContainerTileInventoryBuilder fuelSlot(final int index, final int x, final int y)
-	{
+	public ContainerTileInventoryBuilder fuelSlot(final int index, final int x, final int y) {
 		this.parent.slots.add(new SlotFurnaceFuel(this.tile, index, x, y));
 		return this;
 	}
@@ -113,12 +109,12 @@ public class ContainerTileInventoryBuilder {
 	@Deprecated
 	public ContainerTileInventoryBuilder upgradeSlot(final int index, final int x, final int y) {
 		this.parent.slots.add(new FilteredSlot(this.tile, index, x, y)
-				.setFilter(stack -> stack.getItem() instanceof IUpgrade));
+			.setFilter(stack -> stack.getItem() instanceof IUpgrade));
 		return this;
 	}
 
-	private ContainerTileInventoryBuilder upgradeSlots(IUpgradeable upgradeable){
-		if(upgradeable.canBeUpgraded()){
+	private ContainerTileInventoryBuilder upgradeSlots(IUpgradeable upgradeable) {
+		if (upgradeable.canBeUpgraded()) {
 			for (int i = 0; i < upgradeable.getUpgradeSlotCount(); i++) {
 				this.parent.slots.add(new UpgradeSlot(upgradeable.getUpgradeInvetory(), i, -19, i * 18 + 12));
 			}
@@ -127,12 +123,9 @@ public class ContainerTileInventoryBuilder {
 	}
 
 	/**
-	 *
-	 * @param supplier
-	 *            The supplier must supply a variable holding inside a Short, it
-	 *            will be truncated by force.
-	 * @param setter
-	 *            The setter to call when the variable has been updated.
+	 * @param supplier The supplier must supply a variable holding inside a Short, it
+	 * will be truncated by force.
+	 * @param setter The setter to call when the variable has been updated.
 	 */
 	public ContainerTileInventoryBuilder syncShortValue(final IntSupplier supplier, final IntConsumer setter) {
 		this.parent.shortValues.add(Pair.of(supplier, setter));
@@ -140,12 +133,9 @@ public class ContainerTileInventoryBuilder {
 	}
 
 	/**
-	 *
-	 * @param supplier
-	 *            The supplier it can supply a variable holding in an Integer it
-	 *            will be split inside multiples shorts.
-	 * @param setter
-	 *            The setter to call when the variable has been updated.
+	 * @param supplier The supplier it can supply a variable holding in an Integer it
+	 * will be split inside multiples shorts.
+	 * @param setter The setter to call when the variable has been updated.
 	 */
 	public ContainerTileInventoryBuilder syncIntegerValue(final IntSupplier supplier, final IntConsumer setter) {
 		this.parent.integerValues.add(Pair.of(supplier, setter));
@@ -155,7 +145,7 @@ public class ContainerTileInventoryBuilder {
 	public ContainerTileInventoryBuilder syncEnergyValue() {
 		if (this.tile instanceof TilePowerAcceptor)
 			return this.syncIntegerValue(() -> (int) ((TilePowerAcceptor) this.tile).getEnergy(),
-					((TilePowerAcceptor) this.tile)::setEnergy)
+				((TilePowerAcceptor) this.tile)::setEnergy)
 				.syncIntegerValue(() -> (int) ((TilePowerAcceptor) this.tile).extraPowerStoage,
 					((TilePowerAcceptor) this.tile)::setExtraPowerStoage);
 		Core.logHelper.error(this.tile + " is not an instance of TilePowerAcceptor! Energy cannot be synced.");
@@ -165,14 +155,14 @@ public class ContainerTileInventoryBuilder {
 	public ContainerTileInventoryBuilder syncCrafterValue() {
 		if (this.tile instanceof IRecipeCrafterProvider)
 			return this
-					.syncIntegerValue(() -> ((IRecipeCrafterProvider) this.tile).getRecipeCrafter().currentTickTime,
-							(currentTickTime) -> ((IRecipeCrafterProvider) this.tile)
-							.getRecipeCrafter().currentTickTime = currentTickTime)
-					.syncIntegerValue(() -> ((IRecipeCrafterProvider) this.tile).getRecipeCrafter().currentNeededTicks,
-							(currentNeededTicks) -> ((IRecipeCrafterProvider) this.tile)
-							.getRecipeCrafter().currentNeededTicks = currentNeededTicks);
+				.syncIntegerValue(() -> ((IRecipeCrafterProvider) this.tile).getRecipeCrafter().currentTickTime,
+					(currentTickTime) -> ((IRecipeCrafterProvider) this.tile)
+						.getRecipeCrafter().currentTickTime = currentTickTime)
+				.syncIntegerValue(() -> ((IRecipeCrafterProvider) this.tile).getRecipeCrafter().currentNeededTicks,
+					(currentNeededTicks) -> ((IRecipeCrafterProvider) this.tile)
+						.getRecipeCrafter().currentNeededTicks = currentNeededTicks);
 		Core.logHelper
-		.error(this.tile + " is not an instance of IRecipeCrafterProvider! Craft progress cannot be synced.");
+			.error(this.tile + " is not an instance of IRecipeCrafterProvider! Craft progress cannot be synced.");
 		return this;
 	}
 

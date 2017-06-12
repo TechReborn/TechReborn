@@ -29,10 +29,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.blocks.IAdvancedRotationTexture;
-
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
@@ -55,7 +53,7 @@ public class BlockDieselGenerator extends BlockMachineBase implements IAdvancedR
 
 	@Override
 	public boolean onBlockActivated(final World world, final int x, final int y, final int z, final EntityPlayer player, final int side, final float hitX,
-			final float hitY, final float hitZ) {
+	                                final float hitY, final float hitZ) {
 		if (this.fillBlockWithFluid(world, new BlockPos(x, y, z), player)) {
 			return true;
 		}

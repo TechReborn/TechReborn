@@ -29,13 +29,12 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-
 import techreborn.tiles.TileScrapboxinator;
 
 public class GuiScrapboxinator extends GuiContainer {
 
 	public static final ResourceLocation texture = new ResourceLocation("techreborn",
-			"textures/gui/scrapboxinator.png");
+		"textures/gui/scrapboxinator.png");
 
 	TileScrapboxinator scrapboxinator;
 
@@ -72,8 +71,8 @@ public class GuiScrapboxinator extends GuiContainer {
 	protected void drawGuiContainerForegroundLayer(final int p_146979_1_, final int p_146979_2_) {
 		final String name = net.minecraft.util.text.translation.I18n.translateToLocal("tile.techreborn.scrapboxinator.name");
 		this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6,
-				4210752);
+			4210752);
 		this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2,
-				4210752);
+			4210752);
 	}
 }

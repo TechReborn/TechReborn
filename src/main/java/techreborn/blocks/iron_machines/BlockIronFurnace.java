@@ -35,10 +35,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.blocks.IRotationTexture;
-
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
@@ -65,7 +63,7 @@ public class BlockIronFurnace extends BlockMachineBase implements IRotationTextu
 
 	@Override
 	public boolean onBlockActivated(final World world, final int x, final int y, final int z, final EntityPlayer player, final int side, final float hitX,
-			final float hitY, final float hitZ) {
+	                                final float hitY, final float hitZ) {
 		if (!player.isSneaking())
 			player.openGui(Core.INSTANCE, EGui.IRON_FURNACE.ordinal(), world, x, y, z);
 		return true;
@@ -92,22 +90,22 @@ public class BlockIronFurnace extends BlockMachineBase implements IRotationTextu
 			switch (enumfacing) {
 				case WEST:
 					worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D,
-							new int[0]);
+						new int[0]);
 					worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D, new int[0]);
 					break;
 				case EAST:
 					worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D,
-							new int[0]);
+						new int[0]);
 					worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D, new int[0]);
 					break;
 				case NORTH:
 					worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D,
-							new int[0]);
+						new int[0]);
 					worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D, new int[0]);
 					break;
 				case SOUTH:
 					worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D,
-							new int[0]);
+						new int[0]);
 					worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D, new int[0]);
 			}
 		}

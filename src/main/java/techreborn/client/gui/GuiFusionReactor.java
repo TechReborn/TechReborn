@@ -32,12 +32,10 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
-
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
 import reborncore.common.misc.Location;
 import reborncore.common.powerSystem.PowerSystem;
-
 import techreborn.client.ClientMultiBlocks;
 import techreborn.proxies.ClientProxy;
 import techreborn.tiles.fusionReactor.TileEntityFusionController;
@@ -47,7 +45,7 @@ import java.io.IOException;
 public class GuiFusionReactor extends GuiContainer {
 
 	public static final ResourceLocation texture = new ResourceLocation("techreborn",
-			"textures/gui/fusion_reactor.png");
+		"textures/gui/fusion_reactor.png");
 
 	TileEntityFusionController fusionController;
 
@@ -61,16 +59,16 @@ public class GuiFusionReactor extends GuiContainer {
 		final String name = I18n.translateToLocal("tile.techreborn.fusioncontrolcomputer.name");
 		this.fontRendererObj.drawString(name, 87, 6, 4210752);
 		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,
-				this.ySize - 96 + 2, 4210752);
+			this.ySize - 96 + 2, 4210752);
 
 		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(this.fusionController.getEnergy()), 11, 8,
-				16448255);
+			16448255);
 		this.fontRendererObj.drawString("Coils: " + (this.fusionController.getCoilStatus() == 1 ? "Yes" : "No"), 11, 16,
-				16448255);
+			16448255);
 		if (this.fusionController.getNeededPower() > 1 && this.fusionController.getCrafingTickTime() < 1)
 			this.fontRendererObj.drawString("Start: "
-					+ this.percentage(this.fusionController.getNeededPower(), (int) this.fusionController.getEnergy())
-					+ "%", 11, 24, 16448255);
+				+ this.percentage(this.fusionController.getNeededPower(), (int) this.fusionController.getEnergy())
+				+ "%", 11, 24, 16448255);
 
 	}
 
@@ -82,10 +80,10 @@ public class GuiFusionReactor extends GuiContainer {
 		this.buttonList.add(button);
 		super.initGui();
 		final BlockPos coordinates = new BlockPos(
-				this.fusionController.getPos().getX()
+			this.fusionController.getPos().getX()
 				- EnumFacing.getFront(this.fusionController.getFacingInt()).getFrontOffsetX() * 2,
-				this.fusionController.getPos().getY() - 1, this.fusionController.getPos().getZ()
-				- EnumFacing.getFront(this.fusionController.getFacingInt()).getFrontOffsetZ() * 2);
+			this.fusionController.getPos().getY() - 1, this.fusionController.getPos().getZ()
+			- EnumFacing.getFront(this.fusionController.getFacingInt()).getFrontOffsetZ() * 2);
 		if (coordinates.equals(MultiblockRenderEvent.anchor)) {
 			ClientProxy.multiblockRenderEvent.setMultiblock(null);
 			button.displayString = "B";
@@ -96,7 +94,7 @@ public class GuiFusionReactor extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(final float p_146976_1_, final int p_146976_2_,
-			final int p_146976_3_) {
+	                                               final int p_146976_3_) {
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.getTextureManager().bindTexture(GuiFusionReactor.texture);
 		final int k = (this.width - this.xSize) / 2;
@@ -126,10 +124,10 @@ public class GuiFusionReactor extends GuiContainer {
 				final MultiblockSet set = new MultiblockSet(ClientMultiBlocks.reactor);
 				ClientProxy.multiblockRenderEvent.setMultiblock(set);
 				ClientProxy.multiblockRenderEvent.parent = new Location(this.fusionController.getPos().getX(),
-						this.fusionController.getPos().getY(), this.fusionController.getPos().getZ(),
-						this.fusionController.getWorld());
+					this.fusionController.getPos().getY(), this.fusionController.getPos().getZ(),
+					this.fusionController.getWorld());
 				MultiblockRenderEvent.anchor = new BlockPos(this.fusionController.getPos().getX(),
-						this.fusionController.getPos().getY() - 1, this.fusionController.getPos().getZ());
+					this.fusionController.getPos().getY() - 1, this.fusionController.getPos().getZ());
 
 				button.displayString = "A";
 			} else {

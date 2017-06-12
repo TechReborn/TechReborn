@@ -47,7 +47,7 @@ public abstract class BaseRecipeWrapper<T extends BaseRecipe> extends BlankRecip
 		inputs = new ArrayList<>();
 		outputs = new ArrayList<>();
 		for (Object input : baseRecipe.getInputs()) {
-			if(input instanceof ItemStack){
+			if (input instanceof ItemStack) {
 				ItemStack stack = (ItemStack) input;
 				if (baseRecipe.useOreDic()) {
 					List<ItemStack> oreDictInputs = expandOreDict(stack);
@@ -55,7 +55,7 @@ public abstract class BaseRecipeWrapper<T extends BaseRecipe> extends BlankRecip
 				} else {
 					inputs.add(Collections.singletonList(stack));
 				}
-			} else if (input instanceof String){
+			} else if (input instanceof String) {
 				inputs.add(OreDictionary.getOres((String) input));
 			}
 		}

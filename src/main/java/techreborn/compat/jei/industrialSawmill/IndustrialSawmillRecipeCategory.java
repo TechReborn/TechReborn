@@ -44,15 +44,14 @@ public class IndustrialSawmillRecipeCategory extends BlankRecipeCategory<Industr
 
 	private final String title;
 	public static final ResourceLocation texture = new ResourceLocation("techreborn",
-			"textures/gui/industrial_sawmill.png");
+		"textures/gui/industrial_sawmill.png");
 	private final IDrawable background;
 	private final IDrawable tankOverlay;
 	private static final int[] INPUT_SLOTS = { 0, 1 };
 	private static final int[] OUTPUT_SLOTS = { 2, 3, 4 };
 	private static final int[] INPUT_TANKS = { 0 };
-	
-	
-	public IndustrialSawmillRecipeCategory(IGuiHelper guiHelper){
+
+	public IndustrialSawmillRecipeCategory(IGuiHelper guiHelper) {
 		title = Translator.translateToLocal("tile.techreborn.industrialsawmill.name");
 		background = guiHelper.createDrawable(texture, 7, 15, 141, 55);
 		tankOverlay = guiHelper.createDrawable(texture, 176, 86, 12, 47);
@@ -62,25 +61,25 @@ public class IndustrialSawmillRecipeCategory extends BlankRecipeCategory<Industr
 	public String getModName() {
 		return ModInfo.MOD_NAME;
 	}
-	
+
 	@Nonnull
 	@Override
 	public String getUid() {
 		return RecipeCategoryUids.INDUSTRIAL_SAWMILL;
 	}
-	
+
 	@Nonnull
 	@Override
 	public String getTitle() {
 		return title;
 	}
-	
+
 	@Nonnull
 	@Override
 	public IDrawable getBackground() {
 		return background;
 	}
-	
+
 	@Override
 	public void setRecipe(IRecipeLayout recipeLayout, IndustrialSawmillRecipeWrapper recipeWrapper, IIngredients ingredients) {
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
@@ -90,11 +89,11 @@ public class IndustrialSawmillRecipeCategory extends BlankRecipeCategory<Industr
 		guiItemStacks.init(OUTPUT_SLOTS[0], false, 76, 19);
 		guiItemStacks.init(OUTPUT_SLOTS[1], false, 94, 19);
 		guiItemStacks.init(OUTPUT_SLOTS[2], false, 112, 19);
-		
+
 		IGuiFluidStackGroup guiFluidStacks = recipeLayout.getFluidStacks();
 		guiFluidStacks.init(INPUT_TANKS[0], true, 4, 4, 12, 47, TileIndustrialSawmill.TANK_CAPACITY, true, tankOverlay);
 
 		RecipeUtil.setRecipeItems(recipeLayout, ingredients, INPUT_SLOTS, OUTPUT_SLOTS, INPUT_TANKS, null);
-		
+
 	}
 }

@@ -130,7 +130,6 @@ public class IC2Dict {
 
 			OreDictionary.registerOre("plateIridium", ItemName.crafting.getItemStack(CraftingItemType.iridium));
 
-
 		} catch (NoClassDefFoundError notFound) {
 			Core.logHelper.warn(
 				"Can't enable integration: IC2 installed but cannot be hooked\n" +
@@ -146,14 +145,12 @@ public class IC2Dict {
 		}
 	}
 
-
-	public static ItemStack getIC2Cable(CableType type, int insulation){
-		if(insulation > type.maxInsulation){
+	public static ItemStack getIC2Cable(CableType type, int insulation) {
+		if (insulation > type.maxInsulation) {
 			return null;
 		}
 		ItemCable itemCable = ItemName.cable.getInstance();
 		return itemCable.getCable(type, insulation);
 	}
-
 
 }

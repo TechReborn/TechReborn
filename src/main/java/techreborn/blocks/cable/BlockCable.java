@@ -68,7 +68,6 @@ public class BlockCable extends BlockContainer {
 	public static final PropertyBool DOWN = PropertyBool.create("down");
 	public static final IProperty<EnumCableType> TYPE = PropertyEnum.create("type", EnumCableType.class);
 
-
 	public BlockCable() {
 		super(Material.ROCK);
 		setCreativeTab(TechRebornCreativeTab.instance);
@@ -122,7 +121,7 @@ public class BlockCable extends BlockContainer {
 
 	@Override
 	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
-		for(EnumCableType cableType : EnumCableType.values()){
+		for (EnumCableType cableType : EnumCableType.values()) {
 			list.add(new ItemStack(this, 1, cableType.ordinal()));
 		}
 	}
@@ -158,7 +157,7 @@ public class BlockCable extends BlockContainer {
 		IBlockState actualState = state;
 		for (EnumFacing facing : EnumFacing.values()) {
 			TileEntity tileEntity = getTileEntitySafely(worldIn, pos.offset(facing));
-			if(tileEntity != null){
+			if (tileEntity != null) {
 				actualState = actualState.withProperty(getProperty(facing), tileEntity.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite()));
 			}
 		}

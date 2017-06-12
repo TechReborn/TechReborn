@@ -24,13 +24,12 @@
 
 package techreborn.client.container.builder.slot;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.inventory.IInventory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
 import techreborn.lib.ModInfo;
+
+import javax.annotation.Nullable;
 
 public class SpriteSlot extends FilteredSlot {
 

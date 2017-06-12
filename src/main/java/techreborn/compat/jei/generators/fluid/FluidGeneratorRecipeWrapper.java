@@ -24,13 +24,6 @@
 
 package techreborn.compat.jei.generators.fluid;
 
-import javax.annotation.Nonnull;
-
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.text.NumberFormat;
-import java.util.Locale;
-
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawable;
@@ -40,6 +33,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import techreborn.api.generator.FluidGeneratorRecipe;
+
+import javax.annotation.Nonnull;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class FluidGeneratorRecipeWrapper extends BlankRecipeWrapper {
 
@@ -58,13 +57,17 @@ public class FluidGeneratorRecipeWrapper extends BlankRecipeWrapper {
 	private final FluidGeneratorRecipe baseRecipe;
 	private final IDrawable energyProduced;
 
-	public FluidGeneratorRecipeWrapper(@Nonnull IJeiHelpers jeiHelpers, @Nonnull FluidGeneratorRecipe recipe) {
+	public FluidGeneratorRecipeWrapper(
+		@Nonnull
+			IJeiHelpers jeiHelpers,
+		@Nonnull
+			FluidGeneratorRecipe recipe) {
 
 		this.baseRecipe = recipe;
 
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 		energyProduced = guiHelper.createDrawable(FluidGeneratorRecipeCategory.texture, 176, 3,
-				(int) (25 * ((recipe.getEnergyPerMb() * 1000.0) / FLUID_GENERATOR_STORAGE)), 14);
+			(int) (25 * ((recipe.getEnergyPerMb() * 1000.0) / FLUID_GENERATOR_STORAGE)), 14);
 	}
 
 	@Override
@@ -74,7 +77,7 @@ public class FluidGeneratorRecipeWrapper extends BlankRecipeWrapper {
 		energyProduced.draw(minecraft, 73, 26);
 
 		minecraft.fontRendererObj.drawString(formatter.format(baseRecipe.getEnergyPerMb() * 1000) + " FE", 70, 13,
-				0x444444);
+			0x444444);
 	}
 
 	@Override

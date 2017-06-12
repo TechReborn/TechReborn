@@ -50,7 +50,7 @@ import techreborn.items.ItemDusts;
 import java.util.Random;
 
 public class TileIndustrialSawmill extends TilePowerAcceptor
-implements IWrenchable, IInventoryProvider, IContainerProvider {
+	implements IWrenchable, IInventoryProvider, IContainerProvider {
 	public static final int TANK_CAPACITY = 16000;
 
 	public Inventory inventory = new Inventory(5, "Sawmill", 64, this);
@@ -74,8 +74,8 @@ implements IWrenchable, IInventoryProvider, IContainerProvider {
 					for (final int id : OreDictionary.getOreIDs(wood)) {
 						final String name = OreDictionary.getOreName(id);
 						if (name.equals("logWood") && this.canAddOutput(2, 10) && this.canAddOutput(3, 5)
-								&& this.canAddOutput(4, 3) && this.canUseEnergy(128.0F) && !this.tank.isEmpty()
-								&& this.tank.getFluid().amount >= 1000) {
+							&& this.canAddOutput(4, 3) && this.canUseEnergy(128.0F) && !this.tank.isEmpty()
+							&& this.tank.getFluid().amount >= 1000) {
 							wood.shrink(1);
 							if (wood.getCount() == 0)
 								this.setInventorySlotContents(0, ItemStack.EMPTY);
@@ -122,11 +122,11 @@ implements IWrenchable, IInventoryProvider, IContainerProvider {
 
 	public boolean getMutliBlock() {
 		final boolean down = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.CASING_NORMAL,
-				MultiblockChecker.ZERO_OFFSET);
+			MultiblockChecker.ZERO_OFFSET);
 		final boolean up = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.CASING_NORMAL,
-				new BlockPos(0, 2, 0));
+			new BlockPos(0, 2, 0));
 		final boolean blade = this.multiblockChecker.checkRingY(1, 1, MultiblockChecker.CASING_REINFORCED,
-				new BlockPos(0, 1, 0));
+			new BlockPos(0, 1, 0));
 		final IBlockState centerBlock = this.multiblockChecker.getBlock(0, 1, 0);
 		final boolean center = centerBlock.getBlock() == Blocks.WATER;
 		return down && center && blade && up;
@@ -243,7 +243,7 @@ implements IWrenchable, IInventoryProvider, IContainerProvider {
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("industrialsawmill").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory().tile(this).slot(0, 32, 26).slot(1, 32, 44).outputSlot(2, 84, 35).outputSlot(3, 102, 35)
-				.outputSlot(4, 120, 35).syncEnergyValue().addInventory().create();
+			.addInventory().tile(this).slot(0, 32, 26).slot(1, 32, 44).outputSlot(2, 84, 35).outputSlot(3, 102, 35)
+			.outputSlot(4, 120, 35).syncEnergyValue().addInventory().create();
 	}
 }

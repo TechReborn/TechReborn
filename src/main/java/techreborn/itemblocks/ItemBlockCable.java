@@ -14,14 +14,11 @@ public class ItemBlockCable extends ItemBlock {
 		super(block);
 	}
 
-	public int getMetadata(int damage)
-	{
+	public int getMetadata(int damage) {
 		return damage;
 	}
 
-
-	public String getUnlocalizedName(ItemStack stack)
-	{
+	public String getUnlocalizedName(ItemStack stack) {
 		return super.getUnlocalizedName() + "." + EnumCableType.values()[stack.getItemDamage()].getName();
 	}
 }

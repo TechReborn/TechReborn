@@ -27,7 +27,6 @@ package techreborn.client.gui.upgrades;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -62,7 +61,7 @@ public class GuiSideConfig extends GuiBase {
 		super.initGui();
 		this.buttonList.clear();
 		int i = 0;
-		for(EnumFacing facing : EnumFacing.VALUES){
+		for (EnumFacing facing : EnumFacing.VALUES) {
 			buttonList.add(new GuiButton(facing.getIndex(), guiLeft + 150, guiTop + i++ * 23 + 22, 20, 20, "✓"));
 		}
 	}
@@ -71,7 +70,6 @@ public class GuiSideConfig extends GuiBase {
 	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
 		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
-
 
 	}
 
@@ -82,11 +80,11 @@ public class GuiSideConfig extends GuiBase {
 		int offset = 10;
 		RenderHelper.enableStandardItemLighting();
 		RenderHelper.enableGUIStandardItemLighting();
-		for(EnumFacing facing : EnumFacing.VALUES){
+		for (EnumFacing facing : EnumFacing.VALUES) {
 			BlockPos pos = tileEntity.getPos().offset(facing);
 			IBlockState state = tileEntity.getWorld().getBlockState(pos);
 			ItemStack stack = state.getBlock().getPickBlock(state, new RayTraceResult(new Vec3d(0, 0, 0), facing, pos), tileEntity.getWorld(), pos, Minecraft.getMinecraft().player);
-			if(stack != null && !stack.isEmpty() && stack.getItem() != null){
+			if (stack != null && !stack.isEmpty() && stack.getItem() != null) {
 				drawCentredString(stack.getDisplayName() + " - " + facing.getName(), offset += 22, 4210752, layer);
 				itemRender.renderItemIntoGUI(stack, 10, offset - 2);
 			} else {

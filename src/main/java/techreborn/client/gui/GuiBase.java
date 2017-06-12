@@ -112,22 +112,22 @@ public class GuiBase extends GuiContainer {
 	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int mouseX, int mouseY) {
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		builder.drawDefaultBackground(this, guiLeft, guiTop, xSize, ySize);
-		if(drawPlayerSlots()){
+		if (drawPlayerSlots()) {
 			builder.drawPlayerSlots(this, guiLeft + xSize / 2, guiTop + 93, true);
 		}
-		if(tryAddUpgrades() && tile instanceof IUpgradeable){
+		if (tryAddUpgrades() && tile instanceof IUpgradeable) {
 			IUpgradeable upgradeable = (IUpgradeable) tile;
-			if(upgradeable.canBeUpgraded()){
+			if (upgradeable.canBeUpgraded()) {
 				builder.drawUpgrades(this, upgradeable, guiLeft, guiTop);
 			}
 		}
 	}
 
-	public boolean drawPlayerSlots(){
+	public boolean drawPlayerSlots() {
 		return true;
 	}
 
-	public boolean tryAddUpgrades(){
+	public boolean tryAddUpgrades() {
 		return true;
 	}
 

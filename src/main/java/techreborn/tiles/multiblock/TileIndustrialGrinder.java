@@ -103,7 +103,7 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrencha
 	}
 
 	public boolean getMutliBlock() {
-		if(multiblockChecker == null){
+		if (multiblockChecker == null) {
 			return false;
 		}
 		final boolean down = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.CASING_NORMAL,
@@ -225,7 +225,7 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrencha
 
 	@Override
 	public boolean canCraft(final TileEntity tile, final IndustrialGrinderRecipe recipe) {
-		if(!getMutliBlock()){
+		if (!getMutliBlock()) {
 			return false;
 		}
 		final FluidStack recipeFluid = recipe.fluidStack;

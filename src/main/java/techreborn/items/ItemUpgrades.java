@@ -30,7 +30,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -105,10 +104,10 @@ public class ItemUpgrades extends ItemTRNoDestroy implements IUpgrade {
 	@Override
 	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag) {
 		super.addInformation(stack, world, tooltip, flag);
-		if(stack.getItemDamage() == 4 || stack.getItemDamage() == 5){
+		if (stack.getItemDamage() == 4 || stack.getItemDamage() == 5) {
 			tooltip.add("Facing: " + getFacing(stack).getName());
 			String text = Core.proxy.getUpgradeConfigText();
-			if(!text.isEmpty()){
+			if (!text.isEmpty()) {
 				tooltip.add(text);
 			}
 		}
@@ -123,77 +122,77 @@ public class ItemUpgrades extends ItemTRNoDestroy implements IUpgrade {
 		@Nonnull
 			ItemStack stack) {
 
-			if (stack.getItemDamage() == 0) {
-				if(crafter != null) {
-					crafter.addSpeedMulti(0.25);
-					crafter.addPowerMulti(0.5);
-				}
+		if (stack.getItemDamage() == 0) {
+			if (crafter != null) {
+				crafter.addSpeedMulti(0.25);
+				crafter.addPowerMulti(0.5);
+			}
 
-			} else if(stack.getItemDamage() == 4){
-				EnumFacing dir = getFacing(stack);
-				TileEntity tileEntity = machineBase.getWorld().getTileEntity(machineBase.getPos().offset(dir));
-				if(tileEntity instanceof IInventory){
-					if(crafter != null){
-						for(Integer outSlot : crafter.outputSlots){
-							ItemStack outputStack = crafter.inventory.getStackInSlot(outSlot);
-							if(!outputStack.isEmpty()){
-								int amount = InventoryHelper.testInventoryInsertion((IInventory) tileEntity, outputStack, dir);
-								if(amount > 0){
-									InventoryHelper.insertItemIntoInventory((IInventory) tileEntity,outputStack);
-									crafter.inventory.decrStackSize(outSlot, amount);
-								}
+		} else if (stack.getItemDamage() == 4) {
+			EnumFacing dir = getFacing(stack);
+			TileEntity tileEntity = machineBase.getWorld().getTileEntity(machineBase.getPos().offset(dir));
+			if (tileEntity instanceof IInventory) {
+				if (crafter != null) {
+					for (Integer outSlot : crafter.outputSlots) {
+						ItemStack outputStack = crafter.inventory.getStackInSlot(outSlot);
+						if (!outputStack.isEmpty()) {
+							int amount = InventoryHelper.testInventoryInsertion((IInventory) tileEntity, outputStack, dir);
+							if (amount > 0) {
+								InventoryHelper.insertItemIntoInventory((IInventory) tileEntity, outputStack);
+								crafter.inventory.decrStackSize(outSlot, amount);
 							}
 						}
-					} else if (machineBase instanceof IMachineSlotProvider){
-						IMachineSlotProvider slotProvider = (IMachineSlotProvider) machineBase;
-						for(Integer outSlot : slotProvider.getOuputSlots()){
-							ItemStack outputStack = slotProvider.getMachineInv().getStackInSlot(outSlot);
-							if(!outputStack.isEmpty()){
-								int amount = InventoryHelper.testInventoryInsertion((IInventory) tileEntity, outputStack, dir);
-								if(amount > 0){
-									InventoryHelper.insertItemIntoInventory((IInventory) tileEntity,outputStack);
-									slotProvider.getMachineInv().decrStackSize(outSlot, amount);
-								}
+					}
+				} else if (machineBase instanceof IMachineSlotProvider) {
+					IMachineSlotProvider slotProvider = (IMachineSlotProvider) machineBase;
+					for (Integer outSlot : slotProvider.getOuputSlots()) {
+						ItemStack outputStack = slotProvider.getMachineInv().getStackInSlot(outSlot);
+						if (!outputStack.isEmpty()) {
+							int amount = InventoryHelper.testInventoryInsertion((IInventory) tileEntity, outputStack, dir);
+							if (amount > 0) {
+								InventoryHelper.insertItemIntoInventory((IInventory) tileEntity, outputStack);
+								slotProvider.getMachineInv().decrStackSize(outSlot, amount);
 							}
 						}
-					} else {
-						IInventory inventory = machineBase;
-						for (int outSlot = 0; outSlot < inventory.getSizeInventory(); outSlot++) {
-							ItemStack outputStack = inventory.getStackInSlot(outSlot);
-							if(!outputStack.isEmpty()){
-								int amount = InventoryHelper.testInventoryInsertion((IInventory) tileEntity, outputStack, dir);
-								if(amount > 0){
-									InventoryHelper.insertItemIntoInventory((IInventory) tileEntity,outputStack);
-									inventory.decrStackSize(outSlot, amount);
-								}
+					}
+				} else {
+					IInventory inventory = machineBase;
+					for (int outSlot = 0; outSlot < inventory.getSizeInventory(); outSlot++) {
+						ItemStack outputStack = inventory.getStackInSlot(outSlot);
+						if (!outputStack.isEmpty()) {
+							int amount = InventoryHelper.testInventoryInsertion((IInventory) tileEntity, outputStack, dir);
+							if (amount > 0) {
+								InventoryHelper.insertItemIntoInventory((IInventory) tileEntity, outputStack);
+								inventory.decrStackSize(outSlot, amount);
 							}
 						}
 					}
 				}
-			} else if (stack.getItemDamage() == 5){
-				if(machineBase.getWorld().getTotalWorldTime() % 10 != 0){
-					return;
-				}
-				EnumFacing dir = getFacing(stack);
-				TileEntity tileEntity = machineBase.getWorld().getTileEntity(machineBase.getPos().offset(dir));
-				if(tileEntity != null && tileEntity.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, dir.getOpposite())){
-					IItemHandler itemHandler = tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, dir.getOpposite());
-					for (int i = 0; i < itemHandler.getSlots(); i++) {
-						ItemStack stack1 = itemHandler.getStackInSlot(i);
-						if(crafter == null || crafter.isStackValidInput(stack1)){
-							ItemStack extractedStack = itemHandler.extractItem(i, 1, true);
-							int amount = InventoryHelper.testInventoryInsertion(machineBase, extractedStack, null);
-							if(amount > 0){
-								extractedStack = itemHandler.extractItem(i, 1, false);
-								extractedStack.setCount(1);
-								InventoryHelper.insertItemIntoInventory(machineBase , extractedStack);
-							}
+			}
+		} else if (stack.getItemDamage() == 5) {
+			if (machineBase.getWorld().getTotalWorldTime() % 10 != 0) {
+				return;
+			}
+			EnumFacing dir = getFacing(stack);
+			TileEntity tileEntity = machineBase.getWorld().getTileEntity(machineBase.getPos().offset(dir));
+			if (tileEntity != null && tileEntity.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, dir.getOpposite())) {
+				IItemHandler itemHandler = tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, dir.getOpposite());
+				for (int i = 0; i < itemHandler.getSlots(); i++) {
+					ItemStack stack1 = itemHandler.getStackInSlot(i);
+					if (crafter == null || crafter.isStackValidInput(stack1)) {
+						ItemStack extractedStack = itemHandler.extractItem(i, 1, true);
+						int amount = InventoryHelper.testInventoryInsertion(machineBase, extractedStack, null);
+						if (amount > 0) {
+							extractedStack = itemHandler.extractItem(i, 1, false);
+							extractedStack.setCount(1);
+							InventoryHelper.insertItemIntoInventory(machineBase, extractedStack);
 						}
 					}
 				}
+			}
 
 		}
-		if(machineBase instanceof TilePowerAcceptor){
+		if (machineBase instanceof TilePowerAcceptor) {
 			if (stack.getItemDamage() == 2) {
 				TilePowerAcceptor acceptor = (TilePowerAcceptor) machineBase;
 				acceptor.extraPowerStoage += 40000;
@@ -208,8 +207,8 @@ public class ItemUpgrades extends ItemTRNoDestroy implements IUpgrade {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void handleRightClick(TileEntity tile, ItemStack stack, Container container, int slotID) {
-		if(tile.getWorld().isRemote){
-			if(stack.getItemDamage() == 4 || stack.getItemDamage() == 5){
+		if (tile.getWorld().isRemote) {
+			if (stack.getItemDamage() == 4 || stack.getItemDamage() == 5) {
 				//TODO use the full gui handler
 				Minecraft.getMinecraft().displayGuiScreen(new GuiSideConfig(Minecraft.getMinecraft().player, tile, getContainer(Minecraft.getMinecraft().player), slotID));
 			}
@@ -217,11 +216,11 @@ public class ItemUpgrades extends ItemTRNoDestroy implements IUpgrade {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public BuiltContainer getContainer(EntityPlayer player){
+	public BuiltContainer getContainer(EntityPlayer player) {
 		return new ContainerBuilder("sides").create();
 	}
 
-	public EnumFacing getFacing(ItemStack stack){
+	public EnumFacing getFacing(ItemStack stack) {
 		return EnumFacing.VALUES[ItemNBTHelper.getInt(stack, "side", 0)];
 	}
 }

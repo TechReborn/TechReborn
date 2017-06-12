@@ -25,33 +25,29 @@
 package techreborn.api.generator;
 
 import com.google.common.collect.Sets;
+import net.minecraftforge.fluids.Fluid;
 
 import java.util.HashSet;
 import java.util.Optional;
 
-import net.minecraftforge.fluids.Fluid;
-
 public class FluidGeneratorRecipeList {
 	private HashSet<FluidGeneratorRecipe> recipes;
-	
-	public FluidGeneratorRecipeList(FluidGeneratorRecipe... recipes)
-	{
+
+	public FluidGeneratorRecipeList(FluidGeneratorRecipe... recipes) {
 		this.recipes = Sets.newHashSet(recipes);
 	}
-	
+
 	public boolean addRecipe(FluidGeneratorRecipe fluidGeneratorRecipe) {
-		if(!this.getRecipeForFluid(fluidGeneratorRecipe.getFluid()).isPresent())
+		if (!this.getRecipeForFluid(fluidGeneratorRecipe.getFluid()).isPresent())
 			return this.getRecipes().add(fluidGeneratorRecipe);
 		return false;
 	}
-	
-	public boolean removeRecipe(FluidGeneratorRecipe fluidGeneratorRecipe)
-	{
+
+	public boolean removeRecipe(FluidGeneratorRecipe fluidGeneratorRecipe) {
 		return this.getRecipes().remove(fluidGeneratorRecipe);
 	}
-	
-	public Optional<FluidGeneratorRecipe> getRecipeForFluid(Fluid fluid)
-	{
+
+	public Optional<FluidGeneratorRecipe> getRecipeForFluid(Fluid fluid) {
 		return this.recipes.stream().filter(recipe -> recipe.getFluid().equals(fluid)).findAny();
 	}
 

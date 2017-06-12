@@ -158,7 +158,7 @@ public class CTGeneric {
 		public void apply() {
 			for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(name)) {
 				for (Object stack : recipeType.getInputs()) {
-					if(stack instanceof ItemStack){
+					if (stack instanceof ItemStack) {
 						if (output.matches(MineTweakerMC.getIItemStack((ItemStack) stack))) {
 							removedRecipes.add((BaseRecipe) recipeType);
 							RecipeHandler.recipeList.remove(recipeType);

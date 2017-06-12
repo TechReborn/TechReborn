@@ -54,7 +54,7 @@ public class CTIndustrialGrinder extends CTGeneric {
 			fluidStack = CraftTweakerCompat.toFluidStack(fluid);
 		}
 
-		IndustrialGrinderRecipe r = new IndustrialGrinderRecipe(oInput1, fluidStack, CraftTweakerCompat.toStack(output1), CraftTweakerCompat.toStack(output2),  CraftTweakerCompat.toStack(output3), CraftTweakerCompat.toStack(output4), ticktime, euTick);
+		IndustrialGrinderRecipe r = new IndustrialGrinderRecipe(oInput1, fluidStack, CraftTweakerCompat.toStack(output1), CraftTweakerCompat.toStack(output2), CraftTweakerCompat.toStack(output3), CraftTweakerCompat.toStack(output4), ticktime, euTick);
 		addRecipe(r);
 	}
 

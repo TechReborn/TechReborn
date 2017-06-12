@@ -55,7 +55,7 @@ public class TileAlloySmelter extends TilePowerAcceptor
 	public static int maxInput = 32;
 	@ConfigRegistry(config = "machines", category = "alloy_smelter", key = "AlloySmelterMaxEnergy", comment = "Alloy Smelter Max Energy (Value in EU)")
 	public static int maxEnergy = 1000;
-//	@ConfigRegistry(config = "machines", category = "alloy_smelter", key = "AlloySmelterWrenchDropRate", comment = "Alloy Smelter Wrench Drop Rate")
+	//	@ConfigRegistry(config = "machines", category = "alloy_smelter", key = "AlloySmelterWrenchDropRate", comment = "Alloy Smelter Wrench Drop Rate")
 	public static float wrenchDropRate = 1.0F;
 
 	public int tickTime;

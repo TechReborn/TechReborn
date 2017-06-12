@@ -27,7 +27,6 @@ package techreborn.items.tools;
 import net.minecraft.item.ItemHoe;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import reborncore.RebornCore;
 import techreborn.client.TechRebornCreativeTabMisc;
 
 public class ItemTRHoe extends ItemHoe {

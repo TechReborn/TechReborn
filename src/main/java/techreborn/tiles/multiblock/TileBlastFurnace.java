@@ -52,7 +52,7 @@ import techreborn.multiblocks.MultiBlockCasing;
 import techreborn.tiles.TileMachineCasing;
 
 public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, IInventoryProvider,
-		ITileRecipeHandler<BlastFurnaceRecipe>, IRecipeCrafterProvider, IContainerProvider {
+	ITileRecipeHandler<BlastFurnaceRecipe>, IRecipeCrafterProvider, IContainerProvider {
 
 	public static int euTick = 5;
 	public int tickTime;
@@ -108,32 +108,32 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 	public int getHeat() {
 		for (final EnumFacing direction : EnumFacing.values()) {
 			final TileEntity tileEntity = this.world.getTileEntity(new BlockPos(this.getPos().getX() + direction.getFrontOffsetX(),
-					this.getPos().getY() + direction.getFrontOffsetY(), this.getPos().getZ() + direction.getFrontOffsetZ()));
+				this.getPos().getY() + direction.getFrontOffsetY(), this.getPos().getZ() + direction.getFrontOffsetZ()));
 			if (tileEntity instanceof TileMachineCasing) {
 				if (((TileMachineCasing) tileEntity).isConnected()
-						&& ((TileMachineCasing) tileEntity).getMultiblockController().isAssembled()) {
+					&& ((TileMachineCasing) tileEntity).getMultiblockController().isAssembled()) {
 					final MultiBlockCasing casing = ((TileMachineCasing) tileEntity).getMultiblockController();
 					final Location location = new Location(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), direction);
 					location.modifyPositionFromSide(direction, 1);
 					int heat = 0;
 					if (this.world.getBlockState(new BlockPos(location.getX(), location.getY() - 1, location.getZ()))
-							.getBlock() == tileEntity.getBlockType()) {
+						.getBlock() == tileEntity.getBlockType()) {
 						return 0;
 					}
 
 					for (final IMultiblockPart part : casing.connectedParts) {
 						final BlockMachineCasing casing1 = (BlockMachineCasing) this.world.getBlockState(part.getPos())
-								.getBlock();
+							.getBlock();
 						heat += casing1
-								.getHeatFromState(part.getWorld().getBlockState(part.getWorldLocation().toBlockPos()));
+							.getHeatFromState(part.getWorld().getBlockState(part.getWorldLocation().toBlockPos()));
 						// TODO meta fix
 					}
 
 					if (this.world.getBlockState(new BlockPos(location.getX(), location.getY(), location.getZ()))
-							.getBlock().getUnlocalizedName().equals("tile.lava")
-							&& this.world
-							.getBlockState(new BlockPos(location.getX(), location.getY() + 1, location.getZ()))
-							.getBlock().getUnlocalizedName().equals("tile.lava")) {
+						.getBlock().getUnlocalizedName().equals("tile.lava")
+						&& this.world
+						.getBlockState(new BlockPos(location.getX(), location.getY() + 1, location.getZ()))
+						.getBlock().getUnlocalizedName().equals("tile.lava")) {
 						heat += 500;
 					}
 					return heat;
@@ -146,7 +146,7 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 	@Override
 	public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity packet) {
 		this.world.markBlockRangeForRenderUpdate(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), this.getPos().getX(),
-				this.getPos().getY(), this.getPos().getZ());
+			this.getPos().getY(), this.getPos().getZ());
 		this.readFromNBT(packet.getNbtCompound());
 	}
 
@@ -252,8 +252,8 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("blastfurnace").player(player.inventory).inventory().hotbar()
-				.addInventory().tile(this).slot(0, 50, 27).slot(1, 50, 47).outputSlot(2, 92, 36).outputSlot(3, 110, 36)
-				.syncEnergyValue().syncCrafterValue().syncIntegerValue(this::getHeat, this::setHeat).addInventory()
-				.create();
+			.addInventory().tile(this).slot(0, 50, 27).slot(1, 50, 47).outputSlot(2, 92, 36).outputSlot(3, 110, 36)
+			.syncEnergyValue().syncCrafterValue().syncIntegerValue(this::getHeat, this::setHeat).addInventory()
+			.create();
 	}
 }

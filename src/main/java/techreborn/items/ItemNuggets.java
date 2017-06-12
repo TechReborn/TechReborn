@@ -26,7 +26,6 @@ package techreborn.items;
 
 import com.google.common.base.CaseFormat;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import techreborn.client.TechRebornCreativeTabMisc;

@@ -233,10 +233,10 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public String getUpgradeConfigText() {
-		if(Minecraft.getMinecraft().currentScreen instanceof GuiBase){
+		if (Minecraft.getMinecraft().currentScreen instanceof GuiBase) {
 			GuiBase base = (GuiBase) Minecraft.getMinecraft().currentScreen;
-			if(base.tile instanceof IUpgradeable){
-				if(((IUpgradeable) base.tile).canBeUpgraded()){
+			if (base.tile instanceof IUpgradeable) {
+				if (((IUpgradeable) base.tile).canBeUpgraded()) {
 					return TextFormatting.LIGHT_PURPLE + "Right click to configure";
 				}
 			}

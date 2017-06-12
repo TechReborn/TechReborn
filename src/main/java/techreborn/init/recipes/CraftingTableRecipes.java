@@ -56,7 +56,7 @@ public class CraftingTableRecipes extends RecipeMethods {
 
 		registerShapeless(getStack(ModBlocks.RUBBER_PLANKS, 4), getStack(ModBlocks.RUBBER_LOG));
 
-		if(!IC2Duplicates.deduplicate()){
+		if (!IC2Duplicates.deduplicate()) {
 			registerShapeless(getStack(ModItems.FREQUENCY_TRANSMITTER), getStack(IC2Duplicates.CABLE_ICOPPER), "circuitBasic");
 		}
 

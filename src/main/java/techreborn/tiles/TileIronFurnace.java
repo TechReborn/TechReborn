@@ -33,18 +33,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
-
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.util.Inventory;
-
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 
 public class TileIronFurnace extends TileLegacyMachineBase
-		implements IInventoryProvider, ISidedInventory, IContainerProvider {
+	implements IInventoryProvider, ISidedInventory, IContainerProvider {
 
 	private static final int[] SLOTS_TOP = new int[] { 0 };
 	private static final int[] SLOTS_BOTTOM = new int[] { 2, 1 };
@@ -87,7 +85,7 @@ public class TileIronFurnace extends TileLegacyMachineBase
 			this.fuel = this.fuelGague = (int) (TileEntityFurnace.getItemBurnTime(this.getStackInSlot(this.fuelslot)) * 1.25);
 			if (this.fuel > 0) {
 				if (this.getStackInSlot(this.fuelslot).getItem().hasContainerItem()) // Fuel
-					// slot
+				// slot
 				{
 					this.setInventorySlotContents(this.fuelslot, new ItemStack(this.getStackInSlot(this.fuelslot).getItem().getContainerItem()));
 				} else if (this.getStackInSlot(this.fuelslot).getCount() > 1) {
@@ -215,8 +213,8 @@ public class TileIronFurnace extends TileLegacyMachineBase
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("ironfurnace").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory().tile(this).slot(0, 56, 17).outputSlot(1, 116, 34).fuelSlot(2, 56, 53)
-				.syncIntegerValue(this::getBurnTime, this::setBurnTime)
-				.syncIntegerValue(this::getTotalBurnTime, this::setTotalBurnTime).addInventory().create();
+			.addInventory().tile(this).slot(0, 56, 17).outputSlot(1, 116, 34).fuelSlot(2, 56, 53)
+			.syncIntegerValue(this::getBurnTime, this::setBurnTime)
+			.syncIntegerValue(this::getTotalBurnTime, this::setTotalBurnTime).addInventory().create();
 	}
 }

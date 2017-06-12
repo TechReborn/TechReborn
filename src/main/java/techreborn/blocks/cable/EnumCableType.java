@@ -61,7 +61,7 @@ public enum EnumCableType implements IStringSerializable {
 		return friendlyName.toLowerCase();
 	}
 
-	public ItemStack getStack(){
-		return new ItemStack(ModBlocks.CABLE,1, this.ordinal());
+	public ItemStack getStack() {
+		return new ItemStack(ModBlocks.CABLE, 1, this.ordinal());
 	}
 }

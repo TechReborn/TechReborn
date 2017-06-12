@@ -83,7 +83,8 @@ public class ModItems {
 	public static Item ENERGY_CRYSTAL;
 	public static Item SCRAP_BOX;
 	public static Item FREQUENCY_TRANSMITTER;
-	public static @Nullable Item BRONZE_SWORD;
+	public static @Nullable
+	Item BRONZE_SWORD;
 	@Nullable
 	public static Item BRONZE_PICKAXE;
 	@Nullable
@@ -349,8 +350,8 @@ public class ModItems {
 	public static void registerItem(Item item, String name) {
 		item.setRegistryName(name);
 		GameRegistry.register(item);
-		if(item.getClass().isInstance(IEnergyItemInfo.class)){
-			if(!item.getClass().isInstance(IEnergyInterfaceItem.class)){
+		if (item.getClass().isInstance(IEnergyItemInfo.class)) {
+			if (!item.getClass().isInstance(IEnergyInterfaceItem.class)) {
 				Core.logHelper.error(name + " was not patched with the power mixin. This is a error, the item may not work as intended.");
 				Core.logHelper.error("Please check that the reborn core loading plugin has been registerd.");
 			}

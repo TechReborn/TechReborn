@@ -189,7 +189,7 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 			new CompressorRecipeCategory(guiHelper), new ScrapboxRecipeCategory(guiHelper),
 			new IndustrialSawmillRecipeCategory(guiHelper));
 
-		if(!IC2Duplicates.deduplicate()){
+		if (!IC2Duplicates.deduplicate()) {
 			registry.addRecipeCategories(new ExtractorRecipeCategory(guiHelper));
 			registry.addRecipeHandlers(new ExtractorRecipeHandler(jeiHelpers));
 		}

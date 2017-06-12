@@ -32,13 +32,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fluids.FluidStack;
-
 import techreborn.tiles.multiblock.TileIndustrialSawmill;
 
 public class GuiIndustrialSawmill extends GuiContainer {
 
 	public static final ResourceLocation texture = new ResourceLocation("techreborn",
-			"textures/gui/industrial_sawmill.png");
+		"textures/gui/industrial_sawmill.png");
 
 	TileIndustrialSawmill sawmill;
 
@@ -82,7 +81,7 @@ public class GuiIndustrialSawmill extends GuiContainer {
 			if (!this.sawmill.getMutliBlock()) {
 				//GuiUtil.drawTooltipBox(k + 30, l + 50 + 12, 114, 10);
 				this.fontRendererObj.drawString(I18n.translateToLocal("techreborn.message.missingmultiblock"), k + 38,
-						l + 52 + 12, -1);
+					l + 52 + 12, -1);
 			}
 		}
 	}

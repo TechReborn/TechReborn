@@ -219,7 +219,7 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInv
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("recycler").player(player.inventory).inventory().hotbar().addInventory()
-				.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).syncEnergyValue()
-				.syncIntegerValue(this::getProgress, this::setProgress).addInventory().create();
+			.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).syncEnergyValue()
+			.syncIntegerValue(this::getProgress, this::setProgress).addInventory().create();
 	}
 }

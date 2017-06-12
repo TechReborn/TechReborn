@@ -62,7 +62,7 @@ public class ChemicalReactorRecipeWrapper extends BaseRecipeWrapper<ChemicalReac
 		progressright.draw(minecraft, 25, 12);
 		progressleft.draw(minecraft, 75, 12);
 
-		int y = 30  ;
+		int y = 30;
 		int lineHeight = minecraft.fontRendererObj.FONT_HEIGHT;
 
 		minecraft.fontRendererObj.drawString(baseRecipe.tickTime / 20 + " seconds", (recipeWidth / 2 - minecraft.fontRendererObj.getStringWidth(baseRecipe.tickTime / 20 + " seconds") / 2), y, 0x444444);

@@ -24,11 +24,6 @@
 
 package techreborn.compat.jei.industrialSawmill;
 
-import java.util.Collections;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
@@ -40,15 +35,17 @@ import net.minecraftforge.fluids.FluidStack;
 import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
 import techreborn.compat.jei.BaseRecipeWrapper;
 
+import javax.annotation.Nonnull;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * @author drcrazy
- *
  */
-public class IndustrialSawmillRecipeWrapper extends BaseRecipeWrapper <IndustrialSawmillRecipe>{
+public class IndustrialSawmillRecipeWrapper extends BaseRecipeWrapper<IndustrialSawmillRecipe> {
 	public static final ResourceLocation texture = new ResourceLocation("techreborn",
-			"textures/gui/industrial_sawmill.png");	
+		"textures/gui/industrial_sawmill.png");
 	private final IDrawableAnimated progress;
-
 
 	public IndustrialSawmillRecipeWrapper(
 		@Nonnull
@@ -80,23 +77,20 @@ public class IndustrialSawmillRecipeWrapper extends BaseRecipeWrapper <Industria
 			return Collections.emptyList();
 		}
 	}
-	
+
 	@Override
 	public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 		super.drawInfo(minecraft, recipeWidth, recipeHeight, mouseX, mouseY);
 		progress.draw(minecraft, 48, 23);
-		
+
 		if (minecraft.fontRendererObj != null) {
 			int x = 70;
 			int y = 40;
 			int lineHeight = minecraft.fontRendererObj.FONT_HEIGHT;
-	
+
 			minecraft.fontRendererObj.drawString("Time: " + baseRecipe.tickTime / 20 + " s", x, y, 0x444444);
 			minecraft.fontRendererObj.drawString("FE: " + baseRecipe.euPerTick + " FE/t", x, y += lineHeight, 0x444444);
 		}
 	}
-
-
-
 
 }

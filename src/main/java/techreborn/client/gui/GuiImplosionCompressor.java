@@ -29,13 +29,12 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
-
 import techreborn.tiles.multiblock.TileImplosionCompressor;
 
 public class GuiImplosionCompressor extends GuiContainer {
 
 	public static final ResourceLocation texture = new ResourceLocation("techreborn",
-			"textures/gui/implosion_compressor.png");
+		"textures/gui/implosion_compressor.png");
 
 	TileImplosionCompressor compressor;
 

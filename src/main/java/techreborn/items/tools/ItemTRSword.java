@@ -25,7 +25,6 @@
 package techreborn.items.tools;
 
 import net.minecraft.item.ItemSword;
-import reborncore.RebornCore;
 import techreborn.client.TechRebornCreativeTabMisc;
 
 public class ItemTRSword extends ItemSword {

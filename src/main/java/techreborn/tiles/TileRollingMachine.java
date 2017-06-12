@@ -97,7 +97,6 @@ public class TileRollingMachine extends TilePowerAcceptor
 	public double getBaseMaxInput() {
 		return maxInput;
 	}
-	
 
 	@Override
 	public void updateEntity() {

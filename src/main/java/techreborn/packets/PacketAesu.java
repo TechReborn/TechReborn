@@ -59,8 +59,8 @@ public class PacketAesu implements INetworkPacket<PacketAesu> {
 
 	@Override
 	public void processData(PacketAesu message, MessageContext context) {
-//		if (!pos.getWorld().isRemote) {
-//			pos.handleGuiInputFromClient(buttonID);
-//		}
+		//		if (!pos.getWorld().isRemote) {
+		//			pos.handleGuiInputFromClient(buttonID);
+		//		}
 	}
 }

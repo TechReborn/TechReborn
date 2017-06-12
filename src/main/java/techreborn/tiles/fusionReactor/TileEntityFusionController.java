@@ -104,7 +104,6 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 		return maxInput;
 	}
 
-
 	@Override
 	public void readFromNBT(final NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);

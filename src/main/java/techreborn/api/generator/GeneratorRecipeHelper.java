@@ -24,9 +24,9 @@
 
 package techreborn.api.generator;
 
-import java.util.EnumMap;
-
 import net.minecraftforge.fluids.Fluid;
+
+import java.util.EnumMap;
 
 public class GeneratorRecipeHelper {
 
@@ -36,19 +36,17 @@ public class GeneratorRecipeHelper {
 	 * FluidGeneratorRecipe.
 	 */
 	public static EnumMap<EFluidGenerator, FluidGeneratorRecipeList> fluidRecipes = new EnumMap<>(
-			EFluidGenerator.class);
+		EFluidGenerator.class);
 
 	/**
 	 * Register a Fluid energy recipe.
-	 * 
-	 * @param generatorType
-	 *            A value of the EFluidGenerator type in which the fluid is
-	 *            allowed to be consumed.
+	 *
+	 * @param generatorType A value of the EFluidGenerator type in which the fluid is
+	 * allowed to be consumed.
 	 * @param fluidType
-	 * @param energyPerMb
-	 *            Represent the energy / MILLI_BUCKET the fluid will produce.
-	 *            Some generators use this value to alter their fluid decay
-	 *            speed to match their maximum energy output.
+	 * @param energyPerMb Represent the energy / MILLI_BUCKET the fluid will produce.
+	 * Some generators use this value to alter their fluid decay
+	 * speed to match their maximum energy output.
 	 */
 	public static void registerFluidRecipe(EFluidGenerator generatorType, Fluid fluidType, int energyPerMb) {
 		fluidRecipes.putIfAbsent(generatorType, new FluidGeneratorRecipeList());
@@ -56,12 +54,10 @@ public class GeneratorRecipeHelper {
 	}
 
 	/**
-	 * 
-	 * @param generatorType
-	 *            A value of the EFluidGenerator type in which the fluid is
-	 *            allowed to be consumed.
+	 * @param generatorType A value of the EFluidGenerator type in which the fluid is
+	 * allowed to be consumed.
 	 * @return An object holding a set of availables recipes for this type of
-	 *         FluidGenerator.
+	 * FluidGenerator.
 	 */
 	public static FluidGeneratorRecipeList getFluidRecipesForGenerator(EFluidGenerator generatorType) {
 		return fluidRecipes.get(generatorType);

@@ -35,14 +35,9 @@ import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
-import org.apache.commons.lang3.Validate;
 import reborncore.common.util.CraftingHelper;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class RollingMachineRecipe {
 
@@ -50,21 +45,21 @@ public class RollingMachineRecipe {
 	private final HashMap<ResourceLocation, IRecipe> recipes = new HashMap<>();
 
 	public void addShapedOreRecipe(ResourceLocation resourceLocation, ItemStack outputItemStack, Object... objectInputs) {
-//		Validate.notNull(outputItemStack);
-//		Validate.notNull(outputItemStack.getItem());
-//		if (objectInputs.length == 0) {
-//			Validate.notNull(null); //Quick way to crash
-//		}
-//		recipes.put(resourceLocation, new ShapedOreRecipe(resourceLocation, outputItemStack, objectInputs));
+		//		Validate.notNull(outputItemStack);
+		//		Validate.notNull(outputItemStack.getItem());
+		//		if (objectInputs.length == 0) {
+		//			Validate.notNull(null); //Quick way to crash
+		//		}
+		//		recipes.put(resourceLocation, new ShapedOreRecipe(resourceLocation, outputItemStack, objectInputs));
 	}
 
 	public void addShapelessOreRecipe(ResourceLocation resourceLocation, ItemStack outputItemStack, Object... objectInputs) {
-//		Validate.notNull(outputItemStack);
-//		Validate.notNull(outputItemStack.getItem());
-//		if (objectInputs.length == 0) {
-//			Validate.notNull(null); //Quick way to crash
-//		}
-//		recipes.put(resourceLocation, new ShapelessOreRecipe(resourceLocation, outputItemStack, objectInputs));
+		//		Validate.notNull(outputItemStack);
+		//		Validate.notNull(outputItemStack.getItem());
+		//		if (objectInputs.length == 0) {
+		//			Validate.notNull(null); //Quick way to crash
+		//		}
+		//		recipes.put(resourceLocation, new ShapelessOreRecipe(resourceLocation, outputItemStack, objectInputs));
 	}
 
 	public void addRecipe(ResourceLocation resourceLocation, ItemStack output, Object... components) {
@@ -115,7 +110,7 @@ public class RollingMachineRecipe {
 		recipes.put(resourceLocation, new ShapedRecipes("", j, k, recipeArray, output));
 	}
 
-	public void addShapelessRecipe(ResourceLocation resourceLocation,ItemStack output, Object... components) {
+	public void addShapelessRecipe(ResourceLocation resourceLocation, ItemStack output, Object... components) {
 		NonNullList<Ingredient> ingredients = NonNullList.create();
 		for (int j = 0; j < components.length; j++) {
 			ingredients.add(CraftingHelper.toIngredient(components[j]));

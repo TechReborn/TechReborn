@@ -218,7 +218,6 @@ public class TileScrapboxinator extends TilePowerAcceptor
 		return maxInput;
 	}
 
-
 	@Override
 	public Inventory getInventory() {
 		return this.inventory;

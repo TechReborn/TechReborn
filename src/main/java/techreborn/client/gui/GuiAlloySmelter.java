@@ -29,13 +29,12 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
-
 import techreborn.tiles.TileAlloySmelter;
 
 public class GuiAlloySmelter extends GuiContainer {
 
 	public static final ResourceLocation texture = new ResourceLocation("techreborn",
-			"textures/gui/electric_alloy_furnace.png");
+		"textures/gui/electric_alloy_furnace.png");
 
 	TileAlloySmelter alloysmelter;
 
@@ -78,8 +77,8 @@ public class GuiAlloySmelter extends GuiContainer {
 	protected void drawGuiContainerForegroundLayer(final int p_146979_1_, final int p_146979_2_) {
 		final String name = I18n.translateToLocal("tile.techreborn.alloysmelter.name");
 		this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6,
-				4210752);
+			4210752);
 		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,
-				this.ySize - 96 + 2, 4210752);
+			this.ySize - 96 + 2, 4210752);
 	}
 }

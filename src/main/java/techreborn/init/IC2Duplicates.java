@@ -31,6 +31,7 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.items.ItemIngots;
 import techreborn.items.ItemParts;
 import techreborn.items.ItemUpgrades;
+
 /**
  * Created by Mark on 18/12/2016.
  */
@@ -102,7 +103,7 @@ public enum IC2Duplicates {
 	}
 
 	public boolean hasIC2Stack() {
-		if(ic2Stack == null){
+		if (ic2Stack == null) {
 			return false;
 		}
 		return !ic2Stack.isEmpty();

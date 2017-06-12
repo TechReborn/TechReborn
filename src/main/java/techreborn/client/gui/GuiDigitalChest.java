@@ -26,7 +26,6 @@ package techreborn.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-
 import techreborn.tiles.TileDigitalChest;
 
 public class GuiDigitalChest extends GuiBase {
@@ -54,12 +53,12 @@ public class GuiDigitalChest extends GuiBase {
 
 		if (this.digitalChest.storedItem != ItemStack.EMPTY && this.digitalChest.getStackInSlot(1) != null) {
 			this.builder.drawBigBlueBar(this, 31, 43,
-					this.digitalChest.storedItem.getCount() + this.digitalChest.getStackInSlot(1).getCount(),
-					this.digitalChest.maxCapacity, mouseX - this.guiLeft, mouseY - this.guiTop, "Stored", layer);
+				this.digitalChest.storedItem.getCount() + this.digitalChest.getStackInSlot(1).getCount(),
+				this.digitalChest.maxCapacity, mouseX - this.guiLeft, mouseY - this.guiTop, "Stored", layer);
 		}
 		if (this.digitalChest.storedItem == ItemStack.EMPTY && this.digitalChest.getStackInSlot(1) != null) {
 			this.builder.drawBigBlueBar(this, 31, 43, this.digitalChest.getStackInSlot(1).getCount(),
-					this.digitalChest.maxCapacity, mouseX - this.guiLeft, mouseY - this.guiTop, "Stored", layer);
+				this.digitalChest.maxCapacity, mouseX - this.guiLeft, mouseY - this.guiTop, "Stored", layer);
 		}
 	}
 }

@@ -35,7 +35,6 @@ import reborncore.common.util.ItemUtils;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import techreborn.api.RollingMachineRecipe;
-import techreborn.api.TechRebornAPI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,17 +43,16 @@ import java.util.Map;
 @ZenClass("mods.techreborn.rollingMachine")
 public class CTRollingMachine {
 
-
 	//TODO 1.12 Crafttweaker
-//	@ZenMethod
-//	public static void addShaped(IItemStack output, IIngredient[][] ingredients) {
-//		TechRebornAPI.addRollingOreMachinceRecipe(toStack(output), toShapedObjects(ingredients));
-//	}
+	//	@ZenMethod
+	//	public static void addShaped(IItemStack output, IIngredient[][] ingredients) {
+	//		TechRebornAPI.addRollingOreMachinceRecipe(toStack(output), toShapedObjects(ingredients));
+	//	}
 
-//	@ZenMethod
-//	public static void addShapeless(IItemStack output, IIngredient[] ingredients) {
-//		TechRebornAPI.addShapelessOreRollingMachinceRecipe(toStack(output), toObjects(ingredients));
-//	}
+	//	@ZenMethod
+	//	public static void addShapeless(IItemStack output, IIngredient[] ingredients) {
+	//		TechRebornAPI.addShapelessOreRollingMachinceRecipe(toStack(output), toObjects(ingredients));
+	//	}
 
 	@ZenMethod
 	public static void removeRecipe(IItemStack output) {
@@ -64,7 +62,7 @@ public class CTRollingMachine {
 				toRemove.add(recipe.getKey());
 			}
 		}
-		for(ResourceLocation  resourceLocation : toRemove){
+		for (ResourceLocation resourceLocation : toRemove) {
 			RollingMachineRecipe.instance.getRecipeList().remove(resourceLocation);
 		}
 	}

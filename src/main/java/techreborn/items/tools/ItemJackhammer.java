@@ -31,7 +31,6 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -39,14 +38,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import reborncore.RebornCore;
 import reborncore.api.power.IEnergyItemInfo;
-import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItem;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.utils.OreDictUtils;
 
-import java.util.List;
 import java.util.Random;
 
 public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo {
@@ -80,7 +76,7 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo {
 	@Override
 	public boolean canHarvestBlock(final IBlockState state, final ItemStack stack) {
 		return OreDictUtils.isOre(state, "stone")
-				|| state.getBlock().getMaterial(state) == Material.ROCK && PoweredItem.canUseEnergy(this.cost, stack);
+			|| state.getBlock().getMaterial(state) == Material.ROCK && PoweredItem.canUseEnergy(this.cost, stack);
 	}
 
 	@Override

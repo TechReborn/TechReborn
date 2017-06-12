@@ -179,7 +179,7 @@ public class RegisterItemJsons {
 		}
 
 		for (EnumCableType cableType : EnumCableType.values()) {
-			registerBlockstate(ModBlocks.CABLE, cableType.ordinal(), "inv_" +cableType.getName().toLowerCase());
+			registerBlockstate(ModBlocks.CABLE, cableType.ordinal(), "inv_" + cableType.getName().toLowerCase());
 		}
 	}
 

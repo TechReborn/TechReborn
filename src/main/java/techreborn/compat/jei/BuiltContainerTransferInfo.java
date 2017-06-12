@@ -24,14 +24,12 @@
 
 package techreborn.compat.jei;
 
+import mezz.jei.api.recipe.transfer.IRecipeTransferInfo;
 import net.minecraft.inventory.Slot;
-
 import techreborn.client.container.builder.BuiltContainer;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import mezz.jei.api.recipe.transfer.IRecipeTransferInfo;
 
 public class BuiltContainerTransferInfo implements IRecipeTransferInfo<BuiltContainer> {
 
@@ -40,8 +38,8 @@ public class BuiltContainerTransferInfo implements IRecipeTransferInfo<BuiltCont
 	private final int recipeSlotStart, recipeSlotCount, inventorySlotStart, inventorySlotCount;
 
 	public BuiltContainerTransferInfo(final String containerName, final String recipeCategory,
-			final int recipeSlotStart, final int recipeSlotCount, final int inventorySlotStart,
-			final int inventorySlotCount) {
+	                                  final int recipeSlotStart, final int recipeSlotCount, final int inventorySlotStart,
+	                                  final int inventorySlotCount) {
 		this.containerName = containerName;
 		this.recipeCategory = recipeCategory;
 

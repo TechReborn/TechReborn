@@ -32,7 +32,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
 import techreborn.client.EGui;
 import techreborn.tiles.idsu.TileIDSU;
 
@@ -51,7 +50,7 @@ public class BlockIDSU extends BlockEnergyStorage {
 
 	@Override
 	public IBlockState getStateForPlacement(final World world, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY,
-			final float hitZ, final int meta, final EntityLivingBase placer) {
+	                                        final float hitZ, final int meta, final EntityLivingBase placer) {
 		final TileEntity tile = world.getTileEntity(pos);
 		if (tile instanceof TileIDSU) {
 			((TileIDSU) tile).ownerUdid = placer.getUniqueID().toString();

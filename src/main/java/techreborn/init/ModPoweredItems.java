@@ -31,7 +31,7 @@ import reborncore.common.powerSystem.PoweredItem;
  */
 public class ModPoweredItems {
 
-	public static void preInit(){
+	public static void preInit() {
 		PoweredItem.registerPoweredItem("techreborn.items.tools.ItemRockCutter");
 		PoweredItem.registerPoweredItem("techreborn.items.armor.ItemLithiumBatpack");
 		PoweredItem.registerPoweredItem("techreborn.items.armor.ItemLapotronPack");

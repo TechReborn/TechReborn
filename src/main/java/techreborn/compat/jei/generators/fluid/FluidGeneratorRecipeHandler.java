@@ -24,18 +24,20 @@
 
 package techreborn.compat.jei.generators.fluid;
 
-import javax.annotation.Nonnull;
-
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import techreborn.api.generator.FluidGeneratorRecipe;
 
+import javax.annotation.Nonnull;
+
 public class FluidGeneratorRecipeHandler implements IRecipeHandler<FluidGeneratorRecipe> {
 	@Nonnull
 	private final IJeiHelpers jeiHelpers;
 
-	public FluidGeneratorRecipeHandler(@Nonnull IJeiHelpers jeiHelpers) {
+	public FluidGeneratorRecipeHandler(
+		@Nonnull
+			IJeiHelpers jeiHelpers) {
 		this.jeiHelpers = jeiHelpers;
 	}
 

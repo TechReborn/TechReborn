@@ -157,21 +157,21 @@ public class TechRebornWorldGen implements IWorldGenerator {
 			Type typeOfHashMap = new TypeToken<WorldGenConfig>() {
 			}.getType();
 			config = gson.fromJson(jsonString, typeOfHashMap);
-//			ArrayUtils.addAll(config.endOres, config.neatherOres, config.overworldOres).stream().forEach(oreConfig -> {
-//				if (oreConfig.minYHeight > oreConfig.maxYHeight) {
-//					printError(oreConfig.blockName + " ore generation value is invalid, the min y height is bigger than the max y height, this ore value will be disabled in code");
-//
-//					oreConfig.minYHeight = -1;
-//					oreConfig.maxYHeight = -1;
-//				}
-//
-//				if (oreConfig.minYHeight < 0 || oreConfig.maxYHeight < 0) {
-//					printError(oreConfig.blockName + " ore generation value is invalid, the min y height or the max y height is less than 0, this ore value will be disabled in code");
-//					oreConfig.minYHeight = -1;
-//					oreConfig.maxYHeight = -1;
-//				}
-//
-//			});
+			//			ArrayUtils.addAll(config.endOres, config.neatherOres, config.overworldOres).stream().forEach(oreConfig -> {
+			//				if (oreConfig.minYHeight > oreConfig.maxYHeight) {
+			//					printError(oreConfig.blockName + " ore generation value is invalid, the min y height is bigger than the max y height, this ore value will be disabled in code");
+			//
+			//					oreConfig.minYHeight = -1;
+			//					oreConfig.maxYHeight = -1;
+			//				}
+			//
+			//				if (oreConfig.minYHeight < 0 || oreConfig.maxYHeight < 0) {
+			//					printError(oreConfig.blockName + " ore generation value is invalid, the min y height or the max y height is less than 0, this ore value will be disabled in code");
+			//					oreConfig.minYHeight = -1;
+			//					oreConfig.maxYHeight = -1;
+			//				}
+			//
+			//			});
 		} catch (Exception e) {
 			Core.logHelper.error(
 				"The ores.json file was invalid, bad things are about to happen, I will try and save the world now :");
@@ -250,10 +250,10 @@ public class TechRebornWorldGen implements IWorldGenerator {
 						yPos = ore.minYHeight + random.nextInt(ore.maxYHeight - ore.minYHeight);
 						zPos = chunkZ * 16 + random.nextInt(16);
 						BlockPos pos = new BlockPos(xPos, yPos, zPos);
-						if(ore.blockNiceName.equalsIgnoreCase("iridium")){ //Work around for iridium
+						if (ore.blockNiceName.equalsIgnoreCase("iridium")) { //Work around for iridium
 							BlockPos iridiumPos = pos.add(8, 0, 8); // standard worldgen offset is added here like in WorldGenMinable#generate
 							IBlockState blockState = world.getBlockState(iridiumPos);
-							if(blockState.getBlock().isReplaceableOreGen(blockState, world, iridiumPos, predicate)){
+							if (blockState.getBlock().isReplaceableOreGen(blockState, world, iridiumPos, predicate)) {
 								world.setBlockState(iridiumPos, ore.state, 2);
 							}
 
@@ -264,7 +264,6 @@ public class TechRebornWorldGen implements IWorldGenerator {
 								Core.logHelper.error("Something bad is happening during world gen the ore " + ore.blockNiceName + " caused a crash when generating. Report this to the TechReborn devs with a log");
 							}
 						}
-
 
 					}
 				}

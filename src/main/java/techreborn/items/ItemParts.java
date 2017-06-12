@@ -25,14 +25,11 @@
 package techreborn.items;
 
 import com.google.common.base.CaseFormat;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
-
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
@@ -42,13 +39,13 @@ import java.security.InvalidParameterException;
 
 public class ItemParts extends ItemTRNoDestroy {
 	public static final String[] types = new String[] { "energy_flow_circuit", "data_control_circuit", "data_storage_circuit",
-			"data_orb", "diamond_grinding_head", "diamond_saw_blade", "tungsten_grinding_head", "helium_coolant_simple",
-			"helium_coolant_triple", "helium_coolant_six", "nak_coolant_simple", "nak_coolant_triple", "nak_coolant_six",
-			"cupronickel_heating_coil", "nichrome_heating_coil", "kanthal_heating_coil", ModItems.META_PLACEHOLDER, "super_conductor",
-			"thorium_cell", "double_thorium_cell", "quad_thorium_cell", "plutonium_cell", "double_plutonium_cell",
-			"quad_plutonium_cell", "computer_monitor", "machine_parts", "neutron_reflector", "iridium_neutron_reflector",
-			"thick_neutron_reflector", "electronic_circuit", "advanced_circuit", "sap", "rubber", "scrap",
-			"carbon_mesh", "carbon_fiber", "coolant_simple", "coolant_triple", "coolant_six" };
+		"data_orb", "diamond_grinding_head", "diamond_saw_blade", "tungsten_grinding_head", "helium_coolant_simple",
+		"helium_coolant_triple", "helium_coolant_six", "nak_coolant_simple", "nak_coolant_triple", "nak_coolant_six",
+		"cupronickel_heating_coil", "nichrome_heating_coil", "kanthal_heating_coil", ModItems.META_PLACEHOLDER, "super_conductor",
+		"thorium_cell", "double_thorium_cell", "quad_thorium_cell", "plutonium_cell", "double_plutonium_cell",
+		"quad_plutonium_cell", "computer_monitor", "machine_parts", "neutron_reflector", "iridium_neutron_reflector",
+		"thick_neutron_reflector", "electronic_circuit", "advanced_circuit", "sap", "rubber", "scrap",
+		"carbon_mesh", "carbon_fiber", "coolant_simple", "coolant_triple", "coolant_six" };
 
 	public ItemParts() {
 		this.setCreativeTab(TechRebornCreativeTab.instance);
@@ -110,7 +107,7 @@ public class ItemParts extends ItemTRNoDestroy {
 		switch (itemStack.getItemDamage()) {
 			case 37: // Destructo pack
 				player.openGui(Core.INSTANCE, EGui.DESTRUCTOPACK.ordinal(), world, (int) player.posX, (int) player.posY,
-						(int) player.posY);
+					(int) player.posY);
 				break;
 		}
 		return itemStack;

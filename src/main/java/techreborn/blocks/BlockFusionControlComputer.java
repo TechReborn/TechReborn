@@ -30,10 +30,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.blocks.IAdvancedRotationTexture;
-
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
@@ -52,9 +50,9 @@ public class BlockFusionControlComputer extends BlockMachineBase implements IAdv
 
 	@Override
 	public boolean onBlockActivated(final World world, final int x, final int y, final int z, final EntityPlayer player, final int side, final float hitX,
-			final float hitY, final float hitZ) {
+	                                final float hitY, final float hitZ) {
 		final TileEntityFusionController tileEntityFusionController = (TileEntityFusionController) world
-				.getTileEntity(new BlockPos(x, y, z));
+			.getTileEntity(new BlockPos(x, y, z));
 		tileEntityFusionController.checkCoils();
 		if (!player.isSneaking())
 			player.openGui(Core.INSTANCE, EGui.FUSION_CONTROLLER.ordinal(), world, x, y, z);
@@ -66,7 +64,7 @@ public class BlockFusionControlComputer extends BlockMachineBase implements IAdv
 		super.onEntityWalk(worldIn, pos, entityIn);
 		if (worldIn.getTileEntity(pos) instanceof TileEntityFusionController) {
 			if (((TileEntityFusionController) worldIn.getTileEntity(pos)).crafingTickTime != 0
-					&& ((TileEntityFusionController) worldIn.getTileEntity(pos)).checkCoils()) {
+				&& ((TileEntityFusionController) worldIn.getTileEntity(pos)).checkCoils()) {
 				entityIn.attackEntityFrom(new FusionDamageSource(), 200F);
 			}
 		}

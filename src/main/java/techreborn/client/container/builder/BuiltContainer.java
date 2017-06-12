@@ -24,16 +24,14 @@
 
 package techreborn.client.container.builder;
 
-import org.apache.commons.lang3.Range;
-import org.apache.commons.lang3.tuple.MutableTriple;
-import org.apache.commons.lang3.tuple.Pair;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
+import org.apache.commons.lang3.Range;
+import org.apache.commons.lang3.tuple.MutableTriple;
+import org.apache.commons.lang3.tuple.Pair;
 import reborncore.common.util.ItemUtils;
 import techreborn.client.container.IRightClickHandler;
 
@@ -58,8 +56,8 @@ public class BuiltContainer extends Container {
 	private Integer[] integerParts;
 
 	public BuiltContainer(final String name, final Predicate<EntityPlayer> canInteract,
-			final List<Range<Integer>> playerSlotRange,
-			final List<Range<Integer>> tileSlotRange) {
+	                      final List<Range<Integer>> playerSlotRange,
+	                      final List<Range<Integer>> tileSlotRange) {
 		this.name = name;
 
 		this.canInteract = canInteract;
@@ -107,10 +105,10 @@ public class BuiltContainer extends Container {
 
 	@Override
 	public ItemStack slotClick(int slotId, int dragType, ClickType clickTypeIn, EntityPlayer player) {
-		if(dragType == 1 && slotId > 0 && slotId < 1000){
+		if (dragType == 1 && slotId > 0 && slotId < 1000) {
 			Slot slot = this.inventorySlots.get(slotId);
-			if(slot instanceof IRightClickHandler){
-				if(((IRightClickHandler) slot).handleRightClick(slot.getSlotIndex(), player, this)){
+			if (slot instanceof IRightClickHandler) {
+				if (((IRightClickHandler) slot).handleRightClick(slot.getSlotIndex(), player, this)) {
 					return ItemStack.EMPTY;
 				}
 			}
@@ -180,20 +178,16 @@ public class BuiltContainer extends Container {
 	@Override
 	public void updateProgressBar(final int id, final int value) {
 
-		if(id < this.shortValues.size())
-		{
+		if (id < this.shortValues.size()) {
 			this.shortValues.get(id).getMiddle().accept((short) value);
 			this.shortValues.get(id).setRight((short) value);
-		}
-		else if (id - this.shortValues.size() < this.integerValues.size() * 2)
-		{
+		} else if (id - this.shortValues.size() < this.integerValues.size() * 2) {
 
 			if ((id - this.shortValues.size()) % 2 == 0)
 				this.integerParts[(id - this.shortValues.size()) / 2] = value;
-			else
-			{
+			else {
 				this.integerValues.get((id - this.shortValues.size()) / 2).getMiddle().accept(
-						(this.integerParts[(id - this.shortValues.size()) / 2] & 0xFFFF) << 16 | value & 0xFFFF);
+					(this.integerParts[(id - this.shortValues.size()) / 2] & 0xFFFF) << 16 | value & 0xFFFF);
 			}
 		}
 	}
@@ -247,7 +241,7 @@ public class BuiltContainer extends Container {
 				final Slot slot = this.inventorySlots.get(slotIndex);
 				final ItemStack stackInSlot = slot.getStack();
 				if (stackInSlot != ItemStack.EMPTY && ItemUtils.isItemEqual(stackInSlot, stackToShift, true, true)
-						&& slot.isItemValid(stackToShift)) {
+					&& slot.isItemValid(stackToShift)) {
 					final int resultingStackSize = stackInSlot.getCount() + stackToShift.getCount();
 					final int max = Math.min(stackToShift.getMaxStackSize(), slot.getSlotStackLimit());
 					if (resultingStackSize <= max) {

@@ -86,7 +86,7 @@ public class FluidGeneratorRecipeCategory extends BlankRecipeCategory<FluidGener
 
 	@Override
 	public void setRecipe(IRecipeLayout recipeLayout, FluidGeneratorRecipeWrapper recipeWrapper,
-			IIngredients ingredients) {
+	                      IIngredients ingredients) {
 
 		IGuiFluidStackGroup guiFluidStacks = recipeLayout.getFluidStacks();
 		guiFluidStacks.init(INPUT_TANKS[0], true, 4, 8, 12, 47, 10000, true, tankOverlay);

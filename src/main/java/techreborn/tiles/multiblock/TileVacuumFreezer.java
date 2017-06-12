@@ -41,7 +41,7 @@ import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 
 public class TileVacuumFreezer extends TilePowerAcceptor
-		implements IWrenchable, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
+	implements IWrenchable, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
 
 	public Inventory inventory = new Inventory(3, "TileVacuumFreezer", 64, this);
 	public MultiblockChecker multiblockChecker;

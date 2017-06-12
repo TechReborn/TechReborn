@@ -41,7 +41,7 @@ import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 
 public class TileGrinder extends TilePowerAcceptor
-implements IWrenchable, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
+	implements IWrenchable, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
 
 	public Inventory inventory = new Inventory(6, "TileGrinder", 64, this);
 

@@ -86,9 +86,9 @@ public abstract class RecipeMethods {
 		} else if (type == Type.NUGGET) {
 			object = "nugget" + StringUtils.toFirstCapital(name);
 		}
-		if(object != null){
-			if(object instanceof String){
-				if(OreUtil.doesOreExistAndValid((String) object)){
+		if (object != null) {
+			if (object instanceof String) {
+				if (OreUtil.doesOreExistAndValid((String) object)) {
 					return object;
 				}
 			} else {
@@ -136,7 +136,7 @@ public abstract class RecipeMethods {
 	}
 
 	static ItemStack getStack(Item item, int count, boolean wildcard) {
-		return getStack(item, count, wildcard ?  OreDictionary.WILDCARD_VALUE : 0);
+		return getStack(item, count, wildcard ? OreDictionary.WILDCARD_VALUE : 0);
 	}
 
 	static ItemStack getStack(Item item, int count, int metadata) {
@@ -156,7 +156,7 @@ public abstract class RecipeMethods {
 	}
 
 	static ItemStack getStack(Block block, int count, boolean wildcard) {
-		return getStack(block, count, wildcard ?  OreDictionary.WILDCARD_VALUE : 0);
+		return getStack(block, count, wildcard ? OreDictionary.WILDCARD_VALUE : 0);
 	}
 
 	static ItemStack getStack(Block block, int count, int metadata) {

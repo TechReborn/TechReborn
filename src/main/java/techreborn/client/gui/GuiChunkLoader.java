@@ -30,13 +30,12 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
-
 import techreborn.tiles.TileChunkLoader;
 
 public class GuiChunkLoader extends GuiContainer {
 
 	private static final ResourceLocation texture = new ResourceLocation("techreborn",
-			"textures/gui/industrial_chunkloader.png");
+		"textures/gui/industrial_chunkloader.png");
 	TileChunkLoader chunkloader;
 	private GuiButton plusOneButton;
 	private GuiButton plusTenButton;
@@ -80,9 +79,9 @@ public class GuiChunkLoader extends GuiContainer {
 	protected void drawGuiContainerForegroundLayer(final int p_146979_1_, final int p_146979_2_) {
 		final String name = I18n.translateToLocal("tile.techreborn.chunkloader.name");
 		this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6,
-				4210752);
+			4210752);
 		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,
-				this.ySize - 96 + 2, 4210752);
+			this.ySize - 96 + 2, 4210752);
 	}
 
 }

@@ -37,10 +37,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidBase;
-
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.blocks.IAdvancedRotationTexture;
-
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
@@ -87,8 +85,8 @@ public class BlockQuantumChest extends BlockMachineBase implements IAdvancedRota
 			if (itemStack != ItemStack.EMPTY && itemStack.getCount() > 0) {
 				if (itemStack.getItem() instanceof ItemBlock) {
 					if (((ItemBlock) itemStack.getItem()).block instanceof BlockFluidBase
-							|| ((ItemBlock) itemStack.getItem()).block instanceof BlockStaticLiquid
-							|| ((ItemBlock) itemStack.getItem()).block instanceof BlockDynamicLiquid) {
+						|| ((ItemBlock) itemStack.getItem()).block instanceof BlockStaticLiquid
+						|| ((ItemBlock) itemStack.getItem()).block instanceof BlockDynamicLiquid) {
 						continue;
 					}
 				}
@@ -104,7 +102,7 @@ public class BlockQuantumChest extends BlockMachineBase implements IAdvancedRota
 			final float dZ = rand.nextFloat() * 0.8F + 0.1F;
 
 			final EntityItem entityItem = new EntityItem(world, pos.getX() + dX, pos.getY() + dY, pos.getZ() + dZ,
-					itemStack.copy());
+				itemStack.copy());
 
 			if (itemStack.hasTagCompound()) {
 				entityItem.getEntityItem().setTagCompound(itemStack.getTagCompound().copy());
@@ -126,7 +124,7 @@ public class BlockQuantumChest extends BlockMachineBase implements IAdvancedRota
 
 	@Override
 	public boolean onBlockActivated(final World worldIn, final BlockPos pos, final IBlockState state, final EntityPlayer playerIn,
-			final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
+	                                final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
 		if (!playerIn.isSneaking())
 			playerIn.openGui(Core.INSTANCE, EGui.QUANTUM_CHEST.ordinal(), worldIn, pos.getX(), pos.getY(), pos.getZ());
 		return true;

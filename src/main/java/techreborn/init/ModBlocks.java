@@ -213,9 +213,9 @@ public class ModBlocks {
 		registerBlock(CABLE, ItemBlockCable.class, "cable");
 		GameRegistry.registerTileEntity(TileCable.class, "TileCableTR");
 		Core.proxy.registerCustomBlockStateLocation(CABLE, "cable");
-//		for (EnumCableType cableType : EnumCableType.values()) {
-//			Core.proxy.registerSubBlockInventoryLocation(CABLE, cableType.ordinal(), "techreborn:cable", "type=inv_" + cableType.getName().toLowerCase());
-//		}
+		//		for (EnumCableType cableType : EnumCableType.values()) {
+		//			Core.proxy.registerSubBlockInventoryLocation(CABLE, cableType.ordinal(), "techreborn:cable", "type=inv_" + cableType.getName().toLowerCase());
+		//		}
 
 		MACHINE_CASINGS = new BlockMachineCasing(Material.ROCK);
 		registerBlock(MACHINE_CASINGS, ItemBlockMachineCasing.class, "machinecasing");

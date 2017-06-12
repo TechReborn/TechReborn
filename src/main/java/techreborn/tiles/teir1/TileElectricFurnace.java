@@ -42,7 +42,7 @@ import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 
 public class TileElectricFurnace extends TilePowerAcceptor
-		implements IWrenchable, IInventoryProvider, IContainerProvider, IMachineSlotProvider {
+	implements IWrenchable, IInventoryProvider, IContainerProvider, IMachineSlotProvider {
 
 	public Inventory inventory = new Inventory(6, "TileElectricFurnace", 64, this);
 	public int capacity = 1000;
@@ -236,18 +236,18 @@ public class TileElectricFurnace extends TilePowerAcceptor
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("electricfurnace").player(player.inventory).inventory().hotbar().addInventory()
-				.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).syncEnergyValue()
-				.syncIntegerValue(this::getBurnTime, this::setBurnTime).addInventory().create();
+			.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).syncEnergyValue()
+			.syncIntegerValue(this::getBurnTime, this::setBurnTime).addInventory().create();
 	}
 
 	@Override
 	public int[] getInputSlots() {
-		return new int[]{input1};
+		return new int[] { input1 };
 	}
 
 	@Override
 	public int[] getOuputSlots() {
-		return new int[]{output};
+		return new int[] { output };
 	}
 
 	@Override
