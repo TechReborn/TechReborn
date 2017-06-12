@@ -4,8 +4,8 @@
     "transform": "forge:default-block",
     "model": "techreborn:cable_thin",
     "textures": {
-      "cable": "techreborn:block/cable",
-      "particle": "#cable"
+      "cable": "techreborn:block/blocks/cables/copper_cable",
+      "particle": "techreborn:block/blocks/cables/copper_cable"
     }
   },
   "variants": {
@@ -14,6 +14,7 @@
         "transform": "forge:default-block",
         "model": "techreborn:cable",
         "textures": {
+          "cable": "techreborn:blocks/cables/copper_cable"
         }
       }
     ],

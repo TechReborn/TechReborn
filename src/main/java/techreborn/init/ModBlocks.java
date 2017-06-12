@@ -47,6 +47,7 @@ import techreborn.blocks.transformers.BlockHVTransformer;
 import techreborn.blocks.transformers.BlockLVTransformer;
 import techreborn.blocks.transformers.BlockMVTransformer;
 import techreborn.itemblocks.*;
+import techreborn.parts.powerCables.EnumCableType;
 import techreborn.tiles.*;
 import techreborn.tiles.cable.TileCable;
 import techreborn.tiles.fusionReactor.TileEntityFusionController;
@@ -210,9 +211,12 @@ public class ModBlocks {
 		GameRegistry.registerTileEntity(TilePlayerDectector.class, "TilePlayerDectectorTR");
 
 		CABLE = new BlockCable();
-		registerBlock(CABLE,"cable");
+		registerBlock(CABLE, ItemBlockCable.class, "cable");
 		GameRegistry.registerTileEntity(TileCable.class, "TileCableTR");
 		Core.proxy.registerCustomBlockStateLocation(CABLE, "cable");
+		for (EnumCableType cableType : EnumCableType.values()) {
+			Core.proxy.registerSubBlockInventoryLocation(CABLE, cableType.ordinal(), "techreborn:cable", "inventory");//"type=" + cableType.getName().toLowerCase());
+		}
 
 		MACHINE_CASINGS = new BlockMachineCasing(Material.ROCK);
 		registerBlock(MACHINE_CASINGS, ItemBlockMachineCasing.class, "machinecasing");
