@@ -181,4 +181,8 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IWrenchable,
 		return true;
 	}
 
+	@Override
+	public boolean canBeUpgraded() {
+		return false;
+	}
 }
