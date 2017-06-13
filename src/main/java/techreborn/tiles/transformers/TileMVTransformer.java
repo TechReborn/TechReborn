@@ -35,14 +35,4 @@ public class TileMVTransformer extends TileTransformer {
 	public TileMVTransformer() {
 		super("MVTransformer", ModBlocks.MV_TRANSFORMER, EnumPowerTier.HIGH);
 	}
-
-	@Override
-	public double getBaseMaxOutput() {
-		return 128;
-	}
-
-	@Override
-	public double getBaseMaxInput() {
-		return 512;
-	}
 }

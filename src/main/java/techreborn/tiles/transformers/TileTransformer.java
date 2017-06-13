@@ -29,27 +29,38 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.text.TextFormatting;
+import reborncore.api.IListInfoProvider;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.util.StringUtils;
 import techreborn.blocks.transformers.BlockTransformer;
+
+import java.util.List;
 
 /**
  * Created by Rushmead
  */
-public class TileTransformer extends TilePowerAcceptor implements IWrenchable, ITickable {
+public class TileTransformer extends TilePowerAcceptor implements IWrenchable, ITickable, IListInfoProvider {
 
 	public String name;
 	public Block wrenchDrop;
-	public EnumPowerTier tier;
+	public EnumPowerTier inputTier;
+	public EnumPowerTier ouputTier;
 	public int maxInput;
 	public int maxOutput;
 	public int maxStorage;
 
 	public TileTransformer(String name, Block wrenchDrop, EnumPowerTier tier) {
-		super(1);
+		super();
 		this.wrenchDrop = wrenchDrop;
-		this.tier = tier;
+		this.inputTier = tier;
+		if(tier != EnumPowerTier.MICRO){
+			ouputTier = EnumPowerTier.values()[tier.ordinal() -1];
+		} else {
+			ouputTier = EnumPowerTier.MICRO;
+		}
 		this.name = name;
 		this.maxInput = tier.getMaxInput();
 		this.maxOutput = tier.getMaxOutput();
@@ -108,16 +119,35 @@ public class TileTransformer extends TilePowerAcceptor implements IWrenchable, I
 
 	@Override
 	public double getBaseMaxOutput() {
-		return maxOutput;
+		return ouputTier.getMaxOutput();
 	}
 
 	@Override
 	public double getBaseMaxInput() {
-		return maxInput;
+		return inputTier.getMaxInput();
 	}
 
 	@Override
 	public EnumPowerTier getBaseTier() {
-		return tier;
+		return inputTier;
 	}
+
+	@Override
+	public EnumPowerTier getPushingTier() {
+		return ouputTier;
+	}
+
+	@Override
+	public void checkTeir() {
+		//Nope
+	}
+
+	@Override
+	public void addInfo(List<String> info, boolean isRealTile) {
+		info.add(TextFormatting.GRAY + "Input Rate: " + TextFormatting.GOLD + getLocaliszedPowerFormatted((int) getBaseMaxInput()));
+		info.add(TextFormatting.GRAY + "Input Tier: " + TextFormatting.GOLD + StringUtils.toFirstCapitalAllLowercase(inputTier.toString()));
+		info.add(TextFormatting.GRAY + "Output Rate: " + TextFormatting.GOLD + getLocaliszedPowerFormatted((int) getBaseMaxOutput()));
+		info.add(TextFormatting.GRAY + "Output Tier: " + TextFormatting.GOLD + StringUtils.toFirstCapitalAllLowercase(ouputTier.toString()));
+	}
+
 }
