@@ -49,7 +49,7 @@ public class TileLightningRod extends TilePowerAcceptor implements IWrenchable {
 	@ConfigRegistry(config = "machines", category = "lightning_rod", key = "LightningRodChanceOfStrike", comment = "Chance of lightning striking a rod (Range: 0-70)")
 	public static int chanceOfStrike = 24;
 	@ConfigRegistry(config = "machines", category = "lightning_rod", key = "LightningRodBaseStrikeEnergy", comment = "Base amount of energy per strike (Value in EU)")
-	public static int baseEnergyStrike = 32768;
+	public static int baseEnergyStrike = 2048;
 
 	private int onStatusHoldTicks = -1;
 
@@ -76,6 +76,10 @@ public class TileLightningRod extends TilePowerAcceptor implements IWrenchable {
 			final float lightStrikeChance = (100F - chanceOfStrike) * 20F;
 			final float totalChance = lightStrikeChance * this.getLightningStrikeMultiplier() * (1.1F - weatherStrength);
 			if (this.world.rand.nextInt((int) Math.floor(totalChance)) == 0) {
+				if(world.getBlockState(pos.up()).getBlock() != ModBlocks.REFINED_IRON_FENCE){
+					this.onStatusHoldTicks = 400;
+					return;
+				}
 				final EntityLightningBolt lightningBolt = new EntityLightningBolt(this.world,
 					this.pos.getX() + 0.5F,
 					this.world.provider.getAverageGroundLevel(),
