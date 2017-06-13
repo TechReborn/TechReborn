@@ -59,6 +59,7 @@ import techreborn.packets.PacketIdsu;
 import techreborn.packets.PacketSyncSideConfig;
 import techreborn.proxies.CommonProxy;
 import techreborn.utils.StackWIPHandler;
+import techreborn.world.OilLakeGenerator;
 import techreborn.world.TechRebornWorldGen;
 
 import java.io.File;
@@ -156,6 +157,7 @@ public class Core {
 		// Event busses
 		MinecraftForge.EVENT_BUS.register(new MultiblockServerTickHandler());
 		MinecraftForge.EVENT_BUS.register(new TRTickHandler());
+		GameRegistry.registerWorldGenerator(new OilLakeGenerator(), 0);
 		//MinecraftForge.EVENT_BUS.register(worldGen.retroGen);
 		// Scrapbox
 		if (BehaviorDispenseScrapbox.dispenseScrapboxes) {
