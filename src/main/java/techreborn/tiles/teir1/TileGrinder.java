@@ -50,7 +50,7 @@ public class TileGrinder extends TilePowerAcceptor
 	public int capacity = 1000;
 
 	public TileGrinder() {
-		super(1);
+		super();
 		final int[] inputs = new int[1];
 		inputs[0] = 0;
 		final int[] outputs = new int[1];

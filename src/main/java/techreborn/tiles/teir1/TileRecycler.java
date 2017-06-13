@@ -50,7 +50,7 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInv
 	private int progress;
 
 	public TileRecycler() {
-		super(1);
+		super();
 	}
 
 	public int gaugeProgressScaled(final int scale) {

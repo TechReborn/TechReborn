@@ -48,7 +48,7 @@ public class TileCompressor extends TilePowerAcceptor implements IWrenchable, II
 	public int capacity = 1000;
 
 	public TileCompressor() {
-		super(1);
+		super();
 		final int[] inputs = new int[] { 0 };
 		final int[] outputs = new int[] { 1 };
 		this.crafter = new RecipeCrafter(Reference.compressorRecipe, this, 2, 1, this.inventory, inputs, outputs);

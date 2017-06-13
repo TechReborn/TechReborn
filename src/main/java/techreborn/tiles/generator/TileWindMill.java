@@ -53,7 +53,7 @@ public class TileWindMill extends TilePowerAcceptor implements IWrenchable {
 	int basePower = 16;
 
 	public TileWindMill() {
-		super(2);
+		super();
 	}
 
 	@Override

@@ -52,7 +52,7 @@ public class TileWaterMill extends TilePowerAcceptor implements IWrenchable {
 	int waterblocks = 0;
 
 	public TileWaterMill() {
-		super(1);
+		super();
 	}
 
 	@Override

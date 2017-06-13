@@ -53,7 +53,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 	int output = 1;
 
 	public TileElectricFurnace() {
-		super(1);
+		super();
 	}
 
 	public int gaugeProgressScaled(final int scale) {

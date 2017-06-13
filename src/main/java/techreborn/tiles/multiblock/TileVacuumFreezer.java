@@ -48,7 +48,7 @@ public class TileVacuumFreezer extends TilePowerAcceptor
 	public RecipeCrafter crafter;
 
 	public TileVacuumFreezer() {
-		super(2);
+		super();
 		final int[] inputs = new int[] { 0 };
 		final int[] outputs = new int[] { 1 };
 		this.crafter = new RecipeCrafter(Reference.vacuumFreezerRecipe, this, 2, 1, this.inventory, inputs, outputs);

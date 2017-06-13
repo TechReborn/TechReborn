@@ -54,7 +54,7 @@ public class TileLightningRod extends TilePowerAcceptor implements IWrenchable {
 	private int onStatusHoldTicks = -1;
 
 	public TileLightningRod() {
-		super(2);
+		super();
 	}
 
 	@Override

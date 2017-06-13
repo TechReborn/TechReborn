@@ -57,7 +57,7 @@ public class TileSolarPanel extends TilePowerAcceptor implements IWrenchable {
 	int powerToAdd;
 
 	public TileSolarPanel() {
-		super(1);
+		super();
 	}
 
 	@Override

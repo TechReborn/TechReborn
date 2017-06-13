@@ -46,8 +46,6 @@ public class TileChunkLoader extends TilePowerAcceptor implements IWrenchable, I
 	public static int maxInput = 32;
 	@ConfigRegistry(config = "machines", category = "chunk_loader", key = "ChunkLoaderMaxEnergy", comment = "Chunk Loader Max Energy (Value in EU)")
 	public static int maxEnergy = 10000;
-	@ConfigRegistry(config = "machines", category = "chunk_loader", key = "ChunkLoaderTier", comment = "Chunk Loader Tier")
-	public static int tier = 1;
 	//  @ConfigRegistry(config = "machines", category = "chunk_loader", key = "ChunkLoaderWrenchDropRate", comment = "Chunk Loader Wrench Drop Rate")
 	public static float wrenchDropRate = 1.0F;
 
@@ -57,7 +55,7 @@ public class TileChunkLoader extends TilePowerAcceptor implements IWrenchable, I
 	public int tickTime;
 
 	public TileChunkLoader() {
-		super(tier);
+		super();
 	}
 
 	@Override

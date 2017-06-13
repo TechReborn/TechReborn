@@ -60,7 +60,7 @@ public class TileIndustrialSawmill extends TilePowerAcceptor
 	public MultiblockChecker multiblockChecker;
 
 	public TileIndustrialSawmill() {
-		super(2);
+		super();
 	}
 
 	@Override

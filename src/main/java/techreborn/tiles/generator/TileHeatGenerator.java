@@ -50,7 +50,7 @@ public class TileHeatGenerator extends TilePowerAcceptor implements IWrenchable 
 	private long lastOutput = 0;
 
 	public TileHeatGenerator() {
-		super(1);
+		super();
 	}
 
 	@Override

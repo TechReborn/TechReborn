@@ -59,7 +59,7 @@ public class TilePump extends TilePowerAcceptor {
 	public Tank tank = new Tank("TilePump", 10000, this);
 
 	public TilePump() {
-		super(1);
+		super();
 	}
 
 	@Override
