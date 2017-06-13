@@ -33,6 +33,7 @@ import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.FluidUtils;
 import techreborn.api.generator.EFluidGenerator;
+import techreborn.blocks.generator.BlockThermalGenerator;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
@@ -60,11 +61,14 @@ public class TileThermalGenerator extends TileBaseFluidGenerator implements ICon
 		return new ItemStack(ModBlocks.THERMAL_GENERATOR, 1);
 	}
 
+	public boolean isOn = false;
+
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
 
 		if (!this.world.isRemote) {
+			boolean didRun = false;
 			if (this.acceptFluid() && FluidUtils.drainContainers(this.tank, this.inventory, 0, 1))
 				this.syncWithAll();
 			for (final EnumFacing direction : EnumFacing.values()) {
@@ -73,9 +77,16 @@ public class TileThermalGenerator extends TileBaseFluidGenerator implements ICon
 						this.getPos().getY() + direction.getFrontOffsetY(),
 						this.getPos().getZ() + direction.getFrontOffsetZ()))
 					.getBlock() == Blocks.LAVA) {
-					if (this.tryAddingEnergy(1))
+					if (this.tryAddingEnergy(1)){
 						this.lastOutput = this.world.getTotalWorldTime();
+						didRun = true;
+					}
+
 				}
+			}
+			if(didRun != isOn){
+				isOn = didRun;
+				world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockThermalGenerator.ACTIVE, isOn));
 			}
 		}
 	}
