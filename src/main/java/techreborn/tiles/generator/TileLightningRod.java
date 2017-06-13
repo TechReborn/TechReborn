@@ -126,7 +126,7 @@ public class TileLightningRod extends TilePowerAcceptor implements IWrenchable {
 
 	@Override
 	public boolean canProvideEnergy(final EnumFacing direction) {
-		return direction == this.getFacingEnum();
+		return true;
 	}
 
 	@Override
