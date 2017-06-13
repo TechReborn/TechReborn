@@ -62,8 +62,6 @@ public class GuiHandler implements IGuiHandler {
 				return new ContainerDestructoPack(player);
 			case LESU:
 				return new ContainerLESU((TileLesu) tile, player);
-			case IDSU:
-				return new ContainerIDSU((TileIDSU) tile, player);
 			default:
 				break;
 		}

@@ -25,19 +25,20 @@
 package techreborn.tiles.idsu;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
 import org.apache.commons.lang3.StringUtils;
-import reborncore.common.IWrenchable;
-import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.api.power.EnumPowerTier;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
+import techreborn.client.container.IContainerProvider;
+import techreborn.client.container.builder.BuiltContainer;
+import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
+import techreborn.tiles.storage.TileEnergyStorage;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileIDSU extends TilePowerAcceptor implements IWrenchable {
+public class TileIDSU extends TileEnergyStorage implements IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "idsu", key = "IdsuMaxInput", comment = "IDSU Max Input (Value in EU)")
 	public static int maxInput = 8192;
@@ -47,12 +48,9 @@ public class TileIDSU extends TilePowerAcceptor implements IWrenchable {
 	public static int maxEnergy = 100000000;
 
 	public String ownerUdid;
-	private double euLastTick = 0;
-	private double euChange;
-	private int ticks;
 
 	public TileIDSU() {
-		super();
+		super("IDSU", 2, ModBlocks.INTERDIMENSIONAL_SU, EnumPowerTier.EXTREME, maxInput, maxOutput, maxEnergy);
 	}
 
 	@Override
@@ -71,45 +69,6 @@ public class TileIDSU extends TilePowerAcceptor implements IWrenchable {
 		IDSUManager.INSTANCE.getSaveDataForWorld(world, ownerUdid).storedPower = energy;
 	}
 
-	@Override
-	public void readFromNBTWithoutCoords(NBTTagCompound tag) {
-
-	}
-
-	@Override
-	public double getBaseMaxPower() {
-		return maxEnergy;
-	}
-
-	@Override
-	public boolean canAcceptEnergy(EnumFacing direction) {
-		return getFacingEnum() != direction;
-	}
-
-	@Override
-	public boolean canProvideEnergy(EnumFacing direction) {
-		return getFacingEnum() == direction;
-	}
-
-	@Override
-	public double getBaseMaxOutput() {
-		return maxOutput;
-	}
-
-	@Override
-	public double getBaseMaxInput() {
-		return maxInput;
-	}
-
-	public float getChargeLevel() {
-		float ret = (float) this.getEnergy() / (float) maxEnergy;
-		if (ret > 1.0F) {
-			ret = 1.0F;
-		}
-
-		return ret;
-	}
-
 	public void readFromNBT(NBTTagCompound nbttagcompound) {
 		super.readFromNBT(nbttagcompound);
 		this.ownerUdid = nbttagcompound.getString("ownerUdid");
@@ -124,68 +83,10 @@ public class TileIDSU extends TilePowerAcceptor implements IWrenchable {
 		return nbttagcompound;
 	}
 
-	public void updateEntity() {
-		super.updateEntity();
-
-		if (ticks == 100) {
-			euChange = -1;
-			ticks = 0;
-
-		} else {
-			ticks++;
-			euChange += getEnergy() - euLastTick;
-			if (euLastTick == getEnergy()) {
-				euChange = 0;
-			}
-		}
-
-		euLastTick = getEnergy();
-
-		boolean needsInvUpdate = false;
-
-		if (needsInvUpdate) {
-			this.markDirty();
-		}
-
-	}
-
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
-		return false;
-	}
-
 	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer p0, EnumFacing p1) {
-		return true;
-	}
-
-	@Override
-	public EnumFacing getFacing() {
-		return getFacingEnum();
-	}
-
-	@Override
-	public boolean wrenchCanRemove(EntityPlayer p0) {
-		return true;
-	}
-
-	@Override
-	public float getWrenchDropRate() {
-		return 1.0F;
-	}
-
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		NBTTagCompound tileEntity = new NBTTagCompound();
-		ItemStack dropStack = new ItemStack(ModBlocks.INTERDIMENSIONAL_SU, 1);
-		writeToNBT(tileEntity);
-		dropStack.setTagCompound(new NBTTagCompound());
-		dropStack.getTagCompound().setTag("tileEntity", tileEntity);
-		return dropStack;
-	}
-
-	public double getEuChange() {
-		if (euChange == -1) {
-			return -1;
-		}
-		return (euChange / ticks);
+	public BuiltContainer createContainer(final EntityPlayer player) {
+		return new ContainerBuilder("mfsu").player(player.inventory).inventory().hotbar().armor()
+			.complete(8, 18).addArmor().addInventory().tile(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
+			.syncEnergyValue().addInventory().create();
 	}
 }

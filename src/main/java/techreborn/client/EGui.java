@@ -50,7 +50,7 @@ public enum EGui {
 	DIGITAL_CHEST(true),
 	DESTRUCTOPACK(false),
 	LESU(false),
-	IDSU(false),
+	IDSU(true),
 	CHARGEBENCH(true),
 	FUSION_CONTROLLER(true),
 	VACUUM_FREEZER(true),
