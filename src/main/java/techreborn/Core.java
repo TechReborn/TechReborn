@@ -112,6 +112,8 @@ public class Core {
 			compatModule.preInit(event);
 		}
 
+		IDSUManager.init();
+
 		//Ore Dictionary
 		OreDict.init();
 		proxy.preInit(event);
@@ -154,10 +156,7 @@ public class Core {
 
 		// Multiblock events
 		MinecraftForge.EVENT_BUS.register(new MultiblockEventHandler());
-		// IDSU manager
-		IDSUManager.INSTANCE = new IDSUManager();
 		// Event busses
-		MinecraftForge.EVENT_BUS.register(IDSUManager.INSTANCE);
 		MinecraftForge.EVENT_BUS.register(new MultiblockServerTickHandler());
 		MinecraftForge.EVENT_BUS.register(new TRTickHandler());
 		//MinecraftForge.EVENT_BUS.register(worldGen.retroGen);

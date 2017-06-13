@@ -58,7 +58,7 @@ public class TileIDSU extends TileEnergyStorage implements IContainerProvider {
 		if (ownerUdid == null || ownerUdid.isEmpty()) {
 			return 0.0;
 		}
-		return IDSUManager.INSTANCE.getSaveDataForWorld(world, ownerUdid).storedPower;
+		return IDSUManager.getData(world).getStoredPower();
 	}
 
 	@Override
@@ -66,7 +66,7 @@ public class TileIDSU extends TileEnergyStorage implements IContainerProvider {
 		if (ownerUdid == null || ownerUdid.isEmpty()) {
 			return;
 		}
-		IDSUManager.INSTANCE.getSaveDataForWorld(world, ownerUdid).storedPower = energy;
+		IDSUManager.getData(world).setStoredPower(energy);
 	}
 
 	public void readFromNBT(NBTTagCompound nbttagcompound) {
