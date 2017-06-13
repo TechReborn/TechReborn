@@ -24,86 +24,20 @@
 
 package techreborn.tiles.idsu;
 
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.concurrent.Callable;
+import net.minecraft.world.storage.MapStorage;
+import techreborn.lib.ModInfo;
 
 public class IDSUManager {
-
-
-	@CapabilityInject(IDataIDSU.class)
-	public static Capability<IDataIDSU> CAPABILITY_IDSU = null;
-
-	public static void init(){
-		CapabilityManager.INSTANCE.register(IDataIDSU.class, new CapabilityIDSUStorage(), new Factory());
-		MinecraftForge.EVENT_BUS.register(IDSUManager.class);
-	}
-
-	@SubscribeEvent
-	public static void Attach(AttachCapabilitiesEvent<World> event){
-		event.addCapability(new ResourceLocation("techreborn","idsuManager"), new CapProvider(event.getObject()));
-	}
-
-	private static class CapProvider implements ICapabilityProvider {
-
-		World world;
-		IDSUEnergyStore store;
-
-		public CapProvider(World world) {
-			this.world = world;
-			this.store = new IDSUEnergyStore();
-		}
-
-		@Override
-		public boolean hasCapability(
-			@Nonnull
-				Capability<?> capability,
-			@Nullable
-				EnumFacing facing) {
-			if(capability == CAPABILITY_IDSU){
-				return true;
-			}
-			return false;
-		}
-
-		@Nullable
-		@Override
-		public <T> T getCapability(
-			@Nonnull
-				Capability<T> capability,
-			@Nullable
-				EnumFacing facing) {
-			if(capability == CAPABILITY_IDSU){
-				return (T) store;
-			}
-			return null;
-		}
-	}
-
-	private static class Factory implements Callable<IDataIDSU> {
-
-		@Override
-		public IDataIDSU call() throws Exception {
-			return new IDSUEnergyStore();
-		}
-	}
-
 	public static IDataIDSU getData(World world){
-		if(world.hasCapability(CAPABILITY_IDSU, null)){
-			return world.getCapability(CAPABILITY_IDSU, null);
+		MapStorage storage = world.getPerWorldStorage();
+		IDSUSaveManger instance = (IDSUSaveManger) storage.getOrLoadData(IDSUSaveManger.class, ModInfo.MOD_ID + "_IDSU");
+
+		if (instance == null) {
+			instance = new IDSUSaveManger(ModInfo.MOD_ID + "_IDSU");
+			storage.setData(ModInfo.MOD_ID + "_IDSU", instance);
 		}
-		return null;
+		return instance;
 	}
 
 }

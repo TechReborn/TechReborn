@@ -58,7 +58,6 @@ import techreborn.packets.PacketAesu;
 import techreborn.packets.PacketIdsu;
 import techreborn.packets.PacketSyncSideConfig;
 import techreborn.proxies.CommonProxy;
-import techreborn.tiles.idsu.IDSUManager;
 import techreborn.utils.StackWIPHandler;
 import techreborn.world.TechRebornWorldGen;
 
@@ -111,8 +110,6 @@ public class Core {
 		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
 			compatModule.preInit(event);
 		}
-
-		IDSUManager.init();
 
 		//Ore Dictionary
 		OreDict.init();
