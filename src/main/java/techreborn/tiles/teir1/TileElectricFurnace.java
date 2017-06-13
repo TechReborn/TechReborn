@@ -132,7 +132,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 		if (result != ItemStack.EMPTY) {
 			return result.copy();
 		}
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	public void updateState() {

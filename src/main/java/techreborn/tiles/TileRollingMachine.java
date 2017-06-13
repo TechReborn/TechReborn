@@ -44,6 +44,8 @@ import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 
+import javax.annotation.Nonnull;
+
 //TODO add tick and power bars.
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
@@ -65,6 +67,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 	public Inventory inventory = new Inventory(3, "TileRollingMachine", 64, this);
 	public boolean isRunning;
 	public int tickTime;
+	@Nonnull
 	public ItemStack currentRecipe;
 	private int outputSlot;
 
@@ -104,10 +107,10 @@ public class TileRollingMachine extends TilePowerAcceptor
 		this.charge(2);
 		if (!this.world.isRemote) {
 			this.currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(this.craftMatrix, this.world);
-			if (this.currentRecipe != null && this.canMake()) {
+			if (!this.currentRecipe.isEmpty() && this.canMake()) {
 				if (this.tickTime >= this.runTime) {
 					this.currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(this.craftMatrix, this.world);
-					if (this.currentRecipe != null) {
+					if (!this.currentRecipe.isEmpty()) {
 						boolean hasCrafted = false;
 						if (this.inventory.getStackInSlot(outputSlot) == ItemStack.EMPTY) {
 							this.inventory.setInventorySlotContents(outputSlot, this.currentRecipe);
@@ -127,23 +130,23 @@ public class TileRollingMachine extends TilePowerAcceptor
 							for (int i = 0; i < this.craftMatrix.getSizeInventory(); i++) {
 								this.craftMatrix.decrStackSize(i, 1);
 							}
-							this.currentRecipe = null;
+							this.currentRecipe = ItemStack.EMPTY;
 						}
 					}
 				}
 			}
-			if (this.currentRecipe != null) {
+			if (!this.currentRecipe.isEmpty()) {
 				if (this.canUseEnergy(energyPerTick) && this.tickTime < this.runTime) {
 					this.useEnergy(energyPerTick);
 					this.tickTime++;
 				}
 			}
-			if (this.currentRecipe == null) {
+			if (this.currentRecipe.isEmpty()) {
 				this.tickTime = -1;
 			}
 		} else {
 			this.currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(this.craftMatrix, this.world);
-			if (this.currentRecipe != null) {
+			if (!this.currentRecipe.isEmpty()) {
 				this.inventory.setInventorySlotContents(1, this.currentRecipe);
 			} else {
 				this.inventory.setInventorySlotContents(1, ItemStack.EMPTY);

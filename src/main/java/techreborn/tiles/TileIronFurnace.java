@@ -154,7 +154,7 @@ public class TileIronFurnace extends TileLegacyMachineBase
 		if (result != ItemStack.EMPTY) {
 			return result.copy();
 		}
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	public void updateState() {

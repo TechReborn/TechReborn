@@ -126,7 +126,7 @@ public class RollingMachineRecipe {
 			}
 		}
 
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	public HashMap<ResourceLocation, IRecipe> getRecipeList() {
