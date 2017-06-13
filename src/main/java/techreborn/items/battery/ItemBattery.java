@@ -33,11 +33,11 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PoweredItem;
-import techreborn.items.ItemTRNoDestroy;
+import techreborn.items.ItemTR;
 
 import javax.annotation.Nullable;
 
-public class ItemBattery extends ItemTRNoDestroy implements IEnergyItemInfo {
+public class ItemBattery extends ItemTR implements IEnergyItemInfo {
 
 	String name;
 	int maxEnergy = 0;

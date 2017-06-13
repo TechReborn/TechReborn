@@ -58,7 +58,7 @@ import javax.annotation.Nullable;
 import java.security.InvalidParameterException;
 import java.util.List;
 
-public class ItemUpgrades extends ItemTRNoDestroy implements IUpgrade {
+public class ItemUpgrades extends ItemTR implements IUpgrade {
 
 	public static final String[] types = new String[] { "overclock", "transformer", "energy_storage", "range", "ejection", "injection" };
 

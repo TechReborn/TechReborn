@@ -29,15 +29,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.blocks.IRotationTexture;
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.teir1.TileElectricFurnace;
 
-public class BlockElectricFurnace extends BlockMachineBase implements IRotationTexture {
-
-	private final String prefix = "techreborn:blocks/machine/tier1_machines/";
+public class BlockElectricFurnace extends BlockMachineBase {
 
 	public BlockElectricFurnace(final Material material) {
 		super();
@@ -57,30 +54,5 @@ public class BlockElectricFurnace extends BlockMachineBase implements IRotationT
 			player.openGui(Core.INSTANCE, EGui.ELECTRIC_FURNACE.ordinal(), world, x, y, z);
 		}
 		return true;
-	}
-
-	@Override
-	public String getFrontOff() {
-		return this.prefix + "electric_furnace_front_off";
-	}
-
-	@Override
-	public String getFrontOn() {
-		return this.prefix + "electric_furnace_front_on";
-	}
-
-	@Override
-	public String getSide() {
-		return this.prefix + "tier1_machine_side";
-	}
-
-	@Override
-	public String getTop() {
-		return this.prefix + "tier1_machine_top";
-	}
-
-	@Override
-	public String getBottom() {
-		return this.prefix + "tier1_machine_bottom";
 	}
 }

@@ -41,6 +41,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.PropertyString;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -62,25 +64,24 @@ import java.util.Random;
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class BlockOre extends Block implements IOreNameProvider {
 
-	@ConfigRegistry(category = "blocks", key = "secondaryDropChance", comment = "Secondary Gem drop chance")
-	public static double secondaryDropChance = 0.5;
-
 	public static final String[] ores = new String[] {
 		"galena", "iridium", "ruby", "sapphire", "bauxite", "pyrite",
 		"cinnabar", "sphalerite", "tungsten", "sheldonite", "peridot", "sodalite",
 		"lead", "silver" };
-
 	private static final List<String> oreNamesList = Lists.newArrayList(ArrayUtils.arrayToLowercase(ores));
-
 	public static final PropertyString VARIANTS = new PropertyString("type", oreNamesList);
+	@ConfigRegistry(category = "blocks", key = "secondaryDropChance", comment = "Secondary Gem drop chance")
+	public static double secondaryDropChance = 0.5;
 
-	public BlockOre(Material material) {
-		super(material);
-		setUnlocalizedName("techreborn.ore");
+	public BlockOre() {
+		super(Material.ROCK);
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		setHardness(2.0f);
 		setHarvestLevel("pickaxe", 2);
 		this.setDefaultState(this.getStateFromMeta(0));
+		for (int i = 0; i < ores.length; i++) {
+			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i, "storage").setInvVariant("type=" + ores[i]).setFileName("ores"));
+		}
 	}
 
 	public static ItemStack getOreByName(String name, int count) {

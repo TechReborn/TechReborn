@@ -24,7 +24,6 @@
 
 package techreborn.blocks;
 
-import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
@@ -32,28 +31,32 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.BaseBlock;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModBlocks;
+import techreborn.lib.ModInfo;
 
 import java.util.Random;
 
-public class BlockStorage extends BaseBlock implements ITexturedBlock {
+public class BlockStorage extends BaseBlock {
 
 	public static final String[] types = new String[] { "silver", "aluminum", "titanium", "chrome", "steel", "brass",
 		"lead", "electrum", "zinc", "platinum", "tungsten", "nickel", "invar", "iridium" };
 	public PropertyInteger METADATA;
 
-	public BlockStorage(Material material) {
-		super(material);
-		setUnlocalizedName("techreborn.storage");
+	public BlockStorage() {
+		super(Material.IRON);
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		setHardness(2f);
 		this.setDefaultState(this.getDefaultState().withProperty(METADATA, 0));
+		for (int i = 0; i < types.length; i++) {
+			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i, "storage").setInvVariant("type=" + types[i]).setFileName("storage"));
+		}
 	}
 
 	public static ItemStack getStorageBlockByName(String name, int count) {
@@ -85,16 +88,6 @@ public class BlockStorage extends BaseBlock implements ITexturedBlock {
 	@Override
 	public int damageDropped(IBlockState state) {
 		return getMetaFromState(state);
-	}
-
-	@Override
-	public String getTextureNameFromState(IBlockState BlockStateContainer, EnumFacing facing) {
-		return "techreborn:blocks/storage/" + types[getMetaFromState(BlockStateContainer)] + "_block";
-	}
-
-	@Override
-	public int amountOfStates() {
-		return types.length;
 	}
 
 	@Override

@@ -38,11 +38,14 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.PropertyString;
 import reborncore.common.util.ArrayUtils;
 import reborncore.common.util.StringUtils;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModBlocks;
+import techreborn.lib.ModInfo;
 import techreborn.world.config.IOreNameProvider;
 
 import java.security.InvalidParameterException;
@@ -54,13 +57,15 @@ public class BlockOre2 extends Block implements IOreNameProvider {
 	static List<String> oreNamesList = Lists.newArrayList(ArrayUtils.arrayToLowercase(ores));
 	public PropertyString VARIANTS = new PropertyString("type", oreNamesList);
 
-	public BlockOre2(Material material) {
-		super(material);
-		setUnlocalizedName("techreborn.ore2");
+	public BlockOre2() {
+		super(Material.ROCK);
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		setHardness(2.0f);
 		setHarvestLevel("pickaxe", 1);
 		this.setDefaultState(this.getStateFromMeta(0));
+		for (int i = 0; i < ores.length; i++) {
+			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i, "storage").setInvVariant("type=" + ores[i]).setFileName("ores"));
+		}
 	}
 
 	public static ItemStack getOreByName(String name, int count) {

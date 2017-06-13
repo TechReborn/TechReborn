@@ -28,14 +28,12 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.blocks.IAdvancedRotationTexture;
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 
-public class BlockComputerCube extends BlockMachineBase implements IAdvancedRotationTexture {
+public class BlockComputerCube extends BlockMachineBase {
 
-	private final String prefix = "techreborn:blocks/machine/greg_machines/";
 
 	public BlockComputerCube(final Material material) {
 		super();
@@ -50,25 +48,4 @@ public class BlockComputerCube extends BlockMachineBase implements IAdvancedRota
 			player.openGui(Core.INSTANCE, EGui.MANUAL.ordinal(), world, x, y, z);
 		return true;
 	}
-
-	@Override
-	public String getFront(final boolean isActive) {
-		return this.prefix + "computer_cube";
-	}
-
-	@Override
-	public String getSide(final boolean isActive) {
-		return this.prefix + "computer_cube";
-	}
-
-	@Override
-	public String getTop(final boolean isActive) {
-		return this.prefix + "computer_cube";
-	}
-
-	@Override
-	public String getBottom(final boolean isActive) {
-		return this.prefix + "computer_cube";
-	}
-
 }

@@ -40,9 +40,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.api.fuel.FluidPowerManager;
 import reborncore.api.recipe.RecipeHandler;
-import techreborn.dev.JsonGenerator;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,13 +103,6 @@ public class TechRebornDevCommand extends CommandBase {
 				sender.sendMessage(new TextComponentString(player.getHeldItem(EnumHand.MAIN_HAND).getItem().getRegistryName() + ":" + player.getHeldItem(EnumHand.MAIN_HAND).getItemDamage()));
 			} else {
 				sender.sendMessage(new TextComponentString("hold an item!"));
-			}
-		} else if ("gen".equals(args[0])) {
-			try {
-				new JsonGenerator().generate();
-			} catch (IOException e) {
-				e.printStackTrace();
-				sender.sendMessage(new TextComponentString(e.getLocalizedMessage()));
 			}
 		} else if ("ores".equals(args[0])) {
 			for (String ore : OreDictionary.getOreNames()) {

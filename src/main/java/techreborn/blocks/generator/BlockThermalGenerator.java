@@ -28,21 +28,21 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.blocks.IAdvancedRotationTexture;
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.generator.TileThermalGenerator;
 
-public class BlockThermalGenerator extends BlockMachineBase implements IAdvancedRotationTexture {
-
-	private final String prefix = "techreborn:blocks/machine/generators/";
+public class BlockThermalGenerator extends BlockMachineBase {
 
 	public BlockThermalGenerator() {
 		super();
-		this.setUnlocalizedName("techreborn.thermalGenerator");
 		this.setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
 	}
 
 	@Override
@@ -59,25 +59,5 @@ public class BlockThermalGenerator extends BlockMachineBase implements IAdvanced
 		if (!player.isSneaking())
 			player.openGui(Core.INSTANCE, EGui.THERMAL_GENERATOR.ordinal(), world, x, y, z);
 		return true;
-	}
-
-	@Override
-	public String getFront(final boolean isActive) {
-		return isActive ? this.prefix + "thermal_generator_side_on" : this.prefix + "thermal_generator_side_off";
-	}
-
-	@Override
-	public String getSide(final boolean isActive) {
-		return isActive ? this.prefix + "thermal_generator_side_on" : this.prefix + "thermal_generator_side_off";
-	}
-
-	@Override
-	public String getTop(final boolean isActive) {
-		return isActive ? this.prefix + "thermal_generator_top_on" : this.prefix + "thermal_generator_top_off";
-	}
-
-	@Override
-	public String getBottom(final boolean isActive) {
-		return this.prefix + "generator_machine_bottom";
 	}
 }

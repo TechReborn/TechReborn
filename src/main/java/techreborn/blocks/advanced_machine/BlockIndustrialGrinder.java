@@ -29,21 +29,21 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.blocks.IRotationTexture;
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.multiblock.TileIndustrialGrinder;
 
-public class BlockIndustrialGrinder extends BlockMachineBase implements IRotationTexture {
+public class BlockIndustrialGrinder extends BlockMachineBase {
 
-	private final String prefix = "techreborn:blocks/machine/advanced_machines/";
-
-	public BlockIndustrialGrinder(final Material material) {
+	public BlockIndustrialGrinder() {
 		super();
-		this.setUnlocalizedName("techreborn.industrialgrinder");
 		this.setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier2_machines"));
 	}
 
 	@Override
@@ -60,30 +60,5 @@ public class BlockIndustrialGrinder extends BlockMachineBase implements IRotatio
 		if (!player.isSneaking())
 			player.openGui(Core.INSTANCE, EGui.INDUSTRIAL_GRINDER.ordinal(), world, x, y, z);
 		return true;
-	}
-
-	@Override
-	public String getFrontOff() {
-		return this.prefix + "industrial_grinder_front_off";
-	}
-
-	@Override
-	public String getFrontOn() {
-		return this.prefix + "industrial_grinder_front_on";
-	}
-
-	@Override
-	public String getSide() {
-		return this.prefix + "machine_side";
-	}
-
-	@Override
-	public String getTop() {
-		return this.prefix + "industrial_grinder_top_off";
-	}
-
-	@Override
-	public String getBottom() {
-		return this.prefix + "industrial_centrifuge_bottom";
 	}
 }

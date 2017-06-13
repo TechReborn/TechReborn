@@ -24,30 +24,29 @@
 
 package techreborn.blocks.advanced_machine;
 
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.blocks.IRotationTexture;
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
-import techreborn.tiles.multiblock.TileBlastFurnace;
+import techreborn.lib.ModInfo;
+import techreborn.tiles.multiblock.TileIndustrialBlastFurnace;
 
-public class BlockBlastFurnace extends BlockMachineBase implements IRotationTexture {
+public class BlockIndustrialBlastFurnace extends BlockMachineBase {
 
-	private final String prefix = "techreborn:blocks/machine/advanced_machines/";
-
-	public BlockBlastFurnace(final Material material) {
+	public BlockIndustrialBlastFurnace() {
 		super();
-		this.setUnlocalizedName("techreborn.blastfurnace");
 		this.setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier2_machines"));
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(final World world, final int p_149915_2_) {
-		return new TileBlastFurnace();
+		return new TileIndustrialBlastFurnace();
 	}
 
 	@Override
@@ -61,30 +60,5 @@ public class BlockBlastFurnace extends BlockMachineBase implements IRotationText
 	@Override
 	public boolean isAdvanced() {
 		return true;
-	}
-
-	@Override
-	public String getFrontOff() {
-		return this.prefix + "industrial_blast_furnace_front_off";
-	}
-
-	@Override
-	public String getFrontOn() {
-		return this.prefix + "industrial_blast_furnace_front_on";
-	}
-
-	@Override
-	public String getSide() {
-		return this.prefix + "advanced_machine_side";
-	}
-
-	@Override
-	public String getTop() {
-		return this.prefix + "advanced_machine_top";
-	}
-
-	@Override
-	public String getBottom() {
-		return this.prefix + "advanced_machine_bottom";
 	}
 }

@@ -24,7 +24,6 @@
 
 package techreborn.blocks;
 
-import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -42,7 +41,6 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import reborncore.RebornCore;
 import reborncore.common.powerSystem.PoweredItem;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModSounds;
@@ -57,7 +55,7 @@ import java.util.Random;
 /**
  * Created by modmuss50 on 19/02/2016.
  */
-public class BlockRubberLog extends Block implements ITexturedBlock {
+public class BlockRubberLog extends Block {
 
 	public static PropertyDirection SAP_SIDE = PropertyDirection.create("sapside", EnumFacing.Plane.HORIZONTAL);
 	public static PropertyBool HAS_SAP = PropertyBool.create("hassap");
@@ -67,7 +65,6 @@ public class BlockRubberLog extends Block implements ITexturedBlock {
 		setUnlocalizedName("techreborn.rubberlog");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		this.setHardness(2.0F);
-		RebornCore.jsonDestroyer.registerObject(this);
 		this.setDefaultState(
 			this.getDefaultState().withProperty(SAP_SIDE, EnumFacing.NORTH).withProperty(HAS_SAP, false));
 		this.setTickRandomly(true);
@@ -112,24 +109,6 @@ public class BlockRubberLog extends Block implements ITexturedBlock {
 			tempMeta += 4;
 		}
 		return tempMeta;
-	}
-
-	@Override
-	public String getTextureNameFromState(IBlockState IBlockState, EnumFacing enumFacing) {
-		if (enumFacing == EnumFacing.DOWN || enumFacing == EnumFacing.UP) {
-			return "techreborn:blocks/rubber_log_top";
-		}
-		if (IBlockState.getValue(HAS_SAP)) {
-			if (IBlockState.getValue(SAP_SIDE) == enumFacing) {
-				return "techreborn:blocks/rubber_log_sap";
-			}
-		}
-		return "techreborn:blocks/rubber_log_side";
-	}
-
-	@Override
-	public int amountOfStates() {
-		return 8;
 	}
 
 	@Override

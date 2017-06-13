@@ -34,7 +34,7 @@ import techreborn.init.ModItems;
 
 import java.security.InvalidParameterException;
 
-public class ItemPlates extends ItemTRNoDestroy {
+public class ItemPlates extends ItemTR {
 
 	//Vanilla plates or plates not from ingots or gems
 	public static String[] types = new String[] {

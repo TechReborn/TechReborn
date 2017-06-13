@@ -43,12 +43,12 @@ import reborncore.common.powerSystem.PoweredItem;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.compat.CompatManager;
 import techreborn.init.ModItems;
-import techreborn.items.ItemTRNoDestroy;
+import techreborn.items.ItemTR;
 
 /**
  * Created by modmuss50 on 05/11/2016.
  */
-public class ItemElectricTreetap extends ItemTRNoDestroy implements IEnergyItemInfo {
+public class ItemElectricTreetap extends ItemTR implements IEnergyItemInfo {
 
 	public static final int maxCharge = 5120;
 	public static final int tier = 1;

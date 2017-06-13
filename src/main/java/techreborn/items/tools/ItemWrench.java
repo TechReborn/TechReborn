@@ -53,7 +53,7 @@ import techreborn.blocks.storage.BlockEnergyStorage;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.compat.CompatManager;
 import techreborn.init.ModSounds;
-import techreborn.items.ItemTRNoDestroy;
+import techreborn.items.ItemTR;
 import techreborn.utils.IC2WrenchHelper;
 
 import java.util.ArrayList;
@@ -63,7 +63,7 @@ import java.util.Random;
 /**
  * Created by modmuss50 on 26/02/2016.
  */
-public class ItemWrench extends ItemTRNoDestroy {
+public class ItemWrench extends ItemTR {
 
 	public ItemWrench() {
 		setCreativeTab(TechRebornCreativeTabMisc.instance);

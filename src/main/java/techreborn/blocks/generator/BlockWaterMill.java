@@ -44,7 +44,6 @@ public class BlockWaterMill extends BaseTileBlock {
 		setUnlocalizedName("techreborn.watermill");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setHardness(2.0F);
-		RebornCore.jsonDestroyer.registerObject(this);
 	}
 
 	@Override

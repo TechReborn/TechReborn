@@ -32,7 +32,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.blocks.IRotationTexture;
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
@@ -40,9 +39,7 @@ import techreborn.tiles.TileScrapboxinator;
 
 import java.util.List;
 
-public class BlockScrapboxinator extends BlockMachineBase implements IRotationTexture {
-
-	private final String prefix = "techreborn:blocks/machine/greg_machines/";
+public class BlockScrapboxinator extends BlockMachineBase {
 
 	public BlockScrapboxinator(final Material material) {
 		super();
@@ -62,31 +59,6 @@ public class BlockScrapboxinator extends BlockMachineBase implements IRotationTe
 			player.openGui(Core.INSTANCE, EGui.SCRAPBOXINATOR.ordinal(), world, x, y, z);
 		}
 		return true;
-	}
-
-	@Override
-	public String getFrontOff() {
-		return this.prefix + "scrapboxinator_front_off";
-	}
-
-	@Override
-	public String getFrontOn() {
-		return this.prefix + "scrapboxinator_front_on";
-	}
-
-	@Override
-	public String getSide() {
-		return this.prefix + "machine_side";
-	}
-
-	@Override
-	public String getTop() {
-		return this.prefix + "machine_top";
-	}
-
-	@Override
-	public String getBottom() {
-		return this.prefix + "machine_bottom";
 	}
 
 	@Override

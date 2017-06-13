@@ -28,21 +28,21 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.blocks.IRotationTexture;
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.multiblock.TileImplosionCompressor;
 
-public class BlockImplosionCompressor extends BlockMachineBase implements IRotationTexture {
+public class BlockImplosionCompressor extends BlockMachineBase {
 
-	private final String prefix = "techreborn:blocks/machine/advanced_machines/";
-
-	public BlockImplosionCompressor(final Material material) {
+	public BlockImplosionCompressor() {
 		super();
-		this.setUnlocalizedName("techreborn.implosioncompressor");
 		this.setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier2_machines"));
 	}
 
 	@Override
@@ -56,30 +56,5 @@ public class BlockImplosionCompressor extends BlockMachineBase implements IRotat
 		if (!player.isSneaking())
 			player.openGui(Core.INSTANCE, EGui.IMPLOSION_COMPRESSOR.ordinal(), world, x, y, z);
 		return true;
-	}
-
-	@Override
-	public String getFrontOff() {
-		return this.prefix + "implosion_compressor_front_off";
-	}
-
-	@Override
-	public String getFrontOn() {
-		return this.prefix + "implosion_compressor_front_on";
-	}
-
-	@Override
-	public String getSide() {
-		return this.prefix + "advanced_machine_side";
-	}
-
-	@Override
-	public String getTop() {
-		return this.prefix + "industrial_centrifuge_top_off";
-	}
-
-	@Override
-	public String getBottom() {
-		return this.prefix + "implosion_compressor_bottom";
 	}
 }

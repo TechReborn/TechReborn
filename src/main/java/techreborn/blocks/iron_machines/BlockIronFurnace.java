@@ -36,7 +36,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.blocks.IRotationTexture;
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
@@ -46,9 +45,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class BlockIronFurnace extends BlockMachineBase implements IRotationTexture {
-
-	private final String prefix = "techreborn:blocks/machine/iron_machines/";
+public class BlockIronFurnace extends BlockMachineBase {
 
 	public BlockIronFurnace() {
 		super();
@@ -109,30 +106,5 @@ public class BlockIronFurnace extends BlockMachineBase implements IRotationTextu
 					worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D, new int[0]);
 			}
 		}
-	}
-
-	@Override
-	public String getFrontOff() {
-		return this.prefix + "iron_furnace_front_off";
-	}
-
-	@Override
-	public String getFrontOn() {
-		return this.prefix + "iron_furnace_front_on";
-	}
-
-	@Override
-	public String getSide() {
-		return this.prefix + "iron_machine_side";
-	}
-
-	@Override
-	public String getTop() {
-		return this.prefix + "iron_machine_top";
-	}
-
-	@Override
-	public String getBottom() {
-		return this.prefix + "iron_machine_bottom";
 	}
 }

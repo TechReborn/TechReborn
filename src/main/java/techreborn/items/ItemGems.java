@@ -33,7 +33,7 @@ import techreborn.init.ModItems;
 
 import java.security.InvalidParameterException;
 
-public class ItemGems extends ItemTRNoDestroy {
+public class ItemGems extends ItemTR {
 
 	public static final String[] types = new String[] { "ruby", "sapphire", "peridot", "red_garnet", "yellow_garnet" };
 

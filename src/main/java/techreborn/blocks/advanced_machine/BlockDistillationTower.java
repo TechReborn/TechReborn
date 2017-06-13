@@ -30,8 +30,6 @@ import techreborn.client.TechRebornCreativeTab;
 
 public class BlockDistillationTower extends BlockMachineBase {
 
-	private final String prefix = "techreborn:blocks/machine/advanced_machines/";
-
 	public BlockDistillationTower(Material material) {
 		super();
 		setUnlocalizedName("techreborn.distillationtower");

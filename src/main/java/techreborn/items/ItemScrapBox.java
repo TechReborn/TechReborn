@@ -31,16 +31,14 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
-import reborncore.RebornCore;
 import techreborn.api.ScrapboxList;
 import techreborn.client.TechRebornCreativeTabMisc;
 
-public class ItemScrapBox extends ItemTRNoDestroy {
+public class ItemScrapBox extends ItemTR {
 
 	public ItemScrapBox() {
 		setUnlocalizedName("techreborn.scrapbox");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
-		RebornCore.jsonDestroyer.registerObject(this);
 	}
 
 	@Override

@@ -33,7 +33,6 @@ public class ItemTR extends Item {
 	public ItemTR() {
 		setNoRepair();
 		setCreativeTab(TechRebornCreativeTab.instance);
-		RebornCore.jsonDestroyer.registerObject(this);
 	}
 
 }

@@ -24,24 +24,21 @@
 
 package techreborn.items;
 
-import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
-import reborncore.RebornCore;
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTabMisc;
 
-public class ItemDestructopack extends ItemTextureBase implements ITexturedItem {
+public class ItemDestructopack extends ItemTR {
 
 	public ItemDestructopack() {
 		this.setUnlocalizedName("techreborn.destructopack");
 		this.setCreativeTab(TechRebornCreativeTabMisc.instance);
-		RebornCore.jsonDestroyer.registerObject(this);
 	}
 
 	@Override
@@ -50,15 +47,5 @@ public class ItemDestructopack extends ItemTextureBase implements ITexturedItem 
 		player.openGui(Core.INSTANCE, EGui.DESTRUCTOPACK.ordinal(), world, (int) player.posX, (int) player.posY,
 			(int) player.posY);
 		return new ActionResult<>(EnumActionResult.SUCCESS, player.getHeldItem(hand));
-	}
-
-	@Override
-	public int getMaxMeta() {
-		return 1;
-	}
-
-	@Override
-	public String getTextureName(final int arg0) {
-		return "techreborn:items/misc/destructopack";
 	}
 }

@@ -28,21 +28,21 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.blocks.IRotationTexture;
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.TileAlloySmelter;
 
-public class BlockAlloySmelter extends BlockMachineBase implements IRotationTexture {
+public class BlockAlloySmelter extends BlockMachineBase {
 
-	private final String prefix = "techreborn:blocks/machine/tier1_machines/";
-
-	public BlockAlloySmelter(final Material material) {
+	public BlockAlloySmelter() {
 		super();
-		this.setUnlocalizedName("techreborn.alloysmelter");
 		this.setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
 	}
 
 	@Override
@@ -56,30 +56,5 @@ public class BlockAlloySmelter extends BlockMachineBase implements IRotationText
 		if (!player.isSneaking())
 			player.openGui(Core.INSTANCE, EGui.ALLOY_SMELTER.ordinal(), world, x, y, z);
 		return true;
-	}
-
-	@Override
-	public String getFrontOff() {
-		return this.prefix + "electric_alloy_furnace_front_off";
-	}
-
-	@Override
-	public String getFrontOn() {
-		return this.prefix + "electric_alloy_furnace_front_on";
-	}
-
-	@Override
-	public String getSide() {
-		return this.prefix + "tier1_machine_side";
-	}
-
-	@Override
-	public String getTop() {
-		return this.prefix + "tier1_machine_top";
-	}
-
-	@Override
-	public String getBottom() {
-		return this.prefix + "tier1_machine_bottom";
 	}
 }

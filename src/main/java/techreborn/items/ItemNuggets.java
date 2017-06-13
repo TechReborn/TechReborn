@@ -33,7 +33,7 @@ import techreborn.init.ModItems;
 
 import java.security.InvalidParameterException;
 
-public class ItemNuggets extends ItemTRNoDestroy {
+public class ItemNuggets extends ItemTR {
 
 	public static final String[] types = new String[] { "aluminum", "brass", "bronze", "chrome", "copper", "electrum",
 		"invar", "iridium", "lead", "nickel", "platinum", "silver", "steel", "tin", "titanium", "tungsten",

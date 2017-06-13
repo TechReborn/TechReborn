@@ -24,8 +24,6 @@
 
 package techreborn.blocks;
 
-import me.modmuss50.jsonDestroyer.api.IOpaqueBlock;
-import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.properties.IProperty;
@@ -35,12 +33,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import reborncore.RebornCore;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModBlocks;
 
@@ -50,13 +46,12 @@ import java.util.Random;
 /**
  * Created by modmuss50 on 20/02/2016.
  */
-public class BlockRubberLeaves extends BlockLeaves implements ITexturedBlock, IOpaqueBlock {
+public class BlockRubberLeaves extends BlockLeaves {
 
 	public BlockRubberLeaves() {
 		super();
 		setUnlocalizedName("techreborn.rubberleaves");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
-		RebornCore.jsonDestroyer.registerObject(this);
 		this.setDefaultState(this.getDefaultState().withProperty(CHECK_DECAY, true)
 			.withProperty(DECAYABLE, true));
 		Blocks.FIRE.setFireInfo(this, 30, 60);
@@ -86,25 +81,6 @@ public class BlockRubberLeaves extends BlockLeaves implements ITexturedBlock, IO
 
 	public boolean isFullCube() {
 		return false;
-	}
-
-	//TODO 1.11: what is this?
-	//	@Override
-	//	protected ItemStack createStackedBlock(IBlockState state) {
-	//		IBlockState newState = state.withProperty(CHECK_DECAY, false).withProperty(DECAYABLE,
-	//			false);
-	//
-	//		return super.createStackedBlock(newState);
-	//	}
-
-	@Override
-	public String getTextureNameFromState(IBlockState IBlockState, EnumFacing enumFacing) {
-		return "techreborn:blocks/rubber_leaves";
-	}
-
-	@Override
-	public int amountOfStates() {
-		return 4;
 	}
 
 	@Override

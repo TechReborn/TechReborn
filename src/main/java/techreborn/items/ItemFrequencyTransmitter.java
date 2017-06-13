@@ -48,7 +48,7 @@ import techreborn.lib.MessageIDs;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemFrequencyTransmitter extends ItemTRNoDestroy {
+public class ItemFrequencyTransmitter extends ItemTR {
 
 	public ItemFrequencyTransmitter() {
 		setUnlocalizedName("techreborn.frequencyTransmitter");

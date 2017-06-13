@@ -36,12 +36,12 @@ import net.minecraft.world.World;
 import reborncore.api.power.IEnergyInterfaceTile;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.client.TechRebornCreativeTabMisc;
-import techreborn.items.ItemTRNoDestroy;
+import techreborn.items.ItemTR;
 
 /**
  * Created by Mark on 20/03/2016.
  */
-public class ItemDebugTool extends ItemTRNoDestroy {
+public class ItemDebugTool extends ItemTR {
 
 	public ItemDebugTool() {
 		setCreativeTab(TechRebornCreativeTabMisc.instance);

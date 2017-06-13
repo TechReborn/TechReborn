@@ -24,7 +24,6 @@
 
 package techreborn.blocks;
 
-import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -39,7 +38,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
-import reborncore.RebornCore;
 import reborncore.common.BaseBlock;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.entities.EntityNukePrimed;
@@ -47,14 +45,13 @@ import techreborn.entities.EntityNukePrimed;
 /**
  * Created by Mark on 13/03/2016.
  */
-public class BlockNuke extends BaseBlock implements ITexturedBlock {
+public class BlockNuke extends BaseBlock {
 	public static final PropertyBool OVERLAY = PropertyBool.create("overlay");
 
 	public BlockNuke() {
 		super(Material.TNT);
 		setUnlocalizedName("techreborn.nuke");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
-		RebornCore.jsonDestroyer.registerObject(this);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(OVERLAY, false));
 	}
 
@@ -113,22 +110,6 @@ public class BlockNuke extends BaseBlock implements ITexturedBlock {
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 	                                EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		return false;
-	}
-
-	@Override
-	public String getTextureNameFromState(IBlockState iBlockState, EnumFacing enumFacing) {
-		if (iBlockState.getValue(OVERLAY)) {
-			return "techreborn:blocks/nuke_front";
-		}
-		if (enumFacing == EnumFacing.UP || enumFacing == EnumFacing.DOWN) {
-			return "techreborn:blocks/nuke_top";
-		}
-		return "techreborn:blocks/nuke_side";
-	}
-
-	@Override
-	public int amountOfStates() {
-		return 2;
 	}
 
 	public int getMetaFromState(IBlockState state) {

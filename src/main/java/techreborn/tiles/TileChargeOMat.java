@@ -25,71 +25,53 @@
 package techreborn.tiles;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import reborncore.api.IListInfoProvider;
-import reborncore.api.power.IEnergyItemInfo;
-import reborncore.api.recipe.IRecipeCrafterProvider;
+import reborncore.api.power.IEnergyInterfaceItem;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
-import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
-import techreborn.api.Reference;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
-import techreborn.items.DynamicCell;
 import techreborn.lib.ModInfo;
 
-import java.util.List;
-
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileCentrifuge extends TilePowerAcceptor
-	implements IWrenchable, IInventoryProvider, IListInfoProvider, IRecipeCrafterProvider, IContainerProvider {
+public class TileChargeOMat extends TilePowerAcceptor
+	implements IWrenchable, IInventoryProvider, ISidedInventory, IContainerProvider {
 
-	@ConfigRegistry(config = "machines", category = "centrifuge", key = "CentrifugeMaxInput", comment = "Centrifuge Max Input (Value in EU)")
-	public static int maxInput = 32;
-	@ConfigRegistry(config = "machines", category = "centrifuge", key = "CentrifugeMaxEnergy", comment = "Centrifuge Max Energy (Value in EU)")
-	public static int maxEnergy = 10000;
-	//  @ConfigRegistry(config = "machines", category = "centrifuge", key = "CentrifugeWrenchDropRate", comment = "Centrifuge Wrench Drop Rate")
+	@ConfigRegistry(config = "machines", category = "charge_bench", key = "ChargeBenchMaxInput", comment = "Charge Bench Max Input (Value in EU)")
+	public static int maxInput = 512;
+	@ConfigRegistry(config = "machines", category = "charge_bench", key = "ChargeBenchMaxEnergy", comment = "Charge Bench Max Energy (Value in EU)")
+	public static int maxEnergy = 100000;
+	//  @ConfigRegistry(config = "machines", category = "charge_bench", key = "ChargeBenchWrenchDropRate", comment = "Charge Bench Wrench Drop Rate")
 	public static float wrenchDropRate = 1.0F;
 
-	public int tickTime;
-	public Inventory inventory = new Inventory(11, "TileCentrifuge", 64, this);
-	public RecipeCrafter crafter;
+	public Inventory inventory = new Inventory(6, "TileChargeOMat", 64, this);
 
-	public TileCentrifuge() {
+	public TileChargeOMat() {
 		super();
-		// Input slots
-		final int[] inputs = new int[] { 0, 1 };
-		final int[] outputs = new int[4];
-		outputs[0] = 2;
-		outputs[1] = 3;
-		outputs[2] = 4;
-		outputs[3] = 5;
-
-		this.crafter = new RecipeCrafter(Reference.centrifugeRecipe, this, 2, 4, this.inventory, inputs, outputs);
 	}
 
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		this.crafter.updateEntity();
-		this.charge(6);
-		if (this.inventory.getStackInSlot(6) != ItemStack.EMPTY) {
-			final ItemStack stack = this.inventory.getStackInSlot(6);
-			if (stack.getItem() instanceof IEnergyItemInfo) {
-				final IEnergyItemInfo item = (IEnergyItemInfo) stack.getItem();
-				if (item.canProvideEnergy(stack)) {
-					if (this.getEnergy() != this.getMaxPower()) {
-						this.addEnergy(item.getMaxTransfer(stack));
-						PoweredItem.setEnergy(PoweredItem.getEnergy(stack) - item.getMaxTransfer(stack), stack);
+
+		for (int i = 0; i < 6; i++) {
+			if (this.inventory.getStackInSlot(i) != ItemStack.EMPTY) {
+				if (this.getEnergy() > 0) {
+					final ItemStack stack = this.inventory.getStackInSlot(i);
+					if (stack.getItem() instanceof IEnergyInterfaceItem) {
+						final IEnergyInterfaceItem interfaceItem = (IEnergyInterfaceItem) stack.getItem();
+						final double trans = Math.min(interfaceItem.getMaxPower(stack) - interfaceItem.getEnergy(stack),
+							Math.min(interfaceItem.getMaxTransfer(stack), this.getEnergy()));
+						interfaceItem.setEnergy(trans + interfaceItem.getEnergy(stack), stack);
+						this.useEnergy(trans);
 					}
 				}
 			}
@@ -113,59 +95,39 @@ public class TileCentrifuge extends TilePowerAcceptor
 
 	@Override
 	public float getWrenchDropRate() {
-		return wrenchDropRate;
+		return 1.0F;
 	}
 
 	@Override
 	public ItemStack getWrenchDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.INDUSTRIAL_CENTRIFUGE, 1);
+		return new ItemStack(ModBlocks.CHARGE_O_MAT, 1);
 	}
 
 	public boolean isComplete() {
 		return false;
 	}
 
-	@Override
-	public void readFromNBT(final NBTTagCompound tagCompound) {
-		super.readFromNBT(tagCompound);
-		this.crafter.readFromNBT(tagCompound);
-	}
-
-	@Override
-	public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
-		this.crafter.writeToNBT(tagCompound);
-		return tagCompound;
-	}
-
 	// ISidedInventory
-
 	@Override
 	public int[] getSlotsForFace(final EnumFacing side) {
 		return side == EnumFacing.DOWN ? new int[] { 0, 1, 2, 3, 4, 5 } : new int[] { 0, 1, 2, 3, 4, 5 };
 	}
 
 	@Override
-	public boolean canInsertItem(final int index, final ItemStack itemStackIn, final EnumFacing direction) {
-		return itemStackIn.isItemEqual(DynamicCell.getEmptyCell(1).copy()) ? index == 1 : index == 0;
+	public boolean canInsertItem(final int slotIndex, final ItemStack itemStack, final EnumFacing side) {
+		return this.isItemValidForSlot(slotIndex, itemStack);
 	}
 
 	@Override
 	public boolean canExtractItem(final int slotIndex, final ItemStack itemStack, final EnumFacing side) {
-		return slotIndex >= 2 && slotIndex <= 5;
-	}
-
-	@Override
-	public void addInfo(final List<String> info, final boolean isRealTile) {
-		super.addInfo(info, isRealTile);
-		info.add("Round and round it goes");
-	}
-
-	public int getProgressScaled(final int scale) {
-		if (this.crafter.currentTickTime != 0) {
-			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
-		}
-		return 0;
+		// if (itemStack.getItem() instanceof IElectricItem) {
+		// double CurrentCharge = ElectricItem.manager.getCharge(itemStack);
+		// double MaxCharge = ((IElectricItem)
+		// itemStack.getItem()).getMaxCharge(itemStack);
+		// if (CurrentCharge == MaxCharge)
+		// return true;
+		// }
+		return false;
 	}
 
 	@Override
@@ -199,16 +161,9 @@ public class TileCentrifuge extends TilePowerAcceptor
 	}
 
 	@Override
-	public RecipeCrafter getRecipeCrafter() {
-		return this.crafter;
-	}
-
-	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("centrifuge").player(player.inventory).inventory().hotbar()
-			.addInventory().tile(this).slot(0, 40, 34).slot(1, 40, 54).outputSlot(2, 82, 44).outputSlot(3, 101, 25)
-			.outputSlot(4, 120, 44).outputSlot(5, 101, 63).energySlot(6, 8, 72).syncEnergyValue()
-			.syncCrafterValue().addInventory().create();
+		return new ContainerBuilder("chargebench").player(player.inventory).inventory().hotbar().addInventory()
+			.tile(this).energySlot(0, 62, 25).energySlot(1, 98, 25).energySlot(2, 62, 45).energySlot(3, 98, 45)
+			.energySlot(4, 62, 65).energySlot(5, 98, 65).syncEnergyValue().addInventory().create();
 	}
-
 }

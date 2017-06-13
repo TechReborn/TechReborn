@@ -22,64 +22,41 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks.machine;
+package techreborn.blocks.advanced_machine;
 
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.blocks.IRotationTexture;
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
-import techreborn.tiles.TileChargeBench;
+import techreborn.lib.ModInfo;
+import techreborn.tiles.TileIndustrialCentrifuge;
 
-public class BlockChargeBench extends BlockMachineBase implements IRotationTexture {
+public class BlockIndustrialCentrifuge extends BlockMachineBase {
 
-	private final String prefix = "techreborn:blocks/machine/greg_machines/";
+	private final String prefix = "techreborn:blocks/machine/advanced_machines/";
 
-	public BlockChargeBench(final Material material) {
+	public BlockIndustrialCentrifuge() {
 		super();
-		this.setUnlocalizedName("techreborn.chargebench");
 		this.setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier2_machines"));
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(final World world, final int p_149915_2_) {
-		return new TileChargeBench();
+	public TileEntity createNewTileEntity(final World p_149915_1_, final int p_149915_2_) {
+		return new TileIndustrialCentrifuge();
 	}
 
 	@Override
 	public boolean onBlockActivated(final World world, final int x, final int y, final int z, final EntityPlayer player, final int side, final float hitX,
 	                                final float hitY, final float hitZ) {
-		if (!player.isSneaking())
-			player.openGui(Core.INSTANCE, EGui.CHARGEBENCH.ordinal(), world, x, y, z);
+		if (!player.isSneaking()) {
+			player.openGui(Core.INSTANCE, EGui.CENTRIFUGE.ordinal(), world, x, y, z);
+		}
 		return true;
-	}
-
-	@Override
-	public String getFrontOff() {
-		return this.prefix + "chargeBench_side";
-	}
-
-	@Override
-	public String getFrontOn() {
-		return this.prefix + "chargeBench_side";
-	}
-
-	@Override
-	public String getSide() {
-		return this.prefix + "chargeBench_side";
-	}
-
-	@Override
-	public String getTop() {
-		return this.prefix + "chargeBench_side";
-	}
-
-	@Override
-	public String getBottom() {
-		return this.prefix + "chargeBench_side";
 	}
 }

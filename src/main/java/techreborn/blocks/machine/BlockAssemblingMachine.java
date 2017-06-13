@@ -29,15 +29,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.blocks.IRotationTexture;
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TileAssemblingMachine;
 
-public class BlockAssemblingMachine extends BlockMachineBase implements IRotationTexture {
-
-	private final String prefix = "techreborn:blocks/machine/greg_machines/";
+public class BlockAssemblingMachine extends BlockMachineBase {
 
 	public BlockAssemblingMachine(final Material material) {
 		super();
@@ -56,30 +53,5 @@ public class BlockAssemblingMachine extends BlockMachineBase implements IRotatio
 		if (!player.isSneaking())
 			player.openGui(Core.INSTANCE, EGui.ASSEMBLING_MACHINE.ordinal(), world, x, y, z);
 		return true;
-	}
-
-	@Override
-	public String getFrontOff() {
-		return this.prefix + "assembling_machine_front_off";
-	}
-
-	@Override
-	public String getFrontOn() {
-		return this.prefix + "assembling_machine_front_on";
-	}
-
-	@Override
-	public String getSide() {
-		return this.prefix + "machine_side";
-	}
-
-	@Override
-	public String getTop() {
-		return this.prefix + "machine_top";
-	}
-
-	@Override
-	public String getBottom() {
-		return this.prefix + "assembling_machine_top";
 	}
 }

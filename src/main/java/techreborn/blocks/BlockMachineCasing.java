@@ -37,9 +37,13 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.multiblock.BlockMultiblockBase;
+import techreborn.Core;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.TileMachineCasing;
 
 import java.security.InvalidParameterException;
@@ -50,12 +54,16 @@ public class BlockMachineCasing extends BlockMultiblockBase {
 	public static final String[] types = new String[] { "standard", "reinforced", "advanced" };
 	public static final PropertyInteger METADATA = PropertyInteger.create("type", 0, types.length);
 
-	public BlockMachineCasing(Material material) {
-		super(material);
+	public BlockMachineCasing() {
+		super(Material.IRON);
 		setCreativeTab(TechRebornCreativeTab.instance);
-		setUnlocalizedName("techreborn.machineCasing");
 		setHardness(2F);
 		this.setDefaultState(this.getDefaultState().withProperty(METADATA, 0));
+		if (Core.proxy.isCTMAvailable()) {
+			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/structure/ctm"));
+		} else {
+			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/structure"));
+		}
 	}
 
 	public static ItemStack getStackByName(String name, int count) {

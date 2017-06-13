@@ -34,7 +34,7 @@ import techreborn.init.ModItems;
 
 import java.security.InvalidParameterException;
 
-public class ItemIngots extends ItemTRNoDestroy {
+public class ItemIngots extends ItemTR {
 	public static final String[] types = new String[] { "aluminum", "brass", "bronze", "chrome", "copper", "electrum",
 		"invar", "iridium", "lead", "nickel", "platinum", "silver", "steel", "tin", "titanium", "tungsten",
 		"hot_tungstensteel", "tungstensteel", "zinc", "refined_iron", "advanced_alloy", "mixed_metal",
@@ -80,7 +80,7 @@ public class ItemIngots extends ItemTRNoDestroy {
 	// Adds Dusts SubItems To Creative Tab
 	@Override
 	public void getSubItems(CreativeTabs creativeTabs, NonNullList list) {
-		if(!isInCreativeTab(creativeTabs)){
+		if (!isInCreativeTab(creativeTabs)) {
 			return;
 		}
 		for (int meta = 0; meta < types.length; ++meta) {

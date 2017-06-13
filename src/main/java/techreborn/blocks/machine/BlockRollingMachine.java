@@ -24,25 +24,24 @@
 
 package techreborn.blocks.machine;
 
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.blocks.IAdvancedRotationTexture;
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.TileRollingMachine;
 
-public class BlockRollingMachine extends BlockMachineBase implements IAdvancedRotationTexture {
+public class BlockRollingMachine extends BlockMachineBase {
 
-	private final String prefix = "techreborn:blocks/machine/greg_machines/";
-
-	public BlockRollingMachine(final Material material) {
+	public BlockRollingMachine() {
 		super();
-		this.setUnlocalizedName("techreborn.rollingmachine");
 		this.setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
 	}
 
 	@Override
@@ -56,25 +55,5 @@ public class BlockRollingMachine extends BlockMachineBase implements IAdvancedRo
 		if (!player.isSneaking())
 			player.openGui(Core.INSTANCE, EGui.ROLLING_MACHINE.ordinal(), world, x, y, z);
 		return true;
-	}
-
-	@Override
-	public String getFront(final boolean isActive) {
-		return isActive ? this.prefix + "rolling_machine_side_on" : this.prefix + "rolling_machine_side_off";
-	}
-
-	@Override
-	public String getSide(final boolean isActive) {
-		return this.prefix + "machine_side";
-	}
-
-	@Override
-	public String getTop(final boolean isActive) {
-		return this.prefix + "machine_top";
-	}
-
-	@Override
-	public String getBottom(final boolean isActive) {
-		return this.prefix + "machine_bottom";
 	}
 }

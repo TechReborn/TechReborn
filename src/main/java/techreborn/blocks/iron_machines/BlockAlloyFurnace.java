@@ -33,7 +33,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.blocks.IRotationTexture;
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
@@ -42,9 +41,7 @@ import techreborn.tiles.TileAlloyFurnace;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlockAlloyFurnace extends BlockMachineBase implements IRotationTexture {
-
-	private final String prefix = "techreborn:blocks/machine/iron_machines/";
+public class BlockAlloyFurnace extends BlockMachineBase {
 
 	public BlockAlloyFurnace(final Material material) {
 		super();
@@ -70,30 +67,5 @@ public class BlockAlloyFurnace extends BlockMachineBase implements IRotationText
 		final List<ItemStack> items = new ArrayList<>();
 		items.add(new ItemStack(this));
 		return items;
-	}
-
-	@Override
-	public String getFrontOff() {
-		return this.prefix + "alloy_furnace_front_off";
-	}
-
-	@Override
-	public String getFrontOn() {
-		return this.prefix + "alloy_furnace_front_on";
-	}
-
-	@Override
-	public String getSide() {
-		return this.prefix + "iron_machine_side";
-	}
-
-	@Override
-	public String getTop() {
-		return this.prefix + "iron_machine_top";
-	}
-
-	@Override
-	public String getBottom() {
-		return this.prefix + "iron_machine_bottom";
 	}
 }

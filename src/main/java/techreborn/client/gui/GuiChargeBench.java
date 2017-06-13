@@ -25,13 +25,13 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
-import techreborn.tiles.TileChargeBench;
+import techreborn.tiles.TileChargeOMat;
 
 public class GuiChargeBench extends GuiBase {
 
-	TileChargeBench tile;
+	TileChargeOMat tile;
 
-	public GuiChargeBench(final EntityPlayer player, final TileChargeBench tile) {
+	public GuiChargeBench(final EntityPlayer player, final TileChargeOMat tile) {
 		super(player, tile, tile.createContainer(player));
 		this.tile = tile;
 	}

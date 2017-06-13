@@ -26,7 +26,6 @@ package techreborn.blocks.transformers;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterators;
-import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDynamicLiquid;
 import net.minecraft.block.BlockStaticLiquid;
@@ -45,7 +44,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidBase;
 import reborncore.common.BaseTileBlock;
-import reborncore.common.blocks.IRotationTexture;
 import techreborn.client.TechRebornCreativeTab;
 
 import java.util.ArrayList;
@@ -56,7 +54,7 @@ import java.util.Random;
 /**
  * Created by Rushmead
  */
-public abstract class BlockTransformer extends BaseTileBlock implements IRotationTexture, ITexturedBlock {
+public abstract class BlockTransformer extends BaseTileBlock {
 	public static PropertyDirection FACING = PropertyDirection.create("facing", Facings.ALL);
 	protected final String prefix = "techreborn:blocks/machines/energy/";
 	public String name;
@@ -210,56 +208,8 @@ public abstract class BlockTransformer extends BaseTileBlock implements IRotatio
 		return 0;
 	}
 
-	@Override
-	public String getFrontOff() {
-		return prefix + name.toLowerCase().replace("transformer", "") + "_transformer_front";
-	}
-
-	@Override
-	public String getFrontOn() {
-		return prefix + name.toLowerCase().replace("transformer", "") + "_transformer_front";
-	}
-
-	@Override
-	public String getSide() {
-		return prefix + name.toLowerCase().replace("transformer", "") + "_transformer_side";
-	}
-
-	@Override
-	public String getTop() {
-		return prefix + name.toLowerCase().replace("transformer", "") + "_transformer_side";
-	}
-
-	@Override
-	public String getBottom() {
-		return prefix + name.toLowerCase().replace("transformer", "") + "_transformer_side";
-	}
-
-	@Override
-	public String getTextureNameFromState(IBlockState blockState, EnumFacing facing) {
-		if (this instanceof IRotationTexture) {
-			IRotationTexture rotationTexture = this;
-			if (getFacing(blockState) == facing) {
-				return rotationTexture.getFrontOff();
-			}
-			if (facing == EnumFacing.UP) {
-				return rotationTexture.getTop();
-			}
-			if (facing == EnumFacing.DOWN) {
-				return rotationTexture.getBottom();
-			}
-			return rotationTexture.getSide();
-		}
-		return "techreborn:blocks/machine/machine_side";
-	}
-
 	public EnumFacing getFacing(IBlockState state) {
 		return state.getValue(FACING);
-	}
-
-	@Override
-	public int amountOfStates() {
-		return 6;
 	}
 
 	public enum Facings implements Predicate<EnumFacing>, Iterable<EnumFacing> {

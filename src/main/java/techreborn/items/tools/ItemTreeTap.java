@@ -36,9 +36,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.compat.CompatManager;
-import techreborn.items.ItemTRNoDestroy;
+import techreborn.items.ItemTR;
 
-public class ItemTreeTap extends ItemTRNoDestroy {
+public class ItemTreeTap extends ItemTR {
 
 	public ItemTreeTap() {
 		setMaxStackSize(1);

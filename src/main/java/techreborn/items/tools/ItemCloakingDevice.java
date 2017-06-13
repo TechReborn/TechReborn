@@ -40,11 +40,11 @@ import reborncore.common.registration.impl.ConfigRegistry;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
-import techreborn.items.ItemTRNoDestroy;
+import techreborn.items.ItemTR;
 import techreborn.lib.ModInfo;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class ItemCloakingDevice extends ItemTRNoDestroy implements IEnergyItemInfo {
+public class ItemCloakingDevice extends ItemTR implements IEnergyItemInfo {
 
 	@ConfigRegistry(config = "items", category = "cloacking_device", key = "ClockingDeviceEnergyUsage", comment = "Cloacking device energy usesage (Value in EU)")
 	public static int usage = 10;

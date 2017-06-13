@@ -24,12 +24,11 @@
 
 package techreborn.blocks.fluid;
 
-import me.modmuss50.jsonDestroyer.api.ITexturedFluid;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.fluids.Fluid;
 import techreborn.Core;
 
-public class BlockFluidTechReborn extends BlockFluidBase implements ITexturedFluid {
+public class BlockFluidTechReborn extends BlockFluidBase {
 
 	String name;
 

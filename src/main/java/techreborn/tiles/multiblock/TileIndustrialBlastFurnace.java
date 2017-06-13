@@ -51,18 +51,18 @@ import techreborn.init.ModBlocks;
 import techreborn.multiblocks.MultiBlockCasing;
 import techreborn.tiles.TileMachineCasing;
 
-public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, IInventoryProvider,
+public class TileIndustrialBlastFurnace extends TilePowerAcceptor implements IWrenchable, IInventoryProvider,
 	ITileRecipeHandler<BlastFurnaceRecipe>, IRecipeCrafterProvider, IContainerProvider {
 
 	public static int euTick = 5;
 	public int tickTime;
-	public Inventory inventory = new Inventory(4, "TileBlastFurnace", 64, this);
+	public Inventory inventory = new Inventory(4, "TileIndustrialBlastFurnace", 64, this);
 	public RecipeCrafter crafter;
 	public int capacity = 1000;
 
 	private int cachedHeat;
 
-	public TileBlastFurnace() {
+	public TileIndustrialBlastFurnace() {
 		super();
 		// TODO configs
 		final int[] inputs = new int[2];
@@ -219,8 +219,8 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 
 	@Override
 	public boolean canCraft(final TileEntity tile, final BlastFurnaceRecipe recipe) {
-		if (tile instanceof TileBlastFurnace) {
-			final TileBlastFurnace blastFurnace = (TileBlastFurnace) tile;
+		if (tile instanceof TileIndustrialBlastFurnace) {
+			final TileIndustrialBlastFurnace blastFurnace = (TileIndustrialBlastFurnace) tile;
 			return blastFurnace.getHeat() >= recipe.neededHeat;
 		}
 		return false;

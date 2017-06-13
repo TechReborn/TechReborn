@@ -28,22 +28,22 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.blocks.IAdvancedRotationTexture;
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.TileQuantumTank;
 
-public class BlockQuantumTank extends BlockMachineBase implements IAdvancedRotationTexture {
-
-	private final String prefix = "techreborn:blocks/machine/greg_machines/";
+public class BlockQuantumTank extends BlockMachineBase {
 
 	public BlockQuantumTank() {
 		super();
-		this.setUnlocalizedName("techreborn.quantumTank");
 		this.setHardness(2.0F);
 		this.setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier3_machines"));
 	}
 
 	@Override
@@ -61,25 +61,5 @@ public class BlockQuantumTank extends BlockMachineBase implements IAdvancedRotat
 			player.openGui(Core.INSTANCE, EGui.QUANTUM_TANK.ordinal(), world, x, y, z);
 		}
 		return true;
-	}
-
-	@Override
-	public String getFront(final boolean isActive) {
-		return "techreborn:blocks/machine/generators/thermal_generator_side_off";
-	}
-
-	@Override
-	public String getSide(final boolean isActive) {
-		return "techreborn:blocks/machine/generators/thermal_generator_side_off";
-	}
-
-	@Override
-	public String getTop(final boolean isActive) {
-		return this.prefix + "quantum_top";
-	}
-
-	@Override
-	public String getBottom(final boolean isActive) {
-		return "techreborn:blocks/machine/generators/thermal_generator_bottom";
 	}
 }

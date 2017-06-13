@@ -68,7 +68,6 @@ public class BlockCable extends BlockContainer {
 	public BlockCable() {
 		super(Material.ROCK);
 		setCreativeTab(TechRebornCreativeTab.instance);
-		this.setUnlocalizedName("techreborn.cable");
 		setDefaultState(getDefaultState().withProperty(EAST, false).withProperty(WEST, false).withProperty(NORTH, false).withProperty(SOUTH, false).withProperty(UP, false).withProperty(DOWN, false).withProperty(TYPE, EnumCableType.COPPER));
 	}
 

@@ -28,21 +28,21 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.blocks.IAdvancedRotationTexture;
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.TileMatterFabricator;
 
-public class BlockMatterFabricator extends BlockMachineBase implements IAdvancedRotationTexture {
+public class BlockMatterFabricator extends BlockMachineBase {
 
-	private final String prefix = "techreborn:blocks/machine/greg_machines/";
-
-	public BlockMatterFabricator(final Material material) {
+	public BlockMatterFabricator() {
 		super();
-		this.setUnlocalizedName("techreborn.matterfabricator");
 		this.setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier3_machines"));
 	}
 
 	@Override
@@ -61,25 +61,5 @@ public class BlockMatterFabricator extends BlockMachineBase implements IAdvanced
 	@Override
 	public boolean isAdvanced() {
 		return true;
-	}
-
-	@Override
-	public String getFront(final boolean isActive) {
-		return isActive ? this.prefix + "matter_fabricator_on" : this.prefix + "matter_fabricator_off";
-	}
-
-	@Override
-	public String getSide(final boolean isActive) {
-		return isActive ? this.prefix + "matter_fabricator_on" : this.prefix + "matter_fabricator_off";
-	}
-
-	@Override
-	public String getTop(final boolean isActive) {
-		return isActive ? this.prefix + "matter_fabricator_on" : this.prefix + "matter_fabricator_off";
-	}
-
-	@Override
-	public String getBottom(final boolean isActive) {
-		return isActive ? this.prefix + "matter_fabricator_on" : this.prefix + "matter_fabricator_off";
 	}
 }

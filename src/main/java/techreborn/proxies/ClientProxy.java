@@ -45,11 +45,10 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import reborncore.RebornCore;
+import prospector.shootingstar.ShootingStar;
 import reborncore.api.tile.IUpgradeable;
 import reborncore.client.hud.StackInfoHUD;
 import reborncore.client.multiblock.MultiblockRenderEvent;
-import reborncore.common.blocks.BlockMachineBase;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.blocks.BlockMachineFrame;
@@ -97,12 +96,13 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		super.preInit(event);
+		ShootingStar.registerModels(ModInfo.MOD_ID);
 		StackInfoHUD.registerElement(new ItemFrequencyTransmitter.StackInfoFreqTransmitter());
 		RenderingRegistry.registerEntityRenderingHandler(EntityNukePrimed.class, new RenderManagerNuke());
 
 		ManualLoader loader = new ManualLoader(new File(event.getModConfigurationDirectory(), "techreborn"));
 
-		//		new Thread(() ->
+		//		new Thread(() ->`
 		//		{
 		//			try {
 		//				loader.load();
@@ -111,12 +111,12 @@ public class ClientProxy extends CommonProxy {
 		//			}
 		//		}).start();
 
-		for (Object object : RebornCore.jsonDestroyer.objectsToDestroy) {
-			if (object instanceof BlockMachineBase) {
-				BlockMachineBase base = (BlockMachineBase) object;
-				registerItemModel(Item.getItemFromBlock(base));
-			}
-		}
+		//		for (Object object : RebornCore.jsonDestroyer.objectsToDestroy) {
+		//			if (object instanceof BlockMachineBase) {
+		//				BlockMachineBase base = (BlockMachineBase) object;
+		//								registerItemModel(Item.getItemFromBlock(base));
+		//			}
+		//		}
 
 		for (int i = 0; i < BlockMachineCasing.types.length; i++) {
 			Core.proxy.registerSubBlockInventoryLocation(ModBlocks.MACHINE_CASINGS, i, "techreborn:machines/structure/machine_casing", "type=" + i);
@@ -223,14 +223,6 @@ public class ClientProxy extends CommonProxy {
 		return isChiselAround;
 	}
 
-	public class RenderManagerNuke implements IRenderFactory<EntityNukePrimed> {
-
-		@Override
-		public Render<? super EntityNukePrimed> createRenderFor(RenderManager manager) {
-			return new RenderNukePrimed(manager);
-		}
-	}
-
 	@Override
 	public String getUpgradeConfigText() {
 		if (Minecraft.getMinecraft().currentScreen instanceof GuiBase) {
@@ -242,5 +234,13 @@ public class ClientProxy extends CommonProxy {
 			}
 		}
 		return super.getUpgradeConfigText();
+	}
+
+	public class RenderManagerNuke implements IRenderFactory<EntityNukePrimed> {
+
+		@Override
+		public Render<? super EntityNukePrimed> createRenderFor(RenderManager manager) {
+			return new RenderNukePrimed(manager);
+		}
 	}
 }

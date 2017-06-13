@@ -25,7 +25,6 @@
 package techreborn.blocks;
 
 import com.google.common.collect.Lists;
-import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -45,6 +44,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.blocks.PropertyString;
 import reborncore.common.util.ArrayUtils;
@@ -52,23 +53,26 @@ import reborncore.common.util.ChatUtils;
 import reborncore.common.util.StringUtils;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.MessageIDs;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.TilePlayerDectector;
 
 import java.util.List;
 import java.util.Random;
 
-public class BlockPlayerDetector extends BlockMachineBase implements ITexturedBlock {
+public class BlockPlayerDetector extends BlockMachineBase {
 
 	public static final String[] types = new String[] { "all", "others", "you" };
-	public PropertyString TYPE;
 	static List<String> typeNamesList = Lists.newArrayList(ArrayUtils.arrayToLowercase(types));
+	public PropertyString TYPE;
 
 	public BlockPlayerDetector() {
 		super(true);
-		setUnlocalizedName("techreborn.playerDetector");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setHardness(2f);
 		this.setDefaultState(this.getDefaultState().withProperty(TYPE, "all"));
+		for (int i = 0; i < types.length; i++) {
+			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i, "machines/tier1_machines").setInvVariant("type=" + types[i]));
+		}
 	}
 
 	@Override
@@ -149,16 +153,6 @@ public class BlockPlayerDetector extends BlockMachineBase implements ITexturedBl
 					+ StringUtils.toFirstCapital(newType)));
 		}
 		return true;
-	}
-
-	@Override
-	public String getTextureNameFromState(IBlockState blockState, EnumFacing facing) {
-		return "techreborn:blocks/machines/tier1_machines/player_detector_" + types[getMetaFromState(blockState)].toLowerCase();
-	}
-
-	@Override
-	public int amountOfStates() {
-		return types.length;
 	}
 
 	protected BlockStateContainer createBlockState() {

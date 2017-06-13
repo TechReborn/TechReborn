@@ -36,11 +36,11 @@ import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
-import techreborn.items.ItemTRNoDestroy;
+import techreborn.items.ItemTR;
 
 import java.util.List;
 
-public class ItemTechManual extends ItemTRNoDestroy {
+public class ItemTechManual extends ItemTR {
 
 	public ItemTechManual() {
 		this.setCreativeTab(TechRebornCreativeTab.instance);

@@ -37,16 +37,16 @@ import reborncore.common.misc.Location;
 import techreborn.client.gui.widget.GuiButtonHologram;
 import techreborn.init.ModBlocks;
 import techreborn.proxies.ClientProxy;
-import techreborn.tiles.multiblock.TileBlastFurnace;
+import techreborn.tiles.multiblock.TileIndustrialBlastFurnace;
 
 import java.io.IOException;
 
 public class GuiBlastFurnace extends GuiBase {
 
-	public TileBlastFurnace tile;
+	public TileIndustrialBlastFurnace tile;
 	boolean hasMultiBlock;
 
-	public GuiBlastFurnace(final EntityPlayer player, final TileBlastFurnace tile) {
+	public GuiBlastFurnace(final EntityPlayer player, final TileIndustrialBlastFurnace tile) {
 		super(player, tile, tile.createContainer(player));
 		this.tile = tile;
 	}

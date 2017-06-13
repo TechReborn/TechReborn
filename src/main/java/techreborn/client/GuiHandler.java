@@ -86,11 +86,11 @@ public class GuiHandler implements IGuiHandler {
 			case BATBOX:
 				return new GuiBatbox(player, (TileBatBox) tile);
 			case BLAST_FURNACE:
-				return new GuiBlastFurnace(player, (TileBlastFurnace) tile);
+				return new GuiBlastFurnace(player, (TileIndustrialBlastFurnace) tile);
 			case CENTRIFUGE:
-				return new GuiCentrifuge(player, (TileCentrifuge) tile);
+				return new GuiCentrifuge(player, (TileIndustrialCentrifuge) tile);
 			case CHARGEBENCH:
-				return new GuiChargeBench(player, (TileChargeBench) tile);
+				return new GuiChargeBench(player, (TileChargeOMat) tile);
 			case CHEMICAL_REACTOR:
 				return new GuiChemicalReactor(player, (TileChemicalReactor) tile);
 			case CHUNK_LOADER:

@@ -33,7 +33,7 @@ import techreborn.init.ModItems;
 
 import java.security.InvalidParameterException;
 
-public class ItemDustsSmall extends ItemTRNoDestroy {
+public class ItemDustsSmall extends ItemTR {
 
 	public static final String[] types = new String[] { "almandine", "aluminum", "andradite", "ashes", "basalt",
 		"bauxite", "brass", "bronze", "calcite", "charcoal", "chrome", "cinnabar", "clay", "coal", "copper",

@@ -26,7 +26,7 @@ package techreborn.items;
 
 import techreborn.client.TechRebornCreativeTabMisc;
 
-public class ItemUUmatter extends ItemTRNoDestroy {
+public class ItemUUmatter extends ItemTR {
 
 	public ItemUUmatter() {
 		setCreativeTab(TechRebornCreativeTabMisc.instance);

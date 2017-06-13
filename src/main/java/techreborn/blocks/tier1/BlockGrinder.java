@@ -29,15 +29,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.blocks.IAdvancedRotationTexture;
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.teir1.TileGrinder;
 
-public class BlockGrinder extends BlockMachineBase implements IAdvancedRotationTexture {
-
-	private final String prefix = "techreborn:blocks/machine/tier1_machines/";
+public class BlockGrinder extends BlockMachineBase {
 
 	public BlockGrinder(final Material material) {
 		super();
@@ -58,25 +55,4 @@ public class BlockGrinder extends BlockMachineBase implements IAdvancedRotationT
 		}
 		return true;
 	}
-
-	@Override
-	public String getFront(final boolean isActive) {
-		return isActive ? this.prefix + "grinder_front_on" : this.prefix + "grinder_front_off";
-	}
-
-	@Override
-	public String getSide(final boolean isActive) {
-		return this.prefix + "tier1_machine_side";
-	}
-
-	@Override
-	public String getTop(final boolean isActive) {
-		return isActive ? this.prefix + "grinder_top_on" : this.prefix + "grinder_top_off";
-	}
-
-	@Override
-	public String getBottom(final boolean isActive) {
-		return this.prefix + "tier1_machine_bottom";
-	}
-
 }

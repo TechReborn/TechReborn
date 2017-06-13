@@ -34,11 +34,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidBase;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.blocks.IAdvancedRotationTexture;
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.TileDigitalChest;
 import techreborn.tiles.TileTechStorageBase;
 
@@ -46,14 +48,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class BlockDigitalChest extends BlockMachineBase implements IAdvancedRotationTexture {
-
-	private final String prefix = "techreborn:blocks/machine/greg_machines/";
+public class BlockDigitalChest extends BlockMachineBase {
 
 	public BlockDigitalChest() {
 		super();
 		this.setUnlocalizedName("techreborn.digitalChest");
 		this.setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier2_machines"));
 	}
 
 	@Override
@@ -124,25 +125,5 @@ public class BlockDigitalChest extends BlockMachineBase implements IAdvancedRota
 		if (!player.isSneaking())
 			player.openGui(Core.INSTANCE, EGui.DIGITAL_CHEST.ordinal(), world, x, y, z);
 		return true;
-	}
-
-	@Override
-	public String getFront(final boolean isActive) {
-		return this.prefix + "quantum_chest";
-	}
-
-	@Override
-	public String getSide(final boolean isActive) {
-		return this.prefix + "qchest_side";
-	}
-
-	@Override
-	public String getTop(final boolean isActive) {
-		return this.prefix + "quantum_top";
-	}
-
-	@Override
-	public String getBottom(final boolean isActive) {
-		return this.prefix + "machine_bottom";
 	}
 }

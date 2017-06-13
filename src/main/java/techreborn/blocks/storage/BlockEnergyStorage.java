@@ -26,7 +26,6 @@ package techreborn.blocks.storage;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterators;
-import me.modmuss50.jsonDestroyer.api.ITexturedBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
@@ -39,7 +38,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.common.BaseTileBlock;
-import reborncore.common.blocks.IRotationTexture;
 import techreborn.Core;
 import techreborn.client.TechRebornCreativeTab;
 
@@ -49,7 +47,7 @@ import java.util.Random;
 /**
  * Created by Rushmead
  */
-public abstract class BlockEnergyStorage extends BaseTileBlock implements IRotationTexture, ITexturedBlock {
+public abstract class BlockEnergyStorage extends BaseTileBlock {
 	public static PropertyDirection FACING = PropertyDirection.create("facing", Facings.ALL);
 	protected final String prefix = "techreborn:blocks/machines/energy/";
 	public String name;
@@ -141,78 +139,8 @@ public abstract class BlockEnergyStorage extends BaseTileBlock implements IRotat
 		return 0;
 	}
 
-	@Override
-	public String getFrontOff() {
-		return prefix + getSimpleName(name.toLowerCase()) + "_front";
-	}
-
-	@Override
-	public String getFrontOn() {
-		return prefix + getSimpleName(name.toLowerCase()) + "_front";
-	}
-
-	@Override
-	public String getSide() {
-		return prefix + getSimpleName(name.toLowerCase()) + "_side";
-	}
-
-	@Override
-	public String getTop() {
-		return prefix + getSimpleName(name.toLowerCase()) + "_side";
-	}
-
-	@Override
-	public String getBottom() {
-		return prefix + getSimpleName(name.toLowerCase()) + "_side";
-	}
-
-	@Override
-	public String getTextureNameFromState(IBlockState blockState, EnumFacing facing) {
-		if (this instanceof IRotationTexture) {
-			IRotationTexture rotationTexture = this;
-			if (getFacing(blockState) == facing) {
-				return rotationTexture.getFrontOff();
-			}
-			if (facing == EnumFacing.UP) {
-				return rotationTexture.getTop();
-			}
-			if (facing == EnumFacing.DOWN) {
-				return rotationTexture.getBottom();
-			}
-			return rotationTexture.getSide();
-		}
-		return "techreborn:blocks/machine/machine_side";
-	}
-
 	public EnumFacing getFacing(IBlockState state) {
 		return state.getValue(FACING);
-	}
-
-	@Override
-	public int amountOfStates() {
-		return 6;
-	}
-
-	public enum Facings implements Predicate<EnumFacing>, Iterable<EnumFacing> {
-		ALL;
-
-		public EnumFacing[] facings() {
-			return new EnumFacing[] { EnumFacing.NORTH, EnumFacing.EAST, EnumFacing.SOUTH, EnumFacing.WEST,
-				EnumFacing.UP, EnumFacing.DOWN };
-		}
-
-		public EnumFacing random(Random rand) {
-			EnumFacing[] aenumfacing = this.facings();
-			return aenumfacing[rand.nextInt(aenumfacing.length)];
-		}
-
-		public boolean apply(EnumFacing p_apply_1_) {
-			return p_apply_1_ != null;
-		}
-
-		public Iterator<EnumFacing> iterator() {
-			return Iterators.forArray(this.facings());
-		}
 	}
 
 	public String getSimpleName(String fullName) {
@@ -235,6 +163,28 @@ public abstract class BlockEnergyStorage extends BaseTileBlock implements IRotat
 			return "ev_multi";
 		}
 		return fullName.toLowerCase();
+	}
+
+	public enum Facings implements Predicate<EnumFacing>, Iterable<EnumFacing> {
+		ALL;
+
+		public EnumFacing[] facings() {
+			return new EnumFacing[] { EnumFacing.NORTH, EnumFacing.EAST, EnumFacing.SOUTH, EnumFacing.WEST,
+				EnumFacing.UP, EnumFacing.DOWN };
+		}
+
+		public EnumFacing random(Random rand) {
+			EnumFacing[] aenumfacing = this.facings();
+			return aenumfacing[rand.nextInt(aenumfacing.length)];
+		}
+
+		public boolean apply(EnumFacing p_apply_1_) {
+			return p_apply_1_ != null;
+		}
+
+		public Iterator<EnumFacing> iterator() {
+			return Iterators.forArray(this.facings());
+		}
 	}
 
 }

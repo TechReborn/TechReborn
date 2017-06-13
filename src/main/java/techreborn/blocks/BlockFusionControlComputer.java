@@ -31,16 +31,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.blocks.IAdvancedRotationTexture;
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.fusionReactor.TileEntityFusionController;
 import techreborn.utils.damageSources.FusionDamageSource;
 
-public class BlockFusionControlComputer extends BlockMachineBase implements IAdvancedRotationTexture {
-
-	private final String prefix = "techreborn:blocks/machine/greg_machines/";
+public class BlockFusionControlComputer extends BlockMachineBase {
 
 	public BlockFusionControlComputer(final Material material) {
 		super();
@@ -73,25 +70,5 @@ public class BlockFusionControlComputer extends BlockMachineBase implements IAdv
 	@Override
 	public TileEntity createNewTileEntity(final World world, final int meta) {
 		return new TileEntityFusionController();
-	}
-
-	@Override
-	public String getFront(final boolean isActive) {
-		return this.prefix + "fusion_control_computer_front";
-	}
-
-	@Override
-	public String getSide(final boolean isActive) {
-		return this.prefix + "machine_side";
-	}
-
-	@Override
-	public String getTop(final boolean isActive) {
-		return this.prefix + "machine_side";
-	}
-
-	@Override
-	public String getBottom(final boolean isActive) {
-		return this.prefix + "machine_side";
 	}
 }

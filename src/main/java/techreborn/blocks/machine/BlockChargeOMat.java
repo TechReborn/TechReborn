@@ -22,18 +22,38 @@
  * SOFTWARE.
  */
 
-package techreborn.items;
+package techreborn.blocks.machine;
 
-import me.modmuss50.jsonDestroyer.api.ITexturedItem;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
+import reborncore.common.blocks.BlockMachineBase;
+import techreborn.Core;
+import techreborn.client.EGui;
+import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
+import techreborn.tiles.TileChargeOMat;
 
-public abstract class ItemTextureBase extends ItemTR implements ITexturedItem {
+public class BlockChargeOMat extends BlockMachineBase {
+
+	public BlockChargeOMat() {
+		super();
+		this.setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier2_machines"));
+	}
 
 	@Override
-	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
-		return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(stack).substring(5).toLowerCase(), "inventory");
+	public TileEntity createNewTileEntity(final World world, final int p_149915_2_) {
+		return new TileChargeOMat();
+	}
+
+	@Override
+	public boolean onBlockActivated(final World world, final int x, final int y, final int z, final EntityPlayer player, final int side, final float hitX,
+	                                final float hitY, final float hitZ) {
+		if (!player.isSneaking())
+			player.openGui(Core.INSTANCE, EGui.CHARGEBENCH.ordinal(), world, x, y, z);
+		return true;
 	}
 }

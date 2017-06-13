@@ -25,13 +25,13 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
-import techreborn.tiles.TileCentrifuge;
+import techreborn.tiles.TileIndustrialCentrifuge;
 
 public class GuiCentrifuge extends GuiBase {
 
-	TileCentrifuge tile;
+	TileIndustrialCentrifuge tile;
 
-	public GuiCentrifuge(final EntityPlayer player, final TileCentrifuge tile) {
+	public GuiCentrifuge(final EntityPlayer player, final TileIndustrialCentrifuge tile) {
 		super(player, tile, tile.createContainer(player));
 		this.tile = tile;
 	}
