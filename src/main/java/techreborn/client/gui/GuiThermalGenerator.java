@@ -68,4 +68,10 @@ public class GuiThermalGenerator extends GuiContainer {
 		this.fontRendererObj.drawString(this.thermalGenerator.getEnergy() + "", 10, 40, 16448255);
 
 	}
+
+	@Override
+	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+		super.drawScreen(mouseX, mouseY, partialTicks);
+		this.func_191948_b(mouseX, mouseY);
+	}
 }

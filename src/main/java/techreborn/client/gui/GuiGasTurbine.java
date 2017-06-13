@@ -65,4 +65,10 @@ public class GuiGasTurbine extends GuiContainer {
 		this.fontRendererObj.drawString("Liquid Amount", 10, 20, 16448255);
 		this.fontRendererObj.drawString(this.gasTurbine.tank.getFluidAmount() + "", 10, 30, 16448255);
 	}
+
+	@Override
+	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+		super.drawScreen(mouseX, mouseY, partialTicks);
+		this.func_191948_b(mouseX, mouseY);
+	}
 }

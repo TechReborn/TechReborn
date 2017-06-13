@@ -74,4 +74,10 @@ public class GuiLESU extends GuiContainer {
 			Color.WHITE.getRGB());
 	}
 
+	@Override
+	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+		super.drawScreen(mouseX, mouseY, partialTicks);
+		this.func_191948_b(mouseX, mouseY);
+	}
+
 }

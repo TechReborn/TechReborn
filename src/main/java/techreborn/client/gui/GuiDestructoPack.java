@@ -57,4 +57,10 @@ public class GuiDestructoPack extends GuiContainer {
 			4210752);
 		super.drawGuiContainerForegroundLayer(arg0, arg1);
 	}
+
+	@Override
+	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+		super.drawScreen(mouseX, mouseY, partialTicks);
+		this.func_191948_b(mouseX, mouseY);
+	}
 }

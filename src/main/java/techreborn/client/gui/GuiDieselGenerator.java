@@ -69,4 +69,10 @@ public class GuiDieselGenerator extends GuiContainer {
 		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(this.dieselGenerator.getEnergy()) + "", 10, 50,
 			16448255);
 	}
+
+	@Override
+	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+		super.drawScreen(mouseX, mouseY, partialTicks);
+		this.func_191948_b(mouseX, mouseY);
+	}
 }
