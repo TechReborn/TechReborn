@@ -35,22 +35,16 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.api.IListInfoProvider;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class WailaProviderMachines implements IWailaDataProvider {
-
-	private List<String> info = new ArrayList<String>();
 
 	@Override
 	public List<String> getWailaBody(ItemStack item, List<String> tip, IWailaDataAccessor accessor,
 	                                 IWailaConfigHandler config) {
 		if (accessor.getTileEntity() instanceof IListInfoProvider) {
-			((IListInfoProvider) accessor.getTileEntity()).addInfo(info, true);
+			((IListInfoProvider) accessor.getTileEntity()).addInfo(tip, true);
 		}
-		tip.addAll(info);
-		info.clear();
-
 		return tip;
 	}
 
@@ -68,7 +62,7 @@ public class WailaProviderMachines implements IWailaDataProvider {
 
 	@Override
 	public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config) {
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	@Override

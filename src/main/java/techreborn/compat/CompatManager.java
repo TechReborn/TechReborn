@@ -33,7 +33,6 @@ import techreborn.compat.crafttweaker.CraftTweakerCompat;
 import techreborn.compat.ic2.RecipesIC2;
 import techreborn.compat.theoneprobe.TheOneProbeCompat;
 import techreborn.compat.tinkers.CompatModuleTinkers;
-import techreborn.compat.waila.CompatModuleWaila;
 
 import java.util.ArrayList;
 
@@ -48,7 +47,6 @@ public class CompatManager {
 		isIC2Loaded = Loader.isModLoaded("ic2");
 		isQuantumStorageLoaded = Loader.isModLoaded("quantumstorage");
 		register(CraftTweakerCompat.class, "crafttweaker");
-		register(CompatModuleWaila.class, "Waila");
 		register(CompatModuleTinkers.class, "tconstruct");
 		register(TheOneProbeCompat.class, "theoneprobe");
 		//register(CompatModulePsi.class, "Psi");
