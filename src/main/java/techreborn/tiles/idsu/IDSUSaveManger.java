@@ -23,6 +23,12 @@ public class IDSUSaveManger extends WorldSavedData implements IDataIDSU {
 		return compound;
 	}
 
+	@Override
+	public boolean isDirty()
+	{
+		return true;
+	}
+
 	double power;
 
 	@Override
