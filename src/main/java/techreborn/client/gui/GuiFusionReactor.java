@@ -57,16 +57,16 @@ public class GuiFusionReactor extends GuiContainer {
 	@Override
 	protected void drawGuiContainerForegroundLayer(final int p_146979_1_, final int p_146979_2_) {
 		final String name = I18n.translateToLocal("tile.techreborn.fusioncontrolcomputer.name");
-		this.fontRendererObj.drawString(name, 87, 6, 4210752);
-		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,
+		this.fontRenderer.drawString(name, 87, 6, 4210752);
+		this.fontRenderer.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,
 			this.ySize - 96 + 2, 4210752);
 
-		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(this.fusionController.getEnergy()), 11, 8,
+		this.fontRenderer.drawString(PowerSystem.getLocaliszedPower(this.fusionController.getEnergy()), 11, 8,
 			16448255);
-		this.fontRendererObj.drawString("Coils: " + (this.fusionController.getCoilStatus() == 1 ? "Yes" : "No"), 11, 16,
+		this.fontRenderer.drawString("Coils: " + (this.fusionController.getCoilStatus() == 1 ? "Yes" : "No"), 11, 16,
 			16448255);
 		if (this.fusionController.getNeededPower() > 1 && this.fusionController.getCrafingTickTime() < 1)
-			this.fontRendererObj.drawString("Start: "
+			this.fontRenderer.drawString("Start: "
 				+ this.percentage(this.fusionController.getNeededPower(), (int) this.fusionController.getEnergy())
 				+ "%", 11, 24, 16448255);
 
@@ -140,6 +140,6 @@ public class GuiFusionReactor extends GuiContainer {
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		super.drawScreen(mouseX, mouseY, partialTicks);
-		this.func_191948_b(mouseX, mouseY);
+		this.renderHoveredToolTip(mouseX, mouseY);
 	}
 }

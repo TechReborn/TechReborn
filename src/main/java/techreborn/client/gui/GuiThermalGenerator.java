@@ -59,19 +59,19 @@ public class GuiThermalGenerator extends GuiContainer {
 	@Override
 	protected void drawGuiContainerForegroundLayer(final int p_146979_1_, final int p_146979_2_) {
 		final String name = I18n.translateToLocal("tile.techreborn.thermalGenerator.name");
-		this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6,
+		this.fontRenderer.drawString(name, this.xSize / 2 - this.fontRenderer.getStringWidth(name) / 2, 6,
 			4210752);
-		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,
+		this.fontRenderer.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,
 			this.ySize - 96 + 2, 4210752);
-		this.fontRendererObj.drawString("Liquid Amount", 10, 20, 16448255);
-		this.fontRendererObj.drawString(this.thermalGenerator.tank.getFluidAmount() + "", 10, 30, 16448255);
-		this.fontRendererObj.drawString(this.thermalGenerator.getEnergy() + "", 10, 40, 16448255);
+		this.fontRenderer.drawString("Liquid Amount", 10, 20, 16448255);
+		this.fontRenderer.drawString(this.thermalGenerator.tank.getFluidAmount() + "", 10, 30, 16448255);
+		this.fontRenderer.drawString(this.thermalGenerator.getEnergy() + "", 10, 40, 16448255);
 
 	}
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		super.drawScreen(mouseX, mouseY, partialTicks);
-		this.func_191948_b(mouseX, mouseY);
+		this.renderHoveredToolTip(mouseX, mouseY);
 	}
 }

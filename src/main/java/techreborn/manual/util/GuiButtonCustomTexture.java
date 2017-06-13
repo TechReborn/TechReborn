@@ -65,8 +65,8 @@ public class GuiButtonCustomTexture extends GuiButtonExt {
 
 	public void drawButton(Minecraft mc, int mouseX, int mouseY) {
 		if (this.visible) {
-			boolean flag = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width
-				&& mouseY < this.yPosition + this.height;
+			boolean flag = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width
+				&& mouseY < this.y + this.height;
 			mc.getTextureManager().bindTexture(BUTTON_TEXTURES);
 			int u = textureU;
 			int v = textureV;
@@ -75,15 +75,15 @@ public class GuiButtonCustomTexture extends GuiButtonExt {
 				u += width;
 				GL11.glPushMatrix();
 				GL11.glColor4f(0f, 0f, 0f, 1f);
-				this.drawTexturedModalRect(this.xPosition, this.yPosition, u, v, width, height);
+				this.drawTexturedModalRect(this.x, this.y, u, v, width, height);
 				GL11.glPopMatrix();
 			}
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			GL11.glEnable(32826);
 			RenderHelper.enableStandardItemLighting();
 			RenderHelper.enableGUIStandardItemLighting();
-			renderImage(this.xPosition, this.yPosition);
-			this.drawString(mc.fontRendererObj, this.NAME, this.xPosition + 20, this.yPosition + 3,
+			renderImage(this.x, this.y);
+			this.drawString(mc.fontRenderer, this.NAME, this.x + 20, this.y + 3,
 				Color.white.getRGB());
 		}
 	}

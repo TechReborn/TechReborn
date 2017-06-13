@@ -131,7 +131,7 @@ public class DynamicCell extends Item {
 
 	@Override
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		if(!func_194125_a(tab)){
+		if(!isInCreativeTab(tab)){
 			return;
 		}
 		subItems.add(getEmptyCell(1));

@@ -53,13 +53,13 @@ public class VersionCheckerClient {
 			} else {
 				s = "There is an update for TechReborn with " + changeLog.size() + " changes.";
 			}
-			event.getGui().drawString(event.getGui().mc.fontRendererObj, s, 10, 5, Color.white.getRGB());
+			event.getGui().drawString(event.getGui().mc.fontRenderer, s, 10, 5, Color.white.getRGB());
 			if (!Core.INSTANCE.versionChecker.isLatestVersion()) {
 				if (event.getMouseY() < 20) {
 					GuiUtil.drawTooltipBox(5, 15, 330, changeLog.size() * 10 + 5);
 					int y = 20;
 					for (String change : changeLog) {
-						event.getGui().drawString(event.getGui().mc.fontRendererObj, change, 10, y, Color.white.getRGB());
+						event.getGui().drawString(event.getGui().mc.fontRenderer, change, 10, y, Color.white.getRGB());
 						y += 10;
 					}
 				}

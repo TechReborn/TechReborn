@@ -53,17 +53,17 @@ public class GuiButtonItemTexture extends GuiButtonExt {
 
 	public void drawButton(Minecraft mc, int mouseX, int mouseY) {
 		if (this.visible) {
-			boolean flag = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width
-				&& mouseY < this.yPosition + this.height;
+			boolean flag = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width
+				&& mouseY < this.y + this.height;
 			mc.getTextureManager().bindTexture(BUTTON_TEXTURES);
 			int u = textureU;
 			int v = textureV;
 			if (flag) {
-				u += mc.fontRendererObj.getStringWidth(this.NAME) + 25;
-				v += mc.fontRendererObj.getStringWidth(this.NAME) + 25;
+				u += mc.fontRenderer.getStringWidth(this.NAME) + 25;
+				v += mc.fontRenderer.getStringWidth(this.NAME) + 25;
 				GL11.glPushMatrix();
 				GL11.glColor4f(0f, 0f, 0f, 1f);
-				this.drawTexturedModalRect(this.xPosition, this.yPosition, u, v, mc.fontRendererObj.getStringWidth(this.NAME) + 25, height);
+				this.drawTexturedModalRect(this.x, this.y, u, v, mc.fontRenderer.getStringWidth(this.NAME) + 25, height);
 				GL11.glPopMatrix();
 			}
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -71,8 +71,8 @@ public class GuiButtonItemTexture extends GuiButtonExt {
 			RenderHelper.enableStandardItemLighting();
 			RenderHelper.enableGUIStandardItemLighting();
 			RenderItem itemRenderer = Minecraft.getMinecraft().getRenderItem();
-			itemRenderer.renderItemIntoGUI(itemstack, this.xPosition, this.yPosition);
-			this.drawString(mc.fontRendererObj, this.NAME, this.xPosition + 20, this.yPosition + 3,
+			itemRenderer.renderItemIntoGUI(itemstack, this.x, this.y);
+			this.drawString(mc.fontRenderer, this.NAME, this.x + 20, this.y + 3,
 				Color.white.getRGB());
 		}
 	}

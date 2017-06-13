@@ -76,7 +76,7 @@ public class FluidGeneratorRecipeWrapper extends BlankRecipeWrapper {
 
 		energyProduced.draw(minecraft, 73, 26);
 
-		minecraft.fontRendererObj.drawString(formatter.format(baseRecipe.getEnergyPerMb() * 1000) + " FE", 70, 13,
+		minecraft.fontRenderer.drawString(formatter.format(baseRecipe.getEnergyPerMb() * 1000) + " FE", 70, 13,
 			0x444444);
 	}
 

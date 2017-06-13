@@ -84,15 +84,15 @@ public abstract class GuiWidget<T extends Container> extends GuiContainer {
 		int y = (this.height - this.ySize) / 2;
 		String name = translate.translateKey("tile.techreborn.industrialgrinder.name");
 
-		fontRendererObj.drawString(name, xSize / 2 - fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
-		fontRendererObj.drawString(translate.translateKey("container.inventory"), 8, ySize - 94, 4210752);
+		fontRenderer.drawString(name, xSize / 2 - fontRenderer.getStringWidth(name) / 2, 6, 4210752);
+		fontRenderer.drawString(translate.translateKey("container.inventory"), 8, ySize - 94, 4210752);
 
 		for (Widget widget : widgets)
 			widget.drawWidget(this, x, y, mouseX, mouseY);
 	}
 
 	public FontRenderer getFontRenderer() {
-		return fontRendererObj;
+		return fontRenderer;
 	}
 
 }

@@ -61,10 +61,10 @@ public class CentrifugeRecipeWrapper extends BaseRecipeWrapper<CentrifugeRecipe>
 		int x = -10;
 		int y1 = 1;
 		int y2 = 54;
-		int lineHeight = minecraft.fontRendererObj.FONT_HEIGHT;
+		int lineHeight = minecraft.fontRenderer.FONT_HEIGHT;
 
-		minecraft.fontRendererObj.drawString(baseRecipe.tickTime / 20 + " seconds", (recipeWidth / 2 - minecraft.fontRendererObj.getStringWidth(baseRecipe.tickTime / 20 + " seconds") / 2) - 40, y1, 0x444444);
-		minecraft.fontRendererObj.drawString(PowerSystem.getLocaliszedPowerFormatted(baseRecipe.euPerTick * baseRecipe.tickTime), (recipeWidth / 2 - minecraft.fontRendererObj.getStringWidth(PowerSystem.getLocaliszedPowerFormatted(baseRecipe.euPerTick * baseRecipe.tickTime)) / 2) - 40, y2, 0x444444);
+		minecraft.fontRenderer.drawString(baseRecipe.tickTime / 20 + " seconds", (recipeWidth / 2 - minecraft.fontRenderer.getStringWidth(baseRecipe.tickTime / 20 + " seconds") / 2) - 40, y1, 0x444444);
+		minecraft.fontRenderer.drawString(PowerSystem.getLocaliszedPowerFormatted(baseRecipe.euPerTick * baseRecipe.tickTime), (recipeWidth / 2 - minecraft.fontRenderer.getStringWidth(PowerSystem.getLocaliszedPowerFormatted(baseRecipe.euPerTick * baseRecipe.tickTime)) / 2) - 40, y2, 0x444444);
 
 	}
 }

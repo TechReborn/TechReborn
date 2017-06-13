@@ -45,13 +45,13 @@ public class GuiButtonTextOnly extends GuiButton {
 	}
 
 	@Override
-	public void func_191745_a(Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+	public void drawButton(Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		if (this.visible) {
-			FontRenderer fontrenderer = minecraft.fontRendererObj;
+			FontRenderer fontrenderer = minecraft.fontRenderer;
 			minecraft.getTextureManager().bindTexture(BUTTON_TEXTURES);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width
-				&& mouseY < this.yPosition + this.height;
+			this.hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width
+				&& mouseY < this.y + this.height;
 			GL11.glEnable(GL11.GL_BLEND);
 			OpenGlHelper.glBlendFunc(770, 771, 1, 0);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -74,14 +74,14 @@ public class GuiButtonTextOnly extends GuiButton {
 				trimmedDisplayString = TextFormatting.BOLD + "" + TextFormatting.ITALIC + trimmedDisplayString;
 				GL11.glPushMatrix();
 				GL11.glColor4f(0f, 0f, 0f, 1f);
-				drawTexturedModalRect(xPosition + (int) (xPosition * 0.01), yPosition + (int) (yPosition * 0.01), 0, 46,
+				drawTexturedModalRect(x + (int) (x * 0.01), y + (int) (y * 0.01), 0, 46,
 					(int) (fontrenderer.getStringWidth(trimmedDisplayString) * 0.72) + 2, 8);
 				GL11.glPopMatrix();
 			}
 			GL11.glPushMatrix();
 			GL11.glScalef(0.7F, 0.7F, 1);
-			fontrenderer.drawString(trimmedDisplayString, (int) (xPosition * 1.45),
-				(int) ((yPosition + (height - 8) / 2) * 1.45), Color.WHITE.getRGB());
+			fontrenderer.drawString(trimmedDisplayString, (int) (x * 1.45),
+				(int) ((y + (height - 8) / 2) * 1.45), Color.WHITE.getRGB());
 			GL11.glPopMatrix();
 		}
 	}

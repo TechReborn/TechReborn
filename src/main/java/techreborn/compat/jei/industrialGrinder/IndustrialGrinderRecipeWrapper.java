@@ -83,9 +83,9 @@ public class IndustrialGrinderRecipeWrapper extends BaseRecipeWrapper<Industrial
 
 		int x = 70;
 		int y = 40;
-		int lineHeight = minecraft.fontRendererObj.FONT_HEIGHT;
+		int lineHeight = minecraft.fontRenderer.FONT_HEIGHT;
 
-		minecraft.fontRendererObj.drawString("Time: " + baseRecipe.tickTime / 20 + " s", x, y, 0x444444);
-		minecraft.fontRendererObj.drawString("EU: " + baseRecipe.euPerTick + " EU/t", x, y += lineHeight, 0x444444);
+		minecraft.fontRenderer.drawString("Time: " + baseRecipe.tickTime / 20 + " s", x, y, 0x444444);
+		minecraft.fontRenderer.drawString("EU: " + baseRecipe.euPerTick + " EU/t", x, y += lineHeight, 0x444444);
 	}
 }

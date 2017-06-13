@@ -140,7 +140,7 @@ public class GuiBase extends GuiContainer {
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		super.drawScreen(mouseX, mouseY, partialTicks);
-		this.func_191948_b(mouseX, mouseY);
+		this.renderHoveredToolTip(mouseX, mouseY);
 	}
 
 	protected void drawTitle() {
@@ -148,11 +148,11 @@ public class GuiBase extends GuiContainer {
 	}
 
 	protected void drawCentredString(String string, int y, int colour, Layer layer) {
-		drawString(string, (xSize / 2 - mc.fontRendererObj.getStringWidth(string) / 2), y, colour, layer);
+		drawString(string, (xSize / 2 - mc.fontRenderer.getStringWidth(string) / 2), y, colour, layer);
 	}
 
 	protected void drawCentredString(String string, int y, int colour, int modifier, Layer layer) {
-		drawString(string, (xSize / 2 - (mc.fontRendererObj.getStringWidth(string)) / 2) + modifier, y, colour, layer);
+		drawString(string, (xSize / 2 - (mc.fontRenderer.getStringWidth(string)) / 2) + modifier, y, colour, layer);
 	}
 
 	protected void drawString(String string, int x, int y, int colour, Layer layer) {
@@ -162,7 +162,7 @@ public class GuiBase extends GuiContainer {
 			factorX = guiLeft;
 			factorY = guiTop;
 		}
-		mc.fontRendererObj.drawString(string, x + factorX, y + factorY, colour);
+		mc.fontRenderer.drawString(string, x + factorX, y + factorY, colour);
 		GlStateManager.color(1, 1, 1, 1);
 	}
 

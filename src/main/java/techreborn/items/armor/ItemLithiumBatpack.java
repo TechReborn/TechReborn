@@ -101,7 +101,7 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo {
 	@Override
 	public void getSubItems(
 		CreativeTabs par2CreativeTabs, NonNullList itemList) {
-		if(!func_194125_a(par2CreativeTabs)){
+		if(!isInCreativeTab(par2CreativeTabs)){
 			return;
 		}
 		ItemStack uncharged = new ItemStack(ModItems.LITHIUM_BATTERY_PACK);

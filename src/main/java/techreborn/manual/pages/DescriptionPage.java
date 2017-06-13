@@ -89,15 +89,15 @@ public class DescriptionPage extends TitledPage {
 		GL11.glTranslated(offsetX + 15, offsetY + 40, 1);
 		GL11.glScalef(descriptionScale, descriptionScale, descriptionScale);
 		int offset = 0;
-		for (String s : getFormattedText(fontRendererObj)) {
+		for (String s : getFormattedText(fontRenderer)) {
 			if (s == null)
 				break;
 			if (s.contains("\\%") && s.substring(0, 2).equals("\\%")) {
 				s = s.substring(2);
-				offset += fontRendererObj.FONT_HEIGHT / 2;
+				offset += fontRenderer.FONT_HEIGHT / 2;
 			}
-			fontRendererObj.drawString(s, 0, offset, Color.black.getRGB());
-			offset += fontRendererObj.FONT_HEIGHT;
+			fontRenderer.drawString(s, 0, offset, Color.black.getRGB());
+			offset += fontRenderer.FONT_HEIGHT;
 		}
 		GL11.glPopMatrix();
 	}

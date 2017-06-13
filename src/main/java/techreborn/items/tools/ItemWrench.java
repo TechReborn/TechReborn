@@ -172,7 +172,7 @@ public class ItemWrench extends ItemTRNoDestroy {
 									pos.getZ() + dZ, itemStack.copy());
 
 								if (itemStack.hasTagCompound()) {
-									entityItem.getEntityItem()
+									entityItem.getItem()
 										.setTagCompound((NBTTagCompound) itemStack.getTagCompound().copy());
 								}
 

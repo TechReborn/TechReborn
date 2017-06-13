@@ -98,7 +98,7 @@ public class CraftingInfoPage extends TitledPage {
 			if (hasRecipe) {
 				renderImage(offsetX + (offsetX / 2), offsetY + 10, "craftingtable");
 			} else {
-				drawString(fontRendererObj, "No Crafting Recipe", offsetX + 40, offsetY + 22, Color.black.getRGB());
+				drawString(fontRenderer, "No Crafting Recipe", offsetX + 40, offsetY + 22, Color.black.getRGB());
 			}
 		}
 		GL11.glPopMatrix();
@@ -166,15 +166,15 @@ public class CraftingInfoPage extends TitledPage {
 			GL11.glTranslated(offsetX + 5, offsetY + 40, 1);
 		GL11.glScalef(descriptionScale, descriptionScale, descriptionScale);
 		int offset = 0;
-		for (String s : getFormattedText(fontRendererObj)) {
+		for (String s : getFormattedText(fontRenderer)) {
 			if (s == null)
 				break;
 			if (s.contains("\\%") && s.substring(0, 2).equals("\\%")) {
 				s = s.substring(2);
-				offset += fontRendererObj.FONT_HEIGHT / 2;
+				offset += fontRenderer.FONT_HEIGHT / 2;
 			}
-			fontRendererObj.drawString(s, 0, offset, Color.black.getRGB());
-			offset += fontRendererObj.FONT_HEIGHT;
+			fontRenderer.drawString(s, 0, offset, Color.black.getRGB());
+			offset += fontRenderer.FONT_HEIGHT;
 		}
 		GL11.glPopMatrix();
 	}
@@ -217,7 +217,7 @@ public class CraftingInfoPage extends TitledPage {
 
 	protected void drawItemStackTooltip(ItemStack stack, int x, int y) {
 		final Minecraft mc = Minecraft.getMinecraft();
-		FontRenderer font = MoreObjects.firstNonNull(stack.getItem().getFontRenderer(stack), mc.fontRendererObj);
+		FontRenderer font = MoreObjects.firstNonNull(stack.getItem().getFontRenderer(stack), mc.fontRenderer);
 
 		@SuppressWarnings("unchecked")
 		List<String> list = stack.getTooltip(mc.player, mc.gameSettings.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL);
@@ -242,7 +242,7 @@ public class CraftingInfoPage extends TitledPage {
 		if (par1ItemStack != null)
 			font = par1ItemStack.getItem().getFontRenderer(par1ItemStack);
 		if (font == null)
-			font = Minecraft.getMinecraft().fontRendererObj;
+			font = Minecraft.getMinecraft().fontRenderer;
 		renderItemStack(par1ItemStack, par2, par3);
 		this.zLevel = 0.0F;
 	}
@@ -263,7 +263,7 @@ public class CraftingInfoPage extends TitledPage {
 	@SuppressWarnings("unchecked")
 	private ItemStack[] getFirstRecipeForItem(ItemStack resultingItem) {
 		ItemStack[] recipeItems = new ItemStack[9];
-		for (IRecipe recipe : CraftingManager.field_193380_a) {
+		for (IRecipe recipe : CraftingManager.REGISTRY) {
 			if (recipe == null)
 				continue;
 
@@ -271,7 +271,7 @@ public class CraftingInfoPage extends TitledPage {
 			if (result == ItemStack.EMPTY || !result.isItemEqual(resultingItem))
 				continue;
 
-			NonNullList<Ingredient> input = recipe.func_192400_c();
+			NonNullList<Ingredient> input = recipe.getIngredients();
 			if (input.isEmpty())
 				continue;
 
@@ -297,7 +297,7 @@ public class CraftingInfoPage extends TitledPage {
 
 	protected ItemStack convertToStack(Ingredient ingredient) {
 		ItemStack entry = ItemStack.EMPTY;
-		entry = ingredient.func_193365_a()[0];
+		entry = ingredient.getMatchingStacks()[0];
 		if (entry == null || entry.isEmpty())
 			return null;
 		entry = entry.copy();
@@ -312,7 +312,7 @@ public class CraftingInfoPage extends TitledPage {
 			if (field != null) {
 				field.setAccessible(true);
 				int width = field.getInt(recipe);
-				NonNullList<Ingredient> input = recipe.func_192400_c();
+				NonNullList<Ingredient> input = recipe.getIngredients();
 				Object[] grid = new Object[9];
 				for (int i = 0, offset = 0, y = 0; y < 3; y++) {
 					for (int x = 0; x < 3; x++, i++) {

@@ -53,7 +53,7 @@ public class GuiButtonHologram extends GuiButton {
 			mouseY -= gui.getGuiTop();
 		}
 
-		if (this.enabled && this.visible && mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height) {
+		if (this.enabled && this.visible && mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height) {
 			return true;
 		}
 		return false;
@@ -69,7 +69,7 @@ public class GuiButtonHologram extends GuiButton {
 	}
 
 	@Override
-	public void func_191745_a(Minecraft p_191745_1_, int p_191745_2_, int p_191745_3_, float p_191745_4_) {
+	public void drawButton(Minecraft p_191745_1_, int p_191745_2_, int p_191745_3_, float p_191745_4_) {
 
 	}
 }

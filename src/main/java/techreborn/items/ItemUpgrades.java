@@ -96,7 +96,7 @@ public class ItemUpgrades extends ItemTRNoDestroy implements IUpgrade {
 	// Adds Dusts SubItems To Creative Tab
 	@Override
 	public void getSubItems(CreativeTabs creativeTabs, NonNullList list) {
-		if(!func_194125_a(creativeTabs)){
+		if(!isInCreativeTab(creativeTabs)){
 			return;
 		}
 		for (int meta = 0; meta < types.length; ++meta) {

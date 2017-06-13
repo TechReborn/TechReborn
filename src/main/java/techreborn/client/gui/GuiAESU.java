@@ -77,13 +77,13 @@ public class GuiAESU extends GuiContainer {
 	}
 
 	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
-		this.fontRendererObj.drawString(I18n.translateToLocal("tile.techreborn.aesu.name"), 40, 10,
+		this.fontRenderer.drawString(I18n.translateToLocal("tile.techreborn.aesu.name"), 40, 10,
 			Color.WHITE.getRGB());
-		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerAesu.euOut) + " /tick", 10, 20,
+		this.fontRenderer.drawString(PowerSystem.getLocaliszedPower(containerAesu.euOut) + " /tick", 10, 20,
 			Color.WHITE.getRGB());
-		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerAesu.storedEu) + " ", 10, 30,
+		this.fontRenderer.drawString(PowerSystem.getLocaliszedPower(containerAesu.storedEu) + " ", 10, 30,
 			Color.WHITE.getRGB());
-		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerAesu.euChange) + " change", 10, 40,
+		this.fontRenderer.drawString(PowerSystem.getLocaliszedPower(containerAesu.euChange) + " change", 10, 40,
 			Color.WHITE.getRGB());
 	}
 
@@ -96,6 +96,6 @@ public class GuiAESU extends GuiContainer {
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		super.drawScreen(mouseX, mouseY, partialTicks);
-		this.func_191948_b(mouseX, mouseY);
+		this.renderHoveredToolTip(mouseX, mouseY);
 	}
 }

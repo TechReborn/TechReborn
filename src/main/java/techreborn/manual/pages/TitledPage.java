@@ -43,6 +43,6 @@ public class TitledPage extends BasePage {
 		if (title == null)
 			title = INDEX_NAME;
 		if (drawTitle)
-			drawCenteredString(minecraft.fontRendererObj, ttl(title), offsetX + 70, offsetY + 10, colour);
+			drawCenteredString(minecraft.fontRenderer, ttl(title), offsetX + 70, offsetY + 10, colour);
 	}
 }

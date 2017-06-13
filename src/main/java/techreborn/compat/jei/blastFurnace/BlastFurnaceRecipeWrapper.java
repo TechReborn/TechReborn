@@ -69,11 +69,11 @@ public class BlastFurnaceRecipeWrapper extends BaseRecipeWrapper<BlastFurnaceRec
 		heat.draw(minecraft, 7, 47);
 
 		int y = 64;
-		int lineHeight = minecraft.fontRendererObj.FONT_HEIGHT;
+		int lineHeight = minecraft.fontRenderer.FONT_HEIGHT;
 
-		minecraft.fontRendererObj.drawString(baseRecipe.neededHeat + " Heat", (recipeWidth / 2 - minecraft.fontRendererObj.getStringWidth(baseRecipe.neededHeat + " Heat") / 2), 48, 0xFFFFFF);
-		minecraft.fontRendererObj.drawString(baseRecipe.tickTime / 20 + " seconds", (recipeWidth / 2 - minecraft.fontRendererObj.getStringWidth(baseRecipe.tickTime / 20 + " seconds") / 2), y, 0x444444);
-		minecraft.fontRendererObj.drawString(PowerSystem.getLocaliszedPowerFormatted(baseRecipe.euPerTick * baseRecipe.tickTime), (recipeWidth / 2 - minecraft.fontRendererObj.getStringWidth(PowerSystem.getLocaliszedPowerFormatted(baseRecipe.euPerTick * baseRecipe.tickTime)) / 2), y + lineHeight, 0x444444);
+		minecraft.fontRenderer.drawString(baseRecipe.neededHeat + " Heat", (recipeWidth / 2 - minecraft.fontRenderer.getStringWidth(baseRecipe.neededHeat + " Heat") / 2), 48, 0xFFFFFF);
+		minecraft.fontRenderer.drawString(baseRecipe.tickTime / 20 + " seconds", (recipeWidth / 2 - minecraft.fontRenderer.getStringWidth(baseRecipe.tickTime / 20 + " seconds") / 2), y, 0x444444);
+		minecraft.fontRenderer.drawString(PowerSystem.getLocaliszedPowerFormatted(baseRecipe.euPerTick * baseRecipe.tickTime), (recipeWidth / 2 - minecraft.fontRenderer.getStringWidth(PowerSystem.getLocaliszedPowerFormatted(baseRecipe.euPerTick * baseRecipe.tickTime)) / 2), y + lineHeight, 0x444444);
 
 	}
 }

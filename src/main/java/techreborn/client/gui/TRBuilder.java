@@ -85,7 +85,7 @@ public class TRBuilder extends GuiBuilder {
 			TextFormatting powerColour = TextFormatting.GOLD;
 			list.add(powerColour + PowerSystem.getLocaliszedPowerFormattedNoSuffix(energyStored) + "/" + PowerSystem.getLocaliszedPowerFormattedNoSuffix(maxEnergyStored) + " " + PowerSystem.getDisplayPower().abbreviation);
 			list.add(getPercentageColour(percentage) + "" + percentage + "%" + TextFormatting.GRAY + " Charged");
-			net.minecraftforge.fml.client.config.GuiUtils.drawHoveringText(list, mouseX, mouseY, gui.width, gui.height, -1, gui.mc.fontRendererObj);
+			net.minecraftforge.fml.client.config.GuiUtils.drawHoveringText(list, mouseX, mouseY, gui.width, gui.height, -1, gui.mc.fontRenderer);
 			GlStateManager.disableLighting();
 			GlStateManager.color(1, 1, 1, 1);
 		}
@@ -123,7 +123,7 @@ public class TRBuilder extends GuiBuilder {
 			int percentage = percentage(maxProgress, progress);
 			List<String> list = new ArrayList<>();
 			list.add(getPercentageColour(percentage) + "" + percentage + "%");
-			net.minecraftforge.fml.client.config.GuiUtils.drawHoveringText(list, mouseX, mouseY, gui.width, gui.height, -1, gui.mc.fontRendererObj);
+			net.minecraftforge.fml.client.config.GuiUtils.drawHoveringText(list, mouseX, mouseY, gui.width, gui.height, -1, gui.mc.fontRenderer);
 			GlStateManager.disableLighting();
 			GlStateManager.color(1, 1, 1, 1);
 		}
@@ -159,7 +159,7 @@ public class TRBuilder extends GuiBuilder {
 			else
 				list.add(TextFormatting.GOLD + "" + amount + "mB/" + maxCapacity + "mB " + fluid.getLocalizedName());
 			list.add(getPercentageColour(percentage) + "" + percentage + "%" + TextFormatting.GRAY + " Full");
-			net.minecraftforge.fml.client.config.GuiUtils.drawHoveringText(list, mouseX, mouseY, gui.width, gui.height, -1, gui.mc.fontRendererObj);
+			net.minecraftforge.fml.client.config.GuiUtils.drawHoveringText(list, mouseX, mouseY, gui.width, gui.height, -1, gui.mc.fontRenderer);
 			GlStateManager.disableLighting();
 			GlStateManager.color(1, 1, 1, 1);
 		}
@@ -217,7 +217,7 @@ public class TRBuilder extends GuiBuilder {
 			List<String> list = new ArrayList<>();
 			list.add("Toggle Multiblock Hologram");
 			GlStateManager.pushMatrix();
-			net.minecraftforge.fml.client.config.GuiUtils.drawHoveringText(list, mouseX, mouseY, gui.width, gui.height, -1, gui.mc.fontRendererObj);
+			net.minecraftforge.fml.client.config.GuiUtils.drawHoveringText(list, mouseX, mouseY, gui.width, gui.height, -1, gui.mc.fontRenderer);
 			GlStateManager.popMatrix();
 		}
 	}
@@ -248,7 +248,7 @@ public class TRBuilder extends GuiBuilder {
 				list.add(TextFormatting.GRAY + "prolly a bug");
 				list.add(TextFormatting.GRAY + "pls report and tell how tf you did this");
 			}
-			net.minecraftforge.fml.client.config.GuiUtils.drawHoveringText(list, mouseX, mouseY, gui.width, gui.height, -1, gui.mc.fontRendererObj);
+			net.minecraftforge.fml.client.config.GuiUtils.drawHoveringText(list, mouseX, mouseY, gui.width, gui.height, -1, gui.mc.fontRenderer);
 			GlStateManager.disableLighting();
 			GlStateManager.color(1, 1, 1, 1);
 		}
@@ -320,7 +320,7 @@ public class TRBuilder extends GuiBuilder {
 			int percentage = percentage(maxProgress, progress);
 			List<String> list = new ArrayList<>();
 			list.add(getPercentageColour(percentage) + "" + percentage + "%");
-			net.minecraftforge.fml.client.config.GuiUtils.drawHoveringText(list, mouseX, mouseY, gui.width, gui.height, -1, gui.mc.fontRendererObj);
+			net.minecraftforge.fml.client.config.GuiUtils.drawHoveringText(list, mouseX, mouseY, gui.width, gui.height, -1, gui.mc.fontRenderer);
 			GlStateManager.disableLighting();
 			GlStateManager.color(1, 1, 1, 1);
 		}

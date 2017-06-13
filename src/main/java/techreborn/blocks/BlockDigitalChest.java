@@ -101,7 +101,7 @@ public class BlockDigitalChest extends BlockMachineBase implements IAdvancedRota
 				itemStack.copy());
 
 			if (itemStack.hasTagCompound()) {
-				entityItem.getEntityItem().setTagCompound(itemStack.getTagCompound().copy());
+				entityItem.getItem().setTagCompound(itemStack.getTagCompound().copy());
 			}
 
 			final float factor = 0.05F;

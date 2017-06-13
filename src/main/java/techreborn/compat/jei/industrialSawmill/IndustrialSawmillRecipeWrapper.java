@@ -83,13 +83,13 @@ public class IndustrialSawmillRecipeWrapper extends BaseRecipeWrapper<Industrial
 		super.drawInfo(minecraft, recipeWidth, recipeHeight, mouseX, mouseY);
 		progress.draw(minecraft, 48, 23);
 
-		if (minecraft.fontRendererObj != null) {
+		if (minecraft.fontRenderer != null) {
 			int x = 70;
 			int y = 40;
-			int lineHeight = minecraft.fontRendererObj.FONT_HEIGHT;
+			int lineHeight = minecraft.fontRenderer.FONT_HEIGHT;
 
-			minecraft.fontRendererObj.drawString("Time: " + baseRecipe.tickTime / 20 + " s", x, y, 0x444444);
-			minecraft.fontRendererObj.drawString("FE: " + baseRecipe.euPerTick + " FE/t", x, y += lineHeight, 0x444444);
+			minecraft.fontRenderer.drawString("Time: " + baseRecipe.tickTime / 20 + " s", x, y, 0x444444);
+			minecraft.fontRenderer.drawString("FE: " + baseRecipe.euPerTick + " FE/t", x, y += lineHeight, 0x444444);
 		}
 	}
 

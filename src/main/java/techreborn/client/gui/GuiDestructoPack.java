@@ -52,8 +52,8 @@ public class GuiDestructoPack extends GuiContainer {
 	@Override
 	protected void drawGuiContainerForegroundLayer(int arg0, int arg1) {
 		String name = I18n.translateToLocal("item.techreborn.part.destructoPack.name");
-		fontRendererObj.drawString(name, xSize / 2 - fontRendererObj.getStringWidth(name) / 2, 5, 4210752);
-		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory"), 8, this.ySize - 96 + 2,
+		fontRenderer.drawString(name, xSize / 2 - fontRenderer.getStringWidth(name) / 2, 5, 4210752);
+		this.fontRenderer.drawString(I18n.translateToLocalFormatted("container.inventory"), 8, this.ySize - 96 + 2,
 			4210752);
 		super.drawGuiContainerForegroundLayer(arg0, arg1);
 	}
@@ -61,6 +61,6 @@ public class GuiDestructoPack extends GuiContainer {
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		super.drawScreen(mouseX, mouseY, partialTicks);
-		this.func_191948_b(mouseX, mouseY);
+		this.renderHoveredToolTip(mouseX, mouseY);
 	}
 }

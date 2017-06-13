@@ -48,7 +48,7 @@ public class ItemSteelDrill extends ItemDrill {
 	@Override
 	public void getSubItems(
 		CreativeTabs par2CreativeTabs, NonNullList itemList) {
-		if(!func_194125_a(par2CreativeTabs)){
+		if(!isInCreativeTab(par2CreativeTabs)){
 			return;
 		}
 		ItemStack stack = new ItemStack(ModItems.STEEL_DRILL);

@@ -61,23 +61,23 @@ public class GuiLESU extends GuiContainer {
 	}
 
 	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
-		this.fontRendererObj.drawString(I18n.translateToLocal("tile.techreborn.lesu.name"), 40, 10,
+		this.fontRenderer.drawString(I18n.translateToLocal("tile.techreborn.lesu.name"), 40, 10,
 			Color.WHITE.getRGB());
-		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerLesu.euOut) + "/t", 10, 20,
+		this.fontRenderer.drawString(PowerSystem.getLocaliszedPower(containerLesu.euOut) + "/t", 10, 20,
 			Color.WHITE.getRGB());
-		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerLesu.storedEu), 10, 30,
+		this.fontRenderer.drawString(PowerSystem.getLocaliszedPower(containerLesu.storedEu), 10, 30,
 			Color.WHITE.getRGB());
-		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerLesu.euChange) + " change", 10, 40,
+		this.fontRenderer.drawString(PowerSystem.getLocaliszedPower(containerLesu.euChange) + " change", 10, 40,
 			Color.WHITE.getRGB());
-		this.fontRendererObj.drawString(containerLesu.connectedBlocks + " blocks", 10, 50, Color.WHITE.getRGB());
-		this.fontRendererObj.drawString(PowerSystem.getLocaliszedPower(containerLesu.euStorage) + " max", 10, 60,
+		this.fontRenderer.drawString(containerLesu.connectedBlocks + " blocks", 10, 50, Color.WHITE.getRGB());
+		this.fontRenderer.drawString(PowerSystem.getLocaliszedPower(containerLesu.euStorage) + " max", 10, 60,
 			Color.WHITE.getRGB());
 	}
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		super.drawScreen(mouseX, mouseY, partialTicks);
-		this.func_191948_b(mouseX, mouseY);
+		this.renderHoveredToolTip(mouseX, mouseY);
 	}
 
 }

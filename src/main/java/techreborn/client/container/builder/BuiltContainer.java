@@ -128,7 +128,7 @@ public class BuiltContainer extends Container {
 					final short supplied = (short) value.getLeft().getAsInt();
 					if (supplied != value.getRight()) {
 
-						listener.sendProgressBarUpdate(this, i, supplied);
+						listener.sendWindowProperty(this, i, supplied);
 						value.setRight(supplied);
 					}
 					i++;
@@ -139,8 +139,8 @@ public class BuiltContainer extends Container {
 					final int supplied = value.getLeft().getAsInt();
 					if (supplied != value.getRight()) {
 
-						listener.sendProgressBarUpdate(this, i, supplied >> 16);
-						listener.sendProgressBarUpdate(this, i + 1, (short) (supplied & 0xFFFF));
+						listener.sendWindowProperty(this, i, supplied >> 16);
+						listener.sendWindowProperty(this, i + 1, (short) (supplied & 0xFFFF));
 						value.setRight(supplied);
 					}
 					i += 2;
@@ -157,7 +157,7 @@ public class BuiltContainer extends Container {
 			for (final MutableTriple<IntSupplier, IntConsumer, Short> value : this.shortValues) {
 				final short supplied = (short) value.getLeft().getAsInt();
 
-				listener.sendProgressBarUpdate(this, i, supplied);
+				listener.sendWindowProperty(this, i, supplied);
 				value.setRight(supplied);
 				i++;
 			}
@@ -166,8 +166,8 @@ public class BuiltContainer extends Container {
 			for (final MutableTriple<IntSupplier, IntConsumer, Integer> value : this.integerValues) {
 				final int supplied = value.getLeft().getAsInt();
 
-				listener.sendProgressBarUpdate(this, i, supplied >> 16);
-				listener.sendProgressBarUpdate(this, i + 1, (short) (supplied & 0xFFFF));
+				listener.sendWindowProperty(this, i, supplied >> 16);
+				listener.sendWindowProperty(this, i + 1, (short) (supplied & 0xFFFF));
 				value.setRight(supplied);
 				i += 2;
 			}

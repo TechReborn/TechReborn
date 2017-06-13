@@ -87,7 +87,7 @@ public class IndustrialSawmillRecipes extends RecipeMethods {
 
 	@Nonnull
 	public static ItemStack findMatchingRecipe(InventoryCrafting inv) {
-		for (IRecipe recipe : CraftingManager.field_193380_a) {
+		for (IRecipe recipe : CraftingManager.REGISTRY) {
 			if (recipe.matches(inv, null)) {
 				return recipe.getCraftingResult(inv);
 			}

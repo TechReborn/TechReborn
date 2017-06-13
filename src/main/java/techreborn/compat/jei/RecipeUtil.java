@@ -50,13 +50,13 @@ public class RecipeUtil {
 		@Nonnull
 			Minecraft minecraft, int x, int y, final double startCost,
 		final double euPerTick, final int tickTime) {
-		FontRenderer fontRendererObj = minecraft.fontRendererObj;
-		int lineSpacing = fontRendererObj.FONT_HEIGHT + 1;
+		FontRenderer fontRenderer = minecraft.fontRenderer;
+		int lineSpacing = fontRenderer.FONT_HEIGHT + 1;
 
 		NumberFormat formatter = NumberFormat.getInstance();
 		String startCostEU = formatter.format(startCost);
 		String startCostString = I18n.translateToLocalFormatted("techreborn.jei.recipe.start.cost", startCostEU);
-		fontRendererObj.drawString(startCostString, x, y, color);
+		fontRenderer.drawString(startCostString, x, y, color);
 		y += lineSpacing;
 
 		drawInfo(minecraft, x, y, euPerTick, tickTime);
@@ -65,22 +65,22 @@ public class RecipeUtil {
 	public static void drawInfo(
 		@Nonnull
 			Minecraft minecraft, int x, int y, final double euPerTick, final int tickTime) {
-		FontRenderer fontRendererObj = minecraft.fontRendererObj;
-		int lineSpacing = fontRendererObj.FONT_HEIGHT + 1;
+		FontRenderer fontRenderer = minecraft.fontRenderer;
+		int lineSpacing = fontRenderer.FONT_HEIGHT + 1;
 
 		String runningCostString = I18n.translateToLocalFormatted("techreborn.jei.recipe.running.cost", euPerTick);
-		fontRendererObj.drawString(runningCostString, x, y, color);
+		fontRenderer.drawString(runningCostString, x, y, color);
 		y += lineSpacing;
 
 		String processingTimeString1 = I18n.translateToLocalFormatted("techreborn.jei.recipe.processing.time.1",
 			tickTime);
-		fontRendererObj.drawString(processingTimeString1, x, y, color);
+		fontRenderer.drawString(processingTimeString1, x, y, color);
 		y += lineSpacing;
 
 		int seconds = tickTime / 20;
 		String processingTimeString2 = I18n.translateToLocalFormatted("techreborn.jei.recipe.processing.time.2",
 			seconds);
-		fontRendererObj.drawString(processingTimeString2, x + 10, y, color);
+		fontRenderer.drawString(processingTimeString2, x + 10, y, color);
 	}
 
 	@Deprecated

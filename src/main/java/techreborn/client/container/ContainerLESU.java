@@ -74,16 +74,16 @@ public class ContainerLESU extends RebornContainer {
 		for (int i = 0; i < this.listeners.size(); i++) {
 			IContainerListener IContainerListener = this.listeners.get(i);
 			if (this.euOut != tile.getMaxOutput()) {
-				IContainerListener.sendProgressBarUpdate(this, 0, (int) tile.getMaxOutput());
+				IContainerListener.sendWindowProperty(this, 0, (int) tile.getMaxOutput());
 			}
 			if (this.storedEu != tile.getEnergy()) {
-				IContainerListener.sendProgressBarUpdate(this, 1, (int) tile.getEnergy());
+				IContainerListener.sendWindowProperty(this, 1, (int) tile.getEnergy());
 			}
 			if (this.euChange != tile.getEuChange() && tile.getEuChange() != -1) {
-				IContainerListener.sendProgressBarUpdate(this, 2, (int) tile.getEuChange());
+				IContainerListener.sendWindowProperty(this, 2, (int) tile.getEuChange());
 			}
 			if (this.connectedBlocks != tile.connectedBlocks) {
-				IContainerListener.sendProgressBarUpdate(this, 3, tile.connectedBlocks);
+				IContainerListener.sendWindowProperty(this, 3, tile.connectedBlocks);
 			}
 		}
 	}
@@ -91,10 +91,10 @@ public class ContainerLESU extends RebornContainer {
 	@Override
 	public void addListener(IContainerListener crafting) {
 		super.addListener(crafting);
-		crafting.sendProgressBarUpdate(this, 0, (int) tile.getMaxOutput());
-		crafting.sendProgressBarUpdate(this, 1, (int) tile.getEnergy());
-		crafting.sendProgressBarUpdate(this, 2, (int) tile.getEuChange());
-		crafting.sendProgressBarUpdate(this, 3, tile.connectedBlocks);
+		crafting.sendWindowProperty(this, 0, (int) tile.getMaxOutput());
+		crafting.sendWindowProperty(this, 1, (int) tile.getEnergy());
+		crafting.sendWindowProperty(this, 2, (int) tile.getEuChange());
+		crafting.sendWindowProperty(this, 3, tile.connectedBlocks);
 	}
 
 	@SideOnly(Side.CLIENT)

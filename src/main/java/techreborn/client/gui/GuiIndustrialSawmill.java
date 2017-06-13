@@ -80,7 +80,7 @@ public class GuiIndustrialSawmill extends GuiContainer {
 
 			if (!this.sawmill.getMutliBlock()) {
 				//GuiUtil.drawTooltipBox(k + 30, l + 50 + 12, 114, 10);
-				this.fontRendererObj.drawString(I18n.translateToLocal("techreborn.message.missingmultiblock"), k + 38,
+				this.fontRenderer.drawString(I18n.translateToLocal("techreborn.message.missingmultiblock"), k + 38,
 					l + 52 + 12, -1);
 			}
 		}
@@ -110,13 +110,13 @@ public class GuiIndustrialSawmill extends GuiContainer {
 	@Override
 	protected void drawGuiContainerForegroundLayer(final int p_146979_1_, final int p_146979_2_) {
 		final String name = I18n.translateToLocal("tile.techreborn.industrialsawmill.name");
-		this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
-		this.fontRendererObj.drawString(I18n.translateToLocalFormatted("container.inventory"), 58, this.ySize - 96 + 2, 4210752);
+		this.fontRenderer.drawString(name, this.xSize / 2 - this.fontRenderer.getStringWidth(name) / 2, 6, 4210752);
+		this.fontRenderer.drawString(I18n.translateToLocalFormatted("container.inventory"), 58, this.ySize - 96 + 2, 4210752);
 	}
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		super.drawScreen(mouseX, mouseY, partialTicks);
-		this.func_191948_b(mouseX, mouseY);
+		this.renderHoveredToolTip(mouseX, mouseY);
 	}
 }
