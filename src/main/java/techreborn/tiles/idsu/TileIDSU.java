@@ -89,4 +89,9 @@ public class TileIDSU extends TileEnergyStorage implements IContainerProvider {
 			.complete(8, 18).addArmor().addInventory().tile(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
 			.syncEnergyValue().addInventory().create();
 	}
+
+	@Override
+	public boolean shouldHanldeEnergyNBT() {
+		return false;
+	}
 }

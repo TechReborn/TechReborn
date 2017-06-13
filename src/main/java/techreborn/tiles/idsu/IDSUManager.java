@@ -30,7 +30,7 @@ import techreborn.lib.ModInfo;
 
 public class IDSUManager {
 	public static IDataIDSU getData(World world){
-		MapStorage storage = world.getPerWorldStorage();
+		MapStorage storage = world.getMapStorage();
 		IDSUSaveManger instance = (IDSUSaveManger) storage.getOrLoadData(IDSUSaveManger.class, ModInfo.MOD_ID + "_IDSU");
 
 		if (instance == null) {
