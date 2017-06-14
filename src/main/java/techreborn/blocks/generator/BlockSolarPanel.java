@@ -34,8 +34,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.BaseTileBlock;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.generator.TileSolarPanel;
 
 /**
@@ -44,14 +47,13 @@ import techreborn.tiles.generator.TileSolarPanel;
 public class BlockSolarPanel extends BaseTileBlock {
 
 	public static PropertyBool ACTIVE = PropertyBool.create("active");
-	private final String prefix = "techreborn:blocks/machine/generators/";
 
 	public BlockSolarPanel() {
 		super(Material.IRON);
-		setUnlocalizedName("techreborn.solarpanel");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		this.setDefaultState(this.getDefaultState().withProperty(ACTIVE, false));
 		setHardness(2.0F);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
 	}
 
 	protected BlockStateContainer createBlockState() {

@@ -298,7 +298,7 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 			RecipeCategoryUids.ROLLING_MACHINE);
 		registry.addRecipeCategoryCraftingItem(new ItemStack(ModItems.SCRAP_BOX), RecipeCategoryUids.SCRAPBOX);
 
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.SEMIFLUID_GENERATOR),
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.SEMI_FLUID_GENERATOR),
 			EFluidGenerator.SEMIFLUID.getRecipeID());
 		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.GAS_TURBINE),
 			EFluidGenerator.GAS.getRecipeID());

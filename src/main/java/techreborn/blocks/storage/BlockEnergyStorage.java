@@ -37,9 +37,12 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.BaseTileBlock;
 import techreborn.Core;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.lib.ModInfo;
 
 import java.util.Iterator;
 import java.util.Random;
@@ -49,18 +52,17 @@ import java.util.Random;
  */
 public abstract class BlockEnergyStorage extends BaseTileBlock {
 	public static PropertyDirection FACING = PropertyDirection.create("facing", Facings.ALL);
-	protected final String prefix = "techreborn:blocks/machines/energy/";
 	public String name;
 	public int guiID;
 
 	public BlockEnergyStorage(String name, int guiID) {
-		super(Material.ROCK);
+		super(Material.IRON);
 		setHardness(2f);
-		setUnlocalizedName("techreborn." + name.toLowerCase());
 		setCreativeTab(TechRebornCreativeTab.instance);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		this.name = name;
 		this.guiID = guiID;
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/energy"));
 	}
 
 	@Override
@@ -147,10 +149,10 @@ public abstract class BlockEnergyStorage extends BaseTileBlock {
 		if (fullName.equalsIgnoreCase("Batbox")) {
 			return "lv_storage";
 		}
-		if (fullName.equalsIgnoreCase("MFE")) {
+		if (fullName.equalsIgnoreCase("MEDIUM_VOLTAGE_SU")) {
 			return "mv_storage";
 		}
-		if (fullName.equalsIgnoreCase("MFSU")) {
+		if (fullName.equalsIgnoreCase("HIGH_VOLTAGE_SU")) {
 			return "hv_storage";
 		}
 		if (fullName.equalsIgnoreCase("AESU")) {

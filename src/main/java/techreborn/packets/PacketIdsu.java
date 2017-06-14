@@ -28,7 +28,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import reborncore.common.network.ExtendedPacketBuffer;
 import reborncore.common.network.INetworkPacket;
-import techreborn.tiles.idsu.TileIDSU;
+import techreborn.tiles.idsu.TileInterdimensionalSU;
 
 import java.io.IOException;
 
@@ -40,7 +40,7 @@ public class PacketIdsu implements INetworkPacket<PacketIdsu> {
 	public PacketIdsu() {
 	}
 
-	public PacketIdsu(int buttonID, TileIDSU tile) {
+	public PacketIdsu(int buttonID, TileInterdimensionalSU tile) {
 		this.pos = tile.getPos();
 		this.buttonID = buttonID;
 	}

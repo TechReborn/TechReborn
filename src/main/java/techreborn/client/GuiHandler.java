@@ -33,14 +33,14 @@ import techreborn.client.container.*;
 import techreborn.client.gui.*;
 import techreborn.manual.GuiManual;
 import techreborn.tiles.*;
-import techreborn.tiles.fusionReactor.TileEntityFusionController;
+import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 import techreborn.tiles.generator.*;
-import techreborn.tiles.idsu.TileIDSU;
-import techreborn.tiles.lesu.TileLesu;
+import techreborn.tiles.idsu.TileInterdimensionalSU;
+import techreborn.tiles.lesu.TileLapotronicSU;
 import techreborn.tiles.multiblock.*;
-import techreborn.tiles.storage.TileBatBox;
-import techreborn.tiles.storage.TileMFE;
-import techreborn.tiles.storage.TileMFSU;
+import techreborn.tiles.storage.TileLowVoltageSU;
+import techreborn.tiles.storage.TileMediumVoltageSU;
+import techreborn.tiles.storage.TileHighVoltageSU;
 import techreborn.tiles.teir1.*;
 
 public class GuiHandler implements IGuiHandler {
@@ -57,11 +57,11 @@ public class GuiHandler implements IGuiHandler {
 
 		switch (gui) {
 			case AESU:
-				return new ContainerAESU((TileAesu) tile, player);
+				return new ContainerAESU((TileAdjustableSU) tile, player);
 			case DESTRUCTOPACK:
 				return new ContainerDestructoPack(player);
 			case LESU:
-				return new ContainerLESU((TileLesu) tile, player);
+				return new ContainerLESU((TileLapotronicSU) tile, player);
 			default:
 				break;
 		}
@@ -76,15 +76,15 @@ public class GuiHandler implements IGuiHandler {
 
 		switch (gui) {
 			case AESU:
-				return new GuiAESU(player, (TileAesu) tile);
+				return new GuiAESU(player, (TileAdjustableSU) tile);
 			case ALLOY_FURNACE:
-				return new GuiAlloyFurnace(player, (TileAlloyFurnace) tile);
+				return new GuiAlloyFurnace(player, (TileIronAlloyFurnace) tile);
 			case ALLOY_SMELTER:
 				return new GuiAlloySmelter(player, (TileAlloySmelter) tile);
 			case ASSEMBLING_MACHINE:
 				return new GuiAssemblingMachine(player, (TileAssemblingMachine) tile);
-			case BATBOX:
-				return new GuiBatbox(player, (TileBatBox) tile);
+			case LOW_VOLTAGE_SU:
+				return new GuiBatbox(player, (TileLowVoltageSU) tile);
 			case BLAST_FURNACE:
 				return new GuiBlastFurnace(player, (TileIndustrialBlastFurnace) tile);
 			case CENTRIFUGE:
@@ -108,15 +108,15 @@ public class GuiHandler implements IGuiHandler {
 			case EXTRACTOR:
 				return new GuiExtractor(player, (TileExtractor) tile);
 			case FUSION_CONTROLLER:
-				return new GuiFusionReactor(player, (TileEntityFusionController) tile);
+				return new GuiFusionReactor(player, (TileFusionControlComputer) tile);
 			case GAS_TURBINE:
 				return new GuiGasTurbine(player, (TileGasTurbine) tile);
 			case GENERATOR:
-				return new GuiGenerator(player, (TileGenerator) tile);
+				return new GuiGenerator(player, (TileSolidFuelGenerator) tile);
 			case GRINDER:
 				return new GuiGrinder(player, (TileGrinder) tile);
 			case IDSU:
-				return new GuiIDSU(player, (TileIDSU) tile);
+				return new GuiIDSU(player, (TileInterdimensionalSU) tile);
 			case IMPLOSION_COMPRESSOR:
 				return new GuiImplosionCompressor(player, (TileImplosionCompressor) tile);
 			case INDUSTRIAL_ELECTROLYZER:
@@ -126,15 +126,15 @@ public class GuiHandler implements IGuiHandler {
 			case IRON_FURNACE:
 				return new GuiIronFurnace(player, (TileIronFurnace) tile);
 			case LESU:
-				return new GuiLESU(player, (TileLesu) tile);
+				return new GuiLESU(player, (TileLapotronicSU) tile);
 			case MANUAL:
 				return new GuiManual();
 			case MATTER_FABRICATOR:
 				return new GuiMatterFabricator(player, (TileMatterFabricator) tile);
-			case MFE:
-				return new GuiMFE(player, (TileMFE) tile);
-			case MFSU:
-				return new GuiMFSU(player, (TileMFSU) tile);
+			case MEDIUM_VOLTAGE_SU:
+				return new GuiMFE(player, (TileMediumVoltageSU) tile);
+			case HIGH_VOLTAGE_SU:
+				return new GuiMFSU(player, (TileHighVoltageSU) tile);
 			case QUANTUM_CHEST:
 				return new GuiQuantumChest(player, (TileQuantumChest) tile);
 			case QUANTUM_TANK:
@@ -148,7 +148,7 @@ public class GuiHandler implements IGuiHandler {
 			case SCRAPBOXINATOR:
 				return new GuiScrapboxinator(player, (TileScrapboxinator) tile);
 			case SEMIFLUID_GENERATOR:
-				return new GuiSemifluidGenerator(player, (TileSemifluidGenerator) tile);
+				return new GuiSemifluidGenerator(player, (TileSemiFluidGenerator) tile);
 			case THERMAL_GENERATOR:
 				return new GuiThermalGenerator(player, (TileThermalGenerator) tile);
 			case VACUUM_FREEZER:

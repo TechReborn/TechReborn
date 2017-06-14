@@ -24,8 +24,8 @@
 
 package techreborn.blocks;
 
+import com.google.common.collect.Lists;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -37,25 +37,29 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.BaseBlock;
+import reborncore.common.blocks.PropertyString;
+import reborncore.common.util.ArrayUtils;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 
+import java.util.List;
 import java.util.Random;
 
 public class BlockStorage extends BaseBlock {
 
 	public static final String[] types = new String[] { "silver", "aluminum", "titanium", "chrome", "steel", "brass",
 		"lead", "electrum", "zinc", "platinum", "tungsten", "nickel", "invar", "iridium" };
-	public PropertyInteger METADATA;
+	public static final PropertyString TYPE = new PropertyString("type", types);
+	private static final List<String> typesList = Lists.newArrayList(ArrayUtils.arrayToLowercase(types));
 
 	public BlockStorage() {
 		super(Material.IRON);
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		setHardness(2f);
-		this.setDefaultState(this.getDefaultState().withProperty(METADATA, 0));
+		this.setDefaultState(this.getDefaultState().withProperty(TYPE, "silver"));
 		for (int i = 0; i < types.length; i++) {
-			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i, "storage").setInvVariant("type=" + types[i]).setFileName("storage"));
+			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i).setInvVariant("type=" + types[i]).setFileName("storage"));
 		}
 	}
 
@@ -95,18 +99,16 @@ public class BlockStorage extends BaseBlock {
 		if (meta > types.length) {
 			meta = 0;
 		}
-		return this.getDefaultState().withProperty(METADATA, meta);
+		return getBlockState().getBaseState().withProperty(TYPE, typesList.get(meta));
 	}
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return state.getValue(METADATA);
+		return typesList.indexOf(state.getValue(TYPE));
 	}
 
 	protected BlockStateContainer createBlockState() {
-
-		METADATA = PropertyInteger.create("type", 0, types.length - 1);
-		return new BlockStateContainer(this, METADATA);
+		return new BlockStateContainer(this, TYPE);
 	}
 
 }

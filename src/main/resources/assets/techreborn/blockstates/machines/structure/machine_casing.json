@@ -10,17 +10,17 @@
       {}
     ],
     "type": {
-      "0": {
+      "standard": {
         "textures": {
           "all": "techreborn:blocks/machines/structure/tier1_casing"
         }
       },
-      "1": {
+      "reinforced": {
         "textures": {
           "all": "techreborn:blocks/machines/structure/tier2_casing"
         }
       },
-      "2": {
+      "advanced": {
         "textures": {
           "all": "techreborn:blocks/machines/structure/tier3_casing"
         }

@@ -30,7 +30,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.client.gui.slots.BaseSlot;
 import reborncore.common.container.RebornContainer;
-import techreborn.tiles.TileAesu;
+import techreborn.tiles.TileAdjustableSU;
 
 public class ContainerAESU extends RebornContainer {
 
@@ -38,9 +38,9 @@ public class ContainerAESU extends RebornContainer {
 	public int storedEu;
 	public int euChange;
 	EntityPlayer player;
-	TileAesu tile;
+	TileAdjustableSU tile;
 
-	public ContainerAESU(TileAesu tileaesu, EntityPlayer player) {
+	public ContainerAESU(TileAdjustableSU tileaesu, EntityPlayer player) {
 		tile = tileaesu;
 		this.player = player;
 

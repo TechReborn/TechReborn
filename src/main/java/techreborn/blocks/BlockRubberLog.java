@@ -41,12 +41,15 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.powerSystem.PoweredItem;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModSounds;
 import techreborn.items.ItemParts;
 import techreborn.items.tools.ItemElectricTreetap;
 import techreborn.items.tools.ItemTreeTap;
+import techreborn.lib.ModInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +65,6 @@ public class BlockRubberLog extends Block {
 
 	public BlockRubberLog() {
 		super(Material.WOOD);
-		setUnlocalizedName("techreborn.rubberlog");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		this.setHardness(2.0F);
 		this.setDefaultState(
@@ -70,6 +72,7 @@ public class BlockRubberLog extends Block {
 		this.setTickRandomly(true);
 		this.setSoundType(SoundType.WOOD);
 		Blocks.FIRE.setFireInfo(this, 5, 5);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
 	}
 
 	protected BlockStateContainer createBlockState() {

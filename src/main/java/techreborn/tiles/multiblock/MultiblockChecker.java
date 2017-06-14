@@ -34,9 +34,9 @@ public class MultiblockChecker {
 
 	public static final BlockPos ZERO_OFFSET = BlockPos.ORIGIN;
 
-	public static final int CASING_NORMAL = 0;
-	public static final int CASING_REINFORCED = 1;
-	public static final int CASING_ADVANCED = 2;
+	public static final String STANDARD_CASING = "standard";
+	public static final String REINFORCED_CASING = "reinforced";
+	public static final String ADVANCED_CASING = "advanced";
 
 	private final World world;
 	private final BlockPos downCenter;
@@ -46,10 +46,10 @@ public class MultiblockChecker {
 		this.downCenter = downCenter;
 	}
 
-	public boolean checkCasing(int offX, int offY, int offZ, int type) {
+	public boolean checkCasing(int offX, int offY, int offZ, String type) {
 		IBlockState block = getBlock(offX, offY, offZ);
 		if (block.getBlock() == ModBlocks.MACHINE_CASINGS) {
-			if (block.getValue(BlockMachineCasing.METADATA) == type)
+			if (block.getValue(BlockMachineCasing.TYPE).equals(type))
 				return true;
 		}
 		return false;
@@ -65,7 +65,7 @@ public class MultiblockChecker {
 		return world.getBlockState(pos);
 	}
 
-	public boolean checkRectY(int sizeX, int sizeZ, int casingType, BlockPos offset) {
+	public boolean checkRectY(int sizeX, int sizeZ, String casingType, BlockPos offset) {
 		for (int x = -sizeX; x <= sizeX; x++) {
 			for (int z = -sizeZ; z <= sizeZ; z++) {
 				if (!checkCasing(x + offset.getX(), offset.getY(), z + offset.getZ(), casingType))
@@ -75,7 +75,7 @@ public class MultiblockChecker {
 		return true;
 	}
 
-	public boolean checkRectZ(int sizeX, int sizeY, int casingType, BlockPos offset) {
+	public boolean checkRectZ(int sizeX, int sizeY, String casingType, BlockPos offset) {
 		for (int x = -sizeX; x <= sizeX; x++) {
 			for (int y = -sizeY; y <= sizeY; y++) {
 				if (!checkCasing(x + offset.getX(), y + offset.getY(), offset.getZ(), casingType))
@@ -85,7 +85,7 @@ public class MultiblockChecker {
 		return true;
 	}
 
-	public boolean checkRectX(int sizeZ, int sizeY, int casingType, BlockPos offset) {
+	public boolean checkRectX(int sizeZ, int sizeY, String casingType, BlockPos offset) {
 		for (int z = -sizeZ; z <= sizeZ; z++) {
 			for (int y = -sizeY; y <= sizeY; y++) {
 				if (!checkCasing(offset.getX(), y + offset.getY(), z + offset.getZ(), casingType))
@@ -95,7 +95,7 @@ public class MultiblockChecker {
 		return true;
 	}
 
-	public boolean checkRingY(int sizeX, int sizeZ, int casingType, BlockPos offset) {
+	public boolean checkRingY(int sizeX, int sizeZ, String casingType, BlockPos offset) {
 		for (int x = -sizeX; x <= sizeX; x++) {
 			for (int z = -sizeZ; z <= sizeZ; z++) {
 				if ((x == sizeX || x == -sizeX) || (z == sizeZ || z == -sizeZ)) {
@@ -107,7 +107,7 @@ public class MultiblockChecker {
 		return true;
 	}
 
-	public boolean checkRingYHollow(int sizeX, int sizeZ, int casingType, BlockPos offset) {
+	public boolean checkRingYHollow(int sizeX, int sizeZ, String casingType, BlockPos offset) {
 		for (int x = -sizeX; x <= sizeX; x++) {
 			for (int z = -sizeZ; z <= sizeZ; z++) {
 				if ((x == sizeX || x == -sizeX) || (z == sizeZ || z == -sizeZ)) {

@@ -28,7 +28,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import reborncore.common.network.ExtendedPacketBuffer;
 import reborncore.common.network.INetworkPacket;
-import techreborn.tiles.TileAesu;
+import techreborn.tiles.TileAdjustableSU;
 
 import java.io.IOException;
 
@@ -40,7 +40,7 @@ public class PacketAesu implements INetworkPacket<PacketAesu> {
 	public PacketAesu() {
 	}
 
-	public PacketAesu(int buttonID, TileAesu tile) {
+	public PacketAesu(int buttonID, TileAdjustableSU tile) {
 		this.pos = tile.getPos();
 		this.buttonID = buttonID;
 	}

@@ -30,7 +30,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.client.gui.slots.BaseSlot;
 import reborncore.common.container.RebornContainer;
-import techreborn.tiles.lesu.TileLesu;
+import techreborn.tiles.lesu.TileLapotronicSU;
 
 public class ContainerLESU extends RebornContainer {
 
@@ -40,9 +40,9 @@ public class ContainerLESU extends RebornContainer {
 	public int connectedBlocks;
 	public double euStorage;
 	EntityPlayer player;
-	TileLesu tile;
+	TileLapotronicSU tile;
 
-	public ContainerLESU(TileLesu tileaesu, EntityPlayer player) {
+	public ContainerLESU(TileLapotronicSU tileaesu, EntityPlayer player) {
 		tile = tileaesu;
 		this.player = player;
 
@@ -111,7 +111,7 @@ public class ContainerLESU extends RebornContainer {
 		} else if (id == 4) {
 			this.euStorage = value;
 		}
-		this.euStorage = ((connectedBlocks + 1) * TileLesu.storagePerBlock);
+		this.euStorage = ((connectedBlocks + 1) * TileLapotronicSU.storagePerBlock);
 	}
 
 }

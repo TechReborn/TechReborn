@@ -28,24 +28,24 @@ import java.util.ArrayList;
 
 public class LesuNetwork {
 
-	public ArrayList<TileLesuStorage> storages = new ArrayList<>();
+	public ArrayList<TileLSUStorage> storages = new ArrayList<>();
 
-	public TileLesu master;
+	public TileLapotronicSU master;
 
-	public void addElement(TileLesuStorage lesuStorage) {
+	public void addElement(TileLSUStorage lesuStorage) {
 		if (!storages.contains(lesuStorage) && storages.size() < 5000) {
 			storages.add(lesuStorage);
 		}
 	}
 
-	public void removeElement(TileLesuStorage lesuStorage) {
+	public void removeElement(TileLSUStorage lesuStorage) {
 		storages.remove(lesuStorage);
 		rebuild();
 	}
 
 	private void rebuild() {
 		master = null;
-		for (TileLesuStorage lesuStorage : storages) {
+		for (TileLSUStorage lesuStorage : storages) {
 			lesuStorage.findAndJoinNetwork(lesuStorage.getWorld(), lesuStorage.getPos().getX(),
 				lesuStorage.getPos().getY(), lesuStorage.getPos().getZ());
 		}
@@ -53,10 +53,10 @@ public class LesuNetwork {
 
 	public void merge(LesuNetwork network) {
 		if (network != this) {
-			ArrayList<TileLesuStorage> tileLesuStorages = new ArrayList<>();
+			ArrayList<TileLSUStorage> tileLesuStorages = new ArrayList<>();
 			tileLesuStorages.addAll(network.storages);
 			network.clear(false);
-			for (TileLesuStorage lesuStorage : tileLesuStorages) {
+			for (TileLSUStorage lesuStorage : tileLesuStorages) {
 				lesuStorage.setNetwork(this);
 			}
 			if (network.master != null && this.master == null) {
@@ -67,7 +67,7 @@ public class LesuNetwork {
 
 	private void clear(boolean clearTiles) {
 		if (clearTiles) {
-			for (TileLesuStorage tileLesuStorage : storages) {
+			for (TileLSUStorage tileLesuStorage : storages) {
 				tileLesuStorage.resetNetwork();
 			}
 		}

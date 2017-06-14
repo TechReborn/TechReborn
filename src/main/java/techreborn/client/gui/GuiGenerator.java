@@ -25,13 +25,13 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
-import techreborn.tiles.generator.TileGenerator;
+import techreborn.tiles.generator.TileSolidFuelGenerator;
 
 public class GuiGenerator extends GuiBase {
 
-	TileGenerator tile;
+	TileSolidFuelGenerator tile;
 
-	public GuiGenerator(final EntityPlayer player, final TileGenerator tile) {
+	public GuiGenerator(final EntityPlayer player, final TileSolidFuelGenerator tile) {
 		super(player, tile, tile.createContainer(player));
 		this.tile = tile;
 	}

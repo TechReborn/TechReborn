@@ -44,7 +44,7 @@ import techreborn.Core;
 import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.api.recipe.machines.*;
-import techreborn.blocks.BlockMachineFrame;
+import techreborn.blocks.BlockMachineFrames;
 import techreborn.blocks.BlockOre;
 import techreborn.compat.CompatManager;
 import techreborn.config.ConfigTechReborn;
@@ -411,10 +411,10 @@ public class ModRecipes {
 
 		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ALLOY_SMELTER), "XCX", "FMF", "XXX", 'C',
 			"circuitBasic", 'F', IC2Duplicates.ELECTRICAL_FURNACE.getStackBasedOnConfig(), 'M',
-			BlockMachineFrame.getFrameByName("machine", 1));
+			BlockMachineFrames.getFrameByName("machine", 1));
 
 		RebornCraftingHelper
-			.addShapedOreRecipe(new ItemStack(ModBlocks.LSU_STORAGE_BLOCK), "LLL", "LCL", "LLL", 'L', "blockLapis", 'C',
+			.addShapedOreRecipe(new ItemStack(ModBlocks.LSU_STORAGE), "LLL", "LCL", "LLL", 'L', "blockLapis", 'C',
 				"circuitBasic");
 
 		RecipeHandler.addRecipe(new VacuumFreezerRecipe(ItemIngots.getIngotByName("hot_tungstensteel"),
@@ -746,7 +746,7 @@ public class ModRecipes {
 
 		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.MATTER_FABRICATOR), "ETE", "AOA", "ETE", 'E',
 			"circuitMaster", 'T', IC2Duplicates.EXTRACTOR.getStackBasedOnConfig(), 'A',
-			BlockMachineFrame.getFrameByName("highlyAdvancedMachine", 1), 'O', ModItems.LAPOTRONIC_ORB);
+			BlockMachineFrames.getFrameByName("highlyAdvancedMachine", 1), 'O', ModItems.LAPOTRONIC_ORB);
 
 		RebornCraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModBlocks.HEAT_GENERATOR), "III", "IHI", "CGC", 'I', "plateIron", 'H',
@@ -765,11 +765,11 @@ public class ModRecipes {
 				getOre("glassReinforced"));
 
 		RebornCraftingHelper
-			.addShapedOreRecipe(new ItemStack(ModBlocks.SEMIFLUID_GENERATOR), "III", "IHI", "CGC", 'I', "plateIron",
+			.addShapedOreRecipe(new ItemStack(ModBlocks.SEMI_FLUID_GENERATOR), "III", "IHI", "CGC", 'I', "plateIron",
 				'H', ModBlocks.REINFORCED_GLASS, 'C', "circuitBasic", 'G',
 				IC2Duplicates.GENERATOR.getStackBasedOnConfig());
 
-		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.SEMIFLUID_GENERATOR), "AAA", "AHA", "CGC", 'A',
+		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.SEMI_FLUID_GENERATOR), "AAA", "AHA", "CGC", 'A',
 			"plateAluminum", 'H', ModBlocks.REINFORCED_GLASS, 'C', "circuitBasic", 'G',
 			IC2Duplicates.GENERATOR.getStackBasedOnConfig());
 
@@ -805,7 +805,7 @@ public class ModRecipes {
 
 		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.INDUSTRIAL_BLAST_FURNACE), "CHC", "HBH", "FHF", 'H',
 			ItemParts.getPartByName("cupronickelHeatingCoil"), 'C', "circuitAdvanced", 'B',
-			BlockMachineFrame.getFrameByName("advancedMachine", 1), 'F', IC2Duplicates.ELECTRICAL_FURNACE.getStackBasedOnConfig());
+			BlockMachineFrames.getFrameByName("advancedMachine", 1), 'F', IC2Duplicates.ELECTRICAL_FURNACE.getStackBasedOnConfig());
 
 		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.INDUSTRIAL_GRINDER), "ECG", "HHH", "CBC", 'E',
 			ModBlocks.INDUSTRIAL_ELECTROLYZER, 'H', "craftingGrinder", 'C',
@@ -814,7 +814,7 @@ public class ModRecipes {
 
 		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.IMPLOSION_COMPRESSOR), "ABA", "CPC", "ABA", 'A',
 			ItemIngots.getIngotByName("advancedAlloy"), 'C', "circuitAdvanced", 'B',
-			BlockMachineFrame.getFrameByName("advancedMachine", 1), 'P', IC2Duplicates.COMPRESSOR.getStackBasedOnConfig());
+			BlockMachineFrames.getFrameByName("advancedMachine", 1), 'P', IC2Duplicates.COMPRESSOR.getStackBasedOnConfig());
 
 		RebornCraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModBlocks.VACUUM_FREEZER), "SPS", "CGC", "SPS", 'S', "plateSteel", 'C',
@@ -865,10 +865,10 @@ public class ModRecipes {
 		// 'M', new ItemStack(ModItems.parts, 1, 39));
 
 		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.LAPOTRONIC_SU), " L ", "CBC", " M ", 'L', IC2Duplicates.LVT.getStackBasedOnConfig(), 'C',
-			"circuitAdvanced", 'M', IC2Duplicates.MVT.getStackBasedOnConfig(), 'B', ModBlocks.LSU_STORAGE_BLOCK);
+			"circuitAdvanced", 'M', IC2Duplicates.MVT.getStackBasedOnConfig(), 'B', ModBlocks.LSU_STORAGE);
 
 		RebornCraftingHelper
-			.addShapedOreRecipe(BlockMachineFrame.getFrameByName("highlyAdvancedMachine", 1), "CTC", "TBT", "CTC",
+			.addShapedOreRecipe(BlockMachineFrames.getFrameByName("highlyAdvancedMachine", 1), "CTC", "TBT", "CTC",
 				'C', "ingotChrome", 'T', "ingotTitanium", 'B',
 				"machineBlockAdvanced");
 
@@ -880,12 +880,12 @@ public class ModRecipes {
 			"plateSteel", 'C', "circuitAdvanced", 'B', "machineBlockAdvanced");
 
 		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.MACHINE_CASINGS, 4, 2), "HHH", "CBC", "HHH", 'H',
-			"ingotChrome", 'C', "circuitElite", 'B', BlockMachineFrame.getFrameByName("highlyAdvancedMachine", 1));
+			"ingotChrome", 'C', "circuitElite", 'B', BlockMachineFrames.getFrameByName("highlyAdvancedMachine", 1));
 
 		if (!CompatManager.isQuantumStorageLoaded) {
 			RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.QUANTUM_CHEST), "DCD", "ATA", "DQD", 'D',
 				ItemParts.getPartByName("dataOrb"), 'C', ItemParts.getPartByName("computerMonitor"), 'A',
-				BlockMachineFrame.getFrameByName("highlyAdvancedMachine", 1), 'Q', ModBlocks.DIGITAL_CHEST, 'T',
+				BlockMachineFrames.getFrameByName("highlyAdvancedMachine", 1), 'Q', ModBlocks.DIGITAL_CHEST, 'T',
 				IC2Duplicates.COMPRESSOR.getStackBasedOnConfig());
 		}
 

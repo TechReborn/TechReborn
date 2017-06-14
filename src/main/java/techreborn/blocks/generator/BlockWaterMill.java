@@ -27,9 +27,11 @@ package techreborn.blocks.generator;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import reborncore.RebornCore;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.BaseTileBlock;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.generator.TileWaterMill;
 
 /**
@@ -37,13 +39,11 @@ import techreborn.tiles.generator.TileWaterMill;
  */
 public class BlockWaterMill extends BaseTileBlock {
 
-	private final String prefix = "techreborn:blocks/machine/generators/";
-
 	public BlockWaterMill() {
 		super(Material.IRON);
-		setUnlocalizedName("techreborn.watermill");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setHardness(2.0F);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
 	}
 
 	@Override

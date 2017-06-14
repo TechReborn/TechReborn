@@ -24,28 +24,30 @@
 
 package techreborn.blocks.generator;
 
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
-import techreborn.tiles.generator.TileSemifluidGenerator;
+import techreborn.lib.ModInfo;
+import techreborn.tiles.generator.TileSemiFluidGenerator;
 
 public class BlockSemiFluidGenerator extends BlockMachineBase {
 
-	public BlockSemiFluidGenerator(final Material material) {
+	public BlockSemiFluidGenerator() {
 		super();
-		this.setUnlocalizedName("techreborn.semifluidgenerator");
 		this.setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(final World world, final int p_149915_2_) {
-		return new TileSemifluidGenerator();
+		return new TileSemiFluidGenerator();
 	}
 
 	@Override

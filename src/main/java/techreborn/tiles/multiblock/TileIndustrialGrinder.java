@@ -105,11 +105,11 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrencha
 		if (multiblockChecker == null) {
 			return false;
 		}
-		final boolean down = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.CASING_NORMAL,
+		final boolean down = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.STANDARD_CASING,
 			MultiblockChecker.ZERO_OFFSET);
-		final boolean up = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.CASING_NORMAL,
+		final boolean up = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.STANDARD_CASING,
 			new BlockPos(0, 2, 0));
-		final boolean blade = this.multiblockChecker.checkRingY(1, 1, MultiblockChecker.CASING_REINFORCED,
+		final boolean blade = this.multiblockChecker.checkRingY(1, 1, MultiblockChecker.REINFORCED_CASING,
 			new BlockPos(0, 1, 0));
 		final IBlockState centerBlock = this.multiblockChecker.getBlock(0, 1, 0);
 		final boolean center = centerBlock.getBlock() == Blocks.WATER;

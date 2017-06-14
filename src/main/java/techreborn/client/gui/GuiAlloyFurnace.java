@@ -29,16 +29,16 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
-import techreborn.tiles.TileAlloyFurnace;
+import techreborn.tiles.TileIronAlloyFurnace;
 
 public class GuiAlloyFurnace extends GuiContainer {
 
 	private static final ResourceLocation texture = new ResourceLocation("techreborn",
 		"textures/gui/alloy_furnace.png");
 
-	TileAlloyFurnace alloyfurnace;
+	TileIronAlloyFurnace alloyfurnace;
 
-	public GuiAlloyFurnace(final EntityPlayer player, final TileAlloyFurnace alloyFurnace) {
+	public GuiAlloyFurnace(final EntityPlayer player, final TileIronAlloyFurnace alloyFurnace) {
 		super(alloyFurnace.createContainer(player));
 		this.xSize = 176;
 		this.ySize = 167;

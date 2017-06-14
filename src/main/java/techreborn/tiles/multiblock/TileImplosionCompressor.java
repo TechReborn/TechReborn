@@ -87,9 +87,9 @@ public class TileImplosionCompressor extends TilePowerAcceptor
 	}
 
 	public boolean getMutliBlock() {
-		final boolean down = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.CASING_REINFORCED, MultiblockChecker.ZERO_OFFSET);
-		final boolean up = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.CASING_REINFORCED, new BlockPos(0, 2, 0));
-		final boolean chamber = this.multiblockChecker.checkRingYHollow(1, 1, MultiblockChecker.CASING_REINFORCED, new BlockPos(0, 1, 0));
+		final boolean down = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.REINFORCED_CASING, MultiblockChecker.ZERO_OFFSET);
+		final boolean up = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.REINFORCED_CASING, new BlockPos(0, 2, 0));
+		final boolean chamber = this.multiblockChecker.checkRingYHollow(1, 1, MultiblockChecker.REINFORCED_CASING, new BlockPos(0, 1, 0));
 		return down && chamber && up;
 	}
 

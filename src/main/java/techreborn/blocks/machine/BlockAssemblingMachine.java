@@ -24,22 +24,24 @@
 
 package techreborn.blocks.machine;
 
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.TileAssemblingMachine;
 
 public class BlockAssemblingMachine extends BlockMachineBase {
 
-	public BlockAssemblingMachine(final Material material) {
+	public BlockAssemblingMachine() {
 		super();
-		this.setUnlocalizedName("techreborn.assemblingmachine");
 		this.setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
 	}
 
 	@Override

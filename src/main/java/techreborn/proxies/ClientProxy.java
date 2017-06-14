@@ -51,7 +51,7 @@ import reborncore.client.hud.StackInfoHUD;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineCasing;
-import techreborn.blocks.BlockMachineFrame;
+import techreborn.blocks.BlockMachineFrames;
 import techreborn.blocks.BlockRubberLeaves;
 import techreborn.client.ClientMultiBlocks;
 import techreborn.client.IconSupplier;
@@ -99,31 +99,6 @@ public class ClientProxy extends CommonProxy {
 		ShootingStar.registerModels(ModInfo.MOD_ID);
 		StackInfoHUD.registerElement(new ItemFrequencyTransmitter.StackInfoFreqTransmitter());
 		RenderingRegistry.registerEntityRenderingHandler(EntityNukePrimed.class, new RenderManagerNuke());
-
-		ManualLoader loader = new ManualLoader(new File(event.getModConfigurationDirectory(), "techreborn"));
-
-		//		new Thread(() ->`
-		//		{
-		//			try {
-		//				loader.load();
-		//			} catch (IOException e) {
-		//				e.printStackTrace();
-		//			}
-		//		}).start();
-
-		//		for (Object object : RebornCore.jsonDestroyer.objectsToDestroy) {
-		//			if (object instanceof BlockMachineBase) {
-		//				BlockMachineBase base = (BlockMachineBase) object;
-		//								registerItemModel(Item.getItemFromBlock(base));
-		//			}
-		//		}
-
-		for (int i = 0; i < BlockMachineCasing.types.length; i++) {
-			Core.proxy.registerSubBlockInventoryLocation(ModBlocks.MACHINE_CASINGS, i, "techreborn:machines/structure/machine_casing", "type=" + i);
-		}
-		for (int i = 0; i < BlockMachineFrame.types.length; i++) {
-			Core.proxy.registerSubBlockInventoryLocation(ModBlocks.MACHINE_FRAMES, i, "techreborn:machines/storage/machine_blocks", "type=" + i);
-		}
 
 		ModelDynamicCell.init();
 		RegisterItemJsons.registerModels();

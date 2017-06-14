@@ -62,9 +62,9 @@ public enum EGui {
 	IRON_FURNACE(true),
 	RECYCLER(true),
 	SCRAPBOXINATOR(true),
-	BATBOX(true),
-	MFSU(true),
-	MFE(true);
+	LOW_VOLTAGE_SU(true),
+	HIGH_VOLTAGE_SU(true),
+	MEDIUM_VOLTAGE_SU(true);
 
 	private final boolean containerBuilder;
 

@@ -24,19 +24,21 @@
 
 package techreborn.blocks.generator;
 
-import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.generator.TileLightningRod;
 
 public class BlockLightningRod extends BlockMachineBase {
 
-	public BlockLightningRod(Material material) {
+	public BlockLightningRod() {
 		super();
-		setUnlocalizedName("techreborn.lightningrod");
 		setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
 	}
 
 	@Override

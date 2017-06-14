@@ -31,7 +31,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import reborncore.common.util.OreUtil;
 import reborncore.common.util.StringUtils;
 import techreborn.blocks.BlockMachineCasing;
-import techreborn.blocks.BlockMachineFrame;
+import techreborn.blocks.BlockMachineFrames;
 import techreborn.blocks.cable.BlockCable;
 import techreborn.init.IC2Duplicates;
 import techreborn.items.*;
@@ -60,7 +60,7 @@ public abstract class RecipeMethods {
 		} else if (type == Type.CABLE) {
 			return BlockCable.getCableByName(name, count);
 		} else if (type == Type.MACHINE_FRAME) {
-			return BlockMachineFrame.getFrameByName(name, count);
+			return BlockMachineFrames.getFrameByName(name, count);
 		} else if (type == Type.MACHINE_CASING) {
 			return BlockMachineCasing.getStackByName(name, count);
 		} else if (type == Type.UPGRADE) {
