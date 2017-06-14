@@ -35,7 +35,7 @@ import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import reborncore.common.util.CraftingHelper;
+import net.minecraftforge.common.crafting.CraftingHelper;
 
 import java.util.HashMap;
 
@@ -101,9 +101,9 @@ public class RollingMachineRecipe {
 		for (int i1 = 0; i1 < j * k; i1++) {
 			char c = s.charAt(i1);
 			if (hashmap.containsKey(c)) {
-				recipeArray.set(i1, CraftingHelper.toIngredient(((ItemStack) hashmap.get(c)).copy()));
+				recipeArray.set(i1, CraftingHelper.getIngredient(((ItemStack) hashmap.get(c)).copy()));
 			} else {
-				recipeArray.set(i1, CraftingHelper.toIngredient(ItemStack.EMPTY));
+				recipeArray.set(i1, CraftingHelper.getIngredient(ItemStack.EMPTY));
 			}
 		}
 
@@ -113,7 +113,7 @@ public class RollingMachineRecipe {
 	public void addShapelessRecipe(ResourceLocation resourceLocation, ItemStack output, Object... components) {
 		NonNullList<Ingredient> ingredients = NonNullList.create();
 		for (int j = 0; j < components.length; j++) {
-			ingredients.add(CraftingHelper.toIngredient(components[j]));
+			ingredients.add(CraftingHelper.getIngredient(components[j]));
 		}
 		recipes.put(resourceLocation, new ShapelessRecipes("", output, ingredients));
 	}

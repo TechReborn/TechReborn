@@ -26,7 +26,7 @@ package techreborn.init.recipes;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import reborncore.common.util.CraftingHelper;
+import reborncore.common.util.RebornCraftingHelper;
 import techreborn.blocks.BlockOre;
 import techreborn.blocks.BlockOre2;
 import techreborn.init.IC2Duplicates;
@@ -54,6 +54,6 @@ public class SmeltingRecipes extends RecipeMethods {
 	}
 
 	static void register(ItemStack input, ItemStack output) {
-		CraftingHelper.addSmelting(input, output);
+		RebornCraftingHelper.addSmelting(input, output);
 	}
 }

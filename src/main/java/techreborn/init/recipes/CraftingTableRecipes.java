@@ -30,7 +30,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.ArrayUtils;
-import reborncore.common.util.CraftingHelper;
+import reborncore.common.util.RebornCraftingHelper;
 import techreborn.blocks.BlockStorage;
 import techreborn.blocks.BlockStorage2;
 import techreborn.config.ConfigTechReborn;
@@ -222,9 +222,9 @@ public class CraftingTableRecipes extends RecipeMethods {
 				}
 			}
 
-			if (!item.isEmpty()) {
+			if (item != null && !item.isEmpty()) {
 				registerShaped(BlockStorage.getStorageBlockByName(name), "III", "III", "III", 'I', item);
-				registerShapeless(item, BlockStorage.getStorageBlockByName(name, 9));
+				registerShapeless(item, BlockStorage.getStorageBlockByName(name, 1));
 			}
 		}
 
@@ -297,11 +297,11 @@ public class CraftingTableRecipes extends RecipeMethods {
 	}
 
 	static void registerShaped(ItemStack output, Object... inputs) {
-		CraftingHelper.addShapedOreRecipe(output, inputs);
+		RebornCraftingHelper.addShapedOreRecipe(output, inputs);
 	}
 
 	static void registerShapeless(ItemStack output, Object... inputs) {
-		CraftingHelper.addShapelessOreRecipe(output, inputs);
+		RebornCraftingHelper.addShapelessOreRecipe(output, inputs);
 	}
 
 	static void addToolAndArmourRecipes(ItemStack sword,

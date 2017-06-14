@@ -30,7 +30,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import reborncore.common.util.CraftingHelper;
+import reborncore.common.util.RebornCraftingHelper;
 import techreborn.compat.ICompatModule;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
@@ -62,10 +62,10 @@ public class RecipesIC2 implements ICompatModule {
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
-		CraftingHelper.addShapelessRecipe(ItemParts.getPartByName("rubber"), IC2Items.getItem("crafting", "rubber"));
-		CraftingHelper.addShapelessRecipe(IC2Items.getItem("crafting", "rubber"), ItemParts.getPartByName("rubber"));
+		RebornCraftingHelper.addShapelessRecipe(ItemParts.getPartByName("rubber"), IC2Items.getItem("crafting", "rubber"));
+		RebornCraftingHelper.addShapelessRecipe(IC2Items.getItem("crafting", "rubber"), ItemParts.getPartByName("rubber"));
 
-		CraftingHelper.addShapelessRecipe(IC2Items.getItem("electric_wrench"), new ItemStack(ModItems.WRENCH), IC2Items.getItem("crafting", "small_power_unit"));
+		RebornCraftingHelper.addShapelessRecipe(IC2Items.getItem("electric_wrench"), new ItemStack(ModItems.WRENCH), IC2Items.getItem("crafting", "small_power_unit"));
 	}
 
 	@Override
@@ -86,8 +86,8 @@ public class RecipesIC2 implements ICompatModule {
 
 		public void add() {
 
-			CraftingHelper.addShapelessRecipe(stack2, stack1);
-			CraftingHelper.addShapelessRecipe(stack1, stack2);
+			RebornCraftingHelper.addShapelessRecipe(stack2, stack1);
+			RebornCraftingHelper.addShapelessRecipe(stack1, stack2);
 
 		}
 

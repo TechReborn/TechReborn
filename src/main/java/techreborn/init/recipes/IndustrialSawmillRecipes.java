@@ -29,8 +29,6 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -87,11 +85,11 @@ public class IndustrialSawmillRecipes extends RecipeMethods {
 
 	@Nonnull
 	public static ItemStack findMatchingRecipe(InventoryCrafting inv) {
-		for (IRecipe recipe : CraftingManager.REGISTRY) {
-			if (recipe.matches(inv, null)) {
-				return recipe.getCraftingResult(inv);
-			}
-		}
+//		for (IRecipe recipe : CraftingManager.REGISTRY) {
+//			if (recipe.matches(inv, null)) {
+//				return recipe.getCraftingResult(inv);
+//			}
+//		}
 		return ItemStack.EMPTY;
 
 	}

@@ -30,7 +30,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import reborncore.common.util.CraftingHelper;
+import reborncore.common.util.RebornCraftingHelper;
 import reborncore.common.util.RecipeRemover;
 import techreborn.compat.ICompatModule;
 import techreborn.init.ModItems;
@@ -56,7 +56,7 @@ public class BuildcraftBuildersCompat implements ICompatModule {
 	public void postInit(FMLPostInitializationEvent event) {
 		if (expensiveQuarry) {
 			RecipeRemover.removeAnyRecipe(new ItemStack(BCBuildersBlocks.quarry));
-			CraftingHelper.addShapedOreRecipe(new ItemStack(BCBuildersBlocks.quarry),
+			RebornCraftingHelper.addShapedOreRecipe(new ItemStack(BCBuildersBlocks.quarry),
 				"IAI", "GIG", "DED",
 				'I', "gearIron",
 				'G', "gearGold",

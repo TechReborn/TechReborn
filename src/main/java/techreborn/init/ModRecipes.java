@@ -36,7 +36,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
-import reborncore.common.util.CraftingHelper;
+import reborncore.common.util.RebornCraftingHelper;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.OreUtil;
 import reborncore.common.util.StringUtils;
@@ -252,143 +252,143 @@ public class ModRecipes {
 	}
 
 	static void addGeneralShapedRecipes() {
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModItems.CLOAKING_DEVICE), "CIC", "IOI", "CIC", 'C', "ingotChrome",
 				'I', "plateIridium", 'O', new ItemStack(ModItems.LAPOTRONIC_ORB));
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.TREE_TAP), " S ", "PPP", "P  ", 'S', "stickWood", 'P',
+		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.TREE_TAP), " S ", "PPP", "P  ", 'S', "stickWood", 'P',
 			"plankWood");
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModItems.ROCK_CUTTER), "DT ", "DT ", "DCB", 'D', "dustDiamond", 'T',
 				"ingotTitanium", 'C', "circuitBasic", 'B', new ItemStack(ModItems.RE_BATTERY));
 
 		for (String part : ItemParts.types) {
 			if (part.endsWith("Gear")) {
-				CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName(part), " O ", "OIO", " O ", 'I',
+				RebornCraftingHelper.addShapedOreRecipe(ItemParts.getPartByName(part), " O ", "OIO", " O ", 'I',
 					new ItemStack(Items.IRON_INGOT), 'O',
 					"ingot" + StringUtils.toFirstCapital(part.replace("Gear", "")));
 			}
 		}
 
-		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("heliumCoolantSimple"), " T ", "TCT", " T ", 'T',
+		RebornCraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("heliumCoolantSimple"), " T ", "TCT", " T ", 'T',
 			"ingotTin", 'C', ItemCells.getCellByName("helium", 1));
 
-		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("HeliumCoolantTriple"), "TTT", "CCC", "TTT", 'T',
+		RebornCraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("HeliumCoolantTriple"), "TTT", "CCC", "TTT", 'T',
 			"ingotTin", 'C', ItemParts.getPartByName("heliumCoolantSimple"));
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(ItemParts.getPartByName("HeliumCoolantSix"), "THT", "TCT", "THT", 'T', "ingotTin",
 				'C', "ingotCopper", 'H', ItemParts.getPartByName("HeliumCoolantTriple"));
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(ItemParts.getPartByName("NaKCoolantTriple"), "TTT", "CCC", "TTT", 'T', "ingotTin",
 				'C', ItemParts.getPartByName("NaKCoolantSimple"));
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(ItemParts.getPartByName("NaKCoolantSix"), "THT", "TCT", "THT", 'T', "ingotTin", 'C',
 				"ingotCopper", 'H', ItemParts.getPartByName("NaKCoolantTriple"));
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ADJUSTABLE_SU), "LLL", "LCL", "LLL", 'L',
+		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ADJUSTABLE_SU), "LLL", "LCL", "LLL", 'L',
 			new ItemStack(ModItems.LAPOTRONIC_ORB), 'C', new ItemStack(ModItems.ENERGY_CRYSTAL));
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.INTERDIMENSIONAL_SU), "PAP", "ACA", "PAP", 'P',
+		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.INTERDIMENSIONAL_SU), "PAP", "ACA", "PAP", 'P',
 			"plateIridium", 'C', new ItemStack(Blocks.ENDER_CHEST), 'A',
 			new ItemStack(ModBlocks.ADJUSTABLE_SU));
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.FUSION_CONTROL_COMPUTER), "CCC", "PTP", "CCC", 'P',
+		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.FUSION_CONTROL_COMPUTER), "CCC", "PTP", "CCC", 'P',
 			new ItemStack(ModItems.ENERGY_CRYSTAL), 'T', new ItemStack(ModBlocks.FUSION_COIL), 'C',
 			"circuitMaster");
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.LIGHTNING_ROD), "CAC", "ACA", "CAC", 'A',
+		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.LIGHTNING_ROD), "CAC", "ACA", "CAC", 'A',
 			new ItemStack(ModBlocks.MACHINE_CASINGS, 1, 2), 'S', ItemParts.getPartByName("superConductor"), 'C',
 			"circuitMaster");
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.FUSION_COIL), "CSC", "NAN", "CRC", 'A',
+		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.FUSION_COIL), "CSC", "NAN", "CRC", 'A',
 			new ItemStack(ModBlocks.MACHINE_CASINGS, 1, 2), 'N', ItemParts.getPartByName("nichromeHeatingCoil"), 'C',
 			"circuitMaster", 'S', ItemParts.getPartByName("superConductor"), 'R',
 			ItemParts.getPartByName("iridiumNeutronReflector"));
 
-		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("iridiumNeutronReflector"), "PPP", "PIP", "PPP", 'P',
+		RebornCraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("iridiumNeutronReflector"), "PPP", "PIP", "PPP", 'P',
 			ItemParts.getPartByName("thickNeutronReflector"), 'I', "ingotIridium");
 
-		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("thickNeutronReflector"), " P ", "PCP", " P ", 'P',
+		RebornCraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("thickNeutronReflector"), " P ", "PCP", " P ", 'P',
 			ItemParts.getPartByName("neutronReflector"), 'C', ItemCells.getCellByName("Berylium"));
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(ItemParts.getPartByName("neutronReflector"), "TCT", "CPC", "TCT", 'T', "dustTin",
 				'C', "dustCoal", 'P', "plateCopper");
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.SCRAP_BOX), "SSS", "SSS", "SSS", 'S',
+		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.SCRAP_BOX), "SSS", "SSS", "SSS", 'S',
 			ItemParts.getPartByName("scrap"));
 
 		if (!IC2Duplicates.deduplicate()) {
-			CraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("Overclock"), "TTT", "WCW", 'T',
+			RebornCraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("Overclock"), "TTT", "WCW", 'T',
 				ItemParts.getPartByName("CoolantSimple"), 'W', IC2Duplicates.CABLE_ICOPPER.getStackBasedOnConfig(),
 				'C', "circuitBasic");
 
-			CraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("Overclock", 2), " T ", "WCW", 'T',
+			RebornCraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("Overclock", 2), " T ", "WCW", 'T',
 				ItemParts.getPartByName("heliumCoolantSimple"), 'W',
 				IC2Duplicates.CABLE_ICOPPER.getStackBasedOnConfig(), 'C',
 				"circuitBasic");
 
-			CraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("Overclock", 2), " T ", "WCW", 'T',
+			RebornCraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("Overclock", 2), " T ", "WCW", 'T',
 				ItemParts.getPartByName("NaKCoolantSimple"), 'W',
 				IC2Duplicates.CABLE_ICOPPER.getStackBasedOnConfig(), 'C',
 				"circuitBasic");
 
-			CraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("transformer"), "GGG", "WTW", "GCG", 'G',
+			RebornCraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("transformer"), "GGG", "WTW", "GCG", 'G',
 				"blockGlass", 'W', IC2Duplicates.CABLE_IGOLD.getStackBasedOnConfig(), 'C',
 				"circuitBasic", 'T', IC2Duplicates.MVT.getStackBasedOnConfig());
 		}
 
-		CraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("energy_storage"), "PPP", "WBW", "PCP", 'P',
+		RebornCraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("energy_storage"), "PPP", "WBW", "PCP", 'P',
 			"plankWood", 'W', IC2Duplicates.CABLE_ICOPPER.getStackBasedOnConfig(), 'C',
 			"circuitBasic", 'B', ModItems.RE_BATTERY);
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(ItemParts.getPartByName("CoolantSimple"), " T ", "TWT", " T ", 'T', "ingotTin", 'W',
 				"containerWater");
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(ItemParts.getPartByName("CoolantTriple"), "TTT", "CCC", "TTT", 'T', "ingotTin", 'C',
 				ItemParts.getPartByName("CoolantSimple"));
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(ItemParts.getPartByName("CoolantSix"), "TCT", "TPT", "TCT", 'T', "ingotTin", 'C',
 				ItemParts.getPartByName("CoolantTriple"), 'P', "plateCopper");
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(ItemParts.getPartByName("NaKCoolantSimple"), "TST", "PCP", "TST", 'T', "ingotTin",
 				'C', ItemParts.getPartByName("CoolantSimple"), 'S', ItemCells.getCellByName("sodium"), 'P',
 				ItemCells.getCellByName("potassium"));
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(ItemParts.getPartByName("NaKCoolantSimple"), "TPT", "SCS", "TPT", 'T', "ingotTin",
 				'C', ItemParts.getPartByName("CoolantSimple"), 'S', ItemCells.getCellByName("sodium"), 'P',
 				ItemCells.getCellByName("potassium"));
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(ItemParts.getPartByName("dataControlCircuit"), "ADA", "DID", "ADA", 'I', "ingotIridium",
 				'A', "circuitAdvanced", 'D', ItemParts.getPartByName("dataStorageCircuit"));
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(ItemParts.getPartByName("dataOrb"), "DDD", "DSD", "DDD",
 				'D', ItemParts.getPartByName("dataStorageCircuit"), 'S', ItemParts.getPartByName("dataStorageCircuit"));
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModItems.ELECTRIC_TREE_TAP), "TB", "  ",
 				'T', new ItemStack(ModItems.TREE_TAP), 'B', new ItemStack(ModItems.RE_BATTERY));
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModItems.NANOSABER), "DC ", "DC ", "GLG",
 				'L', new ItemStack(ModItems.LAPOTRONIC_CRYSTAL), 'C', "plateCarbon", 'D', "plateDiamond",
 				'G', ItemDustsSmall.getSmallDustByName("glowstone"));
 
-		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("diamondGrindingHead", 2), "TST", "SBS", "TST", 'T',
+		RebornCraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("diamondGrindingHead", 2), "TST", "SBS", "TST", 'T',
 			"plateDiamond", 'S', "plateSteel", 'B', "blockDiamond");
 
-		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("coolantSimple", 2), " T ", "TWT", " T ", 'T',
+		RebornCraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("coolantSimple", 2), " T ", "TWT", " T ", 'T',
 			"ingotTin", 'W', new ItemStack(Items.WATER_BUCKET));
 
 		Core.logHelper.info("Shapped Recipes Added");
@@ -396,24 +396,24 @@ public class ModRecipes {
 
 	static void addMachineRecipes() {
 		if (!CompatManager.isQuantumStorageLoaded) {
-			CraftingHelper
+			RebornCraftingHelper
 				.addShapedOreRecipe(new ItemStack(ModBlocks.QUANTUM_TANK), "EPE", "PCP", "EPE", 'P', "ingotPlatinum",
 					'E', "circuitAdvanced", 'C', ModBlocks.QUANTUM_CHEST);
 		}
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModBlocks.DIGITAL_CHEST), "PPP", "PDP", "PCP", 'P', "plateAluminum",
 				'D', ItemParts.getPartByName("dataOrb"), 'C', ItemParts.getPartByName("computerMonitor"));
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModBlocks.DIGITAL_CHEST), "PPP", "PDP", "PCP", 'P', "plateSteel", 'D',
 				ItemParts.getPartByName("dataOrb"), 'C', ItemParts.getPartByName("computerMonitor"));
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ALLOY_SMELTER), "XCX", "FMF", "XXX", 'C',
+		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ALLOY_SMELTER), "XCX", "FMF", "XXX", 'C',
 			"circuitBasic", 'F', IC2Duplicates.ELECTRICAL_FURNACE.getStackBasedOnConfig(), 'M',
 			BlockMachineFrame.getFrameByName("machine", 1));
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModBlocks.LSU_STORAGE_BLOCK), "LLL", "LCL", "LLL", 'L', "blockLapis", 'C',
 				"circuitBasic");
 
@@ -717,71 +717,71 @@ public class ModRecipes {
 	}
 
 	static void addIc2Recipes() {
-		CraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.MANUAL), IC2Duplicates.REFINED_IRON.getStackBasedOnConfig(),
+		RebornCraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.MANUAL), IC2Duplicates.REFINED_IRON.getStackBasedOnConfig(),
 			Items.BOOK);
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(ItemParts.getPartByName("machineParts", 16), "CSC", "SCS", "CSC", 'S', "ingotSteel",
 				'C', "circuitBasic");
 
-		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("energyFlowCircuit", 4), "ATA", "LIL", "ATA", 'T',
+		RebornCraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("energyFlowCircuit", 4), "ATA", "LIL", "ATA", 'T',
 			"ingotTungsten", 'I', "plateIridium", 'A', "circuitAdvanced", 'L',
 			"lapotronCrystal");
 
-		CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("superconductor", 4), "CCC", "TIT", "EEE", 'E',
+		RebornCraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("superconductor", 4), "CCC", "TIT", "EEE", 'E',
 			"circuitMaster", 'C', ItemParts.getPartByName("heliumCoolantSimple"), 'T',
 			"ingotTungsten", 'I', "plateIridium");
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.LAPOTRONIC_ORB), "LLL", "LPL", "LLL", 'L',
+		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.LAPOTRONIC_ORB), "LLL", "LPL", "LLL", 'L',
 			"lapotronCrystal", 'P', "plateIridium");
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.INDUSTRIAL_SAWMILL), "PAP", "SSS", "ACA", 'P',
+		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.INDUSTRIAL_SAWMILL), "PAP", "SSS", "ACA", 'P',
 			IC2Duplicates.REFINED_IRON.getStackBasedOnConfig(), 'A', "circuitAdvanced",
 			'S', ItemParts.getPartByName("diamondSawBlade"), 'C',
 			"machineBlockAdvanced");
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.CHARGE_O_MAT), "ETE", "COC", "EAD", 'E',
+		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.CHARGE_O_MAT), "ETE", "COC", "EAD", 'E',
 			"circuitMaster", 'T', ModItems.ENERGY_CRYSTAL, 'C', Blocks.CHEST, 'O',
 			ModItems.LAPOTRONIC_ORB, 'A', "machineBlockAdvanced");
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.MATTER_FABRICATOR), "ETE", "AOA", "ETE", 'E',
+		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.MATTER_FABRICATOR), "ETE", "AOA", "ETE", 'E',
 			"circuitMaster", 'T', IC2Duplicates.EXTRACTOR.getStackBasedOnConfig(), 'A',
 			BlockMachineFrame.getFrameByName("highlyAdvancedMachine", 1), 'O', ModItems.LAPOTRONIC_ORB);
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModBlocks.HEAT_GENERATOR), "III", "IHI", "CGC", 'I', "plateIron", 'H',
 				new ItemStack(Blocks.IRON_BARS), 'C', "circuitBasic", 'G', IC2Duplicates.GENERATOR.getStackBasedOnConfig());
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModBlocks.GAS_TURBINE), "IAI", "WGW", "IAI", 'I', "ingotInvar", 'A',
 				"circuitAdvanced", 'W',
 				getOre("ic2Windmill"), 'G',
 				getOre("glassReinforced"));
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModBlocks.GAS_TURBINE), "IAI", "WGW", "IAI", 'I', "ingotAluminum", 'A',
 				"circuitAdvanced", 'W',
 				getOre("ic2Windmill"), 'G',
 				getOre("glassReinforced"));
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModBlocks.SEMIFLUID_GENERATOR), "III", "IHI", "CGC", 'I', "plateIron",
 				'H', ModBlocks.REINFORCED_GLASS, 'C', "circuitBasic", 'G',
 				IC2Duplicates.GENERATOR.getStackBasedOnConfig());
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.SEMIFLUID_GENERATOR), "AAA", "AHA", "CGC", 'A',
+		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.SEMIFLUID_GENERATOR), "AAA", "AHA", "CGC", 'A',
 			"plateAluminum", 'H', ModBlocks.REINFORCED_GLASS, 'C', "circuitBasic", 'G',
 			IC2Duplicates.GENERATOR.getStackBasedOnConfig());
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModBlocks.DIESEL_GENERATOR), "III", "I I", "CGC", 'I', IC2Duplicates.REFINED_IRON.getStackBasedOnConfig(),
 				'C', "circuitBasic", 'G', IC2Duplicates.GENERATOR.getStackBasedOnConfig());
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModBlocks.DIESEL_GENERATOR), "AAA", "A A", "CGC", 'A', "ingotAluminum",
 				'C', "circuitBasic", 'G', IC2Duplicates.GENERATOR.getStackBasedOnConfig());
 
-		// CraftingHelper.addShapedOreRecipe(new
+		// RebornCraftingHelper.addShapedOreRecipe(new
 		// ItemStack(ModBlocks.magicalAbsorber),
 		// "CSC", "IBI", "CAC",
 		// 'C', "circuitMaster",
@@ -790,7 +790,7 @@ public class ModRecipes {
 		// 'A', ModBlocks.magicEnergeyConverter,
 		// 'I', "plateIridium");
 		//
-		// CraftingHelper.addShapedOreRecipe(new
+		// RebornCraftingHelper.addShapedOreRecipe(new
 		// ItemStack(ModBlocks.magicEnergeyConverter),
 		// "CTC", "PBP", "CLC",
 		// 'C', "circuitAdvanced",
@@ -799,49 +799,49 @@ public class ModRecipes {
 		// 'L', "lapotronCrystal",
 		// 'T', TechRebornAPI.recipeCompact.getItem("teleporter"));
 
-		//		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.dragonEggEnergySiphoner), "CTC", "ISI", "CBC", 'I',
+		//		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.dragonEggEnergySiphoner), "CTC", "ISI", "CBC", 'I',
 		//			"plateIridium", 'C', "circuitBasic",
 		//			'B', ModItems.lithiumBattery, 'S', ModBlocks.Supercondensator, 'T', ModBlocks.extractor);
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.INDUSTRIAL_BLAST_FURNACE), "CHC", "HBH", "FHF", 'H',
+		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.INDUSTRIAL_BLAST_FURNACE), "CHC", "HBH", "FHF", 'H',
 			ItemParts.getPartByName("cupronickelHeatingCoil"), 'C', "circuitAdvanced", 'B',
 			BlockMachineFrame.getFrameByName("advancedMachine", 1), 'F', IC2Duplicates.ELECTRICAL_FURNACE.getStackBasedOnConfig());
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.INDUSTRIAL_GRINDER), "ECG", "HHH", "CBC", 'E',
+		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.INDUSTRIAL_GRINDER), "ECG", "HHH", "CBC", 'E',
 			ModBlocks.INDUSTRIAL_ELECTROLYZER, 'H', "craftingGrinder", 'C',
 			"circuitAdvanced", 'B', "machineBlockAdvanced",
 			'G', IC2Duplicates.GRINDER.getStackBasedOnConfig());
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.IMPLOSION_COMPRESSOR), "ABA", "CPC", "ABA", 'A',
+		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.IMPLOSION_COMPRESSOR), "ABA", "CPC", "ABA", 'A',
 			ItemIngots.getIngotByName("advancedAlloy"), 'C', "circuitAdvanced", 'B',
 			BlockMachineFrame.getFrameByName("advancedMachine", 1), 'P', IC2Duplicates.COMPRESSOR.getStackBasedOnConfig());
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModBlocks.VACUUM_FREEZER), "SPS", "CGC", "SPS", 'S', "plateSteel", 'C',
 				"circuitAdvanced", 'G', ModBlocks.REINFORCED_GLASS, 'P',
 				IC2Duplicates.EXTRACTOR.getStackBasedOnConfig());
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.DISTILLATION_TOWER), "CMC", "PBP", "EME", 'E',
+		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.DISTILLATION_TOWER), "CMC", "PBP", "EME", 'E',
 			ModBlocks.INDUSTRIAL_ELECTROLYZER, 'M', "circuitMaster", 'B',
 			"machineBlockAdvanced", 'C', ModBlocks.INDUSTRIAL_CENTRIFUGE, 'P',
 			IC2Duplicates.EXTRACTOR.getStackBasedOnConfig());
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.IRON_ALLOY_FURNACE), "III", "F F", "III", 'I',
+		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.IRON_ALLOY_FURNACE), "III", "F F", "III", 'I',
 			ItemIngots.getIngotByName("refined_iron"), 'F', new ItemStack(ModBlocks.IRON_FURNACE));
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.IRON_ALLOY_FURNACE), "III", "F F", "III", 'I',
+		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.IRON_ALLOY_FURNACE), "III", "F F", "III", 'I',
 			IC2Duplicates.REFINED_IRON.getStackBasedOnConfig(), 'F', IC2Duplicates.IRON_FURNACE.getStackBasedOnConfig());
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModBlocks.CHEMICAL_REACTOR), "IMI", "CPC", "IEI", 'I', "ingotInvar",
 				'C', "circuitAdvanced", 'M', IC2Duplicates.EXTRACTOR.getStackBasedOnConfig(), 'P',
 				IC2Duplicates.COMPRESSOR.getStackBasedOnConfig(), 'E', IC2Duplicates.EXTRACTOR.getStackBasedOnConfig());
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModBlocks.ROLLING_MACHINE), "PCP", "MBM", "PCP", 'P', Blocks.PISTON,
 				'C', "circuitAdvanced", 'M', IC2Duplicates.COMPRESSOR.getStackBasedOnConfig(), 'B',
 				"machineBlockBasic");
 
-		// CraftingHelper.addShapedOreRecipe(new
+		// RebornCraftingHelper.addShapedOreRecipe(new
 		// ItemStack(ModBlocks.electricCraftingTable),
 		// "ITI", "IBI", "ICI",
 		// 'I', "plateIron",
@@ -849,7 +849,7 @@ public class ModRecipes {
 		// 'T', "crafterWood",
 		// 'B', "machineBlockBasic");
 
-		// CraftingHelper.addShapedOreRecipe(new
+		// RebornCraftingHelper.addShapedOreRecipe(new
 		// ItemStack(ModBlocks.electricCraftingTable),
 		// "ATA", "ABA", "ACA",
 		// 'A', "plateAluminum",
@@ -857,59 +857,59 @@ public class ModRecipes {
 		// 'T', "crafterWood",
 		// 'B', "machineBlockBasic");
 
-		// CraftingHelper.addShapedOreRecipe(new
+		// RebornCraftingHelper.addShapedOreRecipe(new
 		// ItemStack(ModBlocks.chunkLoader),
 		// "SCS", "CMC", "SCS",
 		// 'S', "plateSteel",
 		// 'C', "circuitMaster",
 		// 'M', new ItemStack(ModItems.parts, 1, 39));
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.LAPOTRONIC_SU), " L ", "CBC", " M ", 'L', IC2Duplicates.LVT.getStackBasedOnConfig(), 'C',
+		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.LAPOTRONIC_SU), " L ", "CBC", " M ", 'L', IC2Duplicates.LVT.getStackBasedOnConfig(), 'C',
 			"circuitAdvanced", 'M', IC2Duplicates.MVT.getStackBasedOnConfig(), 'B', ModBlocks.LSU_STORAGE_BLOCK);
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(BlockMachineFrame.getFrameByName("highlyAdvancedMachine", 1), "CTC", "TBT", "CTC",
 				'C', "ingotChrome", 'T', "ingotTitanium", 'B',
 				"machineBlockAdvanced");
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModBlocks.MACHINE_CASINGS, 4, 0), "III", "CBC", "III", 'I', "plateIron",
 				'C', "circuitBasic", 'B', "machineBlockBasic");
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.MACHINE_CASINGS, 4, 1), "SSS", "CBC", "SSS", 'S',
+		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.MACHINE_CASINGS, 4, 1), "SSS", "CBC", "SSS", 'S',
 			"plateSteel", 'C', "circuitAdvanced", 'B', "machineBlockAdvanced");
 
-		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.MACHINE_CASINGS, 4, 2), "HHH", "CBC", "HHH", 'H',
+		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.MACHINE_CASINGS, 4, 2), "HHH", "CBC", "HHH", 'H',
 			"ingotChrome", 'C', "circuitElite", 'B', BlockMachineFrame.getFrameByName("highlyAdvancedMachine", 1));
 
 		if (!CompatManager.isQuantumStorageLoaded) {
-			CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.QUANTUM_CHEST), "DCD", "ATA", "DQD", 'D',
+			RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.QUANTUM_CHEST), "DCD", "ATA", "DQD", 'D',
 				ItemParts.getPartByName("dataOrb"), 'C', ItemParts.getPartByName("computerMonitor"), 'A',
 				BlockMachineFrame.getFrameByName("highlyAdvancedMachine", 1), 'Q', ModBlocks.DIGITAL_CHEST, 'T',
 				IC2Duplicates.COMPRESSOR.getStackBasedOnConfig());
 		}
 
-		//		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.PlasmaGenerator), "PPP", "PTP", "CGC", 'P',
+		//		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.PlasmaGenerator), "PPP", "PTP", "CGC", 'P',
 		//			ItemPlates.getPlateByName("tungstensteel"), 'T', IC2Duplicates.HVT.getStackBasedOnConfig(),
 		//			'G', IC2Duplicates.GENERATOR.getStackBasedOnConfig(), 'C',
 		//			"circuitMaster");
 
 		// Smetling
-		CraftingHelper
+		RebornCraftingHelper
 			.addSmelting(ItemDusts.getDustByName("copper", 1), getOre("ingotCopper"),
 				1F);
-		CraftingHelper
+		RebornCraftingHelper
 			.addSmelting(ItemDusts.getDustByName("tin", 1), ItemIngots.getIngotByName("tin"), 1F);
-		CraftingHelper
+		RebornCraftingHelper
 			.addSmelting(ItemDusts.getDustByName("bronze", 1), ItemIngots.getIngotByName("bronze"),
 				1F);
-		CraftingHelper
+		RebornCraftingHelper
 			.addSmelting(ItemDusts.getDustByName("lead", 1), ItemIngots.getIngotByName("lead"), 1F);
-		CraftingHelper
+		RebornCraftingHelper
 			.addSmelting(ItemDusts.getDustByName("silver", 1), ItemIngots.getIngotByName("silver"),
 				1F);
 
-			CraftingHelper
+			RebornCraftingHelper
 				.addShapedOreRecipe((OreDictionary.getOres("oreIridium").get(0)), "UUU", " U ", "UUU", 'U',
 					ModItems.UU_MATTER);
 
@@ -946,34 +946,34 @@ public class ModRecipes {
 			30));
 
 		if (expensiveMacerator && !IC2Duplicates.deduplicate())
-			CraftingHelper
+			RebornCraftingHelper
 				.addShapedOreRecipe(getOre("ic2Macerator"), "FDF", "DMD", "FCF", 'F',
 					Items.FLINT, 'D', Items.DIAMOND, 'M', "machineBlockBasic", 'C',
 					"circuitBasic");
 
 		if (expensiveSolar && !IC2Duplicates.deduplicate())
-			CraftingHelper
+			RebornCraftingHelper
 				.addShapedOreRecipe(IC2Duplicates.SOLAR_PANEL.getStackBasedOnConfig(), "PPP", "SZS", "CGC", 'P',
 					"paneGlass", 'S', "platelazurite", 'Z',
 					"plateCarbon", 'G',
 					IC2Duplicates.GENERATOR.getStackBasedOnConfig(), 'C',
 					"circuitBasic");
 
-		CraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("iridium_alloy"), "IAI", "ADA", "IAI", 'I',
+		RebornCraftingHelper.addShapedOreRecipe(ItemIngots.getIngotByName("iridium_alloy"), "IAI", "ADA", "IAI", 'I',
 			"ingotIridium", 'D', ItemDusts.getDustByName("diamond"), 'A',
 			"plateAdvancedAlloy");
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModItems.LITHIUM_BATTERY_PACK, 1, OreDictionary.WILDCARD_VALUE), "BCB",
 				"BPB", "B B", 'B', new ItemStack(ModItems.LITHIUM_BATTERY), 'P', "plateAluminum", 'C',
 				"circuitAdvanced");
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModItems.LITHIUM_BATTERY, 1, OreDictionary.WILDCARD_VALUE), " C ",
 				"PFP", "PFP", 'F', ItemCells.getCellByName("lithium"), 'P', "plateAluminum", 'C',
 				IC2Duplicates.CABLE_IGOLD.getStackBasedOnConfig());
 
-		CraftingHelper
+		RebornCraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModItems.LAPOTRONIC_ORB_PACK, 1, OreDictionary.WILDCARD_VALUE), "FOF", "SPS",
 				"FIF", 'F', "circuitMaster", 'O',
 				new ItemStack(ModItems.LAPOTRONIC_ORB), 'S', ItemParts.getPartByName("superConductor"), 'I',

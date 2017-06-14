@@ -65,8 +65,6 @@ public abstract class RecipeMethods {
 			return BlockMachineCasing.getStackByName(name, count);
 		} else if (type == Type.UPGRADE) {
 			return ItemUpgrades.getUpgradeByName(name, count);
-		} else {
-
 		}
 		return ItemStack.EMPTY;
 	}
