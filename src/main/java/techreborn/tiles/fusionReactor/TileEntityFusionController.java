@@ -1,5 +1,7 @@
 package techreborn.tiles.fusionReactor;
 
+import ic2.api.item.IC2Items;
+import ic2.core.item.ItemFluidCell;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -19,7 +21,7 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 
     //0= no coils, 1 = coils
     public int coilStatus = 0;
-
+    int emptyCellCount = 0 ;
     int topStackSlot = 0;
     int bottomStackSlot = 1;
     int outputStackSlot = 2;
@@ -80,6 +82,7 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
         finalTickTime = tagCompound.getInteger("finalTickTime");
         neededPower = tagCompound.getInteger("neededPower");
         hasStartedCrafting = tagCompound.getBoolean("hasStartedCrafting");
+        emptyCellCount = tagCompound.getInteger("emptyCellCount");
     }
 
     @Override
@@ -100,6 +103,7 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
         tagCompound.setInteger("finalTickTime", finalTickTime);
         tagCompound.setInteger("neededPower", neededPower);
         tagCompound.setBoolean("hasStartedCrafting", hasStartedCrafting);
+        tagCompound.setInteger("emptyCellCount", emptyCellCount);
     }
 
     @Override
@@ -159,7 +163,8 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack stack) {
-        return inventory.isItemValidForSlot(slot, stack);
+        return slot!=2;
+        //return inventory.isItemValidForSlot(slot, stack);
     }
 
 
@@ -209,6 +214,12 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
         }
 
         if (!worldObj.isRemote) {
+            if(emptyCellCount>0){
+                if (getStackInSlot(outputStackSlot) == null) {
+                    setInventorySlotContents(outputStackSlot, IC2Items.getItem("cell").splitStack(emptyCellCount));
+                    emptyCellCount=0;
+                }
+            }
             if (coilStatus == 1) {
                 if (currentRecipe == null) {
                     if (inventory.hasChanged || crafingTickTime != 0) {
@@ -235,12 +246,14 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
                         }
                     }
                 } else {
+                    /*
                     if (inventory.hasChanged) {
                         if (!validateRecipe()) {
                             resetCrafter();
+                            System.out.println("reset1");
                             return;
                         }
-                    }
+                    }//*/
                     if (!hasStartedCrafting) {
                         if (canUseEnergy(currentRecipe.getStartEU() + 64)) {
                             useEnergy(currentRecipe.getStartEU());
@@ -248,6 +261,12 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
                         }
                     } else {
                         if (crafingTickTime < currentRecipe.getTickTime()) {
+                            if(crafingTickTime==0){
+                                decrStackSize(topStackSlot, currentRecipe.getTopInput().stackSize);
+                                if (currentRecipe.getBottomInput() != null) {
+                                    decrStackSize(bottomStackSlot, currentRecipe.getBottomInput().stackSize);
+                                }
+                            }
                             if (currentRecipe.getEuTick() > 0) { //Power gen
                                 addEnergy(currentRecipe.getEuTick()); //Waste power if it has no where to go
                                 crafingTickTime++;
@@ -264,11 +283,26 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
                                 } else {
                                     decrStackSize(outputStackSlot, -currentRecipe.getOutput().stackSize);
                                 }
+
+                                if(currentRecipe.getTopInput().getItem().getUnlocalizedName().toLowerCase().contains("cell"))emptyCellCount++;
+                                if(currentRecipe.getBottomInput().getItem().getUnlocalizedName().toLowerCase().contains("cell"))emptyCellCount++;
+                                if(currentRecipe.getOutput().getItem().getUnlocalizedName().toLowerCase().contains("cell"))emptyCellCount--;
+
+
+                                if(emptyCellCount>64)emptyCellCount=64;
+                                System.out.println(String.valueOf(emptyCellCount));
+                                /*
                                 decrStackSize(topStackSlot, currentRecipe.getTopInput().stackSize);
                                 if (currentRecipe.getBottomInput() != null) {
                                     decrStackSize(bottomStackSlot, currentRecipe.getBottomInput().stackSize);
+                                }//*/
+                                crafingTickTime=0;
+                                if (!validateRecipe()) {
+                                    resetCrafter();
+                                    System.out.println("reset2X");
+                                    //return;
                                 }
-                                resetCrafter();
+                                //System.out.println("reset2");
                             }
                         }
                     }
@@ -276,6 +310,7 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
             } else {
                 if (currentRecipe != null) {
                     resetCrafter();
+                    System.out.println("reset3");
                 }
             }
         }
