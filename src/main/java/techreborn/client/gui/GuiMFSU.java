@@ -27,13 +27,13 @@ package techreborn.client.gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import reborncore.common.powerSystem.PowerSystem;
-import techreborn.tiles.storage.TileMFSU;
+import techreborn.tiles.storage.TileHighVoltageSU;
 
 public class GuiMFSU extends GuiBase {
 
-	TileMFSU mfsu;
+	TileHighVoltageSU mfsu;
 
-	public GuiMFSU(final EntityPlayer player, final TileMFSU mfsu) {
+	public GuiMFSU(final EntityPlayer player, final TileHighVoltageSU mfsu) {
 		super(player, mfsu, mfsu.createContainer(player));
 		this.mfsu = mfsu;
 	}

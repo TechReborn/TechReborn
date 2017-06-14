@@ -27,13 +27,13 @@ package techreborn.client.gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import reborncore.common.powerSystem.PowerSystem;
-import techreborn.tiles.storage.TileBatBox;
+import techreborn.tiles.storage.TileLowVoltageSU;
 
 public class GuiBatbox extends GuiBase {
 
-	TileBatBox tile;
+	TileLowVoltageSU tile;
 
-	public GuiBatbox(final EntityPlayer player, final TileBatBox tile) {
+	public GuiBatbox(final EntityPlayer player, final TileLowVoltageSU tile) {
 		super(player, tile, tile.createContainer(player));
 		this.tile = tile;
 	}

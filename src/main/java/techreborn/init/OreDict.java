@@ -32,7 +32,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.oredict.OreDictionary;
 import techreborn.Core;
-import techreborn.blocks.BlockMachineFrame;
+import techreborn.blocks.BlockMachineFrames;
 import techreborn.blocks.cable.BlockCable;
 import techreborn.items.*;
 
@@ -59,9 +59,9 @@ public class OreDict {
 		OreDictionary.registerOre("circuitElite", ItemParts.getPartByName("dataControlCircuit"));
 		OreDictionary.registerOre("circuitMaster", ItemParts.getPartByName("energyFlowCircuit"));
 
-		OreDictionary.registerOre("machineBlockBasic", BlockMachineFrame.getFrameByName("machine", 1));
-		OreDictionary.registerOre("machineBlockAdvanced", BlockMachineFrame.getFrameByName("advancedMachine", 1));
-		OreDictionary.registerOre("machineBlockElite", BlockMachineFrame.getFrameByName("highlyAdvancedMachine", 1));
+		OreDictionary.registerOre("machineBlockBasic", BlockMachineFrames.getFrameByName("machine", 1));
+		OreDictionary.registerOre("machineBlockAdvanced", BlockMachineFrames.getFrameByName("advancedMachine", 1));
+		OreDictionary.registerOre("machineBlockElite", BlockMachineFrames.getFrameByName("highlyAdvancedMachine", 1));
 
 		OreDictionary.registerOre("lapotronCrystal", ModItems.LAPOTRONIC_CRYSTAL);
 		OreDictionary.registerOre("energyCrystal", ModItems.ENERGY_CRYSTAL);

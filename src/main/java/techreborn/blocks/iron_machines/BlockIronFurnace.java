@@ -35,10 +35,13 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.TileIronFurnace;
 
 import java.util.ArrayList;
@@ -49,8 +52,8 @@ public class BlockIronFurnace extends BlockMachineBase {
 
 	public BlockIronFurnace() {
 		super();
-		this.setUnlocalizedName("techreborn.ironfurnace");
 		this.setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier0_machines"));
 	}
 
 	@Override

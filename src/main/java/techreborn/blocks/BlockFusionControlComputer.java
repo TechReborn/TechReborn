@@ -24,33 +24,35 @@
 
 package techreborn.blocks;
 
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
-import techreborn.tiles.fusionReactor.TileEntityFusionController;
+import techreborn.lib.ModInfo;
+import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 import techreborn.utils.damageSources.FusionDamageSource;
 
 public class BlockFusionControlComputer extends BlockMachineBase {
 
-	public BlockFusionControlComputer(final Material material) {
+	public BlockFusionControlComputer() {
 		super();
-		this.setUnlocalizedName("techreborn.fusioncontrolcomputer");
 		this.setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
 	}
 
 	@Override
 	public boolean onBlockActivated(final World world, final int x, final int y, final int z, final EntityPlayer player, final int side, final float hitX,
 	                                final float hitY, final float hitZ) {
-		final TileEntityFusionController tileEntityFusionController = (TileEntityFusionController) world
+		final TileFusionControlComputer tileFusionControlComputer = (TileFusionControlComputer) world
 			.getTileEntity(new BlockPos(x, y, z));
-		tileEntityFusionController.checkCoils();
+		tileFusionControlComputer.checkCoils();
 		if (!player.isSneaking())
 			player.openGui(Core.INSTANCE, EGui.FUSION_CONTROLLER.ordinal(), world, x, y, z);
 		return true;
@@ -59,9 +61,9 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 	@Override
 	public void onEntityWalk(final World worldIn, final BlockPos pos, final Entity entityIn) {
 		super.onEntityWalk(worldIn, pos, entityIn);
-		if (worldIn.getTileEntity(pos) instanceof TileEntityFusionController) {
-			if (((TileEntityFusionController) worldIn.getTileEntity(pos)).crafingTickTime != 0
-				&& ((TileEntityFusionController) worldIn.getTileEntity(pos)).checkCoils()) {
+		if (worldIn.getTileEntity(pos) instanceof TileFusionControlComputer) {
+			if (((TileFusionControlComputer) worldIn.getTileEntity(pos)).crafingTickTime != 0
+				&& ((TileFusionControlComputer) worldIn.getTileEntity(pos)).checkCoils()) {
 				entityIn.attackEntityFrom(new FusionDamageSource(), 200F);
 			}
 		}
@@ -69,6 +71,6 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 
 	@Override
 	public TileEntity createNewTileEntity(final World world, final int meta) {
-		return new TileEntityFusionController();
+		return new TileFusionControlComputer();
 	}
 }

@@ -24,22 +24,24 @@
 
 package techreborn.blocks.tier1;
 
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.teir1.TileElectricFurnace;
 
 public class BlockElectricFurnace extends BlockMachineBase {
 
-	public BlockElectricFurnace(final Material material) {
+	public BlockElectricFurnace() {
 		super();
-		this.setUnlocalizedName("techreborn.electricfurnace");
 		this.setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
 	}
 
 	@Override

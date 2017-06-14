@@ -27,15 +27,18 @@ package techreborn.blocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.lib.ModInfo;
 
 public class BlockFusionCoil extends Block {
 
-	public BlockFusionCoil(Material material) {
+	public BlockFusionCoil() {
 		super(Material.IRON);
 		setHardness(2f);
 		setSoundType(SoundType.METAL);
-		setUnlocalizedName("techreborn.fusioncoil");
 		setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
 	}
 }

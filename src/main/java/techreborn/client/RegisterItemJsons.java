@@ -33,10 +33,6 @@ import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
-import techreborn.blocks.BlockOre;
-import techreborn.blocks.BlockOre2;
-import techreborn.blocks.BlockStorage;
-import techreborn.blocks.BlockStorage2;
 import techreborn.blocks.cable.BlockCable;
 import techreborn.blocks.cable.EnumCableType;
 import techreborn.config.ConfigTechReborn;
@@ -163,26 +159,6 @@ public class RegisterItemJsons {
 		for (int i = 0; i < ItemUpgrades.types.length; ++i) {
 			String[] name = ItemUpgrades.types.clone();
 			registerBlockstate(ModItems.UPGRADES, i, name[i], "items/misc/");
-		}
-
-		for (int i = 0; i < BlockOre.ores.length; ++i) {
-			String[] name = BlockOre.ores.clone();
-			registerBlockstate(ModBlocks.ORE, i, name[i]);
-		}
-
-		for (int i = 0; i < BlockOre2.ores.length; ++i) {
-			String[] name = BlockOre2.ores.clone();
-			registerBlockstate(ModBlocks.ORE2, i, name[i]);
-		}
-
-		for (int i = 0; i < BlockStorage.types.length; ++i) {
-			String[] name = BlockStorage.types.clone();
-			registerBlockstate(ModBlocks.STORAGE, i, name[i]);
-		}
-
-		for (int i = 0; i < BlockStorage2.types.length; ++i) {
-			String[] name = BlockStorage2.types.clone();
-			registerBlockstate(ModBlocks.STORAGE2, i, name[i]);
 		}
 
 		for (EnumCableType cableType : EnumCableType.values()) {

@@ -25,14 +25,17 @@
 package techreborn.blocks.advanced_machine;
 
 import net.minecraft.block.material.Material;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.lib.ModInfo;
 
 public class BlockDistillationTower extends BlockMachineBase {
 
-	public BlockDistillationTower(Material material) {
+	public BlockDistillationTower() {
 		super();
-		setUnlocalizedName("techreborn.distillationtower");
 		setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier2_machines"));
 	}
 }

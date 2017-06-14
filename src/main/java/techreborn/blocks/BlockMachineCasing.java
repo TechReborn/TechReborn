@@ -25,8 +25,8 @@
 package techreborn.blocks;
 
 import com.google.common.base.CaseFormat;
+import com.google.common.collect.Lists;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -39,7 +39,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
+import reborncore.common.blocks.PropertyString;
 import reborncore.common.multiblock.BlockMultiblockBase;
+import reborncore.common.util.ArrayUtils;
 import techreborn.Core;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
@@ -47,22 +49,26 @@ import techreborn.lib.ModInfo;
 import techreborn.tiles.TileMachineCasing;
 
 import java.security.InvalidParameterException;
+import java.util.List;
 import java.util.Random;
 
 public class BlockMachineCasing extends BlockMultiblockBase {
 
 	public static final String[] types = new String[] { "standard", "reinforced", "advanced" };
-	public static final PropertyInteger METADATA = PropertyInteger.create("type", 0, types.length);
+	public static final PropertyString TYPE = new PropertyString("type", types);
+	private static final List<String> typesList = Lists.newArrayList(ArrayUtils.arrayToLowercase(types));
 
 	public BlockMachineCasing() {
 		super(Material.IRON);
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setHardness(2F);
-		this.setDefaultState(this.getDefaultState().withProperty(METADATA, 0));
-		if (Core.proxy.isCTMAvailable()) {
-			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/structure/ctm"));
-		} else {
-			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/structure"));
+		this.setDefaultState(this.getDefaultState().withProperty(TYPE, "standard"));
+		for (int i = 0; i > types.length; i++) {
+			if (Core.proxy.isCTMAvailable()) {
+				ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i, "machines/structure/ctm").setInvVariant(types[i]));
+			} else {
+				ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i, "machines/structure").setInvVariant(types[i]));
+			}
 		}
 	}
 
@@ -82,16 +88,19 @@ public class BlockMachineCasing extends BlockMultiblockBase {
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		return this.getDefaultState().withProperty(METADATA, meta);
+		if (meta > types.length) {
+			meta = 0;
+		}
+		return getBlockState().getBaseState().withProperty(TYPE, typesList.get(meta));
 	}
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return state.getValue(METADATA);
+		return typesList.indexOf(state.getValue(TYPE));
 	}
 
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, METADATA);
+		return new BlockStateContainer(this, TYPE);
 	}
 
 	public int getHeatFromState(IBlockState state) {

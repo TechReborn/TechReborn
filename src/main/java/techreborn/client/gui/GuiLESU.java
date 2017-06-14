@@ -31,7 +31,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.client.container.ContainerLESU;
-import techreborn.tiles.lesu.TileLesu;
+import techreborn.tiles.lesu.TileLapotronicSU;
 
 import java.awt.*;
 
@@ -39,11 +39,11 @@ public class GuiLESU extends GuiContainer {
 
 	private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/aesu.png");
 
-	TileLesu aesu;
+	TileLapotronicSU aesu;
 
 	ContainerLESU containerLesu;
 
-	public GuiLESU(EntityPlayer player, TileLesu tileaesu) {
+	public GuiLESU(EntityPlayer player, TileLapotronicSU tileaesu) {
 		super(new ContainerLESU(tileaesu, player));
 		this.xSize = 176;
 		this.ySize = 197;

@@ -24,7 +24,6 @@
 
 package techreborn.blocks.machine;
 
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -32,18 +31,21 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.multiblock.TileVacuumFreezer;
 
 public class BlockVacuumFreezer extends BlockMachineBase {
 
-	public BlockVacuumFreezer(final Material material) {
+	public BlockVacuumFreezer() {
 		super();
-		this.setUnlocalizedName("techreborn.vacuumfreezer");
 		this.setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier2_machines"));
 	}
 
 	@Override

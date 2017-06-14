@@ -27,13 +27,13 @@ package techreborn.client.gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import reborncore.common.powerSystem.PowerSystem;
-import techreborn.tiles.idsu.TileIDSU;
+import techreborn.tiles.idsu.TileInterdimensionalSU;
 
 public class GuiIDSU extends GuiBase {
 
-	TileIDSU idsu;
+	TileInterdimensionalSU idsu;
 
-	public GuiIDSU(EntityPlayer player, TileIDSU tileIDSU) {
+	public GuiIDSU(EntityPlayer player, TileInterdimensionalSU tileIDSU) {
 		super(player, tileIDSU, tileIDSU.createContainer(player));
 		this.xSize = 176;
 		this.ySize = 197;

@@ -41,7 +41,7 @@ import java.util.List;
 public class BlockLVTransformer extends BlockTransformer {
 
 	public BlockLVTransformer() {
-		super("lvtransformer");
+		super("lv_transformer");
 	}
 
 	@Override

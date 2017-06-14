@@ -24,23 +24,25 @@
 
 package techreborn.blocks.generator;
 
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.generator.TileDieselGenerator;
 
 public class BlockDieselGenerator extends BlockMachineBase {
 
-	public BlockDieselGenerator(final Material material) {
+	public BlockDieselGenerator() {
 		super();
-		this.setUnlocalizedName("techreborn.dieselgenerator");
 		this.setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
 	}
 
 	@Override

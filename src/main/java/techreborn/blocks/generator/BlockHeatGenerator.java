@@ -24,24 +24,21 @@
 
 package techreborn.blocks.generator;
 
-import net.minecraft.block.material.Material;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.generator.TileHeatGenerator;
-
-import java.util.List;
 
 public class BlockHeatGenerator extends BlockMachineBase {
 
-	public BlockHeatGenerator(Material material) {
+	public BlockHeatGenerator() {
 		super();
-		setUnlocalizedName("techreborn.heatgenerator");
 		setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
 	}
 
 	@Override

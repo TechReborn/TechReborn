@@ -24,27 +24,29 @@
 
 package techreborn.blocks.machine;
 
-import net.minecraft.block.material.Material;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.TileScrapboxinator;
 
 import java.util.List;
 
 public class BlockScrapboxinator extends BlockMachineBase {
 
-	public BlockScrapboxinator(final Material material) {
+	public BlockScrapboxinator() {
 		super();
-		this.setUnlocalizedName("techreborn.scrapboxinator");
 		this.setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
 	}
 
 	@Override

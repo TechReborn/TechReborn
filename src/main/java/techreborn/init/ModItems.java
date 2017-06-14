@@ -35,7 +35,7 @@ import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.BucketHandler;
 import techreborn.Core;
 import techreborn.api.Reference;
-import techreborn.blocks.BlockMachineFrame;
+import techreborn.blocks.BlockMachineFrames;
 import techreborn.config.ConfigTechReborn;
 import techreborn.items.*;
 import techreborn.items.armor.ItemLapotronPack;
@@ -341,8 +341,8 @@ public class ModItems {
 
 		Core.logHelper.info("TechReborns Items Loaded");
 
-		BlockMachineBase.advancedMachineStack = BlockMachineFrame.getFrameByName("advancedMachine", 1);
-		BlockMachineBase.machineStack = BlockMachineFrame.getFrameByName("machine", 1);
+		BlockMachineBase.advancedFrameStack = BlockMachineFrames.getFrameByName("advanced", 1);
+		BlockMachineBase.basicFrameStack = BlockMachineFrames.getFrameByName("basic", 1);
 
 		OreDictionary.registerOre("itemRubber", ItemParts.getPartByName("rubber"));
 	}

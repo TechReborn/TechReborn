@@ -12,17 +12,17 @@
     "type": {
       "all": {
         "textures": {
-          "all": "techreborn:blocks/tier1_machines/player_detector_all"
+          "all": "techreborn:blocks/machines/tier1_machines/player_detector_all"
         }
       },
       "others": {
         "textures": {
-          "all": "techreborn:blocks/tier1_machines/player_detector_others"
+          "all": "techreborn:blocks/machines/tier1_machines/player_detector_others"
         }
       },
       "you": {
         "textures": {
-          "all": "techreborn:blocks/tier1_machines/player_detector_you"
+          "all": "techreborn:blocks/machines/tier1_machines/player_detector_you"
         }
       }
     }

@@ -30,7 +30,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 import reborncore.client.RenderUtil;
-import techreborn.tiles.generator.TileSemifluidGenerator;
+import techreborn.tiles.generator.TileSemiFluidGenerator;
 
 public class GuiSemifluidGenerator extends GuiContainer {
 
@@ -38,9 +38,9 @@ public class GuiSemifluidGenerator extends GuiContainer {
 	private static final ResourceLocation texture = new ResourceLocation("techreborn",
 		"textures/gui/semifluid_generator.png");
 
-	TileSemifluidGenerator semifluidGenerator;
+	TileSemiFluidGenerator semifluidGenerator;
 
-	public GuiSemifluidGenerator(final EntityPlayer player, final TileSemifluidGenerator semifluidGenerator) {
+	public GuiSemifluidGenerator(final EntityPlayer player, final TileSemiFluidGenerator semifluidGenerator) {
 		super(semifluidGenerator.createContainer(player));
 		this.xSize = 176;
 		this.ySize = 167;

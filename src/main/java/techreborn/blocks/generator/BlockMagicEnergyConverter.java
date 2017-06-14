@@ -24,15 +24,17 @@
 
 package techreborn.blocks.generator;
 
-import net.minecraft.block.material.Material;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.lib.ModInfo;
 
 public class BlockMagicEnergyConverter extends BlockMachineBase {
 
-	public BlockMagicEnergyConverter(Material material) {
+	public BlockMagicEnergyConverter() {
 		super();
-		setUnlocalizedName("techreborn.magicenergyconverter");
 		setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
 	}
 }

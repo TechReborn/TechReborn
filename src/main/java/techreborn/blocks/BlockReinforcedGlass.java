@@ -29,16 +29,19 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.BaseBlock;
 import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.lib.ModInfo;
 
 public class BlockReinforcedGlass extends BaseBlock {
 
-	public BlockReinforcedGlass(Material materialIn) {
-		super(materialIn);
-		setUnlocalizedName("techreborn.reinforcedglass");
+	public BlockReinforcedGlass() {
+		super(Material.GLASS);
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		setHardness(4.0F);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
 	}
 
 	@Override

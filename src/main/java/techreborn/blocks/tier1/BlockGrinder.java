@@ -24,22 +24,24 @@
 
 package techreborn.blocks.tier1;
 
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.teir1.TileGrinder;
 
 public class BlockGrinder extends BlockMachineBase {
 
-	public BlockGrinder(final Material material) {
+	public BlockGrinder() {
 		super();
-		this.setUnlocalizedName("techreborn.grinder");
 		this.setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
 	}
 
 	@Override

@@ -24,8 +24,9 @@
 
 package techreborn.blocks;
 
+import com.google.common.base.CaseFormat;
+import com.google.common.collect.Lists;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -37,31 +38,36 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.BaseBlock;
+import reborncore.common.blocks.PropertyString;
+import reborncore.common.util.ArrayUtils;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 
 import java.security.InvalidParameterException;
+import java.util.List;
 import java.util.Random;
 
 public class BlockStorage2 extends BaseBlock {
 
 	public static final String[] types = new String[] { "tungstensteel",
 		"iridium_reinforced_tungstensteel", "iridium_reinforced_stone", "ruby", "sapphire", "peridot",
-		"yellowGarnet", "redGarnet", "copper", "tin", "refinedIron" };
-	public PropertyInteger METADATA;
+		"yellow_garnet", "red_garnet", "copper", "tin", "refined_iron" };
+	public static final PropertyString TYPE = new PropertyString("type", types);
+	private static final List<String> typesList = Lists.newArrayList(ArrayUtils.arrayToLowercase(types));
 
 	public BlockStorage2() {
 		super(Material.IRON);
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		setHardness(2f);
-		this.setDefaultState(this.getDefaultState().withProperty(METADATA, 0));
+		this.setDefaultState(this.getDefaultState().withProperty(TYPE, "tungstensteel"));
 		for (int i = 0; i < types.length; i++) {
-			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i, "storage").setInvVariant("type=" + types[i]).setFileName("storage"));
+			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i).setInvVariant("type=" + types[i]).setFileName("storage"));
 		}
 	}
 
 	public static ItemStack getStorageBlockByName(String name, int count) {
+		name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, name);
 		for (int i = 0; i < types.length; i++) {
 			if (types[i].equals(name)) {
 				return new ItemStack(ModBlocks.STORAGE2, count, i);
@@ -93,18 +99,16 @@ public class BlockStorage2 extends BaseBlock {
 		if (meta > types.length) {
 			meta = 0;
 		}
-		return this.getDefaultState().withProperty(METADATA, meta);
+		return getBlockState().getBaseState().withProperty(TYPE, typesList.get(meta));
 	}
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return state.getValue(METADATA);
+		return typesList.indexOf(state.getValue(TYPE));
 	}
 
 	protected BlockStateContainer createBlockState() {
-
-		METADATA = PropertyInteger.create("type", 0, types.length - 1);
-		return new BlockStateContainer(this, METADATA);
+		return new BlockStateContainer(this, TYPE);
 	}
 
 }

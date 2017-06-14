@@ -37,6 +37,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
@@ -52,6 +53,7 @@ import reborncore.common.util.ArrayUtils;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.StringUtils;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.init.ModBlocks;
 import techreborn.lib.MessageIDs;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.TilePlayerDectector;
@@ -73,6 +75,11 @@ public class BlockPlayerDetector extends BlockMachineBase {
 		for (int i = 0; i < types.length; i++) {
 			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i, "machines/tier1_machines").setInvVariant("type=" + types[i]));
 		}
+	}
+
+	@Override
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+		return new ItemStack(ModBlocks.PLAYER_DETECTOR, typeNamesList.indexOf(state.getValue(TYPE)));
 	}
 
 	@Override

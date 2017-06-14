@@ -68,7 +68,7 @@ public class TileVacuumFreezer extends TilePowerAcceptor
 	}
 
 	public boolean getMultiBlock() {
-		return this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.CASING_REINFORCED, MultiblockChecker.ZERO_OFFSET);
+		return this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.REINFORCED_CASING, MultiblockChecker.ZERO_OFFSET);
 	}
 
 	@Override

@@ -34,7 +34,7 @@ import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.client.container.ContainerAESU;
 import techreborn.packets.PacketAesu;
-import techreborn.tiles.TileAesu;
+import techreborn.tiles.TileAdjustableSU;
 
 import java.awt.*;
 import java.io.IOException;
@@ -43,11 +43,11 @@ public class GuiAESU extends GuiContainer {
 
 	private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/aesu.png");
 
-	TileAesu aesu;
+	TileAdjustableSU aesu;
 
 	ContainerAESU containerAesu;
 
-	public GuiAESU(EntityPlayer player, TileAesu tileaesu) {
+	public GuiAESU(EntityPlayer player, TileAdjustableSU tileaesu) {
 		super(new ContainerAESU(tileaesu, player));
 		this.xSize = 176;
 		this.ySize = 197;

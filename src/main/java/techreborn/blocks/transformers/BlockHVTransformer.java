@@ -42,7 +42,7 @@ import java.util.List;
 public class BlockHVTransformer extends BlockTransformer {
 
 	public BlockHVTransformer() {
-		super("hvtransformer");
+		super("hv_transformer");
 	}
 
 	@Override

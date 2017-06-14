@@ -42,7 +42,7 @@ import java.util.List;
 public class BlockMVTransformer extends BlockTransformer {
 
 	public BlockMVTransformer() {
-		super("mvtransformer");
+		super("mv_transformer");
 	}
 
 	@Override

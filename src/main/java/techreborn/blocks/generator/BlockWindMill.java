@@ -26,8 +26,11 @@ package techreborn.blocks.generator;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.generator.TileWindMill;
 
 /**
@@ -37,9 +40,9 @@ public class BlockWindMill extends BlockMachineBase {
 
 	public BlockWindMill() {
 		super(false);
-		setUnlocalizedName("techreborn.windmill");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setHardness(2.0F);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
 	}
 
 	@Override

@@ -64,7 +64,7 @@ public class BlockOre2 extends Block implements IOreNameProvider {
 		setHarvestLevel("pickaxe", 1);
 		this.setDefaultState(this.getStateFromMeta(0));
 		for (int i = 0; i < ores.length; i++) {
-			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i, "storage").setInvVariant("type=" + ores[i]).setFileName("ores"));
+			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i).setInvVariant("type=" + ores[i]).setFileName("ores"));
 		}
 	}
 

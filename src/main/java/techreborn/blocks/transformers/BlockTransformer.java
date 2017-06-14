@@ -43,8 +43,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidBase;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.BaseTileBlock;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.lib.ModInfo;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -60,12 +63,12 @@ public abstract class BlockTransformer extends BaseTileBlock {
 	public String name;
 
 	public BlockTransformer(String name) {
-		super(Material.ROCK);
+		super(Material.IRON);
 		setHardness(2f);
-		setUnlocalizedName("techreborn." + name.toLowerCase());
 		setCreativeTab(TechRebornCreativeTab.instance);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		this.name = name;
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/energy"));
 	}
 
 	protected BlockStateContainer createBlockState() {

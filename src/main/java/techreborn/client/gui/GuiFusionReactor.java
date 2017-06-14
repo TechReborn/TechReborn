@@ -38,7 +38,7 @@ import reborncore.common.misc.Location;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.client.ClientMultiBlocks;
 import techreborn.proxies.ClientProxy;
-import techreborn.tiles.fusionReactor.TileEntityFusionController;
+import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 
 import java.io.IOException;
 
@@ -47,9 +47,9 @@ public class GuiFusionReactor extends GuiContainer {
 	public static final ResourceLocation texture = new ResourceLocation("techreborn",
 		"textures/gui/fusion_reactor.png");
 
-	TileEntityFusionController fusionController;
+	TileFusionControlComputer fusionController;
 
-	public GuiFusionReactor(final EntityPlayer player, final TileEntityFusionController fusion) {
+	public GuiFusionReactor(final EntityPlayer player, final TileFusionControlComputer fusion) {
 		super(fusion.createContainer(player));
 		this.fusionController = fusion;
 	}
