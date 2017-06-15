@@ -51,6 +51,7 @@ import techreborn.compat.ICompatModule;
 import techreborn.dispenser.BehaviorDispenseScrapbox;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.events.BlockBreakHandler;
+import techreborn.events.TREventHandler;
 import techreborn.events.TRTickHandler;
 import techreborn.init.*;
 import techreborn.lib.ModInfo;
@@ -118,6 +119,8 @@ public class Core {
 
 		versionChecker = new VersionChecker("TechReborn", new ModInfo());
 		versionChecker.checkVersionThreaded();
+
+		ModRecipes.init();
 		logHelper.info("PreInitialization Complete");
 	}
 
@@ -135,11 +138,11 @@ public class Core {
 		}
 		MinecraftForge.EVENT_BUS.register(new StackWIPHandler());
 		MinecraftForge.EVENT_BUS.register(new BlockBreakHandler());
+		MinecraftForge.EVENT_BUS.register(new TREventHandler());
 
 		// Recipes
 		StopWatch watch = new StopWatch();
 		watch.start();
-		ModRecipes.init();
 		logHelper.all(watch + " : main recipes");
 		watch.stop();
 		// Client only init, needs to be done before parts system

@@ -314,14 +314,14 @@ public class CraftingTableRecipes extends RecipeMethods {
 	                                    ItemStack leggings,
 	                                    ItemStack boots,
 	                                    String material) {
-		registerShaped(sword, "G", "G", "S", 'S', Items.STICK, 'G', material);
+		registerShaped(sword, " G ", " G ", " S ", 'S', Items.STICK, 'G', material);
 		registerShaped(pickaxe, "GGG", " S ", " S ", 'S', Items.STICK, 'G', material);
-		registerShaped(axe, "GG", "GS", " S", 'S', Items.STICK, 'G', material);
-		registerShaped(hoe, "GG", " S", " S", 'S', Items.STICK, 'G', material);
-		registerShaped(spade, "G", "S", "S", 'S', Items.STICK, 'G', material);
-		registerShaped(helmet, "GGG", "G G", 'G', material);
+		registerShaped(axe, "GG ", "GS ", " S ", 'S', Items.STICK, 'G', material);
+		registerShaped(hoe, "GG ", " S ", " S ", 'S', Items.STICK, 'G', material);
+		registerShaped(spade, " G ", " S ", " S ", 'S', Items.STICK, 'G', material);
+		registerShaped(helmet, "GGG", "G G", "   ", 'G', material);
 		registerShaped(chestplate, "G G", "GGG", "GGG", 'G', material);
 		registerShaped(leggings, "GGG", "G G", "G G", 'G', material);
-		registerShaped(boots, "G G", "G G", 'G', material);
+		registerShaped(boots, "   ", "G G", "G G", 'G', material);
 	}
 }
