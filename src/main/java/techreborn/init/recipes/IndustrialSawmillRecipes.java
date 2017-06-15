@@ -29,6 +29,8 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -50,11 +52,8 @@ public class IndustrialSawmillRecipes extends RecipeMethods {
 			public boolean canInteractWith(EntityPlayer playerIn) {
 				return false;
 			}
-		}, 3, 3);
-
-		for (int i = 0; i < 9; i++) {
-			inventoryCrafting.setInventorySlotContents(i, ItemStack.EMPTY);
-		}
+		}, 1, 1);
+		inventoryCrafting.setInventorySlotContents(0, ItemStack.EMPTY);
 
 		NonNullList<ItemStack> logs = OreDictionary.getOres("logWood");
 		for (ItemStack logStack : logs) {
@@ -85,11 +84,11 @@ public class IndustrialSawmillRecipes extends RecipeMethods {
 
 	@Nonnull
 	public static ItemStack findMatchingRecipe(InventoryCrafting inv) {
-//		for (IRecipe recipe : CraftingManager.REGISTRY) {
-//			if (recipe.matches(inv, null)) {
-//				return recipe.getCraftingResult(inv);
-//			}
-//		}
+		for (IRecipe recipe : CraftingManager.REGISTRY) {
+			if (recipe.canFit(1, 1) && recipe.matches(inv, null)) {
+				return recipe.getCraftingResult(inv);
+			}
+		}
 		return ItemStack.EMPTY;
 
 	}
