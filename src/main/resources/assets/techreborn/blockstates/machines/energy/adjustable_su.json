@@ -4,11 +4,11 @@
     "transform": "forge:default-block",
     "model": "orientable",
     "textures": {
-      "particle": "techreborn:blocks/machines/energy/lapotronic_su_side",
-      "bottom": "techreborn:blocks/machines/energy/lapotronic_su_side",
-      "top": "techreborn:blocks/machines/energy/lapotronic_su_side",
-      "front": "techreborn:blocks/machines/energy/lapotronic_su_front",
-      "side": "techreborn:blocks/machines/energy/lapotronic_su_side"
+      "particle": "techreborn:blocks/machines/energy/adjustable_su_side",
+      "bottom": "techreborn:blocks/machines/energy/adjustable_su_side",
+      "top": "techreborn:blocks/machines/energy/adjustable_su_side",
+      "front": "techreborn:blocks/machines/energy/adjustable_su_front",
+      "side": "techreborn:blocks/machines/energy/adjustable_su_side"
     }
   },
   "variants": {

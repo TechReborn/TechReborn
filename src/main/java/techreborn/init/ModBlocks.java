@@ -255,7 +255,7 @@ public class ModBlocks {
 		GameRegistry.registerTileEntity(TileChemicalReactor.class, "TileChemicalReactorTR");
 
 		INTERDIMENSIONAL_SU = new BlockInterdimensionalSU();
-		registerBlock(INTERDIMENSIONAL_SU, "inderdimensional_su");
+		registerBlock(INTERDIMENSIONAL_SU, "interdimensional_su");
 		GameRegistry.registerTileEntity(TileInterdimensionalSU.class, "TileInterdimensionalSUTR");
 
 		ADJUSTABLE_SU = new BlockAdjustableSU();

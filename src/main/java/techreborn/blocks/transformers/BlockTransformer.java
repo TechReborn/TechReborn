@@ -59,7 +59,6 @@ import java.util.Random;
  */
 public abstract class BlockTransformer extends BaseTileBlock {
 	public static PropertyDirection FACING = PropertyDirection.create("facing", Facings.ALL);
-	protected final String prefix = "techreborn:blocks/machines/energy/";
 	public String name;
 
 	public BlockTransformer(String name) {

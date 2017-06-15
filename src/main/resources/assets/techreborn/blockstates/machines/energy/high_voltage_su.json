@@ -10,5 +10,31 @@
       "front": "techreborn:blocks/machines/energy/hv_storage_front",
       "side": "techreborn:blocks/machines/energy/hv_storage_side"
     }
+  },
+  "variants": {
+    "inventory": {
+      "transform": "forge:default-block",
+      "textures": {
+      }
+    },
+    "facing": {
+      "north": {
+      },
+      "east": {
+        "y": 90
+      },
+      "south": {
+        "y": 180
+      },
+      "west": {
+        "y": 270
+      },
+      "up": {
+        "x": 270
+      },
+      "down": {
+        "x": 90
+      }
+    }
   }
 }
