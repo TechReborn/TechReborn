@@ -26,6 +26,7 @@ package techreborn.items.tools;
 
 import net.minecraft.item.ItemAxe;
 import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.events.TRRecipeHandler;
 
 public class ItemTRAxe extends ItemAxe {
 	private ToolMaterial material = ToolMaterial.WOOD;
@@ -35,5 +36,6 @@ public class ItemTRAxe extends ItemAxe {
 		setUnlocalizedName(material.name().toLowerCase() + "Axe");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		this.material = material;
+		TRRecipeHandler.hideEntry(this);
 	}
 }

@@ -30,6 +30,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModItems;
 
 import java.security.InvalidParameterException;
@@ -48,6 +49,7 @@ public class ItemDusts extends ItemTR {
 		setUnlocalizedName("techreborn.dust");
 		setHasSubtypes(true);
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		TRRecipeHandler.hideEntry(this);
 	}
 
 	public static ItemStack getDustByName(String name, int count) {

@@ -33,6 +33,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -45,6 +46,7 @@ import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.powerSystem.PoweredItem;
 import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModSounds;
 import techreborn.items.ItemParts;
 import techreborn.items.tools.ItemElectricTreetap;
@@ -181,6 +183,9 @@ public class BlockRubberLog extends Block {
 								item.motionY = rand.nextGaussian() * factor + 0.2F;
 								item.motionZ = rand.nextGaussian() * factor;
 								worldIn.spawnEntity(item);
+							}
+							if(playerIn instanceof EntityPlayerMP){
+								TRRecipeHandler.unlockTRRecipes((EntityPlayerMP) playerIn);
 							}
 						}
 						return true;

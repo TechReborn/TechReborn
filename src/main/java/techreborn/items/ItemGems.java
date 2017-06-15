@@ -29,6 +29,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModItems;
 
 import java.security.InvalidParameterException;
@@ -41,6 +42,7 @@ public class ItemGems extends ItemTR {
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		setUnlocalizedName("techreborn.gem");
 		setHasSubtypes(true);
+		TRRecipeHandler.hideEntry(this);
 	}
 
 	public static ItemStack getGemByName(String name, int count) {

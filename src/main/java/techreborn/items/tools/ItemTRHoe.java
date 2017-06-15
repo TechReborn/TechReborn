@@ -28,6 +28,7 @@ import net.minecraft.item.ItemHoe;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.events.TRRecipeHandler;
 
 public class ItemTRHoe extends ItemHoe {
 	private ToolMaterial material = ToolMaterial.WOOD;
@@ -37,6 +38,7 @@ public class ItemTRHoe extends ItemHoe {
 		setUnlocalizedName(material.name().toLowerCase() + "Hoe");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		this.material = material;
+		TRRecipeHandler.hideEntry(this);
 	}
 
 	@SideOnly(Side.CLIENT)

@@ -27,6 +27,7 @@ package techreborn.items.armor;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.events.TRRecipeHandler;
 
 /**
  * Created by modmuss50 on 26/02/2016.
@@ -49,5 +50,6 @@ public class ItemTRArmour extends ItemArmor {
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		this.material = material;
 		this.slot = slot;
+		TRRecipeHandler.hideEntry(this);
 	}
 }

@@ -49,6 +49,7 @@ import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import org.apache.commons.lang3.Validate;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModItems;
 
 /**
@@ -63,6 +64,7 @@ public class DynamicCell extends Item {
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setUnlocalizedName("techreborn.cell");
 		setMaxStackSize(64);
+		TRRecipeHandler.hideEntry(this);
 	}
 
 	@Override

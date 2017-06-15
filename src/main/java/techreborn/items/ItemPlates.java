@@ -30,6 +30,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.oredict.OreDictionary;
 import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModItems;
 
 import java.security.InvalidParameterException;
@@ -45,6 +46,7 @@ public class ItemPlates extends ItemTR {
 		setUnlocalizedName("techreborn.plate");
 		setHasSubtypes(true);
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		TRRecipeHandler.hideEntry(this);
 	}
 
 	public static ItemStack getPlateByName(String name, int count) {

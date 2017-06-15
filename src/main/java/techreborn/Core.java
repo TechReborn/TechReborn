@@ -51,7 +51,7 @@ import techreborn.compat.ICompatModule;
 import techreborn.dispenser.BehaviorDispenseScrapbox;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.events.BlockBreakHandler;
-import techreborn.events.TREventHandler;
+import techreborn.events.TRRecipeHandler;
 import techreborn.events.TRTickHandler;
 import techreborn.init.*;
 import techreborn.lib.ModInfo;
@@ -138,7 +138,7 @@ public class Core {
 		}
 		MinecraftForge.EVENT_BUS.register(new StackWIPHandler());
 		MinecraftForge.EVENT_BUS.register(new BlockBreakHandler());
-		MinecraftForge.EVENT_BUS.register(new TREventHandler());
+		MinecraftForge.EVENT_BUS.register(new TRRecipeHandler());
 
 		// Recipes
 		StopWatch watch = new StopWatch();

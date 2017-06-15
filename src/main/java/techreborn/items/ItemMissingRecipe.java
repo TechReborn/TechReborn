@@ -25,10 +25,12 @@
 package techreborn.items;
 
 import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.events.TRRecipeHandler;
 
 public class ItemMissingRecipe extends ItemTR {
 	public ItemMissingRecipe() {
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		setUnlocalizedName("techreborn.missingrecipe");
+		TRRecipeHandler.hideEntry(this);
 	}
 }

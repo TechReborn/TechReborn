@@ -40,6 +40,7 @@ import reborncore.common.BaseBlock;
 import reborncore.common.blocks.PropertyString;
 import reborncore.common.util.ArrayUtils;
 import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 
@@ -61,6 +62,7 @@ public class BlockStorage extends BaseBlock {
 		for (int i = 0; i < types.length; i++) {
 			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i).setInvVariant("type=" + types[i]).setFileName("storage"));
 		}
+		TRRecipeHandler.hideEntry(this);
 	}
 
 	public static ItemStack getStorageBlockByName(String name, int count) {

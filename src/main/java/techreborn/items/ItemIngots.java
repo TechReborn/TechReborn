@@ -30,6 +30,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModItems;
 
 import java.security.InvalidParameterException;
@@ -44,6 +45,7 @@ public class ItemIngots extends ItemTR {
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		setHasSubtypes(true);
 		setUnlocalizedName("techreborn.ingot");
+		TRRecipeHandler.hideEntry(this);
 	}
 
 	public static ItemStack getIngotByName(String name, int count) {

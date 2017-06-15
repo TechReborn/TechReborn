@@ -29,6 +29,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModItems;
 
 import java.security.InvalidParameterException;
@@ -44,6 +45,7 @@ public class ItemNuggets extends ItemTR {
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		setHasSubtypes(true);
 		setUnlocalizedName("techreborn.nuggets");
+		TRRecipeHandler.hideEntry(this);
 	}
 
 	public static ItemStack getNuggetByName(String name, int count) {

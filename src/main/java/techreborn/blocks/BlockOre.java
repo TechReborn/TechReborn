@@ -51,6 +51,7 @@ import reborncore.common.util.OreDrop;
 import reborncore.common.util.OreDropSet;
 import reborncore.common.util.StringUtils;
 import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModBlocks;
 import techreborn.items.ItemDusts;
 import techreborn.items.ItemGems;
@@ -82,6 +83,7 @@ public class BlockOre extends Block implements IOreNameProvider {
 		for (int i = 0; i < ores.length; i++) {
 			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i).setInvVariant("type=" + ores[i]).setFileName("ores"));
 		}
+		TRRecipeHandler.hideEntry(this);
 	}
 
 	public static ItemStack getOreByName(String name, int count) {

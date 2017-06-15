@@ -26,6 +26,7 @@ package techreborn.items.tools;
 
 import net.minecraft.item.ItemPickaxe;
 import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.events.TRRecipeHandler;
 
 public class ItemTRPickaxe extends ItemPickaxe {
 	private ToolMaterial material = ToolMaterial.WOOD;
@@ -35,5 +36,6 @@ public class ItemTRPickaxe extends ItemPickaxe {
 		setUnlocalizedName(material.name().toLowerCase() + "Pickaxe");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		this.material = material;
+		TRRecipeHandler.hideEntry(this);
 	}
 }
