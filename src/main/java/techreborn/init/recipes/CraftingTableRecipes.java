@@ -13,7 +13,7 @@
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
  *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, E PRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
@@ -120,7 +120,7 @@ public class CraftingTableRecipes extends RecipeMethods {
 		registerShaped(getMaterial("computer_monitor", Type.PART), "ADA", "DGD", "ADA", 'D', "dye", 'A', "ingotAluminum", 'G', "paneGlass");
 		registerShaped(getStack(ModBlocks.REINFORCED_GLASS, 7), "GAG", "GGG", "GAG", 'A', "plateAdvancedAlloy", 'G', "blockGlass");
 		registerShaped(getStack(ModBlocks.REINFORCED_GLASS, 7), "GGG", "AGA", "GGG", 'A', "plateAdvancedAlloy", 'G', "blockGlass");
-		registerShaped(getStack(ModBlocks.WIND_MILL, 2), "IXI", "XGX", "IXI", 'I', "ingotIron", 'G', getStack(IC2Duplicates.GENERATOR));
+		registerShaped(getStack(ModBlocks.WIND_MILL, 2), "I I", " G ", "I I", 'I', "ingotIron", 'G', getStack(IC2Duplicates.GENERATOR));
 		registerShaped(getStack(ModBlocks.WATER_MILL), "SWS", "WGW", "SWS", 'S', "stickWood", 'W', "plankWood", 'G', getStack(IC2Duplicates.GENERATOR));
 
 		if (!IC2Duplicates.deduplicate()) {
@@ -136,26 +136,26 @@ public class CraftingTableRecipes extends RecipeMethods {
 		registerShaped(getStack(ModBlocks.THERMAL_GENERATOR), "III", "IRI", "CGC", 'I', "ingotInvar", 'R', ModBlocks.REINFORCED_GLASS, 'G', getStack(IC2Duplicates.GENERATOR), 'C', "circuitBasic");
 
 		if (!IC2Duplicates.deduplicate()) {
-			registerShaped(getStack(IC2Duplicates.HVT), "XHX", "XMX", "XHX", 'M', getStack(IC2Duplicates.MVT), 'H', getStack(IC2Duplicates.CABLE_IHV));
-			registerShaped(getStack(IC2Duplicates.MVT), "XGX", "XMX", "XGX", 'M', getMaterialObject("machine", Type.MACHINE_FRAME), 'G', getStack(IC2Duplicates.CABLE_IGOLD));
+			registerShaped(getStack(IC2Duplicates.HVT), " H ", " M ", " H ", 'M', getStack(IC2Duplicates.MVT), 'H', getStack(IC2Duplicates.CABLE_IHV));
+			registerShaped(getStack(IC2Duplicates.MVT), " G ", " M ", " G ", 'M', getMaterialObject("machine", Type.MACHINE_FRAME), 'G', getStack(IC2Duplicates.CABLE_IGOLD));
 			registerShaped(getStack(IC2Duplicates.LVT), "PWP", "CCC", "PPP", 'P', "plankWood", 'C', "ingotCopper", 'W', getStack(IC2Duplicates.CABLE_ICOPPER));
 			registerShaped(getStack(IC2Duplicates.BAT_BOX), "WCW", "BBB", "WWW", 'W', "plankWood", 'B', getStack(ModItems.RE_BATTERY), 'C', getStack(IC2Duplicates.CABLE_ICOPPER));
 			registerShaped(getStack(IC2Duplicates.MFE), "GEG", "EME", "GEG", 'M', getMaterialObject("machine", Type.MACHINE_FRAME), 'E', getStack(ModItems.ENERGY_CRYSTAL), 'G', getStack(IC2Duplicates.CABLE_IGOLD));
 			registerShaped(getStack(IC2Duplicates.MFSU), "LAL", "LML", "LOL", 'A', "circuitAdvanced", 'L', getStack(ModItems.LAPOTRONIC_CRYSTAL), 'M', getStack(IC2Duplicates.MFE), 'O', getMaterialObject("advanced_machine", Type.MACHINE_FRAME));
-			registerShaped(getStack(IC2Duplicates.COMPRESSOR), "SXS", "SCS", "SMS", 'C', "circuitBasic", 'M', getMaterialObject("machine", Type.MACHINE_FRAME), 'S', Blocks.STONE);
-			registerShaped(getStack(IC2Duplicates.ELECTRICAL_FURNACE), "XCX", "RFR", "XXX", 'C', "circuitBasic", 'F', getStack(IC2Duplicates.IRON_FURNACE), 'R', "dustRedstone");
-			registerShaped(getStack(IC2Duplicates.RECYCLER), "XEX", "DCD", "GDG", 'D', Blocks.DIRT, 'C', getStack(IC2Duplicates.COMPRESSOR), 'G', Items.GLOWSTONE_DUST, 'E', "circuitBasic");
-			registerShaped(getStack(IC2Duplicates.IRON_FURNACE), "III", "IXI", "III", 'I', "ingotIron");
-			registerShaped(getStack(IC2Duplicates.IRON_FURNACE), "XIX", "IXI", "IFI", 'I', "ingotIron", 'F', Blocks.FURNACE);
+			registerShaped(getStack(IC2Duplicates.COMPRESSOR), "S S", "SCS", "SMS", 'C', "circuitBasic", 'M', getMaterialObject("machine", Type.MACHINE_FRAME), 'S', Blocks.STONE);
+			registerShaped(getStack(IC2Duplicates.ELECTRICAL_FURNACE), " C ", "RFR", "   ", 'C', "circuitBasic", 'F', getStack(IC2Duplicates.IRON_FURNACE), 'R', "dustRedstone");
+			registerShaped(getStack(IC2Duplicates.RECYCLER), " E ", "DCD", "GDG", 'D', Blocks.DIRT, 'C', getStack(IC2Duplicates.COMPRESSOR), 'G', Items.GLOWSTONE_DUST, 'E', "circuitBasic");
+			registerShaped(getStack(IC2Duplicates.IRON_FURNACE), "III", "I I", "III", 'I', "ingotIron");
+			registerShaped(getStack(IC2Duplicates.IRON_FURNACE), " I ", "I I", "IFI", 'I', "ingotIron", 'F', Blocks.FURNACE);
 			registerShaped(getMaterial("electronic_circuit", Type.PART), "WWW", "SRS", "WWW", 'R', getStack(IC2Duplicates.REFINED_IRON), 'S', Items.REDSTONE, 'W', getStack(IC2Duplicates.CABLE_ICOPPER));
 			registerShaped(getMaterial("advanced_circuit", Type.PART), "RGR", "LCL", "RGR", 'R', "dustRedstone", 'G', "dustGlowstone", 'L', "gemLapis", 'C', "circuitBasic");
-			registerShaped(getStack(IC2Duplicates.EXTRACTOR), "TMT", "TCT", "XXX", 'T', getStack(ModItems.TREE_TAP, true), 'M', getMaterialObject("machine", Type.MACHINE_FRAME), 'C', "circuitBasic");
+			registerShaped(getStack(IC2Duplicates.EXTRACTOR), "TMT", "TCT", "   ", 'T', getStack(ModItems.TREE_TAP, true), 'M', getMaterialObject("machine", Type.MACHINE_FRAME), 'C', "circuitBasic");
 		}
 		registerShaped(getStack(ModBlocks.INDUSTRIAL_ELECTROLYZER), "RER", "CEC", "RER", 'R', "plateIron", 'E', getStack(IC2Duplicates.EXTRACTOR), 'C', "circuitAdvanced");
 
-		registerShaped(getStack(ModItems.WRENCH), "BAB", "NBN", " B ", 'B', "ingotBronze", 'N', "nuggetBronze");
+		registerShaped(getStack(ModItems.WRENCH), "BNB", "NBN", " B ", 'B', "ingotBronze", 'N', "nuggetBronze");
 
-		registerShaped(getStack(ModItems.RE_BATTERY), "XWX", "TRT", "TRT", 'T', "ingotTin", 'R', "dustRedstone", 'W', getStack(IC2Duplicates.CABLE_ICOPPER));
+		registerShaped(getStack(ModItems.RE_BATTERY), " W ", "TRT", "TRT", 'T', "ingotTin", 'R', "dustRedstone", 'W', getStack(IC2Duplicates.CABLE_ICOPPER));
 
 		registerShaped(getStack(ModBlocks.INDUSTRIAL_CENTRIFUGE), "RCR", "AEA", "RCR", 'R', getStack(IC2Duplicates.REFINED_IRON), 'E', getStack(IC2Duplicates.EXTRACTOR), 'A', "machineBlockAdvanced", 'C', "circuitAdvanced");
 		registerShaped(getStack(ModBlocks.INDUSTRIAL_CENTRIFUGE), "RCR", "AEA", "RCR", 'R', "ingotAluminum", 'E', getStack(IC2Duplicates.EXTRACTOR), 'A', "machineBlockAdvanced", 'C', "circuitAdvanced");
@@ -164,8 +164,8 @@ public class CraftingTableRecipes extends RecipeMethods {
 		registerShaped(getStack(ModItems.LAPOTRONIC_CRYSTAL), "LCL", "LEL", "LCL", 'L', "dyeBlue", 'E', "energyCrystal", 'C', "circuitBasic");
 		registerShapeless(getStack(IC2Duplicates.GENERATOR), getStack(ModItems.RE_BATTERY), getMaterialObject("machine", Type.MACHINE_FRAME), Blocks.FURNACE);
 
-		registerShaped(getMaterial("machine", Type.MACHINE_FRAME), "AAA", "AXA", "AAA", 'A', getStack(IC2Duplicates.REFINED_IRON));
-		registerShaped(getMaterial("advanced_machine", Type.MACHINE_FRAME), "XCX", "AMA", "XCX", 'A', "plateAdvancedAlloy", 'C', "plateCarbon", 'M', getMaterialObject("machine", Type.MACHINE_FRAME));
+		registerShaped(getMaterial("machine", Type.MACHINE_FRAME), "AAA", "A A", "AAA", 'A', getStack(IC2Duplicates.REFINED_IRON));
+		registerShaped(getMaterial("advanced_machine", Type.MACHINE_FRAME), " C ", "AMA", " C ", 'A', "plateAdvancedAlloy", 'C', "plateCarbon", 'M', getMaterialObject("machine", Type.MACHINE_FRAME));
 
 		registerShaped(getMaterial("data_storage_circuit", Type.PART), "EEE", "ECE", "EEE", 'E', "gemEmerald", 'C', "circuitBasic");
 
@@ -314,14 +314,14 @@ public class CraftingTableRecipes extends RecipeMethods {
 	                                    ItemStack leggings,
 	                                    ItemStack boots,
 	                                    String material) {
-		registerShaped(sword, " G ", " G ", " S ", 'S', Items.STICK, 'G', material);
+		registerShaped(sword, "G", "G", "S", 'S', Items.STICK, 'G', material);
 		registerShaped(pickaxe, "GGG", " S ", " S ", 'S', Items.STICK, 'G', material);
-		registerShaped(axe, "GG ", "GS ", " S ", 'S', Items.STICK, 'G', material);
-		registerShaped(hoe, "GG ", " S ", " S ", 'S', Items.STICK, 'G', material);
-		registerShaped(spade, " G ", " S ", " S ", 'S', Items.STICK, 'G', material);
-		registerShaped(helmet, "GGG", "G G", "   ", 'G', material);
+		registerShaped(axe, "GG", "GS", " S", 'S', Items.STICK, 'G', material);
+		registerShaped(hoe, "GG", " S", " S", 'S', Items.STICK, 'G', material);
+		registerShaped(spade, "G", "S", "S", 'S', Items.STICK, 'G', material);
+		registerShaped(helmet, "GGG", "G G", 'G', material);
 		registerShaped(chestplate, "G G", "GGG", "GGG", 'G', material);
 		registerShaped(leggings, "GGG", "G G", "G G", 'G', material);
-		registerShaped(boots, "   ", "G G", "G G", 'G', material);
+		registerShaped(boots, "G G", "G G", 'G', material);
 	}
 }

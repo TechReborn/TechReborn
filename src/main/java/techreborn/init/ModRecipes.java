@@ -301,7 +301,7 @@ public class ModRecipes {
 			"circuitMaster");
 
 		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.LIGHTNING_ROD), "CAC", "ACA", "CAC", 'A',
-			new ItemStack(ModBlocks.MACHINE_CASINGS, 1, 2), 'S', ItemParts.getPartByName("superConductor"), 'C',
+			new ItemStack(ModBlocks.MACHINE_CASINGS, 1, 2), 'C',
 			"circuitMaster");
 
 		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.FUSION_COIL), "CSC", "NAN", "CRC", 'A',
@@ -409,7 +409,7 @@ public class ModRecipes {
 			.addShapedOreRecipe(new ItemStack(ModBlocks.DIGITAL_CHEST), "PPP", "PDP", "PCP", 'P', "plateSteel", 'D',
 				ItemParts.getPartByName("dataOrb"), 'C', ItemParts.getPartByName("computerMonitor"));
 
-		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ALLOY_SMELTER), "XCX", "FMF", "XXX", 'C',
+		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ALLOY_SMELTER), " C ", "FMF", "   ", 'C',
 			"circuitBasic", 'F', IC2Duplicates.ELECTRICAL_FURNACE.getStackBasedOnConfig(), 'M',
 			BlockMachineFrames.getFrameByName("machine", 1));
 
@@ -740,7 +740,7 @@ public class ModRecipes {
 			'S', ItemParts.getPartByName("diamondSawBlade"), 'C',
 			"machineBlockAdvanced");
 
-		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.CHARGE_O_MAT), "ETE", "COC", "EAD", 'E',
+		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.CHARGE_O_MAT), "ETE", "COC", "EAE", 'E',
 			"circuitMaster", 'T', ModItems.ENERGY_CRYSTAL, 'C', Blocks.CHEST, 'O',
 			ModItems.LAPOTRONIC_ORB, 'A', "machineBlockAdvanced");
 
