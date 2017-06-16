@@ -60,7 +60,7 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 
     @Override
     public double getMaxOutput() {
-        if(!hasStartedCrafting){
+        if(!(hasStartedCrafting&&currentRecipe.getEuTick()>0)){
             return 0;
         }
         return 1000000;
@@ -68,7 +68,7 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 
     @Override
     public double getMaxInput() {
-        if(hasStartedCrafting){
+        if((hasStartedCrafting&&currentRecipe.getEuTick()>0)){
             return 0;
         }
         return 8192;
@@ -274,6 +274,8 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
                                 if (canUseEnergy(currentRecipe.getEuTick() * -1)) {
                                     setEnergy(getEnergy() - (currentRecipe.getEuTick() * -1));
                                     crafingTickTime++;
+                                }else {
+                                    resetCrafter();
                                 }
                             }
                         } else {
@@ -290,7 +292,7 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 
 
                                 if(emptyCellCount>64)emptyCellCount=64;
-                                System.out.println(String.valueOf(emptyCellCount));
+                                //System.out.println(String.valueOf(emptyCellCount));
                                 /*
                                 decrStackSize(topStackSlot, currentRecipe.getTopInput().stackSize);
                                 if (currentRecipe.getBottomInput() != null) {
@@ -299,7 +301,7 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
                                 crafingTickTime=0;
                                 if (!validateRecipe()) {
                                     resetCrafter();
-                                    System.out.println("reset2X");
+                                    //System.out.println("reset2X");
                                     //return;
                                 }
                                 //System.out.println("reset2");
@@ -310,7 +312,7 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
             } else {
                 if (currentRecipe != null) {
                     resetCrafter();
-                    System.out.println("reset3");
+                    //System.out.println("reset3");
                 }
             }
         }
