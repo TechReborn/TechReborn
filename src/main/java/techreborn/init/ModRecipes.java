@@ -749,10 +749,6 @@ public class ModRecipes {
 			BlockMachineFrames.getFrameByName("highlyAdvancedMachine", 1), 'O', ModItems.LAPOTRONIC_ORB);
 
 		RebornCraftingHelper
-			.addShapedOreRecipe(new ItemStack(ModBlocks.HEAT_GENERATOR), "III", "IHI", "CGC", 'I', "plateIron", 'H',
-				new ItemStack(Blocks.IRON_BARS), 'C', "circuitBasic", 'G', IC2Duplicates.GENERATOR.getStackBasedOnConfig());
-
-		RebornCraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModBlocks.GAS_TURBINE), "IAI", "WGW", "IAI", 'I', "ingotInvar", 'A',
 				"circuitAdvanced", 'W',
 				getOre("ic2Windmill"), 'G',

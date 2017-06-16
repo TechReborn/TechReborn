@@ -49,9 +49,6 @@ import prospector.shootingstar.ShootingStar;
 import reborncore.api.tile.IUpgradeable;
 import reborncore.client.hud.StackInfoHUD;
 import reborncore.client.multiblock.MultiblockRenderEvent;
-import techreborn.Core;
-import techreborn.blocks.BlockMachineCasing;
-import techreborn.blocks.BlockMachineFrames;
 import techreborn.blocks.BlockRubberLeaves;
 import techreborn.client.ClientMultiBlocks;
 import techreborn.client.IconSupplier;
@@ -65,9 +62,6 @@ import techreborn.entities.EntityNukePrimed;
 import techreborn.init.ModBlocks;
 import techreborn.items.ItemFrequencyTransmitter;
 import techreborn.lib.ModInfo;
-import techreborn.manual.loader.ManualLoader;
-
-import java.io.File;
 
 public class ClientProxy extends CommonProxy {
 

@@ -99,7 +99,6 @@ public class ModBlocks {
 	public static Block FUSION_CONTROL_COMPUTER;
 	public static Block FUSION_COIL;
 	public static Block LIGHTNING_ROD;
-	public static Block HEAT_GENERATOR;
 	public static Block INDUSTRIAL_SAWMILL;
 	public static Block CHARGE_O_MAT;
 	public static Block PLAYER_DETECTOR;
@@ -287,10 +286,6 @@ public class ModBlocks {
 		LIGHTNING_ROD = new BlockLightningRod();
 		registerBlock(LIGHTNING_ROD, "lightning_rod");
 		GameRegistry.registerTileEntity(TileLightningRod.class, "TileLightningRodTR");
-
-		HEAT_GENERATOR = new BlockHeatGenerator();
-		registerBlock(HEAT_GENERATOR, "heat_generator");
-		GameRegistry.registerTileEntity(TileHeatGenerator.class, "TileHeatGeneratorTR");
 
 		INDUSTRIAL_SAWMILL = new BlockIndustrialSawmill();
 		registerBlock(INDUSTRIAL_SAWMILL, "industrial_sawmill");

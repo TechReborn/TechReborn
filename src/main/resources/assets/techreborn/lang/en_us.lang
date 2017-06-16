@@ -69,7 +69,7 @@ tile.techreborn:scrapboxinator.name=Scrapbox-inator
 tile.techreborn:batbox.name=Battery Box
 tile.techreborn:mfe.name=MFE
 tile.techreborn:mfsu.name=MFSU
-tile.techreborn:reinforcedglass.name=Reinforced Glass
+tile.techreborn:reinforced_glass.name=Reinforced Glass
 tile.techreborn:nuke.name=Nuke
 tile.techreborn:lvtransformer.name=LV Transformer
 tile.techreborn:mvtransformer.name=MV Transformer
@@ -618,36 +618,36 @@ item.techreborn:manual.name=Tech Manual
 item.techreborn:debug.name=Debug Tool
 
 #Recipe Handlers
-techreborn:recipe.alloysmelter=Alloy Furnace Recipe
-techreborn:recipe.ironalloysmelter=Iron Alloy Furnace Recipe
-techreborn:recipe.assemblingmachine=Assembling Machine Recipe
-techreborn:recipe.blastfurnace=Blast Furnace Recipe
-techreborn:recipe.centrifuge=Centrifuge Recipe
-techreborn:recipe.grinder=Industrial Grinder Recipe
-techreborn:recipe.industrialelectrolyzer=Industrial Electrolyzer Recipe
-techreborn:recipe.industrialsawmill=Industrial Sawmill Recipe
-techreborn:recipe.lathe=Lathe Recipe
-techreborn:recipe.platecuttingmachine=Plate Cutting Machine Recipe
-techreborn:recipe.chemicalReactor=Chemical Reactor Recipe
-techreborn:recipe.implosioncompressor=Implosion Compressor
+techreborn.recipe.alloysmelter=Alloy Furnace Recipe
+techreborn.recipe.ironalloysmelter=Iron Alloy Furnace Recipe
+techreborn.recipe.assemblingmachine=Assembling Machine Recipe
+techreborn.recipe.blastfurnace=Blast Furnace Recipe
+techreborn.recipe.centrifuge=Centrifuge Recipe
+techreborn.recipe.grinder=Industrial Grinder Recipe
+techreborn.recipe.industrialelectrolyzer=Industrial Electrolyzer Recipe
+techreborn.recipe.industrialsawmill=Industrial Sawmill Recipe
+techreborn.recipe.lathe=Lathe Recipe
+techreborn.recipe.platecuttingmachine=Plate Cutting Machine Recipe
+techreborn.recipe.chemicalReactor=Chemical Reactor Recipe
+techreborn.recipe.implosioncompressor=Implosion Compressor
 
 #Message
-techreborn:message.missingmultiblock=Incomplete Multiblock
-techreborn:message.setTo=Set to
-techreborn:message.in=in
-techreborn:message.noCoordsSet=No Coordinates Set
-techreborn:message.coordsHaveBeen=Coordinates have been
-techreborn:message.cleared=Cleared
-techreborn:message.detects=Detects
-techreborn:message.allPlayers=All Players
-techreborn:message.onlyOtherPlayers=Only Other Players
-techreborn:message.onlyYou=Only You
-techreborn:message.nanosaberActive=Active
-techreborn:message.nanosaberActivate=Activate
-techreborn:message.nanosaberDeactivating=Deactivating
-techreborn:message.nanosaberInactive=Inactive
-techreborn:message.nanosaberEnergyErrorTo=Not Enough Energy to
-techreborn:message.nanosaberEnergyError=Not Enough Energy:
+techreborn.message.missingmultiblock=Incomplete Multiblock
+techreborn.message.setTo=Set to
+techreborn.message.in=in
+techreborn.message.noCoordsSet=No Coordinates Set
+techreborn.message.coordsHaveBeen=Coordinates have been
+techreborn.message.cleared=Cleared
+techreborn.message.detects=Detects
+techreborn.message.allPlayers=All Players
+techreborn.message.onlyOtherPlayers=Only Other Players
+techreborn.message.onlyYou=Only You
+techreborn.message.nanosaberActive=Active
+techreborn.message.nanosaberActivate=Activate
+techreborn.message.nanosaberDeactivating=Deactivating
+techreborn.message.nanosaberInactive=Inactive
+techreborn.message.nanosaberEnergyErrorTo=Not Enough Energy to
+techreborn.message.nanosaberEnergyError=Not Enough Energy:
 
 #Cables
 Cable.copperCable.name=Copper Cable
@@ -667,25 +667,6 @@ desc.uninsulatedCable=Damages Entities!
 desc.transfer=Energy Transfer:
 desc.tier=Tier:
 
-
-#Manual
-techreborn:manual.contents=Contents Page
-techreborn:manual.gettingstarted=Getting Started
-techreborn:manual.generatingpower=Generating Power
-techreborn:manual.basicmachines=Basic Machines
-techreborn:manual.advancedmachines=Advanced Machines
-techreborn:manual.tools=Tools
-
-techreborn:manual.gettingrubber=Collecting Rubber
-techreborn:manual.backbutton=Back
-techreborn:manual.gettingplates=Crafting Plates
-
-item.techreborn:advancedDrill.description=This Tool is a advanced version of the mining drill, when this item is activated it will dig out a 3x3.
-tile.techreborn:alloyfurnace.description=This Machine is your first step into TechReborn with this you can fuse metals into other metals. These other metals can be used to craft the higher tier machines.
-tile.techreborn:alloysmelter.description=This machine is a upgraded version of the Alloy Furnace, This block requires EU or RF.
-tile.techreborn:assemblingmachine.description=This block is used to craft some of the more complex machines that can't be crafted in a normal crafting table.
-tile.techreborn:blastfurnace.description=This Machine needs a 3x4x3 of machine casings behind it to increase its internal heat, The hotter the machine is the more recipes will open up to you. This machine also needs EU/RF.
-
 keys.techreborn:category=TechReborn Category
 keys.techreborn:config=Config
 
@@ -695,20 +676,20 @@ achievement.TechReborn:centrifuge_Craft=Time to Spin
 achievement.TechReborn:thermalgen_Craft=Time to Heat
 
 # JEI Integration
-techreborn:jei.recipe.start.cost=Start: %sEU
-techreborn:jei.recipe.running.cost=EU/t: %s
-techreborn:jei.recipe.processing.time.1=Time: %s ticks
-techreborn:jei.recipe.processing.time.2=(%s seconds)
-jei.techreborn:scrapbox.name=Opening Scrapboxes
-techreborn:desc.rubberSap=In order to get sap, you need to find a rubber tree or obtain a rubber tree sapling and proceed to grow it. Once you have obtained a rubber tree, search around for little yellowish spots on the tree. If you don't see any, just wait a bit and eventually these yellow "sap" spots. To harvest the sap, use a treetap and use it on the log.
-techreborn:desc.scrapBox=Scrapboxes can be opened by either a simple use in hand, or by dispensers. That's right, just throw your scrapboxes into dispensers and give them a redstone signal, and boom! Random item!
-techreborn:desc.scrapBoxNoDispenser=Scrapboxes can be opened by a simple use in hand!
+techreborn.jei.recipe.start.cost=Start: %sEU
+techreborn.jei.recipe.running.cost=EU/t: %s
+techreborn.jei.recipe.processing.time.1=Time: %s ticks
+techreborn.jei.recipe.processing.time.2=(%s seconds)
+jei.techreborn.scrapbox.name=Opening Scrapboxes
+techreborn.desc.rubberSap=In order to get sap, you need to find a rubber tree or obtain a rubber tree sapling and proceed to grow it. Once you have obtained a rubber tree, search around for little yellowish spots on the tree. If you don't see any, just wait a bit and eventually these yellow "sap" spots. To harvest the sap, use a treetap and use it on the log.
+techreborn.desc.scrapBox=Scrapboxes can be opened by either a simple use in hand, or by dispensers. That's right, just throw your scrapboxes into dispensers and give them a redstone signal, and boom! Random item!
+techreborn.desc.scrapBoxNoDispenser=Scrapboxes can be opened by a simple use in hand!
 
-techreborn:jei.category.alloy.furnace=Alloy Furnace
-techreborn:jei.category.generator.gas=Gas Generator
-techreborn:jei.category.generator.semifluid=Semifluid Generator
-techreborn:jei.category.generator.diesel=Diesel Generator
-techreborn:jei.category.generator.thermal=Thermal Generator
+techreborn.jei.category.alloy.furnace=Alloy Furnace
+techreborn.jei.category.generator.gas=Gas Generator
+techreborn.jei.category.generator.semifluid=Semifluid Generator
+techreborn.jei.category.generator.diesel=Diesel Generator
+techreborn.jei.category.generator.thermal=Thermal Generator
 
 #Death Messages
 death.attack.shock=%s was electrocuted

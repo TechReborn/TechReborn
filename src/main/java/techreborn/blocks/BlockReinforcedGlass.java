@@ -24,6 +24,8 @@
 
 package techreborn.blocks;
 
+import net.minecraft.block.BlockGlass;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockRenderLayer;
@@ -31,17 +33,24 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
-import reborncore.common.BaseBlock;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.lib.ModInfo;
 
-public class BlockReinforcedGlass extends BaseBlock {
+import java.util.Random;
+
+public class BlockReinforcedGlass extends BlockGlass {
 
 	public BlockReinforcedGlass() {
-		super(Material.GLASS);
+		super(Material.GLASS, false);
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setSoundType(SoundType.STONE);
 		setHardness(4.0F);
+		setResistance(60F);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
+	}
+
+	public int quantityDropped(Random random) {
+		return 1;
 	}
 
 	@Override
@@ -57,5 +66,4 @@ public class BlockReinforcedGlass extends BaseBlock {
 	public boolean isFullCube() {
 		return false;
 	}
-
 }

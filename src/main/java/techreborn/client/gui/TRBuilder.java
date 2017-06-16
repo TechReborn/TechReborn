@@ -74,13 +74,6 @@ public class TRBuilder extends GuiBuilder {
 		gui.drawTexturedModalRect(x + 1, y + 49 - draw, PowerSystem.getDisplayPower().xBar, 48 + PowerSystem.getDisplayPower().yBar - draw, 12, draw);
 		int percentage = percentage(maxEnergyStored, energyStored);
 		if (isInRect(x + 1, y + 1, 11, 48, mouseX, mouseY)) {
-			GlStateManager.disableLighting();
-			GlStateManager.disableDepth();
-			GlStateManager.colorMask(true, true, true, false);
-			GuiUtils.drawGradientRect(0, x + 1, y + 1, x + 13, y + 49, 0x80FFFFFF, 0x80FFFFFF);
-			GlStateManager.colorMask(true, true, true, true);
-			GlStateManager.enableDepth();
-
 			List<String> list = new ArrayList<>();
 			TextFormatting powerColour = TextFormatting.GOLD;
 			list.add(powerColour + PowerSystem.getLocaliszedPowerFormattedNoSuffix(energyStored) + "/" + PowerSystem.getLocaliszedPowerFormattedNoSuffix(maxEnergyStored) + " " + PowerSystem.getDisplayPower().abbreviation);
@@ -345,16 +338,16 @@ public class TRBuilder extends GuiBuilder {
 		Minecraft.getMinecraft().getTextureManager().bindTexture(GUI_SHEET);
 		for (int i = 1; i <= count; i++) {
 			if (i == 1) {
-				gui.drawTexturedModalRect(posX, posY, 114 + 39, 218, 22, 26);
+				gui.drawTexturedModalRect(posX, posY, 125 + 39, 218, 22, 26);
 				posX += 22;
 				if (1 == count) {
-					gui.drawTexturedModalRect(posX, posY, 136 + 39, 218, 4, 26);
+					gui.drawTexturedModalRect(posX, posY, 147 + 39, 218, 4, 26);
 				}
 			} else if (i != 1 && i != count) {
-				gui.drawTexturedModalRect(posX, posY, 116 + 39, 218, 20, 26);
+				gui.drawTexturedModalRect(posX, posY, 127 + 39, 218, 20, 26);
 				posX += 20;
 			} else if (i == count) {
-				gui.drawTexturedModalRect(posX, posY, 116 + 39, 218, 24, 26);
+				gui.drawTexturedModalRect(posX, posY, 127 + 39, 218, 24, 26);
 				posX += 24;
 			}
 		}

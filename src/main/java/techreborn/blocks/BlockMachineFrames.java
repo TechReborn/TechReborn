@@ -56,8 +56,8 @@ public class BlockMachineFrames extends BaseBlock {
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setHardness(1f);
 		this.setDefaultState(this.getDefaultState().withProperty(TYPE, "basic"));
-		for (int i = 0; i > types.length; i++) {
-			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i, "machines/structure").setInvVariant(types[i]));
+		for (int i = 0; i < types.length; i++) {
+			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i, "machines/structure").setInvVariant("type=" + types[i]));
 		}
 	}
 

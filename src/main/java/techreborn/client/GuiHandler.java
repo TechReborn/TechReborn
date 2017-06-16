@@ -31,7 +31,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import techreborn.client.container.*;
 import techreborn.client.gui.*;
-import techreborn.manual.GuiManual;
 import techreborn.tiles.*;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 import techreborn.tiles.generator.*;
@@ -127,8 +126,6 @@ public class GuiHandler implements IGuiHandler {
 				return new GuiIronFurnace(player, (TileIronFurnace) tile);
 			case LESU:
 				return new GuiLESU(player, (TileLapotronicSU) tile);
-			case MANUAL:
-				return new GuiManual();
 			case MATTER_FABRICATOR:
 				return new GuiMatterFabricator(player, (TileMatterFabricator) tile);
 			case MEDIUM_VOLTAGE_SU:
