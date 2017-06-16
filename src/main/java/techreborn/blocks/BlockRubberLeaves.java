@@ -46,9 +46,6 @@ import techreborn.lib.ModInfo;
 import java.util.List;
 import java.util.Random;
 
-/**
- * Created by modmuss50 on 20/02/2016.
- */
 public class BlockRubberLeaves extends BlockLeaves {
 
 	public BlockRubberLeaves() {
@@ -57,7 +54,7 @@ public class BlockRubberLeaves extends BlockLeaves {
 		this.setDefaultState(this.getDefaultState().withProperty(CHECK_DECAY, true)
 			.withProperty(DECAYABLE, true));
 		Blocks.FIRE.setFireInfo(this, 30, 60);
-		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, CHECK_DECAY, DECAYABLE));
 	}
 
 	@Override

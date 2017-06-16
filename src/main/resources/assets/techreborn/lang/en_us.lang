@@ -78,10 +78,10 @@ tile.techreborn:evtransformer.name=EV Transformer
 
 
 #Blocks
-tile.techreborn:rubberlog.name=Rubber Wood
-tile.techreborn:rubberplank.name=Rubber Wood Planks
-tile.techreborn:rubberleaves.name=Rubber Leaves
-tile.techreborn:rubbersapling.name=Rubber Sapling
+tile.techreborn:rubber_log.name=Rubber Wood
+tile.techreborn:rubber_planks.name=Rubber Wood Planks
+tile.techreborn:rubber_leaves.name=Rubber Leaves
+tile.techreborn:rubber_sapling.name=Rubber Sapling
 
 tile.techreborn:ironfence.name=Iron Fence
 

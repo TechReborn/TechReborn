@@ -1,0 +1,47 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "particle": "#side",
+      "north": "#side",
+      "south": "#side",
+      "east": "#side",
+      "west": "#side",
+      "up": "#end",
+      "down": "#end",
+      "end": "techreborn:blocks/rubber_log_top",
+      "sapside": "techreborn:blocks/rubber_log_sap",
+      "side": "techreborn:blocks/rubber_log_side"
+    },
+    "model": "cube",
+    "uvlock": true
+  },
+  "variants": {
+    "inventory": [
+      {
+      }
+    ],
+    "hassap": {
+      "true": {
+        "textures": {
+          "north": "#sapside"
+        }
+      },
+      "false": {
+      }
+    },
+    "sapside": {
+      "north": {
+      },
+      "east": {
+        "y": 90
+      },
+      "south": {
+        "y": 180
+      },
+      "west": {
+        "y": 270
+      }
+    }
+  }
+}
