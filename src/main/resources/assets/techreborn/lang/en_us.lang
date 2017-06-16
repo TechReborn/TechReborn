@@ -294,9 +294,9 @@ tile.techreborn:cable.glassfiber.name=Glass Fiber Cable
 tile.techreborn:cable.insulatedcopper.name=Insulated Copper Cable
 tile.techreborn:cable.insulatedgold.name=Insulated Gold Cable
 tile.techreborn:cable.insulatedhv.name=Insulated HV Cable
-item.techreborn:scrapbox.name=Scrap Box
-item.techreborn:part.carbon_mesh.name=Carbon Mesh
-item.techreborn:part.carbon_fiber.name=Carbon Fiber
+item.techreborn.scrapbox.name=Scrap Box
+item.techreborn.part.carbon_mesh.name=Carbon Mesh
+item.techreborn.part.carbon_fiber.name=Carbon Fiber
 
 #Small Dusts
 item.techreborn.dustsmall.almandine.name=Small Pile of Almandine Dust
