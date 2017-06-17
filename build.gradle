@@ -56,10 +56,10 @@ repositories {
 	maven {
 		url "http://maven.tterrag.com/"
 	}
-	maven {
-		name = "ic2"
-		url = "http://maven.ic2.player.to/"
-	}
+	// maven {
+	// 	name = "ic2"
+	// 	url = "http://maven.ic2.player.to/"
+	// }
 
 	maven {
 		// HWYLA
@@ -119,7 +119,7 @@ dependencies {
 	//deobfCompile "slimeknights.mantle:Mantle:1.10.2-1.0.0.jenkins170"
 	deobfCompile "mcjty.theoneprobe:TheOneProbe:1.11-1.3.3-46"
 	compile "CraftTweaker:CraftTweaker:1.11.2-3.0.24"
-	deobfCompile  'net.industrial-craft:industrialcraft-2:2.7.5-ex111'
+	deobfCompile  'me.industrial-craft-backup:industrialcraft-2:2.7.5-ex111'
 	compile name: 'buildcraft', version: '7.99.4', ext: 'jar'
 }
 
