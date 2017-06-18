@@ -32,6 +32,8 @@ import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import techreborn.init.ModBlocks;
 
 import java.util.ArrayList;
@@ -61,6 +63,7 @@ public class StackWIPHandler {
 		devHeads.add(head);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public void toolTip(ItemTooltipEvent event) {
 		Block block = Block.getBlockFromItem(event.getItemStack().getItem());
