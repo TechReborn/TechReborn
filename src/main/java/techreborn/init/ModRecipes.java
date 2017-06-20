@@ -35,10 +35,9 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.registration.RebornRegistry;
-import reborncore.common.registration.impl.ConfigRegistry;
-import reborncore.common.util.RebornCraftingHelper;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.OreUtil;
+import reborncore.common.util.RebornCraftingHelper;
 import reborncore.common.util.StringUtils;
 import techreborn.Core;
 import techreborn.api.reactor.FusionReactorRecipe;
@@ -62,12 +61,6 @@ import static techreborn.utils.OreDictUtils.joinDictName;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class ModRecipes {
-
-	@ConfigRegistry(config = "recipes", category = "changes", key = "expesive_macerator", comment = "Enable the expensive macertor recipe")
-	public static boolean expensiveMacerator = true;
-
-	@ConfigRegistry(config = "recipes", category = "changes", key = "expesive_solar", comment = "Enable the expensive solar panel recipe")
-	public static boolean expensiveSolar = true;
 
 	public static void init() {
 		//Gonna rescan to make sure we have an uptodate list
@@ -941,13 +934,13 @@ public class ModRecipes {
 			ItemCells.getCellByName("empty"), ItemCells.getCellByName("nitrogenDioxide", 2), 1240,
 			30));
 
-		if (expensiveMacerator && !IC2Duplicates.deduplicate())
+		if (!IC2Duplicates.deduplicate())
 			RebornCraftingHelper
 				.addShapedOreRecipe(getOre("ic2Macerator"), "FDF", "DMD", "FCF", 'F',
 					Items.FLINT, 'D', Items.DIAMOND, 'M', "machineBlockBasic", 'C',
 					"circuitBasic");
 
-		if (expensiveSolar && !IC2Duplicates.deduplicate())
+		if (!IC2Duplicates.deduplicate())
 			RebornCraftingHelper
 				.addShapedOreRecipe(IC2Duplicates.SOLAR_PANEL.getStackBasedOnConfig(), "PPP", "SZS", "CGC", 'P',
 					"paneGlass", 'S', "platelazurite", 'Z',
