@@ -24,15 +24,34 @@
 
 package techreborn.blocks;
 
-import net.minecraft.block.material.Material;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import reborncore.common.blocks.BlockMachineBase;
+import techreborn.Core;
+import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.tiles.TileAutoCraftingTable;
 
-public class BlockElectricCraftingTable extends BlockMachineBase {
+public class BlockAutoCraftingTable extends BlockMachineBase {
 
-	public BlockElectricCraftingTable(Material material) {
+	public BlockAutoCraftingTable() {
 		super();
 		setUnlocalizedName("techreborn.electriccraftingtable");
 		setCreativeTab(TechRebornCreativeTab.instance);
+	}
+
+	@Override
+	public TileEntity createNewTileEntity(final World p_149915_1_, final int p_149915_2_) {
+		return new TileAutoCraftingTable();
+	}
+
+	@Override
+	public boolean onBlockActivated(final World world, final int x, final int y, final int z, final EntityPlayer player, final int side, final float hitX,
+	                                final float hitY, final float hitZ) {
+		if (!player.isSneaking()) {
+			player.openGui(Core.INSTANCE, EGui.AUTO_CRAFTING_TABLE.ordinal(), world, x, y, z);
+		}
+		return true;
 	}
 }

@@ -119,6 +119,7 @@ public class ModBlocks {
 	public static Block LV_TRANSFORMER;
 	public static Block MV_TRANSFORMER;
 	public static Block HV_TRANSFORMER;
+	public static Block AUTO_CRAFTING_TABLE;
 
 	public static BlockOre ORE;
 	public static BlockOre2 ORE2;
@@ -377,6 +378,10 @@ public class ModBlocks {
 		HV_TRANSFORMER = new BlockHVTransformer();
 		registerBlock(HV_TRANSFORMER, "hv_transformer");
 		GameRegistry.registerTileEntity(TileHVTransformer.class, "TileHVTransformerTR");
+
+		AUTO_CRAFTING_TABLE = new BlockAutoCraftingTable();
+		registerBlock(AUTO_CRAFTING_TABLE, "auto_crafting_table");
+		GameRegistry.registerTileEntity(TileAutoCraftingTable.class, "TileAutoCraftingTableTR");
 
 		IRON_FURNACE = new BlockIronFurnace();
 		registerBlock(IRON_FURNACE, "iron_furnace");

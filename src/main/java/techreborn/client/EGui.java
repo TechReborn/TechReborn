@@ -64,7 +64,8 @@ public enum EGui {
 	SCRAPBOXINATOR(true),
 	LOW_VOLTAGE_SU(true),
 	HIGH_VOLTAGE_SU(true),
-	MEDIUM_VOLTAGE_SU(true);
+	MEDIUM_VOLTAGE_SU(true),
+	AUTO_CRAFTING_TABLE(true);
 
 	private final boolean containerBuilder;
 
