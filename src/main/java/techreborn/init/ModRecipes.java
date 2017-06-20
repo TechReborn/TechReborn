@@ -64,10 +64,10 @@ import static techreborn.utils.OreDictUtils.joinDictName;
 public class ModRecipes {
 
 	@ConfigRegistry(config = "recipes", category = "changes", key = "expesive_macerator", comment = "Enable the expensive macertor recipe")
-	public static boolean expensiveMacerator = false;
+	public static boolean expensiveMacerator = true;
 
 	@ConfigRegistry(config = "recipes", category = "changes", key = "expesive_solar", comment = "Enable the expensive solar panel recipe")
-	public static boolean expensiveSolar = false;
+	public static boolean expensiveSolar = true;
 
 	public static void init() {
 		//Gonna rescan to make sure we have an uptodate list
