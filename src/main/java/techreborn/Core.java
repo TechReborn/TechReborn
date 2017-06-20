@@ -77,6 +77,8 @@ public class Core {
 	public static TechRebornWorldGen worldGen;
 	public static File configDir;
 	public VersionChecker versionChecker;
+	//enable dev featues with -Dtechreborn.devFeatues=true
+	public static final boolean DEV_FEATURES = Boolean.parseBoolean(System.getProperty("techreborn.devFeatues", "false"));
 
 	public Core() {
 		//Forge says to call it here, so yeah
