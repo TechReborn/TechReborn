@@ -57,6 +57,7 @@ import techreborn.init.*;
 import techreborn.lib.ModInfo;
 import techreborn.packets.PacketAesu;
 import techreborn.packets.PacketIdsu;
+import techreborn.packets.PacketSetRecipe;
 import techreborn.packets.PacketSyncSideConfig;
 import techreborn.proxies.CommonProxy;
 import techreborn.utils.StackWIPHandler;
@@ -199,6 +200,7 @@ public class Core {
 		event.registerPacket(PacketSyncSideConfig.class, Side.SERVER);
 		event.registerPacket(PacketAesu.class, Side.SERVER);
 		event.registerPacket(PacketIdsu.class, Side.SERVER);
+		event.registerPacket(PacketSetRecipe.class, Side.SERVER);
 	}
 
 	@Mod.EventHandler
