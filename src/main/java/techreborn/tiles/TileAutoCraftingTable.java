@@ -2,6 +2,7 @@ package techreborn.tiles;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
@@ -23,11 +24,11 @@ import javax.annotation.Nullable;
 /**
  * Created by modmuss50 on 20/06/2017.
  */
-public class TileAutoCraftingTable extends TilePowerAcceptor implements IContainerProvider, IInventoryProvider {
+public class TileAutoCraftingTable extends TilePowerAcceptor implements IContainerProvider, IInventoryProvider, ISidedInventory {
 
 	ResourceLocation currentRecipe;
 
-	public Inventory inventory = new Inventory(10, "TileAutoCraftingTable", 64, this);
+	public Inventory inventory = new AutoCraftingInventory(10, "TileAutoCraftingTable", 64, this);
 	public int progress;
 	public int maxProgress = 120;
 	public int euTick = 10;
@@ -57,6 +58,9 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 	@Override
 	public void update() {
 		super.update();
+		if(world.isRemote){
+			return;
+		}
 		IRecipe recipe = getIRecipe();
 		if (recipe != null) {
 			if (progress >= maxProgress) {
@@ -239,5 +243,38 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 			currentRecipe = new ResourceLocation(tag.getString("currentRecipe"));
 		}
 		super.readFromNBT(tag);
+	}
+
+	@Override
+	public int[] getSlotsForFace(EnumFacing side) {
+		return new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+	}
+
+	public boolean isItemValidForRecipeSlot(IRecipe recipe, ItemStack stack, int slotID){
+		if(recipe == null){
+			return true;
+		}
+		//TODO check slot is the best place for the recipe, round robin if possible
+		//If there is a better slot return false for it to be added their later.
+		return true;
+	}
+
+	private class AutoCraftingInventory extends Inventory {
+
+		TileAutoCraftingTable tile;
+
+		public AutoCraftingInventory(int size, String invName, int invStackLimit, TileAutoCraftingTable tileEntity) {
+			super(size, invName, invStackLimit, tileEntity);
+			this.tile = tileEntity;
+		}
+
+		@Override
+		public boolean isItemValidForSlot(int i, ItemStack itemstack) {
+			IRecipe recipe = tile.getIRecipe();
+			if(recipe != null){
+				return tile.isItemValidForRecipeSlot(recipe, itemstack, i);
+			}
+			return true;
+		}
 	}
 }
