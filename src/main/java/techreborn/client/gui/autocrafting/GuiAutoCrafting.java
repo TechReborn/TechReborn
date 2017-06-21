@@ -24,7 +24,9 @@ import techreborn.packets.PacketSetRecipe;
 import techreborn.tiles.TileAutoCraftingTable;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import static net.minecraft.item.ItemStack.EMPTY;
 
@@ -75,6 +77,18 @@ public class GuiAutoCrafting extends GuiBase {
 		this.builder.drawMultiEnergyBar(this, 9, 26, (int) this.tileAutoCraftingTable.getEnergy(), (int) this.tileAutoCraftingTable.getMaxPower(), mouseX, mouseY, 0, layer);
 		this.builder.drawProgressBar(this, tileAutoCraftingTable.getProgress(), tileAutoCraftingTable.getMaxProgress(), 120, 44, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
 
+		int mX = mouseX - getGuiLeft();
+		int mY = mouseY - getGuiTop();
+
+		if(recipe != null && !tileAutoCraftingTable.customRecipe){
+			if (builder.isInRect(91, 66, 23, 23, mX, mY)) {
+				List<String> list = new ArrayList<>();
+				list.add("Click to clear");
+				net.minecraftforge.fml.client.config.GuiUtils.drawHoveringText(list, mX, mY, width, height, -1, mc.fontRenderer);
+				GlStateManager.disableLighting();
+				GlStateManager.color(1, 1, 1, 1);
+			}
+		}
 	}
 
 	//Based of vanilla code
@@ -174,6 +188,13 @@ public class GuiAutoCrafting extends GuiBase {
 		if (!this.recipeSlector.func_191862_a(mouseX, mouseY, mouseButton)) {
 			super.mouseClicked(mouseX, mouseY, mouseButton);
 		}
+		int mX = mouseX - getGuiLeft();
+		int mY = mouseY - getGuiTop();
+
+		mc.getTextureManager().bindTexture(TRBuilder.GUI_SHEET);
+		if (builder.isInRect(91, 66, 23, 23, mX, mY)) {
+			setRecipe(null, true);
+		}
 	}
 
 	@Override
@@ -194,9 +215,9 @@ public class GuiAutoCrafting extends GuiBase {
 		super.onGuiClosed();
 	}
 
-	public void setRecipe(IRecipe recipe) {
-		tileAutoCraftingTable.setCurrentRecipe(recipe.getRegistryName());
-		NetworkManager.sendToServer(new PacketSetRecipe(tileAutoCraftingTable, recipe.getRegistryName()));
+	public void setRecipe(IRecipe recipe, boolean custom) {
+		tileAutoCraftingTable.setCurrentRecipe(recipe, custom);
+		NetworkManager.sendToServer(new PacketSetRecipe(tileAutoCraftingTable, recipe, custom));
 	}
 
 }

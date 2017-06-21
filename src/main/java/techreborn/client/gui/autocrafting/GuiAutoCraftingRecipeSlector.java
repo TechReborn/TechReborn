@@ -32,7 +32,7 @@ public class GuiAutoCraftingRecipeSlector extends GuiRecipeBook {
 
 	@Override
 	public void setContainerRecipe(IRecipe recipe, RecipeList recipes) {
-		guiAutoCrafting.setRecipe(recipe);
+		guiAutoCrafting.setRecipe(recipe, false);
 	}
 
 	public void setGuiAutoCrafting(GuiAutoCrafting guiAutoCrafting) {

@@ -1,9 +1,12 @@
 package techreborn.tiles;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
@@ -35,13 +38,37 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 	public int maxProgress = 120;
 	public int euTick = 10;
 	public Pair<ResourceLocation, IRecipe> cachedRecipe;
+	public boolean customRecipe = true;
+	InventoryCrafting inventoryCrafting = null;
+	IRecipe lastCustomRecipe = null;
 
-	public void setCurrentRecipe(ResourceLocation recipe) {
+	public void setCurrentRecipe(IRecipe recipe, boolean customRecipe) {
+		if(recipe != null){
+			currentRecipe = recipe.getRegistryName();
+		} else {
+			currentRecipe = null;
+		}
+
+		this.customRecipe = customRecipe;
+		cachedRecipe = null;
+	}
+
+	public void setCurrentRecipe(ResourceLocation recipe, boolean customRecipe) {
 		currentRecipe = recipe;
+		this.customRecipe = customRecipe;
+		cachedRecipe = null;
 	}
 
 	@Nullable
 	public IRecipe getIRecipe() {
+		if(customRecipe){
+			InventoryCrafting crafting = getCraftingInventory();
+			for(IRecipe testRecipe : CraftingManager.REGISTRY){
+				if(testRecipe.matches(crafting, world)){
+					return testRecipe;
+				}
+			}
+		}
 		if (currentRecipe == null) {
 			return null;
 		}
@@ -57,6 +84,21 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 		return cachedRecipe.getRight();
 	}
 
+	public InventoryCrafting getCraftingInventory(){
+		if(inventoryCrafting == null){
+			inventoryCrafting = new InventoryCrafting(new Container() {
+				@Override
+				public boolean canInteractWith(EntityPlayer playerIn) {
+					return false;
+				}
+			}, 3, 3);
+		}
+		for (int i = 0; i < 8; i++) {
+			inventoryCrafting.setInventorySlotContents(i, inventory.getStackInSlot(i));
+		}
+		return inventoryCrafting;
+	}
+
 	@Override
 	public void update() {
 		super.update();
@@ -64,7 +106,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 			return;
 		}
 		IRecipe recipe = getIRecipe();
-		if (recipe != null) {
+		if (recipe != null || customRecipe) {
 			if (progress >= maxProgress) {
 				if (make(recipe)) {
 					progress = 0;
@@ -81,7 +123,10 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 	}
 
 	public boolean canMake(IRecipe recipe) {
-		if (recipe.canFit(3, 3)) {
+		if(customRecipe){
+			recipe = getIRecipe();
+		}
+		if (recipe != null && recipe.canFit(3, 3)) {
 			boolean missingOutput = false;
 			int[] stacksInSlots = new int[9];
 			for (int i = 0; i < 9; i++) {
@@ -92,7 +137,8 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 					boolean foundIngredient = false;
 					for (int i = 0; i < 9; i++) {
 						ItemStack stack = inventory.getStackInSlot(i);
-						if (stacksInSlots[i] > 0) {
+						int requiredSize = customRecipe ? 1 : 0;
+						if (stacksInSlots[i] > requiredSize) {
 							if (ingredient.apply(stack)) {
 								foundIngredient = true;
 								stacksInSlots[i]--;
@@ -130,6 +176,12 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 
 	public boolean make(IRecipe recipe) {
 		if (canMake(recipe)) {
+			if(recipe == null && customRecipe){
+				if(lastCustomRecipe == null){
+					return false;
+				}//Should be uptodate as we just set it in canMake
+				recipe = lastCustomRecipe;
+			}
 			for (int i = 0; i < recipe.getIngredients().size(); i++) {
 				Ingredient ingredient = recipe.getIngredients().get(i);
 				//Looks for the best slot to take it from
@@ -141,15 +193,19 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 						ItemStack stack = inventory.getStackInSlot(j);
 						if (ingredient.apply(stack)) {
 							stack.shrink(1); //TODO is this right? or do I need to use it as an actull crafting grid
+							//TOOD check items to be retuned
 							break;
 						}
 					}
 				}
 			}
 			ItemStack output = inventory.getStackInSlot(9);
+			//TODO fire forge recipe event
+			ItemStack ouputStack = recipe.getCraftingResult(getCraftingInventory());
 			if (output.isEmpty()) {
-				inventory.setInventorySlotContents(9, recipe.getRecipeOutput().copy());
+				inventory.setInventorySlotContents(9, ouputStack.copy());
 			} else {
+				//TODO use ouputStack in someway?
 				output.grow(recipe.getRecipeOutput().getCount());
 			}
 			return true;
@@ -243,6 +299,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 		if (currentRecipe != null) {
 			tag.setString("currentRecipe", currentRecipe.toString());
 		}
+		tag.setBoolean("customRecipe", customRecipe);
 		return super.writeToNBT(tag);
 	}
 
@@ -251,6 +308,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 		if (tag.hasKey("currentRecipe")) {
 			currentRecipe = new ResourceLocation(tag.getString("currentRecipe"));
 		}
+		customRecipe = tag.getBoolean("customRecipe");
 		super.readFromNBT(tag);
 	}
 
