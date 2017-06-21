@@ -77,7 +77,7 @@ public class GuiAutoCrafting extends GuiBase {
 		}
 		final Layer layer = Layer.FOREGROUND;
 		this.builder.drawMultiEnergyBar(this, 9, 26, (int) this.tileAutoCraftingTable.getEnergy(), (int) this.tileAutoCraftingTable.getMaxPower(), mouseX, mouseY, 0, layer);
-		this.builder.drawProgressBar(this, 50, 100, 120, 44, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
+		this.builder.drawProgressBar(this, tileAutoCraftingTable.getProgress(), tileAutoCraftingTable.getMaxProgress(), 120, 44, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
 	}
 
 	//Based of vanilla code
