@@ -20,6 +20,8 @@ import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by modmuss50 on 20/06/2017.
@@ -28,7 +30,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 
 	ResourceLocation currentRecipe;
 
-	public Inventory inventory = new AutoCraftingInventory(10, "TileAutoCraftingTable", 64, this);
+	public Inventory inventory = new Inventory(10, "TileAutoCraftingTable", 64, this);
 	public int progress;
 	public int maxProgress = 120;
 	public int euTick = 10;
@@ -245,36 +247,77 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 		super.readFromNBT(tag);
 	}
 
-	@Override
-	public int[] getSlotsForFace(EnumFacing side) {
-		return new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-	}
-
 	public boolean isItemValidForRecipeSlot(IRecipe recipe, ItemStack stack, int slotID){
 		if(recipe == null){
 			return true;
 		}
-		//TODO check slot is the best place for the recipe, round robin if possible
-		//If there is a better slot return false for it to be added their later.
+		int bestSlot = findBestSlotForStack(recipe, stack);
+		if(bestSlot != -1){
+			return bestSlot == slotID;
+		}
 		return true;
 	}
 
-	private class AutoCraftingInventory extends Inventory {
-
-		TileAutoCraftingTable tile;
-
-		public AutoCraftingInventory(int size, String invName, int invStackLimit, TileAutoCraftingTable tileEntity) {
-			super(size, invName, invStackLimit, tileEntity);
-			this.tile = tileEntity;
+	public int findBestSlotForStack(IRecipe recipe, ItemStack stack){
+		if(recipe == null){
+			return -1;
 		}
-
-		@Override
-		public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-			IRecipe recipe = tile.getIRecipe();
-			if(recipe != null){
-				return tile.isItemValidForRecipeSlot(recipe, itemstack, i);
+		List<Integer> possibleSlots = new ArrayList<>();
+		for (int i = 0; i < 9; i++) {
+			ItemStack stackInSlot = inventory.getStackInSlot(i);
+			Ingredient ingredient = recipe.getIngredients().get(i);
+			if(ingredient != Ingredient.EMPTY && ingredient.apply(stack)){
+				if(stackInSlot.isEmpty()){
+					possibleSlots.add(i);
+				} else if (stackInSlot.getItem() == stack.getItem() && stackInSlot.getItemDamage() == stack.getItemDamage()){
+					if(stackInSlot.getMaxStackSize() >= stackInSlot.getCount() + stack.getCount()){
+						possibleSlots.add(i);
+					}
+				}
 			}
-			return true;
 		}
+		//Slot, count
+		Pair<Integer, Integer> smallestCount = null;
+		for(Integer slot : possibleSlots){
+			ItemStack slotStack = inventory.getStackInSlot(slot);
+			if(slotStack.isEmpty()){
+				return slot;
+			}
+			if(smallestCount == null){
+				smallestCount = Pair.of(slot, slotStack.getCount());
+			} else if(smallestCount.getRight() >= slotStack.getCount()){
+				smallestCount = Pair.of(slot, slotStack.getCount());
+			}
+		}
+		if(smallestCount != null){
+			return smallestCount.getLeft();
+		}
+		return -1;
+	}
+
+	@Override
+	public boolean isItemValidForSlot(int index, ItemStack stack) {
+		int bestSlot = findBestSlotForStack(getIRecipe(), stack);
+		if(bestSlot != -1){
+			return index == bestSlot;
+		}
+		return super.isItemValidForSlot(index, stack);
+	}
+
+	@Override
+	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+		if(index == 9){
+			return false;
+		}
+		int bestSlot = findBestSlotForStack(getIRecipe(), itemStackIn);
+		if(bestSlot != -1){
+			return index == bestSlot;
+		}
+		return false;
+	}
+
+	@Override
+	public int[] getSlotsForFace(EnumFacing side) {
+		return new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 	}
 }
