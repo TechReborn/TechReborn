@@ -27,7 +27,7 @@ tile.techreborn:diesel_generator.name=Diesel Generator
 tile.techreborn:heat_generator.name=Heat Generator
 tile.techreborn:industrial_electrolyzer.name=Industrial Electrolyzer
 tile.techreborn:magic_energy_absorber.name=Magic Energy Absorber
-tile.techreborn:assembling_machine.name=Assembling Machine
+tile.techreborn:assembly_machine.name=Assembling Machine
 tile.techreborn:semi_fluid_generator.name=Semi Fluid Generator
 tile.techreborn:iron_alloy_furnace.name=Iron Alloy Furnace
 tile.techreborn:chemical_reactor.name=Chemical Reactor
@@ -60,21 +60,21 @@ tile.techreborn:machine_frame.basic.name=Basic Machine Frame
 tile.techreborn:ore2.copper.name=Copper Ore
 tile.techreborn:ore2.tin.name=Tin Ore
 tile.techreborn:solar_panel.name=Solar Panel
-tile.techreborn:creative_panel.name=Creative Panel
+tile.techreborn:creative_solar_panel.name=Creative Panel
 tile.techreborn:water_mill.name=Water Mill
 tile.techreborn:wind_mill.name=Wind Mill
 tile.techreborn:iron_furnace.name=Iron Furnace
 tile.techreborn:recycler.name=Recycler
 tile.techreborn:scrapboxinator.name=Scrapbox-inator
-tile.techreborn:batbox.name=Battery Box
-tile.techreborn:mfe.name=MFE
-tile.techreborn:mfsu.name=MFSU
+tile.techreborn:low_voltage_su.name=Battery Box
+tile.techreborn:medium_voltage_su.name=MFE
+tile.techreborn:high_voltage_su.name=MFSU
 tile.techreborn:reinforced_glass.name=Reinforced Glass
 tile.techreborn:nuke.name=Nuke
-tile.techreborn:lvtransformer.name=LV Transformer
-tile.techreborn:mvtransformer.name=MV Transformer
-tile.techreborn:hvtransformer.name=HV Transformer
-tile.techreborn:evtransformer.name=EV Transformer
+tile.techreborn:lv_transformer.name=LV Transformer
+tile.techreborn:mv_transformer.name=MV Transformer
+tile.techreborn:hv_transformer.name=HV Transformer
+tile.techreborn:ev_transformer.name=EV Transformer
 tile.techreborn:auto_crafting_table.name=Electronic Crafting Table
 
 
@@ -615,7 +615,7 @@ fluid.fluidwolframium=Wolframium
 
 #Items
 item.techreborn:uuMatter.name=UU-Matter
-item.techreborn:manual.name=Tech Manual
+item.techreborn.manual.name=Tech Manual
 item.techreborn:debug.name=Debug Tool
 
 #Recipe Handlers
