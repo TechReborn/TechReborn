@@ -5,6 +5,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
@@ -143,6 +144,16 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 		return false;
 	}
 
+	public boolean hasIngredient(Ingredient ingredient){
+		for (int i = 0; i < 9; i++) {
+			ItemStack stack = inventory.getStackInSlot(i);
+			if (ingredient.apply(stack)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public TileAutoCraftingTable() {
 		super();
 	}
@@ -212,5 +223,17 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 
 	public void setMaxProgress(int maxProgress) {
 		this.maxProgress = maxProgress;
+	}
+
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound tag) {
+		tag.setString("currentRecipe", currentRecipe.toString());
+		return super.writeToNBT(tag);
+	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound tag) {
+		currentRecipe = new ResourceLocation(tag.getString("currentRecipe"));
+		super.readFromNBT(tag);
 	}
 }
