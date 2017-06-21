@@ -379,11 +379,9 @@ public class ModBlocks {
 		registerBlock(HV_TRANSFORMER, "hv_transformer");
 		GameRegistry.registerTileEntity(TileHVTransformer.class, "TileHVTransformerTR");
 
-		if(Core.DEV_FEATURES){
-			AUTO_CRAFTING_TABLE = new BlockAutoCraftingTable();
-			registerBlock(AUTO_CRAFTING_TABLE, "auto_crafting_table");
-			GameRegistry.registerTileEntity(TileAutoCraftingTable.class, "TileAutoCraftingTableTR");
-		}
+		AUTO_CRAFTING_TABLE = new BlockAutoCraftingTable();
+		registerBlock(AUTO_CRAFTING_TABLE, "auto_crafting_table");
+		GameRegistry.registerTileEntity(TileAutoCraftingTable.class, "TileAutoCraftingTableTR");
 
 		IRON_FURNACE = new BlockIronFurnace();
 		registerBlock(IRON_FURNACE, "iron_furnace");

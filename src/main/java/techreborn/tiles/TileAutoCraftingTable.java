@@ -59,7 +59,6 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 		IRecipe recipe = getIRecipe();
 		if (recipe != null) {
 			if (progress >= maxProgress) {
-				//TODO make the thing
 				if (make(recipe)) {
 					progress = 0;
 				}
@@ -77,15 +76,21 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 	public boolean canMake(IRecipe recipe) {
 		if (recipe.canFit(3, 3)) {
 			boolean missingOutput = false;
+			int[] stacksInSlots = new int[9];
+			for (int i = 0; i < 9; i++) {
+				stacksInSlots[i] = inventory.getStackInSlot(i).getCount();
+			}
 			for (Ingredient ingredient : recipe.getIngredients()) {
 				if (ingredient != Ingredient.EMPTY) {
 					boolean foundIngredient = false;
 					for (int i = 0; i < 9; i++) {
 						ItemStack stack = inventory.getStackInSlot(i);
-						//TODO count if items are used more than once, like 8 wooden planks for a chest
-						if (ingredient.apply(stack)) {
-							foundIngredient = true;
-							break;
+						if(stacksInSlots[i] > 0){
+							if (ingredient.apply(stack)) {
+								foundIngredient = true;
+								stacksInSlots[i] --;
+								break;
+							}
 						}
 					}
 					if(!foundIngredient){

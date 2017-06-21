@@ -70,14 +70,11 @@ public class GuiAutoCrafting extends GuiBase {
 		IRecipe recipe = tileAutoCraftingTable.getIRecipe();
 		if (recipe != null) {
 			renderItemStack(recipe.getRecipeOutput(), 95, 42);
-
-			int x = mouseX -= getGuiLeft();
-			int y = mouseY -= getGuiTop();
-			renderRecipe(recipe, 91, 66);
 		}
 		final Layer layer = Layer.FOREGROUND;
 		this.builder.drawMultiEnergyBar(this, 9, 26, (int) this.tileAutoCraftingTable.getEnergy(), (int) this.tileAutoCraftingTable.getMaxPower(), mouseX, mouseY, 0, layer);
 		this.builder.drawProgressBar(this, tileAutoCraftingTable.getProgress(), tileAutoCraftingTable.getMaxProgress(), 120, 44, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
+
 	}
 
 	//Based of vanilla code
@@ -125,7 +122,7 @@ public class GuiAutoCrafting extends GuiBase {
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
+	protected void drawGuiContainerBackgroundLayer(final float f, int mouseX, int mouseY) {
 		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 		for (int i = 0; i < 3; i++) {
@@ -136,6 +133,11 @@ public class GuiAutoCrafting extends GuiBase {
 		drawOutputSlot(145, 42, layer);
 		drawOutputSlot(95, 42, layer);
 		drawString("Inventory", 8, 82, 4210752, layer);
+
+		IRecipe recipe = tileAutoCraftingTable.getIRecipe();
+		if (recipe != null) {
+			renderRecipe(recipe, guiLeft + 91, 66 + guiTop);
+		}
 	}
 
 	@Override
