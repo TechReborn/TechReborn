@@ -64,7 +64,9 @@ public class GuiAutoCrafting extends GuiBase {
 		if(recipe != null){
 			renderItemStack(recipe.getRecipeOutput(), 95, 42);
 		}
-
+		final Layer layer = Layer.FOREGROUND;
+		this.builder.drawMultiEnergyBar(this, 9, 26, (int) this.tileAutoCraftingTable.getEnergy(), (int) this.tileAutoCraftingTable.getMaxPower(), mouseX, mouseY, 0, layer);
+		this.builder.drawProgressBar(this, 50, 100, 120, 44, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
 	}
 
 	@Override
@@ -78,8 +80,6 @@ public class GuiAutoCrafting extends GuiBase {
 		}
 		drawOutputSlot(145, 42, layer);
 		drawOutputSlot(95, 42, layer);
-		this.builder.drawMultiEnergyBar(this, 9, 26, (int) this.tileAutoCraftingTable.getEnergy(), (int) this.tileAutoCraftingTable.getMaxPower(), mouseX, mouseY, 0, layer);
-		this.builder.drawProgressBar(this, 50, 100, 120, 44, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
 	}
 
 	@Override

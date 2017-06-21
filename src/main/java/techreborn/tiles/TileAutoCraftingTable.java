@@ -42,7 +42,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 
 	@Override
 	public double getBaseMaxPower() {
-		return 0;
+		return 10000;
 	}
 
 	@Override
@@ -52,12 +52,12 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 
 	@Override
 	public double getBaseMaxInput() {
-		return 0;
+		return 32;
 	}
 
 	@Override
 	public boolean canAcceptEnergy(EnumFacing enumFacing) {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -68,8 +68,11 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 	@Override
 	public BuiltContainer createContainer(EntityPlayer player) {
 		return new ContainerBuilder("autocraftingTable").player(player.inventory).inventory().hotbar()
-			.addInventory().tile(this).slot(0, 30, 20).slot(1, 50, 20).slot(2, 70, 20).slot(3, 90, 20)
-			.slot(4, 110, 20).slot(5, 130, 20).outputSlot(6, 40, 66).addInventory()
+			.addInventory().tile(this)
+			.slot(0, 28, 25).slot(1, 46, 25).slot(2, 64, 25)
+			.slot(3, 28, 43).slot(4, 46, 43).slot(5, 64, 43)
+			.slot(6, 28, 61).slot(7, 46, 61).slot(8, 64, 61)
+			.outputSlot(9, 145, 42).addInventory()
 			.create();
 	}
 
