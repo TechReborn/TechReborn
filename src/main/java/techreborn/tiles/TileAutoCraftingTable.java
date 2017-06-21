@@ -227,13 +227,17 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound tag) {
-		tag.setString("currentRecipe", currentRecipe.toString());
+		if(currentRecipe != null){
+			tag.setString("currentRecipe", currentRecipe.toString());
+		}
 		return super.writeToNBT(tag);
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound tag) {
-		currentRecipe = new ResourceLocation(tag.getString("currentRecipe"));
+		if(tag.hasKey("currentRecipe")){
+			currentRecipe = new ResourceLocation(tag.getString("currentRecipe"));
+		}
 		super.readFromNBT(tag);
 	}
 }
