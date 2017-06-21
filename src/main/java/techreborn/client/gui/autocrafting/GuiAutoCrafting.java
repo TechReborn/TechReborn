@@ -14,6 +14,7 @@ import net.minecraft.item.crafting.IRecipe;
 import org.lwjgl.opengl.GL11;
 import reborncore.common.network.NetworkManager;
 import techreborn.client.gui.GuiBase;
+import techreborn.client.gui.TRBuilder;
 import techreborn.packets.PacketSetRecipe;
 import techreborn.tiles.TileAutoCraftingTable;
 
@@ -61,8 +62,24 @@ public class GuiAutoCrafting extends GuiBase {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 		IRecipe recipe = tileAutoCraftingTable.getIRecipe();
 		if(recipe != null){
-			renderItemStack(recipe.getRecipeOutput(), 10, 25);
+			renderItemStack(recipe.getRecipeOutput(), 95, 42);
 		}
+
+	}
+
+	@Override
+	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
+		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
+		final Layer layer = Layer.BACKGROUND;
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				drawSlot(28 + (i *18), 25 + (j * 18), layer);
+			}
+		}
+		drawOutputSlot(145, 42, layer);
+		drawOutputSlot(95, 42, layer);
+		this.builder.drawMultiEnergyBar(this, 9, 26, (int) this.tileAutoCraftingTable.getEnergy(), (int) this.tileAutoCraftingTable.getMaxPower(), mouseX, mouseY, 0, layer);
+		this.builder.drawProgressBar(this, 50, 100, 120, 44, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
 	}
 
 	@Override
@@ -97,9 +114,7 @@ public class GuiAutoCrafting extends GuiBase {
 	@Override
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
 		if (!this.recipeSlector.func_191862_a(mouseX, mouseY, mouseButton)) {
-			if (!showGui || !this.recipeSlector.func_191878_b()) {
-				super.mouseClicked(mouseX, mouseY, mouseButton);
-			}
+			super.mouseClicked(mouseX, mouseY, mouseButton);
 		}
 	}
 

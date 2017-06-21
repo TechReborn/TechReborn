@@ -75,6 +75,7 @@ tile.techreborn:lvtransformer.name=LV Transformer
 tile.techreborn:mvtransformer.name=MV Transformer
 tile.techreborn:hvtransformer.name=HV Transformer
 tile.techreborn:evtransformer.name=EV Transformer
+tile.techreborn:auto_crafting_table.name=Electronic Crafting Table
 
 
 #Blocks
