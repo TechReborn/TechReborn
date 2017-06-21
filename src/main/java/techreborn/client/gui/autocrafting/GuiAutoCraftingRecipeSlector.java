@@ -20,8 +20,8 @@ public class GuiAutoCraftingRecipeSlector extends GuiRecipeBook {
 	public void func_193014_a(boolean p_193014_1_, InventoryCrafting p_193014_2_) {
 		super.func_193014_a(p_193014_1_, p_193014_2_);
 		//Pulls the button off the screen as we dont need it
-		field_193960_m = new GuiButtonToggle(0, -1000, -1000, 26, 16, false);
-		field_193960_m.func_191751_a(152, 41, 28, 18, RECIPE_BOOK);
+		toggleRecipesBtn = new GuiButtonToggle(0, -1000, -1000, 26, 16, false);
+		toggleRecipesBtn.func_191751_a(152, 41, 28, 18, RECIPE_BOOK);
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class GuiAutoCraftingRecipeSlector extends GuiRecipeBook {
 	}
 
 	@Override
-	public void func_193945_a(IRecipe recipe, RecipeList recipes) {
+	public void setContainerRecipe(IRecipe recipe, RecipeList recipes) {
 		guiAutoCrafting.setRecipe(recipe);
 	}
 
