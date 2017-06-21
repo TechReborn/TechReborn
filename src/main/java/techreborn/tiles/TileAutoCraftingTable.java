@@ -60,7 +60,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 	@Override
 	public void update() {
 		super.update();
-		if(world.isRemote){
+		if (world.isRemote) {
 			return;
 		}
 		IRecipe recipe = getIRecipe();
@@ -92,15 +92,15 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 					boolean foundIngredient = false;
 					for (int i = 0; i < 9; i++) {
 						ItemStack stack = inventory.getStackInSlot(i);
-						if(stacksInSlots[i] > 0){
+						if (stacksInSlots[i] > 0) {
 							if (ingredient.apply(stack)) {
 								foundIngredient = true;
-								stacksInSlots[i] --;
+								stacksInSlots[i]--;
 								break;
 							}
 						}
 					}
-					if(!foundIngredient){
+					if (!foundIngredient) {
 						missingOutput = true;
 					}
 				}
@@ -121,7 +121,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 			return true;
 		}
 		if (ItemUtils.isItemEqual(stack, output, true, true)) {
-			if (stack.getMaxStackSize() < stack.getCount() + output.getCount()) {
+			if (stack.getMaxStackSize() > stack.getCount() + output.getCount()) {
 				return true;
 			}
 		}
@@ -130,12 +130,19 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 
 	public boolean make(IRecipe recipe) {
 		if (canMake(recipe)) {
-			for (Ingredient ingredient : recipe.getIngredients()) {
-				for (int i = 0; i < 9; i++) {
-					ItemStack stack = inventory.getStackInSlot(i);
-					if (ingredient.apply(stack)) {
-						stack.shrink(1); //TODO is this right? or do I need to use it as an actull crafting grid
-						break;
+			for (int i = 0; i < recipe.getIngredients().size(); i++) {
+				Ingredient ingredient = recipe.getIngredients().get(i);
+				//Looks for the best slot to take it from
+				ItemStack bestSlot = inventory.getStackInSlot(i);
+				if (ingredient.apply(bestSlot)) {
+					bestSlot.shrink(1);
+				} else {
+					for (int j = 0; j < 9; j++) {
+						ItemStack stack = inventory.getStackInSlot(j);
+						if (ingredient.apply(stack)) {
+							stack.shrink(1); //TODO is this right? or do I need to use it as an actull crafting grid
+							break;
+						}
 					}
 				}
 			}
@@ -150,7 +157,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 		return false;
 	}
 
-	public boolean hasIngredient(Ingredient ingredient){
+	public boolean hasIngredient(Ingredient ingredient) {
 		for (int i = 0; i < 9; i++) {
 			ItemStack stack = inventory.getStackInSlot(i);
 			if (ingredient.apply(stack)) {
@@ -196,7 +203,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 			.slot(0, 28, 25).slot(1, 46, 25).slot(2, 64, 25)
 			.slot(3, 28, 43).slot(4, 46, 43).slot(5, 64, 43)
 			.slot(6, 28, 61).slot(7, 46, 61).slot(8, 64, 61)
-			.outputSlot(9, 145, 42)
+			.outputSlot(9, 145, 42).syncEnergyValue()
 			.syncIntegerValue(this::getProgress, this::setProgress)
 			.syncIntegerValue(this::getMaxProgress, this::setMaxProgress)
 			.addInventory().create();
@@ -233,7 +240,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound tag) {
-		if(currentRecipe != null){
+		if (currentRecipe != null) {
 			tag.setString("currentRecipe", currentRecipe.toString());
 		}
 		return super.writeToNBT(tag);
@@ -241,36 +248,36 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 
 	@Override
 	public void readFromNBT(NBTTagCompound tag) {
-		if(tag.hasKey("currentRecipe")){
+		if (tag.hasKey("currentRecipe")) {
 			currentRecipe = new ResourceLocation(tag.getString("currentRecipe"));
 		}
 		super.readFromNBT(tag);
 	}
 
-	public boolean isItemValidForRecipeSlot(IRecipe recipe, ItemStack stack, int slotID){
-		if(recipe == null){
+	public boolean isItemValidForRecipeSlot(IRecipe recipe, ItemStack stack, int slotID) {
+		if (recipe == null) {
 			return true;
 		}
 		int bestSlot = findBestSlotForStack(recipe, stack);
-		if(bestSlot != -1){
+		if (bestSlot != -1) {
 			return bestSlot == slotID;
 		}
 		return true;
 	}
 
-	public int findBestSlotForStack(IRecipe recipe, ItemStack stack){
-		if(recipe == null){
+	public int findBestSlotForStack(IRecipe recipe, ItemStack stack) {
+		if (recipe == null) {
 			return -1;
 		}
 		List<Integer> possibleSlots = new ArrayList<>();
 		for (int i = 0; i < 9; i++) {
 			ItemStack stackInSlot = inventory.getStackInSlot(i);
 			Ingredient ingredient = recipe.getIngredients().get(i);
-			if(ingredient != Ingredient.EMPTY && ingredient.apply(stack)){
-				if(stackInSlot.isEmpty()){
+			if (ingredient != Ingredient.EMPTY && ingredient.apply(stack)) {
+				if (stackInSlot.isEmpty()) {
 					possibleSlots.add(i);
-				} else if (stackInSlot.getItem() == stack.getItem() && stackInSlot.getItemDamage() == stack.getItemDamage()){
-					if(stackInSlot.getMaxStackSize() >= stackInSlot.getCount() + stack.getCount()){
+				} else if (stackInSlot.getItem() == stack.getItem() && stackInSlot.getItemDamage() == stack.getItemDamage()) {
+					if (stackInSlot.getMaxStackSize() >= stackInSlot.getCount() + stack.getCount()) {
 						possibleSlots.add(i);
 					}
 				}
@@ -278,18 +285,18 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 		}
 		//Slot, count
 		Pair<Integer, Integer> smallestCount = null;
-		for(Integer slot : possibleSlots){
+		for (Integer slot : possibleSlots) {
 			ItemStack slotStack = inventory.getStackInSlot(slot);
-			if(slotStack.isEmpty()){
+			if (slotStack.isEmpty()) {
 				return slot;
 			}
-			if(smallestCount == null){
+			if (smallestCount == null) {
 				smallestCount = Pair.of(slot, slotStack.getCount());
-			} else if(smallestCount.getRight() >= slotStack.getCount()){
+			} else if (smallestCount.getRight() >= slotStack.getCount()) {
 				smallestCount = Pair.of(slot, slotStack.getCount());
 			}
 		}
-		if(smallestCount != null){
+		if (smallestCount != null) {
 			return smallestCount.getLeft();
 		}
 		return -1;
@@ -298,7 +305,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
 		int bestSlot = findBestSlotForStack(getIRecipe(), stack);
-		if(bestSlot != -1){
+		if (bestSlot != -1) {
 			return index == bestSlot;
 		}
 		return super.isItemValidForSlot(index, stack);
@@ -306,11 +313,11 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 
 	@Override
 	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
-		if(index == 9){
+		if (index == 9) {
 			return false;
 		}
 		int bestSlot = findBestSlotForStack(getIRecipe(), itemStackIn);
-		if(bestSlot != -1){
+		if (bestSlot != -1) {
 			return index == bestSlot;
 		}
 		return false;
@@ -318,6 +325,6 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 
 	@Override
 	public int[] getSlotsForFace(EnumFacing side) {
-		return new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+		return new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 	}
 }
