@@ -51,7 +51,7 @@ public class ItemAdvancedDrill extends ItemDrill {
 
 	public ItemAdvancedDrill() {
 		super(ToolMaterial.DIAMOND, "techreborn.advancedDrill", ConfigTechReborn.AdvancedDrillCharge,
-			4.0F, 20F);
+			4.0F, 10F);
 		this.cost = 250;
 	}
 
@@ -117,6 +117,9 @@ public class ItemAdvancedDrill extends ItemDrill {
 		}
 		IBlockState blockState = world.getBlockState(pos);
 		Block block = blockState.getBlock();
+		if(block.getBlockHardness(blockState, world, pos) == -1.0F){
+			return;
+		}
 		List<ItemStack> stuff = block.getDrops(world, pos, blockState, 0);
 		List<ItemStack> dropList = new ArrayList<>();
 		BlockEvent.HarvestDropsEvent event = new BlockEvent.HarvestDropsEvent(world, pos, blockState, 0, 1, dropList, (EntityPlayer) entityLiving, false);
