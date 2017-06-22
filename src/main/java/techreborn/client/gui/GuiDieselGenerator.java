@@ -57,7 +57,7 @@ public class GuiDieselGenerator extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(final int p_146979_1_, final int p_146979_2_) {
-		final String name = I18n.translateToLocal("tile.techreborn.dieselgenerator.name");
+		final String name = I18n.translateToLocal("techreborn.jei.category.generator.diesel");
 		this.fontRenderer.drawString(name, this.xSize / 2 - this.fontRenderer.getStringWidth(name) / 2, 6,
 			4210752);
 		this.fontRenderer.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,

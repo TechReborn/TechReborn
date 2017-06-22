@@ -79,7 +79,7 @@ public class GuiImplosionCompressor extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(final int p_146979_1_, final int p_146979_2_) {
-		final String name = I18n.translateToLocal("tile.techreborn.implosioncompressor.name");
+		final String name = I18n.translateToLocal("tile.techreborn:implosion_compressor.name");
 		this.fontRenderer.drawString(name, this.xSize / 2 - this.fontRenderer.getStringWidth(name) / 2, 6, 4210752);
 		this.fontRenderer.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
 	}

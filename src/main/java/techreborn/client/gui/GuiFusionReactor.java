@@ -56,7 +56,7 @@ public class GuiFusionReactor extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(final int p_146979_1_, final int p_146979_2_) {
-		final String name = I18n.translateToLocal("tile.techreborn.fusioncontrolcomputer.name");
+		final String name = I18n.translateToLocal("tile.techreborn:fusion_control_computer.name");
 		this.fontRenderer.drawString(name, 87, 6, 4210752);
 		this.fontRenderer.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,
 			this.ySize - 96 + 2, 4210752);
