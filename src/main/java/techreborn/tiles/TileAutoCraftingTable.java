@@ -93,7 +93,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 				}
 			}, 3, 3);
 		}
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 9; i++) {
 			inventoryCrafting.setInventorySlotContents(i, inventory.getStackInSlot(i));
 		}
 		return inventoryCrafting;
@@ -119,6 +119,9 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 					}
 				}
 			}
+		}
+		if(recipe == null){
+			progress = 0;
 		}
 	}
 

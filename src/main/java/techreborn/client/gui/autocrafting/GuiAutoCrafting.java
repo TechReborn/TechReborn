@@ -149,7 +149,7 @@ public class GuiAutoCrafting extends GuiBase {
 		drawString("Inventory", 8, 82, 4210752, layer);
 
 		IRecipe recipe = tileAutoCraftingTable.getIRecipe();
-		if (recipe != null) {
+		if (recipe != null && ! tileAutoCraftingTable.customRecipe) {
 			renderRecipe(recipe, guiLeft + 91, 66 + guiTop);
 		}
 	}
