@@ -36,6 +36,7 @@ public class ItemBlockCable extends ItemBlock {
 
 	public ItemBlockCable(Block block) {
 		super(block);
+		setHasSubtypes(true);
 	}
 
 	public int getMetadata(int damage) {
