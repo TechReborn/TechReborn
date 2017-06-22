@@ -388,4 +388,9 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 	public int[] getSlotsForFace(EnumFacing side) {
 		return new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 	}
+
+	@Override
+	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+		return index == 9;
+	}
 }
