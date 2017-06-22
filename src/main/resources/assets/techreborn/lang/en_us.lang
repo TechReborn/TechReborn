@@ -84,7 +84,7 @@ tile.techreborn:rubber_planks.name=Rubber Wood Planks
 tile.techreborn:rubber_leaves.name=Rubber Leaves
 tile.techreborn:rubber_sapling.name=Rubber Sapling
 
-tile.techreborn:ironfence.name=Iron Fence
+tile.techreborn:refined_iron_fence.name=Iron Fence
 
 #Ores
 tile.techreborn:ore.galena.name=Galena Ore
@@ -128,9 +128,9 @@ tile.techreborn:storage2.iridium_reinforced_stone.name=Iridium Reinforced Stone
 tile.techreborn:storage2.ruby.name=Block of Ruby
 tile.techreborn:storage2.sapphire.name=Block of Sapphire
 tile.techreborn:storage2.peridot.name=Block of Peridot
-tile.techreborn:storage2.yellowGarnet.name=Block of Yellow Garnet
-tile.techreborn:storage2.redGarnet.name=Block of Red Garnet
-tile.techreborn:storage2.refinedIron.name=Block of Refined Iron
+tile.techreborn:storage2.yellow_garnet.name=Block of Yellow Garnet
+tile.techreborn:storage2.red_garnet.name=Block of Red Garnet
+tile.techreborn:storage2.refined_iron.name=Block of Refined Iron
 tile.techreborn:storage2.copper.name=Block of Copper
 tile.techreborn:storage2.tin.name=Block of Tin
 tile.techreborn:farm.name=Farm
@@ -286,7 +286,7 @@ item.techreborn.dust.andesite.name=Andesite Dust
 item.techreborn.dust.diorite.name=Diorite Dust
 item.techreborn.dust.granite.name=Granite Dust
 
-item.techreborn:wrench.name=Wrench
+item.techreborn.wrench.name=Wrench
 tile.techreborn:cable.copper.name=Copper Cable
 tile.techreborn:cable.tin.name=Tin Cable
 tile.techreborn:cable.gold.name=Gold Cable
@@ -518,7 +518,7 @@ item.techreborn.part.coolant_simple.name=10k Coolant Cell
 item.techreborn.part.coolant_triple.name=30k Coolant Cell
 item.techreborn.part.coolant_six.name=60k Coolant Cell
 
-item.techreborn:frequencyTransmitter.name=Frequency Transmitter
+item.techreborn.frequencyTransmitter.name=Frequency Transmitter
 
 #Tools
 item.techreborn.rockcutter.name=Rockcutter
@@ -614,9 +614,9 @@ fluid.fluidtritium=Tritium
 fluid.fluidwolframium=Wolframium
 
 #Items
-item.techreborn:uuMatter.name=UU-Matter
+item.techreborn.uuMatter.name=UU-Matter
 item.techreborn.manual.name=Tech Manual
-item.techreborn:debug.name=Debug Tool
+item.techreborn.debug.name=Debug Tool
 
 #Recipe Handlers
 techreborn.recipe.alloysmelter=Alloy Furnace Recipe
@@ -670,11 +670,6 @@ desc.tier=Tier:
 
 keys.techreborn.category=TechReborn Category
 keys.techreborn.config=Config
-
-achievement.TechReborn:ore_PickUp=New Ore!
-achievement.TechReborn:ore_PickUp.desc=Mine a TechReborn ore
-achievement.TechReborn:centrifuge_Craft=Time to Spin
-achievement.TechReborn:thermalgen_Craft=Time to Heat
 
 # JEI Integration
 techreborn.jei.recipe.start.cost=Start: %sEU
