@@ -668,8 +668,8 @@ desc.uninsulatedCable=Damages Entities!
 desc.transfer=Energy Transfer:
 desc.tier=Tier:
 
-keys.techreborn:category=TechReborn Category
-keys.techreborn:config=Config
+keys.techreborn.category=TechReborn Category
+keys.techreborn.config=Config
 
 achievement.TechReborn:ore_PickUp=New Ore!
 achievement.TechReborn:ore_PickUp.desc=Mine a TechReborn ore
