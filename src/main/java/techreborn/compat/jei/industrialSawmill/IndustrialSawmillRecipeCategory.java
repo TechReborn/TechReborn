@@ -52,7 +52,7 @@ public class IndustrialSawmillRecipeCategory extends BlankRecipeCategory<Industr
 	private static final int[] INPUT_TANKS = { 0 };
 
 	public IndustrialSawmillRecipeCategory(IGuiHelper guiHelper) {
-		title = Translator.translateToLocal("tile.techreborn.industrialsawmill.name");
+		title = Translator.translateToLocal("tile.techreborn:industrial_sawmill.name");
 		background = guiHelper.createDrawable(texture, 7, 15, 141, 55);
 		tankOverlay = guiHelper.createDrawable(texture, 176, 86, 12, 47);
 	}

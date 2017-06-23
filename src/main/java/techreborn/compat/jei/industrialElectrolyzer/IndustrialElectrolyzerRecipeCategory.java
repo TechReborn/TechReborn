@@ -47,7 +47,7 @@ public class IndustrialElectrolyzerRecipeCategory extends BlankRecipeCategory<In
 
 	public IndustrialElectrolyzerRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(GuiIndustrialElectrolyzer.texture, 49, 18, 78, 50);
-		title = I18n.translateToLocal("tile.techreborn.industrialelectrolyzer.name");
+		title = I18n.translateToLocal("tile.techreborn:industrial_electrolyzer.name");
 	}
 
 	@Override

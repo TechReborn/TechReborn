@@ -48,7 +48,7 @@ public class ExtractorRecipeCategory extends BlankRecipeCategory<ExtractorRecipe
 
 	public ExtractorRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 0, 62, 74, 32);
-		title = I18n.translateToLocal("tile.techreborn.extractor.name");
+		title = I18n.translateToLocal("tile.techreborn:extractor.name");
 	}
 
 	@Override

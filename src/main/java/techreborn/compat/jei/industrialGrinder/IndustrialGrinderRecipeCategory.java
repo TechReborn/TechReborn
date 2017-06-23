@@ -58,7 +58,7 @@ public class IndustrialGrinderRecipeCategory extends BlankRecipeCategory<Industr
 		background = guiHelper.createDrawable(texture, 7, 15, 141, 55);
 		blankArea = guiHelper.createDrawable(texture, 50, 45, 6, 6);
 		tankOverlay = guiHelper.createDrawable(texture, 176, 86, 12, 47);
-		title = I18n.translateToLocal("tile.techreborn.industrialgrinder.name");
+		title = I18n.translateToLocal("tile.techreborn:industrial_grinder.name");
 	}
 
 	@Override
