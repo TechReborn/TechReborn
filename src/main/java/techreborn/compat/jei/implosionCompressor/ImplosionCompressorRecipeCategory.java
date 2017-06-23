@@ -50,7 +50,7 @@ public class ImplosionCompressorRecipeCategory extends BlankRecipeCategory<Implo
 		IDrawableStatic electricityDrawable = guiHelper.createDrawable(GuiImplosionCompressor.texture, 176, 0, 14, 14);
 		electricity = guiHelper.createAnimatedDrawable(electricityDrawable, 300, IDrawableAnimated.StartDirection.TOP,
 			true);
-		title = I18n.translateToLocal("tile.techreborn.implosioncompressor.name");
+		title = I18n.translateToLocal("tile.techreborn:implosion_compressor.name");
 	}
 
 	@Override

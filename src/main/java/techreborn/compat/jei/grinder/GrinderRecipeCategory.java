@@ -48,7 +48,7 @@ public class GrinderRecipeCategory extends BlankRecipeCategory<GrinderRecipeWrap
 
 	public GrinderRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 0, 62, 74, 32);
-		title = I18n.translateToLocal("tile.techreborn.grinder.name");
+		title = I18n.translateToLocal("tile.techreborn:grinder.name");
 	}
 
 	@Override

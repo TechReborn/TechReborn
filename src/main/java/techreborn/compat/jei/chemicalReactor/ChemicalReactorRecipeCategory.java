@@ -48,7 +48,7 @@ public class ChemicalReactorRecipeCategory extends BlankRecipeCategory<ChemicalR
 
 	public ChemicalReactorRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 0, 172, 116, 52);
-		title = I18n.translateToLocal("tile.techreborn.chemicalreactor.name");
+		title = I18n.translateToLocal("tile.techreborn:chemical_reactor.name");
 	}
 
 	@Override

@@ -48,7 +48,7 @@ public class VacuumFreezerRecipeCategory extends BlankRecipeCategory<VacuumFreez
 
 	public VacuumFreezerRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 0, 62, 74, 32);
-		title = I18n.translateToLocal("tile.techreborn.vacuumfreezer.name");
+		title = I18n.translateToLocal("tile.techreborn:vacuum_freezer.name");
 	}
 
 	@Override

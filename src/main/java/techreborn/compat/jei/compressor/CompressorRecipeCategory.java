@@ -48,7 +48,7 @@ public class CompressorRecipeCategory extends BlankRecipeCategory<CompressorReci
 
 	public CompressorRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 0, 62, 74, 32);
-		title = I18n.translateToLocal("tile.techreborn.compressor.name");
+		title = I18n.translateToLocal("tile.techreborn:compressor.name");
 	}
 
 	@Override

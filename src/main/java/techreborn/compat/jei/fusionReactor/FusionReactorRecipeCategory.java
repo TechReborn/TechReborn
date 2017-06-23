@@ -51,7 +51,7 @@ public class FusionReactorRecipeCategory extends BlankRecipeCategory<FusionReact
 
 	public FusionReactorRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(GuiFusionReactor.texture, 86, 16, 85, 64, 0, 40, 20, 20);
-		title = I18n.translateToLocal("tile.techreborn.fusioncontrolcomputer.name");
+		title = I18n.translateToLocal("tile.techreborn:fusion_control_computer.name");
 	}
 
 	@Override
