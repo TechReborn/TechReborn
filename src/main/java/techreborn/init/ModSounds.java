@@ -27,6 +27,7 @@ package techreborn.init;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.registries.GameData;
 
 /**
  * Created by Mark on 20/03/2016.
@@ -45,7 +46,9 @@ public class ModSounds {
 
 	private static SoundEvent getSound(String str) {
 		ResourceLocation resourceLocation = new ResourceLocation("techreborn", str);
-		return GameRegistry.register(new SoundEvent(resourceLocation).setRegistryName(resourceLocation));
+		SoundEvent soundEvent = new SoundEvent(resourceLocation);
+		soundEvent.setRegistryName(resourceLocation);
+		return GameData.register_impl(soundEvent);
 	}
 
 }

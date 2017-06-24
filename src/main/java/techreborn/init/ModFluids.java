@@ -30,6 +30,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import reborncore.RebornRegistry;
 import reborncore.api.fuel.FluidPowerManager;
 import techreborn.blocks.fluid.BlockFluidBase;
 import techreborn.blocks.fluid.BlockFluidTechReborn;
@@ -323,8 +324,6 @@ public class ModFluids {
 	}
 
 	public static void registerBlock(Block block, String name) {
-		block.setRegistryName(name);
-		GameRegistry.register(block);
-		GameRegistry.register(new ItemBlock(block), block.getRegistryName());
+		RebornRegistry.registerBlock(block, name);
 	}
 }

@@ -50,7 +50,7 @@ public class GuiAutoCrafting extends GuiBase {
 	@Override
 	public void updateScreen() {
 		super.updateScreen();
-		recipeSlector.func_193957_d();
+		recipeSlector.tick();
 	}
 
 	public void renderItemStack(ItemStack stack, int x, int y) {
@@ -167,25 +167,25 @@ public class GuiAutoCrafting extends GuiBase {
 		for (int i = 0; i < 9; i++) {
 			dummyInv.setInventorySlotContents(i, ItemStack.EMPTY);
 		}
-		this.recipeSlector.func_191856_a(this.width, this.height, this.mc, false, this.inventorySlots, dummyInv);
-		this.guiLeft = this.recipeSlector.func_193011_a(false, this.width, this.xSize);
+		this.recipeSlector.init(this.width, this.height, this.mc, false, this.inventorySlots, dummyInv);
+		this.guiLeft = this.recipeSlector.updateScreenPosition(false, this.width, this.xSize);
 	}
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		if (showGui) {
-			this.recipeSlector.func_191861_a(mouseX, mouseY, 0.1F);
+			this.recipeSlector.render(mouseX, mouseY, 0.1F);
 			super.drawScreen(mouseX, mouseY, partialTicks);
-			this.recipeSlector.func_191864_a(this.guiLeft, this.guiTop, false, partialTicks);
+			this.recipeSlector.renderGhostRecipe(this.guiLeft, this.guiTop, false, partialTicks);
 		} else {
 			super.drawScreen(mouseX, mouseY, partialTicks);
 		}
-		this.recipeSlector.func_191876_c(this.guiLeft, this.guiTop, mouseX, mouseY);
+		this.recipeSlector.renderTooltip(this.guiLeft, this.guiTop, mouseX, mouseY);
 	}
 
 	@Override
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-		if (!this.recipeSlector.func_191862_a(mouseX, mouseY, mouseButton)) {
+		if (!this.recipeSlector.mouseClicked(mouseX, mouseY, mouseButton)) {
 			super.mouseClicked(mouseX, mouseY, mouseButton);
 		}
 		int mX = mouseX - getGuiLeft();
@@ -199,7 +199,7 @@ public class GuiAutoCrafting extends GuiBase {
 
 	@Override
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
-		if (!this.recipeSlector.func_191859_a(typedChar, keyCode)) {
+		if (!this.recipeSlector.keyPressed(typedChar, keyCode)) {
 			super.keyTyped(typedChar, keyCode);
 		}
 	}
@@ -207,11 +207,11 @@ public class GuiAutoCrafting extends GuiBase {
 	@Override
 	protected void handleMouseClick(Slot slotIn, int slotId, int mouseButton, ClickType type) {
 		super.handleMouseClick(slotIn, slotId, mouseButton, type);
-		this.recipeSlector.func_191874_a(slotIn);
+		this.recipeSlector.slotClicked(slotIn);
 	}
 
 	public void onGuiClosed() {
-		this.recipeSlector.func_191871_c();
+		this.recipeSlector.removed();
 		super.onGuiClosed();
 	}
 

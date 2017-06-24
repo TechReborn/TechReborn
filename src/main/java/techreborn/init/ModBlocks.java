@@ -28,8 +28,10 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import reborncore.RebornRegistry;
 import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.StringUtils;
 import techreborn.Core;
@@ -409,25 +411,14 @@ public class ModBlocks {
 
 	public static void registerBlock(Block block, String name) {
 		name = name.toLowerCase();
-		block.setRegistryName(ModInfo.MOD_ID, name);
 		block.setUnlocalizedName(ModInfo.MOD_ID + ":" + name);
-		GameRegistry.register(block);
-		GameRegistry.register(new ItemBlock(block), block.getRegistryName());
+		RebornRegistry.registerBlock(block, new ResourceLocation(ModInfo.MOD_ID, name));
 	}
 
 	public static void registerBlock(Block block, Class<? extends ItemBlock> itemclass, String name) {
 		name = name.toLowerCase();
-		block.setRegistryName(ModInfo.MOD_ID, name);
 		block.setUnlocalizedName(ModInfo.MOD_ID + ":" + name);
-		GameRegistry.register(block);
-		try {
-			ItemBlock itemBlock = itemclass.getConstructor(Block.class).newInstance(block);
-			itemBlock.setRegistryName(ModInfo.MOD_ID, name);
-			GameRegistry.register(itemBlock);
-		} catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
-			e.printStackTrace();
-		}
-
+		RebornRegistry.registerBlock(block, itemclass,  new ResourceLocation(ModInfo.MOD_ID, name));
 	}
 
 	public static void registerOreDict() {

@@ -17,16 +17,16 @@ public class GuiAutoCraftingRecipeSlector extends GuiRecipeBook {
 
 
 	@Override
-	public void func_193014_a(boolean p_193014_1_, InventoryCrafting p_193014_2_) {
-		super.func_193014_a(p_193014_1_, p_193014_2_);
+	public void initVisuals(boolean p_193014_1_, InventoryCrafting p_193014_2_) {
+		super.initVisuals(p_193014_1_, p_193014_2_);
 		//Pulls the button off the screen as we dont need it
 		toggleRecipesBtn = new GuiButtonToggle(0, -1000, -1000, 26, 16, false);
-		toggleRecipesBtn.func_191751_a(152, 41, 28, 18, RECIPE_BOOK);
+		toggleRecipesBtn.initTextureValues(152, 41, 28, 18, RECIPE_BOOK);
 	}
 
 	@Override
-	public void func_191856_a(int p_191856_1_, int p_191856_2_, Minecraft mc, boolean p_191856_4_, Container p_191856_5_, InventoryCrafting p_191856_6_) {
-		super.func_191856_a(p_191856_1_, p_191856_2_, mc, p_191856_4_, p_191856_5_, p_191856_6_);
+	public void init(int p_191856_1_, int p_191856_2_, Minecraft mc, boolean p_191856_4_, Container p_191856_5_, InventoryCrafting p_191856_6_) {
+		super.init(p_191856_1_, p_191856_2_, mc, p_191856_4_, p_191856_5_, p_191856_6_);
 
 	}
 

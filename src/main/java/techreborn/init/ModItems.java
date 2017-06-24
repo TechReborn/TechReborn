@@ -29,6 +29,7 @@ import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import reborncore.RebornRegistry;
 import reborncore.api.power.IEnergyInterfaceItem;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.blocks.BlockMachineBase;
@@ -349,7 +350,7 @@ public class ModItems {
 
 	public static void registerItem(Item item, String name) {
 		item.setRegistryName(name);
-		GameRegistry.register(item);
+		RebornRegistry.registerItem(item);
 		if (item.getClass().isInstance(IEnergyItemInfo.class)) {
 			if (!item.getClass().isInstance(IEnergyInterfaceItem.class)) {
 				Core.logHelper.error(name + " was not patched with the power mixin. This is a error, the item may not work as intended.");
