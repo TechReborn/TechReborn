@@ -90,10 +90,9 @@ public class OreDict {
 		//OreDictionary.registerOre("woodRubber", ModBlocks.RUBBER_LOG);
 		OreDictionary.registerOre("glassReinforced", ModBlocks.REINFORCED_GLASS);
 
-		OreDictionary.registerOre("craftingGrinder", ItemParts.getPartByName("diamondGrindingHead"));
-		OreDictionary.registerOre("craftingGrinder", ItemParts.getPartByName("tungstenGrindingHead"));
+		OreDictionary.registerOre("craftingDiamondGrinder", ItemParts.getPartByName("diamondGrindingHead"));
+		OreDictionary.registerOre("craftingTungstenGrinder", ItemParts.getPartByName("tungstenGrindingHead"));
 		OreDictionary.registerOre("craftingSuperconductor", ItemParts.getPartByName("superconductor"));
-		OreDictionary.registerOre("batteryUltimate", ItemParts.getPartByName("diamondGrindingHead"));
 
 		OreDictionary.registerOre("materialResin", ItemParts.getPartByName("rubberSap"));
 		OreDictionary.registerOre("materialRubber", ItemParts.getPartByName("rubber"));

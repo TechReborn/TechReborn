@@ -121,6 +121,9 @@ public class ModRecipes {
 				2));
 
 		for (String ore : OreUtil.oreNames) {
+			if(ore.equals("iridium")){
+				continue;
+			}
 			if (OreUtil.doesOreExistAndValid("plate" + OreUtil.capitalizeFirstLetter(ore)) && OreUtil.doesOreExistAndValid("ingot" + OreUtil.capitalizeFirstLetter(ore))) {
 
 				RecipeHandler.addRecipe(
@@ -491,7 +494,7 @@ public class ModRecipes {
 
 		// Brass
 		if (OreUtil.doesOreExistAndValid("ingotBrass")) {
-			ItemStack brassStack = OreDictionary.getOres("ingotBrass").get(0);
+			ItemStack brassStack = getOre("ingotBrass");
 			brassStack.setCount(4);
 			RecipeHandler.addRecipe(
 				new AlloySmelterRecipe(ItemIngots.getIngotByName("copper", 3), ItemIngots.getIngotByName("zinc", 1),
@@ -509,7 +512,7 @@ public class ModRecipes {
 
 		// Red Alloy
 		if (OreUtil.doesOreExistAndValid("ingotRedAlloy")) {
-			ItemStack redAlloyStack = OreDictionary.getOres("ingotRedAlloy").get(0);
+			ItemStack redAlloyStack = getOre("ingotRedAlloy");
 			redAlloyStack.setCount(1);
 			RecipeHandler.addRecipe(
 				new AlloySmelterRecipe(new ItemStack(Items.REDSTONE, 4), ItemIngots.getIngotByName("copper", 1),
@@ -521,7 +524,7 @@ public class ModRecipes {
 
 		// Blue Alloy
 		if (OreUtil.doesOreExistAndValid("ingotBlueAlloy")) {
-			ItemStack blueAlloyStack = OreDictionary.getOres("ingotBlueAlloy").get(0);
+			ItemStack blueAlloyStack = getOre("ingotBlueAlloy");
 			blueAlloyStack.setCount(1);
 			RecipeHandler.addRecipe(new AlloySmelterRecipe(ItemDusts.getDustByName("teslatite", 4),
 				ItemIngots.getIngotByName("silver", 1), blueAlloyStack, 200, 16));
@@ -529,9 +532,9 @@ public class ModRecipes {
 
 		// Blue Alloy
 		if (OreUtil.doesOreExistAndValid("ingotPurpleAlloy") && OreUtil.doesOreExistAndValid("dustInfusedTeslatite")) {
-			ItemStack purpleAlloyStack = OreDictionary.getOres("ingotPurpleAlloy").get(0);
+			ItemStack purpleAlloyStack = getOre("ingotPurpleAlloy");
 			purpleAlloyStack.setCount(1);
-			ItemStack infusedTeslatiteStack = OreDictionary.getOres("ingotPurpleAlloy").get(0);
+			ItemStack infusedTeslatiteStack = getOre("ingotPurpleAlloy");
 			infusedTeslatiteStack.setCount(8);
 			RecipeHandler.addRecipe(new AlloySmelterRecipe(ItemIngots.getIngotByName("redAlloy", 1),
 				ItemIngots.getIngotByName("blueAlloy", 1), purpleAlloyStack, 200, 16));
@@ -542,7 +545,7 @@ public class ModRecipes {
 
 		// Aluminum Brass
 		if (OreUtil.doesOreExistAndValid("ingotAluminumBrass")) {
-			ItemStack aluminumBrassStack = OreDictionary.getOres("ingotAluminumBrass").get(0);
+			ItemStack aluminumBrassStack = getOre("ingotAluminumBrass");
 			aluminumBrassStack.setCount(4);
 			RecipeHandler.addRecipe(new AlloySmelterRecipe(ItemIngots.getIngotByName("copper", 3),
 				ItemIngots.getIngotByName("aluminum", 1), aluminumBrassStack, 200, 16));
@@ -558,18 +561,18 @@ public class ModRecipes {
 		// Manyullyn
 		if (OreUtil.doesOreExistAndValid("ingotManyullyn") && OreUtil.doesOreExistAndValid("ingotCobalt") && OreUtil
 			.doesOreExistAndValid("ingotArdite")) {
-			ItemStack manyullynStack = OreDictionary.getOres("ingotManyullyn").get(0);
+			ItemStack manyullynStack = getOre("ingotManyullyn");
 			manyullynStack.setCount(1);
-			ItemStack cobaltStack = OreDictionary.getOres("ingotCobalt").get(0);
+			ItemStack cobaltStack = getOre("ingotCobalt");
 			cobaltStack.setCount(1);
-			ItemStack arditeStack = OreDictionary.getOres("ingotArdite").get(0);
+			ItemStack arditeStack = getOre("ingotArdite");
 			arditeStack.setCount(1);
 			RecipeHandler.addRecipe(new AlloySmelterRecipe(cobaltStack, arditeStack, manyullynStack, 200, 16));
 		}
 
 		// Conductive Iron
 		if (OreUtil.doesOreExistAndValid("ingotConductiveIron")) {
-			ItemStack conductiveIronStack = OreDictionary.getOres("ingotConductiveIron").get(0);
+			ItemStack conductiveIronStack = getOre("ingotConductiveIron");
 			conductiveIronStack.setCount(1);
 			RecipeHandler.addRecipe(
 				new AlloySmelterRecipe(new ItemStack(Items.REDSTONE, 1), new ItemStack(Items.IRON_INGOT, 1),
@@ -578,9 +581,9 @@ public class ModRecipes {
 
 		// Redstone Alloy
 		if (OreUtil.doesOreExistAndValid("ingotRedstoneAlloy") && OreUtil.doesOreExistAndValid("itemSilicon")) {
-			ItemStack redstoneAlloyStack = OreDictionary.getOres("ingotRedstoneAlloy").get(0);
+			ItemStack redstoneAlloyStack = getOre("ingotRedstoneAlloy");
 			redstoneAlloyStack.setCount(1);
-			ItemStack siliconStack = OreDictionary.getOres("itemSilicon").get(0);
+			ItemStack siliconStack = getOre("itemSilicon");
 			siliconStack.setCount(1);
 			RecipeHandler.addRecipe(
 				new AlloySmelterRecipe(new ItemStack(Items.REDSTONE, 1), siliconStack, redstoneAlloyStack, 200,
@@ -589,7 +592,7 @@ public class ModRecipes {
 
 		// Pulsating Iron
 		if (OreUtil.doesOreExistAndValid("ingotPhasedIron")) {
-			ItemStack pulsatingIronStack = OreDictionary.getOres("ingotPhasedIron").get(0);
+			ItemStack pulsatingIronStack = getOre("ingotPhasedIron");
 			pulsatingIronStack.setCount(1);
 			RecipeHandler.addRecipe(
 				new AlloySmelterRecipe(new ItemStack(Items.IRON_INGOT, 1), new ItemStack(Items.ENDER_PEARL, 1),
@@ -601,9 +604,9 @@ public class ModRecipes {
 
 		// Vibrant Alloy
 		if (OreUtil.doesOreExistAndValid("ingotEnergeticAlloy") && OreUtil.doesOreExistAndValid("ingotPhasedGold")) {
-			ItemStack energeticAlloyStack = OreDictionary.getOres("ingotEnergeticAlloy").get(0);
+			ItemStack energeticAlloyStack = getOre("ingotEnergeticAlloy");
 			energeticAlloyStack.setCount(1);
-			ItemStack vibrantAlloyStack = OreDictionary.getOres("ingotPhasedGold").get(0);
+			ItemStack vibrantAlloyStack = getOre("ingotPhasedGold");
 			vibrantAlloyStack.setCount(1);
 			RecipeHandler.addRecipe(
 				new AlloySmelterRecipe(energeticAlloyStack, new ItemStack(Items.ENDER_PEARL, 1), vibrantAlloyStack,
@@ -615,7 +618,7 @@ public class ModRecipes {
 
 		// Soularium
 		if (OreUtil.doesOreExistAndValid("ingotSoularium")) {
-			ItemStack soulariumStack = OreDictionary.getOres("ingotSoularium").get(0);
+			ItemStack soulariumStack = getOre("ingotSoularium");
 			soulariumStack.setCount(1);
 			RecipeHandler.addRecipe(
 				new AlloySmelterRecipe(new ItemStack(Blocks.SOUL_SAND, 1), new ItemStack(Items.GOLD_INGOT, 1),
@@ -797,7 +800,7 @@ public class ModRecipes {
 			BlockMachineFrames.getFrameByName("advancedMachine", 1), 'F', IC2Duplicates.ELECTRICAL_FURNACE.getStackBasedOnConfig());
 
 		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.INDUSTRIAL_GRINDER), "ECG", "HHH", "CBC", 'E',
-			ModBlocks.INDUSTRIAL_ELECTROLYZER, 'H', "craftingGrinder", 'C',
+			ModBlocks.INDUSTRIAL_ELECTROLYZER, 'H', "craftingDiamondGrinder", 'C',
 			"circuitAdvanced", 'B', "machineBlockAdvanced",
 			'G', IC2Duplicates.GRINDER.getStackBasedOnConfig());
 
@@ -899,15 +902,15 @@ public class ModRecipes {
 				1F);
 
 			RebornCraftingHelper
-				.addShapedOreRecipe((OreDictionary.getOres("oreIridium").get(0)), "UUU", " U ", "UUU", 'U',
+				.addShapedOreRecipe((getOre("oreIridium")), "UUU", " U ", "UUU", 'U',
 					ModItems.UU_MATTER);
 
 		// Chemical Reactor
 		RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemDusts.getDustByName("calcite", 1), null,
-			new ItemStack(OreDictionary.getOres("fertilizer").get(0).getItem(), 1), 100, 30));
+			new ItemStack(getOre("fertilizer").getItem(), 1), 100, 30));
 		RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemDusts.getDustByName("calcite", 1),
 			ItemDusts.getDustByName("phosphorous", 1),
-			new ItemStack(OreDictionary.getOres("fertilizer").get(0).getItem(), 3), 100, 30));
+			new ItemStack(getOre("fertilizer").getItem(), 3), 100, 30));
 		RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemCells.getCellByName("sodiumSulfide", 1),
 			ItemCells.getCellByName("empty"), ItemCells.getCellByName("sodiumPersulfate", 2), 2000,
 			30));
@@ -916,7 +919,7 @@ public class ModRecipes {
 
 		RecipeHandler.addRecipe(
 			new ChemicalReactorRecipe(ItemDusts.getDustByName("calcite", 1), ItemDusts.getDustByName("sulfur", 1),
-				new ItemStack(OreDictionary.getOres("fertilizer").get(0).getItem(), 2), 100, 30));
+				new ItemStack(getOre("fertilizer").getItem(), 2), 100, 30));
 
 		ItemStack waterCells = ItemCells.getCellByName("water").copy();
 		waterCells.setCount(2);

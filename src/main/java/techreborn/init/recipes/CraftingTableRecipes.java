@@ -30,7 +30,9 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.ArrayUtils;
+import reborncore.common.util.OreUtil;
 import reborncore.common.util.RebornCraftingHelper;
+import reborncore.common.util.StringUtils;
 import techreborn.blocks.BlockStorage;
 import techreborn.blocks.BlockStorage2;
 import techreborn.config.ConfigTechReborn;
@@ -211,28 +213,13 @@ public class CraftingTableRecipes extends RecipeMethods {
 
 	static void registerCompressionRecipes() {
 		for (String name : ArrayUtils.addAll(BlockStorage.types, BlockStorage2.types)) {
-			ItemStack item = ItemStack.EMPTY;
-			try {
-				item = getMaterial(name, 9, Type.INGOT);
-			} catch (InvalidParameterException e) {
-				try {
-					item = getMaterial(name, 9, Type.GEM);
-				} catch (InvalidParameterException e2) {
-					continue;
-				}
+			if(OreUtil.hasIngot(name)){
+				registerShaped(BlockStorage.getStorageBlockByName(name), "AAA", "AAA", "AAA", 'A',
+					"ingot" + StringUtils.toFirstCapital(name));
+			} else if (OreUtil.hasGem(name)){
+				registerShaped(BlockStorage.getStorageBlockByName(name), "AAA", "AAA", "AAA", 'A',
+					"gem" + StringUtils.toFirstCapital(name));
 			}
-
-			if (item != null && !item.isEmpty()) {
-				registerShaped(BlockStorage.getStorageBlockByName(name), "III", "III", "III", 'I', item);
-				registerShapeless(item, BlockStorage.getStorageBlockByName(name, 1));
-			}
-		}
-
-		for (String name : ArrayUtils.addAll(BlockStorage.types, BlockStorage2.types)) {
-			registerShaped(BlockStorage.getStorageBlockByName(name), "AAA", "AAA", "AAA", 'A',
-				"ingot" + name.substring(0, 1).toUpperCase() + name.substring(1));
-			registerShaped(BlockStorage.getStorageBlockByName(name), "AAA", "AAA", "AAA", 'A',
-				"gem" + name.substring(0, 1).toUpperCase() + name.substring(1));
 		}
 
 		for (String name : ItemDustsSmall.types) {
@@ -283,6 +270,15 @@ public class CraftingTableRecipes extends RecipeMethods {
 	}
 
 	static void registerMixedMetal(String top, String middle, String bottom, int amount) {
+		if(!OreDictionary.doesOreNameExist(top)){
+			return;
+		}
+		if(!OreDictionary.doesOreNameExist(middle)){
+			return;
+		}
+		if(!OreDictionary.doesOreNameExist(bottom)){
+			return;
+		}
 		if (top.equals("ingotRefinedIron") && IC2Duplicates.deduplicate()) {
 			registerShaped(getMaterial("mixed_metal", amount, Type.INGOT), "TTT", "MMM", "BBB", 'T', getStack(IC2Duplicates.REFINED_IRON), 'M', middle, 'B', bottom);
 		} else {
