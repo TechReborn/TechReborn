@@ -24,8 +24,6 @@
 
 package techreborn.client.render;
 
-import com.google.common.base.Function;
-import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.state.IBlockState;
@@ -55,6 +53,8 @@ import java.awt.*;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
 
 @SideOnly(Side.CLIENT)
 public class ModelDynamicCell implements IModel {
@@ -99,11 +99,12 @@ public class ModelDynamicCell implements IModel {
 		return ImmutableList.of(baseTexture, emptyTexture);
 	}
 
+
 	@Override
 	public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
 
-		ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transformMap = IPerspectiveAwareModel.MapWrapper.getTransforms(state);
-		TRSRTransformation transform = state.apply(Optional.<IModelPart>absent()).or(TRSRTransformation.identity());
+		ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transformMap = PerspectiveMapWrapper.getTransforms(state);
+		TRSRTransformation transform = state.apply(Optional.empty()).orElse(TRSRTransformation.identity());
 
 		ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
 		builder.addAll(new ItemLayerModel(ImmutableList.of(baseTexture)).bake(transform, format, bakedTextureGetter).getQuads(null, null, 0L));
