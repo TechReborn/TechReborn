@@ -95,8 +95,6 @@ public class Core {
 		configDir = new File(new File(event.getModConfigurationDirectory(), "teamreborn"), "techreborn");
 		worldGen = new TechRebornWorldGen();
 		worldGen.configFile = (new File(configDir, "ores.json"));
-		//Must be done before the item classes are loaded.
-		ModPoweredItems.preInit();
 
 		TechRebornAPI.subItemRetriever = new SubItemRetriever();
 		//Recheck here because things break at times
