@@ -22,12 +22,18 @@ public class GuiAutoCraftingRecipeSlector extends GuiRecipeBook {
 		//Pulls the button off the screen as we dont need it
 		toggleRecipesBtn = new GuiButtonToggle(0, -1000, -1000, 26, 16, false);
 		toggleRecipesBtn.initTextureValues(152, 41, 28, 18, RECIPE_BOOK);
+		//recipeBook.setGuiOpen(true);
 	}
 
 	@Override
 	public void init(int p_191856_1_, int p_191856_2_, Minecraft mc, boolean p_191856_4_, Container p_191856_5_, InventoryCrafting p_191856_6_) {
 		super.init(p_191856_1_, p_191856_2_, mc, p_191856_4_, p_191856_5_, p_191856_6_);
 
+	}
+
+	@Override
+	public boolean isVisible() {
+		return true;
 	}
 
 	@Override

@@ -28,10 +28,7 @@ public class PacketSetRecipe implements INetworkPacket<PacketSetRecipe> {
 			this.recipe = recipe.getRegistryName();
 		}
 
-		if(this.recipe == null){
-			//TODO fix vanilla recipes
-			this.recipe = new ResourceLocation("");
-		}
+		System.out.println(this.recipe);
 		this.custom = custom;
 	}
 

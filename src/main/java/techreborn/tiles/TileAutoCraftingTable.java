@@ -331,7 +331,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 			return -1;
 		}
 		List<Integer> possibleSlots = new ArrayList<>();
-		for (int i = 0; i < 9; i++) {
+		for (int i = 0; i < recipe.getIngredients().size(); i++) {
 			ItemStack stackInSlot = inventory.getStackInSlot(i);
 			Ingredient ingredient = recipe.getIngredients().get(i);
 			if (ingredient != Ingredient.EMPTY && ingredient.apply(stack)) {
