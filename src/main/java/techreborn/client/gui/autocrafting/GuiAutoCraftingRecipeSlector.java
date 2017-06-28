@@ -15,7 +15,6 @@ public class GuiAutoCraftingRecipeSlector extends GuiRecipeBook {
 
 	GuiAutoCrafting guiAutoCrafting;
 
-
 	@Override
 	public void initVisuals(boolean p_193014_1_, InventoryCrafting p_193014_2_) {
 		super.initVisuals(p_193014_1_, p_193014_2_);

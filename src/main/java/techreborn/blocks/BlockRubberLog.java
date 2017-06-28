@@ -184,7 +184,7 @@ public class BlockRubberLog extends Block {
 								item.motionZ = rand.nextGaussian() * factor;
 								worldIn.spawnEntity(item);
 							}
-							if(playerIn instanceof EntityPlayerMP){
+							if (playerIn instanceof EntityPlayerMP) {
 								TRRecipeHandler.unlockTRRecipes((EntityPlayerMP) playerIn);
 							}
 						}

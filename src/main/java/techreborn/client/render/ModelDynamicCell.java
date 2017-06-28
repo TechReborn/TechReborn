@@ -38,7 +38,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.*;
-import net.minecraftforge.common.model.IModelPart;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.fluids.Fluid;
@@ -98,7 +97,6 @@ public class ModelDynamicCell implements IModel {
 	public Collection<ResourceLocation> getTextures() {
 		return ImmutableList.of(baseTexture, emptyTexture);
 	}
-
 
 	@Override
 	public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {

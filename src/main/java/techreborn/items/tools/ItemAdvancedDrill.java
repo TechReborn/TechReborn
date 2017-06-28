@@ -59,7 +59,7 @@ public class ItemAdvancedDrill extends ItemDrill {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubItems(CreativeTabs par2CreativeTabs, NonNullList itemList) {
-		if(!isInCreativeTab(par2CreativeTabs)){
+		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
 		ItemStack stack = new ItemStack(ModItems.ADVANCED_DRILL);
@@ -117,7 +117,7 @@ public class ItemAdvancedDrill extends ItemDrill {
 		}
 		IBlockState blockState = world.getBlockState(pos);
 		Block block = blockState.getBlock();
-		if(block.getBlockHardness(blockState, world, pos) == -1.0F){
+		if (block.getBlockHardness(blockState, world, pos) == -1.0F) {
 			return;
 		}
 		List<ItemStack> stuff = block.getDrops(world, pos, blockState, 0);

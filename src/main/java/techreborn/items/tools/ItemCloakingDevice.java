@@ -108,7 +108,7 @@ public class ItemCloakingDevice extends ItemTR implements IEnergyItemInfo {
 	@Override
 	public void getSubItems(
 		CreativeTabs par2CreativeTabs, NonNullList itemList) {
-		if(!isInCreativeTab(par2CreativeTabs)){
+		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
 		ItemStack uncharged = new ItemStack(ModItems.CLOAKING_DEVICE);

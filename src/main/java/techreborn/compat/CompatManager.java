@@ -62,12 +62,12 @@ public class CompatManager {
 	public void registerCompact(Class<? extends ICompatModule> moduleClass, boolean config, Object... objs) {
 		boolean shouldLoad = true;
 		//TODO config
-//		if (config) {
-//			shouldLoad = ConfigTechReborn.config
-//				.get(ConfigTechReborn.CATEGORY_INTEGRATION, "Compat:" + moduleClass.getSimpleName(), true,
-//					"Should the " + moduleClass.getSimpleName() + " be loaded?")
-//				.getBoolean(true);
-//		}
+		//		if (config) {
+		//			shouldLoad = ConfigTechReborn.config
+		//				.get(ConfigTechReborn.CATEGORY_INTEGRATION, "Compat:" + moduleClass.getSimpleName(), true,
+		//					"Should the " + moduleClass.getSimpleName() + " be loaded?")
+		//				.getBoolean(true);
+		//		}
 		for (Object obj : objs) {
 			if (obj instanceof String) {
 				String modid = (String) obj;

@@ -152,7 +152,6 @@ public class CTFusionReactor {
 			}
 		}
 
-
 		@Override
 		public String describe() {
 			return "Removing Fusion Reactor recipe";

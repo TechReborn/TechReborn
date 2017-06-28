@@ -43,7 +43,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 	IRecipe lastCustomRecipe = null;
 
 	public void setCurrentRecipe(IRecipe recipe, boolean customRecipe) {
-		if(recipe != null){
+		if (recipe != null) {
 			currentRecipe = recipe.getRegistryName();
 		} else {
 			currentRecipe = null;
@@ -61,10 +61,10 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 
 	@Nullable
 	public IRecipe getIRecipe() {
-		if(customRecipe){
+		if (customRecipe) {
 			InventoryCrafting crafting = getCraftingInventory();
-			for(IRecipe testRecipe : CraftingManager.REGISTRY){
-				if(testRecipe.matches(crafting, world)){
+			for (IRecipe testRecipe : CraftingManager.REGISTRY) {
+				if (testRecipe.matches(crafting, world)) {
 					return testRecipe;
 				}
 			}
@@ -84,8 +84,8 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 		return cachedRecipe.getRight();
 	}
 
-	public InventoryCrafting getCraftingInventory(){
-		if(inventoryCrafting == null){
+	public InventoryCrafting getCraftingInventory() {
+		if (inventoryCrafting == null) {
 			inventoryCrafting = new InventoryCrafting(new Container() {
 				@Override
 				public boolean canInteractWith(EntityPlayer playerIn) {
@@ -120,13 +120,13 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 				}
 			}
 		}
-		if(recipe == null){
+		if (recipe == null) {
 			progress = 0;
 		}
 	}
 
 	public boolean canMake(IRecipe recipe) {
-		if(customRecipe){
+		if (customRecipe) {
 			recipe = getIRecipe();
 		}
 		if (recipe != null && recipe.canFit(3, 3)) {
@@ -179,8 +179,8 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 
 	public boolean make(IRecipe recipe) {
 		if (canMake(recipe)) {
-			if(recipe == null && customRecipe){
-				if(lastCustomRecipe == null){
+			if (recipe == null && customRecipe) {
+				if (lastCustomRecipe == null) {
 					return false;
 				}//Should be uptodate as we just set it in canMake
 				recipe = lastCustomRecipe;

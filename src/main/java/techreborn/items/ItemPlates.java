@@ -94,7 +94,7 @@ public class ItemPlates extends ItemTR {
 	// Adds Dusts SubItems To Creative Tab
 	@Override
 	public void getSubItems(CreativeTabs creativeTabs, NonNullList list) {
-		if(!isInCreativeTab(creativeTabs)){
+		if (!isInCreativeTab(creativeTabs)) {
 			return;
 		}
 		for (int meta = 0; meta < types.length; ++meta) {

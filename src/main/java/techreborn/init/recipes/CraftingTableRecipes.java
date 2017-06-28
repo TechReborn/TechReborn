@@ -43,8 +43,6 @@ import techreborn.items.DynamicCell;
 import techreborn.items.ItemDustsSmall;
 import techreborn.items.ItemNuggets;
 
-import java.security.InvalidParameterException;
-
 /**
  * Created by Prospector
  */
@@ -213,10 +211,10 @@ public class CraftingTableRecipes extends RecipeMethods {
 
 	static void registerCompressionRecipes() {
 		for (String name : ArrayUtils.addAll(BlockStorage.types, BlockStorage2.types)) {
-			if(OreUtil.hasIngot(name)){
+			if (OreUtil.hasIngot(name)) {
 				registerShaped(BlockStorage.getStorageBlockByName(name), "AAA", "AAA", "AAA", 'A',
 					"ingot" + StringUtils.toFirstCapital(name));
-			} else if (OreUtil.hasGem(name)){
+			} else if (OreUtil.hasGem(name)) {
 				registerShaped(BlockStorage.getStorageBlockByName(name), "AAA", "AAA", "AAA", 'A',
 					"gem" + StringUtils.toFirstCapital(name));
 			}
@@ -270,13 +268,13 @@ public class CraftingTableRecipes extends RecipeMethods {
 	}
 
 	static void registerMixedMetal(String top, String middle, String bottom, int amount) {
-		if(!OreDictionary.doesOreNameExist(top)){
+		if (!OreDictionary.doesOreNameExist(top)) {
 			return;
 		}
-		if(!OreDictionary.doesOreNameExist(middle)){
+		if (!OreDictionary.doesOreNameExist(middle)) {
 			return;
 		}
-		if(!OreDictionary.doesOreNameExist(bottom)){
+		if (!OreDictionary.doesOreNameExist(bottom)) {
 			return;
 		}
 		if (top.equals("ingotRefinedIron") && IC2Duplicates.deduplicate()) {

@@ -46,7 +46,7 @@ public class ItemSteelJackhammer extends ItemJackhammer {
 	@Override
 	public void getSubItems(
 		CreativeTabs par2CreativeTabs, NonNullList itemList) {
-		if(!isInCreativeTab(par2CreativeTabs)){
+		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
 		ItemStack stack = new ItemStack(ModItems.STEEL_JACKHAMMER);

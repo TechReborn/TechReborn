@@ -26,10 +26,8 @@ package techreborn.init;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import reborncore.RebornRegistry;
 import reborncore.api.fuel.FluidPowerManager;
 import techreborn.blocks.fluid.BlockFluidBase;

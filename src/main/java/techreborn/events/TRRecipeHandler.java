@@ -24,7 +24,6 @@
 
 package techreborn.events;
 
-
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
@@ -45,16 +44,16 @@ public class TRRecipeHandler {
 
 	private static List<IForgeRegistryEntry> hiddenEntrys = new ArrayList<>();
 
-	public static void hideEntry(IForgeRegistryEntry entry){
+	public static void hideEntry(IForgeRegistryEntry entry) {
 		hiddenEntrys.add(entry);
 	}
 
 	@SubscribeEvent
-	public void pickupEvent(EntityItemPickupEvent entityItemPickupEvent){
-		if(entityItemPickupEvent.getEntityPlayer() instanceof EntityPlayerMP){
-			if(ItemUtils.isInputEqual("logWood", entityItemPickupEvent.getItem().getItem(), false, false, true)){
-				for(IRecipe recipe : CraftingManager.REGISTRY){
-					if(recipe.getRecipeOutput().getItem() == ModItems.TREE_TAP){
+	public void pickupEvent(EntityItemPickupEvent entityItemPickupEvent) {
+		if (entityItemPickupEvent.getEntityPlayer() instanceof EntityPlayerMP) {
+			if (ItemUtils.isInputEqual("logWood", entityItemPickupEvent.getItem().getItem(), false, false, true)) {
+				for (IRecipe recipe : CraftingManager.REGISTRY) {
+					if (recipe.getRecipeOutput().getItem() == ModItems.TREE_TAP) {
 						entityItemPickupEvent.getEntityPlayer().unlockRecipes(Collections.singletonList(recipe));
 					}
 				}
@@ -62,32 +61,32 @@ public class TRRecipeHandler {
 		}
 	}
 
-	public static void unlockTRRecipes(EntityPlayerMP playerMP){
+	public static void unlockTRRecipes(EntityPlayerMP playerMP) {
 		List<IRecipe> recipeList = new ArrayList<>();
-		for(IRecipe recipe : CraftingManager.REGISTRY){
-			if(isRecipeValid(recipe)){
+		for (IRecipe recipe : CraftingManager.REGISTRY) {
+			if (isRecipeValid(recipe)) {
 				recipeList.add(recipe);
 			}
 		}
 		playerMP.unlockRecipes(recipeList);
 	}
 
-	private static boolean isRecipeValid(IRecipe recipe){
-		if(recipe.getRegistryName() == null){
+	private static boolean isRecipeValid(IRecipe recipe) {
+		if (recipe.getRegistryName() == null) {
 			return false;
 		}
-		if(!recipe.getRegistryName().getResourceDomain().equals(ModInfo.MOD_ID)){
+		if (!recipe.getRegistryName().getResourceDomain().equals(ModInfo.MOD_ID)) {
 			return false;
 		}
-		if(!recipe.getRecipeOutput().getItem().getRegistryName().getResourceDomain().equals(ModInfo.MOD_ID)){
+		if (!recipe.getRecipeOutput().getItem().getRegistryName().getResourceDomain().equals(ModInfo.MOD_ID)) {
 			return false;
 		}
-		if(hiddenEntrys.contains(recipe.getRecipeOutput().getItem())){
+		if (hiddenEntrys.contains(recipe.getRecipeOutput().getItem())) {
 			return false;
 		}
 		//Hide uu recipes
-		for(Ingredient ingredient : recipe.getIngredients()){
-			if(ingredient.apply(new ItemStack(ModItems.UU_MATTER))){
+		for (Ingredient ingredient : recipe.getIngredients()) {
+			if (ingredient.apply(new ItemStack(ModItems.UU_MATTER))) {
 				return false;
 			}
 		}

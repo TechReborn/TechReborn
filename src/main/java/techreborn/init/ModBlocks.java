@@ -65,8 +65,6 @@ import techreborn.tiles.transformers.TileHVTransformer;
 import techreborn.tiles.transformers.TileLVTransformer;
 import techreborn.tiles.transformers.TileMVTransformer;
 
-import java.lang.reflect.InvocationTargetException;
-
 public class ModBlocks {
 
 	public static Block THERMAL_GENERATOR;
@@ -418,7 +416,7 @@ public class ModBlocks {
 	public static void registerBlock(Block block, Class<? extends ItemBlock> itemclass, String name) {
 		name = name.toLowerCase();
 		block.setUnlocalizedName(ModInfo.MOD_ID + ":" + name);
-		RebornRegistry.registerBlock(block, itemclass,  new ResourceLocation(ModInfo.MOD_ID, name));
+		RebornRegistry.registerBlock(block, itemclass, new ResourceLocation(ModInfo.MOD_ID, name));
 	}
 
 	public static void registerOreDict() {

@@ -83,7 +83,7 @@ public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo {
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item,
 	                        CreativeTabs par2CreativeTabs, NonNullList itemList) {
-		if(!isInCreativeTab(par2CreativeTabs)){
+		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
 		ItemStack uncharged = new ItemStack(ModItems.LAPOTRONIC_ORB_PACK);

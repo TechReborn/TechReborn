@@ -121,7 +121,7 @@ public class ModRecipes {
 				2));
 
 		for (String ore : OreUtil.oreNames) {
-			if(ore.equals("iridium")){
+			if (ore.equals("iridium")) {
 				continue;
 			}
 			if (OreUtil.doesOreExistAndValid("plate" + OreUtil.capitalizeFirstLetter(ore)) && OreUtil.doesOreExistAndValid("ingot" + OreUtil.capitalizeFirstLetter(ore))) {
@@ -901,9 +901,9 @@ public class ModRecipes {
 			.addSmelting(ItemDusts.getDustByName("silver", 1), ItemIngots.getIngotByName("silver"),
 				1F);
 
-			RebornCraftingHelper
-				.addShapedOreRecipe((getOre("oreIridium")), "UUU", " U ", "UUU", 'U',
-					ModItems.UU_MATTER);
+		RebornCraftingHelper
+			.addShapedOreRecipe((getOre("oreIridium")), "UUU", " U ", "UUU", 'U',
+				ModItems.UU_MATTER);
 
 		// Chemical Reactor
 		RecipeHandler.addRecipe(new ChemicalReactorRecipe(ItemDusts.getDustByName("calcite", 1), null,

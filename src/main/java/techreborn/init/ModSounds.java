@@ -26,7 +26,6 @@ package techreborn.init;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.GameData;
 
 /**

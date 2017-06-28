@@ -29,7 +29,7 @@ import net.minecraft.world.storage.MapStorage;
 import techreborn.lib.ModInfo;
 
 public class IDSUManager {
-	public static IDataIDSU getData(World world){
+	public static IDataIDSU getData(World world) {
 		MapStorage storage = world.getMapStorage();
 		IDSUSaveManger instance = (IDSUSaveManger) storage.getOrLoadData(IDSUSaveManger.class, ModInfo.MOD_ID + "_IDSU");
 

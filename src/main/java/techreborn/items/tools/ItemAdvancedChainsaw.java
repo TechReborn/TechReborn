@@ -39,7 +39,7 @@ public class ItemAdvancedChainsaw extends ItemChainsaw {
 
 	public ItemAdvancedChainsaw() {
 		super(ToolMaterial.DIAMOND, "techreborn.advancedChainsaw", ConfigTechReborn.AdvancedChainsawCharge,
-			 4.0F);
+			4.0F);
 		this.cost = 250;
 	}
 
@@ -48,7 +48,7 @@ public class ItemAdvancedChainsaw extends ItemChainsaw {
 	@Override
 	public void getSubItems(
 		CreativeTabs par2CreativeTabs, NonNullList itemList) {
-		if(!isInCreativeTab(par2CreativeTabs)){
+		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
 		ItemStack stack = new ItemStack(ModItems.ADVANCED_CHAINSAW);

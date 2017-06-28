@@ -80,7 +80,7 @@ public class GuiAutoCrafting extends GuiBase {
 		int mX = mouseX - getGuiLeft();
 		int mY = mouseY - getGuiTop();
 
-		if(recipe != null && !tileAutoCraftingTable.customRecipe){
+		if (recipe != null && !tileAutoCraftingTable.customRecipe) {
 			if (builder.isInRect(91, 66, 23, 23, mX, mY)) {
 				List<String> list = new ArrayList<>();
 				list.add("Click to clear");
@@ -149,7 +149,7 @@ public class GuiAutoCrafting extends GuiBase {
 		drawString("Inventory", 8, 82, 4210752, layer);
 
 		IRecipe recipe = tileAutoCraftingTable.getIRecipe();
-		if (recipe != null && ! tileAutoCraftingTable.customRecipe) {
+		if (recipe != null && !tileAutoCraftingTable.customRecipe) {
 			renderRecipe(recipe, guiLeft + 91, 66 + guiTop);
 		}
 	}

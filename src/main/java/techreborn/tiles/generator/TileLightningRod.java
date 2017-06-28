@@ -76,7 +76,7 @@ public class TileLightningRod extends TilePowerAcceptor implements IWrenchable {
 			final float lightStrikeChance = (100F - chanceOfStrike) * 20F;
 			final float totalChance = lightStrikeChance * this.getLightningStrikeMultiplier() * (1.1F - weatherStrength);
 			if (this.world.rand.nextInt((int) Math.floor(totalChance)) == 0) {
-				if(world.getBlockState(pos.up()).getBlock() != ModBlocks.REFINED_IRON_FENCE){
+				if (world.getBlockState(pos.up()).getBlock() != ModBlocks.REFINED_IRON_FENCE) {
 					this.onStatusHoldTicks = 400;
 					return;
 				}

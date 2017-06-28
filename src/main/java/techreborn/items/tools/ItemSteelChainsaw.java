@@ -39,7 +39,7 @@ public class ItemSteelChainsaw extends ItemChainsaw {
 
 	public ItemSteelChainsaw() {
 		super(ToolMaterial.IRON, "techreborn.ironChainsaw", ConfigTechReborn.IronChainsawCharge,
-			 2.0F);
+			2.0F);
 		this.cost = 50;
 	}
 
@@ -48,7 +48,7 @@ public class ItemSteelChainsaw extends ItemChainsaw {
 	@Override
 	public void getSubItems(
 		CreativeTabs par2CreativeTabs, NonNullList itemList) {
-		if(!isInCreativeTab(par2CreativeTabs)){
+		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
 		ItemStack stack = new ItemStack(ModItems.STEEL_CHAINSAW);

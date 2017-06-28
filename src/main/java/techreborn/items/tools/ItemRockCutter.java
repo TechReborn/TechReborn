@@ -131,13 +131,12 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 		return 200;
 	}
 
-
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubItems(
 		CreativeTabs par2CreativeTabs, NonNullList itemList) {
-		if(!isInCreativeTab(par2CreativeTabs)){
+		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
 		ItemStack uncharged = new ItemStack(ModItems.ROCK_CUTTER);

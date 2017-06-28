@@ -77,14 +77,14 @@ public class TileThermalGenerator extends TileBaseFluidGenerator implements ICon
 						this.getPos().getY() + direction.getFrontOffsetY(),
 						this.getPos().getZ() + direction.getFrontOffsetZ()))
 					.getBlock() == Blocks.LAVA) {
-					if (this.tryAddingEnergy(1)){
+					if (this.tryAddingEnergy(1)) {
 						this.lastOutput = this.world.getTotalWorldTime();
 						didRun = true;
 					}
 
 				}
 			}
-			if(didRun != isOn){
+			if (didRun != isOn) {
 				isOn = didRun;
 				world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockThermalGenerator.ACTIVE, isOn));
 			}

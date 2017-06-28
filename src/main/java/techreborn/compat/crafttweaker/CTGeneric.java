@@ -118,7 +118,6 @@ public class CTGeneric {
 			}
 		}
 
-
 		@Override
 		public String describe() {
 			return "Removing " + name + " recipe";

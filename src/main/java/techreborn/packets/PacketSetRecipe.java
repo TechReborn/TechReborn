@@ -22,7 +22,7 @@ public class PacketSetRecipe implements INetworkPacket<PacketSetRecipe> {
 
 	public PacketSetRecipe(TileAutoCraftingTable tile, IRecipe recipe, boolean custom) {
 		this.pos = tile.getPos();
-		if(recipe == null){
+		if (recipe == null) {
 			this.recipe = new ResourceLocation("");
 		} else {
 			this.recipe = recipe.getRegistryName();
@@ -51,8 +51,9 @@ public class PacketSetRecipe implements INetworkPacket<PacketSetRecipe> {
 
 	@Override
 	public void processData(PacketSetRecipe message, MessageContext context) {
-		TileEntity tileEntity = context.getServerHandler().player.world.getTileEntity(message.pos);;
-		if(tileEntity instanceof TileAutoCraftingTable){
+		TileEntity tileEntity = context.getServerHandler().player.world.getTileEntity(message.pos);
+		;
+		if (tileEntity instanceof TileAutoCraftingTable) {
 			((TileAutoCraftingTable) tileEntity).setCurrentRecipe(message.recipe, message.custom);
 		}
 	}

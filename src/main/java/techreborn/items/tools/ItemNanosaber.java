@@ -113,7 +113,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 	@Override
 	public void getSubItems(
 		CreativeTabs par2CreativeTabs, NonNullList itemList) {
-		if(!isInCreativeTab(par2CreativeTabs)){
+		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
 		ItemStack inactiveUncharged = new ItemStack(ModItems.NANOSABER);

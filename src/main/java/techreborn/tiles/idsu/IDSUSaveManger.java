@@ -48,8 +48,7 @@ public class IDSUSaveManger extends WorldSavedData implements IDataIDSU {
 	}
 
 	@Override
-	public boolean isDirty()
-	{
+	public boolean isDirty() {
 		return true;
 	}
 

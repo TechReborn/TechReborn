@@ -27,10 +27,7 @@ package techreborn.blocks;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.material.Material;
-import prospector.shootingstar.ShootingStar;
-import prospector.shootingstar.model.ModelCompound;
 import techreborn.client.TechRebornCreativeTabMisc;
-import techreborn.lib.ModInfo;
 
 public class BlockRefinedIronFence extends BlockFence {
 

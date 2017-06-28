@@ -55,10 +55,10 @@ public class ItemTreeTap extends ItemTR {
 		Block block = state.getBlock();
 		if (CompatManager.isIC2Loaded && block == Block.getBlockFromName("ic2:rubber_wood")) {
 			ItemTreetap.attemptExtract(playerIn, worldIn, pos, side, state, null);
-			if (!worldIn.isRemote){
+			if (!worldIn.isRemote) {
 				playerIn.getHeldItem(hand).damageItem(1, playerIn);
 			}
-			if(playerIn instanceof EntityPlayerMP){
+			if (playerIn instanceof EntityPlayerMP) {
 				TRRecipeHandler.unlockTRRecipes((EntityPlayerMP) playerIn);
 			}
 			return EnumActionResult.SUCCESS;

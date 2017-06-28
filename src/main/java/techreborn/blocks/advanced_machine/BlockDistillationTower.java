@@ -24,7 +24,6 @@
 
 package techreborn.blocks.advanced_machine;
 
-import net.minecraft.block.material.Material;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.BlockMachineBase;

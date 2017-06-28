@@ -39,7 +39,7 @@ public class ItemDiamondDrill extends ItemDrill {
 
 	public ItemDiamondDrill() {
 		super(ToolMaterial.DIAMOND, "techreborn.diamondDrill", ConfigTechReborn.DiamondDrillCharge,
-			 0.5F, 15F);
+			0.5F, 15F);
 		this.cost = 250;
 	}
 
@@ -48,7 +48,7 @@ public class ItemDiamondDrill extends ItemDrill {
 	@Override
 	public void getSubItems(
 		CreativeTabs par2CreativeTabs, NonNullList itemList) {
-		if(!isInCreativeTab(par2CreativeTabs)){
+		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
 		ItemStack stack = new ItemStack(ModItems.DIAMOND_DRILL);

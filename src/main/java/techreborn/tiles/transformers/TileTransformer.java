@@ -56,8 +56,8 @@ public class TileTransformer extends TilePowerAcceptor implements IWrenchable, I
 		super();
 		this.wrenchDrop = wrenchDrop;
 		this.inputTier = tier;
-		if(tier != EnumPowerTier.MICRO){
-			ouputTier = EnumPowerTier.values()[tier.ordinal() -1];
+		if (tier != EnumPowerTier.MICRO) {
+			ouputTier = EnumPowerTier.values()[tier.ordinal() - 1];
 		} else {
 			ouputTier = EnumPowerTier.MICRO;
 		}

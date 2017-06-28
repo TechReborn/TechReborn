@@ -55,13 +55,13 @@ public class OilLakeGenerator implements IWorldGenerator {
 
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
-		if(!enable){
+		if (!enable) {
 			return;
 		}
-		if(!world.provider.isSurfaceWorld()){
+		if (!world.provider.isSurfaceWorld()) {
 			return;
 		}
-		if(random.nextInt(rareity) != 0){
+		if (random.nextInt(rareity) != 0) {
 			return;
 		}
 		int y = random.nextInt(maxHeight);

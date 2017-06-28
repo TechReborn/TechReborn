@@ -34,7 +34,6 @@ import techreborn.client.TechRebornCreativeTab;
 
 public class BlockComputerCube extends BlockMachineBase {
 
-
 	public BlockComputerCube(final Material material) {
 		super();
 		this.setUnlocalizedName("techreborn.computercube");
