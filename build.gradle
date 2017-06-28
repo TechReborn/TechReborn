@@ -24,7 +24,7 @@ buildscript {
 	dependencies {
 		classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
 		classpath "gradle.plugin.net.minecrell:licenser:0.2.1"
-		classpath 'ASM-Injector:ASM-Injector:1.0.0.25'
+		classpath 'ASM-Injector:ASM-Injector:1.0.0.30'
 	}
 }
 
@@ -86,7 +86,7 @@ configurations {
 	compile.extendsFrom shade
 }
 
-version = "2.5.0"
+version = "2.6.0"
 
 def ENV = System.getenv()
 if (ENV.BUILD_NUMBER) {
@@ -340,8 +340,11 @@ task asmInjectJar {
 
 		logger.lifecycle("ASMInjector: setting up injector")
 		def injector = new me.modmuss50.asmInjector.ASMInjector()
-		injector.addClasspathFile(rebornCoreJar)
 		injector.addClasspathFile(jar.archivePath)
+		injector.addClasspathFile(rebornCoreJar)
+		injector.callSetupClass("reborncore.mixin.implementations.asmInjector.ASMInjectorSetupClass")
+		//injector.addClasspathFile(rebornCoreJar) //Done again to load the class data into the setup class
+
 		configurations.forgeGradleMc.collect {
 			injector.addClasspathFile(it)
 		}
@@ -351,7 +354,6 @@ task asmInjectJar {
 			}
 		}
 		injector.addTransformer("reborncore.mixin.transformer.MixinTransformer")
-		injector.callSetupClass("reborncore.mixin.implementations.asmInjector.ASMInjectorSetupClass")
 		logger.lifecycle("ASMInjector: injecting")
 		injector.inject(jar.archivePath, jar.archivePath)
 		logger.lifecycle("ASMInjector: done")
