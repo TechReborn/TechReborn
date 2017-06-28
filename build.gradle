@@ -326,16 +326,11 @@ task asmInjectJar {
 		def rcVersion = metadata.versioning.release
 
 		def rebornCoreJar = new File(cacheFiles, "${rcVersion}.jar")
-		def localRCJar = new File(cacheFiles, "RebornCore-1.12-3.1.0-universal.jar")
-		if (localRCJar.exists()) {
-			logger.lifecycle("ASMInjector: using local RebornCore")
-			rebornCoreJar = localRCJar
-		} else {
-			logger.lifecycle("ASMInjector: downloading RebornCore")
-			FileUtils.copyURLToFile(new URL("http://maven.modmuss50.me/RebornCore/RebornCore-1.12/${rcVersion}/RebornCore-1.12-${rcVersion}-dev.jar"), rebornCoreJar)
-
+		if(rebornCoreJar.exists()){
+			rebornCoreJar.delete()
 		}
-
+		logger.lifecycle("ASMInjector: downloading RebornCore ${rcVersion}")
+		FileUtils.copyURLToFile(new URL("http://maven.modmuss50.me/RebornCore/RebornCore-1.12/${rcVersion}/RebornCore-1.12-${rcVersion}-dev.jar"), rebornCoreJar)
 
 		logger.lifecycle("ASMInjector: setting up injector")
 		def injector = new me.modmuss50.asmInjector.ASMInjector()
