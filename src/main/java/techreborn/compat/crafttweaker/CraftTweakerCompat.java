@@ -24,12 +24,12 @@
 
 package techreborn.compat.crafttweaker;
 
-import minetweaker.MineTweakerAPI;
-import minetweaker.api.item.IIngredient;
-import minetweaker.api.item.IItemStack;
-import minetweaker.api.item.IngredientStack;
-import minetweaker.api.liquid.ILiquidStack;
-import minetweaker.api.oredict.IOreDictEntry;
+import crafttweaker.CraftTweakerAPI;
+import crafttweaker.api.item.IIngredient;
+import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.item.IngredientStack;
+import crafttweaker.api.liquid.ILiquidStack;
+import crafttweaker.api.oredict.IOreDictEntry;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -39,8 +39,8 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import techreborn.compat.ICompatModule;
 
-import static minetweaker.api.minecraft.MineTweakerMC.getItemStack;
-import static minetweaker.api.minecraft.MineTweakerMC.getLiquidStack;
+import static crafttweaker.api.minecraft.CraftTweakerMC.getItemStack;
+import static crafttweaker.api.minecraft.CraftTweakerMC.getLiquidStack;
 
 public class CraftTweakerCompat implements ICompatModule {
 	public static ItemStack toStack(IItemStack iStack) {
@@ -69,7 +69,21 @@ public class CraftTweakerCompat implements ICompatModule {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
-
+		CraftTweakerAPI.registerClass(CTAlloySmelter.class);
+		CraftTweakerAPI.registerClass(CTAssemblingMachine.class);
+		CraftTweakerAPI.registerClass(CTBlastFurnace.class);
+		CraftTweakerAPI.registerClass(CTCentrifuge.class);
+		CraftTweakerAPI.registerClass(CTChemicalReactor.class);
+		CraftTweakerAPI.registerClass(CTCompressor.class);
+		CraftTweakerAPI.registerClass(CTIndustrialGrinder.class);
+		CraftTweakerAPI.registerClass(CTImplosionCompressor.class);
+		CraftTweakerAPI.registerClass(CTIndustrialElectrolyzer.class);
+		CraftTweakerAPI.registerClass(CTIndustrialSawmill.class);
+		CraftTweakerAPI.registerClass(CTFusionReactor.class);
+		CraftTweakerAPI.registerClass(CTVacuumFreezer.class);
+		CraftTweakerAPI.registerClass(CTGenerator.class);
+		CraftTweakerAPI.registerClass(CTRollingMachine.class);
+		CraftTweakerAPI.registerClass(CTScrapbox.class);
 	}
 
 	@Override
@@ -79,21 +93,7 @@ public class CraftTweakerCompat implements ICompatModule {
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
-		MineTweakerAPI.registerClass(CTAlloySmelter.class);
-		MineTweakerAPI.registerClass(CTAssemblingMachine.class);
-		MineTweakerAPI.registerClass(CTBlastFurnace.class);
-		MineTweakerAPI.registerClass(CTCentrifuge.class);
-		MineTweakerAPI.registerClass(CTChemicalReactor.class);
-		MineTweakerAPI.registerClass(CTCompressor.class);
-		MineTweakerAPI.registerClass(CTIndustrialGrinder.class);
-		MineTweakerAPI.registerClass(CTImplosionCompressor.class);
-		MineTweakerAPI.registerClass(CTIndustrialElectrolyzer.class);
-		MineTweakerAPI.registerClass(CTIndustrialSawmill.class);
-		MineTweakerAPI.registerClass(CTFusionReactor.class);
-		MineTweakerAPI.registerClass(CTVacuumFreezer.class);
-		MineTweakerAPI.registerClass(CTGenerator.class);
-		MineTweakerAPI.registerClass(CTRollingMachine.class);
-		MineTweakerAPI.registerClass(CTScrapbox.class);
+
 	}
 
 	@Override

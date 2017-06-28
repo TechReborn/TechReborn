@@ -24,7 +24,7 @@
 
 package techreborn.compat.crafttweaker;
 
-import minetweaker.api.liquid.ILiquidStack;
+import crafttweaker.api.liquid.ILiquidStack;
 import reborncore.api.fuel.FluidPowerManager;
 import stanhebben.zenscript.annotations.ZenClass;
 

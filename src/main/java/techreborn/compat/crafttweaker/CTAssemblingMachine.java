@@ -24,9 +24,9 @@
 
 package techreborn.compat.crafttweaker;
 
-import minetweaker.MineTweakerAPI;
-import minetweaker.api.item.IIngredient;
-import minetweaker.api.item.IItemStack;
+import crafttweaker.CraftTweakerAPI;
+import crafttweaker.api.item.IIngredient;
+import crafttweaker.api.item.IItemStack;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -48,12 +48,12 @@ public class CTAssemblingMachine extends CTGeneric {
 
 	@ZenMethod
 	public static void removeInputRecipe(IIngredient iIngredient) {
-		MineTweakerAPI.apply(new RemoveInput(iIngredient, getMachineName()));
+		CraftTweakerAPI.apply(new RemoveInput(iIngredient, getMachineName()));
 	}
 
 	@ZenMethod
 	public static void removeRecipe(IItemStack output) {
-		MineTweakerAPI.apply(new Remove(CraftTweakerCompat.toStack(output), getMachineName()));
+		CraftTweakerAPI.apply(new Remove(CraftTweakerCompat.toStack(output), getMachineName()));
 	}
 
 	public static String getMachineName() {

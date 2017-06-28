@@ -24,11 +24,11 @@
 
 package techreborn.compat.crafttweaker;
 
-import minetweaker.IUndoableAction;
-import minetweaker.MineTweakerAPI;
-import minetweaker.api.item.IIngredient;
-import minetweaker.api.item.IItemStack;
-import minetweaker.api.minecraft.MineTweakerMC;
+import crafttweaker.CraftTweakerAPI;
+import crafttweaker.IAction;
+import crafttweaker.api.item.IIngredient;
+import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.item.ItemStack;
 import reborncore.common.util.ItemUtils;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -45,20 +45,20 @@ public class CTFusionReactor {
 	@ZenMethod
 	public static void addRecipe(IIngredient topInput, IIngredient bottomInput, IItemStack output, int startEU, int euTick, int tickTime) {
 		FusionReactorRecipe reactorRecipe = new FusionReactorRecipe((ItemStack) CraftTweakerCompat.toObject(topInput), (ItemStack) CraftTweakerCompat.toObject(bottomInput), CraftTweakerCompat.toStack(output), startEU, euTick, tickTime);
-		MineTweakerAPI.apply(new Add(reactorRecipe));
+		CraftTweakerAPI.apply(new Add(reactorRecipe));
 	}
 
 	@ZenMethod
 	public static void removeTopInputRecipe(IIngredient iIngredient) {
-		MineTweakerAPI.apply(new RemoveTopInput(iIngredient));
+		CraftTweakerAPI.apply(new RemoveTopInput(iIngredient));
 	}
 
 	@ZenMethod
 	public static void removeBottomInputRecipe(IIngredient iIngredient) {
-		MineTweakerAPI.apply(new RemoveTopInput(iIngredient));
+		CraftTweakerAPI.apply(new RemoveTopInput(iIngredient));
 	}
 
-	private static class Add implements IUndoableAction {
+	private static class Add implements IAction {
 		private final FusionReactorRecipe recipe;
 
 		public Add(FusionReactorRecipe recipe) {
@@ -71,37 +71,17 @@ public class CTFusionReactor {
 		}
 
 		@Override
-		public boolean canUndo() {
-			return true;
-		}
-
-		@Override
-		public void undo() {
-			FusionReactorRecipeHelper.reactorRecipes.remove(recipe);
-		}
-
-		@Override
 		public String describe() {
 			return "Adding Fusion Reactor recipe for " + recipe.getOutput().getDisplayName();
-		}
-
-		@Override
-		public String describeUndo() {
-			return "Removing Fusion Reactor recipe for " + recipe.getOutput().getDisplayName();
-		}
-
-		@Override
-		public Object getOverrideKey() {
-			return null;
 		}
 	}
 
 	@ZenMethod
 	public static void removeRecipe(IItemStack output) {
-		MineTweakerAPI.apply(new Remove(CraftTweakerCompat.toStack(output)));
+		CraftTweakerAPI.apply(new Remove(CraftTweakerCompat.toStack(output)));
 	}
 
-	private static class Remove implements IUndoableAction {
+	private static class Remove implements IAction {
 		private final ItemStack output;
 		List<FusionReactorRecipe> removedRecipes = new ArrayList<FusionReactorRecipe>();
 
@@ -122,39 +102,13 @@ public class CTFusionReactor {
 		}
 
 		@Override
-		public void undo() {
-			if (removedRecipes != null) {
-				for (FusionReactorRecipe recipe : removedRecipes) {
-					if (recipe != null) {
-						FusionReactorRecipeHelper.registerRecipe(recipe);
-					}
-				}
-			}
-
-		}
-
-		@Override
 		public String describe() {
 			return "Removing Fusion Reactor recipe for " + output.getDisplayName();
 		}
 
-		@Override
-		public String describeUndo() {
-			return "Re-Adding Fusion Reactor recipe for " + output.getDisplayName();
-		}
-
-		@Override
-		public Object getOverrideKey() {
-			return null;
-		}
-
-		@Override
-		public boolean canUndo() {
-			return true;
-		}
 	}
 
-	private static class RemoveTopInput implements IUndoableAction {
+	private static class RemoveTopInput implements IAction {
 		private final IIngredient output;
 		List<FusionReactorRecipe> removedRecipes = new ArrayList<FusionReactorRecipe>();
 
@@ -165,7 +119,7 @@ public class CTFusionReactor {
 		@Override
 		public void apply() {
 			for (FusionReactorRecipe recipeType : FusionReactorRecipeHelper.reactorRecipes) {
-				if (output.matches(MineTweakerMC.getIItemStack(recipeType.getTopInput()))) {
+				if (output.matches(CraftTweakerMC.getIItemStack(recipeType.getTopInput()))) {
 					removedRecipes.add(recipeType);
 					FusionReactorRecipeHelper.reactorRecipes.remove(recipeType);
 					break;
@@ -174,39 +128,12 @@ public class CTFusionReactor {
 		}
 
 		@Override
-		public void undo() {
-			if (removedRecipes != null) {
-				for (FusionReactorRecipe recipe : removedRecipes) {
-					if (recipe != null) {
-						FusionReactorRecipeHelper.registerRecipe(recipe);
-					}
-				}
-			}
-
-		}
-
-		@Override
 		public String describe() {
 			return "Removing Fusion Reactor recipe";
 		}
-
-		@Override
-		public String describeUndo() {
-			return "Re-Adding Fusion Reactor recipe";
-		}
-
-		@Override
-		public Object getOverrideKey() {
-			return null;
-		}
-
-		@Override
-		public boolean canUndo() {
-			return true;
-		}
 	}
 
-	private static class RemoveBottomInput implements IUndoableAction {
+	private static class RemoveBottomInput implements IAction {
 		private final IIngredient output;
 		List<FusionReactorRecipe> removedRecipes = new ArrayList<FusionReactorRecipe>();
 
@@ -217,7 +144,7 @@ public class CTFusionReactor {
 		@Override
 		public void apply() {
 			for (FusionReactorRecipe recipeType : FusionReactorRecipeHelper.reactorRecipes) {
-				if (output.matches(MineTweakerMC.getIItemStack(recipeType.getBottomInput()))) {
+				if (output.matches(CraftTweakerMC.getIItemStack(recipeType.getBottomInput()))) {
 					removedRecipes.add(recipeType);
 					FusionReactorRecipeHelper.reactorRecipes.remove(recipeType);
 					break;
@@ -225,36 +152,10 @@ public class CTFusionReactor {
 			}
 		}
 
-		@Override
-		public void undo() {
-			if (removedRecipes != null) {
-				for (FusionReactorRecipe recipe : removedRecipes) {
-					if (recipe != null) {
-						FusionReactorRecipeHelper.registerRecipe(recipe);
-					}
-				}
-			}
-
-		}
 
 		@Override
 		public String describe() {
 			return "Removing Fusion Reactor recipe";
-		}
-
-		@Override
-		public String describeUndo() {
-			return "Re-Adding Fusion Reactor recipe";
-		}
-
-		@Override
-		public Object getOverrideKey() {
-			return null;
-		}
-
-		@Override
-		public boolean canUndo() {
-			return true;
 		}
 	}
 }

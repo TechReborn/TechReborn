@@ -24,10 +24,10 @@
 
 package techreborn.compat.crafttweaker;
 
-import minetweaker.MineTweakerAPI;
-import minetweaker.api.item.IIngredient;
-import minetweaker.api.item.IItemStack;
-import minetweaker.api.oredict.IOreDictEntry;
+import crafttweaker.CraftTweakerAPI;
+import crafttweaker.api.item.IIngredient;
+import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.oredict.IOreDictEntry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
@@ -73,7 +73,7 @@ public class CTRollingMachine {
 		else {
 			Object internal = iStack.getInternal();
 			if (internal == null || !(internal instanceof ItemStack)) {
-				MineTweakerAPI.getLogger().logError("Not a valid item stack: " + iStack);
+				CraftTweakerAPI.getLogger().logError("Not a valid item stack: " + iStack);
 			}
 
 			return (ItemStack) internal;

@@ -24,10 +24,10 @@
 
 package techreborn.compat.crafttweaker;
 
-import minetweaker.IUndoableAction;
-import minetweaker.MineTweakerAPI;
-import minetweaker.api.item.IIngredient;
-import minetweaker.api.minecraft.MineTweakerMC;
+import crafttweaker.CraftTweakerAPI;
+import crafttweaker.IAction;
+import crafttweaker.api.item.IIngredient;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.item.ItemStack;
 import reborncore.api.recipe.IBaseRecipeType;
 import reborncore.api.recipe.RecipeHandler;
@@ -43,10 +43,10 @@ public class CTGeneric {
 	}
 
 	public static void addRecipe(BaseRecipe recipe) {
-		MineTweakerAPI.apply(new Add(recipe));
+		CraftTweakerAPI.apply(new Add(recipe));
 	}
 
-	private static class Add implements IUndoableAction {
+	private static class Add implements IAction {
 		private final BaseRecipe recipe;
 
 		public Add(BaseRecipe recipe) {
@@ -56,37 +56,15 @@ public class CTGeneric {
 		@Override
 		public void apply() {
 			RecipeHandler.addRecipe(recipe);
-			MineTweakerAPI.getIjeiRecipeRegistry().addRecipe(recipe);
-		}
-
-		@Override
-		public boolean canUndo() {
-			return true;
-		}
-
-		@Override
-		public void undo() {
-			RecipeHandler.recipeList.remove(recipe);
-			MineTweakerAPI.getIjeiRecipeRegistry().removeRecipe(recipe);
 		}
 
 		@Override
 		public String describe() {
 			return "Adding " + recipe.getRecipeName() + " recipe for " + recipe.getOutput(0).getDisplayName();
 		}
-
-		@Override
-		public String describeUndo() {
-			return "Removing " + recipe.getRecipeName() + " recipe for " + recipe.getOutput(0).getDisplayName();
-		}
-
-		@Override
-		public Object getOverrideKey() {
-			return null;
-		}
 	}
 
-	public static class Remove implements IUndoableAction {
+	public static class Remove implements IAction {
 		private final ItemStack output;
 		List<BaseRecipe> removedRecipes = new ArrayList<BaseRecipe>();
 		private final String name;
@@ -103,7 +81,6 @@ public class CTGeneric {
 					if (ItemUtils.isItemEqual(stack, output, true, false)) {
 						removedRecipes.add((BaseRecipe) recipeType);
 						RecipeHandler.recipeList.remove(recipeType);
-						MineTweakerAPI.getIjeiRecipeRegistry().removeRecipe(recipeType);
 						break;
 					}
 				}
@@ -111,40 +88,12 @@ public class CTGeneric {
 		}
 
 		@Override
-		public void undo() {
-			if (removedRecipes != null) {
-				for (BaseRecipe recipe : removedRecipes) {
-					if (recipe != null) {
-						RecipeHandler.addRecipe(recipe);
-						MineTweakerAPI.getIjeiRecipeRegistry().addRecipe(recipe);
-					}
-				}
-			}
-
-		}
-
-		@Override
 		public String describe() {
 			return "Removing " + name + " recipe for " + output.getDisplayName();
 		}
-
-		@Override
-		public String describeUndo() {
-			return "Re-Adding " + name + " recipe for " + output.getDisplayName();
-		}
-
-		@Override
-		public Object getOverrideKey() {
-			return null;
-		}
-
-		@Override
-		public boolean canUndo() {
-			return true;
-		}
 	}
 
-	public static class RemoveInput implements IUndoableAction {
+	public static class RemoveInput implements IAction {
 		private final IIngredient output;
 		List<BaseRecipe> removedRecipes = new ArrayList<BaseRecipe>();
 		private final String name;
@@ -159,10 +108,9 @@ public class CTGeneric {
 			for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(name)) {
 				for (Object stack : recipeType.getInputs()) {
 					if (stack instanceof ItemStack) {
-						if (output.matches(MineTweakerMC.getIItemStack((ItemStack) stack))) {
+						if (output.matches(CraftTweakerMC.getIItemStack((ItemStack) stack))) {
 							removedRecipes.add((BaseRecipe) recipeType);
 							RecipeHandler.recipeList.remove(recipeType);
-							MineTweakerAPI.getIjeiRecipeRegistry().removeRecipe(recipeType);
 							break;
 						}
 					}
@@ -170,37 +118,11 @@ public class CTGeneric {
 			}
 		}
 
-		@Override
-		public void undo() {
-			if (removedRecipes != null) {
-				for (BaseRecipe recipe : removedRecipes) {
-					if (recipe != null) {
-						RecipeHandler.addRecipe(recipe);
-						MineTweakerAPI.getIjeiRecipeRegistry().addRecipe(recipe);
-					}
-				}
-			}
-
-		}
 
 		@Override
 		public String describe() {
 			return "Removing " + name + " recipe";
 		}
 
-		@Override
-		public String describeUndo() {
-			return "Re-Adding " + name + " recipe";
-		}
-
-		@Override
-		public Object getOverrideKey() {
-			return null;
-		}
-
-		@Override
-		public boolean canUndo() {
-			return true;
-		}
 	}
 }

@@ -24,10 +24,10 @@
 
 package techreborn.compat.crafttweaker;
 
-import minetweaker.MineTweakerAPI;
-import minetweaker.api.item.IIngredient;
-import minetweaker.api.item.IItemStack;
-import minetweaker.api.liquid.ILiquidStack;
+import crafttweaker.CraftTweakerAPI;
+import crafttweaker.api.item.IIngredient;
+import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.liquid.ILiquidStack;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -71,12 +71,12 @@ public class CTIndustrialSawmill extends CTGeneric {
 
 	@ZenMethod
 	public static void removeInputRecipe(IIngredient iIngredient) {
-		MineTweakerAPI.apply(new RemoveInput(iIngredient, getMachineName()));
+		CraftTweakerAPI.apply(new RemoveInput(iIngredient, getMachineName()));
 	}
 
 	@ZenMethod
 	public static void removeRecipe(IItemStack output) {
-		MineTweakerAPI.apply(new Remove(CraftTweakerCompat.toStack(output), getMachineName()));
+		CraftTweakerAPI.apply(new Remove(CraftTweakerCompat.toStack(output), getMachineName()));
 	}
 
 	public static String getMachineName() {
