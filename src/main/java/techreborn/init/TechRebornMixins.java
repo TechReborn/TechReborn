@@ -26,7 +26,6 @@ package techreborn.init;
 
 import reborncore.common.powerSystem.PoweredItem;
 import reborncore.mixin.api.IMixinRegistry;
-import reborncore.mixin.api.MixinRegistationTime;
 import reborncore.mixin.json.MixinTargetData;
 
 import java.util.ArrayList;
@@ -58,10 +57,5 @@ public class TechRebornMixins implements IMixinRegistry {
 		targetData.addAll(PoweredItem.registerPoweredItem("techreborn.items.tools.ItemNanosaber"));
 		targetData.addAll(PoweredItem.registerPoweredItem("techreborn.items.tools.ItemCloakingDevice"));
 		return targetData;
-	}
-
-	@Override
-	public MixinRegistationTime registrationTime() {
-		return MixinRegistationTime.LATE;
 	}
 }
