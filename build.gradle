@@ -24,7 +24,7 @@ buildscript {
 	dependencies {
 		classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
 		classpath "gradle.plugin.net.minecrell:licenser:0.2.1"
-		classpath 'ASM-Injector:ASM-Injector:1.0.0.30'
+		classpath 'ASM-Injector:ASM-Injector:1.0.0.31'
 	}
 }
 
