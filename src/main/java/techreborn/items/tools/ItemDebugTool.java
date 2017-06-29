@@ -33,6 +33,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.energy.CapabilityEnergy;
 import reborncore.api.power.IEnergyInterfaceTile;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.client.TechRebornCreativeTabMisc;
@@ -57,6 +58,13 @@ public class ItemDebugTool extends ItemTR {
 				playerIn.sendMessage(
 					new TextComponentString(TextFormatting.GREEN + "Power" + TextFormatting.BLUE
 						+ PowerSystem.getLocaliszedPower(((IEnergyInterfaceTile) tile).getEnergy())));
+			}
+			return EnumActionResult.SUCCESS;
+		} else if (tile != null && tile.hasCapability(CapabilityEnergy.ENERGY, facing)) {
+			if (!tile.getWorld().isRemote) {
+				playerIn.sendMessage(
+					new TextComponentString(TextFormatting.GREEN + "Power " + TextFormatting.RED
+						+ tile.getCapability(CapabilityEnergy.ENERGY, facing).getEnergyStored() + "FU"));
 			}
 			return EnumActionResult.SUCCESS;
 		}
