@@ -222,4 +222,10 @@ public class TileRecycler extends TilePowerAcceptor implements IWrenchable, IInv
 			.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).syncEnergyValue()
 			.syncIntegerValue(this::getProgress, this::setProgress).addInventory().create();
 	}
+
+	//TODO make this so
+	@Override
+	public boolean canBeUpgraded() {
+		return false;
+	}
 }
