@@ -35,17 +35,23 @@ import reborncore.common.RebornCoreConfig;
 import techreborn.blocks.cable.BlockCable;
 import techreborn.blocks.cable.EnumCableType;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by modmuss50 on 19/05/2017.
  */
 public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 	public int power = 0;
 
+	List<TileCable> sentTo = new ArrayList<>();
+
 	@Override
 	public void update() {
 		if (world.isRemote) {
 			return;
 		}
+		sentTo.clear();
 		for (EnumFacing face : EnumFacing.VALUES) {
 			BlockPos offPos = getPos().offset(face);
 			TileEntity tile = getWorld().getTileEntity(offPos);
@@ -53,25 +59,23 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 				continue;
 			}
 
-			if (!(tile instanceof TileCable) && tile.hasCapability(CapabilityEnergy.ENERGY, face.getOpposite())) {
+			if (tile.hasCapability(CapabilityEnergy.ENERGY, face.getOpposite())) {
+				if(tile instanceof TileCable){
+					if (((TileCable) tile).sentTo.contains(this)){
+						continue;
+					}
+				}
 				IEnergyStorage energy = tile.getCapability(CapabilityEnergy.ENERGY, face.getOpposite());
 				if (energy.canReceive()) {
 					int move = energy.receiveEnergy(Math.min(getCableType().transferRate, power), false);
-					if (move != 0) {
+					if (move != 0 && power >= move) {
 						power -= move;
+						if(tile instanceof TileCable){
+							sentTo.add((TileCable) tile);
+						}
 					}
 				}
 			}
-			if (tile instanceof TileCable) {
-				TileCable cable = (TileCable) tile;
-				int averPower = (power + cable.power) / 2;
-				cable.power = averPower;
-				if (averPower % 2 != 0 && power != 0) {
-					averPower++;
-				}
-				power = averPower;
-			}
-
 		}
 	}
 
@@ -111,7 +115,7 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 
 	@Override
 	public int getMaxEnergyStored() {
-		return getCableType().transferRate * 2;
+		return getCableType().transferRate;
 	}
 
 	@Override

@@ -72,7 +72,7 @@ public class ItemWrench extends ItemTR {
 	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos,
 	                                  EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (!PermissionAPI.hasPermission(player.getGameProfile(), RebornPermissions.WRENCH_BLOCK, new BlockPosContext(player, pos, world.getBlockState(pos), facing))) {
-			return EnumActionResult.FAIL;
+			return EnumActionResult.PASS;
 		}
 		if (CompatManager.isIC2Loaded) {
 			EnumActionResult result = IC2WrenchHelper.onItemUse(player.getHeldItem(hand), player, world, pos, hand, facing, hitX, hitY, hitZ);
@@ -81,11 +81,11 @@ public class ItemWrench extends ItemTR {
 			}
 		}
 		if (world.isAirBlock(pos)) {
-			return EnumActionResult.FAIL;
+			return EnumActionResult.PASS;
 		}
 		TileEntity tile = world.getTileEntity(pos);
 		if (tile == null) {
-			return EnumActionResult.FAIL;
+			return EnumActionResult.PASS;
 		}
 		if (!world.isRemote) {
 			if (player.isSneaking()) {
@@ -151,9 +151,9 @@ public class ItemWrench extends ItemTR {
 
 				}
 			}
-			return EnumActionResult.FAIL;
+			return EnumActionResult.PASS;
 		} else {
-			return EnumActionResult.FAIL;
+			return EnumActionResult.PASS;
 		}
 	}
 

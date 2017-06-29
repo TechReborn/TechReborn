@@ -33,6 +33,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -47,10 +48,12 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.energy.CapabilityEnergy;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
+import techreborn.items.tools.ItemWrench;
 import techreborn.tiles.cable.TileCable;
 
 import javax.annotation.Nullable;
 import java.security.InvalidParameterException;
+import java.util.Random;
 
 /**
  * Created by modmuss50 on 19/05/2017.
@@ -79,6 +82,30 @@ public class BlockCable extends BlockContainer {
 			}
 		}
 		throw new InvalidParameterException("The cable " + name + " could not be found.");
+	}
+
+	@Override
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		ItemStack stack = playerIn.getHeldItem(hand);
+		if(stack.getItem() instanceof ItemWrench && !world.isRemote){ //TODO use new api
+				ItemStack itemStack = new ItemStack(this, 1, getMetaFromState(state));
+				Random rand = new Random();
+
+				float dX = rand.nextFloat() * 0.8F + 0.1F;
+				float dY = rand.nextFloat() * 0.8F + 0.1F;
+				float dZ = rand.nextFloat() * 0.8F + 0.1F;
+
+				EntityItem entityItem = new EntityItem(world, pos.getX() + dX, pos.getY() + dY, pos.getZ() + dZ,
+					itemStack.copy());
+
+				float factor = 0.05F;
+				entityItem.motionX = rand.nextGaussian() * factor;
+				entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
+				entityItem.motionZ = rand.nextGaussian() * factor;
+				world.spawnEntity(entityItem);
+				world.setBlockToAir(pos);
+		}
+		return super.onBlockActivated(world, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
 	}
 
 	public static ItemStack getCableByName(String name) {
