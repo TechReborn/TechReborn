@@ -26,7 +26,6 @@ package techreborn.items.tools;
 
 import net.minecraft.block.BlockDynamicLiquid;
 import net.minecraft.block.BlockStaticLiquid;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -46,10 +45,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.server.permission.PermissionAPI;
 import net.minecraftforge.server.permission.context.BlockPosContext;
 import reborncore.common.IWrenchable;
-import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.RebornPermissions;
 import techreborn.blocks.fluid.BlockFluidBase;
-import techreborn.blocks.storage.BlockEnergyStorage;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.compat.CompatManager;
 import techreborn.init.ModSounds;
@@ -69,48 +66,6 @@ public class ItemWrench extends ItemTR {
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		setUnlocalizedName("techreborn.wrench");
 		setMaxStackSize(1);
-	}
-
-	@Override
-	public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos,
-	                                       EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
-		if (!PermissionAPI.hasPermission(player.getGameProfile(), RebornPermissions.WRENCH_BLOCK, new BlockPosContext(player, pos, world.getBlockState(pos), side))) {
-			return EnumActionResult.FAIL;
-		}
-		if (CompatManager.isIC2Loaded) {
-			EnumActionResult result = IC2WrenchHelper.onItemUseFirst(player.getHeldItem(hand), player, world, pos, side, hitX, hitY, hitZ, hand);
-			if (result == EnumActionResult.SUCCESS) {
-				return result;
-			}
-		}
-		if (world.isAirBlock(pos)) {
-			return EnumActionResult.FAIL;
-		}
-		TileEntity tile = world.getTileEntity(pos);
-		if (tile == null) {
-			return EnumActionResult.FAIL;
-		}
-
-		if (!player.isSneaking()) {
-			if (tile instanceof TileMachineBase) {
-				if (side != EnumFacing.DOWN && side != EnumFacing.UP) {
-					((TileMachineBase) tile).setFacing(side);
-					return EnumActionResult.SUCCESS;
-				}
-			}
-			IBlockState state = world.getBlockState(pos);
-			if (state.getBlock() instanceof BlockEnergyStorage) {
-				EnumFacing facing = state.getValue(BlockEnergyStorage.FACING);
-				if (facing.getOpposite() == side) {
-					facing = side;
-				} else {
-					facing = side.getOpposite();
-				}
-				world.setBlockState(pos, state.withProperty(BlockEnergyStorage.FACING, facing));
-				return EnumActionResult.SUCCESS;
-			}
-		}
-		return super.onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, hand);
 	}
 
 	@Override
