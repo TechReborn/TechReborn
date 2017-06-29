@@ -10,21 +10,12 @@ buildscript {
 			url = "https://oss.sonatype.org/content/repositories/snapshots/"
 		}
 		maven {
-			name = "Modmuss50"
-			url = "http://maven.modmuss50.me/"
-		}
-		maven {
 			url "https://plugins.gradle.org/m2/"
-		}
-		maven {
-			name = 'mojang'
-			url = 'https://libraries.minecraft.net/'
 		}
 	}
 	dependencies {
 		classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
 		classpath "gradle.plugin.net.minecrell:licenser:0.2.1"
-		classpath 'ASM-Injector:ASM-Injector:1.0.0.31'
 	}
 }
 
@@ -311,51 +302,7 @@ task signJar(type: SignJar, dependsOn: reobfJar) {
 
 }
 
-//task asmInjectJar {
-//	doLast {
-//		def cacheFiles = new File(".gradle/asmInjector")
-//		if (!cacheFiles.exists()) {
-//			cacheFiles.mkdirs()
-//		}
-//		//Downloads the maven meta data
-//		def mavenMetadata = new File(cacheFiles, "maven-metadata.xml")
-//		logger.lifecycle("ASMInjector: Downloading reborn core metadata")
-//		FileUtils.copyURLToFile(new URL("http://maven.modmuss50.me/RebornCore/RebornCore-1.12/maven-metadata.xml"), mavenMetadata)
-//
-//		def metadata = new XmlSlurper().parseText(FileUtils.readFileToString(mavenMetadata))
-//		def rcVersion = metadata.versioning.release
-//
-//		def rebornCoreJar = new File(cacheFiles, "${rcVersion}.jar")
-//		if(rebornCoreJar.exists()){
-//			rebornCoreJar.delete()
-//		}
-//		logger.lifecycle("ASMInjector: downloading RebornCore ${rcVersion}")
-//		FileUtils.copyURLToFile(new URL("http://maven.modmuss50.me/RebornCore/RebornCore-1.12/${rcVersion}/RebornCore-1.12-${rcVersion}-dev.jar"), rebornCoreJar)
-//
-//		logger.lifecycle("ASMInjector: setting up injector")
-//		def injector = new me.modmuss50.asmInjector.ASMInjector()
-//		injector.addClasspathFile(jar.archivePath)
-//		injector.addClasspathFile(rebornCoreJar)
-//		injector.callSetupClass("reborncore.mixin.implementations.asmInjector.ASMInjectorSetupClass")
-//		//injector.addClasspathFile(rebornCoreJar) //Done again to load the class data into the setup class
-//
-//		configurations.forgeGradleMc.collect {
-//			injector.addClasspathFile(it)
-//		}
-//		configurations.compile.collect {
-//			if(!it.getName().contains("RebornCore")){
-//				injector.addClasspathFile(it)
-//			}
-//		}
-//		injector.addTransformer("reborncore.mixin.transformer.MixinTransformer")
-//		logger.lifecycle("ASMInjector: injecting")
-//		injector.inject(jar.archivePath, jar.archivePath)
-//		logger.lifecycle("ASMInjector: done")
-//	}
-//}
-
 build.dependsOn signJar
-//signJar.dependsOn asmInjectJar
 
 apply from: 'https://github.com/FabricMC/fabric-docs/raw/master/gradle/ideconfig.gradle'
 
