@@ -2,7 +2,7 @@
 
 [![](http://cf.way2muchnoise.eu/full_233564_downloads.svg)](https://minecraft.curseforge.com/projects/techreborn) [![](http://cf.way2muchnoise.eu/versions/233564.svg)](https://minecraft.curseforge.com/projects/techreborn) [![](https://img.shields.io/badge/Discord-TeamReborn-738bd7.svg)](https://discord.gg/0tCDWb77cvetwm0e)
 
-# Tech Reborn for 1.11.2 [![Build Status](https://jenkins.modmuss50.me/job/TeamReborn/job/TechReborn/job/TechReborn-1.11.2/badge/icon)](https://jenkins.modmuss50.me/job/TeamReborn/job/TechReborn/job/TechReborn-1.11.2/)
+# Tech Reborn for 1.12 [![Build Status](https://jenkins.modmuss50.me/job/Team%20Reborn/job/TechReborn/job/1.12/badge/icon)](https://jenkins.modmuss50.me/job/Team%20Reborn/job/TechReborn/job/1.12/)
 
 *Tech Reborn is a completely standalone tech mod designed by the ideals of GregTech 2 and Industrial Craft 2 pre-experimental. The mod includes tools and machines to gather resources, process materials, and progression throughout the mod.*
 
