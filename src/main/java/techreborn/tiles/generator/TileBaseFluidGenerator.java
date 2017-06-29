@@ -219,4 +219,9 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 	public float getWrenchDropRate() {
 		return 1.0F;
 	}
+
+	@Override
+	public boolean canBeUpgraded() {
+		return false;
+	}
 }

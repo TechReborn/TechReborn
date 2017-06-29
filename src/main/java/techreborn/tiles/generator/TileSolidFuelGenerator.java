@@ -211,4 +211,9 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IWrench
 	public int[] getSlotsForFace(EnumFacing side) {
 		return new int[] { fuelSlot };
 	}
+
+	@Override
+	public boolean canBeUpgraded() {
+		return false;
+	}
 }

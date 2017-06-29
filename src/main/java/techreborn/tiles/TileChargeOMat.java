@@ -166,4 +166,9 @@ public class TileChargeOMat extends TilePowerAcceptor
 			.tile(this).energySlot(0, 62, 25).energySlot(1, 98, 25).energySlot(2, 62, 45).energySlot(3, 98, 45)
 			.energySlot(4, 62, 65).energySlot(5, 98, 65).syncEnergyValue().addInventory().create();
 	}
+
+	@Override
+	public boolean canBeUpgraded() {
+		return false;
+	}
 }
