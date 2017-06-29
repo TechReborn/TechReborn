@@ -145,7 +145,7 @@ public class TileChemicalReactor extends TilePowerAcceptor
 	// }
 
 	public int getProgressScaled(final int scale) {
-		if (this.crafter.currentTickTime != 0) {
+		if (this.crafter.currentTickTime != 0 && this.crafter.currentNeededTicks > 0) {
 			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
 		}
 		return 0;
