@@ -946,7 +946,7 @@ public class ModRecipes {
 		if (!IC2Duplicates.deduplicate())
 			RebornCraftingHelper
 				.addShapedOreRecipe(IC2Duplicates.SOLAR_PANEL.getStackBasedOnConfig(), "PPP", "SZS", "CGC", 'P',
-					"paneGlass", 'S', "platelazurite", 'Z',
+					"paneGlass", 'S', "plateLazurite", 'Z',
 					"plateCarbon", 'G',
 					IC2Duplicates.GENERATOR.getStackBasedOnConfig(), 'C',
 					"circuitBasic");
