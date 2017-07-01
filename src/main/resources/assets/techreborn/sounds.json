@@ -22,5 +22,17 @@
     "sounds": [
       "techreborn:auto_crafting"
     ]
+  },
+  "machine_run": {
+    "category": "block",
+    "sounds": [
+      "techreborn:machine_run"
+    ]
+  },
+  "machine_start": {
+    "category": "block",
+    "sounds": [
+      "techreborn:machine_start"
+    ]
   }
 }

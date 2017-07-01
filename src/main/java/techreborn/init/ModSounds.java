@@ -24,9 +24,13 @@
 
 package techreborn.init;
 
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.registries.GameData;
+import reborncore.common.recipes.ICrafterSoundHanlder;
+import reborncore.common.recipes.RecipeCrafter;
 
 /**
  * Created by Mark on 20/03/2016.
@@ -37,12 +41,18 @@ public class ModSounds {
 	public static SoundEvent BLOCK_DISMANTLE;
 	public static SoundEvent SAP_EXTRACT;
 	public static SoundEvent AUTO_CRAFTING;
+	public static SoundEvent MACHINE_RUN;
+	public static SoundEvent MACHINE_START;
 
 	public static void init() {
 		CABLE_SHOCK = getSound("cable_shock");
 		BLOCK_DISMANTLE = getSound("block_dismantle");
 		SAP_EXTRACT = getSound("sap_extract");
 		AUTO_CRAFTING = getSound("auto_crafting");
+		MACHINE_RUN = getSound("machine_run");
+		MACHINE_START = getSound("machine_start");
+
+		RecipeCrafter.soundHanlder = new SoundHandler();
 	}
 
 	private static SoundEvent getSound(String str) {
@@ -50,6 +60,17 @@ public class ModSounds {
 		SoundEvent soundEvent = new SoundEvent(resourceLocation);
 		soundEvent.setRegistryName(resourceLocation);
 		return GameData.register_impl(soundEvent);
+	}
+
+	public static class SoundHandler implements ICrafterSoundHanlder {
+
+		@Override
+		public void playSound(boolean firstRun, TileEntity tileEntity) {
+			//TODO find a loopable sound
+//			tileEntity.getWorld().playSound(null, tileEntity.getPos().getX(), tileEntity.getPos().getY(),
+//				tileEntity.getPos().getZ(), ModSounds.MACHINE_RUN,
+//				SoundCategory.BLOCKS, 0.1F, 1F);
+		}
 	}
 
 }
