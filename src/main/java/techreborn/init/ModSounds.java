@@ -66,10 +66,9 @@ public class ModSounds {
 
 		@Override
 		public void playSound(boolean firstRun, TileEntity tileEntity) {
-			//TODO find a loopable sound
-//			tileEntity.getWorld().playSound(null, tileEntity.getPos().getX(), tileEntity.getPos().getY(),
-//				tileEntity.getPos().getZ(), ModSounds.MACHINE_RUN,
-//				SoundCategory.BLOCKS, 0.1F, 1F);
+			tileEntity.getWorld().playSound(null, tileEntity.getPos().getX(), tileEntity.getPos().getY(),
+				tileEntity.getPos().getZ(), ModSounds.MACHINE_RUN,
+				SoundCategory.BLOCKS, 0.1F, 1F);
 		}
 	}
 
