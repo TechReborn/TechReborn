@@ -133,7 +133,7 @@ public class CraftingTableRecipes extends RecipeMethods {
 
 		registerShaped(getMaterial("dataControlCircuit", 4, Type.PART), "CDC", "DID", "CDC", 'I', getMaterialObject("iridium", Type.PLATE), 'D', "circuitData", 'C', "circuitAdvanced");
 
-		registerShaped(getStack(ModBlocks.THERMAL_GENERATOR), "III", "IRI", "CGC", 'I', "ingotInvar", 'R', ModBlocks.REINFORCED_GLASS, 'G', getStack(IC2Duplicates.GENERATOR), 'C', "circuitBasic");
+		registerShaped(getStack(ModBlocks.THERMAL_GENERATOR), "III", "IRI", "CGC", 'I', "ingotInvar", 'R', "glassReinforced", 'G', getStack(IC2Duplicates.GENERATOR), 'C', "circuitBasic");
 
 		if (!IC2Duplicates.deduplicate()) {
 			registerShaped(getStack(IC2Duplicates.HVT), "XHX", "XMX", "XHX", 'M', getStack(IC2Duplicates.MVT), 'H', getStack(IC2Duplicates.CABLE_IHV));

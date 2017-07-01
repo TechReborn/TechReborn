@@ -810,7 +810,7 @@ public class ModRecipes {
 
 		CraftingHelper
 			.addShapedOreRecipe(new ItemStack(ModBlocks.VACUUM_FREEZER), "SPS", "CGC", "SPS", 'S', "plateSteel", 'C',
-				"circuitAdvanced", 'G', ModBlocks.REINFORCED_GLASS, 'P',
+				"circuitAdvanced", 'G', "glassReinforced", 'P',
 				IC2Duplicates.EXTRACTOR.getStackBasedOnConfig());
 
 		CraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.DISTILLATION_TOWER), "CMC", "PBP", "EME", 'E',
