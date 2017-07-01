@@ -45,8 +45,8 @@ public class TileIronFurnace extends TileLegacyMachineBase
 	implements IInventoryProvider, ISidedInventory, IContainerProvider {
 
 	private static final int[] SLOTS_TOP = new int[] { 0 };
-	private static final int[] SLOTS_BOTTOM = new int[] { 2, 1 };
-	private static final int[] SLOTS_SIDES = new int[] { 1 };
+	private static final int[] SLOTS_BOTTOM = new int[] { 1 };
+	private static final int[] SLOTS_SIDES = new int[] { 2 };
 
 	public int tickTime;
 	public Inventory inventory = new Inventory(3, "TileIronFurnace", 64, this);
@@ -183,14 +183,6 @@ public class TileIronFurnace extends TileLegacyMachineBase
 
 	@Override
 	public boolean canExtractItem(final int index, final ItemStack stack, final EnumFacing direction) {
-		if (direction == EnumFacing.DOWN && index == 1) {
-			final Item item = stack.getItem();
-
-			if (item != Items.WATER_BUCKET && item != Items.BUCKET) {
-				return false;
-			}
-		}
-
 		return true;
 	}
 
