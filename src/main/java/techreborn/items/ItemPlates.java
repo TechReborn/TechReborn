@@ -29,6 +29,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.oredict.OreDictionary;
+import reborncore.common.util.OreUtil;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModItems;
@@ -77,7 +78,7 @@ public class ItemPlates extends ItemTR {
 		types = newTypes;
 		newTypes[plateIndex] = plateType;
 		String oreName = "plate" + CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, plateType);
-		OreDictionary.registerOre(oreName, new ItemStack(ModItems.PLATES, 1, plateIndex));
+		OreUtil.registerOre(oreName, new ItemStack(ModItems.PLATES, 1, plateIndex));
 	}
 
 	@Override

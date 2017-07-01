@@ -33,6 +33,7 @@ import reborncore.api.power.IEnergyInterfaceItem;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.BucketHandler;
+import reborncore.common.util.OreUtil;
 import techreborn.Core;
 import techreborn.api.Reference;
 import techreborn.blocks.BlockMachineFrames;
@@ -344,7 +345,7 @@ public class ModItems {
 		BlockMachineBase.advancedFrameStack = BlockMachineFrames.getFrameByName("advanced", 1);
 		BlockMachineBase.basicFrameStack = BlockMachineFrames.getFrameByName("basic", 1);
 
-		OreDictionary.registerOre("itemRubber", ItemParts.getPartByName("rubber"));
+		OreUtil.registerOre("itemRubber", ItemParts.getPartByName("rubber"));
 	}
 
 	public static void registerItem(Item item, String name) {

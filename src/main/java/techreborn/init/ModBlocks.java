@@ -33,6 +33,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.RebornRegistry;
 import reborncore.common.tile.TileMachineBase;
+import reborncore.common.util.OreUtil;
 import reborncore.common.util.StringUtils;
 import techreborn.Core;
 import techreborn.blocks.*;
@@ -421,57 +422,57 @@ public class ModBlocks {
 
 	public static void registerOreDict() {
 		for (String ore : BlockOre.ores) {
-			OreDictionary.registerOre("ore" + StringUtils.toFirstCapital(ore), BlockOre.getOreByName(ore));
+			OreUtil.registerOre("ore" + StringUtils.toFirstCapital(ore), BlockOre.getOreByName(ore));
 		}
 
 		for (String ore : BlockOre2.ores) {
-			OreDictionary.registerOre("ore" + StringUtils.toFirstCapital(ore), BlockOre2.getOreByName(ore));
+			OreUtil.registerOre("ore" + StringUtils.toFirstCapital(ore), BlockOre2.getOreByName(ore));
 		}
 
-		OreDictionary.registerOre("blockSilver", BlockStorage.getStorageBlockByName("silver"));
-		OreDictionary.registerOre("blockAluminum", BlockStorage.getStorageBlockByName("aluminum"));
-		OreDictionary.registerOre("blockAluminium", BlockStorage.getStorageBlockByName("aluminum"));
-		OreDictionary.registerOre("blockTitanium", BlockStorage.getStorageBlockByName("titanium"));
-		OreDictionary.registerOre("blockChrome", BlockStorage.getStorageBlockByName("chrome"));
-		OreDictionary.registerOre("blockSteel", BlockStorage.getStorageBlockByName("steel"));
-		OreDictionary.registerOre("blockBrass", BlockStorage.getStorageBlockByName("brass"));
-		OreDictionary.registerOre("blockLead", BlockStorage.getStorageBlockByName("lead"));
-		OreDictionary.registerOre("blockElectrum", BlockStorage.getStorageBlockByName("electrum"));
-		OreDictionary.registerOre("blockZinc", BlockStorage.getStorageBlockByName("zinc"));
-		OreDictionary.registerOre("blockPlatinum", BlockStorage.getStorageBlockByName("platinum"));
-		OreDictionary.registerOre("blockTungsten", BlockStorage.getStorageBlockByName("tungsten"));
-		OreDictionary.registerOre("blockNickel", BlockStorage.getStorageBlockByName("nickel"));
-		OreDictionary.registerOre("blockInvar", BlockStorage.getStorageBlockByName("invar"));
-		OreDictionary.registerOre("blockIridium", BlockStorage.getStorageBlockByName("iridium"));
-		OreDictionary.registerOre("blockCopper", BlockStorage2.getStorageBlockByName("copper", 1));
-		OreDictionary.registerOre("blockTin", BlockStorage2.getStorageBlockByName("tin", 1));
+		OreUtil.registerOre("blockSilver", BlockStorage.getStorageBlockByName("silver"));
+		OreUtil.registerOre("blockAluminum", BlockStorage.getStorageBlockByName("aluminum"));
+		OreUtil.registerOre("blockAluminium", BlockStorage.getStorageBlockByName("aluminum"));
+		OreUtil.registerOre("blockTitanium", BlockStorage.getStorageBlockByName("titanium"));
+		OreUtil.registerOre("blockChrome", BlockStorage.getStorageBlockByName("chrome"));
+		OreUtil.registerOre("blockSteel", BlockStorage.getStorageBlockByName("steel"));
+		OreUtil.registerOre("blockBrass", BlockStorage.getStorageBlockByName("brass"));
+		OreUtil.registerOre("blockLead", BlockStorage.getStorageBlockByName("lead"));
+		OreUtil.registerOre("blockElectrum", BlockStorage.getStorageBlockByName("electrum"));
+		OreUtil.registerOre("blockZinc", BlockStorage.getStorageBlockByName("zinc"));
+		OreUtil.registerOre("blockPlatinum", BlockStorage.getStorageBlockByName("platinum"));
+		OreUtil.registerOre("blockTungsten", BlockStorage.getStorageBlockByName("tungsten"));
+		OreUtil.registerOre("blockNickel", BlockStorage.getStorageBlockByName("nickel"));
+		OreUtil.registerOre("blockInvar", BlockStorage.getStorageBlockByName("invar"));
+		OreUtil.registerOre("blockIridium", BlockStorage.getStorageBlockByName("iridium"));
+		OreUtil.registerOre("blockCopper", BlockStorage2.getStorageBlockByName("copper", 1));
+		OreUtil.registerOre("blockTin", BlockStorage2.getStorageBlockByName("tin", 1));
 
-		OreDictionary.registerOre("blockTungstensteel", BlockStorage2.getStorageBlockByName("tungstensteel", 1));
-		OreDictionary.registerOre("blockRuby", BlockStorage2.getStorageBlockByName("ruby", 1));
-		OreDictionary.registerOre("blockSapphire", BlockStorage2.getStorageBlockByName("sapphire", 1));
-		OreDictionary.registerOre("blockPeridot", BlockStorage2.getStorageBlockByName("peridot", 1));
-		OreDictionary.registerOre("blockYellowGarnet", BlockStorage2.getStorageBlockByName("yellowGarnet", 1));
-		OreDictionary.registerOre("blockRedGarnet", BlockStorage2.getStorageBlockByName("redGarnet", 1));
+		OreUtil.registerOre("blockTungstensteel", BlockStorage2.getStorageBlockByName("tungstensteel", 1));
+		OreUtil.registerOre("blockRuby", BlockStorage2.getStorageBlockByName("ruby", 1));
+		OreUtil.registerOre("blockSapphire", BlockStorage2.getStorageBlockByName("sapphire", 1));
+		OreUtil.registerOre("blockPeridot", BlockStorage2.getStorageBlockByName("peridot", 1));
+		OreUtil.registerOre("blockYellowGarnet", BlockStorage2.getStorageBlockByName("yellowGarnet", 1));
+		OreUtil.registerOre("blockRedGarnet", BlockStorage2.getStorageBlockByName("redGarnet", 1));
 
-		OreDictionary.registerOre("craftingPiston", Blocks.PISTON);
-		OreDictionary.registerOre("craftingPiston", Blocks.STICKY_PISTON);
-		OreDictionary.registerOre("crafterWood", Blocks.CRAFTING_TABLE);
-		OreDictionary.registerOre("machineBasic", new ItemStack(MACHINE_FRAMES, 1));
+		OreUtil.registerOre("craftingPiston", Blocks.PISTON);
+		OreUtil.registerOre("craftingPiston", Blocks.STICKY_PISTON);
+		OreUtil.registerOre("crafterWood", Blocks.CRAFTING_TABLE);
+		OreUtil.registerOre("machineBasic", new ItemStack(MACHINE_FRAMES, 1));
 
-		OreDictionary.registerOre("treeSapling", RUBBER_SAPLING);
-		OreDictionary.registerOre("saplingRubber", RUBBER_SAPLING);
-		OreDictionary.registerOre("logWood", new ItemStack(RUBBER_LOG, 1, OreDictionary.WILDCARD_VALUE));
-		OreDictionary.registerOre("logRubber", new ItemStack(RUBBER_LOG, 1, OreDictionary.WILDCARD_VALUE));
-		OreDictionary.registerOre("plankWood", new ItemStack(RUBBER_PLANKS, 1, OreDictionary.WILDCARD_VALUE));
-		OreDictionary.registerOre("plankRubber", new ItemStack(RUBBER_PLANKS, 1, OreDictionary.WILDCARD_VALUE));
-		OreDictionary.registerOre("treeLeaves", new ItemStack(RUBBER_LEAVES, 1, OreDictionary.WILDCARD_VALUE));
-		OreDictionary.registerOre("leavesRubber", new ItemStack(RUBBER_LEAVES, 1, OreDictionary.WILDCARD_VALUE));
+		OreUtil.registerOre("treeSapling", RUBBER_SAPLING);
+		OreUtil.registerOre("saplingRubber", RUBBER_SAPLING);
+		OreUtil.registerOre("logWood", new ItemStack(RUBBER_LOG, 1, OreDictionary.WILDCARD_VALUE));
+		OreUtil.registerOre("logRubber", new ItemStack(RUBBER_LOG, 1, OreDictionary.WILDCARD_VALUE));
+		OreUtil.registerOre("plankWood", new ItemStack(RUBBER_PLANKS, 1, OreDictionary.WILDCARD_VALUE));
+		OreUtil.registerOre("plankRubber", new ItemStack(RUBBER_PLANKS, 1, OreDictionary.WILDCARD_VALUE));
+		OreUtil.registerOre("treeLeaves", new ItemStack(RUBBER_LEAVES, 1, OreDictionary.WILDCARD_VALUE));
+		OreUtil.registerOre("leavesRubber", new ItemStack(RUBBER_LEAVES, 1, OreDictionary.WILDCARD_VALUE));
 
-		OreDictionary.registerOre("fenceIron", REFINED_IRON_FENCE);
+		OreUtil.registerOre("fenceIron", REFINED_IRON_FENCE);
 
-		OreDictionary.registerOre("machineBlockBasic", BlockMachineFrames.getFrameByName("basic", 1));
-		OreDictionary.registerOre("machineBlockAdvanced", BlockMachineFrames.getFrameByName("advanced", 1));
-		OreDictionary.registerOre("machineBlockHighlyAdvanced", BlockMachineFrames.getFrameByName("highly_advanced", 1));
+		OreUtil.registerOre("machineBlockBasic", BlockMachineFrames.getFrameByName("basic", 1));
+		OreUtil.registerOre("machineBlockAdvanced", BlockMachineFrames.getFrameByName("advanced", 1));
+		OreUtil.registerOre("machineBlockHighlyAdvanced", BlockMachineFrames.getFrameByName("highly_advanced", 1));
 
 	}
 
