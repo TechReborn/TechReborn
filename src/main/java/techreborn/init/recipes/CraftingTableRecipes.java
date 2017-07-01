@@ -120,7 +120,7 @@ public class CraftingTableRecipes extends RecipeMethods {
 		registerShaped(getMaterial("computer_monitor", Type.PART), "ADA", "DGD", "ADA", 'D', "dye", 'A', "ingotAluminum", 'G', "paneGlass");
 		registerShaped(getStack(ModBlocks.REINFORCED_GLASS, 7), "GAG", "GGG", "GAG", 'A', "plateAdvancedAlloy", 'G', "blockGlass");
 		registerShaped(getStack(ModBlocks.REINFORCED_GLASS, 7), "GGG", "AGA", "GGG", 'A', "plateAdvancedAlloy", 'G', "blockGlass");
-		registerShaped(getStack(ModBlocks.WIND_MILL, 2), "I I", " G ", "I I", 'I', "ingotIron", 'G', getStack(IC2Duplicates.GENERATOR));
+		registerShaped(getStack(ModBlocks.WIND_MILL), "I I", " G ", "I I", 'I', "plateIron", 'G', getStack(IC2Duplicates.GENERATOR));
 		registerShaped(getStack(ModBlocks.WATER_MILL), "SWS", "WGW", "SWS", 'S', "stickWood", 'W', "plankWood", 'G', getStack(IC2Duplicates.GENERATOR));
 
 		if (!IC2Duplicates.deduplicate()) {
