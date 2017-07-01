@@ -16,5 +16,11 @@
     "sounds": [
       "techreborn:cable_shock"
     ]
+  },
+  "auto_crafting": {
+    "category": "block",
+    "sounds": [
+      "techreborn:auto_crafting"
+    ]
   }
 }

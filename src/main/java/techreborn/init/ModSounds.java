@@ -36,11 +36,13 @@ public class ModSounds {
 	public static SoundEvent CABLE_SHOCK;
 	public static SoundEvent BLOCK_DISMANTLE;
 	public static SoundEvent SAP_EXTRACT;
+	public static SoundEvent AUTO_CRAFTING;
 
 	public static void init() {
 		CABLE_SHOCK = getSound("cable_shock");
 		BLOCK_DISMANTLE = getSound("block_dismantle");
 		SAP_EXTRACT = getSound("sap_extract");
+		AUTO_CRAFTING = getSound("auto_crafting");
 	}
 
 	private static SoundEvent getSound(String str) {

@@ -12,6 +12,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.api.tile.IInventoryProvider;
@@ -21,6 +22,7 @@ import reborncore.common.util.ItemUtils;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
+import techreborn.init.ModSounds;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -115,6 +117,11 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 				if (canMake(recipe)) {
 					if (canUseEnergy(euTick)) {
 						progress++;
+						if(progress == 1){
+							world.playSound(null, pos.getX(), pos.getY(),
+								pos.getZ(), ModSounds.AUTO_CRAFTING,
+								SoundCategory.BLOCKS, 0.3F, 0.8F);
+						}
 						useEnergy(euTick);
 					}
 				}
