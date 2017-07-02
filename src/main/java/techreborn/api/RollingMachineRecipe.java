@@ -36,6 +36,9 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
+import org.apache.commons.lang3.Validate;
 
 import java.util.HashMap;
 
@@ -45,21 +48,21 @@ public class RollingMachineRecipe {
 	private final HashMap<ResourceLocation, IRecipe> recipes = new HashMap<>();
 
 	public void addShapedOreRecipe(ResourceLocation resourceLocation, ItemStack outputItemStack, Object... objectInputs) {
-		//		Validate.notNull(outputItemStack);
-		//		Validate.notNull(outputItemStack.getItem());
-		//		if (objectInputs.length == 0) {
-		//			Validate.notNull(null); //Quick way to crash
-		//		}
-		//		recipes.put(resourceLocation, new ShapedOreRecipe(resourceLocation, outputItemStack, objectInputs));
+				Validate.notNull(outputItemStack);
+				Validate.notNull(outputItemStack.getItem());
+				if (objectInputs.length == 0) {
+					Validate.notNull(null); //Quick way to crash
+				}
+				recipes.put(resourceLocation, new ShapedOreRecipe(resourceLocation, outputItemStack, objectInputs));
 	}
 
 	public void addShapelessOreRecipe(ResourceLocation resourceLocation, ItemStack outputItemStack, Object... objectInputs) {
-		//		Validate.notNull(outputItemStack);
-		//		Validate.notNull(outputItemStack.getItem());
-		//		if (objectInputs.length == 0) {
-		//			Validate.notNull(null); //Quick way to crash
-		//		}
-		//		recipes.put(resourceLocation, new ShapelessOreRecipe(resourceLocation, outputItemStack, objectInputs));
+				Validate.notNull(outputItemStack);
+				Validate.notNull(outputItemStack.getItem());
+				if (objectInputs.length == 0) {
+					Validate.notNull(null); //Quick way to crash
+				}
+				recipes.put(resourceLocation, new ShapelessOreRecipe(resourceLocation, outputItemStack, objectInputs));
 	}
 
 	public void addRecipe(ResourceLocation resourceLocation, ItemStack output, Object... components) {
@@ -119,8 +122,7 @@ public class RollingMachineRecipe {
 	}
 
 	public ItemStack findMatchingRecipe(InventoryCrafting inv, World world) {
-		for (int k = 0; k < recipes.size(); k++) {
-			IRecipe irecipe = recipes.get(k);
+		for (IRecipe irecipe : recipes.values()) {
 			if (irecipe.matches(inv, world)) {
 				return irecipe.getCraftingResult(inv);
 			}
