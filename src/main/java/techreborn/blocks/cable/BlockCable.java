@@ -70,6 +70,8 @@ public class BlockCable extends BlockContainer {
 
 	public BlockCable() {
 		super(Material.ROCK);
+		setHardness(1F);
+		setResistance(8F);
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setDefaultState(getDefaultState().withProperty(EAST, false).withProperty(WEST, false).withProperty(NORTH, false).withProperty(SOUTH, false).withProperty(UP, false).withProperty(DOWN, false).withProperty(TYPE, EnumCableType.COPPER));
 	}
