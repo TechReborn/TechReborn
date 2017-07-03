@@ -119,7 +119,7 @@ public class BlockCable extends BlockContainer {
 
 	@Override
 	public int damageDropped(IBlockState state) {
-		return getMetaFromState(getDefaultState());
+		return getMetaFromState(state);
 	}
 
 	@Override
