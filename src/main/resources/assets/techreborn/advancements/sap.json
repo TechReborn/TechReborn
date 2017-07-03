@@ -1,0 +1,28 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:part",
+      "data": 31
+    },
+    "title": {
+      "translate": "advancements.techreborn.sap"
+    },
+    "description": {
+      "translate": "advancements.techreborn.sap.desc"
+    }
+  },
+  "parent": "techreborn:tree_tap",
+  "criteria": {
+    "treetap_in_inventory": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "techreborn:part",
+            "data": 31
+          }
+        ]
+      }
+    }
+  }
+}

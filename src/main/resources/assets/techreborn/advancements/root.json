@@ -1,0 +1,38 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:ore"
+    },
+    "title": {
+      "translate": "itemGroup.techreborn"
+    },
+    "description": {
+      "translate": "advancements.techreborn.root.desc"
+    },
+    "background": "techreborn:textures/blocks/storage/lead_block.png",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "ore_in_inventory": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "techreborn:ore2"
+          }
+        ]
+      }
+    },
+    "ore2_in_inventory": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "techreborn:ore2"
+          }
+        ]
+      }
+    }
+  }
+}

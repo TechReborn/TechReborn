@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:treetap"
+    },
+    "title": {
+      "translate": "advancements.techreborn.treetap"
+    },
+    "description": {
+      "translate": "advancements.techreborn.treetap.desc"
+    }
+  },
+  "parent": "techreborn:root",
+  "criteria": {
+    "treetap_in_inventory": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "techreborn:treetap"
+          }
+        ]
+      }
+    }
+  }
+}

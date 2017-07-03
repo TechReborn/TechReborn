@@ -698,3 +698,11 @@ entity.nuke.name=Nuke
 tooltip.wip=WIP Coming Soon
 tooltip.upBroken=Upgrades DO NOT function!
 tooltip.ingredient=Currently only a crafting ingredient
+
+#Advancements
+
+advancements.techreborn.root.desc=Now that you have aquired techreborn ore, you might find a tree tap usefull.
+advancements.techreborn.treetap=TreeTap
+advancements.techreborn.treetap.desc=Now that you have crafted a tree tap you will want to use it on a sap spot on a rubber tree.
+advancements.techreborn.sap=Rubber Sap
+advancements.techreborn.sap.desc=Well done, you now have rubber sap. You will want to smelt it in a furnace to create rubber next.
