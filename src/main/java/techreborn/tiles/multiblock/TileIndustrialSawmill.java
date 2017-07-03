@@ -73,7 +73,7 @@ public class TileIndustrialSawmill extends TilePowerAcceptor
 	public void update() {
 		super.update();
 
-		if (this.getMutliBlock()) {
+		if (this.getMutliBlock() && !world.isRemote) {
 			final ItemStack wood = this.inventory.getStackInSlot(0);
 			if (this.tickTime == 0) {
 				if (!wood.isEmpty()) {
@@ -83,7 +83,6 @@ public class TileIndustrialSawmill extends TilePowerAcceptor
 							Object woodRecipeObj = sawmillRecipe.getInputs().get(0);
 							if (isValidForRecipe(sawmillRecipe)) {
 								this.useEnergy(sawmillRecipe.euPerTick);
-								this.syncWithAll();
 								this.tickTime = 1;
 								smRecipe = sawmillRecipe;
 							}
@@ -276,10 +275,18 @@ public class TileIndustrialSawmill extends TilePowerAcceptor
 		return this.inventory;
 	}
 
+	public int getTickTime() {
+		return tickTime;
+	}
+
+	public void setTickTime(int tickTime) {
+		this.tickTime = tickTime;
+	}
+
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("industrialsawmill").player(player.inventory).inventory(8, 84).hotbar(8, 142)
 			.addInventory().tile(this).slot(0, 32, 26).slot(1, 32, 44).outputSlot(2, 84, 35).outputSlot(3, 102, 35)
-			.outputSlot(4, 120, 35).syncEnergyValue().addInventory().create();
+			.outputSlot(4, 120, 35).syncEnergyValue().syncIntegerValue(this::getTickTime, this::setTickTime).addInventory().create();
 	}
 }
