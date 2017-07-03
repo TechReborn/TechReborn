@@ -34,13 +34,18 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.oredict.OreDictionary;
+import reborncore.api.recipe.IBaseRecipeType;
+import reborncore.api.recipe.RecipeHandler;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
+import reborncore.common.util.ItemUtils;
 import reborncore.common.util.Tank;
+import techreborn.api.Reference;
+import techreborn.api.recipe.BaseRecipe;
+import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
@@ -58,6 +63,7 @@ public class TileIndustrialSawmill extends TilePowerAcceptor
 
 	public int tickTime;
 	public MultiblockChecker multiblockChecker;
+	IndustrialSawmillRecipe smRecipe;
 
 	public TileIndustrialSawmill() {
 		super();
@@ -71,36 +77,66 @@ public class TileIndustrialSawmill extends TilePowerAcceptor
 			final ItemStack wood = this.inventory.getStackInSlot(0);
 			if (this.tickTime == 0) {
 				if (!wood.isEmpty()) {
-					for (final int id : OreDictionary.getOreIDs(wood)) {
-						final String name = OreDictionary.getOreName(id);
-						if (name.equals("logWood") && this.canAddOutput(2, 10) && this.canAddOutput(3, 5)
-							&& this.canAddOutput(4, 3) && this.canUseEnergy(128.0F) && !this.tank.isEmpty()
-							&& this.tank.getFluid().amount >= 1000) {
-							wood.shrink(1);
-							if (wood.getCount() == 0)
-								this.setInventorySlotContents(0, ItemStack.EMPTY);
-							this.tank.drain(1000, true);
-							this.useEnergy(128.0F);
-							this.syncWithAll();
-							this.tickTime = 1;
+					for (IBaseRecipeType recipe : RecipeHandler.getRecipeClassFromName(Reference.industrialSawmillRecipe)) {
+						if (recipe instanceof IndustrialSawmillRecipe) {//Should always be true
+							IndustrialSawmillRecipe sawmillRecipe = (IndustrialSawmillRecipe) recipe;
+							Object woodRecipeObj = sawmillRecipe.getInputs().get(0);
+							if (isValidForRecipe(sawmillRecipe)) {
+								this.useEnergy(sawmillRecipe.euPerTick);
+								this.syncWithAll();
+								this.tickTime = 1;
+								smRecipe = sawmillRecipe;
+							}
 						}
 					}
 				}
-			} else if (++this.tickTime > 100) {
-				final Random rnd = this.world.rand;
-				this.addOutput(2, new ItemStack(Blocks.PLANKS, 6 + rnd.nextInt(4)));
-				if (rnd.nextInt(4) != 0) {
-					final ItemStack pulp = ItemDusts.getDustByName("sawDust", 2 + rnd.nextInt(3));
-					this.addOutput(3, pulp);
+			} else if (smRecipe != null) {
+				if (canUseEnergy(smRecipe.euPerTick) && !tank.isEmpty() && tank.getFluid().amount >= 10 && isValidForRecipe(smRecipe)) {
+					tickTime++;
+					this.tank.drain(10, true);
 				}
-				if (rnd.nextInt(3) == 0) {
-					final ItemStack paper = new ItemStack(Items.PAPER, 1 + rnd.nextInt(2));
-					this.addOutput(4, paper);
+				if (tickTime > smRecipe.tickTime() && isValidForRecipe(smRecipe)) {
+					final Random rnd = this.world.rand;
+					this.addOutput(2, smRecipe.getOutput(0));
+					Object woodRecipeObj = smRecipe.getInputs().get(0);
+					if (woodRecipeObj instanceof ItemStack) {
+						ItemStack woodStack = (ItemStack) woodRecipeObj;
+						wood.shrink(woodStack.getCount());
+					} else {
+						wood.shrink(1);
+					}
+					if (rnd.nextInt(4) != 0) {
+						final ItemStack pulp = ItemDusts.getDustByName("sawDust", 2 + rnd.nextInt(3)).copy();
+						if (this.canAddOutput(2, pulp.getCount())) {
+							this.addOutput(3, pulp);
+						}
+					}
+					if (rnd.nextInt(3) == 0) {
+						final ItemStack paper = new ItemStack(Items.PAPER, 1 + rnd.nextInt(2)).copy();
+						if (this.canAddOutput(4, paper.getCount())) {
+							this.addOutput(4, paper);
+						}
+					}
+					this.tickTime = 0;
+				} else if (!isValidForRecipe(smRecipe)) {
+					smRecipe = null;
+					tickTime = 0;
 				}
-				this.tickTime = 0;
+			}
+			if (smRecipe == null) {
+				tickTime = 0;
 			}
 		}
 		FluidUtils.drainContainers(this.tank, this.inventory, 1, 4);
+	}
+
+	public boolean isValidForRecipe(BaseRecipe baseRecipe) {
+		ItemStack inputStack = this.inventory.getStackInSlot(0);
+		int inputCount = 1;
+		if (baseRecipe.getInputs().get(0) instanceof ItemStack) {
+			inputCount = ((ItemStack) baseRecipe.getInputs().get(0)).getCount();
+		}
+		return ItemUtils.isInputEqual(baseRecipe.getInputs().get(0), inputStack, true, true, false) && inputStack.getCount() >= inputCount && this.canAddOutput(2, baseRecipe.getOutput(0).getCount()) && !this.tank.isEmpty();
 	}
 
 	public void addOutput(final int slot, final ItemStack stack) {
