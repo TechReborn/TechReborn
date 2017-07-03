@@ -190,7 +190,7 @@ public class TileIndustrialSawmill extends TilePowerAcceptor
 
 	@Override
 	public int[] getSlotsForFace(final EnumFacing side) {
-		return new int[] { 0, 2, 3, 4, 5 };
+		return new int[] { 0, 2, 3, 4 };
 	}
 
 	@Override
