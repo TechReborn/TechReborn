@@ -1,6 +1,7 @@
 package techreborn.compat.thermalexpansion;
 
 import cofh.api.util.ThermalExpansionHelper;
+import cofh.thermalfoundation.init.TFFluids;
 import cofh.thermalfoundation.item.ItemMaterial;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -9,6 +10,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import techreborn.api.generator.EFluidGenerator;
+import techreborn.api.generator.GeneratorRecipeHelper;
 import techreborn.compat.ICompatModule;
 import techreborn.init.ModItems;
 import techreborn.init.recipes.RecipeMethods;
@@ -49,6 +52,8 @@ public class RecipeThermalExpansion implements ICompatModule {
 		}
 
 		ThermalExpansionHelper.addSmelterRecipe(4000, new ItemStack(Items.IRON_INGOT, 2), new ItemStack(Blocks.SAND), RecipeMethods.getMaterial("refined_iron", 2, RecipeMethods.Type.INGOT), ItemMaterial.crystalSlag.copy(), 25);
+
+		GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.THERMAL, TFFluids.fluidPyrotheum, 80);
 	}
 
 	@Override

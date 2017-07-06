@@ -29,7 +29,6 @@ import net.minecraft.block.material.Material;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import reborncore.RebornRegistry;
-import reborncore.api.fuel.FluidPowerManager;
 import techreborn.blocks.fluid.BlockFluidBase;
 import techreborn.blocks.fluid.BlockFluidTechReborn;
 import techreborn.blocks.fluid.TechRebornFluid;
@@ -195,7 +194,6 @@ public class ModFluids {
 		BLOCK_LITHIUM = new BlockFluidTechReborn(LITHIUM, Material.WATER, "techreborn.lithium");
 		registerBlock(BLOCK_LITHIUM,
 			ModInfo.MOD_ID + "_" + BLOCK_LITHIUM.getUnlocalizedName().substring(5));
-		FluidPowerManager.fluidPowerValues.put(LITHIUM, 24.0);
 
 		FluidRegistry.registerFluid(MERCURY);
 		BLOCK_MERCURY = new BlockFluidTechReborn(MERCURY, Material.WATER, "techreborn.mercury");
@@ -212,13 +210,11 @@ public class ModFluids {
 			"techreborn.nitrocoalfuel");
 		registerBlock(BLOCK_NITROCOAL_FUEL,
 			ModInfo.MOD_ID + "_" + BLOCK_NITROCOAL_FUEL.getUnlocalizedName().substring(5));
-		FluidPowerManager.fluidPowerValues.put(NITROCOAL_FUEL, 48.0);
 
 		FluidRegistry.registerFluid(NITROFUEL);
 		BLOCK_NITROFUEL = new BlockFluidTechReborn(NITROFUEL, Material.WATER, "techreborn.nitrofuel");
 		registerBlock(BLOCK_NITROFUEL,
 			ModInfo.MOD_ID + "_" + BLOCK_NITROFUEL.getUnlocalizedName().substring(5));
-		FluidPowerManager.fluidPowerValues.put(NITROFUEL, 42.0);
 
 		FluidRegistry.registerFluid(NITROGEN);
 		BLOCK_NITROGEN = new BlockFluidTechReborn(NITROGEN, Material.WATER, "techreborn.nitrogen");
@@ -245,7 +241,7 @@ public class ModFluids {
 		BLOCK_SODIUM = new BlockFluidTechReborn(SODIUM, Material.WATER, "techreborn.sodium");
 		registerBlock(BLOCK_SODIUM,
 			ModInfo.MOD_ID + "_" + BLOCK_SODIUM.getUnlocalizedName().substring(5));
-		FluidPowerManager.fluidPowerValues.put(NITROFUEL, 22.0);
+
 
 		FluidRegistry.registerFluid(SODIUMPERSULFATE);
 		BLOCK_SODIUMPERSULFATE = new BlockFluidTechReborn(SODIUMPERSULFATE, Material.WATER,
@@ -297,13 +293,11 @@ public class ModFluids {
 		BLOCK_NITRO_DIESEL = new BlockFluidTechReborn(NITRO_DIESEL, Material.WATER, "techreborn.nitrodiesel");
 		registerBlock(BLOCK_NITRO_DIESEL,
 			ModInfo.MOD_ID + "_" + BLOCK_NITRO_DIESEL.getUnlocalizedName().substring(5));
-		FluidPowerManager.fluidPowerValues.put(NITRO_DIESEL, 36.0);
 
 		FluidRegistry.registerFluid(OIL);
 		BLOCK_OIL = new BlockFluidTechReborn(OIL, Material.WATER, "techreborn.oil");
 		registerBlock(BLOCK_OIL,
 			ModInfo.MOD_ID + "_" + BLOCK_OIL.getUnlocalizedName().substring(5));
-		FluidPowerManager.fluidPowerValues.put(OIL, 16.0);
 
 		FluidRegistry.registerFluid(SULFURIC_ACID);
 		BLOCK_SULFURIC_ACID = new BlockFluidTechReborn(SULFURIC_ACID, Material.WATER, "techreborn.sulfuricacid");

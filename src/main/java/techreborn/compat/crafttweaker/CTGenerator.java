@@ -25,13 +25,14 @@
 package techreborn.compat.crafttweaker;
 
 import crafttweaker.api.liquid.ILiquidStack;
-import reborncore.api.fuel.FluidPowerManager;
 import stanhebben.zenscript.annotations.ZenClass;
+import techreborn.api.generator.EFluidGenerator;
+import techreborn.api.generator.GeneratorRecipeHelper;
 
 @ZenClass("mods.techreborn.generator")
 public class CTGenerator {
-	public static void addFluidPower(ILiquidStack fluid, double value) {
-		FluidPowerManager.fluidPowerValues.put(CraftTweakerCompat.toFluidStack(fluid).getFluid(), value);
+	public static void addFluidPower(ILiquidStack fluid, int value) {
+		GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.THERMAL, CraftTweakerCompat.toFluidStack(fluid).getFluid(), value);
 	}
 
 }
