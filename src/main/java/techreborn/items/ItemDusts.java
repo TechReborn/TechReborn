@@ -79,6 +79,16 @@ public class ItemDusts extends ItemTR {
 		return getDustByName(name, 1);
 	}
 
+	public static boolean hasDust(String name){
+		for(String type : types){
+			if(type.equals(name)){
+				return true;
+			}
+		}
+		return false;
+	}
+
+
 	@Override
 	// gets Unlocalized Name depending on meta data
 	public String getUnlocalizedName(ItemStack itemStack) {

@@ -64,6 +64,10 @@ repositories {
 		name 'CB Repo'
 		url "http://chickenbones.net/maven/"
 	}
+	maven {
+		name 'Covers'
+		url "http://maven.covers1624.net/"
+	}
 	ivy {
 		name "BuildCraft"
 		artifactPattern "http://www.mod-buildcraft.com/releases/BuildCraft/[revision]/[module]-[revision].[ext]"
@@ -83,7 +87,7 @@ if (ENV.BUILD_NUMBER) {
 }
 
 minecraft {
-	version = "1.12-14.21.0.2382"
+	version = "1.12-14.21.1.2397"
 	mappings = "snapshot_20170624"
 	replace "@MODVERSION@", project.version
 	useDepAts = true
@@ -110,10 +114,12 @@ dependencies {
 	//1.11 updates
 	//deobfCompile "slimeknights:TConstruct:1.10.2-2.5.3.jenkins384"
 	//deobfCompile "slimeknights.mantle:Mantle:1.10.2-1.0.0.jenkins170"
-	deobfCompile "mcjty.theoneprobe:TheOneProbe:1.11-1.3.3-46"
+	deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:1.12-1.4.11-5"
 	compile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.0.0.5"
-	deobfCompile  'net.industrial-craft:industrialcraft-2:2.8.2-ex112'
-	compile name: 'buildcraft', version: '7.99.4', ext: 'jar'
+	deobfCompile  'net.industrial-craft:industrialcraft-2:2.8.7-ex112'
+	//compile name: 'buildcraft', version: '7.99.4', ext: 'jar'
+	deobfCompile  'cofh:ThermalDynamics:1.12-2.3.1.6:universal'
+	deobfCompile  'cofh:ThermalExpansion:1.12-5.3.1.6:universal'
 }
 
 

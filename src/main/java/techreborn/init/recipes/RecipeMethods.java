@@ -32,6 +32,7 @@ import reborncore.common.util.OreUtil;
 import reborncore.common.util.StringUtils;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.blocks.BlockMachineFrames;
+import techreborn.blocks.BlockOre;
 import techreborn.blocks.cable.BlockCable;
 import techreborn.init.IC2Duplicates;
 import techreborn.items.*;
@@ -40,7 +41,7 @@ import techreborn.items.*;
  * Created by Prospector
  */
 public abstract class RecipeMethods {
-	static ItemStack getMaterial(String name, int count, Type type) {
+	public static ItemStack getMaterial(String name, int count, Type type) {
 		if (type == Type.DUST) {
 			return ItemDusts.getDustByName(name, count);
 		} else if (type == Type.SMALL_DUST) {
@@ -65,6 +66,8 @@ public abstract class RecipeMethods {
 			return BlockMachineCasing.getStackByName(name, count);
 		} else if (type == Type.UPGRADE) {
 			return ItemUpgrades.getUpgradeByName(name, count);
+		} else if (type == Type.ORE) {
+			return BlockOre.getOreByName(name, count);
 		}
 		return ItemStack.EMPTY;
 	}
@@ -83,6 +86,8 @@ public abstract class RecipeMethods {
 			object = "plate" + StringUtils.toFirstCapital(name);
 		} else if (type == Type.NUGGET) {
 			object = "nugget" + StringUtils.toFirstCapital(name);
+		}else if (type == Type.ORE) {
+			object = "ore" + StringUtils.toFirstCapital(name);
 		}
 		if (object != null) {
 			if (object instanceof String) {
@@ -96,82 +101,82 @@ public abstract class RecipeMethods {
 		return getMaterial(name, type);
 	}
 
-	static ItemStack getMaterial(String name, Type type) {
+	public static ItemStack getMaterial(String name, Type type) {
 		return getMaterial(name, 1, type);
 	}
 
-	static Object getMaterialObject(String name, Type type) {
+	public static Object getMaterialObject(String name, Type type) {
 		return getMaterialObjectFromType(name, type);
 	}
 
-	static ItemStack getOre(String name, int count) {
+	public static ItemStack getOre(String name, int count) {
 		return OreUtil.getStackFromName(name, count).copy();
 	}
 
-	static ItemStack getOre(String name) {
+	public static ItemStack getOre(String name) {
 		return getOre(name, 1);
 	}
 
-	static boolean oresExist(String... names) {
+	public static boolean oresExist(String... names) {
 		for (String name : names) {
-			if (OreDictionary.getOres(name).isEmpty()) {
+			if (!OreDictionary.doesOreNameExist(name)) {
 				return false;
 			}
 		}
 		return true;
 	}
 
-	static ItemStack getStack(Item item) {
+	public static ItemStack getStack(Item item) {
 		return getStack(item, 1);
 	}
 
-	static ItemStack getStack(Item item, int count) {
+	public static ItemStack getStack(Item item, int count) {
 		return getStack(item, count, 0);
 	}
 
-	static ItemStack getStack(Item item, boolean wildcard) {
+	public static ItemStack getStack(Item item, boolean wildcard) {
 		return getStack(item, 1, wildcard);
 	}
 
-	static ItemStack getStack(Item item, int count, boolean wildcard) {
+	public static ItemStack getStack(Item item, int count, boolean wildcard) {
 		return getStack(item, count, wildcard ? OreDictionary.WILDCARD_VALUE : 0);
 	}
 
-	static ItemStack getStack(Item item, int count, int metadata) {
+	public static ItemStack getStack(Item item, int count, int metadata) {
 		return new ItemStack(item, count, metadata);
 	}
 
-	static ItemStack getStack(Block block) {
+	public static ItemStack getStack(Block block) {
 		return getStack(block, 1);
 	}
 
-	static ItemStack getStack(Block block, int count) {
+	public static ItemStack getStack(Block block, int count) {
 		return getStack(block, count, 0);
 	}
 
-	static ItemStack getStack(Block block, boolean wildcard) {
+	public static ItemStack getStack(Block block, boolean wildcard) {
 		return getStack(block, 1, true);
 	}
 
-	static ItemStack getStack(Block block, int count, boolean wildcard) {
+	public static ItemStack getStack(Block block, int count, boolean wildcard) {
 		return getStack(block, count, wildcard ? OreDictionary.WILDCARD_VALUE : 0);
 	}
 
-	static ItemStack getStack(Block block, int count, int metadata) {
+	public static ItemStack getStack(Block block, int count, int metadata) {
 		return getStack(Item.getItemFromBlock(block), count, metadata);
 	}
 
-	static ItemStack getStack(IC2Duplicates ic2Duplicates) {
+	public static ItemStack getStack(IC2Duplicates ic2Duplicates) {
 		return getStack(ic2Duplicates, 1);
 	}
 
-	static ItemStack getStack(IC2Duplicates ic2Duplicates, int count) {
+	public static ItemStack getStack(IC2Duplicates ic2Duplicates, int count) {
 		ItemStack stack = ic2Duplicates.getStackBasedOnConfig();
 		stack.setCount(count);
 		return stack;
 	}
 
-	enum Type {
-		DUST, SMALL_DUST, INGOT, NUGGET, PLATE, GEM, CELL, PART, CABLE, MACHINE_FRAME, MACHINE_CASING, UPGRADE
+	public enum Type {
+		DUST, SMALL_DUST, INGOT, NUGGET, PLATE, GEM, CELL, PART, CABLE, MACHINE_FRAME, MACHINE_CASING, UPGRADE, ORE
 	}
 }
