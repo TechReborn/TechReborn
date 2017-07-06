@@ -67,6 +67,8 @@ public class ImplosionCompressorRecipes extends RecipeMethods {
 		if (oresExist("dustMalachite", "gemMalachite")) {
 			register(getOre("dustMalachite", 4), getOre("gemMalachite", 3), 12);
 		}
+
+		register(getOre("blockRedstone", 9), getOre("dustRedGarnet", 4), 4);
 	}
 
 	static void register(ItemStack input, ItemStack output, int darkAshes) {
