@@ -42,10 +42,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.IFluidBlock;
+import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import org.apache.commons.lang3.Validate;
 import techreborn.client.TechRebornCreativeTab;
@@ -114,6 +111,15 @@ public class DynamicCell extends Item {
 						return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 					}
 
+				} else {
+					FluidHandler handler = getFluidHandler(stack);
+					if(handler.getFluid() != null && handler.getFluid().amount > 0){
+						FluidStack fluid = handler.getFluid();
+						if(FluidUtil.tryPlaceFluid(playerIn, worldIn,fluid, pos.offset(result.sideHit))){
+							stack.stackSize -= 1;
+							playerIn.inventory.addItemStackToInventory(getEmptyCell(1));
+						}
+					}
 				}
 			}
 		}
