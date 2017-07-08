@@ -27,9 +27,9 @@ package techreborn.tiles.multiblock;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
@@ -37,15 +37,16 @@ import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Inventory;
-
 import techreborn.api.Reference;
+import techreborn.blocks.BlockMachineCasing;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
+import techreborn.tiles.TileMachineCasing;
 
 public class TileImplosionCompressor extends TilePowerAcceptor
-		implements IWrenchable, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
+	implements IWrenchable, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
 
 	public Inventory inventory = new Inventory(4, "TileImplosionCompressor", 64, this);
 	public MultiblockChecker multiblockChecker;
@@ -90,10 +91,27 @@ public class TileImplosionCompressor extends TilePowerAcceptor
 	}
 
 	public boolean getMutliBlock() {
-		final boolean down = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.CASING_REINFORCED, MultiblockChecker.ZERO_OFFSET);
-		final boolean up = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.CASING_REINFORCED, new BlockPos(0, 2, 0));
-		final boolean chamber = this.multiblockChecker.checkRingYHollow(1, 1, MultiblockChecker.CASING_REINFORCED, new BlockPos(0, 1, 0));
-		return down && chamber && up;
+		for (EnumFacing direction : EnumFacing.values()) {
+			TileEntity tileEntity = world.getTileEntity(new BlockPos(getPos().getX() + direction.getFrontOffsetX(),
+				getPos().getY() + direction.getFrontOffsetY(), getPos().getZ() + direction.getFrontOffsetZ()));
+			if (tileEntity instanceof TileMachineCasing) {
+				if (!((TileMachineCasing) tileEntity).isConnected()) {
+					return false;
+				}
+				if ((tileEntity.getBlockType() instanceof BlockMachineCasing)) {
+					int heat;
+					BlockMachineCasing machineCasing = (BlockMachineCasing) tileEntity.getBlockType();
+					heat = machineCasing.getHeatFromState(tileEntity.getWorld().getBlockState(tileEntity.getPos()));
+					BlockPos location = new BlockPos(getPos().getX(), getPos().getY(), getPos().getZ()).offset(direction);
+					if (world.getBlockState(new BlockPos(location.getX(), location.getY(), location.getZ()))
+						.getBlock().getUnlocalizedName().equals("tile.lava")) {
+						heat += 500;
+					}
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	@Override
@@ -182,8 +200,8 @@ public class TileImplosionCompressor extends TilePowerAcceptor
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("implosioncompressor").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-				.addInventory().tile(this).slot(0, 37, 26).slot(1, 37, 44).outputSlot(2, 93, 35).outputSlot(3, 111, 35)
-				.syncEnergyValue().syncCrafterValue().addInventory().create();
+			.addInventory().tile(this).slot(0, 37, 26).slot(1, 37, 44).outputSlot(2, 93, 35).outputSlot(3, 111, 35)
+			.syncEnergyValue().syncCrafterValue().addInventory().create();
 	}
 
 }
