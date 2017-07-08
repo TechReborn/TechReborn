@@ -58,7 +58,6 @@ import techreborn.tiles.TileMachineCasing;
 public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, IInventoryProvider,
 		ITileRecipeHandler<BlastFurnaceRecipe>, IRecipeCrafterProvider, IContainerProvider {
 
-	public static int euTick = 5;
 	public int tickTime;
 	public Inventory inventory = new Inventory(4, "TileBlastFurnace", 64, this);
 	public RecipeCrafter crafter;
@@ -67,7 +66,7 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 	private int cachedHeat;
 
 	public TileBlastFurnace() {
-		super(ConfigTechReborn.CentrifugeTier);
+		super(2);
 		// TODO configs
 		final int[] inputs = new int[2];
 		inputs[0] = 0;
@@ -223,7 +222,7 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 
 	@Override
 	public EnumPowerTier getTier() {
-		return EnumPowerTier.HIGH;
+		return EnumPowerTier.MEDIUM;
 	}
 
 	@Override

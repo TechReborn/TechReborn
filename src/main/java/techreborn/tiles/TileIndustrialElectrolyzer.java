@@ -180,7 +180,7 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor
 
 	@Override
 	public EnumPowerTier getTier() {
-		return EnumPowerTier.LOW;
+		return EnumPowerTier.MEDIUM;
 	}
 
 	@Override
