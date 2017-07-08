@@ -33,6 +33,7 @@ import net.minecraft.util.text.ITextComponent;
 
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
+import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
@@ -44,7 +45,7 @@ import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 
-public class TileEntityFusionController extends TilePowerAcceptor implements IInventoryProvider, IContainerProvider {
+public class TileEntityFusionController extends TilePowerAcceptor implements IInventoryProvider, IContainerProvider, IWrenchable {
 
 	public Inventory inventory = new Inventory(3, "TileEntityFusionController", 64, this);
 
@@ -361,5 +362,30 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 				.syncIntegerValue(this::getCrafingTickTime, this::setCrafingTickTime)
 				.syncIntegerValue(this::getFinalTickTime, this::setFinalTickTime)
 				.syncIntegerValue(this::getNeededPower, this::setNeededPower).addInventory().create();
+	}
+
+	@Override
+	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing enumFacing) {
+		return !entityPlayer.isSneaking();
+	}
+
+	@Override
+	public EnumFacing getFacing() {
+		return this.getFacingEnum();
+	}
+
+	@Override
+	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
+		return true;
+	}
+
+	@Override
+	public float getWrenchDropRate() {
+		return 1F;
+	}
+
+	@Override
+	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+		return new ItemStack(ModBlocks.FUSION_CONTROL_COMPUTER);
 	}
 }
