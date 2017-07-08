@@ -51,7 +51,7 @@ import techreborn.init.ModItems;
 /**
  * Created by modmuss50 on 17/05/2016.
  */
-public class DynamicCell extends Item {
+public class DynamicCell extends Item implements IFluidContainerItem {
 
 	public static final int CAPACITY = Fluid.BUCKET_VOLUME;
 
@@ -173,6 +173,26 @@ public class DynamicCell extends Item {
 
 	public static ItemStack getCellWithFluid(Fluid fluid) {
 		return getCellWithFluid(fluid, 1);
+	}
+
+	@Override
+	public FluidStack getFluid(ItemStack container) {
+		return getFluidHandler(container).getFluid();
+	}
+
+	@Override
+	public int getCapacity(ItemStack container) {
+		return 1000;
+	}
+
+	@Override
+	public int fill(ItemStack container, FluidStack resource, boolean doFill) {
+		return getFluidHandler(container).fill(resource, doFill);
+	}
+
+	@Override
+	public FluidStack drain(ItemStack container, int maxDrain, boolean doDrain) {
+		return getFluidHandler(container).drain(maxDrain, doDrain);
 	}
 
 	public static class FluidHandler extends FluidHandlerItemStack {
