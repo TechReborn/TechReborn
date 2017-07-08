@@ -50,9 +50,7 @@ public class BuildcraftCompat implements ICompatModule {
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
-		for(IFuel fuel : FuelRegistry.INSTANCE.getFuels()){
-			FluidPowerManager.fluidPowerValues.put(fuel.getFluid(), (double) fuel.getPowerPerCycle() / RebornCoreConfig.euPerFU);
-		}
+
 	}
 
 	@Override
