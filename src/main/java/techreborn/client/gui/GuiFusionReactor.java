@@ -129,7 +129,7 @@ public class GuiFusionReactor extends GuiContainer {
 						this.fusionController.getPos().getY(), this.fusionController.getPos().getZ(),
 						this.fusionController.getWorld());
 				MultiblockRenderEvent.anchor = new BlockPos(this.fusionController.getPos().getX(),
-						this.fusionController.getPos().getY() - 1, this.fusionController.getPos().getZ());
+						this.fusionController.getPos().getY(), this.fusionController.getPos().getZ());
 
 				button.displayString = "A";
 			} else {
