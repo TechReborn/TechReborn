@@ -37,9 +37,10 @@ import techreborn.utils.OreDictUtils;
  */
 public class BlockBreakHandler {
 
+
 	@SubscribeEvent
 	public void onBlockHarvest(BlockEvent.HarvestDropsEvent event) {
-		if (event.getState() != null && OreUtil.doesOreExistAndValid("oreRuby") && Item.getItemFromBlock(event.getState().getBlock()) != null && OreDictUtils.isOre(event.getState(), "oreRuby")) {
+		if (!event.isSilkTouching() && OreDictUtils.isOre(event.getState(), "oreRuby")) {
 			event.getDrops().add(ItemGems.getGemByName("red_garnet").copy());
 		}
 	}
