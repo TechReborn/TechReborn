@@ -40,7 +40,7 @@ public class BlockBreakHandler {
 
 	@SubscribeEvent
 	public void onBlockHarvest(BlockEvent.HarvestDropsEvent event) {
-		if (rubyGarnetDrops && OreDictUtils.isOre(event.getState(), "oreRuby")) {
+		if (!event.isSilkTouching() && rubyGarnetDrops && OreDictUtils.isOre(event.getState(), "oreRuby")) {
 			event.getDrops().add(ItemGems.getGemByName("red_garnet").copy());
 		}
 	}
