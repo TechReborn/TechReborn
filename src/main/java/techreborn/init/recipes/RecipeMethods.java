@@ -122,7 +122,7 @@ public abstract class RecipeMethods {
 			if (!OreDictionary.doesOreNameExist(name)) {
 				return false;
 			}
-			if(!OreDictionary.getOres(name).isEmpty()){
+			if(OreDictionary.getOres(name).isEmpty()){
 				return false;
 			}
 		}
