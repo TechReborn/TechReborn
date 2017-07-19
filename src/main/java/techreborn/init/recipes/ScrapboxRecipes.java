@@ -222,6 +222,9 @@ public class ScrapboxRecipes extends RecipeMethods {
 	}
 
 	static void register(ItemStack stack) {
+		if(stack == null || stack.isEmpty()){
+			return;
+		}
 		ScrapboxList.stacks.add(stack);
 	}
 
