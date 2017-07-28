@@ -48,7 +48,7 @@ public class RollingMachineRecipeCategory extends BlankRecipeCategory<RollingMac
 
 	public RollingMachineRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(GuiRollingMachine.texture, 29, 16, 116, 54);
-		title = I18n.translateToLocal("tile.techreborn.rollingmachine.name");
+		title = I18n.translateToLocal("tile.techreborn:rolling_machine.name");
 
 		IDrawableStatic progressStatic = guiHelper.createDrawable(GuiRollingMachine.texture, 176, 14, 20, 18);
 		progress = guiHelper.createAnimatedDrawable(progressStatic, 250, IDrawableAnimated.StartDirection.LEFT, false);
