@@ -24,13 +24,9 @@
 
 package techreborn.items.tools;
 
-import net.minecraft.block.BlockDynamicLiquid;
-import net.minecraft.block.BlockStaticLiquid;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -46,7 +42,6 @@ import net.minecraftforge.server.permission.PermissionAPI;
 import net.minecraftforge.server.permission.context.BlockPosContext;
 import reborncore.common.IWrenchable;
 import reborncore.common.util.RebornPermissions;
-import techreborn.blocks.fluid.BlockFluidBase;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.compat.CompatManager;
 import techreborn.init.ModSounds;
@@ -90,65 +85,47 @@ public class ItemWrench extends ItemTR {
 		if (!world.isRemote) {
 			if (player.isSneaking()) {
 				List<ItemStack> items = new ArrayList<>();
-				if (tile instanceof IInventory) {
-					IInventory inventory = (IInventory) tile;
-					for (int i = 0; i < inventory.getSizeInventory(); i++) {
-						ItemStack itemStack = inventory.getStackInSlot(i);
+				if (tile instanceof IWrenchable) {
+					if (((IWrenchable) tile).wrenchCanRemove(player)) {
+						ItemStack itemStack = ((IWrenchable) tile).getWrenchDrop(player);
+						if (itemStack == null) {
+							return EnumActionResult.FAIL;
+						}
+						items.add(itemStack);
+					}
+					if (!items.isEmpty()) {
+						for (ItemStack itemStack : items) {
 
-						if (itemStack != ItemStack.EMPTY) {
-							if (itemStack.getCount() > 0) {
-								if (itemStack.getItem() instanceof ItemBlock)
+							Random rand = new Random();
 
-									if (!(((ItemBlock) itemStack.getItem()).getBlock() instanceof BlockFluidBase) || !(((ItemBlock) itemStack.getItem()).getBlock() instanceof BlockStaticLiquid)
-										|| !(((ItemBlock) itemStack.getItem()).getBlock() instanceof BlockDynamicLiquid)) {
-										items.add(itemStack.copy());
-									}
+							float dX = rand.nextFloat() * 0.8F + 0.1F;
+							float dY = rand.nextFloat() * 0.8F + 0.1F;
+							float dZ = rand.nextFloat() * 0.8F + 0.1F;
+
+							EntityItem entityItem = new EntityItem(world, pos.getX() + dX, pos.getY() + dY,
+								pos.getZ() + dZ, itemStack.copy());
+
+							if (itemStack.hasTagCompound()) {
+								entityItem.getItem()
+									.setTagCompound(itemStack.getTagCompound().copy());
+							}
+
+							float factor = 0.05F;
+							entityItem.motionX = rand.nextGaussian() * factor;
+							entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
+							entityItem.motionZ = rand.nextGaussian() * factor;
+							if (!world.isRemote) {
+								world.spawnEntity(entityItem);
 							}
 						}
 					}
-					if (tile instanceof IWrenchable) {
-						if (((IWrenchable) tile).wrenchCanRemove(player)) {
-							ItemStack itemStack = ((IWrenchable) tile).getWrenchDrop(player);
-							if (itemStack == null) {
-								return EnumActionResult.FAIL;
-							}
-							items.add(itemStack);
-						}
-						if (!items.isEmpty()) {
-							for (ItemStack itemStack : items) {
-
-								Random rand = new Random();
-
-								float dX = rand.nextFloat() * 0.8F + 0.1F;
-								float dY = rand.nextFloat() * 0.8F + 0.1F;
-								float dZ = rand.nextFloat() * 0.8F + 0.1F;
-
-								EntityItem entityItem = new EntityItem(world, pos.getX() + dX, pos.getY() + dY,
-									pos.getZ() + dZ, itemStack.copy());
-
-								if (itemStack.hasTagCompound()) {
-									entityItem.getItem()
-										.setTagCompound((NBTTagCompound) itemStack.getTagCompound().copy());
-								}
-
-								float factor = 0.05F;
-								entityItem.motionX = rand.nextGaussian() * factor;
-								entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
-								entityItem.motionZ = rand.nextGaussian() * factor;
-								if (!world.isRemote) {
-									world.spawnEntity(entityItem);
-								}
-							}
-						}
-						world.playSound(null, player.posX, player.posY,
-							player.posZ, ModSounds.BLOCK_DISMANTLE,
-							SoundCategory.BLOCKS, 0.6F, 1F);
-						if (!world.isRemote) {
-							world.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
-						}
-						return EnumActionResult.SUCCESS;
+					world.playSound(null, player.posX, player.posY,
+						player.posZ, ModSounds.BLOCK_DISMANTLE,
+						SoundCategory.BLOCKS, 0.6F, 1F);
+					if (!world.isRemote) {
+						world.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
 					}
-
+					return EnumActionResult.SUCCESS;
 				}
 			}
 			return EnumActionResult.PASS;
