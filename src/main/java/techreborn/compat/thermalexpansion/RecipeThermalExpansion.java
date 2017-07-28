@@ -47,7 +47,7 @@ public class RecipeThermalExpansion implements ICompatModule {
 
 		for(String plate : ItemPlates.types){
 			if(!plate.equals(ModItems.META_PLACEHOLDER) && ItemDusts.hasDust(plate)){
-				ThermalExpansionHelper.addPulverizerRecipe(5000, RecipeMethods.getMaterial(plate, 1, RecipeMethods.Type.PLATE), RecipeMethods.getMaterial(plate, 9, RecipeMethods.Type.DUST));
+				ThermalExpansionHelper.addPulverizerRecipe(5000, RecipeMethods.getMaterial(plate, 1, RecipeMethods.Type.PLATE), RecipeMethods.getMaterial(plate, 1, RecipeMethods.Type.DUST));
 			}
 		}
 
