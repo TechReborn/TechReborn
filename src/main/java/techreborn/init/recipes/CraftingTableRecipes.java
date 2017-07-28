@@ -129,15 +129,10 @@ public class CraftingTableRecipes extends RecipeMethods {
 		registerShaped(getStack(ModBlocks.WIND_MILL), "I I", " G ", "I I", 'I', "plateIron", 'G', getStack(IC2Duplicates.GENERATOR));
 		registerShaped(getStack(ModBlocks.WATER_MILL), "SWS", "WGW", "SWS", 'S', "stickWood", 'W', "plankWood", 'G', getStack(IC2Duplicates.GENERATOR));
 
-		if (!IC2Duplicates.deduplicate()) {
-		}
-
 		registerShaped(getMaterial("standard", 4, Type.MACHINE_CASING), "RRR", "CAC", "RRR", 'R', getStack(IC2Duplicates.REFINED_IRON), 'C', "circuitBasic", 'A', getMaterialObject("machine", Type.MACHINE_FRAME));
 		registerShaped(getMaterial("reinforced", 4, Type.MACHINE_CASING), "RRR", "CAC", "RRR", 'R', "ingotSteel", 'C', "circuitAdvanced", 'A', getMaterialObject("advanced_machine", Type.MACHINE_FRAME));
 
 		registerShaped(getMaterial("dataOrb", Type.PART), "DDD", "DID", "DDD", 'D', "circuitData", 'I', "circuitElite");
-
-		registerShaped(getMaterial("dataControlCircuit", 4, Type.PART), "CDC", "DID", "CDC", 'I', getMaterialObject("iridium", Type.PLATE), 'D', "circuitData", 'C', "circuitAdvanced");
 
 		registerShaped(getStack(ModBlocks.THERMAL_GENERATOR), "III", "IRI", "CGC", 'I', "ingotInvar", 'R', ModBlocks.REINFORCED_GLASS, 'G', getStack(IC2Duplicates.GENERATOR), 'C', "circuitBasic");
 
