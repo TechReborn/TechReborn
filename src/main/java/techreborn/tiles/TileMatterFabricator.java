@@ -51,8 +51,10 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	public static int maxInput = 8192;
 	@ConfigRegistry(config = "machines", category = "matter_fabricator", key = "MatterFabricatorMaxEnergy", comment = "Matter Fabricator Max Energy (Value in EU)")
 	public static int maxEnergy = 100000000;
-	@ConfigRegistry(config = "machines", category = "matter_fabricator", key = "MatterFabricatorFabricationRate", comment = "Matter Fabricator Fabrication Rate")
+	@ConfigRegistry(config = "machines", category = "matter_fabricator", key = "MatterFabricatorFabricationRate", comment = "Matter Fabricator Fabrication Rate, amount of amplifier units per UUM")
 	public static int fabricationRate = 10000;
+	@ConfigRegistry(config = "machines", category = "matter_fabricator", key = "MatterFabricatorEnergyPerAmp", comment = "Matter Fabricator EU per amplifier unit, multiply this with the rate for total EU")
+	public static int energyPerAmp = 16666;
 	//  @ConfigRegistry(config = "machines", category = "matter_fabricator", key = "MatterFabricatorWrenchDropRate", comment = "Matter Fabricator Wrench Drop Rate")
 	public static float wrenchDropRate = 1.0F;
 
@@ -119,8 +121,9 @@ public class TileMatterFabricator extends TilePowerAcceptor
 				final ItemStack stack = this.inventory.getStackInSlot(i);
 				if (!stack.isEmpty() && spaceForOutput()) {
 					final int amp = this.getValue(stack);
-					if (amp != 0 && this.canUseEnergy(85)) {
-						this.useEnergy(85);
+					final int euNeeded = amp * energyPerAmp;
+					if (amp != 0 && this.canUseEnergy(euNeeded)) {
+						this.useEnergy(euNeeded);
 						this.amplifier += amp;
 						this.inventory.decrStackSize(i, 1);
 					}
