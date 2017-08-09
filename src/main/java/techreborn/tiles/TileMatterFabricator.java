@@ -102,14 +102,14 @@ public class TileMatterFabricator extends TilePowerAcceptor
 
 	@Override
 	public boolean canInsertItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
-		if (slotIndex == 6)
+		if (slotIndex >= 6)
 			return false;
 		return isItemValidForSlot(slotIndex, itemStack);
 	}
 
 	@Override
 	public boolean canExtractItem(int slotIndex, ItemStack itemStack, EnumFacing side) {
-		return slotIndex == 6;
+		return slotIndex >= 6 && slotIndex <= 10;
 	}
 
 	@Override
