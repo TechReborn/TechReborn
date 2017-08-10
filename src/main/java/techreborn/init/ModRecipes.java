@@ -109,6 +109,22 @@ public class ModRecipes {
 			}
 		}
 		IndustrialSawmillRecipes.init();
+		
+		//Let it be in postInit to be sure that oredict already there
+		if (OreUtil.doesOreExistAndValid("stoneMarble")) {
+			ItemStack marbleStack = getOre("stoneMarble");
+			marbleStack.setCount(1);
+			RecipeHandler.addRecipe(new GrinderRecipe(
+					marbleStack, ItemDusts.getDustByName("marble"), 
+					120, 10));
+		}
+		if (OreUtil.doesOreExistAndValid("stoneBasalt")) {
+			ItemStack marbleStack = getOre("stoneBasalt");
+			marbleStack.setCount(1);
+			RecipeHandler.addRecipe(new GrinderRecipe(
+					marbleStack, ItemDusts.getDustByName("basalt"), 
+					120, 10));
+		}
 	}
 
 	private static void addCompressorRecipes() {
