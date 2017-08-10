@@ -34,6 +34,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
 import techreborn.client.gui.GuiFusionReactor;
 import techreborn.compat.jei.RecipeCategoryUids;
+import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
 
@@ -51,6 +52,11 @@ public class FusionReactorRecipeCategory extends BlankRecipeCategory<FusionReact
 	public FusionReactorRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(GuiFusionReactor.texture, 86, 16, 85, 64, 0, 40, 20, 20);
 		title = I18n.translateToLocal("tile.techreborn.fusioncontrolcomputer.name");
+	}
+
+	@Override
+	public String getModName() {
+		return ModInfo.MOD_NAME;
 	}
 
 	@Nonnull

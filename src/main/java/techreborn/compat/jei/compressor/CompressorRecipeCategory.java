@@ -32,9 +32,9 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeCategory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
-import techreborn.client.gui.GuiCompressor;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
+import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
 
@@ -49,6 +49,11 @@ public class CompressorRecipeCategory extends BlankRecipeCategory<CompressorReci
 	public CompressorRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 0, 62, 74, 32);
 		title = I18n.translateToLocal("tile.techreborn.compressor.name");
+	}
+
+	@Override
+	public String getModName() {
+		return ModInfo.MOD_NAME;
 	}
 
 	@Nonnull

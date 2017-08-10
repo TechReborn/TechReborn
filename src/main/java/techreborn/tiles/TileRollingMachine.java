@@ -54,11 +54,14 @@ public class TileRollingMachine extends TilePowerAcceptor
 	public int tickTime;
 	public int runTime = 250;
 	public ItemStack currentRecipe;
+	
+	private int outputSlot;
 
 	public int euTick = 5;
 
 	public TileRollingMachine() {
 		super(1);
+		outputSlot =  0;
 	}
 
 	@Override
@@ -102,16 +105,16 @@ public class TileRollingMachine extends TilePowerAcceptor
 					this.currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(this.craftMatrix, this.world);
 					if (this.currentRecipe != null) {
 						boolean hasCrafted = false;
-						if (this.inventory.getStackInSlot(0) == ItemStack.EMPTY) {
-							this.inventory.setInventorySlotContents(0, this.currentRecipe);
+						if (this.inventory.getStackInSlot(outputSlot) == ItemStack.EMPTY) {
+							this.inventory.setInventorySlotContents(outputSlot, this.currentRecipe);
 							this.tickTime = -1;
 							hasCrafted = true;
 						} else {
-							if (this.inventory.getStackInSlot(0).getCount() + this.currentRecipe.getCount() <= this.currentRecipe
+							if (this.inventory.getStackInSlot(outputSlot).getCount() + this.currentRecipe.getCount() <= this.currentRecipe
 									.getMaxStackSize()) {
-								final ItemStack stack = this.inventory.getStackInSlot(0);
+								final ItemStack stack = this.inventory.getStackInSlot(outputSlot);
 								stack.setCount(stack.getCount() + this.currentRecipe.getCount());
-								this.inventory.setInventorySlotContents(0, stack);
+								this.inventory.setInventorySlotContents(outputSlot, stack);
 								this.tickTime = -1;
 								hasCrafted = true;
 							}
@@ -192,6 +195,23 @@ public class TileRollingMachine extends TilePowerAcceptor
 	public void writeUpdateToNBT(final NBTTagCompound tagCompound) {
 		tagCompound.setBoolean("isRunning", this.isRunning);
 		tagCompound.setInteger("tickTime", this.tickTime);
+	}
+
+	@Override
+	public int[] getSlotsForFace(final EnumFacing side) {
+		if (side.equals(EnumFacing.DOWN))
+			return new int[] { 0 };
+		return new int[0];
+	}
+	
+	@Override
+	public boolean canInsertItem(final int Index, final ItemStack itemStack, final EnumFacing side) {
+		return false;
+	}
+
+	@Override
+	public boolean canExtractItem(final int Index, final ItemStack itemStack, final EnumFacing side) {
+		return Index == outputSlot;
 	}
 
 	@Override

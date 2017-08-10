@@ -35,6 +35,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.compat.jei.RecipeUtil;
+import techreborn.lib.ModInfo;
 
 public class FluidGeneratorRecipeCategory extends BlankRecipeCategory<FluidGeneratorRecipeWrapper> {
 	public static ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/jei_fluid_generator.png");
@@ -57,6 +58,11 @@ public class FluidGeneratorRecipeCategory extends BlankRecipeCategory<FluidGener
 		title = I18n.translateToLocal("techreborn.jei.category.generator." + generatorType.name().toLowerCase());
 
 		this.generatorType = generatorType;
+	}
+
+	@Override
+	public String getModName() {
+		return ModInfo.MOD_NAME;
 	}
 
 	@Override

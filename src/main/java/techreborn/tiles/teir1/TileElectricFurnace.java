@@ -263,4 +263,9 @@ public class TileElectricFurnace extends TilePowerAcceptor
 	public IInventory getMachineInv() {
 		return inventory;
 	}
+
+	@Override
+	public boolean canBeUpgraded() {
+		return false;
+	}
 }

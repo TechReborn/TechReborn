@@ -34,9 +34,9 @@ import mezz.jei.api.recipe.BlankRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
-import techreborn.client.gui.GuiIndustrialGrinder;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.multiblock.TileIndustrialGrinder;
 
 import javax.annotation.Nonnull;
@@ -59,6 +59,11 @@ public class IndustrialGrinderRecipeCategory extends BlankRecipeCategory<Industr
 		blankArea = guiHelper.createDrawable(texture, 50, 45, 6, 6);
 		tankOverlay = guiHelper.createDrawable(texture, 176, 86, 12, 47);
 		title = I18n.translateToLocal("tile.techreborn.industrialgrinder.name");
+	}
+
+	@Override
+	public String getModName() {
+		return ModInfo.MOD_NAME;
 	}
 
 	@Nonnull

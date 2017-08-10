@@ -27,12 +27,14 @@ package techreborn.tiles;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
+
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
@@ -46,7 +48,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 
 	public int fabricationRate = 10000;
 	public int tickTime;
-	public Inventory inventory = new Inventory(7, "TileMatterFabricator", 64, this);
+	public Inventory inventory = new Inventory(11, "TileMatterFabricator", 64, this);
 	private int amplifier = 0;
 
 	public TileMatterFabricator() {
@@ -128,17 +130,35 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	}
 
 	private boolean spaceForOutput() {
-		return this.inventory.getStackInSlot(6) == ItemStack.EMPTY
-			|| ItemUtils.isItemEqual(this.inventory.getStackInSlot(6), new ItemStack(ModItems.UU_MATTER), true, true)
-			&& this.inventory.getStackInSlot(6).getCount() < 64;
+		for (int i = 6; i < 11; i++) {
+			if(spaceForOutput(i)){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean spaceForOutput(int slot) {
+		return this.inventory.getStackInSlot(slot).isEmpty()
+			|| ItemUtils.isItemEqual(this.inventory.getStackInSlot(slot), new ItemStack(ModItems.UU_MATTER), true, true)
+			&& this.inventory.getStackInSlot(slot).getCount() < 64;
 	}
 
 	private void addOutputProducts() {
+		for (int i = 6; i < 11; i++) {
+			if(spaceForOutput(i)){
+				addOutputProducts(i);
+				break;
+			}
+		}
+	}
 
-		if (this.inventory.getStackInSlot(6) == ItemStack.EMPTY) {
-			this.inventory.setInventorySlotContents(6, new ItemStack(ModItems.UU_MATTER));
-		} else if (ItemUtils.isItemEqual(this.inventory.getStackInSlot(6), new ItemStack(ModItems.UU_MATTER), true, true)) {
-			this.inventory.getStackInSlot(6).setCount(Math.min(64, 1 + this.inventory.getStackInSlot(6).getCount()));
+	private void addOutputProducts(int slot) {
+
+		if (this.inventory.getStackInSlot(slot).isEmpty()) {
+			this.inventory.setInventorySlotContents(slot, new ItemStack(ModItems.UU_MATTER));
+		} else if (ItemUtils.isItemEqual(this.inventory.getStackInSlot(slot), new ItemStack(ModItems.UU_MATTER), true, true)) {
+			this.inventory.getStackInSlot(slot).setCount((Math.min(64, 1 + this.inventory.getStackInSlot(slot).getCount())));
 		}
 	}
 
@@ -223,9 +243,15 @@ public class TileMatterFabricator extends TilePowerAcceptor
 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("matterfabricator").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-			.addInventory().tile(this).slot(0, 33, 17).slot(1, 33, 35).slot(2, 33, 53).slot(3, 51, 17)
-			.slot(4, 51, 35).slot(5, 51, 53).outputSlot(6, 116, 35).syncEnergyValue()
+		return new ContainerBuilder("matterfabricator").player(player.inventory).inventory().hotbar()
+			.addInventory().tile(this).slot(0, 30, 20).slot(1, 50, 20).slot(2, 70, 20).slot(3, 90, 20)
+			.slot(4, 110, 20).slot(5, 130, 20).outputSlot(6, 40, 66).outputSlot(7, 60, 66).outputSlot(8, 80, 66)
+			.outputSlot(9, 100, 66).outputSlot(10, 120, 66).syncEnergyValue()
 			.syncIntegerValue(this::getProgress, this::setProgress).addInventory().create();
+	}
+
+	@Override
+	public boolean canBeUpgraded() {
+		return false;
 	}
 }

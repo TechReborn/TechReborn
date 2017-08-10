@@ -24,8 +24,6 @@
 
 package techreborn.compat.jei.industrialSawmill;
 
-import javax.annotation.Nonnull;
-
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiFluidStackGroup;
@@ -35,10 +33,12 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeCategory;
 import mezz.jei.util.Translator;
 import net.minecraft.util.ResourceLocation;
-import techreborn.Core;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.multiblock.TileIndustrialSawmill;
+
+import javax.annotation.Nonnull;
 
 public class IndustrialSawmillRecipeCategory extends BlankRecipeCategory<IndustrialSawmillRecipeWrapper> {
 
@@ -56,6 +56,11 @@ public class IndustrialSawmillRecipeCategory extends BlankRecipeCategory<Industr
 		title = Translator.translateToLocal("tile.techreborn.industrialsawmill.name");
 		background = guiHelper.createDrawable(texture, 7, 15, 141, 55);
 		tankOverlay = guiHelper.createDrawable(texture, 176, 86, 12, 47);
+	}
+
+	@Override
+	public String getModName() {
+		return ModInfo.MOD_NAME;
 	}
 	
 	@Nonnull

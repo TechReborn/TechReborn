@@ -102,7 +102,7 @@ public class IndustrialCentrifugeRecipes extends RecipeMethods {
 		register(getMaterial("red_garnet", 16, Type.DUST), 3000, getMaterial("pyrope", 3, Type.DUST), getMaterial("almandine", 5, Type.DUST), getMaterial("spessartine", 8, Type.DUST));
 		register(getMaterial("yellow_garnet", 16, Type.DUST), 3500, getMaterial("andradite", 5, Type.DUST), getMaterial("grossular", 8, Type.DUST), getMaterial("uvarovite", 3, Type.DUST));
 		register(getMaterial("dark_ashes", 2, Type.DUST), 240, getMaterial("ashes", 2, Type.DUST));
-		register(getMaterial("marble", 8, Type.DUST), 1040, getMaterial("magnesium", Type.DUST), getMaterial("calcite", 7, Type.DUST));
+		register("dustMarble", 1040, getMaterial("magnesium", Type.DUST), getMaterial("calcite", 7, Type.DUST));
 		register(getMaterial("basalt", 16, Type.DUST), 2040, getMaterial("peridot", Type.DUST), getMaterial("calcite", 3, Type.DUST), getMaterial("flint", 8, Type.DUST), getMaterial("dark_ashes", 4, Type.DUST));
 		register(getMaterial("hydrogen", 4, Type.CELL), 3000, getMaterial("deuterium", Type.CELL));
 		register(getMaterial("deuterium", 4, Type.CELL), 3000, getMaterial("tritium", Type.CELL));
@@ -111,7 +111,7 @@ public class IndustrialCentrifugeRecipes extends RecipeMethods {
 		register(getMaterial("sulfur", Type.CELL), 40, getMaterial("sulfur", Type.DUST));
 	}
 
-	static void register(ItemStack input, int ticks, boolean oreDict, ItemStack... outputs) {
+	static void register(Object input, int ticks, boolean oreDict, ItemStack... outputs) {
 		ItemStack output1;
 		ItemStack output2 = null;
 		ItemStack output3 = null;
@@ -143,19 +143,21 @@ public class IndustrialCentrifugeRecipes extends RecipeMethods {
 
 		}
 
-		if (input.getItem() instanceof DynamicCell) {
-			int inputCount = input.getCount();
-			if (cellCount < inputCount) {
-				if (output2 == null) {
-					output2 = DynamicCell.getEmptyCell(inputCount - cellCount);
-				} else if (output3 == null) {
-					output3 = DynamicCell.getEmptyCell(inputCount - cellCount);
-				} else if (output4 == null) {
-					output4 = DynamicCell.getEmptyCell(inputCount - cellCount);
+		if(input instanceof ItemStack){
+			if (((ItemStack) input).getItem() instanceof DynamicCell) {
+				int inputCount = ((ItemStack) input).getCount();
+				if (cellCount < inputCount) {
+					if (output2 == null) {
+						output2 = DynamicCell.getEmptyCell(inputCount - cellCount);
+					} else if (output3 == null) {
+						output3 = DynamicCell.getEmptyCell(inputCount - cellCount);
+					} else if (output4 == null) {
+						output4 = DynamicCell.getEmptyCell(inputCount - cellCount);
+					}
 				}
-			}
-			cellCount -= inputCount;
+				cellCount -= inputCount;
 
+			}
 		}
 
 		if (cellCount < 0) {
@@ -171,7 +173,7 @@ public class IndustrialCentrifugeRecipes extends RecipeMethods {
 		RecipeHandler.addRecipe(new CentrifugeRecipe(input, cells, output1, output2, output3, output4, ticks, 5, oreDict));
 	}
 
-	static void register(ItemStack input, int ticks, ItemStack... outputs) {
+	static void register(Object input, int ticks, ItemStack... outputs) {
 		register(input, ticks, true, outputs);
 	}
 }

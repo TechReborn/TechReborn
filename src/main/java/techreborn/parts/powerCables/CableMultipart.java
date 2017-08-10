@@ -32,20 +32,25 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.common.property.Properties;
-import reborncore.api.power.IEnergyInterfaceTile;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
+import reborncore.common.RebornCoreConfig;
 import reborncore.common.misc.Functions;
 import reborncore.common.misc.vecmath.Vecs3dCube;
 import reborncore.common.util.WorldUtils;
@@ -53,12 +58,8 @@ import reborncore.mcmultipart.MCMultiPartMod;
 import reborncore.mcmultipart.microblock.IMicroblock;
 import reborncore.mcmultipart.multipart.*;
 import reborncore.mcmultipart.raytrace.PartMOP;
-import techreborn.config.ConfigTechReborn;
-import techreborn.init.ModSounds;
 import techreborn.parts.TechRebornParts;
 import techreborn.parts.walia.IPartWaliaProvider;
-import techreborn.power.TRPowerNet;
-import techreborn.utils.damageSources.ElectrialShockSource;
 
 import java.util.*;
 
@@ -66,7 +67,7 @@ import java.util.*;
  * Created by modmuss50 on 02/03/2016.
  */
 public abstract class CableMultipart extends Multipart
-	implements INormallyOccludingPart, ISlottedPart, ITickable, ICableType, IPartWaliaProvider {
+	implements INormallyOccludingPart, ISlottedPart, ITickable, ICableType, IPartWaliaProvider, IEnergyStorage {
 
 	public static final IUnlistedProperty<Boolean> UP = Properties.toUnlisted(PropertyBool.create("up"));
 	public static final IUnlistedProperty<Boolean> DOWN = Properties.toUnlisted(PropertyBool.create("down"));
@@ -81,8 +82,7 @@ public abstract class CableMultipart extends Multipart
 	public Map<EnumFacing, BlockPos> connectedSides;
 	public int ticks = 0;
 	public ItemStack stack;
-	public TRPowerNet mergeWith = null;
-	private TRPowerNet network;
+	public int power = 0;
 
 	public CableMultipart() {
 		connectedSides = new HashMap<>();
@@ -168,19 +168,12 @@ public abstract class CableMultipart extends Multipart
 	@Override
 	public void onRemoved() {
 		super.onRemoved();
-		removeFromNetwork();
 		for (EnumFacing dir : EnumFacing.VALUES) {
 			CableMultipart multipart = getPartFromWorld(getWorld(), getPos().offset(dir), dir);
 			if (multipart != null) {
 				multipart.nearByChange();
 			}
 		}
-	}
-
-	@Override
-	public void onUnloaded() {
-		super.onUnloaded();
-		removeFromNetwork();
 	}
 
 	@Override
@@ -209,36 +202,13 @@ public abstract class CableMultipart extends Multipart
 				part.checkConnectedSides();
 			}
 		}
-		if (network == null) {
-			findAndJoinNetwork(getWorld(), getPos());
-		}
-		TRPowerNet.buildEndpoint(network);
+
 	}
 
 	@Override
 	public void onAdded() {
 		checkConnectedSides();
 	}
-
-	public void tryNetworkMerge(EnumFacing dir){
-		if (dir != null) {
-			if (internalShouldConnectTo(dir)) {
-				CableMultipart cableMultipart = getPartFromWorld(getWorld(), getPos().offset(dir), dir);
-				if (cableMultipart != null && cableMultipart.internalShouldConnectTo(dir.getOpposite())) {
-					if(network == null && cableMultipart.network != null){
-						network = cableMultipart.network;
-						network.addElement(this);
-					} else if (network != null && cableMultipart.network != null && network != cableMultipart.network){
-						network = cableMultipart.network.merge(network);
-						network.addElement(this);
-					} else {
-						findAndJoinNetwork(getWorld(), getPos());
-					}
-				}
-			}
-		}
-	}
-
 
 	public boolean shouldConnectTo(EnumFacing dir) {
 		if (dir != null) {
@@ -249,8 +219,7 @@ public abstract class CableMultipart extends Multipart
 				}
 			} else {
 				TileEntity tile = getNeighbourTile(dir);
-
-				if (tile instanceof IEnergyInterfaceTile) {
+				if (tile != null && tile.hasCapability(CapabilityEnergy.ENERGY, dir)) {
 					return true;
 				}
 			}
@@ -290,7 +259,6 @@ public abstract class CableMultipart extends Multipart
 			TileEntity te = getNeighbourTile(dir);
 			if (shouldConnectTo(dir)) {
 				connectedSides.put(dir, te.getPos());
-				tryNetworkMerge(dir);
 			}
 		}
 	}
@@ -307,18 +275,38 @@ public abstract class CableMultipart extends Multipart
 			if (getWorld().getTotalWorldTime() % 80 == 0) {
 				checkConnectedSides();
 			}
-			if(ticks == 20){ // Rebuilds the whole network just after the part has been added, we allow for some time to let the world load in.
-				resetNetwork();
-				findAndJoinNetwork(getWorld(), getPos());
-			}
+			tickPower();
 		}
-		if (network == null) {
-			this.findAndJoinNetwork(getWorld(), getPos());
-		} else {
-			if (mergeWith != null) {
-				network = getNetwork().merge(mergeWith);
-				network.addElement(this);
-				mergeWith = null;
+	}
+
+	public void tickPower(){
+		for (EnumFacing face : EnumFacing.VALUES) {
+			if (connectedSides.containsKey(face)) {
+				BlockPos offPos = getPos().offset(face);
+				TileEntity tile = getWorld().getTileEntity(offPos);
+				if(tile == null){
+					continue;
+				}
+				if (tile.hasCapability(CapabilityEnergy.ENERGY, face.getOpposite())) {
+					IEnergyStorage energy = tile.getCapability(CapabilityEnergy.ENERGY, face.getOpposite());
+					if (energy.canReceive()) {
+						int move = energy.receiveEnergy(Math.min(getCableType().transferRate, power), false);
+						if (move != 0) {
+							power -= move;
+						}
+					}
+				}
+
+				CableMultipart pipe = getPartFromWorld(getWorld(), getPos().offset(face), face);
+				if (pipe != null) {
+					int averPower = (power + pipe.power) / 2;
+					pipe.power = averPower;
+					if(averPower % 2 != 0 && power != 0){
+						averPower ++;
+					}
+					power = averPower;
+
+				}
 			}
 		}
 	}
@@ -355,32 +343,6 @@ public abstract class CableMultipart extends Multipart
 		return list;
 	}
 
-	@Override
-	public void onEntityCollided(Entity entity) {
-		if (getCableType().canKill && entity instanceof EntityLivingBase) {
-			if (network != null) {
-				if (network.getEnergy() != 0) {
-					if (ConfigTechReborn.UninsulatedElectocutionDamage) {
-						if (getCableType() == EnumCableType.HV) {
-							entity.setFire(1);
-						}
-						network.setEnergy(-1);
-						entity.attackEntityFrom(new ElectrialShockSource(), 1F);
-					}
-					if (ConfigTechReborn.UninsulatedElectocutionSound) {
-						getWorld().playSound(null, entity.posX, entity.posY,
-							entity.posZ, ModSounds.CABLE_SHOCK,
-							SoundCategory.BLOCKS, 0.6F, 1F);
-					}
-					if (ConfigTechReborn.UninsulatedElectocutionParticle) {
-						getWorld().spawnParticle(EnumParticleTypes.CRIT, entity.posX, entity.posY, entity.posZ, 0,
-							0, 0);
-					}
-				}
-			}
-		}
-
-	}
 
 	@Override
 	public void onEntityStanding(Entity entity) {
@@ -392,66 +354,6 @@ public abstract class CableMultipart extends Multipart
 		return new ItemStack(TechRebornParts.cables, 1, getCableType().ordinal());
 	}
 
-	public final void findAndJoinNetwork(World world, BlockPos pos) {
-		for (EnumFacing dir : EnumFacing.VALUES) {
-			CableMultipart cableMultipart = getPartFromWorld(getWorld(), getPos().offset(dir), dir);
-			if (cableMultipart != null && cableMultipart.getCableType() == getCableType()) {
-				TRPowerNet net = cableMultipart.getNetwork();
-				if (net != null) {
-					if(network == null){
-						network = net;
-						network.addElement(this);
-					} else {
-						network = net.merge(network);
-						network.addElement(this);
-					}
-					break;
-				}
-			}
-		}
-		if (network == null) {
-			network = new TRPowerNet(getCableType(), world);
-			network.addElement(this);
-		}
-		for (EnumFacing dir : EnumFacing.VALUES) {
-			TileEntity te = getNeighbourTile(dir);
-			if (te instanceof IEnergyInterfaceTile) {
-				network.addConnection((IEnergyInterfaceTile) te, dir);
-			}
-		}
-	}
-
-	public final TRPowerNet getNetwork() {
-		return network;
-	}
-
-	public final void setNetwork(TRPowerNet n) {
-		if (n == null) {
-		} else {
-			network = n;
-			network.addElement(this);
-		}
-	}
-
-	public final void removeFromNetwork() {
-		if (network == null) {
-		} else
-			network.removeElement(this);
-	}
-
-	public final void rebuildNetwork() {
-		this.removeFromNetwork();
-		this.resetNetwork();
-		this.findAndJoinNetwork(getWorld(), getPos());
-	}
-
-	public final void resetNetwork() {
-		if (network != null) {
-			network.removeElement(this);
-		}
-
-		network = null;
-	}
 
 	@Override
 	public void addInfo(List<String> info) {
@@ -470,5 +372,65 @@ public abstract class CableMultipart extends Multipart
 	@Override
 	public boolean canRenderInLayer(BlockRenderLayer layer) {
 		return layer == BlockRenderLayer.CUTOUT;
+	}
+
+	@Override
+	public int receiveEnergy(int maxReceive, boolean simulate) {
+		if (!canReceive()){
+			return 0;
+		}
+
+		int energyReceived = Math.min(getMaxEnergyStored() - power, Math.min(getCableType().transferRate * RebornCoreConfig.euPerFU, maxReceive));
+		if (!simulate)
+			power += energyReceived;
+		return energyReceived;
+	}
+
+	@Override
+	public int extractEnergy(int maxExtract, boolean simulate) {
+		if (!canExtract()){
+			return 0;
+		}
+
+		int energyExtracted = Math.min(power, Math.min(getCableType().transferRate * RebornCoreConfig.euPerFU, maxExtract));
+		if (!simulate)
+			power -= energyExtracted;
+		return energyExtracted;
+	}
+
+	@Override
+	public int getEnergyStored() {
+		return power;
+	}
+
+	@Override
+	public int getMaxEnergyStored() {
+		return getCableType().transferRate * 2;
+	}
+
+	@Override
+	public boolean canExtract() {
+		return true;
+	}
+
+	@Override
+	public boolean canReceive() {
+		return true;
+	}
+
+	@Override
+	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+		if(capability == CapabilityEnergy.ENERGY){
+			return true;
+		}
+		return super.hasCapability(capability, facing);
+	}
+
+	@Override
+	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+		if(capability == CapabilityEnergy.ENERGY){
+			return (T) this;
+		}
+		return super.getCapability(capability, facing);
 	}
 }

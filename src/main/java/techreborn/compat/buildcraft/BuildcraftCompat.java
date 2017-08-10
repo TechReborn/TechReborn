@@ -22,15 +22,39 @@
  * SOFTWARE.
  */
 
-package techreborn.client.container;
+package techreborn.compat.buildcraft;
 
-import net.minecraft.entity.player.EntityPlayer;
-import techreborn.client.container.builder.BuiltContainer;
+import buildcraft.api.fuels.IFuel;
+import buildcraft.lib.fluid.FuelRegistry;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import reborncore.api.fuel.FluidPowerManager;
+import reborncore.common.RebornCoreConfig;
+import techreborn.compat.ICompatModule;
 
 /**
- * Created by Mark on 12/04/2017.
+ * Created by Mark on 02/06/2017.
  */
-public interface IRightClickHandler {
+public class BuildcraftCompat implements ICompatModule {
+	@Override
+	public void preInit(FMLPreInitializationEvent event) {
 
-	public boolean handleRightClick(int slotID, EntityPlayer player, BuiltContainer container);
+	}
+
+	@Override
+	public void init(FMLInitializationEvent event) {
+
+	}
+
+	@Override
+	public void postInit(FMLPostInitializationEvent event) {
+
+	}
+
+	@Override
+	public void serverStarting(FMLServerStartingEvent event) {
+
+	}
 }

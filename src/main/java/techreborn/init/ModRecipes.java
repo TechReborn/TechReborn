@@ -303,11 +303,12 @@ public class ModRecipes {
 				ItemParts.getPartByName("NaKCoolantSimple"), 'W',
 				IC2Duplicates.CABLE_ICOPPER.getStackBasedOnConfig(), 'C',
 				"circuitBasic");
+
+			CraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("transformer"), "GGG", "WTW", "GCG", 'G',
+				"blockGlass", 'W', IC2Duplicates.CABLE_IGOLD.getStackBasedOnConfig(), 'C',
+				"circuitBasic", 'T', IC2Duplicates.MVT.getStackBasedOnConfig());
 		}
 
-		CraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("transformer"), "GGG", "WTW", "GCG", 'G',
-			"blockGlass", 'W', IC2Duplicates.CABLE_IGOLD.getStackBasedOnConfig(), 'C',
-			"circuitBasic", 'T', IC2Duplicates.MVT.getStackBasedOnConfig());
 
 		CraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("energy_storage"), "PPP", "WBW", "PCP", 'P',
 			"plankWood", 'W', IC2Duplicates.CABLE_ICOPPER.getStackBasedOnConfig(), 'C',
@@ -337,7 +338,7 @@ public class ModRecipes {
 
 		CraftingHelper
 			.addShapedOreRecipe(ItemParts.getPartByName("dataControlCircuit"), "ADA", "DID", "ADA", 'I', "ingotIridium",
-				'A', ItemParts.getPartByName("advancedCircuit"), 'D', ItemParts.getPartByName("dataStorageCircuit"));
+				'A', "circuitAdvanced", 'D', ItemParts.getPartByName("dataStorageCircuit"));
 
 		CraftingHelper
 			.addShapedOreRecipe(ItemParts.getPartByName("dataOrb"), "DDD", "DSD", "DDD",

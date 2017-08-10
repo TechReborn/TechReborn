@@ -36,6 +36,7 @@ import reborncore.common.util.StringUtils;
 import techreborn.Core;
 import techreborn.blocks.*;
 import techreborn.blocks.advanced_machine.*;
+import techreborn.blocks.cable.BlockCable;
 import techreborn.blocks.generator.*;
 import techreborn.blocks.iron_machines.BlockAlloyFurnace;
 import techreborn.blocks.iron_machines.BlockIronFurnace;
@@ -47,6 +48,7 @@ import techreborn.blocks.transformers.BlockLVTransformer;
 import techreborn.blocks.transformers.BlockMVTransformer;
 import techreborn.itemblocks.*;
 import techreborn.tiles.*;
+import techreborn.tiles.cable.TileCable;
 import techreborn.tiles.fusionReactor.TileEntityFusionController;
 import techreborn.tiles.generator.*;
 import techreborn.tiles.idsu.TileIDSU;
@@ -135,6 +137,7 @@ public class ModBlocks {
 
 	public static Block REFINED_IRON_FENCE;
 	public static Block FLARE;
+	public static Block CABLE;
 
 	public static void init() {
 		THERMAL_GENERATOR = new BlockThermalGenerator();
@@ -205,6 +208,11 @@ public class ModBlocks {
 		PLAYER_DETECTOR = new BlockPlayerDetector();
 		registerBlock(PLAYER_DETECTOR, ItemBlockPlayerDetector.class, "playerDetector");
 		GameRegistry.registerTileEntity(TilePlayerDectector.class, "TilePlayerDectectorTR");
+
+		CABLE = new BlockCable();
+		registerBlock(CABLE,"cable");
+		GameRegistry.registerTileEntity(TileCable.class, "TileCableTR");
+		Core.proxy.registerCustomBlockStateLocation(CABLE, "cable");
 
 		MACHINE_CASINGS = new BlockMachineCasing(Material.ROCK);
 		registerBlock(MACHINE_CASINGS, ItemBlockMachineCasing.class, "machinecasing");
@@ -402,6 +410,7 @@ public class ModBlocks {
 
 		RUBBER_SAPLING = new BlockRubberSapling();
 		registerBlock(RUBBER_SAPLING, ItemBlockRubberSapling.class, "rubberSapling");
+		Core.proxy.registerCustomBlockStateLocation(RUBBER_SAPLING, "rubbersapling");
 
 		REFINED_IRON_FENCE = new BlockIronFence();
 		registerBlock(REFINED_IRON_FENCE, "ironFence");

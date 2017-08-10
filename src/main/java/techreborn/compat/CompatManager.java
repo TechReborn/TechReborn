@@ -28,6 +28,8 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import techreborn.client.render.parts.ClientPartLoader;
+import techreborn.compat.buildcraft.BuildcraftBuildersCompat;
+import techreborn.compat.buildcraft.BuildcraftCompat;
 import techreborn.compat.ic2.RecipesIC2;
 import techreborn.compat.crafttweaker.CraftTweakerCompat;
 import techreborn.compat.theoneprobe.CompactTheOneProbe;
@@ -60,6 +62,8 @@ public class CompatManager {
 		register(CompactTheOneProbe.class, "theoneprobe");
 		//register(CompatModulePsi.class, "Psi");
 		register(RecipesIC2.class, "ic2");
+		register(BuildcraftBuildersCompat.class, "buildcraftbuilders");
+		register(BuildcraftCompat.class, "buildcraftcore");
 	}
 
 	public void register(Class<? extends ICompatModule> moduleClass, Object... objs) {
