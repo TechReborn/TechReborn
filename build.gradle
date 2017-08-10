@@ -111,7 +111,7 @@ dependencies {
 		transitive = false
 	}
 	deobfCompile "mezz.jei:jei_1.11.2:+"
-	compile "mcp.mobius.waila:Hwyla:+"
+	compile "mcp.mobius.waila:Hwyla:1.8.17-B31_1.11"
 	compile "net.darkhax.tesla:Tesla:1.11-1.3.0.51:deobf"
 
 	//1.11 updates
