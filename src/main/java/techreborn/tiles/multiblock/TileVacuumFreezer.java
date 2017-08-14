@@ -126,7 +126,7 @@ public class TileVacuumFreezer extends TilePowerAcceptor
 
 	@Override
 	public ItemStack getWrenchDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.ALLOY_SMELTER, 1);
+		return new ItemStack(ModBlocks.VACUUM_FREEZER, 1);
 	}
 
 	@Override
