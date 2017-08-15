@@ -324,7 +324,6 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 	protected void isBlockGoodForInterior(World world, int x, int y, int z) throws MultiblockValidationException {
 		Block block = world.getBlockState(new BlockPos(x, y, z)).getBlock();
 
-		System.out.println(block);
 		if (block.isAir(world.getBlockState(new BlockPos(x, y, z)), world, new BlockPos(x, y, z))) {
 
 		} else if (block.getUnlocalizedName().equals("tile.lava")) {
