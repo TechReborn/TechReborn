@@ -167,7 +167,7 @@ public class GuiAutoCrafting extends GuiBase {
 		for (int i = 0; i < 9; i++) {
 			dummyInv.setInventorySlotContents(i, ItemStack.EMPTY);
 		}
-		this.recipeSlector.init(this.width, this.height, this.mc, false, this.inventorySlots, dummyInv);
+		this.recipeSlector.func_194303_a(this.width, this.height, this.mc, false, dummyInv);
 		this.guiLeft = this.recipeSlector.updateScreenPosition(false, this.width, this.xSize);
 	}
 

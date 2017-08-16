@@ -2,6 +2,7 @@ package techreborn.client.gui.autocrafting;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButtonToggle;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.recipebook.GuiRecipeBook;
 import net.minecraft.client.gui.recipebook.RecipeList;
 import net.minecraft.inventory.Container;
@@ -25,19 +26,32 @@ public class GuiAutoCraftingRecipeSlector extends GuiRecipeBook {
 	}
 
 	@Override
-	public void init(int p_191856_1_, int p_191856_2_, Minecraft mc, boolean p_191856_4_, Container p_191856_5_, InventoryCrafting p_191856_6_) {
-		super.init(p_191856_1_, p_191856_2_, mc, p_191856_4_, p_191856_5_, p_191856_6_);
-
-	}
-
-	@Override
 	public boolean isVisible() {
 		return true;
 	}
 
-	@Override
-	public void setContainerRecipe(IRecipe recipe, RecipeList recipes) {
+	public void setContainerRecipe(IRecipe recipe) {
 		guiAutoCrafting.setRecipe(recipe, false);
+	}
+
+	@Override
+	public boolean mouseClicked(int p_191862_1_, int p_191862_2_, int p_191862_3_) {
+		if (this.isVisible()) {
+			if (this.recipeBookPage.mouseClicked(p_191862_1_, p_191862_2_, p_191862_3_, (this.width - 147) / 2 - this.xOffset, (this.height - 166) / 2, 147, 166)) {
+				IRecipe irecipe = this.recipeBookPage.getLastClickedRecipe();
+				RecipeList recipelist = this.recipeBookPage.getLastClickedRecipeList();
+
+				if (irecipe != null && recipelist != null) {
+					if (!recipelist.isCraftable(irecipe) && this.ghostRecipe.getRecipe() == irecipe) {
+						return false;
+					}
+					this.ghostRecipe.clear();
+					setContainerRecipe(irecipe);
+				}
+				return true;
+			}
+		}
+		return super.mouseClicked(p_191862_1_, p_191862_2_, p_191862_3_);
 	}
 
 	public void setGuiAutoCrafting(GuiAutoCrafting guiAutoCrafting) {
