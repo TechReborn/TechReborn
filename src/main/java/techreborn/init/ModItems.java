@@ -27,7 +27,6 @@ package techreborn.init;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.oredict.OreDictionary;
 import reborncore.RebornRegistry;
 import reborncore.api.power.IEnergyInterfaceItem;
 import reborncore.api.power.IEnergyItemInfo;
