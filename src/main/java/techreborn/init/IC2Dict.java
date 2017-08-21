@@ -36,7 +36,6 @@ import ic2.core.ref.BlockName;
 import ic2.core.ref.ItemName;
 import ic2.core.ref.TeBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.util.OreUtil;
 import techreborn.Core;
@@ -150,8 +149,7 @@ public class IC2Dict {
 		if (insulation > type.maxInsulation) {
 			return null;
 		}
-		ItemCable itemCable = ItemName.cable.getInstance();
-		return itemCable.getCable(type, insulation);
+		return ItemCable.getCable(type, insulation);
 	}
 
 }

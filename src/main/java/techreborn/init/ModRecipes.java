@@ -28,9 +28,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.UniversalBucket;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.api.recipe.RecipeHandler;
@@ -38,7 +38,6 @@ import reborncore.common.registration.RebornRegistry;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.OreUtil;
 import reborncore.common.util.RebornCraftingHelper;
-import reborncore.common.util.StringUtils;
 import techreborn.Core;
 import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
@@ -53,6 +52,7 @@ import techreborn.lib.ModInfo;
 
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import static techreborn.utils.OreDictUtils.getDictData;
 import static techreborn.utils.OreDictUtils.getDictOreOrEmpty;
@@ -79,15 +79,10 @@ public class ModRecipes {
 		ImplosionCompressorRecipes.init();
 		ScrapboxRecipes.init();
 
-		addGeneralShapedRecipes();
-		addMachineRecipes();
-
 		addAlloySmelterRecipes();
 		addChemicalReactorRecipes();
-
 		addBlastFurnaceRecipes();
 		addVacuumFreezerRecipes();
-
 		addReactorRecipes();
 		addIc2Recipes();
 		addGrinderRecipes();
@@ -96,10 +91,10 @@ public class ModRecipes {
 
 	public static void postInit() {
 		if (ConfigTechReborn.disableRailcraftSteelNuggetRecipe) {
-			Iterator iterator = FurnaceRecipes.instance().getSmeltingList().entrySet().iterator();
-			Map.Entry entry;
+			Iterator<Entry<ItemStack, ItemStack>> iterator = FurnaceRecipes.instance().getSmeltingList().entrySet().iterator();
+			Map.Entry<ItemStack, ItemStack> entry;
 			while (iterator.hasNext()) {
-				entry = (Map.Entry) iterator.next();
+				entry = iterator.next();
 				if (entry.getValue() instanceof ItemStack && entry.getKey() instanceof ItemStack) {
 					ItemStack input = (ItemStack) entry.getKey();
 					ItemStack output = (ItemStack) entry.getValue();
@@ -171,8 +166,8 @@ public class ModRecipes {
 	static void addGrinderRecipes() {
 
 		// Vanilla
-		int eutick = 2;
-		int ticktime = 300;
+		// int eutick = 2;
+		// int ticktime = 300;
 
 		RecipeHandler.addRecipe(new GrinderRecipe(
 			new ItemStack(Items.BONE),
@@ -264,183 +259,6 @@ public class ModRecipes {
 				BlockOre.getOreByName("iridium"), 90000000, -2048, 1024));
 	}
 
-	static void addGeneralShapedRecipes() {
-		RebornCraftingHelper
-			.addShapedOreRecipe(new ItemStack(ModItems.CLOAKING_DEVICE), "CIC", "IOI", "CIC", 'C', "ingotChrome",
-				'I', "plateIridium", 'O', new ItemStack(ModItems.LAPOTRONIC_ORB));
-
-		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.TREE_TAP), " S ", "PPP", "P  ", 'S', "stickWood", 'P',
-			"plankWood");
-
-		RebornCraftingHelper
-			.addShapedOreRecipe(new ItemStack(ModItems.ROCK_CUTTER), "DT ", "DT ", "DCB", 'D', "dustDiamond", 'T',
-				"ingotTitanium", 'C', "circuitBasic", 'B', new ItemStack(ModItems.RE_BATTERY));
-
-		for (String part : ItemParts.types) {
-			if (part.endsWith("Gear")) {
-				RebornCraftingHelper.addShapedOreRecipe(ItemParts.getPartByName(part), " O ", "OIO", " O ", 'I',
-					new ItemStack(Items.IRON_INGOT), 'O',
-					"ingot" + StringUtils.toFirstCapital(part.replace("Gear", "")));
-			}
-		}
-
-		RebornCraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("heliumCoolantSimple"), " T ", "TCT", " T ", 'T',
-			"ingotTin", 'C', ItemCells.getCellByName("helium", 1));
-
-		RebornCraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("HeliumCoolantTriple"), "TTT", "CCC", "TTT", 'T',
-			"ingotTin", 'C', ItemParts.getPartByName("heliumCoolantSimple"));
-
-		RebornCraftingHelper
-			.addShapedOreRecipe(ItemParts.getPartByName("HeliumCoolantSix"), "THT", "TCT", "THT", 'T', "ingotTin",
-				'C', "ingotCopper", 'H', ItemParts.getPartByName("HeliumCoolantTriple"));
-
-		RebornCraftingHelper
-			.addShapedOreRecipe(ItemParts.getPartByName("NaKCoolantTriple"), "TTT", "CCC", "TTT", 'T', "ingotTin",
-				'C', ItemParts.getPartByName("NaKCoolantSimple"));
-
-		RebornCraftingHelper
-			.addShapedOreRecipe(ItemParts.getPartByName("NaKCoolantSix"), "THT", "TCT", "THT", 'T', "ingotTin", 'C',
-				"ingotCopper", 'H', ItemParts.getPartByName("NaKCoolantTriple"));
-
-		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ADJUSTABLE_SU), "LLL", "LCL", "LLL", 'L',
-			new ItemStack(ModItems.LAPOTRONIC_ORB), 'C', new ItemStack(ModItems.ENERGY_CRYSTAL));
-
-		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.INTERDIMENSIONAL_SU), "PAP", "ACA", "PAP", 'P',
-			"plateIridium", 'C', new ItemStack(Blocks.ENDER_CHEST), 'A',
-			new ItemStack(ModBlocks.ADJUSTABLE_SU));
-
-		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.FUSION_CONTROL_COMPUTER), "CCC", "PTP", "CCC", 'P',
-			new ItemStack(ModItems.ENERGY_CRYSTAL), 'T', new ItemStack(ModBlocks.FUSION_COIL), 'C',
-			"circuitMaster");
-
-		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.LIGHTNING_ROD), "CAC", "ACA", "CAC", 'A',
-			new ItemStack(ModBlocks.MACHINE_CASINGS, 1, 2), 'C',
-			"circuitMaster");
-
-		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.FUSION_COIL), "CSC", "NAN", "CRC", 'A',
-			new ItemStack(ModBlocks.MACHINE_CASINGS, 1, 2), 'N', ItemParts.getPartByName("nichromeHeatingCoil"), 'C',
-			"circuitMaster", 'S', ItemParts.getPartByName("superConductor"), 'R',
-			ItemParts.getPartByName("iridiumNeutronReflector"));
-
-		RebornCraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("iridiumNeutronReflector"), "PPP", "PIP", "PPP", 'P',
-			ItemParts.getPartByName("thickNeutronReflector"), 'I', "ingotIridium");
-
-		RebornCraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("thickNeutronReflector"), " P ", "PCP", " P ", 'P',
-			ItemParts.getPartByName("neutronReflector"), 'C', ItemCells.getCellByName("Berylium"));
-
-		RebornCraftingHelper
-			.addShapedOreRecipe(ItemParts.getPartByName("neutronReflector"), "TCT", "CPC", "TCT", 'T', "dustTin",
-				'C', "dustCoal", 'P', "plateCopper");
-
-		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModItems.SCRAP_BOX), "SSS", "SSS", "SSS", 'S',
-			ItemParts.getPartByName("scrap"));
-
-		if (!IC2Duplicates.deduplicate()) {
-			RebornCraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("Overclock"), "TTT", "WCW", 'T',
-				ItemParts.getPartByName("CoolantSimple"), 'W', IC2Duplicates.CABLE_ICOPPER.getStackBasedOnConfig(),
-				'C', "circuitBasic");
-
-			RebornCraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("Overclock", 2), " T ", "WCW", 'T',
-				ItemParts.getPartByName("heliumCoolantSimple"), 'W',
-				IC2Duplicates.CABLE_ICOPPER.getStackBasedOnConfig(), 'C',
-				"circuitBasic");
-
-			RebornCraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("Overclock", 2), " T ", "WCW", 'T',
-				ItemParts.getPartByName("NaKCoolantSimple"), 'W',
-				IC2Duplicates.CABLE_ICOPPER.getStackBasedOnConfig(), 'C',
-				"circuitBasic");
-
-			RebornCraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("transformer"), "GGG", "WTW", "GCG", 'G',
-				"blockGlass", 'W', IC2Duplicates.CABLE_IGOLD.getStackBasedOnConfig(), 'C',
-				"circuitBasic", 'T', IC2Duplicates.MVT.getStackBasedOnConfig());
-		}
-
-		RebornCraftingHelper.addShapedOreRecipe(ItemUpgrades.getUpgradeByName("energy_storage"), "PPP", "WBW", "PCP", 'P',
-			"plankWood", 'W', IC2Duplicates.CABLE_ICOPPER.getStackBasedOnConfig(), 'C',
-			"circuitBasic", 'B', ModItems.RE_BATTERY);
-
-		RebornCraftingHelper
-			.addShapedOreRecipe(ItemParts.getPartByName("CoolantSimple"), " T ", "TWT", " T ", 'T', "ingotTin", 'W',
-				"containerWater");
-
-		RebornCraftingHelper
-			.addShapedOreRecipe(ItemParts.getPartByName("CoolantTriple"), "TTT", "CCC", "TTT", 'T', "ingotTin", 'C',
-				ItemParts.getPartByName("CoolantSimple"));
-
-		RebornCraftingHelper
-			.addShapedOreRecipe(ItemParts.getPartByName("CoolantSix"), "TCT", "TPT", "TCT", 'T', "ingotTin", 'C',
-				ItemParts.getPartByName("CoolantTriple"), 'P', "plateCopper");
-
-		RebornCraftingHelper
-			.addShapedOreRecipe(ItemParts.getPartByName("NaKCoolantSimple"), "TST", "PCP", "TST", 'T', "ingotTin",
-				'C', ItemParts.getPartByName("CoolantSimple"), 'S', ItemCells.getCellByName("sodium"), 'P',
-				ItemCells.getCellByName("potassium"));
-
-		RebornCraftingHelper
-			.addShapedOreRecipe(ItemParts.getPartByName("NaKCoolantSimple"), "TPT", "SCS", "TPT", 'T', "ingotTin",
-				'C', ItemParts.getPartByName("CoolantSimple"), 'S', ItemCells.getCellByName("sodium"), 'P',
-				ItemCells.getCellByName("potassium"));
-
-		RebornCraftingHelper
-			.addShapedOreRecipe(ItemParts.getPartByName("dataControlCircuit"), "ADA", "DID", "ADA", 'I', "ingotIridium",
-				'A', "circuitAdvanced", 'D', ItemParts.getPartByName("dataStorageCircuit"));
-
-		RebornCraftingHelper
-			.addShapedOreRecipe(ItemParts.getPartByName("dataOrb"), "DDD", "DSD", "DDD",
-				'D', ItemParts.getPartByName("dataStorageCircuit"), 'S', ItemParts.getPartByName("dataStorageCircuit"));
-
-		RebornCraftingHelper
-			.addShapedOreRecipe(new ItemStack(ModItems.ELECTRIC_TREE_TAP), "TB", "  ",
-				'T', new ItemStack(ModItems.TREE_TAP), 'B', new ItemStack(ModItems.RE_BATTERY));
-
-		RebornCraftingHelper
-			.addShapedOreRecipe(new ItemStack(ModItems.NANOSABER), "DC ", "DC ", "GLG",
-				'L', new ItemStack(ModItems.LAPOTRONIC_CRYSTAL), 'C', "plateCarbon", 'D', "plateDiamond",
-				'G', ItemDustsSmall.getSmallDustByName("glowstone"));
-
-		RebornCraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("diamondGrindingHead", 2), "TST", "SBS", "TST", 'T',
-			"plateDiamond", 'S', "plateSteel", 'B', "blockDiamond");
-
-		RebornCraftingHelper.addShapedOreRecipe(ItemParts.getPartByName("coolantSimple", 2), " T ", "TWT", " T ", 'T',
-			"ingotTin", 'W', new ItemStack(Items.WATER_BUCKET));
-
-		Core.logHelper.info("Shapped Recipes Added");
-	}
-
-	static void addMachineRecipes() {
-		if (!CompatManager.isQuantumStorageLoaded) {
-			RebornCraftingHelper
-				.addShapedOreRecipe(new ItemStack(ModBlocks.QUANTUM_TANK), "EPE", "PCP", "EPE", 'P', "ingotPlatinum",
-					'E', "circuitAdvanced", 'C', ModBlocks.QUANTUM_CHEST);
-		}
-
-		RebornCraftingHelper
-			.addShapedOreRecipe(new ItemStack(ModBlocks.DIGITAL_CHEST), "PPP", "PDP", "PCP", 'P', "plateAluminum",
-				'D', ItemParts.getPartByName("dataOrb"), 'C', ItemParts.getPartByName("computerMonitor"));
-
-		RebornCraftingHelper
-			.addShapedOreRecipe(new ItemStack(ModBlocks.DIGITAL_CHEST), "PPP", "PDP", "PCP", 'P', "plateSteel", 'D',
-				ItemParts.getPartByName("dataOrb"), 'C', ItemParts.getPartByName("computerMonitor"));
-
-		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.ALLOY_SMELTER), " C ", "FMF", "   ", 'C',
-			"circuitBasic", 'F', IC2Duplicates.ELECTRICAL_FURNACE.getStackBasedOnConfig(), 'M',
-			BlockMachineFrames.getFrameByName("machine", 1));
-
-		RebornCraftingHelper
-			.addShapedOreRecipe(new ItemStack(ModBlocks.LSU_STORAGE), "LLL", "LCL", "LLL", 'L', "blockLapis", 'C',
-				"circuitBasic");
-
-		RecipeHandler.addRecipe(new VacuumFreezerRecipe(ItemIngots.getIngotByName("hot_tungstensteel"),
-			ItemIngots.getIngotByName("tungstensteel"), 440, 128));
-
-		RecipeHandler.addRecipe(new VacuumFreezerRecipe(ItemCells.getCellByName("heliumplasma"),
-			ItemCells.getCellByName("helium"), 440, 128));
-
-		RecipeHandler.addRecipe(
-			new VacuumFreezerRecipe(ItemCells.getCellByName("water"),
-				ItemCells.getCellByName("cell"), 60, 128));
-	}
-
 	static void addVacuumFreezerRecipes() {
 		RecipeHandler.addRecipe(new VacuumFreezerRecipe(
 			new ItemStack(Blocks.ICE, 2),
@@ -463,6 +281,7 @@ public class ModRecipes {
 				ItemCells.getCellByName("water"),
 				ItemCells.getCellByName("cell"),
 				60, 87));
+			
 	}
 
 	static void addAlloySmelterRecipes() {
@@ -990,7 +809,7 @@ public class ModRecipes {
 	}
 
 	public static ItemStack getBucketWithFluid(Fluid fluid) {
-		return UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, fluid);
+		return FluidUtil.getFilledBucket(new FluidStack(fluid, Fluid.BUCKET_VOLUME));
 	}
 
 	public static ItemStack getOre(String name) {

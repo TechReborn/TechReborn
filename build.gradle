@@ -118,8 +118,8 @@ dependencies {
 	compile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.0.0.5"
 	deobfCompile  'net.industrial-craft:industrialcraft-2:2.8.7-ex112'
 	//compile name: 'buildcraft', version: '7.99.4', ext: 'jar'
-	deobfCompile  'cofh:ThermalDynamics:1.12-2.3.1.6:universal'
-	deobfCompile  'cofh:ThermalExpansion:1.12-5.3.1.6:universal'
+	deobfCompile  'cofh:ThermalDynamics:1.12-2.3.4.11:universal'
+	deobfCompile  'cofh:ThermalExpansion:1.12-5.3.4.16:universal'
 }
 
 
