@@ -70,7 +70,7 @@ public class BlockMachineFrames extends BaseBlock {
 			return new ItemStack(ModBlocks.MACHINE_FRAMES, count, 1);
 		}
 		if (name.equals("highly_advanced_machine")) {
-			return new ItemStack(ModBlocks.MACHINE_FRAMES, count, 1);
+			return new ItemStack(ModBlocks.MACHINE_FRAMES, count, 2);
 		}
 
 		for (int i = 0; i < types.length; i++) {
