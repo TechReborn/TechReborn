@@ -102,7 +102,7 @@ public class ItemCloakingDevice extends ItemTR implements IEnergyItemInfo, IEner
 	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
 		ItemStack itemstack1 = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 
-		if (itemstack1 == ItemStack.EMPTY) {
+		if (itemstack1.isEmpty()) {
 			player.setItemStackToSlot(EntityEquipmentSlot.CHEST, itemStack.copy());
 			itemStack.setCount(0);
 		}

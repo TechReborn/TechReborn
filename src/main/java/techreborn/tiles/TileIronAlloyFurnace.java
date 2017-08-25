@@ -221,7 +221,7 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 					itemstack = recipeType.getOutput(0);
 					break;
 				}
-				if (itemstack != ItemStack.EMPTY) {
+				if (!itemstack.isEmpty()) {
 					break;
 				}
 			}

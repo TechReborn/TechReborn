@@ -76,10 +76,10 @@ public class BlockDigitalChest extends BlockMachineBase {
 		for (int i = 0; i < droppables.size(); i++) {
 			final ItemStack itemStack = droppables.get(i);
 
-			if (itemStack == ItemStack.EMPTY) {
+			if (itemStack.isEmpty()) {
 				continue;
 			}
-			if (itemStack != ItemStack.EMPTY && itemStack.getCount() > 0) {
+			if (!itemStack.isEmpty() && itemStack.getCount() > 0) {
 				if (itemStack.getItem() instanceof ItemBlock) {
 					if (((ItemBlock) itemStack.getItem()).getBlock() instanceof BlockFluidBase
 						|| ((ItemBlock) itemStack.getItem()).getBlock() instanceof BlockStaticLiquid

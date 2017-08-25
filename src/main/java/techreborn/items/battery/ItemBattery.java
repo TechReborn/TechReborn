@@ -63,7 +63,7 @@ public class ItemBattery extends ItemTR implements IEnergyItemInfo, IEnergyInter
 				                   World worldIn,
 			                   @Nullable
 				                   EntityLivingBase entityIn) {
-				if (stack != ItemStack.EMPTY && PoweredItem.getEnergy(stack) == 0.0) {
+				if (!stack.isEmpty() && PoweredItem.getEnergy(stack) == 0.0) {
 					return 1.0F;
 				}
 				return 0.0F;

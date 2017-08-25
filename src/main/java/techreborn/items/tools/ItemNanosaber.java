@@ -74,7 +74,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo, IEnergy
 				                   World worldIn,
 			                   @Nullable
 				                   EntityLivingBase entityIn) {
-				if (stack != ItemStack.EMPTY && stack.hasTagCompound() && stack.getTagCompound().hasKey("isActive") && stack.getTagCompound().getBoolean("isActive")) {
+				if (!stack.isEmpty() && stack.hasTagCompound() && stack.getTagCompound().hasKey("isActive") && stack.getTagCompound().getBoolean("isActive")) {
 					if (PoweredItem.getMaxPower(stack) - PoweredItem.getEnergy(stack) >= 0.9 * PoweredItem.getMaxPower(stack))
 						return 0.5F;
 					return 1.0F;

@@ -232,6 +232,8 @@ public class BuiltContainer extends Container {
 			slot.onTake(player, stackInSlot);
 		}
 		return originalStack;
+
+
 	}
 
 	protected boolean shiftItemStack(final ItemStack stackToShift, final int start, final int end) {
@@ -240,7 +242,7 @@ public class BuiltContainer extends Container {
 			for (int slotIndex = start; stackToShift.getCount() > 0 && slotIndex < end; slotIndex++) {
 				final Slot slot = this.inventorySlots.get(slotIndex);
 				final ItemStack stackInSlot = slot.getStack();
-				if (stackInSlot != ItemStack.EMPTY && ItemUtils.isItemEqual(stackInSlot, stackToShift, true, true)
+				if (!stackInSlot.isEmpty() && ItemUtils.isItemEqual(stackInSlot, stackToShift, true, true)
 					&& slot.isItemValid(stackToShift)) {
 					final int resultingStackSize = stackInSlot.getCount() + stackToShift.getCount();
 					final int max = Math.min(stackToShift.getMaxStackSize(), slot.getSlotStackLimit());
@@ -262,7 +264,7 @@ public class BuiltContainer extends Container {
 			for (int slotIndex = start; stackToShift.getCount() > 0 && slotIndex < end; slotIndex++) {
 				final Slot slot = this.inventorySlots.get(slotIndex);
 				ItemStack stackInSlot = slot.getStack();
-				if (stackInSlot == ItemStack.EMPTY && slot.isItemValid(stackToShift)) {
+				if (stackInSlot.isEmpty() && slot.isItemValid(stackToShift)) {
 					final int max = Math.min(stackToShift.getMaxStackSize(), slot.getSlotStackLimit());
 					stackInSlot = stackToShift.copy();
 					stackInSlot.setCount(Math.min(stackToShift.getCount(), max));

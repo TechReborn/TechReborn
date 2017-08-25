@@ -146,7 +146,7 @@ public class TileIndustrialSawmill extends TilePowerAcceptor
 
 	public boolean canAddOutput(final int slot, final int amount) {
 		final ItemStack stack = this.getStackInSlot(slot);
-		return stack == ItemStack.EMPTY || this.getInventoryStackLimit() - stack.getCount() >= amount;
+		return stack.isEmpty() || this.getInventoryStackLimit() - stack.getCount() >= amount;
 	}
 
 	@Override
