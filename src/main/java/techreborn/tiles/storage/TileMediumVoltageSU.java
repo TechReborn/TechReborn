@@ -33,11 +33,15 @@ import techreborn.init.ModBlocks;
 
 /**
  * Created by modmuss50 on 14/03/2016.
+ *
  */
 public class TileMediumVoltageSU extends TileEnergyStorage implements IContainerProvider {
 
+	/**
+	 *  MFE should store 1.2M FE with 512 FE/t I/O
+	 */
 	public TileMediumVoltageSU() {
-		super("MEDIUM_VOLTAGE_SU", 2, ModBlocks.MEDIUM_VOLTAGE_SU, EnumPowerTier.MEDIUM, 512, 512, 600000);
+		super("MEDIUM_VOLTAGE_SU", 2, ModBlocks.MEDIUM_VOLTAGE_SU, EnumPowerTier.MEDIUM, 128, 128, 300000);
 	}
 
 	@Override
