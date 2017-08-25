@@ -42,7 +42,6 @@ import techreborn.Core;
 import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.api.recipe.machines.*;
-import techreborn.blocks.BlockMachineFrames;
 import techreborn.blocks.BlockOre;
 import techreborn.compat.CompatManager;
 import techreborn.config.ConfigTechReborn;
