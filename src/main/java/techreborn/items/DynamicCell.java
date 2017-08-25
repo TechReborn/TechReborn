@@ -45,7 +45,9 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.IFluidBlock;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import org.apache.commons.lang3.Validate;
 import techreborn.client.TechRebornCreativeTab;
@@ -117,6 +119,23 @@ public class DynamicCell extends Item {
 						return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 					}
 
+				} else {
+					 ItemStack usedCell = stack.copy();
+					 usedCell.setCount(1);
+					 IFluidHandlerItem fluidHandler = FluidUtil.getFluidHandler(usedCell);
+					 if (fluidHandler != null) {
+						 FluidStack fluid = fluidHandler.drain(DynamicCell.CAPACITY, false);
+						 if (fluid != null){
+							 if(FluidUtil.tryPlaceFluid(playerIn, worldIn, pos.offset(result.sideHit), fluidHandler, fluid)){
+								 stack.shrink(1);
+								 playerIn.inventory.addItemStackToInventory(getEmptyCell(1));
+								 return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+							 }
+							 return ActionResult.newResult(EnumActionResult.FAIL, stack);
+						 }
+						 return ActionResult.newResult(EnumActionResult.FAIL, stack);				 
+					 }
+					 return ActionResult.newResult(EnumActionResult.FAIL, stack);   
 				}
 			}
 		}
