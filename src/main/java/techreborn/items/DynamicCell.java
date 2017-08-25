@@ -224,6 +224,11 @@ public class DynamicCell extends Item {
 			return super.drain(maxDrain, doDrain);
 		}
 
+		@Override
+		public ItemStack getContainer() {
+			return new ItemStack(ModItems.CELL, 1);
+		}
+
 	}
 
 }
