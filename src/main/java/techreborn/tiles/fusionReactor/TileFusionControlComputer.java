@@ -287,7 +287,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor implements IInv
 	}
 
 	public boolean canFitStack(final ItemStack stack, final int slot, final boolean oreDic) {// Checks to see if it can fit the stack
-		if (stack == ItemStack.EMPTY) {
+		if (stack.isEmpty()) {
 			return true;
 		}
 		if (this.inventory.getStackInSlot(slot) == ItemStack.EMPTY) {

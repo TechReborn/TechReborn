@@ -76,7 +76,7 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 				}
 			}
 
-			if (this.storedItem != ItemStack.EMPTY) {
+			if (!this.storedItem.isEmpty()) {
 				if (this.getStackInSlot(1) == ItemStack.EMPTY) {
 
 					ItemStack delivered = this.storedItem.copy();
@@ -127,7 +127,7 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 			storedItem = new ItemStack((NBTTagCompound) tagCompound.getTag("storedStack"));
 		}
 
-		if (storedItem != ItemStack.EMPTY) {
+		if (!storedItem.isEmpty()) {
 			storedItem.setCount(tagCompound.getInteger("storedQuantity"));
 		}
 	}
@@ -140,7 +140,7 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 	}
 
 	public NBTTagCompound writeToNBTWithoutCoords(NBTTagCompound tagCompound) {
-		if (storedItem != ItemStack.EMPTY) {
+		if (!storedItem.isEmpty()) {
 			tagCompound.setTag("storedStack", storedItem.writeToNBT(new NBTTagCompound()));
 			tagCompound.setInteger("storedQuantity", storedItem.getCount());
 		} else {
@@ -237,7 +237,7 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 		if (isRealTile) {
 			int size = 0;
 			String name = "of nothing";
-			if (storedItem != ItemStack.EMPTY) {
+			if (!storedItem.isEmpty()) {
 				name = storedItem.getDisplayName();
 				size += storedItem.getCount();
 			}

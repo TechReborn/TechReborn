@@ -113,7 +113,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 			return false;
 		}
 		final ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(this.getStackInSlot(this.input1));
-		if (itemstack == ItemStack.EMPTY)
+		if (itemstack.isEmpty())
 			return false;
 		if (this.getStackInSlot(this.output) == ItemStack.EMPTY)
 			return true;
@@ -129,7 +129,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 
 	public ItemStack getResultFor(final ItemStack stack) {
 		final ItemStack result = FurnaceRecipes.instance().getSmeltingResult(stack);
-		if (result != ItemStack.EMPTY) {
+		if (!result.isEmpty()) {
 			return result.copy();
 		}
 		return ItemStack.EMPTY;

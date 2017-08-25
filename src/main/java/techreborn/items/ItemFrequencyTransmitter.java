@@ -61,7 +61,7 @@ public class ItemFrequencyTransmitter extends ItemTR {
 				                   World worldIn,
 			                   @Nullable
 				                   EntityLivingBase entityIn) {
-				if (stack != ItemStack.EMPTY && stack.hasTagCompound() && stack.getTagCompound() != null && stack.getTagCompound().hasKey("x") && stack.getTagCompound().hasKey("y") && stack.getTagCompound().hasKey("z") && stack.getTagCompound().hasKey("dim")) {
+				if (!stack.isEmpty() && stack.hasTagCompound() && stack.getTagCompound() != null && stack.getTagCompound().hasKey("x") && stack.getTagCompound().hasKey("y") && stack.getTagCompound().hasKey("z") && stack.getTagCompound().hasKey("dim")) {
 					return 1.0F;
 				}
 				return 0.0F;

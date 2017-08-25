@@ -74,7 +74,7 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, IEnergyInt
 				                   World worldIn,
 			                   @Nullable
 				                   EntityLivingBase entityIn) {
-				if (stack != ItemStack.EMPTY && PoweredItem.canUseEnergy(cost, stack) && entityIn != null && entityIn.getHeldItemMainhand().equals(stack)) {
+				if (!stack.isEmpty() && PoweredItem.canUseEnergy(cost, stack) && entityIn != null && entityIn.getHeldItemMainhand().equals(stack)) {
 					return 1.0F;
 				}
 				return 0.0F;

@@ -54,7 +54,7 @@ public class ItemBlockAdjustableSU extends ItemBlock {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, World world, List list, ITooltipFlag flag) {
-		if (stack != ItemStack.EMPTY && stack.hasTagCompound()) {
+		if (!stack.isEmpty() && stack.hasTagCompound()) {
 			if (stack.getTagCompound().getCompoundTag("tileEntity") != null)
 				list.add(PowerSystem
 					.getLocaliszedPower(stack.getTagCompound().getCompoundTag("tileEntity").getInteger("energy")));
@@ -72,7 +72,7 @@ public class ItemBlockAdjustableSU extends ItemBlock {
 			// world.getBlockState(pos).getBlock().onPostBlockPlaced(world, x,
 			// y, z, metadata);
 		}
-		if (stack != ItemStack.EMPTY && stack.hasTagCompound()) {
+		if (!stack.isEmpty() && stack.hasTagCompound()) {
 			((TileAdjustableSU) world.getTileEntity(pos))
 				.readFromNBTWithoutCoords(stack.getTagCompound().getCompoundTag("tileEntity"));
 		}
