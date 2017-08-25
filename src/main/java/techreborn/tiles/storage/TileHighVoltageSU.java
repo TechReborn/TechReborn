@@ -33,11 +33,15 @@ import techreborn.init.ModBlocks;
 
 /**
  * Created by modmuss50 on 14/03/2016.
+ *
  */
 public class TileHighVoltageSU extends TileEnergyStorage implements IContainerProvider {
 
+	/**
+	 *  MFSU should store 16M FE with 2048 FE/t I/O
+	 */
 	public TileHighVoltageSU() {
-		super("HIGH_VOLTAGE_SU", 2, ModBlocks.HIGH_VOLTAGE_SU, EnumPowerTier.HIGH, 2048, 2048, 1000000);
+		super("HIGH_VOLTAGE_SU", 2, ModBlocks.HIGH_VOLTAGE_SU, EnumPowerTier.HIGH, 512, 512, 4000000);
 	}
 
 	@Override
