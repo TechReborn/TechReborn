@@ -111,7 +111,7 @@ public class DynamicCell extends Item {
 					}
 
 				} else if (block instanceof BlockStaticLiquid) {
-					Fluid fluid = block.getMaterial(state) == Material.LAVA ? FluidRegistry.LAVA : FluidRegistry.WATER;
+					Fluid fluid = state.getMaterial() == Material.LAVA ? FluidRegistry.LAVA : FluidRegistry.WATER;
 
 					if (tryAddCellToInventory(playerIn, stack, fluid)) {
 						if (fluid != FluidRegistry.WATER)
