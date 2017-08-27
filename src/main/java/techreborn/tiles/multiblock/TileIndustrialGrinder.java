@@ -33,6 +33,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.FluidEvent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import reborncore.api.recipe.IRecipeCrafterProvider;
@@ -55,15 +56,17 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrencha
 	ITileRecipeHandler<IndustrialGrinderRecipe>, IRecipeCrafterProvider, IContainerProvider {
 	public static final int TANK_CAPACITY = 16000;
 
-	public Inventory inventory = new Inventory(7, "TileGrinder", 64, this);
-	public Tank tank = new Tank("TileGrinder", TileIndustrialGrinder.TANK_CAPACITY, this);
+	public Inventory inventory;
+	public Tank tank;
 	public RecipeCrafter crafter;
 	public MultiblockChecker multiblockChecker;
 
 	public TileIndustrialGrinder() {
 		super();
 		// TODO configs
-
+		
+		tank = new Tank("TileIndustrialGrinder", TileIndustrialGrinder.TANK_CAPACITY, this);
+		inventory = new Inventory(7, "TileIndustrialGrinder", 64, this);
 		final int[] inputs = new int[2];
 		inputs[0] = 0;
 		inputs[1] = 1;
@@ -128,7 +131,13 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrencha
 		if (this.getMutliBlock()) {
 			this.crafter.updateEntity();
 		}
-		FluidUtils.drainContainers(this.tank, this.inventory, 1, 6);
+		
+		if (!this.inventory.getStackInSlot(1).isEmpty()){
+			FluidUtils.drainContainers(this.tank, this.inventory, 1, 6);
+			FluidUtils.fillContainers(this.tank, this.inventory, 1, 6, this.tank.getFluidType());
+			this.syncWithAll();
+		}
+		
 	}
 
 	@Override
@@ -255,10 +264,13 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrencha
 		}
 		if (tankFluid.isFluidEqual(recipeFluid)) {
 			if (tankFluid.amount >= recipeFluid.amount) {
-				if (tankFluid.amount == recipeFluid.amount)
+				if (tankFluid.amount == recipeFluid.amount) {
 					this.tank.setFluid(null);
-				else
+				}
+				else {
 					tankFluid.amount -= recipeFluid.amount;
+				}
+				this.syncWithAll();
 				return true;
 			}
 		}
