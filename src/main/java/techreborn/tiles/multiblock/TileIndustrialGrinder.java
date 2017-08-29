@@ -68,6 +68,7 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrencha
 		
 		tank = new Tank("TileIndustrialGrinder", TileIndustrialGrinder.TANK_CAPACITY, this);
 		inventory = new Inventory(7, "TileIndustrialGrinder", 64, this);
+		ticksSinceLastChange = 0;
 		final int[] inputs = new int[2];
 		inputs[0] = 0;
 		inputs[1] = 1;
@@ -135,10 +136,13 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrencha
 			this.crafter.updateEntity();
 		}
 		
-		if (!this.inventory.getStackInSlot(1).isEmpty()){
-			FluidUtils.drainContainers(this.tank, this.inventory, 1, 6);
-			FluidUtils.fillContainers(this.tank, this.inventory, 1, 6, this.tank.getFluidType());
-			this.syncWithAll();
+		//Check cells input slot 2 time per second
+		if (ticksSinceLastChange >= 10){
+			if (!this.inventory.getStackInSlot(1).isEmpty()){
+				FluidUtils.drainContainers(this.tank, this.inventory, 1, 6);
+				FluidUtils.fillContainers(this.tank, this.inventory, 1, 6, this.tank.getFluidType());
+			}
+			ticksSinceLastChange = 0;
 		}
 		
 	}
