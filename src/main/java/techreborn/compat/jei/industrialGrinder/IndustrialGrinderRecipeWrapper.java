@@ -34,7 +34,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
 import techreborn.compat.jei.BaseRecipeWrapper;
-
+import reborncore.common.powerSystem.PowerSystem;
 import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
@@ -84,8 +84,8 @@ public class IndustrialGrinderRecipeWrapper extends BaseRecipeWrapper<Industrial
 		int x = 70;
 		int y = 40;
 		int lineHeight = minecraft.fontRenderer.FONT_HEIGHT;
-
+		
 		minecraft.fontRenderer.drawString("Time: " + baseRecipe.tickTime / 20 + " s", x, y, 0x444444);
-		minecraft.fontRenderer.drawString("EU: " + baseRecipe.euPerTick + " EU/t", x, y += lineHeight, 0x444444);
+		minecraft.fontRenderer.drawString("Energy: " + PowerSystem.getLocaliszedPowerFormattedNoSuffix(baseRecipe.euPerTick) + " " + PowerSystem.getDisplayPower().abbreviation + "/t", x, y += lineHeight, 0x444444);
 	}
 }
