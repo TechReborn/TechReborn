@@ -226,7 +226,14 @@ public class DynamicCell extends Item {
 
 		@Override
 		public ItemStack getContainer() {
-			return new ItemStack(ModItems.CELL, 1);
+			ItemStack cell;
+			if (container.hasTagCompound() && container.getTagCompound().hasKey(FLUID_NBT_KEY)) {
+				cell = super.getContainer();
+			}
+			else {
+				cell = new ItemStack(ModItems.CELL, 1);
+			}
+			return cell;
 		}
 
 	}

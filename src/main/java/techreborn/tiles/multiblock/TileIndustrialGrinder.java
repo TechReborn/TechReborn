@@ -60,6 +60,7 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrencha
 	public Tank tank;
 	public RecipeCrafter crafter;
 	public MultiblockChecker multiblockChecker;
+	int ticksSinceLastChange;
 
 	public TileIndustrialGrinder() {
 		super();
@@ -121,6 +122,8 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IWrencha
 
 	@Override
 	public void update() {
+		ticksSinceLastChange++;
+		
 		super.update();
 
 		if (this.multiblockChecker == null) {
