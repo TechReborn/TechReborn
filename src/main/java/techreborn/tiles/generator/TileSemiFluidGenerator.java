@@ -52,7 +52,7 @@ public class TileSemiFluidGenerator extends TileBaseFluidGenerator implements IC
 	}
 
 	@Override
-	public ItemStack getWrenchDrop(final EntityPlayer arg0) {
+	public ItemStack getToolDrop(final EntityPlayer arg0) {
 		return new ItemStack(ModBlocks.SEMI_FLUID_GENERATOR, 1);
 	}
 

@@ -34,7 +34,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.IWrenchable;
+import reborncore.api.IToolDrop;
 import reborncore.common.misc.Location;
 import reborncore.common.multiblock.IMultiblockPart;
 import reborncore.common.powerSystem.TilePowerAcceptor;
@@ -51,7 +51,7 @@ import techreborn.init.ModBlocks;
 import techreborn.multiblocks.MultiBlockCasing;
 import techreborn.tiles.TileMachineCasing;
 
-public class TileIndustrialBlastFurnace extends TilePowerAcceptor implements IWrenchable, IInventoryProvider,
+public class TileIndustrialBlastFurnace extends TilePowerAcceptor implements IToolDrop, IInventoryProvider,
 	ITileRecipeHandler<BlastFurnaceRecipe>, IRecipeCrafterProvider, IContainerProvider {
 
 	public static int euTick = 5;
@@ -81,27 +81,7 @@ public class TileIndustrialBlastFurnace extends TilePowerAcceptor implements IWr
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(final EntityPlayer entityPlayer, final EnumFacing side) {
-		return false;
-	}
-
-	@Override
-	public EnumFacing getFacing() {
-		return this.getFacingEnum();
-	}
-
-	@Override
-	public boolean wrenchCanRemove(final EntityPlayer entityPlayer) {
-		return entityPlayer.isSneaking();
-	}
-
-	@Override
-	public float getWrenchDropRate() {
-		return 1.0F;
-	}
-
-	@Override
-	public ItemStack getWrenchDrop(final EntityPlayer entityPlayer) {
+	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.INDUSTRIAL_BLAST_FURNACE, 1);
 	}
 

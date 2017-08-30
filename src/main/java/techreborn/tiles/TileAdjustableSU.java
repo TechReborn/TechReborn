@@ -28,7 +28,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import reborncore.common.IWrenchable;
+import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -37,7 +37,7 @@ import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileAdjustableSU extends TilePowerAcceptor implements IWrenchable {
+public class TileAdjustableSU extends TilePowerAcceptor implements IToolDrop {
 
 	@ConfigRegistry(config = "machines", category = "aesu", key = "AesuMaxInput", comment = "AESU Max Input (Value in EU)")
 	public static int maxInput = 8192;
@@ -75,27 +75,7 @@ public class TileAdjustableSU extends TilePowerAcceptor implements IWrenchable {
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
-		return true;
-	}
-
-	@Override
-	public EnumFacing getFacing() {
-		return getFacingEnum();
-	}
-
-	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
-		return entityPlayer.isSneaking();
-	}
-
-	@Override
-	public float getWrenchDropRate() {
-		return 1.0F;
-	}
-
-	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
 		return getDropWithNBT();
 	}
 

@@ -35,7 +35,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import reborncore.api.recipe.IBaseRecipeType;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.IWrenchable;
+import reborncore.api.IToolDrop;
 import reborncore.common.recipes.RecipeTranslator;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.tile.TileLegacyMachineBase;
@@ -51,7 +51,7 @@ import techreborn.lib.ModInfo;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileIronAlloyFurnace extends TileLegacyMachineBase
-	implements IWrenchable, IInventoryProvider, IContainerProvider {
+	implements IToolDrop, IInventoryProvider, IContainerProvider {
 
 	//	@ConfigRegistry(config = "machines", category = "alloy_furnace", key = "AlloyFurnaceWrenchDropRate", comment = "Alloy Furnace Wrench Drop Rate")
 	public static float wrenchDropRate = 1.0F;
@@ -279,10 +279,6 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 		return this.cookTime * scale / 200;
 	}
 
-	@Override
-	public boolean wrenchCanSetFacing(final EntityPlayer entityPlayer, final EnumFacing side) {
-		return false;
-	}
 
 	@Override
 	public EnumFacing getFacing() {
@@ -290,17 +286,7 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 	}
 
 	@Override
-	public boolean wrenchCanRemove(final EntityPlayer entityPlayer) {
-		return entityPlayer.isSneaking();
-	}
-
-	@Override
-	public float getWrenchDropRate() {
-		return wrenchDropRate;
-	}
-
-	@Override
-	public ItemStack getWrenchDrop(final EntityPlayer entityPlayer) {
+	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.IRON_ALLOY_FURNACE, 1);
 	}
 

@@ -37,7 +37,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import reborncore.api.recipe.IBaseRecipeType;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.IWrenchable;
+import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
@@ -55,7 +55,7 @@ import techreborn.items.ItemDusts;
 import java.util.Random;
 
 public class TileIndustrialSawmill extends TilePowerAcceptor
-	implements IWrenchable, IInventoryProvider, IContainerProvider {
+	implements IToolDrop, IInventoryProvider, IContainerProvider {
 	public static final int TANK_CAPACITY = 16000;
 
 	public Inventory inventory = new Inventory(5, "Sawmill", 64, this);
@@ -168,27 +168,7 @@ public class TileIndustrialSawmill extends TilePowerAcceptor
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(final EntityPlayer entityPlayer, final EnumFacing side) {
-		return false;
-	}
-
-	@Override
-	public EnumFacing getFacing() {
-		return this.getFacingEnum();
-	}
-
-	@Override
-	public boolean wrenchCanRemove(final EntityPlayer entityPlayer) {
-		return entityPlayer.isSneaking();
-	}
-
-	@Override
-	public float getWrenchDropRate() {
-		return 1.0F;
-	}
-
-	@Override
-	public ItemStack getWrenchDrop(final EntityPlayer entityPlayer) {
+	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.INDUSTRIAL_SAWMILL, 1);
 	}
 

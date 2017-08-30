@@ -32,7 +32,7 @@ import net.minecraft.util.ITickable;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.IWrenchable;
+import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
@@ -41,7 +41,7 @@ import techreborn.blocks.storage.BlockEnergyStorage;
 /**
  * Created by Rushmead
  */
-public class TileEnergyStorage extends TilePowerAcceptor implements IWrenchable, ITickable, IInventoryProvider {
+public class TileEnergyStorage extends TilePowerAcceptor implements IToolDrop, ITickable, IInventoryProvider {
 
 	public Inventory inventory;
 	public String name;
@@ -60,21 +60,6 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IWrenchable,
 		this.maxInput = maxInput;
 		this.maxOutput = maxOuput;
 		this.maxStorage = maxStorage;
-	}
-
-	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
-		return true;
-	}
-
-	@Override
-	public EnumFacing getFacing() {
-		return getFacingEnum();
-	}
-
-	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
-		return entityPlayer.isSneaking();
 	}
 
 	@Override
@@ -113,13 +98,9 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IWrenchable,
 		world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockEnergyStorage.FACING, enumFacing));
 	}
 
-	@Override
-	public float getWrenchDropRate() {
-		return 1.0F;
-	}
 
 	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
 		return new ItemStack(wrenchDrop);
 	}
 

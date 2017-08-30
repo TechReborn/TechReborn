@@ -30,7 +30,7 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.IWrenchable;
+import reborncore.api.IToolDrop;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
@@ -48,7 +48,7 @@ import java.util.Random;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileScrapboxinator extends TilePowerAcceptor
-	implements IWrenchable, IInventoryProvider, ISidedInventory, IContainerProvider {
+	implements IToolDrop, IInventoryProvider, ISidedInventory, IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "scrapboxinator", key = "ScrapboxinatorMaxInput", comment = "Scrapboxinator Max Input (Value in EU)")
 	public static int maxInput = 32;
@@ -142,27 +142,7 @@ public class TileScrapboxinator extends TilePowerAcceptor
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(final EntityPlayer entityPlayer, final EnumFacing side) {
-		return false;
-	}
-
-	@Override
-	public EnumFacing getFacing() {
-		return this.getFacingEnum();
-	}
-
-	@Override
-	public boolean wrenchCanRemove(final EntityPlayer entityPlayer) {
-		return entityPlayer.isSneaking();
-	}
-
-	@Override
-	public float getWrenchDropRate() {
-		return wrenchDropRate;
-	}
-
-	@Override
-	public ItemStack getWrenchDrop(final EntityPlayer entityPlayer) {
+	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.SCRAPBOXINATOR, 1);
 	}
 

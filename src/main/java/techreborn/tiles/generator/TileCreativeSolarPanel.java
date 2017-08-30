@@ -29,7 +29,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.common.Optional;
 import reborncore.api.power.EnumPowerTier;
-import reborncore.common.IWrenchable;
+import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.init.ModBlocks;
 
@@ -38,7 +38,7 @@ import java.util.List;
 /**
  * Created by modmuss50 on 25/02/2016.
  */
-public class TileCreativeSolarPanel extends TilePowerAcceptor implements IWrenchable {
+public class TileCreativeSolarPanel extends TilePowerAcceptor implements IToolDrop {
 
 	boolean shouldMakePower = false;
 	boolean lastTickSate = false;
@@ -87,27 +87,7 @@ public class TileCreativeSolarPanel extends TilePowerAcceptor implements IWrench
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(final EntityPlayer entityPlayer, final EnumFacing side) {
-		return false;
-	}
-
-	@Override
-	public EnumFacing getFacing() {
-		return this.getFacingEnum();
-	}
-
-	@Override
-	public boolean wrenchCanRemove(final EntityPlayer entityPlayer) {
-		return entityPlayer.isSneaking();
-	}
-
-	@Override
-	public float getWrenchDropRate() {
-		return 1.0F;
-	}
-
-	@Override
-	public ItemStack getWrenchDrop(final EntityPlayer p0) {
+	public ItemStack getToolDrop(final EntityPlayer p0) {
 		return new ItemStack(ModBlocks.SOLAR_PANEL);
 	}
 

@@ -32,7 +32,7 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.text.TextFormatting;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.power.EnumPowerTier;
-import reborncore.common.IWrenchable;
+import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.StringUtils;
 import techreborn.blocks.transformers.BlockTransformer;
@@ -42,7 +42,7 @@ import java.util.List;
 /**
  * Created by Rushmead
  */
-public class TileTransformer extends TilePowerAcceptor implements IWrenchable, ITickable, IListInfoProvider {
+public class TileTransformer extends TilePowerAcceptor implements IToolDrop, ITickable, IListInfoProvider {
 
 	public String name;
 	public Block wrenchDrop;
@@ -68,27 +68,7 @@ public class TileTransformer extends TilePowerAcceptor implements IWrenchable, I
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer p0, EnumFacing p1) {
-		return true;
-	}
-
-	@Override
-	public EnumFacing getFacing() {
-		return getFacingEnum();
-	}
-
-	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
-		return entityPlayer.isSneaking();
-	}
-
-	@Override
-	public float getWrenchDropRate() {
-		return 1.0F;
-	}
-
-	@Override
-	public ItemStack getWrenchDrop(EntityPlayer p0) {
+	public ItemStack getToolDrop(EntityPlayer p0) {
 		return new ItemStack(wrenchDrop);
 	}
 

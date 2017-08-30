@@ -32,7 +32,7 @@ import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.ForgeModContainer;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.IWrenchable;
+import reborncore.api.IToolDrop;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
@@ -45,7 +45,7 @@ import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileSolidFuelGenerator extends TilePowerAcceptor implements IWrenchable, IInventoryProvider, IContainerProvider {
+public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDrop, IInventoryProvider, IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "generator", key = "GeneratorMaxOutput", comment = "Solid Fuel Generator Max Output (Value in EU)")
 	public static int maxOutput = 32;
@@ -120,26 +120,6 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IWrench
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(final EntityPlayer entityPlayer, final EnumFacing side) {
-		return false;
-	}
-
-	@Override
-	public EnumFacing getFacing() {
-		return this.getFacingEnum();
-	}
-
-	@Override
-	public boolean wrenchCanRemove(final EntityPlayer entityPlayer) {
-		return entityPlayer.isSneaking();
-	}
-
-	@Override
-	public float getWrenchDropRate() {
-		return 1.0F;
-	}
-
-	@Override
 	public double getBaseMaxPower() {
 		return maxEnergy;
 	}
@@ -165,7 +145,7 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IWrench
 	}
 
 	@Override
-	public ItemStack getWrenchDrop(final EntityPlayer p0) {
+	public ItemStack getToolDrop(final EntityPlayer p0) {
 		return new ItemStack(ModBlocks.SOLID_FUEL_GENEREATOR);
 	}
 

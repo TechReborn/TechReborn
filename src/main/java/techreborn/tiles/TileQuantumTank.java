@@ -34,7 +34,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.IWrenchable;
+import reborncore.api.IToolDrop;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.tile.TileLegacyMachineBase;
@@ -51,7 +51,7 @@ import java.util.List;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileQuantumTank extends TileLegacyMachineBase
-	implements IInventoryProvider, IWrenchable, IListInfoProvider, IContainerProvider {
+	implements IInventoryProvider, IToolDrop, IListInfoProvider, IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "quantum_tank", key = "QuantumTankMaxStorage", comment = "Maximum amount of millibuckets a Quantum Tank can store")
 	public static int maxStorage = Integer.MAX_VALUE;
@@ -123,27 +123,7 @@ public class TileQuantumTank extends TileLegacyMachineBase
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(final EntityPlayer entityPlayer, final EnumFacing side) {
-		return false;
-	}
-
-	@Override
-	public EnumFacing getFacing() {
-		return this.getFacingEnum();
-	}
-
-	@Override
-	public boolean wrenchCanRemove(final EntityPlayer entityPlayer) {
-		return entityPlayer.isSneaking();
-	}
-
-	@Override
-	public float getWrenchDropRate() {
-		return wrenchDropRate;
-	}
-
-	@Override
-	public ItemStack getWrenchDrop(final EntityPlayer entityPlayer) {
+	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
 		return this.getDropWithNBT();
 	}
 

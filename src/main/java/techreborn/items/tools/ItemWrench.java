@@ -24,38 +24,28 @@
 
 package techreborn.items.tools;
 
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.server.permission.PermissionAPI;
 import net.minecraftforge.server.permission.context.BlockPosContext;
-import reborncore.common.IWrenchable;
+import reborncore.api.IToolHandler;
 import reborncore.common.util.RebornPermissions;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.compat.CompatManager;
-import techreborn.init.ModSounds;
 import techreborn.items.ItemTR;
 import techreborn.utils.IC2WrenchHelper;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 /**
  * Created by modmuss50 on 26/02/2016.
  */
-public class ItemWrench extends ItemTR {
+public class ItemWrench extends ItemTR implements IToolHandler {
 
 	public ItemWrench() {
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
@@ -75,67 +65,19 @@ public class ItemWrench extends ItemTR {
 				return result;
 			}
 		}
-		if (world.isAirBlock(pos)) {
-			return EnumActionResult.PASS;
-		}
-		TileEntity tile = world.getTileEntity(pos);
-		if (tile == null) {
-			return EnumActionResult.PASS;
-		}
-		if (!world.isRemote) {
-			if (player.isSneaking()) {
-				List<ItemStack> items = new ArrayList<>();
-				if (tile instanceof IWrenchable) {
-					if (((IWrenchable) tile).wrenchCanRemove(player)) {
-						ItemStack itemStack = ((IWrenchable) tile).getWrenchDrop(player);
-						if (itemStack == null) {
-							return EnumActionResult.FAIL;
-						}
-						items.add(itemStack);
-					}
-					if (!items.isEmpty()) {
-						for (ItemStack itemStack : items) {
-
-							Random rand = new Random();
-
-							float dX = rand.nextFloat() * 0.8F + 0.1F;
-							float dY = rand.nextFloat() * 0.8F + 0.1F;
-							float dZ = rand.nextFloat() * 0.8F + 0.1F;
-
-							EntityItem entityItem = new EntityItem(world, pos.getX() + dX, pos.getY() + dY,
-								pos.getZ() + dZ, itemStack.copy());
-
-							if (itemStack.hasTagCompound()) {
-								entityItem.getItem()
-									.setTagCompound(itemStack.getTagCompound().copy());
-							}
-
-							float factor = 0.05F;
-							entityItem.motionX = rand.nextGaussian() * factor;
-							entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
-							entityItem.motionZ = rand.nextGaussian() * factor;
-							if (!world.isRemote) {
-								world.spawnEntity(entityItem);
-							}
-						}
-					}
-					world.playSound(null, player.posX, player.posY,
-						player.posZ, ModSounds.BLOCK_DISMANTLE,
-						SoundCategory.BLOCKS, 0.6F, 1F);
-					if (!world.isRemote) {
-						world.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
-					}
-					return EnumActionResult.SUCCESS;
-				}
-			}
-			return EnumActionResult.PASS;
-		} else {
-			return EnumActionResult.PASS;
-		}
+		return EnumActionResult.PASS;
 	}
 
 	@SideOnly(Side.CLIENT)
 	public boolean isFull3D() {
+		return true;
+	}
+
+	@Override
+	public boolean handleTool(ItemStack stack, BlockPos pos, World world, EntityPlayer player, EnumFacing side, boolean damage) {
+		if(damage){
+			stack.damageItem(1, player);
+		}
 		return true;
 	}
 }

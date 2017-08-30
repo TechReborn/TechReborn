@@ -27,7 +27,7 @@ package techreborn.tiles.generator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import reborncore.common.IWrenchable;
+import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -39,7 +39,7 @@ import techreborn.lib.ModInfo;
  */
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileWindMill extends TilePowerAcceptor implements IWrenchable {
+public class TileWindMill extends TilePowerAcceptor implements IToolDrop {
 
 	@ConfigRegistry(config = "machines", category = "wind_mill", key = "WindMillMaxOutput", comment = "Wind Mill Max Output (Value in EU)")
 	public static int maxOutput = 128;
@@ -96,27 +96,7 @@ public class TileWindMill extends TilePowerAcceptor implements IWrenchable {
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(final EntityPlayer entityPlayer, final EnumFacing side) {
-		return false;
-	}
-
-	@Override
-	public EnumFacing getFacing() {
-		return this.getFacingEnum();
-	}
-
-	@Override
-	public boolean wrenchCanRemove(final EntityPlayer entityPlayer) {
-		return entityPlayer.isSneaking();
-	}
-
-	@Override
-	public float getWrenchDropRate() {
-		return 1.0F;
-	}
-
-	@Override
-	public ItemStack getWrenchDrop(final EntityPlayer p0) {
+	public ItemStack getToolDrop(final EntityPlayer p0) {
 		return new ItemStack(ModBlocks.WIND_MILL);
 	}
 }

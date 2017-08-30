@@ -36,7 +36,7 @@ import net.minecraftforge.items.wrapper.InvWrapper;
 import powercrystals.minefactoryreloaded.api.IDeepStorageUnit;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.IWrenchable;
+import reborncore.api.IToolDrop;
 import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
@@ -45,7 +45,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TileTechStorageBase extends TileLegacyMachineBase
-	implements IInventoryProvider, IWrenchable, IListInfoProvider, IDeepStorageUnit {
+	implements IInventoryProvider, IToolDrop, IListInfoProvider, IDeepStorageUnit {
 
 	public final int maxCapacity;
 	public final Inventory inventory;
@@ -151,27 +151,7 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, EnumFacing side) {
-		return false;
-	}
-
-	@Override
-	public EnumFacing getFacing() {
-		return getFacingEnum();
-	}
-
-	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
-		return entityPlayer.isSneaking();
-	}
-
-	@Override
-	public float getWrenchDropRate() {
-		return 1F;
-	}
-
-	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
 		return getDropWithNBT();
 	}
 
