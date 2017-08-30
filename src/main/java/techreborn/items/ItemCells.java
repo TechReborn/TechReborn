@@ -30,6 +30,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import org.apache.commons.lang3.Validate;
 import reborncore.common.util.StringUtils;
 
+
 public class ItemCells {
 	public static ItemStack getCellByName(String name, int count) {
 		if (name.equalsIgnoreCase("empty") || name.equalsIgnoreCase("cell")) {
@@ -48,6 +49,10 @@ public class ItemCells {
 
 	public static ItemStack getCellByName(String name) {
 		return getCellByName(name, 1);
+	}
+
+	public static boolean isCellEqual(ItemStack stack1, ItemStack stack2){
+		return stack1.getTagCompound().equals(stack2.getTagCompound());
 	}
 
 }

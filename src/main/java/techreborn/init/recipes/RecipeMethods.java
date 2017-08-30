@@ -27,6 +27,7 @@ package techreborn.init.recipes;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.common.util.OreUtil;
 import reborncore.common.util.StringUtils;
@@ -177,6 +178,14 @@ public abstract class RecipeMethods {
 		ItemStack stack = ic2Duplicates.getStackBasedOnConfig();
 		stack.setCount(count);
 		return stack;
+	}
+
+	public static Ingredient getCell(String name, int count){
+		return new IngredientCell(ItemCells.getCellByName(name, count));
+	}
+
+	public static Ingredient getCell(String name){
+		return getCell(name, 1);
 	}
 
 	public enum Type {
