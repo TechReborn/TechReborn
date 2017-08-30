@@ -39,10 +39,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
+import reborncore.api.IToolHandler;
 import reborncore.common.BaseTileBlock;
 import techreborn.Core;
 import techreborn.client.TechRebornCreativeTab;
-import techreborn.items.tools.ItemWrench;
 import techreborn.lib.ModInfo;
 
 import java.util.Iterator;
@@ -70,16 +70,18 @@ public abstract class BlockEnergyStorage extends BaseTileBlock {
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
 	                                EnumFacing side, float hitX, float hitY, float hitZ) {
 		ItemStack heldStack = player.getHeldItem(hand);
-		if(heldStack.getItem() instanceof ItemWrench){
-			if (state.getBlock() instanceof BlockEnergyStorage) {
-				EnumFacing facing2 = state.getValue(BlockEnergyStorage.FACING);
-				if (facing2.getOpposite() == side) {
-					facing2 = side;
-				} else {
-					facing2 = side.getOpposite();
+		if(heldStack.getItem() instanceof IToolHandler){
+			if(((IToolHandler) heldStack.getItem()).handleTool(heldStack, pos, world, player, side, true)){
+				if (state.getBlock() instanceof BlockEnergyStorage) {
+					EnumFacing facing2 = state.getValue(BlockEnergyStorage.FACING);
+					if (facing2.getOpposite() == side) {
+						facing2 = side;
+					} else {
+						facing2 = side.getOpposite();
+					}
+					world.setBlockState(pos, state.withProperty(BlockEnergyStorage.FACING, facing2));
+					return true;
 				}
-				world.setBlockState(pos, state.withProperty(BlockEnergyStorage.FACING, facing2));
-				return true;
 			}
 		}
 
