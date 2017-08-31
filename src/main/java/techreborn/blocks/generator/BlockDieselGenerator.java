@@ -24,8 +24,11 @@
 
 package techreborn.blocks.generator;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
@@ -37,8 +40,14 @@ import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.generator.TileDieselGenerator;
 
+/**
+ * Block for Diesel Generator
+ */
 public class BlockDieselGenerator extends BlockMachineBase {
 
+	/**
+	 * 
+	 */
 	public BlockDieselGenerator() {
 		super();
 		this.setCreativeTab(TechRebornCreativeTab.instance);
@@ -46,18 +55,27 @@ public class BlockDieselGenerator extends BlockMachineBase {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(final World world, final int p_149915_2_) {
+	public TileEntity createNewTileEntity(final World world,
+	                                      final int p_149915_2_) {
 		return new TileDieselGenerator();
 	}
 
 	@Override
-	public boolean onBlockActivated(final World world, final int x, final int y, final int z, final EntityPlayer player, final int side, final float hitX,
-	                                final float hitY, final float hitZ) {
-		if (this.fillBlockWithFluid(world, new BlockPos(x, y, z), player)) {
+	public boolean onBlockActivated(final World world,
+	                                final BlockPos pos,
+	                                final IBlockState state,
+	                                final EntityPlayer player,
+	                                EnumHand hand,
+	                                EnumFacing side,
+	                                float hitX,
+	                                float hitY,
+	                                float hitZ) {
+		if (this.fillBlockWithFluid(world, pos, player)) {
 			return true;
 		}
-		if (!player.isSneaking())
-			player.openGui(Core.INSTANCE, EGui.DIESEL_GENERATOR.ordinal(), world, x, y, z);
+		if (!player.isSneaking()) {
+			player.openGui(Core.INSTANCE, EGui.DIESEL_GENERATOR.ordinal(), world, pos.getX(), pos.getY(), pos.getZ());
+		}
 		return true;
 	}
 }
