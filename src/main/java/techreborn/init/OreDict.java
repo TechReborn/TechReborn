@@ -129,6 +129,9 @@ public class OreDict {
 				continue; //Aware of placeholders!
 			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "plate_" + type), ItemPlates.getPlateByName(type));
 		}
+		
+		ItemPlates.registerType("magnalium");
+		OreUtil.registerOre("plateMagnalium", ItemPlates.getPlateByName("magnalium"));
 
 		for (String type : ItemDusts.types) {
 			if (type.equals(ModItems.META_PLACEHOLDER))

@@ -55,7 +55,7 @@ public class ItemPlates extends ItemTR {
 		for (int i = 0; i < types.length; i++) {
 			if (types[i].equalsIgnoreCase(name)) {
 				if (types[i].equals(ModItems.META_PLACEHOLDER)) {
-					throw new InvalidParameterException("The dust " + name + " could not be found.");
+					throw new InvalidParameterException("The plate " + name + " could not be found.");
 				}
 				return new ItemStack(ModItems.PLATES, count, i);
 			}
