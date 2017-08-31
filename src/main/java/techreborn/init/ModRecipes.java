@@ -183,6 +183,16 @@ public class ModRecipes {
 			200, 20));
 
 		RecipeHandler.addRecipe(new GrinderRecipe(
+				new ItemStack(Items.COAL),
+				ItemDusts.getDustByName("coal"),
+				230, 27));
+
+		RecipeHandler.addRecipe(new GrinderRecipe(
+				new ItemStack(net.minecraft.init.Items.CLAY_BALL),
+				ItemDusts.getDustByName("clay"),
+				200, 18));
+
+		RecipeHandler.addRecipe(new GrinderRecipe(
 			new ItemStack(Blocks.GLOWSTONE),
 			ItemDusts.getDustByName("glowstone", 4), 220, 21));
 
@@ -190,16 +200,11 @@ public class ModRecipes {
 			new ItemStack(Blocks.NETHERRACK),
 			ItemDusts.getDustByName("netherrack"),
 			300, 27));
-
+		
 		RecipeHandler.addRecipe(new GrinderRecipe(
-			new ItemStack(Items.COAL),
-			ItemDusts.getDustByName("coal"),
-			300, 27));
-
-		RecipeHandler.addRecipe(new GrinderRecipe(
-			new ItemStack(net.minecraft.init.Items.CLAY_BALL),
-			ItemDusts.getDustByName("clay"),
-			200, 18));
+				new ItemStack(Blocks.END_STONE),
+				ItemDusts.getDustByName("endstone"),
+				300, 16));
 
 		for (String oreDictionaryName : OreDictionary.getOreNames()) {
 			if (isDictPrefixed(oreDictionaryName, "ore", "gem", "ingot")) {
@@ -229,17 +234,6 @@ public class ModRecipes {
 				RecipeHandler.addRecipe(new GrinderRecipe(oreStack, dust, ore ? 270 : 200, ore ? 31 : 22));
 			}
 		}
-
-		RecipeHandler.addRecipe(new GrinderRecipe(
-			new ItemStack(Items.COAL),
-			ItemDusts.getDustByName("coal"),
-			120, 10));
-
-		RecipeHandler.addRecipe(new GrinderRecipe(
-			new ItemStack(Blocks.END_STONE),
-			ItemDusts.getDustByName("endstone"),
-			300, 16));
-		
 	}
 
 	static void addReactorRecipes() {
