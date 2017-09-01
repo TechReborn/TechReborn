@@ -24,7 +24,13 @@
 
 package techreborn.blocks;
 
+import java.util.List;
+
 import net.minecraft.block.material.Material;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.TechRebornCreativeTab;
 
@@ -33,5 +39,12 @@ public class BlockSupercondensator extends BlockMachineBase {
 		super();
 		setUnlocalizedName("techreborn.supercondensator");
 		setCreativeTab(TechRebornCreativeTab.instance);
+	}
+
+	@Override
+	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag) {
+		tooltip.add(TextFormatting.RED + "WIP Coming Soon");
+		// TODO
+		// Remember to remove WIP override and imports once complete
 	}
 }

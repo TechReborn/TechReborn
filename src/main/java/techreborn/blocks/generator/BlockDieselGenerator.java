@@ -55,21 +55,14 @@ public class BlockDieselGenerator extends BlockMachineBase {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(final World world,
-	                                      final int p_149915_2_) {
+	public TileEntity createNewTileEntity(final World world, final int p_149915_2_) {
 		return new TileDieselGenerator();
 	}
 
 	@Override
-	public boolean onBlockActivated(final World world,
-	                                final BlockPos pos,
-	                                final IBlockState state,
-	                                final EntityPlayer player,
-	                                EnumHand hand,
-	                                EnumFacing side,
-	                                float hitX,
-	                                float hitY,
-	                                float hitZ) {
+	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state,
+									final EntityPlayer player, final EnumHand hand, final EnumFacing side,
+									final float hitX, final float hitY, final float hitZ) {
 		if (this.fillBlockWithFluid(world, pos, player)) {
 			return true;
 		}

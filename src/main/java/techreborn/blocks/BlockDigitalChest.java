@@ -26,11 +26,14 @@ package techreborn.blocks;
 
 import net.minecraft.block.BlockDynamicLiquid;
 import net.minecraft.block.BlockStaticLiquid;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidBase;
@@ -82,8 +85,8 @@ public class BlockDigitalChest extends BlockMachineBase {
 			if (!itemStack.isEmpty() && itemStack.getCount() > 0) {
 				if (itemStack.getItem() instanceof ItemBlock) {
 					if (((ItemBlock) itemStack.getItem()).getBlock() instanceof BlockFluidBase
-						|| ((ItemBlock) itemStack.getItem()).getBlock() instanceof BlockStaticLiquid
-						|| ((ItemBlock) itemStack.getItem()).getBlock() instanceof BlockDynamicLiquid) {
+							|| ((ItemBlock) itemStack.getItem()).getBlock() instanceof BlockStaticLiquid
+							|| ((ItemBlock) itemStack.getItem()).getBlock() instanceof BlockDynamicLiquid) {
 						continue;
 					}
 				}
@@ -99,7 +102,7 @@ public class BlockDigitalChest extends BlockMachineBase {
 			final float dZ = rand.nextFloat() * 0.8F + 0.1F;
 
 			final EntityItem entityItem = new EntityItem(world, pos.getX() + dX, pos.getY() + dY, pos.getZ() + dZ,
-				itemStack.copy());
+					itemStack.copy());
 
 			if (itemStack.hasTagCompound()) {
 				entityItem.getItem().setTagCompound(itemStack.getTagCompound().copy());
@@ -120,10 +123,11 @@ public class BlockDigitalChest extends BlockMachineBase {
 	}
 
 	@Override
-	public boolean onBlockActivated(final World world, final int x, final int y, final int z, final EntityPlayer player, final int side, final float hitX,
-	                                final float hitY, final float hitZ) {
+	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state,
+									final EntityPlayer player, final EnumHand hand, final EnumFacing side,
+									final float hitX, final float hitY, final float hitZ) {
 		if (!player.isSneaking())
-			player.openGui(Core.INSTANCE, EGui.DIGITAL_CHEST.ordinal(), world, x, y, z);
+			player.openGui(Core.INSTANCE, EGui.DIGITAL_CHEST.ordinal(), world, pos.getX(), pos.getY(), pos.getZ());
 		return true;
 	}
 }

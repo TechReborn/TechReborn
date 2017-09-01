@@ -24,6 +24,12 @@
 
 package techreborn.blocks.generator;
 
+import java.util.List;
+
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.BlockMachineBase;
@@ -36,5 +42,12 @@ public class BlockMagicEnergyConverter extends BlockMachineBase {
 		super();
 		setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
+	}
+	
+	@Override
+	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag) {
+		tooltip.add(TextFormatting.RED + "WIP Coming Soon");
+		//TODO 
+		//Remember to remove WIP override and imports once complete
 	}
 }

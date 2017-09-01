@@ -24,9 +24,12 @@
 
 package techreborn.blocks;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
@@ -48,13 +51,13 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 	}
 
 	@Override
-	public boolean onBlockActivated(final World world, final int x, final int y, final int z, final EntityPlayer player, final int side, final float hitX,
-	                                final float hitY, final float hitZ) {
-		final TileFusionControlComputer tileFusionControlComputer = (TileFusionControlComputer) world
-			.getTileEntity(new BlockPos(x, y, z));
+	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state,
+									final EntityPlayer player, final EnumHand hand, final EnumFacing side,
+									final float hitX, final float hitY, final float hitZ) {
+		final TileFusionControlComputer tileFusionControlComputer = (TileFusionControlComputer) world.getTileEntity(pos);
 		tileFusionControlComputer.checkCoils();
 		if (!player.isSneaking())
-			player.openGui(Core.INSTANCE, EGui.FUSION_CONTROLLER.ordinal(), world, x, y, z);
+			player.openGui(Core.INSTANCE, EGui.FUSION_CONTROLLER.ordinal(), world, pos.getX(), pos.getY(), pos.getZ());
 		return true;
 	}
 
@@ -63,7 +66,7 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 		super.onEntityWalk(worldIn, pos, entityIn);
 		if (worldIn.getTileEntity(pos) instanceof TileFusionControlComputer) {
 			if (((TileFusionControlComputer) worldIn.getTileEntity(pos)).crafingTickTime != 0
-				&& ((TileFusionControlComputer) worldIn.getTileEntity(pos)).checkCoils()) {
+					&& ((TileFusionControlComputer) worldIn.getTileEntity(pos)).checkCoils()) {
 				entityIn.attackEntityFrom(new FusionDamageSource(), 200F);
 			}
 		}

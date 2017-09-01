@@ -24,8 +24,12 @@
 
 package techreborn.blocks.generator;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
@@ -50,10 +54,11 @@ public class BlockSolidFuelGenerator extends BlockMachineBase {
 	}
 
 	@Override
-	public boolean onBlockActivated(final World world, final int x, final int y, final int z, final EntityPlayer player, final int side, final float hitX,
-	                                final float hitY, final float hitZ) {
+	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state,
+									final EntityPlayer player, final EnumHand hand, final EnumFacing side,
+									final float hitX, final float hitY, final float hitZ) {
 		if (!player.isSneaking()) {
-			player.openGui(Core.INSTANCE, EGui.GENERATOR.ordinal(), world, x, y, z);
+			player.openGui(Core.INSTANCE, EGui.GENERATOR.ordinal(), world, pos.getX(), pos.getY(), pos.getZ());
 		}
 		return true;
 	}

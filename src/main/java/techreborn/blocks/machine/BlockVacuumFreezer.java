@@ -54,15 +54,9 @@ public class BlockVacuumFreezer extends BlockMachineBase {
 	}
 
 	@Override
-	public boolean onBlockActivated(final World world,
-	                                final BlockPos pos,
-	                                final IBlockState state,
-	                                final EntityPlayer player,
-	                                final EnumHand hand,
-	                                final EnumFacing side,
-	                                final float hitX,
-	                                final float hitY,
-	                                final float hitZ) {
+	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state,
+									final EntityPlayer player, final EnumHand hand, final EnumFacing side,
+									final float hitX, final float hitY, final float hitZ) {
 		if (!player.isSneaking()) {
 			player.openGui(Core.INSTANCE, EGui.VACUUM_FREEZER.ordinal(), world, pos.getX(), pos.getY(), pos.getZ());
 			return true;
