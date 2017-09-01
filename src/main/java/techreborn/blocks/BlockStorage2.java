@@ -26,13 +26,18 @@ package techreborn.blocks;
 
 import com.google.common.base.CaseFormat;
 import com.google.common.collect.Lists;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.Explosion;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import prospector.shootingstar.ShootingStar;
@@ -49,11 +54,13 @@ import java.security.InvalidParameterException;
 import java.util.List;
 import java.util.Random;
 
+import javax.annotation.Nullable;
+
 public class BlockStorage2 extends BaseBlock {
 
-	public static final String[] types = new String[] { "tungstensteel",
-		"iridium_reinforced_tungstensteel", "iridium_reinforced_stone", "ruby", "sapphire", "peridot",
-		"yellow_garnet", "red_garnet", "copper", "tin", "refined_iron" };
+	public static final String[] types = new String[] { "tungstensteel", "iridium_reinforced_tungstensteel",
+			"iridium_reinforced_stone", "ruby", "sapphire", "peridot", "yellow_garnet", "red_garnet", "copper", "tin",
+			"refined_iron" };
 	public static final PropertyString TYPE = new PropertyString("type", types);
 	private static final List<String> typesList = Lists.newArrayList(ArrayUtils.arrayToLowercase(types));
 
@@ -63,7 +70,8 @@ public class BlockStorage2 extends BaseBlock {
 		setHardness(2f);
 		this.setDefaultState(this.getDefaultState().withProperty(TYPE, "tungstensteel"));
 		for (int i = 0; i < types.length; i++) {
-			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i).setInvVariant("type=" + types[i]).setFileName("storage"));
+			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i).setInvVariant("type=" + types[i])
+					.setFileName("storage"));
 		}
 		TRRecipeHandler.hideEntry(this);
 	}
@@ -77,7 +85,7 @@ public class BlockStorage2 extends BaseBlock {
 		}
 		throw new InvalidParameterException("The storage block " + name + " could not be found.");
 	}
-	
+
 	public static ItemStack getStorageBlockByName(String name) {
 		return getStorageBlockByName(name, 1);
 	}
@@ -87,6 +95,7 @@ public class BlockStorage2 extends BaseBlock {
 		return Item.getItemFromBlock(this);
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(CreativeTabs creativeTabs, NonNullList list) {
@@ -111,6 +120,17 @@ public class BlockStorage2 extends BaseBlock {
 	@Override
 	public int getMetaFromState(IBlockState state) {
 		return typesList.indexOf(state.getValue(TYPE));
+	}
+
+	@Override
+	public float getExplosionResistance(World world, BlockPos pos, @Nullable Entity exploder, Explosion explosion) {
+		String blockType = world.getBlockState(pos).getValue(TYPE);
+		if (blockType == "tungstensteel" || blockType == "iridium_reinforced_stone") {
+			return 300F;
+		} else if (blockType == "iridium_reinforced_tungstensteel") {
+			return 400F;
+		}
+		return 30F;
 	}
 
 	protected BlockStateContainer createBlockState() {
