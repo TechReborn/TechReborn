@@ -77,6 +77,10 @@ public class BlockStorage2 extends BaseBlock {
 		}
 		throw new InvalidParameterException("The storage block " + name + " could not be found.");
 	}
+	
+	public static ItemStack getStorageBlockByName(String name) {
+		return getStorageBlockByName(name, 1);
+	}
 
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {

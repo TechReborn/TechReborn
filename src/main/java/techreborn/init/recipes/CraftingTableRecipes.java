@@ -284,7 +284,7 @@ public class CraftingTableRecipes extends RecipeMethods {
 	}
 
 	static void registerCompressionRecipes() {
-		for (String name : ArrayUtils.addAll(BlockStorage.types, BlockStorage2.types)) {
+		for (String name : BlockStorage.types) {
 			if (OreUtil.hasIngot(name)) {
 				registerShaped(BlockStorage.getStorageBlockByName(name), "AAA", "AAA", "AAA", 'A',
 					"ingot" + StringUtils.toFirstCapital(name));
@@ -292,6 +292,18 @@ public class CraftingTableRecipes extends RecipeMethods {
 				registerShaped(BlockStorage.getStorageBlockByName(name), "AAA", "AAA", "AAA", 'A',
 					"gem" + StringUtils.toFirstCapital(name));
 			}
+		}
+		
+		for (String block : BlockStorage2.types){
+			block = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, block);
+			if (OreUtil.hasIngot(block)) {
+				registerShaped(BlockStorage2.getStorageBlockByName(block), "AAA", "AAA", "AAA", 'A',
+					"ingot" + StringUtils.toFirstCapital(block));
+			} else if (OreUtil.hasGem(block)) {
+				registerShaped(BlockStorage2.getStorageBlockByName(block), "AAA", "AAA", "AAA", 'A',
+					"gem" + StringUtils.toFirstCapital(block));
+			}
+			
 		}
 
 		for (String name : ItemDustsSmall.types) {
