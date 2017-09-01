@@ -35,7 +35,7 @@ import techreborn.init.ModItems;
 public class ItemLapotronCrystal extends ItemBattery {
 
 	public ItemLapotronCrystal() {
-		super("lapotronCrystal", 1000000, 512);
+		super("lapotronCrystal", 10000000, 2048);
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })

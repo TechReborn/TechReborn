@@ -202,7 +202,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo, IEnergy
 
 	@Override
 	public double getMaxPower(ItemStack stack) {
-		return 100000;
+		return 40000;
 	}
 
 	@Override

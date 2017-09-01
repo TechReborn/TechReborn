@@ -42,20 +42,22 @@ public class ConfigTechReborn {
 	public static boolean enableGemArmorAndTools = true;
 
 	//TODO give an annotation
+	//Tools
 	public static int IronDrillCharge = 10000;
 	public static int DiamondDrillCharge = 100000;
 	public static int AdvancedDrillCharge = 1000000;
 	public static int IronChainsawCharge = 10000;
-	public static int DiamondChainsawCharge = 10000;
+	public static int DiamondChainsawCharge = 100000;
 	public static int AdvancedChainsawCharge = 1000000;
-	public static int SteelJackhammerCharge = 1000000;
-	public static int DiamondJackhammerCharge = 20000;
-	public static int AdvancedJackhammerCharge = 100000;
-	public static int LapotronPackCharge = 100000000;
-	public static int LithiumBatpackCharge = 4000000;
-	public static int LapotronicOrbMaxCharge = 20000;
+	public static int SteelJackhammerCharge = 10000;
+	public static int DiamondJackhammerCharge = 100000;
+	public static int AdvancedJackhammerCharge = 1000000;
 	public static int OmniToolCharge = 20000;
 	public static int RockCutterCharge = 10000;
+
+	public static int LapotronPackCharge = 100000000;
+	public static int LithiumBatpackCharge = 4000000;
+	public static int LapotronicOrbMaxCharge = 100000000;
 	public static int CloakingDeviceCharge = 10000000;
 	public static int CentrifugeCharge = 1000000;
 	public static int ThermalGeneratorCharge = 1000000;
