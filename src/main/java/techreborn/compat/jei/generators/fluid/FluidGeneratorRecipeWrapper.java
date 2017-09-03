@@ -32,25 +32,11 @@ import mezz.jei.api.recipe.BlankRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
+import reborncore.common.powerSystem.PowerSystem;
 import techreborn.api.generator.FluidGeneratorRecipe;
-
 import javax.annotation.Nonnull;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.text.NumberFormat;
-import java.util.Locale;
 
 public class FluidGeneratorRecipeWrapper extends BlankRecipeWrapper {
-
-	private static final DecimalFormat formatter;
-
-	static {
-		formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
-		DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
-
-		symbols.setGroupingSeparator(' ');
-		formatter.setDecimalFormatSymbols(symbols);
-	}
 
 	private static final int FLUID_GENERATOR_STORAGE = 100_000;
 
@@ -76,8 +62,9 @@ public class FluidGeneratorRecipeWrapper extends BlankRecipeWrapper {
 
 		energyProduced.draw(minecraft, 73, 26);
 
-		minecraft.fontRenderer.drawString(formatter.format(baseRecipe.getEnergyPerMb() * 1000) + " EU", 70, 13,
-			0x444444);
+		minecraft.fontRenderer
+				.drawString(PowerSystem.getLocaliszedPowerFormattedNoSuffix(baseRecipe.getEnergyPerMb() * 1000) + " "
+						+ PowerSystem.getDisplayPower().abbreviation, 70, 13, 0x444444);
 	}
 
 	@Override

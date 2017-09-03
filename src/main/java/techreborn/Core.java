@@ -89,7 +89,7 @@ public class Core {
 	public void preinit(FMLPreInitializationEvent event) throws IllegalAccessException, InstantiationException {
 		event.getModMetadata().version = ModInfo.MOD_VERSION;
 		INSTANCE = this;
-		FMLCommonHandler.instance().bus().register(this);
+	//	FMLCommonHandler.instance().bus().register(this);
 		MinecraftForge.EVENT_BUS.register(this);
 
 		configDir = new File(new File(event.getModConfigurationDirectory(), "teamreborn"), "techreborn");

@@ -60,11 +60,16 @@ public class TileSemiFluidGenerator extends TileBaseFluidGenerator implements IC
 	public double getBaseMaxPower() {
 		return maxEnergy;
 	}
+	
+	@Override
+	public double getBaseMaxOutput() {
+		return maxOutput;
+	}
 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("semifluidgenerator").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-			.addInventory().tile(this).slot(0, 80, 17).outputSlot(1, 80, 53).fakeSlot(2, 59, 42).syncEnergyValue()
+		return new ContainerBuilder("semifluidgenerator").player(player.inventory).inventory().hotbar()
+			.addInventory().tile(this).slot(0, 25, 35).outputSlot(1, 25, 55).syncEnergyValue()
 			.addInventory().create();
 	}
 }

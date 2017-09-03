@@ -40,8 +40,8 @@ public class GuiDieselGenerator extends GuiBase {
 	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
 		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
-		drawSlot(10, 35, layer);
-		drawSlot(10, 55, layer);
+		drawSlot(25, 35, layer);
+		drawSlot(25, 55, layer);
 		this.builder.drawJEIButton(this, 150, 4, layer);
 	}
 	
@@ -53,7 +53,7 @@ public class GuiDieselGenerator extends GuiBase {
 		
 		this.builder.drawProgressBar(this, this.tile.getProgressScaled(10), 100, 83, 48, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
 		this.builder.drawMultiEnergyBar(this, 130, 28, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
-		this.builder.drawTank(this, 29, 25, mouseX, mouseY, this.tile.tank.getFluid(), this.tile.tank.getCapacity(), this.tile.tank.isEmpty(), layer);
+		this.builder.drawTank(this, 44, 25, mouseX, mouseY, this.tile.tank.getFluid(), this.tile.tank.getCapacity(), this.tile.tank.isEmpty(), layer);
 		
 	}
 	

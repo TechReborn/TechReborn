@@ -69,7 +69,7 @@ public class TileDieselGenerator extends TileBaseFluidGenerator implements ICont
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("dieselgenerator").player(player.inventory).inventory().hotbar()
-			.addInventory().tile(this).slot(0, 10, 35).outputSlot(1, 10, 55).syncEnergyValue()
+			.addInventory().tile(this).slot(0, 25, 35).outputSlot(1, 25, 55).syncEnergyValue()
 			.addInventory().create();
 	}
 }

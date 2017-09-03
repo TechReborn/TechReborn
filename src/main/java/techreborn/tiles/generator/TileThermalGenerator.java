@@ -61,36 +61,6 @@ public class TileThermalGenerator extends TileBaseFluidGenerator implements ICon
 		return new ItemStack(ModBlocks.THERMAL_GENERATOR, 1);
 	}
 
-	public boolean isOn = false;
-
-	@Override
-	public void updateEntity() {
-		super.updateEntity();
-
-		if (!this.world.isRemote) {
-			boolean didRun = false;
-			if (this.acceptFluid() && FluidUtils.drainContainers(this.tank, this.inventory, 0, 1))
-				this.syncWithAll();
-			for (final EnumFacing direction : EnumFacing.values()) {
-				if (this.world
-					.getBlockState(new BlockPos(this.getPos().getX() + direction.getFrontOffsetX(),
-						this.getPos().getY() + direction.getFrontOffsetY(),
-						this.getPos().getZ() + direction.getFrontOffsetZ()))
-					.getBlock() == Blocks.LAVA) {
-					if (this.tryAddingEnergy(1)) {
-						this.lastOutput = this.world.getTotalWorldTime();
-						didRun = true;
-					}
-
-				}
-			}
-			if (didRun != isOn) {
-				isOn = didRun;
-				world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockThermalGenerator.ACTIVE, isOn));
-			}
-		}
-	}
-
 	@Override
 	public double getBaseMaxPower() {
 		return maxEnergy;
@@ -103,8 +73,8 @@ public class TileThermalGenerator extends TileBaseFluidGenerator implements ICon
 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("thermalgenerator").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-			.addInventory().tile(this).slot(0, 80, 17).outputSlot(1, 80, 53).fakeSlot(2, 59, 42).syncEnergyValue()
+		return new ContainerBuilder("thermalgenerator").player(player.inventory).inventory().hotbar()
+			.addInventory().tile(this).slot(0, 25, 35).outputSlot(1, 25, 55).syncEnergyValue()
 			.addInventory().create();
 	}
 }

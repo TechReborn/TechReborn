@@ -24,7 +24,6 @@
 
 package techreborn.tiles.generator;
 
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -71,9 +70,9 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 	}
 
 	@Override
-	public void update(){
-		this.ticksSinceLastChange++;	
+	public void update() {
 		super.update();
+		this.ticksSinceLastChange++;
 
 		// Check cells input slot 2 time per second
 		if (this.ticksSinceLastChange >= 10) {
@@ -83,7 +82,7 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 			}
 			this.ticksSinceLastChange = 0;
 		}
-				
+
 		if (this.tank.getFluidAmount() > 0) {
 			if (this.currentRecipe == null || !this.currentRecipe.getFluid().equals(this.tank.getFluidType()))
 				this.currentRecipe = this.getRecipes().getRecipeForFluid(this.tank.getFluidType()).orElse(null);
@@ -101,7 +100,7 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 				}
 			}
 		}
-
+		
 		if (!this.world.isRemote) {
 			if (this.world.getTotalWorldTime() - this.lastOutput < 30 && !this.isActive())
 				this.world.setBlockState(this.getPos(), this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, true));

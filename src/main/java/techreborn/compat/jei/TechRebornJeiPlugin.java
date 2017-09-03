@@ -261,13 +261,10 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 		registry.addRecipeClickArea(GuiIronFurnace.class, 78, 36, 24, 16, VanillaRecipeCategoryUid.SMELTING,
 			VanillaRecipeCategoryUid.FUEL);
 
-		registry.addRecipeClickArea(GuiSemifluidGenerator.class, 79, 34, 18, 18,
-			EFluidGenerator.SEMIFLUID.getRecipeID());
+		registry.addRecipeClickArea(GuiSemifluidGenerator.class, 150, 4, 18, 18, EFluidGenerator.SEMIFLUID.getRecipeID());
 		registry.addRecipeClickArea(GuiDieselGenerator.class, 150, 4, 18, 18, EFluidGenerator.DIESEL.getRecipeID());
-		registry.addRecipeClickArea(GuiGasTurbine.class, 79, 34, 18, 18,
-			EFluidGenerator.GAS.getRecipeID());
-		registry.addRecipeClickArea(GuiThermalGenerator.class, 79, 34, 18, 18,
-			EFluidGenerator.THERMAL.getRecipeID());
+		registry.addRecipeClickArea(GuiGasTurbine.class, 150, 4, 18, 18, EFluidGenerator.GAS.getRecipeID());
+		registry.addRecipeClickArea(GuiThermalGenerator.class, 150, 4, 18, 18, EFluidGenerator.THERMAL.getRecipeID());
 
 		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.IRON_FURNACE), VanillaRecipeCategoryUid.SMELTING, VanillaRecipeCategoryUid.FUEL);
 		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.IRON_ALLOY_FURNACE), RecipeCategoryUids.ALLOY_SMELTER, VanillaRecipeCategoryUid.FUEL);

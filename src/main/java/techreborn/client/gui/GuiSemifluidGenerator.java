@@ -24,53 +24,36 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
-import reborncore.client.RenderUtil;
 import techreborn.tiles.generator.TileSemiFluidGenerator;
 
-public class GuiSemifluidGenerator extends GuiContainer {
+public class GuiSemifluidGenerator extends GuiBase {
 
-	// TODO: use semifluid generator texture
-	private static final ResourceLocation texture = new ResourceLocation("techreborn",
-		"textures/gui/semifluid_generator.png");
+	TileSemiFluidGenerator tile;
 
-	TileSemiFluidGenerator semifluidGenerator;
-
-	public GuiSemifluidGenerator(final EntityPlayer player, final TileSemiFluidGenerator semifluidGenerator) {
-		super(semifluidGenerator.createContainer(player));
-		this.xSize = 176;
-		this.ySize = 167;
-		this.semifluidGenerator = semifluidGenerator;
+	public GuiSemifluidGenerator(final EntityPlayer player, final TileSemiFluidGenerator tile) {
+		super(player, tile, tile.createContainer(player));
+		this.tile = tile;
 	}
-
+	
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.getTextureManager().bindTexture(GuiSemifluidGenerator.texture);
-		final int k = (this.width - this.xSize) / 2;
-		final int l = (this.height - this.ySize) / 2;
-		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
-		RenderUtil.renderGuiTank(this.semifluidGenerator.tank.getFluid(), 16, 16, k + 59, l + 42, this.zLevel, 16, 16);
+	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
+		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
+		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
+		drawSlot(25, 35, layer);
+		drawSlot(25, 55, layer);
+		this.builder.drawJEIButton(this, 150, 4, layer);
 	}
-
+	
+	
 	@Override
-	protected void drawGuiContainerForegroundLayer(final int p_146979_1_, final int p_146979_2_) {
-		final String name = "Semifluid Generator";
-		this.fontRenderer.drawString(name, this.xSize / 2 - this.fontRenderer.getStringWidth(name) / 2, 6,
-			4210752);
-		this.fontRenderer.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,
-			this.ySize - 96 + 2, 4210752);
-		this.fontRenderer.drawString("Liquid Amount", 10, 20, 16448255);
-		this.fontRenderer.drawString(this.semifluidGenerator.tank.getFluidAmount() + "", 10, 30, 16448255);
-	}
-
-	@Override
-	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		super.drawScreen(mouseX, mouseY, partialTicks);
-		this.renderHoveredToolTip(mouseX, mouseY);
+	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
+		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
+		
+		this.builder.drawProgressBar(this, this.tile.getProgressScaled(10), 100, 83, 48, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
+		this.builder.drawMultiEnergyBar(this, 130, 28, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		this.builder.drawTank(this, 44, 25, mouseX, mouseY, this.tile.tank.getFluid(), this.tile.tank.getCapacity(), this.tile.tank.isEmpty(), layer);
+		
 	}
 }
