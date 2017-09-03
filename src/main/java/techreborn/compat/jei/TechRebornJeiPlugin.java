@@ -245,7 +245,6 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 		registry.addRecipeClickArea(GuiBlastFurnace.class, 150, 4, 20, 12, RecipeCategoryUids.BLAST_FURNACE);
 		registry.addRecipeClickArea(GuiChemicalReactor.class, 150, 4, 20, 12, RecipeCategoryUids.CHEMICAL_REACTOR);
 		registry.addRecipeClickArea(GuiIndustrialGrinder.class, 150, 4, 20, 12, RecipeCategoryUids.INDUSTRIAL_GRINDER);
-
 		registry.addRecipeClickArea(GuiIndustrialSawmill.class, 55, 35, 20, 15, RecipeCategoryUids.INDUSTRIAL_SAWMILL);
 
 		//OLD ONES
@@ -264,8 +263,7 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 
 		registry.addRecipeClickArea(GuiSemifluidGenerator.class, 79, 34, 18, 18,
 			EFluidGenerator.SEMIFLUID.getRecipeID());
-		registry.addRecipeClickArea(GuiDieselGenerator.class, 79, 34, 18, 18,
-			EFluidGenerator.DIESEL.getRecipeID());
+		registry.addRecipeClickArea(GuiDieselGenerator.class, 150, 4, 18, 18, EFluidGenerator.DIESEL.getRecipeID());
 		registry.addRecipeClickArea(GuiGasTurbine.class, 79, 34, 18, 18,
 			EFluidGenerator.GAS.getRecipeID());
 		registry.addRecipeClickArea(GuiThermalGenerator.class, 79, 34, 18, 18,

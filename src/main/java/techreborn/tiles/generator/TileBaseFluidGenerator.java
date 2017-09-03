@@ -47,11 +47,12 @@ import techreborn.api.generator.GeneratorRecipeHelper;
 public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implements IToolDrop, IInventoryProvider {
 
 	private final FluidGeneratorRecipeList recipes;
-
 	private final int euTick;
-
+	private FluidGeneratorRecipe currentRecipe;
+	private int ticksSinceLastChange;
 	public final Tank tank;
 	public final Inventory inventory;
+	protected long lastOutput = 0;
 
 	/*
 	 * We use this to keep track of fractional millibuckets, allowing us to hit
@@ -62,44 +63,40 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 
 	public TileBaseFluidGenerator(EFluidGenerator type, String tileName, int tankCapacity, int euTick) {
 		super();
-
 		recipes = GeneratorRecipeHelper.getFluidRecipesForGenerator(type);
-
 		tank = new Tank(tileName, tankCapacity, this);
 		inventory = new Inventory(3, tileName, 64, this);
 		this.euTick = euTick;
+		this.ticksSinceLastChange = 0;
 	}
 
-	protected long lastOutput = 0;
-	private FluidGeneratorRecipe currentRecipe;
-
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
+	public void update(){
+		this.ticksSinceLastChange++;	
+		super.update();
 
-		if (!this.world.isRemote) {
-			if (this.acceptFluid() && FluidUtils.drainContainers(this.tank, this.inventory, 0, 1)
-				|| FluidUtils.fillContainers(this.tank, this.inventory, 0, 1, this.tank.getFluidType()))
-				this.syncWithAll();
+		// Check cells input slot 2 time per second
+		if (this.ticksSinceLastChange >= 10) {
+			if (!this.inventory.getStackInSlot(0).isEmpty()) {
+				FluidUtils.drainContainers(this.tank, this.inventory, 0, 1);
+				FluidUtils.fillContainers(this.tank, this.inventory, 0, 1, this.tank.getFluidType());
+			}
+			this.ticksSinceLastChange = 0;
 		}
-
+				
 		if (this.tank.getFluidAmount() > 0) {
-
 			if (this.currentRecipe == null || !this.currentRecipe.getFluid().equals(this.tank.getFluidType()))
 				this.currentRecipe = this.getRecipes().getRecipeForFluid(this.tank.getFluidType()).orElse(null);
 
 			if (this.currentRecipe != null) {
+				final Integer euPerBucket = this.currentRecipe.getEnergyPerMb() * 1000;
+				final float millibucketsPerTick = this.euTick * 1000 / (float) euPerBucket;
+
 				if (this.tryAddingEnergy(this.euTick)) {
-					final Integer euPerBucket = this.currentRecipe.getEnergyPerMb() * 1000;
-					final float millibucketsPerTick = 16000f / (float) euPerBucket;
 					this.pendingWithdraw += millibucketsPerTick;
-
 					final int currentWithdraw = (int) this.pendingWithdraw;
-
 					this.pendingWithdraw -= currentWithdraw;
-
 					this.tank.drain(currentWithdraw, true);
-
 					this.lastOutput = this.world.getTotalWorldTime();
 				}
 			}
@@ -107,12 +104,18 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 
 		if (!this.world.isRemote) {
 			if (this.world.getTotalWorldTime() - this.lastOutput < 30 && !this.isActive())
-				this.world.setBlockState(this.getPos(),
-					this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, true));
+				this.world.setBlockState(this.getPos(), this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, true));
 			else if (this.world.getTotalWorldTime() - this.lastOutput > 30 && this.isActive())
-				this.world.setBlockState(this.getPos(),
-					this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, false));
+				this.world.setBlockState(this.getPos(), this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, false));
 		}
+
+	}
+	
+	public int getProgressScaled(final int scale) {
+		if (this.isActive()){
+			return this.ticksSinceLastChange * scale;
+		}
+		return 0;
 	}
 
 	protected boolean tryAddingEnergy(int amount) {
