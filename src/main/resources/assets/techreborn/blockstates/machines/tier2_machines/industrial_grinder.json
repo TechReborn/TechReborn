@@ -14,6 +14,7 @@
   "variants": {
     "inventory": {
       "transform": "forge:default-block",
+      "model": "orientable",
       "textures": {
         "top": "techreborn:blocks/machines/tier2_machines/industrial_grinder_top_off",
         "front": "techreborn:blocks/machines/tier2_machines/industrial_grinder_front_off"
@@ -44,13 +45,6 @@
           "top": "techreborn:blocks/machines/tier2_machines/industrial_grinder_top_off",
           "front": "techreborn:blocks/machines/tier2_machines/industrial_grinder_front_off"
         }
-      }
-    },
-    "inventory": {
-      "model": "orientable",
-      "textures": {
-        "top": "techreborn:blocks/machines/tier2_machines/industrial_grinder_top_off",
-        "front": "techreborn:blocks/machines/tier2_machines/industrial_grinder_front_off"
       }
     }
   }

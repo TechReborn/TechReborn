@@ -11,6 +11,7 @@
   "variants": {
     "inventory": {
       "transform": "forge:default-block",
+      "model": "cube_bottom_top",
       "textures": {
         "side": "techreborn:blocks/machines/generators/diesel_generator_side_off",
         "top": "techreborn:blocks/machines/generators/diesel_generator_top_off"
@@ -41,13 +42,6 @@
           "side": "techreborn:blocks/machines/generators/diesel_generator_side_off",
           "top": "techreborn:blocks/machines/generators/diesel_generator_top_off"
         }
-      }
-    },
-    "inventory": {
-      "model": "cube_bottom_top",
-      "textures": {
-        "side": "techreborn:blocks/machines/generators/diesel_generator_side_off",
-        "top": "techreborn:blocks/machines/generators/diesel_generator_top_off"
       }
     }
   }

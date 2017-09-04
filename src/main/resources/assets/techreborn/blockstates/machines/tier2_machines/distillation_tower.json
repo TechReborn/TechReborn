@@ -15,6 +15,7 @@
   "variants": {
     "inventory": {
       "transform": "forge:default-block",
+      "model": "orientable",
       "textures": {
         "front": "techreborn:blocks/machines/tier2_machines/distillation_tower_front_off"
       }
@@ -42,12 +43,6 @@
         "textures": {
           "front": "techreborn:blocks/machines/tier2_machines/distillation_tower_front_off"
         }
-      }
-    },
-    "inventory": {
-      "model": "orientable",
-      "textures": {
-        "front": "techreborn:blocks/machines/tier2_machines/distillation_tower_front_off"
       }
     }
   }

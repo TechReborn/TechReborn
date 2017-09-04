@@ -15,6 +15,7 @@
   "variants": {
     "inventory": {
       "transform": "forge:default-block",
+      "model": "orientable",
       "textures": {
         "north": "techreborn:blocks/machines/generators/wind_mill_front_off"
       }
@@ -42,12 +43,6 @@
         "textures": {
           "north": "techreborn:blocks/machines/generators/wind_mill_front_on"
         }
-      }
-    },
-    "inventory": {
-      "model": "orientable",
-      "textures": {
-        "north": "techreborn:blocks/machines/generators/wind_mill_front_off"
       }
     }
   }

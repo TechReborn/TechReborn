@@ -11,6 +11,7 @@
   "variants": {
     "inventory": {
       "transform": "forge:default-block",
+      "model": "cube_bottom_top",
       "textures": {
         "top": "techreborn:blocks/machines/generators/magic_energy_converter_top_off",
         "side": "techreborn:blocks/machines/generators/magic_energy_converter_side_off"
@@ -41,13 +42,6 @@
           "top": "techreborn:blocks/machines/generators/magic_energy_converter_top_off",
           "side": "techreborn:blocks/machines/generators/magic_energy_converter_side_off"
         }
-      }
-    },
-    "inventory": {
-      "model": "cube_bottom_top",
-      "textures": {
-        "top": "techreborn:blocks/machines/generators/magic_energy_converter_top_off",
-        "side": "techreborn:blocks/machines/generators/magic_energy_converter_side_off"
       }
     }
   }
