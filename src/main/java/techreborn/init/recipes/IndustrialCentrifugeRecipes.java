@@ -109,6 +109,8 @@ public class IndustrialCentrifugeRecipes extends RecipeMethods {
 		register(getMaterial("helium", 16, Type.CELL), 10000, getMaterial("helium3", Type.CELL));
 		register(getMaterial("calciumcarbonate", Type.CELL), 40, getMaterial("calcite", Type.DUST));
 		register(getMaterial("sulfur", Type.CELL), 40, getMaterial("sulfur", Type.DUST));
+		//TO-DO Implement Distillation tower
+		register(getMaterial("oil", 4, Type.CELL), 800, getMaterial("diesel", Type.CELL));
 	}
 
 	static void register(Object input, int ticks, boolean oreDict, ItemStack... outputs) {

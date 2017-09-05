@@ -71,7 +71,7 @@ public class IndustrialElectrolyzerRecipes extends RecipeMethods {
 		register(getOre("dustAndradite", 20), 1280, 50, getMaterial("calcium", 3, Type.CELL), getMaterial("iron", 2, Type.DUST), getMaterial("silicon", 3, Type.CELL), getMaterial("compressedair", 6, Type.CELL));
 		register(getOre("dustGrossular", 20), 204, 50, getMaterial("calcium", 3, Type.CELL), getMaterial("aluminum", 2, Type.DUST), getMaterial("silicon", 3, Type.CELL), getMaterial("compressedair", 6, Type.CELL));
 		register(getOre("dustUvarovite", 20), 2200, 50, getMaterial("calcium", 3, Type.CELL), getMaterial("chrome", 2, Type.DUST), getMaterial("silicon", 3, Type.CELL), getMaterial("compressedair", 6, Type.CELL));
-		register(getOre("dustAshes", 2), 20, 50, getMaterial("carbon", Type.CELL));
+		register(getOre("dustAshes", 2), 20, 50, getMaterial("carbonfiber", Type.CELL));
 		register(ItemCells.getCellByName("methane", 5), 140, 50, getMaterial("hydrogen", 4, Type.CELL), getMaterial("carbon", Type.CELL));
 		register(ItemCells.getCellByName("sulfuricacid", 7), 40, 100, getMaterial("hydrogen", 2, Type.CELL), getMaterial("sulfur", Type.CELL), getMaterial("compressedair", 2, Type.CELL));
 	}
