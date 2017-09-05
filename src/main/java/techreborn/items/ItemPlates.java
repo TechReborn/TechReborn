@@ -28,7 +28,6 @@ import com.google.common.base.CaseFormat;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import net.minecraftforge.oredict.OreDictionary;
 import reborncore.common.util.OreUtil;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.events.TRRecipeHandler;

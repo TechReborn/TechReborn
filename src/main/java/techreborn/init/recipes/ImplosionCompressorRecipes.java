@@ -37,7 +37,7 @@ import java.security.InvalidParameterException;
  */
 public class ImplosionCompressorRecipes extends RecipeMethods {
 	public static void init() {
-		register(getOre("ingotIridiumAlloy"), getMaterial("iridium", Type.PLATE), 4);
+		register(getOre("ingotIridiumAlloy"), getMaterial("iridium_alloy", Type.PLATE), 4);
 		register(getOre("dustDiamond", 4), getStack(Items.DIAMOND, 3), 16);
 		register(getOre("dustEmerald", 4), getStack(Items.EMERALD, 3), 12);
 		register(getOre("dustRuby", 4), getMaterial("ruby", 3, Type.GEM), 12);

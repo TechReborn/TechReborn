@@ -128,7 +128,7 @@ public class IC2Dict {
 
 			OreUtil.registerOre("oreIridium", ItemName.misc_resource.getItemStack(MiscResourceType.iridium_ore));
 
-			OreUtil.registerOre("plateIridium", ItemName.crafting.getItemStack(CraftingItemType.iridium));
+			OreUtil.registerOre("plateIridiumAlloy", ItemName.crafting.getItemStack(CraftingItemType.iridium));
 
 		} catch (NoClassDefFoundError notFound) {
 			Core.logHelper.warn(

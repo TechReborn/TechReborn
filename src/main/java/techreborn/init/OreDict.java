@@ -130,8 +130,12 @@ public class OreDict {
 			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "plate_" + type), ItemPlates.getPlateByName(type));
 		}
 		
+		//Late registration of additional plates to keep meta
 		ItemPlates.registerType("magnalium");
 		OreUtil.registerOre("plateMagnalium", ItemPlates.getPlateByName("magnalium"));
+		ItemPlates.registerType("iridium_alloy");
+		OreUtil.registerOre("plateIridiumAlloy", ItemPlates.getPlateByName("iridiumAlloy"));
+		
 
 		for (String type : ItemDusts.types) {
 			if (type.equals(ModItems.META_PLACEHOLDER))
