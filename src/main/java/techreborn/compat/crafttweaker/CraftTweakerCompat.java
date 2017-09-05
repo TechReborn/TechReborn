@@ -44,6 +44,9 @@ import static crafttweaker.api.minecraft.CraftTweakerMC.getLiquidStack;
 
 public class CraftTweakerCompat implements ICompatModule {
 	public static ItemStack toStack(IItemStack iStack) {
+		if (iStack == null){
+			return null;
+		}
 		return getItemStack(iStack);
 	}
 
