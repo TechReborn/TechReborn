@@ -44,6 +44,7 @@ public class GuiDestructoPack extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float arg0, int arg1, int arg2) {
+		this.drawDefaultBackground();
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, 176, 166);

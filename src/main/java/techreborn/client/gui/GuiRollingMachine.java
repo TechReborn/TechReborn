@@ -47,6 +47,7 @@ public class GuiRollingMachine extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
+		this.drawDefaultBackground();
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.getTextureManager().bindTexture(GuiRollingMachine.texture);
 		final int k = (this.width - this.xSize) / 2;
