@@ -38,9 +38,12 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.BaseBlock;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.entities.EntityNukePrimed;
+import techreborn.lib.ModInfo;
 
 /**
  * Created by Mark on 13/03/2016.
@@ -53,6 +56,7 @@ public class BlockNuke extends BaseBlock {
 		setUnlocalizedName("techreborn.nuke");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(OVERLAY, false));
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
 	}
 
 	public void explode(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase igniter) {
@@ -75,6 +79,7 @@ public class BlockNuke extends BaseBlock {
 		}
 	}
 
+	@Override
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
 		if (!worldIn.isRemote && entityIn instanceof EntityArrow) {
 			EntityArrow entityarrow = (EntityArrow) entityIn;
@@ -87,6 +92,7 @@ public class BlockNuke extends BaseBlock {
 		}
 	}
 
+	@Override
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
 		super.onBlockAdded(worldIn, pos, state);
 		if (worldIn.isBlockPowered(pos)) {
@@ -112,14 +118,17 @@ public class BlockNuke extends BaseBlock {
 		return false;
 	}
 
+	@Override
 	public int getMetaFromState(IBlockState state) {
 		return state.getValue(OVERLAY) ? 1 : 0;
 	}
 
+	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return this.getDefaultState().withProperty(OVERLAY, (meta & 1) > 0);
 	}
 
+	@Override
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, OVERLAY);
 	}
