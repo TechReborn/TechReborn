@@ -39,6 +39,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidBase;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
+import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.Core;
 import techreborn.client.EGui;
@@ -124,10 +125,7 @@ public class BlockQuantumChest extends BlockMachineBase {
 	}
 
 	@Override
-	public boolean onBlockActivated(final World worldIn, final BlockPos pos, final IBlockState state, final EntityPlayer playerIn,
-	                                final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
-		if (!playerIn.isSneaking())
-			playerIn.openGui(Core.INSTANCE, EGui.QUANTUM_CHEST.ordinal(), worldIn, pos.getX(), pos.getY(), pos.getZ());
-		return true;
+	public IMachineGuiHandler getGui() {
+		return EGui.QUANTUM_CHEST;
 	}
 }

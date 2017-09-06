@@ -33,6 +33,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
+import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.Core;
 import techreborn.client.EGui;
@@ -54,14 +55,7 @@ public class BlockIndustrialGrinder extends BlockMachineBase {
 	}
 
 	@Override
-	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state,
-									final EntityPlayer player, final EnumHand hand, final EnumFacing side,
-									final float hitX, final float hitY, final float hitZ) {
-		if (this.fillBlockWithFluid(world, pos, player)) {
-			return true;
-		}
-		if (!player.isSneaking())
-			player.openGui(Core.INSTANCE, EGui.INDUSTRIAL_GRINDER.ordinal(), world, pos.getX(), pos.getY(), pos.getZ());
-		return true;
+	public IMachineGuiHandler getGui() {
+		return EGui.INDUSTRIAL_GRINDER;
 	}
 }

@@ -34,6 +34,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
+import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.Core;
 import techreborn.client.EGui;
@@ -56,9 +57,12 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 									final float hitX, final float hitY, final float hitZ) {
 		final TileFusionControlComputer tileFusionControlComputer = (TileFusionControlComputer) world.getTileEntity(pos);
 		tileFusionControlComputer.checkCoils();
-		if (!player.isSneaking())
-			player.openGui(Core.INSTANCE, EGui.FUSION_CONTROLLER.ordinal(), world, pos.getX(), pos.getY(), pos.getZ());
-		return true;
+		return super.onBlockActivated(world, pos, state, player, hand, side, hitX, hitY, hitZ);
+	}
+
+	@Override
+	public IMachineGuiHandler getGui() {
+		return EGui.FUSION_CONTROLLER;
 	}
 
 	@Override

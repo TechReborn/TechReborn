@@ -28,7 +28,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
+import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
+import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.generator.TileWindMill;
@@ -50,4 +52,9 @@ public class BlockWindMill extends BlockMachineBase {
 		return new TileWindMill();
 	}
 
+
+	@Override
+	public IMachineGuiHandler getGui() {
+		return null;
+	}
 }

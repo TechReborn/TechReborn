@@ -24,7 +24,13 @@
 
 package techreborn.client;
 
-public enum EGui {
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import reborncore.api.tile.IMachineGuiHandler;
+import techreborn.Core;
+
+public enum EGui implements IMachineGuiHandler {
 
 	THERMAL_GENERATOR(true),
 	QUANTUM_TANK(true),
@@ -75,5 +81,13 @@ public enum EGui {
 
 	public boolean useContainerBuilder() {
 		return this.containerBuilder;
+	}
+
+
+	@Override
+	public void open(EntityPlayer player, BlockPos pos, World world) {
+		if(!world.isRemote){
+			player.openGui(Core.INSTANCE, this.ordinal(), world, pos.getX(), pos.getY(), pos.getZ());
+		}
 	}
 }

@@ -47,11 +47,13 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
+import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.blocks.PropertyString;
 import reborncore.common.util.ArrayUtils;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.StringUtils;
+import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
 import techreborn.lib.MessageIDs;
@@ -178,5 +180,10 @@ public class BlockPlayerDetector extends BlockMachineBase {
 	@Override
 	public int getMetaFromState(IBlockState state) {
 		return typeNamesList.indexOf(state.getValue(TYPE));
+	}
+
+	@Override
+	public IMachineGuiHandler getGui() {
+		return null;
 	}
 }

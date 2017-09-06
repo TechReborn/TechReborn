@@ -26,7 +26,9 @@ package techreborn.blocks.advanced_machine;
 
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
+import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
+import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 
@@ -36,5 +38,10 @@ public class BlockDistillationTower extends BlockMachineBase {
 		super();
 		setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier2_machines"));
+	}
+
+	@Override
+	public IMachineGuiHandler getGui() {
+		return null;
 	}
 }
