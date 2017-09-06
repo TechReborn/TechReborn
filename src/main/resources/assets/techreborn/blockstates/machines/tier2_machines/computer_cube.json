@@ -1,0 +1,49 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "transform": "forge:default-block",
+    "model": "orientable",
+    "textures": {
+      "particle": "techreborn:blocks/machines/tier2_machines/computer_cube_front",
+      "top": "techreborn:blocks/machines/tier2_machines/machine_top",
+      "down": "techreborn:blocks/machines/tier2_machines/machine_bottom",
+      "side": "techreborn:blocks/machines/tier2_machines/computer_cube_side"
+    }
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": {
+      "transform": "forge:default-block",
+      "model": "orientable",
+      "textures": {
+        "front": "techreborn:blocks/machines/tier0_machines/computer_cube_front"
+      }
+    },
+    "facing": {
+      "north": {
+      },
+      "east": {
+        "y": 90
+      },
+      "south": {
+        "y": 180
+      },
+      "west": {
+        "y": 270
+      }
+    },
+    "active": {
+      "true": {
+        "textures": {
+          "front": "techreborn:blocks/machines/tier2_machines/computer_cube_front"
+        }
+      },
+      "false": {
+        "textures": {
+          "front": "techreborn:blocks/machines/tier2_machines/computer_cube_front"
+        }
+      }
+    }
+  }
+}
+

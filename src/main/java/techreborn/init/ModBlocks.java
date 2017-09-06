@@ -66,6 +66,9 @@ import techreborn.tiles.transformers.TileHVTransformer;
 import techreborn.tiles.transformers.TileLVTransformer;
 import techreborn.tiles.transformers.TileMVTransformer;
 
+/**
+ * Registers all TR blocks
+ */
 public class ModBlocks {
 
 	public static Block THERMAL_GENERATOR;
@@ -140,6 +143,11 @@ public class ModBlocks {
 	public static Block FLARE;
 	public static Block CABLE;
 
+	public static Block COMPUTER_CUBE;
+
+	/**
+	 * Register blocks
+	 */
 	public static void init() {
 		THERMAL_GENERATOR = new BlockThermalGenerator();
 		registerBlock(THERMAL_GENERATOR, "thermal_generator");
@@ -395,6 +403,9 @@ public class ModBlocks {
 		registerBlock(SCRAPBOXINATOR, "scrapboxinator");
 		GameRegistry.registerTileEntity(TileScrapboxinator.class, "TileScrapboxinatorTR");
 
+		COMPUTER_CUBE = new BlockComputerCube();
+		registerBlock(COMPUTER_CUBE, "computer_cube");
+
 		//TODO enable when done
 		//		flare = new BlockFlare();
 		//		registerBlock(flare, "flare");
@@ -408,18 +419,32 @@ public class ModBlocks {
 		Core.logHelper.info("TechReborns Blocks Loaded");
 	}
 
+	/**
+	 * Wrapper method for RebornRegistry
+	 * @param block Block to register
+	 * @param name Name of block to register
+	 */
 	public static void registerBlock(Block block, String name) {
 		name = name.toLowerCase();
 		block.setUnlocalizedName(ModInfo.MOD_ID + ":" + name);
 		RebornRegistry.registerBlock(block, new ResourceLocation(ModInfo.MOD_ID, name));
 	}
 
+	/**
+	 * Wrapper method for RebornRegistry
+	 * @param block Block to Register
+	 * @param itemclass Itemblock of block to register
+	 * @param name Name of block to register
+	 */
 	public static void registerBlock(Block block, Class<? extends ItemBlock> itemclass, String name) {
 		name = name.toLowerCase();
 		block.setUnlocalizedName(ModInfo.MOD_ID + ":" + name);
 		RebornRegistry.registerBlock(block, itemclass, new ResourceLocation(ModInfo.MOD_ID, name));
 	}
 
+	/**
+	 * Register ores and ore blocks
+	 */
 	public static void registerOreDict() {
 		for (String ore : BlockOre.ores) {
 			OreUtil.registerOre("ore" + StringUtils.toFirstCapital(ore), BlockOre.getOreByName(ore));
