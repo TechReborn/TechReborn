@@ -205,7 +205,7 @@ public class TileIronFurnace extends TileLegacyMachineBase
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("ironfurnace").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-			.addInventory().tile(this).slot(0, 56, 17).outputSlot(1, 116, 34).fuelSlot(2, 56, 53)
+			.addInventory().tile(this).slot(0, 56, 17).outputSlot(1, 116, 35).fuelSlot(2, 56, 53)
 			.syncIntegerValue(this::getBurnTime, this::setBurnTime)
 			.syncIntegerValue(this::getTotalBurnTime, this::setTotalBurnTime).addInventory().create();
 	}
