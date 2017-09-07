@@ -30,7 +30,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.client.gui.slots.BaseSlot;
 import reborncore.common.container.RebornContainer;
-import techreborn.tiles.TileAdjustableSU;
+import techreborn.tiles.storage.TileAdjustableSU;
 
 public class ContainerAESU extends RebornContainer {
 

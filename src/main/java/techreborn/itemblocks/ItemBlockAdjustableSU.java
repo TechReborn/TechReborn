@@ -40,7 +40,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.init.ModBlocks;
-import techreborn.tiles.TileAdjustableSU;
+import techreborn.tiles.storage.TileAdjustableSU;
 
 import java.util.List;
 
@@ -69,8 +69,6 @@ public class ItemBlockAdjustableSU extends ItemBlock {
 		}
 		if (world.getBlockState(pos).getBlock() == block) {
 			world.getBlockState(pos).getBlock().onBlockPlacedBy(world, pos, newState, player, stack);
-			// world.getBlockState(pos).getBlock().onPostBlockPlaced(world, x,
-			// y, z, metadata);
 		}
 		if (!stack.isEmpty() && stack.hasTagCompound()) {
 			((TileAdjustableSU) world.getTileEntity(pos))

@@ -30,7 +30,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fluids.FluidStack;
 import techreborn.tiles.multiblock.TileIndustrialSawmill;
 
@@ -50,8 +50,6 @@ public class GuiIndustrialSawmill extends GuiContainer {
 
 	@Override
 	public void initGui() {
-		final int k = (this.width - this.xSize) / 2;
-		final int l = (this.height - this.ySize) / 2;
 		super.initGui();
 	}
 
@@ -81,7 +79,7 @@ public class GuiIndustrialSawmill extends GuiContainer {
 
 			if (!this.sawmill.getMutliBlock()) {
 				//GuiUtil.drawTooltipBox(k + 30, l + 50 + 12, 114, 10);
-				this.fontRenderer.drawString(I18n.translateToLocal("techreborn.message.missingmultiblock"), k + 38,
+				this.fontRenderer.drawString(I18n.format("techreborn.message.missingmultiblock"), k + 38,
 					l + 52 + 12, -1);
 			}
 		}
@@ -110,9 +108,9 @@ public class GuiIndustrialSawmill extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(final int p_146979_1_, final int p_146979_2_) {
-		final String name = I18n.translateToLocal("tile.techreborn:industrial_sawmill.name");
+		final String name = I18n.format("tile.techreborn:industrial_sawmill.name");
 		this.fontRenderer.drawString(name, this.xSize / 2 - this.fontRenderer.getStringWidth(name) / 2, 6, 4210752);
-		this.fontRenderer.drawString(I18n.translateToLocalFormatted("container.inventory"), 58, this.ySize - 96 + 2, 4210752);
+		this.fontRenderer.drawString(I18n.format("container.inventory"), 58, this.ySize - 96 + 2, 4210752);
 	}
 
 	@Override

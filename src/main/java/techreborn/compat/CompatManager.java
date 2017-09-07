@@ -62,7 +62,7 @@ public class CompatManager {
 	}
 
 	public void registerCompact(Class<? extends ICompatModule> moduleClass, boolean config, Object... objs) {
-		boolean shouldLoad = true;
+		//boolean shouldLoad = true;
 		//TODO config
 		//		if (config) {
 		//			shouldLoad = ConfigTechReborn.config

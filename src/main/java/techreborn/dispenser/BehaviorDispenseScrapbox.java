@@ -48,9 +48,9 @@ public class BehaviorDispenseScrapbox extends BehaviorDefaultDispenseItem {
 		if (dispenseScrapboxes) {
 			int random = source.getWorld().rand.nextInt(ScrapboxList.stacks.size());
 			ItemStack out = ScrapboxList.stacks.get(random).copy();
-			float xOffset = source.getWorld().rand.nextFloat() * 0.8F + 0.1F;
+/*			float xOffset = source.getWorld().rand.nextFloat() * 0.8F + 0.1F;
 			float yOffset = source.getWorld().rand.nextFloat() * 0.8F + 0.1F;
-			float zOffset = source.getWorld().rand.nextFloat() * 0.8F + 0.1F;
+			float zOffset = source.getWorld().rand.nextFloat() * 0.8F + 0.1F;*/
 			stack.splitStack(1);
 
 			TileEntityDispenser tile = source.getBlockTileEntity();

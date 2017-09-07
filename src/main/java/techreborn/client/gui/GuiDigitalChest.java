@@ -25,7 +25,6 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import techreborn.tiles.TileDigitalChest;
 
 public class GuiDigitalChest extends GuiBase {

@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.tiles;
+package techreborn.tiles.storage;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -57,8 +57,8 @@ public class TileAdjustableSU extends TilePowerAcceptor implements IToolDrop {
 	}
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
+	public void update() {
+		super.update();
 		if (ticks == 100) {
 			euChange = -1;
 			ticks = 0;

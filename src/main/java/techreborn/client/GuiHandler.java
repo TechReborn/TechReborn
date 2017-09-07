@@ -44,6 +44,7 @@ import techreborn.tiles.multiblock.*;
 import techreborn.tiles.storage.TileHighVoltageSU;
 import techreborn.tiles.storage.TileLowVoltageSU;
 import techreborn.tiles.storage.TileMediumVoltageSU;
+import techreborn.tiles.storage.TileAdjustableSU;
 import techreborn.tiles.teir1.*;
 
 public class GuiHandler implements IGuiHandler {

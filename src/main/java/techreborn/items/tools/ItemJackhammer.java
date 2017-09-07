@@ -122,7 +122,6 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo, IEne
 		return transferLimit;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubItems(CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {

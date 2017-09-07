@@ -34,9 +34,6 @@ import techreborn.events.TRRecipeHandler;
  */
 public class ItemTRArmour extends ItemArmor {
 
-	private ArmorMaterial material = ArmorMaterial.LEATHER;
-	private EntityEquipmentSlot slot = EntityEquipmentSlot.HEAD;
-
 	public ItemTRArmour(ArmorMaterial material, EntityEquipmentSlot slot) {
 		super(material, material.getDamageReductionAmount(slot), slot);
 		if (slot == EntityEquipmentSlot.HEAD)

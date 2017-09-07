@@ -59,7 +59,6 @@ public class ItemCloakingDevice extends ItemTR implements IEnergyItemInfo, IEner
 	public static int MaxCharge = ConfigTechReborn.CloakingDeviceCharge;
 	public static int Limit = 100;
 	public static boolean isActive;
-	private int armorType = 1;
 
 	public ItemCloakingDevice() {
 		setUnlocalizedName("techreborn.cloakingdevice");

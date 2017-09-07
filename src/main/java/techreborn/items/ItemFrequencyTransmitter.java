@@ -33,7 +33,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fml.relauncher.Side;
@@ -81,13 +81,13 @@ public class ItemFrequencyTransmitter extends ItemTR {
 
 		if (!world.isRemote) {
 			ChatUtils.sendNoSpamMessages(MessageIDs.freqTransmitterID, new TextComponentString(
-				TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.setTo") + " X: " +
+				TextFormatting.GRAY + I18n.format("techreborn.message.setTo") + " X: " +
 					TextFormatting.GOLD + pos.getX() +
 					TextFormatting.GRAY + " Y: " +
 					TextFormatting.GOLD + pos.getY() +
 					TextFormatting.GRAY + " Z: " +
 					TextFormatting.GOLD + pos.getZ() +
-					TextFormatting.GRAY + " " + I18n.translateToLocal("techreborn.message.in") + " " +
+					TextFormatting.GRAY + " " + I18n.format("techreborn.message.in") + " " +
 					TextFormatting.GOLD + DimensionManager.getProviderType(world.provider.getDimension())
 					.getName() + " (" + world.provider.getDimension() + ")"));
 		}
@@ -102,8 +102,8 @@ public class ItemFrequencyTransmitter extends ItemTR {
 			stack.setTagCompound(null);
 			if (!world.isRemote) {
 				ChatUtils.sendNoSpamMessages(MessageIDs.freqTransmitterID, new TextComponentString(
-					TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.coordsHaveBeen") + " "
-						+ TextFormatting.GOLD + I18n.translateToLocal("techreborn.message.cleared")));
+					TextFormatting.GRAY + I18n.format("techreborn.message.coordsHaveBeen") + " "
+						+ TextFormatting.GOLD + I18n.format("techreborn.message.cleared")));
 			}
 		}
 
@@ -123,7 +123,7 @@ public class ItemFrequencyTransmitter extends ItemTR {
 			list.add(TextFormatting.DARK_GRAY + DimensionManager.getProviderType(dim).getName());
 
 		} else {
-			list.add(TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.noCoordsSet"));
+			list.add(TextFormatting.GRAY + I18n.format("techreborn.message.noCoordsSet"));
 		}
 	}
 
@@ -145,7 +145,7 @@ public class ItemFrequencyTransmitter extends ItemTR {
 					int coordDim = stack.getTagCompound().getInteger("dim");
 					text = grey + "X: " + gold + coordX + grey + " Y: " + gold + coordY + grey + " Z: " + gold + coordZ + grey + " Dim: " + gold + DimensionManager.getProviderType(coordDim).getName() + " (" + coordDim + ")";
 				} else {
-					text = grey + I18n.translateToLocal("techreborn.message.noCoordsSet");
+					text = grey + I18n.format("techreborn.message.noCoordsSet");
 				}
 			}
 			return text;

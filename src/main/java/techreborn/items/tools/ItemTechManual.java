@@ -31,7 +31,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.client.EGui;
@@ -58,6 +58,6 @@ public class ItemTechManual extends ItemTR {
 
 	@Override
 	public void addInformation(final ItemStack stack, final World world, final List<String> tooltip, ITooltipFlag flag) {
-		tooltip.add(TextFormatting.RED + I18n.translateToLocal("tooltip.wip"));
+		tooltip.add(TextFormatting.RED + I18n.format("tooltip.wip"));
 	}
 }

@@ -177,7 +177,7 @@ public class RegisterItemJsons {
 		});
 	}
 
-	public static void setBlockStateMapper(Block block, String path, IProperty... ignoredProperties) {
+	public static void setBlockStateMapper(Block block, String path, IProperty<?>... ignoredProperties) {
 		final String slash = !path.isEmpty() ? "/" : "";
 		ModelLoader.setCustomStateMapper(block, new DefaultStateMapper() {
 			@Override
@@ -204,6 +204,7 @@ public class RegisterItemJsons {
 		register(item, 0, name);
 	}
 
+	@SuppressWarnings("unused")
 	private static void register(Block block, int meta, String name) {
 		register(Item.getItemFromBlock(block), meta, name);
 	}
@@ -212,6 +213,7 @@ public class RegisterItemJsons {
 		register(Item.getItemFromBlock(block), 0, name);
 	}
 
+	@SuppressWarnings("unused")
 	private static void registerBlockstate(Item i, int meta, String variant) {
 		registerBlockstate(i, meta, variant, "");
 	}
@@ -221,6 +223,7 @@ public class RegisterItemJsons {
 		ModelLoader.setCustomModelResourceLocation(i, meta, new ModelResourceLocation(loc, "type=" + variant));
 	}
 
+	@SuppressWarnings("unused")
 	private static void registerBlockstate(Block i, int meta, String variant) {
 		registerBlockstate(i, meta, variant, "");
 	}

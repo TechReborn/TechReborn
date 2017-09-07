@@ -29,12 +29,12 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.client.resources.I18n;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.client.container.ContainerAESU;
 import techreborn.packets.PacketAesu;
-import techreborn.tiles.TileAdjustableSU;
+import techreborn.tiles.storage.TileAdjustableSU;
 
 import java.awt.*;
 import java.io.IOException;
@@ -78,7 +78,7 @@ public class GuiAESU extends GuiContainer {
 	}
 
 	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
-		this.fontRenderer.drawString(I18n.translateToLocal("tile.techreborn:adjustable_su.name"), 40, 10,
+		this.fontRenderer.drawString(I18n.format("tile.techreborn:adjustable_su.name"), 40, 10,
 			Color.WHITE.getRGB());
 		this.fontRenderer.drawString(PowerSystem.getLocaliszedPower(containerAesu.euOut) + " /tick", 10, 20,
 			Color.WHITE.getRGB());

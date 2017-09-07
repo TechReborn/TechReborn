@@ -42,9 +42,10 @@ import java.util.List;
 
 public class TRRecipeHandler {
 
+	@SuppressWarnings("rawtypes")
 	private static List<IForgeRegistryEntry> hiddenEntrys = new ArrayList<>();
 
-	public static void hideEntry(IForgeRegistryEntry entry) {
+	public static void hideEntry(IForgeRegistryEntry<?> entry) {
 		hiddenEntrys.add(entry);
 	}
 

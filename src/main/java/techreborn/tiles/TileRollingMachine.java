@@ -102,13 +102,13 @@ public class TileRollingMachine extends TilePowerAcceptor
 	}
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
+	public void update() {
+		super.update();
 		this.charge(2);
 		if (!this.world.isRemote) {
 			this.currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(this.craftMatrix, this.world);
 			if (!this.currentRecipe.isEmpty() && this.canMake()) {
-				if (this.tickTime >= this.runTime) {
+				if (this.tickTime >= TileRollingMachine.runTime) {
 					this.currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(this.craftMatrix, this.world);
 					if (!this.currentRecipe.isEmpty()) {
 						boolean hasCrafted = false;
@@ -136,7 +136,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 				}
 			}
 			if (!this.currentRecipe.isEmpty()) {
-				if (this.canUseEnergy(energyPerTick) && this.tickTime < this.runTime) {
+				if (this.canUseEnergy(energyPerTick) && this.tickTime < TileRollingMachine.runTime) {
 					this.useEnergy(energyPerTick);
 					this.tickTime++;
 				}
@@ -225,10 +225,10 @@ public class TileRollingMachine extends TilePowerAcceptor
 	}
 
 	public int getBurnTimeRemainingScaled(final int scale) {
-		if (this.tickTime == 0 || this.runTime == 0) {
+		if (this.tickTime == 0 || TileRollingMachine.runTime == 0) {
 			return 0;
 		}
-		return this.tickTime * scale / this.runTime;
+		return this.tickTime * scale / TileRollingMachine.runTime;
 	}
 
 	@Override

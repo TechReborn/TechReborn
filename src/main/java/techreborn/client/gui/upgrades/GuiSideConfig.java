@@ -69,8 +69,6 @@ public class GuiSideConfig extends GuiBase {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
 		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
-		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
-
 	}
 
 	@Override

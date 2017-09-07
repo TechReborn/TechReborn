@@ -32,7 +32,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import techreborn.client.EGui;
 import techreborn.init.ModBlocks;
-import techreborn.tiles.TileAdjustableSU;
+import techreborn.tiles.storage.TileAdjustableSU;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -133,6 +133,7 @@ public class CTFusionReactor {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private static class RemoveBottomInput implements IAction {
 		private final IIngredient output;
 		List<FusionReactorRecipe> removedRecipes = new ArrayList<FusionReactorRecipe>();

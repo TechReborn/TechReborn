@@ -59,7 +59,6 @@ public class RenderNukePrimed extends Render<EntityNukePrimed> {
 			float f1 = 1.0F + f * 0.3F;
 			GlStateManager.scale(f1, f1, f1);
 		}
-		float f2 = (1.0F - ((float) entity.fuse - partialTicks + 1.0F) / 100.0F) * 0.8F;
 		this.bindEntityTexture(entity);
 		GlStateManager.translate(-0.5F, -0.5F, 0.5F);
 		blockrendererdispatcher.renderBlockBrightness(ModBlocks.NUKE.getDefaultState(),

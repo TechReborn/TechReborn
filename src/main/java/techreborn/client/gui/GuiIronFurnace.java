@@ -28,7 +28,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.client.resources.I18n;
 import techreborn.tiles.TileIronFurnace;
 
 public class GuiIronFurnace extends GuiContainer {
@@ -69,10 +69,10 @@ public class GuiIronFurnace extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(final int p_146979_1_, final int p_146979_2_) {
-		final String name = I18n.translateToLocal("tile.techreborn:iron_furnace.name");
+		final String name = I18n.format("tile.techreborn:iron_furnace.name");
 		this.fontRenderer.drawString(name, this.xSize / 2 - this.fontRenderer.getStringWidth(name) / 2, 6,
 			4210752);
-		this.fontRenderer.drawString(I18n.translateToLocalFormatted("container.inventory", new Object[0]), 8,
+		this.fontRenderer.drawString(I18n.format("container.inventory", new Object[0]), 8,
 			this.ySize - 96 + 2, 4210752);
 	}
 

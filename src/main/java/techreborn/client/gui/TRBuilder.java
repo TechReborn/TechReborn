@@ -31,7 +31,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.client.config.GuiUtils;
 import net.minecraftforge.fml.common.Loader;
@@ -280,7 +280,7 @@ public class TRBuilder extends GuiBuilder {
 		GuiUtils.drawGradientRect(0, x, y + 68, x + 176, y + 70 + 20, 0xC0000000, 0x00000000);
 		GlStateManager.colorMask(true, true, true, true);
 		GlStateManager.enableDepth();
-		gui.drawCentredString(I18n.translateToLocal("techreborn.message.missingmultiblock"), 43, 0xFFFFFF, layer);
+		gui.drawCentredString(I18n.format("techreborn.message.missingmultiblock"), 43, 0xFFFFFF, layer);
 	}
 
 	public void drawBigBlueBar(GuiBase gui, int x, int y, int value, int max, int mouseX, int mouseY, GuiBase.Layer layer) {
