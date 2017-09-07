@@ -47,7 +47,7 @@ public class TileWaterMill extends TilePowerAcceptor implements IToolDrop {
 	@ConfigRegistry(config = "machines", category = "water_mill", key = "WaterMillMaxEnergy", comment = "Water Mill Max Energy (Value in EU)")
 	public static int maxEnergy = 1000;
 	@ConfigRegistry(config = "machines", category = "water_mill", key = "WaterMillEnergyPerTick", comment = "Water Mill Energy Multiplier")
-	public static int energyMultiplier = 1;
+	public static double energyMultiplier = 0.1;
 
 	int waterblocks = 0;
 
@@ -56,8 +56,8 @@ public class TileWaterMill extends TilePowerAcceptor implements IToolDrop {
 	}
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
+	public void update() {
+		super.update();
 		if (this.world.getTotalWorldTime() % 20 == 0) {
 			this.checkForWater();
 		}
