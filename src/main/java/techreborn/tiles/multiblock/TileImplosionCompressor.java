@@ -25,6 +25,8 @@
 package techreborn.tiles.multiblock;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -40,10 +42,12 @@ import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
+import techreborn.tiles.TileRollingMachine;
 
 public class TileImplosionCompressor extends TilePowerAcceptor
 	implements IToolDrop, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
 
+	public final InventoryCrafting craftMatrix = new InventoryCrafting(new ImplosionCompressorTileContainer(), 3, 3);
 	public Inventory inventory = new Inventory(4, "TileImplosionCompressor", 64, this);
 	public MultiblockChecker multiblockChecker;
 	public RecipeCrafter crafter;
@@ -153,9 +157,18 @@ public class TileImplosionCompressor extends TilePowerAcceptor
 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("implosioncompressor").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-			.addInventory().tile(this).slot(0, 37, 26).slot(1, 37, 44).outputSlot(2, 93, 35).outputSlot(3, 111, 35)
+		return new ContainerBuilder("implosioncompressor").player(player.inventory).inventory().hotbar()
+			.addInventory().tile(this).slot(0, 50, 27).slot(1, 50, 47).outputSlot(2, 92, 36).outputSlot(3, 110, 36)
 			.syncEnergyValue().syncCrafterValue().addInventory().create();
+	}
+
+	private static class ImplosionCompressorTileContainer extends Container {
+
+		@Override
+		public boolean canInteractWith(final EntityPlayer entityplayer) {
+			return true;
+		}
+
 	}
 
 }

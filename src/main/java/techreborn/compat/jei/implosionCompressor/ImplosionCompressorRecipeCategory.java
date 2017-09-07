@@ -29,6 +29,8 @@ import mezz.jei.api.gui.*;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeCategory;
 import net.minecraft.client.Minecraft;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 import techreborn.client.gui.GuiImplosionCompressor;
 import techreborn.compat.jei.RecipeCategoryUids;
@@ -38,18 +40,15 @@ import techreborn.lib.ModInfo;
 import javax.annotation.Nonnull;
 
 public class ImplosionCompressorRecipeCategory extends BlankRecipeCategory<ImplosionCompressorRecipeWrapper> {
+    public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/jei.png");
 	private static final int[] INPUT_SLOTS = { 0, 1 };
 	private static final int[] OUTPUT_SLOTS = { 2, 3 };
 
 	private final IDrawable background;
-	private final IDrawable electricity;
 	private final String title;
 
 	public ImplosionCompressorRecipeCategory(IGuiHelper guiHelper) {
-		background = guiHelper.createDrawable(GuiImplosionCompressor.texture, 16, 25, 116, 36);
-		IDrawableStatic electricityDrawable = guiHelper.createDrawable(GuiImplosionCompressor.texture, 176, 0, 14, 14);
-		electricity = guiHelper.createAnimatedDrawable(electricityDrawable, 300, IDrawableAnimated.StartDirection.TOP,
-			true);
+		background = guiHelper.createDrawable(texture, 0, 95, 120, 42);
 		title = I18n.translateToLocal("tile.techreborn:implosion_compressor.name");
 	}
 
@@ -77,12 +76,6 @@ public class ImplosionCompressorRecipeCategory extends BlankRecipeCategory<Implo
 	}
 
 	@Override
-	public void drawExtras(Minecraft minecraft) {
-		super.drawExtras(minecraft);
-		electricity.draw(minecraft, 0, 12);
-	}
-
-	@Override
 	public void setRecipe(
 		@Nonnull
 			IRecipeLayout recipeLayout,
@@ -91,11 +84,11 @@ public class ImplosionCompressorRecipeCategory extends BlankRecipeCategory<Implo
 		@Nonnull
 			IIngredients ingredients) {
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
-		guiItemStacks.init(INPUT_SLOTS[0], true, 20, 0);
-		guiItemStacks.init(INPUT_SLOTS[1], true, 20, 18);
+		guiItemStacks.init(INPUT_SLOTS[0], true, 21, 2);
+		guiItemStacks.init(INPUT_SLOTS[1], true, 21, 22);
 
-		guiItemStacks.init(OUTPUT_SLOTS[0], false, 76, 9);
-		guiItemStacks.init(OUTPUT_SLOTS[1], false, 94, 9);
+		guiItemStacks.init(OUTPUT_SLOTS[0], false, 63, 11);
+		guiItemStacks.init(OUTPUT_SLOTS[1], false, 81, 11);
 
 		RecipeUtil.setRecipeItems(recipeLayout, ingredients, INPUT_SLOTS, OUTPUT_SLOTS, null, null);
 	}
