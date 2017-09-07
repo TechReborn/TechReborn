@@ -93,6 +93,7 @@ public class BlockRubberLog extends Block {
 		return this.getDefaultState().withProperty(SAP_SIDE, facing).withProperty(HAS_SAP, hasSap);
 	}
 
+	@SuppressWarnings({ "incomplete-switch" })
 	@Override
 	public int getMetaFromState(IBlockState state) {
 		int tempMeta = 0;

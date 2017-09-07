@@ -16,7 +16,7 @@
       "transform": "forge:default-block",
       "model": "orientable",
       "textures": {
-        "front": "techreborn:blocks/machines/tier0_machines/computer_cube_front"
+        "front": "techreborn:blocks/machines/tier2_machines/computer_cube_front"
       }
     },
     "facing": {

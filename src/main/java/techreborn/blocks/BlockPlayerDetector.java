@@ -40,7 +40,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -53,7 +53,6 @@ import reborncore.common.blocks.PropertyString;
 import reborncore.common.util.ArrayUtils;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.StringUtils;
-import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
 import techreborn.lib.MessageIDs;
@@ -158,7 +157,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
 		world.setBlockState(pos, state.withProperty(TYPE, newType));
 		if (world.isRemote) {
 			ChatUtils.sendNoSpamMessages(MessageIDs.playerDetectorID, new TextComponentString(
-				TextFormatting.GRAY + I18n.translateToLocal("techreborn.message.detects") + " " + color
+				TextFormatting.GRAY + I18n.format("techreborn.message.detects") + " " + color
 					+ StringUtils.toFirstCapital(newType)));
 		}
 		return true;

@@ -6,9 +6,11 @@
     "model": "cube_all"
   },
   "variants": {
-    "inventory": [
-      {}
-    ],
+    "inventory": {
+      "transform": "forge:default-block",
+      "model": "orientable",
+      "textures": {}
+    },
     "type": {
       "all": {
         "textures": {

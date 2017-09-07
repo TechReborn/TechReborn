@@ -33,7 +33,6 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
-import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 
 public class BlockSupercondensator extends BlockMachineBase {

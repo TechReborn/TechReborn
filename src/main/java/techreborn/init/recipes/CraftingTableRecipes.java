@@ -144,7 +144,9 @@ public class CraftingTableRecipes extends RecipeMethods {
 		registerShaped(getStack(ModBlocks.FUSION_COIL), "CSC", "NAN", "CRC", 'A', getStack(ModBlocks.MACHINE_CASINGS, 1, 2), 'N', getMaterial("nichromeHeatingCoil", Type.PART), 'C', "circuitMaster", 'S', getMaterial("superConductor", Type.PART), 'R', getMaterial("iridiumNeutronReflector", Type.PART));
 		registerShaped(getStack(ModBlocks.DIGITAL_CHEST), "PPP", "PDP", "PCP", 'P', "plateAluminum",  'D', getMaterial("data_orb", Type.PART), 'C', getMaterial("computer_monitor", Type.PART));
 		registerShaped(getStack(ModBlocks.DIGITAL_CHEST), "PPP", "PDP", "PCP", 'P', "plateSteel",  'D', getMaterial("data_orb", Type.PART), 'C', getMaterial("computer_monitor", Type.PART));
-		registerShaped(getStack(ModBlocks.MATTER_FABRICATOR),  "ETE", "AOA", "ETE", 'E', "circuitMaster", 'T', getStack(IC2Duplicates.EXTRACTOR), 'A', getMaterial("highly_advanced_machine", Type.MACHINE_FRAME), 'O', getStack(ModItems.LAPOTRONIC_ORB));
+		registerShaped(getStack(ModBlocks.MATTER_FABRICATOR), "ETE", "AOA", "ETE", 'E', "circuitMaster", 'T', getStack(IC2Duplicates.EXTRACTOR), 'A', getMaterial("highly_advanced_machine", Type.MACHINE_FRAME), 'O', getStack(ModItems.LAPOTRONIC_ORB));
+		registerShaped(getStack(ModBlocks.COMPUTER_CUBE), "OMC", "MFM", "CMO", 'O', getMaterial("data_orb", Type.PART), 'M', getMaterial("computer_monitor", Type.PART), 'C', getMaterial("energy_flow_circuit", Type.PART), 'F', "machineBlockAdvanced");
+		registerShaped(getStack(ModBlocks.PLAYER_DETECTOR, true), " D ", "CFC", " D ", 'D', getMaterial("data_storage_circuit", Type.PART), 'C', "circuitAdvanced", 'F',  getStack(ModBlocks.COMPUTER_CUBE));
 
 		if (!IC2Duplicates.deduplicate()) {
 			registerShaped(getStack(IC2Duplicates.HVT), " H ", " M ", " H ", 'M', getStack(IC2Duplicates.MVT), 'H', getStack(IC2Duplicates.CABLE_IHV));
