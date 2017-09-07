@@ -77,13 +77,13 @@ public class TilePlayerDectector extends TilePowerAcceptor {
 	}
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
+	public void update() {
+		super.update();
 		if (!world.isRemote && world.getWorldTime() % 20 == 0) {
 			boolean lastRedstone = redstone;
 			redstone = false;
 			if (canUseEnergy(10)) {
-				Iterator tIterator = super.world.playerEntities.iterator();
+				Iterator<EntityPlayer> tIterator = super.world.playerEntities.iterator();
 				while (tIterator.hasNext()) {
 					EntityPlayer player = (EntityPlayer) tIterator.next();
 					if (player.getDistanceSq((double) super.getPos().getX() + 0.5D,
@@ -101,7 +101,6 @@ public class TilePlayerDectector extends TilePowerAcceptor {
 								redstone = true;
 							}
 						}
-						redstone = true;
 					}
 				}
 				useEnergy(10);
