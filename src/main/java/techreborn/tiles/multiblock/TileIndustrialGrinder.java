@@ -278,7 +278,7 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IToolDro
 		return new ContainerBuilder("industrialgrinder").player(player.inventory).inventory().hotbar()
 			.addInventory().tile(this).slot(1, 34, 35).slot(0, 84, 43).outputSlot(2, 126, 18).outputSlot(3, 126, 36)
 			.outputSlot(4, 126, 54).outputSlot(5, 126, 72).outputSlot(6, 34, 55).syncEnergyValue().syncCrafterValue().addInventory()
-			.create();
+			.create(this);
 	}
 
 }

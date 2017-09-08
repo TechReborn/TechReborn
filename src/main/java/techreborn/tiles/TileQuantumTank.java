@@ -158,6 +158,6 @@ public class TileQuantumTank extends TileLegacyMachineBase
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("quantumtank").player(player.inventory).inventory(8, 84).hotbar(8, 142)
 			.addInventory().tile(this).fluidSlot(0, 80, 17).outputSlot(1, 80, 53).fakeSlot(2, 59, 42).addInventory()
-			.create();
+			.create(this);
 	}
 }

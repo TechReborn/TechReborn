@@ -70,6 +70,6 @@ public class TileGasTurbine extends TileBaseFluidGenerator implements IContainer
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("gasturbine").player(player.inventory).inventory().hotbar()
 			.addInventory().tile(this).slot(0, 25, 35).outputSlot(1, 25, 55).syncEnergyValue()
-			.addInventory().create();
+			.addInventory().create(this);
 	}
 }

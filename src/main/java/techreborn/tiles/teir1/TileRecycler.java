@@ -200,7 +200,7 @@ public class TileRecycler extends TilePowerAcceptor implements IToolDrop, IInven
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("recycler").player(player.inventory).inventory().hotbar().addInventory()
 			.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).syncEnergyValue()
-			.syncIntegerValue(this::getProgress, this::setProgress).addInventory().create();
+			.syncIntegerValue(this::getProgress, this::setProgress).addInventory().create(this);
 	}
 
 	//TODO make this so
