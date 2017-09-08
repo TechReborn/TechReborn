@@ -24,7 +24,6 @@
 
 package techreborn.client.container.builder;
 
-import ic2.core.energy.grid.Tile;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
@@ -103,7 +102,7 @@ public class BuiltContainer extends Container {
 		if(this.tile != null) {
 			return tile.isUsableByPlayer(playerIn);
 		} else {
-			return this.canInteract.test(playerIn); // <- What does this thing do ?
+			return this.canInteract.test(playerIn); // <
 		}
 	}
 
