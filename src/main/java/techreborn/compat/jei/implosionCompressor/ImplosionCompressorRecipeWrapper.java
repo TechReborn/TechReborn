@@ -40,15 +40,15 @@ public class ImplosionCompressorRecipeWrapper extends BaseRecipeWrapper<Implosio
 	private final IDrawableAnimated progress;
 
 	public ImplosionCompressorRecipeWrapper(
-		@Nonnull
-			IJeiHelpers jeiHelpers,
-		@Nonnull
-			ImplosionCompressorRecipe baseRecipe) {
+			@Nonnull
+					IJeiHelpers jeiHelpers,
+			@Nonnull
+					ImplosionCompressorRecipe baseRecipe) {
 		super(baseRecipe);
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
-        IDrawableStatic progressStatic = guiHelper.createDrawable(TRBuilder.GUI_SHEET, 100, 151, 16, 10);
+		IDrawableStatic progressStatic = guiHelper.createDrawable(TRBuilder.GUI_SHEET, 100, 151, 16, 10);
 		this.progress = guiHelper.createAnimatedDrawable(progressStatic, baseRecipe.tickTime(),
-			IDrawableAnimated.StartDirection.LEFT, false);
+				IDrawableAnimated.StartDirection.LEFT, false);
 	}
 
 	@Override

@@ -57,86 +57,86 @@ public class GuiImplosionCompressor extends GuiBase {
 	@Override
 	public void initGui() {
 		super.initGui();
-        ClientProxy.multiblockRenderEvent.setMultiblock(null);
+		ClientProxy.multiblockRenderEvent.setMultiblock(null);
 	}
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
-	    super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
+		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
 
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		final GuiBase.Layer layer = Layer.BACKGROUND;
 
 		drawSlot(50, 27, layer);
-		drawSlot(50,47,layer);
-		drawSlot(92,36,layer);
-		drawSlot(110,36,layer);
+		drawSlot(50, 47, layer);
+		drawSlot(92, 36, layer);
+		drawSlot(110, 36, layer);
 
-		if(tile.getMutliBlock()) {
-            builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
-        }
+		if (tile.getMutliBlock()) {
+			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
+		}
 
-        this.builder.drawJEIButton(this, 150, 4, layer);
+		this.builder.drawJEIButton(this, 150, 4, layer);
 	}
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
-	    super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-	    final GuiBase.Layer layer = Layer.FOREGROUND;
+		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+		final GuiBase.Layer layer = Layer.FOREGROUND;
 
-	    this.builder.drawProgressBar(this, this.tile.getProgressScaled(100), 100, 71, 40, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
-        this.builder.drawMultiEnergyBar(this, 9, 19, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
-	    if(tile.getMutliBlock()){
-            addHologramButton(6, 4, 212, layer);
-        } else {
-            builder.drawMultiblockMissingBar(this, layer);
-            addHologramButton(76, 56, 212, layer);
-            builder.drawHologramButton(this, 76, 56, mouseX, mouseY, layer);
-        }
+		this.builder.drawProgressBar(this, this.tile.getProgressScaled(100), 100, 71, 40, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
+		this.builder.drawMultiEnergyBar(this, 9, 19, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		if (tile.getMutliBlock()) {
+			addHologramButton(6, 4, 212, layer);
+		} else {
+			builder.drawMultiblockMissingBar(this, layer);
+			addHologramButton(76, 56, 212, layer);
+			builder.drawHologramButton(this, 76, 56, mouseX, mouseY, layer);
+		}
 	}
 
-    public void addHologramButton(int x, int y, int id, Layer layer) {
-        if (id == 0)
-            buttonList.clear();
-        int factorX = 0;
-        int factorY = 0;
-        if (layer == Layer.BACKGROUND) {
-            factorX = guiLeft;
-            factorY = guiTop;
-        }
-        buttonList.add(new GuiButtonHologram(id, x + factorX, y + factorY, this, layer));
-    }
+	public void addHologramButton(int x, int y, int id, Layer layer) {
+		if (id == 0)
+			buttonList.clear();
+		int factorX = 0;
+		int factorY = 0;
+		if (layer == Layer.BACKGROUND) {
+			factorX = guiLeft;
+			factorY = guiTop;
+		}
+		buttonList.add(new GuiButtonHologram(id, x + factorX, y + factorY, this, layer));
+	}
 
-    @Override
-    public void actionPerformed(final GuiButton button) throws IOException {
-        super.actionPerformed(button);
-        if (button.id == 212) {
-            if (ClientProxy.multiblockRenderEvent.currentMultiblock == null) {
-                {
-                    // This code here makes a basic multiblock and then sets to the selected one.
-                    final Multiblock multiblock = new Multiblock();
-                    for(int x = -1; x <= 1; x++) {
-                        for(int y = -4; y <= -2; y++) {
-                            for(int z = -1; z <= 1; z++) {
-                                if(!((x == 0) && (y == -3) && (z == 0))) {
-                                    this.addComponent(x, y, z, ModBlocks.MACHINE_CASINGS.getStateFromMeta(1), multiblock);
-                                }
-                            }
-                        }
-                    }
+	@Override
+	public void actionPerformed(final GuiButton button) throws IOException {
+		super.actionPerformed(button);
+		if (button.id == 212) {
+			if (ClientProxy.multiblockRenderEvent.currentMultiblock == null) {
+				{
+					// This code here makes a basic multiblock and then sets to the selected one.
+					final Multiblock multiblock = new Multiblock();
+					for (int x = -1; x <= 1; x++) {
+						for (int y = -4; y <= -2; y++) {
+							for (int z = -1; z <= 1; z++) {
+								if (!((x == 0) && (y == -3) && (z == 0))) {
+									this.addComponent(x, y, z, ModBlocks.MACHINE_CASINGS.getStateFromMeta(1), multiblock);
+								}
+							}
+						}
+					}
 
-                    final MultiblockSet set = new MultiblockSet(multiblock);
-                    ClientProxy.multiblockRenderEvent.setMultiblock(set);
-                    ClientProxy.multiblockRenderEvent.parent = new Location(this.tile.getPos().getX(), this.tile.getPos().getY(), this.tile.getPos().getZ(), this.tile.getWorld());
-                    MultiblockRenderEvent.anchor = new BlockPos(this.tile.getPos().getX(), this.tile.getPos().getY(), this.tile.getPos().getZ());
-                }
-            } else {
-                ClientProxy.multiblockRenderEvent.setMultiblock(null);
-            }
-        }
-    }
+					final MultiblockSet set = new MultiblockSet(multiblock);
+					ClientProxy.multiblockRenderEvent.setMultiblock(set);
+					ClientProxy.multiblockRenderEvent.parent = new Location(this.tile.getPos().getX(), this.tile.getPos().getY(), this.tile.getPos().getZ(), this.tile.getWorld());
+					MultiblockRenderEvent.anchor = new BlockPos(this.tile.getPos().getX(), this.tile.getPos().getY(), this.tile.getPos().getZ());
+				}
+			} else {
+				ClientProxy.multiblockRenderEvent.setMultiblock(null);
+			}
+		}
+	}
 
-    public void addComponent(final int x, final int y, final int z, final IBlockState blockState, final Multiblock multiblock) {
-        multiblock.addComponent(new BlockPos(x, y, z), blockState);
-    }
+	public void addComponent(final int x, final int y, final int z, final IBlockState blockState, final Multiblock multiblock) {
+		multiblock.addComponent(new BlockPos(x, y, z), blockState);
+	}
 }

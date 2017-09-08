@@ -40,9 +40,9 @@ import techreborn.lib.ModInfo;
 import javax.annotation.Nonnull;
 
 public class ImplosionCompressorRecipeCategory extends BlankRecipeCategory<ImplosionCompressorRecipeWrapper> {
-    public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/jei.png");
-	private static final int[] INPUT_SLOTS = { 0, 1 };
-	private static final int[] OUTPUT_SLOTS = { 2, 3 };
+	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/jei.png");
+	private static final int[] INPUT_SLOTS = {0, 1};
+	private static final int[] OUTPUT_SLOTS = {2, 3};
 
 	private final IDrawable background;
 	private final String title;
@@ -77,12 +77,12 @@ public class ImplosionCompressorRecipeCategory extends BlankRecipeCategory<Implo
 
 	@Override
 	public void setRecipe(
-		@Nonnull
-			IRecipeLayout recipeLayout,
-		@Nonnull
-			ImplosionCompressorRecipeWrapper recipeWrapper,
-		@Nonnull
-			IIngredients ingredients) {
+			@Nonnull
+					IRecipeLayout recipeLayout,
+			@Nonnull
+					ImplosionCompressorRecipeWrapper recipeWrapper,
+			@Nonnull
+					IIngredients ingredients) {
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
 		guiItemStacks.init(INPUT_SLOTS[0], true, 21, 2);
 		guiItemStacks.init(INPUT_SLOTS[1], true, 21, 22);
