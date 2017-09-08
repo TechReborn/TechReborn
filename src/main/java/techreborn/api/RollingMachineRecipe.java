@@ -86,7 +86,7 @@ public class RollingMachineRecipe {
 				s = (new StringBuilder()).append(s).append(s1).toString();
 			}
 		}
-		HashMap hashmap = new HashMap();
+		HashMap<Character, ItemStack> hashmap = new HashMap<Character, ItemStack>();
 		for (; i < components.length; i += 2) {
 			Character character = (Character) components[i];
 			ItemStack itemstack1 = null;

@@ -85,7 +85,7 @@ public class BlockStorage extends BaseBlock {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(CreativeTabs creativeTabs, NonNullList list) {
+	public void getSubBlocks(CreativeTabs creativeTabs, NonNullList<ItemStack> list) {
 		for (int meta = 0; meta < types.length; meta++) {
 			list.add(new ItemStack(this, 1, meta));
 		}

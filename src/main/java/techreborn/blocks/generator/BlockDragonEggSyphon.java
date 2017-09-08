@@ -24,21 +24,15 @@
 
 package techreborn.blocks.generator;
 
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
-import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.generator.TileDragonEggSyphon;
-
-import java.util.List;
 
 public class BlockDragonEggSyphon extends BlockMachineBase {
 
@@ -51,13 +45,6 @@ public class BlockDragonEggSyphon extends BlockMachineBase {
 	@Override
 	public TileEntity createNewTileEntity(World world, int p_149915_2_) {
 		return new TileDragonEggSyphon();
-	}
-
-	@Override
-	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag) {
-		tooltip.add(TextFormatting.RED + "WIP Coming Soon");
-		//TODO Finish Dragon Egg Siphoner and add recipe
-		//Remember to remove WIP override and imports once complete
 	}
 
 	@Override

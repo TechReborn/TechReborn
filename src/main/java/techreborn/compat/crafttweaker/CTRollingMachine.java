@@ -24,11 +24,8 @@
 
 package techreborn.compat.crafttweaker;
 
-import crafttweaker.CraftTweakerAPI;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
-import crafttweaker.api.oredict.IOreDictEntry;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import reborncore.common.util.ItemUtils;
@@ -66,67 +63,12 @@ public class CTRollingMachine {
 			RollingMachineRecipe.instance.getRecipeList().remove(resourceLocation);
 		}
 	}
-
-	public static ItemStack toStack(IItemStack iStack) {
-		if (iStack == null)
-			return null;
-		else {
-			Object internal = iStack.getInternal();
-			if (internal == null || !(internal instanceof ItemStack)) {
-				CraftTweakerAPI.getLogger().logError("Not a valid item stack: " + iStack);
-			}
-
-			return (ItemStack) internal;
-		}
-	}
-
-	public static ItemStack[] toStacks(IItemStack[] iStack) {
-		if (iStack == null)
-			return null;
-		else {
-			ItemStack[] output = new ItemStack[iStack.length];
-			for (int i = 0; i < iStack.length; i++) {
-				output[i] = toStack(iStack[i]);
-			}
-
-			return output;
-		}
-	}
-
-	public static Object toObject(IIngredient iStack) {
-		if (iStack == null)
-			return null;
-		else {
-			if (iStack instanceof IOreDictEntry) {
-				return toString((IOreDictEntry) iStack);
-			} else if (iStack instanceof IItemStack) {
-				return toStack((IItemStack) iStack);
-			} else
-				return null;
-		}
-	}
-
-	public static Object[] toObjects(IIngredient[] ingredient) {
-		if (ingredient == null)
-			return null;
-		else {
-			Object[] output = new Object[ingredient.length];
-			for (int i = 0; i < ingredient.length; i++) {
-				if (ingredient[i] != null) {
-					output[i] = toObject(ingredient[i]);
-				} else
-					output[i] = "";
-			}
-
-			return output;
-		}
-	}
-
+	
 	public static Object[] toShapedObjects(IIngredient[][] ingredients) {
 		if (ingredients == null)
 			return null;
 		else {
-			ArrayList prep = new ArrayList();
+			ArrayList<Object> prep = new ArrayList<Object>();
 			prep.add("abc");
 			prep.add("def");
 			prep.add("ghi");
@@ -136,16 +78,12 @@ public class CTRollingMachine {
 					for (int y = 0; y < ingredients[x].length; y++) {
 						if (ingredients[x][y] != null && x < map.length && y < map[x].length) {
 							prep.add(map[x][y]);
-							prep.add(toObject(ingredients[x][y]));
+							prep.add(CraftTweakerCompat.toObject(ingredients[x][y]));
 						}
 					}
 				}
 			}
 			return prep.toArray();
 		}
-	}
-
-	public static String toString(IOreDictEntry entry) {
-		return ((IOreDictEntry) entry).getName();
 	}
 }

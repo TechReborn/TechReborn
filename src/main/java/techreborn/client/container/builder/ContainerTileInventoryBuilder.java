@@ -86,7 +86,6 @@ public class ContainerTileInventoryBuilder {
 		return this;
 	}
 
-	@SuppressWarnings("null")
 	public ContainerTileInventoryBuilder energySlot(final int index, final int x, final int y) {
 		this.parent.slots.add(new FilteredSlot(this.tile, index, x, y)
 			.setFilter(stack -> stack.hasCapability(CapabilityEnergy.ENERGY, EnumFacing.UP)
@@ -94,7 +93,6 @@ public class ContainerTileInventoryBuilder {
 		return this;
 	}
 
-	@SuppressWarnings("null")
 	public ContainerTileInventoryBuilder fluidSlot(final int index, final int x, final int y) {
 		this.parent.slots.add(new FilteredSlot(this.tile, index, x, y).setFilter(
 			stack -> stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, EnumFacing.UP)));
