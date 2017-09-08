@@ -217,6 +217,6 @@ public class TileScrapboxinator extends TilePowerAcceptor
 			.addInventory().tile(this).filterSlot(0, 56, 34, stack -> stack.getItem() == ModItems.SCRAP_BOX)
 			.outputSlot(1, 116, 35).upgradeSlot(2, 152, 8).upgradeSlot(3, 152, 26).upgradeSlot(4, 152, 44)
 			.upgradeSlot(5, 152, 62).syncEnergyValue().syncIntegerValue(this::getProgress, this::setProgress)
-			.addInventory().create();
+			.addInventory().create(this);
 	}
 }

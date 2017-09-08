@@ -183,6 +183,6 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor
 			.filterSlot(1, 50, 51, stack -> ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true))
 			.filterSlot(0, 80, 51, stack -> !ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true))
 			.outputSlot(2, 50, 19).outputSlot(3, 70, 19).outputSlot(4, 90, 19).outputSlot(5, 110, 19)
-			.energySlot(6, 18, 51).syncEnergyValue().syncCrafterValue().addInventory().create();
+			.energySlot(6, 18, 51).syncEnergyValue().syncCrafterValue().addInventory().create(this);
 	}
 }

@@ -188,7 +188,7 @@ public class TileIndustrialCentrifuge extends TilePowerAcceptor
 		return new ContainerBuilder("centrifuge").player(player.inventory).inventory().hotbar()
 			.addInventory().tile(this).slot(0, 40, 34).slot(1, 40, 54).outputSlot(2, 82, 44).outputSlot(3, 101, 25)
 			.outputSlot(4, 120, 44).outputSlot(5, 101, 63).energySlot(6, 8, 72).syncEnergyValue()
-			.syncCrafterValue().addInventory().create();
+			.syncCrafterValue().addInventory().create(this);
 	}
 
 }

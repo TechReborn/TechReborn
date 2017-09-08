@@ -187,6 +187,6 @@ public class TileAlloySmelter extends TilePowerAcceptor
 						&& ItemUtils.isInputEqual(recipe.getInputs().get(1), stack, true, true, true)))
 			.outputSlot(2, 116, 35).energySlot(3, 56, 53).upgradeSlot(4, 152, 8).upgradeSlot(5, 152, 26)
 			.upgradeSlot(6, 152, 44).upgradeSlot(7, 152, 62).syncEnergyValue().syncCrafterValue().addInventory()
-			.create();
+			.create(this);
 	}
 }

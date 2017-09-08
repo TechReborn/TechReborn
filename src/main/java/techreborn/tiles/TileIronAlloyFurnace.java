@@ -352,6 +352,6 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 						&& ItemUtils.isInputEqual(recipe.getInputs().get(1), stack, true, true, true)))
 			.outputSlot(2, 116, 35).fuelSlot(3, 56, 53).syncIntegerValue(this::getBurnTime, this::setBurnTime)
 			.syncIntegerValue(this::getCookTime, this::setCookTime)
-			.syncIntegerValue(this::getCurrentItemBurnTime, this::setCurrentItemBurnTime).addInventory().create();
+			.syncIntegerValue(this::getCurrentItemBurnTime, this::setCurrentItemBurnTime).addInventory().create(this);
 	}
 }

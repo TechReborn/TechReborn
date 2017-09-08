@@ -179,7 +179,7 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDr
 		return new ContainerBuilder("generator").player(player.inventory).inventory().hotbar().addInventory()
 			.tile(this).fuelSlot(0, 80, 54).energySlot(1, 8, 72).syncEnergyValue()
 			.syncIntegerValue(this::getBurnTime, this::setBurnTime)
-			.syncIntegerValue(this::getTotalBurnTime, this::setTotalBurnTime).addInventory().create();
+			.syncIntegerValue(this::getTotalBurnTime, this::setTotalBurnTime).addInventory().create(this);
 	}
 
 	@Override

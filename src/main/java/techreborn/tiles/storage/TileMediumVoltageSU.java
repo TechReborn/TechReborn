@@ -48,7 +48,7 @@ public class TileMediumVoltageSU extends TileEnergyStorage implements IContainer
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("mfe").player(player.inventory).inventory().hotbar().armor()
 			.complete(8, 18).addArmor().addInventory().tile(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
-			.syncEnergyValue().addInventory().create();
+			.syncEnergyValue().addInventory().create(this);
 	}
 
 }

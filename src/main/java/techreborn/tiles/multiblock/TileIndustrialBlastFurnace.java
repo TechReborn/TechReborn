@@ -234,6 +234,6 @@ public class TileIndustrialBlastFurnace extends TilePowerAcceptor implements ITo
 		return new ContainerBuilder("blastfurnace").player(player.inventory).inventory().hotbar()
 			.addInventory().tile(this).slot(0, 50, 27).slot(1, 50, 47).outputSlot(2, 92, 36).outputSlot(3, 110, 36)
 			.syncEnergyValue().syncCrafterValue().syncIntegerValue(this::getHeat, this::setHeat).addInventory()
-			.create();
+			.create(this);
 	}
 }

@@ -296,7 +296,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 			.outputSlot(9, 145, 42).syncEnergyValue()
 			.syncIntegerValue(this::getProgress, this::setProgress)
 			.syncIntegerValue(this::getMaxProgress, this::setMaxProgress)
-			.addInventory().create();
+			.addInventory().create(this);
 	}
 
 	@Override

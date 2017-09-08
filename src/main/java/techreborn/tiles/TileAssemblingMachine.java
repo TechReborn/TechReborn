@@ -156,6 +156,6 @@ public class TileAssemblingMachine extends TilePowerAcceptor
 		return new ContainerBuilder("assemblingmachine").player(player.inventory).inventory(8, 84).hotbar(8, 142)
 			.addInventory().tile(this).slot(0, 47, 17).slot(1, 65, 17).outputSlot(2, 116, 35).energySlot(3, 56, 53)
 			.upgradeSlot(4, 152, 8).upgradeSlot(5, 152, 26).upgradeSlot(6, 152, 44).upgradeSlot(7, 152, 62)
-			.syncEnergyValue().syncCrafterValue().addInventory().create();
+			.syncEnergyValue().syncCrafterValue().addInventory().create(this);
 	}
 }

@@ -253,7 +253,7 @@ public class TechRebornJeiPlugin extends BlankModPlugin {
 		registry.addRecipeClickArea(GuiAlloySmelter.class, 80, 35, 26, 20, RecipeCategoryUids.ALLOY_SMELTER);
 		registry.addRecipeClickArea(GuiAssemblingMachine.class, 85, 34, 24, 20, RecipeCategoryUids.ASSEMBLING_MACHINE);
 		registry.addRecipeClickArea(GuiFusionReactor.class, 111, 34, 27, 19, RecipeCategoryUids.FUSION_REACTOR);
-		registry.addRecipeClickArea(GuiImplosionCompressor.class, 60, 37, 24, 15,
+		registry.addRecipeClickArea(GuiImplosionCompressor.class, 150, 4, 20, 12,
 			RecipeCategoryUids.IMPLOSION_COMPRESSOR);
 		registry.addRecipeClickArea(GuiIndustrialElectrolyzer.class, 72, 37, 33, 14,
 			RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER);

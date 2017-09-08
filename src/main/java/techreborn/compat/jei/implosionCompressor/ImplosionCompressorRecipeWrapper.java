@@ -31,6 +31,7 @@ import mezz.jei.api.gui.IDrawableStatic;
 import net.minecraft.client.Minecraft;
 import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
 import techreborn.client.gui.GuiImplosionCompressor;
+import techreborn.client.gui.TRBuilder;
 import techreborn.compat.jei.BaseRecipeWrapper;
 
 import javax.annotation.Nonnull;
@@ -39,24 +40,24 @@ public class ImplosionCompressorRecipeWrapper extends BaseRecipeWrapper<Implosio
 	private final IDrawableAnimated progress;
 
 	public ImplosionCompressorRecipeWrapper(
-		@Nonnull
-			IJeiHelpers jeiHelpers,
-		@Nonnull
-			ImplosionCompressorRecipe baseRecipe) {
+			@Nonnull
+					IJeiHelpers jeiHelpers,
+			@Nonnull
+					ImplosionCompressorRecipe baseRecipe) {
 		super(baseRecipe);
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
-		IDrawableStatic progressStatic = guiHelper.createDrawable(GuiImplosionCompressor.texture, 176, 14, 21, 11);
+		IDrawableStatic progressStatic = guiHelper.createDrawable(TRBuilder.GUI_SHEET, 100, 151, 16, 10);
 		this.progress = guiHelper.createAnimatedDrawable(progressStatic, baseRecipe.tickTime(),
-			IDrawableAnimated.StartDirection.LEFT, false);
+				IDrawableAnimated.StartDirection.LEFT, false);
 	}
 
 	@Override
 	public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 		super.drawInfo(minecraft, recipeWidth, recipeHeight, mouseX, mouseY);
-		progress.draw(minecraft, 44, 13);
+		progress.draw(minecraft, 43, 16);
 
-		int x = -45;
-		int y = 4;
+		int x = -35;
+		int y = 13;
 		int lineHeight = minecraft.fontRenderer.FONT_HEIGHT;
 
 		minecraft.fontRenderer.drawString("Time: " + baseRecipe.tickTime / 20 + " s", x, y, 0x444444);

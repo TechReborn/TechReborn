@@ -45,7 +45,7 @@ public class TileDigitalChest extends TileTechStorageBase implements IContainerP
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("digitalchest").player(player.inventory).inventory().hotbar().addInventory()
-			.tile(this).slot(0, 80, 24).outputSlot(1, 80, 64).addInventory().create();
+			.tile(this).slot(0, 80, 24).outputSlot(1, 80, 64).addInventory().create(this);
 	}
 
 	@Override

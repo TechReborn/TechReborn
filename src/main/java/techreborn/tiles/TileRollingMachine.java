@@ -239,7 +239,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 			.onCraft(inv -> this.inventory.setInventorySlotContents(1,
 				RollingMachineRecipe.instance.findMatchingRecipe(inv, this.world)))
 			.addInventory().tile(this).outputSlot(0, 124, 35).energySlot(2, 8, 51).syncEnergyValue()
-			.syncIntegerValue(this::getBurnTime, this::setBurnTime).addInventory().create();
+			.syncIntegerValue(this::getBurnTime, this::setBurnTime).addInventory().create(this);
 	}
 
 	private static class RollingTileContainer extends Container {

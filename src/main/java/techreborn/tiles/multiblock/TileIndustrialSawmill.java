@@ -267,6 +267,6 @@ public class TileIndustrialSawmill extends TilePowerAcceptor
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("industrialsawmill").player(player.inventory).inventory(8, 84).hotbar(8, 142)
 			.addInventory().tile(this).slot(0, 32, 26).slot(1, 32, 44).outputSlot(2, 84, 35).outputSlot(3, 102, 35)
-			.outputSlot(4, 120, 35).syncEnergyValue().syncIntegerValue(this::getTickTime, this::setTickTime).addInventory().create();
+			.outputSlot(4, 120, 35).syncEnergyValue().syncIntegerValue(this::getTickTime, this::setTickTime).addInventory().create(this);
 	}
 }

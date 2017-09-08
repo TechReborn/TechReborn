@@ -233,7 +233,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 			.addInventory().tile(this).slot(0, 30, 20).slot(1, 50, 20).slot(2, 70, 20).slot(3, 90, 20)
 			.slot(4, 110, 20).slot(5, 130, 20).outputSlot(6, 40, 66).outputSlot(7, 60, 66).outputSlot(8, 80, 66)
 			.outputSlot(9, 100, 66).outputSlot(10, 120, 66).syncEnergyValue()
-			.syncIntegerValue(this::getProgress, this::setProgress).addInventory().create();
+			.syncIntegerValue(this::getProgress, this::setProgress).addInventory().create(this);
 	}
 
 	@Override

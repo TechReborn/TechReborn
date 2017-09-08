@@ -153,9 +153,9 @@ public class TileImplosionCompressor extends TilePowerAcceptor
 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("implosioncompressor").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-			.addInventory().tile(this).slot(0, 37, 26).slot(1, 37, 44).outputSlot(2, 93, 35).outputSlot(3, 111, 35)
-			.syncEnergyValue().syncCrafterValue().addInventory().create();
+		return new ContainerBuilder("implosioncompressor").player(player.inventory).inventory().hotbar()
+			.addInventory().tile(this).slot(0, 50, 27).slot(1, 50, 47).outputSlot(2, 92, 36).outputSlot(3, 110, 36)
+			.syncEnergyValue().syncCrafterValue().addInventory().create(this);
 	}
 
 }
