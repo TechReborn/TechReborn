@@ -365,6 +365,6 @@ public class TileFusionControlComputer extends TilePowerAcceptor implements IInv
 			.syncIntegerValue(this::getCoilStatus, this::setCoilStatus)
 			.syncIntegerValue(this::getCrafingTickTime, this::setCrafingTickTime)
 			.syncIntegerValue(this::getFinalTickTime, this::setFinalTickTime)
-			.syncIntegerValue(this::getNeededPower, this::setNeededPower).addInventory().create();
+			.syncIntegerValue(this::getNeededPower, this::setNeededPower).addInventory().create(this);
 	}
 }

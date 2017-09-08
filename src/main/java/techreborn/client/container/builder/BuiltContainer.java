@@ -24,6 +24,7 @@
 
 package techreborn.client.container.builder;
 
+import ic2.core.energy.grid.Tile;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
@@ -32,6 +33,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.Range;
 import org.apache.commons.lang3.tuple.MutableTriple;
 import org.apache.commons.lang3.tuple.Pair;
+import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.util.ItemUtils;
 import techreborn.client.container.IRightClickHandler;
 
@@ -55,9 +57,11 @@ public class BuiltContainer extends Container {
 	private List<Consumer<InventoryCrafting>> craftEvents;
 	private Integer[] integerParts;
 
+	private final TileLegacyMachineBase tile;
+
 	public BuiltContainer(final String name, final Predicate<EntityPlayer> canInteract,
-	                      final List<Range<Integer>> playerSlotRange,
-	                      final List<Range<Integer>> tileSlotRange) {
+						  final List<Range<Integer>> playerSlotRange,
+						  final List<Range<Integer>> tileSlotRange, TileLegacyMachineBase tile) {
 		this.name = name;
 
 		this.canInteract = canInteract;
@@ -67,6 +71,8 @@ public class BuiltContainer extends Container {
 
 		this.shortValues = new ArrayList<>();
 		this.integerValues = new ArrayList<>();
+
+		this.tile = tile;
 	}
 
 	public void addShortSync(final List<Pair<IntSupplier, IntConsumer>> syncables) {
@@ -94,7 +100,11 @@ public class BuiltContainer extends Container {
 
 	@Override
 	public boolean canInteractWith(final EntityPlayer playerIn) {
-		return this.canInteract.test(playerIn);
+		if(this.tile != null) {
+			return tile.isUsableByPlayer(playerIn);
+		} else {
+			return this.canInteract.test(playerIn); // <- What does this thing do ?
+		}
 	}
 
 	@Override
