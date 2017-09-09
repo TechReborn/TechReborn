@@ -62,7 +62,6 @@ public class TileGrinder extends TilePowerAcceptor
 	public void update() {
 		if (!this.world.isRemote) {
 			super.update();
-			//charge(3); TODO
 			this.charge(3);
 		}
 	}

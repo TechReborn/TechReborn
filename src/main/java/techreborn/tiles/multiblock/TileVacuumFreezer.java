@@ -62,9 +62,9 @@ public class TileVacuumFreezer extends TilePowerAcceptor
 
 	@Override
 	public void update() {
-		super.update();
-		if (this.getMultiBlock())
-			this.crafter.updateEntity();
+		if (this.getMultiBlock()) {
+			super.update();
+		}
 	}
 
 	public boolean getMultiBlock() {

@@ -104,15 +104,13 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IToolDro
 	public void update() {
 		ticksSinceLastChange++;
 		
-		super.update();
-
 		if (this.multiblockChecker == null) {
 			final BlockPos pos = this.getPos().offset(this.getFacing().getOpposite(), 2).down();
 			this.multiblockChecker = new MultiblockChecker(this.world, pos);
 		}
 
 		if (this.getMutliBlock()) {
-			this.crafter.updateEntity();
+			super.update();
 		}
 		
 		//Check cells input slot 2 time per second

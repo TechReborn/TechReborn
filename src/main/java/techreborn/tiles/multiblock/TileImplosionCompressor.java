@@ -75,9 +75,8 @@ public class TileImplosionCompressor extends TilePowerAcceptor
 
 	@Override
 	public void update() {
-		super.update();
 		if (this.getMutliBlock()) {
-			this.crafter.updateEntity();
+			super.update();
 		}
 	}
 

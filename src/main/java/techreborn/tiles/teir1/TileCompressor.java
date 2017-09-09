@@ -59,7 +59,6 @@ public class TileCompressor extends TilePowerAcceptor implements IToolDrop, IInv
 	public void update() {
 		if (!this.world.isRemote) {
 			super.update();
-			this.crafter.updateEntity();
 			this.charge(3);
 		}
 	}

@@ -76,7 +76,6 @@ public class TileAlloySmelter extends TilePowerAcceptor
 	@Override
 	public void update() {
 		super.update();
-		this.crafter.updateEntity();
 		this.charge(3);
 	}
 

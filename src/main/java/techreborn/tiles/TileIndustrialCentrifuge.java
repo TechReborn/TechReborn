@@ -78,9 +78,8 @@ public class TileIndustrialCentrifuge extends TilePowerAcceptor
 	}
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
-		this.crafter.updateEntity();
+	public void update() {
+		super.update();
 		this.charge(6);
 		if (this.inventory.getStackInSlot(6) != ItemStack.EMPTY) {
 			final ItemStack stack = this.inventory.getStackInSlot(6);

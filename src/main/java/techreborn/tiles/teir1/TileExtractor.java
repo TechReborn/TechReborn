@@ -62,7 +62,6 @@ public class TileExtractor extends TilePowerAcceptor
 	public void update() {
 		if (!this.world.isRemote) {
 			super.update();
-			this.crafter.updateEntity();
 			this.charge(3);
 		}
 	}
