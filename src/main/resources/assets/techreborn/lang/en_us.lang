@@ -480,7 +480,7 @@ item.techreborn.plate.wood.name=Wooden Plate
 item.techreborn.plate.advanced_alloy.name=Advanced Alloy Plate
 item.techreborn.plate.lazurite.name=Lazurite Plate
 item.techreborn.plate.magnalium.name=Magnalium Plate
-item.techreborn.plate.iridium_allow.name=Iridium Alloy Plate
+item.techreborn.plate.iridium_alloy.name=Iridium Alloy Plate
 
 #Parts
 item.techreborn.part.energy_flow_circuit.name=Energy Flow Circuit
