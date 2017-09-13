@@ -24,11 +24,9 @@
 
 package techreborn.compat.jei.rollingMachine;
 
-import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.BlankRecipeWrapper;
-import mezz.jei.api.recipe.wrapper.ICraftingRecipeWrapper;
+import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.plugins.vanilla.crafting.ShapedOreRecipeWrapper;
 import mezz.jei.plugins.vanilla.crafting.ShapedRecipesWrapper;
 import mezz.jei.plugins.vanilla.crafting.ShapelessRecipeWrapper;
@@ -41,10 +39,10 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class RollingMachineRecipeWrapper extends BlankRecipeWrapper implements ICraftingRecipeWrapper {
-	private final ICraftingRecipeWrapper baseRecipe;
+public class RollingMachineRecipeWrapper implements IRecipeWrapper {
+	private final IRecipeWrapper baseRecipe;
 
-	public RollingMachineRecipeWrapper(ICraftingRecipeWrapper baseRecipe) {
+	public RollingMachineRecipeWrapper(IRecipeWrapper baseRecipe) {
 		this.baseRecipe = baseRecipe;
 	}
 
@@ -52,8 +50,7 @@ public class RollingMachineRecipeWrapper extends BlankRecipeWrapper implements I
 	public static RollingMachineRecipeWrapper create(
 		@Nonnull
 			IJeiHelpers jeiHelpers, IRecipe baseRecipe) {
-		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
-		ICraftingRecipeWrapper recipeWrapper;
+		IRecipeWrapper recipeWrapper;
 		if (baseRecipe instanceof ShapelessRecipes) {
 			recipeWrapper = new ShapelessRecipeWrapper(jeiHelpers, baseRecipe);
 		} else if (baseRecipe instanceof ShapedRecipes) {

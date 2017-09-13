@@ -27,19 +27,17 @@ package techreborn.compat.jei.implosionCompressor;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.*;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.BlankRecipeCategory;
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
+import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
-import techreborn.client.gui.GuiImplosionCompressor;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
 import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
 
-public class ImplosionCompressorRecipeCategory extends BlankRecipeCategory<ImplosionCompressorRecipeWrapper> {
+@SuppressWarnings("deprecation")
+public class ImplosionCompressorRecipeCategory implements IRecipeCategory<ImplosionCompressorRecipeWrapper> {
 	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/jei.png");
 	private static final int[] INPUT_SLOTS = {0, 1};
 	private static final int[] OUTPUT_SLOTS = {2, 3};

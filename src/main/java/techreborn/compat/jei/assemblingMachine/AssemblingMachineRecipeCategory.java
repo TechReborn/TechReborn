@@ -27,17 +27,17 @@ package techreborn.compat.jei.assemblingMachine;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.*;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.BlankRecipeCategory;
+import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.translation.I18n;
 import techreborn.client.gui.GuiAssemblingMachine;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
 import techreborn.lib.ModInfo;
-
 import javax.annotation.Nonnull;
 
-public class AssemblingMachineRecipeCategory extends BlankRecipeCategory<AssemblingMachineRecipeWrapper> {
+@SuppressWarnings("deprecation")
+public class AssemblingMachineRecipeCategory implements IRecipeCategory<AssemblingMachineRecipeWrapper> {
 	private static final int[] INPUT_SLOTS = { 0, 1 };
 	private static final int[] OUTPUT_SLOTS = { 2 };
 

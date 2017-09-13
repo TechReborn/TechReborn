@@ -27,7 +27,7 @@ package techreborn.compat.jei.rollingMachine;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.*;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.BlankRecipeCategory;
+import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
@@ -37,7 +37,8 @@ import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
 
-public class RollingMachineRecipeCategory extends BlankRecipeCategory<RollingMachineRecipeWrapper> {
+@SuppressWarnings("deprecation")
+public class RollingMachineRecipeCategory implements IRecipeCategory<RollingMachineRecipeWrapper> {
 	private static final int[] INPUT_SLOTS = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 	private static final int[] OUTPUT_SLOTS = { 10 };
 

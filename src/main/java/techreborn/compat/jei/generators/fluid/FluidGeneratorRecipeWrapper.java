@@ -28,7 +28,7 @@ import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.BlankRecipeWrapper;
+import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
@@ -36,7 +36,7 @@ import reborncore.common.powerSystem.PowerSystem;
 import techreborn.api.generator.FluidGeneratorRecipe;
 import javax.annotation.Nonnull;
 
-public class FluidGeneratorRecipeWrapper extends BlankRecipeWrapper {
+public class FluidGeneratorRecipeWrapper implements IRecipeWrapper {
 
 	private static final int FLUID_GENERATOR_STORAGE = 100_000;
 
@@ -58,10 +58,7 @@ public class FluidGeneratorRecipeWrapper extends BlankRecipeWrapper {
 
 	@Override
 	public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
-		super.drawInfo(minecraft, recipeWidth, recipeHeight, mouseX, mouseY);
-
 		energyProduced.draw(minecraft, 73, 26);
-
 		minecraft.fontRenderer
 				.drawString(PowerSystem.getLocaliszedPowerFormattedNoSuffix(baseRecipe.getEnergyPerMb() * 1000) + " "
 						+ PowerSystem.getDisplayPower().abbreviation, 70, 13, 0x444444);

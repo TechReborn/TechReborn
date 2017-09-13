@@ -29,7 +29,7 @@ import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.BlankRecipeCategory;
+import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 import techreborn.compat.jei.RecipeCategoryUids;
@@ -38,7 +38,8 @@ import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
 
-public class BlastFurnaceRecipeCategory extends BlankRecipeCategory<BlastFurnaceRecipeWrapper> {
+@SuppressWarnings("deprecation")
+public class BlastFurnaceRecipeCategory implements IRecipeCategory<BlastFurnaceRecipeWrapper> {
 	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/jei.png");
 	private static final int[] INPUT_SLOTS = { 0, 1 };
 	private static final int[] OUTPUT_SLOTS = { 2, 3 };

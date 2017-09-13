@@ -27,7 +27,7 @@ package techreborn.compat.jei.alloySmelter;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.*;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.BlankRecipeCategory;
+import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.translation.I18n;
 import techreborn.client.gui.GuiAlloySmelter;
@@ -37,7 +37,8 @@ import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
 
-public class AlloySmelterRecipeCategory extends BlankRecipeCategory<AlloySmelterRecipeWrapper> {
+@SuppressWarnings("deprecation")
+public class AlloySmelterRecipeCategory implements IRecipeCategory<AlloySmelterRecipeWrapper> {
 	private static final int[] INPUT_SLOTS = { 0, 1 };
 	private static final int[] OUTPUT_SLOTS = { 2 };
 

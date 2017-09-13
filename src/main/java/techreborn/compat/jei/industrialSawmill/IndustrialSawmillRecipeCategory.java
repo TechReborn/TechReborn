@@ -30,7 +30,7 @@ import mezz.jei.api.gui.IGuiFluidStackGroup;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.BlankRecipeCategory;
+import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.util.Translator;
 import net.minecraft.util.ResourceLocation;
 import techreborn.compat.jei.RecipeCategoryUids;
@@ -40,7 +40,8 @@ import techreborn.tiles.multiblock.TileIndustrialSawmill;
 
 import javax.annotation.Nonnull;
 
-public class IndustrialSawmillRecipeCategory extends BlankRecipeCategory<IndustrialSawmillRecipeWrapper> {
+@SuppressWarnings("deprecation")
+public class IndustrialSawmillRecipeCategory implements IRecipeCategory<IndustrialSawmillRecipeWrapper> {
 
 	private final String title;
 	public static final ResourceLocation texture = new ResourceLocation("techreborn",
