@@ -25,7 +25,7 @@
 package techreborn.compat.jei;
 
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.BlankRecipeWrapper;
+import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -34,7 +34,7 @@ import techreborn.api.recipe.BaseRecipe;
 import javax.annotation.Nonnull;
 import java.util.*;
 
-public abstract class BaseRecipeWrapper<T extends BaseRecipe> extends BlankRecipeWrapper {
+public abstract class BaseRecipeWrapper<T extends BaseRecipe> implements IRecipeWrapper {
 	protected final T baseRecipe;
 	@Nonnull
 	private final List<List<ItemStack>> inputs;

@@ -29,24 +29,28 @@ import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.BlankRecipeCategory;
+import mezz.jei.api.recipe.IRecipeCategory;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
-import techreborn.client.gui.GuiIndustrialElectrolyzer;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
 import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
 
-public class IndustrialElectrolyzerRecipeCategory extends BlankRecipeCategory<IndustrialElectrolyzerRecipeWrapper> {
+@SuppressWarnings("deprecation")
+public class IndustrialElectrolyzerRecipeCategory implements IRecipeCategory<IndustrialElectrolyzerRecipeWrapper> {
 	private static final int[] INPUT_SLOTS = { 0, 1 };
 	private static final int[] OUTPUT_SLOTS = { 2, 3, 4, 5 };
 
 	private final IDrawable background;
 	private final String title;
+	
+	private final ResourceLocation texture = new ResourceLocation("techreborn",
+			"textures/gui/industrial_electrolyzer.png");
 
 	public IndustrialElectrolyzerRecipeCategory(IGuiHelper guiHelper) {
-		background = guiHelper.createDrawable(GuiIndustrialElectrolyzer.texture, 49, 18, 78, 50);
+		background = guiHelper.createDrawable(texture, 49, 18, 78, 50);
 		title = I18n.translateToLocal("tile.techreborn:industrial_electrolyzer.name");
 	}
 

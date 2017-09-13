@@ -111,6 +111,14 @@ public class TRBuilder extends GuiBuilder {
 				j = 0;
 			gui.drawTexturedModalRect(x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10);
 		}
+		
+		if (direction.equals(ProgressDirection.UP)) {
+			int j = (int) ((double) progress / (double) maxProgress * 16);
+			if (j < 0)
+				j = 0;
+			gui.drawTexturedModalRect(x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j);
+		}
+
 
 		if (isInRect(x, y, direction.width, direction.height, mouseX, mouseY)) {
 			int percentage = percentage(maxProgress, progress);
@@ -379,7 +387,7 @@ public class TRBuilder extends GuiBuilder {
 	}
 
 	public enum ProgressDirection {
-		RIGHT(84, 151, 100, 151, 16, 10), LEFT(100, 161, 84, 161, 16, 10)/*, DOWN(104, 171, 114, 171, 10, 16), UP(84, 171, 94, 171, 10, 16)*/;
+		RIGHT(84, 151, 100, 151, 16, 10), LEFT(100, 161, 84, 161, 16, 10), DOWN(104, 171, 114, 171, 10, 16), UP(84, 171, 94, 171, 10, 16);
 		public int x;
 		public int y;
 		public int xActive;

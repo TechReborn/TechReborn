@@ -67,6 +67,7 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor
 		final int[] inputs = new int[2];
 		inputs[0] = 0;
 		inputs[1] = 1;
+		// Output slots
 		final int[] outputs = new int[4];
 		outputs[0] = 2;
 		outputs[1] = 3;
@@ -76,9 +77,8 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor
 	}
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
-		this.crafter.updateEntity();
+	public void update() {
+		super.update();
 		this.charge(6);
 	}
 
@@ -178,11 +178,11 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor
 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("industrialelectrolyzer").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+		return new ContainerBuilder("industrialelectrolyzer").player(player.inventory).inventory().hotbar()
 			.addInventory().tile(this)
-			.filterSlot(1, 50, 51, stack -> ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true))
-			.filterSlot(0, 80, 51, stack -> !ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true))
-			.outputSlot(2, 50, 19).outputSlot(3, 70, 19).outputSlot(4, 90, 19).outputSlot(5, 110, 19)
+			.filterSlot(1, 47, 72, stack -> ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true))
+			.filterSlot(0, 81, 72, stack -> !ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true))
+			.outputSlot(2, 51, 24).outputSlot(3, 71, 24).outputSlot(4, 91, 24).outputSlot(5, 111, 24)
 			.energySlot(6, 18, 51).syncEnergyValue().syncCrafterValue().addInventory().create(this);
 	}
 }
