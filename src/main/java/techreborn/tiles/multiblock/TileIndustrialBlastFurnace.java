@@ -132,10 +132,10 @@ public class TileIndustrialBlastFurnace extends TilePowerAcceptor implements ITo
 						// TODO meta fix
 					}
 
-					if (this.world.getBlockState(new BlockPos(location.getX(), location.getY(), location.getZ()))
+					if (this.world.getBlockState(new BlockPos(location.getX(), location.getY() + 1, location.getZ()))
 						.getBlock().getUnlocalizedName().equals("tile.lava")
 						&& this.world
-						.getBlockState(new BlockPos(location.getX(), location.getY() + 1, location.getZ()))
+						.getBlockState(new BlockPos(location.getX(), location.getY() + 2, location.getZ()))
 						.getBlock().getUnlocalizedName().equals("tile.lava")) {
 						heat += 500;
 					}
