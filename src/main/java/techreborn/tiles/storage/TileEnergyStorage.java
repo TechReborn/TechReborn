@@ -63,9 +63,9 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IToolDrop, I
 	}
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
-		if (inventory.getStackInSlot(0) != ItemStack.EMPTY) {
+	public void update() {
+		super.update();
+		if (!inventory.getStackInSlot(0).isEmpty()) {
 			ItemStack stack = inventory.getStackInSlot(0);
 			if (!(stack.getItem() instanceof IEnergyItemInfo)) {
 				return;
@@ -78,7 +78,7 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IToolDrop, I
 				}
 			}
 		}
-		if (inventory.getStackInSlot(1) != ItemStack.EMPTY) {
+		if (!inventory.getStackInSlot(1).isEmpty()) {
 			ItemStack stack = inventory.getStackInSlot(1);
 			if (!(stack.getItem() instanceof IEnergyItemInfo)) {
 				return;
