@@ -35,6 +35,7 @@ import net.minecraftforge.common.util.EnumHelper;
  * This contains some static stuff used in recipes and other things
  */
 //TODO move this out of the api, and make it nicer
+@SuppressWarnings("deprecation")
 public class Reference {
 
 	private static final Class<?>[] ARMOR_PARAMETERS = { String.class, int.class, int[].class, int.class, SoundEvent.class, float.class };
@@ -59,8 +60,7 @@ public class Reference {
 	public static String chemicalReactorRecipe = I18n.translateToLocal("techreborn.recipe.chemicalReactor");
 	public static String industrialGrinderRecipe = I18n.translateToLocal("techreborn.recipe.grinder");
 	public static String implosionCompressorRecipe = I18n.translateToLocal("techreborn.recipe.implosioncompressor");
-	public static String industrialElectrolyzerRecipe = I18n
-		.translateToLocal("techreborn.recipe.industrialelectrolyzer");
+	public static String industrialElectrolyzerRecipe = I18n.translateToLocal("techreborn.recipe.industrialelectrolyzer");
 	public static String industrialSawmillRecipe = I18n.translateToLocal("techreborn.recipe.industrialsawmill");
 	public static String latheRecipe = I18n.translateToLocal("techreborn.recipe.lathe");
 	public static String plateCuttingMachineRecipe = I18n.translateToLocal("techreborn.recipe.platecuttingmachine");

@@ -75,7 +75,7 @@ public class ItemNuggets extends ItemTR {
 
 	// Adds Dusts SubItems To Creative Tab
 	@Override
-	public void getSubItems(CreativeTabs creativeTabs, NonNullList list) {
+	public void getSubItems(CreativeTabs creativeTabs, NonNullList<ItemStack> list) {
 		if (!isInCreativeTab(creativeTabs)) {
 			return;
 		}

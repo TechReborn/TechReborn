@@ -26,7 +26,6 @@ package techreborn.blocks.transformers;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterators;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockDynamicLiquid;
 import net.minecraft.block.BlockStaticLiquid;
 import net.minecraft.block.material.Material;
@@ -80,29 +79,25 @@ public abstract class BlockTransformer extends BaseTileBlock {
 		super.onBlockAdded(worldIn, pos, state);
 		this.setDefaultFacing(worldIn, pos, state);
 	}
-
+	
 	private void setDefaultFacing(World worldIn, BlockPos pos, IBlockState state) {
 		if (!worldIn.isRemote) {
-			IBlockState sate = worldIn.getBlockState(pos.north());
-			Block block = sate.getBlock();
+			IBlockState state0 = worldIn.getBlockState(pos.north());
 			IBlockState state1 = worldIn.getBlockState(pos.south());
-			Block block1 = state1.getBlock();
 			IBlockState state2 = worldIn.getBlockState(pos.west());
-			Block block2 = state2.getBlock();
 			IBlockState state3 = worldIn.getBlockState(pos.east());
-			Block block3 = state3.getBlock();
-			EnumFacing enumfacing = state.getValue(FACING);
-
-			if (enumfacing == EnumFacing.NORTH && block.isFullBlock(state) && !block1.isFullBlock(state1)) {
+			EnumFacing enumfacing = (EnumFacing) state.getValue(FACING);
+			
+			if (enumfacing == EnumFacing.NORTH && state0.isFullBlock() && !state1.isFullBlock()) {
 				enumfacing = EnumFacing.SOUTH;
-			} else if (enumfacing == EnumFacing.SOUTH && block1.isFullBlock(state1) && !block.isFullBlock(state)) {
+			} else if (enumfacing == EnumFacing.SOUTH && state1.isFullBlock() && !state0.isFullBlock()) {
 				enumfacing = EnumFacing.NORTH;
-			} else if (enumfacing == EnumFacing.WEST && block2.isFullBlock(state2) && !block3.isFullBlock(state2)) {
+			} else if (enumfacing == EnumFacing.WEST && state2.isFullBlock() && !state3.isFullBlock()) {
 				enumfacing = EnumFacing.EAST;
-			} else if (enumfacing == EnumFacing.EAST && block3.isFullBlock(state3) && !block2.isFullBlock(state2)) {
+			} else if (enumfacing == EnumFacing.EAST && state3.isFullBlock() && !state2.isFullBlock()) {
 				enumfacing = EnumFacing.WEST;
 			}
-
+			
 			worldIn.setBlockState(pos, state.withProperty(FACING, enumfacing), 2);
 		}
 	}
@@ -167,7 +162,6 @@ public abstract class BlockTransformer extends BaseTileBlock {
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		boolean active = false;
 		EnumFacing facing = getSideFromint(meta);
 		return this.getDefaultState().withProperty(FACING, facing);
 	}
