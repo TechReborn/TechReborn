@@ -37,6 +37,7 @@ public class MultiblockChecker {
 	public static final String STANDARD_CASING = "standard";
 	public static final String REINFORCED_CASING = "reinforced";
 	public static final String ADVANCED_CASING = "advanced";
+	public static final String CASING_ANY = "any";
 
 	private final World world;
 	private final BlockPos downCenter;
@@ -49,8 +50,11 @@ public class MultiblockChecker {
 	public boolean checkCasing(int offX, int offY, int offZ, String type) {
 		IBlockState block = getBlock(offX, offY, offZ);
 		if (block.getBlock() == ModBlocks.MACHINE_CASINGS) {
-			if (block.getValue(BlockMachineCasing.TYPE).equals(type))
+			if (type == MultiblockChecker.CASING_ANY) {
 				return true;
+			} else if (block.getValue(BlockMachineCasing.TYPE).equals(type)) {
+				return true;
+			}
 		}
 		return false;
 	}

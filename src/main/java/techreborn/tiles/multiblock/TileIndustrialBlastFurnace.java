@@ -24,7 +24,9 @@
 
 package techreborn.tiles.multiblock;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -54,17 +56,15 @@ import techreborn.tiles.TileMachineCasing;
 public class TileIndustrialBlastFurnace extends TilePowerAcceptor implements IToolDrop, IInventoryProvider,
 	ITileRecipeHandler<BlastFurnaceRecipe>, IRecipeCrafterProvider, IContainerProvider {
 
-	public static int euTick = 5;
-	public int tickTime;
-	public Inventory inventory = new Inventory(4, "TileIndustrialBlastFurnace", 64, this);
+	public Inventory inventory;
 	public RecipeCrafter crafter;
-	public int capacity = 1000;
-
+	public MultiblockChecker multiblockChecker;
 	private int cachedHeat;
 
 	public TileIndustrialBlastFurnace() {
 		super();
 		// TODO configs
+		this.inventory = new Inventory(4, "TileIndustrialBlastFurnace", 64, this);
 		final int[] inputs = new int[2];
 		inputs[0] = 0;
 		inputs[1] = 1;
@@ -73,11 +73,31 @@ public class TileIndustrialBlastFurnace extends TilePowerAcceptor implements ITo
 		outputs[1] = 3;
 		this.crafter = new RecipeCrafter(Reference.blastFurnaceRecipe, this, 2, 2, this.inventory, inputs, outputs);
 	}
+	
+	public boolean getMutliBlock() {
+		final boolean layer0 = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.CASING_ANY, MultiblockChecker.ZERO_OFFSET);
+		final boolean layer1 = this.multiblockChecker.checkRingY(1, 1, MultiblockChecker.CASING_ANY, new BlockPos(0, 1, 0));
+		final boolean layer2 = this.multiblockChecker.checkRingY(1, 1, MultiblockChecker.CASING_ANY, new BlockPos(0, 2, 0));
+		final boolean layer3 = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.CASING_ANY, new BlockPos(0, 3, 0));
+		final Block centerBlock1 = this.multiblockChecker.getBlock(0, 1, 0).getBlock();
+		final Block centerBlock2 = this.multiblockChecker.getBlock(0, 2, 0).getBlock();
+		final boolean center1 = (centerBlock1 == Blocks.AIR || centerBlock1 == Blocks.LAVA);
+		final boolean center2 = (centerBlock2 == Blocks.AIR || centerBlock2 == Blocks.LAVA);
+		return layer0 && layer1 && layer2 && layer3 && center1 && center2;
+	}
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
-		this.crafter.updateEntity();
+	public void update() {
+		if (world.isRemote){ return; }
+		
+		if (this.multiblockChecker == null) {
+			final BlockPos pos = this.getPos().offset(this.getFacing().getOpposite(), 2);
+			this.multiblockChecker = new MultiblockChecker(this.world, pos);
+		}
+		
+		if (this.getMutliBlock()) {
+			super.update();
+		}	
 	}
 
 	@Override
@@ -86,6 +106,9 @@ public class TileIndustrialBlastFurnace extends TilePowerAcceptor implements ITo
 	}
 
 	public int getHeat() {
+		if (!this.getMutliBlock()){
+			return 0;
+		}
 		for (final EnumFacing direction : EnumFacing.values()) {
 			final TileEntity tileEntity = this.world.getTileEntity(new BlockPos(this.getPos().getX() + direction.getFrontOffsetX(),
 				this.getPos().getY() + direction.getFrontOffsetY(), this.getPos().getZ() + direction.getFrontOffsetZ()));
@@ -133,18 +156,14 @@ public class TileIndustrialBlastFurnace extends TilePowerAcceptor implements ITo
 	@Override
 	public void readFromNBT(final NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
-		this.tickTime = tagCompound.getInteger("tickTime");
+		this.crafter.readFromNBT(tagCompound);
 	}
 
 	@Override
 	public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
-		this.writeUpdateToNBT(tagCompound);
+		this.crafter.writeToNBT(tagCompound);
 		return tagCompound;
-	}
-
-	public void writeUpdateToNBT(final NBTTagCompound tagCompound) {
-		tagCompound.setInteger("tickTime", this.tickTime);
 	}
 
 	// ISidedInventory
