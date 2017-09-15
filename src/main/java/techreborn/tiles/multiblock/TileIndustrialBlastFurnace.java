@@ -64,7 +64,7 @@ public class TileIndustrialBlastFurnace extends TilePowerAcceptor implements ITo
 	public TileIndustrialBlastFurnace() {
 		super();
 		// TODO configs
-		this.inventory = new Inventory(4, "TileIndustrialBlastFurnace", 64, this);
+		this.inventory = new Inventory(5, "TileIndustrialBlastFurnace", 64, this);
 		final int[] inputs = new int[2];
 		inputs[0] = 0;
 		inputs[1] = 1;
@@ -97,6 +97,7 @@ public class TileIndustrialBlastFurnace extends TilePowerAcceptor implements ITo
 		
 		if (this.getMutliBlock()) {
 			super.update();
+			this.charge(4);
 		}	
 	}
 
@@ -250,9 +251,9 @@ public class TileIndustrialBlastFurnace extends TilePowerAcceptor implements ITo
 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("blastfurnace").player(player.inventory).inventory().hotbar()
-			.addInventory().tile(this).slot(0, 50, 27).slot(1, 50, 47).outputSlot(2, 92, 36).outputSlot(3, 110, 36)
-			.syncEnergyValue().syncCrafterValue().syncIntegerValue(this::getHeat, this::setHeat).addInventory()
-			.create(this);
+		return new ContainerBuilder("blastfurnace").player(player.inventory).inventory().hotbar().addInventory()
+				.tile(this).slot(0, 50, 27).slot(1, 50, 47).outputSlot(2, 92, 36).outputSlot(3, 110, 36)
+				.energySlot(4, 8, 72).syncEnergyValue().syncCrafterValue()
+				.syncIntegerValue(this::getHeat, this::setHeat).addInventory().create(this);
 	}
 }

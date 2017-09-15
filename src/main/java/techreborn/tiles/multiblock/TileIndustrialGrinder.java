@@ -66,7 +66,7 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IToolDro
 		// TODO configs
 		
 		tank = new Tank("TileIndustrialGrinder", TileIndustrialGrinder.TANK_CAPACITY, this);
-		inventory = new Inventory(7, "TileIndustrialGrinder", 64, this);
+		inventory = new Inventory(8, "TileIndustrialGrinder", 64, this);
 		ticksSinceLastChange = 0;
 		final int[] inputs = new int[2];
 		inputs[0] = 0;
@@ -102,26 +102,25 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IToolDro
 
 	@Override
 	public void update() {
-		ticksSinceLastChange++;
-		
+		super.update();
 		if (this.multiblockChecker == null) {
 			final BlockPos pos = this.getPos().offset(this.getFacing().getOpposite(), 2).down();
 			this.multiblockChecker = new MultiblockChecker(this.world, pos);
 		}
-
-		if (this.getMutliBlock()) {
-			super.update();
-		}
 		
-		//Check cells input slot 2 time per second
-		if (ticksSinceLastChange >= 10){
-			if (!this.inventory.getStackInSlot(1).isEmpty()){
+		this.ticksSinceLastChange++;
+		// Check cells input slot 2 time per second
+		if (this.ticksSinceLastChange >= 10) {
+			if (!this.inventory.getStackInSlot(1).isEmpty()) {
 				FluidUtils.drainContainers(this.tank, this.inventory, 1, 6);
 				FluidUtils.fillContainers(this.tank, this.inventory, 1, 6, this.tank.getFluidType());
 			}
-			ticksSinceLastChange = 0;
+			this.ticksSinceLastChange = 0;
 		}
 		
+		if (!world.isRemote && this.getMutliBlock()) {
+			this.charge(7);
+		}
 	}
 
 	@Override
@@ -273,10 +272,10 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IToolDro
 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("industrialgrinder").player(player.inventory).inventory().hotbar()
-			.addInventory().tile(this).slot(1, 34, 35).slot(0, 84, 43).outputSlot(2, 126, 18).outputSlot(3, 126, 36)
-			.outputSlot(4, 126, 54).outputSlot(5, 126, 72).outputSlot(6, 34, 55).syncEnergyValue().syncCrafterValue().addInventory()
-			.create(this);
+		return new ContainerBuilder("industrialgrinder").player(player.inventory).inventory().hotbar().addInventory()
+				.tile(this).slot(1, 34, 35).slot(0, 84, 43).outputSlot(2, 126, 18).outputSlot(3, 126, 36)
+				.outputSlot(4, 126, 54).outputSlot(5, 126, 72).outputSlot(6, 34, 55).energySlot(7, 8, 72)
+				.syncEnergyValue().syncCrafterValue().addInventory().create(this);
 	}
 
 }

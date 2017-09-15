@@ -41,7 +41,7 @@ public class GuiGrinder extends GuiBase {
 		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
-		//this.drawSlot(8, 72, layer);
+		this.drawSlot(8, 72, layer);
 
 		this.drawSlot(55, 45, layer);
 		this.drawOutputSlot(101, 45, layer);

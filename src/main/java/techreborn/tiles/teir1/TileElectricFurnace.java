@@ -44,7 +44,7 @@ import techreborn.init.ModBlocks;
 public class TileElectricFurnace extends TilePowerAcceptor
 	implements IToolDrop, IInventoryProvider, IContainerProvider, IMachineSlotProvider {
 
-	public Inventory inventory = new Inventory(6, "TileElectricFurnace", 64, this);
+	public Inventory inventory = new Inventory(3, "TileElectricFurnace", 64, this);
 	public int capacity = 1000;
 	public int progress;
 	public int fuelScale = 100;
@@ -62,33 +62,36 @@ public class TileElectricFurnace extends TilePowerAcceptor
 
 	@Override
 	public void update() {
+		if (world.isRemote){ return; }
+		
 		super.update();
-		if (!this.world.isRemote) {
-			final boolean burning = this.isBurning();
-			boolean updateInventory = false;
-			if (this.isBurning() && this.canSmelt()) {
-				this.updateState();
+		this.charge(2);
 
-				this.progress++;
-				if (this.progress % 10 == 0) {
-					this.useEnergy(this.cost);
-				}
-				if (this.progress >= this.fuelScale) {
-					this.progress = 0;
-					this.cookItems();
-					updateInventory = true;
-				}
-			} else {
-				this.progress = 0;
-				this.updateState();
+		final boolean burning = this.isBurning();
+		boolean updateInventory = false;
+		if (this.isBurning() && this.canSmelt()) {
+			this.updateState();
+
+			this.progress++;
+			if (this.progress % 10 == 0) {
+				this.useEnergy(this.cost);
 			}
-			if (burning != this.isBurning()) {
+			if (this.progress >= this.fuelScale) {
+				this.progress = 0;
+				this.cookItems();
 				updateInventory = true;
 			}
-			if (updateInventory) {
-				this.markDirty();
-			}
+		} else {
+			this.progress = 0;
+			this.updateState();
 		}
+		if (burning != this.isBurning()) {
+			updateInventory = true;
+		}
+		if (updateInventory) {
+			this.markDirty();
+		}
+		
 	}
 
 	public void cookItems() {
@@ -221,8 +224,8 @@ public class TileElectricFurnace extends TilePowerAcceptor
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("electricfurnace").player(player.inventory).inventory().hotbar().addInventory()
-			.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).syncEnergyValue()
-			.syncIntegerValue(this::getBurnTime, this::setBurnTime).addInventory().create(this);
+				.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
+				.syncIntegerValue(this::getBurnTime, this::setBurnTime).addInventory().create(this);
 	}
 
 	@Override

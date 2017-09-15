@@ -41,7 +41,7 @@ public class GuiElectricFurnace extends GuiBase {
 		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
-		//this.drawSlot(8, 72, layer);
+		this.drawSlot(8, 72, layer);
 
 		this.drawSlot(55, 45, layer);
 		this.drawOutputSlot(101, 45, layer);

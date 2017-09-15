@@ -58,7 +58,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	//  @ConfigRegistry(config = "machines", category = "matter_fabricator", key = "MatterFabricatorWrenchDropRate", comment = "Matter Fabricator Wrench Drop Rate")
 	public static float wrenchDropRate = 1.0F;
 
-	public Inventory inventory = new Inventory(11, "TileMatterFabricator", 64, this);
+	public Inventory inventory = new Inventory(12, "TileMatterFabricator", 64, this);
 	private int amplifier = 0;
 
 	public TileMatterFabricator() {
@@ -93,31 +93,31 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	}
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
+	public void update() {
+		if (world.isRemote){ return; }
+		
+		super.update();
+		this.charge(11);
 
-		if (!super.world.isRemote) {
-			for (int i = 0; i < 6; i++) {
-				final ItemStack stack = this.inventory.getStackInSlot(i);
-				if (!stack.isEmpty() && spaceForOutput()) {
-					final int amp = this.getValue(stack);
-					final int euNeeded = amp * energyPerAmp;
-					if (amp != 0 && this.canUseEnergy(euNeeded)) {
-						this.useEnergy(euNeeded);
-						this.amplifier += amp;
-						this.inventory.decrStackSize(i, 1);
-					}
-				}
-			}
-
-			if (amplifier >= fabricationRate) {
-				if (spaceForOutput()) {
-					this.addOutputProducts();
-					amplifier -= fabricationRate;
+		for (int i = 0; i < 6; i++) {
+			final ItemStack stack = this.inventory.getStackInSlot(i);
+			if (!stack.isEmpty() && spaceForOutput()) {
+				final int amp = this.getValue(stack);
+				final int euNeeded = amp * energyPerAmp;
+				if (amp != 0 && this.canUseEnergy(euNeeded)) {
+					this.useEnergy(euNeeded);
+					this.amplifier += amp;
+					this.inventory.decrStackSize(i, 1);
 				}
 			}
 		}
 
+		if (amplifier >= fabricationRate) {
+			if (spaceForOutput()) {
+				this.addOutputProducts();
+				amplifier -= fabricationRate;
+			}
+		}
 	}
 
 	private boolean spaceForOutput() {
@@ -229,11 +229,11 @@ public class TileMatterFabricator extends TilePowerAcceptor
 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("matterfabricator").player(player.inventory).inventory().hotbar()
-			.addInventory().tile(this).slot(0, 30, 20).slot(1, 50, 20).slot(2, 70, 20).slot(3, 90, 20)
-			.slot(4, 110, 20).slot(5, 130, 20).outputSlot(6, 40, 66).outputSlot(7, 60, 66).outputSlot(8, 80, 66)
-			.outputSlot(9, 100, 66).outputSlot(10, 120, 66).syncEnergyValue()
-			.syncIntegerValue(this::getProgress, this::setProgress).addInventory().create(this);
+		return new ContainerBuilder("matterfabricator").player(player.inventory).inventory().hotbar().addInventory()
+				.tile(this).slot(0, 30, 20).slot(1, 50, 20).slot(2, 70, 20).slot(3, 90, 20).slot(4, 110, 20)
+				.slot(5, 130, 20).outputSlot(6, 40, 66).outputSlot(7, 60, 66).outputSlot(8, 80, 66)
+				.outputSlot(9, 100, 66).outputSlot(10, 120, 66).energySlot(11, 8, 72).syncEnergyValue()
+				.syncIntegerValue(this::getProgress, this::setProgress).addInventory().create(this);
 	}
 
 	@Override

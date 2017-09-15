@@ -29,11 +29,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IListInfoProvider;
-import reborncore.api.power.IEnergyItemInfo;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.api.IToolDrop;
-import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegistry;
@@ -79,19 +77,9 @@ public class TileIndustrialCentrifuge extends TilePowerAcceptor
 
 	@Override
 	public void update() {
-		super.update();
-		this.charge(6);
-		if (this.inventory.getStackInSlot(6) != ItemStack.EMPTY) {
-			final ItemStack stack = this.inventory.getStackInSlot(6);
-			if (stack.getItem() instanceof IEnergyItemInfo) {
-				final IEnergyItemInfo item = (IEnergyItemInfo) stack.getItem();
-				if (item.canProvideEnergy(stack)) {
-					if (this.getEnergy() != this.getMaxPower()) {
-						this.addEnergy(item.getMaxTransfer(stack));
-						PoweredItem.setEnergy(PoweredItem.getEnergy(stack) - item.getMaxTransfer(stack), stack);
-					}
-				}
-			}
+		if (!this.world.isRemote) {
+			super.update();
+			this.charge(6);
 		}
 	}
 

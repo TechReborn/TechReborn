@@ -68,10 +68,11 @@ public class TileChemicalReactor extends TilePowerAcceptor
 	}
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
-		this.crafter.updateEntity();
-		this.charge(3);
+	public void update() {
+		if (!this.world.isRemote) {
+			super.update();
+			this.charge(3);
+		}
 	}
 
 	@Override

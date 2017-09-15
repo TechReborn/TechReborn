@@ -41,13 +41,15 @@ public class GuiMatterFabricator extends GuiBase {
 		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
-		drawScrapSlot(30, 20, layer);
-		drawScrapSlot(50, 20, layer);
-		drawScrapSlot(70, 20, layer);
-		drawScrapSlot(90, 20, layer);
-		drawScrapSlot(110, 20, layer);
-		drawScrapSlot(130, 20, layer);
-		drawOutputSlotBar(39, 65, 5, layer);
+		this.drawSlot(8, 72, layer);
+		
+		this.drawScrapSlot(30, 20, layer);
+		this.drawScrapSlot(50, 20, layer);
+		this.drawScrapSlot(70, 20, layer);
+		this.drawScrapSlot(90, 20, layer);
+		this.drawScrapSlot(110, 20, layer);
+		this.drawScrapSlot(130, 20, layer);
+		this.drawOutputSlotBar(39, 65, 5, layer);
 
 	}
 

@@ -60,14 +60,16 @@ public class GuiIndustrialGrinder extends GuiBase {
 	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
 		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
-
-		drawSlot(34, 35, layer);
-		drawSlot(34, 55, layer);
-		drawSlot(84, 43, layer);
-		drawSlot(126, 18, layer);
-		drawSlot(126, 36, layer);
-		drawSlot(126, 54, layer);
-		drawSlot(126, 72, layer);
+		
+		this.drawSlot(8, 72, layer);
+		
+		this.drawSlot(34, 35, layer);
+		this.drawSlot(34, 55, layer);
+		this.drawSlot(84, 43, layer);
+		this.drawSlot(126, 18, layer);
+		this.drawSlot(126, 36, layer);
+		this.drawSlot(126, 54, layer);
+		this.drawSlot(126, 72, layer);
 
 		this.builder.drawJEIButton(this, 150, 4, layer);
 	}

@@ -65,11 +65,12 @@ public class GuiBlastFurnace extends GuiBase {
 
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		final GuiBase.Layer layer = Layer.BACKGROUND;
-
-		drawSlot(50, 27, layer);
-		drawSlot(50, 47, layer);
-		drawSlot(92, 36, layer);
-		drawSlot(110, 36, layer);
+		
+		this.drawSlot(8, 72, layer);
+		
+		this.drawSlot(50, 27, layer);
+		this.drawSlot(50, 47, layer);
+		this.drawOutputSlotBar(92, 36, 2, layer);
 
 		this.builder.drawJEIButton(this, 150, 4, layer);
 	}

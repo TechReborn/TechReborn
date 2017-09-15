@@ -62,8 +62,10 @@ public class TileVacuumFreezer extends TilePowerAcceptor
 
 	@Override
 	public void update() {
+		if (world.isRemote){ return; }
 		if (this.getMultiBlock()) {
 			super.update();
+			this.charge(2);
 		}
 	}
 
@@ -149,8 +151,8 @@ public class TileVacuumFreezer extends TilePowerAcceptor
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("vacuumfreezer").player(player.inventory).inventory().hotbar().addInventory()
-			.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).syncEnergyValue().syncCrafterValue().addInventory()
-			.create(this);
+				.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
+				.syncCrafterValue().addInventory().create(this);
 	}
 
 }

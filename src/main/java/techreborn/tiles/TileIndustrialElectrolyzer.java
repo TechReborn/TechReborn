@@ -78,6 +78,7 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor
 
 	@Override
 	public void update() {
+		if (this.world.isRemote) { return; }
 		super.update();
 		this.charge(6);
 	}
@@ -183,6 +184,6 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor
 			.filterSlot(1, 47, 72, stack -> ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true))
 			.filterSlot(0, 81, 72, stack -> !ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true))
 			.outputSlot(2, 51, 24).outputSlot(3, 71, 24).outputSlot(4, 91, 24).outputSlot(5, 111, 24)
-			.energySlot(6, 18, 51).syncEnergyValue().syncCrafterValue().addInventory().create(this);
+			.energySlot(6, 8, 72).syncEnergyValue().syncCrafterValue().addInventory().create(this);
 	}
 }

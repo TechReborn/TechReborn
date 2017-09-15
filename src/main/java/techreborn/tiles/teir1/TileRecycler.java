@@ -41,7 +41,7 @@ import techreborn.items.ItemParts;
 
 public class TileRecycler extends TilePowerAcceptor implements IToolDrop, IInventoryProvider, IContainerProvider {
 
-	private final Inventory inventory = new Inventory(6, "TileRecycler", 64, this);
+	private final Inventory inventory = new Inventory(3, "TileRecycler", 64, this);
 	private final int capacity = 1000;
 	private final int cost = 2;
 	private final int time = 15;
@@ -78,6 +78,7 @@ public class TileRecycler extends TilePowerAcceptor implements IToolDrop, IInven
 		}
 
 		this.updateState();
+		this.charge(2);
 
 		if (updateInventory) {
 			this.markDirty();
@@ -199,7 +200,7 @@ public class TileRecycler extends TilePowerAcceptor implements IToolDrop, IInven
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("recycler").player(player.inventory).inventory().hotbar().addInventory()
-			.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).syncEnergyValue()
+			.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
 			.syncIntegerValue(this::getProgress, this::setProgress).addInventory().create(this);
 	}
 

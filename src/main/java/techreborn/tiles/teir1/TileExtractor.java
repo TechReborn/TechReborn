@@ -43,7 +43,7 @@ import techreborn.init.ModBlocks;
 public class TileExtractor extends TilePowerAcceptor
 	implements IToolDrop, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
 
-	public Inventory inventory = new Inventory(6, "TileExtractor", 64, this);
+	public Inventory inventory = new Inventory(3, "TileExtractor", 64, this);
 
 	public RecipeCrafter crafter;
 
@@ -62,7 +62,7 @@ public class TileExtractor extends TilePowerAcceptor
 	public void update() {
 		if (!this.world.isRemote) {
 			super.update();
-			this.charge(3);
+			this.charge(2);
 		}
 	}
 
@@ -151,9 +151,9 @@ public class TileExtractor extends TilePowerAcceptor
 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("extractor").player(player.inventory).inventory().hotbar().addInventory()
-			.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).syncEnergyValue().syncCrafterValue().addInventory()
-			.create(this);
+		return new ContainerBuilder("extractor").player(player.inventory).inventory().hotbar().addInventory().tile(this)
+				.slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue().syncCrafterValue()
+				.addInventory().create(this);
 	}
 
 }

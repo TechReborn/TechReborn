@@ -62,6 +62,8 @@ public class GuiImplosionCompressor extends GuiBase {
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		final GuiBase.Layer layer = Layer.BACKGROUND;
 
+		this.drawSlot(8, 72, layer);
+		
 		drawSlot(50, 27, layer);
 		drawSlot(50, 47, layer);
 		drawSlot(92, 36, layer);

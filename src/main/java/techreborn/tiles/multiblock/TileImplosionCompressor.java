@@ -44,7 +44,7 @@ import techreborn.init.ModBlocks;
 public class TileImplosionCompressor extends TilePowerAcceptor
 	implements IToolDrop, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
 
-	public Inventory inventory = new Inventory(4, "TileImplosionCompressor", 64, this);
+	public Inventory inventory = new Inventory(5, "TileImplosionCompressor", 64, this);
 	public MultiblockChecker multiblockChecker;
 	public RecipeCrafter crafter;
 
@@ -75,8 +75,10 @@ public class TileImplosionCompressor extends TilePowerAcceptor
 
 	@Override
 	public void update() {
+		if (this.world.isRemote) { return; }
 		if (this.getMutliBlock()) {
 			super.update();
+			this.charge(4);
 		}
 	}
 
@@ -152,9 +154,9 @@ public class TileImplosionCompressor extends TilePowerAcceptor
 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("implosioncompressor").player(player.inventory).inventory().hotbar()
-			.addInventory().tile(this).slot(0, 50, 27).slot(1, 50, 47).outputSlot(2, 92, 36).outputSlot(3, 110, 36)
-			.syncEnergyValue().syncCrafterValue().addInventory().create(this);
+		return new ContainerBuilder("implosioncompressor").player(player.inventory).inventory().hotbar().addInventory()
+				.tile(this).slot(0, 50, 27).slot(1, 50, 47).outputSlot(2, 92, 36).outputSlot(3, 110, 36)
+				.energySlot(4, 8, 72).syncEnergyValue().syncCrafterValue().addInventory().create(this);
 	}
 
 }
