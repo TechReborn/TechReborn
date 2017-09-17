@@ -96,7 +96,7 @@ public class IndustrialCentrifugeRecipes extends RecipeMethods {
 		register(getStack(Items.REDSTONE, 32), 22000, getMaterial("silicon", 3, Type.CELL), getMaterial("pyrite", 16, Type.DUST), getMaterial("ruby", 3, Type.DUST), getMaterial("mercury", 10, Type.CELL));
 		register(getStack(Items.GLOWSTONE_DUST, 16), 25000, getStack(Items.REDSTONE, 8), getMaterial("sulfur", Type.CELL), getMaterial("helium", Type.CELL));
 		register(getStack(Items.DYE, 4, 4), 1500, false, getMaterial("lazurite", 3, Type.DUST), getMaterial("pyrite", Type.SMALL_DUST), getMaterial("calcite", Type.SMALL_DUST), getMaterial("sodalite", 2, Type.SMALL_DUST));
-		register(getMaterial("ender_eye", 2, Type.DUST), 1840, getMaterial("ender_pearl", Type.DUST), getStack(Items.BLAZE_POWDER));
+		register(getMaterial("ender_eye", 2, Type.DUST), 1840, getMaterial("ender_pearl", 2, Type.DUST), getStack(Items.BLAZE_POWDER));
 		register(getMaterial("netherrack", 16, Type.DUST), 2400, getStack(Items.REDSTONE), getMaterial("sulfur", Type.CELL), getMaterial("coal", Type.DUST), getStack(Items.GOLD_NUGGET));
 		register(getMaterial("endstone", 16, Type.DUST), 4800, getMaterial("helium3", Type.CELL), getMaterial("helium", Type.CELL), getMaterial("tungsten", Type.SMALL_DUST), getStack(Blocks.SAND, 12));
 		register(getMaterial("red_garnet", 16, Type.DUST), 3000, getMaterial("pyrope", 3, Type.DUST), getMaterial("almandine", 5, Type.DUST), getMaterial("spessartine", 8, Type.DUST));
