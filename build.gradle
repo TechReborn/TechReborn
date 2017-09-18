@@ -87,8 +87,8 @@ if (ENV.BUILD_NUMBER) {
 }
 
 minecraft {
-	version = "1.12.1-14.22.0.2456"
-	mappings = "snapshot_20170624"
+	version = "1.12.2-14.23.0.2486"
+	mappings = "snapshot_20170918"
 	replace "@MODVERSION@", project.version
 	useDepAts = true
 	runDir = "run"
@@ -104,7 +104,7 @@ group = 'TechReborn'
 
 
 dependencies {
-	deobfCompile('RebornCore:RebornCore-1.12.1:+:universal') {
+	deobfCompile('RebornCore:RebornCore-1.12.2:+:universal') {
 		transitive = false
 	}
 	deobfCompile "mezz.jei:jei_1.12:+"

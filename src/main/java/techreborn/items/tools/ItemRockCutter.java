@@ -63,7 +63,7 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo, IEne
 		setUnlocalizedName("techreborn.rockcutter");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
-		efficiencyOnProperMaterial = 16F;
+		efficiency = 16F;
 	}
 
 	@Override
@@ -98,11 +98,11 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo, IEne
 	}
 
 	@Override
-	public float getStrVsBlock(ItemStack stack, IBlockState state) {
+	public float getDestroySpeed(ItemStack stack, IBlockState state) {
 		if (!PoweredItem.canUseEnergy(cost, stack)) {
 			return 2F;
 		} else {
-			return Items.DIAMOND_PICKAXE.getStrVsBlock(stack, state);
+			return Items.DIAMOND_PICKAXE.getDestroySpeed(stack, state);
 		}
 	}
 
