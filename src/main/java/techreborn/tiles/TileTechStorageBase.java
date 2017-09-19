@@ -141,7 +141,11 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 
 	public NBTTagCompound writeToNBTWithoutCoords(NBTTagCompound tagCompound) {
 		if (!storedItem.isEmpty()) {
-			tagCompound.setTag("storedStack", storedItem.writeToNBT(new NBTTagCompound()));
+			ItemStack temp = storedItem.copy();
+			if (storedItem.getCount() > storedItem.getMaxStackSize()){
+				temp.setCount(storedItem.getMaxStackSize());
+			}
+			tagCompound.setTag("storedStack", temp.writeToNBT(new NBTTagCompound()));
 			tagCompound.setInteger("storedQuantity", storedItem.getCount());
 		} else {
 			tagCompound.setInteger("storedQuantity", 0);
