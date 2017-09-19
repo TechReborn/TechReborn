@@ -74,6 +74,7 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 					this.setInventorySlotContents(0, ItemStack.EMPTY);
 					this.syncWithAll();
 				}
+				this.markDirty();
 			}
 
 			if (!this.storedItem.isEmpty()) {
@@ -88,6 +89,7 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 						this.storedItem = ItemStack.EMPTY;
 
 					this.setInventorySlotContents(1, delivered);
+					this.markDirty();
 					this.syncWithAll();
 				} else if (ItemUtils.isItemEqual(this.storedItem, this.getStackInSlot(1), true, true)
 					&& this.getStackInSlot(1).getCount() < this.getStackInSlot(1).getMaxStackSize()) {
@@ -100,6 +102,7 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 
 					if (this.storedItem.isEmpty())
 						this.storedItem = ItemStack.EMPTY;
+					this.markDirty();
 					this.syncWithAll();
 				}
 			}
@@ -165,6 +168,8 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 		writeToNBTWithoutCoords(tileEntity);
 		dropStack.setTagCompound(new NBTTagCompound());
 		dropStack.getTagCompound().setTag("tileEntity", tileEntity);
+		this.storedItem.setCount(0);
+		this.syncWithAll();
 		return dropStack;
 	}
 

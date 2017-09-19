@@ -56,6 +56,11 @@ public class BlockQuantumChest extends BlockMachineBase {
 		this.setHardness(2.0F);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier3_machines"));
 	}
+	
+	@Override
+	public boolean isAdvanced() {
+		return true;
+	}
 
 	@Override
 	protected void dropInventory(final World world, final BlockPos pos) {
