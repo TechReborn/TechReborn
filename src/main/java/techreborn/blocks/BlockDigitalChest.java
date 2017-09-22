@@ -26,7 +26,6 @@ package techreborn.blocks;
 
 import net.minecraft.block.BlockDynamicLiquid;
 import net.minecraft.block.BlockStaticLiquid;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -37,6 +36,7 @@ import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.util.WorldUtils;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
@@ -45,7 +45,6 @@ import techreborn.tiles.TileTechStorageBase;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class BlockDigitalChest extends BlockMachineBase {
 
@@ -89,28 +88,7 @@ public class BlockDigitalChest extends BlockMachineBase {
 			}
 			items.add(itemStack.copy());
 		}
-
-		for (final ItemStack itemStack : items) {
-			final Random rand = new Random();
-
-			final float dX = rand.nextFloat() * 0.8F + 0.1F;
-			final float dY = rand.nextFloat() * 0.8F + 0.1F;
-			final float dZ = rand.nextFloat() * 0.8F + 0.1F;
-
-			final EntityItem entityItem = new EntityItem(world, pos.getX() + dX, pos.getY() + dY, pos.getZ() + dZ,
-					itemStack.copy());
-
-			if (itemStack.hasTagCompound()) {
-				entityItem.getItem().setTagCompound(itemStack.getTagCompound().copy());
-			}
-
-			final float factor = 0.05F;
-			entityItem.motionX = rand.nextGaussian() * factor;
-			entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
-			entityItem.motionZ = rand.nextGaussian() * factor;
-			world.spawnEntity(entityItem);
-			itemStack.setCount(0);
-		}
+		WorldUtils.dropItems(items, world, pos);
 	}
 
 	@Override

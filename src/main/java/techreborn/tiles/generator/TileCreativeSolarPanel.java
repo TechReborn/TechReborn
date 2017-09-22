@@ -46,8 +46,8 @@ public class TileCreativeSolarPanel extends TilePowerAcceptor implements IToolDr
 	int powerToAdd;
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
+	public void update() {
+		super.update();
 		this.setEnergy(getMaxPower());
 	}
 

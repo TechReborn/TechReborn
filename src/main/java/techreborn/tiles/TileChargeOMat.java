@@ -59,8 +59,8 @@ public class TileChargeOMat extends TilePowerAcceptor
 	}
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
+	public void update() {
+		super.update();
 
 		for (int i = 0; i < 6; i++) {
 			if (this.inventory.getStackInSlot(i) != ItemStack.EMPTY) {

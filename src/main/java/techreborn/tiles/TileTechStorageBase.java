@@ -61,28 +61,37 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 	@Override
 	public void updateEntity() {
 		if (!world.isRemote) {
-			if (this.getStackInSlot(0) != ItemStack.EMPTY) {
+			ItemStack outputStack = ItemStack.EMPTY;
+			if (!this.getStackInSlot(1).isEmpty()){
+				outputStack  = this.getStackInSlot(1);
+			}
+			if (this.getStackInSlot(0) != ItemStack.EMPTY
+					&& (this.storedItem.getCount() + outputStack.getCount()) < this.maxCapacity) {
+				ItemStack inputStack = this.getStackInSlot(0);
 				if (this.getStoredItemType().isEmpty() || (this.storedItem.isEmpty()
-					&& ItemUtils.isItemEqual(this.getStackInSlot(0), this.getStackInSlot(1), true, true))) {
+						&& ItemUtils.isItemEqual(inputStack, outputStack, true, true))) {
 
-					this.storedItem = this.getStackInSlot(0);
+					this.storedItem = inputStack;
 					this.setInventorySlotContents(0, ItemStack.EMPTY);
-					this.syncWithAll();
-				} else if (ItemUtils.isItemEqual(this.getStoredItemType(), this.getStackInSlot(0), true, true)) {
-
-					this.setStoredItemCount(this.getStackInSlot(0).getCount());
-					this.setInventorySlotContents(0, ItemStack.EMPTY);
-					this.syncWithAll();
+				} else if (ItemUtils.isItemEqual(this.getStoredItemType(), inputStack, true, true)) {
+					int reminder = this.maxCapacity - this.storedItem.getCount() - outputStack.getCount();
+					if (inputStack.getCount() <= reminder) {
+						this.setStoredItemCount(inputStack.getCount());
+						this.setInventorySlotContents(0, ItemStack.EMPTY);
+					} else {
+						this.setStoredItemCount(this.maxCapacity - outputStack.getCount());
+						this.getStackInSlot(0).shrink(reminder);
+					}
 				}
 				this.markDirty();
+				this.syncWithAll();
 			}
 
 			if (!this.storedItem.isEmpty()) {
-				if (this.getStackInSlot(1) == ItemStack.EMPTY) {
+				if (outputStack == ItemStack.EMPTY) {
 
 					ItemStack delivered = this.storedItem.copy();
 					delivered.setCount(Math.min(this.storedItem.getCount(), delivered.getMaxStackSize()));
-
 					this.storedItem.shrink(delivered.getCount());
 
 					if (this.storedItem.isEmpty())
@@ -91,13 +100,13 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 					this.setInventorySlotContents(1, delivered);
 					this.markDirty();
 					this.syncWithAll();
-				} else if (ItemUtils.isItemEqual(this.storedItem, this.getStackInSlot(1), true, true)
-					&& this.getStackInSlot(1).getCount() < this.getStackInSlot(1).getMaxStackSize()) {
+				} else if (ItemUtils.isItemEqual(this.storedItem, outputStack, true, true)
+					&& outputStack.getCount() < outputStack.getMaxStackSize()) {
 
 					int wanted = Math.min(this.storedItem.getCount(),
-						this.getStackInSlot(1).getMaxStackSize() - this.getStackInSlot(1).getCount());
+							outputStack.getMaxStackSize() - outputStack.getCount());
 
-					this.getStackInSlot(1).setCount(this.getStackInSlot(1).getCount() + wanted);
+					outputStack.setCount(outputStack.getCount() + wanted);
 					this.storedItem.shrink(wanted);
 
 					if (this.storedItem.isEmpty())
@@ -127,11 +136,11 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 		storedItem = ItemStack.EMPTY;
 
 		if (tagCompound.hasKey("storedStack")) {
-			storedItem = new ItemStack((NBTTagCompound) tagCompound.getTag("storedStack"));
+			this.storedItem = new ItemStack((NBTTagCompound) tagCompound.getTag("storedStack"));
 		}
 
-		if (!storedItem.isEmpty()) {
-			storedItem.setCount(tagCompound.getInteger("storedQuantity"));
+		if (!this.storedItem.isEmpty()) {
+			this.storedItem.setCount(Math.min(tagCompound.getInteger("storedQuantity"), this.maxCapacity));
 		}
 	}
 
@@ -143,13 +152,13 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 	}
 
 	public NBTTagCompound writeToNBTWithoutCoords(NBTTagCompound tagCompound) {
-		if (!storedItem.isEmpty()) {
-			ItemStack temp = storedItem.copy();
-			if (storedItem.getCount() > storedItem.getMaxStackSize()){
+		if (!this.storedItem.isEmpty()) {
+			ItemStack temp = this.storedItem.copy();
+			if (this.storedItem.getCount() > storedItem.getMaxStackSize()){
 				temp.setCount(storedItem.getMaxStackSize());
 			}
 			tagCompound.setTag("storedStack", temp.writeToNBT(new NBTTagCompound()));
-			tagCompound.setInteger("storedQuantity", storedItem.getCount());
+			tagCompound.setInteger("storedQuantity", Math.min(this.storedItem.getCount(), this.maxCapacity));
 		} else {
 			tagCompound.setInteger("storedQuantity", 0);
 		}
@@ -170,6 +179,7 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 		dropStack.getTagCompound().setTag("tileEntity", tileEntity);
 		this.storedItem.setCount(0);
 		this.syncWithAll();
+		
 		return dropStack;
 	}
 
