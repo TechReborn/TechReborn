@@ -37,7 +37,6 @@ import net.minecraft.util.math.BlockPos;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.api.IToolDrop;
-import reborncore.common.misc.Location;
 import reborncore.common.multiblock.IMultiblockPart;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
@@ -110,40 +109,41 @@ public class TileIndustrialBlastFurnace extends TilePowerAcceptor implements ITo
 		if (!this.getMutliBlock()){
 			return 0;
 		}
-		for (final EnumFacing direction : EnumFacing.values()) {
-			final TileEntity tileEntity = this.world.getTileEntity(new BlockPos(this.getPos().getX() + direction.getFrontOffsetX(),
-				this.getPos().getY() + direction.getFrontOffsetY(), this.getPos().getZ() + direction.getFrontOffsetZ()));
-			if (tileEntity instanceof TileMachineCasing) {
-				if (((TileMachineCasing) tileEntity).isConnected()
+		
+		// Bottom center of multiblock
+		final BlockPos location = this.getPos().offset(this.getFacing().getOpposite(), 2);
+		final TileEntity tileEntity = this.world.getTileEntity(location);
+
+		if (tileEntity instanceof TileMachineCasing) {
+			if (((TileMachineCasing) tileEntity).isConnected()
 					&& ((TileMachineCasing) tileEntity).getMultiblockController().isAssembled()) {
-					final MultiBlockCasing casing = ((TileMachineCasing) tileEntity).getMultiblockController();
-					final Location location = new Location(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), direction);
-					location.modifyPositionFromSide(direction, 1);
-					int heat = 0;
-					if (this.world.getBlockState(new BlockPos(location.getX(), location.getY() - 1, location.getZ()))
+				final MultiBlockCasing casing = ((TileMachineCasing) tileEntity).getMultiblockController();
+
+				int heat = 0;
+
+				// Bottom center shouldn't have any tile entities below it
+				if (this.world.getBlockState(new BlockPos(location.getX(), location.getY() - 1, location.getZ()))
 						.getBlock() == tileEntity.getBlockType()) {
-						return 0;
-					}
-
-					for (final IMultiblockPart part : casing.connectedParts) {
-						final BlockMachineCasing casing1 = (BlockMachineCasing) this.world.getBlockState(part.getPos())
-							.getBlock();
-						heat += casing1
-							.getHeatFromState(part.getWorld().getBlockState(part.getWorldLocation().toBlockPos()));
-						// TODO meta fix
-					}
-
-					if (this.world.getBlockState(new BlockPos(location.getX(), location.getY() + 1, location.getZ()))
-						.getBlock().getUnlocalizedName().equals("tile.lava")
-						&& this.world
-						.getBlockState(new BlockPos(location.getX(), location.getY() + 2, location.getZ()))
-						.getBlock().getUnlocalizedName().equals("tile.lava")) {
-						heat += 500;
-					}
-					return heat;
+					return 0;
 				}
+
+				for (final IMultiblockPart part : casing.connectedParts) {
+					final BlockMachineCasing casing1 = (BlockMachineCasing) this.world.getBlockState(part.getPos())
+							.getBlock();
+					heat += casing1.getHeatFromState(this.world.getBlockState(part.getPos()));
+					// TODO meta fix
+				}
+
+				if (this.world.getBlockState(location.offset(EnumFacing.UP, 1)).getBlock().getUnlocalizedName()
+						.equals("tile.lava")
+						&& this.world.getBlockState(location.offset(EnumFacing.UP, 2)).getBlock().getUnlocalizedName()
+								.equals("tile.lava")) {
+					heat += 500;
+				}
+				return heat;
 			}
 		}
+
 		return 0;
 	}
 
