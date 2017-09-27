@@ -36,6 +36,8 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.ModContainer;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import org.apache.commons.lang3.Validate;
@@ -45,7 +47,7 @@ import java.util.HashMap;
 public class RollingMachineRecipe {
 
 	public static final RollingMachineRecipe instance = new RollingMachineRecipe();
-	private final HashMap<ResourceLocation, IRecipe> recipes = new HashMap<>();
+	private static final HashMap<ResourceLocation, IRecipe> recipes = new HashMap<>();
 
 	public void addShapedOreRecipe(ResourceLocation resourceLocation, ItemStack outputItemStack, Object... objectInputs) {
 				Validate.notNull(outputItemStack);
@@ -63,6 +65,18 @@ public class RollingMachineRecipe {
 					Validate.notNull(null); //Quick way to crash
 				}
 				recipes.put(resourceLocation, new ShapelessOreRecipe(resourceLocation, outputItemStack, objectInputs));
+	}
+
+	public static ResourceLocation getNameForRecipe(ItemStack output) {
+		ModContainer activeContainer = Loader.instance().activeModContainer();
+		ResourceLocation baseLoc = new ResourceLocation(activeContainer.getModId(), output.getItem().getRegistryName().getResourcePath());
+		ResourceLocation recipeLoc = baseLoc;
+		int index = 0;
+		while (recipes.containsKey(recipeLoc)) {
+			index++;
+			recipeLoc = new ResourceLocation(activeContainer.getModId(), baseLoc.getResourcePath() + "_" + index);
+		}
+		return recipeLoc;
 	}
 
 	public void addRecipe(ResourceLocation resourceLocation, ItemStack output, Object... components) {

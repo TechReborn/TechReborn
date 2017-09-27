@@ -32,6 +32,7 @@ import reborncore.common.util.ItemUtils;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import techreborn.api.RollingMachineRecipe;
+import techreborn.api.TechRebornAPI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,16 +41,15 @@ import java.util.Map;
 @ZenClass("mods.techreborn.rollingMachine")
 public class CTRollingMachine {
 
-	//TODO 1.12 Crafttweaker
-	//	@ZenMethod
-	//	public static void addShaped(IItemStack output, IIngredient[][] ingredients) {
-	//		TechRebornAPI.addRollingOreMachinceRecipe(toStack(output), toShapedObjects(ingredients));
-	//	}
+	@ZenMethod
+	public static void addShaped(IItemStack output, IIngredient[][] ingredients) {
+		TechRebornAPI.addRollingOreMachinceRecipe(RollingMachineRecipe.getNameForRecipe(CraftTweakerCompat.toStack(output)), CraftTweakerCompat.toStack(output), toShapedObjects(ingredients));
+	}
 
-	//	@ZenMethod
-	//	public static void addShapeless(IItemStack output, IIngredient[] ingredients) {
-	//		TechRebornAPI.addShapelessOreRollingMachinceRecipe(toStack(output), toObjects(ingredients));
-	//	}
+	@ZenMethod
+	public static void addShapeless(IItemStack output, IIngredient[] ingredients) {
+		TechRebornAPI.addShapelessOreRollingMachinceRecipe(RollingMachineRecipe.getNameForRecipe(CraftTweakerCompat.toStack(output)), CraftTweakerCompat.toStack(output), toObjects(ingredients));
+	}
 
 	@ZenMethod
 	public static void removeRecipe(IItemStack output) {
@@ -63,7 +63,7 @@ public class CTRollingMachine {
 			RollingMachineRecipe.instance.getRecipeList().remove(resourceLocation);
 		}
 	}
-	
+
 	public static Object[] toShapedObjects(IIngredient[][] ingredients) {
 		if (ingredients == null)
 			return null;
@@ -84,6 +84,22 @@ public class CTRollingMachine {
 				}
 			}
 			return prep.toArray();
+		}
+	}
+
+	public static Object[] toObjects(IIngredient[] ingredient) {
+		if (ingredient == null)
+			return null;
+		else {
+			Object[] output = new Object[ingredient.length];
+			for (int i = 0; i < ingredient.length; i++) {
+				if (ingredient[i] != null) {
+					output[i] = CraftTweakerCompat.toObject(ingredient[i]);
+				} else
+					output[i] = "";
+			}
+
+			return output;
 		}
 	}
 }
