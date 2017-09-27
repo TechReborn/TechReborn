@@ -40,7 +40,6 @@ import techreborn.tiles.multiblock.TileIndustrialSawmill;
 
 import javax.annotation.Nonnull;
 
-@SuppressWarnings("deprecation")
 public class IndustrialSawmillRecipeCategory implements IRecipeCategory<IndustrialSawmillRecipeWrapper> {
 
 	private final String title;

@@ -57,8 +57,8 @@ public class TileWindMill extends TilePowerAcceptor implements IToolDrop {
 	}
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
+	public void update() {
+		super.update();
 		if (this.pos.getY() > 64) {
 			int actualPower = this.basePower;
 			if (this.world.isThundering()) {

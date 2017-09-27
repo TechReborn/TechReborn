@@ -34,8 +34,8 @@ public class TileLSUStorage extends TileLegacyMachineBase {
 	public LesuNetwork network;
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
+	public void update() {
+		super.update();
 		if (network == null) {
 			findAndJoinNetwork(world, getPos().getX(), getPos().getY(), getPos().getZ());
 		} else {

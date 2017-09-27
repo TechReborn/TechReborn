@@ -70,8 +70,8 @@ public class TileAssemblingMachine extends TilePowerAcceptor
 	}
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
+	public void update() {
+		super.update();
 		this.charge(3);
 	}
 

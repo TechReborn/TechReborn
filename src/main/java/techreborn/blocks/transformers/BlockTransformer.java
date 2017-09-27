@@ -33,19 +33,26 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidBase;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
+import reborncore.api.IToolDrop;
+import reborncore.api.IToolHandler;
 import reborncore.common.BaseTileBlock;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.init.ModSounds;
 import techreborn.lib.ModInfo;
 
 import java.util.ArrayList;
@@ -114,7 +121,47 @@ public abstract class BlockTransformer extends BaseTileBlock {
 		}
 		setFacing(facing, worldIn, pos);
 	}
+	
+	@Override
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
+	                                EnumFacing side, float hitX, float hitY, float hitZ) {
+		ItemStack stack = player.getHeldItem(EnumHand.MAIN_HAND);
+		if(!stack.isEmpty() && stack.getItem() instanceof IToolHandler){
+			IToolHandler toolHandler = (IToolHandler) stack.getItem();
+			if(toolHandler.handleTool(stack, pos, world, player, side, true) && state.getBlock() instanceof BlockTransformer){
+				if (player.isSneaking()) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity instanceof IToolDrop) {
+						ItemStack drop = ((IToolDrop) tileEntity).getToolDrop(player);
+						if (drop == null) {
+							return false;
+						}
+						if (!drop.isEmpty()) {
+							spawnAsEntity(world, pos, drop);
+						}
+						world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.BLOCK_DISMANTLE,
+								SoundCategory.BLOCKS, 0.6F, 1F);
+						if (!world.isRemote) {
+							world.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
+						}
+						return true;
+					}
+				} else {
+					EnumFacing facing2 = state.getValue(BlockTransformer.FACING);
+					if (facing2.getOpposite() == side) {
+						facing2 = side;
+					} else {
+						facing2 = side.getOpposite();
+					}
+					world.setBlockState(pos, state.withProperty(BlockTransformer.FACING, facing2));
+					return true;
+				}
+			}
+		}
 
+		return super.onBlockActivated(world, pos, state, player, hand, side, hitX, hitY, hitZ);
+	}
+	
 	protected List<ItemStack> dropInventory(IBlockAccess world, BlockPos pos, ItemStack itemToDrop) {
 		TileEntity tileEntity = world.getTileEntity(pos);
 
