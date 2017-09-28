@@ -46,7 +46,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.energy.CapabilityEnergy;
-import reborncore.api.IToolHandler;
+import reborncore.api.ToolManager;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModSounds;
@@ -89,9 +89,8 @@ public class BlockCable extends BlockContainer {
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
-		if (!stack.isEmpty() && stack.getItem() instanceof IToolHandler && playerIn.isSneaking()) {
-			IToolHandler toolHandler = (IToolHandler) stack.getItem();
-			if (toolHandler.handleTool(stack, pos, world, playerIn, facing, false)) {
+		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack) && playerIn.isSneaking()) {
+			if (ToolManager.INSTANCE.handleTool(stack, pos, world, playerIn, facing, false)) {
 				ItemStack drop = state.getValue(TYPE).getStack();
 				if (drop == null) {
 					return false;
