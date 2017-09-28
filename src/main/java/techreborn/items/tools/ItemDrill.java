@@ -54,7 +54,7 @@ public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo, IEnergyIn
 
 	public ItemDrill(ToolMaterial material, String unlocalizedName, int energyCapacity, float unpoweredSpeed, float efficiencyOnProperMaterial) {
 		super(material);
-		this.efficiency = efficiencyOnProperMaterial;
+		this.efficiencyOnProperMaterial = efficiencyOnProperMaterial;
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
 		setUnlocalizedName(unlocalizedName);
@@ -73,15 +73,15 @@ public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo, IEnergyIn
 	}
 
 	@Override
-	public float getDestroySpeed(ItemStack stack, IBlockState state) {
+	public float getStrVsBlock(ItemStack stack, IBlockState state) {
 		if (!PoweredItem.canUseEnergy(cost, stack)) {
 			return unpoweredSpeed;
 		}
-		if (Items.WOODEN_PICKAXE.getDestroySpeed(stack, state) > 1.0F
-			|| Items.WOODEN_SHOVEL.getDestroySpeed(stack, state) > 1.0F) {
-			return efficiency;
+		if (Items.WOODEN_PICKAXE.getStrVsBlock(stack, state) > 1.0F
+			|| Items.WOODEN_SHOVEL.getStrVsBlock(stack, state) > 1.0F) {
+			return efficiencyOnProperMaterial;
 		} else {
-			return super.getDestroySpeed(stack, state);
+			return super.getStrVsBlock(stack, state);
 		}
 	}
 

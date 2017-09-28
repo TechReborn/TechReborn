@@ -38,7 +38,7 @@ public class ItemAdvancedJackhammer extends ItemJackhammer {
 	public ItemAdvancedJackhammer() {
 		super(ToolMaterial.IRON, "techreborn.advancedJackhammer", ConfigTechReborn.AdvancedJackhammerCharge);
 		this.cost = 250;
-		this.efficiency = 60F;
+		this.efficiencyOnProperMaterial = 60F;
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })

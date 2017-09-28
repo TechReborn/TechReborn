@@ -87,8 +87,8 @@ if (ENV.BUILD_NUMBER) {
 }
 
 minecraft {
-	version = "1.12.2-14.23.0.2486"
-	mappings = "snapshot_20170918"
+	version = "1.12.2-14.23.0.2493"
+	mappings = "snapshot_20170624"
 	replace "@MODVERSION@", project.version
 	useDepAts = true
 	runDir = "run"
@@ -104,22 +104,24 @@ group = 'TechReborn'
 
 
 dependencies {
+	//Some dep we use wants the older jei, so this ingores it. We grab the latest anyway, so it shoudnt cause any issues.
+	def withoutOldJEI = { exclude module: 'jei_1.12' }
+
 	deobfCompile('RebornCore:RebornCore-1.12.2:+:universal') {
 		transitive = false
 	}
-	deobfCompile "mezz.jei:jei_1.12:+"
+	deobfCompile "mezz.jei:jei_1.12.2:+"
 	compile "mcp.mobius.waila:Hwyla:+"
 	compile "net.darkhax.tesla:Tesla-1.12:1.0.59:deobf"
 
 	//1.11 updates
 	//deobfCompile "slimeknights:TConstruct:1.10.2-2.5.3.jenkins384"
 	//deobfCompile "slimeknights.mantle:Mantle:1.10.2-1.0.0.jenkins170"
-	deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:1.12-1.4.11-5"
-	compile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.0.0.5"
-	deobfCompile  'net.industrial-craft:industrialcraft-2:2.8.7-ex112'
-	//compile name: 'buildcraft', version: '7.99.4', ext: 'jar'
-	deobfCompile  'cofh:ThermalDynamics:1.12-2.3.4.11:universal'
-	deobfCompile  'cofh:ThermalExpansion:1.12-5.3.4.16:universal'
+	deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:1.12-1.4.18-10"
+	compile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.0.7.273", withoutOldJEI
+	deobfCompile  'net.industrial-craft:industrialcraft-2:2.8.26-ex112', withoutOldJEI
+	deobfCompile  'cofh:ThermalDynamics:1.12-2.3.5.12:universal', withoutOldJEI
+	deobfCompile  'cofh:ThermalExpansion:1.12-5.3.5.19:universal', withoutOldJEI
 }
 
 

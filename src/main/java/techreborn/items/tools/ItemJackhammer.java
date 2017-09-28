@@ -59,7 +59,7 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo, IEne
 
 	public ItemJackhammer(ToolMaterial material, String unlocalizedName, int energyCapacity) {
 		super(material);
-		efficiency = 20F;
+		efficiencyOnProperMaterial = 20F;
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
 		setMaxDamage(240);
@@ -84,9 +84,9 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo, IEne
 	}
 
 	@Override
-	public float getDestroySpeed(ItemStack stack, IBlockState state) {
+	public float getStrVsBlock(ItemStack stack, IBlockState state) {
 		if ((OreDictUtils.isOre(state, "stone") || state.getBlock() == Blocks.STONE) && PoweredItem.canUseEnergy(cost, stack)) {
-			return efficiency;
+			return efficiencyOnProperMaterial;
 		} else {
 			return 0.5F;
 		}

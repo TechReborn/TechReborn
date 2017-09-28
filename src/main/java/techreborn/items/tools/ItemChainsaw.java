@@ -60,7 +60,7 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, IEnergyInt
 	public ItemChainsaw(ToolMaterial material, String unlocalizedName, int energyCapacity,
 	                    float unpoweredSpeed) {
 		super(material);
-		efficiency = 20F;
+		efficiencyOnProperMaterial = 20F;
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
 		setUnlocalizedName(unlocalizedName);
