@@ -50,6 +50,7 @@ import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.IToolDrop;
 import reborncore.api.IToolHandler;
+import reborncore.api.ToolManager;
 import reborncore.common.BaseTileBlock;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModSounds;
@@ -126,9 +127,8 @@ public abstract class BlockTransformer extends BaseTileBlock {
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
 	                                EnumFacing side, float hitX, float hitY, float hitZ) {
 		ItemStack stack = player.getHeldItem(EnumHand.MAIN_HAND);
-		if(!stack.isEmpty() && stack.getItem() instanceof IToolHandler){
-			IToolHandler toolHandler = (IToolHandler) stack.getItem();
-			if(toolHandler.handleTool(stack, pos, world, player, side, true) && state.getBlock() instanceof BlockTransformer){
+		if(!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack) && !world.isRemote){
+			if(ToolManager.INSTANCE.handleTool(stack, pos, world, player, side, true) && state.getBlock() instanceof BlockTransformer){
 				if (player.isSneaking()) {
 					TileEntity tileEntity = world.getTileEntity(pos);
 					if (tileEntity instanceof IToolDrop) {

@@ -42,6 +42,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
+import reborncore.api.IToolDrop;
 import reborncore.api.ToolManager;
 import reborncore.common.BaseTileBlock;
 import techreborn.Core;
