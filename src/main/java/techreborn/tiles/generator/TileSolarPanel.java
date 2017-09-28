@@ -61,8 +61,8 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 	}
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
+	public void update() {
+		super.update();
 		if (!this.world.isRemote) {
 			if (this.world.getTotalWorldTime() % 60 == 0) {
 				this.shouldMakePower = this.isSunOut();

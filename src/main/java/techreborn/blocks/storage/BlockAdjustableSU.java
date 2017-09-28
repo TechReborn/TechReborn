@@ -24,18 +24,19 @@
 
 package techreborn.blocks.storage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import reborncore.common.RebornCoreConfig;
 import techreborn.client.EGui;
 import techreborn.init.ModBlocks;
 import techreborn.tiles.storage.TileAdjustableSU;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class BlockAdjustableSU extends BlockEnergyStorage {
 	public BlockAdjustableSU() {
@@ -46,11 +47,18 @@ public class BlockAdjustableSU extends BlockEnergyStorage {
 	public TileEntity createNewTileEntity(final World world, final int p_149915_2_) {
 		return new TileAdjustableSU();
 	}
-
+	
 	@Override
 	public List<ItemStack> getDrops(final IBlockAccess world, final BlockPos pos, final IBlockState state, final int fortune) {
-		final ArrayList<ItemStack> list = new ArrayList<>();
-		list.add(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 2));
-		return list;
+		List<ItemStack> items = new ArrayList<ItemStack>();
+		
+		if (RebornCoreConfig.wrenchRequired){
+			items.add(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 2));
+		}
+		else {
+			items.add(new ItemStack(this));
+		}
+		
+		return items;
 	}
 }

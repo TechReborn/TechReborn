@@ -156,6 +156,7 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IToolDro
 		return super.hasCapability(capability, facing);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T getCapability(final Capability<T> capability, final EnumFacing facing) {
 		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {

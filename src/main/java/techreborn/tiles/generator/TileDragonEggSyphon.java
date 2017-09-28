@@ -57,8 +57,8 @@ public class TileDragonEggSyphon extends TilePowerAcceptor implements IToolDrop,
 	}
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
+	public void update() {
+		super.update();
 
 		if (!world.isRemote) {
 			if (world.getBlockState(new BlockPos(getPos().getX(), getPos().getY() + 1, getPos().getZ()))

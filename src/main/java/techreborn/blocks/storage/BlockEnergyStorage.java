@@ -32,9 +32,12 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
@@ -43,6 +46,7 @@ import reborncore.api.ToolManager;
 import reborncore.common.BaseTileBlock;
 import techreborn.Core;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.init.ModSounds;
 import techreborn.lib.ModInfo;
 
 import java.util.Iterator;
@@ -72,7 +76,24 @@ public abstract class BlockEnergyStorage extends BaseTileBlock {
 		ItemStack heldStack = player.getHeldItem(hand);
 		if(ToolManager.INSTANCE.canHandleTool(heldStack)){
 			if(ToolManager.INSTANCE.handleTool(heldStack, pos, world, player, side, true)){
-				if (state.getBlock() instanceof BlockEnergyStorage) {
+				if (player.isSneaking()) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity instanceof IToolDrop) {
+						ItemStack drop = ((IToolDrop) tileEntity).getToolDrop(player);
+						if (drop == null) {
+							return false;
+						}
+						if (!drop.isEmpty()) {
+							spawnAsEntity(world, pos, drop);
+						}
+						world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.BLOCK_DISMANTLE,
+							SoundCategory.BLOCKS, 0.6F, 1F);
+						if (!world.isRemote) {
+							world.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
+						}
+						return true;
+					}
+				} else {
 					EnumFacing facing2 = state.getValue(BlockEnergyStorage.FACING);
 					if (facing2.getOpposite() == side) {
 						facing2 = side;
@@ -83,11 +104,11 @@ public abstract class BlockEnergyStorage extends BaseTileBlock {
 					return true;
 				}
 			}
+		} else if (!player.isSneaking()){
+			player.openGui(Core.INSTANCE, guiID, world, pos.getX(), pos.getY(), pos.getZ());
 		}
 
-		if (!player.isSneaking())
-			player.openGui(Core.INSTANCE, guiID, world, pos.getX(), pos.getY(), pos.getZ());
-		return true;
+		return super.onBlockActivated(world, pos, state, player, hand, side, hitX, hitY, hitZ);
 	}
 
 	protected BlockStateContainer createBlockState() {

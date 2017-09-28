@@ -24,17 +24,18 @@
 
 package techreborn.blocks.transformers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import reborncore.common.RebornCoreConfig;
 import techreborn.init.ModBlocks;
 import techreborn.tiles.transformers.TileMVTransformer;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by modmuss50 on 16/03/2016.
@@ -49,11 +50,18 @@ public class BlockMVTransformer extends BlockTransformer {
 	public TileEntity createNewTileEntity(World world, int p_149915_2_) {
 		return new TileMVTransformer();
 	}
-
+	
 	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-		ArrayList<ItemStack> list = new ArrayList<>();
-		list.add(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 0));
-		return list;
-	}
+	public List<ItemStack> getDrops(final IBlockAccess world, final BlockPos pos, final IBlockState state, final int fortune) {
+		List<ItemStack> items = new ArrayList<ItemStack>();
+		
+		if (RebornCoreConfig.wrenchRequired){
+			items.add(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 0));
+		}
+		else {
+			items.add(new ItemStack(this));
+		}
+		
+		return items;
+	}	
 }

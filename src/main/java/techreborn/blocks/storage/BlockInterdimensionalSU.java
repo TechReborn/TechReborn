@@ -30,13 +30,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import techreborn.client.EGui;
 import techreborn.tiles.idsu.TileInterdimensionalSU;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class BlockInterdimensionalSU extends BlockEnergyStorage {
 	public BlockInterdimensionalSU() {
@@ -56,13 +52,6 @@ public class BlockInterdimensionalSU extends BlockEnergyStorage {
 			((TileInterdimensionalSU) tile).ownerUdid = placer.getUniqueID().toString();
 		}
 		return this.getDefaultState();
-	}
-
-	@Override
-	public List<ItemStack> getDrops(final IBlockAccess world, final BlockPos pos, final IBlockState state, final int fortune) {
-		final ArrayList<ItemStack> list = new ArrayList<>();
-		list.add(new ItemStack(this, 1, 2));
-		return list;
 	}
 
 	@Override

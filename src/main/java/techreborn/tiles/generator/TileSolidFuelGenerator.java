@@ -73,8 +73,8 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDr
 	}
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
+	public void update() {
+		super.update();
 		if (this.world.isRemote) {
 			return;
 		}

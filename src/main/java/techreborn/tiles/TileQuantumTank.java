@@ -91,8 +91,8 @@ public class TileQuantumTank extends TileLegacyMachineBase
 	}
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
+	public void update() {
+		super.update();
 		if (!this.world.isRemote) {
 			if (FluidUtils.drainContainers(this.tank, this.inventory, 0, 1)
 				|| FluidUtils.fillContainers(this.tank, this.inventory, 0, 1, this.tank.getFluidType()))
@@ -114,6 +114,7 @@ public class TileQuantumTank extends TileLegacyMachineBase
 		return super.hasCapability(capability, facing);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T getCapability(final Capability<T> capability, final EnumFacing facing) {
 		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {

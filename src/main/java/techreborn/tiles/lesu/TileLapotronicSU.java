@@ -25,19 +25,23 @@
 package techreborn.tiles.lesu;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import techreborn.blocks.storage.BlockLapotronicSU;
+import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 
 import java.util.ArrayList;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileLapotronicSU extends TilePowerAcceptor {// TODO wrench
+public class TileLapotronicSU extends TilePowerAcceptor implements IToolDrop{// TODO wrench
 
 	@ConfigRegistry(config = "machines", category = "lesu", key = "LesuMaxInput", comment = "LESU Max Input (Value in EU)")
 	public static int maxInput = 8192;
@@ -62,8 +66,8 @@ public class TileLapotronicSU extends TilePowerAcceptor {// TODO wrench
 	}
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
+	public void update() {
+		super.update();
 		if (world.isRemote) {
 			return;
 		}
@@ -149,5 +153,10 @@ public class TileLapotronicSU extends TilePowerAcceptor {// TODO wrench
 			return ((BlockLapotronicSU) block).getFacing(world.getBlockState(pos));
 		}
 		return null;
+	}
+
+	@Override
+	public ItemStack getToolDrop(EntityPlayer p0) {
+		return new ItemStack(ModBlocks.LAPOTRONIC_SU, 1);
 	}
 }

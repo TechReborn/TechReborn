@@ -63,8 +63,8 @@ public class TilePump extends TilePowerAcceptor {
 	}
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
+	public void update() {
+		super.update();
 		if (!world.isRemote && world.getTotalWorldTime() % 10 == 0 && !tank.isFull() && tank.getCapacity() - tank.getFluidAmount() >= 1000 && canUseEnergy(pumpExtractEU)) {
 			FluidStack fluidStack = drainBlock(world, pos.down(), false);
 			if (fluidStack != null) {
@@ -167,6 +167,7 @@ public class TilePump extends TilePowerAcceptor {
 		return super.hasCapability(capability, facing);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
 		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
