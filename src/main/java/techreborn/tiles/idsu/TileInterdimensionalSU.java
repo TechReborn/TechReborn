@@ -68,6 +68,21 @@ public class TileInterdimensionalSU extends TileEnergyStorage implements IContai
 		}
 		IDSUManager.getData(world).setStoredPower(energy);
 	}
+	
+	@Override
+	public double useEnergy(double extract, boolean simulate) {
+		if (ownerUdid == null || ownerUdid.isEmpty()) {
+			return 0.0;
+		}
+		double energy = IDSUManager.getData(world).getStoredPower();
+		if (extract > energy) {
+			extract = energy;
+		}
+		if (!simulate) {
+			setEnergy(energy - extract);
+		}
+		return extract;
+	}
 
 	public void readFromNBT(NBTTagCompound nbttagcompound) {
 		super.readFromNBT(nbttagcompound);
@@ -85,7 +100,7 @@ public class TileInterdimensionalSU extends TileEnergyStorage implements IContai
 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("mfsu").player(player.inventory).inventory().hotbar().armor()
+		return new ContainerBuilder("idsu").player(player.inventory).inventory().hotbar().armor()
 			.complete(8, 18).addArmor().addInventory().tile(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
 			.syncEnergyValue().addInventory().create(this);
 	}

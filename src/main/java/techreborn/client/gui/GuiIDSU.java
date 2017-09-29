@@ -35,8 +35,6 @@ public class GuiIDSU extends GuiBase {
 
 	public GuiIDSU(EntityPlayer player, TileInterdimensionalSU tileIDSU) {
 		super(player, tileIDSU, tileIDSU.createContainer(player));
-		this.xSize = 176;
-		this.ySize = 197;
 		idsu = tileIDSU;
 	}
 
