@@ -25,9 +25,6 @@
 package techreborn.tiles.cable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
@@ -56,7 +53,7 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 			this.maxPower = getCableType().transferRate * RebornCoreConfig.euPerFU; 
 		}
 		
-		Map<EnumFacing, TileEntity> acceptors = new HashMap<EnumFacing, TileEntity>();
+		ArrayList<IEnergyStorage> acceptors = new ArrayList<IEnergyStorage>();
 		ArrayList<TileCable> cables = new ArrayList<TileCable>();
 		
 		for (EnumFacing face : EnumFacing.VALUES) {
@@ -71,7 +68,11 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 					cables.add(cable);
 				}
 			} else if (tile.hasCapability(CapabilityEnergy.ENERGY, face.getOpposite())) {
-				acceptors.put(face, tile);
+				IEnergyStorage energyTile = tile.getCapability(CapabilityEnergy.ENERGY, face.getOpposite());
+				if (energyTile.canReceive()){
+					acceptors.add(energyTile);
+				}
+				
 			}
 		}
 		
@@ -95,16 +96,10 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 			int remainingEnergy = drain;
 			
 			if (energyShare > 0) {
-				for (Map.Entry<EnumFacing, TileEntity> entry : acceptors.entrySet()){
-					EnumFacing face = entry.getKey();
-					TileEntity tile = entry.getValue();
-					
-					IEnergyStorage energy = tile.getCapability(CapabilityEnergy.ENERGY, face.getOpposite());
-					if (energy.canReceive()) {
-						int move = energy.receiveEnergy(Math.min(energyShare, remainingEnergy), false);
-						if (move > 0) {
-							remainingEnergy -= move;
-						}
+				for (IEnergyStorage tile : acceptors){
+					int move = tile.receiveEnergy(Math.min(energyShare, remainingEnergy), false);
+					if (move > 0) {
+						remainingEnergy -= move;
 					}
 				}
 			}
