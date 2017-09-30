@@ -48,8 +48,9 @@ public class ChemicalReactorRecipes extends RecipeMethods {
 		register(getMaterial("carbon", Type.CELL), getMaterial("calcium", Type.CELL), getMaterial("calciumCarbonate", 2, Type.CELL), 800);
 		register(getMaterial("carbon", Type.CELL), getMaterial("hydrogen", 4, Type.CELL), getMaterial("methane", 5, Type.CELL), 2000);
 		register(getMaterial("carbon", Type.CELL), getMaterial("nitrogen", Type.CELL), getMaterial("nitrocarbon", 2, Type.CELL), 800);
-		register(getMaterial("nitrocarbon", Type.CELL), getMaterial("water", Type.CELL), getMaterial("glyceryl", 2, Type.CELL), 800);
-		register(getMaterial("glyceryl", Type.CELL), getMaterial("diesel", 4, Type.CELL), getMaterial("nitroDiesel", 5, Type.CELL), 2000);
+		register(getMaterial("nitrocarbon", Type.CELL), getMaterial("water", Type.CELL), getMaterial("glyceryl", 2, Type.CELL), 600);
+		register(getMaterial("glyceryl", Type.CELL), getMaterial("diesel", 4, Type.CELL), getMaterial("nitroDiesel", 5, Type.CELL), 250);
+		register(getMaterial("glyceryl", Type.CELL), getMaterial("carbon", 4, Type.CELL), getMaterial("nitrocoalFuel", 5, Type.CELL), 250);
 		register(getMaterial("sulfur", Type.CELL), getMaterial("water", 2, Type.CELL), getMaterial("sulfuricAcid", 3, Type.CELL), 1200);
 		register(getMaterial("sulfur", Type.CELL), getMaterial("sodium", Type.CELL), getMaterial("sodiumSulfide", 2, Type.CELL), 800);
 		register(getMaterial("sodiumSulfide", Type.CELL), getMaterial("compressedair", Type.CELL), getMaterial("sodiumPersulfate", 2, Type.CELL), 800);
