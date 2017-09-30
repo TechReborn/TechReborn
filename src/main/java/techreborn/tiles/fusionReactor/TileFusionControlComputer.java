@@ -170,8 +170,8 @@ public class TileFusionControlComputer extends TilePowerAcceptor implements IInv
 	}
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
+	public void update() {
+		super.update();
 		// TODO improve this code a lot
 
 		if (this.world.getTotalWorldTime() % 20 == 0) {

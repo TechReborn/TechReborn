@@ -108,6 +108,7 @@ public class ItemAdvancedDrill extends ItemDrill {
 		return super.onBlockDestroyed(stack, worldIn, blockIn, pos, entityLiving);
 	}
 
+	@SuppressWarnings("deprecation")
 	public void breakBlock(BlockPos pos, ItemStack stack, World world, EntityLivingBase entityLiving, BlockPos oldPos) {
 		if (oldPos == pos) {
 			return;
@@ -117,7 +118,7 @@ public class ItemAdvancedDrill extends ItemDrill {
 		}
 		IBlockState blockState = world.getBlockState(pos);
 		Block block = blockState.getBlock();
-		if (block.getBlockHardness(blockState, world, pos) == -1.0F) {
+		if (blockState.getBlockHardness(world, pos) == -1.0F) {
 			return;
 		}
 		List<ItemStack> stuff = block.getDrops(world, pos, blockState, 0);

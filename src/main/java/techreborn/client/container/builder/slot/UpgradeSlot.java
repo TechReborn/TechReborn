@@ -35,11 +35,7 @@ import reborncore.common.util.Inventory;
 import techreborn.client.container.IRightClickHandler;
 import techreborn.client.container.builder.BuiltContainer;
 
-import java.util.function.Predicate;
-
 public class UpgradeSlot extends Slot implements IRightClickHandler {
-
-	private Predicate<ItemStack> filter;
 
 	public UpgradeSlot(final IInventory inventory, final int index, final int xPosition, final int yPosition) {
 		super(inventory, index, xPosition, yPosition);
