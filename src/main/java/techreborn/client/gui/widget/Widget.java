@@ -57,7 +57,7 @@ public abstract class Widget {
 		this.toolTip = toolTip;
 	}
 
-	public final void drawWidget(GuiWidget gui, int cornerX, int cornerY, int mouseX, int mouseY) {
+	public final void drawWidget(GuiWidget<?> gui, int cornerX, int cornerY, int mouseX, int mouseY) {
 		int drawX = cornerX + x;
 		int drawY = cornerY + y;
 		if (toolTip != null && drawX > mouseX && drawY > mouseY &&
@@ -69,6 +69,6 @@ public abstract class Widget {
 
 	protected abstract void draw(GuiScreen guiScreen, int x, int y);
 
-	protected abstract void mouseClick(GuiWidget guiWidget, int mouseX, int mouseY);
+	protected abstract void mouseClick(GuiWidget<?> guiWidget, int mouseX, int mouseY);
 
 }

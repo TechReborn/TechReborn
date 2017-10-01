@@ -49,7 +49,6 @@ import net.minecraftforge.fluids.BlockFluidBase;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.IToolDrop;
-import reborncore.api.IToolHandler;
 import reborncore.api.ToolManager;
 import reborncore.common.BaseTileBlock;
 import techreborn.client.TechRebornCreativeTab;

@@ -123,7 +123,7 @@ public class BlockOre extends Block implements IOreNameProvider {
 			OreDrop ruby = new OreDrop(ItemGems.getGemByName("ruby"),
 				secondaryDropChance);
 			OreDrop redGarnet = new OreDrop(ItemGems.getGemByName("red_garnet"), 0.02);
-			OreDropSet set = new OreDropSet(ruby);
+			OreDropSet set = new OreDropSet(ruby, redGarnet);
 			return set.drop(fortune, random);
 		}
 

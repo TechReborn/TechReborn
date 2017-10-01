@@ -48,6 +48,7 @@ public abstract class GuiWidget<T extends Container> extends GuiContainer {
 		this.background = background;
 	}
 
+	@SuppressWarnings("unchecked")
 	public T getContainer() {
 		return (T) inventorySlots;
 	}

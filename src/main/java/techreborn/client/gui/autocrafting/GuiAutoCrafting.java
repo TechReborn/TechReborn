@@ -130,8 +130,8 @@ public class GuiAutoCrafting extends GuiBase {
 		}
 		if (recipe instanceof ShapedOreRecipe) {
 			ShapedOreRecipe shapedrecipes = (ShapedOreRecipe) recipe;
-			recipeWidth = shapedrecipes.getWidth();
-			recipeHeight = shapedrecipes.getHeight();
+			recipeWidth = shapedrecipes.getRecipeWidth();
+			recipeHeight = shapedrecipes.getRecipeHeight();
 		}
 		Iterator<Ingredient> ingredients = recipe.getIngredients().iterator();
 		for (int rHeight = 0; rHeight < recipeHeight; ++rHeight) {
