@@ -34,7 +34,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.client.resources.I18n;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
-import reborncore.common.misc.Location;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.client.ClientMultiBlocks;
 import techreborn.proxies.ClientProxy;
@@ -47,11 +46,11 @@ public class GuiFusionReactor extends GuiContainer {
 	public static final ResourceLocation texture = new ResourceLocation("techreborn",
 		"textures/gui/fusion_reactor.png");
 
-	TileFusionControlComputer fusionController;
+	TileFusionControlComputer tile;
 
 	public GuiFusionReactor(final EntityPlayer player, final TileFusionControlComputer fusion) {
 		super(fusion.createContainer(player));
-		this.fusionController = fusion;
+		this.tile = fusion;
 	}
 
 	@Override
@@ -61,13 +60,13 @@ public class GuiFusionReactor extends GuiContainer {
 		this.fontRenderer.drawString(I18n.format("container.inventory", new Object[0]), 8,
 			this.ySize - 96 + 2, 4210752);
 
-		this.fontRenderer.drawString(PowerSystem.getLocaliszedPower(this.fusionController.getEnergy()), 11, 8,
+		this.fontRenderer.drawString(PowerSystem.getLocaliszedPower(this.tile.getEnergy()), 11, 8,
 			16448255);
-		this.fontRenderer.drawString("Coils: " + (this.fusionController.getCoilStatus() == 1 ? "Yes" : "No"), 11, 16,
+		this.fontRenderer.drawString("Coils: " + (this.tile.getCoilStatus() == 1 ? "Yes" : "No"), 11, 16,
 			16448255);
-		if (this.fusionController.getNeededPower() > 1 && this.fusionController.getCrafingTickTime() < 1)
+		if (this.tile.getNeededPower() > 1 && this.tile.getCrafingTickTime() < 1)
 			this.fontRenderer.drawString("Start: "
-				+ this.percentage(this.fusionController.getNeededPower(), (int) this.fusionController.getEnergy())
+				+ this.percentage(this.tile.getNeededPower(), (int) this.tile.getEnergy())
 				+ "%", 11, 24, 16448255);
 
 	}
@@ -80,10 +79,10 @@ public class GuiFusionReactor extends GuiContainer {
 		this.buttonList.add(button);
 		super.initGui();
 		final BlockPos coordinates = new BlockPos(
-			this.fusionController.getPos().getX()
-				- EnumFacing.getFront(this.fusionController.getFacingInt()).getFrontOffsetX() * 2,
-			this.fusionController.getPos().getY() - 1, this.fusionController.getPos().getZ()
-			- EnumFacing.getFront(this.fusionController.getFacingInt()).getFrontOffsetZ() * 2);
+			this.tile.getPos().getX()
+				- EnumFacing.getFront(this.tile.getFacingInt()).getFrontOffsetX() * 2,
+			this.tile.getPos().getY() - 1, this.tile.getPos().getZ()
+			- EnumFacing.getFront(this.tile.getFacingInt()).getFrontOffsetZ() * 2);
 		if (coordinates.equals(MultiblockRenderEvent.anchor)) {
 			ClientProxy.multiblockRenderEvent.setMultiblock(null);
 			button.displayString = "B";
@@ -105,7 +104,7 @@ public class GuiFusionReactor extends GuiContainer {
 		this.drawTexturedModalRect(k + 88, l + 36, 176, 0, 14, 14);
 
 		// progressBar
-		this.drawTexturedModalRect(k + 111, l + 34, 176, 14, this.fusionController.getProgressScaled(), 16);
+		this.drawTexturedModalRect(k + 111, l + 34, 176, 14, this.tile.getProgressScaled(), 16);
 
 	}
 
@@ -124,11 +123,12 @@ public class GuiFusionReactor extends GuiContainer {
 				// theselected one.
 				final MultiblockSet set = new MultiblockSet(ClientMultiBlocks.reactor);
 				ClientProxy.multiblockRenderEvent.setMultiblock(set);
-				ClientProxy.multiblockRenderEvent.parent = new Location(this.fusionController.getPos().getX(),
-					this.fusionController.getPos().getY(), this.fusionController.getPos().getZ(),
-					this.fusionController.getWorld());
-				MultiblockRenderEvent.anchor = new BlockPos(this.fusionController.getPos().getX(),
-					this.fusionController.getPos().getY() - 1, this.fusionController.getPos().getZ());
+				ClientProxy.multiblockRenderEvent.parent = this.tile.getPos();
+//						new Location(this.fusionController.getPos().getX(),
+//					this.fusionController.getPos().getY(), this.fusionController.getPos().getZ(),
+//					this.fusionController.getWorld());
+				MultiblockRenderEvent.anchor = new BlockPos(this.tile.getPos().getX(),
+					this.tile.getPos().getY() - 1, this.tile.getPos().getZ());
 
 				button.displayString = "A";
 			} else {

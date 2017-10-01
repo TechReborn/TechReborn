@@ -33,7 +33,6 @@ import net.minecraft.util.math.BlockPos;
 import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
-import reborncore.common.misc.Location;
 import techreborn.client.gui.widget.GuiButtonHologram;
 import techreborn.init.ModBlocks;
 import techreborn.proxies.ClientProxy;
@@ -154,8 +153,9 @@ public class GuiBlastFurnace extends GuiBase {
 
 					final MultiblockSet set = new MultiblockSet(multiblock);
 					ClientProxy.multiblockRenderEvent.setMultiblock(set);
-					ClientProxy.multiblockRenderEvent.parent = new Location(this.tile.getPos().getX(),
-						this.tile.getPos().getY(), this.tile.getPos().getZ(), this.tile.getWorld());
+					ClientProxy.multiblockRenderEvent.parent = this.tile.getPos();
+//							new Location(this.tile.getPos().getX(),
+//						this.tile.getPos().getY(), this.tile.getPos().getZ(), this.tile.getWorld());
 					MultiblockRenderEvent.anchor = new BlockPos(
 						this.tile.getPos().getX()
 							- EnumFacing.getFront(this.tile.getFacingInt()).getFrontOffsetX() * 2,

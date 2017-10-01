@@ -33,7 +33,7 @@ import net.minecraft.util.math.BlockPos;
 import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
-import reborncore.common.misc.Location;
+import techreborn.blocks.BlockMachineCasing;
 import techreborn.client.gui.widget.GuiButtonHologram;
 import techreborn.init.ModBlocks;
 import techreborn.proxies.ClientProxy;
@@ -112,41 +112,45 @@ public class GuiIndustrialGrinder extends GuiBase {
 				{
 					// This code here makes a basic multiblock and then sets to the selected one.
 					final Multiblock multiblock = new Multiblock();
-					this.addComponent(0, -1, 0, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
-					this.addComponent(1, -1, 0, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
-					this.addComponent(0, -1, 1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
-					this.addComponent(-1, -1, 0, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
-					this.addComponent(0, -1, -1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
-					this.addComponent(-1, -1, -1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
-					this.addComponent(-1, -1, 1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
-					this.addComponent(1, -1, -1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
-					this.addComponent(1, -1, 1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
+					IBlockState standardCasing = ModBlocks.MACHINE_CASINGS.getDefaultState().withProperty(BlockMachineCasing.TYPE, "standard");
+					IBlockState reinforcedCasing = ModBlocks.MACHINE_CASINGS.getDefaultState().withProperty(BlockMachineCasing.TYPE, "reinforced");
+					
+					this.addComponent(0, -1, 0, standardCasing, multiblock);
+					this.addComponent(1, -1, 0, standardCasing, multiblock);
+					this.addComponent(0, -1, 1, standardCasing, multiblock);
+					this.addComponent(-1, -1, 0, standardCasing, multiblock);
+					this.addComponent(0, -1, -1, standardCasing, multiblock);
+					this.addComponent(-1, -1, -1, standardCasing, multiblock);
+					this.addComponent(-1, -1, 1, standardCasing, multiblock);
+					this.addComponent(1, -1, -1, standardCasing, multiblock);
+					this.addComponent(1, -1, 1, standardCasing, multiblock);
 
 					this.addComponent(0, 0, 0, Blocks.WATER.getDefaultState(), multiblock);
-					this.addComponent(1, 0, 0, ModBlocks.MACHINE_CASINGS.getStateFromMeta(1), multiblock);
-					this.addComponent(0, 0, 1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(1), multiblock);
-					this.addComponent(-1, 0, 0, ModBlocks.MACHINE_CASINGS.getStateFromMeta(1), multiblock);
-					this.addComponent(0, 0, -1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(1), multiblock);
-					this.addComponent(-1, 0, -1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(1), multiblock);
-					this.addComponent(-1, 0, 1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(1), multiblock);
-					this.addComponent(1, 0, -1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(1), multiblock);
-					this.addComponent(1, 0, 1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(1), multiblock);
+					this.addComponent(1, 0, 0, reinforcedCasing, multiblock);
+					this.addComponent(0, 0, 1, reinforcedCasing, multiblock);
+					this.addComponent(-1, 0, 0, reinforcedCasing, multiblock);
+					this.addComponent(0, 0, -1, reinforcedCasing, multiblock);
+					this.addComponent(-1, 0, -1, reinforcedCasing, multiblock);
+					this.addComponent(-1, 0, 1, reinforcedCasing, multiblock);
+					this.addComponent(1, 0, -1, reinforcedCasing, multiblock);
+					this.addComponent(1, 0, 1, reinforcedCasing, multiblock);
 
-					this.addComponent(0, 1, 0, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
-					this.addComponent(0, 1, 0, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
-					this.addComponent(1, 1, 0, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
-					this.addComponent(0, 1, 1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
-					this.addComponent(-1, 1, 0, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
-					this.addComponent(0, 1, -1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
-					this.addComponent(-1, 1, -1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
-					this.addComponent(-1, 1, 1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
-					this.addComponent(1, 1, -1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
-					this.addComponent(1, 1, 1, ModBlocks.MACHINE_CASINGS.getStateFromMeta(0), multiblock);
+					this.addComponent(0, 1, 0, standardCasing, multiblock);
+					this.addComponent(0, 1, 0, standardCasing, multiblock);
+					this.addComponent(1, 1, 0, standardCasing, multiblock);
+					this.addComponent(0, 1, 1, standardCasing, multiblock);
+					this.addComponent(-1, 1, 0, standardCasing, multiblock);
+					this.addComponent(0, 1, -1, standardCasing, multiblock);
+					this.addComponent(-1, 1, -1, standardCasing, multiblock);
+					this.addComponent(-1, 1, 1, standardCasing, multiblock);
+					this.addComponent(1, 1, -1, standardCasing, multiblock);
+					this.addComponent(1, 1, 1, standardCasing, multiblock);
 
 					final MultiblockSet set = new MultiblockSet(multiblock);
 					ClientProxy.multiblockRenderEvent.setMultiblock(set);
-					ClientProxy.multiblockRenderEvent.parent = new Location(this.tile.getPos().getX(),
-						this.tile.getPos().getY(), this.tile.getPos().getZ(), this.tile.getWorld());
+					ClientProxy.multiblockRenderEvent.parent = this.tile.getPos();
+							//new Location(this.tile.getPos().getX(),
+						//this.tile.getPos().getY(), this.tile.getPos().getZ(), this.tile.getWorld());
 					MultiblockRenderEvent.anchor = new BlockPos(
 						this.tile.getPos().getX()
 							- EnumFacing.getFront(this.tile.getFacingInt()).getFrontOffsetX() * 2,
