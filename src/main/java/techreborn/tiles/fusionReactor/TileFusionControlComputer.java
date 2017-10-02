@@ -173,87 +173,77 @@ public class TileFusionControlComputer extends TilePowerAcceptor implements IInv
 	public void update() {
 		super.update();
 		// TODO improve this code a lot
+		
+		if (this.world.isRemote) {
+			return;
+		}
 
 		if (this.world.getTotalWorldTime() % 20 == 0) {
 			this.checkCoils();
 		}
 
-		if (!this.world.isRemote) {
-			if (this.coilStatus == 1) {
-				if (this.currentRecipe == null) {
-					if (this.inventory.hasChanged || this.crafingTickTime != 0) {
-						for (final FusionReactorRecipe reactorRecipe : FusionReactorRecipeHelper.reactorRecipes) {
-							if (ItemUtils.isItemEqual(this.getStackInSlot(this.topStackSlot), reactorRecipe.getTopInput(), true,
-								true, true)) {
-								if (reactorRecipe.getBottomInput() != null) {
-									if (!ItemUtils.isItemEqual(this.getStackInSlot(this.bottomStackSlot),
-										reactorRecipe.getBottomInput(), true, true, true)) {
-										break;
-									}
-								}
-								if (this.canFitStack(reactorRecipe.getOutput(), this.outputStackSlot, true)) {
-									this.currentRecipe = reactorRecipe;
-									if (this.crafingTickTime != 0) {
-										this.finalTickTime = this.currentRecipe.getTickTime();
-										this.neededPower = (int) this.currentRecipe.getStartEU();
-									}
-									this.hasStartedCrafting = false;
-									this.crafingTickTime = 0;
-									this.finalTickTime = this.currentRecipe.getTickTime();
-									this.neededPower = (int) this.currentRecipe.getStartEU();
-									break;
-								}
-							}
-						}
-					}
-				} else {
-					if (this.inventory.hasChanged) {
-						if (!this.validateRecipe()) {
-							this.resetCrafter();
-							return;
-						}
-					}
-					if (!this.hasStartedCrafting) {
-						if (this.canUseEnergy(this.currentRecipe.getStartEU() + 64)) {
-							this.useEnergy(this.currentRecipe.getStartEU());
-							this.hasStartedCrafting = true;
-						}
-					} else {
-						if (this.crafingTickTime < this.currentRecipe.getTickTime()) {
-							if (this.currentRecipe.getEuTick() > 0) { // Power gen
-								this.addEnergy(this.currentRecipe.getEuTick()); // Waste
-								// power
-								// if it
-								// has
-								// no
-								// where
-								// to go
-								this.crafingTickTime++;
-							} else { // Power user
-								if (this.canUseEnergy(this.currentRecipe.getEuTick() * -1)) {
-									this.setEnergy(this.getEnergy() - this.currentRecipe.getEuTick() * -1);
-									this.crafingTickTime++;
-								}
-							}
-						} else {
-							if (this.canFitStack(this.currentRecipe.getOutput(), this.outputStackSlot, true)) {
-								if (this.getStackInSlot(this.outputStackSlot) == ItemStack.EMPTY) {
-									this.setInventorySlotContents(this.outputStackSlot, this.currentRecipe.getOutput().copy());
-								} else {
-									this.decrStackSize(this.outputStackSlot, -this.currentRecipe.getOutput().getCount());
-								}
-								this.decrStackSize(this.topStackSlot, this.currentRecipe.getTopInput().getCount());
-								if (this.currentRecipe.getBottomInput() != ItemStack.EMPTY) {
-									this.decrStackSize(this.bottomStackSlot, this.currentRecipe.getBottomInput().getCount());
-								}
-								this.resetCrafter();
-							}
-						}
+		if (this.coilStatus == 0) {
+				this.resetCrafter();
+				return;
+		}
+		
+		if (this.currentRecipe == null && this.inventory.hasChanged){
+			this.crafingTickTime = 0;
+			for (final FusionReactorRecipe reactorRecipe : FusionReactorRecipeHelper.reactorRecipes) {
+				if (this.validateRecipe(reactorRecipe)){
+					this.currentRecipe = reactorRecipe;
+					this.finalTickTime = this.currentRecipe.getTickTime();
+					this.neededPower = (int) this.currentRecipe.getStartEU();
+					this.hasStartedCrafting = false;
+					break;
+				}
+			}
+		}
+		else {
+			if (this.inventory.hasChanged) {
+				if (!this.validateRecipe(this.currentRecipe)) {
+					this.resetCrafter();
+					return;
+				}
+			}
+		}
+		
+		if (this.currentRecipe != null) {
+			if (!this.hasStartedCrafting) {
+				// Ignition!
+				if (this.canUseEnergy(this.currentRecipe.getStartEU())) {
+					this.useEnergy(this.currentRecipe.getStartEU());
+					this.hasStartedCrafting = true;
+				}
+			}
+			if (this.crafingTickTime < this.finalTickTime) {
+				this.crafingTickTime++;
+				// Power gen
+				if (this.currentRecipe.getEuTick() > 0) {
+					// Waste power if it has no where to go
+					this.addEnergy(this.currentRecipe.getEuTick());
+				} else { // Power user
+					if (this.canUseEnergy(this.currentRecipe.getEuTick() * -1)) {
+						this.setEnergy(this.getEnergy() - this.currentRecipe.getEuTick() * -1);
 					}
 				}
-			} else {
-				if (this.currentRecipe != null) {
-					this.resetCrafter();
+			} else if (this.crafingTickTime >= this.finalTickTime) {
+				if (this.canFitStack(this.currentRecipe.getOutput(), this.outputStackSlot, true)) {
+					if (this.getStackInSlot(this.outputStackSlot).isEmpty()) {
+						this.setInventorySlotContents(this.outputStackSlot, this.currentRecipe.getOutput().copy());
+					} else {
+						this.decrStackSize(this.outputStackSlot, -this.currentRecipe.getOutput().getCount());
+					}
+					this.decrStackSize(this.topStackSlot, this.currentRecipe.getTopInput().getCount());
+					if (!this.currentRecipe.getBottomInput().isEmpty()) {
+						this.decrStackSize(this.bottomStackSlot, this.currentRecipe.getBottomInput().getCount());
+					}
+					if (this.validateRecipe(this.currentRecipe)){
+						this.crafingTickTime = 0;
+					}
+					else {
+						this.resetCrafter();
+					}	
 				}
 			}
 		}
@@ -263,15 +253,15 @@ public class TileFusionControlComputer extends TilePowerAcceptor implements IInv
 		}
 	}
 
-	private boolean validateRecipe() {
-		if (ItemUtils.isItemEqual(this.getStackInSlot(this.topStackSlot), this.currentRecipe.getTopInput(), true, true, true)) {
-			if (this.currentRecipe.getBottomInput() != null) {
-				if (!ItemUtils.isItemEqual(this.getStackInSlot(this.bottomStackSlot), this.currentRecipe.getBottomInput(), true, true,
+	private boolean validateRecipe(FusionReactorRecipe recipe) {
+		if (ItemUtils.isItemEqual(this.getStackInSlot(this.topStackSlot), recipe.getTopInput(), true, true, true)) {
+			if (recipe.getBottomInput() != null) {
+				if (!ItemUtils.isItemEqual(this.getStackInSlot(this.bottomStackSlot), recipe.getBottomInput(), true, true,
 					true)) {
 					return false;
 				}
 			}
-			if (this.canFitStack(this.currentRecipe.getOutput(), this.outputStackSlot, true)) {
+			if (this.canFitStack(recipe.getOutput(), this.outputStackSlot, true)) {
 				return true;
 			}
 		}
@@ -290,7 +280,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor implements IInv
 		if (stack.isEmpty()) {
 			return true;
 		}
-		if (this.inventory.getStackInSlot(slot) == ItemStack.EMPTY) {
+		if (this.inventory.getStackInSlot(slot).isEmpty()) {
 			return true;
 		}
 		if (ItemUtils.isItemEqual(this.inventory.getStackInSlot(slot), stack, true, true, oreDic)) {

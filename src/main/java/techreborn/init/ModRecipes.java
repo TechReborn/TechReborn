@@ -39,8 +39,6 @@ import reborncore.common.util.ItemUtils;
 import reborncore.common.util.OreUtil;
 import reborncore.common.util.RebornCraftingHelper;
 import techreborn.Core;
-import techreborn.api.reactor.FusionReactorRecipe;
-import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.api.recipe.machines.*;
 import techreborn.blocks.BlockOre;
 import techreborn.compat.CompatManager;
@@ -78,11 +76,11 @@ public class ModRecipes {
 		ImplosionCompressorRecipes.init();
 		ScrapboxRecipes.init();
 		ChemicalReactorRecipes.init();
+		FusionReactorRecipes.init();
 
 		addAlloySmelterRecipes();
 		addBlastFurnaceRecipes();
 		addVacuumFreezerRecipes();
-		addReactorRecipes();
 		addIc2Recipes();
 		addGrinderRecipes();
 		addCompressorRecipes();
@@ -244,21 +242,6 @@ public class ModRecipes {
 				RecipeHandler.addRecipe(new GrinderRecipe(oreStack, dust, ore ? 270 : 200, ore ? 31 : 22));
 			}
 		}
-	}
-
-	static void addReactorRecipes() {
-		FusionReactorRecipeHelper.registerRecipe(
-			new FusionReactorRecipe(ItemCells.getCellByName("helium3"), ItemCells.getCellByName("deuterium"),
-				ItemCells.getCellByName("heliumplasma"), 40000000, 32768, 1024));
-		FusionReactorRecipeHelper.registerRecipe(
-			new FusionReactorRecipe(ItemCells.getCellByName("tritium"), ItemCells.getCellByName("deuterium"),
-				ItemCells.getCellByName("helium3"), 60000000, 32768, 2048));
-		FusionReactorRecipeHelper.registerRecipe(
-			new FusionReactorRecipe(ItemCells.getCellByName("wolframium"), ItemCells.getCellByName("Berylium"),
-				ItemDusts.getDustByName("platinum"), 80000000, -2048, 1024));
-		FusionReactorRecipeHelper.registerRecipe(
-			new FusionReactorRecipe(ItemCells.getCellByName("wolframium"), ItemCells.getCellByName("lithium"),
-				BlockOre.getOreByName("iridium"), 90000000, -2048, 1024));
 	}
 
 	static void addVacuumFreezerRecipes() {
