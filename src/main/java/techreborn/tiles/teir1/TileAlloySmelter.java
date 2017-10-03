@@ -102,16 +102,6 @@ public class TileAlloySmelter extends TilePowerAcceptor
 		return tagCompound;
 	}
 
-	// @Override
-	// public void addWailaInfo(List<String> info){
-	// super.addWailaInfo(info);
-	// info.add("Power Stored " + energy.getEnergyStored() + "/" +
-	// energy.getCapacity() +" EU");
-	// if(crafter.currentRecipe !=null){
-	// info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
-	// }
-	// }
-
 	// ISidedInventory
 	@Override
 	public int[] getSlotsForFace(final EnumFacing side) {
@@ -174,18 +164,17 @@ public class TileAlloySmelter extends TilePowerAcceptor
 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("alloysmelter").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+		return new ContainerBuilder("alloysmelter").player(player.inventory).inventory().hotbar()
 			.addInventory().tile(this)
-			.filterSlot(0, 47, 17,
+			.filterSlot(0, 34, 47,
 				stack -> RecipeHandler.recipeList.stream()
 					.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
 						&& ItemUtils.isInputEqual(recipe.getInputs().get(0), stack, true, true, true)))
-			.filterSlot(1, 65, 17,
+			.filterSlot(1, 126, 47,
 				stack -> RecipeHandler.recipeList.stream()
 					.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
 						&& ItemUtils.isInputEqual(recipe.getInputs().get(1), stack, true, true, true)))
-			.outputSlot(2, 116, 35).energySlot(3, 56, 53).upgradeSlot(4, 152, 8).upgradeSlot(5, 152, 26)
-			.upgradeSlot(6, 152, 44).upgradeSlot(7, 152, 62).syncEnergyValue().syncCrafterValue().addInventory()
+			.outputSlot(2, 80, 47).energySlot(3, 8, 72).syncEnergyValue().syncCrafterValue().addInventory()
 			.create(this);
 	}
 }

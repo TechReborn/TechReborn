@@ -29,14 +29,16 @@ import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
 import net.minecraft.client.Minecraft;
+import reborncore.common.powerSystem.PowerSystem;
 import techreborn.api.recipe.machines.AlloySmelterRecipe;
-import techreborn.client.gui.GuiAlloySmelter;
+import techreborn.client.gui.TRBuilder;
 import techreborn.compat.jei.BaseRecipeWrapper;
 
 import javax.annotation.Nonnull;
 
 public class AlloySmelterRecipeWrapper extends BaseRecipeWrapper<AlloySmelterRecipe> {
-	private final IDrawableAnimated arrow;
+	private final IDrawableAnimated progressright;
+	private final IDrawableAnimated progressleft;
 
 	public AlloySmelterRecipeWrapper(
 		@Nonnull
@@ -45,22 +47,27 @@ public class AlloySmelterRecipeWrapper extends BaseRecipeWrapper<AlloySmelterRec
 			AlloySmelterRecipe baseRecipe) {
 		super(baseRecipe);
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
-		IDrawableStatic arrowStatic = guiHelper.createDrawable(GuiAlloySmelter.texture, 176, 14, 24, 17);
-		this.arrow = guiHelper.createAnimatedDrawable(arrowStatic, baseRecipe.tickTime(),
-			IDrawableAnimated.StartDirection.LEFT, false);
+		IDrawableStatic progressrightStatic = guiHelper.createDrawable(TRBuilder.GUI_SHEET, 100, 151, 16, 10);
+		IDrawableStatic progressleftStatic = guiHelper.createDrawable(TRBuilder.GUI_SHEET, 84, 161, 16, 10);
+		int ticksPerCycle = baseRecipe.tickTime();
+
+		this.progressright = guiHelper.createAnimatedDrawable(progressrightStatic, ticksPerCycle, IDrawableAnimated.StartDirection.LEFT, false);
+		this.progressleft = guiHelper.createAnimatedDrawable(progressleftStatic, ticksPerCycle, IDrawableAnimated.StartDirection.RIGHT, false);
+
 	}
 
 	@Override
 	public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 		super.drawInfo(minecraft, recipeWidth, recipeHeight, mouseX, mouseY);
-		arrow.draw(minecraft, 33, 19);
+		progressright.draw(minecraft, 25, 12);
+		progressleft.draw(minecraft, 75, 12);
 
-		int x = recipeWidth / 2;
-		int y = recipeHeight - recipeHeight / 4;
+		int y = 30;
 		int lineHeight = minecraft.fontRenderer.FONT_HEIGHT;
 
-		minecraft.fontRenderer.drawString("Time: " + (baseRecipe.tickTime / 20) + " secs", x, y, 0x444444);
-		minecraft.fontRenderer.drawString("EU: " + baseRecipe.euPerTick + " EU/t", x, y += lineHeight, 0x444444);
+		minecraft.fontRenderer.drawString(baseRecipe.tickTime / 20 + " seconds", (recipeWidth / 2 - minecraft.fontRenderer.getStringWidth(baseRecipe.tickTime / 20 + " seconds") / 2), y, 0x444444);
+		minecraft.fontRenderer.drawString(PowerSystem.getLocaliszedPowerFormatted(baseRecipe.euPerTick * baseRecipe.tickTime), (recipeWidth / 2 - minecraft.fontRenderer.getStringWidth(PowerSystem.getLocaliszedPowerFormatted(baseRecipe.euPerTick * baseRecipe.tickTime)) / 2), y + lineHeight, 0x444444);
+
 	}
 
 }

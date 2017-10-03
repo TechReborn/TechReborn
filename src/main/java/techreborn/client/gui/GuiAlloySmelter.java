@@ -24,66 +24,40 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.client.resources.I18n;
 import techreborn.tiles.teir1.TileAlloySmelter;
 
-public class GuiAlloySmelter extends GuiContainer {
+public class GuiAlloySmelter extends GuiBase {
 
-	public static final ResourceLocation texture = new ResourceLocation("techreborn",
-		"textures/gui/electric_alloy_furnace.png");
+	TileAlloySmelter tile;
 
-	TileAlloySmelter alloysmelter;
+	public GuiAlloySmelter(final EntityPlayer player, final TileAlloySmelter tile) {
+		super(player, tile, tile.createContainer(player));
+		this.tile = tile;
 
-	public GuiAlloySmelter(final EntityPlayer player, final TileAlloySmelter alloySmelter) {
-		super(alloySmelter.createContainer(player));
-		this.xSize = 176;
-		this.ySize = 167;
-		this.alloysmelter = alloySmelter;
 	}
 
 	@Override
-	public void initGui() {
-		super.initGui();
+	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
+		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
+		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
+
+		this.drawSlot(8, 72, layer);
+
+		this.drawSlot(34, 47, layer);
+		this.drawSlot(126, 47, layer);
+		this.drawOutputSlot(80, 47, layer);
+
+		this.builder.drawJEIButton(this, 150, 4, layer);
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
-		this.drawDefaultBackground();
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.getTextureManager().bindTexture(GuiAlloySmelter.texture);
-		final int k = (this.width - this.xSize) / 2;
-		final int l = (this.height - this.ySize) / 2;
-		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
+	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
+		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		int j = 0;
-
-		j = this.alloysmelter.getProgressScaled(24);
-		if (j > 0) {
-			this.drawTexturedModalRect(k + 79, l + 34, 176, 14, j + 1, 16);
-		}
-
-		j = this.alloysmelter.getEnergyScaled(12);
-		if (j > 0) {
-			this.drawTexturedModalRect(k + 56, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);
-		}
-	}
-
-	@Override
-	protected void drawGuiContainerForegroundLayer(final int p_146979_1_, final int p_146979_2_) {
-		final String name = I18n.format("tile.techreborn:alloy_smelter.name");
-		this.fontRenderer.drawString(name, this.xSize / 2 - this.fontRenderer.getStringWidth(name) / 2, 6,
-			4210752);
-		this.fontRenderer.drawString(I18n.format("container.inventory", new Object[0]), 8,
-			this.ySize - 96 + 2, 4210752);
-	}
-
-	@Override
-	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		super.drawScreen(mouseX, mouseY, partialTicks);
-		this.renderHoveredToolTip(mouseX, mouseY);
+		this.builder.drawProgressBar(this, this.tile.getProgressScaled(100), 100, 55, 51, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
+		this.builder.drawProgressBar(this, this.tile.getProgressScaled(100), 100, 105, 51, mouseX, mouseY, TRBuilder.ProgressDirection.LEFT, layer);
+		this.builder.drawMultiEnergyBar(this, 9, 19, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 }
