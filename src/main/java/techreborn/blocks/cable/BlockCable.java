@@ -32,6 +32,7 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -47,10 +48,14 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.energy.CapabilityEnergy;
 import reborncore.api.ToolManager;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModSounds;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.cable.TileCable;
+import techreborn.utils.damageSources.ElectrialShockSource;
 
 import javax.annotation.Nullable;
 import java.security.InvalidParameterException;
@@ -58,6 +63,7 @@ import java.security.InvalidParameterException;
 /**
  * Created by modmuss50 on 19/05/2017.
  */
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class BlockCable extends BlockContainer {
 
 	public static final PropertyBool EAST = PropertyBool.create("east");
@@ -67,6 +73,15 @@ public class BlockCable extends BlockContainer {
 	public static final PropertyBool UP = PropertyBool.create("up");
 	public static final PropertyBool DOWN = PropertyBool.create("down");
 	public static final IProperty<EnumCableType> TYPE = PropertyEnum.create("type", EnumCableType.class);
+
+	@ConfigRegistry(config = "misc", category = "cable", key = "uninsulatedElectrocutionDamage", comment = "When true an uninsulated cable will cause damage to entities")
+	public static boolean uninsulatedElectrocutionDamage = true;
+
+	@ConfigRegistry(config = "misc", category = "cable", key = "uninsulatedElectrocutionSound", comment = "When true an uninsulated cable will create a spark sound when an entity touches it")
+	public static boolean uninsulatedElectrocutionSound = true;
+
+	@ConfigRegistry(config = "misc", category = "cable", key = "uninsulatedElectrocutionParticles", comment = "When true an uninsulated cable will create a spark when an entity touches it")
+	public static boolean uninsulatedElectrocutionParticles = true;
 
 	public BlockCable() {
 		super(Material.ROCK);
@@ -86,6 +101,10 @@ public class BlockCable extends BlockContainer {
 		throw new InvalidParameterException("The cable " + name + " could not be found.");
 	}
 
+	public static ItemStack getCableByName(String name) {
+		return getCableByName(name, 1);
+	}
+
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
@@ -99,7 +118,7 @@ public class BlockCable extends BlockContainer {
 					spawnAsEntity(world, pos, drop);
 				}
 				world.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, ModSounds.BLOCK_DISMANTLE,
-						SoundCategory.BLOCKS, 0.6F, 1F);
+					SoundCategory.BLOCKS, 0.6F, 1F);
 				if (!world.isRemote) {
 					world.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
 				}
@@ -107,10 +126,6 @@ public class BlockCable extends BlockContainer {
 			}
 		}
 		return super.onBlockActivated(world, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
-	}
-
-	public static ItemStack getCableByName(String name) {
-		return getCableByName(name, 1);
 	}
 
 	@Override
@@ -240,4 +255,31 @@ public class BlockCable extends BlockContainer {
 		return EnumBlockRenderType.MODEL;
 	}
 
+	@Override
+	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entity) {
+		super.onEntityCollidedWithBlock(worldIn, pos, state, entity);
+		if (state.getValue(TYPE).canKill && entity instanceof EntityLivingBase) {
+			TileEntity tileEntity = worldIn.getTileEntity(pos);
+			if (tileEntity != null && tileEntity instanceof TileCable) {
+				TileCable tileCable = (TileCable) tileEntity;
+				if (tileCable.power != 0) {
+					if (uninsulatedElectrocutionDamage) {
+						if (state.getValue(TYPE) == EnumCableType.HV) {
+							entity.setFire(1);
+						}
+						entity.attackEntityFrom(new ElectrialShockSource(), 1F);
+					}
+					if (uninsulatedElectrocutionSound) {
+						worldIn.playSound(null, entity.posX, entity.posY,
+							entity.posZ, ModSounds.CABLE_SHOCK,
+							SoundCategory.BLOCKS, 0.6F, 1F);
+					}
+					if (uninsulatedElectrocutionParticles) {
+						worldIn.spawnParticle(EnumParticleTypes.CRIT, entity.posX, entity.posY, entity.posZ, 0,
+							0, 0);
+					}
+				}
+			}
+		}
+	}
 }
