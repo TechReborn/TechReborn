@@ -34,6 +34,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyInterfaceItem;
@@ -61,18 +63,26 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo, IE
 
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
+		distributePowerToInventory(world, player, itemStack, (int) transferLimit);
+	}
+
+	public static void distributePowerToInventory(World world, EntityPlayer player, ItemStack itemStack, int maxSend){
+		if(world.isRemote){
+			return;
+		}
+		if(!itemStack.hasCapability(CapabilityEnergy.ENERGY, null)){
+			return;
+		}
+		IEnergyStorage backpackPower = itemStack.getCapability(CapabilityEnergy.ENERGY, null);
+
 		for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
 			if (player.inventory.getStackInSlot(i) != ItemStack.EMPTY) {
 				ItemStack item = player.inventory.getStackInSlot(i);
-				if (item.getItem() instanceof IEnergyItemInfo) {
-					IEnergyItemInfo energyItemInfo = (IEnergyItemInfo) item.getItem();
-					if (energyItemInfo.getMaxPower(item) != PoweredItem.getEnergy(item)) {
-						if (PoweredItem.canUseEnergy(energyItemInfo.getMaxPower(item), itemStack)) {
-							PoweredItem.useEnergy(energyItemInfo.getMaxTransfer(item), itemStack);
-							PoweredItem.setEnergy(PoweredItem.getEnergy(item) + energyItemInfo.getMaxTransfer(item), item);
-						}
-					}
+				if(!item.hasCapability(CapabilityEnergy.ENERGY, null)){
+					continue;
 				}
+				IEnergyStorage itemPower = item.getCapability(CapabilityEnergy.ENERGY, null);
+				backpackPower.extractEnergy(itemPower.receiveEnergy(Math.min(backpackPower.getEnergyStored(), maxSend), false), false);
 			}
 		}
 	}

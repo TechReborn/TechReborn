@@ -103,20 +103,7 @@ public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo, IEne
 
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
-		for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
-			if (player.inventory.getStackInSlot(i) != ItemStack.EMPTY) {
-				ItemStack item = player.inventory.getStackInSlot(i);
-				if (item.getItem() instanceof IEnergyItemInfo) {
-					IEnergyItemInfo energyItemInfo = (IEnergyItemInfo) item.getItem();
-					if (energyItemInfo.getMaxPower(item) != PoweredItem.getEnergy(item)) {
-						if (PoweredItem.canUseEnergy(energyItemInfo.getMaxPower(item), itemStack)) {
-							PoweredItem.useEnergy(energyItemInfo.getMaxTransfer(item), itemStack);
-							PoweredItem.setEnergy(PoweredItem.getEnergy(item) + energyItemInfo.getMaxTransfer(item), item);
-						}
-					}
-				}
-			}
-		}
+		ItemLithiumBatpack.distributePowerToInventory(world, player, itemStack, (int) transferLimit);
 	}
 
 	@Override
