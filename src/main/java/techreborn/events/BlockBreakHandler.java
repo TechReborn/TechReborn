@@ -24,10 +24,16 @@
 
 package techreborn.events;
 
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
+import techreborn.init.ModItems;
 import techreborn.items.ItemGems;
 import techreborn.lib.ModInfo;
 import techreborn.utils.OreDictUtils;
@@ -42,6 +48,24 @@ public class BlockBreakHandler {
 	public void onBlockHarvest(BlockEvent.HarvestDropsEvent event) {
 		if (!event.isSilkTouching() && rubyGarnetDrops && OreDictUtils.isOre(event.getState(), "oreRuby")) {
 			event.getDrops().add(ItemGems.getGemByName("red_garnet").copy());
+		}
+	}
+
+	@SubscribeEvent
+	public void getBreakSpeedEvent(PlayerEvent.BreakSpeed event){
+		if(event.getEntityPlayer().getHeldItem(EnumHand.MAIN_HAND).getItem() == ModItems.ADVANCED_CHAINSAW){
+			BlockPos pos = event.getPos();
+			World worldIn = event.getEntityPlayer().world;
+			float speed = 2F;
+			int blocks = 0;
+			for (int i = 1; i < 10; i++) {
+				BlockPos nextPos = pos.up(i);
+				IBlockState nextState = worldIn.getBlockState(nextPos);
+				if(nextState.getBlock().isWood(worldIn, nextPos)){
+					blocks ++;
+				}
+			}
+			event.setNewSpeed(speed * blocks);
 		}
 	}
 }
