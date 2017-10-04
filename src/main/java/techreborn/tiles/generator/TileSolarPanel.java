@@ -31,7 +31,7 @@ import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
-import techreborn.blocks.generator.BlockSolarPanel;
+import techreborn.blocks.generator.solarpanel.BlockSolarPanel;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 
@@ -75,8 +75,6 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 				this.powerToAdd = 0;
 			}
 
-			this.world.setBlockState(this.getPos(),
-				this.world.getBlockState(this.getPos()).withProperty(BlockSolarPanel.ACTIVE, this.isSunOut()));
 		}
 	}
 

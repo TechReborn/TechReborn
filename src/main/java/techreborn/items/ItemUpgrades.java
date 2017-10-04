@@ -39,10 +39,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IUpgrade;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-import reborncore.common.recipes.IUpgradeHandler;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.tile.IMachineSlotProvider;
 import reborncore.common.tile.TileLegacyMachineBase;
@@ -123,20 +121,21 @@ public class ItemUpgrades extends ItemTR implements IUpgrade {
 		@Nonnull
 			TileLegacyMachineBase machineBase,
 		@Nullable
-			IUpgradeHandler handler,
+			RecipeCrafter crafter,
 		@Nonnull
 			ItemStack stack) {
 
 		if (stack.getItemDamage() == 0) {
-			handler.addSpeedMulti(0.25);
-			handler.addPowerMulti(0.5);
+			if (crafter != null) {
+				crafter.addSpeedMulti(0.25);
+				crafter.addPowerMulti(0.5);
+			}
 
 		} else if (stack.getItemDamage() == 4) {
 			EnumFacing dir = getFacing(stack);
 			TileEntity tileEntity = machineBase.getWorld().getTileEntity(machineBase.getPos().offset(dir));
 			if (tileEntity instanceof IInventory) {
-				if (machineBase instanceof IRecipeCrafterProvider) {
-					RecipeCrafter crafter = ((IRecipeCrafterProvider) machineBase).getRecipeCrafter();
+				if (crafter != null) {
 					for (Integer outSlot : crafter.outputSlots) {
 						ItemStack outputStack = crafter.inventory.getStackInSlot(outSlot);
 						if (!outputStack.isEmpty()) {
@@ -182,14 +181,16 @@ public class ItemUpgrades extends ItemTR implements IUpgrade {
 			if (tileEntity != null && tileEntity.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, dir.getOpposite())) {
 				IItemHandler itemHandler = tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, dir.getOpposite());
 				for (int i = 0; i < itemHandler.getSlots(); i++) {
-					ItemStack extractedStack = itemHandler.extractItem(i, 1, true);
-					int amount = InventoryHelper.testInventoryInsertion(machineBase, extractedStack, null);
-					if (amount > 0) {
-						extractedStack = itemHandler.extractItem(i, 1, false);
-						extractedStack.setCount(1);
-						InventoryHelper.insertItemIntoInventory(machineBase, extractedStack);
+					ItemStack stack1 = itemHandler.getStackInSlot(i);
+					if (crafter == null || crafter.isStackValidInput(stack1)) {
+						ItemStack extractedStack = itemHandler.extractItem(i, 1, true);
+						int amount = InventoryHelper.testInventoryInsertion(machineBase, extractedStack, null);
+						if (amount > 0) {
+							extractedStack = itemHandler.extractItem(i, 1, false);
+							extractedStack.setCount(1);
+							InventoryHelper.insertItemIntoInventory(machineBase, extractedStack);
+						}
 					}
-
 				}
 			}
 

@@ -40,6 +40,7 @@ import techreborn.blocks.*;
 import techreborn.blocks.advanced_machine.*;
 import techreborn.blocks.cable.BlockCable;
 import techreborn.blocks.generator.*;
+import techreborn.blocks.generator.solarpanel.BlockSolarPanel;
 import techreborn.blocks.iron_machines.BlockIronAlloyFurnace;
 import techreborn.blocks.iron_machines.BlockIronFurnace;
 import techreborn.blocks.machine.*;
@@ -326,7 +327,7 @@ public class ModBlocks {
 		GameRegistry.registerTileEntity(TileElectricFurnace.class, "TileElectricFurnaceTR");
 
 		SOLAR_PANEL = new BlockSolarPanel();
-		registerBlock(SOLAR_PANEL, "solar_panel");
+		registerBlock(SOLAR_PANEL, ItemBlockSolarPanel.class,  "solar_panel");
 		GameRegistry.registerTileEntity(TileSolarPanel.class, "TileSolarPanelTR");
 
 		CREATIVE_SOLAR_PANEL = new BlockCreativeSolarPanel();
