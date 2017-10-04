@@ -35,6 +35,7 @@ import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.util.Inventory;
+import reborncore.common.util.ItemUtils;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
@@ -42,9 +43,9 @@ import techreborn.client.container.builder.ContainerBuilder;
 public class TileIronFurnace extends TileLegacyMachineBase
 	implements IInventoryProvider, ISidedInventory, IContainerProvider {
 
-	private static final int[] SLOTS_TOP = new int[] { 0 };
+	private static final int[] SLOTS_TOP = new int[] { 0, 2 };
 	private static final int[] SLOTS_BOTTOM = new int[] { 1 };
-	private static final int[] SLOTS_SIDES = new int[] { 2 };
+	private static final int[] SLOTS_SIDES = new int[] { 0, 1 };
 
 	public int tickTime;
 	public Inventory inventory = new Inventory(3, "TileIronFurnace", 64, this);
@@ -73,6 +74,9 @@ public class TileIronFurnace extends TileLegacyMachineBase
 
 	@Override
 	public void updateEntity() {
+		if(world.isRemote){
+			return;
+		}
 		final boolean burning = this.isBurning();
 		boolean updateInventory = false;
 		if (this.fuel > 0) {
@@ -175,8 +179,27 @@ public class TileIronFurnace extends TileLegacyMachineBase
 	}
 
 	@Override
-	public boolean canInsertItem(final int index, final ItemStack itemStackIn, final EnumFacing direction) {
-		return this.isItemValidForSlot(index, itemStackIn);
+	public boolean isItemValidForSlot(int index, ItemStack stack) {
+		boolean isFuel = TileEntityFurnace.isItemFuel(stack);
+		if(isFuel){
+			ItemStack fuelSlotStack = getStackInSlot(fuelslot);
+			if(fuelSlotStack.isEmpty() || ItemUtils.isItemEqual(stack, fuelSlotStack, true, true) && fuelSlotStack.getMaxStackSize() != fuelSlotStack.getCount()){
+				return index == fuelslot;
+			}
+		}
+		return index != output;
+	}
+
+	@Override
+	public boolean canInsertItem(int index, ItemStack stack, EnumFacing direction) {
+		boolean isFuel = TileEntityFurnace.isItemFuel(stack);
+		if(isFuel){
+			ItemStack fuelSlotStack = getStackInSlot(fuelslot);
+			if(fuelSlotStack.isEmpty() || ItemUtils.isItemEqual(stack, fuelSlotStack, true, true) && fuelSlotStack.getMaxStackSize() != fuelSlotStack.getCount()){
+				return index == fuelslot;
+			}
+		}
+		return index != output;
 	}
 
 	@Override
@@ -200,11 +223,20 @@ public class TileIronFurnace extends TileLegacyMachineBase
 		this.fuelGague = totalBurnTime;
 	}
 
+	public int getProgress() {
+		return progress;
+	}
+
+	public void setProgress(int progress) {
+		this.progress = progress;
+	}
+
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("ironfurnace").player(player.inventory).inventory(8, 84).hotbar(8, 142)
 			.addInventory().tile(this).slot(0, 56, 17).outputSlot(1, 116, 35).fuelSlot(2, 56, 53)
 			.syncIntegerValue(this::getBurnTime, this::setBurnTime)
+			.syncIntegerValue(this::getProgress, this::setProgress)
 			.syncIntegerValue(this::getTotalBurnTime, this::setTotalBurnTime).addInventory().create(this);
 	}
 }
