@@ -51,6 +51,8 @@ public class PacketSetRecipe implements INetworkPacket<PacketSetRecipe> {
 		} else {
 			this.recipe = recipe.getRegistryName();
 		}
+
+		System.out.println(this.recipe);
 		this.custom = custom;
 	}
 
@@ -74,6 +76,7 @@ public class PacketSetRecipe implements INetworkPacket<PacketSetRecipe> {
 	@Override
 	public void processData(PacketSetRecipe message, MessageContext context) {
 		TileEntity tileEntity = context.getServerHandler().player.world.getTileEntity(message.pos);
+		;
 		if (tileEntity instanceof TileAutoCraftingTable) {
 			((TileAutoCraftingTable) tileEntity).setCurrentRecipe(message.recipe, message.custom);
 		}
