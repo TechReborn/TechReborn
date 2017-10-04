@@ -75,8 +75,11 @@ public class TileScrapboxinator extends TilePowerAcceptor
 		return this.progress * scale / runTime;
 	}
 
+
+	//todo Fix external interactions (Hopper etc) - Balance power - Fix progress bar flicker
+
 	@Override
-	public void updateEntity() {
+	public void update() {
 		final boolean burning = this.isBurning();
 		boolean updateInventory = false;
 		if (this.getEnergy() <= cost && this.canOpen()) {
@@ -84,7 +87,7 @@ public class TileScrapboxinator extends TilePowerAcceptor
 				updateInventory = true;
 			}
 		}
-		if (this.isBurning() && this.canOpen()) {
+		if (this.isBurning() && this.canOpen() && !this.isEmpty()) {
 			this.updateState();
 
 			this.progress++;
@@ -94,9 +97,12 @@ public class TileScrapboxinator extends TilePowerAcceptor
 				updateInventory = true;
 			}
 		} else {
-			this.progress = 0;
+			if(this.isEmpty()) {
+				progress = 0;
+			}
 			this.updateState();
 		}
+
 		if (burning != this.isBurning()) {
 			updateInventory = true;
 		}
@@ -107,9 +113,9 @@ public class TileScrapboxinator extends TilePowerAcceptor
 
 	public void recycleItems() {
 		if (this.canOpen() && !this.world.isRemote) {
-			final int random = new Random().nextInt(ScrapboxList.stacks.size());
-			final ItemStack out = ScrapboxList.stacks.get(random).copy();
-			if (this.getStackInSlot(this.output) == null) {
+			int random = world.rand.nextInt(ScrapboxList.stacks.size());
+			ItemStack out = ScrapboxList.stacks.get(random).copy();
+			if (this.getStackInSlot(this.output).isEmpty()) {
 				this.useEnergy(cost);
 				this.setInventorySlotContents(this.output, out);
 			}
