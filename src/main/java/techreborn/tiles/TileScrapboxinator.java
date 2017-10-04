@@ -44,8 +44,6 @@ import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
 
-import java.util.Random;
-
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileScrapboxinator extends TilePowerAcceptor
 	implements IToolDrop, IInventoryProvider, ISidedInventory, IContainerProvider {
@@ -57,7 +55,7 @@ public class TileScrapboxinator extends TilePowerAcceptor
 	@ConfigRegistry(config = "machines", category = "scrapboxinator", key = "ScrapboxinatorEnergyCost", comment = "Scrapboxinator Energy Cost (Value in EU)")
 	public static int cost = 20;
 	@ConfigRegistry(config = "machines", category = "scrapboxinator", key = "ScrapboxinatorRunTime", comment = "Scrapboxinator Run Time")
-	public static int runTime = 200;
+	public static int runTime = 10;
 	//  @ConfigRegistry(config = "machines", category = "scrapboxinator", key = "ScrapboxinatorWrenchDropRate", comment = "Scrapboxinator Wrench Drop Rate")
 	public static float wrenchDropRate = 1.0F;
 
@@ -76,7 +74,7 @@ public class TileScrapboxinator extends TilePowerAcceptor
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		final boolean burning = this.isBurning();
 		boolean updateInventory = false;
 		if (this.getEnergy() <= cost && this.canOpen()) {
@@ -84,7 +82,7 @@ public class TileScrapboxinator extends TilePowerAcceptor
 				updateInventory = true;
 			}
 		}
-		if (this.isBurning() && this.canOpen()) {
+		if (this.isBurning() && this.canOpen() && !this.isEmpty()) {
 			this.updateState();
 
 			this.progress++;
@@ -94,9 +92,12 @@ public class TileScrapboxinator extends TilePowerAcceptor
 				updateInventory = true;
 			}
 		} else {
-			this.progress = 0;
+			if(this.isEmpty()) {
+				progress = 0;
+			}
 			this.updateState();
 		}
+
 		if (burning != this.isBurning()) {
 			updateInventory = true;
 		}
@@ -107,9 +108,9 @@ public class TileScrapboxinator extends TilePowerAcceptor
 
 	public void recycleItems() {
 		if (this.canOpen() && !this.world.isRemote) {
-			final int random = new Random().nextInt(ScrapboxList.stacks.size());
-			final ItemStack out = ScrapboxList.stacks.get(random).copy();
-			if (this.getStackInSlot(this.output) == null) {
+			int random = world.rand.nextInt(ScrapboxList.stacks.size());
+			ItemStack out = ScrapboxList.stacks.get(random).copy();
+			if (this.getStackInSlot(this.output).isEmpty()) {
 				this.useEnergy(cost);
 				this.setInventorySlotContents(this.output, out);
 			}
@@ -151,28 +152,24 @@ public class TileScrapboxinator extends TilePowerAcceptor
 	}
 
 	// ISidedInventory
+
 	@Override
-	public int[] getSlotsForFace(final EnumFacing side) {
-		return side == EnumFacing.DOWN ? new int[] { 0, 1, 2 } : new int[] { 0, 1, 2 };
+	public int[] getSlotsForFace(EnumFacing side) {
+		return new int[] { 0, 1};
 	}
 
 	@Override
-	public boolean canInsertItem(final int slotIndex, final ItemStack itemStack, final EnumFacing side) {
-		if (slotIndex == 2)
-			return false;
-		if (slotIndex == 1) {
-			if (itemStack.getItem() == ModItems.SCRAP_BOX) {
-				return true;
-			}
+	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction){
+		if (index == 0) {
+			return true;
 		}
-		return this.isItemValidForSlot(slotIndex, itemStack);
+		return false;
 	}
 
 	@Override
-	public boolean canExtractItem(final int slotIndex, final ItemStack itemStack, final EnumFacing side) {
-		return slotIndex == 2;
+	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction){
+		return index == 1;
 	}
-
 	@Override
 	public double getBaseMaxPower() {
 		return maxEnergy;
@@ -203,6 +200,11 @@ public class TileScrapboxinator extends TilePowerAcceptor
 		return this.inventory;
 	}
 
+	@Override
+	public boolean canBeUpgraded() {
+		return false;
+	}
+
 	public int getProgress() {
 		return this.progress;
 	}
@@ -215,8 +217,7 @@ public class TileScrapboxinator extends TilePowerAcceptor
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("scrapboxinator").player(player.inventory).inventory(8, 84).hotbar(8, 142)
 			.addInventory().tile(this).filterSlot(0, 56, 34, stack -> stack.getItem() == ModItems.SCRAP_BOX)
-			.outputSlot(1, 116, 35).upgradeSlot(2, 152, 8).upgradeSlot(3, 152, 26).upgradeSlot(4, 152, 44)
-			.upgradeSlot(5, 152, 62).syncEnergyValue().syncIntegerValue(this::getProgress, this::setProgress)
+			.outputSlot(1, 116, 35).syncEnergyValue().syncIntegerValue(this::getProgress, this::setProgress)
 			.addInventory().create(this);
 	}
 }
