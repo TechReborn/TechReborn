@@ -24,6 +24,7 @@
 
 package techreborn.tiles.generator;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -32,6 +33,7 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import techreborn.blocks.generator.solarpanel.BlockSolarPanel;
+import techreborn.blocks.generator.solarpanel.EnumPanelType;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 
@@ -44,59 +46,50 @@ import java.util.List;
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 
-	@ConfigRegistry(config = "machines", category = "solar_panel", key = "SolarPanelMaxOutput", comment = "Solar Panel Max Output (Value in EU)")
-	public static int maxOutput = 32;
-	@ConfigRegistry(config = "machines", category = "solar_panel", key = "SolarPanelMaxEnergy", comment = "Solar Panel Max Energy (Value in EU)")
-	public static int maxEnergy = 1000;
-	@ConfigRegistry(config = "machines", category = "solar_panel", key = "SolarPanelEnergyPerTick", comment = "Solar Panel Energy Per Tick (Value in EU)")
-	public static int energyPerTick = 1;
+//	@ConfigRegistry(config = "machines", category = "solar_panel", key = "SolarPanelMaxOutput", comment = "Solar Panel Max Output (Value in EU)")
+//	public static int maxOutput = 32;
+//	@ConfigRegistry(config = "machines", category = "solar_panel", key = "SolarPanelMaxEnergy", comment = "Solar Panel Max Energy (Value in EU)")
+//	public static int maxEnergy = 1000;
+//	@ConfigRegistry(config = "machines", category = "solar_panel", key = "SolarPanelEnergyPerTick", comment = "Solar Panel Energy Per Tick (Value in EU)")
+//	public static int energyPerTick = 1;
 
 	boolean shouldMakePower = false;
 	boolean lastTickSate = false;
-
 	int powerToAdd;
 
 	public TileSolarPanel() {
 		super();
+		IBlockState panelType = world.getBlockState(pos);
+		System.out.println(panelType + " Dimmer");
 	}
 
 	@Override
 	public void update() {
-		super.update();
-		if (!this.world.isRemote) {
-			if (this.world.getTotalWorldTime() % 60 == 0) {
-				this.shouldMakePower = this.isSunOut();
-
-			}
-			if (this.shouldMakePower) {
-				this.powerToAdd = energyPerTick;
-				this.addEnergy(this.powerToAdd);
-			} else {
-				this.powerToAdd = 0;
-			}
-
-		}
+//		super.update();
+//		if (!this.world.isRemote) {
+//			if (this.world.getTotalWorldTime() % 60 == 0) {
+//				this.shouldMakePower = this.isSunOut();
+//
+//			}
+//			if (this.shouldMakePower) {
+//				this.powerToAdd = energyPerTick;
+//				this.addEnergy(this.powerToAdd);
+//			} else {
+//				this.powerToAdd = 0;
+//			}
+//
+//		}
 	}
 
-	@Override
-	public void addInfo(final List<String> info, final boolean isRealTile) {
-		super.addInfo(info, isRealTile);
-		if (isRealTile) {
-			// FIXME: 25/02/2016
-			// info.add(TextFormatting.LIGHT_PURPLE + "Power gen/tick " +
-			// TextFormatting.GREEN + PowerSystem.getLocaliszedPower(
-			// powerToAdd)) ;
-		}
-	}
 
-	public boolean isSunOut() {
-		return this.world.canBlockSeeSky(this.pos.up()) && !this.world.isRaining() && !this.world.isThundering()
-			&& this.world.isDaytime();
-	}
+//	public boolean isSunOut() {
+//		return this.world.canBlockSeeSky(this.pos.up()) && !this.world.isRaining() && !this.world.isThundering()
+//			&& this.world.isDaytime();
+//	}
 
 	@Override
 	public double getBaseMaxPower() {
-		return maxEnergy;
+	return 5;
 	}
 
 	@Override
@@ -111,14 +104,16 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 
 	@Override
 	public double getBaseMaxOutput() {
-		return maxOutput;
+		return 200;
 	}
 
+	private EnumPanelType getPanelType() {
+		return world.getBlockState(pos).getValue(BlockSolarPanel.TYPE);
+	}
 	@Override
 	public double getBaseMaxInput() {
 		return 0;
 	}
-
 	@Override
 	public ItemStack getToolDrop(final EntityPlayer p0) {
 		return new ItemStack(ModBlocks.SOLAR_PANEL);
