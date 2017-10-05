@@ -57,19 +57,43 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop, IEne
 	boolean shouldMakePower = false;
 	boolean lastTickSate = false;
 	int powerToAdd;
-	private int generationRateD;
-	private int generationRateN;
-	private int internalCapacity;
+	private int generationRateD = 0;
+	private int generationRateN = 0;
+	private int internalCapacity = 0;
+	private int outputRate = 0;
 
 	public TileSolarPanel() {
+
 		super();
-		generationRateD = getPanelType().generationRateD;
-		generationRateN = getPanelType().generationRateN;
-		internalCapacity = getPanelType().internalCapacity;
+	try {
+		EnumPanelType panel = getPanelType();
+		generationRateD = panel.generationRateD;
+		generationRateN = panel.generationRateN;
+		internalCapacity = panel.internalCapacity;
+		outputRate = getPanelType().outputRate;
+	}catch (Exception e){
+		System.out.println("Error(Dimmerworld): " + e );
+	}
+
+	}
+
+	@Override
+	public void onLoad() {
+		try {
+			EnumPanelType panel = getPanelType();
+			generationRateD = panel.generationRateD;
+			generationRateN = panel.generationRateN;
+			internalCapacity = panel.internalCapacity;
+			outputRate = getPanelType().outputRate;
+		}catch (Exception e){
+			System.out.println("Error(Dimmerworld): " + e );
+		}
+
 	}
 
 	@Override
 	public void update() {
+
 //		super.update();
 //		if (!this.world.isRemote) {
 //			if (this.world.getTotalWorldTime() % 60 == 0) {
@@ -91,6 +115,10 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop, IEne
 //		return this.world.canBlockSeeSky(this.pos.up()) && !this.world.isRaining() && !this.world.isThundering()
 //			&& this.world.isDaytime();
 //	}
+
+	private EnumPanelType getPanelType() {
+		return world.getBlockState(pos).getValue(BlockSolarPanel.TYPE);
+	}
 
 	@Override
 	public double getBaseMaxPower() {
@@ -114,7 +142,7 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop, IEne
 
 	@Override
 	public int getEnergyStored() {
-		return 100;
+		return 1000;
 	}
 
 	@Override
@@ -139,17 +167,14 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop, IEne
 
 	@Override
 	public double getBaseMaxOutput() {
-		return generationRateD;
-	}
-
-	private EnumPanelType getPanelType() {
-		return world.getBlockState(pos).getValue(BlockSolarPanel.TYPE);
+		return outputRate;
 	}
 
 	@Override
 	public double getBaseMaxInput() {
 		return 0;
 	}
+
 	@Override
 	public ItemStack getToolDrop(final EntityPlayer p0) {
 		return new ItemStack(ModBlocks.SOLAR_PANEL);
