@@ -28,6 +28,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.energy.IEnergyStorage;
 import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
@@ -44,7 +45,7 @@ import java.util.List;
  */
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
+public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop, IEnergyStorage {
 
 //	@ConfigRegistry(config = "machines", category = "solar_panel", key = "SolarPanelMaxOutput", comment = "Solar Panel Max Output (Value in EU)")
 //	public static int maxOutput = 32;
@@ -56,11 +57,15 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 	boolean shouldMakePower = false;
 	boolean lastTickSate = false;
 	int powerToAdd;
+	private int generationRateD;
+	private int generationRateN;
+	private int internalCapacity;
 
 	public TileSolarPanel() {
 		super();
-		IBlockState panelType = world.getBlockState(pos);
-		System.out.println(panelType + " Dimmer");
+		generationRateD = getPanelType().generationRateD;
+		generationRateN = getPanelType().generationRateN;
+		internalCapacity = getPanelType().internalCapacity;
 	}
 
 	@Override
@@ -89,7 +94,7 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 
 	@Override
 	public double getBaseMaxPower() {
-	return 5;
+	return (double)generationRateD;
 	}
 
 	@Override
@@ -103,13 +108,44 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 	}
 
 	@Override
+	public boolean canReceive() {
+		return false;
+	}
+
+	@Override
+	public int getEnergyStored() {
+		return 100;
+	}
+
+	@Override
+	public int getMaxEnergyStored() {
+		return internalCapacity;
+	}
+
+	@Override
+	public boolean canExtract() {
+		return true;
+	}
+
+	@Override
+	public int extractEnergy(int maxExtract, boolean simulate) {
+		return 0;
+	}
+
+	@Override
+	public int receiveEnergy(int maxReceive, boolean simulate) {
+		return 0;
+	}
+
+	@Override
 	public double getBaseMaxOutput() {
-		return 200;
+		return generationRateD;
 	}
 
 	private EnumPanelType getPanelType() {
 		return world.getBlockState(pos).getValue(BlockSolarPanel.TYPE);
 	}
+
 	@Override
 	public double getBaseMaxInput() {
 		return 0;
