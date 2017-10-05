@@ -58,8 +58,9 @@ public class BlockSolarPanel extends BaseTileBlock {
 		setHardness(2.0F);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
 		this.setDefaultState(this.getStateFromMeta(0));
+
 		for (int i = 0; i < panes.length; i++) {
-			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i).setInvVariant("type=" + panes[i]).setFileName("ores"));
+			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i).setInvVariant("type=" + panes[i]));
 		}
 	}
 
