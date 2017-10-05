@@ -1,60 +1,57 @@
 {
-	"forge_marker": 1,
-	"defaults": {
-		"textures": {},
-		"transform": "forge:default-block",
-		"model": "cube_bottom_top"
-	},
-	"variants": {
-		"inventory": {
-			"transform": "forge:default-block",
-			"model": "cube_bottom_top",
-			"textures": {
-				"side": "techreborn:blocks/machines/generators/solar_panel_side_off"
-			}
-		},
-		"type": {
-			"basic": {
-				"textures": {
-					"particle": "techreborn:blocks/machines/generators/solar_panel_side_off",
-					"top": "techreborn:blocks/machines/generators/solar_panel_top",
-					"down": "techreborn:blocks/machines/generators/generator_bottom",
-					"side": "techreborn:blocks/machines/generators/solar_panel_side_off"
-				}
-			},
-			"hybrid": {
-				"textures": {
-					"particle": "techreborn:blocks/machines/generators/solar_panel_side_off",
-					"top": "techreborn:blocks/machines/generators/solar_panel_top",
-					"down": "techreborn:blocks/machines/generators/generator_bottom",
-					"side": "techreborn:blocks/machines/generators/solar_panel_side_off"
-				}
-			},
-			"advanced": {
-				"textures": {
-					"particle": "techreborn:blocks/machines/generators/solar_panel_side_off",
-					"top": "techreborn:blocks/machines/generators/solar_panel_top",
-					"down": "techreborn:blocks/machines/generators/generator_bottom",
-					"side": "techreborn:blocks/machines/generators/solar_panel_side_off"
-				}
-			},
-			"ultimate": {
-				"textures": {
-					"particle": "techreborn:blocks/machines/generators/solar_panel_side_off",
-					"top": "techreborn:blocks/machines/generators/solar_panel_top",
-					"down": "techreborn:blocks/machines/generators/generator_bottom",
-					"side": "techreborn:blocks/machines/generators/solar_panel_side_off"
-				}
-			},
-			"quantum": {
-				"textures": {
-					"particle": "techreborn:blocks/machines/generators/solar_panel_side_off",
-					"top": "techreborn:blocks/machines/generators/solar_panel_top",
-					"down": "techreborn:blocks/machines/generators/generator_bottom",
-					"side": "techreborn:blocks/machines/generators/solar_panel_side_off"
-				}
-			}
-		}
-	}
-
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {},
+    "transform": "forge:default-block",
+    "model": "cube_bottom_top"
+  },
+  "variants": {
+    "inventory": {
+      "transform": "forge:default-block",
+      "model": "orientable",
+      "textures": {}
+    },
+    "type": {
+      "basic": {
+        "textures": {
+          "particle": "techreborn:blocks/machines/generators/panels/basicsolar_panel_side",
+          "top": "techreborn:blocks/machines/generators/panels/basicsolar_panel_top",
+          "down": "techreborn:blocks/machines/generators/generator_bottom",
+          "side": "techreborn:blocks/machines/generators/panels/basicsolar_panel_side"
+        }
+      },
+      "hybrid": {
+        "textures": {
+          "particle": "techreborn:blocks/machines/generators/panels/hybridsolar_panel_side",
+          "top": "techreborn:blocks/machines/generators/panels/hybridsolar_panel_top",
+          "down": "techreborn:blocks/machines/generators/generator_bottom",
+          "side": "techreborn:blocks/machines/generators/panels/hybridsolar_panel_side"
+        }
+      },
+      "advanced": {
+        "textures": {
+          "particle": "techreborn:blocks/machines/generators/panels/advancedsolar_panel_side",
+          "top": "techreborn:blocks/machines/generators/panels/advancedsolar_panel_top",
+          "down": "techreborn:blocks/machines/generators/generator_bottom",
+          "side": "techreborn:blocks/machines/generators/panels/advancedsolar_panel_side"
+        }
+      },
+      "ultimate": {
+        "textures": {
+          "particle": "techreborn:blocks/machines/generators/panels/ultimatesolar_panel_side",
+          "top": "techreborn:blocks/machines/generators/panels/ultimatesolar_panel_top",
+          "down": "techreborn:blocks/machines/generators/generator_bottom",
+          "side": "techreborn:blocks/machines/generators/panels/ultimatesolar_panel_side"
+        }
+      },
+      "quantum": {
+        "textures": {
+          "particle": "techreborn:blocks/machines/generators/panels/quantumsolar_panel_side",
+          "top": "techreborn:blocks/machines/generators/panels/quantumsolar_panel_top",
+          "down": "techreborn:blocks/machines/generators/generator_bottom",
+          "side": "techreborn:blocks/machines/generators/panels/quantumsolar_panel_side"
+        }
+      }
+    }
+  }
 }
