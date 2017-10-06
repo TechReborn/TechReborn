@@ -111,7 +111,7 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 //	public EnumPowerTier getBaseTier() {
 //		return panel.powerTier;
 //	}
-
+// Causing crash WIP
 	@Override
 	public ItemStack getToolDrop(final EntityPlayer p0) {
 		return new ItemStack(ModBlocks.SOLAR_PANEL);
