@@ -108,7 +108,6 @@ public class BlockSolarPanel extends BaseTileBlock {
 	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
 		for (EnumPanelType panelType : EnumPanelType.values()) {
 			list.add(new ItemStack(this, 1, panelType.ordinal()));
-			System.out.println((new ItemStack(this, 1, panelType.ordinal())) + "daad");
 		}
 
 
