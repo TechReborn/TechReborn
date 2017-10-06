@@ -63,7 +63,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 	@Override
 	public void update() {
 		if (world.isRemote){ return; }
-
+		
 		super.update();
 		this.charge(2);
 
@@ -91,7 +91,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 		if (updateInventory) {
 			this.markDirty();
 		}
-
+		
 	}
 
 	public void cookItems() {
@@ -224,8 +224,8 @@ public class TileElectricFurnace extends TilePowerAcceptor
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("electricfurnace").player(player.inventory).inventory().hotbar().addInventory()
-			.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
-			.syncIntegerValue(this::getBurnTime, this::setBurnTime).addInventory().create(this);
+				.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
+				.syncIntegerValue(this::getBurnTime, this::setBurnTime).addInventory().create(this);
 	}
 
 	@Override
