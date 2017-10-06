@@ -36,6 +36,8 @@ import techreborn.blocks.generator.solarpanel.EnumPanelType;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 
+import java.util.List;
+
 /**
  * Created by modmuss50 on 25/02/2016.
  */
@@ -56,6 +58,7 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 	private int generationRateD = 0;
 	private int generationRateN = 0;
 	private int internalCapacity = 0;
+	private int generationCurrent = 0;
 	private EnumPowerTier tier = null;
 
 	public TileSolarPanel() {
@@ -78,10 +81,11 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 
 			if (isSunOut()) {
 				this.powerToAdd = this.generationRateD;
+				this.addEnergy(this.powerToAdd);
 			} else if(this.world.canBlockSeeSky(this.pos.up())) {
 				this.powerToAdd = this.generationRateN;
+				this.addEnergy(this.powerToAdd);
 			}
-			this.addEnergy(this.powerToAdd);
 	}
 
 	public boolean isSunOut() {
@@ -113,7 +117,7 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 
 	@Override
 	public double getBaseMaxOutput() {
-		return generationRateD;
+		return powerToAdd;
 	}
 
 	@Override
