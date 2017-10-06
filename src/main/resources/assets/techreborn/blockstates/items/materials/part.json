@@ -86,6 +86,21 @@
           "layer0": "techreborn:items/part/kanthal_heating_coil"
         }
       },
+      "solar_cell": {
+        "textures": {
+          "layer0": "techreborn:items/part/solar_cell"
+        }
+      },
+      "compact_solar_cell": {
+        "textures": {
+          "layer0": "techreborn:items/part/compact_solar_cell"
+        }
+      },
+      "quantum_singularity": {
+        "textures": {
+          "layer0": "techreborn:items/part/quantum_singularity"
+        }
+      },
       "super_conductor": {
         "textures": {
           "layer0": "techreborn:items/part/super_conductor"

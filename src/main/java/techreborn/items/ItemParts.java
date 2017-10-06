@@ -45,7 +45,7 @@ public class ItemParts extends ItemTR {
 		"thorium_cell", "double_thorium_cell", "quad_thorium_cell", "plutonium_cell", "double_plutonium_cell",
 		"quad_plutonium_cell", "computer_monitor", "machine_parts", "neutron_reflector", "iridium_neutron_reflector",
 		"thick_neutron_reflector", "electronic_circuit", "advanced_circuit", "sap", "rubber", "scrap",
-		"carbon_mesh", "carbon_fiber", "coolant_simple", "coolant_triple", "coolant_six" };
+		"carbon_mesh", "carbon_fiber", "coolant_simple", "coolant_triple", "coolant_six", "solar_cell","compact_solar_cell","quantum_singularity" };
 
 	public ItemParts() {
 		this.setCreativeTab(TechRebornCreativeTab.instance);
