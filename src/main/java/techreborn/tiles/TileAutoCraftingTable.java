@@ -59,7 +59,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 
 	ResourceLocation currentRecipe;
 
-	public Inventory inventory = new Inventory(10, "TileAutoCraftingTable", 64, this);
+	public Inventory inventory = new Inventory(11, "TileAutoCraftingTable", 64, this);
 	public int progress;
 	public int maxProgress = 120;
 	public int euTick = 10;
@@ -172,8 +172,16 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 					for (int i = 0; i < 9; i++) {
 						ItemStack stack = inventory.getStackInSlot(i);
 						int requiredSize = customRecipe ? 1 : 0;
+						if(stack.getMaxStackSize() == 1){
+							requiredSize = 0;
+						}
 						if (stacksInSlots[i] > requiredSize) {
 							if (ingredient.apply(stack)) {
+								if(stack.getItem().getContainerItem() != null){
+									if(!hasRoomForExtraItem(stack.getItem().getContainerItem(stack))){
+										continue;
+									}
+								}
 								foundIngredient = true;
 								stacksInSlots[i]--;
 								break;
@@ -186,7 +194,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 				}
 			}
 			if (!missingOutput) {
-				if (hasOutputSpace(recipe.getRecipeOutput())) {
+				if (hasOutputSpace(recipe.getRecipeOutput(), 9)) {
 					return true;
 				}
 			}
@@ -195,8 +203,17 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 		return false;
 	}
 
-	public boolean hasOutputSpace(ItemStack output) {
-		ItemStack stack = inventory.getStackInSlot(9);
+	boolean hasRoomForExtraItem(ItemStack stack){
+		ItemStack extraOutputSlot = getStackInSlot(10);
+		if(extraOutputSlot.isEmpty()){
+			return true;
+		}
+		return hasOutputSpace(stack, 10);
+	}
+
+
+	public boolean hasOutputSpace(ItemStack output, int slot) {
+		ItemStack stack = inventory.getStackInSlot(slot);
 		if (stack.isEmpty()) {
 			return true;
 		}
@@ -221,13 +238,14 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 				//Looks for the best slot to take it from
 				ItemStack bestSlot = inventory.getStackInSlot(i);
 				if (ingredient.apply(bestSlot)) {
+					handleContainerItem(bestSlot);
 					bestSlot.shrink(1);
 				} else {
 					for (int j = 0; j < 9; j++) {
 						ItemStack stack = inventory.getStackInSlot(j);
 						if (ingredient.apply(stack)) {
+							handleContainerItem(stack);
 							stack.shrink(1); //TODO is this right? or do I need to use it as an actull crafting grid
-							//TOOD check items to be retuned
 							break;
 						}
 					}
@@ -246,6 +264,21 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 		}
 		return false;
 	}
+
+	private void handleContainerItem(ItemStack stack){
+		if(stack.getItem().hasContainerItem(stack)){
+			ItemStack containerItem = stack.getItem().getContainerItem(stack);
+			ItemStack extraOutputSlot = getStackInSlot(10);
+			if(hasOutputSpace(containerItem, 10)){
+				if(extraOutputSlot.isEmpty()){
+					setInventorySlotContents(10, containerItem.copy());
+				} else if(ItemUtils.isItemEqual(extraOutputSlot, containerItem, true, true) && extraOutputSlot.getMaxStackSize() < extraOutputSlot.getCount() + containerItem.getCount()) {
+					extraOutputSlot.grow(1);
+				}
+			}
+		}
+	}
+
 
 	public boolean hasIngredient(Ingredient ingredient) {
 		for (int i = 0; i < 9; i++) {
@@ -293,7 +326,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 			.slot(0, 28, 25).slot(1, 46, 25).slot(2, 64, 25)
 			.slot(3, 28, 43).slot(4, 46, 43).slot(5, 64, 43)
 			.slot(6, 28, 61).slot(7, 46, 61).slot(8, 64, 61)
-			.outputSlot(9, 145, 42).syncEnergyValue()
+			.outputSlot(9, 145, 42).outputSlot(10, 145, 70).syncEnergyValue()
 			.syncIntegerValue(this::getProgress, this::setProgress)
 			.syncIntegerValue(this::getMaxProgress, this::setMaxProgress)
 			.addInventory().create(this);
@@ -417,11 +450,11 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 
 	@Override
 	public int[] getSlotsForFace(EnumFacing side) {
-		return new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+		return new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 	}
 
 	@Override
 	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
-		return index == 9;
+		return index == 9 || index == 10;
 	}
 }

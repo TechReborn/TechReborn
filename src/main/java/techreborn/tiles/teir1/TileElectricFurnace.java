@@ -30,8 +30,8 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.EnumFacing;
-import reborncore.api.tile.IInventoryProvider;
 import reborncore.api.IToolDrop;
+import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.tile.IMachineSlotProvider;
@@ -63,7 +63,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 	@Override
 	public void update() {
 		if (world.isRemote){ return; }
-		
+
 		super.update();
 		this.charge(2);
 
@@ -74,9 +74,9 @@ public class TileElectricFurnace extends TilePowerAcceptor
 
 			this.progress++;
 			if (this.progress % 10 == 0) {
-				this.useEnergy(this.cost);
+				this.useEnergy(getEuPerTick(this.cost));
 			}
-			if (this.progress >= this.fuelScale) {
+			if (this.progress >= Math.max((int) (fuelScale * (1.0 - getSpeedMultiplier())), 1)) {
 				this.progress = 0;
 				this.cookItems();
 				updateInventory = true;
@@ -91,7 +91,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 		if (updateInventory) {
 			this.markDirty();
 		}
-		
+
 	}
 
 	public void cookItems() {
@@ -127,7 +127,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 	}
 
 	public boolean isBurning() {
-		return this.getEnergy() > this.cost;
+		return this.getEnergy() > getEuPerTick(this.cost);
 	}
 
 	public ItemStack getResultFor(final ItemStack stack) {
@@ -224,8 +224,8 @@ public class TileElectricFurnace extends TilePowerAcceptor
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("electricfurnace").player(player.inventory).inventory().hotbar().addInventory()
-				.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
-				.syncIntegerValue(this::getBurnTime, this::setBurnTime).addInventory().create(this);
+			.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
+			.syncIntegerValue(this::getBurnTime, this::setBurnTime).addInventory().create(this);
 	}
 
 	@Override
@@ -245,6 +245,6 @@ public class TileElectricFurnace extends TilePowerAcceptor
 
 	@Override
 	public boolean canBeUpgraded() {
-		return false;
+		return true;
 	}
 }
