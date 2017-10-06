@@ -24,35 +24,31 @@
 
 package techreborn.tiles.generator;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import net.minecraftforge.energy.IEnergyStorage;
 import reborncore.api.IToolDrop;
+import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
-import reborncore.common.registration.impl.ConfigRegistry;
 import techreborn.blocks.generator.solarpanel.BlockSolarPanel;
 import techreborn.blocks.generator.solarpanel.EnumPanelType;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
-
-import java.util.List;
 
 /**
  * Created by modmuss50 on 25/02/2016.
  */
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop, IEnergyStorage {
+public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 
-//	@ConfigRegistry(config = "machines", category = "solar_panel", key = "SolarPanelMaxOutput", comment = "Solar Panel Max Output (Value in EU)")
-//	public static int maxOutput = 32;
-//	@ConfigRegistry(config = "machines", category = "solar_panel", key = "SolarPanelMaxEnergy", comment = "Solar Panel Max Energy (Value in EU)")
-//	public static int maxEnergy = 1000;
-//	@ConfigRegistry(config = "machines", category = "solar_panel", key = "SolarPanelEnergyPerTick", comment = "Solar Panel Energy Per Tick (Value in EU)")
-//	public static int energyPerTick = 1;
+	//	@ConfigRegistry(config = "machines", category = "solar_panel", key = "SolarPanelMaxOutput", comment = "Solar Panel Max Output (Value in EU)")
+	//	public static int maxOutput = 32;
+	//	@ConfigRegistry(config = "machines", category = "solar_panel", key = "SolarPanelMaxEnergy", comment = "Solar Panel Max Energy (Value in EU)")
+	//	public static int maxEnergy = 1000;
+	//	@ConfigRegistry(config = "machines", category = "solar_panel", key = "SolarPanelEnergyPerTick", comment = "Solar Panel Energy Per Tick (Value in EU)")
+	//	public static int energyPerTick = 1;
 
 	boolean shouldMakePower = false;
 	boolean lastTickSate = false;
@@ -60,69 +56,49 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop, IEne
 	private int generationRateD = 0;
 	private int generationRateN = 0;
 	private int internalCapacity = 0;
-	private int outputRate = 0;
+	private EnumPowerTier tier = null;
 
 	public TileSolarPanel() {
-
 		super();
-	try {
-		EnumPanelType panel = getPanelType();
-		generationRateD = panel.generationRateD;
-		generationRateN = panel.generationRateN;
-		internalCapacity = panel.internalCapacity;
-		outputRate = getPanelType().outputRate;
-	}catch (Exception e){
-		System.out.println("Error(Dimmerworld): " + e );
-	}
-
 	}
 
 	@Override
 	public void onLoad() {
-		try {
-			EnumPanelType panel = getPanelType();
-			generationRateD = panel.generationRateD;
-			generationRateN = panel.generationRateN;
-			internalCapacity = panel.internalCapacity;
-			outputRate = getPanelType().outputRate;
-		}catch (Exception e){
-			System.out.println("Error(Dimmerworld): " + e );
-		}
-
+		EnumPanelType panel = getPanelType();
+		this.generationRateD = panel.generationRateD;
+		this.generationRateN = panel.generationRateN;
+		this.internalCapacity = panel.internalCapacity;
+		this.tier = panel.powerTier;
 	}
 
 	@Override
 	public void update() {
+		super.update();
+		if (this.world.isRemote) { return; }
 
-//		super.update();
-//		if (!this.world.isRemote) {
-//			if (this.world.getTotalWorldTime() % 60 == 0) {
-//				this.shouldMakePower = this.isSunOut();
-//
-//			}
-//			if (this.shouldMakePower) {
-//				this.powerToAdd = energyPerTick;
-//				this.addEnergy(this.powerToAdd);
-//			} else {
-//				this.powerToAdd = 0;
-//			}
-//
-//		}
+			if (isSunOut()) {
+				this.powerToAdd = this.generationRateD;
+			} else if(this.world.canBlockSeeSky(this.pos.up())) {
+				this.powerToAdd = this.generationRateN;
+			}
+			this.addEnergy(this.powerToAdd);
 	}
 
-
-//	public boolean isSunOut() {
-//		return this.world.canBlockSeeSky(this.pos.up()) && !this.world.isRaining() && !this.world.isThundering()
-//			&& this.world.isDaytime();
-//	}
+	public boolean isSunOut() {
+		return this.world.canBlockSeeSky(this.pos.up()) && !this.world.isRaining() && !this.world.isThundering()
+			&& this.world.isDaytime();
+	}
 
 	private EnumPanelType getPanelType() {
-		return world.getBlockState(pos).getValue(BlockSolarPanel.TYPE);
+		if (world != null) {
+			return world.getBlockState(pos).getValue(BlockSolarPanel.TYPE);
+		}
+		return null;
 	}
 
 	@Override
 	public double getBaseMaxPower() {
-	return (double)generationRateD;
+		return (double) this.internalCapacity;
 	}
 
 	@Override
@@ -136,43 +112,18 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop, IEne
 	}
 
 	@Override
-	public boolean canReceive() {
-		return false;
-	}
-
-	@Override
-	public int getEnergyStored() {
-		return 1000;
-	}
-
-	@Override
-	public int getMaxEnergyStored() {
-		return internalCapacity;
-	}
-
-	@Override
-	public boolean canExtract() {
-		return true;
-	}
-
-	@Override
-	public int extractEnergy(int maxExtract, boolean simulate) {
-		return 0;
-	}
-
-	@Override
-	public int receiveEnergy(int maxReceive, boolean simulate) {
-		return 0;
-	}
-
-	@Override
 	public double getBaseMaxOutput() {
-		return outputRate;
+		return generationRateD;
 	}
 
 	@Override
 	public double getBaseMaxInput() {
 		return 0;
+	}
+
+	@Override
+	public EnumPowerTier getBaseTier() {
+		return this.tier;
 	}
 
 	@Override
