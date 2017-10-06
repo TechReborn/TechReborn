@@ -14,13 +14,13 @@ public enum EnumPanelType implements IStringSerializable {
 	private String friendlyName;
 
 	public int generationRateD = 10;
-	// Generation of FE during Day
+	// Generation of EU during Day
 
 	public int generationRateN = 0;
-	// Generation of FE during Night
+	// Generation of EU during Night
 
 	public int internalCapacity = 1000;
-	// Internal FE storage of solar panel
+	// Internal EU storage of solar panel
 
 	public EnumPowerTier powerTier;
 
