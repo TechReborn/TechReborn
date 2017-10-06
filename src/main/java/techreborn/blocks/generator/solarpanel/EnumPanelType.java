@@ -4,11 +4,11 @@ import net.minecraft.util.IStringSerializable;
 import reborncore.api.power.EnumPowerTier;
 
 public enum EnumPanelType implements IStringSerializable {
-	Basic("basic", 1, 0, EnumPowerTier.MICRO, 0),
-	Hybrid("hybrid", 16, 0, EnumPowerTier.LOW, 1),
-	Advanced("advanced", 64, 6,  EnumPowerTier.MEDIUM, 2),
-	Ultimate("ultimate", 256, 26, EnumPowerTier.HIGH, 3),
-	Quantum("quantum", 1024, 102, EnumPowerTier.EXTREME, 4);
+	Basic("basic", 1, 0, EnumPowerTier.MICRO),
+	Hybrid("hybrid", 16, 0, EnumPowerTier.LOW),
+	Advanced("advanced", 64, 6,  EnumPowerTier.MEDIUM),
+	Ultimate("ultimate", 256, 26, EnumPowerTier.HIGH),
+	Quantum("quantum", 1024, 102, EnumPowerTier.EXTREME);
 
 	private int ID;
 	private String friendlyName;
@@ -25,24 +25,17 @@ public enum EnumPanelType implements IStringSerializable {
 	public EnumPowerTier powerTier;
 
 
-	EnumPanelType(String friendlyName, int generationRateD, int generationRateN,  EnumPowerTier tier, int ID) {
+	EnumPanelType(String friendlyName, int generationRateD, int generationRateN,  EnumPowerTier tier) {
 		this.friendlyName = friendlyName;
-		this.ID = ID;
 		this.generationRateD = generationRateD;
 		this.generationRateN = generationRateN;
 		this.internalCapacity = (generationRateD * 1000);
 		this.powerTier = tier;
 	}
 
-
-
 	@Override
 	public String getName() {
 		return friendlyName;
 	}
 
-
-	public int getID(){
-		return ID;
-	}
 }

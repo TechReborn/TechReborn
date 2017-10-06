@@ -30,36 +30,22 @@ import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-import reborncore.common.registration.RebornRegistry;
 import techreborn.blocks.generator.solarpanel.BlockSolarPanel;
 import techreborn.blocks.generator.solarpanel.EnumPanelType;
 import techreborn.init.ModBlocks;
-import techreborn.lib.ModInfo;
 
-import java.util.List;
 
 /**
  * Created by modmuss50 on 25/02/2016.
  */
 
-@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 
-	//	@ConfigRegistry(config = "machines", category = "solar_panel", key = "SolarPanelMaxOutput", comment = "Solar Panel Max Output (Value in EU)")
-	//	public static int maxOutput = 32;
-	//	@ConfigRegistry(config = "machines", category = "solar_panel", key = "SolarPanelMaxEnergy", comment = "Solar Panel Max Energy (Value in EU)")
-	//	public static int maxEnergy = 1000;
-	//	@ConfigRegistry(config = "machines", category = "solar_panel", key = "SolarPanelEnergyPerTick", comment = "Solar Panel Energy Per Tick (Value in EU)")
-	//	public static int energyPerTick = 1;
 
 	boolean shouldMakePower = false;
 	boolean lastTickSate = false;
 	int powerToAdd;
-	private int generationRateD = 0;
-	private int generationRateN = 0;
-	private int internalCapacity = 0;
-	private int generationCurrent = 0;
-	private EnumPowerTier tier = null;
+	EnumPanelType panel = EnumPanelType.Basic;
 
 	public TileSolarPanel() {
 		super();
@@ -67,11 +53,7 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 
 	@Override
 	public void onLoad() {
-		EnumPanelType panel = getPanelType();
-		this.generationRateD = panel.generationRateD;
-		this.generationRateN = panel.generationRateN;
-		this.internalCapacity = panel.internalCapacity;
-		this.tier = panel.powerTier;
+		panel = getPanelType();
 	}
 
 	@Override
@@ -80,10 +62,10 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 		if (this.world.isRemote) { return; }
 
 			if (isSunOut()) {
-				this.powerToAdd = this.generationRateD;
+				this.powerToAdd = panel.generationRateD;
 				this.addEnergy(this.powerToAdd);
 			} else if(this.world.canBlockSeeSky(this.pos.up())) {
-				this.powerToAdd = this.generationRateN;
+				this.powerToAdd = panel.generationRateN;
 				this.addEnergy(this.powerToAdd);
 			}
 	}
@@ -102,7 +84,7 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 
 	@Override
 	public double getBaseMaxPower() {
-		return (double) this.internalCapacity;
+		return (double) panel.internalCapacity;
 	}
 
 	@Override
@@ -124,11 +106,11 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 	public double getBaseMaxInput() {
 		return 0;
 	}
-
-	@Override
-	public EnumPowerTier getBaseTier() {
-		return this.tier;
-	}
+//
+//	@Override
+//	public EnumPowerTier getBaseTier() {
+//		return panel.powerTier;
+//	}
 
 	@Override
 	public ItemStack getToolDrop(final EntityPlayer p0) {
