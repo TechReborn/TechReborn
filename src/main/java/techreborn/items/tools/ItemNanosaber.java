@@ -41,6 +41,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fml.relauncher.Side;
@@ -139,11 +140,13 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo, IEnergy
 		itemList.add(activeCharged);
 	}
 
-	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		if (stack.getTagCompound() == null || !stack.getTagCompound().getBoolean("isActive")) {
-			list.add(TextFormatting.GRAY + I18n.format("techreborn.message.nanosaberInactive"));
+			tooltip.add(TextFormatting.GRAY + I18n.format("techreborn.message.nanosaberInactive"));
 		} else {
-			list.add(TextFormatting.GRAY + I18n.format("techreborn.message.nanosaberActive"));
+			tooltip.add(TextFormatting.GRAY + I18n.format("techreborn.message.nanosaberActive"));
 		}
 	}
 

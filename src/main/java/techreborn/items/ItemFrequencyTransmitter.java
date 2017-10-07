@@ -34,13 +34,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.client.hud.StackInfoElement;
 import reborncore.common.util.ChatUtils;
-import reborncore.common.util.Color;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
 import techreborn.lib.MessageIDs;
@@ -110,20 +110,22 @@ public class ItemFrequencyTransmitter extends ItemTR {
 		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
 	}
 
-	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		if (stack.hasTagCompound() && stack.getTagCompound() != null && stack.getTagCompound().hasKey("x") && stack.getTagCompound().hasKey("y") && stack.getTagCompound().hasKey("z") && stack.getTagCompound().hasKey("dim")) {
 			int x = stack.getTagCompound().getInteger("x");
 			int y = stack.getTagCompound().getInteger("y");
 			int z = stack.getTagCompound().getInteger("z");
 			int dim = stack.getTagCompound().getInteger("dim");
 
-			list.add(TextFormatting.GRAY + "X: " + TextFormatting.GOLD + x);
-			list.add(TextFormatting.GRAY + "Y: " + TextFormatting.GOLD + y);
-			list.add(TextFormatting.GRAY + "Z: " + TextFormatting.GOLD + z);
-			list.add(TextFormatting.DARK_GRAY + DimensionManager.getProviderType(dim).getName());
+			tooltip.add(TextFormatting.GRAY + "X: " + TextFormatting.GOLD + x);
+			tooltip.add(TextFormatting.GRAY + "Y: " + TextFormatting.GOLD + y);
+			tooltip.add(TextFormatting.GRAY + "Z: " + TextFormatting.GOLD + z);
+			tooltip.add(TextFormatting.DARK_GRAY + DimensionManager.getProviderType(dim).getName());
 
 		} else {
-			list.add(TextFormatting.GRAY + I18n.format("techreborn.message.noCoordsSet"));
+			tooltip.add(TextFormatting.GRAY + I18n.format("techreborn.message.noCoordsSet"));
 		}
 	}
 
@@ -135,8 +137,8 @@ public class ItemFrequencyTransmitter extends ItemTR {
 		@Override
 		public String getText(ItemStack stack) {
 			String text = "";
-			Color gold = Color.GOLD;
-			Color grey = Color.GRAY;
+			TextFormatting gold = TextFormatting.GOLD;
+			TextFormatting grey = TextFormatting.GRAY;
 			if (stack.getItem() instanceof ItemFrequencyTransmitter) {
 				if (stack.hasTagCompound() && stack.getTagCompound() != null && stack.getTagCompound().hasKey("x") && stack.getTagCompound().hasKey("y") && stack.getTagCompound().hasKey("z") && stack.getTagCompound().hasKey("dim")) {
 					int coordX = stack.getTagCompound().getInteger("x");
