@@ -193,7 +193,6 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 										this.finalTickTime = this.currentRecipe.getTickTime();
 										this.neededPower = (int) this.currentRecipe.getStartEU();
 									}
-									this.hasStartedCrafting = false;
 									this.crafingTickTime = 0;
 									this.finalTickTime = this.currentRecipe.getTickTime();
 									this.neededPower = (int) this.currentRecipe.getStartEU();
@@ -246,6 +245,7 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 							}
 						}
 					}
+                    this.markDirty();
 				}
 			} else {
 				if (this.currentRecipe != null) {
@@ -310,6 +310,30 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 	@Override
 	public ITextComponent getDisplayName() {
 		return null;
+	}
+    
+	@Override
+	public int[] getSlotsForFace(EnumFacing side) {
+		return new int[] { 0, 1, 2 };
+	}
+	
+    /**
+     * Returns true if automation can insert the given item in the given slot from the given side.
+     */
+	@Override
+	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction){
+		if (index == 0 || index == 1) {
+			return true;
+		}
+		return false;
+    }
+
+    /**
+     * Returns true if automation can extract the given item in the given slot from the given side.
+     */
+	@Override
+    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction){
+		return index == 2;
 	}
 
 	@Override
