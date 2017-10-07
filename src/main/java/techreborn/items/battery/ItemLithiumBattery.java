@@ -38,11 +38,10 @@ public class ItemLithiumBattery extends ItemBattery {
 		super("lithiumBattery", 100000, 512);
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubItems(
-		CreativeTabs par2CreativeTabs, NonNullList itemList) {
+		CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}

@@ -38,10 +38,9 @@ public class ItemEnergyCrystal extends ItemBattery {
 		super("energyCrystal", 100000, 512);
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubItems(CreativeTabs par2CreativeTabs, NonNullList itemList) {
+	public void getSubItems(CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}

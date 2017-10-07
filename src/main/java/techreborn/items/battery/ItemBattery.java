@@ -58,11 +58,7 @@ public class ItemBattery extends ItemTR implements IEnergyItemInfo, IEnergyInter
 		this.maxTransfer = maxTransfer;
 		this.addPropertyOverride(new ResourceLocation("techreborn:empty"), new IItemPropertyGetter() {
 			@SideOnly(Side.CLIENT)
-			public float apply(ItemStack stack,
-			                   @Nullable
-				                   World worldIn,
-			                   @Nullable
-				                   EntityLivingBase entityIn) {
+			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
 				if (!stack.isEmpty() && PoweredItem.getEnergy(stack) == 0.0) {
 					return 1.0F;
 				}

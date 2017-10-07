@@ -99,10 +99,9 @@ public class ItemElectricTreetap extends ItemTR implements IEnergyItemInfo, IEne
 		return 200;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubItems(CreativeTabs par2CreativeTabs, NonNullList itemList) {
+	public void getSubItems(CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
