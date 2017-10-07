@@ -83,6 +83,14 @@ public class TileInterdimensionalSU extends TileEnergyStorage implements IContai
 		}
 		return extract;
 	}
+	
+	@Override
+	public boolean canUseEnergy(double input) {
+		if (ownerUdid == null || ownerUdid.isEmpty()) {
+			return false;
+		}
+		return input <= IDSUManager.getData(world).getStoredPower();
+	}
 
 	public void readFromNBT(NBTTagCompound nbttagcompound) {
 		super.readFromNBT(nbttagcompound);
