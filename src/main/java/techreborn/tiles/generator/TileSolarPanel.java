@@ -27,13 +27,16 @@ package techreborn.tiles.generator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.text.TextFormatting;
 import reborncore.api.IToolDrop;
 import reborncore.api.power.EnumPowerTier;
+import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.blocks.generator.solarpanel.BlockSolarPanel;
 import techreborn.blocks.generator.solarpanel.EnumPanelType;
 import techreborn.init.ModBlocks;
 
+import java.util.List;
 
 /**
  * Created by modmuss50 on 25/02/2016.
@@ -42,8 +45,8 @@ import techreborn.init.ModBlocks;
 public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 
 
-	boolean shouldMakePower = false;
-	boolean lastTickSate = false;
+	boolean canSeeSky = false;
+	int tickCount = 0;
 	int powerToAdd;
 	EnumPanelType panel = EnumPanelType.Basic;
 
@@ -59,27 +62,35 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 	@Override
 	public void update() {
 		super.update();
-		if (this.world.isRemote) { return; }
+		if (this.world.isRemote) {
+			return;
+		}
+		if (tickCount >= 20) {
+			canSeeSky = this.world.canBlockSeeSky(this.pos.up());
+			tickCount = 0;
+		}
+		if (isSunOut()) {
+			this.powerToAdd = panel.generationRateD;
+			this.addEnergy(this.powerToAdd);
+		} else if (canSeeSky) {
+			this.powerToAdd = panel.generationRateN;
+		} else {
+			this.powerToAdd = 0;
+		}
 
-			if (isSunOut()) {
-				this.powerToAdd = panel.generationRateD;
-				this.addEnergy(this.powerToAdd);
-			} else if(this.world.canBlockSeeSky(this.pos.up())) {
-				this.powerToAdd = panel.generationRateN;
-				this.addEnergy(this.powerToAdd);
-			}
+		this.addEnergy(this.powerToAdd);
+		tickCount++;
 	}
 
 	public boolean isSunOut() {
-		return this.world.canBlockSeeSky(this.pos.up()) && !this.world.isRaining() && !this.world.isThundering()
-			&& this.world.isDaytime();
+		return canSeeSky && !this.world.isRaining() && !this.world.isThundering() && this.world.isDaytime();
 	}
 
 	private EnumPanelType getPanelType() {
 		if (world != null) {
 			return world.getBlockState(pos).getValue(BlockSolarPanel.TYPE);
 		}
-		return null;
+		return EnumPanelType.Basic;
 	}
 
 	@Override
@@ -99,19 +110,21 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 
 	@Override
 	public double getBaseMaxOutput() {
-		return powerToAdd;
+		return 0;
+		//TODO Figure out why panel.generationrateN crashes the game on load.
 	}
 
 	@Override
 	public double getBaseMaxInput() {
 		return 0;
 	}
-//
-//	@Override
-//	public EnumPowerTier getBaseTier() {
-//		return panel.powerTier;
-//	}
-// Causing crash WIP
+
+		@Override
+		public EnumPowerTier getBaseTier() {
+			return EnumPowerTier.MEDIUM;
+			//TODO Figure out why panel.powerTier crashes the game on load.
+		}
+
 	@Override
 	public ItemStack getToolDrop(final EntityPlayer p0) {
 		return new ItemStack(ModBlocks.SOLAR_PANEL);
