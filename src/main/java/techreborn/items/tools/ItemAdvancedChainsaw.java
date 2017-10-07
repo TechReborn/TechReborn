@@ -54,11 +54,9 @@ public class ItemAdvancedChainsaw extends ItemChainsaw {
 		this.cost = 250;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubItems(
-		CreativeTabs par2CreativeTabs, NonNullList itemList) {
+	public void getSubItems(CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
@@ -85,7 +83,6 @@ public class ItemAdvancedChainsaw extends ItemChainsaw {
 
 	@Override
 	public float getStrVsBlock(ItemStack stack, IBlockState state) {
-		float speed = super.getStrVsBlock(stack, state);
 		return super.getStrVsBlock(stack, state);
 	}
 
@@ -95,6 +92,7 @@ public class ItemAdvancedChainsaw extends ItemChainsaw {
 	}
 
 
+	@SuppressWarnings("deprecation")
 	public void breakBlock(BlockPos pos, ItemStack stack, World world, EntityLivingBase entityLiving, BlockPos oldPos) {
 		if (oldPos == pos) {
 			return;
