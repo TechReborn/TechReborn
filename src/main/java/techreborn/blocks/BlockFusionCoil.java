@@ -27,9 +27,21 @@ package techreborn.blocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
+import reborncore.api.ToolManager;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.init.ModBlocks;
+import techreborn.init.ModSounds;
 import techreborn.lib.ModInfo;
 
 public class BlockFusionCoil extends Block {
@@ -40,5 +52,27 @@ public class BlockFusionCoil extends Block {
 		setSoundType(SoundType.METAL);
 		setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
+	}
+	
+	@Override
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
+			EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+
+		ItemStack tool = playerIn.getHeldItem(EnumHand.MAIN_HAND);
+		if (!tool.isEmpty() && ToolManager.INSTANCE.canHandleTool(tool)) {
+			if (ToolManager.INSTANCE.handleTool(tool, pos, worldIn, playerIn, side, false)) {
+				if (playerIn.isSneaking()) {
+					ItemStack drop = new ItemStack(ModBlocks.FUSION_COIL, 1);
+					spawnAsEntity(worldIn, pos, drop);
+					worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, ModSounds.BLOCK_DISMANTLE,
+							SoundCategory.BLOCKS, 0.6F, 1F);
+					if (!worldIn.isRemote) {
+						worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
+					}
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

@@ -30,6 +30,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
+import reborncore.api.IToolDrop;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
@@ -45,7 +46,7 @@ import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileFusionControlComputer extends TilePowerAcceptor implements IInventoryProvider, IContainerProvider {
+public class TileFusionControlComputer extends TilePowerAcceptor implements IToolDrop, IInventoryProvider, IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "fusion_reactor", key = "FusionReactorMaxInput", comment = "Fusion Reactor Max Input (Value in EU)")
 	public static int maxInput = 8192;
@@ -381,5 +382,10 @@ public class TileFusionControlComputer extends TilePowerAcceptor implements IInv
 			.syncIntegerValue(this::getCrafingTickTime, this::setCrafingTickTime)
 			.syncIntegerValue(this::getFinalTickTime, this::setFinalTickTime)
 			.syncIntegerValue(this::getNeededPower, this::setNeededPower).addInventory().create(this);
+	}
+
+	@Override
+	public ItemStack getToolDrop(EntityPlayer p0) {
+		return new ItemStack(ModBlocks.FUSION_CONTROL_COMPUTER, 1);
 	}
 }
