@@ -80,6 +80,8 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 				FluidUtils.drainContainers(this.tank, this.inventory, 0, 1);
 				FluidUtils.fillContainers(this.tank, this.inventory, 0, 1, this.tank.getFluidType());
 			}
+			tank.setTileEntity(this);
+			tank.compareAndUpdate();
 			this.ticksSinceLastChange = 0;
 		}
 
