@@ -141,13 +141,13 @@ public class ModRecipes {
 			if (OreUtil.doesOreExistAndValid("plate" + OreUtil.capitalizeFirstLetter(ore)) && OreUtil.doesOreExistAndValid("gem" + OreUtil.capitalizeFirstLetter(ore))) {
 
 				RecipeHandler.addRecipe(
-					new CompressorRecipe(OreUtil.getStackFromName("gem" + OreUtil.capitalizeFirstLetter(ore), 9), OreUtil.getStackFromName("plate" + OreUtil.capitalizeFirstLetter(ore), 1), 300,
+					new CompressorRecipe(OreUtil.getStackFromName("gem" + OreUtil.capitalizeFirstLetter(ore), 1), OreUtil.getStackFromName("plate" + OreUtil.capitalizeFirstLetter(ore), 1), 300,
 						4));
 			}
 
 			if (OreUtil.hasPlate(ore) && OreUtil.hasBlock(ore)) {
 				RecipeHandler.addRecipe(
-					new CompressorRecipe(OreUtil.getStackFromName("block" + OreUtil.capitalizeFirstLetter(ore), 1), OreUtil.getStackFromName("plate" + OreUtil.capitalizeFirstLetter(ore), 9), 300,
+					new CompressorRecipe(OreUtil.getStackFromName("block" + OreUtil.capitalizeFirstLetter(ore), 1), OreUtil.getStackFromName("plate" + OreUtil.capitalizeFirstLetter(ore), 1), 300,
 						4));
 			}
 		}
