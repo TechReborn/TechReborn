@@ -34,10 +34,6 @@ import techreborn.blocks.generator.solarpanel.BlockSolarPanel;
 import techreborn.blocks.generator.solarpanel.EnumPanelType;
 import techreborn.init.ModBlocks;
 
-/**
- * Created by modmuss50 on 25/02/2016.
- */
-
 public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 
 
@@ -88,7 +84,7 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 	@Override
 	public double getBaseMaxPower() {
 		if (this.panel != null) {
-			return (double) this.panel.internalCapacity;
+			return panel.internalCapacity;
 		}
 		return 0;
 	}
@@ -106,7 +102,7 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 	@Override
 	public double getBaseMaxOutput() {
 		if (this.panel != null) {
-			return this.panel.powerTier.getMaxOutput();
+			return this.panel.generationRateD;
 		}
 		return 0;
 	}
@@ -128,4 +124,5 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 	public ItemStack getToolDrop(final EntityPlayer p0) {
 		return new ItemStack(ModBlocks.SOLAR_PANEL);
 	}
+
 }
