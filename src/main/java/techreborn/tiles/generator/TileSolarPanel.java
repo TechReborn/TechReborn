@@ -34,6 +34,7 @@ import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.StringUtils;
 import techreborn.Core;
+import techreborn.blocks.generator.solarpanel.BlockSolarPanel;
 import techreborn.blocks.generator.solarpanel.EnumPanelType;
 import techreborn.init.ModBlocks;
 
@@ -42,6 +43,7 @@ import java.util.List;
 public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 
 	boolean canSeeSky = false;
+	boolean lastSate = false;
 	int powerToAdd;
 	EnumPanelType panel;
 
@@ -62,6 +64,12 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 		}
 		if (world.getTotalWorldTime() % 20 == 0) {
 			canSeeSky = this.world.canBlockSeeSky(this.pos.up());
+			if(lastSate != this.isSunOut()){
+				this.world.setBlockState(this.getPos(),
+					this.world.getBlockState(this.getPos()).withProperty(BlockSolarPanel.ACTIVE, this.isSunOut()));
+				lastSate = isSunOut();
+			}
+
 		}
 		if (isSunOut()) {
 			this.powerToAdd = panel.generationRateD;

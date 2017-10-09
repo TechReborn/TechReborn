@@ -3,7 +3,8 @@ package techreborn.itemblocks;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import techreborn.blocks.generator.solarpanel.EnumPanelType;
+import techreborn.blocks.generator.solarpanel.BlockSolarPanel;
+import techreborn.init.ModBlocks;
 
 public class ItemBlockSolarPanel extends ItemBlock {
 
@@ -13,6 +14,6 @@ public class ItemBlockSolarPanel extends ItemBlock {
 	}
 
 	public String getUnlocalizedName(ItemStack stack) {
-		return super.getUnlocalizedName() + "." + EnumPanelType.values()[stack.getItemDamage()].getName();
+		return super.getUnlocalizedName() + "." + ModBlocks.SOLAR_PANEL.getStateFromMeta(stack.getItemDamage()).getValue(BlockSolarPanel.TYPE).getName().toLowerCase();
 	}
 }

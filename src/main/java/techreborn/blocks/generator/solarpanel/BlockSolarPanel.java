@@ -27,6 +27,7 @@ package techreborn.blocks.generator.solarpanel;
 import com.google.common.collect.Lists;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -58,31 +59,38 @@ public class BlockSolarPanel extends BaseTileBlock {
 	public static final String[] panes = new String[] {
 		"Basic", "Hybrid", "Advanced", "Ultimate", "Quantum"};
 	public static final IProperty<EnumPanelType> TYPE = PropertyEnum.create("type", EnumPanelType.class);
+	public static PropertyBool ACTIVE = PropertyBool.create("active");
 	private static final List<String> paneList = Lists.newArrayList(panes);
 
 	public BlockSolarPanel() {
 		super(Material.IRON);
 		setCreativeTab(TechRebornCreativeTab.instance);
-		this.setDefaultState(this.getBlockState().getBaseState().withProperty(TYPE, EnumPanelType.Basic));
+		this.setDefaultState(this.getBlockState().getBaseState().withProperty(TYPE, EnumPanelType.Basic).withProperty(ACTIVE, false));
 		setHardness(2.0F);
 		this.setDefaultState(this.getStateFromMeta(0));
 		for (int i = 0; i < panes.length; i++) {
-			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i, "machines/generators").setInvVariant("type=" + panes[i]));
+			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i, "machines/generators").setInvVariant("type=" + panes[i] + ",active=false"));
 		}
 	}
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return state.getValue(TYPE).ordinal();
+		int active = state.getValue(ACTIVE) ? EnumPanelType.values().length : 0;
+		return state.getValue(TYPE).ordinal() + active;
 	}
 
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[]{TYPE});
+		return new BlockStateContainer(this, TYPE, ACTIVE);
 	}
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(TYPE, EnumPanelType.values()[meta]);
+		boolean active = false;
+		if(meta >= EnumPanelType.values().length){
+			active = true;
+			meta -= EnumPanelType.values().length;
+		}
+		return getDefaultState().withProperty(TYPE, EnumPanelType.values()[meta]).withProperty(ACTIVE, active);
 	}
 
 	@Override
