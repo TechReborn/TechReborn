@@ -52,6 +52,15 @@ public class ItemCells {
 	}
 
 	public static boolean isCellEqual(ItemStack stack1, ItemStack stack2){
+		if(stack1 == null || stack2 == null){
+			return false;
+		}
+		if(stack1.isEmpty() || stack2.isEmpty()){
+			return false;
+		}
+		if(stack1.getTagCompound() == null || stack2.getTagCompound() == null){
+			return false;
+		}
 		return stack1.getTagCompound().equals(stack2.getTagCompound());
 	}
 
