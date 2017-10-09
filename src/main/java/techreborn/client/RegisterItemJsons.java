@@ -35,6 +35,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import techreborn.blocks.cable.BlockCable;
 import techreborn.blocks.cable.EnumCableType;
+import techreborn.blocks.generator.solarpanel.EnumPanelType;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
@@ -173,6 +174,10 @@ public class RegisterItemJsons {
 
 		for (EnumCableType cableType : EnumCableType.values()) {
 			registerBlockstateMultiItem(Item.getItemFromBlock(ModBlocks.CABLE), cableType.ordinal(), cableType.getName().toLowerCase(), "cable_inv");
+		}
+
+		for (EnumPanelType panelType : EnumPanelType.values()) {
+			registerBlockstate(Item.getItemFromBlock(ModBlocks.CABLE), panelType.ordinal(), panelType.getName().toLowerCase() + ",active=false", "blocks/generators/");
 		}
 
 		ModelLoader.setCustomStateMapper(ModBlocks.CABLE, new DefaultStateMapper() {
