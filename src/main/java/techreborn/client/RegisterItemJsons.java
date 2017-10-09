@@ -177,7 +177,7 @@ public class RegisterItemJsons {
 		}
 
 		for (EnumPanelType panelType : EnumPanelType.values()) {
-			registerBlockstate(Item.getItemFromBlock(ModBlocks.CABLE), panelType.ordinal(), panelType.getName().toLowerCase() + ",active=false", "blocks/generators/");
+			registerBlockstate(Item.getItemFromBlock(ModBlocks.SOLAR_PANEL), panelType.ordinal(), panelType.getName().toLowerCase() + ",active=false", "blocks/generators/");
 		}
 
 		ModelLoader.setCustomStateMapper(ModBlocks.CABLE, new DefaultStateMapper() {
