@@ -32,46 +32,46 @@ import techreborn.Core;
 
 public enum EGui implements IMachineGuiHandler {
 
-	THERMAL_GENERATOR(true),
-	QUANTUM_TANK(true),
-	QUANTUM_CHEST(true),
-	CENTRIFUGE(true),
-	ROLLING_MACHINE(true),
-	BLAST_FURNACE(true),
-	ALLOY_SMELTER(true),
-	INDUSTRIAL_GRINDER(true),
-	IMPLOSION_COMPRESSOR(true),
-	MATTER_FABRICATOR(true),
-	MANUAL(false),
-	CHUNK_LOADER(true),
-	ASSEMBLING_MACHINE(true),
-	DIESEL_GENERATOR(true),
-	INDUSTRIAL_ELECTROLYZER(true),
-	AESU(false),
+	AESU(true),
 	ALLOY_FURNACE(true),
-	SAWMILL(true),
-	CHEMICAL_REACTOR(true),
-	SEMIFLUID_GENERATOR(true),
-	GAS_TURBINE(true),
-	DIGITAL_CHEST(true),
-	DESTRUCTOPACK(false),
-	LESU(false),
-	IDSU(true),
+	ALLOY_SMELTER(true),
+	ASSEMBLING_MACHINE(true),
+	AUTO_CRAFTING_TABLE(true),
+	BLAST_FURNACE(true),
+	CENTRIFUGE(true),
 	CHARGEBENCH(true),
-	FUSION_CONTROLLER(true),
-	VACUUM_FREEZER(true),
-	GRINDER(true),
-	GENERATOR(true),
-	EXTRACTOR(true),
+	CHEMICAL_REACTOR(true),
+	CHUNK_LOADER(true),
 	COMPRESSOR(true),
+	DESTRUCTOPACK(false),
+	DIESEL_GENERATOR(true),
+	DIGITAL_CHEST(true),
 	ELECTRIC_FURNACE(true),
-	IRON_FURNACE(true),
-	RECYCLER(true),
-	SCRAPBOXINATOR(true),
-	LOW_VOLTAGE_SU(true),
+	EXTRACTOR(true),
+	FUSION_CONTROLLER(true),
+	GAS_TURBINE(true),
+	GENERATOR(true),
+	GRINDER(true),
 	HIGH_VOLTAGE_SU(true),
+	IDSU(true),
+	IMPLOSION_COMPRESSOR(true),
+	INDUSTRIAL_ELECTROLYZER(true),
+	INDUSTRIAL_GRINDER(true),
+	IRON_FURNACE(true),
+	LESU(false),
+	LOW_VOLTAGE_SU(true),
+	MANUAL(false),
+	MATTER_FABRICATOR(true),
 	MEDIUM_VOLTAGE_SU(true),
-	AUTO_CRAFTING_TABLE(true);
+	QUANTUM_CHEST(true),
+	QUANTUM_TANK(true),
+	RECYCLER(true),
+	ROLLING_MACHINE(true),
+	SAWMILL(true),
+	SCRAPBOXINATOR(true),
+	SEMIFLUID_GENERATOR(true),
+	THERMAL_GENERATOR(true),
+	VACUUM_FREEZER(true);
 
 	private final boolean containerBuilder;
 
@@ -79,15 +79,14 @@ public enum EGui implements IMachineGuiHandler {
 		this.containerBuilder = containerBuilder;
 	}
 
-	public boolean useContainerBuilder() {
-		return this.containerBuilder;
-	}
-
-
 	@Override
 	public void open(EntityPlayer player, BlockPos pos, World world) {
 		if(!world.isRemote){
 			player.openGui(Core.INSTANCE, this.ordinal(), world, pos.getX(), pos.getY(), pos.getZ());
 		}
+	}
+
+	public boolean useContainerBuilder() {
+		return this.containerBuilder;
 	}
 }

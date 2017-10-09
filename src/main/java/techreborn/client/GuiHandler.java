@@ -29,7 +29,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
-import techreborn.client.container.ContainerAESU;
 import techreborn.client.container.ContainerDestructoPack;
 import techreborn.client.container.ContainerLESU;
 import techreborn.client.container.IContainerProvider;
@@ -60,8 +59,6 @@ public class GuiHandler implements IGuiHandler {
 			return ((IContainerProvider) tile).createContainer(player);
 
 		switch (gui) {
-			case AESU:
-				return new ContainerAESU((TileAdjustableSU) tile, player);
 			case DESTRUCTOPACK:
 				return new ContainerDestructoPack(player);
 			case LESU:

@@ -27,17 +27,18 @@ package techreborn.tiles.storage;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
-import reborncore.api.IToolDrop;
-import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.api.power.EnumPowerTier;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
+import techreborn.client.container.IContainerProvider;
+import techreborn.client.container.builder.BuiltContainer;
+import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileAdjustableSU extends TilePowerAcceptor implements IToolDrop {
+public class TileAdjustableSU extends TileEnergyStorage implements IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "aesu", key = "AesuMaxInput", comment = "AESU Max Input (Value in EU)")
 	public static int maxInput = 8192;
@@ -48,31 +49,31 @@ public class TileAdjustableSU extends TilePowerAcceptor implements IToolDrop {
 
 	public Inventory inventory = new Inventory(4, "TileAdjustableSU", 64, this);
 	private int OUTPUT = 64; // The current output
-	private double euLastTick = 0;
-	private double euChange;
-	private int ticks;
+	//private double euLastTick = 0;
+	//private double euChange;
+	//private int ticks;
 
 	public TileAdjustableSU() {
-		super();
+		super("ADJUSTABLE_SU", 4, ModBlocks.ADJUSTABLE_SU, EnumPowerTier.INSANE, maxInput, maxOutput, maxEnergy);
 	}
 
-	@Override
-	public void update() {
-		super.update();
-		if (ticks == 100) {
-			euChange = -1;
-			ticks = 0;
-
-		} else {
-			ticks++;
-			euChange += getEnergy() - euLastTick;
-			if (euLastTick == getEnergy()) {
-				euChange = 0;
-			}
-		}
-
-		euLastTick = getEnergy();
-	}
+//	@Override
+//	public void update() {
+//		super.update();
+//		if (ticks == 100) {
+//			euChange = -1;
+//			ticks = 0;
+//
+//		} else {
+//			ticks++;
+//			euChange += getEnergy() - euLastTick;
+//			if (euLastTick == getEnergy()) {
+//				euChange = 0;
+//			}
+//		}
+//
+//		euLastTick = getEnergy();
+//	}
 
 	@Override
 	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
@@ -104,12 +105,12 @@ public class TileAdjustableSU extends TilePowerAcceptor implements IToolDrop {
 		}
 	}
 
-	public double getEuChange() {
-		if (euChange == -1) {
-			return -1;
-		}
-		return (euChange / ticks);
-	}
+//	public double getEuChange() {
+//		if (euChange == -1) {
+//			return -1;
+//		}
+//		return (euChange / ticks);
+//	}
 
 	public ItemStack getDropWithNBT() {
 		NBTTagCompound tileEntity = new NBTTagCompound();
@@ -122,8 +123,8 @@ public class TileAdjustableSU extends TilePowerAcceptor implements IToolDrop {
 
 	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
-		tagCompound.setDouble("euChange", euChange);
-		tagCompound.setDouble("euLastTick", euLastTick);
+		//tagCompound.setDouble("euChange", euChange);
+		//tagCompound.setDouble("euLastTick", euLastTick);
 		tagCompound.setInteger("output", OUTPUT);
 		inventory.writeToNBT(tagCompound);
 		return tagCompound;
@@ -131,26 +132,12 @@ public class TileAdjustableSU extends TilePowerAcceptor implements IToolDrop {
 
 	public void readFromNBT(NBTTagCompound nbttagcompound) {
 		super.readFromNBT(nbttagcompound);
-		this.euChange = nbttagcompound.getDouble("euChange");
-		this.euLastTick = nbttagcompound.getDouble("euLastTick");
+		//this.euChange = nbttagcompound.getDouble("euChange");
+		//this.euLastTick = nbttagcompound.getDouble("euLastTick");
 		this.OUTPUT = nbttagcompound.getInteger("output");
 		inventory.readFromNBT(nbttagcompound);
 	}
 
-	@Override
-	public double getBaseMaxPower() {
-		return maxEnergy;
-	}
-
-	@Override
-	public boolean canAcceptEnergy(EnumFacing direction) {
-		return getFacingEnum() != direction;
-	}
-
-	@Override
-	public boolean canProvideEnergy(EnumFacing direction) {
-		return getFacingEnum() == direction;
-	}
 
 	@Override
 	public double getBaseMaxOutput() {
@@ -158,7 +145,9 @@ public class TileAdjustableSU extends TilePowerAcceptor implements IToolDrop {
 	}
 
 	@Override
-	public double getBaseMaxInput() {
-		return maxInput;
+	public BuiltContainer createContainer(EntityPlayer player) {
+		return new ContainerBuilder("aesu").player(player.inventory).inventory().hotbar().armor()
+				.complete(8, 18).addArmor().addInventory().tile(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
+				.syncEnergyValue().addInventory().create(this);
 	}
 }

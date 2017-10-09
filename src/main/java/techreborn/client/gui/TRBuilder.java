@@ -222,6 +222,32 @@ public class TRBuilder extends GuiBuilder {
 			GlStateManager.popMatrix();
 		}
 	}
+	
+	public void drawUpDownButtons(GuiBase gui, int x, int y, GuiBase.Layer layer){
+		if (layer == GuiBase.Layer.BACKGROUND) {
+			x += gui.getGuiLeft();
+			y += gui.getGuiTop();
+		}
+		gui.mc.getTextureManager().bindTexture(GUI_SHEET);
+		gui.drawTexturedModalRect(x, y, 150, 70, 12, 12);
+		gui.drawTexturedModalRect(x + 12, y, 150, 82, 12, 12);
+		gui.drawTexturedModalRect(x + 24, y, 150, 94, 12, 12);
+		gui.drawTexturedModalRect(x + 36, y, 150, 106, 12, 12);
+	}
+	
+	public void drawEnergyOutput(GuiBase gui, int right, int top, int maxOutput, GuiBase.Layer layer){
+		String text = PowerSystem.getLocaliszedPowerFormattedNoSuffix(maxOutput) + " "
+				+ PowerSystem.getDisplayPower().abbreviation + "/t";
+		int width = gui.mc.fontRenderer.getStringWidth(text);
+		gui.drawString(text, right - 17 - width, top + 5, 0, layer);
+		
+		if (layer == GuiBase.Layer.BACKGROUND) {
+			right += gui.getGuiLeft();
+			top += gui.getGuiTop();
+		}
+		gui.mc.getTextureManager().bindTexture(GUI_SHEET);
+		gui.drawTexturedModalRect(right - 16, top, 162, 101, 16, 17);
+	}
 
 	public void drawBigBlueBar(GuiBase gui, int x, int y, int value, int max, int mouseX, int mouseY, String suffix, GuiBase.Layer layer) {
 		if (layer == GuiBase.Layer.BACKGROUND) {
