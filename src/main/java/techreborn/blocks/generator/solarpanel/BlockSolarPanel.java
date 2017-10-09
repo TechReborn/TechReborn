@@ -24,8 +24,6 @@
 
 package techreborn.blocks.generator.solarpanel;
 
-import java.util.List;
-
 import com.google.common.collect.Lists;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -47,10 +45,11 @@ import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.BaseTileBlock;
-import reborncore.common.util.ArrayUtils;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.generator.TileSolarPanel;
+
+import java.util.List;
 
 /**
  * Created by modmuss50 on 25/02/2016.
@@ -76,6 +75,7 @@ public class BlockSolarPanel extends BaseTileBlock {
 	public int getMetaFromState(IBlockState state) {
 		return state.getValue(TYPE).ordinal();
 	}
+
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, new IProperty[]{TYPE});
 	}
@@ -87,7 +87,7 @@ public class BlockSolarPanel extends BaseTileBlock {
 
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileSolarPanel();
+		return new TileSolarPanel(getStateFromMeta(meta).getValue(TYPE));
 	}
 
 	@Override
@@ -109,7 +109,5 @@ public class BlockSolarPanel extends BaseTileBlock {
 		for (EnumPanelType panelType : EnumPanelType.values()) {
 			list.add(new ItemStack(this, 1, panelType.ordinal()));
 		}
-
-
 	}
 }
