@@ -147,7 +147,7 @@ public class ModRecipes {
 
 			if (OreUtil.hasPlate(ore) && OreUtil.hasBlock(ore)) {
 				RecipeHandler.addRecipe(
-					new CompressorRecipe(OreUtil.getStackFromName("block" + OreUtil.capitalizeFirstLetter(ore), 1), OreUtil.getStackFromName("plate" + OreUtil.capitalizeFirstLetter(ore), 1), 300,
+					new CompressorRecipe(OreUtil.getStackFromName("block" + OreUtil.capitalizeFirstLetter(ore), 1), OreUtil.getStackFromName("plate" + OreUtil.capitalizeFirstLetter(ore), 9), 300,
 						4));
 			}
 		}
