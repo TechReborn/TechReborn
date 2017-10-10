@@ -93,6 +93,7 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 		return dropStack;
 	}
 
+	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
 		tagCompound.setInteger("output", OUTPUT);
@@ -100,6 +101,7 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 		return tagCompound;
 	}
 
+	@Override
 	public void readFromNBT(NBTTagCompound nbttagcompound) {
 		super.readFromNBT(nbttagcompound);
 		this.OUTPUT = nbttagcompound.getInteger("output");
