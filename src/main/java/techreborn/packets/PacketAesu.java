@@ -24,6 +24,7 @@
 
 package techreborn.packets;
 
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import reborncore.common.network.ExtendedPacketBuffer;
@@ -54,13 +55,14 @@ public class PacketAesu implements INetworkPacket<PacketAesu> {
 	@Override
 	public void readData(ExtendedPacketBuffer in) throws IOException {
 		this.pos = in.readBlockPos();
-		buttonID = in.readInt();
+		this.buttonID = in.readInt();
 	}
 
 	@Override
 	public void processData(PacketAesu message, MessageContext context) {
-		//		if (!pos.getWorld().isRemote) {
-		//			pos.handleGuiInputFromClient(buttonID);
-		//		}
+		TileEntity tile = context.getServerHandler().player.world.getTileEntity(message.pos);
+		if (tile instanceof TileAdjustableSU){
+			((TileAdjustableSU) tile).handleGuiInputFromClient(message.buttonID);
+		}
 	}
 }

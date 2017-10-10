@@ -21,8 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 package techreborn.client.gui.widget;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import techreborn.client.gui.GuiBase;
 
@@ -39,6 +41,24 @@ public class GuiButtonUpDown extends GuiButton {
 		super(buttonId, x, y, 12, 12, "");
 		this.layer = layer;
 		this.gui = gui;
+	}
+	
+	@Override
+	public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
+		if (layer == GuiBase.Layer.FOREGROUND) {
+			mouseX -= gui.getGuiLeft();
+			mouseY -= gui.getGuiTop();
+		}
+		if (this.enabled && this.visible && mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height) {
+			return true;
+		}
+		return false;
+	}
+	
+	
+	@Override
+	public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
+		// We already have texture drawn
 	}
 
 }

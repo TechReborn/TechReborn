@@ -49,31 +49,10 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 
 	public Inventory inventory = new Inventory(4, "TileAdjustableSU", 64, this);
 	private int OUTPUT = 64; // The current output
-	//private double euLastTick = 0;
-	//private double euChange;
-	//private int ticks;
 
 	public TileAdjustableSU() {
 		super("ADJUSTABLE_SU", 4, ModBlocks.ADJUSTABLE_SU, EnumPowerTier.INSANE, maxInput, maxOutput, maxEnergy);
 	}
-
-//	@Override
-//	public void update() {
-//		super.update();
-//		if (ticks == 100) {
-//			euChange = -1;
-//			ticks = 0;
-//
-//		} else {
-//			ticks++;
-//			euChange += getEnergy() - euLastTick;
-//			if (euLastTick == getEnergy()) {
-//				euChange = 0;
-//			}
-//		}
-//
-//		euLastTick = getEnergy();
-//	}
 
 	@Override
 	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
@@ -85,16 +64,16 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 	}
 
 	public void handleGuiInputFromClient(int id) {
-		if (id == 0) {
+		if (id == 300) {
 			OUTPUT += 256;
 		}
-		if (id == 1) {
+		if (id == 301) {
 			OUTPUT += 64;
 		}
-		if (id == 2) {
+		if (id == 302) {
 			OUTPUT -= 64;
 		}
-		if (id == 3) {
+		if (id == 303) {
 			OUTPUT -= 256;
 		}
 		if (OUTPUT > maxOutput) {
@@ -104,13 +83,6 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 			OUTPUT = 0;
 		}
 	}
-
-//	public double getEuChange() {
-//		if (euChange == -1) {
-//			return -1;
-//		}
-//		return (euChange / ticks);
-//	}
 
 	public ItemStack getDropWithNBT() {
 		NBTTagCompound tileEntity = new NBTTagCompound();
@@ -123,8 +95,6 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 
 	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
-		//tagCompound.setDouble("euChange", euChange);
-		//tagCompound.setDouble("euLastTick", euLastTick);
 		tagCompound.setInteger("output", OUTPUT);
 		inventory.writeToNBT(tagCompound);
 		return tagCompound;
@@ -132,22 +102,27 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 
 	public void readFromNBT(NBTTagCompound nbttagcompound) {
 		super.readFromNBT(nbttagcompound);
-		//this.euChange = nbttagcompound.getDouble("euChange");
-		//this.euLastTick = nbttagcompound.getDouble("euLastTick");
 		this.OUTPUT = nbttagcompound.getInteger("output");
 		inventory.readFromNBT(nbttagcompound);
 	}
 
-
 	@Override
 	public double getBaseMaxOutput() {
 		return OUTPUT;
+	}
+	
+	public int getBaseMaxOutputInt() {
+		return OUTPUT;
+	}
+	
+	public void setBaseMaxOutput(int output) {
+		this.OUTPUT = output;
 	}
 
 	@Override
 	public BuiltContainer createContainer(EntityPlayer player) {
 		return new ContainerBuilder("aesu").player(player.inventory).inventory().hotbar().armor()
 				.complete(8, 18).addArmor().addInventory().tile(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
-				.syncEnergyValue().addInventory().create(this);
+				.syncEnergyValue().syncIntegerValue(this::getBaseMaxOutputInt, this::setBaseMaxOutput).addInventory().create(this);
 	}
 }
