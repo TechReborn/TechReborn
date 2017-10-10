@@ -42,7 +42,6 @@ import reborncore.common.multiblock.MultiblockEventHandler;
 import reborncore.common.multiblock.MultiblockServerTickHandler;
 import reborncore.common.network.RegisterPacketEvent;
 import reborncore.common.util.LogHelper;
-import reborncore.common.util.VersionChecker;
 import techreborn.api.TechRebornAPI;
 import techreborn.client.GuiHandler;
 import techreborn.command.TechRebornDevCommand;
@@ -76,7 +75,6 @@ public class Core {
 	public static LogHelper logHelper = new LogHelper(new ModInfo());
 	public static TechRebornWorldGen worldGen;
 	public static File configDir;
-	public VersionChecker versionChecker;
 	//enable dev featues with -Dtechreborn.devFeatues=true
 	public static final boolean DEV_FEATURES = Boolean.parseBoolean(System.getProperty("techreborn.devFeatues", "false"));
 
@@ -109,7 +107,6 @@ public class Core {
 		EntityRegistry.registerModEntity(new ResourceLocation("techreborn", "nuke"), EntityNukePrimed.class, "nuke", 0, INSTANCE, 160, 5, true);
 
 		CompatManager.isIC2Loaded = Loader.isModLoaded("ic2");
-
 		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
 			compatModule.preInit(event);
 		}
@@ -117,10 +114,7 @@ public class Core {
 		//Ore Dictionary
 		OreDict.init();
 		proxy.preInit(event);
-
-		versionChecker = new VersionChecker("TechReborn", new ModInfo());
-		versionChecker.checkVersionThreaded();
-
+		//Register ModRecipes
 		ModRecipes.init();
 		logHelper.info("PreInitialization Complete");
 	}
