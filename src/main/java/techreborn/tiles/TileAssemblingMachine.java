@@ -151,6 +151,7 @@ public class TileAssemblingMachine extends TilePowerAcceptor
 		return index == 2;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("assemblingmachine").player(player.inventory).inventory(8, 84).hotbar(8, 142)
