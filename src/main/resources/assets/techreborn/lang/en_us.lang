@@ -674,8 +674,8 @@ keys.techreborn.category=TechReborn Category
 keys.techreborn.config=Config
 
 # JEI Integration
-techreborn.jei.recipe.start.cost=Start: %sEU
-techreborn.jei.recipe.running.cost=EU/t: %s
+techreborn.jei.recipe.start.cost=Start: %s
+techreborn.jei.recipe.running.cost=%s/t: %s
 techreborn.jei.recipe.processing.time.1=Time: %s ticks
 techreborn.jei.recipe.processing.time.2=(%s seconds)
 jei.techreborn.scrapbox.name=Opening Scrapboxes
