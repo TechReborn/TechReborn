@@ -31,7 +31,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.*;
 import net.minecraft.util.EnumFacing;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import reborncore.api.recipe.IBaseRecipeType;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.api.tile.IInventoryProvider;
@@ -74,51 +73,64 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 	 * Returns the number of ticks that the supplied fuel item will keep the
 	 * furnace burning, or 0 if the item isn't fuel
 	 */
-	public static int getItemBurnTime(final ItemStack stack) {
-		if (stack == null) {
+	public static int getItemBurnTime(ItemStack stack) {
+		if (stack.isEmpty()) {
 			return 0;
 		} else {
-			final Item item = stack.getItem();
+			int burnTime = net.minecraftforge.event.ForgeEventFactory.getItemBurnTime(stack);
+			if (burnTime >= 0)
+				return burnTime;
+			Item item = stack.getItem();
 
-			if (item instanceof ItemBlock && Block.getBlockFromItem(item) != Blocks.AIR) {
-				final Block block = Block.getBlockFromItem(item);
-
-				if (block == Blocks.WOODEN_SLAB) {
-					return 150;
+			if (item == Item.getItemFromBlock(Blocks.WOODEN_SLAB)) {
+				return 150;
+			} else if (item == Item.getItemFromBlock(Blocks.WOOL)) {
+				return 100;
+			} else if (item == Item.getItemFromBlock(Blocks.CARPET)) {
+				return 67;
+			} else if (item == Item.getItemFromBlock(Blocks.LADDER)) {
+				return 300;
+			} else if (item == Item.getItemFromBlock(Blocks.WOODEN_BUTTON)) {
+				return 100;
+			} else if (Block.getBlockFromItem(item).getDefaultState().getMaterial() == Material.WOOD) {
+				return 300;
+			} else if (item == Item.getItemFromBlock(Blocks.COAL_BLOCK)) {
+				return 16000;
+			} else if (item instanceof ItemTool && "WOOD".equals(((ItemTool) item).getToolMaterialName())) {
+				return 200;
+			} else if (item instanceof ItemSword && "WOOD".equals(((ItemSword) item).getToolMaterialName())) {
+				return 200;
+			} else if (item instanceof ItemHoe && "WOOD".equals(((ItemHoe) item).getMaterialName())) {
+				return 200;
+			} else if (item == Items.STICK) {
+				return 100;
+			} else if (item != Items.BOW && item != Items.FISHING_ROD) {
+				if (item == Items.SIGN) {
+					return 200;
+				} else if (item == Items.COAL) {
+					return 1600;
+				} else if (item == Items.LAVA_BUCKET) {
+					return 20000;
+				} else if (item != Item.getItemFromBlock(Blocks.SAPLING) && item != Items.BOWL) {
+					if (item == Items.BLAZE_ROD) {
+						return 2400;
+					} else if (item instanceof ItemDoor && item != Items.IRON_DOOR) {
+						return 200;
+					} else {
+						return item instanceof ItemBoat ? 400 : 0;
+					}
+				} else {
+					return 100;
 				}
-
-				if (block.getMaterial(block.getDefaultState()) == Material.WOOD) {
-					return 300;
-				}
-
-				if (block == Blocks.COAL_BLOCK) {
-					return 16000;
-				}
+			} else {
+				return 300;
 			}
-
-			if (item instanceof ItemTool && ((ItemTool) item).getToolMaterialName().equals("WOOD"))
-				return 200;
-			if (item instanceof ItemSword && ((ItemSword) item).getToolMaterialName().equals("WOOD"))
-				return 200;
-			// if (item instanceof ItemHoe && ((ItemHoe)
-			// item).getToolMaterialName().equals("WOOD")) return 200;
-			if (item == Items.STICK)
-				return 100;
-			if (item == Items.COAL)
-				return 1600;
-			if (item == Items.LAVA_BUCKET)
-				return 20000;
-			if (item == Item.getItemFromBlock(Blocks.SAPLING))
-				return 100;
-			if (item == Items.BLAZE_ROD)
-				return 2400;
-			return GameRegistry.getFuelValue(stack);
 		}
 	}
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
+	public void update() {
+		super.update();
 		final boolean flag = this.burnTime > 0;
 		boolean flag1 = false;
 		if (this.burnTime > 0) {
@@ -243,8 +255,7 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 					for (Object input : recipeType.getInputs()) {
 						boolean useOreDict = input instanceof String || recipeType.useOreDic();
 						for (int inputSlot = 0; inputSlot < 2; inputSlot++) {
-							if (ItemUtils.isInputEqual(input, this.inventory.getStackInSlot(inputSlot), true, true,
-								recipeType.useOreDic())) {
+							if (ItemUtils.isInputEqual(input, this.inventory.getStackInSlot(inputSlot), true, true, useOreDict)) {
 								int count = 1;
 								if (input instanceof ItemStack) {
 									count = RecipeTranslator.getStackFromObject(input).getCount();
@@ -278,7 +289,6 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 	public int getCookProgressScaled(final int scale) {
 		return this.cookTime * scale / 200;
 	}
-
 
 	@Override
 	public EnumFacing getFacing() {
