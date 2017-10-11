@@ -86,13 +86,13 @@ public class TileIronFurnace extends TileLegacyMachineBase
 		if (this.fuel <= 0 && this.canSmelt()) {
 			this.fuel = this.fuelGague = (int) (TileEntityFurnace.getItemBurnTime(this.getStackInSlot(this.fuelslot)) * 1.25);
 			if (this.fuel > 0) {
-				if (this.getStackInSlot(this.fuelslot).getItem().hasContainerItem()) // Fuel
-				// slot
-				{
-					this.setInventorySlotContents(this.fuelslot, new ItemStack(this.getStackInSlot(this.fuelslot).getItem().getContainerItem()));
-				} else if (this.getStackInSlot(this.fuelslot).getCount() > 1) {
+				// Fuel slot
+				ItemStack fuelStack = this.getStackInSlot(this.fuelslot);
+				if (fuelStack.getItem().hasContainerItem(fuelStack)) {
+					this.setInventorySlotContents(this.fuelslot, new ItemStack(fuelStack.getItem().getContainerItem()));
+				} else if (fuelStack.getCount() > 1) {
 					this.decrStackSize(this.fuelslot, 1);
-				} else if (this.getStackInSlot(this.fuelslot).getCount() == 1) {
+				} else if (fuelStack.getCount() == 1) {
 					this.setInventorySlotContents(this.fuelslot, ItemStack.EMPTY);
 				}
 				updateInventory = true;
