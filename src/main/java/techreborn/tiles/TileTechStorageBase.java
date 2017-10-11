@@ -35,8 +35,8 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import powercrystals.minefactoryreloaded.api.IDeepStorageUnit;
 import reborncore.api.IListInfoProvider;
-import reborncore.api.tile.IInventoryProvider;
 import reborncore.api.IToolDrop;
+import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
@@ -59,7 +59,8 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
+		super.update();
 		if (!world.isRemote) {
 			ItemStack outputStack = ItemStack.EMPTY;
 			if (!this.getStackInSlot(1).isEmpty()){

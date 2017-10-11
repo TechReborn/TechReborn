@@ -73,7 +73,8 @@ public class TileIronFurnace extends TileLegacyMachineBase
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
+		super.update();
 		if(world.isRemote){
 			return;
 		}

@@ -28,8 +28,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import reborncore.api.tile.IInventoryProvider;
 import reborncore.api.IToolDrop;
+import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
@@ -58,7 +58,8 @@ public class TileRecycler extends TilePowerAcceptor implements IToolDrop, IInven
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
+		super.update();
 		if (this.world.isRemote)
 			return;
 
