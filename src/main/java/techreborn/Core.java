@@ -199,7 +199,7 @@ public class Core {
 
 	@Mod.EventHandler
 	public void onFingerprintViolation(FMLFingerprintViolationEvent event) {
-		FMLLog.warning("Invalid fingerprint detected for TechReborn!");
+		logHelper.warn("Invalid fingerprint detected for TechReborn!");
 		RebornCore.proxy.invalidFingerprints.add("Invalid fingerprint detected for TechReborn!");
 	}
 
