@@ -80,7 +80,6 @@ public class TileIndustrialSawmill extends TilePowerAcceptor
 					for (IBaseRecipeType recipe : RecipeHandler.getRecipeClassFromName(Reference.industrialSawmillRecipe)) {
 						if (recipe instanceof IndustrialSawmillRecipe) {//Should always be true
 							IndustrialSawmillRecipe sawmillRecipe = (IndustrialSawmillRecipe) recipe;
-							Object woodRecipeObj = sawmillRecipe.getInputs().get(0);
 							if (isValidForRecipe(sawmillRecipe)) {
 								this.useEnergy(sawmillRecipe.euPerTick);
 								this.tickTime = 1;
