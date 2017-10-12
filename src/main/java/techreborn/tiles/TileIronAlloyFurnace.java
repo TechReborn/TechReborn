@@ -31,10 +31,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.*;
 import net.minecraft.util.EnumFacing;
+import reborncore.api.IToolDrop;
 import reborncore.api.recipe.IBaseRecipeType;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.api.IToolDrop;
 import reborncore.common.recipes.RecipeTranslator;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.tile.TileLegacyMachineBase;
@@ -363,5 +363,10 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 			.outputSlot(2, 116, 35).fuelSlot(3, 56, 53).syncIntegerValue(this::getBurnTime, this::setBurnTime)
 			.syncIntegerValue(this::getCookTime, this::setCookTime)
 			.syncIntegerValue(this::getCurrentItemBurnTime, this::setCurrentItemBurnTime).addInventory().create(this);
+	}
+
+	@Override
+	public boolean canBeUpgraded() {
+		return false;
 	}
 }

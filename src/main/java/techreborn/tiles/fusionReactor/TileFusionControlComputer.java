@@ -389,4 +389,9 @@ public class TileFusionControlComputer extends TilePowerAcceptor implements IToo
 	public ItemStack getToolDrop(EntityPlayer p0) {
 		return new ItemStack(ModBlocks.FUSION_CONTROL_COMPUTER, 1);
 	}
+
+	@Override
+	public boolean canBeUpgraded() {
+		return false;
+	}
 }
