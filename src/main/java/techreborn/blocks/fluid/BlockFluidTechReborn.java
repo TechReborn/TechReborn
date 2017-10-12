@@ -25,6 +25,11 @@
 package techreborn.blocks.fluid;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fluids.Fluid;
 import techreborn.Core;
 
@@ -39,4 +44,8 @@ public class BlockFluidTechReborn extends BlockFluidBase {
 		Core.proxy.registerFluidBlockRendering(this, name);
 	}
 
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		return BlockFaceShape.UNDEFINED;
+	}
 }
