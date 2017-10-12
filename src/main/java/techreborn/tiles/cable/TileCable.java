@@ -25,23 +25,33 @@
 package techreborn.tiles.cable;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+import reborncore.api.IListInfoProvider;
 import reborncore.common.RebornCoreConfig;
+import reborncore.common.powerSystem.PowerSystem;
+import reborncore.common.util.StringUtils;
 import techreborn.blocks.cable.BlockCable;
 import techreborn.blocks.cable.EnumCableType;
 
 /**
  * Created by modmuss50 on 19/05/2017.
  */
-public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
+public class TileCable extends TileEntity implements ITickable, IEnergyStorage, IListInfoProvider {
 	public int power = 0;
-	private int maxPower = 0;
+	private int transferRate = 0;
+	private EnumCableType cableType = null;
 	
 	@Override
 	public void update() {
@@ -49,8 +59,9 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 			return;
 		}
 		
-		if (this.maxPower == 0 ){
-			this.maxPower = getCableType().transferRate * RebornCoreConfig.euPerFU; 
+		if (this.cableType == null ){
+			this.cableType = getCableType();
+			this.transferRate = this.cableType.transferRate * RebornCoreConfig.euPerFU; 
 		}
 		
 		ArrayList<IEnergyStorage> acceptors = new ArrayList<IEnergyStorage>();
@@ -64,7 +75,7 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 				continue;
 			} else if (tile instanceof TileCable) {
 				TileCable cable = (TileCable) tile;
-				if (power < cable.power) {
+				if (power > cable.power) {
 					cables.add(cable);
 				}
 			} else if (tile.hasCapability(CapabilityEnergy.ENERGY, face.getOpposite())) {
@@ -77,38 +88,41 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 		}
 		
 		if (cables.size() > 0){
-			int drain  = maxPower - power;
+			int drain  = Math.min(power, transferRate);
 			int energyShare = drain / cables.size();
 			int remainingEnergy = drain;
 			
-			for (TileCable cable : cables){
-				int move = cable.extractEnergy(Math.min(energyShare, remainingEnergy), false);
-				if (move > 0){
-					remainingEnergy -= move;
+			if (energyShare > 0) {
+				for (TileCable cable : cables) {
+					// Push energy to connected cables
+					int move = cable.receiveEnergy(Math.min(energyShare, remainingEnergy), false);
+					if (move > 0) {
+						remainingEnergy -= move;
+					}
 				}
+				extractEnergy(drain - remainingEnergy, false);
 			}
-			receiveEnergy(drain - remainingEnergy, false);
 		}
 		
 		if (acceptors.size() > 0){
-			int drain = Math.min(power, maxPower);
+			int drain = Math.min(power, transferRate);
 			int energyShare = drain / acceptors.size();
 			int remainingEnergy = drain;
 			
 			if (energyShare > 0) {
 				for (IEnergyStorage tile : acceptors){
+					// Push energy to connected tile acceptors
 					int move = tile.receiveEnergy(Math.min(energyShare, remainingEnergy), false);
 					if (move > 0) {
 						remainingEnergy -= move;
 					}
 				}
+				extractEnergy(drain - remainingEnergy, false);
 			}
-			extractEnergy(drain - remainingEnergy, false);
 		}
 	}
 
 	private EnumCableType getCableType() {
-		//Todo cache this
 		return world.getBlockState(pos).getValue(BlockCable.TYPE);
 	}
 
@@ -118,7 +132,7 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 			return 0;
 		}
 
-		int energyReceived = Math.min(maxPower - power, Math.min(maxPower, maxReceive));
+		int energyReceived = Math.min(getMaxEnergyStored() - getEnergyStored(), Math.min(transferRate, maxReceive));
 		if (!simulate)
 			power += energyReceived;
 		return energyReceived;
@@ -130,7 +144,7 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 			return 0;
 		}
 
-		int energyExtracted = Math.min(power, Math.min(this.maxPower, maxExtract));
+		int energyExtracted = Math.min(getEnergyStored(), Math.min(transferRate, maxExtract));
 		if (!simulate)
 			power -= energyExtracted;
 		return energyExtracted;
@@ -143,7 +157,7 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 
 	@Override
 	public int getMaxEnergyStored() {
-		return this.maxPower;
+		return this.transferRate * 6;
 	}
 
 	@Override
@@ -171,5 +185,60 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 			return (T) this;
 		}
 		return super.getCapability(capability, facing);
+	}
+	
+	@Override
+    public NBTTagCompound getUpdateTag() {
+        // getUpdateTag() is called whenever the chunkdata is sent to the
+        // client. In contrast getUpdatePacket() is called when the tile entity
+        // itself wants to sync to the client. In many cases you want to send
+        // over the same information in getUpdateTag() as in getUpdatePacket().
+        return writeToNBT(new NBTTagCompound());
+    }
+
+    @Override
+    public SPacketUpdateTileEntity getUpdatePacket() {
+        // Prepare a packet for syncing our TE to the client. Since we only have to sync the stack
+        // and that's all we have we just write our entire NBT here. If you have a complex
+        // tile entity that doesn't need to have all information on the client you can write
+        // a more optimal NBT here.
+        NBTTagCompound nbtTag = new NBTTagCompound();
+        this.writeToNBT(nbtTag);
+        return new SPacketUpdateTileEntity(getPos(), 1, nbtTag);
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
+        // Here we get the packet from the server and read it into our client side tile entity
+        this.readFromNBT(packet.getNbtCompound());
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        super.readFromNBT(compound);
+        if (compound.hasKey("TileCable")) {
+            power = compound.getCompoundTag("TileCable").getInteger("power");
+        }
+    }
+
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        super.writeToNBT(compound);
+        if (power > 0) {
+        	NBTTagCompound data = new NBTTagCompound();
+    		data.setInteger("power", getEnergyStored());
+    		compound.setTag("TileCable", data);
+        }
+        return compound;
+    }
+
+	@Override
+	public void addInfo(List<String> info, boolean isRealTile) {
+		if (isRealTile) {
+			info.add(TextFormatting.GRAY + "Transfer Rate: " + TextFormatting.GOLD
+					+ PowerSystem.getLocaliszedPowerFormatted(this.transferRate / RebornCoreConfig.euPerFU) + "/t");
+			info.add(TextFormatting.GRAY + "Tier: " + TextFormatting.GOLD
+					+ StringUtils.toFirstCapitalAllLowercase(this.cableType.tier.toString()));
+		}
 	}
 }
