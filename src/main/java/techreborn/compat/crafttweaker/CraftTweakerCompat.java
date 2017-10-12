@@ -45,14 +45,14 @@ import static crafttweaker.api.minecraft.CraftTweakerMC.getLiquidStack;
 public class CraftTweakerCompat implements ICompatModule {
 	public static ItemStack toStack(IItemStack iStack) {
 		if (iStack == null){
-			return ItemStack.EMPTY;
+			return null;
 		}
 		return getItemStack(iStack);
 	}
 
 	public static Object toObject(IIngredient iStack) {
 		if (iStack == null)
-			return ItemStack.EMPTY;
+			return null;
 		else {
 			if (iStack instanceof IOreDictEntry)
 				return ((IOreDictEntry) iStack).getName();
@@ -62,7 +62,7 @@ public class CraftTweakerCompat implements ICompatModule {
 				IIngredient ingr = ReflectionHelper.getPrivateValue(IngredientStack.class, (IngredientStack) iStack, "ingredient");
 				return toObject(ingr);
 			} else
-				return ItemStack.EMPTY;
+				return null;
 		}
 	}
 
