@@ -30,7 +30,6 @@ import techreborn.compat.CompatManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.items.ItemIngots;
 import techreborn.items.ItemParts;
-import techreborn.items.ItemUpgrades;
 
 /**
  * Created by Mark on 18/12/2016.
@@ -59,9 +58,6 @@ public enum IC2Duplicates {
 	CABLE_IGOLD(EnumCableType.IGOLD.getStack()),
 	CABLE_IHV(EnumCableType.IHV.getStack()),
 	CABLE_IIHV(EnumCableType.TIN.getStack()),
-	UPGRADE_OVERCLOCKER(ItemUpgrades.getUpgradeByName("overclock")),
-	UPGRADE_TRANSFORMER(ItemUpgrades.getUpgradeByName("transformer")),
-	UPGRADE_STORAGE(ItemUpgrades.getUpgradeByName("energy_storage")),
 	MIXED_METAL(ItemIngots.getIngotByName("mixed_metal")),
 	CARBON_FIBER(ItemParts.getPartByName("carbon_fiber")),
 	CARBON_MESH(ItemParts.getPartByName("carbon_mesh")),

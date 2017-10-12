@@ -73,9 +73,6 @@ public class IC2Dict {
 		IC2Duplicates.CABLE_IIHV.setIc2Stack(getIC2Cable(CableType.tin, 2));
 		IC2Duplicates.CABLE_GLASSFIBER.setIc2Stack(getIC2Cable(CableType.glass, 0));
 
-		IC2Duplicates.UPGRADE_OVERCLOCKER.setIc2Stack(ItemName.upgrade.getItemStack("overclocker"));
-		IC2Duplicates.UPGRADE_STORAGE.setIc2Stack(ItemName.upgrade.getItemStack("energy_storage"));
-		IC2Duplicates.UPGRADE_TRANSFORMER.setIc2Stack(ItemName.upgrade.getItemStack("transformer"));
 		IC2Duplicates.MIXED_METAL.setIc2Stack(ItemName.ingot.getItemStack("alloy"));
 		IC2Duplicates.CARBON_FIBER.setIc2Stack(ItemName.crafting.getItemStack("carbon_fibre"));
 		IC2Duplicates.CARBON_MESH.setIc2Stack(ItemName.crafting.getItemStack("carbon_mesh"));
