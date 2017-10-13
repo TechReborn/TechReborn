@@ -166,11 +166,15 @@ public class CraftingTableRecipes extends RecipeMethods {
 			registerShaped(getStack(IC2Duplicates.SOLAR_PANEL), "DLD", "LDL", "CGC", 'D', "dustCoal", 'L', "blockGlass", 'G', getStack(IC2Duplicates.GENERATOR), 'C', "circuitBasic");		
 			registerShapeless(getStack(IC2Duplicates.FREQ_TRANSMITTER), getStack(IC2Duplicates.CABLE_ICOPPER), "circuitBasic");
 		}
-		
+
 		if (!CompatManager.isQuantumStorageLoaded) {
 			registerShaped(getStack(ModBlocks.QUANTUM_CHEST), "DCD", "ATA", "DQD", 'D', getMaterial("dataOrb", Type.PART), 'C', getMaterial("computerMonitor", Type.PART), 'A', getMaterial("highly_advanced_machine", Type.MACHINE_FRAME), 'Q', getStack(ModBlocks.DIGITAL_CHEST), 'T', getStack(IC2Duplicates.COMPRESSOR));
 			registerShaped(getStack(ModBlocks.QUANTUM_TANK), "EPE", "PCP", "EPE", 'P', "platePlatinum", 'E', "circuitAdvanced", 'C', getStack(ModBlocks.QUANTUM_CHEST));
 		}	
+
+		//Lighting
+		registerShaped(getStack(ModBlocks.LAMP_INCANDESCENT), "GGG", "TCT", "GGG", 'G', "paneGlass", 'T', getMaterial("copper", Type.CABLE), 'C', getMaterial("carbon_fiber", Type.PART));
+		registerShaped(getStack(ModBlocks.LAMP_LED), "GGG", "TLT", "GGG", 'G', "paneGlass", 'T', getMaterial("tin", Type.CABLE), 'L', "dustGlowstone");
 
 		//Parts
 		registerShaped(getMaterial("iridium_alloy", Type.INGOT), "IAI", "ADA", "IAI", 'I', "ingotIridium", 'D', "dustDiamond", 'A', "plateAdvancedAlloy");
