@@ -145,6 +145,7 @@ public class ModBlocks {
 	public static Block CABLE;
 
 	public static Block COMPUTER_CUBE;
+	public static Block PLASMA_GENERATOR;
 
 	/**
 	 * Register blocks
@@ -406,6 +407,10 @@ public class ModBlocks {
 
 		COMPUTER_CUBE = new BlockComputerCube();
 		registerBlock(COMPUTER_CUBE, "computer_cube");
+		
+		PLASMA_GENERATOR = new BlockPlasmaGenerator();
+		registerBlock(PLASMA_GENERATOR, "plasma_generator");
+		GameRegistry.registerTileEntity(TilePlasmaGenerator.class, "TilePlasmalGeneratorTR");
 
 		//TODO enable when done
 		//		flare = new BlockFlare();
@@ -472,7 +477,6 @@ public class ModBlocks {
 		OreUtil.registerOre("blockIridium", BlockStorage.getStorageBlockByName("iridium"));
 		OreUtil.registerOre("blockCopper", BlockStorage2.getStorageBlockByName("copper", 1));
 		OreUtil.registerOre("blockTin", BlockStorage2.getStorageBlockByName("tin", 1));
-
 		OreUtil.registerOre("blockTungstensteel", BlockStorage2.getStorageBlockByName("tungstensteel", 1));
 		OreUtil.registerOre("blockRuby", BlockStorage2.getStorageBlockByName("ruby", 1));
 		OreUtil.registerOre("blockSapphire", BlockStorage2.getStorageBlockByName("sapphire", 1));

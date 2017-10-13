@@ -48,6 +48,8 @@ public class FluidGeneratorRecipes extends RecipeMethods {
 
 		register(EFluidGenerator.GAS, ModFluids.HYDROGEN, 15);
 		register(EFluidGenerator.GAS, ModFluids.METHANE, 45);
+		
+		register(EFluidGenerator.PLASMA, ModFluids.HELIUMPLASMA, 8192);
 	}
 
 	static void register(EFluidGenerator generator, Fluid fluid, int euPerMB) {

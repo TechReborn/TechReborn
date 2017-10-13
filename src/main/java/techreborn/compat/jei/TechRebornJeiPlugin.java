@@ -297,8 +297,8 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		registry.addRecipeClickArea(GuiGasTurbine.class, 150, 4, 18, 18, EFluidGenerator.GAS.getRecipeID());
 		registry.addRecipeClickArea(GuiThermalGenerator.class, 150, 4, 18, 18, EFluidGenerator.THERMAL.getRecipeID());
 		registry.addRecipeClickArea(GuiAlloySmelter.class, 150, 4, 18, 18, RecipeCategoryUids.ALLOY_SMELTER);
+		registry.addRecipeClickArea(GuiPlasmaGenerator.class, 150, 4, 18, 18, EFluidGenerator.PLASMA.getRecipeID());
 		
-
 		//OLD ONES
 		registry.addRecipeClickArea(GuiAlloyFurnace.class, 80, 35, 26, 20, RecipeCategoryUids.ALLOY_SMELTER,
 			VanillaRecipeCategoryUid.FUEL);

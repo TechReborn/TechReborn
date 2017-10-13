@@ -63,6 +63,7 @@ public enum EGui implements IMachineGuiHandler {
 	MANUAL(false),
 	MATTER_FABRICATOR(true),
 	MEDIUM_VOLTAGE_SU(true),
+	PLASMA_GENERATOR(true),
 	QUANTUM_CHEST(true),
 	QUANTUM_TANK(true),
 	RECYCLER(true),
