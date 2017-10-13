@@ -105,13 +105,14 @@ public class ProbeProvider implements IProbeInfoProvider {
 					probeInfo.text("Inventory");
 				}
 				Inventory inventory = legacyMachineBase.getInventoryForTile().get();
-				List<ItemStack> stacks = Arrays.stream(inventory.contents).filter(stack -> !stack.isEmpty()).collect(Collectors.toList());
-				try {
-					methodHandle_addStacks.invoke(probeInfo, world, null, stacks, player.isSneaking());
-				} catch (Throwable throwable) {
-					throwable.printStackTrace();
+				if(!inventory.isEmpty()){
+					List<ItemStack> stacks = Arrays.stream(inventory.contents).filter(stack -> !stack.isEmpty()).collect(Collectors.toList());
+					try {
+						methodHandle_addStacks.invoke(probeInfo, world, null, stacks, player.isSneaking());
+					} catch (Throwable throwable) {
+						throwable.printStackTrace();
+					}
 				}
-
 			}
 			if (!legacyMachineBase.upgradeInventory.isEmpty() && player.isSneaking()) {
 				probeInfo.horizontal();
