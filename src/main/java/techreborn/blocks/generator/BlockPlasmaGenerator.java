@@ -24,34 +24,38 @@
 
 package techreborn.blocks.generator;
 
-import java.util.List;
-
-import net.minecraft.block.material.Material;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
+import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.lib.ModInfo;
+import techreborn.tiles.generator.TilePlasmaGenerator;
 
+/**
+ * Block for Plasma Generator
+ */
 public class BlockPlasmaGenerator extends BlockMachineBase {
 
-	public BlockPlasmaGenerator(Material material) {
+	/**
+	 * 
+	 */
+	public BlockPlasmaGenerator() {
 		super();
-		setUnlocalizedName("techreborn.plasmagenerator");
 		setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
 	}
-
+	
 	@Override
-	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag) {
-		tooltip.add(TextFormatting.RED + "WIP Coming Soon");
-		// TODO
-		// Remember to remove WIP override and imports once complete
+	public TileEntity createNewTileEntity(final World world, final int meta) {
+		return new TilePlasmaGenerator();
 	}
 
 	@Override
 	public IMachineGuiHandler getGui() {
-		return null;
+		return EGui.PLASMA_GENERATOR;
 	}
 }

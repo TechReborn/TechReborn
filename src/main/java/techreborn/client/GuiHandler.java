@@ -154,6 +154,8 @@ public class GuiHandler implements IGuiHandler {
 				return new GuiVacuumFreezer(player, (TileVacuumFreezer) tile);
 			case AUTO_CRAFTING_TABLE:
 				return new GuiAutoCrafting(player, (TileAutoCraftingTable) tile);
+			case PLASMA_GENERATOR:
+				return new GuiPlasmaGenerator(player, (TilePlasmaGenerator) tile);				
 			default:
 				break;
 

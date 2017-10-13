@@ -688,6 +688,7 @@ techreborn.jei.category.generator.gas=Gas Generator
 techreborn.jei.category.generator.semifluid=Semifluid Generator
 techreborn.jei.category.generator.diesel=Diesel Generator
 techreborn.jei.category.generator.thermal=Thermal Generator
+techreborn.jei.category.generator.plasma=Plasma Generator
 
 #Death Messages
 death.attack.shock=%s was electrocuted
