@@ -19,6 +19,9 @@
       },
       "jungle": {
         "model": "cross"
+      },
+      "acacia": {
+        "model": "cross"
       }
     },
     "stage": {
@@ -47,13 +50,13 @@
     "normal": {
       "parent": "item/generated",
       "textures": {
-        "layer0": "expandedindustry:blocks/sapling/sapling.redwoodd"
+        "layer0": "techreborn:blocks/rubber_sapling"
       }
     },
     "inventory": {
       "parent": "item/generated",
       "textures": {
-        "layer0": "expandedindustry:blocks/sapling/sapling.redwoodd"
+        "layer0": "techreborn:blocks/rubber_sapling"
       }
     }
   }
