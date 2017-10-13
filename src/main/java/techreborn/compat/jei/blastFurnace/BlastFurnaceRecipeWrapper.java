@@ -30,7 +30,6 @@ import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.ResourceLocation;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.api.recipe.machines.BlastFurnaceRecipe;
 import techreborn.client.gui.TRBuilder;
@@ -39,7 +38,6 @@ import techreborn.compat.jei.BaseRecipeWrapper;
 import javax.annotation.Nonnull;
 
 public class BlastFurnaceRecipeWrapper extends BaseRecipeWrapper<BlastFurnaceRecipe> {
-	private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/industrial_blast_furnace.png");
 	private final IDrawableAnimated progress;
 	private final IDrawable heat;
 
