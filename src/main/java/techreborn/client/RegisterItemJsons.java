@@ -121,43 +121,53 @@ public class RegisterItemJsons {
 			registerBlockstateMultiItem(ModItems.BRONZE_HOE, "bronze_hoe", "items/tool/tool");
 		}
 
+		String[] name = ItemIngots.types.clone();
 		for (int i = 0; i < ItemIngots.types.length; ++i) {
-			String[] name = ItemIngots.types.clone();
 			registerBlockstate(ModItems.INGOTS, i, name[i], "items/materials/");
 		}
 
+		name = ItemGems.types.clone();
 		for (int i = 0; i < ItemGems.types.length; ++i) {
-			String[] name = ItemGems.types.clone();
 			registerBlockstate(ModItems.GEMS, i, name[i], "items/materials/");
 		}
-
+		
+		name = ItemPlates.types.clone();
 		for (int i = 0; i < ItemPlates.types.length; ++i) {
-			String[] name = ItemPlates.types.clone();
-			registerBlockstate(ModItems.PLATES, i, name[i], "items/materials/");
+			if (!name[i].equals(ModItems.META_PLACEHOLDER)) {
+				registerBlockstate(ModItems.PLATES, i, name[i], "items/materials/");
+			}
 		}
 
+		name = ItemNuggets.types.clone();
 		for (int i = 0; i < ItemNuggets.types.length; ++i) {
-			String[] name = ItemNuggets.types.clone();
-			registerBlockstate(ModItems.NUGGETS, i, name[i], "items/materials/");
+			if (!name[i].equals(ModItems.META_PLACEHOLDER)) {
+				registerBlockstate(ModItems.NUGGETS, i, name[i], "items/materials/");
+			}
 		}
 
+		name = ItemDusts.types.clone();
 		for (int i = 0; i < ItemDusts.types.length; ++i) {
-			String[] name = ItemDusts.types.clone();
-			registerBlockstate(ModItems.DUSTS, i, name[i], "items/materials/");
+			if (!name[i].equals(ModItems.META_PLACEHOLDER)) {
+				registerBlockstate(ModItems.DUSTS, i, name[i], "items/materials/");
+			}
 		}
 
+		name = ItemDustsSmall.types.clone();
 		for (int i = 0; i < ItemDustsSmall.types.length; ++i) {
-			String[] name = ItemDustsSmall.types.clone();
-			registerBlockstate(ModItems.SMALL_DUSTS, i, name[i], "items/materials/");
+			if (!name[i].equals(ModItems.META_PLACEHOLDER)) {
+				registerBlockstate(ModItems.SMALL_DUSTS, i, name[i], "items/materials/");
+			}
 		}
 
+		name = ItemParts.types.clone();
 		for (int i = 0; i < ItemParts.types.length; ++i) {
-			String[] name = ItemParts.types.clone();
-			registerBlockstate(ModItems.PARTS, i, name[i], "items/materials/");
+			if (!name[i].equals(ModItems.META_PLACEHOLDER)) {
+				registerBlockstate(ModItems.PARTS, i, name[i], "items/materials/");
+			}
 		}
 
+		name = ItemUpgrades.types.clone();
 		for (int i = 0; i < ItemUpgrades.types.length; ++i) {
-			String[] name = ItemUpgrades.types.clone();
 			registerBlockstate(ModItems.UPGRADES, i, name[i], "items/misc/");
 		}
 

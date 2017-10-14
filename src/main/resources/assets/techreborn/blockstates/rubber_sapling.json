@@ -22,6 +22,9 @@
       },
       "acacia": {
         "model": "cross"
+      },
+      "dark_oak": {
+      	"model": "cross"
       }
     },
     "stage": {
